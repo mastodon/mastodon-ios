@@ -14,10 +14,6 @@ import MastodonSDK
 import Meta
 import MetaTextKit
 
-#if ASDK
-import AsyncDisplayKit
-#endif
-
 enum StatusProviderFacade { }
 
 extension StatusProviderFacade {
@@ -153,13 +149,6 @@ extension StatusProviderFacade {
             break
         }
     }
-
-    #if ASDK
-    private static func coordinateToStatusMentionProfileScene(for target: Target, provider: StatusProvider, node: ASCellNode, mention: String) {
-        guard let status = provider.status(node: node, indexPath: nil) else { return }
-        coordinateToStatusMentionProfileScene(for: target, provider: provider, status: status, mention: mention, href: nil)
-    }
-    #endif
 
     private static func coordinateToStatusMentionProfileScene(for target: Target, provider: StatusProvider, cell: UITableViewCell, mention: String, href: String?) {
         provider.status(for: cell, indexPath: nil)

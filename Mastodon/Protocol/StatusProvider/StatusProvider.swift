@@ -10,10 +10,6 @@ import Combine
 import CoreData
 import CoreDataStack
 
-#if ASDK
-import AsyncDisplayKit
-#endif
-
 protocol StatusProvider: NeedsDependency & DisposeBagCollectable & UIViewController {
     // async
     func status() -> Future<Status?, Never>
@@ -31,19 +27,7 @@ protocol StatusProvider: NeedsDependency & DisposeBagCollectable & UIViewControl
     func items(indexPaths: [IndexPath]) -> [Item]
 
     func statusObjectItems(indexPaths: [IndexPath]) -> [StatusObjectItem]
-
-    #if ASDK
-    func status(node: ASCellNode?, indexPath: IndexPath?) -> Status?
-    #endif
 }
-
-#if ASDK
-extension StatusProvider {
-    func status(node: ASCellNode?, indexPath: IndexPath?) -> Status? {
-        fatalError("Needs implement this")
-    }
-}
-#endif
 
 enum StatusObjectItem {
     case status(objectID: NSManagedObjectID)

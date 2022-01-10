@@ -90,3 +90,47 @@ extension KeyboardResponderService {
         case dock
     }
 }
+
+extension KeyboardResponderService {
+    public static func configure(
+        scrollView: UIScrollView,
+        layoutNeedsUpdate: AnyPublisher<Void, Never>,
+        additionalSafeAreaInsets: AnyPublisher<UIEdgeInsets, Never> = CurrentValueSubject(.zero).eraseToAnyPublisher()
+    ) -> AnyCancellable {
+        let tuple = Publishers.CombineLatest3(
+            KeyboardResponderService.shared.isShow,
+            KeyboardResponderService.shared.state,
+            KeyboardResponderService.shared.endFrame
+        )
+        
+        return Publishers.CombineLatest3(
+            tuple,
+            layoutNeedsUpdate,
+            additionalSafeAreaInsets
+        )
+        .sink(receiveValue: { [weak scrollView] tuple, _, additionalSafeAreaInsets in
+            guard let scrollView = scrollView else { return }
+            guard let view = scrollView.superview else { return }
+            
+            let (isShow, state, endFrame) = tuple
+            
+            guard isShow, state == .dock else {
+                scrollView.contentInset.bottom = additionalSafeAreaInsets.bottom
+                scrollView.verticalScrollIndicatorInsets.bottom = additionalSafeAreaInsets.bottom
+                return
+            }
+            
+            // isShow AND dock state
+            let contentFrame = view.convert(scrollView.frame, to: nil)
+            let padding = contentFrame.maxY - endFrame.minY
+            guard padding > 0 else {
+                scrollView.contentInset.bottom = additionalSafeAreaInsets.bottom
+                scrollView.verticalScrollIndicatorInsets.bottom = additionalSafeAreaInsets.bottom
+                return
+            }
+            
+            scrollView.contentInset.bottom = padding - scrollView.safeAreaInsets.bottom + additionalSafeAreaInsets.bottom
+            scrollView.verticalScrollIndicatorInsets.bottom = padding - scrollView.safeAreaInsets.bottom + additionalSafeAreaInsets.bottom
+        })
+    }
+}

@@ -12,10 +12,6 @@ import AppShared
 import AVFoundation
 @_exported import MastodonUI
 
-#if ASDK
-import AsyncDisplayKit
-#endif
-
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -40,13 +36,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         var count = UserDefaults.shared.processCompletedCount
         count += 1      // Int64. could ignore overflow here
         UserDefaults.shared.processCompletedCount = count
-        
-        #if ASDK && DEBUG
-        // PerformanceMonitor.shared().start()
-        // ASDisplayNode.shouldShowRangeDebugOverlay = true
-        // ASControlNode.enableHitTestDebug = true
-        // ASImageNode.shouldShowImageScalingOverlay = true
-        #endif
         
         return true
     }

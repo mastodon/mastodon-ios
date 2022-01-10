@@ -11,6 +11,8 @@ import Combine
 
 final class WelcomeViewController: UIViewController, NeedsDependency {
     
+    let logger = Logger(subsystem: "WelcomeViewController", category: "ViewController")
+    
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
@@ -41,29 +43,35 @@ final class WelcomeViewController: UIViewController, NeedsDependency {
         return label
     }()
     
+    let buttonContainer = UIStackView()
+    
     private(set) lazy var signUpButton: PrimaryActionButton = {
         let button = PrimaryActionButton()
         button.adjustsBackgroundImageWhenUserInterfaceStyleChanges = false
-        button.setTitle(L10n.Common.Controls.Actions.signUp, for: .normal)
+        button.setTitle("Get Started", for: .normal)    // TODO: i18n
         let backgroundImageColor: UIColor = .white
         let backgroundImageHighlightedColor: UIColor = UIColor(white: 0.8, alpha: 1.0)
         button.setBackgroundImage(.placeholder(color: backgroundImageColor), for: .normal)
         button.setBackgroundImage(.placeholder(color: backgroundImageHighlightedColor), for: .highlighted)
-        let titleColor: UIColor = Asset.Colors.brandBlue.color
-        button.setTitleColor(titleColor, for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitleColor(.black, for: .normal)
         return button
     }()
+    let signUpButtonShadowView = UIView()
     
-    private(set) lazy var signInButton: UIButton = {
-        let button = UIButton(type: .system)
+    private(set) lazy var signInButton: PrimaryActionButton = {
+        let button = PrimaryActionButton()
+        button.adjustsBackgroundImageWhenUserInterfaceStyleChanges = false
         button.titleLabel?.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 15, weight: .semibold))
-        button.setTitle(L10n.Common.Controls.Actions.signIn, for: .normal)
-        let titleColor: UIColor = UIColor.white.withAlphaComponent(0.8)
+        button.setTitle("Log In", for: .normal)
+        let backgroundImageColor = Asset.Scene.Welcome.signInButtonBackground.color
+        let backgroundImageHighlightedColor = Asset.Scene.Welcome.signInButtonBackground.color.withAlphaComponent(0.8)
+        button.setBackgroundImage(.placeholder(color: backgroundImageColor), for: .normal)
+        button.setBackgroundImage(.placeholder(color: backgroundImageHighlightedColor), for: .highlighted)
+        let titleColor: UIColor = UIColor.white.withAlphaComponent(0.9)
         button.setTitleColor(titleColor, for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
+    let signInButtonShadowView = UIView()
     
     deinit {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
@@ -76,7 +84,8 @@ extension WelcomeViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // preferredContentSize = CGSize(width: 547, height: 678)
+        definesPresentationContext = true
+        preferredContentSize = CGSize(width: 547, height: 678)
         
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.largeTitleDisplayMode = .never
@@ -84,19 +93,48 @@ extension WelcomeViewController {
         
         setupOnboardingAppearance()
         setupIllustrationLayout()
-
-        view.addSubview(signInButton)
-        view.addSubview(signUpButton)
+        
+        buttonContainer.axis = .vertical
+        buttonContainer.spacing = 12
+        buttonContainer.isLayoutMarginsRelativeArrangement = true
+        
+        buttonContainer.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(buttonContainer)
         NSLayoutConstraint.activate([
-            signInButton.leadingAnchor.constraint(equalTo: view.readableContentGuide.leadingAnchor, constant: WelcomeViewController.actionButtonMargin),
-            view.readableContentGuide.trailingAnchor.constraint(equalTo: signInButton.trailingAnchor, constant: WelcomeViewController.actionButtonMargin),
-            view.layoutMarginsGuide.bottomAnchor.constraint(equalTo: signInButton.bottomAnchor, constant: WelcomeViewController.viewBottomPaddingHeight),
-            signInButton.heightAnchor.constraint(equalToConstant: WelcomeViewController.actionButtonHeight).priority(.defaultHigh),
-
-            signInButton.topAnchor.constraint(equalTo: signUpButton.bottomAnchor, constant: 9),
-            signUpButton.leadingAnchor.constraint(equalTo: view.readableContentGuide.leadingAnchor, constant: WelcomeViewController.actionButtonMargin),
-            view.readableContentGuide.trailingAnchor.constraint(equalTo: signUpButton.trailingAnchor, constant: WelcomeViewController.actionButtonMargin),
-            signUpButton.heightAnchor.constraint(equalToConstant: WelcomeViewController.actionButtonHeight).priority(.defaultHigh),
+            buttonContainer.leadingAnchor.constraint(equalTo: view.readableContentGuide.leadingAnchor),
+            buttonContainer.trailingAnchor.constraint(equalTo: view.readableContentGuide.trailingAnchor),
+            view.layoutMarginsGuide.bottomAnchor.constraint(equalTo: buttonContainer.bottomAnchor),
+        ])
+        
+        signUpButton.translatesAutoresizingMaskIntoConstraints = false
+        buttonContainer.addArrangedSubview(signUpButton)
+        NSLayoutConstraint.activate([
+            signUpButton.heightAnchor.constraint(equalToConstant: WelcomeViewController.actionButtonHeight).priority(.required - 1),
+        ])
+        signInButton.translatesAutoresizingMaskIntoConstraints = false
+        buttonContainer.addArrangedSubview(signInButton)
+        NSLayoutConstraint.activate([
+            signInButton.heightAnchor.constraint(equalToConstant: WelcomeViewController.actionButtonHeight).priority(.required - 1),
+        ])
+        
+        signUpButtonShadowView.translatesAutoresizingMaskIntoConstraints = false
+        buttonContainer.addSubview(signUpButtonShadowView)
+        buttonContainer.sendSubviewToBack(signUpButtonShadowView)
+        NSLayoutConstraint.activate([
+            signUpButtonShadowView.topAnchor.constraint(equalTo: signUpButton.topAnchor),
+            signUpButtonShadowView.leadingAnchor.constraint(equalTo: signUpButton.leadingAnchor),
+            signUpButtonShadowView.trailingAnchor.constraint(equalTo: signUpButton.trailingAnchor),
+            signUpButtonShadowView.bottomAnchor.constraint(equalTo: signUpButton.bottomAnchor),
+        ])
+        
+        signInButtonShadowView.translatesAutoresizingMaskIntoConstraints = false
+        buttonContainer.addSubview(signInButtonShadowView)
+        buttonContainer.sendSubviewToBack(signInButtonShadowView)
+        NSLayoutConstraint.activate([
+            signInButtonShadowView.topAnchor.constraint(equalTo: signInButton.topAnchor),
+            signInButtonShadowView.leadingAnchor.constraint(equalTo: signInButton.leadingAnchor),
+            signInButtonShadowView.trailingAnchor.constraint(equalTo: signInButton.trailingAnchor),
+            signInButtonShadowView.bottomAnchor.constraint(equalTo: signInButton.bottomAnchor),
         ])
 
         signUpButton.addTarget(self, action: #selector(signUpButtonDidClicked(_:)), for: .touchUpInside)
@@ -109,17 +147,12 @@ extension WelcomeViewController {
                 self.navigationItem.leftBarButtonItem = needsShowDismissEntry ? self.dismissBarButtonItem : nil
             }
             .store(in: &disposeBag)
-        
-        view.observe(\.frame, options: [.initial, .new]) { [weak self] view, _ in
-            guard let self = self else { return }
-            switch view.traitCollection.userInterfaceIdiom {
-            case .phone:
-                break
-            default:
-                self.welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.isHidden = view.frame.height < 800
-            }
-        }
-        .store(in: &observations)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+    
+        setupButtonShadowView()
     }
     
     override func viewSafeAreaInsetsDidChange() {
@@ -130,18 +163,75 @@ extension WelcomeViewController {
         if view.safeAreaInsets.bottom == 0 {
             overlap += 56
         }
-        // shift illustration down for iPad modal
-        if UIDevice.current.userInterfaceIdiom != .phone {
-            overlap += 20
-        }
         welcomeIllustrationViewBottomAnchorLayoutConstraint?.constant = overlap
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        setupIllustrationLayout()
+        setupButtonShadowView()
     }
         
 }
 
 extension WelcomeViewController {
     
+    private func setupButtonShadowView() {
+        signUpButtonShadowView.layer.setupShadow(
+            color: .black,
+            alpha: 0.25,
+            x: 0,
+            y: 1,
+            blur: 2,
+            spread: 0,
+            roundedRect: signInButtonShadowView.bounds,
+            byRoundingCorners: .allCorners,
+            cornerRadii: CGSize(width: 10, height: 10)
+        )
+        signInButtonShadowView.layer.setupShadow(
+            color: .black,
+            alpha: 0.25,
+            x: 0,
+            y: 1,
+            blur: 2,
+            spread: 0,
+            roundedRect: signInButtonShadowView.bounds,
+            byRoundingCorners: .allCorners,
+            cornerRadii: CGSize(width: 10, height: 10)
+        )
+    }
+    
+    private func updateButtonContainerLayoutMargins(traitCollection: UITraitCollection) {
+        switch traitCollection.userInterfaceIdiom {
+        case .phone:
+            buttonContainer.layoutMargins = UIEdgeInsets(
+                top: 0,
+                left: WelcomeViewController.actionButtonMargin,
+                bottom: WelcomeViewController.viewBottomPaddingHeight,
+                right: WelcomeViewController.actionButtonMargin
+            )
+        default:
+            let margin = traitCollection.horizontalSizeClass == .regular ? WelcomeViewController.actionButtonMarginExtend : WelcomeViewController.actionButtonMargin
+            buttonContainer.layoutMargins = UIEdgeInsets(
+                top: 0,
+                left: margin,
+                bottom: WelcomeViewController.viewBottomPaddingHeightExtend,
+                right: margin
+            )
+        }
+    }
+    
     private func setupIllustrationLayout() {
+        welcomeIllustrationView.layout = {
+            switch traitCollection.userInterfaceIdiom {
+            case .phone:
+                return .compact
+            default:
+                return .regular
+            }
+        }()
+        
         // set logo
         if logoImageView.superview == nil {
             view.addSubview(logoImageView)
@@ -154,10 +244,11 @@ extension WelcomeViewController {
             logoImageView.setContentHuggingPriority(.defaultHigh, for: .vertical)
         }
         
-        // set illustration for phone
+        // set illustration
         guard welcomeIllustrationView.superview == nil else {
             return
         }
+        welcomeIllustrationView.contentMode = .scaleAspectFit
         
         welcomeIllustrationView.translatesAutoresizingMaskIntoConstraints = false
         welcomeIllustrationViewBottomAnchorLayoutConstraint = welcomeIllustrationView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 5)
@@ -166,7 +257,7 @@ extension WelcomeViewController {
         NSLayoutConstraint.activate([
             view.leftAnchor.constraint(equalTo: welcomeIllustrationView.leftAnchor, constant: 15),
             welcomeIllustrationView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 15),
-            welcomeIllustrationViewBottomAnchorLayoutConstraint!
+            welcomeIllustrationViewBottomAnchorLayoutConstraint!.priority(.required - 1),
         ])
         
         welcomeIllustrationView.cloudBaseImageView.addMotionEffect(
@@ -268,19 +359,34 @@ extension WelcomeViewController: OnboardingViewControllerAppearance {
 
 // MARK: - UIAdaptivePresentationControllerDelegate
 extension WelcomeViewController: UIAdaptivePresentationControllerDelegate {
+
     func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
+
+        // update button layout
+        updateButtonContainerLayoutMargins(traitCollection: traitCollection)
+        
+        let navigationController = navigationController as? OnboardingNavigationController
+        
         switch traitCollection.userInterfaceIdiom {
         case .phone:
+            navigationController?.gradientBorderView.isHidden = true
             // make underneath view controller alive to fix layout issue due to view life cycle
             return .fullScreen
         default:
-            return .formSheet
-//            switch traitCollection.horizontalSizeClass {
-//            case .regular:
-//            default:
-//                return .fullScreen
-//            }
+            switch traitCollection.horizontalSizeClass {
+            case .compact:
+                navigationController?.gradientBorderView.isHidden = true
+                return .fullScreen
+            default:
+                navigationController?.gradientBorderView.isHidden = false
+                return .formSheet
+            }
         }
+    }
+    
+    func presentationController(_ controller: UIPresentationController, viewControllerForAdaptivePresentationStyle style: UIModalPresentationStyle) -> UIViewController? {
+        return nil
     }
     
     func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {

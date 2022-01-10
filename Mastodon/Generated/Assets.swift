@@ -47,6 +47,7 @@ internal enum Asset {
     }
     internal enum Label {
       internal static let primary = ColorAsset(name: "Colors/Label/primary")
+      internal static let primaryReverse = ColorAsset(name: "Colors/Label/primary.reverse")
       internal static let secondary = ColorAsset(name: "Colors/Label/secondary")
       internal static let tertiary = ColorAsset(name: "Colors/Label/tertiary")
     }
@@ -89,6 +90,16 @@ internal enum Asset {
     internal static let faceSmilingAdaptive = ImageAsset(name: "Human/face.smiling.adaptive")
   }
   internal enum Scene {
+    internal enum Onboarding {
+      internal static let avatarPlaceholder = ImageAsset(name: "Scene/Onboarding/avatar.placeholder")
+      internal static let navigationBackButtonBackground = ColorAsset(name: "Scene/Onboarding/navigation.back.button.background")
+      internal static let navigationBackButtonBackgroundHighlighted = ColorAsset(name: "Scene/Onboarding/navigation.back.button.background.highlighted")
+      internal static let navigationNextButtonBackground = ColorAsset(name: "Scene/Onboarding/navigation.next.button.background")
+      internal static let navigationNextButtonBackgroundHighlighted = ColorAsset(name: "Scene/Onboarding/navigation.next.button.background.highlighted")
+      internal static let onboardingBackground = ColorAsset(name: "Scene/Onboarding/onboarding.background")
+      internal static let searchBarBackground = ColorAsset(name: "Scene/Onboarding/search.bar.background")
+      internal static let textFieldBackground = ColorAsset(name: "Scene/Onboarding/textField.background")
+    }
     internal enum Profile {
       internal enum Banner {
         internal static let bioEditBackgroundGray = ColorAsset(name: "Scene/Profile/Banner/bio.edit.background.gray")
@@ -102,8 +113,10 @@ internal enum Asset {
     internal enum Welcome {
       internal enum Illustration {
         internal static let backgroundCyan = ColorAsset(name: "Scene/Welcome/illustration/background.cyan")
+        internal static let cloudBaseExtend = ImageAsset(name: "Scene/Welcome/illustration/cloud.base.extend")
         internal static let cloudBase = ImageAsset(name: "Scene/Welcome/illustration/cloud.base")
         internal static let elephantOnAirplaneWithContrail = ImageAsset(name: "Scene/Welcome/illustration/elephant.on.airplane.with.contrail")
+        internal static let elephantThreeOnGrassExtend = ImageAsset(name: "Scene/Welcome/illustration/elephant.three.on.grass.extend")
         internal static let elephantThreeOnGrass = ImageAsset(name: "Scene/Welcome/illustration/elephant.three.on.grass")
         internal static let elephantThreeOnGrassWithTreeThree = ImageAsset(name: "Scene/Welcome/illustration/elephant.three.on.grass.with.tree.three")
         internal static let elephantThreeOnGrassWithTreeTwo = ImageAsset(name: "Scene/Welcome/illustration/elephant.three.on.grass.with.tree.two")
@@ -112,6 +125,7 @@ internal enum Asset {
       internal static let mastodonLogoBlackLarge = ImageAsset(name: "Scene/Welcome/mastodon.logo.black.large")
       internal static let mastodonLogo = ImageAsset(name: "Scene/Welcome/mastodon.logo")
       internal static let mastodonLogoLarge = ImageAsset(name: "Scene/Welcome/mastodon.logo.large")
+      internal static let signInButtonBackground = ColorAsset(name: "Scene/Welcome/sign.in.button.background")
     }
   }
   internal enum Settings {

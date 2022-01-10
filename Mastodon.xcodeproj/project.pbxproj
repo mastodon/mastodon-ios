@@ -22,7 +22,7 @@
 		0FAA101C25E10E760017CCDE /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FAA101B25E10E760017CCDE /* UIFont.swift */; };
 		0FAA102725E1126A0017CCDE /* MastodonPickServerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FAA102625E1126A0017CCDE /* MastodonPickServerViewController.swift */; };
 		0FB3D2F725E4C24D00AAD544 /* MastodonPickServerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB3D2F625E4C24D00AAD544 /* MastodonPickServerViewModel.swift */; };
-		0FB3D2FE25E4CB6400AAD544 /* PickServerTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB3D2FD25E4CB6400AAD544 /* PickServerTitleCell.swift */; };
+		0FB3D2FE25E4CB6400AAD544 /* OnboardingHeadlineTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB3D2FD25E4CB6400AAD544 /* OnboardingHeadlineTableViewCell.swift */; };
 		0FB3D30825E524C600AAD544 /* PickServerCategoriesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB3D30725E524C600AAD544 /* PickServerCategoriesCell.swift */; };
 		0FB3D30F25E525CD00AAD544 /* PickServerCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB3D30E25E525CD00AAD544 /* PickServerCategoryView.swift */; };
 		0FB3D31E25E534C700AAD544 /* PickServerCategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB3D31D25E534C700AAD544 /* PickServerCategoryCollectionViewCell.swift */; };
@@ -183,7 +183,6 @@
 		DB0140CF25C42AEE00F9F3CF /* OSLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0140CE25C42AEE00F9F3CF /* OSLog.swift */; };
 		DB01E23326A98F0900C3965B /* MastodonMeta in Frameworks */ = {isa = PBXBuildFile; productRef = DB01E23226A98F0900C3965B /* MastodonMeta */; };
 		DB01E23526A98F0900C3965B /* MetaTextKit in Frameworks */ = {isa = PBXBuildFile; productRef = DB01E23426A98F0900C3965B /* MetaTextKit */; };
-		DB023295267F0AB800031745 /* ASMetaEditableTextNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB023294267F0AB800031745 /* ASMetaEditableTextNode.swift */; };
 		DB029E95266A20430062874E /* MastodonAuthenticationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB029E94266A20430062874E /* MastodonAuthenticationController.swift */; };
 		DB02CDAB26256A9500D0A2AF /* ThreadReplyLoaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB02CDAA26256A9500D0A2AF /* ThreadReplyLoaderTableViewCell.swift */; };
 		DB02CDBF2625AE5000D0A2AF /* AdaptiveUserInterfaceStyleBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB02CDBE2625AE5000D0A2AF /* AdaptiveUserInterfaceStyleBarButtonItem.swift */; };
@@ -192,6 +191,18 @@
 		DB03F7F32689AEA3007B274C /* ComposeRepliedToStatusContentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB03F7F22689AEA3007B274C /* ComposeRepliedToStatusContentTableViewCell.swift */; };
 		DB03F7F52689B782007B274C /* ComposeTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB03F7F42689B782007B274C /* ComposeTableView.swift */; };
 		DB040ED126538E3D00BEE9D8 /* Trie.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB040ED026538E3C00BEE9D8 /* Trie.swift */; };
+		DB0617EB277EF3820030EE79 /* GradientBorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0617EA277EF3820030EE79 /* GradientBorderView.swift */; };
+		DB0617ED277F02C50030EE79 /* OnboardingNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0617EC277F02C50030EE79 /* OnboardingNavigationController.swift */; };
+		DB0617EF277F12720030EE79 /* NavigationActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0617EE277F12720030EE79 /* NavigationActionView.swift */; };
+		DB0617F1278413D00030EE79 /* PickServerServerSectionTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0617F0278413D00030EE79 /* PickServerServerSectionTableHeaderView.swift */; };
+		DB0617F527855AB90030EE79 /* ServerRuleSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0617F427855AB90030EE79 /* ServerRuleSection.swift */; };
+		DB0617FD27855BFE0030EE79 /* ServerRuleItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0617FC27855BFE0030EE79 /* ServerRuleItem.swift */; };
+		DB0617FF27855D6C0030EE79 /* MastodonServerRulesViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0617FE27855D6C0030EE79 /* MastodonServerRulesViewModel+Diffable.swift */; };
+		DB0618012785732C0030EE79 /* ServerRulesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0618002785732C0030EE79 /* ServerRulesTableViewCell.swift */; };
+		DB0618032785A7100030EE79 /* RegisterSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0618022785A7100030EE79 /* RegisterSection.swift */; };
+		DB0618052785A73D0030EE79 /* RegisterItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0618042785A73D0030EE79 /* RegisterItem.swift */; };
+		DB0618072785A8880030EE79 /* MastodonRegisterViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0618062785A8880030EE79 /* MastodonRegisterViewModel+Diffable.swift */; };
+		DB06180A2785B2AB0030EE79 /* MastodonRegisterAvatarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0618092785B2AB0030EE79 /* MastodonRegisterAvatarTableViewCell.swift */; };
 		DB084B5725CBC56C00F898ED /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB084B5625CBC56C00F898ED /* Status.swift */; };
 		DB0AC6FC25CD02E600D75117 /* APIService+Instance.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0AC6FB25CD02E600D75117 /* APIService+Instance.swift */; };
 		DB0C946526A6FD4D0088FB11 /* AlamofireImage in Frameworks */ = {isa = PBXBuildFile; productRef = DB0C946426A6FD4D0088FB11 /* AlamofireImage */; };
@@ -215,7 +226,6 @@
 		DB1D84382657B275000346B3 /* SegmentedControlNavigateable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1D84372657B275000346B3 /* SegmentedControlNavigateable.swift */; };
 		DB1E346825F518E20079D7DF /* CategoryPickerSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1E346725F518E20079D7DF /* CategoryPickerSection.swift */; };
 		DB1E347825F519300079D7DF /* PickServerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1E347725F519300079D7DF /* PickServerItem.swift */; };
-		DB1EE7B2267F9525000CC337 /* StatusProvider+StatusNodeDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1EE7B1267F9525000CC337 /* StatusProvider+StatusNodeDelegate.swift */; };
 		DB1FD43625F26899004CFCFC /* MastodonPickServerViewModel+LoadIndexedServerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1FD43525F26899004CFCFC /* MastodonPickServerViewModel+LoadIndexedServerState.swift */; };
 		DB1FD44425F26CCC004CFCFC /* PickServerSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1FD44325F26CCC004CFCFC /* PickServerSection.swift */; };
 		DB1FD45025F26FA1004CFCFC /* MastodonPickServerViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1FD44F25F26FA1004CFCFC /* MastodonPickServerViewModel+Diffable.swift */; };
@@ -242,7 +252,6 @@
 		DB427DE225BAA00100D1B89D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB427DE025BAA00100D1B89D /* LaunchScreen.storyboard */; };
 		DB427DED25BAA00100D1B89D /* MastodonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB427DEC25BAA00100D1B89D /* MastodonTests.swift */; };
 		DB427DF825BAA00100D1B89D /* MastodonUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB427DF725BAA00100D1B89D /* MastodonUITests.swift */; };
-		DB44384F25E8C1FA008912A2 /* CALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB44384E25E8C1FA008912A2 /* CALayer.swift */; };
 		DB443CD42694627B00159B29 /* AppearanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB443CD32694627B00159B29 /* AppearanceView.swift */; };
 		DB44767B260B3B8C00B66B82 /* CustomEmojiPickerInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB44767A260B3B8C00B66B82 /* CustomEmojiPickerInputView.swift */; };
 		DB447681260B3ED600B66B82 /* CustomEmojiPickerSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB447680260B3ED600B66B82 /* CustomEmojiPickerSection.swift */; };
@@ -391,6 +400,8 @@
 		DB789A1225F9F2CC0071ACA0 /* ComposeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB789A1125F9F2CC0071ACA0 /* ComposeViewModel.swift */; };
 		DB7F48452620241000796008 /* ProfileHeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7F48442620241000796008 /* ProfileHeaderViewModel.swift */; };
 		DB8190C62601FF0400020C08 /* AttachmentContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8190C52601FF0400020C08 /* AttachmentContainerView.swift */; };
+		DB8481152788121200BBEABA /* MastodonRegisterTextFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8481142788121200BBEABA /* MastodonRegisterTextFieldTableViewCell.swift */; };
+		DB84811727883C2600BBEABA /* MastodonRegisterPasswordHintTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB84811627883C2600BBEABA /* MastodonRegisterPasswordHintTableViewCell.swift */; };
 		DB852D1926FAEB6B00FC9D81 /* SidebarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB852D1826FAEB6B00FC9D81 /* SidebarViewController.swift */; };
 		DB852D1C26FB021500FC9D81 /* RootSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB852D1B26FB021500FC9D81 /* RootSplitViewController.swift */; };
 		DB852D1F26FB037800FC9D81 /* SidebarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB852D1E26FB037800FC9D81 /* SidebarViewModel.swift */; };
@@ -482,12 +493,6 @@
 		DBA94440265D137600C537E1 /* Mastodon+Entity+Field.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA9443F265D137600C537E1 /* Mastodon+Entity+Field.swift */; };
 		DBABE3EC25ECAC4B00879EE5 /* WelcomeIllustrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBABE3EB25ECAC4B00879EE5 /* WelcomeIllustrationView.swift */; };
 		DBAC6483267D0B21007FE9FD /* DifferenceKit in Frameworks */ = {isa = PBXBuildFile; productRef = DBAC6482267D0B21007FE9FD /* DifferenceKit */; };
-		DBAC6485267D0F9E007FE9FD /* StatusNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAC6484267D0F9E007FE9FD /* StatusNode.swift */; };
-		DBAC6488267D388B007FE9FD /* ASTableNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAC6487267D388B007FE9FD /* ASTableNode.swift */; };
-		DBAC648F267DC84D007FE9FD /* TableNodeDiffableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAC648E267DC84D007FE9FD /* TableNodeDiffableDataSource.swift */; };
-		DBAC6497267DECCB007FE9FD /* TimelineMiddleLoaderNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAC6496267DECCB007FE9FD /* TimelineMiddleLoaderNode.swift */; };
-		DBAC6499267DF2C4007FE9FD /* TimelineBottomLoaderNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAC6498267DF2C4007FE9FD /* TimelineBottomLoaderNode.swift */; };
-		DBAC649B267DF8C8007FE9FD /* ActivityIndicatorNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAC649A267DF8C8007FE9FD /* ActivityIndicatorNode.swift */; };
 		DBAC649E267DFE43007FE9FD /* DiffableDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = DBAC649D267DFE43007FE9FD /* DiffableDataSources */; };
 		DBAC64A1267E6D02007FE9FD /* Fuzi in Frameworks */ = {isa = PBXBuildFile; productRef = DBAC64A0267E6D02007FE9FD /* Fuzi */; };
 		DBAE3F682615DD60004B8251 /* UserProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAE3F672615DD60004B8251 /* UserProvider.swift */; };
@@ -569,14 +574,6 @@
 		DBC7A672260C897100E57475 /* StatusContentWarningEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC7A671260C897100E57475 /* StatusContentWarningEditorView.swift */; };
 		DBC7A67C260DFADE00E57475 /* StatusPublishService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC7A67B260DFADE00E57475 /* StatusPublishService.swift */; };
 		DBCBCBF4267CB070000F5B51 /* Decode85.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCBCBF3267CB070000F5B51 /* Decode85.swift */; };
-		DBCBCBFC2680ADB7000F5B51 /* AsyncHomeTimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCBCBFB2680ADB7000F5B51 /* AsyncHomeTimelineViewController.swift */; };
-		DBCBCBFF2680AE98000F5B51 /* AsyncHomeTimelineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCBCBFE2680AE98000F5B51 /* AsyncHomeTimelineViewModel.swift */; };
-		DBCBCC012680AF2A000F5B51 /* AsyncHomeTimelineViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCBCC002680AF2A000F5B51 /* AsyncHomeTimelineViewModel+Diffable.swift */; };
-		DBCBCC032680AF6E000F5B51 /* AsyncHomeTimelineViewController+DebugAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCBCC022680AF6E000F5B51 /* AsyncHomeTimelineViewController+DebugAction.swift */; };
-		DBCBCC052680AFB9000F5B51 /* AsyncHomeTimelineViewController+Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCBCC042680AFB9000F5B51 /* AsyncHomeTimelineViewController+Provider.swift */; };
-		DBCBCC072680AFEC000F5B51 /* AsyncHomeTimelineViewModel+LoadLatestState.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCBCC062680AFEC000F5B51 /* AsyncHomeTimelineViewModel+LoadLatestState.swift */; };
-		DBCBCC092680B01B000F5B51 /* AsyncHomeTimelineViewModel+LoadMiddleState.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCBCC082680B01B000F5B51 /* AsyncHomeTimelineViewModel+LoadMiddleState.swift */; };
-		DBCBCC0B2680B03F000F5B51 /* AsyncHomeTimelineViewModel+LoadOldestState.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCBCC0A2680B03F000F5B51 /* AsyncHomeTimelineViewModel+LoadOldestState.swift */; };
 		DBCBCC0D2680B908000F5B51 /* HomeTimelinePreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCBCC0C2680B908000F5B51 /* HomeTimelinePreference.swift */; };
 		DBCBED1726132DB500B49291 /* UserTimelineViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCBED1626132DB500B49291 /* UserTimelineViewModel+Diffable.swift */; };
 		DBCBED1D26132E1A00B49291 /* StatusFetchedResultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCBED1C26132E1A00B49291 /* StatusFetchedResultsController.swift */; };
@@ -794,7 +791,7 @@
 		0FAA101B25E10E760017CCDE /* UIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFont.swift; sourceTree = "<group>"; };
 		0FAA102625E1126A0017CCDE /* MastodonPickServerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonPickServerViewController.swift; sourceTree = "<group>"; };
 		0FB3D2F625E4C24D00AAD544 /* MastodonPickServerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonPickServerViewModel.swift; sourceTree = "<group>"; };
-		0FB3D2FD25E4CB6400AAD544 /* PickServerTitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickServerTitleCell.swift; sourceTree = "<group>"; };
+		0FB3D2FD25E4CB6400AAD544 /* OnboardingHeadlineTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingHeadlineTableViewCell.swift; sourceTree = "<group>"; };
 		0FB3D30725E524C600AAD544 /* PickServerCategoriesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickServerCategoriesCell.swift; sourceTree = "<group>"; };
 		0FB3D30E25E525CD00AAD544 /* PickServerCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickServerCategoryView.swift; sourceTree = "<group>"; };
 		0FB3D31D25E534C700AAD544 /* PickServerCategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickServerCategoryCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -977,7 +974,6 @@
 		DB0009A826AEE5DC009B9D2D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; name = Base; path = Base.lproj/Intents.intentdefinition; sourceTree = "<group>"; };
 		DB0009AD26AEE5E4009B9D2D /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Intents.strings; sourceTree = "<group>"; };
 		DB0140CE25C42AEE00F9F3CF /* OSLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSLog.swift; sourceTree = "<group>"; };
-		DB023294267F0AB800031745 /* ASMetaEditableTextNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASMetaEditableTextNode.swift; sourceTree = "<group>"; };
 		DB029E94266A20430062874E /* MastodonAuthenticationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonAuthenticationController.swift; sourceTree = "<group>"; };
 		DB02CDAA26256A9500D0A2AF /* ThreadReplyLoaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadReplyLoaderTableViewCell.swift; sourceTree = "<group>"; };
 		DB02CDBE2625AE5000D0A2AF /* AdaptiveUserInterfaceStyleBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveUserInterfaceStyleBarButtonItem.swift; sourceTree = "<group>"; };
@@ -986,6 +982,18 @@
 		DB03F7F22689AEA3007B274C /* ComposeRepliedToStatusContentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeRepliedToStatusContentTableViewCell.swift; sourceTree = "<group>"; };
 		DB03F7F42689B782007B274C /* ComposeTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeTableView.swift; sourceTree = "<group>"; };
 		DB040ED026538E3C00BEE9D8 /* Trie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trie.swift; sourceTree = "<group>"; };
+		DB0617EA277EF3820030EE79 /* GradientBorderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientBorderView.swift; sourceTree = "<group>"; };
+		DB0617EC277F02C50030EE79 /* OnboardingNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingNavigationController.swift; sourceTree = "<group>"; };
+		DB0617EE277F12720030EE79 /* NavigationActionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationActionView.swift; sourceTree = "<group>"; };
+		DB0617F0278413D00030EE79 /* PickServerServerSectionTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickServerServerSectionTableHeaderView.swift; sourceTree = "<group>"; };
+		DB0617F427855AB90030EE79 /* ServerRuleSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerRuleSection.swift; sourceTree = "<group>"; };
+		DB0617FC27855BFE0030EE79 /* ServerRuleItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerRuleItem.swift; sourceTree = "<group>"; };
+		DB0617FE27855D6C0030EE79 /* MastodonServerRulesViewModel+Diffable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MastodonServerRulesViewModel+Diffable.swift"; sourceTree = "<group>"; };
+		DB0618002785732C0030EE79 /* ServerRulesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerRulesTableViewCell.swift; sourceTree = "<group>"; };
+		DB0618022785A7100030EE79 /* RegisterSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterSection.swift; sourceTree = "<group>"; };
+		DB0618042785A73D0030EE79 /* RegisterItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterItem.swift; sourceTree = "<group>"; };
+		DB0618062785A8880030EE79 /* MastodonRegisterViewModel+Diffable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MastodonRegisterViewModel+Diffable.swift"; sourceTree = "<group>"; };
+		DB0618092785B2AB0030EE79 /* MastodonRegisterAvatarTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonRegisterAvatarTableViewCell.swift; sourceTree = "<group>"; };
 		DB084B5625CBC56C00F898ED /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
 		DB0AC6FB25CD02E600D75117 /* APIService+Instance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Instance.swift"; sourceTree = "<group>"; };
 		DB0C946A26A700AB0088FB11 /* MastodonUser+Property.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MastodonUser+Property.swift"; sourceTree = "<group>"; };
@@ -1009,7 +1017,6 @@
 		DB1D84372657B275000346B3 /* SegmentedControlNavigateable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControlNavigateable.swift; sourceTree = "<group>"; };
 		DB1E346725F518E20079D7DF /* CategoryPickerSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryPickerSection.swift; sourceTree = "<group>"; };
 		DB1E347725F519300079D7DF /* PickServerItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickServerItem.swift; sourceTree = "<group>"; };
-		DB1EE7B1267F9525000CC337 /* StatusProvider+StatusNodeDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StatusProvider+StatusNodeDelegate.swift"; sourceTree = "<group>"; };
 		DB1FD43525F26899004CFCFC /* MastodonPickServerViewModel+LoadIndexedServerState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MastodonPickServerViewModel+LoadIndexedServerState.swift"; sourceTree = "<group>"; };
 		DB1FD44325F26CCC004CFCFC /* PickServerSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickServerSection.swift; sourceTree = "<group>"; };
 		DB1FD44F25F26FA1004CFCFC /* MastodonPickServerViewModel+Diffable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MastodonPickServerViewModel+Diffable.swift"; sourceTree = "<group>"; };
@@ -1043,7 +1050,6 @@
 		DB427DF325BAA00100D1B89D /* MastodonUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MastodonUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB427DF725BAA00100D1B89D /* MastodonUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonUITests.swift; sourceTree = "<group>"; };
 		DB427DF925BAA00100D1B89D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DB44384E25E8C1FA008912A2 /* CALayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CALayer.swift; sourceTree = "<group>"; };
 		DB443CD32694627B00159B29 /* AppearanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceView.swift; sourceTree = "<group>"; };
 		DB44767A260B3B8C00B66B82 /* CustomEmojiPickerInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEmojiPickerInputView.swift; sourceTree = "<group>"; };
 		DB447680260B3ED600B66B82 /* CustomEmojiPickerSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEmojiPickerSection.swift; sourceTree = "<group>"; };
@@ -1210,6 +1216,8 @@
 		DB789A1125F9F2CC0071ACA0 /* ComposeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeViewModel.swift; sourceTree = "<group>"; };
 		DB7F48442620241000796008 /* ProfileHeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderViewModel.swift; sourceTree = "<group>"; };
 		DB8190C52601FF0400020C08 /* AttachmentContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentContainerView.swift; sourceTree = "<group>"; };
+		DB8481142788121200BBEABA /* MastodonRegisterTextFieldTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonRegisterTextFieldTableViewCell.swift; sourceTree = "<group>"; };
+		DB84811627883C2600BBEABA /* MastodonRegisterPasswordHintTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonRegisterPasswordHintTableViewCell.swift; sourceTree = "<group>"; };
 		DB852D1826FAEB6B00FC9D81 /* SidebarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarViewController.swift; sourceTree = "<group>"; };
 		DB852D1B26FB021500FC9D81 /* RootSplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootSplitViewController.swift; sourceTree = "<group>"; };
 		DB852D1E26FB037800FC9D81 /* SidebarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarViewModel.swift; sourceTree = "<group>"; };
@@ -1329,12 +1337,6 @@
 		DBA9443D265CFA6400C537E1 /* ProfileFieldCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFieldCollectionViewCell.swift; sourceTree = "<group>"; };
 		DBA9443F265D137600C537E1 /* Mastodon+Entity+Field.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Mastodon+Entity+Field.swift"; sourceTree = "<group>"; };
 		DBABE3EB25ECAC4B00879EE5 /* WelcomeIllustrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeIllustrationView.swift; sourceTree = "<group>"; };
-		DBAC6484267D0F9E007FE9FD /* StatusNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusNode.swift; sourceTree = "<group>"; };
-		DBAC6487267D388B007FE9FD /* ASTableNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASTableNode.swift; sourceTree = "<group>"; };
-		DBAC648E267DC84D007FE9FD /* TableNodeDiffableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableNodeDiffableDataSource.swift; sourceTree = "<group>"; };
-		DBAC6496267DECCB007FE9FD /* TimelineMiddleLoaderNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineMiddleLoaderNode.swift; sourceTree = "<group>"; };
-		DBAC6498267DF2C4007FE9FD /* TimelineBottomLoaderNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineBottomLoaderNode.swift; sourceTree = "<group>"; };
-		DBAC649A267DF8C8007FE9FD /* ActivityIndicatorNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorNode.swift; sourceTree = "<group>"; };
 		DBAE3F672615DD60004B8251 /* UserProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProvider.swift; sourceTree = "<group>"; };
 		DBAE3F812615DDA3004B8251 /* ProfileViewController+UserProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProfileViewController+UserProvider.swift"; sourceTree = "<group>"; };
 		DBAE3F872615DDF4004B8251 /* UserProviderFacade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProviderFacade.swift; sourceTree = "<group>"; };
@@ -1385,14 +1387,6 @@
 		DBC7A671260C897100E57475 /* StatusContentWarningEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusContentWarningEditorView.swift; sourceTree = "<group>"; };
 		DBC7A67B260DFADE00E57475 /* StatusPublishService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusPublishService.swift; sourceTree = "<group>"; };
 		DBCBCBF3267CB070000F5B51 /* Decode85.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Decode85.swift; sourceTree = "<group>"; };
-		DBCBCBFB2680ADB7000F5B51 /* AsyncHomeTimelineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncHomeTimelineViewController.swift; sourceTree = "<group>"; };
-		DBCBCBFE2680AE98000F5B51 /* AsyncHomeTimelineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncHomeTimelineViewModel.swift; sourceTree = "<group>"; };
-		DBCBCC002680AF2A000F5B51 /* AsyncHomeTimelineViewModel+Diffable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AsyncHomeTimelineViewModel+Diffable.swift"; sourceTree = "<group>"; };
-		DBCBCC022680AF6E000F5B51 /* AsyncHomeTimelineViewController+DebugAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AsyncHomeTimelineViewController+DebugAction.swift"; sourceTree = "<group>"; };
-		DBCBCC042680AFB9000F5B51 /* AsyncHomeTimelineViewController+Provider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AsyncHomeTimelineViewController+Provider.swift"; sourceTree = "<group>"; };
-		DBCBCC062680AFEC000F5B51 /* AsyncHomeTimelineViewModel+LoadLatestState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AsyncHomeTimelineViewModel+LoadLatestState.swift"; sourceTree = "<group>"; };
-		DBCBCC082680B01B000F5B51 /* AsyncHomeTimelineViewModel+LoadMiddleState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AsyncHomeTimelineViewModel+LoadMiddleState.swift"; sourceTree = "<group>"; };
-		DBCBCC0A2680B03F000F5B51 /* AsyncHomeTimelineViewModel+LoadOldestState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AsyncHomeTimelineViewModel+LoadOldestState.swift"; sourceTree = "<group>"; };
 		DBCBCC0C2680B908000F5B51 /* HomeTimelinePreference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTimelinePreference.swift; sourceTree = "<group>"; };
 		DBCBED1626132DB500B49291 /* UserTimelineViewModel+Diffable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserTimelineViewModel+Diffable.swift"; sourceTree = "<group>"; };
 		DBCBED1C26132E1A00B49291 /* StatusFetchedResultsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusFetchedResultsController.swift; sourceTree = "<group>"; };
@@ -1622,9 +1616,6 @@
 		0FB3D2FC25E4CB4B00AAD544 /* TableViewCell */ = {
 			isa = PBXGroup;
 			children = (
-				0FB3D2FD25E4CB6400AAD544 /* PickServerTitleCell.swift */,
-				0FB3D30725E524C600AAD544 /* PickServerCategoriesCell.swift */,
-				0FB3D33125E5F50E00AAD544 /* PickServerSearchCell.swift */,
 				0FB3D33725E6401400AAD544 /* PickServerCell.swift */,
 				DB0F814F264D1E2500F2A12B /* PickServerLoaderTableViewCell.swift */,
 			);
@@ -1636,6 +1627,7 @@
 			children = (
 				0FB3D30E25E525CD00AAD544 /* PickServerCategoryView.swift */,
 				DB9282B125F3222800823B15 /* PickServerEmptyStateView.swift */,
+				DB0617F0278413D00030EE79 /* PickServerServerSectionTableHeaderView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1737,7 +1729,6 @@
 			isa = PBXGroup;
 			children = (
 				DB1F239626117C360057430E /* View */,
-				DBCBCBFD2680ADBA000F5B51 /* AsyncHomeTimeline */,
 				2D38F1D425CD465300561493 /* HomeTimelineViewController.swift */,
 				2D38F1DE25CD46A400561493 /* HomeTimelineViewController+Provider.swift */,
 				2D5A3D6125CFD9CB002347D6 /* HomeTimelineViewController+DebugAction.swift */,
@@ -1756,7 +1747,6 @@
 				2D38F1FD25CD481700561493 /* StatusProvider.swift */,
 				2DF75B9A25D0E27500694EC8 /* StatusProviderFacade.swift */,
 				2DF75BA025D0E29D00694EC8 /* StatusProvider+StatusTableViewCellDelegate.swift */,
-				DB1EE7B1267F9525000CC337 /* StatusProvider+StatusNodeDelegate.swift */,
 				DB59F0FD25EF5D96001F1DAB /* StatusProvider+UITableViewDelegate.swift */,
 				DB71FD4525F8C6D200512AE1 /* StatusProvider+UITableViewDataSourcePrefetching.swift */,
 				DB1D843526579DB5000346B3 /* StatusProvider+TableViewControllerNavigateable.swift */,
@@ -1811,7 +1801,6 @@
 				DB51D171262832380062B7A1 /* BlurHashEncode.swift */,
 				DB6180EC26391C6C0018D199 /* TransitioningMath.swift */,
 				DB75BF1D263C1C1B00EDBF1F /* CustomScheduler.swift */,
-				DBAC649A267DF8C8007FE9FD /* ActivityIndicatorNode.swift */,
 				DBF156E32702DB3F00EC00B7 /* HandleTapAction.swift */,
 				DBF156E12702DA6900EC00B7 /* UIStatusBarManager+HandleTapAction.m */,
 				DBF156E02702DA6800EC00B7 /* Mastodon-Bridging-Header.h */,
@@ -1890,27 +1879,19 @@
 		2D76319C25C151DE00929FB9 /* Diffiable */ = {
 			isa = PBXGroup;
 			children = (
-				2D76319D25C151F600929FB9 /* Section */,
-				2D7631B125C159E700929FB9 /* Item */,
+				DB4F097826A039B400D62E92 /* Onboarding */,
+				DB0617FB27855B740030EE79 /* Account */,
+				DB0617F827855B170030EE79 /* User */,
+				DB0617F927855B460030EE79 /* Profile */,
+				DB4F097926A039C400D62E92 /* Status */,
+				DB0617F627855AF30030EE79 /* Poll */,
+				DB4F097626A0398000D62E92 /* Compose */,
+				DB0617F727855B010030EE79 /* Notification */,
+				DB4F097726A039A200D62E92 /* Search */,
+				DB0617FA27855B660030EE79 /* Settings */,
 				DBCBED2226132E1D00B49291 /* FetchedResultsController */,
-				DBAC6490267DC84F007FE9FD /* DataSource */,
 			);
 			path = Diffiable;
-			sourceTree = "<group>";
-		};
-		2D76319D25C151F600929FB9 /* Section */ = {
-			isa = PBXGroup;
-			children = (
-				DB4F097926A039C400D62E92 /* Status */,
-				DB4F097826A039B400D62E92 /* Onboarding */,
-				DB4F097726A039A200D62E92 /* Search */,
-				DB4F097626A0398000D62E92 /* Compose */,
-				2D4AD8A126316CD200613EFC /* SelectedAccountSection.swift */,
-				DB6D9F7C26358ED4008423CD /* SettingsSection.swift */,
-				DBA94433265CBB5300C537E1 /* ProfileFieldSection.swift */,
-				DB6B74FB272FF55800C70B6E /* UserSection.swift */,
-			);
-			path = Section;
 			sourceTree = "<group>";
 		};
 		2D7631A425C1532200929FB9 /* Share */ = {
@@ -1938,7 +1919,6 @@
 				DB87D45C2609DE6600D12C0D /* TextField */,
 				DB1D187125EF5BBD003F1F23 /* TableView */,
 				2D7631A625C1533800929FB9 /* TableviewCell */,
-				DBAC6486267D0FAC007FE9FD /* Node */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1958,29 +1938,6 @@
 				DB6B74FF272FF73800C70B6E /* UserTableViewCell.swift */,
 			);
 			path = TableviewCell;
-			sourceTree = "<group>";
-		};
-		2D7631B125C159E700929FB9 /* Item */ = {
-			isa = PBXGroup;
-			children = (
-				2D7631B225C159F700929FB9 /* Item.swift */,
-				DB6B74FD272FF59000C70B6E /* UserItem.swift */,
-				2D198642261BF09500F0B013 /* SearchResultItem.swift */,
-				DB4F097C26A03A5B00D62E92 /* SearchHistoryItem.swift */,
-				2D4AD8A726316D3500613EFC /* SelectedAccountItem.swift */,
-				2D7867182625B77500211898 /* NotificationItem.swift */,
-				DB4481CB25EE2AFE00BEFB67 /* PollItem.swift */,
-				DB1E347725F519300079D7DF /* PickServerItem.swift */,
-				DB1FD45925F27898004CFCFC /* CategoryPickerItem.swift */,
-				DB66729B25F9F91F00D60309 /* ComposeStatusItem.swift */,
-				DB3667A0268ABB2E0027D07F /* ComposeStatusAttachmentItem.swift */,
-				DB3667A7268AE2900027D07F /* ComposeStatusPollItem.swift */,
-				DB44768A260B3F2100B66B82 /* CustomEmojiPickerItem.swift */,
-				DB6D9F8326358EEC008423CD /* SettingsItem.swift */,
-				DBBF1DCA2652539E00E5B703 /* AutoCompleteItem.swift */,
-				DBA94435265CBB7400C537E1 /* ProfileFieldItem.swift */,
-			);
-			path = Item;
 			sourceTree = "<group>";
 		};
 		2DA504672601ADBA008F4E6C /* Decoration */ = {
@@ -2112,22 +2069,12 @@
 				DB68A03825E900CC00CFDF14 /* Share */,
 				0FAA0FDD25E0B5700017CCDE /* Welcome */,
 				0FAA102525E1125D0017CCDE /* PickServer */,
-				DBE0821A25CD382900FD6BBD /* Register */,
 				DB72602125E36A2500235243 /* ServerRules */,
+				DBE0821A25CD382900FD6BBD /* Register */,
 				2D364F7025E66D5B00204FDC /* ResendEmail */,
 				2D59819925E4A55C000FB903 /* ConfirmEmail */,
 			);
 			path = Onboarding;
-			sourceTree = "<group>";
-		};
-		DB023296267F0ABE00031745 /* Status */ = {
-			isa = PBXGroup;
-			children = (
-				DBAC6484267D0F9E007FE9FD /* StatusNode.swift */,
-				DBAC6496267DECCB007FE9FD /* TimelineMiddleLoaderNode.swift */,
-				DBAC6498267DF2C4007FE9FD /* TimelineBottomLoaderNode.swift */,
-			);
-			path = Status;
 			sourceTree = "<group>";
 		};
 		DB03F7F1268990A2007B274C /* TableViewCell */ = {
@@ -2138,6 +2085,87 @@
 				DB3667A3268AE2370027D07F /* ComposeStatusPollTableViewCell.swift */,
 			);
 			path = TableViewCell;
+			sourceTree = "<group>";
+		};
+		DB0617F3278436360030EE79 /* Deprecated */ = {
+			isa = PBXGroup;
+			children = (
+				0FB3D33125E5F50E00AAD544 /* PickServerSearchCell.swift */,
+				0FB3D30725E524C600AAD544 /* PickServerCategoriesCell.swift */,
+			);
+			path = Deprecated;
+			sourceTree = "<group>";
+		};
+		DB0617F627855AF30030EE79 /* Poll */ = {
+			isa = PBXGroup;
+			children = (
+				DB4481C525EE2ADA00BEFB67 /* PollSection.swift */,
+				DB4481CB25EE2AFE00BEFB67 /* PollItem.swift */,
+			);
+			path = Poll;
+			sourceTree = "<group>";
+		};
+		DB0617F727855B010030EE79 /* Notification */ = {
+			isa = PBXGroup;
+			children = (
+				2D35237926256D920031AF25 /* NotificationSection.swift */,
+				2D7867182625B77500211898 /* NotificationItem.swift */,
+			);
+			path = Notification;
+			sourceTree = "<group>";
+		};
+		DB0617F827855B170030EE79 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				DB6B74FB272FF55800C70B6E /* UserSection.swift */,
+				DB6B74FD272FF59000C70B6E /* UserItem.swift */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
+		DB0617F927855B460030EE79 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				DBA94433265CBB5300C537E1 /* ProfileFieldSection.swift */,
+				DBA94435265CBB7400C537E1 /* ProfileFieldItem.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		DB0617FA27855B660030EE79 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				DB6D9F7C26358ED4008423CD /* SettingsSection.swift */,
+				DB6D9F8326358EEC008423CD /* SettingsItem.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		DB0617FB27855B740030EE79 /* Account */ = {
+			isa = PBXGroup;
+			children = (
+				2D4AD8A126316CD200613EFC /* SelectedAccountSection.swift */,
+				2D4AD8A726316D3500613EFC /* SelectedAccountItem.swift */,
+			);
+			path = Account;
+			sourceTree = "<group>";
+		};
+		DB0618082785B2790030EE79 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				DB0618002785732C0030EE79 /* ServerRulesTableViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		DB06180B2785B2AF0030EE79 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				DB0618092785B2AB0030EE79 /* MastodonRegisterAvatarTableViewCell.swift */,
+				DB8481142788121200BBEABA /* MastodonRegisterTextFieldTableViewCell.swift */,
+				DB84811627883C2600BBEABA /* MastodonRegisterPasswordHintTableViewCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		DB084B5125CBC56300F898ED /* CoreDataStack */ = {
@@ -2271,6 +2299,7 @@
 			children = (
 				DB427DE325BAA00100D1B89D /* Info.plist */,
 				DB89BA1025C10FF5008580ED /* Mastodon.entitlements */,
+				DB0617F3278436360030EE79 /* Deprecated */,
 				2D76319C25C151DE00929FB9 /* Diffiable */,
 				DB8AF52A25C13561002E6C99 /* State */,
 				2D61335525C1886800CAE157 /* Service */,
@@ -2390,10 +2419,15 @@
 			isa = PBXGroup;
 			children = (
 				DB66729525F9F91600D60309 /* ComposeStatusSection.swift */,
+				DB66729B25F9F91F00D60309 /* ComposeStatusItem.swift */,
 				DB36679E268ABAF20027D07F /* ComposeStatusAttachmentSection.swift */,
+				DB3667A0268ABB2E0027D07F /* ComposeStatusAttachmentItem.swift */,
 				DB3667A5268AE2620027D07F /* ComposeStatusPollSection.swift */,
+				DB3667A7268AE2900027D07F /* ComposeStatusPollItem.swift */,
 				DB447680260B3ED600B66B82 /* CustomEmojiPickerSection.swift */,
+				DB44768A260B3F2100B66B82 /* CustomEmojiPickerItem.swift */,
 				DBBF1DC82652538500E5B703 /* AutoCompleteSection.swift */,
+				DBBF1DCA2652539E00E5B703 /* AutoCompleteItem.swift */,
 			);
 			path = Compose;
 			sourceTree = "<group>";
@@ -2404,7 +2438,9 @@
 				2DE0FAC02615F04D00CDF649 /* RecommendHashTagSection.swift */,
 				2DE0FACD2615F7AD00CDF649 /* RecommendAccountSection.swift */,
 				2D198648261C0B8500F0B013 /* SearchResultSection.swift */,
+				2D198642261BF09500F0B013 /* SearchResultItem.swift */,
 				DB4F097A26A039FF00D62E92 /* SearchHistorySection.swift */,
+				DB4F097C26A03A5B00D62E92 /* SearchHistoryItem.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -2413,7 +2449,13 @@
 			isa = PBXGroup;
 			children = (
 				DB1FD44325F26CCC004CFCFC /* PickServerSection.swift */,
+				DB1E347725F519300079D7DF /* PickServerItem.swift */,
 				DB1E346725F518E20079D7DF /* CategoryPickerSection.swift */,
+				DB1FD45925F27898004CFCFC /* CategoryPickerItem.swift */,
+				DB0617F427855AB90030EE79 /* ServerRuleSection.swift */,
+				DB0617FC27855BFE0030EE79 /* ServerRuleItem.swift */,
+				DB0618022785A7100030EE79 /* RegisterSection.swift */,
+				DB0618042785A73D0030EE79 /* RegisterItem.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -2422,8 +2464,7 @@
 			isa = PBXGroup;
 			children = (
 				2D76319E25C1521200929FB9 /* StatusSection.swift */,
-				DB4481C525EE2ADA00BEFB67 /* PollSection.swift */,
-				2D35237926256D920031AF25 /* NotificationSection.swift */,
+				2D7631B225C159F700929FB9 /* Item.swift */,
 				5BB04FF4262F0E6D0043BFF6 /* ReportSection.swift */,
 			);
 			path = Status;
@@ -2563,9 +2604,12 @@
 		DB68A03825E900CC00CFDF14 /* Share */ = {
 			isa = PBXGroup;
 			children = (
-				2D82B9FE25E7863200E36F0F /* OnboardingViewControllerAppearance.swift */,
 				DB2F073325E8ECF000957B2D /* AuthenticationViewModel.swift */,
 				DB029E94266A20430062874E /* MastodonAuthenticationController.swift */,
+				2D82B9FE25E7863200E36F0F /* OnboardingViewControllerAppearance.swift */,
+				DB0617EC277F02C50030EE79 /* OnboardingNavigationController.swift */,
+				0FB3D2FD25E4CB6400AAD544 /* OnboardingHeadlineTableViewCell.swift */,
+				DB0617EE277F12720030EE79 /* NavigationActionView.swift */,
 			);
 			path = Share;
 			sourceTree = "<group>";
@@ -2621,8 +2665,10 @@
 		DB72602125E36A2500235243 /* ServerRules */ = {
 			isa = PBXGroup;
 			children = (
+				DB0618082785B2790030EE79 /* Cell */,
 				DB72601B25E36A2100235243 /* MastodonServerRulesViewController.swift */,
 				DB72602625E36A6F00235243 /* MastodonServerRulesViewModel.swift */,
+				DB0617FE27855D6C0030EE79 /* MastodonServerRulesViewModel+Diffable.swift */,
 			);
 			path = ServerRules;
 			sourceTree = "<group>";
@@ -2825,7 +2871,6 @@
 				2DF123A625C3B0210020F248 /* ActiveLabel.swift */,
 				5DF1056325F887CB00D6C0D4 /* AVPlayer.swift */,
 				0F20223826146553000C64BF /* Array.swift */,
-				DB44384E25E8C1FA008912A2 /* CALayer.swift */,
 				2D206B8525F5FB0900143C56 /* Double.swift */,
 				DB97131E2666078B00BD1E90 /* Date.swift */,
 				DBB3BA2926A81C020004F2D4 /* FLAnimatedImageView.swift */,
@@ -3040,26 +3085,9 @@
 			children = (
 				DBABE3EB25ECAC4B00879EE5 /* WelcomeIllustrationView.swift */,
 				DB4932B026F1FB5300EF46D4 /* WizardCardView.swift */,
+				DB0617EA277EF3820030EE79 /* GradientBorderView.swift */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		DBAC6486267D0FAC007FE9FD /* Node */ = {
-			isa = PBXGroup;
-			children = (
-				DB023296267F0ABE00031745 /* Status */,
-				DB023294267F0AB800031745 /* ASMetaEditableTextNode.swift */,
-			);
-			path = Node;
-			sourceTree = "<group>";
-		};
-		DBAC6490267DC84F007FE9FD /* DataSource */ = {
-			isa = PBXGroup;
-			children = (
-				DBAC6487267D388B007FE9FD /* ASTableNode.swift */,
-				DBAC648E267DC84D007FE9FD /* TableNodeDiffableDataSource.swift */,
-			);
-			path = DataSource;
 			sourceTree = "<group>";
 		};
 		DBAE3F742615DD63004B8251 /* UserProvider */ = {
@@ -3187,21 +3215,6 @@
 			path = ShareActionExtension;
 			sourceTree = "<group>";
 		};
-		DBCBCBFD2680ADBA000F5B51 /* AsyncHomeTimeline */ = {
-			isa = PBXGroup;
-			children = (
-				DBCBCBFB2680ADB7000F5B51 /* AsyncHomeTimelineViewController.swift */,
-				DBCBCC022680AF6E000F5B51 /* AsyncHomeTimelineViewController+DebugAction.swift */,
-				DBCBCC042680AFB9000F5B51 /* AsyncHomeTimelineViewController+Provider.swift */,
-				DBCBCBFE2680AE98000F5B51 /* AsyncHomeTimelineViewModel.swift */,
-				DBCBCC002680AF2A000F5B51 /* AsyncHomeTimelineViewModel+Diffable.swift */,
-				DBCBCC062680AFEC000F5B51 /* AsyncHomeTimelineViewModel+LoadLatestState.swift */,
-				DBCBCC082680B01B000F5B51 /* AsyncHomeTimelineViewModel+LoadMiddleState.swift */,
-				DBCBCC0A2680B03F000F5B51 /* AsyncHomeTimelineViewModel+LoadOldestState.swift */,
-			);
-			path = AsyncHomeTimeline;
-			sourceTree = "<group>";
-		};
 		DBCBED2226132E1D00B49291 /* FetchedResultsController */ = {
 			isa = PBXGroup;
 			children = (
@@ -3216,9 +3229,11 @@
 		DBE0821A25CD382900FD6BBD /* Register */ = {
 			isa = PBXGroup;
 			children = (
+				DB06180B2785B2AF0030EE79 /* Cell */,
 				DBE0821425CD382600FD6BBD /* MastodonRegisterViewController.swift */,
 				2D939AE725EE1CF80076FA61 /* MastodonRegisterViewController+Avatar.swift */,
 				DBE0822325CD3F1E00FD6BBD /* MastodonRegisterViewModel.swift */,
+				DB0618062785A8880030EE79 /* MastodonRegisterViewModel+Diffable.swift */,
 			);
 			path = Register;
 			sourceTree = "<group>";
@@ -3969,7 +3984,6 @@
 				0FAA0FDF25E0B57E0017CCDE /* WelcomeViewController.swift in Sources */,
 				2D206B8C25F6015000143C56 /* AudioPlaybackService.swift in Sources */,
 				2D59819B25E4A581000FB903 /* MastodonConfirmEmailViewController.swift in Sources */,
-				DBCBCBFC2680ADB7000F5B51 /* AsyncHomeTimelineViewController.swift in Sources */,
 				DB45FB1D25CA9D23005A8AC7 /* APIService+HomeTimeline.swift in Sources */,
 				DBA94440265D137600C537E1 /* Mastodon+Entity+Field.swift in Sources */,
 				DB49A61425FF2C5600B98345 /* EmojiService.swift in Sources */,
@@ -3994,6 +4008,7 @@
 				DBB525502611ED6D002F1F29 /* ProfileHeaderView.swift in Sources */,
 				0FB3D33225E5F50E00AAD544 /* PickServerSearchCell.swift in Sources */,
 				DB71FD5225F8CCAA00512AE1 /* APIService+Status.swift in Sources */,
+				DB8481152788121200BBEABA /* MastodonRegisterTextFieldTableViewCell.swift in Sources */,
 				5D0393962612D266007FE196 /* WebViewModel.swift in Sources */,
 				5B24BBDA262DB14800A9381B /* ReportViewModel.swift in Sources */,
 				2D5A3D3825CF8D9F002347D6 /* ScrollViewContainer.swift in Sources */,
@@ -4015,13 +4030,12 @@
 				DB68A06325E905E000CFDF14 /* UIApplication.swift in Sources */,
 				DB02CDAB26256A9500D0A2AF /* ThreadReplyLoaderTableViewCell.swift in Sources */,
 				DB63BE7F268DD1070011D3F9 /* NotificationViewController+StatusProvider.swift in Sources */,
+				DB0617FF27855D6C0030EE79 /* MastodonServerRulesViewModel+Diffable.swift in Sources */,
 				DBB5255E2611F07A002F1F29 /* ProfileViewModel.swift in Sources */,
-				DBAC648F267DC84D007FE9FD /* TableNodeDiffableDataSource.swift in Sources */,
 				2D8434FB25FF46B300EECE90 /* HomeTimelineNavigationBarTitleView.swift in Sources */,
 				0F1E2D0B2615C39400C38565 /* DoubleTitleLabelNavigationBarTitleView.swift in Sources */,
 				DBA1DB80268F84F80052DB59 /* NotificationType.swift in Sources */,
 				DB9A488A26034D40008B817C /* ComposeViewModel+PublishState.swift in Sources */,
-				DBAC649B267DF8C8007FE9FD /* ActivityIndicatorNode.swift in Sources */,
 				DB45FAD725CA6C76005A8AC7 /* UIBarButtonItem.swift in Sources */,
 				2DA504692601ADE7008F4E6C /* SawToothView.swift in Sources */,
 				DBA465952696E387002B41DB /* AppPreference.swift in Sources */,
@@ -4041,7 +4055,9 @@
 				DB03A795272A981400EE37C5 /* ContentSplitViewController.swift in Sources */,
 				2D152A8C25C295CC009AA50C /* StatusView.swift in Sources */,
 				DBBC24DE26A54BCB00398BB9 /* MastodonMetricFormatter.swift in Sources */,
+				DB06180A2785B2AB0030EE79 /* MastodonRegisterAvatarTableViewCell.swift in Sources */,
 				DBB3BA2A26A81C020004F2D4 /* FLAnimatedImageView.swift in Sources */,
+				DB0618032785A7100030EE79 /* RegisterSection.swift in Sources */,
 				2DE0FAC82615F5F000CDF649 /* SearchRecommendAccountsCollectionViewCell.swift in Sources */,
 				DBF1D251269DB01200C1C08A /* SearchHistoryViewController.swift in Sources */,
 				2D42FF8525C8224F004A627A /* HitTestExpandedButton.swift in Sources */,
@@ -4049,8 +4065,11 @@
 				DBB5250E2611EBAF002F1F29 /* ProfileSegmentedViewController.swift in Sources */,
 				2D42FF8F25C8228A004A627A /* UIButton.swift in Sources */,
 				DBF156DF2701B17600EC00B7 /* SidebarAddAccountCollectionViewCell.swift in Sources */,
+				DB0617F1278413D00030EE79 /* PickServerServerSectionTableHeaderView.swift in Sources */,
 				DB789A0B25F9F2950071ACA0 /* ComposeViewController.swift in Sources */,
 				DB938F0926240F3C00E5B6C1 /* RemoteThreadViewModel.swift in Sources */,
+				DB0617ED277F02C50030EE79 /* OnboardingNavigationController.swift in Sources */,
+				DB0617F527855AB90030EE79 /* ServerRuleSection.swift in Sources */,
 				DBBC24AE26A53DC100398BB9 /* ReplicaStatusView.swift in Sources */,
 				DB75BF1E263C1C1B00EDBF1F /* CustomScheduler.swift in Sources */,
 				0FAA102725E1126A0017CCDE /* MastodonPickServerViewController.swift in Sources */,
@@ -4091,12 +4110,9 @@
 				2D939AB525EDD8A90076FA61 /* String.swift in Sources */,
 				DB4481B925EE289600BEFB67 /* UITableView.swift in Sources */,
 				DBE3CDBB261C427900430CC6 /* TimelineHeaderTableViewCell.swift in Sources */,
-				DBCBCBFF2680AE98000F5B51 /* AsyncHomeTimelineViewModel.swift in Sources */,
 				0FAA101C25E10E760017CCDE /* UIFont.swift in Sources */,
 				2D38F1D525CD465300561493 /* HomeTimelineViewController.swift in Sources */,
-				DBAC6497267DECCB007FE9FD /* TimelineMiddleLoaderNode.swift in Sources */,
 				DB97131F2666078B00BD1E90 /* Date.swift in Sources */,
-				DBAC6485267D0F9E007FE9FD /* StatusNode.swift in Sources */,
 				DB98338825C945ED00AD9700 /* Assets.swift in Sources */,
 				DB6180E926391BDF0018D199 /* MediaHostToMediaPreviewViewControllerAnimatedTransitioning.swift in Sources */,
 				DB6B351E2601FAEE00DC1E11 /* ComposeStatusAttachmentCollectionViewCell.swift in Sources */,
@@ -4156,7 +4172,6 @@
 				DBA5E7A5263BD28C004598BB /* ContextMenuImagePreviewViewModel.swift in Sources */,
 				DB9D7C21269824B80054B3DF /* APIService+Filter.swift in Sources */,
 				2D38F1E525CD46C100561493 /* HomeTimelineViewModel.swift in Sources */,
-				DBCBCC012680AF2A000F5B51 /* AsyncHomeTimelineViewModel+Diffable.swift in Sources */,
 				DBCC3B36261440BA0045B23D /* UINavigationController.swift in Sources */,
 				DBB525852612D6DD002F1F29 /* ProfileStatusDashboardMeterView.swift in Sources */,
 				2D84350525FF858100EECE90 /* UIScrollView.swift in Sources */,
@@ -4166,7 +4181,7 @@
 				DB71FD3C25F8A1C500512AE1 /* APIService+Persist+PersistCache.swift in Sources */,
 				2DA6055125F74407006356F9 /* AudioContainerViewModel.swift in Sources */,
 				DB4F0968269ED8AD00D62E92 /* SearchHistoryTableHeaderView.swift in Sources */,
-				0FB3D2FE25E4CB6400AAD544 /* PickServerTitleCell.swift in Sources */,
+				0FB3D2FE25E4CB6400AAD544 /* OnboardingHeadlineTableViewCell.swift in Sources */,
 				5DA732CC2629CEF500A92342 /* UIView+Remove.swift in Sources */,
 				DBAEDE5C267A058D00D25FF5 /* BlurhashImageCacheService.swift in Sources */,
 				2D38F1DF25CD46A400561493 /* HomeTimelineViewController+Provider.swift in Sources */,
@@ -4185,7 +4200,6 @@
 				2D694A7425F9EB4E0038ADDC /* ContentWarningOverlayView.swift in Sources */,
 				DB4932B126F1FB5300EF46D4 /* WizardCardView.swift in Sources */,
 				DBAE3F682615DD60004B8251 /* UserProvider.swift in Sources */,
-				DBAC6488267D388B007FE9FD /* ASTableNode.swift in Sources */,
 				DB6D9F76263587C7008423CD /* SettingFetchedResultController.swift in Sources */,
 				DB9A486C26032AC1008B817C /* AttachmentContainerView+EmptyStateView.swift in Sources */,
 				5D0393902612D259007FE196 /* WebViewController.swift in Sources */,
@@ -4201,6 +4215,7 @@
 				2DF75BA125D0E29D00694EC8 /* StatusProvider+StatusTableViewCellDelegate.swift in Sources */,
 				5DF1056425F887CB00D6C0D4 /* AVPlayer.swift in Sources */,
 				DBBF1DCB2652539E00E5B703 /* AutoCompleteItem.swift in Sources */,
+				DB84811727883C2600BBEABA /* MastodonRegisterPasswordHintTableViewCell.swift in Sources */,
 				2DA6054725F716A2006356F9 /* PlaybackState.swift in Sources */,
 				DB35FC1F2612F1D9006193C9 /* ProfileRelationshipActionButton.swift in Sources */,
 				DBC7A672260C897100E57475 /* StatusContentWarningEditorView.swift in Sources */,
@@ -4212,7 +4227,9 @@
 				2D34D9D126148D9E0081BFC0 /* APIService+Recommend.swift in Sources */,
 				DBB525562611EDCA002F1F29 /* UserTimelineViewModel.swift in Sources */,
 				2D42FF7E25C82218004A627A /* ActionToolBarContainer.swift in Sources */,
+				DB0618012785732C0030EE79 /* ServerRulesTableViewCell.swift in Sources */,
 				DB221B16260C395900AEFE46 /* CustomEmojiPickerInputViewModel.swift in Sources */,
+				DB0617EF277F12720030EE79 /* NavigationActionView.swift in Sources */,
 				DB1FD43625F26899004CFCFC /* MastodonPickServerViewModel+LoadIndexedServerState.swift in Sources */,
 				2D939AE825EE1CF80076FA61 /* MastodonRegisterViewController+Avatar.swift in Sources */,
 				2D084B8D26258EA3003AA3AF /* NotificationViewModel+Diffable.swift in Sources */,
@@ -4220,7 +4237,6 @@
 				DB1D186C25EF5BA7003F1F23 /* PollTableView.swift in Sources */,
 				DBA94434265CBB5300C537E1 /* ProfileFieldSection.swift in Sources */,
 				DBF156E42702DB3F00EC00B7 /* HandleTapAction.swift in Sources */,
-				DB023295267F0AB800031745 /* ASMetaEditableTextNode.swift in Sources */,
 				2D5981A125E4A593000FB903 /* MastodonConfirmEmailViewModel.swift in Sources */,
 				DB6B74F6272FBCDB00C70B6E /* FollowerListViewModel+State.swift in Sources */,
 				DB4F096C269EFA2000D62E92 /* SearchResultViewController+StatusProvider.swift in Sources */,
@@ -4237,6 +4253,7 @@
 				DB6C8C0F25F0A6AE00AAA452 /* Mastodon+Entity+Error.swift in Sources */,
 				DB1E346825F518E20079D7DF /* CategoryPickerSection.swift in Sources */,
 				DB7274F4273BB9B200577D95 /* ListBatchFetchViewModel.swift in Sources */,
+				DB0618052785A73D0030EE79 /* RegisterItem.swift in Sources */,
 				2D61254D262547C200299647 /* APIService+Notification.swift in Sources */,
 				DB040ED126538E3D00BEE9D8 /* Trie.swift in Sources */,
 				DB73BF4B27140C0800781945 /* UITableViewDiffableDataSource.swift in Sources */,
@@ -4248,7 +4265,6 @@
 				DB938EED2623F79B00E5B6C1 /* ThreadViewModel.swift in Sources */,
 				DBBC24AC26A53D9300398BB9 /* ComposeStatusContentTableViewCell.swift in Sources */,
 				DBC7A67C260DFADE00E57475 /* StatusPublishService.swift in Sources */,
-				DBCBCC092680B01B000F5B51 /* AsyncHomeTimelineViewModel+LoadMiddleState.swift in Sources */,
 				2DCB73FD2615C13900EC03D4 /* SearchRecommendCollectionHeader.swift in Sources */,
 				DB852D1C26FB021500FC9D81 /* RootSplitViewController.swift in Sources */,
 				DB02CDBF2625AE5000D0A2AF /* AdaptiveUserInterfaceStyleBarButtonItem.swift in Sources */,
@@ -4264,7 +4280,6 @@
 				0FB3D33825E6401400AAD544 /* PickServerCell.swift in Sources */,
 				DB6D9F8426358EEC008423CD /* SettingsItem.swift in Sources */,
 				2D364F7825E66D8300204FDC /* MastodonResendEmailViewModel.swift in Sources */,
-				DBCBCC052680AFB9000F5B51 /* AsyncHomeTimelineViewController+Provider.swift in Sources */,
 				DBA465932696B495002B41DB /* APIService+WebFinger.swift in Sources */,
 				DB8AF54525C13647002E6C99 /* NeedsDependency.swift in Sources */,
 				DB9D6BF825E4F5690051B173 /* NotificationViewController.swift in Sources */,
@@ -4284,7 +4299,6 @@
 				DB6180F826391D660018D199 /* MediaPreviewingViewController.swift in Sources */,
 				DB0140CF25C42AEE00F9F3CF /* OSLog.swift in Sources */,
 				DB6B75022730060700C70B6E /* UserProviderFacade+UITableViewDelegate.swift in Sources */,
-				DB44384F25E8C1FA008912A2 /* CALayer.swift in Sources */,
 				2D34D9CB261489930081BFC0 /* SearchViewController+Recommend.swift in Sources */,
 				DB71C7CB271D5A0300BE3819 /* LineChartView.swift in Sources */,
 				DB938F1526241FDF00E5B6C1 /* APIService+Thread.swift in Sources */,
@@ -4301,7 +4315,6 @@
 				2DB72C8C262D764300CE6173 /* Mastodon+Entity+Notification+Type.swift in Sources */,
 				2D35237A26256D920031AF25 /* NotificationSection.swift in Sources */,
 				DB084B5725CBC56C00F898ED /* Status.swift in Sources */,
-				DBCBCC072680AFEC000F5B51 /* AsyncHomeTimelineViewModel+LoadLatestState.swift in Sources */,
 				2D4AD89C263165B500613EFC /* SuggestionAccountCollectionViewCell.swift in Sources */,
 				DB447691260B406600B66B82 /* CustomEmojiPickerItemCollectionViewCell.swift in Sources */,
 				DB9282B225F3222800823B15 /* PickServerEmptyStateView.swift in Sources */,
@@ -4326,7 +4339,6 @@
 				DB0C947226A7D2D70088FB11 /* AvatarButton.swift in Sources */,
 				DB98336B25C9420100AD9700 /* APIService+App.swift in Sources */,
 				DBFEF07B26A6BCE8006D7ED1 /* APIService+Status+Publish.swift in Sources */,
-				DBCBCC032680AF6E000F5B51 /* AsyncHomeTimelineViewController+DebugAction.swift in Sources */,
 				DBA0A11325FB3FC10079C110 /* ComposeToolbarView.swift in Sources */,
 				2D32EADA25CBCC3300C9ED86 /* PublicTimelineViewModel+LoadMiddleState.swift in Sources */,
 				5B90C48526259BF10002E742 /* APIService+Subscriptions.swift in Sources */,
@@ -4349,6 +4361,7 @@
 				DBE54AC62636C89F004E7C0B /* NotificationPreference.swift in Sources */,
 				2D5A3D2825CF8BC9002347D6 /* HomeTimelineViewModel+Diffable.swift in Sources */,
 				DB98339C25C96DE600AD9700 /* APIService+Account.swift in Sources */,
+				DB0618072785A8880030EE79 /* MastodonRegisterViewModel+Diffable.swift in Sources */,
 				DB6B74FC272FF55800C70B6E /* UserSection.swift in Sources */,
 				2DF75BA725D10E1000694EC8 /* APIService+Favorite.swift in Sources */,
 				DB9D6C3825E508BE0051B173 /* Attachment.swift in Sources */,
@@ -4359,7 +4372,6 @@
 				DB71C7CD271D7F4300BE3819 /* CurveAlgorithm.swift in Sources */,
 				DBD376B2269302A4007FEC24 /* UITableViewCell.swift in Sources */,
 				DB4F0966269ED52200D62E92 /* SearchResultViewModel.swift in Sources */,
-				DBAC6499267DF2C4007FE9FD /* TimelineBottomLoaderNode.swift in Sources */,
 				2D76318325C14E8F00929FB9 /* PublicTimelineViewModel+Diffable.swift in Sources */,
 				DBBF1DBF2652401B00E5B703 /* AutoCompleteViewModel.swift in Sources */,
 				DB6180FA26391F2E0018D199 /* MediaPreviewViewModel.swift in Sources */,
@@ -4390,7 +4402,6 @@
 				DB4F097B26A039FF00D62E92 /* SearchHistorySection.swift in Sources */,
 				DBB525302611EBF3002F1F29 /* ProfilePagingViewModel.swift in Sources */,
 				DB9F58EC26EF435000E7BBE9 /* AccountViewController.swift in Sources */,
-				DBCBCC0B2680B03F000F5B51 /* AsyncHomeTimelineViewModel+LoadOldestState.swift in Sources */,
 				2D5A3D6225CFD9CB002347D6 /* HomeTimelineViewController+DebugAction.swift in Sources */,
 				DB49A62525FF334C00B98345 /* EmojiService+CustomEmojiViewModel+LoadState.swift in Sources */,
 				DB4924E226312AB200E9DB22 /* NotificationService.swift in Sources */,
@@ -4402,6 +4413,7 @@
 				DB4932B326F2054200EF46D4 /* CircleAvatarButton.swift in Sources */,
 				0FB3D30825E524C600AAD544 /* PickServerCategoriesCell.swift in Sources */,
 				2D4AD8A226316CD200613EFC /* SelectedAccountSection.swift in Sources */,
+				DB0617EB277EF3820030EE79 /* GradientBorderView.swift in Sources */,
 				DB789A1225F9F2CC0071ACA0 /* ComposeViewModel.swift in Sources */,
 				DBB525362611ECEB002F1F29 /* UserTimelineViewController.swift in Sources */,
 				DB6D1B3D2636857500ACB481 /* AppearancePreference.swift in Sources */,
@@ -4409,7 +4421,6 @@
 				DB3667A4268AE2370027D07F /* ComposeStatusPollTableViewCell.swift in Sources */,
 				DBBF1DC226524D2900E5B703 /* AutoCompleteTableViewCell.swift in Sources */,
 				2D38F1FE25CD481700561493 /* StatusProvider.swift in Sources */,
-				DB1EE7B2267F9525000CC337 /* StatusProvider+StatusNodeDelegate.swift in Sources */,
 				5B24BBE2262DB19100A9381B /* APIService+Report.swift in Sources */,
 				DBF3B7412733EB9400E21627 /* MastodonLocalCode.swift in Sources */,
 				DB4F096A269EDAD200D62E92 /* SearchResultViewModel+State.swift in Sources */,
@@ -4430,6 +4441,7 @@
 				DBAFB7352645463500371D5F /* Emojis.swift in Sources */,
 				DBCCC71E25F73297007E1AB6 /* APIService+Reblog.swift in Sources */,
 				DBE3CE13261D7D4200430CC6 /* StatusTableViewControllerAspect.swift in Sources */,
+				DB0617FD27855BFE0030EE79 /* ServerRuleItem.swift in Sources */,
 				5BB04FD5262E7AFF0043BFF6 /* ReportViewController.swift in Sources */,
 				DBAE3F942616E28B004B8251 /* APIService+Follow.swift in Sources */,
 			);
@@ -4919,7 +4931,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Mastodon/Mastodon.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 88;
+				CURRENT_PROJECT_VERSION = 90;
 				DEVELOPMENT_ASSET_PATHS = "Mastodon/Resources/Preview\\ Assets.xcassets";
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = Mastodon/Info.plist;
@@ -4934,7 +4946,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "Mastodon/Vender/Mastodon-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -4948,7 +4960,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Mastodon/Mastodon.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 88;
+				CURRENT_PROJECT_VERSION = 90;
 				DEVELOPMENT_ASSET_PATHS = "Mastodon/Resources/Preview\\ Assets.xcassets";
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = Mastodon/Info.plist;
@@ -4962,7 +4974,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Mastodon/Vender/Mastodon-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
@@ -5056,11 +5068,11 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 88;
+				CURRENT_PROJECT_VERSION = 90;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 88;
+				DYLIB_CURRENT_VERSION = 90;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = AppShared/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -5087,11 +5099,11 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 88;
+				CURRENT_PROJECT_VERSION = 90;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 88;
+				DYLIB_CURRENT_VERSION = 90;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = AppShared/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -5116,11 +5128,11 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 88;
+				CURRENT_PROJECT_VERSION = 90;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 88;
+				DYLIB_CURRENT_VERSION = 90;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = CoreDataStack/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -5146,11 +5158,11 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 88;
+				CURRENT_PROJECT_VERSION = 90;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 88;
+				DYLIB_CURRENT_VERSION = 90;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = CoreDataStack/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -5213,7 +5225,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = MastodonIntent/MastodonIntent.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 88;
+				CURRENT_PROJECT_VERSION = 90;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = MastodonIntent/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -5227,60 +5239,10 @@
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "APP_EXTENSION $(inherited)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
-		};
-		DB8FABD126AEC7B2008E5AF4 /* ASDK - Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = C3789232A52F43529CA67E95 /* Pods-MastodonIntent.asdk - debug.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = MastodonIntent/MastodonIntent.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 88;
-				DEVELOPMENT_TEAM = 5Z4GVSS33P;
-				INFOPLIST_FILE = MastodonIntent/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MARKETING_VERSION = 1.0.7;
-				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.MastodonIntent;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "APP_EXTENSION $(inherited)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
-				VERSIONING_SYSTEM = "apple-generic";
-			};
-			name = "ASDK - Debug";
-		};
-		DB8FABD226AEC7B2008E5AF4 /* ASDK - Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = F920AD4EC23B0D00F5CCA58E /* Pods-MastodonIntent.asdk - release.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = MastodonIntent/MastodonIntent.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 88;
-				DEVELOPMENT_TEAM = 5Z4GVSS33P;
-				INFOPLIST_FILE = MastodonIntent/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MARKETING_VERSION = 1.0.7;
-				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.MastodonIntent;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "APP_EXTENSION $(inherited)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
-				VERSIONING_SYSTEM = "apple-generic";
-			};
-			name = "ASDK - Release";
 		};
 		DB8FABD326AEC7B2008E5AF4 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -5288,7 +5250,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = MastodonIntent/MastodonIntent.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 88;
+				CURRENT_PROJECT_VERSION = 90;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = MastodonIntent/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -5302,7 +5264,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "APP_EXTENSION $(inherited)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
@@ -5313,7 +5275,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = ShareActionExtension/ShareActionExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 88;
+				CURRENT_PROJECT_VERSION = 90;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = ShareActionExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -5327,60 +5289,10 @@
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "APP_EXTENSION $(inherited)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
-		};
-		DBC6461E26A170AB00B0E31B /* ASDK - Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6130CBE4B26E3C976ACC1688 /* Pods-ShareActionExtension.asdk - debug.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = ShareActionExtension/ShareActionExtension.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 88;
-				DEVELOPMENT_TEAM = 5Z4GVSS33P;
-				INFOPLIST_FILE = ShareActionExtension/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MARKETING_VERSION = 1.0.7;
-				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.ShareActionExtension;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "APP_EXTENSION $(inherited)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
-				VERSIONING_SYSTEM = "apple-generic";
-			};
-			name = "ASDK - Debug";
-		};
-		DBC6461F26A170AB00B0E31B /* ASDK - Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5CE45680252519F42FEA2D13 /* Pods-ShareActionExtension.asdk - release.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = ShareActionExtension/ShareActionExtension.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 88;
-				DEVELOPMENT_TEAM = 5Z4GVSS33P;
-				INFOPLIST_FILE = ShareActionExtension/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MARKETING_VERSION = 1.0.7;
-				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.ShareActionExtension;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "APP_EXTENSION $(inherited)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
-				VERSIONING_SYSTEM = "apple-generic";
-			};
-			name = "ASDK - Release";
 		};
 		DBC6462026A170AB00B0E31B /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -5388,7 +5300,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = ShareActionExtension/ShareActionExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 88;
+				CURRENT_PROJECT_VERSION = 90;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = ShareActionExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -5402,484 +5314,10 @@
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "APP_EXTENSION $(inherited)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
-		};
-		DBCBCC0E2680BE3E000F5B51 /* ASDK - Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_TESTABILITY = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				INTENTS_CODEGEN_LANGUAGE = Swift;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = iphoneos;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = ASDK;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-			};
-			name = "ASDK - Release";
-		};
-		DBCBCC0F2680BE3E000F5B51 /* ASDK - Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = BD7598A87F4497045EDEF252 /* Pods-Mastodon.asdk - release.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = Mastodon/Mastodon.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 88;
-				DEVELOPMENT_ASSET_PATHS = "Mastodon/Resources/Preview\\ Assets.xcassets";
-				DEVELOPMENT_TEAM = 5Z4GVSS33P;
-				INFOPLIST_FILE = Mastodon/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0.7;
-				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "Mastodon/Vender/Mastodon-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
-				VERSIONING_SYSTEM = "apple-generic";
-			};
-			name = "ASDK - Release";
-		};
-		DBCBCC102680BE3E000F5B51 /* ASDK - Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 46DAB0EBDDFB678347CD96FF /* Pods-MastodonTests.asdk - release.xcconfig */;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5Z4GVSS33P;
-				INFOPLIST_FILE = MastodonTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.MastodonTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Mastodon.app/Mastodon";
-			};
-			name = "ASDK - Release";
-		};
-		DBCBCC112680BE3E000F5B51 /* ASDK - Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8850E70A1D5FF51432E43653 /* Pods-Mastodon-MastodonUITests.asdk - release.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5Z4GVSS33P;
-				INFOPLIST_FILE = MastodonUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.MastodonUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Mastodon;
-			};
-			name = "ASDK - Release";
-		};
-		DBCBCC122680BE3E000F5B51 /* ASDK - Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = YES;
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 88;
-				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 5Z4GVSS33P;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 88;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = CoreDataStack/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.CoreDataStack;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = "ASDK - Release";
-		};
-		DBCBCC132680BE3E000F5B51 /* ASDK - Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5Z4GVSS33P;
-				INFOPLIST_FILE = CoreDataStackTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.CoreDataStackTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Mastodon.app/Mastodon";
-			};
-			name = "ASDK - Release";
-		};
-		DBCBCC142680BE3E000F5B51 /* ASDK - Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9CFF58FD900AC059428700E7 /* Pods-NotificationService.asdk - release.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = NotificationService/NotificationService.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 88;
-				DEVELOPMENT_TEAM = 5Z4GVSS33P;
-				INFOPLIST_FILE = NotificationService/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MARKETING_VERSION = 1.0.7;
-				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.NotificationService;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
-				VERSIONING_SYSTEM = "apple-generic";
-			};
-			name = "ASDK - Release";
-		};
-		DBCBCC152680BE3E000F5B51 /* ASDK - Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = DDB1B139FA8EA26F510D58B6 /* Pods-AppShared.asdk - release.xcconfig */;
-			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = YES;
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 88;
-				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 5Z4GVSS33P;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 88;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = AppShared/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.AppShared;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = "ASDK - Release";
-		};
-		DBCBCC1E26818F6F000F5B51 /* ASDK - Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_TESTABILITY = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				INTENTS_CODEGEN_LANGUAGE = Swift;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = iphoneos;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG ASDK";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-			};
-			name = "ASDK - Debug";
-		};
-		DBCBCC1F26818F6F000F5B51 /* ASDK - Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1D6D967E77A5357E2C6110D9 /* Pods-Mastodon.asdk - debug.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = Mastodon/Mastodon.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 88;
-				DEVELOPMENT_ASSET_PATHS = "Mastodon/Resources/Preview\\ Assets.xcassets";
-				DEVELOPMENT_TEAM = 5Z4GVSS33P;
-				INFOPLIST_FILE = Mastodon/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0.7;
-				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "Mastodon/Vender/Mastodon-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
-				VERSIONING_SYSTEM = "apple-generic";
-			};
-			name = "ASDK - Debug";
-		};
-		DBCBCC2026818F6F000F5B51 /* ASDK - Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7CEFFAE9AF9284B13C0A758D /* Pods-MastodonTests.asdk - debug.xcconfig */;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5Z4GVSS33P;
-				INFOPLIST_FILE = MastodonTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.MastodonTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Mastodon.app/Mastodon";
-			};
-			name = "ASDK - Debug";
-		};
-		DBCBCC2126818F6F000F5B51 /* ASDK - Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = E5C7236E58D14A0322FE00F2 /* Pods-Mastodon-MastodonUITests.asdk - debug.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5Z4GVSS33P;
-				INFOPLIST_FILE = MastodonUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.MastodonUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Mastodon;
-			};
-			name = "ASDK - Debug";
-		};
-		DBCBCC2226818F6F000F5B51 /* ASDK - Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = YES;
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 88;
-				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 5Z4GVSS33P;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 88;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = CoreDataStack/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.CoreDataStack;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = "ASDK - Debug";
-		};
-		DBCBCC2326818F6F000F5B51 /* ASDK - Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5Z4GVSS33P;
-				INFOPLIST_FILE = CoreDataStackTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.CoreDataStackTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Mastodon.app/Mastodon";
-			};
-			name = "ASDK - Debug";
-		};
-		DBCBCC2426818F6F000F5B51 /* ASDK - Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3B7FD8F28DDA8FBCE5562B78 /* Pods-NotificationService.asdk - debug.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = NotificationService/NotificationService.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 88;
-				DEVELOPMENT_TEAM = 5Z4GVSS33P;
-				INFOPLIST_FILE = NotificationService/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MARKETING_VERSION = 1.0.7;
-				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.NotificationService;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
-				VERSIONING_SYSTEM = "apple-generic";
-			};
-			name = "ASDK - Debug";
-		};
-		DBCBCC2526818F6F000F5B51 /* ASDK - Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = A9B1FB898DFD6063B044298C /* Pods-AppShared.asdk - debug.xcconfig */;
-			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = YES;
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 88;
-				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 5Z4GVSS33P;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 88;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = AppShared/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.AppShared;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = "ASDK - Debug";
 		};
 		DBF8AE1C263293E400C9C23C /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -5887,7 +5325,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = NotificationService/NotificationService.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 88;
+				CURRENT_PROJECT_VERSION = 90;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = NotificationService/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -5900,7 +5338,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -5911,7 +5349,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = NotificationService/NotificationService.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 88;
+				CURRENT_PROJECT_VERSION = 90;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = NotificationService/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -5924,7 +5362,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
@@ -5936,8 +5374,6 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DB427DFA25BAA00100D1B89D /* Debug */,
-				DBCBCC1E26818F6F000F5B51 /* ASDK - Debug */,
-				DBCBCC0E2680BE3E000F5B51 /* ASDK - Release */,
 				DB427DFB25BAA00100D1B89D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -5947,8 +5383,6 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DB427DFD25BAA00100D1B89D /* Debug */,
-				DBCBCC1F26818F6F000F5B51 /* ASDK - Debug */,
-				DBCBCC0F2680BE3E000F5B51 /* ASDK - Release */,
 				DB427DFE25BAA00100D1B89D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -5958,8 +5392,6 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DB427E0025BAA00100D1B89D /* Debug */,
-				DBCBCC2026818F6F000F5B51 /* ASDK - Debug */,
-				DBCBCC102680BE3E000F5B51 /* ASDK - Release */,
 				DB427E0125BAA00100D1B89D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -5969,8 +5401,6 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DB427E0325BAA00100D1B89D /* Debug */,
-				DBCBCC2126818F6F000F5B51 /* ASDK - Debug */,
-				DBCBCC112680BE3E000F5B51 /* ASDK - Release */,
 				DB427E0425BAA00100D1B89D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -5980,8 +5410,6 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DB6804892637CD4C00430867 /* Debug */,
-				DBCBCC2526818F6F000F5B51 /* ASDK - Debug */,
-				DBCBCC152680BE3E000F5B51 /* ASDK - Release */,
 				DB68048A2637CD4C00430867 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -5991,8 +5419,6 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DB89BA0625C10FD0008580ED /* Debug */,
-				DBCBCC2226818F6F000F5B51 /* ASDK - Debug */,
-				DBCBCC122680BE3E000F5B51 /* ASDK - Release */,
 				DB89BA0725C10FD0008580ED /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -6002,8 +5428,6 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DB89BA0A25C10FD0008580ED /* Debug */,
-				DBCBCC2326818F6F000F5B51 /* ASDK - Debug */,
-				DBCBCC132680BE3E000F5B51 /* ASDK - Release */,
 				DB89BA0B25C10FD0008580ED /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -6013,8 +5437,6 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DB8FABD026AEC7B2008E5AF4 /* Debug */,
-				DB8FABD126AEC7B2008E5AF4 /* ASDK - Debug */,
-				DB8FABD226AEC7B2008E5AF4 /* ASDK - Release */,
 				DB8FABD326AEC7B2008E5AF4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -6024,8 +5446,6 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DBC6461D26A170AB00B0E31B /* Debug */,
-				DBC6461E26A170AB00B0E31B /* ASDK - Debug */,
-				DBC6461F26A170AB00B0E31B /* ASDK - Release */,
 				DBC6462026A170AB00B0E31B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -6035,8 +5455,6 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DBF8AE1C263293E400C9C23C /* Debug */,
-				DBCBCC2426818F6F000F5B51 /* ASDK - Debug */,
-				DBCBCC142680BE3E000F5B51 /* ASDK - Release */,
 				DBF8AE1D263293E400C9C23C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;

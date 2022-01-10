@@ -46,21 +46,11 @@ final class MastodonConfirmEmailViewController: UIViewController, NeedsDependenc
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
-
-    let openEmailButton: UIButton = {
-        let button = PrimaryActionButton()
-        button.setTitle(L10n.Scene.ConfirmEmail.Button.openEmailApp, for: .normal)
-        button.addTarget(self, action: #selector(openEmailButtonPressed(_:)), for: UIControl.Event.touchUpInside)
-        return button
-    }()
-
-    let dontReceiveButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.titleLabel?.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: UIFont.boldSystemFont(ofSize: 15))
-        button.setTitleColor(Asset.Colors.brandBlue.color, for: .normal)
-        button.setTitle(L10n.Scene.ConfirmEmail.Button.dontReceiveEmail, for: .normal)
-        button.addTarget(self, action: #selector(dontReceiveButtonPressed(_:)), for: UIControl.Event.touchUpInside)
-        return button
+    
+    let navigationActionView: NavigationActionView = {
+        let navigationActionView = NavigationActionView()
+        navigationActionView.backgroundColor = Asset.Scene.Onboarding.onboardingBackground.color
+        return navigationActionView
     }()
     
     deinit {
@@ -73,6 +63,8 @@ extension MastodonConfirmEmailViewController {
 
     override func viewDidLoad() {
 
+        navigationItem.leftBarButtonItem = UIBarButtonItem()
+
         setupOnboardingAppearance()
         configureTitleLabel()
         configureMargin()
@@ -83,13 +75,12 @@ extension MastodonConfirmEmailViewController {
         stackView.spacing = 10
         stackView.layoutMargins = UIEdgeInsets(top: 10, left: 0, bottom: 23, right: 0)
         stackView.isLayoutMarginsRelativeArrangement = true
-        stackView.addArrangedSubview(self.largeTitleLabel)
-        stackView.addArrangedSubview(self.subtitleLabel)
-        stackView.addArrangedSubview(self.emailImageView)
+        stackView.addArrangedSubview(largeTitleLabel)
+        stackView.addArrangedSubview(subtitleLabel)
+        stackView.addArrangedSubview(emailImageView)
         emailImageView.setContentHuggingPriority(.defaultLow, for: .vertical)
         emailImageView.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
-        stackView.addArrangedSubview(self.openEmailButton)
-        stackView.addArrangedSubview(self.dontReceiveButton)
+        stackView.addArrangedSubview(navigationActionView)
 
         view.addSubview(stackView)
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -99,10 +90,7 @@ extension MastodonConfirmEmailViewController {
             stackView.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
             stackView.bottomAnchor.constraint(equalTo: view.readableContentGuide.bottomAnchor),
         ])
-        NSLayoutConstraint.activate([
-            self.openEmailButton.heightAnchor.constraint(equalToConstant: 46),
-        ])
-
+        
         self.viewModel.timestampUpdatePublisher
             .sink { [weak self] _ in
                 guard let self = self else { return }
@@ -140,6 +128,13 @@ extension MastodonConfirmEmailViewController {
                     .store(in: &self.disposeBag)
             }
             .store(in: &self.disposeBag)
+        
+        
+        navigationActionView.backButton.setTitle("Resend", for: .normal)    // TODO: i18n
+        navigationActionView.backButton.addTarget(self, action: #selector(MastodonConfirmEmailViewController.resendButtonPressed(_:)), for: .touchUpInside)
+        
+        navigationActionView.nextButton.setTitle(L10n.Scene.ConfirmEmail.Button.openEmailApp, for: .normal)
+        navigationActionView.nextButton.addTarget(self, action: #selector(MastodonConfirmEmailViewController.openEmailButtonPressed(_:)), for: .touchUpInside)
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -190,7 +185,7 @@ extension MastodonConfirmEmailViewController {
         self.coordinator.present(scene: .alertController(alertController: alertController), from: self, transition: .alertController(animated: true, completion: nil))
     }
 
-    @objc private func dontReceiveButtonPressed(_ sender: UIButton) {
+    @objc private func resendButtonPressed(_ sender: UIButton) {
         let alertController = UIAlertController(title: L10n.Scene.ConfirmEmail.DontReceiveEmail.title, message: L10n.Scene.ConfirmEmail.DontReceiveEmail.description, preferredStyle: .alert)
         let resendAction = UIAlertAction(title: L10n.Scene.ConfirmEmail.DontReceiveEmail.resendEmail, style: .default) { _ in
             let url = Mastodon.API.resendEmailURL(domain: self.viewModel.authenticateInfo.domain)

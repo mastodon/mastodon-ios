@@ -126,10 +126,10 @@ struct TimelineHeaderView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             UIViewPreview(width: 375) {
-                let headerView = TimelineHeaderView()
-                headerView.iconImageView.image = Item.EmptyStateHeaderAttribute.Reason.blocking(name: nil).iconImage
-                headerView.messageLabel.text = Item.EmptyStateHeaderAttribute.Reason.blocking(name: nil).message
-                return headerView
+                let serverSectionHeaderView = TimelineHeaderView()
+                serverSectionHeaderView.iconImageView.image = Item.EmptyStateHeaderAttribute.Reason.blocking(name: nil).iconImage
+                serverSectionHeaderView.messageLabel.text = Item.EmptyStateHeaderAttribute.Reason.blocking(name: nil).message
+                return serverSectionHeaderView
             }
             .previewLayout(.fixed(width: 375, height: 400))
         }
