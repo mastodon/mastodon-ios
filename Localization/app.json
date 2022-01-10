@@ -253,6 +253,12 @@
                 },
                 "password": {
                     "placeholder": "password",
+                    "require": "Your password needs at least:",
+                    "character_limit": "8 characters",
+                    "accessibility": {
+                        "checked": "checked",
+                        "unchecked": "unchecked"
+                    },
                     "hint": "Your password needs at least eight characters"
                 },
                 "invite": {
