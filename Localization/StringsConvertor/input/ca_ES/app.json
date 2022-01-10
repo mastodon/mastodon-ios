@@ -199,8 +199,8 @@
         },
         "server_picker": {
             "title": "Tria un servidor,\nqualsevol servidor.",
-            "subtitle": "Tria una comunitat segons els teus interessos, regió o una d'interés general.",
-            "subtitle_extend": "Pick a community based on your interests, region, or a general purpose one. Each community is operated by an entirely independent organization or individual.",
+            "subtitle": "Tria una comunitat segons els teus interessos, regió o una de propòsit general.",
+            "subtitle_extend": "Tria una comunitat segons els teus interessos, regió o una de propòsit general. Cada comunitat és operada per una organització totalment independent o individualment.",
             "button": {
                 "category": {
                     "all": "Totes",
@@ -253,11 +253,11 @@
                 },
                 "password": {
                     "placeholder": "contrasenya",
-                    "require": "Your password needs at least:",
-                    "character_limit": "8 characters",
+                    "require": "La teva contrasenya com a mínim necessita:",
+                    "character_limit": "8 caràcters",
                     "accessibility": {
-                        "checked": "checked",
-                        "unchecked": "unchecked"
+                        "checked": "verificat",
+                        "unchecked": "no verificat"
                     },
                     "hint": "La teva contrasenya ha de tenir com a mínim buit caràcters"
                 },
@@ -309,7 +309,7 @@
             "subtitle": "Acabem d'enviar un correu electrònic a %s,\ntoca l'enllaç per a confirmar el teu compte.",
             "button": {
                 "open_email_app": "Obre l'aplicació de correu",
-                "resend": "Resend"
+                "resend": "Reenvia"
             },
             "dont_receive_email": {
                 "title": "Comprova el teu correu",
