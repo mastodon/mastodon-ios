@@ -193,10 +193,14 @@
     },
     "scene": {
         "welcome": {
-            "slogan": "Soziale Netzwerke wieder in deinen Händen."
+            "slogan": "Soziale Netzwerke wieder in deinen Händen.",
+            "get_started": "Get Started",
+            "log_in": "Log In"
         },
         "server_picker": {
             "title": "Wähle einen Server,\nbeliebigen Server.",
+            "subtitle": "Pick a community based on your interests, region, or a general purpose one.",
+            "subtitle_extend": "Pick a community based on your interests, region, or a general purpose one. Each community is operated by an entirely independent organization or individual.",
             "button": {
                 "category": {
                     "all": "Alle",
@@ -249,6 +253,12 @@
                 },
                 "password": {
                     "placeholder": "Passwort",
+                    "require": "Your password needs at least:",
+                    "character_limit": "8 characters",
+                    "accessibility": {
+                        "checked": "checked",
+                        "unchecked": "unchecked"
+                    },
                     "hint": "Ihr Passwort muss mindestens 8 Zeichen lang sein"
                 },
                 "invite": {
@@ -299,7 +309,7 @@
             "subtitle": "Wir haben gerade eine E-Mail an %s gesendet,\ntippe darin auf den Link, um Dein Konto zu bestätigen.",
             "button": {
                 "open_email_app": "E-Mail-App öffnen",
-                "dont_receive_email": "Ich habe keine E-Mail erhalten."
+                "resend": "Resend"
             },
             "dont_receive_email": {
                 "title": "Bitte überprüfe deine E-Mails",
