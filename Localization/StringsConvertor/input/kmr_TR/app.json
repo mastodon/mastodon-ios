@@ -194,13 +194,13 @@
     "scene": {
         "welcome": {
             "slogan": "Torên civakî\ndi destên te de.",
-            "get_started": "Get Started",
+            "get_started": "Dest pê bike",
             "log_in": "Têkeve"
         },
         "server_picker": {
             "title": "Rajekarekê hilbijêre,\nHer kîjan rajekar be.",
-            "subtitle": "Pick a community based on your interests, region, or a general purpose one.",
-            "subtitle_extend": "Pick a community based on your interests, region, or a general purpose one. Each community is operated by an entirely independent organization or individual.",
+            "subtitle": "Li gorî berjewendî, herêm, an jî armancek gelemperî civakekê hilbijêre.",
+            "subtitle_extend": "Li gorî berjewendî, herêm, an jî armancek gelemperî civakekê hilbijêre. Her civakek ji hêla rêxistinek an kesek bi tevahî serbixwe ve tê xebitandin.",
             "button": {
                 "category": {
                     "all": "Hemû",
@@ -253,11 +253,11 @@
                 },
                 "password": {
                     "placeholder": "pêborîn",
-                    "require": "Your password needs at least:",
-                    "character_limit": "8 characters",
+                    "require": "Pêdiviya pêborîna te ya herî kêm:",
+                    "character_limit": "8 tîp",
                     "accessibility": {
-                        "checked": "checked",
-                        "unchecked": "unchecked"
+                        "checked": "hate kontrolkirin",
+                        "unchecked": "nehate kontrolkirin"
                     },
                     "hint": "Pêborîna te herî kêm divê ji 8 tîpan pêk bê"
                 },
@@ -309,7 +309,7 @@
             "subtitle": "Me tenê e-nameyek ji %s re şand,\ngirêdanê bitikne da ku ajimêra xwe bidî piştrastkirin.",
             "button": {
                 "open_email_app": "Sepana e-nameyê veke",
-                "resend": "Resend"
+                "resend": "Ji nû ve bişîne"
             },
             "dont_receive_email": {
                 "title": "E-nameyê xwe kontrol bike",
