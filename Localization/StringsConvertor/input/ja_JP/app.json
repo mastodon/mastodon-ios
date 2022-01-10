@@ -193,10 +193,14 @@
     },
     "scene": {
         "welcome": {
-            "slogan": "ソーシャルネットワーキングを、あなたの手の中に."
+            "slogan": "ソーシャルネットワーキングを、あなたの手の中に.",
+            "get_started": "Get Started",
+            "log_in": "Log In"
         },
         "server_picker": {
             "title": "サーバーを選択",
+            "subtitle": "Pick a community based on your interests, region, or a general purpose one.",
+            "subtitle_extend": "Pick a community based on your interests, region, or a general purpose one. Each community is operated by an entirely independent organization or individual.",
             "button": {
                 "category": {
                     "all": "すべて",
@@ -249,6 +253,12 @@
                 },
                 "password": {
                     "placeholder": "パスワード",
+                    "require": "Your password needs at least:",
+                    "character_limit": "8 characters",
+                    "accessibility": {
+                        "checked": "checked",
+                        "unchecked": "unchecked"
+                    },
                     "hint": "パスワードは最低でも8文字必要です。"
                 },
                 "invite": {
@@ -299,7 +309,7 @@
             "subtitle": "先程 %s にメールを送信しました。リンクをタップしてアカウントを確認してください。",
             "button": {
                 "open_email_app": "メールアプリを開く",
-                "dont_receive_email": "メールがこない"
+                "resend": "Resend"
             },
             "dont_receive_email": {
                 "title": "メールをチェックしてください",
