@@ -193,10 +193,14 @@
     },
     "scene": {
         "welcome": {
-            "slogan": "社交网络\n回到你的手中。"
+            "slogan": "社交网络\n回到你的手中。",
+            "get_started": "Get Started",
+            "log_in": "Log In"
         },
         "server_picker": {
             "title": "挑选一个服务器，\n任意服务器。",
+            "subtitle": "Pick a community based on your interests, region, or a general purpose one.",
+            "subtitle_extend": "Pick a community based on your interests, region, or a general purpose one. Each community is operated by an entirely independent organization or individual.",
             "button": {
                 "category": {
                     "all": "全部",
@@ -249,6 +253,12 @@
                 },
                 "password": {
                     "placeholder": "密码",
+                    "require": "Your password needs at least:",
+                    "character_limit": "8 characters",
+                    "accessibility": {
+                        "checked": "checked",
+                        "unchecked": "unchecked"
+                    },
                     "hint": "密码长度至少为 8 个字符"
                 },
                 "invite": {
@@ -299,7 +309,7 @@
             "subtitle": "我们刚刚向 %s 发送了一封电子邮件，\n点击链接确认你的帐户。",
             "button": {
                 "open_email_app": "打开电子邮件应用",
-                "dont_receive_email": "我还没有收到电子邮件"
+                "resend": "Resend"
             },
             "dont_receive_email": {
                 "title": "请检查你的邮箱。",
