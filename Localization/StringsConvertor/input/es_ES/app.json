@@ -193,10 +193,14 @@
     },
     "scene": {
         "welcome": {
-            "slogan": "Las redes sociales\nde nuevo en tus manos."
+            "slogan": "Las redes sociales\nde nuevo en tus manos.",
+            "get_started": "Get Started",
+            "log_in": "Log In"
         },
         "server_picker": {
             "title": "Elige un servidor,\ncualquier servidor.",
+            "subtitle": "Pick a community based on your interests, region, or a general purpose one.",
+            "subtitle_extend": "Pick a community based on your interests, region, or a general purpose one. Each community is operated by an entirely independent organization or individual.",
             "button": {
                 "category": {
                     "all": "Todas",
@@ -249,6 +253,12 @@
                 },
                 "password": {
                     "placeholder": "contraseña",
+                    "require": "Your password needs at least:",
+                    "character_limit": "8 characters",
+                    "accessibility": {
+                        "checked": "checked",
+                        "unchecked": "unchecked"
+                    },
                     "hint": "Tu contraseña necesita tener al menos ocho caracteres"
                 },
                 "invite": {
@@ -299,7 +309,7 @@
             "subtitle": "Te acabamos de enviar un correo a %s,\npulsa en el enlace para confirmar tu cuenta.",
             "button": {
                 "open_email_app": "Abrir Aplicación de Correo Electrónico",
-                "dont_receive_email": "No he recibido el correo electrónico"
+                "resend": "Resend"
             },
             "dont_receive_email": {
                 "title": "Revisa tu correo electrónico",
