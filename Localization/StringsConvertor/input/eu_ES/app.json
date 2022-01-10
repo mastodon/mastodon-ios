@@ -193,10 +193,14 @@
     },
     "scene": {
         "welcome": {
-            "slogan": "Sare sozialak\nberriz zure eskuetan."
+            "slogan": "Sare sozialak\nberriz zure eskuetan.",
+            "get_started": "Get Started",
+            "log_in": "Log In"
         },
         "server_picker": {
             "title": "Aukeratu zerbitzari bat,\nedozein zerbitzari.",
+            "subtitle": "Pick a community based on your interests, region, or a general purpose one.",
+            "subtitle_extend": "Pick a community based on your interests, region, or a general purpose one. Each community is operated by an entirely independent organization or individual.",
             "button": {
                 "category": {
                     "all": "Guztiak",
@@ -249,6 +253,12 @@
                 },
                 "password": {
                     "placeholder": "pasahitza",
+                    "require": "Your password needs at least:",
+                    "character_limit": "8 characters",
+                    "accessibility": {
+                        "checked": "checked",
+                        "unchecked": "unchecked"
+                    },
                     "hint": "Pasahitzak zortzi karaktere izan behar ditu gutxienez"
                 },
                 "invite": {
@@ -299,7 +309,7 @@
             "subtitle": "Eposta bat bidali dizugu %s helbidera,\nsakatu kontua berresteko esteka.",
             "button": {
                 "open_email_app": "Ireki eposta aplikazioa",
-                "dont_receive_email": "Ez dut epostarik jaso"
+                "resend": "Resend"
             },
             "dont_receive_email": {
                 "title": "Begiratu zure eposta",
