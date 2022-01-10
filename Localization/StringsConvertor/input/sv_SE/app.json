@@ -194,8 +194,8 @@
     "scene": {
         "welcome": {
             "slogan": "Social networking\nback in your hands.",
-            "get_started": "Get Started",
-            "log_in": "Log In"
+            "get_started": "Kom igång",
+            "log_in": "Logga in"
         },
         "server_picker": {
             "title": "Mastodon is made of users in different communities.",
