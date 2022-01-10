@@ -82,7 +82,7 @@
                 "share_user": "分享 %s",
                 "share_post": "分享帖子",
                 "open_in_safari": "在 Safari 中打开",
-                "open_in_browser": "Open in Browser",
+                "open_in_browser": "在浏览器中打开",
                 "find_people": "查看推荐关注的用户",
                 "manually_search": "手动搜索用户",
                 "skip": "跳过",
@@ -194,13 +194,13 @@
     "scene": {
         "welcome": {
             "slogan": "社交网络\n回到你的手中。",
-            "get_started": "Get Started",
-            "log_in": "Log In"
+            "get_started": "开始使用",
+            "log_in": "登录"
         },
         "server_picker": {
             "title": "挑选一个服务器，\n任意服务器。",
-            "subtitle": "Pick a community based on your interests, region, or a general purpose one.",
-            "subtitle_extend": "Pick a community based on your interests, region, or a general purpose one. Each community is operated by an entirely independent organization or individual.",
+            "subtitle": "根据你的兴趣、区域或一般目的选择一个社区。",
+            "subtitle_extend": "根据你的兴趣、区域或一般目的选择一个社区。每个社区都由完全独立的组织或个人管理。",
             "button": {
                 "category": {
                     "all": "全部",
@@ -253,11 +253,11 @@
                 },
                 "password": {
                     "placeholder": "密码",
-                    "require": "Your password needs at least:",
-                    "character_limit": "8 characters",
+                    "require": "您的密码至少需要：",
+                    "character_limit": "8 个字符",
                     "accessibility": {
-                        "checked": "checked",
-                        "unchecked": "unchecked"
+                        "checked": "已选中",
+                        "unchecked": "未选中"
                     },
                     "hint": "密码长度至少为 8 个字符"
                 },
@@ -309,7 +309,7 @@
             "subtitle": "我们刚刚向 %s 发送了一封电子邮件，\n点击链接确认你的帐户。",
             "button": {
                 "open_email_app": "打开电子邮件应用",
-                "resend": "Resend"
+                "resend": "重新发送"
             },
             "dont_receive_email": {
                 "title": "请检查你的邮箱。",
