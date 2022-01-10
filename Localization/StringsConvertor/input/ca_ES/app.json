@@ -194,12 +194,12 @@
     "scene": {
         "welcome": {
             "slogan": "Xarxa social\nde nou a les teves mans.",
-            "get_started": "Get Started",
-            "log_in": "Log In"
+            "get_started": "Comença",
+            "log_in": "Inicia sessió"
         },
         "server_picker": {
             "title": "Tria un servidor,\nqualsevol servidor.",
-            "subtitle": "Pick a community based on your interests, region, or a general purpose one.",
+            "subtitle": "Tria una comunitat segons els teus interessos, regió o una d'interés general.",
             "subtitle_extend": "Pick a community based on your interests, region, or a general purpose one. Each community is operated by an entirely independent organization or individual.",
             "button": {
                 "category": {
