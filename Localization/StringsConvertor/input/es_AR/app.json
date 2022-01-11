@@ -200,7 +200,7 @@
         "server_picker": {
             "title": "Elegí un servidor,\nel que quieras.",
             "subtitle": "Elegí una comunidad basada en tus intereses, región o una de propósitos generales.",
-            "subtitle_extend": "Elige una comunidad relacionada con tus intereses, con tu región o una más genérica. Cada comunidad está operada por una organización o individuo completamente independiente.",
+            "subtitle_extend": "Elegí una comunidad basada en tus intereses, región o una de propósitos generales. Cada comunidad es operada por una organización o individuo totalmente independiente.",
             "button": {
                 "category": {
                     "all": "Todas",
@@ -253,7 +253,7 @@
                 },
                 "password": {
                     "placeholder": "contraseña",
-                    "require": "Tu contraseña debe contener como mínimo:",
+                    "require": "Tu contraseña necesita al menos:",
                     "character_limit": "8 caracteres",
                     "accessibility": {
                         "checked": "marcado",
