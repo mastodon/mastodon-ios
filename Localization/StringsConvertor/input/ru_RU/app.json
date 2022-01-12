@@ -67,7 +67,7 @@
                 "done": "Готово",
                 "confirm": "Подтвердить",
                 "continue": "Продолжить",
-                "compose": "Compose",
+                "compose": "Написать",
                 "cancel": "Отмена",
                 "discard": "Отмена",
                 "try_again": "Попробовать снова",
@@ -195,7 +195,7 @@
         "welcome": {
             "slogan": "Социальная сеть\nпод вашим контролем.",
             "get_started": "Get Started",
-            "log_in": "Log In"
+            "log_in": "Вход"
         },
         "server_picker": {
             "title": "Выберите сервер,\nлюбой сервер.",
