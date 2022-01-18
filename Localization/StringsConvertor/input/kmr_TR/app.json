@@ -236,7 +236,7 @@
             }
         },
         "register": {
-            "title": "Ji me re hinekî qala xwe bike.",
+            "title": "Ji me re hinekî qala xwe bike %s",
             "input": {
                 "avatar": {
                     "delete": "Jê bibe"
@@ -296,7 +296,7 @@
         },
         "server_rules": {
             "title": "Hinek rêzikên bingehîn.",
-            "subtitle": "Ev rêzik ji aliyê rêvebirên %s ve tên sazkirin.",
+            "subtitle": "Ev rêzik ji aliyê çavdêrên %s ve tên sazkirin.",
             "prompt": "Bi domandinê, tu ji bo %s di bin mercên bikaranînê û polîtîkaya nepenîtiyê dipejirînî.",
             "terms_of_service": "mercên bikaranînê",
             "privacy_policy": "polîtikaya nihêniyê",
