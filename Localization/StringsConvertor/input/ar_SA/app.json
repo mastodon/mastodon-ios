@@ -194,13 +194,13 @@
     "scene": {
         "welcome": {
             "slogan": "شبكات التواصل الاجتماعي\nمرة أُخرى بين يديك.",
-            "get_started": "Get Started",
-            "log_in": "Log In"
+            "get_started": "ابدأ الآن",
+            "log_in": "تسجيلُ الدخول"
         },
         "server_picker": {
             "title": "اِختر خادِم،\nأيًّا مِنهُم.",
-            "subtitle": "Pick a community based on your interests, region, or a general purpose one.",
-            "subtitle_extend": "Pick a community based on your interests, region, or a general purpose one. Each community is operated by an entirely independent organization or individual.",
+            "subtitle": "اختر مجتمعًا بناءً على اهتماماتك، منطقتك أو يمكنك حتى اختيارُ مجتمعٍ ذي غرضٍ عام.",
+            "subtitle_extend": "اختر مجتمعًا بناءً على اهتماماتك، منطقتك أو يمكنك حتى اختيارُ مجتمعٍ ذي غرضٍ عام. تُشغَّل جميعُ المجتمعِ مِن قِبَلِ مُنظمَةٍ أو فردٍ مُستقلٍ تمامًا.",
             "button": {
                 "category": {
                     "all": "الكل",
@@ -253,11 +253,11 @@
                 },
                 "password": {
                     "placeholder": "رمز سري",
-                    "require": "Your password needs at least:",
-                    "character_limit": "8 characters",
+                    "require": "رمز المرور الخاص بك يجب أن يحتوي على الأقل:",
+                    "character_limit": "ثمانيةُ خانات",
                     "accessibility": {
-                        "checked": "checked",
-                        "unchecked": "unchecked"
+                        "checked": "مُتَحَققٌ مِنه",
+                        "unchecked": "غيرُ مُتَحَققٍ مِنه"
                     },
                     "hint": "يجب أن يكون رمزك السري مكوَّن من ثمان خانات على الأقل"
                 },
@@ -309,7 +309,7 @@
             "subtitle": "لقد أرسلنا للتو بريد إلكتروني إلى %s،\nانقر على الرابط لتأكيد حسابك.",
             "button": {
                 "open_email_app": "فتح تطبيق البريد الإلكتروني",
-                "resend": "Resend"
+                "resend": "إعادَةُ الإرسال"
             },
             "dont_receive_email": {
                 "title": "تحقق من بريدك الإلكتروني",
