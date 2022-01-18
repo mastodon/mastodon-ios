@@ -67,7 +67,7 @@
                 "done": "Fertig",
                 "confirm": "Bestätigen",
                 "continue": "Fortfahren",
-                "compose": "Compose",
+                "compose": "Neue Nachricht",
                 "cancel": "Abbrechen",
                 "discard": "Verwerfen",
                 "try_again": "Nochmals versuchen",
@@ -82,7 +82,7 @@
                 "share_user": "%s teilen",
                 "share_post": "Beitrag teilen",
                 "open_in_safari": "In Safari öffnen",
-                "open_in_browser": "Open in Browser",
+                "open_in_browser": "Im Browser anzeigen",
                 "find_people": "Finde Personen zum Folgen",
                 "manually_search": "Stattdessen manuell suchen",
                 "skip": "Überspringen",
@@ -194,13 +194,13 @@
     "scene": {
         "welcome": {
             "slogan": "Soziale Netzwerke wieder in deinen Händen.",
-            "get_started": "Get Started",
-            "log_in": "Log In"
+            "get_started": "Erste Schritte",
+            "log_in": "Anmelden"
         },
         "server_picker": {
             "title": "Wähle einen Server,\nbeliebigen Server.",
-            "subtitle": "Pick a community based on your interests, region, or a general purpose one.",
-            "subtitle_extend": "Pick a community based on your interests, region, or a general purpose one. Each community is operated by an entirely independent organization or individual.",
+            "subtitle": "Wähle eine Gemeinschaft, die auf deinen Interessen, Region oder einem allgemeinen Zweck basiert.",
+            "subtitle_extend": "Wähle eine Gemeinschaft basierend auf deinen Interessen, deiner Region oder einem allgemeinen Zweck. Jede Gemeinschaft wird von einer völlig unabhängigen Organisation oder Einzelperson betrieben.",
             "button": {
                 "category": {
                     "all": "Alle",
@@ -253,11 +253,11 @@
                 },
                 "password": {
                     "placeholder": "Passwort",
-                    "require": "Your password needs at least:",
-                    "character_limit": "8 characters",
+                    "require": "Anforderungen an dein Passwort:",
+                    "character_limit": "8 Zeichen",
                     "accessibility": {
-                        "checked": "checked",
-                        "unchecked": "unchecked"
+                        "checked": "Häkchen gesetzt",
+                        "unchecked": "Häkchen entfernt"
                     },
                     "hint": "Ihr Passwort muss mindestens 8 Zeichen lang sein"
                 },
@@ -309,7 +309,7 @@
             "subtitle": "Wir haben gerade eine E-Mail an %s gesendet,\ntippe darin auf den Link, um Dein Konto zu bestätigen.",
             "button": {
                 "open_email_app": "E-Mail-App öffnen",
-                "resend": "Resend"
+                "resend": "Erneut senden"
             },
             "dont_receive_email": {
                 "title": "Bitte überprüfe deine E-Mails",
@@ -426,10 +426,10 @@
             }
         },
         "follower": {
-            "footer": "Followers from other servers are not displayed."
+            "footer": "Follower von anderen Servern werden nicht angezeigt."
         },
         "following": {
-            "footer": "Follows from other servers are not displayed."
+            "footer": "Wem das Konto folgt wird von anderen Servern werden nicht angezeigt."
         },
         "search": {
             "title": "Suche",
@@ -555,7 +555,7 @@
         },
         "account_list": {
             "tab_bar_hint": "Aktuell ausgewähltes Profil: %s. Doppeltippen dann gedrückt halten, um den Kontoschalter anzuzeigen",
-            "dismiss_account_switcher": "Dismiss Account Switcher",
+            "dismiss_account_switcher": "Dialog zum Wechseln des Kontos schließen",
             "add_account": "Konto hinzufügen"
         },
         "wizard": {
