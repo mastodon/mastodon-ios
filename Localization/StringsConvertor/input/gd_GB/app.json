@@ -82,7 +82,7 @@
                 "share_user": "Co-roinn %s",
                 "share_post": "Co-roinn am post",
                 "open_in_safari": "Fosgail ann an Safari",
-                "open_in_browser": "Open in Browser",
+                "open_in_browser": "Fosgail sa bhrabhsair",
                 "find_people": "Lorg daoine a leanas tu",
                 "manually_search": "Lorg a làimh ’na àite",
                 "skip": "Leum thairis air",
@@ -194,13 +194,13 @@
     "scene": {
         "welcome": {
             "slogan": "A’ cur nan lìonraidhean sòisealta\n’nad làmhan fhèin.",
-            "get_started": "Get Started",
-            "log_in": "Log In"
+            "get_started": "Dèan toiseach-tòiseachaidh",
+            "log_in": "Clàraich a-steach"
         },
         "server_picker": {
             "title": "Tagh frithealaiche sam bith.",
-            "subtitle": "Pick a community based on your interests, region, or a general purpose one.",
-            "subtitle_extend": "Pick a community based on your interests, region, or a general purpose one. Each community is operated by an entirely independent organization or individual.",
+            "subtitle": "Tagh coimhearsnachd stèidhichte air d’ ùidhean no an roinn-dùthcha agad no tè choitcheann.",
+            "subtitle_extend": "Tagh coimhearsnachd stèidhichte air d’ ùidhean no an roinn-dùthcha agad no tè choitcheann. Tha gach coimhearsnachd ’ga stiùireadh le buidheann no neach gu neo-eisimeileach.",
             "button": {
                 "category": {
                     "all": "Na h-uile",
@@ -253,11 +253,11 @@
                 },
                 "password": {
                     "placeholder": "facal-faire",
-                    "require": "Your password needs at least:",
-                    "character_limit": "8 characters",
+                    "require": "Feumaidh am facal-faire agad co-dhiù:",
+                    "character_limit": "8 caractaran",
                     "accessibility": {
-                        "checked": "checked",
-                        "unchecked": "unchecked"
+                        "checked": "le cromag",
+                        "unchecked": "gun chromag"
                     },
                     "hint": "Feumaidh ochd caractaran a bhith san fhacal-fhaire agad air a char as giorra"
                 },
@@ -309,7 +309,7 @@
             "subtitle": "Tha sinn air post-d a chur gu %s,\nthoir gnogag air a’ chunntas a dhearbhadh a’ chunntais agad.",
             "button": {
                 "open_email_app": "Fosgail aplacaid a’ phuist-d",
-                "resend": "Resend"
+                "resend": "Ath-chuir"
             },
             "dont_receive_email": {
                 "title": "Thoir sùil air a’ phost-d agad",
