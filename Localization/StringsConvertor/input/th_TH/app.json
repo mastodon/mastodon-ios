@@ -253,8 +253,8 @@
                 },
                 "password": {
                     "placeholder": "รหัสผ่าน",
-                    "require": "Your password needs at least:",
-                    "character_limit": "8 characters",
+                    "require": "รหัสผ่านของคุณต้องมีอย่างน้อย:",
+                    "character_limit": "8 ตัวอักษร",
                     "accessibility": {
                         "checked": "checked",
                         "unchecked": "unchecked"
@@ -309,7 +309,7 @@
             "subtitle": "เราเพิ่งส่งอีเมลไปยัง %s\nแตะที่ลิงก์เพื่อยืนยันบัญชีของคุณ",
             "button": {
                 "open_email_app": "เปิดแอปอีเมล",
-                "resend": "Resend"
+                "resend": "ส่งใหม่"
             },
             "dont_receive_email": {
                 "title": "ตรวจสอบอีเมลของคุณ",
