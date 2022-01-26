@@ -256,8 +256,8 @@
                     "require": "รหัสผ่านของคุณต้องมีอย่างน้อย:",
                     "character_limit": "8 ตัวอักษร",
                     "accessibility": {
-                        "checked": "checked",
-                        "unchecked": "unchecked"
+                        "checked": "กาเครื่องหมายอยู่",
+                        "unchecked": "ไม่ได้กาเครื่องหมาย"
                     },
                     "hint": "รหัสผ่านของคุณต้องมีอย่างน้อยแปดตัวอักษร"
                 },
