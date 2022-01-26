@@ -194,13 +194,13 @@
     "scene": {
         "welcome": {
             "slogan": "ให้เครือข่ายสังคม\nกลับมาอยู่ในมือของคุณ",
-            "get_started": "เริ่มต้น​ใช้งาน​",
+            "get_started": "เริ่มต้นใช้งาน",
             "log_in": "เข้าสู่ระบบ"
         },
         "server_picker": {
             "title": "เลือกเซิร์ฟเวอร์\nอันไหนก็ได้",
-            "subtitle": "Pick a community based on your interests, region, or a general purpose one.",
-            "subtitle_extend": "Pick a community based on your interests, region, or a general purpose one. Each community is operated by an entirely independent organization or individual.",
+            "subtitle": "เลือกชุมชนตามความสนใจ, ภูมิภาค หรือวัตถุประสงค์ทั่วไปของคุณ",
+            "subtitle_extend": "เลือกชุมชนตามความสนใจ, ภูมิภาค หรือวัตถุประสงค์ทั่วไปของคุณ แต่ละชุมชนดำเนินการโดยองค์กรหรือบุคคลที่เป็นอิสระทั้งหมด",
             "button": {
                 "category": {
                     "all": "ทั้งหมด",
@@ -256,7 +256,7 @@
                     "require": "รหัสผ่านของคุณต้องมีอย่างน้อย:",
                     "character_limit": "8 ตัวอักษร",
                     "accessibility": {
-                        "checked": "กาเครื่องหมายอยู่",
+                        "checked": "กาเครื่องหมายแล้ว",
                         "unchecked": "ไม่ได้กาเครื่องหมาย"
                     },
                     "hint": "รหัสผ่านของคุณต้องมีอย่างน้อยแปดตัวอักษร"
