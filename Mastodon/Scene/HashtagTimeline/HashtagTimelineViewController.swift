@@ -204,7 +204,7 @@ extension HashtagTimelineViewController: UITableViewDelegate, AutoGenerateTableV
     func tableView(_ tableView: UITableView, willPerformPreviewActionForMenuWith configuration: UIContextMenuConfiguration, animator: UIContextMenuInteractionCommitAnimating) {
         aspectTableView(tableView, willPerformPreviewActionForMenuWith: configuration, animator: animator)
     }
-    // sourcery:endz
+    // sourcery:end
     
 //    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
 //        return aspectTableView(tableView, estimatedHeightForRowAt: indexPath)
