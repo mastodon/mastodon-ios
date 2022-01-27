@@ -7,7 +7,6 @@
 
 import Foundation
 import CoreData
-import CoreDataStack
 
 public enum PollItem: Hashable {
     case option(record: ManagedObjectRecord<PollOption>)
