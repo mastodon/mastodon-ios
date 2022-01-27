@@ -7,6 +7,7 @@
 
 import UIKit
 import FLAnimatedImage
+import MastodonUI
 
 final class NotificationAvatarButton: AvatarButton {
 
@@ -27,7 +28,7 @@ final class NotificationAvatarButton: AvatarButton {
     override func _init() {
         super._init()
 
-        avatarImageSize = CGSize(width: 35, height: 35)
+        size = CGSize(width: 35, height: 35)
 
         let path: CGPath = {
             let path = CGMutablePath()

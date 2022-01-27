@@ -7,6 +7,8 @@
 
 import UIKit
 import UITextView_Placeholder
+import MastodonAsset
+import MastodonLocalization
 
 final class AttachmentContainerView: UIView {
         

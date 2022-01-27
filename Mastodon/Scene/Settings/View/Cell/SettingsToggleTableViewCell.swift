@@ -7,6 +7,8 @@
 
 import UIKit
 import Combine
+import MastodonAsset
+import MastodonLocalization
 
 protocol SettingsToggleCellDelegate: AnyObject {
     func settingsToggleCell(_ cell: SettingsToggleTableViewCell, switchValueDidChange switch: UISwitch)

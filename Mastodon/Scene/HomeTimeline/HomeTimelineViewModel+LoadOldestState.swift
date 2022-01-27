@@ -8,9 +8,19 @@
 import os.log
 import Foundation
 import GameplayKit
+import MastodonSDK
 
 extension HomeTimelineViewModel {
-    class LoadOldestState: GKState {
+    class LoadOldestState: GKState, NamingState {
+        
+        let logger = Logger(subsystem: "HomeTimelineViewModel.LoadOldestState", category: "StateMachine")
+        
+        let id = UUID()
+
+        var name: String {
+            String(describing: Self.self)
+        }
+        
         weak var viewModel: HomeTimelineViewModel?
         
         init(viewModel: HomeTimelineViewModel) {
@@ -18,8 +28,20 @@ extension HomeTimelineViewModel {
         }
         
         override func didEnter(from previousState: GKState?) {
-            os_log("%{public}s[%{public}ld], %{public}s: enter %s, previous: %s", ((#file as NSString).lastPathComponent), #line, #function, self.debugDescription, previousState.debugDescription)
+            super.didEnter(from: previousState)
+            let previousState = previousState as? HomeTimelineViewModel.LoadOldestState
+            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [\(self.id.uuidString)] enter \(self.name), previous: \(previousState?.name  ?? "<nil>")")
+            
             viewModel?.loadOldestStateMachinePublisher.send(self)
+        }
+        
+        @MainActor
+        func enter(state: LoadOldestState.Type) {
+            stateMachine?.enter(state)
+        }
+        
+        deinit {
+            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [\(self.id.uuidString)] \(self.name)")
         }
     }
 }
@@ -28,7 +50,7 @@ extension HomeTimelineViewModel.LoadOldestState {
     class Initial: HomeTimelineViewModel.LoadOldestState {
         override func isValidNextState(_ stateClass: AnyClass) -> Bool {
             guard let viewModel = viewModel else { return false }
-            guard !(viewModel.fetchedResultsController.fetchedObjects ?? []).isEmpty else { return false }
+            guard !viewModel.fetchedResultsController.records.isEmpty else { return false }
             return stateClass == Loading.self
         }
     }
@@ -40,6 +62,7 @@ extension HomeTimelineViewModel.LoadOldestState {
         
         override func didEnter(from previousState: GKState?) {
             super.didEnter(from: previousState)
+            
             guard let viewModel = viewModel, let stateMachine = stateMachine else { return }
             guard let activeMastodonAuthenticationBox = viewModel.context.authenticationService.activeMastodonAuthenticationBox.value else {
                 assertionFailure()
@@ -47,35 +70,47 @@ extension HomeTimelineViewModel.LoadOldestState {
                 return
             }
             
-            guard let last = viewModel.fetchedResultsController.fetchedObjects?.last else {
+            guard let lastFeedRecord = viewModel.fetchedResultsController.records.last else {
                 stateMachine.enter(Idle.self)
                 return
             }
             
-            // TODO: only set large count when using Wi-Fi
-            let maxID = last.status.id
-            viewModel.context.apiService.homeTimeline(domain: activeMastodonAuthenticationBox.domain, maxID: maxID, authorizationBox: activeMastodonAuthenticationBox)
-                .delay(for: .seconds(1), scheduler: DispatchQueue.main)
-                .receive(on: DispatchQueue.main)
-                .sink { completion in
-                    viewModel.homeTimelineNavigationBarTitleViewModel.receiveLoadingStateCompletion(completion)
-                    switch completion {
-                    case .failure(let error):
-                        os_log("%{public}s[%{public}ld], %{public}s: fetch statuses failed. %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
-                    case .finished:
-                        // handle isFetchingLatestTimeline in fetch controller delegate
-                        break
-                    }
-                } receiveValue: { response in
+            Task {
+                let managedObjectContext = viewModel.fetchedResultsController.fetchedResultsController.managedObjectContext
+                let _maxID: Mastodon.Entity.Status.ID? = try await managedObjectContext.perform {
+                    guard let feed = lastFeedRecord.object(in: managedObjectContext),
+                          let status = feed.status
+                    else { return nil }
+                    return status.id
+                }
+                
+                guard let maxID = _maxID else {
+                    await self.enter(state: Fail.self)
+                    return
+                }
+
+                do {
+                    let response = try await viewModel.context.apiService.homeTimeline(
+                        maxID: maxID,
+                        authenticationBox: activeMastodonAuthenticationBox
+                    )
+                    
                     let statuses = response.value
                     // enter no more state when no new statuses
                     if statuses.isEmpty || (statuses.count == 1 && statuses[0].id == maxID) {
-                        stateMachine.enter(NoMore.self)
+                        await self.enter(state: NoMore.self)
                     } else {
-                        stateMachine.enter(Idle.self)
+                        await self.enter(state: Idle.self)
                     }
+                    
+                    viewModel.homeTimelineNavigationBarTitleViewModel.receiveLoadingStateCompletion(.finished)
+                    
+                } catch {
+                    logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): fetch statues failed: \(error.localizedDescription)")
+                    await self.enter(state: Fail.self)
+                    viewModel.homeTimelineNavigationBarTitleViewModel.receiveLoadingStateCompletion(.failure(error))
                 }
-                .store(in: &viewModel.disposeBag)
+            }   // end Task
         }
     }
     

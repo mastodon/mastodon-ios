@@ -13,115 +13,165 @@ import Pageboy
 
 final class MediaPreviewViewModel: NSObject {
     
+    weak var mediaPreviewImageViewControllerDelegate: MediaPreviewImageViewControllerDelegate?
+
     // input
     let context: AppContext
-    let initialItem: PreviewItem
-    weak var mediaPreviewImageViewControllerDelegate: MediaPreviewImageViewControllerDelegate?
-    let currentPage: CurrentValueSubject<Int, Never>
+    let item: PreviewItem
+    let transitionItem: MediaPreviewTransitionItem
+    
+    @Published var currentPage: Int
     
     // output
-    let pushTransitionItem: MediaPreviewTransitionItem
     let viewControllers: [UIViewController]
     
-    init(context: AppContext, meta: StatusImagePreviewMeta, pushTransitionItem: MediaPreviewTransitionItem) {
+    init(
+        context: AppContext,
+        item: PreviewItem,
+        transitionItem: MediaPreviewTransitionItem
+    ) {
         self.context = context
-        self.initialItem = .status(meta)
+        self.item = item
+        var currentPage = 0
         var viewControllers: [UIViewController] = []
-        let managedObjectContext = self.context.managedObjectContext
-        managedObjectContext.performAndWait {
-            let status = managedObjectContext.object(with: meta.statusObjectID) as! Status
-            guard let media = status.mediaAttachments?.sorted(by: { $0.index.compare($1.index) == .orderedAscending }) else { return }
-            for (entity, image) in zip(media, meta.preloadThumbnailImages) {
-                let thumbnail: UIImage? = image.flatMap { $0.size != CGSize(width: 1, height: 1) ? $0 : nil }
-                switch entity.type {
-                case .image:
-                    guard let url = URL(string: entity.url) else { continue }
-                    let meta = MediaPreviewImageViewModel.RemoteImagePreviewMeta(url: url, thumbnail: thumbnail, altText: entity.descriptionString)
-                    let mediaPreviewImageModel = MediaPreviewImageViewModel(meta: meta)
-                    let mediaPreviewImageViewController = MediaPreviewImageViewController()
-                    mediaPreviewImageViewController.viewModel = mediaPreviewImageModel
-                    viewControllers.append(mediaPreviewImageViewController)
-                default:
-                    continue
-                }
-            }
-        }
+        switch item {
+        case .attachment(let previewContext):
+            currentPage = previewContext.initialIndex
+            for (i, attachment) in previewContext.attachments.enumerated() {
+                let viewController = MediaPreviewImageViewController()
+                let viewModel = MediaPreviewImageViewModel(
+                    context: context,
+                    item: .remote(.init(
+                        assetURL: attachment.assetURL.flatMap { URL(string: $0) },
+                        thumbnail: previewContext.thumbnail(at: i),
+                        altText: attachment.altDescription
+                    ))
+                )
+                viewController.viewModel = viewModel
+                viewControllers.append(viewController)
+            }   // end for … in …
+        case .profileAvatar(let previewContext):
+            let viewController = MediaPreviewImageViewController()
+            let viewModel = MediaPreviewImageViewModel(
+                context: context,
+                item: .remote(.init(
+                    assetURL: previewContext.assetURL.flatMap { URL(string: $0) },
+                    thumbnail: previewContext.thumbnail,
+                    altText: nil
+                ))
+            )
+            viewController.viewModel = viewModel
+            viewControllers.append(viewController)
+        case .profileBanner(let previewContext):
+            let viewController = MediaPreviewImageViewController()
+            let viewModel = MediaPreviewImageViewModel(
+                context: context,
+                item: .remote(.init(
+                    assetURL: previewContext.assetURL.flatMap { URL(string: $0) },
+                    thumbnail: previewContext.thumbnail,
+                    altText: nil
+                ))
+            )
+            viewController.viewModel = viewModel
+            viewControllers.append(viewController)
+        }   // end switch
+//            let status = managedObjectContext.object(with: meta.statusObjectID) as! Status
+//            for (entity, image) in zip(status.attachments, meta.preloadThumbnailImages) {
+//                let thumbnail: UIImage? = image.flatMap { $0.size != CGSize(width: 1, height: 1) ? $0 : nil }
+//                switch entity.kind {
+//                case .image:
+//                    guard let url = URL(string: entity.assetURL ?? "") else { continue }
+//                    let meta = MediaPreviewImageViewModel.RemoteImagePreviewMeta(url: url, thumbnail: thumbnail, altText: entity.altDescription)
+//                    let mediaPreviewImageModel = MediaPreviewImageViewModel(meta: meta)
+//                    let mediaPreviewImageViewController = MediaPreviewImageViewController()
+//                    mediaPreviewImageViewController.viewModel = mediaPreviewImageModel
+//                    viewControllers.append(mediaPreviewImageViewController)
+//                default:
+//                    continue
+//                }
+//            }
+//        }
         self.viewControllers = viewControllers
-        self.currentPage = CurrentValueSubject(meta.initialIndex)
-        self.pushTransitionItem = pushTransitionItem
+        self.currentPage = currentPage
+        self.transitionItem = transitionItem
         super.init()
     }
     
-    init(context: AppContext, meta: ProfileBannerImagePreviewMeta, pushTransitionItem: MediaPreviewTransitionItem) {
-        self.context = context
-        self.initialItem = .profileBanner(meta)
-        var viewControllers: [UIViewController] = []
-        let managedObjectContext = self.context.managedObjectContext
-        managedObjectContext.performAndWait {
-            let account = managedObjectContext.object(with: meta.accountObjectID) as! MastodonUser
-            let avatarURL = account.headerImageURLWithFallback(domain: account.domain)
-            let meta = MediaPreviewImageViewModel.RemoteImagePreviewMeta(url: avatarURL, thumbnail: meta.preloadThumbnailImage, altText: nil)
-            let mediaPreviewImageModel = MediaPreviewImageViewModel(meta: meta)
-            let mediaPreviewImageViewController = MediaPreviewImageViewController()
-            mediaPreviewImageViewController.viewModel = mediaPreviewImageModel
-            viewControllers.append(mediaPreviewImageViewController)
-        }
-        self.viewControllers = viewControllers
-        self.currentPage = CurrentValueSubject(0)
-        self.pushTransitionItem = pushTransitionItem
-        super.init()
-    }
-    
-    init(context: AppContext, meta: ProfileAvatarImagePreviewMeta, pushTransitionItem: MediaPreviewTransitionItem) {
-        self.context = context
-        self.initialItem = .profileAvatar(meta)
-        var viewControllers: [UIViewController] = []
-        let managedObjectContext = self.context.managedObjectContext
-        managedObjectContext.performAndWait {
-            let account = managedObjectContext.object(with: meta.accountObjectID) as! MastodonUser
-            let avatarURL = account.avatarImageURLWithFallback(domain: account.domain)
-            let meta = MediaPreviewImageViewModel.RemoteImagePreviewMeta(url: avatarURL, thumbnail: meta.preloadThumbnailImage, altText: nil)
-            let mediaPreviewImageModel = MediaPreviewImageViewModel(meta: meta)
-            let mediaPreviewImageViewController = MediaPreviewImageViewController()
-            mediaPreviewImageViewController.viewModel = mediaPreviewImageModel
-            viewControllers.append(mediaPreviewImageViewController)
-        }
-        self.viewControllers = viewControllers
-        self.currentPage = CurrentValueSubject(0)
-        self.pushTransitionItem = pushTransitionItem
-        super.init()
-    }
+//    init(context: AppContext, meta: ProfileBannerImagePreviewMeta, pushTransitionItem: MediaPreviewTransitionItem) {
+//        self.context = context
+//        self.item = .profileBanner(meta)
+//        var viewControllers: [UIViewController] = []
+//        let managedObjectContext = self.context.managedObjectContext
+//        managedObjectContext.performAndWait {
+//            let account = managedObjectContext.object(with: meta.accountObjectID) as! MastodonUser
+//            let avatarURL = account.headerImageURLWithFallback(domain: account.domain)
+//            let meta = MediaPreviewImageViewModel.RemoteImagePreviewMeta(url: avatarURL, thumbnail: meta.preloadThumbnailImage, altText: nil)
+//            let mediaPreviewImageModel = MediaPreviewImageViewModel(meta: meta)
+//            let mediaPreviewImageViewController = MediaPreviewImageViewController()
+//            mediaPreviewImageViewController.viewModel = mediaPreviewImageModel
+//            viewControllers.append(mediaPreviewImageViewController)
+//        }
+//        self.viewControllers = viewControllers
+//        self.currentPage = CurrentValueSubject(0)
+//        self.transitionItem = pushTransitionItem
+//        super.init()
+//    }
+//    
+//    init(context: AppContext, meta: ProfileAvatarImagePreviewMeta, pushTransitionItem: MediaPreviewTransitionItem) {
+//        self.context = context
+//        self.item = .profileAvatar(meta)
+//        var viewControllers: [UIViewController] = []
+//        let managedObjectContext = self.context.managedObjectContext
+//        managedObjectContext.performAndWait {
+//            let account = managedObjectContext.object(with: meta.accountObjectID) as! MastodonUser
+//            let avatarURL = account.avatarImageURLWithFallback(domain: account.domain)
+//            let meta = MediaPreviewImageViewModel.RemoteImagePreviewMeta(url: avatarURL, thumbnail: meta.preloadThumbnailImage, altText: nil)
+//            let mediaPreviewImageModel = MediaPreviewImageViewModel(meta: meta)
+//            let mediaPreviewImageViewController = MediaPreviewImageViewController()
+//            mediaPreviewImageViewController.viewModel = mediaPreviewImageModel
+//            viewControllers.append(mediaPreviewImageViewController)
+//        }
+//        self.viewControllers = viewControllers
+//        self.currentPage = CurrentValueSubject(0)
+//        self.transitionItem = pushTransitionItem
+//        super.init()
+//    }
     
 }
 
 extension MediaPreviewViewModel {
     
     enum PreviewItem {
-        case status(StatusImagePreviewMeta)
-        case profileAvatar(ProfileAvatarImagePreviewMeta)
-        case profileBanner(ProfileBannerImagePreviewMeta)
-        case local(LocalImagePreviewMeta)
+        case attachment(AttachmentPreviewContext)
+        case profileAvatar(ProfileAvatarPreviewContext)
+        case profileBanner(ProfileBannerPreviewContext)
+//        case local(LocalImagePreviewMeta)
     }
     
-    struct StatusImagePreviewMeta {
-        let statusObjectID: NSManagedObjectID
+    struct AttachmentPreviewContext {
+        let attachments: [MastodonAttachment]
         let initialIndex: Int
-        let preloadThumbnailImages: [UIImage?]
+        let thumbnails: [UIImage?]
+        
+        func thumbnail(at index: Int) -> UIImage? {
+            guard index < thumbnails.count else { return nil }
+            return thumbnails[index]
+        }
     }
     
-    struct ProfileAvatarImagePreviewMeta {
-        let accountObjectID: NSManagedObjectID
-        let preloadThumbnailImage: UIImage?
+    struct ProfileAvatarPreviewContext {
+        let assetURL: String?
+        let thumbnail: UIImage?
     }
-    
-    struct ProfileBannerImagePreviewMeta {
-        let accountObjectID: NSManagedObjectID
-        let preloadThumbnailImage: UIImage?
+
+    struct ProfileBannerPreviewContext {
+        let assetURL: String?
+        let thumbnail: UIImage?
     }
-    
-    struct LocalImagePreviewMeta {
-        let image: UIImage
-    }
+
+//    struct LocalImagePreviewMeta {
+//        let image: UIImage
+//    }
         
 }
 
@@ -141,8 +191,8 @@ extension MediaPreviewViewModel: PageboyViewControllerDataSource {
     }
     
     func defaultPage(for pageboyViewController: PageboyViewController) -> PageboyViewController.Page? {
-        guard case let .status(meta) = initialItem else { return nil }
-        return .at(index: meta.initialIndex)
+        guard case let .attachment(previewContext) = item else { return nil }
+        return .at(index: previewContext.initialIndex)
     }
     
 }

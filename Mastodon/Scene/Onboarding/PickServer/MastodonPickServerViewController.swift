@@ -10,6 +10,8 @@ import UIKit
 import Combine
 import GameController
 import AuthenticationServices
+import MastodonAsset
+import MastodonLocalization
 
 final class MastodonPickServerViewController: UIViewController, NeedsDependency {
     

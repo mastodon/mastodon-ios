@@ -15,21 +15,22 @@ extension ReportViewModel {
         for tableView: UITableView,
         dependency: ReportViewController
     ) {
-        let timestampUpdatePublisher = Timer.publish(every: 1.0, on: .main, in: .common)
-            .autoconnect()
-            .share()
-            .eraseToAnyPublisher()
-        
-        diffableDataSource = ReportSection.tableViewDiffableDataSource(
-            for: tableView,
-            dependency: dependency,
-            managedObjectContext: statusFetchedResultsController.fetchedResultsController.managedObjectContext,
-            timestampUpdatePublisher: timestampUpdatePublisher
-        )
-        
-        // set empty section to make update animation top-to-bottom style
-        var snapshot = NSDiffableDataSourceSnapshot<ReportSection, Item>()
-        snapshot.appendSections([.main])
-        diffableDataSource?.apply(snapshot)
+        fatalError()
+//        let timestampUpdatePublisher = Timer.publish(every: 1.0, on: .main, in: .common)
+//            .autoconnect()
+//            .share()
+//            .eraseToAnyPublisher()
+//        
+//        diffableDataSource = ReportSection.tableViewDiffableDataSource(
+//            for: tableView,
+//            dependency: dependency,
+//            managedObjectContext: statusFetchedResultsController.fetchedResultsController.managedObjectContext,
+//            timestampUpdatePublisher: timestampUpdatePublisher
+//        )
+//        
+//        // set empty section to make update animation top-to-bottom style
+//        var snapshot = NSDiffableDataSourceSnapshot<ReportSection, Item>()
+//        snapshot.appendSections([.main])
+//        diffableDataSource?.apply(snapshot)
     }
 }

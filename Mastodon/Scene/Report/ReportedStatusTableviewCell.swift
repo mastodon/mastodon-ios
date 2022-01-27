@@ -13,8 +13,10 @@ import CoreData
 import CoreDataStack
 import Meta
 import MetaTextKit
+import MastodonAsset
+import MastodonLocalization
 
-final class ReportedStatusTableViewCell: UITableViewCell, StatusCell {
+final class ReportedStatusTableViewCell: UITableViewCell {
     
     static let bottomPaddingHeight: CGFloat = 10
     
@@ -46,12 +48,12 @@ final class ReportedStatusTableViewCell: UITableViewCell, StatusCell {
 
     override func prepareForReuse() {
         super.prepareForReuse()
-        statusView.updateContentWarningDisplay(isHidden: true, animated: false)
-        statusView.statusMosaicImageViewContainer.contentWarningOverlayView.isUserInteractionEnabled = true
-        statusView.pollTableView.dataSource = nil
-        statusView.playerContainerView.reset()
-        statusView.playerContainerView.contentWarningOverlayView.isUserInteractionEnabled = true
-        statusView.playerContainerView.isHidden = true
+//        statusView.updateContentWarningDisplay(isHidden: true, animated: false)
+//        statusView.statusMosaicImageViewContainer.contentWarningOverlayView.isUserInteractionEnabled = true
+//        statusView.pollTableView.dataSource = nil
+//        statusView.playerContainerView.reset()
+//        statusView.playerContainerView.contentWarningOverlayView.isUserInteractionEnabled = true
+//        statusView.playerContainerView.isHidden = true
         disposeBag.removeAll()
         observations.removeAll()
     }
@@ -132,9 +134,9 @@ extension ReportedStatusTableViewCell {
         resetSeparatorLineLayout()
 
         selectionStyle = .none
-        statusView.delegate = self
-        statusView.statusMosaicImageViewContainer.delegate = self
-        statusView.actionToolbarContainer.isHidden = true
+//        statusView.delegate = self
+//        statusView.statusMosaicImageViewContainer.delegate = self
+//        statusView.actionToolbarContainer.isHidden = true
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -181,39 +183,39 @@ extension ReportedStatusTableViewCell: MosaicImageViewContainerDelegate {
     }
     
     func mosaicImageViewContainer(_ mosaicImageViewContainer: MosaicImageViewContainer, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView) {
-        
-        guard let dependency = self.dependency else { return }
-        StatusProviderFacade.responseToStatusContentWarningRevealAction(dependency: dependency, cell: self)
+        fatalError()
+//        guard let dependency = self.dependency else { return }
+//        StatusProviderFacade.responseToStatusContentWarningRevealAction(dependency: dependency, cell: self)
     }
 }
 
-extension ReportedStatusTableViewCell: StatusViewDelegate {
-
-    func statusView(_ statusView: StatusView, headerInfoLabelDidPressed label: UILabel) {
-    }
-
-    func statusView(_ statusView: StatusView, avatarImageViewDidPressed imageView: UIImageView) {
-    }
-
-    func statusView(_ statusView: StatusView, revealContentWarningButtonDidPressed button: UIButton) {
-        guard let dependency = self.dependency else { return }
-        StatusProviderFacade.responseToStatusContentWarningRevealAction(dependency: dependency, cell: self)
-    }
-    
-    func statusView(_ statusView: StatusView, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView) {
-        guard let dependency = self.dependency else { return }
-        StatusProviderFacade.responseToStatusContentWarningRevealAction(dependency: dependency, cell: self)
-    }
-    
-    func statusView(_ statusView: StatusView, playerContainerView: PlayerContainerView, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView) {
-        guard let dependency = self.dependency else { return }
-        StatusProviderFacade.responseToStatusContentWarningRevealAction(dependency: dependency, cell: self)
-    }
-    
-    func statusView(_ statusView: StatusView, pollVoteButtonPressed button: UIButton) {
-    }
-
-    func statusView(_ statusView: StatusView, metaText: MetaText, didSelectMeta meta: Meta) {
-    }
-
-}
+//extension ReportedStatusTableViewCell: StatusViewDelegate {
+//
+//    func statusView(_ statusView: StatusView, headerInfoLabelDidPressed label: UILabel) {
+//    }
+//
+//    func statusView(_ statusView: StatusView, avatarImageViewDidPressed imageView: UIImageView) {
+//    }
+//
+//    func statusView(_ statusView: StatusView, revealContentWarningButtonDidPressed button: UIButton) {
+//        guard let dependency = self.dependency else { return }
+//        StatusProviderFacade.responseToStatusContentWarningRevealAction(dependency: dependency, cell: self)
+//    }
+//    
+//    func statusView(_ statusView: StatusView, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView) {
+//        guard let dependency = self.dependency else { return }
+//        StatusProviderFacade.responseToStatusContentWarningRevealAction(dependency: dependency, cell: self)
+//    }
+//    
+//    func statusView(_ statusView: StatusView, playerContainerView: PlayerContainerView, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView) {
+//        guard let dependency = self.dependency else { return }
+//        StatusProviderFacade.responseToStatusContentWarningRevealAction(dependency: dependency, cell: self)
+//    }
+//    
+//    func statusView(_ statusView: StatusView, pollVoteButtonPressed button: UIButton) {
+//    }
+//
+//    func statusView(_ statusView: StatusView, metaText: MetaText, didSelectMeta meta: Meta) {
+//    }
+//
+//}

@@ -9,11 +9,12 @@ import Foundation
 import Combine
 import CoreData
 import MastodonMeta
+import CoreDataStack
 
 /// Note: update Equatable when change case
 enum ComposeStatusItem {
-    case replyTo(statusObjectID: NSManagedObjectID)
-    case input(replyToStatusObjectID: NSManagedObjectID?, attribute: ComposeStatusAttribute)
+    case replyTo(record: ManagedObjectRecord<Status>)
+    case input(replyTo: ManagedObjectRecord<Status>?, attribute: ComposeStatusAttribute)
     case attachment(attachmentAttribute: ComposeStatusAttachmentAttribute)
     case pollOption(pollOptionAttributes: [ComposeStatusPollItem.PollOptionAttribute], pollExpiresOptionAttribute: ComposeStatusPollItem.PollExpiresOptionAttribute)
 }
@@ -21,26 +22,21 @@ enum ComposeStatusItem {
 extension ComposeStatusItem: Hashable { }
 
 extension ComposeStatusItem {
-    final class ComposeStatusAttribute: Equatable, Hashable {
+    final class ComposeStatusAttribute: Hashable {
         private let id = UUID()
-                
-        let avatarURL = CurrentValueSubject<URL?, Never>(nil)
-        let displayName = CurrentValueSubject<String?, Never>(nil)
-        let emojiMeta = CurrentValueSubject<MastodonContent.Emojis, Never>([:])
-        let username = CurrentValueSubject<String?, Never>(nil)
-        let composeContent = CurrentValueSubject<String?, Never>(nil)
         
-        let isContentWarningComposing = CurrentValueSubject<Bool, Never>(false)
-        let contentWarningContent = CurrentValueSubject<String, Never>("")
+        @Published var author: ManagedObjectRecord<MastodonUser>?
+
+        @Published var composeContent: String?
+        
+        @Published var isContentWarningComposing = false
+        @Published var contentWarningContent = ""
         
         static func == (lhs: ComposeStatusAttribute, rhs: ComposeStatusAttribute) -> Bool {
-            return lhs.avatarURL.value == rhs.avatarURL.value &&
-                lhs.displayName.value == rhs.displayName.value &&
-                lhs.emojiMeta.value == rhs.emojiMeta.value &&
-                lhs.username.value == rhs.username.value &&
-                lhs.composeContent.value == rhs.composeContent.value &&
-                lhs.isContentWarningComposing.value == rhs.isContentWarningComposing.value &&
-                lhs.contentWarningContent.value == rhs.contentWarningContent.value
+            return lhs.author == rhs.author
+                && lhs.composeContent == rhs.composeContent
+                && lhs.isContentWarningComposing == rhs.isContentWarningComposing
+                && lhs.contentWarningContent == rhs.contentWarningContent
         }
         
         func hash(into hasher: inout Hasher) {

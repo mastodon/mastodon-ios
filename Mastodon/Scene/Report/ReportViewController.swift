@@ -13,6 +13,8 @@ import os.log
 import UIKit
 import MastodonSDK
 import MastodonMeta
+import MastodonAsset
+import MastodonLocalization
 
 class ReportViewController: UIViewController, NeedsDependency {
     static let kAnimationDuration: TimeInterval = 0.33
@@ -22,7 +24,7 @@ class ReportViewController: UIViewController, NeedsDependency {
     
     var viewModel: ReportViewModel! { willSet { precondition(!isViewLoaded) } }
     var disposeBag = Set<AnyCancellable>()
-    let didToggleSelected = PassthroughSubject<Item, Never>()
+//    let didToggleSelected = PassthroughSubject<Item, Never>()
     let comment = CurrentValueSubject<String?, Never>(nil)
     let step1Continue = PassthroughSubject<Void, Never>()
     let step1Skip = PassthroughSubject<Void, Never>()
@@ -154,7 +156,7 @@ class ReportViewController: UIViewController, NeedsDependency {
     
     private func bindViewModel() {
         let input = ReportViewModel.Input(
-            didToggleSelected: didToggleSelected.eraseToAnyPublisher(),
+//            didToggleSelected: didToggleSelected.eraseToAnyPublisher(),
             comment: comment.eraseToAnyPublisher(),
             step1Continue: step1Continue.eraseToAnyPublisher(),
             step1Skip: step1Skip.eraseToAnyPublisher(),
@@ -273,7 +275,7 @@ class ReportViewController: UIViewController, NeedsDependency {
         navigationItem.titleView = titleView
         if let user = beReportedUser {
             do {
-                let mastodonContent = MastodonContent(content: user.displayNameWithFallback, emojis: user.emojiMeta)
+                let mastodonContent = MastodonContent(content: user.displayNameWithFallback, emojis: user.emojis.asDictionary)
                 let metaContent = try MastodonMetaContent.convert(document: mastodonContent)
                 titleView.update(titleMetaContent: metaContent, subtitle: nil)
             } catch {
@@ -342,14 +344,14 @@ extension ReportViewController: UITableViewDelegate {
         guard let item = viewModel.diffableDataSource?.itemIdentifier(for: indexPath) else {
             return
         }
-        didToggleSelected.send(item)
+//        didToggleSelected.send(item)
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         guard let item = viewModel.diffableDataSource?.itemIdentifier(for: indexPath) else {
             return
         }
-        didToggleSelected.send(item)
+//        didToggleSelected.send(item)
     }
 }
 

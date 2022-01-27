@@ -10,6 +10,8 @@ import SafariServices
 import CoreDataStack
 import MastodonSDK
 import PanModal
+import MastodonAsset
+import MastodonLocalization
 
 final public class SceneCoordinator {
     
@@ -194,10 +196,6 @@ extension SceneCoordinator {
         case alertController(alertController: UIAlertController)
         case activityViewController(activityViewController: UIActivityViewController, sourceView: UIView?, barButtonItem: UIBarButtonItem?)
         
-        #if DEBUG
-        case publicTimeline
-        #endif
-        
         var isOnboarding: Bool {
             switch self {
             case .welcome,
@@ -211,7 +209,7 @@ extension SceneCoordinator {
                 return false
             }
         }
-    }
+    }   // end enum Scene { } 
 }
 
 extension SceneCoordinator {
@@ -266,6 +264,7 @@ extension SceneCoordinator {
     }
     
     @discardableResult
+    @MainActor
     func present(scene: Scene, from sender: UIViewController?, transition: Transition) -> UIViewController? {
         guard let viewController = get(scene: scene) else {
             return nil
@@ -481,12 +480,6 @@ private extension SceneCoordinator {
             let _viewController = ReportViewController()
             _viewController.viewModel = viewModel
             viewController = _viewController
-        #if DEBUG
-        case .publicTimeline:
-            let _viewController = PublicTimelineViewController()
-            _viewController.viewModel = PublicTimelineViewModel(context: appContext)
-            viewController = _viewController
-        #endif
         }
         
         setupDependency(for: viewController as? NeedsDependency)

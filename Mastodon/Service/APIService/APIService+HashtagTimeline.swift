@@ -22,10 +22,11 @@ extension APIService {
         limit: Int = onceRequestStatusMaxCount,
         local: Bool? = nil,
         hashtag: String,
-        authorizationBox: MastodonAuthenticationBox
-    ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Status]>, Error> {
-        let authorization = authorizationBox.userAuthorization
-        let requestMastodonUserID = authorizationBox.userID
+        authenticationBox: MastodonAuthenticationBox
+    ) async throws -> Mastodon.Response.Content<[Mastodon.Entity.Status]> {
+        let domain = authenticationBox.domain
+        let authorization = authenticationBox.userAuthorization
+
         let query = Mastodon.API.Timeline.HashtagTimelineQuery(
             maxID: maxID,
             sinceID: sinceID,
@@ -34,36 +35,35 @@ extension APIService {
             local: local,
             onlyMedia: false
         )
-        
-        return Mastodon.API.Timeline.hashtag(
+
+        let response = try await Mastodon.API.Timeline.hashtag(
             session: session,
             domain: domain,
             query: query,
             hashtag: hashtag,
             authorization: authorization
-        )
-        .flatMap { response -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Status]>, Error> in
-            return APIService.Persist.persistStatus(
-                managedObjectContext: self.backgroundManagedObjectContext,
-                domain: domain,
-                query: query,
-                response: response,
-                persistType: .lookUp,
-                requestMastodonUserID: requestMastodonUserID,
-                log: OSLog.api
-            )
-            .setFailureType(to: Error.self)
-            .tryMap { result -> Mastodon.Response.Content<[Mastodon.Entity.Status]> in
-                switch result {
-                case .success:
-                    return response
-                case .failure(let error):
-                    throw error
-                }
+        ).singleOutput()
+        
+        let managedObjectContext = self.backgroundManagedObjectContext
+        try await managedObjectContext.performChanges {
+            let me = authenticationBox.authenticationRecord.object(in: managedObjectContext)?.user
+            
+            for entity in response.value {
+                _ = Persistence.Status.createOrMerge(
+                    in: managedObjectContext,
+                    context: Persistence.Status.PersistContext(
+                        domain: domain,
+                        entity: entity,
+                        me: me,
+                        statusCache: nil,
+                        userCache: nil,
+                        networkDate: response.networkDate
+                    )
+                )
             }
-            .eraseToAnyPublisher()
         }
-        .eraseToAnyPublisher()
+
+        return response
     }
     
 }

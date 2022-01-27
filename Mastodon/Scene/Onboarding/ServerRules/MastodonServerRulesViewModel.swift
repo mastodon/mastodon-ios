@@ -8,6 +8,8 @@
 import UIKit
 import Combine
 import MastodonSDK
+import MastodonAsset
+import MastodonLocalization
 
 final class MastodonServerRulesViewModel {
     

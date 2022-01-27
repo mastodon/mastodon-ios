@@ -7,6 +7,8 @@
 
 import UIKit
 import Combine
+import MastodonAsset
+import MastodonLocalization
 
 class TimelineLoaderTableViewCell: UITableViewCell {
     

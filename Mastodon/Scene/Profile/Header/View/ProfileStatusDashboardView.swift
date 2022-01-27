@@ -7,6 +7,8 @@
 
 import os.log
 import UIKit
+import MastodonAsset
+import MastodonLocalization
 
 protocol ProfileStatusDashboardViewDelegate: AnyObject {
     func profileStatusDashboardView(_ dashboardView: ProfileStatusDashboardView, dashboardMeterViewDidPressed dashboardMeterView: ProfileStatusDashboardMeterView, meter: ProfileStatusDashboardView.Meter)

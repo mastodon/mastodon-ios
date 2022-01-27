@@ -45,8 +45,8 @@
                 "message": "Please enable the photo library access permission to save the photo."
             },
             "delete_post": {
-                "title": "Are you sure you want to delete this post?",
-                "delete": "Delete"
+                "title": "Delete Post",
+                "message": "Are you sure you want to delete this post?"
             },
             "clean_cache": {
                 "title": "Clean Cache",
@@ -412,14 +412,24 @@
             "segmented_control": {
                 "posts": "Posts",
                 "replies": "Replies",
-                "media": "Media"
+                "posts_and_replies": "Posts and Replies",
+                "media": "Media",
+                "about": "About"
             },
             "relationship_action_alert": {
+                "confirm_mute_user": {
+                    "title": "Mute Account",
+                    "message": "Confirm to mute %s"
+                },
                 "confirm_unmute_user": {
                     "title": "Unmute Account",
                     "message": "Confirm to unmute %s"
                 },
-                "confirm_unblock_usre": {
+                "confirm_block_user": {
+                    "title": "Block Account",
+                    "message": "Confirm to block %s"
+                },
+                "confirm_unblock_user": {
                     "title": "Unblock Account",
                     "message": "Confirm to unblock %s"
                 }
@@ -472,12 +482,14 @@
                 "Everything": "Everything",
                 "Mentions": "Mentions"
             },
-            "user_followed_you": "%s followed you",
-            "user_favorited your post": "%s favorited your post",
-            "user_reblogged_your_post": "%s reblogged your post",
-            "user_mentioned_you": "%s mentioned you",
-            "user_requested_to_follow_you": "%s requested to follow you",
-            "user_your_poll_has_ended": "%s Your poll has ended",
+            "notification_description": {
+                "followed_you": "followd you",
+                "favorited_your_post": "favorited your post",
+                "reblogged_your_post": "reblogged your post",
+                "mentioned_you": "mentioned you",
+                "request_to_follow_you": "request to follow you",
+                "poll_has_ended": "poll has ended"
+            },
             "keyobard": {
                 "show_everything": "Show Everything",
                 "show_mentions": "Show Mentions"

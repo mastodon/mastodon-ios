@@ -19,23 +19,30 @@ enum UserSection: Hashable {
 extension UserSection {
     
     static let logger = Logger(subsystem: "StatusSection", category: "logic")
+    
+    struct Configuration {
+        weak var userTableViewCellDelegate: UserTableViewCellDelegate?
+    }
 
-    static func tableViewDiffableDataSource(
-        for tableView: UITableView,
-        dependency: NeedsDependency,
-        managedObjectContext: NSManagedObjectContext
+    static func diffableDataSource(
+        tableView: UITableView,
+        context: AppContext,
+        configuration: Configuration
     ) -> UITableViewDiffableDataSource<UserSection, UserItem> {
-        UITableViewDiffableDataSource(tableView: tableView) { [
-            weak dependency
-        ] tableView, indexPath, item -> UITableViewCell? in
-            guard let dependency = dependency else { return UITableViewCell() }
+        tableView.register(UserTableViewCell.self, forCellReuseIdentifier: String(describing: UserTableViewCell.self))
+        
+        return UITableViewDiffableDataSource(tableView: tableView) { tableView, indexPath, item -> UITableViewCell? in
             switch item {
-            case .follower(let objectID),
-                 .following(let objectID):
+            case .user(let record):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: UserTableViewCell.self), for: indexPath) as! UserTableViewCell
-                managedObjectContext.performAndWait {
-                    let user = managedObjectContext.object(with: objectID) as! MastodonUser
-                    configure(cell: cell, user: user)
+                context.managedObjectContext.performAndWait {
+                    guard let user = record.object(in: context.managedObjectContext) else { return }
+                    configure(
+                        tableView: tableView,
+                        cell: cell,
+                        viewModel: .init(value: .user(user)),
+                        configuration: configuration
+                    )
                 }
                 return cell
             case .bottomLoader:
@@ -55,10 +62,17 @@ extension UserSection {
 extension UserSection {
 
     static func configure(
+        tableView: UITableView,
         cell: UserTableViewCell,
-        user: MastodonUser
+        viewModel: UserTableViewCell.ViewModel,
+        configuration: Configuration
     ) {
-        cell.configure(user: user)
+        
+        cell.configure(
+            tableView: tableView,
+            viewModel: viewModel,
+            delegate: configuration.userTableViewCellDelegate
+        )
     }
 
 }

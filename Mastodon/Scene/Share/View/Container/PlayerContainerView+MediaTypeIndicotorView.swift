@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import MastodonAsset
+import MastodonLocalization
 
 extension PlayerContainerView {
     

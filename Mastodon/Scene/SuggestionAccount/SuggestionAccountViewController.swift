@@ -11,6 +11,8 @@ import CoreDataStack
 import Foundation
 import OSLog
 import UIKit
+import MastodonAsset
+import MastodonLocalization
 
 class SuggestionAccountViewController: UIViewController, NeedsDependency {
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
@@ -66,47 +68,49 @@ class SuggestionAccountViewController: UIViewController, NeedsDependency {
 extension SuggestionAccountViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        fatalError()
 
-        setupBackgroundColor(theme: ThemeService.shared.currentTheme.value)
-        ThemeService.shared.currentTheme
-            .receive(on: RunLoop.main)
-            .sink { [weak self] theme in
-                guard let self = self else { return }
-                self.setupBackgroundColor(theme: theme)
-            }
-            .store(in: &disposeBag)
-
-        title = L10n.Scene.SuggestionAccount.title
-        navigationItem.rightBarButtonItem
-            = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.done,
-                              target: self,
-                              action: #selector(SuggestionAccountViewController.doneButtonDidClick(_:)))
-
-        tableView.delegate = self
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(tableView)
-        NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-        ])
-        viewModel.diffableDataSource = RecommendAccountSection.tableViewDiffableDataSource(
-            for: tableView,
-            managedObjectContext: context.managedObjectContext,
-            viewModel: viewModel,
-            delegate: self
-        )
-
-        viewModel.collectionDiffableDataSource = SelectedAccountSection.collectionViewDiffableDataSource(for: selectedCollectionView, managedObjectContext: context.managedObjectContext)
-
-        viewModel.accounts
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] accounts in
-                guard let self = self else { return }
-                self.setupHeader(accounts: accounts)
-            }
-            .store(in: &disposeBag)
+//        setupBackgroundColor(theme: ThemeService.shared.currentTheme.value)
+//        ThemeService.shared.currentTheme
+//            .receive(on: RunLoop.main)
+//            .sink { [weak self] theme in
+//                guard let self = self else { return }
+//                self.setupBackgroundColor(theme: theme)
+//            }
+//            .store(in: &disposeBag)
+//
+//        title = L10n.Scene.SuggestionAccount.title
+//        navigationItem.rightBarButtonItem
+//            = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.done,
+//                              target: self,
+//                              action: #selector(SuggestionAccountViewController.doneButtonDidClick(_:)))
+//
+//        tableView.delegate = self
+//        tableView.translatesAutoresizingMaskIntoConstraints = false
+//        view.addSubview(tableView)
+//        NSLayoutConstraint.activate([
+//            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+//            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+//            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+//            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+//        ])
+//        viewModel.diffableDataSource = RecommendAccountSection.tableViewDiffableDataSource(
+//            for: tableView,
+//            managedObjectContext: context.managedObjectContext,
+//            viewModel: viewModel,
+//            delegate: self
+//        )
+//
+//        viewModel.collectionDiffableDataSource = SelectedAccountSection.collectionViewDiffableDataSource(for: selectedCollectionView, managedObjectContext: context.managedObjectContext)
+//
+//        viewModel.accounts
+//            .receive(on: DispatchQueue.main)
+//            .sink { [weak self] accounts in
+//                guard let self = self else { return }
+//                self.setupHeader(accounts: accounts)
+//            }
+//            .store(in: &disposeBag)
     }
 
     override func viewWillAppear(_ animated: Bool) {

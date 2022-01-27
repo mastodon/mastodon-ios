@@ -8,6 +8,8 @@
 import UIKit
 import Combine
 import MetaTextKit
+import MastodonAsset
+import MastodonLocalization
 
 final class AddAccountTableViewCell: UITableViewCell {
     

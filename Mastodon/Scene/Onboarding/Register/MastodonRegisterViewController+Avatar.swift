@@ -10,6 +10,8 @@ import Foundation
 import OSLog
 import PhotosUI
 import UIKit
+import MastodonAsset
+import MastodonLocalization
 
 extension MastodonRegisterViewController {
     private func cropImage(image: UIImage, pickerViewController: UIViewController) {

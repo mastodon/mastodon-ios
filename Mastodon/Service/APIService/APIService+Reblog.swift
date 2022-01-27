@@ -14,134 +14,95 @@ import CommonOSLog
 
 extension APIService {
     
-    // make local state change only
-    func reblog(
-        statusObjectID: NSManagedObjectID,
-        mastodonUserObjectID: NSManagedObjectID,
-        reblogKind: Mastodon.API.Reblog.ReblogKind
-    ) -> AnyPublisher<Status.ID, Error> {
-        var _targetStatusID: Status.ID?
-        let managedObjectContext = backgroundManagedObjectContext
-        return managedObjectContext.performChanges {
-            let status = managedObjectContext.object(with: statusObjectID) as! Status
-            let mastodonUser = managedObjectContext.object(with: mastodonUserObjectID) as! MastodonUser
-            let targetStatus = status.reblog ?? status
-            let targetStatusID = targetStatus.id
-            _targetStatusID = targetStatusID
-
-            let reblogsCount: NSNumber
-            switch reblogKind {
-            case .reblog:
-                targetStatus.update(reblogged: true, by: mastodonUser)
-                reblogsCount = NSNumber(value: targetStatus.reblogsCount.intValue + 1)
-            case .undoReblog:
-                targetStatus.update(reblogged: false, by: mastodonUser)
-                reblogsCount = NSNumber(value: max(0, targetStatus.reblogsCount.intValue - 1))
-            }
-            
-            targetStatus.update(reblogsCount: reblogsCount)
-
-        }
-        .tryMap { result in
-            switch result {
-            case .success:
-                guard let targetStatusID = _targetStatusID else {
-                    throw APIError.implicit(.badRequest)
-                }
-                return targetStatusID
-
-            case .failure(let error):
-                assertionFailure(error.localizedDescription)
-                throw error
-            }
-        }
-        .eraseToAnyPublisher()
+    private struct MastodonReblogContext {
+        let statusID: Status.ID
+        let isReblogged: Bool
+        let rebloggedCount: Int64
     }
-
-    // send reblog request to remote
+    
     func reblog(
-        statusID: Mastodon.Entity.Status.ID,
-        reblogKind: Mastodon.API.Reblog.ReblogKind,
-        mastodonAuthenticationBox: MastodonAuthenticationBox
-    ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Status>, Error> {
-        let domain = mastodonAuthenticationBox.domain
-        let authorization = mastodonAuthenticationBox.userAuthorization
-        let requestMastodonUserID = mastodonAuthenticationBox.userID
-        return Mastodon.API.Reblog.reblog(
-            session: session,
-            domain: domain,
-            statusID: statusID,
-            reblogKind: reblogKind,
-            authorization: authorization
-        )
-        .map { response -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Status>, Error> in
-            let log = OSLog.api
-            let entity = response.value
-            let managedObjectContext = self.backgroundManagedObjectContext
-
-            return managedObjectContext.performChanges {
-                guard let requestMastodonUser: MastodonUser = {
-                    let request = MastodonUser.sortedFetchRequest
-                    request.predicate = MastodonUser.predicate(domain: mastodonAuthenticationBox.domain, id: requestMastodonUserID)
-                    request.fetchLimit = 1
-                    request.returnsObjectsAsFaults = false
-                    return managedObjectContext.safeFetch(request).first
-                }() else {
-                    return
-                }
-                
-                guard let oldStatus: Status = {
-                    let request = Status.sortedFetchRequest
-                    request.predicate = Status.predicate(domain: domain, id: statusID)
-                    request.fetchLimit = 1
-                    request.returnsObjectsAsFaults = false
-                    request.relationshipKeyPathsForPrefetching = [#keyPath(Status.reblog)]
-                    return managedObjectContext.safeFetch(request).first
-                }() else {
-                    return
-                }
-
-                APIService.CoreData.merge(status: oldStatus, entity: entity.reblog ?? entity, requestMastodonUser: requestMastodonUser, domain: mastodonAuthenticationBox.domain, networkDate: response.networkDate)
-                switch reblogKind {
-                case .undoReblog:
-                    // update reblogged status
-                    oldStatus.update(reblogsCount: NSNumber(value: max(0, oldStatus.reblogsCount.intValue - 1)))
-
-                    // remove reblog from statuses
-                    let reblogFroms = oldStatus.reblogFrom?.filter { status in
-                        return status.author.domain == domain && status.author.id == requestMastodonUserID
-                    } ?? Set()
-                    reblogFroms.forEach { reblogFrom in
-                        managedObjectContext.delete(reblogFrom)
-                    }
-
-                default:
-                    break
-                }
-                os_log(.info, log: log, "%{public}s[%{public}ld], %{public}s: did update status %{public}s reblog status to: %{public}s. now %ld reblog", ((#file as NSString).lastPathComponent), #line, #function, entity.id, entity.reblogged.flatMap { $0 ? "reblog" : "unreblog" } ?? "<nil>", entity.reblogsCount )
-            }
-            .setFailureType(to: Error.self)
-            .tryMap { result -> Mastodon.Response.Content<Mastodon.Entity.Status> in
-                switch result {
-                case .success:
-                    return response
-                case .failure(let error):
-                    throw error
-                }
-            }
-            .eraseToAnyPublisher()
+        record: ManagedObjectRecord<Status>,
+        authenticationBox: MastodonAuthenticationBox
+    ) async throws -> Mastodon.Response.Content<Mastodon.Entity.Status> {
+        let logger = Logger(subsystem: "APIService", category: "Reblog")
+        let managedObjectContext = backgroundManagedObjectContext
+        
+        // update repost state and retrieve repost context
+        let _reblogContext: MastodonReblogContext? = try await managedObjectContext.performChanges {
+            guard let authentication = authenticationBox.authenticationRecord.object(in: managedObjectContext),
+                  let _status = record.object(in: managedObjectContext)
+            else { return nil }
+            
+            let me = authentication.user
+            let status = _status.reblog ?? _status
+            let isReblogged = status.rebloggedBy.contains(me)
+            let rebloggedCount = status.reblogsCount
+            let reblogCount = isReblogged ? rebloggedCount - 1 : rebloggedCount + 1
+            status.update(reblogged: !isReblogged, by: me)
+            status.update(reblogsCount: Int64(max(0, reblogCount)))
+            let reblogContext = MastodonReblogContext(
+                statusID: status.id,
+                isReblogged: isReblogged,
+                rebloggedCount: rebloggedCount
+            )
+            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): update status reblog: \(!isReblogged), \(reblogCount)")
+            return reblogContext
         }
-        .switchToLatest()
-        .handleEvents(receiveCompletion: { completion in
-            switch completion {
-            case .failure(let error):
-                os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: error:", ((#file as NSString).lastPathComponent), #line, #function)
-                debugPrint(error)
-            case .finished:
-                break
+        guard let reblogContext = _reblogContext else {
+            throw APIError.implicit(.badRequest)
+        }
+        
+        // request repost or undo repost
+        let result: Result<Mastodon.Response.Content<Mastodon.Entity.Status>, Error>
+        do {
+            let response = try await Mastodon.API.Reblog.reblog(
+                session: session,
+                domain: authenticationBox.domain,
+                statusID: reblogContext.statusID,
+                reblogKind: reblogContext.isReblogged ? .undoReblog : .reblog(query: Mastodon.API.Reblog.ReblogQuery(visibility: .public)),
+                authorization: authenticationBox.userAuthorization
+            ).singleOutput()
+            result = .success(response)
+        } catch {
+            result = .failure(error)
+            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): update reblog failure: \(error.localizedDescription)")
+        }
+        
+        // update repost state
+        try await managedObjectContext.performChanges {
+            guard let authentication = authenticationBox.authenticationRecord.object(in: managedObjectContext),
+                  let _status = record.object(in: managedObjectContext)
+            else { return }
+            let me = authentication.user
+            let status = _status.reblog ?? _status
+            
+            switch result {
+            case .success(let response):
+                _ = Persistence.Status.createOrMerge(
+                    in: managedObjectContext,
+                    context: Persistence.Status.PersistContext(
+                        domain: authentication.domain,
+                        entity: response.value,
+                        me: me,
+                        statusCache: nil,
+                        userCache: nil,
+                        networkDate: response.networkDate
+                    )
+                )
+                if reblogContext.isReblogged {
+                    status.update(reblogsCount: max(0, status.reblogsCount - 1))        // undo API return count has delay. Needs -1 local
+                }
+                logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): update status reblog: \(!reblogContext.isReblogged)")
+            case .failure:
+                // rollback
+                status.update(reblogged: reblogContext.isReblogged, by: me)
+                status.update(reblogsCount: reblogContext.rebloggedCount)
+                logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): rollback status reblog")
             }
-        })
-        .eraseToAnyPublisher()
+        }
+        
+        let response = try result.get()
+        return response
     }
 
 }

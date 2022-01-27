@@ -7,6 +7,8 @@
 
 import UIKit
 import CoreData
+import MastodonAsset
+import MastodonLocalization
 
 enum SettingsItem {
     case appearance(settingObjectID: NSManagedObjectID)

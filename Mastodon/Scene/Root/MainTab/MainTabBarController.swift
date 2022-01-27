@@ -9,6 +9,8 @@ import os.log
 import UIKit
 import Combine
 import SafariServices
+import MastodonAsset
+import MastodonLocalization
 
 class MainTabBarController: UITabBarController {
 
@@ -587,7 +589,12 @@ extension MainTabBarController {
     
     @objc private func composeNewPostKeyCommandHandler(_ sender: UIKeyCommand) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-        let composeViewModel = ComposeViewModel(context: context, composeKind: .post)
+        guard let authenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else { return }
+        let composeViewModel = ComposeViewModel(
+            context: context,
+            composeKind: .post,
+            authenticationBox: authenticationBox
+        )
         coordinator.present(scene: .compose(viewModel: composeViewModel), from: nil, transition: .modal(animated: true, completion: nil))
     }
     

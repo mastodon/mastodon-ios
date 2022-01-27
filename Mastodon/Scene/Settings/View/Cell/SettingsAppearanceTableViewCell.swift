@@ -7,6 +7,8 @@
 
 import UIKit
 import Combine
+import MastodonAsset
+import MastodonLocalization
 
 protocol SettingsAppearanceTableViewCellDelegate: AnyObject {
     func settingsAppearanceCell(_ cell: SettingsAppearanceTableViewCell, didSelectAppearanceMode appearanceMode: SettingsItem.AppearanceMode)

@@ -6,16 +6,20 @@
 //
 
 import UIKit
+import MastodonAsset
+import MastodonLocalization
 
 extension FollowingListViewModel {
     func setupDiffableDataSource(
-        for tableView: UITableView,
-        dependency: NeedsDependency
+        tableView: UITableView,
+        userTableViewCellDelegate: UserTableViewCellDelegate?
     ) {
-        diffableDataSource = UserSection.tableViewDiffableDataSource(
-            for: tableView,
-            dependency: dependency,
-            managedObjectContext: userFetchedResultsController.fetchedResultsController.managedObjectContext
+        diffableDataSource = UserSection.diffableDataSource(
+            tableView: tableView,
+            context: context,
+            configuration: UserSection.Configuration(
+                userTableViewCellDelegate: userTableViewCellDelegate
+            )
         )
         
         // workaround to append loader wrong animation issue
@@ -30,17 +34,15 @@ extension FollowingListViewModel {
             diffableDataSource?.apply(snapshot, animatingDifferences: false)
         }
         
-        userFetchedResultsController.objectIDs
+        userFetchedResultsController.$records
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] objectIDs in
+            .sink { [weak self] records in
                 guard let self = self else { return }
                 guard let diffableDataSource = self.diffableDataSource else { return }
                 
                 var snapshot = NSDiffableDataSourceSnapshot<UserSection, UserItem>()
                 snapshot.appendSections([.main])
-                let items: [UserItem] = objectIDs.map {
-                    UserItem.following(objectID: $0)
-                }
+                let items = records.map { UserItem.user(record: $0) }
                 snapshot.appendItems(items, toSection: .main)
                 
                 if let currentState = self.stateMachine.currentState {
@@ -59,7 +61,7 @@ extension FollowingListViewModel {
                     }
                 }
                 
-                diffableDataSource.apply(snapshot)
+                diffableDataSource.apply(snapshot, animatingDifferences: false)
             }
             .store(in: &disposeBag)
     }

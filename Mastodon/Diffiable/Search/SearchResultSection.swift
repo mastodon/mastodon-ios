@@ -5,51 +5,70 @@
 //  Created by sxiaojian on 2021/4/6.
 //
 
+import os.log
 import Foundation
 import MastodonSDK
 import UIKit
 import CoreData
 import CoreDataStack
+import MastodonAsset
+import MastodonLocalization
+import MastodonUI
 
-enum SearchResultSection: Equatable, Hashable {
+enum SearchResultSection: Hashable {
     case main
 }
 
 extension SearchResultSection {
+    
+    static let logger = Logger(subsystem: "SearchResultSection", category: "logic")
+    
+    struct Configuration {
+        weak var statusViewTableViewCellDelegate: StatusTableViewCellDelegate?
+        weak var userTableViewCellDelegate: UserTableViewCellDelegate?
+    }
+    
     static func tableViewDiffableDataSource(
-        for tableView: UITableView,
-        dependency: NeedsDependency,
-        statusTableViewCellDelegate: StatusTableViewCellDelegate
+        tableView: UITableView,
+        context: AppContext,
+        configuration: Configuration
     ) -> UITableViewDiffableDataSource<SearchResultSection, SearchResultItem> {
-        UITableViewDiffableDataSource(tableView: tableView) { [
-                weak statusTableViewCellDelegate
-            ] tableView, indexPath, item -> UITableViewCell? in
+        tableView.register(UserTableViewCell.self, forCellReuseIdentifier: String(describing: UserTableViewCell.self))
+        tableView.register(StatusTableViewCell.self, forCellReuseIdentifier: String(describing: StatusTableViewCell.self))
+        tableView.register(HashtagTableViewCell.self, forCellReuseIdentifier: String(describing: HashtagTableViewCell.self))
+        tableView.register(TimelineBottomLoaderTableViewCell.self, forCellReuseIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self))
+
+        return UITableViewDiffableDataSource(tableView: tableView) { tableView, indexPath, item -> UITableViewCell? in
             switch item {
-            case .account(let account):
-                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SearchResultTableViewCell.self), for: indexPath) as! SearchResultTableViewCell
-                cell.config(with: account)
-                return cell
-            case .hashtag(let tag):
-                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SearchResultTableViewCell.self), for: indexPath) as! SearchResultTableViewCell
-                cell.config(with: tag)
-                return cell
-            case .status(let statusObjectID, let attribute):
-                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: StatusTableViewCell.self), for: indexPath) as! StatusTableViewCell
-                if let status = try? dependency.context.managedObjectContext.existingObject(with: statusObjectID) as? Status {
-                    let activeMastodonAuthenticationBox = dependency.context.authenticationService.activeMastodonAuthenticationBox.value
-                    let requestUserID = activeMastodonAuthenticationBox?.userID ?? ""
-                    StatusSection.configure(
-                        cell: cell,
+            case .user(let record):
+                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: UserTableViewCell.self), for: indexPath) as! UserTableViewCell
+                context.managedObjectContext.performAndWait {
+                    guard let user = record.object(in: context.managedObjectContext) else { return }
+                    configure(
+                        context: context,
                         tableView: tableView,
-                        timelineContext: .search,
-                        dependency: dependency,
-                        readableLayoutFrame: tableView.readableContentGuide.layoutFrame,
-                        status: status,
-                        requestUserID: requestUserID,
-                        statusItemAttribute: attribute
+                        cell: cell,
+                        viewModel: .init(value: .user(user)),
+                        configuration: configuration
                     )
                 }
-                cell.delegate = statusTableViewCellDelegate
+                return cell
+            case .status(let record):
+                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: StatusTableViewCell.self), for: indexPath) as! StatusTableViewCell
+                context.managedObjectContext.performAndWait {
+                    guard let status = record.object(in: context.managedObjectContext) else { return }
+                    configure(
+                        context: context,
+                        tableView: tableView,
+                        cell: cell,
+                        viewModel: StatusTableViewCell.ViewModel(value: .status(status)),
+                        configuration: configuration
+                    )
+                }
+                return cell
+            case .hashtag(let tag):
+                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: HashtagTableViewCell.self)) as! HashtagTableViewCell
+                cell.primaryLabel.configure(content: PlaintextMetaContent(string: "#" + tag.name))
                 return cell
             case .bottomLoader(let attribute):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self)) as! TimelineBottomLoaderTableViewCell
@@ -63,7 +82,49 @@ extension SearchResultSection {
                     cell.loadMoreLabel.isHidden = true
                 }
                 return cell
-            }   // end switch
+            }
         }   // end UITableViewDiffableDataSource
     }   // end func
+}
+
+extension SearchResultSection {
+    
+    static func configure(
+        context: AppContext,
+        tableView: UITableView,
+        cell: StatusTableViewCell,
+        viewModel: StatusTableViewCell.ViewModel,
+        configuration: Configuration
+    ) {
+        StatusSection.setupStatusPollDataSource(
+            context: context,
+            statusView: cell.statusView
+        )
+        
+        context.authenticationService.activeMastodonAuthenticationBox
+            .map { $0 as UserIdentifier? }
+            .assign(to: \.userIdentifier, on: cell.statusView.viewModel)
+            .store(in: &cell.disposeBag)
+        
+        cell.configure(
+            tableView: tableView,
+            viewModel: viewModel,
+            delegate: configuration.statusViewTableViewCellDelegate
+        )
+    }
+    
+    static func configure(
+        context: AppContext,
+        tableView: UITableView,
+        cell: UserTableViewCell,
+        viewModel: UserTableViewCell.ViewModel,
+        configuration: Configuration
+    ) {
+        cell.configure(
+            tableView: tableView,
+            viewModel: viewModel,
+            delegate: configuration.userTableViewCellDelegate
+        )
+    }
+    
 }

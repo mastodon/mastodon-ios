@@ -2,30 +2,31 @@
 //  Date.swift
 //  Mastodon
 //
-//  Created by MainasuK Cirno on 2021-6-1.
+//  Created by MainasuK on 2022-1-12.
 //
 
 import Foundation
-import DateToolsSwift
+import MastodonAsset
+import MastodonLocalization
 
 extension Date {
     
-    static let relativeTimestampFormatter: RelativeDateTimeFormatter = {
+    public static let relativeTimestampFormatter: RelativeDateTimeFormatter = {
         let formatter = RelativeDateTimeFormatter()
         formatter.dateTimeStyle = .numeric
         formatter.unitsStyle = .full
         return formatter
     }()
     
-    var localizedSlowedTimeAgoSinceNow: String {
+    public var localizedSlowedTimeAgoSinceNow: String {
         return self.localizedTimeAgo(since: Date(), isSlowed: true, isAbbreviated: true)
     }
     
-    var localizedTimeAgoSinceNow: String {
+    public var localizedTimeAgoSinceNow: String {
         return self.localizedTimeAgo(since: Date(), isSlowed: false, isAbbreviated: false)
     }
     
-    func localizedTimeAgo(since date: Date, isSlowed: Bool, isAbbreviated: Bool) -> String {
+    public func localizedTimeAgo(since date: Date, isSlowed: Bool, isAbbreviated: Bool) -> String {
         let earlierDate = date < self ? date : self
         let latestDate = earlierDate == date ? self : date
         
@@ -37,57 +38,6 @@ extension Date {
             } else {
                 return Date.relativeTimestampFormatter.localizedString(for: earlierDate, relativeTo: latestDate)
             }
-        }
-    }
-    
-}
-
-extension Date {
-    
-    func localizedShortTimeAgo(since date: Date) -> String {
-        let earlierDate = date < self ? date : self
-        let latestDate = earlierDate == date ? self : date
-        
-        let components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: earlierDate, to: latestDate)
-        
-        if components.year! > 0 {
-            return L10n.Date.Year.Ago.abbr(components.year!)
-        } else if components.month! > 0 {
-            return L10n.Date.Month.Ago.abbr(components.month!)
-        } else if components.day! > 0 {
-            return L10n.Date.Day.Ago.abbr(components.day!)
-        } else if components.hour! > 0 {
-            return L10n.Date.Hour.Ago.abbr(components.hour!)
-        } else if components.minute! > 0 {
-            return L10n.Date.Minute.Ago.abbr(components.minute!)
-        } else if components.second! > 0 {
-            return L10n.Date.Year.Ago.abbr(components.second!)
-        } else {
-            return ""
-        }
-    }
-    
-    func localizedTimeLeft() -> String {
-        let date = Date()
-        let earlierDate = date < self ? date : self
-        let latestDate = earlierDate == date ? self : date
-        
-        let components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: earlierDate, to: latestDate)
-        
-        if components.year! > 0 {
-            return L10n.Date.Year.left(components.year!)
-        } else if components.month! > 0 {
-            return L10n.Date.Month.left(components.month!)
-        } else if components.day! > 0 {
-            return L10n.Date.Day.left(components.day!)
-        } else if components.hour! > 0 {
-            return L10n.Date.Hour.left(components.hour!)
-        } else if components.minute! > 0 {
-            return L10n.Date.Minute.left(components.minute!)
-        } else if components.second! > 0 {
-            return L10n.Date.Year.left(components.second!)
-        } else {
-            return ""
         }
     }
     

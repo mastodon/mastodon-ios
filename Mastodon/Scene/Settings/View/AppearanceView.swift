@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import MastodonAsset
+import MastodonLocalization
 
 class AppearanceView: UIView {
     lazy var imageView: UIImageView = {

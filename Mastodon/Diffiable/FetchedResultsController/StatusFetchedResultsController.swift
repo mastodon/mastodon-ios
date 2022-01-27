@@ -23,7 +23,8 @@ final class StatusFetchedResultsController: NSObject {
     let statusIDs = CurrentValueSubject<[Mastodon.Entity.Status.ID], Never>([])
     
     // output
-    let objectIDs = CurrentValueSubject<[NSManagedObjectID], Never>([])
+    let _objectIDs = CurrentValueSubject<[NSManagedObjectID], Never>([])
+    @Published var records: [ManagedObjectRecord<Status>] = []
     
     init(managedObjectContext: NSManagedObjectContext, domain: String?, additionalTweetPredicate: NSPredicate?) {
         self.domain.value = domain ?? ""
@@ -43,11 +44,17 @@ final class StatusFetchedResultsController: NSObject {
         }()
         super.init()
         
+        // debounce output to prevent UI update issues
+        _objectIDs
+            .throttle(for: 0.1, scheduler: DispatchQueue.main, latest: true)
+            .map { objectIDs in objectIDs.map { ManagedObjectRecord(objectID: $0) } }
+            .assign(to: &$records)
+        
         fetchedResultsController.delegate = self
         
         Publishers.CombineLatest(
-            self.domain.removeDuplicates().eraseToAnyPublisher(),
-            self.statusIDs.removeDuplicates().eraseToAnyPublisher()
+            self.domain.removeDuplicates(),
+            self.statusIDs.removeDuplicates()
         )
         .receive(on: DispatchQueue.main)
         .sink { [weak self] domain, ids in
@@ -68,6 +75,18 @@ final class StatusFetchedResultsController: NSObject {
     
 }
 
+extension StatusFetchedResultsController {
+    
+    public func append(statusIDs: [Mastodon.Entity.Status.ID]) {
+        var result = self.statusIDs.value
+        for statusID in statusIDs where !result.contains(statusID) {
+            result.append(statusID)
+        }
+        self.statusIDs.value = result
+    }
+    
+}
+
 // MARK: - NSFetchedResultsControllerDelegate
 extension StatusFetchedResultsController: NSFetchedResultsControllerDelegate {
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChangeContentWith snapshot: NSDiffableDataSourceSnapshotReference) {
@@ -82,6 +101,6 @@ extension StatusFetchedResultsController: NSFetchedResultsControllerDelegate {
             }
             .sorted { $0.0 < $1.0 }
             .map { $0.1.objectID }
-        self.objectIDs.value = items
+        self._objectIDs.value = items
     }
 }

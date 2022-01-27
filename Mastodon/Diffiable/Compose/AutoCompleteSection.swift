@@ -8,6 +8,8 @@
 import UIKit
 import MastodonSDK
 import MastodonMeta
+import MastodonAsset
+import MastodonLocalization
 
 enum AutoCompleteSection: Equatable, Hashable {
     case main
@@ -80,7 +82,7 @@ extension AutoCompleteSection {
         }
         cell.subtitleLabel.text = "@" + account.acct
         cell.avatarImageView.isHidden = false
-        cell.configure(with: AvatarConfigurableViewConfiguration(avatarImageURL: URL(string: account.avatar)))
+        cell.avatarImageView.configure(configuration: .init(url: URL(string: account.avatar)))
     }
     
     private static func configureEmoji(cell: AutoCompleteTableViewCell, emoji: Mastodon.Entity.Emoji, isFirst: Bool) {
@@ -90,7 +92,7 @@ extension AutoCompleteSection {
         // cell.subtitleLabel.text = isFirst ? L10n.Scene.Compose.AutoComplete.spaceToAdd : " "
         cell.subtitleLabel.text = " "
         cell.avatarImageView.isHidden = false
-        cell.configure(with: AvatarConfigurableViewConfiguration(avatarImageURL: URL(string: emoji.url)))
+        cell.avatarImageView.configure(configuration: .init(url: URL(string: emoji.url)))
     }
     
 }

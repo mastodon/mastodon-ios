@@ -8,6 +8,8 @@
 import os.log
 import UIKit
 import Combine
+import MastodonAsset
+import MastodonLocalization
 
 protocol WizardViewControllerDelegate: AnyObject {
     func readyToLayoutItem(_ wizardViewController: WizardViewController, item: WizardViewController.Item) -> Bool

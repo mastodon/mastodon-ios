@@ -58,7 +58,7 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
         // set to image hidden
         toVC.pagingViewController.view.alpha = 0
         // set from image hidden. update hidden when paging. seealso: `MediaPreviewViewController`
-        transitionItem.source.updateAppearance(position: .start, index: toVC.viewModel.currentPage.value)
+        transitionItem.source.updateAppearance(position: .start, index: toVC.viewModel.currentPage)
         
         // Set transition image view
         assert(transitionItem.initialFrame != nil)
@@ -162,7 +162,7 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
         
         var needsMaskWithAnimation = true
         let maskLayerToRect: CGRect? = {
-            guard case .mosaic = transitionItem.source else { return nil }
+            guard case .attachments = transitionItem.source else { return nil }
             guard let navigationBar = toVC.navigationController?.navigationBar, let navigationBarSuperView = navigationBar.superview else { return nil }
             let navigationBarFrameInWindow = navigationBarSuperView.convert(navigationBar.frame, to: nil)
             
@@ -183,7 +183,7 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
         }()
         let maskLayerToPath = maskLayerToRect.flatMap { UIBezierPath(rect: $0) }?.cgPath
         let maskLayerToFinalRect: CGRect? = {
-            guard case .mosaic = transitionItem.source else { return nil }
+            guard case .attachments = transitionItem.source else { return nil }
             var rect = maskLayerToRect ?? transitionMaskView.frame
             // clip tabBar when bar visible
             guard let tabBarController = toVC.tabBarController,
@@ -450,7 +450,7 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
             
             var needsMaskWithAnimation = true
             let maskLayerToRect: CGRect? = {
-                guard case .mosaic = transitionItem.source else { return nil }
+                guard case .attachments = transitionItem.source else { return nil }
                 guard let navigationBar = toVC.navigationController?.navigationBar, let navigationBarSuperView = navigationBar.superview else { return nil }
                 let navigationBarFrameInWindow = navigationBarSuperView.convert(navigationBar.frame, to: nil)
                 
@@ -476,7 +476,7 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
             }
             
             let maskLayerToFinalRect: CGRect? = {
-                guard case .mosaic = transitionItem.source else { return nil }
+                guard case .attachments = transitionItem.source else { return nil }
                 var rect = maskLayerToRect ?? transitionMaskView.frame
                 // clip rect bottom when tabBar visible
                 guard let tabBarController = toVC.tabBarController,

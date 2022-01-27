@@ -105,22 +105,22 @@ extension View {
 }
 
 
-struct StatusAttachmentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ScrollView {
-            StatusAttachmentView(
-                image: UIImage(systemName: "photo"),
-                descriptionPlaceholder: "Describe photo",
-                description: .constant(""),
-                errorPrompt: nil,
-                errorPromptImage: StatusAttachmentViewModel.photoFillSplitImage,
-                isUploading: true,
-                progressViewTintColor: .systemFill,
-                removeButtonAction: {
-                    // do nothing
-                }
-            )
-            .padding(20)
-        }
-    }
-}
+//struct StatusAttachmentView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ScrollView {
+//            StatusAttachmentView(
+//                image: UIImage(systemName: "photo"),
+//                descriptionPlaceholder: "Describe photo",
+//                description: .constant(""),
+//                errorPrompt: nil,
+//                errorPromptImage: StatusAttachmentViewModel.photoFillSplitImage,
+//                isUploading: true,
+//                progressViewTintColor: .systemFill,
+//                removeButtonAction: {
+//                    // do nothing
+//                }
+//            )
+//            .padding(20)
+//        }
+//    }
+//}

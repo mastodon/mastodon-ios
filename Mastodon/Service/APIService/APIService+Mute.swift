@@ -14,153 +14,92 @@ import MastodonSDK
 
 extension APIService {
     
+    private struct MastodonMuteContext {
+        let sourceUserID: MastodonUser.ID
+        let targetUserID: MastodonUser.ID
+        let targetUsername: String
+        let isMuting: Bool
+    }
+    
     func toggleMute(
-        for mastodonUser: MastodonUser,
-        activeMastodonAuthenticationBox: MastodonAuthenticationBox
-    ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Relationship>, Error> {
-        let impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .light)
-        let notificationFeedbackGenerator = UINotificationFeedbackGenerator()
+        user: ManagedObjectRecord<MastodonUser>,
+        authenticationBox: MastodonAuthenticationBox
+    ) async throws -> Mastodon.Response.Content<Mastodon.Entity.Relationship> {
+        let logger = Logger(subsystem: "APIService", category: "Mute")
         
-        return muteUpdateLocal(
-            mastodonUserObjectID: mastodonUser.objectID,
-            mastodonAuthenticationBox: activeMastodonAuthenticationBox
-        )
-        .receive(on: DispatchQueue.main)
-        .handleEvents { _ in
-            impactFeedbackGenerator.prepare()
-        } receiveOutput: { _ in
-            impactFeedbackGenerator.impactOccurred()
-        } receiveCompletion: { completion in
-            switch completion {
-            case .failure(let error):
-                // TODO: handle error
-                os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: [Relationship] local relationship update fail", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
-                assertionFailure(error.localizedDescription)
-            case .finished:
-                os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: [Relationship] local relationship update success", ((#file as NSString).lastPathComponent), #line, #function)
-            break
+        let managedObjectContext = backgroundManagedObjectContext
+        let muteContext: MastodonMuteContext = try await managedObjectContext.performChanges {
+            guard let user = user.object(in: managedObjectContext),
+                  let authentication = authenticationBox.authenticationRecord.object(in: managedObjectContext)
+            else {
+                throw APIError.implicit(.badRequest)
             }
-        }
-        .flatMap { muteQueryType, mastodonUserID -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Relationship>, Error> in
-            return self.muteUpdateRemote(
-                muteQueryType: muteQueryType,
-                mastodonUserID: mastodonUserID,
-                mastodonAuthenticationBox: activeMastodonAuthenticationBox
+            
+            let me = authentication.user
+            let isMuting = user.mutingBy.contains(me)
+            
+            // toggle mute state
+            user.update(isMuting: !isMuting, by: me)
+            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [Local] update user[\(user.id)](\(user.username)) mute state: \(!isMuting)")
+            return MastodonMuteContext(
+                sourceUserID: me.id,
+                targetUserID: user.id,
+                targetUsername: user.username,
+                isMuting: isMuting
             )
         }
-        .receive(on: DispatchQueue.main)
-        .handleEvents(receiveCompletion: { [weak self] completion in
-            guard let self = self else { return }
-            switch completion {
-            case .failure(let error):
-                os_log("%{public}s[%{public}ld], %{public}s: [Relationship] remote friendship update fail: %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
-                // TODO: handle error
-
-                // rollback
-
-                self.muteUpdateLocal(
-                    mastodonUserObjectID: mastodonUser.objectID,
-                    mastodonAuthenticationBox: activeMastodonAuthenticationBox
-                )
-                .sink { completion in
-                    os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: [Friendship] rollback finish", ((#file as NSString).lastPathComponent), #line, #function)
-                } receiveValue: { _ in
-                    // do nothing
-                    notificationFeedbackGenerator.prepare()
-                    notificationFeedbackGenerator.notificationOccurred(.error)
-                }
-                .store(in: &self.disposeBag)
-
-            case .finished:
-                notificationFeedbackGenerator.notificationOccurred(.success)
-                os_log("%{public}s[%{public}ld], %{public}s: [Friendship] remote friendship update success", ((#file as NSString).lastPathComponent), #line, #function)
-            }
-        })
-        .eraseToAnyPublisher()
-    }
-    
-}
-
-extension APIService {
-    
-    // update database local and return mute query update type for remote request
-    func muteUpdateLocal(
-        mastodonUserObjectID: NSManagedObjectID,
-        mastodonAuthenticationBox: MastodonAuthenticationBox
-    ) -> AnyPublisher<(Mastodon.API.Account.MuteQueryType, MastodonUser.ID), Error> {
-        let domain = mastodonAuthenticationBox.domain
-        let requestMastodonUserID = mastodonAuthenticationBox.userID
         
-        var _targetMastodonUserID: MastodonUser.ID?
-        var _queryType: Mastodon.API.Account.MuteQueryType?
-        let managedObjectContext = backgroundManagedObjectContext
-        
-        return managedObjectContext.performChanges {
-            let request = MastodonUser.sortedFetchRequest
-            request.predicate = MastodonUser.predicate(domain: domain, id: requestMastodonUserID)
-            request.fetchLimit = 1
-            request.returnsObjectsAsFaults = false
-            guard let _requestMastodonUser = managedObjectContext.safeFetch(request).first else {
-                assertionFailure()
-                return
+        let result: Result<Mastodon.Response.Content<Mastodon.Entity.Relationship>, Error>
+        do {
+            if muteContext.isMuting {
+                let response = try await Mastodon.API.Account.unmute(
+                    session: session,
+                    domain: authenticationBox.domain,
+                    accountID: muteContext.targetUserID,
+                    authorization: authenticationBox.userAuthorization
+                ).singleOutput()
+                result = .success(response)
+            } else {
+                let response = try await Mastodon.API.Account.mute(
+                    session: session,
+                    domain: authenticationBox.domain,
+                    accountID: muteContext.targetUserID,
+                    authorization: authenticationBox.userAuthorization
+                ).singleOutput()
+                result = .success(response)
             }
-            
-            let mastodonUser = managedObjectContext.object(with: mastodonUserObjectID) as! MastodonUser
-            _targetMastodonUserID = mastodonUser.id
-            
-            let isMuting = (mastodonUser.mutingBy ?? Set()).contains(_requestMastodonUser)
-            _queryType = isMuting ? .unmute : .mute
-            mastodonUser.update(isMuting: !isMuting, by: _requestMastodonUser)
+        } catch {
+            result = .failure(error)
+            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [Remote] update user[\(muteContext.targetUserID)](\(muteContext.targetUsername)) mute failure: \(error.localizedDescription)")
         }
-        .tryMap { result in
+        
+        try await managedObjectContext.performChanges {
+            guard let user = user.object(in: managedObjectContext),
+                  let authentication = authenticationBox.authenticationRecord.object(in: managedObjectContext)
+            else { return }
+            let me = authentication.user
+            
             switch result {
-            case .success:
-                guard let targetMastodonUserID = _targetMastodonUserID,
-                      let queryType = _queryType else {
-                    throw APIError.implicit(.badRequest)
-                }
-                return (queryType, targetMastodonUserID)
-                
-            case .failure(let error):
-                assertionFailure(error.localizedDescription)
-                throw error
+            case .success(let response):
+                let relationship = response.value
+                Persistence.MastodonUser.update(
+                    mastodonUser: user,
+                    context: Persistence.MastodonUser.RelationshipContext(
+                        entity: relationship,
+                        me: me,
+                        networkDate: response.networkDate
+                    )
+                )
+                logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [Remote] update user[\(muteContext.targetUserID)](\(muteContext.targetUsername)) mute state: \(relationship.muting.debugDescription)")
+            case .failure:
+                // rollback
+                user.update(isMuting: muteContext.isMuting, by: me)
+                logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [Remote] rollback user[\(muteContext.targetUserID)](\(muteContext.targetUsername)) mute state")
             }
         }
-        .eraseToAnyPublisher()
-    }
-    
-    func muteUpdateRemote(
-        muteQueryType: Mastodon.API.Account.MuteQueryType,
-        mastodonUserID: MastodonUser.ID,
-        mastodonAuthenticationBox: MastodonAuthenticationBox
-    ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Relationship>, Error> {
-        let domain = mastodonAuthenticationBox.domain
-        let authorization = mastodonAuthenticationBox.userAuthorization
         
-        return Mastodon.API.Account.mute(
-            session: session,
-            domain: domain,
-            accountID: mastodonUserID,
-            muteQueryType: muteQueryType,
-            authorization: authorization
-        )
-        .handleEvents(receiveCompletion: { [weak self] completion in
-            guard let _ = self else { return }
-            switch completion {
-            case .failure(let error):
-                // TODO: handle error
-                os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: [Relationship] Mute update fail: %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
-            case .finished:
-                // TODO: update relationship
-                switch muteQueryType {
-                case .mute:
-                    break
-                case .unmute:
-                    break
-                }
-            }
-        })
-        .eraseToAnyPublisher()
+        let response = try result.get()
+        return response
     }
     
 }

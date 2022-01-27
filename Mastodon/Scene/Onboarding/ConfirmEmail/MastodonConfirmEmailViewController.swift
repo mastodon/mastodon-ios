@@ -10,6 +10,8 @@ import MastodonSDK
 import os.log
 import ThirdPartyMailer
 import UIKit
+import MastodonAsset
+import MastodonLocalization
 
 final class MastodonConfirmEmailViewController: UIViewController, NeedsDependency {
     
@@ -102,24 +104,27 @@ extension MastodonConfirmEmailViewController {
                             os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: swap user access token swap fail: %s", (#file as NSString).lastPathComponent, #line, #function, error.localizedDescription)
                         case .finished:
                             // upload avatar and set display name in the background
-                            self.context.apiService.accountUpdateCredentials(
-                                domain: self.viewModel.authenticateInfo.domain,
-                                query: self.viewModel.updateCredentialQuery,
-                                authorization: Mastodon.API.OAuth.Authorization(accessToken: self.viewModel.userToken.accessToken)
-                            )
-                            .retry(3)
-                            .sink { completion in
-                                switch completion {
-                                case .failure(let error):
-                                    os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: setup avatar & display name fail: %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
-                                case .finished:
-                                    os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: setup avatar & display name success", ((#file as NSString).lastPathComponent), #line, #function)
+                            Just(self.viewModel.userToken.accessToken)
+                                .asyncMap { token in
+                                    try await self.context.apiService.accountUpdateCredentials(
+                                        domain: self.viewModel.authenticateInfo.domain,
+                                        query: self.viewModel.updateCredentialQuery,
+                                        authorization: Mastodon.API.OAuth.Authorization(accessToken: token)
+                                    )
                                 }
-                            } receiveValue: { _ in
-                                // do nothing
-                            }
-                            .store(in: &self.context.disposeBag)    // execute in the background
-                        }
+                                .retry(3)
+                                .sink { completion in
+                                    switch completion {
+                                    case .failure(let error):
+                                        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: setup avatar & display name fail: %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
+                                    case .finished:
+                                        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: setup avatar & display name success", ((#file as NSString).lastPathComponent), #line, #function)
+                                    }
+                                } receiveValue: { _ in
+                                    // do nothing
+                                }
+                                .store(in: &self.context.disposeBag)    // execute in the background
+                        }   // end switch
                     } receiveValue: { response in
                         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: user %s's email confirmed", ((#file as NSString).lastPathComponent), #line, #function, response.value.username)
                         self.coordinator.setup()

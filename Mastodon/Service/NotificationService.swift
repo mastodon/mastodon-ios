@@ -144,9 +144,7 @@ extension NotificationService {
             
             let authenticationRequest = MastodonAuthentication.sortedFetchRequest
             authenticationRequest.predicate = MastodonAuthentication.predicate(domain: domain, userID: userID)
-            let authentication = managedObjectContext.safeFetch(authenticationRequest).first
-            
-            guard authentication == nil else {
+            guard let authentication = managedObjectContext.safeFetch(authenticationRequest).first else {
                 // do nothing if still sign-in
                 return
             }
@@ -154,6 +152,7 @@ extension NotificationService {
             // cancel subscription if sign-out
             let accessToken = mastodonPushNotification.accessToken
             let mastodonAuthenticationBox = MastodonAuthenticationBox(
+                authenticationRecord: .init(objectID: authentication.objectID),
                 domain: domain,
                 userID: userID,
                 appAuthorization: .init(accessToken: accessToken),

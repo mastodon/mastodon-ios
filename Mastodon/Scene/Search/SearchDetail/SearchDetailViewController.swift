@@ -9,6 +9,8 @@ import os.log
 import UIKit
 import Combine
 import Pageboy
+import MastodonAsset
+import MastodonLocalization
 
 // Fake search bar not works on iPad with UISplitViewController
 // check device and fallback to standard UISearchController
@@ -137,7 +139,7 @@ extension SearchDetailViewController {
 
         // set initial items from "all" search scope for non-appeared lists
         if let allSearchScopeViewController = viewControllers.first(where: { $0.viewModel.searchScope == .all }) {
-            allSearchScopeViewController.viewModel.items
+            allSearchScopeViewController.viewModel.$items
                 .receive(on: DispatchQueue.main)
                 .sink { [weak self] items in
                     guard let self = self else { return }
@@ -151,20 +153,11 @@ extension SearchDetailViewController {
                             assertionFailure()
                             break
                         case .people:
-                            viewController.viewModel.items.value = items.filter { item in
-                                guard case .account = item else { return false }
-                                return true
-                            }
+                            viewController.viewModel.userFetchedResultsController.userIDs.value = allSearchScopeViewController.viewModel.userFetchedResultsController.userIDs.value
                         case .hashtags:
-                            viewController.viewModel.items.value = items.filter { item in
-                                guard case .hashtag = item else { return false }
-                                return true
-                            }
+                            viewController.viewModel.hashtags = allSearchScopeViewController.viewModel.hashtags
                         case .posts:
-                            viewController.viewModel.items.value = items.filter { item in
-                                guard case .status = item else { return false }
-                                return true
-                            }
+                            viewController.viewModel.statusFetchedResultsController.statusIDs.value = allSearchScopeViewController.viewModel.statusFetchedResultsController.statusIDs.value
                         }
                     }
                 }

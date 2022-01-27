@@ -199,9 +199,15 @@ extension SidebarViewController: UICollectionViewDelegate {
         case secondaryCollectionView:
             guard let diffableDataSource = viewModel.secondaryDiffableDataSource else { return }
             guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
+            
+            guard let authenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else { return }
             switch item {
             case .compose:
-                let composeViewModel = ComposeViewModel(context: context, composeKind: .post)
+                let composeViewModel = ComposeViewModel(
+                    context: context,
+                    composeKind: .post,
+                    authenticationBox: authenticationBox
+                )
                 coordinator.present(scene: .compose(viewModel: composeViewModel), from: self, transition: .modal(animated: true, completion: nil))
             default:
                 assertionFailure()

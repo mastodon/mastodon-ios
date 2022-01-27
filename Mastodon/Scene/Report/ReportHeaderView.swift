@@ -6,6 +6,9 @@
 //
 
 import UIKit
+import MastodonAsset
+import MastodonLocalization
+
 
 struct ReportView {
     static var horizontalMargin: CGFloat { return 12 }

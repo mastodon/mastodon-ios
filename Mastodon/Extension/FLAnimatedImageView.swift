@@ -10,6 +10,7 @@ import Combine
 import Alamofire
 import AlamofireImage
 import FLAnimatedImage
+import UIKit
 
 private enum FLAnimatedImageViewAssociatedKeys {
     static var activeAvatarRequestURL = "FLAnimatedImageViewAssociatedKeys.activeAvatarRequestURL"
@@ -36,7 +37,12 @@ extension FLAnimatedImageView {
         }
     }
 
-    func setImage(url: URL?, placeholder: UIImage?, scaleToSize: CGSize?) {
+    func setImage(
+        url: URL?,
+        placeholder: UIImage?,
+        scaleToSize: CGSize?,
+        completion: ((UIImage?) -> Void)? = nil
+    ) {
         // cancel task
         activeAvatarRequestURL = nil
         avatarRequestCancellable?.cancel()
@@ -64,17 +70,17 @@ extension FLAnimatedImageView {
 
                         DispatchQueue.main.async { [weak self] in
                             guard let self = self else { return }
-                            if self.activeAvatarRequestURL == url {
-                                if let animatedImage = animatedImage {
-                                    self.animatedImage = animatedImage
-                                } else {
-                                    self.image = image
-                                }
+                            guard self.activeAvatarRequestURL == url else { return }
+                            if let animatedImage = animatedImage {
+                                self.animatedImage = animatedImage
+                            } else {
+                                self.image = image
                             }
+                            completion?(image)
                         }
                     }
                 case .failure:
-                    break
+                    completion?(nil)
                 }
             }
     }

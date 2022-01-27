@@ -8,6 +8,8 @@
 import os.log
 import UIKit
 import MastodonUI
+import MastodonAsset
+import MastodonLocalization
 
 protocol HomeTimelineNavigationBarTitleViewDelegate: AnyObject {
     func homeTimelineNavigationBarTitleView(_ titleView: HomeTimelineNavigationBarTitleView, logoButtonDidPressed sender: UIButton)

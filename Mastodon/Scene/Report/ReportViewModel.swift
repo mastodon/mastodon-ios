@@ -33,12 +33,12 @@ class ReportViewModel: NSObject {
     var disposeBag = Set<AnyCancellable>()
     let currentStep = CurrentValueSubject<Step, Never>(.one)
     let statusFetchedResultsController: StatusFetchedResultsController
-    var diffableDataSource: UITableViewDiffableDataSource<ReportSection, Item>?
+    var diffableDataSource: UITableViewDiffableDataSource<ReportSection, StatusItem>?
     let continueEnableSubject = CurrentValueSubject<Bool, Never>(false)
     let sendEnableSubject = CurrentValueSubject<Bool, Never>(false)
     
     struct Input {
-        let didToggleSelected: AnyPublisher<Item, Never>
+//        let didToggleSelected: AnyPublisher<Item, Never>
         let comment: AnyPublisher<String?, Never>
         let step1Continue: AnyPublisher<Void, Never>
         let step1Skip: AnyPublisher<Void, Never>
@@ -113,25 +113,25 @@ class ReportViewModel: NSObject {
     
     // MARK: - Private methods
     func bindData(input: Input) {
-        input.didToggleSelected.sink { [weak self] (item) in
-            guard let self = self else { return }
-            guard case let .reportStatus(objectID, attribute) = item else { return }
-            let managedObjectContext = self.statusFetchedResultsController.fetchedResultsController.managedObjectContext
-            guard let status = managedObjectContext.object(with: objectID) as? Status else {
-                return
-            }
-            
-            attribute.isSelected = !attribute.isSelected
-            if attribute.isSelected {
-                self.append(statusID: status.id)
-            } else {
-                self.remove(statusID: status.id)
-            }
-            
-            let continueEnable = self.statusIDs.count > 0
-            self.continueEnableSubject.send(continueEnable)
-        }
-        .store(in: &disposeBag)
+//        input.didToggleSelected.sink { [weak self] (item) in
+//            guard let self = self else { return }
+//            guard case let .reportStatus(objectID, attribute) = item else { return }
+//            let managedObjectContext = self.statusFetchedResultsController.fetchedResultsController.managedObjectContext
+//            guard let status = managedObjectContext.object(with: objectID) as? Status else {
+//                return
+//            }
+//            
+//            attribute.isSelected = !attribute.isSelected
+//            if attribute.isSelected {
+//                self.append(statusID: status.id)
+//            } else {
+//                self.remove(statusID: status.id)
+//            }
+//            
+//            let continueEnable = self.statusIDs.count > 0
+//            self.continueEnableSubject.send(continueEnable)
+//        }
+//        .store(in: &disposeBag)
         
         input.comment.sink { [weak self] (comment) in
             guard let self = self else { return }

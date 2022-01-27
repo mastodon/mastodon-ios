@@ -8,6 +8,8 @@
 import CoreDataStack
 import os.log
 import UIKit
+import MastodonAsset
+import MastodonLocalization
 
 final class AudioContainerView: UIView {
     static let cornerRadius: CGFloat = 22

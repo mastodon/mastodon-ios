@@ -15,6 +15,8 @@ import GameplayKit
 import MastodonSDK
 import AlamofireImage
 import StoreKit
+import MastodonAsset
+import MastodonLocalization
 
 final class HomeTimelineViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
     
@@ -183,25 +185,22 @@ extension HomeTimelineViewController {
         viewModel.tableView = tableView
         viewModel.contentOffsetAdjustableTimelineViewControllerDelegate = self
         tableView.delegate = self
-        tableView.prefetchDataSource = self
+//        tableView.prefetchDataSource = self
         viewModel.setupDiffableDataSource(
-            for: tableView,
-            dependency: self,
+            tableView: tableView,
             statusTableViewCellDelegate: self,
             timelineMiddleLoaderTableViewCellDelegate: self
         )
 
         // bind refresh control
-        viewModel.isFetchingLatestTimeline
+        viewModel.didLoadLatest
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] isFetching in
+            .sink { [weak self] _ in
                 guard let self = self else { return }
-                if !isFetching {
-                    UIView.animate(withDuration: 0.5) { [weak self] in
-                        guard let self = self else { return }
-                        self.refreshControl.endRefreshing()
-                    } completion: { _ in }
-                }
+                UIView.animate(withDuration: 0.5) { [weak self] in
+                    guard let self = self else { return }
+                    self.refreshControl.endRefreshing()
+                } completion: { _ in }
             }
             .store(in: &disposeBag)
         
@@ -272,10 +271,11 @@ extension HomeTimelineViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        aspectViewWillAppear(animated)
+        refreshControl.endRefreshing()
+        tableView.deselectRow(with: transitionCoordinator, animated: animated)
         
         // needs trigger manually after onboarding dismiss
-        setNeedsStatusBarAppearanceUpdate()
+         setNeedsStatusBarAppearanceUpdate()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -294,12 +294,6 @@ extension HomeTimelineViewController {
         } else {
             self.viewModel.homeTimelineNeedRefresh.send()
         }
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        
-        aspectViewDidDisappear(animated)
     }
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -379,9 +373,10 @@ extension HomeTimelineViewController {
 extension HomeTimelineViewController {
     
     @objc private func findPeopleButtonPressed(_ sender: PrimaryActionButton) {
+        // TODO:
         let viewModel = SuggestionAccountViewModel(context: context)
-        viewModel.delegate = self.viewModel
-        coordinator.present(scene: .suggestionAccount(viewModel: viewModel), from: self, transition: .modal(animated: true, completion: nil))
+//        viewModel.delegate = self.viewModel
+//        coordinator.present(scene: .suggestionAccount(viewModel: viewModel), from: self, transition: .modal(animated: true, completion: nil))
     }
     
     @objc private func manuallySearchButtonPressed(_ sender: UIButton) {
@@ -399,7 +394,12 @@ extension HomeTimelineViewController {
     
     @objc private func composeBarButtonItemPressed(_ sender: UIBarButtonItem) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-        let composeViewModel = ComposeViewModel(context: context, composeKind: .post)
+        guard let authenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else { return }
+        let composeViewModel = ComposeViewModel(
+            context: context,
+            composeKind: .post,
+            authenticationBox: authenticationBox
+        )
         coordinator.present(scene: .compose(viewModel: composeViewModel), from: self, transition: .modal(animated: true, completion: nil))
     }
     
@@ -436,20 +436,11 @@ extension HomeTimelineViewController {
     }
 
 }
-
-// MARK: - StatusTableViewControllerAspect
-extension HomeTimelineViewController: StatusTableViewControllerAspect { }
-
-extension HomeTimelineViewController: TableViewCellHeightCacheableContainer {
-    var cellFrameCache: NSCache<NSNumber, NSValue> { return viewModel.cellFrameCache }
-}
-
 // MARK: - UIScrollViewDelegate
 extension HomeTimelineViewController {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         switch scrollView {
         case tableView:
-            aspectScrollViewDidScroll(scrollView)
             viewModel.homeTimelineNavigationBarTitleViewModel.handleScrollViewDidScroll(scrollView)
         default:
             break
@@ -478,7 +469,7 @@ extension HomeTimelineViewController {
     private func savePositionBeforeScrollToTop() {
         // check save action interval
         // should not fast than 0.5s to prevent save when scrollToTop on-flying
-        if let record = viewModel.scrollPositionRecord.value {
+        if let record = viewModel.scrollPositionRecord {
             let now = Date()
             guard now.timeIntervalSince(record.timestamp) > 0.5 else {
                 // skip this save action
@@ -498,7 +489,7 @@ extension HomeTimelineViewController {
             return cellFrameInView.origin.y
         }()
         logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): save position record for \(anchorIndexPath) with offset: \(offset)")
-        viewModel.scrollPositionRecord.value = HomeTimelineViewModel.ScrollPositionRecord(
+        viewModel.scrollPositionRecord = HomeTimelineViewModel.ScrollPositionRecord(
             item: anchorItem,
             offset: offset,
             timestamp: Date()
@@ -514,45 +505,29 @@ extension HomeTimelineViewController {
     
     private func restorePositionWhenScrollToTop() {
         guard let diffableDataSource = self.viewModel.diffableDataSource else { return }
-        guard let record = self.viewModel.scrollPositionRecord.value,
+        guard let record = self.viewModel.scrollPositionRecord,
               let indexPath = diffableDataSource.indexPath(for: record.item)
         else { return }
         
-        self.tableView.scrollToRow(at: indexPath, at: .middle, animated: true)
-        self.viewModel.scrollPositionRecord.value = nil
+        tableView.scrollToRow(at: indexPath, at: .middle, animated: true)
+        viewModel.scrollPositionRecord = nil
     }
-}
-
-extension HomeTimelineViewController: LoadMoreConfigurableTableViewContainer {
-    typealias BottomLoaderTableViewCell = TimelineBottomLoaderTableViewCell
-    typealias LoadingState = HomeTimelineViewModel.LoadOldestState.Loading
-    var loadMoreConfigurableTableView: UITableView { return tableView }
-    var loadMoreConfigurableStateMachine: GKStateMachine { return viewModel.loadOldestStateMachine }
 }
 
 // MARK: - UITableViewDelegate
-extension HomeTimelineViewController: UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        aspectTableView(tableView, estimatedHeightForRowAt: indexPath)
-    }
-    
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        aspectTableView(tableView, willDisplay: cell, forRowAt: indexPath)
-    }
-    
-    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        aspectTableView(tableView, didEndDisplaying: cell, forRowAt: indexPath)
-    }
-    
+extension HomeTimelineViewController: UITableViewDelegate, AutoGenerateTableViewDelegate {
+    // sourcery:inline:HomeTimelineViewController.AutoGenerateTableViewDelegate
+
+    // Generated using Sourcery
+    // DO NOT EDIT
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         aspectTableView(tableView, didSelectRowAt: indexPath)
     }
-    
+
     func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
         return aspectTableView(tableView, contextMenuConfigurationForRowAt: indexPath, point: point)
     }
-    
+
     func tableView(_ tableView: UITableView, previewForHighlightingContextMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
         return aspectTableView(tableView, previewForHighlightingContextMenuWithConfiguration: configuration)
     }
@@ -560,23 +535,57 @@ extension HomeTimelineViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, previewForDismissingContextMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
         return aspectTableView(tableView, previewForDismissingContextMenuWithConfiguration: configuration)
     }
-    
+
     func tableView(_ tableView: UITableView, willPerformPreviewActionForMenuWith configuration: UIContextMenuConfiguration, animator: UIContextMenuInteractionCommitAnimating) {
         aspectTableView(tableView, willPerformPreviewActionForMenuWith: configuration, animator: animator)
     }
+
+    // sourcery:end
+
+//    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+//        aspectTableView(tableView, estimatedHeightForRowAt: indexPath)
+//    }
+//
+//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//        aspectTableView(tableView, willDisplay: cell, forRowAt: indexPath)
+//    }
+//
+//    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//        aspectTableView(tableView, didEndDisplaying: cell, forRowAt: indexPath)
+//    }
+//
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        aspectTableView(tableView, didSelectRowAt: indexPath)
+//    }
+//
+//    func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+//        return aspectTableView(tableView, contextMenuConfigurationForRowAt: indexPath, point: point)
+//    }
+//
+//    func tableView(_ tableView: UITableView, previewForHighlightingContextMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
+//        return aspectTableView(tableView, previewForHighlightingContextMenuWithConfiguration: configuration)
+//    }
+//
+//    func tableView(_ tableView: UITableView, previewForDismissingContextMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
+//        return aspectTableView(tableView, previewForDismissingContextMenuWithConfiguration: configuration)
+//    }
+//
+//    func tableView(_ tableView: UITableView, willPerformPreviewActionForMenuWith configuration: UIContextMenuConfiguration, animator: UIContextMenuInteractionCommitAnimating) {
+//        aspectTableView(tableView, willPerformPreviewActionForMenuWith: configuration, animator: animator)
+//    }
     
 }
 
 // MARK: - UITableViewDataSourcePrefetching
-extension HomeTimelineViewController: UITableViewDataSourcePrefetching {
-    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
-        aspectTableView(tableView, prefetchRowsAt: indexPaths)
-    }
-
-    func tableView(_ tableView: UITableView, cancelPrefetchingForRowsAt indexPaths: [IndexPath]) {
-        aspectTableView(tableView, cancelPrefetchingForRowsAt: indexPaths)
-    }
-}
+//extension HomeTimelineViewController: UITableViewDataSourcePrefetching {
+//    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+//        aspectTableView(tableView, prefetchRowsAt: indexPaths)
+//    }
+//
+//    func tableView(_ tableView: UITableView, cancelPrefetchingForRowsAt indexPaths: [IndexPath]) {
+//        aspectTableView(tableView, cancelPrefetchingForRowsAt: indexPaths)
+//    }
+//}
 
 // MARK: - ContentOffsetAdjustableTimelineViewControllerDelegate
 extension HomeTimelineViewController: ContentOffsetAdjustableTimelineViewControllerDelegate {
@@ -587,63 +596,13 @@ extension HomeTimelineViewController: ContentOffsetAdjustableTimelineViewControl
 
 // MARK: - TimelineMiddleLoaderTableViewCellDelegate
 extension HomeTimelineViewController: TimelineMiddleLoaderTableViewCellDelegate {
-    func configure(cell: TimelineMiddleLoaderTableViewCell, upperTimelineStatusID: String?, timelineIndexobjectID: NSManagedObjectID?) {
-        guard let upperTimelineIndexObjectID = timelineIndexobjectID else {
-            return
-        }
-        viewModel.loadMiddleSateMachineList
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] ids in
-                guard let _ = self else { return }
-                if let stateMachine = ids[upperTimelineIndexObjectID] {
-                    guard let state = stateMachine.currentState else {
-                        assertionFailure()
-                        return
-                    }
-
-                    // make success state same as loading due to snapshot updating delay
-                    let isLoading = state is HomeTimelineViewModel.LoadMiddleState.Loading || state is HomeTimelineViewModel.LoadMiddleState.Success
-                    if isLoading {
-                        cell.startAnimating()
-                    } else {
-                        cell.stopAnimating()
-                    }
-                } else {
-                    cell.stopAnimating()
-                }
-            }
-            .store(in: &cell.disposeBag)
-        
-        var dict = viewModel.loadMiddleSateMachineList.value
-        if let _ = dict[upperTimelineIndexObjectID] {
-            // do nothing
-        } else {
-            let stateMachine = GKStateMachine(states: [
-                HomeTimelineViewModel.LoadMiddleState.Initial(viewModel: viewModel, upperTimelineIndexObjectID: upperTimelineIndexObjectID),
-                HomeTimelineViewModel.LoadMiddleState.Loading(viewModel: viewModel, upperTimelineIndexObjectID: upperTimelineIndexObjectID),
-                HomeTimelineViewModel.LoadMiddleState.Fail(viewModel: viewModel, upperTimelineIndexObjectID: upperTimelineIndexObjectID),
-                HomeTimelineViewModel.LoadMiddleState.Success(viewModel: viewModel, upperTimelineIndexObjectID: upperTimelineIndexObjectID),
-            ])
-            stateMachine.enter(HomeTimelineViewModel.LoadMiddleState.Initial.self)
-            dict[upperTimelineIndexObjectID] = stateMachine
-            viewModel.loadMiddleSateMachineList.value = dict
-        }
-    }
-    
     func timelineMiddleLoaderTableViewCell(_ cell: TimelineMiddleLoaderTableViewCell, loadMoreButtonDidPressed button: UIButton) {
         guard let diffableDataSource = viewModel.diffableDataSource else { return }
         guard let indexPath = tableView.indexPath(for: cell) else { return }
         guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
-        
-        switch item {
-        case .homeMiddleLoader(let upper):
-            guard let stateMachine = viewModel.loadMiddleSateMachineList.value[upper] else {
-                assertionFailure()
-                return
-            }
-            stateMachine.enter(HomeTimelineViewModel.LoadMiddleState.Loading.self)
-        default:
-            assertionFailure()
+
+        Task {
+            await viewModel.loadMore(item: item)
         }
     }
 }
@@ -654,45 +613,43 @@ extension HomeTimelineViewController: ScrollViewContainer {
     var scrollView: UIScrollView { return tableView }
     
     func scrollToTop(animated: Bool) {
-        if scrollView.contentOffset.y < scrollView.frame.height,
-           viewModel.loadLatestStateMachine.canEnterState(HomeTimelineViewModel.LoadLatestState.Loading.self),
-           (scrollView.contentOffset.y + scrollView.adjustedContentInset.top) == 0.0,
-           !refreshControl.isRefreshing {
-            scrollView.scrollRectToVisible(CGRect(origin: CGPoint(x: 0, y: -refreshControl.frame.height), size: CGSize(width: 1, height: 1)), animated: animated)
-            DispatchQueue.main.async { [weak self] in
-                guard let self = self else { return }
-                self.refreshControl.beginRefreshing()
-                self.refreshControl.sendActions(for: .valueChanged)
-            }
-        } else {
-            let indexPath = IndexPath(row: 0, section: 0)
-            guard viewModel.diffableDataSource?.itemIdentifier(for: indexPath) != nil else { return }
-            // save position
-            savePositionBeforeScrollToTop()
-            tableView.scrollToRow(at: indexPath, at: .top, animated: true)
-        }
+        // TODO:
+//        if scrollView.contentOffset.y < scrollView.frame.height,
+//           viewModel.loadLatestStateMachine.canEnterState(HomeTimelineViewModel.LoadLatestState.Loading.self),
+//           (scrollView.contentOffset.y + scrollView.adjustedContentInset.top) == 0.0,
+//           !refreshControl.isRefreshing {
+//            scrollView.scrollRectToVisible(CGRect(origin: CGPoint(x: 0, y: -refreshControl.frame.height), size: CGSize(width: 1, height: 1)), animated: animated)
+//            DispatchQueue.main.async { [weak self] in
+//                guard let self = self else { return }
+//                self.refreshControl.beginRefreshing()
+//                self.refreshControl.sendActions(for: .valueChanged)
+//            }
+//        } else {
+//            let indexPath = IndexPath(row: 0, section: 0)
+//            guard viewModel.diffableDataSource?.itemIdentifier(for: indexPath) != nil else { return }
+//            // save position
+//            savePositionBeforeScrollToTop()
+//            tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+//        }
     }
     
 }
 
 // MARK: - AVPlayerViewControllerDelegate
-extension HomeTimelineViewController: AVPlayerViewControllerDelegate {
-    
-    func playerViewController(_ playerViewController: AVPlayerViewController, willBeginFullScreenPresentationWithAnimationCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-        handlePlayerViewController(playerViewController, willBeginFullScreenPresentationWithAnimationCoordinator: coordinator)
-    }
-    
-    func playerViewController(_ playerViewController: AVPlayerViewController, willEndFullScreenPresentationWithAnimationCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-        handlePlayerViewController(playerViewController, willEndFullScreenPresentationWithAnimationCoordinator: coordinator)
-    }
-    
-}
+//extension HomeTimelineViewController: AVPlayerViewControllerDelegate {
+//
+//    func playerViewController(_ playerViewController: AVPlayerViewController, willBeginFullScreenPresentationWithAnimationCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+//        handlePlayerViewController(playerViewController, willBeginFullScreenPresentationWithAnimationCoordinator: coordinator)
+//    }
+//
+//    func playerViewController(_ playerViewController: AVPlayerViewController, willEndFullScreenPresentationWithAnimationCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+//        handlePlayerViewController(playerViewController, willEndFullScreenPresentationWithAnimationCoordinator: coordinator)
+//    }
+//
+//}
 
 // MARK: - StatusTableViewCellDelegate
-extension HomeTimelineViewController: StatusTableViewCellDelegate {
-    weak var playerViewControllerDelegate: AVPlayerViewControllerDelegate? { return self }
-    func parent() -> UIViewController { return self }
-}
+extension HomeTimelineViewController: StatusTableViewCellDelegate { }
 
 // MARK: - HomeTimelineNavigationBarTitleViewDelegate
 extension HomeTimelineViewController: HomeTimelineNavigationBarTitleViewDelegate {
@@ -725,19 +682,19 @@ extension HomeTimelineViewController: HomeTimelineNavigationBarTitleViewDelegate
     }
 }
 
-extension HomeTimelineViewController {
-    override var keyCommands: [UIKeyCommand]? {
-        return navigationKeyCommands + statusNavigationKeyCommands
-    }
-}
-
-// MARK: - StatusTableViewControllerNavigateable
-extension HomeTimelineViewController: StatusTableViewControllerNavigateable {
-    @objc func navigateKeyCommandHandlerRelay(_ sender: UIKeyCommand) {
-        navigateKeyCommandHandler(sender)
-    }
-    
-    @objc func statusKeyCommandHandlerRelay(_ sender: UIKeyCommand) {
-        statusKeyCommandHandler(sender)
-    }
-}
+//extension HomeTimelineViewController {
+//    override var keyCommands: [UIKeyCommand]? {
+//        return navigationKeyCommands + statusNavigationKeyCommands
+//    }
+//}
+//
+//// MARK: - StatusTableViewControllerNavigateable
+//extension HomeTimelineViewController: StatusTableViewControllerNavigateable {
+//    @objc func navigateKeyCommandHandlerRelay(_ sender: UIKeyCommand) {
+//        navigateKeyCommandHandler(sender)
+//    }
+//
+//    @objc func statusKeyCommandHandlerRelay(_ sender: UIKeyCommand) {
+//        statusKeyCommandHandler(sender)
+//    }
+//}

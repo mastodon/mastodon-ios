@@ -9,21 +9,26 @@ import os.log
 import UIKit
 import Pageboy
 import Tabman
+import MastodonAsset
+import MastodonLocalization
 
 final class ProfilePagingViewModel: NSObject {
     
     let postUserTimelineViewController = UserTimelineViewController()
     let repliesUserTimelineViewController = UserTimelineViewController()
     let mediaUserTimelineViewController = UserTimelineViewController()
+    let profileAboutViewController = ProfileAboutViewController()
     
     init(
         postsUserTimelineViewModel: UserTimelineViewModel,
         repliesUserTimelineViewModel: UserTimelineViewModel,
-        mediaUserTimelineViewModel: UserTimelineViewModel
+        mediaUserTimelineViewModel: UserTimelineViewModel,
+        profileAboutViewModel: ProfileAboutViewModel
     ) {
         postUserTimelineViewController.viewModel = postsUserTimelineViewModel
         repliesUserTimelineViewController.viewModel = repliesUserTimelineViewModel
         mediaUserTimelineViewController.viewModel = mediaUserTimelineViewModel
+        profileAboutViewController.viewModel = profileAboutViewModel
         super.init()
     }
     
@@ -32,14 +37,16 @@ final class ProfilePagingViewModel: NSObject {
             postUserTimelineViewController,
             repliesUserTimelineViewController,
             mediaUserTimelineViewController,
+            profileAboutViewController,
         ]
     }
     
     let barItems: [TMBarItemable] = {
         let items = [
             TMBarItem(title: L10n.Scene.Profile.SegmentedControl.posts),
-            TMBarItem(title: L10n.Scene.Profile.SegmentedControl.replies),
+            TMBarItem(title: "Posts and Replies"),      // TODO: i18n
             TMBarItem(title: L10n.Scene.Profile.SegmentedControl.media),
+            TMBarItem(title: "About"),
         ]
         return items
     }()
@@ -65,4 +72,11 @@ extension ProfilePagingViewModel: PageboyViewControllerDataSource {
         return .first
     }
     
+}
+
+// MARK: - TMBarDataSource
+extension ProfilePagingViewModel: TMBarDataSource {
+    func barItem(for bar: TMBar, at index: Int) -> TMBarItemable {
+        return barItems[index]
+    }
 }

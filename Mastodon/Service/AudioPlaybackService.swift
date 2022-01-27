@@ -21,7 +21,7 @@ final class AudioPlaybackService: NSObject {
     var player = AVPlayer()
     var timeObserver: Any?
     var statusObserver: Any?
-    var attachment: Attachment?
+    var attachment: MastodonAttachment?
 
     let playbackState = CurrentValueSubject<PlaybackState, Never>(PlaybackState.unknown)
 
@@ -51,10 +51,10 @@ final class AudioPlaybackService: NSObject {
 }
 
 extension AudioPlaybackService {
-    func playAudio(audioAttachment: Attachment) {
-        guard let url = URL(string: audioAttachment.url) else {
-            return
-        }
+    func playAudio(audioAttachment: MastodonAttachment) {
+        guard let assetURL = audioAttachment.assetURL,
+              let url = URL(string: assetURL) else
+        { return }
 
         notifyWillPlayAudioNotification()
         if audioAttachment == attachment {

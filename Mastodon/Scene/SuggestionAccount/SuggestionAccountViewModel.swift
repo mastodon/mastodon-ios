@@ -193,39 +193,41 @@ final class SuggestionAccountViewModel: NSObject {
     }
 
     func followAction(objectID: NSManagedObjectID) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Relationship>, Error>? {
-        guard let activeMastodonAuthenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else { return nil }
-
-        let mastodonUser = context.managedObjectContext.object(with: objectID) as! MastodonUser
-        return context.apiService.toggleFollow(
-            for: mastodonUser,
-            activeMastodonAuthenticationBox: activeMastodonAuthenticationBox
-        )
+        fatalError()
+//        guard let activeMastodonAuthenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else { return nil }
+//
+//        let mastodonUser = context.managedObjectContext.object(with: objectID) as! MastodonUser
+//        return context.apiService.toggleFollow(
+//            for: mastodonUser,
+//            activeMastodonAuthenticationBox: activeMastodonAuthenticationBox
+//        )
     }
     
     func checkAccountsFollowState() {
-        guard let currentMastodonUser = currentMastodonUser.value else {
-            return
-        }
-        let users: [MastodonUser] = accounts.value.compactMap {
-            guard let user = context.managedObjectContext.object(with: $0) as? MastodonUser else {
-                return nil
-            }
-            let isBlock = user.blockingBy.flatMap { $0.contains(currentMastodonUser) } ?? false
-            let isDomainBlock = user.domainBlockingBy.flatMap { $0.contains(currentMastodonUser) } ?? false
-            if isBlock || isDomainBlock {
-                return nil
-            } else {
-                return user
-            }
-        }
-        accounts.value = users.map(\.objectID)
-        
-        let followingUsers = users.filter { user -> Bool in
-            let isFollowing = user.followingBy.flatMap { $0.contains(currentMastodonUser) } ?? false
-            let isPending = user.followRequestedBy.flatMap { $0.contains(currentMastodonUser) } ?? false
-            return isFollowing || isPending
-        }.map(\.objectID)
-        
-        selectedAccounts.value = followingUsers
+        fatalError()
+//        guard let currentMastodonUser = currentMastodonUser.value else {
+//            return
+//        }
+//        let users: [MastodonUser] = accounts.value.compactMap {
+//            guard let user = context.managedObjectContext.object(with: $0) as? MastodonUser else {
+//                return nil
+//            }
+//            let isBlock = user.blockingBy.flatMap { $0.contains(currentMastodonUser) } ?? false
+//            let isDomainBlock = user.domainBlockingBy.flatMap { $0.contains(currentMastodonUser) } ?? false
+//            if isBlock || isDomainBlock {
+//                return nil
+//            } else {
+//                return user
+//            }
+//        }
+//        accounts.value = users.map(\.objectID)
+//        
+//        let followingUsers = users.filter { user -> Bool in
+//            let isFollowing = user.followingBy.flatMap { $0.contains(currentMastodonUser) } ?? false
+//            let isPending = user.followRequestedBy.flatMap { $0.contains(currentMastodonUser) } ?? false
+//            return isFollowing || isPending
+//        }.map(\.objectID)
+//        
+//        selectedAccounts.value = followingUsers
     }
 }

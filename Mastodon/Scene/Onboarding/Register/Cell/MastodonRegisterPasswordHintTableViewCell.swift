@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import MastodonAsset
+import MastodonLocalization
 
 final class MastodonRegisterPasswordHintTableViewCell: UITableViewCell {
     

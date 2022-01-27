@@ -14,6 +14,8 @@ import MastodonSDK
 import MetaTextKit
 import MastodonMeta
 import AuthenticationServices
+import MastodonAsset
+import MastodonLocalization
 
 class SettingsViewController: UIViewController, NeedsDependency {
     

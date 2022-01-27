@@ -13,6 +13,8 @@ import CoreDataStack
 import GameplayKit
 
 final class UserTimelineViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
+    
+    let logger = Logger(subsystem: "UserTimelineViewController", category: "ViewController")
         
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
@@ -48,7 +50,7 @@ extension UserTimelineViewController {
         
         view.backgroundColor = ThemeService.shared.currentTheme.value.secondarySystemBackgroundColor
         ThemeService.shared.currentTheme
-            .receive(on: RunLoop.main)
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] theme in
                 guard let self = self else { return }
                 self.view.backgroundColor = theme.secondarySystemBackgroundColor
@@ -65,10 +67,9 @@ extension UserTimelineViewController {
         ])
 
         tableView.delegate = self
-        tableView.prefetchDataSource = self
+//        tableView.prefetchDataSource = self
         viewModel.setupDiffableDataSource(
-            for: tableView,
-            dependency: self,
+            tableView: tableView,
             statusTableViewCellDelegate: self
         )
         
@@ -78,40 +79,19 @@ extension UserTimelineViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
                 guard let self = self else { return }
+                guard self.view.window != nil else { return }
                 self.viewModel.stateMachine.enter(UserTimelineViewModel.State.Loading.self)
             }
             .store(in: &disposeBag)
-        
-        // trigger user timeline loading
-        Publishers.CombineLatest(
-            viewModel.domain.removeDuplicates().eraseToAnyPublisher(),
-            viewModel.userID.removeDuplicates().eraseToAnyPublisher()
-        )
-        .receive(on: DispatchQueue.main)
-        .sink { [weak self] _ in
-            guard let self = self else { return }
-            self.viewModel.stateMachine.enter(UserTimelineViewModel.State.Reloading.self)
-        }
-        .store(in: &disposeBag)
-        
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        aspectViewWillAppear(animated)
-    }
-
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-
-        aspectViewDidDisappear(animated)
+        tableView.deselectRow(with: transitionCoordinator, animated: animated)
     }
     
 }
-
-// MARK: - StatusTableViewControllerAspect
-extension UserTimelineViewController: StatusTableViewControllerAspect { }
 
 // MARK: - UIScrollViewDelegate
 //extension UserTimelineViewController {
@@ -120,36 +100,20 @@ extension UserTimelineViewController: StatusTableViewControllerAspect { }
 //    }
 //}
 
-// MARK: - TableViewCellHeightCacheableContainer
-extension UserTimelineViewController: TableViewCellHeightCacheableContainer {
-    var cellFrameCache: NSCache<NSNumber, NSValue> {
-        return viewModel.cellFrameCache
-    }
-}
-
 // MARK: - UITableViewDelegate
-extension UserTimelineViewController: UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        aspectTableView(tableView, estimatedHeightForRowAt: indexPath)
-    }
-    
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        aspectTableView(tableView, willDisplay: cell, forRowAt: indexPath)
-    }
-    
-    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        aspectTableView(tableView, didEndDisplaying: cell, forRowAt: indexPath)
-    }
-    
+extension UserTimelineViewController: UITableViewDelegate, AutoGenerateTableViewDelegate {
+    // sourcery:inline:UserTimelineViewController.AutoGenerateTableViewDelegate
+
+    // Generated using Sourcery
+    // DO NOT EDIT
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         aspectTableView(tableView, didSelectRowAt: indexPath)
     }
-    
+
     func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
         return aspectTableView(tableView, contextMenuConfigurationForRowAt: indexPath, point: point)
     }
-    
+
     func tableView(_ tableView: UITableView, previewForHighlightingContextMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
         return aspectTableView(tableView, previewForHighlightingContextMenuWithConfiguration: configuration)
     }
@@ -157,38 +121,71 @@ extension UserTimelineViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, previewForDismissingContextMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
         return aspectTableView(tableView, previewForDismissingContextMenuWithConfiguration: configuration)
     }
-    
+
     func tableView(_ tableView: UITableView, willPerformPreviewActionForMenuWith configuration: UIContextMenuConfiguration, animator: UIContextMenuInteractionCommitAnimating) {
         aspectTableView(tableView, willPerformPreviewActionForMenuWith: configuration, animator: animator)
     }
+
+    // sourcery:end
+//    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+//        aspectTableView(tableView, estimatedHeightForRowAt: indexPath)
+//    }
+//
+//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//        aspectTableView(tableView, willDisplay: cell, forRowAt: indexPath)
+//    }
+//
+//    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//        aspectTableView(tableView, didEndDisplaying: cell, forRowAt: indexPath)
+//    }
+//
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        aspectTableView(tableView, didSelectRowAt: indexPath)
+//    }
+//
+//    func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+//        return aspectTableView(tableView, contextMenuConfigurationForRowAt: indexPath, point: point)
+//    }
+//
+//    func tableView(_ tableView: UITableView, previewForHighlightingContextMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
+//        return aspectTableView(tableView, previewForHighlightingContextMenuWithConfiguration: configuration)
+//    }
+//
+//    func tableView(_ tableView: UITableView, previewForDismissingContextMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
+//        return aspectTableView(tableView, previewForDismissingContextMenuWithConfiguration: configuration)
+//    }
+//
+//    func tableView(_ tableView: UITableView, willPerformPreviewActionForMenuWith configuration: UIContextMenuConfiguration, animator: UIContextMenuInteractionCommitAnimating) {
+//        aspectTableView(tableView, willPerformPreviewActionForMenuWith: configuration, animator: animator)
+//    }
     
 }
 
-// MARK: - UITableViewDataSourcePrefetching
-extension UserTimelineViewController: UITableViewDataSourcePrefetching {
-    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
-        aspectTableView(tableView, prefetchRowsAt: indexPaths)
-    }
-}
+//// MARK: - UITableViewDataSourcePrefetching
+//extension UserTimelineViewController: UITableViewDataSourcePrefetching {
+//    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+//        aspectTableView(tableView, prefetchRowsAt: indexPaths)
+//    }
+//}
 
 // MARK: - AVPlayerViewControllerDelegate
-extension UserTimelineViewController: AVPlayerViewControllerDelegate {
-    
-    func playerViewController(_ playerViewController: AVPlayerViewController, willBeginFullScreenPresentationWithAnimationCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-        aspectPlayerViewController(playerViewController, willBeginFullScreenPresentationWithAnimationCoordinator: coordinator)
-    }
-    
-    func playerViewController(_ playerViewController: AVPlayerViewController, willEndFullScreenPresentationWithAnimationCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-        aspectPlayerViewController(playerViewController, willEndFullScreenPresentationWithAnimationCoordinator: coordinator)
-    }
-    
-}
+//extension UserTimelineViewController: AVPlayerViewControllerDelegate {
+//    
+//    func playerViewController(_ playerViewController: AVPlayerViewController, willBeginFullScreenPresentationWithAnimationCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+//        aspectPlayerViewController(playerViewController, willBeginFullScreenPresentationWithAnimationCoordinator: coordinator)
+//    }
+//    
+//    func playerViewController(_ playerViewController: AVPlayerViewController, willEndFullScreenPresentationWithAnimationCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+//        aspectPlayerViewController(playerViewController, willEndFullScreenPresentationWithAnimationCoordinator: coordinator)
+//    }
+//    
+//}
 
 // MARK: - TimelinePostTableViewCellDelegate
-extension UserTimelineViewController: StatusTableViewCellDelegate {
-    weak var playerViewControllerDelegate: AVPlayerViewControllerDelegate? { return self }
-    func parent() -> UIViewController { return self }
-}
+//extension UserTimelineViewController: StatusTableViewCellDelegate {
+//    weak var playerViewControllerDelegate: AVPlayerViewControllerDelegate? { return self }
+//    func parent() -> UIViewController { return self }
+//}
 
 // MARK: - CustomScrollViewContainerController
 extension UserTimelineViewController: ScrollViewContainer {
@@ -204,19 +201,22 @@ extension UserTimelineViewController: ScrollViewContainer {
 //    var loadMoreConfigurableStateMachine: GKStateMachine { return viewModel.stateMachine }
 //}
 
-extension UserTimelineViewController {
-    override var keyCommands: [UIKeyCommand]? {
-        return navigationKeyCommands + statusNavigationKeyCommands
-    }
-}
+//extension UserTimelineViewController {
+//    override var keyCommands: [UIKeyCommand]? {
+//        return navigationKeyCommands + statusNavigationKeyCommands
+//    }
+//}
+//
+//// MARK: - StatusTableViewControllerNavigateable
+//extension UserTimelineViewController: StatusTableViewControllerNavigateable {
+//    @objc func navigateKeyCommandHandlerRelay(_ sender: UIKeyCommand) {
+//        navigateKeyCommandHandler(sender)
+//    }
+//
+//    @objc func statusKeyCommandHandlerRelay(_ sender: UIKeyCommand) {
+//        statusKeyCommandHandler(sender)
+//    }
+//}
 
-// MARK: - StatusTableViewControllerNavigateable
-extension UserTimelineViewController: StatusTableViewControllerNavigateable {
-    @objc func navigateKeyCommandHandlerRelay(_ sender: UIKeyCommand) {
-        navigateKeyCommandHandler(sender)
-    }
-    
-    @objc func statusKeyCommandHandlerRelay(_ sender: UIKeyCommand) {
-        statusKeyCommandHandler(sender)
-    }
-}
+// MARK: - StatusTableViewCellDelegate
+extension UserTimelineViewController: StatusTableViewCellDelegate { }

@@ -8,6 +8,9 @@
 import os.log
 import UIKit
 import Combine
+import MastodonAsset
+import MastodonLocalization
+import FLAnimatedImage
 
 protocol MediaPreviewImageViewControllerDelegate: AnyObject {
     func mediaPreviewImageViewController(_ viewController: MediaPreviewImageViewController, tapGestureRecognizerDidTrigger tapGestureRecognizer: UITapGestureRecognizer)
@@ -39,17 +42,7 @@ extension MediaPreviewImageViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        progressBarView.tintColor = .white
-//        progressBarView.translatesAutoresizingMaskIntoConstraints = false
-//        view.addSubview(progressBarView)
-//        NSLayoutConstraint.activate([
-//            progressBarView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-//            progressBarView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-//            progressBarView.widthAnchor.constraint(equalToConstant: 120),
-//            progressBarView.heightAnchor.constraint(equalToConstant: 44),
-//        ])
-        
+    
         previewImageView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(previewImageView)
         NSLayoutConstraint.activate([
@@ -69,38 +62,31 @@ extension MediaPreviewImageViewController {
         let previewImageViewContextMenuInteraction = UIContextMenuInteraction(delegate: self)
         previewImageView.addInteraction(previewImageViewContextMenuInteraction)
 
-//        switch viewModel.item {
-//        case .local(let meta):
-//            self.previewImageView.imageView.image = meta.image
-//            self.previewImageView.setup(image: meta.image, container: self.previewImageView, forceUpdate: true)
-//            self.previewImageView.imageView.accessibilityLabel = self.viewModel.altText
-//        case .status(let meta):
-//            Nuke.loadImage(
-//                with: meta.url,
-//                into: self.previewImageView.imageView
-//            ) { result in
-//                switch result {
-//                case .failure(let error):
-//                    break
-//                case .success(let response):
-//                    self.previewImageView.setup(image: response.image, container: self.previewImageView, forceUpdate: true)
-//                    self.previewImageView.imageView.accessibilityLabel = self.viewModel.altText
-//                }
-//            }
-//        }
-        viewModel.image
-            .receive(on: RunLoop.main)      // use RunLoop prevent set image during zooming (TODO: handle transitioning state)
-            .sink { [weak self] image, animatedImage in
+        switch viewModel.item {
+        case .remote(let imageContext):
+            previewImageView.imageView.accessibilityLabel = imageContext.altText
+            
+            if let thumbnail = imageContext.thumbnail {
+                previewImageView.imageView.image = thumbnail
+                previewImageView.setup(image: thumbnail, container: self.previewImageView, forceUpdate: true)
+            }
+            
+            previewImageView.imageView.setImage(
+                url: imageContext.assetURL,
+                placeholder: imageContext.thumbnail,
+                scaleToSize: nil
+            ) { [weak self] image in
                 guard let self = self else { return }
                 guard let image = image else { return }
-                self.previewImageView.imageView.image = image
                 self.previewImageView.setup(image: image, container: self.previewImageView, forceUpdate: true)
-                if let animatedImage = animatedImage {
-                    self.previewImageView.imageView.animatedImage = animatedImage
-                }
-                self.previewImageView.imageView.accessibilityLabel = self.viewModel.altText
             }
-            .store(in: &disposeBag)
+            
+        case .local(let imageContext):
+            let image = imageContext.image
+            previewImageView.imageView.image = image
+            previewImageView.setup(image: image, container: previewImageView, forceUpdate: true)
+            
+        }
     }
     
 }

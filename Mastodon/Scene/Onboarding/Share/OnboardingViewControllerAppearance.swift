@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import MastodonAsset
+import MastodonLocalization
 
 protocol OnboardingViewControllerAppearance: UIViewController {
     static var viewBottomPaddingHeight: CGFloat { get }

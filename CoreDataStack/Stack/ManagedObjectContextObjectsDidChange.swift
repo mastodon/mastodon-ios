@@ -10,10 +10,10 @@ import CoreData
 
 public struct ManagedObjectContextObjectsDidChangeNotification {
     
-    public let notification: Notification
+    public let notification: Foundation.Notification
     public let managedObjectContext: NSManagedObjectContext
     
-    public init?(notification: Notification) {
+    public init?(notification: Foundation.Notification) {
         guard notification.name == .NSManagedObjectContextObjectsDidChange,
             let managedObjectContext = notification.object as? NSManagedObjectContext else {
             return nil

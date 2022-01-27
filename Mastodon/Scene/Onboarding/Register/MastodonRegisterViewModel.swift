@@ -9,6 +9,8 @@ import Combine
 import Foundation
 import MastodonSDK
 import UIKit
+import MastodonAsset
+import MastodonLocalization
 
 final class MastodonRegisterViewModel {
     var disposeBag = Set<AnyCancellable>()

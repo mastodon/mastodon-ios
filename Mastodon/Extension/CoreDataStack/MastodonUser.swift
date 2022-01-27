@@ -9,33 +9,67 @@ import Foundation
 import CoreDataStack
 import MastodonSDK
 
-extension MastodonUser.Property {
-    init(entity: Mastodon.Entity.Account, domain: String, networkDate: Date) {
-        self.init(
-            id: entity.id,
-            domain: domain,
-            acct: entity.acct,
-            username: entity.username,
-            displayName: entity.displayName,
-            avatar: entity.avatar,
-            avatarStatic: entity.avatarStatic,
-            header: entity.header,
-            headerStatic: entity.headerStatic,
-            note: entity.note,
-            url: entity.url,
-            emojisData: entity.emojis.flatMap { MastodonUser.encode(emojis: $0) },
-            fieldsData: entity.fields.flatMap { MastodonUser.encode(fields: $0) },
-            statusesCount: entity.statusesCount,
-            followingCount: entity.followingCount,
-            followersCount: entity.followersCount,
-            locked: entity.locked,
-            bot: entity.bot,
-            suspended: entity.suspended,
-            createdAt: entity.createdAt,
-            networkDate: networkDate
-        )
+extension MastodonUser {
+
+    public var displayNameWithFallback: String {
+        return !displayName.isEmpty ? displayName : username
     }
+
+    public var acctWithDomain: String {
+        if !acct.contains("@") {
+            // Safe concat due to username cannot contains "@"
+            return username + "@" + domain
+        } else {
+            return acct
+        }
+    }
+
+    public var domainFromAcct: String {
+        if !acct.contains("@") {
+            return domain
+        } else {
+            let domain = acct.split(separator: "@").last
+            return String(domain!)
+        }
+    }
+
 }
 
-extension MastodonUser: EmojiContainer { }
-extension MastodonUser: FieldContainer { }
+extension MastodonUser {
+
+    public func headerImageURL() -> URL? {
+        return URL(string: header)
+    }
+
+    public func headerImageURLWithFallback(domain: String) -> URL {
+        return URL(string: header) ?? URL(string: "https://\(domain)/headers/original/missing.png")!
+    }
+
+    public func avatarImageURL() -> URL? {
+        let string = UserDefaults.shared.preferredStaticAvatar ? avatarStatic ?? avatar : avatar
+        return URL(string: string)
+    }
+
+    public func avatarImageURLWithFallback(domain: String) -> URL {
+        return avatarImageURL() ?? URL(string: "https://\(domain)/avatars/original/missing.png")!
+    }
+
+}
+
+extension MastodonUser {
+
+    public var profileURL: URL {
+        if let urlString = self.url,
+           let url = URL(string: urlString) {
+            return url
+        } else {
+            return URL(string: "https://\(self.domain)/@\(username)")!
+        }
+    }
+
+    public var activityItems: [Any] {
+        var items: [Any] = []
+        items.append(profileURL)
+        return items
+    }
+}

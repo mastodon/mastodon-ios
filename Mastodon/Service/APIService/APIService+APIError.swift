@@ -7,6 +7,7 @@
 
 import UIKit
 import MastodonSDK
+import MastodonLocalization
 
 extension APIService {
     enum APIError: Error {

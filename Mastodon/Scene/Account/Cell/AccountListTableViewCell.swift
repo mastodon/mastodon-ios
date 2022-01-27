@@ -9,6 +9,7 @@ import UIKit
 import Combine
 import FLAnimatedImage
 import MetaTextKit
+import MastodonUI
 
 final class AccountListTableViewCell: UITableViewCell {
     
@@ -31,6 +32,7 @@ final class AccountListTableViewCell: UITableViewCell {
         super.prepareForReuse()
         
         disposeBag.removeAll()
+        avatarButton.avatarImageView.image = nil
     }
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -124,11 +126,4 @@ extension AccountListTableViewCell {
         checkmarkImageView.isHidden = true
     }
 
-}
-
-// MARK: - AvatarConfigurableView
-extension AccountListTableViewCell: AvatarConfigurableView {
-    static var configurableAvatarImageSize: CGSize { CGSize(width: 30, height: 30) }
-    static var configurableAvatarImageCornerRadius: CGFloat { 0 }
-    var configurableAvatarImageView: FLAnimatedImageView? { avatarButton.avatarImageView }
 }

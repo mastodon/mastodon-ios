@@ -8,6 +8,8 @@
 import UIKit
 import CoreData
 import CoreDataStack
+import MastodonAsset
+import MastodonLocalization
 
 enum SettingsSection: Hashable {
     case appearance

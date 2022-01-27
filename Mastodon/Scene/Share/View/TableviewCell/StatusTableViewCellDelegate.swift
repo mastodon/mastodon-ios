@@ -1,0 +1,74 @@
+//
+//  StatusViewTableViewCellDelegate.swift
+//  Mastodon
+//
+//  Created by MainasuK on 2022-1-13.
+//
+
+import UIKit
+import MetaTextKit
+import MastodonUI
+
+// sourcery: protocolName = "StatusViewDelegate"
+// sourcery: replaceOf = "statusView(statusView"
+// sourcery: replaceWith = "delegate?.tableViewCell(self, statusView: statusView"
+protocol StatusViewContainerTableViewCell: UITableViewCell, AutoGenerateProtocolRelayDelegate {
+    var delegate: StatusTableViewCellDelegate? { get }
+    var statusView: StatusView { get }
+}
+
+// MARK: - AutoGenerateProtocolDelegate
+// sourcery: protocolName = "StatusViewDelegate"
+// sourcery: replaceOf = "statusView(_"
+// sourcery: replaceWith = "func tableViewCell(_ cell: UITableViewCell,"
+protocol StatusTableViewCellDelegate: AnyObject, AutoGenerateProtocolDelegate {
+    // sourcery:inline:StatusTableViewCellDelegate.AutoGenerateProtocolDelegate
+    func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, headerDidPressed header: UIView)
+    func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, authorAvatarButtonDidPressed button: AvatarButton)
+    func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, metaText: MetaText, didSelectMeta meta: Meta)
+    func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, mediaGridContainerView: MediaGridContainerView, mediaView: MediaView, didSelectMediaViewAt index: Int)
+    func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, pollTableView tableView: UITableView, didSelectRowAt indexPath: IndexPath)
+    func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, pollVoteButtonPressed button: UIButton)
+    func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, actionToolbarContainer: ActionToolbarContainer, buttonDidPressed button: UIButton, action: ActionToolbarContainer.Action)
+    func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, menuButton button: UIButton, didSelectAction action: MastodonMenu.Action)
+    // sourcery:end
+}
+
+
+// MARK: - AutoGenerateProtocolDelegate
+// Protocol Extension
+extension StatusViewDelegate where Self: StatusViewContainerTableViewCell {
+    // sourcery:inline:StatusViewContainerTableViewCell.AutoGenerateProtocolRelayDelegate
+    func statusView(_ statusView: StatusView, headerDidPressed header: UIView) {
+        delegate?.tableViewCell(self, statusView: statusView, headerDidPressed: header)
+    }
+
+    func statusView(_ statusView: StatusView, authorAvatarButtonDidPressed button: AvatarButton) {
+        delegate?.tableViewCell(self, statusView: statusView, authorAvatarButtonDidPressed: button)
+    }
+
+    func statusView(_ statusView: StatusView, metaText: MetaText, didSelectMeta meta: Meta) {
+        delegate?.tableViewCell(self, statusView: statusView, metaText: metaText, didSelectMeta: meta)
+    }
+
+    func statusView(_ statusView: StatusView, mediaGridContainerView: MediaGridContainerView, mediaView: MediaView, didSelectMediaViewAt index: Int) {
+        delegate?.tableViewCell(self, statusView: statusView, mediaGridContainerView: mediaGridContainerView, mediaView: mediaView, didSelectMediaViewAt: index)
+    }
+
+    func statusView(_ statusView: StatusView, pollTableView tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        delegate?.tableViewCell(self, statusView: statusView, pollTableView: tableView, didSelectRowAt: indexPath)
+    }
+
+    func statusView(_ statusView: StatusView, pollVoteButtonPressed button: UIButton) {
+        delegate?.tableViewCell(self, statusView: statusView, pollVoteButtonPressed: button)
+    }
+
+    func statusView(_ statusView: StatusView, actionToolbarContainer: ActionToolbarContainer, buttonDidPressed button: UIButton, action: ActionToolbarContainer.Action) {
+        delegate?.tableViewCell(self, statusView: statusView, actionToolbarContainer: actionToolbarContainer, buttonDidPressed: button, action: action)
+    }
+
+    func statusView(_ statusView: StatusView, menuButton button: UIButton, didSelectAction action: MastodonMenu.Action) {
+        delegate?.tableViewCell(self, statusView: statusView, menuButton: button, didSelectAction: action)
+    }
+    // sourcery:end
+}

@@ -10,6 +10,8 @@ import Combine
 import GameplayKit
 import MastodonSDK
 import UIKit
+import MastodonAsset
+import MastodonLocalization
 
 final class HeightFixedSearchBar: UISearchBar {
     override var intrinsicContentSize: CGSize {
@@ -19,26 +21,7 @@ final class HeightFixedSearchBar: UISearchBar {
 
 final class SearchViewController: UIViewController, NeedsDependency {
 
-    let logger = Logger(subsystem: "Search", category: "UI")
-    
-    public static var hashtagCardHeight: CGFloat {
-        get {
-            if UIScreen.main.bounds.size.height > 736 {
-                return 186
-            }
-            return 130
-        }
-    }
-    
-    public static var hashtagPeopleTalkingLabelTop: CGFloat {
-        get {
-            if UIScreen.main.bounds.size.height > 736 {
-                return 18
-            }
-            return 6
-        }
-    }
-    public static let accountCardHeight = 202
+    let logger = Logger(subsystem: "SearchViewController", category: "ViewController")
     
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
@@ -52,45 +35,14 @@ final class SearchViewController: UIViewController, NeedsDependency {
     // layout alongside with split mode button (on iPad)
     let titleViewContainer = UIView()
     let searchBar = HeightFixedSearchBar()
-
-    // recommend
-    let scrollView: UIScrollView = {
-        let scrollView = UIScrollView()
-        scrollView.showsVerticalScrollIndicator = false
-        scrollView.alwaysBounceVertical = true
-        scrollView.clipsToBounds = false
-        return scrollView
-    }()
     
-    let stackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.distribution = .fill
-        return stackView
-    }()
-    
-    let hashtagCollectionView: UICollectionView = {
-        let flowLayout = UICollectionViewFlowLayout()
-        flowLayout.scrollDirection = .horizontal
-        let view = ControlContainableCollectionView(frame: .zero, collectionViewLayout: flowLayout)
-        view.backgroundColor = .clear
-        view.showsHorizontalScrollIndicator = false
-        view.showsVerticalScrollIndicator = false
-        view.layer.masksToBounds = false
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
-    let accountsCollectionView: UICollectionView = {
-        let flowLayout = UICollectionViewFlowLayout()
-        flowLayout.scrollDirection = .horizontal
-        let view = ControlContainableCollectionView(frame: .zero, collectionViewLayout: flowLayout)
-        view.backgroundColor = .clear
-        view.showsHorizontalScrollIndicator = false
-        view.showsVerticalScrollIndicator = false
-        view.layer.masksToBounds = false
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
+    let collectionView: UICollectionView = {
+        var configuration = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
+        configuration.backgroundColor = .clear
+        configuration.headerMode = .supplementary
+        let layout = UICollectionViewCompositionalLayout.list(using: configuration)
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        return collectionView
     }()
 
     let searchBarTapPublisher = PassthroughSubject<Void, Never>()
@@ -107,7 +59,7 @@ extension SearchViewController {
 
         setupBackgroundColor(theme: ThemeService.shared.currentTheme.value)
         ThemeService.shared.currentTheme
-            .receive(on: RunLoop.main)
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] theme in
                 guard let self = self else { return }
                 self.setupBackgroundColor(theme: theme)
@@ -117,10 +69,20 @@ extension SearchViewController {
         title = L10n.Scene.Search.title
 
         setupSearchBar()
-        setupScrollView()
-        setupHashTagCollectionView()
-        setupAccountsCollectionView()
-        setupDataSource()
+        
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(collectionView)
+        NSLayoutConstraint.activate([
+            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+        ])
+        
+        collectionView.delegate = self
+        viewModel.setupDiffableDataSource(
+            collectionView: collectionView
+        )
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -165,41 +127,6 @@ extension SearchViewController {
             .store(in: &disposeBag)
     }
 
-    private func setupScrollView() {
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        
-        // scrollView
-        view.addSubview(scrollView)
-        NSLayoutConstraint.activate([
-            scrollView.frameLayoutGuide.topAnchor.constraint(equalTo: view.topAnchor),
-            scrollView.frameLayoutGuide.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            view.trailingAnchor.constraint(equalTo: scrollView.frameLayoutGuide.trailingAnchor),
-            scrollView.frameLayoutGuide.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            scrollView.frameLayoutGuide.widthAnchor.constraint(equalTo: scrollView.contentLayoutGuide.widthAnchor),
-        ])
-
-        // stack view
-        scrollView.addSubview(stackView)
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor),
-            stackView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor),
-            stackView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor),
-            stackView.widthAnchor.constraint(equalTo: scrollView.contentLayoutGuide.widthAnchor),
-            scrollView.contentLayoutGuide.bottomAnchor.constraint(equalTo: stackView.bottomAnchor),
-        ])
-    }
-    
-    private func setupDataSource() {
-        viewModel.hashtagDiffableDataSource = RecommendHashTagSection.collectionViewDiffableDataSource(for: hashtagCollectionView)
-        viewModel.accountDiffableDataSource = RecommendAccountSection.collectionViewDiffableDataSource(
-            for: accountsCollectionView,
-            dependency: self,
-            delegate: self,
-            managedObjectContext: context.managedObjectContext
-        )
-    }
 }
 
 // MARK: - UISearchBarDelegate
@@ -211,7 +138,7 @@ extension SearchViewController: UISearchBarDelegate {
     }
 }
 
-// MARK - UISearchControllerDelegate
+// MARK: - UISearchControllerDelegate
 extension SearchViewController: UISearchControllerDelegate {
     func willDismissSearchController(_ searchController: UISearchController) {
         logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
@@ -222,17 +149,22 @@ extension SearchViewController: UISearchControllerDelegate {
     }
 }
 
-#if canImport(SwiftUI) && DEBUG
-import SwiftUI
-
-struct SearchViewController_Previews: PreviewProvider {
-    static var previews: some View {
-        UIViewControllerPreview {
-            let viewController = SearchViewController()
-            return viewController
+// MARK: - UICollectionViewDelegate
+extension SearchViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): select item at: \(indexPath.debugDescription)")
+        
+        defer {
+            collectionView.deselectItem(at: indexPath, animated: true)
         }
-        .previewLayout(.fixed(width: 375, height: 800))
+        
+        guard let diffableDataSource = viewModel.diffableDataSource else { return }
+        guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
+        
+        switch item {
+        case .trend(let hashtag):
+            let viewModel = HashtagTimelineViewModel(context: context, hashtag: hashtag.name)
+            coordinator.present(scene: .hashtagTimeline(viewModel: viewModel), from: self, transition: .show)
+        }
     }
 }
-
-#endif

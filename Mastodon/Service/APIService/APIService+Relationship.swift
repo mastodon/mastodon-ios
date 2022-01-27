@@ -15,51 +15,55 @@ import MastodonSDK
 extension APIService {
  
     func relationship(
-        domain: String,
-        accountIDs: [Mastodon.Entity.Account.ID],
-        authorizationBox: MastodonAuthenticationBox
-    ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Relationship]>, Error> {
-        let authorization = authorizationBox.userAuthorization
-        let requestMastodonUserID = authorizationBox.userID
-        let query = Mastodon.API.Account.RelationshipQuery(
-            ids: accountIDs
-        )
-
-        return Mastodon.API.Account.relationships(
-            session: session,
-            domain: domain,
-            query: query,
-            authorization: authorization
-        )
-        .flatMap { response -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Relationship]>, Error> in
-            let managedObjectContext = self.backgroundManagedObjectContext
-            return managedObjectContext.performChanges {
-                let requestMastodonUserRequest = MastodonUser.sortedFetchRequest
-                requestMastodonUserRequest.predicate = MastodonUser.predicate(domain: domain, id: requestMastodonUserID)
-                requestMastodonUserRequest.fetchLimit = 1
-                guard let requestMastodonUser = managedObjectContext.safeFetch(requestMastodonUserRequest).first else { return }
-
-                let lookUpMastodonUserRequest = MastodonUser.sortedFetchRequest
-                lookUpMastodonUserRequest.predicate = MastodonUser.predicate(domain: domain, ids: accountIDs)
-                lookUpMastodonUserRequest.fetchLimit = accountIDs.count
-                let lookUpMastodonusers = managedObjectContext.safeFetch(lookUpMastodonUserRequest)
-                
-                for user in lookUpMastodonusers {
-                    guard let entity = response.value.first(where: { $0.id == user.id }) else { continue }
-                    APIService.CoreData.update(user: user, entity: entity, requestMastodonUser: requestMastodonUser, domain: domain, networkDate: response.networkDate)
-                }
+        records: [ManagedObjectRecord<MastodonUser>],
+        authenticationBox: MastodonAuthenticationBox
+    ) async throws -> Mastodon.Response.Content<[Mastodon.Entity.Relationship]> {
+        let managedObjectContext = backgroundManagedObjectContext
+        
+        let _query: Mastodon.API.Account.RelationshipQuery? = try? await managedObjectContext.perform {
+            var ids: [MastodonUser.ID] = []
+            for record in records {
+                guard let user = record.object(in: managedObjectContext) else { continue }
+                guard user.id != authenticationBox.userID else { continue }
+                ids.append(user.id)
             }
-            .tryMap { result -> Mastodon.Response.Content<[Mastodon.Entity.Relationship]> in
-                switch result {
-                case .success:
-                    return response
-                case .failure(let error):
-                    throw error
-                }
-            }
-            .eraseToAnyPublisher()
+            guard !ids.isEmpty else { return nil }
+            return Mastodon.API.Account.RelationshipQuery(ids: ids)
         }
-        .eraseToAnyPublisher()
+        guard let query = _query else {
+            throw APIError.implicit(.badRequest)
+        }
+        
+        let response = try await Mastodon.API.Account.relationships(
+            session: session,
+            domain: authenticationBox.domain,
+            query: query,
+            authorization: authenticationBox.userAuthorization
+        ).singleOutput()
+        
+        try await managedObjectContext.performChanges {
+            guard let me = authenticationBox.authenticationRecord.object(in: managedObjectContext)?.user else {
+                assertionFailure()
+                return
+            }
+
+            let relationships = response.value
+            for record in records {
+                guard let user = record.object(in: managedObjectContext) else { continue }
+                guard let relationship = relationships.first(where: { $0.id == user.id }) else { continue }
+                
+                Persistence.MastodonUser.update(
+                    mastodonUser: user,
+                    context: Persistence.MastodonUser.RelationshipContext(
+                        entity: relationship,
+                        me: me,
+                        networkDate: response.networkDate
+                    )
+                )
+            }   // end for in
+        }
+
+        return response
     }
     
 }

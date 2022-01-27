@@ -18,45 +18,38 @@ extension APIService {
         domain: String,
         idempotencyKey: String?,
         query: Mastodon.API.Statuses.PublishStatusQuery,
-        mastodonAuthenticationBox: MastodonAuthenticationBox
-    ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Status>, Error> {
-        let authorization = mastodonAuthenticationBox.userAuthorization
+        authenticationBox: MastodonAuthenticationBox
+    ) async throws -> Mastodon.Response.Content<Mastodon.Entity.Status> {
+        let domain = authenticationBox.domain
+        let authorization = authenticationBox.userAuthorization
 
-        return Mastodon.API.Statuses.publishStatus(
+        let response = try await Mastodon.API.Statuses.publishStatus(
             session: session,
             domain: domain,
             idempotencyKey: idempotencyKey,
             query: query,
             authorization: authorization
-        )
-        .flatMap { response -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Status>, Error> in
-            #if APP_EXTENSION
-            return Just(response)
-                .setFailureType(to: Error.self)
-                .eraseToAnyPublisher()
-            #else
-            return APIService.Persist.persistStatus(
-                managedObjectContext: self.backgroundManagedObjectContext,
-                domain: domain,
-                query: nil,
-                response: response.map { [$0] },
-                persistType: .lookUp,
-                requestMastodonUserID: nil,
-                log: OSLog.api
+        ).singleOutput()
+        
+        #if !APP_EXTENSION
+        let managedObjectContext = self.backgroundManagedObjectContext
+        try await managedObjectContext.performChanges {
+            let me = authenticationBox.authenticationRecord.object(in: managedObjectContext)?.user
+            _ = Persistence.Status.createOrMerge(
+                in: managedObjectContext,
+                context: Persistence.Status.PersistContext(
+                    domain: domain,
+                    entity: response.value,
+                    me: me,
+                    statusCache: nil,
+                    userCache: nil,
+                    networkDate: response.networkDate
+                )
             )
-            .setFailureType(to: Error.self)
-            .tryMap { result -> Mastodon.Response.Content<Mastodon.Entity.Status> in
-                switch result {
-                case .success:
-                    return response
-                case .failure(let error):
-                    throw error
-                }
-            }
-            .eraseToAnyPublisher()
-            #endif
         }
-        .eraseToAnyPublisher()
+        #endif
+        
+        return response
     }
 
 }

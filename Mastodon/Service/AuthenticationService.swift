@@ -66,6 +66,7 @@ final class AuthenticationService: NSObject {
                     .sorted(by: { $0.activedAt > $1.activedAt })
                     .compactMap { authentication -> MastodonAuthenticationBox? in
                         return MastodonAuthenticationBox(
+                            authenticationRecord: .init(objectID: authentication.objectID),
                             domain: authentication.domain,
                             userID: authentication.userID,
                             appAuthorization: Mastodon.API.OAuth.Authorization(accessToken: authentication.appAccessToken),
@@ -121,6 +122,7 @@ extension AuthenticationService {
                     // force set to avoid delay
                     self.activeMastodonAuthentication.value = mastodonAuthentication
                     self.activeMastodonAuthenticationBox.value = MastodonAuthenticationBox(
+                        authenticationRecord: .init(objectID: mastodonAuthentication.objectID),
                         domain: mastodonAuthentication.domain,
                         userID: mastodonAuthentication.userID,
                         appAuthorization: Mastodon.API.OAuth.Authorization(accessToken: mastodonAuthentication.appAccessToken),
@@ -148,6 +150,7 @@ extension AuthenticationService {
                 return
             }
             _mastodonAuthenticationBox = MastodonAuthenticationBox(
+                authenticationRecord: .init(objectID: mastodonAuthentication.objectID),
                 domain: mastodonAuthentication.domain,
                 userID: mastodonAuthentication.userID,
                 appAuthorization: Mastodon.API.OAuth.Authorization(accessToken: mastodonAuthentication.appAccessToken),

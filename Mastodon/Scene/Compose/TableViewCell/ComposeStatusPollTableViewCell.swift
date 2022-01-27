@@ -8,6 +8,8 @@
 import os.log
 import UIKit
 import Combine
+import MastodonAsset
+import MastodonLocalization
 
 protocol ComposeStatusPollTableViewCellDelegate: AnyObject {
     func composeStatusPollTableViewCell(_ cell: ComposeStatusPollTableViewCell, pollOptionAttributesDidReorder options: [ComposeStatusPollItem.PollOptionAttribute])
@@ -25,7 +27,6 @@ final class ComposeStatusPollTableViewCell: UITableViewCell {
     weak var composeStatusPollOptionCollectionViewCellDelegate: ComposeStatusPollOptionCollectionViewCellDelegate?
     weak var composeStatusPollOptionAppendEntryCollectionViewCellDelegate: ComposeStatusPollOptionAppendEntryCollectionViewCellDelegate?
     weak var composeStatusPollExpiresOptionCollectionViewCellDelegate: ComposeStatusPollExpiresOptionCollectionViewCellDelegate?
-
 
     private static func createLayout() -> UICollectionViewLayout {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(44))

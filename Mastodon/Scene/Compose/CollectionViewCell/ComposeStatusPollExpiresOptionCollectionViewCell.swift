@@ -8,6 +8,8 @@
 import os.log
 import UIKit
 import Combine
+import MastodonAsset
+import MastodonLocalization
 
 protocol ComposeStatusPollExpiresOptionCollectionViewCellDelegate: AnyObject {
     func composeStatusPollExpiresOptionCollectionViewCell(_ cell: ComposeStatusPollExpiresOptionCollectionViewCell, didSelectExpiresOption expiresOption: ComposeStatusPollItem.PollExpiresOptionAttribute.ExpiresOption)

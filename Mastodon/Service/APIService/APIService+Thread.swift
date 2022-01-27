@@ -15,43 +15,40 @@ import MastodonSDK
 extension APIService {
     
     func statusContext(
-        domain: String,
         statusID: Mastodon.Entity.Status.ID,
-        mastodonAuthenticationBox: MastodonAuthenticationBox
-    ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Context>, Error> {
-        let authorization = mastodonAuthenticationBox.userAuthorization
-        guard domain == mastodonAuthenticationBox.domain else {
-            return Fail(error: APIError.implicit(.badRequest)).eraseToAnyPublisher()
-        }
+        authenticationBox: MastodonAuthenticationBox
+    ) async throws -> Mastodon.Response.Content<Mastodon.Entity.Context> {
+        let domain = authenticationBox.domain
+        let authorization = authenticationBox.userAuthorization
         
-        return Mastodon.API.Statuses.statusContext(
+        let response = try await Mastodon.API.Statuses.statusContext(
             session: session,
             domain: domain,
             statusID: statusID,
             authorization: authorization
-        )
-        .flatMap { response -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Context>, Error> in
-            return APIService.Persist.persistStatus(
-                managedObjectContext: self.backgroundManagedObjectContext,
-                domain: domain,
-                query: nil,
-                response: response.map { $0.ancestors + $0.descendants },
-                persistType: .lookUp,
-                requestMastodonUserID: nil,
-                log: OSLog.api
-            )
-            .setFailureType(to: Error.self)
-            .tryMap { result -> Mastodon.Response.Content<Mastodon.Entity.Context> in
-                switch result {
-                case .success:
-                    return response
-                case .failure(let error):
-                    throw error
-                }
+        ).singleOutput()
+        
+        let managedObjectContext = self.backgroundManagedObjectContext
+        try await managedObjectContext.performChanges {
+            let me = authenticationBox.authenticationRecord.object(in: managedObjectContext)?.user
+            let value = response.value.ancestors + response.value.descendants
+            
+            for entity in value {
+                Persistence.Status.createOrMerge(
+                    in: managedObjectContext,
+                    context: Persistence.Status.PersistContext(
+                        domain: domain,
+                        entity: entity,
+                        me: me,
+                        statusCache: nil,
+                        userCache: nil,
+                        networkDate: response.networkDate
+                    )
+                )
             }
-            .eraseToAnyPublisher()
         }
-        .eraseToAnyPublisher()
-    }
+        
+        return response
+    }   // end func
     
 }

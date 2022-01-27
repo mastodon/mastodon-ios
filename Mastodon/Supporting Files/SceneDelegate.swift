@@ -72,7 +72,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         .store(in: &observations)
 
         #if DEBUG
-        fpsIndicator = FPSIndicator(windowScene: windowScene)
+        // fpsIndicator = FPSIndicator(windowScene: windowScene)
         #endif
     }
 
@@ -131,12 +131,16 @@ extension SceneDelegate {
             if coordinator?.tabBarController.topMost is ComposeViewController {
                 logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): composing…")
             } else {
-                if AppContext.shared.authenticationService.activeMastodonAuthenticationBox.value == nil {
-                    logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): not authenticated")
-                } else {
-                    let composeViewModel = ComposeViewModel(context: AppContext.shared, composeKind: .post)
+                if let authenticationBox = AppContext.shared.authenticationService.activeMastodonAuthenticationBox.value {
+                    let composeViewModel = ComposeViewModel(
+                        context: AppContext.shared,
+                        composeKind: .post,
+                        authenticationBox: authenticationBox
+                    )
                     coordinator?.present(scene: .compose(viewModel: composeViewModel), from: nil, transition: .modal(animated: true, completion: nil))
                     logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): present compose scene")
+                } else {
+                    logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): not authenticated")
                 }
             }
         case "org.joinmastodon.app.search":

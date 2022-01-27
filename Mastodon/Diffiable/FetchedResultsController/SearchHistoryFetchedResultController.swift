@@ -21,8 +21,9 @@ final class SearchHistoryFetchedResultController: NSObject {
     let userID = CurrentValueSubject<Mastodon.Entity.Status.ID?, Never>(nil)
 
     // output
-    let objectIDs = CurrentValueSubject<[NSManagedObjectID], Never>([])
-
+    let _objectIDs = CurrentValueSubject<[NSManagedObjectID], Never>([])
+    @Published var records: [ManagedObjectRecord<SearchHistory>] = []
+    
     init(managedObjectContext: NSManagedObjectContext) {
         self.fetchedResultsController = {
             let fetchRequest = SearchHistory.sortedFetchRequest
@@ -38,12 +39,18 @@ final class SearchHistoryFetchedResultController: NSObject {
             return controller
         }()
         super.init()
+        
+        // debounce output to prevent UI update issues
+        _objectIDs
+            .throttle(for: 0.1, scheduler: DispatchQueue.main, latest: true)
+            .map { objectIDs in objectIDs.map { ManagedObjectRecord(objectID: $0) } }
+            .assign(to: &$records)
 
         fetchedResultsController.delegate = self
 
         Publishers.CombineLatest(
-            self.domain.removeDuplicates(),
-            self.userID.removeDuplicates()
+            self.domain,
+            self.userID
         )
         .receive(on: DispatchQueue.main)
         .sink { [weak self] domain, userID in
@@ -67,6 +74,6 @@ extension SearchHistoryFetchedResultController: NSFetchedResultsControllerDelega
         os_log("%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
 
         let objects = fetchedResultsController.fetchedObjects ?? []
-        self.objectIDs.value = objects.map { $0.objectID }
+        self._objectIDs.value = objects.map { $0.objectID }
     }
 }

@@ -11,12 +11,18 @@ import os.log
 import UIKit
 
 protocol TimelineMiddleLoaderTableViewCellDelegate: AnyObject {
-    func configure(cell: TimelineMiddleLoaderTableViewCell, upperTimelineStatusID: String?, timelineIndexobjectID:NSManagedObjectID?)
     func timelineMiddleLoaderTableViewCell(_ cell: TimelineMiddleLoaderTableViewCell, loadMoreButtonDidPressed button: UIButton)
 }
 
 final class TimelineMiddleLoaderTableViewCell: TimelineLoaderTableViewCell {
+    
     weak var delegate: TimelineMiddleLoaderTableViewCellDelegate?
+    
+    private(set) lazy var viewModel: ViewModel = {
+        let viewModel = ViewModel()
+        viewModel.bind(cell: self)
+        return viewModel
+    }()
     
     let topSawToothView = SawToothView()
     let bottomSawToothView = SawToothView()

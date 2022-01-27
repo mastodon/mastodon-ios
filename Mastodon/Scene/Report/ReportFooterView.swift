@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import MastodonAsset
+import MastodonLocalization
 
 final class ReportFooterView: UIView {
     enum Step: Int {

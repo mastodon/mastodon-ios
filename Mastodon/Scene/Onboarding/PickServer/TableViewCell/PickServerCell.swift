@@ -11,6 +11,8 @@ import Combine
 import MastodonSDK
 import AlamofireImage
 import Kanna
+import MastodonAsset
+import MastodonLocalization
 
 protocol PickServerCellDelegate: AnyObject {
 //    func pickServerCell(_ cell: PickServerCell, expandButtonPressed button: UIButton)

@@ -7,6 +7,7 @@
 
 import UIKit
 import CoreData
+import MastodonUI
 
 class MediaPreviewTransitionItem: Identifiable {
     
@@ -43,21 +44,24 @@ class MediaPreviewTransitionItem: Identifiable {
 
 extension MediaPreviewTransitionItem {
     enum Source {
-        case mosaic(MosaicImageViewContainer)
+        case attachment(MediaView)
+        case attachments(MediaGridContainerView)
         case profileAvatar(ProfileHeaderView)
         case profileBanner(ProfileHeaderView)
         
         func updateAppearance(position: UIViewAnimatingPosition, index: Int?) {
             let alpha: CGFloat = position == .end ? 1 : 0
             switch self {
-            case .mosaic(let mosaicImageViewContainer):
+            case .attachment(let mediaView):
+                mediaView.alpha = alpha
+            case .attachments(let mediaGridContainerView):
                 if let index = index {
-                    mosaicImageViewContainer.setImageView(alpha: 0, index: index)
+                    mediaGridContainerView.setAlpha(0, index: index)
                 } else {
-                    mosaicImageViewContainer.setImageViews(alpha: alpha)
+                    mediaGridContainerView.setAlpha(alpha)
                 }
             case .profileAvatar(let profileHeaderView):
-                profileHeaderView.avatarImageView.alpha = alpha
+                profileHeaderView.avatarButton.alpha = alpha
             case .profileBanner:
                 break    // keep source
             }

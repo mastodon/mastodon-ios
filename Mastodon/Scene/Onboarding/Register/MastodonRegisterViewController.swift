@@ -11,6 +11,8 @@ import MastodonSDK
 import os.log
 import PhotosUI
 import UIKit
+import MastodonAsset
+import MastodonLocalization
 
 final class MastodonRegisterViewController: UIViewController, NeedsDependency, OnboardingViewControllerAppearance {
     

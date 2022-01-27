@@ -7,6 +7,8 @@
 
 import UIKit
 import MastodonUI
+import MastodonAsset
+import MastodonLocalization
 
 final class NavigationActionView: UIView {
     

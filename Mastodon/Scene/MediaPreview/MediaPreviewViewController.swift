@@ -9,6 +9,8 @@ import os.log
 import UIKit
 import Combine
 import Pageboy
+import MastodonAsset
+import MastodonLocalization
 
 final class MediaPreviewViewController: UIViewController, NeedsDependency {
     
@@ -98,15 +100,17 @@ extension MediaPreviewViewController {
         closeButton.addTarget(self, action: #selector(MediaPreviewViewController.closeButtonPressed(_:)), for: .touchUpInside)
         
         // bind view model
-        viewModel.currentPage
+        viewModel.$currentPage
             .receive(on: DispatchQueue.main)
             .sink { [weak self] index in
                 guard let self = self else { return }
-                switch self.viewModel.pushTransitionItem.source {
-                case .mosaic(let mosaicImageViewContainer):
+                switch self.viewModel.transitionItem.source {
+                case .attachment(_):
+                    break
+                case .attachments(let mediaGridContainerView):
                     UIView.animate(withDuration: 0.3) {
-                        mosaicImageViewContainer.setImageViews(alpha: 1)
-                        mosaicImageViewContainer.setImageView(alpha: 0, index: index)
+                        mediaGridContainerView.setAlpha(1)
+                        mediaGridContainerView.setAlpha(0, index: index)
                     }
                 case .profileAvatar, .profileBanner:
                     break
@@ -178,7 +182,7 @@ extension MediaPreviewViewController: PageboyViewControllerDelegate {
     ) {
         // update page control
         // pageControl.currentPage = index
-        viewModel.currentPage.value = index
+        viewModel.currentPage = index
     }
     
     func pageboyViewController(
@@ -203,17 +207,24 @@ extension MediaPreviewViewController: MediaPreviewImageViewControllerDelegate {
         // do nothing
     }
     
-    func mediaPreviewImageViewController(_ viewController: MediaPreviewImageViewController, contextMenuActionPerform action: MediaPreviewImageViewController.ContextMenuAction) {
+    func mediaPreviewImageViewController(
+        _ viewController: MediaPreviewImageViewController,
+        contextMenuActionPerform action: MediaPreviewImageViewController.ContextMenuAction
+    ) {
         switch action {
         case .savePhoto:
-            let savePublisher: AnyPublisher<Void, Error> = {
+            let _savePublisher: AnyPublisher<Void, Error>? = {
                 switch viewController.viewModel.item {
-                case .status(let meta):
-                    return context.photoLibraryService.save(imageSource: .url(meta.url))
-                case .local(let meta):
-                    return context.photoLibraryService.save(imageSource: .image(meta.image))
+                case .remote(let previewContext):
+                    guard let assetURL = previewContext.assetURL else { return nil }
+                    return context.photoLibraryService.save(imageSource: .url(assetURL))
+                case .local(let previewContext):
+                    return context.photoLibraryService.save(imageSource: .image(previewContext.image))
                 }
             }()
+            guard let savePublisher = _savePublisher else {
+                return
+            }
             savePublisher
                 .sink { [weak self] completion in
                     guard let self = self else { return }
@@ -221,8 +232,15 @@ extension MediaPreviewViewController: MediaPreviewImageViewControllerDelegate {
                     case .failure(let error):
                         guard let error = error as? PhotoLibraryService.PhotoLibraryError,
                               case .noPermission = error else { return }
-                        let alertController = SettingService.openSettingsAlertController(title: L10n.Common.Alerts.SavePhotoFailure.title, message: L10n.Common.Alerts.SavePhotoFailure.message)
-                        self.coordinator.present(scene: .alertController(alertController: alertController), from: self, transition: .alertController(animated: true, completion: nil))
+                        let alertController = SettingService.openSettingsAlertController(
+                            title: L10n.Common.Alerts.SavePhotoFailure.title,
+                            message: L10n.Common.Alerts.SavePhotoFailure.message
+                        )
+                        self.coordinator.present(
+                            scene: .alertController(alertController: alertController),
+                            from: self,
+                            transition: .alertController(animated: true, completion: nil)
+                        )
                     case .finished:
                         break
                     }
@@ -231,14 +249,19 @@ extension MediaPreviewViewController: MediaPreviewImageViewControllerDelegate {
                 }
                 .store(in: &context.disposeBag)
         case .copyPhoto:
-            let copyPublisher: AnyPublisher<Void, Error> = {
+            let _copyPublisher: AnyPublisher<Void, Error>? = {
                 switch viewController.viewModel.item {
-                case .status(let meta):
-                    return context.photoLibraryService.copy(imageSource: .url(meta.url))
-                case .local(let meta):
-                    return context.photoLibraryService.copy(imageSource: .image(meta.image))
+                case .remote(let previewContext):
+                    guard let assetURL = previewContext.assetURL else { return nil }
+                    return context.photoLibraryService.copy(imageSource: .url(assetURL))
+                case .local(let previewContext):
+                    return context.photoLibraryService.copy(imageSource: .image(previewContext.image))
                 }
             }()
+            guard let copyPublisher = _copyPublisher else {
+                return
+            }
+
             copyPublisher
                 .sink { completion in
                     switch completion {
@@ -256,12 +279,22 @@ extension MediaPreviewViewController: MediaPreviewImageViewControllerDelegate {
                 SafariActivity(sceneCoordinator: self.coordinator)
             ]
             let activityViewController = UIActivityViewController(
-                activityItems: viewController.viewModel.item.activityItems,
+                activityItems: {
+                    var activityItems: [Any] = []
+                    switch viewController.viewModel.item {
+                    case .remote(let previewContext):
+                        if let assetURL = previewContext.assetURL {
+                            activityItems.append(assetURL)
+                        }
+                    case .local(let previewContext):
+                        activityItems.append(previewContext.image)
+                    }
+                    return activityItems
+                }(),
                 applicationActivities: applicationActivities
             )
             activityViewController.popoverPresentationController?.sourceView = viewController.previewImageView.imageView
             self.present(activityViewController, animated: true, completion: nil)
-
         }
     }
     

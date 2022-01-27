@@ -10,24 +10,10 @@ import Combine
 import MastodonSDK
 import MastodonMeta
 
-enum ProfileFieldItem {
-    case field(field: FieldValue, attribute: FieldItemAttribute)
-    case addEntry(attribute: AddEntryItemAttribute)
-}
-
-protocol ProfileFieldListSeparatorLineConfigurable: AnyObject {
-    var isLast: Bool { get set }
-}
-
-extension ProfileFieldItem {
-    var listSeparatorLineConfigurable: ProfileFieldListSeparatorLineConfigurable? {
-        switch self {
-        case .field(_, let attribute):
-            return attribute
-        case .addEntry(let attribute):
-            return attribute
-        }
-    }
+enum ProfileFieldItem: Hashable {
+    case field(field: FieldValue)
+    case editField(field: FieldValue)
+    case addEntry
 }
 
 extension ProfileFieldItem {
@@ -36,68 +22,33 @@ extension ProfileFieldItem {
 
         var name: CurrentValueSubject<String, Never>
         var value: CurrentValueSubject<String, Never>
+        
+        let emojiMeta: MastodonContent.Emojis
 
-        init(id: UUID = UUID(), name: String, value: String) {
+        init(
+            id: UUID = UUID(),
+            name: String,
+            value: String,
+            emojiMeta: MastodonContent.Emojis
+        ) {
             self.id = id
             self.name = CurrentValueSubject(name)
             self.value = CurrentValueSubject(value)
+            self.emojiMeta = emojiMeta
         }
         
-        static func == (lhs: ProfileFieldItem.FieldValue, rhs: ProfileFieldItem.FieldValue) -> Bool {
+        static func == (
+            lhs: ProfileFieldItem.FieldValue,
+            rhs: ProfileFieldItem.FieldValue
+        ) -> Bool {
             return lhs.id == rhs.id
                 && lhs.name.value == rhs.name.value
                 && lhs.value.value == rhs.value.value
+                && lhs.emojiMeta == rhs.emojiMeta
         }
         
         func hash(into hasher: inout Hasher) {
             hasher.combine(id)
-        }
-    }
-}
-
-extension ProfileFieldItem {
-    class FieldItemAttribute: Equatable, ProfileFieldListSeparatorLineConfigurable {
-        let emojiMeta = CurrentValueSubject<MastodonContent.Emojis, Never>([:])
-        
-        var isEditing = false
-        var isLast = false
-        
-        static func == (lhs: ProfileFieldItem.FieldItemAttribute, rhs: ProfileFieldItem.FieldItemAttribute) -> Bool {
-            return lhs.isEditing == rhs.isEditing
-                && lhs.isLast == rhs.isLast
-        }
-    }
-    
-    class AddEntryItemAttribute: Equatable, ProfileFieldListSeparatorLineConfigurable {
-        var isLast = false
-        
-        static func == (lhs: ProfileFieldItem.AddEntryItemAttribute, rhs: ProfileFieldItem.AddEntryItemAttribute) -> Bool {
-            return lhs.isLast == rhs.isLast
-        }
-    }
-}
-
-extension ProfileFieldItem: Equatable {
-    static func == (lhs: ProfileFieldItem, rhs: ProfileFieldItem) -> Bool {
-        switch (lhs, rhs) {
-        case (.field(let fieldLeft, let attributeLeft), .field(let fieldRight, let attributeRight)):
-            return fieldLeft.id == fieldRight.id
-                && attributeLeft == attributeRight
-        case (.addEntry(let attributeLeft), .addEntry(let attributeRight)):
-            return attributeLeft == attributeRight
-        default:
-            return false
-        }
-    }
-}
-
-extension ProfileFieldItem: Hashable {
-    func hash(into hasher: inout Hasher) {
-        switch self {
-        case .field(let field, _):
-            hasher.combine(field.id)
-        case .addEntry:
-            hasher.combine(String(describing: ProfileFieldItem.addEntry.self))
         }
     }
 }

@@ -47,16 +47,15 @@ extension VideoPlaybackService {
 }
 
 extension VideoPlaybackService {
-    func dequeueVideoPlayerViewModel(for media: Attachment) -> VideoPlayerViewModel? {
+    func dequeueVideoPlayerViewModel(for media: MastodonAttachment) -> VideoPlayerViewModel? {
         // Core Data entity not thread-safe. Save attribute before enter working queue
-        guard let height = media.meta?.original?.height,
-              let width = media.meta?.original?.width,
-              let url = URL(string: media.url),
-              media.type == .gifv || media.type == .video
+        guard let assetURL = media.assetURL,
+              let url = URL(string: assetURL),
+              media.kind == .gifv || media.kind == .video
         else { return nil }
 
         let previewImageURL = media.previewURL.flatMap { URL(string: $0) }
-        let videoKind: VideoPlayerViewModel.Kind = media.type == .gifv ? .gif : .video
+        let videoKind: VideoPlayerViewModel.Kind = media.kind == .gifv ? .gif : .video
 
         var _viewModel: VideoPlayerViewModel?
         workingQueue.sync {
@@ -66,7 +65,7 @@ extension VideoPlaybackService {
                 let viewModel = VideoPlayerViewModel(
                     previewImageURL: previewImageURL,
                     videoURL: url,
-                    videoSize: CGSize(width: width, height: height),
+                    videoSize: media.size,
                     videoKind: videoKind
                 )
                 viewPlayerViewModelDict[url] = viewModel
@@ -101,9 +100,10 @@ extension VideoPlaybackService {
 
 extension VideoPlaybackService {
     func markTransitioning(for status: Status) {
-        guard let videoAttachment = status.mediaAttachments?.filter({ $0.type == .gifv || $0.type == .video }).first else { return }
-        guard let videoPlayerViewModel = dequeueVideoPlayerViewModel(for: videoAttachment) else { return }
-        videoPlayerViewModel.isTransitioning = true
+        // TODO:
+//        guard let videoAttachment = status.mediaAttachments?.filter({ $0.type == .gifv || $0.type == .video }).first else { return }
+//        guard let videoPlayerViewModel = dequeueVideoPlayerViewModel(for: videoAttachment) else { return }
+//        videoPlayerViewModel.isTransitioning = true
     }
     
     func viewDidDisappear(from viewController: UIViewController?) {

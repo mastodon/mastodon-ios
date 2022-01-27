@@ -16,7 +16,8 @@ extension Mastodon.Entity {
     ///   2021/1/28
     /// # Reference
     ///  [Document](https://docs.joinmastodon.org/entities/tag/)
-    public struct Tag: Codable {
+    public struct Tag: Hashable, Codable {
+        
         // Base
         public let name: String
         public let url: String
@@ -27,6 +28,15 @@ extension Mastodon.Entity {
             case name
             case url
             case history
+        }
+        
+        public static func == (lhs: Mastodon.Entity.Tag, rhs: Mastodon.Entity.Tag) -> Bool {
+            return lhs.name == rhs.name
+                && lhs.url == rhs.url
+        }
+        
+        public func hash(into hasher: inout Hasher) {
+            hasher.combine(name)
         }
     }
 }

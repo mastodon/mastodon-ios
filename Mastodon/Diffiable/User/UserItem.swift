@@ -7,10 +7,10 @@
 
 import Foundation
 import CoreData
+import CoreDataStack
 
 enum UserItem: Hashable {
-    case follower(objectID: NSManagedObjectID)
-    case following(objectID: NSManagedObjectID)
+    case user(record: ManagedObjectRecord<MastodonUser>)
     case bottomLoader
     case bottomHeader(text: String)
 }
