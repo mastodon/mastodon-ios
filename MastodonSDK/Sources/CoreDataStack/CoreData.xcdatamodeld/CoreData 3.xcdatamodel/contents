@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19574" systemVersion="21D49" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="Application" representedClassName=".Application" syncable="YES">
+    <entity name="Application" representedClassName="CoreDataStack.Application" syncable="YES">
         <attribute name="identifier" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" attributeType="String"/>
         <attribute name="vapidKey" optional="YES" attributeType="String"/>
         <attribute name="website" optional="YES" attributeType="String"/>
         <relationship name="status" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Status" inverseName="application" inverseEntity="Status"/>
     </entity>
-    <entity name="DomainBlock" representedClassName=".DomainBlock" syncable="YES">
+    <entity name="DomainBlock" representedClassName="CoreDataStack.DomainBlock" syncable="YES">
         <attribute name="blockedDomain" attributeType="String"/>
         <attribute name="createAt" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="domain" attributeType="String"/>
@@ -20,7 +20,7 @@
             </uniquenessConstraint>
         </uniquenessConstraints>
     </entity>
-    <entity name="Emoji" representedClassName=".Emoji" syncable="YES">
+    <entity name="Emoji" representedClassName="CoreDataStack.Emoji" syncable="YES">
         <attribute name="category" optional="YES" attributeType="String"/>
         <attribute name="createAt" attributeType="Date" defaultDateTimeInterval="631123200" usesScalarValueType="NO"/>
         <attribute name="identifier" attributeType="UUID" usesScalarValueType="NO"/>
@@ -29,7 +29,7 @@
         <attribute name="url" attributeType="String"/>
         <attribute name="visibleInPicker" attributeType="Boolean" usesScalarValueType="YES"/>
     </entity>
-    <entity name="Feed" representedClassName=".Feed" syncable="YES">
+    <entity name="Feed" representedClassName="CoreDataStack.Feed" syncable="YES">
         <attribute name="acctRaw" optional="YES" attributeType="String"/>
         <attribute name="createdAt" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="hasMore" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
@@ -39,7 +39,7 @@
         <relationship name="notification" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Notification" inverseName="feeds" inverseEntity="Notification"/>
         <relationship name="status" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Status" inverseName="feeds" inverseEntity="Status"/>
     </entity>
-    <entity name="HomeTimelineIndex" representedClassName=".HomeTimelineIndex" syncable="YES">
+    <entity name="HomeTimelineIndex" representedClassName="CoreDataStack.HomeTimelineIndex" syncable="YES">
         <attribute name="createdAt" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="deletedAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="domain" attributeType="String"/>
@@ -48,14 +48,14 @@
         <attribute name="userID" attributeType="String"/>
         <relationship name="status" maxCount="1" deletionRule="Nullify" destinationEntity="Status"/>
     </entity>
-    <entity name="Instance" representedClassName=".Instance" syncable="YES">
+    <entity name="Instance" representedClassName="CoreDataStack.Instance" syncable="YES">
         <attribute name="configurationRaw" optional="YES" attributeType="Binary"/>
         <attribute name="createdAt" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="domain" attributeType="String"/>
         <attribute name="updatedAt" attributeType="Date" usesScalarValueType="NO"/>
         <relationship name="authentications" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonAuthentication" inverseName="instance" inverseEntity="MastodonAuthentication"/>
     </entity>
-    <entity name="MastodonAuthentication" representedClassName=".MastodonAuthentication" syncable="YES">
+    <entity name="MastodonAuthentication" representedClassName="CoreDataStack.MastodonAuthentication" syncable="YES">
         <attribute name="activedAt" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="appAccessToken" attributeType="String"/>
         <attribute name="clientID" attributeType="String"/>
@@ -70,7 +70,7 @@
         <relationship name="instance" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Instance" inverseName="authentications" inverseEntity="Instance"/>
         <relationship name="user" maxCount="1" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="mastodonAuthentication" inverseEntity="MastodonUser"/>
     </entity>
-    <entity name="MastodonUser" representedClassName=".MastodonUser" syncable="YES">
+    <entity name="MastodonUser" representedClassName="CoreDataStack.MastodonUser" syncable="YES">
         <attribute name="acct" attributeType="String"/>
         <attribute name="avatar" attributeType="String"/>
         <attribute name="avatarStatic" optional="YES" attributeType="String"/>
@@ -119,7 +119,7 @@
         <relationship name="votePollOptions" toMany="YES" deletionRule="Nullify" destinationEntity="PollOption" inverseName="votedBy" inverseEntity="PollOption"/>
         <relationship name="votePolls" toMany="YES" deletionRule="Nullify" destinationEntity="Poll" inverseName="votedBy" inverseEntity="Poll"/>
     </entity>
-    <entity name="Notification" representedClassName=".Notification" syncable="YES">
+    <entity name="Notification" representedClassName="CoreDataStack.Notification" syncable="YES">
         <attribute name="createAt" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="domain" attributeType="String"/>
         <attribute name="id" attributeType="String"/>
@@ -135,7 +135,7 @@
             </uniquenessConstraint>
         </uniquenessConstraints>
     </entity>
-    <entity name="Poll" representedClassName=".Poll" syncable="YES">
+    <entity name="Poll" representedClassName="CoreDataStack.Poll" syncable="YES">
         <attribute name="createdAt" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="domain" attributeType="String" defaultValueString=""/>
         <attribute name="expired" attributeType="Boolean" usesScalarValueType="YES"/>
@@ -150,7 +150,7 @@
         <relationship name="status" maxCount="1" deletionRule="Nullify" destinationEntity="Status" inverseName="poll" inverseEntity="Status"/>
         <relationship name="votedBy" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="votePolls" inverseEntity="MastodonUser"/>
     </entity>
-    <entity name="PollOption" representedClassName=".PollOption" syncable="YES">
+    <entity name="PollOption" representedClassName="CoreDataStack.PollOption" syncable="YES">
         <attribute name="createdAt" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="index" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="isSelected" transient="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
@@ -160,13 +160,13 @@
         <relationship name="poll" maxCount="1" deletionRule="Nullify" destinationEntity="Poll" inverseName="options" inverseEntity="Poll"/>
         <relationship name="votedBy" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="votePollOptions" inverseEntity="MastodonUser"/>
     </entity>
-    <entity name="PrivateNote" representedClassName=".PrivateNote" syncable="YES">
+    <entity name="PrivateNote" representedClassName="CoreDataStack.PrivateNote" syncable="YES">
         <attribute name="note" optional="YES" attributeType="String"/>
         <attribute name="updatedAt" attributeType="Date" usesScalarValueType="NO"/>
         <relationship name="from" maxCount="1" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="privateNotesTo" inverseEntity="MastodonUser"/>
         <relationship name="to" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="privateNotes" inverseEntity="MastodonUser"/>
     </entity>
-    <entity name="SearchHistory" representedClassName=".SearchHistory" syncable="YES">
+    <entity name="SearchHistory" representedClassName="CoreDataStack.SearchHistory" syncable="YES">
         <attribute name="createAt" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="domain" attributeType="String" defaultValueString=""/>
         <attribute name="identifier" attributeType="UUID" usesScalarValueType="NO"/>
@@ -176,7 +176,7 @@
         <relationship name="hashtag" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Tag" inverseName="searchHistories" inverseEntity="Tag"/>
         <relationship name="status" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Status" inverseName="searchHistories" inverseEntity="Status"/>
     </entity>
-    <entity name="Setting" representedClassName=".Setting" syncable="YES">
+    <entity name="Setting" representedClassName="CoreDataStack.Setting" syncable="YES">
         <attribute name="createdAt" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="domain" attributeType="String"/>
         <attribute name="preferredStaticAvatar" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
@@ -187,7 +187,7 @@
         <attribute name="userID" attributeType="String"/>
         <relationship name="subscriptions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Subscription" inverseName="setting" inverseEntity="Subscription"/>
     </entity>
-    <entity name="Status" representedClassName=".Status" syncable="YES">
+    <entity name="Status" representedClassName="CoreDataStack.Status" syncable="YES">
         <attribute name="attachments" optional="YES" attributeType="Binary"/>
         <attribute name="content" attributeType="String"/>
         <attribute name="createdAt" attributeType="Date" usesScalarValueType="NO"/>
@@ -227,7 +227,7 @@
         <relationship name="replyTo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Status" inverseName="replyFrom" inverseEntity="Status"/>
         <relationship name="searchHistories" toMany="YES" deletionRule="Cascade" destinationEntity="SearchHistory" inverseName="status" inverseEntity="SearchHistory"/>
     </entity>
-    <entity name="Subscription" representedClassName=".Subscription" syncable="YES">
+    <entity name="Subscription" representedClassName="CoreDataStack.Subscription" syncable="YES">
         <attribute name="activedAt" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="createdAt" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="endpoint" optional="YES" attributeType="String"/>
@@ -239,7 +239,7 @@
         <relationship name="alert" maxCount="1" deletionRule="Cascade" destinationEntity="SubscriptionAlerts" inverseName="subscription" inverseEntity="SubscriptionAlerts"/>
         <relationship name="setting" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Setting" inverseName="subscriptions" inverseEntity="Setting"/>
     </entity>
-    <entity name="SubscriptionAlerts" representedClassName=".SubscriptionAlerts" syncable="YES">
+    <entity name="SubscriptionAlerts" representedClassName="CoreDataStack.SubscriptionAlerts" syncable="YES">
         <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="favouriteRaw" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="followRaw" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
@@ -250,7 +250,7 @@
         <attribute name="updatedAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <relationship name="subscription" maxCount="1" deletionRule="Nullify" destinationEntity="Subscription" inverseName="alert" inverseEntity="Subscription"/>
     </entity>
-    <entity name="Tag" representedClassName=".Tag" syncable="YES">
+    <entity name="Tag" representedClassName="CoreDataStack.Tag" syncable="YES">
         <attribute name="createAt" attributeType="Date" defaultDateTimeInterval="631123200" usesScalarValueType="NO"/>
         <attribute name="domain" attributeType="String" defaultValueString=""/>
         <attribute name="histories" optional="YES" attributeType="Binary"/>
@@ -277,7 +277,7 @@
         <element name="Setting" positionX="72" positionY="162" width="128" height="164"/>
         <element name="Status" positionX="0" positionY="0" width="128" height="599"/>
         <element name="Subscription" positionX="81" positionY="171" width="128" height="179"/>
-        <element name="SubscriptionAlerts" positionX="72" positionY="162" width="128" height="14"/>
+        <element name="SubscriptionAlerts" positionX="72" positionY="162" width="128" height="164"/>
         <element name="Tag" positionX="0" positionY="0" width="128" height="149"/>
     </elements>
 </model>

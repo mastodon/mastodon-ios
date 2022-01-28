@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import MastodonCommon
 
 extension UserDefaults {
     public static let shared = UserDefaults(suiteName: AppName.groupID)!

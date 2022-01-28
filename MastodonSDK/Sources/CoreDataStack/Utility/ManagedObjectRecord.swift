@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-public class ManagedObjectRecord<T: Managed>: Hashable {
+public class ManagedObjectRecord<T: NSFetchRequestResult>: Hashable {
     
     public let objectID: NSManagedObjectID
     

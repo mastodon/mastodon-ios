@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreDataStack
+import MastodonUI
 
 enum StatusItem: Hashable {
     case feed(record: ManagedObjectRecord<Feed>)

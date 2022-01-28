@@ -10,6 +10,7 @@ import Foundation
 import CryptoKit
 import KeychainAccess
 import Keys
+import MastodonCommon
 
 public final class AppSecret {
     

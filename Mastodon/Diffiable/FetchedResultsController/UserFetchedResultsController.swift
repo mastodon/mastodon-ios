@@ -11,6 +11,7 @@ import Combine
 import CoreData
 import CoreDataStack
 import MastodonSDK
+import MastodonUI
 
 final class UserFetchedResultsController: NSObject {
 

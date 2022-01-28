@@ -1,6 +1,6 @@
 //
 //  AppName.swift
-//  AppShared
+//  MastodonCommon
 //
 //  Created by MainasuK Cirno on 2021-4-27.
 //

@@ -50,7 +50,7 @@ extension NSManagedObjectContext {
 
 extension NSManagedObjectContext {
     public func perform<T>(block: @escaping () throws -> T) async throws -> T {
-        if #available(iOSApplicationExtension 15.0, *) {
+        if #available(iOS 15.0, *) {
             return try await perform(schedule: .enqueued) {
                 try block()
             }

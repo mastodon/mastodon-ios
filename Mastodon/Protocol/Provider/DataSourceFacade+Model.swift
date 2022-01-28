@@ -8,6 +8,7 @@
 import Foundation
 import CoreData
 import CoreDataStack
+import MastodonUI
 
 extension DataSourceFacade {
     static func status(

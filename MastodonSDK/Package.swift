@@ -13,11 +13,18 @@ let package = Package(
         .library(
             name: "MastodonSDK",
             targets: [
-                "MastodonSDK",
-                "MastodonExtension",
+                "CoreDataStack",
                 "MastodonAsset",
+                "MastodonCommon",
+                "MastodonExtension",
                 "MastodonLocalization",
+                "MastodonSDK",
                 "MastodonUI",
+            ]),
+        .library(
+            name: "MastodonCommon",
+            targets: [
+                "MastodonCommon",
             ]),
     ],
     dependencies: [
@@ -36,18 +43,21 @@ let package = Package(
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
-            name: "MastodonSDK",
+            name: "CoreDataStack",
             dependencies: [
-                .product(name: "SwiftyJSON", package: "SwiftyJSON"),
-                .product(name: "NIOHTTP1", package: "swift-nio"),
+                "MastodonCommon",
             ]
         ),
         .target(
-            name: "MastodonExtension",
+            name: "MastodonAsset",
             dependencies: []
         ),
         .target(
-            name: "MastodonAsset",
+            name: "MastodonCommon",
+            dependencies: []
+        ),
+        .target(
+            name: "MastodonExtension",
             dependencies: []
         ),
         .target(
@@ -55,8 +65,16 @@ let package = Package(
             dependencies: []
         ),
         .target(
+            name: "MastodonSDK",
+            dependencies: [
+                .product(name: "SwiftyJSON", package: "SwiftyJSON"),
+                .product(name: "NIOHTTP1", package: "swift-nio"),
+            ]
+        ),
+        .target(
             name: "MastodonUI",
             dependencies: [
+                "CoreDataStack",
                 "MastodonSDK",
                 "MastodonExtension",
                 "MastodonAsset",

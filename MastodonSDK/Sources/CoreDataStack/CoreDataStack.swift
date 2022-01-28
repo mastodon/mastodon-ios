@@ -9,7 +9,7 @@ import os
 import Foundation
 import Combine
 import CoreData
-import AppShared
+import MastodonCommon
 
 public final class CoreDataStack {
     
@@ -46,7 +46,7 @@ public final class CoreDataStack {
     }()
 
     static func persistentContainer() -> NSPersistentContainer {
-        let bundles = [Bundle(for: Status.self)]
+        let bundles = [Bundle.module]   // .module required for package in the SwiftPM
         guard let managedObjectModel = NSManagedObjectModel.mergedModel(from: bundles) else {
             fatalError("cannot locate bundles")
         }
