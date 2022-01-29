@@ -87,8 +87,8 @@
         "repositoryURL": "https://github.com/TwidereProject/MetaTextKit.git",
         "state": {
           "branch": null,
-          "revision": "7af4182f64329440a4656f2cba307cb5848e496a",
-          "version": "2.1.2"
+          "revision": "2e91906221ee154656a34513604c6d3349dced4c",
+          "version": "2.2.0"
         }
       },
       {
@@ -132,8 +132,8 @@
         "repositoryURL": "https://github.com/SDWebImage/SDWebImage.git",
         "state": {
           "branch": null,
-          "revision": "0fff0d7505b5306348263ea64fcc561253bbeb21",
-          "version": "5.12.2"
+          "revision": "2c53f531f1bedd253f55d85105409c28ed4a922c",
+          "version": "5.12.3"
         }
       },
       {
@@ -206,6 +206,15 @@
           "branch": null,
           "revision": "dad97167bf1be16aeecd109130900995dd01c515",
           "version": "2.6.0"
+        }
+      },
+      {
+        "package": "UITextView+Placeholder",
+        "repositoryURL": "https://github.com/MainasuK/UITextView-Placeholder",
+        "state": {
+          "branch": null,
+          "revision": "20f513ded04a040cdf5467f0891849b1763ede3b",
+          "version": "1.4.1"
         }
       }
     ]

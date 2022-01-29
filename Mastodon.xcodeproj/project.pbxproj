@@ -543,13 +543,9 @@
 		DBD9149025DF6D8D00903DFD /* APIService+Onboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD9148F25DF6D8D00903DFD /* APIService+Onboarding.swift */; };
 		DBE0821525CD382600FD6BBD /* MastodonRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE0821425CD382600FD6BBD /* MastodonRegisterViewController.swift */; };
 		DBE0822425CD3F1E00FD6BBD /* MastodonRegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE0822325CD3F1E00FD6BBD /* MastodonRegisterViewModel.swift */; };
-		DBE3CA6727A39BD900AFE27B /* MastodonCommon in Frameworks */ = {isa = PBXBuildFile; productRef = DBE3CA6627A39BD900AFE27B /* MastodonCommon */; };
 		DBE3CA6827A39CAB00AFE27B /* AppShared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB68047F2637CD4C00430867 /* AppShared.framework */; };
-		DBE3CA6927A39CAB00AFE27B /* AppShared.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DB68047F2637CD4C00430867 /* AppShared.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DBE3CA6B27A39CAF00AFE27B /* AppShared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB68047F2637CD4C00430867 /* AppShared.framework */; };
-		DBE3CA6C27A39CAF00AFE27B /* AppShared.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DB68047F2637CD4C00430867 /* AppShared.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DBE3CA6E27A39CB300AFE27B /* AppShared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB68047F2637CD4C00430867 /* AppShared.framework */; };
-		DBE3CA6F27A39CB300AFE27B /* AppShared.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DB68047F2637CD4C00430867 /* AppShared.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DBE3CDBB261C427900430CC6 /* TimelineHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE3CDBA261C427900430CC6 /* TimelineHeaderTableViewCell.swift */; };
 		DBE3CDCF261C42ED00430CC6 /* TimelineHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE3CDCE261C42ED00430CC6 /* TimelineHeaderView.swift */; };
 		DBE3CDEC261C6B2900430CC6 /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE3CDEB261C6B2900430CC6 /* FavoriteViewController.swift */; };
@@ -676,39 +672,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				DB6804872637CD4C00430867 /* AppShared.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		DBE3CA6A27A39CAB00AFE27B /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				DBE3CA6927A39CAB00AFE27B /* AppShared.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		DBE3CA6D27A39CAF00AFE27B /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				DBE3CA6C27A39CAF00AFE27B /* AppShared.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		DBE3CA7027A39CB300AFE27B /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				DBE3CA6F27A39CB300AFE27B /* AppShared.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1311,7 +1274,6 @@
 		DBDC1CFD272C0FD600055C3D /* ku-TR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = "ku-TR"; path = "ku-TR.lproj/Intents.stringsdict"; sourceTree = "<group>"; };
 		DBE0821425CD382600FD6BBD /* MastodonRegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonRegisterViewController.swift; sourceTree = "<group>"; };
 		DBE0822325CD3F1E00FD6BBD /* MastodonRegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonRegisterViewModel.swift; sourceTree = "<group>"; };
-		DBE3CA7127A3F23D00AFE27B /* MetaTextKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = MetaTextKit; path = ../MetaTextKit; sourceTree = "<group>"; };
 		DBE3CDBA261C427900430CC6 /* TimelineHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineHeaderTableViewCell.swift; sourceTree = "<group>"; };
 		DBE3CDCE261C42ED00430CC6 /* TimelineHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineHeaderView.swift; sourceTree = "<group>"; };
 		DBE3CDEB261C6B2900430CC6 /* FavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
@@ -1414,7 +1376,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DBE3CA6727A39BD900AFE27B /* MastodonCommon in Frameworks */,
 				DB6805102637D0F800430867 /* KeychainAccess in Frameworks */,
 				EE93E8E8F9E0C39EAAEBD92F /* Pods_AppShared.framework in Frameworks */,
 			);
@@ -2108,7 +2069,6 @@
 			children = (
 				DBF53F5F25C14E88008AAC7B /* Mastodon.xctestplan */,
 				DBF53F6025C14E9D008AAC7B /* MastodonSDK.xctestplan */,
-				DBE3CA7127A3F23D00AFE27B /* MetaTextKit */,
 				DB3D0FED25BAA42200EAA174 /* MastodonSDK */,
 				DB427DD425BAA00100D1B89D /* Mastodon */,
 				DB427DEB25BAA00100D1B89D /* MastodonTests */,
@@ -3267,7 +3227,6 @@
 			name = AppShared;
 			packageProductDependencies = (
 				DB68050F2637D0F800430867 /* KeychainAccess */,
-				DBE3CA6627A39BD900AFE27B /* MastodonCommon */,
 			);
 			productName = AppShared;
 			productReference = DB68047F2637CD4C00430867 /* AppShared.framework */;
@@ -3281,7 +3240,6 @@
 				DB8FABC226AEC7B2008E5AF4 /* Sources */,
 				DB8FABC326AEC7B2008E5AF4 /* Frameworks */,
 				DB8FABC426AEC7B2008E5AF4 /* Resources */,
-				DBE3CA7027A39CB300AFE27B /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -3304,7 +3262,6 @@
 				DBC6460E26A170AB00B0E31B /* Sources */,
 				DBC6460F26A170AB00B0E31B /* Frameworks */,
 				DBC6461026A170AB00B0E31B /* Resources */,
-				DBE3CA6D27A39CAF00AFE27B /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -3330,7 +3287,6 @@
 				DBF8AE0F263293E400C9C23C /* Sources */,
 				DBF8AE10263293E400C9C23C /* Frameworks */,
 				DBF8AE11263293E400C9C23C /* Resources */,
-				DBE3CA6A27A39CAB00AFE27B /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -4604,7 +4560,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Mastodon/Mastodon.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 91;
+				CURRENT_PROJECT_VERSION = 92;
 				DEVELOPMENT_ASSET_PATHS = "Mastodon/Resources/Preview\\ Assets.xcassets";
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = Mastodon/Info.plist;
@@ -4633,7 +4589,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Mastodon/Mastodon.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 91;
+				CURRENT_PROJECT_VERSION = 92;
 				DEVELOPMENT_ASSET_PATHS = "Mastodon/Resources/Preview\\ Assets.xcassets";
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = Mastodon/Info.plist;
@@ -4741,11 +4697,11 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 91;
+				CURRENT_PROJECT_VERSION = 92;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 91;
+				DYLIB_CURRENT_VERSION = 92;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = AppShared/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -4772,11 +4728,11 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 91;
+				CURRENT_PROJECT_VERSION = 92;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 91;
+				DYLIB_CURRENT_VERSION = 92;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = AppShared/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -4801,7 +4757,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = MastodonIntent/MastodonIntent.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 91;
+				CURRENT_PROJECT_VERSION = 92;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = MastodonIntent/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -4826,7 +4782,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = MastodonIntent/MastodonIntent.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 91;
+				CURRENT_PROJECT_VERSION = 92;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = MastodonIntent/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -4851,7 +4807,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = ShareActionExtension/ShareActionExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 91;
+				CURRENT_PROJECT_VERSION = 92;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = ShareActionExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -4876,7 +4832,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = ShareActionExtension/ShareActionExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 91;
+				CURRENT_PROJECT_VERSION = 92;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = ShareActionExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -4901,7 +4857,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = NotificationService/NotificationService.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 91;
+				CURRENT_PROJECT_VERSION = 92;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = NotificationService/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -4925,7 +4881,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = NotificationService/NotificationService.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 91;
+				CURRENT_PROJECT_VERSION = 92;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = NotificationService/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -5058,7 +5014,7 @@
 			repositoryURL = "https://github.com/TwidereProject/MetaTextKit.git";
 			requirement = {
 				kind = exactVersion;
-				version = 2.1.2;
+				version = 2.2.0;
 			};
 		};
 		DB0E2D2C26833FF600865C3C /* XCRemoteSwiftPackageReference "Nuke-FLAnimatedImage-Plugin" */ = {
@@ -5267,10 +5223,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = DB9A487C2603456B008B817C /* XCRemoteSwiftPackageReference "UITextView-Placeholder" */;
 			productName = "UITextView+Placeholder";
-		};
-		DBE3CA6627A39BD900AFE27B /* MastodonCommon */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = MastodonCommon;
 		};
 		DBF7A0FB26830C33004176A2 /* FPSIndicator */ = {
 			isa = XCSwiftPackageProductDependency;
