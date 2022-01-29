@@ -48,7 +48,7 @@ extension StatusView {
         configureContent(status: status)
         configureMedia(status: status)
         configurePoll(status: status)
-        configureToolbar(status: status)
+        configureToolbar(status: status)        
     }
 }
 
@@ -235,33 +235,42 @@ extension StatusView {
     
     private func configureContent(status: Status) {
         let status = status.reblog ?? status
+        
+        // spoilerText
+        if let spoilerText = status.spoilerText, !spoilerText.isEmpty {
+            do {
+                let content = MastodonContent(content: spoilerText, emojis: status.emojis.asDictionary)
+                let metaContent = try MastodonMetaContent.convert(document: content)
+                viewModel.spoilerContent = metaContent
+            } catch {
+                assertionFailure(error.localizedDescription)
+                viewModel.spoilerContent = PlaintextMetaContent(string: "")
+            }
+        } else {
+            viewModel.spoilerContent = nil
+        }
+        // content
         do {
             let content = MastodonContent(content: status.content, emojis: status.emojis.asDictionary)
             let metaContent = try MastodonMetaContent.convert(document: content)
             viewModel.content = metaContent
-            // viewModel.sharePlaintextContent = metaContent.original
         } catch {
             assertionFailure(error.localizedDescription)
             viewModel.content = PlaintextMetaContent(string: "")
         }
+        // visibility
+        status.publisher(for: \.visibilityRaw)
+            .compactMap { MastodonVisibility(rawValue: $0) }
+            .assign(to: \.visibility, on: viewModel)
+            .store(in: &disposeBag)
+        // sensitive
+        status.publisher(for: \.isContentSensitiveToggled)
+            .assign(to: \.isContentSensitiveToggled, on: viewModel)
+            .store(in: &disposeBag)
+        status.publisher(for: \.isMediaSensitiveToggled)
+            .assign(to: \.isMediaSensitiveToggled, on: viewModel)
+            .store(in: &disposeBag)
         
-//        if let spoilerText = status.spoilerText, !spoilerText.isEmpty {
-//            do {
-//                let content = MastodonContent(content: spoilerText, emojis: status.emojis.asDictionary)
-//                let metaContent = try MastodonMetaContent.convert(document: content)
-//                viewModel.spoilerContent = metaContent
-//            } catch {
-//                assertionFailure()
-//                viewModel.spoilerContent = nil
-//            }
-//        } else {
-//            viewModel.spoilerContent = nil
-//        }
-        
-//        status.publisher(for: \.isContentReveal)
-//            .assign(to: \.isContentReveal, on: viewModel)
-//            .store(in: &disposeBag)
-//        
 //        viewModel.source = status.source
     }
     
@@ -270,6 +279,8 @@ extension StatusView {
         
 //        mediaGridContainerView.viewModel.resetContentWarningOverlay()
 //        viewModel.isMediaSensitiveSwitchable = true
+        
+        viewModel.isMediaSensitive = status.sensitive
         
         MediaView.configuration(status: status)
             .assign(to: \.mediaViewConfigurations, on: viewModel)

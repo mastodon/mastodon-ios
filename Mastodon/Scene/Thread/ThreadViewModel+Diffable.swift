@@ -42,7 +42,7 @@ extension ThreadViewModel {
         } else {
             
         }
-        diffableDataSource?.apply(snapshot)
+        diffableDataSource?.apply(snapshot, animatingDifferences: false)
         
         $threadContext
             .receive(on: DispatchQueue.main)

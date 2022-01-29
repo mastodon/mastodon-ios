@@ -19,18 +19,6 @@ final class NotificationViewModel {
     // input
     let context: AppContext
     let viewDidLoad = PassthroughSubject<Void, Never>()
-//    let selectedIndex = CurrentValueSubject<NotificationSegment, Never>(.everyThing)
-//    let noMoreNotification = CurrentValueSubject<Bool, Never>(false)
-    
-//    let activeMastodonAuthenticationBox: CurrentValueSubject<MastodonAuthenticationBox?, Never>
-//    let fetchedResultsController: NSFetchedResultsController<MastodonNotification>!
-//    let notificationPredicate = CurrentValueSubject<NSPredicate?, Never>(nil)
-//    let cellFrameCache = NSCache<NSNumber, NSValue>()
-    
-//    var needsScrollToTopAfterDataSourceUpdate = false
-//    let dataSourceDidUpdated = PassthroughSubject<Void, Never>()
-//    let isFetchingLatestNotification = CurrentValueSubject<Bool, Never>(false)
-    
     
     // output
     let scopes = NotificationTimelineViewModel.Scope.allCases
@@ -40,59 +28,7 @@ final class NotificationViewModel {
     
     init(context: AppContext) {
         self.context = context
-//        self.activeMastodonAuthenticationBox = CurrentValueSubject(context.authenticationService.activeMastodonAuthenticationBox.value)
-//        self.fetchedResultsController = {
-//            let fetchRequest = MastodonNotification.sortedFetchRequest
-//            fetchRequest.returnsObjectsAsFaults = false
-//            fetchRequest.fetchBatchSize = 10
-//            fetchRequest.relationshipKeyPathsForPrefetching = [#keyPath(MastodonNotification.status), #keyPath(MastodonNotification.account)]
-//            let controller = NSFetchedResultsController(
-//                fetchRequest: fetchRequest,
-//                managedObjectContext: context.managedObjectContext,
-//                sectionNameKeyPath: nil,
-//                cacheName: nil
-//            )
-//
-//            return controller
-//        }()
         // end init
-        
-//        fetchedResultsController.delegate = self
-//        context.authenticationService.activeMastodonAuthenticationBox
-//            .sink(receiveValue: { [weak self] box in
-//                guard let self = self else { return }
-//                self.activeMastodonAuthenticationBox.value = box
-//                if let domain = box?.domain, let userID = box?.userID {
-//                    self.notificationPredicate.value = MastodonNotification.predicate(domain: domain, userID: userID)
-//                }
-//            })
-//            .store(in: &disposeBag)
-        
-//        notificationPredicate
-//            .compactMap { $0 }
-//            .sink { [weak self] predicate in
-//                guard let self = self else { return }
-//                self.fetchedResultsController.fetchRequest.predicate = predicate
-//                do {
-//                    self.diffableDataSource?.defaultRowAnimation = .fade
-//                    try self.fetchedResultsController.performFetch()
-//                    DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [weak self] in
-//                        guard let self = self else { return }
-//                        self.diffableDataSource?.defaultRowAnimation = .automatic
-//                    }
-//                } catch {
-//                    assertionFailure(error.localizedDescription)
-//                }
-//            }
-//            .store(in: &disposeBag)
-        
-//        viewDidLoad
-//            .sink { [weak self] in
-//
-//                guard let domain = self?.activeMastodonAuthenticationBox.value?.domain, let userID = self?.activeMastodonAuthenticationBox.value?.userID else { return }
-//                self?.notificationPredicate.value = MastodonNotification.predicate(domain: domain, userID: userID)
-//            }
-//            .store(in: &disposeBag)
     }
 }
     

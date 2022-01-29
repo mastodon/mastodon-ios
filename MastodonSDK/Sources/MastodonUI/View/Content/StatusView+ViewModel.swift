@@ -14,6 +14,7 @@ import MastodonSDK
 import MastodonAsset
 import MastodonLocalization
 import MastodonExtension
+import CoreDataStack
 
 extension StatusView {
     public final class ViewModel: ObservableObject {
@@ -41,6 +42,9 @@ extension StatusView {
         @Published public var timestamp: Date?
         public var timestampFormatter: ((_ date: Date) -> String)?
         
+        // Spoiler
+        @Published public var spoilerContent: MetaContent?
+        
         // Status
         @Published public var content: MetaContent?
         
@@ -56,6 +60,19 @@ extension StatusView {
         @Published public var voteCount = 0
         @Published public var expireAt: Date?
         @Published public var expired: Bool = false
+        
+        // Visibility
+        @Published public var visibility: MastodonVisibility = .public
+        
+        // Sensitive
+        @Published public var isContentSensitive: Bool = false
+        @Published public var isContentSensitiveToggled: Bool = false
+        @Published public var isMediaSensitive: Bool = false
+        @Published public var isMediaSensitiveToggled: Bool = false
+
+        @Published public var isSensitive: Bool = false         // isContentSensitive || isMediaSensitive
+        @Published public var isContentReveal: Bool = true
+        @Published public var isMediaReveal: Bool = true
         
         // Toolbar
         @Published public var isReblog: Bool = false
@@ -92,6 +109,47 @@ extension StatusView {
                     self.header = header
                 }
             }
+        }
+        
+        public func prepareForReuse() {
+            authorAvatarImageURL = nil
+            
+            isContentSensitive = false
+            isContentSensitiveToggled = false
+            isMediaSensitive = false
+            isMediaSensitiveToggled = false
+            
+            isSensitive = false
+            isContentReveal = false
+            isMediaReveal = false
+        }
+        
+        init() {
+            // isContentSensitive
+            $spoilerContent
+                .map { $0 != nil }
+                .assign(to: &$isContentSensitive)
+            // isSensitive
+            Publishers.CombineLatest(
+                $isContentSensitive,
+                $isMediaSensitive
+            )
+            .map { $0 || $1 }
+            .assign(to: &$isSensitive)
+            // $isContentReveal
+            Publishers.CombineLatest(
+                $isContentSensitive,
+                $isContentSensitiveToggled
+            )
+            .map { $1 ? $0 : !$0 }
+            .assign(to: &$isContentReveal)
+            // $isMediaReveal
+            Publishers.CombineLatest(
+                $isMediaSensitive,
+                $isMediaSensitiveToggled
+            )
+            .map { $1 ? !$0 : $0}
+            .assign(to: &$isMediaReveal)
         }
     }
 }
@@ -163,52 +221,98 @@ extension StatusView.ViewModel {
                 statusView.authorUsernameLabel.configure(content: metaContent)
             }
             .store(in: &disposeBag)
-//        // visibility
-//        $visibility
-//            .sink { visibility in
-//                guard let visibility = visibility,
-//                      let image = visibility.inlineImage
-//                else { return }
-//
-//                statusView.visibilityImageView.image = image
-//                statusView.setVisibilityDisplay()
-//            }
-//            .store(in: &disposeBag)
-        
         // timestamp
         Publishers.CombineLatest(
             $timestamp,
             timestampUpdatePublisher.prepend(Date()).eraseToAnyPublisher()
         )
-        .sink { [weak self] timestamp, _ in
-            guard let self = self else { return }
+        .compactMap { [weak self] timestamp, _ -> String? in
+            guard let self = self else { return nil }
             guard let timestamp = timestamp,
-                  let text = self.timestampFormatter?(timestamp) else {
-                statusView.dateLabel.configure(content: PlaintextMetaContent(string: ""))
-                return
-            }
-            
+                  let text = self.timestampFormatter?(timestamp)
+            else { return "" }
+            return text
+        }
+        .removeDuplicates()
+        .sink { [weak self] text in
+            guard let _ = self else { return }
             statusView.dateLabel.configure(content: PlaintextMetaContent(string: text))
         }
         .store(in: &disposeBag)
+        $isSensitive
+            .sink { isSensitive in
+                if !isSensitive {
+                    statusView.setMenuButtonDisplay()
+                }
+            }
+            .store(in: &disposeBag)
     }
     
     private func bindContent(statusView: StatusView) {
-        $content
-            .sink { content in
-                guard let content = content else {
-                    statusView.contentMetaText.reset()
-                    statusView.contentMetaText.textView.accessibilityLabel = ""
-                    return
-                }
-                
-                statusView.contentMetaText.configure(content: content)
+        Publishers.CombineLatest3(
+            $spoilerContent,
+            $content,
+            $isContentReveal.removeDuplicates()
+        )
+        .sink { spoilerContent, content, isContentReveal in
+            if let spoilerContent = spoilerContent {
+                statusView.spoilerOverlayView.spoilerMetaLabel.configure(content: spoilerContent)
+            } else {
+                statusView.spoilerOverlayView.spoilerMetaLabel.reset()
+            }
+            
+            if let content = content {
+                statusView.contentMetaText.configure(
+                    content: content,
+                    isRedactedModeEnabled: !isContentReveal
+                )
                 statusView.contentMetaText.textView.accessibilityLabel = content.string
                 statusView.contentMetaText.textView.accessibilityTraits = [.staticText]
                 statusView.contentMetaText.textView.accessibilityElementsHidden = false
-                
+            } else {
+                statusView.contentMetaText.reset()
+                statusView.contentMetaText.textView.accessibilityLabel = ""
             }
-            .store(in: &disposeBag)
+            
+            statusView.setSpoilerOverlayViewHidden(isContentReveal)
+        }
+        .store(in: &disposeBag)
+        // visibility
+        Publishers.CombineLatest(
+            $visibility,
+            $isMyself
+        )
+        .sink { visibility, isMyself in            
+            switch visibility {
+            case .public:
+                break
+            case .unlisted:
+                statusView.statusVisibilityView.label.text = "Everyone can see this post but not display in the public timeline."
+                statusView.setVisibilityDisplay()
+            case .private:
+                statusView.statusVisibilityView.label.text = isMyself ? "Only my followers can see this post." : "Only their followers can see this post."
+                statusView.setVisibilityDisplay()
+            case .direct:
+                statusView.statusVisibilityView.label.text = "Only mentioned user can see this post."
+                statusView.setVisibilityDisplay()
+            case ._other:
+                break
+            }
+        }
+        .store(in: &disposeBag)
+        Publishers.CombineLatest(
+            $isContentSensitive,
+            $isMediaSensitive
+        )
+        .sink { isContentSensitive, isMediaSensitive in
+            if isContentSensitive || isMediaSensitive {
+                let image = Asset.Human.eyeCircleFill.image
+                statusView.contentWarningToggleButton.setImage(image, for: .normal)
+                statusView.contentWarningToggleButton.tintColor = .systemGray
+                statusView.setContentWarningToggleButtonDisplay()
+            }
+        }
+        .store(in: &disposeBag)
 //        $spoilerContent
 //            .sink { metaContent in
 //                guard let metaContent = metaContent else {

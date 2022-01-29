@@ -41,6 +41,11 @@ public final class Status: NSManagedObject {
     // sourcery: autoUpdatableObject, autoGenerateProperty
     @NSManaged public private(set) var spoilerText: String?
     
+    // sourcery: autoUpdatableObject
+    @NSManaged public private(set) var isContentSensitiveToggled: Bool
+    // sourcery: autoUpdatableObject
+    @NSManaged public private(set) var isMediaSensitiveToggled: Bool
+    
     @NSManaged public private(set) var application: Application?
         
     // Informational
@@ -86,9 +91,6 @@ public final class Status: NSManagedObject {
     @NSManaged public private(set) var feeds: Set<Feed>
     
     @NSManaged public private(set) var reblogFrom: Set<Status>
-//    @NSManaged public private(set) var mentions: Set<Mention>?
-//    @NSManaged public private(set) var homeTimelineIndexes: Set<HomeTimelineIndex>?
-//    @NSManaged public private(set) var mediaAttachments: Set<Attachment>?
     @NSManaged public private(set) var replyFrom: Set<Status>
     @NSManaged public private(set) var notifications: Set<Notification>
     @NSManaged public private(set) var searchHistories: Set<SearchHistory>
@@ -588,6 +590,16 @@ extension Status: AutoUpdatableObject {
     public func update(spoilerText: String?) {
     	if self.spoilerText != spoilerText {
     		self.spoilerText = spoilerText
+    	}
+    }
+    public func update(isContentSensitiveToggled: Bool) {
+    	if self.isContentSensitiveToggled != isContentSensitiveToggled {
+    		self.isContentSensitiveToggled = isContentSensitiveToggled
+    	}
+    }
+    public func update(isMediaSensitiveToggled: Bool) {
+    	if self.isMediaSensitiveToggled != isMediaSensitiveToggled {
+    		self.isMediaSensitiveToggled = isMediaSensitiveToggled
     	}
     }
     public func update(reblogsCount: Int64) {

@@ -86,6 +86,8 @@ public enum Asset {
     public static let photoFillSplit = ImageAsset(name: "Connectivity/photo.fill.split")
   }
   public enum Human {
+    public static let eyeCircleFill = ImageAsset(name: "Human/eye.circle.fill")
+    public static let eyeSlashCircleFill = ImageAsset(name: "Human/eye.slash.circle.fill")
     public static let faceSmilingAdaptive = ImageAsset(name: "Human/face.smiling.adaptive")
   }
   public enum Scene {

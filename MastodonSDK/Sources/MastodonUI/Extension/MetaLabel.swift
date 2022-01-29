@@ -15,6 +15,7 @@ extension MetaLabel {
         case statusHeader
         case statusName
         case statusUsername
+        case statusSpoiler
         case notificationTitle
         case profileFieldName
         case profileFieldValue
@@ -55,6 +56,12 @@ extension MetaLabel {
         case .statusUsername:
             font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 15, weight: .regular))
             textColor = Asset.Colors.Label.secondary.color
+            
+        case .statusSpoiler:
+            font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .regular))
+            textColor = Asset.Colors.Label.secondary.color
+            textAlignment = .center
+            paragraphStyle.alignment = .center
             
         case .notificationTitle:
             font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 14, weight: .regular))

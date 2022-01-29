@@ -40,7 +40,22 @@ extension StatusThreadRootTableViewCell {
             statusView.configure(status: status)
         }
         
-         self.delegate = delegate
+        self.delegate = delegate
+        
+        statusView.viewModel.$isContentReveal
+            .removeDuplicates()
+            .dropFirst()
+            .receive(on: DispatchQueue.main)
+            .sink { [weak tableView, weak self] isContentReveal in
+                guard let tableView = tableView else { return }
+                guard let self = self else { return }
+                
+                guard self.contentView.window != nil else { return }
+                
+                tableView.beginUpdates()
+                tableView.endUpdates()
+            }
+            .store(in: &disposeBag)
     }
     
 }

@@ -299,6 +299,7 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider {
 
 }
 
+// MARK: - menu button
 extension StatusTableViewCellDelegate where Self: DataSourceProvider {
     func tableViewCell(
         _ cell: UITableViewCell,
@@ -342,3 +343,29 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider {
     }
 
 }
+
+// MARK: - content warning
+extension StatusTableViewCellDelegate where Self: DataSourceProvider {
+    func tableViewCell(
+        _ cell: UITableViewCell,
+        statusView: StatusView,
+        contentWarningToggleButtonDidPressed button: UIButton
+    ) {
+        Task {
+            let source = DataSourceItem.Source(tableViewCell: cell, indexPath: nil)
+            guard let item = await item(from: source) else {
+                assertionFailure()
+                return
+            }
+            guard case let .status(status) = item else {
+                assertionFailure("only works for status data provider")
+                return
+            }
+            try await DataSourceFacade.responseToToggleSensitiveAction(
+                dependency: self,
+                status: status
+            )
+        }   // end Task
+    }
+}
+

@@ -380,7 +380,9 @@ extension NotificationView: StatusViewDelegate {
         assertionFailure()
     }
     
-
+    public func statusView(_ statusView: StatusView, contentWarningToggleButtonDidPressed button: UIButton) {
+        assertionFailure()
+    }
     
 }
 

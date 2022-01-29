@@ -46,11 +46,17 @@ let package = Package(
             name: "CoreDataStack",
             dependencies: [
                 "MastodonCommon",
+            ],
+            exclude: [
+                "Template/Stencil"
             ]
         ),
         .target(
             name: "MastodonAsset",
-            dependencies: []
+            dependencies: [],
+            resources: [
+                .process("Font"),
+            ]
         ),
         .target(
             name: "MastodonCommon",

@@ -35,7 +35,7 @@ extension StatusTableViewCell {
             statusView.frame.size.width = tableView.frame.width
             logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): did layout for new cell")
         }
-
+        
         switch viewModel.value {
         case .feed(let feed):
             statusView.configure(feed: feed)
@@ -51,7 +51,21 @@ extension StatusTableViewCell {
             statusView.configure(status: status)
         }
         
-         self.delegate = delegate
+        self.delegate = delegate
+        
+        
+        statusView.viewModel.$isContentReveal
+            .removeDuplicates()
+            .dropFirst()
+            .receive(on: DispatchQueue.main)
+            .sink { [weak tableView, weak self] isContentReveal in
+                guard let tableView = tableView else { return }
+                guard let self = self else { return }
+                
+                tableView.beginUpdates()
+                tableView.endUpdates()
+            }
+            .store(in: &disposeBag)
     }
     
 }

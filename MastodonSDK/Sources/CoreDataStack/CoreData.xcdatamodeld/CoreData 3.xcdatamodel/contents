@@ -199,6 +199,8 @@
         <attribute name="identifier" attributeType="String"/>
         <attribute name="inReplyToAccountID" optional="YES" attributeType="String"/>
         <attribute name="inReplyToID" optional="YES" attributeType="String"/>
+        <attribute name="isContentSensitiveToggled" transient="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="isMediaSensitiveToggled" transient="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="language" optional="YES" attributeType="String"/>
         <attribute name="mentions" optional="YES" attributeType="Binary"/>
         <attribute name="reblogsCount" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
@@ -275,7 +277,7 @@
         <element name="PrivateNote" positionX="0" positionY="0" width="128" height="89"/>
         <element name="SearchHistory" positionX="0" positionY="0" width="128" height="149"/>
         <element name="Setting" positionX="72" positionY="162" width="128" height="164"/>
-        <element name="Status" positionX="0" positionY="0" width="128" height="599"/>
+        <element name="Status" positionX="0" positionY="0" width="128" height="629"/>
         <element name="Subscription" positionX="81" positionY="171" width="128" height="179"/>
         <element name="SubscriptionAlerts" positionX="72" positionY="162" width="128" height="164"/>
         <element name="Tag" positionX="0" positionY="0" width="128" height="149"/>

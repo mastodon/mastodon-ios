@@ -22,7 +22,7 @@ public protocol StatusViewDelegate: AnyObject {
     func statusView(_ statusView: StatusView, pollVoteButtonPressed button: UIButton)
     func statusView(_ statusView: StatusView, actionToolbarContainer: ActionToolbarContainer, buttonDidPressed button: UIButton, action: ActionToolbarContainer.Action)
     func statusView(_ statusView: StatusView, menuButton button: UIButton, didSelectAction action: MastodonMenu.Action)
-//    func statusView(_ statusView: StatusView, revealContentWarningButtonDidPressed button: UIButton)
+    func statusView(_ statusView: StatusView, contentWarningToggleButtonDidPressed button: UIButton)
 //    func statusView(_ statusView: StatusView, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView)
 //    func statusView(_ statusView: StatusView, playerContainerView: PlayerContainerView, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView)
 }
@@ -100,6 +100,9 @@ public final class StatusView: UIView {
         return button
     }()
     
+    // contentWarningToggleButton
+    public let contentWarningToggleButton = UIButton(type: .system)
+    
     // content
     let contentContainer = UIStackView()
     public let contentMetaText: MetaText = {
@@ -130,6 +133,8 @@ public final class StatusView: UIView {
         ]
         return metaText
     }()
+    
+    let spoilerOverlayView = SpoilerOverlayView()
 
     // media
     public let mediaContainerView = UIView()
@@ -189,6 +194,9 @@ public final class StatusView: UIView {
         return indicatorView
     }()
     
+    // visibility
+    public let statusVisibilityView = StatusVisibilityView()
+    
     // toolbar
     public let actionToolbarContainer = ActionToolbarContainer()
 
@@ -199,7 +207,7 @@ public final class StatusView: UIView {
         disposeBag.removeAll()
         
         viewModel.objects.removeAll()
-        viewModel.authorAvatarImageURL = nil
+        viewModel.prepareForReuse()
         
         avatarButton.avatarImageView.cancelTask()
         mediaGridContainerView.prepareForReuse()
@@ -214,8 +222,12 @@ public final class StatusView: UIView {
         }
         
         headerContainerView.isHidden = true
+        menuButton.isHidden = true
+        contentWarningToggleButton.isHidden = true
+        setSpoilerOverlayViewHidden(true)
         mediaContainerView.isHidden = true
         pollContainerView.isHidden = true
+        statusVisibilityView.isHidden = true
     }
 
     public override init(frame: CGRect) {
@@ -254,6 +266,9 @@ extension StatusView {
         authorNameLabel.isUserInteractionEnabled = false
         authorUsernameLabel.isUserInteractionEnabled = false
         
+        // contentWarningToggleButton
+        contentWarningToggleButton.addTarget(self, action: #selector(StatusView.contentWarningToggleButtonDidPressed(_:)), for: .touchUpInside)
+        
         // dateLabel
         dateLabel.isUserInteractionEnabled = false
         
@@ -289,6 +304,11 @@ extension StatusView {
     @objc private func authorAvatarButtonDidPressed(_ sender: UIButton) {
         logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
         delegate?.statusView(self, authorAvatarButtonDidPressed: avatarButton)
+    }
+    
+    @objc private func contentWarningToggleButtonDidPressed(_ sender: UIButton) {
+        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
+        delegate?.statusView(self, contentWarningToggleButtonDidPressed: contentWarningToggleButton)
     }
     
     @objc private func pollVoteButtonDidPressed(_ sender: UIButton) {
@@ -360,7 +380,7 @@ extension StatusView.Style {
         statusView.headerIconImageView.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
         statusView.headerIconImageView.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
 
-        // author container: H - [ avatarButton | author meta container ]
+        // author container: H - [ avatarButton | author meta container | contentWarningToggleButton ]
         statusView.authorContainerView.preservesSuperviewLayoutMargins = true
         statusView.authorContainerView.isLayoutMarginsRelativeArrangement = true
         statusView.containerStackView.addArrangedSubview(statusView.authorContainerView)
@@ -418,7 +438,12 @@ extension StatusView.Style {
         statusView.dateLabel.setContentCompressionResistancePriority(.required - 1, for: .horizontal)
         authorSecondaryMetaContainer.addArrangedSubview(UIView())
         
-        // content container: V - [ contentMetaText | ]
+        // contentWarningToggleButton
+        statusView.authorContainerView.addArrangedSubview(statusView.contentWarningToggleButton)
+        statusView.contentWarningToggleButton.setContentHuggingPriority(.required - 2, for: .horizontal)
+        statusView.contentWarningToggleButton.setContentCompressionResistancePriority(.required - 2, for: .horizontal)
+        
+        // content container: V - [ contentMetaText ]
         statusView.contentContainer.axis = .vertical
         statusView.contentContainer.spacing = 12
         statusView.contentContainer.distribution = .fill
@@ -430,10 +455,17 @@ extension StatusView.Style {
         statusView.contentContainer.setContentHuggingPriority(.required - 1, for: .vertical)
         statusView.contentContainer.setContentCompressionResistancePriority(.required - 1, for: .vertical)
         
-        // status
+        // status content
         statusView.contentContainer.addArrangedSubview(statusView.contentMetaText.textView)
-        statusView.contentMetaText.textView.setContentHuggingPriority(.required - 1, for: .vertical)
-        statusView.contentMetaText.textView.setContentCompressionResistancePriority(.required - 1, for: .vertical)
+        
+        statusView.spoilerOverlayView.translatesAutoresizingMaskIntoConstraints = false
+        statusView.containerStackView.addSubview(statusView.spoilerOverlayView)
+        NSLayoutConstraint.activate([
+            statusView.contentContainer.topAnchor.constraint(equalTo: statusView.spoilerOverlayView.topAnchor),
+            statusView.contentContainer.leadingAnchor.constraint(equalTo: statusView.spoilerOverlayView.leadingAnchor),
+            statusView.contentContainer.trailingAnchor.constraint(equalTo: statusView.spoilerOverlayView.trailingAnchor),
+            statusView.contentContainer.bottomAnchor.constraint(equalTo: statusView.spoilerOverlayView.bottomAnchor),
+        ])
         
         // media container: V - [ mediaGridContainerView ]
         statusView.containerStackView.addArrangedSubview(statusView.mediaContainerView)
@@ -470,6 +502,10 @@ extension StatusView.Style {
         statusView.pollCountdownLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
         statusView.pollVoteButton.setContentHuggingPriority(.defaultHigh + 3, for: .horizontal)
         
+        // statusVisibilityView
+        statusView.statusVisibilityView.preservesSuperviewLayoutMargins = true
+        statusView.containerStackView.addArrangedSubview(statusView.statusVisibilityView)
+        
         // action toolbar
         statusView.actionToolbarContainer.configure(for: .inline)
         statusView.actionToolbarContainer.preservesSuperviewLayoutMargins = true
@@ -503,6 +539,7 @@ extension StatusView.Style {
         
         statusView.contentContainer.layoutMargins.bottom = 16        // fix contentText align to edge issue
         statusView.menuButton.removeFromSuperview()
+        statusView.statusVisibilityView.removeFromSuperview()
         statusView.actionToolbarContainer.removeFromSuperview()
     }
     
@@ -524,6 +561,7 @@ extension StatusView.Style {
         statusView.contentContainer.removeFromSuperview()
         statusView.mediaContainerView.removeFromSuperview()
         statusView.pollContainerView.removeFromSuperview()
+        statusView.statusVisibilityView.removeFromSuperview()
         statusView.actionToolbarContainer.removeFromSuperview()
     }
     
@@ -534,12 +572,29 @@ extension StatusView {
         headerContainerView.isHidden = false
     }
     
+    func setMenuButtonDisplay() {
+        menuButton.isHidden = false
+    }
+    
+    func setContentWarningToggleButtonDisplay() {
+        contentWarningToggleButton.isHidden = false
+    }
+    
+    func setSpoilerOverlayViewHidden(_ isHidden: Bool) {
+        spoilerOverlayView.isHidden = isHidden
+        spoilerOverlayView.setComponentHidden(isHidden)
+    }
+    
     func setMediaDisplay() {
         mediaContainerView.isHidden = false
     }
     
     func setPollDisplay() {
         pollContainerView.isHidden = false
+    }
+    
+    func setVisibilityDisplay() {
+        statusVisibilityView.isHidden = false
     }
     
     // content text Width

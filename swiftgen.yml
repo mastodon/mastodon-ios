@@ -16,3 +16,11 @@ xcassets:
     params:
         bundle: Bundle.module
         publicAccess: true
+fonts:
+  inputs: MastodonSDK/Sources/MastodonAsset/Font
+  outputs:
+    templateName: swift5
+    output: MastodonSDK/Sources/MastodonAsset/Generated/Fonts.swift
+    params:
+        bundle: Bundle.module
+        publicAccess: true
