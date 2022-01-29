@@ -8,13 +8,19 @@
 import UIKit
 import Combine
 
-final class BlurhashImageCacheService {
+public final class BlurhashImageCacheService {
+    
+    static let edgeMaxLength: CGFloat = 20
     
     let cache = NSCache<Key, UIImage>()
     
     let workingQueue = DispatchQueue(label: "org.joinmastodon.app.BlurhashImageCacheService.working-queue", qos: .userInitiated, attributes: .concurrent)
     
-    func image(blurhash: String, size: CGSize, url: URL) -> AnyPublisher<UIImage?, Never> {
+    public func image(
+        blurhash: String,
+        size: CGSize,
+        url: String
+    ) -> AnyPublisher<UIImage?, Never> {
         let key = Key(blurhash: blurhash, size: size, url: url)
         
         if let image = self.cache.object(forKey: key) {
@@ -23,7 +29,7 @@ final class BlurhashImageCacheService {
 
         return Future { promise in
             self.workingQueue.async {
-                guard let image = BlurhashImageCacheService.blurhashImage(blurhash: blurhash, size: size, url: url) else {
+                guard let image = BlurhashImageCacheService.blurhashImage(blurhash: blurhash, size: size) else {
                     promise(.success(nil))
                     return
                 }
@@ -33,27 +39,25 @@ final class BlurhashImageCacheService {
         }
         .receive(on: RunLoop.main)
         .eraseToAnyPublisher()
-
     }
     
-    static func blurhashImage(blurhash: String, size: CGSize, url: URL) -> UIImage? {
-        fatalError()
-//        let imageSize: CGSize = {
-//            let aspectRadio = size.width / size.height
-//            if size.width > size.height {
-//                let width: CGFloat = MosaicMeta.edgeMaxLength
-//                let height = width / aspectRadio
-//                return CGSize(width: width, height: height)
-//            } else {
-//                let height: CGFloat = MosaicMeta.edgeMaxLength
-//                let width = height * aspectRadio
-//                return CGSize(width: width, height: height)
-//            }
-//        }()
-//        
-//        let image = UIImage(blurHash: blurhash, size: imageSize)
-//
-//        return image
+    static func blurhashImage(blurhash: String, size: CGSize) -> UIImage? {
+        let imageSize: CGSize = {
+            let aspectRadio = size.width / size.height
+            if size.width > size.height {
+                let width: CGFloat = BlurhashImageCacheService.edgeMaxLength
+                let height = width / aspectRadio
+                return CGSize(width: width, height: height)
+            } else {
+                let height: CGFloat = BlurhashImageCacheService.edgeMaxLength
+                let width = height * aspectRadio
+                return CGSize(width: width, height: height)
+            }
+        }()
+        
+        let image = UIImage(blurHash: blurhash, size: imageSize)
+
+        return image
     }
 
 }
@@ -62,9 +66,9 @@ extension BlurhashImageCacheService {
     class Key: NSObject {
         let blurhash: String
         let size: CGSize
-        let url: URL
+        let url: String
         
-        init(blurhash: String, size: CGSize, url: URL) {
+        init(blurhash: String, size: CGSize, url: String) {
             self.blurhash = blurhash
             self.size = size
             self.url = url
@@ -83,6 +87,5 @@ extension BlurhashImageCacheService {
                 size.height.hashValue ^
                 url.hashValue
         }
-
     }
 }

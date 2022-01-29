@@ -34,7 +34,6 @@ extension NotificationView {
         @Published public var isBlocking = false
         
         @Published public var timestamp: Date?
-        public var timestampFormatter: ((_ date: Date) -> String)?
         
         let timestampUpdatePublisher = Timer.publish(every: 1.0, on: .main, in: .common)
             .autoconnect()
@@ -100,13 +99,12 @@ extension NotificationView.ViewModel {
         )
         .sink { [weak self] timestamp, _ in
             guard let self = self else { return }
-            guard let timestamp = timestamp,
-                  let text = self.timestampFormatter?(timestamp)
-            else {
+            guard let timestamp = timestamp else {
                 notificationView.dateLabel.configure(content: PlaintextMetaContent(string: ""))
                 return
             }
             
+            let text = timestamp.localizedTimeAgoSinceNow
             notificationView.dateLabel.configure(content: PlaintextMetaContent(string: text))
         }
         .store(in: &disposeBag)

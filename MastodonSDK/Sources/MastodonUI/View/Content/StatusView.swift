@@ -559,6 +559,7 @@ extension StatusView.Style {
         statusView.usernameTrialingDotLabel.removeFromSuperview()
         statusView.dateLabel.removeFromSuperview()
         statusView.contentContainer.removeFromSuperview()
+        statusView.spoilerOverlayView.removeFromSuperview()
         statusView.mediaContainerView.removeFromSuperview()
         statusView.pollContainerView.removeFromSuperview()
         statusView.statusVisibilityView.removeFromSuperview()

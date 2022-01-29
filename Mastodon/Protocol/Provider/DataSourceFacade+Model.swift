@@ -47,7 +47,7 @@ extension DataSourceFacade {
         switch target {
         case .status:
             return status.reblog ?? status
-        case .repost:
+        case .reblog:
             return status
         }
     }

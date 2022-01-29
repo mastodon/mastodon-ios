@@ -173,14 +173,10 @@ extension StatusView {
             .map { $0 as String? }
             .assign(to: \.authorUsername, on: viewModel)
             .store(in: &disposeBag)
-        
-        //        // protected
-        //        author.publisher(for: \.locked)
-        //            .assign(to: \.protected, on: viewModel)
-        //            .store(in: &disposeBag)
-        //        // visibility
-        //        viewModel.visibility = status.visibility.asStatusVisibility
-        
+        // locked
+        author.publisher(for: \.locked)
+            .assign(to: \.locked, on: viewModel)
+            .store(in: &disposeBag)
         // isMuting
         Publishers.CombineLatest(
             viewModel.$userIdentifier,
@@ -267,42 +263,22 @@ extension StatusView {
         status.publisher(for: \.isContentSensitiveToggled)
             .assign(to: \.isContentSensitiveToggled, on: viewModel)
             .store(in: &disposeBag)
-        status.publisher(for: \.isMediaSensitiveToggled)
-            .assign(to: \.isMediaSensitiveToggled, on: viewModel)
-            .store(in: &disposeBag)
-        
+
 //        viewModel.source = status.source
     }
     
     private func configureMedia(status: Status) {
         let status = status.reblog ?? status
         
-//        mediaGridContainerView.viewModel.resetContentWarningOverlay()
-//        viewModel.isMediaSensitiveSwitchable = true
-        
-        viewModel.isMediaSensitive = status.sensitive
+        viewModel.isMediaSensitive = status.sensitive && !status.attachments.isEmpty        // some servers set media sensitive even empty attachments
         
         MediaView.configuration(status: status)
             .assign(to: \.mediaViewConfigurations, on: viewModel)
             .store(in: &disposeBag)
         
-//        // set directly without delay
-//        viewModel.isMediaSensitiveToggled = status.isMediaSensitiveToggled
-//        viewModel.isMediaSensitive = status.isMediaSensitive
-//        mediaGridContainerView.configureOverlayDisplay(
-//            isDisplay: status.isMediaSensitiveToggled ? !status.isMediaSensitive : !status.isMediaSensitive,
-//            animated: false
-//        )
-//
-//        status.publisher(for: \.isMediaSensitive)
-//            .receive(on: DispatchQueue.main)
-//            .assign(to: \.isMediaSensitive, on: viewModel)
-//            .store(in: &disposeBag)
-//
-//        status.publisher(for: \.isMediaSensitiveToggled)
-//            .receive(on: DispatchQueue.main)
-//            .assign(to: \.isMediaSensitiveToggled, on: viewModel)
-//            .store(in: &disposeBag)
+        status.publisher(for: \.isMediaSensitiveToggled)
+            .assign(to: \.isMediaSensitiveToggled, on: viewModel)
+            .store(in: &disposeBag)
     }
 
     private func configurePoll(status: Status) {

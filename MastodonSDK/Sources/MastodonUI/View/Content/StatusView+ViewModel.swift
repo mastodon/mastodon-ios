@@ -35,6 +35,8 @@ extension StatusView {
         @Published public var authorName: MetaContent?
         @Published public var authorUsername: String?
         
+        @Published public var locked = false
+        
         @Published public var isMyself = false
         @Published public var isMuting = false
         @Published public var isBlocking = false
@@ -125,6 +127,10 @@ extension StatusView {
         }
         
         init() {
+            // isReblogEnabled
+            $locked
+                .map { !$0 }
+                .assign(to: &$isReblogEnabled)
             // isContentSensitive
             $spoilerContent
                 .map { $0 != nil }
@@ -141,14 +147,14 @@ extension StatusView {
                 $isContentSensitive,
                 $isContentSensitiveToggled
             )
-            .map { $1 ? $0 : !$0 }
+            .map { $0 ? $1 : true }
             .assign(to: &$isContentReveal)
             // $isMediaReveal
             Publishers.CombineLatest(
                 $isMediaSensitive,
                 $isMediaSensitiveToggled
             )
-            .map { $1 ? !$0 : $0}
+            .map { $0 ? $1 : true }
             .assign(to: &$isMediaReveal)
         }
     }
@@ -300,19 +306,16 @@ extension StatusView.ViewModel {
             }
         }
         .store(in: &disposeBag)
-        Publishers.CombineLatest(
-            $isContentSensitive,
-            $isMediaSensitive
-        )
-        .sink { isContentSensitive, isMediaSensitive in
-            if isContentSensitive || isMediaSensitive {
-                let image = Asset.Human.eyeCircleFill.image
-                statusView.contentWarningToggleButton.setImage(image, for: .normal)
-                statusView.contentWarningToggleButton.tintColor = .systemGray
-                statusView.setContentWarningToggleButtonDisplay()
+        $isSensitive
+            .sink { isSensitive in
+                if isSensitive {
+                    let image = Asset.Human.eyeCircleFill.image
+                    statusView.contentWarningToggleButton.setImage(image, for: .normal)
+                    statusView.contentWarningToggleButton.tintColor = .systemGray
+                    statusView.setContentWarningToggleButtonDisplay()
+                }
             }
-        }
-        .store(in: &disposeBag)
+            .store(in: &disposeBag)
 //        $spoilerContent
 //            .sink { metaContent in
 //                guard let metaContent = metaContent else {
@@ -410,6 +413,17 @@ extension StatusView.ViewModel {
                 }
             }
             .store(in: &disposeBag)
+        
+        Publishers.CombineLatest(
+            $mediaViewConfigurations,
+            $isMediaReveal
+        )
+        .sink { configurations, isMediaReveal in
+            for configuration in configurations {
+                configuration.isReveal = isMediaReveal
+            }
+        }
+        .store(in: &disposeBag)
         
         // FIXME:
         statusView.mediaGridContainerView.viewModel.isContentWarningOverlayDisplay = false

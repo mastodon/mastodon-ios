@@ -129,11 +129,6 @@
         <relationship name="account" maxCount="1" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="notifications" inverseEntity="MastodonUser"/>
         <relationship name="feeds" toMany="YES" deletionRule="Cascade" destinationEntity="Feed" inverseName="notification" inverseEntity="Feed"/>
         <relationship name="status" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Status" inverseName="notifications" inverseEntity="Status"/>
-        <uniquenessConstraints>
-            <uniquenessConstraint>
-                <constraint value="id"/>
-            </uniquenessConstraint>
-        </uniquenessConstraints>
     </entity>
     <entity name="Poll" representedClassName="CoreDataStack.Poll" syncable="YES">
         <attribute name="createdAt" attributeType="Date" usesScalarValueType="NO"/>

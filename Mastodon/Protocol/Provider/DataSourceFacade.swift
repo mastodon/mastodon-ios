@@ -10,7 +10,7 @@ import Foundation
 
 enum DataSourceFacade {
     enum StatusTarget {
-        case status         // remove repost wrapper
-        case repost         // keep repost wrapper
+        case status         // remove reblog wrapper
+        case reblog         // keep reblog wrapper
     }
 }

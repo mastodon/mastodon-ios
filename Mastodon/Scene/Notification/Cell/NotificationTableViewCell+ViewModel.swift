@@ -42,7 +42,7 @@ extension NotificationTableViewCell {
         case .feed(let feed):
             notificationView.configure(feed: feed)
         }
-        
+//
          self.delegate = delegate
     }
     

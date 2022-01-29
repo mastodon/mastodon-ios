@@ -30,7 +30,7 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider {
             }
             await DataSourceFacade.coordinateToProfileScene(
                 provider: self,
-                target: .status,        // without reblog header
+                target: .reblog,      // keep the wrapper for header author
                 status: status
             )
         }
@@ -117,6 +117,24 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & MediaPrev
                 assertionFailure("only works for status data provider")
                 return
             }
+            
+            let managedObjectContext = self.context.managedObjectContext
+            let needsToggleMediaSensitive: Bool = try await managedObjectContext.perform {
+                guard let _status = status.object(in: managedObjectContext) else { return false }
+                let status = _status.reblog ?? _status
+                guard status.sensitive else { return false }
+                guard status.isMediaSensitiveToggled else { return true }
+                return false
+            }
+            
+            guard !needsToggleMediaSensitive else {
+                try await DataSourceFacade.responseToToggleMediaSensitiveAction(
+                    dependency: self,
+                    status: status
+                )
+                return
+            }
+            
             try await DataSourceFacade.coordinateToMediaPreviewScene(
                 dependency: self,
                 status: status,

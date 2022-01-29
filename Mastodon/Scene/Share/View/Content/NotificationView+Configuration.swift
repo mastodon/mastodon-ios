@@ -92,13 +92,7 @@ extension NotificationView {
             .assign(to: \.authorUsername, on: viewModel)
             .store(in: &disposeBag)
         // timestamp
-        viewModel.timestampFormatter = { (date: Date) in
-            date.localizedSlowedTimeAgoSinceNow
-        }
-        notification.publisher(for: \.createAt)
-            .map { $0 as Date? }
-            .assign(to: \.timestamp, on: viewModel)
-            .store(in: &disposeBag)
+        viewModel.timestamp = notification.createAt
         // notification type indicator
         Publishers.CombineLatest3(
             notification.publisher(for: \.typeRaw),
@@ -111,7 +105,7 @@ extension NotificationView {
                 self.viewModel.notificationIndicatorText = nil
                 return
             }
-            
+
             func createMetaContent(text: String, emojis: MastodonContent.Emojis) -> MetaContent {
                 let content = MastodonContent(content: text, emojis: emojis)
                 guard let metaContent = try? MastodonMetaContent.convert(document: content) else {
@@ -119,7 +113,7 @@ extension NotificationView {
                 }
                 return metaContent
             }
-            
+
             // TODO: fix the i18n. The subject should assert place at the string beginning
             switch type {
             case .follow:

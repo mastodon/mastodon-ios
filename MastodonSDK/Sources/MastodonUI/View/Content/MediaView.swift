@@ -8,8 +8,11 @@
 
 import AVKit
 import UIKit
+import Combine
 
 public final class MediaView: UIView {
+    
+    var _disposeBag = Set<AnyCancellable>()
     
     public static let cornerRadius: CGFloat = 0
     public static let durationFormatter: DateComponentsFormatter = {
@@ -22,6 +25,14 @@ public final class MediaView: UIView {
     public let container = TouchBlockingView()
     
     public private(set) var configuration: Configuration?
+    
+    private(set) lazy var blurhashImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFill
+        imageView.isUserInteractionEnabled = false
+        imageView.layer.masksToBounds = true    // clip overflow
+        return imageView
+    }()
     
     private(set) lazy var imageView: UIImageView = {
         let imageView = UIImageView()
@@ -91,7 +102,7 @@ extension MediaView {
 
         setupContainerViewHierarchy()
         
-        switch configuration {
+        switch configuration.info {
         case .image(let info):
             configure(image: info)
         case .gif(let info):
@@ -99,6 +110,31 @@ extension MediaView {
         case .video(let info):
             configure(video: info)
         }
+    
+        if let blurhash = configuration.blurhash {
+            configure(blurhash: blurhash)
+            
+            configuration.$blurhashImage
+                .receive(on: DispatchQueue.main)
+                .assign(to: \.image, on: blurhashImageView)
+                .store(in: &_disposeBag)
+            
+            blurhashImageView.alpha = configuration.isReveal ? 0 : 1
+        }
+        
+        configuration.$isReveal
+            .dropFirst()
+            .removeDuplicates()
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] isReveal in
+                guard let self = self else { return }
+                let animator = UIViewPropertyAnimator(duration: 0.3, curve: .easeInOut)
+                animator.addAnimations {
+                    self.blurhashImageView.alpha = isReveal ? 0 : 1
+                }
+                animator.startAnimation()
+            }
+            .store(in: &_disposeBag)
     }
     
     private func configure(image info: Configuration.ImageInfo) {
@@ -122,7 +158,7 @@ extension MediaView {
             placeholderImage: placeholder
         )
     }
-    
+        
     private func configure(gif info: Configuration.VideoInfo) {
         // use view controller as View here
         playerViewController.view.translatesAutoresizingMaskIntoConstraints = false
@@ -188,7 +224,22 @@ extension MediaView {
         
     }
     
+    private func configure(blurhash: String) {
+        blurhashImageView.translatesAutoresizingMaskIntoConstraints = false
+        container.addSubview(blurhashImageView)
+        NSLayoutConstraint.activate([
+            blurhashImageView.topAnchor.constraint(equalTo: container.topAnchor),
+            blurhashImageView.leadingAnchor.constraint(equalTo: container.leadingAnchor),
+            blurhashImageView.trailingAnchor.constraint(equalTo: container.trailingAnchor),
+            blurhashImageView.bottomAnchor.constraint(equalTo: container.bottomAnchor),
+        ])
+        
+        blurhashImageView.backgroundColor = .systemGray
+    }
+    
     public func prepareForReuse() {
+        _disposeBag.removeAll()
+        
         // reset appearance
         alpha = 1
         
@@ -206,6 +257,11 @@ extension MediaView {
         playerViewController.player?.pause()
         playerViewController.player = nil
         playerLooper = nil
+        
+        // blurhash
+        blurhashImageView.removeFromSuperview()
+        blurhashImageView.removeConstraints(blurhashImageView.constraints)
+        blurhashImageView.image = nil
         
         // reset indicator
         indicatorBlurEffectView.removeFromSuperview()
