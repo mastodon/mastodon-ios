@@ -31,7 +31,8 @@ protocol StatusTableViewCellDelegate: AnyObject, AutoGenerateProtocolDelegate {
     func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, pollVoteButtonPressed button: UIButton)
     func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, actionToolbarContainer: ActionToolbarContainer, buttonDidPressed button: UIButton, action: ActionToolbarContainer.Action)
     func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, menuButton button: UIButton, didSelectAction action: MastodonMenu.Action)
-    func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, contentWarningToggleButtonDidPressed button: UIButton)
+    func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, spoilerOverlayViewDidPressed overlayView: SpoilerOverlayView)
+    func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, spoilerBannerViewDidPressed bannerView: SpoilerBannerView)
     // sourcery:end
 }
 
@@ -72,8 +73,12 @@ extension StatusViewDelegate where Self: StatusViewContainerTableViewCell {
         delegate?.tableViewCell(self, statusView: statusView, menuButton: button, didSelectAction: action)
     }
 
-    func statusView(_ statusView: StatusView, contentWarningToggleButtonDidPressed button: UIButton) {
-        delegate?.tableViewCell(self, statusView: statusView, contentWarningToggleButtonDidPressed: button)
+    func statusView(_ statusView: StatusView, spoilerOverlayViewDidPressed overlayView: SpoilerOverlayView) {
+        delegate?.tableViewCell(self, statusView: statusView, spoilerOverlayViewDidPressed: overlayView)
+    }
+
+    func statusView(_ statusView: StatusView, spoilerBannerViewDidPressed bannerView: SpoilerBannerView) {
+        delegate?.tableViewCell(self, statusView: statusView, spoilerBannerViewDidPressed: bannerView)
     }
     // sourcery:end
 }

@@ -10,33 +10,27 @@ import MastodonLocalization
 import MastodonAsset
 import MetaTextKit
 
-final class SpoilerOverlayView: UIView {
+public final class SpoilerOverlayView: UIView {
     
     let containerStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
-        // stackView.spacing = 8
+        stackView.spacing = 8
         stackView.alignment = .center
         return stackView
     }()
     
-    let iconImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "eye", withConfiguration: UIImage.SymbolConfiguration(font: .systemFont(ofSize: 34, weight: .light)))
-        imageView.tintColor = Asset.Colors.Label.secondary.color
-        return imageView
-    }()
-    
-    let titleLabel: UILabel = {
+    let spoilerMetaLabel = MetaLabel(style: .statusSpoilerOverlay)
+
+    let hintLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 20, weight: .semibold))
+        label.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .regular))
         label.textAlignment = .center
-        label.textColor = Asset.Colors.Label.primary.color
-        label.text = L10n.Common.Controls.Status.contentWarning
+        label.textColor = Asset.Colors.Label.secondary.color
+        label.text = L10n.Common.Controls.Status.mediaContentWarning
         return label
     }()
     
-    let spoilerMetaLabel = MetaLabel(style: .statusSpoiler)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -61,19 +55,11 @@ extension SpoilerOverlayView {
             containerStackView.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])
         
-        
         let topPaddingView = UIView()
         topPaddingView.translatesAutoresizingMaskIntoConstraints = false
         containerStackView.addArrangedSubview(topPaddingView)
-        iconImageView.translatesAutoresizingMaskIntoConstraints = false
-        containerStackView.addArrangedSubview(iconImageView)
-        NSLayoutConstraint.activate([
-            iconImageView.widthAnchor.constraint(equalToConstant: 52.0).priority(.required - 1),
-            iconImageView.heightAnchor.constraint(equalToConstant: 32.0).priority(.required - 1),
-        ])
-        iconImageView.setContentCompressionResistancePriority(.required, for: .vertical)
-        containerStackView.addArrangedSubview(titleLabel)
         containerStackView.addArrangedSubview(spoilerMetaLabel)
+        containerStackView.addArrangedSubview(hintLabel)
         let bottomPaddingView = UIView()
         bottomPaddingView.translatesAutoresizingMaskIntoConstraints = false
         containerStackView.addArrangedSubview(bottomPaddingView)
@@ -82,6 +68,8 @@ extension SpoilerOverlayView {
         ])
         topPaddingView.setContentCompressionResistancePriority(.defaultLow - 100, for: .vertical)
         bottomPaddingView.setContentCompressionResistancePriority(.defaultLow - 100, for: .vertical)
+        
+        spoilerMetaLabel.isUserInteractionEnabled = false
     }
     
     public func setComponentHidden(_ isHidden: Bool) {

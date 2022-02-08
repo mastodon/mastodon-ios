@@ -140,7 +140,8 @@
                     "unreblog": "Undo reblog",
                     "favorite": "Favorite",
                     "unfavorite": "Unfavorite",
-                    "menu": "Menu"
+                    "menu": "Menu",
+                    "hide": "Hide"
                 },
                 "tag": {
                     "url": "URL",

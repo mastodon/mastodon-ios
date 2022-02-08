@@ -37,9 +37,11 @@ extension SettingsAppearanceTableViewCell {
 extension SettingsAppearanceTableViewCell.ViewModel {
     func bind(cell: SettingsAppearanceTableViewCell) {
         Publishers.CombineLatest(
-            $customUserInterfaceStyle,
-            $preferredTrueBlackDarkMode
+            $customUserInterfaceStyle.removeDuplicates(),
+            $preferredTrueBlackDarkMode.removeDuplicates()
         )
+        .debounce(for: 0.1, scheduler: DispatchQueue.main)
+        .receive(on: DispatchQueue.main)
         .sink { customUserInterfaceStyle, preferredTrueBlackDarkMode in
             cell.appearanceViews.forEach { view in
                 view.selected = false

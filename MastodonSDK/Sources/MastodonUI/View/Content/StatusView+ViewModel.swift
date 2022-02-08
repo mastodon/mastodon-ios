@@ -256,8 +256,12 @@ extension StatusView.ViewModel {
         .sink { spoilerContent, content, isContentReveal in
             if let spoilerContent = spoilerContent {
                 statusView.spoilerOverlayView.spoilerMetaLabel.configure(content: spoilerContent)
+                statusView.spoilerBannerView.label.configure(content: spoilerContent)
+                statusView.setSpoilerBannerViewHidden(isHidden: !isContentReveal)
+
             } else {
                 statusView.spoilerOverlayView.spoilerMetaLabel.reset()
+                statusView.spoilerBannerView.label.reset()
             }
             
             if let content = content {
@@ -273,7 +277,7 @@ extension StatusView.ViewModel {
                 statusView.contentMetaText.textView.accessibilityLabel = ""
             }
             
-            statusView.setSpoilerOverlayViewHidden(isContentReveal)
+            statusView.setSpoilerOverlayViewHidden(isHidden: isContentReveal)
         }
         .store(in: &disposeBag)
         // visibility
@@ -299,16 +303,13 @@ extension StatusView.ViewModel {
             }
         }
         .store(in: &disposeBag)
-        $isSensitive
-            .sink { isSensitive in
-                if isSensitive {
-                    let image = Asset.Human.eyeCircleFill.image
-                    statusView.contentWarningToggleButton.setImage(image, for: .normal)
-                    statusView.contentWarningToggleButton.tintColor = .systemGray
-                    statusView.setContentWarningToggleButtonDisplay()
-                }
-            }
-            .store(in: &disposeBag)
+//        $isSensitive
+//            .sink { isSensitive in
+//                if isSensitive {
+//                    statusView.setStatusSpoilerBannerViewDisplay()
+//                }
+//            }
+//            .store(in: &disposeBag)
 //        $spoilerContent
 //            .sink { metaContent in
 //                guard let metaContent = metaContent else {
