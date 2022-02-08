@@ -186,8 +186,8 @@
         "repositoryURL": "https://github.com/uias/Tabman",
         "state": {
           "branch": null,
-          "revision": "f43489cdd743ba7ad86a422ebb5fcbf34e333df4",
-          "version": "2.11.1"
+          "revision": "a9f10cb862a32e6a22549836af013abd6b0692d3",
+          "version": "2.12.0"
         }
       },
       {
@@ -204,17 +204,8 @@
         "repositoryURL": "https://github.com/TimOliver/TOCropViewController.git",
         "state": {
           "branch": null,
-          "revision": "dad97167bf1be16aeecd109130900995dd01c515",
-          "version": "2.6.0"
-        }
-      },
-      {
-        "package": "UITextView+Placeholder",
-        "repositoryURL": "https://github.com/MainasuK/UITextView-Placeholder",
-        "state": {
-          "branch": null,
-          "revision": "20f513ded04a040cdf5467f0891849b1763ede3b",
-          "version": "1.4.1"
+          "revision": "d0470491f56e734731bbf77991944c0dfdee3e0e",
+          "version": "2.6.1"
         }
       }
     ]
