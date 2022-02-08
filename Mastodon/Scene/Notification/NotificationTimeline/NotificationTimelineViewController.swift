@@ -135,6 +135,18 @@ extension NotificationTimelineViewController: UITableViewDelegate, AutoGenerateT
     }
 
     // sourcery:end
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        guard let item = viewModel.diffableDataSource?.itemIdentifier(for: indexPath) else {
+            return
+        }
+        
+        // check item type inside `loadMore`
+        Task {
+            await viewModel.loadMore(item: item)
+        }
+    }
+    
 }
 
 // MARK: - NotificationTableViewCellDelegate

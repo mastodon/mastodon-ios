@@ -156,4 +156,35 @@ extension NotificationTimelineViewModel {
         }
     }
     
+    // load timeline gap
+    func loadMore(item: NotificationItem) async {
+        guard case let .feedLoader(record) = item else { return }
+        guard let authenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else { return }
+        
+        let managedObjectContext = context.managedObjectContext
+        let key = "LoadMore@\(record.objectID)"
+        
+        // return when already loading state
+        guard managedObjectContext.cache(froKey: key) == nil else { return }
+
+        guard let feed = record.object(in: managedObjectContext) else { return }
+        guard let maxID = feed.notification?.id else { return }
+        // keep transient property live
+        managedObjectContext.cache(feed, key: key)
+        defer {
+            managedObjectContext.cache(nil, key: key)
+        }
+        
+        // fetch data
+        do {
+            _ = try await context.apiService.notifications(
+                maxID: maxID,
+                scope: scope,
+                authenticationBox: authenticationBox
+            )
+        } catch {
+            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): fetch more failure: \(error.localizedDescription)")
+        }
+    }
+    
 }
