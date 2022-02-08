@@ -7,13 +7,14 @@
 
 import UIKit
 import CoreData
+import CoreDataStack
 import MastodonAsset
 import MastodonLocalization
 
 enum SettingsItem {
-    case appearance(settingObjectID: NSManagedObjectID)
-    case notification(settingObjectID: NSManagedObjectID, switchMode: NotificationSwitchMode)
-    case preference(settingObjectID: NSManagedObjectID, preferenceType: PreferenceType)
+    case appearance(record: ManagedObjectRecord<Setting>)
+    case preference(settingRecord: ManagedObjectRecord<Setting>, preferenceType: PreferenceType)
+    case notification(settingRecord: ManagedObjectRecord<Setting>, switchMode: NotificationSwitchMode)
     case boringZone(item: Link)
     case spicyZone(item: Link)
 }
@@ -21,9 +22,10 @@ enum SettingsItem {
 extension SettingsItem {
     
     enum AppearanceMode: String {
-        case automatic
+        case system
+        case reallyDark
+        case sortaDark
         case light
-        case dark
     }
     
     enum NotificationSwitchMode: CaseIterable, Hashable {
@@ -43,14 +45,12 @@ extension SettingsItem {
     }
 
     enum PreferenceType: CaseIterable {
-        case darkMode
         case disableAvatarAnimation
         case disableEmojiAnimation
         case useDefaultBrowser
 
         var title: String {
             switch self {
-            case .darkMode:                 return L10n.Scene.Settings.Section.Preference.trueBlackDarkMode
             case .disableAvatarAnimation:   return L10n.Scene.Settings.Section.Preference.disableAvatarAnimation
             case .disableEmojiAnimation:    return L10n.Scene.Settings.Section.Preference.disableEmojiAnimation
             case .useDefaultBrowser:        return L10n.Scene.Settings.Section.Preference.usingDefaultBrowser
@@ -77,12 +77,12 @@ extension SettingsItem {
             }
         }
         
-        var textColor: UIColor {
+        var textColor: UIColor? {
             switch self {
-            case .accountSettings:   return Asset.Colors.brandBlue.color
-            case .github:            return Asset.Colors.brandBlue.color
-            case .termsOfService:    return Asset.Colors.brandBlue.color
-            case .privacyPolicy:     return Asset.Colors.brandBlue.color
+            case .accountSettings:   return nil         // tintColor
+            case .github:            return nil
+            case .termsOfService:    return nil
+            case .privacyPolicy:     return nil
             case .clearMediaCache:   return .systemRed
             case .signOut:           return .systemRed
             }

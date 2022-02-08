@@ -20,6 +20,7 @@ class SettingsToggleTableViewCell: UITableViewCell {
     
     private(set) lazy var switchButton: UISwitch = {
         let view = UISwitch(frame:.zero)
+        view.onTintColor = contentView.window?.tintColor ?? .label
         return view
     }()
     

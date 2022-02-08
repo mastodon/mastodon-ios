@@ -108,23 +108,23 @@ extension SettingsViewModel {
         var snapshot = NSDiffableDataSourceSnapshot<SettingsSection, SettingsItem>()
 
         // appearance
-        let appearanceItems = [SettingsItem.appearance(settingObjectID: setting.objectID)]
+        let appearanceItems = [SettingsItem.appearance(record: .init(objectID: setting.objectID))]
         snapshot.appendSections([.appearance])
         snapshot.appendItems(appearanceItems, toSection: .appearance)
-
-        // notification
-        let notificationItems = SettingsItem.NotificationSwitchMode.allCases.map { mode in
-            SettingsItem.notification(settingObjectID: setting.objectID, switchMode: mode)
-        }
-        snapshot.appendSections([.notifications])
-        snapshot.appendItems(notificationItems, toSection: .notifications)
-
+        
         // preference
         snapshot.appendSections([.preference])
         let preferenceItems: [SettingsItem] = SettingsItem.PreferenceType.allCases.map { preferenceType in
-            SettingsItem.preference(settingObjectID: setting.objectID, preferenceType: preferenceType)
+            SettingsItem.preference(settingRecord: .init(objectID: setting.objectID), preferenceType: preferenceType)
         }
         snapshot.appendItems(preferenceItems,toSection: .preference)
+
+        // notification
+        let notificationItems = SettingsItem.NotificationSwitchMode.allCases.map { mode in
+            SettingsItem.notification(settingRecord: .init(objectID: setting.objectID), switchMode: mode)
+        }
+        snapshot.appendSections([.notifications])
+        snapshot.appendItems(notificationItems, toSection: .notifications)
 
         // boring zone
         let boringZoneSettingsItems: [SettingsItem] = {

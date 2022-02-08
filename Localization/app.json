@@ -514,6 +514,13 @@
                     "light": "Always Light",
                     "dark": "Always Dark"
                 },
+                "look_and_feel": {
+                    "title": "Look and Feel",
+                    "use_system": "Use System",
+                    "really_dark": "Really Dark",
+                    "sorta_dark": "Sorta Dark",
+                    "light": "Light"
+                },
                 "notifications": {
                     "title": "Notifications",
                     "favorites": "Favorites my post",

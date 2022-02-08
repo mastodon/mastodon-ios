@@ -446,6 +446,7 @@
 		DB98EB6527B216500082E365 /* ReportResultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB98EB6427B216500082E365 /* ReportResultViewModel.swift */; };
 		DB98EB6727B216560082E365 /* ReportResultViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB98EB6627B216560082E365 /* ReportResultViewModel+Diffable.swift */; };
 		DB98EB6927B21A7C0082E365 /* ReportResultActionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB98EB6827B21A7C0082E365 /* ReportResultActionTableViewCell.swift */; };
+		DB98EB6B27B243470082E365 /* SettingsAppearanceTableViewCell+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB98EB6A27B243470082E365 /* SettingsAppearanceTableViewCell+ViewModel.swift */; };
 		DB9A486C26032AC1008B817C /* AttachmentContainerView+EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9A486B26032AC1008B817C /* AttachmentContainerView+EmptyStateView.swift */; };
 		DB9A487E2603456B008B817C /* UITextView+Placeholder in Frameworks */ = {isa = PBXBuildFile; productRef = DB9A487D2603456B008B817C /* UITextView+Placeholder */; };
 		DB9A488A26034D40008B817C /* ComposeViewModel+PublishState.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9A488926034D40008B817C /* ComposeViewModel+PublishState.swift */; };
@@ -1187,6 +1188,7 @@
 		DB98EB6427B216500082E365 /* ReportResultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportResultViewModel.swift; sourceTree = "<group>"; };
 		DB98EB6627B216560082E365 /* ReportResultViewModel+Diffable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReportResultViewModel+Diffable.swift"; sourceTree = "<group>"; };
 		DB98EB6827B21A7C0082E365 /* ReportResultActionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportResultActionTableViewCell.swift; sourceTree = "<group>"; };
+		DB98EB6A27B243470082E365 /* SettingsAppearanceTableViewCell+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingsAppearanceTableViewCell+ViewModel.swift"; sourceTree = "<group>"; };
 		DB9A486B26032AC1008B817C /* AttachmentContainerView+EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AttachmentContainerView+EmptyStateView.swift"; sourceTree = "<group>"; };
 		DB9A488926034D40008B817C /* ComposeViewModel+PublishState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ComposeViewModel+PublishState.swift"; sourceTree = "<group>"; };
 		DB9A488F26035963008B817C /* APIService+Media.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Media.swift"; sourceTree = "<group>"; };
@@ -1831,6 +1833,7 @@
 		5B90C455262599800002E742 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				5B90C458262599800002E742 /* Cell */,
 				5B90C457262599800002E742 /* View */,
 				DB6D9F9626367249008423CD /* SettingsViewController.swift */,
 				5B90C456262599800002E742 /* SettingsViewModel.swift */,
@@ -1841,7 +1844,6 @@
 		5B90C457262599800002E742 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				5B90C458262599800002E742 /* Cell */,
 				5B90C45C262599800002E742 /* SettingsSectionHeader.swift */,
 				DB443CD32694627B00159B29 /* AppearanceView.swift */,
 			);
@@ -1851,8 +1853,9 @@
 		5B90C458262599800002E742 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				5B90C459262599800002E742 /* SettingsToggleTableViewCell.swift */,
 				5B90C45A262599800002E742 /* SettingsAppearanceTableViewCell.swift */,
+				DB98EB6A27B243470082E365 /* SettingsAppearanceTableViewCell+ViewModel.swift */,
+				5B90C459262599800002E742 /* SettingsToggleTableViewCell.swift */,
 				5B90C45B262599800002E742 /* SettingsLinkTableViewCell.swift */,
 			);
 			path = Cell;
@@ -4196,6 +4199,7 @@
 				DB6B7500272FF73800C70B6E /* UserTableViewCell.swift in Sources */,
 				DB1D842E26552C4D000346B3 /* StatusTableViewControllerNavigateable.swift in Sources */,
 				DB938F1F2624382F00E5B6C1 /* ThreadViewModel+Diffable.swift in Sources */,
+				DB98EB6B27B243470082E365 /* SettingsAppearanceTableViewCell+ViewModel.swift in Sources */,
 				DB482A4B261340A7008AE74C /* APIService+UserTimeline.swift in Sources */,
 				DB427DD825BAA00100D1B89D /* SceneDelegate.swift in Sources */,
 				DB4932B926F31AD300EF46D4 /* BadgeButton.swift in Sources */,
