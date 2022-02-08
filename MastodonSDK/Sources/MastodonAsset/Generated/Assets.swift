@@ -108,6 +108,10 @@ public enum Asset {
         public static let usernameGray = ColorAsset(name: "Scene/Profile/Banner/username.gray")
       }
     }
+    public enum Report {
+      public static let background = ColorAsset(name: "Scene/Report/background")
+      public static let reportBanner = ColorAsset(name: "Scene/Report/report.banner")
+    }
     public enum Sidebar {
       public static let logo = ImageAsset(name: "Scene/Sidebar/logo")
     }

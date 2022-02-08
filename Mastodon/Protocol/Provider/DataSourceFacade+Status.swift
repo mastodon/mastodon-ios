@@ -209,7 +209,22 @@ extension DataSourceFacade {
             alertController.addAction(cancelAction)
             dependency.present(alertController, animated: true, completion: nil)
         case .reportUser:
-            assertionFailure()
+            Task {
+                guard let user = menuContext.author else { return }
+                
+                let reportViewModel = ReportViewModel(
+                    context: dependency.context,
+                    user: user,
+                    status: menuContext.status
+                )
+                
+                dependency.coordinator.present(
+                    scene: .report(viewModel: reportViewModel),
+                    from: dependency,
+                    transition: .modal(animated: true, completion: nil)
+                )
+            }   // end Task
+                
         case .shareUser:
             guard let user = menuContext.author else {
                 assertionFailure()

@@ -13,29 +13,10 @@ enum StatusItem: Hashable {
     case feed(record: ManagedObjectRecord<Feed>)
     case feedLoader(record: ManagedObjectRecord<Feed>)
     case status(record: ManagedObjectRecord<Status>)
-    // case statusLoader(record: ManagedObjectRecord<Status>, context: StatusLoaderContext)
     case thread(Thread)
     case topLoader
     case bottomLoader
 }
-
-//extension StatusItem {
-//    final class StatusLoaderContext: Hashable {
-//        let id = UUID()
-//        @Published var isFetching = false
-//        
-//        static func == (
-//            lhs: StatusItem.StatusLoaderContext,
-//            rhs: StatusItem.StatusLoaderContext
-//        ) -> Bool {
-//            return lhs.id == rhs.id
-//        }
-//        
-//        func hash(into hasher: inout Hasher) {
-//            hasher.combine(id)
-//        }
-//    }
-//}
  
 extension StatusItem {
     enum Thread: Hashable {

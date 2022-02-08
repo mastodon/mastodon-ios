@@ -184,6 +184,8 @@ extension SceneCoordinator {
         
         // report
         case report(viewModel: ReportViewModel)
+        case reportSupplementary(viewModel: ReportSupplementaryViewModel)
+        case reportResult(viewModel: ReportResultViewModel)
 
         // suggestion account
         case suggestionAccount(viewModel: SuggestionAccountViewModel)
@@ -441,6 +443,18 @@ private extension SceneCoordinator {
             let _viewController = FollowingListViewController()
             _viewController.viewModel = viewModel
             viewController = _viewController
+        case .report(let viewModel):
+            let _viewController = ReportViewController()
+            _viewController.viewModel = viewModel
+            viewController = _viewController
+        case .reportSupplementary(let viewModel):
+            let _viewController = ReportSupplementaryViewController()
+            _viewController.viewModel = viewModel
+            viewController = _viewController
+        case .reportResult(let viewModel):
+            let _viewController = ReportResultViewController()
+            _viewController.viewModel = viewModel
+            viewController = _viewController
         case .suggestionAccount(let viewModel):
             let _viewController = SuggestionAccountViewController()
             _viewController.viewModel = viewModel
@@ -474,10 +488,6 @@ private extension SceneCoordinator {
             viewController = activityViewController
         case .settings(let viewModel):
             let _viewController = SettingsViewController()
-            _viewController.viewModel = viewModel
-            viewController = _viewController
-        case .report(let viewModel):
-            let _viewController = ReportViewController()
             _viewController.viewModel = viewModel
             viewController = _viewController
         }

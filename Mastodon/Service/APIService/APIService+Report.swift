@@ -12,12 +12,17 @@ import Combine
 extension APIService {
  
     func report(
-        domain: String,
         query: Mastodon.API.Reports.FileReportQuery,
-        mastodonAuthenticationBox: MastodonAuthenticationBox
-    ) -> AnyPublisher<Mastodon.Response.Content<Bool>, Error> {
-        let authorization = mastodonAuthenticationBox.userAuthorization
-
-        return Mastodon.API.Reports.fileReport(session: session, domain: domain, query: query, authorization: authorization)
+        authenticationBox: MastodonAuthenticationBox
+    ) async throws -> Mastodon.Response.Content<Bool> {
+        let response = try await Mastodon.API.Reports.fileReport(
+            session: session,
+            domain: authenticationBox.domain,
+            query: query,
+            authorization: authenticationBox.userAuthorization
+        ).singleOutput()
+        
+        return response
     }
+    
 }

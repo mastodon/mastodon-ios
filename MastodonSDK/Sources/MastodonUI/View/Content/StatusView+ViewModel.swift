@@ -245,13 +245,6 @@ extension StatusView.ViewModel {
             statusView.dateLabel.configure(content: PlaintextMetaContent(string: text))
         }
         .store(in: &disposeBag)
-        $isSensitive
-            .sink { isSensitive in
-                if !isSensitive {
-                    statusView.setMenuButtonDisplay()
-                }
-            }
-            .store(in: &disposeBag)
     }
     
     private func bindContent(statusView: StatusView) {

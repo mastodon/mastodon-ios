@@ -27,7 +27,6 @@ final class HomeTimelineViewModel: NSObject {
     let context: AppContext
     let fetchedResultsController: FeedFetchedResultsController
     let timelinePredicate = CurrentValueSubject<NSPredicate?, Never>(nil)
-    //let isFetchingLatestTimeline = CurrentValueSubject<Bool, Never>(false)
     let viewDidAppear = PassthroughSubject<Void, Never>()
     let homeTimelineNavigationBarTitleViewModel: HomeTimelineNavigationBarTitleViewModel
     let lastAutomaticFetchTimestamp = CurrentValueSubject<Date?, Never>(nil)
@@ -82,28 +81,6 @@ final class HomeTimelineViewModel: NSObject {
         self.fetchedResultsController = FeedFetchedResultsController(managedObjectContext: context.managedObjectContext)
         self.homeTimelineNavigationBarTitleViewModel = HomeTimelineNavigationBarTitleViewModel(context: context)
         super.init()
-        
-//        fetchedResultsController.delegate = self
-        
-//        timelinePredicate
-//            .receive(on: DispatchQueue.main)
-//            .compactMap { $0 }
-//            .first()    // set once
-//            .sink { [weak self] predicate in
-//                guard let self = self else { return }
-//                self.fetchedResultsController.fetchRequest.predicate = predicate
-//                do {
-//                    self.diffableDataSource?.defaultRowAnimation = .fade
-//                    try self.fetchedResultsController.performFetch()
-//                    DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [weak self] in
-//                        guard let self = self else { return }
-//                        self.diffableDataSource?.defaultRowAnimation = .automatic
-//                    }
-//                } catch {
-//                    assertionFailure(error.localizedDescription)
-//                }
-//            }
-//            .store(in: &disposeBag)
         
         context.authenticationService.activeMastodonAuthenticationBox
             .sink { [weak self] authenticationBox in

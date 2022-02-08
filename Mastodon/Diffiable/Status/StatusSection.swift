@@ -17,13 +17,6 @@ import MastodonSDK
 import NaturalLanguage
 import MastodonUI
 
-// import LinkPresentation
-
-//protocol StatusCell: DisposeBagCollectable {
-//    var statusView: StatusView { get }
-//    var isFiltered: Bool { get set }
-//}
-
 enum StatusSection: Equatable, Hashable {
     case main
 }

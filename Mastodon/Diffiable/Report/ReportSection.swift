@@ -11,7 +11,6 @@ import CoreDataStack
 import Foundation
 import MastodonSDK
 import UIKit
-import AVKit
 import os.log
 import MastodonAsset
 import MastodonLocalization
@@ -21,50 +20,98 @@ enum ReportSection: Equatable, Hashable {
 }
 
 extension ReportSection {
-    static func tableViewDiffableDataSource(
-        for tableView: UITableView,
-        dependency: ReportViewController,
-        managedObjectContext: NSManagedObjectContext,
-        timestampUpdatePublisher: AnyPublisher<Date, Never>
+    
+    struct Configuration {
+    }
+    
+    static func diffableDataSource(
+        tableView: UITableView,
+        context: AppContext,
+        configuration: Configuration
     ) -> UITableViewDiffableDataSource<ReportSection, ReportItem> {
-        UITableViewDiffableDataSource(tableView: tableView) {[
-            weak dependency
-        ] tableView, indexPath, item -> UITableViewCell? in
-            return UITableViewCell()
-            guard let dependency = dependency else { return UITableViewCell() }
+        
+        tableView.register(ReportHeadlineTableViewCell.self, forCellReuseIdentifier: String(describing: ReportHeadlineTableViewCell.self))
+        tableView.register(ReportStatusTableViewCell.self, forCellReuseIdentifier: String(describing: ReportStatusTableViewCell.self))
+        tableView.register(ReportCommentTableViewCell.self, forCellReuseIdentifier: String(describing: ReportCommentTableViewCell.self))
+        tableView.register(ReportResultActionTableViewCell.self, forCellReuseIdentifier: String(describing: ReportResultActionTableViewCell.self))
+        tableView.register(TimelineBottomLoaderTableViewCell.self, forCellReuseIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self))
 
-//            switch item {
-//            case .reportStatus(let objectID, let attribute):
-//                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ReportedStatusTableViewCell.self), for: indexPath) as! ReportedStatusTableViewCell
-//                cell.dependency = dependency
-//                let activeMastodonAuthenticationBox = dependency.context.authenticationService.activeMastodonAuthenticationBox.value
-//                let requestUserID = activeMastodonAuthenticationBox?.userID ?? ""
-//                managedObjectContext.performAndWait { [weak dependency] in
-//                    guard let dependency = dependency else { return }
-//                    let status = managedObjectContext.object(with: objectID) as! Status
-//                    StatusSection.configure(
-//                        cell: cell,
-//                        tableView: tableView,
-//                        timelineContext: .report,
-//                        dependency: dependency,
-//                        readableLayoutFrame: tableView.readableContentGuide.layoutFrame,
-//                        status: status,
-//                        requestUserID: requestUserID,
-//                        statusItemAttribute: attribute
-//                    )
-//                }
-//                
-//                // defalut to select the report status
-//                if attribute.isSelected {
-//                    tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
-//                } else {
-//                    tableView.deselectRow(at: indexPath, animated: false)
-//                }
-//                
-//                return cell
-//            default:
-//                return nil
-//            }
+        return UITableViewDiffableDataSource(tableView: tableView) { tableView, indexPath, item -> UITableViewCell? in
+            switch item {
+            case .header(let headerContext):
+                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ReportHeadlineTableViewCell.self), for: indexPath) as! ReportHeadlineTableViewCell
+                cell.primaryLabel.text = headerContext.primaryLabelText
+                cell.secondaryLabel.text = headerContext.secondaryLabelText
+                return cell
+            case .status(let record):
+                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ReportStatusTableViewCell.self), for: indexPath) as! ReportStatusTableViewCell
+                context.managedObjectContext.performAndWait {
+                    guard let status = record.object(in: context.managedObjectContext) else { return }
+                    configure(
+                        context: context,
+                        tableView: tableView,
+                        cell: cell,
+                        viewModel: .init(value: status),
+                        configuration: configuration
+                    )
+                }
+                return cell
+            case .comment(let commentContext):
+                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ReportCommentTableViewCell.self), for: indexPath) as! ReportCommentTableViewCell
+                cell.commentTextView.text = commentContext.comment
+                NotificationCenter.default.publisher(for: UITextView.textDidChangeNotification, object: cell.commentTextView)
+                    .receive(on: DispatchQueue.main)
+                    .sink { [weak cell] notification in
+                        guard let cell = cell else { return }
+                        commentContext.comment = cell.commentTextView.text
+                        
+                        // fix shadow get animation issue when cell height changes
+                        UIView.performWithoutAnimation {
+                            tableView.beginUpdates()
+                            tableView.endUpdates()
+                        }
+                    }
+                    .store(in: &cell.disposeBag)
+                return cell
+            case .result(let record):
+                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ReportResultActionTableViewCell.self), for: indexPath) as! ReportResultActionTableViewCell
+                context.managedObjectContext.performAndWait {
+                    guard let user = record.object(in: context.managedObjectContext) else { return }
+                    cell.avatarImageView.configure(configuration: .init(url: user.avatarImageURL()))
+                }
+                return cell
+            case .bottomLoader:
+                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self), for: indexPath) as! TimelineBottomLoaderTableViewCell
+                cell.activityIndicatorView.startAnimating()
+                return cell
+            }
         }
     }
+}
+
+extension ReportSection {
+    
+    static func configure(
+        context: AppContext,
+        tableView: UITableView,
+        cell: ReportStatusTableViewCell,
+        viewModel: ReportStatusTableViewCell.ViewModel,
+        configuration: Configuration
+    ) {
+        StatusSection.setupStatusPollDataSource(
+            context: context,
+            statusView: cell.statusView
+        )
+        
+        context.authenticationService.activeMastodonAuthenticationBox
+            .map { $0 as UserIdentifier? }
+            .assign(to: \.userIdentifier, on: cell.statusView.viewModel)
+            .store(in: &cell.disposeBag)
+        
+        cell.configure(
+            tableView: tableView,
+            viewModel: viewModel
+        )
+    }
+    
 }

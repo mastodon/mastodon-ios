@@ -222,7 +222,6 @@ public final class StatusView: UIView {
         }
         
         headerContainerView.isHidden = true
-        menuButton.isHidden = true
         contentWarningToggleButton.isHidden = true
         setSpoilerOverlayViewHidden(true)
         mediaContainerView.isHidden = true
@@ -333,6 +332,7 @@ extension StatusView {
     public enum Style {
         case inline
         case plain
+        case report
         case notification
         case notificationQuote
         case composeStatusReplica
@@ -346,6 +346,7 @@ extension StatusView.Style {
         switch self {
         case .inline:               inline(statusView: statusView)
         case .plain:                plain(statusView: statusView)
+        case .report:               report(statusView: statusView)
         case .notification:         notification(statusView: statusView)
         case .notificationQuote:    notificationQuote(statusView: statusView)
         case .composeStatusReplica: composeStatusReplica(statusView: statusView)
@@ -420,6 +421,7 @@ extension StatusView.Style {
         authorPrimaryMetaContainer.addArrangedSubview(UIView())
         // menuButton
         authorPrimaryMetaContainer.addArrangedSubview(statusView.menuButton)
+        statusView.menuButton.setContentCompressionResistancePriority(.required - 1, for: .horizontal)
         
         // authorSecondaryMetaContainer: H - [ authorUsername | usernameTrialingDotLabel | dateLabel | (padding) ]
         let authorSecondaryMetaContainer = UIStackView()
@@ -527,6 +529,14 @@ extension StatusView.Style {
             .store(in: &statusView._disposeBag)
     }
     
+    func report(statusView: StatusView) {
+        inline(statusView: statusView)      // override the inline style
+
+        statusView.menuButton.removeFromSuperview()
+        statusView.statusVisibilityView.removeFromSuperview()
+        statusView.actionToolbarContainer.removeFromSuperview()
+    }
+    
     func notification(statusView: StatusView) {
         inline(statusView: statusView)      // override the inline style
         
@@ -571,10 +581,6 @@ extension StatusView.Style {
 extension StatusView {
     func setHeaderDisplay() {
         headerContainerView.isHidden = false
-    }
-    
-    func setMenuButtonDisplay() {
-        menuButton.isHidden = false
     }
     
     func setContentWarningToggleButtonDisplay() {

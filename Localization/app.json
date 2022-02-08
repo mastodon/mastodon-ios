@@ -555,14 +555,17 @@
             }
         },
         "report": {
+            "title_report": "Report",
             "title": "Report %s",
             "step1": "Step 1 of 2",
             "step2": "Step 2 of 2",
             "content1": "Are there any other posts you’d like to add to the report?",
             "content2": "Is there anything the moderators should know about this report?",
+            "report_sent_title": "Thanks for reporting, we’ll look into this.",
             "send": "Send Report",
             "skip_to_send": "Send without comment",
-            "text_placeholder": "Type or paste additional comments"
+            "text_placeholder": "Type or paste additional comments",
+            "reported": "REPORTED"
         },
         "preview": {
             "keyboard": {
