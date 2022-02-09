@@ -33,6 +33,7 @@ protocol StatusTableViewCellDelegate: AnyObject, AutoGenerateProtocolDelegate {
     func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, menuButton button: UIButton, didSelectAction action: MastodonMenu.Action)
     func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, spoilerOverlayViewDidPressed overlayView: SpoilerOverlayView)
     func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, spoilerBannerViewDidPressed bannerView: SpoilerBannerView)
+    func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, mediaGridContainerView: MediaGridContainerView, mediaSensitiveButtonDidPressed button: UIButton)
     // sourcery:end
 }
 
@@ -79,6 +80,10 @@ extension StatusViewDelegate where Self: StatusViewContainerTableViewCell {
 
     func statusView(_ statusView: StatusView, spoilerBannerViewDidPressed bannerView: SpoilerBannerView) {
         delegate?.tableViewCell(self, statusView: statusView, spoilerBannerViewDidPressed: bannerView)
+    }
+
+    func statusView(_ statusView: StatusView, mediaGridContainerView: MediaGridContainerView, mediaSensitiveButtonDidPressed button: UIButton) {
+        delegate?.tableViewCell(self, statusView: statusView, mediaGridContainerView: mediaGridContainerView, mediaSensitiveButtonDidPressed: button)
     }
     // sourcery:end
 }

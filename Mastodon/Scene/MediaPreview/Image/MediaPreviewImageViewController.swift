@@ -163,3 +163,21 @@ extension MediaPreviewImageViewController {
         case share
     }
 }
+
+// MARK: - MediaPreviewTransitionViewController
+extension MediaPreviewImageViewController: MediaPreviewTransitionViewController {
+    var mediaPreviewTransitionContext: MediaPreviewTransitionContext? {
+        let imageView = previewImageView.imageView
+        let _snapshot: UIView? = imageView.snapshotView(afterScreenUpdates: false)
+        
+        guard let snapshot = _snapshot else {
+            return nil
+        }
+        
+        return MediaPreviewTransitionContext(
+            transitionView: imageView,
+            snapshot: snapshot,
+            snapshotTransitioning: snapshot
+        )
+    }
+}

@@ -105,7 +105,7 @@ extension MediaPreviewViewController {
             .sink { [weak self] index in
                 guard let self = self else { return }
                 switch self.viewModel.transitionItem.source {
-                case .attachment(_):
+                case .attachment:
                     break
                 case .attachments(let mediaGridContainerView):
                     UIView.animate(withDuration: 0.3) {
@@ -113,6 +113,24 @@ extension MediaPreviewViewController {
                         mediaGridContainerView.setAlpha(0, index: index)
                     }
                 case .profileAvatar, .profileBanner:
+                    break
+                }
+            }
+            .store(in: &disposeBag)
+        
+        viewModel.$currentPage
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] index in
+                guard let self = self else { return }
+                switch self.viewModel.item {
+                case .attachment(let previewContext):
+                    let needsHideCloseButton: Bool = {
+                        guard index < previewContext.attachments.count else { return false }
+                        let attachment = previewContext.attachments[index]
+                        return attachment.kind == .video    // not hide buttno for audio
+                    }()
+                    self.closeButtonBackground.isHidden = needsHideCloseButton
+                default:
                     break
                 }
             }
@@ -146,6 +164,10 @@ extension MediaPreviewViewController: MediaPreviewingViewController {
             let dismissible = previewImageView.contentOffset.y <= -(safeAreaInsets.top - statusBarFrameHeight) + 3 // add 3pt tolerance
             os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: dismissible %s", ((#file as NSString).lastPathComponent), #line, #function, dismissible ? "true" : "false")
             return dismissible
+        }
+        
+        if let _ = pagingViewController.currentViewController as? MediaPreviewVideoViewController {
+            return true
         }
 
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: dismissible false", ((#file as NSString).lastPathComponent), #line, #function)

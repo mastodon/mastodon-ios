@@ -122,9 +122,7 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & MediaPrev
             let needsToggleMediaSensitive: Bool = try await managedObjectContext.perform {
                 guard let _status = status.object(in: managedObjectContext) else { return false }
                 let status = _status.reblog ?? _status
-                guard status.sensitive else { return false }
-                guard status.isMediaSensitiveToggled else { return true }
-                return false
+                return status.isMediaSensitiveToggled ? !status.sensitive : status.sensitive
             }
             
             guard !needsToggleMediaSensitive else {
@@ -407,5 +405,29 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider {
             )
         }   // end Task
     }
+    
+    func tableViewCell(
+        _ cell: UITableViewCell,
+        statusView: StatusView,
+        mediaGridContainerView: MediaGridContainerView,
+        mediaSensitiveButtonDidPressed button: UIButton
+    ) {
+        Task {
+            let source = DataSourceItem.Source(tableViewCell: cell, indexPath: nil)
+            guard let item = await item(from: source) else {
+                assertionFailure()
+                return
+            }
+            guard case let .status(status) = item else {
+                assertionFailure("only works for status data provider")
+                return
+            }
+            try await DataSourceFacade.responseToToggleMediaSensitiveAction(
+                dependency: self,
+                status: status
+            )
+        }   // end Task
+    }
+
 }
 

@@ -53,6 +53,9 @@ extension StatusView {
         // Media
         @Published public var mediaViewConfigurations: [MediaView.Configuration] = []
         
+        // Audio
+        @Published public var audioConfigurations: [MediaView.Configuration] = []
+        
         // Poll
         @Published public var pollItems: [PollItem] = []
         @Published public var isVotable: Bool = false
@@ -121,9 +124,9 @@ extension StatusView {
             isMediaSensitive = false
             isMediaSensitiveToggled = false
             
-            isSensitive = false
-            isContentReveal = false
-            isMediaReveal = false
+//            isSensitive = false
+//            isContentReveal = false
+//            isMediaReveal = false
         }
         
         init() {
@@ -154,7 +157,8 @@ extension StatusView {
                 $isMediaSensitive,
                 $isMediaSensitiveToggled
             )
-            .map { $0 ? $1 : true }
+            .map { $1 ? !$0 : $0 }
+            .map { !$0 }
             .assign(to: &$isMediaReveal)
         }
     }
@@ -375,6 +379,8 @@ extension StatusView.ViewModel {
                 guard let self = self else { return }
                 self.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): configure media")
                 
+                statusView.mediaGridContainerView.prepareForReuse()
+                
                 let maxSize = CGSize(
                     width: statusView.contentMaxLayoutWidth,
                     height: 9999        // fulfill the width
@@ -419,18 +425,11 @@ extension StatusView.ViewModel {
         }
         .store(in: &disposeBag)
         
-        // FIXME:
-        statusView.mediaGridContainerView.viewModel.isContentWarningOverlayDisplay = false
-//        $isMediaReveal
-//            .sink { isMediaReveal in
-//                statusView.mediaGridContainerView.viewModel.isContentWarningOverlayDisplay = isMediaReveal
-//            }
-//            .store(in: &disposeBag)
-//        $isMediaSensitiveSwitchable
-//            .sink { isMediaSensitiveSwitchable in
-//                statusView.mediaGridContainerView.viewModel.isSensitiveToggleButtonDisplay = isMediaSensitiveSwitchable
-//            }
-//            .store(in: &disposeBag)
+        $isMediaReveal
+            .sink { isMediaReveal in
+                statusView.mediaGridContainerView.viewModel.isSensitiveToggleButtonDisplay = isMediaReveal
+            }
+            .store(in: &disposeBag)
     }
     
     private func bindPoll(statusView: StatusView) {

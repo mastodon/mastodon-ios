@@ -388,6 +388,10 @@ extension NotificationView: StatusViewDelegate {
         assertionFailure()
     }
     
+    public func statusView(_ statusView: StatusView, mediaGridContainerView: MediaGridContainerView, mediaSensitiveButtonDidPressed button: UIButton) {
+        assertionFailure()
+    }
+    
 }
 
 // MARK: - MastodonMenuDelegate

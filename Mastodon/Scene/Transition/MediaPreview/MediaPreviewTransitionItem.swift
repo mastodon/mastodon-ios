@@ -16,25 +16,28 @@ class MediaPreviewTransitionItem: Identifiable {
     var previewableViewController: MediaPreviewableViewController
     
     // source
-    // value maybe invalid when preview paging
     var image: UIImage?
     var aspectRatio: CGSize?
     var initialFrame: CGRect? = nil
     var sourceImageView: UIImageView?
     var sourceImageViewCornerRadius: CGFloat?
-
+    
     // target
     var targetFrame: CGRect? = nil
     
     // transitioning
-    var imageView: UIImageView?
+    var transitionView: UIView?
     var snapshotRaw: UIView?
     var snapshotTransitioning: UIView?
     var touchOffset: CGVector = CGVector.zero
     var interactiveTransitionMaskView: UIView?
     var interactiveTransitionMaskLayer: CAShapeLayer?
 
-    init(id: UUID = UUID(), source: Source, previewableViewController: MediaPreviewableViewController) {
+    init(
+        id: UUID = UUID(),
+        source: Source,
+        previewableViewController: MediaPreviewableViewController
+    ) {
         self.id = id
         self.source = source
         self.previewableViewController = previewableViewController
@@ -56,7 +59,7 @@ extension MediaPreviewTransitionItem {
                 mediaView.alpha = alpha
             case .attachments(let mediaGridContainerView):
                 if let index = index {
-                    mediaGridContainerView.setAlpha(0, index: index)
+                    mediaGridContainerView.setAlpha(alpha, index: index)
                 } else {
                     mediaGridContainerView.setAlpha(alpha)
                 }

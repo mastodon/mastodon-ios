@@ -14,10 +14,13 @@ import Photos
 extension MediaView {
     public class Configuration: Hashable {
         
+        var disposeBag = Set<AnyCancellable>()
+        
         public let info: Info
         public let blurhash: String?
         
         @Published public var isReveal = true
+        @Published public var previewImage: UIImage?
         @Published public var blurhashImage: UIImage?
         public var blurhashImageDisposeBag = Set<AnyCancellable>()
         
@@ -34,6 +37,17 @@ extension MediaView {
             case .image(let info):      return info.aspectRadio
             case .gif(let info):        return info.aspectRadio
             case .video(let info):      return info.aspectRadio
+            }
+        }
+        
+        public var previewURL: String? {
+            switch info {
+            case .image(let info):
+                return info.assetURL
+            case .gif(let info):
+                return info.previewURL
+            case .video(let info):
+                return info.previewURL
             }
         }
         

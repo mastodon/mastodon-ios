@@ -24,6 +24,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // configure appearance
         ThemeService.shared.apply(theme: ThemeService.shared.currentTheme.value)
         
+        // configure AudioSession
+        try? AVAudioSession.sharedInstance().setCategory(.ambient)
+        
         // Update app version info. See: `Settings.bundle`
         UserDefaults.standard.setValue(UIApplication.appVersion(), forKey: "Mastodon.appVersion")
         UserDefaults.standard.setValue(UIApplication.appBuild(), forKey: "Mastodon.appBundle")
