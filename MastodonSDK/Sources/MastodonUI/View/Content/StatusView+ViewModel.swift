@@ -88,6 +88,8 @@ extension StatusView {
         @Published public var reblogCount: Int = 0
         @Published public var favoriteCount: Int = 0
         
+        public let isNeedsTableViewUpdate = PassthroughSubject<Void, Never>()
+        
         let timestampUpdatePublisher = Timer.publish(every: 1.0, on: .main, in: .common)
             .autoconnect()
             .share()
@@ -282,6 +284,8 @@ extension StatusView.ViewModel {
             }
             
             statusView.setSpoilerOverlayViewHidden(isHidden: isContentReveal)
+            
+            self.isNeedsTableViewUpdate.send()
         }
         .store(in: &disposeBag)
         // visibility
