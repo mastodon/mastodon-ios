@@ -79,7 +79,7 @@
         <key>one</key>
         <string>1 post</string>
         <key>other</key>
-        <string>%ld tsuffaɣ</string>
+        <string>%ld n tsuffaɣ</string>
       </dict>
     </dict>
     <key>plural.count.favorite</key>
