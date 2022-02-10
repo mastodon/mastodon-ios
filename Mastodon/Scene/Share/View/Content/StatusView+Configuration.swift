@@ -273,9 +273,7 @@ extension StatusView {
         viewModel.isMediaSensitive = status.sensitive && !status.attachments.isEmpty        // some servers set media sensitive even empty attachments
         
         let configurations = MediaView.configuration(status: status)
-        if viewModel.mediaViewConfigurations != configurations {
-            viewModel.mediaViewConfigurations = configurations
-        }
+        viewModel.mediaViewConfigurations = configurations
         
         status.publisher(for: \.isMediaSensitiveToggled)
             .assign(to: \.isMediaSensitiveToggled, on: viewModel)

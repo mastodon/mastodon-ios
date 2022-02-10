@@ -19,7 +19,6 @@ final class MediaPreviewVideoViewController: UIViewController {
     var viewModel: MediaPreviewVideoViewModel!
     
     let playerViewController = AVPlayerViewController()
-//    var pictureInPictureController: AVPictureInPictureController?
     
     let previewImageView = UIImageView()
     
