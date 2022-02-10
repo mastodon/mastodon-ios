@@ -22,6 +22,9 @@ public protocol NotificationViewDelegate: AnyObject {
 
     func notificationView(_ notificationView: NotificationView, quoteStatusView: StatusView, authorAvatarButtonDidPressed button: AvatarButton)
     func notificationView(_ notificationView: NotificationView, quoteStatusView: StatusView, metaText: MetaText, didSelectMeta meta: Meta)
+    
+    // a11y
+    func notificationView(_ notificationView: NotificationView, accessibilityActivate: Void)
 }
 
 public final class NotificationView: UIView {
@@ -389,6 +392,10 @@ extension NotificationView: StatusViewDelegate {
     }
     
     public func statusView(_ statusView: StatusView, mediaGridContainerView: MediaGridContainerView, mediaSensitiveButtonDidPressed button: UIButton) {
+        assertionFailure()
+    }
+    
+    public func statusView(_ statusView: StatusView, accessibilityActivate: Void) {
         assertionFailure()
     }
     

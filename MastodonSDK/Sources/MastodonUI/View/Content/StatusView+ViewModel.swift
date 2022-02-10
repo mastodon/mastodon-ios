@@ -43,6 +43,7 @@ extension StatusView {
         
         @Published public var timestamp: Date?
         public var timestampFormatter: ((_ date: Date) -> String)?
+        @Published public var timestampText = ""
         
         // Spoiler
         @Published public var spoilerContent: MetaContent?
@@ -90,6 +91,8 @@ extension StatusView {
         
         public let isNeedsTableViewUpdate = PassthroughSubject<Void, Never>()
         
+        @Published public var groupedAccessibilityLabel = ""
+
         let timestampUpdatePublisher = Timer.publish(every: 1.0, on: .main, in: .common)
             .autoconnect()
             .share()
@@ -176,6 +179,7 @@ extension StatusView.ViewModel {
         bindToolbar(statusView: statusView)
         bindMetric(statusView: statusView)
         bindMenu(statusView: statusView)
+        bindAccessibility(statusView: statusView)
     }
     
     private func bindHeader(statusView: StatusView) {
@@ -246,11 +250,14 @@ extension StatusView.ViewModel {
             return text
         }
         .removeDuplicates()
-        .sink { [weak self] text in
-            guard let _ = self else { return }
-            statusView.dateLabel.configure(content: PlaintextMetaContent(string: text))
-        }
-        .store(in: &disposeBag)
+        .assign(to: &$timestampText)
+        
+        $timestampText
+            .sink { [weak self] text in
+                guard let _ = self else { return }
+                statusView.dateLabel.configure(content: PlaintextMetaContent(string: text))
+            }
+            .store(in: &disposeBag)
     }
     
     private func bindContent(statusView: StatusView) {
@@ -633,6 +640,84 @@ extension StatusView.ViewModel {
             statusView.menuButton.showsMenuAsPrimaryAction = true
         }
         .store(in: &disposeBag)
+    }
+    
+    private func bindAccessibility(statusView: StatusView) {
+        let authorAccessibilityLabel = Publishers.CombineLatest3(
+            $header,
+            $authorName,
+            $timestampText
+        )
+        .map { header, authorName, timestamp -> String? in
+            var strings: [String?] = []
+            
+            switch header {
+            case .none:
+                break
+            case .reply(let info):
+                strings.append(info.header.string)
+            case .repost(let info):
+                strings.append(info.header.string)
+            }
+            
+            strings.append(authorName?.string)
+            strings.append(timestamp)
+            
+            return strings.compactMap { $0 }.joined(separator: ", ")
+        }
+        
+        let contentAccessibilityLabel = Publishers.CombineLatest3(
+            $isContentReveal,
+            $spoilerContent,
+            $content
+        )
+        .map { isContentReveal, spoilerContent, content -> String? in
+            var strings: [String?] = []
+            
+            if let spoilerContent = spoilerContent, !spoilerContent.string.isEmpty {
+                strings.append(L10n.Common.Controls.Status.contentWarning)
+                strings.append(spoilerContent.string)
+            }
+
+            if isContentReveal {
+                strings.append(content?.string)
+            }
+            
+            return strings.compactMap { $0 }.joined(separator: ", ")
+        }
+        
+        let meidaAccessibilityLabel = $mediaViewConfigurations
+            .map { configurations -> String? in
+                let count = configurations.count
+                // TODO: i18n
+                return count > 0 ? "\(count) media" : nil
+            }
+            
+        // TODO: Toolbar
+        
+        Publishers.CombineLatest3(
+            authorAccessibilityLabel,
+            contentAccessibilityLabel,
+            meidaAccessibilityLabel
+        )
+        .map { author, content, media in
+            let group = [
+                author,
+                content,
+                media
+            ]
+            
+            return group
+                .compactMap { $0 }
+                .joined(separator: ", ")
+        }
+        .assign(to: &$groupedAccessibilityLabel)
+        
+        $groupedAccessibilityLabel
+            .sink { accessibilityLabel in
+                statusView.accessibilityLabel = accessibilityLabel
+            }
+            .store(in: &disposeBag)
     }
     
 }

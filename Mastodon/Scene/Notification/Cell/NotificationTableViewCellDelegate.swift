@@ -29,6 +29,7 @@ protocol NotificationTableViewCellDelegate: AnyObject, AutoGenerateProtocolDeleg
     func tableViewCell(_ cell: UITableViewCell, notificationView: NotificationView, statusView: StatusView, actionToolbarContainer: ActionToolbarContainer, buttonDidPressed button: UIButton, action: ActionToolbarContainer.Action)
     func tableViewCell(_ cell: UITableViewCell, notificationView: NotificationView, quoteStatusView: StatusView, authorAvatarButtonDidPressed button: AvatarButton)
     func tableViewCell(_ cell: UITableViewCell, notificationView: NotificationView, quoteStatusView: StatusView, metaText: MetaText, didSelectMeta meta: Meta)
+    func tableViewCell(_ cell: UITableViewCell, notificationView: NotificationView, accessibilityActivate: Void)
     // sourcery:end
 }
 
@@ -58,6 +59,10 @@ extension NotificationViewDelegate where Self: NotificationViewContainerTableVie
 
     func notificationView(_ notificationView: NotificationView, quoteStatusView: StatusView, metaText: MetaText, didSelectMeta meta: Meta) {
         delegate?.tableViewCell(self, notificationView: notificationView, quoteStatusView: quoteStatusView, metaText: metaText, didSelectMeta: meta)
+    }
+
+    func notificationView(_ notificationView: NotificationView, accessibilityActivate: Void) {
+        delegate?.tableViewCell(self, notificationView: notificationView, accessibilityActivate: accessibilityActivate)
     }
     // sourcery:end
 }

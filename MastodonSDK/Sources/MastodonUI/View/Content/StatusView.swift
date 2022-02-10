@@ -25,6 +25,10 @@ public protocol StatusViewDelegate: AnyObject {
     func statusView(_ statusView: StatusView, spoilerOverlayViewDidPressed overlayView: SpoilerOverlayView)
     func statusView(_ statusView: StatusView, spoilerBannerViewDidPressed bannerView: SpoilerBannerView)
     func statusView(_ statusView: StatusView, mediaGridContainerView: MediaGridContainerView, mediaSensitiveButtonDidPressed button: UIButton)
+    
+    // a11y
+    func statusView(_ statusView: StatusView, accessibilityActivate: Void)
+    
 //    func statusView(_ statusView: StatusView, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView)
 //    func statusView(_ statusView: StatusView, playerContainerView: PlayerContainerView, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView)
 }

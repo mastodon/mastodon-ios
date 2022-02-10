@@ -20,6 +20,7 @@ final class StatusTableViewCell: UITableViewCell {
         
     weak var delegate: StatusTableViewCellDelegate?
     var disposeBag = Set<AnyCancellable>()
+    var _disposeBag = Set<AnyCancellable>()
 
     let statusView = StatusView()
     let separatorLine = UIView.separatorLine
@@ -89,12 +90,27 @@ extension StatusTableViewCell {
         ])
         
         statusView.delegate = self
+        
+        isAccessibilityElement = true
+        accessibilityElements = [statusView]
+        statusView.viewModel.$groupedAccessibilityLabel
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] accessibilityLabel in
+                guard let self = self else { return }
+                self.accessibilityLabel = accessibilityLabel
+            }
+            .store(in: &_disposeBag)
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
 
         updateContainerViewMarginConstraints()
+    }
+    
+    override func accessibilityActivate() -> Bool {
+        delegate?.tableViewCell(self, statusView: statusView, accessibilityActivate: Void())
+        return true
     }
 
 }
