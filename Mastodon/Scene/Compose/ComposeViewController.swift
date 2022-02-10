@@ -53,7 +53,16 @@ final class ComposeViewController: UIViewController, NeedsDependency {
     }()
     private(set) lazy var publishBarButtonItem: UIBarButtonItem = {
         configurePublishButtonApperance()
-        let barButtonItem = UIBarButtonItem(customView: publishButton)
+        let shadowBackgroundContainer = ShadowBackgroundContainer()
+        publishButton.translatesAutoresizingMaskIntoConstraints = false
+        shadowBackgroundContainer.addSubview(publishButton)
+        NSLayoutConstraint.activate([
+            publishButton.topAnchor.constraint(equalTo: shadowBackgroundContainer.topAnchor),
+            publishButton.leadingAnchor.constraint(equalTo: shadowBackgroundContainer.leadingAnchor),
+            publishButton.trailingAnchor.constraint(equalTo: shadowBackgroundContainer.trailingAnchor),
+            publishButton.bottomAnchor.constraint(equalTo: shadowBackgroundContainer.bottomAnchor),
+        ])
+        let barButtonItem = UIBarButtonItem(customView: shadowBackgroundContainer)
         return barButtonItem
     }()
     
