@@ -119,8 +119,6 @@ final class HomeTimelineViewModel: NSObject {
     
 }
 
-//extension HomeTimelineViewModel: SuggestionAccountViewModelDelegate { }
-
 extension HomeTimelineViewModel {
     struct ScrollPositionRecord {
         let item: StatusItem
@@ -197,3 +195,9 @@ extension HomeTimelineViewModel {
     }
 
 }
+
+// MARK: - SuggestionAccountViewModelDelegate
+extension HomeTimelineViewModel: SuggestionAccountViewModelDelegate {
+    
+}
+

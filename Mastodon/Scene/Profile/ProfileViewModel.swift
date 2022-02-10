@@ -28,8 +28,8 @@ class ProfileViewModel: NSObject {
     
     // input
     let context: AppContext
-    let mastodonUser: CurrentValueSubject<MastodonUser?, Never>
-    let currentMastodonUser = CurrentValueSubject<MastodonUser?, Never>(nil)
+    @Published var me: MastodonUser?
+    @Published var user: MastodonUser?
     let viewDidAppear = PassthroughSubject<Void, Never>()
         
     // output
@@ -73,7 +73,7 @@ class ProfileViewModel: NSObject {
     
     init(context: AppContext, optionalMastodonUser mastodonUser: MastodonUser?) {
         self.context = context
-        self.mastodonUser = CurrentValueSubject(mastodonUser)
+        self.user = mastodonUser
         self.domain = CurrentValueSubject(context.authenticationService.activeMastodonAuthenticationBox.value?.domain)
         self.userID = CurrentValueSubject(mastodonUser?.id)
         self.bannerImageURL = CurrentValueSubject(mastodonUser?.headerImageURL())
@@ -98,21 +98,21 @@ class ProfileViewModel: NSObject {
             .store(in: &disposeBag)
 
         // bind active authentication
-        context.authenticationService.activeMastodonAuthentication
-            .sink { [weak self] activeMastodonAuthentication in
+        context.authenticationService.activeMastodonAuthenticationBox
+            .sink { [weak self] authenticationBox in
                 guard let self = self else { return }
-                guard let activeMastodonAuthentication = activeMastodonAuthentication else {
+                guard let authenticationBox = authenticationBox else {
                     self.domain.value = nil
-                    self.currentMastodonUser.value = nil
+                    self.me = nil
                     return
                 }
-                self.domain.value = activeMastodonAuthentication.domain
-                self.currentMastodonUser.value = activeMastodonAuthentication.user
+                self.domain.value = authenticationBox.domain
+                self.me = authenticationBox.authenticationRecord.object(in: context.managedObjectContext)?.user
             }
             .store(in: &disposeBag)
         
         // query relationship
-        let userRecord = self.mastodonUser.map { user -> ManagedObjectRecord<MastodonUser>? in
+        let userRecord = $user.map { user -> ManagedObjectRecord<MastodonUser>? in
             user.flatMap { ManagedObjectRecord<MastodonUser>(objectID: $0.objectID) }
         }
         let pendingRetryPublisher = CurrentValueSubject<TimeInterval, Never>(1)
@@ -176,18 +176,18 @@ class ProfileViewModel: NSObject {
 extension ProfileViewModel {
     private func setup() {
         Publishers.CombineLatest(
-            mastodonUser.eraseToAnyPublisher(),
-            currentMastodonUser.eraseToAnyPublisher()
+            $user,
+            $me
         )
         .receive(on: DispatchQueue.main)
-        .sink { [weak self] mastodonUser, currentMastodonUser in
+        .sink { [weak self] user, me in
             guard let self = self else { return }
             // Update view model attribute
-            self.update(mastodonUser: mastodonUser)
-            self.update(mastodonUser: mastodonUser, currentMastodonUser: currentMastodonUser)
+            self.update(mastodonUser: user)
+            self.update(mastodonUser: user, currentMastodonUser: me)
 
             // Setup observer for user
-            if let mastodonUser = mastodonUser {
+            if let mastodonUser = user {
                 // setup observer
                 self.mastodonUserObserver = ManagedObjectObserver.observe(object: mastodonUser)
                     .sink { completion in
@@ -203,7 +203,7 @@ extension ProfileViewModel {
                         switch changeType {
                         case .update:
                             self.update(mastodonUser: mastodonUser)
-                            self.update(mastodonUser: mastodonUser, currentMastodonUser: currentMastodonUser)
+                            self.update(mastodonUser: mastodonUser, currentMastodonUser: me)
                         case .delete:
                             // TODO:
                             break
@@ -215,7 +215,7 @@ extension ProfileViewModel {
             }
 
             // Setup observer for user
-            if let currentMastodonUser = currentMastodonUser {
+            if let currentMastodonUser = me {
                 // setup observer
                 self.currentMastodonUserObserver = ManagedObjectObserver.observe(object: currentMastodonUser)
                     .sink { completion in
@@ -230,7 +230,7 @@ extension ProfileViewModel {
                         guard let changeType = change.changeType else { return }
                         switch changeType {
                         case .update:
-                            self.update(mastodonUser: mastodonUser, currentMastodonUser: currentMastodonUser)
+                            self.update(mastodonUser: user, currentMastodonUser: currentMastodonUser)
                         case .delete:
                             // TODO:
                             break
@@ -347,13 +347,14 @@ extension ProfileViewModel {
 
     // fetch profile info before edit
     func fetchEditProfileInfo() -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Account>, Error> {
-        guard let currentMastodonUser = currentMastodonUser.value,
-              let mastodonAuthentication = currentMastodonUser.mastodonAuthentication else {
+        guard let me = me,
+              let mastodonAuthentication = me.mastodonAuthentication
+        else {
             return Fail(error: APIService.APIError.implicit(.authenticationMissing)).eraseToAnyPublisher()
         }
 
         let authorization = Mastodon.API.OAuth.Authorization(accessToken: mastodonAuthentication.userAccessToken)
-        return context.apiService.accountVerifyCredentials(domain: currentMastodonUser.domain, authorization: authorization)
+        return context.apiService.accountVerifyCredentials(domain: me.domain, authorization: authorization)
     }
     
     private func updateRelationship(

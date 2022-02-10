@@ -129,22 +129,29 @@ enum RecommendAccountSection: Equatable, Hashable {
 //
 //}
 //    
-//extension RecommendAccountSection {
-//
-//    static func tableViewDiffableDataSource(
-//        for tableView: UITableView,
-//        managedObjectContext: NSManagedObjectContext,
-//        viewModel: SuggestionAccountViewModel,
-//        delegate: SuggestionAccountTableViewCellDelegate
-//    ) -> UITableViewDiffableDataSource<RecommendAccountSection, NSManagedObjectID> {
-//        UITableViewDiffableDataSource(tableView: tableView) { [weak viewModel, weak delegate] (tableView, indexPath, objectID) -> UITableViewCell? in
-//            guard let viewModel = viewModel else { return nil }
-//            let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SuggestionAccountTableViewCell.self)) as! SuggestionAccountTableViewCell
-//            let user = managedObjectContext.object(with: objectID) as! MastodonUser
-//            let isSelected = viewModel.selectedAccounts.value.contains(objectID)
-//            cell.delegate = delegate
-//            cell.config(with: user, isSelected: isSelected)
-//            return cell
-//        }
-//    }
-//}
+extension RecommendAccountSection {
+    
+    struct Configuration {
+        weak var suggestionAccountTableViewCellDelegate: SuggestionAccountTableViewCellDelegate?
+    }
+
+    static func tableViewDiffableDataSource(
+        tableView: UITableView,
+        context: AppContext,
+        configuration: Configuration
+    ) -> UITableViewDiffableDataSource<RecommendAccountSection, RecommendAccountItem> {
+        UITableViewDiffableDataSource(tableView: tableView) { tableView, indexPath, item -> UITableViewCell? in
+            let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SuggestionAccountTableViewCell.self)) as! SuggestionAccountTableViewCell
+            switch item {
+            case .account(let record):
+                context.managedObjectContext.performAndWait {
+                    guard let user = record.object(in: context.managedObjectContext) else { return }
+                    cell.config(with: user)
+                }
+            }
+            cell.delegate = configuration.suggestionAccountTableViewCellDelegate
+            return cell
+        }
+    }
+    
+}

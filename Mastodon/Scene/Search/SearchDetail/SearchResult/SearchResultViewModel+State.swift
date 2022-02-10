@@ -155,7 +155,7 @@ extension SearchResultViewModel.State {
                     
                     // reset data source when the search is refresh
                     if offset == nil {
-                        viewModel.userFetchedResultsController.userIDs.value = []
+                        viewModel.userFetchedResultsController.userIDs = []
                         viewModel.statusFetchedResultsController.statusIDs.value = []
                         viewModel.hashtags = []
                     }

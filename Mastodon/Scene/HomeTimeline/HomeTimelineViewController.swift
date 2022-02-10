@@ -383,10 +383,13 @@ extension HomeTimelineViewController {
 extension HomeTimelineViewController {
     
     @objc private func findPeopleButtonPressed(_ sender: PrimaryActionButton) {
-        // TODO:
-//        let viewModel = SuggestionAccountViewModel(context: context)
-//        viewModel.delegate = self.viewModel
-//        coordinator.present(scene: .suggestionAccount(viewModel: viewModel), from: self, transition: .modal(animated: true, completion: nil))
+        let suggestionAccountViewModel = SuggestionAccountViewModel(context: context)
+        suggestionAccountViewModel.delegate = viewModel
+        coordinator.present(
+            scene: .suggestionAccount(viewModel: suggestionAccountViewModel),
+            from: self,
+            transition: .modal(animated: true, completion: nil)
+        )
     }
     
     @objc private func manuallySearchButtonPressed(_ sender: UIButton) {

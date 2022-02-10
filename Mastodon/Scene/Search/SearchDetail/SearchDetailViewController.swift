@@ -153,7 +153,7 @@ extension SearchDetailViewController {
                             assertionFailure()
                             break
                         case .people:
-                            viewController.viewModel.userFetchedResultsController.userIDs.value = allSearchScopeViewController.viewModel.userFetchedResultsController.userIDs.value
+                            viewController.viewModel.userFetchedResultsController.userIDs = allSearchScopeViewController.viewModel.userFetchedResultsController.userIDs
                         case .hashtags:
                             viewController.viewModel.hashtags = allSearchScopeViewController.viewModel.hashtags
                         case .posts:

@@ -72,7 +72,7 @@ extension FollowerListViewModel.State {
             guard let viewModel = viewModel, let stateMachine = stateMachine else { return }
             
             // reset
-            viewModel.userFetchedResultsController.userIDs.value = []
+            viewModel.userFetchedResultsController.userIDs = []
             
             stateMachine.enter(Loading.self)
         }
@@ -158,7 +158,7 @@ extension FollowerListViewModel.State {
                     logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): fetch \(response.value.count) followers")
                     
                     var hasNewAppend = false
-                    var userIDs = viewModel.userFetchedResultsController.userIDs.value
+                    var userIDs = viewModel.userFetchedResultsController.userIDs
                     for user in response.value {
                         guard !userIDs.contains(user.id) else { continue }
                         userIDs.append(user.id)
@@ -174,7 +174,7 @@ extension FollowerListViewModel.State {
                     }
                     
                     self.maxID = maxID
-                    viewModel.userFetchedResultsController.userIDs.value = userIDs
+                    viewModel.userFetchedResultsController.userIDs = userIDs
                     
                 } catch {
                     logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): fetch follower fail: \(error.localizedDescription)")

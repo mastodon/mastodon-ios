@@ -74,6 +74,15 @@ extension HomeTimelineViewController {
                     guard let self = self else { return }
                     self.showThreadAction(action)
                 },
+                UIAction(title: "Account Recommend", image: UIImage(systemName: "human"), attributes: []) { [weak self] action in
+                    guard let self = self else { return }
+                    let suggestionAccountViewModel = SuggestionAccountViewModel(context: self.context)
+                    self.coordinator.present(
+                        scene: .suggestionAccount(viewModel: suggestionAccountViewModel),
+                        from: self,
+                        transition: .modal(animated: true, completion: nil)
+                    )
+                },
                 UIAction(title: "Store Rating", image: UIImage(systemName: "star.fill"), attributes: []) { [weak self] action in
                     guard let self = self else { return }
                     guard let windowScene = self.view.window?.windowScene else { return }

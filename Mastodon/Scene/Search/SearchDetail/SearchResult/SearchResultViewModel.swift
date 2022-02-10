@@ -63,7 +63,7 @@ final class SearchResultViewModel {
 
         context.authenticationService.activeMastodonAuthenticationBox
             .map { $0?.domain }
-            .assign(to: \.value, on: userFetchedResultsController.domain)
+            .assign(to: \.domain, on: userFetchedResultsController)
             .store(in: &disposeBag)
         
         context.authenticationService.activeMastodonAuthenticationBox

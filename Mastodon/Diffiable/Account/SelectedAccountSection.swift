@@ -17,15 +17,17 @@ enum SelectedAccountSection: Equatable, Hashable {
 
 extension SelectedAccountSection {
     static func collectionViewDiffableDataSource(
-        for collectionView: UICollectionView,
-        managedObjectContext: NSManagedObjectContext
+        collectionView: UICollectionView,
+        context: AppContext
     ) -> UICollectionViewDiffableDataSource<SelectedAccountSection, SelectedAccountItem> {
         UICollectionViewDiffableDataSource(collectionView: collectionView) { collectionView, indexPath, item -> UICollectionViewCell? in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: SuggestionAccountCollectionViewCell.self), for: indexPath) as! SuggestionAccountCollectionViewCell
             switch item {
-            case .accountObjectID(let objectID):
-                let user = managedObjectContext.object(with: objectID) as! MastodonUser
-                cell.config(with: user)
+            case .account(let record):
+                context.managedObjectContext.performAndWait {
+                    guard let user = record.object(in: context.managedObjectContext) else { return }
+                    cell.config(with: user)
+                }
             case .placeHolder:
                 cell.configAsPlaceHolder()
             }

@@ -141,7 +141,7 @@ extension SuggestionAccountTableViewCell {
         ])
     }
     
-    func config(with account: MastodonUser, isSelected: Bool) {
+    func config(with account: MastodonUser) {
         if let url = account.avatarImageURL() {
             _imageView.af.setImage(
                 withURL: url,

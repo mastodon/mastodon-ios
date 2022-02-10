@@ -577,7 +577,7 @@ extension ProfileViewController {
     
     private func bindProfileRelationship() {
         Publishers.CombineLatest(
-            viewModel.mastodonUser,
+            viewModel.$user,
             viewModel.relationshipActionOptionSet
         )
         .asyncMap { [weak self] user, relationshipSet -> UIMenu? in
@@ -725,7 +725,7 @@ extension ProfileViewController {
     
     @objc private func shareBarButtonItemPressed(_ sender: UIBarButtonItem) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-        guard let user = viewModel.mastodonUser.value else { return }
+        guard let user = viewModel.user else { return }
         let record: ManagedObjectRecord<MastodonUser> = .init(objectID: user.objectID)
         Task {
             let _activityViewController = try await DataSourceFacade.createActivityViewController(
@@ -754,7 +754,7 @@ extension ProfileViewController {
     @objc private func replyBarButtonItemPressed(_ sender: UIBarButtonItem) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         guard let authenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else { return }
-        guard let mastodonUser = viewModel.mastodonUser.value else { return }
+        guard let mastodonUser = viewModel.user else { return }
         let composeViewModel = ComposeViewModel(
             context: context,
             composeKind: .mention(user: .init(objectID: mastodonUser.objectID)),
@@ -849,7 +849,7 @@ extension ProfileViewController: ProfilePagingViewControllerDelegate {
 // MARK: - ProfileHeaderViewDelegate
 extension ProfileViewController: ProfileHeaderViewDelegate {
     func profileHeaderView(_ profileHeaderView: ProfileHeaderView, avatarButtonDidPressed button: AvatarButton) {
-        guard let user = viewModel.mastodonUser.value else { return }
+        guard let user = viewModel.user else { return }
         let record: ManagedObjectRecord<MastodonUser> = .init(objectID: user.objectID)
         
         Task {
@@ -865,7 +865,7 @@ extension ProfileViewController: ProfileHeaderViewDelegate {
     }
     
     func profileHeaderView(_ profileHeaderView: ProfileHeaderView, bannerImageViewDidPressed imageView: UIImageView) {
-        guard let user = viewModel.mastodonUser.value else { return }
+        guard let user = viewModel.user else { return }
         let record: ManagedObjectRecord<MastodonUser> = .init(objectID: user.objectID)
         
         Task {
@@ -956,7 +956,7 @@ extension ProfileViewController: ProfileHeaderViewDelegate {
             case .none:
                 break
             case .follow, .request, .pending, .following:
-                guard let user = viewModel.mastodonUser.value else { return }
+                guard let user = viewModel.user else { return }
                 let reocrd = ManagedObjectRecord<MastodonUser>(objectID: user.objectID)
                 guard let authenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else { return }
                 Task {
@@ -968,7 +968,7 @@ extension ProfileViewController: ProfileHeaderViewDelegate {
                 }
             case .muting:
                 guard let authenticationBox = self.context.authenticationService.activeMastodonAuthenticationBox.value else { return }
-                guard let user = viewModel.mastodonUser.value else { return }
+                guard let user = viewModel.user else { return }
                 let name = user.displayNameWithFallback
                 
                 let alertController = UIAlertController(
@@ -993,7 +993,7 @@ extension ProfileViewController: ProfileHeaderViewDelegate {
                 present(alertController, animated: true, completion: nil)
             case .blocking:
                 guard let authenticationBox = self.context.authenticationService.activeMastodonAuthenticationBox.value else { return }
-                guard let user = viewModel.mastodonUser.value else { return }
+                guard let user = viewModel.user else { return }
                 let name = user.displayNameWithFallback
                 
                 let alertController = UIAlertController(
@@ -1077,7 +1077,7 @@ extension ProfileViewController: ProfileAboutViewControllerDelegate {
 extension ProfileViewController: MastodonMenuDelegate {
     func menuAction(_ action: MastodonMenu.Action) {
         guard let authenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else { return }
-        guard let user = viewModel.mastodonUser.value else { return }
+        guard let user = viewModel.user else { return }
         
         let userRecord: ManagedObjectRecord<MastodonUser> = .init(objectID: user.objectID)
         

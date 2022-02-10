@@ -48,7 +48,7 @@ final class RemoteProfileViewModel: ProfileViewModel {
                     assertionFailure()
                     return
                 }
-                self.mastodonUser.value = mastodonUser
+                self.user = mastodonUser
             }
             .store(in: &disposeBag)
     }
