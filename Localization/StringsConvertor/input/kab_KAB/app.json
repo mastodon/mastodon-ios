@@ -96,7 +96,7 @@
             "tabs": {
                 "home": "Agejdan",
                 "search": "Nadi",
-                "notification": "Notification",
+                "notification": "Tilɣa",
                 "profile": "Amaɣnu"
             },
             "keyboard": {
@@ -138,7 +138,7 @@
                     "reply": "Err",
                     "reblog": "Aɛiwed n usuffeɣ",
                     "unreblog": "Undo reblog",
-                    "favorite": "Favorite",
+                    "favorite": "Anurif",
                     "unfavorite": "Unfavorite",
                     "menu": "Umuɣ"
                 },
@@ -170,7 +170,7 @@
                 "edit_info": "Edit Info"
             },
             "timeline": {
-                "filtered": "Filtered",
+                "filtered": "Yettwasizdeg",
                 "timestamp": {
                     "now": "Tura"
                 },
