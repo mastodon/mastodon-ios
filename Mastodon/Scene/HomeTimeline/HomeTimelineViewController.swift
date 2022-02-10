@@ -100,7 +100,7 @@ extension HomeTimelineViewController {
                 self.view.backgroundColor = theme.secondarySystemBackgroundColor
             }
             .store(in: &disposeBag)
-        viewModel.displaySettingBarButtonItem
+        viewModel.$displaySettingBarButtonItem
             .receive(on: DispatchQueue.main)
             .sink { [weak self] displaySettingBarButtonItem in
                 guard let self = self else { return }
@@ -125,7 +125,7 @@ extension HomeTimelineViewController {
         settingBarButtonItem.action = #selector(HomeTimelineViewController.settingBarButtonItemPressed(_:))
         #endif
         
-        viewModel.displayComposeBarButtonItem
+        viewModel.$displayComposeBarButtonItem
             .receive(on: DispatchQueue.main)
             .sink { [weak self] displayComposeBarButtonItem in
                 guard let self = self else { return }
@@ -190,7 +190,18 @@ extension HomeTimelineViewController {
             statusTableViewCellDelegate: self,
             timelineMiddleLoaderTableViewCellDelegate: self
         )
-
+        
+        // setup batch fetch
+        viewModel.listBatchFetchViewModel.setup(scrollView: tableView)
+        viewModel.listBatchFetchViewModel.shouldFetch
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                guard self.view.window != nil else { return }
+                self.viewModel.loadOldestStateMachine.enter(HomeTimelineViewModel.LoadOldestState.Loading.self)
+            }
+            .store(in: &disposeBag)
+        
         // bind refresh control
         viewModel.didLoadLatest
             .receive(on: DispatchQueue.main)
@@ -282,10 +293,10 @@ extension HomeTimelineViewController {
         
         viewModel.viewDidAppear.send()
 
-        if let timestamp = viewModel.lastAutomaticFetchTimestamp.value {
+        if let timestamp = viewModel.lastAutomaticFetchTimestamp {
             let now = Date()
             if now.timeIntervalSince(timestamp) > 60 {
-                self.viewModel.lastAutomaticFetchTimestamp.value = now
+                self.viewModel.lastAutomaticFetchTimestamp = now
                 self.viewModel.homeTimelineNeedRefresh.send()
             } else {
                 // do nothing

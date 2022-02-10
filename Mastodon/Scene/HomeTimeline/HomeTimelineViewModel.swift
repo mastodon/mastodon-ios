@@ -26,13 +26,14 @@ final class HomeTimelineViewModel: NSObject {
     // input
     let context: AppContext
     let fetchedResultsController: FeedFetchedResultsController
-    let timelinePredicate = CurrentValueSubject<NSPredicate?, Never>(nil)
-    let viewDidAppear = PassthroughSubject<Void, Never>()
     let homeTimelineNavigationBarTitleViewModel: HomeTimelineNavigationBarTitleViewModel
-    let lastAutomaticFetchTimestamp = CurrentValueSubject<Date?, Never>(nil)
+    let listBatchFetchViewModel = ListBatchFetchViewModel()
+    let viewDidAppear = PassthroughSubject<Void, Never>()
+
+    @Published var lastAutomaticFetchTimestamp: Date? = nil
     @Published var scrollPositionRecord: ScrollPositionRecord? = nil
-    let displaySettingBarButtonItem = CurrentValueSubject<Bool, Never>(true)
-    let displayComposeBarButtonItem = CurrentValueSubject<Bool, Never>(true)
+    @Published var displaySettingBarButtonItem = true
+    @Published var displayComposeBarButtonItem = true
     
     weak var contentOffsetAdjustableTimelineViewControllerDelegate: ContentOffsetAdjustableTimelineViewControllerDelegate?
     weak var tableView: UITableView?
