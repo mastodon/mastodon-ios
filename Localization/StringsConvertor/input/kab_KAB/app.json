@@ -94,16 +94,16 @@
                 "delete": "Kkes"
             },
             "tabs": {
-                "home": "Home",
+                "home": "Agejdan",
                 "search": "Nadi",
                 "notification": "Notification",
                 "profile": "Amaɣnu"
             },
             "keyboard": {
                 "common": {
-                    "switch_to_tab": "Switch to %s",
-                    "compose_new_post": "Compose New Post",
-                    "show_favorites": "Show Favorites",
+                    "switch_to_tab": "Ddu ɣer %s",
+                    "compose_new_post": "Aru tasuffeɣt tamaynut",
+                    "show_favorites": "Sken-d ismenyifen",
                     "open_settings": "Ldi iɣewwaren"
                 },
                 "timeline": {
@@ -126,17 +126,17 @@
             "status": {
                 "user_reblogged": "%s reblogged",
                 "user_replied_to": "Replied to %s",
-                "show_post": "Show Post",
+                "show_post": "Sken-d tasuffeɣt",
                 "show_user_profile": "Show user profile",
                 "content_warning": "Content Warning",
                 "media_content_warning": "Tap anywhere to reveal",
                 "poll": {
-                    "vote": "Vote",
-                    "closed": "Closed"
+                    "vote": "Dɣeṛ",
+                    "closed": "Ifukk"
                 },
                 "actions": {
                     "reply": "Err",
-                    "reblog": "Reblog",
+                    "reblog": "Aɛiwed n usuffeɣ",
                     "unreblog": "Undo reblog",
                     "favorite": "Favorite",
                     "unfavorite": "Unfavorite",
@@ -144,29 +144,29 @@
                 },
                 "tag": {
                     "url": "URL",
-                    "mention": "Mention",
-                    "link": "Link",
-                    "hashtag": "Hashtag",
+                    "mention": "Tabdart",
+                    "link": "Aseɣwen",
+                    "hashtag": "Ahacṭag",
                     "email": "Imayl",
                     "emoji": "Emuji"
                 }
             },
             "friendship": {
                 "follow": "Ḍfeṛ",
-                "following": "Following",
+                "following": "Yettwaḍfar",
                 "request": "Request",
                 "pending": "Pending",
-                "block": "Block",
-                "block_user": "Block %s",
-                "block_domain": "Block %s",
-                "unblock": "Unblock",
-                "unblock_user": "Unblock %s",
-                "blocked": "Blocked",
+                "block": "Sewḥel",
+                "block_user": "Sewḥel %s",
+                "block_domain": "Sewḥel %s",
+                "unblock": "Serreḥ",
+                "unblock_user": "Serreḥ i %s",
+                "blocked": "Yettusewḥel",
                 "mute": "Sgugem",
                 "mute_user": "Sgugem %s",
-                "unmute": "Unmute",
-                "unmute_user": "Unmute %s",
-                "muted": "Muted",
+                "unmute": "Kkes asgugem",
+                "unmute_user": "Kkes asgugem ɣef %s",
+                "muted": "Yettwasgugem",
                 "edit_info": "Edit Info"
             },
             "timeline": {
@@ -194,7 +194,7 @@
     "scene": {
         "welcome": {
             "slogan": "Social networking\nback in your hands.",
-            "get_started": "Get Started",
+            "get_started": "Aha bdu tura",
             "log_in": "Qqen"
         },
         "server_picker": {
@@ -209,7 +209,7 @@
                     "activism": "activism",
                     "food": "food",
                     "furry": "furry",
-                    "games": "games",
+                    "games": "uraren",
                     "general": "general",
                     "journalism": "journalism",
                     "lgbt": "lgbt",
@@ -232,7 +232,7 @@
             "empty_state": {
                 "finding_servers": "Finding available servers...",
                 "bad_network": "Something went wrong while loading the data. Check your internet connection.",
-                "no_results": "No results"
+                "no_results": "Ulac igemmaḍ"
             }
         },
         "register": {
@@ -246,7 +246,7 @@
                     "duplicate_prompt": "Isem-ayi n umseqdac yettwaṭṭef yakan."
                 },
                 "display_name": {
-                    "placeholder": "display name"
+                    "placeholder": "isem ara d-yettwaskanen"
                 },
                 "email": {
                     "placeholder": "imayl"
@@ -312,7 +312,7 @@
                 "resend": "Resend"
             },
             "dont_receive_email": {
-                "title": "Check your email",
+                "title": "Senqed imayl-ik·im",
                 "description": "Check if your email address is correct as well as your junk folder if you haven’t.",
                 "resend_email": "Resend Email"
             },
@@ -324,7 +324,7 @@
             }
         },
         "home_timeline": {
-            "title": "Home",
+            "title": "Agejdan",
             "navigation_bar_state": {
                 "offline": "Offline",
                 "new_posts": "See new posts",
@@ -342,36 +342,36 @@
                 "new_reply": "New Reply"
             },
             "media_selection": {
-                "camera": "Take Photo",
+                "camera": "Ṭṭef tawlaft",
                 "photo_library": "Photo Library",
-                "browse": "Browse"
+                "browse": "Snirem"
             },
             "content_input_placeholder": "Type or paste what’s on your mind",
-            "compose_action": "Publish",
+            "compose_action": "Sufeɣ",
             "replying_to_user": "replying to %s",
             "attachment": {
-                "photo": "photo",
-                "video": "video",
+                "photo": "tawlaft",
+                "video": "tavidyutt",
                 "attachment_broken": "This %s is broken and can’t be\nuploaded to Mastodon.",
                 "description_photo": "Describe the photo for the visually-impaired...",
                 "description_video": "Describe the video for the visually-impaired..."
             },
             "poll": {
                 "duration_time": "Duration: %s",
-                "thirty_minutes": "30 minutes",
-                "one_hour": "1 Hour",
-                "six_hours": "6 Hours",
-                "one_day": "1 Day",
-                "three_days": "3 Days",
-                "seven_days": "7 Days",
+                "thirty_minutes": "30 n tesdatin",
+                "one_hour": "1 n wesrag",
+                "six_hours": "6 n yisragen",
+                "one_day": "1 n wass",
+                "three_days": "3 n wussan",
+                "seven_days": "7 n wussan",
                 "option_number": "Option %ld"
             },
             "content_warning": {
                 "placeholder": "Write an accurate warning here..."
             },
             "visibility": {
-                "public": "Public",
-                "unlisted": "Unlisted",
+                "public": "Azayez",
+                "unlisted": "War tabdert",
                 "private": "Followers only",
                 "direct": "Only people I mention"
             },
@@ -398,7 +398,7 @@
         },
         "profile": {
             "dashboard": {
-                "posts": "posts",
+                "posts": "tisuffaɣ",
                 "following": "following",
                 "followers": "followers"
             },
@@ -411,7 +411,7 @@
             },
             "segmented_control": {
                 "posts": "Posts",
-                "replies": "Replies",
+                "replies": "Tiririyin",
                 "media": "Media"
             },
             "relationship_action_alert": {
@@ -432,10 +432,10 @@
             "footer": "Follows from other servers are not displayed."
         },
         "search": {
-            "title": "Search",
+            "title": "Nadi",
             "search_bar": {
                 "placeholder": "Search hashtags and users",
-                "cancel": "Cancel"
+                "cancel": "Sefsex"
             },
             "recommend": {
                 "button_text": "See All",
@@ -447,29 +447,29 @@
                 "accounts": {
                     "title": "Accounts you might like",
                     "description": "You may like to follow these accounts",
-                    "follow": "Follow"
+                    "follow": "Ḍfeṛ"
                 }
             },
             "searching": {
                 "segment": {
-                    "all": "All",
-                    "people": "People",
-                    "hashtags": "Hashtags",
-                    "posts": "Posts"
+                    "all": "Akk",
+                    "people": "Imdanen",
+                    "hashtags": "Ihacṭagen",
+                    "posts": "Tisuffaɣ"
                 },
                 "empty_state": {
-                    "no_results": "No results"
+                    "no_results": "Ulac igemmaḍ"
                 },
                 "recent_search": "Recent searches",
-                "clear": "Clear"
+                "clear": "Sfeḍ"
             }
         },
         "favorite": {
-            "title": "Your Favorites"
+            "title": "Ismenyifen-ik·im"
         },
         "notification": {
             "title": {
-                "Everything": "Everything",
+                "Everything": "Akk",
                 "Mentions": "Mentions"
             },
             "user_followed_you": "%s followed you",
@@ -488,16 +488,16 @@
             "title": "Post from %s"
         },
         "settings": {
-            "title": "Settings",
+            "title": "Iɣewwaṛen",
             "section": {
                 "appearance": {
                     "title": "Appearance",
-                    "automatic": "Automatic",
+                    "automatic": "Awurman",
                     "light": "Always Light",
                     "dark": "Always Dark"
                 },
                 "notifications": {
-                    "title": "Notifications",
+                    "title": "Tilɣa",
                     "favorites": "Favorites my post",
                     "follows": "Follows me",
                     "boosts": "Reblogs my post",
@@ -519,21 +519,21 @@
                 },
                 "boring_zone": {
                     "title": "The Boring Zone",
-                    "account_settings": "Account Settings",
+                    "account_settings": "Iɣewwaṛen n umiḍan",
                     "terms": "Terms of Service",
-                    "privacy": "Privacy Policy"
+                    "privacy": "Tasertit tabaḍnit"
                 },
                 "spicy_zone": {
                     "title": "The Spicy Zone",
                     "clear": "Clear Media Cache",
-                    "signout": "Sign Out"
+                    "signout": "Senser"
                 }
             },
             "footer": {
-                "mastodon_description": "Mastodon is open source software. You can report issues on GitHub at %s (%s)"
+                "mastodon_description": "Maṣṭudun d aseɣzan s uɣbalu yeldin. Tzemreḍ ad temmleḍ uguren deg GitHub %s (%s)"
             },
             "keyboard": {
-                "close_settings_window": "Close Settings Window"
+                "close_settings_window": "Mdel asfaylu n iɣewwaṛen"
             }
         },
         "report": {
@@ -542,13 +542,13 @@
             "step2": "Step 2 of 2",
             "content1": "Are there any other posts you’d like to add to the report?",
             "content2": "Is there anything the moderators should know about this report?",
-            "send": "Send Report",
+            "send": "Azen aneqis",
             "skip_to_send": "Send without comment",
             "text_placeholder": "Type or paste additional comments"
         },
         "preview": {
             "keyboard": {
-                "close_preview": "Close Preview",
+                "close_preview": "Mdel timeẓri",
                 "show_next": "Show Next",
                 "show_previous": "Show Previous"
             }
@@ -556,10 +556,10 @@
         "account_list": {
             "tab_bar_hint": "Current selected profile: %s. Double tap then hold to show account switcher",
             "dismiss_account_switcher": "Dismiss Account Switcher",
-            "add_account": "Add Account"
+            "add_account": "Rnu amiḍan"
         },
         "wizard": {
-            "new_in_mastodon": "New in Mastodon",
+            "new_in_mastodon": "Amaynut deg Maṣṭudun",
             "multiple_account_switch_intro_description": "Switch between multiple accounts by holding the profile button.",
             "accessibility_hint": "Double tap to dismiss this wizard"
         }
