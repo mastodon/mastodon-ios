@@ -14,13 +14,18 @@ import MastodonUI
 
 final class StatusThreadRootTableViewCell: UITableViewCell {
     
-    let logger = Logger(subsystem: "StatusTableViewCell", category: "View")
+    static let marginForRegularHorizontalSizeClass: CGFloat = 64
+    
+    let logger = Logger(subsystem: "StatusThreadRootTableViewCell", category: "View")
         
     weak var delegate: StatusTableViewCellDelegate?
     var disposeBag = Set<AnyCancellable>()
 
     let statusView = StatusView()
     let separatorLine = UIView.separatorLine
+    
+    var containerViewLeadingLayoutConstraint: NSLayoutConstraint!
+    var containerViewTrailingLayoutConstraint: NSLayoutConstraint!
     
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -52,10 +57,12 @@ extension StatusThreadRootTableViewCell {
         
         statusView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(statusView)
+        setupContainerViewMarginConstraints()
+        updateContainerViewMarginConstraints()
         NSLayoutConstraint.activate([
             statusView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
-            statusView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            statusView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            containerViewLeadingLayoutConstraint,
+            containerViewTrailingLayoutConstraint,
             statusView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
         ])
         statusView.setup(style: .plain)
@@ -76,7 +83,20 @@ extension StatusThreadRootTableViewCell {
         statusView.contentMetaText.textView.isAccessibilityElement = false
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+
+        updateContainerViewMarginConstraints()
+    }
+    
 }
+
+extension StatusThreadRootTableViewCell: AdaptiveContainerMarginTableViewCell {
+    var containerView: StatusView {
+        statusView
+    }
+}
+
 
 // MARK: - StatusViewContainerTableViewCell
 extension StatusThreadRootTableViewCell: StatusViewContainerTableViewCell { }

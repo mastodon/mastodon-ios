@@ -20,6 +20,9 @@ final class NotificationTableViewCell: UITableViewCell {
     let notificationView = NotificationView()
     
     let separatorLine = UIView.separatorLine
+    
+    var containerViewLeadingLayoutConstraint: NSLayoutConstraint!
+    var containerViewTrailingLayoutConstraint: NSLayoutConstraint!
 
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -45,10 +48,12 @@ extension NotificationTableViewCell {
     private func _init() {
         notificationView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(notificationView)
+        setupContainerViewMarginConstraints()
+        updateContainerViewMarginConstraints()
         NSLayoutConstraint.activate([
             notificationView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
-            notificationView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            notificationView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            containerViewLeadingLayoutConstraint,
+            containerViewTrailingLayoutConstraint,
             contentView.bottomAnchor.constraint(equalTo: notificationView.bottomAnchor),
         ])
         
@@ -64,6 +69,13 @@ extension NotificationTableViewCell {
         notificationView.delegate = self
     }
     
+}
+
+// MARK: - AdaptiveContainerMarginTableViewCell
+extension NotificationTableViewCell: AdaptiveContainerMarginTableViewCell {
+    var containerView: NotificationView {
+        notificationView
+    }
 }
 
 // MARK: - NotificationViewContainerTableViewCell

@@ -482,6 +482,7 @@
 		DBB45B5627B39FC9002DC5A7 /* MediaPreviewVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB45B5527B39FC9002DC5A7 /* MediaPreviewVideoViewController.swift */; };
 		DBB45B5927B39FE4002DC5A7 /* MediaPreviewVideoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB45B5827B39FE4002DC5A7 /* MediaPreviewVideoViewModel.swift */; };
 		DBB45B5B27B3A109002DC5A7 /* MediaPreviewTransitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB45B5A27B3A109002DC5A7 /* MediaPreviewTransitionViewController.swift */; };
+		DBB45B5E27B4EB22002DC5A7 /* AdaptiveMarginStatusTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB45B5D27B4EB22002DC5A7 /* AdaptiveMarginStatusTableViewCell.swift */; };
 		DBB525082611EAC0002F1F29 /* Tabman in Frameworks */ = {isa = PBXBuildFile; productRef = DBB525072611EAC0002F1F29 /* Tabman */; };
 		DBB5250E2611EBAF002F1F29 /* ProfileSegmentedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB5250D2611EBAF002F1F29 /* ProfileSegmentedViewController.swift */; };
 		DBB525212611EBD6002F1F29 /* ProfilePagingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB525202611EBD6002F1F29 /* ProfilePagingViewController.swift */; };
@@ -1225,6 +1226,7 @@
 		DBB45B5527B39FC9002DC5A7 /* MediaPreviewVideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPreviewVideoViewController.swift; sourceTree = "<group>"; };
 		DBB45B5827B39FE4002DC5A7 /* MediaPreviewVideoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPreviewVideoViewModel.swift; sourceTree = "<group>"; };
 		DBB45B5A27B3A109002DC5A7 /* MediaPreviewTransitionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPreviewTransitionViewController.swift; sourceTree = "<group>"; };
+		DBB45B5D27B4EB22002DC5A7 /* AdaptiveMarginStatusTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveMarginStatusTableViewCell.swift; sourceTree = "<group>"; };
 		DBB5250D2611EBAF002F1F29 /* ProfileSegmentedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSegmentedViewController.swift; sourceTree = "<group>"; };
 		DBB525202611EBD6002F1F29 /* ProfilePagingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePagingViewController.swift; sourceTree = "<group>"; };
 		DBB5252F2611EBF3002F1F29 /* ProfilePagingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePagingViewModel.swift; sourceTree = "<group>"; };
@@ -1736,6 +1738,7 @@
 				DBE3CDBA261C427900430CC6 /* TimelineHeaderTableViewCell.swift */,
 				DB6B750327300B4000C70B6E /* TimelineFooterTableViewCell.swift */,
 				DB02CDAA26256A9500D0A2AF /* ThreadReplyLoaderTableViewCell.swift */,
+				DBB45B5D27B4EB22002DC5A7 /* AdaptiveMarginStatusTableViewCell.swift */,
 			);
 			path = TableviewCell;
 			sourceTree = "<group>";
@@ -3826,6 +3829,7 @@
 				DBA465952696E387002B41DB /* AppPreference.swift in Sources */,
 				2D8434F525FF465D00EECE90 /* HomeTimelineNavigationBarTitleViewModel.swift in Sources */,
 				DB938F0F2624119800E5B6C1 /* ThreadViewModel+LoadThreadState.swift in Sources */,
+				DBB45B5E27B4EB22002DC5A7 /* AdaptiveMarginStatusTableViewCell.swift in Sources */,
 				DB6180F226391CF40018D199 /* MediaPreviewImageViewModel.swift in Sources */,
 				DBA5E7A3263AD0A3004598BB /* PhotoLibraryService.swift in Sources */,
 				5DDDF1932617442700311060 /* Mastodon+Entity+Account.swift in Sources */,

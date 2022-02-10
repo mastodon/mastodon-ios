@@ -185,7 +185,6 @@ extension HomeTimelineViewController {
         viewModel.tableView = tableView
         viewModel.contentOffsetAdjustableTimelineViewControllerDelegate = self
         tableView.delegate = self
-//        tableView.prefetchDataSource = self
         viewModel.setupDiffableDataSource(
             tableView: tableView,
             statusTableViewCellDelegate: self,
