@@ -46,16 +46,30 @@ final class ProfileHeaderViewController: UIViewController {
     
     let buttonBar: TMBar.ButtonBar = {
         let buttonBar = TMBar.ButtonBar()
-        buttonBar.buttons.customize { button in
-            button.selectedTintColor = Asset.Colors.Label.primary.color
-            button.tintColor = Asset.Colors.Label.secondary.color
-            button.backgroundColor = .clear
-        }
         buttonBar.indicator.backgroundColor = Asset.Colors.Label.primary.color
         buttonBar.backgroundView.style = .clear
         buttonBar.layout.contentInset = .zero
         return buttonBar
     }()
+
+    func customizeButtonBarAppearance() {
+        // The implmention use CATextlayer. Adapt for Dark Mode without dynamic colors
+        // Needs trigger update when `userInterfaceStyle` chagnes
+        let userInterfaceStyle = traitCollection.userInterfaceStyle
+        buttonBar.buttons.customize { button in
+            switch userInterfaceStyle {
+            case .dark:
+                // Asset.Colors.Label.primary.color
+                button.selectedTintColor = UIColor(red: 238.0/255.0, green: 238.0/255.0, blue: 238.0/255.0, alpha: 1.0)
+            default:
+                // Asset.Colors.Label.primary.color
+                button.selectedTintColor = UIColor(red: 40.0/255.0, green: 44.0/255.0, blue: 55.0/255.0, alpha: 1.0)
+            }
+            
+            button.tintColor = .secondaryLabel // UIColor(red: 60.0/255.0, green: 60.0/255.0, blue: 67.0/255.0, alpha: 1.0)
+            button.backgroundColor = .clear
+        }
+    }
 
     private var isBannerPinned = false
     private var bottomShadowAlpha: CGFloat = 0.0
@@ -95,6 +109,8 @@ extension ProfileHeaderViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        customizeButtonBarAppearance()
 
         view.backgroundColor = ThemeService.shared.currentTheme.value.systemBackgroundColor
         ThemeService.shared.currentTheme
@@ -245,6 +261,12 @@ extension ProfileHeaderViewController {
         
         delegate?.profileHeaderViewController(self, viewLayoutDidUpdate: view)
         setupBottomShadow()
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+
+        customizeButtonBarAppearance()
     }
     
 }
