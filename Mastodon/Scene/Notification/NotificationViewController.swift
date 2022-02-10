@@ -210,15 +210,15 @@ extension NotificationViewController {
 //            }
 //        }
 //
-//        // reset notification count
-//        context.notificationService.clearNotificationCountForActiveUser()
+        // reset notification count
+        context.notificationService.clearNotificationCountForActiveUser()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-//        // reset notification count
-//        context.notificationService.clearNotificationCountForActiveUser()
+        // reset notification count
+        context.notificationService.clearNotificationCountForActiveUser()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -264,42 +264,6 @@ extension NotificationViewController {
         scrollToPage(.at(index: index), animated: true, completion: nil)
     }
 }
-
-
-//// MARK: - TableViewCellHeightCacheableContainer
-//extension NotificationViewController: TableViewCellHeightCacheableContainer {
-//    var cellFrameCache: NSCache<NSNumber, NSValue> { return viewModel.cellFrameCache }
-//
-//    func cacheTableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-//        guard let diffableDataSource = viewModel.diffableDataSource else { return }
-//        guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
-//        switch item {
-//        case .notification(let objectID, _),
-//            .notificationStatus(let objectID, _):
-//            guard let object = try? viewModel.fetchedResultsController.managedObjectContext.existingObject(with: objectID) as? MastodonNotification else { return }
-//            let key = object.objectID.hashValue
-//            let frame = cell.frame
-//            viewModel.cellFrameCache.setObject(NSValue(cgRect: frame), forKey: NSNumber(value: key))
-//        case .bottomLoader:
-//            break
-//        }
-//    }
-//
-//    func handleTableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-//        guard let diffableDataSource = viewModel.diffableDataSource else { return UITableView.automaticDimension }
-//        guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return UITableView.automaticDimension }
-//        switch item {
-//        case .notification(let objectID, _),
-//             .notificationStatus(let objectID, _):
-//            guard let object = try? viewModel.fetchedResultsController.managedObjectContext.existingObject(with: objectID) as? MastodonNotification else { return UITableView.automaticDimension }
-//            let key = object.objectID.hashValue
-//            guard let frame = viewModel.cellFrameCache.object(forKey: NSNumber(value: key))?.cgRectValue else { return UITableView.automaticDimension }
-//            return frame.height
-//        case .bottomLoader:
-//            return TimelineLoaderTableViewCell.cellHeight
-//        }
-//    }
-//}
 
 // MARK: - UITableViewDelegate
 

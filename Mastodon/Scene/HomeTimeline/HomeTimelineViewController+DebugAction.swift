@@ -114,19 +114,6 @@ extension HomeTimelineViewController {
                     }
                 },
                 UIAction(
-                    title: "Notification badge +1",
-                    image: UIImage(systemName: "1.circle.fill"),
-                    identifier: nil,
-                    attributes: [],
-                    state: .off,
-                    handler: { [weak self] _ in
-                        guard let self = self else { return }
-                        guard let accessToken = self.context.authenticationService.activeMastodonAuthentication.value?.userAccessToken else { return }
-                        UserDefaults.shared.increaseNotificationCount(accessToken: accessToken)
-                        self.context.notificationService.applicationIconBadgeNeedsUpdate.send()
-                    }
-                ),
-                UIAction(
                     title: "Enable account switcher wizard",
                     image: UIImage(systemName: "square.stack.3d.down.forward.fill"),
                     identifier: nil,
@@ -147,6 +134,12 @@ extension HomeTimelineViewController {
             identifier: nil,
             options: [],
             children: [
+                UIAction(title: "Badge +1", image: UIImage(systemName: "app.badge.fill"), attributes: []) { [weak self] action in
+                    guard let self = self else { return }
+                    guard let accessToken = self.context.authenticationService.activeMastodonAuthentication.value?.userAccessToken else { return }
+                    UserDefaults.shared.increaseNotificationCount(accessToken: accessToken)
+                    self.context.notificationService.applicationIconBadgeNeedsUpdate.send()
+                },
                 UIAction(title: "Profile", image: UIImage(systemName: "person.badge.plus"), attributes: []) { [weak self] action in
                     guard let self = self else { return }
                     self.showNotification(action, notificationType: .follow)
@@ -263,147 +256,6 @@ extension HomeTimelineViewController {
     @objc private func showFLEXAction(_ sender: UIAction) {
         FLEXManager.shared.showExplorer()
     }
-    
-//    @objc private func moveToTopGapAction(_ sender: UIAction) {
-//        guard let diffableDataSource = viewModel.diffableDataSource else { return }
-//        let snapshotTransitioning = diffableDataSource.snapshot()
-//        let item = snapshotTransitioning.itemIdentifiers.first(where: { item in
-//            switch item {
-//            case .feedLoader:       return true
-//            default:                return false
-//            }
-//        })
-//        if let targetItem = item, let index = snapshotTransitioning.indexOfItem(targetItem) {
-//            tableView.scrollToRow(at: IndexPath(row: index, section: 0), at: .middle, animated: true)
-//        }
-//    }
-//    
-//    @objc private func moveToFirstReblogStatus(_ sender: UIAction) {
-//        guard let diffableDataSource = viewModel.diffableDataSource else { return }
-//        let snapshotTransitioning = diffableDataSource.snapshot()
-//        let item = snapshotTransitioning.itemIdentifiers.first(where: { item in
-//            switch item {
-////            case .homeTimelineIndex(let objectID, _):
-////                let homeTimelineIndex = viewModel.fetchedResultsController.managedObjectContext.object(with: objectID) as! HomeTimelineIndex
-////                return homeTimelineIndex.status.reblog != nil
-//            default:
-//                return false
-//            }
-//        })
-//        if let targetItem = item, let index = snapshotTransitioning.indexOfItem(targetItem) {
-//            tableView.scrollToRow(at: IndexPath(row: index, section: 0), at: .middle, animated: true)
-//            tableView.blinkRow(at: IndexPath(row: index, section: 0))
-//        } else {
-//            print("Not found reblog status")
-//        }
-//    }
-//    
-//    @objc private func moveToFirstPollStatus(_ sender: UIAction) {
-//        guard let diffableDataSource = viewModel.diffableDataSource else { return }
-//        let snapshotTransitioning = diffableDataSource.snapshot()
-//        let item = snapshotTransitioning.itemIdentifiers.first(where: { item in
-//            switch item {
-//            case .feed(let record):
-//                guard let feed = record.object(in: context.managedObjectContext) else { return false }
-//                guard let status = feed.status?.reblog ?? feed.status else { return false }
-//                return status.poll != nil
-//            default:
-//                return false
-//            }
-//        })
-//        if let targetItem = item, let index = snapshotTransitioning.indexOfItem(targetItem) {
-//            tableView.scrollToRow(at: IndexPath(row: index, section: 0), at: .middle, animated: true)
-//            tableView.blinkRow(at: IndexPath(row: index, section: 0))
-//        } else {
-//            print("Not found poll status")
-//        }
-//    }
-//    
-//    @objc private func moveToFirstRepliedStatus(_ sender: UIAction) {
-//        guard let diffableDataSource = viewModel.diffableDataSource else { return }
-//        let snapshotTransitioning = diffableDataSource.snapshot()
-//        let item = snapshotTransitioning.itemIdentifiers.first(where: { item in
-//            switch item {
-////            case .homeTimelineIndex(let objectID, _):
-////                let homeTimelineIndex = viewModel.fetchedResultsController.managedObjectContext.object(with: objectID) as! HomeTimelineIndex
-////                guard homeTimelineIndex.status.inReplyToID != nil else {
-////                    return false
-////                }
-////                return true
-//            default:
-//                return false
-//            }
-//        })
-//        if let targetItem = item, let index = snapshotTransitioning.indexOfItem(targetItem) {
-//            tableView.scrollToRow(at: IndexPath(row: index, section: 0), at: .middle, animated: true)
-//            tableView.blinkRow(at: IndexPath(row: index, section: 0))
-//        } else {
-//            print("Not found replied status")
-//        }
-//    }
-//    
-//    @objc private func moveToFirstAudioStatus(_ sender: UIAction) {
-//        guard let diffableDataSource = viewModel.diffableDataSource else { return }
-//        let snapshotTransitioning = diffableDataSource.snapshot()
-//        let item = snapshotTransitioning.itemIdentifiers.first(where: { item in
-//            switch item {
-////            case .homeTimelineIndex(let objectID, _):
-////                let homeTimelineIndex = viewModel.fetchedResultsController.managedObjectContext.object(with: objectID) as! HomeTimelineIndex
-////                let status = homeTimelineIndex.status.reblog ?? homeTimelineIndex.status
-////                return status.mediaAttachments?.contains(where: { $0.type == .audio }) ?? false
-//            default:
-//                return false
-//            }
-//        })
-//        if let targetItem = item, let index = snapshotTransitioning.indexOfItem(targetItem) {
-//            tableView.scrollToRow(at: IndexPath(row: index, section: 0), at: .middle, animated: true)
-//            tableView.blinkRow(at: IndexPath(row: index, section: 0))
-//        } else {
-//            print("Not found audio status")
-//        }
-//    }
-//    
-//    @objc private func moveToFirstVideoStatus(_ sender: UIAction) {
-//        guard let diffableDataSource = viewModel.diffableDataSource else { return }
-//        let snapshotTransitioning = diffableDataSource.snapshot()
-//        let item = snapshotTransitioning.itemIdentifiers.first(where: { item in
-//            switch item {
-////            case .homeTimelineIndex(let objectID, _):
-////                let homeTimelineIndex = viewModel.fetchedResultsController.managedObjectContext.object(with: objectID) as! HomeTimelineIndex
-////                let status = homeTimelineIndex.status.reblog ?? homeTimelineIndex.status
-////                return status.mediaAttachments?.contains(where: { $0.type == .video }) ?? false
-//            default:
-//                return false
-//            }
-//        })
-//        if let targetItem = item, let index = snapshotTransitioning.indexOfItem(targetItem) {
-//            tableView.scrollToRow(at: IndexPath(row: index, section: 0), at: .middle, animated: true)
-//            tableView.blinkRow(at: IndexPath(row: index, section: 0))
-//        } else {
-//            print("Not found video status")
-//        }
-//    }
-//    
-//    @objc private func moveToFirstGIFStatus(_ sender: UIAction) {
-//        guard let diffableDataSource = viewModel.diffableDataSource else { return }
-//        let snapshotTransitioning = diffableDataSource.snapshot()
-//        let item = snapshotTransitioning.itemIdentifiers.first(where: { item in
-//            switch item {
-////            case .homeTimelineIndex(let objectID, _):
-////                let homeTimelineIndex = viewModel.fetchedResultsController.managedObjectContext.object(with: objectID) as! HomeTimelineIndex
-////                let status = homeTimelineIndex.status.reblog ?? homeTimelineIndex.status
-////                return status.mediaAttachments?.contains(where: { $0.type == .gifv }) ?? false
-//            default:
-//                return false
-//            }
-//        })
-//        if let targetItem = item, let index = snapshotTransitioning.indexOfItem(targetItem) {
-//            tableView.scrollToRow(at: IndexPath(row: index, section: 0), at: .middle, animated: true)
-//            tableView.blinkRow(at: IndexPath(row: index, section: 0))
-//        } else {
-//            print("Not found GIF status")
-//        }
-//    }
     
     @objc private func dropRecentStatusAction(_ sender: UIAction, count: Int) {
         guard let diffableDataSource = viewModel.diffableDataSource else { return }
