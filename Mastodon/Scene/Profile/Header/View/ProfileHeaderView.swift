@@ -282,7 +282,7 @@ extension ProfileHeaderView {
         avatarImageViewBackgroundView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(avatarImageViewBackgroundView)
         NSLayoutConstraint.activate([
-            avatarImageViewBackgroundView.leadingAnchor.constraint(equalTo: bannerContainerView.readableContentGuide.leadingAnchor),
+            avatarImageViewBackgroundView.leadingAnchor.constraint(equalToSystemSpacingAfter: bannerContainerView.leadingAnchor, multiplier: 2.0),
             // align to dashboardContainer bottom
         ])
         
@@ -338,8 +338,8 @@ extension ProfileHeaderView {
         addSubview(container)
         NSLayoutConstraint.activate([
             container.topAnchor.constraint(equalTo: bannerContainerView.bottomAnchor),
-            container.leadingAnchor.constraint(equalTo: leadingAnchor),
-            container.trailingAnchor.constraint(equalTo: trailingAnchor),
+            container.leadingAnchor.constraint(equalToSystemSpacingAfter: leadingAnchor, multiplier: 2.0),
+            trailingAnchor.constraint(equalToSystemSpacingAfter: container.trailingAnchor, multiplier: 2.0),
             container.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])
         

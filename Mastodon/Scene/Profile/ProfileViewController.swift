@@ -279,7 +279,7 @@ extension ProfileViewController {
                 self.profileHeaderViewController.view.addSubview(buttonBar)
                 NSLayoutConstraint.activate([
                     buttonBar.topAnchor.constraint(equalTo: self.profileHeaderViewController.profileHeaderView.bottomAnchor),
-                    buttonBar.leadingAnchor.constraint(equalTo: self.profileHeaderViewController.view.layoutMarginsGuide.leadingAnchor),
+                    buttonBar.leadingAnchor.constraint(equalToSystemSpacingAfter: self.profileHeaderViewController.view.leadingAnchor, multiplier: 2.0),
                     buttonBar.trailingAnchor.constraint(equalTo: self.profileHeaderViewController.view.layoutMarginsGuide.trailingAnchor),
                     buttonBar.bottomAnchor.constraint(equalTo: self.profileHeaderViewController.view.bottomAnchor),
                     buttonBar.heightAnchor.constraint(equalToConstant: ProfileHeaderViewController.segmentedControlHeight).priority(.required - 1),
