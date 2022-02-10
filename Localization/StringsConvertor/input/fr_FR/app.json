@@ -67,7 +67,7 @@
                 "done": "Terminé",
                 "confirm": "Confirmer",
                 "continue": "Continuer",
-                "compose": "Compose",
+                "compose": "Composer",
                 "cancel": "Annuler",
                 "discard": "Abandonner",
                 "try_again": "Réessayer",
@@ -199,8 +199,8 @@
         },
         "server_picker": {
             "title": "Choisissez un serveur,\nn'importe quel serveur.",
-            "subtitle": "Pick a community based on your interests, region, or a general purpose one.",
-            "subtitle_extend": "Pick a community based on your interests, region, or a general purpose one. Each community is operated by an entirely independent organization or individual.",
+            "subtitle": "Choisissez une communauté en fonction de vos intérêts, de votre région ou de votre objectif général.",
+            "subtitle_extend": "Choisissez une communauté basée sur vos intérêts, votre région ou un but général. Chaque communauté est gérée par une organisation ou un individu entièrement indépendant.",
             "button": {
                 "category": {
                     "all": "Tout",
@@ -256,8 +256,8 @@
                     "require": "Votre mot de passe doit être composé d’au moins :",
                     "character_limit": "8 caractères",
                     "accessibility": {
-                        "checked": "checked",
-                        "unchecked": "unchecked"
+                        "checked": "vérifié",
+                        "unchecked": "non vérifié"
                     },
                     "hint": "Votre mot de passe doit contenir au moins 8 caractères"
                 },
@@ -429,7 +429,7 @@
             "footer": "Les abonné·e·s issus des autres serveurs ne sont pas affiché·e·s."
         },
         "following": {
-            "footer": "Follows from other servers are not displayed."
+            "footer": "Les abonnés issus des autres serveurs ne sont pas affichés."
         },
         "search": {
             "title": "Rechercher",
@@ -554,8 +554,8 @@
             }
         },
         "account_list": {
-            "tab_bar_hint": "Current selected profile: %s. Double tap then hold to show account switcher",
-            "dismiss_account_switcher": "Dismiss Account Switcher",
+            "tab_bar_hint": "Profil sélectionné actuel: %s. Double appui puis maintenez enfoncé pour afficher le changement de compte",
+            "dismiss_account_switcher": "Rejeter le commutateur de compte",
             "add_account": "Ajouter un compte"
         },
         "wizard": {
