@@ -18,11 +18,11 @@ public final class ActionToolbarContainer: UIView {
     
     let logger = Logger(subsystem: "ActionToolbarContainer", category: "Control")
     
-    static let replyImage = UIImage(systemName: "bubble.left", withConfiguration: UIImage.SymbolConfiguration(pointSize: 17, weight: .regular))!.withRenderingMode(.alwaysTemplate)
-    static let reblogImage = UIImage(systemName: "arrow.2.squarepath", withConfiguration: UIImage.SymbolConfiguration(pointSize: 17, weight: .regular))!.withRenderingMode(.alwaysTemplate)
-    static let starImage = UIImage(systemName: "star", withConfiguration: UIImage.SymbolConfiguration(pointSize: 17, weight: .regular))!.withRenderingMode(.alwaysTemplate)
-    static let starFillImage = UIImage(systemName: "star.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 17, weight: .regular))!.withRenderingMode(.alwaysTemplate)
-    static let shareImage = UIImage(systemName: "square.and.arrow.up", withConfiguration: UIImage.SymbolConfiguration(pointSize: 17, weight: .regular))!.withRenderingMode(.alwaysTemplate)
+    static let replyImage = Asset.Communication.bubbleLeftAndBubbleRight.image.withRenderingMode(.alwaysTemplate)
+    static let reblogImage = Asset.Arrow.repeat.image.withRenderingMode(.alwaysTemplate)
+    static let starImage = Asset.ObjectsAndTools.star.image.withRenderingMode(.alwaysTemplate)
+    static let starFillImage = Asset.ObjectsAndTools.starFill.image.withRenderingMode(.alwaysTemplate)
+    static let shareImage = Asset.Communication.share.image.withRenderingMode(.alwaysTemplate)
         
     public let replyButton     = HighlightDimmableButton()
     public let reblogButton    = HighlightDimmableButton()

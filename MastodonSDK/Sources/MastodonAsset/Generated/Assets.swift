@@ -21,6 +21,9 @@ public typealias AssetImageTypeAlias = ImageAsset.Image
 
 // swiftlint:disable identifier_name line_length nesting type_body_length type_name
 public enum Asset {
+  public enum Arrow {
+    public static let `repeat` = ImageAsset(name: "Arrow/repeat")
+  }
   public enum Asset {
     public static let email = ImageAsset(name: "Asset/email")
     public static let friends = ImageAsset(name: "Asset/friends")
@@ -82,6 +85,10 @@ public enum Asset {
     public static let successGreen = ColorAsset(name: "Colors/success.green")
     public static let systemOrange = ColorAsset(name: "Colors/system.orange")
   }
+  public enum Communication {
+    public static let bubbleLeftAndBubbleRight = ImageAsset(name: "Communication/bubble.left.and.bubble.right")
+    public static let share = ImageAsset(name: "Communication/share")
+  }
   public enum Connectivity {
     public static let photoFillSplit = ImageAsset(name: "Connectivity/photo.fill.split")
   }
@@ -89,6 +96,10 @@ public enum Asset {
     public static let eyeCircleFill = ImageAsset(name: "Human/eye.circle.fill")
     public static let eyeSlashCircleFill = ImageAsset(name: "Human/eye.slash.circle.fill")
     public static let faceSmilingAdaptive = ImageAsset(name: "Human/face.smiling.adaptive")
+  }
+  public enum ObjectsAndTools {
+    public static let starFill = ImageAsset(name: "ObjectsAndTools/star.fill")
+    public static let star = ImageAsset(name: "ObjectsAndTools/star")
   }
   public enum Scene {
     public enum Onboarding {
