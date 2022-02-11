@@ -141,7 +141,7 @@
                     "favorite": "Favorite",
                     "unfavorite": "Unfavorite",
                     "menu": "Valikko",
-                    "hide": "Hide"
+                    "hide": "Dölj"
                 },
                 "tag": {
                     "url": "URL",
@@ -421,7 +421,7 @@
                 "replies": "Vastaukset",
                 "posts_and_replies": "Posts and Replies",
                 "media": "Media",
-                "about": "About"
+                "about": "Om"
             },
             "relationship_action_alert": {
                 "confirm_mute_user": {
@@ -490,10 +490,10 @@
                 "Mentions": "Maininnat"
             },
             "notification_description": {
-                "followed_you": "followd you",
+                "followed_you": "followed you",
                 "favorited_your_post": "favorited your post",
                 "reblogged_your_post": "reblogged your post",
-                "mentioned_you": "mentioned you",
+                "mentioned_you": "nämnde dig",
                 "request_to_follow_you": "request to follow you",
                 "poll_has_ended": "poll has ended"
             },
@@ -520,7 +520,7 @@
                     "use_system": "Use System",
                     "really_dark": "Really Dark",
                     "sorta_dark": "Sorta Dark",
-                    "light": "Light"
+                    "light": "Ljust"
                 },
                 "notifications": {
                     "title": "Ilmoitukset",
