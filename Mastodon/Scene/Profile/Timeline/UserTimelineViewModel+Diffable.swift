@@ -68,7 +68,8 @@ extension UserTimelineViewModel {
             
             if let currentState = self.stateMachine.currentState {
                 switch currentState {
-                case is State.Reloading,
+                case is State.Initial,
+                    is State.Reloading,
                     is State.Loading,
                     is State.Idle,
                     is State.Fail:
