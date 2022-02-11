@@ -490,7 +490,7 @@
                 "Mentions": "メンション"
             },
             "notification_description": {
-                "followed_you": "followd you",
+                "followed_you": "followed you",
                 "favorited_your_post": "favorited your post",
                 "reblogged_your_post": "reblogged your post",
                 "mentioned_you": "mentioned you",
