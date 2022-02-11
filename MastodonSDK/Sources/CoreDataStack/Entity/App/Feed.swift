@@ -74,7 +74,7 @@ extension Feed {
         return NSPredicate(format: "%K == %@", #keyPath(Feed.kindRaw), kind.rawValue)
     }
     
-    static func predicate(acct: Acct) -> NSPredicate {
+    public static func predicate(acct: Acct) -> NSPredicate {
         return NSPredicate(format: "%K == %@", #keyPath(Feed.acctRaw), acct.rawValue)
     }
     

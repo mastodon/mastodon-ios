@@ -53,12 +53,14 @@ extension StatusTableViewCell {
         
         self.delegate = delegate
         
-        statusView.viewModel.isNeedsTableViewUpdate
+        statusView.viewModel.$isContentReveal
+            .removeDuplicates()
+            .dropFirst()
             .receive(on: DispatchQueue.main)
-            .sink { [weak tableView, weak self] in
+            .sink { [weak tableView, weak self] _ in
                 guard let tableView = tableView else { return }
                 guard let _ = self else { return }
-                
+
                 UIView.performWithoutAnimation {
                     tableView.beginUpdates()
                     tableView.endUpdates()

@@ -137,58 +137,41 @@ extension AuthenticationService {
         .eraseToAnyPublisher()
     }
     
-    func signOutMastodonUser(domain: String, userID: MastodonUser.ID) -> AnyPublisher<Result<Bool, Error>, Never> {
-        var isSignOut = false
-        
-        var _mastodonAuthenticationBox: MastodonAuthenticationBox?
+    func signOutMastodonUser(
+        authenticationBox: MastodonAuthenticationBox
+    ) async throws {
         let managedObjectContext = backgroundManagedObjectContext
-        return managedObjectContext.performChanges {
-            let request = MastodonAuthentication.sortedFetchRequest
-            request.predicate = MastodonAuthentication.predicate(domain: domain, userID: userID)
-            request.fetchLimit = 1
-            guard let mastodonAuthentication = try? managedObjectContext.fetch(request).first else {
-                return
-            }
-            _mastodonAuthenticationBox = MastodonAuthenticationBox(
-                authenticationRecord: .init(objectID: mastodonAuthentication.objectID),
-                domain: mastodonAuthentication.domain,
-                userID: mastodonAuthentication.userID,
-                appAuthorization: Mastodon.API.OAuth.Authorization(accessToken: mastodonAuthentication.appAccessToken),
-                userAuthorization: Mastodon.API.OAuth.Authorization(accessToken: mastodonAuthentication.userAccessToken)
+        try await managedObjectContext.performChanges {
+            // remove Feed
+            let request = Feed.sortedFetchRequest
+            request.predicate = Feed.predicate(
+                acct: .mastodon(
+                    domain: authenticationBox.domain,
+                    userID: authenticationBox.userID
+                )
             )
-
-            // remove home timeline indexes
-            let homeTimelineIndexRequest = HomeTimelineIndex.sortedFetchRequest
-            homeTimelineIndexRequest.predicate = HomeTimelineIndex.predicate(
-                domain: mastodonAuthentication.domain,
-                userID: mastodonAuthentication.userID
-            )
-            let homeTimelineIndexes = managedObjectContext.safeFetch(homeTimelineIndexRequest)
-            for homeTimelineIndex in homeTimelineIndexes {
-                managedObjectContext.delete(homeTimelineIndex)
-            }
-
-            // remove user authentication
-            managedObjectContext.delete(mastodonAuthentication)
-            isSignOut = true
-        }
-        .flatMap { result -> AnyPublisher<Result<Void, Error>, Never> in
-            guard let apiService = self.apiService,
-                  let mastodonAuthenticationBox = _mastodonAuthenticationBox else {
-                return Just(result).eraseToAnyPublisher()
+            let feeds = managedObjectContext.safeFetch(request)
+            for feed in feeds {
+                managedObjectContext.delete(feed)
             }
             
-            return apiService.cancelSubscription(
-                mastodonAuthenticationBox: mastodonAuthenticationBox
+            guard let authentication = authenticationBox.authenticationRecord.object(in: managedObjectContext) else {
+                assertionFailure()
+                throw APIService.APIError.implicit(.authenticationMissing)
+            }
+            
+            managedObjectContext.delete(authentication)
+        }
+        
+        // cancel push notification subscription
+        do {
+            _ = try await apiService?.cancelSubscription(
+                domain: authenticationBox.domain,
+                authorization: authenticationBox.userAuthorization
             )
-            .map { _ in result }
-            .catch { _ in Just(result).eraseToAnyPublisher() }
-            .eraseToAnyPublisher()
+        } catch {
+            // do nothing
         }
-        .map { result in
-            return result.map { isSignOut }
-        }
-        .eraseToAnyPublisher()
     }
     
 }

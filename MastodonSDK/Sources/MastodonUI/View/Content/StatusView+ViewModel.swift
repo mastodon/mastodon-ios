@@ -88,9 +88,7 @@ extension StatusView {
         @Published public var replyCount: Int = 0
         @Published public var reblogCount: Int = 0
         @Published public var favoriteCount: Int = 0
-        
-        public let isNeedsTableViewUpdate = PassthroughSubject<Void, Never>()
-        
+
         @Published public var groupedAccessibilityLabel = ""
 
         let timestampUpdatePublisher = Timer.publish(every: 1.0, on: .main, in: .common)
@@ -136,9 +134,23 @@ extension StatusView {
         
         init() {
             // isReblogEnabled
-            $locked
-                .map { !$0 }
-                .assign(to: &$isReblogEnabled)
+            Publishers.CombineLatest(
+                $visibility,
+                $isMyself
+            )
+            .map { visibility, isMyself in
+                if isMyself {
+                    return true
+                }
+                
+                switch visibility {
+                case .public, .unlisted:
+                    return true
+                case .private, .direct, ._other:
+                    return false
+                }
+            }
+            .assign(to: &$isReblogEnabled)
             // isContentSensitive
             $spoilerContent
                 .map { $0 != nil }
@@ -292,7 +304,7 @@ extension StatusView.ViewModel {
             
             statusView.setSpoilerOverlayViewHidden(isHidden: isContentReveal)
             
-            self.isNeedsTableViewUpdate.send()
+            self.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): isContentReveal: \(isContentReveal)")
         }
         .store(in: &disposeBag)
         // visibility

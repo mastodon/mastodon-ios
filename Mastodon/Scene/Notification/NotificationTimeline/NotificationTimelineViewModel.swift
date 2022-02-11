@@ -23,7 +23,9 @@ final class NotificationTimelineViewModel {
     let scope: Scope
     let feedFetchedResultsController: FeedFetchedResultsController
     let listBatchFetchViewModel = ListBatchFetchViewModel()
-
+    @Published var isLoadingLatest = false
+    @Published var lastAutomaticFetchTimestamp: Date?
+    
     // output
     var diffableDataSource: UITableViewDiffableDataSource<NotificationSection, NotificationItem>?
     var didLoadLatest = PassthroughSubject<Void, Never>()
@@ -144,6 +146,10 @@ extension NotificationTimelineViewModel {
     // load lastest
     func loadLatest() async {
         guard let authenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else { return }
+        
+        isLoadingLatest = true
+        defer{ isLoadingLatest = false }
+        
         do {
             _ = try await context.apiService.notifications(
                 maxID: nil,

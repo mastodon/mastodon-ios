@@ -50,20 +50,18 @@ extension APIService {
     }
     
     func cancelSubscription(
-        mastodonAuthenticationBox: MastodonAuthenticationBox
-    ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.EmptySubscription>, Error> {
-        let authorization = mastodonAuthenticationBox.userAuthorization
-        let domain = mastodonAuthenticationBox.domain
-
-        return Mastodon.API.Subscriptions.removeSubscription(
+        domain: String,
+        authorization: Mastodon.API.OAuth.Authorization
+    ) async throws -> Mastodon.Response.Content<Mastodon.Entity.EmptySubscription> {
+        let response = try await Mastodon.API.Subscriptions.removeSubscription(
             session: session,
             domain: domain,
             authorization: authorization
-        )
-        .handleEvents(receiveOutput: { _ in
-            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: cancel subscription successful", ((#file as NSString).lastPathComponent), #line, #function)
-        })
-        .eraseToAnyPublisher()
+        ).singleOutput()
+        
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: cancel subscription successful", ((#file as NSString).lastPathComponent), #line, #function)
+
+        return response
     }
 
 }

@@ -39,15 +39,6 @@
         <relationship name="notification" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Notification" inverseName="feeds" inverseEntity="Notification"/>
         <relationship name="status" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Status" inverseName="feeds" inverseEntity="Status"/>
     </entity>
-    <entity name="HomeTimelineIndex" representedClassName="CoreDataStack.HomeTimelineIndex" syncable="YES">
-        <attribute name="createdAt" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="deletedAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="domain" attributeType="String"/>
-        <attribute name="hasMore" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
-        <attribute name="identifier" attributeType="String"/>
-        <attribute name="userID" attributeType="String"/>
-        <relationship name="status" maxCount="1" deletionRule="Nullify" destinationEntity="Status"/>
-    </entity>
     <entity name="Instance" representedClassName="CoreDataStack.Instance" syncable="YES">
         <attribute name="configurationRaw" optional="YES" attributeType="Binary"/>
         <attribute name="createdAt" attributeType="Date" usesScalarValueType="NO"/>
@@ -262,7 +253,6 @@
         <element name="DomainBlock" positionX="45" positionY="162" width="128" height="89"/>
         <element name="Emoji" positionX="0" positionY="0" width="128" height="134"/>
         <element name="Feed" positionX="54" positionY="171" width="128" height="149"/>
-        <element name="HomeTimelineIndex" positionX="0" positionY="0" width="128" height="134"/>
         <element name="Instance" positionX="45" positionY="162" width="128" height="104"/>
         <element name="MastodonAuthentication" positionX="0" positionY="0" width="128" height="224"/>
         <element name="MastodonUser" positionX="0" positionY="0" width="128" height="734"/>

@@ -571,7 +571,6 @@ extension StatusView.Style {
         statusView.headerContainerView.removeFromSuperview()
         statusView.authorContainerView.removeFromSuperview()
         statusView.statusVisibilityView.removeFromSuperview()
-        statusView.spoilerBannerView.removeFromSuperview()
     }
     
     func notificationQuote(statusView: StatusView) {
@@ -580,7 +579,6 @@ extension StatusView.Style {
         statusView.contentContainer.layoutMargins.bottom = 16        // fix contentText align to edge issue
         statusView.menuButton.removeFromSuperview()
         statusView.statusVisibilityView.removeFromSuperview()
-        statusView.spoilerBannerView.removeFromSuperview()
         statusView.actionToolbarContainer.removeFromSuperview()
     }
     

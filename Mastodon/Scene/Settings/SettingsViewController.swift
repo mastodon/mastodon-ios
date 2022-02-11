@@ -294,31 +294,18 @@ extension SettingsViewController {
     }
     
     func signOut() {
-        guard let activeMastodonAuthenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else {
+        guard let authenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else {
             return
         }
         
         // clear badge before sign-out
         context.notificationService.clearNotificationCountForActiveUser()
         
-        context.authenticationService.signOutMastodonUser(
-            domain: activeMastodonAuthenticationBox.domain,
-            userID: activeMastodonAuthenticationBox.userID
-        )
-        .receive(on: DispatchQueue.main)
-        .sink { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .failure(let error):
-                assertionFailure(error.localizedDescription)
-            case .success(let isSignOut):
-                os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: sign out %s", ((#file as NSString).lastPathComponent), #line, #function, isSignOut ? "success" : "fail")
-                guard isSignOut else { return }
-                self.coordinator.setup()
-                self.coordinator.setupOnboardingIfNeeds(animated: true)
-            }
+        Task { @MainActor in
+            try await context.authenticationService.signOutMastodonUser(authenticationBox: authenticationBox)
+            self.coordinator.setup()
+            self.coordinator.setupOnboardingIfNeeds(animated: true)
         }
-        .store(in: &disposeBag)
     }
     
 }

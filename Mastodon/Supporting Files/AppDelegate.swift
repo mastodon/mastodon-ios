@@ -90,19 +90,19 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void
     ) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: [Push Notification]", ((#file as NSString).lastPathComponent), #line, #function)
-        guard let mastodonPushNotification = AppDelegate.mastodonPushNotification(from: notification) else {
+        guard let pushNotification = AppDelegate.mastodonPushNotification(from: notification) else {
             completionHandler([])
             return
         }
         
-        let notificationID = String(mastodonPushNotification.notificationID)
+        let notificationID = String(pushNotification.notificationID)
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: [Push Notification] notification %s", ((#file as NSString).lastPathComponent), #line, #function, notificationID)
         
-        let accessToken = mastodonPushNotification.accessToken
+        let accessToken = pushNotification.accessToken
         UserDefaults.shared.increaseNotificationCount(accessToken: accessToken)
         appContext.notificationService.applicationIconBadgeNeedsUpdate.send()
         
-        appContext.notificationService.handle(mastodonPushNotification: mastodonPushNotification)
+        appContext.notificationService.handle(pushNotification: pushNotification)
         completionHandler([.sound])
     }
     
@@ -114,15 +114,15 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     ) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: [Push Notification]", ((#file as NSString).lastPathComponent), #line, #function)
         
-        guard let mastodonPushNotification = AppDelegate.mastodonPushNotification(from: response.notification) else {
+        guard let pushNotification = AppDelegate.mastodonPushNotification(from: response.notification) else {
             completionHandler()
             return
         }
         
-        let notificationID = String(mastodonPushNotification.notificationID)
+        let notificationID = String(pushNotification.notificationID)
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: [Push Notification] notification %s", ((#file as NSString).lastPathComponent), #line, #function, notificationID)
-        appContext.notificationService.handle(mastodonPushNotification: mastodonPushNotification)
-        appContext.notificationService.requestRevealNotificationPublisher.send(mastodonPushNotification)
+        appContext.notificationService.handle(pushNotification: pushNotification)
+        appContext.notificationService.requestRevealNotificationPublisher.send(pushNotification)
         completionHandler()
     }
     

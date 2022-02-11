@@ -264,6 +264,7 @@ extension StatusView {
             .assign(to: \.isContentSensitiveToggled, on: viewModel)
             .store(in: &disposeBag)
 
+        
 //        viewModel.source = status.source
     }
     

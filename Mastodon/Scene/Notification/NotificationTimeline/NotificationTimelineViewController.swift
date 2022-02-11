@@ -8,6 +8,7 @@
 import os.log
 import UIKit
 import Combine
+import CoreDataStack
 
 final class NotificationTimelineViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
     
@@ -94,6 +95,30 @@ extension NotificationTimelineViewController {
         tableView.deselectRow(with: transitionCoordinator, animated: animated)
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if !viewModel.isLoadingLatest {
+            let now = Date()
+            if let timestamp = viewModel.lastAutomaticFetchTimestamp {
+                if now.timeIntervalSince(timestamp) > 60 {
+                    logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): auto fetch latest timeline…")
+                    Task {
+                        await viewModel.loadLatest()
+                    }
+                    viewModel.lastAutomaticFetchTimestamp = now
+                } else {
+                    logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): auto fetch latest timeline skip. Reason: updated in recent 60s")
+                }
+            } else {
+                Task {
+                    await viewModel.loadLatest()
+                }
+                viewModel.lastAutomaticFetchTimestamp = now
+            }
+        }
+    }
+    
 }
 
 extension NotificationTimelineViewController {
@@ -150,4 +175,46 @@ extension NotificationTimelineViewController: UITableViewDelegate, AutoGenerateT
 }
 
 // MARK: - NotificationTableViewCellDelegate
-extension NotificationTimelineViewController: NotificationTableViewCellDelegate { }
+extension NotificationTimelineViewController: NotificationTableViewCellDelegate {
+    
+    func tableViewCell(
+        _ cell: UITableViewCell,
+        notificationView: NotificationView,
+        statusView: StatusView,
+        spoilerOverlayViewDidPressed overlayView: SpoilerOverlayView
+    ) {
+        guard let diffableDataSource = viewModel.diffableDataSource else { return }
+        guard let indexPath = tableView.indexPath(for: cell) else { return }
+        guard let reloadItem = diffableDataSource.itemIdentifier(for: indexPath) else { return }
+        
+        Task {
+            let source = DataSourceItem.Source(tableViewCell: cell, indexPath: nil)
+            guard let item = await item(from: source) else {
+                assertionFailure()
+                return
+            }
+            guard case let .notification(notification) = item else {
+                assertionFailure("only works for notification item")
+                return
+            }
+            let _status: ManagedObjectRecord<Status>? = try await self.context.managedObjectContext.perform {
+                guard let notification = notification.object(in: self.context.managedObjectContext) else { return nil }
+                guard let status = notification.status else { return nil }
+                return .init(objectID: status.objectID)
+            }
+            guard let status = _status else {
+                assertionFailure()
+                return
+            }
+            try await DataSourceFacade.responseToToggleSensitiveAction(
+                dependency: self,
+                status: status
+            )
+            
+//            var snapshot = diffableDataSource.snapshot()
+//            snapshot.reloadItems([reloadItem])
+//            diffableDataSource.apply(snapshot, animatingDifferences: false)
+        }   // end Task
+    }
+    
+}

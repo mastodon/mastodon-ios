@@ -22,7 +22,6 @@ public final class SpoilerBannerView: UIView {
         let label = UILabel()
         label.textColor = Asset.Colors.Label.primary.color
         label.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .regular))
-        label.numberOfLines = 0
         label.text = "Hide"     // TODO: i18n
         return label
     }()
@@ -75,8 +74,8 @@ extension SpoilerBannerView {
         ])
         
         labelContainer.addArrangedSubview(label)
+        labelContainer.addArrangedSubview(UIView())
         labelContainer.addArrangedSubview(hideLabel)
-        label.setContentHuggingPriority(.defaultLow, for: .horizontal)
         hideLabel.setContentHuggingPriority(.required - 1, for: .horizontal)
         hideLabel.setContentCompressionResistancePriority(.required - 1, for: .horizontal)
         

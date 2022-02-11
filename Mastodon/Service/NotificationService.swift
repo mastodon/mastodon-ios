@@ -121,57 +121,20 @@ extension NotificationService {
         return _notificationSubscription
     }
     
-    func handle(mastodonPushNotification: MastodonPushNotification) {
+    func handle(
+        pushNotification: MastodonPushNotification
+    ) {
         defer {
             unreadNotificationCountDidUpdate.send()
         }
-        
-        // Subscription maybe failed to cancel when sign-out
-        // Try cancel again if receive that kind push notification
-        guard let managedObjectContext = authenticationService?.managedObjectContext else { return }
-        guard let apiService = apiService else { return }
 
-        managedObjectContext.perform {
-            let subscriptionRequest = NotificationSubscription.sortedFetchRequest
-            subscriptionRequest.predicate = NotificationSubscription.predicate(userToken: mastodonPushNotification.accessToken)
-            let subscriptions = managedObjectContext.safeFetch(subscriptionRequest)
+        Task {
+            // trigger notification timeline update
+            try? await fetchLatestNotifications(pushNotification: pushNotification)
             
-            // note: assert setting remove after cancel subscription
-            guard let subscription = subscriptions.first else { return }
-            guard let setting = subscription.setting else { return }
-            let domain = setting.domain
-            let userID = setting.userID
-            
-            let authenticationRequest = MastodonAuthentication.sortedFetchRequest
-            authenticationRequest.predicate = MastodonAuthentication.predicate(domain: domain, userID: userID)
-            guard let authentication = managedObjectContext.safeFetch(authenticationRequest).first else {
-                // do nothing if still sign-in
-                return
-            }
-            
-            // cancel subscription if sign-out
-            let accessToken = mastodonPushNotification.accessToken
-            let mastodonAuthenticationBox = MastodonAuthenticationBox(
-                authenticationRecord: .init(objectID: authentication.objectID),
-                domain: domain,
-                userID: userID,
-                appAuthorization: .init(accessToken: accessToken),
-                userAuthorization: .init(accessToken: accessToken)
-            )
-            apiService
-                .cancelSubscription(mastodonAuthenticationBox: mastodonAuthenticationBox)
-                .sink { completion in
-                    switch completion {
-                    case .failure(let error):
-                        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: [Push Notification] failed to cancel sign-out user subscription: %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
-                    case .finished:
-                        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: [Push Notification] cancel sign-out user subscription", ((#file as NSString).lastPathComponent), #line, #function)
-                    }
-                } receiveValue: { _ in
-                    // do nothing
-                }
-                .store(in: &self.disposeBag)
-        }
+            // cancel sign-out account push notification subscription 
+            try? await cancelSubscriptionForDetachedAccount(pushNotification: pushNotification)
+        }   // end Task
     }
     
 }
@@ -185,6 +148,92 @@ extension NotificationService {
         
         applicationIconBadgeNeedsUpdate.send()
     }
+}
+
+extension NotificationService {
+    private func fetchLatestNotifications(
+        pushNotification: MastodonPushNotification
+    ) async throws {
+        guard let apiService = apiService else { return }
+        guard let authenticationBox = try await authenticationBox(for: pushNotification) else { return }
+        
+        _ = try await apiService.notifications(
+            maxID: nil,
+            scope: .everything,
+            authenticationBox: authenticationBox
+        )
+    }
+    
+    private func cancelSubscriptionForDetachedAccount(
+        pushNotification: MastodonPushNotification
+    ) async throws {
+        // Subscription maybe failed to cancel when sign-out
+        // Try cancel again if receive that kind push notification
+        guard let managedObjectContext = authenticationService?.managedObjectContext else { return }
+        guard let apiService = apiService else { return }
+
+        let userAccessToken = pushNotification.accessToken
+
+        let needsCancelSubscription: Bool = try await managedObjectContext.perform {
+            // check authentication exists
+            let authenticationRequest = MastodonAuthentication.sortedFetchRequest
+            authenticationRequest.predicate = MastodonAuthentication.predicate(userAccessToken: userAccessToken)
+            return managedObjectContext.safeFetch(authenticationRequest).first == nil
+        }
+        
+        guard needsCancelSubscription else {
+            return
+        }
+        
+        guard let domain = try await domain(for: pushNotification) else { return }
+        
+        do {
+            _ = try await apiService.cancelSubscription(
+                domain: domain,
+                authorization: .init(accessToken: userAccessToken)
+            )
+            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: [Push Notification] cancel sign-out user subscription", ((#file as NSString).lastPathComponent), #line, #function)
+        } catch {
+            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: [Push Notification] failed to cancel sign-out user subscription: %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
+        }
+    }
+    
+    private func domain(for pushNotification: MastodonPushNotification) async throws -> String? {
+        guard let authenticationService = self.authenticationService else { return nil }
+        let managedObjectContext = authenticationService.managedObjectContext
+        return try await managedObjectContext.perform {
+            let subscriptionRequest = NotificationSubscription.sortedFetchRequest
+            subscriptionRequest.predicate = NotificationSubscription.predicate(userToken: pushNotification.accessToken)
+            let subscriptions = managedObjectContext.safeFetch(subscriptionRequest)
+            
+            // note: assert setting not remove after sign-out
+            guard let subscription = subscriptions.first else { return nil }
+            guard let setting = subscription.setting else { return nil }
+            let domain = setting.domain
+            
+            return domain
+        }
+    }
+    
+    private func authenticationBox(for pushNotification: MastodonPushNotification) async throws -> MastodonAuthenticationBox? {
+        guard let authenticationService = self.authenticationService else { return nil }
+        let managedObjectContext = authenticationService.managedObjectContext
+        return try await managedObjectContext.perform {
+            let request = MastodonAuthentication.sortedFetchRequest
+            request.predicate = MastodonAuthentication.predicate(userAccessToken: pushNotification.accessToken)
+            request.fetchLimit = 1
+            guard let authentication = managedObjectContext.safeFetch(request).first else { return nil }
+            
+            return MastodonAuthenticationBox(
+                authenticationRecord: .init(objectID: authentication.objectID),
+                domain: authentication.domain,
+                userID: authentication.userID,
+                appAuthorization: .init(accessToken: authentication.appAccessToken),
+                userAuthorization: .init(accessToken: authentication.userAccessToken)
+            )
+        }
+    }
+    
 }
 
 // MARK: - NotificationViewModel

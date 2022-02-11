@@ -30,6 +30,7 @@ final class UserTimelineViewController: UIViewController, NeedsDependency, Media
         tableView.register(TimelineBottomLoaderTableViewCell.self, forCellReuseIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self))
         tableView.register(TimelineHeaderTableViewCell.self, forCellReuseIdentifier: String(describing: TimelineHeaderTableViewCell.self))
         tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 100
         tableView.separatorStyle = .none
         tableView.backgroundColor = .clear
         return tableView
