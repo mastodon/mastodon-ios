@@ -46,7 +46,7 @@
             },
             "delete_post": {
                 "title": "Ma tu dixwazî vê şandiyê jê bibî?",
-                "message": "Are you sure you want to delete this post?"
+                "message": "Ma tu dixwazî vê şandiyê jê bibî?"
             },
             "clean_cache": {
                 "title": "Pêşbîrê pak bike",
@@ -141,7 +141,7 @@
                     "favorite": "Bijarte",
                     "unfavorite": "Nebijarte",
                     "menu": "Kulîn",
-                    "hide": "Hide"
+                    "hide": "Veşêre"
                 },
                 "tag": {
                     "url": "URL",
@@ -152,10 +152,10 @@
                     "emoji": "Emojî"
                 },
                 "visibility": {
-                    "unlisted": "Everyone can see this post but not display in the public timeline.",
-                    "private": "Only their followers can see this post.",
-                    "private_from_me": "Only my followers can see this post.",
-                    "direct": "Only mentioned user can see this post."
+                    "unlisted": "Her kes dikare vê şandiyê bibîne lê nayê nîşandan di demnameya gelemperî de.",
+                    "private": "Tenê şopînerên wan dikarin vê şandiyê bibînin.",
+                    "private_from_me": "Tenê şopînerên min dikarin vê şandiyê bibînin.",
+                    "direct": "Tenê bikarhênerê qalkirî dikare vê şandiyê bibîne."
                 }
             },
             "friendship": {
@@ -419,22 +419,22 @@
             "segmented_control": {
                 "posts": "Şandî",
                 "replies": "Bersiv",
-                "posts_and_replies": "Posts and Replies",
+                "posts_and_replies": "Şandî û bersiv",
                 "media": "Medya",
-                "about": "About"
+                "about": "Derbar"
             },
             "relationship_action_alert": {
                 "confirm_mute_user": {
-                    "title": "Mute Account",
-                    "message": "Confirm to mute %s"
+                    "title": "Ajimêrê bêdeng bike",
+                    "message": "Ji bo bêdengkirina %s bipejirîne"
                 },
                 "confirm_unmute_user": {
                     "title": "Ajimêrê bêdeng neke",
-                    "message": "Ji bo vekirina bêdengkirinê bipejirîne %s"
+                    "message": "Ji bo vekirina bêdengkirinê %s bipejirîne"
                 },
                 "confirm_block_user": {
-                    "title": "Block Account",
-                    "message": "Confirm to block %s"
+                    "title": "Ajimêr asteng bike",
+                    "message": "Ji bo astengkirina %s bipejirîne"
                 },
                 "confirm_unblock_user": {
                     "title": "Unblock Account",
