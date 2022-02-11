@@ -76,7 +76,7 @@ extension MediaPreviewTransitionController: UIViewControllerTransitioningDelegat
         
         return MediaHostToMediaPreviewViewControllerAnimatedTransitioning(
             operation: .push,
-            transitionItem: mediaPreviewViewController.viewModel.pushTransitionItem,
+            transitionItem: mediaPreviewViewController.viewModel.transitionItem,
             panGestureRecognizer: panGestureRecognizer
         )
     }
@@ -94,7 +94,7 @@ extension MediaPreviewTransitionController: UIViewControllerTransitioningDelegat
 
         return MediaHostToMediaPreviewViewControllerAnimatedTransitioning(
             operation: .pop,
-            transitionItem: mediaPreviewViewController.viewModel.pushTransitionItem,
+            transitionItem: mediaPreviewViewController.viewModel.transitionItem,
             panGestureRecognizer: panGestureRecognizer
         )
     }

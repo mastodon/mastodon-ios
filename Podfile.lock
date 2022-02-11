@@ -3,6 +3,9 @@ PODS:
   - FLEX (4.4.1)
   - Kanna (5.2.7)
   - Keys (1.0.1)
+  - Sourcery (1.6.1):
+    - Sourcery/CLI-Only (= 1.6.1)
+  - Sourcery/CLI-Only (1.6.1)
   - SwiftGen (6.4.0)
   - "UITextField+Shake (1.2.1)"
 
@@ -11,6 +14,7 @@ DEPENDENCIES:
   - FLEX (~> 4.4.0)
   - Kanna (~> 5.2.2)
   - Keys (from `Pods/CocoaPodsKeys`)
+  - Sourcery (~> 1.6.1)
   - SwiftGen (~> 6.4.0)
   - "UITextField+Shake (~> 1.2)"
 
@@ -19,6 +23,7 @@ SPEC REPOS:
     - DateToolsSwift
     - FLEX
     - Kanna
+    - Sourcery
     - SwiftGen
     - "UITextField+Shake"
 
@@ -31,9 +36,10 @@ SPEC CHECKSUMS:
   FLEX: 7ca2c8cd3a435ff501ff6d2f2141e9bdc934eaab
   Kanna: 01cfbddc127f5ff0963692f285fcbc8a9d62d234
   Keys: a576f4c9c1c641ca913a959a9c62ed3f215a8de9
+  Sourcery: f3759f803bd0739f74fc92a4341eed0473ce61ac
   SwiftGen: 67860cc7c3cfc2ed25b9b74cfd55495fc89f9108
   "UITextField+Shake": 298ac5a0f239d731bdab999b19b628c956ca0ac3
 
-PODFILE CHECKSUM: 37aa3ed14a767c806ece40b6c99ab3c59b9f8475
+PODFILE CHECKSUM: 1426a4b78d8d711a5ae7600b9deea8986ddfdf7d
 
 COCOAPODS: 1.11.2

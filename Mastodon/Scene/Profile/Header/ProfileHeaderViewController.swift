@@ -13,18 +13,18 @@ import AlamofireImage
 import CropViewController
 import MastodonMeta
 import MetaTextKit
+import MastodonAsset
+import MastodonLocalization
+import Tabman
 
 protocol ProfileHeaderViewControllerDelegate: AnyObject {
     func profileHeaderViewController(_ viewController: ProfileHeaderViewController, viewLayoutDidUpdate view: UIView)
-    func profileHeaderViewController(_ viewController: ProfileHeaderViewController, pageSegmentedControlValueChanged segmentedControl: UISegmentedControl, selectedSegmentIndex index: Int)
-    func profileHeaderViewController(_ viewController: ProfileHeaderViewController, profileFieldCollectionViewCell: ProfileFieldCollectionViewCell, metaLabel: MetaLabel, didSelectMeta meta: Meta)
 }
 
 final class ProfileHeaderViewController: UIViewController {
 
-    static let segmentedControlHeight: CGFloat = 32
-    static let segmentedControlMarginHeight: CGFloat = 20
-    static let headerMinHeight: CGFloat = segmentedControlHeight + 2 * segmentedControlMarginHeight
+    static let segmentedControlHeight: CGFloat = 50
+    static let headerMinHeight: CGFloat = segmentedControlHeight
     
     var disposeBag = Set<AnyCancellable>()
     weak var delegate: ProfileHeaderViewControllerDelegate?
@@ -43,12 +43,33 @@ final class ProfileHeaderViewController: UIViewController {
     }()
     
     let profileHeaderView = ProfileHeaderView()
-    let pageSegmentedControl: UISegmentedControl = {
-        let segmentedControl = UISegmentedControl(items: ["A", "B"])
-        segmentedControl.selectedSegmentIndex = 0
-        return segmentedControl
+    
+    let buttonBar: TMBar.ButtonBar = {
+        let buttonBar = TMBar.ButtonBar()
+        buttonBar.indicator.backgroundColor = Asset.Colors.Label.primary.color
+        buttonBar.backgroundView.style = .clear
+        buttonBar.layout.contentInset = .zero
+        return buttonBar
     }()
-    var pageSegmentedControlLeadingLayoutConstraint: NSLayoutConstraint!
+
+    func customizeButtonBarAppearance() {
+        // The implmention use CATextlayer. Adapt for Dark Mode without dynamic colors
+        // Needs trigger update when `userInterfaceStyle` chagnes
+        let userInterfaceStyle = traitCollection.userInterfaceStyle
+        buttonBar.buttons.customize { button in
+            switch userInterfaceStyle {
+            case .dark:
+                // Asset.Colors.Label.primary.color
+                button.selectedTintColor = UIColor(red: 238.0/255.0, green: 238.0/255.0, blue: 238.0/255.0, alpha: 1.0)
+            default:
+                // Asset.Colors.Label.primary.color
+                button.selectedTintColor = UIColor(red: 40.0/255.0, green: 44.0/255.0, blue: 55.0/255.0, alpha: 1.0)
+            }
+            
+            button.tintColor = .secondaryLabel // UIColor(red: 60.0/255.0, green: 60.0/255.0, blue: 67.0/255.0, alpha: 1.0)
+            button.backgroundColor = .clear
+        }
+    }
 
     private var isBannerPinned = false
     private var bottomShadowAlpha: CGFloat = 0.0
@@ -88,13 +109,15 @@ extension ProfileHeaderViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        customizeButtonBarAppearance()
 
-        view.backgroundColor = ThemeService.shared.currentTheme.value.systemGroupedBackgroundColor
+        view.backgroundColor = ThemeService.shared.currentTheme.value.systemBackgroundColor
         ThemeService.shared.currentTheme
-            .receive(on: RunLoop.main)
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] theme in
                 guard let self = self else { return }
-                self.view.backgroundColor = theme.systemGroupedBackgroundColor
+                self.view.backgroundColor = theme.systemBackgroundColor
             }
             .store(in: &disposeBag)
 
@@ -106,30 +129,7 @@ extension ProfileHeaderViewController {
             profileHeaderView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
         ])
         profileHeaderView.preservesSuperviewLayoutMargins = true
-        
-        profileHeaderView.fieldCollectionView.delegate = self
-        viewModel.setupProfileFieldCollectionViewDiffableDataSource(
-            collectionView: profileHeaderView.fieldCollectionView,
-            profileFieldCollectionViewCellDelegate: self,
-            profileFieldAddEntryCollectionViewCellDelegate: self
-        )
-
-        let longPressReorderGesture = UILongPressGestureRecognizer(target: self, action: #selector(ProfileHeaderViewController.longPressReorderGestureHandler(_:)))
-        profileHeaderView.fieldCollectionView.addGestureRecognizer(longPressReorderGesture)
-        
-        pageSegmentedControl.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(pageSegmentedControl)
-        pageSegmentedControlLeadingLayoutConstraint = pageSegmentedControl.leadingAnchor.constraint(equalTo: view.leadingAnchor)
-        NSLayoutConstraint.activate([
-            pageSegmentedControl.topAnchor.constraint(equalTo: profileHeaderView.bottomAnchor, constant: ProfileHeaderViewController.segmentedControlMarginHeight),
-            pageSegmentedControlLeadingLayoutConstraint,    // Fix iPad layout issue
-            pageSegmentedControl.trailingAnchor.constraint(equalTo: view.readableContentGuide.trailingAnchor),
-            view.bottomAnchor.constraint(equalTo: pageSegmentedControl.bottomAnchor, constant: ProfileHeaderViewController.segmentedControlMarginHeight),
-            pageSegmentedControl.heightAnchor.constraint(equalToConstant: ProfileHeaderViewController.segmentedControlHeight).priority(.defaultHigh),
-        ])
-        
-        pageSegmentedControl.addTarget(self, action: #selector(ProfileHeaderViewController.pageSegmentedControlValueChanged(_:)), for: .valueChanged)
-
+    
         Publishers.CombineLatest(
             viewModel.viewDidAppear.eraseToAnyPublisher(),
             viewModel.isTitleViewContentOffsetSet.eraseToAnyPublisher()
@@ -151,37 +151,31 @@ extension ProfileHeaderViewController {
             .store(in: &disposeBag)
         
         Publishers.CombineLatest4(
-            viewModel.isEditing.eraseToAnyPublisher(),
-            viewModel.displayProfileInfo.avatarImageResource.eraseToAnyPublisher(),
-            viewModel.editProfileInfo.avatarImageResource.eraseToAnyPublisher(),
+            viewModel.$isEditing.eraseToAnyPublisher(),
+            viewModel.displayProfileInfo.$avatarImageResource.eraseToAnyPublisher(),
+            viewModel.editProfileInfo.$avatarImageResource.eraseToAnyPublisher(),
             viewModel.viewDidAppear.eraseToAnyPublisher()
         )
         .receive(on: DispatchQueue.main)
-        .sink { [weak self] isEditing, resource, editingResource, _ in
+        .sink { [weak self] isEditing, displayResource, editingResource, _ in
             guard let self = self else { return }
-            let url: URL? = {
-                guard case let .url(url) = resource else { return nil }
-                return url
-
-            }()
-            let image: UIImage? = {
-                guard case let .image(image) = editingResource else { return nil }
-                return image
-            }()
-            self.profileHeaderView.configure(
-                with: AvatarConfigurableViewConfiguration(
-                    avatarImageURL: image == nil ? url : nil,       // set only when image empty
-                    placeholderImage: image,
-                    keepImageCorner: true                           // fit preview transitioning
+            
+            let url = displayResource.url
+            let image = editingResource.image
+            
+            self.profileHeaderView.avatarButton.avatarImageView.configure(
+                configuration: AvatarImageView.Configuration(
+                    url: isEditing && image != nil ? nil : url,
+                    placeholder: image ?? UIImage.placeholder(color: Asset.Theme.Mastodon.systemGroupedBackground.color)
                 )
             )
         }
         .store(in: &disposeBag)
         Publishers.CombineLatest4(
-            viewModel.isEditing,
-            viewModel.displayProfileInfo.name.removeDuplicates(),
-            viewModel.editProfileInfo.name.removeDuplicates(),
-            viewModel.emojiMeta
+            viewModel.$isEditing,
+            viewModel.displayProfileInfo.$name.removeDuplicates(),
+            viewModel.editProfileInfo.$name.removeDuplicates(),
+            viewModel.$emojiMeta
         )
         .receive(on: DispatchQueue.main)
         .sink { [weak self] isEditing, name, editingName, emojiMeta in
@@ -198,13 +192,13 @@ extension ProfileHeaderViewController {
         .store(in: &disposeBag)
         
         let profileNote = Publishers.CombineLatest3(
-            viewModel.isEditing.removeDuplicates(),
-            viewModel.displayProfileInfo.note.removeDuplicates(),
+            viewModel.$isEditing.removeDuplicates(),
+            viewModel.displayProfileInfo.$note.removeDuplicates(),
             viewModel.editProfileInfoDidInitialized
         )
         .map { isEditing, displayNote, _ -> String? in
             if isEditing {
-                return self.viewModel.editProfileInfo.note.value
+                return self.viewModel.editProfileInfo.note
             } else {
                 return displayNote
             }
@@ -212,9 +206,9 @@ extension ProfileHeaderViewController {
         .eraseToAnyPublisher()
 
         Publishers.CombineLatest3(
-            viewModel.isEditing.removeDuplicates(),
+            viewModel.$isEditing.removeDuplicates(),
             profileNote.removeDuplicates(),
-            viewModel.emojiMeta.removeDuplicates()
+            viewModel.$emojiMeta.removeDuplicates()
         )
         .receive(on: DispatchQueue.main)
         .sink { [weak self] isEditing, note, emojiMeta in
@@ -245,25 +239,9 @@ extension ProfileHeaderViewController {
             .sink { [weak self] notification in
                 guard let self = self else { return }
                 guard let textField = notification.object as? UITextField else { return }
-                self.viewModel.editProfileInfo.name.value = textField.text
+                self.viewModel.editProfileInfo.name = textField.text
             }
             .store(in: &disposeBag)
-        
-        Publishers.CombineLatest3(
-            viewModel.isEditing,
-            viewModel.displayProfileInfo.fields,
-            viewModel.needsFiledCollectionViewHidden
-        )
-        .receive(on: RunLoop.main)
-        .sink { [weak self] isEditing, fields, needsHidden in
-            guard let self = self else { return }
-            guard !needsHidden else {
-                self.profileHeaderView.fieldCollectionView.isHidden = true
-                return
-            }
-            self.profileHeaderView.fieldCollectionView.isHidden = isEditing ? false : fields.isEmpty
-        }
-        .store(in: &disposeBag)
         
         profileHeaderView.editAvatarButton.menu = createAvatarContextMenu()
         profileHeaderView.editAvatarButton.showsMenuAsPrimaryAction = true
@@ -285,11 +263,10 @@ extension ProfileHeaderViewController {
         setupBottomShadow()
     }
     
-    override func viewLayoutMarginsDidChange() {
-        super.viewLayoutMarginsDidChange()
-        
-        let margin = view.frame.maxX - view.readableContentGuide.layoutFrame.maxX
-        pageSegmentedControlLeadingLayoutConstraint.constant = margin
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+
+        customizeButtonBarAppearance()
     }
     
 }
@@ -333,57 +310,6 @@ extension ProfileHeaderViewController {
             })
         }
     }
-}
-
-extension ProfileHeaderViewController {
-
-    @objc private func pageSegmentedControlValueChanged(_ sender: UISegmentedControl) {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: selectedSegmentIndex: %ld", ((#file as NSString).lastPathComponent), #line, #function, sender.selectedSegmentIndex)
-        delegate?.profileHeaderViewController(self, pageSegmentedControlValueChanged: sender, selectedSegmentIndex: sender.selectedSegmentIndex)
-    }
-    
-    // seealso: ProfileHeaderViewModel.setupProfileFieldCollectionViewDiffableDataSource(…)
-    @objc private func longPressReorderGestureHandler(_ sender: UILongPressGestureRecognizer) {
-        guard sender.view === profileHeaderView.fieldCollectionView else {
-            assertionFailure()
-            return
-        }
-        let collectionView = profileHeaderView.fieldCollectionView
-        switch(sender.state) {
-        case .began:
-            guard let selectedIndexPath = collectionView.indexPathForItem(at: sender.location(in: collectionView)),
-                  let cell = collectionView.cellForItem(at: selectedIndexPath) as? ProfileFieldCollectionViewCell else {
-                break
-            }
-            // check if pressing reorder bar no not
-            let locationInCell = sender.location(in: cell.reorderBarImageView)
-            guard cell.reorderBarImageView.bounds.contains(locationInCell) else {
-                return
-            }
-
-            collectionView.beginInteractiveMovementForItem(at: selectedIndexPath)
-        case .changed:
-            guard let selectedIndexPath = collectionView.indexPathForItem(at: sender.location(in: collectionView)),
-                  let diffableDataSource = viewModel.fieldDiffableDataSource else {
-                break
-            }
-            guard let item = diffableDataSource.itemIdentifier(for: selectedIndexPath),
-                  case .field = item else {
-                collectionView.cancelInteractiveMovement()
-                return
-            }
-
-            var position = sender.location(in: collectionView)
-            position.x = collectionView.frame.width * 0.5
-            collectionView.updateInteractiveMovementTargetPosition(position)
-        case .ended:
-            collectionView.endInteractiveMovement()
-            collectionView.reloadData()
-        default:
-            collectionView.cancelInteractiveMovement()
-        }
-    }
-    
 }
 
 extension ProfileHeaderViewController {
@@ -454,26 +380,23 @@ extension ProfileHeaderViewController {
         if viewModel.viewDidAppear.value {
             viewModel.isTitleViewContentOffsetSet.value = true
         }
-        
+                
         // set avatar fade
         if progress > 0 {
-            setProfileBannerFade(alpha: 0)
+            setProfileAvatar(alpha: 0)
         } else if progress > -abs(throttle) {
             // y = -(1/0.8T)x
             let alpha = -1 / abs(0.8 * throttle) * progress
-            setProfileBannerFade(alpha: alpha)
+            setProfileAvatar(alpha: alpha)
         } else {
-            setProfileBannerFade(alpha: 1)
+            setProfileAvatar(alpha: 1)
         }
     }
 
-    private func setProfileBannerFade(alpha: CGFloat) {
+    private func setProfileAvatar(alpha: CGFloat) {
         profileHeaderView.avatarImageViewBackgroundView.alpha = alpha
-        profileHeaderView.avatarImageView.alpha = alpha
+        profileHeaderView.avatarButton.alpha = alpha
         profileHeaderView.editAvatarBackgroundView.alpha = alpha
-        profileHeaderView.nameTextFieldBackgroundView.alpha = alpha
-        profileHeaderView.displayNameStackView.alpha = alpha
-        profileHeaderView.usernameLabel.alpha = alpha
     }
     
 }
@@ -485,8 +408,8 @@ extension ProfileHeaderViewController: MetaTextDelegate {
         
         switch metaText {
         case profileHeaderView.bioMetaText:
-            guard viewModel.isEditing.value else { break }
-            viewModel.editProfileInfo.note.value = metaText.backedString
+            guard viewModel.isEditing else { break }
+            viewModel.editProfileInfo.note = metaText.backedString
             let metaContent = PlaintextMetaContent(string: metaText.backedString)
             return metaContent
         default:
@@ -558,35 +481,7 @@ extension ProfileHeaderViewController: UIDocumentPickerDelegate {
 // MARK: - CropViewControllerDelegate
 extension ProfileHeaderViewController: CropViewControllerDelegate {
     public func cropViewController(_ cropViewController: CropViewController, didCropToImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
-        viewModel.editProfileInfo.avatarImageResource.value = .image(image)
+        viewModel.editProfileInfo.avatarImage = image
         cropViewController.dismiss(animated: true, completion: nil)
-    }
-}
-
-// MARK: - UICollectionViewDelegate
-extension ProfileHeaderViewController: UICollectionViewDelegate {
-
-}
-
-// MARK: - ProfileFieldCollectionViewCellDelegate
-extension ProfileHeaderViewController: ProfileFieldCollectionViewCellDelegate {
-
-    // should be remove style edit button
-    func profileFieldCollectionViewCell(_ cell: ProfileFieldCollectionViewCell, editButtonDidPressed button: UIButton) {
-        guard let diffableDataSource = viewModel.fieldDiffableDataSource else { return }
-        guard let indexPath = profileHeaderView.fieldCollectionView.indexPath(for: cell) else { return }
-        guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
-        viewModel.removeFieldItem(item: item)
-    }
-
-    func profileFieldCollectionViewCell(_ cell: ProfileFieldCollectionViewCell, metaLebel: MetaLabel, didSelectMeta meta: Meta) {
-        delegate?.profileHeaderViewController(self, profileFieldCollectionViewCell: cell, metaLabel: metaLebel, didSelectMeta: meta)
-    }
-}
-
-// MARK: - ProfileFieldAddEntryCollectionViewCellDelegate
-extension ProfileHeaderViewController: ProfileFieldAddEntryCollectionViewCellDelegate {
-    func ProfileFieldAddEntryCollectionViewCellDidPressed(_ cell: ProfileFieldAddEntryCollectionViewCell) {
-        viewModel.appendFieldItem()
     }
 }

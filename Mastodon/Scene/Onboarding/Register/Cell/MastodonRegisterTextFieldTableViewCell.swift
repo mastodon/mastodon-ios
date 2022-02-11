@@ -8,6 +8,8 @@
 import UIKit
 import Combine
 import MastodonUI
+import MastodonAsset
+import MastodonLocalization
 
 final class MastodonRegisterTextFieldTableViewCell: UITableViewCell {
     

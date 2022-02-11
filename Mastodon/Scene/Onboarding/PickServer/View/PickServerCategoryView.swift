@@ -7,6 +7,8 @@
 
 import UIKit
 import MastodonSDK
+import MastodonAsset
+import MastodonLocalization
 
 class PickServerCategoryView: UIView {
     

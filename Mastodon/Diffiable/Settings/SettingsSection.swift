@@ -8,19 +8,21 @@
 import UIKit
 import CoreData
 import CoreDataStack
+import MastodonAsset
+import MastodonLocalization
 
 enum SettingsSection: Hashable {
     case appearance
-    case notifications
     case preference
+    case notifications
     case boringZone
     case spicyZone
     
     var title: String {
         switch self {
-        case .appearance:           return L10n.Scene.Settings.Section.Appearance.title
+        case .appearance:           return "Look and Feel"      // TODO: i18n
+        case .preference:           return ""
         case .notifications:        return L10n.Scene.Settings.Section.Notifications.title
-        case .preference:           return L10n.Scene.Settings.Section.Preference.title
         case .boringZone:           return L10n.Scene.Settings.Section.BoringZone.title
         case .spicyZone:            return L10n.Scene.Settings.Section.SpicyZone.title
         }
@@ -39,25 +41,38 @@ extension SettingsSection {
             weak settingsToggleCellDelegate
         ] tableView, indexPath, item -> UITableViewCell? in
             switch item {
-            case .appearance(let objectID):
+            case .appearance(let record):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SettingsAppearanceTableViewCell.self), for: indexPath) as! SettingsAppearanceTableViewCell
-                UserDefaults.shared.observe(\.customUserInterfaceStyle, options: [.initial, .new]) { [weak cell] defaults, _ in
-                    guard let cell = cell else { return }
-                    switch defaults.customUserInterfaceStyle {
-                    case .unspecified:          cell.update(with: .automatic)
-                    case .dark:                 cell.update(with: .dark)
-                    case .light:                cell.update(with: .light)
-                    @unknown default:
-                        assertionFailure()
-                    }
+                managedObjectContext.performAndWait {
+                    guard let setting = record.object(in: managedObjectContext) else { return }
+                    cell.configure(setting: setting)
                 }
-                .store(in: &cell.observations)
                 cell.delegate = settingsAppearanceTableViewCellDelegate
                 return cell
-            case .notification(let objectID, let switchMode):
+            case .preference(let record, _):
+                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SettingsToggleTableViewCell.self), for: indexPath) as! SettingsToggleTableViewCell
+                cell.delegate = settingsToggleCellDelegate
+                managedObjectContext.performAndWait {
+                    guard let setting = record.object(in: managedObjectContext) else { return }
+                    SettingsSection.configureSettingToggle(cell: cell, item: item, setting: setting)
+                    
+                    ManagedObjectObserver.observe(object: setting)
+                        .receive(on: DispatchQueue.main)
+                        .sink(receiveCompletion: { _ in
+                            // do nothing
+                        }, receiveValue: { [weak cell] change in
+                            guard let cell = cell else { return }
+                            guard case .update(let object) = change.changeType,
+                                  let setting = object as? Setting else { return }
+                            SettingsSection.configureSettingToggle(cell: cell, item: item, setting: setting)
+                        })
+                        .store(in: &cell.disposeBag)
+                }
+                return cell
+            case .notification(let record, let switchMode):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SettingsToggleTableViewCell.self), for: indexPath) as! SettingsToggleTableViewCell
                 managedObjectContext.performAndWait {
-                    let setting = managedObjectContext.object(with: objectID) as! Setting
+                    guard let setting = record.object(in: managedObjectContext) else { return }
                     if let subscription = setting.activeSubscription {
                         SettingsSection.configureSettingToggle(cell: cell, switchMode: switchMode, subscription: subscription)
                     }
@@ -75,32 +90,12 @@ extension SettingsSection {
                 }
                 cell.delegate = settingsToggleCellDelegate
                 return cell
-            case .preference(let objectID, _):
-                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SettingsToggleTableViewCell.self), for: indexPath) as! SettingsToggleTableViewCell
-                cell.delegate = settingsToggleCellDelegate
-                managedObjectContext.performAndWait {
-                    let setting = managedObjectContext.object(with: objectID) as! Setting
-                    SettingsSection.configureSettingToggle(cell: cell, item: item, setting: setting)
-
-                    ManagedObjectObserver.observe(object: setting)
-                        .receive(on: DispatchQueue.main)
-                        .sink(receiveCompletion: { _ in
-                            // do nothing
-                        }, receiveValue: { [weak cell] change in
-                            guard let cell = cell else { return }
-                            guard case .update(let object) = change.changeType,
-                                  let setting = object as? Setting else { return }
-                            SettingsSection.configureSettingToggle(cell: cell, item: item, setting: setting)
-                        })
-                        .store(in: &cell.disposeBag)
-                }
-                return cell
             case .boringZone(let item),
                  .spicyZone(let item):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SettingsLinkTableViewCell.self), for: indexPath) as! SettingsLinkTableViewCell
                 cell.update(with: item)
                 return cell
-            }
+            }   // end switch
         }
     }
 }
@@ -117,8 +112,6 @@ extension SettingsSection {
         cell.textLabel?.text = preferenceType.title
 
         switch preferenceType {
-        case .darkMode:
-            cell.switchButton.isOn = setting.preferredTrueBlackDarkMode
         case .disableAvatarAnimation:
             cell.switchButton.isOn = setting.preferredStaticAvatar
         case .disableEmojiAnimation:

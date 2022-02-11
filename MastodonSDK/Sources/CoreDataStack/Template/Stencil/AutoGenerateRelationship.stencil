@@ -1,0 +1,29 @@
+{% for type in types.implementing.AutoGenerateRelationship %}
+// sourcery:inline:{{type.name}}.AutoGenerateRelationship
+
+// Generated using Sourcery
+// DO NOT EDIT
+public struct Relationship {
+	{% for variable in type.storedVariables|annotated:"autoGenerateRelationship" %}
+	public let {{variable.name}}: {{variable.typeName}}
+	{% endfor %}
+
+	public init(
+		{% for variable in type.storedVariables|annotated:"autoGenerateRelationship" %}
+		{{variable.name}}: {{variable.typeName}}{% if not forloop.last %},{% endif %}
+		{% endfor %}
+	) {
+		{% for variable in type.storedVariables|annotated:"autoGenerateRelationship" %}
+		self.{{variable.name}} = {{variable.name}}
+		{% endfor %}
+	}
+}
+
+public func configure(relationship: Relationship) {
+	{% for variable in type.storedVariables|annotated:"autoGenerateRelationship" %}
+	self.{{variable.name}} = relationship.{{variable.name}}
+	{% endfor %}
+}
+
+// sourcery:end
+{% endfor %}

@@ -56,15 +56,6 @@
         }
       },
       {
-        "package": "FLAnimatedImage",
-        "repositoryURL": "https://github.com/Flipboard/FLAnimatedImage",
-        "state": {
-          "branch": null,
-          "revision": "e7f9fd4681ae41bf6f3056db08af4f401d61da52",
-          "version": "1.0.16"
-        }
-      },
-      {
         "package": "FPSIndicator",
         "repositoryURL": "https://github.com/MainasuK/FPSIndicator.git",
         "state": {
@@ -96,8 +87,8 @@
         "repositoryURL": "https://github.com/TwidereProject/MetaTextKit.git",
         "state": {
           "branch": null,
-          "revision": "7af4182f64329440a4656f2cba307cb5848e496a",
-          "version": "2.1.2"
+          "revision": "3ea336d3de7938dc112084c596a646e697b0feee",
+          "version": "2.2.1"
         }
       },
       {
@@ -141,8 +132,8 @@
         "repositoryURL": "https://github.com/SDWebImage/SDWebImage.git",
         "state": {
           "branch": null,
-          "revision": "0fff0d7505b5306348263ea64fcc561253bbeb21",
-          "version": "5.12.2"
+          "revision": "2c53f531f1bedd253f55d85105409c28ed4a922c",
+          "version": "5.12.3"
         }
       },
       {
@@ -195,8 +186,8 @@
         "repositoryURL": "https://github.com/uias/Tabman",
         "state": {
           "branch": null,
-          "revision": "f43489cdd743ba7ad86a422ebb5fcbf34e333df4",
-          "version": "2.11.1"
+          "revision": "a9f10cb862a32e6a22549836af013abd6b0692d3",
+          "version": "2.12.0"
         }
       },
       {
@@ -213,8 +204,8 @@
         "repositoryURL": "https://github.com/TimOliver/TOCropViewController.git",
         "state": {
           "branch": null,
-          "revision": "dad97167bf1be16aeecd109130900995dd01c515",
-          "version": "2.6.0"
+          "revision": "d0470491f56e734731bbf77991944c0dfdee3e0e",
+          "version": "2.6.1"
         }
       }
     ]

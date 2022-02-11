@@ -7,6 +7,8 @@
 
 import Foundation
 import MastodonSDK
+import MastodonAsset
+import MastodonLocalization
 
 /// Note: update Equatable when change case
 enum CategoryPickerItem {

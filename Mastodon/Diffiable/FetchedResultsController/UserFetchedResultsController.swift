@@ -11,6 +11,7 @@ import Combine
 import CoreData
 import CoreDataStack
 import MastodonSDK
+import MastodonUI
 
 final class UserFetchedResultsController: NSObject {
 
@@ -19,14 +20,15 @@ final class UserFetchedResultsController: NSObject {
     let fetchedResultsController: NSFetchedResultsController<MastodonUser>
 
     // input
-    let domain = CurrentValueSubject<String?, Never>(nil)
-    let userIDs = CurrentValueSubject<[Mastodon.Entity.Account.ID], Never>([])
+    @Published var domain: String? = nil
+    @Published var userIDs: [Mastodon.Entity.Account.ID] = []
 
     // output
-    let objectIDs = CurrentValueSubject<[NSManagedObjectID], Never>([])
+    let _objectIDs = CurrentValueSubject<[NSManagedObjectID], Never>([])
+    @Published var records: [ManagedObjectRecord<MastodonUser>] = []
 
     init(managedObjectContext: NSManagedObjectContext, domain: String?, additionalTweetPredicate: NSPredicate?) {
-        self.domain.value = domain ?? ""
+        self.domain = domain ?? ""
         self.fetchedResultsController = {
             let fetchRequest = MastodonUser.sortedFetchRequest
             fetchRequest.predicate = MastodonUser.predicate(domain: domain ?? "", ids: [])
@@ -42,12 +44,18 @@ final class UserFetchedResultsController: NSObject {
             return controller
         }()
         super.init()
+        
+        // debounce output to prevent UI update issues
+        _objectIDs
+            .throttle(for: 0.1, scheduler: DispatchQueue.main, latest: true)
+            .map { objectIDs in objectIDs.map { ManagedObjectRecord(objectID: $0) } }
+            .assign(to: &$records)
 
         fetchedResultsController.delegate = self
 
         Publishers.CombineLatest(
-            self.domain.removeDuplicates().eraseToAnyPublisher(),
-            self.userIDs.removeDuplicates().eraseToAnyPublisher()
+            self.$domain.removeDuplicates(),
+            self.$userIDs.removeDuplicates()
         )
         .receive(on: DispatchQueue.main)
         .sink { [weak self] domain, ids in
@@ -68,12 +76,24 @@ final class UserFetchedResultsController: NSObject {
 
 }
 
+extension UserFetchedResultsController {
+    
+    public func append(userIDs: [Mastodon.Entity.Account.ID]) {
+        var result = self.userIDs
+        for userID in userIDs where !result.contains(userID) {
+            result.append(userID)
+        }
+        self.userIDs = result
+    }
+    
+}
+
 // MARK: - NSFetchedResultsControllerDelegate
 extension UserFetchedResultsController: NSFetchedResultsControllerDelegate {
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChangeContentWith snapshot: NSDiffableDataSourceSnapshotReference) {
         os_log("%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
 
-        let indexes = userIDs.value
+        let indexes = userIDs
         let objects = fetchedResultsController.fetchedObjects ?? []
 
         let items: [NSManagedObjectID] = objects
@@ -82,6 +102,6 @@ extension UserFetchedResultsController: NSFetchedResultsControllerDelegate {
             }
             .sorted { $0.0 < $1.0 }
             .map { $0.1.objectID }
-        self.objectIDs.value = items
+        self._objectIDs.value = items
     }
 }

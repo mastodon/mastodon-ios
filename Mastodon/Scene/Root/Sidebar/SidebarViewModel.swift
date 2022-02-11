@@ -11,6 +11,8 @@ import CoreData
 import CoreDataStack
 import Meta
 import MastodonMeta
+import MastodonAsset
+import MastodonLocalization
 
 final class SidebarViewModel {
     

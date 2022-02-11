@@ -7,6 +7,8 @@
 
 import Foundation
 import MastodonSDK
+import MastodonAsset
+import MastodonLocalization
 
 extension Mastodon.API.Subscriptions.Policy {
     var title: String {

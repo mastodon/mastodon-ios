@@ -7,6 +7,8 @@
 
 import Foundation
 import Combine
+import MastodonAsset
+import MastodonLocalization
 
 enum ComposeStatusPollItem {
     case pollOption(attribute: PollOptionAttribute)

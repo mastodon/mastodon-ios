@@ -11,6 +11,10 @@ import CryptoKit
 import KeychainAccess
 import Keys
 
+enum AppName {
+    public static let groupID = "group.org.joinmastodon.app"
+}
+
 public final class AppSecret {
     
     public static let keychain = Keychain(service: "org.joinmastodon.app.keychain", accessGroup: AppName.groupID)

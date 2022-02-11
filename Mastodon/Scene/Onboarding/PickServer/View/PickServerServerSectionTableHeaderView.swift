@@ -8,6 +8,8 @@
 import os.log
 import UIKit
 import Tabman
+import MastodonAsset
+import MastodonLocalization
 
 protocol PickServerServerSectionTableHeaderViewDelegate: AnyObject {
     func pickServerServerSectionTableHeaderView(_ headerView: PickServerServerSectionTableHeaderView, collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)

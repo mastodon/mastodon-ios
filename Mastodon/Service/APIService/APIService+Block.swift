@@ -14,184 +14,99 @@ import MastodonSDK
 
 extension APIService {
     
+    private struct MastodonBlockContext {
+        let sourceUserID: MastodonUser.ID
+        let targetUserID: MastodonUser.ID
+        let targetUsername: String
+        let isBlocking: Bool
+        let isFollowing: Bool
+    }
+    
     func toggleBlock(
-        for mastodonUser: MastodonUser,
-        activeMastodonAuthenticationBox: MastodonAuthenticationBox
-    ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Relationship>, Error> {
-        let impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .light)
-        let notificationFeedbackGenerator = UINotificationFeedbackGenerator()
+        user: ManagedObjectRecord<MastodonUser>,
+        authenticationBox: MastodonAuthenticationBox
+    ) async throws -> Mastodon.Response.Content<Mastodon.Entity.Relationship> {
+        let logger = Logger(subsystem: "APIService", category: "Block")
         
-        return blockUpdateLocal(
-            mastodonUserObjectID: mastodonUser.objectID,
-            mastodonAuthenticationBox: activeMastodonAuthenticationBox
-        )
-        .receive(on: DispatchQueue.main)
-        .handleEvents { _ in
-            impactFeedbackGenerator.prepare()
-        } receiveOutput: { _ in
-            impactFeedbackGenerator.impactOccurred()
-        } receiveCompletion: { completion in
-            switch completion {
-            case .failure(let error):
-                // TODO: handle error
-                os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: [Relationship] local relationship update fail", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
-                assertionFailure(error.localizedDescription)
-            case .finished:
-                os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: [Relationship] local relationship update success", ((#file as NSString).lastPathComponent), #line, #function)
-            break
+        let managedObjectContext = backgroundManagedObjectContext
+        let blockContext: MastodonBlockContext = try await managedObjectContext.performChanges {
+            guard let user = user.object(in: managedObjectContext),
+                  let authentication = authenticationBox.authenticationRecord.object(in: managedObjectContext)
+            else {
+                throw APIError.implicit(.badRequest)
             }
-        }
-        .flatMap { blockQueryType, mastodonUserID -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Relationship>, Error> in
-            return self.blockUpdateRemote(
-                blockQueryType: blockQueryType,
-                mastodonUserID: mastodonUserID,
-                mastodonAuthenticationBox: activeMastodonAuthenticationBox
+            let me = authentication.user
+            let isBlocking = user.blockingBy.contains(me)
+            let isFollowing = user.followingBy.contains(me)
+            // toggle block state
+            user.update(isBlocking: !isBlocking, by: me)
+            // update follow state implicitly
+            if !isBlocking {
+                // will do block action. set to unfollow
+                user.update(isFollowing: false, by: me)
+            }
+            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [Local] update user[\(user.id)](\(user.username)) block state: \(!isBlocking)")
+            return MastodonBlockContext(
+                sourceUserID: me.id,
+                targetUserID: user.id,
+                targetUsername: user.username,
+                isBlocking: isBlocking,
+                isFollowing: isFollowing
             )
         }
-        .receive(on: DispatchQueue.main)
-        .handleEvents(receiveCompletion: { [weak self] completion in
-            guard let self = self else { return }
-            switch completion {
-            case .failure(let error):
-                os_log("%{public}s[%{public}ld], %{public}s: [Relationship] remote friendship update fail: %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
-                // TODO: handle error
-
-                // rollback
-
-                self.blockUpdateLocal(
-                    mastodonUserObjectID: mastodonUser.objectID,
-                    mastodonAuthenticationBox: activeMastodonAuthenticationBox
-                )
-                .sink { completion in
-                    os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: [Friendship] rollback finish", ((#file as NSString).lastPathComponent), #line, #function)
-                } receiveValue: { _ in
-                    // do nothing
-                    notificationFeedbackGenerator.prepare()
-                    notificationFeedbackGenerator.notificationOccurred(.error)
-                }
-                .store(in: &self.disposeBag)
-
-            case .finished:
-                notificationFeedbackGenerator.notificationOccurred(.success)
-                os_log("%{public}s[%{public}ld], %{public}s: [Friendship] remote friendship update success", ((#file as NSString).lastPathComponent), #line, #function)
-            }
-        })
-        .eraseToAnyPublisher()
-    }
-    
-}
-
-extension APIService {
-    
-    // update database local and return block query update type for remote request
-    func blockUpdateLocal(
-        mastodonUserObjectID: NSManagedObjectID,
-        mastodonAuthenticationBox: MastodonAuthenticationBox
-    ) -> AnyPublisher<(Mastodon.API.Account.BlockQueryType, MastodonUser.ID), Error> {
-        let domain = mastodonAuthenticationBox.domain
-        let requestMastodonUserID = mastodonAuthenticationBox.userID
         
-        var _targetMastodonUserID: MastodonUser.ID?
-        var _queryType: Mastodon.API.Account.BlockQueryType?
-        let managedObjectContext = backgroundManagedObjectContext
-        
-        return managedObjectContext.performChanges {
-            let request = MastodonUser.sortedFetchRequest
-            request.predicate = MastodonUser.predicate(domain: domain, id: requestMastodonUserID)
-            request.fetchLimit = 1
-            request.returnsObjectsAsFaults = false
-            guard let _requestMastodonUser = managedObjectContext.safeFetch(request).first else {
-                assertionFailure()
-                return
+        let result: Result<Mastodon.Response.Content<Mastodon.Entity.Relationship>, Error>
+        do {
+            if blockContext.isBlocking {
+                let response = try await Mastodon.API.Account.unblock(
+                    session: session,
+                    domain: authenticationBox.domain,
+                    accountID: blockContext.targetUserID,
+                    authorization: authenticationBox.userAuthorization
+                ).singleOutput()
+                result = .success(response)
+            } else {
+                let response = try await Mastodon.API.Account.block(
+                    session: session,
+                    domain: authenticationBox.domain,
+                    accountID: blockContext.targetUserID,
+                    authorization: authenticationBox.userAuthorization
+                ).singleOutput()
+                result = .success(response)
             }
-            
-            let mastodonUser = managedObjectContext.object(with: mastodonUserObjectID) as! MastodonUser
-            _targetMastodonUserID = mastodonUser.id
-            
-            let isBlocking = (mastodonUser.blockingBy ?? Set()).contains(_requestMastodonUser)
-            _queryType = isBlocking ? .unblock : .block
-            mastodonUser.update(isBlocking: !isBlocking, by: _requestMastodonUser)
+        } catch {
+            result = .failure(error)
+            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [Remote] update user[\(blockContext.targetUserID)](\(blockContext.targetUsername)) block failure: \(error.localizedDescription)")
         }
-        .tryMap { result in
+        
+        try await managedObjectContext.performChanges {
+            guard let user = user.object(in: managedObjectContext),
+                  let authentication = authenticationBox.authenticationRecord.object(in: managedObjectContext)
+            else { return }
+            let me = authentication.user
+            
             switch result {
-            case .success:
-                guard let targetMastodonUserID = _targetMastodonUserID,
-                      let queryType = _queryType else {
-                    throw APIError.implicit(.badRequest)
-                }
-                return (queryType, targetMastodonUserID)
-                
-            case .failure(let error):
-                assertionFailure(error.localizedDescription)
-                throw error
+            case .success(let response):
+                let relationship = response.value
+                Persistence.MastodonUser.update(
+                    mastodonUser: user,
+                    context: Persistence.MastodonUser.RelationshipContext(
+                        entity: relationship,
+                        me: me,
+                        networkDate: response.networkDate
+                    )
+                )
+                logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [Remote] update user[\(blockContext.targetUserID)](\(blockContext.targetUsername)) block state: \(relationship.blocking)")
+            case .failure:
+                // rollback
+                user.update(isBlocking: blockContext.isBlocking, by: me)
+                user.update(isFollowing: blockContext.isFollowing, by: me)
+                logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [Remote] rollback user[\(blockContext.targetUserID)](\(blockContext.targetUsername)) block state")
             }
         }
-        .eraseToAnyPublisher()
-    }
-    
-    func blockUpdateRemote(
-        blockQueryType: Mastodon.API.Account.BlockQueryType,
-        mastodonUserID: MastodonUser.ID,
-        mastodonAuthenticationBox: MastodonAuthenticationBox
-    ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Relationship>, Error> {
-        let domain = mastodonAuthenticationBox.domain
-        let authorization = mastodonAuthenticationBox.userAuthorization
-        let requestMastodonUserID = mastodonAuthenticationBox.userID
-
-        return Mastodon.API.Account.block(
-            session: session,
-            domain: domain,
-            accountID: mastodonUserID,
-            blockQueryType: blockQueryType,
-            authorization: authorization
-        )
-        .flatMap { response -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Relationship>, Error> in
-            let managedObjectContext = self.backgroundManagedObjectContext
-            return managedObjectContext.performChanges {
-                let requestMastodonUserRequest = MastodonUser.sortedFetchRequest
-                requestMastodonUserRequest.predicate = MastodonUser.predicate(domain: domain, id: requestMastodonUserID)
-                requestMastodonUserRequest.fetchLimit = 1
-                guard let requestMastodonUser = managedObjectContext.safeFetch(requestMastodonUserRequest).first else { return }
-
-                let lookUpMastodonUserRequest = MastodonUser.sortedFetchRequest
-                lookUpMastodonUserRequest.predicate = MastodonUser.predicate(domain: domain, id: mastodonUserID)
-                lookUpMastodonUserRequest.fetchLimit = 1
-                let lookUpMastodonUser = managedObjectContext.safeFetch(lookUpMastodonUserRequest).first
-
-                if let lookUpMastodonUser = lookUpMastodonUser {
-                    let entity = response.value
-                    APIService.CoreData.update(user: lookUpMastodonUser, entity: entity, requestMastodonUser: requestMastodonUser, domain: domain, networkDate: response.networkDate)
-                }
-            }
-            .tryMap { result -> Mastodon.Response.Content<Mastodon.Entity.Relationship> in
-                switch result {
-                case .success:
-                    return response
-                case .failure(let error):
-                    throw error
-                }
-            }
-            .eraseToAnyPublisher()
-        }
-        .handleEvents(receiveCompletion: { [weak self] completion in
-            guard let _ = self else { return }
-            switch completion {
-            case .failure(let error):
-                // TODO: handle error in banner
-                os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: [Relationship] block update fail: %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
-
-            case .finished:
-                // TODO: update relationship
-                switch blockQueryType {
-                case .block:
-                    break
-                case .unblock:
-                    break
-                }
-            }
-        })
-        .eraseToAnyPublisher()
+        
+        let response = try result.get()
+        return response
     }
     
 }
-

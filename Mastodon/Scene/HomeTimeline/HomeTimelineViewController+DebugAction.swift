@@ -66,10 +66,6 @@ extension HomeTimelineViewController {
                     guard let self = self else { return }
                     self.showAccountList(action)
                 },
-                UIAction(title: "Public Timeline", image: UIImage(systemName: "list.dash"), attributes: []) { [weak self] action in
-                    guard let self = self else { return }
-                    self.showPublicTimelineAction(action)
-                },
                 UIAction(title: "Profile", image: UIImage(systemName: "person.crop.circle"), attributes: []) { [weak self] action in
                     guard let self = self else { return }
                     self.showProfileAction(action)
@@ -78,50 +74,20 @@ extension HomeTimelineViewController {
                     guard let self = self else { return }
                     self.showThreadAction(action)
                 },
+                UIAction(title: "Account Recommend", image: UIImage(systemName: "human"), attributes: []) { [weak self] action in
+                    guard let self = self else { return }
+                    let suggestionAccountViewModel = SuggestionAccountViewModel(context: self.context)
+                    self.coordinator.present(
+                        scene: .suggestionAccount(viewModel: suggestionAccountViewModel),
+                        from: self,
+                        transition: .modal(animated: true, completion: nil)
+                    )
+                },
                 UIAction(title: "Store Rating", image: UIImage(systemName: "star.fill"), attributes: []) { [weak self] action in
                     guard let self = self else { return }
                     guard let windowScene = self.view.window?.windowScene else { return }
                     SKStoreReviewController.requestReview(in: windowScene)
                 },
-            ]
-        )
-    }
-    
-    var moveMenu: UIMenu {
-        return UIMenu(
-            title: "Move to…",
-            image: UIImage(systemName: "arrow.forward.circle"),
-            identifier: nil,
-            options: [],
-            children: [
-                UIAction(title: "First Gap", image: nil, attributes: [], handler: { [weak self] action in
-                    guard let self = self else { return }
-                    self.moveToTopGapAction(action)
-                }),
-                UIAction(title: "First Replied Status", image: nil, attributes: [], handler: { [weak self] action in
-                    guard let self = self else { return }
-                    self.moveToFirstRepliedStatus(action)
-                }),
-                UIAction(title: "First Reblog Status", image: nil, attributes: [], handler: { [weak self] action in
-                    guard let self = self else { return }
-                    self.moveToFirstReblogStatus(action)
-                }),
-                UIAction(title: "First Poll Status", image: nil, attributes: [], handler: { [weak self] action in
-                    guard let self = self else { return }
-                    self.moveToFirstPollStatus(action)
-                }),
-                UIAction(title: "First Audio Status", image: nil, attributes: [], handler: { [weak self] action in
-                    guard let self = self else { return }
-                    self.moveToFirstAudioStatus(action)
-                }),
-                UIAction(title: "First Video Status", image: nil, attributes: [], handler: { [weak self] action in
-                    guard let self = self else { return }
-                    self.moveToFirstVideoStatus(action)
-                }),
-                UIAction(title: "First GIF status", image: nil, attributes: [], handler: { [weak self] action in
-                    guard let self = self else { return }
-                    self.moveToFirstGIFStatus(action)
-                }),
             ]
         )
     }
@@ -157,19 +123,6 @@ extension HomeTimelineViewController {
                     }
                 },
                 UIAction(
-                    title: "Notification badge +1",
-                    image: UIImage(systemName: "1.circle.fill"),
-                    identifier: nil,
-                    attributes: [],
-                    state: .off,
-                    handler: { [weak self] _ in
-                        guard let self = self else { return }
-                        guard let accessToken = self.context.authenticationService.activeMastodonAuthentication.value?.userAccessToken else { return }
-                        UserDefaults.shared.increaseNotificationCount(accessToken: accessToken)
-                        self.context.notificationService.applicationIconBadgeNeedsUpdate.send()
-                    }
-                ),
-                UIAction(
                     title: "Enable account switcher wizard",
                     image: UIImage(systemName: "square.stack.3d.down.forward.fill"),
                     identifier: nil,
@@ -190,6 +143,12 @@ extension HomeTimelineViewController {
             identifier: nil,
             options: [],
             children: [
+                UIAction(title: "Badge +1", image: UIImage(systemName: "app.badge.fill"), attributes: []) { [weak self] action in
+                    guard let self = self else { return }
+                    guard let accessToken = self.context.authenticationService.activeMastodonAuthentication.value?.userAccessToken else { return }
+                    UserDefaults.shared.increaseNotificationCount(accessToken: accessToken)
+                    self.context.notificationService.applicationIconBadgeNeedsUpdate.send()
+                },
                 UIAction(title: "Profile", image: UIImage(systemName: "person.badge.plus"), attributes: []) { [weak self] action in
                     guard let self = self else { return }
                     self.showNotification(action, notificationType: .follow)
@@ -206,190 +165,130 @@ extension HomeTimelineViewController {
 
 extension HomeTimelineViewController {
     
-    @objc private func showFLEXAction(_ sender: UIAction) {
-        FLEXManager.shared.showExplorer()
-    }
-    
-    @objc private func moveToTopGapAction(_ sender: UIAction) {
-        guard let diffableDataSource = viewModel.diffableDataSource else { return }
-        let snapshotTransitioning = diffableDataSource.snapshot()
-        let item = snapshotTransitioning.itemIdentifiers.first(where: { item in
-            switch item {
-            case .homeMiddleLoader:         return true
-            default:                        return false
-            }
-        })
-        if let targetItem = item, let index = snapshotTransitioning.indexOfItem(targetItem) {
-            tableView.scrollToRow(at: IndexPath(row: index, section: 0), at: .middle, animated: true)
+    enum MoveAction: String, CaseIterable {
+        case gap
+        case reply
+        case mention
+        case poll
+//        case quote
+//        case gif
+//        case video
+//        case location
+//        case followsYouAuthor
+//        case blockingAuthor
+        
+        var title: String {
+            return rawValue.capitalized
         }
-    }
-    
-    @objc private func moveToFirstReblogStatus(_ sender: UIAction) {
-        guard let diffableDataSource = viewModel.diffableDataSource else { return }
-        let snapshotTransitioning = diffableDataSource.snapshot()
-        let item = snapshotTransitioning.itemIdentifiers.first(where: { item in
+        
+        func match(item: StatusItem) -> Bool {
+            let authenticationBox = AppContext.shared.authenticationService.activeMastodonAuthenticationBox.value
             switch item {
-            case .homeTimelineIndex(let objectID, _):
-                let homeTimelineIndex = viewModel.fetchedResultsController.managedObjectContext.object(with: objectID) as! HomeTimelineIndex
-                return homeTimelineIndex.status.reblog != nil
-            default:
-                return false
-            }
-        })
-        if let targetItem = item, let index = snapshotTransitioning.indexOfItem(targetItem) {
-            tableView.scrollToRow(at: IndexPath(row: index, section: 0), at: .middle, animated: true)
-            tableView.blinkRow(at: IndexPath(row: index, section: 0))
-        } else {
-            print("Not found reblog status")
-        }
-    }
-    
-    @objc private func moveToFirstPollStatus(_ sender: UIAction) {
-        guard let diffableDataSource = viewModel.diffableDataSource else { return }
-        let snapshotTransitioning = diffableDataSource.snapshot()
-        let item = snapshotTransitioning.itemIdentifiers.first(where: { item in
-            switch item {
-            case .homeTimelineIndex(let objectID, _):
-                let homeTimelineIndex = viewModel.fetchedResultsController.managedObjectContext.object(with: objectID) as! HomeTimelineIndex
-                let post = homeTimelineIndex.status.reblog ?? homeTimelineIndex.status
-                return post.poll != nil
-            default:
-                return false
-            }
-        })
-        if let targetItem = item, let index = snapshotTransitioning.indexOfItem(targetItem) {
-            tableView.scrollToRow(at: IndexPath(row: index, section: 0), at: .middle, animated: true)
-            tableView.blinkRow(at: IndexPath(row: index, section: 0))
-        } else {
-            print("Not found poll status")
-        }
-    }
-    
-    @objc private func moveToFirstRepliedStatus(_ sender: UIAction) {
-        guard let diffableDataSource = viewModel.diffableDataSource else { return }
-        let snapshotTransitioning = diffableDataSource.snapshot()
-        let item = snapshotTransitioning.itemIdentifiers.first(where: { item in
-            switch item {
-            case .homeTimelineIndex(let objectID, _):
-                let homeTimelineIndex = viewModel.fetchedResultsController.managedObjectContext.object(with: objectID) as! HomeTimelineIndex
-                guard homeTimelineIndex.status.inReplyToID != nil else {
+            case .feed(let record):
+                guard let feed = record.object(in: AppContext.shared.managedObjectContext) else { return false }
+                if let status = feed.status {
+                    switch self {
+                    case .gap:
+                        return false
+                    case .reply:
+                        return status.inReplyToID != nil
+                    case .mention:
+                        return !(status.reblog ?? status).mentions.isEmpty
+                    case .poll:
+                        return (status.reblog ?? status).poll != nil
+//                    case .quote:
+//                        return status.quote != nil
+//                    case .gif:
+//                        return status.attachments.contains(where: { attachment in attachment.kind == .animatedGIF })
+//                    case .video:
+//                        return status.attachments.contains(where: { attachment in attachment.kind == .video })
+//                    case .location:
+//                        return status.location != nil
+//                    case .followsYouAuthor:
+//                        guard case let .twitter(authenticationContext) = authenticationContext else { return false }
+//                        guard let me = authenticationContext.authenticationRecord.object(in: AppContext.shared.managedObjectContext)?.user else { return false }
+//                        return (status.repost ?? status).author.following.contains(me)
+//                    case .blockingAuthor:
+//                        guard case let .twitter(authenticationContext) = authenticationContext else { return false }
+//                        guard let me = authenticationContext.authenticationRecord.object(in: AppContext.shared.managedObjectContext)?.user else { return false }
+//                        return (status.repost ?? status).author.blockingBy.contains(me)
+//                    default:
+//                        return false
+                    }   // end switch
+                } else {
                     return false
                 }
+            case .feedLoader where self == .gap:
                 return true
             default:
                 return false
             }
-        })
-        if let targetItem = item, let index = snapshotTransitioning.indexOfItem(targetItem) {
-            tableView.scrollToRow(at: IndexPath(row: index, section: 0), at: .middle, animated: true)
-            tableView.blinkRow(at: IndexPath(row: index, section: 0))
-        } else {
-            print("Not found replied status")
+        }
+        
+        func firstMatch(in items: [StatusItem]) -> StatusItem? {
+            return items.first { item in self.match(item: item) }
         }
     }
     
-    @objc private func moveToFirstAudioStatus(_ sender: UIAction) {
-        guard let diffableDataSource = viewModel.diffableDataSource else { return }
-        let snapshotTransitioning = diffableDataSource.snapshot()
-        let item = snapshotTransitioning.itemIdentifiers.first(where: { item in
-            switch item {
-            case .homeTimelineIndex(let objectID, _):
-                let homeTimelineIndex = viewModel.fetchedResultsController.managedObjectContext.object(with: objectID) as! HomeTimelineIndex
-                let status = homeTimelineIndex.status.reblog ?? homeTimelineIndex.status
-                return status.mediaAttachments?.contains(where: { $0.type == .audio }) ?? false
-            default:
-                return false
-            }
-        })
-        if let targetItem = item, let index = snapshotTransitioning.indexOfItem(targetItem) {
-            tableView.scrollToRow(at: IndexPath(row: index, section: 0), at: .middle, animated: true)
-            tableView.blinkRow(at: IndexPath(row: index, section: 0))
-        } else {
-            print("Not found audio status")
-        }
+    var moveMenu: UIMenu {
+        return UIMenu(
+            title: "Move to…",
+            image: UIImage(systemName: "arrow.forward.circle"),
+            identifier: nil,
+            options: [],
+            children:
+                MoveAction.allCases.map { moveAction in
+                    UIAction(title: "First \(moveAction.title)", image: nil, attributes: []) { [weak self] action in
+                        guard let self = self else { return }
+                        self.moveToFirst(action, moveAction: moveAction)
+                    }
+                }
+        )
     }
     
-    @objc private func moveToFirstVideoStatus(_ sender: UIAction) {
+    private func moveToFirst(_ sender: UIAction, moveAction: MoveAction) {
         guard let diffableDataSource = viewModel.diffableDataSource else { return }
-        let snapshotTransitioning = diffableDataSource.snapshot()
-        let item = snapshotTransitioning.itemIdentifiers.first(where: { item in
-            switch item {
-            case .homeTimelineIndex(let objectID, _):
-                let homeTimelineIndex = viewModel.fetchedResultsController.managedObjectContext.object(with: objectID) as! HomeTimelineIndex
-                let status = homeTimelineIndex.status.reblog ?? homeTimelineIndex.status
-                return status.mediaAttachments?.contains(where: { $0.type == .video }) ?? false
-            default:
-                return false
-            }
-        })
-        if let targetItem = item, let index = snapshotTransitioning.indexOfItem(targetItem) {
-            tableView.scrollToRow(at: IndexPath(row: index, section: 0), at: .middle, animated: true)
-            tableView.blinkRow(at: IndexPath(row: index, section: 0))
-        } else {
-            print("Not found video status")
-        }
+        let snapshot = diffableDataSource.snapshot()
+        let items = snapshot.itemIdentifiers
+        guard let targetItem = moveAction.firstMatch(in: items),
+              let index = snapshot.indexOfItem(targetItem)
+        else { return }
+        let indexPath = IndexPath(row: index, section: 0)
+        tableView.scrollToRow(at: indexPath, at: .middle, animated: true)
+        tableView.blinkRow(at: indexPath)
     }
     
-    @objc private func moveToFirstGIFStatus(_ sender: UIAction) {
-        guard let diffableDataSource = viewModel.diffableDataSource else { return }
-        let snapshotTransitioning = diffableDataSource.snapshot()
-        let item = snapshotTransitioning.itemIdentifiers.first(where: { item in
-            switch item {
-            case .homeTimelineIndex(let objectID, _):
-                let homeTimelineIndex = viewModel.fetchedResultsController.managedObjectContext.object(with: objectID) as! HomeTimelineIndex
-                let status = homeTimelineIndex.status.reblog ?? homeTimelineIndex.status
-                return status.mediaAttachments?.contains(where: { $0.type == .gifv }) ?? false
-            default:
-                return false
-            }
-        })
-        if let targetItem = item, let index = snapshotTransitioning.indexOfItem(targetItem) {
-            tableView.scrollToRow(at: IndexPath(row: index, section: 0), at: .middle, animated: true)
-            tableView.blinkRow(at: IndexPath(row: index, section: 0))
-        } else {
-            print("Not found GIF status")
-        }
+}
+
+extension HomeTimelineViewController {
+    
+    @objc private func showFLEXAction(_ sender: UIAction) {
+        FLEXManager.shared.showExplorer()
     }
     
     @objc private func dropRecentStatusAction(_ sender: UIAction, count: Int) {
         guard let diffableDataSource = viewModel.diffableDataSource else { return }
-        let snapshotTransitioning = diffableDataSource.snapshot()
+        let snapshot = diffableDataSource.snapshot()
         
-        let droppingObjectIDs = snapshotTransitioning.itemIdentifiers.prefix(count).compactMap { item -> NSManagedObjectID? in
+        let feedRecords = snapshot.itemIdentifiers.prefix(count).compactMap { item -> ManagedObjectRecord<Feed>? in
             switch item {
-            case .homeTimelineIndex(let objectID, _):   return objectID
+            case .feed(let record):                     return record
             default:                                    return nil
             }
         }
-        var droppingStatusObjectIDs: [NSManagedObjectID] = []
-        context.apiService.backgroundManagedObjectContext.performChanges { [weak self] in
-            guard let self = self else { return }
-            for objectID in droppingObjectIDs {
-                guard let homeTimelineIndex = try? self.context.apiService.backgroundManagedObjectContext.existingObject(with: objectID) as? HomeTimelineIndex else { continue }
-                droppingStatusObjectIDs.append(homeTimelineIndex.status.objectID)
-                self.context.apiService.backgroundManagedObjectContext.delete(homeTimelineIndex)
-            }
-        }
-        .sink { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success:
-                self.context.apiService.backgroundManagedObjectContext.performChanges { [weak self] in
-                    guard let self = self else { return }
-                    for objectID in droppingStatusObjectIDs {
-                        guard let post = try? self.context.apiService.backgroundManagedObjectContext.existingObject(with: objectID) as? Status else { continue }
-                        self.context.apiService.backgroundManagedObjectContext.delete(post)
+        let managedObjectContext = viewModel.context.backgroundManagedObjectContext
+        Task {
+            try await managedObjectContext.performChanges {
+                for record in feedRecords {
+                    guard let feed = record.object(in: managedObjectContext) else { continue }
+                    let status = feed.status
+                    managedObjectContext.delete(feed)
+                    if let status = status {
+                        managedObjectContext.delete(status)
                     }
-                }
-                .sink { _ in
-                    // do nothing
-                }
-                .store(in: &self.disposeBag)
-            case .failure(let error):
-                assertionFailure(error.localizedDescription)
-            }
-        }
-        .store(in: &disposeBag)
+                }   // end for in 
+            }   // end managedObjectContext.performChanges
+        }   // end Task
     }
     
     @objc private func showWelcomeAction(_ sender: UIAction) {
@@ -403,10 +302,6 @@ extension HomeTimelineViewController {
 
     @objc private func showAccountList(_ sender: UIAction) {
         coordinator.present(scene: .accountList, from: self, transition: .modal(animated: true, completion: nil))
-    }
-    
-    @objc private func showPublicTimelineAction(_ sender: UIAction) {
-        coordinator.present(scene: .publicTimeline, from: self, transition: .show)
     }
     
     @objc private func showProfileAction(_ sender: UIAction) {
@@ -453,7 +348,7 @@ extension HomeTimelineViewController {
             else { return }
             
             let pushNotification = MastodonPushNotification(
-                _accessToken: authenticationBox.userAuthorization.accessToken,
+                accessToken: authenticationBox.userAuthorization.accessToken,
                 notificationID: notificationID,
                 notificationType: notificationType.rawValue,
                 preferredLocale: nil,
@@ -477,7 +372,7 @@ extension HomeTimelineViewController {
                 else { return }
                 
                 let pushNotification = MastodonPushNotification(
-                    _accessToken: accessToken,
+                    accessToken: accessToken,
                     notificationID: notificationID,
                     notificationType: notificationType.rawValue,
                     preferredLocale: nil,

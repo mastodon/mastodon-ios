@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import MastodonAsset
+import MastodonLocalization
 
 enum CategoryPickerSection: Equatable, Hashable {
     case main

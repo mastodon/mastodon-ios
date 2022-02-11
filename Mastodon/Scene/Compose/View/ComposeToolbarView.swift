@@ -9,6 +9,8 @@ import os.log
 import UIKit
 import Combine
 import MastodonSDK
+import MastodonAsset
+import MastodonLocalization
 
 protocol ComposeToolbarViewDelegate: AnyObject {
     func composeToolbarView(_ composeToolbarView: ComposeToolbarView, cameraButtonDidPressed sender: Any, mediaSelectionType type: ComposeToolbarView.MediaSelectionType)

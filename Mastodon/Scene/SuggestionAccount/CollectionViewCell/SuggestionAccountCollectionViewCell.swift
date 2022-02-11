@@ -8,6 +8,8 @@
 import CoreDataStack
 import Foundation
 import UIKit
+import MastodonAsset
+import MastodonLocalization
 
 class SuggestionAccountCollectionViewCell: UICollectionViewCell {
     let imageView: UIImageView = {

@@ -45,44 +45,41 @@ extension ComposeViewModel.PublishState {
         override func didEnter(from previousState: GKState?) {
             super.didEnter(from: previousState)
             guard let viewModel = viewModel, let stateMachine = stateMachine else { return }
-            guard let mastodonAuthenticationBox = viewModel.activeAuthenticationBox.value else {
-                stateMachine.enter(Fail.self)
-                return
-            }
             
             viewModel.updatePublishDate()
             
-            let domain = mastodonAuthenticationBox.domain
-            let attachmentServices = viewModel.attachmentServices.value
+            let authenticationBox = viewModel.authenticationBox
+            let domain = authenticationBox.domain
+            let attachmentServices = viewModel.attachmentServices
             let mediaIDs = attachmentServices.compactMap { attachmentService in
                 attachmentService.attachment.value?.id
             }
             let pollOptions: [String]? = {
-                guard viewModel.isPollComposing.value else { return nil }
-                return viewModel.pollOptionAttributes.value.map { attribute in attribute.option.value }
+                guard viewModel.isPollComposing else { return nil }
+                return viewModel.pollOptionAttributes.map { attribute in attribute.option.value }
             }()
             let pollExpiresIn: Int? = {
-                guard viewModel.isPollComposing.value else { return nil }
+                guard viewModel.isPollComposing else { return nil }
                 return viewModel.pollExpiresOptionAttribute.expiresOption.value.seconds
             }()
             let inReplyToID: Mastodon.Entity.Status.ID? = {
-                guard case let .reply(repliedToStatusObjectID) = viewModel.composeKind else { return nil }
+                guard case let .reply(status) = viewModel.composeKind else { return nil }
                 var id: Mastodon.Entity.Status.ID?
                 viewModel.context.managedObjectContext.performAndWait {
-                    guard let replyTo = viewModel.context.managedObjectContext.object(with: repliedToStatusObjectID) as? Status else { return }
+                    guard let replyTo = status.object(in: viewModel.context.managedObjectContext) else { return }
                     id = replyTo.id
                 }
                 return id
             }()
-            let sensitive: Bool = viewModel.isContentWarningComposing.value
+            let sensitive: Bool = viewModel.isContentWarningComposing
             let spoilerText: String? = {
-                let text = viewModel.composeStatusAttribute.contentWarningContent.value.trimmingCharacters(in: .whitespacesAndNewlines)
+                let text = viewModel.composeStatusAttribute.contentWarningContent.trimmingCharacters(in: .whitespacesAndNewlines)
                 guard !text.isEmpty else {
                     return nil
                 }
                 return text
             }()
-            let visibility = viewModel.selectedStatusVisibility.value.visibility
+            let visibility = viewModel.selectedStatusVisibility.visibility
             
             let updateMediaQuerySubscriptions: [AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Attachment>, Error>] = {
                 var subscriptions: [AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Attachment>, Error>] = []
@@ -100,7 +97,7 @@ extension ComposeViewModel.PublishState {
                         domain: domain,
                         attachmentID: attachmentID,
                         query: query,
-                        mastodonAuthenticationBox: mastodonAuthenticationBox
+                        mastodonAuthenticationBox: authenticationBox
                     )
                     subscriptions.append(subscription)
                 }
@@ -111,9 +108,9 @@ extension ComposeViewModel.PublishState {
             
             publishingSubscription = Publishers.MergeMany(updateMediaQuerySubscriptions)
                 .collect()
-                .flatMap { attachments -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Status>, Error> in
+                .asyncMap { attachments -> Mastodon.Response.Content<Mastodon.Entity.Status> in
                     let query = Mastodon.API.Statuses.PublishStatusQuery(
-                        status: viewModel.composeStatusAttribute.composeContent.value,
+                        status: viewModel.composeStatusAttribute.composeContent,
                         mediaIDs: mediaIDs.isEmpty ? nil : mediaIDs,
                         pollOptions: pollOptions,
                         pollExpiresIn: pollExpiresIn,
@@ -122,11 +119,11 @@ extension ComposeViewModel.PublishState {
                         spoilerText: spoilerText,
                         visibility: visibility
                     )
-                    return viewModel.context.apiService.publishStatus(
+                    return try await viewModel.context.apiService.publishStatus(
                         domain: domain,
                         idempotencyKey: idempotencyKey,
                         query: query,
-                        mastodonAuthenticationBox: mastodonAuthenticationBox
+                        authenticationBox: authenticationBox
                     )
                 }
                 .receive(on: DispatchQueue.main)

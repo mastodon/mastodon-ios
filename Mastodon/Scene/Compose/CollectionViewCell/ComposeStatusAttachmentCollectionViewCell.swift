@@ -9,6 +9,8 @@ import os.log
 import UIKit
 import Combine
 import MastodonUI
+import MastodonAsset
+import MastodonLocalization
 
 protocol ComposeStatusAttachmentCollectionViewCellDelegate: AnyObject {
     func composeStatusAttachmentCollectionViewCell(_ cell: ComposeStatusAttachmentCollectionViewCell, removeButtonDidPressed button: UIButton)

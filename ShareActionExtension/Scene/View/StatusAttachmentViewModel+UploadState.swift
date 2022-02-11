@@ -67,6 +67,7 @@ extension StatusAttachmentViewModel.UploadState {
             )
 
             let mastodonAuthenticationBox = MastodonAuthenticationBox(
+                authenticationRecord: .init(objectID: authentication.objectID),
                 domain: authentication.domain,
                 userID: authentication.userID,
                 appAuthorization: Mastodon.API.OAuth.Authorization(accessToken: authentication.appAccessToken),

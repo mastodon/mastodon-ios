@@ -10,6 +10,8 @@ import UIKit
 import Combine
 import CoreDataStack
 import MastodonSDK
+import MastodonAsset
+import MastodonLocalization
 
 final class SettingService {
     

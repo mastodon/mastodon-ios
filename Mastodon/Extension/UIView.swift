@@ -68,8 +68,3 @@ extension UIView {
     }
 }
 
-extension UIView {
-    static var isZoomedMode: Bool {
-        return UIScreen.main.scale != UIScreen.main.nativeScale
-    }
-}

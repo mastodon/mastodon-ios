@@ -11,109 +11,137 @@ import CoreDataStack
 import Foundation
 import MastodonSDK
 import OSLog
+import class CoreDataStack.Notification
 
 extension APIService {
-    func allNotifications(
-        domain: String,
-        query: Mastodon.API.Notifications.Query,
-        mastodonAuthenticationBox: MastodonAuthenticationBox
-    ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Notification]>, Error> {
-        let authorization = mastodonAuthenticationBox.userAuthorization
-        let userID = mastodonAuthenticationBox.userID
-        return Mastodon.API.Notifications.getNotifications(
+    func notifications(
+        maxID: Mastodon.Entity.Status.ID?,
+        scope: NotificationTimelineViewModel.Scope,
+        authenticationBox: MastodonAuthenticationBox
+    ) async throws -> Mastodon.Response.Content<[Mastodon.Entity.Notification]> {
+        let authorization = authenticationBox.userAuthorization
+        
+        let query = Mastodon.API.Notifications.Query(
+            maxID: maxID,
+            excludeTypes: {
+                switch scope {
+                case .everything:
+                    return nil
+                case .mentions:
+                    return [.follow, .followRequest, .reblog, .favourite, .poll]
+                }
+            }()
+        )
+        
+        let response = try await Mastodon.API.Notifications.getNotifications(
             session: session,
-            domain: domain,
+            domain: authenticationBox.domain,
             query: query,
             authorization: authorization
-        )
-        .flatMap { response -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Notification]>, Error> in
-            let log = OSLog.api
-            return self.backgroundManagedObjectContext.performChanges {
-                if query.maxID == nil {
-                    let requestMastodonNotificationRequest = MastodonNotification.sortedFetchRequest
-                    requestMastodonNotificationRequest.predicate = MastodonNotification.predicate(domain: domain, userID: userID)
-                    let oldNotifications = self.backgroundManagedObjectContext.safeFetch(requestMastodonNotificationRequest)
-                    oldNotifications.forEach { notification in
-                        self.backgroundManagedObjectContext.delete(notification)
+        ).singleOutput()
+        
+        let managedObjectContext = self.backgroundManagedObjectContext
+        try await managedObjectContext.performChanges {
+            guard let me = authenticationBox.authenticationRecord.object(in: managedObjectContext)?.user else {
+                assertionFailure()
+                return
+            }
+            
+            var notifications: [Notification] = []
+            for entity in response.value {
+                let result = Persistence.Notification.createOrMerge(
+                    in: managedObjectContext,
+                    context: Persistence.Notification.PersistContext(
+                        domain: authenticationBox.domain,
+                        entity: entity,
+                        me: me,
+                        networkDate: response.networkDate
+                    )
+                )
+                notifications.append(result.notification)
+            }
+            
+            // locate anchor notification
+            let anchorNotification: Notification? = {
+                guard let maxID = query.maxID else { return nil }
+                let request = Notification.sortedFetchRequest
+                request.predicate = Notification.predicate(
+                    domain: authenticationBox.domain,
+                    userID: authenticationBox.userID,
+                    id: maxID
+                )
+                request.fetchLimit = 1
+                return try? managedObjectContext.fetch(request).first
+            }()
+            
+            // update hasMore flag for anchor status
+            let acct = Feed.Acct.mastodon(domain: authenticationBox.domain, userID: authenticationBox.userID)
+            let kind: Feed.Kind = scope == .everything ? .notificationAll : .notificationMentions
+            if let anchorNotification = anchorNotification,
+               let feed = anchorNotification.feed(kind: kind, acct: acct) {
+                feed.update(hasMore: false)
+            }
+            
+            // persist Feed relationship
+            let sortedNotifications = notifications.sorted(by: { $0.createAt < $1.createAt })
+            let oldestNotification = sortedNotifications.first
+            for notification in notifications {
+                let _feed = notification.feed(kind: kind, acct: acct)
+                if let feed = _feed {
+                    feed.update(updatedAt: response.networkDate)
+                } else {
+                    let feedProperty = Feed.Property(
+                        acct: acct,
+                        kind: kind,
+                        hasMore: false,
+                        createdAt: notification.createAt,
+                        updatedAt: response.networkDate
+                    )
+                    let feed = Feed.insert(into: managedObjectContext, property: feedProperty)
+                    notification.attach(feed: feed)
+                    
+                    // set hasMore on oldest notification if is new feed
+                    if notification === oldestNotification {
+                        feed.update(hasMore: true)
                     }
                 }
-                response.value.forEach { notification in
-                    let (mastodonUser, _) = APIService.CoreData.createOrMergeMastodonUser(into: self.backgroundManagedObjectContext, for: nil, in: domain, entity: notification.account, userCache: nil, networkDate: Date(), log: log)
-                    var status: Status?
-                    if let statusEntity = notification.status {
-                        let (statusInCoreData, _, _) = APIService.CoreData.createOrMergeStatus(
-                            into: self.backgroundManagedObjectContext,
-                            for: nil,
-                            domain: domain,
-                            entity: statusEntity,
-                            statusCache: nil,
-                            userCache: nil,
-                            networkDate: Date(),
-                            log: log
-                        )
-                        status = statusInCoreData
-                    }
-                    // use constrain to avoid repeated save
-                    let property = MastodonNotification.Property(id: notification.id, typeRaw: notification.type.rawValue, account: mastodonUser, status: status, createdAt: notification.createdAt)
-                    let notification = MastodonNotification.insert(into: self.backgroundManagedObjectContext, domain: domain, userID: userID, networkDate: response.networkDate, property: property)
-                    os_log(.info, log: log, "%{public}s[%{public}ld], %{public}s: fetch mastodon user [%s](%s)", (#file as NSString).lastPathComponent, #line, #function, notification.typeRaw, notification.account.username)
-                }
             }
-            .setFailureType(to: Error.self)
-            .tryMap { result -> Mastodon.Response.Content<[Mastodon.Entity.Notification]> in
-                switch result {
-                case .success:
-                    return response
-                case .failure(let error):
-                    throw error
-                }
-            }
-            .eraseToAnyPublisher()
         }
-        .eraseToAnyPublisher()
+        
+        return response
     }
-    
+}
+
+extension APIService {
     func notification(
         notificationID: Mastodon.Entity.Notification.ID,
-        mastodonAuthenticationBox: MastodonAuthenticationBox
-    ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Notification>, Error> {
-        let domain = mastodonAuthenticationBox.domain
-        let authorization = mastodonAuthenticationBox.userAuthorization
+        authenticationBox: MastodonAuthenticationBox
+    ) async throws -> Mastodon.Response.Content<Mastodon.Entity.Notification> {
+        let domain = authenticationBox.domain
+        let authorization = authenticationBox.userAuthorization
         
-        return Mastodon.API.Notifications.getNotification(
+        let response = try await Mastodon.API.Notifications.getNotification(
             session: session,
             domain: domain,
             notificationID: notificationID,
             authorization: authorization
-        )
-        .flatMap { response -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Notification>, Error> in
-            guard let status = response.value.status else {
-                return Just(response)
-                    .setFailureType(to: Error.self)
-                    .eraseToAnyPublisher()
-            }
-            
-            return APIService.Persist.persistStatus(
-                managedObjectContext: self.backgroundManagedObjectContext,
-                domain: domain,
-                query: nil,
-                response: response.map { _ in [status] },
-                persistType: .lookUp,
-                requestMastodonUserID: nil,
-                log: OSLog.api
+        ).singleOutput()
+        
+        let managedObjectContext = self.backgroundManagedObjectContext
+        try await managedObjectContext.performChanges {
+            guard let me = authenticationBox.authenticationRecord.object(in: managedObjectContext)?.user else { return }
+            _ = Persistence.Notification.createOrMerge(
+                in: managedObjectContext,
+                context: Persistence.Notification.PersistContext(
+                    domain: domain,
+                    entity: response.value,
+                    me: me,
+                    networkDate: response.networkDate
+                )
             )
-            .setFailureType(to: Error.self)
-            .tryMap { result -> Mastodon.Response.Content<Mastodon.Entity.Notification> in
-                switch result {
-                case .success:
-                    return response
-                case .failure(let error):
-                    throw error
-                }
-            }
-            .eraseToAnyPublisher()
         }
-        .eraseToAnyPublisher()
+        
+        return response
     }
 
 }

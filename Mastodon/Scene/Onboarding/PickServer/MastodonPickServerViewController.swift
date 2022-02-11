@@ -10,6 +10,8 @@ import UIKit
 import Combine
 import GameController
 import AuthenticationServices
+import MastodonAsset
+import MastodonLocalization
 
 final class MastodonPickServerViewController: UIViewController, NeedsDependency {
     
@@ -35,9 +37,6 @@ final class MastodonPickServerViewController: UIViewController, NeedsDependency 
     
     let tableView: UITableView = {
         let tableView = ControlContainableTableView()
-        tableView.register(OnboardingHeadlineTableViewCell.self, forCellReuseIdentifier: String(describing: OnboardingHeadlineTableViewCell.self))
-        tableView.register(PickServerCell.self, forCellReuseIdentifier: String(describing: PickServerCell.self))
-        tableView.register(PickServerLoaderTableViewCell.self, forCellReuseIdentifier: String(describing: PickServerLoaderTableViewCell.self))
         tableView.rowHeight = UITableView.automaticDimension
         tableView.separatorStyle = .none
         tableView.backgroundColor = .clear
@@ -113,7 +112,6 @@ extension MastodonPickServerViewController {
                 self.tableView.contentInset.bottom = inset
             }
             .store(in: &observations)
-        
 
         // fix AutoLayout warning when observe before view appear
         viewModel.viewWillAppear

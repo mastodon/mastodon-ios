@@ -10,9 +10,12 @@ import UIKit
 import Combine
 import FLAnimatedImage
 import MetaTextKit
+import MastodonAsset
+import MastodonLocalization
+import MastodonUI
 
 protocol ProfileHeaderViewDelegate: AnyObject {
-    func profileHeaderView(_ profileHeaderView: ProfileHeaderView, avatarImageViewDidPressed imageView: UIImageView)
+    func profileHeaderView(_ profileHeaderView: ProfileHeaderView, avatarButtonDidPressed button: AvatarButton)
     func profileHeaderView(_ profileHeaderView: ProfileHeaderView, bannerImageViewDidPressed imageView: UIImageView)
     func profileHeaderView(_ profileHeaderView: ProfileHeaderView, relationshipButtonDidPressed button: ProfileRelationshipActionButton)
     func profileHeaderView(_ profileHeaderView: ProfileHeaderView, metaTextView: MetaTextView, metaDidPressed meta: Meta)
@@ -22,8 +25,8 @@ protocol ProfileHeaderViewDelegate: AnyObject {
 
 final class ProfileHeaderView: UIView {
     
-    static let avatarImageViewSize = CGSize(width: 56, height: 56)
-    static let avatarImageViewCornerRadius: CGFloat = 6
+    static let avatarImageViewSize = CGSize(width: 98, height: 98)
+    static let avatarImageViewCornerRadius: CGFloat = 25
     static let avatarImageViewBorderColor = UIColor.white
     static let avatarImageViewBorderWidth: CGFloat = 2
     static let friendshipActionButtonSize = CGSize(width: 108, height: 34)
@@ -69,13 +72,10 @@ final class ProfileHeaderView: UIView {
         return view
     }()
     
-    let avatarImageView: FLAnimatedImageView = {
-        let imageView = FLAnimatedImageView()
-        let placeholderImage = UIImage
-            .placeholder(size: ProfileHeaderView.avatarImageViewSize, color: Asset.Theme.Mastodon.systemGroupedBackground.color)
-            .af.imageRounded(withCornerRadius: ProfileHeaderView.avatarImageViewCornerRadius, divideRadiusByImageScale: false)
-        imageView.image = placeholderImage
-        return imageView
+    let avatarButton: AvatarButton = {
+        let button = AvatarButton()
+        button.avatarImageView.configure(cornerConfiguration: .init(corner: .fixed(radius: 0)))
+        return button
     }()
 
     func setupAvatarOverlayViews() {
@@ -123,34 +123,32 @@ final class ProfileHeaderView: UIView {
         metaText.textView.isSelectable = false
         metaText.textView.isScrollEnabled = false
         metaText.textView.layer.masksToBounds = false
-        metaText.textView.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 20, weight: .semibold), maximumPointSize: 28)
+        metaText.textView.font = UIFontMetrics(forTextStyle: .title2).scaledFont(for: .systemFont(ofSize: 22, weight: .bold))
         metaText.textView.textColor = .white
         metaText.textView.textContainer.lineFragmentPadding = 0
         metaText.textAttributes = [
-            .font: UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 20, weight: .semibold), maximumPointSize: 28),
-            .foregroundColor: UIColor.white
+            .font: UIFontMetrics(forTextStyle: .title2).scaledFont(for: .systemFont(ofSize: 22, weight: .bold)),
+            .foregroundColor: Asset.Colors.Label.primary.color
         ]
         return metaText
     }()
     let nameTextField: UITextField = {
         let textField = UITextField()
-        textField.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 20, weight: .semibold), maximumPointSize: 28)
-        textField.textColor = .white
+        textField.font = UIFontMetrics(forTextStyle: .title2).scaledFont(for: .systemFont(ofSize: 22, weight: .bold))
+        textField.textColor = Asset.Colors.Label.secondary.color
         textField.text = "Alice"
         textField.autocorrectionType = .no
         textField.autocapitalizationType = .none
-        textField.applyShadow(color: UIColor.black.withAlphaComponent(0.2), alpha: 0.5, x: 0, y: 2, blur: 2, spread: 0)
         return textField
     }()
 
     let usernameLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFontMetrics(forTextStyle: .subheadline).scaledFont(for: .systemFont(ofSize: 15, weight: .regular), maximumPointSize: 20)
+        label.font = UIFontMetrics(forTextStyle: .callout).scaledFont(for: .systemFont(ofSize: 16, weight: .regular))
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.5
-        label.textColor = Asset.Scene.Profile.Banner.usernameGray.color
+        label.textColor = Asset.Colors.Label.secondary.color
         label.text = "@alice"
-        label.applyShadow(color: UIColor.black.withAlphaComponent(0.2), alpha: 0.5, x: 0, y: 2, blur: 2, spread: 0)
         return label
     }()
     
@@ -198,36 +196,36 @@ final class ProfileHeaderView: UIView {
         return metaText
     }()
     
-    static func createFieldCollectionViewLayout() -> UICollectionViewLayout {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(44))
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(44))
-        let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
-        let section = NSCollectionLayoutSection(group: group)
-        section.contentInsetsReference = .readableContent
-        
-        let headerFooterSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(1))
-        let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerFooterSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
-        let footer = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerFooterSize, elementKind: UICollectionView.elementKindSectionFooter, alignment: .bottom)
-        section.boundarySupplementaryItems = [header, footer]
-        // note: toggle this not take effect
-        // section.supplementariesFollowContentInsets = false
-        
-        return UICollectionViewCompositionalLayout(section: section)
-    }
-    
-    let fieldCollectionView: UICollectionView = {
-        let collectionViewLayout = ProfileHeaderView.createFieldCollectionViewLayout()
-        let collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: 100, height: 100), collectionViewLayout: collectionViewLayout)
-        collectionView.register(ProfileFieldCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: ProfileFieldCollectionViewCell.self))
-        collectionView.register(ProfileFieldAddEntryCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: ProfileFieldAddEntryCollectionViewCell.self))
-        collectionView.register(ProfileFieldCollectionViewHeaderFooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: ProfileFieldCollectionViewHeaderFooterView.headerReuseIdentifer)
-        collectionView.register(ProfileFieldCollectionViewHeaderFooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: ProfileFieldCollectionViewHeaderFooterView.footerReuseIdentifer)
-        collectionView.isScrollEnabled = false
-        return collectionView
-    }()
-    var fieldCollectionViewHeightLayoutConstraint: NSLayoutConstraint!
-    var fieldCollectionViewHeightObservation: NSKeyValueObservation?
+//    static func createFieldCollectionViewLayout() -> UICollectionViewLayout {
+//        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(44))
+//        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+//        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(44))
+//        let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
+//        let section = NSCollectionLayoutSection(group: group)
+//        section.contentInsetsReference = .readableContent
+//
+//        let headerFooterSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(1))
+//        let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerFooterSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
+//        let footer = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerFooterSize, elementKind: UICollectionView.elementKindSectionFooter, alignment: .bottom)
+//        section.boundarySupplementaryItems = [header, footer]
+//        // note: toggle this not take effect
+//        // section.supplementariesFollowContentInsets = false
+//
+//        return UICollectionViewCompositionalLayout(section: section)
+//    }
+//
+//    let fieldCollectionView: UICollectionView = {
+//        let collectionViewLayout = ProfileHeaderView.createFieldCollectionViewLayout()
+//        let collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: 100, height: 100), collectionViewLayout: collectionViewLayout)
+//        collectionView.register(ProfileFieldCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: ProfileFieldCollectionViewCell.self))
+//        collectionView.register(ProfileFieldAddEntryCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: ProfileFieldAddEntryCollectionViewCell.self))
+//        collectionView.register(ProfileFieldCollectionViewHeaderFooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: ProfileFieldCollectionViewHeaderFooterView.headerReuseIdentifer)
+//        collectionView.register(ProfileFieldCollectionViewHeaderFooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: ProfileFieldCollectionViewHeaderFooterView.footerReuseIdentifer)
+//        collectionView.isScrollEnabled = false
+//        return collectionView
+//    }()
+//    var fieldCollectionViewHeightLayoutConstraint: NSLayoutConstraint!
+//    var fieldCollectionViewHeightObservation: NSKeyValueObservation?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -240,21 +238,19 @@ final class ProfileHeaderView: UIView {
     }
     
     deinit {
-        fieldCollectionViewHeightObservation = nil
+//        fieldCollectionViewHeightObservation = nil
     }
     
 }
 
 extension ProfileHeaderView {
     private func _init() {
-        backgroundColor = ThemeService.shared.currentTheme.value.systemGroupedBackgroundColor
-        fieldCollectionView.backgroundColor = ThemeService.shared.currentTheme.value.profileFieldCollectionViewBackgroundColor
+        backgroundColor = ThemeService.shared.currentTheme.value.systemBackgroundColor
         ThemeService.shared.currentTheme
-            .receive(on: RunLoop.main)
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] theme in
                 guard let self = self else { return }
-                self.backgroundColor = theme.systemGroupedBackgroundColor
-                self.fieldCollectionView.backgroundColor = theme.profileFieldCollectionViewBackgroundColor
+                self.backgroundColor = theme.systemBackgroundColor
             }
             .store(in: &disposeBag)
         
@@ -284,21 +280,21 @@ extension ProfileHeaderView {
 
         // avatar
         avatarImageViewBackgroundView.translatesAutoresizingMaskIntoConstraints = false
-        bannerContainerView.addSubview(avatarImageViewBackgroundView)
+        addSubview(avatarImageViewBackgroundView)
         NSLayoutConstraint.activate([
-            avatarImageViewBackgroundView.leadingAnchor.constraint(equalTo: bannerContainerView.readableContentGuide.leadingAnchor),
-            bannerContainerView.bottomAnchor.constraint(equalTo: avatarImageViewBackgroundView.bottomAnchor, constant: 20),
+            avatarImageViewBackgroundView.leadingAnchor.constraint(equalToSystemSpacingAfter: bannerContainerView.leadingAnchor, multiplier: 2.0),
+            // align to dashboardContainer bottom
         ])
         
-        avatarImageView.translatesAutoresizingMaskIntoConstraints = false
-        avatarImageViewBackgroundView.addSubview(avatarImageView)
+        avatarButton.translatesAutoresizingMaskIntoConstraints = false
+        avatarImageViewBackgroundView.addSubview(avatarButton)
         NSLayoutConstraint.activate([
-            avatarImageView.topAnchor.constraint(equalTo: avatarImageViewBackgroundView.topAnchor, constant: 0.5 * ProfileHeaderView.avatarImageViewBorderWidth),
-            avatarImageView.leadingAnchor.constraint(equalTo: avatarImageViewBackgroundView.leadingAnchor, constant: 0.5 * ProfileHeaderView.avatarImageViewBorderWidth),
-            avatarImageViewBackgroundView.trailingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 0.5 * ProfileHeaderView.avatarImageViewBorderWidth),
-            avatarImageViewBackgroundView.bottomAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 0.5 * ProfileHeaderView.avatarImageViewBorderWidth),
-            avatarImageView.widthAnchor.constraint(equalToConstant: ProfileHeaderView.avatarImageViewSize.width).priority(.required - 1),
-            avatarImageView.heightAnchor.constraint(equalToConstant: ProfileHeaderView.avatarImageViewSize.height).priority(.required - 1),
+            avatarButton.topAnchor.constraint(equalTo: avatarImageViewBackgroundView.topAnchor, constant: 0.5 * ProfileHeaderView.avatarImageViewBorderWidth),
+            avatarButton.leadingAnchor.constraint(equalTo: avatarImageViewBackgroundView.leadingAnchor, constant: 0.5 * ProfileHeaderView.avatarImageViewBorderWidth),
+            avatarImageViewBackgroundView.trailingAnchor.constraint(equalTo: avatarButton.trailingAnchor, constant: 0.5 * ProfileHeaderView.avatarImageViewBorderWidth),
+            avatarImageViewBackgroundView.bottomAnchor.constraint(equalTo: avatarButton.bottomAnchor, constant: 0.5 * ProfileHeaderView.avatarImageViewBorderWidth),
+            avatarButton.widthAnchor.constraint(equalToConstant: ProfileHeaderView.avatarImageViewSize.width).priority(.required - 1),
+            avatarButton.heightAnchor.constraint(equalToConstant: ProfileHeaderView.avatarImageViewSize.height).priority(.required - 1),
         ])
 
         avatarImageViewOverlayVisualEffectView.translatesAutoresizingMaskIntoConstraints = false
@@ -311,12 +307,12 @@ extension ProfileHeaderView {
         ])
     
         editAvatarBackgroundView.translatesAutoresizingMaskIntoConstraints = false
-        avatarImageView.addSubview(editAvatarBackgroundView)
+        avatarButton.addSubview(editAvatarBackgroundView)
         NSLayoutConstraint.activate([
-            editAvatarBackgroundView.topAnchor.constraint(equalTo: avatarImageView.topAnchor),
-            editAvatarBackgroundView.leadingAnchor.constraint(equalTo: avatarImageView.leadingAnchor),
-            editAvatarBackgroundView.trailingAnchor.constraint(equalTo: avatarImageView.trailingAnchor),
-            editAvatarBackgroundView.bottomAnchor.constraint(equalTo: avatarImageView.bottomAnchor),
+            editAvatarBackgroundView.topAnchor.constraint(equalTo: avatarButton.topAnchor),
+            editAvatarBackgroundView.leadingAnchor.constraint(equalTo: avatarButton.leadingAnchor),
+            editAvatarBackgroundView.trailingAnchor.constraint(equalTo: avatarButton.trailingAnchor),
+            editAvatarBackgroundView.bottomAnchor.constraint(equalTo: avatarButton.bottomAnchor),
         ])
         
         editAvatarButton.translatesAutoresizingMaskIntoConstraints = false
@@ -328,20 +324,50 @@ extension ProfileHeaderView {
             editAvatarButton.bottomAnchor.constraint(equalTo: editAvatarBackgroundView.bottomAnchor),
         ])
         editAvatarBackgroundView.isUserInteractionEnabled = true
-        avatarImageView.isUserInteractionEnabled = true
-
-        // name container: [display name container | username]
+        avatarButton.isUserInteractionEnabled = true
+        
+        // container: V - [ dashboard container | author container | bio ]
+        let container = UIStackView()
+        container.axis = .vertical
+        container.spacing = 8
+        container.preservesSuperviewLayoutMargins = true
+        container.isLayoutMarginsRelativeArrangement = true
+        container.layoutMargins.top = 12
+        
+        container.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(container)
+        NSLayoutConstraint.activate([
+            container.topAnchor.constraint(equalTo: bannerContainerView.bottomAnchor),
+            container.leadingAnchor.constraint(equalToSystemSpacingAfter: leadingAnchor, multiplier: 2.0),
+            trailingAnchor.constraint(equalToSystemSpacingAfter: container.trailingAnchor, multiplier: 2.0),
+            container.bottomAnchor.constraint(equalTo: bottomAnchor),
+        ])
+        
+        // dashboardContainer: H - [ padding | statusDashboardView ]
+        let dashboardContainer = UIStackView()
+        dashboardContainer.axis = .horizontal
+        container.addArrangedSubview(dashboardContainer)
+        
+        let dashboardPaddingView = UIView()
+        dashboardContainer.addArrangedSubview(dashboardPaddingView)
+        dashboardContainer.addArrangedSubview(statusDashboardView)
+        
+        NSLayoutConstraint.activate([
+            avatarImageViewBackgroundView.bottomAnchor.constraint(equalTo: dashboardContainer.bottomAnchor),
+        ])
+        
+        // authorContainer: H - [ nameContainer | relationshipActionButton ]
+        let authorContainer = UIStackView()
+        authorContainer.axis = .horizontal
+        authorContainer.alignment = .top
+        authorContainer.spacing = 10
+        container.addArrangedSubview(authorContainer)
+        
+        // name container: V - [ display name container | username ]
         let nameContainerStackView = UIStackView()
         nameContainerStackView.preservesSuperviewLayoutMargins = true
         nameContainerStackView.axis = .vertical
-        nameContainerStackView.spacing = 7
         nameContainerStackView.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(nameContainerStackView)
-        NSLayoutConstraint.activate([
-            nameContainerStackView.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 12),
-            nameContainerStackView.trailingAnchor.constraint(equalTo: readableContentGuide.trailingAnchor),
-            nameContainerStackView.centerYAnchor.constraint(equalTo: avatarImageView.centerYAnchor),
-        ])
         
         displayNameStackView.axis = .horizontal
         nameTextField.translatesAutoresizingMaskIntoConstraints = false
@@ -365,94 +391,38 @@ extension ProfileHeaderView {
         nameMetaText.textView.translatesAutoresizingMaskIntoConstraints = false
         displayNameStackView.addSubview(nameMetaText.textView)
         NSLayoutConstraint.activate([
-            nameMetaText.textView.centerYAnchor.constraint(equalTo: nameTextField.centerYAnchor),
-            nameMetaText.textView.leadingAnchor.constraint(equalTo: nameTextField.leadingAnchor),
-            nameMetaText.textView.trailingAnchor.constraint(equalTo: nameTextField.trailingAnchor),
+            nameMetaText.textView.topAnchor.constraint(equalTo: nameTextFieldBackgroundView.topAnchor),
+            nameMetaText.textView.leadingAnchor.constraint(equalTo: nameTextFieldBackgroundView.leadingAnchor, constant: 5),
+            nameTextFieldBackgroundView.trailingAnchor.constraint(equalTo: nameMetaText.textView.trailingAnchor, constant: 5),
+            nameMetaText.textView.bottomAnchor.constraint(equalTo: nameTextFieldBackgroundView.bottomAnchor),
         ])
         
         nameContainerStackView.addArrangedSubview(displayNameStackView)
         nameContainerStackView.addArrangedSubview(usernameLabel)
         
-        // meta container: [dashboard container | bio container | field container]
-        let metaContainerStackView = UIStackView()
-        metaContainerStackView.spacing = 16
-        metaContainerStackView.axis = .vertical
-        metaContainerStackView.preservesSuperviewLayoutMargins = true
-        metaContainerStackView.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(metaContainerStackView)
-        NSLayoutConstraint.activate([
-            metaContainerStackView.topAnchor.constraint(equalTo: bannerContainerView.bottomAnchor, constant:  13),
-            metaContainerStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            metaContainerStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            metaContainerStackView.bottomAnchor.constraint(equalTo: bottomAnchor),
-        ])
-        
-        //  dashboard container: [dashboard | friendship action button]
-        let dashboardContainerView = UIView()
-        dashboardContainerView.preservesSuperviewLayoutMargins = true
-        metaContainerStackView.addArrangedSubview(dashboardContainerView)
-        
-        statusDashboardView.translatesAutoresizingMaskIntoConstraints = false
-        dashboardContainerView.addSubview(statusDashboardView)
-        NSLayoutConstraint.activate([
-            statusDashboardView.topAnchor.constraint(equalTo: dashboardContainerView.topAnchor),
-            statusDashboardView.leadingAnchor.constraint(equalTo: dashboardContainerView.readableContentGuide.leadingAnchor),
-            statusDashboardView.bottomAnchor.constraint(equalTo: dashboardContainerView.bottomAnchor),
-        ])
-        
+        authorContainer.addArrangedSubview(nameContainerStackView)
         relationshipActionButton.translatesAutoresizingMaskIntoConstraints = false
-        dashboardContainerView.addSubview(relationshipActionButton)
+        authorContainer.addArrangedSubview(relationshipActionButton)
         NSLayoutConstraint.activate([
-            relationshipActionButton.topAnchor.constraint(equalTo: dashboardContainerView.topAnchor),
-            relationshipActionButton.leadingAnchor.constraint(greaterThanOrEqualTo: statusDashboardView.trailingAnchor, constant: 8),
-            relationshipActionButton.trailingAnchor.constraint(equalTo: dashboardContainerView.readableContentGuide.trailingAnchor),
             relationshipActionButton.widthAnchor.constraint(greaterThanOrEqualToConstant: ProfileHeaderView.friendshipActionButtonSize.width).priority(.required - 1),
             relationshipActionButton.heightAnchor.constraint(equalToConstant: ProfileHeaderView.friendshipActionButtonSize.height).priority(.defaultHigh),
         ])
-        relationshipActionButton.setContentHuggingPriority(.required - 10, for: .horizontal)
         
-        bioContainerView.preservesSuperviewLayoutMargins = true
-        metaContainerStackView.addArrangedSubview(bioContainerView)
-        
-        bioMetaText.textView.translatesAutoresizingMaskIntoConstraints = false
-        bioContainerView.addSubview(bioMetaText.textView)
-        NSLayoutConstraint.activate([
-            bioMetaText.textView.topAnchor.constraint(equalTo: bioContainerView.topAnchor),
-            bioMetaText.textView.leadingAnchor.constraint(equalTo: bioContainerView.readableContentGuide.leadingAnchor),
-            bioMetaText.textView.trailingAnchor.constraint(equalTo: bioContainerView.readableContentGuide.trailingAnchor),
-            bioMetaText.textView.bottomAnchor.constraint(equalTo: bioContainerView.bottomAnchor),
-        ])
-        
-        fieldCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        metaContainerStackView.addArrangedSubview(fieldCollectionView)
-        fieldCollectionViewHeightLayoutConstraint = fieldCollectionView.heightAnchor.constraint(equalToConstant: 44).priority(.defaultHigh)
-        NSLayoutConstraint.activate([
-            fieldCollectionViewHeightLayoutConstraint,
-        ])
-        fieldCollectionViewHeightObservation = fieldCollectionView.observe(\.contentSize, options: .new, changeHandler: { [weak self] tableView, _ in
-            guard let self = self else { return }
-            guard self.fieldCollectionView.contentSize.height != .zero else {
-                self.fieldCollectionViewHeightLayoutConstraint.constant = 44
-                return
-            }
-            self.fieldCollectionViewHeightLayoutConstraint.constant = self.fieldCollectionView.contentSize.height
-        })
-        
+        // bio
+        container.addArrangedSubview(bioMetaText.textView)
+    
         bringSubviewToFront(bannerContainerView)
-        bringSubviewToFront(nameContainerStackView)
+        bringSubviewToFront(avatarImageViewBackgroundView)
         
         statusDashboardView.delegate = self
         bioMetaText.textView.delegate = self
         bioMetaText.textView.linkDelegate = self
         
-        let avatarImageViewSingleTapGestureRecognizer = UITapGestureRecognizer.singleTapGestureRecognizer
-        avatarImageView.addGestureRecognizer(avatarImageViewSingleTapGestureRecognizer)
-        avatarImageViewSingleTapGestureRecognizer.addTarget(self, action: #selector(ProfileHeaderView.avatarImageViewDidPressed(_:)))
-        
         let bannerImageViewSingleTapGestureRecognizer = UITapGestureRecognizer.singleTapGestureRecognizer
         bannerImageView.addGestureRecognizer(bannerImageViewSingleTapGestureRecognizer)
         bannerImageViewSingleTapGestureRecognizer.addTarget(self, action: #selector(ProfileHeaderView.bannerImageViewDidPressed(_:)))
         
+        avatarButton.addTarget(self, action: #selector(ProfileHeaderView.avatarButtonDidPressed(_:)), for: .touchUpInside)
         relationshipActionButton.addTarget(self, action: #selector(ProfileHeaderView.relationshipActionButtonDidPressed(_:)), for: .touchUpInside)
         
         configure(state: .normal)
@@ -514,9 +484,10 @@ extension ProfileHeaderView {
         delegate?.profileHeaderView(self, relationshipButtonDidPressed: relationshipActionButton)
     }
     
-    @objc private func avatarImageViewDidPressed(_ sender: UITapGestureRecognizer) {
+    @objc private func avatarButtonDidPressed(_ sender: UIButton) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-        delegate?.profileHeaderView(self, avatarImageViewDidPressed: avatarImageView)
+        assert(sender === avatarButton)
+        delegate?.profileHeaderView(self, avatarButtonDidPressed: avatarButton)
     }
     
     @objc private func bannerImageViewDidPressed(_ sender: UITapGestureRecognizer) {
@@ -552,14 +523,6 @@ extension ProfileHeaderView: ProfileStatusDashboardViewDelegate {
         delegate?.profileHeaderView(self, profileStatusDashboardView: dashboardView, dashboardMeterViewDidPressed: dashboardMeterView, meter: meter)
     }
 }
-
-// MARK: - AvatarConfigurableView
-extension ProfileHeaderView: AvatarConfigurableView {
-    static var configurableAvatarImageSize: CGSize { avatarImageViewSize }
-    static var configurableAvatarImageCornerRadius: CGFloat { avatarImageViewCornerRadius }
-    var configurableAvatarImageView: FLAnimatedImageView? { return avatarImageView }
-}
-
 
 #if DEBUG
 import SwiftUI

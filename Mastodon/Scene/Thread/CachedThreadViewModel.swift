@@ -10,6 +10,10 @@ import CoreDataStack
 
 final class CachedThreadViewModel: ThreadViewModel {
     init(context: AppContext, status: Status) {
-        super.init(context: context, optionalStatus: status)
+        let threadContext = StatusItem.Thread.Context(status: .init(objectID: status.objectID))
+        super.init(
+            context: context,
+            optionalRoot: .root(context: threadContext)
+        )
     }
 }

@@ -19,8 +19,8 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v2
-      - name: force Xcode 13.1
-        run: sudo xcode-select -switch /Applications/Xcode_13.1.app
+      - name: force Xcode 13.2.1
+        run: sudo xcode-select -switch /Applications/Xcode_13.2.1.app
       - name: setup
         run: exec ./.github/scripts/setup.sh
       - name: build

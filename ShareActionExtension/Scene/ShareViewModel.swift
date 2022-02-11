@@ -14,6 +14,8 @@ import MastodonSDK
 import MastodonUI
 import SwiftUI
 import UniformTypeIdentifiers
+import MastodonAsset
+import MastodonLocalization
 
 final class ShareViewModel {
 
@@ -298,7 +300,8 @@ extension ShareViewModel {
         guard let authentication = composeViewModel.authentication else {
             return Fail(error: APIService.APIError.implicit(.authenticationMissing)).eraseToAnyPublisher()
         }
-        let mastodonAuthenticationBox = MastodonAuthenticationBox(
+        let authenticationBox = MastodonAuthenticationBox(
+            authenticationRecord: .init(objectID: authentication.objectID),
             domain: authentication.domain,
             userID: authentication.userID,
             appAuthorization: Mastodon.API.OAuth.Authorization(accessToken: authentication.appAccessToken),
@@ -334,7 +337,7 @@ extension ShareViewModel {
                     domain: domain,
                     attachmentID: attachmentID,
                     query: query,
-                    mastodonAuthenticationBox: mastodonAuthenticationBox
+                    mastodonAuthenticationBox: authenticationBox
                 )
                 subscriptions.append(subscription)
             }
@@ -345,7 +348,7 @@ extension ShareViewModel {
 
         return Publishers.MergeMany(updateMediaQuerySubscriptions)
             .collect()
-            .flatMap { attachments -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Status>, Error> in
+            .asyncMap { attachments in
                 let query = Mastodon.API.Statuses.PublishStatusQuery(
                     status: status,
                     mediaIDs: mediaIDs.isEmpty ? nil : mediaIDs,
@@ -356,11 +359,11 @@ extension ShareViewModel {
                     spoilerText: spoilerText,
                     visibility: visibility
                 )
-                return APIService.shared.publishStatus(
+                return try await APIService.shared.publishStatus(
                     domain: domain,
                     idempotencyKey: nil,    // FIXME:
                     query: query,
-                    mastodonAuthenticationBox: mastodonAuthenticationBox
+                    authenticationBox: authenticationBox
                 )
             }
             .eraseToAnyPublisher()

@@ -10,6 +10,8 @@ import SafariServices
 import CoreDataStack
 import MastodonSDK
 import PanModal
+import MastodonAsset
+import MastodonLocalization
 
 final public class SceneCoordinator {
     
@@ -43,7 +45,7 @@ final public class SceneCoordinator {
                     return Just(nil).eraseToAnyPublisher()
                 }
                 
-                let accessToken = pushNotification._accessToken     // use raw accessToken value without normalize
+                let accessToken = pushNotification.accessToken     // use raw accessToken value without normalize
                 if currentActiveAuthenticationBox.userAuthorization.accessToken == accessToken {
                     // do nothing if notification for current account
                     return Just(pushNotification).eraseToAnyPublisher()
@@ -182,6 +184,8 @@ extension SceneCoordinator {
         
         // report
         case report(viewModel: ReportViewModel)
+        case reportSupplementary(viewModel: ReportSupplementaryViewModel)
+        case reportResult(viewModel: ReportResultViewModel)
 
         // suggestion account
         case suggestionAccount(viewModel: SuggestionAccountViewModel)
@@ -193,10 +197,6 @@ extension SceneCoordinator {
         case safari(url: URL)
         case alertController(alertController: UIAlertController)
         case activityViewController(activityViewController: UIActivityViewController, sourceView: UIView?, barButtonItem: UIBarButtonItem?)
-        
-        #if DEBUG
-        case publicTimeline
-        #endif
         
         var isOnboarding: Bool {
             switch self {
@@ -211,7 +211,7 @@ extension SceneCoordinator {
                 return false
             }
         }
-    }
+    }   // end enum Scene { } 
 }
 
 extension SceneCoordinator {
@@ -266,6 +266,7 @@ extension SceneCoordinator {
     }
     
     @discardableResult
+    @MainActor
     func present(scene: Scene, from sender: UIViewController?, transition: Transition) -> UIViewController? {
         guard let viewController = get(scene: scene) else {
             return nil
@@ -442,6 +443,18 @@ private extension SceneCoordinator {
             let _viewController = FollowingListViewController()
             _viewController.viewModel = viewModel
             viewController = _viewController
+        case .report(let viewModel):
+            let _viewController = ReportViewController()
+            _viewController.viewModel = viewModel
+            viewController = _viewController
+        case .reportSupplementary(let viewModel):
+            let _viewController = ReportSupplementaryViewController()
+            _viewController.viewModel = viewModel
+            viewController = _viewController
+        case .reportResult(let viewModel):
+            let _viewController = ReportResultViewController()
+            _viewController.viewModel = viewModel
+            viewController = _viewController
         case .suggestionAccount(let viewModel):
             let _viewController = SuggestionAccountViewController()
             _viewController.viewModel = viewModel
@@ -477,16 +490,6 @@ private extension SceneCoordinator {
             let _viewController = SettingsViewController()
             _viewController.viewModel = viewModel
             viewController = _viewController
-        case .report(let viewModel):
-            let _viewController = ReportViewController()
-            _viewController.viewModel = viewModel
-            viewController = _viewController
-        #if DEBUG
-        case .publicTimeline:
-            let _viewController = PublicTimelineViewController()
-            _viewController.viewModel = PublicTimelineViewModel(context: appContext)
-            viewController = _viewController
-        #endif
         }
         
         setupDependency(for: viewController as? NeedsDependency)

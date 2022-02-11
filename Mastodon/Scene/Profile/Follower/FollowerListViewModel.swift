@@ -22,7 +22,8 @@ final class FollowerListViewModel {
     let domain: CurrentValueSubject<String?, Never>
     let userID: CurrentValueSubject<String?, Never>
     let userFetchedResultsController: UserFetchedResultsController
-
+    let listBatchFetchViewModel = ListBatchFetchViewModel()
+    
     // output
     var diffableDataSource: UITableViewDiffableDataSource<UserSection, UserItem>?
     private(set) lazy var stateMachine: GKStateMachine = {

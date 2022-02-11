@@ -7,6 +7,8 @@
 
 import UIKit
 import MastodonUI
+import MastodonAsset
+import MastodonLocalization
 
 final class NavigationActionView: UIView {
     
@@ -37,6 +39,14 @@ final class NavigationActionView: UIView {
         return button
     }()
     
+    var hidesBackButton: Bool = false {
+        didSet { backButtonShadowContainer.isHidden = hidesBackButton }
+    }
+    
+    var hidesNextButton: Bool = false {
+        didSet { nextButtonShadowContainer.isHidden = hidesNextButton }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         _init()
@@ -50,6 +60,7 @@ final class NavigationActionView: UIView {
 }
 
 extension NavigationActionView {
+    
     private func _init() {
         buttonContainer.translatesAutoresizingMaskIntoConstraints = false
         buttonContainer.preservesSuperviewLayoutMargins = true

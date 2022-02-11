@@ -11,9 +11,13 @@ import Combine
 import CoreDataStack
 import MastodonSDK
 import MastodonMeta
+import MastodonAsset
+import MastodonLocalization
 
 // please override this base class
 class ProfileViewModel: NSObject {
+    
+    let logger = Logger(subsystem: "ProfileViewModel", category: "ViewModel")
     
     typealias UserID = String
     
@@ -24,8 +28,8 @@ class ProfileViewModel: NSObject {
     
     // input
     let context: AppContext
-    let mastodonUser: CurrentValueSubject<MastodonUser?, Never>
-    let currentMastodonUser = CurrentValueSubject<MastodonUser?, Never>(nil)
+    @Published var me: MastodonUser?
+    @Published var user: MastodonUser?
     let viewDidAppear = PassthroughSubject<Void, Never>()
         
     // output
@@ -40,7 +44,7 @@ class ProfileViewModel: NSObject {
     let statusesCount: CurrentValueSubject<Int?, Never>
     let followingCount: CurrentValueSubject<Int?, Never>
     let followersCount: CurrentValueSubject<Int?, Never>
-    let fields: CurrentValueSubject<[Mastodon.Entity.Field], Never>
+    let fields: CurrentValueSubject<[MastodonField], Never>
     let emojiMeta: CurrentValueSubject<MastodonContent.Emojis, Never>
 
     // fulfill this before editing
@@ -69,7 +73,7 @@ class ProfileViewModel: NSObject {
     
     init(context: AppContext, optionalMastodonUser mastodonUser: MastodonUser?) {
         self.context = context
-        self.mastodonUser = CurrentValueSubject(mastodonUser)
+        self.user = mastodonUser
         self.domain = CurrentValueSubject(context.authenticationService.activeMastodonAuthenticationBox.value?.domain)
         self.userID = CurrentValueSubject(mastodonUser?.id)
         self.bannerImageURL = CurrentValueSubject(mastodonUser?.headerImageURL())
@@ -78,13 +82,13 @@ class ProfileViewModel: NSObject {
         self.username = CurrentValueSubject(mastodonUser?.acctWithDomain)
         self.bioDescription = CurrentValueSubject(mastodonUser?.note)
         self.url = CurrentValueSubject(mastodonUser?.url)
-        self.statusesCount = CurrentValueSubject(mastodonUser.flatMap { Int(truncating: $0.statusesCount) })
-        self.followingCount = CurrentValueSubject(mastodonUser.flatMap { Int(truncating: $0.followingCount) })
-        self.followersCount = CurrentValueSubject(mastodonUser.flatMap { Int(truncating: $0.followersCount) })
+        self.statusesCount = CurrentValueSubject(mastodonUser.flatMap { Int($0.statusesCount) })
+        self.followingCount = CurrentValueSubject(mastodonUser.flatMap { Int($0.followingCount) })
+        self.followersCount = CurrentValueSubject(mastodonUser.flatMap { Int($0.followersCount) })
         self.protected = CurrentValueSubject(mastodonUser?.locked)
         self.suspended = CurrentValueSubject(mastodonUser?.suspended ?? false)
         self.fields = CurrentValueSubject(mastodonUser?.fields ?? [])
-        self.emojiMeta = CurrentValueSubject(mastodonUser?.emojiMeta ?? [:])
+        self.emojiMeta = CurrentValueSubject(mastodonUser?.emojis.asDictionary ?? [:])
         super.init()
         
         relationshipActionOptionSet
@@ -94,65 +98,59 @@ class ProfileViewModel: NSObject {
             .store(in: &disposeBag)
 
         // bind active authentication
-        context.authenticationService.activeMastodonAuthentication
-            .sink { [weak self] activeMastodonAuthentication in
+        context.authenticationService.activeMastodonAuthenticationBox
+            .sink { [weak self] authenticationBox in
                 guard let self = self else { return }
-                guard let activeMastodonAuthentication = activeMastodonAuthentication else {
+                guard let authenticationBox = authenticationBox else {
                     self.domain.value = nil
-                    self.currentMastodonUser.value = nil
+                    self.me = nil
                     return
                 }
-                self.domain.value = activeMastodonAuthentication.domain
-                self.currentMastodonUser.value = activeMastodonAuthentication.user
+                self.domain.value = authenticationBox.domain
+                self.me = authenticationBox.authenticationRecord.object(in: context.managedObjectContext)?.user
             }
             .store(in: &disposeBag)
         
         // query relationship
-        let mastodonUserID = self.mastodonUser.map { $0?.id }
+        let userRecord = $user.map { user -> ManagedObjectRecord<MastodonUser>? in
+            user.flatMap { ManagedObjectRecord<MastodonUser>(objectID: $0.objectID) }
+        }
         let pendingRetryPublisher = CurrentValueSubject<TimeInterval, Never>(1)
-            
+        
+        // observe friendship
         Publishers.CombineLatest3(
-            mastodonUserID.removeDuplicates().eraseToAnyPublisher(),
-            context.authenticationService.activeMastodonAuthenticationBox.eraseToAnyPublisher(),
-            pendingRetryPublisher.eraseToAnyPublisher()
+            userRecord,
+            context.authenticationService.activeMastodonAuthenticationBox,
+            pendingRetryPublisher
         )
-        .compactMap { mastodonUserID, activeMastodonAuthenticationBox, _ -> (String, MastodonAuthenticationBox)? in
-            guard let mastodonUserID = mastodonUserID, let activeMastodonAuthenticationBox = activeMastodonAuthenticationBox else { return nil }
-            guard mastodonUserID != activeMastodonAuthenticationBox.userID else { return nil }
-            return (mastodonUserID, activeMastodonAuthenticationBox)
-        }
-        .setFailureType(to: Error.self)     // allow failure
-        .flatMap { mastodonUserID, activeMastodonAuthenticationBox -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Relationship]>, Error> in
-            let domain = activeMastodonAuthenticationBox.domain
-            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: [Relationship] fetch for user %s", ((#file as NSString).lastPathComponent), #line, #function, mastodonUserID)
-
-            return self.context.apiService.relationship(domain: domain, accountIDs: [mastodonUserID], authorizationBox: activeMastodonAuthenticationBox)
-                //.retry(3)
-                .eraseToAnyPublisher()
-        }
-        .sink { completion in
-            switch completion {
-            case .failure(let error):
-                os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: [Relationship] update fail: %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
-            case .finished:
-                break
-            }
-        } receiveValue: { response in
-            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: [Relationship] update success", ((#file as NSString).lastPathComponent), #line, #function)
-            
-            // there are seconds delay after request follow before requested -> following. Query again when needs
-            guard let relationship = response.value.first else { return }
-            if relationship.requested == true {
-                let delay = pendingRetryPublisher.value
-                DispatchQueue.main.asyncAfter(deadline: .now() + delay) { [weak self] in
-                    guard let _ = self else { return }
-                    pendingRetryPublisher.value = min(2 * delay, 60)
-                    os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: [Relationship] fetch again due to pending", ((#file as NSString).lastPathComponent), #line, #function)
+        .sink { [weak self] userRecord, authenticationBox, _ in
+            guard let self = self else { return }
+            guard let userRecord = userRecord,
+                  let authenticationBox = authenticationBox
+            else { return }
+            Task {
+                do {
+                    let response = try await self.updateRelationship(
+                        record: userRecord,
+                        authenticationBox: authenticationBox
+                    )
+                    // there are seconds delay after request follow before requested -> following. Query again when needs
+                    guard let relationship = response.value.first else { return }
+                    if relationship.requested == true {
+                        let delay = pendingRetryPublisher.value
+                        DispatchQueue.main.asyncAfter(deadline: .now() + delay) { [weak self] in
+                            guard let _ = self else { return }
+                            pendingRetryPublisher.value = min(2 * delay, 60)
+                            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: [Relationship] fetch again due to pending", ((#file as NSString).lastPathComponent), #line, #function)
+                        }
+                    }
+                } catch {
+                    self.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [Relationship] update user relationship failure: \(error.localizedDescription)")
                 }
             }
         }
         .store(in: &disposeBag)
-
+    
         let isBlockingOrBlocked = Publishers.CombineLatest(
             isBlocking,
             isBlockedBy
@@ -178,18 +176,18 @@ class ProfileViewModel: NSObject {
 extension ProfileViewModel {
     private func setup() {
         Publishers.CombineLatest(
-            mastodonUser.eraseToAnyPublisher(),
-            currentMastodonUser.eraseToAnyPublisher()
+            $user,
+            $me
         )
         .receive(on: DispatchQueue.main)
-        .sink { [weak self] mastodonUser, currentMastodonUser in
+        .sink { [weak self] user, me in
             guard let self = self else { return }
             // Update view model attribute
-            self.update(mastodonUser: mastodonUser)
-            self.update(mastodonUser: mastodonUser, currentMastodonUser: currentMastodonUser)
+            self.update(mastodonUser: user)
+            self.update(mastodonUser: user, currentMastodonUser: me)
 
             // Setup observer for user
-            if let mastodonUser = mastodonUser {
+            if let mastodonUser = user {
                 // setup observer
                 self.mastodonUserObserver = ManagedObjectObserver.observe(object: mastodonUser)
                     .sink { completion in
@@ -205,7 +203,7 @@ extension ProfileViewModel {
                         switch changeType {
                         case .update:
                             self.update(mastodonUser: mastodonUser)
-                            self.update(mastodonUser: mastodonUser, currentMastodonUser: currentMastodonUser)
+                            self.update(mastodonUser: mastodonUser, currentMastodonUser: me)
                         case .delete:
                             // TODO:
                             break
@@ -217,7 +215,7 @@ extension ProfileViewModel {
             }
 
             // Setup observer for user
-            if let currentMastodonUser = currentMastodonUser {
+            if let currentMastodonUser = me {
                 // setup observer
                 self.currentMastodonUserObserver = ManagedObjectObserver.observe(object: currentMastodonUser)
                     .sink { completion in
@@ -232,7 +230,7 @@ extension ProfileViewModel {
                         guard let changeType = change.changeType else { return }
                         switch changeType {
                         case .update:
-                            self.update(mastodonUser: mastodonUser, currentMastodonUser: currentMastodonUser)
+                            self.update(mastodonUser: user, currentMastodonUser: currentMastodonUser)
                         case .delete:
                             // TODO:
                             break
@@ -253,13 +251,13 @@ extension ProfileViewModel {
         self.username.value = mastodonUser?.acctWithDomain
         self.bioDescription.value = mastodonUser?.note
         self.url.value = mastodonUser?.url
-        self.statusesCount.value = mastodonUser.flatMap { Int(truncating: $0.statusesCount) }
-        self.followingCount.value = mastodonUser.flatMap { Int(truncating: $0.followingCount) }
-        self.followersCount.value = mastodonUser.flatMap { Int(truncating: $0.followersCount) }
+        self.statusesCount.value = mastodonUser.flatMap { Int($0.statusesCount) }
+        self.followingCount.value = mastodonUser.flatMap { Int($0.followingCount) }
+        self.followersCount.value = mastodonUser.flatMap { Int($0.followersCount) }
         self.protected.value = mastodonUser?.locked
         self.suspended.value = mastodonUser?.suspended ?? false
         self.fields.value = mastodonUser?.fields ?? []
-        self.emojiMeta.value = mastodonUser?.emojiMeta ?? [:]
+        self.emojiMeta.value = mastodonUser?.emojis.asDictionary ?? [:]
     }
     
     private func update(mastodonUser: MastodonUser?, currentMastodonUser: MastodonUser?) {
@@ -297,37 +295,37 @@ extension ProfileViewModel {
                 relationshipActionSet.insert(.suspended)
             }
             
-            let isFollowing = mastodonUser.followingBy.flatMap { $0.contains(currentMastodonUser) } ?? false
+            let isFollowing = mastodonUser.followingBy.contains(currentMastodonUser)
             if isFollowing {
                 relationshipActionSet.insert(.following)
             }
             os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: [Relationship] update %s isFollowing: %s", ((#file as NSString).lastPathComponent), #line, #function, mastodonUser.id, isFollowing.description)
             
-            let isPending = mastodonUser.followRequestedBy.flatMap { $0.contains(currentMastodonUser) } ?? false
+            let isPending = mastodonUser.followRequestedBy.contains(currentMastodonUser)
             if isPending {
                 relationshipActionSet.insert(.pending)
             }
             os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: [Relationship] update %s isPending: %s", ((#file as NSString).lastPathComponent), #line, #function, mastodonUser.id, isPending.description)
             
-            let isFollowedBy = currentMastodonUser.followingBy.flatMap { $0.contains(mastodonUser) } ?? false
+            let isFollowedBy = currentMastodonUser.followingBy.contains(mastodonUser)
             self.isFollowedBy.value = isFollowedBy
             os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: [Relationship] update %s isFollowedBy: %s", ((#file as NSString).lastPathComponent), #line, #function, mastodonUser.id, isFollowedBy.description)
             
-            let isMuting = mastodonUser.mutingBy.flatMap { $0.contains(currentMastodonUser) } ?? false
+            let isMuting = mastodonUser.mutingBy.contains(currentMastodonUser)
             if isMuting {
                 relationshipActionSet.insert(.muting)
             }
             self.isMuting.value = isMuting
             os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: [Relationship] update %s isMuting: %s", ((#file as NSString).lastPathComponent), #line, #function, mastodonUser.id, isMuting.description)
             
-            let isBlocking = mastodonUser.blockingBy.flatMap { $0.contains(currentMastodonUser) } ?? false
+            let isBlocking = mastodonUser.blockingBy.contains(currentMastodonUser)
             if isBlocking {
                 relationshipActionSet.insert(.blocking)
             }
             self.isBlocking.value = isBlocking
             os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: [Relationship] update %s isBlocking: %s", ((#file as NSString).lastPathComponent), #line, #function, mastodonUser.id, isBlocking.description)
             
-            let isBlockedBy = currentMastodonUser.blockingBy.flatMap { $0.contains(mastodonUser) } ?? false
+            let isBlockedBy = currentMastodonUser.blockingBy.contains(mastodonUser)
             if isBlockedBy {
                 relationshipActionSet.insert(.blocked)
             }
@@ -349,14 +347,27 @@ extension ProfileViewModel {
 
     // fetch profile info before edit
     func fetchEditProfileInfo() -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Account>, Error> {
-        guard let currentMastodonUser = currentMastodonUser.value,
-              let mastodonAuthentication = currentMastodonUser.mastodonAuthentication else {
+        guard let me = me,
+              let mastodonAuthentication = me.mastodonAuthentication
+        else {
             return Fail(error: APIService.APIError.implicit(.authenticationMissing)).eraseToAnyPublisher()
         }
 
         let authorization = Mastodon.API.OAuth.Authorization(accessToken: mastodonAuthentication.userAccessToken)
-        return context.apiService.accountVerifyCredentials(domain: currentMastodonUser.domain, authorization: authorization)
-//            .erro
+        return context.apiService.accountVerifyCredentials(domain: me.domain, authorization: authorization)
+    }
+    
+    private func updateRelationship(
+        record: ManagedObjectRecord<MastodonUser>,
+        authenticationBox: MastodonAuthenticationBox
+    ) async throws -> Mastodon.Response.Content<[Mastodon.Entity.Relationship]> {
+        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [Relationship] update user relationship...")
+        let response = try await context.apiService.relationship(
+            records: [record],
+            authenticationBox: authenticationBox
+        )
+        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [Relationship] did update MastodonUser relationship")
+        return response
     }
 
 }
@@ -452,5 +463,48 @@ extension ProfileViewModel {
             }
         }
 
+    }
+}
+
+extension ProfileViewModel {
+    func updateProfileInfo(
+        headerProfileInfo: ProfileHeaderViewModel.ProfileInfo,
+        aboutProfileInfo: ProfileAboutViewModel.ProfileInfo
+    ) async throws -> Mastodon.Response.Content<Mastodon.Entity.Account> {
+        guard let authenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else {
+            throw APIService.APIError.implicit(.badRequest)
+        }
+        
+        let domain = authenticationBox.domain
+        let authorization = authenticationBox.userAuthorization
+        
+        let _image: UIImage? = {
+            guard let image = headerProfileInfo.avatarImage else { return nil }
+            guard image.size.width <= ProfileHeaderViewModel.avatarImageMaxSizeInPixel.width else {
+                return image.af.imageScaled(to: ProfileHeaderViewModel.avatarImageMaxSizeInPixel)
+            }
+            return image
+        }()
+        
+        let fieldsAttributes = aboutProfileInfo.fields.map { field in
+            Mastodon.Entity.Field(name: field.name.value, value: field.value.value)
+        }
+        
+        let query = Mastodon.API.Account.UpdateCredentialQuery(
+            discoverable: nil,
+            bot: nil,
+            displayName: headerProfileInfo.name,
+            note: headerProfileInfo.note,
+            avatar: _image.flatMap { Mastodon.Query.MediaAttachment.png($0.pngData()) },
+            header: nil,
+            locked: nil,
+            source: nil,
+            fieldsAttributes: fieldsAttributes
+        )
+        return try await context.apiService.accountUpdateCredentials(
+            domain: domain,
+            query: query,
+            authorization: authorization
+        )
     }
 }

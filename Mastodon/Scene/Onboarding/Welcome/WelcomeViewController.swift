@@ -8,6 +8,8 @@
 import os.log
 import UIKit
 import Combine
+import MastodonAsset
+import MastodonLocalization
 
 final class WelcomeViewController: UIViewController, NeedsDependency {
     
@@ -307,19 +309,6 @@ extension WelcomeViewController {
         
         view.bringSubviewToFront(logoImageView)
         view.bringSubviewToFront(sloganLabel)
-
-        // set slogan for non-phone
-//        if traitCollection.userInterfaceIdiom != .phone {
-//            guard sloganLabel.superview == nil else {
-//                return
-//            }
-//            view.addSubview(sloganLabel)
-//            NSLayoutConstraint.activate([
-//                sloganLabel.leadingAnchor.constraint(equalTo: view.readableContentGuide.leadingAnchor, constant: 16),
-//                view.readableContentGuide.trailingAnchor.constraint(equalTo: sloganLabel.trailingAnchor, constant: 16),
-//                sloganLabel.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: 168),
-//            ])
-//        }
     }
 }
 

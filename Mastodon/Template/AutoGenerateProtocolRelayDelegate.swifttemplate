@@ -1,0 +1,51 @@
+<%
+func methodDeclaration(_ method: SourceryRuntime.Method) -> String {
+    var result = method.name
+    if method.throws {
+        result = result + " throws"
+    } else if method.rethrows {
+        result = result + " rethrows"
+    }
+    return result + " -> \(method.returnTypeName)"
+}
+-%>
+<%# Constructs method call string passing in parameters with their local names -%>
+<%
+func methodCall(
+    _ method: SourceryRuntime.Method,
+    replaceOf: String,
+    replaceWith: String
+) -> String {
+    let params = method.parameters.map({
+        if let label = $0.argumentLabel {
+            return "\(label): \($0.name)"
+        } else {
+            return $0.name
+        }
+    }).joined(separator: ", ")
+    var result = "\(method.callName)(\(params))"
+
+    if method.throws {
+        result = "try " + result
+    }
+    if !method.returnTypeName.isVoid {
+        result = "return " + result
+    }
+    result = result.replacingOccurrences(of: replaceOf, with: replaceWith)
+    return result
+}
+-%>
+<% for type in types.implementing["AutoGenerateProtocolRelayDelegate"] {
+    guard let replaceOf = type.annotations["replaceOf"] as? String else { continue }
+    guard let replaceWith = type.annotations["replaceWith"] as? String else { continue }
+    guard let protocolToGenerate = type.annotations["protocolName"] as? String else { continue }
+    guard let aProtocol = types.protocols.first(where: { $0.name == protocolToGenerate }) else { continue } -%>
+// sourcery:inline:<%= type.name %>.AutoGenerateProtocolRelayDelegate
+<% for method in aProtocol.methods { -%>
+func <%= method.name -%> {
+    <%= methodCall(method, replaceOf: replaceOf, replaceWith: replaceWith) %>
+}
+
+<% } -%>
+// sourcery:end
+<% } %>

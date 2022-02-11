@@ -13,6 +13,8 @@ import MastodonSDK
 import UIKit
 import MetaTextKit
 import MastodonMeta
+import MastodonAsset
+import MastodonLocalization
 
 protocol SuggestionAccountTableViewCellDelegate: AnyObject {
     func accountButtonPressed(objectID: NSManagedObjectID, cell: SuggestionAccountTableViewCell)
@@ -139,7 +141,7 @@ extension SuggestionAccountTableViewCell {
         ])
     }
     
-    func config(with account: MastodonUser, isSelected: Bool) {
+    func config(with account: MastodonUser) {
         if let url = account.avatarImageURL() {
             _imageView.af.setImage(
                 withURL: url,
@@ -147,7 +149,7 @@ extension SuggestionAccountTableViewCell {
                 imageTransition: .crossDissolve(0.2)
             )
         }
-        let mastodonContent = MastodonContent(content: account.displayNameWithFallback, emojis: account.emojiMeta)
+        let mastodonContent = MastodonContent(content: account.displayNameWithFallback, emojis: account.emojis.asDictionary)
         do {
             let metaContent = try MastodonMetaContent.convert(document: mastodonContent)
             titleLabel.configure(content: metaContent)

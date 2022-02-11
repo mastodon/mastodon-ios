@@ -43,19 +43,13 @@ extension ContextMenuImagePreviewViewController {
         let frame = AVMakeRect(aspectRatio: viewModel.aspectRatio, insideRect: view.bounds)
         preferredContentSize = frame.size
         
-        viewModel.url
-            .sink { [weak self] url in
-                guard let self = self else { return }
-                guard let url = url else { return }
-                self.imageView.af.setImage(
-                    withURL: url,
-                    placeholderImage: self.viewModel.thumbnail,
-                    imageTransition: .crossDissolve(0.2),
-                    runImageTransitionIfCached: true,
-                    completion: nil
-                )
-            }
-            .store(in: &disposeBag)
+        imageView.af.setImage(
+            withURL: viewModel.assetURL,
+            placeholderImage: viewModel.thumbnail,
+            imageTransition: .crossDissolve(0.2),
+            runImageTransitionIfCached: false,
+            completion: nil
+        )
     }
     
 }

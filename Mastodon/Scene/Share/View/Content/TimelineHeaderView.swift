@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import MastodonAsset
+import MastodonLocalization
 
 final class TimelineHeaderView: UIView {
         
@@ -83,56 +85,56 @@ extension TimelineHeaderView {
     
 }
 
-extension Item.EmptyStateHeaderAttribute.Reason {
-    var iconImage: UIImage? {
-        switch self {
-        case .noStatusFound, .blocking, .blocked:
-            return UIImage(systemName: "nosign", withConfiguration: UIImage.SymbolConfiguration(pointSize: 64, weight: .bold))!
-        case .suspended:
-            return UIImage(systemName: "person.crop.circle.badge.xmark", withConfiguration: UIImage.SymbolConfiguration(pointSize: 64, weight: .bold))!
-        }
-    }
-    
-    var message: String {
-        switch self {
-        case .noStatusFound:
-            return L10n.Common.Controls.Timeline.Header.noStatusFound
-        case .blocking(let name):
-            if let name = name {
-                return L10n.Common.Controls.Timeline.Header.userBlockingWarning(name)
-            } else {
-                return L10n.Common.Controls.Timeline.Header.blockingWarning
-            }
-        case .blocked(let name):
-            if let name = name {
-                return L10n.Common.Controls.Timeline.Header.userBlockedWarning(name)
-            } else {
-                return L10n.Common.Controls.Timeline.Header.blockedWarning
-            }
-        case .suspended(let name):
-            if let name = name {
-                return L10n.Common.Controls.Timeline.Header.userSuspendedWarning(name)
-            } else {
-                return L10n.Common.Controls.Timeline.Header.suspendedWarning
-            }
-        }
-    }
-}
+//extension Item.EmptyStateHeaderAttribute.Reason {
+//    var iconImage: UIImage? {
+//        switch self {
+//        case .noStatusFound, .blocking, .blocked:
+//            return UIImage(systemName: "nosign", withConfiguration: UIImage.SymbolConfiguration(pointSize: 64, weight: .bold))!
+//        case .suspended:
+//            return UIImage(systemName: "person.crop.circle.badge.xmark", withConfiguration: UIImage.SymbolConfiguration(pointSize: 64, weight: .bold))!
+//        }
+//    }
+//    
+//    var message: String {
+//        switch self {
+//        case .noStatusFound:
+//            return L10n.Common.Controls.Timeline.Header.noStatusFound
+//        case .blocking(let name):
+//            if let name = name {
+//                return L10n.Common.Controls.Timeline.Header.userBlockingWarning(name)
+//            } else {
+//                return L10n.Common.Controls.Timeline.Header.blockingWarning
+//            }
+//        case .blocked(let name):
+//            if let name = name {
+//                return L10n.Common.Controls.Timeline.Header.userBlockedWarning(name)
+//            } else {
+//                return L10n.Common.Controls.Timeline.Header.blockedWarning
+//            }
+//        case .suspended(let name):
+//            if let name = name {
+//                return L10n.Common.Controls.Timeline.Header.userSuspendedWarning(name)
+//            } else {
+//                return L10n.Common.Controls.Timeline.Header.suspendedWarning
+//            }
+//        }
+//    }
+//}
 
-#if DEBUG && canImport(SwiftUI)
-import SwiftUI
-
-struct TimelineHeaderView_Previews: PreviewProvider {
-    static var previews: some View {
-        Group {
-            UIViewPreview(width: 375) {
-                let serverSectionHeaderView = TimelineHeaderView()
-                serverSectionHeaderView.iconImageView.image = Item.EmptyStateHeaderAttribute.Reason.blocking(name: nil).iconImage
-                serverSectionHeaderView.messageLabel.text = Item.EmptyStateHeaderAttribute.Reason.blocking(name: nil).message
-                return serverSectionHeaderView
-            }
-            .previewLayout(.fixed(width: 375, height: 400))
-        }
-    }
-}
-#endif
+//#if DEBUG && canImport(SwiftUI)
+//import SwiftUI
+//
+//struct TimelineHeaderView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        Group {
+//            UIViewPreview(width: 375) {
+//                let serverSectionHeaderView = TimelineHeaderView()
+//                serverSectionHeaderView.iconImageView.image = Item.EmptyStateHeaderAttribute.Reason.blocking(name: nil).iconImage
+//                serverSectionHeaderView.messageLabel.text = Item.EmptyStateHeaderAttribute.Reason.blocking(name: nil).message
+//                return serverSectionHeaderView
+//            }
+//            .previewLayout(.fixed(width: 375, height: 400))
+//        }
+//    }
+//}
+//#endif

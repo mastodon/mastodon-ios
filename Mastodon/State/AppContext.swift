@@ -25,9 +25,6 @@ class AppContext: ObservableObject {
     let apiService: APIService
     let authenticationService: AuthenticationService
     let emojiService: EmojiService
-    let audioPlaybackService = AudioPlaybackService()
-    let videoPlaybackService = VideoPlaybackService()
-    let statusPrefetchingService: StatusPrefetchingService
     let statusPublishService = StatusPublishService()
     let notificationService: NotificationService
     let settingService: SettingService
@@ -71,11 +68,6 @@ class AppContext: ObservableObject {
             apiService: apiService
         )
         
-        statusPrefetchingService = StatusPrefetchingService(
-            managedObjectContext: _managedObjectContext,
-            backgroundManagedObjectContext: _backgroundManagedObjectContext,
-            apiService: _apiService
-        )
         let _notificationService = NotificationService(
             apiService: _apiService,
             authenticationService: _authenticationService

@@ -5,12 +5,13 @@
 //  Created by MainasuK Cirno on 2021-7-14.
 //
 
+import os.log
 import UIKit
 import Combine
-import AVKit
-import GameplayKit
 
 final class SearchResultViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
+    
+    let logger = Logger(subsystem: "SearchResultViewController", category: "ViewController")
 
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
@@ -22,9 +23,6 @@ final class SearchResultViewController: UIViewController, NeedsDependency, Media
 
     let tableView: UITableView = {
         let tableView = UITableView()
-        tableView.register(SearchResultTableViewCell.self, forCellReuseIdentifier: String(describing: SearchResultTableViewCell.self))
-        tableView.register(StatusTableViewCell.self, forCellReuseIdentifier: String(describing: StatusTableViewCell.self))
-        tableView.register(TimelineBottomLoaderTableViewCell.self, forCellReuseIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self))
         tableView.separatorStyle = .none
         tableView.tableFooterView = UIView()
         tableView.backgroundColor = .clear
@@ -40,7 +38,7 @@ extension SearchResultViewController {
 
         setupBackgroundColor(theme: ThemeService.shared.currentTheme.value)
         ThemeService.shared.currentTheme
-            .receive(on: RunLoop.main)
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] theme in
                 guard let self = self else { return }
                 self.setupBackgroundColor(theme: theme)
@@ -57,12 +55,22 @@ extension SearchResultViewController {
         ])
 
         tableView.delegate = self
-        tableView.prefetchDataSource = self
+//        tableView.prefetchDataSource = self
         viewModel.setupDiffableDataSource(
             tableView: tableView,
-            dependency: self,
             statusTableViewCellDelegate: self
         )
+        
+        // setup batch fetch
+        viewModel.listBatchFetchViewModel.setup(scrollView: tableView)
+        viewModel.listBatchFetchViewModel.shouldFetch
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                guard self.view.window != nil else { return }
+                self.viewModel.stateMachine.enter(SearchResultViewModel.State.Loading.self)
+            }
+            .store(in: &disposeBag)
 
         // listen keyboard events and set content inset
         let keyboardEventPublishers = Publishers.CombineLatest3(
@@ -100,7 +108,7 @@ extension SearchResultViewController {
             self.tableView.verticalScrollIndicatorInsets.bottom = padding - self.view.safeAreaInsets.bottom
         })
         .store(in: &disposeBag)
-
+//
         // works for already onscreen page
         viewModel.navigationBarFrame
             .removeDuplicates()
@@ -109,6 +117,7 @@ extension SearchResultViewController {
                 guard let self = self else { return }
                 guard self.viewModel.viewDidAppear.value else { return }
                 self.tableView.contentInset.top = frame.height
+                self.tableView.verticalScrollIndicatorInsets.top = frame.height
             }
             .store(in: &disposeBag)
     }
@@ -122,19 +131,13 @@ extension SearchResultViewController {
             tableView.contentOffset.y = -viewModel.navigationBarFrame.value.height
         }
 
-        aspectViewWillAppear(animated)
+        tableView.deselectRow(with: transitionCoordinator, animated: animated)
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
         viewModel.viewDidAppear.value = true
-    }
-
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-
-        aspectViewDidDisappear(animated)
     }
 
 }
@@ -149,106 +152,110 @@ extension SearchResultViewController {
 }
 
 // MARK: - StatusTableViewCellDelegate
-extension SearchResultViewController: StatusTableViewCellDelegate {
-    weak var playerViewControllerDelegate: AVPlayerViewControllerDelegate? { return self }
-    func parent() -> UIViewController { return self }
-}
-
-// MARK: - StatusTableViewControllerAspect
-extension SearchResultViewController: StatusTableViewControllerAspect { }
-
-// MARK: - LoadMoreConfigurableTableViewContainer
-extension SearchResultViewController: LoadMoreConfigurableTableViewContainer {
-    typealias BottomLoaderTableViewCell = TimelineBottomLoaderTableViewCell
-    typealias LoadingState = SearchResultViewModel.State.Loading
-    var loadMoreConfigurableTableView: UITableView { tableView }
-    var loadMoreConfigurableStateMachine: GKStateMachine { viewModel.stateMachine }
-}
-
-// MARK: - UIScrollViewDelegate
-extension SearchResultViewController {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        aspectScrollViewDidScroll(scrollView)
-    }
-}
-
-// MARK: - TableViewCellHeightCacheableContainer
-extension SearchResultViewController: TableViewCellHeightCacheableContainer {
-    var cellFrameCache: NSCache<NSNumber, NSValue> {
-        viewModel.cellFrameCache
-    }
-}
+//extension SearchResultViewController: StatusTableViewCellDelegate {
+//    weak var playerViewControllerDelegate: AVPlayerViewControllerDelegate? { return self }
+//    func parent() -> UIViewController { return self }
+//}
 
 // MARK: - UITableViewDelegate
-extension SearchResultViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        aspectTableView(tableView, estimatedHeightForRowAt: indexPath)
-    }
+extension SearchResultViewController: UITableViewDelegate, AutoGenerateTableViewDelegate {
+    // sourcery:inline:SearchResultViewController.AutoGenerateTableViewDelegate
 
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        aspectTableView(tableView, willDisplay: cell, forRowAt: indexPath)
-    }
-
-    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        aspectTableView(tableView, didEndDisplaying: cell, forRowAt: indexPath)
-    }
-
+    // Generated using Sourcery
+    // DO NOT EDIT
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let diffableDataSource = viewModel.diffableDataSource else { return }
-        guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
-
-        viewModel.persistSearchHistory(for: item)
-
-        switch item {
-        case .account(let account):
-            let profileViewModel = RemoteProfileViewModel(context: context, userID: account.id)
-            coordinator.present(scene: .profile(viewModel: profileViewModel), from: self, transition: .show)
-        case .hashtag(let hashtag):
-            let hashtagViewModel = HashtagTimelineViewModel(context: context, hashtag: hashtag.name)
-            coordinator.present(scene: .hashtagTimeline(viewModel: hashtagViewModel), from: self, transition: .show)
-        case .status:
-            aspectTableView(tableView, didSelectRowAt: indexPath)
-        case .bottomLoader:
-            break
-        }
+        aspectTableView(tableView, didSelectRowAt: indexPath)
     }
 
     func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
-        aspectTableView(tableView, contextMenuConfigurationForRowAt: indexPath, point: point)
+        return aspectTableView(tableView, contextMenuConfigurationForRowAt: indexPath, point: point)
     }
 
     func tableView(_ tableView: UITableView, previewForHighlightingContextMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
-        aspectTableView(tableView, previewForHighlightingContextMenuWithConfiguration: configuration)
+        return aspectTableView(tableView, previewForHighlightingContextMenuWithConfiguration: configuration)
     }
 
     func tableView(_ tableView: UITableView, previewForDismissingContextMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
-        aspectTableView(tableView, previewForDismissingContextMenuWithConfiguration: configuration)
+        return aspectTableView(tableView, previewForDismissingContextMenuWithConfiguration: configuration)
     }
 
     func tableView(_ tableView: UITableView, willPerformPreviewActionForMenuWith configuration: UIContextMenuConfiguration, animator: UIContextMenuInteractionCommitAnimating) {
         aspectTableView(tableView, willPerformPreviewActionForMenuWith: configuration, animator: animator)
     }
 
+    // sourcery:end
+    
+//    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+//        aspectTableView(tableView, estimatedHeightForRowAt: indexPath)
+//    }
+//
+//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//        aspectTableView(tableView, willDisplay: cell, forRowAt: indexPath)
+//    }
+//
+//    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//        aspectTableView(tableView, didEndDisplaying: cell, forRowAt: indexPath)
+//    }
+//
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        guard let diffableDataSource = viewModel.diffableDataSource else { return }
+//        guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
+//
+//        viewModel.persistSearchHistory(for: item)
+//
+//        switch item {
+//        case .account(let account):
+//            let profileViewModel = RemoteProfileViewModel(context: context, userID: account.id)
+//            coordinator.present(scene: .profile(viewModel: profileViewModel), from: self, transition: .show)
+//        case .hashtag(let hashtag):
+//            let hashtagViewModel = HashtagTimelineViewModel(context: context, hashtag: hashtag.name)
+//            coordinator.present(scene: .hashtagTimeline(viewModel: hashtagViewModel), from: self, transition: .show)
+//        case .status:
+//            aspectTableView(tableView, didSelectRowAt: indexPath)
+//        case .bottomLoader:
+//            break
+//        }
+//    }
+//
+//    func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+//        aspectTableView(tableView, contextMenuConfigurationForRowAt: indexPath, point: point)
+//    }
+//
+//    func tableView(_ tableView: UITableView, previewForHighlightingContextMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
+//        aspectTableView(tableView, previewForHighlightingContextMenuWithConfiguration: configuration)
+//    }
+//
+//    func tableView(_ tableView: UITableView, previewForDismissingContextMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
+//        aspectTableView(tableView, previewForDismissingContextMenuWithConfiguration: configuration)
+//    }
+//
+//    func tableView(_ tableView: UITableView, willPerformPreviewActionForMenuWith configuration: UIContextMenuConfiguration, animator: UIContextMenuInteractionCommitAnimating) {
+//        aspectTableView(tableView, willPerformPreviewActionForMenuWith: configuration, animator: animator)
+//    }
+
 }
 
 // MARK: - UITableViewDataSourcePrefetching
-extension SearchResultViewController: UITableViewDataSourcePrefetching {
-    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
-        aspectTableView(tableView, cancelPrefetchingForRowsAt: indexPaths)
-    }
-
-    func tableView(_ tableView: UITableView, cancelPrefetchingForRowsAt indexPaths: [IndexPath]) {
-        aspectTableView(tableView, cancelPrefetchingForRowsAt: indexPaths)
-    }
-}
+//extension SearchResultViewController: UITableViewDataSourcePrefetching {
+//    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+//        aspectTableView(tableView, cancelPrefetchingForRowsAt: indexPaths)
+//    }
+//
+//    func tableView(_ tableView: UITableView, cancelPrefetchingForRowsAt indexPaths: [IndexPath]) {
+//        aspectTableView(tableView, cancelPrefetchingForRowsAt: indexPaths)
+//    }
+//}
 
 // MARK: - AVPlayerViewControllerDelegate
-extension SearchResultViewController: AVPlayerViewControllerDelegate {
-    func playerViewController(_ playerViewController: AVPlayerViewController, willBeginFullScreenPresentationWithAnimationCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-        handlePlayerViewController(playerViewController, willBeginFullScreenPresentationWithAnimationCoordinator: coordinator)
-    }
+//extension SearchResultViewController: AVPlayerViewControllerDelegate {
+//    func playerViewController(_ playerViewController: AVPlayerViewController, willBeginFullScreenPresentationWithAnimationCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+//        handlePlayerViewController(playerViewController, willBeginFullScreenPresentationWithAnimationCoordinator: coordinator)
+//    }
+//
+//    func playerViewController(_ playerViewController: AVPlayerViewController, willEndFullScreenPresentationWithAnimationCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+//        handlePlayerViewController(playerViewController, willEndFullScreenPresentationWithAnimationCoordinator: coordinator)
+//    }
+//}
 
-    func playerViewController(_ playerViewController: AVPlayerViewController, willEndFullScreenPresentationWithAnimationCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-        handlePlayerViewController(playerViewController, willEndFullScreenPresentationWithAnimationCoordinator: coordinator)
-    }
-}
+// MARK: - StatusTableViewCellDelegate
+extension SearchResultViewController: StatusTableViewCellDelegate { }

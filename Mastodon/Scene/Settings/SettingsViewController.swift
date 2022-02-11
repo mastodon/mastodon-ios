@@ -14,6 +14,8 @@ import MastodonSDK
 import MetaTextKit
 import MastodonMeta
 import AuthenticationServices
+import MastodonAsset
+import MastodonLocalization
 
 class SettingsViewController: UIViewController, NeedsDependency {
     
@@ -97,15 +99,13 @@ class SettingsViewController: UIViewController, NeedsDependency {
     }()
     
     private(set) lazy var tableView: UITableView = {
-        // init with a frame to fix a conflict ('UIView-Encapsulated-Layout-Width' UIStackView:0x7f8c2b6c0590.width == 0)
         let style: UITableView.Style = {
             switch UIDevice.current.userInterfaceIdiom {
-            case .phone:
-                return .grouped
-            default:
-                return .insetGrouped
+            case .phone:        return .grouped
+            default:            return .insetGrouped
             }
         }()
+        // init with a frame to fix a conflict ('UIView-Encapsulated-Layout-Width' UIStackView:0x7f8c2b6c0590.width == 0)
         let tableView = UITableView(frame: CGRect(x: 0, y: 0, width: 320, height: 320), style: style)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.delegate = self
@@ -132,6 +132,15 @@ class SettingsViewController: UIViewController, NeedsDependency {
         view.addArrangedSubview(tableFooterLabel)
         return view
     }()
+    
+    
+    deinit {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s:", ((#file as NSString).lastPathComponent), #line, #function)
+    }
+    
+}
+
+extension SettingsViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -212,7 +221,7 @@ class SettingsViewController: UIViewController, NeedsDependency {
     private func setupView() {
         setupBackgroundColor(theme: ThemeService.shared.currentTheme.value)
         ThemeService.shared.currentTheme
-            .receive(on: RunLoop.main)
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] theme in
                 guard let self = self else { return }
                 self.setupBackgroundColor(theme: theme)
@@ -285,35 +294,18 @@ class SettingsViewController: UIViewController, NeedsDependency {
     }
     
     func signOut() {
-        guard let activeMastodonAuthenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else {
+        guard let authenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else {
             return
         }
         
         // clear badge before sign-out
         context.notificationService.clearNotificationCountForActiveUser()
         
-        context.authenticationService.signOutMastodonUser(
-            domain: activeMastodonAuthenticationBox.domain,
-            userID: activeMastodonAuthenticationBox.userID
-        )
-        .receive(on: DispatchQueue.main)
-        .sink { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .failure(let error):
-                assertionFailure(error.localizedDescription)
-            case .success(let isSignOut):
-                os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: sign out %s", ((#file as NSString).lastPathComponent), #line, #function, isSignOut ? "success" : "fail")
-                guard isSignOut else { return }
-                self.coordinator.setup()
-                self.coordinator.setupOnboardingIfNeeds(animated: true)
-            }
+        Task { @MainActor in
+            try await context.authenticationService.signOutMastodonUser(authenticationBox: authenticationBox)
+            self.coordinator.setup()
+            self.coordinator.setupOnboardingIfNeeds(animated: true)
         }
-        .store(in: &disposeBag)
-    }
-    
-    deinit {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s:", ((#file as NSString).lastPathComponent), #line, #function)
     }
     
 }
@@ -325,7 +317,9 @@ extension SettingsViewController {
     }
 }
 
+// MARK: - UITableViewDelegate
 extension SettingsViewController: UITableViewDelegate {
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let sections = viewModel.dataSource.snapshot().sectionIdentifiers
         guard section < sections.count else { return nil }
@@ -447,24 +441,42 @@ extension SettingsViewController {
 
 // MARK: - SettingsAppearanceTableViewCellDelegate
 extension SettingsViewController: SettingsAppearanceTableViewCellDelegate {
-    func settingsAppearanceCell(_ cell: SettingsAppearanceTableViewCell, didSelectAppearanceMode appearanceMode: SettingsItem.AppearanceMode) {
+    func settingsAppearanceTableViewCell(
+        _ cell: SettingsAppearanceTableViewCell,
+        didSelectAppearanceMode appearanceMode: SettingsItem.AppearanceMode
+    ) {
         guard let dataSource = viewModel.dataSource else { return }
         guard let indexPath = tableView.indexPath(for: cell) else { return }
         let item = dataSource.itemIdentifier(for: indexPath)
-        guard case .appearance = item else { return }
-
-        switch appearanceMode {
-        case .automatic:
-            UserDefaults.shared.customUserInterfaceStyle = .unspecified
-        case .light:
-            UserDefaults.shared.customUserInterfaceStyle = .light
-        case .dark:
-            UserDefaults.shared.customUserInterfaceStyle = .dark
-        }
+        guard case let .appearance(record) = item else { return }
         
-        let feedbackGenerator = UIImpactFeedbackGenerator(style: .light)
-        feedbackGenerator.impactOccurred()
+        Task { @MainActor in 
+            var preferredTrueBlackDarkMode = false
+            
+            switch appearanceMode {
+            case .system:
+                UserDefaults.shared.customUserInterfaceStyle = .unspecified
+            case .reallyDark:
+                UserDefaults.shared.customUserInterfaceStyle = .dark
+                preferredTrueBlackDarkMode = true
+            case .sortaDark:
+                UserDefaults.shared.customUserInterfaceStyle = .dark
+            case .light:
+                UserDefaults.shared.customUserInterfaceStyle = .light
+            }
+            
+            let managedObjectContext = context.managedObjectContext
+            try await managedObjectContext.performChanges {
+                guard let setting = record.object(in: managedObjectContext) else { return }
+                setting.update(preferredTrueBlackDarkMode: preferredTrueBlackDarkMode)
+            }
+            ThemeService.shared.set(themeName: preferredTrueBlackDarkMode ? .system : .mastodon)
+            
+            let feedbackGenerator = UIImpactFeedbackGenerator(style: .light)
+            feedbackGenerator.impactOccurred()
+        }   // end Task
     }
+
 }
 
 extension SettingsViewController: SettingsToggleCellDelegate {
@@ -476,10 +488,10 @@ extension SettingsViewController: SettingsToggleCellDelegate {
         let item = dataSource.itemIdentifier(for: indexPath)
 
         switch item {
-        case .notification(let settingObjectID, let switchMode):
+        case .notification(let record, let switchMode):
             let managedObjectContext = context.backgroundManagedObjectContext
             managedObjectContext.performChanges {
-                let setting = managedObjectContext.object(with: settingObjectID) as! Setting
+                guard let setting = record.object(in: managedObjectContext) else { return }
                 guard let subscription = setting.activeSubscription else { return }
                 let alert = subscription.alert
                 switch switchMode {
@@ -495,13 +507,11 @@ extension SettingsViewController: SettingsToggleCellDelegate {
                 // do nothing
             }
             .store(in: &disposeBag)
-        case .preference(let settingObjectID, let preferenceType):
+        case .preference(let record, let preferenceType):
             let managedObjectContext = context.backgroundManagedObjectContext
             managedObjectContext.performChanges {
-                let setting = managedObjectContext.object(with: settingObjectID) as! Setting
+                guard let setting = record.object(in: managedObjectContext) else { return }
                 switch preferenceType {
-                case .darkMode:
-                    setting.update(preferredTrueBlackDarkMode: isOn)
                 case .disableAvatarAnimation:
                     setting.update(preferredStaticAvatar: isOn)
                 case .disableEmojiAnimation:
@@ -514,8 +524,6 @@ extension SettingsViewController: SettingsToggleCellDelegate {
                 switch result {
                 case .success:
                     switch preferenceType {
-                    case .darkMode:
-                        ThemeService.shared.set(themeName: isOn ? .system : .mastodon)
                     case .disableAvatarAnimation:
                         UserDefaults.shared.preferredStaticAvatar = isOn
                     case .disableEmojiAnimation:

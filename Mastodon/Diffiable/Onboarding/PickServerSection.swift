@@ -21,7 +21,11 @@ extension PickServerSection {
         dependency: NeedsDependency,
         pickServerCellDelegate: PickServerCellDelegate
     ) -> UITableViewDiffableDataSource<PickServerSection, PickServerItem> {
-        UITableViewDiffableDataSource(tableView: tableView) { [
+        tableView.register(OnboardingHeadlineTableViewCell.self, forCellReuseIdentifier: String(describing: OnboardingHeadlineTableViewCell.self))
+        tableView.register(PickServerCell.self, forCellReuseIdentifier: String(describing: PickServerCell.self))
+        tableView.register(PickServerLoaderTableViewCell.self, forCellReuseIdentifier: String(describing: PickServerLoaderTableViewCell.self))
+        
+        return UITableViewDiffableDataSource(tableView: tableView) { [
             weak dependency,
             weak pickServerCellDelegate
         ] tableView, indexPath, item -> UITableViewCell? in

@@ -8,6 +8,8 @@
 import os.log
 import UIKit
 import Combine
+import MastodonAsset
+import MastodonLocalization
 
 protocol SearchHistoryTableHeaderViewDelegate: AnyObject {
     func searchHistoryTableHeaderView(_ searchHistoryTableHeaderView: SearchHistoryTableHeaderView, clearSearchHistoryButtonDidPressed button: UIButton)

@@ -16,93 +16,67 @@ import MastodonSDK
 extension APIService {
 
     func status(
-        domain: String,
         statusID: Mastodon.Entity.Status.ID,
-        authorizationBox: MastodonAuthenticationBox
-    ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Status>, Error> {
-        let authorization = authorizationBox.userAuthorization
-        return Mastodon.API.Statuses.status(
+        authenticationBox: MastodonAuthenticationBox
+    ) async throws -> Mastodon.Response.Content<Mastodon.Entity.Status> {
+        let domain = authenticationBox.domain
+        let authorization = authenticationBox.userAuthorization
+        
+        let response = try await  Mastodon.API.Statuses.status(
             session: session,
             domain: domain,
             statusID: statusID,
             authorization: authorization
-        )
-        .flatMap { response -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Status>, Error> in
-            return APIService.Persist.persistStatus(
-                managedObjectContext: self.backgroundManagedObjectContext,
-                domain: domain,
-                query: nil,
-                response: response.map { [$0] },
-                persistType: .lookUp,
-                requestMastodonUserID: nil,
-                log: OSLog.api
+        ).singleOutput()
+        
+        let managedObjectContext = self.backgroundManagedObjectContext
+        try await managedObjectContext.performChanges {
+            let me = authenticationBox.authenticationRecord.object(in: managedObjectContext)?.user
+            _ = Persistence.Status.createOrMerge(
+                in: managedObjectContext,
+                context: Persistence.Status.PersistContext(
+                    domain: domain,
+                    entity: response.value,
+                    me: me,
+                    statusCache: nil,
+                    userCache: nil,
+                    networkDate: response.networkDate
+                )
             )
-            .setFailureType(to: Error.self)
-            .tryMap { result -> Mastodon.Response.Content<Mastodon.Entity.Status> in
-                switch result {
-                case .success:
-                    return response
-                case .failure(let error):
-                    throw error
-                }
-            }
-            .eraseToAnyPublisher()
         }
-        .eraseToAnyPublisher()
+        
+        return response
     }
     
     func deleteStatus(
-        domain: String,
-        statusID: Mastodon.Entity.Status.ID,
-        authorizationBox: MastodonAuthenticationBox
-    ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Status>, Error> {
-        let authorization = authorizationBox.userAuthorization
-        let query = Mastodon.API.Statuses.DeleteStatusQuery(id: statusID)
-        return Mastodon.API.Statuses.deleteStatus(
+        status: ManagedObjectRecord<Status>,
+        authenticationBox: MastodonAuthenticationBox
+    ) async throws -> Mastodon.Response.Content<Mastodon.Entity.Status> {
+        let authorization = authenticationBox.userAuthorization
+        
+        let managedObjectContext = backgroundManagedObjectContext
+        let _query: Mastodon.API.Statuses.DeleteStatusQuery? = try? await managedObjectContext.perform {
+            guard let _status = status.object(in: managedObjectContext) else { return nil }
+            let status = _status.reblog ?? _status
+            return Mastodon.API.Statuses.DeleteStatusQuery(id: status.id)
+        }
+        guard let query = _query else {
+            throw APIError.implicit(.badRequest)
+        }
+        
+        let response = try await Mastodon.API.Statuses.deleteStatus(
             session: session,
-            domain: domain,
+            domain: authenticationBox.domain,
             query: query,
             authorization: authorization
-        )
-        .flatMap { response -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Status>, Error> in
-            return self.backgroundManagedObjectContext.performChanges{
-                // fetch old Status
-                let oldStatus: Status? = {
-                    let request = Status.sortedFetchRequest
-                    request.predicate = Status.predicate(domain: domain, id: response.value.id)
-                    request.fetchLimit = 1
-                    request.returnsObjectsAsFaults = false
-                    do {
-                        return try self.backgroundManagedObjectContext.fetch(request).first
-                    } catch {
-                        assertionFailure(error.localizedDescription)
-                        return nil
-                    }
-                }()
-                if let status = oldStatus {
-                    let homeTimelineIndexes = status.homeTimelineIndexes ?? Set()
-                    for homeTimelineIndex in homeTimelineIndexes {
-                        self.backgroundManagedObjectContext.delete(homeTimelineIndex)
-                    }
-                    let inNotifications = status.inNotifications ?? Set()
-                    for notification in inNotifications {
-                        self.backgroundManagedObjectContext.delete(notification)
-                    }
-                    self.backgroundManagedObjectContext.delete(status)
-                }
-            }
-            .setFailureType(to: Error.self)
-            .tryMap { result -> Mastodon.Response.Content<Mastodon.Entity.Status> in
-                switch result {
-                case .success:
-                    return response
-                case .failure(let error):
-                    throw error
-                }
-            }
-            .eraseToAnyPublisher()
+        ).singleOutput()
+        
+        try await managedObjectContext.performChanges {
+            guard let status = status.object(in: managedObjectContext) else { return }
+            managedObjectContext.delete(status)
         }
-        .eraseToAnyPublisher()
+        
+        return response
     }
     
 }

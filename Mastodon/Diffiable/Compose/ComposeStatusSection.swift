@@ -14,7 +14,7 @@ import MastodonMeta
 import AlamofireImage
 
 enum ComposeStatusSection: Equatable, Hashable {
-    case repliedTo
+    case replyTo
     case status
     case attachment
     case poll
@@ -24,43 +24,44 @@ extension ComposeStatusSection {
     enum ComposeKind {
         case post
         case hashtag(hashtag: String)
-        case mention(mastodonUserObjectID: NSManagedObjectID)
-        case reply(repliedToStatusObjectID: NSManagedObjectID)
+        case mention(user: ManagedObjectRecord<MastodonUser>)
+        case reply(status: ManagedObjectRecord<Status>)
     }
 }
 
 extension ComposeStatusSection {
 
-    static func configureStatusContent(
+    static func configure(
         cell: ComposeStatusContentTableViewCell,
         attribute: ComposeStatusItem.ComposeStatusAttribute
     ) {
-        // set avatar
-        attribute.avatarURL
-            .receive(on: DispatchQueue.main)
-            .sink { avatarURL in
-                cell.statusView.configure(with: AvatarConfigurableViewConfiguration(avatarImageURL: avatarURL))
-            }
-            .store(in: &cell.disposeBag)
-        // set display name and username
-        Publishers.CombineLatest3(
-            attribute.displayName,
-            attribute.emojiMeta,
-            attribute.username
-        )
-        .receive(on: DispatchQueue.main)
-        .sink { displayName, emojiMeta, username in
-            do {
-                let mastodonContent = MastodonContent(content: displayName ?? " ", emojis: emojiMeta)
-                let metaContent = try MastodonMetaContent.convert(document: mastodonContent)
-                cell.statusView.nameLabel.configure(content: metaContent)
-            } catch {
-                let metaContent = PlaintextMetaContent(string: " ")
-                cell.statusView.nameLabel.configure(content: metaContent)
-            }
-            cell.statusView.usernameLabel.text = username.flatMap { "@" + $0 } ?? " "
-        }
-        .store(in: &cell.disposeBag)
+//        cell.prepa
+//        // set avatar
+//        attribute.avatarURL
+//            .receive(on: DispatchQueue.main)
+//            .sink { avatarURL in
+//                cell.statusView.configure(with: AvatarConfigurableViewConfiguration(avatarImageURL: avatarURL))
+//            }
+//            .store(in: &cell.disposeBag)
+//        // set display name and username
+//        Publishers.CombineLatest3(
+//            attribute.displayName,
+//            attribute.emojiMeta,
+//            attribute.username
+//        )
+//        .receive(on: DispatchQueue.main)
+//        .sink { displayName, emojiMeta, username in
+//            do {
+//                let mastodonContent = MastodonContent(content: displayName ?? " ", emojis: emojiMeta)
+//                let metaContent = try MastodonMetaContent.convert(document: mastodonContent)
+//                cell.statusView.nameLabel.configure(content: metaContent)
+//            } catch {
+//                let metaContent = PlaintextMetaContent(string: " ")
+//                cell.statusView.nameLabel.configure(content: metaContent)
+//            }
+//            cell.statusView.usernameLabel.text = username.flatMap { "@" + $0 } ?? " "
+//        }
+//        .store(in: &cell.disposeBag)
     }
     
 }

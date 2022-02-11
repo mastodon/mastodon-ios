@@ -5,30 +5,29 @@
 //  Created by MainasuK Cirno on 2021-7-13.
 //
 
+import os.log
 import UIKit
 import Combine
 import CoreDataStack
 
 final class SearchHistoryViewController: UIViewController, NeedsDependency {
-
-    var disposeBag = Set<AnyCancellable>()
+    
+    let logger = Logger(subsystem: "SearchHistoryViewController", category: "ViewController")
 
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
 
+    var disposeBag = Set<AnyCancellable>()
     var viewModel: SearchHistoryViewModel!
-
-    let searchHistoryTableHeaderView = SearchHistoryTableHeaderView()
-    let tableView: UITableView = {
-        let tableView = UITableView()
-        tableView.register(SearchResultTableViewCell.self, forCellReuseIdentifier: String(describing: SearchResultTableViewCell.self))
-//        tableView.register(StatusTableViewCell.self, forCellReuseIdentifier: String(describing: StatusTableViewCell.self))
-        tableView.separatorStyle = .none
-        tableView.tableFooterView = UIView()
-        tableView.backgroundColor = .clear
-        return tableView
+    
+    let collectionView: UICollectionView = {
+        var configuration = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
+        configuration.backgroundColor = .clear
+        configuration.headerMode = .supplementary
+        let layout = UICollectionViewCompositionalLayout.list(using: configuration)
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        return collectionView
     }()
-
 }
 
 extension SearchHistoryViewController {
@@ -38,37 +37,28 @@ extension SearchHistoryViewController {
 
         setupBackgroundColor(theme: ThemeService.shared.currentTheme.value)
         ThemeService.shared.currentTheme
-            .receive(on: RunLoop.main)
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] theme in
                 guard let self = self else { return }
                 self.setupBackgroundColor(theme: theme)
             }
             .store(in: &disposeBag)
 
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(tableView)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(collectionView)
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
-
-        tableView.delegate = self
+        
+        collectionView.delegate = self
         viewModel.setupDiffableDataSource(
-            tableView: tableView,
-            dependency: self
+            collectionView: collectionView,
+            searchHistorySectionHeaderCollectionReusableViewDelegate: self
         )
-
-        searchHistoryTableHeaderView.delegate = self
     }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
-        tableView.deselectRow(with: transitionCoordinator, animated: animated)
-    }
-
 }
 
 extension SearchHistoryViewController {
@@ -77,52 +67,59 @@ extension SearchHistoryViewController {
     }
 }
 
-// MARK: - UITableViewDelegate
-extension SearchHistoryViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        switch section {
-        case 0:
-            return searchHistoryTableHeaderView
-        default:
-            return UIView()
+// MARK: - UICollectionViewDelegate
+extension SearchHistoryViewController: UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): select item at: \(indexPath.debugDescription)")
+        
+        defer {
+            collectionView.deselectItem(at: indexPath, animated: true)
+        }
+        
+        Task {
+            let source = DataSourceItem.Source(indexPath: indexPath)
+            guard let item = await item(from: source) else {
+                return
+            }
+            
+            await DataSourceFacade.responseToCreateSearchHistory(
+                provider: self,
+                item: item
+            )
+            
+            switch item {
+            case .user(let record):
+                await DataSourceFacade.coordinateToProfileScene(
+                    provider: self,
+                    user: record
+                )
+            case .hashtag(let record):
+                await DataSourceFacade.coordinateToHashtagScene(
+                    provider: self,
+                    tag: record
+                )
+            default:
+                assertionFailure()
+                break
+            }
         }
     }
 
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        switch section {
-        case 0:
-            return UITableView.automaticDimension
-        default:
-            return .leastNonzeroMagnitude
-        }
-    }
-
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let diffableDataSource = viewModel.diffableDataSource else { return }
-        guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
-
-        viewModel.persistSearchHistory(for: item)
-
-        switch item {
-        case .account(let objectID):
-            guard let user = try? viewModel.searchHistoryFetchedResultController.fetchedResultsController.managedObjectContext.existingObject(with: objectID) as? MastodonUser else { return }
-            let profileViewModel = CachedProfileViewModel(context: context, mastodonUser: user)
-            coordinator.present(scene: .profile(viewModel: profileViewModel), from: self, transition: .show)
-        case .hashtag(let objectID):
-            guard let hashtag = try? viewModel.searchHistoryFetchedResultController.fetchedResultsController.managedObjectContext.existingObject(with: objectID) as? Tag else { return }
-            let hashtagViewModel = HashtagTimelineViewModel(context: context, hashtag: hashtag.name)
-            coordinator.present(scene: .hashtagTimeline(viewModel: hashtagViewModel), from: self, transition: .show)
-        case .status(let objectID, _):
-            guard let status = try? viewModel.searchHistoryFetchedResultController.fetchedResultsController.managedObjectContext.existingObject(with: objectID) as? Status else { return }
-            let threadViewModel = CachedThreadViewModel(context: context, status: status)
-            coordinator.present(scene: .thread(viewModel: threadViewModel), from: self, transition: .show)
-        }
-    }
 }
 
-// MARK: - SearchHistoryTableHeaderViewDelegate
-extension SearchHistoryViewController: SearchHistoryTableHeaderViewDelegate {
-    func searchHistoryTableHeaderView(_ searchHistoryTableHeaderView: SearchHistoryTableHeaderView, clearSearchHistoryButtonDidPressed button: UIButton) {
-        viewModel.clearSearchHistory()
+// MARK: - SearchHistorySectionHeaderCollectionReusableViewDelegate
+extension SearchHistoryViewController: SearchHistorySectionHeaderCollectionReusableViewDelegate {
+    func searchHistorySectionHeaderCollectionReusableView(
+        _ searchHistorySectionHeaderCollectionReusableView: SearchHistorySectionHeaderCollectionReusableView,
+        clearButtonDidPressed button: UIButton
+    ) {
+        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
+        
+        Task {
+            try await DataSourceFacade.responseToDeleteSearchHistory(
+                provider: self
+            )
+        }
     }
 }

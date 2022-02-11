@@ -112,11 +112,13 @@ extension AccountListViewModel {
         let user = authentication.user
         
         // avatar
-        cell.configure(with: AvatarConfigurableViewConfiguration(avatarImageURL: user.avatarImageURL()))
+        cell.avatarButton.avatarImageView.configure(
+            configuration: .init(url: user.avatarImageURL())
+        )
 
         // name
         do {
-            let content = MastodonContent(content: user.displayNameWithFallback, emojis: user.emojiMeta)
+            let content = MastodonContent(content: user.displayNameWithFallback, emojis: user.emojis.asDictionary)
             let metaContent = try MastodonMetaContent.convert(document: content)
             cell.nameLabel.configure(content: metaContent)
         } catch {

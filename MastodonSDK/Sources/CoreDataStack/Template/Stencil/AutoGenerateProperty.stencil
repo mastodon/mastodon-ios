@@ -1,0 +1,45 @@
+{% for type in types.implementing.AutoGenerateProperty %}
+// sourcery:inline:{{type.name}}.AutoGenerateProperty
+
+// Generated using Sourcery
+// DO NOT EDIT
+public struct Property {
+    {% for variable in type.variables|instance where
+    variable|annotated:"autoGenerateProperty"
+    %}
+    public let {{variable.name}}: {{variable.typeName}}
+    {% endfor %}
+
+	public init(
+        {% for variable in type.variables|instance where
+        variable|annotated:"autoGenerateProperty"
+        %}
+		{{variable.name}}: {{variable.typeName}}{% if not forloop.last %},{% endif %}
+		{% endfor %}
+	) {
+        {% for variable in type.variables|instance where
+        variable|annotated:"autoGenerateProperty"
+        %}
+		self.{{variable.name}} = {{variable.name}}
+		{% endfor %}
+	}
+}
+
+public func configure(property: Property) {
+    {% for variable in type.variables|instance where
+    variable|annotated:"autoGenerateProperty"
+    %}
+	self.{{variable.name}} = property.{{variable.name}}
+	{% endfor %}
+}
+
+public func update(property: Property) {
+    {% for variable in type.variables|instance where
+    variable|annotated:"autoUpdatableObject" and
+    variable|annotated:"autoGenerateProperty"
+    %}
+	update({{variable.name}}: property.{{variable.name}})
+	{% endfor %}
+}
+// sourcery:end
+{% endfor %}

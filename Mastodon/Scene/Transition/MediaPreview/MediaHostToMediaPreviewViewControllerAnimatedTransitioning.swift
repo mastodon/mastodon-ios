@@ -58,7 +58,7 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
         // set to image hidden
         toVC.pagingViewController.view.alpha = 0
         // set from image hidden. update hidden when paging. seealso: `MediaPreviewViewController`
-        transitionItem.source.updateAppearance(position: .start, index: toVC.viewModel.currentPage.value)
+        transitionItem.source.updateAppearance(position: .start, index: toVC.viewModel.currentPage)
         
         // Set transition image view
         assert(transitionItem.initialFrame != nil)
@@ -78,7 +78,7 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
             return imageView
         }()
         transitionItem.targetFrame = transitionTargetFrame
-        transitionItem.imageView = transitionImageView
+        transitionItem.transitionView = transitionImageView
         transitionContext.containerView.addSubview(transitionImageView)
         
         toVC.closeButtonBackground.alpha = 0
@@ -109,122 +109,166 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
         return animator
     }
     
-    private func popTransition(using transitionContext: UIViewControllerContextTransitioning, curve: UIView.AnimationCurve = .easeInOut) -> UIViewPropertyAnimator {
-        guard let fromVC = transitionContext.viewController(forKey: .from) as? MediaPreviewViewController,
-              let fromView = transitionContext.view(forKey: .from),
-              let mediaPreviewImageViewController = fromVC.pagingViewController.currentViewController as? MediaPreviewImageViewController,
-              let index = fromVC.pagingViewController.currentIndex else {
-            fatalError()
-        }
-        
-        // assert view hierarchy not change
-        let toVC = transitionItem.previewableViewController
-        let targetFrame = toVC.sourceFrame(transitionItem: transitionItem, index: index)
-        
-        let imageView = mediaPreviewImageViewController.previewImageView.imageView
-        let _snapshot: UIView? = {
-            transitionItem.snapshotRaw = imageView
-            let snapshot = imageView.snapshotView(afterScreenUpdates: false)
-            snapshot?.clipsToBounds = true
-            snapshot?.contentMode = .scaleAspectFill
-            return snapshot
-        }()
-        guard let snapshot = _snapshot else {
-            transitionContext.completeTransition(false)
-            fatalError()
-        }
-        
-        let transitionMaskView = UIView(frame: transitionContext.containerView.bounds)
-        transitionMaskView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        transitionContext.containerView.addSubview(transitionMaskView)
-        
-        let maskLayer = CAShapeLayer()
-        maskLayer.frame = transitionMaskView.bounds
-        let maskLayerFromPath = UIBezierPath(rect: maskLayer.bounds).cgPath
-        maskLayer.path = maskLayerFromPath
-        transitionMaskView.layer.mask = maskLayer
-        
-        transitionMaskView.addSubview(snapshot)
-        snapshot.center = transitionMaskView.center
-        fromVC.view.bringSubviewToFront(fromVC.closeButtonBackground)
-
-        transitionItem.imageView = imageView
-        transitionItem.snapshotTransitioning = snapshot
-        transitionItem.initialFrame = snapshot.frame
-        transitionItem.targetFrame = targetFrame
-
-        // disable interaction
-        fromVC.pagingViewController.isUserInteractionEnabled = false
-        
+    @discardableResult
+    private func popTransition(
+        using transitionContext: UIViewControllerContextTransitioning,
+        curve: UIView.AnimationCurve = .easeInOut
+    ) -> UIViewPropertyAnimator {
         let animator = popInteractiveTransitionAnimator
-
-        self.transitionItem.snapshotRaw?.alpha = 0.0
         
-        var needsMaskWithAnimation = true
-        let maskLayerToRect: CGRect? = {
-            guard case .mosaic = transitionItem.source else { return nil }
-            guard let navigationBar = toVC.navigationController?.navigationBar, let navigationBarSuperView = navigationBar.superview else { return nil }
-            let navigationBarFrameInWindow = navigationBarSuperView.convert(navigationBar.frame, to: nil)
-            
-            // crop rect top edge
-            var rect = transitionMaskView.frame
-            let _toViewFrameInWindow = toVC.view.superview.flatMap { $0.convert(toVC.view.frame, to: nil) }
-            if let toViewFrameInWindow = _toViewFrameInWindow, toViewFrameInWindow.minY > navigationBarFrameInWindow.maxY {
-                rect.origin.y = toViewFrameInWindow.minY
-            } else {
-                rect.origin.y = navigationBarFrameInWindow.maxY + UIView.separatorLineHeight(of: toVC.view)     // extra hairline
-            }
-
-            if rect.minY < snapshot.frame.minY {
-                needsMaskWithAnimation = false
-            }
-            
-            return rect
-        }()
-        let maskLayerToPath = maskLayerToRect.flatMap { UIBezierPath(rect: $0) }?.cgPath
-        let maskLayerToFinalRect: CGRect? = {
-            guard case .mosaic = transitionItem.source else { return nil }
-            var rect = maskLayerToRect ?? transitionMaskView.frame
-            // clip tabBar when bar visible
-            guard let tabBarController = toVC.tabBarController,
-                  !tabBarController.tabBar.isHidden,
-                  let tabBarSuperView = tabBarController.tabBar.superview
-            else { return rect }
-            let tabBarFrameInWindow = tabBarSuperView.convert(tabBarController.tabBar.frame, to: nil)
-            let offset = rect.maxY - tabBarFrameInWindow.minY
-            guard offset > 0 else { return rect }
-            rect.size.height -= offset
-            return rect
-        }()
-        let maskLayerToFinalPath = maskLayerToFinalRect.flatMap { UIBezierPath(rect: $0) }?.cgPath
-        
-        if !needsMaskWithAnimation, let maskLayerToPath = maskLayerToPath {
-            maskLayer.path = maskLayerToPath
+        animator.addCompletion { position in
+            transitionContext.completeTransition(position == .end)
         }
-
-        animator.addAnimations {
-            if let targetFrame = targetFrame {
-                self.transitionItem.snapshotTransitioning?.frame = targetFrame
-            } else {
-                fromView.alpha = 0
+        
+        guard let fromVC = transitionContext.viewController(forKey: .from) as? MediaPreviewViewController,
+              let index = fromVC.pagingViewController.currentIndex,
+              let fromView = transitionContext.view(forKey: .from),
+              let mediaPreviewTransitionViewController = fromVC.pagingViewController.currentViewController as? MediaPreviewTransitionViewController,
+              let mediaPreviewTransitionContext = mediaPreviewTransitionViewController.mediaPreviewTransitionContext
+        else {
+            animator.addAnimations {
+                self.transitionItem.source.updateAppearance(position: .end, index: nil)
             }
-            self.transitionItem.sourceImageViewCornerRadius.flatMap { self.transitionItem.snapshotTransitioning?.layer.cornerRadius = $0 }
+            return animator
+        }
+        
+        // update close button
+        UIView.animate(withDuration: 0.33, delay: 0, options: [.curveEaseInOut]) {
             fromVC.closeButtonBackground.alpha = 0
-            fromVC.visualEffectView.effect = nil
-            if let maskLayerToFinalPath = maskLayerToFinalPath {
-                maskLayer.path = maskLayerToFinalPath
+        }
+        animator.addCompletion { position in
+            UIView.animate(withDuration: 0.33, delay: 0, options: [.curveEaseInOut]) {
+                fromVC.closeButtonBackground.alpha = position == .end ? 0 : 1
             }
+        }
+        
+        // update view controller
+        fromVC.pagingViewController.isUserInteractionEnabled = false
+        animator.addCompletion { position in
+            fromVC.pagingViewController.isUserInteractionEnabled = true
+        }
+        
+        // update background
+        let blurEffect = fromVC.visualEffectView.effect
+        animator.addAnimations {
+            fromVC.visualEffectView.effect = nil
             if UIAccessibility.isReduceTransparencyEnabled {
                 fromVC.visualEffectView.alpha = 0
             }
         }
-
         animator.addCompletion { position in
-            self.transitionItem.snapshotTransitioning?.removeFromSuperview()
-            self.transitionItem.source.updateAppearance(position: position, index: nil)
-            transitionContext.completeTransition(position == .end)
+            fromVC.visualEffectView.effect = position == .end ? nil : blurEffect
+            if UIAccessibility.isReduceTransparencyEnabled {
+                fromVC.visualEffectView.alpha = position == .end ? 0 : 1
+            }
         }
+        
+        // update transition item source
+        animator.addCompletion { position in
+            if position == .end {
+                // reset appearance
+                self.transitionItem.source.updateAppearance(position: position, index: nil)
+            }
+        }
+        
+        // update transitioning snapshot
+        let transitionMaskView = UIView(frame: transitionContext.containerView.bounds)
+        transitionMaskView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        transitionContext.containerView.addSubview(transitionMaskView)
+        transitionItem.interactiveTransitionMaskView = transitionMaskView
+        
+        animator.addCompletion { position in
+            transitionMaskView.removeFromSuperview()
+        }
+        
+        let transitionMaskViewTapGestureRecognizer = UITapGestureRecognizer.singleTapGestureRecognizer
+        transitionMaskViewTapGestureRecognizer.addTarget(self, action: #selector(MediaHostToMediaPreviewViewControllerAnimatedTransitioning.transitionMaskViewTapGestureRecognizerHandler(_:)))
+        transitionMaskView.addGestureRecognizer(transitionMaskViewTapGestureRecognizer)
+        
+        let maskLayer = CAShapeLayer()
+        maskLayer.frame = transitionMaskView.bounds
+        maskLayer.path = UIBezierPath(rect: maskLayer.bounds).cgPath
+        transitionMaskView.layer.mask = maskLayer
+        transitionItem.interactiveTransitionMaskLayer = maskLayer
+    
+        // attach transitioning snapshot
+        mediaPreviewTransitionContext.snapshot.center = transitionMaskView.center
+        mediaPreviewTransitionContext.snapshot.contentMode = .scaleAspectFill
+        mediaPreviewTransitionContext.snapshot.clipsToBounds = true
+        transitionMaskView.addSubview(mediaPreviewTransitionContext.snapshot)
+        fromVC.view.bringSubviewToFront(fromVC.closeButtonBackground)
 
+        transitionItem.transitionView = mediaPreviewTransitionContext.transitionView
+        transitionItem.snapshotTransitioning = mediaPreviewTransitionContext.snapshot
+        transitionItem.initialFrame = mediaPreviewTransitionContext.snapshot.frame
+
+        // assert view hierarchy not change
+        let toVC = transitionItem.previewableViewController
+        let targetFrame = toVC.sourceFrame(transitionItem: transitionItem, index: index)
+        transitionItem.targetFrame = targetFrame
+        
+        animator.addAnimations {
+            self.transitionItem.snapshotTransitioning?.layer.cornerRadius = self.transitionItem.sourceImageViewCornerRadius ?? 0
+        }
+        animator.addCompletion { position in
+            self.transitionItem.snapshotTransitioning?.layer.cornerRadius = position == .end ? 0 : (self.transitionItem.sourceImageViewCornerRadius ?? 0)
+        }
+        
+        if !isInteractive {
+            animator.addAnimations {
+                if let targetFrame = targetFrame {
+                    self.transitionItem.snapshotTransitioning?.frame = targetFrame
+                } else {
+                    fromView.alpha = 0
+                }
+            }
+            
+            // calculate transition mask
+            let maskLayerToRect: CGRect? = {
+                guard case .attachments = transitionItem.source else { return nil }
+                guard let navigationBar = toVC.navigationController?.navigationBar, let navigationBarSuperView = navigationBar.superview else { return nil }
+                let navigationBarFrameInWindow = navigationBarSuperView.convert(navigationBar.frame, to: nil)
+                
+                // crop rect top edge
+                var rect = transitionMaskView.frame
+                let _toViewFrameInWindow = toVC.view.superview.flatMap { $0.convert(toVC.view.frame, to: nil) }
+                if let toViewFrameInWindow = _toViewFrameInWindow, toViewFrameInWindow.minY > navigationBarFrameInWindow.maxY {
+                    rect.origin.y = toViewFrameInWindow.minY
+                } else {
+                    rect.origin.y = navigationBarFrameInWindow.maxY + UIView.separatorLineHeight(of: toVC.view)     // extra hairline
+                }
+                
+                return rect
+            }()
+            let maskLayerToPath = maskLayerToRect.flatMap { UIBezierPath(rect: $0) }?.cgPath
+            let maskLayerToFinalRect: CGRect? = {
+                guard case .attachments = transitionItem.source else { return nil }
+                var rect = maskLayerToRect ?? transitionMaskView.frame
+                // clip tabBar when bar visible
+                guard let tabBarController = toVC.tabBarController,
+                      !tabBarController.tabBar.isHidden,
+                      let tabBarSuperView = tabBarController.tabBar.superview
+                else { return rect }
+                let tabBarFrameInWindow = tabBarSuperView.convert(tabBarController.tabBar.frame, to: nil)
+                let offset = rect.maxY - tabBarFrameInWindow.minY
+                guard offset > 0 else { return rect }
+                rect.size.height -= offset
+                return rect
+            }()
+            let maskLayerToFinalPath = maskLayerToFinalRect.flatMap { UIBezierPath(rect: $0) }?.cgPath
+            
+            if let maskLayerToPath = maskLayerToPath {
+                maskLayer.path = maskLayerToPath
+            }
+        }
+        
+        mediaPreviewTransitionContext.transitionView.isHidden = true
+        animator.addCompletion { position in
+            self.transitionItem.transitionView?.isHidden = position == .end
+            self.transitionItem.snapshotRaw?.alpha = position == .start ? 1.0 : 0.0
+            self.transitionItem.snapshotTransitioning?.removeFromSuperview()
+        }
+        
         return animator
     }
     
@@ -248,100 +292,7 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
     }
     
     private func popInteractiveTransition(using transitionContext: UIViewControllerContextTransitioning) {
-        guard let fromVC = transitionContext.viewController(forKey: .from) as? MediaPreviewViewController,
-              let _ = transitionContext.view(forKey: .from),
-              let mediaPreviewImageViewController = fromVC.pagingViewController.currentViewController as? MediaPreviewImageViewController,
-                    let index = fromVC.pagingViewController.currentIndex else {
-            fatalError()
-        }
-        
-        // assert view hierarchy not change
-        let toVC = transitionItem.previewableViewController
-        let targetFrame = toVC.sourceFrame(transitionItem: transitionItem, index: index)
-        
-        let imageView = mediaPreviewImageViewController.previewImageView.imageView
-        let _snapshot: UIView? = {
-            transitionItem.snapshotRaw = imageView
-            let snapshot = imageView.snapshotView(afterScreenUpdates: false)
-            snapshot?.clipsToBounds = true
-            snapshot?.contentMode = .scaleAspectFill
-            return snapshot
-        }()
-        guard let snapshot = _snapshot else {
-            transitionContext.completeTransition(false)
-            return
-        }
-        
-        let transitionMaskView = UIView(frame: transitionContext.containerView.bounds)
-        transitionMaskView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        transitionContext.containerView.addSubview(transitionMaskView)
-        transitionItem.interactiveTransitionMaskView = transitionMaskView
-
-        let transitionMaskViewTapGestureRecognizer = UITapGestureRecognizer.singleTapGestureRecognizer
-        transitionMaskViewTapGestureRecognizer.addTarget(self, action: #selector(MediaHostToMediaPreviewViewControllerAnimatedTransitioning.transitionMaskViewTapGestureRecognizerHandler(_:)))
-        transitionMaskView.addGestureRecognizer(transitionMaskViewTapGestureRecognizer)
-        
-        let maskLayer = CAShapeLayer()
-        maskLayer.frame = transitionMaskView.bounds
-        maskLayer.path = UIBezierPath(rect: maskLayer.bounds).cgPath
-        transitionMaskView.layer.mask = maskLayer
-        transitionItem.interactiveTransitionMaskLayer = maskLayer
-        
-        transitionMaskView.addSubview(snapshot)
-        snapshot.center = transitionMaskView.center
-        fromVC.view.bringSubviewToFront(fromVC.closeButtonBackground)
-
-        transitionItem.imageView = imageView
-        transitionItem.snapshotTransitioning = snapshot
-        transitionItem.initialFrame = snapshot.frame
-        transitionItem.targetFrame = targetFrame ?? snapshot.frame
-
-        // disable interaction
-        fromVC.pagingViewController.isUserInteractionEnabled = false
-        
-        let animator = popInteractiveTransitionAnimator
-
-        let blurEffect = fromVC.visualEffectView.effect
-        self.transitionItem.snapshotRaw?.alpha = 0.0
-        
-        UIView.animate(withDuration: 0.33, delay: 0, options: [.curveEaseInOut]) {
-            fromVC.closeButtonBackground.alpha = 0
-        }
-        
-        animator.addAnimations {
-            switch self.transitionItem.source {
-            case .profileBanner:
-                self.transitionItem.snapshotTransitioning?.alpha = 0.4
-            default:
-                break
-            }
-            fromVC.visualEffectView.effect = nil
-            self.transitionItem.sourceImageViewCornerRadius.flatMap { self.transitionItem.snapshotTransitioning?.layer.cornerRadius = $0 }
-            if UIAccessibility.isReduceTransparencyEnabled {
-                fromVC.visualEffectView.alpha = 0
-            }
-        }
-
-        animator.addCompletion { position in
-            fromVC.pagingViewController.isUserInteractionEnabled = true
-            fromVC.closeButtonBackground.alpha = position == .end ? 0 : 1
-            self.transitionItem.imageView?.isHidden = position == .end
-            self.transitionItem.snapshotRaw?.alpha = position == .start ? 1.0 : 0.0
-            self.transitionItem.snapshotTransitioning?.removeFromSuperview()
-            if position == .end {
-                // reset appearance
-                self.transitionItem.source.updateAppearance(position: position, index: nil)
-            }
-            fromVC.visualEffectView.effect = position == .end ? nil : blurEffect
-            transitionMaskView.removeFromSuperview()
-            UIView.animate(withDuration: 0.33, delay: 0, options: [.curveEaseInOut]) {
-                fromVC.closeButtonBackground.alpha = position == .end ? 0 : 1
-            }
-            if UIAccessibility.isReduceTransparencyEnabled {
-                fromVC.visualEffectView.alpha = position == .end ? 0 : 1
-            }
-            transitionContext.completeTransition(position == .end)
-        }
+        popTransition(using: transitionContext)
     }
     
 }
@@ -380,7 +331,7 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
             popInteractiveTransitionAnimator.fractionComplete = percent
             transitionContext.updateInteractiveTransition(percent)
             updateTransitionItemPosition(of: translation)
-
+            
             // Reset translation to zero
             sender.setTranslation(CGPoint.zero, in: transitionContext.containerView)
         case .ended, .cancelled:
@@ -399,7 +350,9 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
     }
 
     private func convert(_ velocity: CGPoint, for item: MediaPreviewTransitionItem?) -> CGVector {
-        guard let currentFrame = item?.imageView?.frame, let targetFrame = item?.targetFrame else {
+        guard let currentFrame = item?.transitionView?.frame,
+              let targetFrame = item?.targetFrame
+        else {
             return CGVector.zero
         }
 
@@ -450,7 +403,7 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
             
             var needsMaskWithAnimation = true
             let maskLayerToRect: CGRect? = {
-                guard case .mosaic = transitionItem.source else { return nil }
+                guard case .attachments = transitionItem.source else { return nil }
                 guard let navigationBar = toVC.navigationController?.navigationBar, let navigationBarSuperView = navigationBar.superview else { return nil }
                 let navigationBarFrameInWindow = navigationBarSuperView.convert(navigationBar.frame, to: nil)
                 
@@ -476,7 +429,7 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
             }
             
             let maskLayerToFinalRect: CGRect? = {
-                guard case .mosaic = transitionItem.source else { return nil }
+                guard case .attachments = transitionItem.source else { return nil }
                 var rect = maskLayerToRect ?? transitionMaskView.frame
                 // clip rect bottom when tabBar visible
                 guard let tabBarController = toVC.tabBarController,

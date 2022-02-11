@@ -6,18 +6,20 @@
 //
 
 import UIKit
-import Combine
 
 final class ContextMenuImagePreviewViewModel {
-    
-    var disposeBag = Set<AnyCancellable>()
-    
+        
     // input
-    let aspectRatio: CGSize
+    let assetURL: URL
     let thumbnail: UIImage?
-    let url = CurrentValueSubject<URL?, Never>(nil)
+    let aspectRatio: CGSize
     
-    init(aspectRatio: CGSize, thumbnail: UIImage?) {
+    init(
+        assetURL: URL,
+        thumbnail: UIImage?,
+        aspectRatio: CGSize
+    ) {
+        self.assetURL = assetURL
         self.aspectRatio = aspectRatio
         self.thumbnail = thumbnail
     }

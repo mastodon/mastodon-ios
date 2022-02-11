@@ -16,6 +16,8 @@ import AVFoundation
 import GameplayKit
 import MobileCoreServices
 import UniformTypeIdentifiers
+import MastodonAsset
+import MastodonLocalization
 
 protocol StatusAttachmentViewModelDelegate: AnyObject {
     func statusAttachmentViewModel(_ viewModel: StatusAttachmentViewModel, uploadStateDidChange state: StatusAttachmentViewModel.UploadState?)

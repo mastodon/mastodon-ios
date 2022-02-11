@@ -6,10 +6,12 @@
 //
 
 import Foundation
-import MastodonSDK
 import CoreDataStack
+import MastodonSDK
+import MastodonUI
 
-struct MastodonAuthenticationBox {
+struct MastodonAuthenticationBox: UserIdentifier {
+    let authenticationRecord: ManagedObjectRecord<MastodonAuthentication>
     let domain: String
     let userID: MastodonUser.ID
     let appAuthorization: Mastodon.API.OAuth.Authorization

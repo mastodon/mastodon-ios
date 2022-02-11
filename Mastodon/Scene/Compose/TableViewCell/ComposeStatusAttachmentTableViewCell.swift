@@ -8,6 +8,8 @@
 import UIKit
 import Combine
 import AlamofireImage
+import MastodonAsset
+import MastodonLocalization
 
 final class ComposeStatusAttachmentTableViewCell: UITableViewCell {
 

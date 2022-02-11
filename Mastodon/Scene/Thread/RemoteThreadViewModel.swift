@@ -12,29 +12,26 @@ import MastodonSDK
 
 final class RemoteThreadViewModel: ThreadViewModel {
         
-    init(context: AppContext, statusID: Mastodon.Entity.Status.ID) {
-        super.init(context: context, optionalStatus: nil)
+    init(
+        context: AppContext,
+        statusID: Mastodon.Entity.Status.ID
+    ) {
+        super.init(
+            context: context,
+            optionalRoot: nil
+        )
         
-        guard let activeMastodonAuthenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else {
+        guard let authenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else {
             return
         }
-        let domain = activeMastodonAuthenticationBox.domain
-        context.apiService.status(
-            domain: domain,
-            statusID: statusID,
-            authorizationBox: activeMastodonAuthenticationBox
-        )
-        .retry(3)
-        .sink { completion in
-            switch completion {
-            case .failure(let error):
-                // TODO: handle error
-                os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: remote status %s fetch failed: %s", ((#file as NSString).lastPathComponent), #line, #function, statusID, error.localizedDescription)
-            case .finished:
-                os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: remote status %s fetched", ((#file as NSString).lastPathComponent), #line, #function, statusID)
-            }
-        } receiveValue: { [weak self] response in
-            guard let self = self else { return }
+        
+        Task { @MainActor in
+            let domain = authenticationBox.domain
+            let response = try await context.apiService.status(
+                statusID: statusID,
+                authenticationBox: authenticationBox
+            )
+            
             let managedObjectContext = context.managedObjectContext
             let request = Status.sortedFetchRequest
             request.fetchLimit = 1
@@ -43,33 +40,32 @@ final class RemoteThreadViewModel: ThreadViewModel {
                 assertionFailure()
                 return
             }
-            self.rootItem.value = .root(statusObjectID: status.objectID, attribute: Item.StatusAttribute())
-        }
-        .store(in: &disposeBag)
+            let threadContext = StatusItem.Thread.Context(status: .init(objectID: status.objectID))
+            self.root = .root(context: threadContext)
+            
+        }   // end Task
     }
     
-    init(context: AppContext, notificationID: Mastodon.Entity.Notification.ID) {
-        super.init(context: context, optionalStatus: nil)
+    init(
+        context: AppContext,
+        notificationID: Mastodon.Entity.Notification.ID
+    ) {
+        super.init(
+            context: context,
+            optionalRoot: nil
+        )
         
-        guard let activeMastodonAuthenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else {
+        guard let authenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else {
             return
         }
-        let domain = activeMastodonAuthenticationBox.domain
-        context.apiService.notification(
-            notificationID: notificationID,
-            mastodonAuthenticationBox: activeMastodonAuthenticationBox
-        )
-        .retry(3)
-        .sink { completion in
-            switch completion {
-            case .failure(let error):
-                // TODO: handle error
-                os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: remote notification %s fetch failed: %s", ((#file as NSString).lastPathComponent), #line, #function, notificationID, error.localizedDescription)
-            case .finished:
-                os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: remote notification %s fetched", ((#file as NSString).lastPathComponent), #line, #function, notificationID)
-            }
-        } receiveValue: { [weak self] response in
-            guard let self = self else { return }
+        
+        Task { @MainActor in
+            let domain = authenticationBox.domain
+            let response = try await context.apiService.notification(
+                notificationID: notificationID,
+                authenticationBox: authenticationBox
+            )
+            
             guard let statusID = response.value.status?.id else { return }
             
             let managedObjectContext = context.managedObjectContext
@@ -80,9 +76,9 @@ final class RemoteThreadViewModel: ThreadViewModel {
                 assertionFailure()
                 return
             }
-            self.rootItem.value = .root(statusObjectID: status.objectID, attribute: Item.StatusAttribute())
-        }
-        .store(in: &disposeBag)
+            let threadContext = StatusItem.Thread.Context(status: .init(objectID: status.objectID))
+            self.root = .root(context: threadContext)
+        }   // end Task
     }
     
 }

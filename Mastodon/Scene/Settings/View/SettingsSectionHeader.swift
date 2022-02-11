@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import MastodonAsset
+import MastodonLocalization
 
 struct GroupedTableViewConstraints {
     static let topMargin: CGFloat = 40
