@@ -64,7 +64,7 @@
                 "edit": "Redigera",
                 "save": "Spara",
                 "ok": "OK",
-                "done": "Done",
+                "done": "Klar",
                 "confirm": "Confirm",
                 "continue": "Fortsätt",
                 "compose": "Compose",
@@ -350,7 +350,7 @@
             },
             "media_selection": {
                 "camera": "Take Photo",
-                "photo_library": "Photo Library",
+                "photo_library": "Fotobibliotek",
                 "browse": "Bläddra"
             },
             "content_input_placeholder": "Type or paste what’s on your mind",
@@ -478,7 +478,7 @@
                     "no_results": "Inga resultat"
                 },
                 "recent_search": "Recent searches",
-                "clear": "Clear"
+                "clear": "Rensa"
             }
         },
         "favorite": {
@@ -539,14 +539,14 @@
                 "preference": {
                     "title": "Preferences",
                     "true_black_dark_mode": "True black dark mode",
-                    "disable_avatar_animation": "Disable animated avatars",
-                    "disable_emoji_animation": "Disable animated emojis",
+                    "disable_avatar_animation": "Inaktivera animerade avatarer",
+                    "disable_emoji_animation": "Inaktivera animerade emojis",
                     "using_default_browser": "Use default browser to open links"
                 },
                 "boring_zone": {
                     "title": "The Boring Zone",
-                    "account_settings": "Account Settings",
-                    "terms": "Terms of Service",
+                    "account_settings": "Kontoinställningar",
+                    "terms": "Användarvillkor",
                     "privacy": "Integritetspolicy"
                 },
                 "spicy_zone": {
@@ -570,7 +570,7 @@
             "content1": "Are there any other posts you’d like to add to the report?",
             "content2": "Is there anything the moderators should know about this report?",
             "report_sent_title": "Thanks for reporting, we’ll look into this.",
-            "send": "Send Report",
+            "send": "Skicka rapport",
             "skip_to_send": "Send without comment",
             "text_placeholder": "Type or paste additional comments",
             "reported": "REPORTED"
