@@ -45,7 +45,7 @@ final public class SceneCoordinator {
                     return Just(nil).eraseToAnyPublisher()
                 }
                 
-                let accessToken = pushNotification._accessToken     // use raw accessToken value without normalize
+                let accessToken = pushNotification.accessToken     // use raw accessToken value without normalize
                 if currentActiveAuthenticationBox.userAuthorization.accessToken == accessToken {
                     // do nothing if notification for current account
                     return Just(pushNotification).eraseToAnyPublisher()

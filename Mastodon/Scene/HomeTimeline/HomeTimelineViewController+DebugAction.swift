@@ -348,7 +348,7 @@ extension HomeTimelineViewController {
             else { return }
             
             let pushNotification = MastodonPushNotification(
-                _accessToken: authenticationBox.userAuthorization.accessToken,
+                accessToken: authenticationBox.userAuthorization.accessToken,
                 notificationID: notificationID,
                 notificationType: notificationType.rawValue,
                 preferredLocale: nil,
@@ -372,7 +372,7 @@ extension HomeTimelineViewController {
                 else { return }
                 
                 let pushNotification = MastodonPushNotification(
-                    _accessToken: accessToken,
+                    accessToken: accessToken,
                     notificationID: notificationID,
                     notificationType: notificationType.rawValue,
                     preferredLocale: nil,
