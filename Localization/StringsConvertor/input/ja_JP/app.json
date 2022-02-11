@@ -46,7 +46,7 @@
             },
             "delete_post": {
                 "title": "この投稿を消去しますか？",
-                "delete": "消去"
+                "message": "Are you sure you want to delete this post?"
             },
             "clean_cache": {
                 "title": "キャッシュを消去",
@@ -140,7 +140,8 @@
                     "unreblog": "ブーストを戻す",
                     "favorite": "お気に入り",
                     "unfavorite": "お気に入り登録を取り消す",
-                    "menu": "メニュー"
+                    "menu": "メニュー",
+                    "hide": "Hide"
                 },
                 "tag": {
                     "url": "URL",
@@ -149,6 +150,12 @@
                     "hashtag": "ハッシュタグ",
                     "email": "メール",
                     "emoji": "絵文字"
+                },
+                "visibility": {
+                    "unlisted": "Everyone can see this post but not display in the public timeline.",
+                    "private": "Only their followers can see this post.",
+                    "private_from_me": "Only my followers can see this post.",
+                    "direct": "Only mentioned user can see this post."
                 }
             },
             "friendship": {
@@ -412,16 +419,26 @@
             "segmented_control": {
                 "posts": "投稿",
                 "replies": "リプライ",
-                "media": "メディア"
+                "posts_and_replies": "Posts and Replies",
+                "media": "メディア",
+                "about": "About"
             },
             "relationship_action_alert": {
+                "confirm_mute_user": {
+                    "title": "Mute Account",
+                    "message": "Confirm to mute %s"
+                },
                 "confirm_unmute_user": {
                     "title": "ミュートを解除",
                     "message": "%sをミュートしますか？"
                 },
-                "confirm_unblock_usre": {
-                    "title": "ブロックを解除",
-                    "message": "%sのブロックを解除しますか？"
+                "confirm_block_user": {
+                    "title": "Block Account",
+                    "message": "Confirm to block %s"
+                },
+                "confirm_unblock_user": {
+                    "title": "Unblock Account",
+                    "message": "Confirm to unblock %s"
                 }
             }
         },
@@ -472,12 +489,14 @@
                 "Everything": "すべて",
                 "Mentions": "メンション"
             },
-            "user_followed_you": "%s にフォローされました",
-            "user_favorited your post": "%s がお気に入り登録しました",
-            "user_reblogged_your_post": "%s がブーストしました",
-            "user_mentioned_you": "%s に返信されました",
-            "user_requested_to_follow_you": "%s がフォローリクエストを送信しました",
-            "user_your_poll_has_ended": "%s 投票が終了しました",
+            "notification_description": {
+                "followed_you": "followd you",
+                "favorited_your_post": "favorited your post",
+                "reblogged_your_post": "reblogged your post",
+                "mentioned_you": "mentioned you",
+                "request_to_follow_you": "request to follow you",
+                "poll_has_ended": "poll has ended"
+            },
             "keyobard": {
                 "show_everything": "すべて見る",
                 "show_mentions": "メンションを見る"
@@ -495,6 +514,13 @@
                     "automatic": "システムに合わせる",
                     "light": "ライト",
                     "dark": "ダーク"
+                },
+                "look_and_feel": {
+                    "title": "Look and Feel",
+                    "use_system": "Use System",
+                    "really_dark": "Really Dark",
+                    "sorta_dark": "Sorta Dark",
+                    "light": "Light"
                 },
                 "notifications": {
                     "title": "通知",
@@ -537,14 +563,17 @@
             }
         },
         "report": {
+            "title_report": "Report",
             "title": "%sを報告",
             "step1": "ステップ 1/2",
             "step2": "ステップ 2/2",
             "content1": "他に報告したい投稿はありますか？",
             "content2": "この報告についてモデレーターに言いたいことはありますか？",
+            "report_sent_title": "Thanks for reporting, we’ll look into this.",
             "send": "報告を送信",
             "skip_to_send": "コメントなしで送信",
-            "text_placeholder": "追加コメントを入力"
+            "text_placeholder": "追加コメントを入力",
+            "reported": "REPORTED"
         },
         "preview": {
             "keyboard": {
