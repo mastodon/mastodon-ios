@@ -381,7 +381,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1s ago</string>
+        <string>1s sedan</string>
         <key>other</key>
         <string>%lds ago</string>
       </dict>
