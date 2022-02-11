@@ -43,35 +43,6 @@ extension APIService {
         }
         
         return response
-//        .flatMap { response -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Account>, Error> in
-//            let log = OSLog.api
-//            let account = response.value
-//
-//            return self.backgroundManagedObjectContext.performChanges {
-//                let (mastodonUser, isCreated) = APIService.CoreData.createOrMergeMastodonUser(
-//                    into: self.backgroundManagedObjectContext,
-//                    for: nil,
-//                    in: domain,
-//                    entity: account,
-//                    userCache: nil,
-//                    networkDate: response.networkDate,
-//                    log: log
-//                )
-//                let flag = isCreated ? "+" : "-"
-//                os_log(.info, log: log, "%{public}s[%{public}ld], %{public}s: fetch mastodon user [%s](%s)%s", ((#file as NSString).lastPathComponent), #line, #function, flag, mastodonUser.id, mastodonUser.username)
-//            }
-//            .setFailureType(to: Error.self)
-//            .tryMap { result -> Mastodon.Response.Content<Mastodon.Entity.Account> in
-//                switch result {
-//                case .success:
-//                    return response
-//                case .failure(let error):
-//                    throw error
-//                }
-//            }
-//            .eraseToAnyPublisher()
-//        }
-//        .eraseToAnyPublisher()
     }
     
 }
