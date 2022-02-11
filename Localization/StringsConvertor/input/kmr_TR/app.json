@@ -45,7 +45,7 @@
                 "message": "Ji kerema xwe mafê bide gihîştina wênegehê çalak bike da ku wêne werin tomarkirin."
             },
             "delete_post": {
-                "title": "Ma tu dixwazî vê şandiyê jê bibî?",
+                "title": "Şandiyê jê bibe",
                 "message": "Ma tu dixwazî vê şandiyê jê bibî?"
             },
             "clean_cache": {
@@ -113,7 +113,7 @@
                     "open_author_profile": "Profîla nivîskaran veke",
                     "open_reblogger_profile": "Profîla nivîskaran veke",
                     "reply_status": "Bersivê bide şandiyê",
-                    "toggle_reblog": "Ji vû nivîsandin di şandiyê de biguherîne",
+                    "toggle_reblog": "Ji nû ve nivîsandin di şandiyê de biguherîne",
                     "toggle_favorite": "Li ser şandiyê bijarte biguherîne",
                     "toggle_content_warning": "Hişyariya naverokê biguherîne",
                     "preview_image": "Pêşdîtina wêneyê"
@@ -124,7 +124,7 @@
                 }
             },
             "status": {
-                "user_reblogged": "%s ji nû ve hate nivîsandin",
+                "user_reblogged": "%s ji nû ve nivîsand",
                 "user_replied_to": "Bersiv da %s",
                 "show_post": "Şandiyê nîşan bide",
                 "show_user_profile": "Profîla bikarhêner nîşan bide",
@@ -434,11 +434,11 @@
                 },
                 "confirm_block_user": {
                     "title": "Ajimêr asteng bike",
-                    "message": "Ji bo astengkirina %s bipejirîne"
+                    "message": "Ji bo rakirina astengkirinê %s bipejirîne"
                 },
                 "confirm_unblock_user": {
-                    "title": "Unblock Account",
-                    "message": "Confirm to unblock %s"
+                    "title": "Astengiyê li ser ajimêr rake",
+                    "message": "Ji bo rakirina astengkirinê %s bipejirîne"
                 }
             }
         },
@@ -490,12 +490,12 @@
                 "Mentions": "Qalkirin"
             },
             "notification_description": {
-                "followed_you": "followd you",
-                "favorited_your_post": "favorited your post",
-                "reblogged_your_post": "reblogged your post",
-                "mentioned_you": "mentioned you",
-                "request_to_follow_you": "request to follow you",
-                "poll_has_ended": "poll has ended"
+                "followed_you": "te şopand",
+                "favorited_your_post": "şandiya te hez kir",
+                "reblogged_your_post": "şandiya te ji nû ve nivisand",
+                "mentioned_you": "qale te kir",
+                "request_to_follow_you": "dixwazê te bişopîne",
+                "poll_has_ended": "rapirsî qediya"
             },
             "keyobard": {
                 "show_everything": "Her tiştî nîşan bide",
@@ -516,11 +516,11 @@
                     "dark": "Her dem tarî"
                 },
                 "look_and_feel": {
-                    "title": "Look and Feel",
-                    "use_system": "Use System",
-                    "really_dark": "Really Dark",
-                    "sorta_dark": "Sorta Dark",
-                    "light": "Light"
+                    "title": "Xuyang",
+                    "use_system": "Pergalê bi kar bîne",
+                    "really_dark": "Tarî",
+                    "sorta_dark": "Hinekî tarî",
+                    "light": "Ron"
                 },
                 "notifications": {
                     "title": "Agahdarî",
@@ -563,17 +563,17 @@
             }
         },
         "report": {
-            "title_report": "Report",
+            "title_report": "Ragihandin",
             "title": "%s ragihîne",
             "step1": "Gav 1 ji 2",
             "step2": "Gav 2 ji 2",
             "content1": "Şandiyên din hene ku tu dixwazî tevlî ragihandinê bikî?",
             "content2": "Derbarê vê ragihandinê de tiştek heye ku divê çavdêr bizanin?",
-            "report_sent_title": "Thanks for reporting, we’ll look into this.",
+            "report_sent_title": "Spas ji bo ragihandina te, em ê binirxînin.",
             "send": "Ragihandinê bişîne",
             "skip_to_send": "Bêyî şirove bişîne",
             "text_placeholder": "Şiroveyên daxwazkirê binivîsine an jî pê ve bike",
-            "reported": "REPORTED"
+            "reported": "HATE RAGIHANDIN"
         },
         "preview": {
             "keyboard": {
