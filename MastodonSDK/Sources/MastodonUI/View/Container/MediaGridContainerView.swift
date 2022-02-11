@@ -49,21 +49,21 @@ public final class MediaGridContainerView: UIView {
     }()
     
     
-    let sensitiveToggleButtonBlurVisualEffectView: UIVisualEffectView = {
-        let visualEffectView = UIVisualEffectView(effect: ContentWarningOverlayView.blurVisualEffect)
-        visualEffectView.layer.masksToBounds = true
-        visualEffectView.layer.cornerRadius = MediaGridContainerView.sensitiveToggleButtonSize.width / 2
-        visualEffectView.layer.cornerCurve = .continuous
-        return visualEffectView
-    }()
-    let sensitiveToggleButtonVibrancyVisualEffectView = UIVisualEffectView(effect: UIVibrancyEffect(blurEffect: ContentWarningOverlayView.blurVisualEffect))
-    let sensitiveToggleButton: HitTestExpandedButton = {
-        let button = HitTestExpandedButton(type: .system)
-        button.contentEdgeInsets = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
-        button.imageView?.contentMode = .scaleAspectFit
-        button.setImage(UIImage(systemName: "eye.slash.fill"), for: .normal)
-        return button
-    }()
+//    let sensitiveToggleButtonBlurVisualEffectView: UIVisualEffectView = {
+//        let visualEffectView = UIVisualEffectView(effect: ContentWarningOverlayView.blurVisualEffect)
+//        visualEffectView.layer.masksToBounds = true
+//        visualEffectView.layer.cornerRadius = MediaGridContainerView.sensitiveToggleButtonSize.width / 2
+//        visualEffectView.layer.cornerCurve = .continuous
+//        return visualEffectView
+//    }()
+//    let sensitiveToggleButtonVibrancyVisualEffectView = UIVisualEffectView(effect: UIVibrancyEffect(blurEffect: ContentWarningOverlayView.blurVisualEffect))
+//    let sensitiveToggleButton: HitTestExpandedButton = {
+//        let button = HitTestExpandedButton(type: .system)
+//        button.contentEdgeInsets = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
+//        button.imageView?.contentMode = .scaleAspectFit
+//        button.setImage(UIImage(systemName: "eye.slash.fill"), for: .normal)
+//        return button
+//    }()
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
@@ -79,7 +79,7 @@ public final class MediaGridContainerView: UIView {
 
 extension MediaGridContainerView {
     private func _init() {
-        sensitiveToggleButton.addTarget(self, action: #selector(MediaGridContainerView.sensitiveToggleButtonDidPressed(_:)), for: .touchUpInside)
+//        sensitiveToggleButton.addTarget(self, action: #selector(MediaGridContainerView.sensitiveToggleButtonDidPressed(_:)), for: .touchUpInside)
     }
 }
 
@@ -105,8 +105,8 @@ extension MediaGridContainerView {
         let mediaView = _mediaViews[0]
         layout.layout(in: self, mediaView: mediaView)
         
-        layoutSensitiveToggleButton()
-        bringSubviewToFront(sensitiveToggleButtonBlurVisualEffectView)
+//        layoutSensitiveToggleButton()
+//        bringSubviewToFront(sensitiveToggleButtonBlurVisualEffectView)
         
         return mediaView
     }
@@ -117,8 +117,8 @@ extension MediaGridContainerView {
         let mediaViews = Array(_mediaViews[0..<layout.count])
         layout.layout(in: self, mediaViews: mediaViews)
         
-        layoutSensitiveToggleButton()
-        bringSubviewToFront(sensitiveToggleButtonBlurVisualEffectView)
+//        layoutSensitiveToggleButton()
+//        bringSubviewToFront(sensitiveToggleButtonBlurVisualEffectView)
         
         return mediaViews
     }
@@ -140,35 +140,34 @@ extension MediaGridContainerView {
 }
 
 extension MediaGridContainerView {
-    private func layoutSensitiveToggleButton() {
-        sensitiveToggleButtonBlurVisualEffectView.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(sensitiveToggleButtonBlurVisualEffectView)
-        NSLayoutConstraint.activate([
-            sensitiveToggleButtonBlurVisualEffectView.topAnchor.constraint(equalTo: topAnchor, constant: 16),
-            trailingAnchor.constraint(equalTo: sensitiveToggleButtonBlurVisualEffectView.trailingAnchor, constant: 16),
-        ])
-        
-        sensitiveToggleButtonVibrancyVisualEffectView.translatesAutoresizingMaskIntoConstraints = false
-        sensitiveToggleButtonBlurVisualEffectView.contentView.addSubview(sensitiveToggleButtonVibrancyVisualEffectView)
-        NSLayoutConstraint.activate([
-            sensitiveToggleButtonVibrancyVisualEffectView.topAnchor.constraint(equalTo: sensitiveToggleButtonBlurVisualEffectView.contentView.topAnchor),
-            sensitiveToggleButtonVibrancyVisualEffectView.leadingAnchor.constraint(equalTo: sensitiveToggleButtonBlurVisualEffectView.contentView.leadingAnchor),
-            sensitiveToggleButtonVibrancyVisualEffectView.trailingAnchor.constraint(equalTo: sensitiveToggleButtonBlurVisualEffectView.contentView.trailingAnchor),
-            sensitiveToggleButtonVibrancyVisualEffectView.bottomAnchor.constraint(equalTo: sensitiveToggleButtonBlurVisualEffectView.contentView.bottomAnchor),
-        ])
-        
-        sensitiveToggleButton.translatesAutoresizingMaskIntoConstraints = false
-        sensitiveToggleButtonVibrancyVisualEffectView.contentView.addSubview(sensitiveToggleButton)
-        NSLayoutConstraint.activate([
-            sensitiveToggleButton.topAnchor.constraint(equalTo: sensitiveToggleButtonVibrancyVisualEffectView.contentView.topAnchor),
-            sensitiveToggleButton.leadingAnchor.constraint(equalTo: sensitiveToggleButtonVibrancyVisualEffectView.contentView.leadingAnchor),
-            sensitiveToggleButtonVibrancyVisualEffectView.contentView.trailingAnchor.constraint(equalTo: sensitiveToggleButton.trailingAnchor),
-            sensitiveToggleButtonVibrancyVisualEffectView.contentView.bottomAnchor.constraint(equalTo: sensitiveToggleButton.bottomAnchor),
-            sensitiveToggleButton.widthAnchor.constraint(equalToConstant: MediaGridContainerView.sensitiveToggleButtonSize.width).priority(.required - 1),
-            sensitiveToggleButton.heightAnchor.constraint(equalToConstant: MediaGridContainerView.sensitiveToggleButtonSize.height).priority(.required - 1),
-        ])
-    }
-    
+//    private func layoutSensitiveToggleButton() {
+//        sensitiveToggleButtonBlurVisualEffectView.translatesAutoresizingMaskIntoConstraints = false
+//        addSubview(sensitiveToggleButtonBlurVisualEffectView)
+//        NSLayoutConstraint.activate([
+//            sensitiveToggleButtonBlurVisualEffectView.topAnchor.constraint(equalTo: topAnchor, constant: 16),
+//            trailingAnchor.constraint(equalTo: sensitiveToggleButtonBlurVisualEffectView.trailingAnchor, constant: 16),
+//        ])
+//
+//        sensitiveToggleButtonVibrancyVisualEffectView.translatesAutoresizingMaskIntoConstraints = false
+//        sensitiveToggleButtonBlurVisualEffectView.contentView.addSubview(sensitiveToggleButtonVibrancyVisualEffectView)
+//        NSLayoutConstraint.activate([
+//            sensitiveToggleButtonVibrancyVisualEffectView.topAnchor.constraint(equalTo: sensitiveToggleButtonBlurVisualEffectView.contentView.topAnchor),
+//            sensitiveToggleButtonVibrancyVisualEffectView.leadingAnchor.constraint(equalTo: sensitiveToggleButtonBlurVisualEffectView.contentView.leadingAnchor),
+//            sensitiveToggleButtonVibrancyVisualEffectView.trailingAnchor.constraint(equalTo: sensitiveToggleButtonBlurVisualEffectView.contentView.trailingAnchor),
+//            sensitiveToggleButtonVibrancyVisualEffectView.bottomAnchor.constraint(equalTo: sensitiveToggleButtonBlurVisualEffectView.contentView.bottomAnchor),
+//        ])
+//
+//        sensitiveToggleButton.translatesAutoresizingMaskIntoConstraints = false
+//        sensitiveToggleButtonVibrancyVisualEffectView.contentView.addSubview(sensitiveToggleButton)
+//        NSLayoutConstraint.activate([
+//            sensitiveToggleButton.topAnchor.constraint(equalTo: sensitiveToggleButtonVibrancyVisualEffectView.contentView.topAnchor),
+//            sensitiveToggleButton.leadingAnchor.constraint(equalTo: sensitiveToggleButtonVibrancyVisualEffectView.contentView.leadingAnchor),
+//            sensitiveToggleButtonVibrancyVisualEffectView.contentView.trailingAnchor.constraint(equalTo: sensitiveToggleButton.trailingAnchor),
+//            sensitiveToggleButtonVibrancyVisualEffectView.contentView.bottomAnchor.constraint(equalTo: sensitiveToggleButton.bottomAnchor),
+//            sensitiveToggleButton.widthAnchor.constraint(equalToConstant: MediaGridContainerView.sensitiveToggleButtonSize.width).priority(.required - 1),
+//            sensitiveToggleButton.heightAnchor.constraint(equalToConstant: MediaGridContainerView.sensitiveToggleButtonSize.height).priority(.required - 1),
+//        ])
+//    }
 }
 
 extension MediaGridContainerView {

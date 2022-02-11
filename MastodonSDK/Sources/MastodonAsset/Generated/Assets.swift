@@ -23,6 +23,7 @@ public typealias AssetImageTypeAlias = ImageAsset.Image
 public enum Asset {
   public enum Arrow {
     public static let `repeat` = ImageAsset(name: "Arrow/repeat")
+    public static let repeatSmall = ImageAsset(name: "Arrow/repeat.small")
   }
   public enum Asset {
     public static let email = ImageAsset(name: "Asset/email")

@@ -19,14 +19,14 @@ public protocol NotificationViewDelegate: AnyObject {
     
     func notificationView(_ notificationView: NotificationView, statusView: StatusView, metaText: MetaText, didSelectMeta meta: Meta)
     func notificationView(_ notificationView: NotificationView, statusView: StatusView, spoilerOverlayViewDidPressed overlayView: SpoilerOverlayView)
-    func notificationView(_ notificationView: NotificationView, statusView: StatusView, spoilerBannerViewDidPressed bannerView: SpoilerBannerView)
+//    func notificationView(_ notificationView: NotificationView, statusView: StatusView, spoilerBannerViewDidPressed bannerView: SpoilerBannerView)
 
     func notificationView(_ notificationView: NotificationView, statusView: StatusView, actionToolbarContainer: ActionToolbarContainer, buttonDidPressed button: UIButton, action: ActionToolbarContainer.Action)
 
     func notificationView(_ notificationView: NotificationView, quoteStatusView: StatusView, authorAvatarButtonDidPressed button: AvatarButton)
     func notificationView(_ notificationView: NotificationView, quoteStatusView: StatusView, metaText: MetaText, didSelectMeta meta: Meta)
     func notificationView(_ notificationView: NotificationView, quoteStatusView: StatusView, spoilerOverlayViewDidPressed overlayView: SpoilerOverlayView)
-    func notificationView(_ notificationView: NotificationView, quoteStatusView: StatusView, spoilerBannerViewDidPressed bannerView: SpoilerBannerView)
+    // func notificationView(_ notificationView: NotificationView, quoteStatusView: StatusView, spoilerBannerViewDidPressed bannerView: SpoilerBannerView)
     
     // a11y
     func notificationView(_ notificationView: NotificationView, accessibilityActivate: Void)
@@ -350,6 +350,10 @@ extension NotificationView: StatusViewDelegate {
         }
     }
     
+    public func statusView(_ statusView: StatusView, contentSensitiveeToggleButtonDidPressed button: UIButton) {
+        assertionFailure()
+    }
+    
     public func statusView(_ statusView: StatusView, metaText: MetaText, didSelectMeta meta: Meta) {
         switch statusView {
         case self.statusView:
@@ -399,16 +403,16 @@ extension NotificationView: StatusViewDelegate {
         }
     }
     
-    public func statusView(_ statusView: StatusView, spoilerBannerViewDidPressed bannerView: SpoilerBannerView) {
-        switch statusView {
-        case self.statusView:
-            delegate?.notificationView(self, statusView: statusView, spoilerBannerViewDidPressed: bannerView)
-        case quoteStatusView:
-            delegate?.notificationView(self, quoteStatusView: statusView, spoilerBannerViewDidPressed: bannerView)
-        default:
-            assertionFailure()
-        }
-    }
+//    public func statusView(_ statusView: StatusView, spoilerBannerViewDidPressed bannerView: SpoilerBannerView) {
+//        switch statusView {
+//        case self.statusView:
+//            delegate?.notificationView(self, statusView: statusView, spoilerBannerViewDidPressed: bannerView)
+//        case quoteStatusView:
+//            delegate?.notificationView(self, quoteStatusView: statusView, spoilerBannerViewDidPressed: bannerView)
+//        default:
+//            assertionFailure()
+//        }
+//    }
     
     public func statusView(_ statusView: StatusView, mediaGridContainerView: MediaGridContainerView, mediaSensitiveButtonDidPressed button: UIButton) {
         assertionFailure()

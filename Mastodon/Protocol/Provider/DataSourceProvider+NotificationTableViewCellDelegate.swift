@@ -222,12 +222,11 @@ extension NotificationTableViewCellDelegate where Self: DataSourceProvider {
         )
     }
     
-
-    
     func tableViewCell(
-        _ cell: UITableViewCell, notificationView: NotificationView,
+        _ cell: UITableViewCell,
+        notificationView: NotificationView,
         statusView: StatusView,
-        spoilerBannerViewDidPressed bannerView: SpoilerBannerView
+        spoilerOverlayViewDidPressed overlayView: SpoilerOverlayView
     ) {
         Task {
             let source = DataSourceItem.Source(tableViewCell: cell, indexPath: nil)
@@ -254,6 +253,38 @@ extension NotificationTableViewCellDelegate where Self: DataSourceProvider {
             )
         }   // end Task
     }
+
+    
+//    func tableViewCell(
+//        _ cell: UITableViewCell, notificationView: NotificationView,
+//        statusView: StatusView,
+//        spoilerBannerViewDidPressed bannerView: SpoilerBannerView
+//    ) {
+//        Task {
+//            let source = DataSourceItem.Source(tableViewCell: cell, indexPath: nil)
+//            guard let item = await item(from: source) else {
+//                assertionFailure()
+//                return
+//            }
+//            guard case let .notification(notification) = item else {
+//                assertionFailure("only works for notification item")
+//                return
+//            }
+//            let _status: ManagedObjectRecord<Status>? = try await self.context.managedObjectContext.perform {
+//                guard let notification = notification.object(in: self.context.managedObjectContext) else { return nil }
+//                guard let status = notification.status else { return nil }
+//                return .init(objectID: status.objectID)
+//            }
+//            guard let status = _status else {
+//                assertionFailure()
+//                return
+//            }
+//            try await DataSourceFacade.responseToToggleSensitiveAction(
+//                dependency: self,
+//                status: status
+//            )
+//        }   // end Task
+//    }
 
     
     func tableViewCell(

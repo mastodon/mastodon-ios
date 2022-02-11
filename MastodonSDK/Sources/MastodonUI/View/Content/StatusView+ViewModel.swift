@@ -201,7 +201,7 @@ extension StatusView.ViewModel {
                 case .none:
                     return
                 case .repost(let info):
-                    statusView.headerIconImageView.image = UIImage(systemName: "arrow.2.squarepath")
+                    statusView.headerIconImageView.image = Asset.Arrow.repeatSmall.image.withRenderingMode(.alwaysTemplate)
                     statusView.headerInfoLabel.configure(content: info.header)
                     statusView.setHeaderDisplay()
                 case .reply(let info):
@@ -281,12 +281,12 @@ extension StatusView.ViewModel {
         .sink { spoilerContent, content, isContentReveal in
             if let spoilerContent = spoilerContent {
                 statusView.spoilerOverlayView.spoilerMetaLabel.configure(content: spoilerContent)
-                statusView.spoilerBannerView.label.configure(content: spoilerContent)
-                statusView.setSpoilerBannerViewHidden(isHidden: !isContentReveal)
+                // statusView.spoilerBannerView.label.configure(content: spoilerContent)
+                // statusView.setSpoilerBannerViewHidden(isHidden: !isContentReveal)
 
             } else {
                 statusView.spoilerOverlayView.spoilerMetaLabel.reset()
-                statusView.spoilerBannerView.label.reset()
+                // statusView.spoilerBannerView.label.reset()
             }
             
             if let content = content {
@@ -304,9 +304,18 @@ extension StatusView.ViewModel {
             
             statusView.setSpoilerOverlayViewHidden(isHidden: isContentReveal)
             
+            let image = isContentReveal ? UIImage(systemName: "eye.slash.fill") : UIImage(systemName: "eye.fill")
+            statusView.contentSensitiveeToggleButton.setImage(image, for: .normal)
+            
             self.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): isContentReveal: \(isContentReveal)")
         }
         .store(in: &disposeBag)
+        $isSensitive
+            .sink { isSensitive in
+                guard isSensitive else { return }
+                statusView.setContentSensitiveeToggleButtonDisplay()
+            }
+            .store(in: &disposeBag)
         // visibility
         Publishers.CombineLatest(
             $visibility,

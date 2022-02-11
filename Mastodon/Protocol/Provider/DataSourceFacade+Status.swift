@@ -283,23 +283,23 @@ extension DataSourceFacade {
             guard let _status = status.object(in: dependency.context.managedObjectContext) else { return }
             let status = _status.reblog ?? _status
             
-            let isToggled = status.isContentSensitiveToggled || status.isMediaSensitiveToggled
-
-            status.update(isContentSensitiveToggled: !isToggled)
-            status.update(isMediaSensitiveToggled: !isToggled)
+            let allToggled = status.isContentSensitiveToggled && status.isMediaSensitiveToggled
+            
+            status.update(isContentSensitiveToggled: !allToggled)
+            status.update(isMediaSensitiveToggled: !allToggled)
         }
     }
     
-    static func responseToToggleMediaSensitiveAction(
-        dependency: NeedsDependency,
-        status: ManagedObjectRecord<Status>
-    ) async throws {
-        try await dependency.context.managedObjectContext.perform {
-            guard let _status = status.object(in: dependency.context.managedObjectContext) else { return }
-            let status = _status.reblog ?? _status
-            
-            status.update(isMediaSensitiveToggled: !status.isMediaSensitiveToggled)
-        }
-    }
+//    static func responseToToggleMediaSensitiveAction(
+//        dependency: NeedsDependency,
+//        status: ManagedObjectRecord<Status>
+//    ) async throws {
+//        try await dependency.context.managedObjectContext.perform {
+//            guard let _status = status.object(in: dependency.context.managedObjectContext) else { return }
+//            let status = _status.reblog ?? _status
+//            
+//            status.update(isMediaSensitiveToggled: !status.isMediaSensitiveToggled)
+//        }
+//    }
     
 }

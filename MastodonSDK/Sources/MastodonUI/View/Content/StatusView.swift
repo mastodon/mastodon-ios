@@ -16,6 +16,7 @@ import MastodonLocalization
 public protocol StatusViewDelegate: AnyObject {
     func statusView(_ statusView: StatusView, headerDidPressed header: UIView)
     func statusView(_ statusView: StatusView, authorAvatarButtonDidPressed button: AvatarButton)
+    func statusView(_ statusView: StatusView, contentSensitiveeToggleButtonDidPressed button: UIButton)
     func statusView(_ statusView: StatusView, metaText: MetaText, didSelectMeta meta: Meta)
     func statusView(_ statusView: StatusView, mediaGridContainerView: MediaGridContainerView, mediaView: MediaView, didSelectMediaViewAt index: Int)
     func statusView(_ statusView: StatusView, pollTableView tableView: UITableView, didSelectRowAt indexPath: IndexPath)
@@ -23,7 +24,7 @@ public protocol StatusViewDelegate: AnyObject {
     func statusView(_ statusView: StatusView, actionToolbarContainer: ActionToolbarContainer, buttonDidPressed button: UIButton, action: ActionToolbarContainer.Action)
     func statusView(_ statusView: StatusView, menuButton button: UIButton, didSelectAction action: MastodonMenu.Action)
     func statusView(_ statusView: StatusView, spoilerOverlayViewDidPressed overlayView: SpoilerOverlayView)
-    func statusView(_ statusView: StatusView, spoilerBannerViewDidPressed bannerView: SpoilerBannerView)
+    // func statusView(_ statusView: StatusView, spoilerBannerViewDidPressed bannerView: SpoilerBannerView)
     func statusView(_ statusView: StatusView, mediaGridContainerView: MediaGridContainerView, mediaSensitiveButtonDidPressed button: UIButton)
     
     // a11y
@@ -101,7 +102,20 @@ public final class StatusView: UIView {
     
     public let menuButton: UIButton = {
         let button = HitTestExpandedButton(type: .system)
+        button.expandEdgeInsets = UIEdgeInsets(top: -20, left: -10, bottom: -5, right: -10)
+        button.tintColor = Asset.Colors.Label.secondary.color
         let image = UIImage(systemName: "ellipsis", withConfiguration: UIImage.SymbolConfiguration(font: .systemFont(ofSize: 15)))
+        button.setImage(image, for: .normal)
+        return button
+    }()
+    
+    public let contentSensitiveeToggleButton: UIButton = {
+        let button = HitTestExpandedButton(type: .system)
+        button.expandEdgeInsets = UIEdgeInsets(top: -5, left: -10, bottom: -20, right: -10)
+        button.tintColor = Asset.Colors.Label.secondary.color
+        button.imageView?.contentMode = .scaleAspectFill
+        button.imageView?.clipsToBounds = false
+        let image = UIImage(systemName: "eye.slash.fill", withConfiguration: UIImage.SymbolConfiguration(font: .systemFont(ofSize: 15)))
         button.setImage(image, for: .normal)
         return button
     }()
@@ -202,7 +216,7 @@ public final class StatusView: UIView {
     public let statusVisibilityView = StatusVisibilityView()
     
     // spoiler banner
-    public let spoilerBannerView = SpoilerBannerView()
+    // public let spoilerBannerView = SpoilerBannerView()
     
     // toolbar
     public let actionToolbarContainer = ActionToolbarContainer()
@@ -228,11 +242,12 @@ public final class StatusView: UIView {
         }
         
         headerContainerView.isHidden = true
+        contentSensitiveeToggleButton.isHidden = true
         setSpoilerOverlayViewHidden(isHidden: true)
         mediaContainerView.isHidden = true
         pollContainerView.isHidden = true
         statusVisibilityView.isHidden = true
-        setSpoilerBannerViewHidden(isHidden: true)
+        // setSpoilerBannerViewHidden(isHidden: true)
     }
 
     public override init(frame: CGRect) {
@@ -271,6 +286,8 @@ extension StatusView {
         authorNameLabel.isUserInteractionEnabled = false
         authorUsernameLabel.isUserInteractionEnabled = false
         
+        // contentSensitiveeToggleButton
+        contentSensitiveeToggleButton.addTarget(self, action: #selector(StatusView.contentSensitiveeToggleButtonDidPressed(_:)), for: .touchUpInside)
         
         // dateLabel
         dateLabel.isUserInteractionEnabled = false
@@ -297,9 +314,9 @@ extension StatusView {
         pollVoteButton.addTarget(self, action: #selector(StatusView.pollVoteButtonDidPressed(_:)), for: .touchUpInside)
         
         // statusSpoilerBannerView
-        let spoilerBannerViewTapGestureRecognizer = UITapGestureRecognizer.singleTapGestureRecognizer
-        spoilerBannerView.addGestureRecognizer(spoilerBannerViewTapGestureRecognizer)
-        spoilerBannerViewTapGestureRecognizer.addTarget(self, action: #selector(StatusView.spoilerBannerViewTapGestureRecognizerHandler(_:)))
+        // let spoilerBannerViewTapGestureRecognizer = UITapGestureRecognizer.singleTapGestureRecognizer
+        // spoilerBannerView.addGestureRecognizer(spoilerBannerViewTapGestureRecognizer)
+        // spoilerBannerViewTapGestureRecognizer.addTarget(self, action: #selector(StatusView.spoilerBannerViewTapGestureRecognizerHandler(_:)))
         
         // toolbar
         actionToolbarContainer.delegate = self
@@ -319,6 +336,10 @@ extension StatusView {
         delegate?.statusView(self, authorAvatarButtonDidPressed: avatarButton)
     }
     
+    @objc private func contentSensitiveeToggleButtonDidPressed(_ sender: UIButton) {
+        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
+        delegate?.statusView(self, contentSensitiveeToggleButtonDidPressed: sender)
+    }
     
     @objc private func pollVoteButtonDidPressed(_ sender: UIButton) {
         logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
@@ -330,10 +351,10 @@ extension StatusView {
         delegate?.statusView(self, spoilerOverlayViewDidPressed: spoilerOverlayView)
     }
     
-    @objc private func spoilerBannerViewTapGestureRecognizerHandler(_ sender: UITapGestureRecognizer) {
-        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
-        delegate?.statusView(self, spoilerBannerViewDidPressed: spoilerBannerView)
-    }
+//    @objc private func spoilerBannerViewTapGestureRecognizerHandler(_ sender: UITapGestureRecognizer) {
+//        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
+//        delegate?.statusView(self, spoilerBannerViewDidPressed: spoilerBannerView)
+//    }
     
 }
 
@@ -447,7 +468,7 @@ extension StatusView.Style {
         statusView.menuButton.setContentHuggingPriority(.required - 2, for: .horizontal)
         statusView.menuButton.setContentCompressionResistancePriority(.required - 2, for: .horizontal)
 
-        // authorSecondaryMetaContainer: H - [ authorUsername | usernameTrialingDotLabel | dateLabel | (padding) ]
+        // authorSecondaryMetaContainer: H - [ authorUsername | usernameTrialingDotLabel | dateLabel | (padding) | contentSensitiveeToggleButton ]
         let authorSecondaryMetaContainer = UIStackView()
         authorSecondaryMetaContainer.axis = .horizontal
         authorSecondaryMetaContainer.spacing = 4
@@ -463,6 +484,18 @@ extension StatusView.Style {
         statusView.dateLabel.setContentHuggingPriority(.required - 1, for: .horizontal)
         statusView.dateLabel.setContentCompressionResistancePriority(.required - 1, for: .horizontal)
         authorSecondaryMetaContainer.addArrangedSubview(UIView())
+        statusView.contentSensitiveeToggleButton.translatesAutoresizingMaskIntoConstraints = false
+        authorSecondaryMetaContainer.addArrangedSubview(statusView.contentSensitiveeToggleButton)
+        NSLayoutConstraint.activate([
+            statusView.contentSensitiveeToggleButton.heightAnchor.constraint(equalTo: statusView.authorUsernameLabel.heightAnchor, multiplier: 1.0).priority(.required - 1),
+            statusView.contentSensitiveeToggleButton.widthAnchor.constraint(equalTo: statusView.contentSensitiveeToggleButton.heightAnchor, multiplier: 1.0).priority(.required - 1),
+        ])
+        statusView.authorUsernameLabel.setContentHuggingPriority(.required - 1, for: .vertical)
+        statusView.authorUsernameLabel.setContentCompressionResistancePriority(.required - 1, for: .vertical)
+        statusView.contentSensitiveeToggleButton.setContentHuggingPriority(.defaultLow, for: .vertical)
+        statusView.contentSensitiveeToggleButton.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        statusView.contentSensitiveeToggleButton.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        statusView.contentSensitiveeToggleButton.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
 
         // content container: V - [ contentMetaText ]
         statusView.contentContainer.axis = .vertical
@@ -527,8 +560,9 @@ extension StatusView.Style {
         statusView.statusVisibilityView.preservesSuperviewLayoutMargins = true
         statusView.containerStackView.addArrangedSubview(statusView.statusVisibilityView)
 
-        statusView.spoilerBannerView.preservesSuperviewLayoutMargins = true
-        statusView.containerStackView.addArrangedSubview(statusView.spoilerBannerView)
+        // spoilerBannerView
+        // statusView.spoilerBannerView.preservesSuperviewLayoutMargins = true
+        // statusView.containerStackView.addArrangedSubview(statusView.spoilerBannerView)
 
         // action toolbar
         statusView.actionToolbarContainer.configure(for: .inline)
@@ -577,6 +611,7 @@ extension StatusView.Style {
         base(statusView: statusView)      // override the base style
         
         statusView.contentContainer.layoutMargins.bottom = 16        // fix contentText align to edge issue
+        statusView.contentSensitiveeToggleButton.removeFromSuperview()
         statusView.menuButton.removeFromSuperview()
         statusView.statusVisibilityView.removeFromSuperview()
         statusView.actionToolbarContainer.removeFromSuperview()
@@ -588,7 +623,7 @@ extension StatusView.Style {
         statusView.avatarButton.isUserInteractionEnabled = false
         statusView.menuButton.removeFromSuperview()
         statusView.statusVisibilityView.removeFromSuperview()
-        statusView.spoilerBannerView.removeFromSuperview()
+        // statusView.spoilerBannerView.removeFromSuperview()
         statusView.actionToolbarContainer.removeFromSuperview()
     }
     
@@ -604,7 +639,7 @@ extension StatusView.Style {
         statusView.mediaContainerView.removeFromSuperview()
         statusView.pollContainerView.removeFromSuperview()
         statusView.statusVisibilityView.removeFromSuperview()
-        statusView.spoilerBannerView.removeFromSuperview()
+        // statusView.spoilerBannerView.removeFromSuperview()
         statusView.actionToolbarContainer.removeFromSuperview()
     }
     
@@ -613,6 +648,10 @@ extension StatusView.Style {
 extension StatusView {
     func setHeaderDisplay() {
         headerContainerView.isHidden = false
+    }
+    
+    func setContentSensitiveeToggleButtonDisplay() {
+        contentSensitiveeToggleButton.isHidden = false
     }
     
     func setSpoilerOverlayViewHidden(isHidden: Bool) {
@@ -632,9 +671,9 @@ extension StatusView {
         statusVisibilityView.isHidden = false
     }
     
-    func setSpoilerBannerViewHidden(isHidden: Bool) {
-        spoilerBannerView.isHidden = isHidden
-    }
+    // func setSpoilerBannerViewHidden(isHidden: Bool) {
+    //     spoilerBannerView.isHidden = isHidden
+    // }
     
     // content text Width
     public var contentMaxLayoutWidth: CGFloat {

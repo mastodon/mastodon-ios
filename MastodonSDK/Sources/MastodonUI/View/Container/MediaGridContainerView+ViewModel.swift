@@ -21,7 +21,7 @@ extension MediaGridContainerView.ViewModel {
     func bind(view: MediaGridContainerView) {
         $isSensitiveToggleButtonDisplay
             .sink { isDisplay in
-                view.sensitiveToggleButtonBlurVisualEffectView.isHidden = !isDisplay
+                // view.sensitiveToggleButtonBlurVisualEffectView.isHidden = !isDisplay
             }
             .store(in: &disposeBag)
     }
