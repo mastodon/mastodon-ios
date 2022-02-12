@@ -29,9 +29,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 character</string>
+        <string>1 tecken</string>
         <key>other</key>
-        <string>%ld characters</string>
+        <string>%ld tecken</string>
       </dict>
     </dict>
     <key>a11y.plural.count.input_limit_remains</key>
@@ -45,9 +45,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 character</string>
+        <string>1 tecken</string>
         <key>other</key>
-        <string>%ld characters</string>
+        <string>%ld tecken</string>
       </dict>
     </dict>
     <key>plural.count.metric_formatted.post</key>
@@ -125,9 +125,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 vote</string>
+        <string>1 röst</string>
         <key>other</key>
-        <string>%ld votes</string>
+        <string>%ld röster</string>
       </dict>
     </dict>
     <key>plural.count.voter</key>
