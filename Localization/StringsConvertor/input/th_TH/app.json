@@ -152,10 +152,10 @@
                     "emoji": "อีโมจิ"
                 },
                 "visibility": {
-                    "unlisted": "Everyone can see this post but not display in the public timeline.",
-                    "private": "Only their followers can see this post.",
-                    "private_from_me": "Only my followers can see this post.",
-                    "direct": "Only mentioned user can see this post."
+                    "unlisted": "ทุกคนสามารถเห็นโพสต์นี้แต่ไม่แสดงในเส้นเวลาสาธารณะ",
+                    "private": "เฉพาะผู้ติดตามของเขาเท่านั้นที่สามารถเห็นโพสต์นี้",
+                    "private_from_me": "เฉพาะผู้ติดตามของฉันเท่านั้นที่สามารถเห็นโพสต์นี้",
+                    "direct": "เฉพาะผู้ใช้ที่กล่าวถึงเท่านั้นที่สามารถเห็นโพสต์นี้"
                 }
             },
             "friendship": {
@@ -569,7 +569,7 @@
             "step2": "ขั้นตอนที่ 2 จาก 2",
             "content1": "มีโพสต์อื่นใดที่คุณต้องการเพิ่มไปยังรายงานหรือไม่?",
             "content2": "มีสิ่งใดที่ผู้ควบคุมควรทราบเกี่ยวกับรายงานนี้หรือไม่?",
-            "report_sent_title": "Thanks for reporting, we’ll look into this.",
+            "report_sent_title": "ขอบคุณสำหรับการรายงาน เราจะตรวจสอบสิ่งนี้",
             "send": "ส่งรายงาน",
             "skip_to_send": "ส่งโดยไม่มีความคิดเห็น",
             "text_placeholder": "พิมพ์หรือวางความคิดเห็นเพิ่มเติม",
