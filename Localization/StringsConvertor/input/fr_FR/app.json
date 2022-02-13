@@ -152,10 +152,10 @@
                     "emoji": "Émoji"
                 },
                 "visibility": {
-                    "unlisted": "Everyone can see this post but not display in the public timeline.",
-                    "private": "Only their followers can see this post.",
-                    "private_from_me": "Only my followers can see this post.",
-                    "direct": "Only mentioned user can see this post."
+                    "unlisted": "Tout le monde peut voir ce message mais ne sera pas affiché sur le fil public.",
+                    "private": "Seul·e·s leurs abonné·e·s peuvent voir ce message.",
+                    "private_from_me": "Seul·e·s mes abonné·e·s peuvent voir ce message.",
+                    "direct": "Seul·e l’utilisateur·rice mentionnée peut voir ce message."
                 }
             },
             "friendship": {
@@ -419,14 +419,14 @@
             "segmented_control": {
                 "posts": "Publications",
                 "replies": "Réponses",
-                "posts_and_replies": "Posts and Replies",
+                "posts_and_replies": "Messages et réponses",
                 "media": "Média",
                 "about": "À propos"
             },
             "relationship_action_alert": {
                 "confirm_mute_user": {
-                    "title": "Mute Account",
-                    "message": "Confirm to mute %s"
+                    "title": "Masquer le compte",
+                    "message": "Êtes-vous sûr de vouloir mettre en sourdine %s"
                 },
                 "confirm_unmute_user": {
                     "title": "Ne plus mettre en sourdine ce compte",
@@ -492,10 +492,10 @@
             "notification_description": {
                 "followed_you": "s’est abonné à vous",
                 "favorited_your_post": "a ajouté votre message à ses favoris",
-                "reblogged_your_post": "reblogged your post",
-                "mentioned_you": "mentioned you",
-                "request_to_follow_you": "request to follow you",
-                "poll_has_ended": "poll has ended"
+                "reblogged_your_post": "a partagé votre message",
+                "mentioned_you": "vous a mentionné",
+                "request_to_follow_you": "vous a envoyé une demande d’abonnement",
+                "poll_has_ended": "le sondage est terminé"
             },
             "keyobard": {
                 "show_everything": "Tout Afficher",
@@ -516,11 +516,11 @@
                     "dark": "Toujours sombre"
                 },
                 "look_and_feel": {
-                    "title": "Look and Feel",
-                    "use_system": "Use System",
-                    "really_dark": "Really Dark",
-                    "sorta_dark": "Sorta Dark",
-                    "light": "Light"
+                    "title": "Apparence",
+                    "use_system": "Utiliser le thème du système",
+                    "really_dark": "Très sombre",
+                    "sorta_dark": "Légèrement sombre",
+                    "light": "Clair"
                 },
                 "notifications": {
                     "title": "Notifications",
@@ -563,17 +563,17 @@
             }
         },
         "report": {
-            "title_report": "Report",
+            "title_report": "Signalement",
             "title": "Signaler %s",
             "step1": "Étape 1 de 2",
             "step2": "Étape 2 de 2",
             "content1": "Y a-t-il d’autres messages que vous aimeriez ajouter au signalement?",
             "content2": "Y a-t-il quelque chose que les modérateurs devraient savoir sur ce rapport ?",
-            "report_sent_title": "Thanks for reporting, we’ll look into this.",
+            "report_sent_title": "Merci de nous l’avoir signalé, nous allons examiner cela.",
             "send": "Envoyer le rapport",
             "skip_to_send": "Envoyer sans commentaire",
             "text_placeholder": "Tapez ou collez des informations supplémentaires",
-            "reported": "REPORTED"
+            "reported": "SIGNALÉ"
         },
         "preview": {
             "keyboard": {
