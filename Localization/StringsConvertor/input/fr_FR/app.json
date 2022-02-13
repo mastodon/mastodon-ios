@@ -46,7 +46,7 @@
             },
             "delete_post": {
                 "title": "Voulez-vous vraiment supprimer ce message ?",
-                "message": "Are you sure you want to delete this post?"
+                "message": "Voulez-vous vraiment supprimer ce message ?"
             },
             "clean_cache": {
                 "title": "Vider le cache",
@@ -141,7 +141,7 @@
                     "favorite": "Favori",
                     "unfavorite": "Retirer des favoris",
                     "menu": "Menu",
-                    "hide": "Hide"
+                    "hide": "Cacher"
                 },
                 "tag": {
                     "url": "URL",
@@ -421,7 +421,7 @@
                 "replies": "Réponses",
                 "posts_and_replies": "Posts and Replies",
                 "media": "Média",
-                "about": "About"
+                "about": "À propos"
             },
             "relationship_action_alert": {
                 "confirm_mute_user": {
@@ -433,12 +433,12 @@
                     "message": "Êtes-vous sûr de vouloir désactiver la sourdine de %s"
                 },
                 "confirm_block_user": {
-                    "title": "Block Account",
-                    "message": "Confirm to block %s"
+                    "title": "Bloquer le compte",
+                    "message": "Confirmer le blocage de %s"
                 },
                 "confirm_unblock_user": {
-                    "title": "Unblock Account",
-                    "message": "Confirm to unblock %s"
+                    "title": "Débloquer le compte",
+                    "message": "Confirmer le déblocage de %s"
                 }
             }
         },
@@ -490,8 +490,8 @@
                 "Mentions": "Mentions"
             },
             "notification_description": {
-                "followed_you": "followed you",
-                "favorited_your_post": "favorited your post",
+                "followed_you": "s’est abonné à vous",
+                "favorited_your_post": "a ajouté votre message à ses favoris",
                 "reblogged_your_post": "reblogged your post",
                 "mentioned_you": "mentioned you",
                 "request_to_follow_you": "request to follow you",
