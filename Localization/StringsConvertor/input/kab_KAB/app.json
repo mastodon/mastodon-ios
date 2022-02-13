@@ -49,7 +49,7 @@
                 "message": "Are you sure you want to delete this post?"
             },
             "clean_cache": {
-                "title": "Clean Cache",
+                "title": "Sfeḍ tuffirt",
                 "message": "Successfully cleaned %s cache."
             }
         },
@@ -107,8 +107,8 @@
                     "open_settings": "Ldi iɣewwaren"
                 },
                 "timeline": {
-                    "previous_status": "Previous Post",
-                    "next_status": "Next Post",
+                    "previous_status": "Amagrad uzwir",
+                    "next_status": "Amagrad uḍfir",
                     "open_status": "Ldi tasuffeɣt",
                     "open_author_profile": "Open Author's Profile",
                     "open_reblogger_profile": "Open Reblogger's Profile",
@@ -120,7 +120,7 @@
                 },
                 "segmented_control": {
                     "previous_section": "Previous Section",
-                    "next_section": "Next Section"
+                    "next_section": "Tigezmi tuḍfirt"
                 }
             },
             "status": {
@@ -161,8 +161,8 @@
             "friendship": {
                 "follow": "Ḍfeṛ",
                 "following": "Yettwaḍfar",
-                "request": "Request",
-                "pending": "Pending",
+                "request": "Tuttra",
+                "pending": "Yegguni",
                 "block": "Sewḥel",
                 "block_user": "Sewḥel %s",
                 "block_domain": "Sewḥel %s",
@@ -174,7 +174,7 @@
                 "unmute": "Kkes asgugem",
                 "unmute_user": "Kkes asgugem ɣef %s",
                 "muted": "Yettwasgugem",
-                "edit_info": "Edit Info"
+                "edit_info": "Ẓreg talɣut"
             },
             "timeline": {
                 "filtered": "Yettwasizdeg",
@@ -214,19 +214,19 @@
                     "all_accessiblity_description": "Category: All",
                     "academia": "academia",
                     "activism": "activism",
-                    "food": "food",
+                    "food": "učči",
                     "furry": "furry",
                     "games": "uraren",
-                    "general": "general",
+                    "general": "amatu",
                     "journalism": "journalism",
                     "lgbt": "lgbt",
                     "regional": "regional",
-                    "art": "art",
-                    "music": "music",
+                    "art": "taẓuri",
+                    "music": "aẓawan",
                     "tech": "tech"
                 },
                 "see_less": "See Less",
-                "see_more": "See More"
+                "see_more": "Wali ugar"
             },
             "label": {
                 "language": "TUTLAYT",
@@ -278,8 +278,8 @@
                     "email": "Imayl",
                     "password": "Awal uffir",
                     "agreement": "Agreement",
-                    "locale": "Locale",
-                    "reason": "Reason"
+                    "locale": "Tadigant",
+                    "reason": "Taɣẓint"
                 },
                 "reason": {
                     "blocked": "%s contains a disallowed email provider",
@@ -287,7 +287,7 @@
                     "taken": "%s is already in use",
                     "reserved": "%s is a reserved keyword",
                     "accepted": "%s must be accepted",
-                    "blank": "%s is required",
+                    "blank": "isra %s",
                     "invalid": "%s is invalid",
                     "too_long": "%s is too long",
                     "too_short": "%s is too short",
@@ -316,12 +316,12 @@
             "subtitle": "Tap the link we emailed to you to verify your account.",
             "button": {
                 "open_email_app": "Open Email App",
-                "resend": "Resend"
+                "resend": "Ales tuzna"
             },
             "dont_receive_email": {
                 "title": "Senqed imayl-ik·im",
                 "description": "Check if your email address is correct as well as your junk folder if you haven’t.",
-                "resend_email": "Resend Email"
+                "resend_email": "Ales tuzna n yimayl"
             },
             "open_email_app": {
                 "title": "Check your inbox.",
@@ -333,8 +333,8 @@
         "home_timeline": {
             "title": "Agejdan",
             "navigation_bar_state": {
-                "offline": "Offline",
-                "new_posts": "See new posts",
+                "offline": "Beṛṛa n tuqqna",
+                "new_posts": "Tissufaɣ timaynutin",
                 "published": "Published!",
                 "Publishing": "Publishing post..."
             }
@@ -364,7 +364,7 @@
                 "description_video": "Describe the video for the visually-impaired..."
             },
             "poll": {
-                "duration_time": "Duration: %s",
+                "duration_time": "Tangazt: %s",
                 "thirty_minutes": "30 n tesdatin",
                 "one_hour": "1 n wesrag",
                 "six_hours": "6 n yisragen",
@@ -379,14 +379,14 @@
             "visibility": {
                 "public": "Azayez",
                 "unlisted": "War tabdert",
-                "private": "Followers only",
-                "direct": "Only people I mention"
+                "private": "Imeḍfaṛen kan",
+                "direct": "Imdanen i d-bedreɣ kan"
             },
             "auto_complete": {
                 "space_to_add": "Space to add"
             },
             "accessibility": {
-                "append_attachment": "Add Attachment",
+                "append_attachment": "Rnu taceqquft yeddan",
                 "append_poll": "Add Poll",
                 "remove_poll": "Remove Poll",
                 "custom_emoji_picker": "Custom Emoji Picker",
@@ -406,22 +406,22 @@
         "profile": {
             "dashboard": {
                 "posts": "tisuffaɣ",
-                "following": "following",
-                "followers": "followers"
+                "following": "iṭafaṛ",
+                "followers": "imeḍfaren"
             },
             "fields": {
-                "add_row": "Add Row",
+                "add_row": "Rnu izirig",
                 "placeholder": {
-                    "label": "Label",
-                    "content": "Content"
+                    "label": "Tabzimt",
+                    "content": "Agbur"
                 }
             },
             "segmented_control": {
-                "posts": "Posts",
+                "posts": "Imagraden",
                 "replies": "Tiririyin",
                 "posts_and_replies": "Posts and Replies",
-                "media": "Media",
-                "about": "About"
+                "media": "Amidya",
+                "about": "Ɣef"
             },
             "relationship_action_alert": {
                 "confirm_mute_user": {
@@ -487,7 +487,7 @@
         "notification": {
             "title": {
                 "Everything": "Akk",
-                "Mentions": "Mentions"
+                "Mentions": "Abdar"
             },
             "notification_description": {
                 "followed_you": "followed you",
@@ -498,19 +498,19 @@
                 "poll_has_ended": "poll has ended"
             },
             "keyobard": {
-                "show_everything": "Show Everything",
+                "show_everything": "Sken yal taɣawsa",
                 "show_mentions": "Show Mentions"
             }
         },
         "thread": {
-            "back_title": "Post",
+            "back_title": "Amagrad",
             "title": "Post from %s"
         },
         "settings": {
             "title": "Iɣewwaṛen",
             "section": {
                 "appearance": {
-                    "title": "Appearance",
+                    "title": "Apparence",
                     "automatic": "Awurman",
                     "light": "Always Light",
                     "dark": "Always Dark"
@@ -520,7 +520,7 @@
                     "use_system": "Use System",
                     "really_dark": "Really Dark",
                     "sorta_dark": "Sorta Dark",
-                    "light": "Light"
+                    "light": "Aceɛlal"
                 },
                 "notifications": {
                     "title": "Tilɣa",
@@ -532,7 +532,7 @@
                         "anyone": "yal yiwen",
                         "follower": "a follower",
                         "follow": "anyone I follow",
-                        "noone": "no one",
+                        "noone": "ula yiwen",
                         "title": "Notify me when"
                     }
                 },
@@ -546,7 +546,7 @@
                 "boring_zone": {
                     "title": "The Boring Zone",
                     "account_settings": "Iɣewwaṛen n umiḍan",
-                    "terms": "Terms of Service",
+                    "terms": "Tiwtilin n useqdec",
                     "privacy": "Tasertit tabaḍnit"
                 },
                 "spicy_zone": {
@@ -563,7 +563,7 @@
             }
         },
         "report": {
-            "title_report": "Report",
+            "title_report": "Aneqqis",
             "title": "Report %s",
             "step1": "Step 1 of 2",
             "step2": "Step 2 of 2",
