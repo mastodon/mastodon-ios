@@ -49,7 +49,7 @@
                 "message": "Are you sure you want to delete this post?"
             },
             "clean_cache": {
-                "title": "Clean Cache",
+                "title": "Rensa cache",
                 "message": "Successfully cleaned %s cache."
             }
         },
