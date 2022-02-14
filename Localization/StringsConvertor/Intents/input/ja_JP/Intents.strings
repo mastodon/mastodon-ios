@@ -24,9 +24,9 @@
 
 "Zo4jgJ" = "投稿の公開範囲";
 
-"apSxMG-dYQ5NN" = "There are ${count} options matching ‘Public’.";
+"apSxMG-dYQ5NN" = "「パブリック」にマッチするオプションが${count}個あります。";
 
-"apSxMG-ehFLjY" = "There are ${count} options matching ‘Followers Only’.";
+"apSxMG-ehFLjY" = "「フォロワーのみ」にマッチするオプションが${count}個あります。";
 
 "ayoYEb-dYQ5NN" = "${content}, パブリック";
 
