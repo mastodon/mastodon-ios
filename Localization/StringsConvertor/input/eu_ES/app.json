@@ -264,7 +264,7 @@
                     "character_limit": "8 karaktere",
                     "accessibility": {
                         "checked": "hautatuta",
-                        "unchecked": "unchecked"
+                        "unchecked": "hautatu gabe"
                     },
                     "hint": "Pasahitzak zortzi karaktere izan behar ditu gutxienez"
                 },
@@ -316,7 +316,7 @@
             "subtitle": "Eposta bat bidali dizugu %s helbidera,\nsakatu kontua berresteko esteka.",
             "button": {
                 "open_email_app": "Ireki eposta aplikazioa",
-                "resend": "Resend"
+                "resend": "Berbidali"
             },
             "dont_receive_email": {
                 "title": "Begiratu zure eposta",
@@ -419,26 +419,26 @@
             "segmented_control": {
                 "posts": "Bidalketak",
                 "replies": "Erantzunak",
-                "posts_and_replies": "Posts and Replies",
+                "posts_and_replies": "Bidalketak eta erantzunak",
                 "media": "Multimedia",
-                "about": "About"
+                "about": "Honi buruz"
             },
             "relationship_action_alert": {
                 "confirm_mute_user": {
-                    "title": "Mute Account",
-                    "message": "Confirm to mute %s"
+                    "title": "Mututu kontua",
+                    "message": "Berretsi %s mututzea"
                 },
                 "confirm_unmute_user": {
                     "title": "Desmututu kontua",
                     "message": "Berretsi %s desmututzea"
                 },
                 "confirm_block_user": {
-                    "title": "Block Account",
-                    "message": "Confirm to block %s"
+                    "title": "Blokeatu kontua",
+                    "message": "Berretsi %s blokeatzea"
                 },
                 "confirm_unblock_user": {
-                    "title": "Unblock Account",
-                    "message": "Confirm to unblock %s"
+                    "title": "Desblokeatu kontua",
+                    "message": "Berretsi %s desblokeatzea"
                 }
             }
         },
@@ -490,12 +490,12 @@
                 "Mentions": "Aipamenak"
             },
             "notification_description": {
-                "followed_you": "followed you",
-                "favorited_your_post": "favorited your post",
-                "reblogged_your_post": "reblogged your post",
-                "mentioned_you": "mentioned you",
-                "request_to_follow_you": "request to follow you",
-                "poll_has_ended": "poll has ended"
+                "followed_you": "zu jarraitzen hasi da",
+                "favorited_your_post": "erabiltzaileak zure bidalketa gogoko du",
+                "reblogged_your_post": "erabiltzaileak bultzada eman dio zure bidalketari",
+                "mentioned_you": "erabiltzaileak aipatu zaitu",
+                "request_to_follow_you": "erabiltzaileak zu jarraitzea eskatu du",
+                "poll_has_ended": "inkesta amaitu da"
             },
             "keyobard": {
                 "show_everything": "Erakutsi guztia",
@@ -516,11 +516,11 @@
                     "dark": "Beti iluna"
                 },
                 "look_and_feel": {
-                    "title": "Look and Feel",
-                    "use_system": "Use System",
-                    "really_dark": "Really Dark",
-                    "sorta_dark": "Sorta Dark",
-                    "light": "Light"
+                    "title": "Itxura",
+                    "use_system": "Erabili sistemakoa",
+                    "really_dark": "Oso iluna",
+                    "sorta_dark": "Ilun antzekoa",
+                    "light": "Argia"
                 },
                 "notifications": {
                     "title": "Jakinarazpenak",
@@ -563,17 +563,17 @@
             }
         },
         "report": {
-            "title_report": "Report",
+            "title_report": "Salatu",
             "title": "Salatu %s",
             "step1": "1. urratsa 2tik",
             "step2": "2. urratsa 2tik",
             "content1": "Salaketan beste bidalketarik gehitu nahi duzu?",
             "content2": "Moderatzaileek besterik jakin behar dute salaketa honi buruz?",
-            "report_sent_title": "Thanks for reporting, we’ll look into this.",
+            "report_sent_title": "Mila esker salaketagatik, berrikusiko dugu.",
             "send": "Bidali salaketa",
             "skip_to_send": "Bidali iruzkinik gabe",
             "text_placeholder": "Idatzi edo itsatsi iruzkin gehigarriak",
-            "reported": "REPORTED"
+            "reported": "SALATUA"
         },
         "preview": {
             "keyboard": {
