@@ -2,7 +2,7 @@
     "common": {
         "alerts": {
             "common": {
-                "please_try_again": "Please try again.",
+                "please_try_again": "請再試一次。",
                 "please_try_again_later": "Please try again later."
             },
             "sign_up_failure": {
@@ -68,11 +68,11 @@
                 "confirm": "Confirm",
                 "continue": "Continue",
                 "compose": "Compose",
-                "cancel": "Cancel",
+                "cancel": "取消",
                 "discard": "Discard",
                 "try_again": "Try Again",
                 "take_photo": "Take Photo",
-                "save_photo": "Save Photo",
+                "save_photo": "儲存照片",
                 "copy_photo": "Copy Photo",
                 "sign_in": "Sign In",
                 "sign_up": "Sign Up",
