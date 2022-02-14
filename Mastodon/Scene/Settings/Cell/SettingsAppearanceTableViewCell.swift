@@ -39,26 +39,21 @@ class SettingsAppearanceTableViewCell: UITableViewCell {
     
     let systemAppearanceView = AppearanceView(
         image: Asset.Settings.darkAuto.image,
-        title: "Use System"     // TODO: i18n
+        title: L10n.Scene.Settings.Section.Appearance.automatic
     )
-    let reallyDarkAppearanceView = AppearanceView(
+    let darkAppearanceView = AppearanceView(
         image: Asset.Settings.dark.image,
-        title: "Really Dark"
-    )
-    let sortaDarkAppearanceView = AppearanceView(
-        image: Asset.Settings.dark.image,
-        title: "Sorta Dark"
+        title: L10n.Scene.Settings.Section.Appearance.dark
     )
     let lightAppearanceView = AppearanceView(
         image: Asset.Settings.light.image,
-        title: "Light"
+        title: L10n.Scene.Settings.Section.Appearance.light
     )
     
     var appearanceViews: [AppearanceView] {
         return [
             systemAppearanceView,
-            reallyDarkAppearanceView,
-            sortaDarkAppearanceView,
+            darkAppearanceView,
             lightAppearanceView,
         ]
     }
@@ -111,8 +106,7 @@ extension SettingsAppearanceTableViewCell {
         ])
         
         stackView.addArrangedSubview(systemAppearanceView)
-        stackView.addArrangedSubview(reallyDarkAppearanceView)
-        stackView.addArrangedSubview(sortaDarkAppearanceView)
+        stackView.addArrangedSubview(darkAppearanceView)
         stackView.addArrangedSubview(lightAppearanceView)
         
         appearanceViews.forEach { view in
@@ -132,10 +126,8 @@ extension SettingsAppearanceTableViewCell {
         switch sender.view {
         case systemAppearanceView:
             mode = .system
-        case reallyDarkAppearanceView:
-            mode = .reallyDark
-        case sortaDarkAppearanceView:
-            mode = .sortaDark
+        case darkAppearanceView:
+            mode = .dark
         case lightAppearanceView:
             mode = .light
         default:

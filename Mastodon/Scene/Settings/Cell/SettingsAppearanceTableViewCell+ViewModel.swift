@@ -51,11 +51,7 @@ extension SettingsAppearanceTableViewCell.ViewModel {
             case .unspecified:
                 cell.systemAppearanceView.selected = true
             case .dark:
-                if preferredTrueBlackDarkMode {
-                    cell.reallyDarkAppearanceView.selected = true
-                } else {
-                    cell.sortaDarkAppearanceView.selected = true
-                }
+                cell.darkAppearanceView.selected = true
             case .light:
                 cell.lightAppearanceView.selected = true
             @unknown default:
