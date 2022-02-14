@@ -74,6 +74,10 @@ extension ProfileAboutViewModel {
                 items.append(.addEntry)
             }
             
+            if !isEditing, items.isEmpty {
+                items.append(.noResult)
+            }
+            
             snapshot.appendItems(items, toSection: .main)
             
             diffableDataSource.apply(snapshot, animatingDifferences: false, completion: nil)

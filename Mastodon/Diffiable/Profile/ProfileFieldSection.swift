@@ -107,6 +107,22 @@ extension ProfileFieldSection {
             cell.backgroundConfiguration = backgroundConfiguration
         }
         
+        let noResultCellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, ProfileFieldItem> { cell, indexPath, item in
+            guard case .noResult = item else { return }
+            
+            var contentConfiguration = cell.defaultContentConfiguration()
+            contentConfiguration.text = L10n.Scene.Search.Searching.EmptyState.noResults    // FIXME:
+            contentConfiguration.textProperties.alignment = .center
+            cell.contentConfiguration = contentConfiguration
+            
+            
+            var backgroundConfiguration = UIBackgroundConfiguration.listPlainCell()
+            backgroundConfiguration.backgroundColorTransformer = .init { _ in
+                return .secondarySystemBackground
+            }
+            cell.backgroundConfiguration = backgroundConfiguration
+        }
+        
         let dataSource = UICollectionViewDiffableDataSource<ProfileFieldSection, ProfileFieldItem>(collectionView: collectionView) { collectionView, indexPath, item in
             switch item {
             case .field:
@@ -124,6 +140,12 @@ extension ProfileFieldSection {
             case .addEntry:
                 return collectionView.dequeueConfiguredReusableCell(
                     using: addEntryCellRegistration,
+                    for: indexPath,
+                    item: item
+                )
+            case .noResult:
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: noResultCellRegistration,
                     for: indexPath,
                     item: item
                 )
