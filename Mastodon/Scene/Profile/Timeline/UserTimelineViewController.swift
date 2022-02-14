@@ -35,8 +35,8 @@ final class UserTimelineViewController: UIViewController, NeedsDependency, Media
         tableView.backgroundColor = .clear
         return tableView
     }()
-    
-    var overrideNavigationScrollPosition: UITableView.ScrollPosition? = nil
+        
+    let cellFrameCache = NSCache<NSNumber, NSValue>()
 
     deinit {
         os_log("%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
@@ -93,6 +93,16 @@ extension UserTimelineViewController {
     
 }
 
+// MARK: - CellFrameCacheContainer
+extension UserTimelineViewController: CellFrameCacheContainer {
+    func keyForCache(tableView: UITableView, indexPath: IndexPath) -> NSNumber? {
+        guard let diffableDataSource = viewModel.diffableDataSource else { return nil }
+        guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return nil }
+        let key = NSNumber(value: item.hashValue)
+        return key
+    }
+}
+
 // MARK: - UITableViewDelegate
 extension UserTimelineViewController: UITableViewDelegate, AutoGenerateTableViewDelegate {
     // sourcery:inline:UserTimelineViewController.AutoGenerateTableViewDelegate
@@ -120,6 +130,17 @@ extension UserTimelineViewController: UITableViewDelegate, AutoGenerateTableView
     }
 
     // sourcery:end
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        guard let frame = retrieveCellFrame(tableView: tableView, indexPath: indexPath) else {
+            return 200
+        }
+        return ceil(frame.height)
+    }
+
+    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cacheCellFrame(tableView: tableView, didEndDisplaying: cell, forRowAt: indexPath)
+    }
     
 }
 

@@ -35,7 +35,6 @@ final class HomeTimelineViewModel: NSObject {
     @Published var displaySettingBarButtonItem = true
     @Published var displayComposeBarButtonItem = true
     
-    weak var contentOffsetAdjustableTimelineViewControllerDelegate: ContentOffsetAdjustableTimelineViewControllerDelegate?
     weak var tableView: UITableView?
     weak var timelineMiddleLoaderTableViewCellDelegate: TimelineMiddleLoaderTableViewCellDelegate?
     

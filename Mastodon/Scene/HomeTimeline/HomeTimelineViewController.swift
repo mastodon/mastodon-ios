@@ -183,7 +183,6 @@ extension HomeTimelineViewController {
         ])
 
         viewModel.tableView = tableView
-        viewModel.contentOffsetAdjustableTimelineViewControllerDelegate = self
         tableView.delegate = self
         viewModel.setupDiffableDataSource(
             tableView: tableView,
@@ -554,13 +553,6 @@ extension HomeTimelineViewController: UITableViewDelegate, AutoGenerateTableView
 //        aspectTableView(tableView, didEndDisplaying: cell, forRowAt: indexPath)
 //    }
     
-}
-
-// MARK: - ContentOffsetAdjustableTimelineViewControllerDelegate
-extension HomeTimelineViewController: ContentOffsetAdjustableTimelineViewControllerDelegate {
-    func navigationBar() -> UINavigationBar? {
-        return navigationController?.navigationBar
-    }
 }
 
 // MARK: - TimelineMiddleLoaderTableViewCellDelegate
