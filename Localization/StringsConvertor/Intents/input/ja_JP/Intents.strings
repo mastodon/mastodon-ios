@@ -8,7 +8,7 @@
 
 "HdGikU" = "投稿に失敗しました";
 
-"KDNTJ4" = "Failure Reason";
+"KDNTJ4" = "失敗の理由";
 
 "RHxKOw" = "Send Post with text content";
 
@@ -16,7 +16,7 @@
 
 "WCIR3D" = "Mastodonに ${content} を投稿";
 
-"ZKJSNu" = "Post";
+"ZKJSNu" = "投稿";
 
 "ZS1XaK" = "${content}";
 
