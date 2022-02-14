@@ -130,6 +130,7 @@
                 "show_user_profile": "Show user profile",
                 "content_warning": "Content Warning",
                 "media_content_warning": "Tap anywhere to reveal",
+                "tap_to_reveal": "Tap to reveal",
                 "poll": {
                     "vote": "Vote",
                     "closed": "Closed"
@@ -141,7 +142,11 @@
                     "favorite": "Favorite",
                     "unfavorite": "Unfavorite",
                     "menu": "Menu",
-                    "hide": "Hide"
+                    "hide": "Hide",
+                    "show_image": "Show image",
+                    "show_gif": "Show GIF",
+                    "show_video_player": "Show video player",
+                    "tap_then_hold_to_show_menu": "Tap then hold to show menu"
                 },
                 "tag": {
                     "url": "URL",
@@ -440,6 +445,11 @@
                     "title": "Unblock Account",
                     "message": "Confirm to unblock %s"
                 }
+            },
+            "accessibility": {
+                "show_avatar_image": "Show avatar image",
+                "edit_avatar_image": "Edit avatar image",
+                "show_banner_image": "Show banner image"
             }
         },
         "follower": {

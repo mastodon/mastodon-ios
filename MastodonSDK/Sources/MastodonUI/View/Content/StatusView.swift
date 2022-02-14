@@ -61,7 +61,7 @@ public final class StatusView: UIView {
     }()
     
     // header
-    let headerContainerView = UIView()
+    public let headerContainerView = UIView()
     
     // header icon
     let headerIconImageView: UIImageView = {
@@ -106,6 +106,7 @@ public final class StatusView: UIView {
         button.tintColor = Asset.Colors.Label.secondary.color
         let image = UIImage(systemName: "ellipsis", withConfiguration: UIImage.SymbolConfiguration(font: .systemFont(ofSize: 15)))
         button.setImage(image, for: .normal)
+        button.accessibilityLabel = L10n.Common.Controls.Status.Actions.menu
         return button
     }()
     
@@ -152,7 +153,7 @@ public final class StatusView: UIView {
     }()
     
     // content warning
-    let spoilerOverlayView = SpoilerOverlayView()
+    public let spoilerOverlayView = SpoilerOverlayView()
 
     // media
     public let mediaContainerView = UIView()
@@ -173,7 +174,7 @@ public final class StatusView: UIView {
     public var pollTableViewHeightLayoutConstraint: NSLayoutConstraint!
     public var pollTableViewDiffableDataSource: UITableViewDiffableDataSource<PollSection, PollItem>?
     
-    let pollStatusStackView = UIStackView()
+    public let pollStatusStackView = UIStackView()
     let pollVoteCountLabel: UILabel = {
         let label = UILabel()
         label.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 12, weight: .regular))
@@ -186,6 +187,7 @@ public final class StatusView: UIView {
         label.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 12, weight: .regular))
         label.textColor = Asset.Colors.Label.secondary.color
         label.text = " · "
+        label.isAccessibilityElement = false
         return label
     }()
     let pollCountdownLabel: UILabel = {
@@ -542,7 +544,7 @@ extension StatusView.Style {
         // pollTableView
         statusView.pollContainerView.addArrangedSubview(statusView.pollTableView)
 
-        // pollStatusStackView
+        // pollStatusStackView: H - [ pollVoteCountLabel | pollCountdownLabel | pollVoteButton ]
         statusView.pollStatusStackView.axis = .horizontal
         statusView.pollContainerView.addArrangedSubview(statusView.pollStatusStackView)
 

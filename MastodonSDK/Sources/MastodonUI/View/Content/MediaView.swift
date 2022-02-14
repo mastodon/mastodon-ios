@@ -104,6 +104,8 @@ extension MediaView {
 extension MediaView {
     private func _init() {
         // lazy load content later
+        
+        isAccessibilityElement = true
     }
     
     public func setup(configuration: Configuration) {
@@ -115,13 +117,18 @@ extension MediaView {
         case .image(let info):
             layoutImage()
             bindImage(configuration: configuration, info: info)
+            accessibilityLabel = "Show image"       // TODO: i18n
         case .gif(let info):
             layoutGIF()
             bindGIF(configuration: configuration, info: info)
+            accessibilityLabel = "Show GIF"         // TODO: i18n
         case .video(let info):
             layoutVideo()
             bindVideo(configuration: configuration, info: info)
+            accessibilityLabel = "Show video player" // TODO: i18n
         }
+        
+        accessibilityHint = "Tap then hold to show menu"    // TODO: i18n
 
         layoutBlurhash()
         bindBlurhash(configuration: configuration)

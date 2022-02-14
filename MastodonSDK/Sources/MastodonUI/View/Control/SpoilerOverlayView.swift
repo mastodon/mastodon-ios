@@ -70,6 +70,8 @@ extension SpoilerOverlayView {
         bottomPaddingView.setContentCompressionResistancePriority(.defaultLow - 100, for: .vertical)
         
         spoilerMetaLabel.isUserInteractionEnabled = false
+        
+        isAccessibilityElement = true
     }
     
     public func setComponentHidden(_ isHidden: Bool) {

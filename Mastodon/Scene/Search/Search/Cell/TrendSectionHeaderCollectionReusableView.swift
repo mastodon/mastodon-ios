@@ -23,6 +23,7 @@ final class TrendSectionHeaderCollectionReusableView: UICollectionReusableView {
         label.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 22, weight: .bold))
         label.textColor = Asset.Colors.Label.primary.color
         label.text = L10n.Scene.Search.Recommend.HashTag.title
+        label.numberOfLines = 0
         return label
     }()
     

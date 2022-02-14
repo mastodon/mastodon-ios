@@ -177,6 +177,26 @@ extension PollOptionView {
         plusCircleImageView.isHidden = true
         
         updateCornerRadius()
+        
+        isAccessibilityElement = true
+    }
+    
+    public override var accessibilityLabel: String? {
+        get {
+            switch viewModel.voteState {
+            case .reveal:
+                return [
+                    optionTextField,
+                    optionPercentageLabel
+                ]
+                .compactMap { $0.accessibilityLabel }
+                .joined(separator: ", ")
+                
+            case .hidden:
+                return optionTextField.accessibilityLabel
+            }
+        }
+        set { }
     }
     
     public override func layoutSubviews() {

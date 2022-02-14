@@ -698,6 +698,9 @@ extension StatusView.ViewModel {
             if let spoilerContent = spoilerContent, !spoilerContent.string.isEmpty {
                 strings.append(L10n.Common.Controls.Status.contentWarning)
                 strings.append(spoilerContent.string)
+                
+                // TODO: replace with "Tap to reveal"
+                strings.append(L10n.Common.Controls.Status.mediaContentWarning)
             }
 
             if isContentReveal {
@@ -706,6 +709,21 @@ extension StatusView.ViewModel {
             
             return strings.compactMap { $0 }.joined(separator: ", ")
         }
+        
+        $isContentReveal
+            .map { isContentReveal in
+                isContentReveal ? L10n.Scene.Compose.Accessibility.enableContentWarning : L10n.Scene.Compose.Accessibility.disableContentWarning
+            }
+            .sink { label in
+                statusView.contentSensitiveeToggleButton.accessibilityLabel = label
+            }
+            .store(in: &disposeBag)
+        
+        contentAccessibilityLabel
+            .sink { contentAccessibilityLabel in
+                statusView.spoilerOverlayView.accessibilityLabel = contentAccessibilityLabel
+            }
+            .store(in: &disposeBag)
         
         let meidaAccessibilityLabel = $mediaViewConfigurations
             .map { configurations -> String? in

@@ -132,3 +132,4 @@ extension TrendCollectionViewCell {
     }
     
 }
+

@@ -75,6 +75,7 @@ final class ProfileHeaderView: UIView {
     let avatarButton: AvatarButton = {
         let button = AvatarButton()
         button.avatarImageView.configure(cornerConfiguration: .init(corner: .fixed(radius: 0)))
+        button.accessibilityLabel = "Avatar image"      // FIXME: i18n
         return button
     }()
 
