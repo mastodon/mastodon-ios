@@ -305,7 +305,7 @@
             "title": "Some ground rules.",
             "subtitle": "These are set and enforced by the %s moderators.",
             "prompt": "By continuing, you’re subject to the terms of service and privacy policy for %s.",
-            "terms_of_service": "terms of service",
+            "terms_of_service": "tiwetlin n useqdec",
             "privacy_policy": "tasertit tabaḍnit",
             "button": {
                 "confirm": "Qebleɣ"
@@ -350,7 +350,7 @@
             },
             "media_selection": {
                 "camera": "Ṭṭef tawlaft",
-                "photo_library": "Photo Library",
+                "photo_library": "Tanedlist n tewlaft",
                 "browse": "Snirem"
             },
             "content_input_placeholder": "Type or paste what’s on your mind",
@@ -564,9 +564,9 @@
         },
         "report": {
             "title_report": "Aneqqis",
-            "title": "Report %s",
-            "step1": "Step 1 of 2",
-            "step2": "Step 2 of 2",
+            "title": "Aneqqis %s",
+            "step1": "Aḥric 1 seg 2",
+            "step2": "Aḥric 2 seg 2",
             "content1": "Are there any other posts you’d like to add to the report?",
             "content2": "Is there anything the moderators should know about this report?",
             "report_sent_title": "Thanks for reporting, we’ll look into this.",
