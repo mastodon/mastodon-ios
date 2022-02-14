@@ -46,7 +46,7 @@
             },
             "delete_post": {
                 "title": "Ziur zaude bidalketa hau ezabatu nahi duzula?",
-                "message": "Are you sure you want to delete this post?"
+                "message": "Ziur bidalketa hau ezabatu nahi duzula?"
             },
             "clean_cache": {
                 "title": "Garbitu cache-a",
@@ -141,7 +141,7 @@
                     "favorite": "Gogokoa",
                     "unfavorite": "Kendu gogokoa",
                     "menu": "Menua",
-                    "hide": "Hide"
+                    "hide": "Ezkutatu"
                 },
                 "tag": {
                     "url": "URLa",
@@ -152,10 +152,10 @@
                     "emoji": "Emojia"
                 },
                 "visibility": {
-                    "unlisted": "Everyone can see this post but not display in the public timeline.",
-                    "private": "Only their followers can see this post.",
-                    "private_from_me": "Only my followers can see this post.",
-                    "direct": "Only mentioned user can see this post."
+                    "unlisted": "Edozeinek ikusi dezake bidalketa hau baina ez da denbora-lerro publikoan bistaratuko.",
+                    "private": "Beren jarraitzaileek soilik ikus dezakete bidalketa hau.",
+                    "private_from_me": "Nire jarraitzaileek soilik ikus dezakete bidalketa hau.",
+                    "direct": "Aipatutako erabiltzaileek soilik ikus dezakete bidalketa hau."
                 }
             },
             "friendship": {
@@ -201,13 +201,13 @@
     "scene": {
         "welcome": {
             "slogan": "Sare sozialak\nberriz zure eskuetan.",
-            "get_started": "Get Started",
-            "log_in": "Log In"
+            "get_started": "Nola hasi",
+            "log_in": "Hasi saioa"
         },
         "server_picker": {
             "title": "Aukeratu zerbitzari bat,\nedozein zerbitzari.",
-            "subtitle": "Pick a community based on your interests, region, or a general purpose one.",
-            "subtitle_extend": "Pick a community based on your interests, region, or a general purpose one. Each community is operated by an entirely independent organization or individual.",
+            "subtitle": "Aukeratu komunitate bat zure interes edo lurraldearen arabera, edo erabilera orokorreko bat.",
+            "subtitle_extend": "Aukeratu komunitate bat zure interes edo lurraldearen arabera, edo erabilera orokorreko bat. Komunitate bakoitza erakunde edo norbanako independente batek kudeatzen du.",
             "button": {
                 "category": {
                     "all": "Guztiak",
@@ -260,10 +260,10 @@
                 },
                 "password": {
                     "placeholder": "pasahitza",
-                    "require": "Your password needs at least:",
-                    "character_limit": "8 characters",
+                    "require": "Zure pasahitzak izan behar ditu gutxienez:",
+                    "character_limit": "8 karaktere",
                     "accessibility": {
-                        "checked": "checked",
+                        "checked": "hautatuta",
                         "unchecked": "unchecked"
                     },
                     "hint": "Pasahitzak zortzi karaktere izan behar ditu gutxienez"
