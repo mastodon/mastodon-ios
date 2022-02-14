@@ -176,3 +176,10 @@ extension NotificationTimelineViewController: UITableViewDelegate, AutoGenerateT
 
 // MARK: - NotificationTableViewCellDelegate
 extension NotificationTimelineViewController: NotificationTableViewCellDelegate { }
+
+// MARK: - ScrollViewContainer
+extension NotificationTimelineViewController: ScrollViewContainer {
+    
+    var scrollView: UIScrollView? { tableView }
+    
+}

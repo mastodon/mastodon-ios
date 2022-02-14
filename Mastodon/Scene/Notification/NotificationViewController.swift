@@ -593,3 +593,13 @@ extension NotificationViewController: UITableViewDelegate {
 //    }
 //
 //}
+
+// MARK: - ScrollViewContainer
+extension NotificationViewController: ScrollViewContainer {
+    var scrollView: UIScrollView? {
+        guard let viewController = currentViewController as? NotificationTimelineViewController else {
+            return nil
+        }
+        return viewController.scrollView
+    }
+}

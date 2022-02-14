@@ -125,7 +125,7 @@ extension UserTimelineViewController: UITableViewDelegate, AutoGenerateTableView
 
 // MARK: - CustomScrollViewContainerController
 extension UserTimelineViewController: ScrollViewContainer {
-    var scrollView: UIScrollView { return tableView }
+    var scrollView: UIScrollView? { return tableView }
 }
 
 // MARK: - StatusTableViewCellDelegate

@@ -579,9 +579,13 @@ extension HomeTimelineViewController: TimelineMiddleLoaderTableViewCellDelegate 
 // MARK: - ScrollViewContainer
 extension HomeTimelineViewController: ScrollViewContainer {
     
-    var scrollView: UIScrollView { return tableView }
+    var scrollView: UIScrollView? { return tableView }
     
     func scrollToTop(animated: Bool) {
+        guard let scrollView = scrollView else {
+            return
+        }
+
         if scrollView.contentOffset.y < scrollView.frame.height,
            viewModel.loadLatestStateMachine.canEnterState(HomeTimelineViewModel.LoadLatestState.Loading.self),
            (scrollView.contentOffset.y + scrollView.adjustedContentInset.top) == 0.0,
