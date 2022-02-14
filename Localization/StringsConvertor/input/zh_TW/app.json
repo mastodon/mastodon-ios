@@ -3,20 +3,20 @@
         "alerts": {
             "common": {
                 "please_try_again": "請再試一次。",
-                "please_try_again_later": "Please try again later."
+                "please_try_again_later": "請稍候再試。"
             },
             "sign_up_failure": {
-                "title": "Sign Up Failure"
+                "title": "註冊失敗"
             },
             "server_error": {
-                "title": "Server Error"
+                "title": "伺服器錯誤"
             },
             "vote_failure": {
                 "title": "Vote Failure",
                 "poll_ended": "The poll has ended"
             },
             "discard_post_content": {
-                "title": "Discard Draft",
+                "title": "捨棄草稿",
                 "message": "Confirm to discard composed post content."
             },
             "publish_post_failure": {
@@ -32,9 +32,9 @@
                 "message": "Cannot edit profile. Please try again."
             },
             "sign_out": {
-                "title": "Sign Out",
+                "title": "登出",
                 "message": "Are you sure you want to sign out?",
-                "confirm": "Sign Out"
+                "confirm": "登出"
             },
             "block_domain": {
                 "title": "Are you really, really sure you want to block the entire %s? In most cases a few targeted blocks or mutes are sufficient and preferable. You will not see content from that domain and any of your followers from that domain will be removed.",
@@ -61,12 +61,12 @@
                 "open": "Open",
                 "add": "Add",
                 "remove": "Remove",
-                "edit": "Edit",
+                "edit": "編輯",
                 "save": "Save",
                 "ok": "OK",
-                "done": "Done",
+                "done": "完成",
                 "confirm": "Confirm",
-                "continue": "Continue",
+                "continue": "繼續",
                 "compose": "Compose",
                 "cancel": "取消",
                 "discard": "Discard",
@@ -74,35 +74,35 @@
                 "take_photo": "Take Photo",
                 "save_photo": "儲存照片",
                 "copy_photo": "Copy Photo",
-                "sign_in": "Sign In",
-                "sign_up": "Sign Up",
+                "sign_in": "登入",
+                "sign_up": "註冊",
                 "see_more": "See More",
                 "preview": "Preview",
-                "share": "Share",
+                "share": "分享",
                 "share_user": "Share %s",
                 "share_post": "Share Post",
                 "open_in_safari": "Open in Safari",
                 "open_in_browser": "Open in Browser",
                 "find_people": "Find people to follow",
                 "manually_search": "Manually search instead",
-                "skip": "Skip",
-                "reply": "Reply",
+                "skip": "跳過",
+                "reply": "回覆",
                 "report_user": "Report %s",
-                "block_domain": "Block %s",
-                "unblock_domain": "Unblock %s",
-                "settings": "Settings",
-                "delete": "Delete"
+                "block_domain": "封鎖 %s",
+                "unblock_domain": "解除封鎖 %s",
+                "settings": "設定",
+                "delete": "刪除"
             },
             "tabs": {
-                "home": "Home",
-                "search": "Search",
-                "notification": "Notification",
-                "profile": "Profile"
+                "home": "首頁",
+                "search": "搜尋",
+                "notification": "通知",
+                "profile": "個人檔案"
             },
             "keyboard": {
                 "common": {
-                    "switch_to_tab": "Switch to %s",
-                    "compose_new_post": "Compose New Post",
+                    "switch_to_tab": "切換至 %s",
+                    "compose_new_post": "發佈貼文",
                     "show_favorites": "Show Favorites",
                     "open_settings": "Open Settings"
                 },
@@ -131,11 +131,11 @@
                 "content_warning": "Content Warning",
                 "media_content_warning": "Tap anywhere to reveal",
                 "poll": {
-                    "vote": "Vote",
+                    "vote": "投票",
                     "closed": "Closed"
                 },
                 "actions": {
-                    "reply": "Reply",
+                    "reply": "回覆",
                     "reblog": "Reblog",
                     "unreblog": "Undo reblog",
                     "favorite": "Favorite",
@@ -148,7 +148,7 @@
                     "mention": "Mention",
                     "link": "Link",
                     "hashtag": "Hashtag",
-                    "email": "Email",
+                    "email": "電子郵件",
                     "emoji": "Emoji"
                 },
                 "visibility": {
@@ -159,16 +159,16 @@
                 }
             },
             "friendship": {
-                "follow": "Follow",
+                "follow": "追蹤",
                 "following": "Following",
                 "request": "Request",
                 "pending": "Pending",
                 "block": "Block",
-                "block_user": "Block %s",
-                "block_domain": "Block %s",
-                "unblock": "Unblock",
-                "unblock_user": "Unblock %s",
-                "blocked": "Blocked",
+                "block_user": "封鎖 %s",
+                "block_domain": "封鎖 %s",
+                "unblock": "解除封鎖",
+                "unblock_user": "解除封鎖 %s",
+                "blocked": "已封鎖",
                 "mute": "Mute",
                 "mute_user": "Mute %s",
                 "unmute": "Unmute",
@@ -202,7 +202,7 @@
         "welcome": {
             "slogan": "Social networking\nback in your hands.",
             "get_started": "Get Started",
-            "log_in": "Log In"
+            "log_in": "登入"
         },
         "server_picker": {
             "title": "Mastodon is made of users in different communities.",
@@ -246,7 +246,7 @@
             "title": "Let’s get you set up on %s",
             "input": {
                 "avatar": {
-                    "delete": "Delete"
+                    "delete": "刪除"
                 },
                 "username": {
                     "placeholder": "username",
@@ -259,9 +259,9 @@
                     "placeholder": "email"
                 },
                 "password": {
-                    "placeholder": "password",
+                    "placeholder": "密碼",
                     "require": "Your password needs at least:",
-                    "character_limit": "8 characters",
+                    "character_limit": "8 個字元",
                     "accessibility": {
                         "checked": "checked",
                         "unchecked": "unchecked"
@@ -275,8 +275,8 @@
             "error": {
                 "item": {
                     "username": "Username",
-                    "email": "Email",
-                    "password": "Password",
+                    "email": "電子郵件",
+                    "password": "密碼",
                     "agreement": "Agreement",
                     "locale": "Locale",
                     "reason": "Reason"
@@ -358,14 +358,14 @@
             "replying_to_user": "replying to %s",
             "attachment": {
                 "photo": "photo",
-                "video": "video",
+                "video": "影片",
                 "attachment_broken": "This %s is broken and can’t be\nuploaded to Mastodon.",
                 "description_photo": "Describe the photo for the visually-impaired...",
                 "description_video": "Describe the video for the visually-impaired..."
             },
             "poll": {
                 "duration_time": "Duration: %s",
-                "thirty_minutes": "30 minutes",
+                "thirty_minutes": "30 分鐘",
                 "one_hour": "1 Hour",
                 "six_hours": "6 Hours",
                 "one_day": "1 Day",
@@ -417,7 +417,7 @@
                 }
             },
             "segmented_control": {
-                "posts": "Posts",
+                "posts": "貼文",
                 "replies": "Replies",
                 "posts_and_replies": "Posts and Replies",
                 "media": "Media",
@@ -449,10 +449,10 @@
             "footer": "Follows from other servers are not displayed."
         },
         "search": {
-            "title": "Search",
+            "title": "搜尋",
             "search_bar": {
                 "placeholder": "Search hashtags and users",
-                "cancel": "Cancel"
+                "cancel": "取消"
             },
             "recommend": {
                 "button_text": "See All",
@@ -464,7 +464,7 @@
                 "accounts": {
                     "title": "Accounts you might like",
                     "description": "You may like to follow these accounts",
-                    "follow": "Follow"
+                    "follow": "追蹤"
                 }
             },
             "searching": {
@@ -472,7 +472,7 @@
                     "all": "All",
                     "people": "People",
                     "hashtags": "Hashtags",
-                    "posts": "Posts"
+                    "posts": "貼文"
                 },
                 "empty_state": {
                     "no_results": "No results"
@@ -507,11 +507,11 @@
             "title": "Post from %s"
         },
         "settings": {
-            "title": "Settings",
+            "title": "設定",
             "section": {
                 "appearance": {
                     "title": "Appearance",
-                    "automatic": "Automatic",
+                    "automatic": "自動",
                     "light": "Always Light",
                     "dark": "Always Dark"
                 },
@@ -552,7 +552,7 @@
                 "spicy_zone": {
                     "title": "The Spicy Zone",
                     "clear": "Clear Media Cache",
-                    "signout": "Sign Out"
+                    "signout": "登出"
                 }
             },
             "footer": {
