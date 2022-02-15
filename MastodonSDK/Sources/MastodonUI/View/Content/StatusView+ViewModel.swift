@@ -50,6 +50,7 @@ extension StatusView {
         
         // Status
         @Published public var content: MetaContent?
+        @Published public var language: String?
         
         // Media
         @Published public var mediaViewConfigurations: [MediaView.Configuration] = []
@@ -273,12 +274,13 @@ extension StatusView.ViewModel {
     }
     
     private func bindContent(statusView: StatusView) {
-        Publishers.CombineLatest3(
+        Publishers.CombineLatest4(
             $spoilerContent,
             $content,
+            $language,
             $isContentReveal.removeDuplicates()
         )
-        .sink { spoilerContent, content, isContentReveal in
+        .sink { spoilerContent, content, language, isContentReveal in
             if let spoilerContent = spoilerContent {
                 statusView.spoilerOverlayView.spoilerMetaLabel.configure(content: spoilerContent)
                 // statusView.spoilerBannerView.label.configure(content: spoilerContent)
@@ -288,6 +290,15 @@ extension StatusView.ViewModel {
                 statusView.spoilerOverlayView.spoilerMetaLabel.reset()
                 // statusView.spoilerBannerView.label.reset()
             }
+            
+            let paragraphStyle = statusView.contentMetaText.paragraphStyle
+            if let language = language {
+                let direction = Locale.characterDirection(forLanguage: language)
+                paragraphStyle.alignment = direction == .rightToLeft ? .right : .left
+            } else {
+                paragraphStyle.alignment = .natural
+            }
+            statusView.contentMetaText.paragraphStyle = paragraphStyle
             
             if let content = content {
                 statusView.contentMetaText.configure(
@@ -310,95 +321,32 @@ extension StatusView.ViewModel {
             self.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): isContentReveal: \(isContentReveal)")
         }
         .store(in: &disposeBag)
-        $isSensitive
-            .sink { isSensitive in
-                guard isSensitive else { return }
-                statusView.setContentSensitiveeToggleButtonDisplay()
-            }
-            .store(in: &disposeBag)
-        // visibility
-        Publishers.CombineLatest(
-            $visibility,
-            $isMyself
-        )
-        .sink { visibility, isMyself in            
-            switch visibility {
-            case .public:
-                break
-            case .unlisted:
-                statusView.statusVisibilityView.label.text = "Everyone can see this post but not display in the public timeline."
-                statusView.setVisibilityDisplay()
-            case .private:
-                statusView.statusVisibilityView.label.text = isMyself ? "Only my followers can see this post." : "Only their followers can see this post."
-                statusView.setVisibilityDisplay()
-            case .direct:
-                statusView.statusVisibilityView.label.text = "Only mentioned user can see this post."
-                statusView.setVisibilityDisplay()
-            case ._other:
-                break
-            }
-        }
-        .store(in: &disposeBag)
+
 //        $isSensitive
 //            .sink { isSensitive in
-//                if isSensitive {
-//                    statusView.setStatusSpoilerBannerViewDisplay()
-//                }
+//                guard isSensitive else { return }
+//                statusView.setContentSensitiveeToggleButtonDisplay()
 //            }
 //            .store(in: &disposeBag)
-//        $spoilerContent
-//            .sink { metaContent in
-//                guard let metaContent = metaContent else {
-//                    statusView.spoilerContentTextView.reset()
-//                    return
-//                }
-//                statusView.spoilerContentTextView.configure(content: metaContent)
-//                statusView.setSpoilerDisplay()
-//            }
-//            .store(in: &disposeBag)
-//        
+//        // visibility
 //        Publishers.CombineLatest(
-//            $isContentReveal,
-//            $spoilerContent
+//            $visibility,
+//            $isMyself
 //        )
-//        .receive(on: DispatchQueue.main)
-//        .sink { [weak self] isContentReveal, spoilerContent in
-//            guard let self = self else { return }
-//            guard spoilerContent != nil else {
-//                // ignore reveal state when no spoiler exists
-//                statusView.contentTextView.isHidden = false
-//                return
-//            }
-//            
-//            statusView.contentTextView.isHidden = !isContentReveal
-//            self.contentRevealChangePublisher.send()
-//        }
-//        .store(in: &disposeBag)
-//        $source
-//            .sink { source in
-//                statusView.metricsDashboardView.sourceLabel.text = source ?? ""
-//            }
-//            .store(in: &disposeBag)
-//        // dashboard
-//        Publishers.CombineLatest4(
-//            $replyCount,
-//            $reblogCount,
-//            $quoteCount,
-//            $favoriteCount
-//        )
-//        .sink { replyCount, reblogCount, quoteCount, favoriteCount in
-//            switch statusView.style {
-//            case .plain:
-//                statusView.setMetricsDisplay()
-//
-//                statusView.metricsDashboardView.setupReply(count: replyCount)
-//                statusView.metricsDashboardView.setupRepost(count: reblogCount)
-//                statusView.metricsDashboardView.setupQuote(count: quoteCount)
-//                statusView.metricsDashboardView.setupLike(count: favoriteCount)
-//                
-//                let needsDashboardDisplay = replyCount > 0 || reblogCount > 0 || quoteCount > 0 || favoriteCount > 0
-//                statusView.metricsDashboardView.dashboardContainer.isHidden = !needsDashboardDisplay
-//            default:
+//        .sink { visibility, isMyself in
+//            switch visibility {
+//            case .public:
+//                break
+//            case .unlisted:
+//                statusView.statusVisibilityView.label.text = "Everyone can see this post but not display in the public timeline."
+//                statusView.setVisibilityDisplay()
+//            case .private:
+//                statusView.statusVisibilityView.label.text = isMyself ? "Only my followers can see this post." : "Only their followers can see this post."
+//                statusView.setVisibilityDisplay()
+//            case .direct:
+//                statusView.statusVisibilityView.label.text = "Only mentioned user can see this post."
+//                statusView.setVisibilityDisplay()
+//            case ._other:
 //                break
 //            }
 //        }

@@ -245,6 +245,8 @@ extension StatusView {
         } else {
             viewModel.spoilerContent = nil
         }
+        // language
+        viewModel.language = (status.reblog ?? status).language
         // content
         do {
             let content = MastodonContent(content: status.content, emojis: status.emojis.asDictionary)
