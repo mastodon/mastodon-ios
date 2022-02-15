@@ -154,8 +154,8 @@
                 "visibility": {
                     "unlisted": "Everyone can see this post but not display in the public timeline.",
                     "private": "Only their followers can see this post.",
-                    "private_from_me": "Only my followers can see this post.",
-                    "direct": "Only mentioned user can see this post."
+                    "private_from_me": "只有我的关注者才能看到此帖子。",
+                    "direct": "只有提到的用户才能看到此帖子。"
                 }
             },
             "friendship": {
@@ -419,26 +419,26 @@
             "segmented_control": {
                 "posts": "帖子",
                 "replies": "回复",
-                "posts_and_replies": "Posts and Replies",
+                "posts_and_replies": "帖子与回复",
                 "media": "媒体",
-                "about": "About"
+                "about": "关于"
             },
             "relationship_action_alert": {
                 "confirm_mute_user": {
-                    "title": "Mute Account",
-                    "message": "Confirm to mute %s"
+                    "title": "静音账户",
+                    "message": "确认静音 %s"
                 },
                 "confirm_unmute_user": {
                     "title": "取消静音账户",
                     "message": "确认取消静音 %s"
                 },
                 "confirm_block_user": {
-                    "title": "Block Account",
-                    "message": "Confirm to block %s"
+                    "title": "屏蔽帐户",
+                    "message": "确认屏蔽 %s"
                 },
                 "confirm_unblock_user": {
-                    "title": "Unblock Account",
-                    "message": "Confirm to unblock %s"
+                    "title": "解除屏蔽帐户",
+                    "message": "确认取消屏蔽 %s"
                 }
             }
         },
@@ -490,12 +490,12 @@
                 "Mentions": "提及"
             },
             "notification_description": {
-                "followed_you": "followed you",
-                "favorited_your_post": "favorited your post",
-                "reblogged_your_post": "reblogged your post",
-                "mentioned_you": "mentioned you",
-                "request_to_follow_you": "request to follow you",
-                "poll_has_ended": "poll has ended"
+                "followed_you": "关注了你",
+                "favorited_your_post": "喜欢了你的帖子",
+                "reblogged_your_post": "转发了你的帖子",
+                "mentioned_you": "提及了你",
+                "request_to_follow_you": "关注请求",
+                "poll_has_ended": "投票已结束"
             },
             "keyobard": {
                 "show_everything": "显示全部",
@@ -516,11 +516,11 @@
                     "dark": "深色"
                 },
                 "look_and_feel": {
-                    "title": "Look and Feel",
-                    "use_system": "Use System",
-                    "really_dark": "Really Dark",
-                    "sorta_dark": "Sorta Dark",
-                    "light": "Light"
+                    "title": "外观和风格",
+                    "use_system": "跟随系统",
+                    "really_dark": "暗色",
+                    "sorta_dark": "深色",
+                    "light": "浅色"
                 },
                 "notifications": {
                     "title": "通知",
@@ -563,17 +563,17 @@
             }
         },
         "report": {
-            "title_report": "Report",
+            "title_report": "举报",
             "title": "举报 %s",
             "step1": "步骤  1 / 2",
             "step2": "步骤 2 / 2",
             "content1": "是否有帖子需要举报？",
             "content2": "是否有关于此举报的详细描述信息？",
-            "report_sent_title": "Thanks for reporting, we’ll look into this.",
+            "report_sent_title": "感谢提交举报，我们将会进行处理。",
             "send": "发送举报",
             "skip_to_send": "直接发送",
             "text_placeholder": "输入或粘贴额外的注释",
-            "reported": "REPORTED"
+            "reported": "已报告"
         },
         "preview": {
             "keyboard": {
