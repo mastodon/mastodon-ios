@@ -23,7 +23,9 @@ extension ThreadViewModel {
             context: context,
             configuration: StatusSection.Configuration(
                 statusTableViewCellDelegate: statusTableViewCellDelegate,
-                timelineMiddleLoaderTableViewCellDelegate: nil
+                timelineMiddleLoaderTableViewCellDelegate: nil,
+                filterContext: .thread,
+                activeFilters: context.statusFilterService.$activeFilters
             )
         )
         

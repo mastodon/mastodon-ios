@@ -20,7 +20,9 @@ extension NotificationTimelineViewModel {
             tableView: tableView,
             context: context,
             configuration: NotificationSection.Configuration(
-                notificationTableViewCellDelegate: notificationTableViewCellDelegate
+                notificationTableViewCellDelegate: notificationTableViewCellDelegate,
+                filterContext: .notifications,
+                activeFilters: context.statusFilterService.$activeFilters
             )
         )
 

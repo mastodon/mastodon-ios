@@ -226,6 +226,15 @@ public final class StatusView: UIView {
     // metric
     public let statusMetricView = StatusMetricView()
     
+    // filter hint
+    public let filterHintLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = Asset.Colors.Label.secondary.color
+        label.text = L10n.Common.Controls.Timeline.filtered
+        label.font = .systemFont(ofSize: 17, weight: .regular)
+        return label
+    }()
+    
     public func prepareForReuse() {
         disposeBag.removeAll()
         
@@ -249,7 +258,7 @@ public final class StatusView: UIView {
         mediaContainerView.isHidden = true
         pollContainerView.isHidden = true
         statusVisibilityView.isHidden = true
-        // setSpoilerBannerViewHidden(isHidden: true)
+        filterHintLabel.isHidden = true
     }
 
     public override init(frame: CGRect) {
@@ -570,6 +579,14 @@ extension StatusView.Style {
         statusView.actionToolbarContainer.configure(for: .inline)
         statusView.actionToolbarContainer.preservesSuperviewLayoutMargins = true
         statusView.containerStackView.addArrangedSubview(statusView.actionToolbarContainer)
+        
+        // filterHintLabel
+        statusView.filterHintLabel.translatesAutoresizingMaskIntoConstraints = false
+        statusView.addSubview(statusView.filterHintLabel)
+        NSLayoutConstraint.activate([
+            statusView.filterHintLabel.centerXAnchor.constraint(equalTo: statusView.containerStackView.centerXAnchor),
+            statusView.filterHintLabel.centerYAnchor.constraint(equalTo: statusView.containerStackView.centerYAnchor),
+        ])
     }
     
     func inline(statusView: StatusView) {
@@ -673,9 +690,9 @@ extension StatusView {
         statusVisibilityView.isHidden = false
     }
     
-    // func setSpoilerBannerViewHidden(isHidden: Bool) {
-    //     spoilerBannerView.isHidden = isHidden
-    // }
+    func setFilterHintLabelDisplay() {
+        filterHintLabel.isHidden = false
+    }
     
     // content text Width
     public var contentMaxLayoutWidth: CGFloat {

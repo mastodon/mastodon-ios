@@ -9,11 +9,16 @@ import UIKit
 import Combine
 import MastodonUI
 import CoreDataStack
+import MastodonSDK
 import MastodonLocalization
 import MastodonMeta
 import Meta
+import NaturalLanguage
 
 extension StatusView {
+    
+    static let statusFilterWorkingQueue = DispatchQueue(label: "StatusFilterWorkingQueue")
+    
     public func configure(feed: Feed) {
         switch feed.kind {
         case .home:
@@ -48,7 +53,8 @@ extension StatusView {
         configureContent(status: status)
         configureMedia(status: status)
         configurePoll(status: status)
-        configureToolbar(status: status)        
+        configureToolbar(status: status)
+        configureFilter(status: status)
     }
 }
 
@@ -395,6 +401,59 @@ extension StatusView {
             })
         }
         .assign(to: \.isFavorite, on: viewModel)
+        .store(in: &disposeBag)
+    }
+    
+    private func configureFilter(status: Status) {
+        let status = status.reblog ?? status
+        
+        let content = status.content.lowercased()
+        
+        Publishers.CombineLatest(
+            viewModel.$activeFilters,
+            viewModel.$filterContext
+        )
+        .receive(on: StatusView.statusFilterWorkingQueue)
+        .map { filters, filterContext in
+            var wordFilters: [Mastodon.Entity.Filter] = []
+            var nonWordFilters: [Mastodon.Entity.Filter] = []
+            for filter in filters {
+                guard filter.context.contains(where: { $0 == filterContext }) else { continue }
+                if filter.wholeWord {
+                    wordFilters.append(filter)
+                } else {
+                    nonWordFilters.append(filter)
+                }
+            }
+
+            var needsFilter = false
+            for filter in nonWordFilters {
+                guard content.contains(filter.phrase.lowercased()) else { continue }
+                needsFilter = true
+                break
+            }
+
+            if needsFilter {
+                return true
+            }
+
+            let tokenizer = NLTokenizer(unit: .word)
+            tokenizer.string = content
+            let phraseWords = wordFilters.map { $0.phrase.lowercased() }
+            tokenizer.enumerateTokens(in: content.startIndex..<content.endIndex) { range, _ in
+                let word = String(content[range])
+                if phraseWords.contains(word) {
+                    needsFilter = true
+                    return false
+                } else {
+                    return true
+                }
+            }
+
+            return needsFilter
+        }
+        .receive(on: DispatchQueue.main)
+        .assign(to: \.isFiltered, on: viewModel)
         .store(in: &disposeBag)
     }
 

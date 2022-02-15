@@ -18,7 +18,9 @@ extension FavoriteViewModel {
             context: context,
             configuration: StatusSection.Configuration(
                 statusTableViewCellDelegate: statusTableViewCellDelegate,
-                timelineMiddleLoaderTableViewCellDelegate: nil
+                timelineMiddleLoaderTableViewCellDelegate: nil,
+                filterContext: .none,
+                activeFilters: nil
             )
         )
         // set empty section to make update animation top-to-bottom style

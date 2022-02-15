@@ -21,7 +21,9 @@ extension HashtagTimelineViewModel {
             context: context,
             configuration: StatusSection.Configuration(
                 statusTableViewCellDelegate: statusTableViewCellDelegate,
-                timelineMiddleLoaderTableViewCellDelegate: nil
+                timelineMiddleLoaderTableViewCellDelegate: nil,
+                filterContext: .none,
+                activeFilters: nil
             )
         )
 

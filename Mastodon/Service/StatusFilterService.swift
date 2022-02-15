@@ -23,7 +23,7 @@ final class StatusFilterService {
     let filterUpdatePublisher = PassthroughSubject<Void, Never>()
 
     // output
-    let activeFilters = CurrentValueSubject<[Mastodon.Entity.Filter], Never>([])
+    @Published var activeFilters: [Mastodon.Entity.Filter] = []
 
     init(
         apiService: APIService,
@@ -57,7 +57,14 @@ final class StatusFilterService {
                 .map { response in
                     let now = Date()
                     let newResponse = response.map { filters in
-                        return filters.filter { $0.expiresAt > now }        // filter out expired rules
+                        return filters.filter { filter in
+                            if let expiresAt = filter.expiresAt {
+                                // filter out expired rules
+                                return expiresAt > now
+                            } else {
+                                return true
+                            }
+                        }
                     }
                     return Result<Mastodon.Response.Content<[Mastodon.Entity.Filter]>, Error>.success(newResponse)
                 }
@@ -70,7 +77,7 @@ final class StatusFilterService {
             switch result {
             case .success(let response):
                 os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: fetch account filters success. %ld items", ((#file as NSString).lastPathComponent), #line, #function, response.value.count)
-                self.activeFilters.value = response.value
+                self.activeFilters = response.value
             case .failure(let error):
                 os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: fetch account filters fail: %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
 

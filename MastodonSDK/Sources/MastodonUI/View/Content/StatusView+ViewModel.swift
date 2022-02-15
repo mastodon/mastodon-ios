@@ -89,6 +89,11 @@ extension StatusView {
         @Published public var replyCount: Int = 0
         @Published public var reblogCount: Int = 0
         @Published public var favoriteCount: Int = 0
+        
+        // Filter
+        @Published public var activeFilters: [Mastodon.Entity.Filter] = []
+        @Published public var filterContext: Mastodon.Entity.Filter.Context?
+        @Published public var isFiltered = false
 
         @Published public var groupedAccessibilityLabel = ""
 
@@ -128,9 +133,8 @@ extension StatusView {
             isMediaSensitive = false
             isMediaSensitiveToggled = false
             
-//            isSensitive = false
-//            isContentReveal = false
-//            isMediaReveal = false
+            activeFilters = []
+            filterContext = nil
         }
         
         init() {
@@ -192,6 +196,7 @@ extension StatusView.ViewModel {
         bindToolbar(statusView: statusView)
         bindMetric(statusView: statusView)
         bindMenu(statusView: statusView)
+        bindFilter(statusView: statusView)
         bindAccessibility(statusView: statusView)
     }
     
@@ -609,6 +614,17 @@ extension StatusView.ViewModel {
             statusView.menuButton.showsMenuAsPrimaryAction = true
         }
         .store(in: &disposeBag)
+    }
+    
+    private func bindFilter(statusView: StatusView) {
+        $isFiltered
+            .sink { isFiltered in
+                statusView.containerStackView.isHidden = isFiltered
+                if isFiltered {
+                    statusView.setFilterHintLabelDisplay()                    
+                }
+            }
+            .store(in: &disposeBag)
     }
     
     private func bindAccessibility(statusView: StatusView) {
