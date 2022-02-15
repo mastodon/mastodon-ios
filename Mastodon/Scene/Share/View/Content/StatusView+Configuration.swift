@@ -60,7 +60,7 @@ extension StatusView {
                 status.author.publisher(for: \.emojis)
             )
             .map { name, emojis -> StatusView.ViewModel.Header in
-                let text = L10n.Common.Controls.Status.userReblogged(name)
+                let text = L10n.Common.Controls.Status.userReblogged(status.author.displayNameWithFallback)
                 let content = MastodonContent(content: text, emojis: emojis.asDictionary)
                 do {
                     let metaContent = try MastodonMetaContent.convert(document: content)
