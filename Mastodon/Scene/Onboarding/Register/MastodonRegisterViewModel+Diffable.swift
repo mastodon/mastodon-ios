@@ -21,9 +21,9 @@ extension MastodonRegisterViewModel {
         
         diffableDataSource = UITableViewDiffableDataSource(tableView: tableView) { tableView, indexPath, item in
             switch item {
-            case .header:
+            case .header(let domain):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: OnboardingHeadlineTableViewCell.self), for: indexPath) as! OnboardingHeadlineTableViewCell
-                cell.titleLabel.text = L10n.Scene.Register.title
+                cell.titleLabel.text = L10n.Scene.Register.title(domain)
                 cell.subTitleLabel.isHidden = true
                 return cell
             case .avatar:
@@ -136,7 +136,7 @@ extension MastodonRegisterViewModel {
         
         var snapshot = NSDiffableDataSourceSnapshot<RegisterSection, RegisterItem>()
         snapshot.appendSections([.main])
-        snapshot.appendItems([.header], toSection: .main)
+        snapshot.appendItems([.header(domain: domain)], toSection: .main)
         snapshot.appendItems([.avatar, .name, .username, .email, .password, .hint], toSection: .main)
         if approvalRequired {
             snapshot.appendItems([.reason], toSection: .main)            

@@ -118,37 +118,37 @@ extension NotificationView {
             switch type {
             case .follow:
                 self.viewModel.notificationIndicatorText = createMetaContent(
-                    text: L10n.Scene.Notification.userFollowedYou(""),
+                    text: L10n.Scene.Notification.NotificationDescription.followedYou,
                     emojis: emojis.asDictionary
                 )
             case .followRequest:
                 self.viewModel.notificationIndicatorText = createMetaContent(
-                    text: L10n.Scene.Notification.userRequestedToFollowYou(author.displayNameWithFallback),
+                    text: L10n.Scene.Notification.NotificationDescription.requestToFollowYou,
                     emojis: emojis.asDictionary
                 )
             case .mention:
                 self.viewModel.notificationIndicatorText = createMetaContent(
-                    text: L10n.Scene.Notification.userMentionedYou(""),
+                    text: L10n.Scene.Notification.NotificationDescription.mentionedYou,
                     emojis: emojis.asDictionary
                 )
             case .reblog:
                 self.viewModel.notificationIndicatorText = createMetaContent(
-                    text: L10n.Scene.Notification.userRebloggedYourPost(""),
+                    text: L10n.Scene.Notification.NotificationDescription.rebloggedYourPost,
                     emojis: emojis.asDictionary
                 )
             case .favourite:
                 self.viewModel.notificationIndicatorText = createMetaContent(
-                    text: L10n.Scene.Notification.userFavoritedYourPost(""),
+                    text: L10n.Scene.Notification.NotificationDescription.favoritedYourPost,
                     emojis: emojis.asDictionary
                 )
             case .poll:
                 self.viewModel.notificationIndicatorText = createMetaContent(
-                    text: L10n.Scene.Notification.userYourPollHasEnded(""),
+                    text: L10n.Scene.Notification.NotificationDescription.pollHasEnded,
                     emojis: emojis.asDictionary
                 )
             case .status:
                 self.viewModel.notificationIndicatorText = createMetaContent(
-                    text: L10n.Scene.Notification.userMentionedYou(""),
+                    text: L10n.Scene.Notification.NotificationDescription.mentionedYou,
                     emojis: emojis.asDictionary
                 )
             case ._other:

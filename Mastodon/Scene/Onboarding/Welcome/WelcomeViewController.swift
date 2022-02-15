@@ -50,7 +50,7 @@ final class WelcomeViewController: UIViewController, NeedsDependency {
     private(set) lazy var signUpButton: PrimaryActionButton = {
         let button = PrimaryActionButton()
         button.adjustsBackgroundImageWhenUserInterfaceStyleChanges = false
-        button.setTitle("Get Started", for: .normal)    // TODO: i18n
+        button.setTitle(L10n.Scene.Welcome.getStarted, for: .normal)
         let backgroundImageColor: UIColor = .white
         let backgroundImageHighlightedColor: UIColor = UIColor(white: 0.8, alpha: 1.0)
         button.setBackgroundImage(.placeholder(color: backgroundImageColor), for: .normal)

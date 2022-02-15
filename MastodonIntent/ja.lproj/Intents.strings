@@ -1,51 +1,51 @@
-"16wxgf" = "Post on Mastodon";
+"16wxgf" = "Mastodonに投稿";
 
-"751xkl" = "Text Content";
+"751xkl" = "テキストコンテンツ";
 
-"CsR7G2" = "Post on Mastodon";
+"CsR7G2" = "Mastodonに投稿";
 
 "HZSGTr" = "What content to post?";
 
-"HdGikU" = "Posting failed";
+"HdGikU" = "投稿に失敗しました";
 
-"KDNTJ4" = "Failure Reason";
+"KDNTJ4" = "失敗の理由";
 
 "RHxKOw" = "Send Post with text content";
 
-"RxSqsb" = "Post";
+"RxSqsb" = "投稿";
 
-"WCIR3D" = "Post ${content} on Mastodon";
+"WCIR3D" = "Mastodonに ${content} を投稿";
 
-"ZKJSNu" = "Post";
+"ZKJSNu" = "投稿";
 
 "ZS1XaK" = "${content}";
 
-"ZbSjzC" = "Visibility";
+"ZbSjzC" = "公開範囲";
 
-"Zo4jgJ" = "Post Visibility";
+"Zo4jgJ" = "投稿の公開範囲";
 
-"apSxMG-dYQ5NN" = "There are ${count} options matching ‘Public’.";
+"apSxMG-dYQ5NN" = "「パブリック」にマッチするオプションが${count}個あります。";
 
-"apSxMG-ehFLjY" = "There are ${count} options matching ‘Followers Only’.";
+"apSxMG-ehFLjY" = "「フォロワーのみ」にマッチするオプションが${count}個あります。";
 
-"ayoYEb-dYQ5NN" = "${content}, Public";
+"ayoYEb-dYQ5NN" = "${content}, パブリック";
 
-"ayoYEb-ehFLjY" = "${content}, Followers Only";
+"ayoYEb-ehFLjY" = "${content}, フォロワーのみ";
 
-"dUyuGg" = "Post on Mastodon";
+"dUyuGg" = "Mastodonに投稿";
 
-"dYQ5NN" = "Public";
+"dYQ5NN" = "パブリック";
 
-"ehFLjY" = "Followers Only";
+"ehFLjY" = "フォロワーのみ";
 
-"gfePDu" = "Posting failed. ${failureReason}";
+"gfePDu" = "投稿に失敗しました。 ${failureReason}";
 
-"k7dbKQ" = "Post was sent successfully.";
+"k7dbKQ" = "投稿に成功しました。";
 
-"oGiqmY-dYQ5NN" = "Just to confirm, you wanted ‘Public’?";
+"oGiqmY-dYQ5NN" = "「パブリック」で間違いないですか？";
 
-"oGiqmY-ehFLjY" = "Just to confirm, you wanted ‘Followers Only’?";
+"oGiqmY-ehFLjY" = "「フォロワーのみ」で間違いないですか？";
 
 "rM6dvp" = "URL";
 
-"ryJLwG" = "Post was sent successfully. ";
+"ryJLwG" = "投稿に成功しました。 ";

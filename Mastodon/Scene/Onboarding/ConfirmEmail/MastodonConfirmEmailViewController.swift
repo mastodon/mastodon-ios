@@ -36,7 +36,7 @@ final class MastodonConfirmEmailViewController: UIViewController, NeedsDependenc
         let label = UILabel()
         label.font = UIFontMetrics(forTextStyle: .title1).scaledFont(for: UIFont.systemFont(ofSize: 20))
         label.textColor = .secondaryLabel
-        label.text = L10n.Scene.ConfirmEmail.subtitle(viewModel.email)
+        label.text = L10n.Scene.ConfirmEmail.subtitle
         label.numberOfLines = 0
         return label
     }()
@@ -135,7 +135,7 @@ extension MastodonConfirmEmailViewController {
             .store(in: &self.disposeBag)
         
         
-        navigationActionView.backButton.setTitle("Resend", for: .normal)    // TODO: i18n
+        navigationActionView.backButton.setTitle(L10n.Scene.ConfirmEmail.Button.resend, for: .normal)
         navigationActionView.backButton.addTarget(self, action: #selector(MastodonConfirmEmailViewController.resendButtonPressed(_:)), for: .touchUpInside)
         
         navigationActionView.nextButton.setTitle(L10n.Scene.ConfirmEmail.Button.openEmailApp, for: .normal)

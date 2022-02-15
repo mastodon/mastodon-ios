@@ -1002,8 +1002,8 @@ extension ProfileViewController: ProfileHeaderViewDelegate {
                 let name = user.displayNameWithFallback
                 
                 let alertController = UIAlertController(
-                    title: L10n.Scene.Profile.RelationshipActionAlert.ConfirmUnblockUsre.title,
-                    message: L10n.Scene.Profile.RelationshipActionAlert.ConfirmUnblockUsre.message(name),
+                    title: L10n.Scene.Profile.RelationshipActionAlert.ConfirmUnblockUser.title,
+                    message: L10n.Scene.Profile.RelationshipActionAlert.ConfirmUnblockUser.message(name),
                     preferredStyle: .alert
                 )
                 let record = ManagedObjectRecord<MastodonUser>(objectID: user.objectID)
