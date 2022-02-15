@@ -154,7 +154,7 @@ extension MediaView {
         .receive(on: DispatchQueue.main)
         .sink { [weak self] isReveal, previewImage, blurhashImage in
             guard let self = self else { return }
-            let image = isReveal ? previewImage : blurhashImage
+            let image = isReveal ? (previewImage ?? blurhashImage) : blurhashImage
             self.imageView.image = image
         }
         .store(in: &configuration.disposeBag)
