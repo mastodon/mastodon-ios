@@ -307,8 +307,7 @@ extension StatusView.ViewModel {
             
             if let content = content {
                 statusView.contentMetaText.configure(
-                    content: content,
-                    isRedactedModeEnabled: !isContentReveal
+                    content: content
                 )
                 statusView.contentMetaText.textView.accessibilityLabel = content.string
                 statusView.contentMetaText.textView.accessibilityTraits = [.staticText]
@@ -317,6 +316,8 @@ extension StatusView.ViewModel {
                 statusView.contentMetaText.reset()
                 statusView.contentMetaText.textView.accessibilityLabel = ""
             }
+            
+            statusView.contentMetaText.textView.alpha = isContentReveal ? 1 : 0     // keep the frame size and only display when revealing
             
             statusView.setSpoilerOverlayViewHidden(isHidden: isContentReveal)
             
@@ -327,12 +328,13 @@ extension StatusView.ViewModel {
         }
         .store(in: &disposeBag)
 
-//        $isSensitive
-//            .sink { isSensitive in
-//                guard isSensitive else { return }
-//                statusView.setContentSensitiveeToggleButtonDisplay()
-//            }
-//            .store(in: &disposeBag)
+        $isSensitive
+            .sink { isSensitive in
+                guard isSensitive else { return }
+                statusView.setContentSensitiveeToggleButtonDisplay()
+            }
+            .store(in: &disposeBag)
+        
 //        // visibility
 //        Publishers.CombineLatest(
 //            $visibility,
