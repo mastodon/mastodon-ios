@@ -28,11 +28,36 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider {
                 assertionFailure("only works for status data provider")
                 return
             }
-            await DataSourceFacade.coordinateToProfileScene(
-                provider: self,
-                target: .reblog,      // keep the wrapper for header author
-                status: status
-            )
+            
+            switch await statusView.viewModel.header {
+            case .none:
+                break
+            case .reply:
+                let _replyToAuthor: ManagedObjectRecord<MastodonUser>? = try? await context.managedObjectContext.perform {
+                    guard let status = status.object(in: self.context.managedObjectContext) else { return nil }
+                    guard let inReplyToAccountID = status.inReplyToAccountID else { return nil }
+                    let request = MastodonUser.sortedFetchRequest
+                    request.predicate = MastodonUser.predicate(domain: status.author.domain, id: inReplyToAccountID)
+                    request.fetchLimit = 1
+                    guard let author = self.context.managedObjectContext.safeFetch(request).first else { return nil }
+                    return .init(objectID: author.objectID)
+                }
+                guard let replyToAuthor = _replyToAuthor else {
+                    return
+                }
+                
+                await DataSourceFacade.coordinateToProfileScene(
+                    provider: self,
+                    user: replyToAuthor
+                )
+
+            case .repost:
+                await DataSourceFacade.coordinateToProfileScene(
+                    provider: self,
+                    target: .reblog,      // keep the wrapper for header author
+                    status: status
+                )
+            }
         }
     }
 
