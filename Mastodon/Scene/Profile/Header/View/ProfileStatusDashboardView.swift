@@ -75,6 +75,9 @@ extension ProfileStatusDashboardView {
             tapGestureRecognizer.addTarget(self, action: #selector(ProfileStatusDashboardView.tapGestureRecognizerHandler(_:)))
             meterView.addGestureRecognizer(tapGestureRecognizer)
         }
+        
+        followingDashboardMeterView.accessibilityHint = "Double tap to open the list"   // TODO: i18n
+        followersDashboardMeterView.accessibilityHint = "Double tap to open the list"
     }
 }
 
