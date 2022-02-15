@@ -19,14 +19,14 @@ public protocol NotificationViewDelegate: AnyObject {
     
     func notificationView(_ notificationView: NotificationView, statusView: StatusView, metaText: MetaText, didSelectMeta meta: Meta)
     func notificationView(_ notificationView: NotificationView, statusView: StatusView, spoilerOverlayViewDidPressed overlayView: SpoilerOverlayView)
-//    func notificationView(_ notificationView: NotificationView, statusView: StatusView, spoilerBannerViewDidPressed bannerView: SpoilerBannerView)
+    func notificationView(_ notificationView: NotificationView, statusView: StatusView, mediaGridContainerView: MediaGridContainerView, mediaView: MediaView, didSelectMediaViewAt index: Int)
 
     func notificationView(_ notificationView: NotificationView, statusView: StatusView, actionToolbarContainer: ActionToolbarContainer, buttonDidPressed button: UIButton, action: ActionToolbarContainer.Action)
 
     func notificationView(_ notificationView: NotificationView, quoteStatusView: StatusView, authorAvatarButtonDidPressed button: AvatarButton)
     func notificationView(_ notificationView: NotificationView, quoteStatusView: StatusView, metaText: MetaText, didSelectMeta meta: Meta)
     func notificationView(_ notificationView: NotificationView, quoteStatusView: StatusView, spoilerOverlayViewDidPressed overlayView: SpoilerOverlayView)
-    // func notificationView(_ notificationView: NotificationView, quoteStatusView: StatusView, spoilerBannerViewDidPressed bannerView: SpoilerBannerView)
+    func notificationView(_ notificationView: NotificationView, quoteStatusView: StatusView, mediaGridContainerView: MediaGridContainerView, mediaView: MediaView, didSelectMediaViewAt index: Int)
     
     // a11y
     func notificationView(_ notificationView: NotificationView, accessibilityActivate: Void)
@@ -366,7 +366,14 @@ extension NotificationView: StatusViewDelegate {
     }
     
     public func statusView(_ statusView: StatusView, mediaGridContainerView: MediaGridContainerView, mediaView: MediaView, didSelectMediaViewAt index: Int) {
-        assertionFailure()
+        switch statusView {
+        case self.statusView:
+            delegate?.notificationView(self, statusView: statusView, mediaGridContainerView: mediaGridContainerView, mediaView: mediaView, didSelectMediaViewAt: index)
+        case quoteStatusView:
+            delegate?.notificationView(self, quoteStatusView: statusView, mediaGridContainerView: mediaGridContainerView, mediaView: mediaView, didSelectMediaViewAt: index)
+        default:
+            assertionFailure()
+        }
     }
     
     public func statusView(_ statusView: StatusView, pollTableView tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

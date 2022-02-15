@@ -102,6 +102,119 @@ extension NotificationTableViewCellDelegate where Self: DataSourceProvider {
     }
 }
 
+private struct NotificationMediaTransitionContext {
+    let status: ManagedObjectRecord<Status>
+    let needsToggleMediaSensitive: Bool
+}
+
+extension NotificationTableViewCellDelegate where Self: DataSourceProvider & MediaPreviewableViewController {
+    
+    func tableViewCell(
+        _ cell: UITableViewCell,
+        notificationView: NotificationView,
+        statusView: StatusView,
+        mediaGridContainerView: MediaGridContainerView,
+        mediaView: MediaView,
+        didSelectMediaViewAt index: Int
+    ) {
+        Task {
+            let source = DataSourceItem.Source(tableViewCell: cell, indexPath: nil)
+            guard let item = await item(from: source) else {
+                assertionFailure()
+                return
+            }
+            guard case let .notification(record) = item else {
+                assertionFailure("only works for status data provider")
+                return
+            }
+            
+            let managedObjectContext = self.context.managedObjectContext
+            let _mediaTransitionContext: NotificationMediaTransitionContext? = try await managedObjectContext.perform {
+                guard let notification = record.object(in: managedObjectContext) else { return nil }
+                guard let _status = notification.status else { return nil }
+                let status = _status.reblog ?? _status
+                return NotificationMediaTransitionContext(
+                    status: .init(objectID: status.objectID),
+                    needsToggleMediaSensitive: status.isMediaSensitiveToggled ? !status.sensitive : status.sensitive
+                )
+            }
+
+            guard let mediaTransitionContext = _mediaTransitionContext else { return }
+            
+            guard !mediaTransitionContext.needsToggleMediaSensitive else {
+                try await DataSourceFacade.responseToToggleSensitiveAction(
+                    dependency: self,
+                    status: mediaTransitionContext.status
+                )
+                return
+            }
+            
+            try await DataSourceFacade.coordinateToMediaPreviewScene(
+                dependency: self,
+                status: mediaTransitionContext.status,
+                previewContext: DataSourceFacade.AttachmentPreviewContext(
+                    containerView: .mediaGridContainerView(mediaGridContainerView),
+                    mediaView: mediaView,
+                    index: index
+                )
+            )
+        }   // end Task
+    }
+
+    func tableViewCell(
+        _ cell: UITableViewCell,
+        notificationView: NotificationView,
+        quoteStatusView: StatusView,
+        mediaGridContainerView: MediaGridContainerView,
+        mediaView: MediaView,
+        didSelectMediaViewAt index: Int
+    ) {
+        Task {
+            let source = DataSourceItem.Source(tableViewCell: cell, indexPath: nil)
+            guard let item = await item(from: source) else {
+                assertionFailure()
+                return
+            }
+            guard case let .notification(record) = item else {
+                assertionFailure("only works for status data provider")
+                return
+            }
+            
+            let managedObjectContext = self.context.managedObjectContext
+            let _mediaTransitionContext: NotificationMediaTransitionContext? = try await managedObjectContext.perform {
+                guard let notification = record.object(in: managedObjectContext) else { return nil }
+                guard let _status = notification.status else { return nil }
+                let status = _status.reblog ?? _status
+                return NotificationMediaTransitionContext(
+                    status: .init(objectID: status.objectID),
+                    needsToggleMediaSensitive: status.isMediaSensitiveToggled ? !status.sensitive : status.sensitive
+                )
+            }
+
+            guard let mediaTransitionContext = _mediaTransitionContext else { return }
+            
+            guard !mediaTransitionContext.needsToggleMediaSensitive else {
+                try await DataSourceFacade.responseToToggleSensitiveAction(
+                    dependency: self,
+                    status: mediaTransitionContext.status
+                )
+                return
+            }
+            
+            try await DataSourceFacade.coordinateToMediaPreviewScene(
+                dependency: self,
+                status: mediaTransitionContext.status,
+                previewContext: DataSourceFacade.AttachmentPreviewContext(
+                    containerView: .mediaGridContainerView(mediaGridContainerView),
+                    mediaView: mediaView,
+                    index: index
+                )
+            )
+        }   // end Task
+    }
+
+}
+
 // MARK: - Status Toolbar
 extension NotificationTableViewCellDelegate where Self: DataSourceProvider {
     func tableViewCell(
@@ -141,7 +254,6 @@ extension NotificationTableViewCellDelegate where Self: DataSourceProvider {
         }   // end Task
     }
 }
-
 
 // MARK: - Status Author Avatar
 extension NotificationTableViewCellDelegate where Self: DataSourceProvider {
