@@ -154,6 +154,8 @@ final class ProfileHeaderView: UIView {
     }()
     
     let statusDashboardView = ProfileStatusDashboardView()
+    
+    let relationshipActionButtonShadowContainer = ShadowBackgroundContainer()
     let relationshipActionButton: ProfileRelationshipActionButton = {
         let button = ProfileRelationshipActionButton()
         button.titleLabel?.font = .systemFont(ofSize: 17, weight: .semibold)
@@ -357,7 +359,7 @@ extension ProfileHeaderView {
             avatarImageViewBackgroundView.bottomAnchor.constraint(equalTo: dashboardContainer.bottomAnchor),
         ])
         
-        // authorContainer: H - [ nameContainer | relationshipActionButton ]
+        // authorContainer: H - [ nameContainer | relationshipActionButtonShadowContainer ]
         let authorContainer = UIStackView()
         authorContainer.axis = .horizontal
         authorContainer.alignment = .top
@@ -402,9 +404,15 @@ extension ProfileHeaderView {
         nameContainerStackView.addArrangedSubview(usernameLabel)
         
         authorContainer.addArrangedSubview(nameContainerStackView)
+        authorContainer.addArrangedSubview(relationshipActionButtonShadowContainer)
+        
         relationshipActionButton.translatesAutoresizingMaskIntoConstraints = false
-        authorContainer.addArrangedSubview(relationshipActionButton)
+        relationshipActionButtonShadowContainer.addSubview(relationshipActionButton)
         NSLayoutConstraint.activate([
+            relationshipActionButton.topAnchor.constraint(equalTo: relationshipActionButtonShadowContainer.topAnchor),
+            relationshipActionButton.leadingAnchor.constraint(equalTo: relationshipActionButtonShadowContainer.leadingAnchor),
+            relationshipActionButton.trailingAnchor.constraint(equalTo: relationshipActionButtonShadowContainer.trailingAnchor),
+            relationshipActionButton.bottomAnchor.constraint(equalTo: relationshipActionButtonShadowContainer.bottomAnchor),
             relationshipActionButton.widthAnchor.constraint(greaterThanOrEqualToConstant: ProfileHeaderView.friendshipActionButtonSize.width).priority(.required - 1),
             relationshipActionButton.heightAnchor.constraint(equalToConstant: ProfileHeaderView.friendshipActionButtonSize.height).priority(.defaultHigh),
         ])

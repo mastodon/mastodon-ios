@@ -7,6 +7,7 @@
 
 import UIKit
 import MastodonUI
+import MastodonAsset
 
 final class ProfileRelationshipActionButton: RoundedEdgesButton {
     
@@ -30,6 +31,7 @@ final class ProfileRelationshipActionButton: RoundedEdgesButton {
 
 extension ProfileRelationshipActionButton {
     private func _init() {
+        cornerRadius = 10
         titleLabel?.font = .systemFont(ofSize: 17, weight: .semibold)
         
         activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
@@ -49,9 +51,12 @@ extension ProfileRelationshipActionButton {
         setTitle(actionOptionSet.title, for: .normal)
         setTitleColor(.white, for: .normal)
         setTitleColor(UIColor.white.withAlphaComponent(0.5), for: .highlighted)
-        setBackgroundImage(.placeholder(color: actionOptionSet.backgroundColor), for: .normal)
-        setBackgroundImage(.placeholder(color: actionOptionSet.backgroundColor.withAlphaComponent(0.5)), for: .highlighted)
-        setBackgroundImage(.placeholder(color: actionOptionSet.backgroundColor.withAlphaComponent(0.5)), for: .disabled)
+        setBackgroundImage(.placeholder(color: Asset.Scene.Profile.RelationshipButton.background.color), for: .normal)
+        setBackgroundImage(.placeholder(color: Asset.Scene.Profile.RelationshipButton.backgroundHighlighted.color), for: .highlighted)
+        setBackgroundImage(.placeholder(color: Asset.Scene.Profile.RelationshipButton.backgroundHighlighted.color), for: .disabled)
+//        setBackgroundImage(.placeholder(color: actionOptionSet.backgroundColor), for: .normal)
+//        setBackgroundImage(.placeholder(color: actionOptionSet.backgroundColor.withAlphaComponent(0.5)), for: .highlighted)
+//        setBackgroundImage(.placeholder(color: actionOptionSet.backgroundColor.withAlphaComponent(0.5)), for: .disabled)
         
         titleEdgeInsets = UIEdgeInsets(top: 0, left: 4, bottom: 0, right: 4)
         

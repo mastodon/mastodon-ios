@@ -619,7 +619,7 @@ extension ProfileViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] isHidden in
                 guard let self = self else { return }
-                self.profileHeaderViewController.profileHeaderView.relationshipActionButton.isHidden = isHidden
+                self.profileHeaderViewController.profileHeaderView.relationshipActionButtonShadowContainer.isHidden = isHidden
             }
             .store(in: &disposeBag)
         
