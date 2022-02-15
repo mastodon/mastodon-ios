@@ -46,7 +46,7 @@
             },
             "delete_post": {
                 "title": "确定要删除这条消息吗？",
-                "message": "Are you sure you want to delete this post?"
+                "message": "确定要删除这个帖子吗？"
             },
             "clean_cache": {
                 "title": "清除缓存",
@@ -141,7 +141,7 @@
                     "favorite": "喜欢",
                     "unfavorite": "取消喜欢",
                     "menu": "菜单",
-                    "hide": "Hide"
+                    "hide": "隐藏"
                 },
                 "tag": {
                     "url": "URL",
@@ -152,8 +152,8 @@
                     "emoji": "表情"
                 },
                 "visibility": {
-                    "unlisted": "Everyone can see this post but not display in the public timeline.",
-                    "private": "Only their followers can see this post.",
+                    "unlisted": "任何人都可以看到这个帖子，但不会在公开的时间线中显示。",
+                    "private": "只有作者的关注者才能看到此帖子。",
                     "private_from_me": "只有我的关注者才能看到此帖子。",
                     "direct": "只有提到的用户才能看到此帖子。"
                 }
