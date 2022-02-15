@@ -136,7 +136,7 @@ final class PickServerServerSectionTableHeaderView: UIView {
 extension PickServerServerSectionTableHeaderView {
     private func _init() {
         preservesSuperviewLayoutMargins = true
-        backgroundColor = Asset.Scene.Onboarding.onboardingBackground.color
+        backgroundColor = Asset.Scene.Onboarding.background.color
         
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.preservesSuperviewLayoutMargins = true

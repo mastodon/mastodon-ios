@@ -51,7 +51,7 @@ final class MastodonConfirmEmailViewController: UIViewController, NeedsDependenc
     
     let navigationActionView: NavigationActionView = {
         let navigationActionView = NavigationActionView()
-        navigationActionView.backgroundColor = Asset.Scene.Onboarding.onboardingBackground.color
+        navigationActionView.backgroundColor = Asset.Scene.Onboarding.background.color
         return navigationActionView
     }()
     

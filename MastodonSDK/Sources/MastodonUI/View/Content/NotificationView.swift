@@ -103,6 +103,7 @@ public final class NotificationView: UIView {
     public let statusView = StatusView()
     
     public let quoteStatusViewContainerView = UIView()
+    public let quoteBackgroundView = UIView()
     public let quoteStatusView = StatusView()
     
     public func prepareForReuse() {
@@ -232,7 +233,6 @@ extension NotificationView {
             right: StatusView.containerLayoutMargin.right
         )
 
-        let quoteBackgroundView = UIView()
         quoteBackgroundView.layoutMargins = UIEdgeInsets(top: 16, left: 0, bottom: 0, right: 0)
         
         quoteBackgroundView.translatesAutoresizingMaskIntoConstraints = false

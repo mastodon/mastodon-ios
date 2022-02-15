@@ -16,6 +16,7 @@ final class NotificationTableViewCell: UITableViewCell {
     
     weak var delegate: NotificationTableViewCellDelegate?
     var disposeBag = Set<AnyCancellable>()
+    private var _disposeBag = Set<AnyCancellable>()
     
     let notificationView = NotificationView()
     
@@ -65,6 +66,14 @@ extension NotificationTableViewCell {
             separatorLine.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             separatorLine.heightAnchor.constraint(equalToConstant: UIView.separatorLineHeight(of: contentView)).priority(.required - 1),
         ])
+        
+        notificationView.quoteBackgroundView.backgroundColor = ThemeService.shared.currentTheme.value.secondarySystemBackgroundColor
+        ThemeService.shared.currentTheme
+            .sink { [weak self] theme in
+                guard let self = self else { return }
+                self.notificationView.quoteBackgroundView.backgroundColor = theme.secondarySystemBackgroundColor
+            }
+            .store(in: &_disposeBag)
         
         notificationView.delegate = self
     }

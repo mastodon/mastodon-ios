@@ -105,11 +105,11 @@ public enum Asset {
   public enum Scene {
     public enum Onboarding {
       public static let avatarPlaceholder = ImageAsset(name: "Scene/Onboarding/avatar.placeholder")
+      public static let background = ColorAsset(name: "Scene/Onboarding/background")
       public static let navigationBackButtonBackground = ColorAsset(name: "Scene/Onboarding/navigation.back.button.background")
       public static let navigationBackButtonBackgroundHighlighted = ColorAsset(name: "Scene/Onboarding/navigation.back.button.background.highlighted")
       public static let navigationNextButtonBackground = ColorAsset(name: "Scene/Onboarding/navigation.next.button.background")
       public static let navigationNextButtonBackgroundHighlighted = ColorAsset(name: "Scene/Onboarding/navigation.next.button.background.highlighted")
-      public static let onboardingBackground = ColorAsset(name: "Scene/Onboarding/onboarding.background")
       public static let searchBarBackground = ColorAsset(name: "Scene/Onboarding/search.bar.background")
       public static let textFieldBackground = ColorAsset(name: "Scene/Onboarding/textField.background")
     }
@@ -127,6 +127,9 @@ public enum Asset {
     public enum Report {
       public static let background = ColorAsset(name: "Scene/Report/background")
       public static let reportBanner = ColorAsset(name: "Scene/Report/report.banner")
+    }
+    public enum Setting {
+      public static let background = ColorAsset(name: "Scene/Setting/background")
     }
     public enum Sidebar {
       public static let logo = ImageAsset(name: "Scene/Sidebar/logo")

@@ -40,7 +40,7 @@ extension OnboardingViewControllerAppearance {
     }
     
     func setupOnboardingAppearance() {
-        view.backgroundColor = Asset.Scene.Onboarding.onboardingBackground.color
+        view.backgroundColor = Asset.Scene.Onboarding.background.color
 
         setupNavigationBarAppearance()
         
@@ -72,7 +72,7 @@ extension OnboardingViewControllerAppearance {
     func setupNavigationBarBackgroundView() {
         let navigationBarBackgroundView: UIView = {
             let view = UIView()
-            view.backgroundColor = Asset.Scene.Onboarding.onboardingBackground.color
+            view.backgroundColor = Asset.Scene.Onboarding.background.color
             return view
         }()
         

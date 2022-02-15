@@ -669,8 +669,16 @@ extension ComposeViewController {
     }
 
     private func setupBackgroundColor(theme: Theme) {
-        view.backgroundColor = theme.systemElevatedBackgroundColor
-        tableView.backgroundColor = theme.systemElevatedBackgroundColor
+        let backgroundColor = UIColor(dynamicProvider: { traitCollection in
+            switch traitCollection.userInterfaceStyle {
+            case .light:
+                return .systemBackground
+            default:
+                return theme.systemElevatedBackgroundColor
+            }
+        })
+        view.backgroundColor = backgroundColor
+        tableView.backgroundColor = backgroundColor
         composeToolbarBackgroundView.backgroundColor = theme.composeToolbarBackgroundColor
     }
     

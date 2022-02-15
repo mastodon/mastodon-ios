@@ -46,7 +46,7 @@ extension OnboardingHeadlineTableViewCell {
     
     private func _init() {
         selectionStyle = .none
-        backgroundColor = Asset.Scene.Onboarding.onboardingBackground.color
+        backgroundColor = Asset.Scene.Onboarding.background.color
         
         let container = UIStackView()
         container.axis = .vertical

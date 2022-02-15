@@ -20,7 +20,7 @@ extension PollOptionView {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] theme in
                 guard let self = self else { return }
-                self.viewModel.roundedBackgroundViewColor = theme.secondarySystemBackgroundColor
+                self.viewModel.roundedBackgroundViewColor = theme.systemElevatedBackgroundColor
             }
             .store(in: &disposeBag)
         // metaContent

@@ -13,7 +13,7 @@ final class ProfileRelationshipActionButton: RoundedEdgesButton {
     
     let activityIndicatorView: UIActivityIndicatorView = {
         let activityIndicatorView = UIActivityIndicatorView(style: .medium)
-        activityIndicatorView.color = .white
+        activityIndicatorView.color = Asset.Colors.Label.primaryReverse.color
         return activityIndicatorView
     }()
     
@@ -44,19 +44,21 @@ extension ProfileRelationshipActionButton {
         activityIndicatorView.hidesWhenStopped = true
         activityIndicatorView.stopAnimating()
     }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        if traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
+            configureAppearance()
+        }
+    }
 }
 
 extension ProfileRelationshipActionButton {
     func configure(actionOptionSet: ProfileViewModel.RelationshipActionOptionSet) {
         setTitle(actionOptionSet.title, for: .normal)
-        setTitleColor(.white, for: .normal)
-        setTitleColor(UIColor.white.withAlphaComponent(0.5), for: .highlighted)
-        setBackgroundImage(.placeholder(color: Asset.Scene.Profile.RelationshipButton.background.color), for: .normal)
-        setBackgroundImage(.placeholder(color: Asset.Scene.Profile.RelationshipButton.backgroundHighlighted.color), for: .highlighted)
-        setBackgroundImage(.placeholder(color: Asset.Scene.Profile.RelationshipButton.backgroundHighlighted.color), for: .disabled)
-//        setBackgroundImage(.placeholder(color: actionOptionSet.backgroundColor), for: .normal)
-//        setBackgroundImage(.placeholder(color: actionOptionSet.backgroundColor.withAlphaComponent(0.5)), for: .highlighted)
-//        setBackgroundImage(.placeholder(color: actionOptionSet.backgroundColor.withAlphaComponent(0.5)), for: .disabled)
+        
+        configureAppearance()
         
         titleEdgeInsets = UIEdgeInsets(top: 0, left: 4, bottom: 0, right: 4)
         
@@ -70,6 +72,17 @@ extension ProfileRelationshipActionButton {
         } else {
             isEnabled = true
         }
+    }
+    
+    private func configureAppearance() {
+        setTitleColor(Asset.Colors.Label.primaryReverse.color, for: .normal)
+        setTitleColor(Asset.Colors.Label.primaryReverse.color.withAlphaComponent(0.5), for: .highlighted)
+        setBackgroundImage(.placeholder(color: Asset.Scene.Profile.RelationshipButton.background.color), for: .normal)
+        setBackgroundImage(.placeholder(color: Asset.Scene.Profile.RelationshipButton.backgroundHighlighted.color), for: .highlighted)
+        setBackgroundImage(.placeholder(color: Asset.Scene.Profile.RelationshipButton.backgroundHighlighted.color), for: .disabled)
+//        setBackgroundImage(.placeholder(color: actionOptionSet.backgroundColor), for: .normal)
+//        setBackgroundImage(.placeholder(color: actionOptionSet.backgroundColor.withAlphaComponent(0.5)), for: .highlighted)
+//        setBackgroundImage(.placeholder(color: actionOptionSet.backgroundColor.withAlphaComponent(0.5)), for: .disabled)
     }
 }
 

@@ -114,7 +114,7 @@ class PickServerCell: UITableViewCell {
 extension PickServerCell {
     private func _init() {
         selectionStyle = .none
-        backgroundColor = Asset.Scene.Onboarding.onboardingBackground.color
+        backgroundColor = Asset.Scene.Onboarding.background.color
                 
         checkbox.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(checkbox)

@@ -39,7 +39,7 @@ final class ReportResultViewController: UIViewController, NeedsDependency, Repor
     
     let navigationActionView: NavigationActionView = {
         let navigationActionView = NavigationActionView()
-        navigationActionView.backgroundColor = Asset.Scene.Onboarding.onboardingBackground.color
+        navigationActionView.backgroundColor = Asset.Scene.Onboarding.background.color
         navigationActionView.hidesBackButton = true
         navigationActionView.nextButton.setTitle(L10n.Common.Controls.Actions.done, for: .normal)
         return navigationActionView
