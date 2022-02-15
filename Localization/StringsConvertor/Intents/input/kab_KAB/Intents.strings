@@ -1,8 +1,8 @@
-"16wxgf" = "Post on Mastodon";
+"16wxgf" = "Asuffeɣ deg Matodon";
 
 "751xkl" = "Text Content";
 
-"CsR7G2" = "Post on Mastodon";
+"CsR7G2" = "Asuffeɣ deg Matodon";
 
 "HZSGTr" = "What content to post?";
 
@@ -12,11 +12,11 @@
 
 "RHxKOw" = "Send Post with text content";
 
-"RxSqsb" = "Post";
+"RxSqsb" = "Tasuffeɣt";
 
-"WCIR3D" = "Posta ${content} på Mastodon";
+"WCIR3D" = "Post ${content} on Mastodon";
 
-"ZKJSNu" = "Post";
+"ZKJSNu" = "Tasuffeɣt";
 
 "ZS1XaK" = "${content}";
 
@@ -32,11 +32,11 @@
 
 "ayoYEb-ehFLjY" = "${content}, Followers Only";
 
-"dUyuGg" = "Post on Mastodon";
+"dUyuGg" = "Asuffeɣ deg Maṣṭudun";
 
-"dYQ5NN" = "Publikt";
+"dYQ5NN" = "Azayez";
 
-"ehFLjY" = "Endast följare";
+"ehFLjY" = "Followers Only";
 
 "gfePDu" = "Posting failed. ${failureReason}";
 

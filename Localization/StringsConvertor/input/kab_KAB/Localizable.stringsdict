@@ -13,15 +13,15 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 notificación no leída</string>
+        <string>1 n ulɣu ur nettwaɣra</string>
         <key>other</key>
-        <string>%ld notificaciones no leídas</string>
+        <string>%ld ilɣa ur nettwaɣra</string>
       </dict>
     </dict>
     <key>a11y.plural.count.input_limit_exceeds</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Límite de entrada superado en %#@character_count@ caracteres</string>
+      <string>Input limit exceeds %#@character_count@</string>
       <key>character_count</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -29,15 +29,15 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 carácter</string>
+        <string>1 character</string>
         <key>other</key>
-        <string>%ld caracteres</string>
+        <string>%ld iskillen</string>
       </dict>
     </dict>
     <key>a11y.plural.count.input_limit_remains</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Límite de entrada restante: %#@character_count@ caracteres</string>
+      <string>Input limit remains %#@character_count@</string>
       <key>character_count</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -45,9 +45,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 carácter</string>
+        <string>1 character</string>
         <key>other</key>
-        <string>%ld caracteres</string>
+        <string>%ld iskillen</string>
       </dict>
     </dict>
     <key>plural.count.metric_formatted.post</key>
@@ -61,9 +61,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>publicación</string>
+        <string>tasuffeγt</string>
         <key>other</key>
-        <string>publicaciones</string>
+        <string>tisuffaɣ</string>
       </dict>
     </dict>
     <key>plural.count.post</key>
@@ -77,9 +77,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 publicación</string>
+        <string>1 post</string>
         <key>other</key>
-        <string>%ld publicaciones</string>
+        <string>%ld n tsuffaɣ</string>
       </dict>
     </dict>
     <key>plural.count.favorite</key>
@@ -93,9 +93,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 favorito</string>
+        <string>1 favorite</string>
         <key>other</key>
-        <string>%ld favoritos</string>
+        <string>%ld favorites</string>
       </dict>
     </dict>
     <key>plural.count.reblog</key>
@@ -109,9 +109,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 reblogueo</string>
+        <string>1 reblog</string>
         <key>other</key>
-        <string>%ld reblogueos</string>
+        <string>%ld reblogs</string>
       </dict>
     </dict>
     <key>plural.count.vote</key>
@@ -125,9 +125,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 voto</string>
+        <string>1 vote</string>
         <key>other</key>
-        <string>%ld votos</string>
+        <string>%ld votes</string>
       </dict>
     </dict>
     <key>plural.count.voter</key>
@@ -141,9 +141,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 votante</string>
+        <string>1 voter</string>
         <key>other</key>
-        <string>%ld votantes</string>
+        <string>%ld voters</string>
       </dict>
     </dict>
     <key>plural.people_talking</key>
@@ -157,9 +157,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 persona hablando</string>
+        <string>1 people talking</string>
         <key>other</key>
-        <string>%ld personas están hablando de esto</string>
+        <string>%ld people talking</string>
       </dict>
     </dict>
     <key>plural.count.following</key>
@@ -173,9 +173,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 siguiendo</string>
+        <string>1 following</string>
         <key>other</key>
-        <string>%ld siguiendo</string>
+        <string>%ld following</string>
       </dict>
     </dict>
     <key>plural.count.follower</key>
@@ -189,9 +189,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 seguidor</string>
+        <string>1 follower</string>
         <key>other</key>
-        <string>%ld seguidores</string>
+        <string>%ld followers</string>
       </dict>
     </dict>
     <key>date.year.left</key>
@@ -205,9 +205,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 año restante</string>
+        <string>1 year left</string>
         <key>other</key>
-        <string>%ld años restantes</string>
+        <string>%ld years left</string>
       </dict>
     </dict>
     <key>date.month.left</key>
@@ -221,9 +221,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 mes restante</string>
+        <string>1 months left</string>
         <key>other</key>
-        <string>%ld meses restantes</string>
+        <string>%ld months left</string>
       </dict>
     </dict>
     <key>date.day.left</key>
@@ -237,9 +237,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 día restante</string>
+        <string>1 day left</string>
         <key>other</key>
-        <string>%ld días restantes</string>
+        <string>%ld days left</string>
       </dict>
     </dict>
     <key>date.hour.left</key>
@@ -253,9 +253,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 hora restante</string>
+        <string>1 hour left</string>
         <key>other</key>
-        <string>%ld horas restantes</string>
+        <string>%ld hours left</string>
       </dict>
     </dict>
     <key>date.minute.left</key>
@@ -269,9 +269,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 minuto restante</string>
+        <string>1 minute left</string>
         <key>other</key>
-        <string>%ld minutos restantes</string>
+        <string>%ld minutes left</string>
       </dict>
     </dict>
     <key>date.second.left</key>
@@ -285,9 +285,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 segundo restante</string>
+        <string>1 second left</string>
         <key>other</key>
-        <string>%ld segundos restantes</string>
+        <string>%ld seconds left</string>
       </dict>
     </dict>
     <key>date.year.ago.abbr</key>
@@ -301,9 +301,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>Hace 1 año</string>
+        <string>1y ago</string>
         <key>other</key>
-        <string>Hace %ld años</string>
+        <string>%ldy ago</string>
       </dict>
     </dict>
     <key>date.month.ago.abbr</key>
@@ -317,9 +317,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>Hace 1 mes</string>
+        <string>1M ago</string>
         <key>other</key>
-        <string>Hace %ld meses</string>
+        <string>%ldM ago</string>
       </dict>
     </dict>
     <key>date.day.ago.abbr</key>
@@ -333,9 +333,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>Hace 1 día</string>
+        <string>1d ago</string>
         <key>other</key>
-        <string>Hace %ld días</string>
+        <string>%ldd ago</string>
       </dict>
     </dict>
     <key>date.hour.ago.abbr</key>
@@ -349,9 +349,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>Hace 1 h</string>
+        <string>1h ago</string>
         <key>other</key>
-        <string>Hace %ld h</string>
+        <string>%ldh ago</string>
       </dict>
     </dict>
     <key>date.minute.ago.abbr</key>
@@ -365,9 +365,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>Hace 1 min</string>
+        <string>1m ago</string>
         <key>other</key>
-        <string>Hace %ld min</string>
+        <string>%ldm ago</string>
       </dict>
     </dict>
     <key>date.second.ago.abbr</key>
@@ -381,9 +381,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>Hace 1 s</string>
+        <string>1s ago</string>
         <key>other</key>
-        <string>Hace %ld s</string>
+        <string>%lds ago</string>
       </dict>
     </dict>
   </dict>

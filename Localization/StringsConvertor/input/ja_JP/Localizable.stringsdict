@@ -279,7 +279,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld分前</string>
+        <string>%ldか月前</string>
       </dict>
     </dict>
     <key>date.day.ago.abbr</key>

@@ -46,7 +46,7 @@
             },
             "delete_post": {
                 "title": "Estàs segur que vols suprimir aquesta publicació?",
-                "delete": "Esborra"
+                "message": "Estàs segur que vols suprimir aquesta publicació?"
             },
             "clean_cache": {
                 "title": "Neteja la memòria cau",
@@ -82,6 +82,7 @@
                 "share_user": "Compartir %s",
                 "share_post": "Compartir Publicació",
                 "open_in_safari": "Obrir a Safari",
+                "open_in_browser": "Obre al navegador",
                 "find_people": "Busca persones per seguir",
                 "manually_search": "Cerca manualment a canvi",
                 "skip": "Omet",
@@ -139,7 +140,8 @@
                     "unreblog": "Desfer l'impuls",
                     "favorite": "Favorit",
                     "unfavorite": "Desfer Favorit",
-                    "menu": "Menú"
+                    "menu": "Menú",
+                    "hide": "Amaga"
                 },
                 "tag": {
                     "url": "URL",
@@ -148,6 +150,12 @@
                     "hashtag": "Etiqueta",
                     "email": "Correu electrònic",
                     "emoji": "Emoji"
+                },
+                "visibility": {
+                    "unlisted": "Tothom pot veure aquesta publicació però no es mostra en la línia de temps pública.",
+                    "private": "Només els seus seguidors poden veure aquesta publicació.",
+                    "private_from_me": "Només els meus seguidors poden veure aquesta publicació.",
+                    "direct": "Només l'usuari mencionat pot veure aquesta publicació."
                 }
             },
             "friendship": {
@@ -192,10 +200,14 @@
     },
     "scene": {
         "welcome": {
-            "slogan": "Xarxa social\nde nou a les teves mans."
+            "slogan": "Xarxa social\nde nou a les teves mans.",
+            "get_started": "Comença",
+            "log_in": "Inicia sessió"
         },
         "server_picker": {
             "title": "Tria un servidor,\nqualsevol servidor.",
+            "subtitle": "Tria una comunitat segons els teus interessos, regió o una de propòsit general.",
+            "subtitle_extend": "Tria una comunitat segons els teus interessos, regió o una de propòsit general. Cada comunitat és operada per una organització totalment independent o individualment.",
             "button": {
                 "category": {
                     "all": "Totes",
@@ -248,6 +260,12 @@
                 },
                 "password": {
                     "placeholder": "contrasenya",
+                    "require": "La teva contrasenya com a mínim necessita:",
+                    "character_limit": "8 caràcters",
+                    "accessibility": {
+                        "checked": "verificat",
+                        "unchecked": "no verificat"
+                    },
                     "hint": "La teva contrasenya ha de tenir com a mínim buit caràcters"
                 },
                 "invite": {
@@ -298,7 +316,7 @@
             "subtitle": "Acabem d'enviar un correu electrònic a %s,\ntoca l'enllaç per a confirmar el teu compte.",
             "button": {
                 "open_email_app": "Obre l'aplicació de correu",
-                "dont_receive_email": "No he rebut cap correu electrònic"
+                "resend": "Reenvia"
             },
             "dont_receive_email": {
                 "title": "Comprova el teu correu",
@@ -401,16 +419,26 @@
             "segmented_control": {
                 "posts": "Publicacions",
                 "replies": "Respostes",
-                "media": "Mèdia"
+                "posts_and_replies": "Publicacions i Respostes",
+                "media": "Mèdia",
+                "about": "Quant a"
             },
             "relationship_action_alert": {
+                "confirm_mute_user": {
+                    "title": "Silencia el Compte",
+                    "message": "Confirma per a silenciar %s"
+                },
                 "confirm_unmute_user": {
                     "title": "Desfer silenciar compte",
                     "message": "Confirma deixar de silenciar a %s"
                 },
-                "confirm_unblock_usre": {
-                    "title": "Desbloquejar Compte",
-                    "message": "Confirma desbloquejar a %s"
+                "confirm_block_user": {
+                    "title": "Bloqueja el Compte",
+                    "message": "Confirma per a bloquejar %s"
+                },
+                "confirm_unblock_user": {
+                    "title": "Desbloqueja el Compte",
+                    "message": "Confirma per a desbloquejar %s"
                 }
             }
         },
@@ -461,12 +489,14 @@
                 "Everything": "Tot",
                 "Mentions": "Mencions"
             },
-            "user_followed_you": "%s et segueix",
-            "user_favorited your post": "%s ha afavorit el teu estat",
-            "user_reblogged_your_post": "%s ha impulsat el teu estat",
-            "user_mentioned_you": "%s t'ha esmentat",
-            "user_requested_to_follow_you": "%s ha sol·licitat seguir-te",
-            "user_your_poll_has_ended": "%s L'enquesta ha finalitzat",
+            "notification_description": {
+                "followed_you": "et segueix",
+                "favorited_your_post": "ha afavorit la teva publicació",
+                "reblogged_your_post": "ha impulsat la teva publicació",
+                "mentioned_you": "t'ha mencionat",
+                "request_to_follow_you": "ha sol·licitat seguir-te",
+                "poll_has_ended": "la enquesta ha finalitzat"
+            },
             "keyobard": {
                 "show_everything": "Mostrar-ho tot",
                 "show_mentions": "Mostrar Mencions"
@@ -484,6 +514,13 @@
                     "automatic": "Automàtic",
                     "light": "Sempre Clara",
                     "dark": "Sempre Fosca"
+                },
+                "look_and_feel": {
+                    "title": "Aspecte i Comportament",
+                    "use_system": "Usa el del Sistema",
+                    "really_dark": "Realment Negre",
+                    "sorta_dark": "Una Mena de Fosc",
+                    "light": "Clar"
                 },
                 "notifications": {
                     "title": "Notificacions",
@@ -526,14 +563,17 @@
             }
         },
         "report": {
+            "title_report": "Informe",
             "title": "Informa sobre %s",
             "step1": "Pas 1 de 2",
             "step2": "Pas 2 de 2",
             "content1": "Hi ha alguna altre publicació que vulguis afegir a l'informe?",
             "content2": "Hi ha alguna cosa que els moderadors hagin de saber sobre aquest informe?",
+            "report_sent_title": "Gràcies per informar, ho investigarem.",
             "send": "Envia Informe",
             "skip_to_send": "Envia sense comentaris",
-            "text_placeholder": "Escriu o enganxa comentaris addicionals"
+            "text_placeholder": "Escriu o enganxa comentaris addicionals",
+            "reported": "REPORTAT"
         },
         "preview": {
             "keyboard": {

@@ -12,7 +12,7 @@
 
 "RHxKOw" = "Envoyer une publication avec du contenu texte";
 
-"RxSqsb" = "Post";
+"RxSqsb" = "Publication";
 
 "WCIR3D" = "Publier du ${content} sur Mastodon";
 
@@ -24,9 +24,9 @@
 
 "Zo4jgJ" = "Visibilité de la publication";
 
-"apSxMG-dYQ5NN" = "There are ${count} options matching ‘Public’.";
+"apSxMG-dYQ5NN" = "Il y a ${count} options correspondant à « Public ».";
 
-"apSxMG-ehFLjY" = "There are ${count} options matching ‘Followers Only’.";
+"apSxMG-ehFLjY" = "Il y a ${count} options correspondant à « Abonnés uniquement ».";
 
 "ayoYEb-dYQ5NN" = "${content}, Public";
 

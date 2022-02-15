@@ -5,7 +5,7 @@
     <key>There are ${count} options matching ‘${content}’. - 2</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>On %#@count_option@, joka/jotka vastaavat sisältöön ‘${content}’.</string>
+      <string>Llan %#@count_option@ i yemṣaḍan d '${content}'.</string>
       <key>count_option</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -13,15 +13,15 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>%ld</string>
         <key>one</key>
-        <string>1 vaihtoehto</string>
+        <string>1 option</string>
         <key>other</key>
-        <string>%ld vaihtoehtoa</string>
+        <string>%ld iɣewwaṛen</string>
       </dict>
     </dict>
     <key>There are ${count} options matching ‘${visibility}’.</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>On vaihtoehtoa %#@count_option@, joka/jotka vastaavat näkyvyyteen ‘${visibility}’.</string>
+      <string>Llan %#@count_option@ i yemṣaḍa, d '${visibility}'.</string>
       <key>count_option</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -29,9 +29,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>%ld</string>
         <key>one</key>
-        <string>1 vaihtoehto</string>
+        <string>1 uɣewwaṛ</string>
         <key>other</key>
-        <string>%ld vaihtoehtoa</string>
+        <string>%ld iɣewwaṛen</string>
       </dict>
     </dict>
   </dict>
