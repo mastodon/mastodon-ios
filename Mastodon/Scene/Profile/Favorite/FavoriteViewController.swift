@@ -73,7 +73,6 @@ extension FavoriteViewController {
         ])
 
         tableView.delegate = self
-//        tableView.prefetchDataSource = self
         viewModel.setupDiffableDataSource(
             tableView: tableView,
             statusTableViewCellDelegate: self
@@ -104,20 +103,6 @@ extension FavoriteViewController {
     
 }
 
-//// MARK: - TableViewCellHeightCacheableContainer
-//extension FavoriteViewController: TableViewCellHeightCacheableContainer {
-//    var cellFrameCache: NSCache<NSNumber, NSValue> {
-//        return viewModel.cellFrameCache
-//    }
-//}
-
-// MARK: - UIScrollViewDelegate
-//extension FavoriteViewController {
-//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        aspectScrollViewDidScroll(scrollView)
-//    }
-//}
-
 // MARK: - UITableViewDelegate
 extension FavoriteViewController: UITableViewDelegate, AutoGenerateTableViewDelegate {
     // sourcery:inline:FavoriteViewController.AutoGenerateTableViewDelegate
@@ -146,83 +131,24 @@ extension FavoriteViewController: UITableViewDelegate, AutoGenerateTableViewDele
 
 
     // sourcery:end
-
-//    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-//        aspectTableView(tableView, estimatedHeightForRowAt: indexPath)
-//    }
-//
-//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-//        aspectTableView(tableView, willDisplay: cell, forRowAt: indexPath)
-//    }
-//
-//    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-//        aspectTableView(tableView, didEndDisplaying: cell, forRowAt: indexPath)
-//    }
-//
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        aspectTableView(tableView, didSelectRowAt: indexPath)
-//    }
-//
-//    func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
-//        return aspectTableView(tableView, contextMenuConfigurationForRowAt: indexPath, point: point)
-//    }
-//
-//    func tableView(_ tableView: UITableView, previewForHighlightingContextMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
-//        return aspectTableView(tableView, previewForHighlightingContextMenuWithConfiguration: configuration)
-//    }
-//
-//    func tableView(_ tableView: UITableView, previewForDismissingContextMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
-//        return aspectTableView(tableView, previewForDismissingContextMenuWithConfiguration: configuration)
-//    }
-//
-//    func tableView(_ tableView: UITableView, willPerformPreviewActionForMenuWith configuration: UIContextMenuConfiguration, animator: UIContextMenuInteractionCommitAnimating) {
-//        aspectTableView(tableView, willPerformPreviewActionForMenuWith: configuration, animator: animator)
-//    }
-//
 }
-
-// MARK: - UITableViewDataSourcePrefetching
-//extension FavoriteViewController: UITableViewDataSourcePrefetching {
-//    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
-//        aspectTableView(tableView, prefetchRowsAt: indexPaths)
-//    }
-//}
-
-// MARK: - AVPlayerViewControllerDelegate
-//extension FavoriteViewController: AVPlayerViewControllerDelegate {
-//
-//    func playerViewController(_ playerViewController: AVPlayerViewController, willBeginFullScreenPresentationWithAnimationCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-//        aspectPlayerViewController(playerViewController, willBeginFullScreenPresentationWithAnimationCoordinator: coordinator)
-//    }
-//
-//    func playerViewController(_ playerViewController: AVPlayerViewController, willEndFullScreenPresentationWithAnimationCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-//        aspectPlayerViewController(playerViewController, willEndFullScreenPresentationWithAnimationCoordinator: coordinator)
-//    }
-//
-//}
-
-// MARK: - TimelinePostTableViewCellDelegate
-//extension FavoriteViewController: StatusTableViewCellDelegate {
-//    weak var playerViewControllerDelegate: AVPlayerViewControllerDelegate? { return self }
-//    func parent() -> UIViewController { return self }
-//}
-
-//extension FavoriteViewController {
-//    override var keyCommands: [UIKeyCommand]? {
-//        return navigationKeyCommands + statusNavigationKeyCommands
-//    }
-//}
-//
-//// MARK: - StatusTableViewControllerNavigateable
-//extension FavoriteViewController: StatusTableViewControllerNavigateable {
-//    @objc func navigateKeyCommandHandlerRelay(_ sender: UIKeyCommand) {
-//        navigateKeyCommandHandler(sender)
-//    }
-//
-//    @objc func statusKeyCommandHandlerRelay(_ sender: UIKeyCommand) {
-//        statusKeyCommandHandler(sender)
-//    }
-//}
 
 // MARK: - StatusTableViewCellDelegate
 extension FavoriteViewController: StatusTableViewCellDelegate { }
+
+extension FavoriteViewController {
+    override var keyCommands: [UIKeyCommand]? {
+        return navigationKeyCommands + statusNavigationKeyCommands
+    }
+}
+
+// MARK: - StatusTableViewControllerNavigateable
+extension FavoriteViewController: StatusTableViewControllerNavigateable {
+    @objc func navigateKeyCommandHandlerRelay(_ sender: UIKeyCommand) {
+        navigateKeyCommandHandler(sender)
+    }
+    
+    @objc func statusKeyCommandHandlerRelay(_ sender: UIKeyCommand) {
+        statusKeyCommandHandler(sender)
+    }
+}

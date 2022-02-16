@@ -151,3 +151,20 @@ extension UserTimelineViewController: ScrollViewContainer {
 
 // MARK: - StatusTableViewCellDelegate
 extension UserTimelineViewController: StatusTableViewCellDelegate { }
+
+extension UserTimelineViewController {
+    override var keyCommands: [UIKeyCommand]? {
+        return navigationKeyCommands + statusNavigationKeyCommands
+    }
+}
+
+// MARK: - StatusTableViewControllerNavigateable
+extension UserTimelineViewController: StatusTableViewControllerNavigateable {
+    @objc func navigateKeyCommandHandlerRelay(_ sender: UIKeyCommand) {
+        navigateKeyCommandHandler(sender)
+    }
+    
+    @objc func statusKeyCommandHandlerRelay(_ sender: UIKeyCommand) {
+        statusKeyCommandHandler(sender)
+    }
+}

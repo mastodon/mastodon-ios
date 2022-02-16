@@ -540,19 +540,6 @@ extension HomeTimelineViewController: UITableViewDelegate, AutoGenerateTableView
     }
 
     // sourcery:end
-
-//    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-//        aspectTableView(tableView, estimatedHeightForRowAt: indexPath)
-//    }
-//
-//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-//        aspectTableView(tableView, willDisplay: cell, forRowAt: indexPath)
-//    }
-//
-//    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-//        aspectTableView(tableView, didEndDisplaying: cell, forRowAt: indexPath)
-//    }
-    
 }
 
 // MARK: - TimelineMiddleLoaderTableViewCellDelegate
@@ -633,19 +620,19 @@ extension HomeTimelineViewController: HomeTimelineNavigationBarTitleViewDelegate
     }
 }
 
-//extension HomeTimelineViewController {
-//    override var keyCommands: [UIKeyCommand]? {
-//        return navigationKeyCommands + statusNavigationKeyCommands
-//    }
-//}
-//
-//// MARK: - StatusTableViewControllerNavigateable
-//extension HomeTimelineViewController: StatusTableViewControllerNavigateable {
-//    @objc func navigateKeyCommandHandlerRelay(_ sender: UIKeyCommand) {
-//        navigateKeyCommandHandler(sender)
-//    }
-//
-//    @objc func statusKeyCommandHandlerRelay(_ sender: UIKeyCommand) {
-//        statusKeyCommandHandler(sender)
-//    }
-//}
+extension HomeTimelineViewController {
+    override var keyCommands: [UIKeyCommand]? {
+        return navigationKeyCommands + statusNavigationKeyCommands
+    }
+}
+
+// MARK: - StatusTableViewControllerNavigateable
+extension HomeTimelineViewController: StatusTableViewControllerNavigateable {
+    @objc func navigateKeyCommandHandlerRelay(_ sender: UIKeyCommand) {
+        navigateKeyCommandHandler(sender)
+    }
+
+    @objc func statusKeyCommandHandlerRelay(_ sender: UIKeyCommand) {
+        statusKeyCommandHandler(sender)
+    }
+}

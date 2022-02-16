@@ -10,6 +10,7 @@ import CoreDataStack
 import MastodonUI
 import MastodonLocalization
 
+// Delete
 extension DataSourceFacade {
     
     static func responseToDeleteStatus(
@@ -25,6 +26,7 @@ extension DataSourceFacade {
     
 }
 
+// Share
 extension DataSourceFacade {
     
     @MainActor
@@ -74,6 +76,7 @@ extension DataSourceFacade {
     }
 }
 
+// ActionToolBar
 extension DataSourceFacade {
     @MainActor
     static func responseToActionToolbar(
@@ -133,6 +136,7 @@ extension DataSourceFacade {
 
 }
 
+// menu
 extension DataSourceFacade {
     
     struct MenuContext {

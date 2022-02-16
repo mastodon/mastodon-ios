@@ -1120,3 +1120,14 @@ extension ProfileViewController: ScrollViewContainer {
 //    }
 //
 //}
+
+// MARK: - SegmentedControlNavigateable
+//extension ProfileViewController: SegmentedControlNavigateable {
+//    var navigateableSegmentedControl: UISegmentedControl {
+//        profileHeaderViewController.pageSegmentedControl
+//    }
+//
+//    @objc func segmentedControlNavigateKeyCommandHandlerRelay(_ sender: UIKeyCommand) {
+//        segmentedControlNavigateKeyCommandHandler(sender)
+//    }
+//}

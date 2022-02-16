@@ -9,6 +9,7 @@ import os.log
 import UIKit
 import Combine
 import CoreDataStack
+import MastodonLocalization
 
 final class NotificationTimelineViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
     
@@ -182,4 +183,124 @@ extension NotificationTimelineViewController: ScrollViewContainer {
     
     var scrollView: UIScrollView? { tableView }
     
+}
+
+extension NotificationTimelineViewController {
+    override var keyCommands: [UIKeyCommand]? {
+        return navigationKeyCommands
+    }
+}
+
+extension NotificationTimelineViewController: TableViewControllerNavigateable {
+    
+    func navigate(direction: TableViewNavigationDirection) {
+        if let indexPathForSelectedRow = tableView.indexPathForSelectedRow {
+            // navigate up/down on the current selected item
+            navigateToStatus(direction: direction, indexPath: indexPathForSelectedRow)
+        } else {
+            // set first visible item selected
+            navigateToFirstVisibleStatus()
+        }
+    }
+    
+    private func navigateToStatus(direction: TableViewNavigationDirection, indexPath: IndexPath) {
+        guard let diffableDataSource = viewModel.diffableDataSource else { return }
+        let items = diffableDataSource.snapshot().itemIdentifiers
+        guard let selectedItem = diffableDataSource.itemIdentifier(for: indexPath),
+              let selectedItemIndex = items.firstIndex(of: selectedItem) else {
+            return
+        }
+
+        let _navigateToItem: NotificationItem? = {
+            var index = selectedItemIndex
+            while 0..<items.count ~= index {
+                index = {
+                    switch direction {
+                    case .up:   return index - 1
+                    case .down: return index + 1
+                    }
+                }()
+                guard 0..<items.count ~= index else { return nil }
+                let item = items[index]
+                
+                guard Self.validNavigateableItem(item) else { continue }
+                return item
+            }
+            return nil
+        }()
+        
+        guard let item = _navigateToItem, let indexPath = diffableDataSource.indexPath(for: item) else { return }
+        let scrollPosition: UITableView.ScrollPosition = overrideNavigationScrollPosition ?? Self.navigateScrollPosition(tableView: tableView, indexPath: indexPath)
+        tableView.selectRow(at: indexPath, animated: true, scrollPosition: scrollPosition)
+    }
+    
+    private func navigateToFirstVisibleStatus() {
+        guard let indexPathsForVisibleRows = tableView.indexPathsForVisibleRows else { return }
+        guard let diffableDataSource = viewModel.diffableDataSource else { return }
+        
+        var visibleItems: [NotificationItem] = indexPathsForVisibleRows.sorted().compactMap { indexPath in
+            guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return nil }
+            guard Self.validNavigateableItem(item) else { return nil }
+            return item
+        }
+        if indexPathsForVisibleRows.first?.row != 0, visibleItems.count > 1 {
+            // drop first when visible not the first cell of table
+            visibleItems.removeFirst()
+        }
+        guard let item = visibleItems.first, let indexPath = diffableDataSource.indexPath(for: item) else { return }
+        let scrollPosition: UITableView.ScrollPosition = overrideNavigationScrollPosition ?? Self.navigateScrollPosition(tableView: tableView, indexPath: indexPath)
+        tableView.selectRow(at: indexPath, animated: true, scrollPosition: scrollPosition)
+    }
+    
+    static func validNavigateableItem(_ item: NotificationItem) -> Bool {
+        switch item {
+        case .feed:
+            return true
+        default:
+            return false
+        }
+    }
+    
+    func open() {
+        guard let indexPathForSelectedRow = tableView.indexPathForSelectedRow else { return }
+        guard let diffableDataSource = viewModel.diffableDataSource else { return }
+        guard let item = diffableDataSource.itemIdentifier(for: indexPathForSelectedRow) else { return }
+        
+        Task { @MainActor in
+            switch item {
+            case .feed(let record):
+                guard let feed = record.object(in: self.context.managedObjectContext) else { return }
+                guard let notification = feed.notification else { return }
+                
+                if let stauts = notification.status {
+                    let threadViewModel = ThreadViewModel(
+                        context: self.context,
+                        optionalRoot: .root(context: .init(status: .init(objectID: stauts.objectID)))
+                    )
+                    self.coordinator.present(
+                        scene: .thread(viewModel: threadViewModel),
+                        from: self,
+                        transition: .show
+                    )
+                } else {
+                    let profileViewModel = ProfileViewModel(
+                        context: self.context,
+                        optionalMastodonUser: notification.account
+                    )
+                    self.coordinator.present(
+                        scene: .profile(viewModel: profileViewModel),
+                        from: self,
+                        transition: .show
+                    )
+                }
+            default:
+                break
+            }
+        }   // end Task
+    }
+    
+    func navigateKeyCommandHandlerRelay(_ sender: UIKeyCommand) {
+        navigateKeyCommandHandler(sender)
+    }
+
 }
