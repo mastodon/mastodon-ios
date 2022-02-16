@@ -53,7 +53,7 @@ final class SearchResultViewModel {
         self.userFetchedResultsController = UserFetchedResultsController(
             managedObjectContext: context.managedObjectContext,
             domain: nil,
-            additionalTweetPredicate: nil
+            additionalPredicate: nil
         )
         self.statusFetchedResultsController = StatusFetchedResultsController(
             managedObjectContext: context.managedObjectContext,

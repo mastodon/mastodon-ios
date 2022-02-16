@@ -22,6 +22,7 @@ extension SuggestionAccountViewModel {
         )
 
         userFetchedResultsController.$records
+            .removeDuplicates()
             .receive(on: DispatchQueue.main)
             .sink { [weak self] records in
                 guard let self = self else { return }
@@ -50,7 +51,7 @@ extension SuggestionAccountViewModel {
             context: context
         )
         
-        userFetchedResultsController.$records
+        selectedUserFetchedResultsController.$records
             .receive(on: DispatchQueue.main)
             .sink { [weak self] records in
                 guard let self = self else { return }
@@ -58,7 +59,16 @@ extension SuggestionAccountViewModel {
                 
                 var snapshot = NSDiffableDataSourceSnapshot<SelectedAccountSection, SelectedAccountItem>()
                 snapshot.appendSections([.main])
-                let items: [SelectedAccountItem] = records.map { SelectedAccountItem.account($0) }
+                var items: [SelectedAccountItem] = records.map { SelectedAccountItem.account($0) }
+                
+                if items.count < 10 {
+                    let count = 10 - items.count
+                    let placeholderItems: [SelectedAccountItem] = (0..<count).map { _ in
+                        SelectedAccountItem.placeHolder(uuid: UUID())
+                    }
+                    items.append(contentsOf: placeholderItems)
+                }
+                
                 snapshot.appendItems(items, toSection: .main)
                 
                 if #available(iOS 15.0, *) {

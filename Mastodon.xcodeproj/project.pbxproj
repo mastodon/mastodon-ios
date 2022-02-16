@@ -546,6 +546,7 @@
 		DBCCC71E25F73297007E1AB6 /* APIService+Reblog.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCCC71D25F73297007E1AB6 /* APIService+Reblog.swift */; };
 		DBD376AC2692ECDB007FEC24 /* ThemePreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD376AB2692ECDB007FEC24 /* ThemePreference.swift */; };
 		DBD376B2269302A4007FEC24 /* UITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD376B1269302A4007FEC24 /* UITableViewCell.swift */; };
+		DBD5B1F627BCD3D200BD6B38 /* SuggestionAccountTableViewCell+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD5B1F527BCD3D200BD6B38 /* SuggestionAccountTableViewCell+ViewModel.swift */; };
 		DBD9149025DF6D8D00903DFD /* APIService+Onboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD9148F25DF6D8D00903DFD /* APIService+Onboarding.swift */; };
 		DBE0821525CD382600FD6BBD /* MastodonRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE0821425CD382600FD6BBD /* MastodonRegisterViewController.swift */; };
 		DBE0822425CD3F1E00FD6BBD /* MastodonRegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE0822325CD3F1E00FD6BBD /* MastodonRegisterViewModel.swift */; };
@@ -1279,6 +1280,7 @@
 		DBCCC71D25F73297007E1AB6 /* APIService+Reblog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Reblog.swift"; sourceTree = "<group>"; };
 		DBD376AB2692ECDB007FEC24 /* ThemePreference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemePreference.swift; sourceTree = "<group>"; };
 		DBD376B1269302A4007FEC24 /* UITableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewCell.swift; sourceTree = "<group>"; };
+		DBD5B1F527BCD3D200BD6B38 /* SuggestionAccountTableViewCell+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SuggestionAccountTableViewCell+ViewModel.swift"; sourceTree = "<group>"; };
 		DBD9148F25DF6D8D00903DFD /* APIService+Onboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Onboarding.swift"; sourceTree = "<group>"; };
 		DBDC1CF9272C0FD600055C3D /* ku-TR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ku-TR"; path = "ku-TR.lproj/Intents.strings"; sourceTree = "<group>"; };
 		DBDC1CFC272C0FD600055C3D /* ku-TR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ku-TR"; path = "ku-TR.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
@@ -1768,6 +1770,7 @@
 			isa = PBXGroup;
 			children = (
 				2DAC9E45262FC9FD0062E1A6 /* SuggestionAccountTableViewCell.swift */,
+				DBD5B1F527BCD3D200BD6B38 /* SuggestionAccountTableViewCell+ViewModel.swift */,
 			);
 			path = TableViewCell;
 			sourceTree = "<group>";
@@ -3835,6 +3838,7 @@
 				DBB45B5E27B4EB22002DC5A7 /* AdaptiveMarginStatusTableViewCell.swift in Sources */,
 				DB6180F226391CF40018D199 /* MediaPreviewImageViewModel.swift in Sources */,
 				DBA5E7A3263AD0A3004598BB /* PhotoLibraryService.swift in Sources */,
+				DBD5B1F627BCD3D200BD6B38 /* SuggestionAccountTableViewCell+ViewModel.swift in Sources */,
 				5DDDF1932617442700311060 /* Mastodon+Entity+Account.swift in Sources */,
 				DB63F767279A5EB300455B82 /* NotificationTimelineViewModel.swift in Sources */,
 				2D607AD826242FC500B70763 /* NotificationViewModel.swift in Sources */,

@@ -449,7 +449,8 @@
             "accessibility": {
                 "show_avatar_image": "Show avatar image",
                 "edit_avatar_image": "Edit avatar image",
-                "show_banner_image": "Show banner image"
+                "show_banner_image": "Show banner image",
+                "double_tap_to_open_the_list": "Double tap to open the list"
             }
         },
         "follower": {

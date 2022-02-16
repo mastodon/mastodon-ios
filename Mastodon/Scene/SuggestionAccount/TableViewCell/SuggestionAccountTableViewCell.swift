@@ -5,6 +5,7 @@
 //  Created by sxiaojian on 2021/4/21.
 //
 
+import os.log
 import Combine
 import CoreData
 import CoreDataStack
@@ -15,22 +16,27 @@ import MetaTextKit
 import MastodonMeta
 import MastodonAsset
 import MastodonLocalization
+import MastodonUI
 
 protocol SuggestionAccountTableViewCellDelegate: AnyObject {
-    func accountButtonPressed(objectID: NSManagedObjectID, cell: SuggestionAccountTableViewCell)
+    func suggestionAccountTableViewCell(_ cell: SuggestionAccountTableViewCell, friendshipDidPressed button: UIButton)
 }
 
 final class SuggestionAccountTableViewCell: UITableViewCell {
+    
+    let logger = Logger(subsystem: "SuggestionAccountTableViewCell", category: "View")
+    
     var disposeBag = Set<AnyCancellable>()
+    
     weak var delegate: SuggestionAccountTableViewCellDelegate?
     
-    let _imageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.tintColor = Asset.Colors.Label.primary.color
-        imageView.layer.cornerRadius = 4
-        imageView.clipsToBounds = true
-        return imageView
+    public private(set) lazy var viewModel: ViewModel = {
+        let viewModel = ViewModel()
+        viewModel.bind(cell: self)
+        return viewModel
     }()
+    
+    let avatarButton = AvatarButton()
     
     let titleLabel = MetaLabel(style: .statusName)
     
@@ -49,12 +55,8 @@ final class SuggestionAccountTableViewCell: UITableViewCell {
     
     let button: HighlightDimmableButton = {
         let button = HighlightDimmableButton(type: .custom)
-        if let plusImage = UIImage(systemName: "plus.circle", withConfiguration: UIImage.SymbolConfiguration(pointSize: 22, weight: .regular))?.withRenderingMode(.alwaysTemplate) {
-            button.setImage(plusImage, for: .normal)
-        }
-        if let minusImage = UIImage(systemName: "minus.circle.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 22, weight: .regular))?.withRenderingMode(.alwaysTemplate) {
-            button.setImage(minusImage, for: .selected)
-        }
+        let image = UIImage(systemName: "plus.circle", withConfiguration: UIImage.SymbolConfiguration(pointSize: 22, weight: .regular))
+        button.setImage(image, for: .normal)
         return button
     }()
     
@@ -66,9 +68,10 @@ final class SuggestionAccountTableViewCell: UITableViewCell {
 
     override func prepareForReuse() {
         super.prepareForReuse()
-        _imageView.af.cancelImageRequest()
-        _imageView.image = nil
+        
         disposeBag.removeAll()
+        avatarButton.avatarImageView.prepareForReuse()
+        viewModel.prepareForReuse()
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -80,9 +83,11 @@ final class SuggestionAccountTableViewCell: UITableViewCell {
         super.init(coder: coder)
         configure()
     }
+
 }
 
 extension SuggestionAccountTableViewCell {
+    
     private func configure() {
         let containerStackView = UIStackView()
         containerStackView.axis = .horizontal
@@ -99,11 +104,11 @@ extension SuggestionAccountTableViewCell {
             containerStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
         ])
         
-        _imageView.translatesAutoresizingMaskIntoConstraints = false
-        containerStackView.addArrangedSubview(_imageView)
+        avatarButton.translatesAutoresizingMaskIntoConstraints = false
+        containerStackView.addArrangedSubview(avatarButton)
         NSLayoutConstraint.activate([
-            _imageView.widthAnchor.constraint(equalToConstant: 42).priority(.required - 1),
-            _imageView.heightAnchor.constraint(equalToConstant: 42).priority(.required - 1),
+            avatarButton.widthAnchor.constraint(equalToConstant: 42).priority(.required - 1),
+            avatarButton.heightAnchor.constraint(equalToConstant: 42).priority(.required - 1),
         ])
         
         let textStackView = UIStackView()
@@ -139,56 +144,31 @@ extension SuggestionAccountTableViewCell {
             buttonContainer.centerXAnchor.constraint(equalTo: button.centerXAnchor),
             buttonContainer.centerYAnchor.constraint(equalTo: button.centerYAnchor),
         ])
+        
+        button.addTarget(self, action: #selector(SuggestionAccountTableViewCell.buttonDidPressed(_:)), for: .touchUpInside)
     }
     
-    func config(with account: MastodonUser) {
-        if let url = account.avatarImageURL() {
-            _imageView.af.setImage(
-                withURL: url,
-                placeholderImage: UIImage.placeholder(color: .systemFill),
-                imageTransition: .crossDissolve(0.2)
-            )
-        }
-        let mastodonContent = MastodonContent(content: account.displayNameWithFallback, emojis: account.emojis.asDictionary)
-        do {
-            let metaContent = try MastodonMetaContent.convert(document: mastodonContent)
-            titleLabel.configure(content: metaContent)
-        } catch {
-            let metaContent = PlaintextMetaContent(string: account.displayNameWithFallback)
-            titleLabel.configure(content: metaContent)
-        }
-        subTitleLabel.text = "@" + account.acct
-        button.isSelected = isSelected
-        button.publisher(for: .touchUpInside)
-            .sink { [weak self] _ in
-                guard let self = self else { return }
-                self.delegate?.accountButtonPressed(objectID: account.objectID, cell: self)
-            }
-            .store(in: &disposeBag)
-        button.publisher(for: \.isSelected)
-            .sink { [weak self] isSelected in
-                if isSelected {
-                    self?.button.tintColor = Asset.Colors.danger.color
-                } else {
-                    self?.button.tintColor = Asset.Colors.Label.secondary.color
-                }
-            }
-            .store(in: &disposeBag)
-        activityIndicatorView.publisher(for: \.isHidden)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] isHidden in
-                self?.button.isHidden = !isHidden
-            }
-            .store(in: &disposeBag)
+}
+
+extension SuggestionAccountTableViewCell {
+    @objc private func buttonDidPressed(_ sender: UIButton) {
+        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
+        delegate?.suggestionAccountTableViewCell(self, friendshipDidPressed: sender)
     }
+}
+
+extension SuggestionAccountTableViewCell {
     
     func startAnimating() {
         activityIndicatorView.isHidden = false
         activityIndicatorView.startAnimating()
+        button.isHidden = true
     }
 
     func stopAnimating() {
         activityIndicatorView.stopAnimating()
         activityIndicatorView.isHidden = true
+        button.isHidden = false
     }
+    
 }
