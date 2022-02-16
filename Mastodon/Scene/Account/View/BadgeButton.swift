@@ -26,10 +26,10 @@ final class BadgeButton: UIButton {
 extension BadgeButton {
     private func _init() {
         titleLabel?.font = UIFontMetrics(forTextStyle: .caption1).scaledFont(for: .systemFont(ofSize: 13, weight: .medium))
-        setBackgroundColor(Asset.Colors.badgeBackground.color, for: .normal)
-        setTitleColor(.white, for: .normal)
+        setBackgroundColor(.systemBackground, for: .normal)
+        setTitleColor(.label, for: .normal)
         
-        contentEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+        contentEdgeInsets = UIEdgeInsets(top: 6, left: 6, bottom: 6, right: 6)
     }
     
     override func layoutSubviews() {
