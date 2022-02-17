@@ -284,6 +284,8 @@ extension MediaView {
         playerViewController.player = nil
         playerLooper = nil
         
+        playbackImageView.removeFromSuperview()
+        
         // blurhash
         blurhashImageView.removeFromSuperview()
         blurhashImageView.removeConstraints(blurhashImageView.constraints)
