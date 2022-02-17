@@ -199,37 +199,6 @@ final class ProfileHeaderView: UIView {
         return metaText
     }()
     
-//    static func createFieldCollectionViewLayout() -> UICollectionViewLayout {
-//        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(44))
-//        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-//        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(44))
-//        let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
-//        let section = NSCollectionLayoutSection(group: group)
-//        section.contentInsetsReference = .readableContent
-//
-//        let headerFooterSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(1))
-//        let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerFooterSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
-//        let footer = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerFooterSize, elementKind: UICollectionView.elementKindSectionFooter, alignment: .bottom)
-//        section.boundarySupplementaryItems = [header, footer]
-//        // note: toggle this not take effect
-//        // section.supplementariesFollowContentInsets = false
-//
-//        return UICollectionViewCompositionalLayout(section: section)
-//    }
-//
-//    let fieldCollectionView: UICollectionView = {
-//        let collectionViewLayout = ProfileHeaderView.createFieldCollectionViewLayout()
-//        let collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: 100, height: 100), collectionViewLayout: collectionViewLayout)
-//        collectionView.register(ProfileFieldCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: ProfileFieldCollectionViewCell.self))
-//        collectionView.register(ProfileFieldAddEntryCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: ProfileFieldAddEntryCollectionViewCell.self))
-//        collectionView.register(ProfileFieldCollectionViewHeaderFooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: ProfileFieldCollectionViewHeaderFooterView.headerReuseIdentifer)
-//        collectionView.register(ProfileFieldCollectionViewHeaderFooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: ProfileFieldCollectionViewHeaderFooterView.footerReuseIdentifer)
-//        collectionView.isScrollEnabled = false
-//        return collectionView
-//    }()
-//    var fieldCollectionViewHeightLayoutConstraint: NSLayoutConstraint!
-//    var fieldCollectionViewHeightObservation: NSKeyValueObservation?
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         _init()
@@ -238,10 +207,6 @@ final class ProfileHeaderView: UIView {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         _init()
-    }
-    
-    deinit {
-//        fieldCollectionViewHeightObservation = nil
     }
     
 }
@@ -359,7 +324,7 @@ extension ProfileHeaderView {
             avatarImageViewBackgroundView.bottomAnchor.constraint(equalTo: dashboardContainer.bottomAnchor),
         ])
         
-        // authorContainer: H - [ nameContainer | relationshipActionButtonShadowContainer ]
+        // authorContainer: H - [ nameContainer | padding | relationshipActionButtonShadowContainer ]
         let authorContainer = UIStackView()
         authorContainer.axis = .horizontal
         authorContainer.alignment = .top
@@ -404,6 +369,7 @@ extension ProfileHeaderView {
         nameContainerStackView.addArrangedSubview(usernameLabel)
         
         authorContainer.addArrangedSubview(nameContainerStackView)
+        authorContainer.addArrangedSubview(UIView())
         authorContainer.addArrangedSubview(relationshipActionButtonShadowContainer)
         
         relationshipActionButton.translatesAutoresizingMaskIntoConstraints = false
