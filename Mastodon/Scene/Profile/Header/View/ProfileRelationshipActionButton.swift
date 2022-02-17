@@ -43,14 +43,14 @@ extension ProfileRelationshipActionButton {
         
         activityIndicatorView.hidesWhenStopped = true
         activityIndicatorView.stopAnimating()
+        
+        configureAppearance()
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         
-        if traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
-            configureAppearance()
-        }
+        configureAppearance()
     }
 }
 
@@ -77,10 +77,17 @@ extension ProfileRelationshipActionButton {
     private func configureAppearance() {
         setTitleColor(Asset.Colors.Label.primaryReverse.color, for: .normal)
         setTitleColor(Asset.Colors.Label.primaryReverse.color.withAlphaComponent(0.5), for: .highlighted)
-        setBackgroundImage(.placeholder(color: Asset.Scene.Profile.RelationshipButton.background.color), for: .normal)
-        setBackgroundImage(.placeholder(color: Asset.Scene.Profile.RelationshipButton.backgroundHighlighted.color), for: .highlighted)
-        setBackgroundImage(.placeholder(color: Asset.Scene.Profile.RelationshipButton.backgroundHighlighted.color), for: .disabled)
-//        setBackgroundImage(.placeholder(color: actionOptionSet.backgroundColor), for: .normal)
+        switch traitCollection.userInterfaceStyle {
+        case .dark:
+            setBackgroundImage(.placeholder(color: Asset.Scene.Profile.RelationshipButton.backgroundDark.color), for: .normal)
+            setBackgroundImage(.placeholder(color: Asset.Scene.Profile.RelationshipButton.backgroundHighlightedDark.color), for: .highlighted)
+            setBackgroundImage(.placeholder(color: Asset.Scene.Profile.RelationshipButton.backgroundHighlightedDark.color), for: .disabled)
+        default:
+            setBackgroundImage(.placeholder(color: Asset.Scene.Profile.RelationshipButton.backgroundLight.color), for: .normal)
+            setBackgroundImage(.placeholder(color: Asset.Scene.Profile.RelationshipButton.backgroundHighlightedLight.color), for: .highlighted)
+            setBackgroundImage(.placeholder(color: Asset.Scene.Profile.RelationshipButton.backgroundHighlightedLight.color), for: .disabled)
+        }
+//            setBackgroundImage(.placeholder(color: actionOptionSet.backgroundColor), for: .normal)
 //        setBackgroundImage(.placeholder(color: actionOptionSet.backgroundColor.withAlphaComponent(0.5)), for: .highlighted)
 //        setBackgroundImage(.placeholder(color: actionOptionSet.backgroundColor.withAlphaComponent(0.5)), for: .disabled)
     }

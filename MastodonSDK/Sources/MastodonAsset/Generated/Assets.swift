@@ -120,8 +120,10 @@ public enum Asset {
         public static let usernameGray = ColorAsset(name: "Scene/Profile/Banner/username.gray")
       }
       public enum RelationshipButton {
-        public static let background = ColorAsset(name: "Scene/Profile/RelationshipButton/background")
-        public static let backgroundHighlighted = ColorAsset(name: "Scene/Profile/RelationshipButton/background.highlighted")
+        public static let backgroundDark = ColorAsset(name: "Scene/Profile/RelationshipButton/background.dark")
+        public static let backgroundHighlightedDark = ColorAsset(name: "Scene/Profile/RelationshipButton/background.highlighted.dark")
+        public static let backgroundHighlightedLight = ColorAsset(name: "Scene/Profile/RelationshipButton/background.highlighted.light")
+        public static let backgroundLight = ColorAsset(name: "Scene/Profile/RelationshipButton/background.light")
       }
     }
     public enum Report {
