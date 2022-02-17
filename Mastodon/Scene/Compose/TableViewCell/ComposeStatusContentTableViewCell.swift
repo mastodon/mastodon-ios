@@ -131,14 +131,9 @@ extension ComposeStatusContentTableViewCell {
             metaText.textView.leadingAnchor.constraint(equalTo: textEditorViewContainerView.layoutMarginsGuide.leadingAnchor),
             metaText.textView.trailingAnchor.constraint(equalTo: textEditorViewContainerView.layoutMarginsGuide.trailingAnchor),
             metaText.textView.bottomAnchor.constraint(equalTo: textEditorViewContainerView.bottomAnchor),
-            metaText.textView.heightAnchor.constraint(greaterThanOrEqualToConstant: 88).priority(.defaultHigh),
+            metaText.textView.heightAnchor.constraint(greaterThanOrEqualToConstant: 64).priority(.defaultHigh),
         ])
         statusContentWarningEditorView.textView.delegate = self
-
-//        statusView.nameTrialingDotLabel.isHidden = true
-//        statusView.dateLabel.isHidden = true
-//        statusContentWarningEditorView.isHidden = true
-//        statusView.statusContainerStackView.isHidden = true
     }
 
 }
