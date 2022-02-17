@@ -684,14 +684,15 @@ extension ComposeViewController {
     
     // keyboard shortcutBar
     private func setupInputAssistantItem(item: UITextInputAssistantItem) {
-        let groups = [UIBarButtonItemGroup(barButtonItems: [
+        let barButtonItems = [
             composeToolbarView.mediaBarButtonItem,
             composeToolbarView.pollBarButtonItem,
             composeToolbarView.contentWarningBarButtonItem,
             composeToolbarView.visibilityBarButtonItem,
-        ], representativeItem: nil)]
+        ]
+        let group = UIBarButtonItemGroup(barButtonItems: barButtonItems, representativeItem: nil)
         
-        item.trailingBarButtonGroups = groups
+        item.trailingBarButtonGroups = [group]
     }
     
     private func configureToolbarDisplay(keyboardHasShortcutBar: Bool) {
@@ -768,15 +769,6 @@ extension ComposeViewController: UITextViewDelegate {
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
         setupInputAssistantItem(item: textView.inputAssistantItem)
         return true
-    }
-    
-    func textViewDidBeginEditing(_ textView: UITextView) {
-        switch textView {
-        case textEditorView.textView:
-            setupInputAssistantItem(item: textView.inputAssistantItem)
-        default:
-            assertionFailure()
-        }
     }
 
     func textViewDidChange(_ textView: UITextView) {
