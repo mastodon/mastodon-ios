@@ -22,6 +22,9 @@ protocol ProfileViewModelEditable {
 
 final class ProfileViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
     
+    public static let containerViewMarginForRegularHorizontalSizeClass: CGFloat = 64
+    public static let containerViewMarginForCompactHorizontalSizeClass: CGFloat = 16
+    
     let logger = Logger(subsystem: "ProfileViewController", category: "ViewController")
     
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
@@ -279,13 +282,14 @@ extension ProfileViewController {
                 self.profileHeaderViewController.view.addSubview(buttonBar)
                 NSLayoutConstraint.activate([
                     buttonBar.topAnchor.constraint(equalTo: self.profileHeaderViewController.profileHeaderView.bottomAnchor),
-                    buttonBar.leadingAnchor.constraint(equalToSystemSpacingAfter: self.profileHeaderViewController.view.leadingAnchor, multiplier: 2.0),
-                    buttonBar.trailingAnchor.constraint(equalTo: self.profileHeaderViewController.view.layoutMarginsGuide.trailingAnchor),
+                    buttonBar.leadingAnchor.constraint(equalTo: self.profileHeaderViewController.view.leadingAnchor),
+                    buttonBar.trailingAnchor.constraint(equalTo: self.profileHeaderViewController.view.trailingAnchor),
                     buttonBar.bottomAnchor.constraint(equalTo: self.profileHeaderViewController.view.bottomAnchor),
                     buttonBar.heightAnchor.constraint(equalToConstant: ProfileHeaderViewController.segmentedControlHeight).priority(.required - 1),
                 ])
             })
         )
+        updateBarButtonInsets()
         
         overlayScrollView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(overlayScrollView)
@@ -387,6 +391,31 @@ extension ProfileViewController {
         super.viewDidDisappear(animated)
         
         currentPostTimelineTableViewContentSizeObservation = nil
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        updateBarButtonInsets()
+    }
+    
+}
+
+extension ProfileViewController {
+    private func updateBarButtonInsets() {
+        let margin: CGFloat = {
+            switch traitCollection.userInterfaceIdiom {
+            case .phone:
+                return ProfileViewController.containerViewMarginForCompactHorizontalSizeClass
+            default:
+                return traitCollection.horizontalSizeClass == .regular ?
+                    ProfileViewController.containerViewMarginForRegularHorizontalSizeClass :
+                    ProfileViewController.containerViewMarginForCompactHorizontalSizeClass
+            }
+        }()
+        
+        profileHeaderViewController.buttonBar.layout.contentInset.left = margin
+        profileHeaderViewController.buttonBar.layout.contentInset.right = margin
     }
     
 }

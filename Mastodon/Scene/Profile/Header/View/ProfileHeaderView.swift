@@ -250,7 +250,7 @@ extension ProfileHeaderView {
         avatarImageViewBackgroundView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(avatarImageViewBackgroundView)
         NSLayoutConstraint.activate([
-            avatarImageViewBackgroundView.leadingAnchor.constraint(equalToSystemSpacingAfter: bannerContainerView.leadingAnchor, multiplier: 2.0),
+            avatarImageViewBackgroundView.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
             // align to dashboardContainer bottom
         ])
         
@@ -306,8 +306,8 @@ extension ProfileHeaderView {
         addSubview(container)
         NSLayoutConstraint.activate([
             container.topAnchor.constraint(equalTo: bannerContainerView.bottomAnchor),
-            container.leadingAnchor.constraint(equalToSystemSpacingAfter: leadingAnchor, multiplier: 2.0),
-            trailingAnchor.constraint(equalToSystemSpacingAfter: container.trailingAnchor, multiplier: 2.0),
+            container.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
+            layoutMarginsGuide.trailingAnchor.constraint(equalTo: container.trailingAnchor),
             container.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])
         
@@ -401,8 +401,35 @@ extension ProfileHeaderView {
         relationshipActionButton.addTarget(self, action: #selector(ProfileHeaderView.relationshipActionButtonDidPressed(_:)), for: .touchUpInside)
         
         configure(state: .normal)
+        
+        updateLayoutMargins()
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        updateLayoutMargins()
     }
 
+}
+
+extension ProfileHeaderView {
+    private func updateLayoutMargins() {
+        let margin: CGFloat = {
+            switch traitCollection.userInterfaceIdiom {
+            case .phone:
+                return ProfileViewController.containerViewMarginForCompactHorizontalSizeClass
+            default:
+                return traitCollection.horizontalSizeClass == .regular ?
+                    ProfileViewController.containerViewMarginForRegularHorizontalSizeClass :
+                    ProfileViewController.containerViewMarginForCompactHorizontalSizeClass
+            }
+        }()
+        
+        layoutMargins.left = margin
+        layoutMargins.right = margin
+    }
+    
 }
 
 extension ProfileHeaderView {

@@ -30,8 +30,8 @@ extension AdaptiveContainerMarginTableViewCell {
     
     public func updateContainerViewMarginConstraints() {
         func setupContainerForPhone() {
-            containerView.updateContainerViewComponentsLayoutMarginsRelativeArrangementBehavior(isEnabled: true)       // add inner margin for phone
-            containerViewLeadingLayoutConstraint.constant = 0                                               // remove outer margin for phone
+            containerView.updateContainerViewComponentsLayoutMarginsRelativeArrangementBehavior(isEnabled: true)        // add inner margin for phone
+            containerViewLeadingLayoutConstraint.constant = 0                                                           // remove outer margin for phone
             containerViewTrailingLayoutConstraint.constant = 0
         }
         
@@ -43,7 +43,7 @@ extension AdaptiveContainerMarginTableViewCell {
                 setupContainerForPhone()
                 return
             }
-            containerView.updateContainerViewComponentsLayoutMarginsRelativeArrangementBehavior(isEnabled: false)                  // remove margin for iPad
+            containerView.updateContainerViewComponentsLayoutMarginsRelativeArrangementBehavior(isEnabled: false)       // remove margin for iPad
             containerViewLeadingLayoutConstraint.constant = Self.containerViewMarginForRegularHorizontalSizeClass       // add outer margin for iPad
             containerViewTrailingLayoutConstraint.constant = Self.containerViewMarginForRegularHorizontalSizeClass
         }
