@@ -24,19 +24,15 @@ public protocol StatusViewDelegate: AnyObject {
     func statusView(_ statusView: StatusView, actionToolbarContainer: ActionToolbarContainer, buttonDidPressed button: UIButton, action: ActionToolbarContainer.Action)
     func statusView(_ statusView: StatusView, menuButton button: UIButton, didSelectAction action: MastodonMenu.Action)
     func statusView(_ statusView: StatusView, spoilerOverlayViewDidPressed overlayView: SpoilerOverlayView)
-    // func statusView(_ statusView: StatusView, spoilerBannerViewDidPressed bannerView: SpoilerBannerView)
     func statusView(_ statusView: StatusView, mediaGridContainerView: MediaGridContainerView, mediaSensitiveButtonDidPressed button: UIButton)
     
     // a11y
     func statusView(_ statusView: StatusView, accessibilityActivate: Void)
-    
-//    func statusView(_ statusView: StatusView, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView)
-//    func statusView(_ statusView: StatusView, playerContainerView: PlayerContainerView, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView)
 }
 
 public final class StatusView: UIView {
     
-    public static let containerLayoutMargin = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+    public static let containerLayoutMargin: CGFloat = 16
     
     let logger = Logger(subsystem: "StatusView", category: "View")
     
@@ -61,6 +57,7 @@ public final class StatusView: UIView {
     }()
     
     // header
+    let headerAdaptiveMarginContainerView = AdaptiveMarginContainerView()
     public let headerContainerView = UIView()
     
     // header icon
@@ -75,6 +72,7 @@ public final class StatusView: UIView {
     let headerInfoLabel = MetaLabel(style: .statusHeader)
     
     // author
+    let authorAdaptiveMarginContainerView = AdaptiveMarginContainerView()
     let authorContainerView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
@@ -122,6 +120,7 @@ public final class StatusView: UIView {
     }()
     
     // content
+    let contentAdaptiveMarginContainerView = AdaptiveMarginContainerView()
     let contentContainer = UIStackView()
     public let contentMetaText: MetaText = {
         let metaText = MetaText()
@@ -160,7 +159,8 @@ public final class StatusView: UIView {
     public let mediaGridContainerView = MediaGridContainerView()
 
     // poll
-    public let pollContainerView = UIStackView()
+    let pollAdaptiveMarginContainerView = AdaptiveMarginContainerView()
+    let pollContainerView = UIStackView()
     public let pollTableView: UITableView = {
         let tableView = UITableView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
         tableView.register(PollOptionTableViewCell.self, forCellReuseIdentifier: String(describing: PollOptionTableViewCell.self))
@@ -213,17 +213,13 @@ public final class StatusView: UIView {
         indicatorView.stopAnimating()
         return indicatorView
     }()
-    
-    // visibility
-    public let statusVisibilityView = StatusVisibilityView()
-    
-    // spoiler banner
-    // public let spoilerBannerView = SpoilerBannerView()
-    
+
     // toolbar
+    let actionToolbarAdaptiveMarginContainerView = AdaptiveMarginContainerView()
     public let actionToolbarContainer = ActionToolbarContainer()
 
     // metric
+    let statusMetricViewAdaptiveMarginContainerView = AdaptiveMarginContainerView()
     public let statusMetricView = StatusMetricView()
     
     // filter hint
@@ -252,13 +248,12 @@ public final class StatusView: UIView {
             }
         }
         
-        headerContainerView.isHidden = true
-        contentSensitiveeToggleButton.isHidden = true
+        setHeaderDisplay(isDisplay: false)
+        setContentSensitiveeToggleButtonDisplay(isDisplay: false)
         setSpoilerOverlayViewHidden(isHidden: true)
-        mediaContainerView.isHidden = true
-        pollContainerView.isHidden = true
-        statusVisibilityView.isHidden = true
-        filterHintLabel.isHidden = true
+        setMediaDisplay(isDisplay: false)
+        setPollDisplay(isDisplay: false)
+        setFilterHintLabelDisplay(isDisplay: false)
     }
 
     public override init(frame: CGRect) {
@@ -323,12 +318,6 @@ extension StatusView {
         ])
         pollTableView.delegate = self
         pollVoteButton.addTarget(self, action: #selector(StatusView.pollVoteButtonDidPressed(_:)), for: .touchUpInside)
-        
-        // statusSpoilerBannerView
-        // let spoilerBannerViewTapGestureRecognizer = UITapGestureRecognizer.singleTapGestureRecognizer
-        // spoilerBannerView.addGestureRecognizer(spoilerBannerViewTapGestureRecognizer)
-        // spoilerBannerViewTapGestureRecognizer.addTarget(self, action: #selector(StatusView.spoilerBannerViewTapGestureRecognizerHandler(_:)))
-        
         // toolbar
         actionToolbarContainer.delegate = self
     }
@@ -361,11 +350,6 @@ extension StatusView {
         logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
         delegate?.statusView(self, spoilerOverlayViewDidPressed: spoilerOverlayView)
     }
-    
-//    @objc private func spoilerBannerViewTapGestureRecognizerHandler(_ sender: UITapGestureRecognizer) {
-//        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
-//        delegate?.statusView(self, spoilerBannerViewDidPressed: spoilerBannerView)
-//    }
     
 }
 
@@ -408,22 +392,23 @@ extension StatusView.Style {
     
     private func base(statusView: StatusView) {
         // container: V - [ header container | author container | content container | media container | pollTableView | actionToolbarContainer ]
-        statusView.containerStackView.layoutMargins = StatusView.containerLayoutMargin
         
         // header container: H - [ icon | label ]
-        statusView.headerContainerView.preservesSuperviewLayoutMargins = true
-        statusView.containerStackView.addArrangedSubview(statusView.headerContainerView)
+        statusView.headerAdaptiveMarginContainerView.contentView = statusView.headerContainerView
+        statusView.headerAdaptiveMarginContainerView.margin = StatusView.containerLayoutMargin
+        statusView.containerStackView.addArrangedSubview(statusView.headerAdaptiveMarginContainerView)
+        
         statusView.headerIconImageView.translatesAutoresizingMaskIntoConstraints = false
         statusView.headerInfoLabel.translatesAutoresizingMaskIntoConstraints = false
         statusView.headerContainerView.addSubview(statusView.headerIconImageView)
         statusView.headerContainerView.addSubview(statusView.headerInfoLabel)
         NSLayoutConstraint.activate([
-            statusView.headerIconImageView.leadingAnchor.constraint(equalTo: statusView.headerContainerView.layoutMarginsGuide.leadingAnchor),
+            statusView.headerIconImageView.leadingAnchor.constraint(equalTo: statusView.headerContainerView.leadingAnchor),
             statusView.headerIconImageView.heightAnchor.constraint(equalTo: statusView.headerInfoLabel.heightAnchor, multiplier: 1.0).priority(.required - 1),
             statusView.headerIconImageView.widthAnchor.constraint(equalTo: statusView.headerIconImageView.heightAnchor, multiplier: 1.0).priority(.required - 1),
             statusView.headerInfoLabel.topAnchor.constraint(equalTo: statusView.headerContainerView.topAnchor),
             statusView.headerInfoLabel.leadingAnchor.constraint(equalTo: statusView.headerIconImageView.trailingAnchor, constant: 6),
-            statusView.headerInfoLabel.trailingAnchor.constraint(equalTo: statusView.headerContainerView.layoutMarginsGuide.trailingAnchor),
+            statusView.headerInfoLabel.trailingAnchor.constraint(equalTo: statusView.headerContainerView.trailingAnchor),
             statusView.headerInfoLabel.bottomAnchor.constraint(equalTo: statusView.headerContainerView.bottomAnchor),
             statusView.headerInfoLabel.centerYAnchor.constraint(equalTo: statusView.headerIconImageView.centerYAnchor),
         ])
@@ -434,9 +419,10 @@ extension StatusView.Style {
         statusView.headerIconImageView.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
 
         // author container: H - [ avatarButton | author meta container | contentWarningToggleButton ]
-        statusView.authorContainerView.preservesSuperviewLayoutMargins = true
-        statusView.authorContainerView.isLayoutMarginsRelativeArrangement = true
-        statusView.containerStackView.addArrangedSubview(statusView.authorContainerView)
+        statusView.authorAdaptiveMarginContainerView.contentView = statusView.authorContainerView
+        statusView.authorAdaptiveMarginContainerView.margin = StatusView.containerLayoutMargin
+        statusView.containerStackView.addArrangedSubview(statusView.authorAdaptiveMarginContainerView)
+        
         UIContentSizeCategory.publisher
             .sink { category in
                 statusView.authorContainerView.axis = category > .accessibilityLarge ? .vertical : .horizontal
@@ -514,9 +500,9 @@ extension StatusView.Style {
         statusView.contentContainer.distribution = .fill
         statusView.contentContainer.alignment = .top
 
-        statusView.contentContainer.preservesSuperviewLayoutMargins = true
-        statusView.contentContainer.isLayoutMarginsRelativeArrangement = true
-        statusView.containerStackView.addArrangedSubview(statusView.contentContainer)
+        statusView.contentAdaptiveMarginContainerView.contentView = statusView.contentContainer
+        statusView.contentAdaptiveMarginContainerView.margin = StatusView.containerLayoutMargin
+        statusView.containerStackView.addArrangedSubview(statusView.contentAdaptiveMarginContainerView)
         statusView.contentContainer.setContentHuggingPriority(.required - 1, for: .vertical)
         statusView.contentContainer.setContentCompressionResistancePriority(.required - 1, for: .vertical)
 
@@ -533,7 +519,12 @@ extension StatusView.Style {
         ])
 
         // media container: V - [ mediaGridContainerView ]
+        statusView.mediaContainerView.translatesAutoresizingMaskIntoConstraints = false
         statusView.containerStackView.addArrangedSubview(statusView.mediaContainerView)
+        NSLayoutConstraint.activate([
+            statusView.mediaContainerView.leadingAnchor.constraint(equalTo: statusView.containerStackView.leadingAnchor),
+            statusView.mediaContainerView.trailingAnchor.constraint(equalTo: statusView.containerStackView.trailingAnchor),
+        ])
 
         statusView.mediaGridContainerView.translatesAutoresizingMaskIntoConstraints = false
         statusView.mediaContainerView.addSubview(statusView.mediaGridContainerView)
@@ -545,10 +536,10 @@ extension StatusView.Style {
         ])
 
         // pollContainerView: V - [ pollTableView | pollStatusStackView ]
+        statusView.pollAdaptiveMarginContainerView.contentView = statusView.pollContainerView
+        statusView.pollAdaptiveMarginContainerView.margin = StatusView.containerLayoutMargin
         statusView.pollContainerView.axis = .vertical
-        statusView.pollContainerView.preservesSuperviewLayoutMargins = true
-        statusView.pollContainerView.isLayoutMarginsRelativeArrangement = true
-        statusView.containerStackView.addArrangedSubview(statusView.pollContainerView)
+        statusView.containerStackView.addArrangedSubview(statusView.pollAdaptiveMarginContainerView)
 
         // pollTableView
         statusView.pollContainerView.addArrangedSubview(statusView.pollTableView)
@@ -567,18 +558,11 @@ extension StatusView.Style {
         statusView.pollCountdownLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
         statusView.pollVoteButton.setContentHuggingPriority(.defaultHigh + 3, for: .horizontal)
 
-        // statusVisibilityView
-        statusView.statusVisibilityView.preservesSuperviewLayoutMargins = true
-        statusView.containerStackView.addArrangedSubview(statusView.statusVisibilityView)
-
-        // spoilerBannerView
-        // statusView.spoilerBannerView.preservesSuperviewLayoutMargins = true
-        // statusView.containerStackView.addArrangedSubview(statusView.spoilerBannerView)
-
         // action toolbar
+        statusView.actionToolbarAdaptiveMarginContainerView.contentView = statusView.actionToolbarContainer
+        statusView.actionToolbarAdaptiveMarginContainerView.margin = StatusView.containerLayoutMargin
         statusView.actionToolbarContainer.configure(for: .inline)
-        statusView.actionToolbarContainer.preservesSuperviewLayoutMargins = true
-        statusView.containerStackView.addArrangedSubview(statusView.actionToolbarContainer)
+        statusView.containerStackView.addArrangedSubview(statusView.actionToolbarAdaptiveMarginContainerView)
         
         // filterHintLabel
         statusView.filterHintLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -591,8 +575,6 @@ extension StatusView.Style {
     
     func inline(statusView: StatusView) {
         base(statusView: statusView)
-        
-        statusView.statusVisibilityView.removeFromSuperview()
     }
     
     func plain(statusView: StatusView) {
@@ -600,8 +582,10 @@ extension StatusView.Style {
         base(statusView: statusView)      // override the base style
         
         // statusMetricView
-        statusView.statusMetricView.layoutMargins = StatusView.containerLayoutMargin
-        statusView.containerStackView.addArrangedSubview(statusView.statusMetricView)
+        statusView.statusMetricViewAdaptiveMarginContainerView.contentView = statusView.statusMetricView
+        statusView.statusMetricViewAdaptiveMarginContainerView.margin = StatusView.containerLayoutMargin
+        statusView.containerStackView.addArrangedSubview(statusView.statusMetricViewAdaptiveMarginContainerView)
+
         UIContentSizeCategory.publisher
             .sink { category in
                 statusView.statusMetricView.containerStackView.axis = category > .accessibilityLarge ? .vertical : .horizontal
@@ -614,16 +598,14 @@ extension StatusView.Style {
         base(statusView: statusView)      // override the base style
 
         statusView.menuButton.removeFromSuperview()
-        statusView.statusVisibilityView.removeFromSuperview()
-        statusView.actionToolbarContainer.removeFromSuperview()
+        statusView.actionToolbarAdaptiveMarginContainerView.removeFromSuperview()
     }
     
     func notification(statusView: StatusView) {
         base(statusView: statusView)      // override the base style
         
-        statusView.headerContainerView.removeFromSuperview()
-        statusView.authorContainerView.removeFromSuperview()
-        statusView.statusVisibilityView.removeFromSuperview()
+        statusView.headerAdaptiveMarginContainerView.removeFromSuperview()
+        statusView.authorAdaptiveMarginContainerView.removeFromSuperview()
     }
     
     func notificationQuote(statusView: StatusView) {
@@ -632,8 +614,7 @@ extension StatusView.Style {
         statusView.contentContainer.layoutMargins.bottom = 16        // fix contentText align to edge issue
         statusView.contentSensitiveeToggleButton.removeFromSuperview()
         statusView.menuButton.removeFromSuperview()
-        statusView.statusVisibilityView.removeFromSuperview()
-        statusView.actionToolbarContainer.removeFromSuperview()
+        statusView.actionToolbarAdaptiveMarginContainerView.removeFromSuperview()
     }
     
     func composeStatusReplica(statusView: StatusView) {
@@ -641,9 +622,7 @@ extension StatusView.Style {
         
         statusView.avatarButton.isUserInteractionEnabled = false
         statusView.menuButton.removeFromSuperview()
-        statusView.statusVisibilityView.removeFromSuperview()
-        // statusView.spoilerBannerView.removeFromSuperview()
-        statusView.actionToolbarContainer.removeFromSuperview()
+        statusView.actionToolbarAdaptiveMarginContainerView.removeFromSuperview()
     }
     
     func composeStatusAuthor(statusView: StatusView) {
@@ -653,24 +632,22 @@ extension StatusView.Style {
         statusView.menuButton.removeFromSuperview()
         statusView.usernameTrialingDotLabel.removeFromSuperview()
         statusView.dateLabel.removeFromSuperview()
-        statusView.contentContainer.removeFromSuperview()
+        statusView.contentAdaptiveMarginContainerView.removeFromSuperview()
         statusView.spoilerOverlayView.removeFromSuperview()
         statusView.mediaContainerView.removeFromSuperview()
-        statusView.pollContainerView.removeFromSuperview()
-        statusView.statusVisibilityView.removeFromSuperview()
-        // statusView.spoilerBannerView.removeFromSuperview()
-        statusView.actionToolbarContainer.removeFromSuperview()
+        statusView.pollAdaptiveMarginContainerView.removeFromSuperview()
+        statusView.actionToolbarAdaptiveMarginContainerView.removeFromSuperview()
     }
     
 }
 
 extension StatusView {
-    func setHeaderDisplay() {
-        headerContainerView.isHidden = false
+    func setHeaderDisplay(isDisplay: Bool = true) {
+        headerAdaptiveMarginContainerView.isHidden = !isDisplay
     }
     
-    func setContentSensitiveeToggleButtonDisplay() {
-        contentSensitiveeToggleButton.isHidden = false
+    func setContentSensitiveeToggleButtonDisplay(isDisplay: Bool = true) {
+        contentSensitiveeToggleButton.isHidden = !isDisplay
     }
     
     func setSpoilerOverlayViewHidden(isHidden: Bool) {
@@ -678,31 +655,35 @@ extension StatusView {
         spoilerOverlayView.setComponentHidden(isHidden)
     }
     
-    func setMediaDisplay() {
-        mediaContainerView.isHidden = false
+    func setMediaDisplay(isDisplay: Bool = true) {
+        mediaContainerView.isHidden = !isDisplay
     }
     
-    func setPollDisplay() {
-        pollContainerView.isHidden = false
+    func setPollDisplay(isDisplay: Bool = true) {
+        pollAdaptiveMarginContainerView.isHidden = !isDisplay
     }
     
-    func setVisibilityDisplay() {
-        statusVisibilityView.isHidden = false
+    func setFilterHintLabelDisplay(isDisplay: Bool = true) {
+        filterHintLabel.isHidden = !isDisplay
     }
     
-    func setFilterHintLabelDisplay() {
-        filterHintLabel.isHidden = false
-    }
-    
-    // content text Width
+    // container width
     public var contentMaxLayoutWidth: CGFloat {
-        let inset = contentLayoutInset
-        return frame.width - inset.left - inset.right
+        return frame.width
     }
-    
-    public var contentLayoutInset: UIEdgeInsets {
-        // TODO: adaptive iPad regular horizontal size class
-        return .zero
+
+}
+
+// MARK: - AdaptiveContainerView
+extension StatusView: AdaptiveContainerView {
+    public func updateContainerViewComponentsLayoutMarginsRelativeArrangementBehavior(isEnabled: Bool) {
+        let margin = isEnabled ? StatusView.containerLayoutMargin : .zero
+        headerAdaptiveMarginContainerView.margin = margin
+        authorAdaptiveMarginContainerView.margin = margin
+        contentAdaptiveMarginContainerView.margin = margin
+        pollAdaptiveMarginContainerView.margin = margin
+        actionToolbarAdaptiveMarginContainerView.margin = margin
+        statusMetricViewAdaptiveMarginContainerView.margin = margin
     }
 }
 

@@ -58,7 +58,6 @@ extension StatusThreadRootTableViewCell {
         statusView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(statusView)
         setupContainerViewMarginConstraints()
-        updateContainerViewMarginConstraints()
         NSLayoutConstraint.activate([
             statusView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
             containerViewLeadingLayoutConstraint,
@@ -66,6 +65,7 @@ extension StatusThreadRootTableViewCell {
             statusView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
         ])
         statusView.setup(style: .plain)
+        updateContainerViewMarginConstraints()
         
         separatorLine.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(separatorLine)
@@ -108,7 +108,6 @@ extension StatusThreadRootTableViewCell {
                 statusView.mediaGridContainerView,
                 statusView.pollTableView,
                 statusView.pollStatusStackView,
-                statusView.statusVisibilityView,
                 statusView.actionToolbarContainer,
                 statusView.statusMetricView
             ]
@@ -121,10 +120,6 @@ extension StatusThreadRootTableViewCell {
                 elements.removeAll(where: { $0 === statusView.spoilerOverlayView })
             } else {
                 elements.removeAll(where: { $0 === statusView.contentMetaText.textView })
-            }
-            
-            if statusView.statusVisibilityView.isHidden {
-                elements.removeAll(where: { $0 === statusView.statusVisibilityView })
             }
             
             if statusView.viewModel.pollItems.isEmpty {

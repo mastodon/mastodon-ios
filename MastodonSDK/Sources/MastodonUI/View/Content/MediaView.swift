@@ -22,6 +22,7 @@ public final class MediaView: UIView {
         formatter.allowedUnits = [.minute, .second]
         return formatter
     }()
+    public static let placeholderImage = UIImage.placeholder(color: .systemGray6)
     
     public let container = TouchBlockingView()
     
@@ -154,7 +155,10 @@ extension MediaView {
         .receive(on: DispatchQueue.main)
         .sink { [weak self] isReveal, previewImage, blurhashImage in
             guard let self = self else { return }
-            let image = isReveal ? (previewImage ?? blurhashImage) : blurhashImage
+            
+            let image = isReveal ?
+                (previewImage ?? blurhashImage ?? MediaView.placeholderImage) :
+                (blurhashImage ?? MediaView.placeholderImage)
             self.imageView.image = image
         }
         .store(in: &configuration.disposeBag)
@@ -204,30 +208,6 @@ extension MediaView {
             assetURL: info.previewURL
         )
         bindImage(configuration: configuration, info: imageInfo)
-        
-//        indicatorBlurEffectView.translatesAutoresizingMaskIntoConstraints = false
-//        imageView.addSubview(indicatorBlurEffectView)
-//        NSLayoutConstraint.activate([
-//            imageView.trailingAnchor.constraint(equalTo: indicatorBlurEffectView.trailingAnchor, constant: 11),
-//            imageView.bottomAnchor.constraint(equalTo: indicatorBlurEffectView.bottomAnchor, constant: 8),
-//        ])
-//        setupIndicatorViewHierarchy()
-        
-//        playerIndicatorLabel.attributedText = {
-//            let imageAttachment = NSTextAttachment(image: UIImage(systemName: "play.fill")!)
-//            let imageAttributedString = AttributedString(NSAttributedString(attachment: imageAttachment))
-//            let duration: String = {
-//                guard let durationMS = info.durationMS else { return "" }
-//                let timeInterval = TimeInterval(durationMS / 1000)
-//                guard timeInterval > 0 else { return "" }
-//                guard let text = MediaView.durationFormatter.string(from: timeInterval) else { return "" }
-//                return " \(text)"
-//            }()
-//            let textAttributedString = AttributedString("\(duration)")
-//            var attributedString = imageAttributedString + textAttributedString
-//            attributedString.foregroundColor = .secondaryLabel
-//            return NSAttributedString(attributedString)
-//        }()
     }
     
     private func layoutBlurhash() {

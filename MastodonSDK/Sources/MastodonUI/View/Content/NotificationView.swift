@@ -136,7 +136,7 @@ public final class NotificationView: UIView {
 extension NotificationView {
     private func _init() {
         // container: V - [ author container | (authorContainerViewBottomPaddingView) | statusView | quoteStatusView ]
-        containerStackView.layoutMargins = StatusView.containerLayoutMargin
+        // containerStackView.layoutMargins = StatusView.containerLayoutMargin
 
         containerStackView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(containerStackView)
@@ -228,9 +228,9 @@ extension NotificationView {
         containerStackView.addArrangedSubview(quoteStatusViewContainerView)
         quoteStatusViewContainerView.layoutMargins = UIEdgeInsets(
             top: 0,
-            left: StatusView.containerLayoutMargin.left,
+            left: StatusView.containerLayoutMargin,
             bottom: 16,
-            right: StatusView.containerLayoutMargin.right
+            right: StatusView.containerLayoutMargin
         )
 
         quoteBackgroundView.layoutMargins = UIEdgeInsets(top: 16, left: 0, bottom: 0, right: 0)
@@ -295,6 +295,13 @@ extension NotificationView {
         quoteStatusViewContainerView.isHidden = false
     }
     
+}
+
+// MARK: - AdaptiveContainerView
+extension NotificationView: AdaptiveContainerView {
+    public func updateContainerViewComponentsLayoutMarginsRelativeArrangementBehavior(isEnabled: Bool) {
+        statusView.updateContainerViewComponentsLayoutMarginsRelativeArrangementBehavior(isEnabled: isEnabled)
+    }
 }
 
 extension NotificationView {

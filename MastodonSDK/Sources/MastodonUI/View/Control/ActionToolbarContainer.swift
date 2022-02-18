@@ -48,10 +48,7 @@ public final class ActionToolbarContainer: UIView {
 
 extension ActionToolbarContainer {
 
-    private func _init() {
-        container.preservesSuperviewLayoutMargins = true
-        container.isLayoutMarginsRelativeArrangement = true
-        
+    private func _init() {        
         container.translatesAutoresizingMaskIntoConstraints = false
         addSubview(container)
         NSLayoutConstraint.activate([
