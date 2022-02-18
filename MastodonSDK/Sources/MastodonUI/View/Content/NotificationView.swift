@@ -57,6 +57,7 @@ public final class NotificationView: UIView {
     }()
     
     // author
+    let authorAdaptiveMarginContainerView = AdaptiveMarginContainerView()
     let authorContainerView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
@@ -148,9 +149,10 @@ extension NotificationView {
         ])
         
         // author container: H - [ avatarButton | author meta container ]
-        authorContainerView.preservesSuperviewLayoutMargins = true
-        authorContainerView.isLayoutMarginsRelativeArrangement = true
-        containerStackView.addArrangedSubview(authorContainerView)
+        authorAdaptiveMarginContainerView.contentView = authorContainerView
+        authorAdaptiveMarginContainerView.margin = StatusView.containerLayoutMargin
+        containerStackView.addArrangedSubview(authorAdaptiveMarginContainerView)
+        
         UIContentSizeCategory.publisher
             .sink { [weak self] category in
                 guard let self = self else { return }
@@ -226,7 +228,7 @@ extension NotificationView {
         
         // quoteStatusView
         containerStackView.addArrangedSubview(quoteStatusViewContainerView)
-        quoteStatusViewContainerView.layoutMargins.bottom = 16
+        quoteStatusViewContainerView.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 16, right: 0)
 
         quoteBackgroundView.layoutMargins = UIEdgeInsets(top: 16, left: 0, bottom: 0, right: 0)
         quoteBackgroundView.translatesAutoresizingMaskIntoConstraints = false
@@ -294,6 +296,11 @@ extension NotificationView {
 // MARK: - AdaptiveContainerView
 extension NotificationView: AdaptiveContainerView {
     public func updateContainerViewComponentsLayoutMarginsRelativeArrangementBehavior(isEnabled: Bool) {
+        let margin = isEnabled ? StatusView.containerLayoutMargin : .zero
+        authorAdaptiveMarginContainerView.margin = margin
+        quoteStatusViewContainerView.layoutMargins.left = margin
+        quoteStatusViewContainerView.layoutMargins.right = margin
+        
         statusView.updateContainerViewComponentsLayoutMarginsRelativeArrangementBehavior(isEnabled: isEnabled)
         quoteStatusView.updateContainerViewComponentsLayoutMarginsRelativeArrangementBehavior(isEnabled: true)  // always set margins
     }

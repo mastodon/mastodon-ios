@@ -50,13 +50,13 @@ extension NotificationTableViewCell {
         notificationView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(notificationView)
         setupContainerViewMarginConstraints()
-        updateContainerViewMarginConstraints()
         NSLayoutConstraint.activate([
             notificationView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
             containerViewLeadingLayoutConstraint,
             containerViewTrailingLayoutConstraint,
             contentView.bottomAnchor.constraint(equalTo: notificationView.bottomAnchor),
         ])
+        updateContainerViewMarginConstraints()
         
         separatorLine.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(separatorLine)
@@ -76,6 +76,12 @@ extension NotificationTableViewCell {
             .store(in: &_disposeBag)
         
         notificationView.delegate = self
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        updateContainerViewMarginConstraints()
     }
     
 }
