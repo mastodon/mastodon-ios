@@ -222,7 +222,11 @@ extension MediaPreviewViewController: PageboyViewControllerDelegate {
 extension MediaPreviewViewController: MediaPreviewImageViewControllerDelegate {
     
     func mediaPreviewImageViewController(_ viewController: MediaPreviewImageViewController, tapGestureRecognizerDidTrigger tapGestureRecognizer: UITapGestureRecognizer) {
-        // do nothing
+        let location = tapGestureRecognizer.location(in: viewController.previewImageView.imageView)
+        let isContainsTap = viewController.previewImageView.imageView.frame.contains(location)
+        
+        guard !isContainsTap else { return }
+        dismiss(animated: true, completion: nil)
     }
     
     func mediaPreviewImageViewController(_ viewController: MediaPreviewImageViewController, longPressGestureRecognizerDidTrigger longPressGestureRecognizer: UILongPressGestureRecognizer) {
