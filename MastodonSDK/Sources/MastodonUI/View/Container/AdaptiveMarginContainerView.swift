@@ -21,25 +21,31 @@ public final class AdaptiveMarginContainerView: UIView {
             contentView.translatesAutoresizingMaskIntoConstraints = false
             addSubview(contentView)
             
+            let _topLayoutConstraint = contentView.topAnchor.constraint(equalTo: topAnchor)
             let _leadingLayoutConstraint = contentView.leadingAnchor.constraint(equalTo: leadingAnchor)
             let _trailingLayoutConstraint = trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
+            let _bottomLayoutConstraint = bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
             
             NSLayoutConstraint.activate([
-                contentView.topAnchor.constraint(equalTo: topAnchor),
+                _topLayoutConstraint,
                 _leadingLayoutConstraint,
                 _trailingLayoutConstraint,
-                contentView.bottomAnchor.constraint(equalTo: bottomAnchor),
+                _bottomLayoutConstraint
             ])
             
+            topLayoutConstraint = _topLayoutConstraint
             leadingLayoutConstraint = _leadingLayoutConstraint
             trailingLayoutConstraint = _trailingLayoutConstraint
+            bottomLayoutConstraint = _bottomLayoutConstraint
             
             updateConstraints()
         }
     }
 
-    var leadingLayoutConstraint: NSLayoutConstraint?
-    var trailingLayoutConstraint: NSLayoutConstraint?
+    private(set) var topLayoutConstraint: NSLayoutConstraint?
+    private(set) var leadingLayoutConstraint: NSLayoutConstraint?
+    private(set) var trailingLayoutConstraint: NSLayoutConstraint?
+    private(set) var bottomLayoutConstraint: NSLayoutConstraint?
     
 }
 

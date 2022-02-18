@@ -226,15 +226,9 @@ extension NotificationView {
         
         // quoteStatusView
         containerStackView.addArrangedSubview(quoteStatusViewContainerView)
-        quoteStatusViewContainerView.layoutMargins = UIEdgeInsets(
-            top: 0,
-            left: StatusView.containerLayoutMargin,
-            bottom: 16,
-            right: StatusView.containerLayoutMargin
-        )
+        quoteStatusViewContainerView.layoutMargins.bottom = 16
 
         quoteBackgroundView.layoutMargins = UIEdgeInsets(top: 16, left: 0, bottom: 0, right: 0)
-        
         quoteBackgroundView.translatesAutoresizingMaskIntoConstraints = false
         quoteStatusViewContainerView.addSubview(quoteBackgroundView)
         NSLayoutConstraint.activate([
@@ -301,6 +295,7 @@ extension NotificationView {
 extension NotificationView: AdaptiveContainerView {
     public func updateContainerViewComponentsLayoutMarginsRelativeArrangementBehavior(isEnabled: Bool) {
         statusView.updateContainerViewComponentsLayoutMarginsRelativeArrangementBehavior(isEnabled: isEnabled)
+        quoteStatusView.updateContainerViewComponentsLayoutMarginsRelativeArrangementBehavior(isEnabled: true)  // always set margins
     }
 }
 

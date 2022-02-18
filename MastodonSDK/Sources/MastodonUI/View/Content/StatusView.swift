@@ -611,7 +611,8 @@ extension StatusView.Style {
     func notificationQuote(statusView: StatusView) {
         base(statusView: statusView)      // override the base style
         
-        statusView.contentContainer.layoutMargins.bottom = 16        // fix contentText align to edge issue
+        statusView.contentAdaptiveMarginContainerView.bottomLayoutConstraint?.constant = 16     // fix bottom margin missing issue
+        statusView.pollAdaptiveMarginContainerView.bottomLayoutConstraint?.constant = 16        // fix bottom margin missing issue
         statusView.contentSensitiveeToggleButton.removeFromSuperview()
         statusView.menuButton.removeFromSuperview()
         statusView.actionToolbarAdaptiveMarginContainerView.removeFromSuperview()
