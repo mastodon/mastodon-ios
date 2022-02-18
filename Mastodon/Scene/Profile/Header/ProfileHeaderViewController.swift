@@ -61,12 +61,15 @@ final class ProfileHeaderViewController: UIViewController {
             case .dark:
                 // Asset.Colors.Label.primary.color
                 button.selectedTintColor = UIColor(red: 238.0/255.0, green: 238.0/255.0, blue: 238.0/255.0, alpha: 1.0)
+                // Asset.Colors.Label.secondary.color
+                button.tintColor = UIColor(red: 151.0/255.0, green: 157.0/255.0, blue: 173.0/255.0, alpha: 1.0)
             default:
                 // Asset.Colors.Label.primary.color
                 button.selectedTintColor = UIColor(red: 40.0/255.0, green: 44.0/255.0, blue: 55.0/255.0, alpha: 1.0)
+                // Asset.Colors.Label.secondary.color
+                button.tintColor = UIColor(red: 60.0/255.0, green: 60.0/255.0, blue: 67.0/255.0, alpha: 0.6)
             }
             
-            button.tintColor = .secondaryLabel // UIColor(red: 60.0/255.0, green: 60.0/255.0, blue: 67.0/255.0, alpha: 1.0)
             button.backgroundColor = .clear
         }
     }
