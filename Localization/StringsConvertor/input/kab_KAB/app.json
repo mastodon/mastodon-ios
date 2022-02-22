@@ -283,14 +283,14 @@
                 },
                 "reason": {
                     "blocked": "%s contains a disallowed email provider",
-                    "unreachable": "%s does not seem to exist",
-                    "taken": "%s is already in use",
+                    "unreachable": "%s ur yettban ara yella",
+                    "taken": "%s yettwaseqdec yakan",
                     "reserved": "%s is a reserved keyword",
                     "accepted": "%s must be accepted",
                     "blank": "isra %s",
-                    "invalid": "%s is invalid",
-                    "too_long": "%s is too long",
-                    "too_short": "%s is too short",
+                    "invalid": "%s d arameɣtu",
+                    "too_long": "%s ɣezzif aṭas",
+                    "too_short": "%s wezzil aṭas",
                     "inclusion": "%s is not a supported value"
                 },
                 "special": {
@@ -425,44 +425,44 @@
             },
             "relationship_action_alert": {
                 "confirm_mute_user": {
-                    "title": "Mute Account",
-                    "message": "Confirm to mute %s"
+                    "title": "Sgugem amiḍan",
+                    "message": "Sentem asgugem i %s"
                 },
                 "confirm_unmute_user": {
-                    "title": "Unmute Account",
-                    "message": "Confirm to unmute %s"
+                    "title": "Kkes asgugem i umiḍan",
+                    "message": "Sentem tukksa n usgugem i %s"
                 },
                 "confirm_block_user": {
-                    "title": "Block Account",
-                    "message": "Confirm to block %s"
+                    "title": "Sewḥel amiḍan",
+                    "message": "Sentem asewḥel n %s"
                 },
                 "confirm_unblock_user": {
-                    "title": "Unblock Account",
-                    "message": "Confirm to unblock %s"
+                    "title": "Kkes asewḥel i umiḍan",
+                    "message": "Sentem tukksa n usgugem i %s"
                 }
             }
         },
         "follower": {
-            "footer": "Followers from other servers are not displayed."
+            "footer": "Ineḍfaren seg yiqeddacen-nniḍen ur d-ttwaskanen ara."
         },
         "following": {
-            "footer": "Follows from other servers are not displayed."
+            "footer": "Ineḍfaren seg yiqeddacen-nniḍen ur d-ttwaskanen ara."
         },
         "search": {
             "title": "Nadi",
             "search_bar": {
-                "placeholder": "Search hashtags and users",
+                "placeholder": "Nadi hashtags d yiseqdacen",
                 "cancel": "Sefsex"
             },
             "recommend": {
-                "button_text": "See All",
+                "button_text": "Wali akk",
                 "hash_tag": {
                     "title": "Trending on Mastodon",
                     "description": "Hashtags that are getting quite a bit of attention",
-                    "people_talking": "%s people are talking"
+                    "people_talking": "%s yimdanen i yettmeslayen"
                 },
                 "accounts": {
-                    "title": "Accounts you might like",
+                    "title": "Imiḍanen i tzemreḍ ad tḥemmleḍ",
                     "description": "You may like to follow these accounts",
                     "follow": "Ḍfeṛ"
                 }
@@ -477,7 +477,7 @@
                 "empty_state": {
                     "no_results": "Ulac igemmaḍ"
                 },
-                "recent_search": "Recent searches",
+                "recent_search": "Inadiyen imaynuten",
                 "clear": "Sfeḍ"
             }
         },
@@ -490,21 +490,21 @@
                 "Mentions": "Abdar"
             },
             "notification_description": {
-                "followed_you": "followed you",
-                "favorited_your_post": "favorited your post",
-                "reblogged_your_post": "reblogged your post",
-                "mentioned_you": "mentioned you",
-                "request_to_follow_you": "request to follow you",
+                "followed_you": "iṭṭafar-ik·ikem",
+                "favorited_your_post": "yesmenyef tasuffeɣt-ik·im",
+                "reblogged_your_post": "iɛawed-as asuffeɣ i tsuffeɣt-ik·im",
+                "mentioned_you": "yebder-ik·ikem-id",
+                "request_to_follow_you": "issuter aḍfar-inek",
                 "poll_has_ended": "poll has ended"
             },
             "keyobard": {
                 "show_everything": "Sken yal taɣawsa",
-                "show_mentions": "Show Mentions"
+                "show_mentions": "Sken tisedmirin"
             }
         },
         "thread": {
             "back_title": "Amagrad",
-            "title": "Post from %s"
+            "title": "Tasuffeɣt sɣur %s"
         },
         "settings": {
             "title": "Iɣewwaṛen",
@@ -512,28 +512,28 @@
                 "appearance": {
                     "title": "Apparence",
                     "automatic": "Awurman",
-                    "light": "Always Light",
-                    "dark": "Always Dark"
+                    "light": "Yezga d aceεlal",
+                    "dark": "Yezga d aberkan"
                 },
                 "look_and_feel": {
-                    "title": "Look and Feel",
-                    "use_system": "Use System",
-                    "really_dark": "Really Dark",
-                    "sorta_dark": "Sorta Dark",
+                    "title": "Wali, tḥalfuḍ",
+                    "use_system": "Seqdec anagraw",
+                    "really_dark": "D aberkan s tidet",
+                    "sorta_dark": "D aberkan cwiya",
                     "light": "Aceɛlal"
                 },
                 "notifications": {
                     "title": "Tilɣa",
                     "favorites": "Favorites my post",
-                    "follows": "Follows me",
+                    "follows": "Yeṭṭafar-iyi",
                     "boosts": "Reblogs my post",
-                    "mentions": "Mentions me",
+                    "mentions": "Ibder-iyi-d",
                     "trigger": {
                         "anyone": "yal yiwen",
-                        "follower": "a follower",
-                        "follow": "anyone I follow",
+                        "follower": "ameḍfar",
+                        "follow": "yal win ara ḍefreɣ",
                         "noone": "ula yiwen",
-                        "title": "Notify me when"
+                        "title": "Selɣu-yi-d mi ara"
                     }
                 },
                 "preference": {
@@ -578,19 +578,19 @@
         "preview": {
             "keyboard": {
                 "close_preview": "Mdel timeẓri",
-                "show_next": "Show Next",
-                "show_previous": "Show Previous"
+                "show_next": "Sken uḍfir",
+                "show_previous": "Sken udfir"
             }
         },
         "account_list": {
-            "tab_bar_hint": "Current selected profile: %s. Double tap then hold to show account switcher",
-            "dismiss_account_switcher": "Dismiss Account Switcher",
+            "tab_bar_hint": "Amaɣnu amiran yettwafernen: %s. Sit berdayen syen teǧǧeḍ aḍad-ik·im i uskan abeddel n umiḍan",
+            "dismiss_account_switcher": "Sefsex abeddel n umiḍan",
             "add_account": "Rnu amiḍan"
         },
         "wizard": {
             "new_in_mastodon": "Amaynut deg Maṣṭudun",
-            "multiple_account_switch_intro_description": "Switch between multiple accounts by holding the profile button.",
-            "accessibility_hint": "Double tap to dismiss this wizard"
+            "multiple_account_switch_intro_description": "Beddel gar waṭas n yimiḍanen s tussda ɣezzifen ɣef tqeffalt n umaɣnu.",
+            "accessibility_hint": "Sin isitiyen i usefsex n umarag-a"
         }
     }
 }
