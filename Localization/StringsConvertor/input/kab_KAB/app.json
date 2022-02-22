@@ -286,23 +286,23 @@
                     "unreachable": "%s ur yettban ara yella",
                     "taken": "%s yettwaseqdec yakan",
                     "reserved": "%s is a reserved keyword",
-                    "accepted": "%s must be accepted",
+                    "accepted": "%s ilaq ad yettwaqbal",
                     "blank": "isra %s",
                     "invalid": "%s d arameɣtu",
                     "too_long": "%s ɣezzif aṭas",
                     "too_short": "%s wezzil aṭas",
-                    "inclusion": "%s is not a supported value"
+                    "inclusion": "%s mačči d azal yettusefraken"
                 },
                 "special": {
                     "username_invalid": "Username must only contain alphanumeric characters and underscores",
                     "username_too_long": "Username is too long (can’t be longer than 30 characters)",
-                    "email_invalid": "This is not a valid email address",
+                    "email_invalid": "Tagi mačči d tansa n yimayl tameɣtut",
                     "password_too_short": "Password is too short (must be at least 8 characters)"
                 }
             }
         },
         "server_rules": {
-            "title": "Some ground rules.",
+            "title": "Kra n yilugan igejdanen.",
             "subtitle": "These are set and enforced by the %s moderators.",
             "prompt": "By continuing, you’re subject to the terms of service and privacy policy for %s.",
             "terms_of_service": "tiwetlin n useqdec",
@@ -371,7 +371,7 @@
                 "one_day": "1 n wass",
                 "three_days": "3 n wussan",
                 "seven_days": "7 n wussan",
-                "option_number": "Option %ld"
+                "option_number": "Taxtiṛt %ld"
             },
             "content_warning": {
                 "placeholder": "Write an accurate warning here..."
@@ -387,16 +387,16 @@
             },
             "accessibility": {
                 "append_attachment": "Rnu taceqquft yeddan",
-                "append_poll": "Add Poll",
-                "remove_poll": "Remove Poll",
+                "append_poll": "Rnu asenqed",
+                "remove_poll": "Kkes asenqed",
                 "custom_emoji_picker": "Custom Emoji Picker",
                 "enable_content_warning": "Enable Content Warning",
                 "disable_content_warning": "Disable Content Warning",
                 "post_visibility_menu": "Post Visibility Menu"
             },
             "keyboard": {
-                "discard_post": "Discard Post",
-                "publish_post": "Publish Post",
+                "discard_post": "Sefsex tasuffeɣt",
+                "publish_post": "Suffeɣ tasuffeɣt",
                 "toggle_poll": "Toggle Poll",
                 "toggle_content_warning": "Toggle Content Warning",
                 "append_attachment_entry": "Add Attachment - %s",
@@ -419,7 +419,7 @@
             "segmented_control": {
                 "posts": "Imagraden",
                 "replies": "Tiririyin",
-                "posts_and_replies": "Posts and Replies",
+                "posts_and_replies": "Tisuffaɣ d tririyin",
                 "media": "Amidya",
                 "about": "Ɣef"
             },
@@ -569,11 +569,11 @@
             "step2": "Aḥric 2 seg 2",
             "content1": "Are there any other posts you’d like to add to the report?",
             "content2": "Is there anything the moderators should know about this report?",
-            "report_sent_title": "Thanks for reporting, we’ll look into this.",
+            "report_sent_title": "Tanemmirt ɣef uneqqis, ad nwali deg waya.",
             "send": "Azen aneqis",
-            "skip_to_send": "Send without comment",
-            "text_placeholder": "Type or paste additional comments",
-            "reported": "REPORTED"
+            "skip_to_send": "Azen s war awennit",
+            "text_placeholder": "Aru neɣ senteḍ iwenniten-nniḍen",
+            "reported": "YETTWAMMEL"
         },
         "preview": {
             "keyboard": {
