@@ -20,7 +20,7 @@
                 "message": "Sentem i wakken ad yettusefsax ugbur n tsuffeɣt."
             },
             "publish_post_failure": {
-                "title": "Publish Failure",
+                "title": "Yecceḍ usuffeɣ",
                 "message": "Failed to publish the post.\nPlease check your internet connection.",
                 "attachments_message": {
                     "video_attach_with_photo": "Cannot attach a video to a post that already contains images.",
