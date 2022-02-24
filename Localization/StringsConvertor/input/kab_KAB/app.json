@@ -359,7 +359,7 @@
             "attachment": {
                 "photo": "tawlaft",
                 "video": "tavidyutt",
-                "attachment_broken": "This %s is broken and can’t be\nuploaded to Mastodon.",
+                "attachment_broken": "%s-a yerreẓ, ur yezmir ara\nAd d-yettwasali ɣef Mastodon.",
                 "description_photo": "Glem-d tawlaft i wid yesɛan ugur deg yiẓri...",
                 "description_video": "Glem-d tavidyut i wid yesɛan ugur deg yiẓri..."
             },
@@ -383,23 +383,23 @@
                 "direct": "Imdanen i d-bedreɣ kan"
             },
             "auto_complete": {
-                "space_to_add": "Space to add"
+                "space_to_add": "Tallunt ara yettwarnun"
             },
             "accessibility": {
                 "append_attachment": "Rnu taceqquft yeddan",
                 "append_poll": "Rnu asenqed",
                 "remove_poll": "Kkes asenqed",
-                "custom_emoji_picker": "Custom Emoji Picker",
-                "enable_content_warning": "Enable Content Warning",
-                "disable_content_warning": "Disable Content Warning",
-                "post_visibility_menu": "Post Visibility Menu"
+                "custom_emoji_picker": "Amefran n yimujiten udmawanen",
+                "enable_content_warning": "Rmed alɣu n ugbur",
+                "disable_content_warning": "Sens alɣu n ugbur",
+                "post_visibility_menu": "Umuɣ n ubani n tsuffeɣt"
             },
             "keyboard": {
                 "discard_post": "Sefsex tasuffeɣt",
                 "publish_post": "Suffeɣ tasuffeɣt",
-                "toggle_poll": "Toggle Poll",
-                "toggle_content_warning": "Toggle Content Warning",
-                "append_attachment_entry": "Add Attachment - %s",
+                "toggle_poll": "Beddel asenqed",
+                "toggle_content_warning": "Beddel alɣu n ugbur",
+                "append_attachment_entry": "Rnu taceqquft yeddan - %s",
                 "select_visibility_entry": "Select Visibility - %s"
             }
         },
@@ -495,7 +495,7 @@
                 "reblogged_your_post": "iɛawed-as asuffeɣ i tsuffeɣt-ik·im",
                 "mentioned_you": "yebder-ik·ikem-id",
                 "request_to_follow_you": "issuter aḍfar-inek",
-                "poll_has_ended": "poll has ended"
+                "poll_has_ended": "asenqed iffuk"
             },
             "keyobard": {
                 "show_everything": "Sken yal taɣawsa",
@@ -540,7 +540,7 @@
                     "title": "Imenyafen",
                     "true_black_dark_mode": "True black dark mode",
                     "disable_avatar_animation": "Disable animated avatars",
-                    "disable_emoji_animation": "Disable animated emojis",
+                    "disable_emoji_animation": "Sens imujiten yettembiwilen",
                     "using_default_browser": "Use default browser to open links"
                 },
                 "boring_zone": {
@@ -551,7 +551,7 @@
                 },
                 "spicy_zone": {
                     "title": "The Spicy Zone",
-                    "clear": "Clear Media Cache",
+                    "clear": "Sfeḍ takatut tuffirt n umidyat",
                     "signout": "Senser"
                 }
             },
