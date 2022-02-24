@@ -113,9 +113,9 @@
                     "open_author_profile": "Ldi amaɣnu n umeskar",
                     "open_reblogger_profile": "Ldi amaɣnu n win i yulsen asuffeɣ",
                     "reply_status": "Err ɣef tsuffeɣt",
-                    "toggle_reblog": "Toggle Reblog on Post",
-                    "toggle_favorite": "Toggle Favorite on Post",
-                    "toggle_content_warning": "Toggle Content Warning",
+                    "toggle_reblog": "Abeddel n unallas n tsuffeɣt",
+                    "toggle_favorite": "Abeddel n usmenyaf i tsuffeɣt",
+                    "toggle_content_warning": "Beddel alɣu n ugbur",
                     "preview_image": "Asenqed n tugna"
                 },
                 "segmented_control": {
@@ -128,8 +128,8 @@
                 "user_replied_to": "Yerra ɣef %s",
                 "show_post": "Sken-d tasuffeɣt",
                 "show_user_profile": "Ssken-d amaɣnu n useqdac",
-                "content_warning": "Content Warning",
-                "media_content_warning": "Tap anywhere to reveal",
+                "content_warning": "Alɣu n ugbur",
+                "media_content_warning": "Sit anida tebɣiḍ i wakken ad twaliḍ",
                 "poll": {
                     "vote": "Dɣeṛ",
                     "closed": "Ifukk"
@@ -152,10 +152,10 @@
                     "emoji": "Emuji"
                 },
                 "visibility": {
-                    "unlisted": "Everyone can see this post but not display in the public timeline.",
-                    "private": "Only their followers can see this post.",
-                    "private_from_me": "Only my followers can see this post.",
-                    "direct": "Only mentioned user can see this post."
+                    "unlisted": "Yal wa yezmer ad iwali tsuffeɣt-a maca ur d-tettwaskaneḍ ara deg yizirig n wakud azayaz.",
+                    "private": "D ineḍfaren-is kan i izemren ad walin tsuffeɣ-a.",
+                    "private_from_me": "D ineḍfaren-is kan i izemren ad walin tsuffeɣ-a.",
+                    "direct": "D ineḍfaren-is kan i izemren ad walin tsuffeɣ-a."
                 }
             },
             "friendship": {
@@ -182,18 +182,18 @@
                     "now": "Tura"
                 },
                 "loader": {
-                    "load_missing_posts": "Load missing posts",
-                    "loading_missing_posts": "Loading missing posts...",
+                    "load_missing_posts": "Sali tisuffaɣ i iruḥen",
+                    "loading_missing_posts": "Asali n tsuffaɣ i iruḥen...",
                     "show_more_replies": "Ssken-d ugar n tririyin"
                 },
                 "header": {
-                    "no_status_found": "No Post Found",
-                    "blocking_warning": "You can’t view this user's profile\nuntil you unblock them.\nYour profile looks like this to them.",
-                    "user_blocking_warning": "You can’t view %s’s profile\nuntil you unblock them.\nYour profile looks like this to them.",
-                    "blocked_warning": "You can’t view this user’s profile\nuntil they unblock you.",
-                    "user_blocked_warning": "You can’t view %s’s profile\nuntil they unblock you.",
-                    "suspended_warning": "This user has been suspended.",
-                    "user_suspended_warning": "%s’s account has been suspended."
+                    "no_status_found": "Ulac tasuffeɣt yettwafen",
+                    "blocking_warning": "Ur tezmireḍ ara ad twaliḍ amaɣnu n useqdac-a\nalamma tekkseḍ-as asewḥel.\nAkka i as-d-yettban umaɣnu-inek.",
+                    "user_blocking_warning": "Ur tezmireḍ ara ad twaliḍ amaɣnu n %s\nalamma tekkseḍ-as asewḥel.\nAkka i as-d-yettban umaɣnu-inek.",
+                    "blocked_warning": "Ur tezmireḍ ara ad twaliḍ amaɣnu n useqdac-a\nAkka i as-d-yettban umaɣnu-inek.",
+                    "user_blocked_warning": "Ur tezmireḍ ara ad twaliḍ amaɣnu n %s\nAkka i as-d-yettban umaɣnu-inek.",
+                    "suspended_warning": "Yettwaseḥbes useqdac-a.",
+                    "user_suspended_warning": "Yettwaseḥbes umiḍan n %s."
                 }
             }
         }
@@ -205,7 +205,7 @@
             "log_in": "Qqen"
         },
         "server_picker": {
-            "title": "Mastodon is made of users in different communities.",
+            "title": "Mastodon yettwaxdem i yiseqdacen deg waṭas n temɣiwnin.",
             "subtitle": "Pick a community based on your interests, region, or a general purpose one.",
             "subtitle_extend": "Pick a community based on your interests, region, or a general purpose one. Each community is operated by an entirely independent organization or individual.",
             "button": {
