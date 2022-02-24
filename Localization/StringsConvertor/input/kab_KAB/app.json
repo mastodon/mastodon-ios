@@ -218,27 +218,27 @@
                     "furry": "furry",
                     "games": "uraren",
                     "general": "amatu",
-                    "journalism": "journalism",
+                    "journalism": "taɣamsa",
                     "lgbt": "lgbt",
-                    "regional": "regional",
+                    "regional": "amnaḍan",
                     "art": "taẓuri",
                     "music": "aẓawan",
-                    "tech": "tech"
+                    "tech": "atiknikan"
                 },
-                "see_less": "See Less",
+                "see_less": "Sken cwiṭ",
                 "see_more": "Wali ugar"
             },
             "label": {
                 "language": "TUTLAYT",
                 "users": "ISEQDACEN",
-                "category": "CATEGORY"
+                "category": "TAGGAYT"
             },
             "input": {
-                "placeholder": "Search communities"
+                "placeholder": "Nadi timɣiwnin"
             },
             "empty_state": {
-                "finding_servers": "Finding available servers...",
-                "bad_network": "Something went wrong while loading the data. Check your internet connection.",
+                "finding_servers": "Tifin n yiqeddacen yellan...",
+                "bad_network": "Tella-d tuccḍa lawan n usali n yisefka. Senqed tuqqna-ink internet.",
                 "no_results": "Ulac igemmaḍ"
             }
         },
@@ -260,16 +260,16 @@
                 },
                 "password": {
                     "placeholder": "awal uffir",
-                    "require": "Your password needs at least:",
+                    "require": "Awal-ik uffir yesra ma drus:",
                     "character_limit": "8 n yisekkilen",
                     "accessibility": {
-                        "checked": "checked",
-                        "unchecked": "unchecked"
+                        "checked": "yettwasenqed",
+                        "unchecked": "ur yettwasenqed ara"
                     },
-                    "hint": "Your password needs at least eight characters"
+                    "hint": "Awal-ik uffir yesra ma drus ṭam n yisekkilen"
                 },
                 "invite": {
-                    "registration_user_invite_request": "Why do you want to join?"
+                    "registration_user_invite_request": "Acimi tebγiḍ ad ternuḍ iman-ik?"
                 }
             },
             "error": {
@@ -277,15 +277,15 @@
                     "username": "Isem n useqdac",
                     "email": "Imayl",
                     "password": "Awal uffir",
-                    "agreement": "Agreement",
+                    "agreement": "Amtawa",
                     "locale": "Tadigant",
                     "reason": "Taɣẓint"
                 },
                 "reason": {
-                    "blocked": "%s contains a disallowed email provider",
+                    "blocked": "%s deg-s asaǧǧăw n yimayl ur nettusireg ara",
                     "unreachable": "%s ur yettban ara yella",
                     "taken": "%s yettwaseqdec yakan",
-                    "reserved": "%s is a reserved keyword",
+                    "reserved": "%s d awal uffir yettwaḥarren",
                     "accepted": "%s ilaq ad yettwaqbal",
                     "blank": "isra %s",
                     "invalid": "%s d arameɣtu",
@@ -295,9 +295,9 @@
                 },
                 "special": {
                     "username_invalid": "Username must only contain alphanumeric characters and underscores",
-                    "username_too_long": "Username is too long (can’t be longer than 30 characters)",
+                    "username_too_long": "Isem n useqdac ɣezzif aṭas (ur ilaq ara ad iɛeddi nnig 30 yisekkilen)",
                     "email_invalid": "Tagi mačči d tansa n yimayl tameɣtut",
-                    "password_too_short": "Password is too short (must be at least 8 characters)"
+                    "password_too_short": "Awal uffir wezzil aṭas (ilaq ad yesɛu ma drus 8 yisekkilen)"
                 }
             }
         },
@@ -312,10 +312,10 @@
             }
         },
         "confirm_email": {
-            "title": "One last thing.",
+            "title": "Taɣawsa taneggarut.",
             "subtitle": "Tap the link we emailed to you to verify your account.",
             "button": {
-                "open_email_app": "Open Email App",
+                "open_email_app": "Ldi asnas n yimayl",
                 "resend": "Ales tuzna"
             },
             "dont_receive_email": {
@@ -324,10 +324,10 @@
                 "resend_email": "Ales tuzna n yimayl"
             },
             "open_email_app": {
-                "title": "Check your inbox.",
-                "description": "We just sent you an email. Check your junk folder if you haven’t.",
+                "title": "Sefqed Tanaka-inek.",
+                "description": "Akken kan i ak-n-nuzen imayl. Sefqed aspam ma yella ur t-tufiḍ ara.",
                 "mail": "Imayl",
-                "open_email_client": "Open Email Client"
+                "open_email_client": "Ldi amsaɣ n yimayl"
             }
         },
         "home_timeline": {
@@ -335,33 +335,33 @@
             "navigation_bar_state": {
                 "offline": "Beṛṛa n tuqqna",
                 "new_posts": "Tissufaɣ timaynutin",
-                "published": "Published!",
-                "Publishing": "Publishing post..."
+                "published": "Yettwasuffeɣ!",
+                "Publishing": "Asuffeɣ tasuffeɣt..."
             }
         },
         "suggestion_account": {
-            "title": "Find People to Follow",
-            "follow_explain": "When you follow someone, you’ll see their posts in your home feed."
+            "title": "Af imdanen ara tḍefreḍ",
+            "follow_explain": "Mi ara teṭṭafareḍ albaɛḍ, ad twaliḍ tisuffaɣ-is deg usuddem-inek agejdan."
         },
         "compose": {
             "title": {
                 "new_post": "Tasuffeɣt tamaynut",
-                "new_reply": "New Reply"
+                "new_reply": "Tiririt tamaynut"
             },
             "media_selection": {
                 "camera": "Ṭṭef tawlaft",
                 "photo_library": "Tanedlist n tewlaft",
                 "browse": "Snirem"
             },
-            "content_input_placeholder": "Type or paste what’s on your mind",
+            "content_input_placeholder": "Aru neɣ senteḍ ayen yellan deg wallaɣ-ik",
             "compose_action": "Sufeɣ",
-            "replying_to_user": "replying to %s",
+            "replying_to_user": "tiririt ɣef %s",
             "attachment": {
                 "photo": "tawlaft",
                 "video": "tavidyutt",
                 "attachment_broken": "This %s is broken and can’t be\nuploaded to Mastodon.",
-                "description_photo": "Describe the photo for the visually-impaired...",
-                "description_video": "Describe the video for the visually-impaired..."
+                "description_photo": "Glem-d tawlaft i wid yesɛan ugur deg yiẓri...",
+                "description_video": "Glem-d tavidyut i wid yesɛan ugur deg yiẓri..."
             },
             "poll": {
                 "duration_time": "Tangazt: %s",
