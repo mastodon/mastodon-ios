@@ -21,9 +21,9 @@
             },
             "publish_post_failure": {
                 "title": "Yecceḍ usuffeɣ",
-                "message": "Failed to publish the post.\nPlease check your internet connection.",
+                "message": "Yecceḍ usuffeɣ n tsuffeɣt.\nMa ulac aɣilif, senqed tuqqna-inek internet.",
                 "attachments_message": {
-                    "video_attach_with_photo": "Cannot attach a video to a post that already contains images.",
+                    "video_attach_with_photo": "Ur tezmireḍ ara ad tsedduḍ tavidyut deg tsuffeɣt ideg llant yakan tugniwin.",
                     "more_than_one_video": "Cannot attach more than one video."
                 }
             },
