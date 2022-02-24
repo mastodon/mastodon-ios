@@ -24,7 +24,7 @@
                 "message": "Yecceḍ usuffeɣ n tsuffeɣt.\nMa ulac aɣilif, senqed tuqqna-inek internet.",
                 "attachments_message": {
                     "video_attach_with_photo": "Ur tezmireḍ ara ad tsedduḍ tavidyut deg tsuffeɣt ideg llant yakan tugniwin.",
-                    "more_than_one_video": "Cannot attach more than one video."
+                    "more_than_one_video": "Ur tezmireḍ ara ad ugar n tvidyut."
                 }
             },
             "edit_profile_failure": {
@@ -111,7 +111,7 @@
                     "next_status": "Amagrad uḍfir",
                     "open_status": "Ldi tasuffeɣt",
                     "open_author_profile": "Ldi amaɣnu n umeskar",
-                    "open_reblogger_profile": "Open Reblogger's Profile",
+                    "open_reblogger_profile": "Ldi amaɣnu n win i yulsen asuffeɣ",
                     "reply_status": "Err ɣef tsuffeɣt",
                     "toggle_reblog": "Toggle Reblog on Post",
                     "toggle_favorite": "Toggle Favorite on Post",
