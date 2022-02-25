@@ -13,9 +13,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 n ulɣu ur nettwaɣra</string>
+        <string>1 wulɣu ur nettwaɣra</string>
         <key>other</key>
-        <string>%ld ilɣa ur nettwaɣra</string>
+        <string>%ld yilɣa ur nettwaɣra</string>
       </dict>
     </dict>
     <key>a11y.plural.count.input_limit_exceeds</key>
@@ -29,9 +29,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 character</string>
+        <string>1 usekkil</string>
         <key>other</key>
-        <string>%ld iskillen</string>
+        <string>%ld yisekkilen</string>
       </dict>
     </dict>
     <key>a11y.plural.count.input_limit_remains</key>
@@ -45,7 +45,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>%ld n yisekkilen</string>
+        <string>1 usekkil</string>
         <key>other</key>
         <string>%ld yisekkilen</string>
       </dict>
@@ -61,7 +61,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>tasuffeγt</string>
+        <string>tasuffeɣt</string>
         <key>other</key>
         <string>tisuffaɣ</string>
       </dict>
@@ -77,7 +77,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 post</string>
+        <string>1 tsuffeɣt</string>
         <key>other</key>
         <string>%ld n tsuffaɣ</string>
       </dict>
@@ -93,9 +93,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1unirf</string>
+        <string>1unurif</string>
         <key>other</key>
-        <string>%ld yiurifen</string>
+        <string>%ld yinurifen</string>
       </dict>
     </dict>
     <key>plural.count.reblog</key>
@@ -125,9 +125,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 vote</string>
+        <string>1 tefrant</string>
         <key>other</key>
-        <string>%ld votes</string>
+        <string>%ld tefranin</string>
       </dict>
     </dict>
     <key>plural.count.voter</key>
@@ -141,9 +141,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 voter</string>
+        <string>1umefran</string>
         <key>other</key>
-        <string>%ld voters</string>
+        <string>%ld imefranen</string>
       </dict>
     </dict>
     <key>plural.people_talking</key>
@@ -157,9 +157,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 people talking</string>
+        <string>1 umdan i yettmeslayen</string>
         <key>other</key>
-        <string>%ld people talking</string>
+        <string>%ld yimdanen i yettmeslayen</string>
       </dict>
     </dict>
     <key>plural.count.following</key>
@@ -173,9 +173,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 following</string>
+        <string>1 uneḍfar</string>
         <key>other</key>
-        <string>%ld following</string>
+        <string>%ld yineḍfaren</string>
       </dict>
     </dict>
     <key>plural.count.follower</key>
@@ -189,9 +189,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 follower</string>
+        <string>1 uneḍfar</string>
         <key>other</key>
-        <string>%ld followers</string>
+        <string>%ld yineḍfaren</string>
       </dict>
     </dict>
     <key>date.year.left</key>
@@ -205,9 +205,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 year left</string>
+        <string>Yeqqim-d 1 useggas</string>
         <key>other</key>
-        <string>%ld years left</string>
+        <string>Qqimen-d %ld yiseggasen</string>
       </dict>
     </dict>
     <key>date.month.left</key>
@@ -221,9 +221,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 months left</string>
+        <string>1 wayyur i d-yeqqimen</string>
         <key>other</key>
-        <string>%ld months left</string>
+        <string>%ld wayyuren i d-yeqqimen</string>
       </dict>
     </dict>
     <key>date.day.left</key>
@@ -237,9 +237,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 day left</string>
+        <string>Yeqqim-d 1 wass</string>
         <key>other</key>
-        <string>%ld days left</string>
+        <string>Qqimen-d %ld wussan</string>
       </dict>
     </dict>
     <key>date.hour.left</key>
@@ -253,9 +253,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 hour left</string>
+        <string>Yeqqim-d 1 usrag</string>
         <key>other</key>
-        <string>%ld hours left</string>
+        <string>Qqimen-d %ld yisragen</string>
       </dict>
     </dict>
     <key>date.minute.left</key>
@@ -269,9 +269,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 minute left</string>
+        <string>1 tesdat i d-yeqqimen</string>
         <key>other</key>
-        <string>%ld minutes left</string>
+        <string>%ld tesdatin i d-yeqqimen</string>
       </dict>
     </dict>
     <key>date.second.left</key>
@@ -285,9 +285,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 second left</string>
+        <string>1 tasint i d-yeqqimen</string>
         <key>other</key>
-        <string>%ld seconds left</string>
+        <string>%ld tsinin i d-yeqqimen</string>
       </dict>
     </dict>
     <key>date.year.ago.abbr</key>
@@ -301,9 +301,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1y ago</string>
+        <string>1 useggas aya</string>
         <key>other</key>
-        <string>%ldy ago</string>
+        <string>%ld yiseggasen aya</string>
       </dict>
     </dict>
     <key>date.month.ago.abbr</key>
@@ -317,9 +317,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1M ago</string>
+        <string>1 wayyur aya</string>
         <key>other</key>
-        <string>%ldM ago</string>
+        <string>%ld wayyuren aya</string>
       </dict>
     </dict>
     <key>date.day.ago.abbr</key>
@@ -333,9 +333,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1d ago</string>
+        <string>1 wass aya</string>
         <key>other</key>
-        <string>%ldd ago</string>
+        <string>%ld wussan aya</string>
       </dict>
     </dict>
     <key>date.hour.ago.abbr</key>
@@ -349,9 +349,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1h ago</string>
+        <string>1 usrag aya</string>
         <key>other</key>
-        <string>%ldh ago</string>
+        <string>%ld yisragen aya</string>
       </dict>
     </dict>
     <key>date.minute.ago.abbr</key>
@@ -365,9 +365,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1m ago</string>
+        <string>1 tesdat aya</string>
         <key>other</key>
-        <string>%ldm ago</string>
+        <string>%ld tesdatin aya</string>
       </dict>
     </dict>
     <key>date.second.ago.abbr</key>
@@ -381,9 +381,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1s ago</string>
+        <string>1 tasint aya</string>
         <key>other</key>
-        <string>%lds ago</string>
+        <string>%ld tsinin aya</string>
       </dict>
     </dict>
   </dict>
