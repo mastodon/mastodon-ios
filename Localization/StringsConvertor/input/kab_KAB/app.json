@@ -213,7 +213,7 @@
                     "all": "Akk",
                     "all_accessiblity_description": "Taggayt: Akk",
                     "academia": "akadimi",
-                    "activism": "activism",
+                    "activism": "tinuɣmest",
                     "food": "učči",
                     "furry": "furry",
                     "games": "uraren",
@@ -243,7 +243,7 @@
             }
         },
         "register": {
-            "title": "Let’s get you set up on %s",
+            "title": "Aha ad nebdu asbadu ɣef %s",
             "input": {
                 "avatar": {
                     "delete": "Kkes"
@@ -568,7 +568,7 @@
             "step1": "Aḥric 1 seg 2",
             "step2": "Aḥric 2 seg 2",
             "content1": "Tebɣiḍ ad ternuḍ tisuffaɣ-nniḍen ɣer uneqqis?",
-            "content2": "Is there anything the moderators should know about this report?",
+            "content2": "Yella wayen i ilaqen ad teẓren yimḍebbren ɣef uneqqis-a?",
             "report_sent_title": "Tanemmirt ɣef uneqqis, ad nwali deg waya.",
             "send": "Azen aneqis",
             "skip_to_send": "Azen s war awennit",
