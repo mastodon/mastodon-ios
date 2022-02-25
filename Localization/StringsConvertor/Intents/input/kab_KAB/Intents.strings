@@ -28,24 +28,24 @@
 
 "apSxMG-ehFLjY" = "Yella ${count} n textiṛiyin yemṣadan d 'Yineḍfaren kan'.";
 
-"ayoYEb-dYQ5NN" = "${content}, Public";
+"ayoYEb-dYQ5NN" = "${content}, azayaz";
 
-"ayoYEb-ehFLjY" = "${content}, Followers Only";
+"ayoYEb-ehFLjY" = "${content}, ineḍfaren kan";
 
 "dUyuGg" = "Asuffeɣ deg Maṣṭudun";
 
 "dYQ5NN" = "Azayez";
 
-"ehFLjY" = "Followers Only";
+"ehFLjY" = "Imeḍfaṛen kan";
 
-"gfePDu" = "Posting failed. ${failureReason}";
+"gfePDu" = "Asuffeɣ yecceḍ. ${failureReason}";
 
-"k7dbKQ" = "Post was sent successfully.";
+"k7dbKQ" = "Tasuffeɣt tettwazen akken iwata.";
 
-"oGiqmY-dYQ5NN" = "Just to confirm, you wanted ‘Public’?";
+"oGiqmY-dYQ5NN" = "I usentem kan, tebɣiḍ 'Azayaz'?";
 
-"oGiqmY-ehFLjY" = "Just to confirm, you wanted ‘Followers Only’?";
+"oGiqmY-ehFLjY" = "I usentem kan, tebɣiḍ 'Ineḍfaren kan'?";
 
 "rM6dvp" = "URL";
 
-"ryJLwG" = "Post was sent successfully. ";
+"ryJLwG" = "Tasuffeɣt tettwazen akken iwata. ";
