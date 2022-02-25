@@ -294,7 +294,7 @@
                     "inclusion": "%s mačči d azal yettusefraken"
                 },
                 "special": {
-                    "username_invalid": "Username must only contain alphanumeric characters and underscores",
+                    "username_invalid": "Isem n useqdac ilaq ad yesɛu kan isekkilen igmumḍinen d wid yettujerrden",
                     "username_too_long": "Isem n useqdac ɣezzif aṭas (ur ilaq ara ad iɛeddi nnig 30 yisekkilen)",
                     "email_invalid": "Tagi mačči d tansa n yimayl tameɣtut",
                     "password_too_short": "Awal uffir wezzil aṭas (ilaq ad yesɛu ma drus 8 yisekkilen)"
@@ -313,14 +313,14 @@
         },
         "confirm_email": {
             "title": "Taɣawsa taneggarut.",
-            "subtitle": "Tap the link we emailed to you to verify your account.",
+            "subtitle": "Sit ɣef useɣwen i ak-n-uznen i wakken ad tesneqdeḍ amiḍan-ik.",
             "button": {
                 "open_email_app": "Ldi asnas n yimayl",
                 "resend": "Ales tuzna"
             },
             "dont_receive_email": {
                 "title": "Senqed imayl-ik·im",
-                "description": "Check if your email address is correct as well as your junk folder if you haven’t.",
+                "description": "Senqed ma yella tansa-inek n imayl d tameɣut akked uspam ma yella ur t-tufiḍ ara.",
                 "resend_email": "Ales tuzna n yimayl"
             },
             "open_email_app": {
@@ -550,7 +550,7 @@
                     "privacy": "Tasertit tabaḍnit"
                 },
                 "spicy_zone": {
-                    "title": "The Spicy Zone",
+                    "title": "Tamnaḍt merrɣen",
                     "clear": "Sfeḍ takatut tuffirt n umidyat",
                     "signout": "Senser"
                 }
