@@ -21,7 +21,7 @@
     <key>a11y.plural.count.input_limit_exceeds</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Input limit exceeds %#@character_count@</string>
+      <string>Talast n unekcum tɛedda %#@character_count@</string>
       <key>character_count</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -37,7 +37,7 @@
     <key>a11y.plural.count.input_limit_remains</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Input limit remains %#@character_count@</string>
+      <string>Talast n unekcum yeqqim-d seg-s %#@character_count@</string>
       <key>character_count</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -45,9 +45,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 character</string>
+        <string>%ld n yisekkilen</string>
         <key>other</key>
-        <string>%ld iskillen</string>
+        <string>%ld yisekkilen</string>
       </dict>
     </dict>
     <key>plural.count.metric_formatted.post</key>
@@ -93,9 +93,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 favorite</string>
+        <string>1unirf</string>
         <key>other</key>
-        <string>%ld favorites</string>
+        <string>%ld yiurifen</string>
       </dict>
     </dict>
     <key>plural.count.reblog</key>
@@ -109,9 +109,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 reblog</string>
+        <string>1uɛiwed n usuffeɣ</string>
         <key>other</key>
-        <string>%ld reblogs</string>
+        <string>%ld n uɛiwed n usuffeɣ</string>
       </dict>
     </dict>
     <key>plural.count.vote</key>
