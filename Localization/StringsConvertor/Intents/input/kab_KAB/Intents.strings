@@ -1,32 +1,32 @@
 "16wxgf" = "Asuffeɣ deg Matodon";
 
-"751xkl" = "Text Content";
+"751xkl" = "Agbur n uḍris";
 
 "CsR7G2" = "Asuffeɣ deg Matodon";
 
-"HZSGTr" = "What content to post?";
+"HZSGTr" = "Anwa agbur ara d-yettwasuffɣen?";
 
-"HdGikU" = "Posting failed";
+"HdGikU" = "Yecceḍ usuffeɣ";
 
-"KDNTJ4" = "Failure Reason";
+"KDNTJ4" = "Ssebba n tuccḍa";
 
-"RHxKOw" = "Send Post with text content";
+"RHxKOw" = "Azen tasuffeɣt s ugbur n uḍris";
 
 "RxSqsb" = "Tasuffeɣt";
 
-"WCIR3D" = "Post ${content} on Mastodon";
+"WCIR3D" = "Suffeɣ ${content} deg Mastodon";
 
 "ZKJSNu" = "Tasuffeɣt";
 
 "ZS1XaK" = "${content}";
 
-"ZbSjzC" = "Visibility";
+"ZbSjzC" = "Abani";
 
-"Zo4jgJ" = "Post Visibility";
+"Zo4jgJ" = "Abani n tsuffeɣt";
 
-"apSxMG-dYQ5NN" = "There are ${count} options matching ‘Public’.";
+"apSxMG-dYQ5NN" = "Yella ${count} n textiṛiyin yemṣadan d 'Uzayaz'.";
 
-"apSxMG-ehFLjY" = "There are ${count} options matching ‘Followers Only’.";
+"apSxMG-ehFLjY" = "Yella ${count} n textiṛiyin yemṣadan d 'Yineḍfaren kan'.";
 
 "ayoYEb-dYQ5NN" = "${content}, Public";
 
