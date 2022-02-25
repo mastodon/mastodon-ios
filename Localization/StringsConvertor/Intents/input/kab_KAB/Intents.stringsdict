@@ -13,9 +13,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>%ld</string>
         <key>one</key>
-        <string>1 option</string>
+        <string>1 textiṛt</string>
         <key>other</key>
-        <string>%ld iɣewwaṛen</string>
+        <string>%ld textiṛiyin</string>
       </dict>
     </dict>
     <key>There are ${count} options matching ‘${visibility}’.</key>
