@@ -37,7 +37,7 @@
                 "confirm": "Ffeɣ"
             },
             "block_domain": {
-                "title": "Are you really, really sure you want to block the entire %s? In most cases a few targeted blocks or mutes are sufficient and preferable. You will not see content from that domain and any of your followers from that domain will be removed.",
+                "title": "D tidet, d tidet tebɣiḍ ad tesweḥleḍ %s akken ma yella? Deg tuget, kra n yisewḥal d ugdal ad yili d ayen iwulmen, yettwafernen. Ur tettwaliḍ ara agbur seg taɣult-nni neɣ kra seg yineḍfaren-ik i tt-yesseqdacen.",
                 "block_entire_domain": "Sewḥel taɣult"
             },
             "save_photo_failure": {
@@ -200,14 +200,14 @@
     },
     "scene": {
         "welcome": {
-            "slogan": "Social networking\nback in your hands.",
+            "slogan": "Izeḍwa inmettiyen\nuɣalen-d ɣer ufus-ik.",
             "get_started": "Aha bdu tura",
             "log_in": "Qqen"
         },
         "server_picker": {
             "title": "Mastodon yettwaxdem i yiseqdacen deg waṭas n temɣiwnin.",
-            "subtitle": "Pick a community based on your interests, region, or a general purpose one.",
-            "subtitle_extend": "Pick a community based on your interests, region, or a general purpose one. Each community is operated by an entirely independent organization or individual.",
+            "subtitle": "Fren tamɣiwent almend n wayen tḥemmleḍ, n tmurt-ik neɣ n yiswi-inek amatu.",
+            "subtitle_extend": "Fren tamɣiwent almend n wayen tḥemmleḍ, n tmurt-ik neɣ n yiswi-inek amatu. Yal tamɣiwent tsedday-itt tkebbanit neɣ amdan ilelliyen.",
             "button": {
                 "category": {
                     "all": "Akk",
