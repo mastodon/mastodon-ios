@@ -212,7 +212,7 @@
                 "category": {
                     "all": "Akk",
                     "all_accessiblity_description": "Taggayt: Akk",
-                    "academia": "academia",
+                    "academia": "akadimi",
                     "activism": "activism",
                     "food": "učči",
                     "furry": "furry",
@@ -303,8 +303,8 @@
         },
         "server_rules": {
             "title": "Kra n yilugan igejdanen.",
-            "subtitle": "These are set and enforced by the %s moderators.",
-            "prompt": "By continuing, you’re subject to the terms of service and privacy policy for %s.",
+            "subtitle": "Ilugan-a ttusbadun sɣur inedbalen n %s.",
+            "prompt": "Mi ara tkemmleḍ, ilaq ad tqebleḍ tiwtilin n yimeẓla d tsertit tabaḍnit n %s.",
             "terms_of_service": "tiwetlin n useqdec",
             "privacy_policy": "tasertit tabaḍnit",
             "button": {
@@ -374,7 +374,7 @@
                 "option_number": "Taxtiṛt %ld"
             },
             "content_warning": {
-                "placeholder": "Write an accurate warning here..."
+                "placeholder": "Aru alɣu-inek s telqeyt da..."
             },
             "visibility": {
                 "public": "Azayez",
@@ -400,7 +400,7 @@
                 "toggle_poll": "Beddel asenqed",
                 "toggle_content_warning": "Beddel alɣu n ugbur",
                 "append_attachment_entry": "Rnu taceqquft yeddan - %s",
-                "select_visibility_entry": "Select Visibility - %s"
+                "select_visibility_entry": "Fren timeẓriwt - %s"
             }
         },
         "profile": {
@@ -457,13 +457,13 @@
             "recommend": {
                 "button_text": "Wali akk",
                 "hash_tag": {
-                    "title": "Trending on Mastodon",
-                    "description": "Hashtags that are getting quite a bit of attention",
+                    "title": "Ayen mucaɛen ɣef Mastodon",
+                    "description": "Hashtags i d-ijebbden aṭas lwelha",
                     "people_talking": "%s yimdanen i yettmeslayen"
                 },
                 "accounts": {
                     "title": "Imiḍanen i tzemreḍ ad tḥemmleḍ",
-                    "description": "You may like to follow these accounts",
+                    "description": "Ahat tebɣiḍ ad tḍefreḍ imiḍanen-a",
                     "follow": "Ḍfeṛ"
                 }
             },
@@ -524,9 +524,9 @@
                 },
                 "notifications": {
                     "title": "Tilɣa",
-                    "favorites": "Favorites my post",
+                    "favorites": "Yerna tasuffeɣt-iw ɣer yismenyafen-ines",
                     "follows": "Yeṭṭafar-iyi",
-                    "boosts": "Reblogs my post",
+                    "boosts": "Yules asuffeɣ n tduffeɣt-iw",
                     "mentions": "Ibder-iyi-d",
                     "trigger": {
                         "anyone": "yal yiwen",
@@ -538,13 +538,13 @@
                 },
                 "preference": {
                     "title": "Imenyafen",
-                    "true_black_dark_mode": "True black dark mode",
-                    "disable_avatar_animation": "Disable animated avatars",
+                    "true_black_dark_mode": "Askar aberkan n tidet",
+                    "disable_avatar_animation": "Sens ivaṭaren yettembiwilen",
                     "disable_emoji_animation": "Sens imujiten yettembiwilen",
-                    "using_default_browser": "Use default browser to open links"
+                    "using_default_browser": "Seqdec iminig amezwer i twaledyawt n yiseɣwan"
                 },
                 "boring_zone": {
-                    "title": "The Boring Zone",
+                    "title": "Tamnaḍt yessefcalen",
                     "account_settings": "Iɣewwaṛen n umiḍan",
                     "terms": "Tiwtilin n useqdec",
                     "privacy": "Tasertit tabaḍnit"
@@ -567,7 +567,7 @@
             "title": "Aneqqis %s",
             "step1": "Aḥric 1 seg 2",
             "step2": "Aḥric 2 seg 2",
-            "content1": "Are there any other posts you’d like to add to the report?",
+            "content1": "Tebɣiḍ ad ternuḍ tisuffaɣ-nniḍen ɣer uneqqis?",
             "content2": "Is there anything the moderators should know about this report?",
             "report_sent_title": "Tanemmirt ɣef uneqqis, ad nwali deg waya.",
             "send": "Azen aneqis",
