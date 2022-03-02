@@ -1,0 +1,27 @@
+{
+  "configurations" : [
+    {
+      "id" : "E27ADCCD-D2DF-4255-81D1-21CFC3C33254",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "testTimeoutsEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "selectedTests" : [
+        "MastodonUISnapshotTests\/testSnapshot()"
+      ],
+      "target" : {
+        "containerPath" : "container:Mastodon.xcodeproj",
+        "identifier" : "DB427DF225BAA00100D1B89D",
+        "name" : "MastodonUITests"
+      }
+    }
+  ],
+  "version" : 1
+}
