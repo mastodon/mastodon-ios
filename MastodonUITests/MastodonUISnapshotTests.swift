@@ -197,16 +197,24 @@ extension MastodonUISnapshotTests {
     
     // Please check the Documentation/Snapshot.md and run this test case in the command line
     func testSignInAccount() async throws {
+        guard let domain = ProcessInfo.processInfo.environment["domain"] else {
+            fatalError("env 'domain' missing")
+        }
         guard let email = ProcessInfo.processInfo.environment["email"] else {
             fatalError("env 'email' missing")
         }
         guard let password = ProcessInfo.processInfo.environment["password"] else {
             fatalError("env 'password' missing")
         }
-        try await signInApplication(email: email, password: password)
+        try await signInApplication(
+            domain: domain,
+            email: email,
+            password: password
+        )
     }
 
     func signInApplication(
+        domain: String,
         email: String,
         password: String
     ) async throws {
@@ -238,14 +246,14 @@ extension MastodonUISnapshotTests {
         domainTextField.tap()
         // Skip system keyboard swipe input guide
         skipKeyboardSwipeInputGuide(app: app)
-        domainTextField.typeText("mastodon.social")
+        domainTextField.typeText(domain)
         XCUIApplication().keyboards.buttons["Done"].firstMatch.tap()
         
         // wait searching
         try await Task.sleep(nanoseconds: .second * 3)
         
         // tap server
-        let cell = app.cells.containing(.staticText, identifier: "mastodon.social").firstMatch
+        let cell = app.cells.containing(.staticText, identifier: domain).firstMatch
         XCTAssert(cell.waitForExistence(timeout: 5))
         cell.tap()
         

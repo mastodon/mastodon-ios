@@ -39,6 +39,8 @@ TEST_RUNNER_email='<Email>' \
   -scheme 'Mastodon - Snapshot'  \
   -sdk iphonesimulator \
   -destination 'platform=iOS Simulator,name=iPhone 13 Pro Max' \
+  -destination 'platform=iOS Simulator,name=iPhone 8 Plus' \
+  -destination 'platform=iOS Simulator,name=iPad Pro (12.9-inch) (5th generation)' \
   -testPlan 'AppStoreSnapshotTestPlan' \
   -only-testing:MastodonUITests/MastodonUISnapshotTests/testSignInAccount
 ```
@@ -48,8 +50,14 @@ UITest may running silent. Open the Simulator.app to make the device display.
 
 #### Take and extract snapshots
 ```zsh
+# setup magic status bar
+xcrun simctl status_bar 'iPhone 13 Pro Max' override --time "9:41" --batteryState charged --batteryLevel 100
+xcrun simctl status_bar 'iPhone 8 Plus' override --time "9:41" --batteryState charged --batteryLevel 100
+xcrun simctl status_bar 'iPad Pro (12.9-inch) (5th generation)' override --time "9:41" --batteryState charged --batteryLevel 100
+
 # take snapshots
-TEST_RUNNER_username_snapshot='Gargron' \
+TEST_RUNNER_domain='<domain.com>' \
+  TEST_RUNNER_username_snapshot='username@domain.com' \
   xcodebuild \
   test \
   -derivedDataPath '~/Downloads/MastodonBuild/Derived' \
@@ -57,6 +65,8 @@ TEST_RUNNER_username_snapshot='Gargron' \
   -scheme 'Mastodon - Snapshot'  \
   -sdk iphonesimulator \
   -destination 'platform=iOS Simulator,name=iPhone 13 Pro Max' \
+  -destination 'platform=iOS Simulator,name=iPhone 8 Plus' \
+  -destination 'platform=iOS Simulator,name=iPad Pro (12.9-inch) (5th generation)' \
   -testPlan 'AppStoreSnapshotTestPlan' \
   -only-testing:MastodonUITests/MastodonUISnapshotTests/testSnapshot
 
