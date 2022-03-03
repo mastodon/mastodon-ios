@@ -51,6 +51,7 @@ final class HomeTimelineViewController: UIViewController, NeedsDependency, Media
         let barButtonItem = UIBarButtonItem()
         barButtonItem.tintColor = ThemeService.tintColor
         barButtonItem.image = UIImage(systemName: "gear")?.withRenderingMode(.alwaysTemplate)
+        barButtonItem.accessibilityLabel = L10n.Common.Controls.Actions.settings
         return barButtonItem
     }()
     
@@ -58,6 +59,7 @@ final class HomeTimelineViewController: UIViewController, NeedsDependency, Media
         let barButtonItem = UIBarButtonItem()
         barButtonItem.tintColor = ThemeService.tintColor
         barButtonItem.image = UIImage(systemName: "square.and.pencil")?.withRenderingMode(.alwaysTemplate)
+        barButtonItem.accessibilityLabel = L10n.Common.Controls.Actions.compose
         return barButtonItem
     }()
     

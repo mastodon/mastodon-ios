@@ -14,7 +14,7 @@
   "testTargets" : [
     {
       "selectedTests" : [
-        "MastodonUISnapshotTests\/testSnapshot()"
+        "MastodonUISnapshotTests\/testSmoke()"
       ],
       "target" : {
         "containerPath" : "container:Mastodon.xcodeproj",
