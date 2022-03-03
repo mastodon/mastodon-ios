@@ -171,8 +171,8 @@ extension MastodonUISnapshotTests {
         XCTAssert(photoLibraryButton.waitForExistence(timeout: 5))
         photoLibraryButton.tap()
         
-        // select photo
-        let photo = app.images["Photo, August 09, 2012, 2:52 AM"].firstMatch
+        // select the first photo
+        let photo = app.images.containing(NSPredicate(format: "label BEGINSWITH 'Photo'")).element(boundBy: 0).firstMatch
         XCTAssert(photo.waitForExistence(timeout: 5))
         photo.tap()
         
