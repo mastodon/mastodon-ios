@@ -59,6 +59,7 @@ extension MastodonUISnapshotTests {
         
         try await testSnapshotHome()
         try await testSnapshotSearch()
+        try await testSnapshotNotification()
         try await testSnapshotProfile()
         try await testSnapshotCompose()
     }
@@ -95,6 +96,23 @@ extension MastodonUISnapshotTests {
         tapTab(app: app, tab: "Search")
         try await Task.sleep(nanoseconds: .second * 3)
         takeSnapshot(name: "Search - 3")
+    }
+    
+    func testSnapshotNotification() async throws {
+        let app = XCUIApplication()
+        app.launch()
+        
+        tapTab(app: app, tab: "Notification")
+        try await Task.sleep(nanoseconds: .second * 3)
+        takeSnapshot(name: "Notification - 1")
+        
+        tapTab(app: app, tab: "Notification")
+        try await Task.sleep(nanoseconds: .second * 3)
+        takeSnapshot(name: "Notification - 2")
+        
+        tapTab(app: app, tab: "Notification")
+        try await Task.sleep(nanoseconds: .second * 3)
+        takeSnapshot(name: "Notification - 3")
     }
     
     func testSnapshotProfile() async throws {
