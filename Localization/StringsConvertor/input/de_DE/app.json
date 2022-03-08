@@ -494,8 +494,8 @@
                 "favorited_your_post": "hat deinen Beitrag favorisiert",
                 "reblogged_your_post": "hat deinen Beitrag geteilt",
                 "mentioned_you": "hat dich erwähnt",
-                "request_to_follow_you": "möchte dir folgen",
-                "poll_has_ended": "poll has ended"
+                "request_to_follow_you": "Folgeanfrage",
+                "poll_has_ended": "Umfrage wurde beendet"
             },
             "keyobard": {
                 "show_everything": "Alles anzeigen",
@@ -516,11 +516,11 @@
                     "dark": "Immer dunkel"
                 },
                 "look_and_feel": {
-                    "title": "Look and Feel",
-                    "use_system": "Use System",
-                    "really_dark": "Really Dark",
-                    "sorta_dark": "Sorta Dark",
-                    "light": "Light"
+                    "title": "Erscheinungsbild",
+                    "use_system": "Systemeinstellung benutzen",
+                    "really_dark": "Wirklich dunkel",
+                    "sorta_dark": "Ziemlich dunkel",
+                    "light": "Hell"
                 },
                 "notifications": {
                     "title": "Benachrichtigungen",
@@ -563,17 +563,17 @@
             }
         },
         "report": {
-            "title_report": "Report",
+            "title_report": "Melden",
             "title": "%s melden",
             "step1": "Schritt 1 von 2",
             "step2": "Schritt 2 von 2",
             "content1": "Gibt es noch weitere Beiträge, die du der Meldung hinzufügen möchtest?",
             "content2": "Gibt es etwas, was die Moderatoren über diese Meldung wissen sollten?",
-            "report_sent_title": "Thanks for reporting, we’ll look into this.",
+            "report_sent_title": "Danke für deine Meldung, wir werden uns damit beschäftigen.",
             "send": "Meldung abschicken",
             "skip_to_send": "Ohne Kommentar abschicken",
             "text_placeholder": "Zusätzliche Kommentare eingeben oder einfügen",
-            "reported": "REPORTED"
+            "reported": "GEMELDET"
         },
         "preview": {
             "keyboard": {
