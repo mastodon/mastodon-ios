@@ -46,7 +46,7 @@
             },
             "delete_post": {
                 "title": "Bist du dir sicher, dass du diesen Beitrag löschen möchtest?",
-                "message": "Are you sure you want to delete this post?"
+                "message": "Bist du dir sicher, dass du diesen Beitrag löschen willst?"
             },
             "clean_cache": {
                 "title": "Zwischenspeicher leeren",
@@ -141,7 +141,7 @@
                     "favorite": "Favorit",
                     "unfavorite": "Aus Favoriten entfernen",
                     "menu": "Menü",
-                    "hide": "Hide"
+                    "hide": "Verstecken"
                 },
                 "tag": {
                     "url": "URL",
@@ -152,10 +152,10 @@
                     "emoji": "Emoji"
                 },
                 "visibility": {
-                    "unlisted": "Everyone can see this post but not display in the public timeline.",
-                    "private": "Only their followers can see this post.",
-                    "private_from_me": "Only my followers can see this post.",
-                    "direct": "Only mentioned user can see this post."
+                    "unlisted": "Jeder kann diesen Post sehen, aber nicht in der öffentlichen Timeline zeigen.",
+                    "private": "Nur Follower des Authors können diesen Beitrag sehen.",
+                    "private_from_me": "Nur meine Follower können diesen Beitrag sehen.",
+                    "direct": "Nur erwähnte Benutzer können diesen Beitrag sehen."
                 }
             },
             "friendship": {
@@ -419,26 +419,26 @@
             "segmented_control": {
                 "posts": "Beiträge",
                 "replies": "Antworten",
-                "posts_and_replies": "Posts and Replies",
+                "posts_and_replies": "Beiträge und Antworten",
                 "media": "Medien",
-                "about": "About"
+                "about": "Über"
             },
             "relationship_action_alert": {
                 "confirm_mute_user": {
-                    "title": "Mute Account",
-                    "message": "Confirm to mute %s"
+                    "title": "Konto stummschalten",
+                    "message": "Bestätige %s stumm zu schalten"
                 },
                 "confirm_unmute_user": {
                     "title": "Ton einschalten",
                     "message": "Bestätige um %s nicht mehr stummzuschalten"
                 },
                 "confirm_block_user": {
-                    "title": "Block Account",
-                    "message": "Confirm to block %s"
+                    "title": "Konto blockieren",
+                    "message": "Bestätige %s zu blockieren"
                 },
                 "confirm_unblock_user": {
-                    "title": "Unblock Account",
-                    "message": "Confirm to unblock %s"
+                    "title": "Konto entsperren",
+                    "message": "Bestätige %s zu entsperren"
                 }
             }
         },
@@ -490,11 +490,11 @@
                 "Mentions": "Erwähnungen"
             },
             "notification_description": {
-                "followed_you": "followed you",
-                "favorited_your_post": "favorited your post",
-                "reblogged_your_post": "reblogged your post",
-                "mentioned_you": "mentioned you",
-                "request_to_follow_you": "request to follow you",
+                "followed_you": "folgt dir",
+                "favorited_your_post": "hat deinen Beitrag favorisiert",
+                "reblogged_your_post": "hat deinen Beitrag geteilt",
+                "mentioned_you": "hat dich erwähnt",
+                "request_to_follow_you": "möchte dir folgen",
                 "poll_has_ended": "poll has ended"
             },
             "keyobard": {
@@ -544,7 +544,7 @@
                     "using_default_browser": "Standardbrowser zum Öffnen von Links verwenden"
                 },
                 "boring_zone": {
-                    "title": "Der Langweiliger Bereich",
+                    "title": "Der langweilige Bereich",
                     "account_settings": "Kontoeinstellungen",
                     "terms": "Allgemeine Geschäftsbedingungen",
                     "privacy": "Datenschutzerklärung"
