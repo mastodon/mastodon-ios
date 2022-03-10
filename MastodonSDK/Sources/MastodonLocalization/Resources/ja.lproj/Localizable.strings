@@ -4,7 +4,7 @@
 "Common.Alerts.CleanCache.Title" = "キャッシュを消去";
 "Common.Alerts.Common.PleaseTryAgain" = "もう一度お試しください。";
 "Common.Alerts.Common.PleaseTryAgainLater" = "後でもう一度お試しください。";
-"Common.Alerts.DeletePost.Message" = "Are you sure you want to delete this post?";
+"Common.Alerts.DeletePost.Message" = "本当に削除しますか？";
 "Common.Alerts.DeletePost.Title" = "この投稿を消去しますか？";
 "Common.Alerts.DiscardPostContent.Message" = "この操作は取り消しできません。下書きは失われます。";
 "Common.Alerts.DiscardPostContent.Title" = "投稿を破棄しますか？";
@@ -94,7 +94,7 @@
 "Common.Controls.Keyboard.Timeline.ToggleFavorite" = "お気に入り登録を切り替える";
 "Common.Controls.Keyboard.Timeline.ToggleReblog" = "ブーストを切り替える";
 "Common.Controls.Status.Actions.Favorite" = "お気に入り";
-"Common.Controls.Status.Actions.Hide" = "Hide";
+"Common.Controls.Status.Actions.Hide" = "非表示";
 "Common.Controls.Status.Actions.Menu" = "メニュー";
 "Common.Controls.Status.Actions.Reblog" = "ブースト";
 "Common.Controls.Status.Actions.Reply" = "リプライ";
@@ -114,10 +114,10 @@
 "Common.Controls.Status.Tag.Url" = "URL";
 "Common.Controls.Status.UserReblogged" = "%@がブースト";
 "Common.Controls.Status.UserRepliedTo" = "%@がリプライ";
-"Common.Controls.Status.Visibility.Direct" = "Only mentioned user can see this post.";
-"Common.Controls.Status.Visibility.Private" = "Only their followers can see this post.";
-"Common.Controls.Status.Visibility.PrivateFromMe" = "Only my followers can see this post.";
-"Common.Controls.Status.Visibility.Unlisted" = "Everyone can see this post but not display in the public timeline.";
+"Common.Controls.Status.Visibility.Direct" = "この投稿はメンションされたユーザーに限り見ることができます。";
+"Common.Controls.Status.Visibility.Private" = "この投稿はフォロワーに限り見ることができます。";
+"Common.Controls.Status.Visibility.PrivateFromMe" = "この投稿はフォロワーに限り見ることができます。";
+"Common.Controls.Status.Visibility.Unlisted" = "この投稿は誰でも見ることができますが、公開タイムラインには表示されません。";
 "Common.Controls.Tabs.Home" = "ホーム";
 "Common.Controls.Tabs.Notification" = "通知";
 "Common.Controls.Tabs.Profile" = "プロフィール";
@@ -314,8 +314,8 @@
 "Scene.ServerPicker.Label.Category" = "カテゴリー";
 "Scene.ServerPicker.Label.Language" = "言語";
 "Scene.ServerPicker.Label.Users" = "ユーザー";
-"Scene.ServerPicker.Subtitle" = "Pick a community based on your interests, region, or a general purpose one.";
-"Scene.ServerPicker.SubtitleExtend" = "Pick a community based on your interests, region, or a general purpose one. Each community is operated by an entirely independent organization or individual.";
+"Scene.ServerPicker.Subtitle" = "あなたの興味分野・地域に合ったコミュニティや、汎用のものを選択してください。";
+"Scene.ServerPicker.SubtitleExtend" = "あなたの興味分野・地域に合ったコミュニティや、汎用のものを選択してください。各コミュニティはそれぞれ完全に独立した組織や個人によって運営されています。";
 "Scene.ServerPicker.Title" = "サーバーを選択";
 "Scene.ServerRules.Button.Confirm" = "同意する";
 "Scene.ServerRules.PrivacyPolicy" = "プライバシーポリシー";
@@ -362,7 +362,7 @@
 "Scene.Thread.BackTitle" = "投稿";
 "Scene.Thread.Title" = "%@の投稿";
 "Scene.Welcome.GetStarted" = "Get Started";
-"Scene.Welcome.LogIn" = "Log In";
+"Scene.Welcome.LogIn" = "ログイン";
 "Scene.Welcome.Slogan" = "ソーシャルネットワーキングを、あなたの手の中に.";
 "Scene.Wizard.AccessibilityHint" = "チュートリアルを閉じるには、ダブルタップしてください";
 "Scene.Wizard.MultipleAccountSwitchIntroDescription" = "プロフィールボタンを押して複数のアカウントを切り替えます。";

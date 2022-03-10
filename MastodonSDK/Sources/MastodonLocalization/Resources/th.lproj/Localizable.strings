@@ -5,7 +5,7 @@
 "Common.Alerts.Common.PleaseTryAgain" = "โปรดลองอีกครั้ง";
 "Common.Alerts.Common.PleaseTryAgainLater" = "โปรดลองอีกครั้งในภายหลัง";
 "Common.Alerts.DeletePost.Message" = "คุณแน่ใจหรือไม่ว่าต้องการลบโพสต์นี้?";
-"Common.Alerts.DeletePost.Title" = "คุณแน่ใจหรือไม่ว่าต้องการลบโพสต์นี้?";
+"Common.Alerts.DeletePost.Title" = "ลบโพสต์";
 "Common.Alerts.DiscardPostContent.Message" = "ยืนยันที่จะละทิ้งเนื้อหาโพสต์ที่เขียน";
 "Common.Alerts.DiscardPostContent.Title" = "ละทิ้งแบบร่าง";
 "Common.Alerts.EditProfileFailure.Message" = "ไม่สามารถแก้ไขโปรไฟล์ โปรดลองอีกครั้ง";
@@ -124,17 +124,17 @@
 "Common.Controls.Tabs.Search" = "ค้นหา";
 "Common.Controls.Timeline.Filtered" = "กรองอยู่";
 "Common.Controls.Timeline.Header.BlockedWarning" = "คุณไม่สามารถดูโปรไฟล์ของผู้ใช้นี้
-จนกว่าผู้ใช้นี้จะเลิกปิดกั้นคุณ";
+จนกว่าเขาจะเลิกปิดกั้นคุณ";
 "Common.Controls.Timeline.Header.BlockingWarning" = "คุณไม่สามารถดูโปรไฟล์ของผู้ใช้นี้
-จนกว่าคุณจะเลิกปิดกั้นผู้ใช้นี้
-ผู้ใช้นี้เห็นโปรไฟล์ของคุณเหมือนกับที่คุณเห็น";
+จนกว่าคุณจะเลิกปิดกั้นเขา
+โปรไฟล์ของคุณมีลักษณะเช่นนี้สำหรับเขา";
 "Common.Controls.Timeline.Header.NoStatusFound" = "ไม่พบโพสต์";
 "Common.Controls.Timeline.Header.SuspendedWarning" = "ผู้ใช้นี้ถูกระงับการใช้งาน";
 "Common.Controls.Timeline.Header.UserBlockedWarning" = "คุณไม่สามารถดูโปรไฟล์ของ %@
-จนกว่าผู้ใช้นี้จะเลิกปิดกั้นคุณ";
+จนกว่าเขาจะเลิกปิดกั้นคุณ";
 "Common.Controls.Timeline.Header.UserBlockingWarning" = "คุณไม่สามารถดูโปรไฟล์ของ %@
-จนกว่าคุณจะเลิกปิดกั้นผู้ใช้นี้
-ผู้ใช้นี้เห็นโปรไฟล์ของคุณเหมือนกับที่คุณเห็น";
+จนกว่าคุณจะเลิกปิดกั้นเขา
+โปรไฟล์ของคุณมีลักษณะเช่นนี้สำหรับเขา";
 "Common.Controls.Timeline.Header.UserSuspendedWarning" = "บัญชีของ %@ ถูกระงับการใช้งาน";
 "Common.Controls.Timeline.Loader.LoadMissingPosts" = "โหลดโพสต์ที่ขาดหายไป";
 "Common.Controls.Timeline.Loader.LoadingMissingPosts" = "กำลังโหลดโพสต์ที่ขาดหายไป...";
@@ -193,8 +193,7 @@
 "Scene.ConfirmEmail.OpenEmailApp.Mail" = "จดหมาย";
 "Scene.ConfirmEmail.OpenEmailApp.OpenEmailClient" = "เปิดไคลเอ็นต์อีเมล";
 "Scene.ConfirmEmail.OpenEmailApp.Title" = "ตรวจสอบกล่องขาเข้าของคุณ";
-"Scene.ConfirmEmail.Subtitle" = "เราเพิ่งส่งอีเมลไปยัง %@
-แตะที่ลิงก์เพื่อยืนยันบัญชีของคุณ";
+"Scene.ConfirmEmail.Subtitle" = "แตะลิงก์ที่เราส่งอีเมลถึงคุณเพื่อยืนยันบัญชีของคุณ";
 "Scene.ConfirmEmail.Title" = "หนึ่งสิ่งสุดท้าย";
 "Scene.Favorite.Title" = "รายการโปรดของคุณ";
 "Scene.Follower.Footer" = "ไม่ได้แสดงผู้ติดตามจากเซิร์ฟเวอร์อื่น ๆ";
@@ -268,7 +267,7 @@
 "Scene.Register.Input.Password.Require" = "รหัสผ่านของคุณต้องมีอย่างน้อย:";
 "Scene.Register.Input.Username.DuplicatePrompt" = "ชื่อผู้ใช้นี้ถูกใช้ไปแล้ว";
 "Scene.Register.Input.Username.Placeholder" = "ชื่อผู้ใช้";
-"Scene.Register.Title" = "บอกเราเกี่ยวกับคุณ";
+"Scene.Register.Title" = "มาตั้งค่าของคุณใน %@ กันเลย";
 "Scene.Report.Content1" = "มีโพสต์อื่นใดที่คุณต้องการเพิ่มไปยังรายงานหรือไม่?";
 "Scene.Report.Content2" = "มีสิ่งใดที่ผู้ควบคุมควรทราบเกี่ยวกับรายงานนี้หรือไม่?";
 "Scene.Report.ReportSentTitle" = "ขอบคุณสำหรับการรายงาน เราจะตรวจสอบสิ่งนี้";
@@ -316,18 +315,17 @@
 "Scene.ServerPicker.EmptyState.BadNetwork" = "มีบางอย่างผิดพลาดขณะโหลดข้อมูล ตรวจสอบการเชื่อมต่ออินเทอร์เน็ตของคุณ";
 "Scene.ServerPicker.EmptyState.FindingServers" = "กำลังค้นหาเซิร์ฟเวอร์ที่พร้อมใช้งาน...";
 "Scene.ServerPicker.EmptyState.NoResults" = "ไม่มีผลลัพธ์";
-"Scene.ServerPicker.Input.Placeholder" = "ค้นหาเซิร์ฟเวอร์หรือเข้าร่วมของคุณเอง...";
+"Scene.ServerPicker.Input.Placeholder" = "ค้นหาชุมชน";
 "Scene.ServerPicker.Label.Category" = "หมวดหมู่";
 "Scene.ServerPicker.Label.Language" = "ภาษา";
 "Scene.ServerPicker.Label.Users" = "ผู้ใช้";
 "Scene.ServerPicker.Subtitle" = "เลือกชุมชนตามความสนใจ, ภูมิภาค หรือวัตถุประสงค์ทั่วไปของคุณ";
 "Scene.ServerPicker.SubtitleExtend" = "เลือกชุมชนตามความสนใจ, ภูมิภาค หรือวัตถุประสงค์ทั่วไปของคุณ แต่ละชุมชนดำเนินการโดยองค์กรหรือบุคคลที่เป็นอิสระโดยสิ้นเชิง";
-"Scene.ServerPicker.Title" = "เลือกเซิร์ฟเวอร์
-อันไหนก็ได้";
+"Scene.ServerPicker.Title" = "Mastodon ประกอบด้วยผู้ใช้ในชุมชนต่าง ๆ";
 "Scene.ServerRules.Button.Confirm" = "ฉันเห็นด้วย";
 "Scene.ServerRules.PrivacyPolicy" = "นโยบายความเป็นส่วนตัว";
 "Scene.ServerRules.Prompt" = "เมื่อคุณดำเนินการต่อ คุณอยู่ภายใต้เงื่อนไขการให้บริการและนโยบายความเป็นส่วนตัวสำหรับ %@";
-"Scene.ServerRules.Subtitle" = "กฎเหล่านี้ถูกตั้งโดยผู้ดูแลของ %@";
+"Scene.ServerRules.Subtitle" = "มีการตั้งและบังคับใช้กฎเหล่านี้โดยผู้ควบคุมของ %@";
 "Scene.ServerRules.TermsOfService" = "เงื่อนไขการให้บริการ";
 "Scene.ServerRules.Title" = "กฎพื้นฐานบางประการ";
 "Scene.Settings.Footer.MastodonDescription" = "Mastodon เป็นซอฟต์แวร์โอเพนซอร์ส คุณสามารถรายงานปัญหาได้ใน GitHub ที่ %@ (%@)";
