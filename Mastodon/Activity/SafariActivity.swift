@@ -24,7 +24,7 @@ final class SafariActivity: UIActivity {
     }
     
     override var activityTitle: String? {
-        return L10n.Common.Controls.Actions.openInSafari
+        return UserDefaults.shared.preferredUsingDefaultBrowser ? L10n.Common.Controls.Actions.openInBrowser : L10n.Common.Controls.Actions.openInSafari
     }
     
     override var activityImage: UIImage? {
