@@ -46,7 +46,7 @@
             },
             "delete_post": {
                 "title": "この投稿を消去しますか？",
-                "message": "Are you sure you want to delete this post?"
+                "message": "本当に削除しますか？"
             },
             "clean_cache": {
                 "title": "キャッシュを消去",
@@ -141,7 +141,7 @@
                     "favorite": "お気に入り",
                     "unfavorite": "お気に入り登録を取り消す",
                     "menu": "メニュー",
-                    "hide": "Hide"
+                    "hide": "非表示"
                 },
                 "tag": {
                     "url": "URL",
@@ -152,10 +152,10 @@
                     "emoji": "絵文字"
                 },
                 "visibility": {
-                    "unlisted": "Everyone can see this post but not display in the public timeline.",
-                    "private": "Only their followers can see this post.",
-                    "private_from_me": "Only my followers can see this post.",
-                    "direct": "Only mentioned user can see this post."
+                    "unlisted": "この投稿は誰でも見ることができますが、公開タイムラインには表示されません。",
+                    "private": "この投稿はフォロワーに限り見ることができます。",
+                    "private_from_me": "この投稿はフォロワーに限り見ることができます。",
+                    "direct": "この投稿はメンションされたユーザーに限り見ることができます。"
                 }
             },
             "friendship": {
@@ -202,12 +202,12 @@
         "welcome": {
             "slogan": "ソーシャルネットワーキングを、あなたの手の中に.",
             "get_started": "Get Started",
-            "log_in": "Log In"
+            "log_in": "ログイン"
         },
         "server_picker": {
             "title": "サーバーを選択",
-            "subtitle": "Pick a community based on your interests, region, or a general purpose one.",
-            "subtitle_extend": "Pick a community based on your interests, region, or a general purpose one. Each community is operated by an entirely independent organization or individual.",
+            "subtitle": "あなたの興味分野・地域に合ったコミュニティや、汎用のものを選択してください。",
+            "subtitle_extend": "あなたの興味分野・地域に合ったコミュニティや、汎用のものを選択してください。各コミュニティはそれぞれ完全に独立した組織や個人によって運営されています。",
             "button": {
                 "category": {
                     "all": "すべて",
