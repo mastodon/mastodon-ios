@@ -1,8 +1,19 @@
 {
   "images" : [
     {
-      "filename" : "Home Light.png",
-      "idiom" : "universal"
+      "filename" : "light.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "light@2x.png",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "light@3x.png",
+      "idiom" : "universal",
+      "scale" : "3x"
     }
   ],
   "info" : {

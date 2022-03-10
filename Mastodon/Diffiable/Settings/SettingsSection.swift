@@ -21,9 +21,9 @@ enum SettingsSection: Hashable {
     
     var title: String {
         switch self {
-        case .appearance:           return L10n.Scene.Settings.Section.Appearance.title
+        case .appearance:           return L10n.Scene.Settings.Section.LookAndFeel.title
         case .appearancePreference: return ""
-        case .preference:           return L10n.Scene.Settings.Section.Preference.title
+        case .preference:           return ""
         case .notifications:        return L10n.Scene.Settings.Section.Notifications.title
         case .boringZone:           return L10n.Scene.Settings.Section.BoringZone.title
         case .spicyZone:            return L10n.Scene.Settings.Section.SpicyZone.title

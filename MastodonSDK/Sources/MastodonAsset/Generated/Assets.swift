@@ -155,9 +155,7 @@ public enum Asset {
     }
   }
   public enum Settings {
-    public static let blackAuto = ImageAsset(name: "Settings/black.auto")
-    public static let black = ImageAsset(name: "Settings/black")
-    public static let darkAuto = ImageAsset(name: "Settings/dark.auto")
+    public static let automatic = ImageAsset(name: "Settings/automatic")
     public static let dark = ImageAsset(name: "Settings/dark")
     public static let light = ImageAsset(name: "Settings/light")
   }

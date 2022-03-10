@@ -99,14 +99,8 @@ class SettingsViewController: UIViewController, NeedsDependency {
     }()
     
     private(set) lazy var tableView: UITableView = {
-        let style: UITableView.Style = {
-            switch UIDevice.current.userInterfaceIdiom {
-            case .phone:        return .grouped
-            default:            return .insetGrouped
-            }
-        }()
         // init with a frame to fix a conflict ('UIView-Encapsulated-Layout-Width' UIStackView:0x7f8c2b6c0590.width == 0)
-        let tableView = UITableView(frame: CGRect(x: 0, y: 0, width: 320, height: 320), style: style)
+        let tableView = UITableView(frame: CGRect(x: 0, y: 0, width: 320, height: 320), style: .insetGrouped)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.delegate = self
         tableView.rowHeight = UITableView.automaticDimension
@@ -329,6 +323,8 @@ extension SettingsViewController: UITableViewDelegate {
         let header: SettingsSectionHeader
         switch sectionIdentifier {
         case .appearancePreference:
+            return UIView()
+        case .preference:
             return UIView()
         case .notifications:
             header = SettingsSectionHeader(

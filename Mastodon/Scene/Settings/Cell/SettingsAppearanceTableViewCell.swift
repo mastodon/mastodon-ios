@@ -38,7 +38,7 @@ class SettingsAppearanceTableViewCell: UITableViewCell {
     }()
     
     let systemAppearanceView = AppearanceView(
-        image: Asset.Settings.darkAuto.image,
+        image: Asset.Settings.automatic.image,
         title: L10n.Scene.Settings.Section.Appearance.automatic
     )
     let darkAppearanceView = AppearanceView(
@@ -100,9 +100,9 @@ extension SettingsAppearanceTableViewCell {
         contentView.addSubview(stackView)
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            stackView.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
+            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            stackView.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
         ])
         
         stackView.addArrangedSubview(systemAppearanceView)
