@@ -23,7 +23,7 @@
                 "title": "失敗",
                 "message": "投稿に失敗しました。\nインターネットに接続されているか確認してください。",
                 "attachments_message": {
-                    "video_attach_with_photo": "すでに画像が含まれている投稿に、動画を添付することができません。",
+                    "video_attach_with_photo": "すでに画像が含まれている投稿に、動画を添付することはできません。",
                     "more_than_one_video": "複数の動画を添付することはできません。"
                 }
             },
@@ -360,8 +360,8 @@
                 "photo": "写真",
                 "video": "動画",
                 "attachment_broken": "%sは壊れていてMastodonにアップロードできません。",
-                "description_photo": "視覚障がい者のために写真を説明",
-                "description_video": "視覚障がい者のための映像の説明"
+                "description_photo": "閲覧が難しいユーザーへの画像説明",
+                "description_video": "閲覧が難しいユーザーへの映像説明"
             },
             "poll": {
                 "duration_time": "期間: %s",
