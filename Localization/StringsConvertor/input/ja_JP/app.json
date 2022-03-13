@@ -539,7 +539,7 @@
                 "preference": {
                     "title": "環境設定",
                     "true_black_dark_mode": "真っ黒なダークテーマを使用する",
-                    "disable_avatar_animation": "アニメーションアバターの無効化する",
+                    "disable_avatar_animation": "アバターのアニメーションを無効化する",
                     "disable_emoji_animation": "絵文字のアニメーションを無効化する",
                     "using_default_browser": "既定のブラウザでリンクを開く"
                 },
