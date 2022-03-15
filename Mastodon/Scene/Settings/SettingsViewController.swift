@@ -206,8 +206,7 @@ extension SettingsViewController {
             }
             .store(in: &disposeBag)
 
-        
-        let footer = "Mastodon v\(UIApplication.appVersion()) (\(UIApplication.appBuild()))"
+        let footer = "Mastodon for iOS v\(UIApplication.appVersion()) (\(UIApplication.appBuild()))"
         let metaContent = PlaintextMetaContent(string: footer)
         tableFooterLabel.configure(content: metaContent)
     }
