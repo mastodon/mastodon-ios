@@ -22,7 +22,7 @@ extension MastodonSDKTests {
         os_log("%{public}s[%{public}ld], %{public}s: (%s) authorizeURL %s", ((#file as NSString).lastPathComponent), #line, #function, domain, authorizeURL.absoluteString)
         XCTAssertEqual(
             authorizeURL.absoluteString,
-            "https://\(domain)/oauth/authorize?response_type=code&client_id=StubClientID&redirect_uri=mastodon://joinmastodon.org/oauth&scope=read%20write%20follow%20push"
+            "\(URL.httpScheme(domain: domain))://\(domain)/oauth/authorize?response_type=code&client_id=StubClientID&redirect_uri=mastodon://joinmastodon.org/oauth&scope=read%20write%20follow%20push"
         )
     }
 

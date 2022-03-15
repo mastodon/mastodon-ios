@@ -74,27 +74,27 @@ extension Mastodon.API {
     }()
     
     static func oauthEndpointURL(domain: String) -> URL {
-        return URL(string: "https://" + domain + "/oauth/")!
+        return URL(string: "\(URL.httpScheme(domain: domain))://" + domain + "/oauth/")!
     }
     static func endpointURL(domain: String) -> URL {
-        return URL(string: "https://" + domain + "/api/v1/")!
+        return URL(string: "\(URL.httpScheme(domain: domain))://" + domain + "/api/v1/")!
     }
     static func endpointV2URL(domain: String) -> URL {
-        return URL(string: "https://" + domain + "/api/v2/")!
+        return URL(string: "\(URL.httpScheme(domain: domain))://" + domain + "/api/v2/")!
     }
     
     static let joinMastodonEndpointURL = URL(string: "https://api.joinmastodon.org/")!
     
     public static func resendEmailURL(domain: String) -> URL {
-        return URL(string: "https://" + domain + "/auth/confirmation/new")!
+        return URL(string: "\(URL.httpScheme(domain: domain))://" + domain + "/auth/confirmation/new")!
     }
     
     public static func serverRulesURL(domain: String) -> URL {
-        return URL(string: "https://" + domain + "/about/more")!
+        return URL(string: "\(URL.httpScheme(domain: domain))://" + domain + "/about/more")!
     }
     
     public static func privacyURL(domain: String) -> URL {
-        return URL(string: "https://" + domain + "/terms")!
+        return URL(string: "\(URL.httpScheme(domain: domain))://" + domain + "/terms")!
     }
 }
 

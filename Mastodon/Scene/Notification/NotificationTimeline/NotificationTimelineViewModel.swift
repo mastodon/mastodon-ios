@@ -148,7 +148,7 @@ extension NotificationTimelineViewModel {
         guard let authenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else { return }
         
         isLoadingLatest = true
-        defer{ isLoadingLatest = false }
+        defer { isLoadingLatest = false }
         
         do {
             _ = try await context.apiService.notifications(
