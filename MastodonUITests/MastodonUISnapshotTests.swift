@@ -11,6 +11,7 @@ extension UInt64 {
     static let second: UInt64 = 1_000_000_000
 }
 
+@MainActor
 class MastodonUISnapshotTests: XCTestCase {
 
     override func setUp() {
