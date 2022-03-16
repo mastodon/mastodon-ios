@@ -22,7 +22,7 @@ extension Mastodon.Entity {
         public let title: String
         public let description: String
         public let shortDescription: String?
-        public let email: String
+        public let email: String?
         public let version: String?
         public let languages: [String]?     // (ISO 639 Part 1-5 language codes)
         public let registrations: Bool?
@@ -37,6 +37,25 @@ extension Mastodon.Entity {
         
         // https://github.com/mastodon/mastodon/pull/16485
         public let configuration: Configuration?
+
+        public init(domain: String) {
+            self.uri = domain
+            self.title = domain
+            self.description = ""
+            self.shortDescription = nil
+            self.email = nil
+            self.version = nil
+            self.languages = nil
+            self.registrations = nil
+            self.approvalRequired = nil
+            self.invitesEnabled = nil
+            self.urls = nil
+            self.statistics = nil
+            self.thumbnail = nil
+            self.contactAccount = nil
+            self.rules = nil
+            self.configuration = nil
+        }
 
         enum CodingKeys: String, CodingKey {
             case uri
