@@ -39,6 +39,8 @@ extension MastodonUISnapshotTests {
     }
 
     func testSnapshot() async throws {
+        let _ = createApp()
+        
         try await testSignInAccount()
         try await testSnapshotHome()
         try await testSnapshotSearch()

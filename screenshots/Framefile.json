@@ -1,0 +1,49 @@
+{
+  "device_frame_version": "latest",
+  "default": {
+    "title": {
+      "font": "./Fonts/SF-Pro-Display-Heavy.otf",
+      "color": "#FFFFFF",
+      "font_size": 121,
+      "font_weight": "700"
+    },
+    "background": "./blue.png",
+    "padding": "70x110",
+    "show_complete_frame": false,
+    "stack_title": false,
+    "use_platform": "IOS",
+    "title_min_height": 432
+  },
+  "data": [
+    {
+      "filter": "Home - 1",
+      "title": {
+        "text": "Socialize with the world"
+      }
+    },
+    {
+      "filter": "Search - 1",
+      "title": {
+        "text": "Find and follow fascinating folks & trending topics."
+      }
+    },
+    {
+      "filter": "Compose - 1",
+      "title": {
+        "text": "Express yourself with images, GIFs, videos, & more."
+      }
+    },
+    {
+      "filter": "Notification - 1",
+      "title": {
+        "text": "Get notified of new followers, replies, & reblogs."
+      }
+    },
+    {
+      "filter": "Profile",
+      "title": {
+         "text": "Find community and build your audience."
+      }
+    }
+  ]
+}

@@ -125,4 +125,5 @@ Localization/StringsConvertor/output
 .DS_Store
 
 .env*
-screenshots/*
+screenshots/en-US/*
+screenshots/screenshots.html
