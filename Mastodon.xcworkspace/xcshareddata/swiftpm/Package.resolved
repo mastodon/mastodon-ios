@@ -56,15 +56,6 @@
         }
       },
       {
-        "package": "FLAnimatedImage",
-        "repositoryURL": "https://github.com/Flipboard/FLAnimatedImage.git",
-        "state": {
-          "branch": null,
-          "revision": "e7f9fd4681ae41bf6f3056db08af4f401d61da52",
-          "version": "1.0.16"
-        }
-      },
-      {
         "package": "FPSIndicator",
         "repositoryURL": "https://github.com/MainasuK/FPSIndicator.git",
         "state": {
@@ -219,7 +210,7 @@
       },
       {
         "package": "UITextView+Placeholder",
-        "repositoryURL": "https://github.com/MainasuK/UITextView-Placeholder.git",
+        "repositoryURL": "https://github.com/MainasuK/UITextView-Placeholder",
         "state": {
           "branch": null,
           "revision": "20f513ded04a040cdf5467f0891849b1763ede3b",
