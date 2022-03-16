@@ -1,0 +1,32 @@
+{
+  "configurations" : [
+    {
+      "id" : "4603400F-B482-465F-B449-D8C87D1BE539",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "testTimeoutsEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "skippedTests" : [
+        "MastodonUISnapshotTests\/testSignInAccount()",
+        "MastodonUISnapshotTests\/testSnapshotCompose()",
+        "MastodonUISnapshotTests\/testSnapshotHome()",
+        "MastodonUISnapshotTests\/testSnapshotNotification()",
+        "MastodonUISnapshotTests\/testSnapshotProfile()",
+        "MastodonUISnapshotTests\/testSnapshotSearch()"
+      ],
+      "target" : {
+        "containerPath" : "container:Mastodon.xcodeproj",
+        "identifier" : "DB427DF225BAA00100D1B89D",
+        "name" : "MastodonUITests"
+      }
+    }
+  ],
+  "version" : 1
+}

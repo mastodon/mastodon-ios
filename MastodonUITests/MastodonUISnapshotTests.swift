@@ -11,39 +11,23 @@ extension UInt64 {
     static let second: UInt64 = 1_000_000_000
 }
 
-@MainActor
 class MastodonUISnapshotTests: XCTestCase {
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    override func setUp() {
+        super.setUp()
+        continueAfterFailure = false
     }
+    
+}
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
-    override class func tearDown() {
-        super.tearDown()
+extension MastodonUISnapshotTests {
+    
+    private func createApp() -> XCUIApplication {
         let app = XCUIApplication()
-        print(app.debugDescription)
+        setupSnapshot(app)
+        app.launch()
+        return app
     }
-    
-}
-
-extension MastodonUISnapshotTests {
-    
-    func testSmoke() async throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
-    
-    }
-    
-}
-
-extension MastodonUISnapshotTests {
     
     private func tapTab(app: XCUIApplication, tab: String) {
         let searchTab = app.tabBars.buttons[tab]
@@ -54,9 +38,7 @@ extension MastodonUISnapshotTests {
     }
 
     func testSnapshot() async throws {
-        let app = XCUIApplication()
-        app.launch()
-        
+        try await testSignInAccount()
         try await testSnapshotHome()
         try await testSnapshotSearch()
         try await testSnapshotNotification()
@@ -65,61 +47,56 @@ extension MastodonUISnapshotTests {
     }
     
     func testSnapshotHome() async throws {
-        let app = XCUIApplication()
-        app.launch()
+        let app = createApp()
         
         tapTab(app: app, tab: "Home")
         try await Task.sleep(nanoseconds: .second * 3)
-        takeSnapshot(name: "Home - 1")
+        snapshot("Home - 1")
         
         tapTab(app: app, tab: "Home")
         try await Task.sleep(nanoseconds: .second * 3)
-        takeSnapshot(name: "Home - 2")
+        snapshot("Home - 2")
         
         tapTab(app: app, tab: "Home")
         try await Task.sleep(nanoseconds: .second * 3)
-        takeSnapshot(name: "Home - 3")
+        snapshot("Home - 3")
     }
     
     func testSnapshotSearch() async throws {
-        let app = XCUIApplication()
-        app.launch()
+        let app = createApp()
         
         tapTab(app: app, tab: "Search")
         try await Task.sleep(nanoseconds: .second * 3)
-        takeSnapshot(name: "Search - 1")
+        snapshot("Search - 1")
         
         tapTab(app: app, tab: "Search")
         try await Task.sleep(nanoseconds: .second * 3)
-        takeSnapshot(name: "Search - 2")
+        snapshot("Search - 2")
         
         tapTab(app: app, tab: "Search")
         try await Task.sleep(nanoseconds: .second * 3)
-        takeSnapshot(name: "Search - 3")
+        snapshot("Search - 3")
     }
     
     func testSnapshotNotification() async throws {
-        let app = XCUIApplication()
-        app.launch()
+        let app = createApp()
         
         tapTab(app: app, tab: "Notification")
         try await Task.sleep(nanoseconds: .second * 3)
-        takeSnapshot(name: "Notification - 1")
+        snapshot("Notification - 1")
         
         tapTab(app: app, tab: "Notification")
         try await Task.sleep(nanoseconds: .second * 3)
-        takeSnapshot(name: "Notification - 2")
+        snapshot("Notification - 2")
         
         tapTab(app: app, tab: "Notification")
         try await Task.sleep(nanoseconds: .second * 3)
-        takeSnapshot(name: "Notification - 3")
+        snapshot("Notification - 3")
     }
     
     func testSnapshotProfile() async throws {
         let username = ProcessInfo.processInfo.environment["username_snapshot"] ?? "Gargron"
-        
-        let app = XCUIApplication()
-        app.launch()
+        let app = createApp()
         
         // Go to Search tab
         tapTab(app: app, tab: "Search")
@@ -137,12 +114,11 @@ extension MastodonUISnapshotTests {
         
         try await Task.sleep(nanoseconds: .second * 5)
         
-        takeSnapshot(name: "Profile")
+        snapshot("Profile")
     }
     
     func testSnapshotCompose() async throws {
-        let app = XCUIApplication()
-        app.launch()
+        let app = createApp()
         
         // open Compose scene
         let composeBarButtonItem = app.navigationBars.buttons["Compose"].firstMatch
@@ -182,13 +158,13 @@ extension MastodonUISnapshotTests {
         addBarButtonItem.tap()
         
         try await Task.sleep(nanoseconds: .second * 10)
-        takeSnapshot(name: "Compose - 1")
+        snapshot("Compose - 1")
         
         try await Task.sleep(nanoseconds: .second * 10)
-        takeSnapshot(name: "Compose - 2")
+        snapshot("Compose - 2")
         
         try await Task.sleep(nanoseconds: .second * 10)
-        takeSnapshot(name: "Compose - 3")
+        snapshot("Compose - 3")
     }
     
 }
@@ -218,9 +194,8 @@ extension MastodonUISnapshotTests {
         email: String,
         password: String
     ) async throws {
-        let app = XCUIApplication()
-        app.launch()
-
+        let app = createApp()
+        
         // check in Onboarding or not
         let loginButton = app.buttons["Log In"].firstMatch
         let loginButtonExists = loginButton.waitForExistence(timeout: 5)
@@ -336,19 +311,5 @@ extension MastodonUISnapshotTests {
         guard swipeInputLabel.waitForExistence(timeout: 3) else { return }
         let continueButton = app.buttons["Continue"]
         continueButton.tap()
-    }
-}
-
-extension MastodonUISnapshotTests {
-    func takeSnapshot(name: String) {
-        let snapshot = XCUIScreen.main.screenshot()
-        let attachment = XCTAttachment(
-            uniformTypeIdentifier: "public.png",
-            name: "Screenshot-\(name)-\(UIDevice.current.name).png",
-            payload: snapshot.pngRepresentation,
-            userInfo: nil
-        )
-        attachment.lifetime = .keepAlways
-        add(attachment)
     }
 }
