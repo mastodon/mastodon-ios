@@ -38,6 +38,25 @@ extension Mastodon.Entity {
         // https://github.com/mastodon/mastodon/pull/16485
         public let configuration: Configuration?
 
+        public init(domain: String) {
+            self.uri = domain
+            self.title = domain
+            self.description = ""
+            self.shortDescription = nil
+            self.email = ""
+            self.version = nil
+            self.languages = nil
+            self.registrations = nil
+            self.approvalRequired = nil
+            self.invitesEnabled = nil
+            self.urls = nil
+            self.statistics = nil
+            self.thumbnail = nil
+            self.contactAccount = nil
+            self.rules = nil
+            self.configuration = nil
+        }
+
         enum CodingKeys: String, CodingKey {
             case uri
             case title
