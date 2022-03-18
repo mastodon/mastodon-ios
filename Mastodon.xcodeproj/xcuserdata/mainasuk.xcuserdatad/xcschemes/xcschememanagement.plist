@@ -6,8 +6,10 @@
 	<dict>
 		<key>AppShared.xcscheme_^#shared#^_</key>
 		<dict>
+			<key>isShown</key>
+			<true/>
 			<key>orderHint</key>
-			<integer>20</integer>
+			<integer>15</integer>
 		</dict>
 		<key>CoreDataStack.xcscheme_^#shared#^_</key>
 		<dict>
@@ -27,7 +29,7 @@
 		<key>Mastodon - Snapshot.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>2</integer>
+			<integer>3</integer>
 		</dict>
 		<key>Mastodon - ar.xcscheme_^#shared#^_</key>
 		<dict>
@@ -102,7 +104,7 @@
 		<key>MastodonIntent.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>21</integer>
+			<integer>37</integer>
 		</dict>
 		<key>MastodonIntents.xcscheme_^#shared#^_</key>
 		<dict>
@@ -117,12 +119,12 @@
 		<key>NotificationService.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>3</integer>
+			<integer>36</integer>
 		</dict>
 		<key>ShareActionExtension.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>19</integer>
+			<integer>38</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
@@ -138,6 +140,11 @@
 			<true/>
 		</dict>
 		<key>DB427DF225BAA00100D1B89D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DB68047E2637CD4C00430867</key>
 		<dict>
 			<key>primary</key>
 			<true/>

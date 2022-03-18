@@ -127,6 +127,11 @@ extension HomeTimelineViewController {
         settingBarButtonItem.action = #selector(HomeTimelineViewController.settingBarButtonItemPressed(_:))
         #endif
         
+        #if SNAPSHOT
+        titleView.logoButton.menu = self.debugMenu
+        titleView.button.menu = self.debugMenu
+        #endif
+        
         viewModel.$displayComposeBarButtonItem
             .receive(on: DispatchQueue.main)
             .sink { [weak self] displayComposeBarButtonItem in

@@ -16,7 +16,7 @@ target 'Mastodon' do
   pod 'Sourcery', '~> 1.6.1'
 
   # DEBUG
-  pod 'FLEX', '~> 4.4.0', :configurations => ['Debug']
+  pod 'FLEX', '~> 4.4.0', :configurations => ['Debug', "Release Snapshot"]
   
   target 'MastodonTests' do
     inherit! :search_paths

@@ -38,7 +38,7 @@ final class MastodonConfirmEmailViewModel {
         self.updateCredentialQuery = updateCredentialQuery
     }
 
-    #if DEBUG
+    #if DEBUG || SNAPSHOT
     init() {
         self.context = AppContext.shared
         self.email = "example.com"

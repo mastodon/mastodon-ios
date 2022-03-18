@@ -381,7 +381,7 @@ extension ComposeViewController {
         // bind publish bar button state
         viewModel.$isPublishBarButtonItemEnabled
             .receive(on: DispatchQueue.main)
-            .assign(to: \.isEnabled, on: publishBarButtonItem)
+            .assign(to: \.isEnabled, on: publishButton)
             .store(in: &disposeBag)
         
         // bind media button toolbar state
@@ -915,14 +915,25 @@ extension ComposeViewController: UITextViewDelegate {
 // MARK: - ComposeToolbarViewDelegate
 extension ComposeViewController: ComposeToolbarViewDelegate {
     
-    func composeToolbarView(_ composeToolbarView: ComposeToolbarView, cameraButtonDidPressed sender: Any, mediaSelectionType type: ComposeToolbarView.MediaSelectionType) {
+    func composeToolbarView(_ composeToolbarView: ComposeToolbarView, mediaButtonDidPressed sender: Any, mediaSelectionType type: ComposeToolbarView.MediaSelectionType) {
         switch type {
         case .photoLibrary:
             present(photoLibraryPicker, animated: true, completion: nil)
         case .camera:
             present(imagePickerController, animated: true, completion: nil)
         case .browse:
+            #if SNAPSHOT
+            guard let image = UIImage(named: "Athens") else { return }
+
+            let attachmentService = MastodonAttachmentService(
+                context: context,
+                image: image,
+                initialAuthenticationBox: viewModel.authenticationBox
+            )
+            viewModel.attachmentServices = viewModel.attachmentServices + [attachmentService]
+            #else
             present(documentPickerController, animated: true, completion: nil)
+            #endif
         }
     }
     
