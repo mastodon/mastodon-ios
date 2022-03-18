@@ -23,7 +23,7 @@
                 "title": "失敗",
                 "message": "投稿に失敗しました。\nインターネットに接続されているか確認してください。",
                 "attachments_message": {
-                    "video_attach_with_photo": "すでに画像が含まれている投稿に、動画を添付することができません。",
+                    "video_attach_with_photo": "すでに画像が含まれている投稿に、動画を添付することはできません。",
                     "more_than_one_video": "複数の動画を添付することはできません。"
                 }
             },
@@ -87,7 +87,7 @@
                 "manually_search": "手動で検索する",
                 "skip": "スキップ",
                 "reply": "リプライ",
-                "report_user": "%sを報告",
+                "report_user": "%sを通報",
                 "block_domain": "%sをブロック",
                 "unblock_domain": "%sのブロックを解除",
                 "settings": "設定",
@@ -360,8 +360,8 @@
                 "photo": "写真",
                 "video": "動画",
                 "attachment_broken": "%sは壊れていてMastodonにアップロードできません。",
-                "description_photo": "視覚障がい者のために写真を説明",
-                "description_video": "視覚障がい者のための映像の説明"
+                "description_photo": "閲覧が難しいユーザーへの画像説明",
+                "description_video": "閲覧が難しいユーザーへの映像説明"
             },
             "poll": {
                 "duration_time": "期間: %s",
@@ -539,7 +539,7 @@
                 "preference": {
                     "title": "環境設定",
                     "true_black_dark_mode": "真っ黒なダークテーマを使用する",
-                    "disable_avatar_animation": "アニメーションアバターの無効化する",
+                    "disable_avatar_animation": "アバターのアニメーションを無効化する",
                     "disable_emoji_animation": "絵文字のアニメーションを無効化する",
                     "using_default_browser": "既定のブラウザでリンクを開く"
                 },
@@ -564,13 +564,13 @@
         },
         "report": {
             "title_report": "Report",
-            "title": "%sを報告",
+            "title": "%sを通報",
             "step1": "ステップ 1/2",
             "step2": "ステップ 2/2",
-            "content1": "他に報告したい投稿はありますか？",
-            "content2": "この報告についてモデレーターに言いたいことはありますか？",
+            "content1": "他に通報したい投稿はありますか？",
+            "content2": "この通報についてモデレーターに伝達しておきたい事項はありますか？",
             "report_sent_title": "Thanks for reporting, we’ll look into this.",
-            "send": "報告を送信",
+            "send": "通報を送信",
             "skip_to_send": "コメントなしで送信",
             "text_placeholder": "追加コメントを入力",
             "reported": "REPORTED"
