@@ -55,6 +55,8 @@ extension MastodonRegisterViewModel {
                 cell.textField.keyboardType = .alphabet
                 cell.textField.autocorrectionType = .no
                 cell.textField.text = self.username
+                cell.textField.textAlignment = .left
+                cell.textField.semanticContentAttribute = .forceLeftToRight
                 NotificationCenter.default.publisher(for: UITextField.textDidChangeNotification, object: cell.textField)
                     .receive(on: DispatchQueue.main)
                     .compactMap { notification in
@@ -94,6 +96,8 @@ extension MastodonRegisterViewModel {
                 cell.textField.autocorrectionType = .no
                 cell.textField.isSecureTextEntry = true
                 cell.textField.text = self.password
+                cell.textField.textAlignment = .left
+                cell.textField.semanticContentAttribute = .forceLeftToRight
                 NotificationCenter.default.publisher(for: UITextField.textDidChangeNotification, object: cell.textField)
                     .receive(on: DispatchQueue.main)
                     .compactMap { notification in
