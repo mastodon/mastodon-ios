@@ -161,7 +161,10 @@ extension ComposeStatusContentTableViewCell: UITextViewDelegate {
         logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): text: \(textView.text ?? "<nil>")")
         guard textView === statusContentWarningEditorView.textView else { return }
         // replace line break with space
-        textView.text = textView.text.replacingOccurrences(of: "\n", with: " ")
+        // needs check input state to prevent break the IME
+        if textView.markedTextRange == nil {
+            textView.text = textView.text.replacingOccurrences(of: "\n", with: " ")
+        }
         contentWarningContent.send(textView.text)
     }
 

@@ -81,7 +81,10 @@ public struct StatusEditorView: UIViewRepresentable {
         }
 
         public func textViewDidChange(_ textView: UITextView) {
-            parent.string = textView.text
+            // prevent break IME input
+            if textView.markedTextRange == nil {
+                parent.string = textView.text
+            }
         }
 
         func updateLayout(width: CGFloat) {
