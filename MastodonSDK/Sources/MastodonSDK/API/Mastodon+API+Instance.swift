@@ -37,7 +37,18 @@ extension Mastodon.API.Instance {
         )
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
-                let value = try Mastodon.API.decode(type: Mastodon.Entity.Instance.self, from: data, response: response)
+                let value: Mastodon.Entity.Instance
+
+                do {
+                    value = try Mastodon.API.decode(type: Mastodon.Entity.Instance.self, from: data, response: response)
+                } catch {
+                    if let response = response as? HTTPURLResponse, 400 ..< 500 ~= response.statusCode {
+                        // For example, AUTHORIZED_FETCH may result in authentication errors
+                        value = Mastodon.Entity.Instance(domain: domain)
+                    } else {
+                        throw error
+                    }
+                }
                 return Mastodon.Response.Content(value: value, response: response)
             }
             .eraseToAnyPublisher()
