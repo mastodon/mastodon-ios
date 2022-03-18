@@ -1293,9 +1293,6 @@
 		DBD5B1F727BCFD9D00BD6B38 /* DataSourceProvider+TableViewControllerNavigateable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataSourceProvider+TableViewControllerNavigateable.swift"; sourceTree = "<group>"; };
 		DBD5B1F927BD013700BD6B38 /* DataSourceProvider+StatusTableViewControllerNavigateable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataSourceProvider+StatusTableViewControllerNavigateable.swift"; sourceTree = "<group>"; };
 		DBD9148F25DF6D8D00903DFD /* APIService+Onboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Onboarding.swift"; sourceTree = "<group>"; };
-		DBDC1CF9272C0FD600055C3D /* ku-TR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ku-TR"; path = "ku-TR.lproj/Intents.strings"; sourceTree = "<group>"; };
-		DBDC1CFC272C0FD600055C3D /* ku-TR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ku-TR"; path = "ku-TR.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
-		DBDC1CFD272C0FD600055C3D /* ku-TR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = "ku-TR"; path = "ku-TR.lproj/Intents.stringsdict"; sourceTree = "<group>"; };
 		DBE0821425CD382600FD6BBD /* MastodonRegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonRegisterViewController.swift; sourceTree = "<group>"; };
 		DBE0822325CD3F1E00FD6BBD /* MastodonRegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonRegisterViewModel.swift; sourceTree = "<group>"; };
 		DBE3CDBA261C427900430CC6 /* TimelineHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineHeaderTableViewCell.swift; sourceTree = "<group>"; };
@@ -1305,6 +1302,9 @@
 		DBE3CE00261D623D00430CC6 /* FavoriteViewModel+State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FavoriteViewModel+State.swift"; sourceTree = "<group>"; };
 		DBE3CE06261D6A0E00430CC6 /* FavoriteViewModel+Diffable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FavoriteViewModel+Diffable.swift"; sourceTree = "<group>"; };
 		DBE54AC52636C89F004E7C0B /* NotificationPreference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPreference.swift; sourceTree = "<group>"; };
+		DBEB19E927E4F37B00B0E80E /* ku */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ku; path = ku.lproj/Intents.strings; sourceTree = "<group>"; };
+		DBEB19EA27E4F37B00B0E80E /* ku */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ku; path = ku.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DBEB19EB27E4F37B00B0E80E /* ku */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ku; path = ku.lproj/Intents.stringsdict; sourceTree = "<group>"; };
 		DBF156DE2701B17600EC00B7 /* SidebarAddAccountCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarAddAccountCollectionViewCell.swift; sourceTree = "<group>"; };
 		DBF156E02702DA6800EC00B7 /* Mastodon-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Mastodon-Bridging-Header.h"; sourceTree = "<group>"; };
 		DBF156E12702DA6900EC00B7 /* UIStatusBarManager+HandleTapAction.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIStatusBarManager+HandleTapAction.m"; sourceTree = "<group>"; };
@@ -3438,28 +3438,28 @@
 				ru,
 				"gd-GB",
 				th,
-				"ku-TR",
 				"eu-ES",
 				"sv-FI",
+				ku,
 			);
 			mainGroup = DB427DC925BAA00100D1B89D;
 			packageReferences = (
-				DB3D0FF125BAA61700EAA174 /* XCRemoteSwiftPackageReference "AlamofireImage.git" */,
+				DB3D0FF125BAA61700EAA174 /* XCRemoteSwiftPackageReference "AlamofireImage" */,
 				2D61336725C18A4F00CAE157 /* XCRemoteSwiftPackageReference "AlamofireNetworkActivityIndicator" */,
 				DB0140BB25C40D7500F9F3CF /* XCRemoteSwiftPackageReference "CommonOSLog" */,
-				2D5981B825E4D7F8000FB903 /* XCRemoteSwiftPackageReference "ThirdPartyMailer.git" */,
-				2D939AC625EE14620076FA61 /* XCRemoteSwiftPackageReference "TOCropViewController.git" */,
+				2D5981B825E4D7F8000FB903 /* XCRemoteSwiftPackageReference "ThirdPartyMailer" */,
+				2D939AC625EE14620076FA61 /* XCRemoteSwiftPackageReference "TOCropViewController" */,
 				DB9A487C2603456B008B817C /* XCRemoteSwiftPackageReference "UITextView-Placeholder" */,
 				DBB525062611EAC0002F1F29 /* XCRemoteSwiftPackageReference "Tabman" */,
-				DB6804722637CC1200430867 /* XCRemoteSwiftPackageReference "KeychainAccess.git" */,
-				DBAC6481267D0B21007FE9FD /* XCRemoteSwiftPackageReference "DifferenceKit.git" */,
-				DBAC649C267DFE43007FE9FD /* XCRemoteSwiftPackageReference "DiffableDataSources.git" */,
-				DBAC649F267E6D01007FE9FD /* XCRemoteSwiftPackageReference "Fuzi.git" */,
-				DBF7A0FA26830C33004176A2 /* XCRemoteSwiftPackageReference "FPSIndicator.git" */,
-				DB0E2D2C26833FF600865C3C /* XCRemoteSwiftPackageReference "Nuke-FLAnimatedImage-Plugin.git" */,
-				DB01E23126A98F0900C3965B /* XCRemoteSwiftPackageReference "MetaTextKit.git" */,
-				DB552D4D26BBD10C00E481F6 /* XCRemoteSwiftPackageReference "swift-collections.git" */,
-				DBA5A52D26F07ED800CACBAA /* XCRemoteSwiftPackageReference "PanModal.git" */,
+				DB6804722637CC1200430867 /* XCRemoteSwiftPackageReference "KeychainAccess" */,
+				DBAC6481267D0B21007FE9FD /* XCRemoteSwiftPackageReference "DifferenceKit" */,
+				DBAC649C267DFE43007FE9FD /* XCRemoteSwiftPackageReference "DiffableDataSources" */,
+				DBAC649F267E6D01007FE9FD /* XCRemoteSwiftPackageReference "Fuzi" */,
+				DBF7A0FA26830C33004176A2 /* XCRemoteSwiftPackageReference "FPSIndicator" */,
+				DB0E2D2C26833FF600865C3C /* XCRemoteSwiftPackageReference "Nuke-FLAnimatedImage-Plugin" */,
+				DB01E23126A98F0900C3965B /* XCRemoteSwiftPackageReference "MetaTextKit" */,
+				DB552D4D26BBD10C00E481F6 /* XCRemoteSwiftPackageReference "swift-collections" */,
+				DBA5A52D26F07ED800CACBAA /* XCRemoteSwiftPackageReference "PanModal" */,
 			);
 			productRefGroup = DB427DD325BAA00100D1B89D /* Products */;
 			projectDirPath = "";
@@ -4439,9 +4439,9 @@
 				DB4B777F26CA4EFA00B087B3 /* ru */,
 				DB4B778426CA500E00B087B3 /* gd-GB */,
 				DB4B779226CA50BA00B087B3 /* th */,
-				DBDC1CF9272C0FD600055C3D /* ku-TR */,
 				DB126A4C278C063F005726EE /* eu-ES */,
 				DB126A56278C088D005726EE /* sv-FI */,
+				DBEB19E927E4F37B00B0E80E /* ku */,
 			);
 			name = Intents.intentdefinition;
 			sourceTree = "<group>";
@@ -4462,9 +4462,9 @@
 				DB4B778226CA4EFA00B087B3 /* ru */,
 				DB4B778726CA500E00B087B3 /* gd-GB */,
 				DB4B779526CA50BA00B087B3 /* th */,
-				DBDC1CFC272C0FD600055C3D /* ku-TR */,
 				DB126A4F278C063F005726EE /* eu-ES */,
 				DB126A59278C088D005726EE /* sv-FI */,
+				DBEB19EA27E4F37B00B0E80E /* ku */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -4501,9 +4501,9 @@
 				DB4B779026CA504900B087B3 /* fr */,
 				DB4B779126CA504A00B087B3 /* ja */,
 				DB4B779626CA50BA00B087B3 /* th */,
-				DBDC1CFD272C0FD600055C3D /* ku-TR */,
 				DB126A50278C063F005726EE /* eu-ES */,
 				DB126A5A278C088D005726EE /* sv-FI */,
+				DBEB19EB27E4F37B00B0E80E /* ku */,
 			);
 			name = Intents.stringsdict;
 			sourceTree = "<group>";
@@ -5304,7 +5304,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		2D5981B825E4D7F8000FB903 /* XCRemoteSwiftPackageReference "ThirdPartyMailer.git" */ = {
+		2D5981B825E4D7F8000FB903 /* XCRemoteSwiftPackageReference "ThirdPartyMailer" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/vtourraine/ThirdPartyMailer.git";
 			requirement = {
@@ -5320,7 +5320,7 @@
 				minimumVersion = 3.1.0;
 			};
 		};
-		2D939AC625EE14620076FA61 /* XCRemoteSwiftPackageReference "TOCropViewController.git" */ = {
+		2D939AC625EE14620076FA61 /* XCRemoteSwiftPackageReference "TOCropViewController" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/TimOliver/TOCropViewController.git";
 			requirement = {
@@ -5336,7 +5336,7 @@
 				minimumVersion = 0.1.1;
 			};
 		};
-		DB01E23126A98F0900C3965B /* XCRemoteSwiftPackageReference "MetaTextKit.git" */ = {
+		DB01E23126A98F0900C3965B /* XCRemoteSwiftPackageReference "MetaTextKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/TwidereProject/MetaTextKit.git";
 			requirement = {
@@ -5344,7 +5344,7 @@
 				version = 2.2.1;
 			};
 		};
-		DB0E2D2C26833FF600865C3C /* XCRemoteSwiftPackageReference "Nuke-FLAnimatedImage-Plugin.git" */ = {
+		DB0E2D2C26833FF600865C3C /* XCRemoteSwiftPackageReference "Nuke-FLAnimatedImage-Plugin" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/kean/Nuke-FLAnimatedImage-Plugin.git";
 			requirement = {
@@ -5352,7 +5352,7 @@
 				minimumVersion = 8.0.0;
 			};
 		};
-		DB3D0FF125BAA61700EAA174 /* XCRemoteSwiftPackageReference "AlamofireImage.git" */ = {
+		DB3D0FF125BAA61700EAA174 /* XCRemoteSwiftPackageReference "AlamofireImage" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/AlamofireImage.git";
 			requirement = {
@@ -5360,7 +5360,7 @@
 				minimumVersion = 4.1.0;
 			};
 		};
-		DB552D4D26BBD10C00E481F6 /* XCRemoteSwiftPackageReference "swift-collections.git" */ = {
+		DB552D4D26BBD10C00E481F6 /* XCRemoteSwiftPackageReference "swift-collections" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-collections.git";
 			requirement = {
@@ -5368,7 +5368,7 @@
 				minimumVersion = 0.0.5;
 			};
 		};
-		DB6804722637CC1200430867 /* XCRemoteSwiftPackageReference "KeychainAccess.git" */ = {
+		DB6804722637CC1200430867 /* XCRemoteSwiftPackageReference "KeychainAccess" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/kishikawakatsumi/KeychainAccess.git";
 			requirement = {
@@ -5384,7 +5384,7 @@
 				minimumVersion = 1.4.1;
 			};
 		};
-		DBA5A52D26F07ED800CACBAA /* XCRemoteSwiftPackageReference "PanModal.git" */ = {
+		DBA5A52D26F07ED800CACBAA /* XCRemoteSwiftPackageReference "PanModal" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/slackhq/PanModal.git";
 			requirement = {
@@ -5392,7 +5392,7 @@
 				minimumVersion = 1.2.7;
 			};
 		};
-		DBAC6481267D0B21007FE9FD /* XCRemoteSwiftPackageReference "DifferenceKit.git" */ = {
+		DBAC6481267D0B21007FE9FD /* XCRemoteSwiftPackageReference "DifferenceKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ra1028/DifferenceKit.git";
 			requirement = {
@@ -5400,7 +5400,7 @@
 				version = 1.2.0;
 			};
 		};
-		DBAC649C267DFE43007FE9FD /* XCRemoteSwiftPackageReference "DiffableDataSources.git" */ = {
+		DBAC649C267DFE43007FE9FD /* XCRemoteSwiftPackageReference "DiffableDataSources" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/MainasuK/DiffableDataSources.git";
 			requirement = {
@@ -5408,7 +5408,7 @@
 				kind = branch;
 			};
 		};
-		DBAC649F267E6D01007FE9FD /* XCRemoteSwiftPackageReference "Fuzi.git" */ = {
+		DBAC649F267E6D01007FE9FD /* XCRemoteSwiftPackageReference "Fuzi" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/cezheng/Fuzi.git";
 			requirement = {
@@ -5424,7 +5424,7 @@
 				minimumVersion = 2.11.0;
 			};
 		};
-		DBF7A0FA26830C33004176A2 /* XCRemoteSwiftPackageReference "FPSIndicator.git" */ = {
+		DBF7A0FA26830C33004176A2 /* XCRemoteSwiftPackageReference "FPSIndicator" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/MainasuK/FPSIndicator.git";
 			requirement = {
@@ -5437,7 +5437,7 @@
 /* Begin XCSwiftPackageProductDependency section */
 		2D5981B925E4D7F8000FB903 /* ThirdPartyMailer */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 2D5981B825E4D7F8000FB903 /* XCRemoteSwiftPackageReference "ThirdPartyMailer.git" */;
+			package = 2D5981B825E4D7F8000FB903 /* XCRemoteSwiftPackageReference "ThirdPartyMailer" */;
 			productName = ThirdPartyMailer;
 		};
 		2D61336825C18A4F00CAE157 /* AlamofireNetworkActivityIndicator */ = {
@@ -5447,7 +5447,7 @@
 		};
 		2D939AC725EE14620076FA61 /* CropViewController */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 2D939AC625EE14620076FA61 /* XCRemoteSwiftPackageReference "TOCropViewController.git" */;
+			package = 2D939AC625EE14620076FA61 /* XCRemoteSwiftPackageReference "TOCropViewController" */;
 			productName = CropViewController;
 		};
 		5D526FE125BE9AC400460CB9 /* MastodonSDK */ = {
@@ -5466,17 +5466,17 @@
 		};
 		DB01E23226A98F0900C3965B /* MastodonMeta */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = DB01E23126A98F0900C3965B /* XCRemoteSwiftPackageReference "MetaTextKit.git" */;
+			package = DB01E23126A98F0900C3965B /* XCRemoteSwiftPackageReference "MetaTextKit" */;
 			productName = MastodonMeta;
 		};
 		DB01E23426A98F0900C3965B /* MetaTextKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = DB01E23126A98F0900C3965B /* XCRemoteSwiftPackageReference "MetaTextKit.git" */;
+			package = DB01E23126A98F0900C3965B /* XCRemoteSwiftPackageReference "MetaTextKit" */;
 			productName = MetaTextKit;
 		};
 		DB0C946426A6FD4D0088FB11 /* AlamofireImage */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = DB3D0FF125BAA61700EAA174 /* XCRemoteSwiftPackageReference "AlamofireImage.git" */;
+			package = DB3D0FF125BAA61700EAA174 /* XCRemoteSwiftPackageReference "AlamofireImage" */;
 			productName = AlamofireImage;
 		};
 		DB179266278D5A4A00B71DEB /* MastodonSDK */ = {
@@ -5485,22 +5485,22 @@
 		};
 		DB3D0FF225BAA61700EAA174 /* AlamofireImage */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = DB3D0FF125BAA61700EAA174 /* XCRemoteSwiftPackageReference "AlamofireImage.git" */;
+			package = DB3D0FF125BAA61700EAA174 /* XCRemoteSwiftPackageReference "AlamofireImage" */;
 			productName = AlamofireImage;
 		};
 		DB552D4E26BBD10C00E481F6 /* OrderedCollections */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = DB552D4D26BBD10C00E481F6 /* XCRemoteSwiftPackageReference "swift-collections.git" */;
+			package = DB552D4D26BBD10C00E481F6 /* XCRemoteSwiftPackageReference "swift-collections" */;
 			productName = OrderedCollections;
 		};
 		DB68050F2637D0F800430867 /* KeychainAccess */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = DB6804722637CC1200430867 /* XCRemoteSwiftPackageReference "KeychainAccess.git" */;
+			package = DB6804722637CC1200430867 /* XCRemoteSwiftPackageReference "KeychainAccess" */;
 			productName = KeychainAccess;
 		};
 		DB6D9F41263527CE008423CD /* AlamofireImage */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = DB3D0FF125BAA61700EAA174 /* XCRemoteSwiftPackageReference "AlamofireImage.git" */;
+			package = DB3D0FF125BAA61700EAA174 /* XCRemoteSwiftPackageReference "AlamofireImage" */;
 			productName = AlamofireImage;
 		};
 		DB9A487D2603456B008B817C /* UITextView+Placeholder */ = {
@@ -5510,22 +5510,22 @@
 		};
 		DBA5A52E26F07ED800CACBAA /* PanModal */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = DBA5A52D26F07ED800CACBAA /* XCRemoteSwiftPackageReference "PanModal.git" */;
+			package = DBA5A52D26F07ED800CACBAA /* XCRemoteSwiftPackageReference "PanModal" */;
 			productName = PanModal;
 		};
 		DBAC6482267D0B21007FE9FD /* DifferenceKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = DBAC6481267D0B21007FE9FD /* XCRemoteSwiftPackageReference "DifferenceKit.git" */;
+			package = DBAC6481267D0B21007FE9FD /* XCRemoteSwiftPackageReference "DifferenceKit" */;
 			productName = DifferenceKit;
 		};
 		DBAC649D267DFE43007FE9FD /* DiffableDataSources */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = DBAC649C267DFE43007FE9FD /* XCRemoteSwiftPackageReference "DiffableDataSources.git" */;
+			package = DBAC649C267DFE43007FE9FD /* XCRemoteSwiftPackageReference "DiffableDataSources" */;
 			productName = DiffableDataSources;
 		};
 		DBAC64A0267E6D02007FE9FD /* Fuzi */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = DBAC649F267E6D01007FE9FD /* XCRemoteSwiftPackageReference "Fuzi.git" */;
+			package = DBAC649F267E6D01007FE9FD /* XCRemoteSwiftPackageReference "Fuzi" */;
 			productName = Fuzi;
 		};
 		DBB525072611EAC0002F1F29 /* Tabman */ = {
@@ -5553,7 +5553,7 @@
 		};
 		DBF7A0FB26830C33004176A2 /* FPSIndicator */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = DBF7A0FA26830C33004176A2 /* XCRemoteSwiftPackageReference "FPSIndicator.git" */;
+			package = DBF7A0FA26830C33004176A2 /* XCRemoteSwiftPackageReference "FPSIndicator" */;
 			productName = FPSIndicator;
 		};
 /* End XCSwiftPackageProductDependency section */
