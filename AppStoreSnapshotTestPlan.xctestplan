@@ -9,12 +9,19 @@
     }
   ],
   "defaultOptions" : {
+    "defaultTestExecutionTimeAllowance" : 1800,
     "testTimeoutsEnabled" : true
   },
   "testTargets" : [
     {
       "selectedTests" : [
-        "MastodonUISnapshotTests\/testSmoke()"
+        "MastodonUISnapshotTests\/testSmoke()",
+        "MastodonUISnapshotTests\/testSnapshotCompose()",
+        "MastodonUISnapshotTests\/testSnapshotHome()",
+        "MastodonUISnapshotTests\/testSnapshotProfile()",
+        "MastodonUISnapshotTests\/testSnapshotSearch()",
+        "MastodonUISnapshotTests\/testSnapshotServerRules()",
+        "MastodonUISnapshotTests\/testSnapshotThread()"
       ],
       "target" : {
         "containerPath" : "container:Mastodon.xcodeproj",
