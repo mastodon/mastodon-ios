@@ -22,7 +22,7 @@ extension Mastodon.Entity {
         public let title: String
         public let description: String
         public let shortDescription: String?
-        public let email: String?
+        public let email: String
         public let version: String?
         public let languages: [String]?     // (ISO 639 Part 1-5 language codes)
         public let registrations: Bool?
@@ -43,7 +43,7 @@ extension Mastodon.Entity {
             self.title = domain
             self.description = ""
             self.shortDescription = nil
-            self.email = nil
+            self.email = ""
             self.version = nil
             self.languages = nil
             self.registrations = nil
