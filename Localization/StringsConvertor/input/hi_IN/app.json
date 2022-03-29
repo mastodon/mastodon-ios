@@ -45,7 +45,7 @@
                 "message": "Please enable the photo library access permission to save the photo."
             },
             "delete_post": {
-                "title": "Delete Post",
+                "title": "पोस्ट को हटाएं",
                 "message": "Are you sure you want to delete this post?"
             },
             "clean_cache": {
