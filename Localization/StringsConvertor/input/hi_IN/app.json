@@ -2,8 +2,8 @@
     "common": {
         "alerts": {
             "common": {
-                "please_try_again": "Please try again.",
-                "please_try_again_later": "Please try again later."
+                "please_try_again": "कृपया फिर से प्रयास करें।",
+                "please_try_again_later": "बाद में फिर से प्रयास करें।"
             },
             "sign_up_failure": {
                 "title": "Sign Up Failure"
