@@ -11,7 +11,7 @@ brew install chargepoint/xcparse/xcparse
 ## How it works
 We use `xcodebuild` CLI tool to trigger UITest. 
 
-Set the `name` in `-destinatio` option to add device for snapshot. For example:
+Set the `name` in `-destination` option to add device for snapshot. For example:
 `-destination 'platform=iOS Simulator,name=iPad Pro (12.9-inch) (5th generation)' \`
 
 You can list the avaiable simulator:
@@ -128,6 +128,7 @@ xcparse screenshots '<path_for_xcresult>' ~/Downloads/MastodonBuild/Screenshots/
 🎊 Export complete! 🎊
 
 # group
+cd ~/Downloads/MastodonBuild/Screenshots/
 mkdir 'iPhone 8 Plus' 'iPhone 13 Pro Max' 'iPad Pro (12.9-inch) (5th generation)'
 find . -name "*iPad*" -type file -print0 | xargs -0 -I {} mv {} './iPad Pro (12.9-inch) (5th generation)'   
 find . -name "*iPhone 8*" -type file -print0 | xargs -0 -I {} mv {} './iPhone 8 Plus'   
