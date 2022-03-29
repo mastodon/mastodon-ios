@@ -7,21 +7,15 @@
 
 import UIKit
 import Combine
+import MastodonAsset
+import MastodonLocalization
 
 final class PickServerLoaderTableViewCell: TimelineLoaderTableViewCell {
     
     let containerView: UIView = {
         let view = UIView()
         view.layoutMargins = UIEdgeInsets(top: 16, left: 16, bottom: 10, right: 16)
-        view.backgroundColor = Asset.Theme.Mastodon.secondaryGroupedSystemBackground.color
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
-    let seperator: UIView = {
-        let view = UIView()
-        view.backgroundColor = Asset.Theme.Mastodon.systemGroupedBackground.color
-        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .clear
         return view
     }()
     
@@ -30,30 +24,22 @@ final class PickServerLoaderTableViewCell: TimelineLoaderTableViewCell {
         label.text = L10n.Scene.ServerPicker.EmptyState.noResults
         label.textColor = Asset.Colors.Label.secondary.color
         label.textAlignment = .center
-        label.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 14, weight: .semibold), maximumPointSize: 19)
+        label.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 14, weight: .semibold))
         return label
     }()
     
     override func _init() {
         super._init()
-        
-        configureMargin()
-        
-        contentView.addSubview(containerView)
-        contentView.addSubview(seperator)
+                
 
+        // Set background view
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(containerView)
         NSLayoutConstraint.activate([
-            // Set background view
             containerView.topAnchor.constraint(equalTo: contentView.topAnchor),
             containerView.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
             contentView.layoutMarginsGuide.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
-            contentView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: 1),
-            
-            // Set bottom separator
-            seperator.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
-            containerView.trailingAnchor.constraint(equalTo: seperator.trailingAnchor),
-            containerView.topAnchor.constraint(equalTo: seperator.topAnchor),
-            seperator.heightAnchor.constraint(equalToConstant: 1).priority(.defaultHigh),
+            contentView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
         ])
         
         emptyStatusLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -69,24 +55,7 @@ final class PickServerLoaderTableViewCell: TimelineLoaderTableViewCell {
         activityIndicatorView.isHidden = false
         startAnimating()
     }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        
-        configureMargin()
-    }
-}
 
-extension PickServerLoaderTableViewCell {
-    private func configureMargin() {
-        switch traitCollection.horizontalSizeClass {
-        case .regular:
-            let margin = MastodonPickServerViewController.viewEdgeMargin
-            contentView.layoutMargins = UIEdgeInsets(top: 0, left: margin, bottom: 0, right: margin)
-        default:
-            contentView.layoutMargins = .zero
-        }
-    }
 }
 
 #if canImport(SwiftUI) && DEBUG

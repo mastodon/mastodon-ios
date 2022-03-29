@@ -8,6 +8,8 @@
 import os.log
 import UIKit
 import MastodonUI
+import MastodonAsset
+import MastodonLocalization
 
 protocol HomeTimelineNavigationBarTitleViewDelegate: AnyObject {
     func homeTimelineNavigationBarTitleView(_ titleView: HomeTimelineNavigationBarTitleView, logoButtonDidPressed sender: UIButton)
@@ -63,6 +65,9 @@ extension HomeTimelineNavigationBarTitleView {
         configure(state: .logo)
         logoButton.addTarget(self, action: #selector(HomeTimelineNavigationBarTitleView.logoButtonDidPressed(_:)), for: .touchUpInside)
         button.addTarget(self, action: #selector(HomeTimelineNavigationBarTitleView.buttonDidPressed(_:)), for: .touchUpInside)
+        
+        logoButton.accessibilityIdentifier = "TitleButton"
+        button.accessibilityIdentifier = "TitleButton"
     }
 }
 

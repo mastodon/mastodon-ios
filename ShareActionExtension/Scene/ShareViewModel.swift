@@ -14,6 +14,8 @@ import MastodonSDK
 import MastodonUI
 import SwiftUI
 import UniformTypeIdentifiers
+import MastodonAsset
+import MastodonLocalization
 
 final class ShareViewModel {
 
@@ -260,6 +262,10 @@ extension ShareViewModel {
             itemProviders.append(contentsOf: item.attachments ?? [])
         }
         
+        let _textProvider = itemProviders.first { provider in
+            return provider.hasRepresentationConforming(toTypeIdentifier: UTType.plainText.identifier, fileOptions: [])
+        }
+        
         let _urlProvider = itemProviders.first { provider in
             return provider.hasRepresentationConforming(toTypeIdentifier: UTType.url.identifier, fileOptions: [])
         }
@@ -272,25 +278,51 @@ extension ShareViewModel {
             return provider.hasRepresentationConforming(toTypeIdentifier: UTType.image.identifier, fileOptions: [])
         }
         
-        if let urlProvider = _urlProvider {
-            urlProvider.loadItem(forTypeIdentifier: UTType.url.identifier) { [weak self] item, error in
-                guard let self = self else { return }
-                guard let url = item as? URL else { return }
-                DispatchQueue.main.async {
-                    self.composeViewModel.statusContent = "\(url.absoluteString) "
-                }
-            }
-        } else if let movieProvider = _movieProvider {
+        Task { @MainActor in
+            async let text = ShareViewModel.loadText(textProvider: _textProvider)
+            async let url = ShareViewModel.loadURL(textProvider: _urlProvider)
+            
+            let content = await [text, url]
+                .compactMap { $0 }
+                .joined(separator: " ")
+            self.composeViewModel.statusContent = content
+        }
+        
+        if let movieProvider = _movieProvider {
             composeViewModel.setupAttachmentViewModels([
                 StatusAttachmentViewModel(itemProvider: movieProvider)
             ])
-        } else {
+        } else if !imageProviders.isEmpty {
             let viewModels = imageProviders.map { provider in
                 StatusAttachmentViewModel(itemProvider: provider)
             }
             composeViewModel.setupAttachmentViewModels(viewModels)
         }
+
     }
+    
+    private static func loadText(textProvider: NSItemProvider?) async -> String? {
+        guard let textProvider = textProvider else { return nil }
+        do {
+            let item = try await textProvider.loadItem(forTypeIdentifier: UTType.plainText.identifier)
+            guard let text = item as? String else { return nil }
+            return text
+        } catch {
+            return nil
+        }
+    }
+    
+    private static func loadURL(textProvider: NSItemProvider?) async -> String? {
+        guard let textProvider = textProvider else { return nil }
+        do {
+            let item = try await textProvider.loadItem(forTypeIdentifier: UTType.url.identifier)
+            guard let url = item as? URL else { return nil }
+            return url.absoluteString
+        } catch {
+            return nil
+        }
+    }
+    
 }
 
 extension ShareViewModel {
@@ -298,7 +330,8 @@ extension ShareViewModel {
         guard let authentication = composeViewModel.authentication else {
             return Fail(error: APIService.APIError.implicit(.authenticationMissing)).eraseToAnyPublisher()
         }
-        let mastodonAuthenticationBox = MastodonAuthenticationBox(
+        let authenticationBox = MastodonAuthenticationBox(
+            authenticationRecord: .init(objectID: authentication.objectID),
             domain: authentication.domain,
             userID: authentication.userID,
             appAuthorization: Mastodon.API.OAuth.Authorization(accessToken: authentication.appAccessToken),
@@ -334,7 +367,7 @@ extension ShareViewModel {
                     domain: domain,
                     attachmentID: attachmentID,
                     query: query,
-                    mastodonAuthenticationBox: mastodonAuthenticationBox
+                    mastodonAuthenticationBox: authenticationBox
                 )
                 subscriptions.append(subscription)
             }
@@ -345,7 +378,7 @@ extension ShareViewModel {
 
         return Publishers.MergeMany(updateMediaQuerySubscriptions)
             .collect()
-            .flatMap { attachments -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Status>, Error> in
+            .asyncMap { attachments in
                 let query = Mastodon.API.Statuses.PublishStatusQuery(
                     status: status,
                     mediaIDs: mediaIDs.isEmpty ? nil : mediaIDs,
@@ -356,11 +389,11 @@ extension ShareViewModel {
                     spoilerText: spoilerText,
                     visibility: visibility
                 )
-                return APIService.shared.publishStatus(
+                return try await APIService.shared.publishStatus(
                     domain: domain,
                     idempotencyKey: nil,    // FIXME:
                     query: query,
-                    mastodonAuthenticationBox: mastodonAuthenticationBox
+                    authenticationBox: authenticationBox
                 )
             }
             .eraseToAnyPublisher()

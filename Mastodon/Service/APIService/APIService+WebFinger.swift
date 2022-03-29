@@ -16,7 +16,8 @@ import MastodonSDK
 extension APIService {
 
     private static func webFingerEndpointURL(domain: String) -> URL {
-        return URL(string: "https://\(domain)/")!
+        
+        return URL(string: "\(URL.httpScheme(domain: domain))://\(domain)/")!
             .appendingPathComponent(".well-known")
             .appendingPathComponent("webfinger")
     }

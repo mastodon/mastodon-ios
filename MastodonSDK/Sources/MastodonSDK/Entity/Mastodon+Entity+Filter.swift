@@ -22,7 +22,7 @@ extension Mastodon.Entity {
         public let id: ID
         public let phrase: String
         public let context: [Context]
-        public let expiresAt: Date
+        public let expiresAt: Date?
         public let irreversible: Bool
         public let wholeWord: Bool
         
@@ -38,7 +38,7 @@ extension Mastodon.Entity {
 }
 
 extension Mastodon.Entity.Filter {
-    public enum Context: RawRepresentable, Codable {
+    public enum Context: RawRepresentable, Codable, Hashable {
         case home
         case notifications
         case `public`

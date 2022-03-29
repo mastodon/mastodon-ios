@@ -9,10 +9,10 @@ import Foundation
 
 struct MastodonPushNotification: Codable {
     
-    let _accessToken: String
-    var accessToken: String {
-        return String.normalize(base64String: _accessToken)
-    }
+    let accessToken: String
+//    var accessToken: String {
+//        return String.normalize(base64String: _accessToken)
+//    }
 
     let notificationID: Int
     let notificationType: String
@@ -23,7 +23,7 @@ struct MastodonPushNotification: Codable {
     let body: String
     
     enum CodingKeys: String, CodingKey {
-        case _accessToken = "access_token"
+        case accessToken = "access_token"
         case notificationID = "notification_id"
         case notificationType = "notification_type"
         case preferredLocale = "preferred_locale"
@@ -33,7 +33,7 @@ struct MastodonPushNotification: Codable {
     }
     
     public init(
-        _accessToken: String,
+        accessToken: String,
         notificationID: Int,
         notificationType: String,
         preferredLocale: String?,
@@ -41,7 +41,7 @@ struct MastodonPushNotification: Codable {
         title: String,
         body: String
     ) {
-        self._accessToken = _accessToken
+        self.accessToken = accessToken
         self.notificationID = notificationID
         self.notificationType = notificationType
         self.preferredLocale = preferredLocale

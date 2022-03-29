@@ -8,6 +8,7 @@
 import UIKit
 import Accelerate
 import simd
+import MastodonAsset
 
 final class LineChartView: UIView {
     
@@ -43,8 +44,8 @@ extension LineChartView {
 //        layer.addSublayer(dotShapeLayer)
         
         gradientLayer.colors = [
-            UIColor.white.withAlphaComponent(0.5).cgColor,
-            UIColor.white.withAlphaComponent(0).cgColor,
+            Asset.Colors.brandBlue.color.withAlphaComponent(0.5).cgColor,       // set the same alpha to fill
+            Asset.Colors.brandBlue.color.withAlphaComponent(0.5).cgColor,
         ]
         gradientLayer.startPoint = CGPoint(x: 0.5, y: 0)
         gradientLayer.endPoint = CGPoint(x: 0.5, y: 1)
@@ -95,8 +96,8 @@ extension LineChartView {
             dotPath.addArc(withCenter: last, radius: 3, startAngle: 0, endAngle: 2 * .pi, clockwise: true)
         }
 
-        lineShapeLayer.lineWidth = 3
-        lineShapeLayer.strokeColor = UIColor.white.cgColor
+        lineShapeLayer.lineWidth = 1
+        lineShapeLayer.strokeColor = Asset.Colors.brandBlue.color.cgColor
         lineShapeLayer.fillColor = UIColor.clear.cgColor
         lineShapeLayer.lineJoin = .round
         lineShapeLayer.lineCap = .round
@@ -108,7 +109,7 @@ extension LineChartView {
         maskPath.close()
         let maskLayer = CAShapeLayer()
         maskLayer.path = maskPath.cgPath
-        maskLayer.fillColor = UIColor.red.cgColor
+        maskLayer.fillColor = Asset.Colors.brandBlue.color.cgColor
         maskLayer.strokeColor = UIColor.clear.cgColor
         maskLayer.lineWidth = 0.0
         gradientLayer.mask = maskLayer

@@ -18,22 +18,23 @@ import DateToolsSwift
 
 final class HomeTimelineViewModel: NSObject {
     
+    let logger = Logger(subsystem: "HomeTimelineViewModel", category: "ViewModel")
+    
     var disposeBag = Set<AnyCancellable>()
     var observations = Set<NSKeyValueObservation>()
     
     // input
     let context: AppContext
-    let timelinePredicate = CurrentValueSubject<NSPredicate?, Never>(nil)
-    let fetchedResultsController: NSFetchedResultsController<HomeTimelineIndex>
-    let isFetchingLatestTimeline = CurrentValueSubject<Bool, Never>(false)
-    let viewDidAppear = PassthroughSubject<Void, Never>()
+    let fetchedResultsController: FeedFetchedResultsController
     let homeTimelineNavigationBarTitleViewModel: HomeTimelineNavigationBarTitleViewModel
-    let lastAutomaticFetchTimestamp = CurrentValueSubject<Date?, Never>(nil)
-    let scrollPositionRecord = CurrentValueSubject<ScrollPositionRecord?, Never>(nil)
-    let displaySettingBarButtonItem = CurrentValueSubject<Bool, Never>(true)
-    let displayComposeBarButtonItem = CurrentValueSubject<Bool, Never>(true)
+    let listBatchFetchViewModel = ListBatchFetchViewModel()
+    let viewDidAppear = PassthroughSubject<Void, Never>()
+
+    @Published var lastAutomaticFetchTimestamp: Date? = nil
+    @Published var scrollPositionRecord: ScrollPositionRecord? = nil
+    @Published var displaySettingBarButtonItem = true
+    @Published var displayComposeBarButtonItem = true
     
-    weak var contentOffsetAdjustableTimelineViewControllerDelegate: ContentOffsetAdjustableTimelineViewControllerDelegate?
     weak var tableView: UITableView?
     weak var timelineMiddleLoaderTableViewCellDelegate: TimelineMiddleLoaderTableViewCellDelegate?
     
@@ -41,6 +42,9 @@ final class HomeTimelineViewModel: NSObject {
     let homeTimelineNeedRefresh = PassthroughSubject<Void, Never>()
     
     // output
+    var diffableDataSource: UITableViewDiffableDataSource<StatusSection, StatusItem>?
+    let didLoadLatest = PassthroughSubject<Void, Never>()
+
     // top loader
     private(set) lazy var loadLatestStateMachine: GKStateMachine = {
         // exclude timeline middle fetcher state
@@ -54,6 +58,7 @@ final class HomeTimelineViewModel: NSObject {
         return stateMachine
     }()
     lazy var loadLatestStateMachinePublisher = CurrentValueSubject<LoadLatestState?, Never>(nil)
+    
     // bottom loader
     private(set) lazy var loadOldestStateMachine: GKStateMachine = {
         // exclude timeline middle fetcher state
@@ -68,68 +73,26 @@ final class HomeTimelineViewModel: NSObject {
         return stateMachine
     }()
     lazy var loadOldestStateMachinePublisher = CurrentValueSubject<LoadOldestState?, Never>(nil)
-    // middle loader
-    let loadMiddleSateMachineList = CurrentValueSubject<[NSManagedObjectID: GKStateMachine], Never>([:])    // TimelineIndex.objectID : middle loading state machine
-    var diffableDataSource: UITableViewDiffableDataSource<StatusSection, Item>?
+
     var cellFrameCache = NSCache<NSNumber, NSValue>()
     
     init(context: AppContext) {
         self.context  = context
-        self.fetchedResultsController = {
-            let fetchRequest = HomeTimelineIndex.sortedFetchRequest
-            fetchRequest.fetchBatchSize = 20
-            fetchRequest.returnsObjectsAsFaults = false
-            fetchRequest.relationshipKeyPathsForPrefetching = [
-                #keyPath(HomeTimelineIndex.status),
-                #keyPath(HomeTimelineIndex.status.author),
-                #keyPath(HomeTimelineIndex.status.reblog),
-                #keyPath(HomeTimelineIndex.status.reblog.author),
-            ]
-            let controller = NSFetchedResultsController(
-                fetchRequest: fetchRequest,
-                managedObjectContext: context.managedObjectContext,
-                sectionNameKeyPath: nil,
-                cacheName: nil
-            )
-            
-            return controller
-        }()
+        self.fetchedResultsController = FeedFetchedResultsController(managedObjectContext: context.managedObjectContext)
         self.homeTimelineNavigationBarTitleViewModel = HomeTimelineNavigationBarTitleViewModel(context: context)
         super.init()
         
-        fetchedResultsController.delegate = self
-        
-        timelinePredicate
-            .receive(on: DispatchQueue.main)
-            .compactMap { $0 }
-            .first()    // set once
-            .sink { [weak self] predicate in
+        context.authenticationService.activeMastodonAuthenticationBox
+            .sink { [weak self] authenticationBox in
                 guard let self = self else { return }
-                self.fetchedResultsController.fetchRequest.predicate = predicate
-                do {
-                    self.diffableDataSource?.defaultRowAnimation = .fade
-                    try self.fetchedResultsController.performFetch()
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [weak self] in
-                        guard let self = self else { return }
-                        self.diffableDataSource?.defaultRowAnimation = .automatic
-                    }
-                } catch {
-                    assertionFailure(error.localizedDescription)
+                guard let authenticationBox = authenticationBox else {
+                    self.fetchedResultsController.predicate = Feed.predicate(kind: .none, acct: .none)
+                    return
                 }
-            }
-            .store(in: &disposeBag)
-        
-        context.authenticationService.activeMastodonAuthentication
-            .sink { [weak self] activeMastodonAuthentication in
-                guard let self = self else { return }
-                guard let mastodonAuthentication = activeMastodonAuthentication else { return }
-                let domain = mastodonAuthentication.domain
-                let userID = mastodonAuthentication.userID
-                let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [
-                    HomeTimelineIndex.predicate(domain: domain, userID: userID),
-                    HomeTimelineIndex.notDeleted()
-                ])
-                self.timelinePredicate.value = predicate
+                self.fetchedResultsController.predicate = Feed.predicate(
+                    kind: .home,
+                    acct: .mastodon(domain: authenticationBox.domain, userID: authenticationBox.userID)
+                )
             }
             .store(in: &disposeBag)
         
@@ -155,13 +118,85 @@ final class HomeTimelineViewModel: NSObject {
     
 }
 
-extension HomeTimelineViewModel: SuggestionAccountViewModelDelegate { }
-
-
 extension HomeTimelineViewModel {
     struct ScrollPositionRecord {
-        let item: Item
+        let item: StatusItem
         let offset: CGFloat
         let timestamp: Date
     }
 }
+
+extension HomeTimelineViewModel {
+
+    // load timeline gap
+    func loadMore(item: StatusItem) async {
+        guard case let .feedLoader(record) = item else { return }
+        guard let authenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else { return }
+        guard let diffableDataSource = diffableDataSource else { return }
+        var snapshot = diffableDataSource.snapshot()
+
+        let managedObjectContext = context.managedObjectContext
+        let key = "LoadMore@\(record.objectID)"
+        
+        guard let feed = record.object(in: managedObjectContext) else { return }
+        guard let status = feed.status else { return }
+        
+        // keep transient property live
+        managedObjectContext.cache(feed, key: key)
+        defer {
+            managedObjectContext.cache(nil, key: key)
+        }
+        do {
+            // update state
+            try await managedObjectContext.performChanges {
+                feed.update(isLoadingMore: true)
+            }
+        } catch {
+            assertionFailure(error.localizedDescription)
+        }
+        
+        // reconfigure item
+        if #available(iOS 15.0, *) {
+            snapshot.reconfigureItems([item])
+        } else {
+            // Fallback on earlier versions
+            snapshot.reloadItems([item])
+        }
+        await updateSnapshotUsingReloadData(snapshot: snapshot)
+        
+        // fetch data
+        do {
+            let maxID = status.id
+            _ = try await context.apiService.homeTimeline(
+                maxID: maxID,
+                authenticationBox: authenticationBox
+            )
+        } catch {
+            do {
+                // restore state
+                try await managedObjectContext.performChanges {
+                    feed.update(isLoadingMore: false)
+                }
+            } catch {
+                assertionFailure(error.localizedDescription)
+            }
+            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): fetch more failure: \(error.localizedDescription)")
+        }
+        
+        // reconfigure item again
+        if #available(iOS 15.0, *) {
+            snapshot.reconfigureItems([item])
+        } else {
+            // Fallback on earlier versions
+            snapshot.reloadItems([item])
+        }
+        await updateSnapshotUsingReloadData(snapshot: snapshot)
+    }
+
+}
+
+// MARK: - SuggestionAccountViewModelDelegate
+extension HomeTimelineViewModel: SuggestionAccountViewModelDelegate {
+    
+}
+

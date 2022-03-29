@@ -13,37 +13,52 @@ import CommonOSLog
 extension APIService {
  
     func search(
-        domain: String,
         query: Mastodon.API.V2.Search.Query,
-        mastodonAuthenticationBox: MastodonAuthenticationBox
-    ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.SearchResult>, Error> {
-        let authorization = mastodonAuthenticationBox.userAuthorization
-        let requestMastodonUserID = mastodonAuthenticationBox.userID
+        authenticationBox: MastodonAuthenticationBox
+    ) async throws -> Mastodon.Response.Content<Mastodon.Entity.SearchResult> {
+        let domain = authenticationBox.domain
+        let authorization = authenticationBox.userAuthorization
 
-        return Mastodon.API.V2.Search.search(session: session, domain: domain, query: query, authorization: authorization)
-            .flatMap { response -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.SearchResult>, Error> in
-                // persist status
-                let statusResponse = response.map { $0.statuses }
-                return APIService.Persist.persistStatus(
-                    managedObjectContext: self.backgroundManagedObjectContext,
-                    domain: domain,
-                    query: nil,
-                    response: statusResponse,
-                    persistType: .lookUp,
-                    requestMastodonUserID: requestMastodonUserID,
-                    log: OSLog.api
+        let response = try await Mastodon.API.V2.Search.search(
+            session: session,
+            domain: domain,
+            query: query,
+            authorization: authorization
+        ).singleOutput()
+            
+        let managedObjectContext = self.backgroundManagedObjectContext
+        try await managedObjectContext.performChanges {
+            let me = authenticationBox.authenticationRecord.object(in: managedObjectContext)?.user
+            
+            // user
+            for entity in response.value.accounts {
+                _ = Persistence.MastodonUser.createOrMerge(
+                    in: managedObjectContext,
+                    context: Persistence.MastodonUser.PersistContext(
+                        domain: domain,
+                        entity: entity,
+                        cache: nil,
+                        networkDate: response.networkDate
+                    )
                 )
-                .setFailureType(to: Error.self)
-                .tryMap { result -> Mastodon.Response.Content<Mastodon.Entity.SearchResult> in
-                    switch result {
-                    case .success:
-                        return response
-                    case .failure(let error):
-                        throw error
-                    }
-                }
-                .eraseToAnyPublisher()
             }
-            .eraseToAnyPublisher()
+            
+            // statuses
+            for entity in response.value.statuses {
+                _ = Persistence.Status.createOrMerge(
+                    in: managedObjectContext,
+                    context: Persistence.Status.PersistContext(
+                        domain: domain,
+                        entity: entity,
+                        me: me,
+                        statusCache: nil,
+                        userCache: nil,
+                        networkDate: response.networkDate
+                    )
+                )
+            }
+        }   // ent try await managedObjectContext.performChanges { … } 
+        
+        return response
     }
 }

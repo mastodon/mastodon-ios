@@ -7,27 +7,29 @@
 
 import UIKit
 import MastodonSDK
+import MastodonAsset
+import MastodonLocalization
 
 class PickServerCategoryView: UIView {
     
-    var bgShadowView: UIView = {
+    let highlightedIndicatorView: UIView = {
         let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = Asset.Colors.Label.primary.color
         return view
     }()
-    
-    var bgView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.layer.masksToBounds = true
-        view.layer.cornerRadius = 30
-        return view
-    }()
-    
-    var titleLabel: UILabel = {
+
+    let emojiLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .systemFont(ofSize: 34, weight: .regular)
+        return label
+    }()
+    
+    let titleLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .center
+        label.font = .systemFont(ofSize: 17, weight: .semibold)
+        label.textColor = Asset.Colors.Label.secondary.color
         return label
     }()
     
@@ -45,20 +47,27 @@ class PickServerCategoryView: UIView {
 extension PickServerCategoryView {
     
     private func configure() {
-        addSubview(bgView)
-        addSubview(titleLabel)
-
-        bgView.backgroundColor = Asset.Theme.Mastodon.secondaryGroupedSystemBackground.color
-
+        let container = UIStackView()
+        container.axis = .vertical
+        container.distribution = .fillProportionally
+        
+        container.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(container)
         NSLayoutConstraint.activate([
-            bgView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            bgView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            bgView.topAnchor.constraint(equalTo: self.topAnchor),
-            bgView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-
-            titleLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            titleLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            container.topAnchor.constraint(equalTo: topAnchor),
+            container.leadingAnchor.constraint(equalTo: leadingAnchor),
+            container.trailingAnchor.constraint(equalTo: trailingAnchor),
+            container.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])
+        
+        container.addArrangedSubview(emojiLabel)
+        container.addArrangedSubview(titleLabel)
+        highlightedIndicatorView.translatesAutoresizingMaskIntoConstraints = false
+        container.addArrangedSubview(highlightedIndicatorView)
+        NSLayoutConstraint.activate([
+            highlightedIndicatorView.heightAnchor.constraint(equalToConstant: UIView.separatorLineHeight(of: self) * 3).priority(.required - 1),
+        ])
+        titleLabel.setContentHuggingPriority(.required - 1, for: .vertical)
     }
     
 }

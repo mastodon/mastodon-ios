@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import MastodonAsset
 
 struct MastodonTheme: Theme {
 

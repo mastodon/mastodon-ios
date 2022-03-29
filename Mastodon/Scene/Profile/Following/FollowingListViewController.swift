@@ -11,12 +11,13 @@ import GameplayKit
 import Combine
 
 final class FollowingListViewController: UIViewController, NeedsDependency {
-    
-    var disposeBag = Set<AnyCancellable>()
+
+    let logger = Logger(subsystem: "FollowingListViewController", category: "ViewController")
     
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
+    var disposeBag = Set<AnyCancellable>()
     var viewModel: FollowingListViewModel!
     
     lazy var tableView: UITableView = {
@@ -43,7 +44,7 @@ extension FollowingListViewController {
         
         view.backgroundColor = ThemeService.shared.currentTheme.value.secondarySystemBackgroundColor
         ThemeService.shared.currentTheme
-            .receive(on: RunLoop.main)
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] theme in
                 guard let self = self else { return }
                 self.view.backgroundColor = theme.secondarySystemBackgroundColor
@@ -61,10 +62,19 @@ extension FollowingListViewController {
         
         tableView.delegate = self
         viewModel.setupDiffableDataSource(
-            for: tableView,
-            dependency: self
+            tableView: tableView,
+            userTableViewCellDelegate: self
         )
-        // TODO: add UserTableViewCellDelegate
+        
+        // setup batch fetch
+        viewModel.listBatchFetchViewModel.setup(scrollView: tableView)
+        viewModel.listBatchFetchViewModel.shouldFetch
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                self.viewModel.stateMachine.enter(FollowingListViewModel.State.Loading.self)
+            }
+            .store(in: &disposeBag)
         
         // trigger user timeline loading
         Publishers.CombineLatest(
@@ -81,27 +91,17 @@ extension FollowingListViewController {
     
 }
 
-// MARK: - LoadMoreConfigurableTableViewContainer
-extension FollowingListViewController: LoadMoreConfigurableTableViewContainer {
-    typealias BottomLoaderTableViewCell = TimelineBottomLoaderTableViewCell
-    typealias LoadingState = FollowingListViewModel.State.Loading
-    var loadMoreConfigurableTableView: UITableView { tableView }
-    var loadMoreConfigurableStateMachine: GKStateMachine { viewModel.stateMachine }
-}
-
-// MARK: - UIScrollViewDelegate
-extension FollowingListViewController {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        handleScrollViewDidScroll(scrollView)
-    }
-}
-
-
 // MARK: - UITableViewDelegate
-extension FollowingListViewController: UITableViewDelegate {
+extension FollowingListViewController: UITableViewDelegate, AutoGenerateTableViewDelegate {
+    // sourcery:inline:FollowingListViewController.AutoGenerateTableViewDelegate
+
+    // Generated using Sourcery
+    // DO NOT EDIT
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        handleTableView(tableView, didSelectRowAt: indexPath)
+        aspectTableView(tableView, didSelectRowAt: indexPath)
     }
+
+    // sourcery:end
 }
 
 // MARK: - UserTableViewCellDelegate

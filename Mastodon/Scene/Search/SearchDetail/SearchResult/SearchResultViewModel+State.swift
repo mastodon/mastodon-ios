@@ -11,7 +11,15 @@ import GameplayKit
 import MastodonSDK
 
 extension SearchResultViewModel {
-    class State: GKState {
+    class State: GKState, NamingState {
+        
+        let logger = Logger(subsystem: "SearchResultViewModel.State", category: "StateMachine")
+        
+        let id = UUID()
+
+        var name: String {
+            String(describing: Self.self)
+        }
         weak var viewModel: SearchResultViewModel?
 
         init(viewModel: SearchResultViewModel) {
@@ -19,8 +27,18 @@ extension SearchResultViewModel {
         }
 
         override func didEnter(from previousState: GKState?) {
-            os_log("%{public}s[%{public}ld], %{public}s: enter %s, previous: %s", (#file as NSString).lastPathComponent, #line, #function, debugDescription, previousState.debugDescription)
-//            viewModel?.loadOldestStateMachinePublisher.send(self)
+            super.didEnter(from: previousState)
+            let previousState = previousState as? SearchResultViewModel.State
+            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [\(self.id.uuidString)] enter \(self.name), previous: \(previousState?.name  ?? "<nil>")")
+        }
+        
+        @MainActor
+        func enter(state: State.Type) {
+            stateMachine?.enter(state)
+        }
+        
+        deinit {
+            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [\(self.id.uuidString)] \(self.name)")
         }
     }
 }
@@ -34,7 +52,6 @@ extension SearchResultViewModel.State {
     }
 
     class Loading: SearchResultViewModel.State {
-        let logger = Logger(subsystem: "SearchResultViewModel.State.Loading", category: "Logic")
 
         var previousSearchText = ""
         var offset: Int? = nil
@@ -55,22 +72,23 @@ extension SearchResultViewModel.State {
         override func didEnter(from previousState: GKState?) {
             super.didEnter(from: previousState)
             guard let viewModel = viewModel, let stateMachine = stateMachine else { return }
-            guard let activeMastodonAuthenticationBox = viewModel.context.authenticationService.activeMastodonAuthenticationBox.value else {
+            guard let authenticationBox = viewModel.context.authenticationService.activeMastodonAuthenticationBox.value else {
                 assertionFailure()
                 stateMachine.enter(Fail.self)
                 return
             }
 
-            let domain = activeMastodonAuthenticationBox.domain
-
             let searchText = viewModel.searchText.value
             let searchType = viewModel.searchScope.searchType
 
             if previousState is NoMore && previousSearchText == searchText {
-                // same searchText from NoMore. should silent refresh
+                // same searchText from NoMore
+                // break the loading and resume NoMore state
+                stateMachine.enter(NoMore.self)
+                return
             } else {
                 // trigger bottom loader display
-                viewModel.items.value = viewModel.items.value
+//                viewModel.items.value = viewModel.items.value
             }
 
             guard !searchText.isEmpty else {
@@ -82,7 +100,7 @@ extension SearchResultViewModel.State {
                 previousSearchText = searchText
                 offset = nil
             } else {
-                offset = viewModel.items.value.count
+                offset = viewModel.items.count
             }
 
             // not set offset for all case
@@ -109,61 +127,54 @@ extension SearchResultViewModel.State {
 
             let id = UUID()
             latestLoadingToken = id
+            
+            Task {
+                do {
+                    let response = try await viewModel.context.apiService.search(
+                        query: query,
+                        authenticationBox: authenticationBox
+                    )
+                    
+                    // discard result when search text is outdated
+                    guard searchText == self.previousSearchText else { return }
+                    // discard result when request not the latest one
+                    guard id == self.latestLoadingToken else { return }
+                    // discard result when state is not Loading
+                    guard stateMachine.currentState is Loading else { return }
 
-            viewModel.context.apiService.search(
-                domain: domain,
-                query: query,
-                mastodonAuthenticationBox: activeMastodonAuthenticationBox
-            )
-            .sink { [weak self] completion in
-                guard let self = self else { return }
-                switch completion {
-                case .failure(let error):
-                    self.logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): search \(searchText) fail: \(error.localizedDescription)")
-                    stateMachine.enter(Fail.self)
-                case .finished:
-                    self.logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): search \(searchText) success")
+                    let userIDs = response.value.accounts.map { $0.id }
+                    let statusIDs = response.value.statuses.map { $0.id }
+
+                    let isNoMore = userIDs.isEmpty && statusIDs.isEmpty
+
+                    if viewModel.searchScope == .all || isNoMore {
+                        await enter(state: NoMore.self)
+                    } else {
+                        await enter(state: Idle.self)
+                    }
+                    
+                    // reset data source when the search is refresh
+                    if offset == nil {
+                        viewModel.userFetchedResultsController.userIDs = []
+                        viewModel.statusFetchedResultsController.statusIDs.value = []
+                        viewModel.hashtags = []
+                    }
+
+                    viewModel.userFetchedResultsController.append(userIDs: userIDs)
+                    viewModel.statusFetchedResultsController.append(statusIDs: statusIDs)
+                    
+                    var hashtags = viewModel.hashtags
+                    for hashtag in response.value.hashtags where !hashtags.contains(hashtag) {
+                        hashtags.append(hashtag)
+                    }
+                    viewModel.hashtags = hashtags
+                    
+                } catch {
+                    logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): search \(searchText) fail: \(error.localizedDescription)")
+                    await enter(state: Fail.self)
                 }
-            } receiveValue: { [weak self] response in
-                guard let self = self else { return }
-
-                // discard result when search text is outdated
-                guard searchText == self.previousSearchText else { return }
-                // discard result when request not the latest one
-                guard id == self.latestLoadingToken else { return }
-                // discard result when state is not Loading
-                guard stateMachine.currentState is Loading else { return }
-
-                let oldItems = _offset == nil ? [] : viewModel.items.value
-                var newItems: [SearchResultItem] = []
-
-                for account in response.value.accounts {
-                    let item = SearchResultItem.account(account: account)
-                    guard !oldItems.contains(item) else { continue }
-                    newItems.append(item)
-                }
-                for hashtag in response.value.hashtags {
-                    let item = SearchResultItem.hashtag(tag: hashtag)
-                    guard !oldItems.contains(item) else { continue }
-                    newItems.append(item)
-                }
-
-                var newStatusIDs = _offset == nil ? [] : viewModel.statusFetchedResultsController.statusIDs.value
-                for status in response.value.statuses {
-                    guard !newStatusIDs.contains(status.id) else { continue }
-                    newStatusIDs.append(status.id)
-                }
-
-                if viewModel.searchScope == .all || newItems.isEmpty {
-                    stateMachine.enter(NoMore.self)
-                } else {
-                    stateMachine.enter(Idle.self)
-                }
-                viewModel.items.value = oldItems + newItems
-                viewModel.statusFetchedResultsController.statusIDs.value = newStatusIDs
-            }
-            .store(in: &viewModel.disposeBag)
-        }
+            }   // end Task
+        }   // end func
     }
 
     class Fail: SearchResultViewModel.State {

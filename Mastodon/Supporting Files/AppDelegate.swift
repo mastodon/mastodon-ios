@@ -12,10 +12,6 @@ import AppShared
 import AVFoundation
 @_exported import MastodonUI
 
-#if ASDK
-import AsyncDisplayKit
-#endif
-
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -27,6 +23,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         // configure appearance
         ThemeService.shared.apply(theme: ThemeService.shared.currentTheme.value)
+        
+        // configure AudioSession
+        try? AVAudioSession.sharedInstance().setCategory(.ambient)
         
         // Update app version info. See: `Settings.bundle`
         UserDefaults.standard.setValue(UIApplication.appVersion(), forKey: "Mastodon.appVersion")
@@ -40,13 +39,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         var count = UserDefaults.shared.processCompletedCount
         count += 1      // Int64. could ignore overflow here
         UserDefaults.shared.processCompletedCount = count
-        
-        #if ASDK && DEBUG
-        // PerformanceMonitor.shared().start()
-        // ASDisplayNode.shouldShowRangeDebugOverlay = true
-        // ASControlNode.enableHitTestDebug = true
-        // ASImageNode.shouldShowImageScalingOverlay = true
-        #endif
         
         return true
     }
@@ -98,19 +90,19 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void
     ) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: [Push Notification]", ((#file as NSString).lastPathComponent), #line, #function)
-        guard let mastodonPushNotification = AppDelegate.mastodonPushNotification(from: notification) else {
+        guard let pushNotification = AppDelegate.mastodonPushNotification(from: notification) else {
             completionHandler([])
             return
         }
         
-        let notificationID = String(mastodonPushNotification.notificationID)
+        let notificationID = String(pushNotification.notificationID)
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: [Push Notification] notification %s", ((#file as NSString).lastPathComponent), #line, #function, notificationID)
         
-        let accessToken = mastodonPushNotification.accessToken
+        let accessToken = pushNotification.accessToken
         UserDefaults.shared.increaseNotificationCount(accessToken: accessToken)
         appContext.notificationService.applicationIconBadgeNeedsUpdate.send()
         
-        appContext.notificationService.handle(mastodonPushNotification: mastodonPushNotification)
+        appContext.notificationService.handle(pushNotification: pushNotification)
         completionHandler([.sound])
     }
     
@@ -122,15 +114,15 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     ) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: [Push Notification]", ((#file as NSString).lastPathComponent), #line, #function)
         
-        guard let mastodonPushNotification = AppDelegate.mastodonPushNotification(from: response.notification) else {
+        guard let pushNotification = AppDelegate.mastodonPushNotification(from: response.notification) else {
             completionHandler()
             return
         }
         
-        let notificationID = String(mastodonPushNotification.notificationID)
+        let notificationID = String(pushNotification.notificationID)
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: [Push Notification] notification %s", ((#file as NSString).lastPathComponent), #line, #function, notificationID)
-        appContext.notificationService.handle(mastodonPushNotification: mastodonPushNotification)
-        appContext.notificationService.requestRevealNotificationPublisher.send(mastodonPushNotification)
+        appContext.notificationService.handle(pushNotification: pushNotification)
+        appContext.notificationService.requestRevealNotificationPublisher.send(pushNotification)
         completionHandler()
     }
     

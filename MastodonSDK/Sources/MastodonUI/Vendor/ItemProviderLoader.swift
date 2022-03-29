@@ -55,6 +55,24 @@ extension ItemProviderLoader {
                 ] as CFDictionary
                 
                 guard let cgImage = CGImageSourceCreateThumbnailAtIndex(source, 0, downsampleOptions) else {
+                    // fallback to loadItem when create thumbnail failure
+                    itemProvider.loadItem(forTypeIdentifier: UTType.image.identifier, options: nil) { image, error in
+                        if let error = error {
+                            promise(.failure(error))
+                        }
+                        
+                        guard let image = image as? UIImage,
+                              let data = image.jpegData(compressionQuality: 0.75)
+                        else {
+                            promise(.success(nil))
+                            assertionFailure()
+                            return
+                        }
+                        
+                        let file = Mastodon.Query.MediaAttachment.jpeg(data)
+                        promise(.success(file))
+                        
+                    }   // end itemProvider.loadItem
                     return
                 }
                 

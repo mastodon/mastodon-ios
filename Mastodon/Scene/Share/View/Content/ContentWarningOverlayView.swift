@@ -9,6 +9,8 @@ import os.log
 import Foundation
 import Combine
 import UIKit
+import MastodonAsset
+import MastodonLocalization
 
 protocol ContentWarningOverlayViewDelegate: AnyObject {
     func contentWarningOverlayViewDidPressed(_ contentWarningOverlayView: ContentWarningOverlayView)

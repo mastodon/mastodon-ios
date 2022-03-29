@@ -7,6 +7,8 @@
 
 import UIKit
 import SafariServices
+import MastodonAsset
+import MastodonLocalization
 
 final class SafariActivity: UIActivity {
     
@@ -22,7 +24,7 @@ final class SafariActivity: UIActivity {
     }
     
     override var activityTitle: String? {
-        return L10n.Common.Controls.Actions.openInSafari
+        return UserDefaults.shared.preferredUsingDefaultBrowser ? L10n.Common.Controls.Actions.openInBrowser : L10n.Common.Controls.Actions.openInSafari
     }
     
     override var activityImage: UIImage? {
@@ -55,8 +57,10 @@ final class SafariActivity: UIActivity {
             return
         }
         
-        sceneCoordinator?.present(scene: .safari(url: url as URL), from: nil, transition: .safariPresent(animated: true, completion: nil))
-        activityDidFinish(true)
+        Task {
+            await sceneCoordinator?.present(scene: .safari(url: url as URL), from: nil, transition: .safariPresent(animated: true, completion: nil))
+            activityDidFinish(true)
+        }
     }
     
 }

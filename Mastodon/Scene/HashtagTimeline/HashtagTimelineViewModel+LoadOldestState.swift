@@ -11,7 +11,16 @@ import GameplayKit
 import CoreDataStack
 
 extension HashtagTimelineViewModel {
-    class LoadOldestState: GKState {
+    class LoadOldestState: GKState, NamingState {
+        
+        let logger = Logger(subsystem: "HashtagTimelineViewModel.LoadOldestState", category: "StateMachine")
+        
+        let id = UUID()
+
+        var name: String {
+            String(describing: Self.self)
+        }
+
         weak var viewModel: HashtagTimelineViewModel?
         
         init(viewModel: HashtagTimelineViewModel) {
@@ -19,8 +28,19 @@ extension HashtagTimelineViewModel {
         }
         
         override func didEnter(from previousState: GKState?) {
-            os_log("%{public}s[%{public}ld], %{public}s: enter %s, previous: %s", ((#file as NSString).lastPathComponent), #line, #function, self.debugDescription, previousState.debugDescription)
+            let previousState = previousState as? HashtagTimelineViewModel.LoadOldestState
+            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [\(self.id.uuidString)] enter \(self.name), previous: \(previousState?.name  ?? "<nil>")")
+
             viewModel?.loadOldestStateMachinePublisher.send(self)
+        }
+        
+        @MainActor
+        func enter(state: LoadOldestState.Type) {
+            stateMachine?.enter(state)
+        }
+        
+        deinit {
+            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [\(self.id.uuidString)] \(self.name)")
         }
     }
 }
@@ -28,14 +48,12 @@ extension HashtagTimelineViewModel {
 extension HashtagTimelineViewModel.LoadOldestState {
     class Initial: HashtagTimelineViewModel.LoadOldestState {
         override func isValidNextState(_ stateClass: AnyClass) -> Bool {
-            guard let viewModel = viewModel else { return false }
-            guard !(viewModel.fetchedResultsController.fetchedResultsController.fetchedObjects ?? []).isEmpty else { return false }
             return stateClass == Loading.self
         }
     }
     
     class Loading: HashtagTimelineViewModel.LoadOldestState {
-        var maxID: String?
+        var maxID: Status.ID?
         
         override func isValidNextState(_ stateClass: AnyClass) -> Bool {
             return stateClass == Fail.self || stateClass == Idle.self || stateClass == NoMore.self
@@ -43,59 +61,47 @@ extension HashtagTimelineViewModel.LoadOldestState {
         
         override func didEnter(from previousState: GKState?) {
             super.didEnter(from: previousState)
+            
             guard let viewModel = viewModel, let stateMachine = stateMachine else { return }
-            guard let activeMastodonAuthenticationBox = viewModel.context.authenticationService.activeMastodonAuthenticationBox.value else {
+            guard let authenticationBox = viewModel.context.authenticationService.activeMastodonAuthenticationBox.value else {
                 assertionFailure()
                 stateMachine.enter(Fail.self)
                 return
             }
             
-            guard let last = viewModel.fetchedResultsController.fetchedResultsController.fetchedObjects?.last else {
-                stateMachine.enter(Idle.self)
-                return
-            }
-            
             // TODO: only set large count when using Wi-Fi
-            let maxID = self.maxID ?? last.id
-            viewModel.context.apiService.hashtagTimeline(
-                domain: activeMastodonAuthenticationBox.domain,
-                maxID: maxID,
-                hashtag: viewModel.hashtag,
-                authorizationBox: activeMastodonAuthenticationBox)
-                .delay(for: .seconds(1), scheduler: DispatchQueue.main)
-                .receive(on: DispatchQueue.main)
-                .sink { completion in
-//                    viewModel.homeTimelineNavigationBarState.receiveCompletion(completion: completion)
-                    switch completion {
-                    case .failure(let error):
-                        os_log("%{public}s[%{public}ld], %{public}s: fetch statuses failed. %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
-                    case .finished:
-                        // handle isFetchingLatestTimeline in fetch controller delegate
-                        break
+            let maxID = self.maxID
+            Task {
+                do {
+                    let response = try await viewModel.context.apiService.hashtagTimeline(
+                        domain: authenticationBox.domain,
+                        maxID: maxID,
+                        hashtag: viewModel.hashtag,
+                        authenticationBox: authenticationBox
+                    )
+                    
+                    var hasMore = false
+                    
+                    if let _maxID = response.link?.maxID,
+                        _maxID != maxID
+                    {
+                        self.maxID = _maxID
+                        hasMore = true
                     }
-                } receiveValue: { [weak self] response in
-                    guard let self = self else { return }
-                    
-                    let statuses = response.value
-                    // enter no more state when no new statuses
-                    
-                    let hasNextPage: Bool = {
-                        guard let link = response.link else { return true }     // assert has more when link invalid
-                        return link.maxID != nil
-                    }()
-                    self.maxID = response.link?.maxID
-                    
-                    if !hasNextPage || statuses.isEmpty || (statuses.count == 1 && statuses[0].id == maxID) {
-                        stateMachine.enter(NoMore.self)
+                    if hasMore {
+                        await enter(state: Idle.self)
                     } else {
-                        stateMachine.enter(Idle.self)
+                        await enter(state: NoMore.self)
                     }
-                    var newStatusIDs = viewModel.fetchedResultsController.statusIDs.value
-                    let fetchedStatusIDList = statuses.map { $0.id }
-                    newStatusIDs.append(contentsOf: fetchedStatusIDList)
-                    viewModel.fetchedResultsController.statusIDs.value = newStatusIDs
+                    
+                    let statusIDs = response.value.map { $0.id }
+                    viewModel.fetchedResultsController.append(statusIDs: statusIDs)
+                    
+                } catch {
+                    logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): fetch statues failed: \(error.localizedDescription)")
+                    await enter(state: Fail.self)
                 }
-                .store(in: &viewModel.disposeBag)
+            }   // end Task
         }
     }
     
@@ -113,8 +119,7 @@ extension HashtagTimelineViewModel.LoadOldestState {
 
     class NoMore: HashtagTimelineViewModel.LoadOldestState {
         override func isValidNextState(_ stateClass: AnyClass) -> Bool {
-            // reset state if needs
-            return stateClass == Idle.self
+            return false
         }
         
         override func didEnter(from previousState: GKState?) {

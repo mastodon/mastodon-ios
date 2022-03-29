@@ -11,7 +11,16 @@ import GameplayKit
 import MastodonSDK
 
 extension AutoCompleteViewModel {
-    class State: GKState {
+    class State: GKState, NamingState {
+        
+        let logger = Logger(subsystem: "AutoCompleteViewModel.State", category: "StateMachine")
+        
+        let id = UUID()
+
+        var name: String {
+            String(describing: Self.self)
+        }
+        
         weak var viewModel: AutoCompleteViewModel?
         
         init(viewModel: AutoCompleteViewModel) {
@@ -19,7 +28,18 @@ extension AutoCompleteViewModel {
         }
         
         override func didEnter(from previousState: GKState?) {
-            os_log("%{public}s[%{public}ld], %{public}s: enter %s, previous: %s", ((#file as NSString).lastPathComponent), #line, #function, self.debugDescription, previousState.debugDescription)
+            super.didEnter(from: previousState)
+            let previousState = previousState as? AutoCompleteViewModel.State
+            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [\(self.id.uuidString)] enter \(self.name), previous: \(previousState?.name  ?? "<nil>")")
+        }
+        
+        @MainActor
+        func enter(state: State.Type) {
+            stateMachine?.enter(state)
+        }
+        
+        deinit {
+            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [\(self.id.uuidString)] \(self.name)")
         }
     }
 }
@@ -67,32 +87,29 @@ extension AutoCompleteViewModel.State {
             
             switch searchType {
             case .emoji:
-                Loading.fetchLocalEmoji(
-                    searchText: searchText,
-                    viewModel: viewModel,
-                    stateMachine: stateMachine
-                )
+                Task {
+                    await fetchLocalEmoji(searchText: searchText)
+                }
             default:
-                Loading.queryRemoteEnitity(
-                    searchText: searchText,
-                    viewModel: viewModel,
-                    stateMachine: stateMachine
-                )
+                Task {
+                    await queryRemoteEnitity(searchText: searchText)
+                }
             }
         }
         
-        private static func fetchLocalEmoji(
-            searchText: String,
-            viewModel: AutoCompleteViewModel,
-            stateMachine: GKStateMachine
-        ) {
+        private func fetchLocalEmoji(searchText: String) async {
+            guard let viewModel = viewModel else {
+                await enter(state: Fail.self)
+                return
+            }
+            
             guard let customEmojiViewModel = viewModel.customEmojiViewModel.value else {
-                stateMachine.enter(Fail.self)
+                await enter(state: Fail.self)
                 return
             }
             
             guard let emojiTrie = customEmojiViewModel.emojiTrie.value else {
-                stateMachine.enter(Fail.self)
+                await enter(state: Fail.self)
                 return
             }
             
@@ -105,20 +122,21 @@ extension AutoCompleteViewModel.State {
             let items: [AutoCompleteItem] = matchingEmojis.map { emoji in
                 AutoCompleteItem.emoji(emoji: emoji)
             }
-            stateMachine.enter(Idle.self)
+
+            await enter(state: Idle.self)
             viewModel.autoCompleteItems.value = items
         }
         
-        private static func queryRemoteEnitity(
-            searchText: String,
-            viewModel: AutoCompleteViewModel,
-            stateMachine: GKStateMachine
-        ) {
-            guard let activeMastodonAuthenticationBox = viewModel.context.authenticationService.activeMastodonAuthenticationBox.value else {
-                stateMachine.enter(Fail.self)
+        private func queryRemoteEnitity(searchText: String) async {
+            guard let viewModel = viewModel else {
+                await enter(state: Fail.self)
                 return
             }
-            let domain = activeMastodonAuthenticationBox.domain
+            
+            guard let authenticationBox = viewModel.context.authenticationService.activeMastodonAuthenticationBox.value else {
+                await enter(state: Fail.self)
+                return
+            }
 
             let searchText = viewModel.inputText.value
             let searchType = AutoCompleteViewModel.SearchType(inputText: searchText) ?? .default
@@ -131,30 +149,27 @@ extension AutoCompleteViewModel.State {
                 offset: nil,
                 following: nil
             )
-            viewModel.context.apiService.search(
-                domain: domain,
-                query: query,
-                mastodonAuthenticationBox: activeMastodonAuthenticationBox
-            )
-            .receive(on: DispatchQueue.main)
-            .sink { completion in
-                switch completion {
-                case .failure(let error):
-                    os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: auto-complete fail: %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
-                    stateMachine.enter(Fail.self)
-                case .finished:
-                    break
-                }
-            } receiveValue: { response in
+            
+            do {
+                let response = try await viewModel.context.apiService.search(
+                    query: query,
+                    authenticationBox: authenticationBox
+                )
+                
+                await enter(state: Idle.self)
+
                 guard viewModel.inputText.value == searchText else { return }     // discard if not matching
                 
                 var items: [AutoCompleteItem] = []
                 items.append(contentsOf: response.value.accounts.map { AutoCompleteItem.account(account: $0) })
                 items.append(contentsOf: response.value.hashtags.map { AutoCompleteItem.hashtag(tag: $0) })
-                stateMachine.enter(Idle.self)
+
                 viewModel.autoCompleteItems.value = items
+                
+            } catch {
+                logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): auto-complete fail: \(error.localizedDescription)")
+                await enter(state: Fail.self)
             }
-            .store(in: &viewModel.disposeBag)
         }
         
         private func reset(searchText: String) {

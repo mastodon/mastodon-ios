@@ -20,12 +20,12 @@ final class MeProfileViewModel: ProfileViewModel {
             optionalMastodonUser: context.authenticationService.activeMastodonAuthentication.value?.user
         )
         
-        self.currentMastodonUser
-            .sink { [weak self] currentMastodonUser in
-                os_log("%{public}s[%{public}ld], %{public}s: current active mastodon user: %s", ((#file as NSString).lastPathComponent), #line, #function, currentMastodonUser?.username ?? "<nil>")
+        $me
+            .sink { [weak self] me in
+                os_log("%{public}s[%{public}ld], %{public}s: current active mastodon user: %s", ((#file as NSString).lastPathComponent), #line, #function, me?.username ?? "<nil>")
                 
                 guard let self = self else { return }
-                self.mastodonUser.value = currentMastodonUser
+                self.user = me
             }
             .store(in: &disposeBag)
     }

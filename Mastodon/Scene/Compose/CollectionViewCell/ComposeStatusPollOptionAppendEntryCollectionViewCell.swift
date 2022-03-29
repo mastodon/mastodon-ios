@@ -7,6 +7,8 @@
 
 import os.log
 import UIKit
+import MastodonAsset
+import MastodonLocalization
 
 protocol ComposeStatusPollOptionAppendEntryCollectionViewCellDelegate: AnyObject {
     func composeStatusPollOptionAppendEntryCollectionViewCellDidPressed(_ cell: ComposeStatusPollOptionAppendEntryCollectionViewCell)

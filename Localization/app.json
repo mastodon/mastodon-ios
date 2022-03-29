@@ -45,8 +45,8 @@
                 "message": "Please enable the photo library access permission to save the photo."
             },
             "delete_post": {
-                "title": "Are you sure you want to delete this post?",
-                "delete": "Delete"
+                "title": "Delete Post",
+                "message": "Are you sure you want to delete this post?"
             },
             "clean_cache": {
                 "title": "Clean Cache",
@@ -130,6 +130,7 @@
                 "show_user_profile": "Show user profile",
                 "content_warning": "Content Warning",
                 "media_content_warning": "Tap anywhere to reveal",
+                "tap_to_reveal": "Tap to reveal",
                 "poll": {
                     "vote": "Vote",
                     "closed": "Closed"
@@ -140,7 +141,12 @@
                     "unreblog": "Undo reblog",
                     "favorite": "Favorite",
                     "unfavorite": "Unfavorite",
-                    "menu": "Menu"
+                    "menu": "Menu",
+                    "hide": "Hide",
+                    "show_image": "Show image",
+                    "show_gif": "Show GIF",
+                    "show_video_player": "Show video player",
+                    "tap_then_hold_to_show_menu": "Tap then hold to show menu"
                 },
                 "tag": {
                     "url": "URL",
@@ -149,6 +155,12 @@
                     "hashtag": "Hashtag",
                     "email": "Email",
                     "emoji": "Emoji"
+                },
+                "visibility": {
+                    "unlisted": "Everyone can see this post but not display in the public timeline.",
+                    "private": "Only their followers can see this post.",
+                    "private_from_me": "Only my followers can see this post.",
+                    "direct": "Only mentioned user can see this post."
                 }
             },
             "friendship": {
@@ -193,10 +205,14 @@
     },
     "scene": {
         "welcome": {
-            "slogan": "Social networking\nback in your hands."
+            "slogan": "Social networking\nback in your hands.",
+            "get_started": "Get Started",
+            "log_in": "Log In"
         },
         "server_picker": {
-            "title": "Pick a server,\nany server.",
+            "title": "Mastodon is made of users in different communities.",
+            "subtitle": "Pick a community based on your interests, region, or a general purpose one.",
+            "subtitle_extend": "Pick a community based on your interests, region, or a general purpose one. Each community is operated by an entirely independent organization or individual.",
             "button": {
                 "category": {
                     "all": "All",
@@ -223,7 +239,7 @@
                 "category": "CATEGORY"
             },
             "input": {
-                "placeholder": "Find a server or join your own..."
+                "placeholder": "Search communities"
             },
             "empty_state": {
                 "finding_servers": "Finding available servers...",
@@ -232,7 +248,7 @@
             }
         },
         "register": {
-            "title": "Tell us about you.",
+            "title": "Let’s get you set up on %s",
             "input": {
                 "avatar": {
                     "delete": "Delete"
@@ -249,6 +265,12 @@
                 },
                 "password": {
                     "placeholder": "password",
+                    "require": "Your password needs at least:",
+                    "character_limit": "8 characters",
+                    "accessibility": {
+                        "checked": "checked",
+                        "unchecked": "unchecked"
+                    },
                     "hint": "Your password needs at least eight characters"
                 },
                 "invite": {
@@ -286,7 +308,7 @@
         },
         "server_rules": {
             "title": "Some ground rules.",
-            "subtitle": "These rules are set by the admins of %s.",
+            "subtitle": "These are set and enforced by the %s moderators.",
             "prompt": "By continuing, you’re subject to the terms of service and privacy policy for %s.",
             "terms_of_service": "terms of service",
             "privacy_policy": "privacy policy",
@@ -296,10 +318,10 @@
         },
         "confirm_email": {
             "title": "One last thing.",
-            "subtitle": "We just sent an email to %s,\ntap the link to confirm your account.",
+            "subtitle": "Tap the link we emailed to you to verify your account.",
             "button": {
                 "open_email_app": "Open Email App",
-                "dont_receive_email": "I never got an email"
+                "resend": "Resend"
             },
             "dont_receive_email": {
                 "title": "Check your email",
@@ -402,17 +424,33 @@
             "segmented_control": {
                 "posts": "Posts",
                 "replies": "Replies",
-                "media": "Media"
+                "posts_and_replies": "Posts and Replies",
+                "media": "Media",
+                "about": "About"
             },
             "relationship_action_alert": {
+                "confirm_mute_user": {
+                    "title": "Mute Account",
+                    "message": "Confirm to mute %s"
+                },
                 "confirm_unmute_user": {
                     "title": "Unmute Account",
                     "message": "Confirm to unmute %s"
                 },
-                "confirm_unblock_usre": {
+                "confirm_block_user": {
+                    "title": "Block Account",
+                    "message": "Confirm to block %s"
+                },
+                "confirm_unblock_user": {
                     "title": "Unblock Account",
                     "message": "Confirm to unblock %s"
                 }
+            },
+            "accessibility": {
+                "show_avatar_image": "Show avatar image",
+                "edit_avatar_image": "Edit avatar image",
+                "show_banner_image": "Show banner image",
+                "double_tap_to_open_the_list": "Double tap to open the list"
             }
         },
         "follower": {
@@ -462,12 +500,14 @@
                 "Everything": "Everything",
                 "Mentions": "Mentions"
             },
-            "user_followed_you": "%s followed you",
-            "user_favorited your post": "%s favorited your post",
-            "user_reblogged_your_post": "%s reblogged your post",
-            "user_mentioned_you": "%s mentioned you",
-            "user_requested_to_follow_you": "%s requested to follow you",
-            "user_your_poll_has_ended": "%s Your poll has ended",
+            "notification_description": {
+                "followed_you": "followed you",
+                "favorited_your_post": "favorited your post",
+                "reblogged_your_post": "reblogged your post",
+                "mentioned_you": "mentioned you",
+                "request_to_follow_you": "request to follow you",
+                "poll_has_ended": "poll has ended"
+            },
             "keyobard": {
                 "show_everything": "Show Everything",
                 "show_mentions": "Show Mentions"
@@ -485,6 +525,13 @@
                     "automatic": "Automatic",
                     "light": "Always Light",
                     "dark": "Always Dark"
+                },
+                "look_and_feel": {
+                    "title": "Look and Feel",
+                    "use_system": "Use System",
+                    "really_dark": "Really Dark",
+                    "sorta_dark": "Sorta Dark",
+                    "light": "Light"
                 },
                 "notifications": {
                     "title": "Notifications",
@@ -505,7 +552,8 @@
                     "true_black_dark_mode": "True black dark mode",
                     "disable_avatar_animation": "Disable animated avatars",
                     "disable_emoji_animation": "Disable animated emojis",
-                    "using_default_browser": "Use default browser to open links"
+                    "using_default_browser": "Use default browser to open links",
+                    "open_links_in_mastodon": "Open links in Mastodon"
                 },
                 "boring_zone": {
                     "title": "The Boring Zone",
@@ -527,14 +575,17 @@
             }
         },
         "report": {
+            "title_report": "Report",
             "title": "Report %s",
             "step1": "Step 1 of 2",
             "step2": "Step 2 of 2",
             "content1": "Are there any other posts you’d like to add to the report?",
             "content2": "Is there anything the moderators should know about this report?",
+            "report_sent_title": "Thanks for reporting, we’ll look into this.",
             "send": "Send Report",
             "skip_to_send": "Send without comment",
-            "text_placeholder": "Type or paste additional comments"
+            "text_placeholder": "Type or paste additional comments",
+            "reported": "REPORTED"
         },
         "preview": {
             "keyboard": {

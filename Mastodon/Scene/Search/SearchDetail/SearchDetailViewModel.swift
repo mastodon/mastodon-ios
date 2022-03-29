@@ -10,6 +10,8 @@ import Foundation
 import CoreGraphics
 import Combine
 import MastodonSDK
+import MastodonAsset
+import MastodonLocalization
 
 final class SearchDetailViewModel {
 

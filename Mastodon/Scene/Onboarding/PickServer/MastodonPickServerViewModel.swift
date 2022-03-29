@@ -12,6 +12,7 @@ import GameplayKit
 import MastodonSDK
 import CoreDataStack
 import OrderedCollections
+import Tabman
 
 class MastodonPickServerViewModel: NSObject {
     
@@ -27,6 +28,8 @@ class MastodonPickServerViewModel: NSObject {
     }
     
     var disposeBag = Set<AnyCancellable>()
+    
+    let serverSectionHeaderView = PickServerServerSectionTableHeaderView()
 
     // input
     let mode: PickServerMode
@@ -82,68 +85,6 @@ class MastodonPickServerViewModel: NSObject {
 extension MastodonPickServerViewModel {
     
     private func configure() {
-        Publishers.CombineLatest(
-            filteredIndexedServers,
-            unindexedServers
-        )
-        .receive(on: DispatchQueue.main)
-        .sink(receiveValue: { [weak self] indexedServers, unindexedServers in
-            guard let self = self else { return }
-            guard let diffableDataSource = self.diffableDataSource else { return }
-            
-            let oldSnapshot = diffableDataSource.snapshot()
-            var oldSnapshotServerItemAttributeDict: [String : PickServerItem.ServerItemAttribute] = [:]
-            for item in oldSnapshot.itemIdentifiers {
-                guard case let .server(server, attribute) = item else { continue }
-                oldSnapshotServerItemAttributeDict[server.domain] = attribute
-            }
-            
-            var snapshot = NSDiffableDataSourceSnapshot<PickServerSection, PickServerItem>()
-            snapshot.appendSections([.header, .category, .search, .servers])
-            snapshot.appendItems([.header], toSection: .header)
-            snapshot.appendItems([.categoryPicker(items: self.categoryPickerItems)], toSection: .category)
-            snapshot.appendItems([.search], toSection: .search)
-            // TODO: handle filter
-            var serverItems: [PickServerItem] = []
-            for server in indexedServers {
-                let attribute = oldSnapshotServerItemAttributeDict[server.domain] ?? PickServerItem.ServerItemAttribute(isLast: false, isExpand: false)
-                attribute.isLast.value = false
-                let item = PickServerItem.server(server: server, attribute: attribute)
-                guard !serverItems.contains(item) else { continue }
-                serverItems.append(item)
-            }
-            
-            if let unindexedServers = unindexedServers {
-                if !unindexedServers.isEmpty {
-                    for server in unindexedServers {
-                        let attribute = oldSnapshotServerItemAttributeDict[server.domain] ?? PickServerItem.ServerItemAttribute(isLast: false, isExpand: false)
-                        attribute.isLast.value = false
-                        let item = PickServerItem.server(server: server, attribute: attribute)
-                        guard !serverItems.contains(item) else { continue }
-                        serverItems.append(item)
-                    }
-                } else {
-                    if indexedServers.isEmpty && !self.isLoadingIndexedServers.value {
-                        serverItems.append(.loader(attribute: PickServerItem.LoaderItemAttribute(isLast: false, isEmptyResult: true)))
-                    }
-                }
-            } else {
-                serverItems.append(.loader(attribute: PickServerItem.LoaderItemAttribute(isLast: false, isEmptyResult: false)))
-            }
-            
-            if case let .server(_, attribute) = serverItems.last {
-                attribute.isLast.value = true
-            }
-            if case let .loader(attribute) = serverItems.last {
-                attribute.isLast = true
-            }
-            snapshot.appendItems(serverItems, toSection: .servers)
-            
-            diffableDataSource.defaultRowAnimation = .fade
-            diffableDataSource.apply(snapshot, animatingDifferences: true, completion: nil)
-        })
-        .store(in: &disposeBag)
-        
         Publishers.CombineLatest(
             isLoadingIndexedServers,
             loadingIndexedServersError
@@ -299,5 +240,14 @@ extension MastodonPickServerViewModel {
         let instance: Mastodon.Response.Content<Mastodon.Entity.Instance>
         let authenticateInfo: AuthenticationViewModel.AuthenticateInfo
         let applicationToken: Mastodon.Response.Content<Mastodon.Entity.Token>
+    }
+}
+
+// MARK: - TMBarDataSource
+extension MastodonPickServerViewModel: TMBarDataSource {
+    func barItem(for bar: TMBar, at index: Int) -> TMBarItemable {
+        let item = categoryPickerItems[index]
+        let barItem = TMBarItem(title: item.title)
+        return barItem
     }
 }

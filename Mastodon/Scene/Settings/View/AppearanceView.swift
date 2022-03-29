@@ -6,17 +6,24 @@
 //
 
 import UIKit
+import MastodonAsset
+import MastodonLocalization
+import MastodonUI
 
 class AppearanceView: UIView {
+    
+    let imageViewShadowBackgroundContainer = ShadowBackgroundContainer()
     lazy var imageView: UIImageView = {
         let view = UIImageView()
+        view.contentMode = .scaleAspectFill
         view.layer.masksToBounds = true
-        view.layer.cornerRadius = 14
+        view.layer.cornerRadius = 4
         view.layer.cornerCurve = .continuous
         // accessibility
         view.accessibilityIgnoresInvertColors = true
         return view
     }()
+    
     lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 12, weight: .regular)
@@ -24,35 +31,30 @@ class AppearanceView: UIView {
         label.textAlignment = .center
         return label
     }()
-    lazy var checkBox: UIButton = {
+    
+    lazy var checkmarkButton: UIButton = {
         let button = UIButton()
         button.isUserInteractionEnabled = false
         button.setImage(UIImage(systemName: "circle"), for: .normal)
         button.setImage(UIImage(systemName: "checkmark.circle.fill"), for: .selected)
         button.imageView?.preferredSymbolConfiguration = UIImage.SymbolConfiguration(textStyle: .body)
-        button.imageView?.tintColor = Asset.Colors.Label.secondary.color
+        button.imageView?.tintColor = Asset.Colors.Label.primary.color
         button.imageView?.contentMode = .scaleAspectFill
         return button
     }()
+
     lazy var stackView: UIStackView = {
         let view = UIStackView()
         view.axis = .vertical
-        view.spacing = 10
+        view.spacing = 8
         view.distribution = .equalSpacing
         return view
     }()
 
     var selected: Bool = false {
-        didSet {
-            checkBox.isSelected = selected
-            if selected {
-                checkBox.imageView?.tintColor = Asset.Colors.brandBlue.color
-            } else {
-                checkBox.imageView?.tintColor = Asset.Colors.Label.secondary.color
-            }
-        }
+        didSet { setNeedsLayout() }
     }
-
+    
     // MARK: - Methods
     init(image: UIImage?, title: String) {
         super.init(frame: .zero)
@@ -68,23 +70,32 @@ class AppearanceView: UIView {
         
     }
     override var accessibilityLabel: String? {
-        get {
-            return [titleLabel.text, checkBox.accessibilityLabel]
-                .compactMap { $0 }
-                .joined(separator: ", ")
-        }
+        get { titleLabel.text }
         set { }
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+}
 
-    // MARK: - Private methods
+extension AppearanceView {
+
     private func setupUI() {
-        stackView.addArrangedSubview(imageView)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageViewShadowBackgroundContainer.addSubview(imageView)
+        NSLayoutConstraint.activate([
+            imageView.topAnchor.constraint(equalTo: imageViewShadowBackgroundContainer.topAnchor),
+            imageView.leadingAnchor.constraint(equalTo: imageViewShadowBackgroundContainer.leadingAnchor),
+            imageView.trailingAnchor.constraint(equalTo: imageViewShadowBackgroundContainer.trailingAnchor),
+            imageView.bottomAnchor.constraint(equalTo: imageViewShadowBackgroundContainer.bottomAnchor),
+        ])
+        imageViewShadowBackgroundContainer.cornerRadius = 4
+        
+        stackView.addArrangedSubview(imageViewShadowBackgroundContainer)
         stackView.addArrangedSubview(titleLabel)
-        stackView.addArrangedSubview(checkBox)
+        stackView.addArrangedSubview(checkmarkButton)
 
         addSubview(stackView)
         translatesAutoresizingMaskIntoConstraints = false
@@ -94,10 +105,35 @@ class AppearanceView: UIView {
             stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 218.0 / 100.0),
+            imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 121.0 / 100.0),        // height / width
         ])
     }
+    
+    private func configureForSelection() {
+        if selected {
+            accessibilityTraits.insert(.selected)
+        } else {
+            accessibilityTraits.remove(.selected)
+        }
+        
+        checkmarkButton.isSelected = selected
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        configureForSelection()
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        setNeedsLayout()
+    }
+    
+}
 
+extension AppearanceView {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         self.alpha = 0.5

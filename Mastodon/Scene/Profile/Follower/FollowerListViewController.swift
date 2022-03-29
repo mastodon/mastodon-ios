@@ -12,11 +12,12 @@ import Combine
 
 final class FollowerListViewController: UIViewController, NeedsDependency {
     
-    var disposeBag = Set<AnyCancellable>()
+    let logger = Logger(subsystem: "FollowerListViewController", category: "ViewController")
     
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
+    var disposeBag = Set<AnyCancellable>()
     var viewModel: FollowerListViewModel!
         
     lazy var tableView: UITableView = {
@@ -43,7 +44,7 @@ extension FollowerListViewController {
         
         view.backgroundColor = ThemeService.shared.currentTheme.value.secondarySystemBackgroundColor
         ThemeService.shared.currentTheme
-            .receive(on: RunLoop.main)
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] theme in
                 guard let self = self else { return }
                 self.view.backgroundColor = theme.secondarySystemBackgroundColor
@@ -61,10 +62,19 @@ extension FollowerListViewController {
         
         tableView.delegate = self
         viewModel.setupDiffableDataSource(
-            for: tableView,
-            dependency: self
+            tableView: tableView,
+            userTableViewCellDelegate: self
         )
-        // TODO: add UserTableViewCellDelegate        
+        
+        // setup batch fetch
+        viewModel.listBatchFetchViewModel.setup(scrollView: tableView)
+        viewModel.listBatchFetchViewModel.shouldFetch
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                self.viewModel.stateMachine.enter(FollowerListViewModel.State.Loading.self)
+            }
+            .store(in: &disposeBag)
         
         // trigger user timeline loading
         Publishers.CombineLatest(
@@ -79,29 +89,26 @@ extension FollowerListViewController {
             .store(in: &disposeBag)
     }
     
-}
-
-// MARK: - LoadMoreConfigurableTableViewContainer
-extension FollowerListViewController: LoadMoreConfigurableTableViewContainer {
-    typealias BottomLoaderTableViewCell = TimelineBottomLoaderTableViewCell
-    typealias LoadingState = FollowerListViewModel.State.Loading
-    var loadMoreConfigurableTableView: UITableView { tableView }
-    var loadMoreConfigurableStateMachine: GKStateMachine { viewModel.stateMachine }
-}
-
-// MARK: - UIScrollViewDelegate
-extension FollowerListViewController {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        handleScrollViewDidScroll(scrollView)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        tableView.deselectRow(with: transitionCoordinator, animated: animated)
     }
+    
 }
-
 
 // MARK: - UITableViewDelegate
-extension FollowerListViewController: UITableViewDelegate {
+extension FollowerListViewController: UITableViewDelegate, AutoGenerateTableViewDelegate {
+    // sourcery:inline:FollowerListViewController.AutoGenerateTableViewDelegate
+
+    // Generated using Sourcery
+    // DO NOT EDIT
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        handleTableView(tableView, didSelectRowAt: indexPath)
+        aspectTableView(tableView, didSelectRowAt: indexPath)
     }
+
+    // sourcery:end
+
 }
 
 // MARK: - UserTableViewCellDelegate

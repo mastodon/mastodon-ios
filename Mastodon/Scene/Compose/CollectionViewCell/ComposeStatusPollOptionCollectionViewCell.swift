@@ -8,6 +8,8 @@
 import os.log
 import UIKit
 import Combine
+import MastodonAsset
+import MastodonLocalization
 
 protocol ComposeStatusPollOptionCollectionViewCellDelegate: AnyObject {
     func composeStatusPollOptionCollectionViewCell(_ cell: ComposeStatusPollOptionCollectionViewCell, textFieldDidBeginEditing textField: UITextField)

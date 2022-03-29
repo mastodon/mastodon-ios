@@ -9,6 +9,8 @@ import os.log
 import UIKit
 import Combine
 import Pageboy
+import MastodonAsset
+import MastodonLocalization
 
 final class MediaPreviewViewController: UIViewController, NeedsDependency {
     
@@ -98,17 +100,37 @@ extension MediaPreviewViewController {
         closeButton.addTarget(self, action: #selector(MediaPreviewViewController.closeButtonPressed(_:)), for: .touchUpInside)
         
         // bind view model
-        viewModel.currentPage
+        viewModel.$currentPage
             .receive(on: DispatchQueue.main)
             .sink { [weak self] index in
                 guard let self = self else { return }
-                switch self.viewModel.pushTransitionItem.source {
-                case .mosaic(let mosaicImageViewContainer):
+                switch self.viewModel.transitionItem.source {
+                case .attachment:
+                    break
+                case .attachments(let mediaGridContainerView):
                     UIView.animate(withDuration: 0.3) {
-                        mosaicImageViewContainer.setImageViews(alpha: 1)
-                        mosaicImageViewContainer.setImageView(alpha: 0, index: index)
+                        mediaGridContainerView.setAlpha(1)
+                        mediaGridContainerView.setAlpha(0, index: index)
                     }
                 case .profileAvatar, .profileBanner:
+                    break
+                }
+            }
+            .store(in: &disposeBag)
+        
+        viewModel.$currentPage
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] index in
+                guard let self = self else { return }
+                switch self.viewModel.item {
+                case .attachment(let previewContext):
+                    let needsHideCloseButton: Bool = {
+                        guard index < previewContext.attachments.count else { return false }
+                        let attachment = previewContext.attachments[index]
+                        return attachment.kind == .video    // not hide buttno for audio
+                    }()
+                    self.closeButtonBackground.isHidden = needsHideCloseButton
+                default:
                     break
                 }
             }
@@ -142,6 +164,10 @@ extension MediaPreviewViewController: MediaPreviewingViewController {
             let dismissible = previewImageView.contentOffset.y <= -(safeAreaInsets.top - statusBarFrameHeight) + 3 // add 3pt tolerance
             os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: dismissible %s", ((#file as NSString).lastPathComponent), #line, #function, dismissible ? "true" : "false")
             return dismissible
+        }
+        
+        if let _ = pagingViewController.currentViewController as? MediaPreviewVideoViewController {
+            return true
         }
 
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: dismissible false", ((#file as NSString).lastPathComponent), #line, #function)
@@ -178,7 +204,7 @@ extension MediaPreviewViewController: PageboyViewControllerDelegate {
     ) {
         // update page control
         // pageControl.currentPage = index
-        viewModel.currentPage.value = index
+        viewModel.currentPage = index
     }
     
     func pageboyViewController(
@@ -196,24 +222,35 @@ extension MediaPreviewViewController: PageboyViewControllerDelegate {
 extension MediaPreviewViewController: MediaPreviewImageViewControllerDelegate {
     
     func mediaPreviewImageViewController(_ viewController: MediaPreviewImageViewController, tapGestureRecognizerDidTrigger tapGestureRecognizer: UITapGestureRecognizer) {
-        // do nothing
+        let location = tapGestureRecognizer.location(in: viewController.previewImageView.imageView)
+        let isContainsTap = viewController.previewImageView.imageView.frame.contains(location)
+        
+        guard !isContainsTap else { return }
+        dismiss(animated: true, completion: nil)
     }
     
     func mediaPreviewImageViewController(_ viewController: MediaPreviewImageViewController, longPressGestureRecognizerDidTrigger longPressGestureRecognizer: UILongPressGestureRecognizer) {
         // do nothing
     }
     
-    func mediaPreviewImageViewController(_ viewController: MediaPreviewImageViewController, contextMenuActionPerform action: MediaPreviewImageViewController.ContextMenuAction) {
+    func mediaPreviewImageViewController(
+        _ viewController: MediaPreviewImageViewController,
+        contextMenuActionPerform action: MediaPreviewImageViewController.ContextMenuAction
+    ) {
         switch action {
         case .savePhoto:
-            let savePublisher: AnyPublisher<Void, Error> = {
+            let _savePublisher: AnyPublisher<Void, Error>? = {
                 switch viewController.viewModel.item {
-                case .status(let meta):
-                    return context.photoLibraryService.save(imageSource: .url(meta.url))
-                case .local(let meta):
-                    return context.photoLibraryService.save(imageSource: .image(meta.image))
+                case .remote(let previewContext):
+                    guard let assetURL = previewContext.assetURL else { return nil }
+                    return context.photoLibraryService.save(imageSource: .url(assetURL))
+                case .local(let previewContext):
+                    return context.photoLibraryService.save(imageSource: .image(previewContext.image))
                 }
             }()
+            guard let savePublisher = _savePublisher else {
+                return
+            }
             savePublisher
                 .sink { [weak self] completion in
                     guard let self = self else { return }
@@ -221,8 +258,15 @@ extension MediaPreviewViewController: MediaPreviewImageViewControllerDelegate {
                     case .failure(let error):
                         guard let error = error as? PhotoLibraryService.PhotoLibraryError,
                               case .noPermission = error else { return }
-                        let alertController = SettingService.openSettingsAlertController(title: L10n.Common.Alerts.SavePhotoFailure.title, message: L10n.Common.Alerts.SavePhotoFailure.message)
-                        self.coordinator.present(scene: .alertController(alertController: alertController), from: self, transition: .alertController(animated: true, completion: nil))
+                        let alertController = SettingService.openSettingsAlertController(
+                            title: L10n.Common.Alerts.SavePhotoFailure.title,
+                            message: L10n.Common.Alerts.SavePhotoFailure.message
+                        )
+                        self.coordinator.present(
+                            scene: .alertController(alertController: alertController),
+                            from: self,
+                            transition: .alertController(animated: true, completion: nil)
+                        )
                     case .finished:
                         break
                     }
@@ -231,14 +275,19 @@ extension MediaPreviewViewController: MediaPreviewImageViewControllerDelegate {
                 }
                 .store(in: &context.disposeBag)
         case .copyPhoto:
-            let copyPublisher: AnyPublisher<Void, Error> = {
+            let _copyPublisher: AnyPublisher<Void, Error>? = {
                 switch viewController.viewModel.item {
-                case .status(let meta):
-                    return context.photoLibraryService.copy(imageSource: .url(meta.url))
-                case .local(let meta):
-                    return context.photoLibraryService.copy(imageSource: .image(meta.image))
+                case .remote(let previewContext):
+                    guard let assetURL = previewContext.assetURL else { return nil }
+                    return context.photoLibraryService.copy(imageSource: .url(assetURL))
+                case .local(let previewContext):
+                    return context.photoLibraryService.copy(imageSource: .image(previewContext.image))
                 }
             }()
+            guard let copyPublisher = _copyPublisher else {
+                return
+            }
+
             copyPublisher
                 .sink { completion in
                     switch completion {
@@ -256,12 +305,22 @@ extension MediaPreviewViewController: MediaPreviewImageViewControllerDelegate {
                 SafariActivity(sceneCoordinator: self.coordinator)
             ]
             let activityViewController = UIActivityViewController(
-                activityItems: viewController.viewModel.item.activityItems,
+                activityItems: {
+                    var activityItems: [Any] = []
+                    switch viewController.viewModel.item {
+                    case .remote(let previewContext):
+                        if let assetURL = previewContext.assetURL {
+                            activityItems.append(assetURL)
+                        }
+                    case .local(let previewContext):
+                        activityItems.append(previewContext.image)
+                    }
+                    return activityItems
+                }(),
                 applicationActivities: applicationActivities
             )
             activityViewController.popoverPresentationController?.sourceView = viewController.previewImageView.imageView
             self.present(activityViewController, animated: true, completion: nil)
-
         }
     }
     

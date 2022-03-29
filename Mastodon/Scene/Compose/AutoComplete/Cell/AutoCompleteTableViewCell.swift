@@ -8,6 +8,10 @@
 import UIKit
 import FLAnimatedImage
 import MetaTextKit
+import MastodonAsset
+import MastodonLocalization
+import MastodonUI
+
 
 final class AutoCompleteTableViewCell: UITableViewCell {
     
@@ -29,7 +33,7 @@ final class AutoCompleteTableViewCell: UITableViewCell {
         return stackView
     }()
     
-    let avatarImageView = FLAnimatedImageView()
+    let avatarImageView = AvatarImageView()
     
     let titleLabel: MetaLabel = {
         let label = MetaLabel(style: .autoCompletion)
@@ -123,13 +127,6 @@ extension AutoCompleteTableViewCell {
         ])
     }
     
-}
-
-// MARK: - AvatarConfigurableView
-extension AutoCompleteTableViewCell: AvatarConfigurableView {
-    static var configurableAvatarImageSize: CGSize { avatarImageSize }
-    static var configurableAvatarImageCornerRadius: CGFloat { avatarImageCornerRadius }
-    var configurableAvatarImageView: FLAnimatedImageView? { avatarImageView }
 }
 
 #if canImport(SwiftUI) && DEBUG

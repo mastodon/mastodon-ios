@@ -12,7 +12,7 @@ cd ${SRCROOT}/Localization/StringsConvertor
 sh ./scripts/build.sh
 
 # task 2 copy strings file
-cp -R ${SRCROOT}/Localization/StringsConvertor/output/ ${SRCROOT}/Mastodon/Resources
+cp -R ${SRCROOT}/Localization/StringsConvertor/output/module/ ${SRCROOT}/MastodonSDK/Sources/MastodonLocalization/Resources
 cp -R ${SRCROOT}/Localization/StringsConvertor/Intents/output/ ${SRCROOT}/MastodonIntent
 
 # task 3 swiftgen

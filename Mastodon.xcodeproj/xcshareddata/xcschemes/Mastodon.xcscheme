@@ -32,6 +32,9 @@
             reference = "container:Mastodon/Mastodon.xctestplan"
             default = "YES">
          </TestPlanReference>
+         <TestPlanReference
+            reference = "container:AppStoreSnapshotTestPlan copy.xctestplan">
+         </TestPlanReference>
       </TestPlans>
       <Testables>
          <TestableReference

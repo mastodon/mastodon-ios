@@ -8,6 +8,7 @@
 import XCTest
 @testable import Mastodon
 
+@MainActor
 class MastodonTests: XCTestCase {
 
     override func setUpWithError() throws {
@@ -42,5 +43,21 @@ extension MastodonTests {
                 expectation.fulfill()
             }
         wait(for: [expectation], timeout: 10)
+    }
+
+    @available(iOS 15.0, *)
+    func testConnectOnion() async throws {
+        let request = URLRequest(
+            url: URL(string: "http://a232ncr7jexk2chvubaq2v6qdizbocllqap7mnn7w7vrdutyvu32jeyd.onion/@k0gen")!,
+            cachePolicy: .reloadIgnoringLocalAndRemoteCacheData,
+            timeoutInterval: 10
+        )
+        do {
+            let data = try await URLSession.shared.data(for: request, delegate: nil)
+            print(data)
+        } catch {
+            debugPrint(error)
+            assertionFailure(error.localizedDescription)
+        }
     }
 }

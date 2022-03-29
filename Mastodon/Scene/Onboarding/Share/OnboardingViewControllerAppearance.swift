@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import MastodonAsset
+import MastodonLocalization
 
 protocol OnboardingViewControllerAppearance: UIViewController {
     static var viewBottomPaddingHeight: CGFloat { get }
@@ -15,12 +17,30 @@ protocol OnboardingViewControllerAppearance: UIViewController {
 
 extension OnboardingViewControllerAppearance {
     
-    static var actionButtonHeight: CGFloat { return 46 }
+    static var actionButtonHeight: CGFloat { return 50 }
     static var actionButtonMargin: CGFloat { return 12 }
+    static var actionButtonMarginExtend: CGFloat { return 80 }
     static var viewBottomPaddingHeight: CGFloat { return 11 }
+    static var viewBottomPaddingHeightExtend: CGFloat { return 22 }
+    
+    static var largeTitleFont: UIFont {
+        return UIFontMetrics(forTextStyle: .largeTitle).scaledFont(for: .systemFont(ofSize: 28, weight: .bold))
+    }
+    
+    static var largeTitleTextColor: UIColor {
+        return Asset.Colors.Label.primary.color
+    }
+    
+    static var subTitleFont: UIFont {
+        return UIFontMetrics(forTextStyle: .largeTitle).scaledFont(for: .systemFont(ofSize: 17, weight: .regular))
+    }
+    
+    static var subTitleTextColor: UIColor {
+        return Asset.Colors.Label.secondary.color
+    }
     
     func setupOnboardingAppearance() {
-        view.backgroundColor = Asset.Theme.Mastodon.systemGroupedBackground.color
+        view.backgroundColor = Asset.Scene.Onboarding.background.color
 
         setupNavigationBarAppearance()
         
@@ -37,31 +57,22 @@ extension OnboardingViewControllerAppearance {
         // use TransparentBackground so view push / dismiss will be more visual nature
         // please add opaque background for status bar manually if needs
         
-        switch traitCollection.userInterfaceIdiom {
-        case .pad:
-            if traitCollection.horizontalSizeClass == .regular {
-                // do nothing
-            } else {
-                fallthrough
-            }
-        default:
-            let barAppearance = UINavigationBarAppearance()
-            barAppearance.configureWithTransparentBackground()
-            navigationItem.standardAppearance = barAppearance
-            navigationItem.compactAppearance = barAppearance
-            navigationItem.scrollEdgeAppearance = barAppearance
-            if #available(iOS 15.0, *) {
-                navigationItem.compactScrollEdgeAppearance = barAppearance
-            } else {
-                // Fallback on earlier versions
-            }
+        let barAppearance = UINavigationBarAppearance()
+        barAppearance.configureWithTransparentBackground()
+        navigationItem.standardAppearance = barAppearance
+        navigationItem.compactAppearance = barAppearance
+        navigationItem.scrollEdgeAppearance = barAppearance
+        if #available(iOS 15.0, *) {
+            navigationItem.compactScrollEdgeAppearance = barAppearance
+        } else {
+            // Fallback on earlier versions
         }
     }
     
     func setupNavigationBarBackgroundView() {
         let navigationBarBackgroundView: UIView = {
             let view = UIView()
-            view.backgroundColor = Asset.Theme.Mastodon.systemGroupedBackground.color
+            view.backgroundColor = Asset.Scene.Onboarding.background.color
             return view
         }()
         

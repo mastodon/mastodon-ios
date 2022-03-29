@@ -13,7 +13,9 @@ import CoreDataStack
 import GameplayKit
 import MastodonSDK
     
-final class HashtagTimelineViewModel: NSObject {
+final class HashtagTimelineViewModel {
+    
+    let logger = Logger(subsystem: "HashtagTimelineViewModel", category: "ViewModel")
     
     let hashtag: String
     
@@ -27,24 +29,12 @@ final class HashtagTimelineViewModel: NSObject {
     let isFetchingLatestTimeline = CurrentValueSubject<Bool, Never>(false)
     let timelinePredicate = CurrentValueSubject<NSPredicate?, Never>(nil)
     let hashtagEntity = CurrentValueSubject<Mastodon.Entity.Tag?, Never>(nil)
-
-    weak var contentOffsetAdjustableTimelineViewControllerDelegate: ContentOffsetAdjustableTimelineViewControllerDelegate?
-    weak var tableView: UITableView?
+    let listBatchFetchViewModel = ListBatchFetchViewModel()
     
     // output
-    // top loader
-    private(set) lazy var loadLatestStateMachine: GKStateMachine = {
-        // exclude timeline middle fetcher state
-        let stateMachine = GKStateMachine(states: [
-            LoadLatestState.Initial(viewModel: self),
-            LoadLatestState.Loading(viewModel: self),
-            LoadLatestState.Fail(viewModel: self),
-            LoadLatestState.Idle(viewModel: self),
-        ])
-        stateMachine.enter(LoadLatestState.Initial.self)
-        return stateMachine
-    }()
-    lazy var loadLatestStateMachinePublisher = CurrentValueSubject<LoadLatestState?, Never>(nil)
+    var diffableDataSource: UITableViewDiffableDataSource<StatusSection, StatusItem>?
+    let didLoadLatest = PassthroughSubject<Void, Never>()
+
     // bottom loader
     private(set) lazy var loadOldestStateMachine: GKStateMachine = {
         // exclude timeline middle fetcher state
@@ -59,47 +49,21 @@ final class HashtagTimelineViewModel: NSObject {
         return stateMachine
     }()
     lazy var loadOldestStateMachinePublisher = CurrentValueSubject<LoadOldestState?, Never>(nil)
-    // middle loader
-    let loadMiddleSateMachineList = CurrentValueSubject<[NSManagedObjectID: GKStateMachine], Never>([:])    // TimelineIndex.objectID : middle loading state machine
-    var diffableDataSource: UITableViewDiffableDataSource<StatusSection, Item>?
-    var cellFrameCache = NSCache<NSNumber, NSValue>()
-
     
     init(context: AppContext, hashtag: String) {
         self.context  = context
         self.hashtag = hashtag
-        let activeMastodonAuthenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value
-        self.fetchedResultsController = StatusFetchedResultsController(managedObjectContext: context.managedObjectContext, domain: activeMastodonAuthenticationBox?.domain, additionalTweetPredicate: nil)
-        super.init()
-        
-        fetchedResultsController.objectIDs
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] objectIds in
-                self?.generateStatusItems(newObjectIDs: objectIds)
-            }
-            .store(in: &disposeBag)
-    }
-    
-    func fetchTag() {
-        guard let activeMastodonAuthenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else {
-            return
-        }
-        let query = Mastodon.API.V2.Search.Query(q: hashtag, type: .hashtags)
-        context.apiService.search(
-            domain: activeMastodonAuthenticationBox.domain,
-            query: query,
-            mastodonAuthenticationBox: activeMastodonAuthenticationBox
+        self.fetchedResultsController = StatusFetchedResultsController(
+            managedObjectContext: context.managedObjectContext,
+            domain: nil,
+            additionalTweetPredicate: nil
         )
-        .sink { _ in
-            
-        } receiveValue: { [weak self] response in
-            let matchedTag = response.value.hashtags.first { tag -> Bool in
-                return tag.name == self?.hashtag
-            }
-            self?.hashtagEntity.send(matchedTag)
-        }
-        .store(in: &disposeBag)
-
+        // end init
+        
+        context.authenticationService.activeMastodonAuthenticationBox
+            .map { $0?.domain }
+            .assign(to: \.value, on: fetchedResultsController.domain)
+            .store(in: &disposeBag)
     }
     
     deinit {
@@ -107,3 +71,4 @@ final class HashtagTimelineViewModel: NSObject {
     }
     
 }
+

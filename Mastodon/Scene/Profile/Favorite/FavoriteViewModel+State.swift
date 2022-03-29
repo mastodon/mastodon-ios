@@ -11,7 +11,16 @@ import GameplayKit
 import MastodonSDK
 
 extension FavoriteViewModel {
-    class State: GKState {
+    class State: GKState, NamingState {
+        
+        let logger = Logger(subsystem: "FavoriteViewModel.State", category: "StateMachine")
+        
+        let id = UUID()
+
+        var name: String {
+            String(describing: Self.self)
+        }
+        
         weak var viewModel: FavoriteViewModel?
         
         init(viewModel: FavoriteViewModel) {
@@ -19,7 +28,18 @@ extension FavoriteViewModel {
         }
         
         override func didEnter(from previousState: GKState?) {
-            os_log("%{public}s[%{public}ld], %{public}s: enter %s, previous: %s", ((#file as NSString).lastPathComponent), #line, #function, self.debugDescription, previousState.debugDescription)
+            super.didEnter(from: previousState)
+            let previousState = previousState as? FavoriteViewModel.State
+            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [\(self.id.uuidString)] enter \(self.name), previous: \(previousState?.name  ?? "<nil>")")
+        }
+        
+        @MainActor
+        func enter(state: State.Type) {
+            stateMachine?.enter(state)
+        }
+        
+        deinit {
+            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [\(self.id.uuidString)] \(self.name)")
         }
     }
 }
@@ -93,6 +113,7 @@ extension FavoriteViewModel.State {
     
     class Loading: FavoriteViewModel.State {
         
+        // prefer use `maxID` token in response header
         var maxID: String?
         
         override func isValidNextState(_ stateClass: AnyClass) -> Bool {
@@ -112,56 +133,49 @@ extension FavoriteViewModel.State {
             super.didEnter(from: previousState)
             guard let viewModel = viewModel, let stateMachine = stateMachine else { return }
             
-            guard let activeMastodonAuthenticationBox = viewModel.activeMastodonAuthenticationBox.value else {
+            guard let authenticationBox = viewModel.activeMastodonAuthenticationBox.value else {
                 stateMachine.enter(Fail.self)
                 return
             }
             if previousState is Reloading {
                 maxID = nil
             }
-            // prefer use `maxID` token in response header
-            // let maxID = viewModel.statusFetchedResultsController.statusIDs.value.last
             
-            viewModel.context.apiService.favoritedStatuses(
-                maxID: maxID,
-                mastodonAuthenticationBox: activeMastodonAuthenticationBox
-            )
-            .receive(on: DispatchQueue.main)
-            .sink { completion in
-                switch completion {
-                case .failure(let error):
-                    os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: fetch user timeline fail: %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
-                    stateMachine.enter(Fail.self)
-                case .finished:
-                    break
-                }
-            } receiveValue: { response in
-                os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+            
+            Task {
+                do {
+                    let response = try await viewModel.context.apiService.favoritedStatuses(
+                        maxID: maxID,
+                        authenticationBox: authenticationBox
+                    )
+                    
+                    var hasNewStatusesAppend = false
+                    var statusIDs = viewModel.statusFetchedResultsController.statusIDs.value
+                    for status in response.value {
+                        guard !statusIDs.contains(status.id) else { continue }
+                        statusIDs.append(status.id)
+                        hasNewStatusesAppend = true
+                    }
+                    
+                    self.maxID = response.link?.maxID
+                    
+                    let hasNextPage: Bool = {
+                        guard let link = response.link else { return true }     // assert has more when link invalid
+                        return link.maxID != nil
+                    }()
 
-                var hasNewStatusesAppend = false
-                var statusIDs = viewModel.statusFetchedResultsController.statusIDs.value
-                for status in response.value {
-                    guard !statusIDs.contains(status.id) else { continue }
-                    statusIDs.append(status.id)
-                    hasNewStatusesAppend = true
+                    if hasNewStatusesAppend && hasNextPage {
+                        await enter(state: Idle.self)
+                    } else {
+                        await enter(state: NoMore.self)
+                    }
+                    viewModel.statusFetchedResultsController.statusIDs.value = statusIDs
+                } catch {
+                    logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): fetch user favorites fail: \(error.localizedDescription)")
+                    await enter(state: Fail.self)
                 }
-                
-                self.maxID = response.link?.maxID
-                
-                let hasNextPage: Bool = {
-                    guard let link = response.link else { return true }     // assert has more when link invalid
-                    return link.maxID != nil
-                }()
-
-                if hasNewStatusesAppend && hasNextPage {
-                    stateMachine.enter(Idle.self)
-                } else {
-                    stateMachine.enter(NoMore.self)
-                }
-                viewModel.statusFetchedResultsController.statusIDs.value = statusIDs
-            }
-            .store(in: &viewModel.disposeBag)
-        }
+            }   // end Task
+        }   // end func
     }
     
     class NoMore: FavoriteViewModel.State {

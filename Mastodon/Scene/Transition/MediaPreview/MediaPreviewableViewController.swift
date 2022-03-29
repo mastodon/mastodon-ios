@@ -15,12 +15,14 @@ protocol MediaPreviewableViewController: UIViewController {
 extension MediaPreviewableViewController {
     func sourceFrame(transitionItem: MediaPreviewTransitionItem, index: Int) -> CGRect? {
         switch transitionItem.source {
-        case .mosaic(let mosaicImageViewContainer):
-            guard index < mosaicImageViewContainer.imageViews.count else { return nil }
-            let imageView = mosaicImageViewContainer.imageViews[index]
-            return imageView.superview?.convert(imageView.frame, to: nil)
+        case .attachment(let mediaView):
+            return mediaView.superview?.convert(mediaView.frame, to: nil)
+        case .attachments(let mediaGridContainerView):
+            guard index < mediaGridContainerView.mediaViews.count else { return nil }
+            let mediaView = mediaGridContainerView.mediaViews[index]
+            return mediaView.superview?.convert(mediaView.frame, to: nil)
         case .profileAvatar(let profileHeaderView):
-            return profileHeaderView.avatarImageView.superview?.convert(profileHeaderView.avatarImageView.frame, to: nil)
+            return profileHeaderView.avatarButton.superview?.convert(profileHeaderView.avatarButton.frame, to: nil)
         case .profileBanner:
             return nil      // fallback to snapshot.frame
         }

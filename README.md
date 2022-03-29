@@ -44,7 +44,7 @@ arch -x86_64 pod install
 3. Select `Mastodon` scheme and run it.
 
 #### Contributors
-The app require the `App Group` capability. To make sure it works for your developer membership. Please check [AppName.swift](AppShared/AppName.swift) file and set another unique `groupID` and update `App Group` settings.
+The app require the `App Group` capability. To make sure it works for your developer membership. Please check [AppSecret.swift](AppShared/AppSecret.swift) file and set another unique `groupID` and update `App Group` settings.
 
 The app is compatible with [toot-relay](https://github.com/DagAgren/toot-relay) APNs. You can set your push notification endpoint via cocoapod-keys.
 
@@ -78,7 +78,7 @@ The app is compatible with [toot-relay](https://github.com/DagAgren/toot-relay) 
 - [SwiftUI-Introspect](https://github.com/siteline/SwiftUI-Introspect)
 - [SwiftyJSON](https://github.com/SwiftyJSON/SwiftyJSON)
 - [Tabman](https://github.com/uias/Tabman)
-- [Texture](https://github.com/TextureGroup/Texture)
+- [TwidereX-iOS](https://github.com/TwidereProject/TwidereX-iOS)
 - [ThirdPartyMailer](https://github.com/vtourraine/ThirdPartyMailer)
 - [TOCropViewController](https://github.com/TimOliver/TOCropViewController)
 - [TwitterProfile](https://github.com/OfTheWolf/TwitterProfile)

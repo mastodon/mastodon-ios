@@ -59,6 +59,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         sceneCoordinator.setup()
         sceneCoordinator.setupOnboardingIfNeeds(animated: false)
         window.makeKeyAndVisible()
+        
+        #if SNAPSHOT
+        // speedup animation
+        // window.layer.speed = 999
+        
+        // disable animation
+        UIView.setAnimationsEnabled(false)
+        #endif
 
         if let shortcutItem = connectionOptions.shortcutItem {
             // Save it off for later when we become active.
@@ -67,12 +75,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         UserDefaults.shared.observe(\.customUserInterfaceStyle, options: [.initial, .new]) { [weak self] defaults, _ in
             guard let self = self else { return }
+            #if SNAPSHOT
+            // toggle Dark Mode
+            // https://stackoverflow.com/questions/32988241/how-to-access-launchenvironment-and-launcharguments-set-in-xcuiapplication-runn
+            if ProcessInfo.processInfo.arguments.contains("UIUserInterfaceStyleForceDark") {
+                self.window?.overrideUserInterfaceStyle = .dark
+            }
+            #else
             self.window?.overrideUserInterfaceStyle = defaults.customUserInterfaceStyle
+            #endif
         }
         .store(in: &observations)
 
         #if DEBUG
-        fpsIndicator = FPSIndicator(windowScene: windowScene)
+        // fpsIndicator = FPSIndicator(windowScene: windowScene)
         #endif
     }
 
@@ -113,7 +129,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Called as the scene transitions from the foreground to the background.
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
-        AppContext.shared.audioPlaybackService.pauseIfNeed()
     }
 
 }
@@ -131,12 +146,16 @@ extension SceneDelegate {
             if coordinator?.tabBarController.topMost is ComposeViewController {
                 logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): composing…")
             } else {
-                if AppContext.shared.authenticationService.activeMastodonAuthenticationBox.value == nil {
-                    logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): not authenticated")
-                } else {
-                    let composeViewModel = ComposeViewModel(context: AppContext.shared, composeKind: .post)
+                if let authenticationBox = AppContext.shared.authenticationService.activeMastodonAuthenticationBox.value {
+                    let composeViewModel = ComposeViewModel(
+                        context: AppContext.shared,
+                        composeKind: .post,
+                        authenticationBox: authenticationBox
+                    )
                     coordinator?.present(scene: .compose(viewModel: composeViewModel), from: nil, transition: .modal(animated: true, completion: nil))
                     logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): present compose scene")
+                } else {
+                    logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): not authenticated")
                 }
             }
         case "org.joinmastodon.app.search":

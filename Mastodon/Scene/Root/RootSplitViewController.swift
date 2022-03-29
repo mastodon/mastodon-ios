@@ -101,12 +101,7 @@ extension RootSplitViewController {
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         
-        coordinator.animate { [weak self] context in
-            guard let self = self else { return }
-            self.updateBehavior(size: size)
-        } completion: { context in
-            // do nothing
-        }
+        self.updateBehavior(size: size)
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

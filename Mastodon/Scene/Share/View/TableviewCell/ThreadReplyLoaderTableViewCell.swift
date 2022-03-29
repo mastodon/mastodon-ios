@@ -8,6 +8,8 @@
 import os.log
 import UIKit
 import Combine
+import MastodonAsset
+import MastodonLocalization
 
 protocol ThreadReplyLoaderTableViewCellDelegate: AnyObject {
     func threadReplyLoaderTableViewCell(_ cell: ThreadReplyLoaderTableViewCell, loadMoreButtonDidPressed button: UIButton)

@@ -10,6 +10,8 @@ import UIKit
 import Combine
 import CoreDataStack
 import PanModal
+import MastodonAsset
+import MastodonLocalization
 
 final class AccountListViewController: UIViewController, NeedsDependency {
 
@@ -113,10 +115,14 @@ extension AccountListViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self, weak presentingViewController] in
                 guard let self = self else { return }
-                // the presentingViewController may deinit 
-                guard let _ = presentingViewController else { return }
+                
+                // the presentingViewController may deinit.
+                // Hold it and check the window to prevent PanModel crash
+                guard let presentingViewController = presentingViewController else { return }
+                guard self.view.window != nil else { return }
+                
                 self.hasLoaded = true
-                self.panModalSetNeedsLayoutUpdate()
+                self.panModalSetNeedsLayoutUpdate()     // <<< may crash the app
                 self.panModalTransition(to: .shortForm)
             }
             .store(in: &disposeBag)

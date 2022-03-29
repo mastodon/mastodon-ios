@@ -10,12 +10,28 @@ import CoreImage.CIFilterBuiltins
 import UIKit
 
 extension UIImage {
-    public static func placeholder(size: CGSize = CGSize(width: 1, height: 1), color: UIColor) -> UIImage {
+    public static func placeholder(
+        size: CGSize = CGSize(width: 1, height: 1),
+        color: UIColor,
+        cornerRadius: CGFloat = 0
+    ) -> UIImage {
         let render = UIGraphicsImageRenderer(size: size)
 
         return render.image { (context: UIGraphicsImageRendererContext) in
+            // set clear fill
             context.cgContext.setFillColor(color.cgColor)
-            context.fill(CGRect(origin: .zero, size: size))
+            
+            let rect = CGRect(origin: .zero, size: size)
+            
+            // clip corner if needs
+            if cornerRadius > 0 {
+                let path = UIBezierPath(roundedRect: rect, cornerRadius: cornerRadius).cgPath
+                context.cgContext.addPath(path)
+                context.cgContext.clip(using: .evenOdd)
+            }
+            
+            // set fill
+            context.fill(rect)
         }
     }
 }

@@ -8,6 +8,8 @@
 import UIKit
 import Combine
 import MastodonSDK
+import MastodonAsset
+import MastodonLocalization
 
 final class MastodonServerRulesViewModel {
     
@@ -17,6 +19,9 @@ final class MastodonServerRulesViewModel {
     let rules: [Mastodon.Entity.Instance.Rule]
     let instance: Mastodon.Entity.Instance
     let applicationToken: Mastodon.Entity.Token
+    
+    // output
+    var diffableDataSource: UITableViewDiffableDataSource<ServerRuleSection, ServerRuleItem>?
     
     init(
         domain: String,

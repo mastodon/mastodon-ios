@@ -32,6 +32,7 @@ final class SendPostIntentHandler: NSObject, SendPostIntentHandling {
             }
 
             let box = MastodonAuthenticationBox(
+                authenticationRecord: .init(objectID: authentication.objectID),
                 domain: authentication.domain,
                 userID: authentication.userID,
                 appAuthorization: .init(accessToken: authentication.appAccessToken),
@@ -58,28 +59,31 @@ final class SendPostIntentHandler: NSObject, SendPostIntentHandling {
             
             let idempotencyKey = UUID().uuidString
 
-            APIService.shared.publishStatus(
-                domain: box.domain,
-                idempotencyKey: idempotencyKey,
-                query: query,
-                mastodonAuthenticationBox: box
-            )
-            .sink { _completion in
-                switch _completion {
-                case .failure(let error):
-                    let failureReason = error.localizedDescription
-                    completion(SendPostIntentResponse.failure(failureReason: failureReason))
-                case .finished:
-                    break
+            Just(Void())
+                .asyncMap {
+                    try await APIService.shared.publishStatus(
+                        domain: box.domain,
+                        idempotencyKey: idempotencyKey,
+                        query: query,
+                        authenticationBox: box
+                    )
                 }
-            } receiveValue: { response in
-                let post = Post(identifier: response.value.id, display: intent.content ?? "")
-                post.url = URL(string: response.value.url ?? response.value.uri)
-                let result = SendPostIntentResponse(code: .success, userActivity: nil)
-                result.post = post
-                completion(result)
-            }
-            .store(in: &disposeBag)
+                .sink { _completion in
+                    switch _completion {
+                    case .failure(let error):
+                        let failureReason = error.localizedDescription
+                        completion(SendPostIntentResponse.failure(failureReason: failureReason))
+                    case .finished:
+                        break
+                    }
+                } receiveValue: { response in
+                    let post = Post(identifier: response.value.id, display: intent.content ?? "")
+                    post.url = URL(string: response.value.url ?? response.value.uri)
+                    let result = SendPostIntentResponse(code: .success, userActivity: nil)
+                    result.post = post
+                    completion(result)
+                }
+                .store(in: &disposeBag)
         }
 
     }

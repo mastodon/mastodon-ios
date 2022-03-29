@@ -12,9 +12,14 @@ import CoreData
 import CoreDataStack
 import GameplayKit
 import MastodonSDK
+import MastodonAsset
+import MastodonLocalization
+import MastodonMeta
+import MastodonUI
 
 final class ComposeViewModel: NSObject {
     
+    let logger = Logger(subsystem: "ComposeViewModel", category: "ViewModel")
     
     var disposeBag = Set<AnyCancellable>()
 
@@ -23,17 +28,19 @@ final class ComposeViewModel: NSObject {
     // input
     let context: AppContext
     let composeKind: ComposeStatusSection.ComposeKind
-    let composeStatusAttribute = ComposeStatusItem.ComposeStatusAttribute()
-    let isPollComposing = CurrentValueSubject<Bool, Never>(false)
-    let isCustomEmojiComposing = CurrentValueSubject<Bool, Never>(false)
-    let isContentWarningComposing = CurrentValueSubject<Bool, Never>(false)
-    let selectedStatusVisibility: CurrentValueSubject<ComposeToolbarView.VisibilitySelectionType, Never>
-    let activeAuthentication: CurrentValueSubject<MastodonAuthentication?, Never>
-    let activeAuthenticationBox: CurrentValueSubject<MastodonAuthenticationBox?, Never>
+    let authenticationBox: MastodonAuthenticationBox
+
+    
+    @Published var isPollComposing = false
+    @Published var isCustomEmojiComposing = false
+    @Published var isContentWarningComposing = false
+    
+    @Published var selectedStatusVisibility: ComposeToolbarView.VisibilitySelectionType
+    @Published var repliedToCellFrame: CGRect = .zero
+    @Published var autoCompleteRetryLayoutTimes = 0
+    @Published var autoCompleteInfo: ComposeViewController.AutoCompleteInfo? = nil
+
     let traitCollectionDidChangePublisher = CurrentValueSubject<Void, Never>(Void())      // use CurrentValueSubject to make initial event emit
-    let repliedToCellFrame = CurrentValueSubject<CGRect, Never>(.zero)
-    let autoCompleteRetryLayoutTimes = CurrentValueSubject<Int, Never>(0)
-    let autoCompleteInfo = CurrentValueSubject<ComposeViewController.AutoCompleteInfo?, Never>(nil)
     var isViewAppeared = false
     
     // output
@@ -55,12 +62,13 @@ final class ComposeViewModel: NSObject {
         return max(2, maxOptions)
     }
     
+    let composeStatusAttribute = ComposeStatusItem.ComposeStatusAttribute()
     let composeStatusContentTableViewCell = ComposeStatusContentTableViewCell()
     let composeStatusAttachmentTableViewCell = ComposeStatusAttachmentTableViewCell()
     let composeStatusPollTableViewCell = ComposeStatusPollTableViewCell()
 
-    var dataSource: UITableViewDiffableDataSource<ComposeStatusSection, ComposeStatusItem>!
-    var customEmojiPickerDiffableDataSource: UICollectionViewDiffableDataSource<CustomEmojiPickerSection, CustomEmojiPickerItem>!
+    // var dataSource: UITableViewDiffableDataSource<ComposeStatusSection, ComposeStatusItem>?
+    var customEmojiPickerDiffableDataSource: UICollectionViewDiffableDataSource<CustomEmojiPickerSection, CustomEmojiPickerItem>?
     private(set) lazy var publishStateMachine: GKStateMachine = {
         // exclude timeline middle fetcher state
         let stateMachine = GKStateMachine(states: [
@@ -80,53 +88,63 @@ final class ComposeViewModel: NSObject {
     var idempotencyKey = CurrentValueSubject<String, Never>(UUID().uuidString)
     
     // UI & UX
-    let title: CurrentValueSubject<String, Never>
-    let shouldDismiss = CurrentValueSubject<Bool, Never>(true)
-    let isPublishBarButtonItemEnabled = CurrentValueSubject<Bool, Never>(false)
-    let isMediaToolbarButtonEnabled = CurrentValueSubject<Bool, Never>(true)
-    let isPollToolbarButtonEnabled = CurrentValueSubject<Bool, Never>(true)
-    let characterCount = CurrentValueSubject<Int, Never>(0)
-    let collectionViewState = CurrentValueSubject<CollectionViewState, Never>(.fold)
+    @Published var title: String
+    @Published var shouldDismiss = true
+    @Published var isPublishBarButtonItemEnabled = false
+    @Published var isMediaToolbarButtonEnabled = true
+    @Published var isPollToolbarButtonEnabled = true
+    @Published var characterCount = 0
+    @Published var collectionViewState: CollectionViewState = .fold
     
     // for hashtag: "#<hashtag> "
     // for mention: "@<mention> "
-    private(set) var preInsertedContent: String?
+    var preInsertedContent: String?
     
     // custom emojis
-    var customEmojiViewModelSubscription: AnyCancellable?
-    let customEmojiViewModel = CurrentValueSubject<EmojiService.CustomEmojiViewModel?, Never>(nil)
+    let customEmojiViewModel: EmojiService.CustomEmojiViewModel?
     let customEmojiPickerInputViewModel = CustomEmojiPickerInputViewModel()
-    let isLoadingCustomEmoji = CurrentValueSubject<Bool, Never>(false)
+    @Published var isLoadingCustomEmoji = false
     
     // attachment
-    let attachmentServices = CurrentValueSubject<[MastodonAttachmentService], Never>([])
+    @Published var attachmentServices: [MastodonAttachmentService] = []
     
     // polls
-    let pollOptionAttributes = CurrentValueSubject<[ComposeStatusPollItem.PollOptionAttribute], Never>([])
+    @Published var pollOptionAttributes: [ComposeStatusPollItem.PollOptionAttribute] = []
     let pollExpiresOptionAttribute = ComposeStatusPollItem.PollExpiresOptionAttribute()
     
     init(
         context: AppContext,
-        composeKind: ComposeStatusSection.ComposeKind
+        composeKind: ComposeStatusSection.ComposeKind,
+        authenticationBox: MastodonAuthenticationBox
     ) {
         self.context = context
         self.composeKind = composeKind
-        switch composeKind {
-        case .post, .hashtag, .mention:       self.title = CurrentValueSubject(L10n.Scene.Compose.Title.newPost)
-        case .reply:                          self.title = CurrentValueSubject(L10n.Scene.Compose.Title.newReply)
-        }
+        self.authenticationBox = authenticationBox
+        self.title = {
+            switch composeKind {
+            case .post, .hashtag, .mention:       return L10n.Scene.Compose.Title.newPost
+            case .reply:                          return L10n.Scene.Compose.Title.newReply
+            }
+        }()
         self.selectedStatusVisibility = {
             // default private when user locked
-            var visibility: ComposeToolbarView.VisibilitySelectionType = context.authenticationService.activeMastodonAuthentication.value?.user.locked == true ? .private : .public
+            var visibility: ComposeToolbarView.VisibilitySelectionType = {
+                guard let authenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value,
+                      let author = authenticationBox.authenticationRecord.object(in: context.managedObjectContext)?.user
+                else {
+                    return .public
+                }
+                return author.locked ? .private : .public
+            }()
             // set visibility for reply post
             switch composeKind {
-            case .reply(let repliedToStatusObjectID):
+            case .reply(let record):
                 context.managedObjectContext.performAndWait {
-                    guard let status = try? context.managedObjectContext.existingObject(with: repliedToStatusObjectID) as? Status else {
+                    guard let status = record.object(in: context.managedObjectContext) else {
                         assertionFailure()
                         return
                     }
-                    guard let repliedStatusVisibility = status.visibilityEnum else { return }
+                    let repliedStatusVisibility = status.visibility
                     switch repliedStatusVisibility {
                     case .public, .unlisted:
                         // keep default
@@ -143,323 +161,25 @@ final class ComposeViewModel: NSObject {
             default:
                 break
             }
-            return CurrentValueSubject(visibility)
+            return visibility
         }()
-        let _activeAuthentication = context.authenticationService.activeMastodonAuthentication.value
-        self.activeAuthentication = CurrentValueSubject(_activeAuthentication)
-        self.activeAuthenticationBox = CurrentValueSubject(context.authenticationService.activeMastodonAuthenticationBox.value)
         // set limit
-        let _instanceConfiguration = _activeAuthentication?.instance?.configuration
-        self.instanceConfiguration = _instanceConfiguration
+        self.instanceConfiguration = {
+            var configuration: Mastodon.Entity.Instance.Configuration? = nil
+            context.managedObjectContext.performAndWait {
+                guard let authentication = authenticationBox.authenticationRecord.object(in: context.managedObjectContext)
+                else {
+                    return
+                }
+                configuration = authentication.instance?.configuration
+            }
+            return configuration
+        }()
+        self.customEmojiViewModel = context.emojiService.dequeueCustomEmojiViewModel(for: authenticationBox.domain)
         super.init()
         // end init
         
-        switch composeKind {
-        case .reply(let repliedToStatusObjectID):
-            context.managedObjectContext.performAndWait {
-                guard let status = context.managedObjectContext.object(with: repliedToStatusObjectID) as? Status else { return }
-                let composeAuthor: MastodonUser? = {
-                    guard let objectID = self.activeAuthentication.value?.user.objectID else { return nil }
-                    guard let author = context.managedObjectContext.object(with: objectID) as? MastodonUser else { return nil }
-                    return author
-                }()
-                
-                var mentionAccts: [String] = []
-                if composeAuthor?.id != status.author.id {
-                    mentionAccts.append("@" + status.author.acct)
-                }
-                let mentions = (status.mentions ?? Set())
-                    .sorted(by: { $0.index.intValue < $1.index.intValue })
-                    .filter { $0.id != composeAuthor?.id }
-                for mention in mentions {
-                    let acct = "@" + mention.acct
-                    guard !mentionAccts.contains(acct) else { continue }
-                    mentionAccts.append(acct)
-                }
-                for acct in mentionAccts {
-                    UITextChecker.learnWord(acct)
-                }
-                if let spoilerText = status.spoilerText, !spoilerText.isEmpty {
-                    self.isContentWarningComposing.value = true
-                    self.composeStatusAttribute.contentWarningContent.value = spoilerText
-                }
-                
-                let initialComposeContent = mentionAccts.joined(separator: " ")
-                let preInsertedContent: String? = initialComposeContent.isEmpty ? nil : initialComposeContent + " "
-                self.preInsertedContent = preInsertedContent
-                self.composeStatusAttribute.composeContent.value = preInsertedContent
-            }
-        case .hashtag(let hashtag):
-            let initialComposeContent = "#" + hashtag
-            UITextChecker.learnWord(initialComposeContent)
-            let preInsertedContent = initialComposeContent + " "
-            self.preInsertedContent = preInsertedContent
-            self.composeStatusAttribute.composeContent.value = preInsertedContent
-        case .mention(let mastodonUserObjectID):
-            context.managedObjectContext.performAndWait {
-                let mastodonUser = context.managedObjectContext.object(with: mastodonUserObjectID) as! MastodonUser
-                let initialComposeContent = "@" + mastodonUser.acct
-                UITextChecker.learnWord(initialComposeContent)
-                let preInsertedContent = initialComposeContent + " "
-                self.preInsertedContent = preInsertedContent
-                self.composeStatusAttribute.composeContent.value = preInsertedContent
-            }
-        case .post:
-            self.preInsertedContent = nil
-        }
-
-        isCustomEmojiComposing
-            .assign(to: \.value, on: customEmojiPickerInputViewModel.isCustomEmojiComposing)
-            .store(in: &disposeBag)
-        
-        isContentWarningComposing
-            .assign(to: \.value, on: composeStatusAttribute.isContentWarningComposing)
-            .store(in: &disposeBag)
-        
-        // bind active authentication
-        context.authenticationService.activeMastodonAuthentication
-            .assign(to: \.value, on: activeAuthentication)
-            .store(in: &disposeBag)
-        context.authenticationService.activeMastodonAuthenticationBox
-            .assign(to: \.value, on: activeAuthenticationBox)
-            .store(in: &disposeBag)
-        
-        // bind avatar and names
-        activeAuthentication
-            .sink { [weak self] mastodonAuthentication in
-                guard let self = self else { return }
-                let mastodonUser = mastodonAuthentication?.user
-                let username = mastodonUser?.username ?? " "
-
-                self.composeStatusAttribute.avatarURL.value = mastodonUser?.avatarImageURL()
-                self.composeStatusAttribute.displayName.value = {
-                    guard let displayName = mastodonUser?.displayName, !displayName.isEmpty else {
-                        return username
-                    }
-                    return displayName
-                }()
-                self.composeStatusAttribute.emojiMeta.value = mastodonUser?.emojiMeta ?? [:]
-                self.composeStatusAttribute.username.value = username
-            }
-            .store(in: &disposeBag)
-        
-        // bind character count
-        Publishers.CombineLatest3(
-            composeStatusAttribute.composeContent.eraseToAnyPublisher(),
-            composeStatusAttribute.isContentWarningComposing.eraseToAnyPublisher(),
-            composeStatusAttribute.contentWarningContent.eraseToAnyPublisher()
-        )
-        .map { composeContent, isContentWarningComposing, contentWarningContent -> Int in
-            let composeContent = composeContent ?? ""
-            var count = composeContent.count
-            if isContentWarningComposing {
-                count += contentWarningContent.count
-            }
-            return count
-        }
-        .assign(to: \.value, on: characterCount)
-        .store(in: &disposeBag)
-
-        // bind compose bar button item UI state
-        let isComposeContentEmpty = composeStatusAttribute.composeContent
-            .map { ($0 ?? "").isEmpty }
-        let isComposeContentValid = characterCount
-            .compactMap { [weak self] characterCount -> Bool in
-                guard let self = self else { return characterCount <= 500 }
-                return characterCount <= self.composeContentLimit
-            }
-        let isMediaEmpty = attachmentServices
-            .map { $0.isEmpty }
-        let isMediaUploadAllSuccess = attachmentServices
-            .map { services in
-                services.allSatisfy { $0.uploadStateMachineSubject.value is MastodonAttachmentService.UploadState.Finish }
-            }
-        let isPollAttributeAllValid = pollOptionAttributes
-            .map { pollAttributes in
-                pollAttributes.allSatisfy { attribute -> Bool in
-                    !attribute.option.value.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
-                }
-            }
-        
-        let isPublishBarButtonItemEnabledPrecondition1 = Publishers.CombineLatest4(
-            isComposeContentEmpty,
-            isComposeContentValid,
-            isMediaEmpty,
-            isMediaUploadAllSuccess
-        )
-        .map { isComposeContentEmpty, isComposeContentValid, isMediaEmpty, isMediaUploadAllSuccess -> Bool in
-            if isMediaEmpty {
-                return isComposeContentValid && !isComposeContentEmpty
-            } else {
-                return isComposeContentValid && isMediaUploadAllSuccess
-            }
-        }
-        .eraseToAnyPublisher()
-
-        let isPublishBarButtonItemEnabledPrecondition2 = Publishers.CombineLatest4(
-            isComposeContentEmpty,
-            isComposeContentValid,
-            isPollComposing,
-            isPollAttributeAllValid
-        )
-        .map { isComposeContentEmpty, isComposeContentValid, isPollComposing, isPollAttributeAllValid -> Bool in
-            if isPollComposing {
-                return isComposeContentValid && !isComposeContentEmpty && isPollAttributeAllValid
-            } else {
-                return isComposeContentValid && !isComposeContentEmpty
-            }
-        }
-        .eraseToAnyPublisher()
-        
-        Publishers.CombineLatest(
-            isPublishBarButtonItemEnabledPrecondition1,
-            isPublishBarButtonItemEnabledPrecondition2
-        )
-        .map { $0 && $1 }
-        .assign(to: \.value, on: isPublishBarButtonItemEnabled)
-        .store(in: &disposeBag)
-        
-        // bind modal dismiss state
-        composeStatusAttribute.composeContent
-            .receive(on: DispatchQueue.main)
-            .map { [weak self] content in
-                let content = content ?? ""
-                if content.isEmpty {
-                    return true
-                }
-                // if preInsertedContent plus a space is equal to the content, simply dismiss the modal
-                if let preInsertedContent = self?.preInsertedContent {
-                    return content == preInsertedContent
-                }
-                return false
-            }
-            .assign(to: \.value, on: shouldDismiss)
-            .store(in: &disposeBag)
-        
-        // bind custom emojis
-        context.authenticationService.activeMastodonAuthenticationBox
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] activeMastodonAuthenticationBox in
-                guard let self = self else { return }
-                guard let activeMastodonAuthenticationBox = activeMastodonAuthenticationBox else { return }
-                let domain = activeMastodonAuthenticationBox.domain
-                
-                // trigger dequeue to preload emojis
-                self.customEmojiViewModel.value = self.context.emojiService.dequeueCustomEmojiViewModel(for: domain)
-            }
-            .store(in: &disposeBag)
-
-        // setup attribute updater
-        attachmentServices
-            .receive(on: DispatchQueue.main)
-            .debounce(for: 0.3, scheduler: DispatchQueue.main)
-            .sink { attachmentServices in
-                // drive service upload state
-                // make image upload in the queue
-                for attachmentService in attachmentServices {
-                    // skip when prefix N task when task finish OR fail OR uploading
-                    guard let currentState = attachmentService.uploadStateMachine.currentState else { break }
-                    if currentState is MastodonAttachmentService.UploadState.Fail {
-                        continue
-                    }
-                    if currentState is MastodonAttachmentService.UploadState.Finish {
-                        continue
-                    }
-                    if currentState is MastodonAttachmentService.UploadState.Processing {
-                        continue
-                    }
-                    if currentState is MastodonAttachmentService.UploadState.Uploading {
-                        break
-                    }
-                    // trigger uploading one by one
-                    if currentState is MastodonAttachmentService.UploadState.Initial {
-                        attachmentService.uploadStateMachine.enter(MastodonAttachmentService.UploadState.Uploading.self)
-                        break
-                    }
-                }
-            }
-            .store(in: &disposeBag)
-        
-        // bind delegate
-        attachmentServices
-            .sink { [weak self] attachmentServices in
-                guard let self = self else { return }
-                attachmentServices.forEach { $0.delegate = self }
-            }
-            .store(in: &disposeBag)
-        
-        pollOptionAttributes
-            .sink { [weak self] pollAttributes in
-                guard let self = self else { return }
-                pollAttributes.forEach { $0.delegate = self }
-            }
-            .store(in: &disposeBag)
-        
-        // bind compose toolbar UI state
-        Publishers.CombineLatest(
-            isPollComposing.eraseToAnyPublisher(),
-            attachmentServices.eraseToAnyPublisher()
-        )
-        .receive(on: DispatchQueue.main)
-        .sink(receiveValue: { [weak self] isPollComposing, attachmentServices in
-            guard let self = self else { return }
-            let shouldMediaDisable = isPollComposing || attachmentServices.count >= self.maxMediaAttachments
-            let shouldPollDisable = attachmentServices.count > 0
-            
-            self.isMediaToolbarButtonEnabled.value = !shouldMediaDisable
-            self.isPollToolbarButtonEnabled.value = !shouldPollDisable
-        })
-        .store(in: &disposeBag)
-        
-        // calculate `Idempotency-Key`
-        let content = Publishers.CombineLatest3(
-            composeStatusAttribute.isContentWarningComposing,
-            composeStatusAttribute.contentWarningContent,
-            composeStatusAttribute.composeContent
-        )
-        .map { isContentWarningComposing, contentWarningContent, composeContent -> String in
-            if isContentWarningComposing {
-                return contentWarningContent + (composeContent ?? "")
-            } else {
-                return composeContent ?? ""
-            }
-        }
-        let attachmentIDs = attachmentServices.map { attachments -> String in
-            let attachmentIDs = attachments.compactMap { $0.attachment.value?.id }
-            return attachmentIDs.joined(separator: ",")
-        }
-        let pollOptionsAndDuration = Publishers.CombineLatest3(
-            isPollComposing,
-            pollOptionAttributes,
-            pollExpiresOptionAttribute.expiresOption
-        )
-        .map { isPollComposing, pollOptionAttributes, expiresOption -> String in
-            guard isPollComposing else {
-                return ""
-            }
-            
-            let pollOptions = pollOptionAttributes.map { $0.option.value }.joined(separator: ",")
-            return pollOptions + expiresOption.rawValue
-        }
-        
-        Publishers.CombineLatest4(
-            content,
-            attachmentIDs,
-            pollOptionsAndDuration,
-            selectedStatusVisibility
-        )
-        .map { content, attachmentIDs, pollOptionsAndDuration, selectedStatusVisibility -> String in
-            var hasher = Hasher()
-            hasher.combine(content)
-            hasher.combine(attachmentIDs)
-            hasher.combine(pollOptionsAndDuration)
-            hasher.combine(selectedStatusVisibility.visibility.rawValue)
-            let hashValue = hasher.finalize()
-            return "\(hashValue)"
-        }
-        .assign(to: \.value, on: idempotencyKey)
-        .store(in: &disposeBag)
-        
+        setup(cell: composeStatusContentTableViewCell)
     }
     
     deinit {
@@ -477,10 +197,10 @@ extension ComposeViewModel {
 
 extension ComposeViewModel {
     func createNewPollOptionIfPossible() {
-        guard pollOptionAttributes.value.count < maxPollOptions else { return }
+        guard pollOptionAttributes.count < maxPollOptions else { return }
         
         let attribute = ComposeStatusPollItem.PollOptionAttribute()
-        pollOptionAttributes.value = pollOptionAttributes.value + [attribute]
+        pollOptionAttributes = pollOptionAttributes + [attribute]
     }
     
     func updatePublishDate() {
@@ -512,7 +232,7 @@ extension ComposeViewModel {
     // - up to 1 video
     // - up to N photos
     func checkAttachmentPrecondition() throws {
-        let attachmentServices = self.attachmentServices.value
+        let attachmentServices = self.attachmentServices
         guard !attachmentServices.isEmpty else { return }
         var photoAttachmentServices: [MastodonAttachmentService] = []
         var videoAttachmentServices: [MastodonAttachmentService] = []
@@ -545,7 +265,7 @@ extension ComposeViewModel {
 extension ComposeViewModel: MastodonAttachmentServiceDelegate {
     func mastodonAttachmentService(_ service: MastodonAttachmentService, uploadStateDidChange state: MastodonAttachmentService.UploadState?) {
         // trigger new output event
-        attachmentServices.value = attachmentServices.value
+        attachmentServices = attachmentServices
     }
 }
 
@@ -553,6 +273,115 @@ extension ComposeViewModel: MastodonAttachmentServiceDelegate {
 extension ComposeViewModel: ComposePollAttributeDelegate {
     func composePollAttribute(_ attribute: ComposeStatusPollItem.PollOptionAttribute, pollOptionDidChange: String?) {
         // trigger update
-        pollOptionAttributes.value = pollOptionAttributes.value
+        pollOptionAttributes = pollOptionAttributes
+    }
+}
+
+extension ComposeViewModel {
+    private func setup(
+        cell: ComposeStatusContentTableViewCell
+    ) {
+        setupStatusHeader(cell: cell)
+        setupStatusAuthor(cell: cell)
+        setupStatusContent(cell: cell)
+    }
+    
+    private func setupStatusHeader(
+        cell: ComposeStatusContentTableViewCell
+    ) {
+        // configure header
+        let managedObjectContext = context.managedObjectContext
+        managedObjectContext.performAndWait {
+            guard case let .reply(record) = self.composeKind,
+                  let replyTo = record.object(in: managedObjectContext)
+            else {
+                cell.statusView.viewModel.header = .none
+                return
+            }
+            
+            let info: StatusView.ViewModel.Header.ReplyInfo
+            do {
+                let content = MastodonContent(
+                    content: replyTo.author.displayNameWithFallback,
+                    emojis: replyTo.author.emojis.asDictionary
+                )
+                let metaContent = try MastodonMetaContent.convert(document: content)
+                info = .init(header: metaContent)
+            } catch {
+                let metaContent = PlaintextMetaContent(string: replyTo.author.displayNameWithFallback)
+                info = .init(header: metaContent)
+            }
+            cell.statusView.viewModel.header = .reply(info: info)
+        }
+    }
+    
+    private func setupStatusAuthor(
+        cell: ComposeStatusContentTableViewCell
+    ) {
+        self.context.managedObjectContext.performAndWait {
+            guard let author = authenticationBox.authenticationRecord.object(in: self.context.managedObjectContext)?.user else { return }
+            cell.statusView.configureAuthor(author: author)
+        }
+    }
+    
+    private func setupStatusContent(
+        cell: ComposeStatusContentTableViewCell
+    ) {
+        switch composeKind {
+        case .reply(let record):
+            context.managedObjectContext.performAndWait {
+                guard let status = record.object(in: context.managedObjectContext) else { return }
+                let author = self.authenticationBox.authenticationRecord.object(in: context.managedObjectContext)?.user
+                
+                var mentionAccts: [String] = []
+                if author?.id != status.author.id {
+                    mentionAccts.append("@" + status.author.acct)
+                }
+                let mentions = status.mentions
+                    .filter { author?.id != $0.id }
+                for mention in mentions {
+                    let acct = "@" + mention.acct
+                    guard !mentionAccts.contains(acct) else { continue }
+                    mentionAccts.append(acct)
+                }
+                for acct in mentionAccts {
+                    UITextChecker.learnWord(acct)
+                }
+                if let spoilerText = status.spoilerText, !spoilerText.isEmpty {
+                    self.isContentWarningComposing = true
+                    self.composeStatusAttribute.contentWarningContent = spoilerText
+                }
+
+                let initialComposeContent = mentionAccts.joined(separator: " ")
+                let preInsertedContent: String? = initialComposeContent.isEmpty ? nil : initialComposeContent + " "
+                self.preInsertedContent = preInsertedContent
+                self.composeStatusAttribute.composeContent = preInsertedContent
+            }
+        case .hashtag(let hashtag):
+            let initialComposeContent = "#" + hashtag
+            UITextChecker.learnWord(initialComposeContent)
+            let preInsertedContent = initialComposeContent + " "
+            self.preInsertedContent = preInsertedContent
+            self.composeStatusAttribute.composeContent = preInsertedContent
+        case .mention(let record):
+            context.managedObjectContext.performAndWait {
+                guard let user = record.object(in: context.managedObjectContext) else { return }
+                let initialComposeContent = "@" + user.acct
+                UITextChecker.learnWord(initialComposeContent)
+                let preInsertedContent = initialComposeContent + " "
+                self.preInsertedContent = preInsertedContent
+                self.composeStatusAttribute.composeContent = preInsertedContent
+            }
+        case .post:
+            self.preInsertedContent = nil
+        }
+        
+        // configure content warning
+        if let composeContent = composeStatusAttribute.composeContent {
+            cell.metaText.textView.text = composeContent
+        }
+        
+        // configure content warning
+        cell.statusContentWarningEditorView.textView.text = composeStatusAttribute.contentWarningContent
     }
 }

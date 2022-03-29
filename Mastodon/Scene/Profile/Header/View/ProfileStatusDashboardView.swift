@@ -7,6 +7,8 @@
 
 import os.log
 import UIKit
+import MastodonAsset
+import MastodonLocalization
 
 protocol ProfileStatusDashboardViewDelegate: AnyObject {
     func profileStatusDashboardView(_ dashboardView: ProfileStatusDashboardView, dashboardMeterViewDidPressed dashboardMeterView: ProfileStatusDashboardMeterView, meter: ProfileStatusDashboardView.Meter)
@@ -73,6 +75,9 @@ extension ProfileStatusDashboardView {
             tapGestureRecognizer.addTarget(self, action: #selector(ProfileStatusDashboardView.tapGestureRecognizerHandler(_:)))
             meterView.addGestureRecognizer(tapGestureRecognizer)
         }
+        
+        followingDashboardMeterView.accessibilityHint = "Double tap to open the list"   // TODO: i18n
+        followersDashboardMeterView.accessibilityHint = "Double tap to open the list"
     }
 }
 

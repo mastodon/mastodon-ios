@@ -38,8 +38,8 @@ final class ContentSplitViewController: UIViewController, NeedsDependency {
     private(set) lazy var mainTabBarController: MainTabBarController = {
         let mainTabBarController = MainTabBarController(context: context, coordinator: coordinator)
         if let homeTimelineViewController = mainTabBarController.viewController(of: HomeTimelineViewController.self) {
-            homeTimelineViewController.viewModel.displayComposeBarButtonItem.value = false
-            homeTimelineViewController.viewModel.displaySettingBarButtonItem.value = false
+            homeTimelineViewController.viewModel.displayComposeBarButtonItem = false
+            homeTimelineViewController.viewModel.displaySettingBarButtonItem = false
         }
         return mainTabBarController
     }()

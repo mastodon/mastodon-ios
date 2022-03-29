@@ -6,8 +6,8 @@
         "repositoryURL": "https://github.com/Alamofire/Alamofire.git",
         "state": {
           "branch": null,
-          "revision": "d120af1e8638c7da36c8481fd61a66c0c08dc4fc",
-          "version": "5.4.4"
+          "revision": "f82c23a8a7ef8dc1a49a8bfc6a96883e79121864",
+          "version": "5.5.0"
         }
       },
       {
@@ -57,7 +57,7 @@
       },
       {
         "package": "FLAnimatedImage",
-        "repositoryURL": "https://github.com/Flipboard/FLAnimatedImage",
+        "repositoryURL": "https://github.com/Flipboard/FLAnimatedImage.git",
         "state": {
           "branch": null,
           "revision": "e7f9fd4681ae41bf6f3056db08af4f401d61da52",
@@ -96,8 +96,8 @@
         "repositoryURL": "https://github.com/TwidereProject/MetaTextKit.git",
         "state": {
           "branch": null,
-          "revision": "7af4182f64329440a4656f2cba307cb5848e496a",
-          "version": "2.1.2"
+          "revision": "3ea336d3de7938dc112084c596a646e697b0feee",
+          "version": "2.2.1"
         }
       },
       {
@@ -141,8 +141,8 @@
         "repositoryURL": "https://github.com/SDWebImage/SDWebImage.git",
         "state": {
           "branch": null,
-          "revision": "a72df4849408da7e5d3c1b586797b7c601c41d1b",
-          "version": "5.12.1"
+          "revision": "2c53f531f1bedd253f55d85105409c28ed4a922c",
+          "version": "5.12.3"
         }
       },
       {
@@ -195,8 +195,8 @@
         "repositoryURL": "https://github.com/uias/Tabman",
         "state": {
           "branch": null,
-          "revision": "f43489cdd743ba7ad86a422ebb5fcbf34e333df4",
-          "version": "2.11.1"
+          "revision": "a9f10cb862a32e6a22549836af013abd6b0692d3",
+          "version": "2.12.0"
         }
       },
       {
@@ -213,8 +213,17 @@
         "repositoryURL": "https://github.com/TimOliver/TOCropViewController.git",
         "state": {
           "branch": null,
-          "revision": "dad97167bf1be16aeecd109130900995dd01c515",
-          "version": "2.6.0"
+          "revision": "d0470491f56e734731bbf77991944c0dfdee3e0e",
+          "version": "2.6.1"
+        }
+      },
+      {
+        "package": "UITextView+Placeholder",
+        "repositoryURL": "https://github.com/MainasuK/UITextView-Placeholder.git",
+        "state": {
+          "branch": null,
+          "revision": "20f513ded04a040cdf5467f0891849b1763ede3b",
+          "version": "1.4.1"
         }
       }
     ]

@@ -1,0 +1,16 @@
+{% for type in types.implementing.AutoUpdatableObject %}
+// sourcery:inline:{{type.name}}.AutoUpdatableObject
+
+// Generated using Sourcery
+// DO NOT EDIT
+{% for variable in type.variables|instance where
+variable|annotated:"autoUpdatableObject"
+%}
+public func update({{variable.name}}: {{variable.typeName}}) {
+	if self.{{variable.name}} != {{variable.name}} {
+		self.{{variable.name}} = {{variable.name}}
+	}
+}
+{% endfor %}
+// sourcery:end
+{% endfor %}

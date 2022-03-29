@@ -8,14 +8,10 @@
 import UIKit
 
 class PickServerCategoryCollectionViewCell: UICollectionViewCell {
-    
+        
     var observations = Set<NSKeyValueObservation>()
     
-    var categoryView: PickServerCategoryView = {
-        let view = PickServerCategoryView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
+    var categoryView = PickServerCategoryView()
     
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -35,13 +31,15 @@ class PickServerCategoryCollectionViewCell: UICollectionViewCell {
 
 extension PickServerCategoryCollectionViewCell {
     private func configure() {
-        contentView.addSubview(categoryView)
+        backgroundColor = .clear
         
+        categoryView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(categoryView)
         NSLayoutConstraint.activate([
+            categoryView.topAnchor.constraint(equalTo: contentView.topAnchor),
             categoryView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             categoryView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            categoryView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
-            contentView.bottomAnchor.constraint(equalTo: categoryView.bottomAnchor, constant: 10),
+            contentView.bottomAnchor.constraint(equalTo: categoryView.bottomAnchor),
         ])
     }
 }
