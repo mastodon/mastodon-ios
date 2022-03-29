@@ -148,7 +148,7 @@
                     "mention": "إشارة",
                     "link": "رابط",
                     "hashtag": "وسم",
-                    "email": "بريد إلكتروني",
+                    "email": "بَريدٌ إلِكتُرُونِيّ",
                     "emoji": "رمز تعبيري"
                 },
                 "visibility": {
@@ -249,14 +249,14 @@
                     "delete": "حذف"
                 },
                 "username": {
-                    "placeholder": "اِسم مُستَخدِم",
+                    "placeholder": "اِسمُ مُستَخدِم",
                     "duplicate_prompt": "اِسم المُستَخدِم هذا مأخوذٌ بالفعل."
                 },
                 "display_name": {
-                    "placeholder": "اِسم العَرض"
+                    "placeholder": "اِسمُ عَرض"
                 },
                 "email": {
-                    "placeholder": "بريد إلكتروني"
+                    "placeholder": "بَريدٌ إلِكتُرُونِيّ"
                 },
                 "password": {
                     "placeholder": "رمز سري",
@@ -274,7 +274,7 @@
             },
             "error": {
                 "item": {
-                    "username": "اِسم المُستَخدِم",
+                    "username": "اِسمُ المُستَخدِم",
                     "email": "البريد الإلكتروني",
                     "password": "الرمز السري",
                     "agreement": "الاِتِّفاقيَّة",
