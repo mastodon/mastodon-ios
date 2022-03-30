@@ -191,7 +191,7 @@
         <key>many</key>
         <string>%ld replies</string>
         <key>other</key>
-        <string>%ld replies</string>
+        <string>%ld رَدّ</string>
       </dict>
     </dict>
     <key>plural.count.vote</key>
