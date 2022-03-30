@@ -130,6 +130,7 @@
                 "show_user_profile": "Benutzerprofil anzeigen",
                 "content_warning": "Inhaltswarnung",
                 "media_content_warning": "Tippe irgendwo zum Anzeigen",
+                "tap_to_reveal": "Tap to reveal",
                 "poll": {
                     "vote": "Abstimmen",
                     "closed": "Beendet"
@@ -141,7 +142,11 @@
                     "favorite": "Favorit",
                     "unfavorite": "Aus Favoriten entfernen",
                     "menu": "Menü",
-                    "hide": "Verstecken"
+                    "hide": "Verstecken",
+                    "show_image": "Show image",
+                    "show_gif": "Show GIF",
+                    "show_video_player": "Show video player",
+                    "tap_then_hold_to_show_menu": "Tap then hold to show menu"
                 },
                 "tag": {
                     "url": "URL",
@@ -440,6 +445,12 @@
                     "title": "Konto entsperren",
                     "message": "Bestätige %s zu entsperren"
                 }
+            },
+            "accessibility": {
+                "show_avatar_image": "Show avatar image",
+                "edit_avatar_image": "Edit avatar image",
+                "show_banner_image": "Show banner image",
+                "double_tap_to_open_the_list": "Double tap to open the list"
             }
         },
         "follower": {
@@ -541,7 +552,8 @@
                     "true_black_dark_mode": "Vollständig dunkler Dunkelmodus",
                     "disable_avatar_animation": "Animierte Profilbilder deaktivieren",
                     "disable_emoji_animation": "Animierte Emojis deaktivieren",
-                    "using_default_browser": "Standardbrowser zum Öffnen von Links verwenden"
+                    "using_default_browser": "Standardbrowser zum Öffnen von Links verwenden",
+                    "open_links_in_mastodon": "Open links in Mastodon"
                 },
                 "boring_zone": {
                     "title": "Der langweilige Bereich",
