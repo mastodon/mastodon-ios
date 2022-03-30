@@ -130,6 +130,7 @@
                 "show_user_profile": "إظهار الملف التعريفي للمُستخدِم",
                 "content_warning": "تحذير المُحتوى",
                 "media_content_warning": "انقر للكشف",
+                "tap_to_reveal": "Tap to reveal",
                 "poll": {
                     "vote": "صَوِّت",
                     "closed": "انتهى"
@@ -141,7 +142,11 @@
                     "favorite": "التفضيل",
                     "unfavorite": "إزالة التفضيل",
                     "menu": "القائمة",
-                    "hide": "إخفاء"
+                    "hide": "إخفاء",
+                    "show_image": "Show image",
+                    "show_gif": "Show GIF",
+                    "show_video_player": "Show video player",
+                    "tap_then_hold_to_show_menu": "Tap then hold to show menu"
                 },
                 "tag": {
                     "url": "عنوان URL",
@@ -440,6 +445,12 @@
                     "title": "رَفعُ الحَظرِ عَنِ الحِساب",
                     "message": "تأكيدُ رَفع الحَظرِ عَن %s"
                 }
+            },
+            "accessibility": {
+                "show_avatar_image": "Show avatar image",
+                "edit_avatar_image": "Edit avatar image",
+                "show_banner_image": "Show banner image",
+                "double_tap_to_open_the_list": "Double tap to open the list"
             }
         },
         "follower": {
@@ -541,7 +552,8 @@
                     "true_black_dark_mode": "النَّمَطُ الأسوَدُ الداكِنُ الحَقيقي",
                     "disable_avatar_animation": "تَعطيلُ الصوَرِ الرمزيَّةِ المُتحرِّكَة",
                     "disable_emoji_animation": "تَعطيلُ الرُموزِ التَّعبيريَّةِ المُتحرِّكَة",
-                    "using_default_browser": "اِستِخدامُ المُتصفِّحِ الاِفتراضي لِفتحِ الرَّوابِط"
+                    "using_default_browser": "اِستِخدامُ المُتصفِّحِ الاِفتراضي لِفتحِ الرَّوابِط",
+                    "open_links_in_mastodon": "Open links in Mastodon"
                 },
                 "boring_zone": {
                     "title": "المنطِقَةُ المُملَّة",
