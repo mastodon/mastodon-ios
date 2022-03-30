@@ -115,6 +115,7 @@ extension MastodonRegisterTextFieldTableViewCell {
             label.font = MastodonRegisterTextFieldTableViewCell.textFieldLabelFont
             label.textColor = Asset.Colors.Label.primary.color
             label.text = text
+            label.lineBreakMode = .byTruncatingMiddle
             
             label.translatesAutoresizingMaskIntoConstraints = false
             containerView.addSubview(label)
@@ -123,6 +124,7 @@ extension MastodonRegisterTextFieldTableViewCell {
                 label.leadingAnchor.constraint(equalTo: paddingView.trailingAnchor),
                 containerView.trailingAnchor.constraint(equalTo: label.trailingAnchor, constant: 16),
                 label.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
+                label.widthAnchor.constraint(lessThanOrEqualToConstant: 180).priority(.required - 1),
             ])
             return containerView
         }()
