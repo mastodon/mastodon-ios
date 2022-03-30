@@ -130,6 +130,7 @@
                 "show_user_profile": "Profîla bikarhêner nîşan bide",
                 "content_warning": "Hişyariya naverokê",
                 "media_content_warning": "Ji bo eşkerekirinê li derekî bitikîne",
+                "tap_to_reveal": "Tap to reveal",
                 "poll": {
                     "vote": "Deng bide",
                     "closed": "Girtî"
@@ -141,7 +142,11 @@
                     "favorite": "Bijarte",
                     "unfavorite": "Nebijarte",
                     "menu": "Kulîn",
-                    "hide": "Veşêre"
+                    "hide": "Veşêre",
+                    "show_image": "Show image",
+                    "show_gif": "Show GIF",
+                    "show_video_player": "Show video player",
+                    "tap_then_hold_to_show_menu": "Tap then hold to show menu"
                 },
                 "tag": {
                     "url": "URL",
@@ -440,6 +445,12 @@
                     "title": "Astengiyê li ser ajimêr rake",
                     "message": "Ji bo rakirina astengkirinê %s bipejirîne"
                 }
+            },
+            "accessibility": {
+                "show_avatar_image": "Show avatar image",
+                "edit_avatar_image": "Edit avatar image",
+                "show_banner_image": "Show banner image",
+                "double_tap_to_open_the_list": "Double tap to open the list"
             }
         },
         "follower": {
@@ -541,7 +552,8 @@
                     "true_black_dark_mode": "Moda tarî ya reş a rastîn",
                     "disable_avatar_animation": "Avatarên anîmasyonî neçalak bike",
                     "disable_emoji_animation": "Emojiyên anîmasyonî neçalak bike",
-                    "using_default_browser": "Ji bo vekirina girêdanan geroka berdest bi kar bîne"
+                    "using_default_browser": "Ji bo vekirina girêdanan geroka berdest bi kar bîne",
+                    "open_links_in_mastodon": "Open links in Mastodon"
                 },
                 "boring_zone": {
                     "title": "Devera acizker",
