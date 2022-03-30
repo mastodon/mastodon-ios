@@ -103,7 +103,7 @@
                 "common": {
                     "switch_to_tab": "التبديل إلى %s",
                     "compose_new_post": "تأليف منشور جديد",
-                    "show_favorites": "إظهار المُفضَّلة",
+                    "show_favorites": "أظْهِر المُفضَّلة",
                     "open_settings": "فَتحُ الإعدادات"
                 },
                 "timeline": {
@@ -126,8 +126,8 @@
             "status": {
                 "user_reblogged": "أعادَ %s تَدوينَها",
                 "user_replied_to": "رَدًا على %s",
-                "show_post": "إظهار منشور",
-                "show_user_profile": "إظهار الملف التعريفي للمُستخدِم",
+                "show_post": "أظْهِر مَنشور",
+                "show_user_profile": "أظْهِر المِلَفَّ التَّعريفِيَّ لِلمُستَخدِم",
                 "content_warning": "تحذير المُحتوى",
                 "media_content_warning": "اُنقُر لِلكَشف",
                 "tap_to_reveal": "اُنقُر لِلكَشف",
@@ -144,8 +144,8 @@
                     "menu": "القائمة",
                     "hide": "إخفاء",
                     "show_image": "أظْهِرِ الصُّورَة",
-                    "show_gif": "إظهارُ GIF",
-                    "show_video_player": "إظْهارُ مُشَغِّلِ المَقاطِعِ المَرئِيَّة",
+                    "show_gif": "أظْهِر GIF",
+                    "show_video_player": "أظْهِر مُشَغِّلَ المَقاطِعِ المَرئِيَّة",
                     "tap_then_hold_to_show_menu": "اُنقُر مُطَوَّلًا لِإظْهَارِ القائِمَة"
                 },
                 "tag": {
@@ -189,7 +189,7 @@
                 "loader": {
                     "load_missing_posts": "تحميل المَنشورات المَفقودَة",
                     "loading_missing_posts": "يَجري تحميل المَنشورات المَفقودَة...",
-                    "show_more_replies": "إظهار مَزيد مِنَ الرُّدود"
+                    "show_more_replies": "أظْهِر مَزيدًا مِنَ الرُّدود"
                 },
                 "header": {
                     "no_status_found": "لَم يُعْثَر على مَنشورات",
@@ -447,9 +447,9 @@
                 }
             },
             "accessibility": {
-                "show_avatar_image": "إظْهارُ الصُّورَةِ الرَّمزِيَّة",
+                "show_avatar_image": "أظْهِر الصُّورَةَ الرَّمزِيَّة",
                 "edit_avatar_image": "تَحريرُ الصُّورَةِ الرَّمزِيَّة",
-                "show_banner_image": "Show banner image",
+                "show_banner_image": "أظْهِر صُورَةَ الرَّايَة",
                 "double_tap_to_open_the_list": "اُنقُر نَقرًا مُزدَوَجًا لِفَتحِ القائِمَة"
             }
         },
@@ -509,8 +509,8 @@
                 "poll_has_ended": "انتهى استطلاعُ الرأي"
             },
             "keyobard": {
-                "show_everything": "إظهار كل شيء",
-                "show_mentions": "إظهار الإشارات"
+                "show_everything": "أظْهِر كُلَّ شَيء",
+                "show_mentions": "أظْهِر الإشارَات"
             }
         },
         "thread": {
@@ -590,12 +590,12 @@
         "preview": {
             "keyboard": {
                 "close_preview": "إغلاق المُعايَنَة",
-                "show_next": "إظهار التالي",
-                "show_previous": "إظهار السابق"
+                "show_next": "أظْهِر التَّالي",
+                "show_previous": "أظْهِر السَّابِق"
             }
         },
         "account_list": {
-            "tab_bar_hint": "المِلف المُحدَّد حاليًا: %s. انقر نقرًا مزدوجًا مع الاستمرار لإظهار مُبدِّل الحِساب",
+            "tab_bar_hint": "المِلَفُّ المُحدَّدُ حالِيًّا: %s. اُنقُر نَقرًا مُزدَوَجًا مَعَ الاِستِمرارِ لِإظهارِ مُبدِّلِ الحِساب",
             "dismiss_account_switcher": "تجاهُل مبدِّل الحِساب",
             "add_account": "إضافَةُ حِساب"
         },
