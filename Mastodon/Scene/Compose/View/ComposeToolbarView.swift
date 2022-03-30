@@ -13,7 +13,7 @@ import MastodonAsset
 import MastodonLocalization
 
 protocol ComposeToolbarViewDelegate: AnyObject {
-    func composeToolbarView(_ composeToolbarView: ComposeToolbarView, cameraButtonDidPressed sender: Any, mediaSelectionType type: ComposeToolbarView.MediaSelectionType)
+    func composeToolbarView(_ composeToolbarView: ComposeToolbarView, mediaButtonDidPressed sender: Any, mediaSelectionType type: ComposeToolbarView.MediaSelectionType)
     func composeToolbarView(_ composeToolbarView: ComposeToolbarView, pollButtonDidPressed sender: Any)
     func composeToolbarView(_ composeToolbarView: ComposeToolbarView, emojiButtonDidPressed sender: Any)
     func composeToolbarView(_ composeToolbarView: ComposeToolbarView, contentWarningButtonDidPressed sender: Any)
@@ -304,21 +304,21 @@ extension ComposeToolbarView {
         let photoLibraryAction = UIAction(title: L10n.Scene.Compose.MediaSelection.photoLibrary, image: UIImage(systemName: "rectangle.on.rectangle"), identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off) { [weak self] _ in
             guard let self = self else { return }
             os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: mediaSelectionType: .photoLibrary", ((#file as NSString).lastPathComponent), #line, #function)
-            self.delegate?.composeToolbarView(self, cameraButtonDidPressed: self.mediaButton, mediaSelectionType: .photoLibrary)
+            self.delegate?.composeToolbarView(self, mediaButtonDidPressed: self.mediaButton, mediaSelectionType: .photoLibrary)
         }
         children.append(photoLibraryAction)
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
             let cameraAction = UIAction(title: L10n.Scene.Compose.MediaSelection.camera, image: UIImage(systemName: "camera"), identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off, handler: { [weak self] _ in
                 guard let self = self else { return }
                 os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: mediaSelectionType: .camera", ((#file as NSString).lastPathComponent), #line, #function)
-                self.delegate?.composeToolbarView(self, cameraButtonDidPressed: self.mediaButton, mediaSelectionType: .camera)
+                self.delegate?.composeToolbarView(self, mediaButtonDidPressed: self.mediaButton, mediaSelectionType: .camera)
             })
             children.append(cameraAction)
         }
         let browseAction = UIAction(title: L10n.Scene.Compose.MediaSelection.browse, image: UIImage(systemName: "ellipsis"), identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off) { [weak self] _ in
             guard let self = self else { return }
             os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: mediaSelectionType: .browse", ((#file as NSString).lastPathComponent), #line, #function)
-            self.delegate?.composeToolbarView(self, cameraButtonDidPressed: self.mediaButton, mediaSelectionType: .browse)
+            self.delegate?.composeToolbarView(self, mediaButtonDidPressed: self.mediaButton, mediaSelectionType: .browse)
         }
         children.append(browseAction)
         

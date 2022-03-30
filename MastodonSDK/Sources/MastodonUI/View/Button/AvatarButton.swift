@@ -7,6 +7,7 @@
 
 import os.log
 import UIKit
+import MastodonLocalization
 
 open class AvatarButton: UIControl {
 
@@ -37,6 +38,9 @@ open class AvatarButton: UIControl {
             avatarImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
             avatarImageView.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])
+        
+        isAccessibilityElement = true
+        accessibilityLabel = L10n.Common.Controls.Status.showUserProfile
     }
     
     public override func layoutSubviews() {

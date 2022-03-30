@@ -19,14 +19,14 @@ public protocol NotificationViewDelegate: AnyObject {
     
     func notificationView(_ notificationView: NotificationView, statusView: StatusView, metaText: MetaText, didSelectMeta meta: Meta)
     func notificationView(_ notificationView: NotificationView, statusView: StatusView, spoilerOverlayViewDidPressed overlayView: SpoilerOverlayView)
-//    func notificationView(_ notificationView: NotificationView, statusView: StatusView, spoilerBannerViewDidPressed bannerView: SpoilerBannerView)
+    func notificationView(_ notificationView: NotificationView, statusView: StatusView, mediaGridContainerView: MediaGridContainerView, mediaView: MediaView, didSelectMediaViewAt index: Int)
 
     func notificationView(_ notificationView: NotificationView, statusView: StatusView, actionToolbarContainer: ActionToolbarContainer, buttonDidPressed button: UIButton, action: ActionToolbarContainer.Action)
 
     func notificationView(_ notificationView: NotificationView, quoteStatusView: StatusView, authorAvatarButtonDidPressed button: AvatarButton)
     func notificationView(_ notificationView: NotificationView, quoteStatusView: StatusView, metaText: MetaText, didSelectMeta meta: Meta)
     func notificationView(_ notificationView: NotificationView, quoteStatusView: StatusView, spoilerOverlayViewDidPressed overlayView: SpoilerOverlayView)
-    // func notificationView(_ notificationView: NotificationView, quoteStatusView: StatusView, spoilerBannerViewDidPressed bannerView: SpoilerBannerView)
+    func notificationView(_ notificationView: NotificationView, quoteStatusView: StatusView, mediaGridContainerView: MediaGridContainerView, mediaView: MediaView, didSelectMediaViewAt index: Int)
     
     // a11y
     func notificationView(_ notificationView: NotificationView, accessibilityActivate: Void)
@@ -57,6 +57,7 @@ public final class NotificationView: UIView {
     }()
     
     // author
+    let authorAdaptiveMarginContainerView = AdaptiveMarginContainerView()
     let authorContainerView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
@@ -103,6 +104,7 @@ public final class NotificationView: UIView {
     public let statusView = StatusView()
     
     public let quoteStatusViewContainerView = UIView()
+    public let quoteBackgroundView = UIView()
     public let quoteStatusView = StatusView()
     
     public func prepareForReuse() {
@@ -135,7 +137,7 @@ public final class NotificationView: UIView {
 extension NotificationView {
     private func _init() {
         // container: V - [ author container | (authorContainerViewBottomPaddingView) | statusView | quoteStatusView ]
-        containerStackView.layoutMargins = StatusView.containerLayoutMargin
+        // containerStackView.layoutMargins = StatusView.containerLayoutMargin
 
         containerStackView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(containerStackView)
@@ -147,9 +149,10 @@ extension NotificationView {
         ])
         
         // author container: H - [ avatarButton | author meta container ]
-        authorContainerView.preservesSuperviewLayoutMargins = true
-        authorContainerView.isLayoutMarginsRelativeArrangement = true
-        containerStackView.addArrangedSubview(authorContainerView)
+        authorAdaptiveMarginContainerView.contentView = authorContainerView
+        authorAdaptiveMarginContainerView.margin = StatusView.containerLayoutMargin
+        containerStackView.addArrangedSubview(authorAdaptiveMarginContainerView)
+        
         UIContentSizeCategory.publisher
             .sink { [weak self] category in
                 guard let self = self else { return }
@@ -225,16 +228,9 @@ extension NotificationView {
         
         // quoteStatusView
         containerStackView.addArrangedSubview(quoteStatusViewContainerView)
-        quoteStatusViewContainerView.layoutMargins = UIEdgeInsets(
-            top: 0,
-            left: StatusView.containerLayoutMargin.left,
-            bottom: 16,
-            right: StatusView.containerLayoutMargin.right
-        )
+        quoteStatusViewContainerView.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 16, right: 0)
 
-        let quoteBackgroundView = UIView()
         quoteBackgroundView.layoutMargins = UIEdgeInsets(top: 16, left: 0, bottom: 0, right: 0)
-        
         quoteBackgroundView.translatesAutoresizingMaskIntoConstraints = false
         quoteStatusViewContainerView.addSubview(quoteBackgroundView)
         NSLayoutConstraint.activate([
@@ -295,6 +291,19 @@ extension NotificationView {
         quoteStatusViewContainerView.isHidden = false
     }
     
+}
+
+// MARK: - AdaptiveContainerView
+extension NotificationView: AdaptiveContainerView {
+    public func updateContainerViewComponentsLayoutMarginsRelativeArrangementBehavior(isEnabled: Bool) {
+        let margin = isEnabled ? StatusView.containerLayoutMargin : .zero
+        authorAdaptiveMarginContainerView.margin = margin
+        quoteStatusViewContainerView.layoutMargins.left = margin
+        quoteStatusViewContainerView.layoutMargins.right = margin
+        
+        statusView.updateContainerViewComponentsLayoutMarginsRelativeArrangementBehavior(isEnabled: isEnabled)
+        quoteStatusView.updateContainerViewComponentsLayoutMarginsRelativeArrangementBehavior(isEnabled: true)  // always set margins
+    }
 }
 
 extension NotificationView {
@@ -366,7 +375,14 @@ extension NotificationView: StatusViewDelegate {
     }
     
     public func statusView(_ statusView: StatusView, mediaGridContainerView: MediaGridContainerView, mediaView: MediaView, didSelectMediaViewAt index: Int) {
-        assertionFailure()
+        switch statusView {
+        case self.statusView:
+            delegate?.notificationView(self, statusView: statusView, mediaGridContainerView: mediaGridContainerView, mediaView: mediaView, didSelectMediaViewAt: index)
+        case quoteStatusView:
+            delegate?.notificationView(self, quoteStatusView: statusView, mediaGridContainerView: mediaGridContainerView, mediaView: mediaView, didSelectMediaViewAt: index)
+        default:
+            assertionFailure()
+        }
     }
     
     public func statusView(_ statusView: StatusView, pollTableView tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

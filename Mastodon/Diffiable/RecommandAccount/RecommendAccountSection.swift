@@ -146,10 +146,15 @@ extension RecommendAccountSection {
             case .account(let record):
                 context.managedObjectContext.performAndWait {
                     guard let user = record.object(in: context.managedObjectContext) else { return }
-                    cell.config(with: user)
+                    cell.configure(user: user)
                 }
+                
+                context.authenticationService.activeMastodonAuthenticationBox
+                    .map { $0 as UserIdentifier? }
+                    .assign(to: \.userIdentifier, on: cell.viewModel)
+                    .store(in: &cell.disposeBag)
+                cell.delegate = configuration.suggestionAccountTableViewCellDelegate
             }
-            cell.delegate = configuration.suggestionAccountTableViewCellDelegate
             return cell
         }
     }

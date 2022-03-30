@@ -162,7 +162,7 @@ extension ProfileAboutViewController: ProfileFieldEditCollectionViewCellDelegate
 
 // MARK: - ScrollViewContainer
 extension ProfileAboutViewController: ScrollViewContainer {
-    var scrollView: UIScrollView {
+    var scrollView: UIScrollView? {
         collectionView
     }
 }

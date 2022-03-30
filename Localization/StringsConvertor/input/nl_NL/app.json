@@ -46,7 +46,7 @@
             },
             "delete_post": {
                 "title": "Weet u zeker dat u dit bericht wilt verwijderen?",
-                "delete": "Verwijderen"
+                "message": "Are you sure you want to delete this post?"
             },
             "clean_cache": {
                 "title": "Cache-geheugen Wissen",
@@ -82,6 +82,7 @@
                 "share_user": "Delen %s",
                 "share_post": "Bericht Delen",
                 "open_in_safari": "Open in Safari",
+                "open_in_browser": "Open in Browser",
                 "find_people": "Zoek mensen om te volgen",
                 "manually_search": "Handmatig zoeken",
                 "skip": "Overslaan",
@@ -139,7 +140,8 @@
                     "unreblog": "Delen ongedaan maken",
                     "favorite": "Toevoegen aan Favorieten",
                     "unfavorite": "Verwijderen uit Favorieten",
-                    "menu": "Menu"
+                    "menu": "Menu",
+                    "hide": "Hide"
                 },
                 "tag": {
                     "url": "URL",
@@ -148,6 +150,12 @@
                     "hashtag": "Hashtag",
                     "email": "Email",
                     "emoji": "Emoji"
+                },
+                "visibility": {
+                    "unlisted": "Everyone can see this post but not display in the public timeline.",
+                    "private": "Only their followers can see this post.",
+                    "private_from_me": "Only my followers can see this post.",
+                    "direct": "Only mentioned user can see this post."
                 }
             },
             "friendship": {
@@ -192,10 +200,14 @@
     },
     "scene": {
         "welcome": {
-            "slogan": "Sociale media terug in uw handen."
+            "slogan": "Sociale media terug in uw handen.",
+            "get_started": "Get Started",
+            "log_in": "Log In"
         },
         "server_picker": {
             "title": "Kies een server, welke dan ook.",
+            "subtitle": "Pick a community based on your interests, region, or a general purpose one.",
+            "subtitle_extend": "Pick a community based on your interests, region, or a general purpose one. Each community is operated by an entirely independent organization or individual.",
             "button": {
                 "category": {
                     "all": "Alles",
@@ -248,6 +260,12 @@
                 },
                 "password": {
                     "placeholder": "wachtwoord",
+                    "require": "Your password needs at least:",
+                    "character_limit": "8 characters",
+                    "accessibility": {
+                        "checked": "checked",
+                        "unchecked": "unchecked"
+                    },
                     "hint": "Uw wachtwoord moet ten minste acht tekens bevatten"
                 },
                 "invite": {
@@ -298,7 +316,7 @@
             "subtitle": "We hebben een e-mail gestuurd naar %s,\nklik op de link om uw account te bevestigen.",
             "button": {
                 "open_email_app": "Email Openen",
-                "dont_receive_email": "Ik heb geen email ontvangen"
+                "resend": "Resend"
             },
             "dont_receive_email": {
                 "title": "Controleer uw emailadres",
@@ -401,16 +419,26 @@
             "segmented_control": {
                 "posts": "Berichten",
                 "replies": "Reacties",
-                "media": "Media"
+                "posts_and_replies": "Posts and Replies",
+                "media": "Media",
+                "about": "About"
             },
             "relationship_action_alert": {
+                "confirm_mute_user": {
+                    "title": "Mute Account",
+                    "message": "Confirm to mute %s"
+                },
                 "confirm_unmute_user": {
                     "title": "Account Negeren",
                     "message": "Bevestig om %s te negeren"
                 },
-                "confirm_unblock_usre": {
-                    "title": "Account niet langer negeren",
-                    "message": "Bevestig om %s te deblokkeren"
+                "confirm_block_user": {
+                    "title": "Block Account",
+                    "message": "Confirm to block %s"
+                },
+                "confirm_unblock_user": {
+                    "title": "Unblock Account",
+                    "message": "Confirm to unblock %s"
                 }
             }
         },
@@ -461,12 +489,14 @@
                 "Everything": "Alles",
                 "Mentions": "Vermeldingen"
             },
-            "user_followed_you": "%s followed you",
-            "user_favorited your post": "%s favorited your post",
-            "user_reblogged_your_post": "%s reblogged your post",
-            "user_mentioned_you": "%s mentioned you",
-            "user_requested_to_follow_you": "%s requested to follow you",
-            "user_your_poll_has_ended": "%s Your poll has ended",
+            "notification_description": {
+                "followed_you": "followed you",
+                "favorited_your_post": "favorited your post",
+                "reblogged_your_post": "reblogged your post",
+                "mentioned_you": "mentioned you",
+                "request_to_follow_you": "request to follow you",
+                "poll_has_ended": "poll has ended"
+            },
             "keyobard": {
                 "show_everything": "Alles weergeven",
                 "show_mentions": "Vermeldingen weergeven"
@@ -484,6 +514,13 @@
                     "automatic": "Automatisch",
                     "light": "Altijd Licht",
                     "dark": "Altijd Donker"
+                },
+                "look_and_feel": {
+                    "title": "Look and Feel",
+                    "use_system": "Use System",
+                    "really_dark": "Really Dark",
+                    "sorta_dark": "Sorta Dark",
+                    "light": "Light"
                 },
                 "notifications": {
                     "title": "Meldingen",
@@ -526,14 +563,17 @@
             }
         },
         "report": {
+            "title_report": "Report",
             "title": "Rapporteer %s",
             "step1": "Stap 1 van 2",
             "step2": "Stap 2 van 2",
             "content1": "Zijn er nog meer berichten die u aan het rapport wilt toevoegen?",
             "content2": "Is er iets anders over dit rapport dat de moderators zouden moeten weten?",
+            "report_sent_title": "Thanks for reporting, we’ll look into this.",
             "send": "Stuur rapport",
             "skip_to_send": "Verstuur zonder opmerkingen",
-            "text_placeholder": "Schrijf of plak aanvullende opmerkingen"
+            "text_placeholder": "Schrijf of plak aanvullende opmerkingen",
+            "reported": "REPORTED"
         },
         "preview": {
             "keyboard": {

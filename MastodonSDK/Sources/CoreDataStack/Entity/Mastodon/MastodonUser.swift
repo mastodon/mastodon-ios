@@ -203,6 +203,14 @@ extension MastodonUser {
         ])
     }
     
+    public static func predicate(followingBy userID: MastodonUser.ID) -> NSPredicate {
+        NSPredicate(format: "ANY %K.%K == %@", #keyPath(MastodonUser.followingBy), #keyPath(MastodonUser.id), userID)
+    }
+    
+    public static func predicate(followRequestedBy userID: MastodonUser.ID) -> NSPredicate {
+        NSPredicate(format: "ANY %K.%K == %@", #keyPath(MastodonUser.followRequestedBy), #keyPath(MastodonUser.id), userID)
+    }
+    
 }
 
 

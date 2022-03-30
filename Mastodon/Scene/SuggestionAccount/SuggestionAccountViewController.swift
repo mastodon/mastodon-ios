@@ -74,7 +74,7 @@ extension SuggestionAccountViewController {
 
         setupBackgroundColor(theme: ThemeService.shared.currentTheme.value)
         ThemeService.shared.currentTheme
-            .receive(on: RunLoop.main)
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] theme in
                 guard let self = self else { return }
                 self.setupBackgroundColor(theme: theme)
@@ -169,29 +169,31 @@ extension SuggestionAccountViewController: UITableViewDelegate {
 }
 
 extension SuggestionAccountViewController: SuggestionAccountTableViewCellDelegate {
-    func accountButtonPressed(objectID: NSManagedObjectID, cell: SuggestionAccountTableViewCell) {
-//        let selected = !viewModel.selectedAccounts.value.contains(objectID)
-//        cell.startAnimating()
-//        viewModel.followAction(objectID: objectID)?
-//            .sink(receiveCompletion: { [weak self] completion in
-//                guard let self = self else { return }
-//                cell.stopAnimating()
-//                switch completion {
-//                case .failure(let error):
-//                    os_log("%{public}s[%{public}ld], %{public}s: follow failed. %s", (#file as NSString).lastPathComponent, #line, #function, error.localizedDescription)
-//                case .finished:
-//                    var selectedAccounts = self.viewModel.selectedAccounts.value
-//                    if selected {
-//                        selectedAccounts.append(objectID)
-//                    } else {
-//                        selectedAccounts.removeAll { $0 == objectID }
-//                    }
-//                    cell.button.isSelected = selected
-//                    self.viewModel.selectedAccounts.value = selectedAccounts
-//                }
-//            }, receiveValue: { _ in
-//            })
-//            .store(in: &disposeBag)
+    func suggestionAccountTableViewCell(
+        _ cell: SuggestionAccountTableViewCell,
+        friendshipDidPressed button: UIButton
+    ) {
+        guard let tableViewDiffableDataSource = viewModel.tableViewDiffableDataSource else { return }
+        guard let indexPath = tableView.indexPath(for: cell) else { return }
+        guard let item = tableViewDiffableDataSource.itemIdentifier(for: indexPath) else { return }
+        guard let authenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else { return }
+        
+        switch item {
+        case .account(let user):
+            Task { @MainActor in
+                cell.startAnimating()
+                do {
+                    try await DataSourceFacade.responseToUserFollowAction(
+                        dependency: self,
+                        user: user,
+                        authenticationBox: authenticationBox
+                    )
+                } catch {
+                    // do noting
+                }
+                cell.stopAnimating()
+            }   // end Task
+        }
     }
 }
 

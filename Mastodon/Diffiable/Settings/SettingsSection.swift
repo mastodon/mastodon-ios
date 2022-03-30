@@ -13,6 +13,7 @@ import MastodonLocalization
 
 enum SettingsSection: Hashable {
     case appearance
+    case appearancePreference
     case preference
     case notifications
     case boringZone
@@ -20,7 +21,8 @@ enum SettingsSection: Hashable {
     
     var title: String {
         switch self {
-        case .appearance:           return "Look and Feel"      // TODO: i18n
+        case .appearance:           return L10n.Scene.Settings.Section.LookAndFeel.title
+        case .appearancePreference: return ""
         case .preference:           return ""
         case .notifications:        return L10n.Scene.Settings.Section.Notifications.title
         case .boringZone:           return L10n.Scene.Settings.Section.BoringZone.title
@@ -48,6 +50,26 @@ extension SettingsSection {
                     cell.configure(setting: setting)
                 }
                 cell.delegate = settingsAppearanceTableViewCellDelegate
+                return cell
+            case .appearancePreference(let record, let appearanceType):
+                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SettingsToggleTableViewCell.self), for: indexPath) as! SettingsToggleTableViewCell
+                cell.delegate = settingsToggleCellDelegate
+                managedObjectContext.performAndWait {
+                    guard let setting = record.object(in: managedObjectContext) else { return }
+                    SettingsSection.configureSettingToggle(cell: cell, item: item, setting: setting)
+                    
+                    ManagedObjectObserver.observe(object: setting)
+                        .receive(on: DispatchQueue.main)
+                        .sink(receiveCompletion: { _ in
+                            // do nothing
+                        }, receiveValue: { [weak cell] change in
+                            guard let cell = cell else { return }
+                            guard case .update(let object) = change.changeType,
+                                  let setting = object as? Setting else { return }
+                            SettingsSection.configureSettingToggle(cell: cell, item: item, setting: setting)
+                        })
+                        .store(in: &cell.disposeBag)
+                }
                 return cell
             case .preference(let record, _):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SettingsToggleTableViewCell.self), for: indexPath) as! SettingsToggleTableViewCell
@@ -107,17 +129,29 @@ extension SettingsSection {
         item: SettingsItem,
         setting: Setting
     ) {
-        guard case let .preference(_, preferenceType) = item else { return }
-
-        cell.textLabel?.text = preferenceType.title
-
-        switch preferenceType {
-        case .disableAvatarAnimation:
-            cell.switchButton.isOn = setting.preferredStaticAvatar
-        case .disableEmojiAnimation:
-            cell.switchButton.isOn = setting.preferredStaticEmoji
-        case .useDefaultBrowser:
-            cell.switchButton.isOn = setting.preferredUsingDefaultBrowser
+        switch item {
+        case .appearancePreference(_, let appearanceType):
+            cell.textLabel?.text = appearanceType.title
+            
+            switch appearanceType {
+            case .preferredTrueDarkMode:
+                cell.switchButton.isOn = setting.preferredTrueBlackDarkMode
+            }
+            
+        case .preference(_, let preferenceType):
+            cell.textLabel?.text = preferenceType.title
+            
+            switch preferenceType {
+            case .disableAvatarAnimation:
+                cell.switchButton.isOn = setting.preferredStaticAvatar
+            case .disableEmojiAnimation:
+                cell.switchButton.isOn = setting.preferredStaticEmoji
+            case .useDefaultBrowser:
+                cell.switchButton.isOn = setting.preferredUsingDefaultBrowser
+            }
+            
+        default:
+            assertionFailure()
         }
     }
 

@@ -22,12 +22,17 @@ final class UserFetchedResultsController: NSObject {
     // input
     @Published var domain: String? = nil
     @Published var userIDs: [Mastodon.Entity.Account.ID] = []
+    @Published var additionalPredicate: NSPredicate?
 
     // output
     let _objectIDs = CurrentValueSubject<[NSManagedObjectID], Never>([])
     @Published var records: [ManagedObjectRecord<MastodonUser>] = []
 
-    init(managedObjectContext: NSManagedObjectContext, domain: String?, additionalTweetPredicate: NSPredicate?) {
+    init(
+        managedObjectContext: NSManagedObjectContext,
+        domain: String?,
+        additionalPredicate: NSPredicate?
+    ) {
         self.domain = domain ?? ""
         self.fetchedResultsController = {
             let fetchRequest = MastodonUser.sortedFetchRequest
@@ -43,6 +48,7 @@ final class UserFetchedResultsController: NSObject {
 
             return controller
         }()
+        self.additionalPredicate = additionalPredicate
         super.init()
         
         // debounce output to prevent UI update issues
@@ -53,15 +59,16 @@ final class UserFetchedResultsController: NSObject {
 
         fetchedResultsController.delegate = self
 
-        Publishers.CombineLatest(
+        Publishers.CombineLatest3(
             self.$domain.removeDuplicates(),
-            self.$userIDs.removeDuplicates()
+            self.$userIDs.removeDuplicates(),
+            self.$additionalPredicate.removeDuplicates()
         )
         .receive(on: DispatchQueue.main)
-        .sink { [weak self] domain, ids in
+        .sink { [weak self] domain, ids, additionalPredicate in
             guard let self = self else { return }
             var predicates = [MastodonUser.predicate(domain: domain ?? "", ids: ids)]
-            if let additionalPredicate = additionalTweetPredicate {
+            if let additionalPredicate = additionalPredicate {
                 predicates.append(additionalPredicate)
             }
             self.fetchedResultsController.fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)

@@ -22,6 +22,9 @@ protocol ProfileViewModelEditable {
 
 final class ProfileViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
     
+    public static let containerViewMarginForRegularHorizontalSizeClass: CGFloat = 64
+    public static let containerViewMarginForCompactHorizontalSizeClass: CGFloat = 16
+    
     let logger = Logger(subsystem: "ProfileViewController", category: "ViewController")
     
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
@@ -279,13 +282,14 @@ extension ProfileViewController {
                 self.profileHeaderViewController.view.addSubview(buttonBar)
                 NSLayoutConstraint.activate([
                     buttonBar.topAnchor.constraint(equalTo: self.profileHeaderViewController.profileHeaderView.bottomAnchor),
-                    buttonBar.leadingAnchor.constraint(equalToSystemSpacingAfter: self.profileHeaderViewController.view.leadingAnchor, multiplier: 2.0),
-                    buttonBar.trailingAnchor.constraint(equalTo: self.profileHeaderViewController.view.layoutMarginsGuide.trailingAnchor),
+                    buttonBar.leadingAnchor.constraint(equalTo: self.profileHeaderViewController.view.leadingAnchor),
+                    buttonBar.trailingAnchor.constraint(equalTo: self.profileHeaderViewController.view.trailingAnchor),
                     buttonBar.bottomAnchor.constraint(equalTo: self.profileHeaderViewController.view.bottomAnchor),
                     buttonBar.heightAnchor.constraint(equalToConstant: ProfileHeaderViewController.segmentedControlHeight).priority(.required - 1),
                 ])
             })
         )
+        updateBarButtonInsets()
         
         overlayScrollView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(overlayScrollView)
@@ -375,15 +379,43 @@ extension ProfileViewController {
         viewModel.viewDidAppear.send()
 
         // set overlay scroll view initial content size
-        guard let currentViewController = profileSegmentedViewController.pagingViewController.currentViewController as? ScrollViewContainer else { return }
-        currentPostTimelineTableViewContentSizeObservation = observeTableViewContentSize(scrollView: currentViewController.scrollView)
-        currentViewController.scrollView.panGestureRecognizer.require(toFail: overlayScrollView.panGestureRecognizer)
+        guard let currentViewController = profileSegmentedViewController.pagingViewController.currentViewController as? ScrollViewContainer,
+              let scrollView = currentViewController.scrollView
+        else { return }
+        
+        currentPostTimelineTableViewContentSizeObservation = observeTableViewContentSize(scrollView: scrollView)
+        scrollView.panGestureRecognizer.require(toFail: overlayScrollView.panGestureRecognizer)
     }
 
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
         currentPostTimelineTableViewContentSizeObservation = nil
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        updateBarButtonInsets()
+    }
+    
+}
+
+extension ProfileViewController {
+    private func updateBarButtonInsets() {
+        let margin: CGFloat = {
+            switch traitCollection.userInterfaceIdiom {
+            case .phone:
+                return ProfileViewController.containerViewMarginForCompactHorizontalSizeClass
+            default:
+                return traitCollection.horizontalSizeClass == .regular ?
+                    ProfileViewController.containerViewMarginForRegularHorizontalSizeClass :
+                    ProfileViewController.containerViewMarginForCompactHorizontalSizeClass
+            }
+        }()
+        
+        profileHeaderViewController.buttonBar.layout.contentInset.left = margin
+        profileHeaderViewController.buttonBar.layout.contentInset.right = margin
     }
     
 }
@@ -616,7 +648,7 @@ extension ProfileViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] isHidden in
                 guard let self = self else { return }
-                self.profileHeaderViewController.profileHeaderView.relationshipActionButton.isHidden = isHidden
+                self.profileHeaderViewController.profileHeaderView.relationshipActionButtonShadowContainer.isHidden = isHidden
             }
             .store(in: &disposeBag)
         
@@ -787,7 +819,7 @@ extension ProfileViewController: UIScrollViewDelegate {
         if scrollView.contentOffset.y < topMaxContentOffsetY {
             self.containerScrollView.contentOffset.y = scrollView.contentOffset.y
             for postTimelineView in profileSegmentedViewController.pagingViewController.viewModel.viewControllers {
-                postTimelineView.scrollView.contentOffset.y = 0
+                postTimelineView.scrollView?.contentOffset.y = 0
             }
             contentOffsets.removeAll()
         } else {
@@ -797,7 +829,7 @@ extension ProfileViewController: UIScrollViewDelegate {
             } else {
                 if let customScrollViewContainerController = profileSegmentedViewController.pagingViewController.currentViewController as? ScrollViewContainer {
                     let contentOffsetY = scrollView.contentOffset.y - containerScrollView.contentOffset.y
-                    customScrollViewContainerController.scrollView.contentOffset.y = contentOffsetY
+                    customScrollViewContainerController.scrollView?.contentOffset.y = contentOffsetY
                 }
             }
             
@@ -840,8 +872,10 @@ extension ProfileViewController: ProfilePagingViewControllerDelegate {
         overlayScrollView.contentOffset.y = contentOffsets[index] ?? containerScrollView.contentOffset.y
         
         // setup observer and gesture fallback
-        currentPostTimelineTableViewContentSizeObservation = observeTableViewContentSize(scrollView: postTimelineViewController.scrollView)
-        postTimelineViewController.scrollView.panGestureRecognizer.require(toFail: overlayScrollView.panGestureRecognizer)
+        if let scrollView = postTimelineViewController.scrollView {
+            currentPostTimelineTableViewContentSizeObservation = observeTableViewContentSize(scrollView: scrollView)
+            scrollView.panGestureRecognizer.require(toFail: overlayScrollView.panGestureRecognizer)
+        }
     }
 
 }
@@ -997,8 +1031,8 @@ extension ProfileViewController: ProfileHeaderViewDelegate {
                 let name = user.displayNameWithFallback
                 
                 let alertController = UIAlertController(
-                    title: L10n.Scene.Profile.RelationshipActionAlert.ConfirmUnblockUsre.title,
-                    message: L10n.Scene.Profile.RelationshipActionAlert.ConfirmUnblockUsre.message(name),
+                    title: L10n.Scene.Profile.RelationshipActionAlert.ConfirmUnblockUser.title,
+                    message: L10n.Scene.Profile.RelationshipActionAlert.ConfirmUnblockUser.message(name),
                     preferredStyle: .alert
                 )
                 let record = ManagedObjectRecord<MastodonUser>(objectID: user.objectID)
@@ -1098,20 +1132,22 @@ extension ProfileViewController: MastodonMenuDelegate {
 }
 
 // MARK: - ScrollViewContainer
-//extension ProfileViewController: ScrollViewContainer {
-//    var scrollView: UIScrollView { return overlayScrollView }
-//}
-//
+extension ProfileViewController: ScrollViewContainer {
+    var scrollView: UIScrollView? {
+        return overlayScrollView
+    }
+}
+
 //extension ProfileViewController {
-//    
+//
 //    override var keyCommands: [UIKeyCommand]? {
 //        if !viewModel.isEditing.value {
 //            return segmentedControlNavigateKeyCommands
 //        }
-//        
+//
 //        return nil
 //    }
-//    
+//
 //}
 
 // MARK: - SegmentedControlNavigateable

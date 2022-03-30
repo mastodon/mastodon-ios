@@ -4,8 +4,8 @@
 "Common.Alerts.CleanCache.Title" = "ล้างแคช";
 "Common.Alerts.Common.PleaseTryAgain" = "โปรดลองอีกครั้ง";
 "Common.Alerts.Common.PleaseTryAgainLater" = "โปรดลองอีกครั้งในภายหลัง";
-"Common.Alerts.DeletePost.Delete" = "ลบ";
-"Common.Alerts.DeletePost.Title" = "คุณแน่ใจหรือไม่ว่าต้องการลบโพสต์นี้?";
+"Common.Alerts.DeletePost.Message" = "คุณแน่ใจหรือไม่ว่าต้องการลบโพสต์นี้?";
+"Common.Alerts.DeletePost.Title" = "ลบโพสต์";
 "Common.Alerts.DiscardPostContent.Message" = "ยืนยันที่จะละทิ้งเนื้อหาโพสต์ที่เขียน";
 "Common.Alerts.DiscardPostContent.Title" = "ละทิ้งแบบร่าง";
 "Common.Alerts.EditProfileFailure.Message" = "ไม่สามารถแก้ไขโปรไฟล์ โปรดลองอีกครั้ง";
@@ -41,6 +41,7 @@
 "Common.Controls.Actions.Next" = "ถัดไป";
 "Common.Controls.Actions.Ok" = "ตกลง";
 "Common.Controls.Actions.Open" = "เปิด";
+"Common.Controls.Actions.OpenInBrowser" = "เปิดในเบราว์เซอร์";
 "Common.Controls.Actions.OpenInSafari" = "เปิดใน Safari";
 "Common.Controls.Actions.Preview" = "แสดงตัวอย่าง";
 "Common.Controls.Actions.Previous" = "ก่อนหน้า";
@@ -93,6 +94,7 @@
 "Common.Controls.Keyboard.Timeline.ToggleFavorite" = "เปิด/ปิดรายการโปรดในโพสต์";
 "Common.Controls.Keyboard.Timeline.ToggleReblog" = "เปิด/ปิดการดันในโพสต์";
 "Common.Controls.Status.Actions.Favorite" = "ชื่นชอบ";
+"Common.Controls.Status.Actions.Hide" = "ซ่อน";
 "Common.Controls.Status.Actions.Menu" = "เมนู";
 "Common.Controls.Status.Actions.Reblog" = "ดัน";
 "Common.Controls.Status.Actions.Reply" = "ตอบกลับ";
@@ -112,23 +114,27 @@
 "Common.Controls.Status.Tag.Url" = "URL";
 "Common.Controls.Status.UserReblogged" = "%@ ได้ดัน";
 "Common.Controls.Status.UserRepliedTo" = "ตอบกลับ %@";
+"Common.Controls.Status.Visibility.Direct" = "เฉพาะผู้ใช้ที่กล่าวถึงเท่านั้นที่สามารถเห็นโพสต์นี้";
+"Common.Controls.Status.Visibility.Private" = "เฉพาะผู้ติดตามของเขาเท่านั้นที่สามารถเห็นโพสต์นี้";
+"Common.Controls.Status.Visibility.PrivateFromMe" = "เฉพาะผู้ติดตามของฉันเท่านั้นที่สามารถเห็นโพสต์นี้";
+"Common.Controls.Status.Visibility.Unlisted" = "ทุกคนสามารถเห็นโพสต์นี้แต่ไม่แสดงในเส้นเวลาสาธารณะ";
 "Common.Controls.Tabs.Home" = "หน้าแรก";
 "Common.Controls.Tabs.Notification" = "การแจ้งเตือน";
 "Common.Controls.Tabs.Profile" = "โปรไฟล์";
 "Common.Controls.Tabs.Search" = "ค้นหา";
 "Common.Controls.Timeline.Filtered" = "กรองอยู่";
 "Common.Controls.Timeline.Header.BlockedWarning" = "คุณไม่สามารถดูโปรไฟล์ของผู้ใช้นี้
-จนกว่าผู้ใช้นี้จะเลิกปิดกั้นคุณ";
+จนกว่าเขาจะเลิกปิดกั้นคุณ";
 "Common.Controls.Timeline.Header.BlockingWarning" = "คุณไม่สามารถดูโปรไฟล์ของผู้ใช้นี้
-จนกว่าคุณจะเลิกปิดกั้นผู้ใช้นี้
-ผู้ใช้นี้เห็นโปรไฟล์ของคุณเหมือนกับที่คุณเห็น";
+จนกว่าคุณจะเลิกปิดกั้นเขา
+โปรไฟล์ของคุณมีลักษณะเช่นนี้สำหรับเขา";
 "Common.Controls.Timeline.Header.NoStatusFound" = "ไม่พบโพสต์";
 "Common.Controls.Timeline.Header.SuspendedWarning" = "ผู้ใช้นี้ถูกระงับการใช้งาน";
 "Common.Controls.Timeline.Header.UserBlockedWarning" = "คุณไม่สามารถดูโปรไฟล์ของ %@
-จนกว่าผู้ใช้นี้จะเลิกปิดกั้นคุณ";
+จนกว่าเขาจะเลิกปิดกั้นคุณ";
 "Common.Controls.Timeline.Header.UserBlockingWarning" = "คุณไม่สามารถดูโปรไฟล์ของ %@
-จนกว่าคุณจะเลิกปิดกั้นผู้ใช้นี้
-ผู้ใช้นี้เห็นโปรไฟล์ของคุณเหมือนกับที่คุณเห็น";
+จนกว่าคุณจะเลิกปิดกั้นเขา
+โปรไฟล์ของคุณมีลักษณะเช่นนี้สำหรับเขา";
 "Common.Controls.Timeline.Header.UserSuspendedWarning" = "บัญชีของ %@ ถูกระงับการใช้งาน";
 "Common.Controls.Timeline.Loader.LoadMissingPosts" = "โหลดโพสต์ที่ขาดหายไป";
 "Common.Controls.Timeline.Loader.LoadingMissingPosts" = "กำลังโหลดโพสต์ที่ขาดหายไป...";
@@ -178,8 +184,8 @@
 "Scene.Compose.Visibility.Private" = "ผู้ติดตามเท่านั้น";
 "Scene.Compose.Visibility.Public" = "สาธารณะ";
 "Scene.Compose.Visibility.Unlisted" = "ไม่อยู่ในรายการ";
-"Scene.ConfirmEmail.Button.DontReceiveEmail" = "ฉันไม่เคยได้รับอีเมล";
 "Scene.ConfirmEmail.Button.OpenEmailApp" = "เปิดแอปอีเมล";
+"Scene.ConfirmEmail.Button.Resend" = "ส่งใหม่";
 "Scene.ConfirmEmail.DontReceiveEmail.Description" = "หากคุณยังไม่ได้รับอีเมล ตรวจสอบว่าที่อยู่อีเมลของคุณถูกต้อง รวมถึงโฟลเดอร์อีเมลขยะของคุณ";
 "Scene.ConfirmEmail.DontReceiveEmail.ResendEmail" = "ส่งอีเมลใหม่";
 "Scene.ConfirmEmail.DontReceiveEmail.Title" = "ตรวจสอบอีเมลของคุณ";
@@ -187,8 +193,7 @@
 "Scene.ConfirmEmail.OpenEmailApp.Mail" = "จดหมาย";
 "Scene.ConfirmEmail.OpenEmailApp.OpenEmailClient" = "เปิดไคลเอ็นต์อีเมล";
 "Scene.ConfirmEmail.OpenEmailApp.Title" = "ตรวจสอบกล่องขาเข้าของคุณ";
-"Scene.ConfirmEmail.Subtitle" = "เราเพิ่งส่งอีเมลไปยัง %@
-แตะที่ลิงก์เพื่อยืนยันบัญชีของคุณ";
+"Scene.ConfirmEmail.Subtitle" = "แตะลิงก์ที่เราส่งอีเมลถึงคุณเพื่อยืนยันบัญชีของคุณ";
 "Scene.ConfirmEmail.Title" = "หนึ่งสิ่งสุดท้าย";
 "Scene.Favorite.Title" = "รายการโปรดของคุณ";
 "Scene.Follower.Footer" = "ไม่ได้แสดงผู้ติดตามจากเซิร์ฟเวอร์อื่น ๆ";
@@ -200,14 +205,14 @@
 "Scene.HomeTimeline.Title" = "หน้าแรก";
 "Scene.Notification.Keyobard.ShowEverything" = "แสดงทุกอย่าง";
 "Scene.Notification.Keyobard.ShowMentions" = "แสดงการกล่าวถึง";
+"Scene.Notification.NotificationDescription.FavoritedYourPost" = "ได้ชื่นชอบโพสต์ของคุณ";
+"Scene.Notification.NotificationDescription.FollowedYou" = "ได้ติดตามคุณ";
+"Scene.Notification.NotificationDescription.MentionedYou" = "ได้กล่าวถึงคุณ";
+"Scene.Notification.NotificationDescription.PollHasEnded" = "การสำรวจความคิดเห็นได้สิ้นสุดแล้ว";
+"Scene.Notification.NotificationDescription.RebloggedYourPost" = "ได้ดันโพสต์ของคุณ";
+"Scene.Notification.NotificationDescription.RequestToFollowYou" = "ขอติดตามคุณ";
 "Scene.Notification.Title.Everything" = "ทุกอย่าง";
 "Scene.Notification.Title.Mentions" = "การกล่าวถึง";
-"Scene.Notification.UserFavorited Your Post" = "%@ ได้ชื่นชอบโพสต์ของคุณ";
-"Scene.Notification.UserFollowedYou" = "%@ ได้ติดตามคุณ";
-"Scene.Notification.UserMentionedYou" = "%@ ได้กล่าวถึงคุณ";
-"Scene.Notification.UserRebloggedYourPost" = "%@ ได้ดันโพสต์ของคุณ";
-"Scene.Notification.UserRequestedToFollowYou" = "%@ ได้ขอติดตามคุณ";
-"Scene.Notification.UserYourPollHasEnded" = "%@ โพลของคุณได้สิ้นสุดแล้ว";
 "Scene.Preview.Keyboard.ClosePreview" = "ปิดตัวอย่าง";
 "Scene.Preview.Keyboard.ShowNext" = "แสดงถัดไป";
 "Scene.Preview.Keyboard.ShowPrevious" = "แสดงก่อนหน้า";
@@ -217,12 +222,18 @@
 "Scene.Profile.Fields.AddRow" = "เพิ่มแถว";
 "Scene.Profile.Fields.Placeholder.Content" = "เนื้อหา";
 "Scene.Profile.Fields.Placeholder.Label" = "ป้ายชื่อ";
-"Scene.Profile.RelationshipActionAlert.ConfirmUnblockUsre.Message" = "ยืนยันเพื่อเลิกปิดกั้น %@";
-"Scene.Profile.RelationshipActionAlert.ConfirmUnblockUsre.Title" = "เลิกปิดกั้นบัญชี";
+"Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Message" = "ยืนยันเพื่อปิดกั้น %@";
+"Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Title" = "ปิดกั้นบัญชี";
+"Scene.Profile.RelationshipActionAlert.ConfirmMuteUser.Message" = "ยืนยันเพื่อซ่อน %@";
+"Scene.Profile.RelationshipActionAlert.ConfirmMuteUser.Title" = "ซ่อนบัญชี";
+"Scene.Profile.RelationshipActionAlert.ConfirmUnblockUser.Message" = "ยืนยันเพื่อเลิกปิดกั้น %@";
+"Scene.Profile.RelationshipActionAlert.ConfirmUnblockUser.Title" = "เลิกปิดกั้นบัญชี";
 "Scene.Profile.RelationshipActionAlert.ConfirmUnmuteUser.Message" = "ยืนยันเพื่อเลิกซ่อน %@";
 "Scene.Profile.RelationshipActionAlert.ConfirmUnmuteUser.Title" = "เลิกซ่อนบัญชี";
+"Scene.Profile.SegmentedControl.About" = "เกี่ยวกับ";
 "Scene.Profile.SegmentedControl.Media" = "สื่อ";
 "Scene.Profile.SegmentedControl.Posts" = "โพสต์";
+"Scene.Profile.SegmentedControl.PostsAndReplies" = "โพสต์และการตอบกลับ";
 "Scene.Profile.SegmentedControl.Replies" = "การตอบกลับ";
 "Scene.Register.Error.Item.Agreement" = "ข้อตกลง";
 "Scene.Register.Error.Item.Email" = "อีเมล";
@@ -248,19 +259,26 @@
 "Scene.Register.Input.DisplayName.Placeholder" = "ชื่อที่แสดง";
 "Scene.Register.Input.Email.Placeholder" = "อีเมล";
 "Scene.Register.Input.Invite.RegistrationUserInviteRequest" = "ทำไมคุณจึงต้องการเข้าร่วม?";
+"Scene.Register.Input.Password.Accessibility.Checked" = "กาเครื่องหมายแล้ว";
+"Scene.Register.Input.Password.Accessibility.Unchecked" = "ไม่ได้กาเครื่องหมาย";
+"Scene.Register.Input.Password.CharacterLimit" = "8 ตัวอักษร";
 "Scene.Register.Input.Password.Hint" = "รหัสผ่านของคุณต้องมีอย่างน้อยแปดตัวอักษร";
 "Scene.Register.Input.Password.Placeholder" = "รหัสผ่าน";
+"Scene.Register.Input.Password.Require" = "รหัสผ่านของคุณต้องมีอย่างน้อย:";
 "Scene.Register.Input.Username.DuplicatePrompt" = "ชื่อผู้ใช้นี้ถูกใช้ไปแล้ว";
 "Scene.Register.Input.Username.Placeholder" = "ชื่อผู้ใช้";
-"Scene.Register.Title" = "บอกเราเกี่ยวกับคุณ";
+"Scene.Register.Title" = "มาตั้งค่าของคุณใน %@ กันเลย";
 "Scene.Report.Content1" = "มีโพสต์อื่นใดที่คุณต้องการเพิ่มไปยังรายงานหรือไม่?";
 "Scene.Report.Content2" = "มีสิ่งใดที่ผู้ควบคุมควรทราบเกี่ยวกับรายงานนี้หรือไม่?";
+"Scene.Report.ReportSentTitle" = "ขอบคุณสำหรับการรายงาน เราจะตรวจสอบสิ่งนี้";
+"Scene.Report.Reported" = "รายงานแล้ว";
 "Scene.Report.Send" = "ส่งรายงาน";
 "Scene.Report.SkipToSend" = "ส่งโดยไม่มีความคิดเห็น";
 "Scene.Report.Step1" = "ขั้นตอนที่ 1 จาก 2";
 "Scene.Report.Step2" = "ขั้นตอนที่ 2 จาก 2";
 "Scene.Report.TextPlaceholder" = "พิมพ์หรือวางความคิดเห็นเพิ่มเติม";
 "Scene.Report.Title" = "รายงาน %@";
+"Scene.Report.TitleReport" = "รายงาน";
 "Scene.Search.Recommend.Accounts.Description" = "คุณอาจต้องการติดตามบัญชีเหล่านี้";
 "Scene.Search.Recommend.Accounts.Follow" = "ติดตาม";
 "Scene.Search.Recommend.Accounts.Title" = "บัญชีที่คุณอาจชอบ";
@@ -297,16 +315,17 @@
 "Scene.ServerPicker.EmptyState.BadNetwork" = "มีบางอย่างผิดพลาดขณะโหลดข้อมูล ตรวจสอบการเชื่อมต่ออินเทอร์เน็ตของคุณ";
 "Scene.ServerPicker.EmptyState.FindingServers" = "กำลังค้นหาเซิร์ฟเวอร์ที่พร้อมใช้งาน...";
 "Scene.ServerPicker.EmptyState.NoResults" = "ไม่มีผลลัพธ์";
-"Scene.ServerPicker.Input.Placeholder" = "ค้นหาเซิร์ฟเวอร์หรือเข้าร่วมของคุณเอง...";
+"Scene.ServerPicker.Input.Placeholder" = "ค้นหาชุมชน";
 "Scene.ServerPicker.Label.Category" = "หมวดหมู่";
 "Scene.ServerPicker.Label.Language" = "ภาษา";
 "Scene.ServerPicker.Label.Users" = "ผู้ใช้";
-"Scene.ServerPicker.Title" = "เลือกเซิร์ฟเวอร์
-อันไหนก็ได้";
+"Scene.ServerPicker.Subtitle" = "เลือกชุมชนตามความสนใจ, ภูมิภาค หรือวัตถุประสงค์ทั่วไปของคุณ";
+"Scene.ServerPicker.SubtitleExtend" = "เลือกชุมชนตามความสนใจ, ภูมิภาค หรือวัตถุประสงค์ทั่วไปของคุณ แต่ละชุมชนดำเนินการโดยองค์กรหรือบุคคลที่เป็นอิสระโดยสิ้นเชิง";
+"Scene.ServerPicker.Title" = "Mastodon ประกอบด้วยผู้ใช้ในชุมชนต่าง ๆ";
 "Scene.ServerRules.Button.Confirm" = "ฉันเห็นด้วย";
 "Scene.ServerRules.PrivacyPolicy" = "นโยบายความเป็นส่วนตัว";
 "Scene.ServerRules.Prompt" = "เมื่อคุณดำเนินการต่อ คุณอยู่ภายใต้เงื่อนไขการให้บริการและนโยบายความเป็นส่วนตัวสำหรับ %@";
-"Scene.ServerRules.Subtitle" = "กฎเหล่านี้ถูกตั้งโดยผู้ดูแลของ %@";
+"Scene.ServerRules.Subtitle" = "มีการตั้งและบังคับใช้กฎเหล่านี้โดยผู้ควบคุมของ %@";
 "Scene.ServerRules.TermsOfService" = "เงื่อนไขการให้บริการ";
 "Scene.ServerRules.Title" = "กฎพื้นฐานบางประการ";
 "Scene.Settings.Footer.MastodonDescription" = "Mastodon เป็นซอฟต์แวร์โอเพนซอร์ส คุณสามารถรายงานปัญหาได้ใน GitHub ที่ %@ (%@)";
@@ -319,6 +338,11 @@
 "Scene.Settings.Section.BoringZone.Privacy" = "นโยบายความเป็นส่วนตัว";
 "Scene.Settings.Section.BoringZone.Terms" = "เงื่อนไขการให้บริการ";
 "Scene.Settings.Section.BoringZone.Title" = "โซนน่าเบื่อ";
+"Scene.Settings.Section.LookAndFeel.Light" = "สว่าง";
+"Scene.Settings.Section.LookAndFeel.ReallyDark" = "มืดมาก";
+"Scene.Settings.Section.LookAndFeel.SortaDark" = "ค่อนข้างมืด";
+"Scene.Settings.Section.LookAndFeel.Title" = "ลักษณะที่แสดง";
+"Scene.Settings.Section.LookAndFeel.UseSystem" = "ใช้ของระบบ";
 "Scene.Settings.Section.Notifications.Boosts" = "ดันโพสต์ของฉัน";
 "Scene.Settings.Section.Notifications.Favorites" = "ชื่นชอบโพสต์ของฉัน";
 "Scene.Settings.Section.Notifications.Follows" = "ติดตามฉัน";
@@ -342,6 +366,8 @@
 "Scene.SuggestionAccount.Title" = "ค้นหาผู้คนที่จะติดตาม";
 "Scene.Thread.BackTitle" = "โพสต์";
 "Scene.Thread.Title" = "โพสต์จาก %@";
+"Scene.Welcome.GetStarted" = "เริ่มต้นใช้งาน";
+"Scene.Welcome.LogIn" = "เข้าสู่ระบบ";
 "Scene.Welcome.Slogan" = "ให้เครือข่ายสังคม
 กลับมาอยู่ในมือของคุณ";
 "Scene.Wizard.AccessibilityHint" = "แตะสองครั้งเพื่อปิดตัวช่วยสร้างนี้";

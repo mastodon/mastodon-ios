@@ -108,9 +108,15 @@ extension SettingsViewModel {
         var snapshot = NSDiffableDataSourceSnapshot<SettingsSection, SettingsItem>()
 
         // appearance
-        let appearanceItems = [SettingsItem.appearance(record: .init(objectID: setting.objectID))]
+        let appearanceItems = [
+            SettingsItem.appearance(record: .init(objectID: setting.objectID))
+        ]
         snapshot.appendSections([.appearance])
         snapshot.appendItems(appearanceItems, toSection: .appearance)
+        
+        // appearancePreference
+        snapshot.appendSections([.appearancePreference])
+        snapshot.appendItems([SettingsItem.appearancePreference(record: .init(objectID: setting.objectID), appearanceType: .preferredTrueDarkMode)], toSection: .appearancePreference)
         
         // preference
         snapshot.appendSections([.preference])

@@ -28,20 +28,6 @@ final class StatusTableViewCell: UITableViewCell {
     var containerViewLeadingLayoutConstraint: NSLayoutConstraint!
     var containerViewTrailingLayoutConstraint: NSLayoutConstraint!
 
-//    var isFiltered: Bool = false {
-//        didSet {
-//            configure(isFiltered: isFiltered)
-//        }
-//    }
-//
-//    let filteredLabel: UILabel = {
-//        let label = UILabel()
-//        label.textColor = Asset.Colors.Label.secondary.color
-//        label.text = L10n.Common.Controls.Timeline.filtered
-//        label.font = .preferredFont(forTextStyle: .body)
-//        return label
-//    }()
-//
     override func prepareForReuse() {
         super.prepareForReuse()
         
@@ -71,7 +57,6 @@ extension StatusTableViewCell {
         statusView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(statusView)
         setupContainerViewMarginConstraints()
-        updateContainerViewMarginConstraints()
         NSLayoutConstraint.activate([
             statusView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
             containerViewLeadingLayoutConstraint,
@@ -79,6 +64,7 @@ extension StatusTableViewCell {
             statusView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
         ])
         statusView.setup(style: .inline)
+        updateContainerViewMarginConstraints()
         
         separatorLine.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(separatorLine)

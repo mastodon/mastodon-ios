@@ -71,8 +71,8 @@ extension StatusMetricView {
         addSubview(containerStackView)
         NSLayoutConstraint.activate([
             containerStackView.topAnchor.constraint(equalTo: topAnchor, constant: 8),
-            containerStackView.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
-            containerStackView.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
+            containerStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            containerStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
             bottomAnchor.constraint(equalTo: containerStackView.bottomAnchor, constant: 12),
         ])
         

@@ -28,6 +28,8 @@ extension StatusSection {
     struct Configuration {
         weak var statusTableViewCellDelegate: StatusTableViewCellDelegate?
         weak var timelineMiddleLoaderTableViewCellDelegate: TimelineMiddleLoaderTableViewCellDelegate?
+        let filterContext: Mastodon.Entity.Filter.Context?
+        let activeFilters: Published<[Mastodon.Entity.Filter]>.Publisher?
     }
 
     static func diffableDataSource(
@@ -258,6 +260,11 @@ extension StatusSection {
             viewModel: viewModel,
             delegate: configuration.statusTableViewCellDelegate
         )
+        
+        cell.statusView.viewModel.filterContext = configuration.filterContext
+        configuration.activeFilters?
+            .assign(to: \.activeFilters, on: cell.statusView.viewModel)
+            .store(in: &cell.disposeBag)
     }
     
     static func configure(
@@ -282,6 +289,11 @@ extension StatusSection {
             viewModel: viewModel,
             delegate: configuration.statusTableViewCellDelegate
         )
+        
+        cell.statusView.viewModel.filterContext = configuration.filterContext
+        configuration.activeFilters?
+            .assign(to: \.activeFilters, on: cell.statusView.viewModel)
+            .store(in: &cell.disposeBag)
     }
     
     static func configure(
@@ -295,134 +307,4 @@ extension StatusSection {
         )
     }
     
-}
-
-extension StatusSection {
-
-    enum TimelineContext {
-        case home
-        case notifications
-        case `public`
-        case thread
-        case account
-
-        case favorite
-        case hashtag
-        case report
-        case search
-
-        var filterContext: Mastodon.Entity.Filter.Context? {
-            switch self {
-            case .home:             return .home
-            case .notifications:    return .notifications
-            case .public:           return .public
-            case .thread:           return .thread
-            case .account:          return .account
-            default:                return nil
-            }
-        }
-    }
-
-    private static func needsFilterStatus(
-        content: MastodonMetaContent?,
-        filters: [Mastodon.Entity.Filter],
-        timelineContext: TimelineContext
-    ) -> AnyPublisher<Bool, Never> {
-        guard let content = content,
-              let currentFilterContext = timelineContext.filterContext,
-              !filters.isEmpty else {
-            return Just(false).eraseToAnyPublisher()
-        }
-
-        return Future<Bool, Never> { promise in
-            DispatchQueue.global(qos: .userInteractive).async {
-                var wordFilters: [Mastodon.Entity.Filter] = []
-                var nonWordFilters: [Mastodon.Entity.Filter] = []
-                for filter in filters {
-                    guard filter.context.contains(where: { $0 == currentFilterContext }) else { continue }
-                    if filter.wholeWord {
-                        wordFilters.append(filter)
-                    } else {
-                        nonWordFilters.append(filter)
-                    }
-                }
-
-                let text = content.original.lowercased()
-
-                var needsFilter = false
-                for filter in nonWordFilters {
-                    guard text.contains(filter.phrase.lowercased()) else { continue }
-                    needsFilter = true
-                    break
-                }
-
-                if needsFilter {
-                    DispatchQueue.main.async {
-                        promise(.success(true))
-                    }
-                    return
-                }
-
-                let tokenizer = NLTokenizer(unit: .word)
-                tokenizer.string = text
-                let phraseWords = wordFilters.map { $0.phrase.lowercased() }
-                tokenizer.enumerateTokens(in: text.startIndex..<text.endIndex) { range, _ in
-                    let word = String(text[range])
-                    if phraseWords.contains(word) {
-                        needsFilter = true
-                        return false
-                    } else {
-                        return true
-                    }
-                }
-
-                DispatchQueue.main.async {
-                    promise(.success(needsFilter))
-                }
-            }
-        }
-        .eraseToAnyPublisher()
-    }
-
-}
-
-class StatusContentOperation: Operation {
-
-    let logger = Logger(subsystem: "StatusContentOperation", category: "logic")
-
-    // input
-    let statusObjectID: NSManagedObjectID
-    let mastodonContent: MastodonContent
-
-    // output
-    var result: Result<MastodonMetaContent, Error>?
-
-    init(
-        statusObjectID: NSManagedObjectID,
-        mastodonContent: MastodonContent
-    ) {
-        self.statusObjectID = statusObjectID
-        self.mastodonContent = mastodonContent
-        super.init()
-    }
-
-    override func main() {
-        guard !isCancelled else { return }
-        // logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): prcoess \(self.statusObjectID)…")
-
-        do {
-            let content = try MastodonMetaContent.convert(document: mastodonContent)
-            result = .success(content)
-            // logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): process success \(self.statusObjectID)")
-        } catch {
-            result = .failure(error)
-            // logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): process fail \(self.statusObjectID)")
-        }
-
-    }
-
-    override func cancel() {
-        // logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): cancel \(self.statusObjectID.debugDescription)")
-        super.cancel()
-    }
 }

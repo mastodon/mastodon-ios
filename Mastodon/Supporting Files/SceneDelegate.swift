@@ -59,6 +59,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         sceneCoordinator.setup()
         sceneCoordinator.setupOnboardingIfNeeds(animated: false)
         window.makeKeyAndVisible()
+        
+        #if SNAPSHOT
+        // speedup animation
+        // window.layer.speed = 999
+        
+        // disable animation
+        UIView.setAnimationsEnabled(false)
+        #endif
 
         if let shortcutItem = connectionOptions.shortcutItem {
             // Save it off for later when we become active.
@@ -67,7 +75,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         UserDefaults.shared.observe(\.customUserInterfaceStyle, options: [.initial, .new]) { [weak self] defaults, _ in
             guard let self = self else { return }
+            #if SNAPSHOT
+            // toggle Dark Mode
+            // https://stackoverflow.com/questions/32988241/how-to-access-launchenvironment-and-launcharguments-set-in-xcuiapplication-runn
+            if ProcessInfo.processInfo.arguments.contains("UIUserInterfaceStyleForceDark") {
+                self.window?.overrideUserInterfaceStyle = .dark
+            }
+            #else
             self.window?.overrideUserInterfaceStyle = defaults.customUserInterfaceStyle
+            #endif
         }
         .store(in: &observations)
 

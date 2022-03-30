@@ -131,14 +131,9 @@ extension ComposeStatusContentTableViewCell {
             metaText.textView.leadingAnchor.constraint(equalTo: textEditorViewContainerView.layoutMarginsGuide.leadingAnchor),
             metaText.textView.trailingAnchor.constraint(equalTo: textEditorViewContainerView.layoutMarginsGuide.trailingAnchor),
             metaText.textView.bottomAnchor.constraint(equalTo: textEditorViewContainerView.bottomAnchor),
-            metaText.textView.heightAnchor.constraint(greaterThanOrEqualToConstant: 88).priority(.defaultHigh),
+            metaText.textView.heightAnchor.constraint(greaterThanOrEqualToConstant: 64).priority(.defaultHigh),
         ])
         statusContentWarningEditorView.textView.delegate = self
-
-//        statusView.nameTrialingDotLabel.isHidden = true
-//        statusView.dateLabel.isHidden = true
-//        statusContentWarningEditorView.isHidden = true
-//        statusView.statusContainerStackView.isHidden = true
     }
 
 }
@@ -166,7 +161,10 @@ extension ComposeStatusContentTableViewCell: UITextViewDelegate {
         logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): text: \(textView.text ?? "<nil>")")
         guard textView === statusContentWarningEditorView.textView else { return }
         // replace line break with space
-        textView.text = textView.text.replacingOccurrences(of: "\n", with: " ")
+        // needs check input state to prevent break the IME
+        if textView.markedTextRange == nil {
+            textView.text = textView.text.replacingOccurrences(of: "\n", with: " ")
+        }
         contentWarningContent.send(textView.text)
     }
 

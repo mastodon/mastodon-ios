@@ -38,27 +38,22 @@ class SettingsAppearanceTableViewCell: UITableViewCell {
     }()
     
     let systemAppearanceView = AppearanceView(
-        image: Asset.Settings.darkAuto.image,
-        title: "Use System"     // TODO: i18n
+        image: Asset.Settings.automatic.image,
+        title: L10n.Scene.Settings.Section.Appearance.automatic
     )
-    let reallyDarkAppearanceView = AppearanceView(
+    let darkAppearanceView = AppearanceView(
         image: Asset.Settings.dark.image,
-        title: "Really Dark"
-    )
-    let sortaDarkAppearanceView = AppearanceView(
-        image: Asset.Settings.dark.image,
-        title: "Sorta Dark"
+        title: L10n.Scene.Settings.Section.Appearance.dark
     )
     let lightAppearanceView = AppearanceView(
         image: Asset.Settings.light.image,
-        title: "Light"
+        title: L10n.Scene.Settings.Section.Appearance.light
     )
     
     var appearanceViews: [AppearanceView] {
         return [
             systemAppearanceView,
-            reallyDarkAppearanceView,
-            sortaDarkAppearanceView,
+            darkAppearanceView,
             lightAppearanceView,
         ]
     }
@@ -105,14 +100,13 @@ extension SettingsAppearanceTableViewCell {
         contentView.addSubview(stackView)
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            stackView.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
+            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            stackView.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
         ])
         
         stackView.addArrangedSubview(systemAppearanceView)
-        stackView.addArrangedSubview(reallyDarkAppearanceView)
-        stackView.addArrangedSubview(sortaDarkAppearanceView)
+        stackView.addArrangedSubview(darkAppearanceView)
         stackView.addArrangedSubview(lightAppearanceView)
         
         appearanceViews.forEach { view in
@@ -132,10 +126,8 @@ extension SettingsAppearanceTableViewCell {
         switch sender.view {
         case systemAppearanceView:
             mode = .system
-        case reallyDarkAppearanceView:
-            mode = .reallyDark
-        case sortaDarkAppearanceView:
-            mode = .sortaDark
+        case darkAppearanceView:
+            mode = .dark
         case lightAppearanceView:
             mode = .light
         default:

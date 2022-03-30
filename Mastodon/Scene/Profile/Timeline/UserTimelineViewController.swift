@@ -26,17 +26,14 @@ final class UserTimelineViewController: UIViewController, NeedsDependency, Media
 
     lazy var tableView: UITableView = {
         let tableView = UITableView()
-        tableView.register(StatusTableViewCell.self, forCellReuseIdentifier: String(describing: StatusTableViewCell.self))
-        tableView.register(TimelineBottomLoaderTableViewCell.self, forCellReuseIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self))
-        tableView.register(TimelineHeaderTableViewCell.self, forCellReuseIdentifier: String(describing: TimelineHeaderTableViewCell.self))
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 100
         tableView.separatorStyle = .none
         tableView.backgroundColor = .clear
         return tableView
     }()
-    
-    var overrideNavigationScrollPosition: UITableView.ScrollPosition? = nil
+        
+    let cellFrameCache = NSCache<NSNumber, NSValue>()
 
     deinit {
         os_log("%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
@@ -93,6 +90,16 @@ extension UserTimelineViewController {
     
 }
 
+// MARK: - CellFrameCacheContainer
+extension UserTimelineViewController: CellFrameCacheContainer {
+    func keyForCache(tableView: UITableView, indexPath: IndexPath) -> NSNumber? {
+        guard let diffableDataSource = viewModel.diffableDataSource else { return nil }
+        guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return nil }
+        let key = NSNumber(value: item.hashValue)
+        return key
+    }
+}
+
 // MARK: - UITableViewDelegate
 extension UserTimelineViewController: UITableViewDelegate, AutoGenerateTableViewDelegate {
     // sourcery:inline:UserTimelineViewController.AutoGenerateTableViewDelegate
@@ -121,12 +128,40 @@ extension UserTimelineViewController: UITableViewDelegate, AutoGenerateTableView
 
     // sourcery:end
     
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        guard let frame = retrieveCellFrame(tableView: tableView, indexPath: indexPath) else {
+            return 200
+        }
+        return ceil(frame.height)
+    }
+
+    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cacheCellFrame(tableView: tableView, didEndDisplaying: cell, forRowAt: indexPath)
+    }
+    
 }
 
 // MARK: - CustomScrollViewContainerController
 extension UserTimelineViewController: ScrollViewContainer {
-    var scrollView: UIScrollView { return tableView }
+    var scrollView: UIScrollView? { return tableView }
 }
 
 // MARK: - StatusTableViewCellDelegate
 extension UserTimelineViewController: StatusTableViewCellDelegate { }
+
+extension UserTimelineViewController {
+    override var keyCommands: [UIKeyCommand]? {
+        return navigationKeyCommands + statusNavigationKeyCommands
+    }
+}
+
+// MARK: - StatusTableViewControllerNavigateable
+extension UserTimelineViewController: StatusTableViewControllerNavigateable {
+    @objc func navigateKeyCommandHandlerRelay(_ sender: UIKeyCommand) {
+        navigateKeyCommandHandler(sender)
+    }
+    
+    @objc func statusKeyCommandHandlerRelay(_ sender: UIKeyCommand) {
+        statusKeyCommandHandler(sender)
+    }
+}

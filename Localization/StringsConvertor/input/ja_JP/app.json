@@ -23,7 +23,7 @@
                 "title": "失敗",
                 "message": "投稿に失敗しました。\nインターネットに接続されているか確認してください。",
                 "attachments_message": {
-                    "video_attach_with_photo": "すでに画像が含まれている投稿に、動画を添付することができません。",
+                    "video_attach_with_photo": "すでに画像が含まれている投稿に、動画を添付することはできません。",
                     "more_than_one_video": "複数の動画を添付することはできません。"
                 }
             },
@@ -46,7 +46,7 @@
             },
             "delete_post": {
                 "title": "この投稿を消去しますか？",
-                "delete": "消去"
+                "message": "本当に削除しますか？"
             },
             "clean_cache": {
                 "title": "キャッシュを消去",
@@ -67,7 +67,7 @@
                 "done": "完了",
                 "confirm": "確認",
                 "continue": "続ける",
-                "compose": "Compose",
+                "compose": "新規作成",
                 "cancel": "キャンセル",
                 "discard": "破棄",
                 "try_again": "再実行",
@@ -82,11 +82,12 @@
                 "share_user": "%sを共有",
                 "share_post": "投稿を共有",
                 "open_in_safari": "Safariで開く",
+                "open_in_browser": "ブラウザで開く",
                 "find_people": "フォローする人を見つける",
                 "manually_search": "手動で検索する",
                 "skip": "スキップ",
                 "reply": "リプライ",
-                "report_user": "%sを報告",
+                "report_user": "%sを通報",
                 "block_domain": "%sをブロック",
                 "unblock_domain": "%sのブロックを解除",
                 "settings": "設定",
@@ -139,7 +140,8 @@
                     "unreblog": "ブーストを戻す",
                     "favorite": "お気に入り",
                     "unfavorite": "お気に入り登録を取り消す",
-                    "menu": "メニュー"
+                    "menu": "メニュー",
+                    "hide": "非表示"
                 },
                 "tag": {
                     "url": "URL",
@@ -148,6 +150,12 @@
                     "hashtag": "ハッシュタグ",
                     "email": "メール",
                     "emoji": "絵文字"
+                },
+                "visibility": {
+                    "unlisted": "この投稿は誰でも見ることができますが、公開タイムラインには表示されません。",
+                    "private": "この投稿はフォロワーに限り見ることができます。",
+                    "private_from_me": "この投稿はフォロワーに限り見ることができます。",
+                    "direct": "この投稿はメンションされたユーザーに限り見ることができます。"
                 }
             },
             "friendship": {
@@ -192,10 +200,14 @@
     },
     "scene": {
         "welcome": {
-            "slogan": "ソーシャルネットワーキングを、あなたの手の中に."
+            "slogan": "ソーシャルネットワーキングを、あなたの手の中に.",
+            "get_started": "Get Started",
+            "log_in": "ログイン"
         },
         "server_picker": {
             "title": "サーバーを選択",
+            "subtitle": "あなたの興味分野・地域に合ったコミュニティや、汎用のものを選択してください。",
+            "subtitle_extend": "あなたの興味分野・地域に合ったコミュニティや、汎用のものを選択してください。各コミュニティはそれぞれ完全に独立した組織や個人によって運営されています。",
             "button": {
                 "category": {
                     "all": "すべて",
@@ -203,7 +215,7 @@
                     "academia": "アカデミア",
                     "activism": "アクティビズム",
                     "food": "食べ物",
-                    "furry": "furry",
+                    "furry": "ケモノ",
                     "games": "ゲーム",
                     "general": "全般",
                     "journalism": "言論",
@@ -248,6 +260,12 @@
                 },
                 "password": {
                     "placeholder": "パスワード",
+                    "require": "Your password needs at least:",
+                    "character_limit": "8 characters",
+                    "accessibility": {
+                        "checked": "checked",
+                        "unchecked": "unchecked"
+                    },
                     "hint": "パスワードは最低でも8文字必要です。"
                 },
                 "invite": {
@@ -298,7 +316,7 @@
             "subtitle": "先程 %s にメールを送信しました。リンクをタップしてアカウントを確認してください。",
             "button": {
                 "open_email_app": "メールアプリを開く",
-                "dont_receive_email": "メールがこない"
+                "resend": "Resend"
             },
             "dont_receive_email": {
                 "title": "メールをチェックしてください",
@@ -342,8 +360,8 @@
                 "photo": "写真",
                 "video": "動画",
                 "attachment_broken": "%sは壊れていてMastodonにアップロードできません。",
-                "description_photo": "視覚障がい者のために写真を説明",
-                "description_video": "視覚障がい者のための映像の説明"
+                "description_photo": "閲覧が難しいユーザーへの画像説明",
+                "description_video": "閲覧が難しいユーザーへの映像説明"
             },
             "poll": {
                 "duration_time": "期間: %s",
@@ -401,24 +419,34 @@
             "segmented_control": {
                 "posts": "投稿",
                 "replies": "リプライ",
-                "media": "メディア"
+                "posts_and_replies": "Posts and Replies",
+                "media": "メディア",
+                "about": "About"
             },
             "relationship_action_alert": {
+                "confirm_mute_user": {
+                    "title": "Mute Account",
+                    "message": "Confirm to mute %s"
+                },
                 "confirm_unmute_user": {
                     "title": "ミュートを解除",
                     "message": "%sをミュートしますか？"
                 },
-                "confirm_unblock_usre": {
-                    "title": "ブロックを解除",
-                    "message": "%sのブロックを解除しますか？"
+                "confirm_block_user": {
+                    "title": "Block Account",
+                    "message": "Confirm to block %s"
+                },
+                "confirm_unblock_user": {
+                    "title": "Unblock Account",
+                    "message": "Confirm to unblock %s"
                 }
             }
         },
         "follower": {
-            "footer": "Followers from other servers are not displayed."
+            "footer": "他のサーバーからのフォロワーは表示されません。"
         },
         "following": {
-            "footer": "Follows from other servers are not displayed."
+            "footer": "他のサーバーにいるフォローは表示されません。"
         },
         "search": {
             "title": "検索",
@@ -461,12 +489,14 @@
                 "Everything": "すべて",
                 "Mentions": "メンション"
             },
-            "user_followed_you": "%s にフォローされました",
-            "user_favorited your post": "%s がお気に入り登録しました",
-            "user_reblogged_your_post": "%s がブーストしました",
-            "user_mentioned_you": "%s に返信されました",
-            "user_requested_to_follow_you": "%s がフォローリクエストを送信しました",
-            "user_your_poll_has_ended": "%s 投票が終了しました",
+            "notification_description": {
+                "followed_you": "followed you",
+                "favorited_your_post": "favorited your post",
+                "reblogged_your_post": "reblogged your post",
+                "mentioned_you": "mentioned you",
+                "request_to_follow_you": "request to follow you",
+                "poll_has_ended": "poll has ended"
+            },
             "keyobard": {
                 "show_everything": "すべて見る",
                 "show_mentions": "メンションを見る"
@@ -485,6 +515,13 @@
                     "light": "ライト",
                     "dark": "ダーク"
                 },
+                "look_and_feel": {
+                    "title": "Look and Feel",
+                    "use_system": "Use System",
+                    "really_dark": "Really Dark",
+                    "sorta_dark": "Sorta Dark",
+                    "light": "Light"
+                },
                 "notifications": {
                     "title": "通知",
                     "favorites": "お気に入り登録",
@@ -502,7 +539,7 @@
                 "preference": {
                     "title": "環境設定",
                     "true_black_dark_mode": "真っ黒なダークテーマを使用する",
-                    "disable_avatar_animation": "アニメーションアバターの無効化する",
+                    "disable_avatar_animation": "アバターのアニメーションを無効化する",
                     "disable_emoji_animation": "絵文字のアニメーションを無効化する",
                     "using_default_browser": "既定のブラウザでリンクを開く"
                 },
@@ -526,14 +563,17 @@
             }
         },
         "report": {
-            "title": "%sを報告",
+            "title_report": "Report",
+            "title": "%sを通報",
             "step1": "ステップ 1/2",
             "step2": "ステップ 2/2",
-            "content1": "他に報告したい投稿はありますか？",
-            "content2": "この報告についてモデレーターに言いたいことはありますか？",
-            "send": "報告を送信",
+            "content1": "他に通報したい投稿はありますか？",
+            "content2": "この通報についてモデレーターに伝達しておきたい事項はありますか？",
+            "report_sent_title": "Thanks for reporting, we’ll look into this.",
+            "send": "通報を送信",
             "skip_to_send": "コメントなしで送信",
-            "text_placeholder": "追加コメントを入力"
+            "text_placeholder": "追加コメントを入力",
+            "reported": "REPORTED"
         },
         "preview": {
             "keyboard": {
@@ -543,14 +583,14 @@
             }
         },
         "account_list": {
-            "tab_bar_hint": "Current selected profile: %s. Double tap then hold to show account switcher",
-            "dismiss_account_switcher": "Dismiss Account Switcher",
+            "tab_bar_hint": "現在のアカウント: %s. ダブルタップしてアカウント切替画面を表示します",
+            "dismiss_account_switcher": "アカウント切替画面を閉じます",
             "add_account": "アカウントを追加"
         },
         "wizard": {
             "new_in_mastodon": "Mastodon の新機能",
             "multiple_account_switch_intro_description": "プロフィールボタンを押して複数のアカウントを切り替えます。",
-            "accessibility_hint": "Double tap to dismiss this wizard"
+            "accessibility_hint": "チュートリアルを閉じるには、ダブルタップしてください"
         }
     }
 }

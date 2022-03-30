@@ -105,11 +105,11 @@ public enum Asset {
   public enum Scene {
     public enum Onboarding {
       public static let avatarPlaceholder = ImageAsset(name: "Scene/Onboarding/avatar.placeholder")
+      public static let background = ColorAsset(name: "Scene/Onboarding/background")
       public static let navigationBackButtonBackground = ColorAsset(name: "Scene/Onboarding/navigation.back.button.background")
       public static let navigationBackButtonBackgroundHighlighted = ColorAsset(name: "Scene/Onboarding/navigation.back.button.background.highlighted")
       public static let navigationNextButtonBackground = ColorAsset(name: "Scene/Onboarding/navigation.next.button.background")
       public static let navigationNextButtonBackgroundHighlighted = ColorAsset(name: "Scene/Onboarding/navigation.next.button.background.highlighted")
-      public static let onboardingBackground = ColorAsset(name: "Scene/Onboarding/onboarding.background")
       public static let searchBarBackground = ColorAsset(name: "Scene/Onboarding/search.bar.background")
       public static let textFieldBackground = ColorAsset(name: "Scene/Onboarding/textField.background")
     }
@@ -119,10 +119,19 @@ public enum Asset {
         public static let nameEditBackgroundGray = ColorAsset(name: "Scene/Profile/Banner/name.edit.background.gray")
         public static let usernameGray = ColorAsset(name: "Scene/Profile/Banner/username.gray")
       }
+      public enum RelationshipButton {
+        public static let backgroundDark = ColorAsset(name: "Scene/Profile/RelationshipButton/background.dark")
+        public static let backgroundHighlightedDark = ColorAsset(name: "Scene/Profile/RelationshipButton/background.highlighted.dark")
+        public static let backgroundHighlightedLight = ColorAsset(name: "Scene/Profile/RelationshipButton/background.highlighted.light")
+        public static let backgroundLight = ColorAsset(name: "Scene/Profile/RelationshipButton/background.light")
+      }
     }
     public enum Report {
       public static let background = ColorAsset(name: "Scene/Report/background")
       public static let reportBanner = ColorAsset(name: "Scene/Report/report.banner")
+    }
+    public enum Setting {
+      public static let background = ColorAsset(name: "Scene/Setting/background")
     }
     public enum Sidebar {
       public static let logo = ImageAsset(name: "Scene/Sidebar/logo")
@@ -146,9 +155,7 @@ public enum Asset {
     }
   }
   public enum Settings {
-    public static let blackAuto = ImageAsset(name: "Settings/black.auto")
-    public static let black = ImageAsset(name: "Settings/black")
-    public static let darkAuto = ImageAsset(name: "Settings/dark.auto")
+    public static let automatic = ImageAsset(name: "Settings/automatic")
     public static let dark = ImageAsset(name: "Settings/dark")
     public static let light = ImageAsset(name: "Settings/light")
   }

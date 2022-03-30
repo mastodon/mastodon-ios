@@ -44,7 +44,7 @@ final class FollowingListViewModel {
         self.userFetchedResultsController = UserFetchedResultsController(
             managedObjectContext: context.managedObjectContext,
             domain: domain,
-            additionalTweetPredicate: nil
+            additionalPredicate: nil
         )
         self.domain = CurrentValueSubject(domain)
         self.userID = CurrentValueSubject(userID)

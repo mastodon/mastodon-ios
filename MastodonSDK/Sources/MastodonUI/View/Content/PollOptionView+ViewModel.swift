@@ -50,6 +50,8 @@ extension PollOptionView {
         @Published public var primaryStripProgressViewTintColor: UIColor = Asset.Colors.brandBlue.color
         @Published public var secondaryStripProgressViewTintColor: UIColor = Asset.Colors.brandBlue.color.withAlphaComponent(0.5)
         
+        @Published public var groupedAccessibilityLabel = ""
+        
         init() {
             // selectState
             Publishers.CombineLatest3(
@@ -136,9 +138,11 @@ extension PollOptionView.ViewModel {
             .sink { metaContent in
                 guard let metaContent = metaContent else {
                     view.optionTextField.text = ""
+                    view.optionTextField.accessibilityLabel = ""
                     return
                 }
                 view.optionTextField.text = metaContent.string
+                view.optionTextField.accessibilityLabel = metaContent.string
             }
             .store(in: &disposeBag)
         // selectState
@@ -172,6 +176,21 @@ extension PollOptionView.ViewModel {
                     view.voteProgressStripView.isHidden = false
                     view.voteProgressStripView.tintColor = voted ? self.primaryStripProgressViewTintColor : self.secondaryStripProgressViewTintColor
                     view.voteProgressStripView.setProgress(CGFloat(percentage), animated: animating)
+                }
+            }
+            .store(in: &disposeBag)
+        
+        bindAccessibility(view: view)
+    }
+    
+    private func bindAccessibility(view: PollOptionView) {
+        $selectState
+            .sink { selectState in
+                switch selectState {
+                case .on:
+                    view.accessibilityTraits.insert(.selected)
+                default:
+                    view.accessibilityTraits.remove(.selected)
                 }
             }
             .store(in: &disposeBag)

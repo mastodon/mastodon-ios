@@ -99,14 +99,8 @@ class SettingsViewController: UIViewController, NeedsDependency {
     }()
     
     private(set) lazy var tableView: UITableView = {
-        let style: UITableView.Style = {
-            switch UIDevice.current.userInterfaceIdiom {
-            case .phone:        return .grouped
-            default:            return .insetGrouped
-            }
-        }()
         // init with a frame to fix a conflict ('UIView-Encapsulated-Layout-Width' UIStackView:0x7f8c2b6c0590.width == 0)
-        let tableView = UITableView(frame: CGRect(x: 0, y: 0, width: 320, height: 320), style: style)
+        let tableView = UITableView(frame: CGRect(x: 0, y: 0, width: 320, height: 320), style: .insetGrouped)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.delegate = self
         tableView.rowHeight = UITableView.automaticDimension
@@ -212,8 +206,7 @@ extension SettingsViewController {
             }
             .store(in: &disposeBag)
 
-        
-        let footer = "Mastodon v\(UIApplication.appVersion()) (\(UIApplication.appBuild()))"
+        let footer = "Mastodon for iOS v\(UIApplication.appVersion()) (\(UIApplication.appBuild()))"
         let metaContent = PlaintextMetaContent(string: footer)
         tableFooterLabel.configure(content: metaContent)
     }
@@ -328,6 +321,10 @@ extension SettingsViewController: UITableViewDelegate {
         
         let header: SettingsSectionHeader
         switch sectionIdentifier {
+        case .appearancePreference:
+            return UIView()
+        case .preference:
+            return UIView()
         case .notifications:
             header = SettingsSectionHeader(
                 frame: CGRect(x: 0, y: 0, width: 375, height: 66),
@@ -358,6 +355,9 @@ extension SettingsViewController: UITableViewDelegate {
 
         switch item {
         case .appearance:
+            // do nothing
+            break
+        case .appearancePreference:
             // do nothing
             break
         case .notification:
@@ -450,27 +450,15 @@ extension SettingsViewController: SettingsAppearanceTableViewCellDelegate {
         let item = dataSource.itemIdentifier(for: indexPath)
         guard case let .appearance(record) = item else { return }
         
-        Task { @MainActor in 
-            var preferredTrueBlackDarkMode = false
-            
+        Task { @MainActor in
             switch appearanceMode {
             case .system:
                 UserDefaults.shared.customUserInterfaceStyle = .unspecified
-            case .reallyDark:
-                UserDefaults.shared.customUserInterfaceStyle = .dark
-                preferredTrueBlackDarkMode = true
-            case .sortaDark:
+            case .dark:
                 UserDefaults.shared.customUserInterfaceStyle = .dark
             case .light:
                 UserDefaults.shared.customUserInterfaceStyle = .light
             }
-            
-            let managedObjectContext = context.managedObjectContext
-            try await managedObjectContext.performChanges {
-                guard let setting = record.object(in: managedObjectContext) else { return }
-                setting.update(preferredTrueBlackDarkMode: preferredTrueBlackDarkMode)
-            }
-            ThemeService.shared.set(themeName: preferredTrueBlackDarkMode ? .system : .mastodon)
             
             let feedbackGenerator = UIImpactFeedbackGenerator(style: .light)
             feedbackGenerator.impactOccurred()
@@ -507,6 +495,18 @@ extension SettingsViewController: SettingsToggleCellDelegate {
                 // do nothing
             }
             .store(in: &disposeBag)
+        case .appearancePreference(let record, let appearanceType):
+            switch appearanceType {
+            case .preferredTrueDarkMode:
+                Task {
+                    let managedObjectContext = context.managedObjectContext
+                    try await managedObjectContext.performChanges {
+                        guard let setting = record.object(in: managedObjectContext) else { return }
+                        setting.update(preferredTrueBlackDarkMode: isOn)
+                    }
+                    ThemeService.shared.set(themeName: isOn ? .system : .mastodon)
+                }   // end Task
+            }
         case .preference(let record, let preferenceType):
             let managedObjectContext = context.backgroundManagedObjectContext
             managedObjectContext.performChanges {

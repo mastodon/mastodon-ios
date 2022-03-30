@@ -46,7 +46,7 @@
             },
             "delete_post": {
                 "title": "¿Estás seguro de que deseas eliminar esta publicación?",
-                "delete": "Eliminar"
+                "message": "¿Estás seguro de que quieres borrar esta publicación?"
             },
             "clean_cache": {
                 "title": "Limpiar Caché",
@@ -82,6 +82,7 @@
                 "share_user": "Compartir %s",
                 "share_post": "Compartir publicación",
                 "open_in_safari": "Abrir en Safari",
+                "open_in_browser": "Abrir en el navegador",
                 "find_people": "Encuentra gente a la que seguir",
                 "manually_search": "Mejor hacer una búsqueda manual",
                 "skip": "Omitir",
@@ -139,7 +140,8 @@
                     "unreblog": "Deshacer reblogueo",
                     "favorite": "Favorito",
                     "unfavorite": "No favorito",
-                    "menu": "Menú"
+                    "menu": "Menú",
+                    "hide": "Ocultar"
                 },
                 "tag": {
                     "url": "URL",
@@ -148,6 +150,12 @@
                     "hashtag": "Etiqueta",
                     "email": "E-mail",
                     "emoji": "Emoji"
+                },
+                "visibility": {
+                    "unlisted": "Todo el mundo puede ver este post pero no mostrar en la línea de tiempo pública.",
+                    "private": "Sólo sus seguidores pueden ver este mensaje.",
+                    "private_from_me": "Sólo mis seguidores pueden ver este mensaje.",
+                    "direct": "Sólo el usuario mencionado puede ver este mensaje."
                 }
             },
             "friendship": {
@@ -192,10 +200,14 @@
     },
     "scene": {
         "welcome": {
-            "slogan": "Las redes sociales\nde nuevo en tus manos."
+            "slogan": "Las redes sociales\nde nuevo en tus manos.",
+            "get_started": "Empezar",
+            "log_in": "Iniciar sesión"
         },
         "server_picker": {
             "title": "Elige un servidor,\ncualquier servidor.",
+            "subtitle": "Elige una comunidad relacionada con tus intereses, con tu región o una más genérica.",
+            "subtitle_extend": "Elige una comunidad relacionada con tus intereses, con tu región o una más genérica. Cada comunidad está operada por una organización o individuo completamente independiente.",
             "button": {
                 "category": {
                     "all": "Todas",
@@ -248,6 +260,12 @@
                 },
                 "password": {
                     "placeholder": "contraseña",
+                    "require": "Tu contraseña debe contener como mínimo:",
+                    "character_limit": "8 caracteres",
+                    "accessibility": {
+                        "checked": "marcado",
+                        "unchecked": "sin marcar"
+                    },
                     "hint": "Tu contraseña necesita tener al menos ocho caracteres"
                 },
                 "invite": {
@@ -298,7 +316,7 @@
             "subtitle": "Te acabamos de enviar un correo a %s,\npulsa en el enlace para confirmar tu cuenta.",
             "button": {
                 "open_email_app": "Abrir Aplicación de Correo Electrónico",
-                "dont_receive_email": "No he recibido el correo electrónico"
+                "resend": "Reenviar"
             },
             "dont_receive_email": {
                 "title": "Revisa tu correo electrónico",
@@ -401,15 +419,25 @@
             "segmented_control": {
                 "posts": "Publicaciones",
                 "replies": "Respuestas",
-                "media": "Multimedia"
+                "posts_and_replies": "Publicaciones y respuestas",
+                "media": "Multimedia",
+                "about": "Acerca de"
             },
             "relationship_action_alert": {
+                "confirm_mute_user": {
+                    "title": "Silenciar cuenta",
+                    "message": "Confirmar para silenciar %s"
+                },
                 "confirm_unmute_user": {
                     "title": "Dejar de Silenciar Cuenta",
                     "message": "Confirmar para dejar de silenciar a %s"
                 },
-                "confirm_unblock_usre": {
-                    "title": "Desbloquear Cuenta",
+                "confirm_block_user": {
+                    "title": "Bloquear cuenta",
+                    "message": "Confirmar para bloquear a %s"
+                },
+                "confirm_unblock_user": {
+                    "title": "Desbloquear cuenta",
                     "message": "Confirmar para desbloquear a %s"
                 }
             }
@@ -461,12 +489,14 @@
                 "Everything": "Todo",
                 "Mentions": "Menciones"
             },
-            "user_followed_you": "%s te ha empezado a seguir",
-            "user_favorited your post": "%s marcó tu post como favorito",
-            "user_reblogged_your_post": "%s reblogueó tu publicación",
-            "user_mentioned_you": "%s te ha mencionado",
-            "user_requested_to_follow_you": "%s ha solicitado seguirte",
-            "user_your_poll_has_ended": "%s Tu encuesta ha terminado",
+            "notification_description": {
+                "followed_you": "te siguió",
+                "favorited_your_post": "ha marcado como favorita tu publicación",
+                "reblogged_your_post": "reblogueó tu publicación",
+                "mentioned_you": "te mencionó",
+                "request_to_follow_you": "solicitó seguirte",
+                "poll_has_ended": "encuesta ha terminado"
+            },
             "keyobard": {
                 "show_everything": "Mostrar Todo",
                 "show_mentions": "Mostrar Menciones"
@@ -484,6 +514,13 @@
                     "automatic": "Automática",
                     "light": "Siempre Clara",
                     "dark": "Siempre Oscura"
+                },
+                "look_and_feel": {
+                    "title": "Apariencia",
+                    "use_system": "Uso del sistema",
+                    "really_dark": "Realmente Oscuro",
+                    "sorta_dark": "Más o Menos Oscuro",
+                    "light": "Claro"
                 },
                 "notifications": {
                     "title": "Notificaciones",
@@ -526,14 +563,17 @@
             }
         },
         "report": {
+            "title_report": "Reportar",
             "title": "Reportar %s",
             "step1": "Paso 1 de 2",
             "step2": "Paso 2 de 2",
             "content1": "¿Hay alguna otra publicación que te gustaría añadir al reporte?",
             "content2": "¿Hay algo que los moderadores deberían saber acerca de este reporte?",
+            "report_sent_title": "Gracias por reportar, estudiaremos esto.",
             "send": "Enviar Reporte",
             "skip_to_send": "Enviar sin comentarios",
-            "text_placeholder": "Escribe o pega comentarios adicionales"
+            "text_placeholder": "Escribe o pega comentarios adicionales",
+            "reported": "REPORTADO"
         },
         "preview": {
             "keyboard": {
@@ -543,14 +583,14 @@
             }
         },
         "account_list": {
-            "tab_bar_hint": "Current selected profile: %s. Double tap then hold to show account switcher",
-            "dismiss_account_switcher": "Dismiss Account Switcher",
-            "add_account": "Add Account"
+            "tab_bar_hint": "Perfil seleccionado actualmente: %s. Haz un doble toque y mantén pulsado para mostrar el selector de cuentas",
+            "dismiss_account_switcher": "Descartar el selector de cuentas",
+            "add_account": "Añadir cuenta"
         },
         "wizard": {
-            "new_in_mastodon": "New in Mastodon",
-            "multiple_account_switch_intro_description": "Switch between multiple accounts by holding the profile button.",
-            "accessibility_hint": "Double tap to dismiss this wizard"
+            "new_in_mastodon": "Nuevo en Mastodon",
+            "multiple_account_switch_intro_description": "Cambie entre varias cuentas manteniendo presionado el botón de perfil.",
+            "accessibility_hint": "Haz doble toque para descartar este asistente"
         }
     }
 }

@@ -87,6 +87,8 @@ extension MastodonRegisterTextFieldTableViewCell {
         textField.autocapitalizationType = .none
         textField.attributedPlaceholder = nil
         textField.isSecureTextEntry = false
+        textField.textAlignment = .natural
+        textField.semanticContentAttribute = .unspecified
         
         let paddingRect = CGRect(x: 0, y: 0, width: 16, height: 10)
         textField.leftView = UIView(frame: paddingRect)

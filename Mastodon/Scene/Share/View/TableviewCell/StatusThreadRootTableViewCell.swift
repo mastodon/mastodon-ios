@@ -58,7 +58,6 @@ extension StatusThreadRootTableViewCell {
         statusView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(statusView)
         setupContainerViewMarginConstraints()
-        updateContainerViewMarginConstraints()
         NSLayoutConstraint.activate([
             statusView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
             containerViewLeadingLayoutConstraint,
@@ -66,6 +65,7 @@ extension StatusThreadRootTableViewCell {
             statusView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
         ])
         statusView.setup(style: .plain)
+        updateContainerViewMarginConstraints()
         
         separatorLine.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(separatorLine)
@@ -79,8 +79,8 @@ extension StatusThreadRootTableViewCell {
         statusView.delegate = self
         
         // a11y
-        statusView.contentMetaText.textView.isSelectable = true
         statusView.contentMetaText.textView.isAccessibilityElement = false
+        statusView.contentMetaText.textView.isSelectable = true
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -89,6 +89,49 @@ extension StatusThreadRootTableViewCell {
         updateContainerViewMarginConstraints()
     }
     
+}
+
+extension StatusThreadRootTableViewCell {
+    
+    override var accessibilityElements: [Any]? {
+        get {
+            var elements = [
+                statusView.headerContainerView,
+                statusView.avatarButton,
+                statusView.authorNameLabel,
+                statusView.menuButton,
+                statusView.authorUsernameLabel,
+                statusView.dateLabel,
+                statusView.contentSensitiveeToggleButton,
+                statusView.spoilerOverlayView,
+                statusView.contentMetaText.textView,
+                statusView.mediaGridContainerView,
+                statusView.pollTableView,
+                statusView.pollStatusStackView,
+                statusView.actionToolbarContainer,
+                statusView.statusMetricView
+            ]
+            
+            if !statusView.viewModel.isSensitive {
+                elements.removeAll(where: { $0 === statusView.contentSensitiveeToggleButton })
+            }
+            
+            if statusView.viewModel.isContentReveal {
+                elements.removeAll(where: { $0 === statusView.spoilerOverlayView })
+            } else {
+                elements.removeAll(where: { $0 === statusView.contentMetaText.textView })
+            }
+            
+            if statusView.viewModel.pollItems.isEmpty {
+                elements.removeAll(where: { $0 === statusView.pollTableView })
+                elements.removeAll(where: { $0 === statusView.pollStatusStackView })
+            }
+            
+            return elements
+        }
+        set { }
+    }
+
 }
 
 extension StatusThreadRootTableViewCell: AdaptiveContainerMarginTableViewCell {

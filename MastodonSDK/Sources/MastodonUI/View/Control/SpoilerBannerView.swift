@@ -6,8 +6,9 @@
 //
 
 import UIKit
-import MastodonAsset
 import MetaTextKit
+import MastodonAsset
+import MastodonLocalization
 
 public final class SpoilerBannerView: UIView {
     
@@ -22,7 +23,7 @@ public final class SpoilerBannerView: UIView {
         let label = UILabel()
         label.textColor = Asset.Colors.Label.primary.color
         label.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .regular))
-        label.text = "Hide"     // TODO: i18n
+        label.text = L10n.Common.Controls.Status.Actions.hide
         return label
     }()
     

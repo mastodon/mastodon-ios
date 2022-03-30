@@ -36,9 +36,9 @@ public enum L10n {
         public static let pleaseTryAgainLater = L10n.tr("Localizable", "Common.Alerts.Common.PleaseTryAgainLater")
       }
       public enum DeletePost {
-        /// Delete
-        public static let delete = L10n.tr("Localizable", "Common.Alerts.DeletePost.Delete")
         /// Are you sure you want to delete this post?
+        public static let message = L10n.tr("Localizable", "Common.Alerts.DeletePost.Message")
+        /// Delete Post
         public static let title = L10n.tr("Localizable", "Common.Alerts.DeletePost.Title")
       }
       public enum DiscardPostContent {
@@ -132,6 +132,8 @@ public enum L10n {
         public static let ok = L10n.tr("Localizable", "Common.Controls.Actions.Ok")
         /// Open
         public static let `open` = L10n.tr("Localizable", "Common.Controls.Actions.Open")
+        /// Open in Browser
+        public static let openInBrowser = L10n.tr("Localizable", "Common.Controls.Actions.OpenInBrowser")
         /// Open in Safari
         public static let openInSafari = L10n.tr("Localizable", "Common.Controls.Actions.OpenInSafari")
         /// Preview
@@ -283,6 +285,8 @@ public enum L10n {
         public enum Actions {
           /// Favorite
           public static let favorite = L10n.tr("Localizable", "Common.Controls.Status.Actions.Favorite")
+          /// Hide
+          public static let hide = L10n.tr("Localizable", "Common.Controls.Status.Actions.Hide")
           /// Menu
           public static let menu = L10n.tr("Localizable", "Common.Controls.Status.Actions.Menu")
           /// Reblog
@@ -313,6 +317,16 @@ public enum L10n {
           public static let mention = L10n.tr("Localizable", "Common.Controls.Status.Tag.Mention")
           /// URL
           public static let url = L10n.tr("Localizable", "Common.Controls.Status.Tag.Url")
+        }
+        public enum Visibility {
+          /// Only mentioned user can see this post.
+          public static let direct = L10n.tr("Localizable", "Common.Controls.Status.Visibility.Direct")
+          /// Only their followers can see this post.
+          public static let `private` = L10n.tr("Localizable", "Common.Controls.Status.Visibility.Private")
+          /// Only my followers can see this post.
+          public static let privateFromMe = L10n.tr("Localizable", "Common.Controls.Status.Visibility.PrivateFromMe")
+          /// Everyone can see this post but not display in the public timeline.
+          public static let unlisted = L10n.tr("Localizable", "Common.Controls.Status.Visibility.Unlisted")
         }
       }
       public enum Tabs {
@@ -490,17 +504,15 @@ public enum L10n {
       }
     }
     public enum ConfirmEmail {
-      /// We just sent an email to %@,\ntap the link to confirm your account.
-      public static func subtitle(_ p1: Any) -> String {
-        return L10n.tr("Localizable", "Scene.ConfirmEmail.Subtitle", String(describing: p1))
-      }
+      /// Tap the link we emailed to you to verify your account.
+      public static let subtitle = L10n.tr("Localizable", "Scene.ConfirmEmail.Subtitle")
       /// One last thing.
       public static let title = L10n.tr("Localizable", "Scene.ConfirmEmail.Title")
       public enum Button {
-        /// I never got an email
-        public static let dontReceiveEmail = L10n.tr("Localizable", "Scene.ConfirmEmail.Button.DontReceiveEmail")
         /// Open Email App
         public static let openEmailApp = L10n.tr("Localizable", "Scene.ConfirmEmail.Button.OpenEmailApp")
+        /// Resend
+        public static let resend = L10n.tr("Localizable", "Scene.ConfirmEmail.Button.Resend")
       }
       public enum DontReceiveEmail {
         /// Check if your email address is correct as well as your junk folder if you haven’t.
@@ -548,35 +560,25 @@ public enum L10n {
       }
     }
     public enum Notification {
-      /// %@ favorited your post
-      public static func userFavoritedYourPost(_ p1: Any) -> String {
-        return L10n.tr("Localizable", "Scene.Notification.UserFavorited Your Post", String(describing: p1))
-      }
-      /// %@ followed you
-      public static func userFollowedYou(_ p1: Any) -> String {
-        return L10n.tr("Localizable", "Scene.Notification.UserFollowedYou", String(describing: p1))
-      }
-      /// %@ mentioned you
-      public static func userMentionedYou(_ p1: Any) -> String {
-        return L10n.tr("Localizable", "Scene.Notification.UserMentionedYou", String(describing: p1))
-      }
-      /// %@ reblogged your post
-      public static func userRebloggedYourPost(_ p1: Any) -> String {
-        return L10n.tr("Localizable", "Scene.Notification.UserRebloggedYourPost", String(describing: p1))
-      }
-      /// %@ requested to follow you
-      public static func userRequestedToFollowYou(_ p1: Any) -> String {
-        return L10n.tr("Localizable", "Scene.Notification.UserRequestedToFollowYou", String(describing: p1))
-      }
-      /// %@ Your poll has ended
-      public static func userYourPollHasEnded(_ p1: Any) -> String {
-        return L10n.tr("Localizable", "Scene.Notification.UserYourPollHasEnded", String(describing: p1))
-      }
       public enum Keyobard {
         /// Show Everything
         public static let showEverything = L10n.tr("Localizable", "Scene.Notification.Keyobard.ShowEverything")
         /// Show Mentions
         public static let showMentions = L10n.tr("Localizable", "Scene.Notification.Keyobard.ShowMentions")
+      }
+      public enum NotificationDescription {
+        /// favorited your post
+        public static let favoritedYourPost = L10n.tr("Localizable", "Scene.Notification.NotificationDescription.FavoritedYourPost")
+        /// followed you
+        public static let followedYou = L10n.tr("Localizable", "Scene.Notification.NotificationDescription.FollowedYou")
+        /// mentioned you
+        public static let mentionedYou = L10n.tr("Localizable", "Scene.Notification.NotificationDescription.MentionedYou")
+        /// poll has ended
+        public static let pollHasEnded = L10n.tr("Localizable", "Scene.Notification.NotificationDescription.PollHasEnded")
+        /// reblogged your post
+        public static let rebloggedYourPost = L10n.tr("Localizable", "Scene.Notification.NotificationDescription.RebloggedYourPost")
+        /// request to follow you
+        public static let requestToFollowYou = L10n.tr("Localizable", "Scene.Notification.NotificationDescription.RequestToFollowYou")
       }
       public enum Title {
         /// Everything
@@ -615,13 +617,29 @@ public enum L10n {
         }
       }
       public enum RelationshipActionAlert {
-        public enum ConfirmUnblockUsre {
+        public enum ConfirmBlockUser {
+          /// Confirm to block %@
+          public static func message(_ p1: Any) -> String {
+            return L10n.tr("Localizable", "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Message", String(describing: p1))
+          }
+          /// Block Account
+          public static let title = L10n.tr("Localizable", "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Title")
+        }
+        public enum ConfirmMuteUser {
+          /// Confirm to mute %@
+          public static func message(_ p1: Any) -> String {
+            return L10n.tr("Localizable", "Scene.Profile.RelationshipActionAlert.ConfirmMuteUser.Message", String(describing: p1))
+          }
+          /// Mute Account
+          public static let title = L10n.tr("Localizable", "Scene.Profile.RelationshipActionAlert.ConfirmMuteUser.Title")
+        }
+        public enum ConfirmUnblockUser {
           /// Confirm to unblock %@
           public static func message(_ p1: Any) -> String {
-            return L10n.tr("Localizable", "Scene.Profile.RelationshipActionAlert.ConfirmUnblockUsre.Message", String(describing: p1))
+            return L10n.tr("Localizable", "Scene.Profile.RelationshipActionAlert.ConfirmUnblockUser.Message", String(describing: p1))
           }
           /// Unblock Account
-          public static let title = L10n.tr("Localizable", "Scene.Profile.RelationshipActionAlert.ConfirmUnblockUsre.Title")
+          public static let title = L10n.tr("Localizable", "Scene.Profile.RelationshipActionAlert.ConfirmUnblockUser.Title")
         }
         public enum ConfirmUnmuteUser {
           /// Confirm to unmute %@
@@ -633,17 +651,23 @@ public enum L10n {
         }
       }
       public enum SegmentedControl {
+        /// About
+        public static let about = L10n.tr("Localizable", "Scene.Profile.SegmentedControl.About")
         /// Media
         public static let media = L10n.tr("Localizable", "Scene.Profile.SegmentedControl.Media")
         /// Posts
         public static let posts = L10n.tr("Localizable", "Scene.Profile.SegmentedControl.Posts")
+        /// Posts and Replies
+        public static let postsAndReplies = L10n.tr("Localizable", "Scene.Profile.SegmentedControl.PostsAndReplies")
         /// Replies
         public static let replies = L10n.tr("Localizable", "Scene.Profile.SegmentedControl.Replies")
       }
     }
     public enum Register {
-      /// Tell us about you.
-      public static let title = L10n.tr("Localizable", "Scene.Register.Title")
+      /// Let’s get you set up on %@
+      public static func title(_ p1: Any) -> String {
+        return L10n.tr("Localizable", "Scene.Register.Title", String(describing: p1))
+      }
       public enum Error {
         public enum Item {
           /// Agreement
@@ -730,10 +754,20 @@ public enum L10n {
           public static let registrationUserInviteRequest = L10n.tr("Localizable", "Scene.Register.Input.Invite.RegistrationUserInviteRequest")
         }
         public enum Password {
+          /// 8 characters
+          public static let characterLimit = L10n.tr("Localizable", "Scene.Register.Input.Password.CharacterLimit")
           /// Your password needs at least eight characters
           public static let hint = L10n.tr("Localizable", "Scene.Register.Input.Password.Hint")
           /// password
           public static let placeholder = L10n.tr("Localizable", "Scene.Register.Input.Password.Placeholder")
+          /// Your password needs at least:
+          public static let require = L10n.tr("Localizable", "Scene.Register.Input.Password.Require")
+          public enum Accessibility {
+            /// checked
+            public static let checked = L10n.tr("Localizable", "Scene.Register.Input.Password.Accessibility.Checked")
+            /// unchecked
+            public static let unchecked = L10n.tr("Localizable", "Scene.Register.Input.Password.Accessibility.Unchecked")
+          }
         }
         public enum Username {
           /// This username is taken.
@@ -748,6 +782,10 @@ public enum L10n {
       public static let content1 = L10n.tr("Localizable", "Scene.Report.Content1")
       /// Is there anything the moderators should know about this report?
       public static let content2 = L10n.tr("Localizable", "Scene.Report.Content2")
+      /// REPORTED
+      public static let reported = L10n.tr("Localizable", "Scene.Report.Reported")
+      /// Thanks for reporting, we’ll look into this.
+      public static let reportSentTitle = L10n.tr("Localizable", "Scene.Report.ReportSentTitle")
       /// Send Report
       public static let send = L10n.tr("Localizable", "Scene.Report.Send")
       /// Send without comment
@@ -762,6 +800,8 @@ public enum L10n {
       public static func title(_ p1: Any) -> String {
         return L10n.tr("Localizable", "Scene.Report.Title", String(describing: p1))
       }
+      /// Report
+      public static let titleReport = L10n.tr("Localizable", "Scene.Report.TitleReport")
     }
     public enum Search {
       /// Search
@@ -816,7 +856,11 @@ public enum L10n {
       }
     }
     public enum ServerPicker {
-      /// Pick a server,\nany server.
+      /// Pick a community based on your interests, region, or a general purpose one.
+      public static let subtitle = L10n.tr("Localizable", "Scene.ServerPicker.Subtitle")
+      /// Pick a community based on your interests, region, or a general purpose one. Each community is operated by an entirely independent organization or individual.
+      public static let subtitleExtend = L10n.tr("Localizable", "Scene.ServerPicker.SubtitleExtend")
+      /// Mastodon is made of users in different communities.
       public static let title = L10n.tr("Localizable", "Scene.ServerPicker.Title")
       public enum Button {
         /// See Less
@@ -863,7 +907,7 @@ public enum L10n {
         public static let noResults = L10n.tr("Localizable", "Scene.ServerPicker.EmptyState.NoResults")
       }
       public enum Input {
-        /// Find a server or join your own...
+        /// Search communities
         public static let placeholder = L10n.tr("Localizable", "Scene.ServerPicker.Input.Placeholder")
       }
       public enum Label {
@@ -882,7 +926,7 @@ public enum L10n {
       public static func prompt(_ p1: Any) -> String {
         return L10n.tr("Localizable", "Scene.ServerRules.Prompt", String(describing: p1))
       }
-      /// These rules are set by the admins of %@.
+      /// These are set and enforced by the %@ moderators.
       public static func subtitle(_ p1: Any) -> String {
         return L10n.tr("Localizable", "Scene.ServerRules.Subtitle", String(describing: p1))
       }
@@ -928,6 +972,18 @@ public enum L10n {
           public static let terms = L10n.tr("Localizable", "Scene.Settings.Section.BoringZone.Terms")
           /// The Boring Zone
           public static let title = L10n.tr("Localizable", "Scene.Settings.Section.BoringZone.Title")
+        }
+        public enum LookAndFeel {
+          /// Light
+          public static let light = L10n.tr("Localizable", "Scene.Settings.Section.LookAndFeel.Light")
+          /// Really Dark
+          public static let reallyDark = L10n.tr("Localizable", "Scene.Settings.Section.LookAndFeel.ReallyDark")
+          /// Sorta Dark
+          public static let sortaDark = L10n.tr("Localizable", "Scene.Settings.Section.LookAndFeel.SortaDark")
+          /// Look and Feel
+          public static let title = L10n.tr("Localizable", "Scene.Settings.Section.LookAndFeel.Title")
+          /// Use System
+          public static let useSystem = L10n.tr("Localizable", "Scene.Settings.Section.LookAndFeel.UseSystem")
         }
         public enum Notifications {
           /// Reblogs my post
@@ -990,6 +1046,10 @@ public enum L10n {
       }
     }
     public enum Welcome {
+      /// Get Started
+      public static let getStarted = L10n.tr("Localizable", "Scene.Welcome.GetStarted")
+      /// Log In
+      public static let logIn = L10n.tr("Localizable", "Scene.Welcome.LogIn")
       /// Social networking\nback in your hands.
       public static let slogan = L10n.tr("Localizable", "Scene.Welcome.Slogan")
     }

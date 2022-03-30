@@ -14,6 +14,7 @@ enum ProfileFieldItem: Hashable {
     case field(field: FieldValue)
     case editField(field: FieldValue)
     case addEntry
+    case noResult
 }
 
 extension ProfileFieldItem {

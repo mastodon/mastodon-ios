@@ -55,7 +55,7 @@ final class ReportSupplementaryViewController: UIViewController, NeedsDependency
     
     let navigationActionView: NavigationActionView = {
         let navigationActionView = NavigationActionView()
-        navigationActionView.backgroundColor = Asset.Scene.Onboarding.onboardingBackground.color
+        navigationActionView.backgroundColor = Asset.Scene.Onboarding.background.color
         navigationActionView.backButton.setTitle(L10n.Common.Controls.Actions.skip, for: .normal)
         return navigationActionView
     }()

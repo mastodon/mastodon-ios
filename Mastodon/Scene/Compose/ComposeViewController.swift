@@ -381,7 +381,7 @@ extension ComposeViewController {
         // bind publish bar button state
         viewModel.$isPublishBarButtonItemEnabled
             .receive(on: DispatchQueue.main)
-            .assign(to: \.isEnabled, on: publishBarButtonItem)
+            .assign(to: \.isEnabled, on: publishButton)
             .store(in: &disposeBag)
         
         // bind media button toolbar state
@@ -669,21 +669,30 @@ extension ComposeViewController {
     }
 
     private func setupBackgroundColor(theme: Theme) {
-        view.backgroundColor = theme.systemElevatedBackgroundColor
-        tableView.backgroundColor = theme.systemElevatedBackgroundColor
+        let backgroundColor = UIColor(dynamicProvider: { traitCollection in
+            switch traitCollection.userInterfaceStyle {
+            case .light:
+                return .systemBackground
+            default:
+                return theme.systemElevatedBackgroundColor
+            }
+        })
+        view.backgroundColor = backgroundColor
+        tableView.backgroundColor = backgroundColor
         composeToolbarBackgroundView.backgroundColor = theme.composeToolbarBackgroundColor
     }
     
     // keyboard shortcutBar
     private func setupInputAssistantItem(item: UITextInputAssistantItem) {
-        let groups = [UIBarButtonItemGroup(barButtonItems: [
+        let barButtonItems = [
             composeToolbarView.mediaBarButtonItem,
             composeToolbarView.pollBarButtonItem,
             composeToolbarView.contentWarningBarButtonItem,
             composeToolbarView.visibilityBarButtonItem,
-        ], representativeItem: nil)]
+        ]
+        let group = UIBarButtonItemGroup(barButtonItems: barButtonItems, representativeItem: nil)
         
-        item.trailingBarButtonGroups = groups
+        item.trailingBarButtonGroups = [group]
     }
     
     private func configureToolbarDisplay(keyboardHasShortcutBar: Bool) {
@@ -760,15 +769,6 @@ extension ComposeViewController: UITextViewDelegate {
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
         setupInputAssistantItem(item: textView.inputAssistantItem)
         return true
-    }
-    
-    func textViewDidBeginEditing(_ textView: UITextView) {
-        switch textView {
-        case textEditorView.textView:
-            setupInputAssistantItem(item: textView.inputAssistantItem)
-        default:
-            assertionFailure()
-        }
     }
 
     func textViewDidChange(_ textView: UITextView) {
@@ -915,14 +915,25 @@ extension ComposeViewController: UITextViewDelegate {
 // MARK: - ComposeToolbarViewDelegate
 extension ComposeViewController: ComposeToolbarViewDelegate {
     
-    func composeToolbarView(_ composeToolbarView: ComposeToolbarView, cameraButtonDidPressed sender: Any, mediaSelectionType type: ComposeToolbarView.MediaSelectionType) {
+    func composeToolbarView(_ composeToolbarView: ComposeToolbarView, mediaButtonDidPressed sender: Any, mediaSelectionType type: ComposeToolbarView.MediaSelectionType) {
         switch type {
         case .photoLibrary:
             present(photoLibraryPicker, animated: true, completion: nil)
         case .camera:
             present(imagePickerController, animated: true, completion: nil)
         case .browse:
+            #if SNAPSHOT
+            guard let image = UIImage(named: "Athens") else { return }
+
+            let attachmentService = MastodonAttachmentService(
+                context: context,
+                image: image,
+                initialAuthenticationBox: viewModel.authenticationBox
+            )
+            viewModel.attachmentServices = viewModel.attachmentServices + [attachmentService]
+            #else
             present(documentPickerController, animated: true, completion: nil)
+            #endif
         }
     }
     

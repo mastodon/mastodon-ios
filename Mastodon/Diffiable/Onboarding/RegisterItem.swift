@@ -8,7 +8,7 @@
 import Foundation
 
 enum RegisterItem: Hashable {
-    case header
+    case header(domain: String)
     case avatar
     case name
     case username

@@ -1,0 +1,34 @@
+{
+  "configurations" : [
+    {
+      "id" : "E27ADCCD-D2DF-4255-81D1-21CFC3C33254",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "defaultTestExecutionTimeAllowance" : 1800,
+    "testTimeoutsEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "selectedTests" : [
+        "MastodonUISnapshotTests\/testSmoke()",
+        "MastodonUISnapshotTests\/testSnapshotCompose()",
+        "MastodonUISnapshotTests\/testSnapshotHome()",
+        "MastodonUISnapshotTests\/testSnapshotProfile()",
+        "MastodonUISnapshotTests\/testSnapshotSearch()",
+        "MastodonUISnapshotTests\/testSnapshotServerRules()",
+        "MastodonUISnapshotTests\/testSnapshotThread()"
+      ],
+      "target" : {
+        "containerPath" : "container:Mastodon.xcodeproj",
+        "identifier" : "DB427DF225BAA00100D1B89D",
+        "name" : "MastodonUITests"
+      }
+    }
+  ],
+  "version" : 1
+}

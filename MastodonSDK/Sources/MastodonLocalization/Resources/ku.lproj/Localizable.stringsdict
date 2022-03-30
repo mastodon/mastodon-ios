@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>a11y.plural.count.unread.notification</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@notification_count_unread_notification@</string>
+      <key>notification_count_unread_notification</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>1 agahdariya nexwendî</string>
+        <key>other</key>
+        <string>%ld agahdariyên nexwendî</string>
+      </dict>
+    </dict>
+    <key>a11y.plural.count.input_limit_exceeds</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>Sînorê têketinê derbas kir %#@character_count@</string>
+      <key>character_count</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>1 tîp</string>
+        <key>other</key>
+        <string>%ld tîp</string>
+      </dict>
+    </dict>
+    <key>a11y.plural.count.input_limit_remains</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>Sînorê têketinê %#@character_count@ maye</string>
+      <key>character_count</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>1 tîp</string>
+        <key>other</key>
+        <string>%ld tîp</string>
+      </dict>
+    </dict>
+    <key>plural.count.metric_formatted.post</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%@ %#@post_count@</string>
+      <key>post_count</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>şandî</string>
+        <key>other</key>
+        <string>şandî</string>
+      </dict>
+    </dict>
+    <key>plural.count.post</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@post_count@</string>
+      <key>post_count</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>1 şandî</string>
+        <key>other</key>
+        <string>%ld şandî</string>
+      </dict>
+    </dict>
+    <key>plural.count.favorite</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@favorite_count@</string>
+      <key>favorite_count</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>1 hezkirin</string>
+        <key>other</key>
+        <string>%ld hezkirin</string>
+      </dict>
+    </dict>
+    <key>plural.count.reblog</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@reblog_count@</string>
+      <key>reblog_count</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>1 ji nû ve nivîsandin</string>
+        <key>other</key>
+        <string>%ld ji nû ve nivîsandin</string>
+      </dict>
+    </dict>
+    <key>plural.count.vote</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@vote_count@</string>
+      <key>vote_count</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>1 deng</string>
+        <key>other</key>
+        <string>%ld deng</string>
+      </dict>
+    </dict>
+    <key>plural.count.voter</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@voter_count@</string>
+      <key>voter_count</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>1 hilbijêr</string>
+        <key>other</key>
+        <string>%ld hilbijêr</string>
+      </dict>
+    </dict>
+    <key>plural.people_talking</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_people_talking@</string>
+      <key>count_people_talking</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>1 mirov diaxive</string>
+        <key>other</key>
+        <string>%ld mirov diaxive</string>
+      </dict>
+    </dict>
+    <key>plural.count.following</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_following@</string>
+      <key>count_following</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>1 dişopîne</string>
+        <key>other</key>
+        <string>%ld dişopîne</string>
+      </dict>
+    </dict>
+    <key>plural.count.follower</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_follower@</string>
+      <key>count_follower</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>1 şopîner</string>
+        <key>other</key>
+        <string>%ld şopîner</string>
+      </dict>
+    </dict>
+    <key>date.year.left</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_year_left@</string>
+      <key>count_year_left</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>1 sal berê</string>
+        <key>other</key>
+        <string>%ld sal berê</string>
+      </dict>
+    </dict>
+    <key>date.month.left</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_month_left@</string>
+      <key>count_month_left</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>1 meh berê</string>
+        <key>other</key>
+        <string>%ld meh berê</string>
+      </dict>
+    </dict>
+    <key>date.day.left</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_day_left@</string>
+      <key>count_day_left</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>1 roj berê</string>
+        <key>other</key>
+        <string>%ld roj berê</string>
+      </dict>
+    </dict>
+    <key>date.hour.left</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_hour_left@</string>
+      <key>count_hour_left</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>1 demjimêr berê</string>
+        <key>other</key>
+        <string>%ld demjimêr berê</string>
+      </dict>
+    </dict>
+    <key>date.minute.left</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_minute_left@</string>
+      <key>count_minute_left</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>1 xulek berê</string>
+        <key>other</key>
+        <string>%ld xulek berê</string>
+      </dict>
+    </dict>
+    <key>date.second.left</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_second_left@</string>
+      <key>count_second_left</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>1 çirke berê</string>
+        <key>other</key>
+        <string>%ld çirke berê</string>
+      </dict>
+    </dict>
+    <key>date.year.ago.abbr</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_year_ago_abbr@</string>
+      <key>count_year_ago_abbr</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>1 sal berê</string>
+        <key>other</key>
+        <string>%ld sal berê</string>
+      </dict>
+    </dict>
+    <key>date.month.ago.abbr</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_month_ago_abbr@</string>
+      <key>count_month_ago_abbr</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>1 xulek berê</string>
+        <key>other</key>
+        <string>%ld xulek berê</string>
+      </dict>
+    </dict>
+    <key>date.day.ago.abbr</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_day_ago_abbr@</string>
+      <key>count_day_ago_abbr</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>1 roj berê</string>
+        <key>other</key>
+        <string>%ld roj berê</string>
+      </dict>
+    </dict>
+    <key>date.hour.ago.abbr</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_hour_ago_abbr@</string>
+      <key>count_hour_ago_abbr</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>1 demjimêr berê</string>
+        <key>other</key>
+        <string>%ld demjimêr berê</string>
+      </dict>
+    </dict>
+    <key>date.minute.ago.abbr</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_minute_ago_abbr@</string>
+      <key>count_minute_ago_abbr</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>1 xulek berê</string>
+        <key>other</key>
+        <string>%ld xulek berê</string>
+      </dict>
+    </dict>
+    <key>date.second.ago.abbr</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_second_ago_abbr@</string>
+      <key>count_second_ago_abbr</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>1 çirke berê</string>
+        <key>other</key>
+        <string>%ld çirke berê</string>
+      </dict>
+    </dict>
+  </dict>
+</plist>

@@ -442,6 +442,7 @@ extension ProfileViewModel {
             }
         }
         
+        @available(*, deprecated, message: "")
         var backgroundColor: UIColor {
             guard let highPriorityAction = self.highPriorityAction(except: []) else {
                 assertionFailure()

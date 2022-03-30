@@ -48,16 +48,6 @@
                ReferencedContainer = "container:Mastodon.xcodeproj">
             </BuildableReference>
          </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "DB89B9F525C10FD0008580ED"
-               BuildableName = "CoreDataStackTests.xctest"
-               BlueprintName = "CoreDataStackTests"
-               ReferencedContainer = "container:Mastodon.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

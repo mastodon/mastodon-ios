@@ -25,7 +25,7 @@ final class OnboardingHeadlineTableViewCell: UITableViewCell {
         let label = UILabel()
         label.font = MastodonPickServerViewController.subTitleFont
         label.textColor = MastodonPickServerViewController.subTitleTextColor
-        label.text = "Pick a community based on your interests, region, or a general purpose one. Each community is operated by an entirely independent organization or individual."
+        label.text = L10n.Scene.ServerPicker.subtitle
         label.adjustsFontForContentSizeCategory = true
         label.numberOfLines = 0
         return label
@@ -46,7 +46,7 @@ extension OnboardingHeadlineTableViewCell {
     
     private func _init() {
         selectionStyle = .none
-        backgroundColor = Asset.Scene.Onboarding.onboardingBackground.color
+        backgroundColor = Asset.Scene.Onboarding.background.color
         
         let container = UIStackView()
         container.axis = .vertical

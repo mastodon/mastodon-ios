@@ -74,6 +74,13 @@ public final class MediaGridContainerView: UIView {
         super.init(coder: coder)
         _init()
     }
+    
+    public override var accessibilityElements: [Any]? {
+        get {
+            mediaViews
+        }
+        set { }
+    }
 
 }
 

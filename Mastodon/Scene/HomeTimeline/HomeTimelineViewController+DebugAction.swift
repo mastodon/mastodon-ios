@@ -6,7 +6,7 @@
 //
 
 
-#if DEBUG
+#if DEBUG || SNAPSHOT
 import os.log
 import UIKit
 import CoreData

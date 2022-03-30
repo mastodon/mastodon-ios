@@ -22,7 +22,9 @@ extension HomeTimelineViewModel {
             context: context,
             configuration: StatusSection.Configuration(
                 statusTableViewCellDelegate: statusTableViewCellDelegate,
-                timelineMiddleLoaderTableViewCellDelegate: timelineMiddleLoaderTableViewCellDelegate
+                timelineMiddleLoaderTableViewCellDelegate: timelineMiddleLoaderTableViewCellDelegate,
+                filterContext: .home,
+                activeFilters: context.statusFilterService.$activeFilters
             )
         )
 

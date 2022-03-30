@@ -48,10 +48,7 @@ public final class ActionToolbarContainer: UIView {
 
 extension ActionToolbarContainer {
 
-    private func _init() {
-        container.preservesSuperviewLayoutMargins = true
-        container.isLayoutMarginsRelativeArrangement = true
-        
+    private func _init() {        
         container.translatesAutoresizingMaskIntoConstraints = false
         addSubview(container)
         NSLayoutConstraint.activate([
@@ -93,7 +90,7 @@ extension ActionToolbarContainer {
         replyButton.accessibilityLabel = L10n.Common.Controls.Status.Actions.reply
         reblogButton.accessibilityLabel = L10n.Common.Controls.Status.Actions.reblog    // needs update to follow state
         favoriteButton.accessibilityLabel = L10n.Common.Controls.Status.Actions.favorite    // needs update to follow state
-        shareButton.accessibilityLabel = L10n.Common.Controls.Status.Actions.menu
+        shareButton.accessibilityLabel = L10n.Common.Controls.Actions.share
         
         switch style {
         case .inline:
@@ -219,6 +216,7 @@ extension ActionToolbarContainer {
     public func configureReply(count: Int, isEnabled: Bool) {
         let title = ActionToolbarContainer.title(from: count)
         replyButton.setTitle(title, for: .normal)
+        replyButton.accessibilityLabel = "\(count) reply"   // TODO: i18n
     }
     
     public func configureReblog(count: Int, isEnabled: Bool, isHighlighted: Bool) {
@@ -230,6 +228,13 @@ extension ActionToolbarContainer {
         reblogButton.tintColor = tintColor
         reblogButton.setTitleColor(tintColor, for: .normal)
         reblogButton.setTitleColor(tintColor, for: .highlighted)
+        
+        if isHighlighted {
+            reblogButton.accessibilityTraits.insert(.selected)
+        } else {
+            reblogButton.accessibilityTraits.remove(.selected)
+        }
+        reblogButton.accessibilityLabel = L10n.Plural.Count.reblog(count)
     }
     
     public func configureFavorite(count: Int, isEnabled: Bool, isHighlighted: Bool) {
@@ -242,6 +247,13 @@ extension ActionToolbarContainer {
         favoriteButton.tintColor = tintColor
         favoriteButton.setTitleColor(tintColor, for: .normal)
         favoriteButton.setTitleColor(tintColor, for: .highlighted)
+        
+        if isHighlighted {
+            favoriteButton.accessibilityTraits.insert(.selected)
+        } else {
+            favoriteButton.accessibilityTraits.remove(.selected)
+        }
+        favoriteButton.accessibilityLabel = L10n.Plural.Count.favorite(count)
     }
     
 }

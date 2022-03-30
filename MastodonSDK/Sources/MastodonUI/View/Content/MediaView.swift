@@ -22,6 +22,7 @@ public final class MediaView: UIView {
         formatter.allowedUnits = [.minute, .second]
         return formatter
     }()
+    public static let placeholderImage = UIImage.placeholder(color: .systemGray6)
     
     public let container = TouchBlockingView()
     
@@ -104,6 +105,8 @@ extension MediaView {
 extension MediaView {
     private func _init() {
         // lazy load content later
+        
+        isAccessibilityElement = true
     }
     
     public func setup(configuration: Configuration) {
@@ -115,13 +118,18 @@ extension MediaView {
         case .image(let info):
             layoutImage()
             bindImage(configuration: configuration, info: info)
+            accessibilityLabel = "Show image"       // TODO: i18n
         case .gif(let info):
             layoutGIF()
             bindGIF(configuration: configuration, info: info)
+            accessibilityLabel = "Show GIF"         // TODO: i18n
         case .video(let info):
             layoutVideo()
             bindVideo(configuration: configuration, info: info)
+            accessibilityLabel = "Show video player" // TODO: i18n
         }
+        
+        accessibilityHint = "Tap then hold to show menu"    // TODO: i18n
 
         layoutBlurhash()
         bindBlurhash(configuration: configuration)
@@ -147,7 +155,10 @@ extension MediaView {
         .receive(on: DispatchQueue.main)
         .sink { [weak self] isReveal, previewImage, blurhashImage in
             guard let self = self else { return }
-            let image = isReveal ? previewImage : blurhashImage
+            
+            let image = isReveal ?
+                (previewImage ?? blurhashImage ?? MediaView.placeholderImage) :
+                (blurhashImage ?? MediaView.placeholderImage)
             self.imageView.image = image
         }
         .store(in: &configuration.disposeBag)
@@ -197,30 +208,6 @@ extension MediaView {
             assetURL: info.previewURL
         )
         bindImage(configuration: configuration, info: imageInfo)
-        
-//        indicatorBlurEffectView.translatesAutoresizingMaskIntoConstraints = false
-//        imageView.addSubview(indicatorBlurEffectView)
-//        NSLayoutConstraint.activate([
-//            imageView.trailingAnchor.constraint(equalTo: indicatorBlurEffectView.trailingAnchor, constant: 11),
-//            imageView.bottomAnchor.constraint(equalTo: indicatorBlurEffectView.bottomAnchor, constant: 8),
-//        ])
-//        setupIndicatorViewHierarchy()
-        
-//        playerIndicatorLabel.attributedText = {
-//            let imageAttachment = NSTextAttachment(image: UIImage(systemName: "play.fill")!)
-//            let imageAttributedString = AttributedString(NSAttributedString(attachment: imageAttachment))
-//            let duration: String = {
-//                guard let durationMS = info.durationMS else { return "" }
-//                let timeInterval = TimeInterval(durationMS / 1000)
-//                guard timeInterval > 0 else { return "" }
-//                guard let text = MediaView.durationFormatter.string(from: timeInterval) else { return "" }
-//                return " \(text)"
-//            }()
-//            let textAttributedString = AttributedString("\(duration)")
-//            var attributedString = imageAttributedString + textAttributedString
-//            attributedString.foregroundColor = .secondaryLabel
-//            return NSAttributedString(attributedString)
-//        }()
     }
     
     private func layoutBlurhash() {
@@ -276,6 +263,8 @@ extension MediaView {
         playerViewController.player?.pause()
         playerViewController.player = nil
         playerLooper = nil
+        
+        playbackImageView.removeFromSuperview()
         
         // blurhash
         blurhashImageView.removeFromSuperview()

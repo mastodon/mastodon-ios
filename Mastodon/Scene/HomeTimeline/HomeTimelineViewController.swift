@@ -51,6 +51,7 @@ final class HomeTimelineViewController: UIViewController, NeedsDependency, Media
         let barButtonItem = UIBarButtonItem()
         barButtonItem.tintColor = ThemeService.tintColor
         barButtonItem.image = UIImage(systemName: "gear")?.withRenderingMode(.alwaysTemplate)
+        barButtonItem.accessibilityLabel = L10n.Common.Controls.Actions.settings
         return barButtonItem
     }()
     
@@ -58,6 +59,7 @@ final class HomeTimelineViewController: UIViewController, NeedsDependency, Media
         let barButtonItem = UIBarButtonItem()
         barButtonItem.tintColor = ThemeService.tintColor
         barButtonItem.image = UIImage(systemName: "square.and.pencil")?.withRenderingMode(.alwaysTemplate)
+        barButtonItem.accessibilityLabel = L10n.Common.Controls.Actions.compose
         return barButtonItem
     }()
     
@@ -125,6 +127,11 @@ extension HomeTimelineViewController {
         settingBarButtonItem.action = #selector(HomeTimelineViewController.settingBarButtonItemPressed(_:))
         #endif
         
+        #if SNAPSHOT
+        titleView.logoButton.menu = self.debugMenu
+        titleView.button.menu = self.debugMenu
+        #endif
+        
         viewModel.$displayComposeBarButtonItem
             .receive(on: DispatchQueue.main)
             .sink { [weak self] displayComposeBarButtonItem in
@@ -183,7 +190,6 @@ extension HomeTimelineViewController {
         ])
 
         viewModel.tableView = tableView
-        viewModel.contentOffsetAdjustableTimelineViewControllerDelegate = self
         tableView.delegate = self
         viewModel.setupDiffableDataSource(
             tableView: tableView,
@@ -541,26 +547,6 @@ extension HomeTimelineViewController: UITableViewDelegate, AutoGenerateTableView
     }
 
     // sourcery:end
-
-//    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-//        aspectTableView(tableView, estimatedHeightForRowAt: indexPath)
-//    }
-//
-//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-//        aspectTableView(tableView, willDisplay: cell, forRowAt: indexPath)
-//    }
-//
-//    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-//        aspectTableView(tableView, didEndDisplaying: cell, forRowAt: indexPath)
-//    }
-    
-}
-
-// MARK: - ContentOffsetAdjustableTimelineViewControllerDelegate
-extension HomeTimelineViewController: ContentOffsetAdjustableTimelineViewControllerDelegate {
-    func navigationBar() -> UINavigationBar? {
-        return navigationController?.navigationBar
-    }
 }
 
 // MARK: - TimelineMiddleLoaderTableViewCellDelegate
@@ -579,9 +565,13 @@ extension HomeTimelineViewController: TimelineMiddleLoaderTableViewCellDelegate 
 // MARK: - ScrollViewContainer
 extension HomeTimelineViewController: ScrollViewContainer {
     
-    var scrollView: UIScrollView { return tableView }
+    var scrollView: UIScrollView? { return tableView }
     
     func scrollToTop(animated: Bool) {
+        guard let scrollView = scrollView else {
+            return
+        }
+
         if scrollView.contentOffset.y < scrollView.frame.height,
            viewModel.loadLatestStateMachine.canEnterState(HomeTimelineViewModel.LoadLatestState.Loading.self),
            (scrollView.contentOffset.y + scrollView.adjustedContentInset.top) == 0.0,
@@ -637,19 +627,19 @@ extension HomeTimelineViewController: HomeTimelineNavigationBarTitleViewDelegate
     }
 }
 
-//extension HomeTimelineViewController {
-//    override var keyCommands: [UIKeyCommand]? {
-//        return navigationKeyCommands + statusNavigationKeyCommands
-//    }
-//}
-//
-//// MARK: - StatusTableViewControllerNavigateable
-//extension HomeTimelineViewController: StatusTableViewControllerNavigateable {
-//    @objc func navigateKeyCommandHandlerRelay(_ sender: UIKeyCommand) {
-//        navigateKeyCommandHandler(sender)
-//    }
-//
-//    @objc func statusKeyCommandHandlerRelay(_ sender: UIKeyCommand) {
-//        statusKeyCommandHandler(sender)
-//    }
-//}
+extension HomeTimelineViewController {
+    override var keyCommands: [UIKeyCommand]? {
+        return navigationKeyCommands + statusNavigationKeyCommands
+    }
+}
+
+// MARK: - StatusTableViewControllerNavigateable
+extension HomeTimelineViewController: StatusTableViewControllerNavigateable {
+    @objc func navigateKeyCommandHandlerRelay(_ sender: UIKeyCommand) {
+        navigateKeyCommandHandler(sender)
+    }
+
+    @objc func statusKeyCommandHandlerRelay(_ sender: UIKeyCommand) {
+        statusKeyCommandHandler(sender)
+    }
+}

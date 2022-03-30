@@ -16,6 +16,7 @@ final class NotificationTableViewCell: UITableViewCell {
     
     weak var delegate: NotificationTableViewCellDelegate?
     var disposeBag = Set<AnyCancellable>()
+    private var _disposeBag = Set<AnyCancellable>()
     
     let notificationView = NotificationView()
     
@@ -49,13 +50,13 @@ extension NotificationTableViewCell {
         notificationView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(notificationView)
         setupContainerViewMarginConstraints()
-        updateContainerViewMarginConstraints()
         NSLayoutConstraint.activate([
             notificationView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
             containerViewLeadingLayoutConstraint,
             containerViewTrailingLayoutConstraint,
             contentView.bottomAnchor.constraint(equalTo: notificationView.bottomAnchor),
         ])
+        updateContainerViewMarginConstraints()
         
         separatorLine.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(separatorLine)
@@ -66,7 +67,21 @@ extension NotificationTableViewCell {
             separatorLine.heightAnchor.constraint(equalToConstant: UIView.separatorLineHeight(of: contentView)).priority(.required - 1),
         ])
         
+        notificationView.quoteBackgroundView.backgroundColor = ThemeService.shared.currentTheme.value.secondarySystemBackgroundColor
+        ThemeService.shared.currentTheme
+            .sink { [weak self] theme in
+                guard let self = self else { return }
+                self.notificationView.quoteBackgroundView.backgroundColor = theme.secondarySystemBackgroundColor
+            }
+            .store(in: &_disposeBag)
+        
         notificationView.delegate = self
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        updateContainerViewMarginConstraints()
     }
     
 }

@@ -31,7 +31,7 @@ final class ReportResultActionTableViewCell: UITableViewCell {
     let reportBannerLabel: UILabel = {
         let label = UILabel()
         let padding = Array(repeating: " ", count: 2).joined()
-        label.text = padding + "Reported" + padding // TODO: i18n
+        label.text = padding + L10n.Scene.Report.reported + padding
         label.textColor = Asset.Scene.Report.reportBanner.color
         label.font = FontFamily.Staatliches.regular.font(size: 49)
         label.backgroundColor = Asset.Scene.Report.background.color
