@@ -11,6 +11,7 @@ import MastodonSDK
 import os.log
 import PhotosUI
 import UIKit
+import MastodonUI
 import MastodonAsset
 import MastodonLocalization
 
@@ -132,12 +133,12 @@ extension MastodonRegisterViewController {
         
         viewModel.setupDiffableDataSource(tableView: tableView)
         
-//        KeyboardResponderService
-//            .configure(
-//                scrollView: tableView,
-//                layoutNeedsUpdate: viewModel.viewDidAppear.eraseToAnyPublisher()
-//            )
-//            .store(in: &disposeBag)
+        KeyboardResponderService
+            .configure(
+                scrollView: tableView,
+                layoutNeedsUpdate: viewModel.viewDidAppear.eraseToAnyPublisher()
+            )
+            .store(in: &disposeBag)
 
         // gesture
         view.addGestureRecognizer(tapGestureRecognizer)
@@ -402,66 +403,4 @@ extension MastodonRegisterViewController {
         .store(in: &disposeBag)
     }
     
-}
-
-extension MastodonRegisterViewController: UITextFieldDelegate {
-//    func textFieldDidBeginEditing(_ textField: UITextField) {
-//        let text = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-//
-//        switch textField {
-//        case usernameTextField:
-//            viewModel.username.value = text
-//        case displayNameTextField:
-//            viewModel.displayName.value = text
-//        case emailTextField:
-//            viewModel.email.value = text
-//        case passwordTextField:
-//            viewModel.password.value = text
-//        case reasonTextField:
-//            viewModel.reason.value = text
-//        default:
-//            break
-//        }
-//    }
-//
-//    func textFieldDidEndEditing(_ textField: UITextField) {
-//        let text = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-//
-//        switch textField {
-//        case usernameTextField:
-//            viewModel.username.value = text
-//        case displayNameTextField:
-//            viewModel.displayName.value = text
-//        case emailTextField:
-//            viewModel.email.value = text
-//        case passwordTextField:
-//            viewModel.password.value = text
-//        case reasonTextField:
-//            viewModel.reason.value = text
-//        default:
-//            break
-//        }
-//    }
-//
-//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-//        switch textField {
-//        case usernameTextField:
-//            displayNameTextField.becomeFirstResponder()
-//        case displayNameTextField:
-//            emailTextField.becomeFirstResponder()
-//        case emailTextField:
-//            passwordTextField.becomeFirstResponder()
-//        case passwordTextField:
-//            if viewModel.approvalRequired {
-//                reasonTextField.becomeFirstResponder()
-//            } else {
-//                passwordTextField.resignFirstResponder()
-//            }
-//        case reasonTextField:
-//            reasonTextField.resignFirstResponder()
-//        default:
-//            break
-//        }
-//        return true
-//    }
 }
