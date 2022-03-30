@@ -153,13 +153,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 reply</string>
+        <string>%ld fhreagairt</string>
         <key>two</key>
-        <string>%ld replies</string>
+        <string>%ld fhreagairt</string>
         <key>few</key>
-        <string>%ld replies</string>
+        <string>%ld freagairtean</string>
         <key>other</key>
-        <string>%ld replies</string>
+        <string>%ld freagairt</string>
       </dict>
     </dict>
     <key>plural.count.vote</key>
