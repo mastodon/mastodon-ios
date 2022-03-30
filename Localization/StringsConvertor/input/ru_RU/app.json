@@ -130,6 +130,7 @@
                 "show_user_profile": "Показать профиль пользователя",
                 "content_warning": "Предупреждение о содержании",
                 "media_content_warning": "Нажмите в любом месте, чтобы показать",
+                "tap_to_reveal": "Tap to reveal",
                 "poll": {
                     "vote": "Проголосовать",
                     "closed": "Завершён"
@@ -141,7 +142,11 @@
                     "favorite": "Добавить в избранное",
                     "unfavorite": "Убрать из избранного",
                     "menu": "Меню",
-                    "hide": "Hide"
+                    "hide": "Hide",
+                    "show_image": "Show image",
+                    "show_gif": "Show GIF",
+                    "show_video_player": "Show video player",
+                    "tap_then_hold_to_show_menu": "Tap then hold to show menu"
                 },
                 "tag": {
                     "url": "Ссылка",
@@ -440,6 +445,12 @@
                     "title": "Unblock Account",
                     "message": "Confirm to unblock %s"
                 }
+            },
+            "accessibility": {
+                "show_avatar_image": "Show avatar image",
+                "edit_avatar_image": "Edit avatar image",
+                "show_banner_image": "Show banner image",
+                "double_tap_to_open_the_list": "Double tap to open the list"
             }
         },
         "follower": {
@@ -541,7 +552,8 @@
                     "true_black_dark_mode": "Полноценно чёрный режим",
                     "disable_avatar_animation": "Отключить анимацию аватарок",
                     "disable_emoji_animation": "Отключить анимацию эмодзи",
-                    "using_default_browser": "Использовать браузер по умолчанию для открытия ссылок"
+                    "using_default_browser": "Использовать браузер по умолчанию для открытия ссылок",
+                    "open_links_in_mastodon": "Open links in Mastodon"
                 },
                 "boring_zone": {
                     "title": "Зона скукотищи",
