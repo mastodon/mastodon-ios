@@ -129,8 +129,8 @@
                 "show_post": "إظهار منشور",
                 "show_user_profile": "إظهار الملف التعريفي للمُستخدِم",
                 "content_warning": "تحذير المُحتوى",
-                "media_content_warning": "انقر للكشف",
-                "tap_to_reveal": "Tap to reveal",
+                "media_content_warning": "اُنقُر لِلكَشف",
+                "tap_to_reveal": "اُنقُر لِلكَشف",
                 "poll": {
                     "vote": "صَوِّت",
                     "closed": "انتهى"
@@ -143,10 +143,10 @@
                     "unfavorite": "إزالة التفضيل",
                     "menu": "القائمة",
                     "hide": "إخفاء",
-                    "show_image": "Show image",
-                    "show_gif": "Show GIF",
-                    "show_video_player": "Show video player",
-                    "tap_then_hold_to_show_menu": "Tap then hold to show menu"
+                    "show_image": "أظْهِرِ الصُّورَة",
+                    "show_gif": "إظهارُ GIF",
+                    "show_video_player": "إظْهارُ مُشَغِّلِ المَقاطِعِ المَرئِيَّة",
+                    "tap_then_hold_to_show_menu": "اُنقُر مُطَوَّلًا لِإظْهَارِ القائِمَة"
                 },
                 "tag": {
                     "url": "عنوان URL",
@@ -447,10 +447,10 @@
                 }
             },
             "accessibility": {
-                "show_avatar_image": "Show avatar image",
-                "edit_avatar_image": "Edit avatar image",
+                "show_avatar_image": "إظْهارُ الصُّورَةِ الرَّمزِيَّة",
+                "edit_avatar_image": "تَحريرُ الصُّورَةِ الرَّمزِيَّة",
                 "show_banner_image": "Show banner image",
-                "double_tap_to_open_the_list": "Double tap to open the list"
+                "double_tap_to_open_the_list": "اُنقُر نَقرًا مُزدَوَجًا لِفَتحِ القائِمَة"
             }
         },
         "follower": {
@@ -553,7 +553,7 @@
                     "disable_avatar_animation": "تَعطيلُ الصوَرِ الرمزيَّةِ المُتحرِّكَة",
                     "disable_emoji_animation": "تَعطيلُ الرُموزِ التَّعبيريَّةِ المُتحرِّكَة",
                     "using_default_browser": "اِستِخدامُ المُتصفِّحِ الاِفتراضي لِفتحِ الرَّوابِط",
-                    "open_links_in_mastodon": "Open links in Mastodon"
+                    "open_links_in_mastodon": "فَتحُ الرَّوابِطِ فِي مَاستودُون"
                 },
                 "boring_zone": {
                     "title": "المنطِقَةُ المُملَّة",
