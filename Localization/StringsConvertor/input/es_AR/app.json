@@ -130,6 +130,7 @@
                 "show_user_profile": "Mostrar perfil de usuario",
                 "content_warning": "Advertencia de contenido",
                 "media_content_warning": "Toca en cualquier lugar para mostrar",
+                "tap_to_reveal": "Tap to reveal",
                 "poll": {
                     "vote": "Votar",
                     "closed": "Cerrada"
@@ -141,7 +142,11 @@
                     "favorite": "Marcar como favorito",
                     "unfavorite": "Dejar de marcar como favorito",
                     "menu": "Menú",
-                    "hide": "Ocultar"
+                    "hide": "Ocultar",
+                    "show_image": "Show image",
+                    "show_gif": "Show GIF",
+                    "show_video_player": "Show video player",
+                    "tap_then_hold_to_show_menu": "Tap then hold to show menu"
                 },
                 "tag": {
                     "url": "Dirección web",
@@ -440,6 +445,12 @@
                     "title": "Desbloquear cuenta",
                     "message": "Confirmá para desbloquear a %s"
                 }
+            },
+            "accessibility": {
+                "show_avatar_image": "Show avatar image",
+                "edit_avatar_image": "Edit avatar image",
+                "show_banner_image": "Show banner image",
+                "double_tap_to_open_the_list": "Double tap to open the list"
             }
         },
         "follower": {
@@ -541,7 +552,8 @@
                     "true_black_dark_mode": "Modo negro oscuro real",
                     "disable_avatar_animation": "Deshabilitar avatares animados",
                     "disable_emoji_animation": "Deshabilitar emojis animados",
-                    "using_default_browser": "Usar navegador web predeterminado para abrir enlaces"
+                    "using_default_browser": "Usar navegador web predeterminado para abrir enlaces",
+                    "open_links_in_mastodon": "Open links in Mastodon"
                 },
                 "boring_zone": {
                     "title": "La zona aburrida",
