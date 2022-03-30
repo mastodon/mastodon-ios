@@ -59,7 +59,7 @@ open Mastodon.xcworkspace
 
 The CocoaPods-Key plugin will request the push notification endpoint. You can fufill the empty string and set it later. To setup the push notification. Please check section `Push Notification` below.
 
-The app requires the `App Group` capability. To make sure it works for your developer membership. Please check [AppSecret.swift](../AppShared/AppSecret.swift) file and set another unique `groupID` and update `App Group` settings.
+The app requires the `App Group` capability. To make sure it works for your developer membership. Please check [AppSecret.swift](../AppShared/AppSecret.swift) and [AppName.swift](../MastodonSDK/Sources/MastodonCommon/AppName.swift) file and set another unique `groupID` and update `App Group` settings.
 
 #### Push Notification (Optional)
 The app is compatible with [toot-relay](https://github.com/DagAgren/toot-relay) APNs. You can set your push notification endpoint via Cocoapod-Keys. There are two endpoints:
@@ -80,4 +80,4 @@ Please check and set the `notification.Topic` to the app BundleID in [toot-relay
 
 ## What's next
 
-We welcome contributions! And if you have an interest to contribute codes. Here is a document that describes the app architecture and what's tech stack it uses.
+We welcome contributions! And if you have an interest to contribute codes. [Here](./How-it-works.md) is a document that describes the app architecture and what's tech stack it uses.
