@@ -325,65 +325,65 @@
             },
             "dont_receive_email": {
                 "title": "Controlla la tua e-mail",
-                "description": "Check if your email address is correct as well as your junk folder if you haven’t.",
-                "resend_email": "Resend Email"
+                "description": "Controlla se il tuo indirizzo email sia corretto, così come la tua cartella spazzatura se non ce l'hai.",
+                "resend_email": "Invia e-mail di nuovo"
             },
             "open_email_app": {
-                "title": "Check your inbox.",
-                "description": "We just sent you an email. Check your junk folder if you haven’t.",
-                "mail": "Mail",
-                "open_email_client": "Open Email Client"
+                "title": "Controlla la tua posta in arrivo.",
+                "description": "Ti abbiamo appena inviato un'email. Controlla la tua cartella spazzatura se non ce l'hai.",
+                "mail": "Posta",
+                "open_email_client": "Apri client Email"
             }
         },
         "home_timeline": {
-            "title": "Home",
+            "title": "Inizio",
             "navigation_bar_state": {
-                "offline": "Offline",
-                "new_posts": "See new posts",
-                "published": "Published!",
-                "Publishing": "Publishing post..."
+                "offline": "Non in linea",
+                "new_posts": "Vedi nuovi post",
+                "published": "Pubblicato!",
+                "Publishing": "Pubblicazione post..."
             }
         },
         "suggestion_account": {
-            "title": "Find People to Follow",
-            "follow_explain": "When you follow someone, you’ll see their posts in your home feed."
+            "title": "Trova alcune persone da seguire",
+            "follow_explain": "Quando segui qualcuno, vedrai i loro post nella tua home feed."
         },
         "compose": {
             "title": {
-                "new_post": "New Post",
-                "new_reply": "New Reply"
+                "new_post": "Nuovo post",
+                "new_reply": "Nuova risposta"
             },
             "media_selection": {
-                "camera": "Take Photo",
-                "photo_library": "Photo Library",
-                "browse": "Browse"
+                "camera": "Scatta foto",
+                "photo_library": "Libreria foto",
+                "browse": "Sfoglia"
             },
-            "content_input_placeholder": "Type or paste what’s on your mind",
-            "compose_action": "Publish",
-            "replying_to_user": "replying to %s",
+            "content_input_placeholder": "Digita o incolla quello che hai in mente",
+            "compose_action": "Pubblica",
+            "replying_to_user": "rispondendo a %s",
             "attachment": {
-                "photo": "photo",
-                "video": "video",
-                "attachment_broken": "This %s is broken and can’t be\nuploaded to Mastodon.",
-                "description_photo": "Describe the photo for the visually-impaired...",
-                "description_video": "Describe the video for the visually-impaired..."
+                "photo": "foto",
+                "video": "filmato",
+                "attachment_broken": "Questo %s è rotto e non può essere\ncaricato su Mastodon.",
+                "description_photo": "Descrivi la foto per gli utenti ipovedenti...",
+                "description_video": "Descrivi il filmato per gli utenti ipovedenti..."
             },
             "poll": {
-                "duration_time": "Duration: %s",
-                "thirty_minutes": "30 minutes",
-                "one_hour": "1 Hour",
-                "six_hours": "6 Hours",
-                "one_day": "1 Day",
-                "three_days": "3 Days",
-                "seven_days": "7 Days",
-                "option_number": "Option %ld"
+                "duration_time": "Durata: %s",
+                "thirty_minutes": "30 minuti",
+                "one_hour": "1 ora",
+                "six_hours": "6 ore",
+                "one_day": "1 giorno",
+                "three_days": "3 giorni",
+                "seven_days": "7 giorni",
+                "option_number": "Opzione %ld"
             },
             "content_warning": {
-                "placeholder": "Write an accurate warning here..."
+                "placeholder": "Scrivi un avviso accurato qui..."
             },
             "visibility": {
-                "public": "Public",
-                "unlisted": "Unlisted",
+                "public": "Pubblico",
+                "unlisted": "Non elencato",
                 "private": "Followers only",
                 "direct": "Only people I mention"
             },
