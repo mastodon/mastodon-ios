@@ -515,94 +515,94 @@
         },
         "thread": {
             "back_title": "Tút",
-            "title": "Post from %s"
+            "title": "Tút của %s"
         },
         "settings": {
-            "title": "Settings",
+            "title": "Cài đặt",
             "section": {
                 "appearance": {
-                    "title": "Appearance",
-                    "automatic": "Automatic",
-                    "light": "Always Light",
-                    "dark": "Always Dark"
+                    "title": "Giao diện",
+                    "automatic": "Tự động",
+                    "light": "Sáng",
+                    "dark": "Tối"
                 },
                 "look_and_feel": {
-                    "title": "Look and Feel",
-                    "use_system": "Use System",
-                    "really_dark": "Really Dark",
-                    "sorta_dark": "Sorta Dark",
-                    "light": "Light"
+                    "title": "Giao diện",
+                    "use_system": "Mặc định hệ thống",
+                    "really_dark": "Tối Mạnh",
+                    "sorta_dark": "Tối Nhẹ",
+                    "light": "Sáng"
                 },
                 "notifications": {
-                    "title": "Notifications",
-                    "favorites": "Favorites my post",
-                    "follows": "Follows me",
-                    "boosts": "Reblogs my post",
-                    "mentions": "Mentions me",
+                    "title": "Thông báo",
+                    "favorites": "Thích tút của tôi",
+                    "follows": "Theo dõi tôi",
+                    "boosts": "Đăng lại tút của tôi",
+                    "mentions": "Nhắc đến tôi",
                     "trigger": {
-                        "anyone": "anyone",
-                        "follower": "a follower",
-                        "follow": "anyone I follow",
-                        "noone": "no one",
-                        "title": "Notify me when"
+                        "anyone": "ai đó",
+                        "follower": "người theo dõi",
+                        "follow": "người tôi theo dõi",
+                        "noone": "không một ai",
+                        "title": "Thông báo khi"
                     }
                 },
                 "preference": {
-                    "title": "Preferences",
-                    "true_black_dark_mode": "True black dark mode",
-                    "disable_avatar_animation": "Disable animated avatars",
-                    "disable_emoji_animation": "Disable animated emojis",
-                    "using_default_browser": "Use default browser to open links",
-                    "open_links_in_mastodon": "Open links in Mastodon"
+                    "title": "Chung",
+                    "true_black_dark_mode": "Chế độ tối chân thật",
+                    "disable_avatar_animation": "Tắt ảnh đại diện GIF",
+                    "disable_emoji_animation": "Tắt emoji dạng GIF",
+                    "using_default_browser": "Dùng trình duyệt mặc định",
+                    "open_links_in_mastodon": "Mở liên kết trong Mastodon"
                 },
                 "boring_zone": {
-                    "title": "The Boring Zone",
-                    "account_settings": "Account Settings",
-                    "terms": "Terms of Service",
-                    "privacy": "Privacy Policy"
+                    "title": "Nhàm chán",
+                    "account_settings": "Cài đặt tài khoản",
+                    "terms": "Điều khoản dịch vụ",
+                    "privacy": "Chính sách bảo mật"
                 },
                 "spicy_zone": {
-                    "title": "The Spicy Zone",
-                    "clear": "Clear Media Cache",
-                    "signout": "Sign Out"
+                    "title": "Thú vị",
+                    "clear": "Xóa bộ nhớ đệm",
+                    "signout": "Đăng xuất"
                 }
             },
             "footer": {
-                "mastodon_description": "Mastodon is open source software. You can report issues on GitHub at %s (%s)"
+                "mastodon_description": "Mastodon là phần mềm mã nguồn mở. Bạn có thể báo lỗi trên GitHub tại %s (%s)"
             },
             "keyboard": {
-                "close_settings_window": "Close Settings Window"
+                "close_settings_window": "Đóng cửa sổ cài đặt"
             }
         },
         "report": {
-            "title_report": "Report",
-            "title": "Report %s",
-            "step1": "Step 1 of 2",
-            "step2": "Step 2 of 2",
-            "content1": "Are there any other posts you’d like to add to the report?",
-            "content2": "Is there anything the moderators should know about this report?",
-            "report_sent_title": "Thanks for reporting, we’ll look into this.",
-            "send": "Send Report",
-            "skip_to_send": "Send without comment",
-            "text_placeholder": "Type or paste additional comments",
-            "reported": "REPORTED"
+            "title_report": "Báo cáo",
+            "title": "Báo cáo %s",
+            "step1": "Bước 1 trong 2",
+            "step2": "Bước 2 trong 2",
+            "content1": "Bạn muốn thêm tút nào vào báo cáo nữa không?",
+            "content2": "Kiểm duyệt viên cần biết gì về báo cáo này?",
+            "report_sent_title": "Cảm ơn đã báo cáo, chúng tôi sẽ xem xét kỹ.",
+            "send": "Gửi báo cáo",
+            "skip_to_send": "Gửi không ghi chú",
+            "text_placeholder": "Nhập hoặc bổ sung chú thích",
+            "reported": "ĐÃ BÁO CÁO"
         },
         "preview": {
             "keyboard": {
-                "close_preview": "Close Preview",
-                "show_next": "Show Next",
-                "show_previous": "Show Previous"
+                "close_preview": "Đóng xem trước",
+                "show_next": "Hiện kế tiếp",
+                "show_previous": "Hiện trước đó"
             }
         },
         "account_list": {
-            "tab_bar_hint": "Current selected profile: %s. Double tap then hold to show account switcher",
-            "dismiss_account_switcher": "Dismiss Account Switcher",
-            "add_account": "Add Account"
+            "tab_bar_hint": "Đang dùng tài khoản: %s. Nhấn hai lần và giữ để đổi sang tài khoản khác",
+            "dismiss_account_switcher": "Bỏ qua chuyển đổi tài khoản",
+            "add_account": "Thêm tài khoản"
         },
         "wizard": {
-            "new_in_mastodon": "New in Mastodon",
-            "multiple_account_switch_intro_description": "Switch between multiple accounts by holding the profile button.",
-            "accessibility_hint": "Double tap to dismiss this wizard"
+            "new_in_mastodon": "Mới trên Mastodon",
+            "multiple_account_switch_intro_description": "Chuyển đổi giữa nhiều tài khoản bằng cách đè giữ nút tài khoản.",
+            "accessibility_hint": "Nhấn hai lần để bỏ qua"
         }
     }
 }
