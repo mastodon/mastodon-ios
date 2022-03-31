@@ -181,15 +181,15 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld replies</string>
+        <string>لا رَدّ</string>
         <key>one</key>
-        <string>1 reply</string>
+        <string>رَدٌّ واحِد</string>
         <key>two</key>
-        <string>%ld replies</string>
+        <string>رَدَّانِ اِثنان</string>
         <key>few</key>
-        <string>%ld replies</string>
+        <string>%ld رُدُود</string>
         <key>many</key>
-        <string>%ld replies</string>
+        <string>%ld رَدًّا</string>
         <key>other</key>
         <string>%ld رَدّ</string>
       </dict>
