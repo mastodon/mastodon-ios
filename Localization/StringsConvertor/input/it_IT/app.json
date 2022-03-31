@@ -475,90 +475,90 @@
                 "accounts": {
                     "title": "Accounts you might like",
                     "description": "You may like to follow these accounts",
-                    "follow": "Follow"
+                    "follow": "Segui"
                 }
             },
             "searching": {
                 "segment": {
-                    "all": "All",
-                    "people": "People",
+                    "all": "Tutto",
+                    "people": "Persone",
                     "hashtags": "Hashtags",
-                    "posts": "Posts"
+                    "posts": "Post"
                 },
                 "empty_state": {
-                    "no_results": "No results"
+                    "no_results": "Nessun risultato"
                 },
-                "recent_search": "Recent searches",
-                "clear": "Clear"
+                "recent_search": "Ricerche recenti",
+                "clear": "Cancella"
             }
         },
         "favorite": {
-            "title": "Your Favorites"
+            "title": "I tuoi preferiti"
         },
         "notification": {
             "title": {
-                "Everything": "Everything",
-                "Mentions": "Mentions"
+                "Everything": "Tutto",
+                "Mentions": "Menzioni"
             },
             "notification_description": {
-                "followed_you": "followed you",
-                "favorited_your_post": "favorited your post",
-                "reblogged_your_post": "reblogged your post",
-                "mentioned_you": "mentioned you",
-                "request_to_follow_you": "request to follow you",
-                "poll_has_ended": "poll has ended"
+                "followed_you": "ti ha seguito",
+                "favorited_your_post": "ha apprezzato il tuo post",
+                "reblogged_your_post": "ha ripostato il tuo post",
+                "mentioned_you": "ti ha menzionato",
+                "request_to_follow_you": "richiesta di seguirti",
+                "poll_has_ended": "sondaggio terminato"
             },
             "keyobard": {
-                "show_everything": "Show Everything",
-                "show_mentions": "Show Mentions"
+                "show_everything": "Mostra Tutto",
+                "show_mentions": "Mostra Menzioni"
             }
         },
         "thread": {
             "back_title": "Post",
-            "title": "Post from %s"
+            "title": "Post da %s"
         },
         "settings": {
-            "title": "Settings",
+            "title": "Impostazioni",
             "section": {
                 "appearance": {
-                    "title": "Appearance",
-                    "automatic": "Automatic",
-                    "light": "Always Light",
-                    "dark": "Always Dark"
+                    "title": "Aspetto",
+                    "automatic": "Automatico",
+                    "light": "Sempre chiaro",
+                    "dark": "Sempre scuro"
                 },
                 "look_and_feel": {
                     "title": "Look and Feel",
-                    "use_system": "Use System",
-                    "really_dark": "Really Dark",
-                    "sorta_dark": "Sorta Dark",
-                    "light": "Light"
+                    "use_system": "Predefinito di sistema",
+                    "really_dark": "Davvero scuro",
+                    "sorta_dark": "Un po' scuro",
+                    "light": "Chiaro"
                 },
                 "notifications": {
-                    "title": "Notifications",
-                    "favorites": "Favorites my post",
-                    "follows": "Follows me",
-                    "boosts": "Reblogs my post",
-                    "mentions": "Mentions me",
+                    "title": "Notifiche",
+                    "favorites": "Apprezza i miei post",
+                    "follows": "Mi segue",
+                    "boosts": "Condivide i miei post",
+                    "mentions": "Mi menziona",
                     "trigger": {
-                        "anyone": "anyone",
-                        "follower": "a follower",
-                        "follow": "anyone I follow",
-                        "noone": "no one",
-                        "title": "Notify me when"
+                        "anyone": "chiunque",
+                        "follower": "un seguace",
+                        "follow": "chiunque io segua",
+                        "noone": "nessuno",
+                        "title": "Avvisami quando"
                     }
                 },
                 "preference": {
-                    "title": "Preferences",
-                    "true_black_dark_mode": "True black dark mode",
-                    "disable_avatar_animation": "Disable animated avatars",
-                    "disable_emoji_animation": "Disable animated emojis",
-                    "using_default_browser": "Use default browser to open links",
-                    "open_links_in_mastodon": "Open links in Mastodon"
+                    "title": "Preferenze",
+                    "true_black_dark_mode": "Modalità molto scura",
+                    "disable_avatar_animation": "Disabilita avatar animati",
+                    "disable_emoji_animation": "Disabilita emoji animate",
+                    "using_default_browser": "Usa browser predefinito per aprire i collegamenti",
+                    "open_links_in_mastodon": "Apri i link in Mastodon"
                 },
                 "boring_zone": {
-                    "title": "The Boring Zone",
-                    "account_settings": "Account Settings",
-                    "terms": "Terms of Service",
+                    "title": "La zona boring",
+                    "account_settings": "Impostazioni account",
+                    "terms": "Termini di servizio",
                     "privacy": "Privacy Policy"
                 },
                 "spicy_zone": {
