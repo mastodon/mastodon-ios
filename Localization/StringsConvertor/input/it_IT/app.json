@@ -165,60 +165,60 @@
             },
             "friendship": {
                 "follow": "Segui",
-                "following": "Following",
-                "request": "Request",
-                "pending": "Pending",
-                "block": "Block",
-                "block_user": "Block %s",
-                "block_domain": "Block %s",
-                "unblock": "Unblock",
-                "unblock_user": "Unblock %s",
-                "blocked": "Blocked",
-                "mute": "Mute",
-                "mute_user": "Mute %s",
-                "unmute": "Unmute",
-                "unmute_user": "Unmute %s",
-                "muted": "Muted",
-                "edit_info": "Edit Info"
+                "following": "Stai seguendo",
+                "request": "Richiesta",
+                "pending": "In attesa",
+                "block": "Blocca",
+                "block_user": "Blocca %s",
+                "block_domain": "Blocca %s",
+                "unblock": "Sblocca",
+                "unblock_user": "Sblocca %s",
+                "blocked": "Bloccato",
+                "mute": "Silenzia",
+                "mute_user": "Silenzia %s",
+                "unmute": "Riattiva",
+                "unmute_user": "Riattiva %s",
+                "muted": "Silenziato",
+                "edit_info": "Modifica info"
             },
             "timeline": {
-                "filtered": "Filtered",
+                "filtered": "Filtrato",
                 "timestamp": {
-                    "now": "Now"
+                    "now": "Ora"
                 },
                 "loader": {
-                    "load_missing_posts": "Load missing posts",
-                    "loading_missing_posts": "Loading missing posts...",
-                    "show_more_replies": "Show more replies"
+                    "load_missing_posts": "Carica i post mancanti",
+                    "loading_missing_posts": "Caricamento post mancanti...",
+                    "show_more_replies": "Mostra più risposte"
                 },
                 "header": {
-                    "no_status_found": "No Post Found",
-                    "blocking_warning": "You can’t view this user's profile\nuntil you unblock them.\nYour profile looks like this to them.",
-                    "user_blocking_warning": "You can’t view %s’s profile\nuntil you unblock them.\nYour profile looks like this to them.",
-                    "blocked_warning": "You can’t view this user’s profile\nuntil they unblock you.",
-                    "user_blocked_warning": "You can’t view %s’s profile\nuntil they unblock you.",
-                    "suspended_warning": "This user has been suspended.",
-                    "user_suspended_warning": "%s’s account has been suspended."
+                    "no_status_found": "Nessun post trovato",
+                    "blocking_warning": "Non puoi visualizzare il profilo di questo utente\nfinché non li sblocchi.\nIl tuo profilo sembra questo per loro.",
+                    "user_blocking_warning": "Non puoi visualizzare il profilo di %s\nfinché non li sblocchi.\nIl tuo profilo sembra questo per loro.",
+                    "blocked_warning": "Non puoi visualizzare il profilo di questo utente\nfino a quando non ti sbloccano.",
+                    "user_blocked_warning": "Non puoi visualizzare il profilo di %s\nfino a quando non ti sbloccano.",
+                    "suspended_warning": "Questo utente è stato sospeso.",
+                    "user_suspended_warning": "L'account di %s è stato sospeso."
                 }
             }
         }
     },
     "scene": {
         "welcome": {
-            "slogan": "Social networking\nback in your hands.",
-            "get_started": "Get Started",
-            "log_in": "Log In"
+            "slogan": "Il social network, di nuovo nelle tue mani.",
+            "get_started": "Inizia",
+            "log_in": "Accedi"
         },
         "server_picker": {
-            "title": "Mastodon is made of users in different communities.",
-            "subtitle": "Pick a community based on your interests, region, or a general purpose one.",
-            "subtitle_extend": "Pick a community based on your interests, region, or a general purpose one. Each community is operated by an entirely independent organization or individual.",
+            "title": "Mastodon è fatto di utenti in diverse comunità.",
+            "subtitle": "Scegli una comunità basata sui tuoi interessi, regione o uno scopo generale.",
+            "subtitle_extend": "Scegli una comunità basata sui tuoi interessi, regione o uno scopo generale. Ogni comunità è gestita da un'organizzazione completamente indipendente o individuale.",
             "button": {
                 "category": {
-                    "all": "All",
-                    "all_accessiblity_description": "Category: All",
-                    "academia": "academia",
-                    "activism": "activism",
+                    "all": "Tutti",
+                    "all_accessiblity_description": "Categoria: Tutti",
+                    "academia": "accademia",
+                    "activism": "attivismo",
                     "food": "food",
                     "furry": "furry",
                     "games": "games",
@@ -301,30 +301,30 @@
                 "special": {
                     "username_invalid": "Username must only contain alphanumeric characters and underscores",
                     "username_too_long": "Username is too long (can’t be longer than 30 characters)",
-                    "email_invalid": "This is not a valid email address",
-                    "password_too_short": "Password is too short (must be at least 8 characters)"
+                    "email_invalid": "Questo non è un indirizzo email valido",
+                    "password_too_short": "La password è troppo corta (deve contenere almeno 8 caratteri)"
                 }
             }
         },
         "server_rules": {
-            "title": "Some ground rules.",
-            "subtitle": "These are set and enforced by the %s moderators.",
-            "prompt": "By continuing, you’re subject to the terms of service and privacy policy for %s.",
-            "terms_of_service": "terms of service",
+            "title": "Alcune regole di base.",
+            "subtitle": "Questi sono impostati e applicati dai moderatori %s.",
+            "prompt": "Continuando, sei soggetto alle condizioni di servizio e all'informativa sulla privacy per %s.",
+            "terms_of_service": "condizioni del servizio",
             "privacy_policy": "privacy policy",
             "button": {
-                "confirm": "I Agree"
+                "confirm": "Accetto"
             }
         },
         "confirm_email": {
-            "title": "One last thing.",
-            "subtitle": "Tap the link we emailed to you to verify your account.",
+            "title": "Un'ultima cosa.",
+            "subtitle": "Tocca il link che ti abbiamo inviato per verificare il tuo account.",
             "button": {
-                "open_email_app": "Open Email App",
-                "resend": "Resend"
+                "open_email_app": "Apri l'app Email",
+                "resend": "Invia di nuovo"
             },
             "dont_receive_email": {
-                "title": "Check your email",
+                "title": "Controlla la tua e-mail",
                 "description": "Check if your email address is correct as well as your junk folder if you haven’t.",
                 "resend_email": "Resend Email"
             },
