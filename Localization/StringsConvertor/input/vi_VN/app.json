@@ -2,84 +2,84 @@
     "common": {
         "alerts": {
             "common": {
-                "please_try_again": "Please try again.",
-                "please_try_again_later": "Please try again later."
+                "please_try_again": "Vui lòng thử lại.",
+                "please_try_again_later": "Vui lòng thử lại sau."
             },
             "sign_up_failure": {
-                "title": "Sign Up Failure"
+                "title": "Đăng ký không thành công"
             },
             "server_error": {
-                "title": "Server Error"
+                "title": "Lỗi máy chủ"
             },
             "vote_failure": {
-                "title": "Vote Failure",
-                "poll_ended": "The poll has ended"
+                "title": "Bình chọn không thành công",
+                "poll_ended": "Cuộc bình chọn đã kết thúc"
             },
             "discard_post_content": {
-                "title": "Discard Draft",
-                "message": "Confirm to discard composed post content."
+                "title": "Hủy bản nháp",
+                "message": "Xác nhận bỏ qua nội dung tút đã viết."
             },
             "publish_post_failure": {
-                "title": "Publish Failure",
-                "message": "Failed to publish the post.\nPlease check your internet connection.",
+                "title": "Đăng tút không thành công",
+                "message": "Không thể đăng tút.\nVui lòng kiểm tra kết nối mạng.",
                 "attachments_message": {
-                    "video_attach_with_photo": "Cannot attach a video to a post that already contains images.",
-                    "more_than_one_video": "Cannot attach more than one video."
+                    "video_attach_with_photo": "Không thể đính kèm video cùng với hình ảnh.",
+                    "more_than_one_video": "Không thể đính kèm nhiều video."
                 }
             },
             "edit_profile_failure": {
-                "title": "Edit Profile Error",
-                "message": "Cannot edit profile. Please try again."
+                "title": "Lỗi chỉnh sửa trang cá nhân",
+                "message": "Không thể chỉnh sửa trang cá nhân. Vui lòng thử lại."
             },
             "sign_out": {
-                "title": "Sign Out",
-                "message": "Are you sure you want to sign out?",
-                "confirm": "Sign Out"
+                "title": "Đăng xuất",
+                "message": "Bạn có chắc muốn đăng xuất không?",
+                "confirm": "Đăng xuất"
             },
             "block_domain": {
-                "title": "Are you really, really sure you want to block the entire %s? In most cases a few targeted blocks or mutes are sufficient and preferable. You will not see content from that domain and any of your followers from that domain will be removed.",
-                "block_entire_domain": "Block Domain"
+                "title": "Bạn thật sự muốn ẩn toàn bộ nội dung từ %s? Sẽ hợp lý hơn nếu bạn chỉ chặn hoặc ẩn một vài tài khoản cụ thể. Ẩn toàn bộ nội dung từ máy chủ sẽ khiến bạn không còn thấy nội dung từ máy chủ đó ở bất kỳ nơi nào, kể cả thông báo. Người theo dõi bạn từ máy chủ đó cũng sẽ bị xóa luôn.",
+                "block_entire_domain": "Chặn máy chủ"
             },
             "save_photo_failure": {
-                "title": "Save Photo Failure",
-                "message": "Please enable the photo library access permission to save the photo."
+                "title": "Lưu hình ảnh không thành công",
+                "message": "Vui lòng cho phép quyền truy cập thư viện hình ảnh để lưu hình ảnh về máy."
             },
             "delete_post": {
-                "title": "Delete Post",
-                "message": "Are you sure you want to delete this post?"
+                "title": "Xóa tút",
+                "message": "Bạn có chắc muốn xóa tút này không?"
             },
             "clean_cache": {
-                "title": "Clean Cache",
-                "message": "Successfully cleaned %s cache."
+                "title": "Xóa bộ nhớ đệm",
+                "message": "Đã xóa %s bộ nhớ đệm."
             }
         },
         "controls": {
             "actions": {
-                "back": "Back",
-                "next": "Next",
-                "previous": "Previous",
-                "open": "Open",
-                "add": "Add",
-                "remove": "Remove",
-                "edit": "Edit",
-                "save": "Save",
+                "back": "Quay lại",
+                "next": "Kế tiếp",
+                "previous": "Trước đó",
+                "open": "Mở",
+                "add": "Thêm",
+                "remove": "Xóa",
+                "edit": "Sửa",
+                "save": "Lưu",
                 "ok": "OK",
-                "done": "Done",
-                "confirm": "Confirm",
-                "continue": "Continue",
-                "compose": "Compose",
-                "cancel": "Cancel",
-                "discard": "Discard",
-                "try_again": "Try Again",
-                "take_photo": "Take Photo",
-                "save_photo": "Save Photo",
-                "copy_photo": "Copy Photo",
-                "sign_in": "Sign In",
-                "sign_up": "Sign Up",
-                "see_more": "See More",
-                "preview": "Preview",
-                "share": "Share",
-                "share_user": "Share %s",
+                "done": "Xong",
+                "confirm": "Xác nhận",
+                "continue": "Tiếp tục",
+                "compose": "Viết tút",
+                "cancel": "Hủy bỏ",
+                "discard": "Bỏ qua",
+                "try_again": "Thử lại",
+                "take_photo": "Chụp ảnh",
+                "save_photo": "Lưu ảnh",
+                "copy_photo": "Sao chép ảnh",
+                "sign_in": "Đăng nhập",
+                "sign_up": "Đăng ký",
+                "see_more": "Xem thêm",
+                "preview": "Xem trước",
+                "share": "Chia sẻ",
+                "share_user": "Chia sẻ %s",
                 "share_post": "Share Post",
                 "open_in_safari": "Open in Safari",
                 "open_in_browser": "Open in Browser",
@@ -145,67 +145,67 @@
                     "hide": "Hide",
                     "show_image": "Show image",
                     "show_gif": "Show GIF",
-                    "show_video_player": "Show video player",
-                    "tap_then_hold_to_show_menu": "Tap then hold to show menu"
+                    "show_video_player": "Hiện trình phát video",
+                    "tap_then_hold_to_show_menu": "Nhấn giữ để hiện menu"
                 },
                 "tag": {
                     "url": "URL",
-                    "mention": "Mention",
-                    "link": "Link",
+                    "mention": "Nhắc đến",
+                    "link": "Liên kết",
                     "hashtag": "Hashtag",
                     "email": "Email",
                     "emoji": "Emoji"
                 },
                 "visibility": {
-                    "unlisted": "Everyone can see this post but not display in the public timeline.",
-                    "private": "Only their followers can see this post.",
-                    "private_from_me": "Only my followers can see this post.",
-                    "direct": "Only mentioned user can see this post."
+                    "unlisted": "Ai cũng thấy tút này nhưng không hiện trên bảng tin máy chủ.",
+                    "private": "Chỉ người theo dõi của họ có thể thấy tút này.",
+                    "private_from_me": "Chỉ người theo dõi tôi có thể thấy tút này.",
+                    "direct": "Chỉ người được nhắc đến có thể thấy tút."
                 }
             },
             "friendship": {
-                "follow": "Follow",
-                "following": "Following",
-                "request": "Request",
-                "pending": "Pending",
-                "block": "Block",
-                "block_user": "Block %s",
-                "block_domain": "Block %s",
-                "unblock": "Unblock",
-                "unblock_user": "Unblock %s",
-                "blocked": "Blocked",
-                "mute": "Mute",
-                "mute_user": "Mute %s",
-                "unmute": "Unmute",
-                "unmute_user": "Unmute %s",
-                "muted": "Muted",
-                "edit_info": "Edit Info"
+                "follow": "Theo dõi",
+                "following": "Đang theo dõi",
+                "request": "Yêu cầu",
+                "pending": "Đang chờ",
+                "block": "Chặn",
+                "block_user": "Chặn %s",
+                "block_domain": "Chặn %s",
+                "unblock": "Bỏ chặn",
+                "unblock_user": "Bỏ chặn %s",
+                "blocked": "Đã chặn",
+                "mute": "Ẩn",
+                "mute_user": "Ẩn %s",
+                "unmute": "Bỏ ẩn",
+                "unmute_user": "Bỏ ẩn %s",
+                "muted": "Đã ẩn",
+                "edit_info": "Chỉnh sửa"
             },
             "timeline": {
-                "filtered": "Filtered",
+                "filtered": "Bộ lọc",
                 "timestamp": {
-                    "now": "Now"
+                    "now": "Vừa xong"
                 },
                 "loader": {
-                    "load_missing_posts": "Load missing posts",
-                    "loading_missing_posts": "Loading missing posts...",
-                    "show_more_replies": "Show more replies"
+                    "load_missing_posts": "Tải tút chưa đọc",
+                    "loading_missing_posts": "Đang tải tút chưa đọc...",
+                    "show_more_replies": "Xem lượt trả lời"
                 },
                 "header": {
-                    "no_status_found": "No Post Found",
-                    "blocking_warning": "You can’t view this user's profile\nuntil you unblock them.\nYour profile looks like this to them.",
-                    "user_blocking_warning": "You can’t view %s’s profile\nuntil you unblock them.\nYour profile looks like this to them.",
-                    "blocked_warning": "You can’t view this user’s profile\nuntil they unblock you.",
-                    "user_blocked_warning": "You can’t view %s’s profile\nuntil they unblock you.",
-                    "suspended_warning": "This user has been suspended.",
-                    "user_suspended_warning": "%s’s account has been suspended."
+                    "no_status_found": "Không tìm thấy tút",
+                    "blocking_warning": "Bạn không thể xem trang người này\ncho tới khi bạn bỏ chặn họ.\nHọ sẽ thấy trang của bạn như thế này.",
+                    "user_blocking_warning": "Bạn không thể xem trang %s\ncho tới khi bạn bỏ chặn họ.\nHọ sẽ thấy trang của bạn như thế này.",
+                    "blocked_warning": "Bạn không thể xem trang người này\ncho tới khi họ bỏ chặn bạn.",
+                    "user_blocked_warning": "Bạn không thể xem trang %s\ncho tới khi họ bỏ chặn bạn.",
+                    "suspended_warning": "Người dùng đã bị vô hiệu hóa.",
+                    "user_suspended_warning": "%s đã bị vô hiệu hóa."
                 }
             }
         }
     },
     "scene": {
         "welcome": {
-            "slogan": "Social networking\nback in your hands.",
+            "slogan": "Mạng xã hội\ndo bạn kiểm soát.",
             "get_started": "Get Started",
             "log_in": "Log In"
         },
