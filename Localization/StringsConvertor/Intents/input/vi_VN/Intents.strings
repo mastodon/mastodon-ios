@@ -1,51 +1,51 @@
-"16wxgf" = "Post on Mastodon";
+"16wxgf" = "Đăng lên Mastodon";
 
-"751xkl" = "Text Content";
+"751xkl" = "Nội dung văn bản";
 
-"CsR7G2" = "Post on Mastodon";
+"CsR7G2" = "Đăng lên Mastodon";
 
-"HZSGTr" = "What content to post?";
+"HZSGTr" = "Đăng loại nội dung nào?";
 
-"HdGikU" = "Posting failed";
+"HdGikU" = "Không thể đăng";
 
-"KDNTJ4" = "Failure Reason";
+"KDNTJ4" = "Lý do không thể đăng";
 
-"RHxKOw" = "Send Post with text content";
+"RHxKOw" = "Gửi tút với nội dung là chữ";
 
-"RxSqsb" = "Post";
+"RxSqsb" = "Tút";
 
-"WCIR3D" = "Post ${content} on Mastodon";
+"WCIR3D" = "Đăng ${content} lên Mastodon";
 
-"ZKJSNu" = "Post";
+"ZKJSNu" = "Tút";
 
 "ZS1XaK" = "${content}";
 
-"ZbSjzC" = "Visibility";
+"ZbSjzC" = "Hiển thị";
 
-"Zo4jgJ" = "Post Visibility";
+"Zo4jgJ" = "Thay đổi quyền riêng tư";
 
-"apSxMG-dYQ5NN" = "There are ${count} options matching ‘Public’.";
+"apSxMG-dYQ5NN" = "Có ${count} lựa chọn khớp với ‘Công khai’.";
 
-"apSxMG-ehFLjY" = "There are ${count} options matching ‘Followers Only’.";
+"apSxMG-ehFLjY" = "Có ${count} lựa chọn khớp với ‘Riêng tư’.";
 
-"ayoYEb-dYQ5NN" = "${content}, Public";
+"ayoYEb-dYQ5NN" = "${content}, Công khai";
 
-"ayoYEb-ehFLjY" = "${content}, Followers Only";
+"ayoYEb-ehFLjY" = "${content}, Riêng tư";
 
-"dUyuGg" = "Post on Mastodon";
+"dUyuGg" = "Đăng lên Mastodon";
 
-"dYQ5NN" = "Public";
+"dYQ5NN" = "Công khai";
 
-"ehFLjY" = "Followers Only";
+"ehFLjY" = "Riêng tư";
 
-"gfePDu" = "Posting failed. ${failureReason}";
+"gfePDu" = "Không thể đăng. ${failureReason}";
 
-"k7dbKQ" = "Post was sent successfully.";
+"k7dbKQ" = "Đã đăng tút thành công.";
 
-"oGiqmY-dYQ5NN" = "Just to confirm, you wanted ‘Public’?";
+"oGiqmY-dYQ5NN" = "Xin xác nhận, bạn muốn ‘Công khai’?";
 
-"oGiqmY-ehFLjY" = "Just to confirm, you wanted ‘Followers Only’?";
+"oGiqmY-ehFLjY" = "Xin xác nhận, bạn muốn ‘Riêng tư’?";
 
 "rM6dvp" = "URL";
 
-"ryJLwG" = "Post was sent successfully. ";
+"ryJLwG" = "Đã đăng tút thành công. ";
