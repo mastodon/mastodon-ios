@@ -422,33 +422,33 @@
                 }
             },
             "segmented_control": {
-                "posts": "Posts",
-                "replies": "Replies",
-                "posts_and_replies": "Posts and Replies",
+                "posts": "Tút",
+                "replies": "Trả lời",
+                "posts_and_replies": "Tút và trả lời",
                 "media": "Media",
-                "about": "About"
+                "about": "Giới thiệu"
             },
             "relationship_action_alert": {
                 "confirm_mute_user": {
-                    "title": "Mute Account",
-                    "message": "Confirm to mute %s"
+                    "title": "Ẩn người dùng",
+                    "message": "Xác nhận ẩn %s"
                 },
                 "confirm_unmute_user": {
-                    "title": "Unmute Account",
-                    "message": "Confirm to unmute %s"
+                    "title": "Bỏ ẩn người dùng",
+                    "message": "Xác nhận bỏ ẩn %s"
                 },
                 "confirm_block_user": {
-                    "title": "Block Account",
-                    "message": "Confirm to block %s"
+                    "title": "Chặn người dùng",
+                    "message": "Xác nhận chặn %s"
                 },
                 "confirm_unblock_user": {
-                    "title": "Unblock Account",
-                    "message": "Confirm to unblock %s"
+                    "title": "Bỏ chặn người dùng",
+                    "message": "Xác nhận bỏ chặn %s"
                 }
             },
             "accessibility": {
-                "show_avatar_image": "Show avatar image",
-                "edit_avatar_image": "Edit avatar image",
+                "show_avatar_image": "Hiển thị ảnh đại diện",
+                "edit_avatar_image": "Sửa ảnh đại diện",
                 "show_banner_image": "Hiển thị ảnh bìa",
                 "double_tap_to_open_the_list": "Nhấn hai lần để mở danh sách"
             }
