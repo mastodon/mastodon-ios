@@ -501,20 +501,20 @@
                 "Mentions": "Lượt nhắc đến"
             },
             "notification_description": {
-                "followed_you": "followed you",
-                "favorited_your_post": "favorited your post",
-                "reblogged_your_post": "reblogged your post",
-                "mentioned_you": "mentioned you",
-                "request_to_follow_you": "request to follow you",
-                "poll_has_ended": "poll has ended"
+                "followed_you": "đã theo dõi bạn",
+                "favorited_your_post": "thích tút của bạn",
+                "reblogged_your_post": "đăng lại tút của bạn",
+                "mentioned_you": "nhắc đến bạn",
+                "request_to_follow_you": "yêu cầu theo dõi bạn",
+                "poll_has_ended": "cuộc bình chọn đã kết thúc"
             },
             "keyobard": {
-                "show_everything": "Show Everything",
-                "show_mentions": "Show Mentions"
+                "show_everything": "Hiện mọi thứ",
+                "show_mentions": "Hiện lượt nhắc"
             }
         },
         "thread": {
-            "back_title": "Post",
+            "back_title": "Tút",
             "title": "Post from %s"
         },
         "settings": {
