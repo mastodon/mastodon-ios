@@ -80,71 +80,71 @@
                 "preview": "Xem trước",
                 "share": "Chia sẻ",
                 "share_user": "Chia sẻ %s",
-                "share_post": "Share Post",
-                "open_in_safari": "Open in Safari",
-                "open_in_browser": "Open in Browser",
-                "find_people": "Find people to follow",
-                "manually_search": "Manually search instead",
-                "skip": "Skip",
-                "reply": "Reply",
-                "report_user": "Report %s",
-                "block_domain": "Block %s",
-                "unblock_domain": "Unblock %s",
-                "settings": "Settings",
-                "delete": "Delete"
+                "share_post": "Chia sẻ tút",
+                "open_in_safari": "Mở bằng Safari",
+                "open_in_browser": "Mở trong trình duyệt",
+                "find_people": "Đề xuất theo dõi",
+                "manually_search": "Tự tìm kiếm thủ công",
+                "skip": "Bỏ qua",
+                "reply": "Trả lời",
+                "report_user": "Báo cáo %s",
+                "block_domain": "Chặn %s",
+                "unblock_domain": "Bỏ chặn %s",
+                "settings": "Cài đặt",
+                "delete": "Xóa"
             },
             "tabs": {
-                "home": "Home",
-                "search": "Search",
-                "notification": "Notification",
-                "profile": "Profile"
+                "home": "Bảng tin",
+                "search": "Tìm kiếm",
+                "notification": "Thông báo",
+                "profile": "Trang cá nhân"
             },
             "keyboard": {
                 "common": {
-                    "switch_to_tab": "Switch to %s",
-                    "compose_new_post": "Compose New Post",
-                    "show_favorites": "Show Favorites",
-                    "open_settings": "Open Settings"
+                    "switch_to_tab": "Chuyển thành %s",
+                    "compose_new_post": "Viết tút mới",
+                    "show_favorites": "Hiện lượt thích",
+                    "open_settings": "Mở cài đặt"
                 },
                 "timeline": {
-                    "previous_status": "Previous Post",
-                    "next_status": "Next Post",
-                    "open_status": "Open Post",
-                    "open_author_profile": "Open Author's Profile",
-                    "open_reblogger_profile": "Open Reblogger's Profile",
-                    "reply_status": "Reply to Post",
-                    "toggle_reblog": "Toggle Reblog on Post",
-                    "toggle_favorite": "Toggle Favorite on Post",
-                    "toggle_content_warning": "Toggle Content Warning",
-                    "preview_image": "Preview Image"
+                    "previous_status": "Tút trước",
+                    "next_status": "Tút sau",
+                    "open_status": "Mở tút",
+                    "open_author_profile": "Mở trang người viết tút",
+                    "open_reblogger_profile": "Mở trang người đăng lại tút",
+                    "reply_status": "Trả lời tút",
+                    "toggle_reblog": "Chọn đăng lại tút",
+                    "toggle_favorite": "Chọn thích tút",
+                    "toggle_content_warning": "Chọn nội dung ẩn",
+                    "preview_image": "Xem trước hình ảnh"
                 },
                 "segmented_control": {
-                    "previous_section": "Previous Section",
-                    "next_section": "Next Section"
+                    "previous_section": "Tới phần trước",
+                    "next_section": "Tới phần tiếp theo"
                 }
             },
             "status": {
-                "user_reblogged": "%s reblogged",
-                "user_replied_to": "Replied to %s",
-                "show_post": "Show Post",
-                "show_user_profile": "Show user profile",
-                "content_warning": "Content Warning",
-                "media_content_warning": "Tap anywhere to reveal",
-                "tap_to_reveal": "Tap to reveal",
+                "user_reblogged": "%s đăng lại",
+                "user_replied_to": "Trả lời %s",
+                "show_post": "Xem tút",
+                "show_user_profile": "Xem trang cá nhân",
+                "content_warning": "Nội dung ẩn",
+                "media_content_warning": "Nhấn để hiển thị",
+                "tap_to_reveal": "Nhấn để hiển thị",
                 "poll": {
-                    "vote": "Vote",
-                    "closed": "Closed"
+                    "vote": "Bình chọn",
+                    "closed": "Kết thúc"
                 },
                 "actions": {
-                    "reply": "Reply",
-                    "reblog": "Reblog",
-                    "unreblog": "Undo reblog",
-                    "favorite": "Favorite",
-                    "unfavorite": "Unfavorite",
+                    "reply": "Trả lời",
+                    "reblog": "Đăng lại",
+                    "unreblog": "Hủy đăng lại",
+                    "favorite": "Thích",
+                    "unfavorite": "Bỏ thích",
                     "menu": "Menu",
-                    "hide": "Hide",
-                    "show_image": "Show image",
-                    "show_gif": "Show GIF",
+                    "hide": "Ẩn",
+                    "show_image": "Hiển thị hình ảnh",
+                    "show_gif": "Hiển thị GIF",
                     "show_video_player": "Hiện trình phát video",
                     "tap_then_hold_to_show_menu": "Nhấn giữ để hiện menu"
                 },
@@ -206,219 +206,219 @@
     "scene": {
         "welcome": {
             "slogan": "Mạng xã hội\ndo bạn kiểm soát.",
-            "get_started": "Get Started",
-            "log_in": "Log In"
+            "get_started": "Bắt đầu",
+            "log_in": "Đăng nhập"
         },
         "server_picker": {
-            "title": "Mastodon is made of users in different communities.",
-            "subtitle": "Pick a community based on your interests, region, or a general purpose one.",
-            "subtitle_extend": "Pick a community based on your interests, region, or a general purpose one. Each community is operated by an entirely independent organization or individual.",
+            "title": "Mastodon gồm nhiều cộng đồng với nhiều thành viên khác nhau.",
+            "subtitle": "Chọn một cộng đồng dựa theo sở thích, tôn giáo, hoặc ý muốn của bạn.",
+            "subtitle_extend": "Chọn một cộng đồng dựa theo sở thích, tôn giáo, hoặc ý muốn của bạn. Mỗi cộng đồng có thể được vận hành bởi một tổ chức độc lập hoặc một cá nhân.",
             "button": {
                 "category": {
-                    "all": "All",
-                    "all_accessiblity_description": "Category: All",
-                    "academia": "academia",
-                    "activism": "activism",
-                    "food": "food",
+                    "all": "Toàn bộ",
+                    "all_accessiblity_description": "Phân loại: Toàn bộ",
+                    "academia": "học thuật",
+                    "activism": "hoạt động xã hội",
+                    "food": "ăn uống",
                     "furry": "furry",
-                    "games": "games",
-                    "general": "general",
-                    "journalism": "journalism",
+                    "games": "trò chơi",
+                    "general": "chung",
+                    "journalism": "tin tức",
                     "lgbt": "lgbt",
-                    "regional": "regional",
-                    "art": "art",
-                    "music": "music",
-                    "tech": "tech"
+                    "regional": "khu vực",
+                    "art": "nghệ thuật",
+                    "music": "âm nhạc",
+                    "tech": "công nghệ"
                 },
-                "see_less": "See Less",
-                "see_more": "See More"
+                "see_less": "Ẩn bớt",
+                "see_more": "Nhiều hơn"
             },
             "label": {
-                "language": "LANGUAGE",
-                "users": "USERS",
-                "category": "CATEGORY"
+                "language": "NGÔN NGỮ",
+                "users": "NGƯỜI DÙNG",
+                "category": "PHÂN LOẠI"
             },
             "input": {
-                "placeholder": "Search communities"
+                "placeholder": "Tìm cộng đồng"
             },
             "empty_state": {
-                "finding_servers": "Finding available servers...",
-                "bad_network": "Something went wrong while loading the data. Check your internet connection.",
-                "no_results": "No results"
+                "finding_servers": "Đang tìm máy chủ hoạt động...",
+                "bad_network": "Đã xảy ra lỗi. Hãy thử lại hoặc kiểm tra kết nối internet của bạn.",
+                "no_results": "Không có kết quả"
             }
         },
         "register": {
-            "title": "Let’s get you set up on %s",
+            "title": "Hãy để tôi đăng ký trên %s",
             "input": {
                 "avatar": {
-                    "delete": "Delete"
+                    "delete": "Xóa"
                 },
                 "username": {
-                    "placeholder": "username",
-                    "duplicate_prompt": "This username is taken."
+                    "placeholder": "tên người dùng",
+                    "duplicate_prompt": "Tên người dùng đã tồn tại."
                 },
                 "display_name": {
-                    "placeholder": "display name"
+                    "placeholder": "tên hiển thị"
                 },
                 "email": {
                     "placeholder": "email"
                 },
                 "password": {
-                    "placeholder": "password",
-                    "require": "Your password needs at least:",
-                    "character_limit": "8 characters",
+                    "placeholder": "mật khẩu",
+                    "require": "Mật khẩu phải tối thiểu:",
+                    "character_limit": "8 ký tự",
                     "accessibility": {
-                        "checked": "checked",
-                        "unchecked": "unchecked"
+                        "checked": "đã ổn",
+                        "unchecked": "chưa ổn"
                     },
-                    "hint": "Your password needs at least eight characters"
+                    "hint": "Mật khẩu của bạn phải dài tối thiểu 8 ký tự"
                 },
                 "invite": {
-                    "registration_user_invite_request": "Why do you want to join?"
+                    "registration_user_invite_request": "Vì sao bạn muốn tham gia?"
                 }
             },
             "error": {
                 "item": {
-                    "username": "Username",
+                    "username": "Tên người dùng",
                     "email": "Email",
-                    "password": "Password",
-                    "agreement": "Agreement",
-                    "locale": "Locale",
-                    "reason": "Reason"
+                    "password": "Mật khẩu",
+                    "agreement": "Thoả thuận",
+                    "locale": "Cục bộ",
+                    "reason": "Lý do"
                 },
                 "reason": {
-                    "blocked": "%s contains a disallowed email provider",
-                    "unreachable": "%s does not seem to exist",
-                    "taken": "%s is already in use",
-                    "reserved": "%s is a reserved keyword",
-                    "accepted": "%s must be accepted",
-                    "blank": "%s is required",
-                    "invalid": "%s is invalid",
-                    "too_long": "%s is too long",
-                    "too_short": "%s is too short",
-                    "inclusion": "%s is not a supported value"
+                    "blocked": "%s dùng dịch vụ email bị cấm",
+                    "unreachable": "%s không tồn tại",
+                    "taken": "%s đã tồn tại",
+                    "reserved": "%s là một từ khóa hạn chế",
+                    "accepted": "%s phải được đồng ý",
+                    "blank": "%s là bắt buộc",
+                    "invalid": "%s không hợp lệ",
+                    "too_long": "%s quá dài",
+                    "too_short": "%s quá ngắn",
+                    "inclusion": "%s chứa ký tự không được hỗ trợ"
                 },
                 "special": {
-                    "username_invalid": "Username must only contain alphanumeric characters and underscores",
-                    "username_too_long": "Username is too long (can’t be longer than 30 characters)",
-                    "email_invalid": "This is not a valid email address",
-                    "password_too_short": "Password is too short (must be at least 8 characters)"
+                    "username_invalid": "Tên người dùng chỉ có thể chứa các ký tự chữ và số và dấu gạch dưới",
+                    "username_too_long": "Tên người dùng không thể dài hơn 30 ký tự",
+                    "email_invalid": "Đây không phải là một địa chỉ email khả dụng",
+                    "password_too_short": "Mật khẩu của bạn quá ngắn, phải có ít nhất 8 ký tự"
                 }
             }
         },
         "server_rules": {
-            "title": "Some ground rules.",
-            "subtitle": "These are set and enforced by the %s moderators.",
-            "prompt": "By continuing, you’re subject to the terms of service and privacy policy for %s.",
-            "terms_of_service": "terms of service",
-            "privacy_policy": "privacy policy",
+            "title": "Quy tắc máy chủ.",
+            "subtitle": "Được ban hành và áp dụng bởi quản trị viên %s",
+            "prompt": "Tiếp tục nghĩa là bạn đồng ý điều khoản dịch vụ và chính sách bảo mật của %s.",
+            "terms_of_service": "điều khoản dịch vụ",
+            "privacy_policy": "chính sách bảo mật",
             "button": {
-                "confirm": "I Agree"
+                "confirm": "Tôi đồng ý"
             }
         },
         "confirm_email": {
-            "title": "One last thing.",
-            "subtitle": "Tap the link we emailed to you to verify your account.",
+            "title": "Còn điều này nữa.",
+            "subtitle": "Nhấn vào liên kết chúng tôi gửi qua email để xác thực tài khoản.",
             "button": {
-                "open_email_app": "Open Email App",
-                "resend": "Resend"
+                "open_email_app": "Mở ứng dụng email",
+                "resend": "Gửi lại"
             },
             "dont_receive_email": {
-                "title": "Check your email",
-                "description": "Check if your email address is correct as well as your junk folder if you haven’t.",
-                "resend_email": "Resend Email"
+                "title": "Kiểm tra email",
+                "description": "Kiểm tra địa chỉ email của bạn đúng chưa hoặc có bị chuyển vào thư rác.",
+                "resend_email": "Gửi lại email"
             },
             "open_email_app": {
-                "title": "Check your inbox.",
-                "description": "We just sent you an email. Check your junk folder if you haven’t.",
-                "mail": "Mail",
-                "open_email_client": "Open Email Client"
+                "title": "Kiểm tra hộp thư của bạn.",
+                "description": "Chúng tôi vừa gửi email cho bạn. Kiểm tra thư rác nếu bạn không thấy.",
+                "mail": "Email",
+                "open_email_client": "Mở ứng dụng email"
             }
         },
         "home_timeline": {
-            "title": "Home",
+            "title": "Bảng tin",
             "navigation_bar_state": {
-                "offline": "Offline",
-                "new_posts": "See new posts",
-                "published": "Published!",
-                "Publishing": "Publishing post..."
+                "offline": "Ngoại tuyến",
+                "new_posts": "Đọc những tút mới",
+                "published": "Đã đăng!",
+                "Publishing": "Đang đăng tút..."
             }
         },
         "suggestion_account": {
-            "title": "Find People to Follow",
-            "follow_explain": "When you follow someone, you’ll see their posts in your home feed."
+            "title": "Đề xuất theo dõi",
+            "follow_explain": "Khi theo dõi ai đó, bạn sẽ thấy tút của họ trong bảng tin."
         },
         "compose": {
             "title": {
-                "new_post": "New Post",
-                "new_reply": "New Reply"
+                "new_post": "Viết tút",
+                "new_reply": "Viết trả lời"
             },
             "media_selection": {
-                "camera": "Take Photo",
-                "photo_library": "Photo Library",
-                "browse": "Browse"
+                "camera": "Chụp ảnh",
+                "photo_library": "Thư viện hình ảnh",
+                "browse": "Chọn"
             },
-            "content_input_placeholder": "Type or paste what’s on your mind",
-            "compose_action": "Publish",
-            "replying_to_user": "replying to %s",
+            "content_input_placeholder": "Cho thế giới biết bạn đang nghĩ gì",
+            "compose_action": "Đăng",
+            "replying_to_user": "trả lời đến %s",
             "attachment": {
-                "photo": "photo",
+                "photo": "ảnh",
                 "video": "video",
-                "attachment_broken": "This %s is broken and can’t be\nuploaded to Mastodon.",
-                "description_photo": "Describe the photo for the visually-impaired...",
-                "description_video": "Describe the video for the visually-impaired..."
+                "attachment_broken": "%s này bị lỗi và không thể\ntải lên Mastodon.",
+                "description_photo": "Mô tả hình ảnh cho người khiếm thị...",
+                "description_video": "Mô tả video cho người khiếm thị..."
             },
             "poll": {
-                "duration_time": "Duration: %s",
-                "thirty_minutes": "30 minutes",
-                "one_hour": "1 Hour",
-                "six_hours": "6 Hours",
-                "one_day": "1 Day",
-                "three_days": "3 Days",
-                "seven_days": "7 Days",
-                "option_number": "Option %ld"
+                "duration_time": "Thời gian: %s",
+                "thirty_minutes": "30 phút",
+                "one_hour": "1 giờ",
+                "six_hours": "6 giờ",
+                "one_day": "1 ngày",
+                "three_days": "3 ngày",
+                "seven_days": "7 ngày",
+                "option_number": "Lựa chọn %ld"
             },
             "content_warning": {
-                "placeholder": "Write an accurate warning here..."
+                "placeholder": "Viết nội dung ẩn của bạn ở đây..."
             },
             "visibility": {
-                "public": "Public",
-                "unlisted": "Unlisted",
-                "private": "Followers only",
-                "direct": "Only people I mention"
+                "public": "Công khai",
+                "unlisted": "Hạn chế",
+                "private": "Riêng tư",
+                "direct": "Chỉ người được nhắc đến"
             },
             "auto_complete": {
-                "space_to_add": "Space to add"
+                "space_to_add": "Khoảng cách để thêm"
             },
             "accessibility": {
-                "append_attachment": "Add Attachment",
-                "append_poll": "Add Poll",
-                "remove_poll": "Remove Poll",
-                "custom_emoji_picker": "Custom Emoji Picker",
-                "enable_content_warning": "Enable Content Warning",
-                "disable_content_warning": "Disable Content Warning",
-                "post_visibility_menu": "Post Visibility Menu"
+                "append_attachment": "Thêm media",
+                "append_poll": "Tạo bình chọn",
+                "remove_poll": "Xóa bình chọn",
+                "custom_emoji_picker": "Chọn emoji",
+                "enable_content_warning": "Bật nội dung ẩn",
+                "disable_content_warning": "Tắt nội dung ẩn",
+                "post_visibility_menu": "Menu hiển thị tút"
             },
             "keyboard": {
-                "discard_post": "Discard Post",
-                "publish_post": "Publish Post",
-                "toggle_poll": "Toggle Poll",
-                "toggle_content_warning": "Toggle Content Warning",
-                "append_attachment_entry": "Add Attachment - %s",
-                "select_visibility_entry": "Select Visibility - %s"
+                "discard_post": "Hủy đăng tút",
+                "publish_post": "Đăng tút",
+                "toggle_poll": "Mở bình chọn",
+                "toggle_content_warning": "Mở nội dung ẩn",
+                "append_attachment_entry": "Thêm media - %s",
+                "select_visibility_entry": "Thay đổi quyền riêng tư - %s"
             }
         },
         "profile": {
             "dashboard": {
-                "posts": "posts",
-                "following": "following",
-                "followers": "followers"
+                "posts": "tút",
+                "following": "theo dõi",
+                "followers": "người theo dõi"
             },
             "fields": {
-                "add_row": "Add Row",
+                "add_row": "Thêm hàng",
                 "placeholder": {
-                    "label": "Label",
-                    "content": "Content"
+                    "label": "Nhãn",
+                    "content": "Nội dung"
                 }
             },
             "segmented_control": {
@@ -449,56 +449,56 @@
             "accessibility": {
                 "show_avatar_image": "Show avatar image",
                 "edit_avatar_image": "Edit avatar image",
-                "show_banner_image": "Show banner image",
-                "double_tap_to_open_the_list": "Double tap to open the list"
+                "show_banner_image": "Hiển thị ảnh bìa",
+                "double_tap_to_open_the_list": "Nhấn hai lần để mở danh sách"
             }
         },
         "follower": {
-            "footer": "Followers from other servers are not displayed."
+            "footer": "Không hiển thị người theo dõi từ máy chủ khác."
         },
         "following": {
-            "footer": "Follows from other servers are not displayed."
+            "footer": "Không hiển thị người bạn theo dõi từ máy chủ khác."
         },
         "search": {
-            "title": "Search",
+            "title": "Tìm kiếm",
             "search_bar": {
-                "placeholder": "Search hashtags and users",
-                "cancel": "Cancel"
+                "placeholder": "Tìm hashtag và người dùng",
+                "cancel": "Hủy bỏ"
             },
             "recommend": {
-                "button_text": "See All",
+                "button_text": "Xem tất cả",
                 "hash_tag": {
-                    "title": "Trending on Mastodon",
-                    "description": "Hashtags that are getting quite a bit of attention",
-                    "people_talking": "%s people are talking"
+                    "title": "Xu hướng trên Mastodon",
+                    "description": "Những hashtag đang được sử dụng nhiều nhất",
+                    "people_talking": "%s người đang thảo luận"
                 },
                 "accounts": {
-                    "title": "Accounts you might like",
-                    "description": "You may like to follow these accounts",
-                    "follow": "Follow"
+                    "title": "Những người bạn có thể thích",
+                    "description": "Bạn có thể muốn theo dõi những người này",
+                    "follow": "Theo dõi"
                 }
             },
             "searching": {
                 "segment": {
-                    "all": "All",
-                    "people": "People",
-                    "hashtags": "Hashtags",
-                    "posts": "Posts"
+                    "all": "Tất cả",
+                    "people": "Người dùng",
+                    "hashtags": "Hashtag",
+                    "posts": "Tút"
                 },
                 "empty_state": {
-                    "no_results": "No results"
+                    "no_results": "Không có kết quả"
                 },
-                "recent_search": "Recent searches",
-                "clear": "Clear"
+                "recent_search": "Tìm kiếm gần đây",
+                "clear": "Xóa"
             }
         },
         "favorite": {
-            "title": "Your Favorites"
+            "title": "Lượt thích"
         },
         "notification": {
             "title": {
-                "Everything": "Everything",
-                "Mentions": "Mentions"
+                "Everything": "Mọi thứ",
+                "Mentions": "Lượt nhắc đến"
             },
             "notification_description": {
                 "followed_you": "followed you",
