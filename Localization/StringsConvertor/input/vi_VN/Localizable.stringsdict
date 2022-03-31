@@ -13,13 +13,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld unread notification</string>
+        <string>%ld thông báo chưa đọc</string>
       </dict>
     </dict>
     <key>a11y.plural.count.input_limit_exceeds</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Input limit exceeds %#@character_count@</string>
+      <string>Giới hạn nhập tối đa %#@character_count@</string>
       <key>character_count</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -27,13 +27,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld characters</string>
+        <string>%ld ký tự</string>
       </dict>
     </dict>
     <key>a11y.plural.count.input_limit_remains</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Input limit remains %#@character_count@</string>
+      <string>Giới hạn nhập còn lại %#@character_count@</string>
       <key>character_count</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -41,7 +41,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld characters</string>
+        <string>%ld ký tự</string>
       </dict>
     </dict>
     <key>plural.count.metric_formatted.post</key>
@@ -55,7 +55,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>posts</string>
+        <string>tút</string>
       </dict>
     </dict>
     <key>plural.count.post</key>
@@ -69,7 +69,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld posts</string>
+        <string>%ld tút</string>
       </dict>
     </dict>
     <key>plural.count.favorite</key>
@@ -83,7 +83,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld favorites</string>
+        <string>%ld lượt thích</string>
       </dict>
     </dict>
     <key>plural.count.reblog</key>
@@ -97,7 +97,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld reblogs</string>
+        <string>%ld đăng lại</string>
       </dict>
     </dict>
     <key>plural.count.reply</key>
@@ -111,7 +111,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld replies</string>
+        <string>%ld trả lời</string>
       </dict>
     </dict>
     <key>plural.count.vote</key>
@@ -125,7 +125,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld votes</string>
+        <string>%ld bình chọn</string>
       </dict>
     </dict>
     <key>plural.count.voter</key>
@@ -139,7 +139,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld voters</string>
+        <string>%ld người bình chọn</string>
       </dict>
     </dict>
     <key>plural.people_talking</key>
@@ -153,7 +153,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld people talking</string>
+        <string>%ld người đang thảo luận</string>
       </dict>
     </dict>
     <key>plural.count.following</key>
@@ -167,7 +167,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld following</string>
+        <string>%ld đang theo dõi</string>
       </dict>
     </dict>
     <key>plural.count.follower</key>
@@ -181,7 +181,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld followers</string>
+        <string>%ld người theo dõi</string>
       </dict>
     </dict>
     <key>date.year.left</key>
@@ -195,7 +195,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld years left</string>
+        <string>%ld năm còn lại</string>
       </dict>
     </dict>
     <key>date.month.left</key>
@@ -209,7 +209,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld months left</string>
+        <string>%ld tháng còn lại</string>
       </dict>
     </dict>
     <key>date.day.left</key>
@@ -223,7 +223,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld days left</string>
+        <string>%ld ngày còn lại</string>
       </dict>
     </dict>
     <key>date.hour.left</key>
@@ -237,7 +237,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld hours left</string>
+        <string>%ld giờ còn lại</string>
       </dict>
     </dict>
     <key>date.minute.left</key>
@@ -251,7 +251,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld minutes left</string>
+        <string>%ld phút còn lại</string>
       </dict>
     </dict>
     <key>date.second.left</key>
@@ -265,7 +265,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld seconds left</string>
+        <string>%ld giây còn lại</string>
       </dict>
     </dict>
     <key>date.year.ago.abbr</key>
@@ -279,7 +279,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ldy ago</string>
+        <string>%ld năm trước</string>
       </dict>
     </dict>
     <key>date.month.ago.abbr</key>
@@ -293,7 +293,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ldM ago</string>
+        <string>%ld tháng trước</string>
       </dict>
     </dict>
     <key>date.day.ago.abbr</key>
@@ -307,7 +307,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ldd ago</string>
+        <string>%ld ngày trước</string>
       </dict>
     </dict>
     <key>date.hour.ago.abbr</key>
@@ -321,7 +321,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ldh ago</string>
+        <string>%ldh</string>
       </dict>
     </dict>
     <key>date.minute.ago.abbr</key>
@@ -335,7 +335,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ldm ago</string>
+        <string>%ldm</string>
       </dict>
     </dict>
     <key>date.second.ago.abbr</key>
@@ -349,7 +349,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%lds ago</string>
+        <string>%lds</string>
       </dict>
     </dict>
   </dict>
