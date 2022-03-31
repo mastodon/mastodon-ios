@@ -1,0 +1,51 @@
+"16wxgf" = "Post on Mastodon";
+
+"751xkl" = "Text Content";
+
+"CsR7G2" = "Post on Mastodon";
+
+"HZSGTr" = "What content to post?";
+
+"HdGikU" = "Posting failed";
+
+"KDNTJ4" = "Failure Reason";
+
+"RHxKOw" = "Send Post with text content";
+
+"RxSqsb" = "Post";
+
+"WCIR3D" = "Post ${content} on Mastodon";
+
+"ZKJSNu" = "Post";
+
+"ZS1XaK" = "${content}";
+
+"ZbSjzC" = "Visibility";
+
+"Zo4jgJ" = "Post Visibility";
+
+"apSxMG-dYQ5NN" = "There are ${count} options matching ‘Public’.";
+
+"apSxMG-ehFLjY" = "There are ${count} options matching ‘Followers Only’.";
+
+"ayoYEb-dYQ5NN" = "${content}, Public";
+
+"ayoYEb-ehFLjY" = "${content}, Followers Only";
+
+"dUyuGg" = "Post on Mastodon";
+
+"dYQ5NN" = "Public";
+
+"ehFLjY" = "Followers Only";
+
+"gfePDu" = "Posting failed. ${failureReason}";
+
+"k7dbKQ" = "Post was sent successfully.";
+
+"oGiqmY-dYQ5NN" = "Just to confirm, you wanted ‘Public’?";
+
+"oGiqmY-ehFLjY" = "Just to confirm, you wanted ‘Followers Only’?";
+
+"rM6dvp" = "URL";
+
+"ryJLwG" = "Post was sent successfully. ";
