@@ -13,15 +13,15 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 unread notification</string>
+        <string>1 notifica non letta</string>
         <key>other</key>
-        <string>%ld unread notification</string>
+        <string>%ld notifiche non lette</string>
       </dict>
     </dict>
     <key>a11y.plural.count.input_limit_exceeds</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Input limit exceeds %#@character_count@</string>
+      <string>Il limite di input supera %#@character_count@</string>
       <key>character_count</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -29,15 +29,15 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 character</string>
+        <string>1 carattere</string>
         <key>other</key>
-        <string>%ld characters</string>
+        <string>%ld caratteri</string>
       </dict>
     </dict>
     <key>a11y.plural.count.input_limit_remains</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Input limit remains %#@character_count@</string>
+      <string>Il limite di input rimane %#@character_count@</string>
       <key>character_count</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -45,9 +45,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 character</string>
+        <string>1 carattere</string>
         <key>other</key>
-        <string>%ld characters</string>
+        <string>%ld caratteri</string>
       </dict>
     </dict>
     <key>plural.count.metric_formatted.post</key>
@@ -63,7 +63,7 @@
         <key>one</key>
         <string>post</string>
         <key>other</key>
-        <string>posts</string>
+        <string>post</string>
       </dict>
     </dict>
     <key>plural.count.post</key>
@@ -79,7 +79,7 @@
         <key>one</key>
         <string>1 post</string>
         <key>other</key>
-        <string>%ld posts</string>
+        <string>%ld post</string>
       </dict>
     </dict>
     <key>plural.count.favorite</key>
@@ -93,7 +93,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 favorite</string>
+        <string>1 preferito</string>
         <key>other</key>
         <string>%ld favorites</string>
       </dict>
@@ -109,9 +109,25 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 reblog</string>
+        <string>1 condivisione</string>
         <key>other</key>
-        <string>%ld reblogs</string>
+        <string>%ld condivisioni</string>
+      </dict>
+    </dict>
+    <key>plural.count.reply</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@reply_count@</string>
+      <key>reply_count</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>1 risposta</string>
+        <key>other</key>
+        <string>%ld risposte</string>
       </dict>
     </dict>
     <key>plural.count.vote</key>
@@ -125,9 +141,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 vote</string>
+        <string>1 voto</string>
         <key>other</key>
-        <string>%ld votes</string>
+        <string>%ld voti</string>
       </dict>
     </dict>
     <key>plural.count.voter</key>
@@ -141,9 +157,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 voter</string>
+        <string>1 votante</string>
         <key>other</key>
-        <string>%ld voters</string>
+        <string>%ld votanti</string>
       </dict>
     </dict>
     <key>plural.people_talking</key>
@@ -157,9 +173,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 people talking</string>
+        <string>1 persona ne parla</string>
         <key>other</key>
-        <string>%ld people talking</string>
+        <string>%ld persone ne parlano</string>
       </dict>
     </dict>
     <key>plural.count.following</key>
@@ -173,7 +189,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 following</string>
+        <string>1 seguace</string>
         <key>other</key>
         <string>%ld following</string>
       </dict>

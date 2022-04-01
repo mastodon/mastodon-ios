@@ -130,6 +130,7 @@
                 "show_user_profile": "Seall pròifil a’ chleachdaiche",
                 "content_warning": "Rabhadh susbainte",
                 "media_content_warning": "Thoir gnogag àite sam bith gus a nochdadh",
+                "tap_to_reveal": "Thoir gnogag gus a nochdadh",
                 "poll": {
                     "vote": "Cuir bhòt",
                     "closed": "Dùinte"
@@ -141,7 +142,11 @@
                     "favorite": "Cuir ris na h-annsachdan",
                     "unfavorite": "Thoir air falbh o na h-annsachdan",
                     "menu": "Clàr-taice",
-                    "hide": "Falaich"
+                    "hide": "Falaich",
+                    "show_image": "Seall an dealbh",
+                    "show_gif": "Seall an GIF",
+                    "show_video_player": "Seall cluicheadair video",
+                    "tap_then_hold_to_show_menu": "Thoir gnogag ’s cùm sìos a shealltainn a’ chlàir-thaice"
                 },
                 "tag": {
                     "url": "URL",
@@ -440,6 +445,12 @@
                     "title": "Dì-bhac an cunntas",
                     "message": "Dearbh dì-bhacadh %s"
                 }
+            },
+            "accessibility": {
+                "show_avatar_image": "Seall dealbh an avatar",
+                "edit_avatar_image": "Deasaich dealbh an avatar",
+                "show_banner_image": "Seall dealbh brataich",
+                "double_tap_to_open_the_list": "Thoir gnogag dhùbailte a dh’fhosgladh na liosta"
             }
         },
         "follower": {
@@ -541,7 +552,8 @@
                     "true_black_dark_mode": "Modh dubh dorcha",
                     "disable_avatar_animation": "Cuir beothachadh nan avataran à comas",
                     "disable_emoji_animation": "Cuir beothachadh nan Emojis à comas",
-                    "using_default_browser": "Cleachd am brabhsair bunaiteach airson ceanglaichean fhosgladh"
+                    "using_default_browser": "Cleachd am brabhsair bunaiteach airson ceanglaichean fhosgladh",
+                    "open_links_in_mastodon": "Fosgail ceanglaichean ann am Mastodon"
                 },
                 "boring_zone": {
                     "title": "An earrann ràsanach",

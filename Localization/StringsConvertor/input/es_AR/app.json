@@ -130,6 +130,7 @@
                 "show_user_profile": "Mostrar perfil de usuario",
                 "content_warning": "Advertencia de contenido",
                 "media_content_warning": "Toca en cualquier lugar para mostrar",
+                "tap_to_reveal": "Tocá para mostrar",
                 "poll": {
                     "vote": "Votar",
                     "closed": "Cerrada"
@@ -141,7 +142,11 @@
                     "favorite": "Marcar como favorito",
                     "unfavorite": "Dejar de marcar como favorito",
                     "menu": "Menú",
-                    "hide": "Ocultar"
+                    "hide": "Ocultar",
+                    "show_image": "Mostrar imagen",
+                    "show_gif": "Mostrar GIF",
+                    "show_video_player": "Mostrar reproductor de video",
+                    "tap_then_hold_to_show_menu": "Tocá y mantené presionado para mostrar el menú"
                 },
                 "tag": {
                     "url": "Dirección web",
@@ -440,6 +445,12 @@
                     "title": "Desbloquear cuenta",
                     "message": "Confirmá para desbloquear a %s"
                 }
+            },
+            "accessibility": {
+                "show_avatar_image": "Mostrar imagen de avatar",
+                "edit_avatar_image": "Editar imagen de avatar",
+                "show_banner_image": "Mostrar imagen de banner",
+                "double_tap_to_open_the_list": "Tocá dos veces para abrir la lista"
             }
         },
         "follower": {
@@ -541,7 +552,8 @@
                     "true_black_dark_mode": "Modo negro oscuro real",
                     "disable_avatar_animation": "Deshabilitar avatares animados",
                     "disable_emoji_animation": "Deshabilitar emojis animados",
-                    "using_default_browser": "Usar navegador web predeterminado para abrir enlaces"
+                    "using_default_browser": "Usar navegador web predeterminado para abrir enlaces",
+                    "open_links_in_mastodon": "Abrir enlaces en Mastodon"
                 },
                 "boring_zone": {
                     "title": "La zona aburrida",

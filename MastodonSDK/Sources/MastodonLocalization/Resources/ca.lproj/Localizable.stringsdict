@@ -114,6 +114,22 @@
         <string>%ld impulsos</string>
       </dict>
     </dict>
+    <key>plural.count.reply</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@reply_count@</string>
+      <key>reply_count</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>1 Resposta</string>
+        <key>other</key>
+        <string>%ld respostes</string>
+      </dict>
+    </dict>
     <key>plural.count.vote</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>

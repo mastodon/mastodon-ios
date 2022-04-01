@@ -130,6 +130,7 @@
                 "show_user_profile": "사용자 프로필 보기",
                 "content_warning": "열람 주의",
                 "media_content_warning": "Tap anywhere to reveal",
+                "tap_to_reveal": "Tap to reveal",
                 "poll": {
                     "vote": "투표",
                     "closed": "마감"
@@ -141,7 +142,11 @@
                     "favorite": "즐겨찾기",
                     "unfavorite": "즐겨찾기 해제",
                     "menu": "메뉴",
-                    "hide": "Hide"
+                    "hide": "Hide",
+                    "show_image": "Show image",
+                    "show_gif": "Show GIF",
+                    "show_video_player": "Show video player",
+                    "tap_then_hold_to_show_menu": "Tap then hold to show menu"
                 },
                 "tag": {
                     "url": "URL",
@@ -440,6 +445,12 @@
                     "title": "Unblock Account",
                     "message": "Confirm to unblock %s"
                 }
+            },
+            "accessibility": {
+                "show_avatar_image": "Show avatar image",
+                "edit_avatar_image": "Edit avatar image",
+                "show_banner_image": "Show banner image",
+                "double_tap_to_open_the_list": "Double tap to open the list"
             }
         },
         "follower": {
@@ -541,7 +552,8 @@
                     "true_black_dark_mode": "트루 블랙 어두운 모드",
                     "disable_avatar_animation": "움직이는 아바타 비활성화",
                     "disable_emoji_animation": "움직이는 에모지 비활성화",
-                    "using_default_browser": "기본 브라우저로 링크 열기"
+                    "using_default_browser": "기본 브라우저로 링크 열기",
+                    "open_links_in_mastodon": "Open links in Mastodon"
                 },
                 "boring_zone": {
                     "title": "지루한 영역",

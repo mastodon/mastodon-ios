@@ -130,6 +130,7 @@
                 "show_user_profile": "Mostra el perfil de l'usuari",
                 "content_warning": "Advertència de Contingut",
                 "media_content_warning": "Toca qualsevol lloc per mostrar",
+                "tap_to_reveal": "Toca per a mostrar",
                 "poll": {
                     "vote": "Vota",
                     "closed": "Finalitzada"
@@ -141,7 +142,11 @@
                     "favorite": "Favorit",
                     "unfavorite": "Desfer Favorit",
                     "menu": "Menú",
-                    "hide": "Amaga"
+                    "hide": "Amaga",
+                    "show_image": "Mostra la imatge",
+                    "show_gif": "Mostra el GIF",
+                    "show_video_player": "Mostra el reproductor de vídeo",
+                    "tap_then_hold_to_show_menu": "Toca i manté per a veure el menú"
                 },
                 "tag": {
                     "url": "URL",
@@ -440,6 +445,12 @@
                     "title": "Desbloqueja el Compte",
                     "message": "Confirma per a desbloquejar %s"
                 }
+            },
+            "accessibility": {
+                "show_avatar_image": "Mostra l'imatge del avatar",
+                "edit_avatar_image": "Edita l'imatge del avatar",
+                "show_banner_image": "Mostra l'imatge del bàner",
+                "double_tap_to_open_the_list": "Doble toc per a veure la llista"
             }
         },
         "follower": {
@@ -541,7 +552,8 @@
                     "true_black_dark_mode": "Mode negre fosc autèntic",
                     "disable_avatar_animation": "Desactiva avatars animats",
                     "disable_emoji_animation": "Desactiva emojis animats",
-                    "using_default_browser": "Utilitza el navegador predeterminat per a obrir enllaços"
+                    "using_default_browser": "Utilitza el navegador predeterminat per a obrir enllaços",
+                    "open_links_in_mastodon": "Obre enllaços a Mastodon"
                 },
                 "boring_zone": {
                     "title": "La Zona Avorrida",
