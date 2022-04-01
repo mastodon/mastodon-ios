@@ -130,6 +130,7 @@
                 "show_user_profile": "Erakutsi erabiltzailearen profila",
                 "content_warning": "Edukiaren abisua",
                 "media_content_warning": "Ukitu edonon bistaratzeko",
+                "tap_to_reveal": "Tap to reveal",
                 "poll": {
                     "vote": "Bozkatu",
                     "closed": "Itxita"
@@ -141,7 +142,11 @@
                     "favorite": "Gogokoa",
                     "unfavorite": "Kendu gogokoa",
                     "menu": "Menua",
-                    "hide": "Ezkutatu"
+                    "hide": "Ezkutatu",
+                    "show_image": "Show image",
+                    "show_gif": "Show GIF",
+                    "show_video_player": "Show video player",
+                    "tap_then_hold_to_show_menu": "Tap then hold to show menu"
                 },
                 "tag": {
                     "url": "URLa",
@@ -440,6 +445,12 @@
                     "title": "Desblokeatu kontua",
                     "message": "Berretsi %s desblokeatzea"
                 }
+            },
+            "accessibility": {
+                "show_avatar_image": "Show avatar image",
+                "edit_avatar_image": "Edit avatar image",
+                "show_banner_image": "Show banner image",
+                "double_tap_to_open_the_list": "Double tap to open the list"
             }
         },
         "follower": {
@@ -541,7 +552,8 @@
                     "true_black_dark_mode": "Benetako modu beltz iluna",
                     "disable_avatar_animation": "Desgaitu abatar animatuak",
                     "disable_emoji_animation": "Desgaitu emoji animatuak",
-                    "using_default_browser": "Erabili nabigatzaile lehenetsia estekak irekitzeko"
+                    "using_default_browser": "Erabili nabigatzaile lehenetsia estekak irekitzeko",
+                    "open_links_in_mastodon": "Open links in Mastodon"
                 },
                 "boring_zone": {
                     "title": "Eremu aspergarria",

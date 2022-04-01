@@ -2,8 +2,8 @@
     "common": {
         "alerts": {
             "common": {
-                "please_try_again": "Please try again.",
-                "please_try_again_later": "Please try again later."
+                "please_try_again": "कृपया फिर से प्रयास करें।",
+                "please_try_again_later": "बाद में फिर से प्रयास करें।"
             },
             "sign_up_failure": {
                 "title": "Sign Up Failure"
@@ -45,7 +45,7 @@
                 "message": "Please enable the photo library access permission to save the photo."
             },
             "delete_post": {
-                "title": "Delete Post",
+                "title": "पोस्ट को हटाएं",
                 "message": "Are you sure you want to delete this post?"
             },
             "clean_cache": {
@@ -130,6 +130,7 @@
                 "show_user_profile": "Show user profile",
                 "content_warning": "Content Warning",
                 "media_content_warning": "Tap anywhere to reveal",
+                "tap_to_reveal": "Tap to reveal",
                 "poll": {
                     "vote": "Vote",
                     "closed": "Closed"
@@ -141,7 +142,11 @@
                     "favorite": "Favorite",
                     "unfavorite": "Unfavorite",
                     "menu": "Menu",
-                    "hide": "Hide"
+                    "hide": "Hide",
+                    "show_image": "Show image",
+                    "show_gif": "Show GIF",
+                    "show_video_player": "Show video player",
+                    "tap_then_hold_to_show_menu": "Tap then hold to show menu"
                 },
                 "tag": {
                     "url": "URL",
@@ -440,6 +445,12 @@
                     "title": "Unblock Account",
                     "message": "Confirm to unblock %s"
                 }
+            },
+            "accessibility": {
+                "show_avatar_image": "Show avatar image",
+                "edit_avatar_image": "Edit avatar image",
+                "show_banner_image": "Show banner image",
+                "double_tap_to_open_the_list": "Double tap to open the list"
             }
         },
         "follower": {
@@ -541,7 +552,8 @@
                     "true_black_dark_mode": "True black dark mode",
                     "disable_avatar_animation": "Disable animated avatars",
                     "disable_emoji_animation": "Disable animated emojis",
-                    "using_default_browser": "Use default browser to open links"
+                    "using_default_browser": "Use default browser to open links",
+                    "open_links_in_mastodon": "Open links in Mastodon"
                 },
                 "boring_zone": {
                     "title": "The Boring Zone",

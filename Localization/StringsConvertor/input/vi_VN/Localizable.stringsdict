@@ -12,42 +12,36 @@
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
-        <key>one</key>
-        <string>1 agahdariya nexwendî</string>
         <key>other</key>
-        <string>%ld agahdariyên nexwendî</string>
+        <string>%ld thông báo chưa đọc</string>
       </dict>
     </dict>
     <key>a11y.plural.count.input_limit_exceeds</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Sînorê têketinê derbas kir %#@character_count@</string>
+      <string>Giới hạn nhập tối đa %#@character_count@</string>
       <key>character_count</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
-        <key>one</key>
-        <string>1 tîp</string>
         <key>other</key>
-        <string>%ld tîp</string>
+        <string>%ld ký tự</string>
       </dict>
     </dict>
     <key>a11y.plural.count.input_limit_remains</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Sînorê têketinê %#@character_count@ maye</string>
+      <string>Giới hạn nhập còn lại %#@character_count@</string>
       <key>character_count</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
-        <key>one</key>
-        <string>1 tîp</string>
         <key>other</key>
-        <string>%ld tîp</string>
+        <string>%ld ký tự</string>
       </dict>
     </dict>
     <key>plural.count.metric_formatted.post</key>
@@ -60,10 +54,8 @@
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
-        <key>one</key>
-        <string>şandî</string>
         <key>other</key>
-        <string>şandî</string>
+        <string>tút</string>
       </dict>
     </dict>
     <key>plural.count.post</key>
@@ -76,10 +68,8 @@
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
-        <key>one</key>
-        <string>1 şandî</string>
         <key>other</key>
-        <string>%ld şandî</string>
+        <string>%ld tút</string>
       </dict>
     </dict>
     <key>plural.count.favorite</key>
@@ -92,10 +82,8 @@
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
-        <key>one</key>
-        <string>1 hezkirin</string>
         <key>other</key>
-        <string>%ld hezkirin</string>
+        <string>%ld lượt thích</string>
       </dict>
     </dict>
     <key>plural.count.reblog</key>
@@ -108,10 +96,8 @@
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
-        <key>one</key>
-        <string>1 ji nû ve nivîsandin</string>
         <key>other</key>
-        <string>%ld ji nû ve nivîsandin</string>
+        <string>%ld đăng lại</string>
       </dict>
     </dict>
     <key>plural.count.reply</key>
@@ -124,10 +110,8 @@
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
-        <key>one</key>
-        <string>1 bersiv</string>
         <key>other</key>
-        <string>%ld bersiv</string>
+        <string>%ld trả lời</string>
       </dict>
     </dict>
     <key>plural.count.vote</key>
@@ -140,10 +124,8 @@
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
-        <key>one</key>
-        <string>1 deng</string>
         <key>other</key>
-        <string>%ld deng</string>
+        <string>%ld bình chọn</string>
       </dict>
     </dict>
     <key>plural.count.voter</key>
@@ -156,10 +138,8 @@
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
-        <key>one</key>
-        <string>1 hilbijêr</string>
         <key>other</key>
-        <string>%ld hilbijêr</string>
+        <string>%ld người bình chọn</string>
       </dict>
     </dict>
     <key>plural.people_talking</key>
@@ -172,10 +152,8 @@
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
-        <key>one</key>
-        <string>1 mirov diaxive</string>
         <key>other</key>
-        <string>%ld mirov diaxive</string>
+        <string>%ld người đang thảo luận</string>
       </dict>
     </dict>
     <key>plural.count.following</key>
@@ -188,10 +166,8 @@
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
-        <key>one</key>
-        <string>1 dişopîne</string>
         <key>other</key>
-        <string>%ld dişopîne</string>
+        <string>%ld đang theo dõi</string>
       </dict>
     </dict>
     <key>plural.count.follower</key>
@@ -204,10 +180,8 @@
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
-        <key>one</key>
-        <string>1 şopîner</string>
         <key>other</key>
-        <string>%ld şopîner</string>
+        <string>%ld người theo dõi</string>
       </dict>
     </dict>
     <key>date.year.left</key>
@@ -220,10 +194,8 @@
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
-        <key>one</key>
-        <string>1 sal berê</string>
         <key>other</key>
-        <string>%ld sal berê</string>
+        <string>%ld năm còn lại</string>
       </dict>
     </dict>
     <key>date.month.left</key>
@@ -236,10 +208,8 @@
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
-        <key>one</key>
-        <string>1 meh berê</string>
         <key>other</key>
-        <string>%ld meh berê</string>
+        <string>%ld tháng còn lại</string>
       </dict>
     </dict>
     <key>date.day.left</key>
@@ -252,10 +222,8 @@
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
-        <key>one</key>
-        <string>1 roj berê</string>
         <key>other</key>
-        <string>%ld roj berê</string>
+        <string>%ld ngày còn lại</string>
       </dict>
     </dict>
     <key>date.hour.left</key>
@@ -268,10 +236,8 @@
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
-        <key>one</key>
-        <string>1 demjimêr berê</string>
         <key>other</key>
-        <string>%ld demjimêr berê</string>
+        <string>%ld giờ còn lại</string>
       </dict>
     </dict>
     <key>date.minute.left</key>
@@ -284,10 +250,8 @@
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
-        <key>one</key>
-        <string>1 xulek berê</string>
         <key>other</key>
-        <string>%ld xulek berê</string>
+        <string>%ld phút còn lại</string>
       </dict>
     </dict>
     <key>date.second.left</key>
@@ -300,10 +264,8 @@
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
-        <key>one</key>
-        <string>1 çirke berê</string>
         <key>other</key>
-        <string>%ld çirke berê</string>
+        <string>%ld giây còn lại</string>
       </dict>
     </dict>
     <key>date.year.ago.abbr</key>
@@ -316,10 +278,8 @@
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
-        <key>one</key>
-        <string>1 sal berê</string>
         <key>other</key>
-        <string>%ld sal berê</string>
+        <string>%ld năm trước</string>
       </dict>
     </dict>
     <key>date.month.ago.abbr</key>
@@ -332,10 +292,8 @@
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
-        <key>one</key>
-        <string>1 xulek berê</string>
         <key>other</key>
-        <string>%ld xulek berê</string>
+        <string>%ld tháng trước</string>
       </dict>
     </dict>
     <key>date.day.ago.abbr</key>
@@ -348,10 +306,8 @@
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
-        <key>one</key>
-        <string>1 roj berê</string>
         <key>other</key>
-        <string>%ld roj berê</string>
+        <string>%ld ngày trước</string>
       </dict>
     </dict>
     <key>date.hour.ago.abbr</key>
@@ -364,10 +320,8 @@
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
-        <key>one</key>
-        <string>1 demjimêr berê</string>
         <key>other</key>
-        <string>%ld demjimêr berê</string>
+        <string>%ldh</string>
       </dict>
     </dict>
     <key>date.minute.ago.abbr</key>
@@ -380,10 +334,8 @@
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
-        <key>one</key>
-        <string>1 xulek berê</string>
         <key>other</key>
-        <string>%ld xulek berê</string>
+        <string>%ldm</string>
       </dict>
     </dict>
     <key>date.second.ago.abbr</key>
@@ -396,10 +348,8 @@
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
-        <key>one</key>
-        <string>1 çirke berê</string>
         <key>other</key>
-        <string>%ld çirke berê</string>
+        <string>%lds</string>
       </dict>
     </dict>
   </dict>

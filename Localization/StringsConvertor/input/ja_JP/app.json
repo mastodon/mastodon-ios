@@ -130,6 +130,7 @@
                 "show_user_profile": "プロフィールを見る",
                 "content_warning": "コンテンツ警告",
                 "media_content_warning": "どこかをタップして表示",
+                "tap_to_reveal": "Tap to reveal",
                 "poll": {
                     "vote": "投票",
                     "closed": "クローズド"
@@ -141,7 +142,11 @@
                     "favorite": "お気に入り",
                     "unfavorite": "お気に入り登録を取り消す",
                     "menu": "メニュー",
-                    "hide": "非表示"
+                    "hide": "非表示",
+                    "show_image": "Show image",
+                    "show_gif": "Show GIF",
+                    "show_video_player": "Show video player",
+                    "tap_then_hold_to_show_menu": "Tap then hold to show menu"
                 },
                 "tag": {
                     "url": "URL",
@@ -440,6 +445,12 @@
                     "title": "Unblock Account",
                     "message": "Confirm to unblock %s"
                 }
+            },
+            "accessibility": {
+                "show_avatar_image": "Show avatar image",
+                "edit_avatar_image": "Edit avatar image",
+                "show_banner_image": "Show banner image",
+                "double_tap_to_open_the_list": "Double tap to open the list"
             }
         },
         "follower": {
@@ -541,7 +552,8 @@
                     "true_black_dark_mode": "真っ黒なダークテーマを使用する",
                     "disable_avatar_animation": "アバターのアニメーションを無効化する",
                     "disable_emoji_animation": "絵文字のアニメーションを無効化する",
-                    "using_default_browser": "既定のブラウザでリンクを開く"
+                    "using_default_browser": "既定のブラウザでリンクを開く",
+                    "open_links_in_mastodon": "Open links in Mastodon"
                 },
                 "boring_zone": {
                     "title": "アプリについて",
