@@ -1,52 +1,51 @@
-"16wxgf" = "Post on Mastodon";
+"16wxgf" = "Asuffeɣ deg Matodon";
 
-"751xkl" = "Text Content";
+"751xkl" = "Agbur n uḍris";
 
-"CsR7G2" = "Post on Mastodon";
+"CsR7G2" = "Asuffeɣ deg Matodon";
 
-"HZSGTr" = "What content to post?";
+"HZSGTr" = "Anwa agbur ara d-yettwasuffɣen?";
 
-"HdGikU" = "Posting failed";
+"HdGikU" = "Yecceḍ usuffeɣ";
 
-"KDNTJ4" = "Failure Reason";
+"KDNTJ4" = "Ssebba n tuccḍa";
 
-"RHxKOw" = "Send Post with text content";
+"RHxKOw" = "Azen tasuffeɣt s ugbur n uḍris";
 
-"RxSqsb" = "Post";
+"RxSqsb" = "Tasuffeɣt";
 
-"WCIR3D" = "Post ${content} on Mastodon";
+"WCIR3D" = "Suffeɣ ${content} deg Mastodon";
 
-"ZKJSNu" = "Post";
+"ZKJSNu" = "Tasuffeɣt";
 
 "ZS1XaK" = "${content}";
 
-"ZbSjzC" = "Visibility";
+"ZbSjzC" = "Abani";
 
-"Zo4jgJ" = "Post Visibility";
+"Zo4jgJ" = "Abani n tsuffeɣt";
 
-"apSxMG-dYQ5NN" = "There are ${count} options matching ‘Public’.";
+"apSxMG-dYQ5NN" = "Yella ${count} n textiṛiyin yemṣadan d 'Uzayaz'.";
 
-"apSxMG-ehFLjY" = "There are ${count} options matching ‘Followers Only’.";
+"apSxMG-ehFLjY" = "Yella ${count} n textiṛiyin yemṣadan d 'Yineḍfaren kan'.";
 
-"ayoYEb-dYQ5NN" = "${content}, Public";
+"ayoYEb-dYQ5NN" = "${content}, azayaz";
 
-"ayoYEb-ehFLjY" = "${content}, Followers Only";
+"ayoYEb-ehFLjY" = "${content}, ineḍfaren kan";
 
-"dUyuGg" = "Post on Mastodon";
+"dUyuGg" = "Asuffeɣ deg Maṣṭudun";
 
-"dYQ5NN" = "Public";
+"dYQ5NN" = "Azayez";
 
-"ehFLjY" = "Followers Only";
+"ehFLjY" = "Imeḍfaṛen kan";
 
-"gfePDu" = "Posting failed. ${failureReason}";
+"gfePDu" = "Asuffeɣ yecceḍ. ${failureReason}";
 
-"k7dbKQ" = "Post was sent successfully.";
+"k7dbKQ" = "Tasuffeɣt tettwazen akken iwata.";
 
-"oGiqmY-dYQ5NN" = "Just to confirm, you wanted ‘Public’?";
+"oGiqmY-dYQ5NN" = "I usentem kan, tebɣiḍ 'Azayaz'?";
 
-"oGiqmY-ehFLjY" = "Just to confirm, you wanted ‘Followers Only’?";
+"oGiqmY-ehFLjY" = "I usentem kan, tebɣiḍ 'Ineḍfaren kan'?";
 
 "rM6dvp" = "URL";
 
-"ryJLwG" = "Post was sent successfully.";
-
+"ryJLwG" = "Tasuffeɣt tettwazen akken iwata. ";

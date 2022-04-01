@@ -98,6 +98,10 @@
 "Common.Controls.Status.Actions.Menu" = "Меню";
 "Common.Controls.Status.Actions.Reblog" = "Продвинуть";
 "Common.Controls.Status.Actions.Reply" = "Ответить";
+"Common.Controls.Status.Actions.ShowGif" = "Show GIF";
+"Common.Controls.Status.Actions.ShowImage" = "Show image";
+"Common.Controls.Status.Actions.ShowVideoPlayer" = "Show video player";
+"Common.Controls.Status.Actions.TapThenHoldToShowMenu" = "Tap then hold to show menu";
 "Common.Controls.Status.Actions.Unfavorite" = "Убрать из избранного";
 "Common.Controls.Status.Actions.Unreblog" = "Убрать продвижение";
 "Common.Controls.Status.ContentWarning" = "Предупреждение о содержании";
@@ -112,6 +116,7 @@
 "Common.Controls.Status.Tag.Link" = "Ссылка";
 "Common.Controls.Status.Tag.Mention" = "Упоминание";
 "Common.Controls.Status.Tag.Url" = "Ссылка";
+"Common.Controls.Status.TapToReveal" = "Tap to reveal";
 "Common.Controls.Status.UserReblogged" = "%@ продвинул(а)";
 "Common.Controls.Status.UserRepliedTo" = "Ответил(а) %@";
 "Common.Controls.Status.Visibility.Direct" = "Only mentioned user can see this post.";
@@ -227,6 +232,10 @@
 "Scene.Preview.Keyboard.ClosePreview" = "Закрыть предпросмотр";
 "Scene.Preview.Keyboard.ShowNext" = "Следующее изображение";
 "Scene.Preview.Keyboard.ShowPrevious" = "Предыдущее изображение";
+"Scene.Profile.Accessibility.DoubleTapToOpenTheList" = "Double tap to open the list";
+"Scene.Profile.Accessibility.EditAvatarImage" = "Edit avatar image";
+"Scene.Profile.Accessibility.ShowAvatarImage" = "Show avatar image";
+"Scene.Profile.Accessibility.ShowBannerImage" = "Show banner image";
 "Scene.Profile.Dashboard.Followers" = "подписчики";
 "Scene.Profile.Dashboard.Following" = "подписки";
 "Scene.Profile.Dashboard.Posts" = "посты";
@@ -367,6 +376,7 @@
 "Scene.Settings.Section.Notifications.Trigger.Title" = "Уведомлять меня, когда";
 "Scene.Settings.Section.Preference.DisableAvatarAnimation" = "Отключить анимацию аватарок";
 "Scene.Settings.Section.Preference.DisableEmojiAnimation" = "Отключить анимацию эмодзи";
+"Scene.Settings.Section.Preference.OpenLinksInMastodon" = "Open links in Mastodon";
 "Scene.Settings.Section.Preference.Title" = "Предпочтения";
 "Scene.Settings.Section.Preference.TrueBlackDarkMode" = "Полноценно чёрный режим";
 "Scene.Settings.Section.Preference.UsingDefaultBrowser" = "Использовать браузер по умолчанию для открытия ссылок";

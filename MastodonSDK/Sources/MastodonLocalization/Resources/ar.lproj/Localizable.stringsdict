@@ -170,6 +170,30 @@
         <string>%ld إعادة تدوين</string>
       </dict>
     </dict>
+    <key>plural.count.reply</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@reply_count@</string>
+      <key>reply_count</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>zero</key>
+        <string>لا رَدّ</string>
+        <key>one</key>
+        <string>رَدٌّ واحِد</string>
+        <key>two</key>
+        <string>رَدَّانِ اِثنان</string>
+        <key>few</key>
+        <string>%ld رُدُود</string>
+        <key>many</key>
+        <string>%ld رَدًّا</string>
+        <key>other</key>
+        <string>%ld رَدّ</string>
+      </dict>
+    </dict>
     <key>plural.count.vote</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
