@@ -1317,6 +1317,12 @@
 		DBF3B7402733EB9400E21627 /* MastodonLocalCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonLocalCode.swift; sourceTree = "<group>"; };
 		DBF53F5F25C14E88008AAC7B /* Mastodon.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = Mastodon.xctestplan; path = Mastodon/Mastodon.xctestplan; sourceTree = "<group>"; };
 		DBF53F6025C14E9D008AAC7B /* MastodonSDK.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = MastodonSDK.xctestplan; sourceTree = "<group>"; };
+		DBF81C7427F68F5A00004A56 /* kab */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = kab; path = kab.lproj/Intents.strings; sourceTree = "<group>"; };
+		DBF81C7527F68F5A00004A56 /* kab */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = kab; path = kab.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DBF81C7627F68F5A00004A56 /* kab */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = kab; path = kab.lproj/Intents.stringsdict; sourceTree = "<group>"; };
+		DBF81C7727F6913300004A56 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/Intents.strings; sourceTree = "<group>"; };
+		DBF81C7827F6913300004A56 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DBF81C7927F6913300004A56 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = vi; path = vi.lproj/Intents.stringsdict; sourceTree = "<group>"; };
 		DBF8AE13263293E400C9C23C /* NotificationService.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationService.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBF8AE15263293E400C9C23C /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		DBF8AE17263293E400C9C23C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -3441,6 +3447,8 @@
 				"eu-ES",
 				"sv-FI",
 				ku,
+				kab,
+				vi,
 			);
 			mainGroup = DB427DC925BAA00100D1B89D;
 			packageReferences = (
@@ -4442,6 +4450,8 @@
 				DB126A4C278C063F005726EE /* eu-ES */,
 				DB126A56278C088D005726EE /* sv-FI */,
 				DBEB19E927E4F37B00B0E80E /* ku */,
+				DBF81C7427F68F5A00004A56 /* kab */,
+				DBF81C7727F6913300004A56 /* vi */,
 			);
 			name = Intents.intentdefinition;
 			sourceTree = "<group>";
@@ -4465,6 +4475,8 @@
 				DB126A4F278C063F005726EE /* eu-ES */,
 				DB126A59278C088D005726EE /* sv-FI */,
 				DBEB19EA27E4F37B00B0E80E /* ku */,
+				DBF81C7527F68F5A00004A56 /* kab */,
+				DBF81C7827F6913300004A56 /* vi */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -4504,6 +4516,8 @@
 				DB126A50278C063F005726EE /* eu-ES */,
 				DB126A5A278C088D005726EE /* sv-FI */,
 				DBEB19EB27E4F37B00B0E80E /* ku */,
+				DBF81C7627F68F5A00004A56 /* kab */,
+				DBF81C7927F6913300004A56 /* vi */,
 			);
 			name = Intents.stringsdict;
 			sourceTree = "<group>";
