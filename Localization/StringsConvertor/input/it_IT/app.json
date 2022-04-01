@@ -597,12 +597,12 @@
         "account_list": {
             "tab_bar_hint": "Profilo corrente selezionato: %s. Doppio tocco e tieni premuto per mostrare il cambio account",
             "dismiss_account_switcher": "Ignora il cambio account",
-            "add_account": "Add Account"
+            "add_account": "Aggiungi account"
         },
         "wizard": {
-            "new_in_mastodon": "New in Mastodon",
-            "multiple_account_switch_intro_description": "Switch between multiple accounts by holding the profile button.",
-            "accessibility_hint": "Double tap to dismiss this wizard"
+            "new_in_mastodon": "Nuovo su Mastodon",
+            "multiple_account_switch_intro_description": "Passa tra più account tenendo premuto il pulsante del profilo.",
+            "accessibility_hint": "Doppio tocco per eliminare questa procedura guidata"
         }
     }
 }
