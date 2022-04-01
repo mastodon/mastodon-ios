@@ -95,7 +95,7 @@
         <key>one</key>
         <string>1 preferito</string>
         <key>other</key>
-        <string>%ld favorites</string>
+        <string>%ld preferiti</string>
       </dict>
     </dict>
     <key>plural.count.reblog</key>
