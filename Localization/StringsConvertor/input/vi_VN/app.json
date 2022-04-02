@@ -28,8 +28,8 @@
                 }
             },
             "edit_profile_failure": {
-                "title": "Lỗi chỉnh sửa trang cá nhân",
-                "message": "Không thể chỉnh sửa trang cá nhân. Vui lòng thử lại."
+                "title": "Lỗi chỉnh sửa hồ sơ",
+                "message": "Không thể chỉnh sửa hồ sơ. Vui lòng thử lại."
             },
             "sign_out": {
                 "title": "Đăng xuất",
@@ -97,7 +97,7 @@
                 "home": "Bảng tin",
                 "search": "Tìm kiếm",
                 "notification": "Thông báo",
-                "profile": "Trang cá nhân"
+                "profile": "Trang hồ sơ"
             },
             "keyboard": {
                 "common": {
@@ -127,7 +127,7 @@
                 "user_reblogged": "%s đăng lại",
                 "user_replied_to": "Trả lời %s",
                 "show_post": "Xem tút",
-                "show_user_profile": "Xem trang cá nhân",
+                "show_user_profile": "Xem trang hồ sơ",
                 "content_warning": "Nội dung ẩn",
                 "media_content_warning": "Nhấn để hiển thị",
                 "tap_to_reveal": "Nhấn để hiển thị",
