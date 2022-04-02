@@ -130,7 +130,7 @@
                 "show_user_profile": "แสดงโปรไฟล์ผู้ใช้",
                 "content_warning": "คำเตือนเนื้อหา",
                 "media_content_warning": "แตะที่ใดก็ตามเพื่อเปิดเผย",
-                "tap_to_reveal": "Tap to reveal",
+                "tap_to_reveal": "แตะเพื่อเปิดเผย",
                 "poll": {
                     "vote": "ลงคะแนน",
                     "closed": "ปิดแล้ว"
@@ -143,10 +143,10 @@
                     "unfavorite": "เลิกชื่นชอบ",
                     "menu": "เมนู",
                     "hide": "ซ่อน",
-                    "show_image": "Show image",
-                    "show_gif": "Show GIF",
-                    "show_video_player": "Show video player",
-                    "tap_then_hold_to_show_menu": "Tap then hold to show menu"
+                    "show_image": "แสดงภาพ",
+                    "show_gif": "แสดง GIF",
+                    "show_video_player": "แสดงตัวเล่นวิดีโอ",
+                    "tap_then_hold_to_show_menu": "แตะค้างไว้เพื่อแสดงเมนู"
                 },
                 "tag": {
                     "url": "URL",
@@ -447,10 +447,10 @@
                 }
             },
             "accessibility": {
-                "show_avatar_image": "Show avatar image",
-                "edit_avatar_image": "Edit avatar image",
-                "show_banner_image": "Show banner image",
-                "double_tap_to_open_the_list": "Double tap to open the list"
+                "show_avatar_image": "แสดงภาพประจำตัว",
+                "edit_avatar_image": "แก้ไขภาพประจำตัว",
+                "show_banner_image": "แสดงภาพแบนเนอร์",
+                "double_tap_to_open_the_list": "แตะสองครั้งเพื่อเปิดรายการ"
             }
         },
         "follower": {
@@ -553,7 +553,7 @@
                     "disable_avatar_animation": "ปิดใช้งานภาพประจำตัวแบบเคลื่อนไหว",
                     "disable_emoji_animation": "ปิดใช้งานอีโมจิแบบเคลื่อนไหว",
                     "using_default_browser": "ใช้เบราว์เซอร์เริ่มต้นเพื่อเปิดลิงก์",
-                    "open_links_in_mastodon": "Open links in Mastodon"
+                    "open_links_in_mastodon": "เปิดลิงก์ใน Mastodon"
                 },
                 "boring_zone": {
                     "title": "โซนน่าเบื่อ",
