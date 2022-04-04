@@ -41,11 +41,11 @@
                 "block_entire_domain": "Bloquejar Domini"
             },
             "save_photo_failure": {
-                "title": "Desa l'Error de la Foto",
+                "title": "Error al Desar la Foto",
                 "message": "Activa el permís d'accés a la biblioteca de fotos per desar-la."
             },
             "delete_post": {
-                "title": "Estàs segur que vols suprimir aquesta publicació?",
+                "title": "Esborrar Publicació",
                 "message": "Estàs segur que vols suprimir aquesta publicació?"
             },
             "clean_cache": {
@@ -83,7 +83,7 @@
                 "share_post": "Compartir Publicació",
                 "open_in_safari": "Obrir a Safari",
                 "open_in_browser": "Obre al navegador",
-                "find_people": "Busca persones per seguir",
+                "find_people": "Busca persones a seguir",
                 "manually_search": "Cerca manualment a canvi",
                 "skip": "Omet",
                 "reply": "Respon",
@@ -110,16 +110,16 @@
                     "previous_status": "Publicació anterior",
                     "next_status": "Publicació següent",
                     "open_status": "Obre la publicació",
-                    "open_author_profile": "Obre el perfil de l'autor",
-                    "open_reblogger_profile": "Obre el perfil del impulsor",
-                    "reply_status": "Respon a la publicació",
-                    "toggle_reblog": "Commuta l'impuls de la publicació",
-                    "toggle_favorite": "Commuta el Favorit de la publicació",
+                    "open_author_profile": "Obre el Perfil de l'Autor",
+                    "open_reblogger_profile": "Obre el Perfil del Impulsor",
+                    "reply_status": "Respon a la Publicació",
+                    "toggle_reblog": "Commuta l'Impuls de la Publicació",
+                    "toggle_favorite": "Commuta el Favorit de la Publicació",
                     "toggle_content_warning": "Commuta l'Avís de Contingut",
                     "preview_image": "Vista prèvia de l'Imatge"
                 },
                 "segmented_control": {
-                    "previous_section": "Secció anterior",
+                    "previous_section": "Secció Anterior",
                     "next_section": "Secció següent"
                 }
             },
