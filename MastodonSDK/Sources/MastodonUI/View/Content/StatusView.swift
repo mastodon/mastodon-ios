@@ -141,11 +141,11 @@ public final class StatusView: UIView {
             return style
         }()
         metaText.textAttributes = [
-            .font: UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 15, weight: .regular)),
+            .font: UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 17, weight: .regular)),
             .foregroundColor: Asset.Colors.Label.primary.color,
         ]
         metaText.linkAttributes = [
-            .font: UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 15, weight: .semibold)),
+            .font: UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold)),
             .foregroundColor: Asset.Colors.brandBlue.color,
         ]
         return metaText
