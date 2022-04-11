@@ -757,7 +757,7 @@ extension StatusView: UITextViewDelegate {
 // MARK: - MetaTextViewDelegate
 extension StatusView: MetaTextViewDelegate {
     public func metaTextView(_ metaTextView: MetaTextView, didSelectMeta meta: Meta) {
-        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
+        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): meta: \(String(describing: meta))")
         switch metaTextView {
         case contentMetaText.textView:
             delegate?.statusView(self, metaText: contentMetaText, didSelectMeta: meta)
