@@ -550,6 +550,13 @@
 		DBD5B1F827BCFD9D00BD6B38 /* DataSourceProvider+TableViewControllerNavigateable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD5B1F727BCFD9D00BD6B38 /* DataSourceProvider+TableViewControllerNavigateable.swift */; };
 		DBD5B1FA27BD013700BD6B38 /* DataSourceProvider+StatusTableViewControllerNavigateable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD5B1F927BD013700BD6B38 /* DataSourceProvider+StatusTableViewControllerNavigateable.swift */; };
 		DBD9149025DF6D8D00903DFD /* APIService+Onboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD9148F25DF6D8D00903DFD /* APIService+Onboarding.swift */; };
+		DBDFF1902805543100557A48 /* DiscoveryPostsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDFF18F2805543100557A48 /* DiscoveryPostsViewController.swift */; };
+		DBDFF1932805554900557A48 /* DiscoveryPostsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDFF1922805554900557A48 /* DiscoveryPostsViewModel.swift */; };
+		DBDFF1952805561700557A48 /* DiscoveryPostsViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDFF1942805561700557A48 /* DiscoveryPostsViewModel+Diffable.swift */; };
+		DBDFF197280556D900557A48 /* DiscoveryPostsViewModel+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDFF196280556D900557A48 /* DiscoveryPostsViewModel+State.swift */; };
+		DBDFF19A28055A1400557A48 /* DiscoveryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDFF19928055A1400557A48 /* DiscoveryViewController.swift */; };
+		DBDFF19C28055BD600557A48 /* DiscoveryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDFF19B28055BD600557A48 /* DiscoveryViewModel.swift */; };
+		DBDFF19E2805703700557A48 /* DiscoveryPostsViewController+DataSourceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDFF19D2805703700557A48 /* DiscoveryPostsViewController+DataSourceProvider.swift */; };
 		DBE0821525CD382600FD6BBD /* MastodonRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE0821425CD382600FD6BBD /* MastodonRegisterViewController.swift */; };
 		DBE0822425CD3F1E00FD6BBD /* MastodonRegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE0822325CD3F1E00FD6BBD /* MastodonRegisterViewModel.swift */; };
 		DBE3CA6827A39CAB00AFE27B /* AppShared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB68047F2637CD4C00430867 /* AppShared.framework */; };
@@ -1293,6 +1300,13 @@
 		DBD5B1F727BCFD9D00BD6B38 /* DataSourceProvider+TableViewControllerNavigateable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataSourceProvider+TableViewControllerNavigateable.swift"; sourceTree = "<group>"; };
 		DBD5B1F927BD013700BD6B38 /* DataSourceProvider+StatusTableViewControllerNavigateable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataSourceProvider+StatusTableViewControllerNavigateable.swift"; sourceTree = "<group>"; };
 		DBD9148F25DF6D8D00903DFD /* APIService+Onboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Onboarding.swift"; sourceTree = "<group>"; };
+		DBDFF18F2805543100557A48 /* DiscoveryPostsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryPostsViewController.swift; sourceTree = "<group>"; };
+		DBDFF1922805554900557A48 /* DiscoveryPostsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryPostsViewModel.swift; sourceTree = "<group>"; };
+		DBDFF1942805561700557A48 /* DiscoveryPostsViewModel+Diffable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DiscoveryPostsViewModel+Diffable.swift"; sourceTree = "<group>"; };
+		DBDFF196280556D900557A48 /* DiscoveryPostsViewModel+State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DiscoveryPostsViewModel+State.swift"; sourceTree = "<group>"; };
+		DBDFF19928055A1400557A48 /* DiscoveryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryViewController.swift; sourceTree = "<group>"; };
+		DBDFF19B28055BD600557A48 /* DiscoveryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryViewModel.swift; sourceTree = "<group>"; };
+		DBDFF19D2805703700557A48 /* DiscoveryPostsViewController+DataSourceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DiscoveryPostsViewController+DataSourceProvider.swift"; sourceTree = "<group>"; };
 		DBE0821425CD382600FD6BBD /* MastodonRegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonRegisterViewController.swift; sourceTree = "<group>"; };
 		DBE0822325CD3F1E00FD6BBD /* MastodonRegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonRegisterViewModel.swift; sourceTree = "<group>"; };
 		DBE3CDBA261C427900430CC6 /* TimelineHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineHeaderTableViewCell.swift; sourceTree = "<group>"; };
@@ -2682,6 +2696,7 @@
 				2DAC9E36262FC20B0062E1A6 /* SuggestionAccount */,
 				DB9D6C0825E4F5A60051B173 /* Profile */,
 				DB9D6BEE25E4F5370051B173 /* Search */,
+				DBDFF1912805544800557A48 /* Discovery */,
 				5B90C455262599800002E742 /* Settings */,
 			);
 			path = Scene;
@@ -3066,6 +3081,28 @@
 				DB4F097E26A03DA600D62E92 /* SearchHistoryFetchedResultController.swift */,
 			);
 			path = FetchedResultsController;
+			sourceTree = "<group>";
+		};
+		DBDFF1912805544800557A48 /* Discovery */ = {
+			isa = PBXGroup;
+			children = (
+				DBDFF19828055A0900557A48 /* Posts */,
+				DBDFF19928055A1400557A48 /* DiscoveryViewController.swift */,
+				DBDFF19B28055BD600557A48 /* DiscoveryViewModel.swift */,
+			);
+			path = Discovery;
+			sourceTree = "<group>";
+		};
+		DBDFF19828055A0900557A48 /* Posts */ = {
+			isa = PBXGroup;
+			children = (
+				DBDFF18F2805543100557A48 /* DiscoveryPostsViewController.swift */,
+				DBDFF19D2805703700557A48 /* DiscoveryPostsViewController+DataSourceProvider.swift */,
+				DBDFF1922805554900557A48 /* DiscoveryPostsViewModel.swift */,
+				DBDFF1942805561700557A48 /* DiscoveryPostsViewModel+Diffable.swift */,
+				DBDFF196280556D900557A48 /* DiscoveryPostsViewModel+State.swift */,
+			);
+			path = Posts;
 			sourceTree = "<group>";
 		};
 		DBE0821A25CD382900FD6BBD /* Register */ = {
@@ -3797,6 +3834,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DBB525212611EBD6002F1F29 /* ProfilePagingViewController.swift in Sources */,
+				DBDFF19E2805703700557A48 /* DiscoveryPostsViewController+DataSourceProvider.swift in Sources */,
 				DB6180EB26391C140018D199 /* MediaPreviewTransitionItem.swift in Sources */,
 				DB63F74727990B0600455B82 /* DataSourceFacade+Hashtag.swift in Sources */,
 				DB98337125C9443200AD9700 /* APIService+Authentication.swift in Sources */,
@@ -3858,6 +3896,7 @@
 				DB697DD6278F4C29004EF2F7 /* DataSourceProvider.swift in Sources */,
 				DB0FCB8E2796C0B7006C02E2 /* TrendCollectionViewCell.swift in Sources */,
 				0F1E2D0B2615C39400C38565 /* DoubleTitleLabelNavigationBarTitleView.swift in Sources */,
+				DBDFF1902805543100557A48 /* DiscoveryPostsViewController.swift in Sources */,
 				DB697DD9278F4CED004EF2F7 /* HomeTimelineViewController+DataSourceProvider.swift in Sources */,
 				DB9A488A26034D40008B817C /* ComposeViewModel+PublishState.swift in Sources */,
 				DB45FAD725CA6C76005A8AC7 /* UIBarButtonItem.swift in Sources */,
@@ -3878,7 +3917,9 @@
 				DB297B1B2679FAE200704C90 /* PlaceholderImageCacheService.swift in Sources */,
 				DB0FCB8C2796BF8D006C02E2 /* SearchViewModel+Diffable.swift in Sources */,
 				2D8FCA082637EABB00137F46 /* APIService+FollowRequest.swift in Sources */,
+				DBDFF1952805561700557A48 /* DiscoveryPostsViewModel+Diffable.swift in Sources */,
 				DB03A795272A981400EE37C5 /* ContentSplitViewController.swift in Sources */,
+				DBDFF19C28055BD600557A48 /* DiscoveryViewModel.swift in Sources */,
 				DBBC24DE26A54BCB00398BB9 /* MastodonMetricFormatter.swift in Sources */,
 				DB06180A2785B2AB0030EE79 /* MastodonRegisterAvatarTableViewCell.swift in Sources */,
 				DBB45B6227B51112002DC5A7 /* SuggestionAccountViewModel+Diffable.swift in Sources */,
@@ -4012,6 +4053,7 @@
 				DB1D843026566512000346B3 /* KeyboardPreference.swift in Sources */,
 				DB852D1926FAEB6B00FC9D81 /* SidebarViewController.swift in Sources */,
 				2D206B9225F60EA700143C56 /* UIControl.swift in Sources */,
+				DBDFF1932805554900557A48 /* DiscoveryPostsViewModel.swift in Sources */,
 				2D9DB96B263A91D1007C1D71 /* APIService+DomainBlock.swift in Sources */,
 				DBBF1DC92652538500E5B703 /* AutoCompleteSection.swift in Sources */,
 				DB8AF55D25C138B7002E6C99 /* UIViewController.swift in Sources */,
@@ -4069,6 +4111,7 @@
 				2D5981A125E4A593000FB903 /* MastodonConfirmEmailViewModel.swift in Sources */,
 				DB6B74F6272FBCDB00C70B6E /* FollowerListViewModel+State.swift in Sources */,
 				DB87D4452609BE0500D12C0D /* ComposeStatusPollOptionCollectionViewCell.swift in Sources */,
+				DBDFF197280556D900557A48 /* DiscoveryPostsViewModel+State.swift in Sources */,
 				DB336F2C278D6FC30031E64B /* Persistence+Status.swift in Sources */,
 				DB336F2A278D6F2B0031E64B /* MastodonField.swift in Sources */,
 				DB0FCB7A279576A2006C02E2 /* DataSourceFacade+Thread.swift in Sources */,
@@ -4246,6 +4289,7 @@
 				DB6F5E38264E994A009108F4 /* AutoCompleteTopChevronView.swift in Sources */,
 				DB6746F0278F463B008A6B94 /* AutoGenerateProtocolDelegate.swift in Sources */,
 				DBB525412611ED54002F1F29 /* ProfileHeaderViewController.swift in Sources */,
+				DBDFF19A28055A1400557A48 /* DiscoveryViewController.swift in Sources */,
 				DB9D6BFF25E4F5940051B173 /* ProfileViewController.swift in Sources */,
 				DB63F756279949BD00455B82 /* Persistence+SearchHistory.swift in Sources */,
 				2D4AD8A226316CD200613EFC /* SelectedAccountSection.swift in Sources */,

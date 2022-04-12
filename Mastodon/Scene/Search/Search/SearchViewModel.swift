@@ -38,7 +38,7 @@ final class SearchViewModel: NSObject {
         }
         .throttle(for: 3, scheduler: DispatchQueue.main, latest: true)
         .asyncMap { authenticationBox in
-            try await context.apiService.trends(domain: authenticationBox.domain, query: nil)
+            try await context.apiService.trendHashtags(domain: authenticationBox.domain, query: nil)
         }
         .retry(3)
         .map { response in Result<Mastodon.Response.Content<[Mastodon.Entity.Tag]>, Error> { response } }

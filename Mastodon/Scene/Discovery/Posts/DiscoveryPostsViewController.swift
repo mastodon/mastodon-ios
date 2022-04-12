@@ -1,26 +1,23 @@
 //
-//  UserTimelineViewController.swift
+//  DiscoveryPostsViewController.swift
 //  Mastodon
 //
-//  Created by MainasuK Cirno on 2021-3-29.
+//  Created by MainasuK on 2022-4-12.
 //
 
 import os.log
 import UIKit
-import AVKit
 import Combine
-import CoreDataStack
-import GameplayKit
 
-final class UserTimelineViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
+final class DiscoveryPostsViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
     
-    let logger = Logger(subsystem: "UserTimelineViewController", category: "ViewController")
-        
+    let logger = Logger(subsystem: "TrendPostsViewController", category: "ViewController")
+    
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
     var disposeBag = Set<AnyCancellable>()
-    var viewModel: UserTimelineViewModel!
+    var viewModel: DiscoveryPostsViewModel!
     
     let mediaPreviewTransitionController = MediaPreviewTransitionController()
 
@@ -32,17 +29,15 @@ final class UserTimelineViewController: UIViewController, NeedsDependency, Media
         tableView.backgroundColor = .clear
         return tableView
     }()
-        
-    let cellFrameCache = NSCache<NSNumber, NSValue>()
-
+    
     deinit {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
     }
     
 }
 
-extension UserTimelineViewController {
-    
+extension DiscoveryPostsViewController {
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -77,32 +72,16 @@ extension UserTimelineViewController {
             .sink { [weak self] _ in
                 guard let self = self else { return }
                 guard self.view.window != nil else { return }
-                self.viewModel.stateMachine.enter(UserTimelineViewModel.State.Loading.self)
+                self.viewModel.stateMachine.enter(DiscoveryPostsViewModel.State.Loading.self)
             }
             .store(in: &disposeBag)
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
-        tableView.deselectRow(with: transitionCoordinator, animated: animated)
     }
     
 }
 
-// MARK: - CellFrameCacheContainer
-extension UserTimelineViewController: CellFrameCacheContainer {
-    func keyForCache(tableView: UITableView, indexPath: IndexPath) -> NSNumber? {
-        guard let diffableDataSource = viewModel.diffableDataSource else { return nil }
-        guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return nil }
-        let key = NSNumber(value: item.hashValue)
-        return key
-    }
-}
-
 // MARK: - UITableViewDelegate
-extension UserTimelineViewController: UITableViewDelegate, AutoGenerateTableViewDelegate {
-    // sourcery:inline:UserTimelineViewController.AutoGenerateTableViewDelegate
+extension DiscoveryPostsViewController: UITableViewDelegate, AutoGenerateTableViewDelegate {
+    // sourcery:inline:DiscoveryPostsViewController.AutoGenerateTableViewDelegate
 
     // Generated using Sourcery
     // DO NOT EDIT
@@ -125,43 +104,15 @@ extension UserTimelineViewController: UITableViewDelegate, AutoGenerateTableView
     func tableView(_ tableView: UITableView, willPerformPreviewActionForMenuWith configuration: UIContextMenuConfiguration, animator: UIContextMenuInteractionCommitAnimating) {
         aspectTableView(tableView, willPerformPreviewActionForMenuWith: configuration, animator: animator)
     }
-
     // sourcery:end
-    
-    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        guard let frame = retrieveCellFrame(tableView: tableView, indexPath: indexPath) else {
-            return 200
-        }
-        return ceil(frame.height)
-    }
-
-    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        cacheCellFrame(tableView: tableView, didEndDisplaying: cell, forRowAt: indexPath)
-    }
-    
-}
-
-// MARK: - CustomScrollViewContainerController
-extension UserTimelineViewController: ScrollViewContainer {
-    var scrollView: UIScrollView? { return tableView }
 }
 
 // MARK: - StatusTableViewCellDelegate
-extension UserTimelineViewController: StatusTableViewCellDelegate { }
+extension DiscoveryPostsViewController: StatusTableViewCellDelegate { }
 
-extension UserTimelineViewController {
-    override var keyCommands: [UIKeyCommand]? {
-        return navigationKeyCommands + statusNavigationKeyCommands
-    }
-}
-
-// MARK: - StatusTableViewControllerNavigateable
-extension UserTimelineViewController: StatusTableViewControllerNavigateable {
-    @objc func navigateKeyCommandHandlerRelay(_ sender: UIKeyCommand) {
-        navigateKeyCommandHandler(sender)
-    }
-    
-    @objc func statusKeyCommandHandlerRelay(_ sender: UIKeyCommand) {
-        statusKeyCommandHandler(sender)
+// MARK: ScrollViewContainer
+extension DiscoveryPostsViewController: ScrollViewContainer {
+    var scrollView: UIScrollView? {
+        tableView
     }
 }

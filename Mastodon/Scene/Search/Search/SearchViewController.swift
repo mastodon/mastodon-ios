@@ -48,6 +48,13 @@ final class SearchViewController: UIViewController, NeedsDependency {
 
     let searchBarTapPublisher = PassthroughSubject<Void, Never>()
     
+    private(set) lazy var trendViewController: DiscoveryViewController = {
+        let viewController = DiscoveryViewController()
+        viewController.context = context
+        viewController.coordinator = coordinator
+        return viewController
+    }()
+    
     deinit {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
     }
@@ -84,6 +91,16 @@ extension SearchViewController {
         viewModel.setupDiffableDataSource(
             collectionView: collectionView
         )
+        
+        addChild(trendViewController)
+        trendViewController.view.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(trendViewController.view)
+        NSLayoutConstraint.activate([
+            trendViewController.view.topAnchor.constraint(equalTo: view.topAnchor),
+            trendViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            trendViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            trendViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+        ])
     }
 
     override func viewDidAppear(_ animated: Bool) {
