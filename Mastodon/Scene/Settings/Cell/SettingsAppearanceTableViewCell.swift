@@ -85,6 +85,9 @@ class SettingsAppearanceTableViewCell: UITableViewCell {
                 subview.removeFromSuperview()
             }
         }
+        
+        // remove grouped style table corner radius
+        layer.cornerRadius = 0
     }
     
 }

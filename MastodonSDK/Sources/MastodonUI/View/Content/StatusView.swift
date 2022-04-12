@@ -141,11 +141,11 @@ public final class StatusView: UIView {
             return style
         }()
         metaText.textAttributes = [
-            .font: UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 15, weight: .regular)),
+            .font: UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 17, weight: .regular)),
             .foregroundColor: Asset.Colors.Label.primary.color,
         ]
         metaText.linkAttributes = [
-            .font: UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 15, weight: .semibold)),
+            .font: UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold)),
             .foregroundColor: Asset.Colors.brandBlue.color,
         ]
         return metaText
@@ -757,7 +757,7 @@ extension StatusView: UITextViewDelegate {
 // MARK: - MetaTextViewDelegate
 extension StatusView: MetaTextViewDelegate {
     public func metaTextView(_ metaTextView: MetaTextView, didSelectMeta meta: Meta) {
-        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
+        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): meta: \(String(describing: meta))")
         switch metaTextView {
         case contentMetaText.textView:
             delegate?.statusView(self, metaText: contentMetaText, didSelectMeta: meta)

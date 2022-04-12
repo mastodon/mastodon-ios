@@ -321,9 +321,6 @@ extension StatusView.ViewModel {
             
             statusView.setSpoilerOverlayViewHidden(isHidden: isContentReveal)
             
-            let image = isContentReveal ? UIImage(systemName: "eye.slash.fill") : UIImage(systemName: "eye.fill")
-            statusView.contentSensitiveeToggleButton.setImage(image, for: .normal)
-            
             self.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): isContentReveal: \(isContentReveal)")
         }
         .store(in: &disposeBag)
@@ -335,29 +332,22 @@ extension StatusView.ViewModel {
             }
             .store(in: &disposeBag)
         
-//        // visibility
-//        Publishers.CombineLatest(
-//            $visibility,
-//            $isMyself
-//        )
-//        .sink { visibility, isMyself in
-//            switch visibility {
-//            case .public:
-//                break
-//            case .unlisted:
-//                statusView.statusVisibilityView.label.text = "Everyone can see this post but not display in the public timeline."
-//                statusView.setVisibilityDisplay()
-//            case .private:
-//                statusView.statusVisibilityView.label.text = isMyself ? "Only my followers can see this post." : "Only their followers can see this post."
-//                statusView.setVisibilityDisplay()
-//            case .direct:
-//                statusView.statusVisibilityView.label.text = "Only mentioned user can see this post."
-//                statusView.setVisibilityDisplay()
-//            case ._other:
-//                break
-//            }
-//        }
-//        .store(in: &disposeBag)
+        // There are 2 conditions:
+        // 1. The content may non-sensitive with sensitive media
+        // 2. The content and media both senstivie
+        Publishers.CombineLatest(
+            $isContentSensitiveToggled,
+            $isMediaSensitiveToggled
+        )
+        .map { $0 || $1 }
+        .sink { isSensitiveToggled in
+            // The button indicator go-to state for button action direction
+            // eye: when media is hidden
+            // eye-slash: when media display
+            let image = isSensitiveToggled ? UIImage(systemName: "eye.slash.fill") : UIImage(systemName: "eye.fill")
+            statusView.contentSensitiveeToggleButton.setImage(image, for: .normal)
+        }
+        .store(in: &disposeBag)
     }
     
     private func bindMedia(statusView: StatusView) {
