@@ -60,7 +60,9 @@ let package = Package(
         ),
         .target(
             name: "MastodonCommon",
-            dependencies: []
+            dependencies: [
+                "MastodonExtension"
+            ]
         ),
         .target(
             name: "MastodonExtension",
