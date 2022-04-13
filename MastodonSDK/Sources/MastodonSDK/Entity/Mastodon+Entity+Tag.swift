@@ -37,6 +37,7 @@ extension Mastodon.Entity {
         
         public func hash(into hasher: inout Hasher) {
             hasher.combine(name)
+            hasher.combine(url)
         }
     }
 }

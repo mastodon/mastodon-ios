@@ -9,45 +9,13 @@ import UIKit
 import Combine
 import MetaTextKit
 import MastodonAsset
+import MastodonUI
 
 final class TrendCollectionViewCell: UICollectionViewCell {
     
     var _disposeBag = Set<AnyCancellable>()
     
-    let container: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.spacing = 16
-        return stackView
-    }()
-    
-    let infoContainer: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        return stackView
-    }()
-    
-    let lineChartContainer: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        return stackView
-    }()
-    
-    let primaryLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .regular))
-        label.textColor = Asset.Colors.Label.primary.color
-        return label
-    }()
-    
-    let secondaryLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFontMetrics(forTextStyle: .subheadline).scaledFont(for: .systemFont(ofSize: 15, weight: .regular))
-        label.textColor = Asset.Colors.Label.secondary.color
-        return label
-    }()
-    
-    let lineChartView = LineChartView()
+    let trendView = TrendView()
     
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -77,44 +45,13 @@ extension TrendCollectionViewCell {
             }
             .store(in: &_disposeBag)
         
-        container.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(container)
+        trendView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(trendView)
         NSLayoutConstraint.activate([
-            container.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 11),
-            container.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            container.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            contentView.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: 11),
-        ])
-        
-        container.layoutMargins = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
-        container.isLayoutMarginsRelativeArrangement = true
-
-        // container: H - [ info container | padding | line chart container ]
-        container.addArrangedSubview(infoContainer)
-        
-        // info container: V - [ primary | secondary ]
-        infoContainer.addArrangedSubview(primaryLabel)
-        infoContainer.addArrangedSubview(secondaryLabel)
-        
-        // padding
-        let padding = UIView()
-        container.addArrangedSubview(padding)
-        
-        // line chart
-        container.addArrangedSubview(lineChartContainer)
-        
-        let lineChartViewTopPadding = UIView()
-        let lineChartViewBottomPadding = UIView()
-        lineChartViewTopPadding.translatesAutoresizingMaskIntoConstraints = false
-        lineChartViewBottomPadding.translatesAutoresizingMaskIntoConstraints = false
-        lineChartView.translatesAutoresizingMaskIntoConstraints = false
-        lineChartContainer.addArrangedSubview(lineChartViewTopPadding)
-        lineChartContainer.addArrangedSubview(lineChartView)
-        lineChartContainer.addArrangedSubview(lineChartViewBottomPadding)
-        NSLayoutConstraint.activate([
-            lineChartView.widthAnchor.constraint(equalToConstant: 50),
-            lineChartView.heightAnchor.constraint(equalToConstant: 26),
-            lineChartViewTopPadding.heightAnchor.constraint(equalTo: lineChartViewBottomPadding.heightAnchor),
+            trendView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            trendView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            trendView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            trendView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
         ])
     }
     

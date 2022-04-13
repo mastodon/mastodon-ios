@@ -17,6 +17,7 @@ import AlamofireImage
 import StoreKit
 import MastodonAsset
 import MastodonLocalization
+import MastodonUI
 
 final class HomeTimelineViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
     
@@ -291,7 +292,7 @@ extension HomeTimelineViewController {
         tableView.deselectRow(with: transitionCoordinator, animated: animated)
         
         // needs trigger manually after onboarding dismiss
-         setNeedsStatusBarAppearanceUpdate()
+        setNeedsStatusBarAppearanceUpdate()
     }
 
     override func viewDidAppear(_ animated: Bool) {

@@ -1,11 +1,13 @@
 //
-//  ThemeService+Appearance.swift
+//  ThemeService.swift
 //  Mastodon
 //
-//  Created by MainasuK Cirno on 2021-7-19.
+//  Created by MainasuK on 2022-4-13.
 //
 
 import UIKit
+import MastodonCommon
+import MastodonUI
 
 extension ThemeService {
     func set(themeName: ThemeName) {

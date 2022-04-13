@@ -71,9 +71,9 @@ extension Mastodon.API.Trends {
             .appendingPathComponent("statuses")
     }
 
-    /// Trending tags
+    /// Trending status
     ///
-    /// Tags that are being used more frequently within the past week.
+    /// TBD
     ///
     /// Version history:
     /// 3.?.?
@@ -83,7 +83,7 @@ extension Mastodon.API.Trends {
     ///   - session: `URLSession`
     ///   - domain: Mastodon instance domain. e.g. "example.com"
     ///   - query: query
-    /// - Returns: `AnyPublisher` contains `Hashtags` nested in the response
+    /// - Returns: `[Status]` nested in the response
     
     public static func statuses(
         session: URLSession,
@@ -124,5 +124,49 @@ extension Mastodon.API.Trends {
             return items
         }
     }
+    
+}
+
+extension Mastodon.API.Trends {
+    
+    static func trendLinksURL(domain: String) -> URL {
+        Mastodon.API.endpointURL(domain: domain)
+            .appendingPathComponent("trends")
+            .appendingPathComponent("links")
+    }
+
+    /// Trending links
+    ///
+    /// TBD
+    ///
+    /// Version history:
+    /// 3.?.?
+    /// # Reference
+    ///   [Document](https://docs.joinmastodon.org/methods/instance/trends/)
+    /// - Parameters:
+    ///   - session: `URLSession`
+    ///   - domain: Mastodon instance domain. e.g. "example.com"
+    ///   - query: query
+    /// - Returns: `[Link]` nested in the response
+    
+    public static func links(
+        session: URLSession,
+        domain: String,
+        query: Mastodon.API.Trends.LinkQuery?
+    ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Link]>, Error> {
+        let request = Mastodon.API.get(
+            url: trendLinksURL(domain: domain),
+            query: query,
+            authorization: nil
+        )
+        return session.dataTaskPublisher(for: request)
+            .tryMap { data, response in
+                let value = try Mastodon.API.decode(type: [Mastodon.Entity.Link].self, from: data, response: response)
+                return Mastodon.Response.Content(value: value, response: response)
+            }
+            .eraseToAnyPublisher()
+    }
+    
+    public typealias LinkQuery = StatusQuery
     
 }

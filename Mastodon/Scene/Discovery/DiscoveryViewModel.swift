@@ -13,7 +13,9 @@ final class DiscoveryViewModel {
     
     // input
     let context: AppContext
-    let discoveryViewController: DiscoveryPostsViewController
+    let discoveryPostsViewController: DiscoveryPostsViewController
+    let discoveryHashtagsViewController: DiscoveryHashtagsViewController
+    let discoveryNewsViewController: DiscoveryNewsViewController
     
     // output
     let barItems: [TMBarItemable] = {
@@ -28,17 +30,35 @@ final class DiscoveryViewModel {
     
     var viewControllers: [ScrollViewContainer] {
         return [
-            discoveryViewController,
+            discoveryPostsViewController,
+            discoveryHashtagsViewController,
+            discoveryNewsViewController,
         ]
     }
     
     init(context: AppContext, coordinator: SceneCoordinator) {
+        func setupDependency(_ needsDependency: NeedsDependency) {
+            needsDependency.context = context
+            needsDependency.coordinator = coordinator
+        }
+        
         self.context = context
-        discoveryViewController = {
+        discoveryPostsViewController = {
             let viewController = DiscoveryPostsViewController()
-            viewController.context = context
-            viewController.coordinator = coordinator
+            setupDependency(viewController)
             viewController.viewModel = DiscoveryPostsViewModel(context: context)
+            return viewController
+        }()
+        discoveryHashtagsViewController = {
+            let viewController = DiscoveryHashtagsViewController()
+            setupDependency(viewController)
+            viewController.viewModel = DiscoveryHashtagsViewModel(context: context)
+            return viewController
+        }()
+        discoveryNewsViewController = {
+            let viewController = DiscoveryNewsViewController()
+            setupDependency(viewController)
+            viewController.viewModel = DiscoveryNewsViewModel(context: context)
             return viewController
         }()
         // end init

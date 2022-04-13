@@ -1,8 +1,8 @@
 //
-//  DiscoveryPostsViewModel.swift
+//  DiscoveryNewsViewModel.swift
 //  Mastodon
 //
-//  Created by MainasuK on 2022-4-12.
+//  Created by MainasuK on 2022-4-13.
 //
 
 import os.log
@@ -13,17 +13,17 @@ import CoreData
 import CoreDataStack
 import MastodonSDK
 
-final class DiscoveryPostsViewModel {
+final class DiscoveryNewsViewModel {
     
     var disposeBag = Set<AnyCancellable>()
     
     // input
     let context: AppContext
-    let statusFetchedResultsController: StatusFetchedResultsController
     let listBatchFetchViewModel = ListBatchFetchViewModel()
-    
+
     // output
-    var diffableDataSource: UITableViewDiffableDataSource<StatusSection, StatusItem>?
+    @Published var links: [Mastodon.Entity.Link] = []
+    var diffableDataSource: UITableViewDiffableDataSource<DiscoverySection, DiscoveryItem>?
     private(set) lazy var stateMachine: GKStateMachine = {
         let stateMachine = GKStateMachine(states: [
             State.Initial(viewModel: self),
@@ -41,17 +41,7 @@ final class DiscoveryPostsViewModel {
     
     init(context: AppContext) {
         self.context = context
-        self.statusFetchedResultsController = StatusFetchedResultsController(
-            managedObjectContext: context.managedObjectContext,
-            domain: nil,
-            additionalTweetPredicate: nil
-        )
         // end init
-        
-        context.authenticationService.activeMastodonAuthentication
-            .map { $0?.domain }
-            .assign(to: \.value, on: statusFetchedResultsController.domain)
-            .store(in: &disposeBag)
     }
     
     deinit {

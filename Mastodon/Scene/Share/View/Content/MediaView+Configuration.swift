@@ -58,7 +58,7 @@ extension MediaView {
             }()
             
             if let previewURL = configuration.previewURL,
-              let url = URL(string: previewURL)
+               let url = URL(string: previewURL)
             {
                 let placeholder = UIImage.placeholder(color: .systemGray6)
                 let request = URLRequest(url: url)

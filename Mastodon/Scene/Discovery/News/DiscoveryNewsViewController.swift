@@ -1,15 +1,16 @@
 //
-//  DiscoveryPostsViewController.swift
+//  DiscoveryNewsViewController.swift
 //  Mastodon
 //
-//  Created by MainasuK on 2022-4-12.
+//  Created by MainasuK on 2022-4-13.
 //
 
 import os.log
 import UIKit
 import Combine
+import MastodonUI
 
-final class DiscoveryPostsViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
+final class DiscoveryNewsViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
     
     let logger = Logger(subsystem: "TrendPostsViewController", category: "ViewController")
     
@@ -17,7 +18,7 @@ final class DiscoveryPostsViewController: UIViewController, NeedsDependency, Med
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
     var disposeBag = Set<AnyCancellable>()
-    var viewModel: DiscoveryPostsViewModel!
+    var viewModel: DiscoveryNewsViewModel!
     
     let mediaPreviewTransitionController = MediaPreviewTransitionController()
 
@@ -31,14 +32,14 @@ final class DiscoveryPostsViewController: UIViewController, NeedsDependency, Med
     }()
     
     let refreshControl = UIRefreshControl()
-
+    
     deinit {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
     }
     
 }
 
-extension DiscoveryPostsViewController {
+extension DiscoveryNewsViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,12 +64,11 @@ extension DiscoveryPostsViewController {
 
         tableView.delegate = self
         viewModel.setupDiffableDataSource(
-            tableView: tableView,
-            statusTableViewCellDelegate: self
+            tableView: tableView
         )
         
         tableView.refreshControl = refreshControl
-        refreshControl.addTarget(self, action: #selector(DiscoveryPostsViewController.refreshControlValueChanged(_:)), for: .valueChanged)
+        refreshControl.addTarget(self, action: #selector(DiscoveryNewsViewController.refreshControlValueChanged(_:)), for: .valueChanged)
         viewModel.didLoadLatest
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
@@ -84,7 +84,7 @@ extension DiscoveryPostsViewController {
             .sink { [weak self] _ in
                 guard let self = self else { return }
                 guard self.view.window != nil else { return }
-                self.viewModel.stateMachine.enter(DiscoveryPostsViewModel.State.Loading.self)
+                self.viewModel.stateMachine.enter(DiscoveryNewsViewModel.State.Loading.self)
             }
             .store(in: &disposeBag)
     }
@@ -95,13 +95,13 @@ extension DiscoveryPostsViewController {
         refreshControl.endRefreshing()
         tableView.deselectRow(with: transitionCoordinator, animated: animated)
     }
-    
+
 }
 
-extension DiscoveryPostsViewController {
+extension DiscoveryNewsViewController {
     
     @objc private func refreshControlValueChanged(_ sender: UIRefreshControl) {
-        guard viewModel.stateMachine.enter(DiscoveryPostsViewModel.State.Reloading.self) else {
+        guard viewModel.stateMachine.enter(DiscoveryNewsViewModel.State.Reloading.self) else {
             sender.endRefreshing()
             return
         }
@@ -110,38 +110,23 @@ extension DiscoveryPostsViewController {
 }
 
 // MARK: - UITableViewDelegate
-extension DiscoveryPostsViewController: UITableViewDelegate, AutoGenerateTableViewDelegate {
-    // sourcery:inline:DiscoveryPostsViewController.AutoGenerateTableViewDelegate
+extension DiscoveryNewsViewController: UITableViewDelegate {
 
-    // Generated using Sourcery
-    // DO NOT EDIT
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        aspectTableView(tableView, didSelectRowAt: indexPath)
+        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): \(indexPath)")
+        guard case let .link(link) = viewModel.diffableDataSource?.itemIdentifier(for: indexPath) else { return }
+        guard let url = URL(string: link.url) else { return }
+        coordinator.present(
+            scene: .safari(url: url),
+            from: self,
+            transition: .safariPresent(animated: true, completion: nil)
+        )
     }
 
-    func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
-        return aspectTableView(tableView, contextMenuConfigurationForRowAt: indexPath, point: point)
-    }
-
-    func tableView(_ tableView: UITableView, previewForHighlightingContextMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
-        return aspectTableView(tableView, previewForHighlightingContextMenuWithConfiguration: configuration)
-    }
-
-    func tableView(_ tableView: UITableView, previewForDismissingContextMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
-        return aspectTableView(tableView, previewForDismissingContextMenuWithConfiguration: configuration)
-    }
-
-    func tableView(_ tableView: UITableView, willPerformPreviewActionForMenuWith configuration: UIContextMenuConfiguration, animator: UIContextMenuInteractionCommitAnimating) {
-        aspectTableView(tableView, willPerformPreviewActionForMenuWith: configuration, animator: animator)
-    }
-    // sourcery:end
 }
 
-// MARK: - StatusTableViewCellDelegate
-extension DiscoveryPostsViewController: StatusTableViewCellDelegate { }
-
 // MARK: ScrollViewContainer
-extension DiscoveryPostsViewController: ScrollViewContainer {
+extension DiscoveryNewsViewController: ScrollViewContainer {
     var scrollView: UIScrollView? {
         tableView
     }

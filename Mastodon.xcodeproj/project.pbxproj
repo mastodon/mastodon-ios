@@ -31,7 +31,6 @@
 		2D206B9225F60EA700143C56 /* UIControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D206B9125F60EA700143C56 /* UIControl.swift */; };
 		2D24E1232626ED9D00A59D4F /* UIView+Gesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D24E1222626ED9D00A59D4F /* UIView+Gesture.swift */; };
 		2D32EAAC25CB96DC00C9ED86 /* TimelineMiddleLoaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D32EAAB25CB96DC00C9ED86 /* TimelineMiddleLoaderTableViewCell.swift */; };
-		2D32EABA25CB9B0500C9ED86 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D32EAB925CB9B0500C9ED86 /* UIView.swift */; };
 		2D34D9D126148D9E0081BFC0 /* APIService+Recommend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D34D9D026148D9E0081BFC0 /* APIService+Recommend.swift */; };
 		2D34D9DB261494120081BFC0 /* APIService+Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D34D9DA261494120081BFC0 /* APIService+Search.swift */; };
 		2D35237A26256D920031AF25 /* NotificationSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D35237926256D920031AF25 /* NotificationSection.swift */; };
@@ -223,6 +222,16 @@
 		DB3667A6268AE2620027D07F /* ComposeStatusPollSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3667A5268AE2620027D07F /* ComposeStatusPollSection.swift */; };
 		DB3667A8268AE2900027D07F /* ComposeStatusPollItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3667A7268AE2900027D07F /* ComposeStatusPollItem.swift */; };
 		DB3D0FF325BAA61700EAA174 /* AlamofireImage in Frameworks */ = {isa = PBXBuildFile; productRef = DB3D0FF225BAA61700EAA174 /* AlamofireImage */; };
+		DB3E6FDD2806A40F00B035AE /* DiscoveryHashtagsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3E6FDC2806A40F00B035AE /* DiscoveryHashtagsViewController.swift */; };
+		DB3E6FE02806A4ED00B035AE /* DiscoveryHashtagsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3E6FDF2806A4ED00B035AE /* DiscoveryHashtagsViewModel.swift */; };
+		DB3E6FE22806A50100B035AE /* DiscoveryHashtagsViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3E6FE12806A50100B035AE /* DiscoveryHashtagsViewModel+Diffable.swift */; };
+		DB3E6FE42806A5B800B035AE /* DiscoverySection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3E6FE32806A5B800B035AE /* DiscoverySection.swift */; };
+		DB3E6FE72806A7A200B035AE /* DiscoveryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3E6FE62806A7A200B035AE /* DiscoveryItem.swift */; };
+		DB3E6FE92806BD2200B035AE /* ThemeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3E6FE82806BD2200B035AE /* ThemeService.swift */; };
+		DB3E6FEC2806D7F100B035AE /* DiscoveryNewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3E6FEB2806D7F100B035AE /* DiscoveryNewsViewController.swift */; };
+		DB3E6FEF2806D82600B035AE /* DiscoveryNewsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3E6FEE2806D82600B035AE /* DiscoveryNewsViewModel.swift */; };
+		DB3E6FF12806D96900B035AE /* DiscoveryNewsViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3E6FF02806D96900B035AE /* DiscoveryNewsViewModel+Diffable.swift */; };
+		DB3E6FF32806D97400B035AE /* DiscoveryNewsViewModel+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3E6FF22806D97400B035AE /* DiscoveryNewsViewModel+State.swift */; };
 		DB427DD625BAA00100D1B89D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB427DD525BAA00100D1B89D /* AppDelegate.swift */; };
 		DB427DD825BAA00100D1B89D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB427DD725BAA00100D1B89D /* SceneDelegate.swift */; };
 		DB427DDD25BAA00100D1B89D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB427DDB25BAA00100D1B89D /* Main.storyboard */; };
@@ -376,8 +385,6 @@
 		DB6D9F9726367249008423CD /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6D9F9626367249008423CD /* SettingsViewController.swift */; };
 		DB6F5E35264E78E7009108F4 /* AutoCompleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6F5E34264E78E7009108F4 /* AutoCompleteViewController.swift */; };
 		DB6F5E38264E994A009108F4 /* AutoCompleteTopChevronView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6F5E37264E994A009108F4 /* AutoCompleteTopChevronView.swift */; };
-		DB71C7CB271D5A0300BE3819 /* LineChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB71C7CA271D5A0300BE3819 /* LineChartView.swift */; };
-		DB71C7CD271D7F4300BE3819 /* CurveAlgorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB71C7CC271D7F4300BE3819 /* CurveAlgorithm.swift */; };
 		DB71FD5225F8CCAA00512AE1 /* APIService+Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB71FD5125F8CCAA00512AE1 /* APIService+Status.swift */; };
 		DB72601C25E36A2100235243 /* MastodonServerRulesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB72601B25E36A2100235243 /* MastodonServerRulesViewController.swift */; };
 		DB72602725E36A6F00235243 /* MastodonServerRulesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB72602625E36A6F00235243 /* MastodonServerRulesViewModel.swift */; };
@@ -508,16 +515,7 @@
 		DBBC24AA26A5301B00398BB9 /* MastodonSDK in Frameworks */ = {isa = PBXBuildFile; productRef = DBBC24A926A5301B00398BB9 /* MastodonSDK */; };
 		DBBC24AC26A53D9300398BB9 /* ComposeStatusContentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBC24AB26A53D9300398BB9 /* ComposeStatusContentTableViewCell.swift */; };
 		DBBC24B826A5421800398BB9 /* CommonOSLog in Frameworks */ = {isa = PBXBuildFile; productRef = DBBC24B726A5421800398BB9 /* CommonOSLog */; };
-		DBBC24BC26A542F500398BB9 /* ThemeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBC24BB26A542F500398BB9 /* ThemeService.swift */; };
-		DBBC24C026A5443100398BB9 /* MastodonTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBC24BE26A5443100398BB9 /* MastodonTheme.swift */; };
-		DBBC24C126A5443100398BB9 /* SystemTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBC24BF26A5443100398BB9 /* SystemTheme.swift */; };
-		DBBC24C426A544B900398BB9 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBC24C326A544B900398BB9 /* Theme.swift */; };
-		DBBC24C626A5456000398BB9 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBC24C326A544B900398BB9 /* Theme.swift */; };
-		DBBC24C726A5456400398BB9 /* SystemTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBC24BF26A5443100398BB9 /* SystemTheme.swift */; };
-		DBBC24C826A5456400398BB9 /* ThemeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBC24BB26A542F500398BB9 /* ThemeService.swift */; };
-		DBBC24C926A5456400398BB9 /* MastodonTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBC24BE26A5443100398BB9 /* MastodonTheme.swift */; };
 		DBBC24CB26A546C000398BB9 /* ThemePreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD376AB2692ECDB007FEC24 /* ThemePreference.swift */; };
-		DBBC24CF26A547AE00398BB9 /* ThemeService+Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBC24CE26A547AE00398BB9 /* ThemeService+Appearance.swift */; };
 		DBBC24D126A5484F00398BB9 /* UITextView+Placeholder in Frameworks */ = {isa = PBXBuildFile; productRef = DBBC24D026A5484F00398BB9 /* UITextView+Placeholder */; };
 		DBBC24DC26A54BCB00398BB9 /* MastodonRegex.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBC24D626A54BCB00398BB9 /* MastodonRegex.swift */; };
 		DBBC24DE26A54BCB00398BB9 /* MastodonMetricFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBC24D826A54BCB00398BB9 /* MastodonMetricFormatter.swift */; };
@@ -735,7 +733,6 @@
 		2D206B9125F60EA700143C56 /* UIControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIControl.swift; sourceTree = "<group>"; };
 		2D24E1222626ED9D00A59D4F /* UIView+Gesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Gesture.swift"; sourceTree = "<group>"; };
 		2D32EAAB25CB96DC00C9ED86 /* TimelineMiddleLoaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineMiddleLoaderTableViewCell.swift; sourceTree = "<group>"; };
-		2D32EAB925CB9B0500C9ED86 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		2D34D9D026148D9E0081BFC0 /* APIService+Recommend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Recommend.swift"; sourceTree = "<group>"; };
 		2D34D9DA261494120081BFC0 /* APIService+Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Search.swift"; sourceTree = "<group>"; };
 		2D35237926256D920031AF25 /* NotificationSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSection.swift; sourceTree = "<group>"; };
@@ -956,6 +953,16 @@
 		DB3667A5268AE2620027D07F /* ComposeStatusPollSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeStatusPollSection.swift; sourceTree = "<group>"; };
 		DB3667A7268AE2900027D07F /* ComposeStatusPollItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeStatusPollItem.swift; sourceTree = "<group>"; };
 		DB3D0FED25BAA42200EAA174 /* MastodonSDK */ = {isa = PBXFileReference; lastKnownFileType = folder; path = MastodonSDK; sourceTree = "<group>"; };
+		DB3E6FDC2806A40F00B035AE /* DiscoveryHashtagsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryHashtagsViewController.swift; sourceTree = "<group>"; };
+		DB3E6FDF2806A4ED00B035AE /* DiscoveryHashtagsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryHashtagsViewModel.swift; sourceTree = "<group>"; };
+		DB3E6FE12806A50100B035AE /* DiscoveryHashtagsViewModel+Diffable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DiscoveryHashtagsViewModel+Diffable.swift"; sourceTree = "<group>"; };
+		DB3E6FE32806A5B800B035AE /* DiscoverySection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverySection.swift; sourceTree = "<group>"; };
+		DB3E6FE62806A7A200B035AE /* DiscoveryItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryItem.swift; sourceTree = "<group>"; };
+		DB3E6FE82806BD2200B035AE /* ThemeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeService.swift; sourceTree = "<group>"; };
+		DB3E6FEB2806D7F100B035AE /* DiscoveryNewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryNewsViewController.swift; sourceTree = "<group>"; };
+		DB3E6FEE2806D82600B035AE /* DiscoveryNewsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryNewsViewModel.swift; sourceTree = "<group>"; };
+		DB3E6FF02806D96900B035AE /* DiscoveryNewsViewModel+Diffable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DiscoveryNewsViewModel+Diffable.swift"; sourceTree = "<group>"; };
+		DB3E6FF22806D97400B035AE /* DiscoveryNewsViewModel+State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DiscoveryNewsViewModel+State.swift"; sourceTree = "<group>"; };
 		DB427DD225BAA00100D1B89D /* Mastodon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mastodon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB427DD525BAA00100D1B89D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DB427DD725BAA00100D1B89D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -1126,8 +1133,6 @@
 		DB6D9F9626367249008423CD /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		DB6F5E34264E78E7009108F4 /* AutoCompleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoCompleteViewController.swift; sourceTree = "<group>"; };
 		DB6F5E37264E994A009108F4 /* AutoCompleteTopChevronView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoCompleteTopChevronView.swift; sourceTree = "<group>"; };
-		DB71C7CA271D5A0300BE3819 /* LineChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineChartView.swift; sourceTree = "<group>"; };
-		DB71C7CC271D7F4300BE3819 /* CurveAlgorithm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurveAlgorithm.swift; sourceTree = "<group>"; };
 		DB71FD5125F8CCAA00512AE1 /* APIService+Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Status.swift"; sourceTree = "<group>"; };
 		DB72601B25E36A2100235243 /* MastodonServerRulesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonServerRulesViewController.swift; sourceTree = "<group>"; };
 		DB72602625E36A6F00235243 /* MastodonServerRulesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonServerRulesViewModel.swift; sourceTree = "<group>"; };
@@ -1263,11 +1268,6 @@
 		DBB9759B262462E1004620BD /* ThreadMetaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadMetaView.swift; sourceTree = "<group>"; };
 		DBBC24A726A52F9000398BB9 /* ComposeToolbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeToolbarView.swift; sourceTree = "<group>"; };
 		DBBC24AB26A53D9300398BB9 /* ComposeStatusContentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeStatusContentTableViewCell.swift; sourceTree = "<group>"; };
-		DBBC24BB26A542F500398BB9 /* ThemeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeService.swift; sourceTree = "<group>"; };
-		DBBC24BE26A5443100398BB9 /* MastodonTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonTheme.swift; sourceTree = "<group>"; };
-		DBBC24BF26A5443100398BB9 /* SystemTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemTheme.swift; sourceTree = "<group>"; };
-		DBBC24C326A544B900398BB9 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
-		DBBC24CE26A547AE00398BB9 /* ThemeService+Appearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ThemeService+Appearance.swift"; sourceTree = "<group>"; };
 		DBBC24D626A54BCB00398BB9 /* MastodonRegex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MastodonRegex.swift; sourceTree = "<group>"; };
 		DBBC24D826A54BCB00398BB9 /* MastodonMetricFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MastodonMetricFormatter.swift; sourceTree = "<group>"; };
 		DBBC50C0278ED49200AF0CC6 /* MastodonAuthenticationBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonAuthenticationBox.swift; sourceTree = "<group>"; };
@@ -1668,7 +1668,6 @@
 		2D5A3D0125CF8640002347D6 /* Vender */ = {
 			isa = PBXGroup;
 			children = (
-				DB71C7CC271D7F4300BE3819 /* CurveAlgorithm.swift */,
 				2D5A3D0225CF8742002347D6 /* ControlContainableScrollViews.swift */,
 				DB51D170262832380062B7A1 /* BlurHashDecode.swift */,
 				DB51D171262832380062B7A1 /* BlurHashEncode.swift */,
@@ -1687,7 +1686,6 @@
 				DB45FB0425CA87B4005A8AC7 /* APIService */,
 				DB49A61925FF327D00B98345 /* EmojiService */,
 				DB9A489B26036E19008B817C /* MastodonAttachmentService */,
-				DBBC24BD26A5441A00398BB9 /* ThemeService */,
 				DB45FB0E25CA87D0005A8AC7 /* AuthenticationService.swift */,
 				2DA6054625F716A2006356F9 /* PlaybackState.swift */,
 				DBC7A67B260DFADE00E57475 /* StatusPublishService.swift */,
@@ -1731,6 +1729,7 @@
 				DB4F097626A0398000D62E92 /* Compose */,
 				DB0617F727855B010030EE79 /* Notification */,
 				DB4F097726A039A200D62E92 /* Search */,
+				DB3E6FE52806A5BA00B035AE /* Discovery */,
 				DB0617FA27855B660030EE79 /* Settings */,
 				DBCBED2226132E1D00B49291 /* FetchedResultsController */,
 			);
@@ -1817,7 +1816,6 @@
 			isa = PBXGroup;
 			children = (
 				2DCB73FC2615C13900EC03D4 /* SearchRecommendCollectionHeader.swift */,
-				DB71C7CA271D5A0300BE3819 /* LineChartView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2109,6 +2107,44 @@
 				DB2B3ABE25E37E15007045F9 /* InfoPlist.strings */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		DB3E6FDE2806A41200B035AE /* Hashtags */ = {
+			isa = PBXGroup;
+			children = (
+				DB3E6FDC2806A40F00B035AE /* DiscoveryHashtagsViewController.swift */,
+				DB3E6FDF2806A4ED00B035AE /* DiscoveryHashtagsViewModel.swift */,
+				DB3E6FE12806A50100B035AE /* DiscoveryHashtagsViewModel+Diffable.swift */,
+			);
+			path = Hashtags;
+			sourceTree = "<group>";
+		};
+		DB3E6FE52806A5BA00B035AE /* Discovery */ = {
+			isa = PBXGroup;
+			children = (
+				DB3E6FE32806A5B800B035AE /* DiscoverySection.swift */,
+				DB3E6FE62806A7A200B035AE /* DiscoveryItem.swift */,
+			);
+			path = Discovery;
+			sourceTree = "<group>";
+		};
+		DB3E6FEA2806BD2500B035AE /* MastodonUI */ = {
+			isa = PBXGroup;
+			children = (
+				DB3E6FE82806BD2200B035AE /* ThemeService.swift */,
+			);
+			path = MastodonUI;
+			sourceTree = "<group>";
+		};
+		DB3E6FED2806D7FC00B035AE /* News */ = {
+			isa = PBXGroup;
+			children = (
+				DB3E6FEB2806D7F100B035AE /* DiscoveryNewsViewController.swift */,
+				DB3E6FEE2806D82600B035AE /* DiscoveryNewsViewModel.swift */,
+				DB3E6FF02806D96900B035AE /* DiscoveryNewsViewModel+Diffable.swift */,
+				DB3E6FF22806D97400B035AE /* DiscoveryNewsViewModel+State.swift */,
+			);
+			path = News;
 			sourceTree = "<group>";
 		};
 		DB427DC925BAA00100D1B89D = {
@@ -2706,6 +2742,7 @@
 			isa = PBXGroup;
 			children = (
 				DB084B5125CBC56300F898ED /* CoreDataStack */,
+				DB3E6FEA2806BD2500B035AE /* MastodonUI */,
 				DB6C8C0525F0921200AAA452 /* MastodonSDK */,
 				2DF123A625C3B0210020F248 /* ActiveLabel.swift */,
 				5DF1056325F887CB00D6C0D4 /* AVPlayer.swift */,
@@ -2723,7 +2760,6 @@
 				DBD376B1269302A4007FEC24 /* UITableViewCell.swift */,
 				0FAA101B25E10E760017CCDE /* UIFont.swift */,
 				2D206B9125F60EA700143C56 /* UIControl.swift */,
-				2D32EAB925CB9B0500C9ED86 /* UIView.swift */,
 				5DA732CB2629CEF500A92342 /* UIView+Remove.swift */,
 				2D24E1222626ED9D00A59D4F /* UIView+Gesture.swift */,
 				DB8AF55C25C138B7002E6C99 /* UIViewController.swift */,
@@ -3020,18 +3056,6 @@
 			path = Service;
 			sourceTree = "<group>";
 		};
-		DBBC24BD26A5441A00398BB9 /* ThemeService */ = {
-			isa = PBXGroup;
-			children = (
-				DBBC24C326A544B900398BB9 /* Theme.swift */,
-				DBBC24BE26A5443100398BB9 /* MastodonTheme.swift */,
-				DBBC24BF26A5443100398BB9 /* SystemTheme.swift */,
-				DBBC24BB26A542F500398BB9 /* ThemeService.swift */,
-				DBBC24CE26A547AE00398BB9 /* ThemeService+Appearance.swift */,
-			);
-			path = ThemeService;
-			sourceTree = "<group>";
-		};
 		DBBC24D526A54BCB00398BB9 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
@@ -3087,6 +3111,8 @@
 			isa = PBXGroup;
 			children = (
 				DBDFF19828055A0900557A48 /* Posts */,
+				DB3E6FDE2806A41200B035AE /* Hashtags */,
+				DB3E6FED2806D7FC00B035AE /* News */,
 				DBDFF19928055A1400557A48 /* DiscoveryViewController.swift */,
 				DBDFF19B28055BD600557A48 /* DiscoveryViewModel.swift */,
 			);
@@ -3861,6 +3887,7 @@
 				DB336F43278EB1690031E64B /* MediaView+Configuration.swift in Sources */,
 				DB66729625F9F91600D60309 /* ComposeStatusSection.swift in Sources */,
 				DB482A3F261331E8008AE74C /* UserTimelineViewModel+State.swift in Sources */,
+				DB3E6FE02806A4ED00B035AE /* DiscoveryHashtagsViewModel.swift in Sources */,
 				2D38F1F725CD47AC00561493 /* HomeTimelineViewModel+LoadOldestState.swift in Sources */,
 				DB447681260B3ED600B66B82 /* CustomEmojiPickerSection.swift in Sources */,
 				DB0FCB7427956939006C02E2 /* DataSourceFacade+Status.swift in Sources */,
@@ -3924,6 +3951,7 @@
 				DB06180A2785B2AB0030EE79 /* MastodonRegisterAvatarTableViewCell.swift in Sources */,
 				DBB45B6227B51112002DC5A7 /* SuggestionAccountViewModel+Diffable.swift in Sources */,
 				DBB3BA2A26A81C020004F2D4 /* FLAnimatedImageView.swift in Sources */,
+				DB3E6FF32806D97400B035AE /* DiscoveryNewsViewModel+State.swift in Sources */,
 				DB6746ED278F45F0008A6B94 /* AutoGenerateProtocolRelayDelegate.swift in Sources */,
 				DB0618032785A7100030EE79 /* RegisterSection.swift in Sources */,
 				DB63F76B279A5ED300455B82 /* NotificationTimelineViewModel+LoadOldestState.swift in Sources */,
@@ -3952,6 +3980,7 @@
 				2D24E1232626ED9D00A59D4F /* UIView+Gesture.swift in Sources */,
 				DBFEEC9D279C12C1004F81DD /* ProfileFieldEditCollectionViewCell.swift in Sources */,
 				DB45FAE325CA7181005A8AC7 /* MastodonUser.swift in Sources */,
+				DB3E6FEC2806D7F100B035AE /* DiscoveryNewsViewController.swift in Sources */,
 				DBA088DF26958164003EB4B2 /* UserFetchedResultsController.swift in Sources */,
 				DB2FF510260B113300ADA9FE /* ComposeStatusPollExpiresOptionCollectionViewCell.swift in Sources */,
 				0F202213261351F5000C64BF /* APIService+HashtagTimeline.swift in Sources */,
@@ -3993,7 +4022,6 @@
 				2D4AD8A826316D3500613EFC /* SelectedAccountItem.swift in Sources */,
 				DBE3CDFB261C6CA500430CC6 /* FavoriteViewModel.swift in Sources */,
 				DB8AF52F25C13561002E6C99 /* DocumentStore.swift in Sources */,
-				DBBC24C126A5443100398BB9 /* SystemTheme.swift in Sources */,
 				DBE3CE01261D623D00430CC6 /* FavoriteViewModel+State.swift in Sources */,
 				2D82BA0525E7897700E36F0F /* MastodonResendEmailViewModelNavigationDelegateShim.swift in Sources */,
 				2D38F1EB25CD477000561493 /* HomeTimelineViewModel+LoadLatestState.swift in Sources */,
@@ -4020,6 +4048,7 @@
 				DB63F76227996B6600455B82 /* SearchHistoryViewController+DataSourceProvider.swift in Sources */,
 				DB73BF4927140BA300781945 /* UICollectionViewDiffableDataSource.swift in Sources */,
 				DBA5E7AB263BD3F5004598BB /* TimelineTableViewCellContextMenuConfiguration.swift in Sources */,
+				DB3E6FE92806BD2200B035AE /* ThemeService.swift in Sources */,
 				DB73B490261F030A002E9E9F /* SafariActivity.swift in Sources */,
 				DB63F7492799126300455B82 /* FollowerListViewController+DataSourceProvider.swift in Sources */,
 				DB6D1B44263691CF00ACB481 /* Mastodon+API+Subscriptions+Policy.swift in Sources */,
@@ -4056,6 +4085,7 @@
 				DBDFF1932805554900557A48 /* DiscoveryPostsViewModel.swift in Sources */,
 				2D9DB96B263A91D1007C1D71 /* APIService+DomainBlock.swift in Sources */,
 				DBBF1DC92652538500E5B703 /* AutoCompleteSection.swift in Sources */,
+				DB3E6FE72806A7A200B035AE /* DiscoveryItem.swift in Sources */,
 				DB8AF55D25C138B7002E6C99 /* UIViewController.swift in Sources */,
 				DB7F48452620241000796008 /* ProfileHeaderViewModel.swift in Sources */,
 				DB647C5926F1EA2700F7F82C /* WizardPreference.swift in Sources */,
@@ -4078,6 +4108,7 @@
 				5B90C462262599800002E742 /* SettingsSectionHeader.swift in Sources */,
 				DB44768B260B3F2100B66B82 /* CustomEmojiPickerItem.swift in Sources */,
 				5DF1056425F887CB00D6C0D4 /* AVPlayer.swift in Sources */,
+				DB3E6FEF2806D82600B035AE /* DiscoveryNewsViewModel.swift in Sources */,
 				DBBF1DCB2652539E00E5B703 /* AutoCompleteItem.swift in Sources */,
 				DB84811727883C2600BBEABA /* MastodonRegisterPasswordHintTableViewCell.swift in Sources */,
 				2DA6054725F716A2006356F9 /* PlaybackState.swift in Sources */,
@@ -4139,7 +4170,7 @@
 				DB4AA6B327BA34B6009EC082 /* CellFrameCacheContainer.swift in Sources */,
 				DB0FCB942797E2B0006C02E2 /* SearchResultViewModel+Diffable.swift in Sources */,
 				DB63F752279944AA00455B82 /* SearchHistorySectionHeaderCollectionReusableView.swift in Sources */,
-				DBBC24C426A544B900398BB9 /* Theme.swift in Sources */,
+				DB3E6FDD2806A40F00B035AE /* DiscoveryHashtagsViewController.swift in Sources */,
 				DB938EED2623F79B00E5B6C1 /* ThreadViewModel.swift in Sources */,
 				DBBC24AC26A53D9300398BB9 /* ComposeStatusContentTableViewCell.swift in Sources */,
 				DBC7A67C260DFADE00E57475 /* StatusPublishService.swift in Sources */,
@@ -4158,7 +4189,6 @@
 				DBBF1DC5265251C300E5B703 /* AutoCompleteViewModel+Diffable.swift in Sources */,
 				DB603111279EB38500A935FE /* DataSourceFacade+Mute.swift in Sources */,
 				DB68A04A25E9027700CFDF14 /* AdaptiveStatusBarStyleNavigationController.swift in Sources */,
-				DBBC24BC26A542F500398BB9 /* ThemeService.swift in Sources */,
 				DB336F38278D7AAF0031E64B /* Poll+Property.swift in Sources */,
 				0FB3D33825E6401400AAD544 /* PickServerCell.swift in Sources */,
 				DB6D9F8426358EEC008423CD /* SettingsItem.swift in Sources */,
@@ -4171,7 +4201,6 @@
 				DB4FFC2C269EC39600D62E92 /* SearchTransitionController.swift in Sources */,
 				DBA5E7A9263BD3A4004598BB /* ContextMenuImagePreviewViewController.swift in Sources */,
 				DBF156E22702DA6900EC00B7 /* UIStatusBarManager+HandleTapAction.m in Sources */,
-				2D32EABA25CB9B0500C9ED86 /* UIView.swift in Sources */,
 				2D38F20825CD491300561493 /* DisposeBagCollectable.swift in Sources */,
 				DB6F5E35264E78E7009108F4 /* AutoCompleteViewController.swift in Sources */,
 				DB697DE1278F5296004EF2F7 /* DataSourceFacade+Model.swift in Sources */,
@@ -4179,7 +4208,6 @@
 				DB4F097526A037F500D62E92 /* SearchHistoryViewModel.swift in Sources */,
 				DB6180F826391D660018D199 /* MediaPreviewingViewController.swift in Sources */,
 				DB0140CF25C42AEE00F9F3CF /* OSLog.swift in Sources */,
-				DB71C7CB271D5A0300BE3819 /* LineChartView.swift in Sources */,
 				DB98EB5627B0FF1B0082E365 /* ReportViewControllerAppearance.swift in Sources */,
 				DB938F1526241FDF00E5B6C1 /* APIService+Thread.swift in Sources */,
 				2D206B8625F5FB0900143C56 /* Double.swift in Sources */,
@@ -4201,6 +4229,7 @@
 				DBD376AC2692ECDB007FEC24 /* ThemePreference.swift in Sources */,
 				DB4F097D26A03A5B00D62E92 /* SearchHistoryItem.swift in Sources */,
 				DBD5B1FA27BD013700BD6B38 /* DataSourceProvider+StatusTableViewControllerNavigateable.swift in Sources */,
+				DB3E6FE22806A50100B035AE /* DiscoveryHashtagsViewModel+Diffable.swift in Sources */,
 				DB68046C2636DC9E00430867 /* MastodonNotification.swift in Sources */,
 				DBAE3F9E2616E308004B8251 /* APIService+Mute.swift in Sources */,
 				DB427DD625BAA00100D1B89D /* AppDelegate.swift in Sources */,
@@ -4247,7 +4276,6 @@
 				DB8AF52E25C13561002E6C99 /* ViewStateStore.swift in Sources */,
 				DB1D61CF26F1B33600DA8662 /* WelcomeViewModel.swift in Sources */,
 				2DA7D04A25CA52CB00804E11 /* TimelineBottomLoaderTableViewCell.swift in Sources */,
-				DB71C7CD271D7F4300BE3819 /* CurveAlgorithm.swift in Sources */,
 				DBD376B2269302A4007FEC24 /* UITableViewCell.swift in Sources */,
 				DB4F0966269ED52200D62E92 /* SearchResultViewModel.swift in Sources */,
 				DBBF1DBF2652401B00E5B703 /* AutoCompleteViewModel.swift in Sources */,
@@ -4264,25 +4292,25 @@
 				0F2021FB2613262F000C64BF /* HashtagTimelineViewController.swift in Sources */,
 				DB697DDD278F521D004EF2F7 /* DataSourceFacade.swift in Sources */,
 				DBCC3B30261440A50045B23D /* UITabBarController.swift in Sources */,
+				DB3E6FE42806A5B800B035AE /* DiscoverySection.swift in Sources */,
 				DB8190C62601FF0400020C08 /* AttachmentContainerView.swift in Sources */,
 				DB697DDB278F4DE3004EF2F7 /* DataSourceProvider+StatusTableViewCellDelegate.swift in Sources */,
 				DB51D173262832380062B7A1 /* BlurHashEncode.swift in Sources */,
 				2D32EAAC25CB96DC00C9ED86 /* TimelineMiddleLoaderTableViewCell.swift in Sources */,
 				DB87D4512609CF1E00D12C0D /* ComposeStatusPollOptionAppendEntryCollectionViewCell.swift in Sources */,
 				DBB45B5627B39FC9002DC5A7 /* MediaPreviewVideoViewController.swift in Sources */,
-				DBBC24C026A5443100398BB9 /* MastodonTheme.swift in Sources */,
 				DB0FCB8027968F70006C02E2 /* MastodonStatusThreadViewModel.swift in Sources */,
 				DB0FCB6E27950E6B006C02E2 /* MastodonMention.swift in Sources */,
 				DB67D08627312E67006A36CF /* WizardViewController.swift in Sources */,
 				DB6746EB278ED8B0008A6B94 /* PollOptionView+Configuration.swift in Sources */,
 				DB9A489026035963008B817C /* APIService+Media.swift in Sources */,
 				DBFEEC99279BDCDE004F81DD /* ProfileAboutViewModel.swift in Sources */,
-				DBBC24CF26A547AE00398BB9 /* ThemeService+Appearance.swift in Sources */,
 				2D198649261C0B8500F0B013 /* SearchResultSection.swift in Sources */,
 				DB4F097B26A039FF00D62E92 /* SearchHistorySection.swift in Sources */,
 				DBB525302611EBF3002F1F29 /* ProfilePagingViewModel.swift in Sources */,
 				DB9F58EC26EF435000E7BBE9 /* AccountViewController.swift in Sources */,
 				2D5A3D6225CFD9CB002347D6 /* HomeTimelineViewController+DebugAction.swift in Sources */,
+				DB3E6FF12806D96900B035AE /* DiscoveryNewsViewModel+Diffable.swift in Sources */,
 				DB49A62525FF334C00B98345 /* EmojiService+CustomEmojiViewModel+LoadState.swift in Sources */,
 				DB4924E226312AB200E9DB22 /* NotificationService.swift in Sources */,
 				DB6D9F6F2635807F008423CD /* Setting.swift in Sources */,
@@ -4390,15 +4418,11 @@
 				DBFEF07526A69192006D7ED1 /* APIService+Media.swift in Sources */,
 				DBFEF06F26A690C4006D7ED1 /* APIService+APIError.swift in Sources */,
 				DBFEF05C26A57715006D7ED1 /* StatusEditorView.swift in Sources */,
-				DBBC24C726A5456400398BB9 /* SystemTheme.swift in Sources */,
-				DBBC24C826A5456400398BB9 /* ThemeService.swift in Sources */,
-				DBBC24C926A5456400398BB9 /* MastodonTheme.swift in Sources */,
 				DBFEF07C26A6BD0A006D7ED1 /* APIService+Status+Publish.swift in Sources */,
 				DBB3BA2B26A81D060004F2D4 /* FLAnimatedImageView.swift in Sources */,
 				DB6746E8278ED639008A6B94 /* MastodonAuthenticationBox.swift in Sources */,
 				DBBC24A826A52F9000398BB9 /* ComposeToolbarView.swift in Sources */,
 				DBFEF05B26A57715006D7ED1 /* ComposeViewModel.swift in Sources */,
-				DBBC24C626A5456000398BB9 /* Theme.swift in Sources */,
 				DBFEF06326A577F2006D7ED1 /* StatusAttachmentViewModel.swift in Sources */,
 				DBFEF06926A67E45006D7ED1 /* AppearancePreference.swift in Sources */,
 				DBC6461526A170AB00B0E31B /* ShareViewController.swift in Sources */,

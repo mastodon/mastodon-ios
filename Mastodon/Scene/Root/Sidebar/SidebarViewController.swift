@@ -9,6 +9,7 @@ import os.log
 import UIKit
 import Combine
 import CoreDataStack
+import MastodonUI
 
 protocol SidebarViewControllerDelegate: AnyObject {
     func sidebarViewController(_ sidebarViewController: SidebarViewController, didSelectTab tab: MainTabBarController.Tab)

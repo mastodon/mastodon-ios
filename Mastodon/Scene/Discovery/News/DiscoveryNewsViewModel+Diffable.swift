@@ -1,54 +1,49 @@
 //
-//  DiscoveryPostsViewModel+Diffable.swift
+//  DiscoveryNewsViewModel+Diffable.swift
 //  Mastodon
 //
-//  Created by MainasuK on 2022-4-12.
+//  Created by MainasuK on 2022-4-13.
 //
 
 import UIKit
 import Combine
 
-extension DiscoveryPostsViewModel {
+extension DiscoveryNewsViewModel {
     
     func setupDiffableDataSource(
-        tableView: UITableView,
-        statusTableViewCellDelegate: StatusTableViewCellDelegate
+        tableView: UITableView
     ) {
-        diffableDataSource = StatusSection.diffableDataSource(
+        diffableDataSource = DiscoverySection.diffableDataSource(
             tableView: tableView,
             context: context,
-            configuration: StatusSection.Configuration(
-                statusTableViewCellDelegate: statusTableViewCellDelegate,
-                timelineMiddleLoaderTableViewCellDelegate: nil,
-                filterContext: .none,
-                activeFilters: nil
-            )
+            configuration: DiscoverySection.Configuration()
         )
         
         stateMachine.enter(State.Reloading.self)
         
-        statusFetchedResultsController.$records
+        $links
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] records in
+            .sink { [weak self] links in
                 guard let self = self else { return }
                 guard let diffableDataSource = self.diffableDataSource else { return }
                 
-                var snapshot = NSDiffableDataSourceSnapshot<StatusSection, StatusItem>()
-                snapshot.appendSections([.main])
+                var snapshot = NSDiffableDataSourceSnapshot<DiscoverySection, DiscoveryItem>()
+                snapshot.appendSections([.news])
                 
-                let items = records.map { StatusItem.status(record: $0) }
-                snapshot.appendItems(items, toSection: .main)
+                let items = links.map { DiscoveryItem.link($0) }
+                snapshot.appendItems(items, toSection: .news)
                 
                 if let currentState = self.stateMachine.currentState {
                     switch currentState {
                     case is State.Initial,
-                        is State.Reloading,
                         is State.Loading,
                         is State.Idle,
                         is State.Fail:
                         if !items.isEmpty {
-                            snapshot.appendItems([.bottomLoader], toSection: .main)
+                            snapshot.appendItems([.bottomLoader], toSection: .news)
                         }
+                    case is State.Reloading:
+                        break
                     case is State.NoMore:
                         break
                     default:
@@ -56,7 +51,7 @@ extension DiscoveryPostsViewModel {
                         break
                     }
                 }
-            
+                
                 diffableDataSource.applySnapshot(snapshot, animated: false)
             }
             .store(in: &disposeBag)

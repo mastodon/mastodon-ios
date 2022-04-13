@@ -16,6 +16,7 @@ import SwiftUI
 import UniformTypeIdentifiers
 import MastodonAsset
 import MastodonLocalization
+import MastodonUI
 
 final class ShareViewModel {
 

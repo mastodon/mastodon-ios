@@ -10,6 +10,7 @@ import UIKit
 import Combine
 import Tabman
 import MastodonAsset
+import MastodonUI
 
 public class DiscoveryViewController: TabmanViewController, NeedsDependency {
     

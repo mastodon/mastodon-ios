@@ -12,6 +12,7 @@ import MastodonSDK
 import MastodonUI
 import MastodonAsset
 import MastodonLocalization
+import MastodonUI
 
 protocol ComposeToolbarViewDelegate: AnyObject {
     func composeToolbarView(_ composeToolbarView: ComposeToolbarView, contentWarningButtonDidPressed sender: UIButton)

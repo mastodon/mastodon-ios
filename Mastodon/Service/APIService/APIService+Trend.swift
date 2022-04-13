@@ -53,4 +53,17 @@ extension APIService {
         return response
     }
     
+    func trendLinks(
+        domain: String,
+        query: Mastodon.API.Trends.LinkQuery
+    ) async throws -> Mastodon.Response.Content<[Mastodon.Entity.Link]> {
+        let response = try await Mastodon.API.Trends.links(
+            session: session,
+            domain: domain,
+            query: query
+        ).singleOutput()
+        
+        return response
+    }
+    
 }

@@ -7,12 +7,11 @@
 
 import UIKit
 import Accelerate
-import simd
 import MastodonAsset
 
-final class LineChartView: UIView {
+public final class LineChartView: UIView {
     
-    var data: [CGFloat] = [] {
+    public var data: [CGFloat] = [] {
         didSet {
             setNeedsLayout()
         }
@@ -20,14 +19,13 @@ final class LineChartView: UIView {
     
     let lineShapeLayer = CAShapeLayer()
     let gradientLayer = CAGradientLayer()
-//    let dotShapeLayer = CAShapeLayer()
     
-    override init(frame: CGRect) {
+    public override init(frame: CGRect) {
         super.init(frame: frame)
         _init()
     }
     
-    required init?(coder: NSCoder) {
+    public required init?(coder: NSCoder) {
         super.init(coder: coder)
         _init()
     }
@@ -38,10 +36,8 @@ extension LineChartView {
     private func _init() {
         lineShapeLayer.frame = bounds
         gradientLayer.frame = bounds
-//        dotShapeLayer.frame = bounds
         layer.addSublayer(lineShapeLayer)
         layer.addSublayer(gradientLayer)
-//        layer.addSublayer(dotShapeLayer)
         
         gradientLayer.colors = [
             Asset.Colors.brandBlue.color.withAlphaComponent(0.5).cgColor,       // set the same alpha to fill
@@ -51,16 +47,14 @@ extension LineChartView {
         gradientLayer.endPoint = CGPoint(x: 0.5, y: 1)
     }
     
-    override func layoutSubviews() {
+    public override func layoutSubviews() {
         super.layoutSubviews()
         
         lineShapeLayer.frame = bounds
         gradientLayer.frame = bounds
-//        dotShapeLayer.frame = bounds
         
         guard data.count > 1 else {
             lineShapeLayer.path = nil
-//            dotShapeLayer.path = nil
             gradientLayer.isHidden = true
             return
         }
@@ -113,9 +107,5 @@ extension LineChartView {
         maskLayer.strokeColor = UIColor.clear.cgColor
         maskLayer.lineWidth = 0.0
         gradientLayer.mask = maskLayer
-        
-//        dotShapeLayer.lineWidth = 3
-//        dotShapeLayer.fillColor = Asset.Colors.brandBlue.color.cgColor
-//        dotShapeLayer.path = dotPath.cgPath
     }
 }

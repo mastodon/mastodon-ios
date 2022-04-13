@@ -12,6 +12,7 @@ import CoreDataStack
 import MastodonSDK
 import MastodonAsset
 import MastodonLocalization
+import MastodonCommon
 
 final class SettingService {
     
@@ -190,18 +191,6 @@ extension SettingService {
 extension SettingService {
 
     static func updatePreference(setting: Setting) {
-        // set appearance
-//        let userInterfaceStyle: UIUserInterfaceStyle = {
-//            switch setting.appearance {
-//            case .automatic:    return .unspecified
-//            case .light:        return .light
-//            case .dark:         return .dark
-//            }
-//        }()
-//        if UserDefaults.shared.customUserInterfaceStyle != userInterfaceStyle {
-//            UserDefaults.shared.customUserInterfaceStyle = userInterfaceStyle
-//        }
-
         // set theme
         let themeName: ThemeName = setting.preferredTrueBlackDarkMode ? .system : .mastodon
         if UserDefaults.shared.currentThemeNameRawValue != themeName.rawValue {
@@ -223,6 +212,6 @@ extension SettingService {
         if UserDefaults.shared.preferredUsingDefaultBrowser != setting.preferredUsingDefaultBrowser {
             UserDefaults.shared.preferredUsingDefaultBrowser = setting.preferredUsingDefaultBrowser
         }
-
     }
+    
 }
