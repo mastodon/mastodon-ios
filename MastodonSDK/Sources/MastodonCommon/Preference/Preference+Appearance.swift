@@ -9,7 +9,7 @@ import UIKit
 
 extension UserDefaults {
     
-    @objc dynamic var customUserInterfaceStyle: UIUserInterfaceStyle {
+    @objc public dynamic var customUserInterfaceStyle: UIUserInterfaceStyle {
         get {
             register(defaults: [#function: UIUserInterfaceStyle.unspecified.rawValue])
             return UIUserInterfaceStyle(rawValue: integer(forKey: #function)) ?? .unspecified
@@ -17,7 +17,7 @@ extension UserDefaults {
         set { self[#function] = newValue.rawValue }
     }
 
-    @objc dynamic var preferredStaticAvatar: Bool {
+    @objc public dynamic var preferredStaticAvatar: Bool {
         get {
             // default false
             // without set register to profile timeline performance
@@ -26,7 +26,7 @@ extension UserDefaults {
         set { self[#function] = newValue }
     }
 
-    @objc dynamic var preferredStaticEmoji: Bool {
+    @objc public dynamic var preferredStaticEmoji: Bool {
         get {
             // default false
             // without set register to profile timeline performance

@@ -103,6 +103,9 @@ public enum Asset {
     public static let star = ImageAsset(name: "ObjectsAndTools/star")
   }
   public enum Scene {
+    public enum Discovery {
+      public static let profileCardBackground = ColorAsset(name: "Scene/Discovery/profile.card.background")
+    }
     public enum Onboarding {
       public static let avatarPlaceholder = ImageAsset(name: "Scene/Onboarding/avatar.placeholder")
       public static let background = ColorAsset(name: "Scene/Onboarding/background")

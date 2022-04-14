@@ -14,6 +14,7 @@ import MastodonSDK
 import MastodonAsset
 import MastodonLocalization
 import MastodonExtension
+import MastodonCommon
 import CoreDataStack
 
 extension StatusView {

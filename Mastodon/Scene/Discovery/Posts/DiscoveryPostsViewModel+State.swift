@@ -68,10 +68,7 @@ extension DiscoveryPostsViewModel.State {
         
         override func didEnter(from previousState: GKState?) {
             super.didEnter(from: previousState)
-            guard let viewModel = viewModel, let stateMachine = stateMachine else { return }
-            
-            // reset
-            viewModel.statusFetchedResultsController.statusIDs.value = []
+            guard let _ = viewModel, let stateMachine = stateMachine else { return }
 
             stateMachine.enter(Loading.self)
         }
@@ -145,6 +142,7 @@ extension DiscoveryPostsViewModel.State {
             }
             
             let offset = self.offset
+            let isReloading = offset == nil
             
             Task {
                 do {
@@ -168,7 +166,7 @@ extension DiscoveryPostsViewModel.State {
                     self.offset = newOffset
 
                     var hasNewStatusesAppend = false
-                    var statusIDs = viewModel.statusFetchedResultsController.statusIDs.value
+                    var statusIDs = isReloading ? [] : viewModel.statusFetchedResultsController.statusIDs.value
                     for status in response.value {
                         guard !statusIDs.contains(status.id) else { continue }
                         statusIDs.append(status.id)

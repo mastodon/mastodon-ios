@@ -20,7 +20,7 @@ extension Mastodon.API.V2.Suggestions {
     ///   - query: query
     ///   - authorization: User token.
     /// - Returns: `AnyPublisher` contains `AccountsSuggestion` nested in the response
-    public static func get(
+    public static func accounts(
         session: URLSession,
         domain: String,
         query: Mastodon.API.Suggestions.Query?,

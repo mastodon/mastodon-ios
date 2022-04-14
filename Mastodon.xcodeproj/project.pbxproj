@@ -214,7 +214,6 @@
 		DB336F3F278E668C0031E64B /* StatusTableViewCell+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB336F3E278E668C0031E64B /* StatusTableViewCell+ViewModel.swift */; };
 		DB336F41278E68480031E64B /* StatusView+Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB336F40278E68480031E64B /* StatusView+Configuration.swift */; };
 		DB336F43278EB1690031E64B /* MediaView+Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB336F42278EB1680031E64B /* MediaView+Configuration.swift */; };
-		DB35FC1F2612F1D9006193C9 /* ProfileRelationshipActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB35FC1E2612F1D9006193C9 /* ProfileRelationshipActionButton.swift */; };
 		DB36679D268AB91B0027D07F /* ComposeStatusAttachmentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB36679C268AB91B0027D07F /* ComposeStatusAttachmentTableViewCell.swift */; };
 		DB36679F268ABAF20027D07F /* ComposeStatusAttachmentSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB36679E268ABAF20027D07F /* ComposeStatusAttachmentSection.swift */; };
 		DB3667A1268ABB2E0027D07F /* ComposeStatusAttachmentItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3667A0268ABB2E0027D07F /* ComposeStatusAttachmentItem.swift */; };
@@ -232,6 +231,9 @@
 		DB3E6FEF2806D82600B035AE /* DiscoveryNewsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3E6FEE2806D82600B035AE /* DiscoveryNewsViewModel.swift */; };
 		DB3E6FF12806D96900B035AE /* DiscoveryNewsViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3E6FF02806D96900B035AE /* DiscoveryNewsViewModel+Diffable.swift */; };
 		DB3E6FF32806D97400B035AE /* DiscoveryNewsViewModel+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3E6FF22806D97400B035AE /* DiscoveryNewsViewModel+State.swift */; };
+		DB3E6FF52807C40300B035AE /* DiscoveryForYouViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3E6FF42807C40300B035AE /* DiscoveryForYouViewController.swift */; };
+		DB3E6FF82807C45300B035AE /* DiscoveryForYouViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3E6FF72807C45300B035AE /* DiscoveryForYouViewModel.swift */; };
+		DB3E6FFA2807C47900B035AE /* DiscoveryForYouViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3E6FF92807C47900B035AE /* DiscoveryForYouViewModel+Diffable.swift */; };
 		DB427DD625BAA00100D1B89D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB427DD525BAA00100D1B89D /* AppDelegate.swift */; };
 		DB427DD825BAA00100D1B89D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB427DD725BAA00100D1B89D /* SceneDelegate.swift */; };
 		DB427DDD25BAA00100D1B89D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB427DDB25BAA00100D1B89D /* Main.storyboard */; };
@@ -370,7 +372,6 @@
 		DB6B7500272FF73800C70B6E /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6B74FF272FF73800C70B6E /* UserTableViewCell.swift */; };
 		DB6B750427300B4000C70B6E /* TimelineFooterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6B750327300B4000C70B6E /* TimelineFooterTableViewCell.swift */; };
 		DB6C8C0F25F0A6AE00AAA452 /* Mastodon+Entity+Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6C8C0E25F0A6AE00AAA452 /* Mastodon+Entity+Error.swift */; };
-		DB6D1B3D2636857500ACB481 /* AppearancePreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6D1B3C2636857500ACB481 /* AppearancePreference.swift */; };
 		DB6D1B44263691CF00ACB481 /* Mastodon+API+Subscriptions+Policy.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6D1B43263691CF00ACB481 /* Mastodon+API+Subscriptions+Policy.swift */; };
 		DB6D9F3526351B7A008423CD /* NotificationService+Decrypt.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6D9F3426351B7A008423CD /* NotificationService+Decrypt.swift */; };
 		DB6D9F42263527CE008423CD /* AlamofireImage in Frameworks */ = {isa = PBXBuildFile; productRef = DB6D9F41263527CE008423CD /* AlamofireImage */; };
@@ -502,8 +503,6 @@
 		DBB525562611EDCA002F1F29 /* UserTimelineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB525552611EDCA002F1F29 /* UserTimelineViewModel.swift */; };
 		DBB5255E2611F07A002F1F29 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB5255D2611F07A002F1F29 /* ProfileViewModel.swift */; };
 		DBB525642612C988002F1F29 /* MeProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB525632612C988002F1F29 /* MeProfileViewModel.swift */; };
-		DBB5256E2612D5A1002F1F29 /* ProfileStatusDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB5256D2612D5A1002F1F29 /* ProfileStatusDashboardView.swift */; };
-		DBB525852612D6DD002F1F29 /* ProfileStatusDashboardMeterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB525842612D6DD002F1F29 /* ProfileStatusDashboardMeterView.swift */; };
 		DBB8AB4626AECDE200F6D281 /* SendPostIntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB8AB4526AECDE200F6D281 /* SendPostIntentHandler.swift */; };
 		DBB8AB4826AED09C00F6D281 /* MastodonSDK in Frameworks */ = {isa = PBXBuildFile; productRef = DBB8AB4726AED09C00F6D281 /* MastodonSDK */; };
 		DBB8AB4A26AED0B500F6D281 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB8AB4926AED0B500F6D281 /* APIService.swift */; };
@@ -518,7 +517,6 @@
 		DBBC24CB26A546C000398BB9 /* ThemePreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD376AB2692ECDB007FEC24 /* ThemePreference.swift */; };
 		DBBC24D126A5484F00398BB9 /* UITextView+Placeholder in Frameworks */ = {isa = PBXBuildFile; productRef = DBBC24D026A5484F00398BB9 /* UITextView+Placeholder */; };
 		DBBC24DC26A54BCB00398BB9 /* MastodonRegex.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBC24D626A54BCB00398BB9 /* MastodonRegex.swift */; };
-		DBBC24DE26A54BCB00398BB9 /* MastodonMetricFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBC24D826A54BCB00398BB9 /* MastodonMetricFormatter.swift */; };
 		DBBE1B4525F3474B0081417A /* MastodonPickServerAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBE1B4425F3474B0081417A /* MastodonPickServerAppearance.swift */; };
 		DBBF1DBF2652401B00E5B703 /* AutoCompleteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBF1DBE2652401B00E5B703 /* AutoCompleteViewModel.swift */; };
 		DBBF1DC226524D2900E5B703 /* AutoCompleteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBF1DC126524D2900E5B703 /* AutoCompleteTableViewCell.swift */; };
@@ -594,7 +592,6 @@
 		DBFEF05F26A57715006D7ED1 /* StatusAuthorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBFEF05926A576EE006D7ED1 /* StatusAuthorView.swift */; };
 		DBFEF06026A57715006D7ED1 /* StatusAttachmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBFEF05A26A576EE006D7ED1 /* StatusAttachmentView.swift */; };
 		DBFEF06326A577F2006D7ED1 /* StatusAttachmentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBFEF06226A577F2006D7ED1 /* StatusAttachmentViewModel.swift */; };
-		DBFEF06926A67E45006D7ED1 /* AppearancePreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6D1B3C2636857500ACB481 /* AppearancePreference.swift */; };
 		DBFEF06D26A67FB7006D7ED1 /* StatusAttachmentViewModel+UploadState.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBFEF06C26A67FB7006D7ED1 /* StatusAttachmentViewModel+UploadState.swift */; };
 		DBFEF06F26A690C4006D7ED1 /* APIService+APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB98337E25C9452D00AD9700 /* APIService+APIError.swift */; };
 		DBFEF07326A6913D006D7ED1 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBFEF07226A6913D006D7ED1 /* APIService.swift */; };
@@ -945,7 +942,6 @@
 		DB336F3E278E668C0031E64B /* StatusTableViewCell+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StatusTableViewCell+ViewModel.swift"; sourceTree = "<group>"; };
 		DB336F40278E68480031E64B /* StatusView+Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StatusView+Configuration.swift"; sourceTree = "<group>"; };
 		DB336F42278EB1680031E64B /* MediaView+Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MediaView+Configuration.swift"; sourceTree = "<group>"; };
-		DB35FC1E2612F1D9006193C9 /* ProfileRelationshipActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRelationshipActionButton.swift; sourceTree = "<group>"; };
 		DB36679C268AB91B0027D07F /* ComposeStatusAttachmentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeStatusAttachmentTableViewCell.swift; sourceTree = "<group>"; };
 		DB36679E268ABAF20027D07F /* ComposeStatusAttachmentSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeStatusAttachmentSection.swift; sourceTree = "<group>"; };
 		DB3667A0268ABB2E0027D07F /* ComposeStatusAttachmentItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeStatusAttachmentItem.swift; sourceTree = "<group>"; };
@@ -963,6 +959,9 @@
 		DB3E6FEE2806D82600B035AE /* DiscoveryNewsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryNewsViewModel.swift; sourceTree = "<group>"; };
 		DB3E6FF02806D96900B035AE /* DiscoveryNewsViewModel+Diffable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DiscoveryNewsViewModel+Diffable.swift"; sourceTree = "<group>"; };
 		DB3E6FF22806D97400B035AE /* DiscoveryNewsViewModel+State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DiscoveryNewsViewModel+State.swift"; sourceTree = "<group>"; };
+		DB3E6FF42807C40300B035AE /* DiscoveryForYouViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryForYouViewController.swift; sourceTree = "<group>"; };
+		DB3E6FF72807C45300B035AE /* DiscoveryForYouViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryForYouViewModel.swift; sourceTree = "<group>"; };
+		DB3E6FF92807C47900B035AE /* DiscoveryForYouViewModel+Diffable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DiscoveryForYouViewModel+Diffable.swift"; sourceTree = "<group>"; };
 		DB427DD225BAA00100D1B89D /* Mastodon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mastodon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB427DD525BAA00100D1B89D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DB427DD725BAA00100D1B89D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -1119,7 +1118,6 @@
 		DB6B74FF272FF73800C70B6E /* UserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTableViewCell.swift; sourceTree = "<group>"; };
 		DB6B750327300B4000C70B6E /* TimelineFooterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineFooterTableViewCell.swift; sourceTree = "<group>"; };
 		DB6C8C0E25F0A6AE00AAA452 /* Mastodon+Entity+Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Mastodon+Entity+Error.swift"; sourceTree = "<group>"; };
-		DB6D1B3C2636857500ACB481 /* AppearancePreference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearancePreference.swift; sourceTree = "<group>"; };
 		DB6D1B43263691CF00ACB481 /* Mastodon+API+Subscriptions+Policy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Mastodon+API+Subscriptions+Policy.swift"; sourceTree = "<group>"; };
 		DB6D9F3426351B7A008423CD /* NotificationService+Decrypt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationService+Decrypt.swift"; sourceTree = "<group>"; };
 		DB6D9F4826353FD6008423CD /* Subscription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Subscription.swift; sourceTree = "<group>"; };
@@ -1261,15 +1259,12 @@
 		DBB525552611EDCA002F1F29 /* UserTimelineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTimelineViewModel.swift; sourceTree = "<group>"; };
 		DBB5255D2611F07A002F1F29 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		DBB525632612C988002F1F29 /* MeProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeProfileViewModel.swift; sourceTree = "<group>"; };
-		DBB5256D2612D5A1002F1F29 /* ProfileStatusDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileStatusDashboardView.swift; sourceTree = "<group>"; };
-		DBB525842612D6DD002F1F29 /* ProfileStatusDashboardMeterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileStatusDashboardMeterView.swift; sourceTree = "<group>"; };
 		DBB8AB4526AECDE200F6D281 /* SendPostIntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendPostIntentHandler.swift; sourceTree = "<group>"; };
 		DBB8AB4926AED0B500F6D281 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		DBB9759B262462E1004620BD /* ThreadMetaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadMetaView.swift; sourceTree = "<group>"; };
 		DBBC24A726A52F9000398BB9 /* ComposeToolbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeToolbarView.swift; sourceTree = "<group>"; };
 		DBBC24AB26A53D9300398BB9 /* ComposeStatusContentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeStatusContentTableViewCell.swift; sourceTree = "<group>"; };
 		DBBC24D626A54BCB00398BB9 /* MastodonRegex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MastodonRegex.swift; sourceTree = "<group>"; };
-		DBBC24D826A54BCB00398BB9 /* MastodonMetricFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MastodonMetricFormatter.swift; sourceTree = "<group>"; };
 		DBBC50C0278ED49200AF0CC6 /* MastodonAuthenticationBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonAuthenticationBox.swift; sourceTree = "<group>"; };
 		DBBE1B4425F3474B0081417A /* MastodonPickServerAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonPickServerAppearance.swift; sourceTree = "<group>"; };
 		DBBF1DBE2652401B00E5B703 /* AutoCompleteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoCompleteViewModel.swift; sourceTree = "<group>"; };
@@ -2147,6 +2142,16 @@
 			path = News;
 			sourceTree = "<group>";
 		};
+		DB3E6FF62807C40500B035AE /* ForYou */ = {
+			isa = PBXGroup;
+			children = (
+				DB3E6FF42807C40300B035AE /* DiscoveryForYouViewController.swift */,
+				DB3E6FF72807C45300B035AE /* DiscoveryForYouViewModel.swift */,
+				DB3E6FF92807C47900B035AE /* DiscoveryForYouViewModel+Diffable.swift */,
+			);
+			path = ForYou;
+			sourceTree = "<group>";
+		};
 		DB427DC925BAA00100D1B89D = {
 			isa = PBXGroup;
 			children = (
@@ -2378,7 +2383,6 @@
 			children = (
 				DBA465942696E387002B41DB /* AppPreference.swift */,
 				DB647C5826F1EA2700F7F82C /* WizardPreference.swift */,
-				DB6D1B3C2636857500ACB481 /* AppearancePreference.swift */,
 				DBE54AC52636C89F004E7C0B /* NotificationPreference.swift */,
 				DB1D842F26566512000346B3 /* KeyboardPreference.swift */,
 				DBCBCC0C2680B908000F5B51 /* HomeTimelinePreference.swift */,
@@ -3040,9 +3044,6 @@
 			isa = PBXGroup;
 			children = (
 				DBB5254F2611ED6D002F1F29 /* ProfileHeaderView.swift */,
-				DBB5256D2612D5A1002F1F29 /* ProfileStatusDashboardView.swift */,
-				DBB525842612D6DD002F1F29 /* ProfileStatusDashboardMeterView.swift */,
-				DB35FC1E2612F1D9006193C9 /* ProfileRelationshipActionButton.swift */,
 				DBF98149265E24F500E4BA07 /* ProfileFieldCollectionViewHeaderFooterView.swift */,
 			);
 			path = View;
@@ -3061,7 +3062,6 @@
 			children = (
 				DBBC24D626A54BCB00398BB9 /* MastodonRegex.swift */,
 				DBBC50C0278ED49200AF0CC6 /* MastodonAuthenticationBox.swift */,
-				DBBC24D826A54BCB00398BB9 /* MastodonMetricFormatter.swift */,
 				DBF3B7402733EB9400E21627 /* MastodonLocalCode.swift */,
 			);
 			path = Helper;
@@ -3113,6 +3113,7 @@
 				DBDFF19828055A0900557A48 /* Posts */,
 				DB3E6FDE2806A41200B035AE /* Hashtags */,
 				DB3E6FED2806D7FC00B035AE /* News */,
+				DB3E6FF62807C40500B035AE /* ForYou */,
 				DBDFF19928055A1400557A48 /* DiscoveryViewController.swift */,
 				DBDFF19B28055BD600557A48 /* DiscoveryViewModel.swift */,
 			);
@@ -3947,7 +3948,6 @@
 				DBDFF1952805561700557A48 /* DiscoveryPostsViewModel+Diffable.swift in Sources */,
 				DB03A795272A981400EE37C5 /* ContentSplitViewController.swift in Sources */,
 				DBDFF19C28055BD600557A48 /* DiscoveryViewModel.swift in Sources */,
-				DBBC24DE26A54BCB00398BB9 /* MastodonMetricFormatter.swift in Sources */,
 				DB06180A2785B2AB0030EE79 /* MastodonRegisterAvatarTableViewCell.swift in Sources */,
 				DBB45B6227B51112002DC5A7 /* SuggestionAccountViewModel+Diffable.swift in Sources */,
 				DBB3BA2A26A81C020004F2D4 /* FLAnimatedImageView.swift in Sources */,
@@ -3974,7 +3974,6 @@
 				DBE3CE07261D6A0E00430CC6 /* FavoriteViewModel+Diffable.swift in Sources */,
 				2D34D9DB261494120081BFC0 /* APIService+Search.swift in Sources */,
 				5B90C48B26259C120002E742 /* APIService+CoreData+Subscriptions.swift in Sources */,
-				DBB5256E2612D5A1002F1F29 /* ProfileStatusDashboardView.swift in Sources */,
 				DBA9443E265CFA6400C537E1 /* ProfileFieldCollectionViewCell.swift in Sources */,
 				DB025B93278D6501002F581E /* Persistence.swift in Sources */,
 				2D24E1232626ED9D00A59D4F /* UIView+Gesture.swift in Sources */,
@@ -4066,11 +4065,11 @@
 				DB697DD4278F4927004EF2F7 /* StatusTableViewCellDelegate.swift in Sources */,
 				DB0FCB902796C5EB006C02E2 /* APIService+Trend.swift in Sources */,
 				DBA5E7A5263BD28C004598BB /* ContextMenuImagePreviewViewModel.swift in Sources */,
+				DB3E6FF52807C40300B035AE /* DiscoveryForYouViewController.swift in Sources */,
 				DB9D7C21269824B80054B3DF /* APIService+Filter.swift in Sources */,
 				2D38F1E525CD46C100561493 /* HomeTimelineViewModel.swift in Sources */,
 				DB0FCB842796B2A2006C02E2 /* FavoriteViewController+DataSourceProvider.swift in Sources */,
 				DBCC3B36261440BA0045B23D /* UINavigationController.swift in Sources */,
-				DBB525852612D6DD002F1F29 /* ProfileStatusDashboardMeterView.swift in Sources */,
 				DB0FCB68279507EF006C02E2 /* DataSourceFacade+Meta.swift in Sources */,
 				DB63F75C279956D000455B82 /* Persistence+Tag.swift in Sources */,
 				2D84350525FF858100EECE90 /* UIScrollView.swift in Sources */,
@@ -4112,7 +4111,6 @@
 				DBBF1DCB2652539E00E5B703 /* AutoCompleteItem.swift in Sources */,
 				DB84811727883C2600BBEABA /* MastodonRegisterPasswordHintTableViewCell.swift in Sources */,
 				2DA6054725F716A2006356F9 /* PlaybackState.swift in Sources */,
-				DB35FC1F2612F1D9006193C9 /* ProfileRelationshipActionButton.swift in Sources */,
 				DB98EB6727B216560082E365 /* ReportResultViewModel+Diffable.swift in Sources */,
 				DBC7A672260C897100E57475 /* StatusContentWarningEditorView.swift in Sources */,
 				DB025B95278D6530002F581E /* Persistence+MastodonUser.swift in Sources */,
@@ -4178,6 +4176,7 @@
 				DB852D1C26FB021500FC9D81 /* RootSplitViewController.swift in Sources */,
 				DB697DD1278F4871004EF2F7 /* AutoGenerateTableViewDelegate.swift in Sources */,
 				DB02CDBF2625AE5000D0A2AF /* AdaptiveUserInterfaceStyleBarButtonItem.swift in Sources */,
+				DB3E6FFA2807C47900B035AE /* DiscoveryForYouViewModel+Diffable.swift in Sources */,
 				DB1FD44425F26CCC004CFCFC /* PickServerSection.swift in Sources */,
 				DBB45B6027B50A4F002DC5A7 /* RecommendAccountItem.swift in Sources */,
 				0FB3D30F25E525CD00AAD544 /* PickServerCategoryView.swift in Sources */,
@@ -4311,6 +4310,7 @@
 				DB9F58EC26EF435000E7BBE9 /* AccountViewController.swift in Sources */,
 				2D5A3D6225CFD9CB002347D6 /* HomeTimelineViewController+DebugAction.swift in Sources */,
 				DB3E6FF12806D96900B035AE /* DiscoveryNewsViewModel+Diffable.swift in Sources */,
+				DB3E6FF82807C45300B035AE /* DiscoveryForYouViewModel.swift in Sources */,
 				DB49A62525FF334C00B98345 /* EmojiService+CustomEmojiViewModel+LoadState.swift in Sources */,
 				DB4924E226312AB200E9DB22 /* NotificationService.swift in Sources */,
 				DB6D9F6F2635807F008423CD /* Setting.swift in Sources */,
@@ -4327,7 +4327,6 @@
 				DB789A1225F9F2CC0071ACA0 /* ComposeViewModel.swift in Sources */,
 				DB63F74B279914A000455B82 /* FollowingListViewController+DataSourceProvider.swift in Sources */,
 				DBB525362611ECEB002F1F29 /* UserTimelineViewController.swift in Sources */,
-				DB6D1B3D2636857500ACB481 /* AppearancePreference.swift in Sources */,
 				DB938F3326243D6200E5B6C1 /* TimelineTopLoaderTableViewCell.swift in Sources */,
 				DB98EB4927B0F0CD0082E365 /* ReportStatusTableViewCell.swift in Sources */,
 				DB3667A4268AE2370027D07F /* ComposeStatusPollTableViewCell.swift in Sources */,
@@ -4424,7 +4423,6 @@
 				DBBC24A826A52F9000398BB9 /* ComposeToolbarView.swift in Sources */,
 				DBFEF05B26A57715006D7ED1 /* ComposeViewModel.swift in Sources */,
 				DBFEF06326A577F2006D7ED1 /* StatusAttachmentViewModel.swift in Sources */,
-				DBFEF06926A67E45006D7ED1 /* AppearancePreference.swift in Sources */,
 				DBC6461526A170AB00B0E31B /* ShareViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -94,6 +94,7 @@ let package = Package(
                 .product(name: "Alamofire", package: "Alamofire"),
                 .product(name: "AlamofireImage", package: "AlamofireImage"),
                 .product(name: "MetaTextKit", package: "MetaTextKit"),
+                .product(name: "MastodonMeta", package: "MetaTextKit"),
                 .product(name: "FLAnimatedImage", package: "FLAnimatedImage"),
             ]
         ),

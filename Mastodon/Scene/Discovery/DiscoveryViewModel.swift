@@ -16,6 +16,7 @@ final class DiscoveryViewModel {
     let discoveryPostsViewController: DiscoveryPostsViewController
     let discoveryHashtagsViewController: DiscoveryHashtagsViewController
     let discoveryNewsViewController: DiscoveryNewsViewController
+    let discoveryForYouViewController: DiscoveryForYouViewController
     
     // output
     let barItems: [TMBarItemable] = {
@@ -33,6 +34,7 @@ final class DiscoveryViewModel {
             discoveryPostsViewController,
             discoveryHashtagsViewController,
             discoveryNewsViewController,
+            discoveryForYouViewController,
         ]
     }
     
@@ -59,6 +61,12 @@ final class DiscoveryViewModel {
             let viewController = DiscoveryNewsViewController()
             setupDependency(viewController)
             viewController.viewModel = DiscoveryNewsViewModel(context: context)
+            return viewController
+        }()
+        discoveryForYouViewController = {
+            let viewController = DiscoveryForYouViewController()
+            setupDependency(viewController)
+            viewController.viewModel = DiscoveryForYouViewModel(context: context)
             return viewController
         }()
         // end init

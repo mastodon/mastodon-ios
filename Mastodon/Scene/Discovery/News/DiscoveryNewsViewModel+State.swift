@@ -70,8 +70,6 @@ extension DiscoveryNewsViewModel.State {
             super.didEnter(from: previousState)
             guard let viewModel = viewModel, let stateMachine = stateMachine else { return }
             
-            viewModel.links = []
-
             stateMachine.enter(Loading.self)
         }
     }
@@ -113,7 +111,6 @@ extension DiscoveryNewsViewModel.State {
     class Loading: DiscoveryNewsViewModel.State {
         
         var offset: Int?
-        var isReloading: Bool { return offset == nil }
         
         override func isValidNextState(_ stateClass: AnyClass) -> Bool {
             switch stateClass {
@@ -146,6 +143,7 @@ extension DiscoveryNewsViewModel.State {
             }
             
             let offset = self.offset
+            let isReloading = offset == nil
             
             Task {
                 do {
@@ -169,7 +167,7 @@ extension DiscoveryNewsViewModel.State {
                     self.offset = newOffset
 
                     var hasNewItemsAppend = false
-                    var links = viewModel.links
+                    var links = isReloading ? [] : viewModel.links
                     for link in response.value {
                         guard !links.contains(link) else { continue }
                         links.append(link)
