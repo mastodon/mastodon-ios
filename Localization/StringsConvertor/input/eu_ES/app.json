@@ -492,6 +492,14 @@
                 "clear": "Garbitu"
             }
         },
+        "discovery": {
+            "tabs": {
+                "posts": "Posts",
+                "hashtags": "Hashtags",
+                "news": "News",
+                "for_you": "For You"
+            }
+        },
         "favorite": {
             "title": "Zure gogokoak"
         },
@@ -502,8 +510,8 @@
             },
             "notification_description": {
                 "followed_you": "zu jarraitzen hasi da",
-                "favorited_your_post": "erabiltzaileak zure bidalketa gogoko du",
-                "reblogged_your_post": "erabiltzaileak bultzada eman dio zure bidalketari",
+                "favorited_your_post": "(e)k zure bidalketa gogoko du",
+                "reblogged_your_post": "(e)k bultzada eman dio zure bidalketari",
                 "mentioned_you": "erabiltzaileak aipatu zaitu",
                 "request_to_follow_you": "erabiltzaileak zu jarraitzea eskatu du",
                 "poll_has_ended": "inkesta amaitu da"
