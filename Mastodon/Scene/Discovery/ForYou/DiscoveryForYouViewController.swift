@@ -64,7 +64,8 @@ extension DiscoveryForYouViewController {
 
         tableView.delegate = self
         viewModel.setupDiffableDataSource(
-            tableView: tableView
+            tableView: tableView,
+            profileCardTableViewCellDelegate: self
         )
         
         tableView.refreshControl = refreshControl
@@ -119,9 +120,27 @@ extension DiscoveryForYouViewController: UITableViewDelegate {
 
 }
 
+// MARK: - ProfileCardTableViewCellDelegate
+extension DiscoveryForYouViewController: ProfileCardTableViewCellDelegate {
+    func profileCardTableViewCell(_ cell: ProfileCardTableViewCell, profileCardView: ProfileCardView, relationshipButtonDidPressed button: ProfileRelationshipActionButton) {
+        guard let authenticationBox = viewModel.context.authenticationService.activeMastodonAuthenticationBox.value else { return }
+        guard let indexPath = tableView.indexPath(for: cell) else { return }
+        guard case let .user(record) = viewModel.diffableDataSource?.itemIdentifier(for: indexPath) else { return }
+        
+        Task {
+            try await DataSourceFacade.responseToUserFollowAction(
+                dependency: self,
+                user: record,
+                authenticationBox: authenticationBox
+            )
+        }   // end Task
+    }
+}
+
 // MARK: ScrollViewContainer
 extension DiscoveryForYouViewController: ScrollViewContainer {
     var scrollView: UIScrollView? {
         tableView
     }
 }
+

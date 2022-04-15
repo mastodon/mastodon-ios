@@ -38,6 +38,7 @@ final class DiscoveryPostsViewModel {
     }()
     
     let didLoadLatest = PassthroughSubject<Void, Never>()
+    @Published var isServerSupportEndpoint = true
     
     init(context: AppContext) {
         self.context = context
@@ -52,10 +53,31 @@ final class DiscoveryPostsViewModel {
             .map { $0?.domain }
             .assign(to: \.value, on: statusFetchedResultsController.domain)
             .store(in: &disposeBag)
+        
+        Task {
+            await checkServerEndpoint()
+        }   // end Task
     }
     
     deinit {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
     }
     
+}
+
+extension DiscoveryPostsViewModel {
+    func checkServerEndpoint() async {
+        guard let authenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else { return }
+        
+        do {
+            _ = try await context.apiService.trendStatuses(
+                domain: authenticationBox.domain,
+                query: .init(offset: nil, limit: nil)
+            )
+        } catch let error as Mastodon.API.Error where error.httpResponseStatus.code == 404 {
+            isServerSupportEndpoint = false
+        } catch {
+            // do nothing
+        }
+    }
 }

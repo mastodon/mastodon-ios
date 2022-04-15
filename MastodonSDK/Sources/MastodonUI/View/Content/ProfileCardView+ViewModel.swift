@@ -12,6 +12,7 @@ import Meta
 import AlamofireImage
 import CoreDataStack
 import MastodonLocalization
+import MastodonAsset
 
 extension ProfileCardView {
     public class ViewModel: ObservableObject {
@@ -19,6 +20,9 @@ extension ProfileCardView {
         var disposeBag = Set<AnyCancellable>()
         
         public let relationshipViewModel = RelationshipViewModel()
+        
+        @Published public var userInterfaceStyle: UIUserInterfaceStyle?
+        @Published public var backgroundColor: UIColor?
 
         // Author
         @Published public var authorBannerImageURL: URL?
@@ -37,17 +41,53 @@ extension ProfileCardView {
         @Published public var isMuting = false
         @Published public var isBlocking = false
         @Published public var isBlockedBy = false
+        
+        init() {
+            backgroundColor = ThemeService.shared.currentTheme.value.systemBackgroundColor
+            Publishers.CombineLatest(
+                ThemeService.shared.currentTheme,
+                $userInterfaceStyle
+            )
+            .sink { [weak self] theme, userInterfaceStyle in
+                guard let self = self else { return }
+                guard let userInterfaceStyle = userInterfaceStyle else { return }
+                switch userInterfaceStyle {
+                case .dark:
+                    self.backgroundColor = theme.systemBackgroundColor
+                case .light, .unspecified:
+                    self.backgroundColor = Asset.Scene.Discovery.profileCardBackground.color
+                @unknown default:
+                    self.backgroundColor = Asset.Scene.Discovery.profileCardBackground.color
+                    assertionFailure()
+                    // do nothing
+                }
+            }
+            .store(in: &disposeBag)
+        }
     }
 }
 
 extension ProfileCardView.ViewModel {
     func bind(view: ProfileCardView) {
+        bindAppearacne(view: view)
         bindHeader(view: view)
         bindUser(view: view)
         bindBio(view: view)
         bindRelationship(view: view)
         bindDashboard(view: view)
     }
+    
+    private func bindAppearacne(view: ProfileCardView) {
+        userInterfaceStyle = view.traitCollection.userInterfaceStyle
+        
+        $backgroundColor
+            .assign(to: \.backgroundColor, on: view.container)
+            .store(in: &disposeBag)
+        $backgroundColor
+            .assign(to: \.backgroundColor, on: view.avatarButtonBackgroundView)
+            .store(in: &disposeBag)
+    }
+    
     
     private func bindHeader(view: ProfileCardView) {
         $authorBannerImageURL

@@ -7,16 +7,20 @@
 
 import UIKit
 import Combine
+import MastodonUI
 
 extension DiscoveryForYouViewModel {
     
     func setupDiffableDataSource(
-        tableView: UITableView
+        tableView: UITableView,
+        profileCardTableViewCellDelegate: ProfileCardTableViewCellDelegate
     ) {
         diffableDataSource = DiscoverySection.diffableDataSource(
             tableView: tableView,
             context: context,
-            configuration: DiscoverySection.Configuration()
+            configuration: DiscoverySection.Configuration(
+                profileCardTableViewCellDelegate: profileCardTableViewCellDelegate
+            )
         )
         
         Task {

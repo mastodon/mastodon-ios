@@ -8,8 +8,13 @@
 import UIKit
 import Combine
 
+public protocol ProfileCardTableViewCellDelegate: AnyObject {
+    func profileCardTableViewCell(_ cell: ProfileCardTableViewCell, profileCardView: ProfileCardView, relationshipButtonDidPressed button: ProfileRelationshipActionButton)
+}
+
 public final class ProfileCardTableViewCell: UITableViewCell {
     
+    public weak var delegate: ProfileCardTableViewCellDelegate?
     public var disposeBag = Set<AnyCancellable>()
     
     public let profileCardView: ProfileCardView = {
@@ -63,6 +68,15 @@ extension ProfileCardTableViewCell {
             profileCardView.trailingAnchor.constraint(equalTo: shadowBackgroundContainer.trailingAnchor),
             profileCardView.bottomAnchor.constraint(equalTo: shadowBackgroundContainer.bottomAnchor),
         ])
+        
+        profileCardView.delegate = self
     }
     
+}
+
+// MARK: - ProfileCardViewDelegate
+extension ProfileCardTableViewCell: ProfileCardViewDelegate {
+    public func profileCardView(_ profileCardView: ProfileCardView, relationshipButtonDidPressed button: ProfileRelationshipActionButton) {
+        delegate?.profileCardTableViewCell(self, profileCardView: profileCardView, relationshipButtonDidPressed: button)
+    }
 }

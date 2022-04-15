@@ -20,7 +20,13 @@ extension DiscoverySection {
     
     static let logger = Logger(subsystem: "DiscoverySection", category: "logic")
     
-    struct Configuration { }
+    class Configuration {
+        weak var profileCardTableViewCellDelegate: ProfileCardTableViewCellDelegate?
+        
+        public init(profileCardTableViewCellDelegate: ProfileCardTableViewCellDelegate? = nil) {
+            self.profileCardTableViewCellDelegate = profileCardTableViewCellDelegate
+        }
+    }
     
     static func diffableDataSource(
         tableView: UITableView,
@@ -52,6 +58,7 @@ extension DiscoverySection {
                     .map { $0?.user }
                     .assign(to: \.me, on: cell.profileCardView.viewModel.relationshipViewModel)
                     .store(in: &cell.disposeBag)
+                cell.delegate = configuration.profileCardTableViewCellDelegate
                 return cell
             case .bottomLoader:
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self), for: indexPath) as! TimelineBottomLoaderTableViewCell

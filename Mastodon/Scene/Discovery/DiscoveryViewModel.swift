@@ -6,10 +6,13 @@
 //
 
 import UIKit
+import Combine
 import Tabman
 import Pageboy
 
 final class DiscoveryViewModel {
+    
+    var disposeBag = Set<AnyCancellable>()
     
     // input
     let context: AppContext
@@ -18,25 +21,7 @@ final class DiscoveryViewModel {
     let discoveryNewsViewController: DiscoveryNewsViewController
     let discoveryForYouViewController: DiscoveryForYouViewController
     
-    // output
-    let barItems: [TMBarItemable] = {
-        let items = [
-            TMBarItem(title: "Posts"),
-            TMBarItem(title: "Hashtags"),
-            TMBarItem(title: "News"),
-            TMBarItem(title: "For You"),
-        ]
-        return items
-    }()
-    
-    var viewControllers: [ScrollViewContainer] {
-        return [
-            discoveryPostsViewController,
-            discoveryHashtagsViewController,
-            discoveryNewsViewController,
-            discoveryForYouViewController,
-        ]
-    }
+    @Published var viewControllers: [ScrollViewContainer & PageViewController]
     
     init(context: AppContext, coordinator: SceneCoordinator) {
         func setupDependency(_ needsDependency: NeedsDependency) {
@@ -69,7 +54,35 @@ final class DiscoveryViewModel {
             viewController.viewModel = DiscoveryForYouViewModel(context: context)
             return viewController
         }()
+        self.viewControllers = [
+            discoveryPostsViewController,
+            discoveryHashtagsViewController,
+            discoveryNewsViewController,
+            discoveryForYouViewController,
+        ]
         // end init
+        
+        discoveryPostsViewController.viewModel.$isServerSupportEndpoint
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] isServerSupportEndpoint in
+                guard let self = self else { return }
+                if !isServerSupportEndpoint {
+                    self.viewControllers.removeAll(where: {
+                        $0 === self.discoveryPostsViewController || $0 === self.discoveryPostsViewController
+                    })
+                }
+            }
+            .store(in: &disposeBag)
+        
+        discoveryNewsViewController.viewModel.$isServerSupportEndpoint
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] isServerSupportEndpoint in
+                guard let self = self else { return }
+                if !isServerSupportEndpoint {
+                    self.viewControllers.removeAll(where: { $0 === self.discoveryNewsViewController })
+                }
+            }
+            .store(in: &disposeBag)
     }
     
 }
@@ -95,6 +108,49 @@ extension DiscoveryViewModel: PageboyViewControllerDataSource {
 // MARK: - TMBarDataSource
 extension DiscoveryViewModel: TMBarDataSource {
     func barItem(for bar: TMBar, at index: Int) -> TMBarItemable {
-        return barItems[index]
+        guard !viewControllers.isEmpty, index < viewControllers.count else {
+            assertionFailure()
+            return TMBarItem(title: "")
+        }
+        return viewControllers[index].tabItem
+    }
+}
+
+protocol PageViewController: UIViewController {
+    var tabItemTitle: String { get }
+    var tabItem: TMBarItemable { get }
+}
+
+// MARK: - PageViewController
+extension DiscoveryPostsViewController: PageViewController {
+    var tabItemTitle: String { "Posts" }
+    var tabItem: TMBarItemable {
+        return TMBarItem(title: tabItemTitle)
+    }
+}
+
+
+// MARK: - PageViewController
+extension DiscoveryHashtagsViewController: PageViewController {
+    var tabItemTitle: String { "Hashtags" }
+    var tabItem: TMBarItemable {
+
+        return TMBarItem(title: tabItemTitle)
+    }
+}
+
+// MARK: - PageViewController
+extension DiscoveryNewsViewController: PageViewController {
+    var tabItemTitle: String { "News" }
+    var tabItem: TMBarItemable {
+        return TMBarItem(title: tabItemTitle)
+    }
+}
+
+// MARK: - PageViewController
+extension DiscoveryForYouViewController: PageViewController {
+    var tabItemTitle: String { "For You" }
+    var tabItem: TMBarItemable {
+        return TMBarItem(title: tabItemTitle)
     }
 }

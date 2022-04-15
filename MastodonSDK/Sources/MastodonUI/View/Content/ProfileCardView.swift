@@ -5,10 +5,15 @@
 //  Created by MainasuK on 2022-4-14.
 //
 
+import os.log
 import UIKit
 import Combine
 import MetaTextKit
 import MastodonAsset
+
+public protocol ProfileCardViewDelegate: AnyObject {
+    func profileCardView(_ profileCardView: ProfileCardView, relationshipButtonDidPressed button: ProfileRelationshipActionButton)
+}
 
 public final class ProfileCardView: UIView {
     
@@ -16,6 +21,7 @@ public final class ProfileCardView: UIView {
     static let friendshipActionButtonSize = CGSize(width: 108, height: 34)
     static let contentMargin: CGFloat = 16
 
+    weak var delegate: ProfileCardViewDelegate?
     private var _disposeBag = Set<AnyCancellable>()
     var disposeBag = Set<AnyCancellable>()
     
@@ -31,6 +37,7 @@ public final class ProfileCardView: UIView {
     }()
     
     // avatar
+    public let avatarButtonBackgroundView = UIView()
     public let avatarButton = AvatarButton()
     
     // author name
@@ -115,7 +122,6 @@ extension ProfileCardView {
         statusDashboardView.isUserInteractionEnabled = false        
         
         // container: V - [ bannerContainer | authorContainer | bioMetaText | infoContainer ]
-        container.backgroundColor = Asset.Scene.Discovery.profileCardBackground.color
         container.axis = .vertical
         container.spacing = 8
         container.translatesAutoresizingMaskIntoConstraints = false
@@ -171,8 +177,6 @@ extension ProfileCardView {
             avatarButton.heightAnchor.constraint(equalToConstant: ProfileCardView.avatarSize.height).priority(.required - 1),
         ])
         
-        let avatarButtonBackgroundView = UIView()
-        avatarButtonBackgroundView.backgroundColor = Asset.Scene.Discovery.profileCardBackground.color
         avatarButtonBackgroundView.layer.masksToBounds = true
         avatarButtonBackgroundView.layer.cornerCurve = .continuous
         avatarButtonBackgroundView.layer.cornerRadius = 12
@@ -230,6 +234,22 @@ extension ProfileCardView {
         NSLayoutConstraint.activate([
             bottomPadding.heightAnchor.constraint(equalToConstant: 16)
         ])
+        
+        relationshipActionButton.addTarget(self, action: #selector(ProfileCardView.relationshipActionButtonDidPressed(_:)), for: .touchUpInside)
+    }
+    
+    public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        viewModel.userInterfaceStyle = traitCollection.userInterfaceStyle
     }
 
+}
+
+extension ProfileCardView {
+    @objc private func relationshipActionButtonDidPressed(_ sender: UIButton) {
+        os_log(.debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        assert(sender === relationshipActionButton)
+        delegate?.profileCardView(self, relationshipButtonDidPressed: relationshipActionButton)
+    }
 }
