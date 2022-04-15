@@ -130,7 +130,7 @@
                 "show_user_profile": "Erakutsi erabiltzailearen profila",
                 "content_warning": "Edukiaren abisua",
                 "media_content_warning": "Ukitu edonon bistaratzeko",
-                "tap_to_reveal": "Tap to reveal",
+                "tap_to_reveal": "Sakatu erakusteko",
                 "poll": {
                     "vote": "Bozkatu",
                     "closed": "Itxita"
@@ -143,10 +143,10 @@
                     "unfavorite": "Kendu gogokoa",
                     "menu": "Menua",
                     "hide": "Ezkutatu",
-                    "show_image": "Show image",
-                    "show_gif": "Show GIF",
-                    "show_video_player": "Show video player",
-                    "tap_then_hold_to_show_menu": "Tap then hold to show menu"
+                    "show_image": "Erakutsi irudia",
+                    "show_gif": "Erakutsi GIFa",
+                    "show_video_player": "Erakutsi bideo-erreproduzigailua",
+                    "tap_then_hold_to_show_menu": "Sakatu eta eutsi menua erakusteko"
                 },
                 "tag": {
                     "url": "URLa",
@@ -447,10 +447,10 @@
                 }
             },
             "accessibility": {
-                "show_avatar_image": "Show avatar image",
-                "edit_avatar_image": "Edit avatar image",
-                "show_banner_image": "Show banner image",
-                "double_tap_to_open_the_list": "Double tap to open the list"
+                "show_avatar_image": "Erakutsi abatarra",
+                "edit_avatar_image": "Editatu abatarra",
+                "show_banner_image": "Erakutsi banner irudia",
+                "double_tap_to_open_the_list": "Sakatu birritan zerrenda irekitzeko"
             }
         },
         "follower": {
@@ -553,7 +553,7 @@
                     "disable_avatar_animation": "Desgaitu abatar animatuak",
                     "disable_emoji_animation": "Desgaitu emoji animatuak",
                     "using_default_browser": "Erabili nabigatzaile lehenetsia estekak irekitzeko",
-                    "open_links_in_mastodon": "Open links in Mastodon"
+                    "open_links_in_mastodon": "Ireki estekak Mastodonen"
                 },
                 "boring_zone": {
                     "title": "Eremu aspergarria",
