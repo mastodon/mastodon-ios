@@ -494,10 +494,10 @@
         },
         "discovery": {
             "tabs": {
-                "posts": "Posts",
-                "hashtags": "Hashtags",
-                "news": "News",
-                "for_you": "For You"
+                "posts": "Publicacions",
+                "hashtags": "Etiquetes",
+                "news": "Notícies",
+                "for_you": "Per a tu"
             }
         },
         "favorite": {
