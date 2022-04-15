@@ -494,9 +494,9 @@
         },
         "discovery": {
             "tabs": {
-                "posts": "Posts",
-                "hashtags": "Hashtags",
-                "news": "News",
+                "posts": "المنشورات",
+                "hashtags": "الوسوم",
+                "news": "الأخبار",
                 "for_you": "For You"
             }
         },
