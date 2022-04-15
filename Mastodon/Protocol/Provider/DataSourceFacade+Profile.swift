@@ -122,12 +122,12 @@ extension DataSourceFacade {
         let barButtonItem: UIBarButtonItem?
     }
     
-    @MainActor
-    static func createProfileActionMenu(
-        dependency: NeedsDependency,
-        user: ManagedObjectRecord<MastodonUser>
-    ) -> UIMenu {
-        var children: [UIMenuElement] = []
+//    @MainActor
+//    static func createProfileActionMenu(
+//        dependency: NeedsDependency,
+//        user: ManagedObjectRecord<MastodonUser>
+//    ) -> UIMenu {
+//        var children: [UIMenuElement] = []
 //        let name = mastodonUser.displayNameWithFallback
 //
 //        if let shareUser = shareUser {
@@ -339,9 +339,9 @@ extension DataSourceFacade {
 //            }
 //            children.append(deleteAction)
 //        }
-        
-        return UIMenu(title: "", options: [], children: children)
-    }
+//        
+//        return UIMenu(title: "", options: [], children: children)
+//    }
     
     static func createActivityViewController(
         dependency: NeedsDependency,

@@ -7,8 +7,8 @@
 
 import Foundation
 
-final public class MastodonMetricFormatter: Formatter {
-    
+public final class MastodonMetricFormatter: Formatter {
+
     public func string(from number: Int) -> String? {
         let isPositive = number >= 0
         let symbol = isPositive ? "" : "-"

@@ -10,24 +10,24 @@ import UIKit
 import MastodonAsset
 import MastodonLocalization
 
-protocol ProfileStatusDashboardViewDelegate: AnyObject {
+public protocol ProfileStatusDashboardViewDelegate: AnyObject {
     func profileStatusDashboardView(_ dashboardView: ProfileStatusDashboardView, dashboardMeterViewDidPressed dashboardMeterView: ProfileStatusDashboardMeterView, meter: ProfileStatusDashboardView.Meter)
 }
 
-final class ProfileStatusDashboardView: UIView {
+public final class ProfileStatusDashboardView: UIView {
     
-    let postDashboardMeterView = ProfileStatusDashboardMeterView()
-    let followingDashboardMeterView = ProfileStatusDashboardMeterView()
-    let followersDashboardMeterView = ProfileStatusDashboardMeterView()
+    public let postDashboardMeterView = ProfileStatusDashboardMeterView()
+    public let followingDashboardMeterView = ProfileStatusDashboardMeterView()
+    public let followersDashboardMeterView = ProfileStatusDashboardMeterView()
     
-    weak var delegate: ProfileStatusDashboardViewDelegate?
+    public weak var delegate: ProfileStatusDashboardViewDelegate?
 
-    override init(frame: CGRect) {
+    public override init(frame: CGRect) {
         super.init(frame: frame)
         _init()
     }
     
-    required init?(coder: NSCoder) {
+    public required init?(coder: NSCoder) {
         super.init(coder: coder)
         _init()
     }
@@ -35,7 +35,7 @@ final class ProfileStatusDashboardView: UIView {
 }
 
 extension ProfileStatusDashboardView {
-    enum Meter: Hashable {
+    public enum Meter: Hashable {
         case post
         case following
         case follower
@@ -83,7 +83,7 @@ extension ProfileStatusDashboardView {
 
 extension ProfileStatusDashboardView {
     @objc private func tapGestureRecognizerHandler(_ sender: UITapGestureRecognizer) {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        os_log(.debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         guard let sourceView = sender.view as? ProfileStatusDashboardMeterView else {
             assertionFailure()
             return

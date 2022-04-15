@@ -20,6 +20,8 @@ extension MetaLabel {
         case notificationTitle
         case profileFieldName
         case profileFieldValue
+        case profileCardName
+        case profileCardUsername
         case recommendAccountName
         case titleView
         case settingTableFooter
@@ -51,7 +53,7 @@ extension MetaLabel {
             textColor = Asset.Colors.Label.secondary.color
             
         case .statusName:
-            font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 15, weight: .bold))
+            font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 15, weight: .semibold))
             textColor = Asset.Colors.Label.primary.color
             
         case .statusUsername:
@@ -79,6 +81,14 @@ extension MetaLabel {
         case .profileFieldValue:
             font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .regular))
             textColor = Asset.Colors.Label.primary.color
+            
+        case .profileCardName:
+            font = .systemFont(ofSize: 17, weight: .semibold)
+            textColor = Asset.Colors.Label.primary.color
+            
+        case .profileCardUsername:
+            font = .systemFont(ofSize: 15, weight: .regular)
+            textColor = Asset.Colors.Label.secondary.color
             
         case .titleView:
             font = .systemFont(ofSize: 17, weight: .semibold)

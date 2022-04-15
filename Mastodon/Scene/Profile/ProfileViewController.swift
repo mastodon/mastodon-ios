@@ -402,6 +402,7 @@ extension ProfileViewController {
 }
 
 extension ProfileViewController {
+    
     private func updateBarButtonInsets() {
         let margin: CGFloat = {
             switch traitCollection.userInterfaceIdiom {

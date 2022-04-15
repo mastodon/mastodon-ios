@@ -9,9 +9,9 @@ import UIKit
 import MastodonAsset
 import MastodonLocalization
 
-final class ProfileStatusDashboardMeterView: UIView {
+public final class ProfileStatusDashboardMeterView: UIView {
     
-    let numberLabel: UILabel = {
+    public let numberLabel: UILabel = {
         let label = UILabel()
         label.font = {
             let font = UIFont.systemFont(ofSize: 20, weight: .semibold)
@@ -25,7 +25,7 @@ final class ProfileStatusDashboardMeterView: UIView {
         return label
     }()
     
-    let textLabel: UILabel = {
+    public let textLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 13, weight: .regular)
         label.textColor = Asset.Colors.Label.primary.color
@@ -41,12 +41,12 @@ final class ProfileStatusDashboardMeterView: UIView {
         return label
     }()
     
-    override init(frame: CGRect) {
+    public override init(frame: CGRect) {
         super.init(frame: frame)
         _init()
     }
     
-    required init?(coder: NSCoder) {
+    public required init?(coder: NSCoder) {
         super.init(coder: coder)
         _init()
     }

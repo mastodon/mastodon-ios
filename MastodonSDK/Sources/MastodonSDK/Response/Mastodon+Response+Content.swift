@@ -106,6 +106,7 @@ extension Mastodon.Response {
     public struct Link {
         public let maxID: Mastodon.Entity.Status.ID?
         public let minID: Mastodon.Entity.Status.ID?
+        public let offset: Int?
         
         init(link: String) {
             self.maxID = {
@@ -124,6 +125,15 @@ extension Mastodon.Response {
                 guard let range = Range(match.range(at: 1), in: link) else { return nil }
                 let id = link[range]
                 return String(id)
+            }()
+            
+            self.offset = {
+                guard let regex = try? NSRegularExpression(pattern: "offset=([[:digit:]]+)", options: []) else { return nil }
+                let results = regex.matches(in: link, options: [], range: NSRange(link.startIndex..<link.endIndex, in: link))
+                guard let match = results.first else { return nil }
+                guard let range = Range(match.range(at: 1), in: link) else { return nil }
+                let offset = link[range]
+                return Int(offset)
             }()
         }
     }

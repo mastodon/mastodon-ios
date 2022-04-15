@@ -11,6 +11,7 @@ import Combine
 import SafariServices
 import MastodonAsset
 import MastodonLocalization
+import MastodonUI
 
 class MainTabBarController: UITabBarController {
 

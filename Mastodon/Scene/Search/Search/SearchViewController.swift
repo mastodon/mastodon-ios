@@ -15,7 +15,7 @@ import MastodonLocalization
 
 final class HeightFixedSearchBar: UISearchBar {
     override var intrinsicContentSize: CGSize {
-        return CGSize(width: CGFloat.greatestFiniteMagnitude, height: 44)
+        return CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude)
     }
 }
 
@@ -35,18 +35,25 @@ final class SearchViewController: UIViewController, NeedsDependency {
     // layout alongside with split mode button (on iPad)
     let titleViewContainer = UIView()
     let searchBar = HeightFixedSearchBar()
-    
-    let collectionView: UICollectionView = {
-        var configuration = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
-        configuration.backgroundColor = .clear
-        configuration.headerMode = .supplementary
-        let layout = UICollectionViewCompositionalLayout.list(using: configuration)
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.backgroundColor = .clear
-        return collectionView
-    }()
+
+//    let collectionView: UICollectionView = {
+//        var configuration = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
+//        configuration.backgroundColor = .clear
+//        configuration.headerMode = .supplementary
+//        let layout = UICollectionViewCompositionalLayout.list(using: configuration)
+//        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+//        collectionView.backgroundColor = .clear
+//        return collectionView
+//    }()
 
     let searchBarTapPublisher = PassthroughSubject<Void, Never>()
+    
+    private(set) lazy var discoveryViewController: DiscoveryViewController = {
+        let viewController = DiscoveryViewController()
+        viewController.context = context
+        viewController.coordinator = coordinator
+        return viewController
+    }()
     
     deinit {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
@@ -71,19 +78,31 @@ extension SearchViewController {
 
         setupSearchBar()
         
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(collectionView)
+//        collectionView.translatesAutoresizingMaskIntoConstraints = false
+//        view.addSubview(collectionView)
+//        NSLayoutConstraint.activate([
+//            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
+//            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+//            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+//            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+//        ])
+//
+//        collectionView.delegate = self
+//        viewModel.setupDiffableDataSource(
+//            collectionView: collectionView
+//        )
+        
+        addChild(discoveryViewController)
+        discoveryViewController.view.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(discoveryViewController.view)
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            discoveryViewController.view.topAnchor.constraint(equalTo: view.topAnchor),
+            discoveryViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            discoveryViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            discoveryViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
         
-        collectionView.delegate = self
-        viewModel.setupDiffableDataSource(
-            collectionView: collectionView
-        )
+//        discoveryViewController.view.isHidden = true
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -113,7 +132,10 @@ extension SearchViewController {
             searchBar.trailingAnchor.constraint(equalTo: titleViewContainer.trailingAnchor),
             searchBar.bottomAnchor.constraint(equalTo: titleViewContainer.bottomAnchor),
         ])
+        searchBar.setContentHuggingPriority(.required, for: .horizontal)
+        searchBar.setContentHuggingPriority(.required, for: .vertical)
         navigationItem.titleView = titleViewContainer
+//        navigationItem.titleView = searchBar
 
         searchBarTapPublisher
             .throttle(for: 0.5, scheduler: DispatchQueue.main, latest: false)
@@ -123,7 +145,10 @@ extension SearchViewController {
                 let searchDetailViewModel = SearchDetailViewModel()
                 searchDetailViewModel.needsBecomeFirstResponder = true
                 self.navigationController?.delegate = self.searchTransitionController
-                self.coordinator.present(scene: .searchDetail(viewModel: searchDetailViewModel), from: self, transition: .customPush)
+                // FIXME:
+                // use `.customPush(animated: false)` false to disable navigation bar animation for searchBar layout
+                // but that should be a fade transition whe fixed size searchBar
+                self.coordinator.present(scene: .searchDetail(viewModel: searchDetailViewModel), from: self, transition: .customPush(animated: false))
             }
             .store(in: &disposeBag)
     }
@@ -151,21 +176,21 @@ extension SearchViewController: UISearchControllerDelegate {
 }
 
 // MARK: - UICollectionViewDelegate
-extension SearchViewController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): select item at: \(indexPath.debugDescription)")
-        
-        defer {
-            collectionView.deselectItem(at: indexPath, animated: true)
-        }
-        
-        guard let diffableDataSource = viewModel.diffableDataSource else { return }
-        guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
-        
-        switch item {
-        case .trend(let hashtag):
-            let viewModel = HashtagTimelineViewModel(context: context, hashtag: hashtag.name)
-            coordinator.present(scene: .hashtagTimeline(viewModel: viewModel), from: self, transition: .show)
-        }
-    }
-}
+//extension SearchViewController: UICollectionViewDelegate {
+//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): select item at: \(indexPath.debugDescription)")
+//        
+//        defer {
+//            collectionView.deselectItem(at: indexPath, animated: true)
+//        }
+//        
+//        guard let diffableDataSource = viewModel.diffableDataSource else { return }
+//        guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
+//        
+//        switch item {
+//        case .trend(let hashtag):
+//            let viewModel = HashtagTimelineViewModel(context: context, hashtag: hashtag.name)
+//            coordinator.present(scene: .hashtagTimeline(viewModel: viewModel), from: self, transition: .show)
+//        }
+//    }
+//}

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import MastodonCommon
 
 public protocol Theme {
 
@@ -41,18 +42,4 @@ public protocol Theme {
     var composeToolbarBackgroundColor: UIColor { get }
     var notificationStatusBorderColor: UIColor { get }
 
-}
-
-public enum ThemeName: String, CaseIterable {
-    case system
-    case mastodon
-}
-
-extension ThemeName {
-    public var theme: Theme {
-        switch self {
-        case .system:       return SystemTheme()
-        case .mastodon:     return MastodonTheme()
-        }
-    }
 }

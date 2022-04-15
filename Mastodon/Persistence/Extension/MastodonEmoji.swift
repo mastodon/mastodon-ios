@@ -22,13 +22,3 @@ extension MastodonEmoji {
         )
     }
 }
-
-extension Collection where Element == MastodonEmoji {
-    public var asDictionary: MastodonContent.Emojis {
-        var dictionary: MastodonContent.Emojis = [:]
-        for emoji in self {
-            dictionary[emoji.code] = emoji.url
-        }
-        return dictionary
-    }
-}

@@ -13,10 +13,11 @@ import MastodonSDK
 import MastodonMeta
 import MastodonAsset
 import MastodonLocalization
+import MastodonUI
 
 // please override this base class
 class ProfileViewModel: NSObject {
-    
+        
     let logger = Logger(subsystem: "ProfileViewModel", category: "ViewModel")
     
     typealias UserID = String
@@ -370,101 +371,6 @@ extension ProfileViewModel {
         return response
     }
 
-}
-
-extension ProfileViewModel {
-    
-    enum RelationshipAction: Int, CaseIterable {
-        case none       // set hide from UI
-        case follow
-        case request
-        case pending
-        case following
-        case muting
-        case blocked
-        case blocking
-        case suspended
-        case edit
-        case editing
-        case updating
-        
-        var option: RelationshipActionOptionSet {
-            return RelationshipActionOptionSet(rawValue: 1 << rawValue)
-        }
-    }
-    
-    // construct option set on the enum for safe iterator
-    struct RelationshipActionOptionSet: OptionSet {
-        let rawValue: Int
-        
-        static let none = RelationshipAction.none.option
-        static let follow = RelationshipAction.follow.option
-        static let request = RelationshipAction.request.option
-        static let pending = RelationshipAction.pending.option
-        static let following = RelationshipAction.following.option
-        static let muting = RelationshipAction.muting.option
-        static let blocked = RelationshipAction.blocked.option
-        static let blocking = RelationshipAction.blocking.option
-        static let suspended = RelationshipAction.suspended.option
-        static let edit = RelationshipAction.edit.option
-        static let editing = RelationshipAction.editing.option
-        static let updating = RelationshipAction.updating.option
-        
-        static let editOptions: RelationshipActionOptionSet = [.edit, .editing, .updating]
-        
-        func highPriorityAction(except: RelationshipActionOptionSet) -> RelationshipAction? {
-            let set = subtracting(except)
-            for action in RelationshipAction.allCases.reversed() where set.contains(action.option) {
-                return action
-            }
-            
-            return nil
-        }
-
-        var title: String {
-            guard let highPriorityAction = self.highPriorityAction(except: []) else {
-                assertionFailure()
-                return " "
-            }
-            switch highPriorityAction {
-            case .none: return " "
-            case .follow: return L10n.Common.Controls.Friendship.follow
-            case .request: return L10n.Common.Controls.Friendship.request
-            case .pending: return L10n.Common.Controls.Friendship.pending
-            case .following: return L10n.Common.Controls.Friendship.following
-            case .muting: return L10n.Common.Controls.Friendship.muted
-            case .blocked: return L10n.Common.Controls.Friendship.follow   // blocked by user
-            case .blocking: return L10n.Common.Controls.Friendship.blocked
-            case .suspended: return L10n.Common.Controls.Friendship.follow
-            case .edit: return L10n.Common.Controls.Friendship.editInfo
-            case .editing: return L10n.Common.Controls.Actions.done
-            case .updating: return " "
-            }
-        }
-        
-        @available(*, deprecated, message: "")
-        var backgroundColor: UIColor {
-            guard let highPriorityAction = self.highPriorityAction(except: []) else {
-                assertionFailure()
-                return Asset.Colors.brandBlue.color
-            }
-            switch highPriorityAction {
-            case .none: return Asset.Colors.brandBlue.color
-            case .follow: return Asset.Colors.brandBlue.color
-            case .request: return Asset.Colors.brandBlue.color
-            case .pending: return Asset.Colors.brandBlue.color
-            case .following: return Asset.Colors.brandBlue.color
-            case .muting: return Asset.Colors.alertYellow.color
-            case .blocked: return Asset.Colors.brandBlue.color
-            case .blocking: return Asset.Colors.danger.color
-            case .suspended: return Asset.Colors.brandBlue.color
-            case .edit: return Asset.Colors.brandBlue.color
-            case .editing: return Asset.Colors.brandBlue.color
-            case .updating: return Asset.Colors.brandBlue.color
-            }
-        }
-
-    }
 }
 
 extension ProfileViewModel {

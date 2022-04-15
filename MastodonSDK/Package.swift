@@ -60,7 +60,9 @@ let package = Package(
         ),
         .target(
             name: "MastodonCommon",
-            dependencies: []
+            dependencies: [
+                "MastodonExtension"
+            ]
         ),
         .target(
             name: "MastodonExtension",
@@ -92,6 +94,7 @@ let package = Package(
                 .product(name: "Alamofire", package: "Alamofire"),
                 .product(name: "AlamofireImage", package: "AlamofireImage"),
                 .product(name: "MetaTextKit", package: "MetaTextKit"),
+                .product(name: "MastodonMeta", package: "MetaTextKit"),
                 .product(name: "FLAnimatedImage", package: "FLAnimatedImage"),
             ]
         ),

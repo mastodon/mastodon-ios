@@ -144,7 +144,7 @@ extension SceneCoordinator {
         case popover(sourceView: UIView)
         case panModal
         case custom(transitioningDelegate: UIViewControllerTransitioningDelegate)
-        case customPush
+        case customPush(animated: Bool)
         case safariPresent(animated: Bool, completion: (() -> Void)? = nil)
         case alertController(animated: Bool, completion: (() -> Void)? = nil)
         case activityViewControllerPresent(animated: Bool, completion: (() -> Void)? = nil)
@@ -339,10 +339,10 @@ extension SceneCoordinator {
             viewController.transitioningDelegate = transitioningDelegate
             (splitViewController ?? presentingViewController)?.present(viewController, animated: true, completion: nil)
             
-        case .customPush:
+        case .customPush(let animated):
             // set delegate in view controller
             assert(sender?.navigationController?.delegate != nil)
-            sender?.navigationController?.pushViewController(viewController, animated: true)
+            sender?.navigationController?.pushViewController(viewController, animated: animated)
             
         case .safariPresent(let animated, let completion):
             if UserDefaults.shared.preferredUsingDefaultBrowser, case let .safari(url) = scene {

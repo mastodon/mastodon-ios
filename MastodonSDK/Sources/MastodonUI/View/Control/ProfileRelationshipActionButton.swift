@@ -6,23 +6,23 @@
 //
 
 import UIKit
-import MastodonUI
 import MastodonAsset
+import MastodonLocalization
 
-final class ProfileRelationshipActionButton: RoundedEdgesButton {
+public final class ProfileRelationshipActionButton: RoundedEdgesButton {
     
-    let activityIndicatorView: UIActivityIndicatorView = {
+    public let activityIndicatorView: UIActivityIndicatorView = {
         let activityIndicatorView = UIActivityIndicatorView(style: .medium)
         activityIndicatorView.color = Asset.Colors.Label.primaryReverse.color
         return activityIndicatorView
     }()
     
-    override init(frame: CGRect) {
+    public override init(frame: CGRect) {
         super.init(frame: frame)
         _init()
     }
     
-    required init?(coder: NSCoder) {
+    public required init?(coder: NSCoder) {
         super.init(coder: coder)
         _init()
     }
@@ -47,7 +47,7 @@ extension ProfileRelationshipActionButton {
         configureAppearance()
     }
     
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         
         configureAppearance()
@@ -55,7 +55,7 @@ extension ProfileRelationshipActionButton {
 }
 
 extension ProfileRelationshipActionButton {
-    func configure(actionOptionSet: ProfileViewModel.RelationshipActionOptionSet) {
+    public func configure(actionOptionSet: RelationshipActionOptionSet) {
         setTitle(actionOptionSet.title, for: .normal)
         
         configureAppearance()
@@ -87,9 +87,5 @@ extension ProfileRelationshipActionButton {
             setBackgroundImage(.placeholder(color: Asset.Scene.Profile.RelationshipButton.backgroundHighlightedLight.color), for: .highlighted)
             setBackgroundImage(.placeholder(color: Asset.Scene.Profile.RelationshipButton.backgroundHighlightedLight.color), for: .disabled)
         }
-//            setBackgroundImage(.placeholder(color: actionOptionSet.backgroundColor), for: .normal)
-//        setBackgroundImage(.placeholder(color: actionOptionSet.backgroundColor.withAlphaComponent(0.5)), for: .highlighted)
-//        setBackgroundImage(.placeholder(color: actionOptionSet.backgroundColor.withAlphaComponent(0.5)), for: .disabled)
     }
 }
-
