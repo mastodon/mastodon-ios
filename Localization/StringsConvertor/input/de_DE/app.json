@@ -130,7 +130,7 @@
                 "show_user_profile": "Benutzerprofil anzeigen",
                 "content_warning": "Inhaltswarnung",
                 "media_content_warning": "Tippe irgendwo zum Anzeigen",
-                "tap_to_reveal": "Tap to reveal",
+                "tap_to_reveal": "Zum Anzeigen tippen",
                 "poll": {
                     "vote": "Abstimmen",
                     "closed": "Beendet"
@@ -143,10 +143,10 @@
                     "unfavorite": "Aus Favoriten entfernen",
                     "menu": "Menü",
                     "hide": "Verstecken",
-                    "show_image": "Show image",
-                    "show_gif": "Show GIF",
-                    "show_video_player": "Show video player",
-                    "tap_then_hold_to_show_menu": "Tap then hold to show menu"
+                    "show_image": "Bild anzeigen",
+                    "show_gif": "GIF anzeigen",
+                    "show_video_player": "Zeige Video-Player",
+                    "tap_then_hold_to_show_menu": "Halte gedrückt um das Menü anzuzeigen"
                 },
                 "tag": {
                     "url": "URL",
@@ -447,10 +447,10 @@
                 }
             },
             "accessibility": {
-                "show_avatar_image": "Show avatar image",
-                "edit_avatar_image": "Edit avatar image",
-                "show_banner_image": "Show banner image",
-                "double_tap_to_open_the_list": "Double tap to open the list"
+                "show_avatar_image": "Profilbild anzeigen",
+                "edit_avatar_image": "Profilbild bearbeiten",
+                "show_banner_image": "Bannerbild anzeigen",
+                "double_tap_to_open_the_list": "Doppeltippen, um die Liste zu öffnen"
             }
         },
         "follower": {
@@ -490,6 +490,14 @@
                 },
                 "recent_search": "Zuletzt gesucht",
                 "clear": "Zurücksetzen"
+            }
+        },
+        "discovery": {
+            "tabs": {
+                "posts": "Beiträge",
+                "hashtags": "Hashtags",
+                "news": "Nachrichten",
+                "for_you": "Für dich"
             }
         },
         "favorite": {
@@ -553,7 +561,7 @@
                     "disable_avatar_animation": "Animierte Profilbilder deaktivieren",
                     "disable_emoji_animation": "Animierte Emojis deaktivieren",
                     "using_default_browser": "Standardbrowser zum Öffnen von Links verwenden",
-                    "open_links_in_mastodon": "Open links in Mastodon"
+                    "open_links_in_mastodon": "Links in Mastodon öffnen"
                 },
                 "boring_zone": {
                     "title": "Der langweilige Bereich",
