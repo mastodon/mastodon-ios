@@ -492,6 +492,14 @@
                 "clear": "مَحو"
             }
         },
+        "discovery": {
+            "tabs": {
+                "posts": "Posts",
+                "hashtags": "Hashtags",
+                "news": "News",
+                "for_you": "For You"
+            }
+        },
         "favorite": {
             "title": "مُفضَّلَتُك"
         },
