@@ -494,10 +494,10 @@
         },
         "discovery": {
             "tabs": {
-                "posts": "Posts",
-                "hashtags": "Hashtags",
-                "news": "News",
-                "for_you": "For You"
+                "posts": "โพสต์",
+                "hashtags": "แฮชแท็ก",
+                "news": "ข่าว",
+                "for_you": "สำหรับคุณ"
             }
         },
         "favorite": {
