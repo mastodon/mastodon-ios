@@ -15,6 +15,8 @@ import MastodonSDK
 
 final class DiscoveryHashtagsViewModel {
     
+    let logger = Logger(subsystem: "DiscoveryHashtagsViewModel", category: "ViewModel")
+    
     var disposeBag = Set<AnyCancellable>()
     
     // input
@@ -60,4 +62,15 @@ final class DiscoveryHashtagsViewModel {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
     }
     
+}
+
+extension DiscoveryHashtagsViewModel {
+    
+    @MainActor
+    func fetch() async throws {
+        guard let authenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else { return }
+        let response = try await context.apiService.trendHashtags(domain: authenticationBox.domain, query: nil)
+        hashtags = response.value.filter { !$0.name.isEmpty }
+        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): fetch tags: \(response.value.count)")
+    }
 }

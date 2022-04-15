@@ -31,6 +31,8 @@ final class DiscoveryHashtagsViewController: UIViewController, NeedsDependency, 
         return tableView
     }()
     
+    let refreshControl = UIRefreshControl()
+    
     deinit {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
     }
@@ -59,6 +61,9 @@ extension DiscoveryHashtagsViewController {
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
+        
+        tableView.refreshControl = refreshControl
+        refreshControl.addTarget(self, action: #selector(DiscoveryHashtagsViewController.refreshControlValueChanged(_:)), for: .valueChanged)
 
         tableView.delegate = self
         viewModel.setupDiffableDataSource(
@@ -76,6 +81,21 @@ extension DiscoveryHashtagsViewController {
         super.viewDidAppear(animated)
         
         viewModel.viewDidAppeared.send()
+    }
+    
+}
+
+extension DiscoveryHashtagsViewController {
+    
+    @objc private func refreshControlValueChanged(_ sender: UIRefreshControl) {
+        Task { @MainActor in
+            do {
+                try await viewModel.fetch()
+            } catch {
+                // do nothing
+            }
+            sender.endRefreshing()
+        }   // end Task
     }
     
 }
