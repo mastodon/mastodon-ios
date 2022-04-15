@@ -12,7 +12,7 @@ import MastodonLocalization
 extension TrendView {
     public func configure(tag: Mastodon.Entity.Tag) {
         let primaryLabelText = "#" + tag.name
-        let secondaryLabelText = L10n.Scene.Search.Recommend.HashTag.peopleTalking(tag.talkingPeopleCount ?? 0)
+        let secondaryLabelText = L10n.Plural.peopleTalking(tag.talkingPeopleCount ?? 0)
         
         primaryLabel.text = primaryLabelText
         secondaryLabel.text = secondaryLabelText

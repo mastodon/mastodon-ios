@@ -14,7 +14,7 @@ extension NewsView {
     public func configure(link: Mastodon.Entity.Link) {
         providerNameLabel.text = link.providerName
         headlineLabel.text = link.title
-        footnoteLabel.text = L10n.Scene.Search.Recommend.HashTag.peopleTalking(link.talkingPeopleCount ?? 0)
+        footnoteLabel.text = L10n.Plural.peopleTalking(link.talkingPeopleCount ?? 0) 
         
         let configuration = MediaView.Configuration(
             info: .image(info: .init(
