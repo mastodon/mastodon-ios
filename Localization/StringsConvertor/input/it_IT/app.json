@@ -494,9 +494,9 @@
         },
         "discovery": {
             "tabs": {
-                "posts": "Posts",
-                "hashtags": "Hashtags",
-                "news": "News",
+                "posts": "Post",
+                "hashtags": "Hashtag",
+                "news": "Notizie",
                 "for_you": "For You"
             }
         },
