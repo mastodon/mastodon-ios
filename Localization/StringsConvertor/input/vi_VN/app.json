@@ -494,10 +494,10 @@
         },
         "discovery": {
             "tabs": {
-                "posts": "Posts",
-                "hashtags": "Hashtags",
-                "news": "News",
-                "for_you": "For You"
+                "posts": "Tút",
+                "hashtags": "Hashtag",
+                "news": "Tin tức",
+                "for_you": "Dành cho bạn"
             }
         },
         "favorite": {
