@@ -32,7 +32,7 @@ let package = Package(
         .package(url: "https://github.com/apple/swift-nio.git", from: "1.0.0"),
         .package(url: "https://github.com/kean/Nuke.git", from: "10.3.1"),
         .package(url: "https://github.com/Flipboard/FLAnimatedImage.git", from: "1.0.0"),
-        .package(url: "https://github.com/TwidereProject/MetaTextKit.git", .exact("2.2.1")),
+        .package(url: "https://github.com/TwidereProject/MetaTextKit.git", .exact("2.2.2")),
         .package(url: "https://github.com/Alamofire/Alamofire.git", from: "5.4.0"),
         .package(url: "https://github.com/Alamofire/AlamofireImage.git", from: "4.1.0"),
         .package(name: "NukeFLAnimatedImagePlugin", url: "https://github.com/kean/Nuke-FLAnimatedImage-Plugin.git", from: "8.0.0"),
@@ -94,7 +94,6 @@ let package = Package(
                 .product(name: "Alamofire", package: "Alamofire"),
                 .product(name: "AlamofireImage", package: "AlamofireImage"),
                 .product(name: "MetaTextKit", package: "MetaTextKit"),
-                .product(name: "MastodonMeta", package: "MetaTextKit"),
                 .product(name: "FLAnimatedImage", package: "FLAnimatedImage"),
             ]
         ),

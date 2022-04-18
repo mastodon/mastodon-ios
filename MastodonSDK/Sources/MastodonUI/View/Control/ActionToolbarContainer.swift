@@ -114,7 +114,7 @@ extension ActionToolbarContainer {
             container.addArrangedSubview(favoriteButton)
             container.addArrangedSubview(shareButton)
             NSLayoutConstraint.activate([
-                replyButton.heightAnchor.constraint(equalToConstant: 44).priority(.defaultHigh),
+                replyButton.heightAnchor.constraint(equalToConstant: 36).priority(.defaultHigh),
                 replyButton.heightAnchor.constraint(equalTo: reblogButton.heightAnchor).priority(.defaultHigh),
                 replyButton.heightAnchor.constraint(equalTo: favoriteButton.heightAnchor).priority(.defaultHigh),
                 replyButton.heightAnchor.constraint(equalTo: shareButton.heightAnchor).priority(.defaultHigh),

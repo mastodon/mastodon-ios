@@ -508,6 +508,7 @@ extension StatusView.Style {
 
         // status content
         statusView.contentContainer.addArrangedSubview(statusView.contentMetaText.textView)
+        statusView.containerStackView.setCustomSpacing(16, after: statusView.contentMetaText.textView)
 
         statusView.spoilerOverlayView.translatesAutoresizingMaskIntoConstraints = false
         statusView.containerStackView.addSubview(statusView.spoilerOverlayView)

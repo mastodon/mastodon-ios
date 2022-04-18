@@ -135,7 +135,7 @@ extension NotificationTableViewCellDelegate where Self: DataSourceProvider & Med
                 let status = _status.reblog ?? _status
                 return NotificationMediaTransitionContext(
                     status: .init(objectID: status.objectID),
-                    needsToggleMediaSensitive: status.isMediaSensitiveToggled ? !status.sensitive : status.sensitive
+                    needsToggleMediaSensitive: status.isSensitiveToggled ? !status.sensitive : status.sensitive
                 )
             }
 
@@ -187,7 +187,7 @@ extension NotificationTableViewCellDelegate where Self: DataSourceProvider & Med
                 let status = _status.reblog ?? _status
                 return NotificationMediaTransitionContext(
                     status: .init(objectID: status.objectID),
-                    needsToggleMediaSensitive: status.isMediaSensitiveToggled ? !status.sensitive : status.sensitive
+                    needsToggleMediaSensitive: status.isMediaSensitive ? !status.isSensitiveToggled : false
                 )
             }
 

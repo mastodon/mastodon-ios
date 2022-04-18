@@ -143,12 +143,7 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & MediaPrev
                 return
             }
             
-            let managedObjectContext = self.context.managedObjectContext
-            let needsToggleMediaSensitive: Bool = try await managedObjectContext.perform {
-                guard let _status = status.object(in: managedObjectContext) else { return false }
-                let status = _status.reblog ?? _status
-                return status.isMediaSensitiveToggled ? !status.sensitive : status.sensitive
-            }
+            let needsToggleMediaSensitive = await !statusView.viewModel.isMediaReveal
             
             guard !needsToggleMediaSensitive else {
                 try await DataSourceFacade.responseToToggleSensitiveAction(
