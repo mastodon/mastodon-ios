@@ -449,7 +449,7 @@
             "accessibility": {
                 "show_avatar_image": "显示头像",
                 "edit_avatar_image": "编辑头像",
-                "show_banner_image": "Show banner image",
+                "show_banner_image": "显示顶部横幅图片",
                 "double_tap_to_open_the_list": "双击打开列表"
             }
         },
@@ -494,10 +494,10 @@
         },
         "discovery": {
             "tabs": {
-                "posts": "Posts",
-                "hashtags": "Hashtags",
-                "news": "News",
-                "for_you": "For You"
+                "posts": "帖子",
+                "hashtags": "话题",
+                "news": "新闻",
+                "for_you": "为你推荐"
             }
         },
         "favorite": {
