@@ -78,6 +78,8 @@ public final class ProfileCardView: UIView {
         return metaText
     }()
     
+    let infoContainer = UIStackView()
+    
     let statusDashboardView = ProfileStatusDashboardView()
     
     let relationshipActionButtonShadowContainer = ShadowBackgroundContainer()
@@ -206,8 +208,8 @@ extension ProfileCardView {
         container.setCustomSpacing(16, after: bioMetaTextAdaptiveMarginContainerView)
         
         // infoContainer: H - [ statusDashboardView | (spacer) | relationshipActionButton ]
-        let infoContainer = UIStackView()
         infoContainer.axis = .horizontal
+        infoContainer.spacing = 8
         let infoContainerAdaptiveMarginContainerView = AdaptiveMarginContainerView()
         infoContainerAdaptiveMarginContainerView.contentView = infoContainer
         infoContainerAdaptiveMarginContainerView.margin = ProfileCardView.contentMargin
@@ -225,7 +227,7 @@ extension ProfileCardView {
             relationshipActionButton.trailingAnchor.constraint(equalTo: relationshipActionButtonShadowContainer.trailingAnchor),
             relationshipActionButton.bottomAnchor.constraint(equalTo: relationshipActionButtonShadowContainer.bottomAnchor),
             relationshipActionButton.widthAnchor.constraint(greaterThanOrEqualToConstant: ProfileCardView.friendshipActionButtonSize.width).priority(.required - 1),
-            relationshipActionButton.heightAnchor.constraint(equalToConstant: ProfileCardView.friendshipActionButtonSize.height).priority(.defaultHigh),
+            relationshipActionButton.heightAnchor.constraint(equalToConstant: ProfileCardView.friendshipActionButtonSize.height).priority(.required - 10),
         ])
         
         let bottomPadding = UIView()
@@ -242,6 +244,13 @@ extension ProfileCardView {
         super.traitCollectionDidChange(previousTraitCollection)
         
         viewModel.userInterfaceStyle = traitCollection.userInterfaceStyle
+    }
+    
+    public override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        let isCompactAdaptive = bounds.width < 350
+        infoContainer.axis = isCompactAdaptive ? .vertical : .horizontal
     }
 
 }
