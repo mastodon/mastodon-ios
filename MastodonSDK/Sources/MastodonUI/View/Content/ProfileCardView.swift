@@ -204,6 +204,8 @@ extension ProfileCardView {
         let bioMetaTextAdaptiveMarginContainerView = AdaptiveMarginContainerView()
         bioMetaTextAdaptiveMarginContainerView.contentView = bioMetaText.textView
         bioMetaTextAdaptiveMarginContainerView.margin = ProfileCardView.contentMargin
+        bioMetaText.textView.setContentHuggingPriority(.required - 1, for: .vertical)
+        bioMetaText.textView.setContentCompressionResistancePriority(.required - 1, for: .vertical)
         container.addArrangedSubview(bioMetaTextAdaptiveMarginContainerView)
         container.setCustomSpacing(16, after: bioMetaTextAdaptiveMarginContainerView)
         
@@ -218,6 +220,7 @@ extension ProfileCardView {
         infoContainer.addArrangedSubview(UIView())
         let relationshipActionButtonShadowContainer = ShadowBackgroundContainer()
         infoContainer.addArrangedSubview(relationshipActionButtonShadowContainer)
+        updateInfoContainerLayout()
         
         relationshipActionButton.translatesAutoresizingMaskIntoConstraints = false
         relationshipActionButtonShadowContainer.addSubview(relationshipActionButton)
@@ -227,7 +230,7 @@ extension ProfileCardView {
             relationshipActionButton.trailingAnchor.constraint(equalTo: relationshipActionButtonShadowContainer.trailingAnchor),
             relationshipActionButton.bottomAnchor.constraint(equalTo: relationshipActionButtonShadowContainer.bottomAnchor),
             relationshipActionButton.widthAnchor.constraint(greaterThanOrEqualToConstant: ProfileCardView.friendshipActionButtonSize.width).priority(.required - 1),
-            relationshipActionButton.heightAnchor.constraint(equalToConstant: ProfileCardView.friendshipActionButtonSize.height).priority(.required - 10),
+            relationshipActionButton.heightAnchor.constraint(equalToConstant: ProfileCardView.friendshipActionButtonSize.height).priority(.required - 2),
         ])
         
         let bottomPadding = UIView()
@@ -247,12 +250,17 @@ extension ProfileCardView {
     }
     
     public override func layoutSubviews() {
+        updateInfoContainerLayout()
         super.layoutSubviews()
-        
+    }
+    
+}
+
+extension ProfileCardView {
+    private func updateInfoContainerLayout() {
         let isCompactAdaptive = bounds.width < 350
         infoContainer.axis = isCompactAdaptive ? .vertical : .horizontal
     }
-
 }
 
 extension ProfileCardView {

@@ -70,6 +70,12 @@ extension ProfileCardTableViewCell {
         ])
         
         profileCardView.delegate = self
+        
+        profileCardView.isAccessibilityElement = true
+        accessibilityElements = [
+            profileCardView,
+            profileCardView.relationshipActionButton
+        ]
     }
     
 }
