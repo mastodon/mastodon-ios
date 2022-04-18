@@ -15,7 +15,7 @@ import MastodonLocalization
 
 final class HeightFixedSearchBar: UISearchBar {
     override var intrinsicContentSize: CGSize {
-        return CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude)
+        return CGSize(width: CGFloat.greatestFiniteMagnitude, height: 36)
     }
 }
 
@@ -179,14 +179,14 @@ extension SearchViewController: UISearchControllerDelegate {
 //extension SearchViewController: UICollectionViewDelegate {
 //    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 //        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): select item at: \(indexPath.debugDescription)")
-//        
+//
 //        defer {
 //            collectionView.deselectItem(at: indexPath, animated: true)
 //        }
-//        
+//
 //        guard let diffableDataSource = viewModel.diffableDataSource else { return }
 //        guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
-//        
+//
 //        switch item {
 //        case .trend(let hashtag):
 //            let viewModel = HashtagTimelineViewModel(context: context, hashtag: hashtag.name)
