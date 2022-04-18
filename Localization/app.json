@@ -129,6 +129,7 @@
                 "show_post": "Show Post",
                 "show_user_profile": "Show user profile",
                 "content_warning": "Content Warning",
+                "sensitive_content": "Sensitive Content",
                 "media_content_warning": "Tap anywhere to reveal",
                 "tap_to_reveal": "Tap to reveal",
                 "poll": {

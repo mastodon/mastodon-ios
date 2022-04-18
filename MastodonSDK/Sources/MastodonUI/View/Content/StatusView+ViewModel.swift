@@ -385,6 +385,7 @@ extension StatusView.ViewModel {
         
         $isMediaReveal
             .sink { isMediaReveal in
+                statusView.mediaGridContainerView.contentWarningOverlay.isHidden = isMediaReveal
                 statusView.mediaGridContainerView.viewModel.isSensitiveToggleButtonDisplay = isMediaReveal
             }
             .store(in: &disposeBag)
