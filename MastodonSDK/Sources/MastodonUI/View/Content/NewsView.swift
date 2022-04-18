@@ -12,6 +12,15 @@ public final class NewsView: UIView {
     
     let container = UIStackView()
     
+    let providerFaviconImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        imageView.layer.masksToBounds = true
+        imageView.layer.cornerRadius = 2
+        imageView.layer.cornerCurve = .continuous
+        return imageView
+    }()
+    
     let providerNameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: .systemFont(ofSize: 13, weight: .semibold))
@@ -37,6 +46,7 @@ public final class NewsView: UIView {
     let imageView = MediaView()
     
     public func prepareForReuse() {
+        providerFaviconImageView.tag = (0..<Int.max).randomElement() ?? -1
         imageView.prepareForReuse()
     }
     
@@ -72,13 +82,28 @@ extension NewsView {
         textContainer.spacing = 4
         container.addArrangedSubview(textContainer)
         
-        // providerContainer: H - [ providerFavIconImageView | providerNameLabel | (spacer) ]
+        // providerContainer: H - [ providerFaviconImageView | providerNameLabel | (spacer) ]
         let providerContainer = UIStackView()
         providerContainer.axis = .horizontal
+        providerContainer.spacing = 4
         textContainer.addArrangedSubview(providerContainer)
 
+        providerFaviconImageView.translatesAutoresizingMaskIntoConstraints = false
+        providerContainer.addArrangedSubview(providerFaviconImageView)
         providerContainer.addArrangedSubview(providerNameLabel)
-        
+        NSLayoutConstraint.activate([
+            providerFaviconImageView.heightAnchor.constraint(equalTo: providerNameLabel.heightAnchor, multiplier: 1.0).priority(.required - 10),
+            providerFaviconImageView.widthAnchor.constraint(equalTo: providerNameLabel.heightAnchor, multiplier: 1.0).priority(.required - 10),
+        ])
+        // low priority for intrinsic size hugging
+        providerFaviconImageView.setContentHuggingPriority(.defaultLow - 10, for: .vertical)
+        providerFaviconImageView.setContentHuggingPriority(.defaultLow - 10, for: .horizontal)
+        // high priority but lower then layout constraint for size compression
+        providerFaviconImageView.setContentCompressionResistancePriority(.required - 11, for: .vertical)
+        providerFaviconImageView.setContentCompressionResistancePriority(.required - 11, for: .horizontal)
+        providerNameLabel.setContentCompressionResistancePriority(.required - 1, for: .vertical)
+        providerNameLabel.setContentHuggingPriority(.required - 1, for: .vertical)
+
         // headlineLabel
         textContainer.addArrangedSubview(headlineLabel)
         let spacer = UIView()

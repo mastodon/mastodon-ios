@@ -56,6 +56,15 @@
         }
       },
       {
+        "package": "FaviconFinder",
+        "repositoryURL": "https://github.com/will-lumley/FaviconFinder.git",
+        "state": {
+          "branch": null,
+          "revision": "1f74844f77f79b95c0bb0130b3a87d4f340e6d3a",
+          "version": "3.3.0"
+        }
+      },
+      {
         "package": "FLAnimatedImage",
         "repositoryURL": "https://github.com/Flipboard/FLAnimatedImage.git",
         "state": {
@@ -170,6 +179,15 @@
           "branch": null,
           "revision": "37760e9a52030bb9011972c5213c3350fa9d41fd",
           "version": "1.0.0"
+        }
+      },
+      {
+        "package": "SwiftSoup",
+        "repositoryURL": "https://github.com/scinfu/SwiftSoup.git",
+        "state": {
+          "branch": null,
+          "revision": "41e7c263fb8c277e980ebcb9b0b5f6031d3d4886",
+          "version": "2.4.2"
         }
       },
       {
