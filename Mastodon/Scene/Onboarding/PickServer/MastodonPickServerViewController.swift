@@ -12,6 +12,7 @@ import GameController
 import AuthenticationServices
 import MastodonAsset
 import MastodonLocalization
+import MastodonUI
 
 final class MastodonPickServerViewController: UIViewController, NeedsDependency {
     
@@ -144,6 +145,13 @@ extension MastodonPickServerViewController {
             pickServerServerSectionTableHeaderViewDelegate: self,
             pickServerCellDelegate: self
         )
+        
+        KeyboardResponderService
+            .configure(
+                scrollView: tableView,
+                layoutNeedsUpdate: viewModel.viewDidAppear.eraseToAnyPublisher()
+            )
+            .store(in: &disposeBag)
 
         viewModel
             .selectedServer
@@ -238,6 +246,7 @@ extension MastodonPickServerViewController {
         super.viewDidAppear(animated)
         
         tableView.flashScrollIndicators()
+        viewModel.viewDidAppear.send()
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -414,28 +423,6 @@ extension MastodonPickServerViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
         viewModel.selectedServer.send(nil)
-    }
-    
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        guard let diffableDataSource = viewModel.diffableDataSource else { return }
-        guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
-        
-        switch item {
-//        case .categoryPicker:
-//            guard let cell = cell as? PickServerCategoriesCell else { return }
-//            guard let diffableDataSource = cell.diffableDataSource else { return }
-//            let snapshot = diffableDataSource.snapshot()
-//
-//            let item = viewModel.selectCategoryItem.value
-//            guard let section = snapshot.indexOfSection(.main),
-//                  let row = snapshot.indexOfItem(item) else { return }
-//            cell.collectionView.selectItem(at: IndexPath(item: row, section: section), animated: false, scrollPosition: .centeredHorizontally)
-//        case .search:
-//            guard let cell = cell as? PickServerSearchCell else { return }
-//            cell.searchTextField.text = viewModel.searchText.value
-        default:
-            break
-        }
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

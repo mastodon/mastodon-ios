@@ -45,7 +45,8 @@ class MastodonPickServerViewModel: NSObject {
     let indexedServers = CurrentValueSubject<[Mastodon.Entity.Server], Never>([])
     let unindexedServers = CurrentValueSubject<[Mastodon.Entity.Server]?, Never>([])    // set nil when loading
     let viewWillAppear = PassthroughSubject<Void, Never>()
-    
+    let viewDidAppear = CurrentValueSubject<Void, Never>(Void())
+
     // output
     var diffableDataSource: UITableViewDiffableDataSource<PickServerSection, PickServerItem>?
     private(set) lazy var loadIndexedServerStateMachine: GKStateMachine = {
