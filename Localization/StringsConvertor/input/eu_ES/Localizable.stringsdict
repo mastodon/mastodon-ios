@@ -125,9 +125,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 reply</string>
+        <string>Erantzun bat</string>
         <key>other</key>
-        <string>%ld replies</string>
+        <string>%ld erantzun</string>
       </dict>
     </dict>
     <key>plural.count.vote</key>

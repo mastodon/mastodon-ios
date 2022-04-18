@@ -111,7 +111,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld replies</string>
+        <string>%ld การตอบกลับ</string>
       </dict>
     </dict>
     <key>plural.count.vote</key>

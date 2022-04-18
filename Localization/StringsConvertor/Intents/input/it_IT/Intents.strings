@@ -1,51 +1,51 @@
-"16wxgf" = "Post on Mastodon";
+"16wxgf" = "Pubblica su Mastodon";
 
-"751xkl" = "Text Content";
+"751xkl" = "Contenuto testuale";
 
-"CsR7G2" = "Post on Mastodon";
+"CsR7G2" = "Pubblica su Mastodon";
 
-"HZSGTr" = "What content to post?";
+"HZSGTr" = "Quale contenuto postare?";
 
-"HdGikU" = "Posting failed";
+"HdGikU" = "Pubblicazione non riuscita";
 
-"KDNTJ4" = "Failure Reason";
+"KDNTJ4" = "Motivo del fallimento";
 
-"RHxKOw" = "Send Post with text content";
+"RHxKOw" = "Invia post con contenuto testuale";
 
-"RxSqsb" = "Post";
+"RxSqsb" = "Pubblica";
 
-"WCIR3D" = "Post ${content} on Mastodon";
+"WCIR3D" = "Pubblica ${content} su Mastodon";
 
-"ZKJSNu" = "Post";
+"ZKJSNu" = "Pubblica";
 
 "ZS1XaK" = "${content}";
 
-"ZbSjzC" = "Visibility";
+"ZbSjzC" = "Visibilità";
 
-"Zo4jgJ" = "Post Visibility";
+"Zo4jgJ" = "Visibilità del post";
 
-"apSxMG-dYQ5NN" = "There are ${count} options matching ‘Public’.";
+"apSxMG-dYQ5NN" = "Ci sono ${count} opzioni corrispondenti a 'Pubblico'.";
 
-"apSxMG-ehFLjY" = "There are ${count} options matching ‘Followers Only’.";
+"apSxMG-ehFLjY" = "Ci sono ${count} opzioni corrispondenti a ‘Solo Seguaci’.";
 
-"ayoYEb-dYQ5NN" = "${content}, Public";
+"ayoYEb-dYQ5NN" = "${content}, Pubblico";
 
-"ayoYEb-ehFLjY" = "${content}, Followers Only";
+"ayoYEb-ehFLjY" = "${content}, Solo seguaci";
 
-"dUyuGg" = "Post on Mastodon";
+"dUyuGg" = "Pubblica su Mastodon";
 
-"dYQ5NN" = "Public";
+"dYQ5NN" = "Pubblico";
 
-"ehFLjY" = "Followers Only";
+"ehFLjY" = "Solo i seguaci";
 
-"gfePDu" = "Posting failed. ${failureReason}";
+"gfePDu" = "Pubblicazione fallita. ${failureReason}";
 
-"k7dbKQ" = "Post was sent successfully.";
+"k7dbKQ" = "Post inviato con successo.";
 
-"oGiqmY-dYQ5NN" = "Just to confirm, you wanted ‘Public’?";
+"oGiqmY-dYQ5NN" = "Solo per confermare, volevi ‘Pubblico’?";
 
-"oGiqmY-ehFLjY" = "Just to confirm, you wanted ‘Followers Only’?";
+"oGiqmY-ehFLjY" = "Solo per confermare, volevi 'Solo seguaci'?";
 
 "rM6dvp" = "URL";
 
-"ryJLwG" = "Post was sent successfully. ";
+"ryJLwG" = "Post inviato con successo. ";
