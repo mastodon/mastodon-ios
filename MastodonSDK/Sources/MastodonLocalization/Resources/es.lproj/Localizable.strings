@@ -201,6 +201,10 @@ subirse a Mastodon.";
 "Scene.ConfirmEmail.Subtitle" = "Te acabamos de enviar un correo a %@,
 pulsa en el enlace para confirmar tu cuenta.";
 "Scene.ConfirmEmail.Title" = "Una última cosa.";
+"Scene.Discovery.Tabs.ForYou" = "For You";
+"Scene.Discovery.Tabs.Hashtags" = "Hashtags";
+"Scene.Discovery.Tabs.News" = "News";
+"Scene.Discovery.Tabs.Posts" = "Posts";
 "Scene.Favorite.Title" = "Tus Favoritos";
 "Scene.Follower.Footer" = "No se muestran los seguidores de otros servidores.";
 "Scene.Following.Footer" = "No se muestran los seguidos de otros servidores.";

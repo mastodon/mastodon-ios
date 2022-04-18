@@ -4,7 +4,7 @@
 "Common.Alerts.CleanCache.Title" = "Очистка кэша";
 "Common.Alerts.Common.PleaseTryAgain" = "Пожалуйста, попробуйте ещё раз.";
 "Common.Alerts.Common.PleaseTryAgainLater" = "Пожалуйста, попробуйте позже.";
-"Common.Alerts.DeletePost.Message" = "Are you sure you want to delete this post?";
+"Common.Alerts.DeletePost.Message" = "Вы уверены, что хотите удалить этот пост?";
 "Common.Alerts.DeletePost.Title" = "Вы уверены, что хотите удалить этот пост?";
 "Common.Alerts.DiscardPostContent.Message" = "Вы действительно хотите удалить набранное содержимое поста?";
 "Common.Alerts.DiscardPostContent.Title" = "Удалить черновик";
@@ -69,7 +69,7 @@
 "Common.Controls.Friendship.Follow" = "Подписаться";
 "Common.Controls.Friendship.Following" = "В подписках";
 "Common.Controls.Friendship.Mute" = "Игнорировать";
-"Common.Controls.Friendship.MuteUser" = "Добавить %@ в игнорируемые";
+"Common.Controls.Friendship.MuteUser" = "Игнорировать %@";
 "Common.Controls.Friendship.Muted" = "В игнорируемых";
 "Common.Controls.Friendship.Pending" = "Отправлен";
 "Common.Controls.Friendship.Request" = "Отправить запрос";
@@ -94,14 +94,14 @@
 "Common.Controls.Keyboard.Timeline.ToggleFavorite" = "Добавить или убрать из избранного";
 "Common.Controls.Keyboard.Timeline.ToggleReblog" = "Продвинуть или убрать продвижение";
 "Common.Controls.Status.Actions.Favorite" = "Добавить в избранное";
-"Common.Controls.Status.Actions.Hide" = "Hide";
+"Common.Controls.Status.Actions.Hide" = "Скрыть";
 "Common.Controls.Status.Actions.Menu" = "Меню";
 "Common.Controls.Status.Actions.Reblog" = "Продвинуть";
 "Common.Controls.Status.Actions.Reply" = "Ответить";
-"Common.Controls.Status.Actions.ShowGif" = "Show GIF";
-"Common.Controls.Status.Actions.ShowImage" = "Show image";
-"Common.Controls.Status.Actions.ShowVideoPlayer" = "Show video player";
-"Common.Controls.Status.Actions.TapThenHoldToShowMenu" = "Tap then hold to show menu";
+"Common.Controls.Status.Actions.ShowGif" = "Показать GIF";
+"Common.Controls.Status.Actions.ShowImage" = "Показать изображение";
+"Common.Controls.Status.Actions.ShowVideoPlayer" = "Показать видеопроигрыватель";
+"Common.Controls.Status.Actions.TapThenHoldToShowMenu" = "Нажмите и удерживайте, чтобы показать меню";
 "Common.Controls.Status.Actions.Unfavorite" = "Убрать из избранного";
 "Common.Controls.Status.Actions.Unreblog" = "Убрать продвижение";
 "Common.Controls.Status.ContentWarning" = "Предупреждение о содержании";
@@ -116,7 +116,7 @@
 "Common.Controls.Status.Tag.Link" = "Ссылка";
 "Common.Controls.Status.Tag.Mention" = "Упоминание";
 "Common.Controls.Status.Tag.Url" = "Ссылка";
-"Common.Controls.Status.TapToReveal" = "Tap to reveal";
+"Common.Controls.Status.TapToReveal" = "Нажмите, чтобы показать";
 "Common.Controls.Status.UserReblogged" = "%@ продвинул(а)";
 "Common.Controls.Status.UserRepliedTo" = "Ответил(а) %@";
 "Common.Controls.Status.Visibility.Direct" = "Only mentioned user can see this post.";
@@ -198,7 +198,7 @@
 "Scene.Compose.Visibility.Public" = "Публичный";
 "Scene.Compose.Visibility.Unlisted" = "Скрытый";
 "Scene.ConfirmEmail.Button.OpenEmailApp" = "Открыть приложение почты";
-"Scene.ConfirmEmail.Button.Resend" = "Resend";
+"Scene.ConfirmEmail.Button.Resend" = "Отправить заново";
 "Scene.ConfirmEmail.DontReceiveEmail.Description" = "Проверьте, правильно ли указан ваш e-mail адрес, а также папку «спам», если ещё не сделали этого.";
 "Scene.ConfirmEmail.DontReceiveEmail.ResendEmail" = "Отправить ещё раз";
 "Scene.ConfirmEmail.DontReceiveEmail.Title" = "Проверьте свой e-mail адрес";
@@ -211,6 +211,10 @@
 Нажмите на ссылку в нём, чтобы
 подтвердить свою учётную запись.";
 "Scene.ConfirmEmail.Title" = "И ещё кое-что.";
+"Scene.Discovery.Tabs.ForYou" = "For You";
+"Scene.Discovery.Tabs.Hashtags" = "Hashtags";
+"Scene.Discovery.Tabs.News" = "News";
+"Scene.Discovery.Tabs.Posts" = "Posts";
 "Scene.Favorite.Title" = "Ваше избранное";
 "Scene.Follower.Footer" = "Followers from other servers are not displayed.";
 "Scene.Following.Footer" = "Follows from other servers are not displayed.";
@@ -253,7 +257,7 @@
 "Scene.Profile.SegmentedControl.About" = "About";
 "Scene.Profile.SegmentedControl.Media" = "Медиа";
 "Scene.Profile.SegmentedControl.Posts" = "Посты";
-"Scene.Profile.SegmentedControl.PostsAndReplies" = "Posts and Replies";
+"Scene.Profile.SegmentedControl.PostsAndReplies" = "Посты и ответы";
 "Scene.Profile.SegmentedControl.Replies" = "Ответы";
 "Scene.Register.Error.Item.Agreement" = "Соглашение";
 "Scene.Register.Error.Item.Email" = "E-mail";
@@ -298,7 +302,7 @@
 "Scene.Report.Step2" = "Шаг 2 из 2";
 "Scene.Report.TextPlaceholder" = "Дополнительные комментарии";
 "Scene.Report.Title" = "Пожаловаться на %@";
-"Scene.Report.TitleReport" = "Report";
+"Scene.Report.TitleReport" = "Жалоба";
 "Scene.Search.Recommend.Accounts.Description" = "Возможно, вы захотите подписаться на эти профили";
 "Scene.Search.Recommend.Accounts.Follow" = "Подписаться";
 "Scene.Search.Recommend.Accounts.Title" = "Вам может понравится";
@@ -376,7 +380,7 @@
 "Scene.Settings.Section.Notifications.Trigger.Title" = "Уведомлять меня, когда";
 "Scene.Settings.Section.Preference.DisableAvatarAnimation" = "Отключить анимацию аватарок";
 "Scene.Settings.Section.Preference.DisableEmojiAnimation" = "Отключить анимацию эмодзи";
-"Scene.Settings.Section.Preference.OpenLinksInMastodon" = "Open links in Mastodon";
+"Scene.Settings.Section.Preference.OpenLinksInMastodon" = "Открывать ссылки в Мастодоне";
 "Scene.Settings.Section.Preference.Title" = "Предпочтения";
 "Scene.Settings.Section.Preference.TrueBlackDarkMode" = "Полноценно чёрный режим";
 "Scene.Settings.Section.Preference.UsingDefaultBrowser" = "Использовать браузер по умолчанию для открытия ссылок";
@@ -388,10 +392,10 @@
 "Scene.SuggestionAccount.Title" = "Подпишитесь на людей";
 "Scene.Thread.BackTitle" = "Пост";
 "Scene.Thread.Title" = "Пост %@";
-"Scene.Welcome.GetStarted" = "Get Started";
+"Scene.Welcome.GetStarted" = "Присоединиться";
 "Scene.Welcome.LogIn" = "Вход";
 "Scene.Welcome.Slogan" = "Социальная сеть
 под вашим контролем.";
 "Scene.Wizard.AccessibilityHint" = "Double tap to dismiss this wizard";
 "Scene.Wizard.MultipleAccountSwitchIntroDescription" = "Switch between multiple accounts by holding the profile button.";
-"Scene.Wizard.NewInMastodon" = "New in Mastodon";
+"Scene.Wizard.NewInMastodon" = "Новое в Мастодоне";

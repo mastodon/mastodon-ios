@@ -5,7 +5,7 @@
 "Common.Alerts.Common.PleaseTryAgain" = "Por favor, intentá de nuevo.";
 "Common.Alerts.Common.PleaseTryAgainLater" = "Por favor, intentá de nuevo más tarde.";
 "Common.Alerts.DeletePost.Message" = "¿Estás seguro que querés eliminar este mensaje?";
-"Common.Alerts.DeletePost.Title" = "¿Estás seguro que querés eliminar este mensaje?";
+"Common.Alerts.DeletePost.Title" = "Eliminar mensaje";
 "Common.Alerts.DiscardPostContent.Message" = "Confirmá para descartar el contenido del mensaje redactado.";
 "Common.Alerts.DiscardPostContent.Title" = "Descartar borrador";
 "Common.Alerts.EditProfileFailure.Message" = "No se pudo editar el perfil. Por favor, intentá de nuevo.";
@@ -201,6 +201,10 @@ y no se puede subir a Mastodon.";
 "Scene.ConfirmEmail.Subtitle" = "Acabamos de enviar un correo electrónico a %@,
 pulsá en el enlace para confirmar tu cuenta.";
 "Scene.ConfirmEmail.Title" = "Una última cosa.";
+"Scene.Discovery.Tabs.ForYou" = "Para vos";
+"Scene.Discovery.Tabs.Hashtags" = "Etiquetas";
+"Scene.Discovery.Tabs.News" = "Novedades";
+"Scene.Discovery.Tabs.Posts" = "Mensajes";
 "Scene.Favorite.Title" = "Tus favoritos";
 "Scene.Follower.Footer" = "No se muestran los seguidores de otros servidores.";
 "Scene.Following.Footer" = "No se muestran las cuentas de otros servidores que seguís.";

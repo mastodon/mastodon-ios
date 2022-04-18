@@ -195,6 +195,10 @@ Uw profiel ziet er zo uit voor hen.";
 "Scene.ConfirmEmail.Subtitle" = "We hebben een e-mail gestuurd naar %@,
 klik op de link om uw account te bevestigen.";
 "Scene.ConfirmEmail.Title" = "Nog één ding.";
+"Scene.Discovery.Tabs.ForYou" = "For You";
+"Scene.Discovery.Tabs.Hashtags" = "Hashtags";
+"Scene.Discovery.Tabs.News" = "News";
+"Scene.Discovery.Tabs.Posts" = "Posts";
 "Scene.Favorite.Title" = "Uw favorieten";
 "Scene.Follower.Footer" = "Followers from other servers are not displayed.";
 "Scene.Following.Footer" = "Follows from other servers are not displayed.";
