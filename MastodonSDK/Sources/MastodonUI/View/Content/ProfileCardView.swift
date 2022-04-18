@@ -181,7 +181,7 @@ extension ProfileCardView {
         
         avatarButtonBackgroundView.layer.masksToBounds = true
         avatarButtonBackgroundView.layer.cornerCurve = .continuous
-        avatarButtonBackgroundView.layer.cornerRadius = 12
+        avatarButtonBackgroundView.layer.cornerRadius = 12 + 1
         avatarButtonBackgroundView.translatesAutoresizingMaskIntoConstraints = false
         authorContainer.insertSubview(avatarButtonBackgroundView, belowSubview: avatarButton)
         NSLayoutConstraint.activate([
