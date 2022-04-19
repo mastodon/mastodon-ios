@@ -5,6 +5,7 @@
 //  Created by MainasuK on 2022-4-14.
 //
 
+import os.log
 import UIKit
 import Combine
 
@@ -14,8 +15,12 @@ public protocol ProfileCardTableViewCellDelegate: AnyObject {
 
 public final class ProfileCardTableViewCell: UITableViewCell {
     
+    let logger = Logger(subsystem: "ProfileCardTableViewCell", category: "Cell")
+    
     public weak var delegate: ProfileCardTableViewCellDelegate?
     public var disposeBag = Set<AnyCancellable>()
+    
+    public let shadowBackgroundContainer = ShadowBackgroundContainer()
     
     public let profileCardView: ProfileCardView = {
         let profileCardView = ProfileCardView()
@@ -49,15 +54,14 @@ extension ProfileCardTableViewCell {
     private func _init() {
         selectionStyle = .none
         
-        let shadowBackgroundContainer = ShadowBackgroundContainer()
         shadowBackgroundContainer.cornerRadius = 6
         shadowBackgroundContainer.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(shadowBackgroundContainer)
         NSLayoutConstraint.activate([
-            shadowBackgroundContainer.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+            shadowBackgroundContainer.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10).priority(.required - 1),
             shadowBackgroundContainer.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
             shadowBackgroundContainer.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
-            contentView.bottomAnchor.constraint(equalTo: shadowBackgroundContainer.bottomAnchor, constant: 10),
+            contentView.bottomAnchor.constraint(equalTo: shadowBackgroundContainer.bottomAnchor, constant: 10).priority(.required - 1),
         ])
         
         profileCardView.translatesAutoresizingMaskIntoConstraints = false
