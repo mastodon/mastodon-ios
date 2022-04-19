@@ -148,6 +148,7 @@
 		DB0618072785A8880030EE79 /* MastodonRegisterViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0618062785A8880030EE79 /* MastodonRegisterViewModel+Diffable.swift */; };
 		DB06180A2785B2AB0030EE79 /* MastodonRegisterAvatarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0618092785B2AB0030EE79 /* MastodonRegisterAvatarTableViewCell.swift */; };
 		DB084B5725CBC56C00F898ED /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB084B5625CBC56C00F898ED /* Status.swift */; };
+		DB0A322E280EE9FD001729D2 /* DiscoveryIntroBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0A322D280EE9FD001729D2 /* DiscoveryIntroBannerView.swift */; };
 		DB0AC6FC25CD02E600D75117 /* APIService+Instance.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0AC6FB25CD02E600D75117 /* APIService+Instance.swift */; };
 		DB0C946526A6FD4D0088FB11 /* AlamofireImage in Frameworks */ = {isa = PBXBuildFile; productRef = DB0C946426A6FD4D0088FB11 /* AlamofireImage */; };
 		DB0C947726A7FE840088FB11 /* NotificationAvatarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0C947626A7FE840088FB11 /* NotificationAvatarButton.swift */; };
@@ -870,6 +871,7 @@
 		DB0618062785A8880030EE79 /* MastodonRegisterViewModel+Diffable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MastodonRegisterViewModel+Diffable.swift"; sourceTree = "<group>"; };
 		DB0618092785B2AB0030EE79 /* MastodonRegisterAvatarTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonRegisterAvatarTableViewCell.swift; sourceTree = "<group>"; };
 		DB084B5625CBC56C00F898ED /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
+		DB0A322D280EE9FD001729D2 /* DiscoveryIntroBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryIntroBannerView.swift; sourceTree = "<group>"; };
 		DB0AC6FB25CD02E600D75117 /* APIService+Instance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Instance.swift"; sourceTree = "<group>"; };
 		DB0C947626A7FE840088FB11 /* NotificationAvatarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationAvatarButton.swift; sourceTree = "<group>"; };
 		DB0EF72A26FDB1D200347686 /* SidebarListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarListCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -2023,6 +2025,14 @@
 			path = CoreDataStack;
 			sourceTree = "<group>";
 		};
+		DB0A322F280EEA00001729D2 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				DB0A322D280EE9FD001729D2 /* DiscoveryIntroBannerView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		DB0C947826A7FE950088FB11 /* Button */ = {
 			isa = PBXGroup;
 			children = (
@@ -3108,6 +3118,7 @@
 		DBDFF1912805544800557A48 /* Discovery */ = {
 			isa = PBXGroup;
 			children = (
+				DB0A322F280EEA00001729D2 /* View */,
 				DBDFF19828055A0900557A48 /* Posts */,
 				DB3E6FDE2806A41200B035AE /* Hashtags */,
 				DB3E6FED2806D7FC00B035AE /* News */,
@@ -4085,6 +4096,7 @@
 				DB8AF55D25C138B7002E6C99 /* UIViewController.swift in Sources */,
 				DB7F48452620241000796008 /* ProfileHeaderViewModel.swift in Sources */,
 				DB647C5926F1EA2700F7F82C /* WizardPreference.swift in Sources */,
+				DB0A322E280EE9FD001729D2 /* DiscoveryIntroBannerView.swift in Sources */,
 				2D3F9E0425DFA133004262D9 /* UITapGestureRecognizer.swift in Sources */,
 				5DDDF1992617447F00311060 /* Mastodon+Entity+Tag.swift in Sources */,
 				5B90C45F262599800002E742 /* SettingsToggleTableViewCell.swift in Sources */,
