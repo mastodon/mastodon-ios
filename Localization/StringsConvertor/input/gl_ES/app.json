@@ -2,28 +2,28 @@
     "common": {
         "alerts": {
             "common": {
-                "please_try_again": "Please try again.",
-                "please_try_again_later": "Please try again later."
+                "please_try_again": "Inténtao de novo.",
+                "please_try_again_later": "Inténtao de novo máis tarde."
             },
             "sign_up_failure": {
-                "title": "Sign Up Failure"
+                "title": "Fallou o rexistro"
             },
             "server_error": {
-                "title": "Server Error"
+                "title": "Erro do servidor"
             },
             "vote_failure": {
-                "title": "Vote Failure",
-                "poll_ended": "The poll has ended"
+                "title": "Fallou a votación",
+                "poll_ended": "A enquisa rematou"
             },
             "discard_post_content": {
-                "title": "Discard Draft",
-                "message": "Confirm to discard composed post content."
+                "title": "Descartar Borrador",
+                "message": "Confirma que queres descartar o contido do borrador."
             },
             "publish_post_failure": {
-                "title": "Publish Failure",
-                "message": "Failed to publish the post.\nPlease check your internet connection.",
+                "title": "Fallou a publicación",
+                "message": "Fallou a publicación.\nComproba a conexión a internet.",
                 "attachments_message": {
-                    "video_attach_with_photo": "Cannot attach a video to a post that already contains images.",
+                    "video_attach_with_photo": "Non podes anexar un vídeo a unha publicación que xa contén imaxes.",
                     "more_than_one_video": "Cannot attach more than one video."
                 }
             },
