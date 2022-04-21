@@ -130,7 +130,7 @@
                 "show_user_profile": "Ssken-d amaɣnu n useqdac",
                 "content_warning": "Alɣu n ugbur",
                 "media_content_warning": "Sit anida tebɣiḍ i wakken ad twaliḍ",
-                "tap_to_reveal": "Tap to reveal",
+                "tap_to_reveal": "Sit i uskan",
                 "poll": {
                     "vote": "Dɣeṛ",
                     "closed": "Ifukk"
@@ -143,10 +143,10 @@
                     "unfavorite": "Kkes seg yismenyifen",
                     "menu": "Umuɣ",
                     "hide": "Ffer",
-                    "show_image": "Show image",
-                    "show_gif": "Show GIF",
-                    "show_video_player": "Show video player",
-                    "tap_then_hold_to_show_menu": "Tap then hold to show menu"
+                    "show_image": "Sken tugna",
+                    "show_gif": "Sken GIF",
+                    "show_video_player": "Sken ameɣri n tvidyut",
+                    "tap_then_hold_to_show_menu": "Sit teǧǧeḍ aḍad-ik•im i wakken ad d-iffeɣ wumuɣ"
                 },
                 "tag": {
                     "url": "URL",
@@ -447,10 +447,10 @@
                 }
             },
             "accessibility": {
-                "show_avatar_image": "Show avatar image",
-                "edit_avatar_image": "Edit avatar image",
-                "show_banner_image": "Show banner image",
-                "double_tap_to_open_the_list": "Double tap to open the list"
+                "show_avatar_image": "Sken tugna n avaṭar",
+                "edit_avatar_image": "Ẓreg tugna n avaṭar",
+                "show_banner_image": "Sken tugna n uɣerrac",
+                "double_tap_to_open_the_list": "Sin isitiyen i twaledyawt n tebdart"
             }
         },
         "follower": {
@@ -494,10 +494,10 @@
         },
         "discovery": {
             "tabs": {
-                "posts": "Posts",
-                "hashtags": "Hashtags",
-                "news": "News",
-                "for_you": "For You"
+                "posts": "Tisuffaɣ",
+                "hashtags": "Ihacṭagen",
+                "news": "Isallen",
+                "for_you": "I kečč·kem"
             }
         },
         "favorite": {
@@ -561,7 +561,7 @@
                     "disable_avatar_animation": "Sens ivaṭaren yettembiwilen",
                     "disable_emoji_animation": "Sens imujiten yettembiwilen",
                     "using_default_browser": "Seqdec iminig amezwer i twaledyawt n yiseɣwan",
-                    "open_links_in_mastodon": "Open links in Mastodon"
+                    "open_links_in_mastodon": "Ldi iseɣwan deg Mastodon"
                 },
                 "boring_zone": {
                     "title": "Tamnaḍt yessefcalen",
