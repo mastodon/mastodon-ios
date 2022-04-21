@@ -494,9 +494,9 @@
         },
         "discovery": {
             "tabs": {
-                "posts": "帖子",
-                "hashtags": "话题",
-                "news": "新闻",
+                "posts": "嘟文",
+                "hashtags": "话题标签",
+                "news": "最新消息",
                 "for_you": "为你推荐"
             }
         },
