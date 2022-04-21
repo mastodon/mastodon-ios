@@ -583,17 +583,17 @@
             }
         },
         "report": {
-            "title_report": "Report",
+            "title_report": "報告する",
             "title": "%sを通報",
             "step1": "ステップ 1/2",
             "step2": "ステップ 2/2",
             "content1": "他に通報したい投稿はありますか？",
             "content2": "この通報についてモデレーターに伝達しておきたい事項はありますか？",
-            "report_sent_title": "Thanks for reporting, we’ll look into this.",
+            "report_sent_title": "ご報告ありがとうございます、追って確認します。",
             "send": "通報を送信",
             "skip_to_send": "コメントなしで送信",
             "text_placeholder": "追加コメントを入力",
-            "reported": "REPORTED"
+            "reported": "報告済み"
         },
         "preview": {
             "keyboard": {
