@@ -130,7 +130,7 @@
                 "show_user_profile": "Xem trang hồ sơ",
                 "content_warning": "Nội dung ẩn",
                 "media_content_warning": "Nhấn để hiển thị",
-                "tap_to_reveal": "Nhấn để hiển thị",
+                "tap_to_reveal": "Nhấn để xem",
                 "poll": {
                     "vote": "Bình chọn",
                     "closed": "Kết thúc"
@@ -221,7 +221,7 @@
                     "activism": "hoạt động xã hội",
                     "food": "ăn uống",
                     "furry": "furry",
-                    "games": "trò chơi",
+                    "games": "trò chơi điện tử",
                     "general": "chung",
                     "journalism": "tin tức",
                     "lgbt": "lgbt",
@@ -369,7 +369,7 @@
                 "description_video": "Mô tả video cho người khiếm thị..."
             },
             "poll": {
-                "duration_time": "Thời gian: %s",
+                "duration_time": "Thời hạn: %s",
                 "thirty_minutes": "30 phút",
                 "one_hour": "1 giờ",
                 "six_hours": "6 giờ",
@@ -549,7 +549,7 @@
                     "mentions": "Nhắc đến tôi",
                     "trigger": {
                         "anyone": "ai đó",
-                        "follower": "người theo dõi",
+                        "follower": "một người theo dõi",
                         "follow": "người tôi theo dõi",
                         "noone": "không một ai",
                         "title": "Thông báo khi"
