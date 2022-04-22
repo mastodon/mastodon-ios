@@ -129,7 +129,7 @@
                 "show_post": "Xem tút",
                 "show_user_profile": "Xem trang hồ sơ",
                 "content_warning": "Nội dung ẩn",
-                "sensitive_content": "Sensitive Content",
+                "sensitive_content": "Nội dung nhạy cảm",
                 "media_content_warning": "Nhấn để hiển thị",
                 "tap_to_reveal": "Nhấn để xem",
                 "poll": {
@@ -500,7 +500,7 @@
                 "news": "Tin tức",
                 "for_you": "Dành cho bạn"
             },
-            "intro": "These are the posts gaining traction in your corner of Mastodon."
+            "intro": "Đây là những tút thu hút được sự chú ý trong góc Mastodon của bạn."
         },
         "favorite": {
             "title": "Lượt thích"
