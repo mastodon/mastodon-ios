@@ -129,6 +129,7 @@
                 "show_post": "أظْهِر مَنشور",
                 "show_user_profile": "أظْهِر المِلَفَّ التَّعريفِيَّ لِلمُستَخدِم",
                 "content_warning": "تحذير المُحتوى",
+                "sensitive_content": "Sensitive Content",
                 "media_content_warning": "اُنقُر لِلكَشف",
                 "tap_to_reveal": "اُنقُر لِلكَشف",
                 "poll": {
@@ -498,7 +499,8 @@
                 "hashtags": "الوسوم",
                 "news": "الأخبار",
                 "for_you": "لَك"
-            }
+            },
+            "intro": "These are the posts gaining traction in your corner of Mastodon."
         },
         "favorite": {
             "title": "مُفضَّلَتُك"
