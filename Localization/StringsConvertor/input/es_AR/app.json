@@ -129,7 +129,7 @@
                 "show_post": "Mostrar mensaje",
                 "show_user_profile": "Mostrar perfil de usuario",
                 "content_warning": "Advertencia de contenido",
-                "sensitive_content": "Sensitive Content",
+                "sensitive_content": "Contenido sensible",
                 "media_content_warning": "Toca en cualquier lugar para mostrar",
                 "tap_to_reveal": "Tocá para mostrar",
                 "poll": {
@@ -500,7 +500,7 @@
                 "news": "Novedades",
                 "for_you": "Para vos"
             },
-            "intro": "These are the posts gaining traction in your corner of Mastodon."
+            "intro": "Estos son los mensajes que están ganando tracción en tu rincón de Mastodon."
         },
         "favorite": {
             "title": "Tus favoritos"
