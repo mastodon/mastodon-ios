@@ -129,6 +129,7 @@
                 "show_post": "Xem tút",
                 "show_user_profile": "Xem trang hồ sơ",
                 "content_warning": "Nội dung ẩn",
+                "sensitive_content": "Sensitive Content",
                 "media_content_warning": "Nhấn để hiển thị",
                 "tap_to_reveal": "Nhấn để xem",
                 "poll": {
@@ -498,7 +499,8 @@
                 "hashtags": "Hashtag",
                 "news": "Tin tức",
                 "for_you": "Dành cho bạn"
-            }
+            },
+            "intro": "These are the posts gaining traction in your corner of Mastodon."
         },
         "favorite": {
             "title": "Lượt thích"
