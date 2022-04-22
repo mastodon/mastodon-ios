@@ -500,7 +500,7 @@
                 "news": "ข่าว",
                 "for_you": "สำหรับคุณ"
             },
-            "intro": "These are the posts gaining traction in your corner of Mastodon."
+            "intro": "นี่คือโพสต์ที่กำลังได้รับความสนใจในมุมของ Mastodon ของคุณ"
         },
         "favorite": {
             "title": "รายการโปรดของคุณ"
