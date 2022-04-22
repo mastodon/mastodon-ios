@@ -16,7 +16,7 @@
                 "poll_ended": "Cuộc bình chọn đã kết thúc"
             },
             "discard_post_content": {
-                "title": "Hủy bản nháp",
+                "title": "Bỏ bản nháp",
                 "message": "Xác nhận bỏ qua nội dung tút đã viết."
             },
             "publish_post_failure": {
@@ -360,7 +360,7 @@
             },
             "content_input_placeholder": "Cho thế giới biết bạn đang nghĩ gì",
             "compose_action": "Đăng",
-            "replying_to_user": "trả lời đến %s",
+            "replying_to_user": "trả lời %s",
             "attachment": {
                 "photo": "ảnh",
                 "video": "video",
@@ -385,7 +385,7 @@
                 "public": "Công khai",
                 "unlisted": "Hạn chế",
                 "private": "Riêng tư",
-                "direct": "Chỉ người được nhắc đến"
+                "direct": "Nhắn riêng"
             },
             "auto_complete": {
                 "space_to_add": "Khoảng cách để thêm"
@@ -549,7 +549,7 @@
                     "mentions": "Nhắc đến tôi",
                     "trigger": {
                         "anyone": "ai đó",
-                        "follower": "một người theo dõi",
+                        "follower": "người theo dõi tôi",
                         "follow": "người tôi theo dõi",
                         "noone": "không một ai",
                         "title": "Thông báo khi"
