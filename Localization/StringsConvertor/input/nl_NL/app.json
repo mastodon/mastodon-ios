@@ -129,6 +129,7 @@
                 "show_post": "Toon Bericht",
                 "show_user_profile": "Toon Gebruikersprofiel",
                 "content_warning": "Inhoudswaarschuwing",
+                "sensitive_content": "Sensitive Content",
                 "media_content_warning": "Tap hier om te tonen",
                 "tap_to_reveal": "Tap to reveal",
                 "poll": {
@@ -498,7 +499,8 @@
                 "hashtags": "Hashtags",
                 "news": "News",
                 "for_you": "For You"
-            }
+            },
+            "intro": "These are the posts gaining traction in your corner of Mastodon."
         },
         "favorite": {
             "title": "Uw favorieten"
