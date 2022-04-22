@@ -13,9 +13,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 unread notification</string>
+        <string>Okunmamış 1 bildirim</string>
         <key>other</key>
-        <string>%ld unread notification</string>
+        <string>Okunmamış %ld bildirim</string>
       </dict>
     </dict>
     <key>a11y.plural.count.input_limit_exceeds</key>
@@ -29,9 +29,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 character</string>
+        <string>1 karakter</string>
         <key>other</key>
-        <string>%ld characters</string>
+        <string>%ld karakter</string>
       </dict>
     </dict>
     <key>a11y.plural.count.input_limit_remains</key>
@@ -317,9 +317,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1y ago</string>
+        <string>1 yıl önce</string>
         <key>other</key>
-        <string>%ldy ago</string>
+        <string>%ld yıl önce</string>
       </dict>
     </dict>
     <key>date.month.ago.abbr</key>
