@@ -129,6 +129,7 @@
                 "show_post": "Sken-d tasuffeɣt",
                 "show_user_profile": "Ssken-d amaɣnu n useqdac",
                 "content_warning": "Alɣu n ugbur",
+                "sensitive_content": "Sensitive Content",
                 "media_content_warning": "Sit anida tebɣiḍ i wakken ad twaliḍ",
                 "tap_to_reveal": "Sit i uskan",
                 "poll": {
@@ -498,7 +499,8 @@
                 "hashtags": "Ihacṭagen",
                 "news": "Isallen",
                 "for_you": "I kečč·kem"
-            }
+            },
+            "intro": "These are the posts gaining traction in your corner of Mastodon."
         },
         "favorite": {
             "title": "Ismenyifen-ik·im"
