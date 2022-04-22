@@ -129,6 +129,7 @@
                 "show_post": "Mostra la Publicació",
                 "show_user_profile": "Mostra el perfil de l'usuari",
                 "content_warning": "Advertència de Contingut",
+                "sensitive_content": "Sensitive Content",
                 "media_content_warning": "Toca qualsevol lloc per a mostrar",
                 "tap_to_reveal": "Toca per a mostrar",
                 "poll": {
@@ -498,7 +499,8 @@
                 "hashtags": "Etiquetes",
                 "news": "Notícies",
                 "for_you": "Per a tu"
-            }
+            },
+            "intro": "These are the posts gaining traction in your corner of Mastodon."
         },
         "favorite": {
             "title": "Els teus Favorits"
