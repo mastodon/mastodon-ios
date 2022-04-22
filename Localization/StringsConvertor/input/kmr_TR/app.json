@@ -129,7 +129,7 @@
                 "show_post": "Şandiyê nîşan bide",
                 "show_user_profile": "Profîla bikarhêner nîşan bide",
                 "content_warning": "Hişyariya naverokê",
-                "sensitive_content": "Sensitive Content",
+                "sensitive_content": "Naveroka hestiyarî",
                 "media_content_warning": "Ji bo eşkerekirinê li derekî bitikîne",
                 "tap_to_reveal": "Ji bo dîtinê bitikîne",
                 "poll": {
@@ -500,7 +500,7 @@
                 "news": "Nûçe",
                 "for_you": "Ji bo te"
             },
-            "intro": "These are the posts gaining traction in your corner of Mastodon."
+            "intro": "Ev şandiyên ku di quncika Mastodon balê dikişîne."
         },
         "favorite": {
             "title": "Bijarteyên te"
