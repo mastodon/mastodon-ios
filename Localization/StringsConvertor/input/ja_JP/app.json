@@ -129,6 +129,7 @@
                 "show_post": "投稿を見る",
                 "show_user_profile": "プロフィールを見る",
                 "content_warning": "コンテンツ警告",
+                "sensitive_content": "Sensitive Content",
                 "media_content_warning": "どこかをタップして表示",
                 "tap_to_reveal": "Tap to reveal",
                 "poll": {
@@ -498,7 +499,8 @@
                 "hashtags": "Hashtags",
                 "news": "News",
                 "for_you": "For You"
-            }
+            },
+            "intro": "These are the posts gaining traction in your corner of Mastodon."
         },
         "favorite": {
             "title": "お気に入り"
