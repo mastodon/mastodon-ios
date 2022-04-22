@@ -39,6 +39,8 @@ final class NotificationTimelineViewController: UIViewController, NeedsDependenc
         return tableView
     }()
     
+    let cellFrameCache = NSCache<NSNumber, NSValue>()
+
     deinit {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
     }
@@ -122,6 +124,16 @@ extension NotificationTimelineViewController {
     
 }
 
+// MARK: - CellFrameCacheContainer
+extension NotificationTimelineViewController: CellFrameCacheContainer {
+    func keyForCache(tableView: UITableView, indexPath: IndexPath) -> NSNumber? {
+        guard let diffableDataSource = viewModel.diffableDataSource else { return nil }
+        guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return nil }
+        let key = NSNumber(value: item.hashValue)
+        return key
+    }
+}
+
 extension NotificationTimelineViewController {
 
     @objc private func refreshControlValueChanged(_ sender: UIRefreshControl) {
@@ -162,6 +174,13 @@ extension NotificationTimelineViewController: UITableViewDelegate, AutoGenerateT
 
     // sourcery:end
     
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        guard let frame = retrieveCellFrame(tableView: tableView, indexPath: indexPath) else {
+            return 300
+        }
+        return ceil(frame.height)
+    }
+    
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         guard let item = viewModel.diffableDataSource?.itemIdentifier(for: indexPath) else {
             return
@@ -171,6 +190,10 @@ extension NotificationTimelineViewController: UITableViewDelegate, AutoGenerateT
         Task {
             await viewModel.loadMore(item: item)
         }
+    }
+
+    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cacheCellFrame(tableView: tableView, didEndDisplaying: cell, forRowAt: indexPath)
     }
     
 }

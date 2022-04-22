@@ -130,6 +130,7 @@
                 "show_user_profile": "Show user profile",
                 "content_warning": "Content Warning",
                 "media_content_warning": "Tap anywhere to reveal",
+                "tap_to_reveal": "Tap to reveal",
                 "poll": {
                     "vote": "Vote",
                     "closed": "Closed"
@@ -141,7 +142,11 @@
                     "favorite": "Favorite",
                     "unfavorite": "Unfavorite",
                     "menu": "Meny",
-                    "hide": "Dölj"
+                    "hide": "Dölj",
+                    "show_image": "Show image",
+                    "show_gif": "Show GIF",
+                    "show_video_player": "Show video player",
+                    "tap_then_hold_to_show_menu": "Tap then hold to show menu"
                 },
                 "tag": {
                     "url": "URL",
@@ -440,6 +445,12 @@
                     "title": "Unblock Account",
                     "message": "Confirm to unblock %s"
                 }
+            },
+            "accessibility": {
+                "show_avatar_image": "Show avatar image",
+                "edit_avatar_image": "Edit avatar image",
+                "show_banner_image": "Show banner image",
+                "double_tap_to_open_the_list": "Double tap to open the list"
             }
         },
         "follower": {
@@ -479,6 +490,14 @@
                 },
                 "recent_search": "Recent searches",
                 "clear": "Rensa"
+            }
+        },
+        "discovery": {
+            "tabs": {
+                "posts": "Posts",
+                "hashtags": "Hashtags",
+                "news": "News",
+                "for_you": "For You"
             }
         },
         "favorite": {
@@ -541,7 +560,8 @@
                     "true_black_dark_mode": "True black dark mode",
                     "disable_avatar_animation": "Inaktivera animerade avatarer",
                     "disable_emoji_animation": "Inaktivera animerade emojis",
-                    "using_default_browser": "Use default browser to open links"
+                    "using_default_browser": "Use default browser to open links",
+                    "open_links_in_mastodon": "Open links in Mastodon"
                 },
                 "boring_zone": {
                     "title": "The Boring Zone",

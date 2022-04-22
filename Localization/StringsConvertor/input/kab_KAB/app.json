@@ -130,6 +130,7 @@
                 "show_user_profile": "Ssken-d amaɣnu n useqdac",
                 "content_warning": "Alɣu n ugbur",
                 "media_content_warning": "Sit anida tebɣiḍ i wakken ad twaliḍ",
+                "tap_to_reveal": "Tap to reveal",
                 "poll": {
                     "vote": "Dɣeṛ",
                     "closed": "Ifukk"
@@ -141,7 +142,11 @@
                     "favorite": "Anurif",
                     "unfavorite": "Kkes seg yismenyifen",
                     "menu": "Umuɣ",
-                    "hide": "Ffer"
+                    "hide": "Ffer",
+                    "show_image": "Show image",
+                    "show_gif": "Show GIF",
+                    "show_video_player": "Show video player",
+                    "tap_then_hold_to_show_menu": "Tap then hold to show menu"
                 },
                 "tag": {
                     "url": "URL",
@@ -440,6 +445,12 @@
                     "title": "Kkes asewḥel i umiḍan",
                     "message": "Sentem tukksa n usgugem i %s"
                 }
+            },
+            "accessibility": {
+                "show_avatar_image": "Show avatar image",
+                "edit_avatar_image": "Edit avatar image",
+                "show_banner_image": "Show banner image",
+                "double_tap_to_open_the_list": "Double tap to open the list"
             }
         },
         "follower": {
@@ -479,6 +490,14 @@
                 },
                 "recent_search": "Inadiyen imaynuten",
                 "clear": "Sfeḍ"
+            }
+        },
+        "discovery": {
+            "tabs": {
+                "posts": "Posts",
+                "hashtags": "Hashtags",
+                "news": "News",
+                "for_you": "For You"
             }
         },
         "favorite": {
@@ -541,7 +560,8 @@
                     "true_black_dark_mode": "Askar aberkan n tidet",
                     "disable_avatar_animation": "Sens ivaṭaren yettembiwilen",
                     "disable_emoji_animation": "Sens imujiten yettembiwilen",
-                    "using_default_browser": "Seqdec iminig amezwer i twaledyawt n yiseɣwan"
+                    "using_default_browser": "Seqdec iminig amezwer i twaledyawt n yiseɣwan",
+                    "open_links_in_mastodon": "Open links in Mastodon"
                 },
                 "boring_zone": {
                     "title": "Tamnaḍt yessefcalen",

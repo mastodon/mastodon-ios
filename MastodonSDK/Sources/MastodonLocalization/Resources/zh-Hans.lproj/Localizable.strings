@@ -98,6 +98,10 @@
 "Common.Controls.Status.Actions.Menu" = "菜单";
 "Common.Controls.Status.Actions.Reblog" = "转发";
 "Common.Controls.Status.Actions.Reply" = "回复";
+"Common.Controls.Status.Actions.ShowGif" = "显示 GIF";
+"Common.Controls.Status.Actions.ShowImage" = "显示图片";
+"Common.Controls.Status.Actions.ShowVideoPlayer" = "显示视频播放器";
+"Common.Controls.Status.Actions.TapThenHoldToShowMenu" = "长按以显示菜单";
 "Common.Controls.Status.Actions.Unfavorite" = "取消喜欢";
 "Common.Controls.Status.Actions.Unreblog" = "取消转发";
 "Common.Controls.Status.ContentWarning" = "内容警告";
@@ -112,6 +116,7 @@
 "Common.Controls.Status.Tag.Link" = "链接";
 "Common.Controls.Status.Tag.Mention" = "提及";
 "Common.Controls.Status.Tag.Url" = "URL";
+"Common.Controls.Status.TapToReveal" = "点击以显示";
 "Common.Controls.Status.UserReblogged" = "%@ 转发";
 "Common.Controls.Status.UserRepliedTo" = "回复给 %@";
 "Common.Controls.Status.Visibility.Direct" = "只有提到的用户才能看到此帖子。";
@@ -196,6 +201,10 @@
 "Scene.ConfirmEmail.Subtitle" = "我们刚刚向 %@ 发送了一封电子邮件，
 点击链接确认你的帐户。";
 "Scene.ConfirmEmail.Title" = "最后一件事。";
+"Scene.Discovery.Tabs.ForYou" = "为你推荐";
+"Scene.Discovery.Tabs.Hashtags" = "话题";
+"Scene.Discovery.Tabs.News" = "新闻";
+"Scene.Discovery.Tabs.Posts" = "帖子";
 "Scene.Favorite.Title" = "你的喜欢";
 "Scene.Follower.Footer" = "不会显示来自其它服务器的关注者";
 "Scene.Following.Footer" = "不会显示来自其它服务器的关注";
@@ -217,6 +226,10 @@
 "Scene.Preview.Keyboard.ClosePreview" = "关闭预览";
 "Scene.Preview.Keyboard.ShowNext" = "显示下一个";
 "Scene.Preview.Keyboard.ShowPrevious" = "显示前一个";
+"Scene.Profile.Accessibility.DoubleTapToOpenTheList" = "双击打开列表";
+"Scene.Profile.Accessibility.EditAvatarImage" = "编辑头像";
+"Scene.Profile.Accessibility.ShowAvatarImage" = "显示头像";
+"Scene.Profile.Accessibility.ShowBannerImage" = "显示顶部横幅图片";
 "Scene.Profile.Dashboard.Followers" = "关注者";
 "Scene.Profile.Dashboard.Following" = "正在关注";
 "Scene.Profile.Dashboard.Posts" = "帖子";
@@ -357,6 +370,7 @@
 "Scene.Settings.Section.Notifications.Trigger.Title" = "提示通知来自";
 "Scene.Settings.Section.Preference.DisableAvatarAnimation" = "禁用动画头像";
 "Scene.Settings.Section.Preference.DisableEmojiAnimation" = "禁用动画表情";
+"Scene.Settings.Section.Preference.OpenLinksInMastodon" = "在 Mastodon 中打开链接";
 "Scene.Settings.Section.Preference.Title" = "偏好";
 "Scene.Settings.Section.Preference.TrueBlackDarkMode" = "纯黑模式";
 "Scene.Settings.Section.Preference.UsingDefaultBrowser" = "使用默认浏览器打开链接";

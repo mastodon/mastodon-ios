@@ -130,6 +130,7 @@
                 "show_user_profile": "Näytä tili",
                 "content_warning": "Sisältövaroitus",
                 "media_content_warning": "Napauta mistä tahansa paljastaaksesi",
+                "tap_to_reveal": "Tap to reveal",
                 "poll": {
                     "vote": "Vote",
                     "closed": "Suljettu"
@@ -141,7 +142,11 @@
                     "favorite": "Favorite",
                     "unfavorite": "Unfavorite",
                     "menu": "Valikko",
-                    "hide": "Dölj"
+                    "hide": "Dölj",
+                    "show_image": "Show image",
+                    "show_gif": "Show GIF",
+                    "show_video_player": "Show video player",
+                    "tap_then_hold_to_show_menu": "Tap then hold to show menu"
                 },
                 "tag": {
                     "url": "URL",
@@ -440,6 +445,12 @@
                     "title": "Unblock Account",
                     "message": "Confirm to unblock %s"
                 }
+            },
+            "accessibility": {
+                "show_avatar_image": "Show avatar image",
+                "edit_avatar_image": "Edit avatar image",
+                "show_banner_image": "Show banner image",
+                "double_tap_to_open_the_list": "Double tap to open the list"
             }
         },
         "follower": {
@@ -479,6 +490,14 @@
                 },
                 "recent_search": "Viimeaikaiset",
                 "clear": "Tyhjennä"
+            }
+        },
+        "discovery": {
+            "tabs": {
+                "posts": "Posts",
+                "hashtags": "Hashtags",
+                "news": "News",
+                "for_you": "For You"
             }
         },
         "favorite": {
@@ -541,7 +560,8 @@
                     "true_black_dark_mode": "Todellinen mustan tumma tila",
                     "disable_avatar_animation": "Poista käytöstä animoidut avatarit",
                     "disable_emoji_animation": "Poista käytöstä animoidut emojit",
-                    "using_default_browser": "Käytä oletusselainta linkkien avaamiseen"
+                    "using_default_browser": "Käytä oletusselainta linkkien avaamiseen",
+                    "open_links_in_mastodon": "Open links in Mastodon"
                 },
                 "boring_zone": {
                     "title": "Tylsä alue",

@@ -29,31 +29,31 @@ final class SearchViewModel: NSObject {
         self.context = context
         super.init()
         
-        Publishers.CombineLatest(
-            context.authenticationService.activeMastodonAuthenticationBox,
-            viewDidAppeared
-        )
-        .compactMap { authenticationBox, _ -> MastodonAuthenticationBox? in
-            return authenticationBox
-        }
-        .throttle(for: 3, scheduler: DispatchQueue.main, latest: true)
-        .asyncMap { authenticationBox in
-            try await context.apiService.trends(domain: authenticationBox.domain, query: nil)
-        }
-        .retry(3)
-        .map { response in Result<Mastodon.Response.Content<[Mastodon.Entity.Tag]>, Error> { response } }
-        .catch { error in Just(Result<Mastodon.Response.Content<[Mastodon.Entity.Tag]>, Error> { throw error }) }
-        .receive(on: DispatchQueue.main)
-        .sink { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let response):
-                self.hashtags = response.value
-            case .failure:
-                break
-            }
-        }
-        .store(in: &disposeBag)
+//        Publishers.CombineLatest(
+//            context.authenticationService.activeMastodonAuthenticationBox,
+//            viewDidAppeared
+//        )
+//        .compactMap { authenticationBox, _ -> MastodonAuthenticationBox? in
+//            return authenticationBox
+//        }
+//        .throttle(for: 3, scheduler: DispatchQueue.main, latest: true)
+//        .asyncMap { authenticationBox in
+//            try await context.apiService.trendHashtags(domain: authenticationBox.domain, query: nil)
+//        }
+//        .retry(3)
+//        .map { response in Result<Mastodon.Response.Content<[Mastodon.Entity.Tag]>, Error> { response } }
+//        .catch { error in Just(Result<Mastodon.Response.Content<[Mastodon.Entity.Tag]>, Error> { throw error }) }
+//        .receive(on: DispatchQueue.main)
+//        .sink { [weak self] result in
+//            guard let self = self else { return }
+//            switch result {
+//            case .success(let response):
+//                self.hashtags = response.value
+//            case .failure:
+//                break
+//            }
+//        }
+//        .store(in: &disposeBag)
     }
 
 }

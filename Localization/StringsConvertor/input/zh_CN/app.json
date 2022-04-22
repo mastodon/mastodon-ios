@@ -130,6 +130,7 @@
                 "show_user_profile": "查看用户个人资料",
                 "content_warning": "内容警告",
                 "media_content_warning": "点击任意位置显示",
+                "tap_to_reveal": "点击以显示",
                 "poll": {
                     "vote": "投票",
                     "closed": "已关闭"
@@ -141,7 +142,11 @@
                     "favorite": "喜欢",
                     "unfavorite": "取消喜欢",
                     "menu": "菜单",
-                    "hide": "隐藏"
+                    "hide": "隐藏",
+                    "show_image": "显示图片",
+                    "show_gif": "显示 GIF",
+                    "show_video_player": "显示视频播放器",
+                    "tap_then_hold_to_show_menu": "长按以显示菜单"
                 },
                 "tag": {
                     "url": "URL",
@@ -440,6 +445,12 @@
                     "title": "解除屏蔽帐户",
                     "message": "确认取消屏蔽 %s"
                 }
+            },
+            "accessibility": {
+                "show_avatar_image": "显示头像",
+                "edit_avatar_image": "编辑头像",
+                "show_banner_image": "显示顶部横幅图片",
+                "double_tap_to_open_the_list": "双击打开列表"
             }
         },
         "follower": {
@@ -479,6 +490,14 @@
                 },
                 "recent_search": "最近搜索",
                 "clear": "清除"
+            }
+        },
+        "discovery": {
+            "tabs": {
+                "posts": "帖子",
+                "hashtags": "话题",
+                "news": "新闻",
+                "for_you": "为你推荐"
             }
         },
         "favorite": {
@@ -541,7 +560,8 @@
                     "true_black_dark_mode": "纯黑模式",
                     "disable_avatar_animation": "禁用动画头像",
                     "disable_emoji_animation": "禁用动画表情",
-                    "using_default_browser": "使用默认浏览器打开链接"
+                    "using_default_browser": "使用默认浏览器打开链接",
+                    "open_links_in_mastodon": "在 Mastodon 中打开链接"
                 },
                 "boring_zone": {
                     "title": "The Boring Zone",

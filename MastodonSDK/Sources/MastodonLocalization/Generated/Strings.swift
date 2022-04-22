@@ -274,6 +274,8 @@ public enum L10n {
         public static let showPost = L10n.tr("Localizable", "Common.Controls.Status.ShowPost")
         /// Show user profile
         public static let showUserProfile = L10n.tr("Localizable", "Common.Controls.Status.ShowUserProfile")
+        /// Tap to reveal
+        public static let tapToReveal = L10n.tr("Localizable", "Common.Controls.Status.TapToReveal")
         /// %@ reblogged
         public static func userReblogged(_ p1: Any) -> String {
           return L10n.tr("Localizable", "Common.Controls.Status.UserReblogged", String(describing: p1))
@@ -293,6 +295,14 @@ public enum L10n {
           public static let reblog = L10n.tr("Localizable", "Common.Controls.Status.Actions.Reblog")
           /// Reply
           public static let reply = L10n.tr("Localizable", "Common.Controls.Status.Actions.Reply")
+          /// Show GIF
+          public static let showGif = L10n.tr("Localizable", "Common.Controls.Status.Actions.ShowGif")
+          /// Show image
+          public static let showImage = L10n.tr("Localizable", "Common.Controls.Status.Actions.ShowImage")
+          /// Show video player
+          public static let showVideoPlayer = L10n.tr("Localizable", "Common.Controls.Status.Actions.ShowVideoPlayer")
+          /// Tap then hold to show menu
+          public static let tapThenHoldToShowMenu = L10n.tr("Localizable", "Common.Controls.Status.Actions.TapThenHoldToShowMenu")
           /// Unfavorite
           public static let unfavorite = L10n.tr("Localizable", "Common.Controls.Status.Actions.Unfavorite")
           /// Undo reblog
@@ -533,6 +543,18 @@ public enum L10n {
         public static let title = L10n.tr("Localizable", "Scene.ConfirmEmail.OpenEmailApp.Title")
       }
     }
+    public enum Discovery {
+      public enum Tabs {
+        /// For You
+        public static let forYou = L10n.tr("Localizable", "Scene.Discovery.Tabs.ForYou")
+        /// Hashtags
+        public static let hashtags = L10n.tr("Localizable", "Scene.Discovery.Tabs.Hashtags")
+        /// News
+        public static let news = L10n.tr("Localizable", "Scene.Discovery.Tabs.News")
+        /// Posts
+        public static let posts = L10n.tr("Localizable", "Scene.Discovery.Tabs.Posts")
+      }
+    }
     public enum Favorite {
       /// Your Favorites
       public static let title = L10n.tr("Localizable", "Scene.Favorite.Title")
@@ -598,6 +620,16 @@ public enum L10n {
       }
     }
     public enum Profile {
+      public enum Accessibility {
+        /// Double tap to open the list
+        public static let doubleTapToOpenTheList = L10n.tr("Localizable", "Scene.Profile.Accessibility.DoubleTapToOpenTheList")
+        /// Edit avatar image
+        public static let editAvatarImage = L10n.tr("Localizable", "Scene.Profile.Accessibility.EditAvatarImage")
+        /// Show avatar image
+        public static let showAvatarImage = L10n.tr("Localizable", "Scene.Profile.Accessibility.ShowAvatarImage")
+        /// Show banner image
+        public static let showBannerImage = L10n.tr("Localizable", "Scene.Profile.Accessibility.ShowBannerImage")
+      }
       public enum Dashboard {
         /// followers
         public static let followers = L10n.tr("Localizable", "Scene.Profile.Dashboard.Followers")
@@ -1014,6 +1046,8 @@ public enum L10n {
           public static let disableAvatarAnimation = L10n.tr("Localizable", "Scene.Settings.Section.Preference.DisableAvatarAnimation")
           /// Disable animated emojis
           public static let disableEmojiAnimation = L10n.tr("Localizable", "Scene.Settings.Section.Preference.DisableEmojiAnimation")
+          /// Open links in Mastodon
+          public static let openLinksInMastodon = L10n.tr("Localizable", "Scene.Settings.Section.Preference.OpenLinksInMastodon")
           /// Preferences
           public static let title = L10n.tr("Localizable", "Scene.Settings.Section.Preference.Title")
           /// True black dark mode
@@ -1184,6 +1218,10 @@ public enum L10n {
       /// Plural format key: "%#@reblog_count@"
       public static func reblog(_ p1: Int) -> String {
         return L10n.tr("Localizable", "plural.count.reblog", p1)
+      }
+      /// Plural format key: "%#@reply_count@"
+      public static func reply(_ p1: Int) -> String {
+        return L10n.tr("Localizable", "plural.count.reply", p1)
       }
       /// Plural format key: "%#@vote_count@"
       public static func vote(_ p1: Int) -> String {

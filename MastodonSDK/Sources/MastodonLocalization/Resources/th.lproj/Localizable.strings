@@ -98,6 +98,10 @@
 "Common.Controls.Status.Actions.Menu" = "เมนู";
 "Common.Controls.Status.Actions.Reblog" = "ดัน";
 "Common.Controls.Status.Actions.Reply" = "ตอบกลับ";
+"Common.Controls.Status.Actions.ShowGif" = "แสดง GIF";
+"Common.Controls.Status.Actions.ShowImage" = "แสดงภาพ";
+"Common.Controls.Status.Actions.ShowVideoPlayer" = "แสดงตัวเล่นวิดีโอ";
+"Common.Controls.Status.Actions.TapThenHoldToShowMenu" = "แตะค้างไว้เพื่อแสดงเมนู";
 "Common.Controls.Status.Actions.Unfavorite" = "เลิกชื่นชอบ";
 "Common.Controls.Status.Actions.Unreblog" = "เลิกทำการดัน";
 "Common.Controls.Status.ContentWarning" = "คำเตือนเนื้อหา";
@@ -112,6 +116,7 @@
 "Common.Controls.Status.Tag.Link" = "ลิงก์";
 "Common.Controls.Status.Tag.Mention" = "กล่าวถึง";
 "Common.Controls.Status.Tag.Url" = "URL";
+"Common.Controls.Status.TapToReveal" = "แตะเพื่อเปิดเผย";
 "Common.Controls.Status.UserReblogged" = "%@ ได้ดัน";
 "Common.Controls.Status.UserRepliedTo" = "ตอบกลับ %@";
 "Common.Controls.Status.Visibility.Direct" = "เฉพาะผู้ใช้ที่กล่าวถึงเท่านั้นที่สามารถเห็นโพสต์นี้";
@@ -195,6 +200,10 @@
 "Scene.ConfirmEmail.OpenEmailApp.Title" = "ตรวจสอบกล่องขาเข้าของคุณ";
 "Scene.ConfirmEmail.Subtitle" = "แตะลิงก์ที่เราส่งอีเมลถึงคุณเพื่อยืนยันบัญชีของคุณ";
 "Scene.ConfirmEmail.Title" = "หนึ่งสิ่งสุดท้าย";
+"Scene.Discovery.Tabs.ForYou" = "สำหรับคุณ";
+"Scene.Discovery.Tabs.Hashtags" = "แฮชแท็ก";
+"Scene.Discovery.Tabs.News" = "ข่าว";
+"Scene.Discovery.Tabs.Posts" = "โพสต์";
 "Scene.Favorite.Title" = "รายการโปรดของคุณ";
 "Scene.Follower.Footer" = "ไม่ได้แสดงผู้ติดตามจากเซิร์ฟเวอร์อื่น ๆ";
 "Scene.Following.Footer" = "ไม่ได้แสดงการติดตามจากเซิร์ฟเวอร์อื่น ๆ";
@@ -216,6 +225,10 @@
 "Scene.Preview.Keyboard.ClosePreview" = "ปิดตัวอย่าง";
 "Scene.Preview.Keyboard.ShowNext" = "แสดงถัดไป";
 "Scene.Preview.Keyboard.ShowPrevious" = "แสดงก่อนหน้า";
+"Scene.Profile.Accessibility.DoubleTapToOpenTheList" = "แตะสองครั้งเพื่อเปิดรายการ";
+"Scene.Profile.Accessibility.EditAvatarImage" = "แก้ไขภาพประจำตัว";
+"Scene.Profile.Accessibility.ShowAvatarImage" = "แสดงภาพประจำตัว";
+"Scene.Profile.Accessibility.ShowBannerImage" = "แสดงภาพแบนเนอร์";
 "Scene.Profile.Dashboard.Followers" = "ผู้ติดตาม";
 "Scene.Profile.Dashboard.Following" = "กำลังติดตาม";
 "Scene.Profile.Dashboard.Posts" = "โพสต์";
@@ -355,6 +368,7 @@
 "Scene.Settings.Section.Notifications.Trigger.Title" = "แจ้งเตือนฉันเมื่อ";
 "Scene.Settings.Section.Preference.DisableAvatarAnimation" = "ปิดใช้งานภาพประจำตัวแบบเคลื่อนไหว";
 "Scene.Settings.Section.Preference.DisableEmojiAnimation" = "ปิดใช้งานอีโมจิแบบเคลื่อนไหว";
+"Scene.Settings.Section.Preference.OpenLinksInMastodon" = "เปิดลิงก์ใน Mastodon";
 "Scene.Settings.Section.Preference.Title" = "การกำหนดลักษณะ";
 "Scene.Settings.Section.Preference.TrueBlackDarkMode" = "โหมดมืดดำสนิท";
 "Scene.Settings.Section.Preference.UsingDefaultBrowser" = "ใช้เบราว์เซอร์เริ่มต้นเพื่อเปิดลิงก์";

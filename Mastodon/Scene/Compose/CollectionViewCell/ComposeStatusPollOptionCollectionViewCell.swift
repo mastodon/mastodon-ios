@@ -10,6 +10,7 @@ import UIKit
 import Combine
 import MastodonAsset
 import MastodonLocalization
+import MastodonUI
 
 protocol ComposeStatusPollOptionCollectionViewCellDelegate: AnyObject {
     func composeStatusPollOptionCollectionViewCell(_ cell: ComposeStatusPollOptionCollectionViewCell, textFieldDidBeginEditing textField: UITextField)

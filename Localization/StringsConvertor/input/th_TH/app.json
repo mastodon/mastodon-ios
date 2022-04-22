@@ -130,6 +130,7 @@
                 "show_user_profile": "แสดงโปรไฟล์ผู้ใช้",
                 "content_warning": "คำเตือนเนื้อหา",
                 "media_content_warning": "แตะที่ใดก็ตามเพื่อเปิดเผย",
+                "tap_to_reveal": "แตะเพื่อเปิดเผย",
                 "poll": {
                     "vote": "ลงคะแนน",
                     "closed": "ปิดแล้ว"
@@ -141,7 +142,11 @@
                     "favorite": "ชื่นชอบ",
                     "unfavorite": "เลิกชื่นชอบ",
                     "menu": "เมนู",
-                    "hide": "ซ่อน"
+                    "hide": "ซ่อน",
+                    "show_image": "แสดงภาพ",
+                    "show_gif": "แสดง GIF",
+                    "show_video_player": "แสดงตัวเล่นวิดีโอ",
+                    "tap_then_hold_to_show_menu": "แตะค้างไว้เพื่อแสดงเมนู"
                 },
                 "tag": {
                     "url": "URL",
@@ -440,6 +445,12 @@
                     "title": "เลิกปิดกั้นบัญชี",
                     "message": "ยืนยันเพื่อเลิกปิดกั้น %s"
                 }
+            },
+            "accessibility": {
+                "show_avatar_image": "แสดงภาพประจำตัว",
+                "edit_avatar_image": "แก้ไขภาพประจำตัว",
+                "show_banner_image": "แสดงภาพแบนเนอร์",
+                "double_tap_to_open_the_list": "แตะสองครั้งเพื่อเปิดรายการ"
             }
         },
         "follower": {
@@ -479,6 +490,14 @@
                 },
                 "recent_search": "การค้นหาล่าสุด",
                 "clear": "ล้าง"
+            }
+        },
+        "discovery": {
+            "tabs": {
+                "posts": "โพสต์",
+                "hashtags": "แฮชแท็ก",
+                "news": "ข่าว",
+                "for_you": "สำหรับคุณ"
             }
         },
         "favorite": {
@@ -541,7 +560,8 @@
                     "true_black_dark_mode": "โหมดมืดดำสนิท",
                     "disable_avatar_animation": "ปิดใช้งานภาพประจำตัวแบบเคลื่อนไหว",
                     "disable_emoji_animation": "ปิดใช้งานอีโมจิแบบเคลื่อนไหว",
-                    "using_default_browser": "ใช้เบราว์เซอร์เริ่มต้นเพื่อเปิดลิงก์"
+                    "using_default_browser": "ใช้เบราว์เซอร์เริ่มต้นเพื่อเปิดลิงก์",
+                    "open_links_in_mastodon": "เปิดลิงก์ใน Mastodon"
                 },
                 "boring_zone": {
                     "title": "โซนน่าเบื่อ",

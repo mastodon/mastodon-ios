@@ -130,6 +130,7 @@
                 "show_user_profile": "Montrer le profil de l’utilisateur·rice",
                 "content_warning": "Avertissement de contenu",
                 "media_content_warning": "Tapotez n’importe où pour révéler la publication",
+                "tap_to_reveal": "Appuyer pour afficher",
                 "poll": {
                     "vote": "Voter",
                     "closed": "Fermé"
@@ -141,7 +142,11 @@
                     "favorite": "Favori",
                     "unfavorite": "Retirer des favoris",
                     "menu": "Menu",
-                    "hide": "Cacher"
+                    "hide": "Cacher",
+                    "show_image": "Afficher l’image",
+                    "show_gif": "Afficher le GIF",
+                    "show_video_player": "Afficher le lecteur vidéo",
+                    "tap_then_hold_to_show_menu": "Tap then hold to show menu"
                 },
                 "tag": {
                     "url": "URL",
@@ -440,6 +445,12 @@
                     "title": "Débloquer le compte",
                     "message": "Confirmer le déblocage de %s"
                 }
+            },
+            "accessibility": {
+                "show_avatar_image": "Afficher l’avatar",
+                "edit_avatar_image": "Modifier l’avatar",
+                "show_banner_image": "Afficher l’image de la bannière",
+                "double_tap_to_open_the_list": "Appuyer deux fois pour ouvrir la liste"
             }
         },
         "follower": {
@@ -479,6 +490,14 @@
                 },
                 "recent_search": "Recherches récentes",
                 "clear": "Effacer"
+            }
+        },
+        "discovery": {
+            "tabs": {
+                "posts": "Messages",
+                "hashtags": "Hashtags",
+                "news": "Actualité",
+                "for_you": "Pour vous"
             }
         },
         "favorite": {
@@ -541,7 +560,8 @@
                     "true_black_dark_mode": "Vrai mode sombre",
                     "disable_avatar_animation": "Désactiver les avatars animés",
                     "disable_emoji_animation": "Désactiver les émojis animées",
-                    "using_default_browser": "Utiliser le navigateur par défaut pour ouvrir les liens"
+                    "using_default_browser": "Utiliser le navigateur par défaut pour ouvrir les liens",
+                    "open_links_in_mastodon": "Ouvrir les liens dans Mastodon"
                 },
                 "boring_zone": {
                     "title": "La zone ennuyante",

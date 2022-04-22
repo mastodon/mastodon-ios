@@ -46,7 +46,7 @@
             },
             "delete_post": {
                 "title": "Вы уверены, что хотите удалить этот пост?",
-                "message": "Are you sure you want to delete this post?"
+                "message": "Вы уверены, что хотите удалить этот пост?"
             },
             "clean_cache": {
                 "title": "Очистка кэша",
@@ -130,6 +130,7 @@
                 "show_user_profile": "Показать профиль пользователя",
                 "content_warning": "Предупреждение о содержании",
                 "media_content_warning": "Нажмите в любом месте, чтобы показать",
+                "tap_to_reveal": "Нажмите, чтобы показать",
                 "poll": {
                     "vote": "Проголосовать",
                     "closed": "Завершён"
@@ -141,7 +142,11 @@
                     "favorite": "Добавить в избранное",
                     "unfavorite": "Убрать из избранного",
                     "menu": "Меню",
-                    "hide": "Hide"
+                    "hide": "Скрыть",
+                    "show_image": "Показать изображение",
+                    "show_gif": "Показать GIF",
+                    "show_video_player": "Показать видеопроигрыватель",
+                    "tap_then_hold_to_show_menu": "Нажмите и удерживайте, чтобы показать меню"
                 },
                 "tag": {
                     "url": "Ссылка",
@@ -170,7 +175,7 @@
                 "unblock_user": "Разблокировать %s",
                 "blocked": "В заблокированных",
                 "mute": "Игнорировать",
-                "mute_user": "Добавить %s в игнорируемые",
+                "mute_user": "Игнорировать %s",
                 "unmute": "Убрать из игнорируемых",
                 "unmute_user": "Убрать %s из игнорируемых",
                 "muted": "В игнорируемых",
@@ -201,7 +206,7 @@
     "scene": {
         "welcome": {
             "slogan": "Социальная сеть\nпод вашим контролем.",
-            "get_started": "Get Started",
+            "get_started": "Присоединиться",
             "log_in": "Вход"
         },
         "server_picker": {
@@ -316,7 +321,7 @@
             "subtitle": "Мы только что отправили письмо на\n%s.\nНажмите на ссылку в нём, чтобы\nподтвердить свою учётную запись.",
             "button": {
                 "open_email_app": "Открыть приложение почты",
-                "resend": "Resend"
+                "resend": "Отправить заново"
             },
             "dont_receive_email": {
                 "title": "Проверьте свой e-mail адрес",
@@ -419,7 +424,7 @@
             "segmented_control": {
                 "posts": "Посты",
                 "replies": "Ответы",
-                "posts_and_replies": "Posts and Replies",
+                "posts_and_replies": "Посты и ответы",
                 "media": "Медиа",
                 "about": "About"
             },
@@ -440,6 +445,12 @@
                     "title": "Unblock Account",
                     "message": "Confirm to unblock %s"
                 }
+            },
+            "accessibility": {
+                "show_avatar_image": "Show avatar image",
+                "edit_avatar_image": "Edit avatar image",
+                "show_banner_image": "Show banner image",
+                "double_tap_to_open_the_list": "Double tap to open the list"
             }
         },
         "follower": {
@@ -479,6 +490,14 @@
                 },
                 "recent_search": "Последние запросы",
                 "clear": "Очистить"
+            }
+        },
+        "discovery": {
+            "tabs": {
+                "posts": "Posts",
+                "hashtags": "Hashtags",
+                "news": "News",
+                "for_you": "For You"
             }
         },
         "favorite": {
@@ -541,7 +560,8 @@
                     "true_black_dark_mode": "Полноценно чёрный режим",
                     "disable_avatar_animation": "Отключить анимацию аватарок",
                     "disable_emoji_animation": "Отключить анимацию эмодзи",
-                    "using_default_browser": "Использовать браузер по умолчанию для открытия ссылок"
+                    "using_default_browser": "Использовать браузер по умолчанию для открытия ссылок",
+                    "open_links_in_mastodon": "Открывать ссылки в Мастодоне"
                 },
                 "boring_zone": {
                     "title": "Зона скукотищи",
@@ -563,7 +583,7 @@
             }
         },
         "report": {
-            "title_report": "Report",
+            "title_report": "Жалоба",
             "title": "Пожаловаться на %s",
             "step1": "Шаг 1 из 2",
             "step2": "Шаг 2 из 2",
@@ -588,7 +608,7 @@
             "add_account": "Add Account"
         },
         "wizard": {
-            "new_in_mastodon": "New in Mastodon",
+            "new_in_mastodon": "Новое в Мастодоне",
             "multiple_account_switch_intro_description": "Switch between multiple accounts by holding the profile button.",
             "accessibility_hint": "Double tap to dismiss this wizard"
         }

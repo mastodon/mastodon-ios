@@ -130,6 +130,7 @@
                 "show_user_profile": "Profîla bikarhêner nîşan bide",
                 "content_warning": "Hişyariya naverokê",
                 "media_content_warning": "Ji bo eşkerekirinê li derekî bitikîne",
+                "tap_to_reveal": "Ji bo dîtinê bitikîne",
                 "poll": {
                     "vote": "Deng bide",
                     "closed": "Girtî"
@@ -141,7 +142,11 @@
                     "favorite": "Bijarte",
                     "unfavorite": "Nebijarte",
                     "menu": "Kulîn",
-                    "hide": "Veşêre"
+                    "hide": "Veşêre",
+                    "show_image": "Wêneyê nîşan bide",
+                    "show_gif": "GIF nîşan bide",
+                    "show_video_player": "Lêdera vîdyoyê nîşan bide",
+                    "tap_then_hold_to_show_menu": "Ji bo nîşandana menuyê dirêj bitikîne"
                 },
                 "tag": {
                     "url": "URL",
@@ -440,6 +445,12 @@
                     "title": "Astengiyê li ser ajimêr rake",
                     "message": "Ji bo rakirina astengkirinê %s bipejirîne"
                 }
+            },
+            "accessibility": {
+                "show_avatar_image": "Wêneya avatar nîşan bide",
+                "edit_avatar_image": "Wêneya avatar serrast bike",
+                "show_banner_image": "Wêneya paşrûyê nîşan bide",
+                "double_tap_to_open_the_list": "Ducaran bitikîne bo vekirina listeyê"
             }
         },
         "follower": {
@@ -479,6 +490,14 @@
                 },
                 "recent_search": "Lêgerînên dawî",
                 "clear": "Pak bike"
+            }
+        },
+        "discovery": {
+            "tabs": {
+                "posts": "Şandî",
+                "hashtags": "Hashtag",
+                "news": "Nûçe",
+                "for_you": "Ji bo te"
             }
         },
         "favorite": {
@@ -541,7 +560,8 @@
                     "true_black_dark_mode": "Moda tarî ya reş a rastîn",
                     "disable_avatar_animation": "Avatarên anîmasyonî neçalak bike",
                     "disable_emoji_animation": "Emojiyên anîmasyonî neçalak bike",
-                    "using_default_browser": "Ji bo vekirina girêdanan geroka berdest bi kar bîne"
+                    "using_default_browser": "Ji bo vekirina girêdanan geroka berdest bi kar bîne",
+                    "open_links_in_mastodon": "Girêdanan di Mastodon de veke"
                 },
                 "boring_zone": {
                     "title": "Devera acizker",

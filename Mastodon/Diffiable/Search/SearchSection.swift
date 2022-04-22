@@ -21,26 +21,7 @@ extension SearchSection {
     ) -> UICollectionViewDiffableDataSource<SearchSection, SearchItem> {
         
         let trendCellRegister = UICollectionView.CellRegistration<TrendCollectionViewCell, Mastodon.Entity.Tag> { cell, indexPath, item in
-            let primaryLabelText = "#" + item.name
-            let secondaryLabelText = L10n.Scene.Search.Recommend.HashTag.peopleTalking(item.talkingPeopleCount ?? 0)
             
-            cell.primaryLabel.text = primaryLabelText
-            cell.secondaryLabel.text = secondaryLabelText
-            
-            cell.lineChartView.data = (item.history ?? [])
-                .sorted(by: { $0.day < $1.day })        // latest last
-                .map { entry in
-                    guard let point = Int(entry.accounts) else {
-                        return .zero
-                    }
-                    return CGFloat(point)
-                }
-            
-            cell.isAccessibilityElement = true
-            cell.accessibilityLabel = [
-                primaryLabelText,
-                secondaryLabelText
-            ].joined(separator: ", ")
         }
         
         let dataSource = UICollectionViewDiffableDataSource<SearchSection, SearchItem>(

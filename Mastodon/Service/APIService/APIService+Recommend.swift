@@ -13,12 +13,13 @@ import CoreDataStack
 import OSLog
 
 extension APIService {
+    
     func suggestionAccount(
         query: Mastodon.API.Suggestions.Query?,
         authenticationBox: MastodonAuthenticationBox
     ) async throws -> Mastodon.Response.Content<[Mastodon.Entity.Account]> {
     
-        let response = try await Mastodon.API.Suggestions.get(
+        let response = try await Mastodon.API.Suggestions.accounts(
             session: session,
             domain: authenticationBox.domain,
             query: query,
@@ -47,7 +48,7 @@ extension APIService {
         query: Mastodon.API.Suggestions.Query?,
         authenticationBox: MastodonAuthenticationBox
     ) async throws -> Mastodon.Response.Content<[Mastodon.Entity.V2.SuggestionAccount]> {
-        let response = try await Mastodon.API.V2.Suggestions.get(
+        let response = try await Mastodon.API.V2.Suggestions.accounts(
             session: session,
             domain: authenticationBox.domain,
             query: query,

@@ -130,6 +130,7 @@
                 "show_user_profile": "Mostrar perfil del usuario",
                 "content_warning": "Advertencia de Contenido",
                 "media_content_warning": "Pulsa en cualquier sitio para mostrar",
+                "tap_to_reveal": "Tap to reveal",
                 "poll": {
                     "vote": "Vota",
                     "closed": "Cerrado"
@@ -141,7 +142,11 @@
                     "favorite": "Favorito",
                     "unfavorite": "No favorito",
                     "menu": "Menú",
-                    "hide": "Ocultar"
+                    "hide": "Ocultar",
+                    "show_image": "Show image",
+                    "show_gif": "Show GIF",
+                    "show_video_player": "Show video player",
+                    "tap_then_hold_to_show_menu": "Tap then hold to show menu"
                 },
                 "tag": {
                     "url": "URL",
@@ -440,6 +445,12 @@
                     "title": "Desbloquear cuenta",
                     "message": "Confirmar para desbloquear a %s"
                 }
+            },
+            "accessibility": {
+                "show_avatar_image": "Show avatar image",
+                "edit_avatar_image": "Edit avatar image",
+                "show_banner_image": "Show banner image",
+                "double_tap_to_open_the_list": "Double tap to open the list"
             }
         },
         "follower": {
@@ -479,6 +490,14 @@
                 },
                 "recent_search": "Búsquedas recientes",
                 "clear": "Borrar"
+            }
+        },
+        "discovery": {
+            "tabs": {
+                "posts": "Posts",
+                "hashtags": "Hashtags",
+                "news": "News",
+                "for_you": "For You"
             }
         },
         "favorite": {
@@ -541,7 +560,8 @@
                     "true_black_dark_mode": "Modo oscuro negro real",
                     "disable_avatar_animation": "Deshabilitar avatares animados",
                     "disable_emoji_animation": "Deshabilitar emojis animados",
-                    "using_default_browser": "Usar navegador predeterminado para abrir los enlaces"
+                    "using_default_browser": "Usar navegador predeterminado para abrir los enlaces",
+                    "open_links_in_mastodon": "Open links in Mastodon"
                 },
                 "boring_zone": {
                     "title": "La Zona Aburrida",

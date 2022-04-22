@@ -98,6 +98,10 @@
 "Common.Controls.Status.Actions.Menu" = "メニュー";
 "Common.Controls.Status.Actions.Reblog" = "ブースト";
 "Common.Controls.Status.Actions.Reply" = "リプライ";
+"Common.Controls.Status.Actions.ShowGif" = "Show GIF";
+"Common.Controls.Status.Actions.ShowImage" = "Show image";
+"Common.Controls.Status.Actions.ShowVideoPlayer" = "Show video player";
+"Common.Controls.Status.Actions.TapThenHoldToShowMenu" = "Tap then hold to show menu";
 "Common.Controls.Status.Actions.Unfavorite" = "お気に入り登録を取り消す";
 "Common.Controls.Status.Actions.Unreblog" = "ブーストを戻す";
 "Common.Controls.Status.ContentWarning" = "コンテンツ警告";
@@ -112,6 +116,7 @@
 "Common.Controls.Status.Tag.Link" = "リンク";
 "Common.Controls.Status.Tag.Mention" = "メンション";
 "Common.Controls.Status.Tag.Url" = "URL";
+"Common.Controls.Status.TapToReveal" = "Tap to reveal";
 "Common.Controls.Status.UserReblogged" = "%@がブースト";
 "Common.Controls.Status.UserRepliedTo" = "%@がリプライ";
 "Common.Controls.Status.Visibility.Direct" = "この投稿はメンションされたユーザーに限り見ることができます。";
@@ -190,6 +195,10 @@
 "Scene.ConfirmEmail.OpenEmailApp.Title" = "メールを確認";
 "Scene.ConfirmEmail.Subtitle" = "先程 %@ にメールを送信しました。リンクをタップしてアカウントを確認してください。";
 "Scene.ConfirmEmail.Title" = "さいごにもうひとつ。";
+"Scene.Discovery.Tabs.ForYou" = "For You";
+"Scene.Discovery.Tabs.Hashtags" = "Hashtags";
+"Scene.Discovery.Tabs.News" = "News";
+"Scene.Discovery.Tabs.Posts" = "Posts";
 "Scene.Favorite.Title" = "お気に入り";
 "Scene.Follower.Footer" = "他のサーバーからのフォロワーは表示されません。";
 "Scene.Following.Footer" = "他のサーバーにいるフォローは表示されません。";
@@ -211,6 +220,10 @@
 "Scene.Preview.Keyboard.ClosePreview" = "プレビューを閉じる";
 "Scene.Preview.Keyboard.ShowNext" = "次を見る";
 "Scene.Preview.Keyboard.ShowPrevious" = "前を見る";
+"Scene.Profile.Accessibility.DoubleTapToOpenTheList" = "Double tap to open the list";
+"Scene.Profile.Accessibility.EditAvatarImage" = "Edit avatar image";
+"Scene.Profile.Accessibility.ShowAvatarImage" = "Show avatar image";
+"Scene.Profile.Accessibility.ShowBannerImage" = "Show banner image";
 "Scene.Profile.Dashboard.Followers" = "フォロワー";
 "Scene.Profile.Dashboard.Following" = "フォロー";
 "Scene.Profile.Dashboard.Posts" = "投稿";
@@ -350,6 +363,7 @@
 "Scene.Settings.Section.Notifications.Trigger.Title" = "通知を受け取る";
 "Scene.Settings.Section.Preference.DisableAvatarAnimation" = "アバターのアニメーションを無効化する";
 "Scene.Settings.Section.Preference.DisableEmojiAnimation" = "絵文字のアニメーションを無効化する";
+"Scene.Settings.Section.Preference.OpenLinksInMastodon" = "Open links in Mastodon";
 "Scene.Settings.Section.Preference.Title" = "環境設定";
 "Scene.Settings.Section.Preference.TrueBlackDarkMode" = "真っ黒なダークテーマを使用する";
 "Scene.Settings.Section.Preference.UsingDefaultBrowser" = "既定のブラウザでリンクを開く";

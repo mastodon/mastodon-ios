@@ -14,6 +14,7 @@ import MastodonSDK
 import MastodonAsset
 import MastodonLocalization
 import MastodonExtension
+import MastodonCommon
 import CoreDataStack
 
 extension StatusView {
@@ -73,11 +74,9 @@ extension StatusView {
         
         // Sensitive
         @Published public var isContentSensitive: Bool = false
-        @Published public var isContentSensitiveToggled: Bool = false
         @Published public var isMediaSensitive: Bool = false
-        @Published public var isMediaSensitiveToggled: Bool = false
-
-        @Published public var isSensitive: Bool = false         // isContentSensitive || isMediaSensitive
+        @Published public var isSensitiveToggled = false
+        
         @Published public var isContentReveal: Bool = true
         @Published public var isMediaReveal: Bool = true
         
@@ -129,9 +128,8 @@ extension StatusView {
             authorAvatarImageURL = nil
             
             isContentSensitive = false
-            isContentSensitiveToggled = false
             isMediaSensitive = false
-            isMediaSensitiveToggled = false
+            isSensitiveToggled = false
             
             activeFilters = []
             filterContext = nil
@@ -160,28 +158,18 @@ extension StatusView {
             $spoilerContent
                 .map { $0 != nil }
                 .assign(to: &$isContentSensitive)
-            // isSensitive
-            Publishers.CombineLatest(
+            // isReveal
+            Publishers.CombineLatest3(
                 $isContentSensitive,
-                $isMediaSensitive
-            )
-            .map { $0 || $1 }
-            .assign(to: &$isSensitive)
-            // $isContentReveal
-            Publishers.CombineLatest(
-                $isContentSensitive,
-                $isContentSensitiveToggled
-            )
-            .map { $0 ? $1 : true }
-            .assign(to: &$isContentReveal)
-            // $isMediaReveal
-            Publishers.CombineLatest(
                 $isMediaSensitive,
-                $isMediaSensitiveToggled
+                $isSensitiveToggled
             )
-            .map { $1 ? !$0 : $0 }
-            .map { !$0 }
-            .assign(to: &$isMediaReveal)
+            .sink { [weak self] isContentSensitive, isMediaSensitive, isSensitiveToggled in
+                guard let self = self else { return }
+                self.isContentReveal = isContentSensitive ? isSensitiveToggled : true
+                self.isMediaReveal = isMediaSensitive ? isSensitiveToggled : true
+            }
+            .store(in: &disposeBag)
         }
     }
 }
@@ -321,43 +309,26 @@ extension StatusView.ViewModel {
             
             statusView.setSpoilerOverlayViewHidden(isHidden: isContentReveal)
             
-            let image = isContentReveal ? UIImage(systemName: "eye.slash.fill") : UIImage(systemName: "eye.fill")
-            statusView.contentSensitiveeToggleButton.setImage(image, for: .normal)
-            
             self.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): isContentReveal: \(isContentReveal)")
         }
         .store(in: &disposeBag)
 
-        $isSensitive
+        $isMediaSensitive
             .sink { isSensitive in
                 guard isSensitive else { return }
                 statusView.setContentSensitiveeToggleButtonDisplay()
             }
             .store(in: &disposeBag)
         
-//        // visibility
-//        Publishers.CombineLatest(
-//            $visibility,
-//            $isMyself
-//        )
-//        .sink { visibility, isMyself in
-//            switch visibility {
-//            case .public:
-//                break
-//            case .unlisted:
-//                statusView.statusVisibilityView.label.text = "Everyone can see this post but not display in the public timeline."
-//                statusView.setVisibilityDisplay()
-//            case .private:
-//                statusView.statusVisibilityView.label.text = isMyself ? "Only my followers can see this post." : "Only their followers can see this post."
-//                statusView.setVisibilityDisplay()
-//            case .direct:
-//                statusView.statusVisibilityView.label.text = "Only mentioned user can see this post."
-//                statusView.setVisibilityDisplay()
-//            case ._other:
-//                break
-//            }
-//        }
-//        .store(in: &disposeBag)
+        $isSensitiveToggled
+            .sink { isSensitiveToggled in
+                // The button indicator go-to state for button action direction
+                // eye: when media is hidden
+                // eye-slash: when media display
+                let image = isSensitiveToggled ? UIImage(systemName: "eye.slash.fill") : UIImage(systemName: "eye.fill")
+                statusView.contentSensitiveeToggleButton.setImage(image, for: .normal)
+            }
+            .store(in: &disposeBag)
     }
     
     private func bindMedia(statusView: StatusView) {
@@ -414,6 +385,7 @@ extension StatusView.ViewModel {
         
         $isMediaReveal
             .sink { isMediaReveal in
+                statusView.mediaGridContainerView.contentWarningOverlay.isHidden = isMediaReveal
                 statusView.mediaGridContainerView.viewModel.isSensitiveToggleButtonDisplay = isMediaReveal
             }
             .store(in: &disposeBag)

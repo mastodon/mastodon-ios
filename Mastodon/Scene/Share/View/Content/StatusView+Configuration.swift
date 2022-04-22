@@ -156,7 +156,6 @@ extension StatusView {
         .map { _ in author.avatarImageURL() }
         .assign(to: \.authorAvatarImageURL, on: viewModel)
         .store(in: &disposeBag)
-        
         // author name
         Publishers.CombineLatest(
             author.publisher(for: \.displayName),
@@ -268,25 +267,19 @@ extension StatusView {
             .assign(to: \.visibility, on: viewModel)
             .store(in: &disposeBag)
         // sensitive
-        status.publisher(for: \.isContentSensitiveToggled)
-            .assign(to: \.isContentSensitiveToggled, on: viewModel)
+        viewModel.isContentSensitive = status.isContentSensitive
+        status.publisher(for: \.isSensitiveToggled)
+            .assign(to: \.isSensitiveToggled, on: viewModel)
             .store(in: &disposeBag)
-
-        
-//        viewModel.source = status.source
     }
     
     private func configureMedia(status: Status) {
         let status = status.reblog ?? status
         
-        viewModel.isMediaSensitive = status.sensitive && !status.attachments.isEmpty        // some servers set media sensitive even empty attachments
+        viewModel.isMediaSensitive = status.isMediaSensitive
         
         let configurations = MediaView.configuration(status: status)
         viewModel.mediaViewConfigurations = configurations
-        
-        status.publisher(for: \.isMediaSensitiveToggled)
-            .assign(to: \.isMediaSensitiveToggled, on: viewModel)
-            .store(in: &disposeBag)
     }
 
     private func configurePoll(status: Status) {

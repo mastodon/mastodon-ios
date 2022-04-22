@@ -12,6 +12,14 @@ import Pageboy
 import MastodonAsset
 import MastodonLocalization
 
+final class CustomSearchController: UISearchController {
+    
+    let customSearchBar = UISearchBar(frame: CGRect(x: 0, y: 0, width: 300, height: 100))
+    
+    override var searchBar: UISearchBar { customSearchBar }
+    
+}
+
 // Fake search bar not works on iPad with UISplitViewController
 // check device and fallback to standard UISearchController
 final class SearchDetailViewController: PageboyViewController, NeedsDependency {
@@ -48,8 +56,8 @@ final class SearchDetailViewController: PageboyViewController, NeedsDependency {
         return navigationBar
     }()
     
-    let searchController: UISearchController = {
-        let searchController = UISearchController()
+    let searchController: CustomSearchController = {
+        let searchController = CustomSearchController()
         searchController.automaticallyShowsScopeBar = false
         searchController.dimsBackgroundDuringPresentation = false
         return searchController
@@ -235,11 +243,17 @@ extension SearchDetailViewController {
 
         if isPhoneDevice {
             searchBar.setShowsCancelButton(true, animated: animated)
-            searchBar.becomeFirstResponder()
+            UIView.performWithoutAnimation {
+                self.searchBar.becomeFirstResponder()
+            }
         } else {
-            searchController.isActive = true
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.33) {
-                self.searchController.searchBar.becomeFirstResponder()                
+            searchController.searchBar.setShowsCancelButton(true, animated: false)
+            searchController.searchBar.setShowsScope(true, animated: false)
+            UIView.performWithoutAnimation {
+                self.searchController.isActive = true
+            }
+            DispatchQueue.main.async {
+                self.searchController.searchBar.becomeFirstResponder()
             }
         }
     }

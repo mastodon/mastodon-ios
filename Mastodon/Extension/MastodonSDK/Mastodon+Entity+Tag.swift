@@ -17,14 +17,3 @@ extension Mastodon.Entity.Tag: Hashable {
     }
 }
 
-extension Mastodon.Entity.Tag {
-    
-    /// the sum of recent 2 days
-    public var talkingPeopleCount: Int? {
-        return history?
-            .prefix(2)
-            .compactMap { Int($0.accounts) }
-            .reduce(0, +)
-    }
-    
-}

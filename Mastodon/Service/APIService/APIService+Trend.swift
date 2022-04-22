@@ -9,11 +9,12 @@ import Foundation
 import MastodonSDK
 
 extension APIService {
-    func trends(
+    
+    func trendHashtags(
         domain: String,
-        query: Mastodon.API.Trends.Query?
+        query: Mastodon.API.Trends.HashtagQuery?
     ) async throws -> Mastodon.Response.Content<[Mastodon.Entity.Tag]> {
-        let response = try await Mastodon.API.Trends.get(
+        let response = try await Mastodon.API.Trends.hashtags(
             session: session,
             domain: domain,
             query: query
@@ -21,4 +22,48 @@ extension APIService {
         
         return response
     }
+    
+    func trendStatuses(
+        domain: String,
+        query: Mastodon.API.Trends.StatusQuery
+    ) async throws -> Mastodon.Response.Content<[Mastodon.Entity.Status]> {
+        let response = try await Mastodon.API.Trends.statuses(
+            session: session,
+            domain: domain,
+            query: query
+        ).singleOutput()
+        
+        let managedObjectContext = backgroundManagedObjectContext
+        try await managedObjectContext.performChanges {
+            for entity in response.value {
+                _ = Persistence.Status.createOrMerge(
+                    in: managedObjectContext,
+                    context: Persistence.Status.PersistContext(
+                        domain: domain,
+                        entity: entity,
+                        me: nil,
+                        statusCache: nil,
+                        userCache: nil,
+                        networkDate: response.networkDate
+                    )
+                )
+            }   // end for … in
+        }
+        
+        return response
+    }
+    
+    func trendLinks(
+        domain: String,
+        query: Mastodon.API.Trends.LinkQuery
+    ) async throws -> Mastodon.Response.Content<[Mastodon.Entity.Link]> {
+        let response = try await Mastodon.API.Trends.links(
+            session: session,
+            domain: domain,
+            query: query
+        ).singleOutput()
+        
+        return response
+    }
+    
 }
