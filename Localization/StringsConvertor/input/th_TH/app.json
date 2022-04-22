@@ -129,6 +129,7 @@
                 "show_post": "แสดงโพสต์",
                 "show_user_profile": "แสดงโปรไฟล์ผู้ใช้",
                 "content_warning": "คำเตือนเนื้อหา",
+                "sensitive_content": "Sensitive Content",
                 "media_content_warning": "แตะที่ใดก็ตามเพื่อเปิดเผย",
                 "tap_to_reveal": "แตะเพื่อเปิดเผย",
                 "poll": {
@@ -498,7 +499,8 @@
                 "hashtags": "แฮชแท็ก",
                 "news": "ข่าว",
                 "for_you": "สำหรับคุณ"
-            }
+            },
+            "intro": "These are the posts gaining traction in your corner of Mastodon."
         },
         "favorite": {
             "title": "รายการโปรดของคุณ"
