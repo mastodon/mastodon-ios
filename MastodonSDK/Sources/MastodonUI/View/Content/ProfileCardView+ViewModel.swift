@@ -42,6 +42,8 @@ extension ProfileCardView {
         @Published public var isBlocking = false
         @Published public var isBlockedBy = false
         
+        @Published public var groupedAccessibilityLabel = ""
+        
         init() {
             backgroundColor = ThemeService.shared.currentTheme.value.systemBackgroundColor
             Publishers.CombineLatest(
@@ -75,6 +77,7 @@ extension ProfileCardView.ViewModel {
         bindBio(view: view)
         bindRelationship(view: view)
         bindDashboard(view: view)
+        bindAccessibility(view: view)
     }
     
     private func bindAppearacne(view: ProfileCardView) {
@@ -182,6 +185,29 @@ extension ProfileCardView.ViewModel {
                 view.statusDashboardView.followersDashboardMeterView.numberLabel.text = text
                 view.statusDashboardView.followersDashboardMeterView.isAccessibilityElement = true
                 view.statusDashboardView.followersDashboardMeterView.accessibilityLabel = L10n.Plural.Count.follower(count ?? 0)
+            }
+            .store(in: &disposeBag)
+    }
+    
+    private func bindAccessibility(view: ProfileCardView) {
+        let authorAccessibilityLabel = Publishers.CombineLatest(
+            $authorName,
+            $bioContent
+        )
+        .map { authorName, bioContent -> String? in
+            var strings: [String?] = []
+            strings.append(authorName?.string)
+            strings.append(bioContent?.string)
+            return strings.compactMap { $0 }.joined(separator: ", ")
+        }
+        
+        authorAccessibilityLabel
+            .map { $0 ?? "" }
+            .assign(to: &$groupedAccessibilityLabel)
+        
+        $groupedAccessibilityLabel
+            .sink { accessibilityLabel in
+                view.accessibilityLabel = accessibilityLabel
             }
             .store(in: &disposeBag)
     }

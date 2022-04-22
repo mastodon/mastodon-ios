@@ -55,7 +55,7 @@ extension ProfileStatusDashboardView {
             containerStackView.heightAnchor.constraint(equalToConstant: 44).priority(.defaultHigh),
         ])
         
-        let spacing: CGFloat = UIView.isZoomedMode ? 4 : 16
+        let spacing: CGFloat = UIView.isZoomedMode ? 4 : 12
         containerStackView.spacing = spacing
         containerStackView.axis = .horizontal
         containerStackView.distribution = .fillEqually
@@ -75,9 +75,9 @@ extension ProfileStatusDashboardView {
             tapGestureRecognizer.addTarget(self, action: #selector(ProfileStatusDashboardView.tapGestureRecognizerHandler(_:)))
             meterView.addGestureRecognizer(tapGestureRecognizer)
         }
-        
-        followingDashboardMeterView.accessibilityHint = "Double tap to open the list"   // TODO: i18n
-        followersDashboardMeterView.accessibilityHint = "Double tap to open the list"
+
+        followingDashboardMeterView.accessibilityHint = L10n.Scene.Profile.Accessibility.doubleTapToOpenTheList
+        followersDashboardMeterView.accessibilityHint = L10n.Scene.Profile.Accessibility.doubleTapToOpenTheList
     }
 }
 

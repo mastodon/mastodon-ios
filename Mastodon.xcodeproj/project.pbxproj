@@ -115,9 +115,7 @@
 		DB0009A626AEE5DC009B9D2D /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = DB0009A926AEE5DC009B9D2D /* Intents.intentdefinition */; settings = {ATTRIBUTES = (no_codegen, ); }; };
 		DB0009A726AEE5DC009B9D2D /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = DB0009A926AEE5DC009B9D2D /* Intents.intentdefinition */; };
 		DB00CA972632DDB600A54956 /* CommonOSLog in Frameworks */ = {isa = PBXBuildFile; productRef = DB00CA962632DDB600A54956 /* CommonOSLog */; };
-		DB0140BD25C40D7500F9F3CF /* CommonOSLog in Frameworks */ = {isa = PBXBuildFile; productRef = DB0140BC25C40D7500F9F3CF /* CommonOSLog */; };
 		DB0140CF25C42AEE00F9F3CF /* OSLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0140CE25C42AEE00F9F3CF /* OSLog.swift */; };
-		DB01E23326A98F0900C3965B /* MastodonMeta in Frameworks */ = {isa = PBXBuildFile; productRef = DB01E23226A98F0900C3965B /* MastodonMeta */; };
 		DB01E23526A98F0900C3965B /* MetaTextKit in Frameworks */ = {isa = PBXBuildFile; productRef = DB01E23426A98F0900C3965B /* MetaTextKit */; };
 		DB023D26279FFB0A005AC798 /* ShareActivityProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB023D25279FFB0A005AC798 /* ShareActivityProvider.swift */; };
 		DB023D2827A0FABD005AC798 /* NotificationTableViewCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB023D2727A0FABD005AC798 /* NotificationTableViewCellDelegate.swift */; };
@@ -130,6 +128,8 @@
 		DB029E95266A20430062874E /* MastodonAuthenticationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB029E94266A20430062874E /* MastodonAuthenticationController.swift */; };
 		DB02CDAB26256A9500D0A2AF /* ThreadReplyLoaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB02CDAA26256A9500D0A2AF /* ThreadReplyLoaderTableViewCell.swift */; };
 		DB02CDBF2625AE5000D0A2AF /* AdaptiveUserInterfaceStyleBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB02CDBE2625AE5000D0A2AF /* AdaptiveUserInterfaceStyleBarButtonItem.swift */; };
+		DB02EA0B280D180D00E751C5 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = DB02EA0A280D180D00E751C5 /* KeychainAccess */; };
+		DB02EA0D280D184B00E751C5 /* CommonOSLog in Frameworks */ = {isa = PBXBuildFile; productRef = DB02EA0C280D184B00E751C5 /* CommonOSLog */; };
 		DB03A793272A7E5700EE37C5 /* SidebarListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB03A792272A7E5700EE37C5 /* SidebarListHeaderView.swift */; };
 		DB03A795272A981400EE37C5 /* ContentSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB03A794272A981400EE37C5 /* ContentSplitViewController.swift */; };
 		DB03F7F32689AEA3007B274C /* ComposeRepliedToStatusContentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB03F7F22689AEA3007B274C /* ComposeRepliedToStatusContentTableViewCell.swift */; };
@@ -148,6 +148,7 @@
 		DB0618072785A8880030EE79 /* MastodonRegisterViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0618062785A8880030EE79 /* MastodonRegisterViewModel+Diffable.swift */; };
 		DB06180A2785B2AB0030EE79 /* MastodonRegisterAvatarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0618092785B2AB0030EE79 /* MastodonRegisterAvatarTableViewCell.swift */; };
 		DB084B5725CBC56C00F898ED /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB084B5625CBC56C00F898ED /* Status.swift */; };
+		DB0A322E280EE9FD001729D2 /* DiscoveryIntroBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0A322D280EE9FD001729D2 /* DiscoveryIntroBannerView.swift */; };
 		DB0AC6FC25CD02E600D75117 /* APIService+Instance.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0AC6FB25CD02E600D75117 /* APIService+Instance.swift */; };
 		DB0C946526A6FD4D0088FB11 /* AlamofireImage in Frameworks */ = {isa = PBXBuildFile; productRef = DB0C946426A6FD4D0088FB11 /* AlamofireImage */; };
 		DB0C947726A7FE840088FB11 /* NotificationAvatarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0C947626A7FE840088FB11 /* NotificationAvatarButton.swift */; };
@@ -347,7 +348,6 @@
 		DB6804872637CD4C00430867 /* AppShared.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DB68047F2637CD4C00430867 /* AppShared.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DB6804D12637CE4700430867 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6804D02637CE4700430867 /* UserDefaults.swift */; };
 		DB6804FD2637CFEC00430867 /* AppSecret.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6804FC2637CFEC00430867 /* AppSecret.swift */; };
-		DB6805102637D0F800430867 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = DB68050F2637D0F800430867 /* KeychainAccess */; };
 		DB68586425E619B700F0A850 /* NSKeyValueObservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB68586325E619B700F0A850 /* NSKeyValueObservation.swift */; };
 		DB68A04A25E9027700CFDF14 /* AdaptiveStatusBarStyleNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB68A04925E9027700CFDF14 /* AdaptiveStatusBarStyleNavigationController.swift */; };
 		DB68A05D25E9055900CFDF14 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = DB68A05C25E9055900CFDF14 /* Settings.bundle */; };
@@ -871,6 +871,7 @@
 		DB0618062785A8880030EE79 /* MastodonRegisterViewModel+Diffable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MastodonRegisterViewModel+Diffable.swift"; sourceTree = "<group>"; };
 		DB0618092785B2AB0030EE79 /* MastodonRegisterAvatarTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonRegisterAvatarTableViewCell.swift; sourceTree = "<group>"; };
 		DB084B5625CBC56C00F898ED /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
+		DB0A322D280EE9FD001729D2 /* DiscoveryIntroBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryIntroBannerView.swift; sourceTree = "<group>"; };
 		DB0AC6FB25CD02E600D75117 /* APIService+Instance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Instance.swift"; sourceTree = "<group>"; };
 		DB0C947626A7FE840088FB11 /* NotificationAvatarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationAvatarButton.swift; sourceTree = "<group>"; };
 		DB0EF72A26FDB1D200347686 /* SidebarListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarListCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -1372,7 +1373,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DB0140BD25C40D7500F9F3CF /* CommonOSLog in Frameworks */,
 				DB9A487E2603456B008B817C /* UITextView+Placeholder in Frameworks */,
 				2D939AC825EE14620076FA61 /* CropViewController in Frameworks */,
 				DBB525082611EAC0002F1F29 /* Tabman in Frameworks */,
@@ -1382,10 +1382,10 @@
 				DBAC6483267D0B21007FE9FD /* DifferenceKit in Frameworks */,
 				DB552D4F26BBD10C00E481F6 /* OrderedCollections in Frameworks */,
 				2D61336925C18A4F00CAE157 /* AlamofireNetworkActivityIndicator in Frameworks */,
-				DB01E23326A98F0900C3965B /* MastodonMeta in Frameworks */,
 				DBAC64A1267E6D02007FE9FD /* Fuzi in Frameworks */,
 				DB3D0FF325BAA61700EAA174 /* AlamofireImage in Frameworks */,
 				DBAC649E267DFE43007FE9FD /* DiffableDataSources in Frameworks */,
+				DB02EA0D280D184B00E751C5 /* CommonOSLog in Frameworks */,
 				2D5981BA25E4D7F8000FB903 /* ThirdPartyMailer in Frameworks */,
 				87FFDA5D898A5C42ADCB35E7 /* Pods_Mastodon.framework in Frameworks */,
 				DBF7A0FC26830C33004176A2 /* FPSIndicator in Frameworks */,
@@ -1415,7 +1415,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DB6805102637D0F800430867 /* KeychainAccess in Frameworks */,
+				DB02EA0B280D180D00E751C5 /* KeychainAccess in Frameworks */,
 				EE93E8E8F9E0C39EAAEBD92F /* Pods_AppShared.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2023,6 +2023,14 @@
 				DB73BF46271199CA00781945 /* Instance.swift */,
 			);
 			path = CoreDataStack;
+			sourceTree = "<group>";
+		};
+		DB0A322F280EEA00001729D2 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				DB0A322D280EE9FD001729D2 /* DiscoveryIntroBannerView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		DB0C947826A7FE950088FB11 /* Button */ = {
@@ -3110,6 +3118,7 @@
 		DBDFF1912805544800557A48 /* Discovery */ = {
 			isa = PBXGroup;
 			children = (
+				DB0A322F280EEA00001729D2 /* View */,
 				DBDFF19828055A0900557A48 /* Posts */,
 				DB3E6FDE2806A41200B035AE /* Hashtags */,
 				DB3E6FED2806D7FC00B035AE /* News */,
@@ -3303,7 +3312,6 @@
 				DB3D0FF225BAA61700EAA174 /* AlamofireImage */,
 				5D526FE125BE9AC400460CB9 /* MastodonSDK */,
 				2D61336825C18A4F00CAE157 /* AlamofireNetworkActivityIndicator */,
-				DB0140BC25C40D7500F9F3CF /* CommonOSLog */,
 				2D5981B925E4D7F8000FB903 /* ThirdPartyMailer */,
 				2D939AC725EE14620076FA61 /* CropViewController */,
 				DB9A487D2603456B008B817C /* UITextView+Placeholder */,
@@ -3312,10 +3320,10 @@
 				DBAC649D267DFE43007FE9FD /* DiffableDataSources */,
 				DBAC64A0267E6D02007FE9FD /* Fuzi */,
 				DBF7A0FB26830C33004176A2 /* FPSIndicator */,
-				DB01E23226A98F0900C3965B /* MastodonMeta */,
 				DB01E23426A98F0900C3965B /* MetaTextKit */,
 				DB552D4E26BBD10C00E481F6 /* OrderedCollections */,
 				DBA5A52E26F07ED800CACBAA /* PanModal */,
+				DB02EA0C280D184B00E751C5 /* CommonOSLog */,
 			);
 			productName = Mastodon;
 			productReference = DB427DD225BAA00100D1B89D /* Mastodon.app */;
@@ -3376,7 +3384,7 @@
 			);
 			name = AppShared;
 			packageProductDependencies = (
-				DB68050F2637D0F800430867 /* KeychainAccess */,
+				DB02EA0A280D180D00E751C5 /* KeychainAccess */,
 			);
 			productName = AppShared;
 			productReference = DB68047F2637CD4C00430867 /* AppShared.framework */;
@@ -4088,6 +4096,7 @@
 				DB8AF55D25C138B7002E6C99 /* UIViewController.swift in Sources */,
 				DB7F48452620241000796008 /* ProfileHeaderViewModel.swift in Sources */,
 				DB647C5926F1EA2700F7F82C /* WizardPreference.swift in Sources */,
+				DB0A322E280EE9FD001729D2 /* DiscoveryIntroBannerView.swift in Sources */,
 				2D3F9E0425DFA133004262D9 /* UITapGestureRecognizer.swift in Sources */,
 				5DDDF1992617447F00311060 /* Mastodon+Entity+Tag.swift in Sources */,
 				5B90C45F262599800002E742 /* SettingsToggleTableViewCell.swift in Sources */,
@@ -4728,7 +4737,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Mastodon/Mastodon.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 110;
+				CURRENT_PROJECT_VERSION = 113;
 				DEVELOPMENT_ASSET_PATHS = "Mastodon/Resources/Preview\\ Assets.xcassets";
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = Mastodon/Info.plist;
@@ -4757,7 +4766,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Mastodon/Mastodon.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 110;
+				CURRENT_PROJECT_VERSION = 113;
 				DEVELOPMENT_ASSET_PATHS = "Mastodon/Resources/Preview\\ Assets.xcassets";
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = Mastodon/Info.plist;
@@ -4865,11 +4874,11 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 110;
+				CURRENT_PROJECT_VERSION = 113;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 110;
+				DYLIB_CURRENT_VERSION = 113;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = AppShared/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -4896,11 +4905,11 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 110;
+				CURRENT_PROJECT_VERSION = 113;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 110;
+				DYLIB_CURRENT_VERSION = 113;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = AppShared/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -4925,7 +4934,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = MastodonIntent/MastodonIntent.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 110;
+				CURRENT_PROJECT_VERSION = 113;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = MastodonIntent/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -4950,7 +4959,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = MastodonIntent/MastodonIntent.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 110;
+				CURRENT_PROJECT_VERSION = 113;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = MastodonIntent/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -4975,7 +4984,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = ShareActionExtension/ShareActionExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 110;
+				CURRENT_PROJECT_VERSION = 113;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = ShareActionExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -5000,7 +5009,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = ShareActionExtension/ShareActionExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 110;
+				CURRENT_PROJECT_VERSION = 113;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = ShareActionExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -5086,7 +5095,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Mastodon/Mastodon.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 110;
+				CURRENT_PROJECT_VERSION = 113;
 				DEVELOPMENT_ASSET_PATHS = "Mastodon/Resources/Preview\\ Assets.xcassets";
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = Mastodon/Info.plist;
@@ -5153,11 +5162,11 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 110;
+				CURRENT_PROJECT_VERSION = 113;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 110;
+				DYLIB_CURRENT_VERSION = 113;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = AppShared/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -5182,7 +5191,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = NotificationService/NotificationService.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 110;
+				CURRENT_PROJECT_VERSION = 113;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = NotificationService/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -5206,7 +5215,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = ShareActionExtension/ShareActionExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 110;
+				CURRENT_PROJECT_VERSION = 113;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = ShareActionExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -5231,7 +5240,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = MastodonIntent/MastodonIntent.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 110;
+				CURRENT_PROJECT_VERSION = 113;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = MastodonIntent/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -5256,7 +5265,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = NotificationService/NotificationService.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 110;
+				CURRENT_PROJECT_VERSION = 113;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = NotificationService/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -5280,7 +5289,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = NotificationService/NotificationService.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 110;
+				CURRENT_PROJECT_VERSION = 113;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = NotificationService/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -5421,7 +5430,7 @@
 			repositoryURL = "https://github.com/TwidereProject/MetaTextKit.git";
 			requirement = {
 				kind = exactVersion;
-				version = 2.2.1;
+				version = 2.2.2;
 			};
 		};
 		DB0E2D2C26833FF600865C3C /* XCRemoteSwiftPackageReference "Nuke-FLAnimatedImage-Plugin" */ = {
@@ -5539,20 +5548,20 @@
 			package = DB0140BB25C40D7500F9F3CF /* XCRemoteSwiftPackageReference "CommonOSLog" */;
 			productName = CommonOSLog;
 		};
-		DB0140BC25C40D7500F9F3CF /* CommonOSLog */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DB0140BB25C40D7500F9F3CF /* XCRemoteSwiftPackageReference "CommonOSLog" */;
-			productName = CommonOSLog;
-		};
-		DB01E23226A98F0900C3965B /* MastodonMeta */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DB01E23126A98F0900C3965B /* XCRemoteSwiftPackageReference "MetaTextKit" */;
-			productName = MastodonMeta;
-		};
 		DB01E23426A98F0900C3965B /* MetaTextKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = DB01E23126A98F0900C3965B /* XCRemoteSwiftPackageReference "MetaTextKit" */;
 			productName = MetaTextKit;
+		};
+		DB02EA0A280D180D00E751C5 /* KeychainAccess */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DB6804722637CC1200430867 /* XCRemoteSwiftPackageReference "KeychainAccess" */;
+			productName = KeychainAccess;
+		};
+		DB02EA0C280D184B00E751C5 /* CommonOSLog */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DB0140BB25C40D7500F9F3CF /* XCRemoteSwiftPackageReference "CommonOSLog" */;
+			productName = CommonOSLog;
 		};
 		DB0C946426A6FD4D0088FB11 /* AlamofireImage */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -5572,11 +5581,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = DB552D4D26BBD10C00E481F6 /* XCRemoteSwiftPackageReference "swift-collections" */;
 			productName = OrderedCollections;
-		};
-		DB68050F2637D0F800430867 /* KeychainAccess */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DB6804722637CC1200430867 /* XCRemoteSwiftPackageReference "KeychainAccess" */;
-			productName = KeychainAccess;
 		};
 		DB6D9F41263527CE008423CD /* AlamofireImage */ = {
 			isa = XCSwiftPackageProductDependency;

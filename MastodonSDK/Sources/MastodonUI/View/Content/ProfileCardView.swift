@@ -46,6 +46,8 @@ public final class ProfileCardView: UIView {
     // author username
     public let authorUsernameLabel = MetaLabel(style: .profileCardUsername)
     
+    // bio
+    let bioMetaTextAdaptiveMarginContainerView = AdaptiveMarginContainerView()
     let bioMetaText: MetaText = {
         let metaText = MetaText()
         metaText.textView.backgroundColor = .clear
@@ -77,6 +79,9 @@ public final class ProfileCardView: UIView {
         ]
         return metaText
     }()
+    
+    let infoContainerAdaptiveMarginContainerView = AdaptiveMarginContainerView()
+    let infoContainer = UIStackView()
     
     let statusDashboardView = ProfileStatusDashboardView()
     
@@ -179,7 +184,7 @@ extension ProfileCardView {
         
         avatarButtonBackgroundView.layer.masksToBounds = true
         avatarButtonBackgroundView.layer.cornerCurve = .continuous
-        avatarButtonBackgroundView.layer.cornerRadius = 12
+        avatarButtonBackgroundView.layer.cornerRadius = 12 + 1
         avatarButtonBackgroundView.translatesAutoresizingMaskIntoConstraints = false
         authorContainer.insertSubview(avatarButtonBackgroundView, belowSubview: avatarButton)
         NSLayoutConstraint.activate([
@@ -192,31 +197,36 @@ extension ProfileCardView {
         // authorInfoContainer: V - [ authorNameLabel | authorUsernameLabel ]
         let authorInfoContainer = UIStackView()
         authorInfoContainer.axis = .vertical
-        authorInfoContainer.spacing = 2
+        // authorInfoContainer.spacing = 2
         authorContainer.addArrangedSubview(authorInfoContainer)
     
         authorInfoContainer.addArrangedSubview(authorNameLabel)
         authorInfoContainer.addArrangedSubview(authorUsernameLabel)
         
         // bioMetaText
-        let bioMetaTextAdaptiveMarginContainerView = AdaptiveMarginContainerView()
         bioMetaTextAdaptiveMarginContainerView.contentView = bioMetaText.textView
         bioMetaTextAdaptiveMarginContainerView.margin = ProfileCardView.contentMargin
+        bioMetaText.textView.setContentHuggingPriority(.required - 1, for: .vertical)
+        bioMetaText.textView.setContentCompressionResistancePriority(.required - 1, for: .vertical)
         container.addArrangedSubview(bioMetaTextAdaptiveMarginContainerView)
         container.setCustomSpacing(16, after: bioMetaTextAdaptiveMarginContainerView)
-        
+
         // infoContainer: H - [ statusDashboardView | (spacer) | relationshipActionButton ]
-        let infoContainer = UIStackView()
         infoContainer.axis = .horizontal
-        let infoContainerAdaptiveMarginContainerView = AdaptiveMarginContainerView()
+        infoContainer.spacing = 8
         infoContainerAdaptiveMarginContainerView.contentView = infoContainer
         infoContainerAdaptiveMarginContainerView.margin = ProfileCardView.contentMargin
         container.addArrangedSubview(infoContainerAdaptiveMarginContainerView)
-        infoContainer.addArrangedSubview(statusDashboardView)
-        infoContainer.addArrangedSubview(UIView())
-        let relationshipActionButtonShadowContainer = ShadowBackgroundContainer()
-        infoContainer.addArrangedSubview(relationshipActionButtonShadowContainer)
         
+        infoContainer.addArrangedSubview(statusDashboardView)
+        let infoContainerSpacer = UIView()
+        infoContainer.addArrangedSubview(UIView())
+        infoContainerSpacer.setContentHuggingPriority(.defaultLow - 100, for: .vertical)
+        infoContainerSpacer.setContentHuggingPriority(.defaultLow - 100, for: .horizontal)
+        let relationshipActionButtonShadowContainer = ShadowBackgroundContainer()
+        relationshipActionButtonShadowContainer.translatesAutoresizingMaskIntoConstraints = false
+        infoContainer.addArrangedSubview(relationshipActionButtonShadowContainer)
+
         relationshipActionButton.translatesAutoresizingMaskIntoConstraints = false
         relationshipActionButtonShadowContainer.addSubview(relationshipActionButton)
         NSLayoutConstraint.activate([
@@ -224,15 +234,15 @@ extension ProfileCardView {
             relationshipActionButton.leadingAnchor.constraint(equalTo: relationshipActionButtonShadowContainer.leadingAnchor),
             relationshipActionButton.trailingAnchor.constraint(equalTo: relationshipActionButtonShadowContainer.trailingAnchor),
             relationshipActionButton.bottomAnchor.constraint(equalTo: relationshipActionButtonShadowContainer.bottomAnchor),
-            relationshipActionButton.widthAnchor.constraint(greaterThanOrEqualToConstant: ProfileCardView.friendshipActionButtonSize.width).priority(.required - 1),
-            relationshipActionButton.heightAnchor.constraint(equalToConstant: ProfileCardView.friendshipActionButtonSize.height).priority(.defaultHigh),
+            relationshipActionButtonShadowContainer.widthAnchor.constraint(greaterThanOrEqualToConstant: ProfileCardView.friendshipActionButtonSize.width).priority(.required - 1),
+            relationshipActionButtonShadowContainer.heightAnchor.constraint(equalToConstant: ProfileCardView.friendshipActionButtonSize.height).priority(.required - 1),
         ])
-        
+
         let bottomPadding = UIView()
         bottomPadding.translatesAutoresizingMaskIntoConstraints = false
         container.addArrangedSubview(bottomPadding)
         NSLayoutConstraint.activate([
-            bottomPadding.heightAnchor.constraint(equalToConstant: 16)
+            bottomPadding.heightAnchor.constraint(equalToConstant: 16).priority(.required - 10),
         ])
         
         relationshipActionButton.addTarget(self, action: #selector(ProfileCardView.relationshipActionButtonDidPressed(_:)), for: .touchUpInside)
@@ -243,7 +253,27 @@ extension ProfileCardView {
         
         viewModel.userInterfaceStyle = traitCollection.userInterfaceStyle
     }
+    
+    public override func layoutSubviews() {
+        updateInfoContainerLayout()
+        super.layoutSubviews()
+    }
+    
+}
 
+extension ProfileCardView {
+    public func setupLayoutFrame(_ rect: CGRect) {
+        frame.size.width = rect.width
+        bioMetaTextAdaptiveMarginContainerView.frame.size.width = frame.width
+        bioMetaTextAdaptiveMarginContainerView.contentView?.frame.size.width = frame.width - 2 * bioMetaTextAdaptiveMarginContainerView.margin
+        infoContainerAdaptiveMarginContainerView.frame.size.width = frame.width
+        infoContainerAdaptiveMarginContainerView.contentView?.frame.size.width = frame.width - 2 * infoContainerAdaptiveMarginContainerView.margin
+    }
+    
+    private func updateInfoContainerLayout() {
+        let isCompactAdaptive = bounds.width < 350
+        infoContainer.axis = isCompactAdaptive ? .vertical : .horizontal
+    }
 }
 
 extension ProfileCardView {

@@ -201,6 +201,10 @@ Profîla te ji wan ra wiha xuya dike.";
 "Scene.ConfirmEmail.Subtitle" = "Me tenê e-nameyek ji %@ re şand,
 girêdanê bitikne da ku ajimêra xwe bidî piştrastkirin.";
 "Scene.ConfirmEmail.Title" = "Tiştekî dawî.";
+"Scene.Discovery.Tabs.ForYou" = "Ji bo te";
+"Scene.Discovery.Tabs.Hashtags" = "Hashtag";
+"Scene.Discovery.Tabs.News" = "Nûçe";
+"Scene.Discovery.Tabs.Posts" = "Şandî";
 "Scene.Favorite.Title" = "Bijarteyên te";
 "Scene.Follower.Footer" = "Şopîner ji rajekerên din nayê dîtin.";
 "Scene.Following.Footer" = "Şopandin ji rajekerên din nayê dîtin.";

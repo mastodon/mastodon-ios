@@ -8,6 +8,7 @@
 import os.log
 import UIKit
 import Combine
+import MastodonUI
 
 final class DiscoveryPostsViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
     
@@ -31,6 +32,8 @@ final class DiscoveryPostsViewController: UIViewController, NeedsDependency, Med
     }()
     
     let refreshControl = UIRefreshControl()
+    
+    let discoveryIntroBannerView = DiscoveryIntroBannerView()
 
     deinit {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
@@ -60,6 +63,21 @@ extension DiscoveryPostsViewController {
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
+        
+        discoveryIntroBannerView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(discoveryIntroBannerView)
+        NSLayoutConstraint.activate([
+            discoveryIntroBannerView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
+            discoveryIntroBannerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            discoveryIntroBannerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+        ])
+        
+        discoveryIntroBannerView.delegate = self
+        discoveryIntroBannerView.isHidden = UserDefaults.shared.discoveryIntroBannerNeedsHidden
+        UserDefaults.shared.publisher(for: \.discoveryIntroBannerNeedsHidden)
+            .receive(on: DispatchQueue.main)
+            .assign(to: \.isHidden, on: discoveryIntroBannerView)
+            .store(in: &disposeBag)
 
         tableView.delegate = self
         viewModel.setupDiffableDataSource(
@@ -144,5 +162,12 @@ extension DiscoveryPostsViewController: StatusTableViewCellDelegate { }
 extension DiscoveryPostsViewController: ScrollViewContainer {
     var scrollView: UIScrollView? {
         tableView
+    }
+}
+
+// MARK: - DiscoveryIntroBannerViewDelegate
+extension DiscoveryPostsViewController: DiscoveryIntroBannerViewDelegate {
+    func discoveryIntroBannerView(_ bannerView: DiscoveryIntroBannerView, closeButtonDidPressed button: UIButton) {
+        UserDefaults.shared.discoveryIntroBannerNeedsHidden = true
     }
 }

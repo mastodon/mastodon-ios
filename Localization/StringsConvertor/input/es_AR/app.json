@@ -45,7 +45,7 @@
                 "message": "Por favor, habilitá el permiso de acceso a la biblioteca de fotos para guardar la imagen."
             },
             "delete_post": {
-                "title": "¿Estás seguro que querés eliminar este mensaje?",
+                "title": "Eliminar mensaje",
                 "message": "¿Estás seguro que querés eliminar este mensaje?"
             },
             "clean_cache": {
@@ -490,6 +490,14 @@
                 },
                 "recent_search": "Búsquedas recientes",
                 "clear": "Limpiar"
+            }
+        },
+        "discovery": {
+            "tabs": {
+                "posts": "Mensajes",
+                "hashtags": "Etiquetas",
+                "news": "Novedades",
+                "for_you": "Para vos"
             }
         },
         "favorite": {

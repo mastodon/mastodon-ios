@@ -201,6 +201,10 @@ a luchdadh suas gu Mastodon.";
 "Scene.ConfirmEmail.Subtitle" = "Tha sinn air post-d a chur gu %@,
 thoir gnogag air a’ chunntas a dhearbhadh a’ chunntais agad.";
 "Scene.ConfirmEmail.Title" = "Aon rud eile.";
+"Scene.Discovery.Tabs.ForYou" = "For You";
+"Scene.Discovery.Tabs.Hashtags" = "Hashtags";
+"Scene.Discovery.Tabs.News" = "News";
+"Scene.Discovery.Tabs.Posts" = "Posts";
 "Scene.Favorite.Title" = "Na h-annsachdan agad";
 "Scene.Follower.Footer" = "Cha dèid luchd-leantainn o fhrithealaichean eile a shealltainn.";
 "Scene.Following.Footer" = "Cha dèid cò air a leanas tu air frithealaichean eile a shealltainn.";

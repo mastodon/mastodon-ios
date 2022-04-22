@@ -492,6 +492,14 @@
                 "clear": "Pak bike"
             }
         },
+        "discovery": {
+            "tabs": {
+                "posts": "Şandî",
+                "hashtags": "Hashtag",
+                "news": "Nûçe",
+                "for_you": "Ji bo te"
+            }
+        },
         "favorite": {
             "title": "Bijarteyên te"
         },

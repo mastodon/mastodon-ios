@@ -52,13 +52,16 @@ extension DiscoverySection {
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ProfileCardTableViewCell.self), for: indexPath) as! ProfileCardTableViewCell
                 context.managedObjectContext.performAndWait {
                     guard let user = record.object(in: context.managedObjectContext) else { return }
-                    cell.profileCardView.configure(user: user)
+                    cell.configure(
+                        tableView: tableView,
+                        user: user,
+                        profileCardTableViewCellDelegate: configuration.profileCardTableViewCellDelegate
+                    )
                 }
                 context.authenticationService.activeMastodonAuthentication
                     .map { $0?.user }
                     .assign(to: \.me, on: cell.profileCardView.viewModel.relationshipViewModel)
                     .store(in: &cell.disposeBag)
-                cell.delegate = configuration.profileCardTableViewCellDelegate
                 return cell
             case .bottomLoader:
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self), for: indexPath) as! TimelineBottomLoaderTableViewCell

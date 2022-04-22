@@ -41,11 +41,11 @@
                 "block_entire_domain": "Bloquejar Domini"
             },
             "save_photo_failure": {
-                "title": "Desa l'Error de la Foto",
+                "title": "Error al Desar la Foto",
                 "message": "Activa el permís d'accés a la biblioteca de fotos per desar-la."
             },
             "delete_post": {
-                "title": "Estàs segur que vols suprimir aquesta publicació?",
+                "title": "Esborrar Publicació",
                 "message": "Estàs segur que vols suprimir aquesta publicació?"
             },
             "clean_cache": {
@@ -83,7 +83,7 @@
                 "share_post": "Compartir Publicació",
                 "open_in_safari": "Obrir a Safari",
                 "open_in_browser": "Obre al navegador",
-                "find_people": "Busca persones per seguir",
+                "find_people": "Busca persones a seguir",
                 "manually_search": "Cerca manualment a canvi",
                 "skip": "Omet",
                 "reply": "Respon",
@@ -110,26 +110,26 @@
                     "previous_status": "Publicació anterior",
                     "next_status": "Publicació següent",
                     "open_status": "Obre la publicació",
-                    "open_author_profile": "Obre el perfil de l'autor",
-                    "open_reblogger_profile": "Obre el perfil del impulsor",
-                    "reply_status": "Respon a la publicació",
-                    "toggle_reblog": "Commuta l'impuls de la publicació",
-                    "toggle_favorite": "Commuta el Favorit de la publicació",
+                    "open_author_profile": "Obre el Perfil de l'Autor",
+                    "open_reblogger_profile": "Obre el Perfil del Impulsor",
+                    "reply_status": "Respon a la Publicació",
+                    "toggle_reblog": "Commuta l'Impuls de la Publicació",
+                    "toggle_favorite": "Commuta el Favorit de la Publicació",
                     "toggle_content_warning": "Commuta l'Avís de Contingut",
                     "preview_image": "Vista prèvia de l'Imatge"
                 },
                 "segmented_control": {
-                    "previous_section": "Secció anterior",
-                    "next_section": "Secció següent"
+                    "previous_section": "Secció Anterior",
+                    "next_section": "Secció Següent"
                 }
             },
             "status": {
                 "user_reblogged": "%s ha impulsat",
                 "user_replied_to": "Ha respòs a %s",
-                "show_post": "Mostra la publicació",
+                "show_post": "Mostra la Publicació",
                 "show_user_profile": "Mostra el perfil de l'usuari",
                 "content_warning": "Advertència de Contingut",
-                "media_content_warning": "Toca qualsevol lloc per mostrar",
+                "media_content_warning": "Toca qualsevol lloc per a mostrar",
                 "tap_to_reveal": "Toca per a mostrar",
                 "poll": {
                     "vote": "Vota",
@@ -187,15 +187,15 @@
                     "now": "Ara"
                 },
                 "loader": {
-                    "load_missing_posts": "Carrega les publicacions que falten",
-                    "loading_missing_posts": "Carregant les publicacions que falten...",
+                    "load_missing_posts": "Carrega les publicacions faltants",
+                    "loading_missing_posts": "Carregant les publicacions faltants...",
                     "show_more_replies": "Mostra més respostes"
                 },
                 "header": {
                     "no_status_found": "No s'ha trobat cap publicació",
                     "blocking_warning": "No pots veure el perfil d'aquest usuari\n fins que el desbloquegis.\nEl teu perfil els sembla així.",
                     "user_blocking_warning": "No pots veure el perfil de %s\n fins que el desbloquegis.\nEl teu perfil els sembla així.",
-                    "blocked_warning": "No pots veure el perfil d'aquest usuari\n fins que et desbloquegi.",
+                    "blocked_warning": "No pots veure el perfil d'aquest usuari\nfins que et desbloquegi.",
                     "user_blocked_warning": "No pots veure el perfil de %s\n fins que et desbloquegi.",
                     "suspended_warning": "Aquest usuari ha estat suspès.",
                     "user_suspended_warning": "El compte de %s ha estat suspès."
@@ -210,7 +210,7 @@
             "log_in": "Inicia sessió"
         },
         "server_picker": {
-            "title": "Tria un servidor,\nqualsevol servidor.",
+            "title": "Mastodon està fet d'usuaris en diferents comunitats.",
             "subtitle": "Tria una comunitat segons els teus interessos, regió o una de propòsit general.",
             "subtitle_extend": "Tria una comunitat segons els teus interessos, regió o una de propòsit general. Cada comunitat és operada per una organització totalment independent o individualment.",
             "button": {
@@ -271,7 +271,7 @@
                         "checked": "verificat",
                         "unchecked": "no verificat"
                     },
-                    "hint": "La teva contrasenya ha de tenir com a mínim buit caràcters"
+                    "hint": "La teva contrasenya ha de tenir com a mínim vuit caràcters"
                 },
                 "invite": {
                     "registration_user_invite_request": "Perquè vols unir-te?"
@@ -299,7 +299,7 @@
                     "inclusion": "%s no és un valor suportat"
                 },
                 "special": {
-                    "username_invalid": "El nom d'usuari només ha de contenir caràcters alfanumèrics i guions baixos",
+                    "username_invalid": "El nom d'usuari ha de contenir només caràcters alfanumèrics i guions baixos",
                     "username_too_long": "El nom d'usuari és massa llarg (no pot ser més llarg de 30 caràcters)",
                     "email_invalid": "Aquesta no és una adreça de correu electrònic vàlida",
                     "password_too_short": "La contrasenya és massa curta (ha de tenir 8 caràcters com a mínim)"
@@ -318,7 +318,7 @@
         },
         "confirm_email": {
             "title": "Una última cosa.",
-            "subtitle": "Acabem d'enviar un correu electrònic a %s,\ntoca l'enllaç per a confirmar el teu compte.",
+            "subtitle": "Toca l'enllaç del correu electrònic que t'hem enviat per a confirmar el teu compte.",
             "button": {
                 "open_email_app": "Obre l'aplicació de correu",
                 "resend": "Reenvia"
@@ -492,6 +492,14 @@
                 "clear": "Neteja"
             }
         },
+        "discovery": {
+            "tabs": {
+                "posts": "Publicacions",
+                "hashtags": "Etiquetes",
+                "news": "Notícies",
+                "for_you": "Per a tu"
+            }
+        },
         "favorite": {
             "title": "Els teus Favorits"
         },
@@ -543,7 +551,7 @@
                         "anyone": "algú",
                         "follower": "un seguidor",
                         "follow": "a qualsevol que segueixi",
-                        "noone": "algú",
+                        "noone": "ningú",
                         "title": "Notifica'm quan"
                     }
                 },

@@ -201,6 +201,10 @@
 "Scene.ConfirmEmail.Subtitle" = "لقد أرسلنا للتو بريد إلكتروني إلى %@،
 انقر على الرابط لتأكيد حسابك.";
 "Scene.ConfirmEmail.Title" = "شيءٌ أخير.";
+"Scene.Discovery.Tabs.ForYou" = "For You";
+"Scene.Discovery.Tabs.Hashtags" = "الوسوم";
+"Scene.Discovery.Tabs.News" = "الأخبار";
+"Scene.Discovery.Tabs.Posts" = "المنشورات";
 "Scene.Favorite.Title" = "مُفضَّلَتُك";
 "Scene.Follower.Footer" = "لا يُمكِن عَرض المُتابِعين مِنَ الخوادم الأُخرى.";
 "Scene.Following.Footer" = "لا يُمكِن عَرض المُتابَعات مِنَ الخوادم الأُخرى.";

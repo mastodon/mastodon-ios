@@ -543,6 +543,18 @@ public enum L10n {
         public static let title = L10n.tr("Localizable", "Scene.ConfirmEmail.OpenEmailApp.Title")
       }
     }
+    public enum Discovery {
+      public enum Tabs {
+        /// For You
+        public static let forYou = L10n.tr("Localizable", "Scene.Discovery.Tabs.ForYou")
+        /// Hashtags
+        public static let hashtags = L10n.tr("Localizable", "Scene.Discovery.Tabs.Hashtags")
+        /// News
+        public static let news = L10n.tr("Localizable", "Scene.Discovery.Tabs.News")
+        /// Posts
+        public static let posts = L10n.tr("Localizable", "Scene.Discovery.Tabs.Posts")
+      }
+    }
     public enum Favorite {
       /// Your Favorites
       public static let title = L10n.tr("Localizable", "Scene.Favorite.Title")

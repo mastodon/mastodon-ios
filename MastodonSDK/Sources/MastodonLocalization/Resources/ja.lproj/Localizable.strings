@@ -195,6 +195,10 @@
 "Scene.ConfirmEmail.OpenEmailApp.Title" = "メールを確認";
 "Scene.ConfirmEmail.Subtitle" = "先程 %@ にメールを送信しました。リンクをタップしてアカウントを確認してください。";
 "Scene.ConfirmEmail.Title" = "さいごにもうひとつ。";
+"Scene.Discovery.Tabs.ForYou" = "For You";
+"Scene.Discovery.Tabs.Hashtags" = "Hashtags";
+"Scene.Discovery.Tabs.News" = "News";
+"Scene.Discovery.Tabs.Posts" = "Posts";
 "Scene.Favorite.Title" = "お気に入り";
 "Scene.Follower.Footer" = "他のサーバーからのフォロワーは表示されません。";
 "Scene.Following.Footer" = "他のサーバーにいるフォローは表示されません。";

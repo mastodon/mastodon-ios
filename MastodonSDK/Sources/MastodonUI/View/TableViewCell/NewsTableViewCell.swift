@@ -51,6 +51,11 @@ extension NewsTableViewCell {
             separatorLine.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             separatorLine.heightAnchor.constraint(equalToConstant: UIView.separatorLineHeight(of: contentView)),
         ])
+        
+        isAccessibilityElement = true
+        accessibilityElements = [
+            newsView
+        ]
     }
     
 }

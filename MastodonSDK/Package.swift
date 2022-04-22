@@ -32,12 +32,13 @@ let package = Package(
         .package(url: "https://github.com/apple/swift-nio.git", from: "1.0.0"),
         .package(url: "https://github.com/kean/Nuke.git", from: "10.3.1"),
         .package(url: "https://github.com/Flipboard/FLAnimatedImage.git", from: "1.0.0"),
-        .package(url: "https://github.com/TwidereProject/MetaTextKit.git", .exact("2.2.1")),
+        .package(url: "https://github.com/TwidereProject/MetaTextKit.git", .exact("2.2.2")),
         .package(url: "https://github.com/Alamofire/Alamofire.git", from: "5.4.0"),
         .package(url: "https://github.com/Alamofire/AlamofireImage.git", from: "4.1.0"),
         .package(name: "NukeFLAnimatedImagePlugin", url: "https://github.com/kean/Nuke-FLAnimatedImage-Plugin.git", from: "8.0.0"),
         .package(name: "UITextView+Placeholder", url: "https://github.com/MainasuK/UITextView-Placeholder.git", from: "1.4.1"),
-        .package(name: "Introspect", url: "https://github.com/siteline/SwiftUI-Introspect.git", from: "0.1.3")
+        .package(name: "Introspect", url: "https://github.com/siteline/SwiftUI-Introspect.git", from: "0.1.3"),
+        .package(name: "FaviconFinder", url: "https://github.com/will-lumley/FaviconFinder.git", from: "3.2.2"),
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -94,8 +95,8 @@ let package = Package(
                 .product(name: "Alamofire", package: "Alamofire"),
                 .product(name: "AlamofireImage", package: "AlamofireImage"),
                 .product(name: "MetaTextKit", package: "MetaTextKit"),
-                .product(name: "MastodonMeta", package: "MetaTextKit"),
                 .product(name: "FLAnimatedImage", package: "FLAnimatedImage"),
+                .product(name: "FaviconFinder", package: "FaviconFinder"),
             ]
         ),
         .testTarget(

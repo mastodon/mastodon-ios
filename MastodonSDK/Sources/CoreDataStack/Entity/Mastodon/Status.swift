@@ -42,9 +42,7 @@ public final class Status: NSManagedObject {
     @NSManaged public private(set) var spoilerText: String?
     
     // sourcery: autoUpdatableObject
-    @NSManaged public private(set) var isContentSensitiveToggled: Bool
-    // sourcery: autoUpdatableObject
-    @NSManaged public private(set) var isMediaSensitiveToggled: Bool
+    @NSManaged public private(set) var isSensitiveToggled: Bool
     
     @NSManaged public private(set) var application: Application?
         
@@ -432,14 +430,9 @@ extension Status: AutoUpdatableObject {
     		self.spoilerText = spoilerText
     	}
     }
-    public func update(isContentSensitiveToggled: Bool) {
-    	if self.isContentSensitiveToggled != isContentSensitiveToggled {
-    		self.isContentSensitiveToggled = isContentSensitiveToggled
-    	}
-    }
-    public func update(isMediaSensitiveToggled: Bool) {
-    	if self.isMediaSensitiveToggled != isMediaSensitiveToggled {
-    		self.isMediaSensitiveToggled = isMediaSensitiveToggled
+    public func update(isSensitiveToggled: Bool) {
+    	if self.isSensitiveToggled != isSensitiveToggled {
+    		self.isSensitiveToggled = isSensitiveToggled
     	}
     }
     public func update(reblogsCount: Int64) {

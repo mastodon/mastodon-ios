@@ -62,14 +62,14 @@ extension MediaView {
             {
                 let placeholder = UIImage.placeholder(color: .systemGray6)
                 let request = URLRequest(url: url)
-                ImageDownloader.default.download(request) { response in
+                ImageDownloader.default.download(request, completion:  { response in
                     switch response.result {
                     case .success(let image):
                         configuration.previewImage = image
-                    case .failure(let error):
+                    case .failure:
                         configuration.previewImage = placeholder
                     }
-                }
+                })
             }
             
             if let assetURL = configuration.assetURL,
@@ -84,7 +84,7 @@ extension MediaView {
                 .store(in: &configuration.blurhashImageDisposeBag)
             }
             
-            configuration.isReveal = status.sensitive ? status.isMediaSensitiveToggled : true
+            configuration.isReveal = status.isMediaSensitive ? status.isSensitiveToggled : true
             
             return configuration
         }

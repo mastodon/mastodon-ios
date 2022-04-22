@@ -61,7 +61,7 @@ extension StatusTableViewCell {
             statusView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
             containerViewLeadingLayoutConstraint,
             containerViewTrailingLayoutConstraint,
-            statusView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            contentView.bottomAnchor.constraint(equalTo: statusView.bottomAnchor, constant: 10),
         ])
         statusView.setup(style: .inline)
         updateContainerViewMarginConstraints()
