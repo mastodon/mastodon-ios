@@ -129,6 +129,7 @@
                 "show_post": "Seall am post",
                 "show_user_profile": "Seall pròifil a’ chleachdaiche",
                 "content_warning": "Rabhadh susbainte",
+                "sensitive_content": "Sensitive Content",
                 "media_content_warning": "Thoir gnogag àite sam bith gus a nochdadh",
                 "tap_to_reveal": "Thoir gnogag gus a nochdadh",
                 "poll": {
@@ -498,7 +499,8 @@
                 "hashtags": "Hashtags",
                 "news": "News",
                 "for_you": "For You"
-            }
+            },
+            "intro": "These are the posts gaining traction in your corner of Mastodon."
         },
         "favorite": {
             "title": "Na h-annsachdan agad"
