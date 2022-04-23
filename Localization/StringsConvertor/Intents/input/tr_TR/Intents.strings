@@ -1,44 +1,44 @@
 "16wxgf" = "Mastodon'da paylaş";
 
-"751xkl" = "Text Content";
+"751xkl" = "Metin içeriği";
 
-"CsR7G2" = "Post on Mastodon";
+"CsR7G2" = "Mastodon'da paylaş";
 
-"HZSGTr" = "What content to post?";
+"HZSGTr" = "Ne içeriği paylaşılacak?";
 
-"HdGikU" = "Posting failed";
+"HdGikU" = "Gönderi paylaşılamadı";
 
-"KDNTJ4" = "Failure Reason";
+"KDNTJ4" = "Hata Sebebi";
 
-"RHxKOw" = "Send Post with text content";
+"RHxKOw" = "Metin içeriği ile gönderiyi paylaş";
 
-"RxSqsb" = "Post";
+"RxSqsb" = "Gönderi";
 
-"WCIR3D" = "Post ${content} on Mastodon";
+"WCIR3D" = "${content} içeriğini Mastodon'da paylaş";
 
-"ZKJSNu" = "Post";
+"ZKJSNu" = "Gönderi";
 
 "ZS1XaK" = "${content}";
 
-"ZbSjzC" = "Visibility";
+"ZbSjzC" = "Gizlilik";
 
-"Zo4jgJ" = "Post Visibility";
+"Zo4jgJ" = "Gönderi Gizliliği";
 
-"apSxMG-dYQ5NN" = "There are ${count} options matching ‘Public’.";
+"apSxMG-dYQ5NN" = "\"Herkese açık\" ile eşleşen ${count} seçenek var.";
 
-"apSxMG-ehFLjY" = "There are ${count} options matching ‘Followers Only’.";
+"apSxMG-ehFLjY" = "\"Sadece takipçiler\" ile eşleşen ${count} seçenek var.";
 
-"ayoYEb-dYQ5NN" = "${content}, Public";
+"ayoYEb-dYQ5NN" = "${content}, Herkese açık";
 
-"ayoYEb-ehFLjY" = "${content}, Followers Only";
+"ayoYEb-ehFLjY" = "${content}, Sadece takipçiler";
 
-"dUyuGg" = "Post on Mastodon";
+"dUyuGg" = "Mastodon'da paylaş";
 
-"dYQ5NN" = "Public";
+"dYQ5NN" = "Herkese açık";
 
-"ehFLjY" = "Followers Only";
+"ehFLjY" = "Sadece takipçiler";
 
-"gfePDu" = "Posting failed. ${failureReason}";
+"gfePDu" = "Gönderi paylaşılamadı. ${failureReason}";
 
 "k7dbKQ" = "Post was sent successfully.";
 
