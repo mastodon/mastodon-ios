@@ -2,8 +2,8 @@
     "common": {
         "alerts": {
             "common": {
-                "please_try_again": "Harap coba lagi.",
-                "please_try_again_later": "Coba lagi nanti."
+                "please_try_again": "Silakan coba lagi.",
+                "please_try_again_later": "Silakan coba lagi nanti."
             },
             "sign_up_failure": {
                 "title": "Sign Up Failure"
