@@ -2,8 +2,8 @@
     "common": {
         "alerts": {
             "common": {
-                "please_try_again": "Please try again.",
-                "please_try_again_later": "Please try again later."
+                "please_try_again": "Lütfen tekrar deneyin.",
+                "please_try_again_later": "Lütfen daha sonra tekrar deneyin."
             },
             "sign_up_failure": {
                 "title": "Sign Up Failure"
