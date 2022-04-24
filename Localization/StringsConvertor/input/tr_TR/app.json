@@ -6,17 +6,17 @@
                 "please_try_again_later": "Lütfen daha sonra tekrar deneyin."
             },
             "sign_up_failure": {
-                "title": "Sign Up Failure"
+                "title": "Kaydolma Başarısız"
             },
             "server_error": {
-                "title": "Server Error"
+                "title": "Sunucu Hatası"
             },
             "vote_failure": {
-                "title": "Vote Failure",
-                "poll_ended": "The poll has ended"
+                "title": "Oy Verme Başarısız",
+                "poll_ended": "Anket bitti"
             },
             "discard_post_content": {
-                "title": "Discard Draft",
+                "title": "Taslağı Sil",
                 "message": "Confirm to discard composed post content."
             },
             "publish_post_failure": {
@@ -32,9 +32,9 @@
                 "message": "Cannot edit profile. Please try again."
             },
             "sign_out": {
-                "title": "Sign Out",
-                "message": "Are you sure you want to sign out?",
-                "confirm": "Sign Out"
+                "title": "Oturumu Kapat",
+                "message": "Oturumu kapatmak istediğinize emin misiniz?",
+                "confirm": "Oturumu Kapat"
             },
             "block_domain": {
                 "title": "Are you really, really sure you want to block the entire %s? In most cases a few targeted blocks or mutes are sufficient and preferable. You will not see content from that domain and any of your followers from that domain will be removed.",
