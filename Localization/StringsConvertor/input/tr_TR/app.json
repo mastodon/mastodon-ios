@@ -185,71 +185,71 @@
             "timeline": {
                 "filtered": "Filtrelenmiş",
                 "timestamp": {
-                    "now": "Now"
+                    "now": "Şimdi"
                 },
                 "loader": {
-                    "load_missing_posts": "Load missing posts",
-                    "loading_missing_posts": "Loading missing posts...",
-                    "show_more_replies": "Show more replies"
+                    "load_missing_posts": "Daha fazla gönderi yükle",
+                    "loading_missing_posts": "Daha fazla gönderi yükleniyor...",
+                    "show_more_replies": "Daha fazla yanıt görüntüe"
                 },
                 "header": {
-                    "no_status_found": "No Post Found",
-                    "blocking_warning": "You can’t view this user's profile\nuntil you unblock them.\nYour profile looks like this to them.",
-                    "user_blocking_warning": "You can’t view %s’s profile\nuntil you unblock them.\nYour profile looks like this to them.",
-                    "blocked_warning": "You can’t view this user’s profile\nuntil they unblock you.",
-                    "user_blocked_warning": "You can’t view %s’s profile\nuntil they unblock you.",
-                    "suspended_warning": "This user has been suspended.",
-                    "user_suspended_warning": "%s’s account has been suspended."
+                    "no_status_found": "Hiçbir Gönderi Bulunamadı",
+                    "blocking_warning": "Bu kişinin engelini kaldırana kadar\nonun profilini göremezsiniz.\nBu kişiye göre profiliniz böyle gözüküyor.",
+                    "user_blocking_warning": "%s kişisinin engelini kaldırana kadar\nonun profilini göremezsiniz.\nBu kişiye göre profiliniz böyle gözüküyor.",
+                    "blocked_warning": "Bu kişi sizin engelinizi kaldırana\nkadar onun profilini göremezsiniz.",
+                    "user_blocked_warning": "%s kişisi sizin engelinizi kaldırana\nkadar onun profilini göremezsiniz.",
+                    "suspended_warning": "Bu kullanıcı askıya alındı.",
+                    "user_suspended_warning": "%s kişisinin hesabı askıya alındı."
                 }
             }
         }
     },
     "scene": {
         "welcome": {
-            "slogan": "Social networking\nback in your hands.",
-            "get_started": "Get Started",
-            "log_in": "Log In"
+            "slogan": "Sosyal ağ,\ntekrardan ellerinizde.",
+            "get_started": "Başlayın",
+            "log_in": "Oturum Aç"
         },
         "server_picker": {
-            "title": "Mastodon is made of users in different communities.",
-            "subtitle": "Pick a community based on your interests, region, or a general purpose one.",
-            "subtitle_extend": "Pick a community based on your interests, region, or a general purpose one. Each community is operated by an entirely independent organization or individual.",
+            "title": "Mastodon, farklı topluluklardaki kullanıcılardan oluşur.",
+            "subtitle": "İlgi alanlarınıza, bölgenize veya genel amaçlı bir topluluk seçin.",
+            "subtitle_extend": "İlgi alanlarınıza, bölgenize veya genel amaçlı bir topluluk seçin. Her topluluk tamamen bağımsız bir kuruluş veya kişi tarafından işletilmektedir.",
             "button": {
                 "category": {
-                    "all": "All",
-                    "all_accessiblity_description": "Category: All",
-                    "academia": "academia",
-                    "activism": "activism",
-                    "food": "food",
+                    "all": "Tümü",
+                    "all_accessiblity_description": "Kategori: Tümü",
+                    "academia": "akademi",
+                    "activism": "aktivizm",
+                    "food": "yiyecek",
                     "furry": "furry",
-                    "games": "games",
-                    "general": "general",
-                    "journalism": "journalism",
+                    "games": "oyunlar",
+                    "general": "genel",
+                    "journalism": "gazetecilik",
                     "lgbt": "lgbt",
-                    "regional": "regional",
-                    "art": "art",
-                    "music": "music",
-                    "tech": "tech"
+                    "regional": "bölgesel",
+                    "art": "sanat",
+                    "music": "müzik",
+                    "tech": "teknoloji"
                 },
-                "see_less": "See Less",
-                "see_more": "See More"
+                "see_less": "Daha Az Göster",
+                "see_more": "Daha Fazla Gör"
             },
             "label": {
-                "language": "LANGUAGE",
-                "users": "USERS",
-                "category": "CATEGORY"
+                "language": "DİL",
+                "users": "KULLANICILAR",
+                "category": "KATEGORİ"
             },
             "input": {
-                "placeholder": "Search communities"
+                "placeholder": "Toplulukları ara"
             },
             "empty_state": {
-                "finding_servers": "Finding available servers...",
-                "bad_network": "Something went wrong while loading the data. Check your internet connection.",
-                "no_results": "No results"
+                "finding_servers": "Mevcut sunucular aranıyor...",
+                "bad_network": "Veriyi yüklerken bir hata oluştu. Lütfen internet bağlantınızı kontrol edin.",
+                "no_results": "Sonuç yok"
             }
         },
         "register": {
-            "title": "Let’s get you set up on %s",
+            "title": "%s için kurulumunuzu yapalım",
             "input": {
                 "avatar": {
                     "delete": "Sil"
@@ -326,13 +326,13 @@
             },
             "dont_receive_email": {
                 "title": "Posta kutunuzu kontrol edin",
-                "description": "Check if your email address is correct as well as your junk folder if you haven’t.",
-                "resend_email": "Resend Email"
+                "description": "E-posta adresinizin doğru olup olmadığını ve doğru ise gereksiz klasörünüzü kontrol edin.",
+                "resend_email": "E-postayı Yeniden Gönder"
             },
             "open_email_app": {
-                "title": "Check your inbox.",
-                "description": "We just sent you an email. Check your junk folder if you haven’t.",
-                "mail": "Mail",
+                "title": "Gelen kutunuzu kontrol edin.",
+                "description": "Size bir e-posta gönderdik. Eğer e-postayı almadıysanız, gereksiz klasörünü kontrol edin.",
+                "mail": "Posta",
                 "open_email_client": "E-posta İstemcisini Aç"
             }
         },
@@ -340,73 +340,73 @@
             "title": "Ana Sayfa",
             "navigation_bar_state": {
                 "offline": "Offline",
-                "new_posts": "See new posts",
-                "published": "Published!",
-                "Publishing": "Publishing post..."
+                "new_posts": "Yeni gönderiler gör",
+                "published": "Yayınlandı!",
+                "Publishing": "Gönderi yayınlanıyor..."
             }
         },
         "suggestion_account": {
-            "title": "Find People to Follow",
-            "follow_explain": "When you follow someone, you’ll see their posts in your home feed."
+            "title": "Takip Edecek İnsanlar Bul",
+            "follow_explain": "Birisini takip ettiğinizde, ana sayfanızda o kişinin gönderilerini görürsünüz."
         },
         "compose": {
             "title": {
-                "new_post": "New Post",
-                "new_reply": "New Reply"
+                "new_post": "Yeni Gönderi",
+                "new_reply": "Yeni Yanıt"
             },
             "media_selection": {
-                "camera": "Take Photo",
-                "photo_library": "Photo Library",
-                "browse": "Browse"
+                "camera": "Fotoğraf Çek",
+                "photo_library": "Fotoğraf Albümü",
+                "browse": "Göz at"
             },
-            "content_input_placeholder": "Type or paste what’s on your mind",
-            "compose_action": "Publish",
-            "replying_to_user": "replying to %s",
+            "content_input_placeholder": "Aklınızdan geçenleri yazın veya yapıştırın",
+            "compose_action": "Yayınla",
+            "replying_to_user": "yanıtlanıyor: %s",
             "attachment": {
-                "photo": "photo",
+                "photo": "fotoğraf",
                 "video": "video",
-                "attachment_broken": "This %s is broken and can’t be\nuploaded to Mastodon.",
-                "description_photo": "Describe the photo for the visually-impaired...",
-                "description_video": "Describe the video for the visually-impaired..."
+                "attachment_broken": "Bu %s bozuk ve Mastodon'a\nyüklenemiyor.",
+                "description_photo": "Görme engelliler için fotoğrafı tarif edin...",
+                "description_video": "Görme engelliler için videoyu tarif edin..."
             },
             "poll": {
-                "duration_time": "Duration: %s",
-                "thirty_minutes": "30 minutes",
-                "one_hour": "1 Hour",
-                "six_hours": "6 Hours",
-                "one_day": "1 Day",
-                "three_days": "3 Days",
-                "seven_days": "7 Days",
-                "option_number": "Option %ld"
+                "duration_time": "Süre: %s",
+                "thirty_minutes": "30 dakika",
+                "one_hour": "1 Saat",
+                "six_hours": "6 Saat",
+                "one_day": "1 Gün",
+                "three_days": "3 Gün",
+                "seven_days": "7 Gün",
+                "option_number": "Seçenek %ld"
             },
             "content_warning": {
-                "placeholder": "Write an accurate warning here..."
+                "placeholder": "Buraya kesin bir uyarı yazın..."
             },
             "visibility": {
-                "public": "Public",
-                "unlisted": "Unlisted",
-                "private": "Followers only",
-                "direct": "Only people I mention"
+                "public": "Herkese açık",
+                "unlisted": "Listelenmemiş",
+                "private": "Yalnızca takipçiler",
+                "direct": "Sadece bahsettiğim insanlar"
             },
             "auto_complete": {
-                "space_to_add": "Space to add"
+                "space_to_add": "Eklemek için boşluk tuşuna basın"
             },
             "accessibility": {
-                "append_attachment": "Add Attachment",
-                "append_poll": "Add Poll",
-                "remove_poll": "Remove Poll",
-                "custom_emoji_picker": "Custom Emoji Picker",
-                "enable_content_warning": "Enable Content Warning",
-                "disable_content_warning": "Disable Content Warning",
-                "post_visibility_menu": "Post Visibility Menu"
+                "append_attachment": "Dosya Ekle",
+                "append_poll": "Anket Ekle",
+                "remove_poll": "Anketi Kaldır",
+                "custom_emoji_picker": "Özel Emoji Seçici",
+                "enable_content_warning": "İçerik Uyarısını Etkinleştir",
+                "disable_content_warning": "İçerik Uyarısını Kapat",
+                "post_visibility_menu": "Gönderi Görünürlüğü Menüsü"
             },
             "keyboard": {
-                "discard_post": "Discard Post",
-                "publish_post": "Publish Post",
-                "toggle_poll": "Toggle Poll",
-                "toggle_content_warning": "Toggle Content Warning",
+                "discard_post": "Gönderiyi İptal Et",
+                "publish_post": "Gönderiyi Yayınla",
+                "toggle_poll": "Anketi Aç/Kapat",
+                "toggle_content_warning": "İçerik Uyarısı durumunu değiştir",
                 "append_attachment_entry": "Dosya Ekle - %s",
-                "select_visibility_entry": "Select Visibility - %s"
+                "select_visibility_entry": "Görünürlüğü Seç - %s"
             }
         },
         "profile": {
@@ -500,7 +500,7 @@
                 "news": "Haberler",
                 "for_you": "Senin İçin"
             },
-            "intro": "These are the posts gaining traction in your corner of Mastodon."
+            "intro": "Bunlar, Mastodon'un köşesinde ilgi çeken gönderilerdir."
         },
         "favorite": {
             "title": "Favorilerin"
@@ -538,7 +538,7 @@
                 },
                 "look_and_feel": {
                     "title": "Look and Feel",
-                    "use_system": "Use System",
+                    "use_system": "Sistem İle Aynı",
                     "really_dark": "Gerçek Koyu",
                     "sorta_dark": "Hafif Koyu",
                     "light": "Açık"
@@ -581,7 +581,7 @@
                 "mastodon_description": "Mastodon açık kaynaklı bir yazılımdır. GitHub'dan %s (%s) üzerinden katkıda bulunabilir veya sorunları bildirebilirsiniz"
             },
             "keyboard": {
-                "close_settings_window": "Close Settings Window"
+                "close_settings_window": "Ayarlar Penceresini Kapat"
             }
         },
         "report": {
@@ -589,12 +589,12 @@
             "title": "%s kişisini bildir",
             "step1": "Adım 1/2",
             "step2": "Adım 2/2",
-            "content1": "Are there any other posts you’d like to add to the report?",
-            "content2": "Is there anything the moderators should know about this report?",
-            "report_sent_title": "Thanks for reporting, we’ll look into this.",
-            "send": "Send Report",
-            "skip_to_send": "Send without comment",
-            "text_placeholder": "Type or paste additional comments",
+            "content1": "Bu rapora eklemek istediğiniz başka gönderiler var mı?",
+            "content2": "Bu rapor hakkında moderatörlerin bilmesi gerektiği bir şey var mı?",
+            "report_sent_title": "Rapor için teşekkürler, bununla ilgileneceğiz.",
+            "send": "Raporu Gönder",
+            "skip_to_send": "Yorum yapmadan gönder",
+            "text_placeholder": "Ek yorum yazın veya yapıştırın",
             "reported": "RAPORLANDI"
         },
         "preview": {
@@ -605,13 +605,13 @@
             }
         },
         "account_list": {
-            "tab_bar_hint": "Current selected profile: %s. Double tap then hold to show account switcher",
-            "dismiss_account_switcher": "Dismiss Account Switcher",
+            "tab_bar_hint": "Şu anki seçili profil: %s. Hesap değiştiriciyi göstermek için iki kez dokunun ve basılı tutun",
+            "dismiss_account_switcher": "Hesap Değiştiriciyi Kapat",
             "add_account": "Hesap Ekle"
         },
         "wizard": {
             "new_in_mastodon": "Mastodon'da Yeni",
-            "multiple_account_switch_intro_description": "Switch between multiple accounts by holding the profile button.",
+            "multiple_account_switch_intro_description": "Profil butonuna basılı tutarak birden fazla hesap arasında geçiş yapın.",
             "accessibility_hint": "Bu yardımı kapatmak için çift tıklayın"
         }
     }
