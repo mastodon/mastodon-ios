@@ -21,7 +21,7 @@
     <key>a11y.plural.count.input_limit_exceeds</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Input limit exceeds %#@character_count@</string>
+      <string>%#@character_count@ karakter limiti aşıyor</string>
       <key>character_count</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -37,7 +37,7 @@
     <key>a11y.plural.count.input_limit_remains</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Input limit remains %#@character_count@</string>
+      <string>%#@character_count@ karakter limiti var</string>
       <key>character_count</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -45,9 +45,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 character</string>
+        <string>1 karakter</string>
         <key>other</key>
-        <string>%ld characters</string>
+        <string>%ld karakter</string>
       </dict>
     </dict>
     <key>plural.count.metric_formatted.post</key>
@@ -61,9 +61,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>post</string>
+        <string>gönderi</string>
         <key>other</key>
-        <string>posts</string>
+        <string>gönderi</string>
       </dict>
     </dict>
     <key>plural.count.post</key>
@@ -77,7 +77,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>%ld gönderi</string>
+        <string>1 gönderi</string>
         <key>other</key>
         <string>%ld gönderi</string>
       </dict>
@@ -93,7 +93,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>%ld favori</string>
+        <string>1 favori</string>
         <key>other</key>
         <string>%ld favori</string>
       </dict>
@@ -109,9 +109,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 reblog</string>
+        <string>1 yeniden paylaşım</string>
         <key>other</key>
-        <string>%ld reblogs</string>
+        <string>%ld yeniden paylaşım</string>
       </dict>
     </dict>
     <key>plural.count.reply</key>
@@ -141,9 +141,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 vote</string>
+        <string>1 oy</string>
         <key>other</key>
-        <string>%ld votes</string>
+        <string>%ld oy</string>
       </dict>
     </dict>
     <key>plural.count.voter</key>
@@ -157,9 +157,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 voter</string>
+        <string>1 oy veren</string>
         <key>other</key>
-        <string>%ld voters</string>
+        <string>%ld oy veren</string>
       </dict>
     </dict>
     <key>plural.people_talking</key>
@@ -173,9 +173,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 people talking</string>
+        <string>1 kişi konuşuyor</string>
         <key>other</key>
-        <string>%ld people talking</string>
+        <string>%ld kişi konuşuyor</string>
       </dict>
     </dict>
     <key>plural.count.following</key>
@@ -189,9 +189,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 following</string>
+        <string>1 takip edilen</string>
         <key>other</key>
-        <string>%ld following</string>
+        <string>%ld takip edilen</string>
       </dict>
     </dict>
     <key>plural.count.follower</key>
@@ -205,9 +205,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 follower</string>
+        <string>1 takipçi</string>
         <key>other</key>
-        <string>%ld followers</string>
+        <string>%ld takipçi</string>
       </dict>
     </dict>
     <key>date.year.left</key>
@@ -221,7 +221,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>%ld yıl kaldı</string>
+        <string>1 yıl kaldı</string>
         <key>other</key>
         <string>%ld yıl kaldı</string>
       </dict>
@@ -237,7 +237,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>%ld ay kaldı</string>
+        <string>1 ay kaldı</string>
         <key>other</key>
         <string>%ld ay kaldı</string>
       </dict>
@@ -253,7 +253,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>%ld gün kaldı</string>
+        <string>1 gün kaldı</string>
         <key>other</key>
         <string>%ld gün kaldı</string>
       </dict>
@@ -269,9 +269,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>%ld saat kaldı</string>
+        <string>1 saat kaldı</string>
         <key>other</key>
-        <string>%ld hours left</string>
+        <string>%ld saat kaldı</string>
       </dict>
     </dict>
     <key>date.minute.left</key>
@@ -285,9 +285,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 minute left</string>
+        <string>1 dakika kaldı</string>
         <key>other</key>
-        <string>%ld minutes left</string>
+        <string>%ld dakika kaldı</string>
       </dict>
     </dict>
     <key>date.second.left</key>
@@ -301,9 +301,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 second left</string>
+        <string>1 saniye kaldı</string>
         <key>other</key>
-        <string>%ld seconds left</string>
+        <string>%ld saniye kaldı</string>
       </dict>
     </dict>
     <key>date.year.ago.abbr</key>
@@ -333,9 +333,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1M ago</string>
+        <string>1 ay önce</string>
         <key>other</key>
-        <string>%ldM ago</string>
+        <string>%ld ay önce</string>
       </dict>
     </dict>
     <key>date.day.ago.abbr</key>
@@ -349,9 +349,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1d ago</string>
+        <string>1 gün önce</string>
         <key>other</key>
-        <string>%ldd ago</string>
+        <string>%ld gün önce</string>
       </dict>
     </dict>
     <key>date.hour.ago.abbr</key>
@@ -365,9 +365,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1h ago</string>
+        <string>1 saat önce</string>
         <key>other</key>
-        <string>%ldh ago</string>
+        <string>%ld saat önce</string>
       </dict>
     </dict>
     <key>date.minute.ago.abbr</key>
@@ -381,9 +381,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1m ago</string>
+        <string>1 dakika önce</string>
         <key>other</key>
-        <string>%ldm ago</string>
+        <string>%ld dakika önce</string>
       </dict>
     </dict>
     <key>date.second.ago.abbr</key>
@@ -397,9 +397,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1s ago</string>
+        <string>1 saniye önce</string>
         <key>other</key>
-        <string>%lds ago</string>
+        <string>%ld saniye önce</string>
       </dict>
     </dict>
   </dict>
