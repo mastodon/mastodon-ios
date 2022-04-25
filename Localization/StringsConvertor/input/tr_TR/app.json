@@ -173,17 +173,17 @@
                 "block_user": "%s kişisini engelle",
                 "block_domain": "%s kişisini engelle",
                 "unblock": "Engeli kaldır",
-                "unblock_user": "Unblock %s",
-                "blocked": "Blocked",
-                "mute": "Mute",
-                "mute_user": "Mute %s",
-                "unmute": "Unmute",
-                "unmute_user": "Unmute %s",
-                "muted": "Muted",
-                "edit_info": "Edit Info"
+                "unblock_user": "%s kişisinin engelini kaldır",
+                "blocked": "Engellendi",
+                "mute": "Sessize al",
+                "mute_user": "Sustur %s",
+                "unmute": "Susturmayı kaldır",
+                "unmute_user": "Sesini aç %s",
+                "muted": "Susturuldu",
+                "edit_info": "Bilgiyi Düzenle"
             },
             "timeline": {
-                "filtered": "Filtered",
+                "filtered": "Filtrelenmiş",
                 "timestamp": {
                     "now": "Now"
                 },
