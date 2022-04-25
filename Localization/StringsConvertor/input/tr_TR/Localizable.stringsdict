@@ -77,9 +77,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 post</string>
+        <string>%ld gönderi</string>
         <key>other</key>
-        <string>%ld posts</string>
+        <string>%ld gönderi</string>
       </dict>
     </dict>
     <key>plural.count.favorite</key>
@@ -93,9 +93,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 favorite</string>
+        <string>%ld favori</string>
         <key>other</key>
-        <string>%ld favorites</string>
+        <string>%ld favori</string>
       </dict>
     </dict>
     <key>plural.count.reblog</key>
@@ -125,9 +125,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 reply</string>
+        <string>%ld yanıt</string>
         <key>other</key>
-        <string>%ld replies</string>
+        <string>%ld yanıt</string>
       </dict>
     </dict>
     <key>plural.count.vote</key>
@@ -221,9 +221,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 year left</string>
+        <string>%ld yıl kaldı</string>
         <key>other</key>
-        <string>%ld years left</string>
+        <string>%ld yıl kaldı</string>
       </dict>
     </dict>
     <key>date.month.left</key>
@@ -237,9 +237,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 months left</string>
+        <string>%ld ay kaldı</string>
         <key>other</key>
-        <string>%ld months left</string>
+        <string>%ld ay kaldı</string>
       </dict>
     </dict>
     <key>date.day.left</key>
@@ -253,9 +253,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 day left</string>
+        <string>%ld gün kaldı</string>
         <key>other</key>
-        <string>%ld days left</string>
+        <string>%ld gün kaldı</string>
       </dict>
     </dict>
     <key>date.hour.left</key>
@@ -269,7 +269,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 hour left</string>
+        <string>%ld saat kaldı</string>
         <key>other</key>
         <string>%ld hours left</string>
       </dict>
