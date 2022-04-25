@@ -69,72 +69,72 @@
                 "continue": "Devam et",
                 "compose": "Yaz",
                 "cancel": "İptal et",
-                "discard": "Discard",
-                "try_again": "Try Again",
-                "take_photo": "Take Photo",
-                "save_photo": "Save Photo",
-                "copy_photo": "Copy Photo",
-                "sign_in": "Sign In",
-                "sign_up": "Sign Up",
-                "see_more": "See More",
-                "preview": "Preview",
-                "share": "Share",
-                "share_user": "Share %s",
-                "share_post": "Share Post",
-                "open_in_safari": "Open in Safari",
-                "open_in_browser": "Open in Browser",
-                "find_people": "Find people to follow",
-                "manually_search": "Manually search instead",
-                "skip": "Skip",
-                "reply": "Reply",
-                "report_user": "Report %s",
-                "block_domain": "Block %s",
-                "unblock_domain": "Unblock %s",
-                "settings": "Settings",
-                "delete": "Delete"
+                "discard": "Vazgeç",
+                "try_again": "Tekrar Deneyin",
+                "take_photo": "Fotoğraf Çek",
+                "save_photo": "Fotoğrafı Kaydet",
+                "copy_photo": "Fotoğrafı Kopyala",
+                "sign_in": "Giriş Yap",
+                "sign_up": "Kaydol",
+                "see_more": "Daha Fazla Gör",
+                "preview": "Önizleme",
+                "share": "Paylaş",
+                "share_user": "%s ile paylaş",
+                "share_post": "Gönderiyi Paylaş",
+                "open_in_safari": "Safari'de Aç",
+                "open_in_browser": "Tarayıcıda Aç",
+                "find_people": "Takip etmek için birkaç kişi bul",
+                "manually_search": "Onun yerine manuel olarak ara",
+                "skip": "Atla",
+                "reply": "Yanıtla",
+                "report_user": "%s kişisini bildir",
+                "block_domain": "%s kişisini engelle",
+                "unblock_domain": "%s kişisinin engelini kaldır",
+                "settings": "Ayarlar",
+                "delete": "Sil"
             },
             "tabs": {
-                "home": "Home",
-                "search": "Search",
-                "notification": "Notification",
-                "profile": "Profile"
+                "home": "Ana Sayfa",
+                "search": "Arama",
+                "notification": "Bildirimler",
+                "profile": "Profil"
             },
             "keyboard": {
                 "common": {
-                    "switch_to_tab": "Switch to %s",
-                    "compose_new_post": "Compose New Post",
-                    "show_favorites": "Show Favorites",
-                    "open_settings": "Open Settings"
+                    "switch_to_tab": "Geç: %s",
+                    "compose_new_post": "Yeni Gönderi Yaz",
+                    "show_favorites": "Favorilerimi Göster",
+                    "open_settings": "Ayarları Aç"
                 },
                 "timeline": {
-                    "previous_status": "Previous Post",
-                    "next_status": "Next Post",
-                    "open_status": "Open Post",
-                    "open_author_profile": "Open Author's Profile",
-                    "open_reblogger_profile": "Open Reblogger's Profile",
-                    "reply_status": "Reply to Post",
-                    "toggle_reblog": "Toggle Reblog on Post",
-                    "toggle_favorite": "Toggle Favorite on Post",
-                    "toggle_content_warning": "Toggle Content Warning",
-                    "preview_image": "Preview Image"
+                    "previous_status": "Önceki Gönderi",
+                    "next_status": "Sonraki Gönderi",
+                    "open_status": "Gönderiyi Aç",
+                    "open_author_profile": "Yazarın Profilini Aç",
+                    "open_reblogger_profile": "Yeniden Paylaşanın Profilini Aç",
+                    "reply_status": "Gönderiyi Yanıtla",
+                    "toggle_reblog": "Gönderiyi yeniden yayınlama durumunu değiştir",
+                    "toggle_favorite": "Gönderiyi favorileme durumunu değiştir",
+                    "toggle_content_warning": "İçerik Uyarısı durumunu değiştir",
+                    "preview_image": "Görseli Önizle"
                 },
                 "segmented_control": {
-                    "previous_section": "Previous Section",
-                    "next_section": "Next Section"
+                    "previous_section": "Önceki Seçim",
+                    "next_section": "Sonraki Bölüm"
                 }
             },
             "status": {
-                "user_reblogged": "%s reblogged",
-                "user_replied_to": "Replied to %s",
-                "show_post": "Show Post",
-                "show_user_profile": "Show user profile",
-                "content_warning": "Content Warning",
-                "sensitive_content": "Sensitive Content",
-                "media_content_warning": "Tap anywhere to reveal",
-                "tap_to_reveal": "Tap to reveal",
+                "user_reblogged": "%s yeniden yayınladı",
+                "user_replied_to": "%s kullanıcısına yanıt verdi",
+                "show_post": "Gönderiyi Göster",
+                "show_user_profile": "Kullanıcı profilini göster",
+                "content_warning": "İçerik Uyarısı",
+                "sensitive_content": "Hassas İçerik",
+                "media_content_warning": "Göstermek için herhangi bir yere basın",
+                "tap_to_reveal": "Göstermek için basın",
                 "poll": {
-                    "vote": "Vote",
-                    "closed": "Closed"
+                    "vote": "Oy ver",
+                    "closed": "Kapandı"
                 },
                 "actions": {
                     "reply": "Reply",
@@ -503,7 +503,7 @@
             "intro": "These are the posts gaining traction in your corner of Mastodon."
         },
         "favorite": {
-            "title": "Your Favorites"
+            "title": "Favorilerin"
         },
         "notification": {
             "title": {
@@ -545,16 +545,16 @@
                 },
                 "notifications": {
                     "title": "Notifications",
-                    "favorites": "Favorites my post",
-                    "follows": "Follows me",
-                    "boosts": "Reblogs my post",
-                    "mentions": "Mentions me",
+                    "favorites": "Gönderimi favorilerine eklediğinde",
+                    "follows": "Beni takip ettiğinde",
+                    "boosts": "Gönderimi yeniden paylaştığında",
+                    "mentions": "Benden bahsettiğinde",
                     "trigger": {
-                        "anyone": "anyone",
-                        "follower": "a follower",
-                        "follow": "anyone I follow",
-                        "noone": "no one",
-                        "title": "Notify me when"
+                        "anyone": "herhangi biri",
+                        "follower": "bir takipçim",
+                        "follow": "takip ettiğim biri",
+                        "noone": "bilgilendirme",
+                        "title": "Beni şu durumda bilgilendir: "
                     }
                 },
                 "preference": {
@@ -572,7 +572,7 @@
                     "privacy": "Privacy Policy"
                 },
                 "spicy_zone": {
-                    "title": "The Spicy Zone",
+                    "title": "Tehlikeli bölge",
                     "clear": "Clear Media Cache",
                     "signout": "Sign Out"
                 }
