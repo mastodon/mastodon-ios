@@ -15,13 +15,13 @@
         <key>one</key>
         <string>1 unread notification</string>
         <key>other</key>
-        <string>%ld unread notification</string>
+        <string>%ld notificações não lidas</string>
       </dict>
     </dict>
     <key>a11y.plural.count.input_limit_exceeds</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Input limit exceeds %#@character_count@</string>
+      <string>Limite de caracteres excedido %#@character_count@</string>
       <key>character_count</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
