@@ -208,22 +208,22 @@ extension MastodonRegisterViewController {
 //                self.reasonErrorPromptLabel.attributedText = prompt
 //            }
 //            .store(in: &disposeBag)
-//        viewModel.error
-//            .receive(on: DispatchQueue.main)
-//            .sink { [weak self] error in
-//                guard let self = self else { return }
-//                guard let error = error as? Mastodon.API.Error else { return }
-//                let alertController = UIAlertController(for: error, title: "Sign Up Failure", preferredStyle: .alert)
-//                let okAction = UIAlertAction(title: L10n.Common.Controls.Actions.ok, style: .default, handler: nil)
-//                alertController.addAction(okAction)
-//                self.coordinator.present(
-//                    scene: .alertController(alertController: alertController),
-//                    from: nil,
-//                    transition: .alertController(animated: true, completion: nil)
-//                )
-//            }
-//            .store(in: &disposeBag)
-//
+        
+        viewModel.$error
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] error in
+                guard let self = self else { return }
+                guard let error = error as? Mastodon.API.Error else { return }
+                let alertController = UIAlertController(for: error, title: "Sign Up Failure", preferredStyle: .alert)
+                let okAction = UIAlertAction(title: L10n.Common.Controls.Actions.ok, style: .default, handler: nil)
+                alertController.addAction(okAction)
+                self.coordinator.present(
+                    scene: .alertController(alertController: alertController),
+                    from: nil,
+                    transition: .alertController(animated: true, completion: nil)
+                )
+            }
+            .store(in: &disposeBag)
 
         viewModel.avatarMediaMenuActionPublisher
             .receive(on: DispatchQueue.main)
