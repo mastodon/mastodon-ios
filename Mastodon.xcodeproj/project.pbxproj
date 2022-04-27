@@ -145,8 +145,6 @@
 		DB0618012785732C0030EE79 /* ServerRulesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0618002785732C0030EE79 /* ServerRulesTableViewCell.swift */; };
 		DB0618032785A7100030EE79 /* RegisterSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0618022785A7100030EE79 /* RegisterSection.swift */; };
 		DB0618052785A73D0030EE79 /* RegisterItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0618042785A73D0030EE79 /* RegisterItem.swift */; };
-		DB0618072785A8880030EE79 /* MastodonRegisterViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0618062785A8880030EE79 /* MastodonRegisterViewModel+Diffable.swift */; };
-		DB06180A2785B2AB0030EE79 /* MastodonRegisterAvatarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0618092785B2AB0030EE79 /* MastodonRegisterAvatarTableViewCell.swift */; };
 		DB084B5725CBC56C00F898ED /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB084B5625CBC56C00F898ED /* Status.swift */; };
 		DB0A322E280EE9FD001729D2 /* DiscoveryIntroBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0A322D280EE9FD001729D2 /* DiscoveryIntroBannerView.swift */; };
 		DB0AC6FC25CD02E600D75117 /* APIService+Instance.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0AC6FB25CD02E600D75117 /* APIService+Instance.swift */; };
@@ -400,10 +398,10 @@
 		DB75BF1E263C1C1B00EDBF1F /* CustomScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB75BF1D263C1C1B00EDBF1F /* CustomScheduler.swift */; };
 		DB789A0B25F9F2950071ACA0 /* ComposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB789A0A25F9F2950071ACA0 /* ComposeViewController.swift */; };
 		DB789A1225F9F2CC0071ACA0 /* ComposeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB789A1125F9F2CC0071ACA0 /* ComposeViewModel.swift */; };
+		DB7A9F912818EAF10016AF98 /* MastodonRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7A9F902818EAF10016AF98 /* MastodonRegisterView.swift */; };
+		DB7A9F932818F33C0016AF98 /* MastodonServerRulesViewController+Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7A9F922818F33C0016AF98 /* MastodonServerRulesViewController+Debug.swift */; };
 		DB7F48452620241000796008 /* ProfileHeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7F48442620241000796008 /* ProfileHeaderViewModel.swift */; };
 		DB8190C62601FF0400020C08 /* AttachmentContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8190C52601FF0400020C08 /* AttachmentContainerView.swift */; };
-		DB8481152788121200BBEABA /* MastodonRegisterTextFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8481142788121200BBEABA /* MastodonRegisterTextFieldTableViewCell.swift */; };
-		DB84811727883C2600BBEABA /* MastodonRegisterPasswordHintTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB84811627883C2600BBEABA /* MastodonRegisterPasswordHintTableViewCell.swift */; };
 		DB852D1926FAEB6B00FC9D81 /* SidebarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB852D1826FAEB6B00FC9D81 /* SidebarViewController.swift */; };
 		DB852D1C26FB021500FC9D81 /* RootSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB852D1B26FB021500FC9D81 /* RootSplitViewController.swift */; };
 		DB852D1F26FB037800FC9D81 /* SidebarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB852D1E26FB037800FC9D81 /* SidebarViewModel.swift */; };
@@ -417,6 +415,7 @@
 		DB8AF54525C13647002E6C99 /* NeedsDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8AF54325C13647002E6C99 /* NeedsDependency.swift */; };
 		DB8AF55025C13703002E6C99 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8AF54F25C13703002E6C99 /* MainTabBarController.swift */; };
 		DB8AF55D25C138B7002E6C99 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8AF55C25C138B7002E6C99 /* UIViewController.swift */; };
+		DB8D8E2F28192EED009FD90F /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = DB8D8E2E28192EED009FD90F /* Introspect */; };
 		DB8F7076279E954700E1225B /* DataSourceFacade+Follow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8F7075279E954700E1225B /* DataSourceFacade+Follow.swift */; };
 		DB8FABC726AEC7B2008E5AF4 /* Intents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB8FAB9E26AEC3A2008E5AF4 /* Intents.framework */; };
 		DB8FABCA26AEC7B2008E5AF4 /* IntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8FABC926AEC7B2008E5AF4 /* IntentHandler.swift */; };
@@ -1146,6 +1145,8 @@
 		DB75BF1D263C1C1B00EDBF1F /* CustomScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomScheduler.swift; sourceTree = "<group>"; };
 		DB789A0A25F9F2950071ACA0 /* ComposeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeViewController.swift; sourceTree = "<group>"; };
 		DB789A1125F9F2CC0071ACA0 /* ComposeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeViewModel.swift; sourceTree = "<group>"; };
+		DB7A9F902818EAF10016AF98 /* MastodonRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonRegisterView.swift; sourceTree = "<group>"; };
+		DB7A9F922818F33C0016AF98 /* MastodonServerRulesViewController+Debug.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MastodonServerRulesViewController+Debug.swift"; sourceTree = "<group>"; };
 		DB7F48442620241000796008 /* ProfileHeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderViewModel.swift; sourceTree = "<group>"; };
 		DB8190C52601FF0400020C08 /* AttachmentContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentContainerView.swift; sourceTree = "<group>"; };
 		DB8481142788121200BBEABA /* MastodonRegisterTextFieldTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonRegisterTextFieldTableViewCell.swift; sourceTree = "<group>"; };
@@ -1379,6 +1380,7 @@
 				5D526FE225BE9AC400460CB9 /* MastodonSDK in Frameworks */,
 				DB6804862637CD4C00430867 /* AppShared.framework in Frameworks */,
 				DBF96326262EC0A6001D8D25 /* AuthenticationServices.framework in Frameworks */,
+				DB8D8E2F28192EED009FD90F /* Introspect in Frameworks */,
 				DBAC6483267D0B21007FE9FD /* DifferenceKit in Frameworks */,
 				DB552D4F26BBD10C00E481F6 /* OrderedCollections in Frameworks */,
 				2D61336925C18A4F00CAE157 /* AlamofireNetworkActivityIndicator in Frameworks */,
@@ -2633,6 +2635,7 @@
 			children = (
 				DB0618082785B2790030EE79 /* Cell */,
 				DB72601B25E36A2100235243 /* MastodonServerRulesViewController.swift */,
+				DB7A9F922818F33C0016AF98 /* MastodonServerRulesViewController+Debug.swift */,
 				DB72602625E36A6F00235243 /* MastodonServerRulesViewModel.swift */,
 				DB0617FE27855D6C0030EE79 /* MastodonServerRulesViewModel+Diffable.swift */,
 			);
@@ -3149,6 +3152,7 @@
 				2D939AE725EE1CF80076FA61 /* MastodonRegisterViewController+Avatar.swift */,
 				DBE0822325CD3F1E00FD6BBD /* MastodonRegisterViewModel.swift */,
 				DB0618062785A8880030EE79 /* MastodonRegisterViewModel+Diffable.swift */,
+				DB7A9F902818EAF10016AF98 /* MastodonRegisterView.swift */,
 			);
 			path = Register;
 			sourceTree = "<group>";
@@ -3324,6 +3328,7 @@
 				DB552D4E26BBD10C00E481F6 /* OrderedCollections */,
 				DBA5A52E26F07ED800CACBAA /* PanModal */,
 				DB02EA0C280D184B00E751C5 /* CommonOSLog */,
+				DB8D8E2E28192EED009FD90F /* Introspect */,
 			);
 			productName = Mastodon;
 			productReference = DB427DD225BAA00100D1B89D /* Mastodon.app */;
@@ -3540,6 +3545,7 @@
 				DB01E23126A98F0900C3965B /* XCRemoteSwiftPackageReference "MetaTextKit" */,
 				DB552D4D26BBD10C00E481F6 /* XCRemoteSwiftPackageReference "swift-collections" */,
 				DBA5A52D26F07ED800CACBAA /* XCRemoteSwiftPackageReference "PanModal" */,
+				DB8D8E2D28192EED009FD90F /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
 			);
 			productRefGroup = DB427DD325BAA00100D1B89D /* Products */;
 			projectDirPath = "";
@@ -3904,7 +3910,6 @@
 				DB63F75A279953F200455B82 /* SearchHistoryUserCollectionViewCell+ViewModel.swift in Sources */,
 				DB023D26279FFB0A005AC798 /* ShareActivityProvider.swift in Sources */,
 				DB71FD5225F8CCAA00512AE1 /* APIService+Status.swift in Sources */,
-				DB8481152788121200BBEABA /* MastodonRegisterTextFieldTableViewCell.swift in Sources */,
 				5D0393962612D266007FE196 /* WebViewModel.swift in Sources */,
 				5B24BBDA262DB14800A9381B /* ReportViewModel.swift in Sources */,
 				2D5A3D3825CF8D9F002347D6 /* ScrollViewContainer.swift in Sources */,
@@ -3956,7 +3961,6 @@
 				DBDFF1952805561700557A48 /* DiscoveryPostsViewModel+Diffable.swift in Sources */,
 				DB03A795272A981400EE37C5 /* ContentSplitViewController.swift in Sources */,
 				DBDFF19C28055BD600557A48 /* DiscoveryViewModel.swift in Sources */,
-				DB06180A2785B2AB0030EE79 /* MastodonRegisterAvatarTableViewCell.swift in Sources */,
 				DBB45B6227B51112002DC5A7 /* SuggestionAccountViewModel+Diffable.swift in Sources */,
 				DBB3BA2A26A81C020004F2D4 /* FLAnimatedImageView.swift in Sources */,
 				DB3E6FF32806D97400B035AE /* DiscoveryNewsViewModel+State.swift in Sources */,
@@ -4024,6 +4028,7 @@
 				DB36679F268ABAF20027D07F /* ComposeStatusAttachmentSection.swift in Sources */,
 				2DA7D04425CA52B200804E11 /* TimelineLoaderTableViewCell.swift in Sources */,
 				DB63F7542799491600455B82 /* DataSourceFacade+SearchHistory.swift in Sources */,
+				DB7A9F912818EAF10016AF98 /* MastodonRegisterView.swift in Sources */,
 				DBF1572F27046F1A00EC00B7 /* SecondaryPlaceholderViewController.swift in Sources */,
 				DB03F7F32689AEA3007B274C /* ComposeRepliedToStatusContentTableViewCell.swift in Sources */,
 				2D4AD8A826316D3500613EFC /* SelectedAccountItem.swift in Sources */,
@@ -4118,7 +4123,6 @@
 				5DF1056425F887CB00D6C0D4 /* AVPlayer.swift in Sources */,
 				DB3E6FEF2806D82600B035AE /* DiscoveryNewsViewModel.swift in Sources */,
 				DBBF1DCB2652539E00E5B703 /* AutoCompleteItem.swift in Sources */,
-				DB84811727883C2600BBEABA /* MastodonRegisterPasswordHintTableViewCell.swift in Sources */,
 				2DA6054725F716A2006356F9 /* PlaybackState.swift in Sources */,
 				DB98EB6727B216560082E365 /* ReportResultViewModel+Diffable.swift in Sources */,
 				DBC7A672260C897100E57475 /* StatusContentWarningEditorView.swift in Sources */,
@@ -4274,10 +4278,10 @@
 				DB0FCB6C27950E29006C02E2 /* MastodonMentionContainer.swift in Sources */,
 				DB6D9F502635761F008423CD /* SubscriptionAlerts.swift in Sources */,
 				0F20220726134DA4000C64BF /* HashtagTimelineViewModel+Diffable.swift in Sources */,
+				DB7A9F932818F33C0016AF98 /* MastodonServerRulesViewController+Debug.swift in Sources */,
 				DBE54AC62636C89F004E7C0B /* NotificationPreference.swift in Sources */,
 				2D5A3D2825CF8BC9002347D6 /* HomeTimelineViewModel+Diffable.swift in Sources */,
 				DB98339C25C96DE600AD9700 /* APIService+Account.swift in Sources */,
-				DB0618072785A8880030EE79 /* MastodonRegisterViewModel+Diffable.swift in Sources */,
 				DB6B74FC272FF55800C70B6E /* UserSection.swift in Sources */,
 				2DF75BA725D10E1000694EC8 /* APIService+Favorite.swift in Sources */,
 				DB0FCB862796BDA1006C02E2 /* SearchSection.swift in Sources */,
@@ -5465,6 +5469,14 @@
 				minimumVersion = 4.2.2;
 			};
 		};
+		DB8D8E2D28192EED009FD90F /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/siteline/SwiftUI-Introspect.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.4;
+			};
+		};
 		DB9A487C2603456B008B817C /* XCRemoteSwiftPackageReference "UITextView-Placeholder" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/MainasuK/UITextView-Placeholder";
@@ -5586,6 +5598,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = DB3D0FF125BAA61700EAA174 /* XCRemoteSwiftPackageReference "AlamofireImage" */;
 			productName = AlamofireImage;
+		};
+		DB8D8E2E28192EED009FD90F /* Introspect */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DB8D8E2D28192EED009FD90F /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
+			productName = Introspect;
 		};
 		DB9A487D2603456B008B817C /* UITextView+Placeholder */ = {
 			isa = XCSwiftPackageProductDependency;
