@@ -109,9 +109,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 reblog</string>
+        <string>%ld ompostning</string>
         <key>other</key>
-        <string>%ld reblogs</string>
+        <string>%ld ompostningar</string>
       </dict>
     </dict>
     <key>plural.count.reply</key>
@@ -157,9 +157,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 voter</string>
+        <string>%ld röst</string>
         <key>other</key>
-        <string>%ld voters</string>
+        <string>%ld röster</string>
       </dict>
     </dict>
     <key>plural.people_talking</key>
