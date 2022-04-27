@@ -129,7 +129,7 @@
                 "show_post": "Seall am post",
                 "show_user_profile": "Seall pròifil a’ chleachdaiche",
                 "content_warning": "Rabhadh susbainte",
-                "sensitive_content": "Sensitive Content",
+                "sensitive_content": "Susbaint fhrionasach",
                 "media_content_warning": "Thoir gnogag àite sam bith gus a nochdadh",
                 "tap_to_reveal": "Thoir gnogag gus a nochdadh",
                 "poll": {
@@ -495,12 +495,12 @@
         },
         "discovery": {
             "tabs": {
-                "posts": "Posts",
-                "hashtags": "Hashtags",
-                "news": "News",
-                "for_you": "For You"
+                "posts": "Postaichean",
+                "hashtags": "Tagaichean hais",
+                "news": "Naidheachdan",
+                "for_you": "Dhut-sa"
             },
-            "intro": "These are the posts gaining traction in your corner of Mastodon."
+            "intro": "Seo na postaichean fèillmhor ’nad cheàrnaidh de Mhastodon."
         },
         "favorite": {
             "title": "Na h-annsachdan agad"
