@@ -173,9 +173,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 people talking</string>
+        <string>%ld person diskuterar</string>
         <key>other</key>
-        <string>%ld people talking</string>
+        <string>%ld personer diskuterar</string>
       </dict>
     </dict>
     <key>plural.count.following</key>
@@ -189,7 +189,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 following</string>
+        <string>%ld följer</string>
         <key>other</key>
         <string>%ld following</string>
       </dict>
