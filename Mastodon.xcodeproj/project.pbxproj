@@ -1165,6 +1165,9 @@
 		DB8AF54325C13647002E6C99 /* NeedsDependency.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NeedsDependency.swift; sourceTree = "<group>"; };
 		DB8AF54F25C13703002E6C99 /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		DB8AF55C25C138B7002E6C99 /* UIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
+		DB8D8E3128196FA0009FD90F /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Intents.strings; sourceTree = "<group>"; };
+		DB8D8E3228196FA0009FD90F /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DB8D8E3328196FA0009FD90F /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = sv; path = sv.lproj/Intents.stringsdict; sourceTree = "<group>"; };
 		DB8F7075279E954700E1225B /* DataSourceFacade+Follow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataSourceFacade+Follow.swift"; sourceTree = "<group>"; };
 		DB8FAB9E26AEC3A2008E5AF4 /* Intents.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Intents.framework; path = System/Library/Frameworks/Intents.framework; sourceTree = SDKROOT; };
 		DB8FABA926AEC3A2008E5AF4 /* IntentsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IntentsUI.framework; path = System/Library/Frameworks/IntentsUI.framework; sourceTree = SDKROOT; };
@@ -3526,6 +3529,7 @@
 				ku,
 				kab,
 				vi,
+				sv,
 			);
 			mainGroup = DB427DC925BAA00100D1B89D;
 			packageReferences = (
@@ -4531,6 +4535,7 @@
 				DBEB19E927E4F37B00B0E80E /* ku */,
 				DBF81C7427F68F5A00004A56 /* kab */,
 				DBF81C7727F6913300004A56 /* vi */,
+				DB8D8E3128196FA0009FD90F /* sv */,
 			);
 			name = Intents.intentdefinition;
 			sourceTree = "<group>";
@@ -4556,6 +4561,7 @@
 				DBEB19EA27E4F37B00B0E80E /* ku */,
 				DBF81C7527F68F5A00004A56 /* kab */,
 				DBF81C7827F6913300004A56 /* vi */,
+				DB8D8E3228196FA0009FD90F /* sv */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -4597,6 +4603,7 @@
 				DBEB19EB27E4F37B00B0E80E /* ku */,
 				DBF81C7627F68F5A00004A56 /* kab */,
 				DBF81C7927F6913300004A56 /* vi */,
+				DB8D8E3328196FA0009FD90F /* sv */,
 			);
 			name = Intents.stringsdict;
 			sourceTree = "<group>";
