@@ -15,7 +15,7 @@
         <key>one</key>
         <string>1 oläst notis</string>
         <key>other</key>
-        <string>%ld oläst notis</string>
+        <string>%ld olästa notiser</string>
       </dict>
     </dict>
     <key>a11y.plural.count.input_limit_exceeds</key>
@@ -191,7 +191,7 @@
         <key>one</key>
         <string>%ld följer</string>
         <key>other</key>
-        <string>%ld following</string>
+        <string>%ld följer</string>
       </dict>
     </dict>
     <key>plural.count.follower</key>
@@ -221,9 +221,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 year left</string>
+        <string>%ld år kvar</string>
         <key>other</key>
-        <string>%ld years left</string>
+        <string>%ld år kvar</string>
       </dict>
     </dict>
     <key>date.month.left</key>
@@ -237,9 +237,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 months left</string>
+        <string>%ld månad kvar</string>
         <key>other</key>
-        <string>%ld months left</string>
+        <string>%ld månader kvar</string>
       </dict>
     </dict>
     <key>date.day.left</key>
@@ -253,9 +253,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 day left</string>
+        <string>%ld dag kvar</string>
         <key>other</key>
-        <string>%ld days left</string>
+        <string>%ld dagar kvar</string>
       </dict>
     </dict>
     <key>date.hour.left</key>
@@ -269,9 +269,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 hour left</string>
+        <string>%ld timme kvar</string>
         <key>other</key>
-        <string>%ld hours left</string>
+        <string>%ld timmar kvar</string>
       </dict>
     </dict>
     <key>date.minute.left</key>
@@ -285,9 +285,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 minute left</string>
+        <string>%ld minut kvar</string>
         <key>other</key>
-        <string>%ld minutes left</string>
+        <string>%ld minuter kvar</string>
       </dict>
     </dict>
     <key>date.second.left</key>
@@ -301,9 +301,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 second left</string>
+        <string>%ld sekund kvar</string>
         <key>other</key>
-        <string>%ld seconds left</string>
+        <string>%ld sekunder kvar</string>
       </dict>
     </dict>
     <key>date.year.ago.abbr</key>
@@ -317,9 +317,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1y ago</string>
+        <string>%ldå sedan</string>
         <key>other</key>
-        <string>%ldy ago</string>
+        <string>%ldå sedan</string>
       </dict>
     </dict>
     <key>date.month.ago.abbr</key>
@@ -333,9 +333,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1M ago</string>
+        <string>%ldmån sedan</string>
         <key>other</key>
-        <string>%ldM ago</string>
+        <string>%ld mån sedan</string>
       </dict>
     </dict>
     <key>date.day.ago.abbr</key>
@@ -349,9 +349,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1d ago</string>
+        <string>%ldd sedan</string>
         <key>other</key>
-        <string>%ldd ago</string>
+        <string>%ldd sedan</string>
       </dict>
     </dict>
     <key>date.hour.ago.abbr</key>
@@ -365,9 +365,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1h ago</string>
+        <string>%ldt sedan</string>
         <key>other</key>
-        <string>%ldh ago</string>
+        <string>%ldt sedan</string>
       </dict>
     </dict>
     <key>date.minute.ago.abbr</key>
@@ -381,9 +381,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1m ago</string>
+        <string>%ld min sedan</string>
         <key>other</key>
-        <string>%ldm ago</string>
+        <string>%ld min sedan</string>
       </dict>
     </dict>
     <key>date.second.ago.abbr</key>
@@ -397,9 +397,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1s sedan</string>
+        <string>%lds sedan</string>
         <key>other</key>
-        <string>%lds ago</string>
+        <string>%lds sedan</string>
       </dict>
     </dict>
   </dict>
