@@ -108,6 +108,7 @@
 "Common.Controls.Status.MediaContentWarning" = "แตะที่ใดก็ตามเพื่อเปิดเผย";
 "Common.Controls.Status.Poll.Closed" = "ปิดแล้ว";
 "Common.Controls.Status.Poll.Vote" = "ลงคะแนน";
+"Common.Controls.Status.SensitiveContent" = "เนื้อหาที่ละเอียดอ่อน";
 "Common.Controls.Status.ShowPost" = "แสดงโพสต์";
 "Common.Controls.Status.ShowUserProfile" = "แสดงโปรไฟล์ผู้ใช้";
 "Common.Controls.Status.Tag.Email" = "อีเมล";
@@ -200,6 +201,7 @@
 "Scene.ConfirmEmail.OpenEmailApp.Title" = "ตรวจสอบกล่องขาเข้าของคุณ";
 "Scene.ConfirmEmail.Subtitle" = "แตะลิงก์ที่เราส่งอีเมลถึงคุณเพื่อยืนยันบัญชีของคุณ";
 "Scene.ConfirmEmail.Title" = "หนึ่งสิ่งสุดท้าย";
+"Scene.Discovery.Intro" = "นี่คือโพสต์ที่กำลังได้รับความสนใจในมุมของ Mastodon ของคุณ";
 "Scene.Discovery.Tabs.ForYou" = "สำหรับคุณ";
 "Scene.Discovery.Tabs.Hashtags" = "แฮชแท็ก";
 "Scene.Discovery.Tabs.News" = "ข่าว";

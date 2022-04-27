@@ -108,6 +108,7 @@ Jkx girêdana înternetê xwe kontrol bike.";
 "Common.Controls.Status.MediaContentWarning" = "Ji bo eşkerekirinê li derekî bitikîne";
 "Common.Controls.Status.Poll.Closed" = "Girtî";
 "Common.Controls.Status.Poll.Vote" = "Deng bide";
+"Common.Controls.Status.SensitiveContent" = "Naveroka hestiyarî";
 "Common.Controls.Status.ShowPost" = "Şandiyê nîşan bide";
 "Common.Controls.Status.ShowUserProfile" = "Profîla bikarhêner nîşan bide";
 "Common.Controls.Status.Tag.Email" = "E-name";
@@ -201,6 +202,7 @@ Profîla te ji wan ra wiha xuya dike.";
 "Scene.ConfirmEmail.Subtitle" = "Me tenê e-nameyek ji %@ re şand,
 girêdanê bitikne da ku ajimêra xwe bidî piştrastkirin.";
 "Scene.ConfirmEmail.Title" = "Tiştekî dawî.";
+"Scene.Discovery.Intro" = "Ev şandiyên ku di quncika Mastodon balê dikişîne.";
 "Scene.Discovery.Tabs.ForYou" = "Ji bo te";
 "Scene.Discovery.Tabs.Hashtags" = "Hashtag";
 "Scene.Discovery.Tabs.News" = "Nûçe";

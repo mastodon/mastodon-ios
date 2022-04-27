@@ -108,6 +108,7 @@
 "Common.Controls.Status.MediaContentWarning" = "Нажмите в любом месте, чтобы показать";
 "Common.Controls.Status.Poll.Closed" = "Завершён";
 "Common.Controls.Status.Poll.Vote" = "Проголосовать";
+"Common.Controls.Status.SensitiveContent" = "Sensitive Content";
 "Common.Controls.Status.ShowPost" = "Показать пост";
 "Common.Controls.Status.ShowUserProfile" = "Показать профиль пользователя";
 "Common.Controls.Status.Tag.Email" = "E-mail";
@@ -211,6 +212,7 @@
 Нажмите на ссылку в нём, чтобы
 подтвердить свою учётную запись.";
 "Scene.ConfirmEmail.Title" = "И ещё кое-что.";
+"Scene.Discovery.Intro" = "These are the posts gaining traction in your corner of Mastodon.";
 "Scene.Discovery.Tabs.ForYou" = "For You";
 "Scene.Discovery.Tabs.Hashtags" = "Hashtags";
 "Scene.Discovery.Tabs.News" = "News";
