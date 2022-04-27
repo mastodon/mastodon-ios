@@ -211,28 +211,28 @@
             "log_in": "Logga in"
         },
         "server_picker": {
-            "title": "Mastodon is made of users in different communities.",
-            "subtitle": "Pick a community based on your interests, region, or a general purpose one.",
-            "subtitle_extend": "Pick a community based on your interests, region, or a general purpose one. Each community is operated by an entirely independent organization or individual.",
+            "title": "Mastodon utgörs av användare i olika gemenskaper.",
+            "subtitle": "Välj en gemenskap baserad på dina intressen, region eller ett allmänt syfte.",
+            "subtitle_extend": "Välj en gemenskap baserad på dina intressen, region eller ett allmänt syfte. Varje gemenskap drivs av en helt oberoende organisation eller individ.",
             "button": {
                 "category": {
-                    "all": "All",
+                    "all": "Alla",
                     "all_accessiblity_description": "Kategori: Alla",
-                    "academia": "academia",
-                    "activism": "activism",
-                    "food": "food",
+                    "academia": "vetenskap",
+                    "activism": "aktivism",
+                    "food": "mat",
                     "furry": "furry",
-                    "games": "games",
-                    "general": "general",
-                    "journalism": "journalism",
+                    "games": "spel",
+                    "general": "allmänt",
+                    "journalism": "journalistik",
                     "lgbt": "lgbt",
-                    "regional": "regional",
-                    "art": "art",
-                    "music": "music",
-                    "tech": "tech"
+                    "regional": "regionalt",
+                    "art": "konst",
+                    "music": "musik",
+                    "tech": "teknik"
                 },
-                "see_less": "See Less",
-                "see_more": "See More"
+                "see_less": "Visa mindre",
+                "see_more": "Visa mer"
             },
             "label": {
                 "language": "SPRÅK",
@@ -240,69 +240,69 @@
                 "category": "KATEGORI"
             },
             "input": {
-                "placeholder": "Search communities"
+                "placeholder": "Sök gemenskaper"
             },
             "empty_state": {
-                "finding_servers": "Finding available servers...",
-                "bad_network": "Something went wrong while loading the data. Check your internet connection.",
+                "finding_servers": "Söker tillgängliga servrar...",
+                "bad_network": "Något gick fel när data laddades. Försök igen eller kontrollera din internetanslutning.",
                 "no_results": "Inga resultat"
             }
         },
         "register": {
-            "title": "Let’s get you set up on %s",
+            "title": "Låt oss få igång dig på %s",
             "input": {
                 "avatar": {
                     "delete": "Radera"
                 },
                 "username": {
-                    "placeholder": "username",
-                    "duplicate_prompt": "This username is taken."
+                    "placeholder": "användarnamn",
+                    "duplicate_prompt": "Det här användarnamnet är redan taget."
                 },
                 "display_name": {
-                    "placeholder": "display name"
+                    "placeholder": "visningsnamn"
                 },
                 "email": {
-                    "placeholder": "email"
+                    "placeholder": "e-post"
                 },
                 "password": {
-                    "placeholder": "password",
-                    "require": "Your password needs at least:",
-                    "character_limit": "8 characters",
+                    "placeholder": "lösenord",
+                    "require": "Ditt lösenord behöver minst:",
+                    "character_limit": "8 tecken",
                     "accessibility": {
-                        "checked": "checked",
-                        "unchecked": "unchecked"
+                        "checked": "markerad",
+                        "unchecked": "avmarkerad"
                     },
-                    "hint": "Your password needs at least eight characters"
+                    "hint": "Ditt lösenord måste bestå av minst 8 tecken"
                 },
                 "invite": {
-                    "registration_user_invite_request": "Why do you want to join?"
+                    "registration_user_invite_request": "Varför vill du gå med?"
                 }
             },
             "error": {
                 "item": {
                     "username": "Användarnamn",
-                    "email": "Email",
+                    "email": "E-post",
                     "password": "Lösenord",
-                    "agreement": "Agreement",
-                    "locale": "Locale",
-                    "reason": "Reason"
+                    "agreement": "Avtal",
+                    "locale": "Språk",
+                    "reason": "Anledning"
                 },
                 "reason": {
-                    "blocked": "%s contains a disallowed email provider",
-                    "unreachable": "%s does not seem to exist",
-                    "taken": "%s is already in use",
-                    "reserved": "%s is a reserved keyword",
-                    "accepted": "%s must be accepted",
-                    "blank": "%s is required",
-                    "invalid": "%s is invalid",
-                    "too_long": "%s is too long",
-                    "too_short": "%s is too short",
-                    "inclusion": "%s is not a supported value"
+                    "blocked": "%s innehåller en icke tillåten e-postleverantör",
+                    "unreachable": "%s verkar inte existera",
+                    "taken": "%s används redan",
+                    "reserved": "%s är ett reserverat nyckelord",
+                    "accepted": "%s måste godkännas",
+                    "blank": "%s krävs",
+                    "invalid": "%s är ogiltig",
+                    "too_long": "%s är för långt",
+                    "too_short": "%s är för kort",
+                    "inclusion": "%s är inte ett värde som stöds"
                 },
                 "special": {
-                    "username_invalid": "Username must only contain alphanumeric characters and underscores",
-                    "username_too_long": "Username is too long (can’t be longer than 30 characters)",
-                    "email_invalid": "This is not a valid email address",
+                    "username_invalid": "Användarnamnet kan bara innehålla alfanumeriska tecken och understreck",
+                    "username_too_long": "Användarnamnet är för långt (kan inte vara längre än 30 tecken)",
+                    "email_invalid": "Detta är inte en giltig e-postadress",
                     "password_too_short": "Lösenordet är för kort (det måste vara minst 8 tecken)"
                 }
             }
@@ -397,113 +397,113 @@
                 "remove_poll": "Ta bort omröstning",
                 "custom_emoji_picker": "Anpassad emoji-väljare",
                 "enable_content_warning": "Aktivera innehållsvarning",
-                "disable_content_warning": "Disable Content Warning",
-                "post_visibility_menu": "Post Visibility Menu"
+                "disable_content_warning": "Inaktivera innehållsvarning",
+                "post_visibility_menu": "Inläggssynlighetsmeny"
             },
             "keyboard": {
-                "discard_post": "Discard Post",
-                "publish_post": "Publish Post",
-                "toggle_poll": "Toggle Poll",
-                "toggle_content_warning": "Toggle Content Warning",
-                "append_attachment_entry": "Add Attachment - %s",
-                "select_visibility_entry": "Select Visibility - %s"
+                "discard_post": "Kasta inlägget",
+                "publish_post": "Publicerar inlägget",
+                "toggle_poll": "Växla omröstning",
+                "toggle_content_warning": "Växla innehållsvarning",
+                "append_attachment_entry": "Lägg till bilaga - %s",
+                "select_visibility_entry": "Välj synlighet - %s"
             }
         },
         "profile": {
             "dashboard": {
-                "posts": "posts",
-                "following": "following",
-                "followers": "followers"
+                "posts": "inlägg",
+                "following": "följer",
+                "followers": "följare"
             },
             "fields": {
-                "add_row": "Add Row",
+                "add_row": "Lägg till rad",
                 "placeholder": {
-                    "label": "Label",
-                    "content": "Content"
+                    "label": "Etikett",
+                    "content": "Innehåll"
                 }
             },
             "segmented_control": {
-                "posts": "Posts",
-                "replies": "Replies",
-                "posts_and_replies": "Posts and Replies",
+                "posts": "Inlägg",
+                "replies": "Svar",
+                "posts_and_replies": "Inlägg och svar",
                 "media": "Media",
                 "about": "Om"
             },
             "relationship_action_alert": {
                 "confirm_mute_user": {
-                    "title": "Mute Account",
-                    "message": "Confirm to mute %s"
+                    "title": "Tysta konto",
+                    "message": "Bekräfta för att tysta %s"
                 },
                 "confirm_unmute_user": {
-                    "title": "Unmute Account",
-                    "message": "Confirm to unmute %s"
+                    "title": "Avtysta konto",
+                    "message": "Bekräfta för att avtysta %s"
                 },
                 "confirm_block_user": {
-                    "title": "Block Account",
-                    "message": "Confirm to block %s"
+                    "title": "Blockera konto",
+                    "message": "Bekräfta för att blockera %s"
                 },
                 "confirm_unblock_user": {
-                    "title": "Unblock Account",
-                    "message": "Confirm to unblock %s"
+                    "title": "Avblockera konto",
+                    "message": "Bekräfta för att avblockera %s"
                 }
             },
             "accessibility": {
-                "show_avatar_image": "Show avatar image",
-                "edit_avatar_image": "Edit avatar image",
-                "show_banner_image": "Show banner image",
-                "double_tap_to_open_the_list": "Double tap to open the list"
+                "show_avatar_image": "Visa profilbild",
+                "edit_avatar_image": "Redigera profilbild",
+                "show_banner_image": "Visa banner",
+                "double_tap_to_open_the_list": "Dubbeltryck för att öppna listan"
             }
         },
         "follower": {
-            "footer": "Followers from other servers are not displayed."
+            "footer": "Följare från andra servrar visas inte."
         },
         "following": {
-            "footer": "Follows from other servers are not displayed."
+            "footer": "Följda på andra servrar visas inte."
         },
         "search": {
-            "title": "Search",
+            "title": "Sök",
             "search_bar": {
-                "placeholder": "Search hashtags and users",
+                "placeholder": "Sök hashtaggar och användare",
                 "cancel": "Avbryt"
             },
             "recommend": {
-                "button_text": "See All",
+                "button_text": "Visa alla",
                 "hash_tag": {
-                    "title": "Trending on Mastodon",
-                    "description": "Hashtags that are getting quite a bit of attention",
-                    "people_talking": "%s people are talking"
+                    "title": "Trendar på Mastodon",
+                    "description": "Hashtaggar som får en hel del uppmärksamhet",
+                    "people_talking": "%s personer diskuterar"
                 },
                 "accounts": {
-                    "title": "Accounts you might like",
-                    "description": "You may like to follow these accounts",
+                    "title": "Konton som du kanske gillar",
+                    "description": "Du kanske vill följa dessa konton",
                     "follow": "Följ"
                 }
             },
             "searching": {
                 "segment": {
-                    "all": "All",
-                    "people": "People",
-                    "hashtags": "Hashtags",
-                    "posts": "Posts"
+                    "all": "Allt",
+                    "people": "Personer",
+                    "hashtags": "Hashtaggar",
+                    "posts": "Inlägg"
                 },
                 "empty_state": {
                     "no_results": "Inga resultat"
                 },
-                "recent_search": "Recent searches",
+                "recent_search": "Senaste sökningarna",
                 "clear": "Rensa"
             }
         },
         "discovery": {
             "tabs": {
-                "posts": "Posts",
-                "hashtags": "Hashtags",
-                "news": "News",
-                "for_you": "For You"
+                "posts": "Inlägg",
+                "hashtags": "Hashtaggar",
+                "news": "Nyheter",
+                "for_you": "För dig"
             },
-            "intro": "These are the posts gaining traction in your corner of Mastodon."
+            "intro": "Detta är de inlägg som engagerar i ditt hörn av Mastodon."
         },
         "favorite": {
-            "title": "Your Favorites"
+            "title": "Dina favoriter"
         },
         "notification": {
             "title": {
@@ -516,103 +516,103 @@
                 "reblogged_your_post": "ompostade ditt inlägg",
                 "mentioned_you": "nämnde dig",
                 "request_to_follow_you": "begär att följa dig",
-                "poll_has_ended": "poll has ended"
+                "poll_has_ended": "omröstningen har avslutats"
             },
             "keyobard": {
-                "show_everything": "Show Everything",
-                "show_mentions": "Show Mentions"
+                "show_everything": "Visa allt",
+                "show_mentions": "Visa omnämningar"
             }
         },
         "thread": {
-            "back_title": "Post",
-            "title": "Post from %s"
+            "back_title": "Inlägg",
+            "title": "Inlägg från %s"
         },
         "settings": {
             "title": "Inställningar",
             "section": {
                 "appearance": {
-                    "title": "Appearance",
-                    "automatic": "Automatic",
-                    "light": "Always Light",
-                    "dark": "Always Dark"
+                    "title": "Utseende",
+                    "automatic": "Automatisk",
+                    "light": "Alltid ljus",
+                    "dark": "Alltid mörk"
                 },
                 "look_and_feel": {
-                    "title": "Look and Feel",
-                    "use_system": "Use System",
-                    "really_dark": "Really Dark",
-                    "sorta_dark": "Sorta Dark",
+                    "title": "Utseende och känsla",
+                    "use_system": "Följ systeminställningarna",
+                    "really_dark": "Verkligen mörk",
+                    "sorta_dark": "Ganska mörk",
                     "light": "Ljust"
                 },
                 "notifications": {
-                    "title": "Notifications",
-                    "favorites": "Favorites my post",
-                    "follows": "Follows me",
-                    "boosts": "Reblogs my post",
-                    "mentions": "Mentions me",
+                    "title": "Aviseringar",
+                    "favorites": "Favoriserar mitt inlägg",
+                    "follows": "Följer mig",
+                    "boosts": "Ompostar mitt inlägg",
+                    "mentions": "Nämner mig",
                     "trigger": {
-                        "anyone": "anyone",
-                        "follower": "a follower",
-                        "follow": "anyone I follow",
-                        "noone": "no one",
-                        "title": "Notify me when"
+                        "anyone": "alla",
+                        "follower": "en följare",
+                        "follow": "någon jag följer",
+                        "noone": "ingen",
+                        "title": "Meddela mig när"
                     }
                 },
                 "preference": {
-                    "title": "Preferences",
-                    "true_black_dark_mode": "True black dark mode",
+                    "title": "Inställningar",
+                    "true_black_dark_mode": "True black-mörkt läge",
                     "disable_avatar_animation": "Inaktivera animerade avatarer",
                     "disable_emoji_animation": "Inaktivera animerade emojis",
-                    "using_default_browser": "Use default browser to open links",
-                    "open_links_in_mastodon": "Open links in Mastodon"
+                    "using_default_browser": "Använd standardwebbläsare för att öppna länkar",
+                    "open_links_in_mastodon": "Öppna länkar i Mastodon"
                 },
                 "boring_zone": {
-                    "title": "The Boring Zone",
+                    "title": "Den tråkiga zonen",
                     "account_settings": "Kontoinställningar",
                     "terms": "Användarvillkor",
                     "privacy": "Integritetspolicy"
                 },
                 "spicy_zone": {
-                    "title": "The Spicy Zone",
-                    "clear": "Clear Media Cache",
+                    "title": "Den spännande zonen",
+                    "clear": "Rensa mediacache",
                     "signout": "Logga ut"
                 }
             },
             "footer": {
-                "mastodon_description": "Mastodon is open source software. You can report issues on GitHub at %s (%s)"
+                "mastodon_description": "Mastodon är programvara med öppen källkod. Du kan rapportera problem via GitHub på %s (%s)"
             },
             "keyboard": {
-                "close_settings_window": "Close Settings Window"
+                "close_settings_window": "Stäng inställningsfönstret"
             }
         },
         "report": {
-            "title_report": "Report",
+            "title_report": "Rapportera",
             "title": "Rapportera %s",
             "step1": "Steg 1 av 2",
             "step2": "Steg 2 av 2",
-            "content1": "Are there any other posts you’d like to add to the report?",
-            "content2": "Is there anything the moderators should know about this report?",
-            "report_sent_title": "Thanks for reporting, we’ll look into this.",
+            "content1": "Finns det några andra inlägg du vill lägga till i rapporten?",
+            "content2": "Finns det något som moderatorerna borde känna till om denna rapport?",
+            "report_sent_title": "Tack för din rapport, vi ska titta på det.",
             "send": "Skicka rapport",
-            "skip_to_send": "Send without comment",
-            "text_placeholder": "Type or paste additional comments",
-            "reported": "REPORTED"
+            "skip_to_send": "Skicka utan kommentar",
+            "text_placeholder": "Skriv eller klistra in ytterligare kommentarer",
+            "reported": "RAPPORTERAD"
         },
         "preview": {
             "keyboard": {
-                "close_preview": "Close Preview",
-                "show_next": "Show Next",
-                "show_previous": "Show Previous"
+                "close_preview": "Stäng förhandsvisning",
+                "show_next": "Visa nästa",
+                "show_previous": "Visa föregående"
             }
         },
         "account_list": {
-            "tab_bar_hint": "Current selected profile: %s. Double tap then hold to show account switcher",
-            "dismiss_account_switcher": "Dismiss Account Switcher",
+            "tab_bar_hint": "Nuvarande vald profil: %s. Dubbeltryck och håll för att visa kontoväxlare",
+            "dismiss_account_switcher": "Stäng kontoväxlare",
             "add_account": "Lägg till konto"
         },
         "wizard": {
-            "new_in_mastodon": "New in Mastodon",
-            "multiple_account_switch_intro_description": "Switch between multiple accounts by holding the profile button.",
-            "accessibility_hint": "Double tap to dismiss this wizard"
+            "new_in_mastodon": "Nytt i Mastodon",
+            "multiple_account_switch_intro_description": "Växla mellan flera konton genom att hålla inne profilknappen.",
+            "accessibility_hint": "Dubbeltryck för att avvisa den här guiden"
         }
     }
 }
