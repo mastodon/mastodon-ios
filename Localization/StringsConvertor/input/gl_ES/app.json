@@ -84,67 +84,67 @@
                 "open_in_safari": "Abrir en Safari",
                 "open_in_browser": "Abrir no navegador",
                 "find_people": "Atopar persoas para seguir",
-                "manually_search": "Manually search instead",
-                "skip": "Skip",
-                "reply": "Reply",
-                "report_user": "Report %s",
-                "block_domain": "Block %s",
-                "unblock_domain": "Unblock %s",
-                "settings": "Settings",
-                "delete": "Delete"
+                "manually_search": "Buscar de xeito manual",
+                "skip": "Omitir",
+                "reply": "Responder",
+                "report_user": "Denunciar a %s",
+                "block_domain": "Bloquear a %s",
+                "unblock_domain": "Desbloquear a %s",
+                "settings": "Axustes",
+                "delete": "Eliminar"
             },
             "tabs": {
-                "home": "Home",
-                "search": "Search",
-                "notification": "Notification",
-                "profile": "Profile"
+                "home": "Inicio",
+                "search": "Busca",
+                "notification": "Notificación",
+                "profile": "Perfil"
             },
             "keyboard": {
                 "common": {
-                    "switch_to_tab": "Switch to %s",
-                    "compose_new_post": "Compose New Post",
-                    "show_favorites": "Show Favorites",
-                    "open_settings": "Open Settings"
+                    "switch_to_tab": "Cambiar a %s",
+                    "compose_new_post": "Escribir Nova publicación",
+                    "show_favorites": "Mostrar Favoritos",
+                    "open_settings": "Abrir axustes"
                 },
                 "timeline": {
-                    "previous_status": "Previous Post",
-                    "next_status": "Next Post",
-                    "open_status": "Open Post",
-                    "open_author_profile": "Open Author's Profile",
-                    "open_reblogger_profile": "Open Reblogger's Profile",
-                    "reply_status": "Reply to Post",
-                    "toggle_reblog": "Toggle Reblog on Post",
-                    "toggle_favorite": "Toggle Favorite on Post",
-                    "toggle_content_warning": "Toggle Content Warning",
-                    "preview_image": "Preview Image"
+                    "previous_status": "Publicación anterior",
+                    "next_status": "Publicación seguinte",
+                    "open_status": "Abrir publicación",
+                    "open_author_profile": "Ver Perfil da autora",
+                    "open_reblogger_profile": "Ver perfil de quen promoveu",
+                    "reply_status": "Responder á publicación",
+                    "toggle_reblog": "Promover a publicación",
+                    "toggle_favorite": "Engadir publicación a Favoritas",
+                    "toggle_content_warning": "Marcar con Aviso sobre o contido",
+                    "preview_image": "Previsualización da imaxe"
                 },
                 "segmented_control": {
-                    "previous_section": "Previous Section",
-                    "next_section": "Next Section"
+                    "previous_section": "Sección anterior",
+                    "next_section": "Sección seguinte"
                 }
             },
             "status": {
-                "user_reblogged": "%s reblogged",
-                "user_replied_to": "Replied to %s",
-                "show_post": "Show Post",
-                "show_user_profile": "Show user profile",
-                "content_warning": "Content Warning",
-                "sensitive_content": "Sensitive Content",
-                "media_content_warning": "Tap anywhere to reveal",
-                "tap_to_reveal": "Tap to reveal",
+                "user_reblogged": "%s promoveu",
+                "user_replied_to": "Respondeu a %s",
+                "show_post": "Mostrar publicación",
+                "show_user_profile": "Mostrar perfil da usuaria",
+                "content_warning": "Aviso sobre o contido",
+                "sensitive_content": "Contido sensible",
+                "media_content_warning": "Toca nalgures para mostrar",
+                "tap_to_reveal": "Toca para mostrar",
                 "poll": {
-                    "vote": "Vote",
-                    "closed": "Closed"
+                    "vote": "Votar",
+                    "closed": "Pechada"
                 },
                 "actions": {
-                    "reply": "Reply",
-                    "reblog": "Reblog",
-                    "unreblog": "Undo reblog",
-                    "favorite": "Favorite",
-                    "unfavorite": "Unfavorite",
-                    "menu": "Menu",
-                    "hide": "Hide",
-                    "show_image": "Show image",
+                    "reply": "Responder",
+                    "reblog": "Promover",
+                    "unreblog": "Retirar promoción",
+                    "favorite": "Favorecer",
+                    "unfavorite": "Eliminar dos favoritos",
+                    "menu": "Menú",
+                    "hide": "Agochar",
+                    "show_image": "Mostrar a imaxe",
                     "show_gif": "Show GIF",
                     "show_video_player": "Show video player",
                     "tap_then_hold_to_show_menu": "Tap then hold to show menu"
@@ -219,88 +219,88 @@
                     "all": "All",
                     "all_accessiblity_description": "Category: All",
                     "academia": "academia",
-                    "activism": "activism",
-                    "food": "food",
-                    "furry": "furry",
-                    "games": "games",
-                    "general": "general",
-                    "journalism": "journalism",
+                    "activism": "activismo",
+                    "food": "comida",
+                    "furry": "peluxos",
+                    "games": "xogos",
+                    "general": "xeral",
+                    "journalism": "xornalismo",
                     "lgbt": "lgbt",
-                    "regional": "regional",
-                    "art": "art",
-                    "music": "music",
-                    "tech": "tech"
+                    "regional": "rexional",
+                    "art": "arte",
+                    "music": "música",
+                    "tech": "tecnoloxía"
                 },
-                "see_less": "See Less",
-                "see_more": "See More"
+                "see_less": "Ver menos",
+                "see_more": "Ver máis"
             },
             "label": {
-                "language": "LANGUAGE",
-                "users": "USERS",
-                "category": "CATEGORY"
+                "language": "IDIOMA",
+                "users": "USUARIAS",
+                "category": "CATEGORÍA"
             },
             "input": {
-                "placeholder": "Search communities"
+                "placeholder": "Buscar comunidades"
             },
             "empty_state": {
-                "finding_servers": "Finding available servers...",
-                "bad_network": "Something went wrong while loading the data. Check your internet connection.",
-                "no_results": "No results"
+                "finding_servers": "Buscando servidores dispoñibles...",
+                "bad_network": "Algo fallou ao cargar os datos. Comproba a conexión a internet.",
+                "no_results": "Sen resultados"
             }
         },
         "register": {
-            "title": "Let’s get you set up on %s",
+            "title": "Imos crear a túa conta en %s",
             "input": {
                 "avatar": {
-                    "delete": "Delete"
+                    "delete": "Eliminar"
                 },
                 "username": {
-                    "placeholder": "username",
-                    "duplicate_prompt": "This username is taken."
+                    "placeholder": "identificador",
+                    "duplicate_prompt": "Este nome de usuaria xa está en uso."
                 },
                 "display_name": {
-                    "placeholder": "display name"
+                    "placeholder": "nome público"
                 },
                 "email": {
                     "placeholder": "email"
                 },
                 "password": {
-                    "placeholder": "password",
-                    "require": "Your password needs at least:",
-                    "character_limit": "8 characters",
+                    "placeholder": "contrasinal",
+                    "require": "O contrasinal debe ter polo menos:",
+                    "character_limit": "8 caracteres",
                     "accessibility": {
-                        "checked": "checked",
-                        "unchecked": "unchecked"
+                        "checked": "validado",
+                        "unchecked": "non validado"
                     },
-                    "hint": "Your password needs at least eight characters"
+                    "hint": "O teu contrasinal debe ter cando menos oito caracteres"
                 },
                 "invite": {
-                    "registration_user_invite_request": "Why do you want to join?"
+                    "registration_user_invite_request": "Por que queres unirte?"
                 }
             },
             "error": {
                 "item": {
-                    "username": "Username",
+                    "username": "Identificador",
                     "email": "Email",
-                    "password": "Password",
-                    "agreement": "Agreement",
+                    "password": "Contrasinal",
+                    "agreement": "Acordo",
                     "locale": "Locale",
-                    "reason": "Reason"
+                    "reason": "Razón"
                 },
                 "reason": {
-                    "blocked": "%s contains a disallowed email provider",
-                    "unreachable": "%s does not seem to exist",
-                    "taken": "%s is already in use",
-                    "reserved": "%s is a reserved keyword",
-                    "accepted": "%s must be accepted",
-                    "blank": "%s is required",
-                    "invalid": "%s is invalid",
-                    "too_long": "%s is too long",
-                    "too_short": "%s is too short",
-                    "inclusion": "%s is not a supported value"
+                    "blocked": "%s é un provedor de email non autorizado",
+                    "unreachable": "%s semella que non existe",
+                    "taken": "%s xa está en uso",
+                    "reserved": "%s é unha palabra reservada",
+                    "accepted": "%s debe ser aceptado",
+                    "blank": "%s é requerido",
+                    "invalid": "%s non é válido",
+                    "too_long": "%s é demasiado longo",
+                    "too_short": "%s é demasiado curto",
+                    "inclusion": "%s non é un valor soportado"
                 },
                 "special": {
-                    "username_invalid": "Username must only contain alphanumeric characters and underscores",
+                    "username_invalid": "O nome de usuaria só pode ter caracteres alfanuméricos e trazos baixos",
                     "username_too_long": "Username is too long (can’t be longer than 30 characters)",
                     "email_invalid": "This is not a valid email address",
                     "password_too_short": "Password is too short (must be at least 8 characters)"
@@ -384,34 +384,34 @@
             },
             "visibility": {
                 "public": "Public",
-                "unlisted": "Unlisted",
-                "private": "Followers only",
-                "direct": "Only people I mention"
+                "unlisted": "Non listado",
+                "private": "Só para seguidoras",
+                "direct": "Só para persoas mencionadas"
             },
             "auto_complete": {
-                "space_to_add": "Space to add"
+                "space_to_add": "Barra de espazo engade"
             },
             "accessibility": {
-                "append_attachment": "Add Attachment",
-                "append_poll": "Add Poll",
-                "remove_poll": "Remove Poll",
-                "custom_emoji_picker": "Custom Emoji Picker",
-                "enable_content_warning": "Enable Content Warning",
-                "disable_content_warning": "Disable Content Warning",
-                "post_visibility_menu": "Post Visibility Menu"
+                "append_attachment": "Engadir anexo",
+                "append_poll": "Engadir enquisa",
+                "remove_poll": "Eliminar enquisa",
+                "custom_emoji_picker": "Selector emoji personalizado",
+                "enable_content_warning": "Marcar con Aviso sobre o contido",
+                "disable_content_warning": "Retirar Aviso sobre o contido",
+                "post_visibility_menu": "Visibilidade da publicación"
             },
             "keyboard": {
-                "discard_post": "Discard Post",
-                "publish_post": "Publish Post",
-                "toggle_poll": "Toggle Poll",
-                "toggle_content_warning": "Toggle Content Warning",
-                "append_attachment_entry": "Add Attachment - %s",
-                "select_visibility_entry": "Select Visibility - %s"
+                "discard_post": "Descartar publicación",
+                "publish_post": "Publicar",
+                "toggle_poll": "Activar enquisa",
+                "toggle_content_warning": "Marcar con Aviso sobre o contido",
+                "append_attachment_entry": "Engadir anexo - %s",
+                "select_visibility_entry": "Elexir visibilidade - %s"
             }
         },
         "profile": {
             "dashboard": {
-                "posts": "posts",
+                "posts": "publicacións",
                 "following": "following",
                 "followers": "followers"
             },
