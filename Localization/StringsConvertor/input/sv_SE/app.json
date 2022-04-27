@@ -50,66 +50,66 @@
             },
             "clean_cache": {
                 "title": "Rensa cache",
-                "message": "Successfully cleaned %s cache."
+                "message": "Rensade %s cache."
             }
         },
         "controls": {
             "actions": {
-                "back": "Back",
-                "next": "Next",
-                "previous": "Previous",
-                "open": "Open",
-                "add": "Add",
-                "remove": "Remove",
+                "back": "Tillbaka",
+                "next": "Nästa",
+                "previous": "Tidigare",
+                "open": "Öppna",
+                "add": "Lägg till",
+                "remove": "Radera",
                 "edit": "Redigera",
                 "save": "Spara",
                 "ok": "OK",
                 "done": "Klar",
-                "confirm": "Confirm",
+                "confirm": "Bekräfta",
                 "continue": "Fortsätt",
-                "compose": "Compose",
+                "compose": "Skriv",
                 "cancel": "Avbryt",
-                "discard": "Discard",
+                "discard": "Kasta",
                 "try_again": "Försök igen",
-                "take_photo": "Take Photo",
+                "take_photo": "Ta foto",
                 "save_photo": "Spara foto",
                 "copy_photo": "Kopiera foto",
-                "sign_in": "Sign In",
-                "sign_up": "Sign Up",
-                "see_more": "See More",
-                "preview": "Preview",
+                "sign_in": "Logga in",
+                "sign_up": "Registrera dig",
+                "see_more": "Visa mer",
+                "preview": "Förhandstitt",
                 "share": "Dela",
                 "share_user": "Dela %s",
-                "share_post": "Share Post",
+                "share_post": "Dela inlägg",
                 "open_in_safari": "Öppna i Safari",
-                "open_in_browser": "Open in Browser",
-                "find_people": "Find people to follow",
-                "manually_search": "Manually search instead",
-                "skip": "Skip",
-                "reply": "Reply",
+                "open_in_browser": "Öppna i webbläsare",
+                "find_people": "Hitta personer att följa",
+                "manually_search": "Sök manuellt istället",
+                "skip": "Hoppa över",
+                "reply": "Svara",
                 "report_user": "Rapportera %s",
-                "block_domain": "Block %s",
-                "unblock_domain": "Unblock %s",
+                "block_domain": "Blockera %s",
+                "unblock_domain": "Avblockera %s",
                 "settings": "Inställningar",
                 "delete": "Radera"
             },
             "tabs": {
-                "home": "Home",
-                "search": "Search",
-                "notification": "Notification",
+                "home": "Hem",
+                "search": "Sök",
+                "notification": "Avisering",
                 "profile": "Profil"
             },
             "keyboard": {
                 "common": {
-                    "switch_to_tab": "Switch to %s",
-                    "compose_new_post": "Compose New Post",
-                    "show_favorites": "Show Favorites",
-                    "open_settings": "Open Settings"
+                    "switch_to_tab": "Växla till %s",
+                    "compose_new_post": "Skriv nytt inlägg",
+                    "show_favorites": "Visa favoriter",
+                    "open_settings": "Öppna inställningar"
                 },
                 "timeline": {
-                    "previous_status": "Previous Post",
-                    "next_status": "Next Post",
-                    "open_status": "Open Post",
+                    "previous_status": "Föregående inlägg",
+                    "next_status": "Nästa inlägg",
+                    "open_status": "Öppna inlägg",
                     "open_author_profile": "Open Author's Profile",
                     "open_reblogger_profile": "Open Reblogger's Profile",
                     "reply_status": "Reply to Post",
@@ -180,33 +180,33 @@
                 "unmute": "Unmute",
                 "unmute_user": "Unmute %s",
                 "muted": "Muted",
-                "edit_info": "Edit Info"
+                "edit_info": "Redigera info"
             },
             "timeline": {
-                "filtered": "Filtered",
+                "filtered": "Filtrerat",
                 "timestamp": {
                     "now": "Nu"
                 },
                 "loader": {
-                    "load_missing_posts": "Load missing posts",
-                    "loading_missing_posts": "Loading missing posts...",
+                    "load_missing_posts": "Ladda saknade inlägg",
+                    "loading_missing_posts": "Laddar saknade inlägg...",
                     "show_more_replies": "Visa fler svar"
                 },
                 "header": {
-                    "no_status_found": "No Post Found",
-                    "blocking_warning": "You can’t view this user's profile\nuntil you unblock them.\nYour profile looks like this to them.",
-                    "user_blocking_warning": "You can’t view %s’s profile\nuntil you unblock them.\nYour profile looks like this to them.",
-                    "blocked_warning": "You can’t view this user’s profile\nuntil they unblock you.",
-                    "user_blocked_warning": "You can’t view %s’s profile\nuntil they unblock you.",
-                    "suspended_warning": "This user has been suspended.",
-                    "user_suspended_warning": "%s’s account has been suspended."
+                    "no_status_found": "Inga inlägg hittades",
+                    "blocking_warning": "Du kan inte visa användarens profil\nförrän du avblockerar dem.\nDin profil ser ut så här för dem.",
+                    "user_blocking_warning": "Du kan inte visa %ss profil\nförrän du avblockerar dem.\nDin profil ser ut så här för dem.",
+                    "blocked_warning": "Du kan inte visa den här användarens profil\nförrän de avblockerar dig.",
+                    "user_blocked_warning": "Du kan inte visa %ss profil\nförrän de avblockerar dig.",
+                    "suspended_warning": "Denna användare har stängts av.",
+                    "user_suspended_warning": "%ss konto har blivit avstängt."
                 }
             }
         }
     },
     "scene": {
         "welcome": {
-            "slogan": "Social networking\nback in your hands.",
+            "slogan": "Socialt nätverkande\ntillbaka i dina händer.",
             "get_started": "Kom igång",
             "log_in": "Logga in"
         },
