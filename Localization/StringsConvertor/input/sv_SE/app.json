@@ -110,76 +110,76 @@
                     "previous_status": "Föregående inlägg",
                     "next_status": "Nästa inlägg",
                     "open_status": "Öppna inlägg",
-                    "open_author_profile": "Open Author's Profile",
-                    "open_reblogger_profile": "Open Reblogger's Profile",
-                    "reply_status": "Reply to Post",
-                    "toggle_reblog": "Toggle Reblog on Post",
-                    "toggle_favorite": "Toggle Favorite on Post",
-                    "toggle_content_warning": "Toggle Content Warning",
-                    "preview_image": "Preview Image"
+                    "open_author_profile": "Öppna författarens profil",
+                    "open_reblogger_profile": "Öppna ompostarens profil",
+                    "reply_status": "Svara på inlägg",
+                    "toggle_reblog": "Växla ompostning på inlägg",
+                    "toggle_favorite": "Växla favorit på inlägg",
+                    "toggle_content_warning": "Växla innehållsvarning",
+                    "preview_image": "Förhandsgranska bild"
                 },
                 "segmented_control": {
-                    "previous_section": "Previous Section",
-                    "next_section": "Next Section"
+                    "previous_section": "Föregående avsnitt",
+                    "next_section": "Nästa avsnitt"
                 }
             },
             "status": {
-                "user_reblogged": "%s reblogged",
-                "user_replied_to": "Replied to %s",
-                "show_post": "Show Post",
-                "show_user_profile": "Show user profile",
-                "content_warning": "Content Warning",
-                "sensitive_content": "Sensitive Content",
-                "media_content_warning": "Tap anywhere to reveal",
-                "tap_to_reveal": "Tap to reveal",
+                "user_reblogged": "%s ompostade",
+                "user_replied_to": "Svarade på %s",
+                "show_post": "Visa inlägg",
+                "show_user_profile": "Visa användarprofil",
+                "content_warning": "Innehållsvarning",
+                "sensitive_content": "Känsligt innehåll",
+                "media_content_warning": "Tryck var som helst för att visa",
+                "tap_to_reveal": "Tryck för att visa",
                 "poll": {
-                    "vote": "Vote",
-                    "closed": "Closed"
+                    "vote": "Rösta",
+                    "closed": "Stängd"
                 },
                 "actions": {
-                    "reply": "Reply",
-                    "reblog": "Reblog",
-                    "unreblog": "Undo reblog",
-                    "favorite": "Favorite",
-                    "unfavorite": "Unfavorite",
+                    "reply": "Svara",
+                    "reblog": "Omposta",
+                    "unreblog": "Ångra ompostning",
+                    "favorite": "Favorit",
+                    "unfavorite": "Ta bort favorit",
                     "menu": "Meny",
                     "hide": "Dölj",
-                    "show_image": "Show image",
-                    "show_gif": "Show GIF",
-                    "show_video_player": "Show video player",
-                    "tap_then_hold_to_show_menu": "Tap then hold to show menu"
+                    "show_image": "Visa bild",
+                    "show_gif": "Visa GIF",
+                    "show_video_player": "Visa videospelare",
+                    "tap_then_hold_to_show_menu": "Tryck och håll ned för att visa menyn"
                 },
                 "tag": {
                     "url": "URL",
-                    "mention": "Mention",
-                    "link": "Link",
-                    "hashtag": "Hashtag",
-                    "email": "Email",
+                    "mention": "Nämn",
+                    "link": "Länk",
+                    "hashtag": "Hashtagg",
+                    "email": "E-post",
                     "emoji": "Emoji"
                 },
                 "visibility": {
-                    "unlisted": "Everyone can see this post but not display in the public timeline.",
-                    "private": "Only their followers can see this post.",
-                    "private_from_me": "Only my followers can see this post.",
-                    "direct": "Only mentioned user can see this post."
+                    "unlisted": "Alla kan se detta inlägg men det visas inte i den offentliga tidslinjen.",
+                    "private": "Endast deras följare kan se detta inlägg.",
+                    "private_from_me": "Bara mina följare kan se det här inlägget.",
+                    "direct": "Endast nämnda användare kan se detta inlägg."
                 }
             },
             "friendship": {
                 "follow": "Följ",
                 "following": "Följer",
-                "request": "Request",
-                "pending": "Pending",
-                "block": "Block",
-                "block_user": "Block %s",
-                "block_domain": "Block %s",
-                "unblock": "Unblock",
-                "unblock_user": "Unblock %s",
-                "blocked": "Blocked",
-                "mute": "Mute",
-                "mute_user": "Mute %s",
-                "unmute": "Unmute",
-                "unmute_user": "Unmute %s",
-                "muted": "Muted",
+                "request": "Begäran",
+                "pending": "Väntande",
+                "block": "Blockera",
+                "block_user": "Blockera %s",
+                "block_domain": "Blockera %s",
+                "unblock": "Avblockera",
+                "unblock_user": "Avblockera %s",
+                "blocked": "Blockerad",
+                "mute": "Tysta",
+                "mute_user": "Tysta %s",
+                "unmute": "Avtysta",
+                "unmute_user": "Avtysta %s",
+                "muted": "Tystad",
                 "edit_info": "Redigera info"
             },
             "timeline": {
@@ -303,100 +303,100 @@
                     "username_invalid": "Username must only contain alphanumeric characters and underscores",
                     "username_too_long": "Username is too long (can’t be longer than 30 characters)",
                     "email_invalid": "This is not a valid email address",
-                    "password_too_short": "Password is too short (must be at least 8 characters)"
+                    "password_too_short": "Lösenordet är för kort (det måste vara minst 8 tecken)"
                 }
             }
         },
         "server_rules": {
-            "title": "Some ground rules.",
-            "subtitle": "These are set and enforced by the %s moderators.",
-            "prompt": "By continuing, you’re subject to the terms of service and privacy policy for %s.",
-            "terms_of_service": "terms of service",
+            "title": "Några grundregler.",
+            "subtitle": "Dessa sätts och verkställs av moderatorerna på %s.",
+            "prompt": "Genom att fortsätta omfattas du av villkoren för tjänsten och sekretesspolicyn för %s.",
+            "terms_of_service": "användarvillkor",
             "privacy_policy": "integritetspolicy",
             "button": {
-                "confirm": "I Agree"
+                "confirm": "Jag godkänner"
             }
         },
         "confirm_email": {
-            "title": "One last thing.",
-            "subtitle": "Tap the link we emailed to you to verify your account.",
+            "title": "En sista sak.",
+            "subtitle": "Tryck på länken vi e-postade till dig för att verifiera ditt konto.",
             "button": {
-                "open_email_app": "Open Email App",
-                "resend": "Resend"
+                "open_email_app": "Öppna epostappen",
+                "resend": "Skicka igen"
             },
             "dont_receive_email": {
-                "title": "Check your email",
-                "description": "Check if your email address is correct as well as your junk folder if you haven’t.",
-                "resend_email": "Resend Email"
+                "title": "Kolla din e-post",
+                "description": "Kontrollera om din e-postadress är korrekt samt din skräppostmapp om du inte har gjort det.",
+                "resend_email": "Skicka e-postmeddelande igen"
             },
             "open_email_app": {
-                "title": "Check your inbox.",
-                "description": "We just sent you an email. Check your junk folder if you haven’t.",
-                "mail": "Mail",
-                "open_email_client": "Open Email Client"
+                "title": "Kolla din inkorg.",
+                "description": "Vi har precis skickat ett e-postmeddelande till dig. Kontrollera din skräpmapp om du inte har gjort det.",
+                "mail": "E-post",
+                "open_email_client": "Öppna e-postklient"
             }
         },
         "home_timeline": {
-            "title": "Home",
+            "title": "Hem",
             "navigation_bar_state": {
                 "offline": "Offline",
-                "new_posts": "See new posts",
-                "published": "Published!",
-                "Publishing": "Publishing post..."
+                "new_posts": "Se nya inlägg",
+                "published": "Publicerad!",
+                "Publishing": "Publicerar inlägget..."
             }
         },
         "suggestion_account": {
-            "title": "Find People to Follow",
-            "follow_explain": "When you follow someone, you’ll see their posts in your home feed."
+            "title": "Hitta personer att följa",
+            "follow_explain": "När du följer någon, kommer du att se deras inlägg i ditt hemflöde."
         },
         "compose": {
             "title": {
-                "new_post": "New Post",
-                "new_reply": "New Reply"
+                "new_post": "Nytt inlägg",
+                "new_reply": "Nytt svar"
             },
             "media_selection": {
-                "camera": "Take Photo",
+                "camera": "Ta foto",
                 "photo_library": "Fotobibliotek",
                 "browse": "Bläddra"
             },
-            "content_input_placeholder": "Type or paste what’s on your mind",
+            "content_input_placeholder": "Skriv eller klistra in vad du har på hjärtat",
             "compose_action": "Publicera",
-            "replying_to_user": "replying to %s",
+            "replying_to_user": "svarar %s",
             "attachment": {
-                "photo": "photo",
+                "photo": "foto",
                 "video": "video",
-                "attachment_broken": "This %s is broken and can’t be\nuploaded to Mastodon.",
-                "description_photo": "Describe the photo for the visually-impaired...",
-                "description_video": "Describe the video for the visually-impaired..."
+                "attachment_broken": "Denna %s är trasig och kan inte\nladdas upp till Mastodon.",
+                "description_photo": "Beskriv fotot för synskadade...",
+                "description_video": "Beskriv videon för de synskadade..."
             },
             "poll": {
                 "duration_time": "Varaktighet: %s",
                 "thirty_minutes": "30 minuter",
-                "one_hour": "1 Hour",
-                "six_hours": "6 Hours",
-                "one_day": "1 Day",
-                "three_days": "3 Days",
-                "seven_days": "7 Days",
-                "option_number": "Option %ld"
+                "one_hour": "1 timme",
+                "six_hours": "6 timmar",
+                "one_day": "1dag",
+                "three_days": "3 dagar",
+                "seven_days": "7 dagar",
+                "option_number": "Alternativ %ld"
             },
             "content_warning": {
-                "placeholder": "Write an accurate warning here..."
+                "placeholder": "Skriv en noggrann varning här..."
             },
             "visibility": {
-                "public": "Public",
-                "unlisted": "Unlisted",
-                "private": "Followers only",
-                "direct": "Only people I mention"
+                "public": "Publik",
+                "unlisted": "Olistad",
+                "private": "Endast följare",
+                "direct": "Bara personer jag nämner"
             },
             "auto_complete": {
-                "space_to_add": "Space to add"
+                "space_to_add": "Mellanslag att lägga till"
             },
             "accessibility": {
-                "append_attachment": "Add Attachment",
-                "append_poll": "Add Poll",
-                "remove_poll": "Remove Poll",
-                "custom_emoji_picker": "Custom Emoji Picker",
-                "enable_content_warning": "Enable Content Warning",
+                "append_attachment": "Lägg till bilaga",
+                "append_poll": "Lägg till omröstning",
+                "remove_poll": "Ta bort omröstning",
+                "custom_emoji_picker": "Anpassad emoji-väljare",
+                "enable_content_warning": "Aktivera innehållsvarning",
                 "disable_content_warning": "Disable Content Warning",
                 "post_visibility_menu": "Post Visibility Menu"
             },
@@ -507,15 +507,15 @@
         },
         "notification": {
             "title": {
-                "Everything": "Everything",
-                "Mentions": "Mentions"
+                "Everything": "Allting",
+                "Mentions": "Omnämningar"
             },
             "notification_description": {
-                "followed_you": "followed you",
-                "favorited_your_post": "favorited your post",
-                "reblogged_your_post": "reblogged your post",
+                "followed_you": "följde dig",
+                "favorited_your_post": "favoriserade ditt inlägg",
+                "reblogged_your_post": "ompostade ditt inlägg",
                 "mentioned_you": "nämnde dig",
-                "request_to_follow_you": "request to follow you",
+                "request_to_follow_you": "begär att följa dig",
                 "poll_has_ended": "poll has ended"
             },
             "keyobard": {
