@@ -2,8 +2,8 @@
     "common": {
         "alerts": {
             "common": {
-                "please_try_again": "Harap coba lagi.",
-                "please_try_again_later": "Coba lagi nanti."
+                "please_try_again": "Silakan coba lagi.",
+                "please_try_again_later": "Silakan coba lagi nanti."
             },
             "sign_up_failure": {
                 "title": "Sign Up Failure"
@@ -129,6 +129,7 @@
                 "show_post": "Tampilkan Postingan",
                 "show_user_profile": "Tampilkan Profil Pengguna",
                 "content_warning": "Peringatan Konten",
+                "sensitive_content": "Sensitive Content",
                 "media_content_warning": "Ketuk di mana saja untuk melihat",
                 "tap_to_reveal": "Tap to reveal",
                 "poll": {
@@ -498,7 +499,8 @@
                 "hashtags": "Hashtags",
                 "news": "News",
                 "for_you": "For You"
-            }
+            },
+            "intro": "These are the posts gaining traction in your corner of Mastodon."
         },
         "favorite": {
             "title": "Your Favorites"

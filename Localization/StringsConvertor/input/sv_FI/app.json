@@ -129,6 +129,7 @@
                 "show_post": "Näytä julkaisu",
                 "show_user_profile": "Näytä tili",
                 "content_warning": "Sisältövaroitus",
+                "sensitive_content": "Sensitive Content",
                 "media_content_warning": "Napauta mistä tahansa paljastaaksesi",
                 "tap_to_reveal": "Tap to reveal",
                 "poll": {
@@ -498,7 +499,8 @@
                 "hashtags": "Hashtags",
                 "news": "News",
                 "for_you": "For You"
-            }
+            },
+            "intro": "These are the posts gaining traction in your corner of Mastodon."
         },
         "favorite": {
             "title": "Omat suosikit"

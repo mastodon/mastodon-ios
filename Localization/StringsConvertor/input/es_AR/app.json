@@ -113,9 +113,9 @@
                     "open_author_profile": "Abrir perfil del autor",
                     "open_reblogger_profile": "Abrir perfil del adherente",
                     "reply_status": "Responder al mensaje",
-                    "toggle_reblog": "Cambiar la adhesión en el mensaje",
-                    "toggle_favorite": "Cambiar la marca de favorito en el mensaje",
-                    "toggle_content_warning": "Cambiar la advertencia de contenido",
+                    "toggle_reblog": "Cambiar adhesión al mensaje",
+                    "toggle_favorite": "Cambiar marca de favorito del mensaje",
+                    "toggle_content_warning": "Cambiar modo de advertencia de contenido",
                     "preview_image": "Previsualizar imagen"
                 },
                 "segmented_control": {
@@ -129,7 +129,8 @@
                 "show_post": "Mostrar mensaje",
                 "show_user_profile": "Mostrar perfil de usuario",
                 "content_warning": "Advertencia de contenido",
-                "media_content_warning": "Toca en cualquier lugar para mostrar",
+                "sensitive_content": "Contenido sensible",
+                "media_content_warning": "Tocá en cualquier parte para mostrar",
                 "tap_to_reveal": "Tocá para mostrar",
                 "poll": {
                     "vote": "Votar",
@@ -498,7 +499,8 @@
                 "hashtags": "Etiquetas",
                 "news": "Novedades",
                 "for_you": "Para vos"
-            }
+            },
+            "intro": "Estos son los mensajes que están ganando tracción en tu rincón de Mastodon."
         },
         "favorite": {
             "title": "Tus favoritos"
