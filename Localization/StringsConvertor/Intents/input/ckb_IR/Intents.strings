@@ -10,42 +10,42 @@
 
 "KDNTJ4" = "هۆکاری سەرنەکەوتن";
 
-"RHxKOw" = "Send Post with text content";
+"RHxKOw" = "پۆست بە نووسینەوە بکە";
 
-"RxSqsb" = "Post";
+"RxSqsb" = "پۆست";
 
-"WCIR3D" = "Post ${content} on Mastodon";
+"WCIR3D" = "${content} لە ماستۆدۆن پۆست بکە";
 
-"ZKJSNu" = "Post";
+"ZKJSNu" = "پۆست";
 
 "ZS1XaK" = "${content}";
 
 "ZbSjzC" = "دەرکەوتن";
 
-"Zo4jgJ" = "Post Visibility";
+"Zo4jgJ" = "دەرکەوتنی پۆست";
 
-"apSxMG-dYQ5NN" = "There are ${count} options matching ‘Public’.";
+"apSxMG-dYQ5NN" = "${count} بژاردە بۆ 'گشتی' هەن.";
 
-"apSxMG-ehFLjY" = "There are ${count} options matching ‘Followers Only’.";
+"apSxMG-ehFLjY" = "${count} بژاردە بۆ 'تەنیا شوێنکەوتووەکان' هەن.";
 
-"ayoYEb-dYQ5NN" = "${content}, Public";
+"ayoYEb-dYQ5NN" = "${content}، گشتی";
 
-"ayoYEb-ehFLjY" = "${content}, Followers Only";
+"ayoYEb-ehFLjY" = "${content}، تەنیا شوێنکەوتووەکان";
 
-"dUyuGg" = "Post on Mastodon";
+"dUyuGg" = "پۆستێک بکە";
 
 "dYQ5NN" = "گشتی";
 
 "ehFLjY" = "تەنیا شوێنکەوتووەکان";
 
-"gfePDu" = "Posting failed. ${failureReason}";
+"gfePDu" = "پۆستکردنەکە سەرکەوتوو نەبوو. ${failureReason}";
 
-"k7dbKQ" = "Post was sent successfully.";
+"k7dbKQ" = "پۆستەکە کرا.";
 
-"oGiqmY-dYQ5NN" = "Just to confirm, you wanted ‘Public’?";
+"oGiqmY-dYQ5NN" = "دڵنیایت لە هەڵبژاردنی 'گشتی'؟";
 
-"oGiqmY-ehFLjY" = "Just to confirm, you wanted ‘Followers Only’?";
+"oGiqmY-ehFLjY" = "دڵنیایت لە هەڵبژاردنی 'تەنیا شوێنکەوتووەکان'؟";
 
 "rM6dvp" = "بەستەر";
 
-"ryJLwG" = "Post was sent successfully. ";
+"ryJLwG" = "پۆستەکە کرا. ";
