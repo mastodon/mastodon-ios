@@ -1,14 +1,14 @@
-"16wxgf" = "Post on Mastodon";
+"16wxgf" = "پۆستێک بکە";
 
-"751xkl" = "Text Content";
+"751xkl" = "نووسین";
 
-"CsR7G2" = "Post on Mastodon";
+"CsR7G2" = "پۆستێک بکە";
 
-"HZSGTr" = "What content to post?";
+"HZSGTr" = "چی پۆست بکرێت؟";
 
-"HdGikU" = "Posting failed";
+"HdGikU" = "پۆستکردنەکە سەرکەوتوو نەبوو";
 
-"KDNTJ4" = "Failure Reason";
+"KDNTJ4" = "هۆکاری سەرنەکەوتن";
 
 "RHxKOw" = "Send Post with text content";
 
@@ -20,7 +20,7 @@
 
 "ZS1XaK" = "${content}";
 
-"ZbSjzC" = "Visibility";
+"ZbSjzC" = "دەرکەوتن";
 
 "Zo4jgJ" = "Post Visibility";
 
@@ -34,9 +34,9 @@
 
 "dUyuGg" = "Post on Mastodon";
 
-"dYQ5NN" = "Public";
+"dYQ5NN" = "گشتی";
 
-"ehFLjY" = "Followers Only";
+"ehFLjY" = "تەنیا شوێنکەوتووەکان";
 
 "gfePDu" = "Posting failed. ${failureReason}";
 
@@ -46,6 +46,6 @@
 
 "oGiqmY-ehFLjY" = "Just to confirm, you wanted ‘Followers Only’?";
 
-"rM6dvp" = "URL";
+"rM6dvp" = "بەستەر";
 
 "ryJLwG" = "Post was sent successfully. ";
