@@ -6,56 +6,56 @@
                 "please_try_again_later": "تکایە دواتر هەوڵ بدەوە."
             },
             "sign_up_failure": {
-                "title": "Sign Up Failure"
+                "title": "تۆمارکردنەکە سەرکەوتوو نەبوو"
             },
             "server_error": {
-                "title": "Server Error"
+                "title": "هەڵەی ڕاژەکار"
             },
             "vote_failure": {
-                "title": "Vote Failure",
-                "poll_ended": "The poll has ended"
+                "title": "نەتوانرا دەنگ بدرێت",
+                "poll_ended": "دەنگدانەکە کۆتایی هاتووە"
             },
             "discard_post_content": {
-                "title": "Discard Draft",
+                "title": "ڕەشنووس هەڵمەگرە",
                 "message": "Confirm to discard composed post content."
             },
             "publish_post_failure": {
-                "title": "Publish Failure",
-                "message": "Failed to publish the post.\nPlease check your internet connection.",
+                "title": "نەتوانرا پۆستەکە بکرێت",
+                "message": "نەتوانرا پۆستەکە بکرێت.\nتکایە لە بەردەستبوونی هێڵی ئینتەرنێت دڵنیا بە.",
                 "attachments_message": {
                     "video_attach_with_photo": "Cannot attach a video to a post that already contains images.",
                     "more_than_one_video": "Cannot attach more than one video."
                 }
             },
             "edit_profile_failure": {
-                "title": "Edit Profile Error",
-                "message": "Cannot edit profile. Please try again."
+                "title": "نەتوانرا دەستکاریی پرۆفایل بکرێت",
+                "message": "ناتوانرێت دەستکاریی پرۆفایل بکرێت. تکایە دووبارە هەوڵ بدەوە."
             },
             "sign_out": {
-                "title": "Sign Out",
-                "message": "Are you sure you want to sign out?",
-                "confirm": "Sign Out"
+                "title": "دەربچۆ",
+                "message": "دڵنیایت دەتەوێت دەربچیت؟",
+                "confirm": "دەربچۆ"
             },
             "block_domain": {
-                "title": "Are you really, really sure you want to block the entire %s? In most cases a few targeted blocks or mutes are sufficient and preferable. You will not see content from that domain and any of your followers from that domain will be removed.",
-                "block_entire_domain": "Block Domain"
+                "title": "دڵنیایت دەتەوێت تەواوی %s ئاستەنگ بکەیت؟ لە زۆر بارەکاندا ئاستەنگکردنی بچووک باشترە. ئەگەر وا بکەیت، لەو ڕاژەکارەوە هیچ شتێک نابینیت و هەموو شوێنکەوتووەکانت لەوێوە لادەبرێن.",
+                "block_entire_domain": "هەموو ڕاژەکارەکە ئاستەنگ بکە"
             },
             "save_photo_failure": {
-                "title": "Save Photo Failure",
+                "title": "نەتوانرا وێنەکە هەڵبگیرێت",
                 "message": "Please enable the photo library access permission to save the photo."
             },
             "delete_post": {
                 "title": "بیسڕەوە",
-                "message": "Are you sure you want to delete this post?"
+                "message": "دڵنیایت دەتەوێت ئەم پۆستە بسڕیتەوە؟"
             },
             "clean_cache": {
-                "title": "Clean Cache",
+                "title": "بیرگە پاک بکەوە",
                 "message": "Successfully cleaned %s cache."
             }
         },
         "controls": {
             "actions": {
-                "back": "Back",
+                "back": "بگەڕێوە",
                 "next": "دواتر",
                 "previous": "پێشتر",
                 "open": "بیکەوە",
@@ -67,8 +67,8 @@
                 "done": "تەواو",
                 "confirm": "پشتڕاستی بکەوە",
                 "continue": "بەردەوام بە",
-                "compose": "Compose",
-                "cancel": "Cancel",
+                "compose": "پۆست بکە",
+                "cancel": "هەڵوەشاندنەوه",
                 "discard": "Discard",
                 "try_again": "هەوڵ بدەوە",
                 "take_photo": "وێنە بگرە",
@@ -80,105 +80,105 @@
                 "preview": "پێشبینین",
                 "share": "هاوبەشی بکە",
                 "share_user": "%s هاوبەش بکە",
-                "share_post": "Share Post",
-                "open_in_safari": "Open in Safari",
-                "open_in_browser": "Open in Browser",
-                "find_people": "Find people to follow",
-                "manually_search": "Manually search instead",
-                "skip": "Skip",
-                "reply": "Reply",
-                "report_user": "Report %s",
-                "block_domain": "Block %s",
-                "unblock_domain": "Unblock %s",
-                "settings": "Settings",
-                "delete": "Delete"
+                "share_post": "هاوبەشی بکە",
+                "open_in_safari": "لە Safari بیکەوە",
+                "open_in_browser": "لە وێبگەڕ بیکەوە",
+                "find_people": "خەڵک بدۆزەوە",
+                "manually_search": "خۆت بگەڕێ",
+                "skip": "بیپەڕێنە",
+                "reply": "وەڵامی بدەوە",
+                "report_user": "سکاڵا لە %s بکە",
+                "block_domain": "%s ئاستەنگ بکە",
+                "unblock_domain": "%s ئاستەنگ مەکە",
+                "settings": "رێکخستنەکان",
+                "delete": "بیسڕەوە"
             },
             "tabs": {
-                "home": "Home",
-                "search": "Search",
-                "notification": "Notification",
-                "profile": "Profile"
+                "home": "ماڵەوە",
+                "search": "بگەڕێ",
+                "notification": "ئاگادارکردنەوەکان",
+                "profile": "پرۆفایل"
             },
             "keyboard": {
                 "common": {
-                    "switch_to_tab": "Switch to %s",
-                    "compose_new_post": "Compose New Post",
-                    "show_favorites": "Show Favorites",
-                    "open_settings": "Open Settings"
+                    "switch_to_tab": "بڕۆ بۆ %s",
+                    "compose_new_post": "پۆستێکی نوێ بکە",
+                    "show_favorites": "بەدڵبووەکان ببینە",
+                    "open_settings": "ڕێکخستنەکان بکەوە"
                 },
                 "timeline": {
-                    "previous_status": "Previous Post",
-                    "next_status": "Next Post",
-                    "open_status": "Open Post",
-                    "open_author_profile": "Open Author's Profile",
+                    "previous_status": "پۆستی پێشتر",
+                    "next_status": "پۆستی دواتر",
+                    "open_status": "بیکەوە",
+                    "open_author_profile": "پرۆفایلەکەی بکەوە",
                     "open_reblogger_profile": "Open Reblogger's Profile",
-                    "reply_status": "Reply to Post",
+                    "reply_status": "وەڵامی بدەوە",
                     "toggle_reblog": "Toggle Reblog on Post",
                     "toggle_favorite": "Toggle Favorite on Post",
                     "toggle_content_warning": "Toggle Content Warning",
-                    "preview_image": "Preview Image"
+                    "preview_image": "بیبینە"
                 },
                 "segmented_control": {
                     "previous_section": "Previous Section",
-                    "next_section": "Next Section"
+                    "next_section": "دەستنیشانکراوی دواتر"
                 }
             },
             "status": {
-                "user_reblogged": "%s reblogged",
-                "user_replied_to": "Replied to %s",
-                "show_post": "Show Post",
-                "show_user_profile": "Show user profile",
+                "user_reblogged": "%s پۆست کرایەوە",
+                "user_replied_to": "لە وەڵامدا بۆ %s",
+                "show_post": "پۆستەکە نیشان بدە",
+                "show_user_profile": "پرۆفایلەکەی نیشان بدە",
                 "content_warning": "Content Warning",
                 "sensitive_content": "Sensitive Content",
                 "media_content_warning": "Tap anywhere to reveal",
                 "tap_to_reveal": "Tap to reveal",
                 "poll": {
-                    "vote": "Vote",
-                    "closed": "Closed"
+                    "vote": "دەنگ بدە",
+                    "closed": "داخراوە"
                 },
                 "actions": {
-                    "reply": "Reply",
-                    "reblog": "Reblog",
-                    "unreblog": "Undo reblog",
-                    "favorite": "Favorite",
-                    "unfavorite": "Unfavorite",
-                    "menu": "Menu",
-                    "hide": "Hide",
-                    "show_image": "Show image",
-                    "show_gif": "Show GIF",
-                    "show_video_player": "Show video player",
-                    "tap_then_hold_to_show_menu": "Tap then hold to show menu"
+                    "reply": "وەڵامی بدەوە",
+                    "reblog": "پۆستی بکەوە",
+                    "unreblog": "پۆستکردنەکە بگەڕێنەوە",
+                    "favorite": "بەدڵمە",
+                    "unfavorite": "بەدڵبوونەکە بگەڕێنەوە",
+                    "menu": "پێڕست",
+                    "hide": "بیشارەوە",
+                    "show_image": "وێنەکە نیشان بدە",
+                    "show_gif": "گیفەکە نیشان بدە",
+                    "show_video_player": "ڤیدیۆکە لێ بدە",
+                    "tap_then_hold_to_show_menu": "دەستی پیا بنێ و بیگرە بۆ نیشاندانی پێڕستەکە"
                 },
                 "tag": {
-                    "url": "URL",
-                    "mention": "Mention",
-                    "link": "Link",
-                    "hashtag": "Hashtag",
-                    "email": "Email",
-                    "emoji": "Emoji"
+                    "url": "بەستەر",
+                    "mention": "ئاماژە",
+                    "link": "بەستەر",
+                    "hashtag": "هاشتاگ",
+                    "email": "ئیمێڵ",
+                    "emoji": "ئیمۆجی"
                 },
                 "visibility": {
-                    "unlisted": "Everyone can see this post but not display in the public timeline.",
-                    "private": "Only their followers can see this post.",
-                    "private_from_me": "Only my followers can see this post.",
-                    "direct": "Only mentioned user can see this post."
+                    "unlisted": "هەرکەسێک دەتوانێت ئەم پۆستە ببینێت بەڵام ناچێتە بەردەمیان.",
+                    "private": "تەنیا شوێنکەوتووەکانی دەتوانن ئەم پۆستە ببینن.",
+                    "private_from_me": "تەنیا شوێنکەوتووەکانم دەتوانن ئەم پۆستە ببینن.",
+                    "direct": "تەنیا بەکارهێنەرە ئاماژە پێکراوەکە دەتوانێت ئەم پۆستە ببینێت."
                 }
             },
             "friendship": {
-                "follow": "Follow",
-                "following": "Following",
-                "request": "Request",
-                "pending": "Pending",
-                "block": "Block",
-                "block_user": "Block %s",
-                "block_domain": "Block %s",
-                "unblock": "Unblock",
-                "unblock_user": "Unblock %s",
-                "blocked": "Blocked",
+                "follow": "شوێنی بکەوە",
+                "following": "شوێنی دەکەویت",
+                "request": "داوای لێ بکە",
+                "pending": "داوات کردووە",
+                "block": "ئاستەنگی بکە",
+                "block_user": "%s ئاستەنگ بکە",
+                "block_domain": "%s ئاستەنگ بکە",
+                "unblock": "ئاستەنگی مەکە",
+                "unblock_user": "%s ئاستەنگ مەکە",
+                "blocked": "ئاستەنگ کراوە",
                 "mute": "بێدەنگی بکە",
-                "mute_user": "Mute %s",
-                "unmute": "Unmute",
-                "unmute_user": "Unmute %s",
+                "mute_user": "%s بێدەنگە",
+                "unmute": "بێدەنگی مەکە",
+                "unmute_user": "%s بێدەنگ مەکە",
                 "muted": "بێدەنگ کراوە",
                 "edit_info": "دەستکاری"
             },
@@ -188,18 +188,18 @@
                     "now": "ئێستا"
                 },
                 "loader": {
-                    "load_missing_posts": "Load missing posts",
-                    "loading_missing_posts": "Loading missing posts...",
-                    "show_more_replies": "Show more replies"
+                    "load_missing_posts": "پۆستە ماوەکان بار بکە",
+                    "loading_missing_posts": "پۆستە ماوەکان بار دەکرێن...",
+                    "show_more_replies": "وەڵامی زیاتر نیشان بدە"
                 },
                 "header": {
                     "no_status_found": "هیچ پۆستێک نەدۆزرایەوە",
-                    "blocking_warning": "You can’t view this user's profile\nuntil you unblock them.\nYour profile looks like this to them.",
-                    "user_blocking_warning": "You can’t view %s’s profile\nuntil you unblock them.\nYour profile looks like this to them.",
-                    "blocked_warning": "You can’t view this user’s profile\nuntil they unblock you.",
-                    "user_blocked_warning": "You can’t view %s’s profile\nuntil they unblock you.",
-                    "suspended_warning": "This user has been suspended.",
-                    "user_suspended_warning": "%s’s account has been suspended."
+                    "blocking_warning": "ناتوانیت پرۆفایلی ئەم بەکارهێنەرە ببینیت\nهەتا ئاستەنگەکەیان لادەبەیت.\nپرۆفایلەکەت ئاوها لایان دەردەکەوێت.",
+                    "user_blocking_warning": "ناتوانیت پرۆفایلی %s ببینیت\nهەتا ئاستەنگەکەیان لادەبەیت.\nپرۆفایلەکەت ئاوها لایان دەردەکەوێت.",
+                    "blocked_warning": "ناتوانیت پرۆفایلی ئەم بەکارهێنەرە ببینیت\nتا ئەو کاتەی ئاستەنگەکەت لادەبات.",
+                    "user_blocked_warning": "ناتوانیت پرۆفایلی %s ببینیت\nتا ئەو کاتەی ئاستەنگەکەت لادەبات.",
+                    "suspended_warning": "ئەم بەکارهێنەرە ڕاگیراوە.",
+                    "user_suspended_warning": "هەژماری %s ڕاگیراوە."
                 }
             }
         }
@@ -240,7 +240,7 @@
                 "category": "بەش"
             },
             "input": {
-                "placeholder": "Search communities"
+                "placeholder": "بگەڕێ"
             },
             "empty_state": {
                 "finding_servers": "ڕاژە دەدۆزرێتەوە...",
@@ -262,78 +262,78 @@
                     "placeholder": "display name"
                 },
                 "email": {
-                    "placeholder": "email"
+                    "placeholder": "ئیمێڵ"
                 },
                 "password": {
-                    "placeholder": "password",
-                    "require": "Your password needs at least:",
-                    "character_limit": "8 characters",
+                    "placeholder": "تێپەڕوشە",
+                    "require": "تێپەڕوشەکەت لایەنی کەم پێویستیی هەیە بە:",
+                    "character_limit": "8 پیت",
                     "accessibility": {
-                        "checked": "checked",
-                        "unchecked": "unchecked"
+                        "checked": "هەڵبژێردراو",
+                        "unchecked": "هەڵنەبژێردراو"
                     },
                     "hint": "Your password needs at least eight characters"
                 },
                 "invite": {
-                    "registration_user_invite_request": "Why do you want to join?"
+                    "registration_user_invite_request": "بۆچی دەتەوێت بەشدار بیت؟"
                 }
             },
             "error": {
                 "item": {
-                    "username": "Username",
-                    "email": "Email",
-                    "password": "Password",
-                    "agreement": "Agreement",
-                    "locale": "Locale",
-                    "reason": "Reason"
+                    "username": "ناوی بەکارهێنەر",
+                    "email": "ئیمێڵ",
+                    "password": "تێپەڕوشە",
+                    "agreement": "ڕێککەوتن",
+                    "locale": "زمان",
+                    "reason": "هۆکار"
                 },
                 "reason": {
-                    "blocked": "%s contains a disallowed email provider",
-                    "unreachable": "%s does not seem to exist",
-                    "taken": "%s is already in use",
-                    "reserved": "%s is a reserved keyword",
-                    "accepted": "%s must be accepted",
-                    "blank": "%s is required",
-                    "invalid": "%s is invalid",
-                    "too_long": "%s is too long",
-                    "too_short": "%s is too short",
-                    "inclusion": "%s is not a supported value"
+                    "blocked": "%s خزمەتگوزارییەکی ئیمێڵی ڕێپێنەدراو بەکار دەهێنێت",
+                    "unreachable": "%s بوونی نییە",
+                    "taken": "%s بەکار هێنراوە لەلایەن یەکێکی تر",
+                    "reserved": "%s وشەیەکی گیراوە",
+                    "accepted": "%s دەبێت قبووڵ بکرێت",
+                    "blank": "%s پێویستە",
+                    "invalid": "%s نادروستە",
+                    "too_long": "%s زۆر درێژە",
+                    "too_short": "%s زۆر کورتە",
+                    "inclusion": "%s پشتگیرینەکراوە"
                 },
                 "special": {
-                    "username_invalid": "Username must only contain alphanumeric characters and underscores",
-                    "username_too_long": "Username is too long (can’t be longer than 30 characters)",
-                    "email_invalid": "This is not a valid email address",
-                    "password_too_short": "Password is too short (must be at least 8 characters)"
+                    "username_invalid": "ناوی بەکارهێنەر دەبێت تەنیا پیت، ژمارە و هێڵی ژێرەوەی تێدا بێت",
+                    "username_too_long": "ناوی بەکارهێنەرەکە زۆر درێژە (ناکرێت لە 30 نووسە زیاتر بێت)",
+                    "email_invalid": "ئەم ئیمێڵە دروست نییە",
+                    "password_too_short": "تێپەڕوشەکە زۆر کورتە (نابێت لە 8 نووسە کەمتر بێت)"
                 }
             }
         },
         "server_rules": {
-            "title": "Some ground rules.",
+            "title": "یاساکانی ڕاژەکار",
             "subtitle": "These are set and enforced by the %s moderators.",
-            "prompt": "By continuing, you’re subject to the terms of service and privacy policy for %s.",
-            "terms_of_service": "terms of service",
-            "privacy_policy": "privacy policy",
+            "prompt": "بەردەوامبوونت واتای ڕازیبوونتە بە مەرجەکانی خزمەتگوزاری و سیاسەتی تایبەتێتیی %s.",
+            "terms_of_service": "مەرجەکانی بەکارهێنان",
+            "privacy_policy": "سیاسەتی تایبەتێتی",
             "button": {
-                "confirm": "I Agree"
+                "confirm": "ڕازیم"
             }
         },
         "confirm_email": {
-            "title": "One last thing.",
-            "subtitle": "Tap the link we emailed to you to verify your account.",
+            "title": "کۆتا شت.",
+            "subtitle": "بۆ پشتڕاستکردنەوەی هەژمارەکەت ئەو بەستەرە بکەوە کە بە ئیمێڵ بۆمان ناردوویت.",
             "button": {
-                "open_email_app": "Open Email App",
+                "open_email_app": "بەرنامەی ئیمێڵەکەت بکەوە",
                 "resend": "بینێرەوە"
             },
             "dont_receive_email": {
-                "title": "Check your email",
-                "description": "Check if your email address is correct as well as your junk folder if you haven’t.",
-                "resend_email": "Resend Email"
+                "title": "ئیمێڵەکەت ببینە",
+                "description": "دڵنیا بە لەوەی ئیمێڵەکەت دروستە و هەموو بوخچەکانت بگەڕێ.",
+                "resend_email": "ئیمێڵەکە بنێرەوە"
             },
             "open_email_app": {
-                "title": "Check your inbox.",
-                "description": "We just sent you an email. Check your junk folder if you haven’t.",
+                "title": "ئیمێڵەکانت ببینە.",
+                "description": "ئیمێڵێکمان بۆ ناردیت. هەموو بوخچەکانت ببینە.",
                 "mail": "Mail",
-                "open_email_client": "Open Email Client"
+                "open_email_client": "بەرنامەی ئیمێڵەکەت بکەوە"
             }
         },
         "home_timeline": {
@@ -341,13 +341,13 @@
             "navigation_bar_state": {
                 "offline": "دەرهێڵ",
                 "new_posts": "پۆستە نوێکان ببینە",
-                "published": "Published!",
-                "Publishing": "Publishing post..."
+                "published": "بڵاوکرایەوە!",
+                "Publishing": "پۆستەکە بڵاو دەکرێتەوە..."
             }
         },
         "suggestion_account": {
-            "title": "Find People to Follow",
-            "follow_explain": "When you follow someone, you’ll see their posts in your home feed."
+            "title": "خەڵک بدۆزەوە",
+            "follow_explain": "کاتێک شوێنی یەکێک دەکەویت، پۆستەکانی دێتە بەردەمت."
         },
         "compose": {
             "title": {
@@ -356,21 +356,21 @@
             },
             "media_selection": {
                 "camera": "وێنە بگرە",
-                "photo_library": "Photo Library",
-                "browse": "Browse"
+                "photo_library": "وێنەکان",
+                "browse": "بگەڕێ"
             },
-            "content_input_placeholder": "Type or paste what’s on your mind",
-            "compose_action": "Publish",
-            "replying_to_user": "replying to %s",
+            "content_input_placeholder": "دەتەوێت چی پۆست بکەیت؟",
+            "compose_action": "بڵاوی بکەوە",
+            "replying_to_user": "لە وەڵامدا بۆ %s",
             "attachment": {
                 "photo": "وێنە",
                 "video": "ڤیدیۆ",
                 "attachment_broken": "ئەم %sـە تێک چووە و ناتوانیت بەرزی بکەیتەوە.",
-                "description_photo": "Describe the photo for the visually-impaired...",
-                "description_video": "Describe the video for the visually-impaired..."
+                "description_photo": "وێنەکەت بۆ نابیناکان باس بکە...",
+                "description_video": "ڤیدیۆکەت بۆ نابیناکان باس بکە..."
             },
             "poll": {
-                "duration_time": "Duration: %s",
+                "duration_time": "کات:‌ %s",
                 "thirty_minutes": "30 خولەک",
                 "one_hour": "1 کاتژمێر",
                 "six_hours": "6 کاتژمێر",
@@ -380,12 +380,12 @@
                 "option_number": "بژاردەی %ld"
             },
             "content_warning": {
-                "placeholder": "Write an accurate warning here..."
+                "placeholder": "ئاگادارییەکەت لێرە بنووسە..."
             },
             "visibility": {
                 "public": "گشتی",
-                "unlisted": "Unlisted",
-                "private": "Followers only",
+                "unlisted": "پێشنیارنەکراو",
+                "private": "تەنیا شوێنکەوتووان",
                 "direct": "ئەوانەی ئاماژەیان پێ دەکەم"
             },
             "auto_complete": {
@@ -393,26 +393,26 @@
             },
             "accessibility": {
                 "append_attachment": "Add Attachment",
-                "append_poll": "Add Poll",
-                "remove_poll": "Remove Poll",
-                "custom_emoji_picker": "Custom Emoji Picker",
+                "append_poll": "دەنگدان زیاد بکە",
+                "remove_poll": "دانگدانەکە لابە",
+                "custom_emoji_picker": "هەڵبژێری ئیمۆجی",
                 "enable_content_warning": "Enable Content Warning",
                 "disable_content_warning": "Disable Content Warning",
                 "post_visibility_menu": "Post Visibility Menu"
             },
             "keyboard": {
-                "discard_post": "Discard Post",
-                "publish_post": "Publish Post",
-                "toggle_poll": "Toggle Poll",
-                "toggle_content_warning": "Toggle Content Warning",
+                "discard_post": "پۆستەکە هەڵوەشێنەوە",
+                "publish_post": "پۆستە بڵاو بکەوە",
+                "toggle_poll": "دەنگدانەکە نیشان بدە",
+                "toggle_content_warning": "ئاگاداریی ناوەڕۆک نیشان بدە",
                 "append_attachment_entry": "Add Attachment - %s",
                 "select_visibility_entry": "Select Visibility - %s"
             }
         },
         "profile": {
             "dashboard": {
-                "posts": "posts",
-                "following": "following",
+                "posts": "پۆستەکان",
+                "following": "شوێنکەوتن",
                 "followers": "followers"
             },
             "fields": {
@@ -423,15 +423,15 @@
                 }
             },
             "segmented_control": {
-                "posts": "Posts",
-                "replies": "Replies",
-                "posts_and_replies": "Posts and Replies",
-                "media": "Media",
-                "about": "About"
+                "posts": "پۆستەکان",
+                "replies": "وەڵامەکان",
+                "posts_and_replies": "پۆست و وەڵامەکان",
+                "media": "میدیا",
+                "about": "دەربارە"
             },
             "relationship_action_alert": {
                 "confirm_mute_user": {
-                    "title": "Mute Account",
+                    "title": "بێدەنگی بکە",
                     "message": "Confirm to mute %s"
                 },
                 "confirm_unmute_user": {
@@ -495,8 +495,8 @@
         },
         "discovery": {
             "tabs": {
-                "posts": "Posts",
-                "hashtags": "Hashtags",
+                "posts": "پۆستەکان",
+                "hashtags": "هاشتاگەکان",
                 "news": "News",
                 "for_you": "بۆ تۆ"
             },
@@ -512,20 +512,20 @@
             },
             "notification_description": {
                 "followed_you": "followed you",
-                "favorited_your_post": "favorited your post",
-                "reblogged_your_post": "reblogged your post",
-                "mentioned_you": "mentioned you",
-                "request_to_follow_you": "request to follow you",
-                "poll_has_ended": "poll has ended"
+                "favorited_your_post": "پۆستەکەتی بەدڵ بوو",
+                "reblogged_your_post": "پۆستەکەتی پۆست کردەوە",
+                "mentioned_you": "ئاماژەی پێت کرد",
+                "request_to_follow_you": "داواکاری بۆ شوێنکەوتنت",
+                "poll_has_ended": "دەنگدانەکە کۆتایی هات"
             },
             "keyobard": {
-                "show_everything": "Show Everything",
-                "show_mentions": "Show Mentions"
+                "show_everything": "هەموو شتێک نیشان بدە",
+                "show_mentions": "ئاماژەکان نیشان بدە"
             }
         },
         "thread": {
-            "back_title": "Post",
-            "title": "Post from %s"
+            "back_title": "پۆستەکە",
+            "title": "پۆستی %s"
         },
         "settings": {
             "title": "رێکخستنەکان",
@@ -533,55 +533,55 @@
                 "appearance": {
                     "title": "ڕووخسار",
                     "automatic": "خۆکار",
-                    "light": "Always Light",
-                    "dark": "Always Dark"
+                    "light": "ڕووناک",
+                    "dark": "تاریک"
                 },
                 "look_and_feel": {
-                    "title": "Look and Feel",
-                    "use_system": "Use System",
-                    "really_dark": "Really Dark",
-                    "sorta_dark": "Sorta Dark",
-                    "light": "Light"
+                    "title": "ڕووخسار و هەست",
+                    "use_system": "سیستەم",
+                    "really_dark": "زۆر تاریک",
+                    "sorta_dark": "کەم تاریک",
+                    "light": "ڕووناک"
                 },
                 "notifications": {
-                    "title": "Notifications",
-                    "favorites": "Favorites my post",
-                    "follows": "Follows me",
-                    "boosts": "Reblogs my post",
-                    "mentions": "Mentions me",
+                    "title": "ئاماژەکان نیشان بدە",
+                    "favorites": "پۆستەکەمی بەدڵ دەبێت",
+                    "follows": "شوێنم دەکەوێت",
+                    "boosts": "پۆستەکەم پۆست دەکاتەوە",
+                    "mentions": "ئاماژەم پێ دەکات",
                     "trigger": {
-                        "anyone": "anyone",
-                        "follower": "a follower",
-                        "follow": "anyone I follow",
-                        "noone": "no one",
-                        "title": "Notify me when"
+                        "anyone": "هەرکەسێک",
+                        "follower": "شوێنکەوتووێکم",
+                        "follow": "هەرکەسێک شوێنی دەکەوم",
+                        "noone": "هیچکەس",
+                        "title": "ئاگادارم بکەوە کاتێک"
                     }
                 },
                 "preference": {
-                    "title": "Preferences",
-                    "true_black_dark_mode": "True black dark mode",
-                    "disable_avatar_animation": "Disable animated avatars",
-                    "disable_emoji_animation": "Disable animated emojis",
-                    "using_default_browser": "Use default browser to open links",
-                    "open_links_in_mastodon": "Open links in Mastodon"
+                    "title": "پەسەندەکان",
+                    "true_black_dark_mode": "دۆخی ڕەش",
+                    "disable_avatar_animation": "وێنە جووڵاوەکان ناچالاک بکە",
+                    "disable_emoji_animation": "ئیمۆجییە جووڵاوەکان ناچالاک بکە",
+                    "using_default_browser": "وێبگەڕی بنەڕەت بەکار بهێنە بۆ کردنەوەی بەستەرەکان",
+                    "open_links_in_mastodon": "بەستەرەکان لەناو ماستۆدۆن بکەوە"
                 },
                 "boring_zone": {
-                    "title": "The Boring Zone",
-                    "account_settings": "Account Settings",
+                    "title": "ناوچە بێنازەکە",
+                    "account_settings": "ڕێکخستنەکانی هەژمار",
                     "terms": "مەرجەکانی بەکارهێنان",
                     "privacy": "سیاسەتی تایبەتێتی"
                 },
                 "spicy_zone": {
                     "title": "ناوچەی گەرم",
                     "clear": "بیرگە پاک بکەوە",
-                    "signout": "Sign Out"
+                    "signout": "دەربچۆ"
                 }
             },
             "footer": {
-                "mastodon_description": "Mastodon is open source software. You can report issues on GitHub at %s (%s)"
+                "mastodon_description": "ماستۆدۆن پڕۆژەیەکی سەرچاوەکراوەیە. دەتوانیت لە گیتهەب لە کێشەکان ئاگادارمان بکەیتەوە: %s (%s)"
             },
             "keyboard": {
-                "close_settings_window": "Close Settings Window"
+                "close_settings_window": "ڕێخستنەکان دابخە"
             }
         },
         "report": {
@@ -589,19 +589,19 @@
             "title": "سکاڵا لە %s بکە",
             "step1": "هەنگاوی 1 لە 2",
             "step2": "هەنگاوی 2 لە 2",
-            "content1": "Are there any other posts you’d like to add to the report?",
-            "content2": "Is there anything the moderators should know about this report?",
-            "report_sent_title": "Thanks for reporting, we’ll look into this.",
-            "send": "Send Report",
+            "content1": "پۆستی تر هەیە بتەوێت سکاڵایان لێ بکەیت؟",
+            "content2": "هیچ شتێکی هەیە بە چاودێرەکان بیزانن دەربارەی ئەم سکاڵایە؟",
+            "report_sent_title": "سپاس بۆ سکاڵاکات، پێیدا دەچینەوە.",
+            "send": "سکاڵاکە بنێرە",
             "skip_to_send": "بەبێ لێدوان بینێرە",
             "text_placeholder": "Type or paste additional comments",
             "reported": "سکاڵای لێ کرا"
         },
         "preview": {
             "keyboard": {
-                "close_preview": "Close Preview",
-                "show_next": "Show Next",
-                "show_previous": "Show Previous"
+                "close_preview": "پێشبینینەکە دابخە",
+                "show_next": "هی دواتر نیشان بدە",
+                "show_previous": "هی پێشتر نیشان بدە"
             }
         },
         "account_list": {
@@ -611,8 +611,8 @@
         },
         "wizard": {
             "new_in_mastodon": "نوێ",
-            "multiple_account_switch_intro_description": "Switch between multiple accounts by holding the profile button.",
-            "accessibility_hint": "Double tap to dismiss this wizard"
+            "multiple_account_switch_intro_description": "هەژمارەکەت بگۆڕە بە دەستڕاگرتن لەسەر دوگمەی پرۆفایلەکە.",
+            "accessibility_hint": "دوو جار دەستی پیا بنێ بۆ داخستنی"
         }
     }
 }
