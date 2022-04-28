@@ -45,15 +45,15 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 character</string>
+        <string>%ld نووسە</string>
         <key>other</key>
-        <string>%ld characters</string>
+        <string>%ld نووسە</string>
       </dict>
     </dict>
     <key>plural.count.metric_formatted.post</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>%@ %#@post_count@</string>
+      <string>%@%#@post_count@</string>
       <key>post_count</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -61,9 +61,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>post</string>
+        <string>پۆست</string>
         <key>other</key>
-        <string>posts</string>
+        <string>پۆست</string>
       </dict>
     </dict>
     <key>plural.count.post</key>
@@ -77,9 +77,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 post</string>
+        <string>%ld پۆست</string>
         <key>other</key>
-        <string>%ld posts</string>
+        <string>%ld پۆست</string>
       </dict>
     </dict>
     <key>plural.count.favorite</key>
@@ -109,9 +109,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 reblog</string>
+        <string>%ld پۆستکردنەوە</string>
         <key>other</key>
-        <string>%ld reblogs</string>
+        <string>%ld پۆستکردنەوە</string>
       </dict>
     </dict>
     <key>plural.count.reply</key>
