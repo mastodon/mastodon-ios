@@ -21,7 +21,7 @@
     <key>a11y.plural.count.input_limit_exceeds</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Input limit exceeds %#@character_count@</string>
+      <string>سنووری نووسین %#@character_count@ دەرباز دەکات</string>
       <key>character_count</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -37,7 +37,7 @@
     <key>a11y.plural.count.input_limit_remains</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Input limit remains %#@character_count@</string>
+      <string>سنووری نووسین %#@character_count@ دەمێنێتەوە</string>
       <key>character_count</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
