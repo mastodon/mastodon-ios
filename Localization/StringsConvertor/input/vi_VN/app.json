@@ -125,7 +125,7 @@
             },
             "status": {
                 "user_reblogged": "%s đăng lại",
-                "user_replied_to": "Trả lời %s",
+                "user_replied_to": "Trả lời đến %s",
                 "show_post": "Xem tút",
                 "show_user_profile": "Xem trang hồ sơ",
                 "content_warning": "Nội dung ẩn",
@@ -211,9 +211,9 @@
             "log_in": "Đăng nhập"
         },
         "server_picker": {
-            "title": "Mastodon gồm nhiều cộng đồng với nhiều thành viên khác nhau.",
-            "subtitle": "Chọn một cộng đồng dựa theo sở thích, tôn giáo, hoặc ý muốn của bạn.",
-            "subtitle_extend": "Chọn một cộng đồng dựa theo sở thích, tôn giáo, hoặc ý muốn của bạn. Mỗi cộng đồng có thể được vận hành bởi một tổ chức độc lập hoặc một cá nhân.",
+            "title": "Mastodon gồm nhiều máy chủ với thành viên riêng.",
+            "subtitle": "Chọn một máy chủ dựa theo sở thích, tôn giáo, hoặc ý muốn của bạn.",
+            "subtitle_extend": "Chọn một máy chủ dựa theo sở thích, tôn giáo, hoặc ý muốn của bạn. Mỗi máy chủ có thể được vận hành bởi một cá nhân hoặc một tổ chức.",
             "button": {
                 "category": {
                     "all": "Toàn bộ",
@@ -240,7 +240,7 @@
                 "category": "PHÂN LOẠI"
             },
             "input": {
-                "placeholder": "Tìm cộng đồng"
+                "placeholder": "Tìm máy chủ"
             },
             "empty_state": {
                 "finding_servers": "Đang tìm máy chủ hoạt động...",
