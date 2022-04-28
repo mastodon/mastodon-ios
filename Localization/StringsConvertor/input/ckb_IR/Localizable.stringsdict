@@ -13,9 +13,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 unread notification</string>
+        <string>%ld ئاگاداریی نەبینراو</string>
         <key>other</key>
-        <string>%ld unread notification</string>
+        <string>%ld ئاگاداریی نەبینراو</string>
       </dict>
     </dict>
     <key>a11y.plural.count.input_limit_exceeds</key>
@@ -29,9 +29,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 character</string>
+        <string>%ld نووسە</string>
         <key>other</key>
-        <string>%ld characters</string>
+        <string>%ld نووسە</string>
       </dict>
     </dict>
     <key>a11y.plural.count.input_limit_remains</key>
@@ -93,9 +93,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 favorite</string>
+        <string>%ld بەدڵبوو</string>
         <key>other</key>
-        <string>%ld favorites</string>
+        <string>%ld بەدڵبوو</string>
       </dict>
     </dict>
     <key>plural.count.reblog</key>
@@ -125,9 +125,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 reply</string>
+        <string>%ld وەڵام</string>
         <key>other</key>
-        <string>%ld replies</string>
+        <string>%ld وەڵام</string>
       </dict>
     </dict>
     <key>plural.count.vote</key>
@@ -141,9 +141,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 vote</string>
+        <string>%ld دەنگ</string>
         <key>other</key>
-        <string>%ld votes</string>
+        <string>%ld دەنگ</string>
       </dict>
     </dict>
     <key>plural.count.voter</key>
@@ -157,9 +157,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 voter</string>
+        <string>%ld دەنگدەر</string>
         <key>other</key>
-        <string>%ld voters</string>
+        <string>%ld دەنگدەر</string>
       </dict>
     </dict>
     <key>plural.people_talking</key>
@@ -173,9 +173,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 people talking</string>
+        <string>%ld کەس باسی دەکات</string>
         <key>other</key>
-        <string>%ld people talking</string>
+        <string>%ld کەس باسی دەکەن</string>
       </dict>
     </dict>
     <key>plural.count.following</key>
@@ -189,9 +189,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 following</string>
+        <string>%ld شوێنکەوتن</string>
         <key>other</key>
-        <string>%ld following</string>
+        <string>%ld شوێنکەوتن</string>
       </dict>
     </dict>
     <key>plural.count.follower</key>
@@ -205,9 +205,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 follower</string>
+        <string>%ld شوێنکەوتوو</string>
         <key>other</key>
-        <string>%ld followers</string>
+        <string>%ld شوێنکەوتوو</string>
       </dict>
     </dict>
     <key>date.year.left</key>
@@ -221,9 +221,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 year left</string>
+        <string>%ld ساڵی ماوە</string>
         <key>other</key>
-        <string>%ld years left</string>
+        <string>%ld ساڵی ماوە</string>
       </dict>
     </dict>
     <key>date.month.left</key>
@@ -237,9 +237,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 months left</string>
+        <string>%ld مانگی ماوە</string>
         <key>other</key>
-        <string>%ld months left</string>
+        <string>%ld مانگی ماوە</string>
       </dict>
     </dict>
     <key>date.day.left</key>
@@ -253,9 +253,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 day left</string>
+        <string>%ld ڕۆژی ماوە</string>
         <key>other</key>
-        <string>%ld days left</string>
+        <string>%ld ڕۆژی ماوە</string>
       </dict>
     </dict>
     <key>date.hour.left</key>
@@ -269,9 +269,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 hour left</string>
+        <string>%ld کاتژمێری ماوە</string>
         <key>other</key>
-        <string>%ld hours left</string>
+        <string>%ld کاتژمێری ماوە</string>
       </dict>
     </dict>
     <key>date.minute.left</key>
@@ -285,9 +285,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 minute left</string>
+        <string>%ld خولەکی ماوە</string>
         <key>other</key>
-        <string>%ld minutes left</string>
+        <string>%ld خولەکی ماوە</string>
       </dict>
     </dict>
     <key>date.second.left</key>
@@ -301,9 +301,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 second left</string>
+        <string>%ld چرکەی ماوە</string>
         <key>other</key>
-        <string>%ld seconds left</string>
+        <string>%ld چرکەی ماوە</string>
       </dict>
     </dict>
     <key>date.year.ago.abbr</key>
@@ -317,9 +317,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1y ago</string>
+        <string>%ld ساڵ لەمەوبەر</string>
         <key>other</key>
-        <string>%ldy ago</string>
+        <string>%ld ساڵ لەمەوبەر</string>
       </dict>
     </dict>
     <key>date.month.ago.abbr</key>
@@ -333,9 +333,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1M ago</string>
+        <string>%ld مانگ لەمەوبەر</string>
         <key>other</key>
-        <string>%ldM ago</string>
+        <string>%ld مانگ لەمەوبەر</string>
       </dict>
     </dict>
     <key>date.day.ago.abbr</key>
@@ -349,9 +349,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1d ago</string>
+        <string>%ld ڕۆژ لەمەوبەر</string>
         <key>other</key>
-        <string>%ldd ago</string>
+        <string>%ld ڕۆژ لەمەوبەر</string>
       </dict>
     </dict>
     <key>date.hour.ago.abbr</key>
@@ -365,9 +365,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1h ago</string>
+        <string>%ld کاتژمێر لەمەوبەر</string>
         <key>other</key>
-        <string>%ldh ago</string>
+        <string>%ld کاتژمێر لەمەوبەر</string>
       </dict>
     </dict>
     <key>date.minute.ago.abbr</key>
@@ -381,9 +381,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1m ago</string>
+        <string>%ld خولەک لەمەوبەر</string>
         <key>other</key>
-        <string>%ldm ago</string>
+        <string>%ld خولەک لەمەوبەر</string>
       </dict>
     </dict>
     <key>date.second.ago.abbr</key>
@@ -397,9 +397,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1s ago</string>
+        <string>%ld چرکە لەمەوبەر</string>
         <key>other</key>
-        <string>%lds ago</string>
+        <string>%ld چرکە لەمەوبەر</string>
       </dict>
     </dict>
   </dict>
