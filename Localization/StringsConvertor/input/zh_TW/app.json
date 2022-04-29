@@ -42,7 +42,7 @@
             },
             "save_photo_failure": {
                 "title": "儲存照片失敗",
-                "message": "請開啟圖片庫存取權限以儲存圖片。"
+                "message": "請開啟圖片庫存取權限以儲存照片。"
             },
             "delete_post": {
                 "title": "刪除嘟文",
@@ -73,7 +73,7 @@
                 "try_again": "再試一次",
                 "take_photo": "拍攝照片",
                 "save_photo": "儲存照片",
-                "copy_photo": "複製圖片",
+                "copy_photo": "複製照片",
                 "sign_in": "登入",
                 "sign_up": "註冊",
                 "see_more": "檢視更多",
@@ -83,7 +83,7 @@
                 "share_post": "分享嘟文",
                 "open_in_safari": "在 Safari 中開啟",
                 "open_in_browser": "在瀏覽器中開啟",
-                "find_people": "尋找一些人來關注",
+                "find_people": "尋找一些人來跟隨",
                 "manually_search": "手動搜尋",
                 "skip": "跳過",
                 "reply": "回覆",
@@ -102,7 +102,7 @@
             "keyboard": {
                 "common": {
                     "switch_to_tab": "切換至 %s",
-                    "compose_new_post": "發佈貼文",
+                    "compose_new_post": "撰寫新嘟文",
                     "show_favorites": "顯示最愛",
                     "open_settings": "開啟設定"
                 },
@@ -110,8 +110,8 @@
                     "previous_status": "先前的嘟文",
                     "next_status": "下一則嘟文",
                     "open_status": "開啟嘟文",
-                    "open_author_profile": "開啟作者的個人資料頁面",
-                    "open_reblogger_profile": "開啟轉嘟者的個人資料頁面",
+                    "open_author_profile": "開啟作者的個人檔案頁面",
+                    "open_reblogger_profile": "開啟轉嘟者的個人檔案頁面",
                     "reply_status": "回覆嘟文",
                     "toggle_reblog": "切換轉發嘟文",
                     "toggle_favorite": "切換最愛嘟文",
@@ -119,85 +119,85 @@
                     "preview_image": "預覽圖片"
                 },
                 "segmented_control": {
-                    "previous_section": "Previous Section",
-                    "next_section": "Next Section"
+                    "previous_section": "上一個區塊",
+                    "next_section": "下一個區塊"
                 }
             },
             "status": {
-                "user_reblogged": "%s reblogged",
-                "user_replied_to": "Replied to %s",
-                "show_post": "Show Post",
-                "show_user_profile": "Show user profile",
-                "content_warning": "Content Warning",
-                "sensitive_content": "Sensitive Content",
-                "media_content_warning": "Tap anywhere to reveal",
-                "tap_to_reveal": "Tap to reveal",
+                "user_reblogged": "%s 已轉嘟",
+                "user_replied_to": "回覆給 %s",
+                "show_post": "顯示嘟文",
+                "show_user_profile": "顯示使用者個人檔案頁面",
+                "content_warning": "內容警告",
+                "sensitive_content": "敏感內容",
+                "media_content_warning": "輕觸任何地方以顯示",
+                "tap_to_reveal": "輕觸以顯示",
                 "poll": {
                     "vote": "投票",
-                    "closed": "Closed"
+                    "closed": "關閉"
                 },
                 "actions": {
                     "reply": "回覆",
-                    "reblog": "Reblog",
-                    "unreblog": "Undo reblog",
-                    "favorite": "Favorite",
-                    "unfavorite": "Unfavorite",
-                    "menu": "Menu",
-                    "hide": "Hide",
-                    "show_image": "Show image",
-                    "show_gif": "Show GIF",
-                    "show_video_player": "Show video player",
-                    "tap_then_hold_to_show_menu": "Tap then hold to show menu"
+                    "reblog": "轉嘟",
+                    "unreblog": "取消轉嘟",
+                    "favorite": "最愛",
+                    "unfavorite": "取消最愛",
+                    "menu": "選單",
+                    "hide": "隱藏",
+                    "show_image": "顯示圖片",
+                    "show_gif": "顯示 GIF",
+                    "show_video_player": "顯示影片播放器",
+                    "tap_then_hold_to_show_menu": "輕觸然後按住以顯示選單"
                 },
                 "tag": {
-                    "url": "URL",
-                    "mention": "Mention",
-                    "link": "Link",
-                    "hashtag": "Hashtag",
+                    "url": "網址",
+                    "mention": "提及",
+                    "link": "連結",
+                    "hashtag": "主題標籤",
                     "email": "電子郵件",
                     "emoji": "Emoji"
                 },
                 "visibility": {
-                    "unlisted": "Everyone can see this post but not display in the public timeline.",
-                    "private": "Only their followers can see this post.",
-                    "private_from_me": "Only my followers can see this post.",
-                    "direct": "Only mentioned user can see this post."
+                    "unlisted": "任何人都能看到此嘟文，但是不會顯示於公開時間軸上。",
+                    "private": "只有他們的跟隨者能看到此嘟文。",
+                    "private_from_me": "只有我的跟隨者能看到此嘟文。",
+                    "direct": "只有被提及的使用者能看到此嘟文。"
                 }
             },
             "friendship": {
-                "follow": "追蹤",
-                "following": "Following",
-                "request": "Request",
-                "pending": "Pending",
-                "block": "Block",
+                "follow": "跟隨",
+                "following": "跟隨中",
+                "request": "請求",
+                "pending": "等待中",
+                "block": "封鎖",
                 "block_user": "封鎖 %s",
                 "block_domain": "封鎖 %s",
                 "unblock": "解除封鎖",
                 "unblock_user": "解除封鎖 %s",
                 "blocked": "已封鎖",
-                "mute": "Mute",
-                "mute_user": "Mute %s",
-                "unmute": "Unmute",
-                "unmute_user": "Unmute %s",
-                "muted": "Muted",
-                "edit_info": "Edit Info"
+                "mute": "靜音",
+                "mute_user": "靜音 %s",
+                "unmute": "取消靜音",
+                "unmute_user": "取消靜音 %s",
+                "muted": "已靜音",
+                "edit_info": "編輯"
             },
             "timeline": {
-                "filtered": "Filtered",
+                "filtered": "已過濾",
                 "timestamp": {
-                    "now": "Now"
+                    "now": "剛剛"
                 },
                 "loader": {
-                    "load_missing_posts": "Load missing posts",
-                    "loading_missing_posts": "Loading missing posts...",
-                    "show_more_replies": "Show more replies"
+                    "load_missing_posts": "讀取錯過的嘟文",
+                    "loading_missing_posts": "正在讀取錯過的嘟文...",
+                    "show_more_replies": "顯示更多回覆"
                 },
                 "header": {
-                    "no_status_found": "No Post Found",
-                    "blocking_warning": "You can’t view this user's profile\nuntil you unblock them.\nYour profile looks like this to them.",
-                    "user_blocking_warning": "You can’t view %s’s profile\nuntil you unblock them.\nYour profile looks like this to them.",
-                    "blocked_warning": "You can’t view this user’s profile\nuntil they unblock you.",
-                    "user_blocked_warning": "You can’t view %s’s profile\nuntil they unblock you.",
+                    "no_status_found": "沒有任何嘟文",
+                    "blocking_warning": "您無法瀏覽該使用者的個人檔案，除非您取消封鎖。\n您的個人檔案看起來像是這樣。",
+                    "user_blocking_warning": "您無法瀏覽 %s 的個人檔案，除非您取消封鎖。\n您的個人檔案看起來像是這樣。",
+                    "blocked_warning": "您無法瀏覽該使用者的個人檔案，除非他們取消封鎖您。",
+                    "user_blocked_warning": "您無法瀏覽 %s 的個人檔案，除非他們取消封鎖您。",
                     "suspended_warning": "此使用者已被停權。",
                     "user_suspended_warning": "%s 的帳號已經被停權。"
                 }
@@ -294,79 +294,79 @@
                     "reserved": "%s 是一個保留的關鍵字",
                     "accepted": "請先閱讀並同意 %s",
                     "blank": "%s 為必填選項",
-                    "invalid": "%s is invalid",
-                    "too_long": "%s is too long",
-                    "too_short": "%s is too short",
-                    "inclusion": "%s is not a supported value"
+                    "invalid": "%s 是無效的",
+                    "too_long": "%s 太長了",
+                    "too_short": "%s 太短了",
+                    "inclusion": "%s 是不被支援的值"
                 },
                 "special": {
-                    "username_invalid": "Username must only contain alphanumeric characters and underscores",
-                    "username_too_long": "Username is too long (can’t be longer than 30 characters)",
-                    "email_invalid": "This is not a valid email address",
-                    "password_too_short": "Password is too short (must be at least 8 characters)"
+                    "username_invalid": "使用者名稱僅能包含英文字母數字以及底線",
+                    "username_too_long": "使用者名稱太長了（不能超過 30 個字元）",
+                    "email_invalid": "這不是一個有效的電子郵件地址",
+                    "password_too_short": "密碼太短了（至少需要八個字元）"
                 }
             }
         },
         "server_rules": {
-            "title": "Some ground rules.",
-            "subtitle": "These are set and enforced by the %s moderators.",
-            "prompt": "By continuing, you’re subject to the terms of service and privacy policy for %s.",
-            "terms_of_service": "terms of service",
-            "privacy_policy": "privacy policy",
+            "title": "一些基本守則。",
+            "subtitle": "這些被 %s 的管管們制定以及實施。",
+            "prompt": "繼續的話，代表您將遵守 %s 的服務條款和隱私權政策。",
+            "terms_of_service": "服務條款",
+            "privacy_policy": "隱私權政策",
             "button": {
-                "confirm": "I Agree"
+                "confirm": "我已閱讀並同意"
             }
         },
         "confirm_email": {
-            "title": "One last thing.",
-            "subtitle": "Tap the link we emailed to you to verify your account.",
+            "title": "最後一步。",
+            "subtitle": "點擊我們寄送給您的帳號驗證連結。",
             "button": {
-                "open_email_app": "Open Email App",
-                "resend": "Resend"
+                "open_email_app": "開啟電子郵件 App",
+                "resend": "重新發送"
             },
             "dont_receive_email": {
-                "title": "Check your email",
-                "description": "Check if your email address is correct as well as your junk folder if you haven’t.",
-                "resend_email": "Resend Email"
+                "title": "請檢查您的電子郵件",
+                "description": "請檢查您的電子郵件地址是否正確，以及您的垃圾信件夾。",
+                "resend_email": "重新發送電子郵件"
             },
             "open_email_app": {
-                "title": "Check your inbox.",
-                "description": "We just sent you an email. Check your junk folder if you haven’t.",
-                "mail": "Mail",
-                "open_email_client": "Open Email Client"
+                "title": "請檢查您的收件夾。",
+                "description": "我們剛寄送您一封電子郵件。請檢查您的垃圾信件夾。",
+                "mail": "電子郵件",
+                "open_email_client": "請開啟電子郵件程式"
             }
         },
         "home_timeline": {
-            "title": "Home",
+            "title": "首頁",
             "navigation_bar_state": {
-                "offline": "Offline",
-                "new_posts": "See new posts",
-                "published": "Published!",
-                "Publishing": "Publishing post..."
+                "offline": "離線",
+                "new_posts": "檢視最新嘟文",
+                "published": "嘟出去！",
+                "Publishing": "發表嘟文..."
             }
         },
         "suggestion_account": {
-            "title": "Find People to Follow",
-            "follow_explain": "When you follow someone, you’ll see their posts in your home feed."
+            "title": "尋找一些人來跟隨",
+            "follow_explain": "當您跟隨這些人時，將會看到他們的嘟文出現在您的首頁時間軸上。"
         },
         "compose": {
             "title": {
-                "new_post": "New Post",
-                "new_reply": "New Reply"
+                "new_post": "新增嘟文",
+                "new_reply": "新增回覆"
             },
             "media_selection": {
-                "camera": "Take Photo",
-                "photo_library": "Photo Library",
-                "browse": "Browse"
+                "camera": "拍攝照片",
+                "photo_library": "圖片庫",
+                "browse": "瀏覽"
             },
             "content_input_placeholder": "Type or paste what’s on your mind",
             "compose_action": "Publish",
             "replying_to_user": "replying to %s",
             "attachment": {
-                "photo": "photo",
+                "photo": "照片",
                 "video": "影片",
                 "attachment_broken": "This %s is broken and can’t be\nuploaded to Mastodon.",
-                "description_photo": "Describe the photo for the visually-impaired...",
+                "description_photo": "為視障人士提供圖片說明...",
                 "description_video": "Describe the video for the visually-impaired..."
             },
             "poll": {
@@ -385,7 +385,7 @@
             "visibility": {
                 "public": "公開",
                 "unlisted": "不公開",
-                "private": "僅跟隨者",
+                "private": "僅限跟隨者",
                 "direct": "僅限於我提及的人"
             },
             "auto_complete": {
@@ -423,60 +423,60 @@
                 }
             },
             "segmented_control": {
-                "posts": "貼文",
+                "posts": "嘟文",
                 "replies": "回覆",
                 "posts_and_replies": "嘟文及回覆",
-                "media": "多媒體",
-                "about": "About"
+                "media": "媒體",
+                "about": "關於"
             },
             "relationship_action_alert": {
                 "confirm_mute_user": {
-                    "title": "Mute Account",
-                    "message": "Confirm to mute %s"
+                    "title": "靜音",
+                    "message": "確認將 %s 靜音"
                 },
                 "confirm_unmute_user": {
-                    "title": "Unmute Account",
-                    "message": "Confirm to unmute %s"
+                    "title": "取消靜音",
+                    "message": "確認將 %s 取消靜音"
                 },
                 "confirm_block_user": {
-                    "title": "Block Account",
-                    "message": "Confirm to block %s"
+                    "title": "封鎖",
+                    "message": "確認將 %s 封鎖"
                 },
                 "confirm_unblock_user": {
-                    "title": "Unblock Account",
-                    "message": "Confirm to unblock %s"
+                    "title": "取消封鎖",
+                    "message": "確認將 %s 取消封鎖"
                 }
             },
             "accessibility": {
-                "show_avatar_image": "Show avatar image",
-                "edit_avatar_image": "Edit avatar image",
-                "show_banner_image": "Show banner image",
-                "double_tap_to_open_the_list": "Double tap to open the list"
+                "show_avatar_image": "顯示大頭貼",
+                "edit_avatar_image": "編輯大頭貼",
+                "show_banner_image": "顯示橫幅圖片",
+                "double_tap_to_open_the_list": "點兩下以開啟列表"
             }
         },
         "follower": {
-            "footer": "Followers from other servers are not displayed."
+            "footer": "來自其他伺服器的跟隨者不會被顯示。"
         },
         "following": {
-            "footer": "Follows from other servers are not displayed."
+            "footer": "來自其他伺服器的跟隨中不會被顯示。"
         },
         "search": {
             "title": "搜尋",
             "search_bar": {
-                "placeholder": "Search hashtags and users",
+                "placeholder": "搜尋主題標籤及使用者",
                 "cancel": "取消"
             },
             "recommend": {
-                "button_text": "See All",
+                "button_text": "檢視全部",
                 "hash_tag": {
-                    "title": "Trending on Mastodon",
-                    "description": "Hashtags that are getting quite a bit of attention",
-                    "people_talking": "%s people are talking"
+                    "title": "Mastodon 上的熱門討論",
+                    "description": "發燒中的主題標籤",
+                    "people_talking": "%s 人正在討論"
                 },
                 "accounts": {
-                    "title": "Accounts you might like",
-                    "description": "You may like to follow these accounts",
-                    "follow": "追蹤"
+                    "title": "您可能會喜歡的帳號",
+                    "description": "您也許想跟隨這些帳號",
+                    "follow": "跟隨"
                 }
             },
             "searching": {
@@ -484,7 +484,7 @@
                     "all": "All",
                     "people": "People",
                     "hashtags": "Hashtags",
-                    "posts": "貼文"
+                    "posts": "嘟文"
                 },
                 "empty_state": {
                     "no_results": "No results"
@@ -495,7 +495,7 @@
         },
         "discovery": {
             "tabs": {
-                "posts": "Posts",
+                "posts": "嘟文",
                 "hashtags": "Hashtags",
                 "news": "News",
                 "community": "Community",
@@ -512,11 +512,11 @@
                 "Mentions": "Mentions"
             },
             "notification_description": {
-                "followed_you": "followed you",
-                "favorited_your_post": "favorited your post",
-                "reblogged_your_post": "reblogged your post",
+                "followed_you": "跟隨了您",
+                "favorited_your_post": "最愛了您的嘟文",
+                "reblogged_your_post": "轉嘟了您的嘟文",
                 "mentioned_you": "mentioned you",
-                "request_to_follow_you": "request to follow you",
+                "request_to_follow_you": "要求跟隨您",
                 "poll_has_ended": "poll has ended"
             },
             "keyobard": {
@@ -547,13 +547,13 @@
                 "notifications": {
                     "title": "Notifications",
                     "favorites": "Favorites my post",
-                    "follows": "Follows me",
+                    "follows": "跟隨著我",
                     "boosts": "Reblogs my post",
                     "mentions": "Mentions me",
                     "trigger": {
                         "anyone": "anyone",
-                        "follower": "a follower",
-                        "follow": "anyone I follow",
+                        "follower": "跟隨者",
+                        "follow": "任何我跟隨的人",
                         "noone": "no one",
                         "title": "Notify me when"
                     }
@@ -563,57 +563,57 @@
                     "true_black_dark_mode": "True black dark mode",
                     "disable_avatar_animation": "Disable animated avatars",
                     "disable_emoji_animation": "Disable animated emojis",
-                    "using_default_browser": "Use default browser to open links",
-                    "open_links_in_mastodon": "Open links in Mastodon"
+                    "using_default_browser": "使用預設瀏覽器開啟連結",
+                    "open_links_in_mastodon": "在 Mastodon 中開啟連結"
                 },
                 "boring_zone": {
-                    "title": "The Boring Zone",
-                    "account_settings": "Account Settings",
-                    "terms": "Terms of Service",
-                    "privacy": "Privacy Policy"
+                    "title": "無聊的這些",
+                    "account_settings": "帳號設定",
+                    "terms": "服務條款",
+                    "privacy": "隱私權政策"
                 },
                 "spicy_zone": {
-                    "title": "The Spicy Zone",
-                    "clear": "Clear Media Cache",
+                    "title": "危險地帶",
+                    "clear": "清除媒體快取",
                     "signout": "登出"
                 }
             },
             "footer": {
-                "mastodon_description": "Mastodon is open source software. You can report issues on GitHub at %s (%s)"
+                "mastodon_description": "Mastodon 是開源軟體。您可以在 GitHub %s (%s) 上回報問題。"
             },
             "keyboard": {
-                "close_settings_window": "Close Settings Window"
+                "close_settings_window": "關閉設定視窗"
             }
         },
         "report": {
-            "title_report": "Report",
-            "title": "Report %s",
-            "step1": "Step 1 of 2",
-            "step2": "Step 2 of 2",
-            "content1": "Are there any other posts you’d like to add to the report?",
-            "content2": "Is there anything the moderators should know about this report?",
-            "report_sent_title": "Thanks for reporting, we’ll look into this.",
-            "send": "Send Report",
-            "skip_to_send": "Send without comment",
-            "text_placeholder": "Type or paste additional comments",
-            "reported": "REPORTED"
+            "title_report": "檢舉",
+            "title": "檢舉 %s",
+            "step1": "兩個步驟中的第一步",
+            "step2": "兩個步驟中的第二步",
+            "content1": "還有其他您想加入這份檢舉報告的嘟文嗎？",
+            "content2": "有其他管管們需要知道關於這份檢舉報告的嗎？",
+            "report_sent_title": "感謝您的檢舉，我們將著手處理。",
+            "send": "傳送檢舉報告",
+            "skip_to_send": "不加入備註並傳送",
+            "text_placeholder": "請輸入或貼上額外的備註",
+            "reported": "已檢舉"
         },
         "preview": {
             "keyboard": {
-                "close_preview": "Close Preview",
-                "show_next": "Show Next",
-                "show_previous": "Show Previous"
+                "close_preview": "關閉預覽",
+                "show_next": "顯示下一筆",
+                "show_previous": "顯示上一筆"
             }
         },
         "account_list": {
-            "tab_bar_hint": "Current selected profile: %s. Double tap then hold to show account switcher",
-            "dismiss_account_switcher": "Dismiss Account Switcher",
-            "add_account": "Add Account"
+            "tab_bar_hint": "目前已選擇的個人檔案：%s。點兩下然後按住以顯示帳號切換器",
+            "dismiss_account_switcher": "關閉帳號切換器",
+            "add_account": "新增帳號"
         },
         "wizard": {
-            "new_in_mastodon": "New in Mastodon",
-            "multiple_account_switch_intro_description": "Switch between multiple accounts by holding the profile button.",
-            "accessibility_hint": "Double tap to dismiss this wizard"
+            "new_in_mastodon": "Mastodon 新功能",
+            "multiple_account_switch_intro_description": "按住個人檔案按鈕以於多個帳號間切換。",
+            "accessibility_hint": "點兩下以關閉此設定精靈"
         }
     }
 }
