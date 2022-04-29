@@ -21,7 +21,7 @@ echo "${PODS_ROOT}/SwiftGen/bin/swiftgen"
 if [[ -f "${PODS_ROOT}/SwiftGen/bin/swiftgen" ]] then 
    "${PODS_ROOT}/SwiftGen/bin/swiftgen"
 else
-	echo "Run 'pod install' or update your CocoaPods installation."
+	echo "Run 'bundle exec pod install' or update your CocoaPods installation."
 fi
 
 #task 4 clean temp file
