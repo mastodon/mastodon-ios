@@ -1,8 +1,8 @@
 //
-//  DiscoveryPostsViewModel+State.swift
+//  DiscoveryCommunityViewModel+State.swift
 //  Mastodon
 //
-//  Created by MainasuK on 2022-4-12.
+//  Created by MainasuK on 2022-4-29.
 //
 
 import os.log
@@ -10,10 +10,10 @@ import Foundation
 import GameplayKit
 import MastodonSDK
 
-extension DiscoveryPostsViewModel {
+extension DiscoveryCommunityViewModel {
     class State: GKState, NamingState {
         
-        let logger = Logger(subsystem: "DiscoveryPostsViewModel.State", category: "StateMachine")
+        let logger = Logger(subsystem: "DiscoveryCommunityViewModel.State", category: "StateMachine")
 
         let id = UUID()
 
@@ -21,15 +21,15 @@ extension DiscoveryPostsViewModel {
             String(describing: Self.self)
         }
         
-        weak var viewModel: DiscoveryPostsViewModel?
+        weak var viewModel: DiscoveryCommunityViewModel?
         
-        init(viewModel: DiscoveryPostsViewModel) {
+        init(viewModel: DiscoveryCommunityViewModel) {
             self.viewModel = viewModel
         }
         
         override func didEnter(from previousState: GKState?) {
             super.didEnter(from: previousState)
-            let previousState = previousState as? DiscoveryPostsViewModel.State
+            let previousState = previousState as? DiscoveryCommunityViewModel.State
             logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [\(self.id.uuidString)] enter \(self.name), previous: \(previousState?.name  ?? "<nil>")")
         }
         
@@ -44,8 +44,8 @@ extension DiscoveryPostsViewModel {
     }
 }
 
-extension DiscoveryPostsViewModel.State {
-    class Initial: DiscoveryPostsViewModel.State {
+extension DiscoveryCommunityViewModel.State {
+    class Initial: DiscoveryCommunityViewModel.State {
         override func isValidNextState(_ stateClass: AnyClass) -> Bool {
             switch stateClass {
             case is Reloading.Type:
@@ -56,7 +56,7 @@ extension DiscoveryPostsViewModel.State {
         }
     }
     
-    class Reloading: DiscoveryPostsViewModel.State {
+    class Reloading: DiscoveryCommunityViewModel.State {
         override func isValidNextState(_ stateClass: AnyClass) -> Bool {
             switch stateClass {
             case is Loading.Type:
@@ -74,7 +74,7 @@ extension DiscoveryPostsViewModel.State {
         }
     }
     
-    class Fail: DiscoveryPostsViewModel.State {
+    class Fail: DiscoveryCommunityViewModel.State {
         
         override func isValidNextState(_ stateClass: AnyClass) -> Bool {
             switch stateClass {
@@ -97,7 +97,7 @@ extension DiscoveryPostsViewModel.State {
         }
     }
     
-    class Idle: DiscoveryPostsViewModel.State {
+    class Idle: DiscoveryCommunityViewModel.State {
         override func isValidNextState(_ stateClass: AnyClass) -> Bool {
             switch stateClass {
             case is Reloading.Type, is Loading.Type:
@@ -108,10 +108,10 @@ extension DiscoveryPostsViewModel.State {
         }
     }
     
-    class Loading: DiscoveryPostsViewModel.State {
+    class Loading: DiscoveryCommunityViewModel.State {
         
-        var offset: Int?
-        
+        var maxID: String?
+
         override func isValidNextState(_ stateClass: AnyClass) -> Bool {
             switch stateClass {
             case is Fail.Type:
@@ -128,43 +128,41 @@ extension DiscoveryPostsViewModel.State {
         override func didEnter(from previousState: GKState?) {
             super.didEnter(from: previousState)
             guard let viewModel = viewModel, let stateMachine = stateMachine else { return }
-            
+                        
             switch previousState {
             case is Reloading:
-                offset = nil
+                maxID = nil
             default:
                 break
             }
-
+            
             guard let authenticationBox = viewModel.context.authenticationService.activeMastodonAuthenticationBox.value else {
                 stateMachine.enter(Fail.self)
                 return
             }
             
-            let offset = self.offset
-            let isReloading = offset == nil
-            
+            let maxID = self.maxID
+            let isReloading = maxID == nil
+
             Task {
                 do {
-                    let response = try await viewModel.context.apiService.trendStatuses(
-                        domain: authenticationBox.domain,
-                        query: Mastodon.API.Trends.StatusQuery(
-                            offset: offset,
-                            limit: nil
-                        )
+                    let response = try await viewModel.context.apiService.publicTimeline(
+                        query: .init(
+                            local: true,
+                            remote: nil,
+                            onlyMedia: nil,
+                            maxID: maxID,
+                            sinceID: nil,
+                            minID: nil,
+                            limit: 20
+                        ),
+                        authenticationBox: authenticationBox
                     )
-                    let newOffset: Int? = {
-                        guard let offset = response.link?.offset else { return nil }
-                        return self.offset.flatMap { max($0, offset) } ?? offset
-                    }()
                     
-                    let hasMore: Bool = {
-                        guard let newOffset = newOffset else { return false }
-                        return newOffset != self.offset     // not the same one
-                    }()
+                    let newMaxID = response.link?.maxID
+                    let hasMore = newMaxID != nil
+                    self.maxID = newMaxID
                     
-                    self.offset = newOffset
-
                     var hasNewStatusesAppend = false
                     var statusIDs = isReloading ? [] : viewModel.statusFetchedResultsController.statusIDs.value
                     for status in response.value {
@@ -172,8 +170,9 @@ extension DiscoveryPostsViewModel.State {
                         statusIDs.append(status.id)
                         hasNewStatusesAppend = true
                     }
-
+                    
                     if hasNewStatusesAppend, hasMore {
+                        self.maxID = response.link?.maxID
                         await enter(state: Idle.self)
                     } else {
                         await enter(state: NoMore.self)
@@ -182,21 +181,14 @@ extension DiscoveryPostsViewModel.State {
                     viewModel.didLoadLatest.send()
                     
                 } catch {
-                    logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): fetch posts fail: \(error.localizedDescription)")
-                    if let error = error as? Mastodon.API.Error, error.httpResponseStatus.code == 404 {
-                        viewModel.isServerSupportEndpoint = false
-                        await enter(state: NoMore.self)
-                    } else {
-                        await enter(state: Fail.self)
-                    }
-                    
-                    viewModel.didLoadLatest.send()
+                    logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): fetch user timeline fail: \(error.localizedDescription)")
+                    await enter(state: Fail.self)
                 }
             }   // end Task
         }   // end func
     }
     
-    class NoMore: DiscoveryPostsViewModel.State {
+    class NoMore: DiscoveryCommunityViewModel.State {
         override func isValidNextState(_ stateClass: AnyClass) -> Bool {
             switch stateClass {
             case is Reloading.Type:
@@ -208,6 +200,7 @@ extension DiscoveryPostsViewModel.State {
         
         override func didEnter(from previousState: GKState?) {
             super.didEnter(from: previousState)
+            
         }
     }
 }

@@ -86,7 +86,6 @@
 		2DE0FACE2615F7AD00CDF649 /* RecommendAccountSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DE0FACD2615F7AD00CDF649 /* RecommendAccountSection.swift */; };
 		2DF123A725C3B0210020F248 /* ActiveLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF123A625C3B0210020F248 /* ActiveLabel.swift */; };
 		2DF75BA725D10E1000694EC8 /* APIService+Favorite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF75BA625D10E1000694EC8 /* APIService+Favorite.swift */; };
-		4278334D6033AEEE0A1C5155 /* Pods_ShareActionExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A32B0CACBF35F4CC3CFAA043 /* Pods_ShareActionExtension.framework */; };
 		5B24BBDA262DB14800A9381B /* ReportViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B24BBD7262DB14800A9381B /* ReportViewModel.swift */; };
 		5B24BBDB262DB14800A9381B /* ReportViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B24BBD8262DB14800A9381B /* ReportViewModel+Diffable.swift */; };
 		5B24BBE2262DB19100A9381B /* APIService+Report.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B24BBE1262DB19100A9381B /* APIService+Report.swift */; };
@@ -101,7 +100,6 @@
 		5BB04FF5262F0E6D0043BFF6 /* ReportSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB04FF4262F0E6D0043BFF6 /* ReportSection.swift */; };
 		5D0393902612D259007FE196 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D03938F2612D259007FE196 /* WebViewController.swift */; };
 		5D0393962612D266007FE196 /* WebViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D0393952612D266007FE196 /* WebViewModel.swift */; };
-		5D526FE225BE9AC400460CB9 /* MastodonSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 5D526FE125BE9AC400460CB9 /* MastodonSDK */; };
 		5DA732CC2629CEF500A92342 /* UIView+Remove.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DA732CB2629CEF500A92342 /* UIView+Remove.swift */; };
 		5DDDF1932617442700311060 /* Mastodon+Entity+Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DDDF1922617442700311060 /* Mastodon+Entity+Account.swift */; };
 		5DDDF1992617447F00311060 /* Mastodon+Entity+Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DDDF1982617447F00311060 /* Mastodon+Entity+Tag.swift */; };
@@ -110,13 +108,9 @@
 		5E0DEC05797A7E6933788DDB /* Pods_MastodonTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 452147B2903DF38070FE56A2 /* Pods_MastodonTests.framework */; };
 		5E44BF88AD33646E64727BCF /* Pods_MastodonTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD92E0F10BDE4FE7C4B999F2 /* Pods_MastodonTests.framework */; };
 		87FFDA5D898A5C42ADCB35E7 /* Pods_Mastodon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4ABE34829701A4496C5BB64 /* Pods_Mastodon.framework */; };
-		B914FC6B0B8AF18573C0B291 /* Pods_NotificationService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 374AA339A20E0FAC75BCDA6D /* Pods_NotificationService.framework */; };
-		BBAC710E327AF1EE1DB36A4E /* Pods_MastodonIntent.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4C94BD75C96D0EFF5F6D961 /* Pods_MastodonIntent.framework */; };
 		DB0009A626AEE5DC009B9D2D /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = DB0009A926AEE5DC009B9D2D /* Intents.intentdefinition */; settings = {ATTRIBUTES = (no_codegen, ); }; };
 		DB0009A726AEE5DC009B9D2D /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = DB0009A926AEE5DC009B9D2D /* Intents.intentdefinition */; };
-		DB00CA972632DDB600A54956 /* CommonOSLog in Frameworks */ = {isa = PBXBuildFile; productRef = DB00CA962632DDB600A54956 /* CommonOSLog */; };
 		DB0140CF25C42AEE00F9F3CF /* OSLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0140CE25C42AEE00F9F3CF /* OSLog.swift */; };
-		DB01E23526A98F0900C3965B /* MetaTextKit in Frameworks */ = {isa = PBXBuildFile; productRef = DB01E23426A98F0900C3965B /* MetaTextKit */; };
 		DB023D26279FFB0A005AC798 /* ShareActivityProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB023D25279FFB0A005AC798 /* ShareActivityProvider.swift */; };
 		DB023D2827A0FABD005AC798 /* NotificationTableViewCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB023D2727A0FABD005AC798 /* NotificationTableViewCellDelegate.swift */; };
 		DB023D2A27A0FE5C005AC798 /* DataSourceProvider+NotificationTableViewCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB023D2927A0FE5C005AC798 /* DataSourceProvider+NotificationTableViewCellDelegate.swift */; };
@@ -129,7 +123,6 @@
 		DB02CDAB26256A9500D0A2AF /* ThreadReplyLoaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB02CDAA26256A9500D0A2AF /* ThreadReplyLoaderTableViewCell.swift */; };
 		DB02CDBF2625AE5000D0A2AF /* AdaptiveUserInterfaceStyleBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB02CDBE2625AE5000D0A2AF /* AdaptiveUserInterfaceStyleBarButtonItem.swift */; };
 		DB02EA0B280D180D00E751C5 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = DB02EA0A280D180D00E751C5 /* KeychainAccess */; };
-		DB02EA0D280D184B00E751C5 /* CommonOSLog in Frameworks */ = {isa = PBXBuildFile; productRef = DB02EA0C280D184B00E751C5 /* CommonOSLog */; };
 		DB03A793272A7E5700EE37C5 /* SidebarListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB03A792272A7E5700EE37C5 /* SidebarListHeaderView.swift */; };
 		DB03A795272A981400EE37C5 /* ContentSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB03A794272A981400EE37C5 /* ContentSplitViewController.swift */; };
 		DB03F7F32689AEA3007B274C /* ComposeRepliedToStatusContentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB03F7F22689AEA3007B274C /* ComposeRepliedToStatusContentTableViewCell.swift */; };
@@ -148,7 +141,6 @@
 		DB084B5725CBC56C00F898ED /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB084B5625CBC56C00F898ED /* Status.swift */; };
 		DB0A322E280EE9FD001729D2 /* DiscoveryIntroBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0A322D280EE9FD001729D2 /* DiscoveryIntroBannerView.swift */; };
 		DB0AC6FC25CD02E600D75117 /* APIService+Instance.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0AC6FB25CD02E600D75117 /* APIService+Instance.swift */; };
-		DB0C946526A6FD4D0088FB11 /* AlamofireImage in Frameworks */ = {isa = PBXBuildFile; productRef = DB0C946426A6FD4D0088FB11 /* AlamofireImage */; };
 		DB0C947726A7FE840088FB11 /* NotificationAvatarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0C947626A7FE840088FB11 /* NotificationAvatarButton.swift */; };
 		DB0EF72B26FDB1D200347686 /* SidebarListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0EF72A26FDB1D200347686 /* SidebarListCollectionViewCell.swift */; };
 		DB0EF72E26FDB24F00347686 /* SidebarListContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0EF72D26FDB24F00347686 /* SidebarListContentView.swift */; };
@@ -180,7 +172,6 @@
 		DB0FCB9C27980AB6006C02E2 /* HashtagTimelineViewController+DataSourceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0FCB9B27980AB6006C02E2 /* HashtagTimelineViewController+DataSourceProvider.swift */; };
 		DB118A8225E4B6E600FAB162 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB118A8125E4B6E600FAB162 /* Preview Assets.xcassets */; };
 		DB159C2B27A17BAC0068DC77 /* DataSourceFacade+Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB159C2A27A17BAC0068DC77 /* DataSourceFacade+Media.swift */; };
-		DB179267278D5A4A00B71DEB /* MastodonSDK in Frameworks */ = {isa = PBXBuildFile; productRef = DB179266278D5A4A00B71DEB /* MastodonSDK */; };
 		DB1D186C25EF5BA7003F1F23 /* PollTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1D186B25EF5BA7003F1F23 /* PollTableView.swift */; };
 		DB1D61CF26F1B33600DA8662 /* WelcomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1D61CE26F1B33600DA8662 /* WelcomeViewModel.swift */; };
 		DB1D842E26552C4D000346B3 /* StatusTableViewControllerNavigateable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1D842D26552C4D000346B3 /* StatusTableViewControllerNavigateable.swift */; };
@@ -219,7 +210,6 @@
 		DB3667A4268AE2370027D07F /* ComposeStatusPollTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3667A3268AE2370027D07F /* ComposeStatusPollTableViewCell.swift */; };
 		DB3667A6268AE2620027D07F /* ComposeStatusPollSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3667A5268AE2620027D07F /* ComposeStatusPollSection.swift */; };
 		DB3667A8268AE2900027D07F /* ComposeStatusPollItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3667A7268AE2900027D07F /* ComposeStatusPollItem.swift */; };
-		DB3D0FF325BAA61700EAA174 /* AlamofireImage in Frameworks */ = {isa = PBXBuildFile; productRef = DB3D0FF225BAA61700EAA174 /* AlamofireImage */; };
 		DB3E6FDD2806A40F00B035AE /* DiscoveryHashtagsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3E6FDC2806A40F00B035AE /* DiscoveryHashtagsViewController.swift */; };
 		DB3E6FE02806A4ED00B035AE /* DiscoveryHashtagsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3E6FDF2806A4ED00B035AE /* DiscoveryHashtagsViewModel.swift */; };
 		DB3E6FE22806A50100B035AE /* DiscoveryHashtagsViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3E6FE12806A50100B035AE /* DiscoveryHashtagsViewModel+Diffable.swift */; };
@@ -233,6 +223,26 @@
 		DB3E6FF52807C40300B035AE /* DiscoveryForYouViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3E6FF42807C40300B035AE /* DiscoveryForYouViewController.swift */; };
 		DB3E6FF82807C45300B035AE /* DiscoveryForYouViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3E6FF72807C45300B035AE /* DiscoveryForYouViewModel.swift */; };
 		DB3E6FFA2807C47900B035AE /* DiscoveryForYouViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3E6FF92807C47900B035AE /* DiscoveryForYouViewModel+Diffable.swift */; };
+		DB3EA8E6281B79E200598866 /* DiscoveryCommunityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3EA8E5281B79E200598866 /* DiscoveryCommunityViewController.swift */; };
+		DB3EA8E9281B7A3700598866 /* DiscoveryCommunityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3EA8E8281B7A3700598866 /* DiscoveryCommunityViewModel.swift */; };
+		DB3EA8EB281B7E0700598866 /* DiscoveryCommunityViewModel+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3EA8EA281B7E0700598866 /* DiscoveryCommunityViewModel+State.swift */; };
+		DB3EA8ED281B810100598866 /* APIService+PublicTimeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3EA8EC281B810100598866 /* APIService+PublicTimeline.swift */; };
+		DB3EA8EF281B837000598866 /* DiscoveryCommunityViewController+DataSourceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3EA8EE281B837000598866 /* DiscoveryCommunityViewController+DataSourceProvider.swift */; };
+		DB3EA8F1281B9EF600598866 /* DiscoveryCommunityViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3EA8F0281B9EF600598866 /* DiscoveryCommunityViewModel+Diffable.swift */; };
+		DB3EA8F5281BB65200598866 /* MastodonSDK in Frameworks */ = {isa = PBXBuildFile; productRef = DB3EA8F4281BB65200598866 /* MastodonSDK */; };
+		DB3EA8FC281BBAE100598866 /* AlamofireImage in Frameworks */ = {isa = PBXBuildFile; productRef = DB3EA8FB281BBAE100598866 /* AlamofireImage */; };
+		DB3EA8FE281BBAF200598866 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = DB3EA8FD281BBAF200598866 /* Alamofire */; };
+		DB3EA900281BBB1D00598866 /* MetaTextKit in Frameworks */ = {isa = PBXBuildFile; productRef = DB3EA8FF281BBB1D00598866 /* MetaTextKit */; };
+		DB3EA902281BBD5D00598866 /* CommonOSLog in Frameworks */ = {isa = PBXBuildFile; productRef = DB3EA901281BBD5D00598866 /* CommonOSLog */; };
+		DB3EA904281BBD9400598866 /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = DB3EA903281BBD9400598866 /* Introspect */; };
+		DB3EA906281BBE8200598866 /* AlamofireImage in Frameworks */ = {isa = PBXBuildFile; productRef = DB3EA905281BBE8200598866 /* AlamofireImage */; };
+		DB3EA908281BBE8200598866 /* AlamofireNetworkActivityIndicator in Frameworks */ = {isa = PBXBuildFile; productRef = DB3EA907281BBE8200598866 /* AlamofireNetworkActivityIndicator */; };
+		DB3EA90A281BBE8200598866 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = DB3EA909281BBE8200598866 /* Alamofire */; };
+		DB3EA90C281BBE9600598866 /* AlamofireImage in Frameworks */ = {isa = PBXBuildFile; productRef = DB3EA90B281BBE9600598866 /* AlamofireImage */; };
+		DB3EA90E281BBE9600598866 /* AlamofireNetworkActivityIndicator in Frameworks */ = {isa = PBXBuildFile; productRef = DB3EA90D281BBE9600598866 /* AlamofireNetworkActivityIndicator */; };
+		DB3EA910281BBE9600598866 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = DB3EA90F281BBE9600598866 /* Alamofire */; };
+		DB3EA912281BBEA800598866 /* AlamofireImage in Frameworks */ = {isa = PBXBuildFile; productRef = DB3EA911281BBEA800598866 /* AlamofireImage */; };
+		DB3EA914281BBEA800598866 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = DB3EA913281BBEA800598866 /* Alamofire */; };
 		DB427DD625BAA00100D1B89D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB427DD525BAA00100D1B89D /* AppDelegate.swift */; };
 		DB427DD825BAA00100D1B89D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB427DD725BAA00100D1B89D /* SceneDelegate.swift */; };
 		DB427DDD25BAA00100D1B89D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB427DDB25BAA00100D1B89D /* Main.storyboard */; };
@@ -344,7 +354,6 @@
 		DB6804832637CD4C00430867 /* AppShared.h in Headers */ = {isa = PBXBuildFile; fileRef = DB6804812637CD4C00430867 /* AppShared.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DB6804862637CD4C00430867 /* AppShared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB68047F2637CD4C00430867 /* AppShared.framework */; };
 		DB6804872637CD4C00430867 /* AppShared.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DB68047F2637CD4C00430867 /* AppShared.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		DB6804D12637CE4700430867 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6804D02637CE4700430867 /* UserDefaults.swift */; };
 		DB6804FD2637CFEC00430867 /* AppSecret.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6804FC2637CFEC00430867 /* AppSecret.swift */; };
 		DB68586425E619B700F0A850 /* NSKeyValueObservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB68586325E619B700F0A850 /* NSKeyValueObservation.swift */; };
 		DB68A04A25E9027700CFDF14 /* AdaptiveStatusBarStyleNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB68A04925E9027700CFDF14 /* AdaptiveStatusBarStyleNavigationController.swift */; };
@@ -372,7 +381,6 @@
 		DB6C8C0F25F0A6AE00AAA452 /* Mastodon+Entity+Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6C8C0E25F0A6AE00AAA452 /* Mastodon+Entity+Error.swift */; };
 		DB6D1B44263691CF00ACB481 /* Mastodon+API+Subscriptions+Policy.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6D1B43263691CF00ACB481 /* Mastodon+API+Subscriptions+Policy.swift */; };
 		DB6D9F3526351B7A008423CD /* NotificationService+Decrypt.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6D9F3426351B7A008423CD /* NotificationService+Decrypt.swift */; };
-		DB6D9F42263527CE008423CD /* AlamofireImage in Frameworks */ = {isa = PBXBuildFile; productRef = DB6D9F41263527CE008423CD /* AlamofireImage */; };
 		DB6D9F4926353FD7008423CD /* Subscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6D9F4826353FD6008423CD /* Subscription.swift */; };
 		DB6D9F502635761F008423CD /* SubscriptionAlerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6D9F4F2635761F008423CD /* SubscriptionAlerts.swift */; };
 		DB6D9F57263577D2008423CD /* APIService+CoreData+Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6D9F56263577D2008423CD /* APIService+CoreData+Setting.swift */; };
@@ -415,7 +423,6 @@
 		DB8AF54525C13647002E6C99 /* NeedsDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8AF54325C13647002E6C99 /* NeedsDependency.swift */; };
 		DB8AF55025C13703002E6C99 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8AF54F25C13703002E6C99 /* MainTabBarController.swift */; };
 		DB8AF55D25C138B7002E6C99 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8AF55C25C138B7002E6C99 /* UIViewController.swift */; };
-		DB8D8E2F28192EED009FD90F /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = DB8D8E2E28192EED009FD90F /* Introspect */; };
 		DB8F7076279E954700E1225B /* DataSourceFacade+Follow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8F7075279E954700E1225B /* DataSourceFacade+Follow.swift */; };
 		DB8FABC726AEC7B2008E5AF4 /* Intents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB8FAB9E26AEC3A2008E5AF4 /* Intents.framework */; };
 		DB8FABCA26AEC7B2008E5AF4 /* IntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8FABC926AEC7B2008E5AF4 /* IntentHandler.swift */; };
@@ -448,7 +455,6 @@
 		DB98EB6927B21A7C0082E365 /* ReportResultActionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB98EB6827B21A7C0082E365 /* ReportResultActionTableViewCell.swift */; };
 		DB98EB6B27B243470082E365 /* SettingsAppearanceTableViewCell+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB98EB6A27B243470082E365 /* SettingsAppearanceTableViewCell+ViewModel.swift */; };
 		DB9A486C26032AC1008B817C /* AttachmentContainerView+EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9A486B26032AC1008B817C /* AttachmentContainerView+EmptyStateView.swift */; };
-		DB9A487E2603456B008B817C /* UITextView+Placeholder in Frameworks */ = {isa = PBXBuildFile; productRef = DB9A487D2603456B008B817C /* UITextView+Placeholder */; };
 		DB9A488A26034D40008B817C /* ComposeViewModel+PublishState.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9A488926034D40008B817C /* ComposeViewModel+PublishState.swift */; };
 		DB9A489026035963008B817C /* APIService+Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9A488F26035963008B817C /* APIService+Media.swift */; };
 		DB9A48962603685D008B817C /* MastodonAttachmentService+UploadState.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9A48952603685D008B817C /* MastodonAttachmentService+UploadState.swift */; };
@@ -503,18 +509,14 @@
 		DBB5255E2611F07A002F1F29 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB5255D2611F07A002F1F29 /* ProfileViewModel.swift */; };
 		DBB525642612C988002F1F29 /* MeProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB525632612C988002F1F29 /* MeProfileViewModel.swift */; };
 		DBB8AB4626AECDE200F6D281 /* SendPostIntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB8AB4526AECDE200F6D281 /* SendPostIntentHandler.swift */; };
-		DBB8AB4826AED09C00F6D281 /* MastodonSDK in Frameworks */ = {isa = PBXBuildFile; productRef = DBB8AB4726AED09C00F6D281 /* MastodonSDK */; };
 		DBB8AB4A26AED0B500F6D281 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB8AB4926AED0B500F6D281 /* APIService.swift */; };
 		DBB8AB4C26AED11300F6D281 /* APIService+APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB98337E25C9452D00AD9700 /* APIService+APIError.swift */; };
 		DBB8AB4F26AED13F00F6D281 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB427DDE25BAA00100D1B89D /* Assets.xcassets */; };
 		DBB8AB5226AED1B300F6D281 /* APIService+Status+Publish.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBFEF07A26A6BCE8006D7ED1 /* APIService+Status+Publish.swift */; };
 		DBB9759C262462E1004620BD /* ThreadMetaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB9759B262462E1004620BD /* ThreadMetaView.swift */; };
 		DBBC24A826A52F9000398BB9 /* ComposeToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBC24A726A52F9000398BB9 /* ComposeToolbarView.swift */; };
-		DBBC24AA26A5301B00398BB9 /* MastodonSDK in Frameworks */ = {isa = PBXBuildFile; productRef = DBBC24A926A5301B00398BB9 /* MastodonSDK */; };
 		DBBC24AC26A53D9300398BB9 /* ComposeStatusContentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBC24AB26A53D9300398BB9 /* ComposeStatusContentTableViewCell.swift */; };
-		DBBC24B826A5421800398BB9 /* CommonOSLog in Frameworks */ = {isa = PBXBuildFile; productRef = DBBC24B726A5421800398BB9 /* CommonOSLog */; };
 		DBBC24CB26A546C000398BB9 /* ThemePreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD376AB2692ECDB007FEC24 /* ThemePreference.swift */; };
-		DBBC24D126A5484F00398BB9 /* UITextView+Placeholder in Frameworks */ = {isa = PBXBuildFile; productRef = DBBC24D026A5484F00398BB9 /* UITextView+Placeholder */; };
 		DBBC24DC26A54BCB00398BB9 /* MastodonRegex.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBC24D626A54BCB00398BB9 /* MastodonRegex.swift */; };
 		DBBE1B4525F3474B0081417A /* MastodonPickServerAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBE1B4425F3474B0081417A /* MastodonPickServerAppearance.swift */; };
 		DBBF1DBF2652401B00E5B703 /* AutoCompleteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBF1DBE2652401B00E5B703 /* AutoCompleteViewModel.swift */; };
@@ -719,10 +721,8 @@
 		0FB3D30E25E525CD00AAD544 /* PickServerCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickServerCategoryView.swift; sourceTree = "<group>"; };
 		0FB3D31D25E534C700AAD544 /* PickServerCategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickServerCategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		0FB3D33725E6401400AAD544 /* PickServerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickServerCell.swift; sourceTree = "<group>"; };
-		159AC43EFE0A1F95FCB358A4 /* Pods-MastodonIntent.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MastodonIntent.release.xcconfig"; path = "Target Support Files/Pods-MastodonIntent/Pods-MastodonIntent.release.xcconfig"; sourceTree = "<group>"; };
 		164F0EBB267D4FE400249499 /* BoopSound.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = BoopSound.caf; sourceTree = "<group>"; };
 		1D6D967E77A5357E2C6110D9 /* Pods-Mastodon.asdk - debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon.asdk - debug.xcconfig"; path = "Target Support Files/Pods-Mastodon/Pods-Mastodon.asdk - debug.xcconfig"; sourceTree = "<group>"; };
-		2C12EB4B3699D5D597027962 /* Pods-MastodonIntent.release snapshot.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MastodonIntent.release snapshot.xcconfig"; path = "Target Support Files/Pods-MastodonIntent/Pods-MastodonIntent.release snapshot.xcconfig"; sourceTree = "<group>"; };
 		2D198642261BF09500F0B013 /* SearchResultItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultItem.swift; sourceTree = "<group>"; };
 		2D198648261C0B8500F0B013 /* SearchResultSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultSection.swift; sourceTree = "<group>"; };
 		2D206B8525F5FB0900143C56 /* Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
@@ -783,7 +783,6 @@
 		2DF123A625C3B0210020F248 /* ActiveLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveLabel.swift; sourceTree = "<group>"; };
 		2DF75BA625D10E1000694EC8 /* APIService+Favorite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Favorite.swift"; sourceTree = "<group>"; };
 		2E1F6A67FDF9771D3E064FDC /* Pods-Mastodon.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon.debug.xcconfig"; path = "Target Support Files/Pods-Mastodon/Pods-Mastodon.debug.xcconfig"; sourceTree = "<group>"; };
-		374AA339A20E0FAC75BCDA6D /* Pods_NotificationService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NotificationService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B7FD8F28DDA8FBCE5562B78 /* Pods-NotificationService.asdk - debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationService.asdk - debug.xcconfig"; path = "Target Support Files/Pods-NotificationService/Pods-NotificationService.asdk - debug.xcconfig"; sourceTree = "<group>"; };
 		3C030226D3C73DCC23D67452 /* Pods_Mastodon_MastodonUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mastodon_MastodonUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E08A432F40BA7B9CAA9DB68 /* Pods-AppShared.release snapshot.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppShared.release snapshot.xcconfig"; path = "Target Support Files/Pods-AppShared/Pods-AppShared.release snapshot.xcconfig"; sourceTree = "<group>"; };
@@ -813,21 +812,14 @@
 		5DF1056325F887CB00D6C0D4 /* AVPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVPlayer.swift; sourceTree = "<group>"; };
 		6130CBE4B26E3C976ACC1688 /* Pods-ShareActionExtension.asdk - debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShareActionExtension.asdk - debug.xcconfig"; path = "Target Support Files/Pods-ShareActionExtension/Pods-ShareActionExtension.asdk - debug.xcconfig"; sourceTree = "<group>"; };
 		75E3471C898DDD9631729B6E /* Pods-Mastodon.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon.release.xcconfig"; path = "Target Support Files/Pods-Mastodon/Pods-Mastodon.release.xcconfig"; sourceTree = "<group>"; };
-		77EE917BC055E6621C0452B6 /* Pods-ShareActionExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShareActionExtension.debug.xcconfig"; path = "Target Support Files/Pods-ShareActionExtension/Pods-ShareActionExtension.debug.xcconfig"; sourceTree = "<group>"; };
 		7CEFFAE9AF9284B13C0A758D /* Pods-MastodonTests.asdk - debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MastodonTests.asdk - debug.xcconfig"; path = "Target Support Files/Pods-MastodonTests/Pods-MastodonTests.asdk - debug.xcconfig"; sourceTree = "<group>"; };
 		819CEC9DCAD8E8E7BD85A7BB /* Pods-Mastodon.asdk.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon.asdk.xcconfig"; path = "Target Support Files/Pods-Mastodon/Pods-Mastodon.asdk.xcconfig"; sourceTree = "<group>"; };
-		861BE60ED27430771CFD578D /* Pods-MastodonIntent.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MastodonIntent.debug.xcconfig"; path = "Target Support Files/Pods-MastodonIntent/Pods-MastodonIntent.debug.xcconfig"; sourceTree = "<group>"; };
 		8850E70A1D5FF51432E43653 /* Pods-Mastodon-MastodonUITests.asdk - release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon-MastodonUITests.asdk - release.xcconfig"; path = "Target Support Files/Pods-Mastodon-MastodonUITests/Pods-Mastodon-MastodonUITests.asdk - release.xcconfig"; sourceTree = "<group>"; };
-		8ADD558BE5B8255E5764A54F /* Pods-NotificationService.release snapshot.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationService.release snapshot.xcconfig"; path = "Target Support Files/Pods-NotificationService/Pods-NotificationService.release snapshot.xcconfig"; sourceTree = "<group>"; };
 		8E79CCBE51FBC3F7FE8CF49F /* Pods-MastodonTests.release snapshot.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MastodonTests.release snapshot.xcconfig"; path = "Target Support Files/Pods-MastodonTests/Pods-MastodonTests.release snapshot.xcconfig"; sourceTree = "<group>"; };
 		8ED8C4B1F1BA2DCFF2926BB1 /* Pods-Mastodon-NotificationService.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon-NotificationService.debug.xcconfig"; path = "Target Support Files/Pods-Mastodon-NotificationService/Pods-Mastodon-NotificationService.debug.xcconfig"; sourceTree = "<group>"; };
-		9553C689FFA9EBC880CAB78D /* Pods-NotificationService.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationService.debug.xcconfig"; path = "Target Support Files/Pods-NotificationService/Pods-NotificationService.debug.xcconfig"; sourceTree = "<group>"; };
-		95AD0663479892A2109EEFD0 /* Pods-ShareActionExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShareActionExtension.release.xcconfig"; path = "Target Support Files/Pods-ShareActionExtension/Pods-ShareActionExtension.release.xcconfig"; sourceTree = "<group>"; };
-		9776D7C4B79101CF70181127 /* Pods-NotificationService.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationService.release.xcconfig"; path = "Target Support Files/Pods-NotificationService/Pods-NotificationService.release.xcconfig"; sourceTree = "<group>"; };
 		9780A4C98FFC65B32B50D1C0 /* Pods-MastodonTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MastodonTests.release.xcconfig"; path = "Target Support Files/Pods-MastodonTests/Pods-MastodonTests.release.xcconfig"; sourceTree = "<group>"; };
 		9A0982D8F349244EB558CDFD /* Pods-AppShared.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppShared.debug.xcconfig"; path = "Target Support Files/Pods-AppShared/Pods-AppShared.debug.xcconfig"; sourceTree = "<group>"; };
 		9CFF58FD900AC059428700E7 /* Pods-NotificationService.asdk - release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationService.asdk - release.xcconfig"; path = "Target Support Files/Pods-NotificationService/Pods-NotificationService.asdk - release.xcconfig"; sourceTree = "<group>"; };
-		A32B0CACBF35F4CC3CFAA043 /* Pods_ShareActionExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShareActionExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4ABE34829701A4496C5BB64 /* Pods_Mastodon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mastodon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A67FD038ECDA0E411AF8DB4D /* Pods-Mastodon-MastodonUITests.asdk.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon-MastodonUITests.asdk.xcconfig"; path = "Target Support Files/Pods-Mastodon-MastodonUITests/Pods-Mastodon-MastodonUITests.asdk.xcconfig"; sourceTree = "<group>"; };
 		A9B1FB898DFD6063B044298C /* Pods-AppShared.asdk - debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppShared.asdk - debug.xcconfig"; path = "Target Support Files/Pods-AppShared/Pods-AppShared.asdk - debug.xcconfig"; sourceTree = "<group>"; };
@@ -962,6 +954,12 @@
 		DB3E6FF42807C40300B035AE /* DiscoveryForYouViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryForYouViewController.swift; sourceTree = "<group>"; };
 		DB3E6FF72807C45300B035AE /* DiscoveryForYouViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryForYouViewModel.swift; sourceTree = "<group>"; };
 		DB3E6FF92807C47900B035AE /* DiscoveryForYouViewModel+Diffable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DiscoveryForYouViewModel+Diffable.swift"; sourceTree = "<group>"; };
+		DB3EA8E5281B79E200598866 /* DiscoveryCommunityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryCommunityViewController.swift; sourceTree = "<group>"; };
+		DB3EA8E8281B7A3700598866 /* DiscoveryCommunityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryCommunityViewModel.swift; sourceTree = "<group>"; };
+		DB3EA8EA281B7E0700598866 /* DiscoveryCommunityViewModel+State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DiscoveryCommunityViewModel+State.swift"; sourceTree = "<group>"; };
+		DB3EA8EC281B810100598866 /* APIService+PublicTimeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+PublicTimeline.swift"; sourceTree = "<group>"; };
+		DB3EA8EE281B837000598866 /* DiscoveryCommunityViewController+DataSourceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DiscoveryCommunityViewController+DataSourceProvider.swift"; sourceTree = "<group>"; };
+		DB3EA8F0281B9EF600598866 /* DiscoveryCommunityViewModel+Diffable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DiscoveryCommunityViewModel+Diffable.swift"; sourceTree = "<group>"; };
 		DB427DD225BAA00100D1B89D /* Mastodon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mastodon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB427DD525BAA00100D1B89D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DB427DD725BAA00100D1B89D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -1091,7 +1089,6 @@
 		DB68047F2637CD4C00430867 /* AppShared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AppShared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB6804812637CD4C00430867 /* AppShared.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppShared.h; sourceTree = "<group>"; };
 		DB6804822637CD4C00430867 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DB6804D02637CE4700430867 /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		DB6804FC2637CFEC00430867 /* AppSecret.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSecret.swift; sourceTree = "<group>"; };
 		DB68053E2638011000430867 /* NotificationService.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NotificationService.entitlements; sourceTree = "<group>"; };
 		DB68586325E619B700F0A850 /* NSKeyValueObservation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSKeyValueObservation.swift; sourceTree = "<group>"; };
@@ -1366,9 +1363,7 @@
 		ECA373ABA86BE3C2D7ED878E /* Pods-AppShared.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppShared.release.xcconfig"; path = "Target Support Files/Pods-AppShared/Pods-AppShared.release.xcconfig"; sourceTree = "<group>"; };
 		EE13214BC0246BE5210CCC10 /* Pods-AppShared.asdk.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppShared.asdk.xcconfig"; path = "Target Support Files/Pods-AppShared/Pods-AppShared.asdk.xcconfig"; sourceTree = "<group>"; };
 		F31E7502A7E3945B98C6CBAF /* Pods-NotificationService.asdk.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationService.asdk.xcconfig"; path = "Target Support Files/Pods-NotificationService/Pods-NotificationService.asdk.xcconfig"; sourceTree = "<group>"; };
-		F43DF6E8AB8C87914A64FC48 /* Pods-ShareActionExtension.release snapshot.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShareActionExtension.release snapshot.xcconfig"; path = "Target Support Files/Pods-ShareActionExtension/Pods-ShareActionExtension.release snapshot.xcconfig"; sourceTree = "<group>"; };
 		F4A2A2D7000E477CA459ADA9 /* Pods_AppShared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AppShared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		F4C94BD75C96D0EFF5F6D961 /* Pods_MastodonIntent.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MastodonIntent.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F920AD4EC23B0D00F5CCA58E /* Pods-MastodonIntent.asdk - release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MastodonIntent.asdk - release.xcconfig"; path = "Target Support Files/Pods-MastodonIntent/Pods-MastodonIntent.asdk - release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1377,25 +1372,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DB9A487E2603456B008B817C /* UITextView+Placeholder in Frameworks */,
+				DB3EA914281BBEA800598866 /* Alamofire in Frameworks */,
 				2D939AC825EE14620076FA61 /* CropViewController in Frameworks */,
 				DBB525082611EAC0002F1F29 /* Tabman in Frameworks */,
-				5D526FE225BE9AC400460CB9 /* MastodonSDK in Frameworks */,
 				DB6804862637CD4C00430867 /* AppShared.framework in Frameworks */,
 				DBF96326262EC0A6001D8D25 /* AuthenticationServices.framework in Frameworks */,
-				DB8D8E2F28192EED009FD90F /* Introspect in Frameworks */,
 				DBAC6483267D0B21007FE9FD /* DifferenceKit in Frameworks */,
 				DB552D4F26BBD10C00E481F6 /* OrderedCollections in Frameworks */,
 				2D61336925C18A4F00CAE157 /* AlamofireNetworkActivityIndicator in Frameworks */,
 				DBAC64A1267E6D02007FE9FD /* Fuzi in Frameworks */,
-				DB3D0FF325BAA61700EAA174 /* AlamofireImage in Frameworks */,
 				DBAC649E267DFE43007FE9FD /* DiffableDataSources in Frameworks */,
-				DB02EA0D280D184B00E751C5 /* CommonOSLog in Frameworks */,
 				2D5981BA25E4D7F8000FB903 /* ThirdPartyMailer in Frameworks */,
 				87FFDA5D898A5C42ADCB35E7 /* Pods_Mastodon.framework in Frameworks */,
 				DBF7A0FC26830C33004176A2 /* FPSIndicator in Frameworks */,
-				DB01E23526A98F0900C3965B /* MetaTextKit in Frameworks */,
 				DBA5A52F26F07ED800CACBAA /* PanModal in Frameworks */,
+				DB3EA912281BBEA800598866 /* AlamofireImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1420,8 +1411,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB3EA8FE281BBAF200598866 /* Alamofire in Frameworks */,
+				DB3EA8F5281BB65200598866 /* MastodonSDK in Frameworks */,
+				DB3EA8FC281BBAE100598866 /* AlamofireImage in Frameworks */,
 				DB02EA0B280D180D00E751C5 /* KeychainAccess in Frameworks */,
 				EE93E8E8F9E0C39EAAEBD92F /* Pods_AppShared.framework in Frameworks */,
+				DB3EA904281BBD9400598866 /* Introspect in Frameworks */,
+				DB3EA902281BBD5D00598866 /* CommonOSLog in Frameworks */,
+				DB3EA900281BBB1D00598866 /* MetaTextKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1430,8 +1427,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				DB8FABC726AEC7B2008E5AF4 /* Intents.framework in Frameworks */,
-				DBB8AB4826AED09C00F6D281 /* MastodonSDK in Frameworks */,
-				BBAC710E327AF1EE1DB36A4E /* Pods_MastodonIntent.framework in Frameworks */,
 				DBE3CA6E27A39CB300AFE27B /* AppShared.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1440,12 +1435,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DBBC24B826A5421800398BB9 /* CommonOSLog in Frameworks */,
-				DBBC24D126A5484F00398BB9 /* UITextView+Placeholder in Frameworks */,
-				DBBC24AA26A5301B00398BB9 /* MastodonSDK in Frameworks */,
+				DB3EA90E281BBE9600598866 /* AlamofireNetworkActivityIndicator in Frameworks */,
+				DB3EA910281BBE9600598866 /* Alamofire in Frameworks */,
 				DBE3CA6B27A39CAF00AFE27B /* AppShared.framework in Frameworks */,
-				DB0C946526A6FD4D0088FB11 /* AlamofireImage in Frameworks */,
-				4278334D6033AEEE0A1C5155 /* Pods_ShareActionExtension.framework in Frameworks */,
+				DB3EA90C281BBE9600598866 /* AlamofireImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1453,11 +1446,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DB00CA972632DDB600A54956 /* CommonOSLog in Frameworks */,
-				DB179267278D5A4A00B71DEB /* MastodonSDK in Frameworks */,
-				DB6D9F42263527CE008423CD /* AlamofireImage in Frameworks */,
+				DB3EA908281BBE8200598866 /* AlamofireNetworkActivityIndicator in Frameworks */,
+				DB3EA90A281BBE8200598866 /* Alamofire in Frameworks */,
 				DBE3CA6827A39CAB00AFE27B /* AppShared.framework in Frameworks */,
-				B914FC6B0B8AF18573C0B291 /* Pods_NotificationService.framework in Frameworks */,
+				DB3EA906281BBE8200598866 /* AlamofireImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1543,8 +1535,6 @@
 				B31D44635FCF6452F7E1B865 /* Pods-Mastodon-AppShared.release.xcconfig */,
 				9A0982D8F349244EB558CDFD /* Pods-AppShared.debug.xcconfig */,
 				ECA373ABA86BE3C2D7ED878E /* Pods-AppShared.release.xcconfig */,
-				9553C689FFA9EBC880CAB78D /* Pods-NotificationService.debug.xcconfig */,
-				9776D7C4B79101CF70181127 /* Pods-NotificationService.release.xcconfig */,
 				EE13214BC0246BE5210CCC10 /* Pods-AppShared.asdk.xcconfig */,
 				819CEC9DCAD8E8E7BD85A7BB /* Pods-Mastodon.asdk.xcconfig */,
 				A67FD038ECDA0E411AF8DB4D /* Pods-Mastodon-MastodonUITests.asdk.xcconfig */,
@@ -1560,21 +1550,14 @@
 				46DAB0EBDDFB678347CD96FF /* Pods-MastodonTests.asdk - release.xcconfig */,
 				3B7FD8F28DDA8FBCE5562B78 /* Pods-NotificationService.asdk - debug.xcconfig */,
 				9CFF58FD900AC059428700E7 /* Pods-NotificationService.asdk - release.xcconfig */,
-				77EE917BC055E6621C0452B6 /* Pods-ShareActionExtension.debug.xcconfig */,
 				6130CBE4B26E3C976ACC1688 /* Pods-ShareActionExtension.asdk - debug.xcconfig */,
 				5CE45680252519F42FEA2D13 /* Pods-ShareActionExtension.asdk - release.xcconfig */,
-				95AD0663479892A2109EEFD0 /* Pods-ShareActionExtension.release.xcconfig */,
-				861BE60ED27430771CFD578D /* Pods-MastodonIntent.debug.xcconfig */,
 				C3789232A52F43529CA67E95 /* Pods-MastodonIntent.asdk - debug.xcconfig */,
 				F920AD4EC23B0D00F5CCA58E /* Pods-MastodonIntent.asdk - release.xcconfig */,
-				159AC43EFE0A1F95FCB358A4 /* Pods-MastodonIntent.release.xcconfig */,
 				3E08A432F40BA7B9CAA9DB68 /* Pods-AppShared.release snapshot.xcconfig */,
 				0655B257371274BEB7EB1C19 /* Pods-Mastodon.release snapshot.xcconfig */,
 				0827D1674B2523503E8605F6 /* Pods-Mastodon-MastodonUITests.release snapshot.xcconfig */,
-				2C12EB4B3699D5D597027962 /* Pods-MastodonIntent.release snapshot.xcconfig */,
 				8E79CCBE51FBC3F7FE8CF49F /* Pods-MastodonTests.release snapshot.xcconfig */,
-				8ADD558BE5B8255E5764A54F /* Pods-NotificationService.release snapshot.xcconfig */,
-				F43DF6E8AB8C87914A64FC48 /* Pods-ShareActionExtension.release snapshot.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -1836,11 +1819,8 @@
 				3C030226D3C73DCC23D67452 /* Pods_Mastodon_MastodonUITests.framework */,
 				452147B2903DF38070FE56A2 /* Pods_MastodonTests.framework */,
 				F4A2A2D7000E477CA459ADA9 /* Pods_AppShared.framework */,
-				374AA339A20E0FAC75BCDA6D /* Pods_NotificationService.framework */,
-				A32B0CACBF35F4CC3CFAA043 /* Pods_ShareActionExtension.framework */,
 				DB8FAB9E26AEC3A2008E5AF4 /* Intents.framework */,
 				DB8FABA926AEC3A2008E5AF4 /* IntentsUI.framework */,
-				F4C94BD75C96D0EFF5F6D961 /* Pods_MastodonIntent.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -2165,6 +2145,18 @@
 			path = ForYou;
 			sourceTree = "<group>";
 		};
+		DB3EA8E7281B79E500598866 /* Community */ = {
+			isa = PBXGroup;
+			children = (
+				DB3EA8E5281B79E200598866 /* DiscoveryCommunityViewController.swift */,
+				DB3EA8EE281B837000598866 /* DiscoveryCommunityViewController+DataSourceProvider.swift */,
+				DB3EA8E8281B7A3700598866 /* DiscoveryCommunityViewModel.swift */,
+				DB3EA8F0281B9EF600598866 /* DiscoveryCommunityViewModel+Diffable.swift */,
+				DB3EA8EA281B7E0700598866 /* DiscoveryCommunityViewModel+State.swift */,
+			);
+			path = Community;
+			sourceTree = "<group>";
+		};
 		DB427DC925BAA00100D1B89D = {
 			isa = PBXGroup;
 			children = (
@@ -2258,6 +2250,7 @@
 				2D9DB96A263A91D1007C1D71 /* APIService+DomainBlock.swift */,
 				DB45FB1C25CA9D23005A8AC7 /* APIService+HomeTimeline.swift */,
 				DB482A4A261340A7008AE74C /* APIService+UserTimeline.swift */,
+				DB3EA8EC281B810100598866 /* APIService+PublicTimeline.swift */,
 				DBA465922696B495002B41DB /* APIService+WebFinger.swift */,
 				DB0AC6FB25CD02E600D75117 /* APIService+Instance.swift */,
 				DB59F10D25EF724F001F1DAB /* APIService+Poll.swift */,
@@ -2539,7 +2532,6 @@
 				DB6804812637CD4C00430867 /* AppShared.h */,
 				DB6804822637CD4C00430867 /* Info.plist */,
 				DB6804FC2637CFEC00430867 /* AppSecret.swift */,
-				DB6804D02637CE4700430867 /* UserDefaults.swift */,
 				DB73BF3A2711885500781945 /* UserDefaults+Notification.swift */,
 			);
 			path = AppShared;
@@ -3128,6 +3120,7 @@
 				DBDFF19828055A0900557A48 /* Posts */,
 				DB3E6FDE2806A41200B035AE /* Hashtags */,
 				DB3E6FED2806D7FC00B035AE /* News */,
+				DB3EA8E7281B79E500598866 /* Community */,
 				DB3E6FF62807C40500B035AE /* ForYou */,
 				DBDFF19928055A1400557A48 /* DiscoveryViewController.swift */,
 				DBDFF19B28055BD600557A48 /* DiscoveryViewModel.swift */,
@@ -3316,22 +3309,18 @@
 			);
 			name = Mastodon;
 			packageProductDependencies = (
-				DB3D0FF225BAA61700EAA174 /* AlamofireImage */,
-				5D526FE125BE9AC400460CB9 /* MastodonSDK */,
 				2D61336825C18A4F00CAE157 /* AlamofireNetworkActivityIndicator */,
 				2D5981B925E4D7F8000FB903 /* ThirdPartyMailer */,
 				2D939AC725EE14620076FA61 /* CropViewController */,
-				DB9A487D2603456B008B817C /* UITextView+Placeholder */,
 				DBB525072611EAC0002F1F29 /* Tabman */,
 				DBAC6482267D0B21007FE9FD /* DifferenceKit */,
 				DBAC649D267DFE43007FE9FD /* DiffableDataSources */,
 				DBAC64A0267E6D02007FE9FD /* Fuzi */,
 				DBF7A0FB26830C33004176A2 /* FPSIndicator */,
-				DB01E23426A98F0900C3965B /* MetaTextKit */,
 				DB552D4E26BBD10C00E481F6 /* OrderedCollections */,
 				DBA5A52E26F07ED800CACBAA /* PanModal */,
-				DB02EA0C280D184B00E751C5 /* CommonOSLog */,
-				DB8D8E2E28192EED009FD90F /* Introspect */,
+				DB3EA911281BBEA800598866 /* AlamofireImage */,
+				DB3EA913281BBEA800598866 /* Alamofire */,
 			);
 			productName = Mastodon;
 			productReference = DB427DD225BAA00100D1B89D /* Mastodon.app */;
@@ -3393,6 +3382,12 @@
 			name = AppShared;
 			packageProductDependencies = (
 				DB02EA0A280D180D00E751C5 /* KeychainAccess */,
+				DB3EA8F4281BB65200598866 /* MastodonSDK */,
+				DB3EA8FB281BBAE100598866 /* AlamofireImage */,
+				DB3EA8FD281BBAF200598866 /* Alamofire */,
+				DB3EA8FF281BBB1D00598866 /* MetaTextKit */,
+				DB3EA901281BBD5D00598866 /* CommonOSLog */,
+				DB3EA903281BBD9400598866 /* Introspect */,
 			);
 			productName = AppShared;
 			productReference = DB68047F2637CD4C00430867 /* AppShared.framework */;
@@ -3402,7 +3397,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DB8FABCF26AEC7B2008E5AF4 /* Build configuration list for PBXNativeTarget "MastodonIntent" */;
 			buildPhases = (
-				625308CC94CCF528BD373740 /* [CP] Check Pods Manifest.lock */,
 				DB8FABC226AEC7B2008E5AF4 /* Sources */,
 				DB8FABC326AEC7B2008E5AF4 /* Frameworks */,
 				DB8FABC426AEC7B2008E5AF4 /* Resources */,
@@ -3413,9 +3407,6 @@
 				DB8FABDA26AEC873008E5AF4 /* PBXTargetDependency */,
 			);
 			name = MastodonIntent;
-			packageProductDependencies = (
-				DBB8AB4726AED09C00F6D281 /* MastodonSDK */,
-			);
 			productName = MastodonIntent;
 			productReference = DB8FABC626AEC7B2008E5AF4 /* MastodonIntent.appex */;
 			productType = "com.apple.product-type.app-extension";
@@ -3424,7 +3415,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DBC6462126A170AB00B0E31B /* Build configuration list for PBXNativeTarget "ShareActionExtension" */;
 			buildPhases = (
-				641DEA63EE5B048C9A551302 /* [CP] Check Pods Manifest.lock */,
 				DBC6460E26A170AB00B0E31B /* Sources */,
 				DBC6460F26A170AB00B0E31B /* Frameworks */,
 				DBC6461026A170AB00B0E31B /* Resources */,
@@ -3436,10 +3426,9 @@
 			);
 			name = ShareActionExtension;
 			packageProductDependencies = (
-				DBBC24A926A5301B00398BB9 /* MastodonSDK */,
-				DBBC24B726A5421800398BB9 /* CommonOSLog */,
-				DBBC24D026A5484F00398BB9 /* UITextView+Placeholder */,
-				DB0C946426A6FD4D0088FB11 /* AlamofireImage */,
+				DB3EA90B281BBE9600598866 /* AlamofireImage */,
+				DB3EA90D281BBE9600598866 /* AlamofireNetworkActivityIndicator */,
+				DB3EA90F281BBE9600598866 /* Alamofire */,
 			);
 			productName = ShareActionExtension;
 			productReference = DBC6461226A170AB00B0E31B /* ShareActionExtension.appex */;
@@ -3449,7 +3438,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DBF8AE1E263293E400C9C23C /* Build configuration list for PBXNativeTarget "NotificationService" */;
 			buildPhases = (
-				0DC740704503CA6BED56F5C8 /* [CP] Check Pods Manifest.lock */,
 				DBF8AE0F263293E400C9C23C /* Sources */,
 				DBF8AE10263293E400C9C23C /* Frameworks */,
 				DBF8AE11263293E400C9C23C /* Resources */,
@@ -3461,9 +3449,9 @@
 			);
 			name = NotificationService;
 			packageProductDependencies = (
-				DB00CA962632DDB600A54956 /* CommonOSLog */,
-				DB6D9F41263527CE008423CD /* AlamofireImage */,
-				DB179266278D5A4A00B71DEB /* MastodonSDK */,
+				DB3EA905281BBE8200598866 /* AlamofireImage */,
+				DB3EA907281BBE8200598866 /* AlamofireNetworkActivityIndicator */,
+				DB3EA909281BBE8200598866 /* Alamofire */,
 			);
 			productName = NotificationService;
 			productReference = DBF8AE13263293E400C9C23C /* NotificationService.appex */;
@@ -3538,7 +3526,6 @@
 				DB0140BB25C40D7500F9F3CF /* XCRemoteSwiftPackageReference "CommonOSLog" */,
 				2D5981B825E4D7F8000FB903 /* XCRemoteSwiftPackageReference "ThirdPartyMailer" */,
 				2D939AC625EE14620076FA61 /* XCRemoteSwiftPackageReference "TOCropViewController" */,
-				DB9A487C2603456B008B817C /* XCRemoteSwiftPackageReference "UITextView-Placeholder" */,
 				DBB525062611EAC0002F1F29 /* XCRemoteSwiftPackageReference "Tabman" */,
 				DB6804722637CC1200430867 /* XCRemoteSwiftPackageReference "KeychainAccess" */,
 				DBAC6481267D0B21007FE9FD /* XCRemoteSwiftPackageReference "DifferenceKit" */,
@@ -3550,6 +3537,7 @@
 				DB552D4D26BBD10C00E481F6 /* XCRemoteSwiftPackageReference "swift-collections" */,
 				DBA5A52D26F07ED800CACBAA /* XCRemoteSwiftPackageReference "PanModal" */,
 				DB8D8E2D28192EED009FD90F /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
+				DB3EA8F6281BBA4C00598866 /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = DB427DD325BAA00100D1B89D /* Products */;
 			projectDirPath = "";
@@ -3632,28 +3620,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0DC740704503CA6BED56F5C8 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-NotificationService-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 		5532CB85BBE168B25B20720B /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -3669,50 +3635,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Mastodon/Pods-Mastodon-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		625308CC94CCF528BD373740 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-MastodonIntent-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		641DEA63EE5B048C9A551302 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-ShareActionExtension-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		6E033728B42BA1C0018B6131 /* [CP] Check Pods Manifest.lock */ = {
@@ -4049,6 +3971,7 @@
 				DB63F7452799056400455B82 /* HashtagTableViewCell.swift in Sources */,
 				DBD9149025DF6D8D00903DFD /* APIService+Onboarding.swift in Sources */,
 				DBAE3FAF26172FC0004B8251 /* RemoteProfileViewModel.swift in Sources */,
+				DB3EA8EB281B7E0700598866 /* DiscoveryCommunityViewModel+State.swift in Sources */,
 				DB0FCB7227952986006C02E2 /* NamingState.swift in Sources */,
 				DB73BF47271199CA00781945 /* Instance.swift in Sources */,
 				DB0F8150264D1E2500F2A12B /* PickServerLoaderTableViewCell.swift in Sources */,
@@ -4181,6 +4104,7 @@
 				DB040ED126538E3D00BEE9D8 /* Trie.swift in Sources */,
 				DB73BF4B27140C0800781945 /* UITableViewDiffableDataSource.swift in Sources */,
 				DBB525642612C988002F1F29 /* MeProfileViewModel.swift in Sources */,
+				DB3EA8EF281B837000598866 /* DiscoveryCommunityViewController+DataSourceProvider.swift in Sources */,
 				DB6B74EF272FB55000C70B6E /* FollowerListViewController.swift in Sources */,
 				DB4AA6B327BA34B6009EC082 /* CellFrameCacheContainer.swift in Sources */,
 				DB0FCB942797E2B0006C02E2 /* SearchResultViewModel+Diffable.swift in Sources */,
@@ -4222,10 +4146,12 @@
 				DB697DE1278F5296004EF2F7 /* DataSourceFacade+Model.swift in Sources */,
 				DBCC3B8F26148F7B0045B23D /* CachedProfileViewModel.swift in Sources */,
 				DB4F097526A037F500D62E92 /* SearchHistoryViewModel.swift in Sources */,
+				DB3EA8E9281B7A3700598866 /* DiscoveryCommunityViewModel.swift in Sources */,
 				DB6180F826391D660018D199 /* MediaPreviewingViewController.swift in Sources */,
 				DB0140CF25C42AEE00F9F3CF /* OSLog.swift in Sources */,
 				DB98EB5627B0FF1B0082E365 /* ReportViewControllerAppearance.swift in Sources */,
 				DB938F1526241FDF00E5B6C1 /* APIService+Thread.swift in Sources */,
+				DB3EA8E6281B79E200598866 /* DiscoveryCommunityViewController.swift in Sources */,
 				2D206B8625F5FB0900143C56 /* Double.swift in Sources */,
 				DB9F58F126EF512300E7BBE9 /* AccountListTableViewCell.swift in Sources */,
 				2D76319F25C1521200929FB9 /* StatusSection.swift in Sources */,
@@ -4276,6 +4202,7 @@
 				DB73BF45271195AC00781945 /* APIService+CoreData+Instance.swift in Sources */,
 				DB336F21278D6D960031E64B /* MastodonEmoji.swift in Sources */,
 				DB1D84382657B275000346B3 /* SegmentedControlNavigateable.swift in Sources */,
+				DB3EA8ED281B810100598866 /* APIService+PublicTimeline.swift in Sources */,
 				DB447697260B439000B66B82 /* CustomEmojiPickerHeaderCollectionReusableView.swift in Sources */,
 				DB025B97278D66D5002F581E /* MastodonUser+Property.swift in Sources */,
 				DB45FAF925CA80A2005A8AC7 /* APIService+CoreData+MastodonAuthentication.swift in Sources */,
@@ -4338,6 +4265,7 @@
 				DB9D6BFF25E4F5940051B173 /* ProfileViewController.swift in Sources */,
 				DB63F756279949BD00455B82 /* Persistence+SearchHistory.swift in Sources */,
 				2D4AD8A226316CD200613EFC /* SelectedAccountSection.swift in Sources */,
+				DB3EA8F1281B9EF600598866 /* DiscoveryCommunityViewModel+Diffable.swift in Sources */,
 				DB63F775279A997D00455B82 /* NotificationTableViewCell+ViewModel.swift in Sources */,
 				DB98EB5927B109890082E365 /* ReportSupplementaryViewController.swift in Sources */,
 				DB0617EB277EF3820030EE79 /* GradientBorderView.swift in Sources */,
@@ -4397,7 +4325,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DB6804D12637CE4700430867 /* UserDefaults.swift in Sources */,
 				DB73BF3B2711885500781945 /* UserDefaults+Notification.swift in Sources */,
 				DB4932B726F30F0700EF46D4 /* Array.swift in Sources */,
 				DB6804FD2637CFEC00430867 /* AppSecret.swift in Sources */,
@@ -4747,6 +4674,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Mastodon/Mastodon.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 117;
 				DEVELOPMENT_ASSET_PATHS = "Mastodon/Resources/Preview\\ Assets.xcassets";
@@ -4776,6 +4704,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Mastodon/Mastodon.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 117;
 				DEVELOPMENT_ASSET_PATHS = "Mastodon/Resources/Preview\\ Assets.xcassets";
@@ -4941,7 +4870,6 @@
 		};
 		DB8FABD026AEC7B2008E5AF4 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 861BE60ED27430771CFD578D /* Pods-MastodonIntent.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = MastodonIntent/MastodonIntent.entitlements;
 				CODE_SIGN_STYLE = Automatic;
@@ -4966,7 +4894,6 @@
 		};
 		DB8FABD326AEC7B2008E5AF4 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 159AC43EFE0A1F95FCB358A4 /* Pods-MastodonIntent.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = MastodonIntent/MastodonIntent.entitlements;
 				CODE_SIGN_STYLE = Automatic;
@@ -4991,7 +4918,6 @@
 		};
 		DBC6461D26A170AB00B0E31B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 77EE917BC055E6621C0452B6 /* Pods-ShareActionExtension.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = ShareActionExtension/ShareActionExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
@@ -5016,7 +4942,6 @@
 		};
 		DBC6462026A170AB00B0E31B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 95AD0663479892A2109EEFD0 /* Pods-ShareActionExtension.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = ShareActionExtension/ShareActionExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
@@ -5105,6 +5030,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Mastodon/Mastodon.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 117;
 				DEVELOPMENT_ASSET_PATHS = "Mastodon/Resources/Preview\\ Assets.xcassets";
@@ -5198,7 +5124,6 @@
 		};
 		DBEB19E627E4658E00B0E80E /* Release Snapshot */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8ADD558BE5B8255E5764A54F /* Pods-NotificationService.release snapshot.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = NotificationService/NotificationService.entitlements;
 				CODE_SIGN_STYLE = Automatic;
@@ -5222,7 +5147,6 @@
 		};
 		DBEB19E727E4658E00B0E80E /* Release Snapshot */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F43DF6E8AB8C87914A64FC48 /* Pods-ShareActionExtension.release snapshot.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = ShareActionExtension/ShareActionExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
@@ -5247,7 +5171,6 @@
 		};
 		DBEB19E827E4658E00B0E80E /* Release Snapshot */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2C12EB4B3699D5D597027962 /* Pods-MastodonIntent.release snapshot.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = MastodonIntent/MastodonIntent.entitlements;
 				CODE_SIGN_STYLE = Automatic;
@@ -5272,7 +5195,6 @@
 		};
 		DBF8AE1C263293E400C9C23C /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9553C689FFA9EBC880CAB78D /* Pods-NotificationService.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = NotificationService/NotificationService.entitlements;
 				CODE_SIGN_STYLE = Automatic;
@@ -5296,7 +5218,6 @@
 		};
 		DBF8AE1D263293E400C9C23C /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9776D7C4B79101CF70181127 /* Pods-NotificationService.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = NotificationService/NotificationService.entitlements;
 				CODE_SIGN_STYLE = Automatic;
@@ -5460,6 +5381,14 @@
 				minimumVersion = 4.1.0;
 			};
 		};
+		DB3EA8F6281BBA4C00598866 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.4.0;
+			};
+		};
 		DB552D4D26BBD10C00E481F6 /* XCRemoteSwiftPackageReference "swift-collections" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-collections.git";
@@ -5482,14 +5411,6 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 0.1.4;
-			};
-		};
-		DB9A487C2603456B008B817C /* XCRemoteSwiftPackageReference "UITextView-Placeholder" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/MainasuK/UITextView-Placeholder";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.4.1;
 			};
 		};
 		DBA5A52D26F07ED800CACBAA /* XCRemoteSwiftPackageReference "PanModal" */ = {
@@ -5558,63 +5479,84 @@
 			package = 2D939AC625EE14620076FA61 /* XCRemoteSwiftPackageReference "TOCropViewController" */;
 			productName = CropViewController;
 		};
-		5D526FE125BE9AC400460CB9 /* MastodonSDK */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = MastodonSDK;
-		};
-		DB00CA962632DDB600A54956 /* CommonOSLog */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DB0140BB25C40D7500F9F3CF /* XCRemoteSwiftPackageReference "CommonOSLog" */;
-			productName = CommonOSLog;
-		};
-		DB01E23426A98F0900C3965B /* MetaTextKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DB01E23126A98F0900C3965B /* XCRemoteSwiftPackageReference "MetaTextKit" */;
-			productName = MetaTextKit;
-		};
 		DB02EA0A280D180D00E751C5 /* KeychainAccess */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = DB6804722637CC1200430867 /* XCRemoteSwiftPackageReference "KeychainAccess" */;
 			productName = KeychainAccess;
 		};
-		DB02EA0C280D184B00E751C5 /* CommonOSLog */ = {
+		DB3EA8F4281BB65200598866 /* MastodonSDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MastodonSDK;
+		};
+		DB3EA8FB281BBAE100598866 /* AlamofireImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DB3D0FF125BAA61700EAA174 /* XCRemoteSwiftPackageReference "AlamofireImage" */;
+			productName = AlamofireImage;
+		};
+		DB3EA8FD281BBAF200598866 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DB3EA8F6281BBA4C00598866 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		DB3EA8FF281BBB1D00598866 /* MetaTextKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DB01E23126A98F0900C3965B /* XCRemoteSwiftPackageReference "MetaTextKit" */;
+			productName = MetaTextKit;
+		};
+		DB3EA901281BBD5D00598866 /* CommonOSLog */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = DB0140BB25C40D7500F9F3CF /* XCRemoteSwiftPackageReference "CommonOSLog" */;
 			productName = CommonOSLog;
 		};
-		DB0C946426A6FD4D0088FB11 /* AlamofireImage */ = {
+		DB3EA903281BBD9400598866 /* Introspect */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DB8D8E2D28192EED009FD90F /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
+			productName = Introspect;
+		};
+		DB3EA905281BBE8200598866 /* AlamofireImage */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = DB3D0FF125BAA61700EAA174 /* XCRemoteSwiftPackageReference "AlamofireImage" */;
 			productName = AlamofireImage;
 		};
-		DB179266278D5A4A00B71DEB /* MastodonSDK */ = {
+		DB3EA907281BBE8200598866 /* AlamofireNetworkActivityIndicator */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = MastodonSDK;
+			package = 2D61336725C18A4F00CAE157 /* XCRemoteSwiftPackageReference "AlamofireNetworkActivityIndicator" */;
+			productName = AlamofireNetworkActivityIndicator;
 		};
-		DB3D0FF225BAA61700EAA174 /* AlamofireImage */ = {
+		DB3EA909281BBE8200598866 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DB3EA8F6281BBA4C00598866 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		DB3EA90B281BBE9600598866 /* AlamofireImage */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = DB3D0FF125BAA61700EAA174 /* XCRemoteSwiftPackageReference "AlamofireImage" */;
 			productName = AlamofireImage;
+		};
+		DB3EA90D281BBE9600598866 /* AlamofireNetworkActivityIndicator */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2D61336725C18A4F00CAE157 /* XCRemoteSwiftPackageReference "AlamofireNetworkActivityIndicator" */;
+			productName = AlamofireNetworkActivityIndicator;
+		};
+		DB3EA90F281BBE9600598866 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DB3EA8F6281BBA4C00598866 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		DB3EA911281BBEA800598866 /* AlamofireImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DB3D0FF125BAA61700EAA174 /* XCRemoteSwiftPackageReference "AlamofireImage" */;
+			productName = AlamofireImage;
+		};
+		DB3EA913281BBEA800598866 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DB3EA8F6281BBA4C00598866 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
 		};
 		DB552D4E26BBD10C00E481F6 /* OrderedCollections */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = DB552D4D26BBD10C00E481F6 /* XCRemoteSwiftPackageReference "swift-collections" */;
 			productName = OrderedCollections;
-		};
-		DB6D9F41263527CE008423CD /* AlamofireImage */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DB3D0FF125BAA61700EAA174 /* XCRemoteSwiftPackageReference "AlamofireImage" */;
-			productName = AlamofireImage;
-		};
-		DB8D8E2E28192EED009FD90F /* Introspect */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DB8D8E2D28192EED009FD90F /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
-			productName = Introspect;
-		};
-		DB9A487D2603456B008B817C /* UITextView+Placeholder */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DB9A487C2603456B008B817C /* XCRemoteSwiftPackageReference "UITextView-Placeholder" */;
-			productName = "UITextView+Placeholder";
 		};
 		DBA5A52E26F07ED800CACBAA /* PanModal */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -5640,24 +5582,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = DBB525062611EAC0002F1F29 /* XCRemoteSwiftPackageReference "Tabman" */;
 			productName = Tabman;
-		};
-		DBB8AB4726AED09C00F6D281 /* MastodonSDK */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = MastodonSDK;
-		};
-		DBBC24A926A5301B00398BB9 /* MastodonSDK */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = MastodonSDK;
-		};
-		DBBC24B726A5421800398BB9 /* CommonOSLog */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DB0140BB25C40D7500F9F3CF /* XCRemoteSwiftPackageReference "CommonOSLog" */;
-			productName = CommonOSLog;
-		};
-		DBBC24D026A5484F00398BB9 /* UITextView+Placeholder */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DB9A487C2603456B008B817C /* XCRemoteSwiftPackageReference "UITextView-Placeholder" */;
-			productName = "UITextView+Placeholder";
 		};
 		DBF7A0FB26830C33004176A2 /* FPSIndicator */ = {
 			isa = XCSwiftPackageProductDependency;

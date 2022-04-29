@@ -1,8 +1,8 @@
 //
-//  APIService+UserTimeline.swift
+//  APIService+PublicTimeline.swift
 //  Mastodon
 //
-//  Created by MainasuK Cirno on 2021-3-30.
+//  Created by MainasuK on 2022-4-29.
 //
 
 import Foundation
@@ -14,32 +14,16 @@ import MastodonSDK
 
 extension APIService {
  
-    func userTimeline(
-        accountID: String,
-        maxID: Mastodon.Entity.Status.ID? = nil,
-        sinceID: Mastodon.Entity.Status.ID? = nil,
-        limit: Int = onceRequestStatusMaxCount,
-        excludeReplies: Bool? = nil,
-        excludeReblogs: Bool? = nil,
-        onlyMedia: Bool? = nil,
+    func publicTimeline(
+        query: Mastodon.API.Timeline.PublicTimelineQuery,
         authenticationBox: MastodonAuthenticationBox
     ) async throws -> Mastodon.Response.Content<[Mastodon.Entity.Status]> {
         let domain = authenticationBox.domain
         let authorization = authenticationBox.userAuthorization
         
-        let query = Mastodon.API.Account.AccountStatusesQuery(
-            maxID: maxID,
-            sinceID: sinceID,
-            excludeReplies: excludeReplies,
-            excludeReblogs: excludeReblogs,
-            onlyMedia: onlyMedia,
-            limit: limit
-        )
-        
-        let response = try await Mastodon.API.Account.statuses(
+        let response = try await Mastodon.API.Timeline.public(
             session: session,
             domain: domain,
-            accountID: accountID,
             query: query,
             authorization: authorization
         ).singleOutput()

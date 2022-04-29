@@ -33,16 +33,18 @@ extension Mastodon.API.Timeline {
     ///   - session: `URLSession`
     ///   - domain: Mastodon instance domain. e.g. "example.com"
     ///   - query: `PublicTimelineQuery` with query parameters
+    ///   - authorization:  required if the instance has disabled public preview
     /// - Returns: `AnyPublisher` contains `Token` nested in the response
     public static func `public`(
         session: URLSession,
         domain: String,
-        query: PublicTimelineQuery
+        query: PublicTimelineQuery,
+        authorization: Mastodon.API.OAuth.Authorization?
     ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Status]>, Error>  {
         let request = Mastodon.API.get(
             url: publicTimelineEndpointURL(domain: domain),
             query: query,
-            authorization: nil
+            authorization: authorization
         )
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in

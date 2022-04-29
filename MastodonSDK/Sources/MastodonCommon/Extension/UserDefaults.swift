@@ -1,14 +1,12 @@
 //
 //  UserDefaults.swift
-//  AppShared
+//  
 //
-//  Created by MainasuK Cirno on 2021-4-27.
+//  Created by MainasuK on 2022-4-29.
 //
 
-import UIKit
-import MastodonCommon
+import Foundation
 
 extension UserDefaults {
     public static let shared = UserDefaults(suiteName: AppName.groupID)!
 }
-

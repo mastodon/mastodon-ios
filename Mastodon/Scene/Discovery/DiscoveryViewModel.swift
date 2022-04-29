@@ -9,6 +9,7 @@ import UIKit
 import Combine
 import Tabman
 import Pageboy
+import MastodonLocalization
 
 final class DiscoveryViewModel {
     
@@ -19,6 +20,7 @@ final class DiscoveryViewModel {
     let discoveryPostsViewController: DiscoveryPostsViewController
     let discoveryHashtagsViewController: DiscoveryHashtagsViewController
     let discoveryNewsViewController: DiscoveryNewsViewController
+    let discoveryCommunityViewController: DiscoveryCommunityViewController
     let discoveryForYouViewController: DiscoveryForYouViewController
     
     @Published var viewControllers: [ScrollViewContainer & PageViewController]
@@ -48,6 +50,12 @@ final class DiscoveryViewModel {
             viewController.viewModel = DiscoveryNewsViewModel(context: context)
             return viewController
         }()
+        discoveryCommunityViewController = {
+            let viewController = DiscoveryCommunityViewController()
+            setupDependency(viewController)
+            viewController.viewModel = DiscoveryCommunityViewModel(context: context)
+            return viewController
+        }()
         discoveryForYouViewController = {
             let viewController = DiscoveryForYouViewController()
             setupDependency(viewController)
@@ -58,6 +66,7 @@ final class DiscoveryViewModel {
             discoveryPostsViewController,
             discoveryHashtagsViewController,
             discoveryNewsViewController,
+            discoveryCommunityViewController,
             discoveryForYouViewController,
         ]
         // end init
@@ -123,7 +132,7 @@ protocol PageViewController: UIViewController {
 
 // MARK: - PageViewController
 extension DiscoveryPostsViewController: PageViewController {
-    var tabItemTitle: String { "Posts" }
+    var tabItemTitle: String { L10n.Scene.Discovery.Tabs.posts }
     var tabItem: TMBarItemable {
         return TMBarItem(title: tabItemTitle)
     }
@@ -132,7 +141,7 @@ extension DiscoveryPostsViewController: PageViewController {
 
 // MARK: - PageViewController
 extension DiscoveryHashtagsViewController: PageViewController {
-    var tabItemTitle: String { "Hashtags" }
+    var tabItemTitle: String { L10n.Scene.Discovery.Tabs.hashtags }
     var tabItem: TMBarItemable {
 
         return TMBarItem(title: tabItemTitle)
@@ -141,7 +150,15 @@ extension DiscoveryHashtagsViewController: PageViewController {
 
 // MARK: - PageViewController
 extension DiscoveryNewsViewController: PageViewController {
-    var tabItemTitle: String { "News" }
+    var tabItemTitle: String { L10n.Scene.Discovery.Tabs.news }
+    var tabItem: TMBarItemable {
+        return TMBarItem(title: tabItemTitle)
+    }
+}
+
+// MARK: - PageViewController
+extension DiscoveryCommunityViewController: PageViewController {
+    var tabItemTitle: String { "Community" }
     var tabItem: TMBarItemable {
         return TMBarItem(title: tabItemTitle)
     }
@@ -149,7 +166,7 @@ extension DiscoveryNewsViewController: PageViewController {
 
 // MARK: - PageViewController
 extension DiscoveryForYouViewController: PageViewController {
-    var tabItemTitle: String { "For You" }
+    var tabItemTitle: String { L10n.Scene.Discovery.Tabs.forYou }
     var tabItem: TMBarItemable {
         return TMBarItem(title: tabItemTitle)
     }
