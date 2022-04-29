@@ -203,6 +203,7 @@ Mastodonera igo.";
 sakatu kontua berresteko esteka.";
 "Scene.ConfirmEmail.Title" = "Eta azkenik...";
 "Scene.Discovery.Intro" = "These are the posts gaining traction in your corner of Mastodon.";
+"Scene.Discovery.Tabs.Community" = "Community";
 "Scene.Discovery.Tabs.ForYou" = "Zuretzat";
 "Scene.Discovery.Tabs.Hashtags" = "Traolak";
 "Scene.Discovery.Tabs.News" = "Albisteak";

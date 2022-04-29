@@ -126,7 +126,7 @@
 "Common.Controls.Status.Visibility.Unlisted" = "يُمكِنُ لِلجَميعِ رُؤيَةُ هَذَا المَنشورِ وَلكِنَّهُ لَا يُعرَضُ فِي الخَطِّ الزَمنيّ العام.";
 "Common.Controls.Tabs.Home" = "الرَّئِيسَة";
 "Common.Controls.Tabs.Notification" = "الإشعارات";
-"Common.Controls.Tabs.Profile" = "الملف التعريفي";
+"Common.Controls.Tabs.Profile" = "المِلَفُّ التَّعريفِيّ";
 "Common.Controls.Tabs.Search" = "البَحث";
 "Common.Controls.Timeline.Filtered" = "مُصفَّى";
 "Common.Controls.Timeline.Header.BlockedWarning" = "لا يُمكِنُكَ عَرض الملف التَعريفي لهذا المُستخدِم
@@ -203,10 +203,11 @@
 انقر على الرابط لتأكيد حسابك.";
 "Scene.ConfirmEmail.Title" = "شيءٌ أخير.";
 "Scene.Discovery.Intro" = "هَذِهِ هِيَ المَنشُوراتُ الَّتي تَكْتَسِبُ شَعبِيَّةً فِي الرُّكنِ الخاصِّ بِكَ مِن مَاستُودون.";
+"Scene.Discovery.Tabs.Community" = "المُجتَمَع";
 "Scene.Discovery.Tabs.ForYou" = "لَك";
-"Scene.Discovery.Tabs.Hashtags" = "الوسوم";
-"Scene.Discovery.Tabs.News" = "الأخبار";
-"Scene.Discovery.Tabs.Posts" = "المنشورات";
+"Scene.Discovery.Tabs.Hashtags" = "وُسُوم";
+"Scene.Discovery.Tabs.News" = "أخبار";
+"Scene.Discovery.Tabs.Posts" = "مَنشُورات";
 "Scene.Favorite.Title" = "مُفضَّلَتُك";
 "Scene.Follower.Footer" = "لا يُمكِن عَرض المُتابِعين مِنَ الخوادم الأُخرى.";
 "Scene.Following.Footer" = "لا يُمكِن عَرض المُتابَعات مِنَ الخوادم الأُخرى.";

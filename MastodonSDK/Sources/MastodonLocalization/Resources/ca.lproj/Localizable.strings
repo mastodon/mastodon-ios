@@ -202,6 +202,7 @@ carregat a Mastodon.";
 "Scene.ConfirmEmail.Subtitle" = "Toca l'enllaç del correu electrònic que t'hem enviat per a confirmar el teu compte.";
 "Scene.ConfirmEmail.Title" = "Una última cosa.";
 "Scene.Discovery.Intro" = "Aquestes son les publicacions que criden l'atenció en el teu racó de Mastodon.";
+"Scene.Discovery.Tabs.Community" = "Comunitat";
 "Scene.Discovery.Tabs.ForYou" = "Per a tu";
 "Scene.Discovery.Tabs.Hashtags" = "Etiquetes";
 "Scene.Discovery.Tabs.News" = "Notícies";

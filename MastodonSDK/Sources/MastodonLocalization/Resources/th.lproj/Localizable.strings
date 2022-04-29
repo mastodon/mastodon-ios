@@ -202,6 +202,7 @@
 "Scene.ConfirmEmail.Subtitle" = "แตะลิงก์ที่เราส่งอีเมลถึงคุณเพื่อยืนยันบัญชีของคุณ";
 "Scene.ConfirmEmail.Title" = "หนึ่งสิ่งสุดท้าย";
 "Scene.Discovery.Intro" = "นี่คือโพสต์ที่กำลังได้รับความสนใจในมุมของ Mastodon ของคุณ";
+"Scene.Discovery.Tabs.Community" = "Community";
 "Scene.Discovery.Tabs.ForYou" = "สำหรับคุณ";
 "Scene.Discovery.Tabs.Hashtags" = "แฮชแท็ก";
 "Scene.Discovery.Tabs.News" = "ข่าว";
