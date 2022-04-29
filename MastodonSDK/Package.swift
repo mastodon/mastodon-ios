@@ -20,12 +20,7 @@ let package = Package(
                 "MastodonLocalization",
                 "MastodonSDK",
                 "MastodonUI",
-            ]),
-        .library(
-            name: "MastodonCommon",
-            targets: [
-                "MastodonCommon",
-            ]),
+            ])
     ],
     dependencies: [
         .package(url: "https://github.com/SwiftyJSON/SwiftyJSON.git", from: "5.0.0"),
@@ -88,15 +83,15 @@ let package = Package(
                 "MastodonExtension",
                 "MastodonAsset",
                 "MastodonLocalization",
-                "Nuke",
-                "NukeFLAnimatedImagePlugin",
-                "UITextView+Placeholder",
-                "Introspect",
                 .product(name: "Alamofire", package: "Alamofire"),
                 .product(name: "AlamofireImage", package: "AlamofireImage"),
-                .product(name: "MetaTextKit", package: "MetaTextKit"),
                 .product(name: "FLAnimatedImage", package: "FLAnimatedImage"),
                 .product(name: "FaviconFinder", package: "FaviconFinder"),
+                .product(name: "MetaTextKit", package: "MetaTextKit"),
+                .product(name: "Nuke", package: "Nuke"),
+                .product(name: "NukeFLAnimatedImagePlugin", package: "NukeFLAnimatedImagePlugin"),
+                .product(name: "Introspect", package: "Introspect"),
+                .product(name: "UITextView+Placeholder", package: "UITextView+Placeholder"),
             ]
         ),
         .testTarget(

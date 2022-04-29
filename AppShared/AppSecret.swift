@@ -10,10 +10,7 @@ import Foundation
 import CryptoKit
 import KeychainAccess
 import Keys
-
-enum AppName {
-    public static let groupID = "group.org.joinmastodon.app"
-}
+import MastodonCommon
 
 public final class AppSecret {
     
