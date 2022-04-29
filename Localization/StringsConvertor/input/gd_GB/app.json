@@ -498,6 +498,7 @@
                 "posts": "Postaichean",
                 "hashtags": "Tagaichean hais",
                 "news": "Naidheachdan",
+                "community": "Community",
                 "for_you": "Dhut-sa"
             },
             "intro": "Seo na postaichean fèillmhor ’nad cheàrnaidh de Mhastodon."

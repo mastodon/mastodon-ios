@@ -498,6 +498,7 @@
                 "posts": "Gönderiler",
                 "hashtags": "Etiketler",
                 "news": "Haberler",
+                "community": "Community",
                 "for_you": "Senin İçin"
             },
             "intro": "Bunlar, Mastodon'un köşesinde ilgi çeken gönderilerdir."

@@ -498,6 +498,7 @@
                 "posts": "Publicaciones",
                 "hashtags": "Etiquetas",
                 "news": "Noticias",
+                "community": "Community",
                 "for_you": "Para Ti"
             },
             "intro": "These are the posts gaining traction in your corner of Mastodon."

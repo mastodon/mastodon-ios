@@ -13,15 +13,15 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 lukematon ilmoitus</string>
+        <string>1 unread notification</string>
         <key>other</key>
-        <string>%ld lukematonta ilmoitusta</string>
+        <string>%ld unread notification</string>
       </dict>
     </dict>
     <key>a11y.plural.count.input_limit_exceeds</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Syöterajoitus ylittyy %#@character_count@</string>
+      <string>Input limit exceeds %#@character_count@</string>
       <key>character_count</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -29,15 +29,15 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 merkki</string>
+        <string>1 character</string>
         <key>other</key>
-        <string>%ld merkkiä</string>
+        <string>%ld characters</string>
       </dict>
     </dict>
     <key>a11y.plural.count.input_limit_remains</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Syöterajoitus ylittyy %#@character_count@ päästä</string>
+      <string>Input limit remains %#@character_count@</string>
       <key>character_count</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -45,9 +45,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 merkki</string>
+        <string>1 character</string>
         <key>other</key>
-        <string>%ld merkkiä</string>
+        <string>%ld characters</string>
       </dict>
     </dict>
     <key>plural.count.metric_formatted.post</key>
@@ -61,9 +61,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>julkaisu</string>
+        <string>post</string>
         <key>other</key>
-        <string>julkaisut</string>
+        <string>posts</string>
       </dict>
     </dict>
     <key>plural.count.post</key>
@@ -77,9 +77,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 julkaisu</string>
+        <string>1 post</string>
         <key>other</key>
-        <string>%ld julkaisua</string>
+        <string>%ld posts</string>
       </dict>
     </dict>
     <key>plural.count.favorite</key>
@@ -93,9 +93,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 suosikki</string>
+        <string>1 favorite</string>
         <key>other</key>
-        <string>%ld suosikkia</string>
+        <string>%ld favorites</string>
       </dict>
     </dict>
     <key>plural.count.reblog</key>
@@ -109,9 +109,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 edelleen jako</string>
+        <string>1 reblog</string>
         <key>other</key>
-        <string>%ld edelleen jakoa</string>
+        <string>%ld reblogs</string>
       </dict>
     </dict>
     <key>plural.count.reply</key>
@@ -125,9 +125,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 svar</string>
+        <string>1 reply</string>
         <key>other</key>
-        <string>%ld svar</string>
+        <string>%ld replies</string>
       </dict>
     </dict>
     <key>plural.count.vote</key>
@@ -141,9 +141,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 ääni</string>
+        <string>1 vote</string>
         <key>other</key>
-        <string>%ld ääntä</string>
+        <string>%ld votes</string>
       </dict>
     </dict>
     <key>plural.count.voter</key>
@@ -157,9 +157,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 vastaaja</string>
+        <string>1 voter</string>
         <key>other</key>
-        <string>%ld vastaajaa</string>
+        <string>%ld voters</string>
       </dict>
     </dict>
     <key>plural.people_talking</key>
@@ -173,9 +173,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 ihminen puhuu</string>
+        <string>1 people talking</string>
         <key>other</key>
-        <string>%ld ihmistä puhuu</string>
+        <string>%ld people talking</string>
       </dict>
     </dict>
     <key>plural.count.following</key>
@@ -189,9 +189,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 seurataan</string>
+        <string>1 following</string>
         <key>other</key>
-        <string>%ld seurataan</string>
+        <string>%ld following</string>
       </dict>
     </dict>
     <key>plural.count.follower</key>
@@ -205,9 +205,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 seuraaja</string>
+        <string>1 follower</string>
         <key>other</key>
-        <string>%ld seuraajaa</string>
+        <string>%ld followers</string>
       </dict>
     </dict>
     <key>date.year.left</key>
@@ -221,9 +221,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 vuosi jäljellä</string>
+        <string>1 year left</string>
         <key>other</key>
-        <string>%ld vuotta jäljellä</string>
+        <string>%ld years left</string>
       </dict>
     </dict>
     <key>date.month.left</key>
@@ -237,9 +237,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 kuukausi jäljellä</string>
+        <string>1 months left</string>
         <key>other</key>
-        <string>%ld kuukautta jäljellä</string>
+        <string>%ld months left</string>
       </dict>
     </dict>
     <key>date.day.left</key>
@@ -253,9 +253,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 päivä jäljellä</string>
+        <string>1 day left</string>
         <key>other</key>
-        <string>%ld päivää jäljellä</string>
+        <string>%ld days left</string>
       </dict>
     </dict>
     <key>date.hour.left</key>
@@ -269,9 +269,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 tunti jäljellä</string>
+        <string>1 hour left</string>
         <key>other</key>
-        <string>%ld tuntia jäljellä</string>
+        <string>%ld hours left</string>
       </dict>
     </dict>
     <key>date.minute.left</key>
@@ -285,9 +285,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 minuutti jäljellä</string>
+        <string>1 minute left</string>
         <key>other</key>
-        <string>%ld minuuttia jäljellä</string>
+        <string>%ld minutes left</string>
       </dict>
     </dict>
     <key>date.second.left</key>
@@ -301,9 +301,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 sekuntti</string>
+        <string>1 second left</string>
         <key>other</key>
-        <string>%ld sekunttia jäljellä</string>
+        <string>%ld seconds left</string>
       </dict>
     </dict>
     <key>date.year.ago.abbr</key>
@@ -317,9 +317,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1v sitten</string>
+        <string>1y ago</string>
         <key>other</key>
-        <string>%ldv sitten</string>
+        <string>%ldy ago</string>
       </dict>
     </dict>
     <key>date.month.ago.abbr</key>
@@ -333,9 +333,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1kk sitten</string>
+        <string>1M ago</string>
         <key>other</key>
-        <string>%ldkk sitten</string>
+        <string>%ldM ago</string>
       </dict>
     </dict>
     <key>date.day.ago.abbr</key>
@@ -349,9 +349,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1pv sitten</string>
+        <string>1d ago</string>
         <key>other</key>
-        <string>%ldpv sitten</string>
+        <string>%ldd ago</string>
       </dict>
     </dict>
     <key>date.hour.ago.abbr</key>
@@ -365,9 +365,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1t sitten</string>
+        <string>1h ago</string>
         <key>other</key>
-        <string>%ldt sitten</string>
+        <string>%ldh ago</string>
       </dict>
     </dict>
     <key>date.minute.ago.abbr</key>
@@ -381,9 +381,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1min sitten</string>
+        <string>1m ago</string>
         <key>other</key>
-        <string>%ldmin sitten</string>
+        <string>%ldm ago</string>
       </dict>
     </dict>
     <key>date.second.ago.abbr</key>
@@ -397,9 +397,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1s sitten</string>
+        <string>1s ago</string>
         <key>other</key>
-        <string>%lds sitten</string>
+        <string>%lds ago</string>
       </dict>
     </dict>
   </dict>
