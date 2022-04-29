@@ -155,7 +155,7 @@
                     "link": "連結",
                     "hashtag": "主題標籤",
                     "email": "電子郵件",
-                    "emoji": "Emoji"
+                    "emoji": "emoji"
                 },
                 "visibility": {
                     "unlisted": "任何人都能看到此嘟文，但是不會顯示於公開時間軸上。",
@@ -359,24 +359,24 @@
                 "photo_library": "圖片庫",
                 "browse": "瀏覽"
             },
-            "content_input_placeholder": "Type or paste what’s on your mind",
-            "compose_action": "Publish",
-            "replying_to_user": "replying to %s",
+            "content_input_placeholder": "正在想些什麼嗎？",
+            "compose_action": "嘟出去",
+            "replying_to_user": "正在回覆 %s",
             "attachment": {
                 "photo": "照片",
                 "video": "影片",
-                "attachment_broken": "This %s is broken and can’t be\nuploaded to Mastodon.",
+                "attachment_broken": "此 %s 已損毀，並無法被上傳至 Mastodon。",
                 "description_photo": "為視障人士提供圖片說明...",
-                "description_video": "Describe the video for the visually-impaired..."
+                "description_video": "為視障人士提供影片說明..."
             },
             "poll": {
-                "duration_time": "Duration: %s",
+                "duration_time": "持續時間：%s",
                 "thirty_minutes": "30 分鐘",
-                "one_hour": "1 Hour",
-                "six_hours": "6 Hours",
-                "one_day": "1 Day",
-                "three_days": "3 Days",
-                "seven_days": "7 Days",
+                "one_hour": "一小時",
+                "six_hours": "六小時",
+                "one_day": "一天",
+                "three_days": "三天",
+                "seven_days": "七天",
                 "option_number": "選項 %ld"
             },
             "content_warning": {
@@ -395,7 +395,7 @@
                 "append_attachment": "新增附件",
                 "append_poll": "新增投票",
                 "remove_poll": "移除投票",
-                "custom_emoji_picker": "自訂顏文字選擇器",
+                "custom_emoji_picker": "自訂 emoji 選擇器",
                 "enable_content_warning": "啟用內容警告",
                 "disable_content_warning": "停用內容警告",
                 "post_visibility_menu": "嘟文可見性選單"
@@ -481,88 +481,88 @@
             },
             "searching": {
                 "segment": {
-                    "all": "All",
-                    "people": "People",
-                    "hashtags": "Hashtags",
+                    "all": "全部",
+                    "people": "使用者",
+                    "hashtags": "主題標籤",
                     "posts": "嘟文"
                 },
                 "empty_state": {
-                    "no_results": "No results"
+                    "no_results": "沒有任何結果"
                 },
-                "recent_search": "Recent searches",
-                "clear": "Clear"
+                "recent_search": "最近的搜尋",
+                "clear": "清除"
             }
         },
         "discovery": {
             "tabs": {
                 "posts": "嘟文",
-                "hashtags": "Hashtags",
-                "news": "News",
-                "community": "Community",
-                "for_you": "For You"
+                "hashtags": "主題標籤",
+                "news": "最新消息",
+                "community": "社群",
+                "for_you": "為您推薦"
             },
-            "intro": "These are the posts gaining traction in your corner of Mastodon."
+            "intro": "這些嘟文正在您 Mastodon 的角落受到注目。"
         },
         "favorite": {
-            "title": "Your Favorites"
+            "title": "您的最愛"
         },
         "notification": {
             "title": {
-                "Everything": "Everything",
-                "Mentions": "Mentions"
+                "Everything": "全部",
+                "Mentions": "提及"
             },
             "notification_description": {
                 "followed_you": "跟隨了您",
                 "favorited_your_post": "最愛了您的嘟文",
                 "reblogged_your_post": "轉嘟了您的嘟文",
-                "mentioned_you": "mentioned you",
+                "mentioned_you": "提到了您",
                 "request_to_follow_you": "要求跟隨您",
-                "poll_has_ended": "poll has ended"
+                "poll_has_ended": "投票已結束"
             },
             "keyobard": {
-                "show_everything": "Show Everything",
-                "show_mentions": "Show Mentions"
+                "show_everything": "顯示全部",
+                "show_mentions": "顯示提及"
             }
         },
         "thread": {
-            "back_title": "Post",
-            "title": "Post from %s"
+            "back_title": "嘟文",
+            "title": "來自 %s 的嘟文"
         },
         "settings": {
             "title": "設定",
             "section": {
                 "appearance": {
-                    "title": "Appearance",
+                    "title": "外觀設定",
                     "automatic": "自動",
-                    "light": "Always Light",
-                    "dark": "Always Dark"
+                    "light": "亮色佈景主題",
+                    "dark": "深色佈景主題"
                 },
                 "look_and_feel": {
-                    "title": "Look and Feel",
-                    "use_system": "Use System",
-                    "really_dark": "Really Dark",
-                    "sorta_dark": "Sorta Dark",
-                    "light": "Light"
+                    "title": "外觀與風格",
+                    "use_system": "與系統一致",
+                    "really_dark": "闇黑風格",
+                    "sorta_dark": "有點黑又不會太黑",
+                    "light": "淺色"
                 },
                 "notifications": {
-                    "title": "Notifications",
-                    "favorites": "Favorites my post",
+                    "title": "通知",
+                    "favorites": "將我的嘟文加到最愛",
                     "follows": "跟隨著我",
-                    "boosts": "Reblogs my post",
-                    "mentions": "Mentions me",
+                    "boosts": "將我的嘟文轉嘟",
+                    "mentions": "提到了我",
                     "trigger": {
-                        "anyone": "anyone",
+                        "anyone": "任何人",
                         "follower": "跟隨者",
                         "follow": "任何我跟隨的人",
-                        "noone": "no one",
-                        "title": "Notify me when"
+                        "noone": "沒有人",
+                        "title": "以下狀況請通知我"
                     }
                 },
                 "preference": {
-                    "title": "Preferences",
-                    "true_black_dark_mode": "True black dark mode",
-                    "disable_avatar_animation": "Disable animated avatars",
-                    "disable_emoji_animation": "Disable animated emojis",
+                    "title": "偏好設定",
+                    "true_black_dark_mode": "真☆闇黑模式",
+                    "disable_avatar_animation": "停用動畫大頭貼",
+                    "disable_emoji_animation": "停用動畫 emoji",
                     "using_default_browser": "使用預設瀏覽器開啟連結",
                     "open_links_in_mastodon": "在 Mastodon 中開啟連結"
                 },
