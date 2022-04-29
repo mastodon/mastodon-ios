@@ -344,7 +344,8 @@
                 "published": "Published!",
                 "Publishing": "Publishing post...",
                 "accessibility": {
-                    "logo_description": "Tap to scroll to top and tap again to previous location"
+                    "logo_label": "Logo Button",
+                    "logo_hint": "Tap to scroll to top and tap again to previous location"
                 }
             },
         },
