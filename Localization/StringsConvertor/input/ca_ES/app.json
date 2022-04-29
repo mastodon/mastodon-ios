@@ -498,7 +498,7 @@
                 "posts": "Publicacions",
                 "hashtags": "Etiquetes",
                 "news": "Notícies",
-                "community": "Community",
+                "community": "Comunitat",
                 "for_you": "Per a tu"
             },
             "intro": "Aquestes son les publicacions que criden l'atenció en el teu racó de Mastodon."
