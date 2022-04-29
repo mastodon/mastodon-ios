@@ -45,8 +45,8 @@
                 "message": "写真を保存するには、フォトライブラリへのアクセス許可を有効にしてください。"
             },
             "delete_post": {
-                "title": "この投稿を消去しますか？",
-                "message": "本当に削除しますか？"
+                "title": "投稿を削除",
+                "message": "本当にこの投稿を削除しますか？"
             },
             "clean_cache": {
                 "title": "キャッシュを消去",
@@ -91,7 +91,7 @@
                 "block_domain": "%sをブロック",
                 "unblock_domain": "%sのブロックを解除",
                 "settings": "設定",
-                "delete": "消去"
+                "delete": "削除"
             },
             "tabs": {
                 "home": "ホーム",
@@ -252,7 +252,7 @@
             "title": "あなたのことを教えてください",
             "input": {
                 "avatar": {
-                    "delete": "消去"
+                    "delete": "削除"
                 },
                 "username": {
                     "placeholder": "ユーザー名",
@@ -498,8 +498,8 @@
                 "posts": "投稿",
                 "hashtags": "ハッシュタグ",
                 "news": "ニュース",
-                "community": "Community",
-                "for_you": "For You"
+                "community": "コミュニティ",
+                "for_you": "おすすめ"
             },
             "intro": "These are the posts gaining traction in your corner of Mastodon."
         },
@@ -512,12 +512,12 @@
                 "Mentions": "メンション"
             },
             "notification_description": {
-                "followed_you": "followed you",
-                "favorited_your_post": "favorited your post",
-                "reblogged_your_post": "reblogged your post",
-                "mentioned_you": "mentioned you",
-                "request_to_follow_you": "request to follow you",
-                "poll_has_ended": "poll has ended"
+                "followed_you": "さんにフォローされました",
+                "favorited_your_post": "さんがあなたの投稿をお気に入りに登録しました",
+                "reblogged_your_post": "さんがあなたの投稿をブーストしました",
+                "mentioned_you": "さんがあなたに返信しました",
+                "request_to_follow_you": "さんがあなたにフォローリクエストしました",
+                "poll_has_ended": "アンケートが終了しました"
             },
             "keyobard": {
                 "show_everything": "すべて見る",
@@ -538,11 +538,11 @@
                     "dark": "ダーク"
                 },
                 "look_and_feel": {
-                    "title": "Look and Feel",
-                    "use_system": "Use System",
-                    "really_dark": "Really Dark",
-                    "sorta_dark": "Sorta Dark",
-                    "light": "Light"
+                    "title": "テーマ",
+                    "use_system": "端末の設定を使う",
+                    "really_dark": "ブラック",
+                    "sorta_dark": "ダーク",
+                    "light": "ライト"
                 },
                 "notifications": {
                     "title": "通知",
