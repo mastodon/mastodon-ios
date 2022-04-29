@@ -12,82 +12,82 @@
                 "title": "伺服器錯誤"
             },
             "vote_failure": {
-                "title": "Vote Failure",
-                "poll_ended": "The poll has ended"
+                "title": "投票失敗",
+                "poll_ended": "投票已結束"
             },
             "discard_post_content": {
                 "title": "捨棄草稿",
-                "message": "Confirm to discard composed post content."
+                "message": "確認放棄編寫中的嘟文內容。"
             },
             "publish_post_failure": {
-                "title": "Publish Failure",
-                "message": "Failed to publish the post.\nPlease check your internet connection.",
+                "title": "發表嘟文失敗",
+                "message": "發表嘟文失敗。\n請檢查您的網路連線。",
                 "attachments_message": {
-                    "video_attach_with_photo": "Cannot attach a video to a post that already contains images.",
-                    "more_than_one_video": "Cannot attach more than one video."
+                    "video_attach_with_photo": "無法在已有圖片的嘟文上附加影片。",
+                    "more_than_one_video": "無法附加一個以上影片。"
                 }
             },
             "edit_profile_failure": {
-                "title": "Edit Profile Error",
-                "message": "Cannot edit profile. Please try again."
+                "title": "編輯個人檔案錯誤",
+                "message": "無法編輯個人檔案。請重試。"
             },
             "sign_out": {
                 "title": "登出",
-                "message": "Are you sure you want to sign out?",
+                "message": "您確定要登出嗎?",
                 "confirm": "登出"
             },
             "block_domain": {
-                "title": "Are you really, really sure you want to block the entire %s? In most cases a few targeted blocks or mutes are sufficient and preferable. You will not see content from that domain and any of your followers from that domain will be removed.",
-                "block_entire_domain": "Block Domain"
+                "title": "真的非常確定封鎖整個 %s 網域嗎？大部分情況下，您只需要封鎖或靜音少數特定的帳帳戶能滿足需求了。您將不能看到來自此網域的內容。您來自該網域的跟隨者也將被移除。",
+                "block_entire_domain": "封鎖網域"
             },
             "save_photo_failure": {
-                "title": "Save Photo Failure",
-                "message": "Please enable the photo library access permission to save the photo."
+                "title": "儲存照片失敗",
+                "message": "請開啟圖片庫存取權限以儲存圖片。"
             },
             "delete_post": {
-                "title": "Delete Post",
-                "message": "Are you sure you want to delete this post?"
+                "title": "刪除嘟文",
+                "message": "是否確定要刪除此嘟文？"
             },
             "clean_cache": {
-                "title": "Clean Cache",
-                "message": "Successfully cleaned %s cache."
+                "title": "清除快取",
+                "message": "成功清除 %s 快取。"
             }
         },
         "controls": {
             "actions": {
-                "back": "Back",
-                "next": "Next",
-                "previous": "Previous",
-                "open": "Open",
-                "add": "Add",
-                "remove": "Remove",
+                "back": "上一頁",
+                "next": "下一頁",
+                "previous": "上一步",
+                "open": "開啟",
+                "add": "新增",
+                "remove": "刪除",
                 "edit": "編輯",
-                "save": "Save",
+                "save": "儲存",
                 "ok": "OK",
                 "done": "完成",
-                "confirm": "Confirm",
+                "confirm": "確認",
                 "continue": "繼續",
-                "compose": "Compose",
+                "compose": "撰寫",
                 "cancel": "取消",
-                "discard": "Discard",
-                "try_again": "Try Again",
-                "take_photo": "Take Photo",
+                "discard": "捨棄",
+                "try_again": "再試一次",
+                "take_photo": "拍攝照片",
                 "save_photo": "儲存照片",
-                "copy_photo": "Copy Photo",
+                "copy_photo": "複製圖片",
                 "sign_in": "登入",
                 "sign_up": "註冊",
-                "see_more": "See More",
-                "preview": "Preview",
+                "see_more": "檢視更多",
+                "preview": "預覽",
                 "share": "分享",
-                "share_user": "Share %s",
-                "share_post": "Share Post",
-                "open_in_safari": "Open in Safari",
-                "open_in_browser": "Open in Browser",
-                "find_people": "Find people to follow",
-                "manually_search": "Manually search instead",
+                "share_user": "分享 %s",
+                "share_post": "分享嘟文",
+                "open_in_safari": "在 Safari 中開啟",
+                "open_in_browser": "在瀏覽器中開啟",
+                "find_people": "尋找一些人來關注",
+                "manually_search": "手動搜尋",
                 "skip": "跳過",
                 "reply": "回覆",
-                "report_user": "Report %s",
+                "report_user": "檢舉 %s",
                 "block_domain": "封鎖 %s",
                 "unblock_domain": "解除封鎖 %s",
                 "settings": "設定",
@@ -103,20 +103,20 @@
                 "common": {
                     "switch_to_tab": "切換至 %s",
                     "compose_new_post": "發佈貼文",
-                    "show_favorites": "Show Favorites",
-                    "open_settings": "Open Settings"
+                    "show_favorites": "顯示最愛",
+                    "open_settings": "開啟設定"
                 },
                 "timeline": {
-                    "previous_status": "Previous Post",
-                    "next_status": "Next Post",
-                    "open_status": "Open Post",
-                    "open_author_profile": "Open Author's Profile",
-                    "open_reblogger_profile": "Open Reblogger's Profile",
-                    "reply_status": "Reply to Post",
-                    "toggle_reblog": "Toggle Reblog on Post",
-                    "toggle_favorite": "Toggle Favorite on Post",
-                    "toggle_content_warning": "Toggle Content Warning",
-                    "preview_image": "Preview Image"
+                    "previous_status": "先前的嘟文",
+                    "next_status": "下一則嘟文",
+                    "open_status": "開啟嘟文",
+                    "open_author_profile": "開啟作者的個人資料頁面",
+                    "open_reblogger_profile": "開啟轉嘟者的個人資料頁面",
+                    "reply_status": "回覆嘟文",
+                    "toggle_reblog": "切換轉發嘟文",
+                    "toggle_favorite": "切換最愛嘟文",
+                    "toggle_content_warning": "切換內容警告",
+                    "preview_image": "預覽圖片"
                 },
                 "segmented_control": {
                     "previous_section": "Previous Section",
@@ -198,102 +198,102 @@
                     "user_blocking_warning": "You can’t view %s’s profile\nuntil you unblock them.\nYour profile looks like this to them.",
                     "blocked_warning": "You can’t view this user’s profile\nuntil they unblock you.",
                     "user_blocked_warning": "You can’t view %s’s profile\nuntil they unblock you.",
-                    "suspended_warning": "This user has been suspended.",
-                    "user_suspended_warning": "%s’s account has been suspended."
+                    "suspended_warning": "此使用者已被停權。",
+                    "user_suspended_warning": "%s 的帳號已經被停權。"
                 }
             }
         }
     },
     "scene": {
         "welcome": {
-            "slogan": "Social networking\nback in your hands.",
-            "get_started": "Get Started",
+            "slogan": "社群網路\n還權於您。",
+            "get_started": "新手上路",
             "log_in": "登入"
         },
         "server_picker": {
-            "title": "Mastodon is made of users in different servers.",
-            "subtitle": "Pick a server based on your interests, region, or a general purpose one.",
-            "subtitle_extend": "Pick a server based on your interests, region, or a general purpose one. Each server is operated by an entirely independent organization or individual.",
+            "title": "Mastodon 由不同伺服器的使用者組成。",
+            "subtitle": "基於您的興趣、地區、或一般用途選定一個伺服器。",
+            "subtitle_extend": "基於您的興趣、地區、或一般用途選定一個伺服器。每個伺服器是由完全獨立的組織或個人營運。",
             "button": {
                 "category": {
-                    "all": "All",
-                    "all_accessiblity_description": "Category: All",
-                    "academia": "academia",
-                    "activism": "activism",
-                    "food": "food",
-                    "furry": "furry",
-                    "games": "games",
-                    "general": "general",
-                    "journalism": "journalism",
-                    "lgbt": "lgbt",
-                    "regional": "regional",
-                    "art": "art",
-                    "music": "music",
-                    "tech": "tech"
+                    "all": "全部",
+                    "all_accessiblity_description": "分類：全部",
+                    "academia": "學術",
+                    "activism": "社會運動",
+                    "food": "食物",
+                    "furry": "毛茸茸",
+                    "games": "遊戲",
+                    "general": "一般",
+                    "journalism": "新聞記者",
+                    "lgbt": "LGBT",
+                    "regional": "區域性",
+                    "art": "藝術",
+                    "music": "音樂",
+                    "tech": "科技"
                 },
-                "see_less": "See Less",
-                "see_more": "See More"
+                "see_less": "顯示較少",
+                "see_more": "檢視更多"
             },
             "label": {
-                "language": "LANGUAGE",
-                "users": "USERS",
-                "category": "CATEGORY"
+                "language": "語言",
+                "users": "使用者",
+                "category": "分類"
             },
             "input": {
-                "placeholder": "Search servers"
+                "placeholder": "搜尋伺服器"
             },
             "empty_state": {
-                "finding_servers": "Finding available servers...",
-                "bad_network": "Something went wrong while loading the data. Check your internet connection.",
-                "no_results": "No results"
+                "finding_servers": "尋找可用的伺服器...",
+                "bad_network": "讀取資料時發生錯誤。請檢查您的網路連線。",
+                "no_results": "沒有結果"
             }
         },
         "register": {
-            "title": "Let’s get you set up on %s",
+            "title": "讓我們一起設定 %s 吧！",
             "input": {
                 "avatar": {
                     "delete": "刪除"
                 },
                 "username": {
-                    "placeholder": "username",
-                    "duplicate_prompt": "This username is taken."
+                    "placeholder": "使用者名稱",
+                    "duplicate_prompt": "此使用者名稱已被佔用。"
                 },
                 "display_name": {
-                    "placeholder": "display name"
+                    "placeholder": "顯示名稱"
                 },
                 "email": {
-                    "placeholder": "email"
+                    "placeholder": "電子郵件"
                 },
                 "password": {
                     "placeholder": "密碼",
-                    "require": "Your password needs at least:",
+                    "require": "您的密碼必須是至少：",
                     "character_limit": "8 個字元",
                     "accessibility": {
-                        "checked": "checked",
-                        "unchecked": "unchecked"
+                        "checked": "已選擇",
+                        "unchecked": "取消勾選"
                     },
-                    "hint": "Your password needs at least eight characters"
+                    "hint": "您的密碼必須至少為八個字元"
                 },
                 "invite": {
-                    "registration_user_invite_request": "Why do you want to join?"
+                    "registration_user_invite_request": "為什麼想要加入呢？"
                 }
             },
             "error": {
                 "item": {
-                    "username": "Username",
+                    "username": "使用者名稱",
                     "email": "電子郵件",
                     "password": "密碼",
-                    "agreement": "Agreement",
-                    "locale": "Locale",
-                    "reason": "Reason"
+                    "agreement": "條款",
+                    "locale": "地區",
+                    "reason": "原因"
                 },
                 "reason": {
-                    "blocked": "%s contains a disallowed email provider",
-                    "unreachable": "%s does not seem to exist",
-                    "taken": "%s is already in use",
-                    "reserved": "%s is a reserved keyword",
-                    "accepted": "%s must be accepted",
-                    "blank": "%s is required",
+                    "blocked": "%s 包含不被允許的電子郵件供應商",
+                    "unreachable": "%s 似乎並不存在",
+                    "taken": "%s 已被使用",
+                    "reserved": "%s 是一個保留的關鍵字",
+                    "accepted": "請先閱讀並同意 %s",
+                    "blank": "%s 為必填選項",
                     "invalid": "%s is invalid",
                     "too_long": "%s is too long",
                     "too_short": "%s is too short",
@@ -377,56 +377,56 @@
                 "one_day": "1 Day",
                 "three_days": "3 Days",
                 "seven_days": "7 Days",
-                "option_number": "Option %ld"
+                "option_number": "選項 %ld"
             },
             "content_warning": {
-                "placeholder": "Write an accurate warning here..."
+                "placeholder": "請於此處寫下精準的警告..."
             },
             "visibility": {
-                "public": "Public",
-                "unlisted": "Unlisted",
-                "private": "Followers only",
-                "direct": "Only people I mention"
+                "public": "公開",
+                "unlisted": "不公開",
+                "private": "僅跟隨者",
+                "direct": "僅限於我提及的人"
             },
             "auto_complete": {
-                "space_to_add": "Space to add"
+                "space_to_add": "添加的空白"
             },
             "accessibility": {
-                "append_attachment": "Add Attachment",
-                "append_poll": "Add Poll",
-                "remove_poll": "Remove Poll",
-                "custom_emoji_picker": "Custom Emoji Picker",
-                "enable_content_warning": "Enable Content Warning",
-                "disable_content_warning": "Disable Content Warning",
-                "post_visibility_menu": "Post Visibility Menu"
+                "append_attachment": "新增附件",
+                "append_poll": "新增投票",
+                "remove_poll": "移除投票",
+                "custom_emoji_picker": "自訂顏文字選擇器",
+                "enable_content_warning": "啟用內容警告",
+                "disable_content_warning": "停用內容警告",
+                "post_visibility_menu": "嘟文可見性選單"
             },
             "keyboard": {
-                "discard_post": "Discard Post",
-                "publish_post": "Publish Post",
-                "toggle_poll": "Toggle Poll",
-                "toggle_content_warning": "Toggle Content Warning",
-                "append_attachment_entry": "Add Attachment - %s",
-                "select_visibility_entry": "Select Visibility - %s"
+                "discard_post": "捨棄嘟文",
+                "publish_post": "發表嘟文",
+                "toggle_poll": "切換投票",
+                "toggle_content_warning": "切換內容警告",
+                "append_attachment_entry": "新增附件 - %s",
+                "select_visibility_entry": "選擇可見性 - %s"
             }
         },
         "profile": {
             "dashboard": {
-                "posts": "posts",
-                "following": "following",
-                "followers": "followers"
+                "posts": "嘟文",
+                "following": "跟隨中",
+                "followers": "跟隨者"
             },
             "fields": {
-                "add_row": "Add Row",
+                "add_row": "新增列",
                 "placeholder": {
-                    "label": "Label",
-                    "content": "Content"
+                    "label": "標籤",
+                    "content": "內容"
                 }
             },
             "segmented_control": {
                 "posts": "貼文",
-                "replies": "Replies",
-                "posts_and_replies": "Posts and Replies",
-                "media": "Media",
+                "replies": "回覆",
+                "posts_and_replies": "嘟文及回覆",
+                "media": "多媒體",
                 "about": "About"
             },
             "relationship_action_alert": {
