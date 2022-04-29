@@ -498,7 +498,7 @@
                 "posts": "Posts",
                 "hashtags": "Hashtags",
                 "news": "News",
-                "community": "Community",
+                "community": "Сообщество",
                 "for_you": "For You"
             },
             "intro": "These are the posts gaining traction in your corner of Mastodon."
