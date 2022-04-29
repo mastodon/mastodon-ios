@@ -498,7 +498,7 @@
                 "posts": "Gönderiler",
                 "hashtags": "Etiketler",
                 "news": "Haberler",
-                "community": "Community",
+                "community": "Topluluk",
                 "for_you": "Senin İçin"
             },
             "intro": "Bunlar, Mastodon'un köşesinde ilgi çeken gönderilerdir."
@@ -538,7 +538,7 @@
                     "dark": "Daima Koyu"
                 },
                 "look_and_feel": {
-                    "title": "Look and Feel",
+                    "title": "Görünüm",
                     "use_system": "Sistem İle Aynı",
                     "really_dark": "Gerçek Koyu",
                     "sorta_dark": "Hafif Koyu",
