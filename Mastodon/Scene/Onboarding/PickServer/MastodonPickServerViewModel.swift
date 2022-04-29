@@ -115,8 +115,11 @@ extension MastodonPickServerViewModel {
             if self.mode == .signUp {
                 indexedServers = indexedServers.filter { !$0.approvalRequired }
             }
+            // Note:
+            // sort by calculate last week users count
+            // and make medium size (~800) server to top
             
-            // group by language user preferred language first. Then sort by `totalUsers`
+            // group by language user preferred language first
             var languageToServersMapping = OrderedDictionary<String, [Mastodon.Entity.Server]>()
             for language in Locale.preferredLanguages {
                 let local = Locale(identifier: language)
@@ -129,10 +132,10 @@ extension MastodonPickServerViewModel {
                     .sorted(by: { lh, rh in
                         let lhValue = abs(log2(800.0) - log2(Double(lh.lastWeekUsers)))
                         let rhValue = abs(log2(800.0) - log2(Double(rh.lastWeekUsers)))
-                        return lhValue > rhValue
+                        return lhValue < rhValue
                     })
             }
-            // sort remains servers by `totalUsers`
+            // sort remains servers
             let remainsServers = indexedServers
                 .filter { server in
                     return !languageToServersMapping.contains { _, servers in servers.contains(server) }
@@ -140,7 +143,7 @@ extension MastodonPickServerViewModel {
                 .sorted(by: { lh, rh in
                     let lhValue = abs(log2(800.0) - log2(Double(lh.lastWeekUsers)))
                     let rhValue = abs(log2(800.0) - log2(Double(rh.lastWeekUsers)))
-                    return lhValue > rhValue
+                    return lhValue < rhValue
                 })
             
             var _indexedServers: [Mastodon.Entity.Server] = []
