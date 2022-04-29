@@ -12,12 +12,13 @@ Intell the latest version of Xcode from the App Store or Apple Developer Downloa
 This guide may not suit your machine and actually setup procedure may change in the future. Please file the issue or Pull Request if there are any problems.
 
 ## CocoaPods
-The app use [CocoaPods]() and [CocoaPods-Keys](https://github.com/orta/cocoapods-keys). The M1 Mac needs virtual ruby env to workaround compatibility issues.
+The app use [CocoaPods]() and [CocoaPods-Keys](https://github.com/orta/cocoapods-keys). Ruby Gems are managed through Bundler. The M1 Mac needs virtual ruby env to workaround compatibility issues.
 
 #### Intel Mac
 
 ```zsh
-sudo gem install cocoapods cocoapods-keys
+gem install bundler
+bundle install
 ```
 
 #### M1 Mac
@@ -40,18 +41,19 @@ rbenv global 3.0.3
 ruby --version
 # > ruby 3.0.3p157 (2021-11-24 revision 3fb7d2cadc) [arm64-darwin21]
 
-sudo gem install cocoapods cocoapods-keys
+gem install bundler
+bundle install
 ```
 
 ## Bootstrap
 
 ```zsh
 # make a clean build
-sudo gem install cocoapods-clean
-pod clean
+bundle install
+bundle exec pod clean
 
 # make install
-pod install --repo-update
+bundle exec pod install --repo-update
 
 # open workspace
 open Mastodon.xcworkspace
