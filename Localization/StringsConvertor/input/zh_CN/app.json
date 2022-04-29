@@ -129,6 +129,7 @@
                 "show_post": "显示帖子",
                 "show_user_profile": "查看用户个人资料",
                 "content_warning": "内容警告",
+                "sensitive_content": "敏感内容",
                 "media_content_warning": "点击任意位置显示",
                 "tap_to_reveal": "点击以显示",
                 "poll": {
@@ -494,11 +495,12 @@
         },
         "discovery": {
             "tabs": {
-                "posts": "帖子",
-                "hashtags": "话题",
-                "news": "新闻",
+                "posts": "嘟文",
+                "hashtags": "话题标签",
+                "news": "最新消息",
                 "for_you": "为你推荐"
-            }
+            },
+            "intro": "这些嘟文在你的长毛象小宇宙中备受关注。"
         },
         "favorite": {
             "title": "你的喜欢"

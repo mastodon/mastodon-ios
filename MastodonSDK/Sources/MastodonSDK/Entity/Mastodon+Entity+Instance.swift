@@ -38,7 +38,7 @@ extension Mastodon.Entity {
         // https://github.com/mastodon/mastodon/pull/16485
         public let configuration: Configuration?
 
-        public init(domain: String) {
+        public init(domain: String, approvalRequired: Bool? = nil) {
             self.uri = domain
             self.title = domain
             self.description = ""
@@ -47,7 +47,7 @@ extension Mastodon.Entity {
             self.version = nil
             self.languages = nil
             self.registrations = nil
-            self.approvalRequired = nil
+            self.approvalRequired = approvalRequired
             self.invitesEnabled = nil
             self.urls = nil
             self.statistics = nil

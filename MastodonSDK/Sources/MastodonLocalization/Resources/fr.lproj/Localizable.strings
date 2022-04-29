@@ -108,6 +108,7 @@ Veuillez vérifier votre accès à Internet.";
 "Common.Controls.Status.MediaContentWarning" = "Tapotez n’importe où pour révéler la publication";
 "Common.Controls.Status.Poll.Closed" = "Fermé";
 "Common.Controls.Status.Poll.Vote" = "Voter";
+"Common.Controls.Status.SensitiveContent" = "Sensitive Content";
 "Common.Controls.Status.ShowPost" = "Montrer la publication";
 "Common.Controls.Status.ShowUserProfile" = "Montrer le profil de l’utilisateur·rice";
 "Common.Controls.Status.Tag.Email" = "Courriel";
@@ -201,6 +202,7 @@ téléversé sur Mastodon.";
 "Scene.ConfirmEmail.Subtitle" = "Nous venons d’envoyer un courriel à %@,
 tapotez le lien pour confirmer votre compte.";
 "Scene.ConfirmEmail.Title" = "Une dernière chose.";
+"Scene.Discovery.Intro" = "These are the posts gaining traction in your corner of Mastodon.";
 "Scene.Discovery.Tabs.ForYou" = "Pour vous";
 "Scene.Discovery.Tabs.Hashtags" = "Hashtags";
 "Scene.Discovery.Tabs.News" = "Actualité";

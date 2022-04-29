@@ -11,6 +11,7 @@ import MastodonSDK
 import os.log
 import PhotosUI
 import UIKit
+import SwiftUI
 import MastodonUI
 import MastodonAsset
 import MastodonLocalization
@@ -28,6 +29,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
     var viewModel: MastodonRegisterViewModel!
+    private(set) lazy var mastodonRegisterView = MastodonRegisterView(viewModel: viewModel)
 
     // picker
     private(set) lazy var imagePicker: PHPickerViewController = {
@@ -52,22 +54,6 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
         return documentPickerController
     }()
     
-    let tapGestureRecognizer = UITapGestureRecognizer.singleTapGestureRecognizer
-    
-    let tableView: UITableView = {
-        let tableView = UITableView()
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.separatorStyle = .none
-        tableView.backgroundColor = .clear
-        tableView.keyboardDismissMode = .onDrag
-        if #available(iOS 15.0, *) {
-            tableView.sectionHeaderTopPadding = .leastNonzeroMagnitude
-        } else {
-            // Fallback on earlier versions
-        }
-        return tableView
-    }()
-    
     let navigationActionView: NavigationActionView = {
         let navigationActionView = NavigationActionView()
         navigationActionView.backgroundColor = Asset.Scene.Onboarding.background.color
@@ -88,17 +74,21 @@ extension MastodonRegisterViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem()
         
         setupOnboardingAppearance()
+        viewModel.backgroundColor = view.backgroundColor ?? .clear
         defer {
             setupNavigationBarBackgroundView()
         }
         
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(tableView)
+        let hostingViewController = UIHostingController(rootView: mastodonRegisterView)
+        hostingViewController.view.preservesSuperviewLayoutMargins = true
+        addChild(hostingViewController)
+        hostingViewController.view.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(hostingViewController.view)
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            hostingViewController.view.topAnchor.constraint(equalTo: view.topAnchor),
+            hostingViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            hostingViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            hostingViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
         
         navigationActionView.translatesAutoresizingMaskIntoConstraints = false
@@ -116,7 +106,7 @@ extension MastodonRegisterViewController {
             .observe(\.bounds, options: [.initial, .new]) { [weak self] navigationActionView, _ in
                 guard let self = self else { return }
                 let inset = navigationActionView.frame.height
-                self.tableView.contentInset.bottom = inset
+                self.viewModel.bottomPaddingHeight = inset
             }
             .store(in: &observations)
         
@@ -130,19 +120,14 @@ extension MastodonRegisterViewController {
                 self.navigationActionView.nextButton.isEnabled = isAllValid
             }
             .store(in: &disposeBag)
-        
-        viewModel.setupDiffableDataSource(tableView: tableView)
-        
-        KeyboardResponderService
-            .configure(
-                scrollView: tableView,
-                layoutNeedsUpdate: viewModel.viewDidAppear.eraseToAnyPublisher()
-            )
-            .store(in: &disposeBag)
 
-        // gesture
-        view.addGestureRecognizer(tapGestureRecognizer)
-        tapGestureRecognizer.addTarget(self, action: #selector(tapGestureRecognizerHandler))
+        viewModel.endEditing
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                self.view.endEditing(true)
+            }
+            .store(in: &disposeBag)
 
 //        // return
 //        if viewModel.approvalRequired {
@@ -150,80 +135,22 @@ extension MastodonRegisterViewController {
 //        } else {
 //            passwordTextField.returnKeyType = .done
 //        }
-//
-//        viewModel.usernameValidateState
-//            .receive(on: DispatchQueue.main)
-//            .sink { [weak self] validateState in
-//                guard let self = self else { return }
-//                self.setTextFieldValidAppearance(self.usernameTextField, validateState: validateState)
-//            }
-//            .store(in: &disposeBag)
-//        viewModel.usernameErrorPrompt
-//            .receive(on: DispatchQueue.main)
-//            .sink { [weak self] prompt in
-//                guard let self = self else { return }
-//                self.usernameErrorPromptLabel.attributedText = prompt
-//            }
-//            .store(in: &disposeBag)
-//        viewModel.displayNameValidateState
-//            .receive(on: DispatchQueue.main)
-//            .sink { [weak self] validateState in
-//                guard let self = self else { return }
-//                self.setTextFieldValidAppearance(self.displayNameTextField, validateState: validateState)
-//            }
-//            .store(in: &disposeBag)
-//        viewModel.emailValidateState
-//            .receive(on: DispatchQueue.main)
-//            .sink { [weak self] validateState in
-//                guard let self = self else { return }
-//                self.setTextFieldValidAppearance(self.emailTextField, validateState: validateState)
-//            }
-//            .store(in: &disposeBag)
-//        viewModel.emailErrorPrompt
-//            .receive(on: DispatchQueue.main)
-//            .sink { [weak self] prompt in
-//                guard let self = self else { return }
-//                self.emailErrorPromptLabel.attributedText = prompt
-//            }
-//            .store(in: &disposeBag)
-//        viewModel.passwordValidateState
-//            .receive(on: DispatchQueue.main)
-//            .sink { [weak self] validateState in
-//                guard let self = self else { return }
-//                self.setTextFieldValidAppearance(self.passwordTextField, validateState: validateState)
-//                self.passwordCheckLabel.attributedText = MastodonRegisterViewModel.attributeStringForPassword(validateState: validateState)
-//            }
-//            .store(in: &disposeBag)
-//        viewModel.passwordErrorPrompt
-//            .receive(on: DispatchQueue.main)
-//            .sink { [weak self] prompt in
-//                guard let self = self else { return }
-//                self.passwordErrorPromptLabel.attributedText = prompt
-//            }
-//            .store(in: &disposeBag)
-//        viewModel.reasonErrorPrompt
-//            .receive(on: DispatchQueue.main)
-//            .sink { [weak self] prompt in
-//                guard let self = self else { return }
-//                self.reasonErrorPromptLabel.attributedText = prompt
-//            }
-//            .store(in: &disposeBag)
-//        viewModel.error
-//            .receive(on: DispatchQueue.main)
-//            .sink { [weak self] error in
-//                guard let self = self else { return }
-//                guard let error = error as? Mastodon.API.Error else { return }
-//                let alertController = UIAlertController(for: error, title: "Sign Up Failure", preferredStyle: .alert)
-//                let okAction = UIAlertAction(title: L10n.Common.Controls.Actions.ok, style: .default, handler: nil)
-//                alertController.addAction(okAction)
-//                self.coordinator.present(
-//                    scene: .alertController(alertController: alertController),
-//                    from: nil,
-//                    transition: .alertController(animated: true, completion: nil)
-//                )
-//            }
-//            .store(in: &disposeBag)
-//
+        
+        viewModel.$error
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] error in
+                guard let self = self else { return }
+                guard let error = error as? Mastodon.API.Error else { return }
+                let alertController = UIAlertController(for: error, title: "Sign Up Failure", preferredStyle: .alert)
+                let okAction = UIAlertAction(title: L10n.Common.Controls.Actions.ok, style: .default, handler: nil)
+                alertController.addAction(okAction)
+                self.coordinator.present(
+                    scene: .alertController(alertController: alertController),
+                    from: nil,
+                    transition: .alertController(animated: true, completion: nil)
+                )
+            }
+            .store(in: &disposeBag)
 
         viewModel.avatarMediaMenuActionPublisher
             .receive(on: DispatchQueue.main)
@@ -260,10 +187,6 @@ extension MastodonRegisterViewController {
 }
 
 extension MastodonRegisterViewController {
-    
-    @objc private func tapGestureRecognizerHandler(_ sender: UITapGestureRecognizer) {
-        view.endEditing(true)
-    }
     
     @objc private func backButtonPressed(_ sender: UIButton) {
         logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")

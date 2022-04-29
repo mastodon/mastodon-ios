@@ -270,6 +270,8 @@ public enum L10n {
         public static let contentWarning = L10n.tr("Localizable", "Common.Controls.Status.ContentWarning")
         /// Tap anywhere to reveal
         public static let mediaContentWarning = L10n.tr("Localizable", "Common.Controls.Status.MediaContentWarning")
+        /// Sensitive Content
+        public static let sensitiveContent = L10n.tr("Localizable", "Common.Controls.Status.SensitiveContent")
         /// Show Post
         public static let showPost = L10n.tr("Localizable", "Common.Controls.Status.ShowPost")
         /// Show user profile
@@ -544,6 +546,8 @@ public enum L10n {
       }
     }
     public enum Discovery {
+      /// These are the posts gaining traction in your corner of Mastodon.
+      public static let intro = L10n.tr("Localizable", "Scene.Discovery.Intro")
       public enum Tabs {
         /// For You
         public static let forYou = L10n.tr("Localizable", "Scene.Discovery.Tabs.ForYou")

@@ -270,7 +270,15 @@ extension MainTabBarController {
         updateTabBarDisplay()
         
         #if DEBUG
-//        selectedIndex = 1
+        // Debug Register viewController
+        // Task { @MainActor in
+        //     let _homeTimelineViewController = viewControllers
+        //         .compactMap { $0 as? UINavigationController }
+        //         .compactMap { $0.topViewController }
+        //         .compactMap { $0 as? HomeTimelineViewController }
+        //         .first
+        //     try await _homeTimelineViewController?.showRegisterController()
+        // }   // end Task
         #endif
     }
     

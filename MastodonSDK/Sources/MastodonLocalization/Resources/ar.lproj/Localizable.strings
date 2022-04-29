@@ -108,6 +108,7 @@
 "Common.Controls.Status.MediaContentWarning" = "اُنقُر لِلكَشف";
 "Common.Controls.Status.Poll.Closed" = "انتهى";
 "Common.Controls.Status.Poll.Vote" = "صَوِّت";
+"Common.Controls.Status.SensitiveContent" = "مُحتَوى حَسَّاس";
 "Common.Controls.Status.ShowPost" = "أظْهِر مَنشور";
 "Common.Controls.Status.ShowUserProfile" = "أظْهِر المِلَفَّ التَّعريفِيَّ لِلمُستَخدِم";
 "Common.Controls.Status.Tag.Email" = "بَريدٌ إلِكتُرُونِيّ";
@@ -201,7 +202,8 @@
 "Scene.ConfirmEmail.Subtitle" = "لقد أرسلنا للتو بريد إلكتروني إلى %@،
 انقر على الرابط لتأكيد حسابك.";
 "Scene.ConfirmEmail.Title" = "شيءٌ أخير.";
-"Scene.Discovery.Tabs.ForYou" = "For You";
+"Scene.Discovery.Intro" = "هَذِهِ هِيَ المَنشُوراتُ الَّتي تَكْتَسِبُ شَعبِيَّةً فِي الرُّكنِ الخاصِّ بِكَ مِن مَاستُودون.";
+"Scene.Discovery.Tabs.ForYou" = "لَك";
 "Scene.Discovery.Tabs.Hashtags" = "الوسوم";
 "Scene.Discovery.Tabs.News" = "الأخبار";
 "Scene.Discovery.Tabs.Posts" = "المنشورات";

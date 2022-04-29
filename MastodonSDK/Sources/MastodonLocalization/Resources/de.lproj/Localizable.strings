@@ -108,6 +108,7 @@ Bitte überprüfe deine Internetverbindung.";
 "Common.Controls.Status.MediaContentWarning" = "Tippe irgendwo zum Anzeigen";
 "Common.Controls.Status.Poll.Closed" = "Beendet";
 "Common.Controls.Status.Poll.Vote" = "Abstimmen";
+"Common.Controls.Status.SensitiveContent" = "Sensitive Content";
 "Common.Controls.Status.ShowPost" = "Beitrag anzeigen";
 "Common.Controls.Status.ShowUserProfile" = "Benutzerprofil anzeigen";
 "Common.Controls.Status.Tag.Email" = "E-Mail";
@@ -201,6 +202,7 @@ kann nicht auf Mastodon hochgeladen werden.";
 "Scene.ConfirmEmail.Subtitle" = "Wir haben gerade eine E-Mail an %@ gesendet,
 tippe darin auf den Link, um Dein Konto zu bestätigen.";
 "Scene.ConfirmEmail.Title" = "Noch eine letzte Sache.";
+"Scene.Discovery.Intro" = "These are the posts gaining traction in your corner of Mastodon.";
 "Scene.Discovery.Tabs.ForYou" = "Für dich";
 "Scene.Discovery.Tabs.Hashtags" = "Hashtags";
 "Scene.Discovery.Tabs.News" = "Nachrichten";

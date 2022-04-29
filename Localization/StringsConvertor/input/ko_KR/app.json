@@ -129,6 +129,7 @@
                 "show_post": "게시물 보기",
                 "show_user_profile": "사용자 프로필 보기",
                 "content_warning": "열람 주의",
+                "sensitive_content": "Sensitive Content",
                 "media_content_warning": "Tap anywhere to reveal",
                 "tap_to_reveal": "Tap to reveal",
                 "poll": {
@@ -498,7 +499,8 @@
                 "hashtags": "Hashtags",
                 "news": "News",
                 "for_you": "For You"
-            }
+            },
+            "intro": "These are the posts gaining traction in your corner of Mastodon."
         },
         "favorite": {
             "title": "Your Favorites"

@@ -129,6 +129,7 @@
                 "show_post": "Erakutsi bidalketa",
                 "show_user_profile": "Erakutsi erabiltzailearen profila",
                 "content_warning": "Edukiaren abisua",
+                "sensitive_content": "Sensitive Content",
                 "media_content_warning": "Ukitu edonon bistaratzeko",
                 "tap_to_reveal": "Sakatu erakusteko",
                 "poll": {
@@ -494,11 +495,12 @@
         },
         "discovery": {
             "tabs": {
-                "posts": "Posts",
-                "hashtags": "Hashtags",
-                "news": "News",
-                "for_you": "For You"
-            }
+                "posts": "Argitalpenak",
+                "hashtags": "Traolak",
+                "news": "Albisteak",
+                "for_you": "Zuretzat"
+            },
+            "intro": "These are the posts gaining traction in your corner of Mastodon."
         },
         "favorite": {
             "title": "Zure gogokoak"
