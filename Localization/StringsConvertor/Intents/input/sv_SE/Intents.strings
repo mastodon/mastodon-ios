@@ -24,17 +24,17 @@
 
 "Zo4jgJ" = "Inläggssynlighet";
 
-"apSxMG-dYQ5NN" = "Det finns ${count} alternativ som matchar ‘Publikt’.";
+"apSxMG-dYQ5NN" = "Det finns ${count} alternativ som matchar ‘Offentligt’.";
 
 "apSxMG-ehFLjY" = "Det finns ${count} alternativ som matchar ‘Endast följare’.";
 
-"ayoYEb-dYQ5NN" = "${content}, Publikt";
+"ayoYEb-dYQ5NN" = "${content}, Offentligt";
 
 "ayoYEb-ehFLjY" = "${content}, Endast följare";
 
 "dUyuGg" = "Posta på Mastodon";
 
-"dYQ5NN" = "Publikt";
+"dYQ5NN" = "Offentligt";
 
 "ehFLjY" = "Endast följare";
 
@@ -42,7 +42,7 @@
 
 "k7dbKQ" = "Inlägget har postats.";
 
-"oGiqmY-dYQ5NN" = "Bara för att bekräfta, ville du ha 'Publikt'?";
+"oGiqmY-dYQ5NN" = "Bara för att bekräfta, ville du ha 'Offentligt'?";
 
 "oGiqmY-ehFLjY" = "Bara för att bekräfta, ville du ha 'Endast följare'?";
 
