@@ -23,13 +23,13 @@
                 "title": "Publicering misslyckades",
                 "message": "Det gick inte att publicera inlägget.\nKontrollera din internetanslutning.",
                 "attachments_message": {
-                    "video_attach_with_photo": "Det går inte att bifoga en video till en status som redan innehåller bilder.",
+                    "video_attach_with_photo": "Det går inte att bifoga en video till ett inlägg som redan innehåller bilder.",
                     "more_than_one_video": "Det går inte att bifoga mer än en video."
                 }
             },
             "edit_profile_failure": {
-                "title": "Fel vid profilredigering",
-                "message": "Kan inte redigera profil. Försök igen."
+                "title": "Profilredigering misslyckades",
+                "message": "Kan inte redigera profil. Var god försök igen."
             },
             "sign_out": {
                 "title": "Logga ut",
@@ -41,7 +41,7 @@
                 "block_entire_domain": "Blockera domän"
             },
             "save_photo_failure": {
-                "title": "Kunde inte spara foto",
+                "title": "Spara foto misslyckades",
                 "message": "Aktivera åtkomst till Bilder för att spara bilden."
             },
             "delete_post": {
@@ -57,7 +57,7 @@
             "actions": {
                 "back": "Tillbaka",
                 "next": "Nästa",
-                "previous": "Tidigare",
+                "previous": "Föregående",
                 "open": "Öppna",
                 "add": "Lägg till",
                 "remove": "Radera",
@@ -69,7 +69,7 @@
                 "continue": "Fortsätt",
                 "compose": "Skriv",
                 "cancel": "Avbryt",
-                "discard": "Kasta",
+                "discard": "Släng",
                 "try_again": "Försök igen",
                 "take_photo": "Ta foto",
                 "save_photo": "Spara foto",
@@ -77,7 +77,7 @@
                 "sign_in": "Logga in",
                 "sign_up": "Registrera dig",
                 "see_more": "Visa mer",
-                "preview": "Förhandstitt",
+                "preview": "Förhandsvisa",
                 "share": "Dela",
                 "share_user": "Dela %s",
                 "share_post": "Dela inlägg",
@@ -96,7 +96,7 @@
             "tabs": {
                 "home": "Hem",
                 "search": "Sök",
-                "notification": "Avisering",
+                "notification": "Notis",
                 "profile": "Profil"
             },
             "keyboard": {
@@ -151,7 +151,7 @@
                 },
                 "tag": {
                     "url": "URL",
-                    "mention": "Nämn",
+                    "mention": "Omnämn",
                     "link": "Länk",
                     "hashtag": "Hashtagg",
                     "email": "E-post",
@@ -161,13 +161,13 @@
                     "unlisted": "Alla kan se detta inlägg men det visas inte i den offentliga tidslinjen.",
                     "private": "Endast deras följare kan se detta inlägg.",
                     "private_from_me": "Bara mina följare kan se det här inlägget.",
-                    "direct": "Endast nämnda användare kan se detta inlägg."
+                    "direct": "Endast omnämnda användare kan se detta inlägg."
                 }
             },
             "friendship": {
                 "follow": "Följ",
                 "following": "Följer",
-                "request": "Begäran",
+                "request": "Följ",
                 "pending": "Väntande",
                 "block": "Blockera",
                 "block_user": "Blockera %s",
@@ -321,7 +321,7 @@
             "title": "En sista sak.",
             "subtitle": "Tryck på länken vi e-postade till dig för att verifiera ditt konto.",
             "button": {
-                "open_email_app": "Öppna epostappen",
+                "open_email_app": "Öppna e-postappen",
                 "resend": "Skicka igen"
             },
             "dont_receive_email": {
@@ -545,11 +545,11 @@
                     "light": "Ljust"
                 },
                 "notifications": {
-                    "title": "Aviseringar",
+                    "title": "Notiser",
                     "favorites": "Favoriserar mitt inlägg",
                     "follows": "Följer mig",
                     "boosts": "Ompostar mitt inlägg",
-                    "mentions": "Nämner mig",
+                    "mentions": "Omnämner mig",
                     "trigger": {
                         "anyone": "alla",
                         "follower": "en följare",
