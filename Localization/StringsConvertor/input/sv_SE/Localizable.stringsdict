@@ -317,7 +317,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>%ldå sedan</string>
+        <string>%ld år sedan</string>
         <key>other</key>
         <string>%ldå sedan</string>
       </dict>
@@ -333,7 +333,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>%ldmån sedan</string>
+        <string>%ld mån sedan</string>
         <key>other</key>
         <string>%ld mån sedan</string>
       </dict>
