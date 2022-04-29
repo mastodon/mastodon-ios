@@ -17,7 +17,7 @@ The app use [CocoaPods]() and [CocoaPods-Keys](https://github.com/orta/cocoapods
 #### Intel Mac
 
 ```zsh
-sudo gem install bundler
+gem install bundler
 bundle install
 ```
 
@@ -41,7 +41,7 @@ rbenv global 3.0.3
 ruby --version
 # > ruby 3.0.3p157 (2021-11-24 revision 3fb7d2cadc) [arm64-darwin21]
 
-sudo gem install bundler
+gem install bundler
 bundle install
 ```
 

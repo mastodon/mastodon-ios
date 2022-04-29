@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Install Ruby Bundler
-sudo gem install bundler:2.3.11
+gem install bundler:2.3.11
 
 # Install Ruby Gems
 bundle install
