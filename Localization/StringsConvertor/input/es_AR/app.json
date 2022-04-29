@@ -498,6 +498,7 @@
                 "posts": "Mensajes",
                 "hashtags": "Etiquetas",
                 "news": "Novedades",
+                "community": "Community",
                 "for_you": "Para vos"
             },
             "intro": "Estos son los mensajes que están ganando tracción en tu rincón de Mastodon."
