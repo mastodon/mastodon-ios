@@ -2,84 +2,84 @@
     "common": {
         "alerts": {
             "common": {
-                "please_try_again": "Please try again.",
-                "please_try_again_later": "Please try again later."
+                "please_try_again": "Por favor tente novamente.",
+                "please_try_again_later": "Tente novamente mais tarde."
             },
             "sign_up_failure": {
                 "title": "Sign Up Failure"
             },
             "server_error": {
-                "title": "Server Error"
+                "title": "Erro do servidor"
             },
             "vote_failure": {
-                "title": "Vote Failure",
-                "poll_ended": "The poll has ended"
+                "title": "Falha ao votar",
+                "poll_ended": "Essa enquete terminou"
             },
             "discard_post_content": {
-                "title": "Discard Draft",
+                "title": "Deletar Rascunho",
                 "message": "Confirm to discard composed post content."
             },
             "publish_post_failure": {
-                "title": "Publish Failure",
-                "message": "Failed to publish the post.\nPlease check your internet connection.",
+                "title": "Falha ao publicar",
+                "message": "Falha ao publicar o post.\nPor favor verifique a sua conexão de internet.",
                 "attachments_message": {
-                    "video_attach_with_photo": "Cannot attach a video to a post that already contains images.",
-                    "more_than_one_video": "Cannot attach more than one video."
+                    "video_attach_with_photo": "Não é possível adicionar um vídeo à um toot que já contém imagens.",
+                    "more_than_one_video": "Não é possível adicionar mais de um vídeo."
                 }
             },
             "edit_profile_failure": {
-                "title": "Edit Profile Error",
-                "message": "Cannot edit profile. Please try again."
+                "title": "Falha ao atualizar perfil",
+                "message": "Não foi possível atualizar o perfil. Por favor tente novamente."
             },
             "sign_out": {
-                "title": "Sign Out",
-                "message": "Are you sure you want to sign out?",
-                "confirm": "Sign Out"
+                "title": "Sair",
+                "message": "Você tem certeza que deseja sair?",
+                "confirm": "Sair"
             },
             "block_domain": {
-                "title": "Are you really, really sure you want to block the entire %s? In most cases a few targeted blocks or mutes are sufficient and preferable. You will not see content from that domain and any of your followers from that domain will be removed.",
-                "block_entire_domain": "Block Domain"
+                "title": "Você tem absoluta certeza de que quer bloquear todo %s? Na maioria dos casos é suficiente e preferível bloquear ou ignorar algumas contas específicas. Você não verá conteúdos desse domínio, e todos os seus seguidores desse domínio serão removidos.",
+                "block_entire_domain": "Bloquear Domínio"
             },
             "save_photo_failure": {
-                "title": "Save Photo Failure",
+                "title": "Falha ao salvar foto",
                 "message": "Please enable the photo library access permission to save the photo."
             },
             "delete_post": {
-                "title": "Delete Post",
-                "message": "Are you sure you want to delete this post?"
+                "title": "Deletar Toot",
+                "message": "Você tem certeza que deseja deletar esse toot?"
             },
             "clean_cache": {
-                "title": "Clean Cache",
-                "message": "Successfully cleaned %s cache."
+                "title": "Limpar Cache",
+                "message": "%s do cache removidos com sucesso."
             }
         },
         "controls": {
             "actions": {
-                "back": "Back",
-                "next": "Next",
-                "previous": "Previous",
-                "open": "Open",
-                "add": "Add",
-                "remove": "Remove",
-                "edit": "Edit",
-                "save": "Save",
+                "back": "Voltar",
+                "next": "Próximo",
+                "previous": "Anterior",
+                "open": "Abrir",
+                "add": "Adicionar",
+                "remove": "Remover",
+                "edit": "Editar",
+                "save": "Salvar",
                 "ok": "OK",
-                "done": "Done",
-                "confirm": "Confirm",
-                "continue": "Continue",
-                "compose": "Compose",
-                "cancel": "Cancel",
-                "discard": "Discard",
-                "try_again": "Try Again",
+                "done": "Concluir",
+                "confirm": "Confirmar",
+                "continue": "Continuar",
+                "compose": "Compor",
+                "cancel": "Cancelar",
+                "discard": "Descartar",
+                "try_again": "Tente novamente",
                 "take_photo": "Take Photo",
-                "save_photo": "Save Photo",
-                "copy_photo": "Copy Photo",
+                "save_photo": "Salvar foto",
+                "copy_photo": "Copiar foto",
                 "sign_in": "Sign In",
                 "sign_up": "Sign Up",
                 "see_more": "See More",
                 "preview": "Preview",
-                "share": "Share",
-                "share_user": "Share %s",
+                "share": "Compartilhar",
+                "share_user": "Compartilhar %s",
                 "share_post": "Share Post",
                 "open_in_safari": "Open in Safari",
                 "open_in_browser": "Open in Browser",
@@ -129,6 +129,7 @@
                 "show_post": "Show Post",
                 "show_user_profile": "Show user profile",
                 "content_warning": "Content Warning",
+                "sensitive_content": "Sensitive Content",
                 "media_content_warning": "Tap anywhere to reveal",
                 "tap_to_reveal": "Tap to reveal",
                 "poll": {
@@ -136,7 +137,7 @@
                     "closed": "Closed"
                 },
                 "actions": {
-                    "reply": "Reply",
+                    "reply": "Responder",
                     "reblog": "Reblog",
                     "unreblog": "Undo reblog",
                     "favorite": "Favorite",
@@ -498,7 +499,8 @@
                 "hashtags": "Hashtags",
                 "news": "News",
                 "for_you": "For You"
-            }
+            },
+            "intro": "These are the posts gaining traction in your corner of Mastodon."
         },
         "favorite": {
             "title": "Your Favorites"

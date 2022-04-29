@@ -129,8 +129,9 @@
                 "show_post": "Mostrar Publicación",
                 "show_user_profile": "Mostrar perfil del usuario",
                 "content_warning": "Advertencia de Contenido",
+                "sensitive_content": "Sensitive Content",
                 "media_content_warning": "Pulsa en cualquier sitio para mostrar",
-                "tap_to_reveal": "Tap to reveal",
+                "tap_to_reveal": "Tocar para revelar",
                 "poll": {
                     "vote": "Vota",
                     "closed": "Cerrado"
@@ -143,10 +144,10 @@
                     "unfavorite": "No favorito",
                     "menu": "Menú",
                     "hide": "Ocultar",
-                    "show_image": "Show image",
-                    "show_gif": "Show GIF",
-                    "show_video_player": "Show video player",
-                    "tap_then_hold_to_show_menu": "Tap then hold to show menu"
+                    "show_image": "Mostrar imagen",
+                    "show_gif": "Mostrar GIF",
+                    "show_video_player": "Mostrar reproductor de vídeo",
+                    "tap_then_hold_to_show_menu": "Toca, después mantén para mostrar el menú"
                 },
                 "tag": {
                     "url": "URL",
@@ -447,10 +448,10 @@
                 }
             },
             "accessibility": {
-                "show_avatar_image": "Show avatar image",
-                "edit_avatar_image": "Edit avatar image",
-                "show_banner_image": "Show banner image",
-                "double_tap_to_open_the_list": "Double tap to open the list"
+                "show_avatar_image": "Mostrar imagen del avatar",
+                "edit_avatar_image": "Editar imagen del avatar",
+                "show_banner_image": "Mostrar imagen de banner",
+                "double_tap_to_open_the_list": "Pulsa dos veces para abrir la lista"
             }
         },
         "follower": {
@@ -494,11 +495,12 @@
         },
         "discovery": {
             "tabs": {
-                "posts": "Posts",
-                "hashtags": "Hashtags",
-                "news": "News",
-                "for_you": "For You"
-            }
+                "posts": "Publicaciones",
+                "hashtags": "Etiquetas",
+                "news": "Noticias",
+                "for_you": "Para Ti"
+            },
+            "intro": "These are the posts gaining traction in your corner of Mastodon."
         },
         "favorite": {
             "title": "Tus Favoritos"
@@ -561,7 +563,7 @@
                     "disable_avatar_animation": "Deshabilitar avatares animados",
                     "disable_emoji_animation": "Deshabilitar emojis animados",
                     "using_default_browser": "Usar navegador predeterminado para abrir los enlaces",
-                    "open_links_in_mastodon": "Open links in Mastodon"
+                    "open_links_in_mastodon": "Abrir links en Mastodon"
                 },
                 "boring_zone": {
                     "title": "La Zona Aburrida",

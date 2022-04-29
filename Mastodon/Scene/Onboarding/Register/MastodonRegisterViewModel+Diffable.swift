@@ -143,7 +143,7 @@ extension MastodonRegisterViewModel {
         snapshot.appendItems([.header(domain: domain)], toSection: .main)
         snapshot.appendItems([.avatar, .name, .username, .email, .password, .hint], toSection: .main)
         if approvalRequired {
-            snapshot.appendItems([.reason], toSection: .main)            
+            snapshot.appendItems([.reason], toSection: .main)
         }
         diffableDataSource?.applySnapshot(snapshot, animated: false, completion: nil)
     }
@@ -162,51 +162,6 @@ extension MastodonRegisterViewModel {
                 cell.avatarButton.showsMenuAsPrimaryAction = true
             }
             .store(in: &cell.disposeBag)
-    }
-    
-    enum AvatarMediaMenuAction {
-        case photoLibrary
-        case camera
-        case browse
-        case delete
-    }
-    
-    private func createAvatarMediaContextMenu() -> UIMenu {
-        var children: [UIMenuElement] = []
-        
-        // Photo Library
-        let photoLibraryAction = UIAction(title: L10n.Scene.Compose.MediaSelection.photoLibrary, image: UIImage(systemName: "rectangle.on.rectangle"), identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off) { [weak self] _ in
-            guard let self = self else { return }
-            self.avatarMediaMenuActionPublisher.send(.photoLibrary)
-        }
-        children.append(photoLibraryAction)
-        
-        // Camera
-        if UIImagePickerController.isSourceTypeAvailable(.camera) {
-            let cameraAction = UIAction(title: L10n.Scene.Compose.MediaSelection.camera, image: UIImage(systemName: "camera"), identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off, handler: { [weak self] _ in
-                guard let self = self else { return }
-                self.avatarMediaMenuActionPublisher.send(.camera)
-            })
-            children.append(cameraAction)
-        }
-        
-        // Browse
-        let browseAction = UIAction(title: L10n.Scene.Compose.MediaSelection.browse, image: UIImage(systemName: "ellipsis"), identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off) { [weak self] _ in
-            guard let self = self else { return }
-            self.avatarMediaMenuActionPublisher.send(.browse)
-        }
-        children.append(browseAction)
-        
-        // Delete
-        if avatarImage != nil {
-            let deleteAction = UIAction(title: L10n.Scene.Register.Input.Avatar.delete, image: UIImage(systemName: "delete.left"), identifier: nil, discoverabilityTitle: nil, attributes: [.destructive], state: .off) { [weak self] _ in
-                guard let self = self else { return }
-                self.avatarMediaMenuActionPublisher.send(.delete)
-            }
-            children.append(deleteAction)
-        }
-
-        return UIMenu(title: "", image: nil, identifier: nil, options: .displayInline, children: children)
     }
     
     private func configureTextFieldCell(

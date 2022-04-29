@@ -54,6 +54,9 @@ public struct StatusEditorView: UIViewRepresentable {
     }
 
     public func updateUIView(_ textView: UITextView, context: Context) {
+        // preserve currently selected text range to prevent cursor jump
+        let currentlySelectedRange = textView.selectedRange
+
         // update content
         // textView.attributedText = attributedString
         textView.text = string
@@ -66,6 +69,9 @@ public struct StatusEditorView: UIViewRepresentable {
             viewDidAppear = false
             textView.becomeFirstResponder()
         }
+        
+        // restore selected text range
+        textView.selectedRange = currentlySelectedRange
     }
 
     public func makeCoordinator() -> Coordinator {

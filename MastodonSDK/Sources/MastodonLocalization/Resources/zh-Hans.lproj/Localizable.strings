@@ -108,6 +108,7 @@
 "Common.Controls.Status.MediaContentWarning" = "点击任意位置显示";
 "Common.Controls.Status.Poll.Closed" = "已关闭";
 "Common.Controls.Status.Poll.Vote" = "投票";
+"Common.Controls.Status.SensitiveContent" = "敏感内容";
 "Common.Controls.Status.ShowPost" = "显示帖子";
 "Common.Controls.Status.ShowUserProfile" = "查看用户个人资料";
 "Common.Controls.Status.Tag.Email" = "电子邮箱";
@@ -201,10 +202,11 @@
 "Scene.ConfirmEmail.Subtitle" = "我们刚刚向 %@ 发送了一封电子邮件，
 点击链接确认你的帐户。";
 "Scene.ConfirmEmail.Title" = "最后一件事。";
+"Scene.Discovery.Intro" = "这些嘟文在你的长毛象小宇宙中备受关注。";
 "Scene.Discovery.Tabs.ForYou" = "为你推荐";
-"Scene.Discovery.Tabs.Hashtags" = "话题";
-"Scene.Discovery.Tabs.News" = "新闻";
-"Scene.Discovery.Tabs.Posts" = "帖子";
+"Scene.Discovery.Tabs.Hashtags" = "话题标签";
+"Scene.Discovery.Tabs.News" = "最新消息";
+"Scene.Discovery.Tabs.Posts" = "嘟文";
 "Scene.Favorite.Title" = "你的喜欢";
 "Scene.Follower.Footer" = "不会显示来自其它服务器的关注者";
 "Scene.Following.Footer" = "不会显示来自其它服务器的关注";

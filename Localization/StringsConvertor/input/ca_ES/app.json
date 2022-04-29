@@ -129,6 +129,7 @@
                 "show_post": "Mostra la Publicació",
                 "show_user_profile": "Mostra el perfil de l'usuari",
                 "content_warning": "Advertència de Contingut",
+                "sensitive_content": "Contingut sensible",
                 "media_content_warning": "Toca qualsevol lloc per a mostrar",
                 "tap_to_reveal": "Toca per a mostrar",
                 "poll": {
@@ -498,7 +499,8 @@
                 "hashtags": "Etiquetes",
                 "news": "Notícies",
                 "for_you": "Per a tu"
-            }
+            },
+            "intro": "Aquestes son les publicacions que criden l'atenció en el teu racó de Mastodon."
         },
         "favorite": {
             "title": "Els teus Favorits"

@@ -129,6 +129,7 @@
                 "show_post": "Beitrag anzeigen",
                 "show_user_profile": "Benutzerprofil anzeigen",
                 "content_warning": "Inhaltswarnung",
+                "sensitive_content": "Sensitive Content",
                 "media_content_warning": "Tippe irgendwo zum Anzeigen",
                 "tap_to_reveal": "Zum Anzeigen tippen",
                 "poll": {
@@ -498,7 +499,8 @@
                 "hashtags": "Hashtags",
                 "news": "Nachrichten",
                 "for_you": "Für dich"
-            }
+            },
+            "intro": "These are the posts gaining traction in your corner of Mastodon."
         },
         "favorite": {
             "title": "Deine Favoriten"

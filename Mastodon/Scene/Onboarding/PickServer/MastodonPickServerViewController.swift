@@ -341,7 +341,10 @@ extension MastodonPickServerViewController {
                 ) else {
                     throw APIService.APIError.explicit(.badResponse)
                 }
-                return MastodonPickServerViewModel.SignUpResponseSecond(instance: response.instance, authenticateInfo: authenticateInfo)
+                return MastodonPickServerViewModel.SignUpResponseSecond(
+                    instance: response.instance,
+                    authenticateInfo: authenticateInfo
+                )
             }
             .compactMap { [weak self] response -> AnyPublisher<MastodonPickServerViewModel.SignUpResponseThird, Error>? in
                 guard let self = self else { return nil }
@@ -353,7 +356,13 @@ extension MastodonPickServerViewController {
                     clientSecret: authenticateInfo.clientSecret,
                     redirectURI: authenticateInfo.redirectURI
                 )
-                .map { MastodonPickServerViewModel.SignUpResponseThird(instance: instance, authenticateInfo: authenticateInfo, applicationToken: $0) }
+                .map {
+                    MastodonPickServerViewModel.SignUpResponseThird(
+                        instance: instance,
+                        authenticateInfo: authenticateInfo,
+                        applicationToken: $0
+                    )
+                }
                 .eraseToAnyPublisher()
             }
             .switchToLatest()
