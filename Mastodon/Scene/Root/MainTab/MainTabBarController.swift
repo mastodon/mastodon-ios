@@ -106,6 +106,10 @@ class MainTabBarController: UITabBarController {
     var _viewControllers: [UIViewController] = []
     
     private(set) var isReadyForWizardAvatarButton = false
+    
+    // output
+    var avatarURLObserver: AnyCancellable?
+    @Published var avatarURL: URL?
 
     init(context: AppContext, coordinator: SceneCoordinator) {
         self.context = context
@@ -226,17 +230,34 @@ extension MainTabBarController {
         .store(in: &disposeBag)
         
         layoutAvatarButton()
+        
+        $avatarURL
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] avatarURL in
+                guard let self = self else { return }
+                self.avatarButton.avatarImageView.setImage(
+                    url: avatarURL,
+                    placeholder: .placeholder(color: .systemFill),
+                    scaleToSize: MainTabBarController.avatarButtonSize
+                )
+            }
+            .store(in: &disposeBag)
         context.authenticationService.activeMastodonAuthentication
             .receive(on: DispatchQueue.main)
             .sink { [weak self] activeMastodonAuthentication in
                 guard let self = self else { return }
                 
-                let avatarImageURL = activeMastodonAuthentication?.user.avatarImageURL()
-                self.avatarButton.avatarImageView.setImage(
-                    url: avatarImageURL,
-                    placeholder: .placeholder(color: .systemFill),
-                    scaleToSize: MainTabBarController.avatarButtonSize
-                )
+                if let user = activeMastodonAuthentication?.user {
+                    self.avatarURLObserver = user.publisher(for: \.avatar)
+                        .sink { [weak self, weak user] _ in
+                            guard let self = self else { return }
+                            guard let user = user else { return }
+                            guard user.managedObjectContext != nil else { return }
+                            self.avatarURL = user.avatarImageURL()
+                        }
+                } else {
+                    self.avatarURLObserver = nil
+                }
                 
                 // a11y
                 let _profileTabItem = self.tabBar.items?.first { item in item.tag == Tab.me.tag }
