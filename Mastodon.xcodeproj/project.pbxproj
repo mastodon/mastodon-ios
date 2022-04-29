@@ -233,6 +233,12 @@
 		DB3E6FF52807C40300B035AE /* DiscoveryForYouViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3E6FF42807C40300B035AE /* DiscoveryForYouViewController.swift */; };
 		DB3E6FF82807C45300B035AE /* DiscoveryForYouViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3E6FF72807C45300B035AE /* DiscoveryForYouViewModel.swift */; };
 		DB3E6FFA2807C47900B035AE /* DiscoveryForYouViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3E6FF92807C47900B035AE /* DiscoveryForYouViewModel+Diffable.swift */; };
+		DB3EA8E6281B79E200598866 /* DiscoveryCommunityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3EA8E5281B79E200598866 /* DiscoveryCommunityViewController.swift */; };
+		DB3EA8E9281B7A3700598866 /* DiscoveryCommunityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3EA8E8281B7A3700598866 /* DiscoveryCommunityViewModel.swift */; };
+		DB3EA8EB281B7E0700598866 /* DiscoveryCommunityViewModel+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3EA8EA281B7E0700598866 /* DiscoveryCommunityViewModel+State.swift */; };
+		DB3EA8ED281B810100598866 /* APIService+PublicTimeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3EA8EC281B810100598866 /* APIService+PublicTimeline.swift */; };
+		DB3EA8EF281B837000598866 /* DiscoveryCommunityViewController+DataSourceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3EA8EE281B837000598866 /* DiscoveryCommunityViewController+DataSourceProvider.swift */; };
+		DB3EA8F1281B9EF600598866 /* DiscoveryCommunityViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3EA8F0281B9EF600598866 /* DiscoveryCommunityViewModel+Diffable.swift */; };
 		DB427DD625BAA00100D1B89D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB427DD525BAA00100D1B89D /* AppDelegate.swift */; };
 		DB427DD825BAA00100D1B89D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB427DD725BAA00100D1B89D /* SceneDelegate.swift */; };
 		DB427DDD25BAA00100D1B89D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB427DDB25BAA00100D1B89D /* Main.storyboard */; };
@@ -962,6 +968,12 @@
 		DB3E6FF42807C40300B035AE /* DiscoveryForYouViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryForYouViewController.swift; sourceTree = "<group>"; };
 		DB3E6FF72807C45300B035AE /* DiscoveryForYouViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryForYouViewModel.swift; sourceTree = "<group>"; };
 		DB3E6FF92807C47900B035AE /* DiscoveryForYouViewModel+Diffable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DiscoveryForYouViewModel+Diffable.swift"; sourceTree = "<group>"; };
+		DB3EA8E5281B79E200598866 /* DiscoveryCommunityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryCommunityViewController.swift; sourceTree = "<group>"; };
+		DB3EA8E8281B7A3700598866 /* DiscoveryCommunityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryCommunityViewModel.swift; sourceTree = "<group>"; };
+		DB3EA8EA281B7E0700598866 /* DiscoveryCommunityViewModel+State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DiscoveryCommunityViewModel+State.swift"; sourceTree = "<group>"; };
+		DB3EA8EC281B810100598866 /* APIService+PublicTimeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+PublicTimeline.swift"; sourceTree = "<group>"; };
+		DB3EA8EE281B837000598866 /* DiscoveryCommunityViewController+DataSourceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DiscoveryCommunityViewController+DataSourceProvider.swift"; sourceTree = "<group>"; };
+		DB3EA8F0281B9EF600598866 /* DiscoveryCommunityViewModel+Diffable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DiscoveryCommunityViewModel+Diffable.swift"; sourceTree = "<group>"; };
 		DB427DD225BAA00100D1B89D /* Mastodon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mastodon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB427DD525BAA00100D1B89D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DB427DD725BAA00100D1B89D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -2165,6 +2177,18 @@
 			path = ForYou;
 			sourceTree = "<group>";
 		};
+		DB3EA8E7281B79E500598866 /* Community */ = {
+			isa = PBXGroup;
+			children = (
+				DB3EA8E5281B79E200598866 /* DiscoveryCommunityViewController.swift */,
+				DB3EA8EE281B837000598866 /* DiscoveryCommunityViewController+DataSourceProvider.swift */,
+				DB3EA8E8281B7A3700598866 /* DiscoveryCommunityViewModel.swift */,
+				DB3EA8F0281B9EF600598866 /* DiscoveryCommunityViewModel+Diffable.swift */,
+				DB3EA8EA281B7E0700598866 /* DiscoveryCommunityViewModel+State.swift */,
+			);
+			path = Community;
+			sourceTree = "<group>";
+		};
 		DB427DC925BAA00100D1B89D = {
 			isa = PBXGroup;
 			children = (
@@ -2258,6 +2282,7 @@
 				2D9DB96A263A91D1007C1D71 /* APIService+DomainBlock.swift */,
 				DB45FB1C25CA9D23005A8AC7 /* APIService+HomeTimeline.swift */,
 				DB482A4A261340A7008AE74C /* APIService+UserTimeline.swift */,
+				DB3EA8EC281B810100598866 /* APIService+PublicTimeline.swift */,
 				DBA465922696B495002B41DB /* APIService+WebFinger.swift */,
 				DB0AC6FB25CD02E600D75117 /* APIService+Instance.swift */,
 				DB59F10D25EF724F001F1DAB /* APIService+Poll.swift */,
@@ -3128,6 +3153,7 @@
 				DBDFF19828055A0900557A48 /* Posts */,
 				DB3E6FDE2806A41200B035AE /* Hashtags */,
 				DB3E6FED2806D7FC00B035AE /* News */,
+				DB3EA8E7281B79E500598866 /* Community */,
 				DB3E6FF62807C40500B035AE /* ForYou */,
 				DBDFF19928055A1400557A48 /* DiscoveryViewController.swift */,
 				DBDFF19B28055BD600557A48 /* DiscoveryViewModel.swift */,
@@ -4049,6 +4075,7 @@
 				DB63F7452799056400455B82 /* HashtagTableViewCell.swift in Sources */,
 				DBD9149025DF6D8D00903DFD /* APIService+Onboarding.swift in Sources */,
 				DBAE3FAF26172FC0004B8251 /* RemoteProfileViewModel.swift in Sources */,
+				DB3EA8EB281B7E0700598866 /* DiscoveryCommunityViewModel+State.swift in Sources */,
 				DB0FCB7227952986006C02E2 /* NamingState.swift in Sources */,
 				DB73BF47271199CA00781945 /* Instance.swift in Sources */,
 				DB0F8150264D1E2500F2A12B /* PickServerLoaderTableViewCell.swift in Sources */,
@@ -4181,6 +4208,7 @@
 				DB040ED126538E3D00BEE9D8 /* Trie.swift in Sources */,
 				DB73BF4B27140C0800781945 /* UITableViewDiffableDataSource.swift in Sources */,
 				DBB525642612C988002F1F29 /* MeProfileViewModel.swift in Sources */,
+				DB3EA8EF281B837000598866 /* DiscoveryCommunityViewController+DataSourceProvider.swift in Sources */,
 				DB6B74EF272FB55000C70B6E /* FollowerListViewController.swift in Sources */,
 				DB4AA6B327BA34B6009EC082 /* CellFrameCacheContainer.swift in Sources */,
 				DB0FCB942797E2B0006C02E2 /* SearchResultViewModel+Diffable.swift in Sources */,
@@ -4222,10 +4250,12 @@
 				DB697DE1278F5296004EF2F7 /* DataSourceFacade+Model.swift in Sources */,
 				DBCC3B8F26148F7B0045B23D /* CachedProfileViewModel.swift in Sources */,
 				DB4F097526A037F500D62E92 /* SearchHistoryViewModel.swift in Sources */,
+				DB3EA8E9281B7A3700598866 /* DiscoveryCommunityViewModel.swift in Sources */,
 				DB6180F826391D660018D199 /* MediaPreviewingViewController.swift in Sources */,
 				DB0140CF25C42AEE00F9F3CF /* OSLog.swift in Sources */,
 				DB98EB5627B0FF1B0082E365 /* ReportViewControllerAppearance.swift in Sources */,
 				DB938F1526241FDF00E5B6C1 /* APIService+Thread.swift in Sources */,
+				DB3EA8E6281B79E200598866 /* DiscoveryCommunityViewController.swift in Sources */,
 				2D206B8625F5FB0900143C56 /* Double.swift in Sources */,
 				DB9F58F126EF512300E7BBE9 /* AccountListTableViewCell.swift in Sources */,
 				2D76319F25C1521200929FB9 /* StatusSection.swift in Sources */,
@@ -4276,6 +4306,7 @@
 				DB73BF45271195AC00781945 /* APIService+CoreData+Instance.swift in Sources */,
 				DB336F21278D6D960031E64B /* MastodonEmoji.swift in Sources */,
 				DB1D84382657B275000346B3 /* SegmentedControlNavigateable.swift in Sources */,
+				DB3EA8ED281B810100598866 /* APIService+PublicTimeline.swift in Sources */,
 				DB447697260B439000B66B82 /* CustomEmojiPickerHeaderCollectionReusableView.swift in Sources */,
 				DB025B97278D66D5002F581E /* MastodonUser+Property.swift in Sources */,
 				DB45FAF925CA80A2005A8AC7 /* APIService+CoreData+MastodonAuthentication.swift in Sources */,
@@ -4338,6 +4369,7 @@
 				DB9D6BFF25E4F5940051B173 /* ProfileViewController.swift in Sources */,
 				DB63F756279949BD00455B82 /* Persistence+SearchHistory.swift in Sources */,
 				2D4AD8A226316CD200613EFC /* SelectedAccountSection.swift in Sources */,
+				DB3EA8F1281B9EF600598866 /* DiscoveryCommunityViewModel+Diffable.swift in Sources */,
 				DB63F775279A997D00455B82 /* NotificationTableViewCell+ViewModel.swift in Sources */,
 				DB98EB5927B109890082E365 /* ReportSupplementaryViewController.swift in Sources */,
 				DB0617EB277EF3820030EE79 /* GradientBorderView.swift in Sources */,
