@@ -1027,6 +1027,9 @@
 		DB4F097E26A03DA600D62E92 /* SearchHistoryFetchedResultController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryFetchedResultController.swift; sourceTree = "<group>"; };
 		DB4FFC29269EC39600D62E92 /* SearchToSearchDetailViewControllerAnimatedTransitioning.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchToSearchDetailViewControllerAnimatedTransitioning.swift; sourceTree = "<group>"; };
 		DB4FFC2A269EC39600D62E92 /* SearchTransitionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTransitionController.swift; sourceTree = "<group>"; };
+		DB519B09281BCA2E00F0C99D /* ckb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ckb; path = ckb.lproj/Intents.strings; sourceTree = "<group>"; };
+		DB519B0A281BCA2E00F0C99D /* ckb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ckb; path = ckb.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DB519B0B281BCA4300F0C99D /* ckb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ckb; path = ckb.lproj/Intents.stringsdict; sourceTree = "<group>"; };
 		DB51D170262832380062B7A1 /* BlurHashDecode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlurHashDecode.swift; sourceTree = "<group>"; };
 		DB51D171262832380062B7A1 /* BlurHashEncode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlurHashEncode.swift; sourceTree = "<group>"; };
 		DB564BD2269F3B35001E39A7 /* StatusFilterService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusFilterService.swift; sourceTree = "<group>"; };
@@ -3518,6 +3521,7 @@
 				kab,
 				vi,
 				sv,
+				ckb,
 			);
 			mainGroup = DB427DC925BAA00100D1B89D;
 			packageReferences = (
@@ -4463,6 +4467,7 @@
 				DBF81C7427F68F5A00004A56 /* kab */,
 				DBF81C7727F6913300004A56 /* vi */,
 				DB8D8E3128196FA0009FD90F /* sv */,
+				DB519B09281BCA2E00F0C99D /* ckb */,
 			);
 			name = Intents.intentdefinition;
 			sourceTree = "<group>";
@@ -4489,6 +4494,7 @@
 				DBF81C7527F68F5A00004A56 /* kab */,
 				DBF81C7827F6913300004A56 /* vi */,
 				DB8D8E3228196FA0009FD90F /* sv */,
+				DB519B0A281BCA2E00F0C99D /* ckb */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -4531,6 +4537,7 @@
 				DBF81C7627F68F5A00004A56 /* kab */,
 				DBF81C7927F6913300004A56 /* vi */,
 				DB8D8E3328196FA0009FD90F /* sv */,
+				DB519B0B281BCA4300F0C99D /* ckb */,
 			);
 			name = Intents.stringsdict;
 			sourceTree = "<group>";

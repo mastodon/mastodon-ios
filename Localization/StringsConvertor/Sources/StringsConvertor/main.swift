@@ -60,6 +60,7 @@ private func map(language: String) -> String? {
     case "kmr_TR":  return "ku"         // Kurmanji (Kurdish)
     case "ru_RU":   return "ru"         // Russian
     case "gd_GB":   return "gd-GB"      // Scottish Gaelic
+    case "ckb_IR":  return "ckb"        // Sorani (Kurdish)
     case "es_ES":   return "es"         // Spanish
     case "es_AR":   return "es-419"     // Spanish, Argentina
     case "sv-SE":   return "sv"         // Swedish
