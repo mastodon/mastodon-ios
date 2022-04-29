@@ -126,14 +126,22 @@ extension MastodonPickServerViewModel {
                 // append to dict
                 languageToServersMapping[languageCode] = indexedServers
                     .filter { $0.language.lowercased() == languageCode.lowercased() }
-                    .sorted(by: { $0.totalUsers > $1.totalUsers })
+                    .sorted(by: { lh, rh in
+                        let lhValue = abs(log2(800.0) - log2(Double(lh.lastWeekUsers)))
+                        let rhValue = abs(log2(800.0) - log2(Double(rh.lastWeekUsers)))
+                        return lhValue > rhValue
+                    })
             }
             // sort remains servers by `totalUsers`
             let remainsServers = indexedServers
                 .filter { server in
                     return !languageToServersMapping.contains { _, servers in servers.contains(server) }
                 }
-                .sorted(by: { $0.totalUsers > $1.totalUsers })
+                .sorted(by: { lh, rh in
+                    let lhValue = abs(log2(800.0) - log2(Double(lh.lastWeekUsers)))
+                    let rhValue = abs(log2(800.0) - log2(Double(rh.lastWeekUsers)))
+                    return lhValue > rhValue
+                })
             
             var _indexedServers: [Mastodon.Entity.Server] = []
             for key in languageToServersMapping.keys {
