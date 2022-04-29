@@ -240,11 +240,11 @@
                 "category": "CATEGORIA"
             },
             "input": {
-                "placeholder": "Troba un servidor o uneix-te al teu..."
+                "placeholder": "Cerca servidors"
             },
             "empty_state": {
                 "finding_servers": "Cercant els servidors disponibles...",
-                "bad_network": "S'ha produït un error en carregar les dades. Comprova la teva connexió a Internet.",
+                "bad_network": "Alguna cosa no ha anat bé en carregar les dades. Comprova la teva connexió a Internet.",
                 "no_results": "No hi ha resultats"
             }
         },
