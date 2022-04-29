@@ -498,6 +498,7 @@
                 "posts": "Argitalpenak",
                 "hashtags": "Traolak",
                 "news": "Albisteak",
+                "community": "Community",
                 "for_you": "Zuretzat"
             },
             "intro": "These are the posts gaining traction in your corner of Mastodon."
