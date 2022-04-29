@@ -19,7 +19,7 @@
 		<key>Mastodon - RTL.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>6</integer>
+			<integer>7</integer>
 		</dict>
 		<key>Mastodon - Release.xcscheme_^#shared#^_</key>
 		<dict>
@@ -109,7 +109,7 @@
 		<key>MastodonIntent.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>29</integer>
+			<integer>24</integer>
 		</dict>
 		<key>MastodonIntents.xcscheme_^#shared#^_</key>
 		<dict>
@@ -124,12 +124,12 @@
 		<key>NotificationService.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>31</integer>
+			<integer>23</integer>
 		</dict>
 		<key>ShareActionExtension.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>30</integer>
+			<integer>22</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
