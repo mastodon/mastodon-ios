@@ -202,7 +202,7 @@ caricato su Mastodon.";
 "Scene.ConfirmEmail.Subtitle" = "Tocca il link che ti abbiamo inviato per verificare il tuo account.";
 "Scene.ConfirmEmail.Title" = "Un'ultima cosa.";
 "Scene.Discovery.Intro" = "Questi sono i post che stanno guadagnando popolarità nel tuo angolo di Mastodon.";
-"Scene.Discovery.Tabs.Community" = "Community";
+"Scene.Discovery.Tabs.Community" = "Comunità";
 "Scene.Discovery.Tabs.ForYou" = "Per Te";
 "Scene.Discovery.Tabs.Hashtags" = "Hashtag";
 "Scene.Discovery.Tabs.News" = "Notizie";
