@@ -157,7 +157,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>%ld röst</string>
+        <string>%ld röstare</string>
         <key>other</key>
         <string>%ld röster</string>
       </dict>
