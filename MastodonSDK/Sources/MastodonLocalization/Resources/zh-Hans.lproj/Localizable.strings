@@ -203,6 +203,7 @@
 点击链接确认你的帐户。";
 "Scene.ConfirmEmail.Title" = "最后一件事。";
 "Scene.Discovery.Intro" = "这些嘟文在你的长毛象小宇宙中备受关注。";
+"Scene.Discovery.Tabs.Community" = "社区";
 "Scene.Discovery.Tabs.ForYou" = "为你推荐";
 "Scene.Discovery.Tabs.Hashtags" = "话题标签";
 "Scene.Discovery.Tabs.News" = "最新消息";

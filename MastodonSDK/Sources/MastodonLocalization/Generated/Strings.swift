@@ -549,6 +549,8 @@ public enum L10n {
       /// These are the posts gaining traction in your corner of Mastodon.
       public static let intro = L10n.tr("Localizable", "Scene.Discovery.Intro")
       public enum Tabs {
+        /// Community
+        public static let community = L10n.tr("Localizable", "Scene.Discovery.Tabs.Community")
         /// For You
         public static let forYou = L10n.tr("Localizable", "Scene.Discovery.Tabs.ForYou")
         /// Hashtags
@@ -892,11 +894,11 @@ public enum L10n {
       }
     }
     public enum ServerPicker {
-      /// Pick a community based on your interests, region, or a general purpose one.
+      /// Pick a server based on your interests, region, or a general purpose one.
       public static let subtitle = L10n.tr("Localizable", "Scene.ServerPicker.Subtitle")
-      /// Pick a community based on your interests, region, or a general purpose one. Each community is operated by an entirely independent organization or individual.
+      /// Pick a server based on your interests, region, or a general purpose one. Each server is operated by an entirely independent organization or individual.
       public static let subtitleExtend = L10n.tr("Localizable", "Scene.ServerPicker.SubtitleExtend")
-      /// Mastodon is made of users in different communities.
+      /// Mastodon is made of users in different servers.
       public static let title = L10n.tr("Localizable", "Scene.ServerPicker.Title")
       public enum Button {
         /// See Less
@@ -943,7 +945,7 @@ public enum L10n {
         public static let noResults = L10n.tr("Localizable", "Scene.ServerPicker.EmptyState.NoResults")
       }
       public enum Input {
-        /// Search communities
+        /// Search servers
         public static let placeholder = L10n.tr("Localizable", "Scene.ServerPicker.Input.Placeholder")
       }
       public enum Label {

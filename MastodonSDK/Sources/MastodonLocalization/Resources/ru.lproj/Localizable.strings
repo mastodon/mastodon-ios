@@ -213,6 +213,7 @@
 подтвердить свою учётную запись.";
 "Scene.ConfirmEmail.Title" = "И ещё кое-что.";
 "Scene.Discovery.Intro" = "These are the posts gaining traction in your corner of Mastodon.";
+"Scene.Discovery.Tabs.Community" = "Сообщество";
 "Scene.Discovery.Tabs.ForYou" = "For You";
 "Scene.Discovery.Tabs.Hashtags" = "Hashtags";
 "Scene.Discovery.Tabs.News" = "News";
@@ -346,7 +347,7 @@
 "Scene.ServerPicker.Label.Language" = "ЯЗЫК";
 "Scene.ServerPicker.Label.Users" = "ПОЛЬЗОВАТЕЛИ";
 "Scene.ServerPicker.Subtitle" = "Выберите сообщество на основе своих интересов, региона или общей тематики.";
-"Scene.ServerPicker.SubtitleExtend" = "Pick a community based on your interests, region, or a general purpose one. Each community is operated by an entirely independent organization or individual.";
+"Scene.ServerPicker.SubtitleExtend" = "Pick a server based on your interests, region, or a general purpose one. Each server is operated by an entirely independent organization or individual.";
 "Scene.ServerPicker.Title" = "Выберите сервер,
 любой сервер.";
 "Scene.ServerRules.Button.Confirm" = "Принимаю";

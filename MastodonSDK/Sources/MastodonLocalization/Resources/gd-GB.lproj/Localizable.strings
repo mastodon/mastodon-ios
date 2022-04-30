@@ -203,6 +203,7 @@ a luchdadh suas gu Mastodon.";
 thoir gnogag air a’ chunntas a dhearbhadh a’ chunntais agad.";
 "Scene.ConfirmEmail.Title" = "Aon rud eile.";
 "Scene.Discovery.Intro" = "Seo na postaichean fèillmhor ’nad cheàrnaidh de Mhastodon.";
+"Scene.Discovery.Tabs.Community" = "Community";
 "Scene.Discovery.Tabs.ForYou" = "Dhut-sa";
 "Scene.Discovery.Tabs.Hashtags" = "Tagaichean hais";
 "Scene.Discovery.Tabs.News" = "Naidheachdan";

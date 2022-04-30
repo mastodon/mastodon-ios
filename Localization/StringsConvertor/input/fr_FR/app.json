@@ -498,6 +498,7 @@
                 "posts": "Messages",
                 "hashtags": "Hashtags",
                 "news": "Actualité",
+                "community": "Community",
                 "for_you": "Pour vous"
             },
             "intro": "These are the posts gaining traction in your corner of Mastodon."

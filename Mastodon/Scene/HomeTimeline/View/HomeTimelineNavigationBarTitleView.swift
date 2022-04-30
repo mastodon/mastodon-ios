@@ -108,6 +108,8 @@ extension HomeTimelineNavigationBarTitleView {
             logoButton.setImage(Asset.Asset.mastodonTextLogo.image.withRenderingMode(.alwaysTemplate), for: .normal)
             logoButton.contentMode = .center
             logoButton.isHidden = false
+            logoButton.accessibilityLabel = "Logo Button"   // TODO :i18n
+            logoButton.accessibilityHint = "Tap to scroll to top and tap again to previous location"
         case .newPostButton:
             configureButton(
                 title: L10n.Scene.HomeTimeline.NavigationBarState.newPosts,
@@ -115,6 +117,7 @@ extension HomeTimelineNavigationBarTitleView {
                 backgroundColor: Asset.Colors.brandBlue.color
             )
             button.isHidden = false
+            button.accessibilityLabel = L10n.Scene.HomeTimeline.NavigationBarState.newPosts
         case .offlineButton:
             configureButton(
                 title: L10n.Scene.HomeTimeline.NavigationBarState.offline,
@@ -122,12 +125,14 @@ extension HomeTimelineNavigationBarTitleView {
                 backgroundColor: Asset.Colors.danger.color
             )
             button.isHidden = false
+            button.accessibilityLabel = L10n.Scene.HomeTimeline.NavigationBarState.offline
         case .publishingPostLabel:
             label.font = .systemFont(ofSize: 17, weight: .semibold)
             label.textColor = Asset.Colors.Label.primary.color
             label.text = L10n.Scene.HomeTimeline.NavigationBarState.publishing
             label.textAlignment = .center
             label.isHidden = false
+            button.accessibilityLabel = L10n.Scene.HomeTimeline.NavigationBarState.publishing
         case .publishedButton:
             blockingState = state
             configureButton(
@@ -136,6 +141,7 @@ extension HomeTimelineNavigationBarTitleView {
                 backgroundColor: Asset.Colors.successGreen.color
             )
             button.isHidden = false
+            button.accessibilityLabel = L10n.Scene.HomeTimeline.NavigationBarState.published
             
             let presentDuration: TimeInterval = 0.33
             let scaleAnimator = UIViewPropertyAnimator(duration: presentDuration, timingParameters: UISpringTimingParameters())

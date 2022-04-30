@@ -158,7 +158,7 @@ extension DiscoveryNewsViewController: PageViewController {
 
 // MARK: - PageViewController
 extension DiscoveryCommunityViewController: PageViewController {
-    var tabItemTitle: String { "Community" }
+    var tabItemTitle: String { L10n.Scene.Discovery.Tabs.community }
     var tabItem: TMBarItemable {
         return TMBarItem(title: tabItemTitle)
     }

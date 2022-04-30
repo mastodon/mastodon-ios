@@ -342,8 +342,12 @@
                 "offline": "Offline",
                 "new_posts": "See new posts",
                 "published": "Published!",
-                "Publishing": "Publishing post..."
-            }
+                "Publishing": "Publishing post...",
+                "accessibility": {
+                    "logo_label": "Logo Button",
+                    "logo_hint": "Tap to scroll to top and tap again to previous location"
+                }
+            },
         },
         "suggestion_account": {
             "title": "Find People to Follow",

@@ -145,56 +145,56 @@
                     "menu": "Menú",
                     "hide": "Agochar",
                     "show_image": "Mostrar a imaxe",
-                    "show_gif": "Show GIF",
-                    "show_video_player": "Show video player",
-                    "tap_then_hold_to_show_menu": "Tap then hold to show menu"
+                    "show_gif": "Mostrar GIF",
+                    "show_video_player": "Mostrar reprodutor de vídeo",
+                    "tap_then_hold_to_show_menu": "Toca e mantén preso para menú"
                 },
                 "tag": {
                     "url": "URL",
-                    "mention": "Mention",
-                    "link": "Link",
-                    "hashtag": "Hashtag",
+                    "mention": "Mención",
+                    "link": "Ligazón",
+                    "hashtag": "Cancelo",
                     "email": "Email",
-                    "emoji": "Emoji"
+                    "emoji": "Emoticona"
                 },
                 "visibility": {
-                    "unlisted": "Everyone can see this post but not display in the public timeline.",
-                    "private": "Only their followers can see this post.",
-                    "private_from_me": "Only my followers can see this post.",
-                    "direct": "Only mentioned user can see this post."
+                    "unlisted": "A publicación é visible para calquera pero non aparece na cronoloxía pública.",
+                    "private": "Só as seguidoras poden ver a publicación.",
+                    "private_from_me": "Só as miñas seguidoras poden ver esta publicación.",
+                    "direct": "Só a usuaria mencionada pode ver a publicación."
                 }
             },
             "friendship": {
-                "follow": "Follow",
-                "following": "Following",
-                "request": "Request",
-                "pending": "Pending",
-                "block": "Block",
-                "block_user": "Block %s",
-                "block_domain": "Block %s",
-                "unblock": "Unblock",
-                "unblock_user": "Unblock %s",
-                "blocked": "Blocked",
-                "mute": "Mute",
-                "mute_user": "Mute %s",
-                "unmute": "Unmute",
-                "unmute_user": "Unmute %s",
-                "muted": "Muted",
-                "edit_info": "Edit Info"
+                "follow": "Seguir",
+                "following": "Seguindo",
+                "request": "Solicitar",
+                "pending": "Pendente",
+                "block": "Bloquear",
+                "block_user": "Bloquear a %s",
+                "block_domain": "Bloquear a %s",
+                "unblock": "Desbloquear",
+                "unblock_user": "Desbloquear a %s",
+                "blocked": "Bloqueada",
+                "mute": "Acalar",
+                "mute_user": "Acalar a %s",
+                "unmute": "Non Acalar",
+                "unmute_user": "Deixar de acalar a @%s",
+                "muted": "Acalada",
+                "edit_info": "Editar info"
             },
             "timeline": {
-                "filtered": "Filtered",
+                "filtered": "Filtrado",
                 "timestamp": {
-                    "now": "Now"
+                    "now": "Agora"
                 },
                 "loader": {
-                    "load_missing_posts": "Load missing posts",
-                    "loading_missing_posts": "Loading missing posts...",
-                    "show_more_replies": "Show more replies"
+                    "load_missing_posts": "Cargar publicacións que faltan",
+                    "loading_missing_posts": "Cargando as publicacións que faltan...",
+                    "show_more_replies": "Mostrar máis respostas"
                 },
                 "header": {
-                    "no_status_found": "No Post Found",
-                    "blocking_warning": "You can’t view this user's profile\nuntil you unblock them.\nYour profile looks like this to them.",
+                    "no_status_found": "Non se atopa a publicación",
+                    "blocking_warning": "Non podes ver o perfil da usuaria\nata que a desbloquees.\nAsí ven outras o teu perfil.",
                     "user_blocking_warning": "You can’t view %s’s profile\nuntil you unblock them.\nYour profile looks like this to them.",
                     "blocked_warning": "You can’t view this user’s profile\nuntil they unblock you.",
                     "user_blocked_warning": "You can’t view %s’s profile\nuntil they unblock you.",
@@ -207,17 +207,17 @@
     "scene": {
         "welcome": {
             "slogan": "Social networking\nback in your hands.",
-            "get_started": "Get Started",
-            "log_in": "Log In"
+            "get_started": "Comezar",
+            "log_in": "Acceder"
         },
         "server_picker": {
-            "title": "Mastodon is made of users in different communities.",
-            "subtitle": "Pick a community based on your interests, region, or a general purpose one.",
-            "subtitle_extend": "Pick a community based on your interests, region, or a general purpose one. Each community is operated by an entirely independent organization or individual.",
+            "title": "Mastodon fórmano as persoas das diferentes comunidades.",
+            "subtitle": "Elixe unha comunidade en función dos teus intereses, rexión ou unha de propósito xeral.",
+            "subtitle_extend": "Elixe unha comunidade en función dos teus intereses, rexión ou unha de propósito xeral. Cada comunidade está xestionada por unha organización totalmente independente ou unha única persoa.",
             "button": {
                 "category": {
-                    "all": "All",
-                    "all_accessiblity_description": "Category: All",
+                    "all": "Todo",
+                    "all_accessiblity_description": "Categoría: Todo",
                     "academia": "academia",
                     "activism": "activismo",
                     "food": "comida",
@@ -374,16 +374,16 @@
                 "thirty_minutes": "30 minutes",
                 "one_hour": "1 Hour",
                 "six_hours": "6 Hours",
-                "one_day": "1 Day",
-                "three_days": "3 Days",
-                "seven_days": "7 Days",
-                "option_number": "Option %ld"
+                "one_day": "1 Día",
+                "three_days": "3 Días",
+                "seven_days": "7 Días",
+                "option_number": "Opción %ld"
             },
             "content_warning": {
-                "placeholder": "Write an accurate warning here..."
+                "placeholder": "Escribe o teu aviso aquí..."
             },
             "visibility": {
-                "public": "Public",
+                "public": "Público",
                 "unlisted": "Non listado",
                 "private": "Só para seguidoras",
                 "direct": "Só para persoas mencionadas"
@@ -412,92 +412,93 @@
         "profile": {
             "dashboard": {
                 "posts": "publicacións",
-                "following": "following",
-                "followers": "followers"
+                "following": "seguindo",
+                "followers": "seguidoras"
             },
             "fields": {
-                "add_row": "Add Row",
+                "add_row": "Engadir fila",
                 "placeholder": {
-                    "label": "Label",
-                    "content": "Content"
+                    "label": "Etiqueta",
+                    "content": "Contido"
                 }
             },
             "segmented_control": {
-                "posts": "Posts",
-                "replies": "Replies",
-                "posts_and_replies": "Posts and Replies",
-                "media": "Media",
-                "about": "About"
+                "posts": "Publicacións",
+                "replies": "Respostas",
+                "posts_and_replies": "Publicacións e respostas",
+                "media": "Multimedia",
+                "about": "Acerca de"
             },
             "relationship_action_alert": {
                 "confirm_mute_user": {
-                    "title": "Mute Account",
-                    "message": "Confirm to mute %s"
+                    "title": "Acalar conta",
+                    "message": "Confirma Acalar a %s"
                 },
                 "confirm_unmute_user": {
-                    "title": "Unmute Account",
-                    "message": "Confirm to unmute %s"
+                    "title": "Retirar acalado da Conta",
+                    "message": "Confirma restablecer a %s"
                 },
                 "confirm_block_user": {
-                    "title": "Block Account",
-                    "message": "Confirm to block %s"
+                    "title": "Bloquear Conta",
+                    "message": "Confirma o bloqueo de %s"
                 },
                 "confirm_unblock_user": {
-                    "title": "Unblock Account",
-                    "message": "Confirm to unblock %s"
+                    "title": "Desbloquear Conta",
+                    "message": "Confirma o desbloqueo de %s"
                 }
             },
             "accessibility": {
-                "show_avatar_image": "Show avatar image",
-                "edit_avatar_image": "Edit avatar image",
-                "show_banner_image": "Show banner image",
-                "double_tap_to_open_the_list": "Double tap to open the list"
+                "show_avatar_image": "Mostrar imaxe de avatar",
+                "edit_avatar_image": "Editar imaxe de avatar",
+                "show_banner_image": "Mostrar imaxe de cabeceira",
+                "double_tap_to_open_the_list": "Dous toques para abrir a lista"
             }
         },
         "follower": {
-            "footer": "Followers from other servers are not displayed."
+            "footer": "Non se mostran seguidoras desde outros servidores."
         },
         "following": {
-            "footer": "Follows from other servers are not displayed."
+            "footer": "Non se mostran os seguimentos desde outros servidores."
         },
         "search": {
-            "title": "Search",
+            "title": "Procurar",
             "search_bar": {
-                "placeholder": "Search hashtags and users",
-                "cancel": "Cancel"
+                "placeholder": "Buscar cancelos e usuarias",
+                "cancel": "Cancelar"
             },
             "recommend": {
-                "button_text": "See All",
+                "button_text": "Ver todo",
                 "hash_tag": {
-                    "title": "Trending on Mastodon",
-                    "description": "Hashtags that are getting quite a bit of attention",
-                    "people_talking": "%s people are talking"
+                    "title": "En voga en Mastodon",
+                    "description": "Cancelos que están recibindo moita atención",
+                    "people_talking": "%s persoas están comentando"
                 },
                 "accounts": {
-                    "title": "Accounts you might like",
-                    "description": "You may like to follow these accounts",
-                    "follow": "Follow"
+                    "title": "Contas que poderían gustarche",
+                    "description": "Mira se che interesan estas contas",
+                    "follow": "Seguir"
                 }
             },
             "searching": {
                 "segment": {
-                    "all": "All",
-                    "people": "People",
-                    "hashtags": "Hashtags",
-                    "posts": "Posts"
+                    "all": "Todo",
+                    "people": "Persoas",
+                    "hashtags": "Cancelos",
+                    "posts": "Publicacións"
                 },
                 "empty_state": {
-                    "no_results": "No results"
+                    "no_results": "Sen resultados"
                 },
-                "recent_search": "Recent searches",
-                "clear": "Clear"
+                "recent_search": "Buscas recentes",
+                "clear": "Limpar"
             }
         },
         "discovery": {
             "tabs": {
-                "posts": "Posts",
-                "hashtags": "Hashtags",
-                "news": "News",
+                "posts": "Publicacións",
+                "hashtags": "Cancelos",
+                "news": "Novas",
+                "community": "Comunidade",
                 "for_you": "For You"
             },
             "intro": "These are the posts gaining traction in your corner of Mastodon."
@@ -585,23 +586,23 @@
             }
         },
         "report": {
-            "title_report": "Report",
-            "title": "Report %s",
-            "step1": "Step 1 of 2",
-            "step2": "Step 2 of 2",
-            "content1": "Are there any other posts you’d like to add to the report?",
-            "content2": "Is there anything the moderators should know about this report?",
-            "report_sent_title": "Thanks for reporting, we’ll look into this.",
-            "send": "Send Report",
-            "skip_to_send": "Send without comment",
-            "text_placeholder": "Type or paste additional comments",
-            "reported": "REPORTED"
+            "title_report": "Denunciar",
+            "title": "Denunciar a %s",
+            "step1": "Paso 1 de 2",
+            "step2": "Paso 2 de 2",
+            "content1": "Hai outras publicacións que desexes engadir á denuncia?",
+            "content2": "Hai algo que a moderación deba saber acerca desta denuncia?",
+            "report_sent_title": "Grazas pola denuncia, investigarémola.",
+            "send": "Enviar Denuncia",
+            "skip_to_send": "Enviar sen comentarios",
+            "text_placeholder": "Escribe ou pega comentarios adicionais",
+            "reported": "DENUNCIADO"
         },
         "preview": {
             "keyboard": {
-                "close_preview": "Close Preview",
-                "show_next": "Show Next",
-                "show_previous": "Show Previous"
+                "close_preview": "Pechar vista previa",
+                "show_next": "Mostrar Seguinte",
+                "show_previous": "Mostar Anterior"
             }
         },
         "account_list": {

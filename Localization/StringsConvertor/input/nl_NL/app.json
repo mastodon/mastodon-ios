@@ -498,6 +498,7 @@
                 "posts": "Berichten",
                 "hashtags": "Hashtags",
                 "news": "Nieuws",
+                "community": "Community",
                 "for_you": "Voor jou"
             },
             "intro": "Dit zijn de berichten die populair zijn in jouw Mastodon-kringen."

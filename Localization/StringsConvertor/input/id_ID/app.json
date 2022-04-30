@@ -212,8 +212,8 @@
         },
         "server_picker": {
             "title": "Pilih sebuah server,\nserver manapun.",
-            "subtitle": "Pick a community based on your interests, region, or a general purpose one.",
-            "subtitle_extend": "Pick a community based on your interests, region, or a general purpose one. Each community is operated by an entirely independent organization or individual.",
+            "subtitle": "Pick a server based on your interests, region, or a general purpose one.",
+            "subtitle_extend": "Pick a server based on your interests, region, or a general purpose one. Each server is operated by an entirely independent organization or individual.",
             "button": {
                 "category": {
                     "all": "Semua",
@@ -240,7 +240,7 @@
                 "category": "KATEGORI"
             },
             "input": {
-                "placeholder": "Search communities"
+                "placeholder": "Search servers"
             },
             "empty_state": {
                 "finding_servers": "Mencari server yang tersedia...",
@@ -498,6 +498,7 @@
                 "posts": "Posts",
                 "hashtags": "Hashtags",
                 "news": "News",
+                "community": "Community",
                 "for_you": "For You"
             },
             "intro": "These are the posts gaining traction in your corner of Mastodon."
