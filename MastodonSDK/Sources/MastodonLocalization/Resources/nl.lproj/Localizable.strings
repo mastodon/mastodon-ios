@@ -197,6 +197,7 @@ Uw profiel ziet er zo uit voor hen.";
 klik op de link om uw account te bevestigen.";
 "Scene.ConfirmEmail.Title" = "Nog één ding.";
 "Scene.Discovery.Intro" = "Dit zijn de berichten die populair zijn in jouw Mastodon-kringen.";
+"Scene.Discovery.Tabs.Community" = "Community";
 "Scene.Discovery.Tabs.ForYou" = "Voor jou";
 "Scene.Discovery.Tabs.Hashtags" = "Hashtags";
 "Scene.Discovery.Tabs.News" = "Nieuws";

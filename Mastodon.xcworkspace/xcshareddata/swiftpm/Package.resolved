@@ -105,8 +105,8 @@
         "repositoryURL": "https://github.com/TwidereProject/MetaTextKit.git",
         "state": {
           "branch": null,
-          "revision": "8074400b3819ef0395550082e6e8e960ef22e1f3",
-          "version": "2.2.2"
+          "revision": "2b9556a78b2986b8c0b04adc6da8ec206b448a0c",
+          "version": "2.2.3"
         }
       },
       {
@@ -114,8 +114,8 @@
         "repositoryURL": "https://github.com/kean/Nuke.git",
         "state": {
           "branch": null,
-          "revision": "78fa963b8491fc520791d8c2a509f1b8593d8aae",
-          "version": "10.7.1"
+          "revision": "0ea7545b5c918285aacc044dc75048625c8257cc",
+          "version": "10.8.0"
         }
       },
       {

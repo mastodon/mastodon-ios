@@ -498,6 +498,7 @@
                 "posts": "Beiträge",
                 "hashtags": "Hashtags",
                 "news": "Nachrichten",
+                "community": "Community",
                 "for_you": "Für dich"
             },
             "intro": "These are the posts gaining traction in your corner of Mastodon."

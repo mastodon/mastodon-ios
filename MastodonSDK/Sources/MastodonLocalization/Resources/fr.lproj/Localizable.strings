@@ -203,6 +203,7 @@ téléversé sur Mastodon.";
 tapotez le lien pour confirmer votre compte.";
 "Scene.ConfirmEmail.Title" = "Une dernière chose.";
 "Scene.Discovery.Intro" = "These are the posts gaining traction in your corner of Mastodon.";
+"Scene.Discovery.Tabs.Community" = "Community";
 "Scene.Discovery.Tabs.ForYou" = "Pour vous";
 "Scene.Discovery.Tabs.Hashtags" = "Hashtags";
 "Scene.Discovery.Tabs.News" = "Actualité";

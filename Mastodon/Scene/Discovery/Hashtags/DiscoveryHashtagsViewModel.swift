@@ -73,4 +73,5 @@ extension DiscoveryHashtagsViewModel {
         hashtags = response.value.filter { !$0.name.isEmpty }
         logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): fetch tags: \(response.value.count)")
     }
+    
 }

@@ -7,7 +7,6 @@
 
 import UIKit
 import Combine
-import AppShared
 import MastodonCommon
 
 // ref: https://zamzam.io/protocol-oriented-themes-for-ios-apps/

@@ -197,6 +197,7 @@
 "Scene.ConfirmEmail.Subtitle" = "先程 %@ にメールを送信しました。リンクをタップしてアカウントを確認してください。";
 "Scene.ConfirmEmail.Title" = "さいごにもうひとつ。";
 "Scene.Discovery.Intro" = "These are the posts gaining traction in your corner of Mastodon.";
+"Scene.Discovery.Tabs.Community" = "Community";
 "Scene.Discovery.Tabs.ForYou" = "For You";
 "Scene.Discovery.Tabs.Hashtags" = "ハッシュタグ";
 "Scene.Discovery.Tabs.News" = "ニュース";

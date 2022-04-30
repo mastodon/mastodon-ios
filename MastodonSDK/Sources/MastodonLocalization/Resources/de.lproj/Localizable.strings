@@ -203,6 +203,7 @@ kann nicht auf Mastodon hochgeladen werden.";
 tippe darin auf den Link, um Dein Konto zu bestätigen.";
 "Scene.ConfirmEmail.Title" = "Noch eine letzte Sache.";
 "Scene.Discovery.Intro" = "These are the posts gaining traction in your corner of Mastodon.";
+"Scene.Discovery.Tabs.Community" = "Community";
 "Scene.Discovery.Tabs.ForYou" = "Für dich";
 "Scene.Discovery.Tabs.Hashtags" = "Hashtags";
 "Scene.Discovery.Tabs.News" = "Nachrichten";

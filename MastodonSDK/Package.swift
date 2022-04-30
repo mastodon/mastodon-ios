@@ -20,19 +20,14 @@ let package = Package(
                 "MastodonLocalization",
                 "MastodonSDK",
                 "MastodonUI",
-            ]),
-        .library(
-            name: "MastodonCommon",
-            targets: [
-                "MastodonCommon",
-            ]),
+            ])
     ],
     dependencies: [
         .package(url: "https://github.com/SwiftyJSON/SwiftyJSON.git", from: "5.0.0"),
         .package(url: "https://github.com/apple/swift-nio.git", from: "1.0.0"),
         .package(url: "https://github.com/kean/Nuke.git", from: "10.3.1"),
         .package(url: "https://github.com/Flipboard/FLAnimatedImage.git", from: "1.0.0"),
-        .package(url: "https://github.com/TwidereProject/MetaTextKit.git", .exact("2.2.2")),
+        .package(url: "https://github.com/TwidereProject/MetaTextKit.git", .exact("2.2.3")),
         .package(url: "https://github.com/Alamofire/Alamofire.git", from: "5.4.0"),
         .package(url: "https://github.com/Alamofire/AlamofireImage.git", from: "4.1.0"),
         .package(name: "NukeFLAnimatedImagePlugin", url: "https://github.com/kean/Nuke-FLAnimatedImage-Plugin.git", from: "8.0.0"),
@@ -88,15 +83,15 @@ let package = Package(
                 "MastodonExtension",
                 "MastodonAsset",
                 "MastodonLocalization",
-                "Nuke",
-                "NukeFLAnimatedImagePlugin",
-                "UITextView+Placeholder",
-                "Introspect",
                 .product(name: "Alamofire", package: "Alamofire"),
                 .product(name: "AlamofireImage", package: "AlamofireImage"),
-                .product(name: "MetaTextKit", package: "MetaTextKit"),
                 .product(name: "FLAnimatedImage", package: "FLAnimatedImage"),
                 .product(name: "FaviconFinder", package: "FaviconFinder"),
+                .product(name: "MetaTextKit", package: "MetaTextKit"),
+                .product(name: "Nuke", package: "Nuke"),
+                .product(name: "NukeFLAnimatedImagePlugin", package: "NukeFLAnimatedImagePlugin"),
+                .product(name: "Introspect", package: "Introspect"),
+                .product(name: "UITextView+Placeholder", package: "UITextView+Placeholder"),
             ]
         ),
         .testTarget(

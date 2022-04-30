@@ -498,6 +498,7 @@
                 "posts": "投稿",
                 "hashtags": "ハッシュタグ",
                 "news": "ニュース",
+                "community": "Community",
                 "for_you": "For You"
             },
             "intro": "These are the posts gaining traction in your corner of Mastodon."

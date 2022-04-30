@@ -180,7 +180,7 @@ extension DiscoveryPostsViewModel.State {
                     }
                     viewModel.statusFetchedResultsController.statusIDs.value = statusIDs
                     viewModel.didLoadLatest.send()
-//                } catch let error as? 
+                    
                 } catch {
                     logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): fetch posts fail: \(error.localizedDescription)")
                     if let error = error as? Mastodon.API.Error, error.httpResponseStatus.code == 404 {
