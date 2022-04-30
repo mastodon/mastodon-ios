@@ -498,7 +498,7 @@
                 "posts": "Inlägg",
                 "hashtags": "Hashtaggar",
                 "news": "Nyheter",
-                "community": "Gemenskap",
+                "community": "Server",
                 "for_you": "För dig"
             },
             "intro": "Detta är de inlägg som engagerar i ditt hörn av Mastodon."
