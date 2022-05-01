@@ -56,7 +56,7 @@
         "controls": {
             "actions": {
                 "back": "戻る",
-                "next": "次",
+                "next": "次へ",
                 "previous": "前",
                 "open": "開く",
                 "add": "追加",
@@ -207,7 +207,7 @@
     "scene": {
         "welcome": {
             "slogan": "ソーシャルネットワーキングを、あなたの手の中に.",
-            "get_started": "Get Started",
+            "get_started": "はじめる",
             "log_in": "ログイン"
         },
         "server_picker": {
