@@ -309,71 +309,71 @@
         },
         "server_rules": {
             "title": "Algunhas regras básicas.",
-            "subtitle": "These are set and enforced by the %s moderators.",
-            "prompt": "By continuing, you’re subject to the terms of service and privacy policy for %s.",
-            "terms_of_service": "terms of service",
-            "privacy_policy": "privacy policy",
+            "subtitle": "Son establecidas e aplicadas pola moderación de %s.",
+            "prompt": "Ao continuar, acatas os termos do servizo e a política de privacidade para %s.",
+            "terms_of_service": "termos do servizo",
+            "privacy_policy": "polícica de privacidade",
             "button": {
-                "confirm": "I Agree"
+                "confirm": "Acepto"
             }
         },
         "confirm_email": {
-            "title": "One last thing.",
-            "subtitle": "Tap the link we emailed to you to verify your account.",
+            "title": "O último detalle.",
+            "subtitle": "Preme na ligazón que che enviamos ao email para verificar a conta.",
             "button": {
-                "open_email_app": "Open Email App",
-                "resend": "Resend"
+                "open_email_app": "Abrir app de email",
+                "resend": "Reenviar"
             },
             "dont_receive_email": {
-                "title": "Check your email",
-                "description": "Check if your email address is correct as well as your junk folder if you haven’t.",
-                "resend_email": "Resend Email"
+                "title": "Revisa o teu correo",
+                "description": "Comproba que o enderezo de email é correcto e que non vaia directo ao cartafol de spam.",
+                "resend_email": "Volver enviar o correo"
             },
             "open_email_app": {
-                "title": "Check your inbox.",
-                "description": "We just sent you an email. Check your junk folder if you haven’t.",
-                "mail": "Mail",
-                "open_email_client": "Open Email Client"
+                "title": "Mira na caixa de correo.",
+                "description": "Enviámosche un email. Se non aparece, mira no cartafol do lixo.",
+                "mail": "Correo",
+                "open_email_client": "Abrir cliente de email"
             }
         },
         "home_timeline": {
-            "title": "Home",
+            "title": "Inicio",
             "navigation_bar_state": {
-                "offline": "Offline",
-                "new_posts": "See new posts",
-                "published": "Published!",
-                "Publishing": "Publishing post..."
+                "offline": "Sen conexión",
+                "new_posts": "Novas publicacións",
+                "published": "Publicado!",
+                "Publishing": "Publicando..."
             }
         },
         "suggestion_account": {
-            "title": "Find People to Follow",
-            "follow_explain": "When you follow someone, you’ll see their posts in your home feed."
+            "title": "Atopar persoas para seguir",
+            "follow_explain": "Cando sigas a alguén verás as súas publicacións na cronoloxía de inicio."
         },
         "compose": {
             "title": {
-                "new_post": "New Post",
-                "new_reply": "New Reply"
+                "new_post": "Nova publicación",
+                "new_reply": "Nova resposta"
             },
             "media_selection": {
-                "camera": "Take Photo",
-                "photo_library": "Photo Library",
-                "browse": "Browse"
+                "camera": "Facer foto",
+                "photo_library": "Biblioteca de fotos",
+                "browse": "Explorar"
             },
-            "content_input_placeholder": "Type or paste what’s on your mind",
-            "compose_action": "Publish",
-            "replying_to_user": "replying to %s",
+            "content_input_placeholder": "Escribe o que che apeteza",
+            "compose_action": "Publicar",
+            "replying_to_user": "en resposta a %s",
             "attachment": {
-                "photo": "photo",
-                "video": "video",
-                "attachment_broken": "This %s is broken and can’t be\nuploaded to Mastodon.",
-                "description_photo": "Describe the photo for the visually-impaired...",
-                "description_video": "Describe the video for the visually-impaired..."
+                "photo": "foto",
+                "video": "vídeo",
+                "attachment_broken": "Este %s está estragado e non pode\nser subido a Mastodon.",
+                "description_photo": "Describe a foto para persoas con problemas visuais...",
+                "description_video": "Describe o vídeo para persoas con problemas visuais..."
             },
             "poll": {
-                "duration_time": "Duration: %s",
-                "thirty_minutes": "30 minutes",
-                "one_hour": "1 Hour",
-                "six_hours": "6 Hours",
+                "duration_time": "Duración: %s",
+                "thirty_minutes": "30 minutos",
+                "one_hour": "1 Hora",
+                "six_hours": "6 Horas",
                 "one_day": "1 Día",
                 "three_days": "3 Días",
                 "seven_days": "7 Días",
