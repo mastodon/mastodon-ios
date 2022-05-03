@@ -195,18 +195,18 @@
                 "header": {
                     "no_status_found": "Non se atopa a publicación",
                     "blocking_warning": "Non podes ver o perfil da usuaria\nata que a desbloquees.\nAsí ven outras o teu perfil.",
-                    "user_blocking_warning": "You can’t view %s’s profile\nuntil you unblock them.\nYour profile looks like this to them.",
-                    "blocked_warning": "You can’t view this user’s profile\nuntil they unblock you.",
-                    "user_blocked_warning": "You can’t view %s’s profile\nuntil they unblock you.",
-                    "suspended_warning": "This user has been suspended.",
-                    "user_suspended_warning": "%s’s account has been suspended."
+                    "user_blocking_warning": "Non podes ver o perfil de %s\nata que o desbloquees.\nAsí se ve o teu perfil.",
+                    "blocked_warning": "Non podes ver o perfil desta usuaria\nata que te desbloquee.",
+                    "user_blocked_warning": "Non podes ver o perfil de %s\nata que te desbloquee.",
+                    "suspended_warning": "Esta usuaria foi suspendida.",
+                    "user_suspended_warning": "A conta de %s foi suspendida."
                 }
             }
         }
     },
     "scene": {
         "welcome": {
-            "slogan": "Social networking\nback in your hands.",
+            "slogan": "Comunicación social\nde volta ás túas mans.",
             "get_started": "Comezar",
             "log_in": "Acceder"
         },
@@ -301,14 +301,14 @@
                 },
                 "special": {
                     "username_invalid": "O nome de usuaria só pode ter caracteres alfanuméricos e trazos baixos",
-                    "username_too_long": "Username is too long (can’t be longer than 30 characters)",
-                    "email_invalid": "This is not a valid email address",
-                    "password_too_short": "Password is too short (must be at least 8 characters)"
+                    "username_too_long": "O nome de usuaria é demasiado longo (maior de 30 caracteres)",
+                    "email_invalid": "Este non é un enderezo válido de email",
+                    "password_too_short": "O contrasinal é demasiado curto (debe ter 8 caracteres como mínimo)"
                 }
             }
         },
         "server_rules": {
-            "title": "Some ground rules.",
+            "title": "Algunhas regras básicas.",
             "subtitle": "These are set and enforced by the %s moderators.",
             "prompt": "By continuing, you’re subject to the terms of service and privacy policy for %s.",
             "terms_of_service": "terms of service",
