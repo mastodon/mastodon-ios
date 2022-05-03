@@ -612,7 +612,7 @@
         },
         "wizard": {
             "new_in_mastodon": "Neu in Mastodon",
-            "multiple_account_switch_intro_description": "Wechsel zwischen mehreren Konten durch drücken der Profil-Schaltfläche.",
+            "multiple_account_switch_intro_description": "Wechsel zwischen mehreren Konten durch Drücken der Profil-Schaltfläche.",
             "accessibility_hint": "Doppeltippen, um diesen Assistenten zu schließen"
         }
     }
