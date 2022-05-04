@@ -85,17 +85,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>posts</string>
+        <string>post</string>
         <key>one</key>
         <string>post</string>
         <key>two</key>
-        <string>posts</string>
+        <string>postiau</string>
         <key>few</key>
         <string>posts</string>
         <key>many</key>
         <string>posts</string>
         <key>other</key>
-        <string>posts</string>
+        <string>postiau</string>
       </dict>
     </dict>
     <key>plural.count.post</key>
