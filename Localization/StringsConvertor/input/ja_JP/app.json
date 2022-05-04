@@ -501,7 +501,7 @@
                 "community": "コミュニティ",
                 "for_you": "おすすめ"
             },
-            "intro": "These are the posts gaining traction in your corner of Mastodon."
+            "intro": "あなたのMastodonサーバーで注目を集めている投稿がここに表示されます。"
         },
         "favorite": {
             "title": "お気に入り"
@@ -564,7 +564,7 @@
                     "disable_avatar_animation": "アバターのアニメーションを無効化する",
                     "disable_emoji_animation": "絵文字のアニメーションを無効化する",
                     "using_default_browser": "既定のブラウザでリンクを開く",
-                    "open_links_in_mastodon": "Open links in Mastodon"
+                    "open_links_in_mastodon": "Mastodonでリンクを開く"
                 },
                 "boring_zone": {
                     "title": "アプリについて",
