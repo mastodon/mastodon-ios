@@ -138,7 +138,7 @@
                 },
                 "actions": {
                     "reply": "Reply",
-                    "reblog": "Reblog",
+                    "reblog": "Hybwch",
                     "unreblog": "Undo reblog",
                     "favorite": "Favorite",
                     "unfavorite": "Unfavorite",
@@ -411,7 +411,7 @@
         },
         "profile": {
             "dashboard": {
-                "posts": "posts",
+                "posts": "postiadau",
                 "following": "following",
                 "followers": "followers"
             },
@@ -423,9 +423,9 @@
                 }
             },
             "segmented_control": {
-                "posts": "Posts",
+                "posts": "Postiadau",
                 "replies": "Replies",
-                "posts_and_replies": "Posts and Replies",
+                "posts_and_replies": "Postiadau ac Atebion",
                 "media": "Media",
                 "about": "About"
             },
@@ -484,7 +484,7 @@
                     "all": "All",
                     "people": "People",
                     "hashtags": "Hashtags",
-                    "posts": "Posts"
+                    "posts": "Postiadau"
                 },
                 "empty_state": {
                     "no_results": "No results"
@@ -495,7 +495,7 @@
         },
         "discovery": {
             "tabs": {
-                "posts": "Posts",
+                "posts": "Postiadau",
                 "hashtags": "Hashtags",
                 "news": "News",
                 "community": "Community",
