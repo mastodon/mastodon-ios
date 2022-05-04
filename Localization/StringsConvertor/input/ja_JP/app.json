@@ -131,7 +131,7 @@
                 "content_warning": "コンテンツ警告",
                 "sensitive_content": "Sensitive Content",
                 "media_content_warning": "どこかをタップして表示",
-                "tap_to_reveal": "Tap to reveal",
+                "tap_to_reveal": "タップして表示",
                 "poll": {
                     "vote": "投票",
                     "closed": "クローズド"
@@ -144,8 +144,8 @@
                     "unfavorite": "お気に入り登録を取り消す",
                     "menu": "メニュー",
                     "hide": "非表示",
-                    "show_image": "Show image",
-                    "show_gif": "Show GIF",
+                    "show_image": "画像を表示",
+                    "show_gif": "GIFを表示",
                     "show_video_player": "Show video player",
                     "tap_then_hold_to_show_menu": "Tap then hold to show menu"
                 },
