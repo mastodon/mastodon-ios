@@ -47,7 +47,7 @@
         <key>many</key>
         <string>%ld characters</string>
         <key>other</key>
-        <string>%ld characters</string>
+        <string>%ld nodau</string>
       </dict>
     </dict>
     <key>a11y.plural.count.input_limit_remains</key>
