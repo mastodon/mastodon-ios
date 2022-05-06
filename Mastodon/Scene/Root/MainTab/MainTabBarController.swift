@@ -174,11 +174,12 @@ extension MainTabBarController {
             }
             .store(in: &disposeBag)
 
+        // seealso: `ThemeService.apply(theme:)`
         let tabs = Tab.allCases
         let viewControllers: [UIViewController] = tabs.map { tab in
             let viewController = tab.viewController(context: context, coordinator: coordinator)
             viewController.tabBarItem.tag = tab.tag
-            viewController.tabBarItem.title = nil
+            viewController.tabBarItem.title = tab.title     // needs for acessiblity large content label
             viewController.tabBarItem.image = tab.image.imageWithoutBaseline()
             viewController.tabBarItem.selectedImage = tab.selectedImage.imageWithoutBaseline()
             viewController.tabBarItem.largeContentSizeImage = tab.largeImage.imageWithoutBaseline()
@@ -197,14 +198,6 @@ extension MainTabBarController {
         _viewControllers = viewControllers
         setViewControllers(viewControllers, animated: false)
         selectedIndex = 0
-                
-        let tabBarItemAppearance = UITabBarItemAppearance()
-        tabBarItemAppearance.configureWithDefault(for: .stacked)
-        tabBarItemAppearance.normal.iconColor = Asset.Colors.Label.primary.color
-        tabBar.standardAppearance.stackedItemPositioning = .centered
-        tabBar.standardAppearance.stackedLayoutAppearance = tabBarItemAppearance
-        tabBar.standardAppearance.inlineLayoutAppearance = tabBarItemAppearance
-        tabBar.standardAppearance.compactInlineLayoutAppearance = tabBarItemAppearance
         
         context.apiService.error
             .receive(on: DispatchQueue.main)
