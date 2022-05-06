@@ -24,6 +24,7 @@ public enum Asset {
   public enum Arrow {
     public static let `repeat` = ImageAsset(name: "Arrow/repeat")
     public static let repeatSmall = ImageAsset(name: "Arrow/repeat.small")
+    public static let squareAndArrowUp = ImageAsset(name: "Arrow/square.and.arrow.up")
   }
   public enum Asset {
     public static let email = ImageAsset(name: "Asset/email")
