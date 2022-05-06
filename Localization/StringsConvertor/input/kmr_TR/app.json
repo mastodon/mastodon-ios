@@ -240,7 +240,7 @@
                 "category": "BEŞ"
             },
             "input": {
-                "placeholder": "Rajekarekî bibîne an jî beşdarî ya xwe bibe..."
+                "placeholder": "Li rajekaran bigere"
             },
             "empty_state": {
                 "finding_servers": "Peydakirina rajekarên berdest...",
