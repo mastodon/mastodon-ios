@@ -83,7 +83,8 @@ extension ContentSplitViewController {
             .sink(receiveValue: { [weak self] tab in
                 guard let self = self else { return }
                 self.mainTabBarController.selectedIndex = tab.rawValue
-                self.mainTabBarController.currentTab.value = tab
+                self.mainTabBarController.currentTab = tab
+                self.sidebarViewController.viewModel.currentTab = tab
             })
             .store(in: &disposeBag)
     }

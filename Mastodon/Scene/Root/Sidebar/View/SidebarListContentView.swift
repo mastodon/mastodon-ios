@@ -93,12 +93,14 @@ extension SidebarListContentView {
         // configure model
         imageView.isHidden = item.imageURL != nil
         avatarButton.isHidden = item.imageURL == nil
-        imageView.image = item.image.withRenderingMode(.alwaysTemplate)
+        imageView.image = item.isActive ? item.activeImage.withRenderingMode(.alwaysTemplate) : item.image.withRenderingMode(.alwaysTemplate)
         avatarButton.avatarImageView.setImage(
             url: item.imageURL,
             placeholder: avatarButton.avatarImageView.image ?? .placeholder(color: .systemFill),  // reuse to avoid blink
             scaleToSize: nil
         )
+        avatarButton.borderWidth = item.isActive ? 2 : 0
+        avatarButton.setNeedsLayout()
     }
 }
 
@@ -107,25 +109,32 @@ extension SidebarListContentView {
         // state
         var isSelected: Bool = false
         var isHighlighted: Bool = false
+        var isActive: Bool
         
         // model
         let title: String
-        let image: UIImage
+        var image: UIImage
+        var activeImage: UIImage
         let imageURL: URL?
+        
                 
         static func == (lhs: SidebarListContentView.Item, rhs: SidebarListContentView.Item) -> Bool {
             return lhs.isSelected == rhs.isSelected
                 && lhs.isHighlighted == rhs.isHighlighted
+                && lhs.isActive == rhs.isActive
                 && lhs.title == rhs.title
                 && lhs.image == rhs.image
+                && lhs.activeImage == rhs.activeImage
                 && lhs.imageURL == rhs.imageURL
         }
         
         func hash(into hasher: inout Hasher) {
             hasher.combine(isSelected)
             hasher.combine(isHighlighted)
+            hasher.combine(isActive)
             hasher.combine(title)
             hasher.combine(image)
+            hasher.combine(activeImage)
             imageURL.flatMap { hasher.combine($0) }
         }
     }
