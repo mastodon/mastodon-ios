@@ -147,10 +147,10 @@ extension MainTabBarController {
         let viewControllers: [UIViewController] = tabs.map { tab in
             let viewController = tab.viewController(context: context, coordinator: coordinator)
             viewController.tabBarItem.tag = tab.tag
-            viewController.tabBarItem.title = tab.title
-            viewController.tabBarItem.image = tab.image
+            viewController.tabBarItem.title = nil
+            viewController.tabBarItem.image = tab.image.imageWithoutBaseline()
             viewController.tabBarItem.accessibilityLabel = tab.title
-            viewController.tabBarItem.largeContentSizeImage = tab.largeImage
+            viewController.tabBarItem.largeContentSizeImage = tab.largeImage.imageWithoutBaseline()
             viewController.tabBarItem.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
             return viewController
         }
@@ -224,8 +224,8 @@ extension MainTabBarController {
             } ?? false
             
             let image = hasUnreadPushNotification ? UIImage(systemName: "bell.badge.fill")! : UIImage(systemName: "bell.fill")!
-            notificationViewController.tabBarItem.image = image
-            notificationViewController.navigationController?.tabBarItem.image = image
+            notificationViewController.tabBarItem.image = image.imageWithoutBaseline()
+            notificationViewController.navigationController?.tabBarItem.image = image.imageWithoutBaseline()
         }
         .store(in: &disposeBag)
         
@@ -371,7 +371,7 @@ extension MainTabBarController {
         view.addSubview(self.avatarButton)
         NSLayoutConstraint.activate([
             self.avatarButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            self.avatarButton.centerYAnchor.constraint(equalTo: anchorImageView.centerYAnchor, constant: 1.5),   // 1.5pt offset
+            self.avatarButton.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             self.avatarButton.widthAnchor.constraint(equalToConstant: MainTabBarController.avatarButtonSize.width).priority(.required - 1),
             self.avatarButton.heightAnchor.constraint(equalToConstant: MainTabBarController.avatarButtonSize.height).priority(.required - 1),
         ])
