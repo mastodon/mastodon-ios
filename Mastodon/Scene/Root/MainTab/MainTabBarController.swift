@@ -406,8 +406,10 @@ extension MainTabBarController {
         switch traitCollection.horizontalSizeClass {
         case .compact:
             tabBar.isHidden = false
+            composeButttonShadowBackgroundContainer.isHidden = false
         default:
             tabBar.isHidden = true
+            composeButttonShadowBackgroundContainer.isHidden = true
         }
     }
     
@@ -428,7 +430,7 @@ extension MainTabBarController {
         anchorImageView.alpha = 0
         
         composeButttonShadowBackgroundContainer.translatesAutoresizingMaskIntoConstraints = false
-        tabBar.addSubview(composeButttonShadowBackgroundContainer)
+        self.view.addSubview(composeButttonShadowBackgroundContainer)   // add to tabBar will crash on iPad when size class changing
         NSLayoutConstraint.activate([
             composeButttonShadowBackgroundContainer.centerXAnchor.constraint(equalTo: anchorImageView.centerXAnchor),
             composeButttonShadowBackgroundContainer.centerYAnchor.constraint(equalTo: anchorImageView.centerYAnchor),
