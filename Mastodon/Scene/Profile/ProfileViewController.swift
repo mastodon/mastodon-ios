@@ -953,6 +953,7 @@ extension ProfileViewController: ProfileHeaderViewDelegate {
                 viewModel.isUpdating.value = true
                 Task {
                     do {
+                        // TODO: handle error
                         _ = try await viewModel.updateProfileInfo(
                             headerProfileInfo: profileHeaderViewModel.editProfileInfo,
                             aboutProfileInfo: profileAboutViewModel.editProfileInfo
