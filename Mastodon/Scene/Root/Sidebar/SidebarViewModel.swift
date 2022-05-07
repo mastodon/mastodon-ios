@@ -22,7 +22,8 @@ final class SidebarViewModel {
     let context: AppContext
     @Published private var isSidebarDataSourceReady = false
     @Published private var isAvatarButtonDataReady = false
-    
+    @Published var currentTab: MainTabBarController.Tab = .home
+
     // output
     var diffableDataSource: UICollectionViewDiffableDataSource<Section, Item>?
     var secondaryDiffableDataSource: UICollectionViewDiffableDataSource<Section, Item>?
@@ -86,35 +87,55 @@ extension SidebarViewModel {
                 }
             }()
             cell.item = SidebarListContentView.Item(
+                isActive: false,
                 title: item.title,
-                image: item.sidebarImage,
+                image: item.image,
+                activeImage: item.selectedImage,
                 imageURL: imageURL
             )
             cell.setNeedsUpdateConfiguration()
             cell.isAccessibilityElement = true
             cell.accessibilityLabel = item.title
             
+            self.$currentTab
+                .receive(on: DispatchQueue.main)
+                .sink { [weak cell] currentTab in
+                    guard let cell = cell else { return }
+                    cell.item?.isActive = currentTab == item
+                    cell.setNeedsUpdateConfiguration()
+                }
+                .store(in: &cell.disposeBag)
+            
             switch item {
             case .notification:
-                Publishers.CombineLatest(
+                Publishers.CombineLatest3(
                     self.context.authenticationService.activeMastodonAuthentication,
-                    self.context.notificationService.unreadNotificationCountDidUpdate
+                    self.context.notificationService.unreadNotificationCountDidUpdate,
+                    self.$currentTab
                 )
                 .receive(on: DispatchQueue.main)
-                .sink { [weak cell] authentication, _ in
+                .sink { [weak cell] authentication, _, currentTab in
                     guard let cell = cell else { return }
                     let hasUnreadPushNotification: Bool = authentication.flatMap { authentication in
                         let count = UserDefaults.shared.getNotificationCountWithAccessToken(accessToken: authentication.userAccessToken)
                         return count > 0
                     } ?? false
                     
-                    let image = hasUnreadPushNotification ? UIImage(systemName: "bell.badge")! : UIImage(systemName: "bell")!
-                    cell._contentView?.imageView.image = image
+                    let image: UIImage = {
+                        if currentTab == .notification {
+                            return hasUnreadPushNotification ? Asset.ObjectsAndTools.bellBadgeFill.image.withRenderingMode(.alwaysTemplate) : Asset.ObjectsAndTools.bellFill.image.withRenderingMode(.alwaysTemplate)
+                        } else {
+                            return hasUnreadPushNotification ? Asset.ObjectsAndTools.bellBadge.image.withRenderingMode(.alwaysTemplate) : Asset.ObjectsAndTools.bell.image.withRenderingMode(.alwaysTemplate)
+                        }
+                    }()
+                    cell.item?.image = image
+                    cell.item?.activeImage = image
+                    cell.setNeedsUpdateConfiguration()
                 }
                 .store(in: &cell.disposeBag)
             case .me:
                 guard let authentication = self.context.authenticationService.activeMastodonAuthentication.value else { break }
-                let currentUserDisplayName = authentication.user.displayNameWithFallback ?? "no user"
+                let currentUserDisplayName = authentication.user.displayNameWithFallback
                 cell.accessibilityHint = L10n.Scene.AccountList.tabBarHint(currentUserDisplayName)
             default:
                 break
@@ -122,7 +143,7 @@ extension SidebarViewModel {
         }
         
         let cellRegistration = UICollectionView.CellRegistration<SidebarListCollectionViewCell, SidebarListContentView.Item> { [weak self] cell, indexPath, item in
-            guard let self = self else { return }
+            guard let _ = self else { return }
             cell.item = item
             cell.setNeedsUpdateConfiguration()
             cell.isAccessibilityElement = true
@@ -140,15 +161,19 @@ extension SidebarViewModel {
                 return collectionView.dequeueConfiguredReusableCell(using: tabCellRegistration, for: indexPath, item: tab)
             case .setting:
                 let item = SidebarListContentView.Item(
+                    isActive: false,
                     title: L10n.Common.Controls.Actions.settings,
-                    image: UIImage(systemName: "gear")!,
+                    image: Asset.ObjectsAndTools.gear.image.withRenderingMode(.alwaysTemplate),
+                    activeImage: Asset.ObjectsAndTools.gear.image.withRenderingMode(.alwaysTemplate),
                     imageURL: nil
                 )
                 return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: item)
             case .compose:
                 let item = SidebarListContentView.Item(
+                    isActive: false,
                     title: L10n.Common.Controls.Actions.compose,
-                    image: UIImage(systemName: "square.and.pencil")!,
+                    image: Asset.ObjectsAndTools.squareAndPencil.image.withRenderingMode(.alwaysTemplate),
+                    activeImage: Asset.ObjectsAndTools.squareAndPencil.image.withRenderingMode(.alwaysTemplate),
                     imageURL: nil
                 )
                 return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: item)
@@ -192,15 +217,15 @@ extension SidebarViewModel {
             }
             
             let item = SidebarListContentView.Item(
+                isActive: false,
                 title: L10n.Common.Controls.Actions.compose,
-                image: UIImage(systemName: "square.and.pencil")!,
+                image: Asset.ObjectsAndTools.squareAndPencil.image.withRenderingMode(.alwaysTemplate),
+                activeImage: Asset.ObjectsAndTools.squareAndPencil.image.withRenderingMode(.alwaysTemplate),
                 imageURL: nil
             )
             return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: item)
         }
-//        _secondaryDiffableDataSource.supplementaryViewProvider = { collectionView, elementKind, indexPath in
-//            return nil
-//        }
+
         secondaryDiffableDataSource = _secondaryDiffableDataSource
         
         var secondarySnapshot = NSDiffableDataSourceSnapshot<Section, Item>()

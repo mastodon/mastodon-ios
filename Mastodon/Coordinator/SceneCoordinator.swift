@@ -368,10 +368,10 @@ extension SceneCoordinator {
         splitViewController?.contentSplitViewController.currentSupplementaryTab = tab
         
         splitViewController?.compactMainTabBarViewController.selectedIndex = tab.rawValue
-        splitViewController?.compactMainTabBarViewController.currentTab.value = tab
+        splitViewController?.compactMainTabBarViewController.currentTab = tab
         
         tabBarController.selectedIndex = tab.rawValue
-        tabBarController.currentTab.value = tab
+        tabBarController.currentTab = tab
     }
 }
 

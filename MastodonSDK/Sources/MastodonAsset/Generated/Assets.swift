@@ -24,6 +24,7 @@ public enum Asset {
   public enum Arrow {
     public static let `repeat` = ImageAsset(name: "Arrow/repeat")
     public static let repeatSmall = ImageAsset(name: "Arrow/repeat.small")
+    public static let squareAndArrowUp = ImageAsset(name: "Arrow/square.and.arrow.up")
   }
   public enum Asset {
     public static let email = ImageAsset(name: "Asset/email")
@@ -99,6 +100,16 @@ public enum Asset {
     public static let faceSmilingAdaptive = ImageAsset(name: "Human/face.smiling.adaptive")
   }
   public enum ObjectsAndTools {
+    public static let bellBadgeFill = ImageAsset(name: "ObjectsAndTools/bell.badge.fill")
+    public static let bellBadge = ImageAsset(name: "ObjectsAndTools/bell.badge")
+    public static let bellFill = ImageAsset(name: "ObjectsAndTools/bell.fill")
+    public static let bell = ImageAsset(name: "ObjectsAndTools/bell")
+    public static let gear = ImageAsset(name: "ObjectsAndTools/gear")
+    public static let houseFill = ImageAsset(name: "ObjectsAndTools/house.fill")
+    public static let house = ImageAsset(name: "ObjectsAndTools/house")
+    public static let magnifyingglassFill = ImageAsset(name: "ObjectsAndTools/magnifyingglass.fill")
+    public static let magnifyingglass = ImageAsset(name: "ObjectsAndTools/magnifyingglass")
+    public static let squareAndPencil = ImageAsset(name: "ObjectsAndTools/square.and.pencil")
     public static let starFill = ImageAsset(name: "ObjectsAndTools/star.fill")
     public static let star = ImageAsset(name: "ObjectsAndTools/star")
   }
