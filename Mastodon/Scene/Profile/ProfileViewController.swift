@@ -634,7 +634,7 @@ extension ProfileViewController {
                 return nil
             }
             let name = user.displayNameWithFallback
-            let record = ManagedObjectRecord<MastodonUser>(objectID: user.objectID)
+            let _ = ManagedObjectRecord<MastodonUser>(objectID: user.objectID)
             let menu = MastodonMenu.setupMenu(
                 actions: [
                     .muteUser(.init(name: name, isMuting: self.viewModel.isMuting.value)),
@@ -649,7 +649,7 @@ extension ProfileViewController {
         .sink { [weak self] completion in
             guard let self = self else { return }
             switch completion {
-            case .failure(let error):
+            case .failure:
                 self.moreMenuBarButtonItem.menu = nil
             case .finished:
                 break

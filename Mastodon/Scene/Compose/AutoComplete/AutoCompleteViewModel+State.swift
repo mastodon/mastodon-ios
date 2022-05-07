@@ -77,7 +77,7 @@ extension AutoCompleteViewModel.State {
         
         override func didEnter(from previousState: GKState?) {
             super.didEnter(from: previousState)
-            guard let viewModel = viewModel, let stateMachine = stateMachine else { return }
+            guard let viewModel = viewModel, let _ = stateMachine else { return }
 
             let searchText = viewModel.inputText.value
             let searchType = AutoCompleteViewModel.SearchType(inputText: searchText) ?? .default

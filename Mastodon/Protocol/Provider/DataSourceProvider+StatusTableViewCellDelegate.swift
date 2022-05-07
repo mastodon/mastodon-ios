@@ -494,7 +494,7 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider {
                     provider: self,
                     user: user
                 )
-            case .notification(let notification):
+            case .notification:
                 assertionFailure("TODO")
             default:
                 assertionFailure("TODO")

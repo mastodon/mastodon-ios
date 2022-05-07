@@ -537,7 +537,6 @@
 		DBCBED1726132DB500B49291 /* UserTimelineViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCBED1626132DB500B49291 /* UserTimelineViewModel+Diffable.swift */; };
 		DBCBED1D26132E1A00B49291 /* StatusFetchedResultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCBED1C26132E1A00B49291 /* StatusFetchedResultsController.swift */; };
 		DBCC3B30261440A50045B23D /* UITabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCC3B2F261440A50045B23D /* UITabBarController.swift */; };
-		DBCC3B36261440BA0045B23D /* UINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCC3B35261440BA0045B23D /* UINavigationController.swift */; };
 		DBCC3B8F26148F7B0045B23D /* CachedProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCC3B8E26148F7B0045B23D /* CachedProfileViewModel.swift */; };
 		DBCC3B9526157E6E0045B23D /* APIService+Relationship.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCC3B9426157E6E0045B23D /* APIService+Relationship.swift */; };
 		DBCCC71E25F73297007E1AB6 /* APIService+Reblog.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCCC71D25F73297007E1AB6 /* APIService+Reblog.swift */; };
@@ -1302,7 +1301,6 @@
 		DBCBED1626132DB500B49291 /* UserTimelineViewModel+Diffable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserTimelineViewModel+Diffable.swift"; sourceTree = "<group>"; };
 		DBCBED1C26132E1A00B49291 /* StatusFetchedResultsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusFetchedResultsController.swift; sourceTree = "<group>"; };
 		DBCC3B2F261440A50045B23D /* UITabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITabBarController.swift; sourceTree = "<group>"; };
-		DBCC3B35261440BA0045B23D /* UINavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationController.swift; sourceTree = "<group>"; };
 		DBCC3B8E26148F7B0045B23D /* CachedProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedProfileViewModel.swift; sourceTree = "<group>"; };
 		DBCC3B9426157E6E0045B23D /* APIService+Relationship.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Relationship.swift"; sourceTree = "<group>"; };
 		DBCCC71D25F73297007E1AB6 /* APIService+Reblog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Reblog.swift"; sourceTree = "<group>"; };
@@ -2792,7 +2790,6 @@
 				2D84350425FF858100EECE90 /* UIScrollView.swift */,
 				DB9E0D6E25EE008500CFDD76 /* UIInterpolatingMotionEffect.swift */,
 				DBCC3B2F261440A50045B23D /* UITabBarController.swift */,
-				DBCC3B35261440BA0045B23D /* UINavigationController.swift */,
 				DB73BF4827140BA300781945 /* UICollectionViewDiffableDataSource.swift */,
 				DB73BF4A27140C0800781945 /* UITableViewDiffableDataSource.swift */,
 			);
@@ -4029,7 +4026,6 @@
 				DB9D7C21269824B80054B3DF /* APIService+Filter.swift in Sources */,
 				2D38F1E525CD46C100561493 /* HomeTimelineViewModel.swift in Sources */,
 				DB0FCB842796B2A2006C02E2 /* FavoriteViewController+DataSourceProvider.swift in Sources */,
-				DBCC3B36261440BA0045B23D /* UINavigationController.swift in Sources */,
 				DB0FCB68279507EF006C02E2 /* DataSourceFacade+Meta.swift in Sources */,
 				DB63F75C279956D000455B82 /* Persistence+Tag.swift in Sources */,
 				2D84350525FF858100EECE90 /* UIScrollView.swift in Sources */,

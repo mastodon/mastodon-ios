@@ -95,7 +95,7 @@ extension InstanceService {
                     self.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [Instance] update instance for domain: \(domain)")
                 }
             } receiveValue: { [weak self] response in
-                guard let self = self else { return }
+                guard let _ = self else { return }
                 // do nothing
             }
             .store(in: &disposeBag)

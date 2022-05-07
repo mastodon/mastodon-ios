@@ -93,7 +93,7 @@ extension UITableViewDelegate where Self: DataSourceProvider & MediaPreviewableV
             guard let image = mediaView.thumbnail(),
                   let assetURLString = mediaView.configuration?.assetURL,
                   let assetURL = URL(string: assetURLString),
-                  let resourceType = mediaView.configuration?.resourceType
+                  let _ = mediaView.configuration?.resourceType
             else {
                 // not provide preview unless thumbnail ready
                 return nil
