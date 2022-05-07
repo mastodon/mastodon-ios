@@ -154,10 +154,9 @@ extension SidebarViewController {
         
         coordinator.animate { context in
             self.collectionView.collectionViewLayout.invalidateLayout()
-        } completion: { [weak self] context in
-//            guard let self = self else { return }
+        } completion: { context in
+            // do nothing
         }
-
     }
     
 }

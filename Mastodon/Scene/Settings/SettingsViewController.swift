@@ -448,7 +448,7 @@ extension SettingsViewController: SettingsAppearanceTableViewCellDelegate {
         guard let dataSource = viewModel.dataSource else { return }
         guard let indexPath = tableView.indexPath(for: cell) else { return }
         let item = dataSource.itemIdentifier(for: indexPath)
-        guard case let .appearance(record) = item else { return }
+        guard case .appearance = item else { return }
         
         Task { @MainActor in
             switch appearanceMode {

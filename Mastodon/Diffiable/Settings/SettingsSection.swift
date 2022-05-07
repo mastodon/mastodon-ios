@@ -51,7 +51,7 @@ extension SettingsSection {
                 }
                 cell.delegate = settingsAppearanceTableViewCellDelegate
                 return cell
-            case .appearancePreference(let record, let appearanceType):
+            case .appearancePreference(let record, _):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SettingsToggleTableViewCell.self), for: indexPath) as! SettingsToggleTableViewCell
                 cell.delegate = settingsToggleCellDelegate
                 managedObjectContext.performAndWait {

@@ -99,7 +99,7 @@ extension DataSourceFacade {
         
         try await managedObjectContext.performChanges {
             guard let authenticationBox = _authenticationBox else { return }
-            guard let me = authenticationBox.authenticationRecord.object(in: managedObjectContext)?.user else { return }
+            guard let _ = authenticationBox.authenticationRecord.object(in: managedObjectContext)?.user else { return }
             let request = SearchHistory.sortedFetchRequest
             request.predicate = SearchHistory.predicate(
                 domain: authenticationBox.domain,

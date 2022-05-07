@@ -255,6 +255,8 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
                 rect.size.height -= offset
                 return rect
             }()
+            
+            // FIXME:
             let maskLayerToFinalPath = maskLayerToFinalRect.flatMap { UIBezierPath(rect: $0) }?.cgPath
             
             if let maskLayerToPath = maskLayerToPath {

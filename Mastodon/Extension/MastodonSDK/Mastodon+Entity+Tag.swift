@@ -7,13 +7,12 @@
 
 import MastodonSDK
 
-extension Mastodon.Entity.Tag: Hashable {
-    public func hash(into hasher: inout Hasher) {
-        hasher.combine(name)
-    }
-    
-    public static func == (lhs: Mastodon.Entity.Tag, rhs: Mastodon.Entity.Tag) -> Bool {
-        return lhs.name == rhs.name
-    }
-}
-
+//extension Mastodon.Entity.Tag: Hashable {
+//    public func hash(into hasher: inout Hasher) {
+//        hasher.combine(name)
+//    }
+//    
+//    public static func == (lhs: Mastodon.Entity.Tag, rhs: Mastodon.Entity.Tag) -> Bool {
+//        return lhs.name == rhs.name
+//    }
+//}

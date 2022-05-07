@@ -29,7 +29,7 @@ extension PickServerSection {
             weak dependency,
             weak pickServerCellDelegate
         ] tableView, indexPath, item -> UITableViewCell? in
-            guard let dependency = dependency else { return nil }
+            guard let _ = dependency else { return nil }
             switch item {
             case .header:
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: OnboardingHeadlineTableViewCell.self), for: indexPath) as! OnboardingHeadlineTableViewCell
