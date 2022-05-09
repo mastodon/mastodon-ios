@@ -22,14 +22,29 @@ class MainTabBarController: UITabBarController {
     weak var context: AppContext!
     weak var coordinator: SceneCoordinator!
     
+    let composeButttonShadowBackgroundContainer = ShadowBackgroundContainer()
+    let composeButton: UIButton = {
+        let button = UIButton()
+        button.setImage(Asset.ObjectsAndTools.squareAndPencil.image.withRenderingMode(.alwaysTemplate), for: .normal)
+        button.setBackgroundImage(UIImage.placeholder(color: Asset.Colors.Label.primary.color), for: .normal)
+        button.setBackgroundImage(UIImage.placeholder(color: Asset.Colors.Label.primary.color.withAlphaComponent(0.8)), for: .highlighted)
+        button.tintColor = Asset.Colors.Label.primaryReverse.color
+        button.contentEdgeInsets = UIEdgeInsets(top: 6, left: 12, bottom: 6, right: 12)
+        button.layer.masksToBounds = true
+        button.layer.cornerCurve = .continuous
+        button.layer.cornerRadius = 8
+        return button
+    }()
+    
     static let avatarButtonSize = CGSize(width: 25, height: 25)
     let avatarButton = CircleAvatarButton()
     
-    var currentTab = CurrentValueSubject<Tab, Never>(.home)
+    @Published var currentTab: Tab = .home
         
     enum Tab: Int, CaseIterable {
         case home
         case search
+        case compose
         case notification
         case me
 
@@ -41,6 +56,7 @@ class MainTabBarController: UITabBarController {
             switch self {
             case .home:             return L10n.Common.Controls.Tabs.home
             case .search:           return L10n.Common.Controls.Tabs.search
+            case .compose:          return L10n.Common.Controls.Actions.compose
             case .notification:     return L10n.Common.Controls.Tabs.notification
             case .me:               return L10n.Common.Controls.Tabs.profile
             }
@@ -48,28 +64,41 @@ class MainTabBarController: UITabBarController {
         
         var image: UIImage {
             switch self {
-            case .home:             return UIImage(systemName: "house.fill")!
-            case .search:           return UIImage(systemName: "magnifyingglass")!
-            case .notification:     return UIImage(systemName: "bell.fill")!
+            case .home:             return Asset.ObjectsAndTools.house.image.withRenderingMode(.alwaysTemplate)
+            case .search:           return Asset.ObjectsAndTools.magnifyingglass.image.withRenderingMode(.alwaysTemplate)
+            case .compose:          return Asset.ObjectsAndTools.squareAndPencil.image.withRenderingMode(.alwaysTemplate)
+            case .notification:     return Asset.ObjectsAndTools.bell.image.withRenderingMode(.alwaysTemplate)
+            case .me:               return UIImage(systemName: "person")!
+            }
+        }
+        
+        var selectedImage: UIImage {
+            switch self {
+            case .home:             return Asset.ObjectsAndTools.houseFill.image.withRenderingMode(.alwaysTemplate)
+            case .search:           return Asset.ObjectsAndTools.magnifyingglassFill.image.withRenderingMode(.alwaysTemplate)
+            case .compose:          return Asset.ObjectsAndTools.squareAndPencil.image.withRenderingMode(.alwaysTemplate)
+            case .notification:     return Asset.ObjectsAndTools.bellFill.image.withRenderingMode(.alwaysTemplate)
             case .me:               return UIImage(systemName: "person.fill")!
             }
         }
 
         var largeImage: UIImage {
             switch self {
-            case .home:             return UIImage(systemName: "house.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 80))!
-            case .search:           return UIImage(systemName: "magnifyingglass", withConfiguration: UIImage.SymbolConfiguration(pointSize: 80))!
-            case .notification:     return UIImage(systemName: "bell.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 80))!
-            case .me:               return UIImage(systemName: "person.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 80))!
+            case .home:             return Asset.ObjectsAndTools.house.image.withRenderingMode(.alwaysTemplate).resized(size: CGSize(width: 80, height: 80))
+            case .search:           return Asset.ObjectsAndTools.magnifyingglass.image.withRenderingMode(.alwaysTemplate).resized(size: CGSize(width: 80, height: 80))
+            case .compose:          return Asset.ObjectsAndTools.squareAndPencil.image.withRenderingMode(.alwaysTemplate).resized(size: CGSize(width: 80, height: 80))
+            case .notification:     return Asset.ObjectsAndTools.bell.image.withRenderingMode(.alwaysTemplate).resized(size: CGSize(width: 80, height: 80))
+            case .me:               return UIImage(systemName: "person", withConfiguration: UIImage.SymbolConfiguration(pointSize: 80))!
             }
         }
         
         var sidebarImage: UIImage {
             switch self {
-            case .home:             return UIImage(systemName: "house")!
-            case .search:           return UIImage(systemName: "magnifyingglass")!
-            case .notification:     return UIImage(systemName: "bell")!
-            case .me:               return UIImage(systemName: "person.fill")!
+            case .home:             return Asset.ObjectsAndTools.house.image.withRenderingMode(.alwaysTemplate)
+            case .search:           return Asset.ObjectsAndTools.magnifyingglass.image.withRenderingMode(.alwaysTemplate)
+            case .compose:          return Asset.ObjectsAndTools.squareAndPencil.image.withRenderingMode(.alwaysTemplate)
+            case .notification:     return Asset.ObjectsAndTools.bell.image.withRenderingMode(.alwaysTemplate)
+            case .me:               return UIImage(systemName: "person")!
             }
         }
         
@@ -86,6 +115,8 @@ class MainTabBarController: UITabBarController {
                 _viewController.context = context
                 _viewController.coordinator = coordinator
                 viewController = _viewController
+            case .compose:
+                viewController = UIViewController()
             case .notification:
                 let _viewController = NotificationViewController()
                 _viewController.context = context
@@ -143,24 +174,30 @@ extension MainTabBarController {
             }
             .store(in: &disposeBag)
 
+        // seealso: `ThemeService.apply(theme:)`
         let tabs = Tab.allCases
         let viewControllers: [UIViewController] = tabs.map { tab in
             let viewController = tab.viewController(context: context, coordinator: coordinator)
             viewController.tabBarItem.tag = tab.tag
-            viewController.tabBarItem.title = tab.title
-            viewController.tabBarItem.image = tab.image
+            viewController.tabBarItem.title = tab.title     // needs for acessiblity large content label
+            viewController.tabBarItem.image = tab.image.imageWithoutBaseline()
+            viewController.tabBarItem.selectedImage = tab.selectedImage.imageWithoutBaseline()
+            viewController.tabBarItem.largeContentSizeImage = tab.largeImage.imageWithoutBaseline()
             viewController.tabBarItem.accessibilityLabel = tab.title
-            viewController.tabBarItem.largeContentSizeImage = tab.largeImage
             viewController.tabBarItem.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
+            
+            switch tab {
+            case .compose:
+                viewController.tabBarItem.isEnabled = false
+            default:
+                break
+            }
+            
             return viewController
         }
         _viewControllers = viewControllers
         setViewControllers(viewControllers, animated: false)
         selectedIndex = 0
-
-        UITabBarItem.appearance().setTitleTextAttributes([.foregroundColor : UIColor.clear], for: .normal)
-        UITabBarItem.appearance().setTitleTextAttributes([.foregroundColor : UIColor.clear], for: .highlighted)
-        UITabBarItem.appearance().setTitleTextAttributes([.foregroundColor : UIColor.clear], for: .selected)
         
         context.apiService.error
             .receive(on: DispatchQueue.main)
@@ -208,13 +245,15 @@ extension MainTabBarController {
             }
             .store(in: &disposeBag)
                 
-        // handle push notification. toggle entry when finish fetch latest notification
-        Publishers.CombineLatest(
+        // handle push notification.
+        // toggle entry when finish fetch latest notification
+        Publishers.CombineLatest3(
             context.authenticationService.activeMastodonAuthentication,
-            context.notificationService.unreadNotificationCountDidUpdate
+            context.notificationService.unreadNotificationCountDidUpdate,
+            $currentTab
         )
         .receive(on: DispatchQueue.main)
-        .sink { [weak self] authentication, _ in
+        .sink { [weak self] authentication, _, currentTab in
             guard let self = self else { return }
             guard let notificationViewController = self.notificationViewController else { return }
             
@@ -223,12 +262,19 @@ extension MainTabBarController {
                 return count > 0
             } ?? false
             
-            let image = hasUnreadPushNotification ? UIImage(systemName: "bell.badge.fill")! : UIImage(systemName: "bell.fill")!
-            notificationViewController.tabBarItem.image = image
-            notificationViewController.navigationController?.tabBarItem.image = image
+            let image: UIImage = {
+                if currentTab == .notification {
+                    return hasUnreadPushNotification ? Asset.ObjectsAndTools.bellBadgeFill.image.withRenderingMode(.alwaysTemplate) : Asset.ObjectsAndTools.bellFill.image.withRenderingMode(.alwaysTemplate)
+                } else {
+                    return hasUnreadPushNotification ? Asset.ObjectsAndTools.bellBadge.image.withRenderingMode(.alwaysTemplate) : Asset.ObjectsAndTools.bell.image.withRenderingMode(.alwaysTemplate)
+                }
+            }()
+            notificationViewController.tabBarItem.image = image.imageWithoutBaseline()
+            notificationViewController.navigationController?.tabBarItem.image = image.imageWithoutBaseline()
         }
         .store(in: &disposeBag)
         
+        layoutComposeButton()
         layoutAvatarButton()
         
         $avatarURL
@@ -280,7 +326,7 @@ extension MainTabBarController {
             }
             .store(in: &disposeBag)
         
-        currentTab
+        $currentTab
             .receive(on: DispatchQueue.main)
             .sink { [weak self] tab in
                 guard let self = self else { return }
@@ -289,6 +335,8 @@ extension MainTabBarController {
             .store(in: &disposeBag)
         
         updateTabBarDisplay()
+        
+        composeButton.addTarget(self, action: #selector(MainTabBarController.composeButtonDidPressed(_:)), for: .touchUpInside)
         
         #if DEBUG
         // Debug Register viewController
@@ -307,23 +355,25 @@ extension MainTabBarController {
         super.traitCollectionDidChange(previousTraitCollection)
         
         updateTabBarDisplay()
+        updateComposeButtonAppearance()
         updateAvatarButtonAppearance()
     }
 
 }
 
 extension MainTabBarController {
-    private func updateTabBarDisplay() {
-        switch traitCollection.horizontalSizeClass {
-        case .compact:
-            tabBar.isHidden = false
-        default:
-            tabBar.isHidden = true
-        }
+    
+    @objc private func composeButtonDidPressed(_ sender: UIButton) {
+        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
+        guard let authenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else { return }
+        let composeViewModel = ComposeViewModel(
+            context: context,
+            composeKind: .post,
+            authenticationBox: authenticationBox
+        )
+        coordinator.present(scene: .compose(viewModel: composeViewModel), from: nil, transition: .modal(animated: true, completion: nil))
     }
-}
-
-extension MainTabBarController {
+    
     @objc private func tabBarLongPressGestureRecognizerHandler(_ sender: UILongPressGestureRecognizer) {
         guard sender.state == .began else { return }
 
@@ -351,6 +401,59 @@ extension MainTabBarController {
 }
 
 extension MainTabBarController {
+    
+    private func updateTabBarDisplay() {
+        switch traitCollection.horizontalSizeClass {
+        case .compact:
+            tabBar.isHidden = false
+            composeButttonShadowBackgroundContainer.isHidden = false
+        default:
+            tabBar.isHidden = true
+            composeButttonShadowBackgroundContainer.isHidden = true
+        }
+    }
+    
+    private func layoutComposeButton() {
+        guard composeButton.superview == nil else { return }
+
+        let _composeTabItem = self.tabBar.items?.first { item in item.tag == Tab.compose.tag }
+        guard let composeTabItem = _composeTabItem else { return }
+        guard let view = composeTabItem.value(forKey: "view") as? UIView else {
+            return
+        }
+        
+        let _anchorImageView = view.subviews.first { subview in subview is UIImageView } as? UIImageView
+        guard let anchorImageView = _anchorImageView else {
+            assertionFailure()
+            return
+        }
+        anchorImageView.alpha = 0
+        
+        composeButttonShadowBackgroundContainer.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(composeButttonShadowBackgroundContainer)   // add to tabBar will crash on iPad when size class changing
+        NSLayoutConstraint.activate([
+            composeButttonShadowBackgroundContainer.centerXAnchor.constraint(equalTo: anchorImageView.centerXAnchor),
+            composeButttonShadowBackgroundContainer.centerYAnchor.constraint(equalTo: anchorImageView.centerYAnchor),
+        ])
+        composeButttonShadowBackgroundContainer.cornerRadius = composeButton.layer.cornerRadius
+        
+        composeButton.translatesAutoresizingMaskIntoConstraints = false
+        composeButttonShadowBackgroundContainer.addSubview(composeButton)
+        NSLayoutConstraint.activate([
+            composeButton.topAnchor.constraint(equalTo: composeButttonShadowBackgroundContainer.topAnchor),
+            composeButton.leadingAnchor.constraint(equalTo: composeButttonShadowBackgroundContainer.leadingAnchor),
+            composeButton.trailingAnchor.constraint(equalTo: composeButttonShadowBackgroundContainer.trailingAnchor),
+            composeButton.bottomAnchor.constraint(equalTo: composeButttonShadowBackgroundContainer.bottomAnchor),
+        ])
+        composeButton.setContentHuggingPriority(.required - 1, for: .horizontal)
+        composeButton.setContentHuggingPriority(.required - 1, for: .vertical)
+    }
+    
+    private func updateComposeButtonAppearance() {
+        composeButton.setBackgroundImage(UIImage.placeholder(color: Asset.Colors.Label.primary.color), for: .normal)
+        composeButton.setBackgroundImage(UIImage.placeholder(color: Asset.Colors.Label.primary.color.withAlphaComponent(0.8)), for: .highlighted)
+    }
+    
     private func layoutAvatarButton() {
         guard avatarButton.superview == nil else { return }
         
@@ -370,8 +473,8 @@ extension MainTabBarController {
         self.avatarButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(self.avatarButton)
         NSLayoutConstraint.activate([
-            self.avatarButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            self.avatarButton.centerYAnchor.constraint(equalTo: anchorImageView.centerYAnchor, constant: 1.5),   // 1.5pt offset
+            self.avatarButton.centerXAnchor.constraint(equalTo: anchorImageView.centerXAnchor),
+            self.avatarButton.centerYAnchor.constraint(equalTo: anchorImageView.centerYAnchor),
             self.avatarButton.widthAnchor.constraint(equalToConstant: MainTabBarController.avatarButtonSize.width).priority(.required - 1),
             self.avatarButton.heightAnchor.constraint(equalToConstant: MainTabBarController.avatarButtonSize.height).priority(.required - 1),
         ])
@@ -381,9 +484,10 @@ extension MainTabBarController {
     }
     
     private func updateAvatarButtonAppearance() {
-        avatarButton.borderColor = currentTab.value == .me ? .label : .systemFill
+        avatarButton.borderColor = currentTab == .me ? .label : .systemFill
         avatarButton.setNeedsLayout()
     }
+    
 }
 
 extension MainTabBarController {
@@ -403,11 +507,12 @@ extension MainTabBarController: UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: select %s", ((#file as NSString).lastPathComponent), #line, #function, viewController.debugDescription)
         defer {
-            if let tab = Tab(rawValue: tabBarController.selectedIndex) {
-                currentTab.value = tab
+            if let tab = Tab(rawValue: viewController.tabBarItem.tag) {
+                currentTab = tab
             }
         }
-        guard currentTab.value.rawValue == tabBarController.selectedIndex,
+        // assert index is as same as the tab rawValue
+        guard currentTab.rawValue == tabBarController.selectedIndex,
               let navigationController = viewController as? UINavigationController,
               navigationController.viewControllers.count == 1,
               let scrollViewContainer = navigationController.topViewController as? ScrollViewContainer else {
@@ -478,7 +583,13 @@ extension MainTabBarController {
     
     var switchToTabKeyCommands: [UIKeyCommand] {
         var commands: [UIKeyCommand] = []
-        for (i, tab) in Tab.allCases.enumerated() {
+        let tabs: [Tab] = [
+            .home,
+            .search,
+            .notification,
+            .me
+        ]
+        for (i, tab) in tabs.enumerated() {
             let title = L10n.Common.Controls.Keyboard.Common.switchToTab(tab.title)
             let input = String(i + 1)
             let command = UIKeyCommand(
@@ -584,7 +695,7 @@ extension MainTabBarController {
         let previousTab = Tab(rawValue: selectedIndex)
         selectedIndex = index
         if let tab = Tab(rawValue: index) {
-            currentTab.value = tab
+            currentTab = tab
         }
 
         if let previousTab = previousTab {

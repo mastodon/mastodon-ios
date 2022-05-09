@@ -186,7 +186,7 @@ extension HomeTimelineViewController {
         }
         
         func match(item: StatusItem) -> Bool {
-            let authenticationBox = AppContext.shared.authenticationService.activeMastodonAuthenticationBox.value
+            // let authenticationBox = AppContext.shared.authenticationService.activeMastodonAuthenticationBox.value
             switch item {
             case .feed(let record):
                 guard let feed = record.object(in: AppContext.shared.managedObjectContext) else { return false }

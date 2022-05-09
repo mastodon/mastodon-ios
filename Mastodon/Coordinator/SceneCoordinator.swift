@@ -309,7 +309,7 @@ extension SceneCoordinator {
                 if scene.isOnboarding {
                     return OnboardingNavigationController(rootViewController: viewController)
                 } else {
-                    return UINavigationController(rootViewController: viewController)
+                    return AdaptiveStatusBarStyleNavigationController(rootViewController: viewController)
                 }
             }()
             modalNavigationController.modalPresentationCapturesStatusBarAppearance = true
@@ -368,10 +368,10 @@ extension SceneCoordinator {
         splitViewController?.contentSplitViewController.currentSupplementaryTab = tab
         
         splitViewController?.compactMainTabBarViewController.selectedIndex = tab.rawValue
-        splitViewController?.compactMainTabBarViewController.currentTab.value = tab
+        splitViewController?.compactMainTabBarViewController.currentTab = tab
         
         tabBarController.selectedIndex = tab.rawValue
-        tabBarController.currentTab.value = tab
+        tabBarController.currentTab = tab
     }
 }
 

@@ -28,7 +28,7 @@ final class HashtagTimelineViewController: UIViewController, NeedsDependency, Me
         
     let composeBarButtonItem: UIBarButtonItem = {
         let barButtonItem = UIBarButtonItem()
-        barButtonItem.image = UIImage(systemName: "square.and.pencil")?.withRenderingMode(.alwaysTemplate)
+        barButtonItem.image = Asset.ObjectsAndTools.squareAndPencil.image.withRenderingMode(.alwaysTemplate)
         return barButtonItem
     }()
     

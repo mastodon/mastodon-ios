@@ -118,7 +118,7 @@ extension AccountListViewController {
                 
                 // the presentingViewController may deinit.
                 // Hold it and check the window to prevent PanModel crash
-                guard let presentingViewController = presentingViewController else { return }
+                guard let _ = presentingViewController else { return }
                 guard self.view.window != nil else { return }
                 
                 self.hasLoaded = true
