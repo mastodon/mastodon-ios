@@ -21,6 +21,12 @@ final class ReportResultViewController: UIViewController, NeedsDependency, Repor
     
     var viewModel: ReportResultViewModel!
     
+    lazy var doneBarButtonItem = UIBarButtonItem(
+        barButtonSystemItem: .done,
+        target: self,
+        action: #selector(ReportResultViewController.doneBarButtonItemDidPressed(_:))
+    )
+    
     let tableView: UITableView = {
         let tableView = ControlContainableTableView()
         tableView.backgroundColor = Asset.Scene.Report.background.color
@@ -60,6 +66,7 @@ extension ReportResultViewController {
         defer { setupNavigationBarBackgroundView() }
         
         navigationItem.hidesBackButton = true
+        navigationItem.rightBarButtonItem = doneBarButtonItem
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
@@ -102,6 +109,10 @@ extension ReportResultViewController {
 }
 
 extension ReportResultViewController {
+    
+    @objc func doneBarButtonItemDidPressed(_ sender: UIButton) {
+        dismiss(animated: true, completion: nil)
+    }
 
     @objc func nextButtonDidPressed(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
@@ -111,3 +122,8 @@ extension ReportResultViewController {
 
 // MARK: - UITableViewDelegate
 extension ReportResultViewController: UITableViewDelegate { }
+
+// MARK: - PanPopableViewController
+extension ReportResultViewController: PanPopableViewController {
+    var isPanPopable: Bool { false }
+}

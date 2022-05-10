@@ -158,7 +158,7 @@ extension SceneCoordinator {
         case mastodonServerRules(viewModel: MastodonServerRulesViewModel)
         case mastodonConfirmEmail(viewModel: MastodonConfirmEmailViewModel)
         case mastodonResendEmail(viewModel: MastodonResendEmailViewModel)
-        case mastodonWebView(viewModel:WebViewModel)
+        case mastodonWebView(viewModel: WebViewModel)
 
         // search
         case searchDetail(viewModel: SearchDetailViewModel)
@@ -184,6 +184,8 @@ extension SceneCoordinator {
         
         // report
         case report(viewModel: ReportViewModel)
+        case reportServerRules(viewModel: ReportServerRulesViewModel)
+        case reportStatus(viewModel: ReportStatusViewModel)
         case reportSupplementary(viewModel: ReportSupplementaryViewModel)
         case reportResult(viewModel: ReportResultViewModel)
 
@@ -445,6 +447,14 @@ private extension SceneCoordinator {
             viewController = _viewController
         case .report(let viewModel):
             let _viewController = ReportViewController()
+            _viewController.viewModel = viewModel
+            viewController = _viewController
+        case .reportServerRules(let viewModel):
+            let _viewController = ReportServerRulesViewController()
+            _viewController.viewModel = viewModel
+            viewController = _viewController
+        case .reportStatus(let viewModel):
+            let _viewController = ReportStatusViewController()
             _viewController.viewModel = viewModel
             viewController = _viewController
         case .reportSupplementary(let viewModel):

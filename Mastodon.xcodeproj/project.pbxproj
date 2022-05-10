@@ -87,7 +87,7 @@
 		2DF123A725C3B0210020F248 /* ActiveLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF123A625C3B0210020F248 /* ActiveLabel.swift */; };
 		2DF75BA725D10E1000694EC8 /* APIService+Favorite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF75BA625D10E1000694EC8 /* APIService+Favorite.swift */; };
 		5B24BBDA262DB14800A9381B /* ReportViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B24BBD7262DB14800A9381B /* ReportViewModel.swift */; };
-		5B24BBDB262DB14800A9381B /* ReportViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B24BBD8262DB14800A9381B /* ReportViewModel+Diffable.swift */; };
+		5B24BBDB262DB14800A9381B /* ReportStatusViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B24BBD8262DB14800A9381B /* ReportStatusViewModel+Diffable.swift */; };
 		5B24BBE2262DB19100A9381B /* APIService+Report.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B24BBE1262DB19100A9381B /* APIService+Report.swift */; };
 		5B90C45E262599800002E742 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B90C456262599800002E742 /* SettingsViewModel.swift */; };
 		5B90C45F262599800002E742 /* SettingsToggleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B90C459262599800002E742 /* SettingsToggleTableViewCell.swift */; };
@@ -440,7 +440,7 @@
 		DB98337125C9443200AD9700 /* APIService+Authentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB98337025C9443200AD9700 /* APIService+Authentication.swift */; };
 		DB98337F25C9452D00AD9700 /* APIService+APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB98337E25C9452D00AD9700 /* APIService+APIError.swift */; };
 		DB98339C25C96DE600AD9700 /* APIService+Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB98339B25C96DE600AD9700 /* APIService+Account.swift */; };
-		DB98EB4727B0DFAA0082E365 /* ReportViewModel+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB98EB4627B0DFAA0082E365 /* ReportViewModel+State.swift */; };
+		DB98EB4727B0DFAA0082E365 /* ReportStatusViewModel+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB98EB4627B0DFAA0082E365 /* ReportStatusViewModel+State.swift */; };
 		DB98EB4927B0F0CD0082E365 /* ReportStatusTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB98EB4827B0F0CD0082E365 /* ReportStatusTableViewCell.swift */; };
 		DB98EB4C27B0F2BC0082E365 /* ReportStatusTableViewCell+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB98EB4B27B0F2BC0082E365 /* ReportStatusTableViewCell+ViewModel.swift */; };
 		DB98EB5327B0F9890082E365 /* ReportHeadlineTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB98EB5227B0F9890082E365 /* ReportHeadlineTableViewCell.swift */; };
@@ -566,6 +566,14 @@
 		DBE3CE07261D6A0E00430CC6 /* FavoriteViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE3CE06261D6A0E00430CC6 /* FavoriteViewModel+Diffable.swift */; };
 		DBE54AC62636C89F004E7C0B /* NotificationPreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE54AC52636C89F004E7C0B /* NotificationPreference.swift */; };
 		DBE54ACC2636C8FD004E7C0B /* NotificationPreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE54AC52636C89F004E7C0B /* NotificationPreference.swift */; };
+		DBEFCD71282A12B200C0ABEA /* ReportReasonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEFCD70282A12B200C0ABEA /* ReportReasonViewController.swift */; };
+		DBEFCD74282A130400C0ABEA /* ReportReasonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEFCD73282A130400C0ABEA /* ReportReasonViewModel.swift */; };
+		DBEFCD76282A143F00C0ABEA /* ReportStatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEFCD75282A143F00C0ABEA /* ReportStatusViewController.swift */; };
+		DBEFCD79282A147000C0ABEA /* ReportStatusViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEFCD78282A147000C0ABEA /* ReportStatusViewModel.swift */; };
+		DBEFCD7B282A162400C0ABEA /* ReportReasonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEFCD7A282A162400C0ABEA /* ReportReasonView.swift */; };
+		DBEFCD7D282A2A3B00C0ABEA /* ReportServerRulesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEFCD7C282A2A3B00C0ABEA /* ReportServerRulesViewController.swift */; };
+		DBEFCD80282A2AA900C0ABEA /* ReportServerRulesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEFCD7F282A2AA900C0ABEA /* ReportServerRulesViewModel.swift */; };
+		DBEFCD82282A2AB100C0ABEA /* ReportServerRulesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEFCD81282A2AB100C0ABEA /* ReportServerRulesView.swift */; };
 		DBF156DF2701B17600EC00B7 /* SidebarAddAccountCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF156DE2701B17600EC00B7 /* SidebarAddAccountCollectionViewCell.swift */; };
 		DBF156E22702DA6900EC00B7 /* UIStatusBarManager+HandleTapAction.m in Sources */ = {isa = PBXBuildFile; fileRef = DBF156E12702DA6900EC00B7 /* UIStatusBarManager+HandleTapAction.m */; };
 		DBF156E42702DB3F00EC00B7 /* HandleTapAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF156E32702DB3F00EC00B7 /* HandleTapAction.swift */; };
@@ -789,7 +797,7 @@
 		459EA4F43058CAB47719E963 /* Pods-Mastodon-MastodonUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon-MastodonUITests.debug.xcconfig"; path = "Target Support Files/Pods-Mastodon-MastodonUITests/Pods-Mastodon-MastodonUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		46DAB0EBDDFB678347CD96FF /* Pods-MastodonTests.asdk - release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MastodonTests.asdk - release.xcconfig"; path = "Target Support Files/Pods-MastodonTests/Pods-MastodonTests.asdk - release.xcconfig"; sourceTree = "<group>"; };
 		5B24BBD7262DB14800A9381B /* ReportViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportViewModel.swift; sourceTree = "<group>"; };
-		5B24BBD8262DB14800A9381B /* ReportViewModel+Diffable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ReportViewModel+Diffable.swift"; sourceTree = "<group>"; };
+		5B24BBD8262DB14800A9381B /* ReportStatusViewModel+Diffable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ReportStatusViewModel+Diffable.swift"; sourceTree = "<group>"; };
 		5B24BBE1262DB19100A9381B /* APIService+Report.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "APIService+Report.swift"; sourceTree = "<group>"; };
 		5B90C456262599800002E742 /* SettingsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		5B90C459262599800002E742 /* SettingsToggleTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsToggleTableViewCell.swift; sourceTree = "<group>"; };
@@ -1199,7 +1207,7 @@
 		DB98337025C9443200AD9700 /* APIService+Authentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Authentication.swift"; sourceTree = "<group>"; };
 		DB98337E25C9452D00AD9700 /* APIService+APIError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "APIService+APIError.swift"; sourceTree = "<group>"; };
 		DB98339B25C96DE600AD9700 /* APIService+Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Account.swift"; sourceTree = "<group>"; };
-		DB98EB4627B0DFAA0082E365 /* ReportViewModel+State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReportViewModel+State.swift"; sourceTree = "<group>"; };
+		DB98EB4627B0DFAA0082E365 /* ReportStatusViewModel+State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReportStatusViewModel+State.swift"; sourceTree = "<group>"; };
 		DB98EB4827B0F0CD0082E365 /* ReportStatusTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportStatusTableViewCell.swift; sourceTree = "<group>"; };
 		DB98EB4B27B0F2BC0082E365 /* ReportStatusTableViewCell+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReportStatusTableViewCell+ViewModel.swift"; sourceTree = "<group>"; };
 		DB98EB5227B0F9890082E365 /* ReportHeadlineTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportHeadlineTableViewCell.swift; sourceTree = "<group>"; };
@@ -1329,6 +1337,14 @@
 		DBEB19E927E4F37B00B0E80E /* ku */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ku; path = ku.lproj/Intents.strings; sourceTree = "<group>"; };
 		DBEB19EA27E4F37B00B0E80E /* ku */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ku; path = ku.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DBEB19EB27E4F37B00B0E80E /* ku */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ku; path = ku.lproj/Intents.stringsdict; sourceTree = "<group>"; };
+		DBEFCD70282A12B200C0ABEA /* ReportReasonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportReasonViewController.swift; sourceTree = "<group>"; };
+		DBEFCD73282A130400C0ABEA /* ReportReasonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportReasonViewModel.swift; sourceTree = "<group>"; };
+		DBEFCD75282A143F00C0ABEA /* ReportStatusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportStatusViewController.swift; sourceTree = "<group>"; };
+		DBEFCD78282A147000C0ABEA /* ReportStatusViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportStatusViewModel.swift; sourceTree = "<group>"; };
+		DBEFCD7A282A162400C0ABEA /* ReportReasonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportReasonView.swift; sourceTree = "<group>"; };
+		DBEFCD7C282A2A3B00C0ABEA /* ReportServerRulesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportServerRulesViewController.swift; sourceTree = "<group>"; };
+		DBEFCD7F282A2AA900C0ABEA /* ReportServerRulesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportServerRulesViewModel.swift; sourceTree = "<group>"; };
+		DBEFCD81282A2AB100C0ABEA /* ReportServerRulesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportServerRulesView.swift; sourceTree = "<group>"; };
 		DBF156DE2701B17600EC00B7 /* SidebarAddAccountCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarAddAccountCollectionViewCell.swift; sourceTree = "<group>"; };
 		DBF156E02702DA6800EC00B7 /* Mastodon-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Mastodon-Bridging-Header.h"; sourceTree = "<group>"; };
 		DBF156E12702DA6900EC00B7 /* UIStatusBarManager+HandleTapAction.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIStatusBarManager+HandleTapAction.m"; sourceTree = "<group>"; };
@@ -1842,6 +1858,9 @@
 			isa = PBXGroup;
 			children = (
 				DB98EB5727B0FF1F0082E365 /* Share */,
+				DBEFCD77282A144D00C0ABEA /* Report */,
+				DBEFCD72282A12B900C0ABEA /* ReportReason */,
+				DBEFCD7E282A2A3D00C0ABEA /* ReportServerRules */,
 				DB98EB4F27B0F9300082E365 /* ReportStatus */,
 				DB98EB5A27B109900082E365 /* ReportSupplementary */,
 				DB98EB6327B216490082E365 /* ReportResult */,
@@ -2208,8 +2227,8 @@
 		DB427DD425BAA00100D1B89D /* Mastodon */ = {
 			isa = PBXGroup;
 			children = (
-				DB427DE325BAA00100D1B89D /* Info.plist */,
 				DB89BA1025C10FF5008580ED /* Mastodon.entitlements */,
+				DB427DE325BAA00100D1B89D /* Info.plist */,
 				2D76319C25C151DE00929FB9 /* Diffiable */,
 				DB8AF52A25C13561002E6C99 /* State */,
 				2D61335525C1886800CAE157 /* Service */,
@@ -2850,10 +2869,10 @@
 		DB98EB4F27B0F9300082E365 /* ReportStatus */ = {
 			isa = PBXGroup;
 			children = (
-				5BB04FD4262E7AFF0043BFF6 /* ReportViewController.swift */,
-				5B24BBD7262DB14800A9381B /* ReportViewModel.swift */,
-				5B24BBD8262DB14800A9381B /* ReportViewModel+Diffable.swift */,
-				DB98EB4627B0DFAA0082E365 /* ReportViewModel+State.swift */,
+				DBEFCD75282A143F00C0ABEA /* ReportStatusViewController.swift */,
+				DBEFCD78282A147000C0ABEA /* ReportStatusViewModel.swift */,
+				5B24BBD8262DB14800A9381B /* ReportStatusViewModel+Diffable.swift */,
+				DB98EB4627B0DFAA0082E365 /* ReportStatusViewModel+State.swift */,
 			);
 			path = ReportStatus;
 			sourceTree = "<group>";
@@ -3175,6 +3194,35 @@
 				DBE3CE00261D623D00430CC6 /* FavoriteViewModel+State.swift */,
 			);
 			path = Favorite;
+			sourceTree = "<group>";
+		};
+		DBEFCD72282A12B900C0ABEA /* ReportReason */ = {
+			isa = PBXGroup;
+			children = (
+				DBEFCD70282A12B200C0ABEA /* ReportReasonViewController.swift */,
+				DBEFCD73282A130400C0ABEA /* ReportReasonViewModel.swift */,
+				DBEFCD7A282A162400C0ABEA /* ReportReasonView.swift */,
+			);
+			path = ReportReason;
+			sourceTree = "<group>";
+		};
+		DBEFCD77282A144D00C0ABEA /* Report */ = {
+			isa = PBXGroup;
+			children = (
+				5BB04FD4262E7AFF0043BFF6 /* ReportViewController.swift */,
+				5B24BBD7262DB14800A9381B /* ReportViewModel.swift */,
+			);
+			path = Report;
+			sourceTree = "<group>";
+		};
+		DBEFCD7E282A2A3D00C0ABEA /* ReportServerRules */ = {
+			isa = PBXGroup;
+			children = (
+				DBEFCD7C282A2A3B00C0ABEA /* ReportServerRulesViewController.swift */,
+				DBEFCD7F282A2AA900C0ABEA /* ReportServerRulesViewModel.swift */,
+				DBEFCD81282A2AB100C0ABEA /* ReportServerRulesView.swift */,
+			);
+			path = ReportServerRules;
 			sourceTree = "<group>";
 		};
 		DBF1D24F269DAF6100C1C08A /* SearchDetail */ = {
@@ -3873,6 +3921,7 @@
 				2D364F7225E66D7500204FDC /* MastodonResendEmailViewController.swift in Sources */,
 				DB68A06325E905E000CFDF14 /* UIApplication.swift in Sources */,
 				DB02CDAB26256A9500D0A2AF /* ThreadReplyLoaderTableViewCell.swift in Sources */,
+				DBEFCD80282A2AA900C0ABEA /* ReportServerRulesViewModel.swift in Sources */,
 				DB0617FF27855D6C0030EE79 /* MastodonServerRulesViewModel+Diffable.swift in Sources */,
 				DBB5255E2611F07A002F1F29 /* ProfileViewModel.swift in Sources */,
 				DB0FCB982797F6BF006C02E2 /* UserTableViewCell+ViewModel.swift in Sources */,
@@ -3900,6 +3949,7 @@
 				DB63F76F279A7D1100455B82 /* NotificationTableViewCell.swift in Sources */,
 				DB297B1B2679FAE200704C90 /* PlaceholderImageCacheService.swift in Sources */,
 				DB0FCB8C2796BF8D006C02E2 /* SearchViewModel+Diffable.swift in Sources */,
+				DBEFCD76282A143F00C0ABEA /* ReportStatusViewController.swift in Sources */,
 				2D8FCA082637EABB00137F46 /* APIService+FollowRequest.swift in Sources */,
 				DBDFF1952805561700557A48 /* DiscoveryPostsViewModel+Diffable.swift in Sources */,
 				DB03A795272A981400EE37C5 /* ContentSplitViewController.swift in Sources */,
@@ -4030,7 +4080,7 @@
 				DB63F75C279956D000455B82 /* Persistence+Tag.swift in Sources */,
 				2D84350525FF858100EECE90 /* UIScrollView.swift in Sources */,
 				DB49A61F25FF32AA00B98345 /* EmojiService+CustomEmojiViewModel.swift in Sources */,
-				5B24BBDB262DB14800A9381B /* ReportViewModel+Diffable.swift in Sources */,
+				5B24BBDB262DB14800A9381B /* ReportStatusViewModel+Diffable.swift in Sources */,
 				DB4F0968269ED8AD00D62E92 /* SearchHistoryTableHeaderView.swift in Sources */,
 				0FB3D2FE25E4CB6400AAD544 /* OnboardingHeadlineTableViewCell.swift in Sources */,
 				5DA732CC2629CEF500A92342 /* UIView+Remove.swift in Sources */,
@@ -4042,6 +4092,7 @@
 				DBBF1DC92652538500E5B703 /* AutoCompleteSection.swift in Sources */,
 				DB3E6FE72806A7A200B035AE /* DiscoveryItem.swift in Sources */,
 				DB8AF55D25C138B7002E6C99 /* UIViewController.swift in Sources */,
+				DBEFCD79282A147000C0ABEA /* ReportStatusViewModel.swift in Sources */,
 				DB7F48452620241000796008 /* ProfileHeaderViewModel.swift in Sources */,
 				DB647C5926F1EA2700F7F82C /* WizardPreference.swift in Sources */,
 				DB0A322E280EE9FD001729D2 /* DiscoveryIntroBannerView.swift in Sources */,
@@ -4092,7 +4143,7 @@
 				DBA94434265CBB5300C537E1 /* ProfileFieldSection.swift in Sources */,
 				DB336F28278D6EC70031E64B /* MastodonFieldContainer.swift in Sources */,
 				DBF156E42702DB3F00EC00B7 /* HandleTapAction.swift in Sources */,
-				DB98EB4727B0DFAA0082E365 /* ReportViewModel+State.swift in Sources */,
+				DB98EB4727B0DFAA0082E365 /* ReportStatusViewModel+State.swift in Sources */,
 				2D5981A125E4A593000FB903 /* MastodonConfirmEmailViewModel.swift in Sources */,
 				DB6B74F6272FBCDB00C70B6E /* FollowerListViewModel+State.swift in Sources */,
 				DB87D4452609BE0500D12C0D /* ComposeStatusPollOptionCollectionViewCell.swift in Sources */,
@@ -4150,6 +4201,7 @@
 				DB6D9F8426358EEC008423CD /* SettingsItem.swift in Sources */,
 				2D364F7825E66D8300204FDC /* MastodonResendEmailViewModel.swift in Sources */,
 				DBA465932696B495002B41DB /* APIService+WebFinger.swift in Sources */,
+				DBEFCD7B282A162400C0ABEA /* ReportReasonView.swift in Sources */,
 				DB8AF54525C13647002E6C99 /* NeedsDependency.swift in Sources */,
 				DB63F77B279ACAE500455B82 /* DataSourceFacade+Favorite.swift in Sources */,
 				DB9D6BF825E4F5690051B173 /* NotificationViewController.swift in Sources */,
@@ -4164,6 +4216,7 @@
 				DB4F097526A037F500D62E92 /* SearchHistoryViewModel.swift in Sources */,
 				DB3EA8E9281B7A3700598866 /* DiscoveryCommunityViewModel.swift in Sources */,
 				DB6180F826391D660018D199 /* MediaPreviewingViewController.swift in Sources */,
+				DBEFCD71282A12B200C0ABEA /* ReportReasonViewController.swift in Sources */,
 				DB0140CF25C42AEE00F9F3CF /* OSLog.swift in Sources */,
 				DB98EB5627B0FF1B0082E365 /* ReportViewControllerAppearance.swift in Sources */,
 				DB938F1526241FDF00E5B6C1 /* APIService+Thread.swift in Sources */,
@@ -4200,6 +4253,7 @@
 				2D7867192625B77500211898 /* NotificationItem.swift in Sources */,
 				DB45FAB625CA5485005A8AC7 /* UIAlertController.swift in Sources */,
 				DBE0821525CD382600FD6BBD /* MastodonRegisterViewController.swift in Sources */,
+				DBEFCD74282A130400C0ABEA /* ReportReasonViewModel.swift in Sources */,
 				2D5A3D0325CF8742002347D6 /* ControlContainableScrollViews.swift in Sources */,
 				DB36679D268AB91B0027D07F /* ComposeStatusAttachmentTableViewCell.swift in Sources */,
 				DB98336B25C9420100AD9700 /* APIService+App.swift in Sources */,
@@ -4287,6 +4341,7 @@
 				DB0617EB277EF3820030EE79 /* GradientBorderView.swift in Sources */,
 				DB789A1225F9F2CC0071ACA0 /* ComposeViewModel.swift in Sources */,
 				DB63F74B279914A000455B82 /* FollowingListViewController+DataSourceProvider.swift in Sources */,
+				DBEFCD7D282A2A3B00C0ABEA /* ReportServerRulesViewController.swift in Sources */,
 				DBB525362611ECEB002F1F29 /* UserTimelineViewController.swift in Sources */,
 				DB938F3326243D6200E5B6C1 /* TimelineTopLoaderTableViewCell.swift in Sources */,
 				DB98EB4927B0F0CD0082E365 /* ReportStatusTableViewCell.swift in Sources */,
@@ -4297,6 +4352,7 @@
 				DB98EB6527B216500082E365 /* ReportResultViewModel.swift in Sources */,
 				DB4F096A269EDAD200D62E92 /* SearchResultViewModel+State.swift in Sources */,
 				5BB04FF5262F0E6D0043BFF6 /* ReportSection.swift in Sources */,
+				DBEFCD82282A2AB100C0ABEA /* ReportServerRulesView.swift in Sources */,
 				DBA94436265CBB7400C537E1 /* ProfileFieldItem.swift in Sources */,
 				DB023D2A27A0FE5C005AC798 /* DataSourceProvider+NotificationTableViewCellDelegate.swift in Sources */,
 				DB98EB6027B10E150082E365 /* ReportCommentTableViewCell.swift in Sources */,

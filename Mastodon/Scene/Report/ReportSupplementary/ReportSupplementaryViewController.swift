@@ -11,20 +11,25 @@ import Combine
 import MastodonAsset
 import MastodonLocalization
 
+protocol ReportSupplementaryViewControllerDelegate: AnyObject {
+    func reportSupplementaryViewController(_ viewController: ReportSupplementaryViewController, skipButtonDidPressed button: UIButton)
+    func reportSupplementaryViewController(_ viewController: ReportSupplementaryViewController, nextButtonDidPressed button: UIButton)
+}
+
 final class ReportSupplementaryViewController: UIViewController, NeedsDependency, ReportViewControllerAppearance {
     
     let logger = Logger(subsystem: "ReportSupplementaryViewController", category: "ViewController")
     
     var disposeBag = Set<AnyCancellable>()
     private var observations = Set<NSKeyValueObservation>()
-
+    
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
     var viewModel: ReportSupplementaryViewModel! { willSet { precondition(!isViewLoaded) } }
 
-    
     // MAKK: - UI
+    
     lazy var cancelBarButtonItem = UIBarButtonItem(
         barButtonSystemItem: .cancel,
         target: self,
@@ -74,16 +79,14 @@ extension ReportSupplementaryViewController {
         setupAppearance()
         defer { setupNavigationBarBackgroundView() }
         
-        navigationItem.rightBarButtonItem = cancelBarButtonItem
-        
-        viewModel.$isReporting
+        viewModel.$isBusy
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] isReporting in
+            .sink { [weak self] isBusy in
                 guard let self = self else { return }
-                self.navigationActionView.isUserInteractionEnabled = !isReporting
+                self.navigationItem.rightBarButtonItem = isBusy ? self.activityIndicatorBarButtonItem : self.cancelBarButtonItem
             }
             .store(in: &disposeBag)
-        
+
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
         NSLayoutConstraint.activate([
@@ -130,49 +133,25 @@ extension ReportSupplementaryViewController {
 }
 
 extension ReportSupplementaryViewController {
-    private func report(withComment: Bool) {
-        Task {
-            do {
-                let _ = try await viewModel.report(withComment: withComment)
-                logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): report success")
-                
-                let reportResultViewModel = ReportResultViewModel(
-                    context: context,
-                    user: viewModel.user
-                )
-                
-                coordinator.present(
-                    scene: .reportResult(viewModel: reportResultViewModel),
-                    from: self,
-                    transition: .show
-                )
-                
-            } catch {
-                let alertController = UIAlertController(for: error, title: nil, preferredStyle: .alert)
-                let okAction = UIAlertAction(title: L10n.Common.Controls.Actions.ok, style: .default, handler: nil)
-                alertController.addAction(okAction)
-                self.coordinator.present(
-                    scene: .alertController(alertController: alertController),
-                    from: nil,
-                    transition: .alertController(animated: true, completion: nil)
-                )
-            }
-        }   // end Task
-    }
-}
-
-extension ReportSupplementaryViewController {
-
+    
     @objc private func cancelBarButtonItemDidPressed(_ sender: UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
     }
 
     @objc func skipButtonDidPressed(_ sender: UIButton) {
-        report(withComment: false)
+        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
+        
+        assert(viewModel.delegate != nil)
+        viewModel.isSkip = true
+        viewModel.delegate?.reportSupplementaryViewController(self, skipButtonDidPressed: sender)
     }
 
     @objc func nextButtonDidPressed(_ sender: UIButton) {
-        report(withComment: true)
+        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
+        
+        assert(viewModel.delegate != nil)
+        viewModel.isSkip = false
+        viewModel.delegate?.reportSupplementaryViewController(self, nextButtonDidPressed: sender)
     }
 
 }

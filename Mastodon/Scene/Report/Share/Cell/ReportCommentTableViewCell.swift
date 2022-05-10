@@ -8,6 +8,7 @@
 import UIKit
 import Combine
 import MastodonUI
+import MastodonAsset
 import MastodonLocalization
 import UITextView_Placeholder
 
@@ -27,7 +28,8 @@ final class ReportCommentTableViewCell: UITableViewCell {
         textView.attributedPlaceholder = NSAttributedString(
             string: L10n.Scene.Report.textPlaceholder,
             attributes: [
-                .font: font
+                .font: font,
+                .foregroundColor: Asset.Colors.Label.secondary.color
             ]
         )
         textView.textContainerInset = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
@@ -80,4 +82,17 @@ extension ReportCommentTableViewCell {
             commentTextView.heightAnchor.constraint(greaterThanOrEqualToConstant: 100).priority(.defaultHigh),
         ])
     }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+
+        commentTextView.attributedPlaceholder = NSAttributedString(
+            string: L10n.Scene.Report.textPlaceholder,
+            attributes: [
+                .font: UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 17, weight: .regular)),
+                .foregroundColor: Asset.Colors.Label.secondary.color
+            ]
+        )
+    }
+    
 }
