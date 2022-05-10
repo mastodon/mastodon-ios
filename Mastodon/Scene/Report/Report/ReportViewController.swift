@@ -24,6 +24,12 @@ class ReportViewController: UIViewController, NeedsDependency, ReportViewControl
     
     var viewModel: ReportViewModel!
     
+    lazy var cancelBarButtonItem = UIBarButtonItem(
+        barButtonSystemItem: .cancel,
+        target: self,
+        action: #selector(ReportViewController.cancelBarButtonItemDidPressed(_:))
+    )
+    
     deinit {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
     }
@@ -38,6 +44,8 @@ extension ReportViewController {
         setupAppearance()
         defer { setupNavigationBarBackgroundView() }
         
+        navigationItem.rightBarButtonItem = cancelBarButtonItem
+
         viewModel.reportReasonViewModel.delegate = self
         viewModel.reportServerRulesViewModel.delegate = self
         viewModel.reportStatusViewModel.delegate = self
@@ -62,6 +70,14 @@ extension ReportViewController {
     
 }
 
+extension ReportViewController {
+    
+    @objc private func cancelBarButtonItemDidPressed(_ sender: UIBarButtonItem) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+}
+
 // MARK: - UIAdaptivePresentationControllerDelegate
 extension ReportViewController: UIAdaptivePresentationControllerDelegate {
     func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {
@@ -74,14 +90,21 @@ extension ReportViewController: ReportReasonViewControllerDelegate {
     func reportReasonViewController(_ viewController: ReportReasonViewController, nextButtonPressed button: UIButton) {
         guard let reason = viewController.viewModel.selectReason else { return }
         switch reason {
+        case .dislike:
+            // TODO:
+            break
         case .violateRule:
             coordinator.present(
                 scene: .reportServerRules(viewModel: viewModel.reportServerRulesViewModel),
                 from: self,
                 transition: .show
             )
-        default:
-            break
+        case .spam, .other:
+            coordinator.present(
+                scene: .reportStatus(viewModel: viewModel.reportStatusViewModel),
+                from: self,
+                transition: .show
+            )
         }
     }
 }
@@ -90,7 +113,7 @@ extension ReportViewController: ReportReasonViewControllerDelegate {
 extension ReportViewController: ReportServerRulesViewControllerDelegate {
     func reportServerRulesViewController(_ viewController: ReportServerRulesViewController, nextButtonPressed button: UIButton) {
         if viewController.viewModel.isDislike {
-            
+            // TODO:
         } else if viewController.viewModel.selectRule != nil {
             coordinator.present(
                 scene: .reportStatus(viewModel: viewModel.reportStatusViewModel),

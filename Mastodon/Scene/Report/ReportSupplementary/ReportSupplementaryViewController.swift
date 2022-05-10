@@ -84,6 +84,8 @@ extension ReportSupplementaryViewController {
             .sink { [weak self] isBusy in
                 guard let self = self else { return }
                 self.navigationItem.rightBarButtonItem = isBusy ? self.activityIndicatorBarButtonItem : self.cancelBarButtonItem
+                self.navigationItem.hidesBackButton = isBusy
+                self.navigationActionView.backButton.isUserInteractionEnabled = !isBusy
             }
             .store(in: &disposeBag)
 

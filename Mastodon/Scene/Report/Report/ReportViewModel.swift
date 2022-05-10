@@ -104,6 +104,9 @@ extension ReportViewModel {
         let managedObjectContext = context.managedObjectContext
         let _query: Mastodon.API.Reports.FileReportQuery? = try await managedObjectContext.perform {
             guard let user = self.user.object(in: managedObjectContext) else { return nil }
+            
+            // the status picker is essential step in report flow
+            // only check isSkip or not
             let statusIDs: [Status.ID]? = {
                 if self.reportStatusViewModel.isSkip {
                     let _id: Status.ID? = self.reportStatusViewModel.status.flatMap { record -> Status.ID? in
@@ -118,10 +121,15 @@ extension ReportViewModel {
                     }
                 }
             }()
+            
+            // the user comment is essential step in report flow
+            // only check isSkip or not
             let comment: String? = {
                 var suffixes: [String] = []
                 let content: String?
                 
+                // the server rules is NOT essential step in report flow
+                // append suffix depends which reason
                 if let reason = self.reportReasonViewModel.selectReason {
                     switch reason {
                     case .spam:
@@ -130,9 +138,12 @@ extension ReportViewModel {
                         suffixes.append(reason.rawValue)
                         if let rule = self.reportServerRulesViewModel.selectRule {
                             suffixes.append(rule.text)
+                        } else {
+                            assertionFailure("should select valid rule")
                         }
-                        
-                    case .dislike, .other:
+                    case .dislike:
+                        assertionFailure("should not enter the report flow")
+                    case .other:
                         break
                     }
                 }
@@ -162,11 +173,14 @@ extension ReportViewModel {
 
         do {
             isReporting = true
+            #if DEBUG
             try await Task.sleep(nanoseconds: .second * 3)
-//            let _ = try await context.apiService.report(
-//                query: query,
-//                authenticationBox: authenticationBox
-//            )
+            #else
+            let _ = try await context.apiService.report(
+                query: query,
+                authenticationBox: authenticationBox
+            )
+            #endif
             isReportSuccess = true
         } catch {
             isReporting = false

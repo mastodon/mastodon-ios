@@ -30,12 +30,6 @@ final class ReportReasonViewController: UIViewController, NeedsDependency, Repor
     var viewModel: ReportReasonViewModel!
     private(set) lazy var reportReasonView = ReportReasonView(viewModel: viewModel)
     
-    lazy var cancelBarButtonItem = UIBarButtonItem(
-        barButtonSystemItem: .cancel,
-        target: self,
-        action: #selector(ReportReasonViewController.cancelBarButtonItemDidPressed(_:))
-    )
-    
     let navigationActionView: NavigationActionView = {
         let navigationActionView = NavigationActionView()
         navigationActionView.backgroundColor = Asset.Scene.Onboarding.background.color
@@ -56,8 +50,6 @@ extension ReportReasonViewController {
         
         setupAppearance()
         defer { setupNavigationBarBackgroundView() }
-        
-        navigationItem.rightBarButtonItem = cancelBarButtonItem
         
         let hostingViewController = UIHostingController(rootView: reportReasonView)
         hostingViewController.view.preservesSuperviewLayoutMargins = true
@@ -101,10 +93,6 @@ extension ReportReasonViewController {
 }
 
 extension ReportReasonViewController {
-    
-    @objc private func cancelBarButtonItemDidPressed(_ sender: UIBarButtonItem) {
-        dismiss(animated: true, completion: nil)
-    }
     
     @objc private func nextButtonPressed(_ sender: UIButton) {
         logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")

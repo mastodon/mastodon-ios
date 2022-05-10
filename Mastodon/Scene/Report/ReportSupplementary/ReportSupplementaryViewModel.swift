@@ -34,11 +34,15 @@ class ReportSupplementaryViewModel {
         self.user = user
         // end init
         
-        commentContext.$comment
-            .map { comment -> Bool in
-                return !comment.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
-            }
-            .assign(to: &$isNextButtonEnabled)
+        Publishers.CombineLatest(
+            commentContext.$comment,
+            $isBusy
+        )
+        .map { comment, isBusy -> Bool in
+            guard !isBusy else { return false }
+            return !comment.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+        }
+        .assign(to: &$isNextButtonEnabled)
     }
     
 }
