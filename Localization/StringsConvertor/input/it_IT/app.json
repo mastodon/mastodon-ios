@@ -241,7 +241,7 @@
             },
             "input": {
                 "placeholder": "Cerca comunità",
-                "search_servers_or_enter_url": "Search communities or enter URL"
+                "search_servers_or_enter_url": "Cerca comunità o inserisci l'URL"
             },
             "empty_state": {
                 "finding_servers": "Ricerca server disponibili...",
@@ -345,8 +345,8 @@
                 "published": "Pubblicato!",
                 "Publishing": "Pubblicazione post...",
                 "accessibility": {
-                    "logo_label": "Logo Button",
-                    "logo_hint": "Tap to scroll to top and tap again to previous location"
+                    "logo_label": "Pulsante Logo",
+                    "logo_hint": "Tocca per scorrere verso l'alto e tocca di nuovo verso la posizione precedente"
                 }
             }
         },
@@ -603,45 +603,45 @@
             "text_placeholder": "Digita o incolla commenti aggiuntivi",
             "reported": "SEGNALATO",
             "step_one": {
-                "step_1_of_4": "Step 1 of 4",
-                "whats_wrong_with_this_post": "What's wrong with this post?",
-                "whats_wrong_with_this_account": "What's wrong with this account?",
-                "whats_wrong_with_this_username": "What's wrong with %s?",
-                "select_the_best_match": "Select the best match",
-                "i_dont_like_it": "I don’t like it",
-                "it_is_not_something_you_want_to_see": "It is not something you want to see",
-                "its_spam": "It’s spam",
-                "malicious_links_fake_engagement_or_repetetive_replies": "Malicious links, fake engagement, or repetetive replies",
-                "it_violates_server_rules": "It violates server rules",
-                "you_are_aware_that_it_breaks_specific_rules": "You are aware that it breaks specific rules",
-                "its_something_else": "It’s something else",
-                "the_issue_does_not_fit_into_other_categories": "The issue does not fit into other categories"
+                "step_1_of_4": "Fase 1 di 4",
+                "whats_wrong_with_this_post": "Cosa c'è che non va con questo post?",
+                "whats_wrong_with_this_account": "Cosa c'è che non va con questo account?",
+                "whats_wrong_with_this_username": "Cosa c'è che non va con %s?",
+                "select_the_best_match": "Scegli la migliore corrispondenza",
+                "i_dont_like_it": "Non mi piace",
+                "it_is_not_something_you_want_to_see": "È qualcosa che non vuoi vedere",
+                "its_spam": "È spam",
+                "malicious_links_fake_engagement_or_repetetive_replies": "Collegamenti malevoli, false interazioni o risposte ripetitive",
+                "it_violates_server_rules": "Viola le regole del server",
+                "you_are_aware_that_it_breaks_specific_rules": "Sei consapevole che violi regole specifiche",
+                "its_something_else": "È qualcos'altro",
+                "the_issue_does_not_fit_into_other_categories": "Il problema non rientra in altre categorie"
             },
             "step_two": {
-                "step_2_of_4": "Step 2 of 4",
-                "which_rules_are_being_violated": "Which rules are being violated?",
-                "select_all_that_apply": "Select all that apply",
-                "i_just_don’t_like_it": "I just don’t like it"
+                "step_2_of_4": "Fase 2 di 4",
+                "which_rules_are_being_violated": "Quali regole vengono violate?",
+                "select_all_that_apply": "Seleziona tutte le risposte pertinenti",
+                "i_just_don’t_like_it": "Non mi piace"
             },
             "step_three": {
-                "step_3_of_4": "Step 3 of 4",
-                "are_there_any_posts_that_back_up_this_report": "Are there any posts that back up this report?",
-                "select_all_that_apply": "Select all that apply"
+                "step_3_of_4": "Fase 3 di 4",
+                "are_there_any_posts_that_back_up_this_report": "Ci sono post a sostegno di questa segnalazione?",
+                "select_all_that_apply": "Seleziona tutte le risposte pertinenti"
             },
             "step_four": {
-                "step_4_of_4": "Step 4 of 4",
-                "is_there_anything_else_we_should_know": "Is there anything else we should know?"
+                "step_4_of_4": "Fase 4 di 4",
+                "is_there_anything_else_we_should_know": "C'è altro che dovremmo sapere?"
             },
             "step_final": {
-                "dont_want_to_see_this": "Don’t want to see this?",
-                "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "When you see something you don’t like on Mastodon, you can remove the person from your experience.",
-                "unfollow": "Unfollow",
-                "unfollowed": "Unfollowed",
-                "unfollow_user": "Unfollow %s",
-                "mute_user": "Mute %s",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or reblogs in your home feed. They won’t know they’ve been muted.",
-                "block_user": "Block %s",
-                "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "They will no longer be able to follow or see your posts, but they can see if they’ve been blocked."
+                "dont_want_to_see_this": "Non vuoi vedere questo?",
+                "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "Quando vedi qualcosa che non ti piace su Mastodon, puoi rimuovere la persona dalla tua esperienza.",
+                "unfollow": "Smetti di seguire",
+                "unfollowed": "Non seguito",
+                "unfollow_user": "Smetti di seguire %s",
+                "mute_user": "Silenzia %s",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "Non vedrai i loro post o le condivisioni nel tuo feed. Non sapranno di essere stati silenziati.",
+                "block_user": "Blocca %s",
+                "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "Non saranno più in grado di seguire o vedere i tuoi post, ma possono vedere se sono stati bloccati."
             }
         },
         "preview": {
