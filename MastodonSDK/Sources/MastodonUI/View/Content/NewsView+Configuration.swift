@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 import MastodonSDK
 import MastodonLocalization
 import AlamofireImage

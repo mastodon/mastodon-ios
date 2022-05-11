@@ -6,9 +6,14 @@
 //
 
 import UIKit
+import Combine
 import MastodonAsset
 
 public final class NewsView: UIView {
+        
+    static let imageViewWidth: CGFloat = 132
+    
+    var disposeBag = Set<AnyCancellable>()
     
     let container = UIStackView()
     
@@ -44,10 +49,14 @@ public final class NewsView: UIView {
     }()
     
     let imageView = MediaView()
+
+//    let imageView = UIImageView()
+//    var imageViewMediaConfiguration: MediaView.Configuration?
     
     public func prepareForReuse() {
         providerFaviconImageView.tag = (0..<Int.max).randomElement() ?? -1
         imageView.prepareForReuse()
+        disposeBag.removeAll()
     }
     
     override init(frame: CGRect) {
@@ -65,6 +74,7 @@ public final class NewsView: UIView {
 extension NewsView {
     private func _init() {
         // container: H - [ textContainer | imageView ]
+        container.distribution = .fill
         container.axis = .horizontal
         container.spacing = 8
         container.translatesAutoresizingMaskIntoConstraints = false
@@ -121,6 +131,12 @@ extension NewsView {
         NSLayoutConstraint.activate([
             imageView.widthAnchor.constraint(equalToConstant: 132).priority(.required - 1),
         ])
+        imageView.setContentHuggingPriority(.defaultLow - 100, for: .vertical)
+        imageView.setContentCompressionResistancePriority(.defaultLow - 100, for: .vertical)
+        imageView.imageView.setContentHuggingPriority(.defaultLow - 100, for: .vertical)
+        imageView.imageView.setContentCompressionResistancePriority(.defaultLow - 100, for: .vertical)
+        imageView.blurhashImageView.setContentHuggingPriority(.defaultLow - 100, for: .vertical)
+        imageView.blurhashImageView.setContentCompressionResistancePriority(.defaultLow - 100, for: .vertical)
         imageView.isUserInteractionEnabled = false
     }
 }
