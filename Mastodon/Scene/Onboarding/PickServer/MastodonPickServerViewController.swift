@@ -92,7 +92,7 @@ extension MastodonPickServerViewController {
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor),
         ])
         
         navigationActionView.translatesAutoresizingMaskIntoConstraints = false
@@ -107,10 +107,10 @@ extension MastodonPickServerViewController {
         ])
         
         navigationActionView
-            .observe(\.bounds, options: [.initial, .new]) { [weak self] navigationActionView, _ in
+            .observe(\.bounds, options: [.initial, .new]) { [weak self] _, _ in
                 guard let self = self else { return }
-                let inset = navigationActionView.frame.height
-                self.tableView.contentInset.bottom = inset
+                let inset = self.navigationActionView.frame.height
+                self.viewModel.additionalTableViewInsets.bottom = inset
             }
             .store(in: &observations)
 
@@ -149,7 +149,8 @@ extension MastodonPickServerViewController {
         KeyboardResponderService
             .configure(
                 scrollView: tableView,
-                layoutNeedsUpdate: viewModel.viewDidAppear.eraseToAnyPublisher()
+                layoutNeedsUpdate: viewModel.viewDidAppear.eraseToAnyPublisher(),
+                additionalSafeAreaInsets: viewModel.$additionalTableViewInsets.eraseToAnyPublisher()
             )
             .store(in: &disposeBag)
 
