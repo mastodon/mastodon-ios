@@ -332,14 +332,13 @@ girêdanê bitikne da ku ajimêra xwe bidî piştrastkirin.";
 "Scene.ServerPicker.EmptyState.BadNetwork" = "Di dema barkirina daneyan da çewtî derket. Girêdana xwe ya înternetê kontrol bike.";
 "Scene.ServerPicker.EmptyState.FindingServers" = "Peydakirina rajekarên berdest...";
 "Scene.ServerPicker.EmptyState.NoResults" = "Encam tune";
-"Scene.ServerPicker.Input.Placeholder" = "Rajekarekî bibîne an jî beşdarî ya xwe bibe...";
+"Scene.ServerPicker.Input.Placeholder" = "Li rajekaran bigere";
 "Scene.ServerPicker.Label.Category" = "BEŞ";
 "Scene.ServerPicker.Label.Language" = "ZIMAN";
 "Scene.ServerPicker.Label.Users" = "BIKARHÊNER";
 "Scene.ServerPicker.Subtitle" = "Li gorî berjewendî, herêm, an jî armancek gelemperî civakekê hilbijêre.";
 "Scene.ServerPicker.SubtitleExtend" = "Li gorî berjewendî, herêm, an jî armancek gelemperî civakekê hilbijêre. Her civakek ji hêla rêxistinek an kesek bi tevahî serbixwe ve tê xebitandin.";
-"Scene.ServerPicker.Title" = "Rajekarekê hilbijêre,
-Her kîjan rajekar be.";
+"Scene.ServerPicker.Title" = "Mastodon ji bikarhênerên di civakên cuda de pêk tê.";
 "Scene.ServerRules.Button.Confirm" = "Ez dipejirînim";
 "Scene.ServerRules.PrivacyPolicy" = "polîtikaya nihêniyê";
 "Scene.ServerRules.Prompt" = "Bi domandinê, tu ji bo %@ di bin mercên bikaranînê û polîtîkaya nepenîtiyê dipejirînî.";

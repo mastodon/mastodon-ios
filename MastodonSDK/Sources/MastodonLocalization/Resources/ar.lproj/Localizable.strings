@@ -58,7 +58,7 @@
 "Common.Controls.Actions.SignIn" = "تسجيل الدخول";
 "Common.Controls.Actions.SignUp" = "إنشاء حِساب";
 "Common.Controls.Actions.Skip" = "تخطي";
-"Common.Controls.Actions.TakePhoto" = "التقاط صورة";
+"Common.Controls.Actions.TakePhoto" = "اِلتِقاطُ صُورَة";
 "Common.Controls.Actions.TryAgain" = "المُحاولة مرة أُخرى";
 "Common.Controls.Actions.UnblockDomain" = "رفع الحظر عن %@";
 "Common.Controls.Friendship.Block" = "حظر";
@@ -164,7 +164,7 @@
 "Scene.Compose.Attachment.Video" = "مقطع مرئي";
 "Scene.Compose.AutoComplete.SpaceToAdd" = "انقر على مساحة لإضافتِها";
 "Scene.Compose.ComposeAction" = "نَشر";
-"Scene.Compose.ContentInputPlaceholder" = "أخبِرنا بِما يَجُولُ فِي ذِهنَك";
+"Scene.Compose.ContentInputPlaceholder" = "عَبِّر عَمَّ يَجُولُ فِي ذِهنِك";
 "Scene.Compose.ContentWarning.Placeholder" = "اكتب تَحذيرًا دَقيقًا هُنا...";
 "Scene.Compose.Keyboard.AppendAttachmentEntry" = "إضافة مُرفَق - %@";
 "Scene.Compose.Keyboard.DiscardPost" = "تجاهُل المنشور";
@@ -172,9 +172,9 @@
 "Scene.Compose.Keyboard.SelectVisibilityEntry" = "اختر مدى الظهور - %@";
 "Scene.Compose.Keyboard.ToggleContentWarning" = "تبديل تحذير المُحتَوى";
 "Scene.Compose.Keyboard.TogglePoll" = "تبديل الاستطلاع";
-"Scene.Compose.MediaSelection.Browse" = "تصفح";
-"Scene.Compose.MediaSelection.Camera" = "إلتقاط صورة";
-"Scene.Compose.MediaSelection.PhotoLibrary" = "مكتبة الصور";
+"Scene.Compose.MediaSelection.Browse" = "تَصَفَّح";
+"Scene.Compose.MediaSelection.Camera" = "اِلتِقاطُ صُورَة";
+"Scene.Compose.MediaSelection.PhotoLibrary" = "مَكتَبَةُ الصُّوَر";
 "Scene.Compose.Poll.DurationTime" = "المُدَّة: %@";
 "Scene.Compose.Poll.OneDay" = "يومٌ واحِد";
 "Scene.Compose.Poll.OneHour" = "ساعةٌ واحدة";

@@ -203,7 +203,7 @@ y no se puede subir a Mastodon.";
 pulsá en el enlace para confirmar tu cuenta.";
 "Scene.ConfirmEmail.Title" = "Una última cosa.";
 "Scene.Discovery.Intro" = "Estos son los mensajes que están ganando tracción en tu rincón de Mastodon.";
-"Scene.Discovery.Tabs.Community" = "Community";
+"Scene.Discovery.Tabs.Community" = "Comunidad";
 "Scene.Discovery.Tabs.ForYou" = "Para vos";
 "Scene.Discovery.Tabs.Hashtags" = "Etiquetas";
 "Scene.Discovery.Tabs.News" = "Novedades";
