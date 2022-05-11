@@ -150,7 +150,7 @@ extension DiscoveryHashtagsViewController: TableViewControllerNavigateable {
             navigateToTag(direction: direction, indexPath: indexPathForSelectedRow)
         } else {
             // set first visible item selected
-            navigateToFirstVisibleStatus()
+            navigateToFirstVisibleTag()
         }
     }
     
@@ -185,7 +185,7 @@ extension DiscoveryHashtagsViewController: TableViewControllerNavigateable {
         tableView.selectRow(at: indexPath, animated: true, scrollPosition: scrollPosition)
     }
     
-    private func navigateToFirstVisibleStatus() {
+    private func navigateToFirstVisibleTag() {
         guard let indexPathsForVisibleRows = tableView.indexPathsForVisibleRows else { return }
         guard let diffableDataSource = viewModel.diffableDataSource else { return }
         
