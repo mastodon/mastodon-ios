@@ -641,7 +641,8 @@
                 "mute_user": "Silenzia %s",
                 "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "Non vedrai i loro post o le condivisioni nel tuo feed. Non sapranno di essere stati silenziati.",
                 "block_user": "Blocca %s",
-                "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "Non saranno più in grado di seguire o vedere i tuoi post, ma possono vedere se sono stati bloccati."
+                "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "Non saranno più in grado di seguire o vedere i tuoi post, ma possono vedere se sono stati bloccati.",
+                "while_we_review_this_you_can_take_action_against_user": "While we review this, you can take action against %s"
             }
         },
         "preview": {
