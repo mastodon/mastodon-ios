@@ -241,7 +241,7 @@
             },
             "input": {
                 "placeholder": "اِبحَث عن خادِم أو انضم إلى آخر خاص بك...",
-                "search_servers_or_enter_url": "Search communities or enter URL"
+                "search_servers_or_enter_url": "اِبحث عَن مُجتَمَعَات أو أدخِل عُنوانَ URL"
             },
             "empty_state": {
                 "finding_servers": "يجري إيجاد خوادم متوفِّرَة...",
@@ -345,8 +345,8 @@
                 "published": "تمَّ النَّشر!",
                 "Publishing": "يَجري نَشر المُشارَكَة...",
                 "accessibility": {
-                    "logo_label": "Logo Button",
-                    "logo_hint": "Tap to scroll to top and tap again to previous location"
+                    "logo_label": "ُّزِرُّ الشِّعار",
+                    "logo_hint": "اُنقُر لِلتمريرِ لأعلى واُنقُر مَرّةً أُخرَى لِلذَّهابِ إلَى المَوقِعِ السَّابِق"
                 }
             }
         },
@@ -593,8 +593,8 @@
         "report": {
             "title_report": "إبلاغ",
             "title": "الإبلاغ عن %s",
-            "step1": "الخطوة الأولى مِن أصل اثنتين",
-            "step2": "الخطوة الثانية والأخيرة",
+            "step1": "الخطوة 1 مِن أصل 2",
+            "step2": "الخطوة 2 مِن أصل 2",
             "content1": "هل ترغب في إضافة أي منشورات أُخرى إلى البلاغ؟",
             "content2": "هل هناك أي شيء يجب أن يعرفه المُراقبين حول هذا البلاغ؟",
             "report_sent_title": "شُكرًا لَكَ على الإبلاغ، سَوفَ نَنظُرُ فِي هَذَا الأمر.",
@@ -603,44 +603,44 @@
             "text_placeholder": "اكتب أو الصق تعليقات إضافيَّة",
             "reported": "مُبْلَغٌ عَنه",
             "step_one": {
-                "step_1_of_4": "Step 1 of 4",
-                "whats_wrong_with_this_post": "What's wrong with this post?",
-                "whats_wrong_with_this_account": "What's wrong with this account?",
-                "whats_wrong_with_this_username": "What's wrong with %s?",
-                "select_the_best_match": "Select the best match",
-                "i_dont_like_it": "I don’t like it",
-                "it_is_not_something_you_want_to_see": "It is not something you want to see",
-                "its_spam": "It’s spam",
-                "malicious_links_fake_engagement_or_repetetive_replies": "Malicious links, fake engagement, or repetetive replies",
-                "it_violates_server_rules": "It violates server rules",
-                "you_are_aware_that_it_breaks_specific_rules": "You are aware that it breaks specific rules",
-                "its_something_else": "It’s something else",
-                "the_issue_does_not_fit_into_other_categories": "The issue does not fit into other categories"
+                "step_1_of_4": "الخطوة 1 مِن أصل 4",
+                "whats_wrong_with_this_post": "ما المُشكِلَةُ فِي هَذَا المَنشُور؟",
+                "whats_wrong_with_this_account": "ما المُشكِلَةُ فِي هَذَا الحِساب؟",
+                "whats_wrong_with_this_username": "ما المُشكِلَة مَعَ %s؟",
+                "select_the_best_match": "اِختَر أفضلَ تَطابُق",
+                "i_dont_like_it": "لا يُعجِبُني",
+                "it_is_not_something_you_want_to_see": "إنَّهُ ليسَ شيئًا تُريدُ رُؤيَتَه",
+                "its_spam": "إنَّهُ غَيرٌ مَرغوبٍ فيه",
+                "malicious_links_fake_engagement_or_repetetive_replies": "رَوابِطٌ ضَارَّة، اِرتِباطاتٌ مُزيَّفَة أو رُدودٌ مُتَكَرِّرَة",
+                "it_violates_server_rules": "يَنتَهِكُ قَواعِدَ الخادِم",
+                "you_are_aware_that_it_breaks_specific_rules": "أنتَ مُدِركٌ لِانتِهاكِهِ قَواعِدًا مُحَدَّدَة",
+                "its_something_else": "إنَّهُ شَيءٌ آخَر",
+                "the_issue_does_not_fit_into_other_categories": "المُشكِلَةُ لَا تَتَناسَبُ مَعَ الفِئاتِ الأُخرَى"
             },
             "step_two": {
-                "step_2_of_4": "Step 2 of 4",
-                "which_rules_are_being_violated": "Which rules are being violated?",
-                "select_all_that_apply": "Select all that apply",
-                "i_just_don’t_like_it": "I just don’t like it"
+                "step_2_of_4": "الخطوة 2 مِن أصل 4",
+                "which_rules_are_being_violated": "مَا هِيَ القَواعِدُ الَّتي تُنتَهَك؟",
+                "select_all_that_apply": "اِختَر كُلَّ ما يَنطَبِق",
+                "i_just_don’t_like_it": "أنا فَقَط لا يُعجِبُني"
             },
             "step_three": {
-                "step_3_of_4": "Step 3 of 4",
+                "step_3_of_4": "الخطوة 3 مِن أصل 4",
                 "are_there_any_posts_that_back_up_this_report": "Are there any posts that back up this report?",
-                "select_all_that_apply": "Select all that apply"
+                "select_all_that_apply": "اِختَر كُلَّ ما يَنطَبِق"
             },
             "step_four": {
-                "step_4_of_4": "Step 4 of 4",
-                "is_there_anything_else_we_should_know": "Is there anything else we should know?"
+                "step_4_of_4": "الخطوة 4 مِن أصل 4",
+                "is_there_anything_else_we_should_know": "هَل هُناكَ شَيءٌ آخَرَ يَجِبُ أن نَعلَمَ بِه؟"
             },
             "step_final": {
-                "dont_want_to_see_this": "Don’t want to see this?",
-                "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "When you see something you don’t like on Mastodon, you can remove the person from your experience.",
-                "unfollow": "Unfollow",
-                "unfollowed": "Unfollowed",
-                "unfollow_user": "Unfollow %s",
-                "mute_user": "Mute %s",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or reblogs in your home feed. They won’t know they’ve been muted.",
-                "block_user": "Block %s",
+                "dont_want_to_see_this": "ألَا تُريدُ رُؤيَةَ هَذَا؟",
+                "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "عِندما تَرى شيئًا لَا يُعجِبُكَ عَلَى مَاستودُون، يُمكِنُكَ إزالَةُ الشَّخصِ مِن تَجرِبَتِك.",
+                "unfollow": "إلغاءُ المُتابَعَة",
+                "unfollowed": "أُلغِيَت المُتابَعَة",
+                "unfollow_user": "إلغاءُ مُتابَعَةِ %s",
+                "mute_user": "كَتمُ %s",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "لَن تَرى مُشارَكاتِهِ أو إعادَاتِ تَدوينَهِ فِي تغذيَتِكَ الرَّئيسَة. لَن يَعرِفَ أنَّهُ قَد كُتِمَ أيضًا.",
+                "block_user": "حَظرُ %s",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "They will no longer be able to follow or see your posts, but they can see if they’ve been blocked."
             }
         },
