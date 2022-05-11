@@ -585,6 +585,12 @@ public enum L10n {
         public static let published = L10n.tr("Localizable", "Scene.HomeTimeline.NavigationBarState.Published")
         /// Publishing post...
         public static let publishing = L10n.tr("Localizable", "Scene.HomeTimeline.NavigationBarState.Publishing")
+        public enum Accessibility {
+          /// Tap to scroll to top and tap again to previous location
+          public static let logoHint = L10n.tr("Localizable", "Scene.HomeTimeline.NavigationBarState.Accessibility.LogoHint")
+          /// Logo Button
+          public static let logoLabel = L10n.tr("Localizable", "Scene.HomeTimeline.NavigationBarState.Accessibility.LogoLabel")
+        }
       }
     }
     public enum Notification {
@@ -840,6 +846,86 @@ public enum L10n {
       }
       /// Report
       public static let titleReport = L10n.tr("Localizable", "Scene.Report.TitleReport")
+      public enum StepFinal {
+        /// Block %@
+        public static func blockUser(_ p1: Any) -> String {
+          return L10n.tr("Localizable", "Scene.Report.StepFinal.BlockUser", String(describing: p1))
+        }
+        /// Don’t want to see this?
+        public static let dontWantToSeeThis = L10n.tr("Localizable", "Scene.Report.StepFinal.DontWantToSeeThis")
+        /// Mute %@
+        public static func muteUser(_ p1: Any) -> String {
+          return L10n.tr("Localizable", "Scene.Report.StepFinal.MuteUser", String(describing: p1))
+        }
+        /// They will no longer be able to follow or see your posts, but they can see if they’ve been blocked.
+        public static let theyWillNoLongerBeAbleToFollowOrSeeYourPostsButTheyCanSeeIfTheyveBeenBlocked = L10n.tr("Localizable", "Scene.Report.StepFinal.TheyWillNoLongerBeAbleToFollowOrSeeYourPostsButTheyCanSeeIfTheyveBeenBlocked")
+        /// Unfollow
+        public static let unfollow = L10n.tr("Localizable", "Scene.Report.StepFinal.Unfollow")
+        /// Unfollowed
+        public static let unfollowed = L10n.tr("Localizable", "Scene.Report.StepFinal.Unfollowed")
+        /// Unfollow %@
+        public static func unfollowUser(_ p1: Any) -> String {
+          return L10n.tr("Localizable", "Scene.Report.StepFinal.UnfollowUser", String(describing: p1))
+        }
+        /// When you see something you don’t like on Mastodon, you can remove the person from your experience.
+        public static let whenYouSeeSomethingYouDontLikeOnMastodonYouCanRemoveThePersonFromYourExperience = L10n.tr("Localizable", "Scene.Report.StepFinal.WhenYouSeeSomethingYouDontLikeOnMastodonYouCanRemoveThePersonFromYourExperience.")
+        /// You won’t see their posts or reblogs in your home feed. They won’t know they’ve been muted.
+        public static let youWontSeeTheirPostsOrReblogsInYourHomeFeedTheyWontKnowTheyVeBeenMuted = L10n.tr("Localizable", "Scene.Report.StepFinal.YouWontSeeTheirPostsOrReblogsInYourHomeFeedTheyWontKnowTheyVeBeenMuted")
+      }
+      public enum StepFour {
+        /// Is there anything else we should know?
+        public static let isThereAnythingElseWeShouldKnow = L10n.tr("Localizable", "Scene.Report.StepFour.IsThereAnythingElseWeShouldKnow")
+        /// Step 4 of 4
+        public static let step4Of4 = L10n.tr("Localizable", "Scene.Report.StepFour.Step4Of4")
+      }
+      public enum StepOne {
+        /// I don’t like it
+        public static let iDontLikeIt = L10n.tr("Localizable", "Scene.Report.StepOne.IDontLikeIt")
+        /// It is not something you want to see
+        public static let itIsNotSomethingYouWantToSee = L10n.tr("Localizable", "Scene.Report.StepOne.ItIsNotSomethingYouWantToSee")
+        /// It’s something else
+        public static let itsSomethingElse = L10n.tr("Localizable", "Scene.Report.StepOne.ItsSomethingElse")
+        /// It’s spam
+        public static let itsSpam = L10n.tr("Localizable", "Scene.Report.StepOne.ItsSpam")
+        /// It violates server rules
+        public static let itViolatesServerRules = L10n.tr("Localizable", "Scene.Report.StepOne.ItViolatesServerRules")
+        /// Malicious links, fake engagement, or repetetive replies
+        public static let maliciousLinksFakeEngagementOrRepetetiveReplies = L10n.tr("Localizable", "Scene.Report.StepOne.MaliciousLinksFakeEngagementOrRepetetiveReplies")
+        /// Select the best match
+        public static let selectTheBestMatch = L10n.tr("Localizable", "Scene.Report.StepOne.SelectTheBestMatch")
+        /// Step 1 of 4
+        public static let step1Of4 = L10n.tr("Localizable", "Scene.Report.StepOne.Step1Of4")
+        /// The issue does not fit into other categories
+        public static let theIssueDoesNotFitIntoOtherCategories = L10n.tr("Localizable", "Scene.Report.StepOne.TheIssueDoesNotFitIntoOtherCategories")
+        /// What's wrong with this account?
+        public static let whatsWrongWithThisAccount = L10n.tr("Localizable", "Scene.Report.StepOne.WhatsWrongWithThisAccount")
+        /// What's wrong with this post?
+        public static let whatsWrongWithThisPost = L10n.tr("Localizable", "Scene.Report.StepOne.WhatsWrongWithThisPost")
+        /// What's wrong with %@?
+        public static func whatsWrongWithThisUsername(_ p1: Any) -> String {
+          return L10n.tr("Localizable", "Scene.Report.StepOne.WhatsWrongWithThisUsername", String(describing: p1))
+        }
+        /// You are aware that it breaks specific rules
+        public static let youAreAwareThatItBreaksSpecificRules = L10n.tr("Localizable", "Scene.Report.StepOne.YouAreAwareThatItBreaksSpecificRules")
+      }
+      public enum StepThree {
+        /// Are there any posts that back up this report?
+        public static let areThereAnyPostsThatBackUpThisReport = L10n.tr("Localizable", "Scene.Report.StepThree.AreThereAnyPostsThatBackUpThisReport")
+        /// Select all that apply
+        public static let selectAllThatApply = L10n.tr("Localizable", "Scene.Report.StepThree.SelectAllThatApply")
+        /// Step 3 of 4
+        public static let step3Of4 = L10n.tr("Localizable", "Scene.Report.StepThree.Step3Of4")
+      }
+      public enum StepTwo {
+        /// I just don’t like it
+        public static let iJustDonTLikeIt = L10n.tr("Localizable", "Scene.Report.StepTwo.IJustDon’tLikeIt")
+        /// Select all that apply
+        public static let selectAllThatApply = L10n.tr("Localizable", "Scene.Report.StepTwo.SelectAllThatApply")
+        /// Step 2 of 4
+        public static let step2Of4 = L10n.tr("Localizable", "Scene.Report.StepTwo.Step2Of4")
+        /// Which rules are being violated?
+        public static let whichRulesAreBeingViolated = L10n.tr("Localizable", "Scene.Report.StepTwo.WhichRulesAreBeingViolated")
+      }
     }
     public enum Search {
       /// Search
@@ -947,6 +1033,8 @@ public enum L10n {
       public enum Input {
         /// Search servers
         public static let placeholder = L10n.tr("Localizable", "Scene.ServerPicker.Input.Placeholder")
+        /// Search communities or enter URL
+        public static let searchServersOrEnterUrl = L10n.tr("Localizable", "Scene.ServerPicker.Input.SearchServersOrEnterUrl")
       }
       public enum Label {
         /// CATEGORY
