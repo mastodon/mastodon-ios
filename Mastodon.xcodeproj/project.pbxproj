@@ -818,7 +818,10 @@
 		5DDDF1A82617489F00311060 /* Mastodon+Entity+History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Mastodon+Entity+History.swift"; sourceTree = "<group>"; };
 		5DF1056325F887CB00D6C0D4 /* AVPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVPlayer.swift; sourceTree = "<group>"; };
 		6130CBE4B26E3C976ACC1688 /* Pods-ShareActionExtension.asdk - debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShareActionExtension.asdk - debug.xcconfig"; path = "Target Support Files/Pods-ShareActionExtension/Pods-ShareActionExtension.asdk - debug.xcconfig"; sourceTree = "<group>"; };
+		63EF9E6E5B575CD2A8B0475D /* Pods-AppShared.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppShared.profile.xcconfig"; path = "Target Support Files/Pods-AppShared/Pods-AppShared.profile.xcconfig"; sourceTree = "<group>"; };
+		728DE51ADA27C395C6E1BAB5 /* Pods-Mastodon-MastodonUITests.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon-MastodonUITests.profile.xcconfig"; path = "Target Support Files/Pods-Mastodon-MastodonUITests/Pods-Mastodon-MastodonUITests.profile.xcconfig"; sourceTree = "<group>"; };
 		75E3471C898DDD9631729B6E /* Pods-Mastodon.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon.release.xcconfig"; path = "Target Support Files/Pods-Mastodon/Pods-Mastodon.release.xcconfig"; sourceTree = "<group>"; };
+		7CB58D292DA7ACEF179A9050 /* Pods-Mastodon.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon.profile.xcconfig"; path = "Target Support Files/Pods-Mastodon/Pods-Mastodon.profile.xcconfig"; sourceTree = "<group>"; };
 		7CEFFAE9AF9284B13C0A758D /* Pods-MastodonTests.asdk - debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MastodonTests.asdk - debug.xcconfig"; path = "Target Support Files/Pods-MastodonTests/Pods-MastodonTests.asdk - debug.xcconfig"; sourceTree = "<group>"; };
 		819CEC9DCAD8E8E7BD85A7BB /* Pods-Mastodon.asdk.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon.asdk.xcconfig"; path = "Target Support Files/Pods-Mastodon/Pods-Mastodon.asdk.xcconfig"; sourceTree = "<group>"; };
 		8850E70A1D5FF51432E43653 /* Pods-Mastodon-MastodonUITests.asdk - release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon-MastodonUITests.asdk - release.xcconfig"; path = "Target Support Files/Pods-Mastodon-MastodonUITests/Pods-Mastodon-MastodonUITests.asdk - release.xcconfig"; sourceTree = "<group>"; };
@@ -1385,6 +1388,7 @@
 		DBFEF07226A6913D006D7ED1 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		DBFEF07A26A6BCE8006D7ED1 /* APIService+Status+Publish.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Status+Publish.swift"; sourceTree = "<group>"; };
 		DDB1B139FA8EA26F510D58B6 /* Pods-AppShared.asdk - release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppShared.asdk - release.xcconfig"; path = "Target Support Files/Pods-AppShared/Pods-AppShared.asdk - release.xcconfig"; sourceTree = "<group>"; };
+		DF65937EC1FF64462BC002EE /* Pods-MastodonTests.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MastodonTests.profile.xcconfig"; path = "Target Support Files/Pods-MastodonTests/Pods-MastodonTests.profile.xcconfig"; sourceTree = "<group>"; };
 		E5C7236E58D14A0322FE00F2 /* Pods-Mastodon-MastodonUITests.asdk - debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon-MastodonUITests.asdk - debug.xcconfig"; path = "Target Support Files/Pods-Mastodon-MastodonUITests/Pods-Mastodon-MastodonUITests.asdk - debug.xcconfig"; sourceTree = "<group>"; };
 		E9AABD3D26B64B8C00E237DA /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Intents.strings; sourceTree = "<group>"; };
 		E9AABD4026B64B8D00E237DA /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -1587,6 +1591,10 @@
 				0655B257371274BEB7EB1C19 /* Pods-Mastodon.release snapshot.xcconfig */,
 				0827D1674B2523503E8605F6 /* Pods-Mastodon-MastodonUITests.release snapshot.xcconfig */,
 				8E79CCBE51FBC3F7FE8CF49F /* Pods-MastodonTests.release snapshot.xcconfig */,
+				63EF9E6E5B575CD2A8B0475D /* Pods-AppShared.profile.xcconfig */,
+				7CB58D292DA7ACEF179A9050 /* Pods-Mastodon.profile.xcconfig */,
+				728DE51ADA27C395C6E1BAB5 /* Pods-Mastodon-MastodonUITests.profile.xcconfig */,
+				DF65937EC1FF64462BC002EE /* Pods-MastodonTests.profile.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -3586,23 +3594,23 @@
 			);
 			mainGroup = DB427DC925BAA00100D1B89D;
 			packageReferences = (
-				DB3D0FF125BAA61700EAA174 /* XCRemoteSwiftPackageReference "AlamofireImage" */,
+				DB3D0FF125BAA61700EAA174 /* XCRemoteSwiftPackageReference "AlamofireImage.git" */,
 				2D61336725C18A4F00CAE157 /* XCRemoteSwiftPackageReference "AlamofireNetworkActivityIndicator" */,
 				DB0140BB25C40D7500F9F3CF /* XCRemoteSwiftPackageReference "CommonOSLog" */,
-				2D5981B825E4D7F8000FB903 /* XCRemoteSwiftPackageReference "ThirdPartyMailer" */,
-				2D939AC625EE14620076FA61 /* XCRemoteSwiftPackageReference "TOCropViewController" */,
+				2D5981B825E4D7F8000FB903 /* XCRemoteSwiftPackageReference "ThirdPartyMailer.git" */,
+				2D939AC625EE14620076FA61 /* XCRemoteSwiftPackageReference "TOCropViewController.git" */,
 				DBB525062611EAC0002F1F29 /* XCRemoteSwiftPackageReference "Tabman" */,
-				DB6804722637CC1200430867 /* XCRemoteSwiftPackageReference "KeychainAccess" */,
-				DBAC6481267D0B21007FE9FD /* XCRemoteSwiftPackageReference "DifferenceKit" */,
-				DBAC649C267DFE43007FE9FD /* XCRemoteSwiftPackageReference "DiffableDataSources" */,
-				DBAC649F267E6D01007FE9FD /* XCRemoteSwiftPackageReference "Fuzi" */,
-				DBF7A0FA26830C33004176A2 /* XCRemoteSwiftPackageReference "FPSIndicator" */,
-				DB0E2D2C26833FF600865C3C /* XCRemoteSwiftPackageReference "Nuke-FLAnimatedImage-Plugin" */,
-				DB01E23126A98F0900C3965B /* XCRemoteSwiftPackageReference "MetaTextKit" */,
-				DB552D4D26BBD10C00E481F6 /* XCRemoteSwiftPackageReference "swift-collections" */,
-				DBA5A52D26F07ED800CACBAA /* XCRemoteSwiftPackageReference "PanModal" */,
-				DB8D8E2D28192EED009FD90F /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
-				DB3EA8F6281BBA4C00598866 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				DB6804722637CC1200430867 /* XCRemoteSwiftPackageReference "KeychainAccess.git" */,
+				DBAC6481267D0B21007FE9FD /* XCRemoteSwiftPackageReference "DifferenceKit.git" */,
+				DBAC649C267DFE43007FE9FD /* XCRemoteSwiftPackageReference "DiffableDataSources.git" */,
+				DBAC649F267E6D01007FE9FD /* XCRemoteSwiftPackageReference "Fuzi.git" */,
+				DBF7A0FA26830C33004176A2 /* XCRemoteSwiftPackageReference "FPSIndicator.git" */,
+				DB0E2D2C26833FF600865C3C /* XCRemoteSwiftPackageReference "Nuke-FLAnimatedImage-Plugin.git" */,
+				DB01E23126A98F0900C3965B /* XCRemoteSwiftPackageReference "MetaTextKit.git" */,
+				DB552D4D26BBD10C00E481F6 /* XCRemoteSwiftPackageReference "swift-collections.git" */,
+				DBA5A52D26F07ED800CACBAA /* XCRemoteSwiftPackageReference "PanModal.git" */,
+				DB8D8E2D28192EED009FD90F /* XCRemoteSwiftPackageReference "SwiftUI-Introspect.git" */,
+				DB3EA8F6281BBA4C00598866 /* XCRemoteSwiftPackageReference "Alamofire.git" */,
 			);
 			productRefGroup = DB427DD325BAA00100D1B89D /* Products */;
 			projectDirPath = "";
@@ -4668,7 +4676,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -4954,6 +4962,241 @@
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
+		};
+		DB848E2A282B5E6300A302CC /* Profile */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"PROFILE=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INTENTS_CODEGEN_LANGUAGE = Swift;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = PROFILE;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Profile;
+		};
+		DB848E2B282B5E6300A302CC /* Profile */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7CB58D292DA7ACEF179A9050 /* Pods-Mastodon.profile.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Mastodon/Mastodon.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 126;
+				DEVELOPMENT_ASSET_PATHS = "Mastodon/Resources/Preview\\ Assets.xcassets";
+				DEVELOPMENT_TEAM = 5Z4GVSS33P;
+				INFOPLIST_FILE = Mastodon/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.7;
+				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Mastodon/Vender/Mastodon-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Profile;
+		};
+		DB848E2C282B5E6300A302CC /* Profile */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DF65937EC1FF64462BC002EE /* Pods-MastodonTests.profile.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5Z4GVSS33P;
+				INFOPLIST_FILE = MastodonTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.MastodonTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Mastodon.app/Mastodon";
+			};
+			name = Profile;
+		};
+		DB848E2D282B5E6300A302CC /* Profile */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 728DE51ADA27C395C6E1BAB5 /* Pods-Mastodon-MastodonUITests.profile.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5Z4GVSS33P;
+				INFOPLIST_FILE = MastodonUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.MastodonUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Mastodon;
+			};
+			name = Profile;
+		};
+		DB848E2E282B5E6300A302CC /* Profile */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 63EF9E6E5B575CD2A8B0475D /* Pods-AppShared.profile.xcconfig */;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 126;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 5Z4GVSS33P;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 126;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = AppShared/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.AppShared;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Profile;
+		};
+		DB848E2F282B5E6300A302CC /* Profile */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = NotificationService/NotificationService.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 126;
+				DEVELOPMENT_TEAM = 5Z4GVSS33P;
+				INFOPLIST_FILE = NotificationService/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0.7;
+				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.NotificationService;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Profile;
+		};
+		DB848E30282B5E6300A302CC /* Profile */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = ShareActionExtension/ShareActionExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 126;
+				DEVELOPMENT_TEAM = 5Z4GVSS33P;
+				INFOPLIST_FILE = ShareActionExtension/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0.7;
+				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.ShareActionExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "APP_EXTENSION $(inherited)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Profile;
+		};
+		DB848E31282B5E6300A302CC /* Profile */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = MastodonIntent/MastodonIntent.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 126;
+				DEVELOPMENT_TEAM = 5Z4GVSS33P;
+				INFOPLIST_FILE = MastodonIntent/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0.7;
+				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.MastodonIntent;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "APP_EXTENSION $(inherited)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Profile;
 		};
 		DB8FABD026AEC7B2008E5AF4 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -5333,6 +5576,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DB427DFA25BAA00100D1B89D /* Debug */,
+				DB848E2A282B5E6300A302CC /* Profile */,
 				DB427DFB25BAA00100D1B89D /* Release */,
 				DBEB19E127E4658E00B0E80E /* Release Snapshot */,
 			);
@@ -5343,6 +5587,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DB427DFD25BAA00100D1B89D /* Debug */,
+				DB848E2B282B5E6300A302CC /* Profile */,
 				DB427DFE25BAA00100D1B89D /* Release */,
 				DBEB19E227E4658E00B0E80E /* Release Snapshot */,
 			);
@@ -5353,6 +5598,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DB427E0025BAA00100D1B89D /* Debug */,
+				DB848E2C282B5E6300A302CC /* Profile */,
 				DB427E0125BAA00100D1B89D /* Release */,
 				DBEB19E327E4658E00B0E80E /* Release Snapshot */,
 			);
@@ -5363,6 +5609,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DB427E0325BAA00100D1B89D /* Debug */,
+				DB848E2D282B5E6300A302CC /* Profile */,
 				DB427E0425BAA00100D1B89D /* Release */,
 				DBEB19E427E4658E00B0E80E /* Release Snapshot */,
 			);
@@ -5373,6 +5620,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DB6804892637CD4C00430867 /* Debug */,
+				DB848E2E282B5E6300A302CC /* Profile */,
 				DB68048A2637CD4C00430867 /* Release */,
 				DBEB19E527E4658E00B0E80E /* Release Snapshot */,
 			);
@@ -5383,6 +5631,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DB8FABD026AEC7B2008E5AF4 /* Debug */,
+				DB848E31282B5E6300A302CC /* Profile */,
 				DB8FABD326AEC7B2008E5AF4 /* Release */,
 				DBEB19E827E4658E00B0E80E /* Release Snapshot */,
 			);
@@ -5393,6 +5642,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DBC6461D26A170AB00B0E31B /* Debug */,
+				DB848E30282B5E6300A302CC /* Profile */,
 				DBC6462026A170AB00B0E31B /* Release */,
 				DBEB19E727E4658E00B0E80E /* Release Snapshot */,
 			);
@@ -5403,6 +5653,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DBF8AE1C263293E400C9C23C /* Debug */,
+				DB848E2F282B5E6300A302CC /* Profile */,
 				DBF8AE1D263293E400C9C23C /* Release */,
 				DBEB19E627E4658E00B0E80E /* Release Snapshot */,
 			);
@@ -5412,7 +5663,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		2D5981B825E4D7F8000FB903 /* XCRemoteSwiftPackageReference "ThirdPartyMailer" */ = {
+		2D5981B825E4D7F8000FB903 /* XCRemoteSwiftPackageReference "ThirdPartyMailer.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/vtourraine/ThirdPartyMailer.git";
 			requirement = {
@@ -5428,7 +5679,7 @@
 				minimumVersion = 3.1.0;
 			};
 		};
-		2D939AC625EE14620076FA61 /* XCRemoteSwiftPackageReference "TOCropViewController" */ = {
+		2D939AC625EE14620076FA61 /* XCRemoteSwiftPackageReference "TOCropViewController.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/TimOliver/TOCropViewController.git";
 			requirement = {
@@ -5444,7 +5695,7 @@
 				minimumVersion = 0.1.1;
 			};
 		};
-		DB01E23126A98F0900C3965B /* XCRemoteSwiftPackageReference "MetaTextKit" */ = {
+		DB01E23126A98F0900C3965B /* XCRemoteSwiftPackageReference "MetaTextKit.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/TwidereProject/MetaTextKit.git";
 			requirement = {
@@ -5452,7 +5703,7 @@
 				version = 2.2.3;
 			};
 		};
-		DB0E2D2C26833FF600865C3C /* XCRemoteSwiftPackageReference "Nuke-FLAnimatedImage-Plugin" */ = {
+		DB0E2D2C26833FF600865C3C /* XCRemoteSwiftPackageReference "Nuke-FLAnimatedImage-Plugin.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/kean/Nuke-FLAnimatedImage-Plugin.git";
 			requirement = {
@@ -5460,7 +5711,7 @@
 				minimumVersion = 8.0.0;
 			};
 		};
-		DB3D0FF125BAA61700EAA174 /* XCRemoteSwiftPackageReference "AlamofireImage" */ = {
+		DB3D0FF125BAA61700EAA174 /* XCRemoteSwiftPackageReference "AlamofireImage.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/AlamofireImage.git";
 			requirement = {
@@ -5468,7 +5719,7 @@
 				minimumVersion = 4.1.0;
 			};
 		};
-		DB3EA8F6281BBA4C00598866 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+		DB3EA8F6281BBA4C00598866 /* XCRemoteSwiftPackageReference "Alamofire.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
 			requirement = {
@@ -5476,7 +5727,7 @@
 				minimumVersion = 5.4.0;
 			};
 		};
-		DB552D4D26BBD10C00E481F6 /* XCRemoteSwiftPackageReference "swift-collections" */ = {
+		DB552D4D26BBD10C00E481F6 /* XCRemoteSwiftPackageReference "swift-collections.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-collections.git";
 			requirement = {
@@ -5484,7 +5735,7 @@
 				minimumVersion = 0.0.5;
 			};
 		};
-		DB6804722637CC1200430867 /* XCRemoteSwiftPackageReference "KeychainAccess" */ = {
+		DB6804722637CC1200430867 /* XCRemoteSwiftPackageReference "KeychainAccess.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/kishikawakatsumi/KeychainAccess.git";
 			requirement = {
@@ -5492,7 +5743,7 @@
 				minimumVersion = 4.2.2;
 			};
 		};
-		DB8D8E2D28192EED009FD90F /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */ = {
+		DB8D8E2D28192EED009FD90F /* XCRemoteSwiftPackageReference "SwiftUI-Introspect.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/siteline/SwiftUI-Introspect.git";
 			requirement = {
@@ -5500,7 +5751,7 @@
 				minimumVersion = 0.1.4;
 			};
 		};
-		DBA5A52D26F07ED800CACBAA /* XCRemoteSwiftPackageReference "PanModal" */ = {
+		DBA5A52D26F07ED800CACBAA /* XCRemoteSwiftPackageReference "PanModal.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/slackhq/PanModal.git";
 			requirement = {
@@ -5508,7 +5759,7 @@
 				minimumVersion = 1.2.7;
 			};
 		};
-		DBAC6481267D0B21007FE9FD /* XCRemoteSwiftPackageReference "DifferenceKit" */ = {
+		DBAC6481267D0B21007FE9FD /* XCRemoteSwiftPackageReference "DifferenceKit.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ra1028/DifferenceKit.git";
 			requirement = {
@@ -5516,7 +5767,7 @@
 				version = 1.2.0;
 			};
 		};
-		DBAC649C267DFE43007FE9FD /* XCRemoteSwiftPackageReference "DiffableDataSources" */ = {
+		DBAC649C267DFE43007FE9FD /* XCRemoteSwiftPackageReference "DiffableDataSources.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/MainasuK/DiffableDataSources.git";
 			requirement = {
@@ -5524,7 +5775,7 @@
 				kind = branch;
 			};
 		};
-		DBAC649F267E6D01007FE9FD /* XCRemoteSwiftPackageReference "Fuzi" */ = {
+		DBAC649F267E6D01007FE9FD /* XCRemoteSwiftPackageReference "Fuzi.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/cezheng/Fuzi.git";
 			requirement = {
@@ -5540,7 +5791,7 @@
 				minimumVersion = 2.11.0;
 			};
 		};
-		DBF7A0FA26830C33004176A2 /* XCRemoteSwiftPackageReference "FPSIndicator" */ = {
+		DBF7A0FA26830C33004176A2 /* XCRemoteSwiftPackageReference "FPSIndicator.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/MainasuK/FPSIndicator.git";
 			requirement = {
@@ -5553,7 +5804,7 @@
 /* Begin XCSwiftPackageProductDependency section */
 		2D5981B925E4D7F8000FB903 /* ThirdPartyMailer */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 2D5981B825E4D7F8000FB903 /* XCRemoteSwiftPackageReference "ThirdPartyMailer" */;
+			package = 2D5981B825E4D7F8000FB903 /* XCRemoteSwiftPackageReference "ThirdPartyMailer.git" */;
 			productName = ThirdPartyMailer;
 		};
 		2D61336825C18A4F00CAE157 /* AlamofireNetworkActivityIndicator */ = {
@@ -5563,12 +5814,12 @@
 		};
 		2D939AC725EE14620076FA61 /* CropViewController */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 2D939AC625EE14620076FA61 /* XCRemoteSwiftPackageReference "TOCropViewController" */;
+			package = 2D939AC625EE14620076FA61 /* XCRemoteSwiftPackageReference "TOCropViewController.git" */;
 			productName = CropViewController;
 		};
 		DB02EA0A280D180D00E751C5 /* KeychainAccess */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = DB6804722637CC1200430867 /* XCRemoteSwiftPackageReference "KeychainAccess" */;
+			package = DB6804722637CC1200430867 /* XCRemoteSwiftPackageReference "KeychainAccess.git" */;
 			productName = KeychainAccess;
 		};
 		DB3EA8F4281BB65200598866 /* MastodonSDK */ = {
@@ -5577,17 +5828,17 @@
 		};
 		DB3EA8FB281BBAE100598866 /* AlamofireImage */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = DB3D0FF125BAA61700EAA174 /* XCRemoteSwiftPackageReference "AlamofireImage" */;
+			package = DB3D0FF125BAA61700EAA174 /* XCRemoteSwiftPackageReference "AlamofireImage.git" */;
 			productName = AlamofireImage;
 		};
 		DB3EA8FD281BBAF200598866 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = DB3EA8F6281BBA4C00598866 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			package = DB3EA8F6281BBA4C00598866 /* XCRemoteSwiftPackageReference "Alamofire.git" */;
 			productName = Alamofire;
 		};
 		DB3EA8FF281BBB1D00598866 /* MetaTextKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = DB01E23126A98F0900C3965B /* XCRemoteSwiftPackageReference "MetaTextKit" */;
+			package = DB01E23126A98F0900C3965B /* XCRemoteSwiftPackageReference "MetaTextKit.git" */;
 			productName = MetaTextKit;
 		};
 		DB3EA901281BBD5D00598866 /* CommonOSLog */ = {
@@ -5597,12 +5848,12 @@
 		};
 		DB3EA903281BBD9400598866 /* Introspect */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = DB8D8E2D28192EED009FD90F /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
+			package = DB8D8E2D28192EED009FD90F /* XCRemoteSwiftPackageReference "SwiftUI-Introspect.git" */;
 			productName = Introspect;
 		};
 		DB3EA905281BBE8200598866 /* AlamofireImage */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = DB3D0FF125BAA61700EAA174 /* XCRemoteSwiftPackageReference "AlamofireImage" */;
+			package = DB3D0FF125BAA61700EAA174 /* XCRemoteSwiftPackageReference "AlamofireImage.git" */;
 			productName = AlamofireImage;
 		};
 		DB3EA907281BBE8200598866 /* AlamofireNetworkActivityIndicator */ = {
@@ -5612,12 +5863,12 @@
 		};
 		DB3EA909281BBE8200598866 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = DB3EA8F6281BBA4C00598866 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			package = DB3EA8F6281BBA4C00598866 /* XCRemoteSwiftPackageReference "Alamofire.git" */;
 			productName = Alamofire;
 		};
 		DB3EA90B281BBE9600598866 /* AlamofireImage */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = DB3D0FF125BAA61700EAA174 /* XCRemoteSwiftPackageReference "AlamofireImage" */;
+			package = DB3D0FF125BAA61700EAA174 /* XCRemoteSwiftPackageReference "AlamofireImage.git" */;
 			productName = AlamofireImage;
 		};
 		DB3EA90D281BBE9600598866 /* AlamofireNetworkActivityIndicator */ = {
@@ -5627,42 +5878,42 @@
 		};
 		DB3EA90F281BBE9600598866 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = DB3EA8F6281BBA4C00598866 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			package = DB3EA8F6281BBA4C00598866 /* XCRemoteSwiftPackageReference "Alamofire.git" */;
 			productName = Alamofire;
 		};
 		DB3EA911281BBEA800598866 /* AlamofireImage */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = DB3D0FF125BAA61700EAA174 /* XCRemoteSwiftPackageReference "AlamofireImage" */;
+			package = DB3D0FF125BAA61700EAA174 /* XCRemoteSwiftPackageReference "AlamofireImage.git" */;
 			productName = AlamofireImage;
 		};
 		DB3EA913281BBEA800598866 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = DB3EA8F6281BBA4C00598866 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			package = DB3EA8F6281BBA4C00598866 /* XCRemoteSwiftPackageReference "Alamofire.git" */;
 			productName = Alamofire;
 		};
 		DB552D4E26BBD10C00E481F6 /* OrderedCollections */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = DB552D4D26BBD10C00E481F6 /* XCRemoteSwiftPackageReference "swift-collections" */;
+			package = DB552D4D26BBD10C00E481F6 /* XCRemoteSwiftPackageReference "swift-collections.git" */;
 			productName = OrderedCollections;
 		};
 		DBA5A52E26F07ED800CACBAA /* PanModal */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = DBA5A52D26F07ED800CACBAA /* XCRemoteSwiftPackageReference "PanModal" */;
+			package = DBA5A52D26F07ED800CACBAA /* XCRemoteSwiftPackageReference "PanModal.git" */;
 			productName = PanModal;
 		};
 		DBAC6482267D0B21007FE9FD /* DifferenceKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = DBAC6481267D0B21007FE9FD /* XCRemoteSwiftPackageReference "DifferenceKit" */;
+			package = DBAC6481267D0B21007FE9FD /* XCRemoteSwiftPackageReference "DifferenceKit.git" */;
 			productName = DifferenceKit;
 		};
 		DBAC649D267DFE43007FE9FD /* DiffableDataSources */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = DBAC649C267DFE43007FE9FD /* XCRemoteSwiftPackageReference "DiffableDataSources" */;
+			package = DBAC649C267DFE43007FE9FD /* XCRemoteSwiftPackageReference "DiffableDataSources.git" */;
 			productName = DiffableDataSources;
 		};
 		DBAC64A0267E6D02007FE9FD /* Fuzi */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = DBAC649F267E6D01007FE9FD /* XCRemoteSwiftPackageReference "Fuzi" */;
+			package = DBAC649F267E6D01007FE9FD /* XCRemoteSwiftPackageReference "Fuzi.git" */;
 			productName = Fuzi;
 		};
 		DBB525072611EAC0002F1F29 /* Tabman */ = {
@@ -5672,7 +5923,7 @@
 		};
 		DBF7A0FB26830C33004176A2 /* FPSIndicator */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = DBF7A0FA26830C33004176A2 /* XCRemoteSwiftPackageReference "FPSIndicator" */;
+			package = DBF7A0FA26830C33004176A2 /* XCRemoteSwiftPackageReference "FPSIndicator.git" */;
 			productName = FPSIndicator;
 		};
 /* End XCSwiftPackageProductDependency section */
