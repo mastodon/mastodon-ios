@@ -15,18 +15,17 @@ struct ReportServerRulesView: View {
     
     @ObservedObject var viewModel: ReportServerRulesViewModel
     
-    // TODO: i18n
     var body: some View {
         ScrollView(.vertical) {
             HStack {
                 VStack(alignment: .leading, spacing: 8) {
-                    Text("Step 2 of 4")
+                    Text(L10n.Scene.Report.StepTwo.step2Of4)
                         .foregroundColor(Color(Asset.Colors.Label.secondary.color))
                         .font(Font(UIFontMetrics(forTextStyle: .largeTitle).scaledFont(for: .systemFont(ofSize: 17, weight: .regular)) as CTFont))
                     Text(viewModel.headline)
                         .foregroundColor(Color(Asset.Colors.Label.primary.color))
                         .font(Font(UIFontMetrics(forTextStyle: .largeTitle).scaledFont(for: .systemFont(ofSize: 28, weight: .bold)) as CTFont))
-                    Text("Select all that apply")
+                    Text(L10n.Scene.Report.StepTwo.selectAllThatApply)
                         .foregroundColor(Color(Asset.Colors.Label.secondary.color))
                         .font(Font(UIFontMetrics(forTextStyle: .largeTitle).scaledFont(for: .systemFont(ofSize: 17, weight: .regular)) as CTFont))
                 }
@@ -49,7 +48,7 @@ struct ReportServerRulesView: View {
                     }
                 }
                 ReportServerRulesRowView(
-                    title: "I just don’t like it",
+                    title: L10n.Scene.Report.StepTwo.iJustDonTLikeIt,
                     isSelect: viewModel.isDislike
                 )
                 .background(

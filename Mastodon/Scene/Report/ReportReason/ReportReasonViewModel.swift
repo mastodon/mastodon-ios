@@ -9,6 +9,7 @@ import UIKit
 import SwiftUI
 import MastodonAsset
 import MastodonSDK
+import MastodonLocalization
 
 final class ReportReasonViewModel: ObservableObject {
     
@@ -17,7 +18,7 @@ final class ReportReasonViewModel: ObservableObject {
     // input
     let context: AppContext
     
-    @Published var headline = "What's wrong with this account?"
+    @Published var headline = L10n.Scene.Report.StepOne.whatsWrongWithThisAccount
     @Published var serverRules: [Mastodon.Entity.Instance.Rule]?
 
     @Published var bottomPaddingHeight: CGFloat = .zero
@@ -43,26 +44,26 @@ extension ReportReasonViewModel {
         var title: String {
             switch self {
             case .dislike:
-                return "I don’t like it"
+                return L10n.Scene.Report.StepOne.iDontLikeIt
             case .spam:
-                return "It’s spam"
+                return L10n.Scene.Report.StepOne.itsSpam
             case .violateRule:
-                return "It violates server rules"
+                return L10n.Scene.Report.StepOne.itViolatesServerRules
             case .other:
-                return "It’s something else"
+                return L10n.Scene.Report.StepOne.itsSomethingElse
             }
         }
         
         var subtitle: String {
             switch self {
             case .dislike:
-                return "It is not something you want to see"
+                return L10n.Scene.Report.StepOne.itIsNotSomethingYouWantToSee
             case .spam:
-                return "Malicious links, fake engagement, or repetetive replies"
+                return L10n.Scene.Report.StepOne.maliciousLinksFakeEngagementOrRepetetiveReplies
             case .violateRule:
-                return "You are aware that it breaks specific rules"
+                return L10n.Scene.Report.StepOne.youAreAwareThatItBreaksSpecificRules
             case .other:
-                return "The issue does not fit into other categories"
+                return L10n.Scene.Report.StepOne.theIssueDoesNotFitIntoOtherCategories
             }
         }
         

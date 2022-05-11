@@ -14,6 +14,7 @@ import MastodonSDK
 import OrderedCollections
 import os.log
 import UIKit
+import MastodonLocalization
 
 class ReportViewModel {
     
@@ -53,8 +54,7 @@ class ReportViewModel {
         
         // setup reason viewModel
         if status != nil {
-            // TODO: i18n
-            reportReasonViewModel.headline = "What’s wrong with post?"
+            reportReasonViewModel.headline = L10n.Scene.Report.StepOne.whatsWrongWithThisPost
         } else {
             Task { @MainActor in
                 let managedObjectContext = context.managedObjectContext
@@ -63,9 +63,9 @@ class ReportViewModel {
                     return user?.acctWithDomain
                 }
                 if let username = _username {
-                    reportReasonViewModel.headline = "What’s wrong with @\(username)?"
+                    reportReasonViewModel.headline = L10n.Scene.Report.StepOne.whatsWrongWithThisUsername(username)
                 } else {
-                    reportReasonViewModel.headline = "What’s wrong with this account?"
+                    reportReasonViewModel.headline = L10n.Scene.Report.StepOne.whatsWrongWithThisAccount
                 }
             }   // end Task
         }

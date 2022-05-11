@@ -9,6 +9,7 @@ import UIKit
 import SwiftUI
 import MastodonAsset
 import MastodonSDK
+import MastodonLocalization
 
 final class ReportServerRulesViewModel: ObservableObject {
     
@@ -16,8 +17,8 @@ final class ReportServerRulesViewModel: ObservableObject {
     
     // input
     let context: AppContext
-    
-    @Published var headline = "Which rules are being violated?"
+
+    @Published var headline = L10n.Scene.Report.StepTwo.whichRulesAreBeingViolated
     @Published var serverRules: [Mastodon.Entity.Instance.Rule] = []
 
     @Published var bottomPaddingHeight: CGFloat = .zero

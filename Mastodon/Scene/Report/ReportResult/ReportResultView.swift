@@ -7,10 +7,10 @@
 
 import UIKit
 import SwiftUI
-import MastodonLocalization
 import MastodonSDK
 import MastodonUI
 import MastodonAsset
+import MastodonLocalization
 import CoreDataStack
 
 struct ReportResultView: View {
@@ -42,7 +42,6 @@ struct ReportResultView: View {
         .padding()
     }
     
-    // TODO: i18n
     var body: some View {
         ScrollView(.vertical) {
             HStack {
@@ -56,7 +55,7 @@ struct ReportResultView: View {
                             .foregroundColor(Color(Asset.Colors.Label.secondary.color))
                             .font(Font(UIFontMetrics(forTextStyle: .largeTitle).scaledFont(for: .systemFont(ofSize: 17, weight: .regular)) as CTFont))
                     } else {
-                        Text(verbatim: "When you see something you don’t like on Mastodon, you can remove the person from your experience.")
+                        Text(verbatim: L10n.Scene.Report.StepFinal.whenYouSeeSomethingYouDontLikeOnMastodonYouCanRemoveThePersonFromYourExperience)
                             .foregroundColor(Color(Asset.Colors.Label.secondary.color))
                             .font(Font(UIFontMetrics(forTextStyle: .largeTitle).scaledFont(for: .systemFont(ofSize: 17, weight: .regular)) as CTFont))
                     }
@@ -68,7 +67,7 @@ struct ReportResultView: View {
             VStack(spacing: 32) {
                 // Follow
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("Unfollow @\(viewModel.username)")
+                    Text(L10n.Scene.Report.StepFinal.unfollowUser("@\(viewModel.username)"))
                         .font(.headline)
                         .foregroundColor(Color(Asset.Colors.Label.primary.color))
                     ReportActionButton(
@@ -82,10 +81,10 @@ struct ReportResultView: View {
                 
                 // Mute
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("Mute @\(viewModel.username)")
+                    Text(L10n.Scene.Report.StepFinal.muteUser("@\(viewModel.username)"))
                         .font(.headline)
                         .foregroundColor(Color(Asset.Colors.Label.primary.color))
-                    Text(verbatim: "You won’t see their posts or reblogs in your home feed. They won’t know they’ve been muted.")
+                    Text(verbatim: L10n.Scene.Report.StepFinal.youWontSeeTheirPostsOrReblogsInYourHomeFeedTheyWontKnowTheyVeBeenMuted)
                         .foregroundColor(Color(Asset.Colors.Label.secondary.color))
                         .font(Font(UIFontMetrics(forTextStyle: .subheadline).scaledFont(for: .systemFont(ofSize: 13, weight: .regular)) as CTFont))
                     ReportActionButton(
@@ -99,10 +98,10 @@ struct ReportResultView: View {
                 
                 // Block
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("Block @\(viewModel.username)")
+                    Text(L10n.Scene.Report.StepFinal.blockUser("@\(viewModel.username)"))
                         .font(.headline)
                         .foregroundColor(Color(Asset.Colors.Label.primary.color))
-                    Text(verbatim: "They will no longer be able to follow or see your posts, but they can see if they’ve been blocked.")
+                    Text(verbatim: L10n.Scene.Report.StepFinal.theyWillNoLongerBeAbleToFollowOrSeeYourPostsButTheyCanSeeIfTheyveBeenBlocked)
                         .foregroundColor(Color(Asset.Colors.Label.secondary.color))
                         .font(Font(UIFontMetrics(forTextStyle: .subheadline).scaledFont(for: .systemFont(ofSize: 13, weight: .regular)) as CTFont))
                     ReportActionButton(

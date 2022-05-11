@@ -16,7 +16,7 @@ extension ReportStatusViewModel {
     
     static let reportItemHeaderContext = ReportItem.HeaderContext(
         primaryLabelText: L10n.Scene.Report.content1,
-        secondaryLabelText: "Step 3 of 4"
+        secondaryLabelText: L10n.Scene.Report.StepThree.step3Of4
     )
     
     func setupDiffableDataSource(

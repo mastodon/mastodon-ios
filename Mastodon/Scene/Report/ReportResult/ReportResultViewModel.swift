@@ -14,6 +14,7 @@ import os.log
 import UIKit
 import MastodonAsset
 import MastodonUI
+import MastodonLocalization
 
 class ReportResultViewModel: ObservableObject {
     
@@ -25,7 +26,7 @@ class ReportResultViewModel: ObservableObject {
     let isReported: Bool
     
     var headline: String {
-        isReported ? "Thanks for reporting, we’ll look into this." : "Don’t want to see this?"
+        isReported ? L10n.Scene.Report.reportSentTitle : L10n.Scene.Report.StepFinal.dontWantToSeeThis
     }
     @Published var bottomPaddingHeight: CGFloat = .zero
     @Published var backgroundColor: UIColor = Asset.Scene.Report.background.color

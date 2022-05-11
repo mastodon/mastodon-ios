@@ -15,8 +15,8 @@ import MastodonLocalization
 extension ReportSupplementaryViewModel {
     
     static let reportItemHeaderContext = ReportItem.HeaderContext(
-        primaryLabelText: "Is there anything else we should know?",
-        secondaryLabelText: "Step 4 of 4"
+        primaryLabelText: L10n.Scene.Report.StepFour.isThereAnythingElseWeShouldKnow,
+        secondaryLabelText: L10n.Scene.Report.StepFour.step4Of4
     )
     
     func setupDiffableDataSource(

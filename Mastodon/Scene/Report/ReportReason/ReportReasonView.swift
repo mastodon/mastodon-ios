@@ -15,18 +15,17 @@ struct ReportReasonView: View {
     
     @ObservedObject var viewModel: ReportReasonViewModel
     
-    // TODO: i18n
     var body: some View {
         ScrollView(.vertical) {
             HStack {
                 VStack(alignment: .leading, spacing: 8) {
-                    Text("Step 1 of 4")
+                    Text(L10n.Scene.Report.StepOne.step1Of4)
                         .foregroundColor(Color(Asset.Colors.Label.secondary.color))
                         .font(Font(UIFontMetrics(forTextStyle: .largeTitle).scaledFont(for: .systemFont(ofSize: 17, weight: .regular)) as CTFont))
                     Text(viewModel.headline)
                         .foregroundColor(Color(Asset.Colors.Label.primary.color))
                         .font(Font(UIFontMetrics(forTextStyle: .largeTitle).scaledFont(for: .systemFont(ofSize: 28, weight: .bold)) as CTFont))
-                    Text("Select the best match")
+                    Text(L10n.Scene.Report.StepOne.selectTheBestMatch)
                         .foregroundColor(Color(Asset.Colors.Label.secondary.color))
                         .font(Font(UIFontMetrics(forTextStyle: .largeTitle).scaledFont(for: .systemFont(ofSize: 17, weight: .regular)) as CTFont))
                 }
