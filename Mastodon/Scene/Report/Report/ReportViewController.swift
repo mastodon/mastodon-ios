@@ -91,8 +91,16 @@ extension ReportViewController: ReportReasonViewControllerDelegate {
         guard let reason = viewController.viewModel.selectReason else { return }
         switch reason {
         case .dislike:
-            // TODO:
-            break
+            let reportResultViewModel = ReportResultViewModel(
+                context: context,
+                user: viewModel.user,
+                isReported: false
+            )
+            coordinator.present(
+                scene: .reportResult(viewModel: reportResultViewModel),
+                from: self,
+                transition: .show
+            )
         case .violateRule:
             coordinator.present(
                 scene: .reportServerRules(viewModel: viewModel.reportServerRulesViewModel),
@@ -113,7 +121,16 @@ extension ReportViewController: ReportReasonViewControllerDelegate {
 extension ReportViewController: ReportServerRulesViewControllerDelegate {
     func reportServerRulesViewController(_ viewController: ReportServerRulesViewController, nextButtonPressed button: UIButton) {
         if viewController.viewModel.isDislike {
-            // TODO:
+            let reportResultViewModel = ReportResultViewModel(
+                context: context,
+                user: viewModel.user,
+                isReported: false
+            )
+            coordinator.present(
+                scene: .reportResult(viewModel: reportResultViewModel),
+                from: self,
+                transition: .show
+            )
         } else if viewController.viewModel.selectRule != nil {
             coordinator.present(
                 scene: .reportStatus(viewModel: viewModel.reportStatusViewModel),
@@ -163,7 +180,8 @@ extension ReportViewController: ReportSupplementaryViewControllerDelegate {
                 
                 let reportResultViewModel = ReportResultViewModel(
                     context: context,
-                    user: viewModel.user
+                    user: viewModel.user,
+                    isReported: true
                 )
                 
                 coordinator.present(

@@ -50,10 +50,16 @@ struct ReportResultView: View {
                     Text(viewModel.headline)
                         .foregroundColor(Color(Asset.Colors.Label.primary.color))
                         .font(Font(UIFontMetrics(forTextStyle: .largeTitle).scaledFont(for: .systemFont(ofSize: 28, weight: .bold)) as CTFont))
-                    avatarView
-                    Text(verbatim: "While we review this, you can take action against @\(viewModel.username)")
-                        .foregroundColor(Color(Asset.Colors.Label.secondary.color))
-                        .font(Font(UIFontMetrics(forTextStyle: .largeTitle).scaledFont(for: .systemFont(ofSize: 17, weight: .regular)) as CTFont))
+                    if viewModel.isReported {
+                        avatarView
+                        Text(verbatim: "While we review this, you can take action against @\(viewModel.username)")
+                            .foregroundColor(Color(Asset.Colors.Label.secondary.color))
+                            .font(Font(UIFontMetrics(forTextStyle: .largeTitle).scaledFont(for: .systemFont(ofSize: 17, weight: .regular)) as CTFont))
+                    } else {
+                        Text(verbatim: "When you see something you don’t like on Mastodon, you can remove the person from your experience.")
+                            .foregroundColor(Color(Asset.Colors.Label.secondary.color))
+                            .font(Font(UIFontMetrics(forTextStyle: .largeTitle).scaledFont(for: .systemFont(ofSize: 17, weight: .regular)) as CTFont))
+                    }
                 }
                 Spacer()
             }
@@ -151,7 +157,7 @@ struct ReportActionButton: View {
 #if DEBUG
 struct ReportResultView_Previews: PreviewProvider {
     
-    static var viewModel: ReportResultViewModel {
+    static func viewModel(isReported: Bool) -> ReportResultViewModel {
         let context = AppContext.shared
         let request = MastodonUser.sortedFetchRequest
         request.fetchLimit = 1
@@ -184,18 +190,24 @@ struct ReportResultView_Previews: PreviewProvider {
         
         return ReportResultViewModel(
             context: context,
-            user: .init(objectID: user.objectID)
+            user: .init(objectID: user.objectID),
+            isReported: isReported
         )
     }
     static var previews: some View {
         Group {
             NavigationView {
-                ReportResultView(viewModel: viewModel)
+                ReportResultView(viewModel: viewModel(isReported: true))
                     .navigationBarTitle(Text(""))
                     .navigationBarTitleDisplayMode(.inline)
             }
             NavigationView {
-                ReportResultView(viewModel: viewModel)
+                ReportResultView(viewModel: viewModel(isReported: false))
+                    .navigationBarTitle(Text(""))
+                    .navigationBarTitleDisplayMode(.inline)
+            }
+            NavigationView {
+                ReportResultView(viewModel: viewModel(isReported: true))
                     .navigationBarTitle(Text(""))
                     .navigationBarTitleDisplayMode(.inline)
             }

@@ -22,8 +22,11 @@ class ReportResultViewModel: ObservableObject {
     // input
     let context: AppContext
     let user: ManagedObjectRecord<MastodonUser>
+    let isReported: Bool
     
-    @Published var headline = "Thanks for reporting, we’ll look into this."
+    var headline: String {
+        isReported ? "Thanks for reporting, we’ll look into this." : "Don’t want to see this?"
+    }
     @Published var bottomPaddingHeight: CGFloat = .zero
     @Published var backgroundColor: UIColor = Asset.Scene.Report.background.color
     
@@ -42,10 +45,12 @@ class ReportResultViewModel: ObservableObject {
     
     init(
         context: AppContext,
-        user: ManagedObjectRecord<MastodonUser>
+        user: ManagedObjectRecord<MastodonUser>,
+        isReported: Bool
     ) {
         self.context = context
         self.user = user
+        self.isReported = isReported
         // end init
         
         Task { @MainActor in
