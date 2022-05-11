@@ -240,7 +240,8 @@
                 "category": "CATEGORIA"
             },
             "input": {
-                "placeholder": "Cerca servidors"
+                "placeholder": "Cerca servidors",
+                "search_servers_or_enter_url": "Cerca comunitats o introdueix l'URL"
             },
             "empty_state": {
                 "finding_servers": "Cercant els servidors disponibles...",
@@ -342,7 +343,11 @@
                 "offline": "Fora de línia",
                 "new_posts": "Veure noves publicacions",
                 "published": "Publicat!",
-                "Publishing": "S'està publicant..."
+                "Publishing": "S'està publicant...",
+                "accessibility": {
+                    "logo_label": "Botó de logotip",
+                    "logo_hint": "Toca per desplaçar-te cap a dalt i torna a toca de nou per tornar a la ubicació anterior"
+                }
             }
         },
         "suggestion_account": {
@@ -596,7 +601,48 @@
             "send": "Envia Informe",
             "skip_to_send": "Envia sense comentaris",
             "text_placeholder": "Escriu o enganxa comentaris addicionals",
-            "reported": "REPORTAT"
+            "reported": "REPORTAT",
+            "step_one": {
+                "step_1_of_4": "Pas 1 de 4",
+                "whats_wrong_with_this_post": "Quin és el problema amb aquesta publicació?",
+                "whats_wrong_with_this_account": "Quin és el problema amb aquest compte?",
+                "whats_wrong_with_this_username": "Quin és el problema amb %s?",
+                "select_the_best_match": "Selecciona la millor coincidència",
+                "i_dont_like_it": "No m'agrada",
+                "it_is_not_something_you_want_to_see": "No és una cosa que vulguis veure",
+                "its_spam": "És contingut brossa",
+                "malicious_links_fake_engagement_or_repetetive_replies": "Enllaços maliciosos, compromís falç o respostes repetitives",
+                "it_violates_server_rules": "Infringeix les normes del servidor",
+                "you_are_aware_that_it_breaks_specific_rules": "Ets conscient que incompleix normes específiques",
+                "its_something_else": "És una altra cosa",
+                "the_issue_does_not_fit_into_other_categories": "El problema no encaixa en altres categories"
+            },
+            "step_two": {
+                "step_2_of_4": "Pas 2 de 4",
+                "which_rules_are_being_violated": "Quines normes s'estan infringint?",
+                "select_all_that_apply": "Selecciona tot el que correspongui",
+                "i_just_don’t_like_it": "Simplement no m'agrada"
+            },
+            "step_three": {
+                "step_3_of_4": "Pas 3 de 4",
+                "are_there_any_posts_that_back_up_this_report": "Hi ha alguna publicació que recolzi aquest informe?",
+                "select_all_that_apply": "Selecciona tot el que correspongui"
+            },
+            "step_four": {
+                "step_4_of_4": "Pas 4 de 4",
+                "is_there_anything_else_we_should_know": "Hi ha res més que hauríem de saber?"
+            },
+            "step_final": {
+                "dont_want_to_see_this": "No vols veure això?",
+                "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "Quan veus alguna cosa que no t'agrada a Mastodon, pots eliminar la persona de la vostra experiència.",
+                "unfollow": "Deixa de seguir",
+                "unfollowed": "S'ha deixat de seguir",
+                "unfollow_user": "Deixa de seguir %s",
+                "mute_user": "Silencia %s",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "No veuràs les seves publicacions o impulsos a la teva línia de temps personal. No sabran que han estat silenciats.",
+                "block_user": "Bloca %s",
+                "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "Ja no podran seguir ni veure les teves publicacions, però poden veure si han estat bloquejats."
+            }
         },
         "preview": {
             "keyboard": {
