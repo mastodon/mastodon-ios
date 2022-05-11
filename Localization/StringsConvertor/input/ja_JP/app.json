@@ -45,8 +45,8 @@
                 "message": "写真を保存するには、フォトライブラリへのアクセス許可を有効にしてください。"
             },
             "delete_post": {
-                "title": "この投稿を消去しますか？",
-                "message": "本当に削除しますか？"
+                "title": "投稿を削除",
+                "message": "本当にこの投稿を削除しますか？"
             },
             "clean_cache": {
                 "title": "キャッシュを消去",
@@ -56,7 +56,7 @@
         "controls": {
             "actions": {
                 "back": "戻る",
-                "next": "次",
+                "next": "次へ",
                 "previous": "前",
                 "open": "開く",
                 "add": "追加",
@@ -91,7 +91,7 @@
                 "block_domain": "%sをブロック",
                 "unblock_domain": "%sのブロックを解除",
                 "settings": "設定",
-                "delete": "消去"
+                "delete": "削除"
             },
             "tabs": {
                 "home": "ホーム",
@@ -131,7 +131,7 @@
                 "content_warning": "コンテンツ警告",
                 "sensitive_content": "Sensitive Content",
                 "media_content_warning": "どこかをタップして表示",
-                "tap_to_reveal": "Tap to reveal",
+                "tap_to_reveal": "タップして表示",
                 "poll": {
                     "vote": "投票",
                     "closed": "クローズド"
@@ -144,8 +144,8 @@
                     "unfavorite": "お気に入り登録を取り消す",
                     "menu": "メニュー",
                     "hide": "非表示",
-                    "show_image": "Show image",
-                    "show_gif": "Show GIF",
+                    "show_image": "画像を表示",
+                    "show_gif": "GIFを表示",
                     "show_video_player": "Show video player",
                     "tap_then_hold_to_show_menu": "Tap then hold to show menu"
                 },
@@ -207,7 +207,7 @@
     "scene": {
         "welcome": {
             "slogan": "ソーシャルネットワーキングを、あなたの手の中に.",
-            "get_started": "Get Started",
+            "get_started": "はじめる",
             "log_in": "ログイン"
         },
         "server_picker": {
@@ -252,7 +252,7 @@
             "title": "あなたのことを教えてください",
             "input": {
                 "avatar": {
-                    "delete": "消去"
+                    "delete": "削除"
                 },
                 "username": {
                     "placeholder": "ユーザー名",
@@ -498,10 +498,10 @@
                 "posts": "投稿",
                 "hashtags": "ハッシュタグ",
                 "news": "ニュース",
-                "community": "Community",
-                "for_you": "For You"
+                "community": "コミュニティ",
+                "for_you": "おすすめ"
             },
-            "intro": "These are the posts gaining traction in your corner of Mastodon."
+            "intro": "あなたのMastodonサーバーで注目を集めている投稿がここに表示されます。"
         },
         "favorite": {
             "title": "お気に入り"
@@ -512,12 +512,12 @@
                 "Mentions": "メンション"
             },
             "notification_description": {
-                "followed_you": "followed you",
-                "favorited_your_post": "favorited your post",
-                "reblogged_your_post": "reblogged your post",
-                "mentioned_you": "mentioned you",
-                "request_to_follow_you": "request to follow you",
-                "poll_has_ended": "poll has ended"
+                "followed_you": "さんにフォローされました",
+                "favorited_your_post": "さんがあなたの投稿をお気に入りに登録しました",
+                "reblogged_your_post": "さんがあなたの投稿をブーストしました",
+                "mentioned_you": "さんがあなたに返信しました",
+                "request_to_follow_you": "さんがあなたにフォローリクエストしました",
+                "poll_has_ended": "アンケートが終了しました"
             },
             "keyobard": {
                 "show_everything": "すべて見る",
@@ -538,11 +538,11 @@
                     "dark": "ダーク"
                 },
                 "look_and_feel": {
-                    "title": "Look and Feel",
-                    "use_system": "Use System",
-                    "really_dark": "Really Dark",
-                    "sorta_dark": "Sorta Dark",
-                    "light": "Light"
+                    "title": "テーマ",
+                    "use_system": "端末の設定を使う",
+                    "really_dark": "ブラック",
+                    "sorta_dark": "ダーク",
+                    "light": "ライト"
                 },
                 "notifications": {
                     "title": "通知",
@@ -564,7 +564,7 @@
                     "disable_avatar_animation": "アバターのアニメーションを無効化する",
                     "disable_emoji_animation": "絵文字のアニメーションを無効化する",
                     "using_default_browser": "既定のブラウザでリンクを開く",
-                    "open_links_in_mastodon": "Open links in Mastodon"
+                    "open_links_in_mastodon": "Mastodonでリンクを開く"
                 },
                 "boring_zone": {
                     "title": "アプリについて",

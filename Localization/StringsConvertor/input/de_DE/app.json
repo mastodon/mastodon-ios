@@ -129,7 +129,7 @@
                 "show_post": "Beitrag anzeigen",
                 "show_user_profile": "Benutzerprofil anzeigen",
                 "content_warning": "Inhaltswarnung",
-                "sensitive_content": "Sensitive Content",
+                "sensitive_content": "NSFW-Inhalt",
                 "media_content_warning": "Tippe irgendwo zum Anzeigen",
                 "tap_to_reveal": "Zum Anzeigen tippen",
                 "poll": {
@@ -501,7 +501,7 @@
                 "community": "Community",
                 "for_you": "Für dich"
             },
-            "intro": "These are the posts gaining traction in your corner of Mastodon."
+            "intro": "Dies sind die Beiträge, die in deiner Umgebung auf Mastodon beliebter werden."
         },
         "favorite": {
             "title": "Deine Favoriten"
@@ -612,7 +612,7 @@
         },
         "wizard": {
             "new_in_mastodon": "Neu in Mastodon",
-            "multiple_account_switch_intro_description": "Wechsel zwischen mehreren Konten durch drücken der Profil-Schaltfläche.",
+            "multiple_account_switch_intro_description": "Wechsel zwischen mehreren Konten durch Drücken der Profil-Schaltfläche.",
             "accessibility_hint": "Doppeltippen, um diesen Assistenten zu schließen"
         }
     }

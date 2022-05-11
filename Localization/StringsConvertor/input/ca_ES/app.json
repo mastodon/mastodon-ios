@@ -240,16 +240,16 @@
                 "category": "CATEGORIA"
             },
             "input": {
-                "placeholder": "Troba un servidor o uneix-te al teu..."
+                "placeholder": "Cerca servidors"
             },
             "empty_state": {
                 "finding_servers": "Cercant els servidors disponibles...",
-                "bad_network": "S'ha produït un error en carregar les dades. Comprova la teva connexió a Internet.",
+                "bad_network": "Alguna cosa no ha anat bé en carregar les dades. Comprova la teva connexió a Internet.",
                 "no_results": "No hi ha resultats"
             }
         },
         "register": {
-            "title": "Parla'ns de tu.",
+            "title": "Anem a configurar-te a %s",
             "input": {
                 "avatar": {
                     "delete": "Suprimeix"
@@ -309,7 +309,7 @@
         },
         "server_rules": {
             "title": "Algunes regles bàsiques.",
-            "subtitle": "Aquestes regles estan establertes per els administradors de %s.",
+            "subtitle": "Aquestes regles estan establertes i aplicades per els moderadors de %s.",
             "prompt": "Al continuar, estàs subjecte als termes de servei i a la política de privacitat de %s.",
             "terms_of_service": "termes del servei",
             "privacy_policy": "política de privadesa",
@@ -346,7 +346,7 @@
             }
         },
         "suggestion_account": {
-            "title": "Cerca Persones per Seguir",
+            "title": "Cerca Persones a Seguir",
             "follow_explain": "Quan segueixes algú, veuràs les seves publicacions a Inici."
         },
         "compose": {

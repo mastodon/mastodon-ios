@@ -71,7 +71,7 @@
                 "cancel": "إلغاء",
                 "discard": "تجاهُل",
                 "try_again": "المُحاولة مرة أُخرى",
-                "take_photo": "التقاط صورة",
+                "take_photo": "اِلتِقاطُ صُورَة",
                 "save_photo": "حفظ الصورة",
                 "copy_photo": "نسخ الصورة",
                 "sign_in": "تسجيل الدخول",
@@ -355,11 +355,11 @@
                 "new_reply": "رَدٌّ جديد"
             },
             "media_selection": {
-                "camera": "إلتقاط صورة",
-                "photo_library": "مكتبة الصور",
-                "browse": "تصفح"
+                "camera": "اِلتِقاطُ صُورَة",
+                "photo_library": "مَكتَبَةُ الصُّوَر",
+                "browse": "تَصَفَّح"
             },
-            "content_input_placeholder": "أخبِرنا بِما يَجُولُ فِي ذِهنَك",
+            "content_input_placeholder": "عَبِّر عَمَّ يَجُولُ فِي ذِهنِك",
             "compose_action": "نَشر",
             "replying_to_user": "رَدًا على %s",
             "attachment": {
