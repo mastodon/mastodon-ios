@@ -641,7 +641,8 @@
                 "mute_user": "Tysta %s",
                 "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "Du kommer inte att se deras inlägg eller ompostningar i ditt hemflöde. De kommer inte att veta att de har blivit tystade.",
                 "block_user": "Blockera %s",
-                "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "De kommer inte längre att kunna följa eller se dina inlägg, men de kan se om de har blockerats."
+                "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "De kommer inte längre att kunna följa eller se dina inlägg, men de kan se om de har blockerats.",
+                "while_we_review_this_you_can_take_action_against_user": "While we review this, you can take action against %s"
             }
         },
         "preview": {
