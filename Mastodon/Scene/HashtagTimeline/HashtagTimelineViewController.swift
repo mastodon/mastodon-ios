@@ -84,7 +84,6 @@ extension HashtagTimelineViewController {
         ])
 
         tableView.delegate = self
-//        tableView.prefetchDataSource = self
         viewModel.setupDiffableDataSource(
             tableView: tableView,
             statusTableViewCellDelegate: self
@@ -158,27 +157,6 @@ extension HashtagTimelineViewController {
 
 }
 
-// MARK: - TableViewCellHeightCacheableContainer
-//extension HashtagTimelineViewController: TableViewCellHeightCacheableContainer {
-//    var cellFrameCache: NSCache<NSNumber, NSValue> {
-//        return viewModel.cellFrameCache
-//    }
-//}
-
-//// MARK: - UIScrollViewDelegate
-//extension HashtagTimelineViewController {
-//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        aspectScrollViewDidScroll(scrollView)
-//    }
-//}
-
-//extension HashtagTimelineViewController: LoadMoreConfigurableTableViewContainer {
-//    typealias BottomLoaderTableViewCell = TimelineBottomLoaderTableViewCell
-//    typealias LoadingState = HashtagTimelineViewModel.LoadOldestState.Loading
-//    var loadMoreConfigurableTableView: UITableView { return tableView }
-//    var loadMoreConfigurableStateMachine: GKStateMachine { return viewModel.loadOldestStateMachine }
-//}
-
 // MARK: - UITableViewDelegate
 extension HashtagTimelineViewController: UITableViewDelegate, AutoGenerateTableViewDelegate {
     // sourcery:inline:HashtagTimelineViewController.AutoGenerateTableViewDelegate
@@ -206,82 +184,23 @@ extension HashtagTimelineViewController: UITableViewDelegate, AutoGenerateTableV
     }
     // sourcery:end
     
-//    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return aspectTableView(tableView, estimatedHeightForRowAt: indexPath)
-//    }
-//
-//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-//        aspectTableView(tableView, willDisplay: cell, forRowAt: indexPath)
-//    }
-//
-//    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-//        aspectTableView(tableView, didEndDisplaying: cell, forRowAt: indexPath)
-//    }
-//
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        aspectTableView(tableView, didSelectRowAt: indexPath)
-//    }
-//
-//    func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
-//        return aspectTableView(tableView, contextMenuConfigurationForRowAt: indexPath, point: point)
-//    }
-//
-//    func tableView(_ tableView: UITableView, previewForHighlightingContextMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
-//        return aspectTableView(tableView, previewForHighlightingContextMenuWithConfiguration: configuration)
-//    }
-//
-//    func tableView(_ tableView: UITableView, previewForDismissingContextMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
-//        return aspectTableView(tableView, previewForDismissingContextMenuWithConfiguration: configuration)
-//    }
-//
-//    func tableView(_ tableView: UITableView, willPerformPreviewActionForMenuWith configuration: UIContextMenuConfiguration, animator: UIContextMenuInteractionCommitAnimating) {
-//        aspectTableView(tableView, willPerformPreviewActionForMenuWith: configuration, animator: animator)
-//    }
-    
 }
-
-// MARK: - UITableViewDataSourcePrefetching
-//extension HashtagTimelineViewController: UITableViewDataSourcePrefetching {
-//    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
-//        aspectTableView(tableView, prefetchRowsAt: indexPaths)
-//    }
-//}
 
 // MARK: - StatusTableViewCellDelegate
 extension HashtagTimelineViewController: StatusTableViewCellDelegate { }
 
-// MARK: - AVPlayerViewControllerDelegate
-//extension HashtagTimelineViewController: AVPlayerViewControllerDelegate {
-//
-//    func playerViewController(_ playerViewController: AVPlayerViewController, willBeginFullScreenPresentationWithAnimationCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-//        aspectPlayerViewController(playerViewController, willBeginFullScreenPresentationWithAnimationCoordinator: coordinator)
-//    }
-//
-//    func playerViewController(_ playerViewController: AVPlayerViewController, willEndFullScreenPresentationWithAnimationCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-//        aspectPlayerViewController(playerViewController, willEndFullScreenPresentationWithAnimationCoordinator: coordinator)
-//    }
-//
-//}
-
-// MARK: - StatusTableViewCellDelegate
-//extension HashtagTimelineViewController: StatusTableViewCellDelegate {
-//    weak var playerViewControllerDelegate: AVPlayerViewControllerDelegate? { return self }
-//    func parent() -> UIViewController { return self }
-//}
-
-//extension HashtagTimelineViewController {
-//    override var keyCommands: [UIKeyCommand]? {
-//        return navigationKeyCommands + statusNavigationKeyCommands
-//    }
-//}
-//
-//// MARK: - StatusTableViewControllerNavigateable
-//extension HashtagTimelineViewController: StatusTableViewControllerNavigateable {
-//    @objc func navigateKeyCommandHandlerRelay(_ sender: UIKeyCommand) {
-//        navigateKeyCommandHandler(sender)
-//    }
-//    
-//    @objc func statusKeyCommandHandlerRelay(_ sender: UIKeyCommand) {
-//        statusKeyCommandHandler(sender)
-//    }
-//}
+extension HashtagTimelineViewController {
+    override var keyCommands: [UIKeyCommand]? {
+        return navigationKeyCommands + statusNavigationKeyCommands
+    }
+}
+// MARK: - StatusTableViewControllerNavigateable
+extension HashtagTimelineViewController: StatusTableViewControllerNavigateable {
+    @objc func navigateKeyCommandHandlerRelay(_ sender: UIKeyCommand) {
+        navigateKeyCommandHandler(sender)
+    }
+    
+    @objc func statusKeyCommandHandlerRelay(_ sender: UIKeyCommand) {
+        statusKeyCommandHandler(sender)
+    }
+}

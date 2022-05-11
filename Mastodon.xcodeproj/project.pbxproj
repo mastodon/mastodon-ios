@@ -529,6 +529,7 @@
 		DBC6462826A1736300B0E31B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB427DDE25BAA00100D1B89D /* Assets.xcassets */; };
 		DBC7A672260C897100E57475 /* StatusContentWarningEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC7A671260C897100E57475 /* StatusContentWarningEditorView.swift */; };
 		DBC7A67C260DFADE00E57475 /* StatusPublishService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC7A67B260DFADE00E57475 /* StatusPublishService.swift */; };
+		DBCA0EBC282BB38A0029E2B0 /* PageboyNavigateable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCA0EBB282BB38A0029E2B0 /* PageboyNavigateable.swift */; };
 		DBCBCBF4267CB070000F5B51 /* Decode85.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCBCBF3267CB070000F5B51 /* Decode85.swift */; };
 		DBCBCC0D2680B908000F5B51 /* HomeTimelinePreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCBCC0C2680B908000F5B51 /* HomeTimelinePreference.swift */; };
 		DBCBED1726132DB500B49291 /* UserTimelineViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCBED1626132DB500B49291 /* UserTimelineViewModel+Diffable.swift */; };
@@ -1290,6 +1291,7 @@
 		DBC6462226A1712000B0E31B /* ShareViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareViewModel.swift; sourceTree = "<group>"; };
 		DBC7A671260C897100E57475 /* StatusContentWarningEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusContentWarningEditorView.swift; sourceTree = "<group>"; };
 		DBC7A67B260DFADE00E57475 /* StatusPublishService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusPublishService.swift; sourceTree = "<group>"; };
+		DBCA0EBB282BB38A0029E2B0 /* PageboyNavigateable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageboyNavigateable.swift; sourceTree = "<group>"; };
 		DBCBCBF3267CB070000F5B51 /* Decode85.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Decode85.swift; sourceTree = "<group>"; };
 		DBCBCC0C2680B908000F5B51 /* HomeTimelinePreference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTimelinePreference.swift; sourceTree = "<group>"; };
 		DBCBED1626132DB500B49291 /* UserTimelineViewModel+Diffable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserTimelineViewModel+Diffable.swift"; sourceTree = "<group>"; };
@@ -1697,6 +1699,7 @@
 				DB4AA6B227BA34B6009EC082 /* CellFrameCacheContainer.swift */,
 				2D38F20725CD491300561493 /* DisposeBagCollectable.swift */,
 				DB1D84372657B275000346B3 /* SegmentedControlNavigateable.swift */,
+				DBCA0EBB282BB38A0029E2B0 /* PageboyNavigateable.swift */,
 				DB1D843326579931000346B3 /* TableViewControllerNavigateable.swift */,
 				DB1D842D26552C4D000346B3 /* StatusTableViewControllerNavigateable.swift */,
 			);
@@ -4082,6 +4085,7 @@
 				DB1D186C25EF5BA7003F1F23 /* PollTableView.swift in Sources */,
 				DBA94434265CBB5300C537E1 /* ProfileFieldSection.swift in Sources */,
 				DB336F28278D6EC70031E64B /* MastodonFieldContainer.swift in Sources */,
+				DBCA0EBC282BB38A0029E2B0 /* PageboyNavigateable.swift in Sources */,
 				DBF156E42702DB3F00EC00B7 /* HandleTapAction.swift in Sources */,
 				DB98EB4727B0DFAA0082E365 /* ReportViewModel+State.swift in Sources */,
 				2D5981A125E4A593000FB903 /* MastodonConfirmEmailViewModel.swift in Sources */,

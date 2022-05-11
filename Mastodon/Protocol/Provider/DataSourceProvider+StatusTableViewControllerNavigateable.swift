@@ -115,7 +115,7 @@ extension StatusTableViewControllerNavigateableCore where Self: DataSourceProvid
 
         guard let provider = self as? (DataSourceProvider & MediaPreviewableViewController) else { return }
         guard let indexPathForSelectedRow = tableView.indexPathForSelectedRow,
-              let cell = tableView.cellForRow(at: indexPathForSelectedRow) as? StatusTableViewCell
+              let cell = tableView.cellForRow(at: indexPathForSelectedRow) as? StatusViewContainerTableViewCell
         else { return }
 
         guard let mediaView = cell.statusView.mediaGridContainerView.mediaViews.first else { return }
