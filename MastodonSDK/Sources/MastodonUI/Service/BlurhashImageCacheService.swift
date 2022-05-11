@@ -10,6 +10,9 @@ import Combine
 
 public final class BlurhashImageCacheService {
     
+    // MARK: - Singleton
+    public static let shared = BlurhashImageCacheService()
+    
     static let edgeMaxLength: CGFloat = 20
     
     let cache = NSCache<Key, UIImage>()
