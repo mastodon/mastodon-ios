@@ -57,33 +57,7 @@ extension MediaView {
                 }   // end switch
             }()
             
-            if let previewURL = configuration.previewURL,
-               let url = URL(string: previewURL)
-            {
-                let placeholder = UIImage.placeholder(color: .systemGray6)
-                let request = URLRequest(url: url)
-                ImageDownloader.default.download(request, completion:  { response in
-                    switch response.result {
-                    case .success(let image):
-                        configuration.previewImage = image
-                    case .failure:
-                        configuration.previewImage = placeholder
-                    }
-                })
-            }
-            
-            if let assetURL = configuration.assetURL,
-               let blurhash = configuration.blurhash
-            {
-                AppContext.shared.blurhashImageCacheService.image(
-                    blurhash: blurhash,
-                    size: configuration.aspectRadio,
-                    url: assetURL
-                )
-                .assign(to: \.blurhashImage, on: configuration)
-                .store(in: &configuration.blurhashImageDisposeBag)
-            }
-            
+            configuration.load()
             configuration.isReveal = status.isMediaSensitive ? status.isSensitiveToggled : true
             
             return configuration
