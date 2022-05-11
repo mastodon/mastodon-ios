@@ -642,7 +642,7 @@
                 "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "No veuràs les seves publicacions o impulsos a la teva línia de temps personal. No sabran que han estat silenciats.",
                 "block_user": "Bloca %s",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "Ja no podran seguir ni veure les teves publicacions, però poden veure si han estat bloquejats.",
-                "while_we_review_this_you_can_take_action_against_user": "While we review this, you can take action against %s"
+                "while_we_review_this_you_can_take_action_against_user": "Mentre ho revisem, pots prendre mesures contra %s"
             }
         },
         "preview": {
