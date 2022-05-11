@@ -241,7 +241,7 @@
             },
             "input": {
                 "placeholder": "搜尋伺服器",
-                "search_servers_or_enter_url": "Search communities or enter URL"
+                "search_servers_or_enter_url": "搜尋社群或輸入 URL 地址"
             },
             "empty_state": {
                 "finding_servers": "尋找可用的伺服器...",
@@ -345,8 +345,8 @@
                 "published": "嘟出去！",
                 "Publishing": "發表嘟文...",
                 "accessibility": {
-                    "logo_label": "Logo Button",
-                    "logo_hint": "Tap to scroll to top and tap again to previous location"
+                    "logo_label": "標誌按鈕",
+                    "logo_hint": "輕點一下捲至頂端並且再點ㄧ下回到原先位置"
                 }
             }
         },
@@ -603,46 +603,46 @@
             "text_placeholder": "請輸入或貼上額外的備註",
             "reported": "已檢舉",
             "step_one": {
-                "step_1_of_4": "Step 1 of 4",
-                "whats_wrong_with_this_post": "What's wrong with this post?",
-                "whats_wrong_with_this_account": "What's wrong with this account?",
-                "whats_wrong_with_this_username": "What's wrong with %s?",
-                "select_the_best_match": "Select the best match",
-                "i_dont_like_it": "I don’t like it",
-                "it_is_not_something_you_want_to_see": "It is not something you want to see",
-                "its_spam": "It’s spam",
-                "malicious_links_fake_engagement_or_repetetive_replies": "Malicious links, fake engagement, or repetetive replies",
-                "it_violates_server_rules": "It violates server rules",
-                "you_are_aware_that_it_breaks_specific_rules": "You are aware that it breaks specific rules",
-                "its_something_else": "It’s something else",
-                "the_issue_does_not_fit_into_other_categories": "The issue does not fit into other categories"
+                "step_1_of_4": "四個步驟中的第一步",
+                "whats_wrong_with_this_post": "這則嘟文有什麼問題嗎？",
+                "whats_wrong_with_this_account": "這個帳號有什麼問題嗎？",
+                "whats_wrong_with_this_username": "%s 有什麼問題嗎？",
+                "select_the_best_match": "選擇最佳條件符合",
+                "i_dont_like_it": "我不喜歡",
+                "it_is_not_something_you_want_to_see": "這是您不想看到的",
+                "its_spam": "垃圾訊息",
+                "malicious_links_fake_engagement_or_repetetive_replies": "有害連結、假造的互動，或是重複性回覆",
+                "it_violates_server_rules": "違反伺服器規則",
+                "you_are_aware_that_it_breaks_specific_rules": "您知道它違反特定規則",
+                "its_something_else": "其他原因",
+                "the_issue_does_not_fit_into_other_categories": "這個問題不屬於其他分類"
             },
             "step_two": {
-                "step_2_of_4": "Step 2 of 4",
-                "which_rules_are_being_violated": "Which rules are being violated?",
-                "select_all_that_apply": "Select all that apply",
-                "i_just_don’t_like_it": "I just don’t like it"
+                "step_2_of_4": "四個步驟中的第二步",
+                "which_rules_are_being_violated": "違反了哪些規則？",
+                "select_all_that_apply": "請選擇所有適用的選項",
+                "i_just_don’t_like_it": "就是不順眼"
             },
             "step_three": {
-                "step_3_of_4": "Step 3 of 4",
-                "are_there_any_posts_that_back_up_this_report": "Are there any posts that back up this report?",
-                "select_all_that_apply": "Select all that apply"
+                "step_3_of_4": "四個步驟中的第三步",
+                "are_there_any_posts_that_back_up_this_report": "是否有能佐證這份檢舉之嘟文？",
+                "select_all_that_apply": "請選擇所有適用的選項"
             },
             "step_four": {
-                "step_4_of_4": "Step 4 of 4",
-                "is_there_anything_else_we_should_know": "Is there anything else we should know?"
+                "step_4_of_4": "四個步驟中的第四步",
+                "is_there_anything_else_we_should_know": "有什麼其他您想讓我們知道的嗎？"
             },
             "step_final": {
-                "dont_want_to_see_this": "Don’t want to see this?",
-                "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "When you see something you don’t like on Mastodon, you can remove the person from your experience.",
-                "unfollow": "Unfollow",
-                "unfollowed": "Unfollowed",
-                "unfollow_user": "Unfollow %s",
-                "mute_user": "Mute %s",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or reblogs in your home feed. They won’t know they’ve been muted.",
-                "block_user": "Block %s",
-                "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "They will no longer be able to follow or see your posts, but they can see if they’ve been blocked.",
-                "while_we_review_this_you_can_take_action_against_user": "While we review this, you can take action against %s"
+                "dont_want_to_see_this": "不想再看到這個？",
+                "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "當您看到某些不喜歡的內容時，您可以將該帳號從您的體驗中移除。",
+                "unfollow": "取消跟隨",
+                "unfollowed": "已取消跟隨",
+                "unfollow_user": "取消跟隨 %s",
+                "mute_user": "靜音 %s",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "您不會在您的首頁時間軸中再見到他們的嘟文或轉嘟。他們不會知道他們已被靜音。",
+                "block_user": "封鎖 %s",
+                "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "他們將無法跟隨您或是看到您的嘟文。他們能看到他們是否已被封鎖。",
+                "while_we_review_this_you_can_take_action_against_user": "當我們正在審核時，您可以對 %s 採取以下措施"
             }
         },
         "preview": {
