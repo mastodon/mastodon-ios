@@ -195,18 +195,18 @@
                 "header": {
                     "no_status_found": "Non se atopa a publicación",
                     "blocking_warning": "Non podes ver o perfil da usuaria\nata que a desbloquees.\nAsí ven outras o teu perfil.",
-                    "user_blocking_warning": "You can’t view %s’s profile\nuntil you unblock them.\nYour profile looks like this to them.",
-                    "blocked_warning": "You can’t view this user’s profile\nuntil they unblock you.",
-                    "user_blocked_warning": "You can’t view %s’s profile\nuntil they unblock you.",
-                    "suspended_warning": "This user has been suspended.",
-                    "user_suspended_warning": "%s’s account has been suspended."
+                    "user_blocking_warning": "Non podes ver o perfil de %s\nata que o desbloquees.\nAsí se ve o teu perfil.",
+                    "blocked_warning": "Non podes ver o perfil desta usuaria\nata que te desbloquee.",
+                    "user_blocked_warning": "Non podes ver o perfil de %s\nata que te desbloquee.",
+                    "suspended_warning": "Esta usuaria foi suspendida.",
+                    "user_suspended_warning": "A conta de %s foi suspendida."
                 }
             }
         }
     },
     "scene": {
         "welcome": {
-            "slogan": "Social networking\nback in your hands.",
+            "slogan": "Comunicación social\nde volta ás túas mans.",
             "get_started": "Comezar",
             "log_in": "Acceder"
         },
@@ -240,7 +240,8 @@
                 "category": "CATEGORÍA"
             },
             "input": {
-                "placeholder": "Buscar comunidades"
+                "placeholder": "Buscar comunidades",
+                "search_servers_or_enter_url": "Search communities or enter URL"
             },
             "empty_state": {
                 "finding_servers": "Buscando servidores dispoñibles...",
@@ -301,79 +302,83 @@
                 },
                 "special": {
                     "username_invalid": "O nome de usuaria só pode ter caracteres alfanuméricos e trazos baixos",
-                    "username_too_long": "Username is too long (can’t be longer than 30 characters)",
-                    "email_invalid": "This is not a valid email address",
-                    "password_too_short": "Password is too short (must be at least 8 characters)"
+                    "username_too_long": "O nome de usuaria é demasiado longo (maior de 30 caracteres)",
+                    "email_invalid": "Este non é un enderezo válido de email",
+                    "password_too_short": "O contrasinal é demasiado curto (debe ter 8 caracteres como mínimo)"
                 }
             }
         },
         "server_rules": {
-            "title": "Some ground rules.",
-            "subtitle": "These are set and enforced by the %s moderators.",
-            "prompt": "By continuing, you’re subject to the terms of service and privacy policy for %s.",
-            "terms_of_service": "terms of service",
-            "privacy_policy": "privacy policy",
+            "title": "Algunhas regras básicas.",
+            "subtitle": "Son establecidas e aplicadas pola moderación de %s.",
+            "prompt": "Ao continuar, acatas os termos do servizo e a política de privacidade para %s.",
+            "terms_of_service": "termos do servizo",
+            "privacy_policy": "polícica de privacidade",
             "button": {
-                "confirm": "I Agree"
+                "confirm": "Acepto"
             }
         },
         "confirm_email": {
-            "title": "One last thing.",
-            "subtitle": "Tap the link we emailed to you to verify your account.",
+            "title": "O último detalle.",
+            "subtitle": "Preme na ligazón que che enviamos ao email para verificar a conta.",
             "button": {
-                "open_email_app": "Open Email App",
-                "resend": "Resend"
+                "open_email_app": "Abrir app de email",
+                "resend": "Reenviar"
             },
             "dont_receive_email": {
-                "title": "Check your email",
-                "description": "Check if your email address is correct as well as your junk folder if you haven’t.",
-                "resend_email": "Resend Email"
+                "title": "Revisa o teu correo",
+                "description": "Comproba que o enderezo de email é correcto e que non vaia directo ao cartafol de spam.",
+                "resend_email": "Volver enviar o correo"
             },
             "open_email_app": {
-                "title": "Check your inbox.",
-                "description": "We just sent you an email. Check your junk folder if you haven’t.",
-                "mail": "Mail",
-                "open_email_client": "Open Email Client"
+                "title": "Mira na caixa de correo.",
+                "description": "Enviámosche un email. Se non aparece, mira no cartafol do lixo.",
+                "mail": "Correo",
+                "open_email_client": "Abrir cliente de email"
             }
         },
         "home_timeline": {
-            "title": "Home",
+            "title": "Inicio",
             "navigation_bar_state": {
-                "offline": "Offline",
-                "new_posts": "See new posts",
-                "published": "Published!",
-                "Publishing": "Publishing post..."
+                "offline": "Sen conexión",
+                "new_posts": "Novas publicacións",
+                "published": "Publicado!",
+                "Publishing": "Publicando...",
+                "accessibility": {
+                    "logo_label": "Logo Button",
+                    "logo_hint": "Tap to scroll to top and tap again to previous location"
+                }
             }
         },
         "suggestion_account": {
-            "title": "Find People to Follow",
-            "follow_explain": "When you follow someone, you’ll see their posts in your home feed."
+            "title": "Atopar persoas para seguir",
+            "follow_explain": "Cando sigas a alguén verás as súas publicacións na cronoloxía de inicio."
         },
         "compose": {
             "title": {
-                "new_post": "New Post",
-                "new_reply": "New Reply"
+                "new_post": "Nova publicación",
+                "new_reply": "Nova resposta"
             },
             "media_selection": {
-                "camera": "Take Photo",
-                "photo_library": "Photo Library",
-                "browse": "Browse"
+                "camera": "Facer foto",
+                "photo_library": "Biblioteca de fotos",
+                "browse": "Explorar"
             },
-            "content_input_placeholder": "Type or paste what’s on your mind",
-            "compose_action": "Publish",
-            "replying_to_user": "replying to %s",
+            "content_input_placeholder": "Escribe o que che apeteza",
+            "compose_action": "Publicar",
+            "replying_to_user": "en resposta a %s",
             "attachment": {
-                "photo": "photo",
-                "video": "video",
-                "attachment_broken": "This %s is broken and can’t be\nuploaded to Mastodon.",
-                "description_photo": "Describe the photo for the visually-impaired...",
-                "description_video": "Describe the video for the visually-impaired..."
+                "photo": "foto",
+                "video": "vídeo",
+                "attachment_broken": "Este %s está estragado e non pode\nser subido a Mastodon.",
+                "description_photo": "Describe a foto para persoas con problemas visuais...",
+                "description_video": "Describe o vídeo para persoas con problemas visuais..."
             },
             "poll": {
-                "duration_time": "Duration: %s",
-                "thirty_minutes": "30 minutes",
-                "one_hour": "1 Hour",
-                "six_hours": "6 Hours",
+                "duration_time": "Duración: %s",
+                "thirty_minutes": "30 minutos",
+                "one_hour": "1 Hora",
+                "six_hours": "6 Horas",
                 "one_day": "1 Día",
                 "three_days": "3 Días",
                 "seven_days": "7 Días",
@@ -499,90 +504,90 @@
                 "hashtags": "Cancelos",
                 "news": "Novas",
                 "community": "Comunidade",
-                "for_you": "For You"
+                "for_you": "Para ti"
             },
-            "intro": "These are the posts gaining traction in your corner of Mastodon."
+            "intro": "Estas son as publicacións en voga no teu recuncho de Mastodon."
         },
         "favorite": {
-            "title": "Your Favorites"
+            "title": "Publicacións Favoritas"
         },
         "notification": {
             "title": {
-                "Everything": "Everything",
-                "Mentions": "Mentions"
+                "Everything": "Todo",
+                "Mentions": "Mencións"
             },
             "notification_description": {
-                "followed_you": "followed you",
-                "favorited_your_post": "favorited your post",
-                "reblogged_your_post": "reblogged your post",
-                "mentioned_you": "mentioned you",
-                "request_to_follow_you": "request to follow you",
-                "poll_has_ended": "poll has ended"
+                "followed_you": "séguete",
+                "favorited_your_post": "marcou a túa publicación como favorita",
+                "reblogged_your_post": "compartiu a túa publicación",
+                "mentioned_you": "mencionoute",
+                "request_to_follow_you": "solicitou seguirte",
+                "poll_has_ended": "a enquisa rematou"
             },
             "keyobard": {
-                "show_everything": "Show Everything",
-                "show_mentions": "Show Mentions"
+                "show_everything": "Mostrar Todo",
+                "show_mentions": "Mostrar mencións"
             }
         },
         "thread": {
-            "back_title": "Post",
-            "title": "Post from %s"
+            "back_title": "Publicación",
+            "title": "Publicación de %s"
         },
         "settings": {
-            "title": "Settings",
+            "title": "Axustes",
             "section": {
                 "appearance": {
-                    "title": "Appearance",
-                    "automatic": "Automatic",
-                    "light": "Always Light",
-                    "dark": "Always Dark"
+                    "title": "Aparencia",
+                    "automatic": "Automático",
+                    "light": "Sempre claro",
+                    "dark": "Sempre escuro"
                 },
                 "look_and_feel": {
-                    "title": "Look and Feel",
-                    "use_system": "Use System",
-                    "really_dark": "Really Dark",
-                    "sorta_dark": "Sorta Dark",
-                    "light": "Light"
+                    "title": "Aparencia",
+                    "use_system": "Seguir o sistema",
+                    "really_dark": "Realmente escuro",
+                    "sorta_dark": "Algo escuro",
+                    "light": "Claro"
                 },
                 "notifications": {
-                    "title": "Notifications",
-                    "favorites": "Favorites my post",
-                    "follows": "Follows me",
-                    "boosts": "Reblogs my post",
-                    "mentions": "Mentions me",
+                    "title": "Notificacións",
+                    "favorites": "Favorece a miña publicación",
+                    "follows": "Me segue",
+                    "boosts": "Promove a miña publicación",
+                    "mentions": "Me menciona",
                     "trigger": {
-                        "anyone": "anyone",
-                        "follower": "a follower",
-                        "follow": "anyone I follow",
-                        "noone": "no one",
-                        "title": "Notify me when"
+                        "anyone": "calquera",
+                        "follower": "unha seguidora",
+                        "follow": "alguén a quen sigo",
+                        "noone": "ninguén",
+                        "title": "Avisarme cando"
                     }
                 },
                 "preference": {
-                    "title": "Preferences",
-                    "true_black_dark_mode": "True black dark mode",
-                    "disable_avatar_animation": "Disable animated avatars",
-                    "disable_emoji_animation": "Disable animated emojis",
-                    "using_default_browser": "Use default browser to open links",
-                    "open_links_in_mastodon": "Open links in Mastodon"
+                    "title": "Preferencias",
+                    "true_black_dark_mode": "Modo negro verdadeiro",
+                    "disable_avatar_animation": "Desactivar avatares animados",
+                    "disable_emoji_animation": "Desactivar emojis animados",
+                    "using_default_browser": "Usar navegador por defecto para as ligazóns",
+                    "open_links_in_mastodon": "Abrir ligazóns en Mastodon"
                 },
                 "boring_zone": {
-                    "title": "The Boring Zone",
-                    "account_settings": "Account Settings",
-                    "terms": "Terms of Service",
-                    "privacy": "Privacy Policy"
+                    "title": "A zona aburrida",
+                    "account_settings": "Axustes da conta",
+                    "terms": "Termos do Servizo",
+                    "privacy": "Política de Privacidade"
                 },
                 "spicy_zone": {
-                    "title": "The Spicy Zone",
-                    "clear": "Clear Media Cache",
-                    "signout": "Sign Out"
+                    "title": "A zona picante",
+                    "clear": "Limpar caché multimedia",
+                    "signout": "Pechar sesión"
                 }
             },
             "footer": {
-                "mastodon_description": "Mastodon is open source software. You can report issues on GitHub at %s (%s)"
+                "mastodon_description": "Mastodon é software de código aberto. Podes informar de fallos en GitHub en %s (%s)"
             },
             "keyboard": {
-                "close_settings_window": "Close Settings Window"
+                "close_settings_window": "Pechar ventá de axustes"
             }
         },
         "report": {
@@ -596,7 +601,48 @@
             "send": "Enviar Denuncia",
             "skip_to_send": "Enviar sen comentarios",
             "text_placeholder": "Escribe ou pega comentarios adicionais",
-            "reported": "DENUNCIADO"
+            "reported": "DENUNCIADO",
+            "step_one": {
+                "step_1_of_4": "Step 1 of 4",
+                "whats_wrong_with_this_post": "What's wrong with this post?",
+                "whats_wrong_with_this_account": "What's wrong with this account?",
+                "whats_wrong_with_this_username": "What's wrong with %s?",
+                "select_the_best_match": "Select the best match",
+                "i_dont_like_it": "I don’t like it",
+                "it_is_not_something_you_want_to_see": "It is not something you want to see",
+                "its_spam": "It’s spam",
+                "malicious_links_fake_engagement_or_repetetive_replies": "Malicious links, fake engagement, or repetetive replies",
+                "it_violates_server_rules": "It violates server rules",
+                "you_are_aware_that_it_breaks_specific_rules": "You are aware that it breaks specific rules",
+                "its_something_else": "It’s something else",
+                "the_issue_does_not_fit_into_other_categories": "The issue does not fit into other categories"
+            },
+            "step_two": {
+                "step_2_of_4": "Step 2 of 4",
+                "which_rules_are_being_violated": "Which rules are being violated?",
+                "select_all_that_apply": "Select all that apply",
+                "i_just_don’t_like_it": "I just don’t like it"
+            },
+            "step_three": {
+                "step_3_of_4": "Step 3 of 4",
+                "are_there_any_posts_that_back_up_this_report": "Are there any posts that back up this report?",
+                "select_all_that_apply": "Select all that apply"
+            },
+            "step_four": {
+                "step_4_of_4": "Step 4 of 4",
+                "is_there_anything_else_we_should_know": "Is there anything else we should know?"
+            },
+            "step_final": {
+                "dont_want_to_see_this": "Don’t want to see this?",
+                "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "When you see something you don’t like on Mastodon, you can remove the person from your experience.",
+                "unfollow": "Unfollow",
+                "unfollowed": "Unfollowed",
+                "unfollow_user": "Unfollow %s",
+                "mute_user": "Mute %s",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or reblogs in your home feed. They won’t know they’ve been muted.",
+                "block_user": "Block %s",
+                "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "They will no longer be able to follow or see your posts, but they can see if they’ve been blocked."
+            }
         },
         "preview": {
             "keyboard": {
@@ -606,14 +652,14 @@
             }
         },
         "account_list": {
-            "tab_bar_hint": "Current selected profile: %s. Double tap then hold to show account switcher",
-            "dismiss_account_switcher": "Dismiss Account Switcher",
-            "add_account": "Add Account"
+            "tab_bar_hint": "Perfil seleccionado: %s. Dobre toque e manter para mostrar o intercambiador de contas",
+            "dismiss_account_switcher": "Desbotar intercambiador de contas",
+            "add_account": "Engadir conta"
         },
         "wizard": {
-            "new_in_mastodon": "New in Mastodon",
-            "multiple_account_switch_intro_description": "Switch between multiple accounts by holding the profile button.",
-            "accessibility_hint": "Double tap to dismiss this wizard"
+            "new_in_mastodon": "Novidade en Mastodon",
+            "multiple_account_switch_intro_description": "Cambia dunha conta a outra mantendo preso o botón do perfil.",
+            "accessibility_hint": "Dobre toque para desbotar este asistente"
         }
     }
 }

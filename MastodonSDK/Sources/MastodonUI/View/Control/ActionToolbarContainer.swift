@@ -216,7 +216,7 @@ extension ActionToolbarContainer {
     public func configureReply(count: Int, isEnabled: Bool) {
         let title = ActionToolbarContainer.title(from: count)
         replyButton.setTitle(title, for: .normal)
-        replyButton.accessibilityLabel = "\(count) reply"   // TODO: i18n
+        replyButton.accessibilityLabel = L10n.Plural.Count.reply(count)
     }
     
     public func configureReblog(count: Int, isEnabled: Bool, isHighlighted: Bool) {

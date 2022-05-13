@@ -240,7 +240,8 @@
                 "category": "KATEGORİ"
             },
             "input": {
-                "placeholder": "Toplulukları ara"
+                "placeholder": "Toplulukları ara",
+                "search_servers_or_enter_url": "Search communities or enter URL"
             },
             "empty_state": {
                 "finding_servers": "Mevcut sunucular aranıyor...",
@@ -342,7 +343,11 @@
                 "offline": "Çevrimdışı",
                 "new_posts": "Yeni gönderiler gör",
                 "published": "Yayınlandı!",
-                "Publishing": "Gönderi yayınlanıyor..."
+                "Publishing": "Gönderi yayınlanıyor...",
+                "accessibility": {
+                    "logo_label": "Logo Button",
+                    "logo_hint": "Tap to scroll to top and tap again to previous location"
+                }
             }
         },
         "suggestion_account": {
@@ -498,7 +503,7 @@
                 "posts": "Gönderiler",
                 "hashtags": "Etiketler",
                 "news": "Haberler",
-                "community": "Community",
+                "community": "Topluluk",
                 "for_you": "Senin İçin"
             },
             "intro": "Bunlar, Mastodon'un köşesinde ilgi çeken gönderilerdir."
@@ -538,7 +543,7 @@
                     "dark": "Daima Koyu"
                 },
                 "look_and_feel": {
-                    "title": "Look and Feel",
+                    "title": "Görünüm",
                     "use_system": "Sistem İle Aynı",
                     "really_dark": "Gerçek Koyu",
                     "sorta_dark": "Hafif Koyu",
@@ -596,7 +601,48 @@
             "send": "Raporu Gönder",
             "skip_to_send": "Yorum yapmadan gönder",
             "text_placeholder": "Ek yorum yazın veya yapıştırın",
-            "reported": "RAPORLANDI"
+            "reported": "RAPORLANDI",
+            "step_one": {
+                "step_1_of_4": "Adım 1/4",
+                "whats_wrong_with_this_post": "Bu gönderi ile ilgili sorun nedir?",
+                "whats_wrong_with_this_account": "Bu hesap ile ilgili sorun nedir?",
+                "whats_wrong_with_this_username": "%s kişisinin sorunu nedir?",
+                "select_the_best_match": "En iyi seçeneceği seçiniz",
+                "i_dont_like_it": "Beğenmedim",
+                "it_is_not_something_you_want_to_see": "Görmek isteyeceğim bir şey değil",
+                "its_spam": "Spam",
+                "malicious_links_fake_engagement_or_repetetive_replies": "Malicious links, fake engagement, or repetetive replies",
+                "it_violates_server_rules": "Sunucu kurallarını ihlal ediyor",
+                "you_are_aware_that_it_breaks_specific_rules": "You are aware that it breaks specific rules",
+                "its_something_else": "Başka bir şey",
+                "the_issue_does_not_fit_into_other_categories": "Sorun bunlardan biri değil"
+            },
+            "step_two": {
+                "step_2_of_4": "Adım 2/4",
+                "which_rules_are_being_violated": "Hangi kurallar ihlal ediliyor?",
+                "select_all_that_apply": "Geçerli olan tümünü seçiniz",
+                "i_just_don’t_like_it": "Beğenmedim"
+            },
+            "step_three": {
+                "step_3_of_4": "Adım 3/4",
+                "are_there_any_posts_that_back_up_this_report": "Bu bildirimi destekleyecek herhangi bir gönderi var mı?",
+                "select_all_that_apply": "Geçerli olanların tümünü seçiniz"
+            },
+            "step_four": {
+                "step_4_of_4": "Adım 4/4",
+                "is_there_anything_else_we_should_know": "Bilmemiz gereken başka bir şey var mı?"
+            },
+            "step_final": {
+                "dont_want_to_see_this": "Bunu görmek istemiyor musunuz?",
+                "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "When you see something you don’t like on Mastodon, you can remove the person from your experience.",
+                "unfollow": "Takibi bırak",
+                "unfollowed": "Unfollowed",
+                "unfollow_user": "Unfollow %s",
+                "mute_user": "Mute %s",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or reblogs in your home feed. They won’t know they’ve been muted.",
+                "block_user": "Block %s",
+                "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "They will no longer be able to follow or see your posts, but they can see if they’ve been blocked."
+            }
         },
         "preview": {
             "keyboard": {

@@ -1,8 +1,8 @@
 //
-//  ReportViewController.swift
+//  ReportStatusViewController.swift
 //  Mastodon
 //
-//  Created by ihugo on 2021/4/20.
+//  Created by MainasuK on 2022-5-10.
 //
 
 import os.log
@@ -12,21 +12,29 @@ import CoreDataStack
 import MastodonAsset
 import MastodonLocalization
 
-class ReportViewController: UIViewController, NeedsDependency, ReportViewControllerAppearance {
+protocol ReportStatusViewControllerDelegate: AnyObject {
+    func reportStatusViewController(_ viewController: ReportStatusViewController, skipButtonDidPressed button: UIButton)
+    func reportStatusViewController(_ viewController: ReportStatusViewController, nextButtonDidPressed button: UIButton)
+}
+
+class ReportStatusViewController: UIViewController, NeedsDependency, ReportViewControllerAppearance {
+    
+    let logger = Logger(subsystem: "ReportStatusViewController", category: "ViewController")
     
     var disposeBag = Set<AnyCancellable>()
     private var observations = Set<NSKeyValueObservation>()
 
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
-    
-    var viewModel: ReportViewModel!
+        
+    var viewModel: ReportStatusViewModel!
     
     // MAKK: - UI
+    
     lazy var cancelBarButtonItem = UIBarButtonItem(
         barButtonSystemItem: .cancel,
         target: self,
-        action: #selector(ReportViewController.cancelBarButtonItemDidPressed(_:))
+        action: #selector(ReportStatusViewController.cancelBarButtonItemDidPressed(_:))
     )
     
     let tableView: UITableView = {
@@ -58,7 +66,7 @@ class ReportViewController: UIViewController, NeedsDependency, ReportViewControl
     
 }
 
-extension ReportViewController {
+extension ReportStatusViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,7 +75,7 @@ extension ReportViewController {
         defer { setupNavigationBarBackgroundView() }
         
         navigationItem.rightBarButtonItem = cancelBarButtonItem
-        
+                
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
         NSLayoutConstraint.activate([
@@ -109,7 +117,7 @@ extension ReportViewController {
             .sink { [weak self] _ in
                 guard let self = self else { return }
                 guard self.view.window != nil else { return }
-                self.viewModel.stateMachine.enter(ReportViewModel.State.Loading.self)
+                self.viewModel.stateMachine.enter(ReportStatusViewModel.State.Loading.self)
             }
             .store(in: &disposeBag)
         
@@ -118,56 +126,38 @@ extension ReportViewController {
             .assign(to: \.isEnabled, on: navigationActionView.nextButton)
             .store(in: &disposeBag)
         
-        navigationActionView.backButton.addTarget(self, action: #selector(ReportViewController.skipButtonDidPressed(_:)), for: .touchUpInside)
-        navigationActionView.nextButton.addTarget(self, action: #selector(ReportViewController.nextButtonDidPressed(_:)), for: .touchUpInside)
+        navigationActionView.backButton.addTarget(self, action: #selector(ReportStatusViewController.skipButtonDidPressed(_:)), for: .touchUpInside)
+        navigationActionView.nextButton.addTarget(self, action: #selector(ReportStatusViewController.nextButtonDidPressed(_:)), for: .touchUpInside)        
     }
     
 }
 
-extension ReportViewController {
-
+extension ReportStatusViewController {
+    
     @objc private func cancelBarButtonItemDidPressed(_ sender: UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
     }
 
-    @objc func skipButtonDidPressed(_ sender: UIButton) {
-        var selectStatuses: [ManagedObjectRecord<Status>] = []
-        if let selectStatus = viewModel.status {
-            selectStatuses.append(selectStatus)
-        }
+    @objc private func skipButtonDidPressed(_ sender: UIButton) {
+        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
         
-        let reportSupplementaryViewModel = ReportSupplementaryViewModel(
-            context: context,
-            user: viewModel.user,
-            selectStatuses: selectStatuses
-        )
-        coordinator.present(
-            scene: .reportSupplementary(viewModel: reportSupplementaryViewModel),
-            from: self,
-            transition: .show
-        )
+        assert(viewModel.delegate != nil)
+        viewModel.isSkip = true
+        viewModel.delegate?.reportStatusViewController(self, skipButtonDidPressed: sender)
     }
 
-    @objc func nextButtonDidPressed(_ sender: UIButton) {
-        let selectStatuses = Array(viewModel.selectStatuses)
-        guard !selectStatuses.isEmpty else { return }
+    @objc private func nextButtonDidPressed(_ sender: UIButton) {
+        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
         
-        let reportSupplementaryViewModel = ReportSupplementaryViewModel(
-            context: context,
-            user: viewModel.user,
-            selectStatuses: selectStatuses
-        )
-        coordinator.present(
-            scene: .reportSupplementary(viewModel: reportSupplementaryViewModel),
-            from: self,
-            transition: .show
-        )
+        assert(viewModel.delegate != nil)
+        viewModel.isSkip = false
+        viewModel.delegate?.reportStatusViewController(self, nextButtonDidPressed: sender)
     }
 
 }
 
 // MARK: - UITableViewDelegate
-extension ReportViewController: UITableViewDelegate {
+extension ReportStatusViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         guard let item = viewModel.diffableDataSource?.itemIdentifier(for: indexPath),
               case .status = item
@@ -214,7 +204,7 @@ extension ReportViewController: UITableViewDelegate {
 }
 
 // MARK: - UIAdaptivePresentationControllerDelegate
-extension ReportViewController: UIAdaptivePresentationControllerDelegate {
+extension ReportStatusViewController: UIAdaptivePresentationControllerDelegate {
     func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {
         return false
     }

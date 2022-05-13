@@ -197,9 +197,6 @@ struct MastodonRegisterView: View {
         }
     }
     
-    
-
-    
 }
 
 struct WidthKey: PreferenceKey {

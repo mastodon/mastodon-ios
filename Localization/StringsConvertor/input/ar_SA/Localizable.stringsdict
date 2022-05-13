@@ -109,7 +109,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>لا منشور</string>
+        <string>لا مَنشورات</string>
         <key>one</key>
         <string>منشورٌ واحِد</string>
         <key>two</key>
@@ -447,13 +447,13 @@
         <key>zero</key>
         <string>تتبقى لَحظة</string>
         <key>one</key>
-        <string>تتبقى ثانية</string>
+        <string>تتبقى ثانية واحِدة</string>
         <key>two</key>
-        <string>تتبقى ثانيتين</string>
+        <string>تتبقى ثانيتان</string>
         <key>few</key>
         <string>تتبقى %ld ثوان</string>
         <key>many</key>
-        <string>تتبقى %ld ثانيةً</string>
+        <string>تتبقى %ld ثانية</string>
         <key>other</key>
         <string>تتبقى %ld ثانية</string>
       </dict>

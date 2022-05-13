@@ -10,7 +10,7 @@ import UIKit
 import Combine
 import CoreDataStack
 
-#if DEBUG
+#if PROFILE
 import FPSIndicator
 #endif
 
@@ -22,7 +22,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
     var coordinator: SceneCoordinator?
 
-    #if DEBUG
+    #if PROFILE
     var fpsIndicator: FPSIndicator?
     #endif
 
@@ -87,8 +87,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
         .store(in: &observations)
 
-        #if DEBUG
-        // fpsIndicator = FPSIndicator(windowScene: windowScene)
+        #if PROFILE
+        fpsIndicator = FPSIndicator(windowScene: windowScene)
         #endif
     }
 

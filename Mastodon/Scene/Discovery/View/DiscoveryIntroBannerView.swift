@@ -9,6 +9,7 @@ import os.log
 import UIKit
 import Combine
 import MastodonAsset
+import MastodonLocalization
 
 public protocol DiscoveryIntroBannerViewDelegate: AnyObject {
     func discoveryIntroBannerView(_ bannerView: DiscoveryIntroBannerView, closeButtonDidPressed button: UIButton)
@@ -26,7 +27,7 @@ public final class DiscoveryIntroBannerView: UIView {
         let label = UILabel()
         label.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 16, weight: .regular))
         label.textColor = Asset.Colors.Label.primary.color
-        label.text = "These are the posts gaining traction in your corner of Mastodon." // TODO: i18n
+        label.text = L10n.Scene.Discovery.intro
         label.numberOfLines = 0
         return label
     }()

@@ -1,8 +1,8 @@
 //
-//  ReportViewModel.swift
+//  ReportStatusViewModel.swift
 //  Mastodon
 //
-//  Created by ihugo on 2021/4/19.
+//  Created by MainasuK on 2022-5-10.
 //
 
 import Combine
@@ -15,10 +15,12 @@ import OrderedCollections
 import os.log
 import UIKit
 
-class ReportViewModel {
+class ReportStatusViewModel {
     
     var disposeBag = Set<AnyCancellable>()
 
+    weak var delegate: ReportStatusViewControllerDelegate?
+    
     // input
     let context: AppContext
     let user: ManagedObjectRecord<MastodonUser>
@@ -26,6 +28,7 @@ class ReportViewModel {
     let statusFetchedResultsController: StatusFetchedResultsController
     let listBatchFetchViewModel = ListBatchFetchViewModel()
 
+    @Published var isSkip = false
     @Published var selectStatuses = OrderedSet<ManagedObjectRecord<Status>>()
 
     // output

@@ -12,11 +12,11 @@ import CoreDataStack
 import MastodonAsset
 import MastodonLocalization
 
-extension ReportViewModel {
+extension ReportStatusViewModel {
     
     static let reportItemHeaderContext = ReportItem.HeaderContext(
         primaryLabelText: L10n.Scene.Report.content1,
-        secondaryLabelText: L10n.Scene.Report.step1
+        secondaryLabelText: L10n.Scene.Report.StepThree.step3Of4
     )
     
     func setupDiffableDataSource(
@@ -41,7 +41,7 @@ extension ReportViewModel {
                 var snapshot = NSDiffableDataSourceSnapshot<ReportSection, ReportItem>()
                 snapshot.appendSections([.main])
                 
-                snapshot.appendItems([.header(context: ReportViewModel.reportItemHeaderContext)], toSection: .main)
+                snapshot.appendItems([.header(context: ReportStatusViewModel.reportItemHeaderContext)], toSection: .main)
                 
                 let items = records.map { ReportItem.status(record: $0) }
                 snapshot.appendItems(items, toSection: .main)

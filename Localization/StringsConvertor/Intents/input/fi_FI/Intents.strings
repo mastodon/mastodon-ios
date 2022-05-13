@@ -1,51 +1,51 @@
-"16wxgf" = "Post on Mastodon";
+"16wxgf" = "Julkaise Mastodonissa";
 
-"751xkl" = "Text Content";
+"751xkl" = "Tekstisisältö";
 
-"CsR7G2" = "Post on Mastodon";
+"CsR7G2" = "Julkaise Mastodonissa";
 
-"HZSGTr" = "What content to post?";
+"HZSGTr" = "Mitä sisältöä julkaista?";
 
-"HdGikU" = "Posting failed";
+"HdGikU" = "Julkaiseminen epäonnistui";
 
-"KDNTJ4" = "Failure Reason";
+"KDNTJ4" = "Epäonnistumisen syy";
 
-"RHxKOw" = "Send Post with text content";
+"RHxKOw" = "Lähetä julkaisu teksisisällöllä";
 
-"RxSqsb" = "Post";
+"RxSqsb" = "Julkaisu";
 
-"WCIR3D" = "Post ${content} on Mastodon";
+"WCIR3D" = "Julkaise ${content} Mastodonissa";
 
-"ZKJSNu" = "Post";
+"ZKJSNu" = "Julkaisu";
 
 "ZS1XaK" = "${content}";
 
-"ZbSjzC" = "Visibility";
+"ZbSjzC" = "Näkyvyys";
 
-"Zo4jgJ" = "Post Visibility";
+"Zo4jgJ" = "Julkaisun näkyvyys";
 
-"apSxMG-dYQ5NN" = "There are ${count} options matching ‘Public’.";
+"apSxMG-dYQ5NN" = "On ${count} vaihtoehtoa, jotka vastaavat ‘Julkinen’.";
 
-"apSxMG-ehFLjY" = "There are ${count} options matching ‘Followers Only’.";
+"apSxMG-ehFLjY" = "On ${count} vaihtoehtoa, jotka vastaavat ‘Vain seuraajat’.";
 
-"ayoYEb-dYQ5NN" = "${content}, Public";
+"ayoYEb-dYQ5NN" = "${content}, julkinen";
 
-"ayoYEb-ehFLjY" = "${content}, Followers Only";
+"ayoYEb-ehFLjY" = "${content}, vain seuraajat";
 
-"dUyuGg" = "Post on Mastodon";
+"dUyuGg" = "Julkaise Mastodonissa";
 
-"dYQ5NN" = "Public";
+"dYQ5NN" = "Julkinen";
 
-"ehFLjY" = "Followers Only";
+"ehFLjY" = "Vain seuraajat";
 
-"gfePDu" = "Posting failed. ${failureReason}";
+"gfePDu" = "Julkaiseminen epäonnistui. ${failureReason}";
 
-"k7dbKQ" = "Post was sent successfully.";
+"k7dbKQ" = "Julkaisu lähetettiin onnistuneesti.";
 
-"oGiqmY-dYQ5NN" = "Just to confirm, you wanted ‘Public’?";
+"oGiqmY-dYQ5NN" = "Vahvitukseksi, halusit ‘Julkinen’?";
 
-"oGiqmY-ehFLjY" = "Just to confirm, you wanted ‘Followers Only’?";
+"oGiqmY-ehFLjY" = "Vahvitstukseksi, halusit ‘Vain seuraajat’?";
 
 "rM6dvp" = "URL";
 
-"ryJLwG" = "Post was sent successfully. ";
+"ryJLwG" = "Julkaisu lähetettiin onnistuneesti. ";

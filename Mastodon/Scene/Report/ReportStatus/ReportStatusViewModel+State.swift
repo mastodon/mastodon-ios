@@ -12,7 +12,7 @@ import CoreData
 import CoreDataStack
 import GameplayKit
 
-extension ReportViewModel {
+extension ReportStatusViewModel {
     class State: GKState {
         
         let logger = Logger(subsystem: "ReportViewModel.State", category: "StateMachine")
@@ -23,15 +23,15 @@ extension ReportViewModel {
             String(describing: Self.self)
         }
         
-        weak var viewModel: ReportViewModel?
+        weak var viewModel: ReportStatusViewModel?
         
-        init(viewModel: ReportViewModel) {
+        init(viewModel: ReportStatusViewModel) {
             self.viewModel = viewModel
         }
         
         override func didEnter(from previousState: GKState?) {
             super.didEnter(from: previousState)
-            let previousState = previousState as? ReportViewModel.State
+            let previousState = previousState as? ReportStatusViewModel.State
             logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [\(self.id.uuidString)] enter \(self.name), previous: \(previousState?.name  ?? "<nil>")")
         }
         
@@ -46,8 +46,8 @@ extension ReportViewModel {
     }
 }
 
-extension ReportViewModel.State {
-    class Initial: ReportViewModel.State {
+extension ReportStatusViewModel.State {
+    class Initial: ReportStatusViewModel.State {
         override func isValidNextState(_ stateClass: AnyClass) -> Bool {
             guard let _ = viewModel else { return false }
             switch stateClass {
@@ -59,7 +59,7 @@ extension ReportViewModel.State {
         }
     }
     
-    class Loading: ReportViewModel.State {
+    class Loading: ReportStatusViewModel.State {
         override func isValidNextState(_ stateClass: AnyClass) -> Bool {
             switch stateClass {
             case is Fail.Type:
@@ -128,7 +128,7 @@ extension ReportViewModel.State {
         }
     }
     
-    class Fail: ReportViewModel.State {
+    class Fail: ReportStatusViewModel.State {
         override func isValidNextState(_ stateClass: AnyClass) -> Bool {
             switch stateClass {
             case is Loading.Type:
@@ -139,7 +139,7 @@ extension ReportViewModel.State {
         }
     }
     
-    class Idle: ReportViewModel.State {
+    class Idle: ReportStatusViewModel.State {
         override func isValidNextState(_ stateClass: AnyClass) -> Bool {
             switch stateClass {
             case is Loading.Type:
@@ -150,7 +150,7 @@ extension ReportViewModel.State {
         }
     }
     
-    class NoMore: ReportViewModel.State {
+    class NoMore: ReportStatusViewModel.State {
         override func isValidNextState(_ stateClass: AnyClass) -> Bool {
             return false
         }
