@@ -200,6 +200,7 @@
 "Scene.ConfirmEmail.OpenEmailApp.OpenEmailClient" = "เปิดไคลเอ็นต์อีเมล";
 "Scene.ConfirmEmail.OpenEmailApp.Title" = "ตรวจสอบกล่องขาเข้าของคุณ";
 "Scene.ConfirmEmail.Subtitle" = "แตะลิงก์ที่เราส่งอีเมลถึงคุณเพื่อยืนยันบัญชีของคุณ";
+"Scene.ConfirmEmail.TapTheLinkWeEmailedToYouToVerifyYourAccount" = "Tap the link we emailed to you to verify your account";
 "Scene.ConfirmEmail.Title" = "หนึ่งสิ่งสุดท้าย";
 "Scene.Discovery.Intro" = "นี่คือโพสต์ที่กำลังได้รับความสนใจในมุมของ Mastodon ของคุณ";
 "Scene.Discovery.Tabs.Community" = "ชุมชน";
@@ -285,6 +286,7 @@
 "Scene.Register.Input.Password.Require" = "รหัสผ่านของคุณจำเป็นต้องมีอย่างน้อย:";
 "Scene.Register.Input.Username.DuplicatePrompt" = "ชื่อผู้ใช้นี้ถูกใช้ไปแล้ว";
 "Scene.Register.Input.Username.Placeholder" = "ชื่อผู้ใช้";
+"Scene.Register.LetsGetYouSetUpOnDomain" = "Let’s get you set up on %@";
 "Scene.Register.Title" = "มาตั้งค่าของคุณใน %@ กันเลย";
 "Scene.Report.Content1" = "มีโพสต์อื่นใดที่คุณต้องการเพิ่มไปยังรายงานหรือไม่?";
 "Scene.Report.Content2" = "มีสิ่งใดที่ผู้ควบคุมควรทราบเกี่ยวกับรายงานนี้หรือไม่?";
@@ -302,6 +304,7 @@
 "Scene.Report.StepFinal.UnfollowUser" = "Unfollow %@";
 "Scene.Report.StepFinal.Unfollowed" = "Unfollowed";
 "Scene.Report.StepFinal.WhenYouSeeSomethingYouDontLikeOnMastodonYouCanRemoveThePersonFromYourExperience." = "When you see something you don’t like on Mastodon, you can remove the person from your experience.";
+"Scene.Report.StepFinal.WhileWeReviewThisYouCanTakeActionAgainstUser" = "While we review this, you can take action against %@";
 "Scene.Report.StepFinal.YouWontSeeTheirPostsOrReblogsInYourHomeFeedTheyWontKnowTheyVeBeenMuted" = "You won’t see their posts or reblogs in your home feed. They won’t know they’ve been muted.";
 "Scene.Report.StepFour.IsThereAnythingElseWeShouldKnow" = "Is there anything else we should know?";
 "Scene.Report.StepFour.Step4Of4" = "Step 4 of 4";

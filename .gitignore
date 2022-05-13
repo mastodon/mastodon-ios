@@ -120,6 +120,6 @@ xcuserdata
 
 # End of https://www.toptal.com/developers/gitignore/api/swift,swiftpm,xcode,cocoapods
 
-Localization/StringsConvertor/input
+# Localization/StringsConvertor/input
 Localization/StringsConvertor/output
 .DS_Store
