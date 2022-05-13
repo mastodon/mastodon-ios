@@ -199,8 +199,8 @@
 "Scene.ConfirmEmail.OpenEmailApp.Mail" = "邮件";
 "Scene.ConfirmEmail.OpenEmailApp.OpenEmailClient" = "打开邮件客户端";
 "Scene.ConfirmEmail.OpenEmailApp.Title" = "检查你的邮箱";
-"Scene.ConfirmEmail.Subtitle" = "我们刚刚向 %@ 发送了一封电子邮件，
-点击链接确认你的帐户。";
+"Scene.ConfirmEmail.Subtitle" = "点击我们发送给您的链接来验证您的账户。";
+"Scene.ConfirmEmail.TapTheLinkWeEmailedToYouToVerifyYourAccount" = "Tap the link we emailed to you to verify your account";
 "Scene.ConfirmEmail.Title" = "最后一件事。";
 "Scene.Discovery.Intro" = "这些嘟文在你的长毛象小宇宙中备受关注。";
 "Scene.Discovery.Tabs.Community" = "社区";
@@ -286,7 +286,8 @@
 "Scene.Register.Input.Password.Require" = "您的密码至少需要：";
 "Scene.Register.Input.Username.DuplicatePrompt" = "此用户名已被使用";
 "Scene.Register.Input.Username.Placeholder" = "用户名";
-"Scene.Register.Title" = "介绍一下你自己吧";
+"Scene.Register.LetsGetYouSetUpOnDomain" = "Let’s get you set up on %@";
+"Scene.Register.Title" = "让我们在 %@ 上开始";
 "Scene.Report.Content1" = "是否有帖子需要举报？";
 "Scene.Report.Content2" = "是否有关于此举报的详细描述信息？";
 "Scene.Report.ReportSentTitle" = "感谢提交举报，我们将会进行处理。";
@@ -303,6 +304,7 @@
 "Scene.Report.StepFinal.UnfollowUser" = "Unfollow %@";
 "Scene.Report.StepFinal.Unfollowed" = "Unfollowed";
 "Scene.Report.StepFinal.WhenYouSeeSomethingYouDontLikeOnMastodonYouCanRemoveThePersonFromYourExperience." = "When you see something you don’t like on Mastodon, you can remove the person from your experience.";
+"Scene.Report.StepFinal.WhileWeReviewThisYouCanTakeActionAgainstUser" = "While we review this, you can take action against %@";
 "Scene.Report.StepFinal.YouWontSeeTheirPostsOrReblogsInYourHomeFeedTheyWontKnowTheyVeBeenMuted" = "You won’t see their posts or reblogs in your home feed. They won’t know they’ve been muted.";
 "Scene.Report.StepFour.IsThereAnythingElseWeShouldKnow" = "Is there anything else we should know?";
 "Scene.Report.StepFour.Step4Of4" = "Step 4 of 4";

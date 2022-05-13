@@ -66,6 +66,22 @@
         <string>publicaciones</string>
       </dict>
     </dict>
+    <key>plural.count.media</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@media_count@</string>
+      <key>media_count</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>1 media</string>
+        <key>other</key>
+        <string>%ld media</string>
+      </dict>
+    </dict>
     <key>plural.count.post</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>

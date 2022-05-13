@@ -13,15 +13,15 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 lukematon ilmoitus</string>
+        <string>Irakurri gabeko jakinarazpen bat</string>
         <key>other</key>
-        <string>%ld lukematonta ilmoitusta</string>
+        <string>Irakurri gabeko %ld jakinarazpen</string>
       </dict>
     </dict>
     <key>a11y.plural.count.input_limit_exceeds</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Syöterajoitus ylittyy %#@character_count@</string>
+      <string>Sarrerak %#@character_count@ karaktereko muga gainditzen du</string>
       <key>character_count</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -29,15 +29,15 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 merkki</string>
+        <string>karaktere bat</string>
         <key>other</key>
-        <string>%ld merkkiä</string>
+        <string>%ld karaktere</string>
       </dict>
     </dict>
     <key>a11y.plural.count.input_limit_remains</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Syöterajoitus ylittyy %#@character_count@ päästä</string>
+      <string>Sarreraren karaktere muga %#@character_count@ da oraindik</string>
       <key>character_count</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -45,9 +45,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 merkki</string>
+        <string>karaktere bat</string>
         <key>other</key>
-        <string>%ld merkkiä</string>
+        <string>%ld karaktere</string>
       </dict>
     </dict>
     <key>plural.count.metric_formatted.post</key>
@@ -61,9 +61,25 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>julkaisu</string>
+        <string>bidalketa</string>
         <key>other</key>
-        <string>julkaisut</string>
+        <string>bidalketa</string>
+      </dict>
+    </dict>
+    <key>plural.count.media</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@media_count@</string>
+      <key>media_count</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>1 media</string>
+        <key>other</key>
+        <string>%ld media</string>
       </dict>
     </dict>
     <key>plural.count.post</key>
@@ -77,9 +93,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 julkaisu</string>
+        <string>Bidalketa bat</string>
         <key>other</key>
-        <string>%ld julkaisua</string>
+        <string>%ld bidalketa</string>
       </dict>
     </dict>
     <key>plural.count.favorite</key>
@@ -93,9 +109,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 suosikki</string>
+        <string>Gogoko bat</string>
         <key>other</key>
-        <string>%ld suosikkia</string>
+        <string>%ld gogoko</string>
       </dict>
     </dict>
     <key>plural.count.reblog</key>
@@ -109,9 +125,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 edelleen jako</string>
+        <string>Bultzada bat</string>
         <key>other</key>
-        <string>%ld edelleen jakoa</string>
+        <string>%ld bultzada</string>
       </dict>
     </dict>
     <key>plural.count.reply</key>
@@ -125,9 +141,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 svar</string>
+        <string>Erantzun bat</string>
         <key>other</key>
-        <string>%ld svar</string>
+        <string>%ld erantzun</string>
       </dict>
     </dict>
     <key>plural.count.vote</key>
@@ -141,9 +157,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 ääni</string>
+        <string>Boto bat</string>
         <key>other</key>
-        <string>%ld ääntä</string>
+        <string>%ld boto</string>
       </dict>
     </dict>
     <key>plural.count.voter</key>
@@ -157,9 +173,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 vastaaja</string>
+        <string>Boto-emaile bat</string>
         <key>other</key>
-        <string>%ld vastaajaa</string>
+        <string>%ld boto-emaile</string>
       </dict>
     </dict>
     <key>plural.people_talking</key>
@@ -173,9 +189,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 ihminen puhuu</string>
+        <string>Pertsona bat hizketan</string>
         <key>other</key>
-        <string>%ld ihmistä puhuu</string>
+        <string>%ld pertsona hizketan</string>
       </dict>
     </dict>
     <key>plural.count.following</key>
@@ -189,9 +205,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 seurataan</string>
+        <string>Bat jarraitzen</string>
         <key>other</key>
-        <string>%ld seurataan</string>
+        <string>%ld jarraitzen</string>
       </dict>
     </dict>
     <key>plural.count.follower</key>
@@ -205,9 +221,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 seuraaja</string>
+        <string>Jarraitzaile bat</string>
         <key>other</key>
-        <string>%ld seuraajaa</string>
+        <string>%ld jarraitzaile</string>
       </dict>
     </dict>
     <key>date.year.left</key>
@@ -221,9 +237,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 vuosi jäljellä</string>
+        <string>Urte bat geratzen da</string>
         <key>other</key>
-        <string>%ld vuotta jäljellä</string>
+        <string>%ld urte geratzen dira</string>
       </dict>
     </dict>
     <key>date.month.left</key>
@@ -237,9 +253,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 kuukausi jäljellä</string>
+        <string>Hilabete bat geratzen da</string>
         <key>other</key>
-        <string>%ld kuukautta jäljellä</string>
+        <string>%ld hilabete geratzen dira</string>
       </dict>
     </dict>
     <key>date.day.left</key>
@@ -253,9 +269,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 päivä jäljellä</string>
+        <string>Egun bat geratzen da</string>
         <key>other</key>
-        <string>%ld päivää jäljellä</string>
+        <string>%ld egun geratzen dira</string>
       </dict>
     </dict>
     <key>date.hour.left</key>
@@ -269,9 +285,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 tunti jäljellä</string>
+        <string>Ordu 1 geratzen da</string>
         <key>other</key>
-        <string>%ld tuntia jäljellä</string>
+        <string>%ld ordu geratzen dira</string>
       </dict>
     </dict>
     <key>date.minute.left</key>
@@ -285,9 +301,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 minuutti jäljellä</string>
+        <string>Minutu 1 geratzen da</string>
         <key>other</key>
-        <string>%ld minuuttia jäljellä</string>
+        <string>%ld minutu geratzen dira</string>
       </dict>
     </dict>
     <key>date.second.left</key>
@@ -301,9 +317,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 sekuntti</string>
+        <string>Segundo 1 geratzen da</string>
         <key>other</key>
-        <string>%ld sekunttia jäljellä</string>
+        <string>%ld segundo geratzen dira</string>
       </dict>
     </dict>
     <key>date.year.ago.abbr</key>
@@ -317,9 +333,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1v sitten</string>
+        <string>Duela urtebete</string>
         <key>other</key>
-        <string>%ldv sitten</string>
+        <string>Duela %ld urte</string>
       </dict>
     </dict>
     <key>date.month.ago.abbr</key>
@@ -333,9 +349,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1kk sitten</string>
+        <string>Duela hilabete</string>
         <key>other</key>
-        <string>%ldkk sitten</string>
+        <string>Duela %ld hilabete</string>
       </dict>
     </dict>
     <key>date.day.ago.abbr</key>
@@ -349,9 +365,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1pv sitten</string>
+        <string>Duela egun bat</string>
         <key>other</key>
-        <string>%ldpv sitten</string>
+        <string>Duela %ld egun</string>
       </dict>
     </dict>
     <key>date.hour.ago.abbr</key>
@@ -365,9 +381,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1t sitten</string>
+        <string>Duela ordubete</string>
         <key>other</key>
-        <string>%ldt sitten</string>
+        <string>Duela %ld ordu</string>
       </dict>
     </dict>
     <key>date.minute.ago.abbr</key>
@@ -381,9 +397,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1min sitten</string>
+        <string>Duela minutu bat</string>
         <key>other</key>
-        <string>%ldmin sitten</string>
+        <string>Duela %ld minutu</string>
       </dict>
     </dict>
     <key>date.second.ago.abbr</key>
@@ -397,9 +413,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1s sitten</string>
+        <string>Duela segundo bat</string>
         <key>other</key>
-        <string>%lds sitten</string>
+        <string>Duela %ld segundo</string>
       </dict>
     </dict>
   </dict>
