@@ -51,19 +51,25 @@ private func map(language: String) -> String? {
     case "eu_ES":   return "eu-ES"      // Basque
     case "ca_ES":   return "ca"         // Catalan
     case "zh_CN":   return "zh-Hans"    // Chinese Simplified
+    case "zh_TW":   return "zh-Hant"    // Chinese Traditional
     case "nl_NL":   return "nl"         // Dutch
     case "en_US":   return "en"
     case "fr_FR":   return "fr"         // French
+    case "gl_ES":   return "gl"         // Galician
     case "de_DE":   return "de"         // German
+    case "it_IT":   return "it"         // Italian
     case "ja_JP":   return "ja"         // Japanese
     case "kab_KAB": return "kab"        // Kabyle
     case "kmr_TR":  return "ku"         // Kurmanji (Kurdish)
     case "ru_RU":   return "ru"         // Russian
     case "gd_GB":   return "gd-GB"      // Scottish Gaelic
+    case "ckb_IR":  return "ckb"        // Sorani (Kurdish)
     case "es_ES":   return "es"         // Spanish
     case "es_AR":   return "es-419"     // Spanish, Argentina
+    case "sv-SE":   return "sv"         // Swedish
     case "sv_FI":   return "sv_FI"      // Swedish, Finland
     case "th_TH":   return "th"         // Thai
+    case "tr_TR":   return "tr"         // Turkish
     case "vi_VN":   return "vi"         // Vietnamese
     default:        return nil
     }

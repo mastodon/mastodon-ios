@@ -112,7 +112,7 @@ extension StatusThreadRootTableViewCell {
                 statusView.statusMetricView
             ]
             
-            if !statusView.viewModel.isSensitive {
+            if !statusView.viewModel.isMediaSensitive {
                 elements.removeAll(where: { $0 === statusView.contentSensitiveeToggleButton })
             }
             

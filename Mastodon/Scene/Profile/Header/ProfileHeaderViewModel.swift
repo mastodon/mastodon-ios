@@ -90,7 +90,10 @@ extension ProfileHeaderViewModel {
 extension ProfileHeaderViewModel {
     
     static func normalize(note: String?) -> String? {
-        guard let note = note?.trimmingCharacters(in: .whitespacesAndNewlines),!note.isEmpty else {
+        let _note = note?.replacingOccurrences(of: "<br>|<br />", with: "\u{2028}", options: .regularExpression, range: nil)
+            .replacingOccurrences(of: "</p>", with: "</p>\u{2029}", range: nil)
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+        guard let note = _note, !note.isEmpty else {
             return nil
         }
         

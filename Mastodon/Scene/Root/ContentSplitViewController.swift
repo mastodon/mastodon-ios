@@ -38,7 +38,6 @@ final class ContentSplitViewController: UIViewController, NeedsDependency {
     private(set) lazy var mainTabBarController: MainTabBarController = {
         let mainTabBarController = MainTabBarController(context: context, coordinator: coordinator)
         if let homeTimelineViewController = mainTabBarController.viewController(of: HomeTimelineViewController.self) {
-            homeTimelineViewController.viewModel.displayComposeBarButtonItem = false
             homeTimelineViewController.viewModel.displaySettingBarButtonItem = false
         }
         return mainTabBarController
@@ -78,12 +77,23 @@ extension ContentSplitViewController {
             mainTabBarController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
         
+        // response keyboard command tab switch
+        mainTabBarController.$currentTab
+            .sink { [weak self] tab in
+                guard let self = self else { return }
+                if tab != self.currentSupplementaryTab {
+                    self.currentSupplementaryTab = tab
+                }
+            }
+            .store(in: &disposeBag)
+        
         $currentSupplementaryTab
             .removeDuplicates()
             .sink(receiveValue: { [weak self] tab in
                 guard let self = self else { return }
                 self.mainTabBarController.selectedIndex = tab.rawValue
-                self.mainTabBarController.currentTab.value = tab
+                self.mainTabBarController.currentTab = tab
+                self.sidebarViewController.viewModel.currentTab = tab
             })
             .store(in: &disposeBag)
     }

@@ -12,6 +12,7 @@ import GameController
 import AuthenticationServices
 import MastodonAsset
 import MastodonLocalization
+import MastodonUI
 
 final class MastodonPickServerViewController: UIViewController, NeedsDependency {
     
@@ -91,7 +92,7 @@ extension MastodonPickServerViewController {
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor),
         ])
         
         navigationActionView.translatesAutoresizingMaskIntoConstraints = false
@@ -106,10 +107,10 @@ extension MastodonPickServerViewController {
         ])
         
         navigationActionView
-            .observe(\.bounds, options: [.initial, .new]) { [weak self] navigationActionView, _ in
+            .observe(\.bounds, options: [.initial, .new]) { [weak self] _, _ in
                 guard let self = self else { return }
-                let inset = navigationActionView.frame.height
-                self.tableView.contentInset.bottom = inset
+                let inset = self.navigationActionView.frame.height
+                self.viewModel.additionalTableViewInsets.bottom = inset
             }
             .store(in: &observations)
 
@@ -144,6 +145,14 @@ extension MastodonPickServerViewController {
             pickServerServerSectionTableHeaderViewDelegate: self,
             pickServerCellDelegate: self
         )
+        
+        KeyboardResponderService
+            .configure(
+                scrollView: tableView,
+                layoutNeedsUpdate: viewModel.viewDidAppear.eraseToAnyPublisher(),
+                additionalSafeAreaInsets: viewModel.$additionalTableViewInsets.eraseToAnyPublisher()
+            )
+            .store(in: &disposeBag)
 
         viewModel
             .selectedServer
@@ -238,6 +247,7 @@ extension MastodonPickServerViewController {
         super.viewDidAppear(animated)
         
         tableView.flashScrollIndicators()
+        viewModel.viewDidAppear.send()
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -332,7 +342,10 @@ extension MastodonPickServerViewController {
                 ) else {
                     throw APIService.APIError.explicit(.badResponse)
                 }
-                return MastodonPickServerViewModel.SignUpResponseSecond(instance: response.instance, authenticateInfo: authenticateInfo)
+                return MastodonPickServerViewModel.SignUpResponseSecond(
+                    instance: response.instance,
+                    authenticateInfo: authenticateInfo
+                )
             }
             .compactMap { [weak self] response -> AnyPublisher<MastodonPickServerViewModel.SignUpResponseThird, Error>? in
                 guard let self = self else { return nil }
@@ -344,7 +357,13 @@ extension MastodonPickServerViewController {
                     clientSecret: authenticateInfo.clientSecret,
                     redirectURI: authenticateInfo.redirectURI
                 )
-                .map { MastodonPickServerViewModel.SignUpResponseThird(instance: instance, authenticateInfo: authenticateInfo, applicationToken: $0) }
+                .map {
+                    MastodonPickServerViewModel.SignUpResponseThird(
+                        instance: instance,
+                        authenticateInfo: authenticateInfo,
+                        applicationToken: $0
+                    )
+                }
                 .eraseToAnyPublisher()
             }
             .switchToLatest()
@@ -414,28 +433,6 @@ extension MastodonPickServerViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
         viewModel.selectedServer.send(nil)
-    }
-    
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        guard let diffableDataSource = viewModel.diffableDataSource else { return }
-        guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
-        
-        switch item {
-//        case .categoryPicker:
-//            guard let cell = cell as? PickServerCategoriesCell else { return }
-//            guard let diffableDataSource = cell.diffableDataSource else { return }
-//            let snapshot = diffableDataSource.snapshot()
-//
-//            let item = viewModel.selectCategoryItem.value
-//            guard let section = snapshot.indexOfSection(.main),
-//                  let row = snapshot.indexOfItem(item) else { return }
-//            cell.collectionView.selectItem(at: IndexPath(item: row, section: section), animated: false, scrollPosition: .centeredHorizontally)
-//        case .search:
-//            guard let cell = cell as? PickServerSearchCell else { return }
-//            cell.searchTextField.text = viewModel.searchText.value
-        default:
-            break
-        }
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

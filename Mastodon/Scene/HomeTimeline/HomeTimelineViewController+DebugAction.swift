@@ -58,6 +58,10 @@ extension HomeTimelineViewController {
                     guard let self = self else { return }
                     self.showWelcomeAction(action)
                 },
+                UIAction(title: "Register", image: UIImage(systemName: "list.bullet.rectangle.portrait.fill"), attributes: []) { [weak self] action in
+                    guard let self = self else { return }
+                    self.showRegisterAction(action)
+                },
                 UIAction(title: "Confirm Email", image: UIImage(systemName: "envelope"), attributes: []) { [weak self] action in
                     guard let self = self else { return }
                     self.showConfirmEmail(action)
@@ -182,7 +186,7 @@ extension HomeTimelineViewController {
         }
         
         func match(item: StatusItem) -> Bool {
-            let authenticationBox = AppContext.shared.authenticationService.activeMastodonAuthenticationBox.value
+            // let authenticationBox = AppContext.shared.authenticationService.activeMastodonAuthenticationBox.value
             switch item {
             case .feed(let record):
                 guard let feed = record.object(in: AppContext.shared.managedObjectContext) else { return false }
@@ -293,6 +297,33 @@ extension HomeTimelineViewController {
     
     @objc private func showWelcomeAction(_ sender: UIAction) {
         coordinator.present(scene: .welcome, from: self, transition: .modal(animated: true, completion: nil))
+    }
+    
+    @objc private func showRegisterAction(_ sender: UIAction) {
+        Task { @MainActor in
+            try await showRegisterController()
+        }   // end Task
+    }
+    
+    @MainActor
+    func showRegisterController(domain: String = "mstdn.jp") async throws {
+        let viewController = try await MastodonRegisterViewController.create(
+            context: context,
+            coordinator: coordinator,
+            domain: "mstdn.jp"
+        )
+        let navigationController = UINavigationController(rootViewController: viewController)
+        navigationController.modalPresentationStyle = .fullScreen
+        present(navigationController, animated: true) {
+            viewController.navigationItem.leftBarButtonItem = UIBarButtonItem(
+                systemItem: .close,
+                primaryAction: UIAction(handler: { [weak viewController] _ in
+                    guard let viewController = viewController else { return }
+                    viewController.dismiss(animated: true)
+                }),
+                menu: nil
+            )
+        }
     }
 
     @objc private func showConfirmEmail(_ sender: UIAction) {

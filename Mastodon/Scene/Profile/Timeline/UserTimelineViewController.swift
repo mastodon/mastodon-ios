@@ -36,7 +36,7 @@ final class UserTimelineViewController: UIViewController, NeedsDependency, Media
     let cellFrameCache = NSCache<NSNumber, NSValue>()
 
     deinit {
-        os_log("%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
     }
     
 }

@@ -44,7 +44,7 @@ final class ProfilePagingViewModel: NSObject {
     let barItems: [TMBarItemable] = {
         let items = [
             TMBarItem(title: L10n.Scene.Profile.SegmentedControl.posts),
-            TMBarItem(title: L10n.Scene.Profile.SegmentedControl.postsAndReplies),      // TODO: i18n
+            TMBarItem(title: L10n.Scene.Profile.SegmentedControl.postsAndReplies),
             TMBarItem(title: L10n.Scene.Profile.SegmentedControl.media),
             TMBarItem(title: L10n.Scene.Profile.SegmentedControl.about),
         ]

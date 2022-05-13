@@ -153,7 +153,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld people talking</string>
+        <string>%ld人が投稿</string>
       </dict>
     </dict>
     <key>plural.count.following</key>

@@ -38,11 +38,15 @@ extension DataSourceFacade {
         meta: Meta
     ) async {
         switch meta {
+        // note:
+        // some server mark the normal url as "u-url" class. highlighted content is a URL
         case .url(_, _, let url, _),
              .mention(_, let url, _) where url.lowercased().hasPrefix("http"):
-            // note:
-            // some server mark the normal url as "u-url" class. highlighted content is a URL
-            guard let url = URL(string: url) else { return }
+            // fix non-ascii character URL link can not open issue
+            guard let url = URL(string: url) ?? URL(string: url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? url) else {
+                assertionFailure()
+                return
+            }
             if let domain = provider.context.authenticationService.activeMastodonAuthenticationBox.value?.domain, url.host == domain,
                url.pathComponents.count >= 4,
                url.pathComponents[0] == "/",

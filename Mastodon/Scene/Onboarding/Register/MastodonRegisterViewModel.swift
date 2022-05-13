@@ -12,7 +12,7 @@ import UIKit
 import MastodonAsset
 import MastodonLocalization
 
-final class MastodonRegisterViewModel {
+final class MastodonRegisterViewModel: ObservableObject {
     var disposeBag = Set<AnyCancellable>()
     
     // input
@@ -23,6 +23,7 @@ final class MastodonRegisterViewModel {
     let applicationToken: Mastodon.Entity.Token
     let viewDidAppear = CurrentValueSubject<Void, Never>(Void())
 
+    @Published var backgroundColor: UIColor = Asset.Scene.Onboarding.background.color
     @Published var avatarImage: UIImage? = nil
     @Published var name = ""
     @Published var username = ""
@@ -30,10 +31,12 @@ final class MastodonRegisterViewModel {
     @Published var password = ""
     @Published var reason = ""
     
-    let usernameErrorPrompt = CurrentValueSubject<NSAttributedString?, Never>(nil)
-    let emailErrorPrompt = CurrentValueSubject<NSAttributedString?, Never>(nil)
-    let passwordErrorPrompt = CurrentValueSubject<NSAttributedString?, Never>(nil)
-    let reasonErrorPrompt = CurrentValueSubject<NSAttributedString?, Never>(nil)
+    @Published var usernameErrorPrompt: String? = nil
+    @Published var emailErrorPrompt: String? = nil
+    @Published var passwordErrorPrompt: String? = nil
+    @Published var reasonErrorPrompt: String? = nil
+    
+    @Published var bottomPaddingHeight: CGFloat = .zero
     
     // output
     var diffableDataSource: UITableViewDiffableDataSource<RegisterSection, RegisterItem>?
@@ -51,6 +54,7 @@ final class MastodonRegisterViewModel {
     @Published var error: Error? = nil
     
     let avatarMediaMenuActionPublisher = PassthroughSubject<AvatarMediaMenuAction, Never>()
+    let endEditing = PassthroughSubject<Void, Never>()
 
     init(
         context: AppContext,
@@ -97,45 +101,46 @@ final class MastodonRegisterViewModel {
             .assign(to: \.usernameValidateState, on: self)
             .store(in: &disposeBag)
         
-        // TODO: check username available
-//        username
-//            .filter { !$0.isEmpty }
-//            .debounce(for: .milliseconds(300), scheduler: DispatchQueue.main)
-//            .removeDuplicates()
-//            .compactMap { [weak self] text -> AnyPublisher<Result<Mastodon.Response.Content<Mastodon.Entity.Account>, Error>, Never>? in
-//                guard let self = self else { return nil }
-//                let query = Mastodon.API.Account.AccountLookupQuery(acct: text)
-//                return context.apiService.accountLookup(domain: domain, query: query, authorization: self.applicationAuthorization)
-//                    .map {
-//                        response -> Result<Mastodon.Response.Content<Mastodon.Entity.Account>, Error> in
-//                        Result.success(response)
-//                    }
-//                    .catch { error in
-//                        Just(Result.failure(error))
-//                    }
-//                    .eraseToAnyPublisher()
-//            }
-//            .switchToLatest()
-//            .sink { [weak self] result in
-//                guard let self = self else { return }
-//                switch result {
-//                case .success:
-//                    let text = L10n.Scene.Register.Error.Reason.taken(L10n.Scene.Register.Error.Item.username)
-//                    self.usernameErrorPrompt.value = MastodonRegisterViewModel.errorPromptAttributedString(for: text)
-//                    self.usernameValidateState.value = .invalid
-//                case .failure:
-//                    break
-//                }
-//            }
-//            .store(in: &disposeBag)
-//        
-//        usernameValidateState
-//            .sink { [weak self] validateState in
-//                if validateState == .valid {
-//                    self?.usernameErrorPrompt.value = nil
-//                }
-//            }
-//            .store(in: &disposeBag)
+        // check username available
+        $username
+            .filter { !$0.isEmpty }
+            .debounce(for: .milliseconds(300), scheduler: DispatchQueue.main)
+            .removeDuplicates()
+            .compactMap { [weak self] text -> AnyPublisher<Result<Mastodon.Response.Content<Mastodon.Entity.Account>, Error>, Never>? in
+                guard let self = self else { return nil }
+                let query = Mastodon.API.Account.AccountLookupQuery(acct: text)
+                return context.apiService.accountLookup(domain: domain, query: query, authorization: self.applicationAuthorization)
+                    .map {
+                        response -> Result<Mastodon.Response.Content<Mastodon.Entity.Account>, Error> in
+                        Result.success(response)
+                    }
+                    .catch { error in
+                        Just(Result.failure(error))
+                    }
+                    .eraseToAnyPublisher()
+            }
+            .switchToLatest()
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] result in
+                guard let self = self else { return }
+                switch result {
+                case .success:
+                    let text = L10n.Scene.Register.Error.Reason.taken(L10n.Scene.Register.Error.Item.username)
+                    self.usernameErrorPrompt = text
+                    self.usernameValidateState = .invalid
+                case .failure:
+                    break
+                }
+            }
+            .store(in: &disposeBag)
+       
+        $usernameValidateState
+            .sink { [weak self] validateState in
+                if validateState == .valid {
+                    self?.usernameErrorPrompt = nil
+                }
+            }
+            .store(in: &disposeBag)
 
         $email
             .map { email in
@@ -163,27 +168,31 @@ final class MastodonRegisterViewModel {
                 .store(in: &disposeBag)
         }
         
-//        error
-//            .sink { [weak self] error in
-//                guard let self = self else { return }
-//                let error = error as? Mastodon.API.Error
-//                let mastodonError = error?.mastodonError
-//                if case let .generic(genericMastodonError) = mastodonError,
-//                   let details = genericMastodonError.details
-//                {
-//                    self.usernameErrorPrompt.value = details.usernameErrorDescriptions.first.flatMap { MastodonRegisterViewModel.errorPromptAttributedString(for: $0) }
-//                    self.emailErrorPrompt.value = details.emailErrorDescriptions.first.flatMap { MastodonRegisterViewModel.errorPromptAttributedString(for: $0) }
-//                    self.passwordErrorPrompt.value = details.passwordErrorDescriptions.first.flatMap { MastodonRegisterViewModel.errorPromptAttributedString(for: $0) }
-//                    self.reasonErrorPrompt.value = details.reasonErrorDescriptions.first.flatMap { MastodonRegisterViewModel.errorPromptAttributedString(for: $0) }
-//                } else {
-//                    self.usernameErrorPrompt.value = nil
-//                    self.emailErrorPrompt.value = nil
-//                    self.passwordErrorPrompt.value = nil
-//                    self.reasonErrorPrompt.value = nil
-//                }
-//            }
-//            .store(in: &disposeBag)
-//        
+        $error
+            .sink { [weak self] error in
+                guard let self = self else { return }
+                let error = error as? Mastodon.API.Error
+                let mastodonError = error?.mastodonError
+                if case let .generic(genericMastodonError) = mastodonError,
+                   let details = genericMastodonError.details
+                {
+                    self.usernameErrorPrompt = details.usernameErrorDescriptions.first
+                    details.usernameErrorDescriptions.first.flatMap { _ in self.usernameValidateState = .invalid }
+                    self.emailErrorPrompt = details.emailErrorDescriptions.first
+                    details.emailErrorDescriptions.first.flatMap { _ in self.emailValidateState = .invalid }
+                    self.passwordErrorPrompt = details.passwordErrorDescriptions.first
+                    details.passwordErrorDescriptions.first.flatMap { _ in self.passwordValidateState = .invalid }
+                    self.reasonErrorPrompt = details.reasonErrorDescriptions.first
+                    details.reasonErrorDescriptions.first.flatMap { _ in self.reasonValidateState = .invalid }
+                } else {
+                    self.usernameErrorPrompt = nil
+                    self.emailErrorPrompt = nil
+                    self.passwordErrorPrompt = nil
+                    self.reasonErrorPrompt = nil
+                }
+            }
+            .store(in: &disposeBag)
+        
         let publisherOne = Publishers.CombineLatest4(
             $usernameValidateState,
             $displayNameValidateState,
@@ -213,7 +222,7 @@ final class MastodonRegisterViewModel {
 }
 
 extension MastodonRegisterViewModel {
-    enum ValidateState {
+    enum ValidateState: Hashable {
         case empty
         case invalid
         case valid
@@ -270,4 +279,53 @@ extension MastodonRegisterViewModel {
         
         return attributeString
     }
+}
+
+extension MastodonRegisterViewModel {
+    
+    enum AvatarMediaMenuAction {
+        case photoLibrary
+        case camera
+        case browse
+        case delete
+    }
+    
+    private func createAvatarMediaContextMenu() -> UIMenu {
+        var children: [UIMenuElement] = []
+        
+        // Photo Library
+        let photoLibraryAction = UIAction(title: L10n.Scene.Compose.MediaSelection.photoLibrary, image: UIImage(systemName: "rectangle.on.rectangle"), identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off) { [weak self] _ in
+            guard let self = self else { return }
+            self.avatarMediaMenuActionPublisher.send(.photoLibrary)
+        }
+        children.append(photoLibraryAction)
+        
+        // Camera
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            let cameraAction = UIAction(title: L10n.Scene.Compose.MediaSelection.camera, image: UIImage(systemName: "camera"), identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off, handler: { [weak self] _ in
+                guard let self = self else { return }
+                self.avatarMediaMenuActionPublisher.send(.camera)
+            })
+            children.append(cameraAction)
+        }
+        
+        // Browse
+        let browseAction = UIAction(title: L10n.Scene.Compose.MediaSelection.browse, image: UIImage(systemName: "ellipsis"), identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off) { [weak self] _ in
+            guard let self = self else { return }
+            self.avatarMediaMenuActionPublisher.send(.browse)
+        }
+        children.append(browseAction)
+        
+        // Delete
+        if avatarImage != nil {
+            let deleteAction = UIAction(title: L10n.Scene.Register.Input.Avatar.delete, image: UIImage(systemName: "delete.left"), identifier: nil, discoverabilityTitle: nil, attributes: [.destructive], state: .off) { [weak self] _ in
+                guard let self = self else { return }
+                self.avatarMediaMenuActionPublisher.send(.delete)
+            }
+            children.append(deleteAction)
+        }
+
+        return UIMenu(title: "", image: nil, identifier: nil, options: .displayInline, children: children)
+    }
+    
 }

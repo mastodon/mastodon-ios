@@ -1,14 +1,7 @@
 // Generated using Sourcery 1.6.1 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 
-
-
-
-
-
-
-
-// sourcery:inline:UserTimelineViewController.AutoGenerateTableViewDelegate
+// sourcery:inline:DiscoveryCommunityViewController.AutoGenerateTableViewDelegate
 
 // Generated using Sourcery
 // DO NOT EDIT
@@ -32,4 +25,14 @@ func tableView(_ tableView: UITableView, willPerformPreviewActionForMenuWith con
     aspectTableView(tableView, willPerformPreviewActionForMenuWith: configuration, animator: animator)
 }
 // sourcery:end
+
+
+
+
+
+
+
+
+
+
 

@@ -11,6 +11,7 @@ import Combine
 import UIKit
 import MastodonAsset
 import MastodonLocalization
+import MastodonUI
 
 protocol ContentWarningOverlayViewDelegate: AnyObject {
     func contentWarningOverlayViewDidPressed(_ contentWarningOverlayView: ContentWarningOverlayView)

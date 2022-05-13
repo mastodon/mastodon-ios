@@ -109,7 +109,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>لا منشور</string>
+        <string>لا مَنشورات</string>
         <key>one</key>
         <string>منشورٌ واحِد</string>
         <key>two</key>
@@ -447,13 +447,13 @@
         <key>zero</key>
         <string>تتبقى لَحظة</string>
         <key>one</key>
-        <string>تتبقى ثانية</string>
+        <string>تتبقى ثانية واحِدة</string>
         <key>two</key>
-        <string>تتبقى ثانيتين</string>
+        <string>تتبقى ثانيتان</string>
         <key>few</key>
         <string>تتبقى %ld ثوان</string>
         <key>many</key>
-        <string>تتبقى %ld ثانيةً</string>
+        <string>تتبقى %ld ثانية</string>
         <key>other</key>
         <string>تتبقى %ld ثانية</string>
       </dict>
@@ -471,15 +471,15 @@
         <key>zero</key>
         <string>مُنذُ لَحظة</string>
         <key>one</key>
-        <string>مُنذُ سنة</string>
+        <string>مُنذُ %ldع</string>
         <key>two</key>
-        <string>مُنذُ سنتين</string>
+        <string>مُنذُ %ldع</string>
         <key>few</key>
-        <string>مُنذُ %ld سنين</string>
+        <string>مُنذُ %ldع</string>
         <key>many</key>
-        <string>مُنذُ %ld سنةً</string>
+        <string>مُنذُ %ldع</string>
         <key>other</key>
-        <string>مُنذُ %ld سنة</string>
+        <string>مُنذُ %ldع</string>
       </dict>
     </dict>
     <key>date.month.ago.abbr</key>
@@ -495,15 +495,15 @@
         <key>zero</key>
         <string>مُنذُ لَحظة</string>
         <key>one</key>
-        <string>مُنذُ شهر</string>
+        <string>مُنذُ %ldش</string>
         <key>two</key>
-        <string>مُنذُ شهرين</string>
+        <string>مُنذُ %ldش</string>
         <key>few</key>
-        <string>مُنذُ %ld أشهُر</string>
+        <string>مُنذُ %ldش</string>
         <key>many</key>
-        <string>مُنذُ %ld شهرًا</string>
+        <string>مُنذُ %ldش</string>
         <key>other</key>
-        <string>مُنذُ %ld شهر</string>
+        <string>مُنذُ %ldش</string>
       </dict>
     </dict>
     <key>date.day.ago.abbr</key>
@@ -519,15 +519,15 @@
         <key>zero</key>
         <string>مُنذُ لَحظة</string>
         <key>one</key>
-        <string>مُنذُ يوم</string>
+        <string>مُنذُ %ldي</string>
         <key>two</key>
-        <string>مُنذُ يومين</string>
+        <string>مُنذُ %ldي</string>
         <key>few</key>
-        <string>مُنذُ %ld أيام</string>
+        <string>مُنذُ %ldي</string>
         <key>many</key>
-        <string>مُنذُ %ld يومًا</string>
+        <string>مُنذُ %ldي</string>
         <key>other</key>
-        <string>مُنذُ %ld يوم</string>
+        <string>مُنذُ %ldي</string>
       </dict>
     </dict>
     <key>date.hour.ago.abbr</key>
@@ -543,15 +543,15 @@
         <key>zero</key>
         <string>مُنذُ لَحظة</string>
         <key>one</key>
-        <string>مُنذُ ساعة</string>
+        <string>مُنذُ %ldس</string>
         <key>two</key>
-        <string>مُنذُ ساعتين</string>
+        <string>مُنذُ %ldس</string>
         <key>few</key>
-        <string>مُنذُ %ld ساعات</string>
+        <string>مُنذُ %ldس</string>
         <key>many</key>
-        <string>مُنذُ %ld ساعةًَ</string>
+        <string>مُنذُ %ldس</string>
         <key>other</key>
-        <string>مُنذُ %ld ساعة</string>
+        <string>مُنذُ %ldس</string>
       </dict>
     </dict>
     <key>date.minute.ago.abbr</key>
@@ -567,15 +567,15 @@
         <key>zero</key>
         <string>مُنذُ لَحظة</string>
         <key>one</key>
-        <string>مُنذُ دقيقة</string>
+        <string>مُنذُ %ldد</string>
         <key>two</key>
-        <string>مُنذُ دقيقتان</string>
+        <string>مُنذُ %ldد</string>
         <key>few</key>
-        <string>مُنذُ %ld دقائق</string>
+        <string>مُنذُ %ldد</string>
         <key>many</key>
-        <string>مُنذُ %ld دقيقةً</string>
+        <string>مُنذُ %ldد</string>
         <key>other</key>
-        <string>مُنذُ %ld دقيقة</string>
+        <string>مُنذُ %ldد</string>
       </dict>
     </dict>
     <key>date.second.ago.abbr</key>
@@ -591,15 +591,15 @@
         <key>zero</key>
         <string>مُنذُ لَحظة</string>
         <key>one</key>
-        <string>مُنذُ ثانية</string>
+        <string>مُنذُ %ldث</string>
         <key>two</key>
-        <string>مُنذُ ثانيتين</string>
+        <string>مُنذُ %ldث</string>
         <key>few</key>
-        <string>مُنذُ %ld ثوان</string>
+        <string>مُنذُ %ldث</string>
         <key>many</key>
-        <string>مُنذُ %ld ثانية</string>
+        <string>مُنذُ %ldث</string>
         <key>other</key>
-        <string>مُنذُ %ld ثانية</string>
+        <string>مُنذُ %ldث</string>
       </dict>
     </dict>
   </dict>

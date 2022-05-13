@@ -17,6 +17,7 @@ import AlamofireImage
 import StoreKit
 import MastodonAsset
 import MastodonLocalization
+import MastodonUI
 
 final class HomeTimelineViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
     
@@ -50,16 +51,8 @@ final class HomeTimelineViewController: UIViewController, NeedsDependency, Media
     let settingBarButtonItem: UIBarButtonItem = {
         let barButtonItem = UIBarButtonItem()
         barButtonItem.tintColor = ThemeService.tintColor
-        barButtonItem.image = UIImage(systemName: "gear")?.withRenderingMode(.alwaysTemplate)
+        barButtonItem.image = Asset.ObjectsAndTools.gear.image.withRenderingMode(.alwaysTemplate)
         barButtonItem.accessibilityLabel = L10n.Common.Controls.Actions.settings
-        return barButtonItem
-    }()
-    
-    let composeBarButtonItem: UIBarButtonItem = {
-        let barButtonItem = UIBarButtonItem()
-        barButtonItem.tintColor = ThemeService.tintColor
-        barButtonItem.image = UIImage(systemName: "square.and.pencil")?.withRenderingMode(.alwaysTemplate)
-        barButtonItem.accessibilityLabel = L10n.Common.Controls.Actions.compose
         return barButtonItem
     }()
     
@@ -108,14 +101,14 @@ extension HomeTimelineViewController {
                 guard let self = self else { return }
                 #if DEBUG
                 // display debug menu
-                self.navigationItem.leftBarButtonItem = {
+                self.navigationItem.rightBarButtonItem = {
                     let barButtonItem = UIBarButtonItem()
                     barButtonItem.image = UIImage(systemName: "ellipsis.circle")
                     barButtonItem.menu = self.debugMenu
                     return barButtonItem
                 }()
                 #else
-                self.navigationItem.leftBarButtonItem = displaySettingBarButtonItem ? self.settingBarButtonItem : nil
+                self.navigationItem.rightBarButtonItem = displaySettingBarButtonItem ? self.settingBarButtonItem : nil
                 #endif
             }
             .store(in: &disposeBag)
@@ -131,16 +124,6 @@ extension HomeTimelineViewController {
         titleView.logoButton.menu = self.debugMenu
         titleView.button.menu = self.debugMenu
         #endif
-        
-        viewModel.$displayComposeBarButtonItem
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] displayComposeBarButtonItem in
-                guard let self = self else { return }
-                self.navigationItem.rightBarButtonItem = displayComposeBarButtonItem ? self.composeBarButtonItem : nil
-            }
-            .store(in: &disposeBag)
-        composeBarButtonItem.target = self
-        composeBarButtonItem.action = #selector(HomeTimelineViewController.composeBarButtonItemPressed(_:))
         
         navigationItem.titleView = titleView
         titleView.delegate = self
@@ -291,7 +274,7 @@ extension HomeTimelineViewController {
         tableView.deselectRow(with: transitionCoordinator, animated: animated)
         
         // needs trigger manually after onboarding dismiss
-         setNeedsStatusBarAppearanceUpdate()
+        setNeedsStatusBarAppearanceUpdate()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -410,18 +393,7 @@ extension HomeTimelineViewController {
         let settingsViewModel = SettingsViewModel(context: context, setting: setting)
         coordinator.present(scene: .settings(viewModel: settingsViewModel), from: self, transition: .modal(animated: true, completion: nil))
     }
-    
-    @objc private func composeBarButtonItemPressed(_ sender: UIBarButtonItem) {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-        guard let authenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else { return }
-        let composeViewModel = ComposeViewModel(
-            context: context,
-            composeKind: .post,
-            authenticationBox: authenticationBox
-        )
-        coordinator.present(scene: .compose(viewModel: composeViewModel), from: self, transition: .modal(animated: true, completion: nil))
-    }
-    
+
     @objc private func refreshControlValueChanged(_ sender: UIRefreshControl) {
         guard viewModel.loadLatestStateMachine.enter(HomeTimelineViewModel.LoadLatestState.Loading.self) else {
             sender.endRefreshing()

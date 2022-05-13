@@ -144,7 +144,7 @@ extension SceneCoordinator {
         case popover(sourceView: UIView)
         case panModal
         case custom(transitioningDelegate: UIViewControllerTransitioningDelegate)
-        case customPush
+        case customPush(animated: Bool)
         case safariPresent(animated: Bool, completion: (() -> Void)? = nil)
         case alertController(animated: Bool, completion: (() -> Void)? = nil)
         case activityViewControllerPresent(animated: Bool, completion: (() -> Void)? = nil)
@@ -158,7 +158,7 @@ extension SceneCoordinator {
         case mastodonServerRules(viewModel: MastodonServerRulesViewModel)
         case mastodonConfirmEmail(viewModel: MastodonConfirmEmailViewModel)
         case mastodonResendEmail(viewModel: MastodonResendEmailViewModel)
-        case mastodonWebView(viewModel:WebViewModel)
+        case mastodonWebView(viewModel: WebViewModel)
 
         // search
         case searchDetail(viewModel: SearchDetailViewModel)
@@ -184,6 +184,8 @@ extension SceneCoordinator {
         
         // report
         case report(viewModel: ReportViewModel)
+        case reportServerRules(viewModel: ReportServerRulesViewModel)
+        case reportStatus(viewModel: ReportStatusViewModel)
         case reportSupplementary(viewModel: ReportSupplementaryViewModel)
         case reportResult(viewModel: ReportResultViewModel)
 
@@ -309,7 +311,7 @@ extension SceneCoordinator {
                 if scene.isOnboarding {
                     return OnboardingNavigationController(rootViewController: viewController)
                 } else {
-                    return UINavigationController(rootViewController: viewController)
+                    return AdaptiveStatusBarStyleNavigationController(rootViewController: viewController)
                 }
             }()
             modalNavigationController.modalPresentationCapturesStatusBarAppearance = true
@@ -339,10 +341,10 @@ extension SceneCoordinator {
             viewController.transitioningDelegate = transitioningDelegate
             (splitViewController ?? presentingViewController)?.present(viewController, animated: true, completion: nil)
             
-        case .customPush:
+        case .customPush(let animated):
             // set delegate in view controller
             assert(sender?.navigationController?.delegate != nil)
-            sender?.navigationController?.pushViewController(viewController, animated: true)
+            sender?.navigationController?.pushViewController(viewController, animated: animated)
             
         case .safariPresent(let animated, let completion):
             if UserDefaults.shared.preferredUsingDefaultBrowser, case let .safari(url) = scene {
@@ -368,10 +370,10 @@ extension SceneCoordinator {
         splitViewController?.contentSplitViewController.currentSupplementaryTab = tab
         
         splitViewController?.compactMainTabBarViewController.selectedIndex = tab.rawValue
-        splitViewController?.compactMainTabBarViewController.currentTab.value = tab
+        splitViewController?.compactMainTabBarViewController.currentTab = tab
         
         tabBarController.selectedIndex = tab.rawValue
-        tabBarController.currentTab.value = tab
+        tabBarController.currentTab = tab
     }
 }
 
@@ -445,6 +447,14 @@ private extension SceneCoordinator {
             viewController = _viewController
         case .report(let viewModel):
             let _viewController = ReportViewController()
+            _viewController.viewModel = viewModel
+            viewController = _viewController
+        case .reportServerRules(let viewModel):
+            let _viewController = ReportServerRulesViewController()
+            _viewController.viewModel = viewModel
+            viewController = _viewController
+        case .reportStatus(let viewModel):
+            let _viewController = ReportStatusViewController()
             _viewController.viewModel = viewModel
             viewController = _viewController
         case .reportSupplementary(let viewModel):

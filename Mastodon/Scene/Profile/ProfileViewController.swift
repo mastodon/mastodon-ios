@@ -13,8 +13,9 @@ import MetaTextKit
 import MastodonAsset
 import MastodonLocalization
 import MastodonUI
-import Tabman
 import CoreDataStack
+import Tabman
+import Pageboy
 
 protocol ProfileViewModelEditable {
     func isEdited() -> Bool
@@ -42,19 +43,34 @@ final class ProfileViewController: UIViewController, NeedsDependency, MediaPrevi
     }()
     
     private(set) lazy var settingBarButtonItem: UIBarButtonItem = {
-        let barButtonItem = UIBarButtonItem(image: UIImage(systemName: "gear"), style: .plain, target: self, action: #selector(ProfileViewController.settingBarButtonItemPressed(_:)))
+        let barButtonItem = UIBarButtonItem(
+            image: Asset.ObjectsAndTools.gear.image.withRenderingMode(.alwaysTemplate),
+            style: .plain,
+            target: self,
+            action: #selector(ProfileViewController.settingBarButtonItemPressed(_:))
+        )
         barButtonItem.tintColor = .white
         return barButtonItem
     }()
     
     private(set) lazy var shareBarButtonItem: UIBarButtonItem = {
-        let barButtonItem = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.up"), style: .plain, target: self, action: #selector(ProfileViewController.shareBarButtonItemPressed(_:)))
+        let barButtonItem = UIBarButtonItem(
+            image: Asset.Arrow.squareAndArrowUp.image.withRenderingMode(.alwaysTemplate),
+            style: .plain,
+            target: self,
+            action: #selector(ProfileViewController.shareBarButtonItemPressed(_:))
+        )
         barButtonItem.tintColor = .white
         return barButtonItem
     }()
     
     private(set) lazy var favoriteBarButtonItem: UIBarButtonItem = {
-        let barButtonItem = UIBarButtonItem(image: UIImage(systemName: "star"), style: .plain, target: self, action: #selector(ProfileViewController.favoriteBarButtonItemPressed(_:)))
+        let barButtonItem = UIBarButtonItem(
+            image: Asset.ObjectsAndTools.star.image.withRenderingMode(.alwaysTemplate),
+            style: .plain,
+            target: self,
+            action: #selector(ProfileViewController.favoriteBarButtonItemPressed(_:))
+        )
         barButtonItem.tintColor = .white
         return barButtonItem
     }()
@@ -402,6 +418,7 @@ extension ProfileViewController {
 }
 
 extension ProfileViewController {
+    
     private func updateBarButtonInsets() {
         let margin: CGFloat = {
             switch traitCollection.userInterfaceIdiom {
@@ -618,7 +635,7 @@ extension ProfileViewController {
                 return nil
             }
             let name = user.displayNameWithFallback
-            let record = ManagedObjectRecord<MastodonUser>(objectID: user.objectID)
+            let _ = ManagedObjectRecord<MastodonUser>(objectID: user.objectID)
             let menu = MastodonMenu.setupMenu(
                 actions: [
                     .muteUser(.init(name: name, isMuting: self.viewModel.isMuting.value)),
@@ -633,7 +650,7 @@ extension ProfileViewController {
         .sink { [weak self] completion in
             guard let self = self else { return }
             switch completion {
-            case .failure(let error):
+            case .failure:
                 self.moreMenuBarButtonItem.menu = nil
             case .finished:
                 break
@@ -937,6 +954,7 @@ extension ProfileViewController: ProfileHeaderViewDelegate {
                 viewModel.isUpdating.value = true
                 Task {
                     do {
+                        // TODO: handle error
                         _ = try await viewModel.updateProfileInfo(
                             headerProfileInfo: profileHeaderViewModel.editProfileInfo,
                             aboutProfileInfo: profileAboutViewModel.editProfileInfo
@@ -1138,25 +1156,28 @@ extension ProfileViewController: ScrollViewContainer {
     }
 }
 
-//extension ProfileViewController {
-//
-//    override var keyCommands: [UIKeyCommand]? {
-//        if !viewModel.isEditing.value {
-//            return segmentedControlNavigateKeyCommands
-//        }
-//
-//        return nil
-//    }
-//
-//}
+extension ProfileViewController {
 
-// MARK: - SegmentedControlNavigateable
-//extension ProfileViewController: SegmentedControlNavigateable {
-//    var navigateableSegmentedControl: UISegmentedControl {
-//        profileHeaderViewController.pageSegmentedControl
-//    }
-//
-//    @objc func segmentedControlNavigateKeyCommandHandlerRelay(_ sender: UIKeyCommand) {
-//        segmentedControlNavigateKeyCommandHandler(sender)
-//    }
-//}
+    override var keyCommands: [UIKeyCommand]? {
+        if !viewModel.isEditing.value {
+            return pageboyNavigateKeyCommands
+        }
+
+        return nil
+    }
+
+}
+
+// MARK: - PageboyNavigateable
+extension ProfileViewController: PageboyNavigateable {
+    
+    var navigateablePageViewController: PageboyViewController {
+        return profileSegmentedViewController.pagingViewController
+    }
+    
+    @objc func pageboyNavigateKeyCommandHandlerRelay(_ sender: UIKeyCommand) {
+        pageboyNavigateKeyCommandHandler(sender)
+    }
+    
+}
+

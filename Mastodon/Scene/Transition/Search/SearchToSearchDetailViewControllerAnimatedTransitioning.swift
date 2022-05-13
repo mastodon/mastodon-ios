@@ -46,14 +46,17 @@ extension SearchToSearchDetailViewControllerAnimatedTransitioning {
         let toViewEndFrame = transitionContext.finalFrame(for: toVC)
         transitionContext.containerView.addSubview(toView)
         toView.frame = toViewEndFrame
+        toView.setNeedsLayout()
+        toView.layoutIfNeeded()
+        toVC.searchBar.setNeedsLayout()
+        toVC.searchBar.layoutIfNeeded()
         toView.alpha = 0
 
         let animator = UIViewPropertyAnimator(duration: transitionDuration(using: transitionContext), curve: curve)
         animator.addAnimations {
-
+            toView.alpha = 1
         }
         animator.addCompletion { position in
-            toView.alpha = 1
             transitionContext.completeTransition(true)
         }
         return animator

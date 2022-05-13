@@ -195,6 +195,12 @@ extension UserTimelineViewModel.State {
             
             // trigger data source update. otherwise, spinner always display
             viewModel.isSuspended.value = viewModel.isSuspended.value
+
+            // remove bottom loader
+            guard let diffableDataSource = viewModel.diffableDataSource else { return }
+            var snapshot = diffableDataSource.snapshot()
+            snapshot.deleteItems([.bottomLoader])
+            diffableDataSource.apply(snapshot)
         }
     }
 }

@@ -14,37 +14,37 @@ files: [
   # Where translations will be placed
   # e.g. "/resources/%two_letters_code%/%original_file_name%"
   #
-  "translation" : "/Localization/StringsConvertor/input/%locale_with_underscore%/%original_file_name%",
+  "translation" : "/Localization/StringsConvertor/input/%osx_code%/%original_file_name%",
 
   #
   # The parameter "update_option" is optional. If it is not set, after the files update the translations for changed strings will be removed. Use to fix typos and for minor changes in the source strings
   # e.g. "update_as_unapproved" or "update_without_changes"
   #
-  "update_option" : "update_as_unapproved",
+  # "update_option" : "update_as_unapproved",
   #
  },
  {
   # App info plist strings template
   "source" : "/Localization/ios-infoPlist.json",
-  "translation" : "/Localization/StringsConvertor/input/%locale_with_underscore%/%original_file_name%",
+  "translation" : "/Localization/StringsConvertor/input/%osx_code%/%original_file_name%",
   "update_option" : "update_as_unapproved",
  },
  {
   # App strings dict
   "source" : "/Localization/Localizable.stringsdict",
-  "translation" : "/Localization/StringsConvertor/input/%locale_with_underscore%/%original_file_name%",
-  "update_option" : "update_as_unapproved",
+  "translation" : "/Localization/StringsConvertor/input/%osx_code%/%original_file_name%",
+  # "update_option" : "update_as_unapproved",
  },
  {
   # intents strings
   "source" : "/MastodonIntent/en.lproj/Intents.strings",
-  "translation" : "/Localization/StringsConvertor/Intents/input/%locale_with_underscore%/%original_file_name%",
-  "update_option" : "update_as_unapproved",
+  "translation" : "/Localization/StringsConvertor/Intents/input/%osx_code%/%original_file_name%",
+  # "update_option" : "update_as_unapproved",
  },
  {
   # intents strings dict
   "source" : "/MastodonIntent/en.lproj/Intents.stringsdict",
-  "translation" : "/Localization/StringsConvertor/Intents/input/%locale_with_underscore%/%original_file_name%",
-  "update_option" : "update_as_unapproved",
+  "translation" : "/Localization/StringsConvertor/Intents/input/%osx_code%/%original_file_name%",
+  # "update_option" : "update_as_unapproved",
  },
 ]

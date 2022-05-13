@@ -114,7 +114,7 @@ extension ActionToolbarContainer {
             container.addArrangedSubview(favoriteButton)
             container.addArrangedSubview(shareButton)
             NSLayoutConstraint.activate([
-                replyButton.heightAnchor.constraint(equalToConstant: 44).priority(.defaultHigh),
+                replyButton.heightAnchor.constraint(equalToConstant: 36).priority(.defaultHigh),
                 replyButton.heightAnchor.constraint(equalTo: reblogButton.heightAnchor).priority(.defaultHigh),
                 replyButton.heightAnchor.constraint(equalTo: favoriteButton.heightAnchor).priority(.defaultHigh),
                 replyButton.heightAnchor.constraint(equalTo: shareButton.heightAnchor).priority(.defaultHigh),
@@ -216,7 +216,7 @@ extension ActionToolbarContainer {
     public func configureReply(count: Int, isEnabled: Bool) {
         let title = ActionToolbarContainer.title(from: count)
         replyButton.setTitle(title, for: .normal)
-        replyButton.accessibilityLabel = "\(count) reply"   // TODO: i18n
+        replyButton.accessibilityLabel = L10n.Plural.Count.reply(count)
     }
     
     public func configureReblog(count: Int, isEnabled: Bool, isHighlighted: Bool) {

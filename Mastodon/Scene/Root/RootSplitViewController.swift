@@ -208,7 +208,7 @@ extension RootSplitViewController: UISplitViewControllerDelegate {
         switch proposedTopColumn {
         case .compact:
             RootSplitViewController.transform(from: contentSplitViewController.mainTabBarController, to: compactMainTabBarViewController)
-            compactMainTabBarViewController.currentTab.value = contentSplitViewController.currentSupplementaryTab
+            compactMainTabBarViewController.currentTab = contentSplitViewController.currentSupplementaryTab
 
         default:
             assertionFailure()
@@ -231,11 +231,11 @@ extension RootSplitViewController: UISplitViewControllerDelegate {
 
         RootSplitViewController.transform(from: compactMainTabBarViewController, to: contentSplitViewController.mainTabBarController)
         
-        let tab = compactMainTabBarViewController.currentTab.value
+        let tab = compactMainTabBarViewController.currentTab
         if tab == .search {
             contentSplitViewController.currentSupplementaryTab = .home
         } else {
-            contentSplitViewController.currentSupplementaryTab = compactMainTabBarViewController.currentTab.value
+            contentSplitViewController.currentSupplementaryTab = compactMainTabBarViewController.currentTab
         }
 
         return proposedDisplayMode

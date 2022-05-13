@@ -9,6 +9,7 @@ import os.log
 import UIKit
 import Combine
 import CoreDataStack
+import MastodonUI
 
 protocol SidebarViewControllerDelegate: AnyObject {
     func sidebarViewController(_ sidebarViewController: SidebarViewController, didSelectTab tab: MainTabBarController.Tab)
@@ -153,10 +154,9 @@ extension SidebarViewController {
         
         coordinator.animate { context in
             self.collectionView.collectionViewLayout.invalidateLayout()
-        } completion: { [weak self] context in
-//            guard let self = self else { return }
+        } completion: { context in
+            // do nothing
         }
-
     }
     
 }

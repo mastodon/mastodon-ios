@@ -138,7 +138,7 @@ extension TableViewControllerNavigateableCore where Self: DataSourceProvider {
                     target: .status,
                     status: record
                 )
-            case .notification(let record):
+            case .notification:
                 assertionFailure()
             default:
                 assertionFailure()

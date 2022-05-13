@@ -34,7 +34,7 @@ extension APIService {
             let value = response.value.ancestors + response.value.descendants
             
             for entity in value {
-                Persistence.Status.createOrMerge(
+                _ = Persistence.Status.createOrMerge(
                     in: managedObjectContext,
                     context: Persistence.Status.PersistContext(
                         domain: domain,
