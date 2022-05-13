@@ -241,7 +241,7 @@
             },
             "input": {
                 "placeholder": "Li rajekaran bigere",
-                "search_servers_or_enter_url": "Search communities or enter URL"
+                "search_servers_or_enter_url": "Li civakan bigere an jî girêdanê binivîse"
             },
             "empty_state": {
                 "finding_servers": "Peydakirina rajekarên berdest...",
@@ -347,7 +347,7 @@
                 "published": "Hate weşandin!",
                 "Publishing": "Şandî tê weşandin...",
                 "accessibility": {
-                    "logo_label": "Logo Button",
+                    "logo_label": "Bişkoka Logo",
                     "logo_hint": "Tap to scroll to top and tap again to previous location"
                 }
             }
