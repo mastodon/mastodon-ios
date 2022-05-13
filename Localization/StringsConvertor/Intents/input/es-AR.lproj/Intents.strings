@@ -1,0 +1,51 @@
+"16wxgf" = "Enviar a Mastodon";
+
+"751xkl" = "Contenido del texto";
+
+"CsR7G2" = "Enviar";
+
+"HZSGTr" = "¿Qué contenido enviar?";
+
+"HdGikU" = "Error al enviar mensaje";
+
+"KDNTJ4" = "Motivo del error";
+
+"RHxKOw" = "Enviar mensaje con contenido de texto";
+
+"RxSqsb" = "Mensaje";
+
+"WCIR3D" = "Enviar ${content} a Mastodon";
+
+"ZKJSNu" = "Mensaje";
+
+"ZS1XaK" = "${content}";
+
+"ZbSjzC" = "Visibilidad";
+
+"Zo4jgJ" = "Visibilidad del mensaje";
+
+"apSxMG-dYQ5NN" = "Hay ${count} opciones que coinciden con \"Público\".";
+
+"apSxMG-ehFLjY" = "Hay ${count} opciones que coinciden con \"Sólo para seguidores\".";
+
+"ayoYEb-dYQ5NN" = "${content}, público";
+
+"ayoYEb-ehFLjY" = "${content}, sólo para seguidores";
+
+"dUyuGg" = "Enviar";
+
+"dYQ5NN" = "Público";
+
+"ehFLjY" = "Sólo para seguidores";
+
+"gfePDu" = "Error al enviar mensaje. ${failureReason}";
+
+"k7dbKQ" = "El mensaje se envió exitosamente.";
+
+"oGiqmY-dYQ5NN" = "Sólo para confirmar, ¿querías que este mensaje sea PÚBLICO?";
+
+"oGiqmY-ehFLjY" = "Sólo para confirmar, ¿querías que este mensaje sea SÓLO PARA SEGUIDORES?";
+
+"rM6dvp" = "Dirección web";
+
+"ryJLwG" = "El mensaje se envió exitosamente. ";
