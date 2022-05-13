@@ -23,7 +23,7 @@ extension MastodonRegisterViewModel {
             switch item {
             case .header(let domain):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: OnboardingHeadlineTableViewCell.self), for: indexPath) as! OnboardingHeadlineTableViewCell
-                cell.titleLabel.text = L10n.Scene.Register.title(domain)
+                cell.titleLabel.text = L10n.Scene.Register.letsGetYouSetUpOnDomain(domain)
                 cell.subTitleLabel.isHidden = true
                 return cell
             case .avatar:
