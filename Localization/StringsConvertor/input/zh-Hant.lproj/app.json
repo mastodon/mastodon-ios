@@ -251,7 +251,7 @@
         },
         "register": {
             "title": "讓我們一起設定 %s 吧！",
-            "lets_get_you_set_up_on_domain": "Let’s get you set up on %s",
+            "lets_get_you_set_up_on_domain": "讓我們一起設定 %s 吧！",
             "input": {
                 "avatar": {
                     "delete": "刪除"
@@ -322,7 +322,7 @@
         "confirm_email": {
             "title": "最後一步。",
             "subtitle": "點擊我們寄送給您的帳號驗證連結。",
-            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we emailed to you to verify your account",
+            "tap_the_link_we_emailed_to_you_to_verify_your_account": "點擊我們寄送給您的帳號驗證連結",
             "button": {
                 "open_email_app": "開啟電子郵件 App",
                 "resend": "重新發送"
