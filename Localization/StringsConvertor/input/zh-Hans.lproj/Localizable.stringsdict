@@ -69,7 +69,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld media</string>
+        <string>%ld 个媒体</string>
       </dict>
     </dict>
     <key>plural.count.post</key>
