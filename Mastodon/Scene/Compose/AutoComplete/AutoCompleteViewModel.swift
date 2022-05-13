@@ -46,7 +46,7 @@ final class AutoCompleteViewModel {
 
                 var snapshot = NSDiffableDataSourceSnapshot<AutoCompleteSection, AutoCompleteItem>()
                 snapshot.appendSections([.main])
-                snapshot.appendItems(items, toSection: .main)
+                snapshot.appendItems(items.removingDuplicates(), toSection: .main)
                 if let currentState = self.stateMachine.currentState {
                     switch currentState {
                     case is State.Loading, is State.Fail:
