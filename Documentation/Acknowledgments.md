@@ -27,6 +27,7 @@
 - [SwiftUI-Introspect](https://github.com/siteline/SwiftUI-Introspect)
 - [SwiftyJSON](https://github.com/SwiftyJSON/SwiftyJSON)
 - [Tabman](https://github.com/uias/Tabman)
+- [TabBarPager](https://github.com/TwidereProject/TabBarPager)
 - [TwidereX-iOS](https://github.com/TwidereProject/TwidereX-iOS)
 - [ThirdPartyMailer](https://github.com/vtourraine/ThirdPartyMailer)
 - [TOCropViewController](https://github.com/TimOliver/TOCropViewController)

@@ -8,6 +8,7 @@ target 'Mastodon' do
 
   # UI
   pod 'UITextField+Shake', '~> 1.2'
+  pod 'XLPagerTabStrip', '~> 9.0.0'
 
   # misc
   pod 'SwiftGen', '~> 6.4.0'

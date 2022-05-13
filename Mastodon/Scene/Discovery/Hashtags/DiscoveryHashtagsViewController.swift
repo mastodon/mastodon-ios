@@ -127,9 +127,7 @@ extension DiscoveryHashtagsViewController: UITableViewDelegate {
 
 // MARK: ScrollViewContainer
 extension DiscoveryHashtagsViewController: ScrollViewContainer {
-    var scrollView: UIScrollView? {
-        tableView
-    }
+    var scrollView: UIScrollView { tableView }
 }
 
 extension DiscoveryHashtagsViewController {

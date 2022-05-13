@@ -7,10 +7,9 @@
 
 import os.log
 import UIKit
-import Pageboy
-import Tabman
 import MastodonAsset
 import MastodonLocalization
+import TabBarPager
 
 final class ProfilePagingViewModel: NSObject {
     
@@ -32,7 +31,7 @@ final class ProfilePagingViewModel: NSObject {
         super.init()
     }
     
-    var viewControllers: [ScrollViewContainer] {
+    var viewControllers: [UIViewController & TabBarPage] {
         return [
             postUserTimelineViewController,
             repliesUserTimelineViewController,
@@ -41,42 +40,42 @@ final class ProfilePagingViewModel: NSObject {
         ]
     }
     
-    let barItems: [TMBarItemable] = {
-        let items = [
-            TMBarItem(title: L10n.Scene.Profile.SegmentedControl.posts),
-            TMBarItem(title: L10n.Scene.Profile.SegmentedControl.postsAndReplies),
-            TMBarItem(title: L10n.Scene.Profile.SegmentedControl.media),
-            TMBarItem(title: L10n.Scene.Profile.SegmentedControl.about),
-        ]
-        return items
-    }()
+//    let barItems: [TMBarItemable] = {
+//        let items = [
+//            TMBarItem(title: L10n.Scene.Profile.SegmentedControl.posts),
+//            TMBarItem(title: L10n.Scene.Profile.SegmentedControl.postsAndReplies),
+//            TMBarItem(title: L10n.Scene.Profile.SegmentedControl.media),
+//            TMBarItem(title: L10n.Scene.Profile.SegmentedControl.about),
+//        ]
+//        return items
+//    }()
     
     deinit {
-        os_log("%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
     }
     
 }
 
-// MARK: - PageboyViewControllerDataSource
-extension ProfilePagingViewModel: PageboyViewControllerDataSource {
-    
-    func numberOfViewControllers(in pageboyViewController: PageboyViewController) -> Int {
-        return viewControllers.count
-    }
-    
-    func viewController(for pageboyViewController: PageboyViewController, at index: PageboyViewController.PageIndex) -> UIViewController? {
-        return viewControllers[index]
-    }
-    
-    func defaultPage(for pageboyViewController: PageboyViewController) -> PageboyViewController.Page? {
-        return .first
-    }
-    
-}
-
-// MARK: - TMBarDataSource
-extension ProfilePagingViewModel: TMBarDataSource {
-    func barItem(for bar: TMBar, at index: Int) -> TMBarItemable {
-        return barItems[index]
-    }
-}
+//// MARK: - PageboyViewControllerDataSource
+//extension ProfilePagingViewModel: PageboyViewControllerDataSource {
+//
+//    func numberOfViewControllers(in pageboyViewController: PageboyViewController) -> Int {
+//        return viewControllers.count
+//    }
+//
+//    func viewController(for pageboyViewController: PageboyViewController, at index: PageboyViewController.PageIndex) -> UIViewController? {
+//        return viewControllers[index]
+//    }
+//
+//    func defaultPage(for pageboyViewController: PageboyViewController) -> PageboyViewController.Page? {
+//        return .first
+//    }
+//
+//}
+//
+//// MARK: - TMBarDataSource
+//extension ProfilePagingViewModel: TMBarDataSource {
+//    func barItem(for bar: TMBar, at index: Int) -> TMBarItemable {
+//        return barItems[index]
+//    }
+//}

@@ -50,7 +50,7 @@ extension UserTimelineViewModel.State {
             guard let viewModel = viewModel else { return false }
             switch stateClass {
             case is Reloading.Type:
-                return viewModel.userID != nil
+                return viewModel.userIdentifier != nil
             default:
                 return false
             }
@@ -132,7 +132,7 @@ extension UserTimelineViewModel.State {
             
             let maxID = viewModel.statusFetchedResultsController.statusIDs.value.last
             
-            guard let userID = viewModel.userID, !userID.isEmpty else {
+            guard let userID = viewModel.userIdentifier?.userID, !userID.isEmpty else {
                 stateMachine.enter(Fail.self)
                 return
             }

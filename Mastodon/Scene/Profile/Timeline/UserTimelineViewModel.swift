@@ -19,8 +19,7 @@ final class UserTimelineViewModel {
 
     // input
     let context: AppContext
-    @Published var domain: String?
-    @Published var userID: String?
+    @Published var userIdentifier: UserIdentifier?
     @Published var queryFilter: QueryFilter
     let statusFetchedResultsController: StatusFetchedResultsController
     let listBatchFetchViewModel = ListBatchFetchViewModel()
@@ -48,30 +47,25 @@ final class UserTimelineViewModel {
 
     init(
         context: AppContext,
-        domain: String?,
-        userID: String?,
         queryFilter: QueryFilter
     ) {
         self.context = context
         self.statusFetchedResultsController = StatusFetchedResultsController(
             managedObjectContext: context.managedObjectContext,
-            domain: domain,
-            additionalTweetPredicate: Status.notDeleted()
+            domain: nil,
+            additionalTweetPredicate: nil
         )
-        self.domain = domain
-        self.userID = userID
         self.queryFilter = queryFilter
         // super.init()
 
-        $domain
+        context.authenticationService.activeMastodonAuthenticationBox
+            .map { $0?.domain }
             .assign(to: \.value, on: statusFetchedResultsController.domain)
             .store(in: &disposeBag)
-        
-        
     }
 
     deinit {
-        os_log("%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
     }
 
 }
@@ -92,5 +86,4 @@ extension UserTimelineViewModel {
             self.onlyMedia = onlyMedia
         }
     }
-
 }

@@ -170,9 +170,9 @@ extension NotificationViewController {
 
 // MARK: - ScrollViewContainer
 extension NotificationViewController: ScrollViewContainer {
-    var scrollView: UIScrollView? {
+    var scrollView: UIScrollView {
         guard let viewController = currentViewController as? NotificationTimelineViewController else {
-            return nil
+            return UIScrollView()
         }
         return viewController.scrollView
     }

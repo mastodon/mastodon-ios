@@ -15,7 +15,7 @@ import MastodonMeta
 import MetaTextKit
 import MastodonAsset
 import MastodonLocalization
-import Tabman
+import TabBarPager
 
 protocol ProfileHeaderViewControllerDelegate: AnyObject {
     func profileHeaderViewController(_ viewController: ProfileHeaderViewController, viewLayoutDidUpdate view: UIView)
@@ -28,6 +28,7 @@ final class ProfileHeaderViewController: UIViewController {
     
     var disposeBag = Set<AnyCancellable>()
     weak var delegate: ProfileHeaderViewControllerDelegate?
+    weak var headerDelegate: TabBarPagerHeaderDelegate?
     
     var viewModel: ProfileHeaderViewModel!
     
@@ -44,35 +45,35 @@ final class ProfileHeaderViewController: UIViewController {
     
     let profileHeaderView = ProfileHeaderView()
     
-    let buttonBar: TMBar.ButtonBar = {
-        let buttonBar = TMBar.ButtonBar()
-        buttonBar.indicator.backgroundColor = Asset.Colors.Label.primary.color
-        buttonBar.backgroundView.style = .clear
-        buttonBar.layout.contentInset = .zero
-        return buttonBar
-    }()
+//    let buttonBar: TMBar.ButtonBar = {
+//        let buttonBar = TMBar.ButtonBar()
+//        buttonBar.indicator.backgroundColor = Asset.Colors.Label.primary.color
+//        buttonBar.backgroundView.style = .clear
+//        buttonBar.layout.contentInset = .zero
+//        return buttonBar
+//    }()
 
-    func customizeButtonBarAppearance() {
-        // The implmention use CATextlayer. Adapt for Dark Mode without dynamic colors
-        // Needs trigger update when `userInterfaceStyle` chagnes
-        let userInterfaceStyle = traitCollection.userInterfaceStyle
-        buttonBar.buttons.customize { button in
-            switch userInterfaceStyle {
-            case .dark:
-                // Asset.Colors.Label.primary.color
-                button.selectedTintColor = UIColor(red: 238.0/255.0, green: 238.0/255.0, blue: 238.0/255.0, alpha: 1.0)
-                // Asset.Colors.Label.secondary.color
-                button.tintColor = UIColor(red: 151.0/255.0, green: 157.0/255.0, blue: 173.0/255.0, alpha: 1.0)
-            default:
-                // Asset.Colors.Label.primary.color
-                button.selectedTintColor = UIColor(red: 40.0/255.0, green: 44.0/255.0, blue: 55.0/255.0, alpha: 1.0)
-                // Asset.Colors.Label.secondary.color
-                button.tintColor = UIColor(red: 60.0/255.0, green: 60.0/255.0, blue: 67.0/255.0, alpha: 0.6)
-            }
-            
-            button.backgroundColor = .clear
-        }
-    }
+//    func customizeButtonBarAppearance() {
+//        // The implmention use CATextlayer. Adapt for Dark Mode without dynamic colors
+//        // Needs trigger update when `userInterfaceStyle` chagnes
+//        let userInterfaceStyle = traitCollection.userInterfaceStyle
+//        buttonBar.buttons.customize { button in
+//            switch userInterfaceStyle {
+//            case .dark:
+//                // Asset.Colors.Label.primary.color
+//                button.selectedTintColor = UIColor(red: 238.0/255.0, green: 238.0/255.0, blue: 238.0/255.0, alpha: 1.0)
+//                // Asset.Colors.Label.secondary.color
+//                button.tintColor = UIColor(red: 151.0/255.0, green: 157.0/255.0, blue: 173.0/255.0, alpha: 1.0)
+//            default:
+//                // Asset.Colors.Label.primary.color
+//                button.selectedTintColor = UIColor(red: 40.0/255.0, green: 44.0/255.0, blue: 55.0/255.0, alpha: 1.0)
+//                // Asset.Colors.Label.secondary.color
+//                button.tintColor = UIColor(red: 60.0/255.0, green: 60.0/255.0, blue: 67.0/255.0, alpha: 0.6)
+//            }
+//            
+//            button.backgroundColor = .clear
+//        }
+//    }
 
     private var isBannerPinned = false
     private var bottomShadowAlpha: CGFloat = 0.0
@@ -113,7 +114,7 @@ extension ProfileHeaderViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        customizeButtonBarAppearance()
+//        customizeButtonBarAppearance()
 
         view.backgroundColor = ThemeService.shared.currentTheme.value.systemBackgroundColor
         ThemeService.shared.currentTheme
@@ -130,6 +131,7 @@ extension ProfileHeaderViewController {
             profileHeaderView.topAnchor.constraint(equalTo: view.topAnchor),
             profileHeaderView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             profileHeaderView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            view.bottomAnchor.constraint(equalTo: profileHeaderView.bottomAnchor),
         ])
         profileHeaderView.preservesSuperviewLayoutMargins = true
     
@@ -262,14 +264,19 @@ extension ProfileHeaderViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        delegate?.profileHeaderViewController(self, viewLayoutDidUpdate: view)
-        setupBottomShadow()
+        switch UIApplication.shared.applicationState {
+        case .active:
+            headerDelegate?.viewLayoutDidUpdate(self)
+            setupBottomShadow()
+        default:
+            break
+        }
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
 
-        customizeButtonBarAppearance()
+//        customizeButtonBarAppearance()
     }
     
 }
@@ -338,63 +345,63 @@ extension ProfileHeaderViewController {
         }
     }
     
-    func updateHeaderScrollProgress(_ progress: CGFloat, throttle: CGFloat) {
-        // os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: progress: %.2f", ((#file as NSString).lastPathComponent), #line, #function, progress)
-        updateHeaderBottomShadow(progress: progress)
-                
-        let bannerImageView = profileHeaderView.bannerImageView
-        guard bannerImageView.bounds != .zero else {
-            // wait layout finish
-            return
-        }
-        
-        let bannerContainerInWindow = profileHeaderView.convert(profileHeaderView.bannerContainerView.frame, to: nil)
-        let bannerContainerBottomOffset = bannerContainerInWindow.origin.y + bannerContainerInWindow.height
-    
-        // scroll from bottom to top: 1 -> 2 -> 3
-        if bannerContainerInWindow.origin.y > containerSafeAreaInset.top {
-            // 1
-            // banner top pin to window top and expand
-            bannerImageView.frame.origin.y = -bannerContainerInWindow.origin.y
-            bannerImageView.frame.size.height = bannerContainerInWindow.origin.y + bannerContainerInWindow.size.height
-        } else if bannerContainerBottomOffset < containerSafeAreaInset.top {
-            // 3
-            // banner bottom pin to navigation bar bottom and
-            // the `progress` growth to 1 then segmented control pin to top
-            bannerImageView.frame.origin.y = -containerSafeAreaInset.top
-            let bannerImageHeight = bannerContainerInWindow.size.height + containerSafeAreaInset.top + (containerSafeAreaInset.top - bannerContainerBottomOffset)
-            bannerImageView.frame.size.height = bannerImageHeight
-        } else {
-            // 2
-            // banner move with scrolling from bottom to top until the
-            // banner bottom higher than navigation bar bottom
-            bannerImageView.frame.origin.y = -containerSafeAreaInset.top
-            bannerImageView.frame.size.height = bannerContainerInWindow.size.height + containerSafeAreaInset.top
-        }
-        
-        // set title view offset
-        let nameTextFieldInWindow = profileHeaderView.nameTextField.superview!.convert(profileHeaderView.nameTextField.frame, to: nil)
-        let nameTextFieldTopToNavigationBarBottomOffset = containerSafeAreaInset.top - nameTextFieldInWindow.origin.y
-        let titleViewContentOffset: CGFloat = titleView.frame.height - nameTextFieldTopToNavigationBarBottomOffset
-        let transformY = max(0, titleViewContentOffset)
-        titleView.containerView.transform = CGAffineTransform(translationX: 0, y: transformY)
-        viewModel.isTitleViewDisplaying.value = transformY < titleView.containerView.frame.height
-
-        if viewModel.viewDidAppear.value {
-            viewModel.isTitleViewContentOffsetSet.value = true
-        }
-                
-        // set avatar fade
-        if progress > 0 {
-            setProfileAvatar(alpha: 0)
-        } else if progress > -abs(throttle) {
-            // y = -(1/0.8T)x
-            let alpha = -1 / abs(0.8 * throttle) * progress
-            setProfileAvatar(alpha: alpha)
-        } else {
-            setProfileAvatar(alpha: 1)
-        }
-    }
+//    func updateHeaderScrollProgress(_ progress: CGFloat, throttle: CGFloat) {
+//        // os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: progress: %.2f", ((#file as NSString).lastPathComponent), #line, #function, progress)
+//        updateHeaderBottomShadow(progress: progress)
+//
+//        let bannerImageView = profileHeaderView.bannerImageView
+//        guard bannerImageView.bounds != .zero else {
+//            // wait layout finish
+//            return
+//        }
+//
+//        let bannerContainerInWindow = profileHeaderView.convert(profileHeaderView.bannerContainerView.frame, to: nil)
+//        let bannerContainerBottomOffset = bannerContainerInWindow.origin.y + bannerContainerInWindow.height
+//
+//        // scroll from bottom to top: 1 -> 2 -> 3
+//        if bannerContainerInWindow.origin.y > containerSafeAreaInset.top {
+//            // 1
+//            // banner top pin to window top and expand
+//            bannerImageView.frame.origin.y = -bannerContainerInWindow.origin.y
+//            bannerImageView.frame.size.height = bannerContainerInWindow.origin.y + bannerContainerInWindow.size.height
+//        } else if bannerContainerBottomOffset < containerSafeAreaInset.top {
+//            // 3
+//            // banner bottom pin to navigation bar bottom and
+//            // the `progress` growth to 1 then segmented control pin to top
+//            bannerImageView.frame.origin.y = -containerSafeAreaInset.top
+//            let bannerImageHeight = bannerContainerInWindow.size.height + containerSafeAreaInset.top + (containerSafeAreaInset.top - bannerContainerBottomOffset)
+//            bannerImageView.frame.size.height = bannerImageHeight
+//        } else {
+//            // 2
+//            // banner move with scrolling from bottom to top until the
+//            // banner bottom higher than navigation bar bottom
+//            bannerImageView.frame.origin.y = -containerSafeAreaInset.top
+//            bannerImageView.frame.size.height = bannerContainerInWindow.size.height + containerSafeAreaInset.top
+//        }
+//
+//        // set title view offset
+//        let nameTextFieldInWindow = profileHeaderView.nameTextField.superview!.convert(profileHeaderView.nameTextField.frame, to: nil)
+//        let nameTextFieldTopToNavigationBarBottomOffset = containerSafeAreaInset.top - nameTextFieldInWindow.origin.y
+//        let titleViewContentOffset: CGFloat = titleView.frame.height - nameTextFieldTopToNavigationBarBottomOffset
+//        let transformY = max(0, titleViewContentOffset)
+//        titleView.containerView.transform = CGAffineTransform(translationX: 0, y: transformY)
+//        viewModel.isTitleViewDisplaying.value = transformY < titleView.containerView.frame.height
+//
+//        if viewModel.viewDidAppear.value {
+//            viewModel.isTitleViewContentOffsetSet.value = true
+//        }
+//
+//        // set avatar fade
+//        if progress > 0 {
+//            setProfileAvatar(alpha: 0)
+//        } else if progress > -abs(throttle) {
+//            // y = -(1/0.8T)x
+//            let alpha = -1 / abs(0.8 * throttle) * progress
+//            setProfileAvatar(alpha: alpha)
+//        } else {
+//            setProfileAvatar(alpha: 1)
+//        }
+//    }
 
     private func setProfileAvatar(alpha: CGFloat) {
         profileHeaderView.avatarImageViewBackgroundView.alpha = alpha
@@ -488,3 +495,6 @@ extension ProfileHeaderViewController: CropViewControllerDelegate {
         cropViewController.dismiss(animated: true, completion: nil)
     }
 }
+
+// MARK: - TabBarPagerHeader
+extension ProfileHeaderViewController: TabBarPagerHeader { }

@@ -148,9 +148,7 @@ extension DiscoveryCommunityViewController: StatusTableViewCellDelegate { }
 
 // MARK: ScrollViewContainer
 extension DiscoveryCommunityViewController: ScrollViewContainer {
-    var scrollView: UIScrollView? {
-        tableView
-    }
+    var scrollView: UIScrollView { tableView }
 }
 
 extension DiscoveryCommunityViewController {

@@ -267,6 +267,7 @@
 		DB47AB6227CF752B00CD73C7 /* MastodonUISnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB47AB6127CF752B00CD73C7 /* MastodonUISnapshotTests.swift */; };
 		DB482A3F261331E8008AE74C /* UserTimelineViewModel+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB482A3E261331E8008AE74C /* UserTimelineViewModel+State.swift */; };
 		DB482A4B261340A7008AE74C /* APIService+UserTimeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB482A4A261340A7008AE74C /* APIService+UserTimeline.swift */; };
+		DB486C0F282E41F200F69423 /* TabBarPager in Frameworks */ = {isa = PBXBuildFile; productRef = DB486C0E282E41F200F69423 /* TabBarPager */; };
 		DB4924E226312AB200E9DB22 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4924E126312AB200E9DB22 /* NotificationService.swift */; };
 		DB4932B126F1FB5300EF46D4 /* WizardCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4932B026F1FB5300EF46D4 /* WizardCardView.swift */; };
 		DB4932B726F30F0700EF46D4 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F20223826146553000C64BF /* Array.swift */; };
@@ -1429,6 +1430,7 @@
 				DB6804862637CD4C00430867 /* AppShared.framework in Frameworks */,
 				DBF96326262EC0A6001D8D25 /* AuthenticationServices.framework in Frameworks */,
 				DBAC6483267D0B21007FE9FD /* DifferenceKit in Frameworks */,
+				DB486C0F282E41F200F69423 /* TabBarPager in Frameworks */,
 				DB552D4F26BBD10C00E481F6 /* OrderedCollections in Frameworks */,
 				2D61336925C18A4F00CAE157 /* AlamofireNetworkActivityIndicator in Frameworks */,
 				DBAC64A1267E6D02007FE9FD /* Fuzi in Frameworks */,
@@ -3448,6 +3450,7 @@
 				DBA5A52E26F07ED800CACBAA /* PanModal */,
 				DB3EA911281BBEA800598866 /* AlamofireImage */,
 				DB3EA913281BBEA800598866 /* Alamofire */,
+				DB486C0E282E41F200F69423 /* TabBarPager */,
 			);
 			productName = Mastodon;
 			productReference = DB427DD225BAA00100D1B89D /* Mastodon.app */;
@@ -3670,6 +3673,7 @@
 				DBA5A52D26F07ED800CACBAA /* XCRemoteSwiftPackageReference "PanModal" */,
 				DB8D8E2D28192EED009FD90F /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
 				DB3EA8F6281BBA4C00598866 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				DB486C0D282E41F200F69423 /* XCRemoteSwiftPackageReference "TabBarPager" */,
 			);
 			productRefGroup = DB427DD325BAA00100D1B89D /* Products */;
 			projectDirPath = "";
@@ -5795,6 +5799,14 @@
 				minimumVersion = 5.4.0;
 			};
 		};
+		DB486C0D282E41F200F69423 /* XCRemoteSwiftPackageReference "TabBarPager" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/TwidereProject/TabBarPager.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.0;
+			};
+		};
 		DB552D4D26BBD10C00E481F6 /* XCRemoteSwiftPackageReference "swift-collections" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-collections.git";
@@ -5958,6 +5970,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = DB3EA8F6281BBA4C00598866 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
+		};
+		DB486C0E282E41F200F69423 /* TabBarPager */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DB486C0D282E41F200F69423 /* XCRemoteSwiftPackageReference "TabBarPager" */;
+			productName = TabBarPager;
 		};
 		DB552D4E26BBD10C00E481F6 /* OrderedCollections */ = {
 			isa = XCSwiftPackageProductDependency;
