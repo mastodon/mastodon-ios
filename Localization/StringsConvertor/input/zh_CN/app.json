@@ -250,7 +250,7 @@
             }
         },
         "register": {
-            "title": "介绍一下你自己吧",
+            "title": "让我们在 %s 上开始",
             "input": {
                 "avatar": {
                     "delete": "删除"
