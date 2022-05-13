@@ -241,7 +241,7 @@
             },
             "input": {
                 "placeholder": "Tìm máy chủ",
-                "search_servers_or_enter_url": "Search communities or enter URL"
+                "search_servers_or_enter_url": "Tìm một máy chủ hoặc nhập URL"
             },
             "empty_state": {
                 "finding_servers": "Đang tìm máy chủ hoạt động...",
@@ -251,7 +251,7 @@
         },
         "register": {
             "title": "Hãy để tôi đăng ký trên %s",
-            "lets_get_you_set_up_on_domain": "Let’s get you set up on %s",
+            "lets_get_you_set_up_on_domain": "Hãy để tôi đăng ký trên %s",
             "input": {
                 "avatar": {
                     "delete": "Xóa"
@@ -322,7 +322,7 @@
         "confirm_email": {
             "title": "Còn điều này nữa.",
             "subtitle": "Nhấn vào liên kết chúng tôi gửi qua email để xác thực tài khoản.",
-            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we emailed to you to verify your account",
+            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Nhấn vào liên kết chúng tôi gửi qua email để xác thực tài khoản",
             "button": {
                 "open_email_app": "Mở ứng dụng email",
                 "resend": "Gửi lại"
@@ -347,8 +347,8 @@
                 "published": "Đã đăng!",
                 "Publishing": "Đang đăng tút...",
                 "accessibility": {
-                    "logo_label": "Logo Button",
-                    "logo_hint": "Tap to scroll to top and tap again to previous location"
+                    "logo_label": "Nút biểu tượng",
+                    "logo_hint": "Nhấn để cuộn lên trên và nhấn lại lần nữa để trở về vị trí cũ"
                 }
             }
         },
@@ -605,46 +605,46 @@
             "text_placeholder": "Nhập hoặc bổ sung chú thích",
             "reported": "ĐÃ BÁO CÁO",
             "step_one": {
-                "step_1_of_4": "Step 1 of 4",
-                "whats_wrong_with_this_post": "What's wrong with this post?",
-                "whats_wrong_with_this_account": "What's wrong with this account?",
-                "whats_wrong_with_this_username": "What's wrong with %s?",
-                "select_the_best_match": "Select the best match",
-                "i_dont_like_it": "I don’t like it",
-                "it_is_not_something_you_want_to_see": "It is not something you want to see",
-                "its_spam": "It’s spam",
-                "malicious_links_fake_engagement_or_repetetive_replies": "Malicious links, fake engagement, or repetetive replies",
-                "it_violates_server_rules": "It violates server rules",
-                "you_are_aware_that_it_breaks_specific_rules": "You are aware that it breaks specific rules",
-                "its_something_else": "It’s something else",
-                "the_issue_does_not_fit_into_other_categories": "The issue does not fit into other categories"
+                "step_1_of_4": "Bước 1 trong 4",
+                "whats_wrong_with_this_post": "Có vấn đề gì với tút này?",
+                "whats_wrong_with_this_account": "Có vấn đề gì với người này?",
+                "whats_wrong_with_this_username": "Có vấn đề gì với %s?",
+                "select_the_best_match": "Chọn lý do khớp nhất",
+                "i_dont_like_it": "Tôi không thích nó",
+                "it_is_not_something_you_want_to_see": "Đó không phải là thứ gì mà bạn muốn thấy",
+                "its_spam": "Đây là spam",
+                "malicious_links_fake_engagement_or_repetetive_replies": "Liên kết độc hại, tạo tương tác giả hoặc trả lời lặp đi lặp lại",
+                "it_violates_server_rules": "Vi phạm quy tắc máy chủ",
+                "you_are_aware_that_it_breaks_specific_rules": "Bạn nhận thấy nó vi phạm quy tắc máy chủ",
+                "its_something_else": "Một lý do khác",
+                "the_issue_does_not_fit_into_other_categories": "Vấn đề không nằm trong những mục trên"
             },
             "step_two": {
-                "step_2_of_4": "Step 2 of 4",
-                "which_rules_are_being_violated": "Which rules are being violated?",
-                "select_all_that_apply": "Select all that apply",
-                "i_just_don’t_like_it": "I just don’t like it"
+                "step_2_of_4": "Bước 2 trong 4",
+                "which_rules_are_being_violated": "Vi phạm quy tắc nào?",
+                "select_all_that_apply": "Chọn tất cả những gì phù hợp",
+                "i_just_don’t_like_it": "Tôi không thích nó"
             },
             "step_three": {
-                "step_3_of_4": "Step 3 of 4",
-                "are_there_any_posts_that_back_up_this_report": "Are there any posts that back up this report?",
-                "select_all_that_apply": "Select all that apply"
+                "step_3_of_4": "Bước 3 trong 4",
+                "are_there_any_posts_that_back_up_this_report": "Bạn muốn gửi tút nào kèm báo cáo này?",
+                "select_all_that_apply": "Chọn tất cả những gì phù hợp"
             },
             "step_four": {
-                "step_4_of_4": "Step 4 of 4",
-                "is_there_anything_else_we_should_know": "Is there anything else we should know?"
+                "step_4_of_4": "Bước 4 trong 4",
+                "is_there_anything_else_we_should_know": "Bạn nghĩ chúng tôi nên biết thêm điều gì?"
             },
             "step_final": {
-                "dont_want_to_see_this": "Don’t want to see this?",
-                "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "When you see something you don’t like on Mastodon, you can remove the person from your experience.",
-                "unfollow": "Unfollow",
-                "unfollowed": "Unfollowed",
-                "unfollow_user": "Unfollow %s",
-                "mute_user": "Mute %s",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or reblogs in your home feed. They won’t know they’ve been muted.",
-                "block_user": "Block %s",
-                "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "They will no longer be able to follow or see your posts, but they can see if they’ve been blocked.",
-                "while_we_review_this_you_can_take_action_against_user": "While we review this, you can take action against %s"
+                "dont_want_to_see_this": "Không muốn xem thứ này?",
+                "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "Khi bạn thấy có gì đó mà bạn không thích trên Mastodon, bạn có thể tự loại bỏ chúng.",
+                "unfollow": "Ngưng theo dõi",
+                "unfollowed": "Ngưng theo dõi",
+                "unfollow_user": "Ngưng theo dõi %s",
+                "mute_user": "Ẩn %s",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "Bạn sẽ không thấy tút hoặc lượt đăng lại của họ trên bảng tin. Họ không biết rằng bạn ẩn họ.",
+                "block_user": "Chặn %s",
+                "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "Họ sẽ không thể theo dõi hoặc đọc tút của bạn, nhưng họ có thể hiểu bạn đã chặn họ.",
+                "while_we_review_this_you_can_take_action_against_user": "Trong lúc chờ chúng tôi xem xét, bạn có thể áp dụng hành động với @%s"
             }
         },
         "preview": {
