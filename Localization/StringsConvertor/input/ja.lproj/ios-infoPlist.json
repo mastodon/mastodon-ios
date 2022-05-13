@@ -1,0 +1,6 @@
+{
+    "NSCameraUsageDescription": "投稿用の写真撮影に使用します",
+    "NSPhotoLibraryAddUsageDescription": "写真をフォトライブラリに保存するために使用します",
+    "NewPostShortcutItemTitle": "新規投稿",
+    "SearchShortcutItemTitle": "検索"
+}
