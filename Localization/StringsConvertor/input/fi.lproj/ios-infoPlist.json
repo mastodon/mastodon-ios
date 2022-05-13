@@ -1,0 +1,6 @@
+{
+    "NSCameraUsageDescription": "Käytetään kuvan ottamiseen julkaisua varten",
+    "NSPhotoLibraryAddUsageDescription": "Käytetään kuvan tallentamiseen kuvakirjastoon",
+    "NewPostShortcutItemTitle": "Uusi julkaisu",
+    "SearchShortcutItemTitle": "Haku"
+}
