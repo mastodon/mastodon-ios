@@ -251,7 +251,7 @@
         },
         "register": {
             "title": "Facciamo in modo che sia configurato il %s",
-            "lets_get_you_set_up_on_domain": "Let’s get you set up on %s",
+            "lets_get_you_set_up_on_domain": "Facciamo in modo che sia configurato su %s",
             "input": {
                 "avatar": {
                     "delete": "Elimina"
@@ -322,7 +322,7 @@
         "confirm_email": {
             "title": "Un'ultima cosa.",
             "subtitle": "Tocca il link che ti abbiamo inviato per verificare il tuo account.",
-            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we emailed to you to verify your account",
+            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tocca sul collegamento che ti abbiamo inviato, per verificare il tuo account",
             "button": {
                 "open_email_app": "Apri l'app Email",
                 "resend": "Invia di nuovo"
