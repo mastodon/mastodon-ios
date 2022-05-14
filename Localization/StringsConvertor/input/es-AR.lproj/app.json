@@ -241,7 +241,7 @@
             },
             "input": {
                 "placeholder": "Encontrá un servidor o unite al tuyo…",
-                "search_servers_or_enter_url": "Search communities or enter URL"
+                "search_servers_or_enter_url": "Buscar comunidades o introducir dirección web"
             },
             "empty_state": {
                 "finding_servers": "Buscando servidores disponibles…",
@@ -347,8 +347,8 @@
                 "published": "¡Enviado!",
                 "Publishing": "Enviando mensaje…",
                 "accessibility": {
-                    "logo_label": "Logo Button",
-                    "logo_hint": "Tap to scroll to top and tap again to previous location"
+                    "logo_label": "Botón de logo",
+                    "logo_hint": "Tocá para desplazarte hacia arriba y tocá de nuevo para ir a la ubicación anterior"
                 }
             }
         },
@@ -605,13 +605,13 @@
             "text_placeholder": "Escribí o pegá comentarios adicionales",
             "reported": "DENUNCIADA",
             "step_one": {
-                "step_1_of_4": "Step 1 of 4",
-                "whats_wrong_with_this_post": "What's wrong with this post?",
-                "whats_wrong_with_this_account": "What's wrong with this account?",
-                "whats_wrong_with_this_username": "What's wrong with %s?",
-                "select_the_best_match": "Select the best match",
-                "i_dont_like_it": "I don’t like it",
-                "it_is_not_something_you_want_to_see": "It is not something you want to see",
+                "step_1_of_4": "Paso 1 de 4",
+                "whats_wrong_with_this_post": "¿Cuál es el problema con este mensaje?",
+                "whats_wrong_with_this_account": "¿Cuál es el problema con esta cuenta?",
+                "whats_wrong_with_this_username": "¿Cuál es el problema con %s?",
+                "select_the_best_match": "Seleccioná la mejor coincidencia",
+                "i_dont_like_it": "No te gusta",
+                "it_is_not_something_you_want_to_see": "Es algo que no querés ver",
                 "its_spam": "It’s spam",
                 "malicious_links_fake_engagement_or_repetetive_replies": "Malicious links, fake engagement, or repetetive replies",
                 "it_violates_server_rules": "It violates server rules",
