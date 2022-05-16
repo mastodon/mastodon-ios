@@ -106,7 +106,9 @@ extension Mastodon.Entity.Instance {
 
 extension Mastodon.Entity.Instance {
     public struct Rule: Codable, Hashable {
-        public let id: String
+        public typealias ID = String
+
+        public let id: ID
         public let text: String
     }
 }
