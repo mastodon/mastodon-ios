@@ -69,23 +69,40 @@ public extension Mastodon.API.Reports {
         public var statusIDs: [Mastodon.Entity.Status.ID]?
         public var comment: String?
         public let forward: Bool?
+         
+        public let category: Category?
+        public let ruleIDs: [Mastodon.Entity.Instance.Rule.ID]?
         
         enum CodingKeys: String, CodingKey {
             case accountID = "account_id"
             case statusIDs = "status_ids"
             case comment
             case forward
+            case category
+            case ruleIDs = "rule_ids"
+            
+        }
+        
+        public enum Category: String, Codable {
+            case spam
+            case violation
+            case other
         }
         
         public init(
             accountID: Mastodon.Entity.Account.ID,
             statusIDs: [Mastodon.Entity.Status.ID]?,
             comment: String?,
-            forward: Bool?) {
+            forward: Bool?,
+            category: Category?,
+            ruleIDs: [Mastodon.Entity.Instance.Rule.ID]?
+        ) {
             self.accountID = accountID
             self.statusIDs = statusIDs
             self.comment = comment
             self.forward = forward
+            self.category = category
+            self.ruleIDs = ruleIDs
         }
     }
 }

@@ -165,7 +165,25 @@ extension ReportViewModel {
                 accountID: user.id,
                 statusIDs: statusIDs,
                 comment: comment,
-                forward: true
+                forward: true,
+                category: {
+                    switch self.reportReasonViewModel.selectReason {
+                    case .dislike:          return nil
+                    case .spam:             return .spam
+                    case .violateRule:      return .violation
+                    case .other:            return .other
+                    case .none:             return nil
+                    }
+                }(),
+                ruleIDs: {
+                    switch self.reportReasonViewModel.selectReason {
+                    case .violateRule:
+                        guard let rule = self.reportServerRulesViewModel.selectRule else { return nil }
+                        return [rule.id]
+                    default:
+                        return nil
+                    }
+                }()
             )
         }
 
