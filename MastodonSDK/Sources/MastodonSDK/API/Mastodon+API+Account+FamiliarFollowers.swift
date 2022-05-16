@@ -36,7 +36,7 @@ extension Mastodon.API.Account {
         domain: String,
         query: FamiliarFollowersQuery,
         authorization: Mastodon.API.OAuth.Authorization
-    ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Account]>, Error> {
+    ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.FamiliarFollowers]>, Error> {
         let request = Mastodon.API.get(
             url: familiarFollowersEndpointURL(domain: domain),
             query: query,
@@ -44,24 +44,23 @@ extension Mastodon.API.Account {
         )
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
-                let value = try Mastodon.API.decode(type: [Mastodon.Entity.Account].self, from: data, response: response)
+                let value = try Mastodon.API.decode(type: [Mastodon.Entity.FamiliarFollowers].self, from: data, response: response)
                 return Mastodon.Response.Content(value: value, response: response)
             }
             .eraseToAnyPublisher()
     }
     
     public struct FamiliarFollowersQuery: GetQuery {
-        public let accounts: [Mastodon.Entity.Account.ID]
+        public let ids: [Mastodon.Entity.Account.ID]
         
-        public init(accounts: [Mastodon.Entity.Account.ID]) {
-            self.accounts = accounts
+        public init(ids: [Mastodon.Entity.Account.ID]) {
+            self.ids = ids
         }
         
         var queryItems: [URLQueryItem]? {
             var items: [URLQueryItem] = []
-            let accountsValue = accounts.joined(separator: ",")
-            if !accountsValue.isEmpty {
-                items.append(URLQueryItem(name: "accounts", value: accountsValue))
+            for id in ids {
+                items.append(URLQueryItem(name: "id[]", value: id))
             }
             guard !items.isEmpty else { return nil }
             return items

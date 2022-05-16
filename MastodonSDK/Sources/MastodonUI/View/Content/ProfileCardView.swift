@@ -94,6 +94,9 @@ public final class ProfileCardView: UIView {
         return button
     }()
     
+    let familiarFollowersDashboardViewAdaptiveMarginContainerView = AdaptiveMarginContainerView()
+    let familiarFollowersDashboardView = FamiliarFollowersDashboardView()
+    
     public private(set) lazy var viewModel: ViewModel = {
         let viewModel = ViewModel()
         viewModel.bind(view: self)
@@ -126,7 +129,7 @@ extension ProfileCardView {
         bioMetaText.textView.isUserInteractionEnabled = false
         statusDashboardView.isUserInteractionEnabled = false        
         
-        // container: V - [ bannerContainer | authorContainer | bioMetaText | infoContainer ]
+        // container: V - [ bannerContainer | authorContainer | bioMetaText | infoContainer | familiarFollowersDashboardView ]
         container.axis = .vertical
         container.spacing = 8
         container.translatesAutoresizingMaskIntoConstraints = false
@@ -211,7 +214,7 @@ extension ProfileCardView {
         container.addArrangedSubview(bioMetaTextAdaptiveMarginContainerView)
         container.setCustomSpacing(16, after: bioMetaTextAdaptiveMarginContainerView)
 
-        // infoContainer: H - [ statusDashboardView | (spacer) | relationshipActionButton ]
+        // infoContainer: H - [ statusDashboardView | (spacer) | relationshipActionButton]
         infoContainer.axis = .horizontal
         infoContainer.spacing = 8
         infoContainerAdaptiveMarginContainerView.contentView = infoContainer
@@ -237,6 +240,10 @@ extension ProfileCardView {
             relationshipActionButtonShadowContainer.widthAnchor.constraint(greaterThanOrEqualToConstant: ProfileCardView.friendshipActionButtonSize.width).priority(.required - 1),
             relationshipActionButtonShadowContainer.heightAnchor.constraint(equalToConstant: ProfileCardView.friendshipActionButtonSize.height).priority(.required - 1),
         ])
+        
+        familiarFollowersDashboardViewAdaptiveMarginContainerView.contentView = familiarFollowersDashboardView
+        familiarFollowersDashboardViewAdaptiveMarginContainerView.margin = ProfileCardView.contentMargin
+        container.addArrangedSubview(familiarFollowersDashboardViewAdaptiveMarginContainerView)
 
         let bottomPadding = UIView()
         bottomPadding.translatesAutoresizingMaskIntoConstraints = false
