@@ -12,7 +12,7 @@
 		0F202201261326E6000C64BF /* HashtagTimelineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F202200261326E6000C64BF /* HashtagTimelineViewModel.swift */; };
 		0F20220726134DA4000C64BF /* HashtagTimelineViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F20220626134DA4000C64BF /* HashtagTimelineViewModel+Diffable.swift */; };
 		0F202213261351F5000C64BF /* APIService+HashtagTimeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F202212261351F5000C64BF /* APIService+HashtagTimeline.swift */; };
-		0F20222D261457EE000C64BF /* HashtagTimelineViewModel+LoadOldestState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F20222C261457EE000C64BF /* HashtagTimelineViewModel+LoadOldestState.swift */; };
+		0F20222D261457EE000C64BF /* HashtagTimelineViewModel+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F20222C261457EE000C64BF /* HashtagTimelineViewModel+State.swift */; };
 		0F20223926146553000C64BF /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F20223826146553000C64BF /* Array.swift */; };
 		0FAA0FDF25E0B57E0017CCDE /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FAA0FDE25E0B57E0017CCDE /* WelcomeViewController.swift */; };
 		0FAA101225E105390017CCDE /* PrimaryActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FAA101125E105390017CCDE /* PrimaryActionButton.swift */; };
@@ -715,7 +715,7 @@
 		0F202200261326E6000C64BF /* HashtagTimelineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagTimelineViewModel.swift; sourceTree = "<group>"; };
 		0F20220626134DA4000C64BF /* HashtagTimelineViewModel+Diffable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HashtagTimelineViewModel+Diffable.swift"; sourceTree = "<group>"; };
 		0F202212261351F5000C64BF /* APIService+HashtagTimeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+HashtagTimeline.swift"; sourceTree = "<group>"; };
-		0F20222C261457EE000C64BF /* HashtagTimelineViewModel+LoadOldestState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HashtagTimelineViewModel+LoadOldestState.swift"; sourceTree = "<group>"; };
+		0F20222C261457EE000C64BF /* HashtagTimelineViewModel+State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HashtagTimelineViewModel+State.swift"; sourceTree = "<group>"; };
 		0F20223826146553000C64BF /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
 		0FAA0FDE25E0B57E0017CCDE /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		0FAA101125E105390017CCDE /* PrimaryActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryActionButton.swift; sourceTree = "<group>"; };
@@ -1489,7 +1489,7 @@
 				DB0FCB9B27980AB6006C02E2 /* HashtagTimelineViewController+DataSourceProvider.swift */,
 				0F202200261326E6000C64BF /* HashtagTimelineViewModel.swift */,
 				0F20220626134DA4000C64BF /* HashtagTimelineViewModel+Diffable.swift */,
-				0F20222C261457EE000C64BF /* HashtagTimelineViewModel+LoadOldestState.swift */,
+				0F20222C261457EE000C64BF /* HashtagTimelineViewModel+State.swift */,
 			);
 			path = HashtagTimeline;
 			sourceTree = "<group>";
@@ -4109,7 +4109,7 @@
 				DB6B74F4272FBAE700C70B6E /* FollowerListViewModel+Diffable.swift in Sources */,
 				DB6B74F2272FB67600C70B6E /* FollowerListViewModel.swift in Sources */,
 				DB44767B260B3B8C00B66B82 /* CustomEmojiPickerInputView.swift in Sources */,
-				0F20222D261457EE000C64BF /* HashtagTimelineViewModel+LoadOldestState.swift in Sources */,
+				0F20222D261457EE000C64BF /* HashtagTimelineViewModel+State.swift in Sources */,
 				DB0009A626AEE5DC009B9D2D /* Intents.intentdefinition in Sources */,
 				5B90C462262599800002E742 /* SettingsSectionHeader.swift in Sources */,
 				DB44768B260B3F2100B66B82 /* CustomEmojiPickerItem.swift in Sources */,

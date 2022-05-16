@@ -46,6 +46,8 @@ final class HashtagTimelineViewController: UIViewController, NeedsDependency, Me
         return tableView
     }()
     
+    let refreshControl = UIRefreshControl()
+    
     deinit {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s:", ((#file as NSString).lastPathComponent), #line, #function)
     }
@@ -89,13 +91,23 @@ extension HashtagTimelineViewController {
             statusTableViewCellDelegate: self
         )
         
+        tableView.refreshControl = refreshControl
+        refreshControl.addTarget(self, action: #selector(HashtagTimelineViewController.refreshControlValueChanged(_:)), for: .valueChanged)
+        viewModel.didLoadLatest
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                self.refreshControl.endRefreshing()
+            }
+            .store(in: &disposeBag)
+        
         // setup batch fetch
         viewModel.listBatchFetchViewModel.setup(scrollView: tableView)
         viewModel.listBatchFetchViewModel.shouldFetch
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
                 guard let self = self else { return }
-                self.viewModel.loadOldestStateMachine.enter(HashtagTimelineViewModel.LoadOldestState.Loading.self)
+                self.viewModel.stateMachine.enter(HashtagTimelineViewModel.State.Loading.self)
             }
             .store(in: &disposeBag)
         
@@ -143,6 +155,13 @@ extension HashtagTimelineViewController {
 }
 
 extension HashtagTimelineViewController {
+    
+    @objc private func refreshControlValueChanged(_ sender: UIRefreshControl) {
+        guard viewModel.stateMachine.enter(HashtagTimelineViewModel.State.Reloading.self) else {
+            sender.endRefreshing()
+            return
+        }
+    }
     
     @objc private func composeBarButtonItemPressed(_ sender: UIBarButtonItem) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
