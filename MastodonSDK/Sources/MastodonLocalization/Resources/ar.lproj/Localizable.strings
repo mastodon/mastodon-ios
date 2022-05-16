@@ -199,8 +199,8 @@
 "Scene.ConfirmEmail.OpenEmailApp.Mail" = "البريد";
 "Scene.ConfirmEmail.OpenEmailApp.OpenEmailClient" = "فتح عميل البريد الإلكتروني";
 "Scene.ConfirmEmail.OpenEmailApp.Title" = "تحقَّق من بريدك الوارِد.";
-"Scene.ConfirmEmail.Subtitle" = "لقد أرسلنا للتو بريد إلكتروني إلى %@،
-انقر على الرابط لتأكيد حسابك.";
+"Scene.ConfirmEmail.Subtitle" = "أنقر على الرابط المرسل إليك لاستيثاق حسابك.";
+"Scene.ConfirmEmail.TapTheLinkWeEmailedToYouToVerifyYourAccount" = "Tap the link we emailed to you to verify your account";
 "Scene.ConfirmEmail.Title" = "شيءٌ أخير.";
 "Scene.Discovery.Intro" = "هَذِهِ هِيَ المَنشُوراتُ الَّتي تَكْتَسِبُ شَعبِيَّةً فِي الرُّكنِ الخاصِّ بِكَ مِن مَاستُودون.";
 "Scene.Discovery.Tabs.Community" = "المُجتَمَع";
@@ -286,6 +286,7 @@
 "Scene.Register.Input.Password.Require" = "رمز المرور الخاص بك يجب أن يحتوي على الأقل:";
 "Scene.Register.Input.Username.DuplicatePrompt" = "اِسم المُستَخدِم هذا مأخوذٌ بالفعل.";
 "Scene.Register.Input.Username.Placeholder" = "اِسمُ مُستَخدِم";
+"Scene.Register.LetsGetYouSetUpOnDomain" = "Let’s get you set up on %@";
 "Scene.Register.Title" = "أخبرنا عن نفسك.";
 "Scene.Report.Content1" = "هل ترغب في إضافة أي منشورات أُخرى إلى البلاغ؟";
 "Scene.Report.Content2" = "هل هناك أي شيء يجب أن يعرفه المُراقبين حول هذا البلاغ؟";
@@ -303,6 +304,7 @@
 "Scene.Report.StepFinal.UnfollowUser" = "إلغاءُ مُتابَعَةِ %@";
 "Scene.Report.StepFinal.Unfollowed" = "أُلغِيَت المُتابَعَة";
 "Scene.Report.StepFinal.WhenYouSeeSomethingYouDontLikeOnMastodonYouCanRemoveThePersonFromYourExperience." = "عِندما تَرى شيئًا لَا يُعجِبُكَ عَلَى مَاستودُون، يُمكِنُكَ إزالَةُ الشَّخصِ مِن تَجرِبَتِك.";
+"Scene.Report.StepFinal.WhileWeReviewThisYouCanTakeActionAgainstUser" = "While we review this, you can take action against %@";
 "Scene.Report.StepFinal.YouWontSeeTheirPostsOrReblogsInYourHomeFeedTheyWontKnowTheyVeBeenMuted" = "لَن تَرى مُشارَكاتِهِ أو إعادَاتِ تَدوينَهِ فِي تغذيَتِكَ الرَّئيسَة. لَن يَعرِفَ أنَّهُ قَد كُتِمَ أيضًا.";
 "Scene.Report.StepFour.IsThereAnythingElseWeShouldKnow" = "هَل هُناكَ شَيءٌ آخَرَ يَجِبُ أن نَعلَمَ بِه؟";
 "Scene.Report.StepFour.Step4Of4" = "الخطوة 4 مِن أصل 4";

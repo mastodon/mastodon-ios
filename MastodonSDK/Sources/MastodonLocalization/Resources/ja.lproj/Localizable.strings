@@ -195,6 +195,7 @@
 "Scene.ConfirmEmail.OpenEmailApp.OpenEmailClient" = "メールアプリを開く";
 "Scene.ConfirmEmail.OpenEmailApp.Title" = "メールを確認";
 "Scene.ConfirmEmail.Subtitle" = "先程 %@ にメールを送信しました。リンクをタップしてアカウントを確認してください。";
+"Scene.ConfirmEmail.TapTheLinkWeEmailedToYouToVerifyYourAccount" = "Tap the link we emailed to you to verify your account";
 "Scene.ConfirmEmail.Title" = "さいごにもうひとつ。";
 "Scene.Discovery.Intro" = "あなたのMastodonサーバーで注目を集めている投稿がここに表示されます。";
 "Scene.Discovery.Tabs.Community" = "コミュニティ";
@@ -280,6 +281,7 @@
 "Scene.Register.Input.Password.Require" = "Your password needs at least:";
 "Scene.Register.Input.Username.DuplicatePrompt" = "このユーザー名は使用されています";
 "Scene.Register.Input.Username.Placeholder" = "ユーザー名";
+"Scene.Register.LetsGetYouSetUpOnDomain" = "Let’s get you set up on %@";
 "Scene.Register.Title" = "あなたのことを教えてください";
 "Scene.Report.Content1" = "他に通報したい投稿はありますか？";
 "Scene.Report.Content2" = "この通報についてモデレーターに伝達しておきたい事項はありますか？";
@@ -297,6 +299,7 @@
 "Scene.Report.StepFinal.UnfollowUser" = "Unfollow %@";
 "Scene.Report.StepFinal.Unfollowed" = "Unfollowed";
 "Scene.Report.StepFinal.WhenYouSeeSomethingYouDontLikeOnMastodonYouCanRemoveThePersonFromYourExperience." = "When you see something you don’t like on Mastodon, you can remove the person from your experience.";
+"Scene.Report.StepFinal.WhileWeReviewThisYouCanTakeActionAgainstUser" = "While we review this, you can take action against %@";
 "Scene.Report.StepFinal.YouWontSeeTheirPostsOrReblogsInYourHomeFeedTheyWontKnowTheyVeBeenMuted" = "You won’t see their posts or reblogs in your home feed. They won’t know they’ve been muted.";
 "Scene.Report.StepFour.IsThereAnythingElseWeShouldKnow" = "Is there anything else we should know?";
 "Scene.Report.StepFour.Step4Of4" = "Step 4 of 4";

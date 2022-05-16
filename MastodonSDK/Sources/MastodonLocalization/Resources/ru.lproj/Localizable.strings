@@ -211,6 +211,7 @@
 %@.
 Нажмите на ссылку в нём, чтобы
 подтвердить свою учётную запись.";
+"Scene.ConfirmEmail.TapTheLinkWeEmailedToYouToVerifyYourAccount" = "Tap the link we emailed to you to verify your account";
 "Scene.ConfirmEmail.Title" = "И ещё кое-что.";
 "Scene.Discovery.Intro" = "These are the posts gaining traction in your corner of Mastodon.";
 "Scene.Discovery.Tabs.Community" = "Сообщество";
@@ -296,6 +297,7 @@
 "Scene.Register.Input.Password.Require" = "Your password needs at least:";
 "Scene.Register.Input.Username.DuplicatePrompt" = "Это имя пользователя занято.";
 "Scene.Register.Input.Username.Placeholder" = "имя пользователя";
+"Scene.Register.LetsGetYouSetUpOnDomain" = "Let’s get you set up on %@";
 "Scene.Register.Title" = "Расскажите нам о себе.";
 "Scene.Report.Content1" = "Есть ли другие сообщения, которые вы хотите добавить в отчёт?";
 "Scene.Report.Content2" = "Есть ли что-то, что модераторы должны знать об этом сообщении?";
@@ -313,6 +315,7 @@
 "Scene.Report.StepFinal.UnfollowUser" = "Unfollow %@";
 "Scene.Report.StepFinal.Unfollowed" = "Unfollowed";
 "Scene.Report.StepFinal.WhenYouSeeSomethingYouDontLikeOnMastodonYouCanRemoveThePersonFromYourExperience." = "When you see something you don’t like on Mastodon, you can remove the person from your experience.";
+"Scene.Report.StepFinal.WhileWeReviewThisYouCanTakeActionAgainstUser" = "Пока мы рассматриваем его, вот действия, которые вы можете предпринять лично против %@";
 "Scene.Report.StepFinal.YouWontSeeTheirPostsOrReblogsInYourHomeFeedTheyWontKnowTheyVeBeenMuted" = "You won’t see their posts or reblogs in your home feed. They won’t know they’ve been muted.";
 "Scene.Report.StepFour.IsThereAnythingElseWeShouldKnow" = "Is there anything else we should know?";
 "Scene.Report.StepFour.Step4Of4" = "Step 4 of 4";

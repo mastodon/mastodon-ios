@@ -518,6 +518,8 @@ public enum L10n {
     public enum ConfirmEmail {
       /// Tap the link we emailed to you to verify your account.
       public static let subtitle = L10n.tr("Localizable", "Scene.ConfirmEmail.Subtitle")
+      /// Tap the link we emailed to you to verify your account
+      public static let tapTheLinkWeEmailedToYouToVerifyYourAccount = L10n.tr("Localizable", "Scene.ConfirmEmail.TapTheLinkWeEmailedToYouToVerifyYourAccount")
       /// One last thing.
       public static let title = L10n.tr("Localizable", "Scene.ConfirmEmail.Title")
       public enum Button {
@@ -709,6 +711,10 @@ public enum L10n {
     }
     public enum Register {
       /// Let’s get you set up on %@
+      public static func letsGetYouSetUpOnDomain(_ p1: Any) -> String {
+        return L10n.tr("Localizable", "Scene.Register.LetsGetYouSetUpOnDomain", String(describing: p1))
+      }
+      /// Let’s get you set up on %@
       public static func title(_ p1: Any) -> String {
         return L10n.tr("Localizable", "Scene.Register.Title", String(describing: p1))
       }
@@ -869,6 +875,10 @@ public enum L10n {
         }
         /// When you see something you don’t like on Mastodon, you can remove the person from your experience.
         public static let whenYouSeeSomethingYouDontLikeOnMastodonYouCanRemoveThePersonFromYourExperience = L10n.tr("Localizable", "Scene.Report.StepFinal.WhenYouSeeSomethingYouDontLikeOnMastodonYouCanRemoveThePersonFromYourExperience.")
+        /// While we review this, you can take action against %@
+        public static func whileWeReviewThisYouCanTakeActionAgainstUser(_ p1: Any) -> String {
+          return L10n.tr("Localizable", "Scene.Report.StepFinal.WhileWeReviewThisYouCanTakeActionAgainstUser", String(describing: p1))
+        }
         /// You won’t see their posts or reblogs in your home feed. They won’t know they’ve been muted.
         public static let youWontSeeTheirPostsOrReblogsInYourHomeFeedTheyWontKnowTheyVeBeenMuted = L10n.tr("Localizable", "Scene.Report.StepFinal.YouWontSeeTheirPostsOrReblogsInYourHomeFeedTheyWontKnowTheyVeBeenMuted")
       }
@@ -1304,6 +1314,10 @@ public enum L10n {
       /// Plural format key: "%#@count_following@"
       public static func following(_ p1: Int) -> String {
         return L10n.tr("Localizable", "plural.count.following", p1)
+      }
+      /// Plural format key: "%#@media_count@"
+      public static func media(_ p1: Int) -> String {
+        return L10n.tr("Localizable", "plural.count.media", p1)
       }
       /// Plural format key: "%#@post_count@"
       public static func post(_ p1: Int) -> String {

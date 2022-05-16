@@ -36,19 +36,20 @@ final class HashtagTimelineViewModel {
     let didLoadLatest = PassthroughSubject<Void, Never>()
 
     // bottom loader
-    private(set) lazy var loadOldestStateMachine: GKStateMachine = {
+    private(set) lazy var stateMachine: GKStateMachine = {
         // exclude timeline middle fetcher state
         let stateMachine = GKStateMachine(states: [
-            LoadOldestState.Initial(viewModel: self),
-            LoadOldestState.Loading(viewModel: self),
-            LoadOldestState.Fail(viewModel: self),
-            LoadOldestState.Idle(viewModel: self),
-            LoadOldestState.NoMore(viewModel: self),
+            State.Initial(viewModel: self),
+            State.Reloading(viewModel: self),
+            State.Fail(viewModel: self),
+            State.Idle(viewModel: self),
+            State.Loading(viewModel: self),
+            State.NoMore(viewModel: self),
         ])
-        stateMachine.enter(LoadOldestState.Initial.self)
+        stateMachine.enter(State.Initial.self)
         return stateMachine
     }()
-    lazy var loadOldestStateMachinePublisher = CurrentValueSubject<LoadOldestState?, Never>(nil)
+    lazy var loadOldestStateMachinePublisher = CurrentValueSubject<State?, Never>(nil)
     
     init(context: AppContext, hashtag: String) {
         self.context  = context

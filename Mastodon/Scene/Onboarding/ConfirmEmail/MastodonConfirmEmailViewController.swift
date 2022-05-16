@@ -36,7 +36,7 @@ final class MastodonConfirmEmailViewController: UIViewController, NeedsDependenc
         let label = UILabel()
         label.font = UIFontMetrics(forTextStyle: .title1).scaledFont(for: UIFont.systemFont(ofSize: 20))
         label.textColor = .secondaryLabel
-        label.text = L10n.Scene.ConfirmEmail.subtitle
+        label.text = L10n.Scene.ConfirmEmail.tapTheLinkWeEmailedToYouToVerifyYourAccount
         label.numberOfLines = 0
         return label
     }()
