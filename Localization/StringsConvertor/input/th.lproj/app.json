@@ -348,7 +348,7 @@
                 "Publishing": "กำลังเผยแพร่โพสต์...",
                 "accessibility": {
                     "logo_label": "ปุ่มโลโก้",
-                    "logo_hint": "Tap to scroll to top and tap again to previous location"
+                    "logo_hint": "แตะเพื่อเลื่อนไปยังด้านบนสุดและแตะอีกครั้งไปยังตำแหน่งที่ตั้งก่อนหน้า"
                 }
             }
         },
