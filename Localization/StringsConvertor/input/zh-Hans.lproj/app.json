@@ -462,10 +462,22 @@
             }
         },
         "follower": {
+            "title": "follower",
             "footer": "不会显示来自其它服务器的关注者"
         },
         "following": {
+            "title": "following",
             "footer": "不会显示来自其它服务器的关注"
+        },
+        "familiarFollowers": {
+            "title": "Followers you familiar",
+            "followed_by_names": "Followed by %s"
+        },
+        "favorited_by": {
+            "title": "Favorited By"
+        },
+        "reblogged_by": {
+            "title": "Reblogged By"
         },
         "search": {
             "title": "搜索",
