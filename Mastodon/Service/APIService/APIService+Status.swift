@@ -22,7 +22,7 @@ extension APIService {
         let domain = authenticationBox.domain
         let authorization = authenticationBox.userAuthorization
         
-        let response = try await  Mastodon.API.Statuses.status(
+        let response = try await Mastodon.API.Statuses.status(
             session: session,
             domain: domain,
             statusID: statusID,

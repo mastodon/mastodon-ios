@@ -1,8 +1,8 @@
 //
-//  FollowingListViewController.swift
+//  FavoritedByViewController.swift
 //  Mastodon
 //
-//  Created by Cirno MainasuK on 2021-11-2.
+//  Created by MainasuK on 2022-5-17.
 //
 
 import os.log
@@ -11,21 +11,18 @@ import GameplayKit
 import Combine
 import MastodonLocalization
 
-final class FollowingListViewController: UIViewController, NeedsDependency {
+final class FavoritedByViewController: UIViewController, NeedsDependency {
 
-    let logger = Logger(subsystem: "FollowingListViewController", category: "ViewController")
+    let logger = Logger(subsystem: "FavoritedByViewController", category: "ViewController")
     
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
     var disposeBag = Set<AnyCancellable>()
-    var viewModel: FollowingListViewModel!
+    var viewModel: UserListViewModel!
     
     lazy var tableView: UITableView = {
         let tableView = UITableView()
-        tableView.register(UserTableViewCell.self, forCellReuseIdentifier: String(describing: UserTableViewCell.self))
-        tableView.register(TimelineBottomLoaderTableViewCell.self, forCellReuseIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self))
-        tableView.register(TimelineFooterTableViewCell.self, forCellReuseIdentifier: String(describing: TimelineFooterTableViewCell.self))
         tableView.rowHeight = UITableView.automaticDimension
         tableView.separatorStyle = .none
         tableView.backgroundColor = .clear
@@ -38,13 +35,20 @@ final class FollowingListViewController: UIViewController, NeedsDependency {
     
 }
 
-extension FollowingListViewController {
+extension FavoritedByViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = L10n.Scene.Profile.Dashboard.following
-            
+        #if DEBUG
+        switch viewModel.kind {
+        case .favoritedBy:  break
+        default:            assertionFailure()
+        }
+        #endif
+        
+        title = "Favorited By"
+        
         view.backgroundColor = ThemeService.shared.currentTheme.value.secondarySystemBackgroundColor
         ThemeService.shared.currentTheme
             .receive(on: DispatchQueue.main)
@@ -75,21 +79,9 @@ extension FollowingListViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
                 guard let self = self else { return }
-                self.viewModel.stateMachine.enter(FollowingListViewModel.State.Loading.self)
+                self.viewModel.stateMachine.enter(UserListViewModel.State.Loading.self)
             }
             .store(in: &disposeBag)
-        
-        // trigger user timeline loading
-        Publishers.CombineLatest(
-            viewModel.domain.removeDuplicates().eraseToAnyPublisher(),
-            viewModel.userID.removeDuplicates().eraseToAnyPublisher()
-        )
-        .receive(on: DispatchQueue.main)
-        .sink { [weak self] _ in
-            guard let self = self else { return }
-            self.viewModel.stateMachine.enter(FollowingListViewModel.State.Reloading.self)
-        }
-        .store(in: &disposeBag)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -101,8 +93,8 @@ extension FollowingListViewController {
 }
 
 // MARK: - UITableViewDelegate
-extension FollowingListViewController: UITableViewDelegate, AutoGenerateTableViewDelegate {
-    // sourcery:inline:FollowingListViewController.AutoGenerateTableViewDelegate
+extension FavoritedByViewController: UITableViewDelegate, AutoGenerateTableViewDelegate {
+    // sourcery:inline:FavoritedByViewController.AutoGenerateTableViewDelegate
 
     // Generated using Sourcery
     // DO NOT EDIT
@@ -114,4 +106,4 @@ extension FollowingListViewController: UITableViewDelegate, AutoGenerateTableVie
 }
 
 // MARK: - UserTableViewCellDelegate
-extension FollowingListViewController: UserTableViewCellDelegate { }
+extension FavoritedByViewController: UserTableViewCellDelegate { }
