@@ -208,9 +208,14 @@
 "Scene.Discovery.Tabs.Hashtags" = "وُسُوم";
 "Scene.Discovery.Tabs.News" = "أخبار";
 "Scene.Discovery.Tabs.Posts" = "مَنشُورات";
+"Scene.Familiarfollowers.FollowedByNames" = "Followed by %@";
+"Scene.Familiarfollowers.Title" = "Followers you familiar";
 "Scene.Favorite.Title" = "مُفضَّلَتُك";
+"Scene.FavoritedBy.Title" = "Favorited By";
 "Scene.Follower.Footer" = "لا يُمكِن عَرض المُتابِعين مِنَ الخوادم الأُخرى.";
+"Scene.Follower.Title" = "follower";
 "Scene.Following.Footer" = "لا يُمكِن عَرض المُتابَعات مِنَ الخوادم الأُخرى.";
+"Scene.Following.Title" = "following";
 "Scene.HomeTimeline.NavigationBarState.Accessibility.LogoHint" = "اُنقُر لِلتمريرِ لأعلى واُنقُر مَرّةً أُخرَى لِلذَّهابِ إلَى المَوقِعِ السَّابِق";
 "Scene.HomeTimeline.NavigationBarState.Accessibility.LogoLabel" = "ُّزِرُّ الشِّعار";
 "Scene.HomeTimeline.NavigationBarState.NewPosts" = "إظهار منشورات جديدة";
@@ -254,6 +259,7 @@
 "Scene.Profile.SegmentedControl.Posts" = "مَنشورات";
 "Scene.Profile.SegmentedControl.PostsAndReplies" = "مَنشُوراتٌ وَرُدُود";
 "Scene.Profile.SegmentedControl.Replies" = "رُدُود";
+"Scene.RebloggedBy.Title" = "Reblogged By";
 "Scene.Register.Error.Item.Agreement" = "الاِتِّفاقيَّة";
 "Scene.Register.Error.Item.Email" = "البريد الإلكتروني";
 "Scene.Register.Error.Item.Locale" = "اللغة المحلية";

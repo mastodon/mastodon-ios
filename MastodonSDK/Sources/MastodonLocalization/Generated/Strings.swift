@@ -563,17 +563,33 @@ public enum L10n {
         public static let posts = L10n.tr("Localizable", "Scene.Discovery.Tabs.Posts")
       }
     }
+    public enum Familiarfollowers {
+      /// Followed by %@
+      public static func followedByNames(_ p1: Any) -> String {
+        return L10n.tr("Localizable", "Scene.Familiarfollowers.FollowedByNames", String(describing: p1))
+      }
+      /// Followers you familiar
+      public static let title = L10n.tr("Localizable", "Scene.Familiarfollowers.Title")
+    }
     public enum Favorite {
       /// Your Favorites
       public static let title = L10n.tr("Localizable", "Scene.Favorite.Title")
     }
+    public enum FavoritedBy {
+      /// Favorited By
+      public static let title = L10n.tr("Localizable", "Scene.FavoritedBy.Title")
+    }
     public enum Follower {
       /// Followers from other servers are not displayed.
       public static let footer = L10n.tr("Localizable", "Scene.Follower.Footer")
+      /// follower
+      public static let title = L10n.tr("Localizable", "Scene.Follower.Title")
     }
     public enum Following {
       /// Follows from other servers are not displayed.
       public static let footer = L10n.tr("Localizable", "Scene.Following.Footer")
+      /// following
+      public static let title = L10n.tr("Localizable", "Scene.Following.Title")
     }
     public enum HomeTimeline {
       /// Home
@@ -708,6 +724,10 @@ public enum L10n {
         /// Replies
         public static let replies = L10n.tr("Localizable", "Scene.Profile.SegmentedControl.Replies")
       }
+    }
+    public enum RebloggedBy {
+      /// Reblogged By
+      public static let title = L10n.tr("Localizable", "Scene.RebloggedBy.Title")
     }
     public enum Register {
       /// Let’s get you set up on %@
@@ -1306,6 +1326,10 @@ public enum L10n {
       /// Plural format key: "%#@favorite_count@"
       public static func favorite(_ p1: Int) -> String {
         return L10n.tr("Localizable", "plural.count.favorite", p1)
+      }
+      /// Plural format key: "%#@names@%#@count_mutual@"
+      public static func followedByAndMutual(_ p1: Int, _ p2: Int) -> String {
+        return L10n.tr("Localizable", "plural.count.followed_by_and_mutual", p1, p2)
       }
       /// Plural format key: "%#@count_follower@"
       public static func follower(_ p1: Int) -> String {

@@ -219,9 +219,14 @@
 "Scene.Discovery.Tabs.Hashtags" = "Hashtags";
 "Scene.Discovery.Tabs.News" = "News";
 "Scene.Discovery.Tabs.Posts" = "Posts";
+"Scene.Familiarfollowers.FollowedByNames" = "Followed by %@";
+"Scene.Familiarfollowers.Title" = "Followers you familiar";
 "Scene.Favorite.Title" = "Ваше избранное";
+"Scene.FavoritedBy.Title" = "Favorited By";
 "Scene.Follower.Footer" = "Followers from other servers are not displayed.";
+"Scene.Follower.Title" = "follower";
 "Scene.Following.Footer" = "Follows from other servers are not displayed.";
+"Scene.Following.Title" = "following";
 "Scene.HomeTimeline.NavigationBarState.Accessibility.LogoHint" = "Tap to scroll to top and tap again to previous location";
 "Scene.HomeTimeline.NavigationBarState.Accessibility.LogoLabel" = "Logo Button";
 "Scene.HomeTimeline.NavigationBarState.NewPosts" = "Показать новые";
@@ -265,6 +270,7 @@
 "Scene.Profile.SegmentedControl.Posts" = "Посты";
 "Scene.Profile.SegmentedControl.PostsAndReplies" = "Посты и ответы";
 "Scene.Profile.SegmentedControl.Replies" = "Ответы";
+"Scene.RebloggedBy.Title" = "Reblogged By";
 "Scene.Register.Error.Item.Agreement" = "Соглашение";
 "Scene.Register.Error.Item.Email" = "E-mail";
 "Scene.Register.Error.Item.Locale" = "Язык";
