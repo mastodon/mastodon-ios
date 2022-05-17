@@ -51,7 +51,7 @@ struct ReportResultView: View {
                         .font(Font(UIFontMetrics(forTextStyle: .largeTitle).scaledFont(for: .systemFont(ofSize: 28, weight: .bold)) as CTFont))
                     if viewModel.isReported {
                         avatarView
-                        Text(verbatim: "While we review this, you can take action against @\(viewModel.username)")
+                        Text(verbatim: L10n.Scene.Report.StepFinal.whileWeReviewThisYouCanTakeActionAgainstUser("@\(viewModel.username)"))
                             .foregroundColor(Color(Asset.Colors.Label.secondary.color))
                             .font(Font(UIFontMetrics(forTextStyle: .largeTitle).scaledFont(for: .systemFont(ofSize: 17, weight: .regular)) as CTFont))
                     } else {
@@ -74,7 +74,7 @@ struct ReportResultView: View {
                         action: {
                             viewModel.followActionPublisher.send()
                         },
-                        title: viewModel.relationshipViewModel.isFollowing ? "Unfollow" : "Unfollowed",
+                        title: viewModel.relationshipViewModel.isFollowing ? L10n.Scene.Report.StepFinal.unfollow : L10n.Scene.Report.StepFinal.unfollowed,
                         isBusy: viewModel.isRequestFollow
                     )
                 }
