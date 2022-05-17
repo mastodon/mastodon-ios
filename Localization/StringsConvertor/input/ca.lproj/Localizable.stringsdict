@@ -72,9 +72,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>Followed by %1$@, and another mutual</string>
+        <string>Seguit per %1$@, i un altre mutu</string>
         <key>other</key>
-        <string>Followed by %1$@, and %ld mutuals</string>
+        <string>Seguit per %1$@, i %ld mutus</string>
       </dict>
     </dict>
     <key>plural.count.metric_formatted.post</key>
