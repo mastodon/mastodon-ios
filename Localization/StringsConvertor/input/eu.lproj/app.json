@@ -462,10 +462,22 @@
             }
         },
         "follower": {
+            "title": "follower",
             "footer": "Beste zerbitzarietako jarraitzaileak ez dira bistaratzen."
         },
         "following": {
+            "title": "following",
             "footer": "Beste zerbitzarietan jarraitutakoak ez dira bistaratzen."
+        },
+        "familiarFollowers": {
+            "title": "Followers you familiar",
+            "followed_by_names": "Followed by %s"
+        },
+        "favorited_by": {
+            "title": "Favorited By"
+        },
+        "reblogged_by": {
+            "title": "Reblogged By"
         },
         "search": {
             "title": "Bilatu",
