@@ -241,7 +241,7 @@
             },
             "input": {
                 "placeholder": "查找或加入你自己的服务器...",
-                "search_servers_or_enter_url": "Search communities or enter URL"
+                "search_servers_or_enter_url": "搜索服务器或输入 URL"
             },
             "empty_state": {
                 "finding_servers": "正在查找可用的服务器...",
@@ -251,7 +251,7 @@
         },
         "register": {
             "title": "让我们在 %s 上开始",
-            "lets_get_you_set_up_on_domain": "Let’s get you set up on %s",
+            "lets_get_you_set_up_on_domain": "让我们在 %s 上开始",
             "input": {
                 "avatar": {
                     "delete": "删除"
@@ -322,7 +322,7 @@
         "confirm_email": {
             "title": "最后一件事。",
             "subtitle": "点击我们发送给您的链接来验证您的账户。",
-            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we emailed to you to verify your account",
+            "tap_the_link_we_emailed_to_you_to_verify_your_account": "点击我们发送给您的链接来验证您的账户。",
             "button": {
                 "open_email_app": "打开电子邮件应用",
                 "resend": "重新发送"
@@ -347,8 +347,8 @@
                 "published": "已发送",
                 "Publishing": "正在发送...",
                 "accessibility": {
-                    "logo_label": "Logo Button",
-                    "logo_hint": "Tap to scroll to top and tap again to previous location"
+                    "logo_label": "Logo 按钮",
+                    "logo_hint": "轻点滚到顶部，再次轻点回到原处"
                 }
             }
         },
@@ -462,10 +462,22 @@
             }
         },
         "follower": {
+            "title": "follower",
             "footer": "不会显示来自其它服务器的关注者"
         },
         "following": {
+            "title": "following",
             "footer": "不会显示来自其它服务器的关注"
+        },
+        "familiarFollowers": {
+            "title": "Followers you familiar",
+            "followed_by_names": "Followed by %s"
+        },
+        "favorited_by": {
+            "title": "Favorited By"
+        },
+        "reblogged_by": {
+            "title": "Reblogged By"
         },
         "search": {
             "title": "搜索",
@@ -605,46 +617,46 @@
             "text_placeholder": "输入或粘贴额外的注释",
             "reported": "已报告",
             "step_one": {
-                "step_1_of_4": "Step 1 of 4",
-                "whats_wrong_with_this_post": "What's wrong with this post?",
-                "whats_wrong_with_this_account": "What's wrong with this account?",
-                "whats_wrong_with_this_username": "What's wrong with %s?",
-                "select_the_best_match": "Select the best match",
-                "i_dont_like_it": "I don’t like it",
-                "it_is_not_something_you_want_to_see": "It is not something you want to see",
-                "its_spam": "It’s spam",
-                "malicious_links_fake_engagement_or_repetetive_replies": "Malicious links, fake engagement, or repetetive replies",
-                "it_violates_server_rules": "It violates server rules",
-                "you_are_aware_that_it_breaks_specific_rules": "You are aware that it breaks specific rules",
-                "its_something_else": "It’s something else",
-                "the_issue_does_not_fit_into_other_categories": "The issue does not fit into other categories"
+                "step_1_of_4": "第 1 步（共 4 步）",
+                "whats_wrong_with_this_post": "这个帖子有什么问题？",
+                "whats_wrong_with_this_account": "这个账户有什么问题？",
+                "whats_wrong_with_this_username": "%s 有什么问题？",
+                "select_the_best_match": "选择最佳匹配",
+                "i_dont_like_it": "我不喜欢它",
+                "it_is_not_something_you_want_to_see": "这不是你想看到的东西",
+                "its_spam": "它是垃圾信息",
+                "malicious_links_fake_engagement_or_repetetive_replies": "恶意链接、虚假参与或重复性回复",
+                "it_violates_server_rules": "它违反了服务器规则",
+                "you_are_aware_that_it_breaks_specific_rules": "你发现它违反了某个服务器规则",
+                "its_something_else": "其他原因",
+                "the_issue_does_not_fit_into_other_categories": "该问题属于其他类别"
             },
             "step_two": {
-                "step_2_of_4": "Step 2 of 4",
-                "which_rules_are_being_violated": "Which rules are being violated?",
-                "select_all_that_apply": "Select all that apply",
-                "i_just_don’t_like_it": "I just don’t like it"
+                "step_2_of_4": "第 2 步（共 4 步）",
+                "which_rules_are_being_violated": "哪些规则被违反了？",
+                "select_all_that_apply": "选择适用选项",
+                "i_just_don’t_like_it": "我不喜欢它"
             },
             "step_three": {
-                "step_3_of_4": "Step 3 of 4",
-                "are_there_any_posts_that_back_up_this_report": "Are there any posts that back up this report?",
-                "select_all_that_apply": "Select all that apply"
+                "step_3_of_4": "第 3 步（共 4 步）",
+                "are_there_any_posts_that_back_up_this_report": "有任何帖子可以支持此报告吗？",
+                "select_all_that_apply": "选择适用选项"
             },
             "step_four": {
-                "step_4_of_4": "Step 4 of 4",
-                "is_there_anything_else_we_should_know": "Is there anything else we should know?"
+                "step_4_of_4": "第 4 步（共 4 步）",
+                "is_there_anything_else_we_should_know": "还有什么你认为我们应该知道的吗？"
             },
             "step_final": {
-                "dont_want_to_see_this": "Don’t want to see this?",
-                "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "When you see something you don’t like on Mastodon, you can remove the person from your experience.",
-                "unfollow": "Unfollow",
-                "unfollowed": "Unfollowed",
-                "unfollow_user": "Unfollow %s",
-                "mute_user": "Mute %s",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or reblogs in your home feed. They won’t know they’ve been muted.",
-                "block_user": "Block %s",
-                "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "They will no longer be able to follow or see your posts, but they can see if they’ve been blocked.",
-                "while_we_review_this_you_can_take_action_against_user": "While we review this, you can take action against %s"
+                "dont_want_to_see_this": "不想看到这个内容？",
+                "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "当你在 Mastodon 看到不喜欢的东西时，可以尝试移除它。",
+                "unfollow": "取消关注",
+                "unfollowed": "已取消关注",
+                "unfollow_user": "取消关注 %s",
+                "mute_user": "静音 %s",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "你不会在主页里看到他们的帖子和转发。他们不会知道被静音了。",
+                "block_user": "屏蔽 %s",
+                "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "他们将不再能够关注或看到你的帖子，但他们可以知道他们是否被屏蔽。",
+                "while_we_review_this_you_can_take_action_against_user": "当我们审核这个报告时，你可以对 %s 采取行动。"
             }
         },
         "preview": {

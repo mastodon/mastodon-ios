@@ -462,10 +462,22 @@
             }
         },
         "follower": {
+            "title": "follower",
             "footer": "Diğer sunucudaki takipçiler gösterilemiyor."
         },
         "following": {
+            "title": "following",
             "footer": "Diğer sunucudaki takip edilenler gösterilemiyor."
+        },
+        "familiarFollowers": {
+            "title": "Followers you familiar",
+            "followed_by_names": "Followed by %s"
+        },
+        "favorited_by": {
+            "title": "Favorited By"
+        },
+        "reblogged_by": {
+            "title": "Reblogged By"
         },
         "search": {
             "title": "Arama",

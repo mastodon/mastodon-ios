@@ -241,7 +241,7 @@
             },
             "input": {
                 "placeholder": "ค้นหาเซิร์ฟเวอร์",
-                "search_servers_or_enter_url": "Search communities or enter URL"
+                "search_servers_or_enter_url": "ค้นหาชุมชนหรือป้อน URL"
             },
             "empty_state": {
                 "finding_servers": "กำลังค้นหาเซิร์ฟเวอร์ที่พร้อมใช้งาน...",
@@ -251,7 +251,7 @@
         },
         "register": {
             "title": "มาตั้งค่าของคุณใน %s กันเลย",
-            "lets_get_you_set_up_on_domain": "Let’s get you set up on %s",
+            "lets_get_you_set_up_on_domain": "มาตั้งค่าของคุณใน %s กันเลย",
             "input": {
                 "avatar": {
                     "delete": "ลบ"
@@ -322,7 +322,7 @@
         "confirm_email": {
             "title": "หนึ่งสิ่งสุดท้าย",
             "subtitle": "แตะลิงก์ที่เราส่งอีเมลถึงคุณเพื่อยืนยันบัญชีของคุณ",
-            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we emailed to you to verify your account",
+            "tap_the_link_we_emailed_to_you_to_verify_your_account": "แตะลิงก์ที่เราส่งอีเมลถึงคุณเพื่อยืนยันบัญชีของคุณ",
             "button": {
                 "open_email_app": "เปิดแอปอีเมล",
                 "resend": "ส่งใหม่"
@@ -347,8 +347,8 @@
                 "published": "เผยแพร่แล้ว!",
                 "Publishing": "กำลังเผยแพร่โพสต์...",
                 "accessibility": {
-                    "logo_label": "Logo Button",
-                    "logo_hint": "Tap to scroll to top and tap again to previous location"
+                    "logo_label": "ปุ่มโลโก้",
+                    "logo_hint": "แตะเพื่อเลื่อนไปยังด้านบนสุดและแตะอีกครั้งไปยังตำแหน่งที่ตั้งก่อนหน้า"
                 }
             }
         },
@@ -462,10 +462,22 @@
             }
         },
         "follower": {
+            "title": "follower",
             "footer": "ไม่ได้แสดงผู้ติดตามจากเซิร์ฟเวอร์อื่น ๆ"
         },
         "following": {
+            "title": "following",
             "footer": "ไม่ได้แสดงการติดตามจากเซิร์ฟเวอร์อื่น ๆ"
+        },
+        "familiarFollowers": {
+            "title": "Followers you familiar",
+            "followed_by_names": "Followed by %s"
+        },
+        "favorited_by": {
+            "title": "Favorited By"
+        },
+        "reblogged_by": {
+            "title": "Reblogged By"
         },
         "search": {
             "title": "ค้นหา",
@@ -605,46 +617,46 @@
             "text_placeholder": "พิมพ์หรือวางความคิดเห็นเพิ่มเติม",
             "reported": "รายงานแล้ว",
             "step_one": {
-                "step_1_of_4": "Step 1 of 4",
-                "whats_wrong_with_this_post": "What's wrong with this post?",
-                "whats_wrong_with_this_account": "What's wrong with this account?",
-                "whats_wrong_with_this_username": "What's wrong with %s?",
-                "select_the_best_match": "Select the best match",
-                "i_dont_like_it": "I don’t like it",
-                "it_is_not_something_you_want_to_see": "It is not something you want to see",
-                "its_spam": "It’s spam",
-                "malicious_links_fake_engagement_or_repetetive_replies": "Malicious links, fake engagement, or repetetive replies",
-                "it_violates_server_rules": "It violates server rules",
-                "you_are_aware_that_it_breaks_specific_rules": "You are aware that it breaks specific rules",
-                "its_something_else": "It’s something else",
-                "the_issue_does_not_fit_into_other_categories": "The issue does not fit into other categories"
+                "step_1_of_4": "ขั้นตอนที่ 1 จาก 4",
+                "whats_wrong_with_this_post": "โพสต์นี้มีอะไรผิดปกติ?",
+                "whats_wrong_with_this_account": "บัญชีนี้มีอะไรผิดปกติ?",
+                "whats_wrong_with_this_username": "%s มีอะไรผิดปกติ?",
+                "select_the_best_match": "เลือกที่ตรงกันที่สุด",
+                "i_dont_like_it": "ฉันไม่ชอบโพสต์",
+                "it_is_not_something_you_want_to_see": "โพสต์ไม่ใช่บางอย่างที่คุณต้องการเห็น",
+                "its_spam": "โพสต์เป็นสแปม",
+                "malicious_links_fake_engagement_or_repetetive_replies": "ลิงก์ที่เป็นอันตราย, การมีส่วนร่วมปลอม หรือการตอบกลับซ้ำ ๆ",
+                "it_violates_server_rules": "โพสต์ละเมิดกฎของเซิร์ฟเวอร์",
+                "you_are_aware_that_it_breaks_specific_rules": "คุณทราบว่าโพสต์แหกกฎเฉพาะ",
+                "its_something_else": "โพสต์เป็นอย่างอื่น",
+                "the_issue_does_not_fit_into_other_categories": "ปัญหาไม่เข้าหมวดหมู่อื่น ๆ"
             },
             "step_two": {
-                "step_2_of_4": "Step 2 of 4",
-                "which_rules_are_being_violated": "Which rules are being violated?",
-                "select_all_that_apply": "Select all that apply",
-                "i_just_don’t_like_it": "I just don’t like it"
+                "step_2_of_4": "ขั้นตอนที่ 2 จาก 4",
+                "which_rules_are_being_violated": "กำลังละเมิดกฎใด?",
+                "select_all_that_apply": "เลือกทั้งหมดที่นำไปใช้",
+                "i_just_don’t_like_it": "ฉันแค่ไม่ชอบโพสต์"
             },
             "step_three": {
-                "step_3_of_4": "Step 3 of 4",
-                "are_there_any_posts_that_back_up_this_report": "Are there any posts that back up this report?",
-                "select_all_that_apply": "Select all that apply"
+                "step_3_of_4": "ขั้นตอนที่ 3 จาก 4",
+                "are_there_any_posts_that_back_up_this_report": "มีโพสต์ใด ๆ ที่สนับสนุนรายงานนี้หรือไม่?",
+                "select_all_that_apply": "เลือกทั้งหมดที่นำไปใช้"
             },
             "step_four": {
-                "step_4_of_4": "Step 4 of 4",
-                "is_there_anything_else_we_should_know": "Is there anything else we should know?"
+                "step_4_of_4": "ขั้นตอนที่ 4 จาก 4",
+                "is_there_anything_else_we_should_know": "มีสิ่งอื่นใดที่เราควรทราบหรือไม่?"
             },
             "step_final": {
-                "dont_want_to_see_this": "Don’t want to see this?",
-                "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "When you see something you don’t like on Mastodon, you can remove the person from your experience.",
-                "unfollow": "Unfollow",
-                "unfollowed": "Unfollowed",
-                "unfollow_user": "Unfollow %s",
-                "mute_user": "Mute %s",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or reblogs in your home feed. They won’t know they’ve been muted.",
-                "block_user": "Block %s",
-                "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "They will no longer be able to follow or see your posts, but they can see if they’ve been blocked.",
-                "while_we_review_this_you_can_take_action_against_user": "While we review this, you can take action against %s"
+                "dont_want_to_see_this": "ไม่ต้องการเห็นสิ่งนี้?",
+                "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "เมื่อคุณเห็นบางอย่างที่คุณไม่ชอบใน Mastodon คุณสามารถเอาบุคคลออกจากประสบการณ์ของคุณ",
+                "unfollow": "เลิกติดตาม",
+                "unfollowed": "เลิกติดตามแล้ว",
+                "unfollow_user": "เลิกติดตาม %s",
+                "mute_user": "ซ่อน %s",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "คุณจะไม่เห็นโพสต์หรือการดันของเขาในฟีดหน้าแรกของคุณ เขาจะไม่ทราบว่ามีการซ่อนเขา",
+                "block_user": "ปิดกั้น %s",
+                "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "เขาจะไม่สามารถติดตามหรือเห็นโพสต์ของคุณได้อีกต่อไป แต่เขาสามารถเห็นว่ามีการปิดกั้นเขาหรือไม่",
+                "while_we_review_this_you_can_take_action_against_user": "ขณะที่เราตรวจทานสิ่งนี้ คุณสามารถดำเนินการกับ %s"
             }
         },
         "preview": {

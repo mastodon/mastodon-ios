@@ -462,10 +462,22 @@
             }
         },
         "follower": {
+            "title": "follower",
             "footer": "Ineḍfaren seg yiqeddacen-nniḍen ur d-ttwaskanen ara."
         },
         "following": {
+            "title": "following",
             "footer": "Ineḍfaren seg yiqeddacen-nniḍen ur d-ttwaskanen ara."
+        },
+        "familiarFollowers": {
+            "title": "Followers you familiar",
+            "followed_by_names": "Followed by %s"
+        },
+        "favorited_by": {
+            "title": "Favorited By"
+        },
+        "reblogged_by": {
+            "title": "Reblogged By"
         },
         "search": {
             "title": "Nadi",
