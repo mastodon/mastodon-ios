@@ -462,10 +462,22 @@
             }
         },
         "follower": {
+            "title": "follower",
             "footer": "來自其他伺服器的跟隨者不會被顯示。"
         },
         "following": {
+            "title": "following",
             "footer": "來自其他伺服器的跟隨中不會被顯示。"
+        },
+        "familiarFollowers": {
+            "title": "Followers you familiar",
+            "followed_by_names": "Followed by %s"
+        },
+        "favorited_by": {
+            "title": "Favorited By"
+        },
+        "reblogged_by": {
+            "title": "Reblogged By"
         },
         "search": {
             "title": "搜尋",
