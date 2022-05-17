@@ -16,5 +16,12 @@ extension FamiliarFollowersDashboardView {
         
         viewModel.avatarURLs = accounts.map { $0.avatarImageURL() }
         viewModel.names = accounts.map { $0.displayNameWithFallback }
+        viewModel.emojis = {
+            var array: [Mastodon.Entity.Emoji] = []
+            for account in accounts {
+                array.append(contentsOf: account.emojis ?? [])
+            }
+            return array.asDictionary
+        }()
     }
 }

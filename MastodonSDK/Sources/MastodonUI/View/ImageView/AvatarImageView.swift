@@ -103,7 +103,11 @@ extension AvatarImageView {
                 return ScaledToSizeFilter(size: self.frame.size)
             }()
             
-            af.setImage(withURL: url, filter: filter)
+            af.setImage(
+                withURL: url,
+                placeholderImage: configuration.placeholder,
+                filter: filter
+            )
         }
     }
     

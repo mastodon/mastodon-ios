@@ -166,7 +166,8 @@ extension ProfileCardView {
         authorContainerAdaptiveMarginContainerView.contentView = authorContainer
         authorContainerAdaptiveMarginContainerView.margin = ProfileCardView.contentMargin
         container.addArrangedSubview(authorContainerAdaptiveMarginContainerView)
-        
+        container.setCustomSpacing(6, after: bannerContainer)
+
         // avatarPlaceholder
         let avatarPlaceholder = UIView()
         avatarPlaceholder.translatesAutoresizingMaskIntoConstraints = false
@@ -220,6 +221,7 @@ extension ProfileCardView {
         infoContainerAdaptiveMarginContainerView.contentView = infoContainer
         infoContainerAdaptiveMarginContainerView.margin = ProfileCardView.contentMargin
         container.addArrangedSubview(infoContainerAdaptiveMarginContainerView)
+        container.setCustomSpacing(16, after: infoContainerAdaptiveMarginContainerView)
         
         infoContainer.addArrangedSubview(statusDashboardView)
         let infoContainerSpacer = UIView()
@@ -249,7 +251,7 @@ extension ProfileCardView {
         bottomPadding.translatesAutoresizingMaskIntoConstraints = false
         container.addArrangedSubview(bottomPadding)
         NSLayoutConstraint.activate([
-            bottomPadding.heightAnchor.constraint(equalToConstant: 16).priority(.required - 10),
+            bottomPadding.heightAnchor.constraint(equalToConstant: 8).priority(.required - 10),
         ])
         
         relationshipActionButton.addTarget(self, action: #selector(ProfileCardView.relationshipActionButtonDidPressed(_:)), for: .touchUpInside)

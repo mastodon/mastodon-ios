@@ -7,30 +7,21 @@
 
 import UIKit
 import MastodonAsset
+import MetaTextKit
 
 public final class FamiliarFollowersDashboardView: UIView {
     
     let avatarContainerView = UIView()
     var avatarContainerViewWidthLayoutConstraint: NSLayoutConstraint!
+    var avatarContainerViewHeightLayoutConstraint: NSLayoutConstraint!
     
-    let descriptionLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFontMetrics(forTextStyle: .subheadline).scaledFont(for: .systemFont(ofSize: 13, weight: .regular))
-        label.text = "Followed by Pixelflowers, Lee’s Food, and 4 other mutuals"
-        label.textColor = Asset.Colors.Label.secondary.color
-        label.numberOfLines = 0
-        return label
-    }()
+    let descriptionMetaLabel = MetaLabel(style: .profileCardFamiliarFollowerFooter)
     
     public private(set) lazy var viewModel: ViewModel = {
         let viewModel = ViewModel()
         viewModel.bind(view: self)
         return viewModel
     }()
-    
-    public func prepareForReuse() {
-        
-    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -49,6 +40,7 @@ extension FamiliarFollowersDashboardView {
     private func _init() {
         let stackView = UIStackView()
         stackView.axis = .horizontal
+        stackView.alignment = .center
         stackView.spacing = 8
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -63,11 +55,14 @@ extension FamiliarFollowersDashboardView {
         avatarContainerView.translatesAutoresizingMaskIntoConstraints = false
         stackView.addArrangedSubview(avatarContainerView)
         avatarContainerViewWidthLayoutConstraint = avatarContainerView.widthAnchor.constraint(equalToConstant: 32).priority(.required - 1)
+        avatarContainerViewHeightLayoutConstraint = avatarContainerView.heightAnchor.constraint(equalToConstant: 32).priority(.required - 1)
         NSLayoutConstraint.activate([
             avatarContainerViewWidthLayoutConstraint,
-            avatarContainerView.heightAnchor.constraint(equalToConstant: 32).priority(.required - 1)
+            avatarContainerViewHeightLayoutConstraint
         ])
-        stackView.addArrangedSubview(descriptionLabel)
+        stackView.addArrangedSubview(descriptionMetaLabel)
+        descriptionMetaLabel.setContentHuggingPriority(.required - 1, for: .vertical)
+        descriptionMetaLabel.setContentCompressionResistancePriority(.required - 1, for: .vertical)
     }
     
 }
