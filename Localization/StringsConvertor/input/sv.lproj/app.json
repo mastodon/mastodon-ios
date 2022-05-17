@@ -462,10 +462,22 @@
             }
         },
         "follower": {
+            "title": "follower",
             "footer": "Följare från andra servrar visas inte."
         },
         "following": {
+            "title": "following",
             "footer": "Följda på andra servrar visas inte."
+        },
+        "familiarFollowers": {
+            "title": "Followers you familiar",
+            "followed_by_names": "Followed by %s"
+        },
+        "favorited_by": {
+            "title": "Favorited By"
+        },
+        "reblogged_by": {
+            "title": "Reblogged By"
         },
         "search": {
             "title": "Sök",
