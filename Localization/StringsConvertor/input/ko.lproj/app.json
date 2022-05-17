@@ -67,7 +67,7 @@
                 "done": "완료",
                 "confirm": "확인",
                 "continue": "계속",
-                "compose": "Compose",
+                "compose": "작성",
                 "cancel": "취소",
                 "discard": "버리기",
                 "try_again": "다시 시도",
@@ -82,7 +82,7 @@
                 "share_user": "%s를 공유",
                 "share_post": "게시물 공유",
                 "open_in_safari": "사파리에서 열기",
-                "open_in_browser": "Open in Browser",
+                "open_in_browser": "브라우저에서 열기",
                 "find_people": "팔로우 할 사람들 찾기",
                 "manually_search": "대신 수동으로 검색하기",
                 "skip": "건너뛰기",
@@ -131,7 +131,7 @@
                 "content_warning": "열람 주의",
                 "sensitive_content": "Sensitive Content",
                 "media_content_warning": "Tap anywhere to reveal",
-                "tap_to_reveal": "Tap to reveal",
+                "tap_to_reveal": "눌러서 확인",
                 "poll": {
                     "vote": "투표",
                     "closed": "마감"
@@ -143,8 +143,8 @@
                     "favorite": "즐겨찾기",
                     "unfavorite": "즐겨찾기 해제",
                     "menu": "메뉴",
-                    "hide": "Hide",
-                    "show_image": "Show image",
+                    "hide": "숨기기",
+                    "show_image": "이미지 표시",
                     "show_gif": "Show GIF",
                     "show_video_player": "Show video player",
                     "tap_then_hold_to_show_menu": "Tap then hold to show menu"
