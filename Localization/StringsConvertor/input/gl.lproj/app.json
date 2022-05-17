@@ -207,7 +207,7 @@
     "scene": {
         "welcome": {
             "slogan": "Comunicación social\nde volta ás túas mans.",
-            "get_started": "Comezar",
+            "get_started": "Crear conta",
             "log_in": "Acceder"
         },
         "server_picker": {
