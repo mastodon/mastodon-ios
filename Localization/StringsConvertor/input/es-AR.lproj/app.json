@@ -240,7 +240,7 @@
                 "category": "CATEGORÍA"
             },
             "input": {
-                "placeholder": "Encontrá un servidor o unite al tuyo…",
+                "placeholder": "Buscar servidores",
                 "search_servers_or_enter_url": "Buscar comunidades o introducir dirección web"
             },
             "empty_state": {
@@ -250,7 +250,7 @@
             }
         },
         "register": {
-            "title": "Contanos sobre vos.",
+            "title": "Vamos a prepararte en %s",
             "lets_get_you_set_up_on_domain": "Vamos a prepararte en %s",
             "input": {
                 "avatar": {
@@ -286,7 +286,7 @@
                     "email": "Correo electrónico",
                     "password": "Contraseña",
                     "agreement": "Acuerdo",
-                    "locale": "Idioma de la interface",
+                    "locale": "Interno",
                     "reason": "Motivo"
                 },
                 "reason": {
@@ -321,7 +321,7 @@
         },
         "confirm_email": {
             "title": "Una última cosa.",
-            "subtitle": "Acabamos de enviar un correo electrónico a %s,\npulsá en el enlace para confirmar tu cuenta.",
+            "subtitle": "Tocá el enlace que te enviamos por correo electrónico para verificar tu cuenta.",
             "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tocá el enlace que te enviamos por correo electrónico para verificar tu cuenta",
             "button": {
                 "open_email_app": "Abrir aplicación de correo electrónico",
@@ -462,22 +462,22 @@
             }
         },
         "follower": {
-            "title": "follower",
+            "title": "seguidor",
             "footer": "No se muestran los seguidores de otros servidores."
         },
         "following": {
-            "title": "following",
+            "title": "siguiendo",
             "footer": "No se muestran las cuentas de otros servidores que seguís."
         },
         "familiarFollowers": {
-            "title": "Followers you familiar",
-            "followed_by_names": "Followed by %s"
+            "title": "Seguidores conocidos",
+            "followed_by_names": "Seguido por %s"
         },
         "favorited_by": {
-            "title": "Favorited By"
+            "title": "Marcado como favorito por"
         },
         "reblogged_by": {
-            "title": "Reblogged By"
+            "title": "Adherido por"
         },
         "search": {
             "title": "Buscar",
