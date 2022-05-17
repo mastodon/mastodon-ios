@@ -136,10 +136,9 @@ extension ReportViewModel {
                         suffixes.append(reason.rawValue)
                     case .violateRule:
                         suffixes.append(reason.rawValue)
-                        if let rule = self.reportServerRulesViewModel.selectRule {
+                        
+                        for rule in self.reportServerRulesViewModel.selectRules {
                             suffixes.append(rule.text)
-                        } else {
-                            assertionFailure("should select valid rule")
                         }
                     case .dislike:
                         assertionFailure("should not enter the report flow")
@@ -178,8 +177,8 @@ extension ReportViewModel {
                 ruleIDs: {
                     switch self.reportReasonViewModel.selectReason {
                     case .violateRule:
-                        guard let rule = self.reportServerRulesViewModel.selectRule else { return nil }
-                        return [rule.id]
+                        let ruleIDs = self.reportServerRulesViewModel.selectRules.map { $0.id }.sorted()
+                        return ruleIDs
                     default:
                         return nil
                     }

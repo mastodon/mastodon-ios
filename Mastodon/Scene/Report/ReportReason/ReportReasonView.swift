@@ -41,9 +41,7 @@ struct ReportReasonView: View {
                             EmptyView()
                         default:
                             ReportReasonRowView(reason: reason, isSelect: reason == viewModel.selectReason)
-                                .background(
-                                    Color(viewModel.backgroundColor)
-                                )
+                                .contentShape(Rectangle())
                                 .onTapGesture {
                                     viewModel.selectReason = reason
                                 }

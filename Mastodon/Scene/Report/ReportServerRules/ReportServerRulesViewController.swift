@@ -88,13 +88,10 @@ extension ReportServerRulesViewController {
             }
             .store(in: &observations)
         
-        Publishers.CombineLatest(
-            viewModel.$selectRule,
-            viewModel.$isDislike
-        )
-        .map { $0 != nil || $1 }
-        .assign(to: \.isEnabled, on: navigationActionView.nextButton)
-        .store(in: &disposeBag)
+        viewModel.$selectRules
+            .map { !$0.isEmpty }
+            .assign(to: \.isEnabled, on: navigationActionView.nextButton)
+            .store(in: &disposeBag)
         
         navigationActionView.nextButton.addTarget(self, action: #selector(ReportServerRulesViewController.nextButtonPressed(_:)), for: .touchUpInside)        
     }

@@ -25,8 +25,7 @@ final class ReportServerRulesViewModel: ObservableObject {
     @Published var backgroundColor: UIColor = Asset.Scene.Report.background.color
     
     // output
-    @Published var selectRule: Mastodon.Entity.Instance.Rule?
-    @Published var isDislike: Bool = false
+    @Published var selectRules: Set<Mastodon.Entity.Instance.Rule> = Set()
     
     init(context: AppContext) {
         self.context = context

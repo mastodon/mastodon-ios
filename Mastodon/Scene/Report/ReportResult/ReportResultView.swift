@@ -138,14 +138,15 @@ struct ReportActionButton: View {
             ZStack {
                 ProgressView()
                     .opacity(isBusy ? 1 : 0)
+                    .progressViewStyle(CircularProgressViewStyle(tint: .gray))
                 Text(title)
                     .font(.headline)
-                    .foregroundColor(Color(Asset.Colors.Label.primary.color))
+                    .foregroundColor(Color(UIColor.black))
                     .opacity(isBusy ? 0 : 1)
             }
             .frame(maxWidth: .infinity)
             .padding()
-            .background(Color(UIColor.systemBackground))
+            .background(Color(UIColor.white))     // using white for Light & Dark
             .cornerRadius(10)
             .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 1)
         }
