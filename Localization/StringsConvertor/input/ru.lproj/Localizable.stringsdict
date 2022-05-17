@@ -88,13 +88,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>Followed by %1$@, and another mutual</string>
+        <string>%1$@ и ещё %ld человек подписаны</string>
         <key>few</key>
-        <string>Followed by %1$@, and %ld mutuals</string>
+        <string>%1$@ и ещё %ld человека подписаны</string>
         <key>many</key>
-        <string>Followed by %1$@, and %ld mutuals</string>
+        <string>%1$@ и ещё %ld человек подписаны</string>
         <key>other</key>
-        <string>Followed by %1$@, and %ld mutuals</string>
+        <string>%1$@ и ещё %ld человека подписаны</string>
       </dict>
     </dict>
     <key>plural.count.metric_formatted.post</key>
