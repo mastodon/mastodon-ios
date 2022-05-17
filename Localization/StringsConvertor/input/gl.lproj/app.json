@@ -462,10 +462,22 @@
             }
         },
         "follower": {
+            "title": "follower",
             "footer": "Non se mostran seguidoras desde outros servidores."
         },
         "following": {
+            "title": "following",
             "footer": "Non se mostran os seguimentos desde outros servidores."
+        },
+        "familiarFollowers": {
+            "title": "Followers you familiar",
+            "followed_by_names": "Followed by %s"
+        },
+        "favorited_by": {
+            "title": "Favorited By"
+        },
+        "reblogged_by": {
+            "title": "Reblogged By"
         },
         "search": {
             "title": "Procurar",
