@@ -10,6 +10,7 @@ import UIKit
 import Combine
 import CoreDataStack
 import MastodonMeta
+import MastodonLocalization
 
 extension FamiliarFollowersDashboardView {
     public final class ViewModel: ObservableObject {
@@ -32,6 +33,9 @@ extension FamiliarFollowersDashboardView.ViewModel {
             UIContentSizeCategory.publisher
         )
         .sink { avatarURLs, backgroundColor, contentSizeCategory in
+            // only using first 4 items
+            let avatarURLs = avatarURLs.prefix(4)
+
             view.avatarContainerView.subviews.forEach { $0.removeFromSuperview() }
             
             let initialOffset = min(12 * 1.5, UIFontMetrics(forTextStyle: .headline).scaledValue(for: 12))      // max 1.5x
@@ -82,12 +86,12 @@ extension FamiliarFollowersDashboardView.ViewModel {
                 
                 switch names.count {
                 case 1..<3:
-                    return "Followed by \(firstTwoNames)"
-                case 3:
-                    return "Followed by \(firstTwoNames), and another mutual"
+                    return L10n.Scene.Familiarfollowers.followedByNames(firstTwoNames)
                 default:
+                    // Note: SwiftGen generates wrong formate argv for "%1$@" 
                     let remains = count - 2
-                    return "Followed by \(firstTwoNames), and \(remains) mutuals"
+                    let format = MastodonLocalization.bundle.localizedString(forKey: "plural.count.followed_by_and_mutual", value: nil, table: "Localizable")
+                    return String(format: format, locale: .current, arguments: [firstTwoNames, remains])
                 }
             }()
             let document = MastodonContent(content: content, emojis: emojis)

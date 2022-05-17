@@ -666,12 +666,11 @@ extension StatusView.ViewModel {
         let meidaAccessibilityLabel = $mediaViewConfigurations
             .map { configurations -> String? in
                 let count = configurations.count
-                // TODO: i18n
-                return count > 0 ? "\(count) media" : nil
+                return L10n.Plural.Count.media(count)
             }
             
         // TODO: Toolbar
-        
+    
         Publishers.CombineLatest3(
             authorAccessibilityLabel,
             contentAccessibilityLabel,

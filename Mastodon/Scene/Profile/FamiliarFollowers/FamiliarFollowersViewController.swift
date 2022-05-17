@@ -8,6 +8,7 @@
 import os.log
 import UIKit
 import Combine
+import MastodonLocalization
 
 final class FamiliarFollowersViewController: UIViewController, NeedsDependency {
 
@@ -38,7 +39,8 @@ extension FamiliarFollowersViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "Followers you familiar"
+        title = L10n.Scene.Familiarfollowers.title
+        
         view.backgroundColor = ThemeService.shared.currentTheme.value.secondarySystemBackgroundColor
         ThemeService.shared.currentTheme
             .receive(on: DispatchQueue.main)

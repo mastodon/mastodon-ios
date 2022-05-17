@@ -43,7 +43,7 @@ extension FollowerListViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = L10n.Scene.Profile.Dashboard.followers
+        title = L10n.Scene.Follower.title
         
         view.backgroundColor = ThemeService.shared.currentTheme.value.secondarySystemBackgroundColor
         ThemeService.shared.currentTheme

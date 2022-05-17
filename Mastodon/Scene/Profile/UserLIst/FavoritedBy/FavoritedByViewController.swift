@@ -47,7 +47,7 @@ extension FavoritedByViewController {
         }
         #endif
         
-        title = "Favorited By"
+        title = L10n.Scene.FavoritedBy.title
         
         view.backgroundColor = ThemeService.shared.currentTheme.value.secondarySystemBackgroundColor
         ThemeService.shared.currentTheme

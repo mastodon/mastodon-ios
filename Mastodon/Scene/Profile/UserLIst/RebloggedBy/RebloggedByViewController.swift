@@ -47,7 +47,7 @@ extension RebloggedByViewController {
         }
         #endif
         
-        title = "Favorited By"
+        title = L10n.Scene.RebloggedBy.title
         
         view.backgroundColor = ThemeService.shared.currentTheme.value.secondarySystemBackgroundColor
         ThemeService.shared.currentTheme
