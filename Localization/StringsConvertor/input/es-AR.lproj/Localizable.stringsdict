@@ -53,7 +53,7 @@
     <key>plural.count.followed_by_and_mutual</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>%#@names@%#@count_mutual@</string>
+      <string>%#@names@: "%#@count_mutual@</string>
       <key>names</key>
       <dict>
         <key>one</key>
@@ -72,9 +72,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>Followed by %1$@, and another mutual</string>
+        <string>Seguido por %1$@ y otra cuenta mutua</string>
         <key>other</key>
-        <string>Followed by %1$@, and %ld mutuals</string>
+        <string>Seguido por %1$@ y otras %ld cuentas mutuas</string>
       </dict>
     </dict>
     <key>plural.count.metric_formatted.post</key>
