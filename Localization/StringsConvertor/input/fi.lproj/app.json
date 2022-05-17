@@ -462,10 +462,22 @@
             }
         },
         "follower": {
+            "title": "follower",
             "footer": "Seuraajia muilta palvelimilta ei näytetä."
         },
         "following": {
+            "title": "following",
             "footer": "Seurauksia muilta palvelimilta ei näytetä."
+        },
+        "familiarFollowers": {
+            "title": "Followers you familiar",
+            "followed_by_names": "Followed by %s"
+        },
+        "favorited_by": {
+            "title": "Favorited By"
+        },
+        "reblogged_by": {
+            "title": "Reblogged By"
         },
         "search": {
             "title": "Haku",
