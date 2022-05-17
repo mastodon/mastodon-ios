@@ -251,7 +251,7 @@
         },
         "register": {
             "title": "Imos crear a túa conta en %s",
-            "lets_get_you_set_up_on_domain": "Let’s get you set up on %s",
+            "lets_get_you_set_up_on_domain": "Imos crear a túa conta en %s",
             "input": {
                 "avatar": {
                     "delete": "Eliminar"
@@ -322,7 +322,7 @@
         "confirm_email": {
             "title": "O último detalle.",
             "subtitle": "Preme na ligazón que che enviamos ao email para verificar a conta.",
-            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we emailed to you to verify your account",
+            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Preme na ligazón que che enviamos ao email para verificar a conta",
             "button": {
                 "open_email_app": "Abrir app de email",
                 "resend": "Reenviar"
