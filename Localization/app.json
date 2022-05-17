@@ -462,10 +462,16 @@
             }
         },
         "follower": {
+            "title": "follower",
             "footer": "Followers from other servers are not displayed."
         },
         "following": {
+            "title": "following",
             "footer": "Follows from other servers are not displayed."
+        },
+        "familiarFollowers": {
+            "title": "Followers you familiar",
+            "followed_by_names": "Followed by %s"
         },
         "search": {
             "title": "Search",
