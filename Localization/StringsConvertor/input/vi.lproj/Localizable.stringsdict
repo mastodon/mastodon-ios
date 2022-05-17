@@ -64,7 +64,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>Followed by %1$@, and %ld mutuals</string>
+        <string>Theo dõi bởi %1$@, và %ld người quen</string>
       </dict>
     </dict>
     <key>plural.count.metric_formatted.post</key>
