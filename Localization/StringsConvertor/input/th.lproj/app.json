@@ -462,10 +462,22 @@
             }
         },
         "follower": {
+            "title": "follower",
             "footer": "ไม่ได้แสดงผู้ติดตามจากเซิร์ฟเวอร์อื่น ๆ"
         },
         "following": {
+            "title": "following",
             "footer": "ไม่ได้แสดงการติดตามจากเซิร์ฟเวอร์อื่น ๆ"
+        },
+        "familiarFollowers": {
+            "title": "Followers you familiar",
+            "followed_by_names": "Followed by %s"
+        },
+        "favorited_by": {
+            "title": "Favorited By"
+        },
+        "reblogged_by": {
+            "title": "Reblogged By"
         },
         "search": {
             "title": "ค้นหา",
