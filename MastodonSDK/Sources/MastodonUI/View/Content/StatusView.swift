@@ -405,18 +405,19 @@ extension StatusView.Style {
         NSLayoutConstraint.activate([
             statusView.headerIconImageView.leadingAnchor.constraint(equalTo: statusView.headerContainerView.leadingAnchor),
             statusView.headerIconImageView.heightAnchor.constraint(equalTo: statusView.headerInfoLabel.heightAnchor, multiplier: 1.0).priority(.required - 1),
-            statusView.headerIconImageView.widthAnchor.constraint(equalTo: statusView.headerIconImageView.heightAnchor, multiplier: 1.0).priority(.required - 1),
+            statusView.headerIconImageView.widthAnchor.constraint(equalTo: statusView.headerInfoLabel.heightAnchor, multiplier: 1.0).priority(.required - 1),
             statusView.headerInfoLabel.topAnchor.constraint(equalTo: statusView.headerContainerView.topAnchor),
             statusView.headerInfoLabel.leadingAnchor.constraint(equalTo: statusView.headerIconImageView.trailingAnchor, constant: 6),
             statusView.headerInfoLabel.trailingAnchor.constraint(equalTo: statusView.headerContainerView.trailingAnchor),
             statusView.headerInfoLabel.bottomAnchor.constraint(equalTo: statusView.headerContainerView.bottomAnchor),
             statusView.headerInfoLabel.centerYAnchor.constraint(equalTo: statusView.headerIconImageView.centerYAnchor),
         ])
-        statusView.headerInfoLabel.setContentHuggingPriority(.required, for: .vertical)
-        statusView.headerIconImageView.setContentHuggingPriority(.defaultLow, for: .vertical)
-        statusView.headerIconImageView.setContentHuggingPriority(.defaultLow, for: .horizontal)
-        statusView.headerIconImageView.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
-        statusView.headerIconImageView.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        statusView.headerInfoLabel.setContentHuggingPriority(.required - 1, for: .vertical)
+        statusView.headerInfoLabel.setContentCompressionResistancePriority(.required - 1, for: .vertical)
+        statusView.headerIconImageView.setContentHuggingPriority(.defaultLow - 100, for: .vertical)
+        statusView.headerIconImageView.setContentHuggingPriority(.defaultLow - 100, for: .horizontal)
+        statusView.headerIconImageView.setContentCompressionResistancePriority(.defaultLow - 100, for: .vertical)
+        statusView.headerIconImageView.setContentCompressionResistancePriority(.defaultLow - 100, for: .horizontal)
 
         // author container: H - [ avatarButton | author meta container | contentWarningToggleButton ]
         statusView.authorAdaptiveMarginContainerView.contentView = statusView.authorContainerView
