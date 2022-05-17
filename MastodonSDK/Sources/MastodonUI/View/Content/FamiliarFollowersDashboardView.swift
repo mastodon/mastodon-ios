@@ -63,6 +63,8 @@ extension FamiliarFollowersDashboardView {
         stackView.addArrangedSubview(descriptionMetaLabel)
         descriptionMetaLabel.setContentHuggingPriority(.required - 1, for: .vertical)
         descriptionMetaLabel.setContentCompressionResistancePriority(.required - 1, for: .vertical)
+        
+        descriptionMetaLabel.isUserInteractionEnabled = false
     }
     
 }

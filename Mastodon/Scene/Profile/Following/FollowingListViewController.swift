@@ -9,6 +9,7 @@ import os.log
 import UIKit
 import GameplayKit
 import Combine
+import MastodonLocalization
 
 final class FollowingListViewController: UIViewController, NeedsDependency {
 
@@ -42,6 +43,8 @@ extension FollowingListViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        title = L10n.Scene.Profile.Dashboard.following
+            
         view.backgroundColor = ThemeService.shared.currentTheme.value.secondarySystemBackgroundColor
         ThemeService.shared.currentTheme
             .receive(on: DispatchQueue.main)
@@ -87,6 +90,12 @@ extension FollowingListViewController {
                 self.viewModel.stateMachine.enter(FollowingListViewModel.State.Reloading.self)
             }
             .store(in: &disposeBag)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        tableView.deselectRow(with: transitionCoordinator, animated: animated)
     }
     
 }

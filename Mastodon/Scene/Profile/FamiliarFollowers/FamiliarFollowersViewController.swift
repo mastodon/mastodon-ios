@@ -1,50 +1,44 @@
 //
-//  FollowerListViewController.swift
+//  FamiliarFollowersViewController.swift
 //  Mastodon
 //
-//  Created by Cirno MainasuK on 2021-11-1.
+//  Created by MainasuK on 2022-5-17.
 //
 
 import os.log
 import UIKit
-import GameplayKit
 import Combine
-import MastodonLocalization
 
-final class FollowerListViewController: UIViewController, NeedsDependency {
-    
-    let logger = Logger(subsystem: "FollowerListViewController", category: "ViewController")
+final class FamiliarFollowersViewController: UIViewController, NeedsDependency {
+
+    let logger = Logger(subsystem: "FamiliarFollowersViewController", category: "ViewController")
     
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
     var disposeBag = Set<AnyCancellable>()
-    var viewModel: FollowerListViewModel!
-        
+    var viewModel: FamiliarFollowersViewModel!
+    
     lazy var tableView: UITableView = {
         let tableView = UITableView()
-        tableView.register(UserTableViewCell.self, forCellReuseIdentifier: String(describing: UserTableViewCell.self))
-        tableView.register(TimelineBottomLoaderTableViewCell.self, forCellReuseIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self))
-        tableView.register(TimelineFooterTableViewCell.self, forCellReuseIdentifier: String(describing: TimelineFooterTableViewCell.self))
         tableView.rowHeight = UITableView.automaticDimension
         tableView.separatorStyle = .none
         tableView.backgroundColor = .clear
         return tableView
     }()
- 
+    
     deinit {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
     }
     
 }
 
-extension FollowerListViewController {
+extension FamiliarFollowersViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = L10n.Scene.Profile.Dashboard.followers
-        
+        title = "Followers you familiar"
         view.backgroundColor = ThemeService.shared.currentTheme.value.secondarySystemBackgroundColor
         ThemeService.shared.currentTheme
             .receive(on: DispatchQueue.main)
@@ -68,28 +62,6 @@ extension FollowerListViewController {
             tableView: tableView,
             userTableViewCellDelegate: self
         )
-        
-        // setup batch fetch
-        viewModel.listBatchFetchViewModel.setup(scrollView: tableView)
-        viewModel.listBatchFetchViewModel.shouldFetch
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                guard let self = self else { return }
-                self.viewModel.stateMachine.enter(FollowerListViewModel.State.Loading.self)
-            }
-            .store(in: &disposeBag)
-        
-        // trigger user timeline loading
-        Publishers.CombineLatest(
-            viewModel.domain.removeDuplicates().eraseToAnyPublisher(),
-            viewModel.userID.removeDuplicates().eraseToAnyPublisher()
-        )
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                guard let self = self else { return }
-                self.viewModel.stateMachine.enter(FollowerListViewModel.State.Reloading.self)
-            }
-            .store(in: &disposeBag)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -101,8 +73,8 @@ extension FollowerListViewController {
 }
 
 // MARK: - UITableViewDelegate
-extension FollowerListViewController: UITableViewDelegate, AutoGenerateTableViewDelegate {
-    // sourcery:inline:FollowerListViewController.AutoGenerateTableViewDelegate
+extension FamiliarFollowersViewController: UITableViewDelegate, AutoGenerateTableViewDelegate {
+    // sourcery:inline:FamiliarFollowersViewController.AutoGenerateTableViewDelegate
 
     // Generated using Sourcery
     // DO NOT EDIT
@@ -111,8 +83,7 @@ extension FollowerListViewController: UITableViewDelegate, AutoGenerateTableView
     }
 
     // sourcery:end
-
 }
 
 // MARK: - UserTableViewCellDelegate
-extension FollowerListViewController: UserTableViewCellDelegate { }
+extension FamiliarFollowersViewController: UserTableViewCellDelegate { }

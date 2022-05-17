@@ -13,9 +13,12 @@ import MastodonAsset
 
 public protocol ProfileCardViewDelegate: AnyObject {
     func profileCardView(_ profileCardView: ProfileCardView, relationshipButtonDidPressed button: ProfileRelationshipActionButton)
+    func profileCardView(_ profileCardView: ProfileCardView, familiarFollowersDashboardViewDidPressed view: FamiliarFollowersDashboardView)
 }
 
 public final class ProfileCardView: UIView {
+    
+    let logger = Logger(subsystem: "ProfileCardView", category: "View")
     
     static let avatarSize = CGSize(width: 56, height: 56)
     static let friendshipActionButtonSize = CGSize(width: 108, height: 34)
@@ -255,6 +258,10 @@ extension ProfileCardView {
         ])
         
         relationshipActionButton.addTarget(self, action: #selector(ProfileCardView.relationshipActionButtonDidPressed(_:)), for: .touchUpInside)
+        
+        let familiarFollowersDashboardViewTapGestureRecognizer = UITapGestureRecognizer.singleTapGestureRecognizer
+        familiarFollowersDashboardViewTapGestureRecognizer.addTarget(self, action: #selector(ProfileCardView.familiarFollowersDashboardViewDidPressed(_:)))
+        familiarFollowersDashboardView.addGestureRecognizer(familiarFollowersDashboardViewTapGestureRecognizer)
     }
     
     public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -287,8 +294,14 @@ extension ProfileCardView {
 
 extension ProfileCardView {
     @objc private func relationshipActionButtonDidPressed(_ sender: UIButton) {
-        os_log(.debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
         assert(sender === relationshipActionButton)
         delegate?.profileCardView(self, relationshipButtonDidPressed: relationshipActionButton)
+    }
+    
+    @objc private func familiarFollowersDashboardViewDidPressed(_ sender: UITapGestureRecognizer) {
+        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
+        assert(sender.view === familiarFollowersDashboardView)
+        delegate?.profileCardView(self, familiarFollowersDashboardViewDidPressed: familiarFollowersDashboardView)
     }
 }
