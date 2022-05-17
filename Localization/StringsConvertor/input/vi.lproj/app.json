@@ -462,10 +462,22 @@
             }
         },
         "follower": {
+            "title": "follower",
             "footer": "Không hiển thị người theo dõi từ máy chủ khác."
         },
         "following": {
+            "title": "following",
             "footer": "Không hiển thị người bạn theo dõi từ máy chủ khác."
+        },
+        "familiarFollowers": {
+            "title": "Followers you familiar",
+            "followed_by_names": "Followed by %s"
+        },
+        "favorited_by": {
+            "title": "Favorited By"
+        },
+        "reblogged_by": {
+            "title": "Reblogged By"
         },
         "search": {
             "title": "Tìm kiếm",
