@@ -474,10 +474,10 @@
             "followed_by_names": "Followed by %s"
         },
         "favorited_by": {
-            "title": "Favorited By"
+            "title": "فُضِّلَ مِن قِبَلِ"
         },
         "reblogged_by": {
-            "title": "Reblogged By"
+            "title": "أُعيدَ تَدوينَهُ بِواسِطَةِ"
         },
         "search": {
             "title": "البَحث",
