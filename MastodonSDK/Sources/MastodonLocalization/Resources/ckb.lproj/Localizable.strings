@@ -207,9 +207,14 @@
 "Scene.Discovery.Tabs.Hashtags" = "هاشتاگەکان";
 "Scene.Discovery.Tabs.News" = "هەواڵەکان";
 "Scene.Discovery.Tabs.Posts" = "پۆستەکان";
+"Scene.Familiarfollowers.FollowedByNames" = "Followed by %@";
+"Scene.Familiarfollowers.Title" = "Followers you familiar";
 "Scene.Favorite.Title" = "بەدڵبووەکانت";
+"Scene.FavoritedBy.Title" = "Favorited By";
 "Scene.Follower.Footer" = "شوێنکەوتووەکانی لە ڕاژەکارەکانی ترەوە نیشان نادرێت.";
+"Scene.Follower.Title" = "follower";
 "Scene.Following.Footer" = "شوێنکەوتنەکانی بۆ هەژماری ڕاژەکارەکانی تر نیشان نادرێت.";
+"Scene.Following.Title" = "following";
 "Scene.HomeTimeline.NavigationBarState.Accessibility.LogoHint" = "Tap to scroll to top and tap again to previous location";
 "Scene.HomeTimeline.NavigationBarState.Accessibility.LogoLabel" = "Logo Button";
 "Scene.HomeTimeline.NavigationBarState.NewPosts" = "پۆستە نوێکان ببینە";
@@ -253,6 +258,7 @@
 "Scene.Profile.SegmentedControl.Posts" = "پۆستەکان";
 "Scene.Profile.SegmentedControl.PostsAndReplies" = "پۆست و وەڵامەکان";
 "Scene.Profile.SegmentedControl.Replies" = "وەڵامەکان";
+"Scene.RebloggedBy.Title" = "Reblogged By";
 "Scene.Register.Error.Item.Agreement" = "ڕێککەوتن";
 "Scene.Register.Error.Item.Email" = "ئیمێڵ";
 "Scene.Register.Error.Item.Locale" = "زمان";

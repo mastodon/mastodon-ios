@@ -120,26 +120,15 @@ extension ReportViewController: ReportReasonViewControllerDelegate {
 // MARK: - ReportServerRulesViewControllerDelegate
 extension ReportViewController: ReportServerRulesViewControllerDelegate {
     func reportServerRulesViewController(_ viewController: ReportServerRulesViewController, nextButtonPressed button: UIButton) {
-        if viewController.viewModel.isDislike {
-            let reportResultViewModel = ReportResultViewModel(
-                context: context,
-                user: viewModel.user,
-                isReported: false
-            )
-            coordinator.present(
-                scene: .reportResult(viewModel: reportResultViewModel),
-                from: self,
-                transition: .show
-            )
-        } else if viewController.viewModel.selectRule != nil {
-            coordinator.present(
-                scene: .reportStatus(viewModel: viewModel.reportStatusViewModel),
-                from: self,
-                transition: .show
-            )            
-        } else {
-            assertionFailure()
+        guard !viewController.viewModel.selectRules.isEmpty else {
+            return
         }
+        
+        coordinator.present(
+            scene: .reportStatus(viewModel: viewModel.reportStatusViewModel),
+            from: self,
+            transition: .show
+        )
     }
 }
 

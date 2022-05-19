@@ -150,3 +150,45 @@ extension APIService {
         return response
     }   // end func
 }
+
+extension APIService {
+    func favoritedBy(
+        status: ManagedObjectRecord<Status>,
+        query: Mastodon.API.Statuses.FavoriteByQuery,
+        authenticationBox: MastodonAuthenticationBox
+    ) async throws -> Mastodon.Response.Content<[Mastodon.Entity.Account]> {
+        let managedObjectContext = backgroundManagedObjectContext
+        let _statusID: Status.ID? = try? await managedObjectContext.perform {
+            guard let _status = status.object(in: managedObjectContext) else { return nil }
+            let status = _status.reblog ?? _status
+            return status.id
+        }
+        guard let statusID = _statusID else {
+            throw APIError.implicit(.badRequest)
+        }
+
+        let response = try await Mastodon.API.Statuses.favoriteBy(
+            session: session,
+            domain: authenticationBox.domain,
+            statusID: statusID,
+            query: query,
+            authorization: authenticationBox.userAuthorization
+        ).singleOutput()
+        
+        try await managedObjectContext.performChanges {
+            for entity in response.value {
+                _ = Persistence.MastodonUser.createOrMerge(
+                    in: managedObjectContext,
+                    context: .init(
+                        domain: authenticationBox.domain,
+                        entity: entity,
+                        cache: nil,
+                        networkDate: response.networkDate
+                    )
+                )
+            }   // end for … in
+        }
+        
+        return response
+    }   // end func
+}

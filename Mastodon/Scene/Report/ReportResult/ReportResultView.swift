@@ -51,7 +51,7 @@ struct ReportResultView: View {
                         .font(Font(UIFontMetrics(forTextStyle: .largeTitle).scaledFont(for: .systemFont(ofSize: 28, weight: .bold)) as CTFont))
                     if viewModel.isReported {
                         avatarView
-                        Text(verbatim: "While we review this, you can take action against @\(viewModel.username)")
+                        Text(verbatim: L10n.Scene.Report.StepFinal.whileWeReviewThisYouCanTakeActionAgainstUser("@\(viewModel.username)"))
                             .foregroundColor(Color(Asset.Colors.Label.secondary.color))
                             .font(Font(UIFontMetrics(forTextStyle: .largeTitle).scaledFont(for: .systemFont(ofSize: 17, weight: .regular)) as CTFont))
                     } else {
@@ -74,7 +74,7 @@ struct ReportResultView: View {
                         action: {
                             viewModel.followActionPublisher.send()
                         },
-                        title: viewModel.relationshipViewModel.isFollowing ? "Unfollow" : "Unfollowed",
+                        title: viewModel.relationshipViewModel.isFollowing ? L10n.Scene.Report.StepFinal.unfollow : L10n.Scene.Report.StepFinal.unfollowed,
                         isBusy: viewModel.isRequestFollow
                     )
                 }
@@ -138,14 +138,15 @@ struct ReportActionButton: View {
             ZStack {
                 ProgressView()
                     .opacity(isBusy ? 1 : 0)
+                    .progressViewStyle(CircularProgressViewStyle(tint: .gray))
                 Text(title)
                     .font(.headline)
-                    .foregroundColor(Color(Asset.Colors.Label.primary.color))
+                    .foregroundColor(Color(UIColor.black))
                     .opacity(isBusy ? 0 : 1)
             }
             .frame(maxWidth: .infinity)
             .padding()
-            .background(Color(UIColor.systemBackground))
+            .background(Color(UIColor.white))     // using white for Light & Dark
             .cornerRadius(10)
             .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 1)
         }

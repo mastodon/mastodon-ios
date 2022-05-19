@@ -462,10 +462,22 @@
             }
         },
         "follower": {
+            "title": "follower",
             "footer": "Cha dèid luchd-leantainn o fhrithealaichean eile a shealltainn."
         },
         "following": {
+            "title": "following",
             "footer": "Cha dèid cò air a leanas tu air frithealaichean eile a shealltainn."
+        },
+        "familiarFollowers": {
+            "title": "Followers you familiar",
+            "followed_by_names": "Followed by %s"
+        },
+        "favorited_by": {
+            "title": "Favorited By"
+        },
+        "reblogged_by": {
+            "title": "Reblogged By"
         },
         "search": {
             "title": "Lorg",

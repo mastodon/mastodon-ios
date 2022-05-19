@@ -6,7 +6,7 @@
 //
 
 import os.log
-import Foundation
+import UIKit
 import Combine
 import CoreData
 import CoreDataStack
@@ -38,6 +38,8 @@ final class APIService {
         NetworkActivityIndicatorManager.shared.isEnabled = true
         NetworkActivityIndicatorManager.shared.startDelay = 0.2
         NetworkActivityIndicatorManager.shared.completionDelay = 0.5
+        
+        UIImageView.af.sharedImageDownloader = ImageDownloader(downloadPrioritization: .lifo)
     }
     
 }

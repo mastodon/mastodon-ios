@@ -44,6 +44,29 @@
         <string>%ld 个字符</string>
       </dict>
     </dict>
+    <key>plural.count.followed_by_and_mutual</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@names@%#@count_mutual@</string>
+      <key>names</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>other</key>
+        <string></string>
+      </dict>
+      <key>count_mutual</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>other</key>
+        <string>%1$@ 和你关注的另外 %ld 人也关注了这个账号</string>
+      </dict>
+    </dict>
     <key>plural.count.metric_formatted.post</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
@@ -69,7 +92,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld media</string>
+        <string>%ld 个媒体</string>
       </dict>
     </dict>
     <key>plural.count.post</key>

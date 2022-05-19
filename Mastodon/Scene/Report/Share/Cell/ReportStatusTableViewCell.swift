@@ -86,15 +86,17 @@ extension ReportStatusTableViewCell {
             separatorLine.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             separatorLine.heightAnchor.constraint(equalToConstant: UIView.separatorLineHeight(of: contentView)).priority(.required - 1),
         ])
+        
+        statusView.isUserInteractionEnabled = false
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         if selected {
-            checkbox.image = UIImage(systemName: "checkmark.circle.fill")
+            checkbox.image = UIImage(systemName: "checkmark.square.fill")
             checkbox.tintColor = Asset.Colors.Label.primary.color
         } else {
-            checkbox.image = UIImage(systemName: "circle")
+            checkbox.image = UIImage(systemName: "square")
             checkbox.tintColor = Asset.Colors.Label.secondary.color
         }
     }

@@ -50,6 +50,33 @@
         <string>%ld tîp</string>
       </dict>
     </dict>
+    <key>plural.count.followed_by_and_mutual</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@names@%#@count_mutual@</string>
+      <key>names</key>
+      <dict>
+        <key>one</key>
+        <string></string>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>other</key>
+        <string></string>
+      </dict>
+      <key>count_mutual</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>Ji aliyê %1$@, û hevaleke hevpar tê şopandin</string>
+        <key>other</key>
+        <string>Ji aliyê %1$@, û %ld hevalên hevpar tê şopandin</string>
+      </dict>
+    </dict>
     <key>plural.count.metric_formatted.post</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>

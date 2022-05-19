@@ -37,26 +37,18 @@ struct ReportServerRulesView: View {
                 ForEach(viewModel.serverRules, id: \.self) { rule in
                     ReportServerRulesRowView(
                         title: rule.text,
-                        isSelect: rule == viewModel.selectRule
+                        isSelect: viewModel.selectRules.contains(rule)
                     )
                     .background(
                         Color(viewModel.backgroundColor)
                     )
                     .onTapGesture {
-                        viewModel.selectRule = rule
-                        viewModel.isDislike = false
+                        if viewModel.selectRules.contains(rule) {
+                            viewModel.selectRules.remove(rule)
+                        } else {
+                            viewModel.selectRules.insert(rule)
+                        }
                     }
-                }
-                ReportServerRulesRowView(
-                    title: L10n.Scene.Report.StepTwo.iJustDonTLikeIt,
-                    isSelect: viewModel.isDislike
-                )
-                .background(
-                    Color(viewModel.backgroundColor)
-                )
-                .onTapGesture {
-                    viewModel.selectRule = nil
-                    viewModel.isDislike = true
                 }
             }
             .padding()
@@ -80,7 +72,7 @@ struct ReportServerRulesRowView: View {
     
     var body: some View {
         HStack(spacing: 14) {
-            Image(systemName: isSelect ? "checkmark.circle.fill" : "circle")
+            Image(systemName: isSelect ? "checkmark.square.fill" : "square")
                 .resizable()
                 .frame(width: 28, height: 28, alignment: .center)
             VStack(alignment: .leading, spacing: 4) {

@@ -13,9 +13,12 @@ import MastodonAsset
 
 public protocol ProfileCardViewDelegate: AnyObject {
     func profileCardView(_ profileCardView: ProfileCardView, relationshipButtonDidPressed button: ProfileRelationshipActionButton)
+    func profileCardView(_ profileCardView: ProfileCardView, familiarFollowersDashboardViewDidPressed view: FamiliarFollowersDashboardView)
 }
 
 public final class ProfileCardView: UIView {
+    
+    let logger = Logger(subsystem: "ProfileCardView", category: "View")
     
     static let avatarSize = CGSize(width: 56, height: 56)
     static let friendshipActionButtonSize = CGSize(width: 108, height: 34)
@@ -94,6 +97,9 @@ public final class ProfileCardView: UIView {
         return button
     }()
     
+    let familiarFollowersDashboardViewAdaptiveMarginContainerView = AdaptiveMarginContainerView()
+    let familiarFollowersDashboardView = FamiliarFollowersDashboardView()
+    
     public private(set) lazy var viewModel: ViewModel = {
         let viewModel = ViewModel()
         viewModel.bind(view: self)
@@ -126,7 +132,7 @@ extension ProfileCardView {
         bioMetaText.textView.isUserInteractionEnabled = false
         statusDashboardView.isUserInteractionEnabled = false        
         
-        // container: V - [ bannerContainer | authorContainer | bioMetaText | infoContainer ]
+        // container: V - [ bannerContainer | authorContainer | bioMetaText | infoContainer | familiarFollowersDashboardView ]
         container.axis = .vertical
         container.spacing = 8
         container.translatesAutoresizingMaskIntoConstraints = false
@@ -163,7 +169,8 @@ extension ProfileCardView {
         authorContainerAdaptiveMarginContainerView.contentView = authorContainer
         authorContainerAdaptiveMarginContainerView.margin = ProfileCardView.contentMargin
         container.addArrangedSubview(authorContainerAdaptiveMarginContainerView)
-        
+        container.setCustomSpacing(6, after: bannerContainer)
+
         // avatarPlaceholder
         let avatarPlaceholder = UIView()
         avatarPlaceholder.translatesAutoresizingMaskIntoConstraints = false
@@ -211,12 +218,13 @@ extension ProfileCardView {
         container.addArrangedSubview(bioMetaTextAdaptiveMarginContainerView)
         container.setCustomSpacing(16, after: bioMetaTextAdaptiveMarginContainerView)
 
-        // infoContainer: H - [ statusDashboardView | (spacer) | relationshipActionButton ]
+        // infoContainer: H - [ statusDashboardView | (spacer) | relationshipActionButton]
         infoContainer.axis = .horizontal
         infoContainer.spacing = 8
         infoContainerAdaptiveMarginContainerView.contentView = infoContainer
         infoContainerAdaptiveMarginContainerView.margin = ProfileCardView.contentMargin
         container.addArrangedSubview(infoContainerAdaptiveMarginContainerView)
+        container.setCustomSpacing(16, after: infoContainerAdaptiveMarginContainerView)
         
         infoContainer.addArrangedSubview(statusDashboardView)
         let infoContainerSpacer = UIView()
@@ -237,15 +245,23 @@ extension ProfileCardView {
             relationshipActionButtonShadowContainer.widthAnchor.constraint(greaterThanOrEqualToConstant: ProfileCardView.friendshipActionButtonSize.width).priority(.required - 1),
             relationshipActionButtonShadowContainer.heightAnchor.constraint(equalToConstant: ProfileCardView.friendshipActionButtonSize.height).priority(.required - 1),
         ])
+        
+        familiarFollowersDashboardViewAdaptiveMarginContainerView.contentView = familiarFollowersDashboardView
+        familiarFollowersDashboardViewAdaptiveMarginContainerView.margin = ProfileCardView.contentMargin
+        container.addArrangedSubview(familiarFollowersDashboardViewAdaptiveMarginContainerView)
 
         let bottomPadding = UIView()
         bottomPadding.translatesAutoresizingMaskIntoConstraints = false
         container.addArrangedSubview(bottomPadding)
         NSLayoutConstraint.activate([
-            bottomPadding.heightAnchor.constraint(equalToConstant: 16).priority(.required - 10),
+            bottomPadding.heightAnchor.constraint(equalToConstant: 8).priority(.required - 10),
         ])
         
         relationshipActionButton.addTarget(self, action: #selector(ProfileCardView.relationshipActionButtonDidPressed(_:)), for: .touchUpInside)
+        
+        let familiarFollowersDashboardViewTapGestureRecognizer = UITapGestureRecognizer.singleTapGestureRecognizer
+        familiarFollowersDashboardViewTapGestureRecognizer.addTarget(self, action: #selector(ProfileCardView.familiarFollowersDashboardViewDidPressed(_:)))
+        familiarFollowersDashboardView.addGestureRecognizer(familiarFollowersDashboardViewTapGestureRecognizer)
     }
     
     public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -278,8 +294,14 @@ extension ProfileCardView {
 
 extension ProfileCardView {
     @objc private func relationshipActionButtonDidPressed(_ sender: UIButton) {
-        os_log(.debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
         assert(sender === relationshipActionButton)
         delegate?.profileCardView(self, relationshipButtonDidPressed: relationshipActionButton)
+    }
+    
+    @objc private func familiarFollowersDashboardViewDidPressed(_ sender: UITapGestureRecognizer) {
+        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
+        assert(sender.view === familiarFollowersDashboardView)
+        delegate?.profileCardView(self, familiarFollowersDashboardViewDidPressed: familiarFollowersDashboardView)
     }
 }

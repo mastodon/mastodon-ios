@@ -462,10 +462,22 @@
             }
         },
         "follower": {
+            "title": "follower",
             "footer": "لا يُمكِن عَرض المُتابِعين مِنَ الخوادم الأُخرى."
         },
         "following": {
+            "title": "following",
             "footer": "لا يُمكِن عَرض المُتابَعات مِنَ الخوادم الأُخرى."
+        },
+        "familiarFollowers": {
+            "title": "Followers you familiar",
+            "followed_by_names": "Followed by %s"
+        },
+        "favorited_by": {
+            "title": "Favorited By"
+        },
+        "reblogged_by": {
+            "title": "Reblogged By"
         },
         "search": {
             "title": "البَحث",

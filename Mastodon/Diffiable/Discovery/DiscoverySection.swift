@@ -8,6 +8,7 @@
 import os.log
 import UIKit
 import MastodonUI
+import MastodonSDK
 
 enum DiscoverySection: CaseIterable {
     // case posts
@@ -22,9 +23,14 @@ extension DiscoverySection {
     
     class Configuration {
         weak var profileCardTableViewCellDelegate: ProfileCardTableViewCellDelegate?
+        let familiarFollowers: Published<[Mastodon.Entity.FamiliarFollowers]>.Publisher?
         
-        public init(profileCardTableViewCellDelegate: ProfileCardTableViewCellDelegate? = nil) {
+        public init(
+            profileCardTableViewCellDelegate: ProfileCardTableViewCellDelegate? = nil,
+            familiarFollowers: Published<[Mastodon.Entity.FamiliarFollowers]>.Publisher? = nil
+        ) {
             self.profileCardTableViewCellDelegate = profileCardTableViewCellDelegate
+            self.familiarFollowers = familiarFollowers
         }
     }
     
@@ -57,6 +63,15 @@ extension DiscoverySection {
                         user: user,
                         profileCardTableViewCellDelegate: configuration.profileCardTableViewCellDelegate
                     )
+                    // bind familiarFollowers
+                    if let familiarFollowers = configuration.familiarFollowers {
+                        familiarFollowers
+                            .map { array in array.first(where: { $0.id == user.id }) }
+                            .assign(to: \.familiarFollowers, on: cell.profileCardView.viewModel)
+                            .store(in: &cell.disposeBag)
+                    } else {
+                        cell.profileCardView.viewModel.familiarFollowers = nil
+                    }
                 }
                 context.authenticationService.activeMastodonAuthentication
                     .map { $0?.user }

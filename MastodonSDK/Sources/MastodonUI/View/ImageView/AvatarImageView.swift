@@ -44,6 +44,11 @@ extension AvatarImageView {
         }
     }
     
+    private func setup(border: CornerConfiguration.Border?) {
+        layer.borderColor = border?.color.cgColor
+        layer.borderWidth = border?.width ?? .zero
+    }
+    
 }
 
 extension AvatarImageView {
@@ -98,7 +103,11 @@ extension AvatarImageView {
                 return ScaledToSizeFilter(size: self.frame.size)
             }()
             
-            af.setImage(withURL: url, filter: filter)
+            af.setImage(
+                withURL: url,
+                placeholderImage: configuration.placeholder,
+                filter: filter
+            )
         }
     }
     
@@ -107,9 +116,14 @@ extension AvatarImageView {
 extension AvatarImageView {
     public struct CornerConfiguration {
         public let corner: Corner
+        public let border: Border?
 
-        public init(corner: Corner = .circle) {
+        public init(
+            corner: Corner = .circle,
+            border: Border? = nil
+        ) {
             self.corner = corner
+            self.border = border
         }
         
         public enum Corner {
@@ -117,10 +131,16 @@ extension AvatarImageView {
             case fixed(radius: CGFloat)
             case scale(ratio: Int = 4)      //  width / ratio
         }
+        
+        public struct Border {
+            public let color: UIColor
+            public let width: CGFloat
+        }
     }
     
     public func configure(cornerConfiguration: CornerConfiguration) {
         self.cornerConfiguration = cornerConfiguration
         setup(corner: cornerConfiguration.corner)
+        setup(border: cornerConfiguration.border)
     }
 }

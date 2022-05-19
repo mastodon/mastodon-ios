@@ -462,10 +462,22 @@
             }
         },
         "follower": {
+            "title": "follower",
             "footer": "Follower von anderen Servern werden nicht angezeigt."
         },
         "following": {
+            "title": "following",
             "footer": "Wem das Konto folgt wird von anderen Servern werden nicht angezeigt."
+        },
+        "familiarFollowers": {
+            "title": "Followers you familiar",
+            "followed_by_names": "Followed by %s"
+        },
+        "favorited_by": {
+            "title": "Favorited By"
+        },
+        "reblogged_by": {
+            "title": "Reblogged By"
         },
         "search": {
             "title": "Suche",

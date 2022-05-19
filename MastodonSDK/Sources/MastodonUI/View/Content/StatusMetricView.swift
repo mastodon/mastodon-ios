@@ -5,9 +5,19 @@
 //  Created by MainasuK on 2022-1-17.
 //
 
+import os.log
 import UIKit
 
+protocol StatusMetricViewDelegate: AnyObject {
+    func statusMetricView(_ statusMetricView: StatusMetricView, reblogButtonDidPressed button: UIButton)
+    func statusMetricView(_ statusMetricView: StatusMetricView, favoriteButtonDidPressed button: UIButton)
+}
+
 public final class StatusMetricView: UIView {
+    
+    let logger = Logger(subsystem: "StatusMetricView", category: "View")
+    
+    weak var delegate: StatusMetricViewDelegate?
     
     // container
     public let containerStackView: UIStackView = {
@@ -88,9 +98,21 @@ extension StatusMetricView {
         favoriteButton.setContentHuggingPriority(.required - 1, for: .horizontal)
         favoriteButton.setContentCompressionResistancePriority(.required - 1, for: .horizontal)
         
-        // TODO:
-        reblogButton.isAccessibilityElement = false
-        favoriteButton.isAccessibilityElement = false
+        reblogButton.addTarget(self, action: #selector(StatusMetricView.reblogButtonDidPressed(_:)), for: .touchUpInside)
+        favoriteButton.addTarget(self, action: #selector(StatusMetricView.favoriteButtonDidPressed(_:)), for: .touchUpInside)
+    }
+}
+
+extension StatusMetricView {
+
+    @objc private func reblogButtonDidPressed(_ sender: UIButton) {
+        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
+        delegate?.statusMetricView(self, reblogButtonDidPressed: sender)
+    }
+    
+    @objc private func favoriteButtonDidPressed(_ sender: UIButton) {
+        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
+        delegate?.statusMetricView(self, favoriteButtonDidPressed: sender)
     }
     
 }

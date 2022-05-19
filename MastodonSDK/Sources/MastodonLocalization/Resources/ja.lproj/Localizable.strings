@@ -203,9 +203,14 @@
 "Scene.Discovery.Tabs.Hashtags" = "ハッシュタグ";
 "Scene.Discovery.Tabs.News" = "ニュース";
 "Scene.Discovery.Tabs.Posts" = "投稿";
+"Scene.Familiarfollowers.FollowedByNames" = "Followed by %@";
+"Scene.Familiarfollowers.Title" = "Followers you familiar";
 "Scene.Favorite.Title" = "お気に入り";
+"Scene.FavoritedBy.Title" = "Favorited By";
 "Scene.Follower.Footer" = "他のサーバーからのフォロワーは表示されません。";
+"Scene.Follower.Title" = "follower";
 "Scene.Following.Footer" = "他のサーバーにいるフォローは表示されません。";
+"Scene.Following.Title" = "following";
 "Scene.HomeTimeline.NavigationBarState.Accessibility.LogoHint" = "Tap to scroll to top and tap again to previous location";
 "Scene.HomeTimeline.NavigationBarState.Accessibility.LogoLabel" = "Logo Button";
 "Scene.HomeTimeline.NavigationBarState.NewPosts" = "新しい投稿を見る";
@@ -249,6 +254,7 @@
 "Scene.Profile.SegmentedControl.Posts" = "投稿";
 "Scene.Profile.SegmentedControl.PostsAndReplies" = "投稿と返信";
 "Scene.Profile.SegmentedControl.Replies" = "返信";
+"Scene.RebloggedBy.Title" = "Reblogged By";
 "Scene.Register.Error.Item.Agreement" = "契約";
 "Scene.Register.Error.Item.Email" = "メール";
 "Scene.Register.Error.Item.Locale" = "地域";

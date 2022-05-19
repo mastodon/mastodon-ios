@@ -474,6 +474,55 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider {
 
 }
 
+// MARK: - StatusMetricView
+extension StatusTableViewCellDelegate where Self: DataSourceProvider {
+    func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, statusMetricView: StatusMetricView, reblogButtonDidPressed button: UIButton) {
+        Task {
+            let source = DataSourceItem.Source(tableViewCell: cell, indexPath: nil)
+            guard let item = await item(from: source) else {
+                assertionFailure()
+                return
+            }
+            guard case let .status(status) = item else {
+                assertionFailure("only works for status data provider")
+                return
+            }
+            let userListViewModel = UserListViewModel(
+                context: context,
+                kind: .rebloggedBy(status: status)
+            )
+            await coordinator.present(
+                scene: .rebloggedBy(viewModel: userListViewModel),
+                from: self,
+                transition: .show
+            )
+        }   // end Task
+    }
+    
+    func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, statusMetricView: StatusMetricView, favoriteButtonDidPressed button: UIButton) {
+        Task {
+            let source = DataSourceItem.Source(tableViewCell: cell, indexPath: nil)
+            guard let item = await item(from: source) else {
+                assertionFailure()
+                return
+            }
+            guard case let .status(status) = item else {
+                assertionFailure("only works for status data provider")
+                return
+            }
+            let userListViewModel = UserListViewModel(
+                context: context,
+                kind: .favoritedBy(status: status)
+            )
+            await coordinator.present(
+                scene: .favoritedBy(viewModel: userListViewModel),
+                from: self,
+                transition: .show
+            )
+        }   // end Task
+    }
+}
+
 // MARK: a11y
 extension StatusTableViewCellDelegate where Self: DataSourceProvider {
     func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, accessibilityActivate: Void) {

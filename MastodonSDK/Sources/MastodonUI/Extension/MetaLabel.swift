@@ -22,6 +22,7 @@ extension MetaLabel {
         case profileFieldValue
         case profileCardName
         case profileCardUsername
+        case profileCardFamiliarFollowerFooter
         case recommendAccountName
         case titleView
         case settingTableFooter
@@ -90,6 +91,14 @@ extension MetaLabel {
             font = .systemFont(ofSize: 15, weight: .regular)
             textColor = Asset.Colors.Label.secondary.color
             
+        case .profileCardFamiliarFollowerFooter:
+            font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: .systemFont(ofSize: 13, weight: .regular), maximumPointSize: 26)
+            textColor = Asset.Colors.Label.secondary.color
+            numberOfLines = 2
+            textContainer.maximumNumberOfLines = 2
+            paragraphStyle.lineSpacing = 0
+            paragraphStyle.paragraphSpacing = 0
+            
         case .titleView:
             font = .systemFont(ofSize: 17, weight: .semibold)
             textColor = Asset.Colors.Label.primary.color
@@ -106,18 +115,23 @@ extension MetaLabel {
             numberOfLines = 0
             textContainer.maximumNumberOfLines = 0
             paragraphStyle.alignment = .center
+            
         case .autoCompletion:
             font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold), maximumPointSize: 22)
             textColor = Asset.Colors.brandBlue.color
+            
         case .accountListName:
             font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .regular), maximumPointSize: 22)
             textColor = Asset.Colors.Label.primary.color
+            
         case .accountListUsername:
             font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 15, weight: .regular), maximumPointSize: 20)
             textColor = Asset.Colors.Label.secondary.color
+            
         case .sidebarHeadline(let isSelected):
             font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 22, weight: .regular), maximumPointSize: 20)
             textColor = isSelected ? .white : Asset.Colors.Label.primary.color
+            
         case .sidebarSubheadline(let isSelected):
             font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 13, weight: .regular), maximumPointSize: 18)
             textColor = isSelected ? .white : Asset.Colors.Label.secondary.color

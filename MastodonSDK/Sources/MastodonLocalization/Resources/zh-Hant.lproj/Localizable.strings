@@ -195,7 +195,7 @@
 "Scene.ConfirmEmail.OpenEmailApp.OpenEmailClient" = "請開啟電子郵件程式";
 "Scene.ConfirmEmail.OpenEmailApp.Title" = "請檢查您的收件夾。";
 "Scene.ConfirmEmail.Subtitle" = "點擊我們寄送給您的帳號驗證連結。";
-"Scene.ConfirmEmail.TapTheLinkWeEmailedToYouToVerifyYourAccount" = "Tap the link we emailed to you to verify your account";
+"Scene.ConfirmEmail.TapTheLinkWeEmailedToYouToVerifyYourAccount" = "點擊我們寄送給您的帳號驗證連結";
 "Scene.ConfirmEmail.Title" = "最後一步。";
 "Scene.Discovery.Intro" = "這些嘟文正在您 Mastodon 的角落受到注目。";
 "Scene.Discovery.Tabs.Community" = "社群";
@@ -203,9 +203,14 @@
 "Scene.Discovery.Tabs.Hashtags" = "主題標籤";
 "Scene.Discovery.Tabs.News" = "最新消息";
 "Scene.Discovery.Tabs.Posts" = "嘟文";
+"Scene.Familiarfollowers.FollowedByNames" = "Followed by %@";
+"Scene.Familiarfollowers.Title" = "Followers you familiar";
 "Scene.Favorite.Title" = "您的最愛";
+"Scene.FavoritedBy.Title" = "Favorited By";
 "Scene.Follower.Footer" = "來自其他伺服器的跟隨者不會被顯示。";
+"Scene.Follower.Title" = "follower";
 "Scene.Following.Footer" = "來自其他伺服器的跟隨中不會被顯示。";
+"Scene.Following.Title" = "following";
 "Scene.HomeTimeline.NavigationBarState.Accessibility.LogoHint" = "輕點一下捲至頂端並且再點ㄧ下回到原先位置";
 "Scene.HomeTimeline.NavigationBarState.Accessibility.LogoLabel" = "標誌按鈕";
 "Scene.HomeTimeline.NavigationBarState.NewPosts" = "檢視最新嘟文";
@@ -249,6 +254,7 @@
 "Scene.Profile.SegmentedControl.Posts" = "嘟文";
 "Scene.Profile.SegmentedControl.PostsAndReplies" = "嘟文及回覆";
 "Scene.Profile.SegmentedControl.Replies" = "回覆";
+"Scene.RebloggedBy.Title" = "Reblogged By";
 "Scene.Register.Error.Item.Agreement" = "條款";
 "Scene.Register.Error.Item.Email" = "電子郵件";
 "Scene.Register.Error.Item.Locale" = "地區";
@@ -281,7 +287,7 @@
 "Scene.Register.Input.Password.Require" = "您的密碼必須是至少：";
 "Scene.Register.Input.Username.DuplicatePrompt" = "此使用者名稱已被佔用。";
 "Scene.Register.Input.Username.Placeholder" = "使用者名稱";
-"Scene.Register.LetsGetYouSetUpOnDomain" = "Let’s get you set up on %@";
+"Scene.Register.LetsGetYouSetUpOnDomain" = "讓我們一起設定 %@ 吧！";
 "Scene.Register.Title" = "讓我們一起設定 %@ 吧！";
 "Scene.Report.Content1" = "還有其他您想加入這份檢舉報告的嘟文嗎？";
 "Scene.Report.Content2" = "有其他管管們需要知道關於這份檢舉報告的嗎？";

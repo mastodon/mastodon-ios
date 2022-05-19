@@ -50,6 +50,33 @@
         <string>%ld caracteres</string>
       </dict>
     </dict>
+    <key>plural.count.followed_by_and_mutual</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@names@: "%#@count_mutual@</string>
+      <key>names</key>
+      <dict>
+        <key>one</key>
+        <string></string>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>other</key>
+        <string></string>
+      </dict>
+      <key>count_mutual</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>Seguido por %1$@ y otra cuenta mutua</string>
+        <key>other</key>
+        <string>Seguido por %1$@ y otras %ld cuentas mutuas</string>
+      </dict>
+    </dict>
     <key>plural.count.metric_formatted.post</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
@@ -77,9 +104,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 media</string>
+        <string>1 medio</string>
         <key>other</key>
-        <string>%ld media</string>
+        <string>%ld medios</string>
       </dict>
     </dict>
     <key>plural.count.post</key>
