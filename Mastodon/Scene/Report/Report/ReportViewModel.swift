@@ -125,40 +125,12 @@ extension ReportViewModel {
             // the user comment is essential step in report flow
             // only check isSkip or not
             let comment: String? = {
-                var suffixes: [String] = []
-                let content: String?
-                
-                // the server rules is NOT essential step in report flow
-                // append suffix depends which reason
-                if let reason = self.reportReasonViewModel.selectReason {
-                    switch reason {
-                    case .spam:
-                        suffixes.append(reason.rawValue)
-                    case .violateRule:
-                        suffixes.append(reason.rawValue)
-                        
-                        for rule in self.reportServerRulesViewModel.selectRules {
-                            suffixes.append(rule.text)
-                        }
-                    case .dislike:
-                        assertionFailure("should not enter the report flow")
-                    case .other:
-                        break
-                    }
+                let _comment = self.reportSupplementaryViewModel.isSkip ? nil : self.reportSupplementaryViewModel.commentContext.comment
+                if let comment = _comment, !comment.isEmpty {
+                    return comment
+                } else {
+                    return nil
                 }
-                    
-                content = self.reportSupplementaryViewModel.isSkip ? nil : self.reportSupplementaryViewModel.commentContext.comment
-                
-                let suffix: String? = {
-                    let text = suffixes.joined(separator: ". ")
-                    guard !text.isEmpty else { return nil }
-                    return "<" + text + ">"
-                }()
-                
-                let comment = [content, suffix]
-                    .compactMap { $0 }
-                    .joined(separator: " ")
-                return comment.isEmpty ? nil : comment
             }()
             return Mastodon.API.Reports.FileReportQuery(
                 accountID: user.id,
