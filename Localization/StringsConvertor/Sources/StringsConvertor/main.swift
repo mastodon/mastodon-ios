@@ -54,6 +54,7 @@ private func map(language: String) -> String? {
     case "zh-Hant.lproj":   return "zh-Hant"    // Chinese Traditional
     case "nl.lproj":        return "nl"         // Dutch
     case "en.lproj":        return "en"
+    case "fi.lproj":        return "fi"         // Finnish
     case "fr.lproj":        return "fr"         // French
     case "gl.lproj":        return "gl"         // Galician
     case "de.lproj":        return "de"         // German

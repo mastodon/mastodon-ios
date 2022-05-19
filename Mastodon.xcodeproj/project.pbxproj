@@ -1198,6 +1198,9 @@
 		DB8D8E3128196FA0009FD90F /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Intents.strings; sourceTree = "<group>"; };
 		DB8D8E3228196FA0009FD90F /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DB8D8E3328196FA0009FD90F /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = sv; path = sv.lproj/Intents.stringsdict; sourceTree = "<group>"; };
+		DB8F40042835EE5E006E7513 /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/Intents.strings; sourceTree = "<group>"; };
+		DB8F40052835EE5E006E7513 /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DB8F40062835EE5E006E7513 /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = fi; path = fi.lproj/Intents.stringsdict; sourceTree = "<group>"; };
 		DB8F7075279E954700E1225B /* DataSourceFacade+Follow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataSourceFacade+Follow.swift"; sourceTree = "<group>"; };
 		DB8FAB9E26AEC3A2008E5AF4 /* Intents.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Intents.framework; path = System/Library/Frameworks/Intents.framework; sourceTree = SDKROOT; };
 		DB8FABA926AEC3A2008E5AF4 /* IntentsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IntentsUI.framework; path = System/Library/Frameworks/IntentsUI.framework; sourceTree = SDKROOT; };
@@ -3646,6 +3649,7 @@
 				eu,
 				gd,
 				"es-AR",
+				fi,
 			);
 			mainGroup = DB427DC925BAA00100D1B89D;
 			packageReferences = (
@@ -4611,6 +4615,7 @@
 				DBC9E3A3282E13BB0063A4D9 /* eu */,
 				DBC9E3A6282E15190063A4D9 /* gd */,
 				DBC9E3A9282E17DF0063A4D9 /* es-AR */,
+				DB8F40042835EE5E006E7513 /* fi */,
 			);
 			name = Intents.intentdefinition;
 			sourceTree = "<group>";
@@ -4641,6 +4646,7 @@
 				DBC9E3A4282E13BB0063A4D9 /* eu */,
 				DBC9E3A7282E15190063A4D9 /* gd */,
 				DBC9E3AA282E17DF0063A4D9 /* es-AR */,
+				DB8F40052835EE5E006E7513 /* fi */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -4687,6 +4693,7 @@
 				DBC9E3A5282E13BB0063A4D9 /* eu */,
 				DBC9E3A8282E15190063A4D9 /* gd */,
 				DBC9E3AB282E17DF0063A4D9 /* es-AR */,
+				DB8F40062835EE5E006E7513 /* fi */,
 			);
 			name = Intents.stringsdict;
 			sourceTree = "<group>";
