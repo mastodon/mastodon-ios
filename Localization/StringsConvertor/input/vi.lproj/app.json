@@ -462,22 +462,22 @@
             }
         },
         "follower": {
-            "title": "follower",
+            "title": "người theo dõi",
             "footer": "Không hiển thị người theo dõi từ máy chủ khác."
         },
         "following": {
-            "title": "following",
+            "title": "đang theo dõi",
             "footer": "Không hiển thị người bạn theo dõi từ máy chủ khác."
         },
         "familiarFollowers": {
-            "title": "Followers you familiar",
-            "followed_by_names": "Followed by %s"
+            "title": "Người theo dõi tương tự",
+            "followed_by_names": "Theo dõi bởi %s"
         },
         "favorited_by": {
-            "title": "Favorited By"
+            "title": "Thích bởi"
         },
         "reblogged_by": {
-            "title": "Reblogged By"
+            "title": "Đăng lại bởi"
         },
         "search": {
             "title": "Tìm kiếm",

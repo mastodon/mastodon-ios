@@ -129,7 +129,7 @@
                 "show_post": "Montrer la publication",
                 "show_user_profile": "Montrer le profil de l’utilisateur·rice",
                 "content_warning": "Avertissement de contenu",
-                "sensitive_content": "Sensitive Content",
+                "sensitive_content": "Contenu sensible",
                 "media_content_warning": "Tapotez n’importe où pour révéler la publication",
                 "tap_to_reveal": "Appuyer pour afficher",
                 "poll": {
@@ -147,7 +147,7 @@
                     "show_image": "Afficher l’image",
                     "show_gif": "Afficher le GIF",
                     "show_video_player": "Afficher le lecteur vidéo",
-                    "tap_then_hold_to_show_menu": "Tap then hold to show menu"
+                    "tap_then_hold_to_show_menu": "Appuyez et maintenez pour afficher le menu"
                 },
                 "tag": {
                     "url": "URL",
@@ -241,7 +241,7 @@
             },
             "input": {
                 "placeholder": "Trouvez un serveur ou rejoignez le vôtre...",
-                "search_servers_or_enter_url": "Search communities or enter URL"
+                "search_servers_or_enter_url": "Rechercher parmi les communautés ou entrer une URL"
             },
             "empty_state": {
                 "finding_servers": "Recherche des serveurs disponibles...",
@@ -251,7 +251,7 @@
         },
         "register": {
             "title": "Parlez-nous de vous.",
-            "lets_get_you_set_up_on_domain": "Let’s get you set up on %s",
+            "lets_get_you_set_up_on_domain": "Mettons les choses en place pour %s",
             "input": {
                 "avatar": {
                     "delete": "Supprimer"
@@ -322,7 +322,7 @@
         "confirm_email": {
             "title": "Une dernière chose.",
             "subtitle": "Appuyez sur le lien que nous vous avons envoyé par courriel pour vérifier votre compte.",
-            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we emailed to you to verify your account",
+            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Appuyez sur le lien que nous vous avons envoyé par courriel pour vérifier votre compte",
             "button": {
                 "open_email_app": "Ouvrir l’application de courriel",
                 "resend": "Renvoyer"
@@ -347,7 +347,7 @@
                 "published": "Publié!",
                 "Publishing": "Publication en cours ...",
                 "accessibility": {
-                    "logo_label": "Logo Button",
+                    "logo_label": "Bouton logo",
                     "logo_hint": "Tap to scroll to top and tap again to previous location"
                 }
             }
@@ -462,7 +462,7 @@
             }
         },
         "follower": {
-            "title": "follower",
+            "title": "abonné·e",
             "footer": "Les abonné·e·s issus des autres serveurs ne sont pas affiché·e·s."
         },
         "following": {
@@ -470,8 +470,8 @@
             "footer": "Les abonnés issus des autres serveurs ne sont pas affichés."
         },
         "familiarFollowers": {
-            "title": "Followers you familiar",
-            "followed_by_names": "Followed by %s"
+            "title": "Abonné·e·s que vous connaissez",
+            "followed_by_names": "Suivi·e par %s"
         },
         "favorited_by": {
             "title": "Favorited By"
@@ -517,10 +517,10 @@
                 "posts": "Messages",
                 "hashtags": "Hashtags",
                 "news": "Actualité",
-                "community": "Community",
+                "community": "Communauté",
                 "for_you": "Pour vous"
             },
-            "intro": "These are the posts gaining traction in your corner of Mastodon."
+            "intro": "Ce sont les messages qui gagnent en popularité sur votre serveur Mastodon."
         },
         "favorite": {
             "title": "Vos favoris"
@@ -617,44 +617,44 @@
             "text_placeholder": "Tapez ou collez des informations supplémentaires",
             "reported": "SIGNALÉ",
             "step_one": {
-                "step_1_of_4": "Step 1 of 4",
-                "whats_wrong_with_this_post": "What's wrong with this post?",
-                "whats_wrong_with_this_account": "What's wrong with this account?",
-                "whats_wrong_with_this_username": "What's wrong with %s?",
+                "step_1_of_4": "Étape 1 sur 4",
+                "whats_wrong_with_this_post": "Qu’est-ce qui ne va pas avec ce message ?",
+                "whats_wrong_with_this_account": "Qu’est-ce qui ne va pas avec ce compte ?",
+                "whats_wrong_with_this_username": "Qu’est-ce qui ne va pas avec %s ?",
                 "select_the_best_match": "Select the best match",
-                "i_dont_like_it": "I don’t like it",
-                "it_is_not_something_you_want_to_see": "It is not something you want to see",
-                "its_spam": "It’s spam",
-                "malicious_links_fake_engagement_or_repetetive_replies": "Malicious links, fake engagement, or repetetive replies",
-                "it_violates_server_rules": "It violates server rules",
-                "you_are_aware_that_it_breaks_specific_rules": "You are aware that it breaks specific rules",
-                "its_something_else": "It’s something else",
-                "the_issue_does_not_fit_into_other_categories": "The issue does not fit into other categories"
+                "i_dont_like_it": "Je n’aime pas",
+                "it_is_not_something_you_want_to_see": "C’est quelque chose que vous ne souhaitez pas voir",
+                "its_spam": "C’est du spam",
+                "malicious_links_fake_engagement_or_repetetive_replies": "Liens malveillants, engagement mensonger ou réponses répétitives",
+                "it_violates_server_rules": "Enfreint les règles du serveur",
+                "you_are_aware_that_it_breaks_specific_rules": "Vous savez qu’il enfreint des règles spécifiques",
+                "its_something_else": "Pour une autre raison",
+                "the_issue_does_not_fit_into_other_categories": "Le problème ne correspond à aucune des catégories"
             },
             "step_two": {
-                "step_2_of_4": "Step 2 of 4",
-                "which_rules_are_being_violated": "Which rules are being violated?",
-                "select_all_that_apply": "Select all that apply",
-                "i_just_don’t_like_it": "I just don’t like it"
+                "step_2_of_4": "Étape 2 sur 4",
+                "which_rules_are_being_violated": "Quelles règles sont enfreintes ?",
+                "select_all_that_apply": "Sélectionnez toutes les réponses appropriées",
+                "i_just_don’t_like_it": "Ça ne me plaît tout simplement pas"
             },
             "step_three": {
-                "step_3_of_4": "Step 3 of 4",
-                "are_there_any_posts_that_back_up_this_report": "Are there any posts that back up this report?",
-                "select_all_that_apply": "Select all that apply"
+                "step_3_of_4": "Étape 3 sur 4",
+                "are_there_any_posts_that_back_up_this_report": "Existe-t-il des messages pour étayer ce rapport ?",
+                "select_all_that_apply": "Sélectionnez toutes les réponses qui s’appliquent"
             },
             "step_four": {
-                "step_4_of_4": "Step 4 of 4",
-                "is_there_anything_else_we_should_know": "Is there anything else we should know?"
+                "step_4_of_4": "Étape 4 sur 4",
+                "is_there_anything_else_we_should_know": "Y a-t-il autre chose que nous devrions savoir ?"
             },
             "step_final": {
-                "dont_want_to_see_this": "Don’t want to see this?",
-                "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "When you see something you don’t like on Mastodon, you can remove the person from your experience.",
-                "unfollow": "Unfollow",
+                "dont_want_to_see_this": "Vous ne voulez pas voir cela ?",
+                "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "Quand vous voyez quelque chose que vous n’aimez pas sur Mastodon, vous pouvez retirer la personne de votre expérience.",
+                "unfollow": "Se désabonner",
                 "unfollowed": "Unfollowed",
-                "unfollow_user": "Unfollow %s",
-                "mute_user": "Mute %s",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or reblogs in your home feed. They won’t know they’ve been muted.",
-                "block_user": "Block %s",
+                "unfollow_user": "Ne plus suivre %s",
+                "mute_user": "Masquer %s",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "Vous ne verrez plus leurs messages ou leurs partages dans votre flux personnel. Iels ne sauront pas qu’iels ont été mis en sourdine.",
+                "block_user": "Bloquer %s",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "They will no longer be able to follow or see your posts, but they can see if they’ve been blocked.",
                 "while_we_review_this_you_can_take_action_against_user": "While we review this, you can take action against %s"
             }
