@@ -104,17 +104,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>Followed by %1$@, and %ld mutuals</string>
+        <string>مُتابَعٌ مِن قِبَلِ لَا أحَد</string>
         <key>one</key>
-        <string>Followed by %1$@, and another mutual</string>
+        <string>مُتابَعٌ مِن قِبَلِ %1$@، وشَخصٌ آخَرُ مُتبادَل</string>
         <key>two</key>
-        <string>Followed by %1$@, and %ld mutuals</string>
+        <string>مُتابَعٌ مِن قِبَلِ %1$@، وشَخصانِ آخَرَانِ مُتبادَلَان</string>
         <key>few</key>
-        <string>Followed by %1$@, and %ld mutuals</string>
+        <string>مُتابَعٌ مِن قِبَلِ %1$@، و%ld آخرين مُتبادَلين</string>
         <key>many</key>
-        <string>Followed by %1$@, and %ld mutuals</string>
+        <string>مُتابَعٌ مِن قِبَلِ %1$@، و%ld آخرين مُتبادَلين</string>
         <key>other</key>
-        <string>Followed by %1$@, and %ld mutuals</string>
+        <string>مُتابَعٌ مِن قِبَلِ %1$@، و%ld آخَرَ مُتبادَل</string>
       </dict>
     </dict>
     <key>plural.count.metric_formatted.post</key>
