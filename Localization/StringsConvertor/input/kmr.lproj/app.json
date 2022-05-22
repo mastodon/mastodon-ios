@@ -241,7 +241,7 @@
             },
             "input": {
                 "placeholder": "Li rajekaran bigere",
-                "search_servers_or_enter_url": "Li civakan bigere an jî girêdanê binivîse"
+                "search_servers_or_enter_url": "Search servers or enter URL"
             },
             "empty_state": {
                 "finding_servers": "Peydakirina rajekarên berdest...",
