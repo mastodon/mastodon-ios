@@ -241,7 +241,7 @@
             },
             "input": {
                 "placeholder": "Nach Server suchen oder URL eingeben",
-                "search_servers_or_enter_url": "Nach Server suchen oder URL eingeben"
+                "search_servers_or_enter_url": "Search servers or enter URL"
             },
             "empty_state": {
                 "finding_servers": "Verfügbare Server werden gesucht...",
