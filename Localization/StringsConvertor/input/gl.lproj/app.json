@@ -241,7 +241,7 @@
             },
             "input": {
                 "placeholder": "Buscar comunidades",
-                "search_servers_or_enter_url": "Busca comunidades ou escribe URL"
+                "search_servers_or_enter_url": "Search servers or enter URL"
             },
             "empty_state": {
                 "finding_servers": "Buscando servidores dispoñibles...",
