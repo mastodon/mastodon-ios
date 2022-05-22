@@ -241,7 +241,7 @@
             },
             "input": {
                 "placeholder": "Sök gemenskaper",
-                "search_servers_or_enter_url": "Sök gemenskaper eller ange URL"
+                "search_servers_or_enter_url": "Search servers or enter URL"
             },
             "empty_state": {
                 "finding_servers": "Söker tillgängliga servrar...",
