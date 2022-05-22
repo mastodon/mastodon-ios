@@ -241,7 +241,7 @@
             },
             "input": {
                 "placeholder": "搜尋伺服器",
-                "search_servers_or_enter_url": "Search servers or enter URL"
+                "search_servers_or_enter_url": "搜尋伺服器或輸入網址"
             },
             "empty_state": {
                 "finding_servers": "尋找可用的伺服器...",
