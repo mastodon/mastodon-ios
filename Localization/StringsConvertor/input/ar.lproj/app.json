@@ -241,7 +241,7 @@
             },
             "input": {
                 "placeholder": "اِبحَث عن خادِم أو انضم إلى آخر خاص بك...",
-                "search_servers_or_enter_url": "Search servers or enter URL"
+                "search_servers_or_enter_url": "اِبحَث فِي الخَوادِم أو أدخِل رابِط"
             },
             "empty_state": {
                 "finding_servers": "يجري إيجاد خوادم متوفِّرَة...",
