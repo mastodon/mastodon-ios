@@ -241,7 +241,7 @@
             },
             "input": {
                 "placeholder": "Lorg frithealaiche no gabh pàirt san fhear agad fhèin…",
-                "search_servers_or_enter_url": "Search communities or enter URL"
+                "search_servers_or_enter_url": "Search servers or enter URL"
             },
             "empty_state": {
                 "finding_servers": "A’ lorg nam frithealaichean ri am faighinn…",
