@@ -241,7 +241,7 @@
             },
             "input": {
                 "placeholder": "查找或加入你自己的服务器...",
-                "search_servers_or_enter_url": "搜索服务器或输入 URL"
+                "search_servers_or_enter_url": "Search servers or enter URL"
             },
             "empty_state": {
                 "finding_servers": "正在查找可用的服务器...",

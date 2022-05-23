@@ -241,7 +241,7 @@
             },
             "input": {
                 "placeholder": "Li rajekaran bigere",
-                "search_servers_or_enter_url": "Li civakan bigere an jî girêdanê binivîse"
+                "search_servers_or_enter_url": "Search servers or enter URL"
             },
             "empty_state": {
                 "finding_servers": "Peydakirina rajekarên berdest...",
@@ -462,22 +462,22 @@
             }
         },
         "follower": {
-            "title": "follower",
+            "title": "şopîner",
             "footer": "Şopîner ji rajekerên din nayê dîtin."
         },
         "following": {
-            "title": "following",
+            "title": "dişopîne",
             "footer": "Şopandin ji rajekerên din nayê dîtin."
         },
         "familiarFollowers": {
-            "title": "Followers you familiar",
-            "followed_by_names": "Followed by %s"
+            "title": "Şopînerên ku tu wan nas dikî",
+            "followed_by_names": "Ji aliyêm%s hatiye şopandin"
         },
         "favorited_by": {
-            "title": "Favorited By"
+            "title": "Hatiye hezkirin ji aliyê"
         },
         "reblogged_by": {
-            "title": "Reblogged By"
+            "title": "Ji nû ve hatiye nivîsandin ji aliyê"
         },
         "search": {
             "title": "Bigere",
