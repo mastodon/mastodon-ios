@@ -96,11 +96,13 @@ final class PickServerServerSectionTableHeaderView: UIView {
         textField.tintColor = Asset.Colors.Label.primary.color
         textField.textColor = Asset.Colors.Label.primary.color
         textField.adjustsFontForContentSizeCategory = true
-        textField.attributedPlaceholder =
-            NSAttributedString(
-                string: L10n.Scene.ServerPicker.Input.placeholder,
-                attributes: [.font: UIFont.systemFont(ofSize: 15, weight: .regular),
-                             .foregroundColor: Asset.Colors.Label.secondary.color.withAlphaComponent(0.6)])
+        textField.attributedPlaceholder = NSAttributedString(
+            string: L10n.Scene.ServerPicker.Input.searchServersOrEnterUrl,
+            attributes: [
+                .font: UIFont.systemFont(ofSize: 15, weight: .regular),
+                .foregroundColor: Asset.Colors.Label.secondary.color.withAlphaComponent(0.6)
+            ]
+        )
         textField.clearButtonMode = .whileEditing
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no

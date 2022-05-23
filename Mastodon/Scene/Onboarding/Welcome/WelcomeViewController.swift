@@ -50,7 +50,8 @@ final class WelcomeViewController: UIViewController, NeedsDependency {
     private(set) lazy var signUpButton: PrimaryActionButton = {
         let button = PrimaryActionButton()
         button.adjustsBackgroundImageWhenUserInterfaceStyleChanges = false
-        button.setTitle(L10n.Scene.Welcome.getStarted, for: .normal)
+        button.titleLabel?.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold))
+        button.setTitle(L10n.Common.Controls.Actions.signUp, for: .normal)
         let backgroundImageColor: UIColor = .white
         let backgroundImageHighlightedColor: UIColor = UIColor(white: 0.8, alpha: 1.0)
         button.setBackgroundImage(.placeholder(color: backgroundImageColor), for: .normal)
@@ -63,7 +64,7 @@ final class WelcomeViewController: UIViewController, NeedsDependency {
     private(set) lazy var signInButton: PrimaryActionButton = {
         let button = PrimaryActionButton()
         button.adjustsBackgroundImageWhenUserInterfaceStyleChanges = false
-        button.titleLabel?.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 15, weight: .semibold))
+        button.titleLabel?.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold))
         button.setTitle(L10n.Scene.Welcome.logIn, for: .normal)
         let backgroundImageColor = Asset.Scene.Welcome.signInButtonBackground.color
         let backgroundImageHighlightedColor = Asset.Scene.Welcome.signInButtonBackground.color.withAlphaComponent(0.8)
