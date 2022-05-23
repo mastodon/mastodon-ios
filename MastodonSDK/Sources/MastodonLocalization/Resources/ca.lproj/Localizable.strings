@@ -374,7 +374,7 @@ carregat a Mastodon.";
 "Scene.ServerPicker.EmptyState.FindingServers" = "Cercant els servidors disponibles...";
 "Scene.ServerPicker.EmptyState.NoResults" = "No hi ha resultats";
 "Scene.ServerPicker.Input.Placeholder" = "Cerca servidors";
-"Scene.ServerPicker.Input.SearchServersOrEnterUrl" = "Cerca comunitats o introdueix l'URL";
+"Scene.ServerPicker.Input.SearchServersOrEnterUrl" = "Cerca servidors o introdueix l'enllaç";
 "Scene.ServerPicker.Label.Category" = "CATEGORIA";
 "Scene.ServerPicker.Label.Language" = "LLENGUATGE";
 "Scene.ServerPicker.Label.Users" = "USUARIS";

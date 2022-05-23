@@ -369,7 +369,7 @@
 "Scene.ServerPicker.EmptyState.FindingServers" = "尋找可用的伺服器...";
 "Scene.ServerPicker.EmptyState.NoResults" = "沒有結果";
 "Scene.ServerPicker.Input.Placeholder" = "搜尋伺服器";
-"Scene.ServerPicker.Input.SearchServersOrEnterUrl" = "搜尋社群或輸入 URL 地址";
+"Scene.ServerPicker.Input.SearchServersOrEnterUrl" = "搜尋伺服器或輸入網址";
 "Scene.ServerPicker.Label.Category" = "分類";
 "Scene.ServerPicker.Label.Language" = "語言";
 "Scene.ServerPicker.Label.Users" = "使用者";

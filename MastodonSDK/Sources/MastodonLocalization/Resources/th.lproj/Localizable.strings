@@ -374,7 +374,7 @@
 "Scene.ServerPicker.EmptyState.FindingServers" = "กำลังค้นหาเซิร์ฟเวอร์ที่พร้อมใช้งาน...";
 "Scene.ServerPicker.EmptyState.NoResults" = "ไม่มีผลลัพธ์";
 "Scene.ServerPicker.Input.Placeholder" = "ค้นหาเซิร์ฟเวอร์";
-"Scene.ServerPicker.Input.SearchServersOrEnterUrl" = "ค้นหาชุมชนหรือป้อน URL";
+"Scene.ServerPicker.Input.SearchServersOrEnterUrl" = "Search servers or enter URL";
 "Scene.ServerPicker.Label.Category" = "หมวดหมู่";
 "Scene.ServerPicker.Label.Language" = "ภาษา";
 "Scene.ServerPicker.Label.Users" = "ผู้ใช้";

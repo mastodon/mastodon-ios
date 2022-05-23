@@ -374,7 +374,7 @@ tải lên Mastodon.";
 "Scene.ServerPicker.EmptyState.FindingServers" = "Đang tìm máy chủ hoạt động...";
 "Scene.ServerPicker.EmptyState.NoResults" = "Không có kết quả";
 "Scene.ServerPicker.Input.Placeholder" = "Tìm máy chủ";
-"Scene.ServerPicker.Input.SearchServersOrEnterUrl" = "Tìm một máy chủ hoặc nhập URL";
+"Scene.ServerPicker.Input.SearchServersOrEnterUrl" = "Search servers or enter URL";
 "Scene.ServerPicker.Label.Category" = "PHÂN LOẠI";
 "Scene.ServerPicker.Label.Language" = "NGÔN NGỮ";
 "Scene.ServerPicker.Label.Users" = "NGƯỜI DÙNG";

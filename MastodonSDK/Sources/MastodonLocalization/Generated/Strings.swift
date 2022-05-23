@@ -1063,7 +1063,7 @@ public enum L10n {
       public enum Input {
         /// Search servers
         public static let placeholder = L10n.tr("Localizable", "Scene.ServerPicker.Input.Placeholder")
-        /// Search communities or enter URL
+        /// Search servers or enter URL
         public static let searchServersOrEnterUrl = L10n.tr("Localizable", "Scene.ServerPicker.Input.SearchServersOrEnterUrl")
       }
       public enum Label {

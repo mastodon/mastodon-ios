@@ -374,7 +374,7 @@ ser subido a Mastodon.";
 "Scene.ServerPicker.EmptyState.FindingServers" = "Buscando servidores dispoñibles...";
 "Scene.ServerPicker.EmptyState.NoResults" = "Sen resultados";
 "Scene.ServerPicker.Input.Placeholder" = "Buscar comunidades";
-"Scene.ServerPicker.Input.SearchServersOrEnterUrl" = "Busca comunidades ou escribe URL";
+"Scene.ServerPicker.Input.SearchServersOrEnterUrl" = "Search servers or enter URL";
 "Scene.ServerPicker.Label.Category" = "CATEGORÍA";
 "Scene.ServerPicker.Label.Language" = "IDIOMA";
 "Scene.ServerPicker.Label.Users" = "USUARIAS";

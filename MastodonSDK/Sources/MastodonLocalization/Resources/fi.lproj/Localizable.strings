@@ -374,7 +374,7 @@ uploaded to Mastodon.";
 "Scene.ServerPicker.EmptyState.FindingServers" = "Etsistään saatavilla olevia palvelimia...";
 "Scene.ServerPicker.EmptyState.NoResults" = "Ei hakutuloksia";
 "Scene.ServerPicker.Input.Placeholder" = "Etsi palvelin tai liity omaan...";
-"Scene.ServerPicker.Input.SearchServersOrEnterUrl" = "Search communities or enter URL";
+"Scene.ServerPicker.Input.SearchServersOrEnterUrl" = "Search servers or enter URL";
 "Scene.ServerPicker.Label.Category" = "KATEGORIA";
 "Scene.ServerPicker.Label.Language" = "KIELI";
 "Scene.ServerPicker.Label.Users" = "TILIÄ";

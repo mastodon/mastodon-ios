@@ -373,7 +373,7 @@ yüklenemiyor.";
 "Scene.ServerPicker.EmptyState.FindingServers" = "Mevcut sunucular aranıyor...";
 "Scene.ServerPicker.EmptyState.NoResults" = "Sonuç yok";
 "Scene.ServerPicker.Input.Placeholder" = "Toplulukları ara";
-"Scene.ServerPicker.Input.SearchServersOrEnterUrl" = "Search communities or enter URL";
+"Scene.ServerPicker.Input.SearchServersOrEnterUrl" = "Search servers or enter URL";
 "Scene.ServerPicker.Label.Category" = "KATEGORİ";
 "Scene.ServerPicker.Label.Language" = "DİL";
 "Scene.ServerPicker.Label.Users" = "KULLANICILAR";

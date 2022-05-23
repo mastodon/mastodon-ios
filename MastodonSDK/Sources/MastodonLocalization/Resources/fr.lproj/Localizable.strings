@@ -374,7 +374,7 @@ téléversé sur Mastodon.";
 "Scene.ServerPicker.EmptyState.FindingServers" = "Recherche des serveurs disponibles...";
 "Scene.ServerPicker.EmptyState.NoResults" = "Aucun résultat";
 "Scene.ServerPicker.Input.Placeholder" = "Trouvez un serveur ou rejoignez le vôtre...";
-"Scene.ServerPicker.Input.SearchServersOrEnterUrl" = "Rechercher parmi les communautés ou entrer une URL";
+"Scene.ServerPicker.Input.SearchServersOrEnterUrl" = "Search servers or enter URL";
 "Scene.ServerPicker.Label.Category" = "CATÉGORIE";
 "Scene.ServerPicker.Label.Language" = "LANGUE";
 "Scene.ServerPicker.Label.Users" = "UTILISATEUR·RICE·S";

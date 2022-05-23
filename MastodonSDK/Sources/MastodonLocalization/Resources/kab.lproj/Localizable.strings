@@ -374,7 +374,7 @@ Ad d-yettwasali ɣef Mastodon.";
 "Scene.ServerPicker.EmptyState.FindingServers" = "Tifin n yiqeddacen yellan...";
 "Scene.ServerPicker.EmptyState.NoResults" = "Ulac igemmaḍ";
 "Scene.ServerPicker.Input.Placeholder" = "Nadi timɣiwnin";
-"Scene.ServerPicker.Input.SearchServersOrEnterUrl" = "Search communities or enter URL";
+"Scene.ServerPicker.Input.SearchServersOrEnterUrl" = "Search servers or enter URL";
 "Scene.ServerPicker.Label.Category" = "TAGGAYT";
 "Scene.ServerPicker.Label.Language" = "TUTLAYT";
 "Scene.ServerPicker.Label.Users" = "ISEQDACEN";

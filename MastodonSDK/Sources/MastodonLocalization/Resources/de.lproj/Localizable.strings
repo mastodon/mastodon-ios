@@ -374,7 +374,7 @@ kann nicht auf Mastodon hochgeladen werden.";
 "Scene.ServerPicker.EmptyState.FindingServers" = "Verfügbare Server werden gesucht...";
 "Scene.ServerPicker.EmptyState.NoResults" = "Keine Ergebnisse";
 "Scene.ServerPicker.Input.Placeholder" = "Nach Server suchen oder URL eingeben";
-"Scene.ServerPicker.Input.SearchServersOrEnterUrl" = "Nach Server suchen oder URL eingeben";
+"Scene.ServerPicker.Input.SearchServersOrEnterUrl" = "Search servers or enter URL";
 "Scene.ServerPicker.Label.Category" = "KATEGORIE";
 "Scene.ServerPicker.Label.Language" = "SPRACHE";
 "Scene.ServerPicker.Label.Users" = "BENUTZER";

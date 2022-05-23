@@ -369,7 +369,7 @@
 "Scene.ServerPicker.EmptyState.FindingServers" = "利用可能なサーバーの検索...";
 "Scene.ServerPicker.EmptyState.NoResults" = "なし";
 "Scene.ServerPicker.Input.Placeholder" = "サーバーを探す";
-"Scene.ServerPicker.Input.SearchServersOrEnterUrl" = "Search communities or enter URL";
+"Scene.ServerPicker.Input.SearchServersOrEnterUrl" = "Search servers or enter URL";
 "Scene.ServerPicker.Label.Category" = "カテゴリー";
 "Scene.ServerPicker.Label.Language" = "言語";
 "Scene.ServerPicker.Label.Users" = "ユーザー";

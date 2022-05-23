@@ -374,7 +374,7 @@ caricato su Mastodon.";
 "Scene.ServerPicker.EmptyState.FindingServers" = "Ricerca server disponibili...";
 "Scene.ServerPicker.EmptyState.NoResults" = "Nessun risultato";
 "Scene.ServerPicker.Input.Placeholder" = "Cerca comunità";
-"Scene.ServerPicker.Input.SearchServersOrEnterUrl" = "Cerca comunità o inserisci l'URL";
+"Scene.ServerPicker.Input.SearchServersOrEnterUrl" = "Cerca i server o inserisci l'URL";
 "Scene.ServerPicker.Label.Category" = "CATEGORIA";
 "Scene.ServerPicker.Label.Language" = "LINGUA";
 "Scene.ServerPicker.Label.Users" = "UTENTI";
