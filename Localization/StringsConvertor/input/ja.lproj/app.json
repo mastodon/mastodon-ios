@@ -241,7 +241,7 @@
             },
             "input": {
                 "placeholder": "サーバーを探す",
-                "search_servers_or_enter_url": "Search servers or enter URL"
+                "search_servers_or_enter_url": "サーバーを検索またはURLを入力"
             },
             "empty_state": {
                 "finding_servers": "利用可能なサーバーの検索...",
