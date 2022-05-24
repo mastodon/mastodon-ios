@@ -385,7 +385,7 @@
 "Scene.ServerPicker.EmptyState.FindingServers" = "Ищем доступные сервера...";
 "Scene.ServerPicker.EmptyState.NoResults" = "Нет результатов";
 "Scene.ServerPicker.Input.Placeholder" = "Найдите сервер или присоединитесь к своему...";
-"Scene.ServerPicker.Input.SearchServersOrEnterUrl" = "Search communities or enter URL";
+"Scene.ServerPicker.Input.SearchServersOrEnterUrl" = "Поиск по серверам или ссылке";
 "Scene.ServerPicker.Label.Category" = "КАТЕГОРИЯ";
 "Scene.ServerPicker.Label.Language" = "ЯЗЫК";
 "Scene.ServerPicker.Label.Users" = "ПОЛЬЗОВАТЕЛИ";

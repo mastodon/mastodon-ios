@@ -373,7 +373,7 @@
 "Scene.ServerPicker.EmptyState.FindingServers" = "ڕاژەکار دەدۆزرێتەوە...";
 "Scene.ServerPicker.EmptyState.NoResults" = "ئەنجام نییە";
 "Scene.ServerPicker.Input.Placeholder" = "بگەڕێ";
-"Scene.ServerPicker.Input.SearchServersOrEnterUrl" = "Search communities or enter URL";
+"Scene.ServerPicker.Input.SearchServersOrEnterUrl" = "Search servers or enter URL";
 "Scene.ServerPicker.Label.Category" = "بەش";
 "Scene.ServerPicker.Label.Language" = "زمان";
 "Scene.ServerPicker.Label.Users" = "بەکارهێنەر";

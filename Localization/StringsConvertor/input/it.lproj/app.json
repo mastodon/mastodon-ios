@@ -241,7 +241,7 @@
             },
             "input": {
                 "placeholder": "Cerca comunità",
-                "search_servers_or_enter_url": "Cerca comunità o inserisci l'URL"
+                "search_servers_or_enter_url": "Cerca i server o inserisci l'URL"
             },
             "empty_state": {
                 "finding_servers": "Ricerca server disponibili...",
@@ -462,22 +462,22 @@
             }
         },
         "follower": {
-            "title": "follower",
+            "title": "seguace",
             "footer": "I seguaci da altri server non vengono visualizzati."
         },
         "following": {
-            "title": "following",
+            "title": "seguendo",
             "footer": "I follow da altri server non vengono visualizzati."
         },
         "familiarFollowers": {
-            "title": "Followers you familiar",
-            "followed_by_names": "Followed by %s"
+            "title": "Seguaci che conosci",
+            "followed_by_names": "Seguito da %s"
         },
         "favorited_by": {
-            "title": "Favorited By"
+            "title": "Preferito Da"
         },
         "reblogged_by": {
-            "title": "Reblogged By"
+            "title": "Condiviso Da"
         },
         "search": {
             "title": "Cerca",

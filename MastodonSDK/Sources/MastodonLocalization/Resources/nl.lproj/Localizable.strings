@@ -369,7 +369,7 @@ klik op de link om uw account te bevestigen.";
 "Scene.ServerPicker.EmptyState.FindingServers" = "Beschikbare servers zoeken...";
 "Scene.ServerPicker.EmptyState.NoResults" = "Geen resultaten";
 "Scene.ServerPicker.Input.Placeholder" = "Zoek uw server of sluit u bij een nieuwe server aan...";
-"Scene.ServerPicker.Input.SearchServersOrEnterUrl" = "Search communities or enter URL";
+"Scene.ServerPicker.Input.SearchServersOrEnterUrl" = "Search servers or enter URL";
 "Scene.ServerPicker.Label.Category" = "CATEGORIE";
 "Scene.ServerPicker.Label.Language" = "TAAL";
 "Scene.ServerPicker.Label.Users" = "GEBRUIKERS";

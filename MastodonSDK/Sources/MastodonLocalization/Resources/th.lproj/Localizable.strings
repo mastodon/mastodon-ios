@@ -208,14 +208,14 @@
 "Scene.Discovery.Tabs.Hashtags" = "แฮชแท็ก";
 "Scene.Discovery.Tabs.News" = "ข่าว";
 "Scene.Discovery.Tabs.Posts" = "โพสต์";
-"Scene.Familiarfollowers.FollowedByNames" = "Followed by %@";
-"Scene.Familiarfollowers.Title" = "Followers you familiar";
+"Scene.Familiarfollowers.FollowedByNames" = "ติดตามโดย %@";
+"Scene.Familiarfollowers.Title" = "ผู้ติดตามที่คุณคุ้นเคย";
 "Scene.Favorite.Title" = "รายการโปรดของคุณ";
-"Scene.FavoritedBy.Title" = "Favorited By";
+"Scene.FavoritedBy.Title" = "ชื่นชอบโดย";
 "Scene.Follower.Footer" = "ไม่ได้แสดงผู้ติดตามจากเซิร์ฟเวอร์อื่น ๆ";
-"Scene.Follower.Title" = "follower";
+"Scene.Follower.Title" = "ผู้ติดตาม";
 "Scene.Following.Footer" = "ไม่ได้แสดงการติดตามจากเซิร์ฟเวอร์อื่น ๆ";
-"Scene.Following.Title" = "following";
+"Scene.Following.Title" = "กำลังติดตาม";
 "Scene.HomeTimeline.NavigationBarState.Accessibility.LogoHint" = "แตะเพื่อเลื่อนไปยังด้านบนสุดและแตะอีกครั้งไปยังตำแหน่งที่ตั้งก่อนหน้า";
 "Scene.HomeTimeline.NavigationBarState.Accessibility.LogoLabel" = "ปุ่มโลโก้";
 "Scene.HomeTimeline.NavigationBarState.NewPosts" = "ดูโพสต์ใหม่";
@@ -259,7 +259,7 @@
 "Scene.Profile.SegmentedControl.Posts" = "โพสต์";
 "Scene.Profile.SegmentedControl.PostsAndReplies" = "โพสต์และการตอบกลับ";
 "Scene.Profile.SegmentedControl.Replies" = "การตอบกลับ";
-"Scene.RebloggedBy.Title" = "Reblogged By";
+"Scene.RebloggedBy.Title" = "ดันโดย";
 "Scene.Register.Error.Item.Agreement" = "ข้อตกลง";
 "Scene.Register.Error.Item.Email" = "อีเมล";
 "Scene.Register.Error.Item.Locale" = "ตำแหน่งที่ตั้ง";
@@ -374,7 +374,7 @@
 "Scene.ServerPicker.EmptyState.FindingServers" = "กำลังค้นหาเซิร์ฟเวอร์ที่พร้อมใช้งาน...";
 "Scene.ServerPicker.EmptyState.NoResults" = "ไม่มีผลลัพธ์";
 "Scene.ServerPicker.Input.Placeholder" = "ค้นหาเซิร์ฟเวอร์";
-"Scene.ServerPicker.Input.SearchServersOrEnterUrl" = "ค้นหาชุมชนหรือป้อน URL";
+"Scene.ServerPicker.Input.SearchServersOrEnterUrl" = "Search servers or enter URL";
 "Scene.ServerPicker.Label.Category" = "หมวดหมู่";
 "Scene.ServerPicker.Label.Language" = "ภาษา";
 "Scene.ServerPicker.Label.Users" = "ผู้ใช้";

@@ -11,6 +11,8 @@ import MastodonLocalization
 
 extension Date {
     
+    static let calendar = Calendar(identifier: .gregorian)
+    
     public static let relativeTimestampFormatter: RelativeDateTimeFormatter = {
         let formatter = RelativeDateTimeFormatter()
         formatter.dateTimeStyle = .numeric
@@ -18,8 +20,15 @@ extension Date {
         return formatter
     }()
     
+    public static let abbreviatedDateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium       // e.g. Nov 23, 1937
+        formatter.timeStyle = .none         // none
+        return formatter
+    }()
+        
     public var localizedSlowedTimeAgoSinceNow: String {
-        return self.localizedTimeAgo(since: Date(), isSlowed: true, isAbbreviated: true)
+        return self.localizedTimeAgo(since: Date(), isSlowed: true, isAbbreviated: false)
     }
     
     public var localizedTimeAgoSinceNow: String {
@@ -36,7 +45,21 @@ extension Date {
             if isAbbreviated {
                 return latestDate.localizedShortTimeAgo(since: earlierDate)
             } else {
-                return Date.relativeTimestampFormatter.localizedString(for: earlierDate, relativeTo: latestDate)
+                if earlierDate.timeIntervalSince(latestDate) < -(7 * 24 * 60 * 60) {
+                    let currentYear = Date.calendar.dateComponents([.year], from: Date())
+                    let earlierDateYear = Date.calendar.dateComponents([.year], from: earlierDate)
+                    if #available(iOS 15.0, *) {
+                        if currentYear.year! > earlierDateYear.year! {
+                            return earlierDate.formatted(.dateTime.year().month(.abbreviated).day())
+                        } else {
+                            return earlierDate.formatted(.dateTime.month(.abbreviated).day())
+                        }
+                    } else {
+                        return Date.abbreviatedDateFormatter.string(from: earlierDate)
+                    }
+                } else {
+                    return Date.relativeTimestampFormatter.localizedString(for: earlierDate, relativeTo: latestDate)
+                }
             }
         }
     }
@@ -49,7 +72,7 @@ extension Date {
         let earlierDate = date < self ? date : self
         let latestDate = earlierDate == date ? self : date
         
-        let components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: earlierDate, to: latestDate)
+        let components = Date.calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: earlierDate, to: latestDate)
         
         if components.year! > 0 {
             return L10n.Date.Year.Ago.abbr(components.year!)
@@ -73,7 +96,7 @@ extension Date {
         let earlierDate = date < self ? date : self
         let latestDate = earlierDate == date ? self : date
         
-        let components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: earlierDate, to: latestDate)
+        let components = Calendar(identifier: .gregorian).dateComponents([.year, .month, .day, .hour, .minute, .second], from: earlierDate, to: latestDate)
         
         if components.year! > 0 {
             return L10n.Date.Year.left(components.year!)

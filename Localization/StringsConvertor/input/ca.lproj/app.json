@@ -241,7 +241,7 @@
             },
             "input": {
                 "placeholder": "Cerca servidors",
-                "search_servers_or_enter_url": "Cerca comunitats o introdueix l'URL"
+                "search_servers_or_enter_url": "Cerca servidors o introdueix l'enllaç"
             },
             "empty_state": {
                 "finding_servers": "Cercant els servidors disponibles...",
@@ -462,22 +462,22 @@
             }
         },
         "follower": {
-            "title": "follower",
+            "title": "seguidor",
             "footer": "Els seguidors d'altres servidors no son mostrats."
         },
         "following": {
-            "title": "following",
+            "title": "seguint",
             "footer": "Els seguits d'altres servidors no son mostrats."
         },
         "familiarFollowers": {
-            "title": "Followers you familiar",
-            "followed_by_names": "Followed by %s"
+            "title": "Seguidors coneguts",
+            "followed_by_names": "Seguit per %s"
         },
         "favorited_by": {
-            "title": "Favorited By"
+            "title": "Preferit per"
         },
         "reblogged_by": {
-            "title": "Reblogged By"
+            "title": "Impulsat per"
         },
         "search": {
             "title": "Cerca",

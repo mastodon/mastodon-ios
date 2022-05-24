@@ -241,7 +241,7 @@
             },
             "input": {
                 "placeholder": "搜尋伺服器",
-                "search_servers_or_enter_url": "搜尋社群或輸入 URL 地址"
+                "search_servers_or_enter_url": "搜尋伺服器或輸入網址"
             },
             "empty_state": {
                 "finding_servers": "尋找可用的伺服器...",
@@ -462,22 +462,22 @@
             }
         },
         "follower": {
-            "title": "follower",
+            "title": "跟隨者",
             "footer": "來自其他伺服器的跟隨者不會被顯示。"
         },
         "following": {
-            "title": "following",
+            "title": "跟隨中",
             "footer": "來自其他伺服器的跟隨中不會被顯示。"
         },
         "familiarFollowers": {
-            "title": "Followers you familiar",
-            "followed_by_names": "Followed by %s"
+            "title": "您熟悉的跟隨者",
+            "followed_by_names": "被 %s 跟隨"
         },
         "favorited_by": {
-            "title": "Favorited By"
+            "title": "已加入最愛"
         },
         "reblogged_by": {
-            "title": "Reblogged By"
+            "title": "已轉嘟"
         },
         "search": {
             "title": "搜尋",

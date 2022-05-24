@@ -374,7 +374,7 @@ uploaded to Mastodon.";
 "Scene.ServerPicker.EmptyState.FindingServers" = "Finding available servers...";
 "Scene.ServerPicker.EmptyState.NoResults" = "No results";
 "Scene.ServerPicker.Input.Placeholder" = "Search servers";
-"Scene.ServerPicker.Input.SearchServersOrEnterUrl" = "Search communities or enter URL";
+"Scene.ServerPicker.Input.SearchServersOrEnterUrl" = "Search servers or enter URL";
 "Scene.ServerPicker.Label.Category" = "CATEGORY";
 "Scene.ServerPicker.Label.Language" = "LANGUAGE";
 "Scene.ServerPicker.Label.Users" = "USERS";

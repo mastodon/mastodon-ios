@@ -374,7 +374,7 @@ Mastodonera igo.";
 "Scene.ServerPicker.EmptyState.FindingServers" = "Erabilgarri dauden zerbitzariak bilatzen...";
 "Scene.ServerPicker.EmptyState.NoResults" = "Emaitzarik ez";
 "Scene.ServerPicker.Input.Placeholder" = "Bilatu zerbitzari bat edo sortu zurea...";
-"Scene.ServerPicker.Input.SearchServersOrEnterUrl" = "Search communities or enter URL";
+"Scene.ServerPicker.Input.SearchServersOrEnterUrl" = "Search servers or enter URL";
 "Scene.ServerPicker.Label.Category" = "KATEGORIA";
 "Scene.ServerPicker.Label.Language" = "HIZKUNTZA";
 "Scene.ServerPicker.Label.Users" = "ERABILTZAILEAK";

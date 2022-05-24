@@ -240,8 +240,8 @@
                 "category": "CATEGORÍA"
             },
             "input": {
-                "placeholder": "Encontrá un servidor o unite al tuyo…",
-                "search_servers_or_enter_url": "Buscar comunidades o introducir dirección web"
+                "placeholder": "Buscar servidores",
+                "search_servers_or_enter_url": "Buscar servidores o introducir dirección web"
             },
             "empty_state": {
                 "finding_servers": "Buscando servidores disponibles…",
@@ -250,7 +250,7 @@
             }
         },
         "register": {
-            "title": "Contanos sobre vos.",
+            "title": "Vamos a prepararte en %s",
             "lets_get_you_set_up_on_domain": "Vamos a prepararte en %s",
             "input": {
                 "avatar": {
@@ -286,7 +286,7 @@
                     "email": "Correo electrónico",
                     "password": "Contraseña",
                     "agreement": "Acuerdo",
-                    "locale": "Idioma de la interface",
+                    "locale": "Interno",
                     "reason": "Motivo"
                 },
                 "reason": {
@@ -321,7 +321,7 @@
         },
         "confirm_email": {
             "title": "Una última cosa.",
-            "subtitle": "Acabamos de enviar un correo electrónico a %s,\npulsá en el enlace para confirmar tu cuenta.",
+            "subtitle": "Tocá el enlace que te enviamos por correo electrónico para verificar tu cuenta.",
             "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tocá el enlace que te enviamos por correo electrónico para verificar tu cuenta",
             "button": {
                 "open_email_app": "Abrir aplicación de correo electrónico",
@@ -343,7 +343,7 @@
             "title": "Principal",
             "navigation_bar_state": {
                 "offline": "Desconectado",
-                "new_posts": "Ver nuevos mensajes",
+                "new_posts": "Ver nuevos msjs",
                 "published": "¡Enviado!",
                 "Publishing": "Enviando mensaje…",
                 "accessibility": {
@@ -354,7 +354,7 @@
         },
         "suggestion_account": {
             "title": "Encontrá cuentas para seguir",
-            "follow_explain": "Cuando sigás a alguien, verás sus mensajes en tu línea temporal principal."
+            "follow_explain": "Cuando sigás una cuenta, verás sus mensajes en tu línea temporal principal."
         },
         "compose": {
             "title": {
@@ -370,10 +370,10 @@
             "compose_action": "Enviar",
             "replying_to_user": "respondiendo a %s",
             "attachment": {
-                "photo": "foto",
+                "photo": "imagen",
                 "video": "video",
                 "attachment_broken": "Este archivo de %s está roto\ny no se puede subir a Mastodon.",
-                "description_photo": "Describí la foto para personas con dificultades visuales…",
+                "description_photo": "Describí la imagen para personas con dificultades visuales…",
                 "description_video": "Describí el video para personas con dificultades visuales…"
             },
             "poll": {
@@ -396,7 +396,7 @@
                 "direct": "Sólo a las cuentas que menciono"
             },
             "auto_complete": {
-                "space_to_add": "Espacio para agregar"
+                "space_to_add": "Tocá la tecla «Espacio» para agregar"
             },
             "accessibility": {
                 "append_attachment": "Agregar archivo adjunto",
@@ -462,22 +462,22 @@
             }
         },
         "follower": {
-            "title": "follower",
+            "title": "seguidor",
             "footer": "No se muestran los seguidores de otros servidores."
         },
         "following": {
-            "title": "following",
+            "title": "siguiendo",
             "footer": "No se muestran las cuentas de otros servidores que seguís."
         },
         "familiarFollowers": {
-            "title": "Followers you familiar",
-            "followed_by_names": "Followed by %s"
+            "title": "Seguidores conocidos",
+            "followed_by_names": "Seguido por %s"
         },
         "favorited_by": {
-            "title": "Favorited By"
+            "title": "Marcado como favorito por"
         },
         "reblogged_by": {
-            "title": "Reblogged By"
+            "title": "Adherido por"
         },
         "search": {
             "title": "Buscar",

@@ -203,14 +203,14 @@
 "Scene.Discovery.Tabs.Hashtags" = "主題標籤";
 "Scene.Discovery.Tabs.News" = "最新消息";
 "Scene.Discovery.Tabs.Posts" = "嘟文";
-"Scene.Familiarfollowers.FollowedByNames" = "Followed by %@";
-"Scene.Familiarfollowers.Title" = "Followers you familiar";
+"Scene.Familiarfollowers.FollowedByNames" = "被 %@ 跟隨";
+"Scene.Familiarfollowers.Title" = "您熟悉的跟隨者";
 "Scene.Favorite.Title" = "您的最愛";
-"Scene.FavoritedBy.Title" = "Favorited By";
+"Scene.FavoritedBy.Title" = "已加入最愛";
 "Scene.Follower.Footer" = "來自其他伺服器的跟隨者不會被顯示。";
-"Scene.Follower.Title" = "follower";
+"Scene.Follower.Title" = "跟隨者";
 "Scene.Following.Footer" = "來自其他伺服器的跟隨中不會被顯示。";
-"Scene.Following.Title" = "following";
+"Scene.Following.Title" = "跟隨中";
 "Scene.HomeTimeline.NavigationBarState.Accessibility.LogoHint" = "輕點一下捲至頂端並且再點ㄧ下回到原先位置";
 "Scene.HomeTimeline.NavigationBarState.Accessibility.LogoLabel" = "標誌按鈕";
 "Scene.HomeTimeline.NavigationBarState.NewPosts" = "檢視最新嘟文";
@@ -254,7 +254,7 @@
 "Scene.Profile.SegmentedControl.Posts" = "嘟文";
 "Scene.Profile.SegmentedControl.PostsAndReplies" = "嘟文及回覆";
 "Scene.Profile.SegmentedControl.Replies" = "回覆";
-"Scene.RebloggedBy.Title" = "Reblogged By";
+"Scene.RebloggedBy.Title" = "已轉嘟";
 "Scene.Register.Error.Item.Agreement" = "條款";
 "Scene.Register.Error.Item.Email" = "電子郵件";
 "Scene.Register.Error.Item.Locale" = "地區";
@@ -369,7 +369,7 @@
 "Scene.ServerPicker.EmptyState.FindingServers" = "尋找可用的伺服器...";
 "Scene.ServerPicker.EmptyState.NoResults" = "沒有結果";
 "Scene.ServerPicker.Input.Placeholder" = "搜尋伺服器";
-"Scene.ServerPicker.Input.SearchServersOrEnterUrl" = "搜尋社群或輸入 URL 地址";
+"Scene.ServerPicker.Input.SearchServersOrEnterUrl" = "搜尋伺服器或輸入網址";
 "Scene.ServerPicker.Label.Category" = "分類";
 "Scene.ServerPicker.Label.Language" = "語言";
 "Scene.ServerPicker.Label.Users" = "使用者";

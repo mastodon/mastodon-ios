@@ -207,7 +207,7 @@
     "scene": {
         "welcome": {
             "slogan": "Soziale Netzwerke wieder in deinen Händen.",
-            "get_started": "Erste Schritte",
+            "get_started": "Registrieren",
             "log_in": "Anmelden"
         },
         "server_picker": {
@@ -240,8 +240,8 @@
                 "category": "KATEGORIE"
             },
             "input": {
-                "placeholder": "Finde einen Server oder trete deinem eigenen bei...",
-                "search_servers_or_enter_url": "Search communities or enter URL"
+                "placeholder": "Nach Server suchen oder URL eingeben",
+                "search_servers_or_enter_url": "Search servers or enter URL"
             },
             "empty_state": {
                 "finding_servers": "Verfügbare Server werden gesucht...",

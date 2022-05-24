@@ -375,7 +375,7 @@ pulsa en el enlace para confirmar tu cuenta.";
 "Scene.ServerPicker.EmptyState.FindingServers" = "Encontrando servidores disponibles...";
 "Scene.ServerPicker.EmptyState.NoResults" = "Sin resultados";
 "Scene.ServerPicker.Input.Placeholder" = "Encuentra un servidor o únete al tuyo propio...";
-"Scene.ServerPicker.Input.SearchServersOrEnterUrl" = "Search communities or enter URL";
+"Scene.ServerPicker.Input.SearchServersOrEnterUrl" = "Search servers or enter URL";
 "Scene.ServerPicker.Label.Category" = "CATEGORÍA";
 "Scene.ServerPicker.Label.Language" = "IDIOMA";
 "Scene.ServerPicker.Label.Users" = "USUARIOS";

@@ -375,7 +375,7 @@ thoir gnogag air a’ chunntas a dhearbhadh a’ chunntais agad.";
 "Scene.ServerPicker.EmptyState.FindingServers" = "A’ lorg nam frithealaichean ri am faighinn…";
 "Scene.ServerPicker.EmptyState.NoResults" = "Gun toradh";
 "Scene.ServerPicker.Input.Placeholder" = "Lorg frithealaiche no gabh pàirt san fhear agad fhèin…";
-"Scene.ServerPicker.Input.SearchServersOrEnterUrl" = "Search communities or enter URL";
+"Scene.ServerPicker.Input.SearchServersOrEnterUrl" = "Search servers or enter URL";
 "Scene.ServerPicker.Label.Category" = "ROINN-SEÒRSA";
 "Scene.ServerPicker.Label.Language" = "CÀNAN";
 "Scene.ServerPicker.Label.Users" = "CLEACHDAICHEAN";
