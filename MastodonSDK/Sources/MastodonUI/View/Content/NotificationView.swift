@@ -434,6 +434,14 @@ extension NotificationView: StatusViewDelegate {
         assertionFailure()
     }
     
+    public func statusView(_ statusView: StatusView, statusMetricView: StatusMetricView, reblogButtonDidPressed button: UIButton) {
+        assertionFailure()
+    }
+    
+    public func statusView(_ statusView: StatusView, statusMetricView: StatusMetricView, favoriteButtonDidPressed button: UIButton) {
+        assertionFailure()
+    }
+    
     public func statusView(_ statusView: StatusView, accessibilityActivate: Void) {
         assertionFailure()
     }

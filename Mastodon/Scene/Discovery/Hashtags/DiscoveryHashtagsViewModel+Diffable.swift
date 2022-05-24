@@ -32,7 +32,7 @@ extension DiscoveryHashtagsViewModel {
                 snapshot.appendSections([.hashtags])
                 
                 let items = hashtags.map { DiscoveryItem.hashtag($0) }
-                snapshot.appendItems(items, toSection: .hashtags)
+                snapshot.appendItems(items.removingDuplicates(), toSection: .hashtags)
                 
                 diffableDataSource.apply(snapshot)
             }

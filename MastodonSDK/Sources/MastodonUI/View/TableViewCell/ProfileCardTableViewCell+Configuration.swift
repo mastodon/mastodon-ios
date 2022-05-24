@@ -7,6 +7,7 @@
 
 import UIKit
 import CoreDataStack
+import MastodonSDK
 
 extension ProfileCardTableViewCell {
     

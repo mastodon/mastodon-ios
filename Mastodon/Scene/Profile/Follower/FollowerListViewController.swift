@@ -9,6 +9,7 @@ import os.log
 import UIKit
 import GameplayKit
 import Combine
+import MastodonLocalization
 
 final class FollowerListViewController: UIViewController, NeedsDependency {
     
@@ -41,6 +42,8 @@ extension FollowerListViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        title = L10n.Scene.Follower.title
         
         view.backgroundColor = ThemeService.shared.currentTheme.value.secondarySystemBackgroundColor
         ThemeService.shared.currentTheme

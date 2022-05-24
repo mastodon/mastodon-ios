@@ -518,6 +518,8 @@ public enum L10n {
     public enum ConfirmEmail {
       /// Tap the link we emailed to you to verify your account.
       public static let subtitle = L10n.tr("Localizable", "Scene.ConfirmEmail.Subtitle")
+      /// Tap the link we emailed to you to verify your account
+      public static let tapTheLinkWeEmailedToYouToVerifyYourAccount = L10n.tr("Localizable", "Scene.ConfirmEmail.TapTheLinkWeEmailedToYouToVerifyYourAccount")
       /// One last thing.
       public static let title = L10n.tr("Localizable", "Scene.ConfirmEmail.Title")
       public enum Button {
@@ -561,17 +563,33 @@ public enum L10n {
         public static let posts = L10n.tr("Localizable", "Scene.Discovery.Tabs.Posts")
       }
     }
+    public enum Familiarfollowers {
+      /// Followed by %@
+      public static func followedByNames(_ p1: Any) -> String {
+        return L10n.tr("Localizable", "Scene.Familiarfollowers.FollowedByNames", String(describing: p1))
+      }
+      /// Followers you familiar
+      public static let title = L10n.tr("Localizable", "Scene.Familiarfollowers.Title")
+    }
     public enum Favorite {
       /// Your Favorites
       public static let title = L10n.tr("Localizable", "Scene.Favorite.Title")
     }
+    public enum FavoritedBy {
+      /// Favorited By
+      public static let title = L10n.tr("Localizable", "Scene.FavoritedBy.Title")
+    }
     public enum Follower {
       /// Followers from other servers are not displayed.
       public static let footer = L10n.tr("Localizable", "Scene.Follower.Footer")
+      /// follower
+      public static let title = L10n.tr("Localizable", "Scene.Follower.Title")
     }
     public enum Following {
       /// Follows from other servers are not displayed.
       public static let footer = L10n.tr("Localizable", "Scene.Following.Footer")
+      /// following
+      public static let title = L10n.tr("Localizable", "Scene.Following.Title")
     }
     public enum HomeTimeline {
       /// Home
@@ -585,6 +603,12 @@ public enum L10n {
         public static let published = L10n.tr("Localizable", "Scene.HomeTimeline.NavigationBarState.Published")
         /// Publishing post...
         public static let publishing = L10n.tr("Localizable", "Scene.HomeTimeline.NavigationBarState.Publishing")
+        public enum Accessibility {
+          /// Tap to scroll to top and tap again to previous location
+          public static let logoHint = L10n.tr("Localizable", "Scene.HomeTimeline.NavigationBarState.Accessibility.LogoHint")
+          /// Logo Button
+          public static let logoLabel = L10n.tr("Localizable", "Scene.HomeTimeline.NavigationBarState.Accessibility.LogoLabel")
+        }
       }
     }
     public enum Notification {
@@ -701,7 +725,15 @@ public enum L10n {
         public static let replies = L10n.tr("Localizable", "Scene.Profile.SegmentedControl.Replies")
       }
     }
+    public enum RebloggedBy {
+      /// Reblogged By
+      public static let title = L10n.tr("Localizable", "Scene.RebloggedBy.Title")
+    }
     public enum Register {
+      /// Let’s get you set up on %@
+      public static func letsGetYouSetUpOnDomain(_ p1: Any) -> String {
+        return L10n.tr("Localizable", "Scene.Register.LetsGetYouSetUpOnDomain", String(describing: p1))
+      }
       /// Let’s get you set up on %@
       public static func title(_ p1: Any) -> String {
         return L10n.tr("Localizable", "Scene.Register.Title", String(describing: p1))
@@ -840,6 +872,90 @@ public enum L10n {
       }
       /// Report
       public static let titleReport = L10n.tr("Localizable", "Scene.Report.TitleReport")
+      public enum StepFinal {
+        /// Block %@
+        public static func blockUser(_ p1: Any) -> String {
+          return L10n.tr("Localizable", "Scene.Report.StepFinal.BlockUser", String(describing: p1))
+        }
+        /// Don’t want to see this?
+        public static let dontWantToSeeThis = L10n.tr("Localizable", "Scene.Report.StepFinal.DontWantToSeeThis")
+        /// Mute %@
+        public static func muteUser(_ p1: Any) -> String {
+          return L10n.tr("Localizable", "Scene.Report.StepFinal.MuteUser", String(describing: p1))
+        }
+        /// They will no longer be able to follow or see your posts, but they can see if they’ve been blocked.
+        public static let theyWillNoLongerBeAbleToFollowOrSeeYourPostsButTheyCanSeeIfTheyveBeenBlocked = L10n.tr("Localizable", "Scene.Report.StepFinal.TheyWillNoLongerBeAbleToFollowOrSeeYourPostsButTheyCanSeeIfTheyveBeenBlocked")
+        /// Unfollow
+        public static let unfollow = L10n.tr("Localizable", "Scene.Report.StepFinal.Unfollow")
+        /// Unfollowed
+        public static let unfollowed = L10n.tr("Localizable", "Scene.Report.StepFinal.Unfollowed")
+        /// Unfollow %@
+        public static func unfollowUser(_ p1: Any) -> String {
+          return L10n.tr("Localizable", "Scene.Report.StepFinal.UnfollowUser", String(describing: p1))
+        }
+        /// When you see something you don’t like on Mastodon, you can remove the person from your experience.
+        public static let whenYouSeeSomethingYouDontLikeOnMastodonYouCanRemoveThePersonFromYourExperience = L10n.tr("Localizable", "Scene.Report.StepFinal.WhenYouSeeSomethingYouDontLikeOnMastodonYouCanRemoveThePersonFromYourExperience.")
+        /// While we review this, you can take action against %@
+        public static func whileWeReviewThisYouCanTakeActionAgainstUser(_ p1: Any) -> String {
+          return L10n.tr("Localizable", "Scene.Report.StepFinal.WhileWeReviewThisYouCanTakeActionAgainstUser", String(describing: p1))
+        }
+        /// You won’t see their posts or reblogs in your home feed. They won’t know they’ve been muted.
+        public static let youWontSeeTheirPostsOrReblogsInYourHomeFeedTheyWontKnowTheyVeBeenMuted = L10n.tr("Localizable", "Scene.Report.StepFinal.YouWontSeeTheirPostsOrReblogsInYourHomeFeedTheyWontKnowTheyVeBeenMuted")
+      }
+      public enum StepFour {
+        /// Is there anything else we should know?
+        public static let isThereAnythingElseWeShouldKnow = L10n.tr("Localizable", "Scene.Report.StepFour.IsThereAnythingElseWeShouldKnow")
+        /// Step 4 of 4
+        public static let step4Of4 = L10n.tr("Localizable", "Scene.Report.StepFour.Step4Of4")
+      }
+      public enum StepOne {
+        /// I don’t like it
+        public static let iDontLikeIt = L10n.tr("Localizable", "Scene.Report.StepOne.IDontLikeIt")
+        /// It is not something you want to see
+        public static let itIsNotSomethingYouWantToSee = L10n.tr("Localizable", "Scene.Report.StepOne.ItIsNotSomethingYouWantToSee")
+        /// It’s something else
+        public static let itsSomethingElse = L10n.tr("Localizable", "Scene.Report.StepOne.ItsSomethingElse")
+        /// It’s spam
+        public static let itsSpam = L10n.tr("Localizable", "Scene.Report.StepOne.ItsSpam")
+        /// It violates server rules
+        public static let itViolatesServerRules = L10n.tr("Localizable", "Scene.Report.StepOne.ItViolatesServerRules")
+        /// Malicious links, fake engagement, or repetetive replies
+        public static let maliciousLinksFakeEngagementOrRepetetiveReplies = L10n.tr("Localizable", "Scene.Report.StepOne.MaliciousLinksFakeEngagementOrRepetetiveReplies")
+        /// Select the best match
+        public static let selectTheBestMatch = L10n.tr("Localizable", "Scene.Report.StepOne.SelectTheBestMatch")
+        /// Step 1 of 4
+        public static let step1Of4 = L10n.tr("Localizable", "Scene.Report.StepOne.Step1Of4")
+        /// The issue does not fit into other categories
+        public static let theIssueDoesNotFitIntoOtherCategories = L10n.tr("Localizable", "Scene.Report.StepOne.TheIssueDoesNotFitIntoOtherCategories")
+        /// What's wrong with this account?
+        public static let whatsWrongWithThisAccount = L10n.tr("Localizable", "Scene.Report.StepOne.WhatsWrongWithThisAccount")
+        /// What's wrong with this post?
+        public static let whatsWrongWithThisPost = L10n.tr("Localizable", "Scene.Report.StepOne.WhatsWrongWithThisPost")
+        /// What's wrong with %@?
+        public static func whatsWrongWithThisUsername(_ p1: Any) -> String {
+          return L10n.tr("Localizable", "Scene.Report.StepOne.WhatsWrongWithThisUsername", String(describing: p1))
+        }
+        /// You are aware that it breaks specific rules
+        public static let youAreAwareThatItBreaksSpecificRules = L10n.tr("Localizable", "Scene.Report.StepOne.YouAreAwareThatItBreaksSpecificRules")
+      }
+      public enum StepThree {
+        /// Are there any posts that back up this report?
+        public static let areThereAnyPostsThatBackUpThisReport = L10n.tr("Localizable", "Scene.Report.StepThree.AreThereAnyPostsThatBackUpThisReport")
+        /// Select all that apply
+        public static let selectAllThatApply = L10n.tr("Localizable", "Scene.Report.StepThree.SelectAllThatApply")
+        /// Step 3 of 4
+        public static let step3Of4 = L10n.tr("Localizable", "Scene.Report.StepThree.Step3Of4")
+      }
+      public enum StepTwo {
+        /// I just don’t like it
+        public static let iJustDonTLikeIt = L10n.tr("Localizable", "Scene.Report.StepTwo.IJustDon’tLikeIt")
+        /// Select all that apply
+        public static let selectAllThatApply = L10n.tr("Localizable", "Scene.Report.StepTwo.SelectAllThatApply")
+        /// Step 2 of 4
+        public static let step2Of4 = L10n.tr("Localizable", "Scene.Report.StepTwo.Step2Of4")
+        /// Which rules are being violated?
+        public static let whichRulesAreBeingViolated = L10n.tr("Localizable", "Scene.Report.StepTwo.WhichRulesAreBeingViolated")
+      }
     }
     public enum Search {
       /// Search
@@ -947,6 +1063,8 @@ public enum L10n {
       public enum Input {
         /// Search servers
         public static let placeholder = L10n.tr("Localizable", "Scene.ServerPicker.Input.Placeholder")
+        /// Search servers or enter URL
+        public static let searchServersOrEnterUrl = L10n.tr("Localizable", "Scene.ServerPicker.Input.SearchServersOrEnterUrl")
       }
       public enum Label {
         /// CATEGORY
@@ -1209,6 +1327,10 @@ public enum L10n {
       public static func favorite(_ p1: Int) -> String {
         return L10n.tr("Localizable", "plural.count.favorite", p1)
       }
+      /// Plural format key: "%#@names@%#@count_mutual@"
+      public static func followedByAndMutual(_ p1: Int, _ p2: Int) -> String {
+        return L10n.tr("Localizable", "plural.count.followed_by_and_mutual", p1, p2)
+      }
       /// Plural format key: "%#@count_follower@"
       public static func follower(_ p1: Int) -> String {
         return L10n.tr("Localizable", "plural.count.follower", p1)
@@ -1216,6 +1338,10 @@ public enum L10n {
       /// Plural format key: "%#@count_following@"
       public static func following(_ p1: Int) -> String {
         return L10n.tr("Localizable", "plural.count.following", p1)
+      }
+      /// Plural format key: "%#@media_count@"
+      public static func media(_ p1: Int) -> String {
+        return L10n.tr("Localizable", "plural.count.media", p1)
       }
       /// Plural format key: "%#@post_count@"
       public static func post(_ p1: Int) -> String {

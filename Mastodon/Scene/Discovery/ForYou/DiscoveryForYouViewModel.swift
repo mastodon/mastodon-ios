@@ -20,6 +20,9 @@ final class DiscoveryForYouViewModel {
     // input
     let context: AppContext
     let userFetchedResultsController: UserFetchedResultsController
+    
+    @MainActor
+    @Published var familiarFollowers: [Mastodon.Entity.FamiliarFollowers] = []
     @Published var isFetching = false
 
     // output
@@ -48,12 +51,35 @@ final class DiscoveryForYouViewModel {
 }
 
 extension DiscoveryForYouViewModel {
+    
+    @MainActor
     func fetch() async throws {
         guard !isFetching else { return }
         isFetching = true
         defer { isFetching = false }
-
-        guard let authenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else { return }
+        
+        guard let authenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else {
+            throw APIService.APIError.implicit(.badRequest)
+        }
+        
+        do {
+            let userIDs = try await fetchSuggestionAccounts()
+            
+            let _familiarFollowersResponse = try? await context.apiService.familiarFollowers(
+                query: .init(ids: userIDs),
+                authenticationBox: authenticationBox
+            )
+            familiarFollowers = _familiarFollowersResponse?.value ?? []
+            userFetchedResultsController.userIDs = userIDs
+        } catch {
+            // do nothing
+        }
+    }
+    
+    private func fetchSuggestionAccounts() async throws -> [Mastodon.Entity.Account.ID] {
+        guard let authenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else {
+            throw APIService.APIError.implicit(.badRequest)
+        }
         
         do {
             let response = try await context.apiService.suggestionAccountV2(
@@ -61,15 +87,15 @@ extension DiscoveryForYouViewModel {
                 authenticationBox: authenticationBox
             )
             let userIDs = response.value.map { $0.account.id }
-            userFetchedResultsController.userIDs = userIDs
+            return userIDs
         } catch {
             // fallback V1
-            let response2 = try await context.apiService.suggestionAccount(
+            let response = try await context.apiService.suggestionAccount(
                 query: nil,
                 authenticationBox: authenticationBox
             )
-            let userIDs = response2.value.map { $0.id }
-            userFetchedResultsController.userIDs = userIDs
+            let userIDs = response.value.map { $0.id }
+            return userIDs
         }
     }
 }

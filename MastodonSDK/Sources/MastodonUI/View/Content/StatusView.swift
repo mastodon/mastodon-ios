@@ -25,6 +25,8 @@ public protocol StatusViewDelegate: AnyObject {
     func statusView(_ statusView: StatusView, menuButton button: UIButton, didSelectAction action: MastodonMenu.Action)
     func statusView(_ statusView: StatusView, spoilerOverlayViewDidPressed overlayView: SpoilerOverlayView)
     func statusView(_ statusView: StatusView, mediaGridContainerView: MediaGridContainerView, mediaSensitiveButtonDidPressed button: UIButton)
+    func statusView(_ statusView: StatusView, statusMetricView: StatusMetricView, reblogButtonDidPressed button: UIButton)
+    func statusView(_ statusView: StatusView, statusMetricView: StatusMetricView, favoriteButtonDidPressed button: UIButton)
     
     // a11y
     func statusView(_ statusView: StatusView, accessibilityActivate: Void)
@@ -318,8 +320,12 @@ extension StatusView {
         ])
         pollTableView.delegate = self
         pollVoteButton.addTarget(self, action: #selector(StatusView.pollVoteButtonDidPressed(_:)), for: .touchUpInside)
+        
         // toolbar
         actionToolbarContainer.delegate = self
+        
+        // statusMetricView
+        statusMetricView.delegate = self
     }
 }
 
@@ -405,18 +411,19 @@ extension StatusView.Style {
         NSLayoutConstraint.activate([
             statusView.headerIconImageView.leadingAnchor.constraint(equalTo: statusView.headerContainerView.leadingAnchor),
             statusView.headerIconImageView.heightAnchor.constraint(equalTo: statusView.headerInfoLabel.heightAnchor, multiplier: 1.0).priority(.required - 1),
-            statusView.headerIconImageView.widthAnchor.constraint(equalTo: statusView.headerIconImageView.heightAnchor, multiplier: 1.0).priority(.required - 1),
+            statusView.headerIconImageView.widthAnchor.constraint(equalTo: statusView.headerInfoLabel.heightAnchor, multiplier: 1.0).priority(.required - 1),
             statusView.headerInfoLabel.topAnchor.constraint(equalTo: statusView.headerContainerView.topAnchor),
             statusView.headerInfoLabel.leadingAnchor.constraint(equalTo: statusView.headerIconImageView.trailingAnchor, constant: 6),
             statusView.headerInfoLabel.trailingAnchor.constraint(equalTo: statusView.headerContainerView.trailingAnchor),
             statusView.headerInfoLabel.bottomAnchor.constraint(equalTo: statusView.headerContainerView.bottomAnchor),
             statusView.headerInfoLabel.centerYAnchor.constraint(equalTo: statusView.headerIconImageView.centerYAnchor),
         ])
-        statusView.headerInfoLabel.setContentHuggingPriority(.required, for: .vertical)
-        statusView.headerIconImageView.setContentHuggingPriority(.defaultLow, for: .vertical)
-        statusView.headerIconImageView.setContentHuggingPriority(.defaultLow, for: .horizontal)
-        statusView.headerIconImageView.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
-        statusView.headerIconImageView.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        statusView.headerInfoLabel.setContentHuggingPriority(.required - 1, for: .vertical)
+        statusView.headerInfoLabel.setContentCompressionResistancePriority(.required - 1, for: .vertical)
+        statusView.headerIconImageView.setContentHuggingPriority(.defaultLow - 100, for: .vertical)
+        statusView.headerIconImageView.setContentHuggingPriority(.defaultLow - 100, for: .horizontal)
+        statusView.headerIconImageView.setContentCompressionResistancePriority(.defaultLow - 100, for: .vertical)
+        statusView.headerIconImageView.setContentCompressionResistancePriority(.defaultLow - 100, for: .horizontal)
 
         // author container: H - [ avatarButton | author meta container | contentWarningToggleButton ]
         statusView.authorAdaptiveMarginContainerView.contentView = statusView.authorContainerView
@@ -798,6 +805,17 @@ extension StatusView: UITableViewDelegate {
 extension StatusView: ActionToolbarContainerDelegate {
     public func actionToolbarContainer(_ actionToolbarContainer: ActionToolbarContainer, buttonDidPressed button: UIButton, action: ActionToolbarContainer.Action) {
         delegate?.statusView(self, actionToolbarContainer: actionToolbarContainer, buttonDidPressed: button, action: action)
+    }
+}
+
+// MARK: - StatusMetricViewDelegate
+extension StatusView: StatusMetricViewDelegate {
+    func statusMetricView(_ statusMetricView: StatusMetricView, reblogButtonDidPressed button: UIButton) {
+        delegate?.statusView(self, statusMetricView: statusMetricView, reblogButtonDidPressed: button)
+    }
+    
+    func statusMetricView(_ statusMetricView: StatusMetricView, favoriteButtonDidPressed button: UIButton) {
+        delegate?.statusView(self, statusMetricView: statusMetricView, favoriteButtonDidPressed: button)
     }
 }
 

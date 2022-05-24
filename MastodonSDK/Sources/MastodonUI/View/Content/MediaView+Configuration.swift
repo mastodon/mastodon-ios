@@ -10,6 +10,7 @@ import UIKit
 import Combine
 import CoreData
 import Photos
+import AlamofireImage
 
 extension MediaView {
     public class Configuration: Hashable {
@@ -138,6 +139,40 @@ extension MediaView.Configuration {
             assetURL.flatMap { hasher.combine($0) }
             previewURL.flatMap { hasher.combine($0) }
             durationMS.flatMap { hasher.combine($0) }
+        }
+    }
+    
+}
+
+extension MediaView.Configuration {
+    
+    public func load() {
+        if let previewURL = previewURL,
+           let url = URL(string: previewURL)
+        {
+            let placeholder = UIImage.placeholder(color: .systemGray6)
+            let request = URLRequest(url: url)
+            ImageDownloader.default.download(request, completion:  { [weak self] response in
+                guard let self = self else { return }
+                switch response.result {
+                case .success(let image):
+                    self.previewImage = image
+                case .failure:
+                    self.previewImage = placeholder
+                }
+            })
+        }
+        
+        if let assetURL = assetURL,
+           let blurhash = blurhash
+        {
+            BlurhashImageCacheService.shared.image(
+                blurhash: blurhash,
+                size: aspectRadio,
+                url: assetURL
+            )
+            .assign(to: \.blurhashImage, on: self)
+            .store(in: &blurhashImageDisposeBag)
         }
     }
     

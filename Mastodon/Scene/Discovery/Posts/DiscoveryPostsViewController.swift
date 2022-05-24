@@ -171,3 +171,20 @@ extension DiscoveryPostsViewController: DiscoveryIntroBannerViewDelegate {
         UserDefaults.shared.discoveryIntroBannerNeedsHidden = true
     }
 }
+
+extension DiscoveryPostsViewController {
+    override var keyCommands: [UIKeyCommand]? {
+        return navigationKeyCommands + statusNavigationKeyCommands
+    }
+}
+
+// MARK: - StatusTableViewControllerNavigateable
+extension DiscoveryPostsViewController: StatusTableViewControllerNavigateable {
+    @objc func navigateKeyCommandHandlerRelay(_ sender: UIKeyCommand) {
+        navigateKeyCommandHandler(sender)
+    }
+
+    @objc func statusKeyCommandHandlerRelay(_ sender: UIKeyCommand) {
+        statusKeyCommandHandler(sender)
+    }
+}

@@ -13,8 +13,9 @@ import MetaTextKit
 import MastodonAsset
 import MastodonLocalization
 import MastodonUI
-import Tabman
 import CoreDataStack
+import Tabman
+import Pageboy
 
 protocol ProfileViewModelEditable {
     func isEdited() -> Bool
@@ -1155,25 +1156,28 @@ extension ProfileViewController: ScrollViewContainer {
     }
 }
 
-//extension ProfileViewController {
-//
-//    override var keyCommands: [UIKeyCommand]? {
-//        if !viewModel.isEditing.value {
-//            return segmentedControlNavigateKeyCommands
-//        }
-//
-//        return nil
-//    }
-//
-//}
+extension ProfileViewController {
 
-// MARK: - SegmentedControlNavigateable
-//extension ProfileViewController: SegmentedControlNavigateable {
-//    var navigateableSegmentedControl: UISegmentedControl {
-//        profileHeaderViewController.pageSegmentedControl
-//    }
-//
-//    @objc func segmentedControlNavigateKeyCommandHandlerRelay(_ sender: UIKeyCommand) {
-//        segmentedControlNavigateKeyCommandHandler(sender)
-//    }
-//}
+    override var keyCommands: [UIKeyCommand]? {
+        if !viewModel.isEditing.value {
+            return pageboyNavigateKeyCommands
+        }
+
+        return nil
+    }
+
+}
+
+// MARK: - PageboyNavigateable
+extension ProfileViewController: PageboyNavigateable {
+    
+    var navigateablePageViewController: PageboyViewController {
+        return profileSegmentedViewController.pagingViewController
+    }
+    
+    @objc func pageboyNavigateKeyCommandHandlerRelay(_ sender: UIKeyCommand) {
+        pageboyNavigateKeyCommandHandler(sender)
+    }
+    
+}
+

@@ -10,6 +10,7 @@ import Combine
 import CoreDataStack
 import Meta
 import MastodonMeta
+import MastodonSDK
 
 extension ProfileCardView {
 

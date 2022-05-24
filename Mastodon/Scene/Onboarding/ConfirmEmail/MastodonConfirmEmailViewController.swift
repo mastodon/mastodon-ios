@@ -36,7 +36,7 @@ final class MastodonConfirmEmailViewController: UIViewController, NeedsDependenc
         let label = UILabel()
         label.font = UIFontMetrics(forTextStyle: .title1).scaledFont(for: UIFont.systemFont(ofSize: 20))
         label.textColor = .secondaryLabel
-        label.text = L10n.Scene.ConfirmEmail.subtitle
+        label.text = L10n.Scene.ConfirmEmail.tapTheLinkWeEmailedToYouToVerifyYourAccount
         label.numberOfLines = 0
         return label
     }()
@@ -227,6 +227,11 @@ extension MastodonConfirmEmailViewController {
         alertController.addAction(cancelAction)
         self.coordinator.present(scene: .alertController(alertController: alertController), from: self, transition: .alertController(animated: true, completion: nil))
     }
+}
+
+// MARK: - PanPopableViewController
+extension MastodonConfirmEmailViewController: PanPopableViewController {
+    var isPanPopable: Bool { false }
 }
 
 // MARK: - OnboardingViewControllerAppearance

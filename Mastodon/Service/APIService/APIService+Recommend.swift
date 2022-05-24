@@ -74,3 +74,39 @@ extension APIService {
     }
 
 }
+
+extension APIService {
+    
+    func familiarFollowers(
+        query: Mastodon.API.Account.FamiliarFollowersQuery,
+        authenticationBox: MastodonAuthenticationBox
+    ) async throws -> Mastodon.Response.Content<[Mastodon.Entity.FamiliarFollowers]> {
+        let response = try await Mastodon.API.Account.familiarFollowers(
+            session: session,
+            domain: authenticationBox.domain,
+            query: query,
+            authorization: authenticationBox.userAuthorization
+        ).singleOutput()
+
+        let managedObjectContext = backgroundManagedObjectContext
+        try await managedObjectContext.performChanges {
+            for entity in response.value {
+                for account in entity.accounts {
+                    _ = Persistence.MastodonUser.createOrMerge(
+                        in: managedObjectContext,
+                        context: Persistence.MastodonUser.PersistContext(
+                            domain: authenticationBox.domain,
+                            entity: account,
+                            cache: nil,
+                            networkDate: response.networkDate
+                        )
+                    )
+                    
+                }   // end for account in
+            }   // end for entity in
+        }
+
+        return response
+    }
+    
+}

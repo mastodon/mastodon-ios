@@ -11,6 +11,7 @@ import Combine
 import CoreData
 import CoreDataStack
 import AlamofireImage
+import MastodonUI
 
 class AppContext: ObservableObject {
     
@@ -35,7 +36,7 @@ class AppContext: ObservableObject {
     let photoLibraryService = PhotoLibraryService()
 
     let placeholderImageCacheService = PlaceholderImageCacheService()
-    let blurhashImageCacheService = BlurhashImageCacheService()
+    let blurhashImageCacheService = BlurhashImageCacheService.shared
 
     let documentStore: DocumentStore
     private var documentStoreSubscription: AnyCancellable!

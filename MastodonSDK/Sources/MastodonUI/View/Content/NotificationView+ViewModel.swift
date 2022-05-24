@@ -18,7 +18,7 @@ extension NotificationView {
     public final class ViewModel: ObservableObject {
         public var disposeBag = Set<AnyCancellable>()
 
-        let logger = Logger(subsystem: "StatusView", category: "ViewModel")
+        let logger = Logger(subsystem: "NotificationView", category: "ViewModel")
         
         @Published public var userIdentifier: UserIdentifier?       // me
         

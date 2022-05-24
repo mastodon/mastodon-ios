@@ -158,7 +158,7 @@ extension SceneCoordinator {
         case mastodonServerRules(viewModel: MastodonServerRulesViewModel)
         case mastodonConfirmEmail(viewModel: MastodonConfirmEmailViewModel)
         case mastodonResendEmail(viewModel: MastodonResendEmailViewModel)
-        case mastodonWebView(viewModel:WebViewModel)
+        case mastodonWebView(viewModel: WebViewModel)
 
         // search
         case searchDetail(viewModel: SearchDetailViewModel)
@@ -178,12 +178,17 @@ extension SceneCoordinator {
         case favorite(viewModel: FavoriteViewModel)
         case follower(viewModel: FollowerListViewModel)
         case following(viewModel: FollowingListViewModel)
+        case familiarFollowers(viewModel: FamiliarFollowersViewModel)
+        case rebloggedBy(viewModel: UserListViewModel)
+        case favoritedBy(viewModel: UserListViewModel)
 
         // setting
         case settings(viewModel: SettingsViewModel)
         
         // report
         case report(viewModel: ReportViewModel)
+        case reportServerRules(viewModel: ReportServerRulesViewModel)
+        case reportStatus(viewModel: ReportStatusViewModel)
         case reportSupplementary(viewModel: ReportSupplementaryViewModel)
         case reportResult(viewModel: ReportResultViewModel)
 
@@ -443,8 +448,28 @@ private extension SceneCoordinator {
             let _viewController = FollowingListViewController()
             _viewController.viewModel = viewModel
             viewController = _viewController
+        case .familiarFollowers(let viewModel):
+            let _viewController = FamiliarFollowersViewController()
+            _viewController.viewModel = viewModel
+            viewController = _viewController
+        case .rebloggedBy(let viewModel):
+            let _viewController = RebloggedByViewController()
+            _viewController.viewModel = viewModel
+            viewController = _viewController
+        case .favoritedBy(let viewModel):
+            let _viewController = FavoritedByViewController()
+            _viewController.viewModel = viewModel
+            viewController = _viewController
         case .report(let viewModel):
             let _viewController = ReportViewController()
+            _viewController.viewModel = viewModel
+            viewController = _viewController
+        case .reportServerRules(let viewModel):
+            let _viewController = ReportServerRulesViewController()
+            _viewController.viewModel = viewModel
+            viewController = _viewController
+        case .reportStatus(let viewModel):
+            let _viewController = ReportStatusViewController()
             _viewController.viewModel = viewModel
             viewController = _viewController
         case .reportSupplementary(let viewModel):

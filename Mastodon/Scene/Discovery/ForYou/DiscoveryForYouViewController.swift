@@ -122,7 +122,11 @@ extension DiscoveryForYouViewController: UITableViewDelegate {
 
 // MARK: - ProfileCardTableViewCellDelegate
 extension DiscoveryForYouViewController: ProfileCardTableViewCellDelegate {
-    func profileCardTableViewCell(_ cell: ProfileCardTableViewCell, profileCardView: ProfileCardView, relationshipButtonDidPressed button: ProfileRelationshipActionButton) {
+    func profileCardTableViewCell(
+        _ cell: ProfileCardTableViewCell,
+        profileCardView: ProfileCardView,
+        relationshipButtonDidPressed button: ProfileRelationshipActionButton
+    ) {
         guard let authenticationBox = viewModel.context.authenticationService.activeMastodonAuthenticationBox.value else { return }
         guard let indexPath = tableView.indexPath(for: cell) else { return }
         guard case let .user(record) = viewModel.diffableDataSource?.itemIdentifier(for: indexPath) else { return }
@@ -134,6 +138,31 @@ extension DiscoveryForYouViewController: ProfileCardTableViewCellDelegate {
                 authenticationBox: authenticationBox
             )
         }   // end Task
+    }
+    
+    func profileCardTableViewCell(
+        _ cell: ProfileCardTableViewCell,
+        profileCardView: ProfileCardView,
+        familiarFollowersDashboardViewDidPressed view: FamiliarFollowersDashboardView
+    ) {
+        guard let indexPath = tableView.indexPath(for: cell) else { return }
+        guard case let .user(record) = viewModel.diffableDataSource?.itemIdentifier(for: indexPath) else { return }
+        guard let user = record.object(in: context.managedObjectContext) else { return }
+        
+        let userID = user.id
+        let _familiarFollowers = viewModel.familiarFollowers.first(where: { $0.id == userID })
+        guard let familiarFollowers = _familiarFollowers else {
+            assertionFailure()
+            return
+        }
+        
+        let familiarFollowersViewModel = FamiliarFollowersViewModel(context: context)
+        familiarFollowersViewModel.familiarFollowers = familiarFollowers
+        coordinator.present(
+            scene: .familiarFollowers(viewModel: familiarFollowersViewModel),
+            from: self,
+            transition: .show
+        )
     }
 }
 

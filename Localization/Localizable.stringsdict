@@ -68,6 +68,37 @@
             <string>%ld characters</string>
         </dict>
     </dict>
+    <key>plural.count.followed_by_and_mutual</key>
+    <dict>
+        <key>NSStringLocalizedFormatKey</key>
+        <string>%#@names@%#@count_mutual@</string>
+        <key>names</key>
+        <dict>
+            <key>NSStringFormatSpecTypeKey</key>
+            <string>NSStringPluralRuleType</string>
+            <key>NSStringFormatValueTypeKey</key>
+            <string>ld</string>
+            <key>other</key>
+            <string></string>
+        </dict>
+        <key>count_mutual</key>
+        <dict>
+            <key>NSStringFormatSpecTypeKey</key>
+            <string>NSStringPluralRuleType</string>
+            <key>NSStringFormatValueTypeKey</key>
+            <string>ld</string>
+            <key>zero</key>
+            <string>Followed by %1$@</string>
+            <key>one</key>
+            <string>Followed by %1$@, and another mutual</string>
+            <key>few</key>
+            <string>Followed by %1$@, and %ld mutuals</string>
+            <key>many</key>
+            <string>Followed by %1$@, and %ld mutuals</string>
+            <key>other</key>
+            <string>Followed by %1$@, and %ld mutuals</string>
+        </dict>
+    </dict>
     <key>plural.count.metric_formatted.post</key>
     <dict>
         <key>NSStringLocalizedFormatKey</key>
@@ -88,6 +119,28 @@
             <string>posts</string>
             <key>other</key>
             <string>posts</string>
+        </dict>
+    </dict>
+    <key>plural.count.media</key>
+    <dict>
+        <key>NSStringLocalizedFormatKey</key>
+        <string>%#@media_count@</string>
+        <key>media_count</key>
+        <dict>
+            <key>NSStringFormatSpecTypeKey</key>
+            <string>NSStringPluralRuleType</string>
+            <key>NSStringFormatValueTypeKey</key>
+            <string>ld</string>
+            <key>zero</key>
+            <string>0 media</string>
+            <key>one</key>
+            <string>1 media</string>
+            <key>few</key>
+            <string>%ld media</string>
+            <key>many</key>
+            <string>%ld media</string>
+            <key>other</key>
+            <string>%ld media</string>
         </dict>
     </dict>
     <key>plural.count.post</key>

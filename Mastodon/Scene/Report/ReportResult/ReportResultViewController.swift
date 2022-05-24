@@ -7,6 +7,7 @@
 
 import os.log
 import UIKit
+import SwiftUI
 import Combine
 import MastodonAsset
 import MastodonLocalization
@@ -20,22 +21,13 @@ final class ReportResultViewController: UIViewController, NeedsDependency, Repor
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
     var viewModel: ReportResultViewModel!
-    
-    let tableView: UITableView = {
-        let tableView = ControlContainableTableView()
-        tableView.backgroundColor = Asset.Scene.Report.background.color
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.separatorStyle = .none
-        tableView.backgroundColor = .clear
-        tableView.keyboardDismissMode = .onDrag
-        tableView.allowsMultipleSelection = true
-        if #available(iOS 15.0, *) {
-            tableView.sectionHeaderTopPadding = .leastNonzeroMagnitude
-        } else {
-            // Fallback on earlier versions
-        }
-        return tableView
-    }()
+    private(set) lazy var reportResultView = ReportResultView(viewModel: viewModel)
+
+    lazy var doneBarButtonItem = UIBarButtonItem(
+        barButtonSystemItem: .done,
+        target: self,
+        action: #selector(ReportResultViewController.doneBarButtonItemDidPressed(_:))
+    )
     
     let navigationActionView: NavigationActionView = {
         let navigationActionView = NavigationActionView()
@@ -60,20 +52,19 @@ extension ReportResultViewController {
         defer { setupNavigationBarBackgroundView() }
         
         navigationItem.hidesBackButton = true
+        navigationItem.rightBarButtonItem = doneBarButtonItem
         
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(tableView)
+        let hostingViewController = UIHostingController(rootView: reportResultView)
+        hostingViewController.view.preservesSuperviewLayoutMargins = true
+        addChild(hostingViewController)
+        hostingViewController.view.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(hostingViewController.view)
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            hostingViewController.view.topAnchor.constraint(equalTo: view.topAnchor),
+            hostingViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            hostingViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            hostingViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
-        
-        tableView.delegate = self
-        viewModel.setupDiffableDataSource(
-            tableView: tableView
-        )
         
         navigationActionView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(navigationActionView)
@@ -90,18 +81,93 @@ extension ReportResultViewController {
             .observe(\.bounds, options: [.initial, .new]) { [weak self] navigationActionView, _ in
                 guard let self = self else { return }
                 let inset = navigationActionView.frame.height
-                self.tableView.contentInset.bottom = inset
-                self.tableView.verticalScrollIndicatorInsets.bottom = inset
+                self.viewModel.bottomPaddingHeight = inset
             }
             .store(in: &observations)
         
         
         navigationActionView.nextButton.addTarget(self, action: #selector(ReportSupplementaryViewController.nextButtonDidPressed(_:)), for: .touchUpInside)
+        
+        viewModel.followActionPublisher
+            .throttle(for: 0.3, scheduler: DispatchQueue.main, latest: false)
+            .sink { [weak self] in
+                guard let self = self else { return }
+                guard let authenticationBox = self.context.authenticationService.activeMastodonAuthenticationBox.value else {
+                    return
+                }
+                Task { @MainActor in
+                    guard !self.viewModel.isRequestFollow else { return }
+                    self.viewModel.isRequestFollow = true
+                    do {
+                        try await DataSourceFacade.responseToUserFollowAction(
+                            dependency: self,
+                            user: self.viewModel.user,
+                            authenticationBox: authenticationBox
+                        )
+                    } catch {
+                        // handle error
+                    }
+                    self.viewModel.isRequestFollow = false
+                }   // end Task
+            }
+            .store(in: &disposeBag)
+        
+        viewModel.muteActionPublisher
+            .throttle(for: 0.3, scheduler: DispatchQueue.main, latest: false)
+            .sink { [weak self] in
+                guard let self = self else { return }
+                guard let authenticationBox = self.context.authenticationService.activeMastodonAuthenticationBox.value else {
+                    return
+                }
+                Task { @MainActor in
+                    guard !self.viewModel.isRequestMute else { return }
+                    self.viewModel.isRequestMute = true
+                    do {
+                        try await DataSourceFacade.responseToUserMuteAction(
+                            dependency: self,
+                            user: self.viewModel.user,
+                            authenticationBox: authenticationBox
+                        )
+                    } catch {
+                        // handle error
+                    }
+                    self.viewModel.isRequestMute = false
+                }   // end Task
+            }
+            .store(in: &disposeBag)
+        
+        viewModel.blockActionPublisher
+            .throttle(for: 0.3, scheduler: DispatchQueue.main, latest: false)
+            .sink { [weak self] in
+                guard let self = self else { return }
+                guard let authenticationBox = self.context.authenticationService.activeMastodonAuthenticationBox.value else {
+                    return
+                }
+                Task { @MainActor in
+                    guard !self.viewModel.isRequestBlock else { return }
+                    self.viewModel.isRequestBlock = true
+                    do {
+                        try await DataSourceFacade.responseToUserBlockAction(
+                            dependency: self,
+                            user: self.viewModel.user,
+                            authenticationBox: authenticationBox
+                        )
+                    } catch {
+                        // handle error
+                    }
+                    self.viewModel.isRequestBlock = false
+                }   // end Task
+            }
+            .store(in: &disposeBag)
     }
     
 }
 
 extension ReportResultViewController {
+    
+    @objc func doneBarButtonItemDidPressed(_ sender: UIButton) {
+        dismiss(animated: true, completion: nil)
+    }
 
     @objc func nextButtonDidPressed(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
@@ -109,5 +175,7 @@ extension ReportResultViewController {
 
 }
 
-// MARK: - UITableViewDelegate
-extension ReportResultViewController: UITableViewDelegate { }
+// MARK: - PanPopableViewController
+extension ReportResultViewController: PanPopableViewController {
+    var isPanPopable: Bool { false }
+}

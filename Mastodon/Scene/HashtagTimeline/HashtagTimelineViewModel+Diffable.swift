@@ -27,6 +27,8 @@ extension HashtagTimelineViewModel {
             )
         )
 
+        stateMachine.enter(State.Reloading.self)
+        
         var snapshot = NSDiffableDataSourceSnapshot<StatusSection, StatusItem>()
         snapshot.appendSections([.main])
         diffableDataSource?.apply(snapshot)
@@ -43,14 +45,17 @@ extension HashtagTimelineViewModel {
                 let items = records.map { StatusItem.status(record: $0) }
                 snapshot.appendItems(items, toSection: .main)
                 
-                if let currentState = self.loadOldestStateMachine.currentState {
+                if let currentState = self.stateMachine.currentState {
                     switch currentState {
-                    case is LoadOldestState.Initial,
-                        is LoadOldestState.Loading,
-                        is LoadOldestState.Idle,
-                        is LoadOldestState.Fail:
-                        snapshot.appendItems([.bottomLoader], toSection: .main)
-                    case is LoadOldestState.NoMore:
+                    case is State.Initial,
+                        is State.Reloading,
+                        is State.Loading,
+                        is State.Idle,
+                        is State.Fail:
+                        if !items.isEmpty {
+                            snapshot.appendItems([.bottomLoader], toSection: .main)
+                        }
+                    case is State.NoMore:
                         break
                     default:
                         assertionFailure()

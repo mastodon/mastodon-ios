@@ -19,7 +19,7 @@ extension ReportViewControllerAppearance {
     
     func setupAppearance() {
         
-        title = L10n.Scene.Report.titleReport
+        // title = L10n.Scene.Report.titleReport
         view.backgroundColor = Asset.Scene.Report.background.color
 
         setupNavigationBarAppearance()

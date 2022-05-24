@@ -407,8 +407,14 @@ extension ProfileHeaderView {
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        
-        updateLayoutMargins()
+
+        // workaround enter background breaking the layout issue
+        switch UIApplication.shared.applicationState {
+        case .active:
+            updateLayoutMargins()
+        default:
+            break
+        }
     }
 
 }

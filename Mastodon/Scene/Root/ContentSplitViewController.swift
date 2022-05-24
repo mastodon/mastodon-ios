@@ -77,6 +77,16 @@ extension ContentSplitViewController {
             mainTabBarController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
         
+        // response keyboard command tab switch
+        mainTabBarController.$currentTab
+            .sink { [weak self] tab in
+                guard let self = self else { return }
+                if tab != self.currentSupplementaryTab {
+                    self.currentSupplementaryTab = tab
+                }
+            }
+            .store(in: &disposeBag)
+        
         $currentSupplementaryTab
             .removeDuplicates()
             .sink(receiveValue: { [weak self] tab in
