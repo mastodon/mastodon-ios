@@ -343,7 +343,7 @@
             "title": "Inizio",
             "navigation_bar_state": {
                 "offline": "Non in linea",
-                "new_posts": "Vedi nuovi post",
+                "new_posts": "Vedi i nuovi post",
                 "published": "Pubblicato!",
                 "Publishing": "Pubblicazione post...",
                 "accessibility": {
