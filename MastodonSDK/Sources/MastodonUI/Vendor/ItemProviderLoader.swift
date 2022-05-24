@@ -41,7 +41,7 @@ extension ItemProviderLoader {
                 guard let source = CGImageSourceCreateWithURL(url as CFURL, sourceOptions) else {
                     return
                 }
-
+                
                 #if APP_EXTENSION
                 let maxPixelSize: Int = 4096        // not limit but may upload fail
                 #else
@@ -87,8 +87,11 @@ extension ItemProviderLoader {
                     return (utType as String) == UTType.png.identifier
                 }()
                 
+                let sourceProperties = CGImageSourceCopyPropertiesAtIndex(source, 0, nil) as NSDictionary?
                 let destinationProperties = [
-                    kCGImageDestinationLossyCompressionQuality: isPNG ? 1.0 : 0.75
+                    kCGImageDestinationLossyCompressionQuality: isPNG ? 1.0 : 0.75,
+                    kCGImagePropertyProfileName: sourceProperties?[kCGImagePropertyProfileName],
+                    kCGImagePropertyColorModel: sourceProperties?[kCGImagePropertyColorModel]
                 ] as CFDictionary
                 
                 CGImageDestinationAddImage(imageDestination, cgImage, destinationProperties)
