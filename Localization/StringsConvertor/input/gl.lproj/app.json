@@ -470,7 +470,7 @@
             "footer": "Non se mostran os seguimentos desde outros servidores."
         },
         "familiarFollowers": {
-            "title": "Followers you familiar",
+            "title": "Seguimentos próximos",
             "followed_by_names": "Seguimentos de %s"
         },
         "favorited_by": {
