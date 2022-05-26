@@ -194,7 +194,7 @@ extension UserTimelineViewModel.State {
             guard let viewModel = viewModel, let _ = stateMachine else { return }
             
             // trigger data source update. otherwise, spinner always display
-            viewModel.isSuspended.value = viewModel.isSuspended.value
+            viewModel.isSuspended = viewModel.isSuspended
 
             // remove bottom loader
             guard let diffableDataSource = viewModel.diffableDataSource else { return }

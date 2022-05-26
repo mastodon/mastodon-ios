@@ -178,6 +178,6 @@ extension UserTimelineViewController: StatusTableViewControllerNavigateable {
 // MARK: - IndicatorInfoProvider
 extension UserTimelineViewController: IndicatorInfoProvider {
     func indicatorInfo(for pagerTabStripController: PagerTabStripViewController) -> IndicatorInfo {
-        return IndicatorInfo(title: "Hello")
+        return IndicatorInfo(title: viewModel.title)
     }
 }

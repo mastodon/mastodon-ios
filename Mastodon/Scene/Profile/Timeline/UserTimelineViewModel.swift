@@ -19,16 +19,18 @@ final class UserTimelineViewModel {
 
     // input
     let context: AppContext
-    @Published var userIdentifier: UserIdentifier?
-    @Published var queryFilter: QueryFilter
+    let title: String
     let statusFetchedResultsController: StatusFetchedResultsController
     let listBatchFetchViewModel = ListBatchFetchViewModel()
+    @Published var userIdentifier: UserIdentifier?
+    @Published var queryFilter: QueryFilter
 
-    let isBlocking = CurrentValueSubject<Bool, Never>(false)
-    let isBlockedBy = CurrentValueSubject<Bool, Never>(false)
-    let isSuspended = CurrentValueSubject<Bool, Never>(false)
-    let userDisplayName = CurrentValueSubject<String?, Never>(nil)  // for suspended prompt label
-    var dataSourceDidUpdate = PassthroughSubject<Void, Never>()
+    @Published var isBlocking = false
+    @Published var isBlockedBy = false
+    @Published var isSuspended = false
+
+    // let userDisplayName = CurrentValueSubject<String?, Never>(nil)  // for suspended prompt label
+    // var dataSourceDidUpdate = PassthroughSubject<Void, Never>()
 
     // output
     var diffableDataSource: UITableViewDiffableDataSource<StatusSection, StatusItem>?
@@ -47,9 +49,11 @@ final class UserTimelineViewModel {
 
     init(
         context: AppContext,
+        title: String,
         queryFilter: QueryFilter
     ) {
         self.context = context
+        self.title = title
         self.statusFetchedResultsController = StatusFetchedResultsController(
             managedObjectContext: context.managedObjectContext,
             domain: nil,

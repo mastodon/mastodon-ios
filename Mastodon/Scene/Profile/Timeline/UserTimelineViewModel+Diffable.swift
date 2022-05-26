@@ -40,9 +40,9 @@ extension UserTimelineViewModel {
             .store(in: &disposeBag)
         
         let needsTimelineHidden = Publishers.CombineLatest3(
-            isBlocking,
-            isBlockedBy,
-            isSuspended
+            $isBlocking,
+            $isBlockedBy,
+            $isSuspended
         ).map { $0 || $1 || $2 }
         
         Publishers.CombineLatest(
