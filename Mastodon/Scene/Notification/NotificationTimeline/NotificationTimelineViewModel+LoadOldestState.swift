@@ -108,7 +108,7 @@ extension NotificationTimelineViewModel.LoadOldestState {
                     logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): fetch statues failed: \(error.localizedDescription)")
                     await self.enter(state: Fail.self)
                 }
-            }   // Task
+            }   // end Task
         }
     }
     
