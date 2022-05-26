@@ -7,12 +7,12 @@
 
 import UIKit
 
-// Make status bar style adaptive for child view controller
-// SeeAlso: `modalPresentationCapturesStatusBarAppearance`
 class AdaptiveStatusBarStyleNavigationController: UINavigationController {
 
     private lazy var fullWidthBackGestureRecognizer = UIPanGestureRecognizer()
 
+    // Make status bar style adaptive for child view controller
+    // SeeAlso: `modalPresentationCapturesStatusBarAppearance`
     override var childForStatusBarStyle: UIViewController? {
         visibleViewController
     }

@@ -209,6 +209,15 @@
         }
       },
       {
+        "package": "TabBarPager",
+        "repositoryURL": "https://github.com/TwidereProject/TabBarPager.git",
+        "state": {
+          "branch": null,
+          "revision": "488aa66d157a648901b61721212c0dec23d27ee5",
+          "version": "0.1.0"
+        }
+      },
+      {
         "package": "Tabman",
         "repositoryURL": "https://github.com/uias/Tabman",
         "state": {

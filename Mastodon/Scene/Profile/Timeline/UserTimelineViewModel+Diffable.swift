@@ -30,22 +30,19 @@ extension UserTimelineViewModel {
         snapshot.appendSections([.main])
         diffableDataSource?.apply(snapshot)
         
-        // trigger user timeline loading
-        Publishers.CombineLatest(
-            $domain.removeDuplicates(),
-            $userID.removeDuplicates()
-        )
-        .receive(on: DispatchQueue.main)
-        .sink { [weak self] _ in
-            guard let self = self else { return }
-            self.stateMachine.enter(UserTimelineViewModel.State.Reloading.self)
-        }
-        .store(in: &disposeBag)
+        // trigger timeline reloading
+        $userIdentifier
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                self.stateMachine.enter(UserTimelineViewModel.State.Reloading.self)
+            }
+            .store(in: &disposeBag)
         
         let needsTimelineHidden = Publishers.CombineLatest3(
-            isBlocking,
-            isBlockedBy,
-            isSuspended
+            $isBlocking,
+            $isBlockedBy,
+            $isSuspended
         ).map { $0 || $1 || $2 }
         
         Publishers.CombineLatest(

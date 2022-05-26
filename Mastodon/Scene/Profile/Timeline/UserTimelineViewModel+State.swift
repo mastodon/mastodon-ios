@@ -50,7 +50,7 @@ extension UserTimelineViewModel.State {
             guard let viewModel = viewModel else { return false }
             switch stateClass {
             case is Reloading.Type:
-                return viewModel.userID != nil
+                return viewModel.userIdentifier != nil
             default:
                 return false
             }
@@ -132,7 +132,7 @@ extension UserTimelineViewModel.State {
             
             let maxID = viewModel.statusFetchedResultsController.statusIDs.value.last
             
-            guard let userID = viewModel.userID, !userID.isEmpty else {
+            guard let userID = viewModel.userIdentifier?.userID, !userID.isEmpty else {
                 stateMachine.enter(Fail.self)
                 return
             }
@@ -194,7 +194,7 @@ extension UserTimelineViewModel.State {
             guard let viewModel = viewModel, let _ = stateMachine else { return }
             
             // trigger data source update. otherwise, spinner always display
-            viewModel.isSuspended.value = viewModel.isSuspended.value
+            viewModel.isSuspended = viewModel.isSuspended
 
             // remove bottom loader
             guard let diffableDataSource = viewModel.diffableDataSource else { return }

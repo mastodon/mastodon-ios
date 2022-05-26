@@ -8,6 +8,7 @@
 import os.log
 import UIKit
 import Combine
+import CoreDataStack
 import MastodonSDK
 import MastodonMeta
 import Kanna
@@ -18,41 +19,69 @@ final class ProfileAboutViewModel {
 
     // input
     let context: AppContext
+    @Published var user: MastodonUser?
     @Published var isEditing = false
     @Published var accountForEdit: Mastodon.Entity.Account?
-    @Published var emojiMeta: MastodonContent.Emojis = [:]
     
     // output
     var diffableDataSource: UICollectionViewDiffableDataSource<ProfileFieldSection, ProfileFieldItem>?
+    let profileInfo = ProfileInfo()
+    let profileInfoEditing = ProfileInfo()
     
-    let displayProfileInfo = ProfileInfo()
-    let editProfileInfo = ProfileInfo()
-    let editProfileInfoDidInitialized = CurrentValueSubject<Void, Never>(Void()) // needs trigger initial event
+    @Published var fields: [MastodonField] = []
+    @Published var emojiMeta: MastodonContent.Emojis = [:]
 
     init(context: AppContext) {
         self.context = context
         // end init
         
+        $user
+            .compactMap { $0 }
+            .flatMap { $0.publisher(for: \.emojis) }
+            .map { $0.asDictionary }
+            .assign(to: &$emojiMeta)
+        
+        $user
+            .compactMap { $0 }
+            .flatMap { $0.publisher(for: \.fields) }
+            .assign(to: &$fields)
+        
         Publishers.CombineLatest(
-            $isEditing.removeDuplicates(),   // only trigger when value toggle
-            $accountForEdit
+            $fields,
+            $emojiMeta
+        )
+        .map { fields, emojiMeta in
+            fields.map { ProfileFieldItem.FieldValue(name: $0.name, value: $0.value, emojiMeta: emojiMeta) }
+        }
+        .assign(to: &profileInfo.$fields)
+        
+        Publishers.CombineLatest(
+            $accountForEdit,
+            $emojiMeta
         )
         .receive(on: DispatchQueue.main)
-        .sink { [weak self] isEditing, account in
+        .sink { [weak self] account, emojiMeta in
             guard let self = self else { return }
-            guard isEditing else { return }
+            guard let account = account else { return }
             
-            // setup editing value when toggle to editing
-            self.editProfileInfo.fields = account?.source?.fields?.compactMap { field in
+            self.profileInfo.fields = account.source?.fields?.compactMap { field in
+                ProfileFieldItem.FieldValue(
+                    name: field.name,
+                    value: field.value,
+                    emojiMeta: emojiMeta
+                )
+            } ?? []
+            
+            self.profileInfoEditing.fields = account.source?.fields?.compactMap { field in
                 ProfileFieldItem.FieldValue(
                     name: field.name,
                     value: field.value,
                     emojiMeta: [:]      // no use for editing
                 )
             } ?? []
-            self.editProfileInfoDidInitialized.send()
         }
         .store(in: &disposeBag)
+        
     }
     
 }
@@ -65,31 +94,31 @@ extension ProfileAboutViewModel {
 
 extension ProfileAboutViewModel {
     func appendFieldItem() {
-        var fields = editProfileInfo.fields
+        var fields = profileInfoEditing.fields
         guard fields.count < ProfileHeaderViewModel.maxProfileFieldCount else { return }
         fields.append(ProfileFieldItem.FieldValue(name: "", value: "", emojiMeta: [:]))
-        editProfileInfo.fields = fields
+        profileInfoEditing.fields = fields
     }
     
     func removeFieldItem(item: ProfileFieldItem) {
-        var fields = editProfileInfo.fields
+        var fields = profileInfoEditing.fields
         guard case let .editField(field) = item else { return }
         guard let removeIndex = fields.firstIndex(of: field) else { return }
         fields.remove(at: removeIndex)
-        editProfileInfo.fields = fields
+        profileInfoEditing.fields = fields
     }
 }
 
 // MARK: - ProfileViewModelEditable
 extension ProfileAboutViewModel: ProfileViewModelEditable {
-    func isEdited() -> Bool {
+    var isEdited: Bool {
         guard isEditing else { return false }
         
         let isFieldsEqual: Bool = {
             let originalFields = self.accountForEdit?.source?.fields?.compactMap { field in
                 ProfileFieldItem.FieldValue(name: field.name, value: field.value, emojiMeta: [:])
             } ?? []
-            let editFields = editProfileInfo.fields
+            let editFields = profileInfoEditing.fields
             guard editFields.count == originalFields.count else { return false }
             for (editField, originalField) in zip(editFields, originalFields) {
                 guard editField.name.value == originalField.name.value,

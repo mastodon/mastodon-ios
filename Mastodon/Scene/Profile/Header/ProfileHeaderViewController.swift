@@ -8,6 +8,7 @@
 import os.log
 import UIKit
 import Combine
+import CoreDataStack
 import PhotosUI
 import AlamofireImage
 import CropViewController
@@ -15,21 +16,30 @@ import MastodonMeta
 import MetaTextKit
 import MastodonAsset
 import MastodonLocalization
-import Tabman
+import TabBarPager
 
 protocol ProfileHeaderViewControllerDelegate: AnyObject {
-    func profileHeaderViewController(_ viewController: ProfileHeaderViewController, viewLayoutDidUpdate view: UIView)
+    func profileHeaderViewController(_ profileHeaderViewController: ProfileHeaderViewController, profileHeaderView: ProfileHeaderView, relationshipButtonDidPressed button: ProfileRelationshipActionButton)
+    func profileHeaderViewController(_ profileHeaderViewController: ProfileHeaderViewController, profileHeaderView: ProfileHeaderView, metaTextView: MetaTextView, metaDidPressed meta: Meta)
 }
 
-final class ProfileHeaderViewController: UIViewController {
+final class ProfileHeaderViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
+    
+    let logger = Logger(subsystem: "ProfileHeaderViewController", category: "ViewController")
 
     static let segmentedControlHeight: CGFloat = 50
     static let headerMinHeight: CGFloat = segmentedControlHeight
     
-    var disposeBag = Set<AnyCancellable>()
-    weak var delegate: ProfileHeaderViewControllerDelegate?
+    weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
+    weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
+    var disposeBag = Set<AnyCancellable>()
     var viewModel: ProfileHeaderViewModel!
+    
+    weak var delegate: ProfileHeaderViewControllerDelegate?
+    weak var headerDelegate: TabBarPagerHeaderDelegate?
+    
+    let mediaPreviewTransitionController = MediaPreviewTransitionController()
     
     let titleView: DoubleTitleLabelNavigationBarTitleView = {
         let titleView = DoubleTitleLabelNavigationBarTitleView()
@@ -43,39 +53,8 @@ final class ProfileHeaderViewController: UIViewController {
     }()
     
     let profileHeaderView = ProfileHeaderView()
-    
-    let buttonBar: TMBar.ButtonBar = {
-        let buttonBar = TMBar.ButtonBar()
-        buttonBar.indicator.backgroundColor = Asset.Colors.Label.primary.color
-        buttonBar.backgroundView.style = .clear
-        buttonBar.layout.contentInset = .zero
-        return buttonBar
-    }()
 
-    func customizeButtonBarAppearance() {
-        // The implmention use CATextlayer. Adapt for Dark Mode without dynamic colors
-        // Needs trigger update when `userInterfaceStyle` chagnes
-        let userInterfaceStyle = traitCollection.userInterfaceStyle
-        buttonBar.buttons.customize { button in
-            switch userInterfaceStyle {
-            case .dark:
-                // Asset.Colors.Label.primary.color
-                button.selectedTintColor = UIColor(red: 238.0/255.0, green: 238.0/255.0, blue: 238.0/255.0, alpha: 1.0)
-                // Asset.Colors.Label.secondary.color
-                button.tintColor = UIColor(red: 151.0/255.0, green: 157.0/255.0, blue: 173.0/255.0, alpha: 1.0)
-            default:
-                // Asset.Colors.Label.primary.color
-                button.selectedTintColor = UIColor(red: 40.0/255.0, green: 44.0/255.0, blue: 55.0/255.0, alpha: 1.0)
-                // Asset.Colors.Label.secondary.color
-                button.tintColor = UIColor(red: 60.0/255.0, green: 60.0/255.0, blue: 67.0/255.0, alpha: 0.6)
-            }
-            
-            button.backgroundColor = .clear
-        }
-    }
-
-    private var isBannerPinned = false
-    private var bottomShadowAlpha: CGFloat = 0.0
+//    private var isBannerPinned = false
 
     // private var isAdjustBannerImageViewForSafeAreaInset = false
     private var containerSafeAreaInset: UIEdgeInsets = .zero
@@ -103,7 +82,7 @@ final class ProfileHeaderViewController: UIViewController {
     }()
 
     deinit {
-        os_log("%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
     }
     
 }
@@ -113,7 +92,7 @@ extension ProfileHeaderViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        customizeButtonBarAppearance()
+        view.setContentHuggingPriority(.required - 1, for: .vertical)
 
         view.backgroundColor = ThemeService.shared.currentTheme.value.systemBackgroundColor
         ThemeService.shared.currentTheme
@@ -124,137 +103,73 @@ extension ProfileHeaderViewController {
             }
             .store(in: &disposeBag)
 
+//        profileHeaderView.preservesSuperviewLayoutMargins = true
         profileHeaderView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(profileHeaderView)
         NSLayoutConstraint.activate([
             profileHeaderView.topAnchor.constraint(equalTo: view.topAnchor),
             profileHeaderView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             profileHeaderView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            view.bottomAnchor.constraint(equalTo: profileHeaderView.bottomAnchor),
         ])
-        profileHeaderView.preservesSuperviewLayoutMargins = true
-    
-        Publishers.CombineLatest(
-            viewModel.viewDidAppear.eraseToAnyPublisher(),
-            viewModel.isTitleViewContentOffsetSet.eraseToAnyPublisher()
-        )
-        .receive(on: DispatchQueue.main)
-        .sink { [weak self] viewDidAppear, isTitleViewContentOffsetDidSet in
-            guard let self = self else { return }
-            self.titleView.titleLabel.alpha = viewDidAppear && isTitleViewContentOffsetDidSet ? 1 : 0
-            self.titleView.subtitleLabel.alpha = viewDidAppear && isTitleViewContentOffsetDidSet ? 1 : 0
-        }
-        .store(in: &disposeBag)
-        
-        viewModel.needsSetupBottomShadow
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] needsSetupBottomShadow in
-                guard let self = self else { return }
-                self.setupBottomShadow()
-            }
-            .store(in: &disposeBag)
-        
-        Publishers.CombineLatest4(
-            viewModel.$isEditing.eraseToAnyPublisher(),
-            viewModel.displayProfileInfo.$avatarImageResource.eraseToAnyPublisher(),
-            viewModel.editProfileInfo.$avatarImageResource.eraseToAnyPublisher(),
-            viewModel.viewDidAppear.eraseToAnyPublisher()
-        )
-        .receive(on: DispatchQueue.main)
-        .sink { [weak self] isEditing, displayResource, editingResource, _ in
-            guard let self = self else { return }
-            
-            let url = displayResource.url
-            let image = editingResource.image
-            
-            self.profileHeaderView.avatarButton.avatarImageView.configure(
-                configuration: AvatarImageView.Configuration(
-                    url: isEditing && image != nil ? nil : url,
-                    placeholder: image ?? UIImage.placeholder(color: Asset.Theme.Mastodon.systemGroupedBackground.color)
-                )
-            )
-        }
-        .store(in: &disposeBag)
-        Publishers.CombineLatest4(
-            viewModel.$isEditing,
-            viewModel.displayProfileInfo.$name.removeDuplicates(),
-            viewModel.editProfileInfo.$name.removeDuplicates(),
-            viewModel.$emojiMeta
-        )
-        .receive(on: DispatchQueue.main)
-        .sink { [weak self] isEditing, name, editingName, emojiMeta in
-            guard let self = self else { return }
-            do {
-                let mastodonContent = MastodonContent(content: name ?? " ", emojis: emojiMeta)
-                let metaContent = try MastodonMetaContent.convert(document: mastodonContent)
-                self.profileHeaderView.nameMetaText.configure(content: metaContent)
-            } catch {
-                assertionFailure()
-            }
-            self.profileHeaderView.nameTextField.text = isEditing ? editingName : name
-        }
-        .store(in: &disposeBag)
-        
-        let profileNote = Publishers.CombineLatest3(
-            viewModel.$isEditing.removeDuplicates(),
-            viewModel.displayProfileInfo.$note.removeDuplicates(),
-            viewModel.editProfileInfoDidInitialized
-        )
-        .map { isEditing, displayNote, _ -> String? in
-            if isEditing {
-                return self.viewModel.editProfileInfo.note
-            } else {
-                return displayNote
-            }
-        }
-        .eraseToAnyPublisher()
-
-        Publishers.CombineLatest3(
-            viewModel.$isEditing.removeDuplicates(),
-            profileNote.removeDuplicates(),
-            viewModel.$emojiMeta.removeDuplicates()
-        )
-        .receive(on: DispatchQueue.main)
-        .sink { [weak self] isEditing, note, emojiMeta in
-            guard let self = self else { return }
-            
-            self.profileHeaderView.bioMetaText.textView.isEditable = isEditing
-            
-            if isEditing {
-                let metaContent = PlaintextMetaContent(string: note ?? "")
-                self.profileHeaderView.bioMetaText.configure(content: metaContent)
-            } else {
-                let mastodonContent = MastodonContent(content: note ?? "", emojis: emojiMeta)
-                do {
-                    let metaContent = try MastodonMetaContent.convert(document: mastodonContent)
-                    self.profileHeaderView.bioMetaText.configure(content: metaContent)
-                } catch {
-                    assertionFailure()
-                    self.profileHeaderView.bioMetaText.reset()
-                }
-            }
-        }
-        .store(in: &disposeBag)
-        
         profileHeaderView.bioMetaText.delegate = self
-
+        
         NotificationCenter.default.publisher(for: UITextField.textDidChangeNotification, object: profileHeaderView.nameTextField)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] notification in
                 guard let self = self else { return }
                 guard let textField = notification.object as? UITextField else { return }
-                self.viewModel.editProfileInfo.name = textField.text
+                self.viewModel.profileInfoEditing.name = textField.text
             }
             .store(in: &disposeBag)
         
-        profileHeaderView.editAvatarButton.menu = createAvatarContextMenu()
-        profileHeaderView.editAvatarButton.showsMenuAsPrimaryAction = true
+        profileHeaderView.editAvatarButtonOverlayIndicatorView.menu = createAvatarContextMenu()
+        profileHeaderView.editAvatarButtonOverlayIndicatorView.showsMenuAsPrimaryAction = true
+        profileHeaderView.delegate = self
+        
+        // bind viewModel
+        viewModel.$isTitleViewContentOffsetSet
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] isTitleViewContentOffsetDidSet in
+                guard let self = self else { return }
+                self.titleView.titleLabel.alpha = isTitleViewContentOffsetDidSet ? 1 : 0
+                self.titleView.subtitleLabel.alpha = isTitleViewContentOffsetDidSet ? 1 : 0
+            }
+            .store(in: &disposeBag)
+        viewModel.$user
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] user in
+                guard let self = self else { return }
+                guard let user = user else { return }
+                self.profileHeaderView.prepareForReuse()
+                self.profileHeaderView.configuration(user: user)
+            }
+            .store(in: &disposeBag)
+        viewModel.$relationshipActionOptionSet
+            .assign(to: \.relationshipActionOptionSet, on: profileHeaderView.viewModel)
+            .store(in: &disposeBag)
+        viewModel.$isEditing
+            .assign(to: \.isEditing, on: profileHeaderView.viewModel)
+            .store(in: &disposeBag)
+        viewModel.$isUpdating
+            .assign(to: \.isUpdating, on: profileHeaderView.viewModel)
+            .store(in: &disposeBag)
+        viewModel.profileInfoEditing.$avatar
+            .assign(to: \.avatarImageEditing, on: profileHeaderView.viewModel)
+            .store(in: &disposeBag)
+        viewModel.profileInfoEditing.$name
+            .assign(to: \.nameEditing, on: profileHeaderView.viewModel)
+            .store(in: &disposeBag)
+        viewModel.profileInfoEditing.$note
+            .assign(to: \.noteEditing, on: profileHeaderView.viewModel)
+            .store(in: &disposeBag)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        viewModel.viewDidAppear.value = true
-
+        profileHeaderView.viewModel.viewDidAppear.send()
+        
         // set display after view appear
         profileHeaderView.setupAvatarOverlayViews()
     }
@@ -262,14 +177,7 @@ extension ProfileHeaderViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        delegate?.profileHeaderViewController(self, viewLayoutDidUpdate: view)
-        setupBottomShadow()
-    }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-
-        customizeButtonBarAppearance()
+        headerDelegate?.viewLayoutDidUpdate(self)
     }
     
 }
@@ -321,56 +229,8 @@ extension ProfileHeaderViewController {
         containerSafeAreaInset = inset
     }
     
-    func setupBottomShadow() {
-        guard viewModel.needsSetupBottomShadow.value else {
-            view.layer.shadowColor = nil
-            view.layer.shadowRadius = 0
-            return
-        }
-        view.layer.setupShadow(color: UIColor.black.withAlphaComponent(0.12), alpha: Float(bottomShadowAlpha), x: 0, y: 2, blur: 2, spread: 0, roundedRect: view.bounds, byRoundingCorners: .allCorners, cornerRadii: .zero)
-    }
-    
-    private func updateHeaderBottomShadow(progress: CGFloat) {
-        let alpha = min(max(0, 10 * progress - 9), 1)
-        if bottomShadowAlpha != alpha {
-            bottomShadowAlpha = alpha
-            view.setNeedsLayout()
-        }
-    }
-    
     func updateHeaderScrollProgress(_ progress: CGFloat, throttle: CGFloat) {
-        // os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: progress: %.2f", ((#file as NSString).lastPathComponent), #line, #function, progress)
-        updateHeaderBottomShadow(progress: progress)
-                
-        let bannerImageView = profileHeaderView.bannerImageView
-        guard bannerImageView.bounds != .zero else {
-            // wait layout finish
-            return
-        }
-        
-        let bannerContainerInWindow = profileHeaderView.convert(profileHeaderView.bannerContainerView.frame, to: nil)
-        let bannerContainerBottomOffset = bannerContainerInWindow.origin.y + bannerContainerInWindow.height
-    
-        // scroll from bottom to top: 1 -> 2 -> 3
-        if bannerContainerInWindow.origin.y > containerSafeAreaInset.top {
-            // 1
-            // banner top pin to window top and expand
-            bannerImageView.frame.origin.y = -bannerContainerInWindow.origin.y
-            bannerImageView.frame.size.height = bannerContainerInWindow.origin.y + bannerContainerInWindow.size.height
-        } else if bannerContainerBottomOffset < containerSafeAreaInset.top {
-            // 3
-            // banner bottom pin to navigation bar bottom and
-            // the `progress` growth to 1 then segmented control pin to top
-            bannerImageView.frame.origin.y = -containerSafeAreaInset.top
-            let bannerImageHeight = bannerContainerInWindow.size.height + containerSafeAreaInset.top + (containerSafeAreaInset.top - bannerContainerBottomOffset)
-            bannerImageView.frame.size.height = bannerImageHeight
-        } else {
-            // 2
-            // banner move with scrolling from bottom to top until the
-            // banner bottom higher than navigation bar bottom
-            bannerImageView.frame.origin.y = -containerSafeAreaInset.top
-            bannerImageView.frame.size.height = bannerContainerInWindow.size.height + containerSafeAreaInset.top
-        }
+         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: progress: %.2f", ((#file as NSString).lastPathComponent), #line, #function, progress)
         
         // set title view offset
         let nameTextFieldInWindow = profileHeaderView.nameTextField.superview!.convert(profileHeaderView.nameTextField.frame, to: nil)
@@ -378,18 +238,14 @@ extension ProfileHeaderViewController {
         let titleViewContentOffset: CGFloat = titleView.frame.height - nameTextFieldTopToNavigationBarBottomOffset
         let transformY = max(0, titleViewContentOffset)
         titleView.containerView.transform = CGAffineTransform(translationX: 0, y: transformY)
-        viewModel.isTitleViewDisplaying.value = transformY < titleView.containerView.frame.height
+        viewModel.isTitleViewDisplaying = transformY < titleView.containerView.frame.height
+        viewModel.isTitleViewContentOffsetSet = true
 
-        if viewModel.viewDidAppear.value {
-            viewModel.isTitleViewContentOffsetSet.value = true
-        }
-                
-        // set avatar fade
-        if progress > 0 {
-            setProfileAvatar(alpha: 0)
-        } else if progress > -abs(throttle) {
-            // y = -(1/0.8T)x
-            let alpha = -1 / abs(0.8 * throttle) * progress
+        if progress > 0, throttle > 0 {
+            // y = 1 - (x/t)
+            // give: x = 0, y = 1
+            //       x = t, y = 0
+            let alpha = 1 - progress/throttle
             setProfileAvatar(alpha: alpha)
         } else {
             setProfileAvatar(alpha: 1)
@@ -404,6 +260,103 @@ extension ProfileHeaderViewController {
     
 }
 
+// MARK: - ProfileHeaderViewDelegate
+extension ProfileHeaderViewController: ProfileHeaderViewDelegate {
+    func profileHeaderView(_ profileHeaderView: ProfileHeaderView, avatarButtonDidPressed button: AvatarButton) {
+        guard let user = viewModel.user else { return }
+        let record: ManagedObjectRecord<MastodonUser> = .init(objectID: user.objectID)
+
+        Task {
+            try await DataSourceFacade.coordinateToMediaPreviewScene(
+                dependency: self,
+                user: record,
+                previewContext: DataSourceFacade.ImagePreviewContext(
+                    imageView: button.avatarImageView,
+                    containerView: .profileAvatar(profileHeaderView)
+                )
+            )
+        }   // end Task
+    }
+
+    func profileHeaderView(_ profileHeaderView: ProfileHeaderView, bannerImageViewDidPressed imageView: UIImageView) {
+        guard let user = viewModel.user else { return }
+        let record: ManagedObjectRecord<MastodonUser> = .init(objectID: user.objectID)
+
+        Task {
+            try await DataSourceFacade.coordinateToMediaPreviewScene(
+                dependency: self,
+                user: record,
+                previewContext: DataSourceFacade.ImagePreviewContext(
+                    imageView: imageView,
+                    containerView: .profileBanner(profileHeaderView)
+                )
+            )
+        }   // end Task
+    }
+
+    func profileHeaderView(
+        _ profileHeaderView: ProfileHeaderView,
+        relationshipButtonDidPressed button: ProfileRelationshipActionButton
+    ) {
+        delegate?.profileHeaderViewController(
+            self,
+            profileHeaderView: profileHeaderView,
+            relationshipButtonDidPressed: button
+        )
+    }
+
+    func profileHeaderView(_ profileHeaderView: ProfileHeaderView, metaTextView: MetaTextView, metaDidPressed meta: Meta) {
+        delegate?.profileHeaderViewController(
+            self,
+            profileHeaderView: profileHeaderView,
+            metaTextView: metaTextView,
+            metaDidPressed: meta
+        )
+    }
+
+    func profileHeaderView(
+        _ profileHeaderView: ProfileHeaderView,
+        profileStatusDashboardView dashboardView: ProfileStatusDashboardView,
+        dashboardMeterViewDidPressed dashboardMeterView: ProfileStatusDashboardMeterView,
+        meter: ProfileStatusDashboardView.Meter
+    ) {
+        switch meter {
+        case .post:
+            // do nothing
+            break
+        case .follower:
+            guard let domain = viewModel.user?.domain,
+                  let userID = viewModel.user?.id
+            else { return }
+            let followerListViewModel = FollowerListViewModel(
+                context: context,
+                domain: domain,
+                userID: userID
+            )
+            coordinator.present(
+                scene: .follower(viewModel: followerListViewModel),
+                from: self,
+                transition: .show
+            )
+        case .following:
+            guard let domain = viewModel.user?.domain,
+                  let userID = viewModel.user?.id
+            else { return }
+            let followingListViewModel = FollowingListViewModel(
+                context: context,
+                domain: domain,
+                userID: userID
+            )
+            coordinator.present(
+                scene: .following(viewModel: followingListViewModel),
+                from: self,
+                transition: .show
+            )
+        }
+    }
+
+}
+
 // MARK: - MetaTextDelegate
 extension ProfileHeaderViewController: MetaTextDelegate {
     func metaText(_ metaText: MetaText, processEditing textStorage: MetaTextStorage) -> MetaContent? {
@@ -412,7 +365,9 @@ extension ProfileHeaderViewController: MetaTextDelegate {
         switch metaText {
         case profileHeaderView.bioMetaText:
             guard viewModel.isEditing else { break }
-            viewModel.editProfileInfo.note = metaText.backedString
+            defer {
+                viewModel.profileInfoEditing.note = metaText.backedString                
+            }
             let metaContent = PlaintextMetaContent(string: metaText.backedString)
             return metaContent
         default:
@@ -484,7 +439,10 @@ extension ProfileHeaderViewController: UIDocumentPickerDelegate {
 // MARK: - CropViewControllerDelegate
 extension ProfileHeaderViewController: CropViewControllerDelegate {
     public func cropViewController(_ cropViewController: CropViewController, didCropToImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
-        viewModel.editProfileInfo.avatarImage = image
+        viewModel.profileInfoEditing.avatar = image
         cropViewController.dismiss(animated: true, completion: nil)
     }
 }
+
+// MARK: - TabBarPagerHeader
+extension ProfileHeaderViewController: TabBarPagerHeader { }

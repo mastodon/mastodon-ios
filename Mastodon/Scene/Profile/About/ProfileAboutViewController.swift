@@ -9,6 +9,9 @@ import os.log
 import UIKit
 import Combine
 import MetaTextKit
+import MastodonLocalization
+import TabBarPager
+import XLPagerTabStrip
 
 protocol ProfileAboutViewControllerDelegate: AnyObject {
     func profileAboutViewController(_ viewController: ProfileAboutViewController, profileFieldCollectionViewCell: ProfileFieldCollectionViewCell, metaLabel: MetaLabel, didSelectMeta meta: Meta)
@@ -162,7 +165,17 @@ extension ProfileAboutViewController: ProfileFieldEditCollectionViewCellDelegate
 
 // MARK: - ScrollViewContainer
 extension ProfileAboutViewController: ScrollViewContainer {
-    var scrollView: UIScrollView? {
-        collectionView
+    var scrollView: UIScrollView { collectionView }
+}
+
+// MARK: - TabBarPage
+extension ProfileAboutViewController: TabBarPage {
+    var pageScrollView: UIScrollView { scrollView }
+}
+
+// MARK: - IndicatorInfoProvider
+extension ProfileAboutViewController: IndicatorInfoProvider {
+    func indicatorInfo(for pagerTabStripController: PagerTabStripViewController) -> IndicatorInfo {
+        return IndicatorInfo(title: L10n.Scene.Profile.SegmentedControl.about)
     }
 }

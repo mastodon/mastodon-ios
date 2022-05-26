@@ -8,9 +8,11 @@
 import os.log
 import UIKit
 import Combine
+import CoreDataStack
 import Kanna
 import MastodonSDK
 import MastodonMeta
+import MastodonUI
 
 final class ProfileHeaderViewModel {
     
@@ -21,39 +23,44 @@ final class ProfileHeaderViewModel {
     
     // input
     let context: AppContext
+    @Published var user: MastodonUser?
+    @Published var relationshipActionOptionSet: RelationshipActionOptionSet = .none
+
     @Published var isEditing = false
-    @Published var accountForEdit: Mastodon.Entity.Account?
-    @Published var emojiMeta: MastodonContent.Emojis = [:]
+    @Published var isUpdating = false
     
-    let viewDidAppear = CurrentValueSubject<Bool, Never>(false)
-    let needsSetupBottomShadow = CurrentValueSubject<Bool, Never>(true)
-    let needsFiledCollectionViewHidden = CurrentValueSubject<Bool, Never>(false)
-    let isTitleViewContentOffsetSet = CurrentValueSubject<Bool, Never>(false)
+    @Published var accountForEdit: Mastodon.Entity.Account?
+
+//    let needsFiledCollectionViewHidden = CurrentValueSubject<Bool, Never>(false)
     
     // output
-    let isTitleViewDisplaying = CurrentValueSubject<Bool, Never>(false)
-    let displayProfileInfo = ProfileInfo()
-    let editProfileInfo = ProfileInfo()
-    let editProfileInfoDidInitialized = CurrentValueSubject<Void, Never>(Void()) // needs trigger initial event
+    let profileInfo        = ProfileInfo()
+    let profileInfoEditing = ProfileInfo()
+
+    @Published var isTitleViewDisplaying = false
+    @Published var isTitleViewContentOffsetSet = false    
 
     init(context: AppContext) {
         self.context = context
     
-        Publishers.CombineLatest(
-            $isEditing.removeDuplicates(),   // only trigger when value toggle
-            $accountForEdit
-        )
-        .receive(on: DispatchQueue.main)
-        .sink { [weak self] isEditing, account in
-            guard let self = self else { return }
-            guard isEditing else { return }
-            // setup editing value when toggle to editing
-            self.editProfileInfo.name = self.displayProfileInfo.name        // set to name
-            self.editProfileInfo.avatarImage = nil                          // set to empty
-            self.editProfileInfo.note = ProfileHeaderViewModel.normalize(note: self.displayProfileInfo.note)
-            self.editProfileInfoDidInitialized.send()
-        }
-        .store(in: &disposeBag)
+        $accountForEdit
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] account in
+                guard let self = self else { return }
+                guard let account = account else { return }
+                // avatar
+                self.profileInfo.avatar = nil
+                self.profileInfoEditing.avatar = nil
+                // name
+                let name = account.displayNameWithFallback
+                self.profileInfo.name = name
+                self.profileInfoEditing.name = name
+                // bio
+                let note = ProfileHeaderViewModel.normalize(note: account.note)
+                self.profileInfo.note = note
+                self.profileInfoEditing.note = note
+            }
+            .store(in: &disposeBag)
     }
     
 }
@@ -61,29 +68,9 @@ final class ProfileHeaderViewModel {
 extension ProfileHeaderViewModel {
     class ProfileInfo {
         // input
+        @Published var avatar: UIImage?
         @Published var name: String?
-        @Published var avatarImageURL: URL?
-        @Published var avatarImage: UIImage?
         @Published var note: String?
-        
-        // output
-        @Published var avatarImageResource = ImageResource(url: nil, image: nil)
-        
-        struct ImageResource {
-            let url: URL?
-            let image: UIImage?
-        }
-        
-        init() {
-            Publishers.CombineLatest(
-                $avatarImageURL,
-                $avatarImage
-            )
-            .map { url, image in
-                ImageResource(url: url, image: image)
-            }
-            .assign(to: &$avatarImageResource)
-        }
     }
 }
 
@@ -103,15 +90,14 @@ extension ProfileHeaderViewModel {
 
 }
 
-
 // MARK: - ProfileViewModelEditable
 extension ProfileHeaderViewModel: ProfileViewModelEditable {
-    func isEdited() -> Bool {
+    var isEdited: Bool {
         guard isEditing else { return false }
         
-        guard editProfileInfo.name == displayProfileInfo.name else { return true }
-        guard editProfileInfo.avatarImage == nil else { return true }
-        guard editProfileInfo.note == ProfileHeaderViewModel.normalize(note: displayProfileInfo.note) else { return true }
+        guard profileInfoEditing.avatar == nil else { return true }
+        guard profileInfo.name == profileInfoEditing.name else { return true }
+        guard profileInfo.note == profileInfoEditing.note else { return true }
 
         return false
     }

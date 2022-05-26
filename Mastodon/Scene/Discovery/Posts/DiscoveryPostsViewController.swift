@@ -160,9 +160,7 @@ extension DiscoveryPostsViewController: StatusTableViewCellDelegate { }
 
 // MARK: ScrollViewContainer
 extension DiscoveryPostsViewController: ScrollViewContainer {
-    var scrollView: UIScrollView? {
-        tableView
-    }
+    var scrollView: UIScrollView { tableView }
 }
 
 // MARK: - DiscoveryIntroBannerViewDelegate
