@@ -23,6 +23,28 @@ extension APIService {
         
         let query = Mastodon.API.Notifications.Query(
             maxID: maxID,
+            types: {
+                switch scope {
+                case .everything:
+                    return [
+                        .follow,
+                        .followRequest,
+                        .mention,
+                        .reblog,
+                        .favourite,
+                        .poll,
+                        .status,
+                    ]
+                case .mentions:
+                    return [
+                        .follow,
+                        .followRequest,
+                        .reblog,
+                        .favourite,
+                        .poll
+                    ]
+                }
+            }(),
             excludeTypes: {
                 switch scope {
                 case .everything:

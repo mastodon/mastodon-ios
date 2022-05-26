@@ -88,7 +88,6 @@ extension NotificationTimelineViewModel {
             }
         }
         
-        
         var excludeTypes: [MastodonNotificationType]? {
             switch self {
             case .everything:       return nil
