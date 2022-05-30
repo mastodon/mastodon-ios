@@ -23,7 +23,6 @@ final class AccountListTableViewCell: UITableViewCell {
     let checkmarkImageView: UIImageView = {
         let image = UIImage(systemName: "checkmark", withConfiguration: UIImage.SymbolConfiguration(pointSize: 17, weight: .semibold))
         let imageView = UIImageView(image: image)
-        imageView.tintColor = .label
         return imageView
     }()
     let separatorLine = UIView.separatorLine
