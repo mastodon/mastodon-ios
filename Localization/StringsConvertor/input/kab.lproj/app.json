@@ -241,7 +241,7 @@
             },
             "input": {
                 "placeholder": "Nadi timɣiwnin",
-                "search_servers_or_enter_url": "Search servers or enter URL"
+                "search_servers_or_enter_url": "Nadi timɣiwnin neɣ sekcem URL"
             },
             "empty_state": {
                 "finding_servers": "Tifin n yiqeddacen yellan...",
@@ -251,7 +251,7 @@
         },
         "register": {
             "title": "Aha ad nebdu asbadu ɣef %s",
-            "lets_get_you_set_up_on_domain": "Let’s get you set up on %s",
+            "lets_get_you_set_up_on_domain": "Aha ad nebdu asbadu ɣef %s",
             "input": {
                 "avatar": {
                     "delete": "Kkes"
@@ -322,7 +322,7 @@
         "confirm_email": {
             "title": "Taɣawsa taneggarut.",
             "subtitle": "Sit ɣef useɣwen i ak-n-uznen i wakken ad tesneqdeḍ amiḍan-ik.",
-            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we emailed to you to verify your account",
+            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Sit ɣef useɣwen i ak-n-uznen i wakken ad tesneqdeḍ amiḍan-ik",
             "button": {
                 "open_email_app": "Ldi asnas n yimayl",
                 "resend": "Ales tuzna"
@@ -347,7 +347,7 @@
                 "published": "Yettwasuffeɣ!",
                 "Publishing": "Asuffeɣ tasuffeɣt...",
                 "accessibility": {
-                    "logo_label": "Logo Button",
+                    "logo_label": "Taqeffalt n ulugu",
                     "logo_hint": "Tap to scroll to top and tap again to previous location"
                 }
             }
