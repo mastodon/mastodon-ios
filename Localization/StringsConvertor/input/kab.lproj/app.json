@@ -462,11 +462,11 @@
             }
         },
         "follower": {
-            "title": "follower",
+            "title": "aneḍfar",
             "footer": "Ineḍfaren seg yiqeddacen-nniḍen ur d-ttwaskanen ara."
         },
         "following": {
-            "title": "following",
+            "title": "yeṭṭafar",
             "footer": "Ineḍfaren seg yiqeddacen-nniḍen ur d-ttwaskanen ara."
         },
         "familiarFollowers": {
@@ -517,7 +517,7 @@
                 "posts": "Tisuffaɣ",
                 "hashtags": "Ihacṭagen",
                 "news": "Isallen",
-                "community": "Community",
+                "community": "Tamɣiwent",
                 "for_you": "I kečč·kem"
             },
             "intro": "Tigi d tisuffaɣ i d-ijebbden s waṭas deg tama-inek•inem n Mastodon."
@@ -617,46 +617,46 @@
             "text_placeholder": "Aru neɣ senteḍ iwenniten-nniḍen",
             "reported": "YETTWAMMEL",
             "step_one": {
-                "step_1_of_4": "Step 1 of 4",
-                "whats_wrong_with_this_post": "What's wrong with this post?",
+                "step_1_of_4": "Aḥric 1 seg 4",
+                "whats_wrong_with_this_post": "Acu n wugur yellan d tsuffeɣt-a?",
                 "whats_wrong_with_this_account": "What's wrong with this account?",
-                "whats_wrong_with_this_username": "What's wrong with %s?",
-                "select_the_best_match": "Select the best match",
-                "i_dont_like_it": "I don’t like it",
-                "it_is_not_something_you_want_to_see": "It is not something you want to see",
-                "its_spam": "It’s spam",
-                "malicious_links_fake_engagement_or_repetetive_replies": "Malicious links, fake engagement, or repetetive replies",
-                "it_violates_server_rules": "It violates server rules",
-                "you_are_aware_that_it_breaks_specific_rules": "You are aware that it breaks specific rules",
-                "its_something_else": "It’s something else",
-                "the_issue_does_not_fit_into_other_categories": "The issue does not fit into other categories"
+                "whats_wrong_with_this_username": "Acu n wugur yellan d %s?",
+                "select_the_best_match": "Fren amṣada akk igerrzen",
+                "i_dont_like_it": "Ur ḥemmleɣ ara aya",
+                "it_is_not_something_you_want_to_see": "D ayen akk ur bɣiɣ ara ad waliɣ",
+                "its_spam": "D aspam",
+                "malicious_links_fake_engagement_or_repetetive_replies": "Yir iseɣwan, yir agman d tririyin i d-yettuɣalen",
+                "it_violates_server_rules": "Truẓi n yilugan n uqeddac",
+                "you_are_aware_that_it_breaks_specific_rules": "Teẓriḍ y•tettruẓu kra n yilugan",
+                "its_something_else": "Ɣef ssebba-nniḍen",
+                "the_issue_does_not_fit_into_other_categories": "Ugur ur yemṣada ara akk d taggayin-nniḍen"
             },
             "step_two": {
-                "step_2_of_4": "Step 2 of 4",
-                "which_rules_are_being_violated": "Which rules are being violated?",
-                "select_all_that_apply": "Select all that apply",
-                "i_just_don’t_like_it": "I just don’t like it"
+                "step_2_of_4": "Aḥric 2 seg 4",
+                "which_rules_are_being_violated": "Acu n yilugan i yettwarẓan?",
+                "select_all_that_apply": "Fren akk tifrat ara yettusnasen",
+                "i_just_don’t_like_it": "Ur ḥemmleɣ ara kan aya"
             },
             "step_three": {
-                "step_3_of_4": "Step 3 of 4",
-                "are_there_any_posts_that_back_up_this_report": "Are there any posts that back up this report?",
-                "select_all_that_apply": "Select all that apply"
+                "step_3_of_4": "Aḥric 3 seg 4",
+                "are_there_any_posts_that_back_up_this_report": "Llant tsuffaɣ ara isdemren aneqqis-a?",
+                "select_all_that_apply": "Fren akk tifrat ara yettusnasen"
             },
             "step_four": {
-                "step_4_of_4": "Step 4 of 4",
-                "is_there_anything_else_we_should_know": "Is there anything else we should know?"
+                "step_4_of_4": "Aḥric 4 seg 4",
+                "is_there_anything_else_we_should_know": "Yella wayen-nniḍen i ilaqen ad t-nẓer?"
             },
             "step_final": {
-                "dont_want_to_see_this": "Don’t want to see this?",
-                "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "When you see something you don’t like on Mastodon, you can remove the person from your experience.",
-                "unfollow": "Unfollow",
-                "unfollowed": "Unfollowed",
-                "unfollow_user": "Unfollow %s",
-                "mute_user": "Mute %s",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or reblogs in your home feed. They won’t know they’ve been muted.",
-                "block_user": "Block %s",
-                "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "They will no longer be able to follow or see your posts, but they can see if they’ve been blocked.",
-                "while_we_review_this_you_can_take_action_against_user": "While we review this, you can take action against %s"
+                "dont_want_to_see_this": "Ur tebɣiḍ ara ad twaliḍ aya?",
+                "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "Mi ara twaliḍ kra ur ak•am-neɛǧib ara ɣef Mastodon, tzemreḍ ad tekkseḍ amdan-nni seg tirmit-ik•im.",
+                "unfollow": "Ur ṭṭafaṛ ara",
+                "unfollowed": "Y•Teḥbes aḍfar n",
+                "unfollow_user": "Y•Teḥbes aḍfar n %s",
+                "mute_user": "Sgugem %s",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "Ur tettwaliḍ ara tisuffaɣ-nsen neɣ iriblugen-nsen deg usuddem-inek•inem agejdan. Ur ẓerren ara belli tesgugmeḍ-ten.",
+                "block_user": "Sewḥel %s",
+                "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "Ur ttuɣalen ara ad izmiren ad ak•akem-ḍefren neɣ ad walin tisuffaɣ-inek•inem, maca ad walin ma yella ttusweḥlen.",
+                "while_we_review_this_you_can_take_action_against_user": "Ideg nekkni nessenqad tuttra-inek•inem, tzemreḍ ad tḥadreḍ mgal %s"
             }
         },
         "preview": {
