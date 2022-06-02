@@ -378,6 +378,7 @@
 		DB697DDD278F521D004EF2F7 /* DataSourceFacade.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB697DDC278F521D004EF2F7 /* DataSourceFacade.swift */; };
 		DB697DDF278F524F004EF2F7 /* DataSourceFacade+Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB697DDE278F524F004EF2F7 /* DataSourceFacade+Profile.swift */; };
 		DB697DE1278F5296004EF2F7 /* DataSourceFacade+Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB697DE0278F5296004EF2F7 /* DataSourceFacade+Model.swift */; };
+		DB6988DE2848D11C002398EF /* PagerTabStripNavigateable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6988DD2848D11C002398EF /* PagerTabStripNavigateable.swift */; };
 		DB6B35182601FA3400DC1E11 /* MastodonAttachmentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6B35172601FA3400DC1E11 /* MastodonAttachmentService.swift */; };
 		DB6B351E2601FAEE00DC1E11 /* ComposeStatusAttachmentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6B351D2601FAEE00DC1E11 /* ComposeStatusAttachmentCollectionViewCell.swift */; };
 		DB6B74EF272FB55000C70B6E /* FollowerListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6B74EE272FB55000C70B6E /* FollowerListViewController.swift */; };
@@ -1139,6 +1140,7 @@
 		DB697DDC278F521D004EF2F7 /* DataSourceFacade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSourceFacade.swift; sourceTree = "<group>"; };
 		DB697DDE278F524F004EF2F7 /* DataSourceFacade+Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataSourceFacade+Profile.swift"; sourceTree = "<group>"; };
 		DB697DE0278F5296004EF2F7 /* DataSourceFacade+Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataSourceFacade+Model.swift"; sourceTree = "<group>"; };
+		DB6988DD2848D11C002398EF /* PagerTabStripNavigateable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerTabStripNavigateable.swift; sourceTree = "<group>"; };
 		DB6B35172601FA3400DC1E11 /* MastodonAttachmentService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonAttachmentService.swift; sourceTree = "<group>"; };
 		DB6B351D2601FAEE00DC1E11 /* ComposeStatusAttachmentCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeStatusAttachmentCollectionViewCell.swift; sourceTree = "<group>"; };
 		DB6B74EE272FB55000C70B6E /* FollowerListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowerListViewController.swift; sourceTree = "<group>"; };
@@ -1750,6 +1752,7 @@
 				DBCA0EBB282BB38A0029E2B0 /* PageboyNavigateable.swift */,
 				DB1D843326579931000346B3 /* TableViewControllerNavigateable.swift */,
 				DB1D842D26552C4D000346B3 /* StatusTableViewControllerNavigateable.swift */,
+				DB6988DD2848D11C002398EF /* PagerTabStripNavigateable.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -4250,6 +4253,7 @@
 				DB63F752279944AA00455B82 /* SearchHistorySectionHeaderCollectionReusableView.swift in Sources */,
 				DB3E6FDD2806A40F00B035AE /* DiscoveryHashtagsViewController.swift in Sources */,
 				DB938EED2623F79B00E5B6C1 /* ThreadViewModel.swift in Sources */,
+				DB6988DE2848D11C002398EF /* PagerTabStripNavigateable.swift in Sources */,
 				DBBC24AC26A53D9300398BB9 /* ComposeStatusContentTableViewCell.swift in Sources */,
 				DBC7A67C260DFADE00E57475 /* StatusPublishService.swift in Sources */,
 				2DCB73FD2615C13900EC03D4 /* SearchRecommendCollectionHeader.swift in Sources */,
