@@ -47,8 +47,8 @@ extension PollOptionView {
         @Published public var voteState: VoteState = .hidden
         
         @Published public var roundedBackgroundViewColor: UIColor = .clear
-        @Published public var primaryStripProgressViewTintColor: UIColor = Asset.Colors.brandBlue.color
-        @Published public var secondaryStripProgressViewTintColor: UIColor = Asset.Colors.brandBlue.color.withAlphaComponent(0.5)
+        @Published public var primaryStripProgressViewTintColor: UIColor = Asset.Colors.brand.color
+        @Published public var secondaryStripProgressViewTintColor: UIColor = Asset.Colors.brand.color.withAlphaComponent(0.5)
         
         @Published public var groupedAccessibilityLabel = ""
         

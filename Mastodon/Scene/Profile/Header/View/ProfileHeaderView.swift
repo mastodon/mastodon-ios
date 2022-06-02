@@ -204,7 +204,7 @@ final class ProfileHeaderView: UIView {
         ]
         metaText.linkAttributes = [
             .font: UIFont.preferredFont(forTextStyle: .body),
-            .foregroundColor: Asset.Colors.brandBlue.color,
+            .foregroundColor: Asset.Colors.brand.color,
         ]
         return metaText
     }()

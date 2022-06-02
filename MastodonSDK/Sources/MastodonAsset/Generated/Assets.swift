@@ -46,6 +46,10 @@ public enum Asset {
       public static let disabled = ColorAsset(name: "Colors/Button/disabled")
       public static let inactive = ColorAsset(name: "Colors/Button/inactive")
     }
+    public enum Deprecated {
+      public static let brandBlue = ColorAsset(name: "Colors/Deprecated/brand.blue")
+      public static let brandBlueDarken20 = ColorAsset(name: "Colors/Deprecated/brand.blue.darken.20")
+    }
     public enum Icon {
       public static let plus = ColorAsset(name: "Colors/Icon/plus")
     }
@@ -63,6 +67,10 @@ public enum Asset {
     public enum Poll {
       public static let disabled = ColorAsset(name: "Colors/Poll/disabled")
     }
+    public enum Primary {
+      public static let _300 = ColorAsset(name: "Colors/Primary/300")
+      public static let _700 = ColorAsset(name: "Colors/Primary/700")
+    }
     public enum Shadow {
       public static let searchCard = ColorAsset(name: "Colors/Shadow/SearchCard")
     }
@@ -77,8 +85,7 @@ public enum Asset {
     public static let alertYellow = ColorAsset(name: "Colors/alert.yellow")
     public static let badgeBackground = ColorAsset(name: "Colors/badge.background")
     public static let battleshipGrey = ColorAsset(name: "Colors/battleshipGrey")
-    public static let brandBlue = ColorAsset(name: "Colors/brand.blue")
-    public static let brandBlueDarken20 = ColorAsset(name: "Colors/brand.blue.darken.20")
+    public static let brand = ColorAsset(name: "Colors/brand")
     public static let dangerBorder = ColorAsset(name: "Colors/danger.border")
     public static let danger = ColorAsset(name: "Colors/danger")
     public static let disabled = ColorAsset(name: "Colors/disabled")

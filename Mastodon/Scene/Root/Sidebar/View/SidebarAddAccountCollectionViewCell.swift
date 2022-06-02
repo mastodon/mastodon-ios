@@ -34,7 +34,7 @@ extension SidebarAddAccountCollectionViewCell {
         
         // Customize the background color to use the tint color when the cell is highlighted or selected.
         if state.isSelected || state.isHighlighted {
-            newBackgroundConfiguration.backgroundColor = Asset.Colors.brandBlue.color
+            newBackgroundConfiguration.backgroundColor = Asset.Colors.brand.color
         }
         if state.isHighlighted {
             newBackgroundConfiguration.backgroundColorTransformer = .init { $0.withAlphaComponent(0.8) }
