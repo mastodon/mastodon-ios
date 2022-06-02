@@ -375,7 +375,7 @@ girêdanê bitikne da ku ajimêra xwe bidî piştrastkirin.";
 "Scene.ServerPicker.EmptyState.FindingServers" = "Peydakirina rajekarên berdest...";
 "Scene.ServerPicker.EmptyState.NoResults" = "Encam tune";
 "Scene.ServerPicker.Input.Placeholder" = "Li rajekaran bigere";
-"Scene.ServerPicker.Input.SearchServersOrEnterUrl" = "Search servers or enter URL";
+"Scene.ServerPicker.Input.SearchServersOrEnterUrl" = "Li rajekaran bigere an jî girêdanê têxe";
 "Scene.ServerPicker.Label.Category" = "BEŞ";
 "Scene.ServerPicker.Label.Language" = "ZIMAN";
 "Scene.ServerPicker.Label.Users" = "BIKARHÊNER";

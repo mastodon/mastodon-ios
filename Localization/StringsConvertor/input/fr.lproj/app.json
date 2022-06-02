@@ -241,7 +241,7 @@
             },
             "input": {
                 "placeholder": "Trouvez un serveur ou rejoignez le vôtre...",
-                "search_servers_or_enter_url": "Search servers or enter URL"
+                "search_servers_or_enter_url": "Rechercher des serveurs ou entrer une URL"
             },
             "empty_state": {
                 "finding_servers": "Recherche des serveurs disponibles...",
@@ -621,7 +621,7 @@
                 "whats_wrong_with_this_post": "Qu’est-ce qui ne va pas avec ce message ?",
                 "whats_wrong_with_this_account": "Qu’est-ce qui ne va pas avec ce compte ?",
                 "whats_wrong_with_this_username": "Qu’est-ce qui ne va pas avec %s ?",
-                "select_the_best_match": "Select the best match",
+                "select_the_best_match": "Sélectionnez ce qui correspond le mieux",
                 "i_dont_like_it": "Je n’aime pas",
                 "it_is_not_something_you_want_to_see": "C’est quelque chose que vous ne souhaitez pas voir",
                 "its_spam": "C’est du spam",
@@ -655,8 +655,8 @@
                 "mute_user": "Masquer %s",
                 "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "Vous ne verrez plus leurs messages ou leurs partages dans votre flux personnel. Iels ne sauront pas qu’iels ont été mis en sourdine.",
                 "block_user": "Bloquer %s",
-                "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "They will no longer be able to follow or see your posts, but they can see if they’ve been blocked.",
-                "while_we_review_this_you_can_take_action_against_user": "While we review this, you can take action against %s"
+                "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "Ils ne seront plus en mesure de suivre ou de voir vos messages, mais iels peuvent voir s’iels ont été bloqué·e·s.",
+                "while_we_review_this_you_can_take_action_against_user": "Pendant que nous étudions votre requête, vous pouvez prendre des mesures contre %s"
             }
         },
         "preview": {
