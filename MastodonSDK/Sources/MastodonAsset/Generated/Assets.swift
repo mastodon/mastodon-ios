@@ -46,10 +46,6 @@ public enum Asset {
       public static let disabled = ColorAsset(name: "Colors/Button/disabled")
       public static let inactive = ColorAsset(name: "Colors/Button/inactive")
     }
-    public enum Deprecated {
-      public static let brandBlue = ColorAsset(name: "Colors/Deprecated/brand.blue")
-      public static let brandBlueDarken20 = ColorAsset(name: "Colors/Deprecated/brand.blue.darken.20")
-    }
     public enum Icon {
       public static let plus = ColorAsset(name: "Colors/Icon/plus")
     }
@@ -88,6 +84,10 @@ public enum Asset {
     public static let brand = ColorAsset(name: "Colors/brand")
     public static let dangerBorder = ColorAsset(name: "Colors/danger.border")
     public static let danger = ColorAsset(name: "Colors/danger")
+    public enum Deprecated {
+      public static let brandBlue = ColorAsset(name: "Colors/deprecated/brand.blue")
+      public static let brandBlueDarken20 = ColorAsset(name: "Colors/deprecated/brand.blue.darken.20")
+    }
     public static let disabled = ColorAsset(name: "Colors/disabled")
     public static let inactive = ColorAsset(name: "Colors/inactive")
     public static let mediaTypeIndicotor = ColorAsset(name: "Colors/media.type.indicotor")
