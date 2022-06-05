@@ -33,7 +33,7 @@ extension ProfileHeaderView {
             .assign(to: \.name, on: viewModel)
             .store(in: &disposeBag)
         // username
-        viewModel.username = user.username
+        viewModel.acct = user.acctWithDomain
         // bio
         user.publisher(for: \.note)
             .assign(to: \.note, on: viewModel)

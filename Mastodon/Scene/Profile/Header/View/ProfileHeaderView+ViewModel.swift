@@ -33,7 +33,7 @@ extension ProfileHeaderView {
         @Published var name: String?
         @Published var nameEditing: String?
         
-        @Published var username: String?
+        @Published var acct: String?
         
         @Published var note: String?
         @Published var noteEditing: String?
@@ -133,8 +133,8 @@ extension ProfileHeaderView.ViewModel {
         }
         .store(in: &disposeBag)
         // username
-        $username
-            .map { username in username.flatMap { "@" + $0 } ?? " " }
+        $acct
+            .map { acct in acct.flatMap { "@" + $0 } ?? " " }
             .assign(to: \.text, on: view.usernameLabel)
             .store(in: &disposeBag)
         // bio
