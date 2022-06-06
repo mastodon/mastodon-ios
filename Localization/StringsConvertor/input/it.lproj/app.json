@@ -531,7 +531,7 @@
                 "Mentions": "Menzioni"
             },
             "notification_description": {
-                "followed_you": "ti ha seguito",
+                "followed_you": "ha iniziato a seguirti",
                 "favorited_your_post": "ha apprezzato il tuo post",
                 "reblogged_your_post": "ha condiviso il tuo post",
                 "mentioned_you": "ti ha menzionato",
