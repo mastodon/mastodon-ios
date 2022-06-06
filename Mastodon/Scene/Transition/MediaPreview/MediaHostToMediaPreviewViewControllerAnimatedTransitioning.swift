@@ -241,23 +241,24 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
                 return rect
             }()
             let maskLayerToPath = maskLayerToRect.flatMap { UIBezierPath(rect: $0) }?.cgPath
-            let maskLayerToFinalRect: CGRect? = {
-                guard case .attachments = transitionItem.source else { return nil }
-                var rect = maskLayerToRect ?? transitionMaskView.frame
-                // clip tabBar when bar visible
-                guard let tabBarController = toVC.tabBarController,
-                      !tabBarController.tabBar.isHidden,
-                      let tabBarSuperView = tabBarController.tabBar.superview
-                else { return rect }
-                let tabBarFrameInWindow = tabBarSuperView.convert(tabBarController.tabBar.frame, to: nil)
-                let offset = rect.maxY - tabBarFrameInWindow.minY
-                guard offset > 0 else { return rect }
-                rect.size.height -= offset
-                return rect
-            }()
-            
+
+
             // FIXME:
-            let maskLayerToFinalPath = maskLayerToFinalRect.flatMap { UIBezierPath(rect: $0) }?.cgPath
+//            let maskLayerToFinalRect: CGRect? = {
+//                guard case .attachments = transitionItem.source else { return nil }
+//                var rect = maskLayerToRect ?? transitionMaskView.frame
+//                // clip tabBar when bar visible
+//                guard let tabBarController = toVC.tabBarController,
+//                      !tabBarController.tabBar.isHidden,
+//                      let tabBarSuperView = tabBarController.tabBar.superview
+//                else { return rect }
+//                let tabBarFrameInWindow = tabBarSuperView.convert(tabBarController.tabBar.frame, to: nil)
+//                let offset = rect.maxY - tabBarFrameInWindow.minY
+//                guard offset > 0 else { return rect }
+//                rect.size.height -= offset
+//                return rect
+//            }()
+//            let maskLayerToFinalPath = maskLayerToFinalRect.flatMap { UIBezierPath(rect: $0) }?.cgPath
             
             if let maskLayerToPath = maskLayerToPath {
                 maskLayer.path = maskLayerToPath

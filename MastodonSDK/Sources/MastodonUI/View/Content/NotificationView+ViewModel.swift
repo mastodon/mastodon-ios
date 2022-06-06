@@ -97,15 +97,11 @@ extension NotificationView.ViewModel {
             $timestamp,
             timestampUpdatePublisher.prepend(Date()).eraseToAnyPublisher()
         )
-        .sink { [weak self] timestamp, _ in
-            guard let self = self else { return }
-            guard let timestamp = timestamp else {
-                notificationView.dateLabel.configure(content: PlaintextMetaContent(string: ""))
-                return
-            }
-            
-            let text = timestamp.localizedTimeAgoSinceNow
-            notificationView.dateLabel.configure(content: PlaintextMetaContent(string: text))
+        .map { timestamp, _ in
+            PlaintextMetaContent(string: timestamp?.localizedTimeAgoSinceNow ?? "")
+        }
+        .sink { text in
+            notificationView.dateLabel.configure(content: text)
         }
         .store(in: &disposeBag)
         // notification type indicator

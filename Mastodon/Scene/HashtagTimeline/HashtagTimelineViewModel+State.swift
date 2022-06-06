@@ -69,7 +69,7 @@ extension HashtagTimelineViewModel.State {
         
         override func didEnter(from previousState: GKState?) {
             super.didEnter(from: previousState)
-            guard let viewModel = viewModel, let stateMachine = stateMachine else { return }
+            guard viewModel != nil, let stateMachine = stateMachine else { return }
 
             stateMachine.enter(Loading.self)
         }

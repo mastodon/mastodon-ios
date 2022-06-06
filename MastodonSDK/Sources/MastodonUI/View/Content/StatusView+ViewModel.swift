@@ -451,7 +451,7 @@ extension StatusView.ViewModel {
             pollCountdownDescription
         )
         .sink { pollVoteDescription, pollCountdownDescription in
-            statusView.pollVoteCountLabel.text = pollVoteDescription ?? "-"
+            statusView.pollVoteCountLabel.text = pollVoteDescription 
             statusView.pollCountdownLabel.text = pollCountdownDescription ?? "-"
         }
         .store(in: &disposeBag)
