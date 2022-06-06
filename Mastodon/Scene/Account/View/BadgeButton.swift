@@ -26,10 +26,14 @@ final class BadgeButton: UIButton {
 extension BadgeButton {
     private func _init() {
         titleLabel?.font = UIFontMetrics(forTextStyle: .caption1).scaledFont(for: .systemFont(ofSize: 13, weight: .medium))
-        setBackgroundColor(.systemBackground, for: .normal)
-        setTitleColor(.label, for: .normal)
-        
         contentEdgeInsets = UIEdgeInsets(top: 6, left: 6, bottom: 6, right: 6)
+        setAppearance()
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        setAppearance()
     }
     
     override func layoutSubviews() {
@@ -37,6 +41,12 @@ extension BadgeButton {
         
         layer.masksToBounds = true
         layer.cornerRadius = frame.height * 0.5
+    }
+    
+    private func setAppearance() {
+        setBackgroundColor(Asset.Colors.Label.primary.color, for: .normal)
+        setTitleColor(Asset.Colors.Label.primaryReverse.color, for: .normal)
+        tintColor = Asset.Colors.Label.primary.color
     }
     
     func setBadge(number: Int) {

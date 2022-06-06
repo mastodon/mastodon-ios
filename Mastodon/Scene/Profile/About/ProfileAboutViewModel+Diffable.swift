@@ -25,7 +25,8 @@ extension ProfileAboutViewModel {
                 profileFieldEditCollectionViewCellDelegate: profileFieldEditCollectionViewCellDelegate
             )
         )
-        
+        self.diffableDataSource = diffableDataSource
+
         diffableDataSource.reorderingHandlers.canReorderItem = { item -> Bool in
             switch item {
             case .editField:    return true
@@ -42,22 +43,25 @@ extension ProfileAboutViewModel {
                 guard case let .editField(field) = item else { continue }
                 fields.append(field)
             }
-            self.editProfileInfo.fields = fields
+            self.profileInfoEditing.fields = fields
         }
         
-        self.diffableDataSource = diffableDataSource
+        
+        var snapshot = NSDiffableDataSourceSnapshot<ProfileFieldSection, ProfileFieldItem>()
+        snapshot.appendSections([.main])
+        diffableDataSource.apply(snapshot)
         
         Publishers.CombineLatest4(
             $isEditing.removeDuplicates(),
-            displayProfileInfo.$fields.removeDuplicates(),
-            editProfileInfo.$fields.removeDuplicates(),
+            profileInfo.$fields.removeDuplicates(),
+            profileInfoEditing.$fields.removeDuplicates(),
             $emojiMeta.removeDuplicates()
         )
         .throttle(for: 0.3, scheduler: DispatchQueue.main, latest: true)
         .sink { [weak self] isEditing, displayFields, editingFields, emojiMeta in
             guard let self = self else { return }
             guard let diffableDataSource = self.diffableDataSource else { return }
-            
+
             var snapshot = NSDiffableDataSourceSnapshot<ProfileFieldSection, ProfileFieldItem>()
             snapshot.appendSections([.main])
 
@@ -69,17 +73,17 @@ extension ProfileAboutViewModel {
                     return ProfileFieldItem.field(field: field)
                 }
             }
-            
+
             if isEditing, fields.count < ProfileHeaderViewModel.maxProfileFieldCount {
                 items.append(.addEntry)
             }
-            
+
             if !isEditing, items.isEmpty {
                 items.append(.noResult)
             }
-            
+
             snapshot.appendItems(items, toSection: .main)
-            
+
             diffableDataSource.apply(snapshot, animatingDifferences: false, completion: nil)
         }
         .store(in: &disposeBag)

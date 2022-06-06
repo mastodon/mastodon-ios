@@ -130,8 +130,8 @@ extension DiscoveryViewController {
 
 // MARK: - ScrollViewContainer
 extension DiscoveryViewController: ScrollViewContainer {
-    var scrollView: UIScrollView? {
-        return (currentViewController as? ScrollViewContainer)?.scrollView
+    var scrollView: UIScrollView {
+        return (currentViewController as? ScrollViewContainer)?.scrollView ?? UIScrollView()
     }
 }
 

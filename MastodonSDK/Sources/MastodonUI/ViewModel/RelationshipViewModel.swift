@@ -84,7 +84,7 @@ public struct RelationshipActionOptionSet: OptionSet {
         case .pending: return L10n.Common.Controls.Friendship.pending
         case .following: return L10n.Common.Controls.Friendship.following
         case .muting: return L10n.Common.Controls.Friendship.muted
-        case .blocked: return L10n.Common.Controls.Friendship.follow   // blocked by user
+        case .blocked: return L10n.Common.Controls.Friendship.follow   // blocked by user   (deprecated)
         case .blocking: return L10n.Common.Controls.Friendship.blocked
         case .suspended: return L10n.Common.Controls.Friendship.follow
         case .edit: return L10n.Common.Controls.Friendship.editInfo
@@ -116,6 +116,7 @@ public final class RelationshipViewModel {
     @Published public var isMuting = false
     @Published public var isBlocking = false
     @Published public var isBlockingBy = false
+    @Published public var isSuspended = false
     
     public init() {
         Publishers.CombineLatest3(
@@ -182,8 +183,8 @@ extension RelationshipViewModel {
         self.isMuting = optionSet.contains(.muting)
         self.isBlockingBy = optionSet.contains(.blockingBy)
         self.isBlocking = optionSet.contains(.blocking)
+        self.isSuspended = optionSet.contains(.suspended)
 
-        
         self.optionSet = optionSet
     }
     
@@ -203,7 +204,7 @@ extension RelationshipViewModel {
     public static func optionSet(user: MastodonUser, me: MastodonUser) -> RelationshipActionOptionSet {
         let isMyself = user.id == me.id && user.domain == me.domain
         guard !isMyself else {
-            return [.isMyself]
+            return [.isMyself, .edit]
         }
         
         let isProtected = user.locked
@@ -246,6 +247,10 @@ extension RelationshipViewModel {
 
         if isBlocking {
             optionSet.insert(.blocking)
+        }
+        
+        if user.suspended {
+            optionSet.insert(.suspended)
         }
                 
         return optionSet

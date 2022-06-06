@@ -112,6 +112,12 @@ extension StatusTableViewControllerNavigateableCore where Self: DataSourceProvid
     @MainActor
     private func previewImage() async {
         guard let status = await statusRecord() else { return }
+        
+        // workaround media preview not first responder issue
+        if let presentedViewController = presentedViewController as? MediaPreviewViewController {
+            presentedViewController.dismiss(animated: true, completion: nil)
+            return
+        }
 
         guard let provider = self as? (DataSourceProvider & MediaPreviewableViewController) else { return }
         guard let indexPathForSelectedRow = tableView.indexPathForSelectedRow,

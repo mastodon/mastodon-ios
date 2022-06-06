@@ -145,6 +145,8 @@
 		DB0EF72B26FDB1D200347686 /* SidebarListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0EF72A26FDB1D200347686 /* SidebarListCollectionViewCell.swift */; };
 		DB0EF72E26FDB24F00347686 /* SidebarListContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0EF72D26FDB24F00347686 /* SidebarListContentView.swift */; };
 		DB0F8150264D1E2500F2A12B /* PickServerLoaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0F814F264D1E2500F2A12B /* PickServerLoaderTableViewCell.swift */; };
+		DB0F9D54283EB3C000379AF8 /* ProfileHeaderView+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0F9D53283EB3C000379AF8 /* ProfileHeaderView+ViewModel.swift */; };
+		DB0F9D56283EB46200379AF8 /* ProfileHeaderView+Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0F9D55283EB46200379AF8 /* ProfileHeaderView+Configuration.swift */; };
 		DB0FCB68279507EF006C02E2 /* DataSourceFacade+Meta.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0FCB67279507EF006C02E2 /* DataSourceFacade+Meta.swift */; };
 		DB0FCB6C27950E29006C02E2 /* MastodonMentionContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0FCB6B27950E29006C02E2 /* MastodonMentionContainer.swift */; };
 		DB0FCB6E27950E6B006C02E2 /* MastodonMention.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0FCB6D27950E6B006C02E2 /* MastodonMention.swift */; };
@@ -232,7 +234,6 @@
 		DB3EA8F5281BB65200598866 /* MastodonSDK in Frameworks */ = {isa = PBXBuildFile; productRef = DB3EA8F4281BB65200598866 /* MastodonSDK */; };
 		DB3EA8FC281BBAE100598866 /* AlamofireImage in Frameworks */ = {isa = PBXBuildFile; productRef = DB3EA8FB281BBAE100598866 /* AlamofireImage */; };
 		DB3EA8FE281BBAF200598866 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = DB3EA8FD281BBAF200598866 /* Alamofire */; };
-		DB3EA900281BBB1D00598866 /* MetaTextKit in Frameworks */ = {isa = PBXBuildFile; productRef = DB3EA8FF281BBB1D00598866 /* MetaTextKit */; };
 		DB3EA902281BBD5D00598866 /* CommonOSLog in Frameworks */ = {isa = PBXBuildFile; productRef = DB3EA901281BBD5D00598866 /* CommonOSLog */; };
 		DB3EA904281BBD9400598866 /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = DB3EA903281BBD9400598866 /* Introspect */; };
 		DB3EA906281BBE8200598866 /* AlamofireImage in Frameworks */ = {isa = PBXBuildFile; productRef = DB3EA905281BBE8200598866 /* AlamofireImage */; };
@@ -267,6 +268,7 @@
 		DB47AB6227CF752B00CD73C7 /* MastodonUISnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB47AB6127CF752B00CD73C7 /* MastodonUISnapshotTests.swift */; };
 		DB482A3F261331E8008AE74C /* UserTimelineViewModel+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB482A3E261331E8008AE74C /* UserTimelineViewModel+State.swift */; };
 		DB482A4B261340A7008AE74C /* APIService+UserTimeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB482A4A261340A7008AE74C /* APIService+UserTimeline.swift */; };
+		DB486C0F282E41F200F69423 /* TabBarPager in Frameworks */ = {isa = PBXBuildFile; productRef = DB486C0E282E41F200F69423 /* TabBarPager */; };
 		DB4924E226312AB200E9DB22 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4924E126312AB200E9DB22 /* NotificationService.swift */; };
 		DB4932B126F1FB5300EF46D4 /* WizardCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4932B026F1FB5300EF46D4 /* WizardCardView.swift */; };
 		DB4932B726F30F0700EF46D4 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F20223826146553000C64BF /* Array.swift */; };
@@ -376,6 +378,7 @@
 		DB697DDD278F521D004EF2F7 /* DataSourceFacade.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB697DDC278F521D004EF2F7 /* DataSourceFacade.swift */; };
 		DB697DDF278F524F004EF2F7 /* DataSourceFacade+Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB697DDE278F524F004EF2F7 /* DataSourceFacade+Profile.swift */; };
 		DB697DE1278F5296004EF2F7 /* DataSourceFacade+Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB697DE0278F5296004EF2F7 /* DataSourceFacade+Model.swift */; };
+		DB6988DE2848D11C002398EF /* PagerTabStripNavigateable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6988DD2848D11C002398EF /* PagerTabStripNavigateable.swift */; };
 		DB6B35182601FA3400DC1E11 /* MastodonAttachmentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6B35172601FA3400DC1E11 /* MastodonAttachmentService.swift */; };
 		DB6B351E2601FAEE00DC1E11 /* ComposeStatusAttachmentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6B351D2601FAEE00DC1E11 /* ComposeStatusAttachmentCollectionViewCell.swift */; };
 		DB6B74EF272FB55000C70B6E /* FollowerListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6B74EE272FB55000C70B6E /* FollowerListViewController.swift */; };
@@ -507,7 +510,6 @@
 		DBB45B6027B50A4F002DC5A7 /* RecommendAccountItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB45B5F27B50A4F002DC5A7 /* RecommendAccountItem.swift */; };
 		DBB45B6227B51112002DC5A7 /* SuggestionAccountViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB45B6127B51112002DC5A7 /* SuggestionAccountViewModel+Diffable.swift */; };
 		DBB525082611EAC0002F1F29 /* Tabman in Frameworks */ = {isa = PBXBuildFile; productRef = DBB525072611EAC0002F1F29 /* Tabman */; };
-		DBB5250E2611EBAF002F1F29 /* ProfileSegmentedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB5250D2611EBAF002F1F29 /* ProfileSegmentedViewController.swift */; };
 		DBB525212611EBD6002F1F29 /* ProfilePagingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB525202611EBD6002F1F29 /* ProfilePagingViewController.swift */; };
 		DBB525302611EBF3002F1F29 /* ProfilePagingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB5252F2611EBF3002F1F29 /* ProfilePagingViewModel.swift */; };
 		DBB525362611ECEB002F1F29 /* UserTimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB525352611ECEB002F1F29 /* UserTimelineViewController.swift */; };
@@ -888,6 +890,8 @@
 		DB0EF72D26FDB24F00347686 /* SidebarListContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarListContentView.swift; sourceTree = "<group>"; };
 		DB0F814E264CFFD300F2A12B /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DB0F814F264D1E2500F2A12B /* PickServerLoaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickServerLoaderTableViewCell.swift; sourceTree = "<group>"; };
+		DB0F9D53283EB3C000379AF8 /* ProfileHeaderView+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProfileHeaderView+ViewModel.swift"; sourceTree = "<group>"; };
+		DB0F9D55283EB46200379AF8 /* ProfileHeaderView+Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProfileHeaderView+Configuration.swift"; sourceTree = "<group>"; };
 		DB0FCB67279507EF006C02E2 /* DataSourceFacade+Meta.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataSourceFacade+Meta.swift"; sourceTree = "<group>"; };
 		DB0FCB6B27950E29006C02E2 /* MastodonMentionContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonMentionContainer.swift; sourceTree = "<group>"; };
 		DB0FCB6D27950E6B006C02E2 /* MastodonMention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonMention.swift; sourceTree = "<group>"; };
@@ -1136,6 +1140,7 @@
 		DB697DDC278F521D004EF2F7 /* DataSourceFacade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSourceFacade.swift; sourceTree = "<group>"; };
 		DB697DDE278F524F004EF2F7 /* DataSourceFacade+Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataSourceFacade+Profile.swift"; sourceTree = "<group>"; };
 		DB697DE0278F5296004EF2F7 /* DataSourceFacade+Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataSourceFacade+Model.swift"; sourceTree = "<group>"; };
+		DB6988DD2848D11C002398EF /* PagerTabStripNavigateable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerTabStripNavigateable.swift; sourceTree = "<group>"; };
 		DB6B35172601FA3400DC1E11 /* MastodonAttachmentService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonAttachmentService.swift; sourceTree = "<group>"; };
 		DB6B351D2601FAEE00DC1E11 /* ComposeStatusAttachmentCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeStatusAttachmentCollectionViewCell.swift; sourceTree = "<group>"; };
 		DB6B74EE272FB55000C70B6E /* FollowerListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowerListViewController.swift; sourceTree = "<group>"; };
@@ -1285,7 +1290,6 @@
 		DBB45B5A27B3A109002DC5A7 /* MediaPreviewTransitionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPreviewTransitionViewController.swift; sourceTree = "<group>"; };
 		DBB45B5F27B50A4F002DC5A7 /* RecommendAccountItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendAccountItem.swift; sourceTree = "<group>"; };
 		DBB45B6127B51112002DC5A7 /* SuggestionAccountViewModel+Diffable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SuggestionAccountViewModel+Diffable.swift"; sourceTree = "<group>"; };
-		DBB5250D2611EBAF002F1F29 /* ProfileSegmentedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSegmentedViewController.swift; sourceTree = "<group>"; };
 		DBB525202611EBD6002F1F29 /* ProfilePagingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePagingViewController.swift; sourceTree = "<group>"; };
 		DBB5252F2611EBF3002F1F29 /* ProfilePagingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePagingViewModel.swift; sourceTree = "<group>"; };
 		DBB525352611ECEB002F1F29 /* UserTimelineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTimelineViewController.swift; sourceTree = "<group>"; };
@@ -1429,6 +1433,7 @@
 				DB6804862637CD4C00430867 /* AppShared.framework in Frameworks */,
 				DBF96326262EC0A6001D8D25 /* AuthenticationServices.framework in Frameworks */,
 				DBAC6483267D0B21007FE9FD /* DifferenceKit in Frameworks */,
+				DB486C0F282E41F200F69423 /* TabBarPager in Frameworks */,
 				DB552D4F26BBD10C00E481F6 /* OrderedCollections in Frameworks */,
 				2D61336925C18A4F00CAE157 /* AlamofireNetworkActivityIndicator in Frameworks */,
 				DBAC64A1267E6D02007FE9FD /* Fuzi in Frameworks */,
@@ -1469,7 +1474,6 @@
 				EE93E8E8F9E0C39EAAEBD92F /* Pods_AppShared.framework in Frameworks */,
 				DB3EA904281BBD9400598866 /* Introspect in Frameworks */,
 				DB3EA902281BBD5D00598866 /* CommonOSLog in Frameworks */,
-				DB3EA900281BBB1D00598866 /* MetaTextKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1748,6 +1752,7 @@
 				DBCA0EBB282BB38A0029E2B0 /* PageboyNavigateable.swift */,
 				DB1D843326579931000346B3 /* TableViewControllerNavigateable.swift */,
 				DB1D842D26552C4D000346B3 /* StatusTableViewControllerNavigateable.swift */,
+				DB6988DD2848D11C002398EF /* PagerTabStripNavigateable.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -3004,8 +3009,8 @@
 		DB9D6C0825E4F5A60051B173 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				DBB525132611EBB1002F1F29 /* Segmented */,
 				DBB525462611ED57002F1F29 /* Header */,
+				DBB525262611EBDA002F1F29 /* Paging */,
 				DBB5253B2611ECF5002F1F29 /* Timeline */,
 				DBE3CDF1261C6B3100430CC6 /* Favorite */,
 				DB6B74F0272FB55400C70B6E /* Follower */,
@@ -3104,15 +3109,6 @@
 			path = Video;
 			sourceTree = "<group>";
 		};
-		DBB525132611EBB1002F1F29 /* Segmented */ = {
-			isa = PBXGroup;
-			children = (
-				DBB525262611EBDA002F1F29 /* Paging */,
-				DBB5250D2611EBAF002F1F29 /* ProfileSegmentedViewController.swift */,
-			);
-			path = Segmented;
-			sourceTree = "<group>";
-		};
 		DBB525262611EBDA002F1F29 /* Paging */ = {
 			isa = PBXGroup;
 			children = (
@@ -3148,6 +3144,8 @@
 			isa = PBXGroup;
 			children = (
 				DBB5254F2611ED6D002F1F29 /* ProfileHeaderView.swift */,
+				DB0F9D53283EB3C000379AF8 /* ProfileHeaderView+ViewModel.swift */,
+				DB0F9D55283EB46200379AF8 /* ProfileHeaderView+Configuration.swift */,
 				DBF98149265E24F500E4BA07 /* ProfileFieldCollectionViewHeaderFooterView.swift */,
 			);
 			path = View;
@@ -3448,6 +3446,7 @@
 				DBA5A52E26F07ED800CACBAA /* PanModal */,
 				DB3EA911281BBEA800598866 /* AlamofireImage */,
 				DB3EA913281BBEA800598866 /* Alamofire */,
+				DB486C0E282E41F200F69423 /* TabBarPager */,
 			);
 			productName = Mastodon;
 			productReference = DB427DD225BAA00100D1B89D /* Mastodon.app */;
@@ -3512,7 +3511,6 @@
 				DB3EA8F4281BB65200598866 /* MastodonSDK */,
 				DB3EA8FB281BBAE100598866 /* AlamofireImage */,
 				DB3EA8FD281BBAF200598866 /* Alamofire */,
-				DB3EA8FF281BBB1D00598866 /* MetaTextKit */,
 				DB3EA901281BBD5D00598866 /* CommonOSLog */,
 				DB3EA903281BBD9400598866 /* Introspect */,
 			);
@@ -3665,11 +3663,11 @@
 				DBAC649F267E6D01007FE9FD /* XCRemoteSwiftPackageReference "Fuzi" */,
 				DBF7A0FA26830C33004176A2 /* XCRemoteSwiftPackageReference "FPSIndicator" */,
 				DB0E2D2C26833FF600865C3C /* XCRemoteSwiftPackageReference "Nuke-FLAnimatedImage-Plugin" */,
-				DB01E23126A98F0900C3965B /* XCRemoteSwiftPackageReference "MetaTextKit" */,
 				DB552D4D26BBD10C00E481F6 /* XCRemoteSwiftPackageReference "swift-collections" */,
 				DBA5A52D26F07ED800CACBAA /* XCRemoteSwiftPackageReference "PanModal" */,
 				DB8D8E2D28192EED009FD90F /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
 				DB3EA8F6281BBA4C00598866 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				DB486C0D282E41F200F69423 /* XCRemoteSwiftPackageReference "TabBarPager" */,
 			);
 			productRefGroup = DB427DD325BAA00100D1B89D /* Products */;
 			projectDirPath = "";
@@ -4037,7 +4035,6 @@
 				DB0FCB7C2795821F006C02E2 /* StatusThreadRootTableViewCell.swift in Sources */,
 				DB72601C25E36A2100235243 /* MastodonServerRulesViewController.swift in Sources */,
 				DB5B54A32833BD1A00DEF8B2 /* UserListViewModel.swift in Sources */,
-				DBB5250E2611EBAF002F1F29 /* ProfileSegmentedViewController.swift in Sources */,
 				DBF156DF2701B17600EC00B7 /* SidebarAddAccountCollectionViewCell.swift in Sources */,
 				DB0617F1278413D00030EE79 /* PickServerServerSectionTableHeaderView.swift in Sources */,
 				DB0FCB7E27958957006C02E2 /* StatusThreadRootTableViewCell+ViewModel.swift in Sources */,
@@ -4256,6 +4253,7 @@
 				DB63F752279944AA00455B82 /* SearchHistorySectionHeaderCollectionReusableView.swift in Sources */,
 				DB3E6FDD2806A40F00B035AE /* DiscoveryHashtagsViewController.swift in Sources */,
 				DB938EED2623F79B00E5B6C1 /* ThreadViewModel.swift in Sources */,
+				DB6988DE2848D11C002398EF /* PagerTabStripNavigateable.swift in Sources */,
 				DBBC24AC26A53D9300398BB9 /* ComposeStatusContentTableViewCell.swift in Sources */,
 				DBC7A67C260DFADE00E57475 /* StatusPublishService.swift in Sources */,
 				2DCB73FD2615C13900EC03D4 /* SearchRecommendCollectionHeader.swift in Sources */,
@@ -4394,6 +4392,7 @@
 				DB67D08627312E67006A36CF /* WizardViewController.swift in Sources */,
 				DB6746EB278ED8B0008A6B94 /* PollOptionView+Configuration.swift in Sources */,
 				DB9A489026035963008B817C /* APIService+Media.swift in Sources */,
+				DB0F9D54283EB3C000379AF8 /* ProfileHeaderView+ViewModel.swift in Sources */,
 				DBFEEC99279BDCDE004F81DD /* ProfileAboutViewModel.swift in Sources */,
 				2D198649261C0B8500F0B013 /* SearchResultSection.swift in Sources */,
 				DB4F097B26A039FF00D62E92 /* SearchHistorySection.swift in Sources */,
@@ -4402,6 +4401,7 @@
 				2D5A3D6225CFD9CB002347D6 /* HomeTimelineViewController+DebugAction.swift in Sources */,
 				DB3E6FF12806D96900B035AE /* DiscoveryNewsViewModel+Diffable.swift in Sources */,
 				DB3E6FF82807C45300B035AE /* DiscoveryForYouViewModel.swift in Sources */,
+				DB0F9D56283EB46200379AF8 /* ProfileHeaderView+Configuration.swift in Sources */,
 				DB49A62525FF334C00B98345 /* EmojiService+CustomEmojiViewModel+LoadState.swift in Sources */,
 				DB4924E226312AB200E9DB22 /* NotificationService.swift in Sources */,
 				DB6D9F6F2635807F008423CD /* Setting.swift in Sources */,
@@ -4839,7 +4839,7 @@
 				CODE_SIGN_ENTITLEMENTS = Mastodon/Mastodon.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 133;
+				CURRENT_PROJECT_VERSION = 138;
 				DEVELOPMENT_ASSET_PATHS = "Mastodon/Resources/Preview\\ Assets.xcassets";
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = Mastodon/Info.plist;
@@ -4869,7 +4869,7 @@
 				CODE_SIGN_ENTITLEMENTS = Mastodon/Mastodon.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 133;
+				CURRENT_PROJECT_VERSION = 138;
 				DEVELOPMENT_ASSET_PATHS = "Mastodon/Resources/Preview\\ Assets.xcassets";
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = Mastodon/Info.plist;
@@ -4977,11 +4977,11 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 133;
+				CURRENT_PROJECT_VERSION = 138;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 133;
+				DYLIB_CURRENT_VERSION = 138;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = AppShared/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -5008,11 +5008,11 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 133;
+				CURRENT_PROJECT_VERSION = 138;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 133;
+				DYLIB_CURRENT_VERSION = 138;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = AppShared/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -5103,7 +5103,7 @@
 				CODE_SIGN_ENTITLEMENTS = Mastodon/Mastodon.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 133;
+				CURRENT_PROJECT_VERSION = 138;
 				DEVELOPMENT_ASSET_PATHS = "Mastodon/Resources/Preview\\ Assets.xcassets";
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = Mastodon/Info.plist;
@@ -5171,11 +5171,11 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 133;
+				CURRENT_PROJECT_VERSION = 138;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 133;
+				DYLIB_CURRENT_VERSION = 138;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = AppShared/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -5200,7 +5200,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = NotificationService/NotificationService.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 133;
+				CURRENT_PROJECT_VERSION = 138;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = NotificationService/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -5223,7 +5223,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = ShareActionExtension/ShareActionExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 133;
+				CURRENT_PROJECT_VERSION = 138;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = ShareActionExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -5247,7 +5247,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = MastodonIntent/MastodonIntent.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 133;
+				CURRENT_PROJECT_VERSION = 138;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = MastodonIntent/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -5271,7 +5271,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = MastodonIntent/MastodonIntent.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 133;
+				CURRENT_PROJECT_VERSION = 138;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = MastodonIntent/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -5295,7 +5295,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = MastodonIntent/MastodonIntent.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 133;
+				CURRENT_PROJECT_VERSION = 138;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = MastodonIntent/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -5319,7 +5319,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = ShareActionExtension/ShareActionExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 133;
+				CURRENT_PROJECT_VERSION = 138;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = ShareActionExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -5343,7 +5343,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = ShareActionExtension/ShareActionExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 133;
+				CURRENT_PROJECT_VERSION = 138;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = ShareActionExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -5430,7 +5430,7 @@
 				CODE_SIGN_ENTITLEMENTS = Mastodon/Mastodon.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 133;
+				CURRENT_PROJECT_VERSION = 138;
 				DEVELOPMENT_ASSET_PATHS = "Mastodon/Resources/Preview\\ Assets.xcassets";
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = Mastodon/Info.plist;
@@ -5497,11 +5497,11 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 133;
+				CURRENT_PROJECT_VERSION = 138;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 133;
+				DYLIB_CURRENT_VERSION = 138;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = AppShared/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -5525,7 +5525,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = NotificationService/NotificationService.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 133;
+				CURRENT_PROJECT_VERSION = 138;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = NotificationService/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -5548,7 +5548,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = ShareActionExtension/ShareActionExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 133;
+				CURRENT_PROJECT_VERSION = 138;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = ShareActionExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -5572,7 +5572,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = MastodonIntent/MastodonIntent.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 133;
+				CURRENT_PROJECT_VERSION = 138;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = MastodonIntent/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -5596,7 +5596,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = NotificationService/NotificationService.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 133;
+				CURRENT_PROJECT_VERSION = 138;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = NotificationService/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -5619,7 +5619,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = NotificationService/NotificationService.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 133;
+				CURRENT_PROJECT_VERSION = 138;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = NotificationService/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -5763,14 +5763,6 @@
 				minimumVersion = 0.1.1;
 			};
 		};
-		DB01E23126A98F0900C3965B /* XCRemoteSwiftPackageReference "MetaTextKit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/TwidereProject/MetaTextKit.git";
-			requirement = {
-				kind = exactVersion;
-				version = 2.2.3;
-			};
-		};
 		DB0E2D2C26833FF600865C3C /* XCRemoteSwiftPackageReference "Nuke-FLAnimatedImage-Plugin" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/kean/Nuke-FLAnimatedImage-Plugin.git";
@@ -5793,6 +5785,14 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 5.4.0;
+			};
+		};
+		DB486C0D282E41F200F69423 /* XCRemoteSwiftPackageReference "TabBarPager" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/TwidereProject/TabBarPager.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.0;
 			};
 		};
 		DB552D4D26BBD10C00E481F6 /* XCRemoteSwiftPackageReference "swift-collections" */ = {
@@ -5904,11 +5904,6 @@
 			package = DB3EA8F6281BBA4C00598866 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
 		};
-		DB3EA8FF281BBB1D00598866 /* MetaTextKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DB01E23126A98F0900C3965B /* XCRemoteSwiftPackageReference "MetaTextKit" */;
-			productName = MetaTextKit;
-		};
 		DB3EA901281BBD5D00598866 /* CommonOSLog */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = DB0140BB25C40D7500F9F3CF /* XCRemoteSwiftPackageReference "CommonOSLog" */;
@@ -5958,6 +5953,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = DB3EA8F6281BBA4C00598866 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
+		};
+		DB486C0E282E41F200F69423 /* TabBarPager */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DB486C0D282E41F200F69423 /* XCRemoteSwiftPackageReference "TabBarPager" */;
+			productName = TabBarPager;
 		};
 		DB552D4E26BBD10C00E481F6 /* OrderedCollections */ = {
 			isa = XCSwiftPackageProductDependency;

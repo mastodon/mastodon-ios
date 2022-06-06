@@ -105,8 +105,8 @@
         "repositoryURL": "https://github.com/TwidereProject/MetaTextKit.git",
         "state": {
           "branch": null,
-          "revision": "2b9556a78b2986b8c0b04adc6da8ec206b448a0c",
-          "version": "2.2.3"
+          "revision": "dcd5255d6930c2fab408dc8562c577547e477624",
+          "version": "2.2.5"
         }
       },
       {
@@ -206,6 +206,15 @@
           "branch": null,
           "revision": "b3dcd7dbd0d488e1a7077cb33b00f2083e382f07",
           "version": "5.0.1"
+        }
+      },
+      {
+        "package": "TabBarPager",
+        "repositoryURL": "https://github.com/TwidereProject/TabBarPager.git",
+        "state": {
+          "branch": null,
+          "revision": "488aa66d157a648901b61721212c0dec23d27ee5",
+          "version": "0.1.0"
         }
       },
       {

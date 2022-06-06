@@ -241,7 +241,7 @@
             },
             "input": {
                 "placeholder": "Tìm máy chủ",
-                "search_servers_or_enter_url": "Search servers or enter URL"
+                "search_servers_or_enter_url": "Tìm máy chủ hoặc nhập URL"
             },
             "empty_state": {
                 "finding_servers": "Đang tìm máy chủ hoạt động...",

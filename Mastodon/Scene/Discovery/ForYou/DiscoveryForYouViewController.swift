@@ -168,8 +168,6 @@ extension DiscoveryForYouViewController: ProfileCardTableViewCellDelegate {
 
 // MARK: ScrollViewContainer
 extension DiscoveryForYouViewController: ScrollViewContainer {
-    var scrollView: UIScrollView? {
-        tableView
-    }
+    var scrollView: UIScrollView { tableView }
 }
 

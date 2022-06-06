@@ -127,9 +127,7 @@ extension DiscoveryNewsViewController: UITableViewDelegate {
 
 // MARK: ScrollViewContainer
 extension DiscoveryNewsViewController: ScrollViewContainer {
-    var scrollView: UIScrollView? {
-        tableView
-    }
+    var scrollView: UIScrollView { tableView }
 }
 
 extension DiscoveryNewsViewController {
