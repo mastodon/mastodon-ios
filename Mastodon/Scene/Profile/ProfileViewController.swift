@@ -261,7 +261,6 @@ extension ProfileViewController {
         bindTitleView()
         bindMoreBarButtonItem()
         bindPager()
-//        updateBarButtonInsets()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -270,32 +269,6 @@ extension ProfileViewController {
         setNeedsStatusBarAppearanceUpdate()
     }
 
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        
-//        updateBarButtonInsets()
-    }
-    
-}
-
-extension ProfileViewController {
-    
-//    private func updateBarButtonInsets() {
-//        let margin: CGFloat = {
-//            switch traitCollection.userInterfaceIdiom {
-//            case .phone:
-//                return ProfileViewController.containerViewMarginForCompactHorizontalSizeClass
-//            default:
-//                return traitCollection.horizontalSizeClass == .regular ?
-//                    ProfileViewController.containerViewMarginForRegularHorizontalSizeClass :
-//                    ProfileViewController.containerViewMarginForCompactHorizontalSizeClass
-//            }
-//        }()
-//
-//        profileHeaderViewController.buttonBar.layout.contentInset.left = margin
-//        profileHeaderViewController.buttonBar.layout.contentInset.right = margin
-//    }
-    
 }
 
 extension ProfileViewController {
@@ -869,28 +842,28 @@ extension ProfileViewController: ScrollViewContainer {
     }
 }
 
-//extension ProfileViewController {
-//
-//    override var keyCommands: [UIKeyCommand]? {
-//        if !viewModel.isEditing.value {
-//            return pageboyNavigateKeyCommands
-//        }
-//
-//        return nil
-//    }
-//
-//}
-//
-//// MARK: - PageboyNavigateable
-//extension ProfileViewController: PageboyNavigateable {
-//
-//    var navigateablePageViewController: PageboyViewController {
-//        return profileSegmentedViewController.pagingViewController
-//    }
-//
-//    @objc func pageboyNavigateKeyCommandHandlerRelay(_ sender: UIKeyCommand) {
-//        pageboyNavigateKeyCommandHandler(sender)
-//    }
-//
-//}
+extension ProfileViewController {
+
+    override var keyCommands: [UIKeyCommand]? {
+        if !viewModel.isEditing {
+            return pagerTabStripNavigateKeyCommands
+        }
+
+        return nil
+    }
+
+}
+
+// MARK: - PagerTabStripNavigateable
+extension ProfileViewController: PagerTabStripNavigateable {
+
+    var navigateablePageViewController: PagerTabStripViewController {
+        return profilePagingViewController
+    }
+
+    @objc func pagerTabStripNavigateKeyCommandHandlerRelay(_ sender: UIKeyCommand) {
+        pagerTabStripNavigateKeyCommandHandler(sender)
+    }
+
+}
 

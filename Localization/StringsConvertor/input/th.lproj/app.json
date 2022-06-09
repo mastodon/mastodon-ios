@@ -241,7 +241,7 @@
             },
             "input": {
                 "placeholder": "ค้นหาเซิร์ฟเวอร์",
-                "search_servers_or_enter_url": "Search servers or enter URL"
+                "search_servers_or_enter_url": "ค้นหาเซิร์ฟเวอร์หรือป้อน URL"
             },
             "empty_state": {
                 "finding_servers": "กำลังค้นหาเซิร์ฟเวอร์ที่พร้อมใช้งาน...",
