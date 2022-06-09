@@ -88,6 +88,13 @@ extension ProfileHeaderView.ViewModel {
             )
         }
         .store(in: &disposeBag)
+        // follows you
+        $relationshipActionOptionSet
+            .map { $0.contains(.followingBy) && !$0.contains(.isMyself) }
+            .sink { isFollowingBy in
+                view.followsYouBlurEffectView.isHidden = !isFollowingBy
+            }
+            .store(in: &disposeBag)
         // avatar
         Publishers.CombineLatest4(
             $avatarImageURL,
@@ -102,7 +109,7 @@ extension ProfileHeaderView.ViewModel {
             ))
         }
         .store(in: &disposeBag)
-        // blur
+        // blur for blocking & blockingBy
         $relationshipActionOptionSet
             .map { $0.contains(.blocking) || $0.contains(.blockingBy) }
             .sink { needsImageOverlayBlurred in

@@ -71,6 +71,16 @@ final class ProfileHeaderView: UIView {
     }()
     var bannerImageViewTopLayoutConstraint: NSLayoutConstraint!
     var bannerImageViewBottomLayoutConstraint: NSLayoutConstraint!
+    
+    let followsYouBlurEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .regular))
+    let followsYouVibrantEffectView = UIVisualEffectView(effect: UIVibrancyEffect(blurEffect: UIBlurEffect(style: .regular), style: .label))
+    let followsYouLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+        label.text = "Follows You"      // TODO: i18n
+        return label
+    }()
+    let followsYouMaskView = UIView()
 
     let avatarImageViewBackgroundView: UIView = {
         let view = UIView()
@@ -173,9 +183,6 @@ final class ProfileHeaderView: UIView {
         button.titleLabel?.minimumScaleFactor = 0.5
         return button
     }()
-    
-    // let bioContainerView = UIView()
-    // let fieldContainerStackView = UIStackView()
 
     let bioMetaText: MetaText = {
         let metaText = MetaText()
@@ -262,7 +269,41 @@ extension ProfileHeaderView {
             bannerImageViewOverlayVisualEffectView.trailingAnchor.constraint(equalTo: bannerImageView.trailingAnchor),
             bannerImageViewOverlayVisualEffectView.bottomAnchor.constraint(equalTo: bannerImageView.bottomAnchor),
         ])
+        
+        // follows you
+        followsYouBlurEffectView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(followsYouBlurEffectView)
+        NSLayoutConstraint.activate([
+            layoutMarginsGuide.trailingAnchor.constraint(equalTo: followsYouBlurEffectView.trailingAnchor),
+            bannerContainerView.bottomAnchor.constraint(equalTo: followsYouBlurEffectView.bottomAnchor, constant: 16),
+        ])
+        followsYouBlurEffectView.layer.masksToBounds = true
+        followsYouBlurEffectView.layer.cornerRadius = 8
+        followsYouBlurEffectView.layer.cornerCurve = .continuous
+        followsYouBlurEffectView.isHidden = true
 
+        followsYouVibrantEffectView.translatesAutoresizingMaskIntoConstraints = false
+        followsYouBlurEffectView.contentView.addSubview(followsYouVibrantEffectView)
+        NSLayoutConstraint.activate([
+            followsYouVibrantEffectView.topAnchor.constraint(equalTo: followsYouBlurEffectView.topAnchor),
+            followsYouVibrantEffectView.leadingAnchor.constraint(equalTo: followsYouBlurEffectView.leadingAnchor),
+            followsYouVibrantEffectView.trailingAnchor.constraint(equalTo: followsYouBlurEffectView.trailingAnchor),
+            followsYouVibrantEffectView.bottomAnchor.constraint(equalTo: followsYouBlurEffectView.bottomAnchor),
+        ])
+        
+        followsYouLabel.translatesAutoresizingMaskIntoConstraints = false
+        followsYouVibrantEffectView.contentView.addSubview(followsYouLabel)
+        NSLayoutConstraint.activate([
+            followsYouLabel.topAnchor.constraint(equalTo: followsYouVibrantEffectView.topAnchor, constant: 4),
+            followsYouLabel.leadingAnchor.constraint(equalTo: followsYouVibrantEffectView.leadingAnchor, constant: 6),
+            followsYouVibrantEffectView.trailingAnchor.constraint(equalTo: followsYouLabel.trailingAnchor, constant: 6),
+            followsYouVibrantEffectView.bottomAnchor.constraint(equalTo: followsYouLabel.bottomAnchor, constant: 4),
+        ])
+        
+        followsYouMaskView.frame = CGRect(x: 0, y: 0, width: 1000, height: 1000)
+        followsYouMaskView.backgroundColor = .red
+        followsYouBlurEffectView.mask = followsYouMaskView
+        
         // avatar
         avatarImageViewBackgroundView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(avatarImageViewBackgroundView)
@@ -406,6 +447,7 @@ extension ProfileHeaderView {
         container.addArrangedSubview(bioMetaText.textView)
     
         bringSubviewToFront(bannerContainerView)
+        bringSubviewToFront(followsYouBlurEffectView)
         bringSubviewToFront(avatarImageViewBackgroundView)
         
         statusDashboardView.delegate = self

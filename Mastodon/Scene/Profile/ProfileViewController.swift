@@ -584,6 +584,22 @@ extension ProfileViewController: TabBarPagerDelegate {
                 progress = 0
             }
             
+            // setup follows you mask
+            // 1. set mask size
+            profileHeaderViewController.profileHeaderView.followsYouMaskView.frame = profileHeaderViewController.profileHeaderView.followsYouBlurEffectView.bounds
+            // 2. check follows you view overflow navigation bar or not
+            let followsYouBlurEffectViewInWindow = profileHeaderViewController.profileHeaderView.convert(
+                profileHeaderViewController.profileHeaderView.followsYouBlurEffectView.frame,
+                to: nil
+            )
+            if followsYouBlurEffectViewInWindow.minY < tabBarPagerController.containerScrollView.safeAreaInsets.top {
+                let offestY = tabBarPagerController.containerScrollView.safeAreaInsets.top - followsYouBlurEffectViewInWindow.minY
+                let height = profileHeaderViewController.profileHeaderView.followsYouMaskView.frame.height
+                profileHeaderViewController.profileHeaderView.followsYouMaskView.frame.origin.y = min(offestY, height)
+            } else {
+                profileHeaderViewController.profileHeaderView.followsYouMaskView.frame.origin.y = .zero
+            }
+            
             // setup titleView offset and fade avatar
             profileHeaderViewController.updateHeaderScrollProgress(progress, throttle: throttle)
             
