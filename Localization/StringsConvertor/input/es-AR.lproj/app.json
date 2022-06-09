@@ -503,7 +503,7 @@
             },
             "searching": {
                 "segment": {
-                    "all": "Todas",
+                    "all": "Todo",
                     "people": "Cuentas",
                     "hashtags": "Etiquetas",
                     "posts": "Mensajes"
@@ -568,10 +568,10 @@
                 },
                 "notifications": {
                     "title": "Notificaciones",
-                    "favorites": "Marcó como favorito mi mensaje",
+                    "favorites": "Marca mi mensaje como favorito",
                     "follows": "Me sigue",
-                    "boosts": "Adhirió a mi mensaje",
-                    "mentions": "Me mencionó",
+                    "boosts": "Adhiere a mi mensaje",
+                    "mentions": "Me menciona",
                     "trigger": {
                         "anyone": "cualquiera",
                         "follower": "un seguidor",
@@ -585,7 +585,7 @@
                     "true_black_dark_mode": "Modo negro oscuro real",
                     "disable_avatar_animation": "Deshabilitar avatares animados",
                     "disable_emoji_animation": "Deshabilitar emojis animados",
-                    "using_default_browser": "Usar navegador web predeterminado para abrir enlaces",
+                    "using_default_browser": "Usar navegador web predet. para abrir enlaces",
                     "open_links_in_mastodon": "Abrir enlaces en Mastodon"
                 },
                 "boring_zone": {
