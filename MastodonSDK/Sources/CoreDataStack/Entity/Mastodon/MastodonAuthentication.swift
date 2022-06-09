@@ -171,4 +171,12 @@ extension MastodonAuthentication {
         return NSPredicate(format: "%K == %@", #keyPath(MastodonAuthentication.userAccessToken), userAccessToken)
     }
     
+    public static func predicate(identifier: UUID) -> NSPredicate {
+        return NSPredicate(format: "%K == %@", #keyPath(MastodonAuthentication.identifier), identifier as NSUUID)
+    }
+    
+    public static func predicate(identifiers: [UUID]) -> NSPredicate {
+        return NSPredicate(format: "%K IN %@", #keyPath(MastodonAuthentication.identifier), identifiers as [NSUUID])
+    }
+    
 }
