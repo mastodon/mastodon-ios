@@ -418,7 +418,7 @@
         },
         "profile": {
             "header": {
-                "follows_you": "Follows You"
+                "follows_you": "Te sigue"
             },
             "dashboard": {
                 "posts": "mensajes",
