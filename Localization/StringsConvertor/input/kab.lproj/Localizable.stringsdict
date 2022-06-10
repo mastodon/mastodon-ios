@@ -72,9 +72,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>Followed by %1$@, and another mutual</string>
+        <string>Yeṭṭafar-it %1$@, akked wayeḍ d ucrik</string>
         <key>other</key>
-        <string>Followed by %1$@, and %ld mutuals</string>
+        <string>Yeṭṭafar-it %1$@, akked %ld d ucriken</string>
       </dict>
     </dict>
     <key>plural.count.metric_formatted.post</key>
@@ -104,9 +104,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 media</string>
+        <string>1 umidyat</string>
         <key>other</key>
-        <string>%ld media</string>
+        <string>%ld yimidyaten</string>
       </dict>
     </dict>
     <key>plural.count.post</key>
