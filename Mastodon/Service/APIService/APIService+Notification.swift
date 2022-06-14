@@ -37,11 +37,8 @@ extension APIService {
                     ]
                 case .mentions:
                     return [
-                        .follow,
-                        .followRequest,
-                        .reblog,
-                        .favourite,
-                        .poll
+                        .mention,
+                        .status,
                     ]
                 }
             }(),
