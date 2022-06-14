@@ -246,6 +246,7 @@ tải lên Mastodon.";
 "Scene.Profile.Fields.AddRow" = "Thêm hàng";
 "Scene.Profile.Fields.Placeholder.Content" = "Nội dung";
 "Scene.Profile.Fields.Placeholder.Label" = "Nhãn";
+"Scene.Profile.Header.FollowsYou" = "Đang theo dõi bạn";
 "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Message" = "Xác nhận chặn %@";
 "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Title" = "Chặn người dùng";
 "Scene.Profile.RelationshipActionAlert.ConfirmMuteUser.Message" = "Xác nhận ẩn %@";
