@@ -348,7 +348,7 @@
                 "Publishing": "Asuffeɣ tasuffeɣt...",
                 "accessibility": {
                     "logo_label": "Taqeffalt n ulugu",
-                    "logo_hint": "Tap to scroll to top and tap again to previous location"
+                    "logo_hint": "Sit i wakken ad tɛeddiḍ i usawen, sit tikkelt-nniḍen i wakken ad tɛeddiḍ ɣer wadig yezrin"
                 }
             }
         },
@@ -417,6 +417,9 @@
             }
         },
         "profile": {
+            "header": {
+                "follows_you": "Yeṭṭafaṛ-ik•im"
+            },
             "dashboard": {
                 "posts": "tisuffaɣ",
                 "following": "iṭafaṛ",
@@ -470,14 +473,14 @@
             "footer": "Ineḍfaren seg yiqeddacen-nniḍen ur d-ttwaskanen ara."
         },
         "familiarFollowers": {
-            "title": "Followers you familiar",
-            "followed_by_names": "Followed by %s"
+            "title": "Ineḍfaren i tessneḍ",
+            "followed_by_names": "Yeṭṭafar-it %s"
         },
         "favorited_by": {
-            "title": "Favorited By"
+            "title": "Ismenyaf-it"
         },
         "reblogged_by": {
-            "title": "Reblogged By"
+            "title": "Tettwasuffeɣ-d sɣur"
         },
         "search": {
             "title": "Nadi",
@@ -619,7 +622,7 @@
             "step_one": {
                 "step_1_of_4": "Aḥric 1 seg 4",
                 "whats_wrong_with_this_post": "Acu n wugur yellan d tsuffeɣt-a?",
-                "whats_wrong_with_this_account": "What's wrong with this account?",
+                "whats_wrong_with_this_account": "Acu n wugur yellan deg umiḍan-a?",
                 "whats_wrong_with_this_username": "Acu n wugur yellan d %s?",
                 "select_the_best_match": "Fren amṣada akk igerrzen",
                 "i_dont_like_it": "Ur ḥemmleɣ ara aya",
