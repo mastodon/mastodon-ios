@@ -305,7 +305,10 @@ extension ProfileViewController {
         }
     
         // about
-        let aboutViewModel = profilePagingViewController.viewModel.profileAboutViewController.viewModel!
+        let aboutViewModel = viewModel.profileAboutViewModel
+        viewModel.$user
+            .assign(to: \.user, on: aboutViewModel)
+            .store(in: &disposeBag)
         viewModel.$isEditing
             .assign(to: \.isEditing, on: aboutViewModel)
             .store(in: &disposeBag)

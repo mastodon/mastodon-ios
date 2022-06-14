@@ -163,7 +163,7 @@ class ProfileViewModel: NSObject {
             }   // end Task
         }
         .store(in: &disposeBag)
-//
+
         let isBlockingOrBlocked = Publishers.CombineLatest(
             relationshipViewModel.$isBlocking,
             relationshipViewModel.$isBlockingBy

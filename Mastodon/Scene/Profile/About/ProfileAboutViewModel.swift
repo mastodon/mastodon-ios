@@ -63,14 +63,9 @@ final class ProfileAboutViewModel {
         .sink { [weak self] account, emojiMeta in
             guard let self = self else { return }
             guard let account = account else { return }
-            
-            self.profileInfo.fields = account.source?.fields?.compactMap { field in
-                ProfileFieldItem.FieldValue(
-                    name: field.name,
-                    value: field.value,
-                    emojiMeta: emojiMeta
-                )
-            } ?? []
+                
+            // update profileInfo will occurs race condition issue
+            // bind user.fields to profileInfo to avoid it
             
             self.profileInfoEditing.fields = account.source?.fields?.compactMap { field in
                 ProfileFieldItem.FieldValue(
