@@ -108,7 +108,7 @@
 		5E0DEC05797A7E6933788DDB /* Pods_MastodonTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 452147B2903DF38070FE56A2 /* Pods_MastodonTests.framework */; };
 		5E44BF88AD33646E64727BCF /* Pods_MastodonTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD92E0F10BDE4FE7C4B999F2 /* Pods_MastodonTests.framework */; };
 		87FFDA5D898A5C42ADCB35E7 /* Pods_Mastodon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4ABE34829701A4496C5BB64 /* Pods_Mastodon.framework */; };
-		DB0009A626AEE5DC009B9D2D /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = DB0009A926AEE5DC009B9D2D /* Intents.intentdefinition */; settings = {ATTRIBUTES = (no_codegen, ); }; };
+		DB0009A626AEE5DC009B9D2D /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = DB0009A926AEE5DC009B9D2D /* Intents.intentdefinition */; settings = {ATTRIBUTES = (codegen, ); }; };
 		DB0009A726AEE5DC009B9D2D /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = DB0009A926AEE5DC009B9D2D /* Intents.intentdefinition */; };
 		DB0140CF25C42AEE00F9F3CF /* OSLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0140CE25C42AEE00F9F3CF /* OSLog.swift */; };
 		DB023D26279FFB0A005AC798 /* ShareActivityProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB023D25279FFB0A005AC798 /* ShareActivityProvider.swift */; };
@@ -346,6 +346,8 @@
 		DB63F779279ABF9C00455B82 /* DataSourceFacade+Reblog.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB63F778279ABF9C00455B82 /* DataSourceFacade+Reblog.swift */; };
 		DB63F77B279ACAE500455B82 /* DataSourceFacade+Favorite.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB63F77A279ACAE500455B82 /* DataSourceFacade+Favorite.swift */; };
 		DB647C5926F1EA2700F7F82C /* WizardPreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB647C5826F1EA2700F7F82C /* WizardPreference.swift */; };
+		DB64BA452851F23000ADF1B7 /* MastodonAuthentication+Fetch.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB64BA442851F23000ADF1B7 /* MastodonAuthentication+Fetch.swift */; };
+		DB64BA482851F29300ADF1B7 /* Account+Fetch.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB64BA472851F29300ADF1B7 /* Account+Fetch.swift */; };
 		DB65C63727A2AF6C008BAC2E /* ReportItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB65C63627A2AF6C008BAC2E /* ReportItem.swift */; };
 		DB66728C25F9F8DC00D60309 /* ComposeViewModel+DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB66728B25F9F8DC00D60309 /* ComposeViewModel+DataSource.swift */; };
 		DB66729625F9F91600D60309 /* ComposeStatusSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB66729525F9F91600D60309 /* ComposeStatusSection.swift */; };
@@ -643,13 +645,6 @@
 			remoteInfo = AppShared;
 		};
 		DB6804A72637CDCC00430867 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = DB427DCA25BAA00100D1B89D /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DB68047E2637CD4C00430867;
-			remoteInfo = AppShared;
-		};
-		DB6804C92637CE3000430867 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = DB427DCA25BAA00100D1B89D /* Project object */;
 			proxyType = 1;
@@ -1112,6 +1107,8 @@
 		DB63F778279ABF9C00455B82 /* DataSourceFacade+Reblog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataSourceFacade+Reblog.swift"; sourceTree = "<group>"; };
 		DB63F77A279ACAE500455B82 /* DataSourceFacade+Favorite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataSourceFacade+Favorite.swift"; sourceTree = "<group>"; };
 		DB647C5826F1EA2700F7F82C /* WizardPreference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WizardPreference.swift; sourceTree = "<group>"; };
+		DB64BA442851F23000ADF1B7 /* MastodonAuthentication+Fetch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MastodonAuthentication+Fetch.swift"; sourceTree = "<group>"; };
+		DB64BA472851F29300ADF1B7 /* Account+Fetch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Account+Fetch.swift"; sourceTree = "<group>"; };
 		DB65C63627A2AF6C008BAC2E /* ReportItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportItem.swift; sourceTree = "<group>"; };
 		DB66728B25F9F8DC00D60309 /* ComposeViewModel+DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ComposeViewModel+DataSource.swift"; sourceTree = "<group>"; };
 		DB66729525F9F91600D60309 /* ComposeStatusSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeStatusSection.swift; sourceTree = "<group>"; };
@@ -2601,6 +2598,23 @@
 			path = NotificationTimeline;
 			sourceTree = "<group>";
 		};
+		DB64BA462851F23300ADF1B7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				DB64BA442851F23000ADF1B7 /* MastodonAuthentication+Fetch.swift */,
+				DB64BA472851F29300ADF1B7 /* Account+Fetch.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		DB64BA492851F65F00ADF1B7 /* Handler */ = {
+			isa = PBXGroup;
+			children = (
+				DBB8AB4526AECDE200F6D281 /* SendPostIntentHandler.swift */,
+			);
+			path = Handler;
+			sourceTree = "<group>";
+		};
 		DB65C63527A2AF52008BAC2E /* Report */ = {
 			isa = PBXGroup;
 			children = (
@@ -2892,7 +2906,8 @@
 				DBA4B0F926C269880077136E /* Intents.stringsdict */,
 				DB8FABD626AEC864008E5AF4 /* MastodonIntent.entitlements */,
 				DB8FABC926AEC7B2008E5AF4 /* IntentHandler.swift */,
-				DBB8AB4526AECDE200F6D281 /* SendPostIntentHandler.swift */,
+				DB64BA462851F23300ADF1B7 /* Model */,
+				DB64BA492851F65F00ADF1B7 /* Handler */,
 				DBB8AB4B26AED0B800F6D281 /* Service */,
 				DB8FABCB26AEC7B2008E5AF4 /* Info.plist */,
 			);
@@ -3413,13 +3428,13 @@
 			buildConfigurationList = DB427DFC25BAA00100D1B89D /* Build configuration list for PBXNativeTarget "Mastodon" */;
 			buildPhases = (
 				7A04933A2AB1D5B758D4F908 /* [CP] Check Pods Manifest.lock */,
-				DB3D100425BAA71500EAA174 /* ShellScript */,
+				5532CB85BBE168B25B20720B /* [CP] Embed Pods Frameworks */,
+				DB427DD025BAA00100D1B89D /* Resources */,
 				DB427DCE25BAA00100D1B89D /* Sources */,
 				DB427DCF25BAA00100D1B89D /* Frameworks */,
-				DB427DD025BAA00100D1B89D /* Resources */,
-				5532CB85BBE168B25B20720B /* [CP] Embed Pods Frameworks */,
 				DB89BA0825C10FD0008580ED /* Embed Frameworks */,
 				DBF8AE1B263293E400C9C23C /* Embed App Extensions */,
+				DB3D100425BAA71500EAA174 /* ShellScript */,
 				DB025B8E278D6448002F581E /* ShellScript */,
 				DB697DD2278F48D5004EF2F7 /* ShellScript */,
 			);
@@ -3428,7 +3443,6 @@
 			dependencies = (
 				DBF8AE19263293E400C9C23C /* PBXTargetDependency */,
 				DB6804852637CD4C00430867 /* PBXTargetDependency */,
-				DB6804CA2637CE3000430867 /* PBXTargetDependency */,
 				DBC6461B26A170AB00B0E31B /* PBXTargetDependency */,
 				DB8FABCD26AEC7B2008E5AF4 /* PBXTargetDependency */,
 			);
@@ -4487,6 +4501,8 @@
 				DBB8AB4626AECDE200F6D281 /* SendPostIntentHandler.swift in Sources */,
 				DBB8AB4A26AED0B500F6D281 /* APIService.swift in Sources */,
 				DBB8AB4C26AED11300F6D281 /* APIService+APIError.swift in Sources */,
+				DB64BA452851F23000ADF1B7 /* MastodonAuthentication+Fetch.swift in Sources */,
+				DB64BA482851F29300ADF1B7 /* Account+Fetch.swift in Sources */,
 				DB6746E9278ED63F008A6B94 /* MastodonAuthenticationBox.swift in Sources */,
 				DBB8AB5226AED1B300F6D281 /* APIService+Status+Publish.swift in Sources */,
 				DB8FABCA26AEC7B2008E5AF4 /* IntentHandler.swift in Sources */,
@@ -4554,11 +4570,6 @@
 			isa = PBXTargetDependency;
 			target = DB68047E2637CD4C00430867 /* AppShared */;
 			targetProxy = DB6804A72637CDCC00430867 /* PBXContainerItemProxy */;
-		};
-		DB6804CA2637CE3000430867 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = DB68047E2637CD4C00430867 /* AppShared */;
-			targetProxy = DB6804C92637CE3000430867 /* PBXContainerItemProxy */;
 		};
 		DB8FABCD26AEC7B2008E5AF4 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -4839,7 +4850,7 @@
 				CODE_SIGN_ENTITLEMENTS = Mastodon/Mastodon.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 139;
+				CURRENT_PROJECT_VERSION = 140;
 				DEVELOPMENT_ASSET_PATHS = "Mastodon/Resources/Preview\\ Assets.xcassets";
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = Mastodon/Info.plist;
@@ -4869,7 +4880,7 @@
 				CODE_SIGN_ENTITLEMENTS = Mastodon/Mastodon.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 139;
+				CURRENT_PROJECT_VERSION = 140;
 				DEVELOPMENT_ASSET_PATHS = "Mastodon/Resources/Preview\\ Assets.xcassets";
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = Mastodon/Info.plist;
@@ -4977,11 +4988,11 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 139;
+				CURRENT_PROJECT_VERSION = 140;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 139;
+				DYLIB_CURRENT_VERSION = 140;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = AppShared/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -5008,11 +5019,11 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 139;
+				CURRENT_PROJECT_VERSION = 140;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 139;
+				DYLIB_CURRENT_VERSION = 140;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = AppShared/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -5103,7 +5114,7 @@
 				CODE_SIGN_ENTITLEMENTS = Mastodon/Mastodon.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 139;
+				CURRENT_PROJECT_VERSION = 140;
 				DEVELOPMENT_ASSET_PATHS = "Mastodon/Resources/Preview\\ Assets.xcassets";
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = Mastodon/Info.plist;
@@ -5171,11 +5182,11 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 139;
+				CURRENT_PROJECT_VERSION = 140;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 139;
+				DYLIB_CURRENT_VERSION = 140;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = AppShared/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -5200,7 +5211,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = NotificationService/NotificationService.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 139;
+				CURRENT_PROJECT_VERSION = 140;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = NotificationService/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -5223,7 +5234,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = ShareActionExtension/ShareActionExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 139;
+				CURRENT_PROJECT_VERSION = 140;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = ShareActionExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -5247,7 +5258,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = MastodonIntent/MastodonIntent.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 139;
+				CURRENT_PROJECT_VERSION = 140;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = MastodonIntent/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -5271,7 +5282,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = MastodonIntent/MastodonIntent.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 139;
+				CURRENT_PROJECT_VERSION = 140;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = MastodonIntent/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -5295,7 +5306,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = MastodonIntent/MastodonIntent.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 139;
+				CURRENT_PROJECT_VERSION = 140;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = MastodonIntent/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -5319,7 +5330,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = ShareActionExtension/ShareActionExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 139;
+				CURRENT_PROJECT_VERSION = 140;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = ShareActionExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -5343,7 +5354,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = ShareActionExtension/ShareActionExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 139;
+				CURRENT_PROJECT_VERSION = 140;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = ShareActionExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -5430,7 +5441,7 @@
 				CODE_SIGN_ENTITLEMENTS = Mastodon/Mastodon.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 139;
+				CURRENT_PROJECT_VERSION = 140;
 				DEVELOPMENT_ASSET_PATHS = "Mastodon/Resources/Preview\\ Assets.xcassets";
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = Mastodon/Info.plist;
@@ -5497,11 +5508,11 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 139;
+				CURRENT_PROJECT_VERSION = 140;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 139;
+				DYLIB_CURRENT_VERSION = 140;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = AppShared/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -5525,7 +5536,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = NotificationService/NotificationService.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 139;
+				CURRENT_PROJECT_VERSION = 140;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = NotificationService/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -5548,7 +5559,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = ShareActionExtension/ShareActionExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 139;
+				CURRENT_PROJECT_VERSION = 140;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = ShareActionExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -5572,7 +5583,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = MastodonIntent/MastodonIntent.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 139;
+				CURRENT_PROJECT_VERSION = 140;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = MastodonIntent/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -5596,7 +5607,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = NotificationService/NotificationService.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 139;
+				CURRENT_PROJECT_VERSION = 140;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = NotificationService/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -5619,7 +5630,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = NotificationService/NotificationService.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 139;
+				CURRENT_PROJECT_VERSION = 140;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = NotificationService/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

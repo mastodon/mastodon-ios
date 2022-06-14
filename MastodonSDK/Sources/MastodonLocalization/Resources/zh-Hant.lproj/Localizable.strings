@@ -241,6 +241,7 @@
 "Scene.Profile.Fields.AddRow" = "新增列";
 "Scene.Profile.Fields.Placeholder.Content" = "內容";
 "Scene.Profile.Fields.Placeholder.Label" = "標籤";
+"Scene.Profile.Header.FollowsYou" = "跟隨了您";
 "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Message" = "確認將 %@ 封鎖";
 "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Title" = "封鎖";
 "Scene.Profile.RelationshipActionAlert.ConfirmMuteUser.Message" = "確認將 %@ 靜音";

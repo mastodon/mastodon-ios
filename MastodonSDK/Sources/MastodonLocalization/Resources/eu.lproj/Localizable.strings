@@ -246,6 +246,7 @@ Mastodonera igo.";
 "Scene.Profile.Fields.AddRow" = "Gehitu errenkada";
 "Scene.Profile.Fields.Placeholder.Content" = "Edukia";
 "Scene.Profile.Fields.Placeholder.Label" = "Etiketa";
+"Scene.Profile.Header.FollowsYou" = "Follows You";
 "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Message" = "Berretsi %@ blokeatzea";
 "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Title" = "Blokeatu kontua";
 "Scene.Profile.RelationshipActionAlert.ConfirmMuteUser.Message" = "Berretsi %@ mututzea";

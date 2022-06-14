@@ -246,6 +246,7 @@
 "Scene.Profile.Fields.AddRow" = "إضافة صف";
 "Scene.Profile.Fields.Placeholder.Content" = "المُحتَوى";
 "Scene.Profile.Fields.Placeholder.Label" = "التسمية";
+"Scene.Profile.Header.FollowsYou" = "يُتابِعُك";
 "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Message" = "تأكيدُ حَظر %@";
 "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Title" = "حَظرُ الحِساب";
 "Scene.Profile.RelationshipActionAlert.ConfirmMuteUser.Message" = "تأكيدُ كَتم %@";

@@ -246,6 +246,7 @@ uploaded to Mastodon.";
 "Scene.Profile.Fields.AddRow" = "Add Row";
 "Scene.Profile.Fields.Placeholder.Content" = "Content";
 "Scene.Profile.Fields.Placeholder.Label" = "Label";
+"Scene.Profile.Header.FollowsYou" = "Follows You";
 "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Message" = "Confirm to block %@";
 "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Title" = "Block Account";
 "Scene.Profile.RelationshipActionAlert.ConfirmMuteUser.Message" = "Confirm to mute %@";

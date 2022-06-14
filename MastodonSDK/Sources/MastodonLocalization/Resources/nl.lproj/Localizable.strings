@@ -241,6 +241,7 @@ klik op de link om uw account te bevestigen.";
 "Scene.Profile.Fields.AddRow" = "Rij Toevoegen";
 "Scene.Profile.Fields.Placeholder.Content" = "Inhoud";
 "Scene.Profile.Fields.Placeholder.Label" = "Etiket";
+"Scene.Profile.Header.FollowsYou" = "Follows You";
 "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Message" = "Bevestig om %@ te blokkeren";
 "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Title" = "Blokkeer account";
 "Scene.Profile.RelationshipActionAlert.ConfirmMuteUser.Message" = "Bevestig om %@ te negeren";

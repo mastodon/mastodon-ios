@@ -53,11 +53,11 @@
 	<key>INIntentDefinitionNamespace</key>
 	<string>BvMBE4</string>
 	<key>INIntentDefinitionSystemVersion</key>
-	<string>20G80</string>
+	<string>21F79</string>
 	<key>INIntentDefinitionToolsBuildVersion</key>
-	<string>12E507</string>
+	<string>13F100</string>
 	<key>INIntentDefinitionToolsVersion</key>
-	<string>12.5.1</string>
+	<string>13.4.1</string>
 	<key>INIntents</key>
 	<array>
 		<dict>
@@ -74,10 +74,10 @@
 			<key>INIntentKeyParameter</key>
 			<string>content</string>
 			<key>INIntentLastParameterTag</key>
-			<integer>3</integer>
+			<integer>6</integer>
 			<key>INIntentManagedParameterCombinations</key>
 			<dict>
-				<key>content,visibility</key>
+				<key>content,visibility,accounts</key>
 				<dict>
 					<key>INIntentParameterCombinationSupportsBackgroundExecution</key>
 					<true/>
@@ -91,6 +91,19 @@
 			<string>SendPost</string>
 			<key>INIntentParameterCombinations</key>
 			<dict>
+				<key>accounts,visibility,content</key>
+				<dict>
+					<key>INIntentParameterCombinationSubtitle</key>
+					<string>${content}. Post via ${accounts}. (${visibility})</string>
+					<key>INIntentParameterCombinationSubtitleID</key>
+					<string>YMuITB</string>
+					<key>INIntentParameterCombinationSupportsBackgroundExecution</key>
+					<true/>
+					<key>INIntentParameterCombinationTitle</key>
+					<string>Post on Mastodon</string>
+					<key>INIntentParameterCombinationTitleID</key>
+					<string>D2h76g</string>
+				</dict>
 				<key>content</key>
 				<dict>
 					<key>INIntentParameterCombinationSubtitle</key>
@@ -109,7 +122,7 @@
 					<key>INIntentParameterCombinationIsPrimary</key>
 					<true/>
 					<key>INIntentParameterCombinationSubtitle</key>
-					<string>${content}, ${visibility}</string>
+					<string>${content}. (${visibility})</string>
 					<key>INIntentParameterCombinationSubtitleID</key>
 					<string>ayoYEb</string>
 					<key>INIntentParameterCombinationSupportsBackgroundExecution</key>
@@ -176,11 +189,74 @@
 					<key>INIntentParameterCustomDisambiguation</key>
 					<true/>
 					<key>INIntentParameterDisplayName</key>
+					<string>Accounts</string>
+					<key>INIntentParameterDisplayNameID</key>
+					<string>nQtHsT</string>
+					<key>INIntentParameterDisplayPriority</key>
+					<integer>2</integer>
+					<key>INIntentParameterName</key>
+					<string>accounts</string>
+					<key>INIntentParameterObjectType</key>
+					<string>Account</string>
+					<key>INIntentParameterObjectTypeNamespace</key>
+					<string>BvMBE4</string>
+					<key>INIntentParameterPromptDialogs</key>
+					<array>
+						<dict>
+							<key>INIntentParameterPromptDialogCustom</key>
+							<true/>
+							<key>INIntentParameterPromptDialogType</key>
+							<string>Configuration</string>
+						</dict>
+						<dict>
+							<key>INIntentParameterPromptDialogCustom</key>
+							<true/>
+							<key>INIntentParameterPromptDialogType</key>
+							<string>Primary</string>
+						</dict>
+						<dict>
+							<key>INIntentParameterPromptDialogCustom</key>
+							<true/>
+							<key>INIntentParameterPromptDialogFormatString</key>
+							<string>There are ${count} options matching ‘${accounts}’.</string>
+							<key>INIntentParameterPromptDialogFormatStringID</key>
+							<string>ciITyC</string>
+							<key>INIntentParameterPromptDialogType</key>
+							<string>DisambiguationIntroduction</string>
+						</dict>
+						<dict>
+							<key>INIntentParameterPromptDialogCustom</key>
+							<true/>
+							<key>INIntentParameterPromptDialogFormatString</key>
+							<string>Just to confirm, you wanted ‘${accounts}’?</string>
+							<key>INIntentParameterPromptDialogFormatStringID</key>
+							<string>4kVQfr</string>
+							<key>INIntentParameterPromptDialogType</key>
+							<string>Confirmation</string>
+						</dict>
+					</array>
+					<key>INIntentParameterSupportsDynamicEnumeration</key>
+					<true/>
+					<key>INIntentParameterSupportsMultipleValues</key>
+					<true/>
+					<key>INIntentParameterSupportsResolution</key>
+					<true/>
+					<key>INIntentParameterTag</key>
+					<integer>6</integer>
+					<key>INIntentParameterType</key>
+					<string>Object</string>
+				</dict>
+				<dict>
+					<key>INIntentParameterConfigurable</key>
+					<true/>
+					<key>INIntentParameterCustomDisambiguation</key>
+					<true/>
+					<key>INIntentParameterDisplayName</key>
 					<string>Visibility</string>
 					<key>INIntentParameterDisplayNameID</key>
 					<string>ZbSjzC</string>
 					<key>INIntentParameterDisplayPriority</key>
-					<integer>2</integer>
+					<integer>3</integer>
 					<key>INIntentParameterEnumType</key>
 					<string>PostVisibility</string>
 					<key>INIntentParameterEnumTypeNamespace</key>
@@ -267,26 +343,28 @@
 					</dict>
 				</array>
 				<key>INIntentResponseLastParameterTag</key>
-				<integer>7</integer>
+				<integer>8</integer>
 				<key>INIntentResponseOutput</key>
-				<string>post</string>
+				<string>posts</string>
 				<key>INIntentResponseParameters</key>
 				<array>
 					<dict>
 						<key>INIntentResponseParameterDisplayName</key>
-						<string>Post</string>
+						<string>Posts</string>
 						<key>INIntentResponseParameterDisplayNameID</key>
 						<string>ZKJSNu</string>
 						<key>INIntentResponseParameterDisplayPriority</key>
 						<integer>1</integer>
 						<key>INIntentResponseParameterName</key>
-						<string>post</string>
+						<string>posts</string>
 						<key>INIntentResponseParameterObjectType</key>
 						<string>Post</string>
 						<key>INIntentResponseParameterObjectTypeNamespace</key>
 						<string>BvMBE4</string>
+						<key>INIntentResponseParameterSupportsMultipleValues</key>
+						<true/>
 						<key>INIntentResponseParameterTag</key>
-						<integer>6</integer>
+						<integer>8</integer>
 						<key>INIntentResponseParameterType</key>
 						<string>Object</string>
 					</dict>
@@ -392,6 +470,97 @@
 					<integer>101</integer>
 					<key>INTypePropertyType</key>
 					<string>URL</string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>INTypeDisplayName</key>
+			<string>Account</string>
+			<key>INTypeDisplayNameID</key>
+			<string>Gcmnot</string>
+			<key>INTypeLastPropertyTag</key>
+			<integer>101</integer>
+			<key>INTypeName</key>
+			<string>Account</string>
+			<key>INTypeProperties</key>
+			<array>
+				<dict>
+					<key>INTypePropertyDefault</key>
+					<true/>
+					<key>INTypePropertyDisplayPriority</key>
+					<integer>1</integer>
+					<key>INTypePropertyName</key>
+					<string>identifier</string>
+					<key>INTypePropertyTag</key>
+					<integer>1</integer>
+					<key>INTypePropertyType</key>
+					<string>String</string>
+				</dict>
+				<dict>
+					<key>INTypePropertyDefault</key>
+					<true/>
+					<key>INTypePropertyDisplayPriority</key>
+					<integer>2</integer>
+					<key>INTypePropertyName</key>
+					<string>displayString</string>
+					<key>INTypePropertyTag</key>
+					<integer>2</integer>
+					<key>INTypePropertyType</key>
+					<string>String</string>
+				</dict>
+				<dict>
+					<key>INTypePropertyDefault</key>
+					<true/>
+					<key>INTypePropertyDisplayPriority</key>
+					<integer>3</integer>
+					<key>INTypePropertyName</key>
+					<string>pronunciationHint</string>
+					<key>INTypePropertyTag</key>
+					<integer>3</integer>
+					<key>INTypePropertyType</key>
+					<string>String</string>
+				</dict>
+				<dict>
+					<key>INTypePropertyDefault</key>
+					<true/>
+					<key>INTypePropertyDisplayPriority</key>
+					<integer>4</integer>
+					<key>INTypePropertyName</key>
+					<string>alternativeSpeakableMatches</string>
+					<key>INTypePropertySupportsMultipleValues</key>
+					<true/>
+					<key>INTypePropertyTag</key>
+					<integer>4</integer>
+					<key>INTypePropertyType</key>
+					<string>SpeakableString</string>
+				</dict>
+				<dict>
+					<key>INTypePropertyDisplayName</key>
+					<string>Name</string>
+					<key>INTypePropertyDisplayNameID</key>
+					<string>Zim0Js</string>
+					<key>INTypePropertyDisplayPriority</key>
+					<integer>5</integer>
+					<key>INTypePropertyName</key>
+					<string>name</string>
+					<key>INTypePropertyTag</key>
+					<integer>100</integer>
+					<key>INTypePropertyType</key>
+					<string>String</string>
+				</dict>
+				<dict>
+					<key>INTypePropertyDisplayName</key>
+					<string>Username</string>
+					<key>INTypePropertyDisplayNameID</key>
+					<string>3sNRTG</string>
+					<key>INTypePropertyDisplayPriority</key>
+					<integer>6</integer>
+					<key>INTypePropertyName</key>
+					<string>username</string>
+					<key>INTypePropertyTag</key>
+					<integer>101</integer>
+					<key>INTypePropertyType</key>
+					<string>String</string>
 				</dict>
 			</array>
 		</dict>
