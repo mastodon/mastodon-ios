@@ -203,44 +203,13 @@ extension PollOptionView {
         super.layoutSubviews()
         
         updateCornerRadius()
+        viewModel.layoutDidUpdate.send()
     }
     
     public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         
-        if traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
-            
-//               func updateTextAppearance() {
-//           //        guard let voteState = attribute?.voteState else {
-//           //            pollOptionView.optionTextField.textColor = Asset.Colors.Label.primary.color
-//           //            pollOptionView.optionTextField.layer.removeShadow()
-//           //            return
-//           //        }
-//           //
-//           //        switch voteState {
-//           //        case .hidden:
-//           //            pollOptionView.optionTextField.textColor = Asset.Colors.Label.primary.color
-//           //            pollOptionView.optionTextField.layer.removeShadow()
-//           //        case .reveal(_, let percentage, _):
-//           //            if CGFloat(percentage) * pollOptionView.voteProgressStripView.frame.width > pollOptionView.optionLabelMiddlePaddingView.frame.minX {
-//           //                pollOptionView.optionTextField.textColor = .white
-//           //                pollOptionView.optionTextField.layer.setupShadow(x: 0, y: 0, blur: 4, spread: 0)
-//           //            } else {
-//           //                pollOptionView.optionTextField.textColor = Asset.Colors.Label.primary.color
-//           //                pollOptionView.optionTextField.layer.removeShadow()
-//           //            }
-//           //
-//           //            if CGFloat(percentage) * pollOptionView.voteProgressStripView.frame.width > pollOptionView.optionLabelMiddlePaddingView.frame.maxX {
-//           //                pollOptionView.optionPercentageLabel.textColor = .white
-//           //                pollOptionView.optionPercentageLabel.layer.setupShadow(x: 0, y: 0, blur: 4, spread: 0)
-//           //            } else {
-//           //                pollOptionView.optionPercentageLabel.textColor = Asset.Colors.Label.primary.color
-//           //                pollOptionView.optionPercentageLabel.layer.removeShadow()
-//           //            }
-//           //        }
-//               }
-               
-        }
+        viewModel.layoutDidUpdate.send()
     }
     
 }

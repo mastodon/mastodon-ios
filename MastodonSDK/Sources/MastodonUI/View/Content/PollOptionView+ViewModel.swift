@@ -26,6 +26,8 @@ extension PollOptionView {
         var disposeBag = Set<AnyCancellable>()
         var observations = Set<NSKeyValueObservation>()
         public var objects = Set<NSManagedObject>()
+        
+        let layoutDidUpdate = PassthroughSubject<Void, Never>()
 
         @Published public var userIdentifier: UserIdentifier?
 
@@ -47,7 +49,7 @@ extension PollOptionView {
         @Published public var voteState: VoteState = .hidden
         
         @Published public var roundedBackgroundViewColor: UIColor = .clear
-        @Published public var primaryStripProgressViewTintColor: UIColor = Asset.Colors.brand.color
+        @Published public var primaryStripProgressViewTintColor: UIColor = Asset.Colors.brand.color.withAlphaComponent(0.8)
         @Published public var secondaryStripProgressViewTintColor: UIColor = Asset.Colors.brand.color.withAlphaComponent(0.5)
         
         @Published public var groupedAccessibilityLabel = ""
@@ -180,6 +182,39 @@ extension PollOptionView.ViewModel {
             }
             .store(in: &disposeBag)
         
+        Publishers.CombineLatest(
+            $voteState,
+            layoutDidUpdate
+        )
+        .sink { voteState, _ in
+            guard case .plain = view.style else { return }
+            
+            view.layoutIfNeeded()
+            
+            switch voteState {
+            case .hidden:
+                view.optionTextField.textColor = Asset.Colors.Label.primary.color
+                view.optionTextField.layer.removeShadow()
+            case .reveal(_, let percentage, _):
+                if CGFloat(percentage) * view.roundedBackgroundView.frame.width > view.optionLabelMiddlePaddingView.frame.minX {
+                    view.optionTextField.textColor = .white
+                    view.optionTextField.layer.setupShadow(x: 0, y: 0, blur: 4, spread: 0)
+                } else {
+                    view.optionTextField.textColor = Asset.Colors.Label.primary.color
+                    view.optionTextField.layer.removeShadow()
+                }
+
+                if CGFloat(percentage) * view.roundedBackgroundView.frame.width > view.optionLabelMiddlePaddingView.frame.maxX {
+                    view.optionPercentageLabel.textColor = .white
+                    view.optionPercentageLabel.layer.setupShadow(x: 0, y: 0, blur: 4, spread: 0)
+                } else {
+                    view.optionPercentageLabel.textColor = Asset.Colors.Label.primary.color
+                    view.optionPercentageLabel.layer.removeShadow()
+                }
+            }
+        }
+        .store(in: &disposeBag)
+        
         bindAccessibility(view: view)
     }
     
@@ -196,4 +231,3 @@ extension PollOptionView.ViewModel {
             .store(in: &disposeBag)
     }
 }
-
