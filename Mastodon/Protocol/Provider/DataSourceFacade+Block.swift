@@ -14,7 +14,7 @@ extension DataSourceFacade {
         user: ManagedObjectRecord<MastodonUser>,
         authenticationBox: MastodonAuthenticationBox
     ) async throws {
-        let selectionFeedbackGenerator = UISelectionFeedbackGenerator()
+        let selectionFeedbackGenerator = await UISelectionFeedbackGenerator()
         await selectionFeedbackGenerator.selectionChanged()
     
         _ = try await dependency.context.apiService.toggleBlock(

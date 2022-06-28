@@ -36,23 +36,26 @@ extension NotificationView {
             return
         }
         
-        if let status = notification.status {
-            switch type {
-            case .follow, .followRequest:
-                setAuthorContainerBottomPaddingViewDisplay()
-            case .mention, .status:
+        switch type {
+        case .follow:
+            setAuthorContainerBottomPaddingViewDisplay()
+        case .followRequest:
+            setFollowRequestAdaptiveMarginContainerViewDisplay()
+        case .mention, .status:
+            if let status = notification.status {
                 statusView.configure(status: status)
                 setStatusViewDisplay()
-            case .reblog, .favourite, .poll:
+            }
+        case .reblog, .favourite, .poll:
+            if let status = notification.status {
                 quoteStatusView.configure(status: status)
                 setQuoteStatusViewDisplay()
-            case ._other:
-                setAuthorContainerBottomPaddingViewDisplay()
-                assertionFailure()
             }
-        } else {
+        case ._other:
             setAuthorContainerBottomPaddingViewDisplay()
+            assertionFailure()
         }
+        
     }
 }
 

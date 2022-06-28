@@ -87,6 +87,68 @@ extension NotificationTableViewCellDelegate where Self: DataSourceProvider {
     }
 }
 
+extension NotificationTableViewCellDelegate where Self: DataSourceProvider {
+ 
+    func tableViewCell(
+        _ cell: UITableViewCell,
+        notificationView: NotificationView,
+        acceptFollowRequestButtonDidPressed button: UIButton
+    ) {
+        Task {
+            let source = DataSourceItem.Source(tableViewCell: cell, indexPath: nil)
+            guard let item = await item(from: source) else {
+                assertionFailure()
+                return
+            }
+            guard case let .notification(notification) = item else {
+                assertionFailure("only works for status data provider")
+                return
+            }
+            
+            guard let authenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else {
+                return
+            }
+            
+            try await DataSourceFacade.responseToUserFollowRequestAction(
+                dependency: self,
+                notification: notification,
+                query: .accept,
+                authenticationBox: authenticationBox
+            )
+        } // end Task
+    }
+    
+    func tableViewCell(
+        _ cell: UITableViewCell,
+        notificationView: NotificationView,
+        rejectFollowRequestButtonDidPressed button: UIButton
+    ) {
+        Task {
+            let source = DataSourceItem.Source(tableViewCell: cell, indexPath: nil)
+            guard let item = await item(from: source) else {
+                assertionFailure()
+                return
+            }
+            guard case let .notification(notification) = item else {
+                assertionFailure("only works for status data provider")
+                return
+            }
+            
+            guard let authenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else {
+                return
+            }
+            
+            try await DataSourceFacade.responseToUserFollowRequestAction(
+                dependency: self,
+                notification: notification,
+                query: .reject,
+                authenticationBox: authenticationBox
+            )
+        } // end Task
+    }
+    
+}
+
 // MARK: - Status Content
 extension NotificationTableViewCellDelegate where Self: DataSourceProvider {
     func tableViewCell(
