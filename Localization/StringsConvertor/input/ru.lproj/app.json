@@ -417,6 +417,9 @@
             }
         },
         "profile": {
+            "header": {
+                "follows_you": "Подписан(а) на вас"
+            },
             "dashboard": {
                 "posts": "посты",
                 "following": "подписки",

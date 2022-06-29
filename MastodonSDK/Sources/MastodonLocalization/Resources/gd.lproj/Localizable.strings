@@ -247,6 +247,7 @@ thoir gnogag air a’ chunntas a dhearbhadh a’ chunntais agad.";
 "Scene.Profile.Fields.AddRow" = "Cuir ràgh ris";
 "Scene.Profile.Fields.Placeholder.Content" = "Susbaint";
 "Scene.Profile.Fields.Placeholder.Label" = "Leubail";
+"Scene.Profile.Header.FollowsYou" = "Follows You";
 "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Message" = "Dearbh bacadh %@";
 "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Title" = "Bac an cunntas";
 "Scene.Profile.RelationshipActionAlert.ConfirmMuteUser.Message" = "Dearbh mùchadh %@";

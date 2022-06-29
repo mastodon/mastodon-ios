@@ -245,6 +245,7 @@ yüklenemiyor.";
 "Scene.Profile.Fields.AddRow" = "Satır Ekle";
 "Scene.Profile.Fields.Placeholder.Content" = "İçerik";
 "Scene.Profile.Fields.Placeholder.Label" = "Etiket";
+"Scene.Profile.Header.FollowsYou" = "Follows You";
 "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Message" = "%@ engellemeyi onayla";
 "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Title" = "Hesabı Engelle";
 "Scene.Profile.RelationshipActionAlert.ConfirmMuteUser.Message" = "%@ susturmak için onaylayın";

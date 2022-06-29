@@ -305,7 +305,10 @@ extension ProfileViewController {
         }
     
         // about
-        let aboutViewModel = profilePagingViewController.viewModel.profileAboutViewController.viewModel!
+        let aboutViewModel = viewModel.profileAboutViewModel
+        viewModel.$user
+            .assign(to: \.user, on: aboutViewModel)
+            .store(in: &disposeBag)
         viewModel.$isEditing
             .assign(to: \.isEditing, on: aboutViewModel)
             .store(in: &disposeBag)
@@ -582,6 +585,22 @@ extension ProfileViewController: TabBarPagerDelegate {
             } else {
                 profileHeaderViewController.profileHeaderView.bannerImageViewBottomLayoutConstraint.constant = 0
                 progress = 0
+            }
+            
+            // setup follows you mask
+            // 1. set mask size
+            profileHeaderViewController.profileHeaderView.followsYouMaskView.frame = profileHeaderViewController.profileHeaderView.followsYouBlurEffectView.bounds
+            // 2. check follows you view overflow navigation bar or not
+            let followsYouBlurEffectViewInWindow = profileHeaderViewController.profileHeaderView.convert(
+                profileHeaderViewController.profileHeaderView.followsYouBlurEffectView.frame,
+                to: nil
+            )
+            if followsYouBlurEffectViewInWindow.minY < tabBarPagerController.containerScrollView.safeAreaInsets.top {
+                let offestY = tabBarPagerController.containerScrollView.safeAreaInsets.top - followsYouBlurEffectViewInWindow.minY
+                let height = profileHeaderViewController.profileHeaderView.followsYouMaskView.frame.height
+                profileHeaderViewController.profileHeaderView.followsYouMaskView.frame.origin.y = min(offestY, height)
+            } else {
+                profileHeaderViewController.profileHeaderView.followsYouMaskView.frame.origin.y = .zero
             }
             
             // setup titleView offset and fade avatar

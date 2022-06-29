@@ -246,6 +246,7 @@
 "Scene.Profile.Fields.AddRow" = "เพิ่มแถว";
 "Scene.Profile.Fields.Placeholder.Content" = "เนื้อหา";
 "Scene.Profile.Fields.Placeholder.Label" = "ป้ายชื่อ";
+"Scene.Profile.Header.FollowsYou" = "Follows You";
 "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Message" = "ยืนยันเพื่อปิดกั้น %@";
 "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Title" = "ปิดกั้นบัญชี";
 "Scene.Profile.RelationshipActionAlert.ConfirmMuteUser.Message" = "ยืนยันเพื่อซ่อน %@";

@@ -678,6 +678,10 @@ public enum L10n {
           public static let label = L10n.tr("Localizable", "Scene.Profile.Fields.Placeholder.Label")
         }
       }
+      public enum Header {
+        /// Follows You
+        public static let followsYou = L10n.tr("Localizable", "Scene.Profile.Header.FollowsYou")
+      }
       public enum RelationshipActionAlert {
         public enum ConfirmBlockUser {
           /// Confirm to block %@

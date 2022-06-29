@@ -246,6 +246,7 @@ téléversé sur Mastodon.";
 "Scene.Profile.Fields.AddRow" = "Ajouter une rangée";
 "Scene.Profile.Fields.Placeholder.Content" = "Contenu";
 "Scene.Profile.Fields.Placeholder.Label" = "Étiquette";
+"Scene.Profile.Header.FollowsYou" = "Follows You";
 "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Message" = "Confirmer le blocage de %@";
 "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Title" = "Bloquer le compte";
 "Scene.Profile.RelationshipActionAlert.ConfirmMuteUser.Message" = "Êtes-vous sûr de vouloir mettre en sourdine %@";

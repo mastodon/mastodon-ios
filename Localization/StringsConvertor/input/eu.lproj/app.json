@@ -417,6 +417,9 @@
             }
         },
         "profile": {
+            "header": {
+                "follows_you": "Follows You"
+            },
             "dashboard": {
                 "posts": "bidalketa",
                 "following": "jarraitzen",
