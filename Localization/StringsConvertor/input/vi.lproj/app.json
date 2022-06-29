@@ -417,6 +417,9 @@
             }
         },
         "profile": {
+            "header": {
+                "follows_you": "Đang theo dõi bạn"
+            },
             "dashboard": {
                 "posts": "tút",
                 "following": "theo dõi",

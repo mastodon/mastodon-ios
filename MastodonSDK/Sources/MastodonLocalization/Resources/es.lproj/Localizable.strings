@@ -247,6 +247,7 @@ pulsa en el enlace para confirmar tu cuenta.";
 "Scene.Profile.Fields.AddRow" = "Añadir Fila";
 "Scene.Profile.Fields.Placeholder.Content" = "Contenido";
 "Scene.Profile.Fields.Placeholder.Label" = "Nombre para el campo";
+"Scene.Profile.Header.FollowsYou" = "Follows You";
 "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Message" = "Confirmar para bloquear a %@";
 "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Title" = "Bloquear cuenta";
 "Scene.Profile.RelationshipActionAlert.ConfirmMuteUser.Message" = "Confirmar para silenciar %@";

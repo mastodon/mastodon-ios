@@ -417,6 +417,9 @@
             }
         },
         "profile": {
+            "header": {
+                "follows_you": "关注了你"
+            },
             "dashboard": {
                 "posts": "帖子",
                 "following": "正在关注",
