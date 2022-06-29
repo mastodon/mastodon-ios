@@ -417,6 +417,9 @@
             }
         },
         "profile": {
+            "header": {
+                "follows_you": "Et segueix"
+            },
             "dashboard": {
                 "posts": "publicacions",
                 "following": "seguint",

@@ -246,6 +246,7 @@ carregat a Mastodon.";
 "Scene.Profile.Fields.AddRow" = "Afegeix fila";
 "Scene.Profile.Fields.Placeholder.Content" = "Contingut";
 "Scene.Profile.Fields.Placeholder.Label" = "Etiqueta";
+"Scene.Profile.Header.FollowsYou" = "Et segueix";
 "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Message" = "Confirma per a bloquejar %@";
 "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Title" = "Bloqueja el Compte";
 "Scene.Profile.RelationshipActionAlert.ConfirmMuteUser.Message" = "Confirma per a silenciar %@";

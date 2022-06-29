@@ -417,6 +417,9 @@
             }
         },
         "profile": {
+            "header": {
+                "follows_you": "Te dişopîne"
+            },
             "dashboard": {
                 "posts": "şandî",
                 "following": "dişopîne",

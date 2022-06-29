@@ -246,6 +246,7 @@ laddas upp till Mastodon.";
 "Scene.Profile.Fields.AddRow" = "Lägg till rad";
 "Scene.Profile.Fields.Placeholder.Content" = "Innehåll";
 "Scene.Profile.Fields.Placeholder.Label" = "Etikett";
+"Scene.Profile.Header.FollowsYou" = "Follows You";
 "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Message" = "Bekräfta för att blockera %@";
 "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Title" = "Blockera konto";
 "Scene.Profile.RelationshipActionAlert.ConfirmMuteUser.Message" = "Bekräfta för att tysta %@";

@@ -245,6 +245,7 @@
 "Scene.Profile.Fields.AddRow" = "ڕیز زیاد بکە";
 "Scene.Profile.Fields.Placeholder.Content" = "ناوەڕۆک";
 "Scene.Profile.Fields.Placeholder.Label" = "ناونیشان";
+"Scene.Profile.Header.FollowsYou" = "Follows You";
 "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Message" = "دڵنیا ببەوە بۆ ئاستەنگکردنی %@";
 "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Title" = "ئاستەنگی بکە";
 "Scene.Profile.RelationshipActionAlert.ConfirmMuteUser.Message" = "دڵیا ببەوە بۆ بێدەنگکردنی %@";

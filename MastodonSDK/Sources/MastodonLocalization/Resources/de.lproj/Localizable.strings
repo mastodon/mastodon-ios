@@ -246,6 +246,7 @@ kann nicht auf Mastodon hochgeladen werden.";
 "Scene.Profile.Fields.AddRow" = "Zeile hinzufügen";
 "Scene.Profile.Fields.Placeholder.Content" = "Inhalt";
 "Scene.Profile.Fields.Placeholder.Label" = "Bezeichnung";
+"Scene.Profile.Header.FollowsYou" = "Follows You";
 "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Message" = "Bestätige %@ zu blockieren";
 "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Title" = "Konto blockieren";
 "Scene.Profile.RelationshipActionAlert.ConfirmMuteUser.Message" = "Bestätige %@ stumm zu schalten";

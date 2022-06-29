@@ -241,6 +241,7 @@
 "Scene.Profile.Fields.AddRow" = "行追加";
 "Scene.Profile.Fields.Placeholder.Content" = "コンテンツ";
 "Scene.Profile.Fields.Placeholder.Label" = "ラベル";
+"Scene.Profile.Header.FollowsYou" = "Follows You";
 "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Message" = "Confirm to block %@";
 "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Title" = "Block Account";
 "Scene.Profile.RelationshipActionAlert.ConfirmMuteUser.Message" = "Confirm to mute %@";
