@@ -544,6 +544,12 @@
             "keyobard": {
                 "show_everything": "Her tiştî nîşan bide",
                 "show_mentions": "Qalkirinan nîşan bike"
+            },
+            "follow_request": {
+                "accept": "Accept",
+                "accepted": "Accepted",
+                "reject": "reject",
+                "rejected": "Rejected"
             }
         },
         "thread": {

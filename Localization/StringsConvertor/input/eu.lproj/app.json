@@ -544,6 +544,12 @@
             "keyobard": {
                 "show_everything": "Erakutsi guztia",
                 "show_mentions": "Erakutsi aipamenak"
+            },
+            "follow_request": {
+                "accept": "Accept",
+                "accepted": "Accepted",
+                "reject": "reject",
+                "rejected": "Rejected"
             }
         },
         "thread": {

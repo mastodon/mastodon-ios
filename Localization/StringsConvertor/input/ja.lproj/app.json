@@ -544,6 +544,12 @@
             "keyobard": {
                 "show_everything": "すべて見る",
                 "show_mentions": "メンションを見る"
+            },
+            "follow_request": {
+                "accept": "Accept",
+                "accepted": "Accepted",
+                "reject": "reject",
+                "rejected": "Rejected"
             }
         },
         "thread": {
