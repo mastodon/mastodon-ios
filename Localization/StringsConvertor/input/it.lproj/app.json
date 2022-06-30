@@ -546,10 +546,10 @@
                 "show_mentions": "Mostra Menzioni"
             },
             "follow_request": {
-                "accept": "Accept",
-                "accepted": "Accepted",
-                "reject": "reject",
-                "rejected": "Rejected"
+                "accept": "Accetta",
+                "accepted": "Richiesta accettata",
+                "reject": "rifiuta",
+                "rejected": "Richiesta rifiutata"
             }
         },
         "thread": {
