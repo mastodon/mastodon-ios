@@ -544,6 +544,12 @@
             "keyobard": {
                 "show_everything": "แสดงทุกอย่าง",
                 "show_mentions": "แสดงการกล่าวถึง"
+            },
+            "follow_request": {
+                "accept": "Accept",
+                "accepted": "Accepted",
+                "reject": "reject",
+                "rejected": "Rejected"
             }
         },
         "thread": {
