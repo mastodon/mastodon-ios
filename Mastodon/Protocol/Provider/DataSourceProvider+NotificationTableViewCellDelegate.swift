@@ -87,6 +87,7 @@ extension NotificationTableViewCellDelegate where Self: DataSourceProvider {
     }
 }
 
+// MARK: - Follow Request
 extension NotificationTableViewCellDelegate where Self: DataSourceProvider {
  
     func tableViewCell(

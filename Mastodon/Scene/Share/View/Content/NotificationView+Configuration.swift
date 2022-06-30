@@ -29,6 +29,8 @@ extension NotificationView {
 
 extension NotificationView {
     public func configure(notification: Notification) {
+        viewModel.objects.insert(notification)
+
         configureAuthor(notification: notification)
         
         guard let type = MastodonNotificationType(rawValue: notification.typeRaw) else {
@@ -198,5 +200,12 @@ extension NotificationView {
         }
         .assign(to: \.isMyself, on: viewModel)
         .store(in: &disposeBag)
+        // follow request state
+        notification.publisher(for: \.followRequestState)
+            .assign(to: \.followRequestState, on: viewModel)
+            .store(in: &disposeBag)
+        notification.publisher(for: \.transientFollowRequestState)
+            .assign(to: \.transientFollowRequestState, on: viewModel)
+            .store(in: &disposeBag)
     }
 }
