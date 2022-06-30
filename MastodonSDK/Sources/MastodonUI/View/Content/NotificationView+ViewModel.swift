@@ -164,12 +164,12 @@ extension NotificationView.ViewModel {
                 notificationView.rejectFollowRequestButtonShadowBackgroundContainer.isHidden = true
                 notificationView.acceptFollowRequestButton.isUserInteractionEnabled = false
                 notificationView.acceptFollowRequestButton.setImage(nil, for: .normal)
-                notificationView.acceptFollowRequestButton.setTitle("Accepted", for: .normal)
+                notificationView.acceptFollowRequestButton.setTitle(L10n.Scene.Notification.FollowRequest.accepted, for: .normal)
             case .isReject:
                 notificationView.acceptFollowRequestButtonShadowBackgroundContainer.isHidden = true
                 notificationView.rejectFollowRequestButton.isUserInteractionEnabled = false
                 notificationView.rejectFollowRequestButton.setImage(nil, for: .normal)
-                notificationView.rejectFollowRequestButton.setTitle("Rejected", for: .normal)
+                notificationView.rejectFollowRequestButton.setTitle(L10n.Scene.Notification.FollowRequest.rejected, for: .normal)
             default:
                 break
             }

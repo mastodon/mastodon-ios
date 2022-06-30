@@ -119,7 +119,7 @@ public final class NotificationView: UIView {
         button.layer.masksToBounds = true
         button.layer.cornerCurve = .continuous
         button.layer.cornerRadius = 4
-        button.accessibilityLabel = "Accept"
+        button.accessibilityLabel = L10n.Scene.Notification.FollowRequest.accept
         acceptFollowRequestButtonShadowBackgroundContainer.cornerRadius = 4
         acceptFollowRequestButtonShadowBackgroundContainer.shadowAlpha = 0.1
         button.addTarget(self, action: #selector(NotificationView.acceptFollowRequestButtonDidPressed(_:)), for: .touchUpInside)
@@ -139,7 +139,7 @@ public final class NotificationView: UIView {
         button.layer.masksToBounds = true
         button.layer.cornerCurve = .continuous
         button.layer.cornerRadius = 4
-        button.accessibilityLabel = "Reject"
+        button.accessibilityLabel = L10n.Scene.Notification.FollowRequest.reject
         rejectFollowRequestButtonShadowBackgroundContainer.cornerRadius = 4
         rejectFollowRequestButtonShadowBackgroundContainer.shadowAlpha = 0.1
         button.addTarget(self, action: #selector(NotificationView.rejectFollowRequestButtonDidPressed(_:)), for: .touchUpInside)
