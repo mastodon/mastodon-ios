@@ -223,6 +223,10 @@
 "Scene.HomeTimeline.NavigationBarState.Published" = "เผยแพร่แล้ว!";
 "Scene.HomeTimeline.NavigationBarState.Publishing" = "กำลังเผยแพร่โพสต์...";
 "Scene.HomeTimeline.Title" = "หน้าแรก";
+"Scene.Notification.FollowRequest.Accept" = "Accept";
+"Scene.Notification.FollowRequest.Accepted" = "Accepted";
+"Scene.Notification.FollowRequest.Reject" = "reject";
+"Scene.Notification.FollowRequest.Rejected" = "Rejected";
 "Scene.Notification.Keyobard.ShowEverything" = "แสดงทุกอย่าง";
 "Scene.Notification.Keyobard.ShowMentions" = "แสดงการกล่าวถึง";
 "Scene.Notification.NotificationDescription.FavoritedYourPost" = "ได้ชื่นชอบโพสต์ของคุณ";
@@ -246,7 +250,7 @@
 "Scene.Profile.Fields.AddRow" = "เพิ่มแถว";
 "Scene.Profile.Fields.Placeholder.Content" = "เนื้อหา";
 "Scene.Profile.Fields.Placeholder.Label" = "ป้ายชื่อ";
-"Scene.Profile.Header.FollowsYou" = "Follows You";
+"Scene.Profile.Header.FollowsYou" = "ติดตามคุณ";
 "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Message" = "ยืนยันเพื่อปิดกั้น %@";
 "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Title" = "ปิดกั้นบัญชี";
 "Scene.Profile.RelationshipActionAlert.ConfirmMuteUser.Message" = "ยืนยันเพื่อซ่อน %@";

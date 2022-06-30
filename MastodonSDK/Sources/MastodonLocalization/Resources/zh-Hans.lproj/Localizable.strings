@@ -223,6 +223,10 @@
 "Scene.HomeTimeline.NavigationBarState.Published" = "已发送";
 "Scene.HomeTimeline.NavigationBarState.Publishing" = "正在发送...";
 "Scene.HomeTimeline.Title" = "主页";
+"Scene.Notification.FollowRequest.Accept" = "接受";
+"Scene.Notification.FollowRequest.Accepted" = "已接受";
+"Scene.Notification.FollowRequest.Reject" = "拒绝";
+"Scene.Notification.FollowRequest.Rejected" = "已拒绝";
 "Scene.Notification.Keyobard.ShowEverything" = "显示全部";
 "Scene.Notification.Keyobard.ShowMentions" = "显示提及";
 "Scene.Notification.NotificationDescription.FavoritedYourPost" = "喜欢了你的帖子";
