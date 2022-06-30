@@ -544,6 +544,12 @@
             "keyobard": {
                 "show_everything": "Mostrar todo",
                 "show_mentions": "Mostrar menciones"
+            },
+            "follow_request": {
+                "accept": "Accept",
+                "accepted": "Accepted",
+                "reject": "reject",
+                "rejected": "Rejected"
             }
         },
         "thread": {
