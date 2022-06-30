@@ -544,6 +544,12 @@
             "keyobard": {
                 "show_everything": "Tampilkan Segalanya",
                 "show_mentions": "Tampilkan Sebutan"
+            },
+            "follow_request": {
+                "accept": "Accept",
+                "accepted": "Accepted",
+                "reject": "reject",
+                "rejected": "Rejected"
             }
         },
         "thread": {
