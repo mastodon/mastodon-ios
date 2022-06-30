@@ -418,7 +418,7 @@
         },
         "profile": {
             "header": {
-                "follows_you": "Follows You"
+                "follows_you": "フォローされています"
             },
             "dashboard": {
                 "posts": "投稿",
@@ -441,20 +441,20 @@
             },
             "relationship_action_alert": {
                 "confirm_mute_user": {
-                    "title": "Mute Account",
-                    "message": "Confirm to mute %s"
+                    "title": "アカウントをミュート",
+                    "message": "%sをミュートしますか？"
                 },
                 "confirm_unmute_user": {
                     "title": "ミュートを解除",
                     "message": "%sをミュートしますか？"
                 },
                 "confirm_block_user": {
-                    "title": "Block Account",
-                    "message": "Confirm to block %s"
+                    "title": "アカウントをブロック",
+                    "message": "%sをブロックしますか？"
                 },
                 "confirm_unblock_user": {
-                    "title": "Unblock Account",
-                    "message": "Confirm to unblock %s"
+                    "title": "アカウントのブロックを解除",
+                    "message": "%sのブロックを解除しますか？"
                 }
             },
             "accessibility": {
@@ -465,11 +465,11 @@
             }
         },
         "follower": {
-            "title": "follower",
+            "title": "フォロワー",
             "footer": "他のサーバーからのフォロワーは表示されません。"
         },
         "following": {
-            "title": "following",
+            "title": "フォロー",
             "footer": "他のサーバーにいるフォローは表示されません。"
         },
         "familiarFollowers": {
