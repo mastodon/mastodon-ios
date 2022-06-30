@@ -544,6 +544,12 @@
             "keyobard": {
                 "show_everything": "هەموو شتێک نیشان بدە",
                 "show_mentions": "ئاماژەکان نیشان بدە"
+            },
+            "follow_request": {
+                "accept": "Accept",
+                "accepted": "Accepted",
+                "reject": "reject",
+                "rejected": "Rejected"
             }
         },
         "thread": {
