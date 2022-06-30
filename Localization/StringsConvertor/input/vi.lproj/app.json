@@ -546,10 +546,10 @@
                 "show_mentions": "Hiện lượt nhắc"
             },
             "follow_request": {
-                "accept": "Accept",
-                "accepted": "Accepted",
-                "reject": "reject",
-                "rejected": "Rejected"
+                "accept": "Chấp nhận",
+                "accepted": "Đã chấp nhận",
+                "reject": "từ chối",
+                "rejected": "Đã từ chối"
             }
         },
         "thread": {
