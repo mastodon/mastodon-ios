@@ -546,10 +546,10 @@
                 "show_mentions": "メンションを見る"
             },
             "follow_request": {
-                "accept": "Accept",
-                "accepted": "Accepted",
-                "reject": "reject",
-                "rejected": "Rejected"
+                "accept": "承認",
+                "accepted": "承諾済み",
+                "reject": "拒否",
+                "rejected": "拒否済み"
             }
         },
         "thread": {
