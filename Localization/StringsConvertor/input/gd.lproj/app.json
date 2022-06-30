@@ -544,6 +544,12 @@
             "keyobard": {
                 "show_everything": "Seall a h-uile càil",
                 "show_mentions": "Seall na h-iomraidhean"
+            },
+            "follow_request": {
+                "accept": "Accept",
+                "accepted": "Accepted",
+                "reject": "reject",
+                "rejected": "Rejected"
             }
         },
         "thread": {
