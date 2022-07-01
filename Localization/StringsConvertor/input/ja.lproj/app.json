@@ -129,12 +129,12 @@
                 "show_post": "投稿を見る",
                 "show_user_profile": "プロフィールを見る",
                 "content_warning": "コンテンツ警告",
-                "sensitive_content": "Sensitive Content",
+                "sensitive_content": "閲覧注意",
                 "media_content_warning": "どこかをタップして表示",
                 "tap_to_reveal": "タップして表示",
                 "poll": {
                     "vote": "投票",
-                    "closed": "クローズド"
+                    "closed": "終了"
                 },
                 "actions": {
                     "reply": "返信",
@@ -325,7 +325,7 @@
             "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we emailed to you to verify your account",
             "button": {
                 "open_email_app": "メールアプリを開く",
-                "resend": "Resend"
+                "resend": "再送信"
             },
             "dont_receive_email": {
                 "title": "メールをチェックしてください",
@@ -347,8 +347,8 @@
                 "published": "投稿しました!",
                 "Publishing": "投稿中...",
                 "accessibility": {
-                    "logo_label": "Logo Button",
-                    "logo_hint": "Tap to scroll to top and tap again to previous location"
+                    "logo_label": "ロゴボタン",
+                    "logo_hint": "タップすると一番上までスクロールし、もう一度タップすると元の場所に戻ります"
                 }
             }
         },
@@ -418,7 +418,7 @@
         },
         "profile": {
             "header": {
-                "follows_you": "Follows You"
+                "follows_you": "フォローされています"
             },
             "dashboard": {
                 "posts": "投稿",
@@ -441,20 +441,20 @@
             },
             "relationship_action_alert": {
                 "confirm_mute_user": {
-                    "title": "Mute Account",
-                    "message": "Confirm to mute %s"
+                    "title": "アカウントをミュート",
+                    "message": "%sをミュートしますか？"
                 },
                 "confirm_unmute_user": {
                     "title": "ミュートを解除",
                     "message": "%sをミュートしますか？"
                 },
                 "confirm_block_user": {
-                    "title": "Block Account",
-                    "message": "Confirm to block %s"
+                    "title": "アカウントをブロック",
+                    "message": "%sをブロックしますか？"
                 },
                 "confirm_unblock_user": {
-                    "title": "Unblock Account",
-                    "message": "Confirm to unblock %s"
+                    "title": "アカウントのブロックを解除",
+                    "message": "%sのブロックを解除しますか？"
                 }
             },
             "accessibility": {
@@ -465,11 +465,11 @@
             }
         },
         "follower": {
-            "title": "follower",
+            "title": "フォロワー",
             "footer": "他のサーバーからのフォロワーは表示されません。"
         },
         "following": {
-            "title": "following",
+            "title": "フォロー",
             "footer": "他のサーバーにいるフォローは表示されません。"
         },
         "familiarFollowers": {
@@ -534,22 +534,22 @@
                 "Mentions": "メンション"
             },
             "notification_description": {
-                "followed_you": "さんにフォローされました",
-                "favorited_your_post": "さんがあなたの投稿をお気に入りに登録しました",
-                "reblogged_your_post": "さんがあなたの投稿をブーストしました",
-                "mentioned_you": "さんがあなたに返信しました",
-                "request_to_follow_you": "さんがあなたにフォローリクエストしました",
-                "poll_has_ended": "アンケートが終了しました"
+                "followed_you": "にフォローされました",
+                "favorited_your_post": "がお気に入りに登録",
+                "reblogged_your_post": "がブースト",
+                "mentioned_you": "にメンションされました",
+                "request_to_follow_you": "からのフォローリクエスト",
+                "poll_has_ended": "のアンケートが終了"
             },
             "keyobard": {
                 "show_everything": "すべて見る",
                 "show_mentions": "メンションを見る"
             },
             "follow_request": {
-                "accept": "Accept",
-                "accepted": "Accepted",
-                "reject": "reject",
-                "rejected": "Rejected"
+                "accept": "承認",
+                "accepted": "承諾済み",
+                "reject": "拒否",
+                "rejected": "拒否済み"
             }
         },
         "thread": {
