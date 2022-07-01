@@ -544,6 +544,12 @@
             "keyobard": {
                 "show_everything": "显示全部",
                 "show_mentions": "显示提及"
+            },
+            "follow_request": {
+                "accept": "接受",
+                "accepted": "已接受",
+                "reject": "拒绝",
+                "rejected": "已拒绝"
             }
         },
         "thread": {

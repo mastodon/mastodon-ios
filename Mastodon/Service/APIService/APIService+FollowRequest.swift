@@ -15,91 +15,42 @@ import CommonOSLog
 import MastodonSDK
 
 extension APIService {
-//    func acceptFollowRequest(
-//            mastodonUserID: MastodonUser.ID,
-//            mastodonAuthenticationBox: MastodonAuthenticationBox
-//        ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Relationship>, Error> {
-//            let domain = mastodonAuthenticationBox.domain
-//            let authorization = mastodonAuthenticationBox.userAuthorization
-//            let requestMastodonUserID = mastodonAuthenticationBox.userID
-//
-//            return Mastodon.API.Account.acceptFollowRequest(
-//                session: session,
-//                domain: domain,
-//                userID: mastodonUserID,
-//                authorization: authorization)
-//            .flatMap { response -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Relationship>, Error> in
-//                let managedObjectContext = self.backgroundManagedObjectContext
-//                return managedObjectContext.performChanges {
-//                    let requestMastodonUserRequest = MastodonUser.sortedFetchRequest
-//                    requestMastodonUserRequest.predicate = MastodonUser.predicate(domain: domain, id: requestMastodonUserID)
-//                    requestMastodonUserRequest.fetchLimit = 1
-//                    guard let requestMastodonUser = managedObjectContext.safeFetch(requestMastodonUserRequest).first else { return }
-//
-//                    let lookUpMastodonUserRequest = MastodonUser.sortedFetchRequest
-//                    lookUpMastodonUserRequest.predicate = MastodonUser.predicate(domain: domain, id: mastodonUserID)
-//                    lookUpMastodonUserRequest.fetchLimit = 1
-//                    let lookUpMastodonuser = managedObjectContext.safeFetch(lookUpMastodonUserRequest).first
-//
-//                    if let lookUpMastodonuser = lookUpMastodonuser {
-//                        let entity = response.value
-//                        APIService.CoreData.update(user: lookUpMastodonuser, entity: entity, requestMastodonUser: requestMastodonUser, domain: domain, networkDate: response.networkDate)
-//                    }
-//                }
-//                .tryMap { result -> Mastodon.Response.Content<Mastodon.Entity.Relationship> in
-//                    switch result {
-//                    case .success:
-//                        return response
-//                    case .failure(let error):
-//                        throw error
-//                    }
-//                }
-//                .eraseToAnyPublisher()
-//            }
-//            .eraseToAnyPublisher()
-//    }
     
-//    func rejectFollowRequest(
-//            mastodonUserID: MastodonUser.ID,
-//            mastodonAuthenticationBox: MastodonAuthenticationBox
-//        ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Relationship>, Error> {
-//            let domain = mastodonAuthenticationBox.domain
-//            let authorization = mastodonAuthenticationBox.userAuthorization
-//            let requestMastodonUserID = mastodonAuthenticationBox.userID
-//            
-//            return Mastodon.API.Account.rejectFollowRequest(
-//                session: session,
-//                domain: domain,
-//                userID: mastodonUserID,
-//                authorization: authorization)
-//            .flatMap { response -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Relationship>, Error> in
-//                let managedObjectContext = self.backgroundManagedObjectContext
-//                return managedObjectContext.performChanges {
-//                    let requestMastodonUserRequest = MastodonUser.sortedFetchRequest
-//                    requestMastodonUserRequest.predicate = MastodonUser.predicate(domain: domain, id: requestMastodonUserID)
-//                    requestMastodonUserRequest.fetchLimit = 1
-//                    guard let requestMastodonUser = managedObjectContext.safeFetch(requestMastodonUserRequest).first else { return }
-//
-//                    let lookUpMastodonUserRequest = MastodonUser.sortedFetchRequest
-//                    lookUpMastodonUserRequest.predicate = MastodonUser.predicate(domain: domain, id: mastodonUserID)
-//                    lookUpMastodonUserRequest.fetchLimit = 1
-//                    let lookUpMastodonuser = managedObjectContext.safeFetch(lookUpMastodonUserRequest).first
-//                    
-//                    if let lookUpMastodonuser = lookUpMastodonuser {
-//                        let entity = response.value
-//                        APIService.CoreData.update(user: lookUpMastodonuser, entity: entity, requestMastodonUser: requestMastodonUser, domain: domain, networkDate: response.networkDate)
-//                    }
-//                }
-//                .tryMap { result -> Mastodon.Response.Content<Mastodon.Entity.Relationship> in
-//                    switch result {
-//                    case .success:
-//                        return response
-//                    case .failure(let error):
-//                        throw error
-//                    }
-//                }
-//                .eraseToAnyPublisher()
-//            }
-//            .eraseToAnyPublisher()
-//    }
+    func followRequest(
+        userID: Mastodon.Entity.Account.ID,
+        query: Mastodon.API.Account.FollowReqeustQuery,
+        authenticationBox: MastodonAuthenticationBox
+    ) async throws -> Mastodon.Response.Content<Mastodon.Entity.Relationship> {
+        let response = try await Mastodon.API.Account.followRequest(
+            session: session,
+            domain: authenticationBox.domain,
+            userID: userID,
+            query: query,
+            authorization: authenticationBox.userAuthorization
+        ).singleOutput()
+        
+        let managedObjectContext = self.backgroundManagedObjectContext
+        try await managedObjectContext.performChanges {
+            let request = MastodonUser.sortedFetchRequest
+            request.predicate = MastodonUser.predicate(
+                domain: authenticationBox.domain,
+                id: authenticationBox.userID
+            )
+            request.fetchLimit = 1
+            guard let user = managedObjectContext.safeFetch(request).first else { return }
+            guard let me = authenticationBox.authenticationRecord.object(in: managedObjectContext)?.user else { return }
+            
+            Persistence.MastodonUser.update(
+                mastodonUser: user,
+                context: Persistence.MastodonUser.RelationshipContext(
+                    entity: response.value,
+                    me: me,
+                    networkDate: response.networkDate
+                )
+            )
+        }
+        
+        return response
+    }
+
 }

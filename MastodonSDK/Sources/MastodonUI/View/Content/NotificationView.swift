@@ -17,6 +17,9 @@ public protocol NotificationViewDelegate: AnyObject {
     func notificationView(_ notificationView: NotificationView, authorAvatarButtonDidPressed button: AvatarButton)
     func notificationView(_ notificationView: NotificationView, menuButton button: UIButton, didSelectAction action: MastodonMenu.Action)
     
+    func notificationView(_ notificationView: NotificationView, acceptFollowRequestButtonDidPressed button: UIButton)
+    func notificationView(_ notificationView: NotificationView, rejectFollowRequestButtonDidPressed button: UIButton)
+    
     func notificationView(_ notificationView: NotificationView, statusView: StatusView, metaText: MetaText, didSelectMeta meta: Meta)
     func notificationView(_ notificationView: NotificationView, statusView: StatusView, spoilerOverlayViewDidPressed overlayView: SpoilerOverlayView)
     func notificationView(_ notificationView: NotificationView, statusView: StatusView, mediaGridContainerView: MediaGridContainerView, mediaView: MediaView, didSelectMediaViewAt index: Int)
@@ -101,6 +104,50 @@ public final class NotificationView: UIView {
     // notification type indicator imageView
     public let notificationTypeIndicatorLabel = MetaLabel(style: .notificationTitle)
     
+    // follow request
+    let followRequestAdaptiveMarginContainerView = AdaptiveMarginContainerView()
+    let followRequestContainerView = UIStackView()
+    
+    let acceptFollowRequestButtonShadowBackgroundContainer = ShadowBackgroundContainer()
+    private(set) lazy var acceptFollowRequestButton: UIButton = {
+        let button = UIButton()
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
+        button.setImage(Asset.Editing.checkmark.image.withRenderingMode(.alwaysTemplate), for: .normal)
+        button.imageView?.contentMode = .scaleAspectFit
+        button.setBackgroundImage(.placeholder(color: .systemGreen), for: .normal)
+        button.tintColor = .white
+        button.layer.masksToBounds = true
+        button.layer.cornerCurve = .continuous
+        button.layer.cornerRadius = 4
+        button.accessibilityLabel = L10n.Scene.Notification.FollowRequest.accept
+        acceptFollowRequestButtonShadowBackgroundContainer.cornerRadius = 4
+        acceptFollowRequestButtonShadowBackgroundContainer.shadowAlpha = 0.1
+        button.addTarget(self, action: #selector(NotificationView.acceptFollowRequestButtonDidPressed(_:)), for: .touchUpInside)
+        return button
+    }()
+    let acceptFollowRequestActivityIndicatorView = UIActivityIndicatorView(style: .medium)
+    
+    let rejectFollowRequestButtonShadowBackgroundContainer = ShadowBackgroundContainer()
+    private(set) lazy var rejectFollowRequestButton: UIButton = {
+        let button = UIButton()
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
+        button.setImage(Asset.Editing.xmark.image.withRenderingMode(.alwaysTemplate), for: .normal)
+        button.imageView?.contentMode = .scaleAspectFit
+        button.imageEdgeInsets = UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 2)     // tweak xmark size
+        button.setBackgroundImage(.placeholder(color: .systemRed), for: .normal)
+        button.tintColor = .white
+        button.layer.masksToBounds = true
+        button.layer.cornerCurve = .continuous
+        button.layer.cornerRadius = 4
+        button.accessibilityLabel = L10n.Scene.Notification.FollowRequest.reject
+        rejectFollowRequestButtonShadowBackgroundContainer.cornerRadius = 4
+        rejectFollowRequestButtonShadowBackgroundContainer.shadowAlpha = 0.1
+        button.addTarget(self, action: #selector(NotificationView.rejectFollowRequestButtonDidPressed(_:)), for: .touchUpInside)
+        return button
+    }()
+    let rejectFollowRequestActivityIndicatorView = UIActivityIndicatorView(style: .medium)
+    
+    // status
     public let statusView = StatusView()
     
     public let quoteStatusViewContainerView = UIView()
@@ -110,10 +157,19 @@ public final class NotificationView: UIView {
     public func prepareForReuse() {
         disposeBag.removeAll()
         
+        viewModel.objects.removeAll()
         viewModel.authorAvatarImageURL = nil
         avatarButton.avatarImageView.cancelTask()
         
         authorContainerViewBottomPaddingView.isHidden = true
+        
+        followRequestAdaptiveMarginContainerView.isHidden = true
+        acceptFollowRequestButtonShadowBackgroundContainer.isHidden = false
+        rejectFollowRequestButtonShadowBackgroundContainer.isHidden = false
+        acceptFollowRequestActivityIndicatorView.stopAnimating()
+        rejectFollowRequestActivityIndicatorView.stopAnimating()
+        acceptFollowRequestButton.isUserInteractionEnabled = true
+        rejectFollowRequestButton.isUserInteractionEnabled = true
         
         statusView.isHidden = true
         statusView.prepareForReuse()
@@ -222,6 +278,58 @@ extension NotificationView {
         ])
         authorContainerViewBottomPaddingView.isHidden = true
         
+        // follow reqeust
+        followRequestAdaptiveMarginContainerView.contentView = followRequestContainerView
+        followRequestAdaptiveMarginContainerView.margin = StatusView.containerLayoutMargin
+        containerStackView.addArrangedSubview(followRequestAdaptiveMarginContainerView)
+        
+        acceptFollowRequestButton.translatesAutoresizingMaskIntoConstraints = false
+        acceptFollowRequestButtonShadowBackgroundContainer.addSubview(acceptFollowRequestButton)
+        NSLayoutConstraint.activate([
+            acceptFollowRequestButton.topAnchor.constraint(equalTo: acceptFollowRequestButtonShadowBackgroundContainer.topAnchor),
+            acceptFollowRequestButton.leadingAnchor.constraint(equalTo: acceptFollowRequestButtonShadowBackgroundContainer.leadingAnchor),
+            acceptFollowRequestButton.trailingAnchor.constraint(equalTo: acceptFollowRequestButtonShadowBackgroundContainer.trailingAnchor),
+            acceptFollowRequestButton.bottomAnchor.constraint(equalTo: acceptFollowRequestButtonShadowBackgroundContainer.bottomAnchor),
+        ])
+        
+        rejectFollowRequestButton.translatesAutoresizingMaskIntoConstraints = false
+        rejectFollowRequestButtonShadowBackgroundContainer.addSubview(rejectFollowRequestButton)
+        NSLayoutConstraint.activate([
+            rejectFollowRequestButton.topAnchor.constraint(equalTo: rejectFollowRequestButtonShadowBackgroundContainer.topAnchor),
+            rejectFollowRequestButton.leadingAnchor.constraint(equalTo: rejectFollowRequestButtonShadowBackgroundContainer.leadingAnchor),
+            rejectFollowRequestButton.trailingAnchor.constraint(equalTo: rejectFollowRequestButtonShadowBackgroundContainer.trailingAnchor),
+            rejectFollowRequestButton.bottomAnchor.constraint(equalTo: rejectFollowRequestButtonShadowBackgroundContainer.bottomAnchor),
+        ])
+        
+        followRequestContainerView.axis = .horizontal
+        followRequestContainerView.distribution = .fillEqually
+        followRequestContainerView.spacing = 8
+        followRequestContainerView.isLayoutMarginsRelativeArrangement = true
+        followRequestContainerView.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 16, right: 0)  // set bottom padding
+        followRequestContainerView.addArrangedSubview(acceptFollowRequestButtonShadowBackgroundContainer)
+        followRequestContainerView.addArrangedSubview(rejectFollowRequestButtonShadowBackgroundContainer)
+        followRequestAdaptiveMarginContainerView.isHidden = true
+        
+        acceptFollowRequestActivityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
+        acceptFollowRequestButton.addSubview(acceptFollowRequestActivityIndicatorView)
+        NSLayoutConstraint.activate([
+            acceptFollowRequestActivityIndicatorView.centerXAnchor.constraint(equalTo: acceptFollowRequestButton.centerXAnchor),
+            acceptFollowRequestActivityIndicatorView.centerYAnchor.constraint(equalTo: acceptFollowRequestButton.centerYAnchor),
+        ])
+        acceptFollowRequestActivityIndicatorView.color = .white
+        acceptFollowRequestActivityIndicatorView.hidesWhenStopped = true
+        acceptFollowRequestActivityIndicatorView.stopAnimating()
+        
+        rejectFollowRequestActivityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
+        rejectFollowRequestButton.addSubview(rejectFollowRequestActivityIndicatorView)
+        NSLayoutConstraint.activate([
+            rejectFollowRequestActivityIndicatorView.centerXAnchor.constraint(equalTo: rejectFollowRequestButton.centerXAnchor),
+            rejectFollowRequestActivityIndicatorView.centerYAnchor.constraint(equalTo: rejectFollowRequestButton.centerYAnchor),
+        ])
+        rejectFollowRequestActivityIndicatorView.color = .white
+        acceptFollowRequestActivityIndicatorView.hidesWhenStopped = true
+        rejectFollowRequestActivityIndicatorView.stopAnimating()
+        
         // statusView
         containerStackView.addArrangedSubview(statusView)
         statusView.setup(style: .notification)
@@ -271,16 +379,32 @@ extension NotificationView {
 }
 
 extension NotificationView {
+    
     @objc private func avatarButtonDidPressed(_ sender: UIButton) {
         logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
         delegate?.notificationView(self, authorAvatarButtonDidPressed: avatarButton)
     }
+    
+    @objc private func acceptFollowRequestButtonDidPressed(_ sender: UIButton) {
+        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
+        delegate?.notificationView(self, acceptFollowRequestButtonDidPressed: sender)
+    }
+    
+    @objc private func rejectFollowRequestButtonDidPressed(_ sender: UIButton) {
+        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
+        delegate?.notificationView(self, rejectFollowRequestButtonDidPressed: sender)
+    }
+    
 }
 
 extension NotificationView {
     
     public func setAuthorContainerBottomPaddingViewDisplay() {
         authorContainerViewBottomPaddingView.isHidden = false
+    }
+    
+    public func setFollowRequestAdaptiveMarginContainerViewDisplay() {
+        followRequestAdaptiveMarginContainerView.isHidden = false
     }
 
     public func setStatusViewDisplay() {

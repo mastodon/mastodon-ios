@@ -223,6 +223,10 @@
 "Scene.HomeTimeline.NavigationBarState.Published" = "تمَّ النَّشر!";
 "Scene.HomeTimeline.NavigationBarState.Publishing" = "يَجري نَشر المُشارَكَة...";
 "Scene.HomeTimeline.Title" = "الرَّئِيسَة";
+"Scene.Notification.FollowRequest.Accept" = "Accept";
+"Scene.Notification.FollowRequest.Accepted" = "Accepted";
+"Scene.Notification.FollowRequest.Reject" = "reject";
+"Scene.Notification.FollowRequest.Rejected" = "Rejected";
 "Scene.Notification.Keyobard.ShowEverything" = "أظْهِر كُلَّ شَيء";
 "Scene.Notification.Keyobard.ShowMentions" = "أظْهِر الإشارَات";
 "Scene.Notification.NotificationDescription.FavoritedYourPost" = "فَضَّلَ مَنشُورَك";

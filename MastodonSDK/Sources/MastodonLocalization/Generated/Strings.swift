@@ -612,6 +612,16 @@ public enum L10n {
       }
     }
     public enum Notification {
+      public enum FollowRequest {
+        /// Accept
+        public static let accept = L10n.tr("Localizable", "Scene.Notification.FollowRequest.Accept")
+        /// Accepted
+        public static let accepted = L10n.tr("Localizable", "Scene.Notification.FollowRequest.Accepted")
+        /// reject
+        public static let reject = L10n.tr("Localizable", "Scene.Notification.FollowRequest.Reject")
+        /// Rejected
+        public static let rejected = L10n.tr("Localizable", "Scene.Notification.FollowRequest.Rejected")
+      }
       public enum Keyobard {
         /// Show Everything
         public static let showEverything = L10n.tr("Localizable", "Scene.Notification.Keyobard.ShowEverything")

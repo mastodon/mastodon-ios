@@ -94,6 +94,10 @@ public enum Asset {
   public enum Connectivity {
     public static let photoFillSplit = ImageAsset(name: "Connectivity/photo.fill.split")
   }
+  public enum Editing {
+    public static let checkmark = ImageAsset(name: "Editing/checkmark")
+    public static let xmark = ImageAsset(name: "Editing/xmark")
+  }
   public enum Human {
     public static let eyeCircleFill = ImageAsset(name: "Human/eye.circle.fill")
     public static let eyeSlashCircleFill = ImageAsset(name: "Human/eye.slash.circle.fill")

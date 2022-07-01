@@ -89,3 +89,37 @@ extension Mastodon.API.Account {
             .eraseToAnyPublisher()
     }
 }
+
+extension Mastodon.API.Account {
+ 
+    public enum FollowReqeustQuery {
+        case accept
+        case reject
+    }
+    
+    public static func followRequest(
+        session: URLSession,
+        domain: String,
+        userID: Mastodon.Entity.Account.ID,
+        query: FollowReqeustQuery,
+        authorization: Mastodon.API.OAuth.Authorization
+    ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Relationship>, Error> {
+        switch query {
+        case .accept:
+            return acceptFollowRequest(
+                session: session,
+                domain: domain,
+                userID: userID,
+                authorization: authorization
+            )
+        case .reject:
+            return rejectFollowRequest(
+                session: session,
+                domain: domain,
+                userID: userID,
+                authorization: authorization
+            )
+        }   // end switch
+    }
+    
+}
