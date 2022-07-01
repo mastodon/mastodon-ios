@@ -32,7 +32,7 @@ final class ComposeStatusPollOptionAppendEntryCollectionViewCell: UICollectionVi
     override var isHighlighted: Bool {
         didSet {
             pollOptionView.roundedBackgroundView.backgroundColor = isHighlighted ? ThemeService.shared.currentTheme.value.tertiarySystemGroupedBackgroundColor.withAlphaComponent(0.6) : ThemeService.shared.currentTheme.value.tertiarySystemGroupedBackgroundColor
-            pollOptionView.plusCircleImageView.tintColor = isHighlighted ? Asset.Colors.brandBlue.color.withAlphaComponent(0.5) : Asset.Colors.brandBlue.color
+            pollOptionView.plusCircleImageView.tintColor = isHighlighted ? Asset.Colors.brand.color.withAlphaComponent(0.5) : Asset.Colors.brand.color
         }
     }
     

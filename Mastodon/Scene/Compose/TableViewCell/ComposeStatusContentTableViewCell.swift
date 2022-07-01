@@ -60,7 +60,7 @@ final class ComposeStatusContentTableViewCell: UITableViewCell {
         ]
         metaText.linkAttributes = [
             .font: UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold)),
-            .foregroundColor: Asset.Colors.brandBlue.color,
+            .foregroundColor: Asset.Colors.brand.color,
         ]
         return metaText
     }()

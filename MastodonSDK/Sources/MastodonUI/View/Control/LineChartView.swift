@@ -40,8 +40,8 @@ extension LineChartView {
         layer.addSublayer(gradientLayer)
         
         gradientLayer.colors = [
-            Asset.Colors.brandBlue.color.withAlphaComponent(0.5).cgColor,       // set the same alpha to fill
-            Asset.Colors.brandBlue.color.withAlphaComponent(0.5).cgColor,
+            Asset.Colors.Primary._300.color.withAlphaComponent(0.5).cgColor,       // set the same alpha to fill
+            Asset.Colors.Primary._300.color.withAlphaComponent(0.5).cgColor,
         ]
         gradientLayer.startPoint = CGPoint(x: 0.5, y: 0)
         gradientLayer.endPoint = CGPoint(x: 0.5, y: 1)
@@ -91,7 +91,7 @@ extension LineChartView {
         }
 
         lineShapeLayer.lineWidth = 1
-        lineShapeLayer.strokeColor = Asset.Colors.brandBlue.color.cgColor
+        lineShapeLayer.strokeColor = Asset.Colors.Primary._700.color.cgColor
         lineShapeLayer.fillColor = UIColor.clear.cgColor
         lineShapeLayer.lineJoin = .round
         lineShapeLayer.lineCap = .round
@@ -103,7 +103,7 @@ extension LineChartView {
         maskPath.close()
         let maskLayer = CAShapeLayer()
         maskLayer.path = maskPath.cgPath
-        maskLayer.fillColor = Asset.Colors.brandBlue.color.cgColor
+        maskLayer.fillColor = Asset.Colors.brand.color.cgColor
         maskLayer.strokeColor = UIColor.clear.cgColor
         maskLayer.lineWidth = 0.0
         gradientLayer.mask = maskLayer
