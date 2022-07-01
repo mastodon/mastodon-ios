@@ -68,7 +68,7 @@ class ProfileViewModel: NSObject {
         self.repliesUserTimelineViewModel = UserTimelineViewModel(
             context: context,
             title: L10n.Scene.Profile.SegmentedControl.postsAndReplies,
-            queryFilter: .init(excludeReplies: true)
+            queryFilter: .init(excludeReplies: false)
         )
         self.mediaUserTimelineViewModel = UserTimelineViewModel(
             context: context,
