@@ -546,10 +546,10 @@
                 "show_mentions": "Qalkirinan nîşan bike"
             },
             "follow_request": {
-                "accept": "Accept",
-                "accepted": "Accepted",
-                "reject": "reject",
-                "rejected": "Rejected"
+                "accept": "Bipejirîne",
+                "accepted": "Pejirandî",
+                "reject": "nepejirîne",
+                "rejected": "Nepejirandî"
             }
         },
         "thread": {
