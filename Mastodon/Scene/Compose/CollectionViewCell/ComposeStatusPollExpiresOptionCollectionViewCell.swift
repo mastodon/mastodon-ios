@@ -25,7 +25,7 @@ final class ComposeStatusPollExpiresOptionCollectionViewCell: UICollectionViewCe
         button.titleLabel?.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 12))
         button.expandEdgeInsets = UIEdgeInsets(top: 0, left: -10, bottom: -20, right: -20)
         button.setTitle(L10n.Scene.Compose.Poll.durationTime(L10n.Scene.Compose.Poll.thirtyMinutes), for: .normal)
-        button.setTitleColor(Asset.Colors.brandBlue.color, for: .normal)
+        button.setTitleColor(Asset.Colors.brand.color, for: .normal)
         return button
     }()
     
