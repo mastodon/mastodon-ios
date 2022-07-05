@@ -34,7 +34,7 @@ final class SearchHistoryTableHeaderView: UIView {
     let clearSearchHistoryButton: HighlightDimmableButton = {
         let button = HighlightDimmableButton(type: .custom)
         button.expandEdgeInsets = UIEdgeInsets(top: -10, left: -10, bottom: -10, right: -10)
-        button.setTitleColor(Asset.Colors.brandBlue.color, for: .normal)
+        button.setTitleColor(Asset.Colors.brand.color, for: .normal)
         button.setTitle(L10n.Scene.Search.Searching.clear, for: .normal)
         return button
     }()

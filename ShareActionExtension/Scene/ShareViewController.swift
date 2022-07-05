@@ -25,8 +25,8 @@ class ShareViewController: UIViewController {
         let button = RoundedEdgesButton(type: .custom)
         button.setTitle(L10n.Scene.Compose.composeAction, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 14, weight: .bold)
-        button.setBackgroundImage(.placeholder(color: Asset.Colors.brandBlue.color), for: .normal)
-        button.setBackgroundImage(.placeholder(color: Asset.Colors.brandBlue.color.withAlphaComponent(0.5)), for: .highlighted)
+        button.setBackgroundImage(.placeholder(color: Asset.Colors.brand.color), for: .normal)
+        button.setBackgroundImage(.placeholder(color: Asset.Colors.brand.color.withAlphaComponent(0.5)), for: .highlighted)
         button.setBackgroundImage(.placeholder(color: Asset.Colors.Button.disabled.color), for: .disabled)
         button.setTitleColor(.white, for: .normal)
         button.contentEdgeInsets = UIEdgeInsets(top: 6, left: 16, bottom: 5, right: 16)     // set 28pt height

@@ -65,7 +65,7 @@ extension PickServerCategoryView {
         highlightedIndicatorView.translatesAutoresizingMaskIntoConstraints = false
         container.addArrangedSubview(highlightedIndicatorView)
         NSLayoutConstraint.activate([
-            highlightedIndicatorView.heightAnchor.constraint(equalToConstant: UIView.separatorLineHeight(of: self) * 3).priority(.required - 1),
+            highlightedIndicatorView.heightAnchor.constraint(equalToConstant: 3).priority(.required - 1),
         ])
         titleLabel.setContentHuggingPriority(.required - 1, for: .vertical)
     }

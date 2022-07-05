@@ -544,6 +544,12 @@
             "keyobard": {
                 "show_everything": "Sken yal taɣawsa",
                 "show_mentions": "Sken tisedmirin"
+            },
+            "follow_request": {
+                "accept": "Accept",
+                "accepted": "Accepted",
+                "reject": "reject",
+                "rejected": "Rejected"
             }
         },
         "thread": {

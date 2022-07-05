@@ -544,6 +544,12 @@
             "keyobard": {
                 "show_everything": "Show Everything",
                 "show_mentions": "Show Mentions"
+            },
+            "follow_request": {
+                "accept": "수락",
+                "accepted": "수락됨",
+                "reject": "거절",
+                "rejected": "거절됨"
             }
         },
         "thread": {

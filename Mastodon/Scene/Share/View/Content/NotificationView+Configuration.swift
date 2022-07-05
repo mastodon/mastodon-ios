@@ -29,6 +29,8 @@ extension NotificationView {
 
 extension NotificationView {
     public func configure(notification: Notification) {
+        viewModel.objects.insert(notification)
+
         configureAuthor(notification: notification)
         
         guard let type = MastodonNotificationType(rawValue: notification.typeRaw) else {
@@ -36,23 +38,26 @@ extension NotificationView {
             return
         }
         
-        if let status = notification.status {
-            switch type {
-            case .follow, .followRequest:
-                setAuthorContainerBottomPaddingViewDisplay()
-            case .mention, .status:
+        switch type {
+        case .follow:
+            setAuthorContainerBottomPaddingViewDisplay()
+        case .followRequest:
+            setFollowRequestAdaptiveMarginContainerViewDisplay()
+        case .mention, .status:
+            if let status = notification.status {
                 statusView.configure(status: status)
                 setStatusViewDisplay()
-            case .reblog, .favourite, .poll:
+            }
+        case .reblog, .favourite, .poll:
+            if let status = notification.status {
                 quoteStatusView.configure(status: status)
                 setQuoteStatusViewDisplay()
-            case ._other:
-                setAuthorContainerBottomPaddingViewDisplay()
-                assertionFailure()
             }
-        } else {
+        case ._other:
             setAuthorContainerBottomPaddingViewDisplay()
+            assertionFailure()
         }
+        
     }
 }
 
@@ -195,5 +200,12 @@ extension NotificationView {
         }
         .assign(to: \.isMyself, on: viewModel)
         .store(in: &disposeBag)
+        // follow request state
+        notification.publisher(for: \.followRequestState)
+            .assign(to: \.followRequestState, on: viewModel)
+            .store(in: &disposeBag)
+        notification.publisher(for: \.transientFollowRequestState)
+            .assign(to: \.transientFollowRequestState, on: viewModel)
+            .store(in: &disposeBag)
     }
 }

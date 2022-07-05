@@ -222,6 +222,10 @@
 "Scene.HomeTimeline.NavigationBarState.Published" = "بڵاوکرایەوە!";
 "Scene.HomeTimeline.NavigationBarState.Publishing" = "پۆستەکە بڵاو دەکرێتەوە...";
 "Scene.HomeTimeline.Title" = "ماڵەوە";
+"Scene.Notification.FollowRequest.Accept" = "Accept";
+"Scene.Notification.FollowRequest.Accepted" = "Accepted";
+"Scene.Notification.FollowRequest.Reject" = "reject";
+"Scene.Notification.FollowRequest.Rejected" = "Rejected";
 "Scene.Notification.Keyobard.ShowEverything" = "هەموو شتێک نیشان بدە";
 "Scene.Notification.Keyobard.ShowMentions" = "ئاماژەکان نیشان بدە";
 "Scene.Notification.NotificationDescription.FavoritedYourPost" = "پۆستەکەتی بەدڵ بوو";

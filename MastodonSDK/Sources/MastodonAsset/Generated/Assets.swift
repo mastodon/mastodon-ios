@@ -63,6 +63,10 @@ public enum Asset {
     public enum Poll {
       public static let disabled = ColorAsset(name: "Colors/Poll/disabled")
     }
+    public enum Primary {
+      public static let _300 = ColorAsset(name: "Colors/Primary/300")
+      public static let _700 = ColorAsset(name: "Colors/Primary/700")
+    }
     public enum Shadow {
       public static let searchCard = ColorAsset(name: "Colors/Shadow/SearchCard")
     }
@@ -77,10 +81,13 @@ public enum Asset {
     public static let alertYellow = ColorAsset(name: "Colors/alert.yellow")
     public static let badgeBackground = ColorAsset(name: "Colors/badge.background")
     public static let battleshipGrey = ColorAsset(name: "Colors/battleshipGrey")
-    public static let brandBlue = ColorAsset(name: "Colors/brand.blue")
-    public static let brandBlueDarken20 = ColorAsset(name: "Colors/brand.blue.darken.20")
+    public static let brand = ColorAsset(name: "Colors/brand")
     public static let dangerBorder = ColorAsset(name: "Colors/danger.border")
     public static let danger = ColorAsset(name: "Colors/danger")
+    public enum Deprecated {
+      public static let brandBlue = ColorAsset(name: "Colors/deprecated/brand.blue")
+      public static let brandBlueDarken20 = ColorAsset(name: "Colors/deprecated/brand.blue.darken.20")
+    }
     public static let disabled = ColorAsset(name: "Colors/disabled")
     public static let inactive = ColorAsset(name: "Colors/inactive")
     public static let mediaTypeIndicotor = ColorAsset(name: "Colors/media.type.indicotor")
@@ -93,6 +100,10 @@ public enum Asset {
   }
   public enum Connectivity {
     public static let photoFillSplit = ImageAsset(name: "Connectivity/photo.fill.split")
+  }
+  public enum Editing {
+    public static let checkmark = ImageAsset(name: "Editing/checkmark")
+    public static let xmark = ImageAsset(name: "Editing/xmark")
   }
   public enum Human {
     public static let eyeCircleFill = ImageAsset(name: "Human/eye.circle.fill")

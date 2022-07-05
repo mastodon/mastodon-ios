@@ -25,6 +25,8 @@ protocol NotificationTableViewCellDelegate: AnyObject, AutoGenerateProtocolDeleg
     // sourcery:inline:NotificationTableViewCellDelegate.AutoGenerateProtocolDelegate
     func tableViewCell(_ cell: UITableViewCell, notificationView: NotificationView, authorAvatarButtonDidPressed button: AvatarButton)
     func tableViewCell(_ cell: UITableViewCell, notificationView: NotificationView, menuButton button: UIButton, didSelectAction action: MastodonMenu.Action)
+    func tableViewCell(_ cell: UITableViewCell, notificationView: NotificationView, acceptFollowRequestButtonDidPressed button: UIButton)
+    func tableViewCell(_ cell: UITableViewCell, notificationView: NotificationView, rejectFollowRequestButtonDidPressed button: UIButton)
     func tableViewCell(_ cell: UITableViewCell, notificationView: NotificationView, statusView: StatusView, metaText: MetaText, didSelectMeta meta: Meta)
     func tableViewCell(_ cell: UITableViewCell, notificationView: NotificationView, statusView: StatusView, spoilerOverlayViewDidPressed overlayView: SpoilerOverlayView)
     func tableViewCell(_ cell: UITableViewCell, notificationView: NotificationView, statusView: StatusView, mediaGridContainerView: MediaGridContainerView, mediaView: MediaView, didSelectMediaViewAt index: Int)
@@ -47,6 +49,14 @@ extension NotificationViewDelegate where Self: NotificationViewContainerTableVie
 
     func notificationView(_ notificationView: NotificationView, menuButton button: UIButton, didSelectAction action: MastodonMenu.Action) {
         delegate?.tableViewCell(self, notificationView: notificationView, menuButton: button, didSelectAction: action)
+    }
+
+    func notificationView(_ notificationView: NotificationView, acceptFollowRequestButtonDidPressed button: UIButton) {
+        delegate?.tableViewCell(self, notificationView: notificationView, acceptFollowRequestButtonDidPressed: button)
+    }
+
+    func notificationView(_ notificationView: NotificationView, rejectFollowRequestButtonDidPressed button: UIButton) {
+        delegate?.tableViewCell(self, notificationView: notificationView, rejectFollowRequestButtonDidPressed: button)
     }
 
     func notificationView(_ notificationView: NotificationView, statusView: StatusView, metaText: MetaText, didSelectMeta meta: Meta) {

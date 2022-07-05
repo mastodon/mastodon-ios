@@ -17,7 +17,7 @@ extension Mastodon.Entity.Notification.NotificationType {
             var color: UIColor
             switch self {
             case .follow:
-                color = Asset.Colors.brandBlue.color
+                color = Asset.Colors.brand.color
             case .favourite:
                 color = Asset.Colors.Notification.favourite.color
             case .reblog:
@@ -25,9 +25,9 @@ extension Mastodon.Entity.Notification.NotificationType {
             case .mention:
                 color = Asset.Colors.Notification.mention.color
             case .poll:
-                color = Asset.Colors.brandBlue.color
+                color = Asset.Colors.brand.color
             case .followRequest:
-                color = Asset.Colors.brandBlue.color
+                color = Asset.Colors.brand.color
             default:
                 color = .clear
             }

@@ -13,10 +13,13 @@ import MastodonSDK
 import MastodonAsset
 import MastodonLocalization
 import MastodonExtension
+import CoreData
+import CoreDataStack
 
 extension NotificationView {
     public final class ViewModel: ObservableObject {
         public var disposeBag = Set<AnyCancellable>()
+        public var objects = Set<NSManagedObject>()
 
         let logger = Logger(subsystem: "NotificationView", category: "ViewModel")
         
@@ -35,11 +38,13 @@ extension NotificationView {
         
         @Published public var timestamp: Date?
         
+        @Published public var followRequestState = MastodonFollowRequestState(state: .none)
+        @Published public var transientFollowRequestState = MastodonFollowRequestState(state: .none)
+        
         let timestampUpdatePublisher = Timer.publish(every: 1.0, on: .main, in: .common)
             .autoconnect()
             .share()
             .eraseToAnyPublisher()
-        
     }
 }
 
@@ -47,6 +52,7 @@ extension NotificationView.ViewModel {
     func bind(notificationView: NotificationView) {
         bindAuthor(notificationView: notificationView)
         bindAuthorMenu(notificationView: notificationView)
+        bindFollowRequest(notificationView: notificationView)
         
         $userIdentifier
             .assign(to: \.userIdentifier, on: notificationView.statusView.viewModel)
@@ -146,4 +152,54 @@ extension NotificationView.ViewModel {
         }
         .store(in: &disposeBag)
     }
+    
+    private func bindFollowRequest(notificationView: NotificationView) {
+        Publishers.CombineLatest(
+            $followRequestState,
+            $transientFollowRequestState
+        )
+        .sink { followRequestState, transientFollowRequestState in
+            switch followRequestState.state {
+            case .isAccept:
+                notificationView.rejectFollowRequestButtonShadowBackgroundContainer.isHidden = true
+                notificationView.acceptFollowRequestButton.isUserInteractionEnabled = false
+                notificationView.acceptFollowRequestButton.setImage(nil, for: .normal)
+                notificationView.acceptFollowRequestButton.setTitle(L10n.Scene.Notification.FollowRequest.accepted, for: .normal)
+            case .isReject:
+                notificationView.acceptFollowRequestButtonShadowBackgroundContainer.isHidden = true
+                notificationView.rejectFollowRequestButton.isUserInteractionEnabled = false
+                notificationView.rejectFollowRequestButton.setImage(nil, for: .normal)
+                notificationView.rejectFollowRequestButton.setTitle(L10n.Scene.Notification.FollowRequest.rejected, for: .normal)
+            default:
+                break
+            }
+            
+            let state = transientFollowRequestState.state
+            if state == .isAccepting {
+                notificationView.acceptFollowRequestActivityIndicatorView.startAnimating()
+                notificationView.acceptFollowRequestButton.tintColor = .clear
+            } else {
+                notificationView.acceptFollowRequestActivityIndicatorView.stopAnimating()
+                notificationView.acceptFollowRequestButton.tintColor = .white
+            }
+            if state == .isRejecting {
+                notificationView.rejectFollowRequestActivityIndicatorView.startAnimating()
+                notificationView.rejectFollowRequestButton.tintColor = .clear
+            } else {
+                notificationView.rejectFollowRequestActivityIndicatorView.stopAnimating()
+                notificationView.rejectFollowRequestButton.tintColor = .white
+            }
+            
+            UIView.animate(withDuration: 0.3) {
+                if state == .isAccept {
+                    notificationView.rejectFollowRequestButtonShadowBackgroundContainer.isHidden = true
+                }
+                if state == .isReject {
+                    notificationView.acceptFollowRequestButtonShadowBackgroundContainer.isHidden = true
+                }
+            }
+        }
+        .store(in: &disposeBag)
+    }
+    
 }

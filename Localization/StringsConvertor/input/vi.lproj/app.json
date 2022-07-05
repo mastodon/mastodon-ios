@@ -544,6 +544,12 @@
             "keyobard": {
                 "show_everything": "Hiện mọi thứ",
                 "show_mentions": "Hiện lượt nhắc"
+            },
+            "follow_request": {
+                "accept": "Chấp nhận",
+                "accepted": "Đã chấp nhận",
+                "reject": "từ chối",
+                "rejected": "Đã từ chối"
             }
         },
         "thread": {

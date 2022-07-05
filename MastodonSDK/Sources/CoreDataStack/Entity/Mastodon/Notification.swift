@@ -36,6 +36,58 @@ public final class Notification: NSManagedObject {
 
 }
 
+extension Notification {
+    // sourcery: autoUpdatableObject
+    @objc public var followRequestState: MastodonFollowRequestState {
+        get {
+            let keyPath = #keyPath(Notification.followRequestState)
+            willAccessValue(forKey: keyPath)
+            let _data = primitiveValue(forKey: keyPath) as? Data
+            didAccessValue(forKey: keyPath)
+            do {
+                guard let data = _data, !data.isEmpty else { return .init(state: .none) }
+                let state = try JSONDecoder().decode(MastodonFollowRequestState.self, from: data)
+                return state
+            } catch {
+                assertionFailure(error.localizedDescription)
+                return .init(state: .none)
+            }
+        }
+        set {
+            let keyPath = #keyPath(Notification.followRequestState)
+            let data = try? JSONEncoder().encode(newValue)
+            willChangeValue(forKey: keyPath)
+            setPrimitiveValue(data, forKey: keyPath)
+            didChangeValue(forKey: keyPath)
+        }
+    }
+    
+    // sourcery: autoUpdatableObject
+    @objc public var transientFollowRequestState: MastodonFollowRequestState {
+        get {
+            let keyPath = #keyPath(Notification.transientFollowRequestState)
+            willAccessValue(forKey: keyPath)
+            let _data = primitiveValue(forKey: keyPath) as? Data
+            didAccessValue(forKey: keyPath)
+            do {
+                guard let data = _data else { return .init(state: .none) }
+                let state = try JSONDecoder().decode(MastodonFollowRequestState.self, from: data)
+                return state
+            } catch {
+                assertionFailure(error.localizedDescription)
+                return .init(state: .none)
+            }
+        }
+        set {
+            let keyPath = #keyPath(Notification.transientFollowRequestState)
+            let data = try? JSONEncoder().encode(newValue)
+            willChangeValue(forKey: keyPath)
+            setPrimitiveValue(data, forKey: keyPath)
+            didChangeValue(forKey: keyPath)
+        }
+    }
+}
+
 extension Notification: FeedIndexable { }
 
 extension Notification {
@@ -195,6 +247,16 @@ extension Notification: AutoUpdatableObject {
     public func update(updatedAt: Date) {
     	if self.updatedAt != updatedAt {
     		self.updatedAt = updatedAt
+    	}
+    }
+    public func update(followRequestState: MastodonFollowRequestState) {
+    	if self.followRequestState != followRequestState {
+    		self.followRequestState = followRequestState
+    	}
+    }
+    public func update(transientFollowRequestState: MastodonFollowRequestState) {
+    	if self.transientFollowRequestState != transientFollowRequestState {
+    		self.transientFollowRequestState = transientFollowRequestState
     	}
     }
     // sourcery:end

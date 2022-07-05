@@ -218,6 +218,10 @@
 "Scene.HomeTimeline.NavigationBarState.Published" = "嘟出去！";
 "Scene.HomeTimeline.NavigationBarState.Publishing" = "發表嘟文...";
 "Scene.HomeTimeline.Title" = "首頁";
+"Scene.Notification.FollowRequest.Accept" = "接受";
+"Scene.Notification.FollowRequest.Accepted" = "已接受";
+"Scene.Notification.FollowRequest.Reject" = "拒絕";
+"Scene.Notification.FollowRequest.Rejected" = "已拒絕";
 "Scene.Notification.Keyobard.ShowEverything" = "顯示全部";
 "Scene.Notification.Keyobard.ShowMentions" = "顯示提及";
 "Scene.Notification.NotificationDescription.FavoritedYourPost" = "最愛了您的嘟文";

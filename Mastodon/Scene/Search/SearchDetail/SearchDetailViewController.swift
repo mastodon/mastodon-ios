@@ -306,7 +306,7 @@ extension SearchDetailViewController {
 
     private func setupBackgroundColor(theme: Theme) {
         navigationBarBackgroundView.backgroundColor = theme.navigationBarBackgroundColor
-        navigationBar.tintColor = Asset.Colors.brandBlue.color
+        navigationBar.tintColor = Asset.Colors.brand.color
     }
 }
 

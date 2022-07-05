@@ -418,7 +418,7 @@
         },
         "profile": {
             "header": {
-                "follows_you": "Follows You"
+                "follows_you": "Vous suit"
             },
             "dashboard": {
                 "posts": "publications",
@@ -544,6 +544,12 @@
             "keyobard": {
                 "show_everything": "Tout Afficher",
                 "show_mentions": "Afficher les mentions"
+            },
+            "follow_request": {
+                "accept": "Accept",
+                "accepted": "Accepted",
+                "reject": "reject",
+                "rejected": "Rejected"
             }
         },
         "thread": {
