@@ -224,7 +224,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>لا إعاد تدوين</string>
+        <string>لَا إعادَةُ تَدوين</string>
         <key>one</key>
         <string>إعادةُ تدوينٍ واحِدة</string>
         <key>two</key>
