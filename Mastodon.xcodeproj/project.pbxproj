@@ -361,9 +361,9 @@
 		DB67D08427312970006A36CF /* APIService+Following.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB67D08327312970006A36CF /* APIService+Following.swift */; };
 		DB67D08627312E67006A36CF /* WizardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB67D08527312E67006A36CF /* WizardViewController.swift */; };
 		DB67D089273256D7006A36CF /* StoreReviewPreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB67D088273256D7006A36CF /* StoreReviewPreference.swift */; };
-		DB68045B2636DC6A00430867 /* MastodonNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB68045A2636DC6A00430867 /* MastodonNotification.swift */; };
+		DB68045B2636DC6A00430867 /* MastodonPushNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB68045A2636DC6A00430867 /* MastodonPushNotification.swift */; };
 		DB6804662636DC9000430867 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D939AB425EDD8A90076FA61 /* String.swift */; };
-		DB68046C2636DC9E00430867 /* MastodonNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB68045A2636DC6A00430867 /* MastodonNotification.swift */; };
+		DB68046C2636DC9E00430867 /* MastodonPushNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB68045A2636DC6A00430867 /* MastodonPushNotification.swift */; };
 		DB6804832637CD4C00430867 /* AppShared.h in Headers */ = {isa = PBXBuildFile; fileRef = DB6804812637CD4C00430867 /* AppShared.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DB6804862637CD4C00430867 /* AppShared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB68047F2637CD4C00430867 /* AppShared.framework */; };
 		DB6804872637CD4C00430867 /* AppShared.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DB68047F2637CD4C00430867 /* AppShared.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -1119,7 +1119,7 @@
 		DB67D08327312970006A36CF /* APIService+Following.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Following.swift"; sourceTree = "<group>"; };
 		DB67D08527312E67006A36CF /* WizardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WizardViewController.swift; sourceTree = "<group>"; };
 		DB67D088273256D7006A36CF /* StoreReviewPreference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreReviewPreference.swift; sourceTree = "<group>"; };
-		DB68045A2636DC6A00430867 /* MastodonNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonNotification.swift; sourceTree = "<group>"; };
+		DB68045A2636DC6A00430867 /* MastodonPushNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonPushNotification.swift; sourceTree = "<group>"; };
 		DB68047F2637CD4C00430867 /* AppShared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AppShared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB6804812637CD4C00430867 /* AppShared.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppShared.h; sourceTree = "<group>"; };
 		DB6804822637CD4C00430867 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -3347,7 +3347,7 @@
 				DB68053E2638011000430867 /* NotificationService.entitlements */,
 				DBF8AE15263293E400C9C23C /* NotificationService.swift */,
 				DB6D9F3426351B7A008423CD /* NotificationService+Decrypt.swift */,
-				DB68045A2636DC6A00430867 /* MastodonNotification.swift */,
+				DB68045A2636DC6A00430867 /* MastodonPushNotification.swift */,
 				DBCBCBF3267CB070000F5B51 /* Decode85.swift */,
 				DBF8AE17263293E400C9C23C /* Info.plist */,
 			);
@@ -4332,7 +4332,7 @@
 				DBD5B1FA27BD013700BD6B38 /* DataSourceProvider+StatusTableViewControllerNavigateable.swift in Sources */,
 				DB5B549A2833A60400DEF8B2 /* FamiliarFollowersViewController.swift in Sources */,
 				DB3E6FE22806A50100B035AE /* DiscoveryHashtagsViewModel+Diffable.swift in Sources */,
-				DB68046C2636DC9E00430867 /* MastodonNotification.swift in Sources */,
+				DB68046C2636DC9E00430867 /* MastodonPushNotification.swift in Sources */,
 				DBAE3F9E2616E308004B8251 /* APIService+Mute.swift in Sources */,
 				DB427DD625BAA00100D1B89D /* AppDelegate.swift in Sources */,
 				DB6D9F57263577D2008423CD /* APIService+CoreData+Setting.swift in Sources */,
@@ -4540,7 +4540,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DBE54ACC2636C8FD004E7C0B /* NotificationPreference.swift in Sources */,
-				DB68045B2636DC6A00430867 /* MastodonNotification.swift in Sources */,
+				DB68045B2636DC6A00430867 /* MastodonPushNotification.swift in Sources */,
 				DB6D9F3526351B7A008423CD /* NotificationService+Decrypt.swift in Sources */,
 				DB6804662636DC9000430867 /* String.swift in Sources */,
 				DBCBCBF4267CB070000F5B51 /* Decode85.swift in Sources */,
@@ -5209,6 +5209,7 @@
 		DB848E2F282B5E6300A302CC /* Profile */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = NotificationService/NotificationService.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 144;
@@ -5534,6 +5535,7 @@
 		DBEB19E627E4658E00B0E80E /* Release Snapshot */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = NotificationService/NotificationService.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 144;
@@ -5605,6 +5607,7 @@
 		DBF8AE1C263293E400C9C23C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = NotificationService/NotificationService.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 144;
@@ -5628,6 +5631,7 @@
 		DBF8AE1D263293E400C9C23C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = NotificationService/NotificationService.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 144;

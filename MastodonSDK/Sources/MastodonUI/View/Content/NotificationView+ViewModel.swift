@@ -178,16 +178,20 @@ extension NotificationView.ViewModel {
             if state == .isAccepting {
                 notificationView.acceptFollowRequestActivityIndicatorView.startAnimating()
                 notificationView.acceptFollowRequestButton.tintColor = .clear
+                notificationView.acceptFollowRequestButton.setTitleColor(.clear, for: .normal)
             } else {
                 notificationView.acceptFollowRequestActivityIndicatorView.stopAnimating()
                 notificationView.acceptFollowRequestButton.tintColor = .white
+                notificationView.acceptFollowRequestButton.setTitleColor(.white, for: .normal)
             }
             if state == .isRejecting {
                 notificationView.rejectFollowRequestActivityIndicatorView.startAnimating()
                 notificationView.rejectFollowRequestButton.tintColor = .clear
+                notificationView.rejectFollowRequestButton.setTitleColor(.clear, for: .normal)
             } else {
                 notificationView.rejectFollowRequestActivityIndicatorView.stopAnimating()
-                notificationView.rejectFollowRequestButton.tintColor = .white
+                notificationView.rejectFollowRequestButton.tintColor = .black
+                notificationView.rejectFollowRequestButton.setTitleColor(.black, for: .normal)
             }
             
             UIView.animate(withDuration: 0.3) {

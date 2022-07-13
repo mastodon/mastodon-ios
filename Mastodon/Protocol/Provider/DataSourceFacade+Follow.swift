@@ -74,6 +74,7 @@ extension DataSourceFacade {
                 authenticationBox: authenticationBox
             )
         } catch {
+            // reset state when failure
             try? await managedObjectContext.performChanges {
                 guard let notification = notification.object(in: managedObjectContext) else { return }
                 notification.transientFollowRequestState = .init(state: .none)
@@ -111,7 +112,8 @@ extension DataSourceFacade {
             case .accept:
                 notification.transientFollowRequestState = .init(state: .isAccept)
             case .reject:
-                notification.transientFollowRequestState = .init(state: .isReject)
+                // do nothing due to will delete notification
+                break
             }
         }
         
@@ -122,7 +124,11 @@ extension DataSourceFacade {
             case .accept:
                 notification.followRequestState = .init(state: .isAccept)
             case .reject:
-                notification.followRequestState = .init(state: .isReject)
+                // delete notification
+                for feed in notification.feeds {
+                    backgroundManagedObjectContext.delete(feed)
+                }
+                backgroundManagedObjectContext.delete(notification)
             }
         }
     }   // end func

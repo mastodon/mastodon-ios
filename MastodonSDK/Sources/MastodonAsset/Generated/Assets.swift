@@ -32,6 +32,7 @@ public enum Asset {
     public static let mastodonTextLogo = ImageAsset(name: "Asset/mastodon.text.logo")
   }
   public enum Circles {
+    public static let forbidden20 = ImageAsset(name: "Circles/forbidden.20")
     public static let plusCircleFill = ImageAsset(name: "Circles/plus.circle.fill")
     public static let plusCircle = ImageAsset(name: "Circles/plus.circle")
   }
@@ -102,6 +103,7 @@ public enum Asset {
     public static let photoFillSplit = ImageAsset(name: "Connectivity/photo.fill.split")
   }
   public enum Editing {
+    public static let checkmark20 = ImageAsset(name: "Editing/checkmark.20")
     public static let checkmark = ImageAsset(name: "Editing/checkmark")
     public static let xmark = ImageAsset(name: "Editing/xmark")
   }
@@ -127,6 +129,10 @@ public enum Asset {
   public enum Scene {
     public enum Discovery {
       public static let profileCardBackground = ColorAsset(name: "Scene/Discovery/profile.card.background")
+    }
+    public enum Notification {
+      public static let confirmFollowRequestButtonBackground = ColorAsset(name: "Scene/Notification/confirm.follow.request.button.background")
+      public static let deleteFollowRequestButtonBackground = ColorAsset(name: "Scene/Notification/delete.follow.request.button.background")
     }
     public enum Onboarding {
       public static let avatarPlaceholder = ImageAsset(name: "Scene/Onboarding/avatar.placeholder")
