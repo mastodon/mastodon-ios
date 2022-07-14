@@ -37,7 +37,8 @@ final class ProfileHeaderView: UIView {
     
     weak var delegate: ProfileHeaderViewDelegate?
     var disposeBag = Set<AnyCancellable>()
-    
+    private var _disposeBag = Set<AnyCancellable>()
+
     func prepareForReuse() {
         disposeBag.removeAll()
     }
@@ -237,7 +238,7 @@ extension ProfileHeaderView {
                 guard let self = self else { return }
                 self.backgroundColor = theme.systemBackgroundColor
             }
-            .store(in: &disposeBag)
+            .store(in: &_disposeBag)
         
         // banner
         bannerContainerView.translatesAutoresizingMaskIntoConstraints = false
