@@ -114,7 +114,7 @@
 		<key>MastodonIntent.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>40</integer>
+			<integer>42</integer>
 		</dict>
 		<key>MastodonIntents.xcscheme_^#shared#^_</key>
 		<dict>
@@ -129,12 +129,12 @@
 		<key>NotificationService.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>39</integer>
+			<integer>43</integer>
 		</dict>
 		<key>ShareActionExtension.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>38</integer>
+			<integer>41</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>

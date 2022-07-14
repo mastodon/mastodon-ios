@@ -114,8 +114,8 @@
         "repositoryURL": "https://github.com/kean/Nuke.git",
         "state": {
           "branch": null,
-          "revision": "0ea7545b5c918285aacc044dc75048625c8257cc",
-          "version": "10.8.0"
+          "revision": "a002b7fd786f2df2ed4333fe73a9727499fd9d97",
+          "version": "10.11.2"
         }
       },
       {
@@ -150,8 +150,8 @@
         "repositoryURL": "https://github.com/SDWebImage/SDWebImage.git",
         "state": {
           "branch": null,
-          "revision": "2e63d0061da449ad0ed130768d05dceb1496de44",
-          "version": "5.12.5"
+          "revision": "c4b8660bb3ef543fe4bdcaac0db956b32dc5583f",
+          "version": "5.13.0"
         }
       },
       {
@@ -186,8 +186,8 @@
         "repositoryURL": "https://github.com/scinfu/SwiftSoup.git",
         "state": {
           "branch": null,
-          "revision": "41e7c263fb8c277e980ebcb9b0b5f6031d3d4886",
-          "version": "2.4.2"
+          "revision": "6778575285177365cbad3e5b8a72f2a20583cfec",
+          "version": "2.4.3"
         }
       },
       {
