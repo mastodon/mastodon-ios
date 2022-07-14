@@ -11,6 +11,7 @@ import Combine
 import XLPagerTabStrip
 import TabBarPager
 import MastodonAsset
+import MastodonUI
 
 protocol ProfilePagingViewControllerDelegate: AnyObject {
     func profilePagingViewController(_ viewController: ProfilePagingViewController, didScrollToPostCustomScrollViewContainerController customScrollViewContainerController: ScrollViewContainer, atIndex index: Int)
@@ -66,7 +67,7 @@ extension ProfilePagingViewController {
     
     override func viewDidLoad() {
         // configure style before viewDidLoad
-        settings.style.buttonBarBackgroundColor = .red // ThemeService.shared.currentTheme.value.systemBackgroundColor
+        settings.style.buttonBarBackgroundColor = ThemeService.shared.currentTheme.value.systemBackgroundColor
         settings.style.buttonBarItemBackgroundColor = .clear
         settings.style.buttonBarItemsShouldFillAvailableWidth = false   // alignment from leading to trailing
         settings.style.selectedBarHeight = 3
