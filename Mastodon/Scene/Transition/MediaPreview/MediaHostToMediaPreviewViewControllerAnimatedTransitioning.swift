@@ -217,7 +217,13 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
         if !isInteractive {
             animator.addAnimations {
                 if let targetFrame = targetFrame {
-                    self.transitionItem.snapshotTransitioning?.frame = targetFrame
+                    switch self.transitionItem.source {
+                    case .profileBanner:
+                        fromView.alpha = 0
+                        self.transitionItem.snapshotTransitioning?.alpha = 0
+                    default:
+                        self.transitionItem.snapshotTransitioning?.frame = targetFrame
+                    }
                 } else {
                     fromView.alpha = 0
                 }
