@@ -16,8 +16,14 @@ echo $PWD
 brew install ruby
 ruby --version
 
+# workaround default installation location cannot access without sudo problem
+echo 'export GEM_HOME=$HOME/gems' >>~/.bash_profile
+echo 'export PATH=$HOME/gems/bin:$PATH' >>~/.bash_profile
+export GEM_HOME=$HOME/gems
+export PATH="$GEM_HOME/bin:$PATH"
+
 # install bundle gem
-gem install bundler
+gem install bundler --install-dir $GEM_HOME
 
 # setup gems
 bundle install
