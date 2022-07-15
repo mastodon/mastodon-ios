@@ -21,9 +21,10 @@ which ruby
 
 # by pass the openssl cannot build issue
 # https://github.com/rbenv/ruby-build/discussions/1853#discussioncomment-2146106
-brew cleanup openssl@3.0
-brew uninstall openssl@3.0
-rm -rf  /opt/homebrew/etc/openssl@3
+
+# brew cleanup openssl@3.0
+# brew uninstall openssl@3.0
+# rm -rf  /opt/homebrew/etc/openssl@3
 
 brew install openssl@1.1
 
