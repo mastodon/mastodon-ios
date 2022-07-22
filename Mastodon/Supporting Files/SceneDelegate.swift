@@ -142,6 +142,8 @@ extension SceneDelegate {
         logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): \(shortcutItem.type)")
 
         switch shortcutItem.type {
+        case NotificationService.unreadShortcutItemIdentifier:
+            coordinator?.switchToTabBar(tab: .notification)
         case "org.joinmastodon.app.new-post":
             if coordinator?.tabBarController.topMost is ComposeViewController {
                 logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): composing…")
