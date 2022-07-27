@@ -12,8 +12,11 @@ import CoreData
 import CoreDataStack
 import MastodonSDK
 import AppShared
+import MastodonLocalization
 
 final class NotificationService {
+    
+    public static let unreadShortcutItemIdentifier = "org.joinmastodon.app.NotificationService.unread-shortcut"
     
     var disposeBag = Set<AnyCancellable>()
     
@@ -74,6 +77,9 @@ final class NotificationService {
             
             UserDefaults.shared.notificationBadgeCount = count
             UIApplication.shared.applicationIconBadgeNumber = count
+            Task { @MainActor in
+                UIApplication.shared.shortcutItems = try? await self.unreadApplicationShortcutItems()
+            }
             
             self.unreadNotificationCountDidUpdate.send()
         }
@@ -96,6 +102,38 @@ extension NotificationService {
             }
             
             // Enable or disable features based on the authorization.
+        }
+    }
+}
+
+extension NotificationService {
+    public func unreadApplicationShortcutItems() async throws -> [UIApplicationShortcutItem] {
+        guard let authenticationService = self.authenticationService else { return [] }
+        let managedObjectContext = authenticationService.managedObjectContext
+        return try await managedObjectContext.perform {
+            var items: [UIApplicationShortcutItem] = []
+            for object in authenticationService.mastodonAuthentications.value {
+                guard let authentication = managedObjectContext.object(with: object.objectID) as? MastodonAuthentication else { continue }
+                
+                let accessToken = authentication.userAccessToken
+                let count = UserDefaults.shared.getNotificationCountWithAccessToken(accessToken: accessToken)
+                guard count > 0 else { continue }
+                
+                let title = "@\(authentication.user.acctWithDomain)"
+                let subtitle = L10n.A11y.Plural.Count.Unread.notification(count)
+                
+                let item = UIApplicationShortcutItem(
+                    type: NotificationService.unreadShortcutItemIdentifier,
+                    localizedTitle: title,
+                    localizedSubtitle: subtitle,
+                    icon: nil,
+                    userInfo: [
+                        "accessToken": accessToken as NSSecureCoding
+                    ]
+                )
+                items.append(item)
+            }
+            return items
         }
     }
 }

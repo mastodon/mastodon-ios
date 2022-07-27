@@ -19,7 +19,7 @@ final public class SceneCoordinator {
     
     private weak var scene: UIScene!
     private weak var sceneDelegate: SceneDelegate!
-    private weak var appContext: AppContext!
+    private(set) weak var appContext: AppContext!
     
     let id = UUID().uuidString
     
