@@ -14,7 +14,11 @@ echo $PWD
 
 # install ruby from homebrew
 brew install ruby
+echo 'export PATH="/Users/local/Homebrew/opt/ruby/bin:$PATH"' >> ~/.zshrc
+source ~/.zshrc
+
 ruby --version
+which gem
 
 # workaround default installation location cannot access without sudo problem
 echo 'export GEM_HOME=$HOME/gems' >>~/.bash_profile
