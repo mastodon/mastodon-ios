@@ -1,4 +1,4 @@
-// swift-tools-version:5.3
+// swift-tools-version:5.6
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -32,9 +32,14 @@ let package = Package(
         .package(url: "https://github.com/Alamofire/AlamofireImage.git", from: "4.1.0"),
         .package(url: "https://github.com/Alamofire/AlamofireNetworkActivityIndicator", from: "3.1.0"),
         .package(url: "https://github.com/kishikawakatsumi/KeychainAccess.git", from: "4.2.2"),
+        .package(url: "https://github.com/cezheng/Fuzi.git", from: "3.1.3"),
+        .package(url: "https://github.com/MainasuK/CommonOSLog.git", from: "0.1.1"),
+        .package(url: "https://github.com/uias/Tabman.git", from: "2.12.0"),
+        .package(url: "https://github.com/apple/swift-collections.git", from: "1.0.2"),
+        .package(url: "https://github.com/TwidereProject/TabBarPager.git", from: "0.1.0"),
         .package(name: "NukeFLAnimatedImagePlugin", url: "https://github.com/kean/Nuke-FLAnimatedImage-Plugin.git", from: "8.0.0"),
         .package(name: "UITextView+Placeholder", url: "https://github.com/MainasuK/UITextView-Placeholder.git", from: "1.4.1"),
-        .package(name: "Introspect", url: "https://github.com/siteline/SwiftUI-Introspect.git", from: "0.1.3"),
+        .package(name: "Introspect", url: "https://github.com/siteline/SwiftUI-Introspect.git", from: "0.1.4"),
         .package(name: "FaviconFinder", url: "https://github.com/will-lumley/FaviconFinder.git", from: "3.2.2"),
         .package(name: "ArkanaKeys", path: "../Dependencies/ArkanaKeys"),
     ],
@@ -62,6 +67,9 @@ let package = Package(
             dependencies: [
                 "ArkanaKeys",
                 "MastodonExtension",
+                .product(name: "Collections", package: "swift-collections"),
+                .product(name: "CommonOSLog", package: "CommonOSLog"),
+                .product(name: "Fuzi", package: "Fuzi"),
                 .product(name: "KeychainAccess", package: "KeychainAccess"),
             ]
         ),
@@ -98,6 +106,8 @@ let package = Package(
                 .product(name: "NukeFLAnimatedImagePlugin", package: "NukeFLAnimatedImagePlugin"),
                 .product(name: "Introspect", package: "Introspect"),
                 .product(name: "UITextView+Placeholder", package: "UITextView+Placeholder"),
+                .product(name: "Tabman", package: "Tabman"),
+                .product(name: "TabBarPager", package: "TabBarPager"),
             ]
         ),
         .testTarget(

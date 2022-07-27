@@ -230,7 +230,6 @@
 		DB3EA8EF281B837000598866 /* DiscoveryCommunityViewController+DataSourceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3EA8EE281B837000598866 /* DiscoveryCommunityViewController+DataSourceProvider.swift */; };
 		DB3EA8F1281B9EF600598866 /* DiscoveryCommunityViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3EA8F0281B9EF600598866 /* DiscoveryCommunityViewModel+Diffable.swift */; };
 		DB3EA8F5281BB65200598866 /* MastodonSDK in Frameworks */ = {isa = PBXBuildFile; productRef = DB3EA8F4281BB65200598866 /* MastodonSDK */; };
-		DB3EA902281BBD5D00598866 /* CommonOSLog in Frameworks */ = {isa = PBXBuildFile; productRef = DB3EA901281BBD5D00598866 /* CommonOSLog */; };
 		DB427DD625BAA00100D1B89D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB427DD525BAA00100D1B89D /* AppDelegate.swift */; };
 		DB427DD825BAA00100D1B89D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB427DD725BAA00100D1B89D /* SceneDelegate.swift */; };
 		DB427DDD25BAA00100D1B89D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB427DDB25BAA00100D1B89D /* Main.storyboard */; };
@@ -255,7 +254,6 @@
 		DB47AB6227CF752B00CD73C7 /* MastodonUISnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB47AB6127CF752B00CD73C7 /* MastodonUISnapshotTests.swift */; };
 		DB482A3F261331E8008AE74C /* UserTimelineViewModel+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB482A3E261331E8008AE74C /* UserTimelineViewModel+State.swift */; };
 		DB482A4B261340A7008AE74C /* APIService+UserTimeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB482A4A261340A7008AE74C /* APIService+UserTimeline.swift */; };
-		DB486C0F282E41F200F69423 /* TabBarPager in Frameworks */ = {isa = PBXBuildFile; productRef = DB486C0E282E41F200F69423 /* TabBarPager */; };
 		DB4924E226312AB200E9DB22 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4924E126312AB200E9DB22 /* NotificationService.swift */; };
 		DB4932B126F1FB5300EF46D4 /* WizardCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4932B026F1FB5300EF46D4 /* WizardCardView.swift */; };
 		DB4932B726F30F0700EF46D4 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F20223826146553000C64BF /* Array.swift */; };
@@ -275,7 +273,6 @@
 		DB4F097F26A03DA600D62E92 /* SearchHistoryFetchedResultController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4F097E26A03DA600D62E92 /* SearchHistoryFetchedResultController.swift */; };
 		DB4FFC2B269EC39600D62E92 /* SearchToSearchDetailViewControllerAnimatedTransitioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4FFC29269EC39600D62E92 /* SearchToSearchDetailViewControllerAnimatedTransitioning.swift */; };
 		DB4FFC2C269EC39600D62E92 /* SearchTransitionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4FFC2A269EC39600D62E92 /* SearchTransitionController.swift */; };
-		DB552D4F26BBD10C00E481F6 /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = DB552D4E26BBD10C00E481F6 /* OrderedCollections */; };
 		DB564BD3269F3B35001E39A7 /* StatusFilterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB564BD2269F3B35001E39A7 /* StatusFilterService.swift */; };
 		DB59F10E25EF724F001F1DAB /* APIService+Poll.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB59F10D25EF724F001F1DAB /* APIService+Poll.swift */; };
 		DB5B549A2833A60400DEF8B2 /* FamiliarFollowersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5B54992833A60400DEF8B2 /* FamiliarFollowersViewController.swift */; };
@@ -484,9 +481,6 @@
 		DBA9443E265CFA6400C537E1 /* ProfileFieldCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA9443D265CFA6400C537E1 /* ProfileFieldCollectionViewCell.swift */; };
 		DBA94440265D137600C537E1 /* Mastodon+Entity+Field.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA9443F265D137600C537E1 /* Mastodon+Entity+Field.swift */; };
 		DBABE3EC25ECAC4B00879EE5 /* WelcomeIllustrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBABE3EB25ECAC4B00879EE5 /* WelcomeIllustrationView.swift */; };
-		DBAC6483267D0B21007FE9FD /* DifferenceKit in Frameworks */ = {isa = PBXBuildFile; productRef = DBAC6482267D0B21007FE9FD /* DifferenceKit */; };
-		DBAC649E267DFE43007FE9FD /* DiffableDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = DBAC649D267DFE43007FE9FD /* DiffableDataSources */; };
-		DBAC64A1267E6D02007FE9FD /* Fuzi in Frameworks */ = {isa = PBXBuildFile; productRef = DBAC64A0267E6D02007FE9FD /* Fuzi */; };
 		DBAE3F8E2616E0B1004B8251 /* APIService+Block.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAE3F8D2616E0B1004B8251 /* APIService+Block.swift */; };
 		DBAE3F942616E28B004B8251 /* APIService+Follow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAE3F932616E28B004B8251 /* APIService+Follow.swift */; };
 		DBAE3F9E2616E308004B8251 /* APIService+Mute.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAE3F9D2616E308004B8251 /* APIService+Mute.swift */; };
@@ -498,7 +492,6 @@
 		DBB45B5B27B3A109002DC5A7 /* MediaPreviewTransitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB45B5A27B3A109002DC5A7 /* MediaPreviewTransitionViewController.swift */; };
 		DBB45B6027B50A4F002DC5A7 /* RecommendAccountItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB45B5F27B50A4F002DC5A7 /* RecommendAccountItem.swift */; };
 		DBB45B6227B51112002DC5A7 /* SuggestionAccountViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB45B6127B51112002DC5A7 /* SuggestionAccountViewModel+Diffable.swift */; };
-		DBB525082611EAC0002F1F29 /* Tabman in Frameworks */ = {isa = PBXBuildFile; productRef = DBB525072611EAC0002F1F29 /* Tabman */; };
 		DBB525212611EBD6002F1F29 /* ProfilePagingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB525202611EBD6002F1F29 /* ProfilePagingViewController.swift */; };
 		DBB525302611EBF3002F1F29 /* ProfilePagingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB5252F2611EBF3002F1F29 /* ProfilePagingViewModel.swift */; };
 		DBB525362611ECEB002F1F29 /* UserTimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB525352611ECEB002F1F29 /* UserTimelineViewController.swift */; };
@@ -1412,14 +1405,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				2D939AC825EE14620076FA61 /* CropViewController in Frameworks */,
-				DBB525082611EAC0002F1F29 /* Tabman in Frameworks */,
 				DB6804862637CD4C00430867 /* AppShared.framework in Frameworks */,
 				DBF96326262EC0A6001D8D25 /* AuthenticationServices.framework in Frameworks */,
-				DBAC6483267D0B21007FE9FD /* DifferenceKit in Frameworks */,
-				DB486C0F282E41F200F69423 /* TabBarPager in Frameworks */,
-				DB552D4F26BBD10C00E481F6 /* OrderedCollections in Frameworks */,
-				DBAC64A1267E6D02007FE9FD /* Fuzi in Frameworks */,
-				DBAC649E267DFE43007FE9FD /* DiffableDataSources in Frameworks */,
 				2D5981BA25E4D7F8000FB903 /* ThirdPartyMailer in Frameworks */,
 				87FFDA5D898A5C42ADCB35E7 /* Pods_Mastodon.framework in Frameworks */,
 				DBF7A0FC26830C33004176A2 /* FPSIndicator in Frameworks */,
@@ -1450,7 +1437,6 @@
 			files = (
 				DB3EA8F5281BB65200598866 /* MastodonSDK in Frameworks */,
 				EE93E8E8F9E0C39EAAEBD92F /* Pods_AppShared.framework in Frameworks */,
-				DB3EA902281BBD5D00598866 /* CommonOSLog in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3424,14 +3410,8 @@
 			packageProductDependencies = (
 				2D5981B925E4D7F8000FB903 /* ThirdPartyMailer */,
 				2D939AC725EE14620076FA61 /* CropViewController */,
-				DBB525072611EAC0002F1F29 /* Tabman */,
-				DBAC6482267D0B21007FE9FD /* DifferenceKit */,
-				DBAC649D267DFE43007FE9FD /* DiffableDataSources */,
-				DBAC64A0267E6D02007FE9FD /* Fuzi */,
 				DBF7A0FB26830C33004176A2 /* FPSIndicator */,
-				DB552D4E26BBD10C00E481F6 /* OrderedCollections */,
 				DBA5A52E26F07ED800CACBAA /* PanModal */,
-				DB486C0E282E41F200F69423 /* TabBarPager */,
 			);
 			productName = Mastodon;
 			productReference = DB427DD225BAA00100D1B89D /* Mastodon.app */;
@@ -3493,7 +3473,6 @@
 			name = AppShared;
 			packageProductDependencies = (
 				DB3EA8F4281BB65200598866 /* MastodonSDK */,
-				DB3EA901281BBD5D00598866 /* CommonOSLog */,
 			);
 			productName = AppShared;
 			productReference = DB68047F2637CD4C00430867 /* AppShared.framework */;
@@ -3626,18 +3605,10 @@
 			);
 			mainGroup = DB427DC925BAA00100D1B89D;
 			packageReferences = (
-				DB0140BB25C40D7500F9F3CF /* XCRemoteSwiftPackageReference "CommonOSLog" */,
 				2D5981B825E4D7F8000FB903 /* XCRemoteSwiftPackageReference "ThirdPartyMailer" */,
 				2D939AC625EE14620076FA61 /* XCRemoteSwiftPackageReference "TOCropViewController" */,
-				DBB525062611EAC0002F1F29 /* XCRemoteSwiftPackageReference "Tabman" */,
-				DBAC6481267D0B21007FE9FD /* XCRemoteSwiftPackageReference "DifferenceKit" */,
-				DBAC649C267DFE43007FE9FD /* XCRemoteSwiftPackageReference "DiffableDataSources" */,
-				DBAC649F267E6D01007FE9FD /* XCRemoteSwiftPackageReference "Fuzi" */,
 				DBF7A0FA26830C33004176A2 /* XCRemoteSwiftPackageReference "FPSIndicator" */,
-				DB0E2D2C26833FF600865C3C /* XCRemoteSwiftPackageReference "Nuke-FLAnimatedImage-Plugin" */,
-				DB552D4D26BBD10C00E481F6 /* XCRemoteSwiftPackageReference "swift-collections" */,
 				DBA5A52D26F07ED800CACBAA /* XCRemoteSwiftPackageReference "PanModal" */,
-				DB486C0D282E41F200F69423 /* XCRemoteSwiftPackageReference "TabBarPager" */,
 			);
 			productRefGroup = DB427DD325BAA00100D1B89D /* Products */;
 			projectDirPath = "";
@@ -5718,76 +5689,12 @@
 				minimumVersion = 2.6.0;
 			};
 		};
-		DB0140BB25C40D7500F9F3CF /* XCRemoteSwiftPackageReference "CommonOSLog" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/MainasuK/CommonOSLog";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.1.1;
-			};
-		};
-		DB0E2D2C26833FF600865C3C /* XCRemoteSwiftPackageReference "Nuke-FLAnimatedImage-Plugin" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/kean/Nuke-FLAnimatedImage-Plugin.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 8.0.0;
-			};
-		};
-		DB486C0D282E41F200F69423 /* XCRemoteSwiftPackageReference "TabBarPager" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/TwidereProject/TabBarPager.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.1.0;
-			};
-		};
-		DB552D4D26BBD10C00E481F6 /* XCRemoteSwiftPackageReference "swift-collections" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/apple/swift-collections.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.0.5;
-			};
-		};
 		DBA5A52D26F07ED800CACBAA /* XCRemoteSwiftPackageReference "PanModal" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/slackhq/PanModal.git";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 1.2.7;
-			};
-		};
-		DBAC6481267D0B21007FE9FD /* XCRemoteSwiftPackageReference "DifferenceKit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/ra1028/DifferenceKit.git";
-			requirement = {
-				kind = exactVersion;
-				version = 1.2.0;
-			};
-		};
-		DBAC649C267DFE43007FE9FD /* XCRemoteSwiftPackageReference "DiffableDataSources" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/MainasuK/DiffableDataSources.git";
-			requirement = {
-				branch = "feature/async-display-table";
-				kind = branch;
-			};
-		};
-		DBAC649F267E6D01007FE9FD /* XCRemoteSwiftPackageReference "Fuzi" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/cezheng/Fuzi.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 3.1.3;
-			};
-		};
-		DBB525062611EAC0002F1F29 /* XCRemoteSwiftPackageReference "Tabman" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/uias/Tabman";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.11.0;
 			};
 		};
 		DBF7A0FA26830C33004176A2 /* XCRemoteSwiftPackageReference "FPSIndicator" */ = {
@@ -5815,45 +5722,10 @@
 			isa = XCSwiftPackageProductDependency;
 			productName = MastodonSDK;
 		};
-		DB3EA901281BBD5D00598866 /* CommonOSLog */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DB0140BB25C40D7500F9F3CF /* XCRemoteSwiftPackageReference "CommonOSLog" */;
-			productName = CommonOSLog;
-		};
-		DB486C0E282E41F200F69423 /* TabBarPager */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DB486C0D282E41F200F69423 /* XCRemoteSwiftPackageReference "TabBarPager" */;
-			productName = TabBarPager;
-		};
-		DB552D4E26BBD10C00E481F6 /* OrderedCollections */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DB552D4D26BBD10C00E481F6 /* XCRemoteSwiftPackageReference "swift-collections" */;
-			productName = OrderedCollections;
-		};
 		DBA5A52E26F07ED800CACBAA /* PanModal */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = DBA5A52D26F07ED800CACBAA /* XCRemoteSwiftPackageReference "PanModal" */;
 			productName = PanModal;
-		};
-		DBAC6482267D0B21007FE9FD /* DifferenceKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DBAC6481267D0B21007FE9FD /* XCRemoteSwiftPackageReference "DifferenceKit" */;
-			productName = DifferenceKit;
-		};
-		DBAC649D267DFE43007FE9FD /* DiffableDataSources */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DBAC649C267DFE43007FE9FD /* XCRemoteSwiftPackageReference "DiffableDataSources" */;
-			productName = DiffableDataSources;
-		};
-		DBAC64A0267E6D02007FE9FD /* Fuzi */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DBAC649F267E6D01007FE9FD /* XCRemoteSwiftPackageReference "Fuzi" */;
-			productName = Fuzi;
-		};
-		DBB525072611EAC0002F1F29 /* Tabman */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DBB525062611EAC0002F1F29 /* XCRemoteSwiftPackageReference "Tabman" */;
-			productName = Tabman;
 		};
 		DBF7A0FB26830C33004176A2 /* FPSIndicator */ = {
 			isa = XCSwiftPackageProductDependency;
