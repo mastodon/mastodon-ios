@@ -107,6 +107,13 @@
 		5DF1056425F887CB00D6C0D4 /* AVPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF1056325F887CB00D6C0D4 /* AVPlayer.swift */; };
 		5E0DEC05797A7E6933788DDB /* Pods_MastodonTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 452147B2903DF38070FE56A2 /* Pods_MastodonTests.framework */; };
 		5E44BF88AD33646E64727BCF /* Pods_MastodonTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD92E0F10BDE4FE7C4B999F2 /* Pods_MastodonTests.framework */; };
+		6213AF5828939C4800BCADB6 /* APIService+Bookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6213AF5728939C4700BCADB6 /* APIService+Bookmark.swift */; };
+		6213AF5A28939C8400BCADB6 /* BookmarkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6213AF5928939C8400BCADB6 /* BookmarkViewModel.swift */; };
+		6213AF5C28939C8A00BCADB6 /* BookmarkViewModel+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6213AF5B28939C8A00BCADB6 /* BookmarkViewModel+State.swift */; };
+		6213AF5E2893A8B200BCADB6 /* DataSourceFacade+Bookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6213AF5D2893A8B200BCADB6 /* DataSourceFacade+Bookmark.swift */; };
+		62FD27D12893707600B205C5 /* BookmarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FD27D02893707600B205C5 /* BookmarkViewController.swift */; };
+		62FD27D32893707B00B205C5 /* BookmarkViewController+DataSourceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FD27D22893707B00B205C5 /* BookmarkViewController+DataSourceProvider.swift */; };
+		62FD27D52893708A00B205C5 /* BookmarkViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FD27D42893708A00B205C5 /* BookmarkViewModel+Diffable.swift */; };
 		87FFDA5D898A5C42ADCB35E7 /* Pods_Mastodon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4ABE34829701A4496C5BB64 /* Pods_Mastodon.framework */; };
 		DB0009A626AEE5DC009B9D2D /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = DB0009A926AEE5DC009B9D2D /* Intents.intentdefinition */; settings = {ATTRIBUTES = (codegen, ); }; };
 		DB0009A726AEE5DC009B9D2D /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = DB0009A926AEE5DC009B9D2D /* Intents.intentdefinition */; };
@@ -824,6 +831,13 @@
 		5DDDF1A82617489F00311060 /* Mastodon+Entity+History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Mastodon+Entity+History.swift"; sourceTree = "<group>"; };
 		5DF1056325F887CB00D6C0D4 /* AVPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVPlayer.swift; sourceTree = "<group>"; };
 		6130CBE4B26E3C976ACC1688 /* Pods-ShareActionExtension.asdk - debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShareActionExtension.asdk - debug.xcconfig"; path = "Target Support Files/Pods-ShareActionExtension/Pods-ShareActionExtension.asdk - debug.xcconfig"; sourceTree = "<group>"; };
+		6213AF5728939C4700BCADB6 /* APIService+Bookmark.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "APIService+Bookmark.swift"; sourceTree = "<group>"; };
+		6213AF5928939C8400BCADB6 /* BookmarkViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookmarkViewModel.swift; sourceTree = "<group>"; };
+		6213AF5B28939C8A00BCADB6 /* BookmarkViewModel+State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BookmarkViewModel+State.swift"; sourceTree = "<group>"; };
+		6213AF5D2893A8B200BCADB6 /* DataSourceFacade+Bookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataSourceFacade+Bookmark.swift"; sourceTree = "<group>"; };
+		62FD27D02893707600B205C5 /* BookmarkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkViewController.swift; sourceTree = "<group>"; };
+		62FD27D22893707B00B205C5 /* BookmarkViewController+DataSourceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BookmarkViewController+DataSourceProvider.swift"; sourceTree = "<group>"; };
+		62FD27D42893708A00B205C5 /* BookmarkViewModel+Diffable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BookmarkViewModel+Diffable.swift"; sourceTree = "<group>"; };
 		63EF9E6E5B575CD2A8B0475D /* Pods-AppShared.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppShared.profile.xcconfig"; path = "Target Support Files/Pods-AppShared/Pods-AppShared.profile.xcconfig"; sourceTree = "<group>"; };
 		728DE51ADA27C395C6E1BAB5 /* Pods-Mastodon-MastodonUITests.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon-MastodonUITests.profile.xcconfig"; path = "Target Support Files/Pods-Mastodon-MastodonUITests/Pods-Mastodon-MastodonUITests.profile.xcconfig"; sourceTree = "<group>"; };
 		75E3471C898DDD9631729B6E /* Pods-Mastodon.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon.release.xcconfig"; path = "Target Support Files/Pods-Mastodon/Pods-Mastodon.release.xcconfig"; sourceTree = "<group>"; };
@@ -1934,6 +1948,18 @@
 			path = Webview;
 			sourceTree = "<group>";
 		};
+		62047EBE28874C8F00A3BA5D /* Bookmark */ = {
+			isa = PBXGroup;
+			children = (
+				62FD27D02893707600B205C5 /* BookmarkViewController.swift */,
+				62FD27D22893707B00B205C5 /* BookmarkViewController+DataSourceProvider.swift */,
+				6213AF5928939C8400BCADB6 /* BookmarkViewModel.swift */,
+				62FD27D42893708A00B205C5 /* BookmarkViewModel+Diffable.swift */,
+				6213AF5B28939C8A00BCADB6 /* BookmarkViewModel+State.swift */,
+			);
+			path = Bookmark;
+			sourceTree = "<group>";
+		};
 		DB01409B25C40BB600F9F3CF /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
@@ -2332,6 +2358,7 @@
 				DBAE3F9D2616E308004B8251 /* APIService+Mute.swift */,
 				5B90C48426259BF10002E742 /* APIService+Subscriptions.swift */,
 				DB9D7C20269824B80054B3DF /* APIService+Filter.swift */,
+				6213AF5728939C4700BCADB6 /* APIService+Bookmark.swift */,
 			);
 			path = APIService;
 			sourceTree = "<group>";
@@ -2678,6 +2705,7 @@
 			isa = PBXGroup;
 			children = (
 				DB697DDC278F521D004EF2F7 /* DataSourceFacade.swift */,
+				6213AF5D2893A8B200BCADB6 /* DataSourceFacade+Bookmark.swift */,
 				DB697DE0278F5296004EF2F7 /* DataSourceFacade+Model.swift */,
 				DB697DDE278F524F004EF2F7 /* DataSourceFacade+Profile.swift */,
 				DB8F7075279E954700E1225B /* DataSourceFacade+Follow.swift */,
@@ -3024,6 +3052,7 @@
 		DB9D6C0825E4F5A60051B173 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				62047EBE28874C8F00A3BA5D /* Bookmark */,
 				DBB525462611ED57002F1F29 /* Header */,
 				DBB525262611EBDA002F1F29 /* Paging */,
 				DBB5253B2611ECF5002F1F29 /* Timeline */,
@@ -3953,6 +3982,7 @@
 				DBE3CDCF261C42ED00430CC6 /* TimelineHeaderView.swift in Sources */,
 				DB6746E7278ED633008A6B94 /* MastodonAuthenticationBox.swift in Sources */,
 				DBAE3F8E2616E0B1004B8251 /* APIService+Block.swift in Sources */,
+				62FD27D32893707B00B205C5 /* BookmarkViewController+DataSourceProvider.swift in Sources */,
 				DB1D843426579931000346B3 /* TableViewControllerNavigateable.swift in Sources */,
 				0FAA0FDF25E0B57E0017CCDE /* WelcomeViewController.swift in Sources */,
 				DB65C63727A2AF6C008BAC2E /* ReportItem.swift in Sources */,
@@ -3997,6 +4027,7 @@
 				0FAA101225E105390017CCDE /* PrimaryActionButton.swift in Sources */,
 				DB443CD42694627B00159B29 /* AppearanceView.swift in Sources */,
 				DBF1D24E269DAF5D00C1C08A /* SearchDetailViewController.swift in Sources */,
+				62FD27D52893708A00B205C5 /* BookmarkViewModel+Diffable.swift in Sources */,
 				DB8AF53025C13561002E6C99 /* AppContext.swift in Sources */,
 				DB72602725E36A6F00235243 /* MastodonServerRulesViewModel.swift in Sources */,
 				DB336F36278D77A40031E64B /* PollOption+Property.swift in Sources */,
@@ -4020,6 +4051,7 @@
 				2D8434F525FF465D00EECE90 /* HomeTimelineNavigationBarTitleViewModel.swift in Sources */,
 				DB938F0F2624119800E5B6C1 /* ThreadViewModel+LoadThreadState.swift in Sources */,
 				DB6180F226391CF40018D199 /* MediaPreviewImageViewModel.swift in Sources */,
+				62FD27D12893707600B205C5 /* BookmarkViewController.swift in Sources */,
 				DBA5E7A3263AD0A3004598BB /* PhotoLibraryService.swift in Sources */,
 				DBD5B1F627BCD3D200BD6B38 /* SuggestionAccountTableViewCell+ViewModel.swift in Sources */,
 				5DDDF1932617442700311060 /* Mastodon+Entity+Account.swift in Sources */,
@@ -4169,6 +4201,7 @@
 				DB63F75C279956D000455B82 /* Persistence+Tag.swift in Sources */,
 				2D84350525FF858100EECE90 /* UIScrollView.swift in Sources */,
 				DB49A61F25FF32AA00B98345 /* EmojiService+CustomEmojiViewModel.swift in Sources */,
+				6213AF5A28939C8400BCADB6 /* BookmarkViewModel.swift in Sources */,
 				5B24BBDB262DB14800A9381B /* ReportStatusViewModel+Diffable.swift in Sources */,
 				DB4F0968269ED8AD00D62E92 /* SearchHistoryTableHeaderView.swift in Sources */,
 				0FB3D2FE25E4CB6400AAD544 /* OnboardingHeadlineTableViewCell.swift in Sources */,
@@ -4288,6 +4321,7 @@
 				DB68A04A25E9027700CFDF14 /* AdaptiveStatusBarStyleNavigationController.swift in Sources */,
 				DB336F38278D7AAF0031E64B /* Poll+Property.swift in Sources */,
 				0FB3D33825E6401400AAD544 /* PickServerCell.swift in Sources */,
+				6213AF5C28939C8A00BCADB6 /* BookmarkViewModel+State.swift in Sources */,
 				DB6D9F8426358EEC008423CD /* SettingsItem.swift in Sources */,
 				2D364F7825E66D8300204FDC /* MastodonResendEmailViewModel.swift in Sources */,
 				DBA465932696B495002B41DB /* APIService+WebFinger.swift in Sources */,
@@ -4297,6 +4331,7 @@
 				DB9D6BF825E4F5690051B173 /* NotificationViewController.swift in Sources */,
 				2DAC9E46262FC9FD0062E1A6 /* SuggestionAccountTableViewCell.swift in Sources */,
 				DB4FFC2C269EC39600D62E92 /* SearchTransitionController.swift in Sources */,
+				6213AF5E2893A8B200BCADB6 /* DataSourceFacade+Bookmark.swift in Sources */,
 				DBA5E7A9263BD3A4004598BB /* ContextMenuImagePreviewViewController.swift in Sources */,
 				DBF156E22702DA6900EC00B7 /* UIStatusBarManager+HandleTapAction.m in Sources */,
 				2D38F20825CD491300561493 /* DisposeBagCollectable.swift in Sources */,
@@ -4445,6 +4480,7 @@
 				5BB04FF5262F0E6D0043BFF6 /* ReportSection.swift in Sources */,
 				DBEFCD82282A2AB100C0ABEA /* ReportServerRulesView.swift in Sources */,
 				DBA94436265CBB7400C537E1 /* ProfileFieldItem.swift in Sources */,
+				6213AF5828939C4800BCADB6 /* APIService+Bookmark.swift in Sources */,
 				DB023D2A27A0FE5C005AC798 /* DataSourceProvider+NotificationTableViewCellDelegate.swift in Sources */,
 				DB98EB6027B10E150082E365 /* ReportCommentTableViewCell.swift in Sources */,
 				DB0FCB962797E6C2006C02E2 /* SearchResultViewController+DataSourceProvider.swift in Sources */,

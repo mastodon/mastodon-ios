@@ -125,6 +125,12 @@ extension DataSourceFacade {
                 status: status,
                 authenticationBox: authenticationBox
             )
+        case .bookmark:
+            try await DataSourceFacade.responseToStatusBookmarkAction(
+                provider: provider,
+                status: status,
+                authenticationBox: authenticationBox
+            )
         case .share:
             try await DataSourceFacade.responseToStatusShareAction(
                 provider: provider,

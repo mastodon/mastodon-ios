@@ -84,6 +84,7 @@ extension StatusView {
         @Published public var isReblog: Bool = false
         @Published public var isReblogEnabled: Bool = true
         @Published public var isFavorite: Bool = false
+        @Published public var isBookmark: Bool = false
         
         @Published public var replyCount: Int = 0
         @Published public var reblogCount: Int = 0
@@ -510,6 +511,13 @@ extension StatusView.ViewModel {
             )
         }
         .store(in: &disposeBag)
+        $isBookmark
+            .sink { isHighlighted in
+                statusView.actionToolbarContainer.configureBookmark(
+                    isHighlighted: isHighlighted
+                )
+            }
+            .store(in: &disposeBag)
     }
     
     private func bindMetric(statusView: StatusView) {

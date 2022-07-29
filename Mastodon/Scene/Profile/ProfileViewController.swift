@@ -74,6 +74,17 @@ final class ProfileViewController: UIViewController, NeedsDependency, MediaPrevi
         barButtonItem.tintColor = .white
         return barButtonItem
     }()
+    
+    private(set) lazy var bookmarkBarButtonItem: UIBarButtonItem = {
+        let barButtonItem = UIBarButtonItem(
+            image: Asset.ObjectsAndTools.bookmark.image.withRenderingMode(.alwaysTemplate),
+            style: .plain,
+            target: self,
+            action: #selector(ProfileViewController.bookmarkBarButtonItemPressed(_:))
+        )
+        barButtonItem.tintColor = .white
+        return barButtonItem
+    }()
 
     private(set) lazy var replyBarButtonItem: UIBarButtonItem = {
         let barButtonItem = UIBarButtonItem(image: UIImage(systemName: "arrowshape.turn.up.left"), style: .plain, target: self, action: #selector(ProfileViewController.replyBarButtonItemPressed(_:)))
@@ -224,6 +235,7 @@ extension ProfileViewController {
                 items.append(self.settingBarButtonItem)
                 items.append(self.shareBarButtonItem)
                 items.append(self.favoriteBarButtonItem)
+                items.append(self.bookmarkBarButtonItem)
                 return
             }
 
@@ -502,6 +514,12 @@ extension ProfileViewController {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         let favoriteViewModel = FavoriteViewModel(context: context)
         coordinator.present(scene: .favorite(viewModel: favoriteViewModel), from: self, transition: .show)
+    }
+    
+    @objc private func bookmarkBarButtonItemPressed(_ sender: UIBarButtonItem) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        let bookmarkViewModel = BookmarkViewModel(context: context)
+        coordinator.present(scene: .bookmark(viewModel: bookmarkViewModel), from: self, transition: .show)
     }
 
     @objc private func replyBarButtonItemPressed(_ sender: UIBarButtonItem) {
