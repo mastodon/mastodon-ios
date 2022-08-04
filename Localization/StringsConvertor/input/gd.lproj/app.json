@@ -45,7 +45,7 @@
                 "message": "Cuir cead inntrigidh do thasg-lann nan dealbhan an comas gus an dealbh a shàbhaladh."
             },
             "delete_post": {
-                "title": "A bheil thu cinnteach gu bheil thu airson am post seo a sguabadh às?",
+                "title": "Sguab às am post",
                 "message": "A bheil thu cinnteach gu bheil thu airson am post seo a sguabadh às?"
             },
             "clean_cache": {
@@ -211,9 +211,9 @@
             "log_in": "Clàraich a-steach"
         },
         "server_picker": {
-            "title": "Tagh frithealaiche sam bith.",
-            "subtitle": "Tagh coimhearsnachd stèidhichte air d’ ùidhean no an roinn-dùthcha agad no tè choitcheann.",
-            "subtitle_extend": "Tagh coimhearsnachd stèidhichte air d’ ùidhean no an roinn-dùthcha agad no tè choitcheann. Tha gach coimhearsnachd ’ga stiùireadh le buidheann no neach gu neo-eisimeileach.",
+            "title": "Mastodon is made of users in different servers.",
+            "subtitle": "Pick a server based on your interests, region, or a general purpose one.",
+            "subtitle_extend": "Pick a server based on your interests, region, or a general purpose one. Each server is operated by an entirely independent organization or individual.",
             "button": {
                 "category": {
                     "all": "Na h-uile",
@@ -240,7 +240,7 @@
                 "category": "ROINN-SEÒRSA"
             },
             "input": {
-                "placeholder": "Lorg frithealaiche no gabh pàirt san fhear agad fhèin…",
+                "placeholder": "Lorg frithealaiche",
                 "search_servers_or_enter_url": "Search servers or enter URL"
             },
             "empty_state": {
@@ -250,7 +250,7 @@
             }
         },
         "register": {
-            "title": "Innis dhuinn mu do dhèidhinn.",
+            "title": "’Gad rèiteachadh air %s",
             "lets_get_you_set_up_on_domain": "Let’s get you set up on %s",
             "input": {
                 "avatar": {
@@ -311,7 +311,7 @@
         },
         "server_rules": {
             "title": "Riaghailt bhunasach no dhà.",
-            "subtitle": "Shuidhich rianairean %s na riaghailtean seo.",
+            "subtitle": "These are set and enforced by the %s moderators.",
             "prompt": "Ma leanas tu air adhart, bidh thu fo bhuaidh teirmichean seirbheise is poileasaidh prìobhaideachd %s.",
             "terms_of_service": "teirmichean na seirbheise",
             "privacy_policy": "poileasaidh prìobhaideachd",
@@ -321,7 +321,7 @@
         },
         "confirm_email": {
             "title": "Aon rud eile.",
-            "subtitle": "Tha sinn air post-d a chur gu %s,\nthoir gnogag air a’ chunntas a dhearbhadh a’ chunntais agad.",
+            "subtitle": "Thoir gnogag air a’ cheangal a chuir sinn thugad air a’ phost-d airson an cunntas agad a dhearbhadh.",
             "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we emailed to you to verify your account",
             "button": {
                 "open_email_app": "Fosgail aplacaid a’ phuist-d",
