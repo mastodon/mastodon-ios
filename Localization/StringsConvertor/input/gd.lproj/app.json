@@ -211,9 +211,9 @@
             "log_in": "Clàraich a-steach"
         },
         "server_picker": {
-            "title": "Mastodon is made of users in different servers.",
-            "subtitle": "Pick a server based on your interests, region, or a general purpose one.",
-            "subtitle_extend": "Pick a server based on your interests, region, or a general purpose one. Each server is operated by an entirely independent organization or individual.",
+            "title": "Tha cleachdaichean Mhastodon air iomadh frithealaiche eadar-dhealaichte.",
+            "subtitle": "Tagh frithealaiche stèidhichte air d’ ùidhean, air far a bheil thu no fear coitcheann.",
+            "subtitle_extend": "Tagh frithealaiche stèidhichte air d’ ùidhean, air far a bheil thu no fear coitcheann. Tha gach frithealaiche fo stiùireadh buidhinn no neach neo-eisimeilich fa leth.",
             "button": {
                 "category": {
                     "all": "Na h-uile",
@@ -241,7 +241,7 @@
             },
             "input": {
                 "placeholder": "Lorg frithealaiche",
-                "search_servers_or_enter_url": "Search servers or enter URL"
+                "search_servers_or_enter_url": "Lorg frithealaiche no cuir a-steach URL"
             },
             "empty_state": {
                 "finding_servers": "A’ lorg nam frithealaichean ri am faighinn…",
@@ -251,7 +251,7 @@
         },
         "register": {
             "title": "’Gad rèiteachadh air %s",
-            "lets_get_you_set_up_on_domain": "Let’s get you set up on %s",
+            "lets_get_you_set_up_on_domain": "’Gad rèiteachadh air %s",
             "input": {
                 "avatar": {
                     "delete": "Sguab às"
@@ -310,8 +310,8 @@
             }
         },
         "server_rules": {
-            "title": "Riaghailt bhunasach no dhà.",
-            "subtitle": "These are set and enforced by the %s moderators.",
+            "title": "Riaghailtean bunasach.",
+            "subtitle": "Tha na riaghailtean seo ’gan stèidheachadh is a chur an gnìomh leis na maoir aig %s.",
             "prompt": "Ma leanas tu air adhart, bidh thu fo bhuaidh teirmichean seirbheise is poileasaidh prìobhaideachd %s.",
             "terms_of_service": "teirmichean na seirbheise",
             "privacy_policy": "poileasaidh prìobhaideachd",
@@ -322,7 +322,7 @@
         "confirm_email": {
             "title": "Aon rud eile.",
             "subtitle": "Thoir gnogag air a’ cheangal a chuir sinn thugad air a’ phost-d airson an cunntas agad a dhearbhadh.",
-            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we emailed to you to verify your account",
+            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Thoir gnogag air a’ cheangal a chuir sinn thugad air a’ phost-d airson an cunntas agad a dhearbhadh",
             "button": {
                 "open_email_app": "Fosgail aplacaid a’ phuist-d",
                 "resend": "Ath-chuir"
@@ -347,8 +347,8 @@
                 "published": "Chaidh fhoillseachadh!",
                 "Publishing": "A’ foillseachadh a’ phuist…",
                 "accessibility": {
-                    "logo_label": "Logo Button",
-                    "logo_hint": "Tap to scroll to top and tap again to previous location"
+                    "logo_label": "Putan an t-suaicheantais",
+                    "logo_hint": "Thoir gnogag a sgroladh dhan bhàrr is thoir gnogag a-rithist a dhol dhan ionad roimhe"
                 }
             }
         },
@@ -418,7 +418,7 @@
         },
         "profile": {
             "header": {
-                "follows_you": "Follows You"
+                "follows_you": "’Gad leantainn"
             },
             "dashboard": {
                 "posts": "postaichean",
@@ -465,22 +465,22 @@
             }
         },
         "follower": {
-            "title": "follower",
+            "title": "neach-leantainn",
             "footer": "Cha dèid luchd-leantainn o fhrithealaichean eile a shealltainn."
         },
         "following": {
-            "title": "following",
+            "title": "’ga leantainn",
             "footer": "Cha dèid cò air a leanas tu air frithealaichean eile a shealltainn."
         },
         "familiarFollowers": {
-            "title": "Followers you familiar",
-            "followed_by_names": "Followed by %s"
+            "title": "Luchd-leantainn aithnichte",
+            "followed_by_names": "’Ga leantainn le %s"
         },
         "favorited_by": {
-            "title": "Favorited By"
+            "title": "’Na annsachd aig"
         },
         "reblogged_by": {
-            "title": "Reblogged By"
+            "title": "’Ga bhrosnachadh le"
         },
         "search": {
             "title": "Lorg",
@@ -546,10 +546,10 @@
                 "show_mentions": "Seall na h-iomraidhean"
             },
             "follow_request": {
-                "accept": "Accept",
-                "accepted": "Accepted",
-                "reject": "reject",
-                "rejected": "Rejected"
+                "accept": "Gabh ris",
+                "accepted": "Air a ghabhail ris",
+                "reject": "diùlt",
+                "rejected": "Chaidh a dhiùltadh"
             }
         },
         "thread": {
@@ -626,46 +626,46 @@
             "text_placeholder": "Sgrìobh no cuir ann beachdan a bharrachd",
             "reported": "CHAIDH GEARAN A DHÈANAMH",
             "step_one": {
-                "step_1_of_4": "Step 1 of 4",
-                "whats_wrong_with_this_post": "What's wrong with this post?",
-                "whats_wrong_with_this_account": "What's wrong with this account?",
-                "whats_wrong_with_this_username": "What's wrong with %s?",
-                "select_the_best_match": "Select the best match",
-                "i_dont_like_it": "I don’t like it",
-                "it_is_not_something_you_want_to_see": "It is not something you want to see",
-                "its_spam": "It’s spam",
-                "malicious_links_fake_engagement_or_repetetive_replies": "Malicious links, fake engagement, or repetetive replies",
-                "it_violates_server_rules": "It violates server rules",
-                "you_are_aware_that_it_breaks_specific_rules": "You are aware that it breaks specific rules",
-                "its_something_else": "It’s something else",
-                "the_issue_does_not_fit_into_other_categories": "The issue does not fit into other categories"
+                "step_1_of_4": "Ceum 1 à 4",
+                "whats_wrong_with_this_post": "Dè tha ceàrr leis a’ phost seo?",
+                "whats_wrong_with_this_account": "Dè tha ceàrr leis an cunntas seo?",
+                "whats_wrong_with_this_username": "Dè tha ceàrr le %s?",
+                "select_the_best_match": "Tagh a’ mhaids as fheàrr",
+                "i_dont_like_it": "Cha toigh leam e",
+                "it_is_not_something_you_want_to_see": "Chan eil thu airson seo fhaicinn",
+                "its_spam": "’S e spama a th’ ann",
+                "malicious_links_fake_engagement_or_repetetive_replies": "Ceanglaichean droch-rùnach, conaltradh fuadain no an dearbh fhreagairt a-rithist ’s a-rithist",
+                "it_violates_server_rules": "Tha e a’ briseadh riaghailtean an fhrithealaiche",
+                "you_are_aware_that_it_breaks_specific_rules": "Mhothaich thu gu bheil e a’ briseadh riaghailtean sònraichte",
+                "its_something_else": "’S rud eile a tha ann",
+                "the_issue_does_not_fit_into_other_categories": "Chan eil na roinnean-seòrsa eile iomchaidh dhan chùis"
             },
             "step_two": {
-                "step_2_of_4": "Step 2 of 4",
-                "which_rules_are_being_violated": "Which rules are being violated?",
-                "select_all_that_apply": "Select all that apply",
-                "i_just_don’t_like_it": "I just don’t like it"
+                "step_2_of_4": "Ceum 2 à 4",
+                "which_rules_are_being_violated": "Dè na riaghailtean a tha ’gam briseadh?",
+                "select_all_that_apply": "Tagh a h-uile gin a tha iomchaidh",
+                "i_just_don’t_like_it": "’S ann nach toigh leam e"
             },
             "step_three": {
-                "step_3_of_4": "Step 3 of 4",
-                "are_there_any_posts_that_back_up_this_report": "Are there any posts that back up this report?",
-                "select_all_that_apply": "Select all that apply"
+                "step_3_of_4": "Ceum 3 à 4",
+                "are_there_any_posts_that_back_up_this_report": "A bheil postaichean sam bith ann a tha ’nam fianais dhan ghearan seo?",
+                "select_all_that_apply": "Tagh a h-uile gin a tha iomchaidh"
             },
             "step_four": {
-                "step_4_of_4": "Step 4 of 4",
-                "is_there_anything_else_we_should_know": "Is there anything else we should know?"
+                "step_4_of_4": "Ceum 4 à 4",
+                "is_there_anything_else_we_should_know": "A bheil rud sam bith eile a bu toigh leat innse dhuinn?"
             },
             "step_final": {
-                "dont_want_to_see_this": "Don’t want to see this?",
-                "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "When you see something you don’t like on Mastodon, you can remove the person from your experience.",
-                "unfollow": "Unfollow",
-                "unfollowed": "Unfollowed",
-                "unfollow_user": "Unfollow %s",
-                "mute_user": "Mute %s",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or reblogs in your home feed. They won’t know they’ve been muted.",
-                "block_user": "Block %s",
-                "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "They will no longer be able to follow or see your posts, but they can see if they’ve been blocked.",
-                "while_we_review_this_you_can_take_action_against_user": "While we review this, you can take action against %s"
+                "dont_want_to_see_this": "Nach eil thu airson seo fhaicinn?",
+                "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "Nuair a chì thu rudeigin nach toigh leat air Mastodon, ’s urrainn dhut an neach a chumail fad air falbh uat.",
+                "unfollow": "Na lean tuilleadh",
+                "unfollowed": "Chan eil thu ’ga leantainn tuilleadh",
+                "unfollow_user": "Na lean air %s tuilleadh",
+                "mute_user": "Mùch %s",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "Chan fhaic thu na postaichean aca is dè a bhrosnaich iad air inbhir na dachaigh agad tuilleadh. Cha bhi fios aca gun do mhùch thu iad.",
+                "block_user": "Bac %s",
+                "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "Chan urrainn dhaibh leantainn ort is chan fhaic iad na postaichean agad tuilleadh ach chì iad gun deach am bacadh.",
+                "while_we_review_this_you_can_take_action_against_user": "Fhad ’s a bhios sinn a’ toirt sùil air, seo nas urrainn dhut dèanamh an aghaidh %s"
             }
         },
         "preview": {
