@@ -228,19 +228,19 @@
                     "lgbt": "lgbt",
                     "regional": "regionāli",
                     "art": "māksla",
-                    "music": "music",
-                    "tech": "tech"
+                    "music": "mūzika",
+                    "tech": "tehnoloģija"
                 },
-                "see_less": "See Less",
-                "see_more": "See More"
+                "see_less": "Rādīt mazāk",
+                "see_more": "Skatīt vairāk"
             },
             "label": {
-                "language": "LANGUAGE",
-                "users": "USERS",
-                "category": "CATEGORY"
+                "language": "VALODA",
+                "users": "LIETOTĀJI",
+                "category": "KATEGORIJA"
             },
             "input": {
-                "placeholder": "Search servers",
+                "placeholder": "Meklēt serverus",
                 "search_servers_or_enter_url": "Search servers or enter URL"
             },
             "empty_state": {
@@ -359,18 +359,18 @@
         "compose": {
             "title": {
                 "new_post": "New Post",
-                "new_reply": "New Reply"
+                "new_reply": "Jauna atbilde"
             },
             "media_selection": {
-                "camera": "Take Photo",
-                "photo_library": "Photo Library",
-                "browse": "Browse"
+                "camera": "Uzņemt bildi",
+                "photo_library": "Attēlu krātuve",
+                "browse": "Pārlūkot"
             },
             "content_input_placeholder": "Type or paste what’s on your mind",
-            "compose_action": "Publish",
+            "compose_action": "Publicēt",
             "replying_to_user": "replying to %s",
             "attachment": {
-                "photo": "photo",
+                "photo": "attēls",
                 "video": "video",
                 "attachment_broken": "This %s is broken and can’t be\nuploaded to Mastodon.",
                 "description_photo": "Describe the photo for the visually-impaired...",
@@ -378,9 +378,9 @@
             },
             "poll": {
                 "duration_time": "Duration: %s",
-                "thirty_minutes": "30 minutes",
-                "one_hour": "1 Hour",
-                "six_hours": "6 Hours",
+                "thirty_minutes": "30 minūtes",
+                "one_hour": "1 Stunda",
+                "six_hours": "6 stundas",
                 "one_day": "1 Diena",
                 "three_days": "3 Dienas",
                 "seven_days": "7 Dienas",
@@ -483,13 +483,13 @@
             "title": "Reblogged By"
         },
         "search": {
-            "title": "Search",
+            "title": "Meklēt",
             "search_bar": {
                 "placeholder": "Search hashtags and users",
-                "cancel": "Cancel"
+                "cancel": "Atcelt"
             },
             "recommend": {
-                "button_text": "See All",
+                "button_text": "Skatīt visu",
                 "hash_tag": {
                     "title": "Trending on Mastodon",
                     "description": "Hashtags that are getting quite a bit of attention",
@@ -519,7 +519,7 @@
             "tabs": {
                 "posts": "Posts",
                 "hashtags": "Hashtags",
-                "news": "News",
+                "news": "Ziņas",
                 "community": "Community",
                 "for_you": "Priekš tevis"
             },
