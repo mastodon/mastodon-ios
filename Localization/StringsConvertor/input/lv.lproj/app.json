@@ -517,7 +517,7 @@
         },
         "discovery": {
             "tabs": {
-                "posts": "Posts",
+                "posts": "Ziņas",
                 "hashtags": "Hashtags",
                 "news": "Ziņas",
                 "community": "Community",
@@ -582,12 +582,12 @@
                         "anyone": "jebkurš",
                         "follower": "sekottājs",
                         "follow": "anyone I follow",
-                        "noone": "no one",
+                        "noone": "neviens",
                         "title": "Notify me when"
                     }
                 },
                 "preference": {
-                    "title": "Preferences",
+                    "title": "Uzstādījumi",
                     "true_black_dark_mode": "True black dark mode",
                     "disable_avatar_animation": "Disable animated avatars",
                     "disable_emoji_animation": "Disable animated emojis",
@@ -636,36 +636,36 @@
                 "its_spam": "It’s spam",
                 "malicious_links_fake_engagement_or_repetetive_replies": "Malicious links, fake engagement, or repetetive replies",
                 "it_violates_server_rules": "It violates server rules",
-                "you_are_aware_that_it_breaks_specific_rules": "You are aware that it breaks specific rules",
-                "its_something_else": "It’s something else",
-                "the_issue_does_not_fit_into_other_categories": "The issue does not fit into other categories"
+                "you_are_aware_that_it_breaks_specific_rules": "Tu zini, ka tas pārkāpj īpašus noteikumus",
+                "its_something_else": "Tas ir kaut kas cits",
+                "the_issue_does_not_fit_into_other_categories": "Šis jautājums neietilpst citās kategorijās"
             },
             "step_two": {
-                "step_2_of_4": "Step 2 of 4",
-                "which_rules_are_being_violated": "Which rules are being violated?",
-                "select_all_that_apply": "Select all that apply",
+                "step_2_of_4": "2. solis no 4",
+                "which_rules_are_being_violated": "Kuri noteikumi tiek pārkāpti?",
+                "select_all_that_apply": "Atlasi visus atbilstošos",
                 "i_just_don’t_like_it": "I just don’t like it"
             },
             "step_three": {
-                "step_3_of_4": "Step 3 of 4",
-                "are_there_any_posts_that_back_up_this_report": "Are there any posts that back up this report?",
-                "select_all_that_apply": "Select all that apply"
+                "step_3_of_4": "3. solis no 4",
+                "are_there_any_posts_that_back_up_this_report": "Vai ir kādas ziņas, kas atbalsta šo ziņojumu?",
+                "select_all_that_apply": "Atlasi visus atbilstošos"
             },
             "step_four": {
-                "step_4_of_4": "Step 4 of 4",
-                "is_there_anything_else_we_should_know": "Is there anything else we should know?"
+                "step_4_of_4": "4. solis no 4",
+                "is_there_anything_else_we_should_know": "Vai ir vēl kas mums būtu jāzina?"
             },
             "step_final": {
-                "dont_want_to_see_this": "Don’t want to see this?",
+                "dont_want_to_see_this": "Vai nevēlies to redzēt?",
                 "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "When you see something you don’t like on Mastodon, you can remove the person from your experience.",
-                "unfollow": "Unfollow",
-                "unfollowed": "Unfollowed",
-                "unfollow_user": "Unfollow %s",
-                "mute_user": "Mute %s",
+                "unfollow": "Atsekot",
+                "unfollowed": "Atsekoja",
+                "unfollow_user": "Atsekot %s",
+                "mute_user": "Apklusināt %s",
                 "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or reblogs in your home feed. They won’t know they’ve been muted.",
-                "block_user": "Block %s",
+                "block_user": "Bloķēt %s",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "They will no longer be able to follow or see your posts, but they can see if they’ve been blocked.",
-                "while_we_review_this_you_can_take_action_against_user": "While we review this, you can take action against %s"
+                "while_we_review_this_you_can_take_action_against_user": "Kamēr mēs to izskatām, tu vari veikt darbības pret @%s"
             }
         },
         "preview": {
@@ -678,7 +678,7 @@
         "account_list": {
             "tab_bar_hint": "Current selected profile: %s. Double tap then hold to show account switcher",
             "dismiss_account_switcher": "Dismiss Account Switcher",
-            "add_account": "Add Account"
+            "add_account": "Pievienot kontu"
         },
         "wizard": {
             "new_in_mastodon": "New in Mastodon",
