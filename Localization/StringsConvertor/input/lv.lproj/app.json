@@ -596,44 +596,44 @@
                 },
                 "boring_zone": {
                     "title": "The Boring Zone",
-                    "account_settings": "Account Settings",
-                    "terms": "Terms of Service",
-                    "privacy": "Privacy Policy"
+                    "account_settings": "Konta iestatījumi",
+                    "terms": "Pakalpojuma noteikumi",
+                    "privacy": "Privātuma politika"
                 },
                 "spicy_zone": {
                     "title": "The Spicy Zone",
                     "clear": "Clear Media Cache",
-                    "signout": "Sign Out"
+                    "signout": "Iziet"
                 }
             },
             "footer": {
-                "mastodon_description": "Mastodon is open source software. You can report issues on GitHub at %s (%s)"
+                "mastodon_description": "Mastodon ir atvērtā koda programmatūra. Tu vari ziņot par problēmām GitHub %s (%s)"
             },
             "keyboard": {
                 "close_settings_window": "Close Settings Window"
             }
         },
         "report": {
-            "title_report": "Report",
-            "title": "Report %s",
-            "step1": "Step 1 of 2",
-            "step2": "Step 2 of 2",
+            "title_report": "Ziņot",
+            "title": "Ziņot %s",
+            "step1": "1. solis no 2",
+            "step2": "2. solis no 2",
             "content1": "Are there any other posts you’d like to add to the report?",
             "content2": "Is there anything the moderators should know about this report?",
             "report_sent_title": "Thanks for reporting, we’ll look into this.",
-            "send": "Send Report",
-            "skip_to_send": "Send without comment",
+            "send": "Nosūtīt Sūdzību",
+            "skip_to_send": "Sūtīt bez komentāra",
             "text_placeholder": "Type or paste additional comments",
             "reported": "REPORTED",
             "step_one": {
-                "step_1_of_4": "Step 1 of 4",
+                "step_1_of_4": "1. solis no 4",
                 "whats_wrong_with_this_post": "What's wrong with this post?",
                 "whats_wrong_with_this_account": "What's wrong with this account?",
                 "whats_wrong_with_this_username": "What's wrong with %s?",
-                "select_the_best_match": "Select the best match",
-                "i_dont_like_it": "I don’t like it",
-                "it_is_not_something_you_want_to_see": "It is not something you want to see",
-                "its_spam": "It’s spam",
+                "select_the_best_match": "Izvēlieties labāko atbilstību",
+                "i_dont_like_it": "Man tas nepatīk",
+                "it_is_not_something_you_want_to_see": "Tas nav kaut kas, ko tu vēlies redzēt",
+                "its_spam": "Tas ir spams",
                 "malicious_links_fake_engagement_or_repetetive_replies": "Malicious links, fake engagement, or repetetive replies",
                 "it_violates_server_rules": "It violates server rules",
                 "you_are_aware_that_it_breaks_specific_rules": "Tu zini, ka tas pārkāpj īpašus noteikumus",
