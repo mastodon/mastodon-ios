@@ -2,21 +2,21 @@
     "common": {
         "alerts": {
             "common": {
-                "please_try_again": "Please try again.",
-                "please_try_again_later": "Please try again later."
+                "please_try_again": "Lūdzu, mēģiniet vēlreiz.",
+                "please_try_again_later": "Lūdzu, mēģiniet vēlreiz vēlāk."
             },
             "sign_up_failure": {
                 "title": "Sign Up Failure"
             },
             "server_error": {
-                "title": "Server Error"
+                "title": "Servera kļūda"
             },
             "vote_failure": {
                 "title": "Vote Failure",
-                "poll_ended": "The poll has ended"
+                "poll_ended": "Balsošana beidzās"
             },
             "discard_post_content": {
-                "title": "Discard Draft",
+                "title": "Atmest malnrakstu",
                 "message": "Confirm to discard composed post content."
             },
             "publish_post_failure": {
@@ -32,9 +32,9 @@
                 "message": "Cannot edit profile. Please try again."
             },
             "sign_out": {
-                "title": "Sign Out",
-                "message": "Are you sure you want to sign out?",
-                "confirm": "Sign Out"
+                "title": "Iziet",
+                "message": "Vai tiešām vēlaties iziet?",
+                "confirm": "Iziet"
             },
             "block_domain": {
                 "title": "Are you really, really sure you want to block the entire %s? In most cases a few targeted blocks or mutes are sufficient and preferable. You will not see content from that domain and any of your followers from that domain will be removed.",
@@ -45,8 +45,8 @@
                 "message": "Please enable the photo library access permission to save the photo."
             },
             "delete_post": {
-                "title": "Delete Post",
-                "message": "Are you sure you want to delete this post?"
+                "title": "Dzēst ierakstu",
+                "message": "Vai tiešām vēlies dzēst ierakstu?"
             },
             "clean_cache": {
                 "title": "Clean Cache",
@@ -55,30 +55,30 @@
         },
         "controls": {
             "actions": {
-                "back": "Back",
-                "next": "Next",
-                "previous": "Previous",
-                "open": "Open",
-                "add": "Add",
-                "remove": "Remove",
-                "edit": "Edit",
-                "save": "Save",
-                "ok": "OK",
-                "done": "Done",
-                "confirm": "Confirm",
-                "continue": "Continue",
-                "compose": "Compose",
-                "cancel": "Cancel",
-                "discard": "Discard",
-                "try_again": "Try Again",
-                "take_photo": "Take Photo",
-                "save_photo": "Save Photo",
-                "copy_photo": "Copy Photo",
-                "sign_in": "Sign In",
-                "sign_up": "Sign Up",
-                "see_more": "See More",
-                "preview": "Preview",
-                "share": "Share",
+                "back": "Atpakaļ",
+                "next": "Nākamais",
+                "previous": "Iepriekšējais",
+                "open": "Atvērt",
+                "add": "Pievienot",
+                "remove": "Noņemt",
+                "edit": "Rediģēt",
+                "save": "Saglabāt",
+                "ok": "Labi",
+                "done": "Pabeigts",
+                "confirm": "Apstiprināt",
+                "continue": "Turpināt",
+                "compose": "Rakstīt",
+                "cancel": "Atcelt",
+                "discard": "Atmest",
+                "try_again": "Mēģināt vēlreiz",
+                "take_photo": "Uzņemt bildi",
+                "save_photo": "Saglabāt bildi",
+                "copy_photo": "Kopēt bildi",
+                "sign_in": "Pieteikties",
+                "sign_up": "Reģistrēties",
+                "see_more": "Skatīt vairāk",
+                "preview": "Priekšskatījums",
+                "share": "Dalīties",
                 "share_user": "Share %s",
                 "share_post": "Share Post",
                 "open_in_safari": "Open in Safari",
@@ -127,34 +127,34 @@
                 "user_reblogged": "%s reblogged",
                 "user_replied_to": "Replied to %s",
                 "show_post": "Show Post",
-                "show_user_profile": "Show user profile",
-                "content_warning": "Content Warning",
-                "sensitive_content": "Sensitive Content",
+                "show_user_profile": "Parādīt lietotāja profilu",
+                "content_warning": "Satura brīdinājums",
+                "sensitive_content": "Sensitīvs saturs",
                 "media_content_warning": "Tap anywhere to reveal",
                 "tap_to_reveal": "Tap to reveal",
                 "poll": {
-                    "vote": "Vote",
-                    "closed": "Closed"
+                    "vote": "Balsot",
+                    "closed": "Aizvērts"
                 },
                 "actions": {
-                    "reply": "Reply",
-                    "reblog": "Reblog",
+                    "reply": "Atbildēt",
+                    "reblog": "Reblogot",
                     "unreblog": "Undo reblog",
-                    "favorite": "Favorite",
-                    "unfavorite": "Unfavorite",
-                    "menu": "Menu",
-                    "hide": "Hide",
-                    "show_image": "Show image",
-                    "show_gif": "Show GIF",
+                    "favorite": "Izlase",
+                    "unfavorite": "Izņemt no izlases",
+                    "menu": "Izvēlne",
+                    "hide": "Slēpt",
+                    "show_image": "Rādīt attēlu",
+                    "show_gif": "Rādīt GIF",
                     "show_video_player": "Show video player",
                     "tap_then_hold_to_show_menu": "Tap then hold to show menu"
                 },
                 "tag": {
                     "url": "URL",
-                    "mention": "Mention",
-                    "link": "Link",
+                    "mention": "Pieminēt",
+                    "link": "Saite",
                     "hashtag": "Hashtag",
-                    "email": "Email",
+                    "email": "E-pasts",
                     "emoji": "Emoji"
                 },
                 "visibility": {
@@ -165,32 +165,32 @@
                 }
             },
             "friendship": {
-                "follow": "Follow",
-                "following": "Following",
-                "request": "Request",
-                "pending": "Pending",
-                "block": "Block",
-                "block_user": "Block %s",
-                "block_domain": "Block %s",
-                "unblock": "Unblock",
-                "unblock_user": "Unblock %s",
-                "blocked": "Blocked",
-                "mute": "Mute",
-                "mute_user": "Mute %s",
-                "unmute": "Unmute",
-                "unmute_user": "Unmute %s",
-                "muted": "Muted",
+                "follow": "Sekot",
+                "following": "Seko",
+                "request": "Pieprasījums",
+                "pending": "Gaida",
+                "block": "Bloķēt",
+                "block_user": "Bloķēt %s",
+                "block_domain": "Bloķēt %s",
+                "unblock": "Atbloķēt",
+                "unblock_user": "Atbloķēt %s",
+                "blocked": "Bloķēts",
+                "mute": "Apklusināt",
+                "mute_user": "Aplusināt %s",
+                "unmute": "Noņemt apklusinājumu",
+                "unmute_user": "Noņemt apklusinājumu @%s",
+                "muted": "Apklusināts",
                 "edit_info": "Edit Info"
             },
             "timeline": {
-                "filtered": "Filtered",
+                "filtered": "Filtrēts",
                 "timestamp": {
-                    "now": "Now"
+                    "now": "Tagad"
                 },
                 "loader": {
                     "load_missing_posts": "Load missing posts",
                     "loading_missing_posts": "Loading missing posts...",
-                    "show_more_replies": "Show more replies"
+                    "show_more_replies": "Rādīt vairāk atbildes"
                 },
                 "header": {
                     "no_status_found": "No Post Found",
@@ -246,7 +246,7 @@
             "empty_state": {
                 "finding_servers": "Finding available servers...",
                 "bad_network": "Something went wrong while loading the data. Check your internet connection.",
-                "no_results": "No results"
+                "no_results": "Nav rezultātu"
             }
         },
         "register": {
@@ -254,51 +254,51 @@
             "lets_get_you_set_up_on_domain": "Let’s get you set up on %s",
             "input": {
                 "avatar": {
-                    "delete": "Delete"
+                    "delete": "Dzēst"
                 },
                 "username": {
-                    "placeholder": "username",
-                    "duplicate_prompt": "This username is taken."
+                    "placeholder": "lietotājvārds",
+                    "duplicate_prompt": "Šis lietotājvārds jau ir aizņemts."
                 },
                 "display_name": {
-                    "placeholder": "display name"
+                    "placeholder": "parādāmais vārds"
                 },
                 "email": {
-                    "placeholder": "email"
+                    "placeholder": "e-pasts"
                 },
                 "password": {
-                    "placeholder": "password",
+                    "placeholder": "parole",
                     "require": "Your password needs at least:",
-                    "character_limit": "8 characters",
+                    "character_limit": "8 rakstzīmes",
                     "accessibility": {
-                        "checked": "checked",
-                        "unchecked": "unchecked"
+                        "checked": "atzīmēts",
+                        "unchecked": "neatzīmēts"
                     },
-                    "hint": "Your password needs at least eight characters"
+                    "hint": "Parolei jābūt vismaz 8 simboliem"
                 },
                 "invite": {
-                    "registration_user_invite_request": "Why do you want to join?"
+                    "registration_user_invite_request": "Kāpēc tu vēlies pievienoties?"
                 }
             },
             "error": {
                 "item": {
-                    "username": "Username",
-                    "email": "Email",
-                    "password": "Password",
-                    "agreement": "Agreement",
-                    "locale": "Locale",
-                    "reason": "Reason"
+                    "username": "Lietotājvārds",
+                    "email": "E-pasts",
+                    "password": "Parole",
+                    "agreement": "Līgums",
+                    "locale": "Lokalizācija",
+                    "reason": "Iemesls"
                 },
                 "reason": {
                     "blocked": "%s contains a disallowed email provider",
-                    "unreachable": "%s does not seem to exist",
-                    "taken": "%s is already in use",
+                    "unreachable": "%s šķiet, ka neeksistē",
+                    "taken": "%s jau tiek izmantots",
                     "reserved": "%s is a reserved keyword",
                     "accepted": "%s must be accepted",
-                    "blank": "%s is required",
-                    "invalid": "%s is invalid",
-                    "too_long": "%s is too long",
-                    "too_short": "%s is too short",
+                    "blank": "%s ir obligāts",
+                    "invalid": "%s ir nederīgs",
+                    "too_long": "%s ir pārāk garaš",
+                    "too_short": "%s ir pārāk īs",
                     "inclusion": "%s is not a supported value"
                 },
                 "special": {
