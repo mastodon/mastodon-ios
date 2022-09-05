@@ -81,9 +81,9 @@
                 "share": "Dalīties",
                 "share_user": "Share %s",
                 "share_post": "Share Post",
-                "open_in_safari": "Open in Safari",
-                "open_in_browser": "Open in Browser",
-                "find_people": "Find people to follow",
+                "open_in_safari": "Atvērt Safari",
+                "open_in_browser": "Atvērt pārlūkprogrammā",
+                "find_people": "Atrodi cilvēkus kam sekot",
                 "manually_search": "Manually search instead",
                 "skip": "Izlaist",
                 "reply": "Atbildēt",
@@ -155,7 +155,7 @@
                     "link": "Saite",
                     "hashtag": "Hashtag",
                     "email": "E-pasts",
-                    "emoji": "Emoji"
+                    "emoji": "Emocijzīmes"
                 },
                 "visibility": {
                     "unlisted": "Everyone can see this post but not display in the public timeline.",
