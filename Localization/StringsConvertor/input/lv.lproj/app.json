@@ -85,26 +85,26 @@
                 "open_in_browser": "Open in Browser",
                 "find_people": "Find people to follow",
                 "manually_search": "Manually search instead",
-                "skip": "Skip",
-                "reply": "Reply",
-                "report_user": "Report %s",
-                "block_domain": "Block %s",
-                "unblock_domain": "Unblock %s",
-                "settings": "Settings",
-                "delete": "Delete"
+                "skip": "Izlaist",
+                "reply": "Atbildēt",
+                "report_user": "Ziņot par lietotāju @%s",
+                "block_domain": "Bloķēt %s",
+                "unblock_domain": "Atbloķēt %s",
+                "settings": "Iestatījumi",
+                "delete": "Dzēst"
             },
             "tabs": {
-                "home": "Home",
-                "search": "Search",
-                "notification": "Notification",
-                "profile": "Profile"
+                "home": "Sākums",
+                "search": "Meklēšana",
+                "notification": "Paziņojums",
+                "profile": "Profils"
             },
             "keyboard": {
                 "common": {
-                    "switch_to_tab": "Switch to %s",
-                    "compose_new_post": "Compose New Post",
+                    "switch_to_tab": "Pārslēgties uz: %s",
+                    "compose_new_post": "Veidot jaunu ziņu",
                     "show_favorites": "Show Favorites",
-                    "open_settings": "Open Settings"
+                    "open_settings": "Atvērt iestatījumus"
                 },
                 "timeline": {
                     "previous_status": "Previous Post",
@@ -116,11 +116,11 @@
                     "toggle_reblog": "Toggle Reblog on Post",
                     "toggle_favorite": "Toggle Favorite on Post",
                     "toggle_content_warning": "Toggle Content Warning",
-                    "preview_image": "Preview Image"
+                    "preview_image": "Priekšskata attēls"
                 },
                 "segmented_control": {
-                    "previous_section": "Previous Section",
-                    "next_section": "Next Section"
+                    "previous_section": "Iepriekšējā sadaļa",
+                    "next_section": "Nākamā sadaļa"
                 }
             },
             "status": {
@@ -208,7 +208,7 @@
         "welcome": {
             "slogan": "Social networking\nback in your hands.",
             "get_started": "Get Started",
-            "log_in": "Log In"
+            "log_in": "Pieteikties"
         },
         "server_picker": {
             "title": "Mastodon is made of users in different servers.",
@@ -216,18 +216,18 @@
             "subtitle_extend": "Pick a server based on your interests, region, or a general purpose one. Each server is operated by an entirely independent organization or individual.",
             "button": {
                 "category": {
-                    "all": "All",
-                    "all_accessiblity_description": "Category: All",
+                    "all": "Visi",
+                    "all_accessiblity_description": "Katekorija: Visi",
                     "academia": "academia",
                     "activism": "activism",
-                    "food": "food",
+                    "food": "ēdiens",
                     "furry": "furry",
-                    "games": "games",
+                    "games": "spēles",
                     "general": "general",
-                    "journalism": "journalism",
+                    "journalism": "žurnālisms",
                     "lgbt": "lgbt",
-                    "regional": "regional",
-                    "art": "art",
+                    "regional": "regionāli",
+                    "art": "māksla",
                     "music": "music",
                     "tech": "tech"
                 },
