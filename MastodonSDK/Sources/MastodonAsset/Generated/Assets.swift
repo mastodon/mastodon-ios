@@ -117,6 +117,8 @@ public enum Asset {
     public static let bellBadge = ImageAsset(name: "ObjectsAndTools/bell.badge")
     public static let bellFill = ImageAsset(name: "ObjectsAndTools/bell.fill")
     public static let bell = ImageAsset(name: "ObjectsAndTools/bell")
+    public static let bookmarkFill = ImageAsset(name: "ObjectsAndTools/bookmark.fill")
+    public static let bookmark = ImageAsset(name: "ObjectsAndTools/bookmark")
     public static let gear = ImageAsset(name: "ObjectsAndTools/gear")
     public static let houseFill = ImageAsset(name: "ObjectsAndTools/house.fill")
     public static let house = ImageAsset(name: "ObjectsAndTools/house")

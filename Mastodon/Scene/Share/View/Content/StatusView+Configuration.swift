@@ -395,6 +395,19 @@ extension StatusView {
         }
         .assign(to: \.isFavorite, on: viewModel)
         .store(in: &disposeBag)
+        
+        Publishers.CombineLatest(
+            viewModel.$userIdentifier,
+            status.publisher(for: \.bookmarkedBy)
+        )
+        .map { userIdentifier, bookmarkedBy in
+            guard let userIdentifier = userIdentifier else { return false }
+            return bookmarkedBy.contains(where: {
+                $0.id == userIdentifier.userID && $0.domain == userIdentifier.domain
+            })
+        }
+        .assign(to: \.isBookmark, on: viewModel)
+        .store(in: &disposeBag)
     }
     
     private func configureFilter(status: Status) {
