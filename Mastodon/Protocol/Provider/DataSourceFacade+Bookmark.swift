@@ -12,7 +12,7 @@ import MastodonCore
 
 extension DataSourceFacade {
     public static func responseToStatusBookmarkAction(
-        provider: DataSourceProvider & AuthContextProvider,
+        provider: UIViewController & NeedsDependency & AuthContextProvider,
         status: ManagedObjectRecord<Status>
     ) async throws {
         let selectionFeedbackGenerator = await UISelectionFeedbackGenerator()

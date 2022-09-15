@@ -32,6 +32,8 @@ extension MastodonMenu {
         case blockUser(BlockUserActionContext)
         case reportUser(ReportUserActionContext)
         case shareUser(ShareUserActionContext)
+        case bookmarkStatus(BookmarkStatusActionContext)
+        case shareStatus
         case deleteStatus
         
         func build(delegate: MastodonMenuDelegate) -> UIMenuElement {
@@ -88,6 +90,32 @@ extension MastodonMenu {
                     delegate.menuAction(self)
                 }
                 return shareAction
+            case .bookmarkStatus(let context):
+                let action = UIAction(
+                    title: context.isBookmarking ? "Remove Bookmark" : "Bookmark",      // TODO: i18n
+                    image: context.isBookmarking ? UIImage(systemName: "bookmark.slash.fill") : UIImage(systemName: "bookmark"),
+                    identifier: nil,
+                    discoverabilityTitle: nil,
+                    attributes: [],
+                    state: .off
+                ) { [weak delegate] _ in
+                    guard let delegate = delegate else { return }
+                    delegate.menuAction(self)
+                }
+                return action
+            case .shareStatus:
+                let action = UIAction(
+                    title: "Share",      // TODO: i18n
+                    image: UIImage(systemName: "square.and.arrow.up"),
+                    identifier: nil,
+                    discoverabilityTitle: nil,
+                    attributes: [],
+                    state: .off
+                ) { [weak delegate] _ in
+                    guard let delegate = delegate else { return }
+                    delegate.menuAction(self)
+                }
+                return action
             case .deleteStatus:
                 let deleteAction = UIAction(
                     title: L10n.Common.Controls.Actions.delete,
@@ -100,7 +128,7 @@ extension MastodonMenu {
                     guard let delegate = delegate else { return }
                     delegate.menuAction(self)
                 }
-                return deleteAction
+                return UIMenu(options: .displayInline, children: [deleteAction])
             }   // end switch
         }   // end func build
     }   // end enum Action
@@ -124,6 +152,14 @@ extension MastodonMenu {
         public init(name: String, isBlocking: Bool) {
             self.name = name
             self.isBlocking = isBlocking
+        }
+    }
+    
+    public struct BookmarkStatusActionContext {
+        public let isBookmarking: Bool
+        
+        public init(isBookmarking: Bool) {
+            self.isBookmarking = isBookmarking
         }
     }
     

@@ -144,7 +144,8 @@ extension NotificationView.ViewModel {
                 name: name,
                 isMuting: isMuting,
                 isBlocking: isBlocking,
-                isMyself: isMyself
+                isMyself: isMyself,
+                isBookmarking: false    // no bookmark action display for notification item
             )
             notificationView.menuButton.menu = notificationView.setupAuthorMenu(menuContext: menuContext)
             notificationView.menuButton.showsMenuAsPrimaryAction = true

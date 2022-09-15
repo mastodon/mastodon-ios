@@ -36,7 +36,7 @@ extension DataSourceFacade {
         button: UIButton
     ) async throws {
         let activityViewController = try await createActivityViewController(
-            provider: provider,
+            dependency: provider,
             status: status
         )
         provider.coordinator.present(
@@ -51,19 +51,19 @@ extension DataSourceFacade {
     }
     
     private static func createActivityViewController(
-        provider: DataSourceProvider,
+        dependency: NeedsDependency,
         status: ManagedObjectRecord<Status>
     ) async throws -> UIActivityViewController {
-        var activityItems: [Any] = try await provider.context.managedObjectContext.perform {
-            guard let status = status.object(in: provider.context.managedObjectContext) else { return [] }
+        var activityItems: [Any] = try await dependency.context.managedObjectContext.perform {
+            guard let status = status.object(in: dependency.context.managedObjectContext) else { return [] }
             let url = status.url ?? status.uri
             return [URL(string: url)].compactMap { $0 } as [Any]
         }
         var applicationActivities: [UIActivity] = [
-            SafariActivity(sceneCoordinator: provider.coordinator),     // open URL
+            SafariActivity(sceneCoordinator: dependency.coordinator),     // open URL
         ]
         
-        if let provider = provider as? ShareActivityProvider {
+        if let provider = dependency as? ShareActivityProvider {
             activityItems.append(contentsOf: provider.activities)
             applicationActivities.append(contentsOf: provider.applicationActivities)
         }
@@ -247,6 +247,37 @@ extension DataSourceFacade {
                 from: dependency,
                 transition: .activityViewControllerPresent(animated: true, completion: nil)
             )
+        case .bookmarkStatus:
+            Task {
+                guard let status = menuContext.status else {
+                    assertionFailure()
+                    return
+                }
+                try await DataSourceFacade.responseToStatusBookmarkAction(
+                    provider: dependency,
+                    status: status
+                )
+            }   // end Task
+        case .shareStatus:
+            Task {
+                guard let status = menuContext.status else {
+                    assertionFailure()
+                    return
+                }
+                let activityViewController = try await DataSourceFacade.createActivityViewController(
+                    dependency: dependency,
+                    status: status
+                )
+                await dependency.coordinator.present(
+                    scene: .activityViewController(
+                        activityViewController: activityViewController,
+                        sourceView: menuContext.button,
+                        barButtonItem: menuContext.barButtonItem
+                    ),
+                    from: dependency,
+                    transition: .activityViewControllerPresent(animated: true, completion: nil)
+                )
+            }   // end Task
         case .deleteStatus:
             let alertController = UIAlertController(
                 title: "Delete Post",
