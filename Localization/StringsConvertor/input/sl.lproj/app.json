@@ -17,18 +17,18 @@
             },
             "discard_post_content": {
                 "title": "Zavrzi osnutek",
-                "message": "Confirm to discard composed post content."
+                "message": "Potrdite za opustitev sestavljene vsebine objave."
             },
             "publish_post_failure": {
-                "title": "Publish Failure",
+                "title": "Spodletela objava",
                 "message": "Failed to publish the post.\nPlease check your internet connection.",
                 "attachments_message": {
-                    "video_attach_with_photo": "Cannot attach a video to a post that already contains images.",
-                    "more_than_one_video": "Cannot attach more than one video."
+                    "video_attach_with_photo": "Videoposnetka ni mogoče priložiti objavi, ki že vsebuje slike.",
+                    "more_than_one_video": "Ni možno priložiti več kot enega videoposnetka."
                 }
             },
             "edit_profile_failure": {
-                "title": "Edit Profile Error",
+                "title": "Napaka urejanja profila",
                 "message": "Cannot edit profile. Please try again."
             },
             "sign_out": {
@@ -37,7 +37,7 @@
                 "confirm": "Odjava"
             },
             "block_domain": {
-                "title": "Are you really, really sure you want to block the entire %s? In most cases a few targeted blocks or mutes are sufficient and preferable. You will not see content from that domain and any of your followers from that domain will be removed.",
+                "title": "Ali ste res, res prepričani, da želite blokirati celotno %s? V večini primerov je nekaj ciljnih blokiranj ali utišanj dovolj in boljše. Vsebine iz te domene ne boste videli na javnih časovnicah ali obvestilih. Vaši sledilci iz te domene bodo odstranjeni.",
                 "block_entire_domain": "Blokiraj domeno"
             },
             "save_photo_failure": {
@@ -83,11 +83,11 @@
                 "share_post": "Deli objavo",
                 "open_in_safari": "Odpri v Safariju",
                 "open_in_browser": "Odpri v brskalniku",
-                "find_people": "Find people to follow",
-                "manually_search": "Manually search instead",
+                "find_people": "Poiščite osebe, ki jim želite slediti",
+                "manually_search": "Raje išči ročno",
                 "skip": "Preskoči",
                 "reply": "Odgovori",
-                "report_user": "Report %s",
+                "report_user": "Prijavi %s",
                 "block_domain": "Blokiraj %s",
                 "unblock_domain": "Odblokiraj %s",
                 "settings": "Nastavitve",
@@ -95,7 +95,7 @@
             },
             "tabs": {
                 "home": "Domov",
-                "search": "Search",
+                "search": "Iskanje",
                 "notification": "Obvestilo",
                 "profile": "Profil"
             },
@@ -140,7 +140,7 @@
                     "reply": "Odgovori",
                     "reblog": "Reblog",
                     "unreblog": "Undo reblog",
-                    "favorite": "Favorite",
+                    "favorite": "Priljubljen",
                     "unfavorite": "Odstrani iz priljubljenih",
                     "menu": "Meni",
                     "hide": "Skrij",
@@ -174,7 +174,7 @@
                 "block_domain": "Blokiraj %s",
                 "unblock": "Odblokiraj",
                 "unblock_user": "Odblokiraj %s",
-                "blocked": "Blocked",
+                "blocked": "Blokirano",
                 "mute": "Utišaj",
                 "mute_user": "Utišaj %s",
                 "unmute": "Odtišaj",
@@ -198,15 +198,15 @@
                     "user_blocking_warning": "Profila uporabnika %s ne morete\nvideti, dokler jih ne odblokirate.\nVaš profil je zanje videti tako.",
                     "blocked_warning": "Profila tega uporabnika ne morete\nvideti, dokler vas ne odblokirajo.",
                     "user_blocked_warning": "Profila uporabnika %s ne morete\nvideti, dokler vas ne odblokirajo.",
-                    "suspended_warning": "This user has been suspended.",
-                    "user_suspended_warning": "%s’s account has been suspended."
+                    "suspended_warning": "Ta oseba je bila suspendirana.",
+                    "user_suspended_warning": "Račun osebe %s je suspendiran."
                 }
             }
         }
     },
     "scene": {
         "welcome": {
-            "slogan": "Social networking\nback in your hands.",
+            "slogan": "Družbeno mreženje\nspet v vaših rokah.",
             "get_started": "Začnite",
             "log_in": "Log In"
         },
@@ -368,7 +368,7 @@
             },
             "content_input_placeholder": "Type or paste what’s on your mind",
             "compose_action": "Objavi",
-            "replying_to_user": "replying to %s",
+            "replying_to_user": "odgovarja %s",
             "attachment": {
                 "photo": "photo",
                 "video": "video",
