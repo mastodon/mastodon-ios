@@ -1,46 +1,46 @@
-"16wxgf" = "Post on Mastodon";
+"16wxgf" = "Objavi na Mastodonu";
 
-"751xkl" = "Text Content";
+"751xkl" = "besedilo";
 
-"CsR7G2" = "Post on Mastodon";
+"CsR7G2" = "Objavi na Mastodonu";
 
-"HZSGTr" = "What content to post?";
+"HZSGTr" = "Kakšno vsebino želite objaviti?";
 
-"HdGikU" = "Posting failed";
+"HdGikU" = "Objava ni uspela";
 
-"KDNTJ4" = "Failure Reason";
+"KDNTJ4" = "Vzrok za neuspeh";
 
-"RHxKOw" = "Send Post with text content";
+"RHxKOw" = "Pošlji objavo z besedilom";
 
-"RxSqsb" = "Post";
+"RxSqsb" = "Objavi";
 
-"WCIR3D" = "Post ${content} on Mastodon";
+"WCIR3D" = "Objavite ${content} na Mastodonu";
 
-"ZKJSNu" = "Post";
+"ZKJSNu" = "Objavi";
 
 "ZS1XaK" = "${content}";
 
-"ZbSjzC" = "Visibility";
+"ZbSjzC" = "Vidnost";
 
-"Zo4jgJ" = "Post Visibility";
+"Zo4jgJ" = "Vidnost objave";
 
 "apSxMG-dYQ5NN" = "There are ${count} options matching ‘Public’.";
 
 "apSxMG-ehFLjY" = "There are ${count} options matching ‘Followers Only’.";
 
-"ayoYEb-dYQ5NN" = "${content}, Public";
+"ayoYEb-dYQ5NN" = "${content}, javno";
 
-"ayoYEb-ehFLjY" = "${content}, Followers Only";
+"ayoYEb-ehFLjY" = "${content}, samo sledilci";
 
-"dUyuGg" = "Post on Mastodon";
+"dUyuGg" = "Objavi na Mastodonu";
 
-"dYQ5NN" = "Public";
+"dYQ5NN" = "Javno";
 
-"ehFLjY" = "Followers Only";
+"ehFLjY" = "Samo sledilci";
 
-"gfePDu" = "Posting failed. ${failureReason}";
+"gfePDu" = "Objava je spodletela. ${failureReason}";
 
-"k7dbKQ" = "Post was sent successfully.";
+"k7dbKQ" = "Uspešno poslana objava.";
 
 "oGiqmY-dYQ5NN" = "Just to confirm, you wanted ‘Public’?";
 
@@ -48,4 +48,4 @@
 
 "rM6dvp" = "URL";
 
-"ryJLwG" = "Post was sent successfully. ";
+"ryJLwG" = "Uspešno poslana objava. ";
