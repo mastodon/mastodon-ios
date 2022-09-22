@@ -2,7 +2,7 @@
     "common": {
         "alerts": {
             "common": {
-                "please_try_again": "Please try again.",
+                "please_try_again": "යළි උත්සාහ කරන්න.",
                 "please_try_again_later": "Please try again later."
             },
             "sign_up_failure": {
@@ -55,31 +55,31 @@
         },
         "controls": {
             "actions": {
-                "back": "Back",
-                "next": "Next",
-                "previous": "Previous",
-                "open": "Open",
-                "add": "Add",
-                "remove": "Remove",
-                "edit": "Edit",
-                "save": "Save",
-                "ok": "OK",
-                "done": "Done",
-                "confirm": "Confirm",
-                "continue": "Continue",
+                "back": "ආපසු",
+                "next": "ඊළඟ",
+                "previous": "කලින්",
+                "open": "අරින්න",
+                "add": "එකතු",
+                "remove": "ඉවත් කරන්න",
+                "edit": "සංස්කරණය",
+                "save": "සුරකින්න",
+                "ok": "හරි",
+                "done": "අහවරයි",
+                "confirm": "තහවුරු",
+                "continue": "ඉදිරියට",
                 "compose": "Compose",
-                "cancel": "Cancel",
-                "discard": "Discard",
+                "cancel": "අවලංගු",
+                "discard": "ඉවතලන්න",
                 "try_again": "Try Again",
                 "take_photo": "Take Photo",
                 "save_photo": "Save Photo",
                 "copy_photo": "Copy Photo",
-                "sign_in": "Sign In",
-                "sign_up": "Sign Up",
-                "see_more": "See More",
-                "preview": "Preview",
-                "share": "Share",
-                "share_user": "Share %s",
+                "sign_in": "පිවිසෙන්න",
+                "sign_up": "ලියාපදිංචිය",
+                "see_more": "තව බලන්න",
+                "preview": "පෙරදසුන",
+                "share": "බෙදාගන්න",
+                "share_user": "%s බෙදාගන්න",
                 "share_post": "Share Post",
                 "open_in_safari": "Open in Safari",
                 "open_in_browser": "Open in Browser",
@@ -133,29 +133,29 @@
                 "media_content_warning": "Tap anywhere to reveal",
                 "tap_to_reveal": "Tap to reveal",
                 "poll": {
-                    "vote": "Vote",
-                    "closed": "Closed"
+                    "vote": "ඡන්දය",
+                    "closed": "වසා ඇත"
                 },
                 "actions": {
-                    "reply": "Reply",
+                    "reply": "පිළිතුරු",
                     "reblog": "Reblog",
                     "unreblog": "Undo reblog",
-                    "favorite": "Favorite",
+                    "favorite": "ප්‍රියතමය",
                     "unfavorite": "Unfavorite",
                     "menu": "Menu",
-                    "hide": "Hide",
+                    "hide": "සඟවන්න",
                     "show_image": "Show image",
                     "show_gif": "Show GIF",
                     "show_video_player": "Show video player",
                     "tap_then_hold_to_show_menu": "Tap then hold to show menu"
                 },
                 "tag": {
-                    "url": "URL",
-                    "mention": "Mention",
-                    "link": "Link",
+                    "url": "ඒ.ස.නි.",
+                    "mention": "සැඳහුම",
+                    "link": "සබැඳිය",
                     "hashtag": "Hashtag",
-                    "email": "Email",
-                    "emoji": "Emoji"
+                    "email": "වි-තැපෑල",
+                    "emoji": "ඉමෝජි"
                 },
                 "visibility": {
                     "unlisted": "Everyone can see this post but not display in the public timeline.",
@@ -165,14 +165,14 @@
                 }
             },
             "friendship": {
-                "follow": "Follow",
+                "follow": "අනුගමනය",
                 "following": "Following",
                 "request": "Request",
                 "pending": "Pending",
-                "block": "Block",
-                "block_user": "Block %s",
-                "block_domain": "Block %s",
-                "unblock": "Unblock",
+                "block": "අවහිර",
+                "block_user": "%s අවහිර",
+                "block_domain": "%s අවහිර",
+                "unblock": "අනවහිර",
                 "unblock_user": "Unblock %s",
                 "blocked": "Blocked",
                 "mute": "Mute",
@@ -207,8 +207,8 @@
     "scene": {
         "welcome": {
             "slogan": "Social networking\nback in your hands.",
-            "get_started": "Get Started",
-            "log_in": "Log In"
+            "get_started": "පටන් ගන්න",
+            "log_in": "පිවිසෙන්න"
         },
         "server_picker": {
             "title": "Mastodon is made of users in different servers.",
@@ -216,7 +216,7 @@
             "subtitle_extend": "Pick a server based on your interests, region, or a general purpose one. Each server is operated by an entirely independent organization or individual.",
             "button": {
                 "category": {
-                    "all": "All",
+                    "all": "සියල්ල",
                     "all_accessiblity_description": "Category: All",
                     "academia": "academia",
                     "activism": "activism",
@@ -232,10 +232,10 @@
                     "tech": "tech"
                 },
                 "see_less": "See Less",
-                "see_more": "See More"
+                "see_more": "තව බලන්න"
             },
             "label": {
-                "language": "LANGUAGE",
+                "language": "භාෂාව",
                 "users": "USERS",
                 "category": "CATEGORY"
             },
@@ -246,7 +246,7 @@
             "empty_state": {
                 "finding_servers": "Finding available servers...",
                 "bad_network": "Something went wrong while loading the data. Check your internet connection.",
-                "no_results": "No results"
+                "no_results": "ප්‍රතිඵල නැත"
             }
         },
         "register": {
@@ -254,20 +254,20 @@
             "lets_get_you_set_up_on_domain": "Let’s get you set up on %s",
             "input": {
                 "avatar": {
-                    "delete": "Delete"
+                    "delete": "මකන්න"
                 },
                 "username": {
-                    "placeholder": "username",
-                    "duplicate_prompt": "This username is taken."
+                    "placeholder": "පරිශීලක නාමය",
+                    "duplicate_prompt": "නම දැනටමත් ගෙන ඇත."
                 },
                 "display_name": {
                     "placeholder": "display name"
                 },
                 "email": {
-                    "placeholder": "email"
+                    "placeholder": "වි-තැපෑල"
                 },
                 "password": {
-                    "placeholder": "password",
+                    "placeholder": "මුරපදය",
                     "require": "Your password needs at least:",
                     "character_limit": "8 characters",
                     "accessibility": {
@@ -282,7 +282,7 @@
             },
             "error": {
                 "item": {
-                    "username": "Username",
+                    "username": "පරිශීලක නාමය",
                     "email": "Email",
                     "password": "Password",
                     "agreement": "Agreement",
@@ -297,7 +297,7 @@
                     "accepted": "%s must be accepted",
                     "blank": "%s is required",
                     "invalid": "%s is invalid",
-                    "too_long": "%s is too long",
+                    "too_long": "%s දිග වැඩිය",
                     "too_short": "%s is too short",
                     "inclusion": "%s is not a supported value"
                 },
@@ -313,10 +313,10 @@
             "title": "Some ground rules.",
             "subtitle": "These are set and enforced by the %s moderators.",
             "prompt": "By continuing, you’re subject to the terms of service and privacy policy for %s.",
-            "terms_of_service": "terms of service",
-            "privacy_policy": "privacy policy",
+            "terms_of_service": "සේවාවේ නියම",
+            "privacy_policy": "රහස්‍යතා ප්‍රතිපත්තිය",
             "button": {
-                "confirm": "I Agree"
+                "confirm": "මම එකඟයි"
             }
         },
         "confirm_email": {
@@ -340,7 +340,7 @@
             }
         },
         "home_timeline": {
-            "title": "Home",
+            "title": "මුල් පිටුව",
             "navigation_bar_state": {
                 "offline": "Offline",
                 "new_posts": "See new posts",
@@ -364,10 +364,10 @@
             "media_selection": {
                 "camera": "Take Photo",
                 "photo_library": "Photo Library",
-                "browse": "Browse"
+                "browse": "පිරික්සන්න"
             },
             "content_input_placeholder": "Type or paste what’s on your mind",
-            "compose_action": "Publish",
+            "compose_action": "ප්‍රකාශනය",
             "replying_to_user": "replying to %s",
             "attachment": {
                 "photo": "photo",
@@ -378,8 +378,8 @@
             },
             "poll": {
                 "duration_time": "Duration: %s",
-                "thirty_minutes": "30 minutes",
-                "one_hour": "1 Hour",
+                "thirty_minutes": "විනාඩි 30",
+                "one_hour": "පැය 1",
                 "six_hours": "6 Hours",
                 "one_day": "1 Day",
                 "three_days": "3 Days",
@@ -428,16 +428,16 @@
             "fields": {
                 "add_row": "Add Row",
                 "placeholder": {
-                    "label": "Label",
-                    "content": "Content"
+                    "label": "නම්පත",
+                    "content": "අන්තර්ගතය"
                 }
             },
             "segmented_control": {
                 "posts": "Posts",
                 "replies": "Replies",
                 "posts_and_replies": "Posts and Replies",
-                "media": "Media",
-                "about": "About"
+                "media": "මාධ්‍ය",
+                "about": "පිලිබඳව"
             },
             "relationship_action_alert": {
                 "confirm_mute_user": {
@@ -483,10 +483,10 @@
             "title": "Reblogged By"
         },
         "search": {
-            "title": "Search",
+            "title": "සොයන්න",
             "search_bar": {
                 "placeholder": "Search hashtags and users",
-                "cancel": "Cancel"
+                "cancel": "අවලංගු"
             },
             "recommend": {
                 "button_text": "See All",
@@ -503,24 +503,24 @@
             },
             "searching": {
                 "segment": {
-                    "all": "All",
-                    "people": "People",
+                    "all": "සියල්ල",
+                    "people": "මිනිසුන්",
                     "hashtags": "Hashtags",
                     "posts": "Posts"
                 },
                 "empty_state": {
-                    "no_results": "No results"
+                    "no_results": "ප්‍රතිඵල නැත"
                 },
                 "recent_search": "Recent searches",
-                "clear": "Clear"
+                "clear": "මකන්න"
             }
         },
         "discovery": {
             "tabs": {
                 "posts": "Posts",
                 "hashtags": "Hashtags",
-                "news": "News",
-                "community": "Community",
+                "news": "පුවත්",
+                "community": "ප්‍රජාව",
                 "for_you": "For You"
             },
             "intro": "These are the posts gaining traction in your corner of Mastodon."
@@ -546,9 +546,9 @@
                 "show_mentions": "Show Mentions"
             },
             "follow_request": {
-                "accept": "Accept",
+                "accept": "පිළිගන්න",
                 "accepted": "Accepted",
-                "reject": "reject",
+                "reject": "ප්‍රතික්‍ෂේප",
                 "rejected": "Rejected"
             }
         },
@@ -557,11 +557,11 @@
             "title": "Post from %s"
         },
         "settings": {
-            "title": "Settings",
+            "title": "සැකසුම්",
             "section": {
                 "appearance": {
-                    "title": "Appearance",
-                    "automatic": "Automatic",
+                    "title": "පෙනුම",
+                    "automatic": "ස්වයංක්‍රීය",
                     "light": "Always Light",
                     "dark": "Always Dark"
                 },
@@ -573,7 +573,7 @@
                     "light": "Light"
                 },
                 "notifications": {
-                    "title": "Notifications",
+                    "title": "දැනුම්දීම්",
                     "favorites": "Favorites my post",
                     "follows": "Follows me",
                     "boosts": "Reblogs my post",
@@ -603,7 +603,7 @@
                 "spicy_zone": {
                     "title": "The Spicy Zone",
                     "clear": "Clear Media Cache",
-                    "signout": "Sign Out"
+                    "signout": "නික්මෙන්න"
                 }
             },
             "footer": {
@@ -614,8 +614,8 @@
             }
         },
         "report": {
-            "title_report": "Report",
-            "title": "Report %s",
+            "title_report": "වාර්තාව",
+            "title": "%s වාර්තාව",
             "step1": "Step 1 of 2",
             "step2": "Step 2 of 2",
             "content1": "Are there any other posts you’d like to add to the report?",
