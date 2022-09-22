@@ -657,15 +657,15 @@
             },
             "step_final": {
                 "dont_want_to_see_this": "Du willst das nicht mehr sehen?",
-                "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "When you see something you don’t like on Mastodon, you can remove the person from your experience.",
-                "unfollow": "Unfollow",
-                "unfollowed": "Unfollowed",
-                "unfollow_user": "Unfollow %s",
-                "mute_user": "Mute %s",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or reblogs in your home feed. They won’t know they’ve been muted.",
-                "block_user": "Block %s",
-                "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "They will no longer be able to follow or see your posts, but they can see if they’ve been blocked.",
-                "while_we_review_this_you_can_take_action_against_user": "While we review this, you can take action against %s"
+                "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "Wenn du etwas auf Mastodon nicht sehen willst, kannst du den Nutzer aus deiner Erfahrung streichen.",
+                "unfollow": "Entfolgen",
+                "unfollowed": "Entfolgt",
+                "unfollow_user": "%s entfolgen",
+                "mute_user": "%s stummschalten",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "Du wirst die Beiträge vom Konto nicht mehr sehen. Das Konto kann dir immer noch folgen, und die Person hinter dem Konto wird deine Beiträge sehen können und nicht wissen, dass du sie stummgeschaltet hast.",
+                "block_user": "%s blockieren",
+                "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "Du wirst die Beiträge von diesem Konto nicht sehen. Das Konto wird nicht in der Lage sein, deine Beiträge zu sehen oder dir zu folgen. Die Person hinter dem Konto wird wissen, dass du das Konto blockiert hast.",
+                "while_we_review_this_you_can_take_action_against_user": "Während wir dies überprüfen, kannst du gegen %s vorgehen"
             }
         },
         "preview": {
