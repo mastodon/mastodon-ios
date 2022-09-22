@@ -2,21 +2,21 @@
     "common": {
         "alerts": {
             "common": {
-                "please_try_again": "Please try again.",
-                "please_try_again_later": "Please try again later."
+                "please_try_again": "Poskusite znova.",
+                "please_try_again_later": "Poskusite znova pozneje."
             },
             "sign_up_failure": {
                 "title": "Sign Up Failure"
             },
             "server_error": {
-                "title": "Server Error"
+                "title": "Napaka strežnika"
             },
             "vote_failure": {
-                "title": "Vote Failure",
+                "title": "Napaka glasovanja",
                 "poll_ended": "The poll has ended"
             },
             "discard_post_content": {
-                "title": "Discard Draft",
+                "title": "Zavrzi osnutek",
                 "message": "Confirm to discard composed post content."
             },
             "publish_post_failure": {
@@ -32,9 +32,9 @@
                 "message": "Cannot edit profile. Please try again."
             },
             "sign_out": {
-                "title": "Sign Out",
+                "title": "Odjava",
                 "message": "Are you sure you want to sign out?",
-                "confirm": "Sign Out"
+                "confirm": "Odjava"
             },
             "block_domain": {
                 "title": "Are you really, really sure you want to block the entire %s? In most cases a few targeted blocks or mutes are sufficient and preferable. You will not see content from that domain and any of your followers from that domain will be removed.",
@@ -63,21 +63,21 @@
                 "remove": "Remove",
                 "edit": "Edit",
                 "save": "Save",
-                "ok": "OK",
-                "done": "Done",
+                "ok": "V redu",
+                "done": "Opravljeno",
                 "confirm": "Confirm",
                 "continue": "Continue",
                 "compose": "Compose",
-                "cancel": "Cancel",
+                "cancel": "Prekliči",
                 "discard": "Discard",
                 "try_again": "Try Again",
                 "take_photo": "Take Photo",
-                "save_photo": "Save Photo",
-                "copy_photo": "Copy Photo",
+                "save_photo": "Shrani fotografijo",
+                "copy_photo": "Kopiraj fotografijo",
                 "sign_in": "Sign In",
-                "sign_up": "Sign Up",
-                "see_more": "See More",
-                "preview": "Preview",
+                "sign_up": "Registracija",
+                "see_more": "Pokaži več",
+                "preview": "Predogled",
                 "share": "Share",
                 "share_user": "Share %s",
                 "share_post": "Share Post",
