@@ -41,7 +41,7 @@
                 "block_entire_domain": "Blokovat doménu"
             },
             "save_photo_failure": {
-                "title": "Save Photo Failure",
+                "title": "Uložení fotografie se nezdařilo",
                 "message": "Please enable the photo library access permission to save the photo."
             },
             "delete_post": {
