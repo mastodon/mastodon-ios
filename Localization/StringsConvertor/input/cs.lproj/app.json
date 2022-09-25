@@ -81,29 +81,29 @@
                 "share": "Sdílet",
                 "share_user": "Share %s",
                 "share_post": "Share Post",
-                "open_in_safari": "Open in Safari",
-                "open_in_browser": "Open in Browser",
-                "find_people": "Find people to follow",
+                "open_in_safari": "Otevřít v Safari",
+                "open_in_browser": "Otevřít v prohlížeči",
+                "find_people": "Najít lidi ke sledování",
                 "manually_search": "Manually search instead",
-                "skip": "Skip",
-                "reply": "Reply",
-                "report_user": "Report %s",
-                "block_domain": "Block %s",
-                "unblock_domain": "Unblock %s",
-                "settings": "Settings",
-                "delete": "Delete"
+                "skip": "Přeskočit",
+                "reply": "Odpovědět",
+                "report_user": "Nahlásit %s",
+                "block_domain": "Blokovat %s",
+                "unblock_domain": "Odblokovat %s",
+                "settings": "Nastavení",
+                "delete": "Smazat"
             },
             "tabs": {
-                "home": "Home",
-                "search": "Search",
-                "notification": "Notification",
-                "profile": "Profile"
+                "home": "Domů",
+                "search": "Hledat",
+                "notification": "Oznamování",
+                "profile": "Profil"
             },
             "keyboard": {
                 "common": {
-                    "switch_to_tab": "Switch to %s",
-                    "compose_new_post": "Compose New Post",
-                    "show_favorites": "Show Favorites",
+                    "switch_to_tab": "Přepnout na %s",
+                    "compose_new_post": "Vytvořit nový příspěvek",
+                    "show_favorites": "Zobrazit Oblíbené",
                     "open_settings": "Open Settings"
                 },
                 "timeline": {
