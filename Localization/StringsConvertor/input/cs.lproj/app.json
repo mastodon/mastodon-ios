@@ -104,10 +104,10 @@
                     "switch_to_tab": "Přepnout na %s",
                     "compose_new_post": "Vytvořit nový příspěvek",
                     "show_favorites": "Zobrazit Oblíbené",
-                    "open_settings": "Open Settings"
+                    "open_settings": "Otevřít Nastavení"
                 },
                 "timeline": {
-                    "previous_status": "Previous Post",
+                    "previous_status": "Předchozí příspěvek",
                     "next_status": "Next Post",
                     "open_status": "Open Post",
                     "open_author_profile": "Open Author's Profile",
@@ -133,39 +133,39 @@
                 "media_content_warning": "Tap anywhere to reveal",
                 "tap_to_reveal": "Tap to reveal",
                 "poll": {
-                    "vote": "Vote",
-                    "closed": "Closed"
+                    "vote": "Hlasovat",
+                    "closed": "Uzavřeno"
                 },
                 "actions": {
-                    "reply": "Reply",
-                    "reblog": "Reblog",
+                    "reply": "Odpovědět",
+                    "reblog": "Boostnout",
                     "unreblog": "Undo reblog",
                     "favorite": "Favorite",
-                    "unfavorite": "Unfavorite",
-                    "menu": "Menu",
-                    "hide": "Hide",
-                    "show_image": "Show image",
-                    "show_gif": "Show GIF",
-                    "show_video_player": "Show video player",
+                    "unfavorite": "Odebrat z oblízených",
+                    "menu": "Nabídka",
+                    "hide": "Skrýt",
+                    "show_image": "Zobrazit obrázek",
+                    "show_gif": "Zobrazit GIF",
+                    "show_video_player": "Zobrazit video přehrávač",
                     "tap_then_hold_to_show_menu": "Tap then hold to show menu"
                 },
                 "tag": {
                     "url": "URL",
-                    "mention": "Mention",
-                    "link": "Link",
+                    "mention": "Zmínka",
+                    "link": "Odkaz",
                     "hashtag": "Hashtag",
-                    "email": "Email",
+                    "email": "E-mail",
                     "emoji": "Emoji"
                 },
                 "visibility": {
-                    "unlisted": "Everyone can see this post but not display in the public timeline.",
+                    "unlisted": "Každý může vidět tento příspěvek, ale nezobrazovat ve veřejné časové ose.",
                     "private": "Only their followers can see this post.",
                     "private_from_me": "Only my followers can see this post.",
                     "direct": "Only mentioned user can see this post."
                 }
             },
             "friendship": {
-                "follow": "Follow",
+                "follow": "Sledovat",
                 "following": "Following",
                 "request": "Request",
                 "pending": "Pending",
@@ -189,8 +189,8 @@
                 },
                 "loader": {
                     "load_missing_posts": "Load missing posts",
-                    "loading_missing_posts": "Loading missing posts...",
-                    "show_more_replies": "Show more replies"
+                    "loading_missing_posts": "Načíst chybějící příspěvky...",
+                    "show_more_replies": "Zobrazit více odovědí"
                 },
                 "header": {
                     "no_status_found": "No Post Found",
@@ -216,8 +216,8 @@
             "subtitle_extend": "Pick a server based on your interests, region, or a general purpose one. Each server is operated by an entirely independent organization or individual.",
             "button": {
                 "category": {
-                    "all": "All",
-                    "all_accessiblity_description": "Category: All",
+                    "all": "Vše",
+                    "all_accessiblity_description": "Kategorie: Vše",
                     "academia": "academia",
                     "activism": "activism",
                     "food": "food",
