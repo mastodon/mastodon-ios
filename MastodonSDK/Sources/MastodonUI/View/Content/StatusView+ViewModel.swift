@@ -11,6 +11,7 @@ import Combine
 import CoreData
 import Meta
 import MastodonSDK
+import MastodonCore
 import MastodonAsset
 import MastodonLocalization
 import MastodonExtension

@@ -77,31 +77,8 @@ final class NotificationTimelineViewModel {
 }
 
 extension NotificationTimelineViewModel {
-    enum Scope: Hashable, CaseIterable {
-        case everything
-        case mentions
-        
-        var includeTypes: [MastodonNotificationType]? {
-            switch self {
-            case .everything:       return nil
-            case .mentions:         return [.mention, .status]
-            }
-        }
-        
-        var excludeTypes: [MastodonNotificationType]? {
-            switch self {
-            case .everything:       return nil
-            case .mentions:         return [.follow, .followRequest, .reblog, .favourite, .poll]
-            }
-        }
-        
-        var _excludeTypes: [Mastodon.Entity.Notification.NotificationType]? {
-            switch self {
-            case .everything:       return nil
-            case .mentions:         return [.follow, .followRequest, .reblog, .favourite, .poll]
-            }
-        }
-    }
+
+    typealias Scope = APIService.NotificationScope
     
     static func feedPredicate(
         authenticationBox: MastodonAuthenticationBox,

@@ -74,16 +74,22 @@ final class ComposeViewController: UIViewController, NeedsDependency {
         publishButton.setTitleColor(Asset.Colors.Label.primaryReverse.color, for: .normal)
     }
 
-    let tableView: ComposeTableView = {
-        let tableView = ComposeTableView()
-        tableView.register(ComposeRepliedToStatusContentTableViewCell.self, forCellReuseIdentifier: String(describing: ComposeRepliedToStatusContentTableViewCell.self))
-        tableView.register(ComposeStatusContentTableViewCell.self, forCellReuseIdentifier: String(describing: ComposeStatusContentTableViewCell.self))
-        tableView.register(ComposeStatusAttachmentTableViewCell.self, forCellReuseIdentifier: String(describing: ComposeStatusAttachmentTableViewCell.self))
-        tableView.alwaysBounceVertical = true
-        tableView.separatorStyle = .none
-        tableView.tableFooterView = UIView()
-        return tableView
+    let scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.alwaysBounceVertical = true
+        return scrollView
     }()
+    
+//    let tableView: ComposeTableView = {
+//        let tableView = ComposeTableView()
+//        tableView.register(ComposeRepliedToStatusContentTableViewCell.self, forCellReuseIdentifier: String(describing: ComposeRepliedToStatusContentTableViewCell.self))
+//        tableView.register(ComposeStatusContentTableViewCell.self, forCellReuseIdentifier: String(describing: ComposeStatusContentTableViewCell.self))
+//        tableView.register(ComposeStatusAttachmentTableViewCell.self, forCellReuseIdentifier: String(describing: ComposeStatusAttachmentTableViewCell.self))
+//        tableView.alwaysBounceVertical = true
+//        tableView.separatorStyle = .none
+//        tableView.tableFooterView = UIView()
+//        return tableView
+//    }()
     
     var systemKeyboardHeight: CGFloat = .zero {
         didSet {
@@ -202,13 +208,13 @@ extension ComposeViewController {
         publishButton.addTarget(self, action: #selector(ComposeViewController.publishBarButtonItemPressed(_:)), for: .touchUpInside)
 
 
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(tableView)
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(scrollView)
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
         
         composeToolbarView.translatesAutoresizingMaskIntoConstraints = false
@@ -232,318 +238,320 @@ extension ComposeViewController {
             view.bottomAnchor.constraint(equalTo: composeToolbarBackgroundView.bottomAnchor),
         ])
 
-        tableView.delegate = self
-        viewModel.setupDataSource(
-            tableView: tableView,
-            metaTextDelegate: self,
-            metaTextViewDelegate: self,
-            customEmojiPickerInputViewModel: viewModel.customEmojiPickerInputViewModel,
-            composeStatusAttachmentCollectionViewCellDelegate: self,
-            composeStatusPollOptionCollectionViewCellDelegate: self,
-            composeStatusPollOptionAppendEntryCollectionViewCellDelegate: self,
-            composeStatusPollExpiresOptionCollectionViewCellDelegate: self
-        )
+//        tableView.delegate = self
+//        viewModel.setupDataSource(
+//            tableView: tableView,
+//            metaTextDelegate: self,
+//            metaTextViewDelegate: self,
+//            customEmojiPickerInputViewModel: viewModel.customEmojiPickerInputViewModel,
+//            composeStatusAttachmentCollectionViewCellDelegate: self,
+//            composeStatusPollOptionCollectionViewCellDelegate: self,
+//            composeStatusPollOptionAppendEntryCollectionViewCellDelegate: self,
+//            composeStatusPollExpiresOptionCollectionViewCellDelegate: self
+//        )
 
-        viewModel.composeStatusAttribute.$composeContent
-            .removeDuplicates()
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                guard let self = self else { return }
-                guard self.view.window != nil else { return }
-                UIView.performWithoutAnimation {
-                    self.tableView.beginUpdates()
-                    self.tableView.endUpdates()
-                }
-            }
-            .store(in: &disposeBag)
+//        viewModel.composeStatusAttribute.$composeContent
+//            .removeDuplicates()
+//            .receive(on: DispatchQueue.main)
+//            .sink { [weak self] _ in
+//                guard let self = self else { return }
+//                guard self.view.window != nil else { return }
+//                UIView.performWithoutAnimation {
+//                    self.tableView.beginUpdates()
+//                    self.tableView.setNeedsLayout()
+//                    self.tableView.layoutIfNeeded()
+//                    self.tableView.endUpdates()
+//                }
+//            }
+//            .store(in: &disposeBag)
         
-        customEmojiPickerInputView.collectionView.delegate = self
-        viewModel.customEmojiPickerInputViewModel.customEmojiPickerInputView = customEmojiPickerInputView
-        viewModel.setupCustomEmojiPickerDiffableDataSource(
-            for: customEmojiPickerInputView.collectionView,
-            dependency: self
-        )
+//        customEmojiPickerInputView.collectionView.delegate = self
+//        viewModel.customEmojiPickerInputViewModel.customEmojiPickerInputView = customEmojiPickerInputView
+//        viewModel.setupCustomEmojiPickerDiffableDataSource(
+//            for: customEmojiPickerInputView.collectionView,
+//            dependency: self
+//        )
         
-        viewModel.composeStatusContentTableViewCell.delegate = self
-
-        // update layout when keyboard show/dismiss
-        view.layoutIfNeeded()
-        
-        let keyboardHasShortcutBar = CurrentValueSubject<Bool, Never>(traitCollection.userInterfaceIdiom == .pad)       // update default value later
-        let keyboardEventPublishers = Publishers.CombineLatest3(
-            KeyboardResponderService.shared.isShow,
-            KeyboardResponderService.shared.state,
-            KeyboardResponderService.shared.endFrame
-        )
-        Publishers.CombineLatest3(
-            keyboardEventPublishers,
-            viewModel.$isCustomEmojiComposing,
-            viewModel.$autoCompleteInfo
-        )
-        .sink(receiveValue: { [weak self] keyboardEvents, isCustomEmojiComposing, autoCompleteInfo in
-            guard let self = self else { return }
-            
-            let (isShow, state, endFrame) = keyboardEvents
-            
-            switch self.traitCollection.userInterfaceIdiom {
-            case .pad:
-                keyboardHasShortcutBar.value = state != .floating
-            default:
-                keyboardHasShortcutBar.value = false
-            }
-            
-            let extraMargin: CGFloat = {
-                var margin = self.composeToolbarView.frame.height
-                if autoCompleteInfo != nil {
-                    margin += ComposeViewController.minAutoCompleteVisibleHeight
-                }
-                return margin
-            }()
-
-            guard isShow, state == .dock else {
-                self.tableView.contentInset.bottom = extraMargin
-                self.tableView.verticalScrollIndicatorInsets.bottom = extraMargin
-            
-                if let superView = self.autoCompleteViewController.tableView.superview {
-                    let autoCompleteTableViewBottomInset: CGFloat = {
-                        let tableViewFrameInWindow = superView.convert(self.autoCompleteViewController.tableView.frame, to: nil)
-                        let padding = tableViewFrameInWindow.maxY + self.composeToolbarView.frame.height + AutoCompleteViewController.chevronViewHeight - self.view.frame.maxY
-                        return max(0, padding)
-                    }()
-                    self.autoCompleteViewController.tableView.contentInset.bottom = autoCompleteTableViewBottomInset
-                    self.autoCompleteViewController.tableView.verticalScrollIndicatorInsets.bottom = autoCompleteTableViewBottomInset
-                }
-                
-                UIView.animate(withDuration: 0.3) {
-                    self.composeToolbarViewBottomLayoutConstraint.constant = self.view.safeAreaInsets.bottom
-                    if self.view.window != nil {
-                        self.view.layoutIfNeeded()
-                    }
-                }
-                return
-            }
-            // isShow AND dock state
-            self.systemKeyboardHeight = endFrame.height
-            
-            // adjust inset for auto-complete
-            let autoCompleteTableViewBottomInset: CGFloat = {
-                guard let superview = self.autoCompleteViewController.tableView.superview else { return .zero }
-                let tableViewFrameInWindow = superview.convert(self.autoCompleteViewController.tableView.frame, to: nil)
-                let padding = tableViewFrameInWindow.maxY + self.composeToolbarView.frame.height + AutoCompleteViewController.chevronViewHeight - endFrame.minY
-                return max(0, padding)
-            }()
-            self.autoCompleteViewController.tableView.contentInset.bottom = autoCompleteTableViewBottomInset
-            self.autoCompleteViewController.tableView.verticalScrollIndicatorInsets.bottom = autoCompleteTableViewBottomInset
-            
-            // adjust inset for tableView
-            let contentFrame = self.view.convert(self.tableView.frame, to: nil)
-            let padding = contentFrame.maxY + extraMargin - endFrame.minY
-            guard padding > 0 else {
-                self.tableView.contentInset.bottom = self.view.safeAreaInsets.bottom + extraMargin
-                self.tableView.verticalScrollIndicatorInsets.bottom = self.view.safeAreaInsets.bottom + extraMargin
-                return
-            }
-
-            self.tableView.contentInset.bottom = padding - self.view.safeAreaInsets.bottom
-            self.tableView.verticalScrollIndicatorInsets.bottom = padding - self.view.safeAreaInsets.bottom
-            UIView.animate(withDuration: 0.3) {
-                self.composeToolbarViewBottomLayoutConstraint.constant = endFrame.height
-                self.view.layoutIfNeeded()
-            }
-        })
-        .store(in: &disposeBag)
-        
-        // bind auto-complete
-        viewModel.$autoCompleteInfo
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] info in
-                guard let self = self else { return }
-                let textEditorView = self.textEditorView
-                if self.autoCompleteViewController.view.superview == nil {
-                    self.autoCompleteViewController.view.frame = self.view.bounds
-                    // add to container view. seealso: `viewDidLayoutSubviews()`
-                    self.viewModel.composeStatusContentTableViewCell.textEditorViewContainerView.addSubview(self.autoCompleteViewController.view)
-                    self.addChild(self.autoCompleteViewController)
-                    self.autoCompleteViewController.didMove(toParent: self)
-                    self.autoCompleteViewController.view.isHidden = true
-                    self.tableView.autoCompleteViewController = self.autoCompleteViewController
-                }
-                self.updateAutoCompleteViewControllerLayout()
-                self.autoCompleteViewController.view.isHidden = info == nil
-                guard let info = info else { return }
-                let symbolBoundingRectInContainer = textEditorView.textView.convert(info.symbolBoundingRect, to: self.autoCompleteViewController.chevronView)
-                self.autoCompleteViewController.view.frame.origin.y = info.textBoundingRect.maxY
-                self.autoCompleteViewController.viewModel.symbolBoundingRect.value = symbolBoundingRectInContainer
-                self.autoCompleteViewController.viewModel.inputText.value = String(info.inputText)
-            }
-            .store(in: &disposeBag)
-
-        // bind publish bar button state
-        viewModel.$isPublishBarButtonItemEnabled
-            .receive(on: DispatchQueue.main)
-            .assign(to: \.isEnabled, on: publishButton)
-            .store(in: &disposeBag)
-        
-        // bind media button toolbar state
-        viewModel.$isMediaToolbarButtonEnabled
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] isMediaToolbarButtonEnabled in
-                guard let self = self else { return }
-                self.composeToolbarView.mediaBarButtonItem.isEnabled = isMediaToolbarButtonEnabled
-                self.composeToolbarView.mediaButton.isEnabled = isMediaToolbarButtonEnabled
-            }
-            .store(in: &disposeBag)
-        
-        // bind poll button toolbar state
-        viewModel.$isPollToolbarButtonEnabled
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] isPollToolbarButtonEnabled in
-                guard let self = self else { return }
-                self.composeToolbarView.pollBarButtonItem.isEnabled = isPollToolbarButtonEnabled
-                self.composeToolbarView.pollButton.isEnabled = isPollToolbarButtonEnabled
-            }
-            .store(in: &disposeBag)
-        
-        Publishers.CombineLatest(
-            viewModel.$isPollComposing,
-            viewModel.$isPollToolbarButtonEnabled
-        )
-        .receive(on: DispatchQueue.main)
-        .sink { [weak self] isPollComposing, isPollToolbarButtonEnabled in
-            guard let self = self else { return }
-            guard isPollToolbarButtonEnabled else {
-                let accessibilityLabel = L10n.Scene.Compose.Accessibility.appendPoll
-                self.composeToolbarView.pollBarButtonItem.accessibilityLabel = accessibilityLabel
-                self.composeToolbarView.pollButton.accessibilityLabel = accessibilityLabel
-                return
-            }
-            let accessibilityLabel = isPollComposing ? L10n.Scene.Compose.Accessibility.removePoll : L10n.Scene.Compose.Accessibility.appendPoll
-            self.composeToolbarView.pollBarButtonItem.accessibilityLabel = accessibilityLabel
-            self.composeToolbarView.pollButton.accessibilityLabel = accessibilityLabel
-        }
-        .store(in: &disposeBag)
-
-        // bind image picker toolbar state
-        viewModel.$attachmentServices
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] attachmentServices in
-                guard let self = self else { return }
-                let isEnabled = attachmentServices.count < self.viewModel.maxMediaAttachments
-                self.composeToolbarView.mediaBarButtonItem.isEnabled = isEnabled
-                self.composeToolbarView.mediaButton.isEnabled = isEnabled
-                self.resetImagePicker()
-            }
-            .store(in: &disposeBag)
-        
-        // bind content warning button state
-        viewModel.$isContentWarningComposing
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] isContentWarningComposing in
-                guard let self = self else { return }
-                let accessibilityLabel = isContentWarningComposing ? L10n.Scene.Compose.Accessibility.disableContentWarning : L10n.Scene.Compose.Accessibility.enableContentWarning
-                self.composeToolbarView.contentWarningBarButtonItem.accessibilityLabel = accessibilityLabel
-                self.composeToolbarView.contentWarningButton.accessibilityLabel = accessibilityLabel
-            }
-            .store(in: &disposeBag)
-        
-        // bind visibility toolbar UI
-        Publishers.CombineLatest(
-            viewModel.$selectedStatusVisibility,
-            viewModel.traitCollectionDidChangePublisher
-        )
-        .receive(on: DispatchQueue.main)
-        .sink { [weak self] type, _ in
-            guard let self = self else { return }
-            let image = type.image(interfaceStyle: self.traitCollection.userInterfaceStyle)
-            self.composeToolbarView.visibilityBarButtonItem.image = image
-            self.composeToolbarView.visibilityButton.setImage(image, for: .normal)
-            self.composeToolbarView.activeVisibilityType.value = type
-        }
-        .store(in: &disposeBag)
-        
-        viewModel.$characterCount
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] characterCount in
-                guard let self = self else { return }
-                let count = self.viewModel.composeContentLimit - characterCount
-                self.composeToolbarView.characterCountLabel.text = "\(count)"
-                self.characterCountLabel.text = "\(count)"
-                let font: UIFont
-                let textColor: UIColor
-                let accessibilityLabel: String
-                switch count {
-                case _ where count < 0:
-                    font = .monospacedDigitSystemFont(ofSize: 24, weight: .bold)
-                    textColor = Asset.Colors.danger.color
-                    accessibilityLabel = L10n.A11y.Plural.Count.inputLimitExceeds(abs(count))
-                default:
-                    font = .monospacedDigitSystemFont(ofSize: 15, weight: .regular)
-                    textColor = Asset.Colors.Label.secondary.color
-                    accessibilityLabel = L10n.A11y.Plural.Count.inputLimitRemains(count)
-                }
-                self.composeToolbarView.characterCountLabel.font = font
-                self.composeToolbarView.characterCountLabel.textColor = textColor
-                self.composeToolbarView.characterCountLabel.accessibilityLabel = accessibilityLabel
-                self.characterCountLabel.font = font
-                self.characterCountLabel.textColor = textColor
-                self.characterCountLabel.accessibilityLabel = accessibilityLabel
-                self.characterCountLabel.sizeToFit()
-            }
-            .store(in: &disposeBag)
-
-        // bind custom emoji picker UI
-        viewModel.customEmojiViewModel?.emojis
-            .receive(on: DispatchQueue.main)
-            .sink(receiveValue: { [weak self] emojis in
-                guard let self = self else { return }
-                if emojis.isEmpty {
-                    self.customEmojiPickerInputView.activityIndicatorView.startAnimating()
-                } else {
-                    self.customEmojiPickerInputView.activityIndicatorView.stopAnimating()
-                }
-            })
-            .store(in: &disposeBag)
-        
-        // setup snap behavior
-        Publishers.CombineLatest(
-            viewModel.$repliedToCellFrame,
-            viewModel.$collectionViewState
-        )
-        .receive(on: DispatchQueue.main)
-        .sink { [weak self] repliedToCellFrame, collectionViewState in
-            guard let self = self else { return }
-            guard repliedToCellFrame != .zero else { return }
-            switch collectionViewState {
-            case .fold:
-                self.tableView.contentInset.top = -repliedToCellFrame.height
-                os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: set contentInset.top: -%s", ((#file as NSString).lastPathComponent), #line, #function, repliedToCellFrame.height.description)
-
-            case .expand:
-                self.tableView.contentInset.top = 0
-            }
-        }
-        .store(in: &disposeBag)
-        
-        configureToolbarDisplay(keyboardHasShortcutBar: keyboardHasShortcutBar.value)
-        Publishers.CombineLatest(
-            keyboardHasShortcutBar,
-            viewModel.traitCollectionDidChangePublisher
-        )
-        .receive(on: DispatchQueue.main)
-        .sink { [weak self] keyboardHasShortcutBar, _ in
-            guard let self = self else { return }
-            self.configureToolbarDisplay(keyboardHasShortcutBar: keyboardHasShortcutBar)
-        }
-        .store(in: &disposeBag)
+//        viewModel.composeStatusContentTableViewCell.delegate = self
+//
+//        // update layout when keyboard show/dismiss
+//        view.layoutIfNeeded()
+//
+//        let keyboardHasShortcutBar = CurrentValueSubject<Bool, Never>(traitCollection.userInterfaceIdiom == .pad)       // update default value later
+//        let keyboardEventPublishers = Publishers.CombineLatest3(
+//            KeyboardResponderService.shared.isShow,
+//            KeyboardResponderService.shared.state,
+//            KeyboardResponderService.shared.endFrame
+//        )
+//        Publishers.CombineLatest3(
+//            keyboardEventPublishers,
+//            viewModel.$isCustomEmojiComposing,
+//            viewModel.$autoCompleteInfo
+//        )
+//        .sink(receiveValue: { [weak self] keyboardEvents, isCustomEmojiComposing, autoCompleteInfo in
+//            guard let self = self else { return }
+//
+//            let (isShow, state, endFrame) = keyboardEvents
+//
+//            switch self.traitCollection.userInterfaceIdiom {
+//            case .pad:
+//                keyboardHasShortcutBar.value = state != .floating
+//            default:
+//                keyboardHasShortcutBar.value = false
+//            }
+//
+//            let extraMargin: CGFloat = {
+//                var margin = self.composeToolbarView.frame.height
+//                if autoCompleteInfo != nil {
+//                    margin += ComposeViewController.minAutoCompleteVisibleHeight
+//                }
+//                return margin
+//            }()
+//
+//            guard isShow, state == .dock else {
+//                self.tableView.contentInset.bottom = extraMargin
+//                self.tableView.verticalScrollIndicatorInsets.bottom = extraMargin
+//
+//                if let superView = self.autoCompleteViewController.tableView.superview {
+//                    let autoCompleteTableViewBottomInset: CGFloat = {
+//                        let tableViewFrameInWindow = superView.convert(self.autoCompleteViewController.tableView.frame, to: nil)
+//                        let padding = tableViewFrameInWindow.maxY + self.composeToolbarView.frame.height + AutoCompleteViewController.chevronViewHeight - self.view.frame.maxY
+//                        return max(0, padding)
+//                    }()
+//                    self.autoCompleteViewController.tableView.contentInset.bottom = autoCompleteTableViewBottomInset
+//                    self.autoCompleteViewController.tableView.verticalScrollIndicatorInsets.bottom = autoCompleteTableViewBottomInset
+//                }
+//
+//                UIView.animate(withDuration: 0.3) {
+//                    self.composeToolbarViewBottomLayoutConstraint.constant = self.view.safeAreaInsets.bottom
+//                    if self.view.window != nil {
+//                        self.view.layoutIfNeeded()
+//                    }
+//                }
+//                return
+//            }
+//            // isShow AND dock state
+//            self.systemKeyboardHeight = endFrame.height
+//
+//            // adjust inset for auto-complete
+//            let autoCompleteTableViewBottomInset: CGFloat = {
+//                guard let superview = self.autoCompleteViewController.tableView.superview else { return .zero }
+//                let tableViewFrameInWindow = superview.convert(self.autoCompleteViewController.tableView.frame, to: nil)
+//                let padding = tableViewFrameInWindow.maxY + self.composeToolbarView.frame.height + AutoCompleteViewController.chevronViewHeight - endFrame.minY
+//                return max(0, padding)
+//            }()
+//            self.autoCompleteViewController.tableView.contentInset.bottom = autoCompleteTableViewBottomInset
+//            self.autoCompleteViewController.tableView.verticalScrollIndicatorInsets.bottom = autoCompleteTableViewBottomInset
+//
+//            // adjust inset for tableView
+//            let contentFrame = self.view.convert(self.tableView.frame, to: nil)
+//            let padding = contentFrame.maxY + extraMargin - endFrame.minY
+//            guard padding > 0 else {
+//                self.tableView.contentInset.bottom = self.view.safeAreaInsets.bottom + extraMargin
+//                self.tableView.verticalScrollIndicatorInsets.bottom = self.view.safeAreaInsets.bottom + extraMargin
+//                return
+//            }
+//
+//            self.tableView.contentInset.bottom = padding - self.view.safeAreaInsets.bottom
+//            self.tableView.verticalScrollIndicatorInsets.bottom = padding - self.view.safeAreaInsets.bottom
+//            UIView.animate(withDuration: 0.3) {
+//                self.composeToolbarViewBottomLayoutConstraint.constant = endFrame.height
+//                self.view.layoutIfNeeded()
+//            }
+//        })
+//        .store(in: &disposeBag)
+//
+//        // bind auto-complete
+//        viewModel.$autoCompleteInfo
+//            .receive(on: DispatchQueue.main)
+//            .sink { [weak self] info in
+//                guard let self = self else { return }
+//                let textEditorView = self.textEditorView
+//                if self.autoCompleteViewController.view.superview == nil {
+//                    self.autoCompleteViewController.view.frame = self.view.bounds
+//                    // add to container view. seealso: `viewDidLayoutSubviews()`
+//                    self.viewModel.composeStatusContentTableViewCell.textEditorViewContainerView.addSubview(self.autoCompleteViewController.view)
+//                    self.addChild(self.autoCompleteViewController)
+//                    self.autoCompleteViewController.didMove(toParent: self)
+//                    self.autoCompleteViewController.view.isHidden = true
+//                    self.tableView.autoCompleteViewController = self.autoCompleteViewController
+//                }
+//                self.updateAutoCompleteViewControllerLayout()
+//                self.autoCompleteViewController.view.isHidden = info == nil
+//                guard let info = info else { return }
+//                let symbolBoundingRectInContainer = textEditorView.textView.convert(info.symbolBoundingRect, to: self.autoCompleteViewController.chevronView)
+//                self.autoCompleteViewController.view.frame.origin.y = info.textBoundingRect.maxY
+//                self.autoCompleteViewController.viewModel.symbolBoundingRect.value = symbolBoundingRectInContainer
+//                self.autoCompleteViewController.viewModel.inputText.value = String(info.inputText)
+//            }
+//            .store(in: &disposeBag)
+//
+//        // bind publish bar button state
+//        viewModel.$isPublishBarButtonItemEnabled
+//            .receive(on: DispatchQueue.main)
+//            .assign(to: \.isEnabled, on: publishButton)
+//            .store(in: &disposeBag)
+//
+//        // bind media button toolbar state
+//        viewModel.$isMediaToolbarButtonEnabled
+//            .receive(on: DispatchQueue.main)
+//            .sink { [weak self] isMediaToolbarButtonEnabled in
+//                guard let self = self else { return }
+//                self.composeToolbarView.mediaBarButtonItem.isEnabled = isMediaToolbarButtonEnabled
+//                self.composeToolbarView.mediaButton.isEnabled = isMediaToolbarButtonEnabled
+//            }
+//            .store(in: &disposeBag)
+//
+//        // bind poll button toolbar state
+//        viewModel.$isPollToolbarButtonEnabled
+//            .receive(on: DispatchQueue.main)
+//            .sink { [weak self] isPollToolbarButtonEnabled in
+//                guard let self = self else { return }
+//                self.composeToolbarView.pollBarButtonItem.isEnabled = isPollToolbarButtonEnabled
+//                self.composeToolbarView.pollButton.isEnabled = isPollToolbarButtonEnabled
+//            }
+//            .store(in: &disposeBag)
+//
+//        Publishers.CombineLatest(
+//            viewModel.$isPollComposing,
+//            viewModel.$isPollToolbarButtonEnabled
+//        )
+//        .receive(on: DispatchQueue.main)
+//        .sink { [weak self] isPollComposing, isPollToolbarButtonEnabled in
+//            guard let self = self else { return }
+//            guard isPollToolbarButtonEnabled else {
+//                let accessibilityLabel = L10n.Scene.Compose.Accessibility.appendPoll
+//                self.composeToolbarView.pollBarButtonItem.accessibilityLabel = accessibilityLabel
+//                self.composeToolbarView.pollButton.accessibilityLabel = accessibilityLabel
+//                return
+//            }
+//            let accessibilityLabel = isPollComposing ? L10n.Scene.Compose.Accessibility.removePoll : L10n.Scene.Compose.Accessibility.appendPoll
+//            self.composeToolbarView.pollBarButtonItem.accessibilityLabel = accessibilityLabel
+//            self.composeToolbarView.pollButton.accessibilityLabel = accessibilityLabel
+//        }
+//        .store(in: &disposeBag)
+//
+//        // bind image picker toolbar state
+//        viewModel.$attachmentServices
+//            .receive(on: DispatchQueue.main)
+//            .sink { [weak self] attachmentServices in
+//                guard let self = self else { return }
+//                let isEnabled = attachmentServices.count < self.viewModel.maxMediaAttachments
+//                self.composeToolbarView.mediaBarButtonItem.isEnabled = isEnabled
+//                self.composeToolbarView.mediaButton.isEnabled = isEnabled
+//                self.resetImagePicker()
+//            }
+//            .store(in: &disposeBag)
+//
+//        // bind content warning button state
+//        viewModel.$isContentWarningComposing
+//            .receive(on: DispatchQueue.main)
+//            .sink { [weak self] isContentWarningComposing in
+//                guard let self = self else { return }
+//                let accessibilityLabel = isContentWarningComposing ? L10n.Scene.Compose.Accessibility.disableContentWarning : L10n.Scene.Compose.Accessibility.enableContentWarning
+//                self.composeToolbarView.contentWarningBarButtonItem.accessibilityLabel = accessibilityLabel
+//                self.composeToolbarView.contentWarningButton.accessibilityLabel = accessibilityLabel
+//            }
+//            .store(in: &disposeBag)
+//
+//        // bind visibility toolbar UI
+//        Publishers.CombineLatest(
+//            viewModel.$selectedStatusVisibility,
+//            viewModel.traitCollectionDidChangePublisher
+//        )
+//        .receive(on: DispatchQueue.main)
+//        .sink { [weak self] type, _ in
+//            guard let self = self else { return }
+//            let image = type.image(interfaceStyle: self.traitCollection.userInterfaceStyle)
+//            self.composeToolbarView.visibilityBarButtonItem.image = image
+//            self.composeToolbarView.visibilityButton.setImage(image, for: .normal)
+//            self.composeToolbarView.activeVisibilityType.value = type
+//        }
+//        .store(in: &disposeBag)
+//
+//        viewModel.$characterCount
+//            .receive(on: DispatchQueue.main)
+//            .sink { [weak self] characterCount in
+//                guard let self = self else { return }
+//                let count = self.viewModel.composeContentLimit - characterCount
+//                self.composeToolbarView.characterCountLabel.text = "\(count)"
+//                self.characterCountLabel.text = "\(count)"
+//                let font: UIFont
+//                let textColor: UIColor
+//                let accessibilityLabel: String
+//                switch count {
+//                case _ where count < 0:
+//                    font = .monospacedDigitSystemFont(ofSize: 24, weight: .bold)
+//                    textColor = Asset.Colors.danger.color
+//                    accessibilityLabel = L10n.A11y.Plural.Count.inputLimitExceeds(abs(count))
+//                default:
+//                    font = .monospacedDigitSystemFont(ofSize: 15, weight: .regular)
+//                    textColor = Asset.Colors.Label.secondary.color
+//                    accessibilityLabel = L10n.A11y.Plural.Count.inputLimitRemains(count)
+//                }
+//                self.composeToolbarView.characterCountLabel.font = font
+//                self.composeToolbarView.characterCountLabel.textColor = textColor
+//                self.composeToolbarView.characterCountLabel.accessibilityLabel = accessibilityLabel
+//                self.characterCountLabel.font = font
+//                self.characterCountLabel.textColor = textColor
+//                self.characterCountLabel.accessibilityLabel = accessibilityLabel
+//                self.characterCountLabel.sizeToFit()
+//            }
+//            .store(in: &disposeBag)
+//
+//        // bind custom emoji picker UI
+//        viewModel.customEmojiViewModel?.emojis
+//            .receive(on: DispatchQueue.main)
+//            .sink(receiveValue: { [weak self] emojis in
+//                guard let self = self else { return }
+//                if emojis.isEmpty {
+//                    self.customEmojiPickerInputView.activityIndicatorView.startAnimating()
+//                } else {
+//                    self.customEmojiPickerInputView.activityIndicatorView.stopAnimating()
+//                }
+//            })
+//            .store(in: &disposeBag)
+//
+//        // setup snap behavior
+//        Publishers.CombineLatest(
+//            viewModel.$repliedToCellFrame,
+//            viewModel.$collectionViewState
+//        )
+//        .receive(on: DispatchQueue.main)
+//        .sink { [weak self] repliedToCellFrame, collectionViewState in
+//            guard let self = self else { return }
+//            guard repliedToCellFrame != .zero else { return }
+//            switch collectionViewState {
+//            case .fold:
+//                self.tableView.contentInset.top = -repliedToCellFrame.height
+//                os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: set contentInset.top: -%s", ((#file as NSString).lastPathComponent), #line, #function, repliedToCellFrame.height.description)
+//
+//            case .expand:
+//                self.tableView.contentInset.top = 0
+//            }
+//        }
+//        .store(in: &disposeBag)
+//
+//        configureToolbarDisplay(keyboardHasShortcutBar: keyboardHasShortcutBar.value)
+//        Publishers.CombineLatest(
+//            keyboardHasShortcutBar,
+//            viewModel.traitCollectionDidChangePublisher
+//        )
+//        .receive(on: DispatchQueue.main)
+//        .sink { [weak self] keyboardHasShortcutBar, _ in
+//            guard let self = self else { return }
+//            self.configureToolbarDisplay(keyboardHasShortcutBar: keyboardHasShortcutBar)
+//        }
+//        .store(in: &disposeBag)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        // update MetaText without trigger call underlaying `UITextStorage.processEditing`
-        _ = textEditorView.processEditing(textEditorView.textStorage)
+//        // update MetaText without trigger call underlaying `UITextStorage.processEditing`
+//        _ = textEditorView.processEditing(textEditorView.textStorage)
         
-        markTextEditorViewBecomeFirstResponser()
+//        markTextEditorViewBecomeFirstResponser()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -678,8 +686,8 @@ extension ComposeViewController {
             }
         })
         view.backgroundColor = backgroundColor
-        tableView.backgroundColor = backgroundColor
-        composeToolbarBackgroundView.backgroundColor = theme.composeToolbarBackgroundColor
+//        tableView.backgroundColor = backgroundColor
+//        composeToolbarBackgroundView.backgroundColor = theme.composeToolbarBackgroundColor
     }
     
     // keyboard shortcutBar
@@ -991,53 +999,53 @@ extension ComposeViewController: ComposeToolbarViewDelegate {
 
 // MARK: - UIScrollViewDelegate
 extension ComposeViewController {
-    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        guard scrollView === tableView else { return }
-
-        let repliedToCellFrame = viewModel.repliedToCellFrame
-        guard repliedToCellFrame != .zero else { return }
-
-         // try to find some patterns:
-         // print("""
-         // repliedToCellFrame: \(viewModel.repliedToCellFrame.value.height)
-         // scrollView.contentOffset.y: \(scrollView.contentOffset.y)
-         // scrollView.contentSize.height: \(scrollView.contentSize.height)
-         // scrollView.frame: \(scrollView.frame)
-         // scrollView.adjustedContentInset.top: \(scrollView.adjustedContentInset.top)
-         // scrollView.adjustedContentInset.bottom: \(scrollView.adjustedContentInset.bottom)
-         // """)
-
-        switch viewModel.collectionViewState {
-        case .fold:
-            os_log("%{public}s[%{public}ld], %{public}s: fold", ((#file as NSString).lastPathComponent), #line, #function)
-            guard velocity.y < 0 else { return }
-            let offsetY = scrollView.contentOffset.y + scrollView.adjustedContentInset.top
-            if offsetY < -44 {
-                tableView.contentInset.top = 0
-                targetContentOffset.pointee = CGPoint(x: 0, y: -scrollView.adjustedContentInset.top)
-                viewModel.collectionViewState = .expand
-            }
-
-        case .expand:
-            os_log("%{public}s[%{public}ld], %{public}s: expand", ((#file as NSString).lastPathComponent), #line, #function)
-            guard velocity.y > 0 else { return }
-            // check if top across
-            let topOffset = (scrollView.contentOffset.y + scrollView.adjustedContentInset.top) - repliedToCellFrame.height
-
-            // check if bottom bounce
-            let bottomOffsetY = scrollView.contentOffset.y + (scrollView.frame.height - scrollView.adjustedContentInset.bottom)
-            let bottomOffset = bottomOffsetY - scrollView.contentSize.height
-
-            if topOffset > 44 {
-                // do not interrupt user scrolling
-                viewModel.collectionViewState = .fold
-            } else if bottomOffset > 44 {
-                tableView.contentInset.top = -repliedToCellFrame.height
-                targetContentOffset.pointee = CGPoint(x: 0, y: -repliedToCellFrame.height)
-                viewModel.collectionViewState = .fold
-            }
-        }
-    }
+//    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+//        guard scrollView === tableView else { return }
+//
+//        let repliedToCellFrame = viewModel.repliedToCellFrame
+//        guard repliedToCellFrame != .zero else { return }
+//
+//         // try to find some patterns:
+//         // print("""
+//         // repliedToCellFrame: \(viewModel.repliedToCellFrame.value.height)
+//         // scrollView.contentOffset.y: \(scrollView.contentOffset.y)
+//         // scrollView.contentSize.height: \(scrollView.contentSize.height)
+//         // scrollView.frame: \(scrollView.frame)
+//         // scrollView.adjustedContentInset.top: \(scrollView.adjustedContentInset.top)
+//         // scrollView.adjustedContentInset.bottom: \(scrollView.adjustedContentInset.bottom)
+//         // """)
+//
+//        switch viewModel.collectionViewState {
+//        case .fold:
+//            os_log("%{public}s[%{public}ld], %{public}s: fold", ((#file as NSString).lastPathComponent), #line, #function)
+//            guard velocity.y < 0 else { return }
+//            let offsetY = scrollView.contentOffset.y + scrollView.adjustedContentInset.top
+//            if offsetY < -44 {
+//                tableView.contentInset.top = 0
+//                targetContentOffset.pointee = CGPoint(x: 0, y: -scrollView.adjustedContentInset.top)
+//                viewModel.collectionViewState = .expand
+//            }
+//
+//        case .expand:
+//            os_log("%{public}s[%{public}ld], %{public}s: expand", ((#file as NSString).lastPathComponent), #line, #function)
+//            guard velocity.y > 0 else { return }
+//            // check if top across
+//            let topOffset = (scrollView.contentOffset.y + scrollView.adjustedContentInset.top) - repliedToCellFrame.height
+//
+//            // check if bottom bounce
+//            let bottomOffsetY = scrollView.contentOffset.y + (scrollView.frame.height - scrollView.adjustedContentInset.bottom)
+//            let bottomOffset = bottomOffsetY - scrollView.contentSize.height
+//
+//            if topOffset > 44 {
+//                // do not interrupt user scrolling
+//                viewModel.collectionViewState = .fold
+//            } else if bottomOffset > 44 {
+//                tableView.contentInset.top = -repliedToCellFrame.height
+//                targetContentOffset.pointee = CGPoint(x: 0, y: -repliedToCellFrame.height)
+//                viewModel.collectionViewState = .fold
+//            }
+//        }
+//    }
 }
 
 // MARK: - UITableViewDelegate

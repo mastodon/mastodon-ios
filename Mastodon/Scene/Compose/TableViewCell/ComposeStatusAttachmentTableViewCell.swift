@@ -6,10 +6,12 @@
 //
 
 import UIKit
+import SwiftUI
 import Combine
 import AlamofireImage
 import MastodonAsset
 import MastodonLocalization
+import UIHostingConfigurationBackport
 
 final class ComposeStatusAttachmentTableViewCell: UITableViewCell {
 
@@ -75,85 +77,91 @@ extension ComposeStatusAttachmentTableViewCell {
         }
         .store(in: &observations)
 
-        self.dataSource = UICollectionViewDiffableDataSource(collectionView: collectionView) { [
-                weak self
-            ] collectionView, indexPath, item -> UICollectionViewCell? in
+        self.dataSource = UICollectionViewDiffableDataSource(collectionView: collectionView) {
+            [weak self] collectionView, indexPath, item -> UICollectionViewCell? in
             guard let self = self else { return UICollectionViewCell() }
             switch item {
             case .attachment(let attachmentService):
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: ComposeStatusAttachmentCollectionViewCell.self), for: indexPath) as! ComposeStatusAttachmentCollectionViewCell
-                cell.attachmentContainerView.descriptionTextView.text = attachmentService.description.value
-                cell.delegate = self.composeStatusAttachmentCollectionViewCellDelegate
-                attachmentService.thumbnailImage
-                    .receive(on: DispatchQueue.main)
-                    .sink { [weak cell] thumbnailImage in
-                        guard let cell = cell else { return }
-                        let size = cell.attachmentContainerView.previewImageView.frame.size != .zero ? cell.attachmentContainerView.previewImageView.frame.size : CGSize(width: 1, height: 1)
-                        guard let image = thumbnailImage else {
-                            let placeholder = UIImage.placeholder(
-                                size: size,
-                                color: ThemeService.shared.currentTheme.value.systemGroupedBackgroundColor
-                            )
-                            .af.imageRounded(
-                                withCornerRadius: AttachmentContainerView.containerViewCornerRadius
-                            )
-                            cell.attachmentContainerView.previewImageView.image = placeholder
-                            return
-                        }
-                        // cannot get correct size. set corner radius on layer
-                        cell.attachmentContainerView.previewImageView.image = image
-                    }
-                    .store(in: &cell.disposeBag)
-                Publishers.CombineLatest(
-                    attachmentService.uploadStateMachineSubject.eraseToAnyPublisher(),
-                    attachmentService.error.eraseToAnyPublisher()
-                )
-                .receive(on: DispatchQueue.main)
-                .sink { [weak cell, weak attachmentService] uploadState, error  in
-                    guard let cell = cell else { return }
-                    guard let attachmentService = attachmentService else { return }
-                    cell.attachmentContainerView.emptyStateView.isHidden = error == nil
-                    cell.attachmentContainerView.descriptionBackgroundView.isHidden = error != nil
-                    if let error = error {
-                        cell.attachmentContainerView.activityIndicatorView.stopAnimating()
-                        cell.attachmentContainerView.emptyStateView.label.text = error.localizedDescription
-                    } else {
-                        guard let uploadState = uploadState else { return }
-                        switch uploadState {
-                        case is MastodonAttachmentService.UploadState.Finish:
-                            cell.attachmentContainerView.activityIndicatorView.stopAnimating()
-                        case  is MastodonAttachmentService.UploadState.Fail:
-                            cell.attachmentContainerView.activityIndicatorView.stopAnimating()
-                            // FIXME: not display
-                            cell.attachmentContainerView.emptyStateView.label.text = {
-                                if let file = attachmentService.file.value {
-                                    switch file {
-                                    case .jpeg, .png, .gif:
-                                        return L10n.Scene.Compose.Attachment.attachmentBroken(L10n.Scene.Compose.Attachment.photo)
-                                    case .other:
-                                        return L10n.Scene.Compose.Attachment.attachmentBroken(L10n.Scene.Compose.Attachment.video)
-                                    }
-                                } else {
-                                    return L10n.Scene.Compose.Attachment.attachmentBroken(L10n.Scene.Compose.Attachment.photo)
-                                }
-                            }()
-                        default:
-                            break
-                        }
+                cell.contentConfiguration = UIHostingConfigurationBackport {
+                    HStack {
+                        Image(systemName: "star")
+                        Text("Favorites")
+                        Spacer()
                     }
                 }
-                .store(in: &cell.disposeBag)
-                NotificationCenter.default.publisher(
-                    for: UITextView.textDidChangeNotification,
-                    object: cell.attachmentContainerView.descriptionTextView
-                )
-                .receive(on: DispatchQueue.main)
-                .sink { notification in
-                    guard let textField = notification.object as? UITextView else { return }
-                    let text = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines)
-                    attachmentService.description.value = text
-                }
-                .store(in: &cell.disposeBag)
+//                cell.attachmentContainerView.descriptionTextView.text = attachmentService.description.value
+//                cell.delegate = self.composeStatusAttachmentCollectionViewCellDelegate
+//                attachmentService.thumbnailImage
+//                    .receive(on: DispatchQueue.main)
+//                    .sink { [weak cell] thumbnailImage in
+//                        guard let cell = cell else { return }
+//                        let size = cell.attachmentContainerView.previewImageView.frame.size != .zero ? cell.attachmentContainerView.previewImageView.frame.size : CGSize(width: 1, height: 1)
+//                        guard let image = thumbnailImage else {
+//                            let placeholder = UIImage.placeholder(
+//                                size: size,
+//                                color: ThemeService.shared.currentTheme.value.systemGroupedBackgroundColor
+//                            )
+//                            .af.imageRounded(
+//                                withCornerRadius: AttachmentContainerView.containerViewCornerRadius
+//                            )
+//                            cell.attachmentContainerView.previewImageView.image = placeholder
+//                            return
+//                        }
+//                        // cannot get correct size. set corner radius on layer
+//                        cell.attachmentContainerView.previewImageView.image = image
+//                    }
+//                    .store(in: &cell.disposeBag)
+//                Publishers.CombineLatest(
+//                    attachmentService.uploadStateMachineSubject.eraseToAnyPublisher(),
+//                    attachmentService.error.eraseToAnyPublisher()
+//                )
+//                .receive(on: DispatchQueue.main)
+//                .sink { [weak cell, weak attachmentService] uploadState, error  in
+//                    guard let cell = cell else { return }
+//                    guard let attachmentService = attachmentService else { return }
+//                    cell.attachmentContainerView.emptyStateView.isHidden = error == nil
+//                    cell.attachmentContainerView.descriptionBackgroundView.isHidden = error != nil
+//                    if let error = error {
+//                        cell.attachmentContainerView.activityIndicatorView.stopAnimating()
+//                        cell.attachmentContainerView.emptyStateView.label.text = error.localizedDescription
+//                    } else {
+//                        guard let uploadState = uploadState else { return }
+//                        switch uploadState {
+//                        case is MastodonAttachmentService.UploadState.Finish:
+//                            cell.attachmentContainerView.activityIndicatorView.stopAnimating()
+//                        case  is MastodonAttachmentService.UploadState.Fail:
+//                            cell.attachmentContainerView.activityIndicatorView.stopAnimating()
+//                            // FIXME: not display
+//                            cell.attachmentContainerView.emptyStateView.label.text = {
+//                                if let file = attachmentService.file.value {
+//                                    switch file {
+//                                    case .jpeg, .png, .gif:
+//                                        return L10n.Scene.Compose.Attachment.attachmentBroken(L10n.Scene.Compose.Attachment.photo)
+//                                    case .other:
+//                                        return L10n.Scene.Compose.Attachment.attachmentBroken(L10n.Scene.Compose.Attachment.video)
+//                                    }
+//                                } else {
+//                                    return L10n.Scene.Compose.Attachment.attachmentBroken(L10n.Scene.Compose.Attachment.photo)
+//                                }
+//                            }()
+//                        default:
+//                            break
+//                        }
+//                    }
+//                }
+//                .store(in: &cell.disposeBag)
+//                NotificationCenter.default.publisher(
+//                    for: UITextView.textDidChangeNotification,
+//                    object: cell.attachmentContainerView.descriptionTextView
+//                )
+//                .receive(on: DispatchQueue.main)
+//                .sink { notification in
+//                    guard let textField = notification.object as? UITextView else { return }
+//                    let text = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines)
+//                    attachmentService.description.value = text
+//                }
+//                .store(in: &cell.disposeBag)
                 return cell
             }
         }

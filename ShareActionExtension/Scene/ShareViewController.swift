@@ -12,6 +12,7 @@ import MastodonUI
 import SwiftUI
 import MastodonAsset
 import MastodonLocalization
+import MastodonCore
 import MastodonUI
 
 class ShareViewController: UIViewController {

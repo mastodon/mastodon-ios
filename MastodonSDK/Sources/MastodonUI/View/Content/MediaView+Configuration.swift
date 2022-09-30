@@ -11,6 +11,7 @@ import Combine
 import CoreData
 import Photos
 import AlamofireImage
+import MastodonCore
 
 extension MediaView {
     public class Configuration: Hashable {

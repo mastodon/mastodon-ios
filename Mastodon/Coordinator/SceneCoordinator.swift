@@ -8,8 +8,9 @@ import UIKit
 import Combine
 import SafariServices
 import CoreDataStack
-import MastodonSDK
 import PanModal
+import MastodonSDK
+import MastodonCore
 import MastodonAsset
 import MastodonLocalization
 

@@ -9,6 +9,7 @@ import UIKit
 import Combine
 import GameplayKit
 import MastodonSDK
+import MastodonCore
 
 final class AutoCompleteViewModel {
     
@@ -16,13 +17,13 @@ final class AutoCompleteViewModel {
     
     // input
     let context: AppContext
-    let inputText = CurrentValueSubject<String, Never>("")  // contains "@" or "#" prefix
-    let symbolBoundingRect = CurrentValueSubject<CGRect, Never>(.zero)
-    let customEmojiViewModel = CurrentValueSubject<EmojiService.CustomEmojiViewModel?, Never>(nil)
+    public let inputText = CurrentValueSubject<String, Never>("")  // contains "@" or "#" prefix
+    public let symbolBoundingRect = CurrentValueSubject<CGRect, Never>(.zero)
+    public let customEmojiViewModel = CurrentValueSubject<EmojiService.CustomEmojiViewModel?, Never>(nil)
     
     // output
-    var autoCompleteItems = CurrentValueSubject<[AutoCompleteItem], Never>([])
-    var diffableDataSource: UITableViewDiffableDataSource<AutoCompleteSection, AutoCompleteItem>!
+    public var autoCompleteItems = CurrentValueSubject<[AutoCompleteItem], Never>([])
+    public var diffableDataSource: UITableViewDiffableDataSource<AutoCompleteSection, AutoCompleteItem>!
     private(set) lazy var stateMachine: GKStateMachine = {
         // exclude timeline middle fetcher state
         let stateMachine = GKStateMachine(states: [

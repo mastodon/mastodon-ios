@@ -10,6 +10,7 @@ import Combine
 import CoreData
 import MetaTextKit
 import MastodonAsset
+import MastodonCore
 
 extension PollOptionView {
     

@@ -9,6 +9,7 @@ import os.log
 import Foundation
 import GameplayKit
 import MastodonSDK
+import MastodonCore
 
 extension AutoCompleteViewModel {
     class State: GKState, NamingState {

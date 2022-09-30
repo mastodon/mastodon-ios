@@ -10,6 +10,8 @@ import Combine
 import MetaTextKit
 import MastodonAsset
 import MastodonLocalization
+import MastodonCore
+import MastodonUI
 
 final class AddAccountTableViewCell: UITableViewCell {
     

@@ -13,6 +13,7 @@ import MastodonSDK
 import MastodonAsset
 import MastodonLocalization
 import MastodonExtension
+import MastodonCore
 import CoreData
 import CoreDataStack
 

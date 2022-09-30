@@ -8,9 +8,9 @@
 import os.log
 import UIKit
 import UserNotifications
-import AppShared
 import AVFoundation
-@_exported import MastodonUI
+import MastodonCore
+import MastodonUI
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {

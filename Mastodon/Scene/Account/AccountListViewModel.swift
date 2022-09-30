@@ -11,6 +11,8 @@ import CoreData
 import CoreDataStack
 import MastodonSDK
 import MastodonMeta
+import MastodonCore
+import MastodonUI
 
 final class AccountListViewModel {
 

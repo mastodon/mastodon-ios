@@ -20,39 +20,12 @@
         }
       },
       {
-        "package": "AlamofireNetworkActivityIndicator",
-        "repositoryURL": "https://github.com/Alamofire/AlamofireNetworkActivityIndicator",
-        "state": {
-          "branch": null,
-          "revision": "392bed083e8d193aca16bfa684ee24e4bcff0510",
-          "version": "3.1.0"
-        }
-      },
-      {
         "package": "CommonOSLog",
         "repositoryURL": "https://github.com/MainasuK/CommonOSLog",
         "state": {
           "branch": null,
           "revision": "c121624a30698e9886efe38aebb36ff51c01b6c2",
           "version": "0.1.1"
-        }
-      },
-      {
-        "package": "DiffableDataSources",
-        "repositoryURL": "https://github.com/MainasuK/DiffableDataSources.git",
-        "state": {
-          "branch": "feature/async-display-table",
-          "revision": "73393a97690959d24387c95594c045c62d9c47cf",
-          "version": null
-        }
-      },
-      {
-        "package": "DifferenceKit",
-        "repositoryURL": "https://github.com/ra1028/DifferenceKit.git",
-        "state": {
-          "branch": null,
-          "revision": "62745d7780deef4a023a792a1f8f763ec7bf9705",
-          "version": "1.2.0"
         }
       },
       {
@@ -159,8 +132,8 @@
         "repositoryURL": "https://github.com/apple/swift-collections.git",
         "state": {
           "branch": null,
-          "revision": "9d8719c8bebdc79740b6969c912ac706eb721d7a",
-          "version": "0.0.7"
+          "revision": "f504716c27d2e5d4144fa4794b12129301d17729",
+          "version": "1.0.3"
         }
       },
       {
@@ -222,8 +195,8 @@
         "repositoryURL": "https://github.com/uias/Tabman",
         "state": {
           "branch": null,
-          "revision": "a9f10cb862a32e6a22549836af013abd6b0692d3",
-          "version": "2.12.0"
+          "revision": "4a4f7c755b875ffd4f9ef10d67a67883669d2465",
+          "version": "2.13.0"
         }
       },
       {
@@ -231,8 +204,8 @@
         "repositoryURL": "https://github.com/vtourraine/ThirdPartyMailer.git",
         "state": {
           "branch": null,
-          "revision": "779da6ce0793b461ccbbac2804755c1e29b6fa63",
-          "version": "1.8.0"
+          "revision": "44c1cfaa6969963f22691aa67f88a69e3b6d651f",
+          "version": "2.1.0"
         }
       },
       {
@@ -242,6 +215,15 @@
           "branch": null,
           "revision": "d0470491f56e734731bbf77991944c0dfdee3e0e",
           "version": "2.6.1"
+        }
+      },
+      {
+        "package": "UIHostingConfigurationBackport",
+        "repositoryURL": "https://github.com/woxtu/UIHostingConfigurationBackport.git",
+        "state": {
+          "branch": null,
+          "revision": "6091f2d38faa4b24fc2ca0389c651e2f666624a3",
+          "version": "0.1.0"
         }
       },
       {

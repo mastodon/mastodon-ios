@@ -12,9 +12,6 @@ import AuthenticationServices
 
 final class MastodonAuthenticationController {
     
-    static let callbackURLScheme = "mastodon"
-    static let callbackURL = "mastodon://joinmastodon.org/oauth"
-    
     var disposeBag = Set<AnyCancellable>()
     
     // input
@@ -43,7 +40,7 @@ extension MastodonAuthenticationController {
     private func authentication() {
         authenticationSession = ASWebAuthenticationSession(
             url: authenticateURL,
-            callbackURLScheme: MastodonAuthenticationController.callbackURLScheme
+            callbackURLScheme: APIService.callbackURLScheme
         ) { [weak self] callback, error in
             guard let self = self else { return }
             os_log("%{public}s[%{public}ld], %{public}s: callback: %s, error: %s", ((#file as NSString).lastPathComponent), #line, #function, callback?.debugDescription ?? "<nil>", error.debugDescription)

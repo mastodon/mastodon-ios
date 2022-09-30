@@ -17,6 +17,7 @@ import UniformTypeIdentifiers
 import MastodonAsset
 import MastodonLocalization
 import MastodonUI
+import MastodonCore
 
 final class ShareViewModel {
 
@@ -29,6 +30,8 @@ final class ShareViewModel {
     // input
     private var coreDataStack: CoreDataStack?
     var managedObjectContext: NSManagedObjectContext?
+    var api: APIService?
+    
     var inputItems = CurrentValueSubject<[NSExtensionItem], Never>([])
     let viewDidAppear = CurrentValueSubject<Bool, Never>(false)
     let traitCollectionDidChangePublisher = CurrentValueSubject<Void, Never>(Void())      // use CurrentValueSubject to make initial event emit
@@ -230,6 +233,9 @@ extension ShareViewModel {
                     guard let self = self else { return }
                     guard didFinishLoad else { return }
                     guard let managedObjectContext = self.managedObjectContext else { return }
+                    
+                    
+                    self.api = APIService(backgroundManagedObjectContext: _coreDataStack.newTaskContext())
 
                     self.logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): fetch authentication…")
                     managedObjectContext.perform {
@@ -289,13 +295,15 @@ extension ShareViewModel {
             self.composeViewModel.statusContent = content
         }
         
+        guard let api = self.api else { return }
+        
         if let movieProvider = _movieProvider {
             composeViewModel.setupAttachmentViewModels([
-                StatusAttachmentViewModel(itemProvider: movieProvider)
+                StatusAttachmentViewModel(api: api, itemProvider: movieProvider)
             ])
         } else if !imageProviders.isEmpty {
             let viewModels = imageProviders.map { provider in
-                StatusAttachmentViewModel(itemProvider: provider)
+                StatusAttachmentViewModel(api: api, itemProvider: provider)
             }
             composeViewModel.setupAttachmentViewModels(viewModels)
         }
@@ -328,7 +336,9 @@ extension ShareViewModel {
 
 extension ShareViewModel {
     func publish() -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Status>, Error> {
-        guard let authentication = composeViewModel.authentication else {
+        guard let authentication = composeViewModel.authentication,
+              let api = self.api
+        else {
             return Fail(error: APIService.APIError.implicit(.authenticationMissing)).eraseToAnyPublisher()
         }
         let authenticationBox = MastodonAuthenticationBox(
@@ -364,7 +374,7 @@ extension ShareViewModel {
                     description: description,
                     focus: nil
                 )
-                let subscription = APIService.shared.updateMedia(
+                let subscription = api.updateMedia(
                     domain: domain,
                     attachmentID: attachmentID,
                     query: query,
@@ -390,7 +400,7 @@ extension ShareViewModel {
                     spoilerText: spoilerText,
                     visibility: visibility
                 )
-                return try await APIService.shared.publishStatus(
+                return try await api.publishStatus(
                     domain: domain,
                     idempotencyKey: nil,    // FIXME:
                     query: query,

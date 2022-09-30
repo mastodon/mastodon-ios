@@ -10,6 +10,7 @@ import MastodonSDK
 import MastodonMeta
 import MastodonAsset
 import MastodonLocalization
+import MastodonCore
 
 enum AutoCompleteSection: Equatable, Hashable {
     case main

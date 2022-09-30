@@ -12,6 +12,7 @@ import CoreDataStack
 import PanModal
 import MastodonAsset
 import MastodonLocalization
+import MastodonCore
 
 final class AccountListViewController: UIViewController, NeedsDependency {
 
