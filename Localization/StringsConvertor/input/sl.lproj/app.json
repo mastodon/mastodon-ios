@@ -115,7 +115,7 @@
                     "reply_status": "Odgovori",
                     "toggle_reblog": "Toggle Reblog on Post",
                     "toggle_favorite": "Toggle Favorite on Post",
-                    "toggle_content_warning": "Toggle Content Warning",
+                    "toggle_content_warning": "Preklopi opozorilo o vsebini",
                     "preview_image": "Predogled slike"
                 },
                 "segmented_control": {
@@ -353,7 +353,7 @@
             }
         },
         "suggestion_account": {
-            "title": "Find People to Follow",
+            "title": "Poiščite osebe, ki jim želite slediti",
             "follow_explain": "When you follow someone, you’ll see their posts in your home feed."
         },
         "compose": {
