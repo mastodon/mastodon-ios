@@ -24,6 +24,8 @@ final class ContentSplitViewController: UIViewController, NeedsDependency {
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
+    var authContext: AuthContext?
+    
     weak var delegate: ContentSplitViewControllerDelegate?
     
     private(set) lazy var sidebarViewController: SidebarViewController = {
@@ -37,7 +39,7 @@ final class ContentSplitViewController: UIViewController, NeedsDependency {
     
     @Published var currentSupplementaryTab: MainTabBarController.Tab = .home
     private(set) lazy var mainTabBarController: MainTabBarController = {
-        let mainTabBarController = MainTabBarController(context: context, coordinator: coordinator)
+        let mainTabBarController = MainTabBarController(context: context, coordinator: coordinator, authContext: authContext)
         if let homeTimelineViewController = mainTabBarController.viewController(of: HomeTimelineViewController.self) {
             homeTimelineViewController.viewModel.displaySettingBarButtonItem = false
         }

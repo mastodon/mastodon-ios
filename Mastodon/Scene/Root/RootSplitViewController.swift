@@ -20,12 +20,15 @@ final class RootSplitViewController: UISplitViewController, NeedsDependency {
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
+    var authContext: AuthContext?
+    
     private var isPrimaryDisplay = false
     
     private(set) lazy var contentSplitViewController: ContentSplitViewController = {
         let contentSplitViewController = ContentSplitViewController()
         contentSplitViewController.context = context
         contentSplitViewController.coordinator = coordinator
+        contentSplitViewController.authContext = authContext
         contentSplitViewController.delegate = self
         return contentSplitViewController
     }()
@@ -37,13 +40,14 @@ final class RootSplitViewController: UISplitViewController, NeedsDependency {
         return searchViewController
     }()
     
-    lazy var compactMainTabBarViewController = MainTabBarController(context: context, coordinator: coordinator)
+    lazy var compactMainTabBarViewController = MainTabBarController(context: context, coordinator: coordinator, authContext: authContext)
     
     let separatorLine = UIView.separatorLine
     
-    init(context: AppContext, coordinator: SceneCoordinator) {
+    init(context: AppContext, coordinator: SceneCoordinator, authContext: AuthContext?) {
         self.context = context
         self.coordinator = coordinator
+        self.authContext = authContext
         super.init(style: .doubleColumn)
         
         primaryEdge = .trailing

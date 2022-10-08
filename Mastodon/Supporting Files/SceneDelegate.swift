@@ -58,7 +58,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.coordinator = sceneCoordinator
         
         sceneCoordinator.setup()
-        sceneCoordinator.setupOnboardingIfNeeds(animated: false)
         window.makeKeyAndVisible()
         
         #if SNAPSHOT

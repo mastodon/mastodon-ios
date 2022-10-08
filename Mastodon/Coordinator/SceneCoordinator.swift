@@ -22,6 +22,8 @@ final public class SceneCoordinator {
     private weak var sceneDelegate: SceneDelegate!
     private weak var appContext: AppContext!
     
+    private var authContext: AuthContext?
+    
     let id = UUID().uuidString
     
     private(set) weak var tabBarController: MainTabBarController!
@@ -30,7 +32,11 @@ final public class SceneCoordinator {
     
     private(set) var secondaryStackHashValues = Set<Int>()
     
-    init(scene: UIScene, sceneDelegate: SceneDelegate, appContext: AppContext) {
+    init(
+        scene: UIScene,
+        sceneDelegate: SceneDelegate,
+        appContext: AppContext
+    ) {
         self.scene = scene
         self.sceneDelegate = sceneDelegate
         self.appContext = appContext
@@ -225,55 +231,48 @@ extension SceneCoordinator {
     
     func setup() {
         let rootViewController: UIViewController
-        switch UIDevice.current.userInterfaceIdiom {
-        case .phone:
-            let viewController = MainTabBarController(context: appContext, coordinator: self)
-            self.splitViewController = nil
-            self.tabBarController = viewController
-            rootViewController = viewController
-        default:
-            let splitViewController = RootSplitViewController(context: appContext, coordinator: self)
-            self.splitViewController = splitViewController
-            self.tabBarController = splitViewController.contentSplitViewController.mainTabBarController
-            rootViewController = splitViewController
-        }
         
-        let wizardViewController = WizardViewController()
-        if !wizardViewController.items.isEmpty,
-           let delegate = rootViewController as? WizardViewControllerDelegate
-        {
-            // do not add as child view controller.
-            // otherwise, the tab bar controller will add as a new tab
-            wizardViewController.delegate = delegate
-            wizardViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-            wizardViewController.view.frame = rootViewController.view.bounds
-            rootViewController.view.addSubview(wizardViewController.view)
-            self.wizardViewController = wizardViewController
-        }
-                
-        sceneDelegate.window?.rootViewController = rootViewController
-    }
-    
-    func setupOnboardingIfNeeds(animated: Bool) {
-        // Check user authentication status and show onboarding if needs
         do {
             let request = MastodonAuthentication.sortedFetchRequest
-            if try appContext.managedObjectContext.count(for: request) == 0 {
+            let _authentication = try appContext.managedObjectContext.fetch(request).first
+            let _authContext = _authentication.flatMap { AuthContext(authentication: $0) }
+            self.authContext = _authContext
+            
+            switch UIDevice.current.userInterfaceIdiom {
+            case .phone:
+                let viewController = MainTabBarController(context: appContext, coordinator: self, authContext: _authContext)
+                self.splitViewController = nil
+                self.tabBarController = viewController
+                rootViewController = viewController
+            default:
+                let splitViewController = RootSplitViewController(context: appContext, coordinator: self, authContext: _authContext)
+                self.splitViewController = splitViewController
+                self.tabBarController = splitViewController.contentSplitViewController.mainTabBarController
+                rootViewController = splitViewController
+            }
+            sceneDelegate.window?.rootViewController = rootViewController                   // base: main
+
+            if _authContext == nil {                                                        // entry #1: welcome
                 DispatchQueue.main.async {
-                    self.present(
+                    _ = self.present(
                         scene: .welcome,
                         from: self.sceneDelegate.window?.rootViewController,
-                        transition: .modal(animated: animated, completion: nil)
+                        transition: .modal(animated: true, completion: nil)
                     )
                 }
             }
+            
         } catch {
             assertionFailure(error.localizedDescription)
+            Task {
+                try? await Task.sleep(nanoseconds: .second * 2)
+                setup()                                                                     // entry #2: retry
+            }   // end Task
         }
     }
-    
-    @discardableResult
+
     @MainActor
+    @discardableResult
     func present(scene: Scene, from sender: UIViewController?, transition: Transition) -> UIViewController? {
         guard let viewController = get(scene: scene) else {
             return nil

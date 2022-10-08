@@ -30,3 +30,17 @@ public struct MastodonAuthenticationBox: UserIdentifier {
         self.userAuthorization = userAuthorization
     }
 }
+
+extension MastodonAuthenticationBox {
+    
+    init(authentication: MastodonAuthentication) {
+        self = MastodonAuthenticationBox(
+            authenticationRecord: .init(objectID: authentication.objectID),
+            domain: authentication.domain,
+            userID: authentication.userID,
+            appAuthorization: Mastodon.API.OAuth.Authorization(accessToken: authentication.appAccessToken),
+            userAuthorization: Mastodon.API.OAuth.Authorization(accessToken: authentication.userAccessToken)
+        )
+    }
+    
+}

@@ -299,7 +299,6 @@ extension SettingsViewController {
         Task { @MainActor in
             try await context.authenticationService.signOutMastodonUser(authenticationBox: authenticationBox)
             self.coordinator.setup()
-            self.coordinator.setupOnboardingIfNeeds(animated: true)
         }
     }
     

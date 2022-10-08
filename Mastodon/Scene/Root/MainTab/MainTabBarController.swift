@@ -23,6 +23,8 @@ class MainTabBarController: UITabBarController {
     weak var context: AppContext!
     weak var coordinator: SceneCoordinator!
     
+    var authContext: AuthContext?
+    
     let composeButttonShadowBackgroundContainer = ShadowBackgroundContainer()
     let composeButton: UIButton = {
         let button = UIButton()
@@ -143,9 +145,14 @@ class MainTabBarController: UITabBarController {
     var avatarURLObserver: AnyCancellable?
     @Published var avatarURL: URL?
 
-    init(context: AppContext, coordinator: SceneCoordinator) {
+    init(
+        context: AppContext,
+        coordinator: SceneCoordinator,
+        authContext: AuthContext?
+    ) {
         self.context = context
         self.coordinator = coordinator
+        self.authContext = authContext
         super.init(nibName: nil, bundle: nil)
     }
     
