@@ -22,6 +22,9 @@ jobs:
       - name: force Xcode 13.2.1
         run: sudo xcode-select -switch /Applications/Xcode_13.2.1.app
       - name: setup
+        env: 
+          NotificationEndpointDebug: ${{ secrets.NotificationEndpointDebug }}
+          NotificationEndpointRelease: ${{ secrets.NotificationEndpointRelease }}
         run: exec ./.github/scripts/setup.sh
       - name: build
         run: exec ./.github/scripts/build.sh
