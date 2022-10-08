@@ -11,6 +11,7 @@ import Combine
 import GameplayKit
 import CoreData
 import CoreDataStack
+import MastodonCore
 import MastodonSDK
 
 final class DiscoveryHashtagsViewModel {

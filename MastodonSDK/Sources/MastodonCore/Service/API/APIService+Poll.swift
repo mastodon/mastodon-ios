@@ -14,7 +14,7 @@ import MastodonSDK
 
 extension APIService {
     
-    func poll(
+    public func poll(
         poll: ManagedObjectRecord<Poll>,
         authenticationBox: MastodonAuthenticationBox
     ) async throws -> Mastodon.Response.Content<Mastodon.Entity.Poll> {
@@ -55,7 +55,7 @@ extension APIService {
 
 extension APIService {
 
-    func vote(
+    public func vote(
         poll: ManagedObjectRecord<Poll>,
         choices: [Int],
         authenticationBox: MastodonAuthenticationBox

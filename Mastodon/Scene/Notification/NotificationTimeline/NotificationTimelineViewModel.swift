@@ -11,6 +11,7 @@ import Combine
 import CoreDataStack
 import GameplayKit
 import MastodonSDK
+import MastodonCore
 
 final class NotificationTimelineViewModel {
     
@@ -78,7 +79,7 @@ final class NotificationTimelineViewModel {
 
 extension NotificationTimelineViewModel {
 
-    typealias Scope = APIService.NotificationScope
+    typealias Scope = APIService.MastodonNotificationScope
     
     static func feedPredicate(
         authenticationBox: MastodonAuthenticationBox,

@@ -12,6 +12,7 @@ import CoreData
 import CoreDataStack
 import GameplayKit
 import MastodonSDK
+import MastodonCore
 
 final class FollowerListViewModel {
     

@@ -16,8 +16,9 @@ import MastodonSDK
 import AlamofireImage
 import StoreKit
 import MastodonAsset
-import MastodonLocalization
+import MastodonCore
 import MastodonUI
+import MastodonLocalization
 
 final class HomeTimelineViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
     

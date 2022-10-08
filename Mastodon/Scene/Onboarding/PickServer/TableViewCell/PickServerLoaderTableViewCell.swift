@@ -8,6 +8,8 @@
 import UIKit
 import Combine
 import MastodonAsset
+import MastodonCore
+import MastodonUI
 import MastodonLocalization
 
 final class PickServerLoaderTableViewCell: TimelineLoaderTableViewCell {

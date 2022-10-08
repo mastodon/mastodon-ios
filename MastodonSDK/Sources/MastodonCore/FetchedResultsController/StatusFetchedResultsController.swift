@@ -12,22 +12,22 @@ import CoreData
 import CoreDataStack
 import MastodonSDK
 
-final class StatusFetchedResultsController: NSObject {
+public final class StatusFetchedResultsController: NSObject {
 
     var disposeBag = Set<AnyCancellable>()
 
     let fetchedResultsController: NSFetchedResultsController<Status>
 
     // input
-    let domain = CurrentValueSubject<String?, Never>(nil)
-    let statusIDs = CurrentValueSubject<[Mastodon.Entity.Status.ID], Never>([])
+    @Published public var domain: String? = nil
+    @Published public var statusIDs: [Mastodon.Entity.Status.ID] = []
     
     // output
     let _objectIDs = CurrentValueSubject<[NSManagedObjectID], Never>([])
-    @Published var records: [ManagedObjectRecord<Status>] = []
+    @Published public private(set) var records: [ManagedObjectRecord<Status>] = []
     
-    init(managedObjectContext: NSManagedObjectContext, domain: String?, additionalTweetPredicate: NSPredicate?) {
-        self.domain.value = domain ?? ""
+    public init(managedObjectContext: NSManagedObjectContext, domain: String?, additionalTweetPredicate: NSPredicate?) {
+        self.domain = domain ?? ""
         self.fetchedResultsController = {
             let fetchRequest = Status.sortedFetchRequest
             fetchRequest.predicate = Status.predicate(domain: domain ?? "", ids: [])
@@ -53,8 +53,8 @@ final class StatusFetchedResultsController: NSObject {
         fetchedResultsController.delegate = self
         
         Publishers.CombineLatest(
-            self.domain.removeDuplicates(),
-            self.statusIDs.removeDuplicates()
+            self.$domain.removeDuplicates(),
+            self.$statusIDs.removeDuplicates()
         )
         .receive(on: DispatchQueue.main)
         .sink { [weak self] domain, ids in
@@ -78,21 +78,21 @@ final class StatusFetchedResultsController: NSObject {
 extension StatusFetchedResultsController {
     
     public func append(statusIDs: [Mastodon.Entity.Status.ID]) {
-        var result = self.statusIDs.value
+        var result = self.statusIDs
         for statusID in statusIDs where !result.contains(statusID) {
             result.append(statusID)
         }
-        self.statusIDs.value = result
+        self.statusIDs = result
     }
     
 }
 
 // MARK: - NSFetchedResultsControllerDelegate
 extension StatusFetchedResultsController: NSFetchedResultsControllerDelegate {
-    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChangeContentWith snapshot: NSDiffableDataSourceSnapshotReference) {
+    public func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChangeContentWith snapshot: NSDiffableDataSourceSnapshotReference) {
         os_log("%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         
-        let indexes = statusIDs.value
+        let indexes = statusIDs
         let objects = fetchedResultsController.fetchedObjects ?? []
         
         let items: [NSManagedObjectID] = objects

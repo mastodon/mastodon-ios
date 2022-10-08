@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreDataStack
+import MastodonCore
 
 final class CachedThreadViewModel: ThreadViewModel {
     init(context: AppContext, status: Status) {

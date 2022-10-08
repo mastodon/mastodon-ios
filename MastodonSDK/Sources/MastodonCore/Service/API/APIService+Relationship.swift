@@ -14,7 +14,7 @@ import MastodonSDK
 
 extension APIService {
  
-    func relationship(
+    public func relationship(
         records: [ManagedObjectRecord<MastodonUser>],
         authenticationBox: MastodonAuthenticationBox
     ) async throws -> Mastodon.Response.Content<[Mastodon.Entity.Relationship]> {

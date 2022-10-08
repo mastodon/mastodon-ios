@@ -13,6 +13,8 @@ import MastodonSDK
 import CoreDataStack
 import OrderedCollections
 import Tabman
+import MastodonCore
+import MastodonUI
 
 class MastodonPickServerViewModel: NSObject {
     

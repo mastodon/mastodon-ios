@@ -7,6 +7,7 @@
 
 import os.log
 import UIKit
+import MastodonCore
 import MastodonUI
 import MastodonSDK
 

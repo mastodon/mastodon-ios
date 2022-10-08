@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreDataStack
+import MastodonCore
 
 final class CachedProfileViewModel: ProfileViewModel {
     

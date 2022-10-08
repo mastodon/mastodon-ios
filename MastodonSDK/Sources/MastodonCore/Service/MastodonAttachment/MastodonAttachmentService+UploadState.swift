@@ -12,14 +12,14 @@ import GameplayKit
 import MastodonSDK
 
 extension MastodonAttachmentService {
-    class UploadState: GKState {
+    public class UploadState: GKState {
         weak var service: MastodonAttachmentService?
         
         init(service: MastodonAttachmentService) {
             self.service = service
         }
         
-        override func didEnter(from previousState: GKState?) {
+        public override func didEnter(from previousState: GKState?) {
             os_log("%{public}s[%{public}ld], %{public}s: enter %s, previous: %s", ((#file as NSString).lastPathComponent), #line, #function, self.debugDescription, previousState.debugDescription)
             service?.uploadStateMachineSubject.send(self)
         }
@@ -28,8 +28,8 @@ extension MastodonAttachmentService {
 
 extension MastodonAttachmentService.UploadState {
     
-    class Initial: MastodonAttachmentService.UploadState {
-        override func isValidNextState(_ stateClass: AnyClass) -> Bool {
+    public class Initial: MastodonAttachmentService.UploadState {
+        public override func isValidNextState(_ stateClass: AnyClass) -> Bool {
             guard service?.authenticationBox != nil else { return false }
             if stateClass == Initial.self {
                 return true
@@ -43,17 +43,17 @@ extension MastodonAttachmentService.UploadState {
         }
     }
     
-    class Uploading: MastodonAttachmentService.UploadState {
+    public class Uploading: MastodonAttachmentService.UploadState {
         var needsFallback = false
 
-        override func isValidNextState(_ stateClass: AnyClass) -> Bool {
+        public override func isValidNextState(_ stateClass: AnyClass) -> Bool {
             return stateClass == Fail.self
                 || stateClass == Finish.self
                 || stateClass == Uploading.self
                 || stateClass == Processing.self
         }
         
-        override func didEnter(from previousState: GKState?) {
+        public override func didEnter(from previousState: GKState?) {
             super.didEnter(from: previousState)
             
             guard let service = service, let stateMachine = stateMachine else { return }
@@ -110,16 +110,16 @@ extension MastodonAttachmentService.UploadState {
         }
     }
     
-    class Processing: MastodonAttachmentService.UploadState {
+    public class Processing: MastodonAttachmentService.UploadState {
         
         static let retryLimit = 10
         var retryCount = 0
         
-        override func isValidNextState(_ stateClass: AnyClass) -> Bool {
+        public override func isValidNextState(_ stateClass: AnyClass) -> Bool {
             return stateClass == Fail.self || stateClass == Finish.self || stateClass == Processing.self
         }
         
-        override func didEnter(from previousState: GKState?) {
+        public override func didEnter(from previousState: GKState?) {
             super.didEnter(from: previousState)
             
             guard let service = service, let stateMachine = stateMachine else { return }
@@ -165,15 +165,15 @@ extension MastodonAttachmentService.UploadState {
         }
     }
     
-    class Fail: MastodonAttachmentService.UploadState {
-        override func isValidNextState(_ stateClass: AnyClass) -> Bool {
+    public class Fail: MastodonAttachmentService.UploadState {
+        public override func isValidNextState(_ stateClass: AnyClass) -> Bool {
             // allow discard publishing
             return stateClass == Uploading.self || stateClass == Finish.self
         }
     }
     
-    class Finish: MastodonAttachmentService.UploadState {
-        override func isValidNextState(_ stateClass: AnyClass) -> Bool {
+    public class Finish: MastodonAttachmentService.UploadState {
+        public override func isValidNextState(_ stateClass: AnyClass) -> Bool {
             return false
         }
     }

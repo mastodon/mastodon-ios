@@ -21,7 +21,7 @@ extension APIService {
         let isMuting: Bool
     }
     
-    func toggleMute(
+    public func toggleMute(
         user: ManagedObjectRecord<MastodonUser>,
         authenticationBox: MastodonAuthenticationBox
     ) async throws -> Mastodon.Response.Content<Mastodon.Entity.Relationship> {

@@ -10,7 +10,7 @@ import CoreDataStack
 import MastodonSDK
 
 extension Instance {
-    var configuration: Mastodon.Entity.Instance.Configuration? {
+    public var configuration: Mastodon.Entity.Instance.Configuration? {
         guard let configurationRaw = configurationRaw else { return nil }
         guard let configuration = try? JSONDecoder().decode(Mastodon.Entity.Instance.Configuration.self, from: configurationRaw) else {
             return nil

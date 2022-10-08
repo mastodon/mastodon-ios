@@ -10,6 +10,7 @@ import UIKit
 import Combine
 import CoreDataStack
 import MastodonAsset
+import MastodonCore
 import MastodonLocalization
 
 protocol ReportStatusViewControllerDelegate: AnyObject {

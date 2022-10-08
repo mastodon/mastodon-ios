@@ -14,7 +14,7 @@ import MastodonSDK
 
 extension APIService {
     
-    func followers(
+    public func followers(
         userID: Mastodon.Entity.Account.ID,
         maxID: String?,
         authenticationBox: MastodonAuthenticationBox

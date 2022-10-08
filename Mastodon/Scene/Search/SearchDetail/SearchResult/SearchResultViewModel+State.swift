@@ -9,6 +9,7 @@ import os.log
 import Foundation
 import GameplayKit
 import MastodonSDK
+import MastodonCore
 
 extension SearchResultViewModel {
     class State: GKState, NamingState {
@@ -156,7 +157,7 @@ extension SearchResultViewModel.State {
                     // reset data source when the search is refresh
                     if offset == nil {
                         viewModel.userFetchedResultsController.userIDs = []
-                        viewModel.statusFetchedResultsController.statusIDs.value = []
+                        viewModel.statusFetchedResultsController.statusIDs = []
                         viewModel.hashtags = []
                     }
 

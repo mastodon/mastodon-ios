@@ -12,6 +12,7 @@ import CoreDataStack
 import GameplayKit
 import CommonOSLog
 import MastodonSDK
+import MastodonCore
 
 final class SearchResultViewModel {
 
@@ -68,7 +69,7 @@ final class SearchResultViewModel {
         
         context.authenticationService.activeMastodonAuthenticationBox
             .map { $0?.domain }
-            .assign(to: \.value, on: statusFetchedResultsController.domain)
+            .assign(to: \.domain, on: statusFetchedResultsController)
             .store(in: &disposeBag)
 
 //        Publishers.CombineLatest(

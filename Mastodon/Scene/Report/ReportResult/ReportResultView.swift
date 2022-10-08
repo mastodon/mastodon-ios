@@ -10,6 +10,8 @@ import SwiftUI
 import MastodonSDK
 import MastodonUI
 import MastodonAsset
+import MastodonCore
+import MastodonUI
 import MastodonLocalization
 import CoreDataStack
 

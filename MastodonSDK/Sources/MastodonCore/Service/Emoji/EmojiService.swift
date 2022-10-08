@@ -26,7 +26,7 @@ public final class EmojiService {
 
 extension EmojiService {
 
-    func dequeueCustomEmojiViewModel(for domain: String) -> CustomEmojiViewModel? {
+    public func dequeueCustomEmojiViewModel(for domain: String) -> CustomEmojiViewModel? {
         var _customEmojiViewModel: CustomEmojiViewModel?
         workingQueue.sync {
             if let viewModel = customEmojiViewModelDict[domain] {

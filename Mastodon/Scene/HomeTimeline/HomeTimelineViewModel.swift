@@ -15,6 +15,7 @@ import CoreDataStack
 import GameplayKit
 import AlamofireImage
 import DateToolsSwift
+import MastodonCore
 
 final class HomeTimelineViewModel: NSObject {
     

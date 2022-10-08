@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import Combine
+import MastodonCore
 
 final class SawToothView: UIView {
     static let widthUint = 8

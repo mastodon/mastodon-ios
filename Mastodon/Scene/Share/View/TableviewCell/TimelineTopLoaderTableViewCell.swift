@@ -7,6 +7,9 @@
 
 import UIKit
 import Combine
+import MastodonCore
+import MastodonUI
+
 
 final class TimelineTopLoaderTableViewCell: TimelineLoaderTableViewCell {
     override func _init() {

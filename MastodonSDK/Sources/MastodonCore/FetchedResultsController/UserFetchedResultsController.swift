@@ -12,22 +12,22 @@ import CoreData
 import CoreDataStack
 import MastodonSDK
 
-final class UserFetchedResultsController: NSObject {
+public final class UserFetchedResultsController: NSObject {
 
     var disposeBag = Set<AnyCancellable>()
 
     let fetchedResultsController: NSFetchedResultsController<MastodonUser>
 
     // input
-    @Published var domain: String? = nil
-    @Published var userIDs: [Mastodon.Entity.Account.ID] = []
-    @Published var additionalPredicate: NSPredicate?
+    @Published public var domain: String? = nil
+    @Published public var userIDs: [Mastodon.Entity.Account.ID] = []
+    @Published public var additionalPredicate: NSPredicate?
 
     // output
     let _objectIDs = CurrentValueSubject<[NSManagedObjectID], Never>([])
-    @Published var records: [ManagedObjectRecord<MastodonUser>] = []
+    @Published public private(set) var records: [ManagedObjectRecord<MastodonUser>] = []
 
-    init(
+    public init(
         managedObjectContext: NSManagedObjectContext,
         domain: String?,
         additionalPredicate: NSPredicate?
@@ -96,7 +96,7 @@ extension UserFetchedResultsController {
 
 // MARK: - NSFetchedResultsControllerDelegate
 extension UserFetchedResultsController: NSFetchedResultsControllerDelegate {
-    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChangeContentWith snapshot: NSDiffableDataSourceSnapshotReference) {
+    public func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChangeContentWith snapshot: NSDiffableDataSourceSnapshotReference) {
         os_log("%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
 
         let indexes = userIDs

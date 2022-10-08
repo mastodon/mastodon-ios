@@ -21,7 +21,7 @@ extension APIService {
             .appendingPathComponent("webfinger")
     }
 
-    func webFinger(
+    public func webFinger(
         domain: String
     ) -> AnyPublisher<String, Error> {
         let url = APIService.webFingerEndpointURL(domain: domain)

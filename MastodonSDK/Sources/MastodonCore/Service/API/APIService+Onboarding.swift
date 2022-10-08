@@ -11,7 +11,7 @@ import MastodonSDK
 
 extension APIService {
  
-    func servers(
+    public func servers(
         language: String?,
         category: String?
     ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Server]>, Error> {
@@ -19,11 +19,11 @@ extension APIService {
         return Mastodon.API.Onboarding.servers(session: session, query: query)
     }
     
-    func categories() -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Category]>, Error> {
+    public func categories() -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Category]>, Error> {
         return Mastodon.API.Onboarding.categories(session: session)
     }
     
-    static func stubCategories() -> [Mastodon.Entity.Category] {
+    public static func stubCategories() -> [Mastodon.Entity.Category] {
         return Mastodon.Entity.Category.Kind.allCases.map { kind in
             return Mastodon.Entity.Category(category: kind.rawValue, serversCount: 0)
         }

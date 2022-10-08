@@ -8,6 +8,7 @@
 import os.log
 import UIKit
 import Combine
+import MastodonCore
 
 protocol AutoCompleteViewControllerDelegate: AnyObject {
     func autoCompleteViewController(_ viewController: AutoCompleteViewController, didSelectItem item: AutoCompleteItem)

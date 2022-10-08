@@ -13,6 +13,7 @@ import CoreData
 import CoreDataStack
 import FLEX
 import SwiftUI
+import MastodonCore
 import MastodonUI
 import MastodonSDK
 import StoreKit

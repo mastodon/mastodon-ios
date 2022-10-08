@@ -14,7 +14,7 @@ import MastodonSDK
 
 extension APIService {
 
-    func status(
+    public func status(
         statusID: Mastodon.Entity.Status.ID,
         authenticationBox: MastodonAuthenticationBox
     ) async throws -> Mastodon.Response.Content<Mastodon.Entity.Status> {
@@ -47,7 +47,7 @@ extension APIService {
         return response
     }
     
-    func deleteStatus(
+    public func deleteStatus(
         status: ManagedObjectRecord<Status>,
         authenticationBox: MastodonAuthenticationBox
     ) async throws -> Mastodon.Response.Content<Mastodon.Entity.Status> {

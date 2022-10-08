@@ -7,6 +7,7 @@
 
 import UIKit
 import CoreDataStack
+import MastodonCore
 
 extension DataSourceFacade {
     static func responseToUserMuteAction(

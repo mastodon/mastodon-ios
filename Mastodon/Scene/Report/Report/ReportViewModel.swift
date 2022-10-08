@@ -14,6 +14,7 @@ import MastodonSDK
 import OrderedCollections
 import os.log
 import UIKit
+import MastodonCore
 import MastodonLocalization
 
 class ReportViewModel {

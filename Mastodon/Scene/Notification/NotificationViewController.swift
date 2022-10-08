@@ -12,6 +12,7 @@ import MastodonAsset
 import MastodonLocalization
 import Tabman
 import Pageboy
+import MastodonCore
 
 final class NotificationViewController: TabmanViewController, NeedsDependency {
     

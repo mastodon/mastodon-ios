@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import MastodonCore
 
 enum ComposeStatusAttachmentItem {
     case attachment(attachmentService: MastodonAttachmentService)

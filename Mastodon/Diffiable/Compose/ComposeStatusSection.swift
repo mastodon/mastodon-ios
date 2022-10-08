@@ -21,7 +21,7 @@ enum ComposeStatusSection: Equatable, Hashable {
 }
 
 extension ComposeStatusSection {
-    enum ComposeKind {
+    public enum ComposeKind {
         case post
         case hashtag(hashtag: String)
         case mention(user: ManagedObjectRecord<MastodonUser>)

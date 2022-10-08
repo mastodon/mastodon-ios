@@ -14,7 +14,7 @@ import MastodonSDK
 
 extension APIService {
     
-    func statusContext(
+    public func statusContext(
         statusID: Mastodon.Entity.Status.ID,
         authenticationBox: MastodonAuthenticationBox
     ) async throws -> Mastodon.Response.Content<Mastodon.Entity.Context> {

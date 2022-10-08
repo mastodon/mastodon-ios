@@ -8,6 +8,7 @@
 import Combine
 import Foundation
 import UIKit
+import MastodonCore
 
 final class HomeTimelineNavigationBarTitleViewModel {
     
@@ -48,21 +49,21 @@ final class HomeTimelineNavigationBarTitleViewModel {
             .assign(to: \.value, on: isOffline)
             .store(in: &disposeBag)
         
-        context.statusPublishService.latestPublishingComposeViewModel
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] composeViewModel in
-                guard let self = self else { return }
-                guard let composeViewModel = composeViewModel,
-                      let state = composeViewModel.publishStateMachine.currentState else {
-                    self.isPublishingPost.value = false
-                    self.isPublished.value = false
-                    return
-                }
-                
-                self.isPublishingPost.value = state is ComposeViewModel.PublishState.Publishing || state is ComposeViewModel.PublishState.Fail
-                self.isPublished.value = state is ComposeViewModel.PublishState.Finish
-            }
-            .store(in: &disposeBag)
+//        context.statusPublishService.latestPublishingComposeViewModel
+//            .receive(on: DispatchQueue.main)
+//            .sink { [weak self] composeViewModel in
+//                guard let self = self else { return }
+//                guard let composeViewModel = composeViewModel,
+//                      let state = composeViewModel.publishStateMachine.currentState else {
+//                    self.isPublishingPost.value = false
+//                    self.isPublished.value = false
+//                    return
+//                }
+//                
+//                self.isPublishingPost.value = state is ComposeViewModel.PublishState.Publishing || state is ComposeViewModel.PublishState.Fail
+//                self.isPublished.value = state is ComposeViewModel.PublishState.Finish
+//            }
+//            .store(in: &disposeBag)
         
         Publishers.CombineLatest4(
             hasNewPosts.eraseToAnyPublisher(),

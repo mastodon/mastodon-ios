@@ -9,6 +9,7 @@ import os.log
 import UIKit
 import Combine
 import MastodonUI
+import MastodonCore
 
 final class DiscoveryForYouViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
     

@@ -14,7 +14,7 @@ import MastodonSDK
 
 extension APIService {
  
-    func publicTimeline(
+    public func publicTimeline(
         query: Mastodon.API.Timeline.PublicTimelineQuery,
         authenticationBox: MastodonAuthenticationBox
     ) async throws -> Mastodon.Response.Content<[Mastodon.Entity.Status]> {

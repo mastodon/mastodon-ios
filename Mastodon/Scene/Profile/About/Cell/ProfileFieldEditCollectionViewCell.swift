@@ -10,6 +10,8 @@ import UIKit
 import Combine
 import MetaTextKit
 import MastodonAsset
+import MastodonCore
+import MastodonUI
 import MastodonLocalization
 
 protocol ProfileFieldEditCollectionViewCellDelegate: AnyObject {

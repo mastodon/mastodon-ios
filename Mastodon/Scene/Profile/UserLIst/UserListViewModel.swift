@@ -10,6 +10,7 @@ import UIKit
 import Combine
 import CoreDataStack
 import GameplayKit
+import MastodonCore
 
 final class UserListViewModel {
     
@@ -36,7 +37,7 @@ final class UserListViewModel {
         return stateMachine
     }()
     
-    init(
+    public init(
         context: AppContext,
         kind: Kind
     ) {

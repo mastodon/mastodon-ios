@@ -12,6 +12,7 @@ import MastodonSDK
 import CoreData
 import CoreDataStack
 import CommonOSLog
+import MastodonCore
 
 extension APIService {
     
@@ -21,7 +22,7 @@ extension APIService {
         let favoritedCount: Int64
     }
     
-    func favorite(
+    public func favorite(
         record: ManagedObjectRecord<Status>,
         authenticationBox: MastodonAuthenticationBox
     ) async throws -> Mastodon.Response.Content<Mastodon.Entity.Status> {
@@ -108,7 +109,7 @@ extension APIService {
 }
 
 extension APIService {
-    func favoritedStatuses(
+    public func favoritedStatuses(
         limit: Int = onceRequestStatusMaxCount,
         maxID: String? = nil,
         authenticationBox: MastodonAuthenticationBox
@@ -152,7 +153,7 @@ extension APIService {
 }
 
 extension APIService {
-    func favoritedBy(
+    public func favoritedBy(
         status: ManagedObjectRecord<Status>,
         query: Mastodon.API.Statuses.FavoriteByQuery,
         authenticationBox: MastodonAuthenticationBox

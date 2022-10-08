@@ -9,11 +9,12 @@ import os.log
 import UIKit
 import Combine
 import PhotosUI
+import Meta
 import MetaTextKit
 import MastodonMeta
-import Meta
-import MastodonUI
 import MastodonAsset
+import MastodonCore
+import MastodonUI
 import MastodonLocalization
 import MastodonSDK
 
@@ -752,7 +753,10 @@ extension ComposeViewController {
             // TODO: handle error
             return
         }
-        context.statusPublishService.publish(composeViewModel: viewModel)
+        
+        // context.statusPublishService.publish(composeViewModel: viewModel)
+        assertionFailure()
+        
         dismiss(animated: true, completion: nil)
     }
     

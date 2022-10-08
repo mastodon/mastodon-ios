@@ -41,19 +41,19 @@ extension Trie {
 }
 
 extension ArraySlice {
-    var decomposed: (Element, ArraySlice<Element>)? {
+    public var decomposed: (Element, ArraySlice<Element>)? {
         return isEmpty ? nil : (self[startIndex], self.dropFirst())
     }
 }
 
 extension Trie {
-    func lookup(key: ArraySlice<Element>) -> Bool {
+    public func lookup(key: ArraySlice<Element>) -> Bool {
         guard let (head, tail) = key.decomposed else { return isElement }
         guard let subtrie = children[head] else { return false }
         return subtrie.lookup(key: tail)
     }
     
-    func lookup(key: ArraySlice<Element>) -> Trie<Element>? {
+    public func lookup(key: ArraySlice<Element>) -> Trie<Element>? {
         guard let (head, tail) = key.decomposed else { return self }
         guard let remainder = children[head] else { return nil }
         return remainder.lookup(key: tail)
@@ -61,13 +61,13 @@ extension Trie {
 }
 
 extension Trie {
-    func complete(key: ArraySlice<Element>) -> [[Element]] {
+    public func complete(key: ArraySlice<Element>) -> [[Element]] {
         return lookup(key: key)?.elements ?? []
     }
 }
 
 extension Trie {
-    mutating func inserted(_ key: ArraySlice<Element>, value: Any) {
+    public mutating func inserted(_ key: ArraySlice<Element>, value: Any) {
         guard let (head, tail) = key.decomposed else {
             self.valueSet.add(value)
             return
@@ -83,7 +83,7 @@ extension Trie {
 }
 
 extension Trie {
-    func passthrough(_ key: ArraySlice<Element>) -> [Trie<Element>] {
+    public func passthrough(_ key: ArraySlice<Element>) -> [Trie<Element>] {
         guard let (head, tail) = key.decomposed else {
             return [self]
         }
@@ -96,7 +96,7 @@ extension Trie {
         }
     }
     
-    var values: NSSet {
+    public var values: NSSet {
         let valueSet = NSMutableSet(set: self.valueSet)
         for (_, value) in children {
             valueSet.addObjects(from: Array(value.values))

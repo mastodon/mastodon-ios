@@ -13,7 +13,7 @@ import MastodonSDK
 
 extension APIService.CoreData {
     
-    static func createOrMergeMastodonAuthentication(
+    public static func createOrMergeMastodonAuthentication(
         into managedObjectContext: NSManagedObjectContext,
         for authenticateMastodonUser: MastodonUser,
         in domain: String,

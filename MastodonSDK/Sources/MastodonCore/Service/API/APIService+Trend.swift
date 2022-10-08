@@ -10,7 +10,7 @@ import MastodonSDK
 
 extension APIService {
     
-    func trendHashtags(
+    public func trendHashtags(
         domain: String,
         query: Mastodon.API.Trends.HashtagQuery?
     ) async throws -> Mastodon.Response.Content<[Mastodon.Entity.Tag]> {
@@ -23,7 +23,7 @@ extension APIService {
         return response
     }
     
-    func trendStatuses(
+    public func trendStatuses(
         domain: String,
         query: Mastodon.API.Trends.StatusQuery
     ) async throws -> Mastodon.Response.Content<[Mastodon.Entity.Status]> {
@@ -53,7 +53,7 @@ extension APIService {
         return response
     }
     
-    func trendLinks(
+    public func trendLinks(
         domain: String,
         query: Mastodon.API.Trends.LinkQuery
     ) async throws -> Mastodon.Response.Content<[Mastodon.Entity.Link]> {

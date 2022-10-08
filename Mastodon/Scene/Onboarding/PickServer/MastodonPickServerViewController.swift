@@ -11,6 +11,7 @@ import Combine
 import GameController
 import AuthenticationServices
 import MastodonAsset
+import MastodonCore
 import MastodonLocalization
 import MastodonUI
 
@@ -281,7 +282,7 @@ extension MastodonPickServerViewController {
                 guard let info = AuthenticationViewModel.AuthenticateInfo(
                         domain: server.domain,
                         application: application,
-                        redirectURI: response.value.redirectURI ?? MastodonAuthenticationController.callbackURL
+                        redirectURI: response.value.redirectURI ?? APIService.oauthCallbackURL
                 ) else {
                     throw APIService.APIError.explicit(.badResponse)
                 }

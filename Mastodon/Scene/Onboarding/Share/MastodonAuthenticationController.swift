@@ -9,13 +9,14 @@ import os.log
 import UIKit
 import Combine
 import AuthenticationServices
+import MastodonCore
 
 final class MastodonAuthenticationController {
     
     var disposeBag = Set<AnyCancellable>()
     
     // input
-    var context: AppContext!
+    var context: AppContext
     let authenticateURL: URL
     var authenticationSession: ASWebAuthenticationSession?
     

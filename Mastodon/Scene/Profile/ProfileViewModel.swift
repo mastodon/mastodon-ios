@@ -12,6 +12,7 @@ import CoreDataStack
 import MastodonSDK
 import MastodonMeta
 import MastodonAsset
+import MastodonCore
 import MastodonLocalization
 import MastodonUI
 

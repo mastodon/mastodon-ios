@@ -11,6 +11,7 @@ import Combine
 import Tabman
 import Pageboy
 import MastodonAsset
+import MastodonCore
 import MastodonUI
 
 public class DiscoveryViewController: TabmanViewController, NeedsDependency {

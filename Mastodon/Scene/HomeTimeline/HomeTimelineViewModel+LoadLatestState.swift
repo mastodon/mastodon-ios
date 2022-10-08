@@ -11,6 +11,7 @@ import Foundation
 import CoreData
 import CoreDataStack
 import GameplayKit
+import MastodonCore
 
 extension HomeTimelineViewModel {
     class LoadLatestState: GKState {

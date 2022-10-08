@@ -10,6 +10,7 @@ import UIKit
 import SwiftUI
 import Combine
 import MastodonAsset
+import MastodonCore
 import MastodonLocalization
 
 final class ReportResultViewController: UIViewController, NeedsDependency, ReportViewControllerAppearance {

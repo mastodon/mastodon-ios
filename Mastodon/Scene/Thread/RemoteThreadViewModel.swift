@@ -8,6 +8,7 @@
 import os.log
 import UIKit
 import CoreDataStack
+import MastodonCore
 import MastodonSDK
 
 final class RemoteThreadViewModel: ThreadViewModel {

@@ -15,6 +15,8 @@ import CropViewController
 import MastodonMeta
 import MetaTextKit
 import MastodonAsset
+import MastodonCore
+import MastodonUI
 import MastodonLocalization
 import TabBarPager
 

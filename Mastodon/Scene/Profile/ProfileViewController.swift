@@ -11,8 +11,9 @@ import Combine
 import MastodonMeta
 import MetaTextKit
 import MastodonAsset
-import MastodonLocalization
+import MastodonCore
 import MastodonUI
+import MastodonLocalization
 import CoreDataStack
 import TabBarPager
 import XLPagerTabStrip

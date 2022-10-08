@@ -8,6 +8,7 @@
 import os.log
 import Foundation
 import GameplayKit
+import MastodonCore
 import MastodonSDK
 
 extension FavoriteViewModel {
@@ -72,7 +73,7 @@ extension FavoriteViewModel.State {
             guard let viewModel = viewModel, let stateMachine = stateMachine else { return }
             
             // reset
-            viewModel.statusFetchedResultsController.statusIDs.value = []
+            viewModel.statusFetchedResultsController.statusIDs = []
             
             stateMachine.enter(Loading.self)
         }
@@ -150,7 +151,7 @@ extension FavoriteViewModel.State {
                     )
                     
                     var hasNewStatusesAppend = false
-                    var statusIDs = viewModel.statusFetchedResultsController.statusIDs.value
+                    var statusIDs = viewModel.statusFetchedResultsController.statusIDs
                     for status in response.value {
                         guard !statusIDs.contains(status.id) else { continue }
                         statusIDs.append(status.id)
@@ -169,7 +170,7 @@ extension FavoriteViewModel.State {
                     } else {
                         await enter(state: NoMore.self)
                     }
-                    viewModel.statusFetchedResultsController.statusIDs.value = statusIDs
+                    viewModel.statusFetchedResultsController.statusIDs = statusIDs
                 } catch {
                     logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): fetch user favorites fail: \(error.localizedDescription)")
                     await enter(state: Fail.self)

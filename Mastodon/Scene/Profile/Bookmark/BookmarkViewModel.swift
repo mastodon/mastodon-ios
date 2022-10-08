@@ -10,6 +10,7 @@ import Combine
 import CoreData
 import CoreDataStack
 import GameplayKit
+import MastodonCore
 
 final class BookmarkViewModel {
     
@@ -51,7 +52,7 @@ final class BookmarkViewModel {
         
         activeMastodonAuthenticationBox
             .map { $0?.domain }
-            .assign(to: \.value, on: statusFetchedResultsController.domain)
+            .assign(to: \.domain, on: statusFetchedResultsController)
             .store(in: &disposeBag)
     }
     

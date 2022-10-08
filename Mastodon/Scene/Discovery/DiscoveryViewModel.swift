@@ -9,6 +9,7 @@ import UIKit
 import Combine
 import Tabman
 import Pageboy
+import MastodonCore
 import MastodonLocalization
 
 final class DiscoveryViewModel {

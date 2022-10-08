@@ -11,6 +11,7 @@ import Combine
 import Alamofire
 import AlamofireImage
 import FLAnimatedImage
+import MastodonCore
 
 class MediaPreviewImageViewModel {
 
@@ -29,18 +30,18 @@ class MediaPreviewImageViewModel {
 
 extension MediaPreviewImageViewModel {
     
-    enum ImagePreviewItem {
+    public enum ImagePreviewItem {
         case remote(RemoteImageContext)
         case local(LocalImageContext)
     }
     
-    struct RemoteImageContext {
+    public struct RemoteImageContext {
         let assetURL: URL?
         let thumbnail: UIImage?
         let altText: String?
     }
     
-    struct LocalImageContext {
+    public struct LocalImageContext {
         let image: UIImage
     }
 

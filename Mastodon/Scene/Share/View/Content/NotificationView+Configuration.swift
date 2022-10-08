@@ -13,6 +13,7 @@ import MetaTextKit
 import MastodonMeta
 import Meta
 import MastodonAsset
+import MastodonCore
 import MastodonLocalization
 import class CoreDataStack.Notification
 

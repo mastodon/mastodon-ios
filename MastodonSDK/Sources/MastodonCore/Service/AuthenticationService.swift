@@ -137,7 +137,7 @@ extension AuthenticationService {
         .eraseToAnyPublisher()
     }
     
-    func signOutMastodonUser(
+    public func signOutMastodonUser(
         authenticationBox: MastodonAuthenticationBox
     ) async throws {
         let managedObjectContext = backgroundManagedObjectContext

@@ -10,6 +10,7 @@ import CoreData
 import CoreDataStack
 import GameplayKit
 import MastodonSDK
+import MastodonCore
 import os.log
 import UIKit
     

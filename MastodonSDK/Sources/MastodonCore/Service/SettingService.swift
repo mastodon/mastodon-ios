@@ -27,7 +27,7 @@ public final class SettingService {
     
     // output
     let settingFetchedResultController: SettingFetchedResultController
-    let currentSetting = CurrentValueSubject<Setting?, Never>(nil)
+    public let currentSetting = CurrentValueSubject<Setting?, Never>(nil)
     
     init(
         apiService: APIService,
@@ -176,7 +176,7 @@ public final class SettingService {
 
 extension SettingService {
     
-    static func openSettingsAlertController(title: String, message: String) -> UIAlertController {
+    public static func openSettingsAlertController(title: String, message: String) -> UIAlertController {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let settingAction = UIAlertAction(title: L10n.Common.Controls.Actions.settings, style: .default) { _ in
             guard let url = URL(string: UIApplication.openSettingsURLString) else { return }

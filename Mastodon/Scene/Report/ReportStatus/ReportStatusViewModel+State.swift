@@ -81,7 +81,7 @@ extension ReportStatusViewModel.State {
                 return
             }
             
-            let maxID = viewModel.statusFetchedResultsController.statusIDs.value.last
+            let maxID = viewModel.statusFetchedResultsController.statusIDs.last
             
             Task {
                 let managedObjectContext = viewModel.context.managedObjectContext
@@ -106,7 +106,7 @@ extension ReportStatusViewModel.State {
                     )
                     
                     var hasNewStatusesAppend = false
-                    var statusIDs = viewModel.statusFetchedResultsController.statusIDs.value
+                    var statusIDs = viewModel.statusFetchedResultsController.statusIDs
                     for status in response.value {
                         guard !statusIDs.contains(status.id) else { continue }
                         statusIDs.append(status.id)
@@ -118,7 +118,7 @@ extension ReportStatusViewModel.State {
                     } else {
                         await enter(state: NoMore.self)
                     }
-                    viewModel.statusFetchedResultsController.statusIDs.value = statusIDs
+                    viewModel.statusFetchedResultsController.statusIDs = statusIDs
 
                 } catch {
                     logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): fetch user timeline fail: \(error.localizedDescription)")

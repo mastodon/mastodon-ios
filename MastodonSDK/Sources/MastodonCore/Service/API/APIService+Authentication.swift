@@ -13,7 +13,7 @@ import MastodonSDK
 
 extension APIService {
  
-    func userAccessToken(
+    public func userAccessToken(
         domain: String,
         clientID: String,
         clientSecret: String,
@@ -34,7 +34,7 @@ extension APIService {
         )
     }
     
-    func applicationAccessToken(
+    public func applicationAccessToken(
         domain: String,
         clientID: String,
         clientSecret: String,

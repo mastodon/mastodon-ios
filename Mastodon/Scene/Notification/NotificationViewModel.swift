@@ -8,9 +8,10 @@
 import os.log
 import UIKit
 import Combine
-import MastodonAsset
-import MastodonLocalization
 import Pageboy
+import MastodonAsset
+import MastodonCore
+import MastodonLocalization
 
 final class NotificationViewModel {
     

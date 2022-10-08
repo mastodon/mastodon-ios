@@ -15,7 +15,7 @@ extension Setting {
 //        return SettingsItem.AppearanceMode(rawValue: appearanceRaw) ?? .automatic
 //    }
     
-    var activeSubscription: Subscription? {
+    public var activeSubscription: Subscription? {
         return (subscriptions ?? Set())
             .sorted(by: { $0.activedAt > $1.activedAt })
             .first

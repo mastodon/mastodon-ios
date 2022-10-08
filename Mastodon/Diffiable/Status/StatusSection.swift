@@ -15,6 +15,7 @@ import AlamofireImage
 import MastodonMeta
 import MastodonSDK
 import NaturalLanguage
+import MastodonCore
 import MastodonUI
 
 enum StatusSection: Equatable, Hashable {

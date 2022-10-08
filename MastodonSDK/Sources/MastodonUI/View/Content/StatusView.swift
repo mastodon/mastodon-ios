@@ -11,6 +11,7 @@ import Combine
 import MetaTextKit
 import Meta
 import MastodonAsset
+import MastodonCore
 import MastodonLocalization
 
 public protocol StatusViewDelegate: AnyObject {

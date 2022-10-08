@@ -14,7 +14,7 @@ import MastodonSDK
 
 extension APIService {
 
-    func accountInfo(
+    public func accountInfo(
         domain: String,
         userID: Mastodon.Entity.Account.ID,
         authorization: Mastodon.API.OAuth.Authorization
@@ -50,7 +50,7 @@ extension APIService {
 
 extension APIService {
     
-    func accountVerifyCredentials(
+    public func accountVerifyCredentials(
         domain: String,
         authorization: Mastodon.API.OAuth.Authorization
     ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Account>, Error> {
@@ -91,7 +91,7 @@ extension APIService {
         .eraseToAnyPublisher()
     }
     
-    func accountUpdateCredentials(
+    public func accountUpdateCredentials(
         domain: String,
         query: Mastodon.API.Account.UpdateCredentialQuery,
         authorization: Mastodon.API.OAuth.Authorization
@@ -125,7 +125,7 @@ extension APIService {
         return response
     }
     
-    func accountRegister(
+    public func accountRegister(
         domain: String,
         query: Mastodon.API.Account.RegisterQuery,
         authorization: Mastodon.API.OAuth.Authorization
@@ -138,7 +138,7 @@ extension APIService {
         )
     }
     
-    func accountLookup(
+    public func accountLookup(
         domain: String,
         query: Mastodon.API.Account.AccountLookupQuery,
         authorization: Mastodon.API.OAuth.Authorization

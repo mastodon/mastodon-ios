@@ -14,7 +14,7 @@ import OSLog
 
 extension APIService {
     
-    func suggestionAccount(
+    public func suggestionAccount(
         query: Mastodon.API.Suggestions.Query?,
         authenticationBox: MastodonAuthenticationBox
     ) async throws -> Mastodon.Response.Content<[Mastodon.Entity.Account]> {
@@ -44,7 +44,7 @@ extension APIService {
         return response
     }
 
-    func suggestionAccountV2(
+    public func suggestionAccountV2(
         query: Mastodon.API.Suggestions.Query?,
         authenticationBox: MastodonAuthenticationBox
     ) async throws -> Mastodon.Response.Content<[Mastodon.Entity.V2.SuggestionAccount]> {
@@ -77,7 +77,7 @@ extension APIService {
 
 extension APIService {
     
-    func familiarFollowers(
+    public func familiarFollowers(
         query: Mastodon.API.Account.FamiliarFollowersQuery,
         authenticationBox: MastodonAuthenticationBox
     ) async throws -> Mastodon.Response.Content<[Mastodon.Entity.FamiliarFollowers]> {

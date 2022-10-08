@@ -13,6 +13,7 @@ import CoreDataStack
 import GameplayKit
 import TabBarPager
 import XLPagerTabStrip
+import MastodonCore
 
 final class UserTimelineViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
     

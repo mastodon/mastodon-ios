@@ -10,11 +10,13 @@ import UIKit
 import Combine
 import CoreData
 import CoreDataStack
-import MastodonSDK
-import MetaTextKit
-import MastodonMeta
 import AuthenticationServices
+import MetaTextKit
+import MastodonSDK
+import MastodonMeta
 import MastodonAsset
+import MastodonCore
+import MastodonUI
 import MastodonLocalization
 
 class SettingsViewController: UIViewController, NeedsDependency {

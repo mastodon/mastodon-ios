@@ -12,6 +12,7 @@ import CoreData
 import AVKit
 import MastodonMeta
 import MastodonAsset
+import MastodonCore
 import MastodonLocalization
 
 final class ThreadViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {

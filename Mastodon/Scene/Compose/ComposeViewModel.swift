@@ -13,6 +13,7 @@ import CoreDataStack
 import GameplayKit
 import MastodonSDK
 import MastodonAsset
+import MastodonCore
 import MastodonLocalization
 import MastodonMeta
 import MastodonUI

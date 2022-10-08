@@ -8,9 +8,10 @@
 import UIKit
 import CoreData
 import CoreDataStack
+import MastodonCore
 
 extension DataSourceFacade {
-    static func responseToStatusFavoriteAction(
+    public static func responseToStatusFavoriteAction(
         provider: DataSourceProvider,
         status: ManagedObjectRecord<Status>,
         authenticationBox: MastodonAuthenticationBox

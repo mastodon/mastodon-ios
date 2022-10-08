@@ -14,6 +14,7 @@ import GameplayKit
 import MastodonSDK
 import MastodonMeta
 import MastodonAsset
+import MastodonCore
 import MastodonLocalization
 
 class ThreadViewModel {

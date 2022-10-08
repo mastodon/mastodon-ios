@@ -10,6 +10,7 @@ import UIKit
 import Combine
 import Pageboy
 import MastodonAsset
+import MastodonCore
 import MastodonLocalization
 
 final class CustomSearchController: UISearchController {
@@ -165,7 +166,7 @@ extension SearchDetailViewController {
                         case .hashtags:
                             viewController.viewModel.hashtags = allSearchScopeViewController.viewModel.hashtags
                         case .posts:
-                            viewController.viewModel.statusFetchedResultsController.statusIDs.value = allSearchScopeViewController.viewModel.statusFetchedResultsController.statusIDs.value
+                            viewController.viewModel.statusFetchedResultsController.statusIDs = allSearchScopeViewController.viewModel.statusFetchedResultsController.statusIDs
                         }
                     }
                 }

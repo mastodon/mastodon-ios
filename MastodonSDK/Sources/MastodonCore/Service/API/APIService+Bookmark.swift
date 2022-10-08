@@ -19,7 +19,7 @@ extension APIService {
         let isBookmarked: Bool
     }
 
-    func bookmark(
+    public func bookmark(
         record: ManagedObjectRecord<Status>,
         authenticationBox: MastodonAuthenticationBox
     ) async throws -> Mastodon.Response.Content<Mastodon.Entity.Status> {
@@ -98,7 +98,7 @@ extension APIService {
 }
 
 extension APIService {
-    func bookmarkedStatuses(
+    public func bookmarkedStatuses(
         limit: Int = onceRequestStatusMaxCount,
         maxID: String? = nil,
         authenticationBox: MastodonAuthenticationBox

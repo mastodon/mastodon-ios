@@ -15,7 +15,7 @@ import AlamofireImage
 
 public class AppContext: ObservableObject {
     
-    var disposeBag = Set<AnyCancellable>()
+    public var disposeBag = Set<AnyCancellable>()
     
     public let coreDataStack: CoreDataStack
     public let managedObjectContext: NSManagedObjectContext
@@ -116,16 +116,16 @@ public class AppContext: ObservableObject {
 
 extension AppContext {
     
-    typealias ByteCount = Int
+    public typealias ByteCount = Int
     
-    static let byteCountFormatter: ByteCountFormatter = {
+    public static let byteCountFormatter: ByteCountFormatter = {
         let formatter = ByteCountFormatter()
         return formatter
     }()
     
     private static let purgeCacheWorkingQueue = DispatchQueue(label: "org.joinmastodon.app.AppContext.purgeCacheWorkingQueue")
     
-    func purgeCache() -> AnyPublisher<ByteCount, Never> {
+    public func purgeCache() -> AnyPublisher<ByteCount, Never> {
         Publishers.MergeMany([
             AppContext.purgeAlamofireImageCache(),
             AppContext.purgeTemporaryDirectory(),

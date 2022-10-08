@@ -10,13 +10,13 @@ import Foundation
 import MastodonSDK
 
 extension Status {
-    enum SensitiveType {
+    public enum SensitiveType {
         case none
         case all
         case media(isSensitive: Bool)
     }
 
-    var sensitiveType: SensitiveType {
+    public var sensitiveType: SensitiveType {
         let spoilerText = self.spoilerText ?? ""
 
         // cast .all sensitive when has spoiter text
@@ -44,9 +44,9 @@ extension Status {
 //        return author
 //    }
 //}
-//
+
 extension Status {
-    var statusURL: URL {
+    public var statusURL: URL {
         if let urlString = self.url,
            let url = URL(string: urlString)
         {
@@ -56,7 +56,7 @@ extension Status {
         }
     }
 
-    var activityItems: [Any] {
+    public var activityItems: [Any] {
         var items: [Any] = []
         items.append(self.statusURL)
         return items
@@ -71,7 +71,7 @@ extension Status {
 //}
 
 extension Status {
-    var asRecord: ManagedObjectRecord<Status> {
+    public var asRecord: ManagedObjectRecord<Status> {
         return .init(objectID: self.objectID)
     }
 }

@@ -12,6 +12,7 @@ import GameplayKit
 import CoreData
 import CoreDataStack
 import MastodonSDK
+import MastodonCore
 
 final class DiscoveryNewsViewModel {
     

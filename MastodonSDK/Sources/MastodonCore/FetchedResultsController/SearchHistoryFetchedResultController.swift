@@ -12,19 +12,19 @@ import CoreData
 import CoreDataStack
 import MastodonSDK
 
-final class SearchHistoryFetchedResultController: NSObject {
+public final class SearchHistoryFetchedResultController: NSObject {
 
     var disposeBag = Set<AnyCancellable>()
 
-    let fetchedResultsController: NSFetchedResultsController<SearchHistory>
-    let domain = CurrentValueSubject<String?, Never>(nil)
-    let userID = CurrentValueSubject<Mastodon.Entity.Status.ID?, Never>(nil)
+    public let fetchedResultsController: NSFetchedResultsController<SearchHistory>
+    public let domain = CurrentValueSubject<String?, Never>(nil)
+    public let userID = CurrentValueSubject<Mastodon.Entity.Status.ID?, Never>(nil)
 
     // output
     let _objectIDs = CurrentValueSubject<[NSManagedObjectID], Never>([])
-    @Published var records: [ManagedObjectRecord<SearchHistory>] = []
+    @Published public private(set) var records: [ManagedObjectRecord<SearchHistory>] = []
     
-    init(managedObjectContext: NSManagedObjectContext) {
+    public init(managedObjectContext: NSManagedObjectContext) {
         self.fetchedResultsController = {
             let fetchRequest = SearchHistory.sortedFetchRequest
             fetchRequest.returnsObjectsAsFaults = false
@@ -70,7 +70,7 @@ final class SearchHistoryFetchedResultController: NSObject {
 
 // MARK: - NSFetchedResultsControllerDelegate
 extension SearchHistoryFetchedResultController: NSFetchedResultsControllerDelegate {
-    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChangeContentWith snapshot: NSDiffableDataSourceSnapshotReference) {
+    public func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChangeContentWith snapshot: NSDiffableDataSourceSnapshotReference) {
         os_log("%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
 
         let objects = fetchedResultsController.fetchedObjects ?? []

@@ -11,6 +11,7 @@ import GameplayKit
 import MastodonSDK
 import UIKit
 import MastodonAsset
+import MastodonCore
 import MastodonLocalization
 
 final class HeightFixedSearchBar: UISearchBar {

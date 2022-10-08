@@ -8,6 +8,7 @@
 import Foundation
 import Combine
 import CoreData
+import MastodonCore
 import MastodonMeta
 import CoreDataStack
 

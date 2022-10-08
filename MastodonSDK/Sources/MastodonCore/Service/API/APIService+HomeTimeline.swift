@@ -14,7 +14,7 @@ import MastodonSDK
 
 extension APIService {
     
-    func homeTimeline(
+    public func homeTimeline(
         sinceID: Mastodon.Entity.Status.ID? = nil,
         maxID: Mastodon.Entity.Status.ID? = nil,
         limit: Int = onceRequestStatusMaxCount,

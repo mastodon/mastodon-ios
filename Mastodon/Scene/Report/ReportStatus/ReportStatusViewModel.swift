@@ -14,6 +14,7 @@ import MastodonSDK
 import OrderedCollections
 import os.log
 import UIKit
+import MastodonCore
 
 class ReportStatusViewModel {
     
@@ -68,7 +69,7 @@ class ReportStatusViewModel {
         
         context.authenticationService.activeMastodonAuthenticationBox
             .map { $0?.domain }
-            .assign(to: \.value, on: statusFetchedResultsController.domain)
+            .assign(to: \.domain, on: statusFetchedResultsController)
             .store(in: &disposeBag)
         
         $selectStatuses

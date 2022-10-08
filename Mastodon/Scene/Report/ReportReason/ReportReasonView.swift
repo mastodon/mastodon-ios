@@ -10,6 +10,7 @@ import SwiftUI
 import MastodonLocalization
 import MastodonSDK
 import MastodonAsset
+import MastodonCore
 
 struct ReportReasonView: View {
     

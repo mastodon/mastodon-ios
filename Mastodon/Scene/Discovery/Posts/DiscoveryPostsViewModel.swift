@@ -12,6 +12,7 @@ import GameplayKit
 import CoreData
 import CoreDataStack
 import MastodonSDK
+import MastodonCore
 
 final class DiscoveryPostsViewModel {
     
@@ -51,7 +52,7 @@ final class DiscoveryPostsViewModel {
         
         context.authenticationService.activeMastodonAuthentication
             .map { $0?.domain }
-            .assign(to: \.value, on: statusFetchedResultsController.domain)
+            .assign(to: \.domain, on: statusFetchedResultsController)
             .store(in: &disposeBag)
         
         Task {

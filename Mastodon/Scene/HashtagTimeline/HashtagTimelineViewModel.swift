@@ -12,7 +12,8 @@ import CoreData
 import CoreDataStack
 import GameplayKit
 import MastodonSDK
-    
+import MastodonCore
+
 final class HashtagTimelineViewModel {
     
     let logger = Logger(subsystem: "HashtagTimelineViewModel", category: "ViewModel")
@@ -63,7 +64,7 @@ final class HashtagTimelineViewModel {
         
         context.authenticationService.activeMastodonAuthenticationBox
             .map { $0?.domain }
-            .assign(to: \.value, on: fetchedResultsController.domain)
+            .assign(to: \.domain, on: fetchedResultsController)
             .store(in: &disposeBag)
     }
     

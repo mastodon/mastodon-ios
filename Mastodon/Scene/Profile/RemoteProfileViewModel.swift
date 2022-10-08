@@ -10,6 +10,7 @@ import Foundation
 import Combine
 import CoreDataStack
 import MastodonSDK
+import MastodonCore
 
 final class RemoteProfileViewModel: ProfileViewModel {
     

@@ -6,8 +6,9 @@
 //
 
 import UIKit
-import MastodonUI
 import MastodonAsset
+import MastodonCore
+import MastodonUI
 import MastodonLocalization
 
 extension AttachmentContainerView {

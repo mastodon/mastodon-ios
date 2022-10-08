@@ -205,7 +205,7 @@ extension UserListViewModel.State {
             
             guard let viewModel = viewModel else { return }
             // trigger reload
-            viewModel.userFetchedResultsController.records = viewModel.userFetchedResultsController.records
+            viewModel.userFetchedResultsController.userIDs = viewModel.userFetchedResultsController.userIDs
         }
     }
 }

@@ -9,6 +9,7 @@ import os.log
 import UIKit
 import Combine
 import CoreDataStack
+import MastodonCore
 import MastodonLocalization
 
 final class NotificationTimelineViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {

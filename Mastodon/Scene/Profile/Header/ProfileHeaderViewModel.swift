@@ -12,6 +12,7 @@ import CoreDataStack
 import Kanna
 import MastodonSDK
 import MastodonMeta
+import MastodonCore
 import MastodonUI
 
 final class ProfileHeaderViewModel {

@@ -7,10 +7,10 @@
 
 import Foundation
 import Combine
-import Combine
 import CoreData
 import CoreDataStack
 import GameplayKit
+import MastodonCore
 import MastodonSDK
 
 final class FollowingListViewModel {

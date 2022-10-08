@@ -8,6 +8,7 @@
 import UIKit
 import Combine
 import CoreDataStack
+import MastodonCore
 import MastodonSDK
 
 class ReportSupplementaryViewModel {

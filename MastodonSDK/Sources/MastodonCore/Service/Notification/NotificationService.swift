@@ -141,7 +141,7 @@ extension NotificationService {
 }
 
 extension NotificationService {
-    func clearNotificationCountForActiveUser() {
+    public func clearNotificationCountForActiveUser() {
         guard let authenticationService = self.authenticationService else { return }
         if let accessToken = authenticationService.activeMastodonAuthentication.value?.userAccessToken {
             UserDefaults.shared.setNotificationCountWithAccessToken(accessToken: accessToken, value: 0)

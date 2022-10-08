@@ -14,6 +14,7 @@ import AVKit
 import Combine
 import GameplayKit
 import MastodonAsset
+import MastodonCore
 import MastodonLocalization
 
 final class FavoriteViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {

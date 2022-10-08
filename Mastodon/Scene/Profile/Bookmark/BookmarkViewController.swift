@@ -11,6 +11,7 @@ import AVKit
 import Combine
 import GameplayKit
 import MastodonAsset
+import MastodonCore
 import MastodonLocalization
 
 final class BookmarkViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {

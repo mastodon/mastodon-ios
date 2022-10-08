@@ -17,8 +17,8 @@ extension EmojiService {
         var disposeBag = Set<AnyCancellable>()
         
         // input
-        let domain: String
-        weak var service: EmojiService?
+        public let domain: String
+        public weak var service: EmojiService?
         
         // output
         private(set) lazy var stateMachine: GKStateMachine = {

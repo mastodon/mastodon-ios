@@ -13,7 +13,7 @@ import MastodonSDK
 
 extension APIService.CoreData {
     
-    static func createOrFetchSubscription(
+    public static func createOrFetchSubscription(
         into managedObjectContext: NSManagedObjectContext,
         setting: Setting,
         policy: Mastodon.API.Subscriptions.Policy

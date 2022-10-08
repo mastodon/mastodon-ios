@@ -9,11 +9,11 @@ import Foundation
 import CoreDataStack
 import MastodonSDK
 
-typealias NotificationSubscription = Subscription
+public typealias NotificationSubscription = Subscription
 
 extension Subscription {
     
-    var policy: Mastodon.API.Subscriptions.Policy {
+    public var policy: Mastodon.API.Subscriptions.Policy {
         return Mastodon.API.Subscriptions.Policy(rawValue: policyRaw) ?? .all
     }
     

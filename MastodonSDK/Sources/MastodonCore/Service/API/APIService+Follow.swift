@@ -30,7 +30,7 @@ extension APIService {
     ///   - mastodonUser: target MastodonUser
     ///   - activeMastodonAuthenticationBox: `AuthenticationService.MastodonAuthenticationBox`
     /// - Returns: publisher for `Relationship`
-    func toggleFollow(
+    public func toggleFollow(
         user: ManagedObjectRecord<MastodonUser>,
         authenticationBox: MastodonAuthenticationBox
     ) async throws -> Mastodon.Response.Content<Mastodon.Entity.Relationship> {

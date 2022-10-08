@@ -10,6 +10,7 @@ import Combine
 import CoreData
 import CoreDataStack
 import Pageboy
+import MastodonCore
 
 final class MediaPreviewViewModel: NSObject {
     

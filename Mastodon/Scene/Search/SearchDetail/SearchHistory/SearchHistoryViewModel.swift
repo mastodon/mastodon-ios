@@ -9,6 +9,7 @@ import UIKit
 import Combine
 import CoreDataStack
 import CommonOSLog
+import MastodonCore
 
 final class SearchHistoryViewModel {
 

@@ -7,6 +7,7 @@
 
 import UIKit
 import Combine
+import MastodonUI
 
 final class ComposeRepliedToStatusContentTableViewCell: UITableViewCell {
 

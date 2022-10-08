@@ -22,7 +22,7 @@ extension APIService {
         let isFollowing: Bool
     }
     
-    func toggleBlock(
+    public func toggleBlock(
         user: ManagedObjectRecord<MastodonUser>,
         authenticationBox: MastodonAuthenticationBox
     ) async throws -> Mastodon.Response.Content<Mastodon.Entity.Relationship> {

@@ -167,7 +167,7 @@ extension HashtagTimelineViewModel.State {
                     self.maxID = newMaxID
                     
                     var hasNewStatusesAppend = false
-                    var statusIDs = isReloading ? [] : viewModel.fetchedResultsController.statusIDs.value
+                    var statusIDs = isReloading ? [] : viewModel.fetchedResultsController.statusIDs
                     for status in response.value {
                         guard !statusIDs.contains(status.id) else { continue }
                         statusIDs.append(status.id)

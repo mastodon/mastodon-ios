@@ -5,8 +5,6 @@
 //  Created by sxiaojian on 2021/4/27.
 //
 
-import Foundation
-
 import UIKit
 import Combine
 import CoreData
@@ -16,7 +14,7 @@ import MastodonSDK
 
 extension APIService {
     
-    func followRequest(
+    public func followRequest(
         userID: Mastodon.Entity.Account.ID,
         query: Mastodon.API.Account.FollowReqeustQuery,
         authenticationBox: MastodonAuthenticationBox

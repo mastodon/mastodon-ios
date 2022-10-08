@@ -9,6 +9,7 @@ import UIKit
 import Combine
 import FLAnimatedImage
 import MetaTextKit
+import MastodonCore
 import MastodonUI
 
 final class AccountListTableViewCell: UITableViewCell {

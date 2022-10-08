@@ -14,7 +14,7 @@ import MastodonSDK
 
 extension APIService {
     
-    func instance(
+    public func instance(
         domain: String
     ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Instance>, Error> {
         return Mastodon.API.Instance.instance(session: session, domain: domain)

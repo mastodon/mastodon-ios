@@ -20,10 +20,10 @@ public final class StatusFilterService {
     // input
     weak var apiService: APIService?
     weak var authenticationService: AuthenticationService?
-    let filterUpdatePublisher = PassthroughSubject<Void, Never>()
+    public let filterUpdatePublisher = PassthroughSubject<Void, Never>()
 
     // output
-    @Published var activeFilters: [Mastodon.Entity.Filter] = []
+    @Published public var activeFilters: [Mastodon.Entity.Filter] = []
 
     init(
         apiService: APIService,

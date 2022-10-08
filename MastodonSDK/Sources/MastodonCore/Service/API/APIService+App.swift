@@ -21,7 +21,7 @@ extension APIService {
 
     private static let appWebsite = "https://app.joinmastodon.org/ios"
 
-    func createApplication(domain: String) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Application>, Error> {
+    public func createApplication(domain: String) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Application>, Error> {
         let query = Mastodon.API.App.CreateQuery(
             clientName: APIService.clientName,
             redirectURIs: APIService.oauthCallbackURL,

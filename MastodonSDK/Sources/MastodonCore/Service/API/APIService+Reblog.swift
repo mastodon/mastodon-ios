@@ -20,7 +20,7 @@ extension APIService {
         let rebloggedCount: Int64
     }
     
-    func reblog(
+    public func reblog(
         record: ManagedObjectRecord<Status>,
         authenticationBox: MastodonAuthenticationBox
     ) async throws -> Mastodon.Response.Content<Mastodon.Entity.Status> {
@@ -108,7 +108,7 @@ extension APIService {
 }
 
 extension APIService {
-    func rebloggedBy(
+    public func rebloggedBy(
         status: ManagedObjectRecord<Status>,
         query: Mastodon.API.Statuses.RebloggedByQuery,
         authenticationBox: MastodonAuthenticationBox

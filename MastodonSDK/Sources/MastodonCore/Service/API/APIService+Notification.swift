@@ -15,32 +15,33 @@ import class CoreDataStack.Notification
 
 extension APIService {
     
-    enum MastodonNotificationScope: Hashable, CaseIterable {
+    public enum MastodonNotificationScope: Hashable, CaseIterable {
         case everything
         case mentions
         
-        var includeTypes: [MastodonNotificationType]? {
+        public var includeTypes: [MastodonNotificationType]? {
             switch self {
             case .everything:       return nil
             case .mentions:         return [.mention, .status]
             }
         }
         
-        var excludeTypes: [MastodonNotificationType]? {
+        public var excludeTypes: [MastodonNotificationType]? {
             switch self {
             case .everything:       return nil
             case .mentions:         return [.follow, .followRequest, .reblog, .favourite, .poll]
             }
         }
         
-        var _excludeTypes: [Mastodon.Entity.Notification.NotificationType]? {
+        public var _excludeTypes: [Mastodon.Entity.Notification.NotificationType]? {
             switch self {
             case .everything:       return nil
             case .mentions:         return [.follow, .followRequest, .reblog, .favourite, .poll]
             }
         }
     }
-    func notifications(
+    
+    public func notifications(
         maxID: Mastodon.Entity.Status.ID?,
         scope: MastodonNotificationScope,
         authenticationBox: MastodonAuthenticationBox
@@ -158,7 +159,8 @@ extension APIService {
 }
 
 extension APIService {
-    func notification(
+    
+    public func notification(
         notificationID: Mastodon.Entity.Notification.ID,
         authenticationBox: MastodonAuthenticationBox
     ) async throws -> Mastodon.Response.Content<Mastodon.Entity.Notification> {

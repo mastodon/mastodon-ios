@@ -13,6 +13,7 @@ import UIKit
 import MetaTextKit
 import MastodonMeta
 import Combine
+import MastodonCore
 
 enum RecommendAccountSection: Equatable, Hashable {
     case main

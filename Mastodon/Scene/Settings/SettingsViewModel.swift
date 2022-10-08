@@ -13,6 +13,7 @@ import MastodonSDK
 import UIKit
 import os.log
 import AuthenticationServices
+import MastodonCore
 
 class SettingsViewModel {
     

@@ -10,6 +10,7 @@ import UIKit
 import Combine
 import MetaTextKit
 import Meta
+import MastodonCore
 import MastodonAsset
 import MastodonLocalization
 

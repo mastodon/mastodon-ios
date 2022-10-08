@@ -13,29 +13,29 @@ import GameplayKit
 import MobileCoreServices
 import MastodonSDK
 
-protocol MastodonAttachmentServiceDelegate: AnyObject {
+public protocol MastodonAttachmentServiceDelegate: AnyObject {
     func mastodonAttachmentService(_ service: MastodonAttachmentService, uploadStateDidChange state: MastodonAttachmentService.UploadState?)
 }
 
-final class MastodonAttachmentService {
+public final class MastodonAttachmentService {
     
-    var disposeBag = Set<AnyCancellable>()
-    weak var delegate: MastodonAttachmentServiceDelegate?
+    public var disposeBag = Set<AnyCancellable>()
+    public weak var delegate: MastodonAttachmentServiceDelegate?
     
-    let identifier = UUID()
+    public let identifier = UUID()
         
     // input
-    let context: AppContext
-    var authenticationBox: MastodonAuthenticationBox?
-    let file = CurrentValueSubject<Mastodon.Query.MediaAttachment?, Never>(nil)
-    let description = CurrentValueSubject<String?, Never>(nil)
+    public let context: AppContext
+    public var authenticationBox: MastodonAuthenticationBox?
+    public let file = CurrentValueSubject<Mastodon.Query.MediaAttachment?, Never>(nil)
+    public let description = CurrentValueSubject<String?, Never>(nil)
     
     // output
-    let thumbnailImage = CurrentValueSubject<UIImage?, Never>(nil)
-    let attachment = CurrentValueSubject<Mastodon.Entity.Attachment?, Never>(nil)
-    let error = CurrentValueSubject<Error?, Never>(nil)
+    public let thumbnailImage = CurrentValueSubject<UIImage?, Never>(nil)
+    public let attachment = CurrentValueSubject<Mastodon.Entity.Attachment?, Never>(nil)
+    public let error = CurrentValueSubject<Error?, Never>(nil)
     
-    private(set) lazy var uploadStateMachine: GKStateMachine = {
+    public private(set) lazy var uploadStateMachine: GKStateMachine = {
         // exclude timeline middle fetcher state
         let stateMachine = GKStateMachine(states: [
             UploadState.Initial(service: self),
@@ -47,9 +47,9 @@ final class MastodonAttachmentService {
         stateMachine.enter(UploadState.Initial.self)
         return stateMachine
     }()
-    lazy var uploadStateMachineSubject = CurrentValueSubject<MastodonAttachmentService.UploadState?, Never>(nil)
+    public lazy var uploadStateMachineSubject = CurrentValueSubject<MastodonAttachmentService.UploadState?, Never>(nil)
 
-    init(
+    public init(
         context: AppContext,
         pickerResult: PHPickerResult,
         initialAuthenticationBox: MastodonAuthenticationBox?
@@ -87,7 +87,7 @@ final class MastodonAttachmentService {
             .store(in: &disposeBag)
     }
     
-    init(
+    public init(
         context: AppContext,
         image: UIImage,
         initialAuthenticationBox: MastodonAuthenticationBox?
@@ -102,7 +102,7 @@ final class MastodonAttachmentService {
         uploadStateMachine.enter(UploadState.Initial.self)
     }
     
-    init(
+    public init(
         context: AppContext,
         documentURL: URL,
         initialAuthenticationBox: MastodonAuthenticationBox?
@@ -183,7 +183,7 @@ final class MastodonAttachmentService {
 }
 
 extension MastodonAttachmentService {
-    enum AttachmentError: Error {
+    public enum AttachmentError: Error {
         case invalidAttachmentType
         case attachmentTooLarge
     }
@@ -199,11 +199,11 @@ extension MastodonAttachmentService {
 
 extension MastodonAttachmentService: Equatable, Hashable {
     
-    static func == (lhs: MastodonAttachmentService, rhs: MastodonAttachmentService) -> Bool {
+    public static func == (lhs: MastodonAttachmentService, rhs: MastodonAttachmentService) -> Bool {
         return lhs.identifier == rhs.identifier
     }
     
-    func hash(into hasher: inout Hasher) {
+    public func hash(into hasher: inout Hasher) {
         hasher.combine(identifier)
     }
     

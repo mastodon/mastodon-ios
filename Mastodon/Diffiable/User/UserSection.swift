@@ -9,6 +9,7 @@ import os.log
 import UIKit
 import CoreData
 import CoreDataStack
+import MastodonCore
 import MetaTextKit
 import MastodonMeta
 

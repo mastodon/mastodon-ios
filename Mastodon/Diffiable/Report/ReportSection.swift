@@ -13,6 +13,7 @@ import MastodonSDK
 import UIKit
 import os.log
 import MastodonAsset
+import MastodonCore
 import MastodonLocalization
 
 enum ReportSection: Equatable, Hashable {

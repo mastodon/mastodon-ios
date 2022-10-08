@@ -11,6 +11,7 @@ import Combine
 import FLAnimatedImage
 import MetaTextKit
 import MastodonAsset
+import MastodonCore
 import MastodonLocalization
 import MastodonUI
 

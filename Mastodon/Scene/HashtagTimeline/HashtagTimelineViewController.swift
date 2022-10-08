@@ -12,6 +12,7 @@ import Combine
 import GameplayKit
 import CoreData
 import MastodonAsset
+import MastodonCore
 import MastodonLocalization
 
 final class HashtagTimelineViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {

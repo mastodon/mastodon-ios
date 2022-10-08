@@ -9,6 +9,7 @@ import Combine
 import CoreData
 import os.log
 import UIKit
+import MastodonUI
 
 protocol TimelineMiddleLoaderTableViewCellDelegate: AnyObject {
     func timelineMiddleLoaderTableViewCell(_ cell: TimelineMiddleLoaderTableViewCell, loadMoreButtonDidPressed button: UIButton)

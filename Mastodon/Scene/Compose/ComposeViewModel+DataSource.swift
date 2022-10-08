@@ -9,11 +9,12 @@ import os.log
 import UIKit
 import Combine
 import CoreDataStack
-import MastodonSDK
-import MastodonMeta
 import MetaTextKit
+import MastodonMeta
 import MastodonAsset
+import MastodonCore
 import MastodonLocalization
+import MastodonSDK
 
 extension ComposeViewModel {
 

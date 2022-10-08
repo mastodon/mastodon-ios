@@ -8,6 +8,8 @@
 import os.log
 import UIKit
 import CoreDataStack
+import MastodonCore
+import MastodonUI
 import MastodonLocalization
 
 extension UITableViewDelegate where Self: DataSourceProvider {
