@@ -182,9 +182,13 @@ extension MastodonPickServerViewController {
 
         authenticationViewModel
             .authenticated
-            .flatMap { [weak self] (domain, user) -> AnyPublisher<Result<Bool, Error>, Never> in
-                guard let self = self else { return Just(.success(false)).eraseToAnyPublisher() }
-                return self.context.authenticationService.activeMastodonUser(domain: domain, userID: user.id)
+            .asyncMap { domain, user -> Result<Bool, Error> in
+                do {
+                    let result = try await self.context.authenticationService.activeMastodonUser(domain: domain, userID: user.id)
+                    return .success(result)
+                } catch {
+                    return .failure(error)
+                }
             }
             .receive(on: DispatchQueue.main)
             .sink { [weak self] result in

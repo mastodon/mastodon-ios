@@ -69,11 +69,7 @@ extension ThreadViewModel.LoadThreadState {
             super.didEnter(from: previousState)
 
             guard let viewModel = viewModel, let stateMachine = stateMachine else { return }
-            guard let authenticationBox = viewModel.context.authenticationService.activeMastodonAuthenticationBox.value else {
-                stateMachine.enter(Fail.self)
-                return
-            }
-
+            
             guard let threadContext = viewModel.threadContext else {
                 stateMachine.enter(Fail.self)
                 return
@@ -83,7 +79,7 @@ extension ThreadViewModel.LoadThreadState {
                 do {
                     let response = try await viewModel.context.apiService.statusContext(
                         statusID: threadContext.statusID,
-                        authenticationBox: authenticationBox
+                        authenticationBox: viewModel.authContext.mastodonAuthenticationBox
                     )
                     
                     await enter(state: NoMore.self)

@@ -82,15 +82,15 @@ extension FollowerListViewController {
         
         // trigger user timeline loading
         Publishers.CombineLatest(
-            viewModel.domain.removeDuplicates().eraseToAnyPublisher(),
-            viewModel.userID.removeDuplicates().eraseToAnyPublisher()
+            viewModel.$domain.removeDuplicates(),
+            viewModel.$userID.removeDuplicates()
         )
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                guard let self = self else { return }
-                self.viewModel.stateMachine.enter(FollowerListViewModel.State.Reloading.self)
-            }
-            .store(in: &disposeBag)
+        .receive(on: DispatchQueue.main)
+        .sink { [weak self] _ in
+            guard let self = self else { return }
+            self.viewModel.stateMachine.enter(FollowerListViewModel.State.Reloading.self)
+        }
+        .store(in: &disposeBag)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -100,6 +100,12 @@ extension FollowerListViewController {
     }
     
 }
+
+// MARK: - AuthContextProvider
+extension FollowerListViewController: AuthContextProvider {
+    var authContext: AuthContext { viewModel.authContext }
+}
+
 
 // MARK: - UITableViewDelegate
 extension FollowerListViewController: UITableViewDelegate, AutoGenerateTableViewDelegate {

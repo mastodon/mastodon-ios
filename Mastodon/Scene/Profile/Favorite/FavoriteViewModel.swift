@@ -18,7 +18,7 @@ final class FavoriteViewModel {
     
     // input
     let context: AppContext
-    let activeMastodonAuthenticationBox: CurrentValueSubject<MastodonAuthenticationBox?, Never>
+    let authContext: AuthContext
     let statusFetchedResultsController: StatusFetchedResultsController
     let listBatchFetchViewModel = ListBatchFetchViewModel()
 
@@ -37,23 +37,14 @@ final class FavoriteViewModel {
         return stateMachine
     }()
     
-    init(context: AppContext) {
+    init(context: AppContext, authContext: AuthContext) {
         self.context = context
-        self.activeMastodonAuthenticationBox = CurrentValueSubject(context.authenticationService.activeMastodonAuthenticationBox.value)
+        self.authContext = authContext
         self.statusFetchedResultsController = StatusFetchedResultsController(
             managedObjectContext: context.managedObjectContext,
-            domain: nil,
+            domain: authContext.mastodonAuthenticationBox.domain,
             additionalTweetPredicate: nil
         )
-        
-        context.authenticationService.activeMastodonAuthenticationBox
-            .assign(to: \.value, on: activeMastodonAuthenticationBox)
-            .store(in: &disposeBag)
-        
-        activeMastodonAuthenticationBox
-            .map { $0?.domain }
-            .assign(to: \.domain, on: statusFetchedResultsController)
-            .store(in: &disposeBag)
     }
     
 }

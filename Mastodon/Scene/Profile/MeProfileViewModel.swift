@@ -15,10 +15,12 @@ import MastodonSDK
 
 final class MeProfileViewModel: ProfileViewModel {
     
-    init(context: AppContext) {
+    init(context: AppContext, authContext: AuthContext) {
+        let user = authContext.mastodonAuthenticationBox.authenticationRecord.object(in: context.managedObjectContext)?.user
         super.init(
             context: context,
-            optionalMastodonUser: context.authenticationService.activeMastodonAuthentication.value?.user
+            authContext: authContext,
+            optionalMastodonUser: user
         )
         
         $me

@@ -133,6 +133,7 @@ enum RecommendAccountSection: Equatable, Hashable {
 extension RecommendAccountSection {
     
     struct Configuration {
+        let authContext: AuthContext
         weak var suggestionAccountTableViewCellDelegate: SuggestionAccountTableViewCellDelegate?
     }
 
@@ -150,10 +151,7 @@ extension RecommendAccountSection {
                     cell.configure(user: user)
                 }
                 
-                context.authenticationService.activeMastodonAuthenticationBox
-                    .map { $0 as UserIdentifier? }
-                    .assign(to: \.userIdentifier, on: cell.viewModel)
-                    .store(in: &cell.disposeBag)
+                cell.viewModel.userIdentifier = configuration.authContext.mastodonAuthenticationBox
                 cell.delegate = configuration.suggestionAccountTableViewCellDelegate
             }
             return cell

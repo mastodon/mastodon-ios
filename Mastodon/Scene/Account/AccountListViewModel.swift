@@ -5,6 +5,7 @@
 //  Created by Cirno MainasuK on 2021-9-13.
 //
 
+import os.log
 import UIKit
 import Combine
 import CoreData
@@ -14,43 +15,43 @@ import MastodonMeta
 import MastodonCore
 import MastodonUI
 
-final class AccountListViewModel {
+final class AccountListViewModel: NSObject {
 
     var disposeBag = Set<AnyCancellable>()
 
     // input
     let context: AppContext
+    let authContext: AuthContext
+    let mastodonAuthenticationFetchedResultsController: NSFetchedResultsController<MastodonAuthentication>
 
     // output
-    let authentications = CurrentValueSubject<[Item], Never>([])
-    let activeMastodonUserObjectID = CurrentValueSubject<NSManagedObjectID?, Never>(nil)
+    @Published var authentications: [ManagedObjectRecord<MastodonAuthentication>] = []
+    @Published var items: [Item] = []
+    
     let dataSourceDidUpdate = PassthroughSubject<Void, Never>()
     var diffableDataSource: UITableViewDiffableDataSource<Section, Item>!
 
-    init(context: AppContext) {
+    init(context: AppContext, authContext: AuthContext) {
         self.context = context
+        self.authContext = authContext
+        self.mastodonAuthenticationFetchedResultsController = {
+            let fetchRequest = MastodonAuthentication.sortedFetchRequest
+            fetchRequest.returnsObjectsAsFaults = false
+            fetchRequest.fetchBatchSize = 20
+            let controller = NSFetchedResultsController(
+                fetchRequest: fetchRequest,
+                managedObjectContext: context.managedObjectContext,
+                sectionNameKeyPath: nil,
+                cacheName: nil
+            )
+            return controller
+        }()
+        super.init()
+        // end init
+        
+        mastodonAuthenticationFetchedResultsController.delegate = self
 
-        Publishers.CombineLatest(
-            context.authenticationService.mastodonAuthentications,
-            context.authenticationService.activeMastodonAuthentication
-        )
-        .sink { [weak self] authentications, activeAuthentication in
-            guard let self = self else { return }
-            var items: [Item] = []
-            var activeMastodonUserObjectID: NSManagedObjectID?
-            for authentication in authentications {
-                let item = Item.authentication(objectID: authentication.objectID)
-                items.append(item)
-                if authentication === activeAuthentication {
-                    activeMastodonUserObjectID = authentication.user.objectID
-                }
-            }
-            self.authentications.value = items
-            self.activeMastodonUserObjectID.value = activeMastodonUserObjectID
-        }
-        .store(in: &disposeBag)
-
-        authentications
+        $authentications
             .receive(on: DispatchQueue.main)
             .sink { [weak self] authentications in
                 guard let self = self else { return }
@@ -58,7 +59,10 @@ final class AccountListViewModel {
 
                 var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
                 snapshot.appendSections([.main])
-                snapshot.appendItems(authentications, toSection: .main)
+                let authenticationItems: [Item] = authentications.map {
+                    Item.authentication(record: $0)
+                }
+                snapshot.appendItems(authenticationItems, toSection: .main)
                 snapshot.appendItems([.addAccount], toSection: .main)
 
                 diffableDataSource.apply(snapshot) {
@@ -76,7 +80,7 @@ extension AccountListViewModel {
     }
 
     enum Item: Hashable {
-        case authentication(objectID: NSManagedObjectID)
+        case authentication(record: ManagedObjectRecord<MastodonAuthentication>)
         case addAccount
     }
 
@@ -86,14 +90,17 @@ extension AccountListViewModel {
     ) {
         diffableDataSource = UITableViewDiffableDataSource(tableView: tableView) { tableView, indexPath, item in
             switch item {
-            case .authentication(let objectID):
-                let authentication = managedObjectContext.object(with: objectID) as! MastodonAuthentication
+            case .authentication(let record):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: AccountListTableViewCell.self), for: indexPath) as! AccountListTableViewCell
-                AccountListViewModel.configure(
-                    cell: cell,
-                    authentication: authentication,
-                    activeMastodonUserObjectID: self.activeMastodonUserObjectID.eraseToAnyPublisher()
-                )
+                if let authentication = record.object(in: managedObjectContext),
+                   let activeAuthentication = self.authContext.mastodonAuthenticationBox.authenticationRecord.object(in: managedObjectContext)
+                {
+                    AccountListViewModel.configure(
+                        cell: cell,
+                        authentication: authentication,
+                        activeAuthentication: activeAuthentication
+                    )
+                }
                 return cell
             case .addAccount:
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: AddAccountTableViewCell.self), for: indexPath) as! AddAccountTableViewCell
@@ -109,7 +116,7 @@ extension AccountListViewModel {
     static func configure(
         cell: AccountListTableViewCell,
         authentication: MastodonAuthentication,
-        activeMastodonUserObjectID: AnyPublisher<NSManagedObjectID?, Never>
+        activeAuthentication: MastodonAuthentication
     ) {
         let user = authentication.user
         
@@ -138,19 +145,14 @@ extension AccountListViewModel {
         cell.badgeButton.setBadge(number: count)
         
         // checkmark
-        activeMastodonUserObjectID
-            .receive(on: DispatchQueue.main)
-            .sink { objectID in
-                let isCurrentUser =  user.objectID == objectID
-                cell.tintColor = .label
-                cell.checkmarkImageView.isHidden = !isCurrentUser
-                if isCurrentUser {
-                    cell.accessibilityTraits.insert(.selected)
-                } else {
-                    cell.accessibilityTraits.remove(.selected)
-                }
-            }
-            .store(in: &cell.disposeBag)
+        let isActive = activeAuthentication.userID == authentication.userID
+        cell.tintColor = .label
+        cell.checkmarkImageView.isHidden = !isActive
+        if isActive {
+            cell.accessibilityTraits.insert(.selected)
+        } else {
+            cell.accessibilityTraits.remove(.selected)
+        }
         
         cell.accessibilityLabel = [
             cell.nameLabel.text,
@@ -160,4 +162,22 @@ extension AccountListViewModel {
         .compactMap { $0 }
         .joined(separator: " ")
     }
+}
+
+// MARK: - NSFetchedResultsControllerDelegate
+extension AccountListViewModel: NSFetchedResultsControllerDelegate {
+    
+    public func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+         os_log("%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+    }
+
+    public func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        guard controller === mastodonAuthenticationFetchedResultsController else {
+            assertionFailure()
+            return
+        }
+        
+        authentications = mastodonAuthenticationFetchedResultsController.fetchedObjects?.compactMap { $0.asRecrod } ?? []
+    }
+    
 }

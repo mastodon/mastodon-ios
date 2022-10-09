@@ -137,7 +137,7 @@ final class ComposeViewController: UIViewController, NeedsDependency {
     
     private(set) lazy var autoCompleteViewController: AutoCompleteViewController = {
         let viewController = AutoCompleteViewController()
-        viewController.viewModel = AutoCompleteViewModel(context: context)
+        viewController.viewModel = AutoCompleteViewModel(context: context, authContext: viewModel.authContext)
         viewController.delegate = self
         viewController.viewModel.customEmojiViewModel.value = viewModel.customEmojiViewModel
         return viewController

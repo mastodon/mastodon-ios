@@ -44,13 +44,12 @@ public final class StatusFilterService {
             .subscribe(filterUpdatePublisher)
             .store(in: &disposeBag)
 
-        let activeMastodonAuthenticationBox = authenticationService.activeMastodonAuthenticationBox
         Publishers.CombineLatest(
-            activeMastodonAuthenticationBox,
+            authenticationService.$mastodonAuthenticationBoxes,
             filterUpdatePublisher
         )
-        .flatMap { box, _ -> AnyPublisher<Result<Mastodon.Response.Content<[Mastodon.Entity.Filter]>, Error>, Never> in
-            guard let box = box else {
+        .flatMap { mastodonAuthenticationBoxes, _ -> AnyPublisher<Result<Mastodon.Response.Content<[Mastodon.Entity.Filter]>, Error>, Never> in
+            guard let box = mastodonAuthenticationBoxes.first else {
                 return Just(Result { throw APIService.APIError.implicit(.authenticationMissing) }).eraseToAnyPublisher()
             }
             return apiService.filters(mastodonAuthenticationBox: box)

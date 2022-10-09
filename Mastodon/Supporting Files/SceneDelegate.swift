@@ -146,11 +146,11 @@ extension SceneDelegate {
             if coordinator?.tabBarController.topMost is ComposeViewController {
                 logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): composing…")
             } else {
-                if let authenticationBox = AppContext.shared.authenticationService.activeMastodonAuthenticationBox.value {
+                if let authContext = coordinator?.authContext {
                     let composeViewModel = ComposeViewModel(
                         context: AppContext.shared,
                         composeKind: .post,
-                        authenticationBox: authenticationBox
+                        authContext: authContext
                     )
                     coordinator?.present(scene: .compose(viewModel: composeViewModel), from: nil, transition: .modal(animated: true, completion: nil))
                     logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): present compose scene")

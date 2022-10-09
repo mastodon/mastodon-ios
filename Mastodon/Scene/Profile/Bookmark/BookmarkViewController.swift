@@ -134,6 +134,11 @@ extension BookmarkViewController: UITableViewDelegate, AutoGenerateTableViewDele
 // MARK: - StatusTableViewCellDelegate
 extension BookmarkViewController: StatusTableViewCellDelegate { }
 
+// MARK: - AuthContextProvider
+extension BookmarkViewController: AuthContextProvider {
+    var authContext: AuthContext { viewModel.authContext }
+}
+
 extension BookmarkViewController {
     override var keyCommands: [UIKeyCommand]? {
         return navigationKeyCommands + statusNavigationKeyCommands

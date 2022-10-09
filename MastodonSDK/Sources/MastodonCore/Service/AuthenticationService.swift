@@ -23,10 +23,8 @@ public final class AuthenticationService: NSObject {
     let mastodonAuthenticationFetchedResultsController: NSFetchedResultsController<MastodonAuthentication>
 
     // output
-    public let mastodonAuthentications = CurrentValueSubject<[MastodonAuthentication], Never>([])
-    public let mastodonAuthenticationBoxes = CurrentValueSubject<[MastodonAuthenticationBox], Never>([])
-    public let activeMastodonAuthentication = CurrentValueSubject<MastodonAuthentication?, Never>(nil)
-    public let activeMastodonAuthenticationBox = CurrentValueSubject<MastodonAuthenticationBox?, Never>(nil)
+    @Published public var mastodonAuthentications: [ManagedObjectRecord<MastodonAuthentication>] = []
+    @Published public var mastodonAuthenticationBoxes: [MastodonAuthenticationBox] = []
 
     init(
         managedObjectContext: NSManagedObjectContext,
@@ -53,38 +51,23 @@ public final class AuthenticationService: NSObject {
         mastodonAuthenticationFetchedResultsController.delegate = self
 
         // TODO: verify credentials for active authentication
-    
-        // bind data
-        mastodonAuthentications
-            .map { $0.sorted(by: { $0.activedAt > $1.activedAt }).first }
-            .assign(to: \.value, on: activeMastodonAuthentication)
-            .store(in: &disposeBag)
         
-        mastodonAuthentications
+        $mastodonAuthentications
             .map { authentications -> [MastodonAuthenticationBox] in
                 return authentications
+                    .compactMap { $0.object(in: managedObjectContext) }
                     .sorted(by: { $0.activedAt > $1.activedAt })
                     .compactMap { authentication -> MastodonAuthenticationBox? in
-                        return MastodonAuthenticationBox(
-                            authenticationRecord: .init(objectID: authentication.objectID),
-                            domain: authentication.domain,
-                            userID: authentication.userID,
-                            appAuthorization: Mastodon.API.OAuth.Authorization(accessToken: authentication.appAccessToken),
-                            userAuthorization: Mastodon.API.OAuth.Authorization(accessToken: authentication.userAccessToken)
-                        )
+                        return MastodonAuthenticationBox(authentication: authentication)
                     }
             }
-            .assign(to: \.value, on: mastodonAuthenticationBoxes)
-            .store(in: &disposeBag)
-        
-        mastodonAuthenticationBoxes
-            .map { $0.first }
-            .assign(to: \.value, on: activeMastodonAuthenticationBox)
-            .store(in: &disposeBag)
-
+            .assign(to: &$mastodonAuthenticationBoxes)
+    
         do {
             try mastodonAuthenticationFetchedResultsController.performFetch()
-            mastodonAuthentications.value = mastodonAuthenticationFetchedResultsController.fetchedObjects ?? []
+            mastodonAuthentications = mastodonAuthenticationFetchedResultsController.fetchedObjects?
+                .sorted(by: { $0.activedAt > $1.activedAt })
+                .compactMap { $0.asRecrod } ?? []
         } catch {
             assertionFailure(error.localizedDescription)
         }
@@ -94,52 +77,28 @@ public final class AuthenticationService: NSObject {
 
 extension AuthenticationService {
     
-    public func activeMastodonUser(domain: String, userID: MastodonUser.ID) -> AnyPublisher<Result<Bool, Error>, Never> {
+    public func activeMastodonUser(domain: String, userID: MastodonUser.ID) async throws -> Bool {
         var isActive = false
         var _mastodonAuthentication: MastodonAuthentication?
         
-        return backgroundManagedObjectContext.performChanges { [weak self] in
-            guard let self = self else { return }
-            
+        let managedObjectContext = backgroundManagedObjectContext
+
+        try await managedObjectContext.performChanges {
             let request = MastodonAuthentication.sortedFetchRequest
             request.predicate = MastodonAuthentication.predicate(domain: domain, userID: userID)
             request.fetchLimit = 1
-            guard let mastodonAuthentication = try? self.backgroundManagedObjectContext.fetch(request).first else {
+            guard let mastodonAuthentication = try? managedObjectContext.fetch(request).first else {
                 return
             }
             mastodonAuthentication.update(activedAt: Date())
             _mastodonAuthentication = mastodonAuthentication
             isActive = true
+        }
         
-        }
-        .receive(on: DispatchQueue.main)
-        .map { [weak self] result in
-            switch result {
-            case .success:
-                if let self = self,
-                   let mastodonAuthentication = _mastodonAuthentication
-                {
-                    // force set to avoid delay
-                    self.activeMastodonAuthentication.value = mastodonAuthentication
-                    self.activeMastodonAuthenticationBox.value = MastodonAuthenticationBox(
-                        authenticationRecord: .init(objectID: mastodonAuthentication.objectID),
-                        domain: mastodonAuthentication.domain,
-                        userID: mastodonAuthentication.userID,
-                        appAuthorization: Mastodon.API.OAuth.Authorization(accessToken: mastodonAuthentication.appAccessToken),
-                        userAuthorization: Mastodon.API.OAuth.Authorization(accessToken: mastodonAuthentication.userAccessToken)
-                    )
-                }
-            case .failure:
-                break
-            }
-            return result.map { isActive }
-        }
-        .eraseToAnyPublisher()
+        return isActive
     }
     
-    public func signOutMastodonUser(
-        authenticationBox: MastodonAuthenticationBox
-    ) async throws {
+    public func signOutMastodonUser(authenticationBox: MastodonAuthenticationBox) async throws {
         let managedObjectContext = backgroundManagedObjectContext
         try await managedObjectContext.performChanges {
             // remove Feed
@@ -176,7 +135,6 @@ extension AuthenticationService {
     
 }
 
-
 // MARK: - NSFetchedResultsControllerDelegate
 extension AuthenticationService: NSFetchedResultsControllerDelegate {
     
@@ -185,10 +143,14 @@ extension AuthenticationService: NSFetchedResultsControllerDelegate {
     }
 
     public func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        if controller === mastodonAuthenticationFetchedResultsController {
-            mastodonAuthentications.value = mastodonAuthenticationFetchedResultsController.fetchedObjects ?? []
+        guard controller === mastodonAuthenticationFetchedResultsController else {
+            assertionFailure()
+            return
         }
+    
+        mastodonAuthentications = mastodonAuthenticationFetchedResultsController.fetchedObjects?
+            .sorted(by: { $0.activedAt > $1.activedAt })
+            .compactMap { $0.asRecrod } ?? []
     }
     
 }
-    

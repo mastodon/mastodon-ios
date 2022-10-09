@@ -25,11 +25,8 @@ public class DiscoveryViewController: TabmanViewController, NeedsDependency {
     
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
-    
-    private(set) lazy var viewModel = DiscoveryViewModel(
-        context: context,
-        coordinator: coordinator
-    )
+        
+    var viewModel: DiscoveryViewModel!
     
     private(set) lazy var buttonBar: TMBar.ButtonBar = {
         let buttonBar = TMBar.ButtonBar()

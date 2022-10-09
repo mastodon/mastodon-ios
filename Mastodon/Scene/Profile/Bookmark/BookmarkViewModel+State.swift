@@ -51,7 +51,7 @@ extension BookmarkViewModel.State {
             guard let viewModel = viewModel else { return false }
             switch stateClass {
             case is Reloading.Type:
-                return viewModel.activeMastodonAuthenticationBox.value != nil
+                return true
             default:
                 return false
             }
@@ -134,20 +134,15 @@ extension BookmarkViewModel.State {
             super.didEnter(from: previousState)
             guard let viewModel = viewModel, let stateMachine = stateMachine else { return }
             
-            guard let authenticationBox = viewModel.activeMastodonAuthenticationBox.value else {
-                stateMachine.enter(Fail.self)
-                return
-            }
             if previousState is Reloading {
                 maxID = nil
             }
-            
             
             Task {
                 do {
                     let response = try await viewModel.context.apiService.bookmarkedStatuses(
                         maxID: maxID,
-                        authenticationBox: authenticationBox
+                        authenticationBox: viewModel.authContext.mastodonAuthenticationBox
                     )
                     
                     var hasNewStatusesAppend = false

@@ -93,6 +93,11 @@ extension RebloggedByViewController {
     
 }
 
+// MARK: - AuthContextProvider
+extension RebloggedByViewController: AuthContextProvider {
+    var authContext: AuthContext { viewModel.authContext }
+}
+
 // MARK: - UITableViewDelegate
 extension RebloggedByViewController: UITableViewDelegate, AutoGenerateTableViewDelegate {
     // sourcery:inline:RebloggedByViewController.AutoGenerateTableViewDelegate

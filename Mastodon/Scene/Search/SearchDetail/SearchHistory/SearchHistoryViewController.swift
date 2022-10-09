@@ -109,6 +109,11 @@ extension SearchHistoryViewController: UICollectionViewDelegate {
 
 }
 
+// MARK: - AuthContextProvider
+extension SearchHistoryViewController: AuthContextProvider {
+    var authContext: AuthContext { viewModel.authContext }
+}
+
 // MARK: - SearchHistorySectionHeaderCollectionReusableViewDelegate
 extension SearchHistoryViewController: SearchHistorySectionHeaderCollectionReusableViewDelegate {
     func searchHistorySectionHeaderCollectionReusableView(

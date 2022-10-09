@@ -133,11 +133,6 @@ extension AutoCompleteViewModel.State {
                 await enter(state: Fail.self)
                 return
             }
-            
-            guard let authenticationBox = viewModel.context.authenticationService.activeMastodonAuthenticationBox.value else {
-                await enter(state: Fail.self)
-                return
-            }
 
             let searchText = viewModel.inputText.value
             let searchType = AutoCompleteViewModel.SearchType(inputText: searchText) ?? .default
@@ -154,7 +149,7 @@ extension AutoCompleteViewModel.State {
             do {
                 let response = try await viewModel.context.apiService.search(
                     query: query,
-                    authenticationBox: authenticationBox
+                    authenticationBox: viewModel.authContext.mastodonAuthenticationBox
                 )
                 
                 await enter(state: Idle.self)

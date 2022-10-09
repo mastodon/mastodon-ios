@@ -103,6 +103,11 @@ extension UserTimelineViewController: CellFrameCacheContainer {
     }
 }
 
+// MARK: - AuthContextProvider
+extension UserTimelineViewController: AuthContextProvider {
+    var authContext: AuthContext { viewModel.authContext }
+}
+
 // MARK: - UITableViewDelegate
 extension UserTimelineViewController: UITableViewDelegate, AutoGenerateTableViewDelegate {
     // sourcery:inline:UserTimelineViewController.AutoGenerateTableViewDelegate

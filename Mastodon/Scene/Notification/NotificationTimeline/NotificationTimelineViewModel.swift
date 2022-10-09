@@ -21,6 +21,7 @@ final class NotificationTimelineViewModel {
     
     // input
     let context: AppContext
+    let authContext: AuthContext
     let scope: Scope
     let feedFetchedResultsController: FeedFetchedResultsController
     let listBatchFetchViewModel = ListBatchFetchViewModel()
@@ -47,28 +48,19 @@ final class NotificationTimelineViewModel {
     
     init(
         context: AppContext,
+        authContext: AuthContext,
         scope: Scope
     ) {
         self.context = context
+        self.authContext = authContext
         self.scope = scope
         self.feedFetchedResultsController = FeedFetchedResultsController(managedObjectContext: context.managedObjectContext)
         // end init
         
-        context.authenticationService.activeMastodonAuthenticationBox
-            .sink { [weak self] authenticationBox in
-                guard let self = self else { return }
-                guard let authenticationBox = authenticationBox else {
-                    self.feedFetchedResultsController.predicate = Feed.nonePredicate()
-                    return
-                }
-                
-                let predicate = NotificationTimelineViewModel.feedPredicate(
-                    authenticationBox: authenticationBox,
-                    scope: scope
-                )
-                self.feedFetchedResultsController.predicate = predicate
-            }
-            .store(in: &disposeBag)
+        feedFetchedResultsController.predicate = NotificationTimelineViewModel.feedPredicate(
+            authenticationBox: authContext.mastodonAuthenticationBox,
+            scope: scope
+        )
     }
     
     deinit {
@@ -122,8 +114,6 @@ extension NotificationTimelineViewModel {
     
     // load lastest
     func loadLatest() async {
-        guard let authenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else { return }
-        
         isLoadingLatest = true
         defer { isLoadingLatest = false }
         
@@ -131,7 +121,7 @@ extension NotificationTimelineViewModel {
             _ = try await context.apiService.notifications(
                 maxID: nil,
                 scope: scope,
-                authenticationBox: authenticationBox
+                authenticationBox: authContext.mastodonAuthenticationBox
             )
         } catch {
             didLoadLatest.send()
@@ -142,7 +132,6 @@ extension NotificationTimelineViewModel {
     // load timeline gap
     func loadMore(item: NotificationItem) async {
         guard case let .feedLoader(record) = item else { return }
-        guard let authenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else { return }
         
         let managedObjectContext = context.managedObjectContext
         let key = "LoadMore@\(record.objectID)"
@@ -163,7 +152,7 @@ extension NotificationTimelineViewModel {
             _ = try await context.apiService.notifications(
                 maxID: maxID,
                 scope: scope,
-                authenticationBox: authenticationBox
+                authenticationBox: authContext.mastodonAuthenticationBox
             )
         } catch {
             logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): fetch more failure: \(error.localizedDescription)")

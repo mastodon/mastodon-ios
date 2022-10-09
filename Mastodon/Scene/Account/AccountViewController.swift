@@ -22,7 +22,7 @@ final class AccountListViewController: UIViewController, NeedsDependency {
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
 
     var disposeBag = Set<AnyCancellable>()
-    private(set) lazy var viewModel = AccountListViewModel(context: context)
+    var viewModel: AccountListViewModel!
 
     private(set) lazy var addBarButtonItem: UIBarButtonItem = {
         let barButtonItem = UIBarButtonItem(
@@ -64,7 +64,10 @@ extension AccountListViewController: PanModalPresentable {
             return .contentHeight(CGFloat(height))
         }
         
-        let count = viewModel.context.authenticationService.mastodonAuthentications.value.count + 1
+        let request = MastodonAuthentication.sortedFetchRequest
+        let authenticationCount = (try? context.managedObjectContext.count(for: request)) ?? 0
+        
+        let count = authenticationCount + 1
         let height = calculateHeight(of: count)
         return .contentHeight(height)
     }
@@ -174,16 +177,14 @@ extension AccountListViewController: UITableViewDelegate {
         guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
 
         switch item {
-        case .authentication(let objectID):
+        case .authentication(let record):
             assert(Thread.isMainThread)
-            let authentication = context.managedObjectContext.object(with: objectID) as! MastodonAuthentication
-            context.authenticationService.activeMastodonUser(domain: authentication.domain, userID: authentication.userID)
-                .receive(on: DispatchQueue.main)
-                .sink { [weak self] result in
-                    guard let self = self else { return }
-                    self.coordinator.setup()
-                }
-                .store(in: &disposeBag)
+            guard let authentication = record.object(in: context.managedObjectContext) else { return }
+            Task { @MainActor in
+                let isActive = try await context.authenticationService.activeMastodonUser(domain: authentication.domain, userID: authentication.userID)
+                guard isActive else { return }
+                self.coordinator.setup()
+            }   // end Task
         case .addAccount:
             // TODO: add dismiss entry for welcome scene
             coordinator.present(scene: .welcome, from: self, transition: .modal(animated: true, completion: nil))

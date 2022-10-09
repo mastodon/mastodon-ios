@@ -82,8 +82,8 @@ extension FollowingListViewController {
         
         // trigger user timeline loading
         Publishers.CombineLatest(
-            viewModel.domain.removeDuplicates().eraseToAnyPublisher(),
-            viewModel.userID.removeDuplicates().eraseToAnyPublisher()
+            viewModel.$domain.removeDuplicates(),
+            viewModel.$userID.removeDuplicates()
         )
         .receive(on: DispatchQueue.main)
         .sink { [weak self] _ in
@@ -99,6 +99,11 @@ extension FollowingListViewController {
         tableView.deselectRow(with: transitionCoordinator, animated: animated)
     }
     
+}
+
+// MARK: - AuthContextProvider
+extension FollowingListViewController: AuthContextProvider {
+    var authContext: AuthContext { viewModel.authContext }
 }
 
 // MARK: - UITableViewDelegate

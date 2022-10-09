@@ -29,8 +29,11 @@ final class ComposeViewModel: NSObject {
     // input
     let context: AppContext
     let composeKind: ComposeStatusSection.ComposeKind
-    let authenticationBox: MastodonAuthenticationBox
-
+    let authContext: AuthContext
+    
+    var authenticationBox: MastodonAuthenticationBox {
+        authContext.mastodonAuthenticationBox
+    }
     
     @Published var isPollComposing = false
     @Published var isCustomEmojiComposing = false
@@ -116,11 +119,12 @@ final class ComposeViewModel: NSObject {
     init(
         context: AppContext,
         composeKind: ComposeStatusSection.ComposeKind,
-        authenticationBox: MastodonAuthenticationBox
+        authContext: AuthContext
     ) {
         self.context = context
         self.composeKind = composeKind
-        self.authenticationBox = authenticationBox
+        self.authContext = authContext
+        
         self.title = {
             switch composeKind {
             case .post, .hashtag, .mention:       return L10n.Scene.Compose.Title.newPost
@@ -130,8 +134,7 @@ final class ComposeViewModel: NSObject {
         self.selectedStatusVisibility = {
             // default private when user locked
             var visibility: ComposeToolbarView.VisibilitySelectionType = {
-                guard let authenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value,
-                      let author = authenticationBox.authenticationRecord.object(in: context.managedObjectContext)?.user
+                guard let author = authContext.mastodonAuthenticationBox.authenticationRecord.object(in: context.managedObjectContext)?.user
                 else {
                     return .public
                 }
@@ -168,15 +171,12 @@ final class ComposeViewModel: NSObject {
         self.instanceConfiguration = {
             var configuration: Mastodon.Entity.Instance.Configuration? = nil
             context.managedObjectContext.performAndWait {
-                guard let authentication = authenticationBox.authenticationRecord.object(in: context.managedObjectContext)
-                else {
-                    return
-                }
+                guard let authentication = authContext.mastodonAuthenticationBox.authenticationRecord.object(in: context.managedObjectContext) else { return }
                 configuration = authentication.instance?.configuration
             }
             return configuration
         }()
-        self.customEmojiViewModel = context.emojiService.dequeueCustomEmojiViewModel(for: authenticationBox.domain)
+        self.customEmojiViewModel = context.emojiService.dequeueCustomEmojiViewModel(for: authContext.mastodonAuthenticationBox.domain)
         super.init()
         // end init
         

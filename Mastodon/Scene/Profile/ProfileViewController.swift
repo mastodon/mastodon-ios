@@ -111,7 +111,7 @@ final class ProfileViewController: UIViewController, NeedsDependency, MediaPrevi
         let viewController = ProfileHeaderViewController()
         viewController.context = context
         viewController.coordinator = coordinator
-        viewController.viewModel = ProfileHeaderViewModel(context: context)
+        viewController.viewModel = ProfileHeaderViewModel(context: context, authContext: viewModel.authContext)
         return viewController
     }()
     
@@ -460,14 +460,14 @@ extension ProfileViewController {
         switch meta {
         case .url(_, _, let url, _):
             guard let url = URL(string: url) else { return }
-            coordinator.present(scene: .safari(url: url), from: nil, transition: .safariPresent(animated: true, completion: nil))
+            _ = coordinator.present(scene: .safari(url: url), from: nil, transition: .safariPresent(animated: true, completion: nil))
         case .mention(_, _, let userInfo):
             guard let href = userInfo?["href"] as? String,
                   let url = URL(string: href) else { return }
-            coordinator.present(scene: .safari(url: url), from: nil, transition: .safariPresent(animated: true, completion: nil))
+            _ = coordinator.present(scene: .safari(url: url), from: nil, transition: .safariPresent(animated: true, completion: nil))
         case .hashtag(_, let hashtag, _):
-            let hashtagTimelineViewModel = HashtagTimelineViewModel(context: context, hashtag: hashtag)
-            coordinator.present(scene: .hashtagTimeline(viewModel: hashtagTimelineViewModel), from: nil, transition: .show)
+            let hashtagTimelineViewModel = HashtagTimelineViewModel(context: context, authContext: viewModel.authContext, hashtag: hashtag)
+            _ = coordinator.present(scene: .hashtagTimeline(viewModel: hashtagTimelineViewModel), from: nil, transition: .show)
         case .email, .emoji:
             break
         }
@@ -485,7 +485,7 @@ extension ProfileViewController {
     @objc private func settingBarButtonItemPressed(_ sender: UIBarButtonItem) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         guard let setting = context.settingService.currentSetting.value else { return }
-        let settingsViewModel = SettingsViewModel(context: context, setting: setting)
+        let settingsViewModel = SettingsViewModel(context: context, authContext: viewModel.authContext, setting: setting)
         coordinator.present(scene: .settings(viewModel: settingsViewModel), from: self, transition: .modal(animated: true, completion: nil))
     }
 
@@ -513,24 +513,23 @@ extension ProfileViewController {
 
     @objc private func favoriteBarButtonItemPressed(_ sender: UIBarButtonItem) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-        let favoriteViewModel = FavoriteViewModel(context: context)
+        let favoriteViewModel = FavoriteViewModel(context: context, authContext: viewModel.authContext)
         coordinator.present(scene: .favorite(viewModel: favoriteViewModel), from: self, transition: .show)
     }
     
     @objc private func bookmarkBarButtonItemPressed(_ sender: UIBarButtonItem) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-        let bookmarkViewModel = BookmarkViewModel(context: context)
+        let bookmarkViewModel = BookmarkViewModel(context: context, authContext: viewModel.authContext)
         coordinator.present(scene: .bookmark(viewModel: bookmarkViewModel), from: self, transition: .show)
     }
 
     @objc private func replyBarButtonItemPressed(_ sender: UIBarButtonItem) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-        guard let authenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else { return }
         guard let mastodonUser = viewModel.user else { return }
         let composeViewModel = ComposeViewModel(
             context: context,
             composeKind: .mention(user: .init(objectID: mastodonUser.objectID)),
-            authenticationBox: authenticationBox
+            authContext: viewModel.authContext
         )
         coordinator.present(scene: .compose(viewModel: composeViewModel), from: self, transition: .modal(animated: true, completion: nil))
     }
@@ -671,6 +670,11 @@ extension ProfileViewController: TabBarPagerDataSource {
 //
 //}
 
+// MARK: - AuthContextProvider
+extension ProfileViewController: AuthContextProvider {
+    var authContext: AuthContext { viewModel.authContext }
+}
+
 // MARK: - ProfileHeaderViewControllerDelegate
 extension ProfileViewController: ProfileHeaderViewControllerDelegate {
     func profileHeaderViewController(
@@ -760,16 +764,13 @@ extension ProfileViewController: ProfileHeaderViewControllerDelegate {
             case .follow, .request, .pending, .following:
                 guard let user = viewModel.user else { return }
                 let reocrd = ManagedObjectRecord<MastodonUser>(objectID: user.objectID)
-                guard let authenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else { return }
                 Task {
                     try await DataSourceFacade.responseToUserFollowAction(
                         dependency: self,
-                        user: reocrd,
-                        authenticationBox: authenticationBox
+                        user: reocrd
                     )
                 }
             case .muting:
-                guard let authenticationBox = self.context.authenticationService.activeMastodonAuthenticationBox.value else { return }
                 guard let user = viewModel.user else { return }
                 let name = user.displayNameWithFallback
                 
@@ -784,8 +785,7 @@ extension ProfileViewController: ProfileHeaderViewControllerDelegate {
                     Task {
                         try await DataSourceFacade.responseToUserMuteAction(
                             dependency: self,
-                            user: record,
-                            authenticationBox: authenticationBox
+                            user: record
                         )
                     }
                 }
@@ -794,7 +794,6 @@ extension ProfileViewController: ProfileHeaderViewControllerDelegate {
                 alertController.addAction(cancelAction)
                 present(alertController, animated: true, completion: nil)
             case .blocking:
-                guard let authenticationBox = self.context.authenticationService.activeMastodonAuthenticationBox.value else { return }
                 guard let user = viewModel.user else { return }
                 let name = user.displayNameWithFallback
                 
@@ -809,8 +808,7 @@ extension ProfileViewController: ProfileHeaderViewControllerDelegate {
                     Task {
                         try await DataSourceFacade.responseToUserBlockAction(
                             dependency: self,
-                            user: record,
-                            authenticationBox: authenticationBox
+                            user: record
                         )
                     }
                 }
@@ -852,7 +850,6 @@ extension ProfileViewController: ProfileAboutViewControllerDelegate {
 // MARK: - MastodonMenuDelegate
 extension ProfileViewController: MastodonMenuDelegate {
     func menuAction(_ action: MastodonMenu.Action) {
-        guard let authenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else { return }
         guard let user = viewModel.user else { return }
 
         let userRecord: ManagedObjectRecord<MastodonUser> = .init(objectID: user.objectID)
@@ -866,8 +863,7 @@ extension ProfileViewController: MastodonMenuDelegate {
                     status: nil,
                     button: nil,
                     barButtonItem: self.moreMenuBarButtonItem
-                ),
-                authenticationBox: authenticationBox
+                )
             )
         }   // end Task
     }

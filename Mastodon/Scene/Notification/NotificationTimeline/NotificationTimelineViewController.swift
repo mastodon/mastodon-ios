@@ -147,6 +147,11 @@ extension NotificationTimelineViewController {
 
 }
 
+// MARK: - AuthContextProvider
+extension NotificationTimelineViewController: AuthContextProvider {
+    var authContext: AuthContext { viewModel.authContext }
+}
+
 // MARK: - UITableViewDelegate
 extension NotificationTimelineViewController: UITableViewDelegate, AutoGenerateTableViewDelegate {
     // sourcery:inline:NotificationTimelineViewController.AutoGenerateTableViewDelegate
@@ -297,9 +302,10 @@ extension NotificationTimelineViewController: TableViewControllerNavigateable {
                 if let stauts = notification.status {
                     let threadViewModel = ThreadViewModel(
                         context: self.context,
+                        authContext: self.viewModel.authContext,
                         optionalRoot: .root(context: .init(status: .init(objectID: stauts.objectID)))
                     )
-                    self.coordinator.present(
+                    _ = self.coordinator.present(
                         scene: .thread(viewModel: threadViewModel),
                         from: self,
                         transition: .show
@@ -307,9 +313,10 @@ extension NotificationTimelineViewController: TableViewControllerNavigateable {
                 } else {
                     let profileViewModel = ProfileViewModel(
                         context: self.context,
+                        authContext: self.viewModel.authContext,
                         optionalMastodonUser: notification.account
                     )
-                    self.coordinator.present(
+                    _ = self.coordinator.present(
                         scene: .profile(viewModel: profileViewModel),
                         from: self,
                         transition: .show

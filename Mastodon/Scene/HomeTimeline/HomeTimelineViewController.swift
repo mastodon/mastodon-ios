@@ -28,7 +28,7 @@ final class HomeTimelineViewController: UIViewController, NeedsDependency, Media
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
     var disposeBag = Set<AnyCancellable>()
-    private(set) lazy var viewModel = HomeTimelineViewModel(context: context)
+    var viewModel: HomeTimelineViewModel!
     
     let mediaPreviewTransitionController = MediaPreviewTransitionController()
 
@@ -373,9 +373,9 @@ extension HomeTimelineViewController {
 extension HomeTimelineViewController {
     
     @objc private func findPeopleButtonPressed(_ sender: PrimaryActionButton) {
-        let suggestionAccountViewModel = SuggestionAccountViewModel(context: context)
+        let suggestionAccountViewModel = SuggestionAccountViewModel(context: context, authContext: viewModel.authContext)
         suggestionAccountViewModel.delegate = viewModel
-        coordinator.present(
+        _ = coordinator.present(
             scene: .suggestionAccount(viewModel: suggestionAccountViewModel),
             from: self,
             transition: .modal(animated: true, completion: nil)
@@ -391,7 +391,7 @@ extension HomeTimelineViewController {
     @objc private func settingBarButtonItemPressed(_ sender: UIBarButtonItem) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         guard let setting = context.settingService.currentSetting.value else { return }
-        let settingsViewModel = SettingsViewModel(context: context, setting: setting)
+        let settingsViewModel = SettingsViewModel(context: context, authContext: viewModel.authContext, setting: setting)
         coordinator.present(scene: .settings(viewModel: settingsViewModel), from: self, transition: .modal(animated: true, completion: nil))
     }
 
@@ -403,12 +403,8 @@ extension HomeTimelineViewController {
     }
     
     @objc func signOutAction(_ sender: UIAction) {
-        guard let authenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else {
-            return
-        }
-
         Task { @MainActor in
-            try await context.authenticationService.signOutMastodonUser(authenticationBox: authenticationBox)
+            try await context.authenticationService.signOutMastodonUser(authenticationBox: viewModel.authContext.mastodonAuthenticationBox)
             self.coordinator.setup()
         }
     }
@@ -490,6 +486,11 @@ extension HomeTimelineViewController {
         tableView.scrollToRow(at: indexPath, at: .middle, animated: true)
         viewModel.scrollPositionRecord = nil
     }
+}
+
+// MARK: - AuthContextProvider
+extension HomeTimelineViewController: AuthContextProvider {
+    var authContext: AuthContext { viewModel.authContext }
 }
 
 // MARK: - UITableViewDelegate

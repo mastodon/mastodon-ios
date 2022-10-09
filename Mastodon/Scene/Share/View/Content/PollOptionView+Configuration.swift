@@ -57,13 +57,13 @@ extension PollOptionView {
             option.publisher(for: \.poll),
             option.publisher(for: \.votedBy),
             option.publisher(for: \.isSelected),
-            viewModel.$userIdentifier
+            viewModel.$authContext
         )
-        .sink { [weak self] poll, optionVotedBy, isSelected, userIdentifier in
+        .sink { [weak self] poll, optionVotedBy, isSelected, authContext in
             guard let self = self else { return }
 
-            let domain = userIdentifier?.domain ?? ""
-            let userID = userIdentifier?.userID ?? ""
+            let domain = authContext?.mastodonAuthenticationBox.domain ?? ""
+            let userID = authContext?.mastodonAuthenticationBox.userID ?? ""
             
             let options = poll.options
             let pollVoteBy = poll.votedBy ?? Set()

@@ -122,7 +122,7 @@ extension StatusView {
                     let header = createHeader(name: nil, emojis: nil)
                     viewModel.header = header
                     
-                    if let authenticationBox = AppContext.shared.authenticationService.activeMastodonAuthenticationBox.value {
+                    if let authenticationBox = viewModel.authContext?.mastodonAuthenticationBox {
                         Just(inReplyToAccountID)
                             .asyncMap { userID in
                                 return try await AppContext.shared.apiService.accountInfo(

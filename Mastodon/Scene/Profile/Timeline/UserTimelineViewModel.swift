@@ -20,6 +20,7 @@ final class UserTimelineViewModel {
 
     // input
     let context: AppContext
+    let authContext: AuthContext
     let title: String
     let statusFetchedResultsController: StatusFetchedResultsController
     let listBatchFetchViewModel = ListBatchFetchViewModel()
@@ -50,23 +51,19 @@ final class UserTimelineViewModel {
 
     init(
         context: AppContext,
+        authContext: AuthContext,
         title: String,
         queryFilter: QueryFilter
     ) {
         self.context = context
+        self.authContext = authContext
         self.title = title
         self.statusFetchedResultsController = StatusFetchedResultsController(
             managedObjectContext: context.managedObjectContext,
-            domain: nil,
+            domain: authContext.mastodonAuthenticationBox.domain,
             additionalTweetPredicate: nil
         )
         self.queryFilter = queryFilter
-        // super.init()
-
-        context.authenticationService.activeMastodonAuthenticationBox
-            .map { $0?.domain }
-            .assign(to: \.domain, on: statusFetchedResultsController)
-            .store(in: &disposeBag)
     }
 
     deinit {

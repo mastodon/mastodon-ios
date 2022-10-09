@@ -136,11 +136,6 @@ extension DiscoveryCommunityViewModel.State {
                 break
             }
             
-            guard let authenticationBox = viewModel.context.authenticationService.activeMastodonAuthenticationBox.value else {
-                stateMachine.enter(Fail.self)
-                return
-            }
-            
             let maxID = self.maxID
             let isReloading = maxID == nil
 
@@ -156,7 +151,7 @@ extension DiscoveryCommunityViewModel.State {
                             minID: nil,
                             limit: 20
                         ),
-                        authenticationBox: authenticationBox
+                        authenticationBox: viewModel.authContext.mastodonAuthenticationBox
                     )
                     
                     let newMaxID = response.link?.maxID

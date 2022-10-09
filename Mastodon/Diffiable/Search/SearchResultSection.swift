@@ -25,6 +25,7 @@ extension SearchResultSection {
     static let logger = Logger(subsystem: "SearchResultSection", category: "logic")
     
     struct Configuration {
+        let authContext: AuthContext
         weak var statusViewTableViewCellDelegate: StatusTableViewCellDelegate?
         weak var userTableViewCellDelegate: UserTableViewCellDelegate?
     }
@@ -99,13 +100,11 @@ extension SearchResultSection {
     ) {
         StatusSection.setupStatusPollDataSource(
             context: context,
+            authContext: configuration.authContext,
             statusView: cell.statusView
         )
         
-        context.authenticationService.activeMastodonAuthenticationBox
-            .map { $0 as UserIdentifier? }
-            .assign(to: \.userIdentifier, on: cell.statusView.viewModel)
-            .store(in: &cell.disposeBag)
+        cell.statusView.viewModel.authContext = configuration.authContext
         
         cell.configure(
             tableView: tableView,
@@ -120,7 +119,7 @@ extension SearchResultSection {
         cell: UserTableViewCell,
         viewModel: UserTableViewCell.ViewModel,
         configuration: Configuration
-    ) {
+    ) {        
         cell.configure(
             tableView: tableView,
             viewModel: viewModel,

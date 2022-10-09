@@ -28,6 +28,7 @@ class ReportViewModel {
 
     // input
     let context: AppContext
+    let authContext: AuthContext
     let user: ManagedObjectRecord<MastodonUser>
     let status: ManagedObjectRecord<Status>?
     
@@ -37,21 +38,19 @@ class ReportViewModel {
     
     init(
         context: AppContext,
+        authContext: AuthContext,
         user: ManagedObjectRecord<MastodonUser>,
         status: ManagedObjectRecord<Status>?
     ) {
         self.context = context
+        self.authContext = authContext
         self.user = user
         self.status = status
         self.reportReasonViewModel = ReportReasonViewModel(context: context)
         self.reportServerRulesViewModel = ReportServerRulesViewModel(context: context)
-        self.reportStatusViewModel = ReportStatusViewModel(context: context, user: user, status: status)
-        self.reportSupplementaryViewModel = ReportSupplementaryViewModel(context: context, user: user)
+        self.reportStatusViewModel = ReportStatusViewModel(context: context, authContext: authContext, user: user, status: status)
+        self.reportSupplementaryViewModel = ReportSupplementaryViewModel(context: context, authContext: authContext, user: user)
         // end init
-        
-        guard let authenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else {
-            return
-        }
         
         // setup reason viewModel
         if status != nil {
@@ -74,7 +73,7 @@ class ReportViewModel {
         // bind server rules
         Task { @MainActor in
             do {
-                let response = try await context.apiService.instance(domain: authenticationBox.domain)
+                let response = try await context.apiService.instance(domain: authContext.mastodonAuthenticationBox.domain)
                     .timeout(3, scheduler: DispatchQueue.main)
                     .singleOutput()
                 let rules = response.value.rules ?? []
@@ -95,12 +94,7 @@ class ReportViewModel {
 extension ReportViewModel {
     @MainActor
     func report() async throws {
-        guard let authenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value,
-              !isReporting
-        else {
-            assertionFailure()
-            return
-        }
+        guard !isReporting else { return }
 
         let managedObjectContext = context.managedObjectContext
         let _query: Mastodon.API.Reports.FileReportQuery? = try await managedObjectContext.perform {

@@ -23,6 +23,7 @@ extension ThreadViewModel {
             tableView: tableView,
             context: context,
             configuration: StatusSection.Configuration(
+                authContext: authContext,
                 statusTableViewCellDelegate: statusTableViewCellDelegate,
                 timelineMiddleLoaderTableViewCellDelegate: nil,
                 filterContext: .thread,

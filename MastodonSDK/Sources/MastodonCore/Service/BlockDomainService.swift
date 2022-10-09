@@ -14,6 +14,7 @@ import OSLog
 import UIKit
 
 public final class BlockDomainService {
+    
     // input
     weak var backgroundManagedObjectContext: NSManagedObjectContext?
     weak var authenticationService: AuthenticationService?
@@ -27,21 +28,21 @@ public final class BlockDomainService {
     ) {
         self.backgroundManagedObjectContext = backgroundManagedObjectContext
         self.authenticationService = authenticationService
-        guard let authorizationBox = authenticationService.activeMastodonAuthenticationBox.value else { return }
-        backgroundManagedObjectContext.perform {
-            let _blockedDomains: [DomainBlock] = {
-                let request = DomainBlock.sortedFetchRequest
-                request.predicate = DomainBlock.predicate(domain: authorizationBox.domain, userID: authorizationBox.userID)
-                request.returnsObjectsAsFaults = false
-                do {
-                    return try backgroundManagedObjectContext.fetch(request)
-                } catch {
-                    assertionFailure(error.localizedDescription)
-                    return []
-                }
-            }()
-            self.blockedDomains.value = _blockedDomains.map(\.blockedDomain)
-        }
+        
+//        backgroundManagedObjectContext.perform {
+//            let _blockedDomains: [DomainBlock] = {
+//                let request = DomainBlock.sortedFetchRequest
+//                request.predicate = DomainBlock.predicate(domain: authorizationBox.domain, userID: authorizationBox.userID)
+//                request.returnsObjectsAsFaults = false
+//                do {
+//                    return try backgroundManagedObjectContext.fetch(request)
+//                } catch {
+//                    assertionFailure(error.localizedDescription)
+//                    return []
+//                }
+//            }()
+//            self.blockedDomains.value = _blockedDomains.map(\.blockedDomain)
+//        }
     }
 
 //    func blockDomain(

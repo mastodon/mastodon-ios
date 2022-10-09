@@ -43,7 +43,7 @@ public final class SettingService {
         )
 
         // create setting (if non-exist) for authenticated users
-        authenticationService.mastodonAuthenticationBoxes
+        authenticationService.$mastodonAuthenticationBoxes
             .compactMap { [weak self] mastodonAuthenticationBoxes -> AnyPublisher<[MastodonAuthenticationBox], Never>? in
                 guard let self = self else { return nil }
                 guard let authenticationService = self.authenticationService else { return nil }
@@ -72,15 +72,15 @@ public final class SettingService {
         
         // bind current setting
         Publishers.CombineLatest(
-            authenticationService.activeMastodonAuthenticationBox,
+            authenticationService.$mastodonAuthenticationBoxes,
             settingFetchedResultController.settings
         )
-        .sink { [weak self] activeMastodonAuthenticationBox, settings in
+        .sink { [weak self] mastodonAuthenticationBoxes, settings in
             guard let self = self else { return }
-            guard let activeMastodonAuthenticationBox = activeMastodonAuthenticationBox else { return }
+            guard let activeMastodonAuthenticationBox = mastodonAuthenticationBoxes.first else { return }
             let currentSetting = settings.first(where: { setting in
-                return setting.domain == activeMastodonAuthenticationBox.domain &&
-                    setting.userID == activeMastodonAuthenticationBox.userID
+                return setting.domain == activeMastodonAuthenticationBox.domain
+                    && setting.userID == activeMastodonAuthenticationBox.userID
             })
             self.currentSetting.value = currentSetting
         }
@@ -114,13 +114,13 @@ public final class SettingService {
         Publishers.CombineLatest3(
             notificationService.deviceToken,
             currentSetting.eraseToAnyPublisher(),
-            authenticationService.activeMastodonAuthenticationBox
+            authenticationService.$mastodonAuthenticationBoxes
         )
-        .compactMap { [weak self] deviceToken, setting, activeMastodonAuthenticationBox -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Subscription>, Error>? in
+        .compactMap { [weak self] deviceToken, setting, mastodonAuthenticationBoxes -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Subscription>, Error>? in
             guard let self = self else { return nil }
             guard let deviceToken = deviceToken else { return nil }
             guard let setting = setting else { return nil }
-            guard let authenticationBox = activeMastodonAuthenticationBox else { return nil }
+            guard let authenticationBox = mastodonAuthenticationBoxes.first else { return nil }
             
             guard let subscription = setting.activeSubscription else { return nil }
             

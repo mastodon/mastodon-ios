@@ -18,6 +18,7 @@ extension SearchResultViewModel {
             tableView: tableView,
             context: context,
             configuration: .init(
+                authContext: authContext,
                 statusViewTableViewCellDelegate: statusTableViewCellDelegate
             )
         )

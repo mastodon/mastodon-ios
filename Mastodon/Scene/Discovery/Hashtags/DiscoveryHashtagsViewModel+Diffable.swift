@@ -15,7 +15,7 @@ extension DiscoveryHashtagsViewModel {
         diffableDataSource = DiscoverySection.diffableDataSource(
             tableView: tableView,
             context: context,
-            configuration: DiscoverySection.Configuration()
+            configuration: DiscoverySection.Configuration(authContext: authContext)
         )
         
         var snapshot = NSDiffableDataSourceSnapshot<DiscoverySection, DiscoveryItem>()

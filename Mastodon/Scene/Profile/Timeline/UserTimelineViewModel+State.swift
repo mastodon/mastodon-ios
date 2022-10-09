@@ -138,10 +138,6 @@ extension UserTimelineViewModel.State {
                 return
             }
             
-            guard let authenticationBox = viewModel.context.authenticationService.activeMastodonAuthenticationBox.value else {
-                stateMachine.enter(Fail.self)
-                return
-            }
             let queryFilter = viewModel.queryFilter
 
             Task {
@@ -154,7 +150,7 @@ extension UserTimelineViewModel.State {
                         excludeReplies: queryFilter.excludeReplies,
                         excludeReblogs: queryFilter.excludeReblogs,
                         onlyMedia: queryFilter.onlyMedia,
-                        authenticationBox: authenticationBox
+                        authenticationBox: viewModel.authContext.mastodonAuthenticationBox
                     )
                     
                     var hasNewStatusesAppend = false

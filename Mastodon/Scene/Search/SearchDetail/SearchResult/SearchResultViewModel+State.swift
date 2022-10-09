@@ -73,11 +73,6 @@ extension SearchResultViewModel.State {
         override func didEnter(from previousState: GKState?) {
             super.didEnter(from: previousState)
             guard let viewModel = viewModel, let stateMachine = stateMachine else { return }
-            guard let authenticationBox = viewModel.context.authenticationService.activeMastodonAuthenticationBox.value else {
-                assertionFailure()
-                stateMachine.enter(Fail.self)
-                return
-            }
 
             let searchText = viewModel.searchText.value
             let searchType = viewModel.searchScope.searchType
@@ -133,7 +128,7 @@ extension SearchResultViewModel.State {
                 do {
                     let response = try await viewModel.context.apiService.search(
                         query: query,
-                        authenticationBox: authenticationBox
+                        authenticationBox: viewModel.authContext.mastodonAuthenticationBox
                     )
                     
                     // discard result when search text is outdated

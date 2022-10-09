@@ -27,6 +27,7 @@ extension StatusSection {
     static let logger = Logger(subsystem: "StatusSection", category: "logic")
     
     struct Configuration {
+        let authContext: AuthContext
         weak var statusTableViewCellDelegate: StatusTableViewCellDelegate?
         weak var timelineMiddleLoaderTableViewCellDelegate: TimelineMiddleLoaderTableViewCellDelegate?
         let filterContext: Mastodon.Entity.Filter.Context?
@@ -159,6 +160,7 @@ extension StatusSection {
     
     public static func setupStatusPollDataSource(
         context: AppContext,
+        authContext: AuthContext,
         statusView: StatusView
     ) {
         let managedObjectContext = context.managedObjectContext
@@ -172,10 +174,7 @@ extension StatusSection {
                     return _cell ?? PollOptionTableViewCell()
                 }()
                 
-                context.authenticationService.activeMastodonAuthenticationBox
-                    .map { $0 as UserIdentifier? }
-                    .assign(to: \.userIdentifier, on: cell.pollOptionView.viewModel)
-                    .store(in: &cell.disposeBag)
+                cell.pollOptionView.viewModel.authContext = authContext
                 
                 managedObjectContext.performAndWait {
                     guard let option = record.object(in: managedObjectContext) else {
@@ -212,14 +211,13 @@ extension StatusSection {
                         return true
                     }()
 
-                    if needsUpdatePoll, let authenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value
-                    {
+                    if needsUpdatePoll {
                         let pollRecord: ManagedObjectRecord<Poll> = .init(objectID: option.poll.objectID)
                         Task { [weak context] in
                             guard let context = context else { return }
                             _ = try await context.apiService.poll(
                                 poll: pollRecord,
-                                authenticationBox: authenticationBox
+                                authenticationBox: authContext.mastodonAuthenticationBox
                             )
                         }
                     }
@@ -248,13 +246,11 @@ extension StatusSection {
     ) {
         setupStatusPollDataSource(
             context: context,
+            authContext: configuration.authContext,
             statusView: cell.statusView
         )
         
-        context.authenticationService.activeMastodonAuthenticationBox
-            .map { $0 as UserIdentifier? }
-            .assign(to: \.userIdentifier, on: cell.statusView.viewModel)
-            .store(in: &cell.disposeBag)
+        cell.statusView.viewModel.authContext = configuration.authContext
         
         cell.configure(
             tableView: tableView,
@@ -277,13 +273,11 @@ extension StatusSection {
     ) {
         setupStatusPollDataSource(
             context: context,
+            authContext: configuration.authContext,
             statusView: cell.statusView
         )
         
-        context.authenticationService.activeMastodonAuthenticationBox
-            .map { $0 as UserIdentifier? }
-            .assign(to: \.userIdentifier, on: cell.statusView.viewModel)
-            .store(in: &cell.disposeBag)
+        cell.statusView.viewModel.authContext = configuration.authContext
         
         cell.configure(
             tableView: tableView,

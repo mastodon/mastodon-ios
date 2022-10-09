@@ -1,6 +1,6 @@
 //
 //  UserDefaults+Notification.swift
-//  AppShared
+//  MastodonCommon
 //
 //  Created by Cirno MainasuK on 2021-10-9.
 //

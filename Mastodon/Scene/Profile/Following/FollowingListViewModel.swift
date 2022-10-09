@@ -19,10 +19,12 @@ final class FollowingListViewModel {
     
     // input
     let context: AppContext
-    let domain: CurrentValueSubject<String?, Never>
-    let userID: CurrentValueSubject<String?, Never>
+    let authContext: AuthContext
     let userFetchedResultsController: UserFetchedResultsController
     let listBatchFetchViewModel = ListBatchFetchViewModel()
+    
+    @Published var domain: String?
+    @Published var userID: String?
     
     // output
     var diffableDataSource: UITableViewDiffableDataSource<UserSection, UserItem>?
@@ -39,15 +41,21 @@ final class FollowingListViewModel {
         return stateMachine
     }()
     
-    init(context: AppContext, domain: String?, userID: String?) {
+    init(
+        context: AppContext,
+        authContext: AuthContext,
+        domain: String?,
+        userID: String?
+    ) {
         self.context = context
+        self.authContext = authContext
         self.userFetchedResultsController = UserFetchedResultsController(
             managedObjectContext: context.managedObjectContext,
             domain: domain,
             additionalPredicate: nil
         )
-        self.domain = CurrentValueSubject(domain)
-        self.userID = CurrentValueSubject(userID)
+        self.domain = domain
+        self.userID = userID
         // super.init()
         
     }

@@ -154,10 +154,9 @@ extension SearchResultViewController {
 }
 
 // MARK: - StatusTableViewCellDelegate
-//extension SearchResultViewController: StatusTableViewCellDelegate {
-//    weak var playerViewControllerDelegate: AVPlayerViewControllerDelegate? { return self }
-//    func parent() -> UIViewController { return self }
-//}
+extension SearchResultViewController: AuthContextProvider {
+    var authContext: AuthContext { viewModel.authContext }
+}
 
 // MARK: - UITableViewDelegate
 extension SearchResultViewController: UITableViewDelegate, AutoGenerateTableViewDelegate {

@@ -26,6 +26,7 @@ final class HashtagTimelineViewModel {
     
     // input
     let context: AppContext
+    let authContext: AuthContext
     let fetchedResultsController: StatusFetchedResultsController
     let isFetchingLatestTimeline = CurrentValueSubject<Bool, Never>(false)
     let timelinePredicate = CurrentValueSubject<NSPredicate?, Never>(nil)
@@ -52,20 +53,16 @@ final class HashtagTimelineViewModel {
     }()
     lazy var loadOldestStateMachinePublisher = CurrentValueSubject<State?, Never>(nil)
     
-    init(context: AppContext, hashtag: String) {
+    init(context: AppContext, authContext: AuthContext, hashtag: String) {
         self.context  = context
+        self.authContext = authContext
         self.hashtag = hashtag
         self.fetchedResultsController = StatusFetchedResultsController(
             managedObjectContext: context.managedObjectContext,
-            domain: nil,
+            domain: authContext.mastodonAuthenticationBox.domain,
             additionalTweetPredicate: nil
         )
         // end init
-        
-        context.authenticationService.activeMastodonAuthenticationBox
-            .map { $0?.domain }
-            .assign(to: \.domain, on: fetchedResultsController)
-            .store(in: &disposeBag)
     }
     
     deinit {

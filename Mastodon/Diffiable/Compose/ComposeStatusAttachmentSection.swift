@@ -10,4 +10,3 @@ import Foundation
 enum ComposeStatusAttachmentSection: Hashable {
     case main
 }
-

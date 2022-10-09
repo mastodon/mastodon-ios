@@ -23,6 +23,7 @@ class ReportResultViewModel: ObservableObject {
 
     // input
     let context: AppContext
+    let authContext: AuthContext
     let user: ManagedObjectRecord<MastodonUser>
     let isReported: Bool
     
@@ -47,17 +48,19 @@ class ReportResultViewModel: ObservableObject {
     
     init(
         context: AppContext,
+        authContext: AuthContext,
         user: ManagedObjectRecord<MastodonUser>,
         isReported: Bool
     ) {
         self.context = context
+        self.authContext = authContext
         self.user = user
         self.isReported = isReported
         // end init
         
         Task { @MainActor in
             guard let user = user.object(in: context.managedObjectContext) else { return }
-            guard let me = context.authenticationService.activeMastodonAuthenticationBox.value?.authenticationRecord.object(in: context.managedObjectContext)?.user else { return }
+            guard let me = authContext.mastodonAuthenticationBox.authenticationRecord.object(in: context.managedObjectContext)?.user else { return }
             self.relationshipViewModel.user = user
             self.relationshipViewModel.me = me
             

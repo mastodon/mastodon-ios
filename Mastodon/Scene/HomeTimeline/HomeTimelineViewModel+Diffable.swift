@@ -21,6 +21,7 @@ extension HomeTimelineViewModel {
             tableView: tableView,
             context: context,
             configuration: StatusSection.Configuration(
+                authContext: authContext,
                 statusTableViewCellDelegate: statusTableViewCellDelegate,
                 timelineMiddleLoaderTableViewCellDelegate: timelineMiddleLoaderTableViewCellDelegate,
                 filterContext: .home,

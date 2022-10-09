@@ -135,12 +135,6 @@ extension HashtagTimelineViewModel.State {
                 break
             }
             
-            guard let authenticationBox = viewModel.context.authenticationService.activeMastodonAuthenticationBox.value else {
-                assertionFailure()
-                stateMachine.enter(Fail.self)
-                return
-            }
-            
             // TODO: only set large count when using Wi-Fi
             let maxID = self.maxID
             let isReloading = maxID == nil
@@ -148,10 +142,10 @@ extension HashtagTimelineViewModel.State {
             Task {
                 do {
                     let response = try await viewModel.context.apiService.hashtagTimeline(
-                        domain: authenticationBox.domain,
+                        domain: viewModel.authContext.mastodonAuthenticationBox.domain,
                         maxID: maxID,
                         hashtag: viewModel.hashtag,
-                        authenticationBox: authenticationBox
+                        authenticationBox: viewModel.authContext.mastodonAuthenticationBox
                     )
                                         
                     let newMaxID: String? = {

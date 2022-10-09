@@ -164,6 +164,8 @@ public final class NotificationView: UIView {
         disposeBag.removeAll()
         
         viewModel.objects.removeAll()
+
+        viewModel.authContext = nil
         viewModel.authorAvatarImageURL = nil
         avatarButton.avatarImageView.cancelTask()
         

@@ -32,7 +32,7 @@ final class ContentSplitViewController: UIViewController, NeedsDependency {
         let sidebarViewController = SidebarViewController()
         sidebarViewController.context = context
         sidebarViewController.coordinator = coordinator
-        sidebarViewController.viewModel = SidebarViewModel(context: context)
+        sidebarViewController.viewModel = SidebarViewModel(context: context, authContext: authContext)
         sidebarViewController.delegate = self
         return sidebarViewController
     }()
@@ -111,8 +111,14 @@ extension ContentSplitViewController: SidebarViewControllerDelegate {
     
     func sidebarViewController(_ sidebarViewController: SidebarViewController, didLongPressItem item: SidebarViewModel.Item, sourceView: UIView) {
         guard case let .tab(tab) = item, tab == .me else { return }
+        guard let authContext = authContext else { return }
         
-        let accountListViewController = coordinator.present(scene: .accountList, from: nil, transition: .popover(sourceView: sourceView)) as! AccountListViewController
+        let accountListViewModel = AccountListViewModel(context: context, authContext: authContext)
+        let accountListViewController = coordinator.present(
+            scene: .accountList(viewModel: accountListViewModel),
+            from: nil,
+            transition: .popover(sourceView: sourceView)
+        ) as! AccountListViewController
         accountListViewController.dragIndicatorView.barView.isHidden = true
         // content width needs > 300 to make checkmark display
         accountListViewController.preferredContentSize = CGSize(width: 375, height: 400)

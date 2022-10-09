@@ -76,10 +76,6 @@ extension ReportStatusViewModel.State {
         override func didEnter(from previousState: GKState?) {
             super.didEnter(from: previousState)
             guard let viewModel = viewModel, let stateMachine = stateMachine else { return }
-            guard let authenticationBox = viewModel.context.authenticationService.activeMastodonAuthenticationBox.value else {
-                stateMachine.enter(Fail.self)
-                return
-            }
             
             let maxID = viewModel.statusFetchedResultsController.statusIDs.last
             
@@ -102,7 +98,7 @@ extension ReportStatusViewModel.State {
                         excludeReplies: true,
                         excludeReblogs: true,
                         onlyMedia: false,
-                        authenticationBox: authenticationBox
+                        authenticationBox: viewModel.authContext.mastodonAuthenticationBox
                     )
                     
                     var hasNewStatusesAppend = false

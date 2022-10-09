@@ -15,13 +15,12 @@ import MastodonLocalization
 extension DataSourceFacade {
     
     static func responseToDeleteStatus(
-        dependency: NeedsDependency,
-        status: ManagedObjectRecord<Status>,
-        authenticationBox: MastodonAuthenticationBox
+        dependency: NeedsDependency & AuthContextProvider,
+        status: ManagedObjectRecord<Status>
     ) async throws {
         _ = try await dependency.context.apiService.deleteStatus(
             status: status,
-            authenticationBox: authenticationBox
+            authenticationBox: dependency.authContext.mastodonAuthenticationBox
         )
     }
     
@@ -81,10 +80,9 @@ extension DataSourceFacade {
 extension DataSourceFacade {
     @MainActor
     static func responseToActionToolbar(
-        provider: DataSourceProvider,
+        provider: DataSourceProvider & AuthContextProvider,
         status: ManagedObjectRecord<Status>,
         action: ActionToolbarContainer.Action,
-        authenticationBox: MastodonAuthenticationBox,
         sender: UIButton
     ) async throws {
         let managedObjectContext = provider.context.managedObjectContext
@@ -100,16 +98,15 @@ extension DataSourceFacade {
 
         switch action {
         case .reply:
-            guard let authenticationBox = provider.context.authenticationService.activeMastodonAuthenticationBox.value else { return }
             let selectionFeedbackGenerator = UISelectionFeedbackGenerator()
             selectionFeedbackGenerator.selectionChanged()
             
             let composeViewModel = ComposeViewModel(
                 context: provider.context,
                 composeKind: .reply(status: status),
-                authenticationBox: authenticationBox
+                authContext: provider.authContext
             )
-            provider.coordinator.present(
+            _ = provider.coordinator.present(
                 scene: .compose(viewModel: composeViewModel),
                 from: provider,
                 transition: .modal(animated: true, completion: nil)
@@ -117,20 +114,17 @@ extension DataSourceFacade {
         case .reblog:
             try await DataSourceFacade.responseToStatusReblogAction(
                 provider: provider,
-                status: status,
-                authenticationBox: authenticationBox
+                status: status
             )
         case .like:
             try await DataSourceFacade.responseToStatusFavoriteAction(
                 provider: provider,
-                status: status,
-                authenticationBox: authenticationBox
+                status: status
             )
         case .bookmark:
             try await DataSourceFacade.responseToStatusBookmarkAction(
                 provider: provider,
-                status: status,
-                authenticationBox: authenticationBox
+                status: status
             )
         case .share:
             try await DataSourceFacade.responseToStatusShareAction(
@@ -155,10 +149,9 @@ extension DataSourceFacade {
     
     @MainActor
     static func responseToMenuAction(
-        dependency: NeedsDependency & UIViewController,
+        dependency: UIViewController & NeedsDependency & AuthContextProvider,
         action: MastodonMenu.Action,
-        menuContext: MenuContext,
-        authenticationBox: MastodonAuthenticationBox
+        menuContext: MenuContext
     ) async throws {
         switch action {
         case .muteUser(let actionContext):
@@ -181,8 +174,7 @@ extension DataSourceFacade {
                     guard let user = _user else { return }
                     try await DataSourceFacade.responseToUserMuteAction(
                         dependency: dependency,
-                        user: user,
-                        authenticationBox: authenticationBox
+                        user: user
                     )
                 }   // end Task
             }
@@ -210,8 +202,7 @@ extension DataSourceFacade {
                     guard let user = _user else { return }
                     try await DataSourceFacade.responseToUserBlockAction(
                         dependency: dependency,
-                        user: user,
-                        authenticationBox: authenticationBox
+                        user: user
                     )
                 }   // end Task
             }
@@ -225,11 +216,12 @@ extension DataSourceFacade {
                 
                 let reportViewModel = ReportViewModel(
                     context: dependency.context,
+                    authContext: dependency.authContext,
                     user: user,
                     status: menuContext.status
                 )
                 
-                dependency.coordinator.present(
+                _ = dependency.coordinator.present(
                     scene: .report(viewModel: reportViewModel),
                     from: dependency,
                     transition: .modal(animated: true, completion: nil)
@@ -246,7 +238,7 @@ extension DataSourceFacade {
                 user: user
             )
             guard let activityViewController = _activityViewController else { return }
-            dependency.coordinator.present(
+            _ = dependency.coordinator.present(
                 scene: .activityViewController(
                     activityViewController: activityViewController,
                     sourceView: menuContext.button,
@@ -270,8 +262,7 @@ extension DataSourceFacade {
                 Task {
                     try await DataSourceFacade.responseToDeleteStatus(
                         dependency: dependency,
-                        status: status,
-                        authenticationBox: authenticationBox
+                        status: status
                     )
                 }   // end Task
             }

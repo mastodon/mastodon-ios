@@ -17,6 +17,7 @@ final class AutoCompleteViewModel {
     
     // input
     let context: AppContext
+    let authContext: AuthContext
     public let inputText = CurrentValueSubject<String, Never>("")  // contains "@" or "#" prefix
     public let symbolBoundingRect = CurrentValueSubject<CGRect, Never>(.zero)
     public let customEmojiViewModel = CurrentValueSubject<EmojiService.CustomEmojiViewModel?, Never>(nil)
@@ -36,8 +37,9 @@ final class AutoCompleteViewModel {
         return stateMachine
     }()
     
-    init(context: AppContext) {
+    init(context: AppContext, authContext: AuthContext) {
         self.context = context
+        self.authContext = authContext
         
         autoCompleteItems
             .receive(on: DispatchQueue.main)

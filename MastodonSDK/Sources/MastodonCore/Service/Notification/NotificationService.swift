@@ -39,7 +39,7 @@ public final class NotificationService {
         self.apiService = apiService
         self.authenticationService = authenticationService
         
-        authenticationService.mastodonAuthentications
+        authenticationService.$mastodonAuthentications
             .sink(receiveValue: { [weak self] mastodonAuthentications in
                 guard let self = self else { return }
                 
@@ -61,16 +61,16 @@ public final class NotificationService {
             .store(in: &disposeBag)
         
         Publishers.CombineLatest(
-            authenticationService.mastodonAuthentications,
+            authenticationService.$mastodonAuthenticationBoxes,
             applicationIconBadgeNeedsUpdate
         )
         .receive(on: DispatchQueue.main)
-        .sink { [weak self] mastodonAuthentications, _ in
+        .sink { [weak self] mastodonAuthenticationBoxes, _ in
             guard let self = self else { return }
             
             var count = 0
-            for authentication in mastodonAuthentications {
-                count += UserDefaults.shared.getNotificationCountWithAccessToken(accessToken: authentication.userAccessToken)
+            for authenticationBox in mastodonAuthenticationBoxes {
+                count += UserDefaults.shared.getNotificationCountWithAccessToken(accessToken: authenticationBox.userAuthorization.accessToken)
             }
             
             UserDefaults.shared.notificationBadgeCount = count
@@ -143,7 +143,7 @@ extension NotificationService {
 extension NotificationService {
     public func clearNotificationCountForActiveUser() {
         guard let authenticationService = self.authenticationService else { return }
-        if let accessToken = authenticationService.activeMastodonAuthentication.value?.userAccessToken {
+        if let accessToken = authenticationService.mastodonAuthenticationBoxes.first?.userAuthorization.accessToken {
             UserDefaults.shared.setNotificationCountWithAccessToken(accessToken: accessToken, value: 0)
         }
         

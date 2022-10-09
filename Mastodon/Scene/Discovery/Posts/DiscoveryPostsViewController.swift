@@ -128,6 +128,11 @@ extension DiscoveryPostsViewController {
     
 }
 
+// MARK: - AuthContextProvider
+extension DiscoveryPostsViewController: AuthContextProvider {
+    var authContext: AuthContext { viewModel.authContext }
+}
+
 // MARK: - UITableViewDelegate
 extension DiscoveryPostsViewController: UITableViewDelegate, AutoGenerateTableViewDelegate {
     // sourcery:inline:DiscoveryPostsViewController.AutoGenerateTableViewDelegate

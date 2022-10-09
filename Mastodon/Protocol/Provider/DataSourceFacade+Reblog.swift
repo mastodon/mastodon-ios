@@ -12,16 +12,15 @@ import MastodonUI
 
 extension DataSourceFacade {
     static func responseToStatusReblogAction(
-        provider: DataSourceProvider,
-        status: ManagedObjectRecord<Status>,
-        authenticationBox: MastodonAuthenticationBox
+        provider: DataSourceProvider & AuthContextProvider,
+        status: ManagedObjectRecord<Status>
     ) async throws {
         let selectionFeedbackGenerator = await UISelectionFeedbackGenerator()
         await selectionFeedbackGenerator.selectionChanged()
         
         _ = try await provider.context.apiService.reblog(
             record: status,
-            authenticationBox: authenticationBox
+            authenticationBox: provider.authContext.mastodonAuthenticationBox
         )
     }   // end func
 }

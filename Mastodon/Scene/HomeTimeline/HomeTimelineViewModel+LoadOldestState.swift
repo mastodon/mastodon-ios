@@ -64,11 +64,6 @@ extension HomeTimelineViewModel.LoadOldestState {
             super.didEnter(from: previousState)
             
             guard let viewModel = viewModel, let stateMachine = stateMachine else { return }
-            guard let activeMastodonAuthenticationBox = viewModel.context.authenticationService.activeMastodonAuthenticationBox.value else {
-                assertionFailure()
-                stateMachine.enter(Fail.self)
-                return
-            }
             
             guard let lastFeedRecord = viewModel.fetchedResultsController.records.last else {
                 stateMachine.enter(Idle.self)
@@ -92,7 +87,7 @@ extension HomeTimelineViewModel.LoadOldestState {
                 do {
                     let response = try await viewModel.context.apiService.homeTimeline(
                         maxID: maxID,
-                        authenticationBox: activeMastodonAuthenticationBox
+                        authenticationBox: viewModel.authContext.mastodonAuthenticationBox
                     )
                     
                     let statuses = response.value

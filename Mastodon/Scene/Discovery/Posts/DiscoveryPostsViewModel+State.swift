@@ -136,11 +136,6 @@ extension DiscoveryPostsViewModel.State {
             default:
                 break
             }
-
-            guard let authenticationBox = viewModel.context.authenticationService.activeMastodonAuthenticationBox.value else {
-                stateMachine.enter(Fail.self)
-                return
-            }
             
             let offset = self.offset
             let isReloading = offset == nil
@@ -148,7 +143,7 @@ extension DiscoveryPostsViewModel.State {
             Task {
                 do {
                     let response = try await viewModel.context.apiService.trendStatuses(
-                        domain: authenticationBox.domain,
+                        domain: viewModel.authContext.mastodonAuthenticationBox.domain,
                         query: Mastodon.API.Trends.StatusQuery(
                             offset: offset,
                             limit: nil

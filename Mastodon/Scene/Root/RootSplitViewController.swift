@@ -37,6 +37,10 @@ final class RootSplitViewController: UISplitViewController, NeedsDependency {
         let searchViewController = SearchViewController()
         searchViewController.context = context
         searchViewController.coordinator = coordinator
+        searchViewController.viewModel = .init(
+            context: context,
+            authContext: authContext
+        )
         return searchViewController
     }()
     

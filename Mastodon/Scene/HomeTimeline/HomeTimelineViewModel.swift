@@ -26,6 +26,7 @@ final class HomeTimelineViewModel: NSObject {
     
     // input
     let context: AppContext
+    let authContext: AuthContext
     let fetchedResultsController: FeedFetchedResultsController
     let homeTimelineNavigationBarTitleViewModel: HomeTimelineNavigationBarTitleViewModel
     let listBatchFetchViewModel = ListBatchFetchViewModel()
@@ -76,25 +77,17 @@ final class HomeTimelineViewModel: NSObject {
 
     var cellFrameCache = NSCache<NSNumber, NSValue>()
     
-    init(context: AppContext) {
+    init(context: AppContext, authContext: AuthContext) {
         self.context  = context
+        self.authContext = authContext
         self.fetchedResultsController = FeedFetchedResultsController(managedObjectContext: context.managedObjectContext)
         self.homeTimelineNavigationBarTitleViewModel = HomeTimelineNavigationBarTitleViewModel(context: context)
         super.init()
         
-        context.authenticationService.activeMastodonAuthenticationBox
-            .sink { [weak self] authenticationBox in
-                guard let self = self else { return }
-                guard let authenticationBox = authenticationBox else {
-                    self.fetchedResultsController.predicate = Feed.predicate(kind: .none, acct: .none)
-                    return
-                }
-                self.fetchedResultsController.predicate = Feed.predicate(
-                    kind: .home,
-                    acct: .mastodon(domain: authenticationBox.domain, userID: authenticationBox.userID)
-                )
-            }
-            .store(in: &disposeBag)
+        fetchedResultsController.predicate = Feed.predicate(
+            kind: .home,
+            acct: .mastodon(domain: authContext.mastodonAuthenticationBox.domain, userID: authContext.mastodonAuthenticationBox.userID)
+        )
         
         homeTimelineNeedRefresh
             .sink { [weak self] _ in
@@ -131,7 +124,6 @@ extension HomeTimelineViewModel {
     // load timeline gap
     func loadMore(item: StatusItem) async {
         guard case let .feedLoader(record) = item else { return }
-        guard let authenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else { return }
         guard let diffableDataSource = diffableDataSource else { return }
         var snapshot = diffableDataSource.snapshot()
 
@@ -169,7 +161,7 @@ extension HomeTimelineViewModel {
             let maxID = status.id
             _ = try await context.apiService.homeTimeline(
                 maxID: maxID,
-                authenticationBox: authenticationBox
+                authenticationBox: authContext.mastodonAuthenticationBox
             )
         } catch {
             do {

@@ -9,14 +9,14 @@ import os.log
 import UIKit
 import Combine
 import CoreData
-import Meta
-import MastodonSDK
-import MastodonCore
-import MastodonAsset
-import MastodonLocalization
-import MastodonExtension
-import MastodonCommon
 import CoreDataStack
+import Meta
+import MastodonAsset
+import MastodonCore
+import MastodonCommon
+import MastodonExtension
+import MastodonLocalization
+import MastodonSDK
 
 extension StatusView {
     public final class ViewModel: ObservableObject {
@@ -26,7 +26,7 @@ extension StatusView {
 
         let logger = Logger(subsystem: "StatusView", category: "ViewModel")
         
-        @Published public var userIdentifier: UserIdentifier?       // me
+        public var authContext: AuthContext?
         
         // Header
         @Published public var header: Header = .none
@@ -127,6 +127,8 @@ extension StatusView {
         }
         
         public func prepareForReuse() {
+            authContext = nil
+            
             authorAvatarImageURL = nil
             
             isContentSensitive = false

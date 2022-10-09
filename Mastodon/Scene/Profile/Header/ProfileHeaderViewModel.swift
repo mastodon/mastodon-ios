@@ -24,6 +24,8 @@ final class ProfileHeaderViewModel {
     
     // input
     let context: AppContext
+    let authContext: AuthContext
+    
     @Published var user: MastodonUser?
     @Published var relationshipActionOptionSet: RelationshipActionOptionSet = .none
 
@@ -41,8 +43,9 @@ final class ProfileHeaderViewModel {
     @Published var isTitleViewDisplaying = false
     @Published var isTitleViewContentOffsetSet = false    
 
-    init(context: AppContext) {
+    init(context: AppContext, authContext: AuthContext) {
         self.context = context
+        self.authContext = authContext
     
         $accountForEdit
             .receive(on: DispatchQueue.main)

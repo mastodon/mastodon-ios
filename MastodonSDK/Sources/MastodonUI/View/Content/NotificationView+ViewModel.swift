@@ -24,7 +24,7 @@ extension NotificationView {
 
         let logger = Logger(subsystem: "NotificationView", category: "ViewModel")
         
-        @Published public var userIdentifier: UserIdentifier?       // me
+        @Published public var authContext: AuthContext?
         
         @Published public var notificationIndicatorText: MetaContent?
 
@@ -55,11 +55,11 @@ extension NotificationView.ViewModel {
         bindAuthorMenu(notificationView: notificationView)
         bindFollowRequest(notificationView: notificationView)
         
-        $userIdentifier
-            .assign(to: \.userIdentifier, on: notificationView.statusView.viewModel)
+        $authContext
+            .assign(to: \.authContext, on: notificationView.statusView.viewModel)
             .store(in: &disposeBag)
-        $userIdentifier
-            .assign(to: \.userIdentifier, on: notificationView.quoteStatusView.viewModel)
+        $authContext
+            .assign(to: \.authContext, on: notificationView.quoteStatusView.viewModel)
             .store(in: &disposeBag)
     }
  

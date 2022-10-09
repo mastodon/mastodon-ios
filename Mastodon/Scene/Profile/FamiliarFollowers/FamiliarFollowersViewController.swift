@@ -75,6 +75,13 @@ extension FamiliarFollowersViewController {
     
 }
 
+// MARK: - AuthContextProvider
+extension FamiliarFollowersViewController: AuthContextProvider {
+    var authContext: AuthContext {
+        viewModel.authContext
+    }
+}
+
 // MARK: - UITableViewDelegate
 extension FamiliarFollowersViewController: UITableViewDelegate, AutoGenerateTableViewDelegate {
     // sourcery:inline:FamiliarFollowersViewController.AutoGenerateTableViewDelegate

@@ -159,7 +159,7 @@ extension SuggestionAccountViewController: UITableViewDelegate {
         switch item {
         case .account(let record):
             guard let account = record.object(in: context.managedObjectContext) else { return }
-            let cachedProfileViewModel = CachedProfileViewModel(context: context, mastodonUser: account)
+            let cachedProfileViewModel = CachedProfileViewModel(context: context, authContext: viewModel.authContext, mastodonUser: account)
             coordinator.present(
                 scene: .profile(viewModel: cachedProfileViewModel),
                 from: self,
@@ -169,6 +169,12 @@ extension SuggestionAccountViewController: UITableViewDelegate {
     }
 }
 
+// MARK: - AuthContextProvider
+extension SuggestionAccountViewController: AuthContextProvider {
+    var authContext: AuthContext { viewModel.authContext }
+}
+
+// MARK: - SuggestionAccountTableViewCellDelegate
 extension SuggestionAccountViewController: SuggestionAccountTableViewCellDelegate {
     func suggestionAccountTableViewCell(
         _ cell: SuggestionAccountTableViewCell,
@@ -177,7 +183,6 @@ extension SuggestionAccountViewController: SuggestionAccountTableViewCellDelegat
         guard let tableViewDiffableDataSource = viewModel.tableViewDiffableDataSource else { return }
         guard let indexPath = tableView.indexPath(for: cell) else { return }
         guard let item = tableViewDiffableDataSource.itemIdentifier(for: indexPath) else { return }
-        guard let authenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else { return }
         
         switch item {
         case .account(let user):
@@ -186,8 +191,7 @@ extension SuggestionAccountViewController: SuggestionAccountTableViewCellDelegat
                 do {
                     try await DataSourceFacade.responseToUserFollowAction(
                         dependency: self,
-                        user: user,
-                        authenticationBox: authenticationBox
+                        user: user
                     )
                 } catch {
                     // do noting

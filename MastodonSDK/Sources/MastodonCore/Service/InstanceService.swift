@@ -33,9 +33,9 @@ public final class InstanceService {
         self.apiService = apiService
         self.authenticationService = authenticationService
         
-        authenticationService.activeMastodonAuthenticationBox
+        authenticationService.$mastodonAuthenticationBoxes
             .receive(on: DispatchQueue.main)
-            .compactMap { $0?.domain }
+            .compactMap { $0.first?.domain }
             .removeDuplicates()     // prevent infinity loop
             .sink { [weak self] domain in
                 guard let self = self else { return }

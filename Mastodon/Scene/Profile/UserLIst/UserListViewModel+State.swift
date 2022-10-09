@@ -137,10 +137,6 @@ extension UserListViewModel.State {
             }
             
             guard let viewModel = viewModel, let stateMachine = stateMachine else { return }
-            guard let authenticationBox = viewModel.context.authenticationService.activeMastodonAuthenticationBox.value else {
-                stateMachine.enter(Fail.self)
-                return
-            }
             
             let maxID = self.maxID
             
@@ -152,13 +148,13 @@ extension UserListViewModel.State {
                         response = try await viewModel.context.apiService.favoritedBy(
                             status: status,
                             query: .init(maxID: maxID, limit: nil),
-                            authenticationBox: authenticationBox
+                            authenticationBox: viewModel.authContext.mastodonAuthenticationBox
                         )
                     case .rebloggedBy(let status):
                         response = try await viewModel.context.apiService.rebloggedBy(
                             status: status,
                             query: .init(maxID: maxID, limit: nil),
-                            authenticationBox: authenticationBox
+                            authenticationBox: viewModel.authContext.mastodonAuthenticationBox
                         )
                     }
 

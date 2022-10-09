@@ -26,6 +26,7 @@ class ThreadViewModel {
     
     // input
     let context: AppContext
+    let authContext: AuthContext
     let mastodonStatusThreadViewModel: MastodonStatusThreadViewModel
 
 //    let cellFrameCache = NSCache<NSNumber, NSValue>()
@@ -54,9 +55,11 @@ class ThreadViewModel {
     
     init(
         context: AppContext,
+        authContext: AuthContext,
         optionalRoot: StatusItem.Thread?
     ) {
         self.context = context
+        self.authContext = authContext
         self.root = optionalRoot
         self.mastodonStatusThreadViewModel = MastodonStatusThreadViewModel(context: context)
 //        self.rootNode = CurrentValueSubject(optionalStatus.flatMap { RootNode(domain: $0.domain, statusID: $0.id, replyToID: $0.inReplyToID) })

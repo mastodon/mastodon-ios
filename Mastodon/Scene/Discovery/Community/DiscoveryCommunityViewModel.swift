@@ -22,6 +22,7 @@ final class DiscoveryCommunityViewModel {
     
     // input
     let context: AppContext
+    let authContext: AuthContext
     let viewDidAppeared = PassthroughSubject<Void, Never>()
     let statusFetchedResultsController: StatusFetchedResultsController
     let listBatchFetchViewModel = ListBatchFetchViewModel()
@@ -43,20 +44,15 @@ final class DiscoveryCommunityViewModel {
     
     let didLoadLatest = PassthroughSubject<Void, Never>()
     
-    init(context: AppContext) {
+    init(context: AppContext, authContext: AuthContext) {
         self.context = context
+        self.authContext = authContext
         self.statusFetchedResultsController = StatusFetchedResultsController(
             managedObjectContext: context.managedObjectContext,
-            domain: nil,
+            domain: authContext.mastodonAuthenticationBox.domain,
             additionalTweetPredicate: nil
         )
         // end init
-        
-        context.authenticationService.activeMastodonAuthentication
-            .map { $0?.domain }
-            .assign(to: \.domain, on: statusFetchedResultsController)
-            .store(in: &disposeBag)
-    
     }
     
     deinit {

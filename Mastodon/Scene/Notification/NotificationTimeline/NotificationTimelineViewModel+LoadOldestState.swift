@@ -63,11 +63,6 @@ extension NotificationTimelineViewModel.LoadOldestState {
             super.didEnter(from: previousState)
             
             guard let viewModel = viewModel, let stateMachine = stateMachine else { return }
-            guard let authenticationBox = viewModel.context.authenticationService.activeMastodonAuthenticationBox.value else {
-                assertionFailure()
-                stateMachine.enter(Fail.self)
-                return
-            }
             
             guard let lastFeedRecord = viewModel.feedFetchedResultsController.records.last else {
                 stateMachine.enter(Fail.self)
@@ -93,7 +88,7 @@ extension NotificationTimelineViewModel.LoadOldestState {
                     let response = try await viewModel.context.apiService.notifications(
                         maxID: maxID,
                         scope: scope,
-                        authenticationBox: authenticationBox
+                        authenticationBox: viewModel.authContext.mastodonAuthenticationBox
                     )
                     
                     let notifications = response.value

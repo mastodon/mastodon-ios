@@ -1,6 +1,6 @@
 //
 //  AppSecret.swift
-//  MastodonCommon
+//  MastodonCore
 //
 //  Created by MainasuK Cirno on 2021-4-27.
 //

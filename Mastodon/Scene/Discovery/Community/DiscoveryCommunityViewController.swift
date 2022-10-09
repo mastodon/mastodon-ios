@@ -116,6 +116,11 @@ extension DiscoveryCommunityViewController {
     
 }
 
+// MARK: - AuthContextProvider
+extension DiscoveryCommunityViewController: AuthContextProvider {
+    var authContext: AuthContext { viewModel.authContext }
+}
+
 // MARK: - UITableViewDelegate
 extension DiscoveryCommunityViewController: UITableViewDelegate, AutoGenerateTableViewDelegate {
     // sourcery:inline:CommunityViewController.AutoGenerateTableViewDelegate

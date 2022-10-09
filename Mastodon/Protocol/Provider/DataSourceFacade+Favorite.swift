@@ -12,16 +12,15 @@ import MastodonCore
 
 extension DataSourceFacade {
     public static func responseToStatusFavoriteAction(
-        provider: DataSourceProvider,
-        status: ManagedObjectRecord<Status>,
-        authenticationBox: MastodonAuthenticationBox
+        provider: DataSourceProvider & AuthContextProvider,
+        status: ManagedObjectRecord<Status>
     ) async throws {
         let selectionFeedbackGenerator = await UISelectionFeedbackGenerator()
         await selectionFeedbackGenerator.selectionChanged()
         
         _ = try await provider.context.apiService.favorite(
             record: status,
-            authenticationBox: authenticationBox
+            authenticationBox: provider.authContext.mastodonAuthenticationBox
         )
     }
 }

@@ -93,6 +93,11 @@ extension FavoritedByViewController {
     
 }
 
+// MARK: - AuthContextProvider
+extension FavoritedByViewController: AuthContextProvider {
+    var authContext: AuthContext { viewModel.authContext }
+}
+
 // MARK: - UITableViewDelegate
 extension FavoritedByViewController: UITableViewDelegate, AutoGenerateTableViewDelegate {
     // sourcery:inline:FavoritedByViewController.AutoGenerateTableViewDelegate
