@@ -79,9 +79,9 @@ extension ComposeStatusAttachmentTableViewCell {
 
         self.dataSource = UICollectionViewDiffableDataSource(collectionView: collectionView) {
             [weak self] collectionView, indexPath, item -> UICollectionViewCell? in
-            guard let self = self else { return UICollectionViewCell() }
+            guard let _ = self else { return UICollectionViewCell() }
             switch item {
-            case .attachment(let attachmentService):
+            case .attachment:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: ComposeStatusAttachmentCollectionViewCell.self), for: indexPath) as! ComposeStatusAttachmentCollectionViewCell
                 cell.contentConfiguration = UIHostingConfigurationBackport {
                     HStack {

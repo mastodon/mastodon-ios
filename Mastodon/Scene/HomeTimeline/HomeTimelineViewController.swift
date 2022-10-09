@@ -384,7 +384,7 @@ extension HomeTimelineViewController {
     
     @objc private func manuallySearchButtonPressed(_ sender: UIButton) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-        let searchDetailViewModel = SearchDetailViewModel()
+        let searchDetailViewModel = SearchDetailViewModel(authContext: viewModel.authContext)
         coordinator.present(scene: .searchDetail(viewModel: searchDetailViewModel), from: self, transition: .modal(animated: true, completion: nil))
     }
     

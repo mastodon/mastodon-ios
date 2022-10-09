@@ -48,7 +48,7 @@ extension BookmarkViewModel {
 extension BookmarkViewModel.State {
     class Initial: BookmarkViewModel.State {
         override func isValidNextState(_ stateClass: AnyClass) -> Bool {
-            guard let viewModel = viewModel else { return false }
+            guard let _ = viewModel else { return false }
             switch stateClass {
             case is Reloading.Type:
                 return true
@@ -132,7 +132,7 @@ extension BookmarkViewModel.State {
         
         override func didEnter(from previousState: GKState?) {
             super.didEnter(from: previousState)
-            guard let viewModel = viewModel, let stateMachine = stateMachine else { return }
+            guard let viewModel = viewModel, let _ = stateMachine else { return }
             
             if previousState is Reloading {
                 maxID = nil

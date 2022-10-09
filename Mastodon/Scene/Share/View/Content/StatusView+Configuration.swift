@@ -185,41 +185,36 @@ extension StatusView {
             .assign(to: \.locked, on: viewModel)
             .store(in: &disposeBag)
         // isMuting
-        Publishers.CombineLatest(
-            viewModel.$userIdentifier,
-            author.publisher(for: \.mutingBy)
-        )
-        .map { userIdentifier, mutingBy in
-            guard let userIdentifier = userIdentifier else { return false }
-            return mutingBy.contains(where: {
-                $0.id == userIdentifier.userID && $0.domain == userIdentifier.domain
-            })
-        }
-        .assign(to: \.isMuting, on: viewModel)
-        .store(in: &disposeBag)
+        author.publisher(for: \.mutingBy)
+            .map { [weak viewModel] mutingBy in
+                guard let viewModel = viewModel else { return false }
+                guard let authContext = viewModel.authContext else { return false }
+                return mutingBy.contains(where: {
+                    $0.id == authContext.mastodonAuthenticationBox.userID && $0.domain == authContext.mastodonAuthenticationBox.domain
+                })
+            }
+            .assign(to: \.isMuting, on: viewModel)
+            .store(in: &disposeBag)
         // isBlocking
-        Publishers.CombineLatest(
-            viewModel.$userIdentifier,
-            author.publisher(for: \.blockingBy)
-        )
-        .map { userIdentifier, blockingBy in
-            guard let userIdentifier = userIdentifier else { return false }
-            return blockingBy.contains(where: {
-                $0.id == userIdentifier.userID && $0.domain == userIdentifier.domain
-            })
-        }
-        .assign(to: \.isBlocking, on: viewModel)
-        .store(in: &disposeBag)
+        author.publisher(for: \.blockingBy)
+            .map { [weak viewModel] blockingBy in
+                guard let viewModel = viewModel else { return false }
+                guard let authContext = viewModel.authContext else { return false }
+                return blockingBy.contains(where: {
+                    $0.id == authContext.mastodonAuthenticationBox.userID && $0.domain == authContext.mastodonAuthenticationBox.domain
+                })
+            }
+            .assign(to: \.isBlocking, on: viewModel)
+            .store(in: &disposeBag)
         // isMyself
-        Publishers.CombineLatest3(
-            viewModel.$userIdentifier,
+        Publishers.CombineLatest(
             author.publisher(for: \.domain),
             author.publisher(for: \.id)
         )
-        .map { userIdentifier, domain, id in
-            guard let userIdentifier = userIdentifier else { return false }
-            return userIdentifier.domain == domain
-                && userIdentifier.userID == id
+        .map { [weak viewModel] domain, id in
+            guard let viewModel = viewModel else { return false }
+            guard let authContext = viewModel.authContext else { return false }
+            return authContext.mastodonAuthenticationBox.domain == domain && authContext.mastodonAuthenticationBox.userID == id
         }
         .assign(to: \.isMyself, on: viewModel)
         .store(in: &disposeBag)
@@ -317,15 +312,15 @@ extension StatusView {
             .store(in: &disposeBag)
         // isVotable
         if let poll = status.poll {
-            Publishers.CombineLatest3(
+            Publishers.CombineLatest(
                 poll.publisher(for: \.votedBy),
-                poll.publisher(for: \.expired),
-                viewModel.$userIdentifier
+                poll.publisher(for: \.expired)
             )
-            .map { votedBy, expired, userIdentifier in
-                guard let userIdentifier = userIdentifier else { return false }
-                let domain = userIdentifier.domain
-                let userID = userIdentifier.userID
+            .map { [weak viewModel] votedBy, expired in
+                guard let viewModel = viewModel else { return false }
+                guard let authContext = viewModel.authContext else { return false }
+                let domain = authContext.mastodonAuthenticationBox.domain
+                let userID = authContext.mastodonAuthenticationBox.userID
                 let isVoted = votedBy?.contains(where: { $0.domain == domain && $0.id == userID }) ?? false
                 return !isVoted && !expired
             }
@@ -372,44 +367,38 @@ extension StatusView {
             .store(in: &disposeBag)
         
         // relationship
-        Publishers.CombineLatest(
-            viewModel.$userIdentifier,
-            status.publisher(for: \.rebloggedBy)
-        )
-        .map { userIdentifier, rebloggedBy in
-            guard let userIdentifier = userIdentifier else { return false }
-            return rebloggedBy.contains(where: {
-                $0.id == userIdentifier.userID && $0.domain == userIdentifier.domain
-            })
-        }
-        .assign(to: \.isReblog, on: viewModel)
-        .store(in: &disposeBag)
+        status.publisher(for: \.rebloggedBy)
+            .map { [weak viewModel] rebloggedBy in
+                guard let viewModel = viewModel else { return false }
+                guard let authContext = viewModel.authContext else { return false }
+                return rebloggedBy.contains(where: {
+                    $0.id == authContext.mastodonAuthenticationBox.userID && $0.domain == authContext.mastodonAuthenticationBox.domain
+                })
+            }
+            .assign(to: \.isReblog, on: viewModel)
+            .store(in: &disposeBag)
         
-        Publishers.CombineLatest(
-            viewModel.$userIdentifier,
-            status.publisher(for: \.favouritedBy)
-        )
-        .map { userIdentifier, favouritedBy in
-            guard let userIdentifier = userIdentifier else { return false }
-            return favouritedBy.contains(where: {
-                $0.id == userIdentifier.userID && $0.domain == userIdentifier.domain
-            })
-        }
-        .assign(to: \.isFavorite, on: viewModel)
-        .store(in: &disposeBag)
-        
-        Publishers.CombineLatest(
-            viewModel.$userIdentifier,
-            status.publisher(for: \.bookmarkedBy)
-        )
-        .map { userIdentifier, bookmarkedBy in
-            guard let userIdentifier = userIdentifier else { return false }
-            return bookmarkedBy.contains(where: {
-                $0.id == userIdentifier.userID && $0.domain == userIdentifier.domain
-            })
-        }
-        .assign(to: \.isBookmark, on: viewModel)
-        .store(in: &disposeBag)
+        status.publisher(for: \.favouritedBy)
+            .map { [weak viewModel]favouritedBy in
+                guard let viewModel = viewModel else { return false }
+                guard let authContext = viewModel.authContext else { return false }
+                return favouritedBy.contains(where: {
+                    $0.id == authContext.mastodonAuthenticationBox.userID && $0.domain == authContext.mastodonAuthenticationBox.domain
+                })
+            }
+            .assign(to: \.isFavorite, on: viewModel)
+            .store(in: &disposeBag)
+
+        status.publisher(for: \.bookmarkedBy)
+            .map { [weak viewModel] bookmarkedBy in
+                guard let viewModel = viewModel else { return false }
+                guard let authContext = viewModel.authContext else { return false }
+                return bookmarkedBy.contains(where: {
+                    $0.id == authContext.mastodonAuthenticationBox.userID && $0.domain == authContext.mastodonAuthenticationBox.domain
+                })
+            }
+            .assign(to: \.isBookmark, on: viewModel)
+            .store(in: &disposeBag)
     }
     
     private func configureFilter(status: Status) {

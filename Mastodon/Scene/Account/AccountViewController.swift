@@ -158,7 +158,7 @@ extension AccountListViewController {
 
     @objc private func addBarButtonItem(_ sender: UIBarButtonItem) {
         logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
-        coordinator.present(scene: .welcome, from: self, transition: .modal(animated: true, completion: nil))
+        _ = coordinator.present(scene: .welcome, from: self, transition: .modal(animated: true, completion: nil))
     }
     
     @objc private func dragIndicatorTapGestureRecognizerHandler(_ sender: UITapGestureRecognizer) {
@@ -187,7 +187,7 @@ extension AccountListViewController: UITableViewDelegate {
             }   // end Task
         case .addAccount:
             // TODO: add dismiss entry for welcome scene
-            coordinator.present(scene: .welcome, from: self, transition: .modal(animated: true, completion: nil))
+            _ = coordinator.present(scene: .welcome, from: self, transition: .modal(animated: true, completion: nil))
         }
     }
 }

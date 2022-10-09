@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -345,7 +345,7 @@
 		DB8F7076279E954700E1225B /* DataSourceFacade+Follow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8F7075279E954700E1225B /* DataSourceFacade+Follow.swift */; };
 		DB8FABC726AEC7B2008E5AF4 /* Intents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB8FAB9E26AEC3A2008E5AF4 /* Intents.framework */; };
 		DB8FABCA26AEC7B2008E5AF4 /* IntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8FABC926AEC7B2008E5AF4 /* IntentHandler.swift */; };
-		DB8FABCE26AEC7B2008E5AF4 /* MastodonIntent.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = DB8FABC626AEC7B2008E5AF4 /* MastodonIntent.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		DB8FABCE26AEC7B2008E5AF4 /* MastodonIntent.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DB8FABC626AEC7B2008E5AF4 /* MastodonIntent.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		DB9282B225F3222800823B15 /* PickServerEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9282B125F3222800823B15 /* PickServerEmptyStateView.swift */; };
 		DB938EE62623F50700E5B6C1 /* ThreadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB938EE52623F50700E5B6C1 /* ThreadViewController.swift */; };
 		DB938EED2623F79B00E5B6C1 /* ThreadViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB938EEC2623F79B00E5B6C1 /* ThreadViewModel.swift */; };
@@ -420,7 +420,7 @@
 		DBBF1DCB2652539E00E5B703 /* AutoCompleteItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBF1DCA2652539E00E5B703 /* AutoCompleteItem.swift */; };
 		DBC6461526A170AB00B0E31B /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC6461426A170AB00B0E31B /* ShareViewController.swift */; };
 		DBC6461826A170AB00B0E31B /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DBC6461626A170AB00B0E31B /* MainInterface.storyboard */; };
-		DBC6461C26A170AB00B0E31B /* ShareActionExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = DBC6461226A170AB00B0E31B /* ShareActionExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		DBC6461C26A170AB00B0E31B /* ShareActionExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DBC6461226A170AB00B0E31B /* ShareActionExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		DBC6462326A1712000B0E31B /* ShareViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC6462226A1712000B0E31B /* ShareViewModel.swift */; };
 		DBC6462826A1736300B0E31B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB427DDE25BAA00100D1B89D /* Assets.xcassets */; };
 		DBC7A672260C897100E57475 /* StatusContentWarningEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC7A671260C897100E57475 /* StatusContentWarningEditorView.swift */; };
@@ -466,7 +466,7 @@
 		DBF3B73F2733EAED00E21627 /* local-codes.json in Resources */ = {isa = PBXBuildFile; fileRef = DBF3B73E2733EAED00E21627 /* local-codes.json */; };
 		DBF3B7412733EB9400E21627 /* MastodonLocalCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF3B7402733EB9400E21627 /* MastodonLocalCode.swift */; };
 		DBF8AE16263293E400C9C23C /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF8AE15263293E400C9C23C /* NotificationService.swift */; };
-		DBF8AE1A263293E400C9C23C /* NotificationService.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = DBF8AE13263293E400C9C23C /* NotificationService.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		DBF8AE1A263293E400C9C23C /* NotificationService.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DBF8AE13263293E400C9C23C /* NotificationService.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		DBF96326262EC0A6001D8D25 /* AuthenticationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBF96325262EC0A6001D8D25 /* AuthenticationServices.framework */; };
 		DBF9814A265E24F500E4BA07 /* ProfileFieldCollectionViewHeaderFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF98149265E24F500E4BA07 /* ProfileFieldCollectionViewHeaderFooterView.swift */; };
 		DBF9814C265E339500E4BA07 /* ProfileFieldAddEntryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF9814B265E339500E4BA07 /* ProfileFieldAddEntryCollectionViewCell.swift */; };
@@ -533,17 +533,17 @@
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DBF8AE1B263293E400C9C23C /* Embed App Extensions */ = {
+		DBF8AE1B263293E400C9C23C /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				DB8FABCE26AEC7B2008E5AF4 /* MastodonIntent.appex in Embed App Extensions */,
-				DBC6461C26A170AB00B0E31B /* ShareActionExtension.appex in Embed App Extensions */,
-				DBF8AE1A263293E400C9C23C /* NotificationService.appex in Embed App Extensions */,
+				DB8FABCE26AEC7B2008E5AF4 /* MastodonIntent.appex in Embed Foundation Extensions */,
+				DBC6461C26A170AB00B0E31B /* ShareActionExtension.appex in Embed Foundation Extensions */,
+				DBF8AE1A263293E400C9C23C /* NotificationService.appex in Embed Foundation Extensions */,
 			);
-			name = "Embed App Extensions";
+			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -2916,7 +2916,7 @@
 				DB427DCE25BAA00100D1B89D /* Sources */,
 				DB427DCF25BAA00100D1B89D /* Frameworks */,
 				DB89BA0825C10FD0008580ED /* Embed Frameworks */,
-				DBF8AE1B263293E400C9C23C /* Embed App Extensions */,
+				DBF8AE1B263293E400C9C23C /* Embed Foundation Extensions */,
 				DB3D100425BAA71500EAA174 /* ShellScript */,
 				DB025B8E278D6448002F581E /* ShellScript */,
 				DB697DD2278F48D5004EF2F7 /* ShellScript */,
@@ -3042,7 +3042,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1250;
-				LastUpgradeCheck = 1250;
+				LastUpgradeCheck = 1400;
 				TargetAttributes = {
 					DB427DD125BAA00100D1B89D = {
 						CreatedOnToolsVersion = 12.4;
@@ -3237,7 +3237,8 @@
 		};
 		DB025B8E278D6448002F581E /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			alwaysOutOfDate = 1;
+			buildActionMask = 8;
 			files = (
 			);
 			inputFileListPaths = (
@@ -3248,13 +3249,14 @@
 			);
 			outputPaths = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
+			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
 			shellScript = "if [[ -f \"${PODS_ROOT}/Sourcery/bin/sourcery\" ]]; then\n  \"${PODS_ROOT}/Sourcery/bin/sourcery\" --config ./MastodonSDK/Sources/CoreDataStack\nelse\n  echo \"warning: Sourcery is not installed. Run 'pod install --repo-update' to install it.\"\nfi\n";
 		};
 		DB3D100425BAA71500EAA174 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			alwaysOutOfDate = 1;
+			buildActionMask = 8;
 			files = (
 			);
 			inputFileListPaths = (
@@ -3265,13 +3267,14 @@
 			);
 			outputPaths = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
+			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
 			shellScript = "if [[ -f \"${PODS_ROOT}/SwiftGen/bin/swiftgen\" ]]; then\n  \"${PODS_ROOT}/SwiftGen/bin/swiftgen\" \nelse\n  echo \"warning: SwiftGen is not installed. Run 'pod install --repo-update' to install it.\"\nfi\n";
 		};
 		DB697DD2278F48D5004EF2F7 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			alwaysOutOfDate = 1;
+			buildActionMask = 8;
 			files = (
 			);
 			inputFileListPaths = (
@@ -3282,7 +3285,7 @@
 			);
 			outputPaths = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
+			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
 			shellScript = "if [[ -f \"${PODS_ROOT}/Sourcery/bin/sourcery\" ]]; then\n  \"${PODS_ROOT}/Sourcery/bin/sourcery\" --config ./Mastodon\nelse\n  echo \"warning: Sourcery is not installed. Run 'pod install --repo-update' to install it.\"\nfi\n";
 		};
