@@ -13,6 +13,7 @@ import AVKit
 import MastodonMeta
 import MastodonAsset
 import MastodonCore
+import MastodonUI
 import MastodonLocalization
 
 final class ThreadViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
@@ -114,8 +115,8 @@ extension ThreadViewController {
         guard case let .root(threadContext) = viewModel.root else { return }
         let composeViewModel = ComposeViewModel(
             context: context,
-            composeKind: .reply(status: threadContext.status),
-            authContext: viewModel.authContext
+            authContext: viewModel.authContext,
+            kind: .reply(status: threadContext.status)
         )
         _ = coordinator.present(
             scene: .compose(viewModel: composeViewModel),

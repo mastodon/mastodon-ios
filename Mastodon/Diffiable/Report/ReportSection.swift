@@ -14,6 +14,7 @@ import UIKit
 import os.log
 import MastodonAsset
 import MastodonCore
+import MastodonUI
 import MastodonLocalization
 
 enum ReportSection: Equatable, Hashable {

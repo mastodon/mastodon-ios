@@ -10,6 +10,7 @@ import UIKit
 import Combine
 import MastodonAsset
 import MastodonCore
+import MastodonUI
 import MastodonLocalization
 
 protocol ReportSupplementaryViewControllerDelegate: AnyObject {

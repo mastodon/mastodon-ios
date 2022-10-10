@@ -13,6 +13,7 @@ import OSLog
 import UIKit
 import MastodonAsset
 import MastodonCore
+import MastodonUI
 import MastodonLocalization
 
 class SuggestionAccountViewController: UIViewController, NeedsDependency {

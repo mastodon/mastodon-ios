@@ -12,7 +12,6 @@ import MastodonSDK
 import CoreData
 import CoreDataStack
 import CommonOSLog
-import MastodonCore
 
 extension APIService {
     

@@ -10,6 +10,7 @@ import UIKit
 import GameplayKit
 import Combine
 import MastodonCore
+import MastodonUI
 import MastodonLocalization
 
 final class FollowerListViewController: UIViewController, NeedsDependency {

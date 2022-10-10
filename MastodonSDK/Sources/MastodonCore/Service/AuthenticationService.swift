@@ -79,7 +79,6 @@ extension AuthenticationService {
     
     public func activeMastodonUser(domain: String, userID: MastodonUser.ID) async throws -> Bool {
         var isActive = false
-        var _mastodonAuthentication: MastodonAuthentication?
         
         let managedObjectContext = backgroundManagedObjectContext
 
@@ -91,7 +90,6 @@ extension AuthenticationService {
                 return
             }
             mastodonAuthentication.update(activedAt: Date())
-            _mastodonAuthentication = mastodonAuthentication
             isActive = true
         }
         

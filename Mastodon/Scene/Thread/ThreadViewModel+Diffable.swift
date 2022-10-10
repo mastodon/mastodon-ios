@@ -10,6 +10,7 @@ import Combine
 import CoreData
 import CoreDataStack
 import MastodonCore
+import MastodonUI
 import MastodonSDK
 
 extension ThreadViewModel {

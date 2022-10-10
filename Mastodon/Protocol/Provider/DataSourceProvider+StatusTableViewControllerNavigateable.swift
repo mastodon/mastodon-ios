@@ -99,10 +99,10 @@ extension StatusTableViewControllerNavigateableCore where Self: DataSourceProvid
         
         let composeViewModel = ComposeViewModel(
             context: self.context,
-            composeKind: .reply(status: status),
-            authContext: authContext
+            authContext: authContext,
+            kind: .reply(status: status)
         )
-        self.coordinator.present(
+        _ = self.coordinator.present(
             scene: .compose(viewModel: composeViewModel),
             from: self,
             transition: .modal(animated: true, completion: nil)

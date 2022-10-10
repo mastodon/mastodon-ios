@@ -51,7 +51,6 @@ final class HashtagTimelineViewModel {
         stateMachine.enter(State.Initial.self)
         return stateMachine
     }()
-    lazy var loadOldestStateMachinePublisher = CurrentValueSubject<State?, Never>(nil)
     
     init(context: AppContext, authContext: AuthContext, hashtag: String) {
         self.context  = context

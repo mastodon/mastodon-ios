@@ -499,7 +499,7 @@ extension ProfileViewController {
                 user: record
             )
             guard let activityViewController = _activityViewController else { return }
-            self.coordinator.present(
+            _ = self.coordinator.present(
                 scene: .activityViewController(
                     activityViewController: activityViewController,
                     sourceView: nil,
@@ -514,13 +514,13 @@ extension ProfileViewController {
     @objc private func favoriteBarButtonItemPressed(_ sender: UIBarButtonItem) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         let favoriteViewModel = FavoriteViewModel(context: context, authContext: viewModel.authContext)
-        coordinator.present(scene: .favorite(viewModel: favoriteViewModel), from: self, transition: .show)
+        _ = coordinator.present(scene: .favorite(viewModel: favoriteViewModel), from: self, transition: .show)
     }
     
     @objc private func bookmarkBarButtonItemPressed(_ sender: UIBarButtonItem) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         let bookmarkViewModel = BookmarkViewModel(context: context, authContext: viewModel.authContext)
-        coordinator.present(scene: .bookmark(viewModel: bookmarkViewModel), from: self, transition: .show)
+        _ = coordinator.present(scene: .bookmark(viewModel: bookmarkViewModel), from: self, transition: .show)
     }
 
     @objc private func replyBarButtonItemPressed(_ sender: UIBarButtonItem) {
@@ -528,10 +528,10 @@ extension ProfileViewController {
         guard let mastodonUser = viewModel.user else { return }
         let composeViewModel = ComposeViewModel(
             context: context,
-            composeKind: .mention(user: .init(objectID: mastodonUser.objectID)),
-            authContext: viewModel.authContext
+            authContext: viewModel.authContext,
+            kind: .mention(user: mastodonUser.asRecrod)
         )
-        coordinator.present(scene: .compose(viewModel: composeViewModel), from: self, transition: .modal(animated: true, completion: nil))
+        _ = coordinator.present(scene: .compose(viewModel: composeViewModel), from: self, transition: .modal(animated: true, completion: nil))
     }
 
     @objc private func refreshControlValueChanged(_ sender: UIRefreshControl) {

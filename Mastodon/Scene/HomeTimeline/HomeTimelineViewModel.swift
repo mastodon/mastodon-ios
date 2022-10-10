@@ -16,6 +16,7 @@ import GameplayKit
 import AlamofireImage
 import DateToolsSwift
 import MastodonCore
+import MastodonUI
 
 final class HomeTimelineViewModel: NSObject {
     

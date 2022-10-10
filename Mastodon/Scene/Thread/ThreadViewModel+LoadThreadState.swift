@@ -13,15 +13,11 @@ import CoreDataStack
 import MastodonSDK
 
 extension ThreadViewModel {
-    class LoadThreadState: GKState, NamingState {
+    class LoadThreadState: GKState {
         
         let logger = Logger(subsystem: "ThreadViewModel.LoadThreadState", category: "StateMachine")
 
         let id = UUID()
-
-        var name: String {
-            String(describing: Self.self)
-        }
         
         weak var viewModel: ThreadViewModel?
                 
@@ -31,8 +27,10 @@ extension ThreadViewModel {
         
         override func didEnter(from previousState: GKState?) {
             super.didEnter(from: previousState)
-            let previousState = previousState as? ThreadViewModel.LoadThreadState
-            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [\(self.id.uuidString)] enter \(self.name), previous: \(previousState?.name  ?? "<nil>")")
+            
+            let from = previousState.flatMap { String(describing: $0) } ?? "nil"
+            let to = String(describing: self)
+            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): \(from) -> \(to)")
         }
         
         @MainActor
@@ -41,7 +39,7 @@ extension ThreadViewModel {
         }
         
         deinit {
-            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [\(self.id.uuidString)] \(self.name)")
+            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [\(self.id.uuidString)] \(String(describing: self))")
         }
     }
 }

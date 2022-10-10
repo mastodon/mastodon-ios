@@ -15,6 +15,7 @@ import MetaTextKit
 import MastodonMeta
 import MastodonAsset
 import MastodonCore
+import MastodonUI
 import MastodonLocalization
 
 enum NotificationSection: Equatable, Hashable {

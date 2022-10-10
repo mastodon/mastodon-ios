@@ -372,8 +372,8 @@ extension MainTabBarController {
         guard let authContext = self.authContext else { return }
         let composeViewModel = ComposeViewModel(
             context: context,
-            composeKind: .post,
-            authContext: authContext
+            authContext: authContext,
+            kind: .post
         )
         _ = coordinator.present(scene: .compose(viewModel: composeViewModel), from: nil, transition: .modal(animated: true, completion: nil))
     }
@@ -741,8 +741,8 @@ extension MainTabBarController {
         guard let authContext = self.authContext else { return }
         let composeViewModel = ComposeViewModel(
             context: context,
-            composeKind: .post,
-            authContext: authContext
+            authContext: authContext,
+            kind: .post
         )
         _ = coordinator.present(scene: .compose(viewModel: composeViewModel), from: nil, transition: .modal(animated: true, completion: nil))
     }

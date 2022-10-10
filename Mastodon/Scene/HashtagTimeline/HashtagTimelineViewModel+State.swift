@@ -11,7 +11,7 @@ import GameplayKit
 import CoreDataStack
 
 extension HashtagTimelineViewModel {
-    class State: GKState, NamingState {
+    class State: GKState {
         
         let logger = Logger(subsystem: "HashtagTimelineViewModel.LoadOldestState", category: "StateMachine")
         
@@ -28,10 +28,11 @@ extension HashtagTimelineViewModel {
         }
         
         override func didEnter(from previousState: GKState?) {
-            let previousState = previousState as? HashtagTimelineViewModel.State
-            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [\(self.id.uuidString)] enter \(self.name), previous: \(previousState?.name  ?? "<nil>")")
-
-            viewModel?.loadOldestStateMachinePublisher.send(self)
+            super.didEnter(from: previousState)
+            
+            let from = previousState.flatMap { String(describing: $0) } ?? "nil"
+            let to = String(describing: self)
+            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): \(from) -> \(to)")            
         }
         
         @MainActor

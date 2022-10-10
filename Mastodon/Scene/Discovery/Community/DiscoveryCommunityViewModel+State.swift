@@ -11,15 +11,11 @@ import GameplayKit
 import MastodonSDK
 
 extension DiscoveryCommunityViewModel {
-    class State: GKState, NamingState {
+    class State: GKState {
         
         let logger = Logger(subsystem: "DiscoveryCommunityViewModel.State", category: "StateMachine")
 
         let id = UUID()
-
-        var name: String {
-            String(describing: Self.self)
-        }
         
         weak var viewModel: DiscoveryCommunityViewModel?
         
@@ -29,8 +25,10 @@ extension DiscoveryCommunityViewModel {
         
         override func didEnter(from previousState: GKState?) {
             super.didEnter(from: previousState)
-            let previousState = previousState as? DiscoveryCommunityViewModel.State
-            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [\(self.id.uuidString)] enter \(self.name), previous: \(previousState?.name  ?? "<nil>")")
+            
+            let from = previousState.flatMap { String(describing: $0) } ?? "nil"
+            let to = String(describing: self)
+            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): \(from) -> \(to)")
         }
         
         @MainActor
@@ -39,7 +37,7 @@ extension DiscoveryCommunityViewModel {
         }
         
         deinit {
-            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [\(self.id.uuidString)] \(self.name)")
+            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [\(self.id.uuidString)] \(String(describing: self))")
         }
     }
 }

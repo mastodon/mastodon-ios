@@ -103,8 +103,8 @@ extension DataSourceFacade {
             
             let composeViewModel = ComposeViewModel(
                 context: provider.context,
-                composeKind: .reply(status: status),
-                authContext: provider.authContext
+                authContext: provider.authContext,
+                kind: .reply(status: status)
             )
             _ = provider.coordinator.present(
                 scene: .compose(viewModel: composeViewModel),

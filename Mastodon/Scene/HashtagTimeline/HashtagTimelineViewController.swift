@@ -13,6 +13,7 @@ import GameplayKit
 import CoreData
 import MastodonAsset
 import MastodonCore
+import MastodonUI
 import MastodonLocalization
 
 final class HashtagTimelineViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
@@ -168,10 +169,10 @@ extension HashtagTimelineViewController {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         let composeViewModel = ComposeViewModel(
             context: context,
-            composeKind: .hashtag(hashtag: viewModel.hashtag),
-            authContext: viewModel.authContext
+            authContext: viewModel.authContext,
+            kind: .hashtag(hashtag: viewModel.hashtag)
         )
-        coordinator.present(scene: .compose(viewModel: composeViewModel), from: self, transition: .modal(animated: true, completion: nil))
+        _ = coordinator.present(scene: .compose(viewModel: composeViewModel), from: self, transition: .modal(animated: true, completion: nil))
     }
 
 }
