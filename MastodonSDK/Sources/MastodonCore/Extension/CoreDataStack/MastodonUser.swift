@@ -8,6 +8,7 @@
 import Foundation
 import CoreDataStack
 import MastodonSDK
+import MastodonMeta
 
 extension MastodonUser {
 
@@ -57,7 +58,7 @@ extension MastodonUser {
 }
 
 extension MastodonUser {
-
+    
     public var profileURL: URL {
         if let urlString = self.url,
            let url = URL(string: urlString) {
@@ -71,5 +72,31 @@ extension MastodonUser {
         var items: [Any] = []
         items.append(profileURL)
         return items
+    }
+    
+}
+
+extension MastodonUser {
+    public var nameMetaContent: MastodonMetaContent? {
+        do {
+            let content = MastodonContent(content: displayNameWithFallback, emojis: emojis.asDictionary)
+            let metaContent = try MastodonMetaContent.convert(document: content)
+            return metaContent
+        } catch {
+            assertionFailure()
+            return nil
+        }
+    }
+    
+    public var bioMetaContent: MastodonMetaContent? {
+        guard let note = note else { return nil }
+        do {
+            let content = MastodonContent(content: note, emojis: emojis.asDictionary)
+            let metaContent = try MastodonMetaContent.convert(document: content)
+            return metaContent
+        } catch {
+            assertionFailure()
+            return nil
+        }
     }
 }

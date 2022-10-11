@@ -31,7 +31,11 @@ final class ComposeViewController: UIViewController, NeedsDependency {
     let logger = Logger(subsystem: "ComposeViewController", category: "logic")
     
     lazy var composeContentViewModel: ComposeContentViewModel = {
-        return ComposeContentViewModel(context: context, kind: viewModel.kind)
+        return ComposeContentViewModel(
+            context: context,
+            authContext: viewModel.authContext,
+            kind: viewModel.kind
+        )
     }()
     private(set) lazy var composeContentViewController: ComposeContentViewController = {
         let composeContentViewController = ComposeContentViewController()
@@ -39,20 +43,20 @@ final class ComposeViewController: UIViewController, NeedsDependency {
         return composeContentViewController
     }()
     
-//    private(set) lazy var cancelBarButtonItem = UIBarButtonItem(title: L10n.Common.Controls.Actions.cancel, style: .plain, target: self, action: #selector(ComposeViewController.cancelBarButtonItemPressed(_:)))
-//    let characterCountLabel: UILabel = {
-//        let label = UILabel()
-//        label.font = .systemFont(ofSize: 15, weight: .regular)
-//        label.text = "500"
-//        label.textColor = Asset.Colors.Label.secondary.color
-//        label.accessibilityLabel = L10n.A11y.Plural.Count.inputLimitRemains(500)
-//        return label
-//    }()
-//    private(set) lazy var characterCountBarButtonItem: UIBarButtonItem = {
-//        let barButtonItem = UIBarButtonItem(customView: characterCountLabel)
-//        return barButtonItem
-//    }()
-//
+    private(set) lazy var cancelBarButtonItem = UIBarButtonItem(title: L10n.Common.Controls.Actions.cancel, style: .plain, target: self, action: #selector(ComposeViewController.cancelBarButtonItemPressed(_:)))
+    let characterCountLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 15, weight: .regular)
+        label.text = "500"
+        label.textColor = Asset.Colors.Label.secondary.color
+        label.accessibilityLabel = L10n.A11y.Plural.Count.inputLimitRemains(500)
+        return label
+    }()
+    private(set) lazy var characterCountBarButtonItem: UIBarButtonItem = {
+        let barButtonItem = UIBarButtonItem(customView: characterCountLabel)
+        return barButtonItem
+    }()
+
 //    let publishButton: UIButton = {
 //        let button = RoundedEdgesButton(type: .custom)
 //        button.cornerRadius = 10
@@ -83,23 +87,6 @@ final class ComposeViewController: UIViewController, NeedsDependency {
 //        publishButton.setBackgroundImage(.placeholder(color: Asset.Colors.Button.disabled.color), for: .disabled)
 //        publishButton.setTitleColor(Asset.Colors.Label.primaryReverse.color, for: .normal)
 //    }
-
-//    let scrollView: UIScrollView = {
-//        let scrollView = UIScrollView()
-//        scrollView.alwaysBounceVertical = true
-//        return scrollView
-//    }()
-    
-//    let tableView: ComposeTableView = {
-//        let tableView = ComposeTableView()
-//        tableView.register(ComposeRepliedToStatusContentTableViewCell.self, forCellReuseIdentifier: String(describing: ComposeRepliedToStatusContentTableViewCell.self))
-//        tableView.register(ComposeStatusContentTableViewCell.self, forCellReuseIdentifier: String(describing: ComposeStatusContentTableViewCell.self))
-//        tableView.register(ComposeStatusAttachmentTableViewCell.self, forCellReuseIdentifier: String(describing: ComposeStatusAttachmentTableViewCell.self))
-//        tableView.alwaysBounceVertical = true
-//        tableView.separatorStyle = .none
-//        tableView.tableFooterView = UIView()
-//        return tableView
-//    }()
     
 //    var systemKeyboardHeight: CGFloat = .zero {
 //        didSet {
@@ -177,6 +164,22 @@ extension ComposeViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.leftBarButtonItem = cancelBarButtonItem
+        //        navigationItem.rightBarButtonItem = publishBarButtonItem
+        //        viewModel.traitCollectionDidChangePublisher
+        //            .receive(on: DispatchQueue.main)
+        //            .sink { [weak self] _ in
+        //                guard let self = self else { return }
+        //                guard self.traitCollection.userInterfaceIdiom == .pad else { return }
+        //                var items = [self.publishBarButtonItem]
+        //                if self.traitCollection.horizontalSizeClass == .regular {
+        //                    items.append(self.characterCountBarButtonItem)
+        //                }
+        //                self.navigationItem.rightBarButtonItems = items
+        //            }
+        //            .store(in: &disposeBag)
+        //        publishButton.addTarget(self, action: #selector(ComposeViewController.publishBarButtonItemPressed(_:)), for: .touchUpInside)
+        
         addChild(composeContentViewController)
         composeContentViewController.view.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(composeContentViewController.view)
@@ -212,21 +215,6 @@ extension ComposeViewController {
 //                self.setupBackgroundColor(theme: theme)
 //            }
 //            .store(in: &disposeBag)
-//        navigationItem.leftBarButtonItem = cancelBarButtonItem
-//        navigationItem.rightBarButtonItem = publishBarButtonItem
-//        viewModel.traitCollectionDidChangePublisher
-//            .receive(on: DispatchQueue.main)
-//            .sink { [weak self] _ in
-//                guard let self = self else { return }
-//                guard self.traitCollection.userInterfaceIdiom == .pad else { return }
-//                var items = [self.publishBarButtonItem]
-//                if self.traitCollection.horizontalSizeClass == .regular {
-//                    items.append(self.characterCountBarButtonItem)
-//                }
-//                self.navigationItem.rightBarButtonItems = items
-//            }
-//            .store(in: &disposeBag)
-//        publishButton.addTarget(self, action: #selector(ComposeViewController.publishBarButtonItemPressed(_:)), for: .touchUpInside)
 //
 //
 //        scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -533,26 +521,6 @@ extension ComposeViewController {
 //            })
 //            .store(in: &disposeBag)
 //
-//        // setup snap behavior
-//        Publishers.CombineLatest(
-//            viewModel.$repliedToCellFrame,
-//            viewModel.$collectionViewState
-//        )
-//        .receive(on: DispatchQueue.main)
-//        .sink { [weak self] repliedToCellFrame, collectionViewState in
-//            guard let self = self else { return }
-//            guard repliedToCellFrame != .zero else { return }
-//            switch collectionViewState {
-//            case .fold:
-//                self.tableView.contentInset.top = -repliedToCellFrame.height
-//                os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: set contentInset.top: -%s", ((#file as NSString).lastPathComponent), #line, #function, repliedToCellFrame.height.description)
-//
-//            case .expand:
-//                self.tableView.contentInset.top = 0
-//            }
-//        }
-//        .store(in: &disposeBag)
-//
 //        configureToolbarDisplay(keyboardHasShortcutBar: keyboardHasShortcutBar.value)
 //        Publishers.CombineLatest(
 //            keyboardHasShortcutBar,
@@ -746,17 +714,17 @@ extension ComposeViewController {
 //
 //}
 //
-//extension ComposeViewController {
-//
-//    @objc private func cancelBarButtonItemPressed(_ sender: UIBarButtonItem) {
-//        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+extension ComposeViewController {
+
+    @objc private func cancelBarButtonItemPressed(_ sender: UIBarButtonItem) {
+        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
 //        guard viewModel.shouldDismiss else {
 //            showDismissConfirmAlertController()
 //            return
 //        }
-//        dismiss(animated: true, completion: nil)
-//    }
-//    
+        dismiss(animated: true, completion: nil)
+    }
+    
 //    @objc private func publishBarButtonItemPressed(_ sender: UIBarButtonItem) {
 //        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
 //        do {
@@ -779,9 +747,9 @@ extension ComposeViewController {
 //        
 //        dismiss(animated: true, completion: nil)
 //    }
-//    
-//}
-//
+    
+}
+
 //// MARK: - MetaTextDelegate
 //extension ComposeViewController: MetaTextDelegate {
 //    func metaText(_ metaText: MetaText, processEditing textStorage: MetaTextStorage) -> MetaContent? {
@@ -1020,58 +988,7 @@ extension ComposeViewController {
 //    }
 //    
 //}
-//
-//// MARK: - UIScrollViewDelegate
-//extension ComposeViewController {
-////    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-////        guard scrollView === tableView else { return }
-////
-////        let repliedToCellFrame = viewModel.repliedToCellFrame
-////        guard repliedToCellFrame != .zero else { return }
-////
-////         // try to find some patterns:
-////         // print("""
-////         // repliedToCellFrame: \(viewModel.repliedToCellFrame.value.height)
-////         // scrollView.contentOffset.y: \(scrollView.contentOffset.y)
-////         // scrollView.contentSize.height: \(scrollView.contentSize.height)
-////         // scrollView.frame: \(scrollView.frame)
-////         // scrollView.adjustedContentInset.top: \(scrollView.adjustedContentInset.top)
-////         // scrollView.adjustedContentInset.bottom: \(scrollView.adjustedContentInset.bottom)
-////         // """)
-////
-////        switch viewModel.collectionViewState {
-////        case .fold:
-////            os_log("%{public}s[%{public}ld], %{public}s: fold", ((#file as NSString).lastPathComponent), #line, #function)
-////            guard velocity.y < 0 else { return }
-////            let offsetY = scrollView.contentOffset.y + scrollView.adjustedContentInset.top
-////            if offsetY < -44 {
-////                tableView.contentInset.top = 0
-////                targetContentOffset.pointee = CGPoint(x: 0, y: -scrollView.adjustedContentInset.top)
-////                viewModel.collectionViewState = .expand
-////            }
-////
-////        case .expand:
-////            os_log("%{public}s[%{public}ld], %{public}s: expand", ((#file as NSString).lastPathComponent), #line, #function)
-////            guard velocity.y > 0 else { return }
-////            // check if top across
-////            let topOffset = (scrollView.contentOffset.y + scrollView.adjustedContentInset.top) - repliedToCellFrame.height
-////
-////            // check if bottom bounce
-////            let bottomOffsetY = scrollView.contentOffset.y + (scrollView.frame.height - scrollView.adjustedContentInset.bottom)
-////            let bottomOffset = bottomOffsetY - scrollView.contentSize.height
-////
-////            if topOffset > 44 {
-////                // do not interrupt user scrolling
-////                viewModel.collectionViewState = .fold
-////            } else if bottomOffset > 44 {
-////                tableView.contentInset.top = -repliedToCellFrame.height
-////                targetContentOffset.pointee = CGPoint(x: 0, y: -repliedToCellFrame.height)
-////                viewModel.collectionViewState = .fold
-////            }
-////        }
-////    }
-//}
-//
+
 //// MARK: - UITableViewDelegate
 //extension ComposeViewController: UITableViewDelegate { }
 //

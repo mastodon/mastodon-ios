@@ -1,5 +1,5 @@
 //
-//  ComposeStatusContentTableViewCell.swift
+//  ComposeContentTableViewCell.swift
 //  Mastodon
 //
 //  Created by MainasuK Cirno on 2021-6-28.
@@ -12,16 +12,16 @@ import MetaTextKit
 import UITextView_Placeholder
 import MastodonAsset
 import MastodonLocalization
-import MastodonUI
+import UIHostingConfigurationBackport
 
 //protocol ComposeStatusContentTableViewCellDelegate: AnyObject {
 //    func composeStatusContentTableViewCell(_ cell: ComposeStatusContentTableViewCell, textViewShouldBeginEditing textView: UITextView) -> Bool
 //}
 
-final class ComposeStatusContentTableViewCell: UITableViewCell {
+final class ComposeContentTableViewCell: UITableViewCell {
 
-//    let logger = Logger(subsystem: "ComposeStatusContentTableViewCell", category: "View")
-//
+    let logger = Logger(subsystem: "ComposeContentTableViewCell", category: "View")
+
 //    var disposeBag = Set<AnyCancellable>()
 //    weak var delegate: ComposeStatusContentTableViewCellDelegate?
 //
@@ -74,27 +74,26 @@ final class ComposeStatusContentTableViewCell: UITableViewCell {
 //        metaText.delegate = nil
 //        metaText.textView.delegate = nil
 //    }
-//
-//    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-//        super.init(style: style, reuseIdentifier: reuseIdentifier)
-//        _init()
-//    }
-//
-//    required init?(coder: NSCoder) {
-//        super.init(coder: coder)
-//        _init()
-//    }
+
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        _init()
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        _init()
+    }
 
 }
 
-extension ComposeStatusContentTableViewCell {
+extension ComposeContentTableViewCell {
 
-//    private func _init() {
-//        selectionStyle = .none
-//        layer.zPosition = 999
-//        backgroundColor = .clear
-//        preservesSuperviewLayoutMargins = true
-//
+    private func _init() {
+        selectionStyle = .none
+        layer.zPosition = 999
+        backgroundColor = .clear
+
 //        let containerStackView = UIStackView()
 //        containerStackView.axis = .vertical
 //        containerStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -134,7 +133,7 @@ extension ComposeStatusContentTableViewCell {
 //            metaText.textView.heightAnchor.constraint(greaterThanOrEqualToConstant: 64).priority(.defaultHigh),
 //        ])
 //        statusContentWarningEditorView.textView.delegate = self
-//    }
+    }
 
 }
 

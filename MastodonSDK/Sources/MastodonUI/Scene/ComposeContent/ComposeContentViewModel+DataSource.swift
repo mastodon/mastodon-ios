@@ -8,6 +8,7 @@
 import UIKit
 import MastodonCore
 import CoreDataStack
+import UIHostingConfigurationBackport
 
 extension ComposeContentViewModel {
     
@@ -25,21 +26,37 @@ extension ComposeContentViewModel {
     enum Section: CaseIterable {
         case replyTo
         case status
-        case attachment
-        case poll
     }
 
-    private func setupTableViewCell(tableView: UITableView) {
+    private func setupTableViewCell(tableView: UITableView) {        
+        composeContentTableViewCell.contentConfiguration = UIHostingConfigurationBackport {
+            ComposeContentView(viewModel: self)
+        }
+        
+        $contentCellFrame
+            .map { $0.height }
+            .removeDuplicates()
+            .sink { [weak self] height in
+                guard let self = self else { return }
+                guard !tableView.visibleCells.isEmpty else { return }
+                UIView.performWithoutAnimation {
+                    tableView.beginUpdates()
+                    self.composeContentTableViewCell.frame.size.height = height
+                    tableView.endUpdates()                    
+                }
+            }
+            .store(in: &disposeBag)
+        
         switch kind {
         case .post:
             break
         case .reply(let status):
             let cell = composeReplyToTableViewCell
             // bind frame publisher
-//            cell.framePublisher
-//                .receive(on: DispatchQueue.main)
-//                .assign(to: \.repliedToCellFrame, on: self)
-//                .store(in: &cell.disposeBag)
+            cell.$framePublisher
+                .receive(on: DispatchQueue.main)
+                .assign(to: \.replyToCellFrame, on: self)
+                .store(in: &cell.disposeBag)
 
             // set initial width
             cell.statusView.frame.size.width = tableView.frame.width
@@ -70,8 +87,6 @@ extension ComposeContentViewModel: UITableViewDataSource {
             default:            return 0
             }
         case .status:           return 1
-        case .attachment:       return 1
-        case .poll:             return 1
         }
     }
     
@@ -80,11 +95,7 @@ extension ComposeContentViewModel: UITableViewDataSource {
         case .replyTo:
             return composeReplyToTableViewCell
         case .status:
-            return UITableViewCell()
-        case .attachment:
-            return UITableViewCell()
-        case .poll:
-            return UITableViewCell()
+            return composeContentTableViewCell
         }
     }
 }
