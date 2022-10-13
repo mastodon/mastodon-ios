@@ -49,7 +49,7 @@
                 "message": "Ali ste prepričani, da želite izbrisati to objavo?"
             },
             "clean_cache": {
-                "title": "Clean Cache",
+                "title": "Počisti predpomnilnik",
                 "message": "Successfully cleaned %s cache."
             }
         },
@@ -74,7 +74,7 @@
                 "take_photo": "Posnemi fotografijo",
                 "save_photo": "Shrani fotografijo",
                 "copy_photo": "Kopiraj fotografijo",
-                "sign_in": "Sign In",
+                "sign_in": "Prijava",
                 "sign_up": "Registracija",
                 "see_more": "Pokaži več",
                 "preview": "Predogled",
@@ -167,7 +167,7 @@
             "friendship": {
                 "follow": "Sledi",
                 "following": "Following",
-                "request": "Request",
+                "request": "Zahteva",
                 "pending": "Na čakanju",
                 "block": "Blokiraj",
                 "block_user": "Blokiraj %s",
@@ -193,7 +193,7 @@
                     "show_more_replies": "Pokaži več odgovorov"
                 },
                 "header": {
-                    "no_status_found": "No Post Found",
+                    "no_status_found": "Ne najdem nobenih objav",
                     "blocking_warning": "Profila tega uporabnika ne morete\nvideti, dokler jih ne odblokirate.\nVaš profil je zanje videti tako.",
                     "user_blocking_warning": "Profila uporabnika %s ne morete\nvideti, dokler jih ne odblokirate.\nVaš profil je zanje videti tako.",
                     "blocked_warning": "Profila tega uporabnika ne morete\nvideti, dokler vas ne odblokirajo.",
@@ -208,7 +208,7 @@
         "welcome": {
             "slogan": "Družbeno mreženje\nspet v vaših rokah.",
             "get_started": "Začnite",
-            "log_in": "Log In"
+            "log_in": "Prijava"
         },
         "server_picker": {
             "title": "Mastodon tvorijo uporabniki z različnih strežnikov.",
@@ -335,8 +335,8 @@
             "open_email_app": {
                 "title": "Preverite svojo dohodno e-pošto.",
                 "description": "Ravnokar smo vam poslali e-sporočilo. Preverite neželeno pošto, če sporočila ne najdete med dohodno pošto.",
-                "mail": "Mail",
-                "open_email_client": "Open Email Client"
+                "mail": "E-pošta",
+                "open_email_client": "Odpri odjemalca e-pošte"
             }
         },
         "home_timeline": {
@@ -370,7 +370,7 @@
             "compose_action": "Objavi",
             "replying_to_user": "odgovarja %s",
             "attachment": {
-                "photo": "photo",
+                "photo": "fotografija",
                 "video": "video",
                 "attachment_broken": "This %s is broken and can’t be\nuploaded to Mastodon.",
                 "description_photo": "Describe the photo for the visually-impaired...",
@@ -399,7 +399,7 @@
                 "space_to_add": "Space to add"
             },
             "accessibility": {
-                "append_attachment": "Add Attachment",
+                "append_attachment": "Dodaj priponko",
                 "append_poll": "Dodaj anketo",
                 "remove_poll": "Odstrani anketo",
                 "custom_emoji_picker": "Custom Emoji Picker",
@@ -412,7 +412,7 @@
                 "publish_post": "Objavi objavo",
                 "toggle_poll": "Preklopi anketo",
                 "toggle_content_warning": "Toggle Content Warning",
-                "append_attachment_entry": "Add Attachment - %s",
+                "append_attachment_entry": "Dodaj priponko - %s",
                 "select_visibility_entry": "Select Visibility - %s"
             }
         },
