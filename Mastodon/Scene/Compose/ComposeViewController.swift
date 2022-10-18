@@ -207,24 +207,6 @@ extension ComposeViewController {
 //                self.title = title
 //            }
 //            .store(in: &disposeBag)
-//        self.setupBackgroundColor(theme: ThemeService.shared.currentTheme.value)
-//        ThemeService.shared.currentTheme
-//            .receive(on: RunLoop.main)
-//            .sink { [weak self] theme in
-//                guard let self = self else { return }
-//                self.setupBackgroundColor(theme: theme)
-//            }
-//            .store(in: &disposeBag)
-//
-//
-//        scrollView.translatesAutoresizingMaskIntoConstraints = false
-//        view.addSubview(scrollView)
-//        NSLayoutConstraint.activate([
-//            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
-//            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-//            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-//            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-//        ])
 //
 //        composeToolbarView.translatesAutoresizingMaskIntoConstraints = false
 //        view.addSubview(composeToolbarView)
@@ -286,89 +268,7 @@ extension ComposeViewController {
 //        // update layout when keyboard show/dismiss
 //        view.layoutIfNeeded()
 //
-//        let keyboardHasShortcutBar = CurrentValueSubject<Bool, Never>(traitCollection.userInterfaceIdiom == .pad)       // update default value later
-//        let keyboardEventPublishers = Publishers.CombineLatest3(
-//            KeyboardResponderService.shared.isShow,
-//            KeyboardResponderService.shared.state,
-//            KeyboardResponderService.shared.endFrame
-//        )
-//        Publishers.CombineLatest3(
-//            keyboardEventPublishers,
-//            viewModel.$isCustomEmojiComposing,
-//            viewModel.$autoCompleteInfo
-//        )
-//        .sink(receiveValue: { [weak self] keyboardEvents, isCustomEmojiComposing, autoCompleteInfo in
-//            guard let self = self else { return }
-//
-//            let (isShow, state, endFrame) = keyboardEvents
-//
-//            switch self.traitCollection.userInterfaceIdiom {
-//            case .pad:
-//                keyboardHasShortcutBar.value = state != .floating
-//            default:
-//                keyboardHasShortcutBar.value = false
-//            }
-//
-//            let extraMargin: CGFloat = {
-//                var margin = self.composeToolbarView.frame.height
-//                if autoCompleteInfo != nil {
-//                    margin += ComposeViewController.minAutoCompleteVisibleHeight
-//                }
-//                return margin
-//            }()
-//
-//            guard isShow, state == .dock else {
-//                self.tableView.contentInset.bottom = extraMargin
-//                self.tableView.verticalScrollIndicatorInsets.bottom = extraMargin
-//
-//                if let superView = self.autoCompleteViewController.tableView.superview {
-//                    let autoCompleteTableViewBottomInset: CGFloat = {
-//                        let tableViewFrameInWindow = superView.convert(self.autoCompleteViewController.tableView.frame, to: nil)
-//                        let padding = tableViewFrameInWindow.maxY + self.composeToolbarView.frame.height + AutoCompleteViewController.chevronViewHeight - self.view.frame.maxY
-//                        return max(0, padding)
-//                    }()
-//                    self.autoCompleteViewController.tableView.contentInset.bottom = autoCompleteTableViewBottomInset
-//                    self.autoCompleteViewController.tableView.verticalScrollIndicatorInsets.bottom = autoCompleteTableViewBottomInset
-//                }
-//
-//                UIView.animate(withDuration: 0.3) {
-//                    self.composeToolbarViewBottomLayoutConstraint.constant = self.view.safeAreaInsets.bottom
-//                    if self.view.window != nil {
-//                        self.view.layoutIfNeeded()
-//                    }
-//                }
-//                return
-//            }
-//            // isShow AND dock state
-//            self.systemKeyboardHeight = endFrame.height
-//
-//            // adjust inset for auto-complete
-//            let autoCompleteTableViewBottomInset: CGFloat = {
-//                guard let superview = self.autoCompleteViewController.tableView.superview else { return .zero }
-//                let tableViewFrameInWindow = superview.convert(self.autoCompleteViewController.tableView.frame, to: nil)
-//                let padding = tableViewFrameInWindow.maxY + self.composeToolbarView.frame.height + AutoCompleteViewController.chevronViewHeight - endFrame.minY
-//                return max(0, padding)
-//            }()
-//            self.autoCompleteViewController.tableView.contentInset.bottom = autoCompleteTableViewBottomInset
-//            self.autoCompleteViewController.tableView.verticalScrollIndicatorInsets.bottom = autoCompleteTableViewBottomInset
-//
-//            // adjust inset for tableView
-//            let contentFrame = self.view.convert(self.tableView.frame, to: nil)
-//            let padding = contentFrame.maxY + extraMargin - endFrame.minY
-//            guard padding > 0 else {
-//                self.tableView.contentInset.bottom = self.view.safeAreaInsets.bottom + extraMargin
-//                self.tableView.verticalScrollIndicatorInsets.bottom = self.view.safeAreaInsets.bottom + extraMargin
-//                return
-//            }
-//
-//            self.tableView.contentInset.bottom = padding - self.view.safeAreaInsets.bottom
-//            self.tableView.verticalScrollIndicatorInsets.bottom = padding - self.view.safeAreaInsets.bottom
-//            UIView.animate(withDuration: 0.3) {
-//                self.composeToolbarViewBottomLayoutConstraint.constant = endFrame.height
-//                self.view.layoutIfNeeded()
-//            }
-//        })
-//        .store(in: &disposeBag)
+
 //
 //        // bind auto-complete
 //        viewModel.$autoCompleteInfo

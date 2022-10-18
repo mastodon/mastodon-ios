@@ -9,6 +9,7 @@ import os.log
 import UIKit
 import SwiftUI
 import Combine
+import MastodonCore
 
 public final class ComposeContentViewController: UIViewController {
     
@@ -16,6 +17,7 @@ public final class ComposeContentViewController: UIViewController {
     
     var disposeBag = Set<AnyCancellable>()
     public var viewModel: ComposeContentViewModel!
+    let composeContentToolbarViewModel = ComposeContentToolbarView.ViewModel()
     
     let tableView: ComposeTableView = {
         let tableView = ComposeTableView()
@@ -25,6 +27,10 @@ public final class ComposeContentViewController: UIViewController {
         tableView.tableFooterView = UIView()
         return tableView
     }()
+    
+    lazy var composeContentToolbarView = ComposeContentToolbarView(viewModel: composeContentToolbarViewModel)
+    var composeContentToolbarViewBottomLayoutConstraint: NSLayoutConstraint!
+    let composeContentToolbarBackgroundView = UIView()
 
     deinit {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
@@ -36,6 +42,17 @@ extension ComposeContentViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
         
+        // setup view
+        self.setupBackgroundColor(theme: ThemeService.shared.currentTheme.value)
+        ThemeService.shared.currentTheme
+            .receive(on: RunLoop.main)
+            .sink { [weak self] theme in
+                guard let self = self else { return }
+                self.setupBackgroundColor(theme: theme)
+            }
+            .store(in: &disposeBag)
+        
+        // setup tableView
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
         NSLayoutConstraint.activate([
@@ -48,6 +65,110 @@ extension ComposeContentViewController {
         tableView.delegate = self
         viewModel.setupDataSource(tableView: tableView)
         
+        let toolbarHostingView = UIHostingController(rootView: composeContentToolbarView)
+        toolbarHostingView.view.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(toolbarHostingView.view)
+        composeContentToolbarViewBottomLayoutConstraint = view.bottomAnchor.constraint(equalTo: toolbarHostingView.view.bottomAnchor)
+        NSLayoutConstraint.activate([
+            toolbarHostingView.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            toolbarHostingView.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            composeContentToolbarViewBottomLayoutConstraint,
+            toolbarHostingView.view.heightAnchor.constraint(equalToConstant: ComposeContentToolbarView.toolbarHeight),
+        ])
+        toolbarHostingView.view.preservesSuperviewLayoutMargins = true
+        //composeToolbarView.delegate = self
+        
+        composeContentToolbarBackgroundView.translatesAutoresizingMaskIntoConstraints = false
+        view.insertSubview(composeContentToolbarBackgroundView, belowSubview: toolbarHostingView.view)
+        NSLayoutConstraint.activate([
+            composeContentToolbarBackgroundView.topAnchor.constraint(equalTo: toolbarHostingView.view.topAnchor),
+            composeContentToolbarBackgroundView.leadingAnchor.constraint(equalTo: toolbarHostingView.view.leadingAnchor),
+            composeContentToolbarBackgroundView.trailingAnchor.constraint(equalTo: toolbarHostingView.view.trailingAnchor),
+            view.bottomAnchor.constraint(equalTo: composeContentToolbarBackgroundView.bottomAnchor),
+        ])
+        
+        let keyboardHasShortcutBar = CurrentValueSubject<Bool, Never>(traitCollection.userInterfaceIdiom == .pad)       // update default value later
+        let keyboardEventPublishers = Publishers.CombineLatest3(
+            KeyboardResponderService.shared.isShow,
+            KeyboardResponderService.shared.state,
+            KeyboardResponderService.shared.endFrame
+        )
+//        Publishers.CombineLatest3(
+//            viewModel.$isCustomEmojiComposing,
+//        )
+        keyboardEventPublishers
+        .sink(receiveValue: { [weak self] keyboardEvents in
+            guard let self = self else { return }
+            
+            let (isShow, state, endFrame) = keyboardEvents
+            
+//            switch self.traitCollection.userInterfaceIdiom {
+//            case .pad:
+//                keyboardHasShortcutBar.value = state != .floating
+//            default:
+//                keyboardHasShortcutBar.value = false
+//            }
+//
+            let extraMargin: CGFloat = {
+                var margin = ComposeContentToolbarView.toolbarHeight
+//                if autoCompleteInfo != nil {
+////                    margin += ComposeViewController.minAutoCompleteVisibleHeight
+//                }
+                return margin
+            }()
+//
+            guard isShow, state == .dock else {
+                self.tableView.contentInset.bottom = extraMargin
+                self.tableView.verticalScrollIndicatorInsets.bottom = extraMargin
+
+//                if let superView = self.autoCompleteViewController.tableView.superview {
+//                    let autoCompleteTableViewBottomInset: CGFloat = {
+//                        let tableViewFrameInWindow = superView.convert(self.autoCompleteViewController.tableView.frame, to: nil)
+//                        let padding = tableViewFrameInWindow.maxY + self.composeToolbarView.frame.height + AutoCompleteViewController.chevronViewHeight - self.view.frame.maxY
+//                        return max(0, padding)
+//                    }()
+//                    self.autoCompleteViewController.tableView.contentInset.bottom = autoCompleteTableViewBottomInset
+//                    self.autoCompleteViewController.tableView.verticalScrollIndicatorInsets.bottom = autoCompleteTableViewBottomInset
+//                }
+
+                UIView.animate(withDuration: 0.3) {
+                    self.composeContentToolbarViewBottomLayoutConstraint.constant = self.view.safeAreaInsets.bottom
+                    if self.view.window != nil {
+                        self.view.layoutIfNeeded()
+                    }
+                }
+                return
+            }
+            // isShow AND dock state
+//            self.systemKeyboardHeight = endFrame.height
+
+            // adjust inset for auto-complete
+//            let autoCompleteTableViewBottomInset: CGFloat = {
+//                guard let superview = self.autoCompleteViewController.tableView.superview else { return .zero }
+//                let tableViewFrameInWindow = superview.convert(self.autoCompleteViewController.tableView.frame, to: nil)
+//                let padding = tableViewFrameInWindow.maxY + self.composeToolbarView.frame.height + AutoCompleteViewController.chevronViewHeight - endFrame.minY
+//                return max(0, padding)
+//            }()
+//            self.autoCompleteViewController.tableView.contentInset.bottom = autoCompleteTableViewBottomInset
+//            self.autoCompleteViewController.tableView.verticalScrollIndicatorInsets.bottom = autoCompleteTableViewBottomInset
+
+            // adjust inset for tableView
+            let contentFrame = self.view.convert(self.tableView.frame, to: nil)
+            let padding = contentFrame.maxY + extraMargin - endFrame.minY
+            guard padding > 0 else {
+                self.tableView.contentInset.bottom = self.view.safeAreaInsets.bottom + extraMargin
+                self.tableView.verticalScrollIndicatorInsets.bottom = self.view.safeAreaInsets.bottom + extraMargin
+                return
+            }
+
+            self.tableView.contentInset.bottom = padding - self.view.safeAreaInsets.bottom
+            self.tableView.verticalScrollIndicatorInsets.bottom = padding - self.view.safeAreaInsets.bottom
+            UIView.animate(withDuration: 0.3) {
+                self.composeContentToolbarViewBottomLayoutConstraint.constant = endFrame.height
+                self.view.layoutIfNeeded()
+            }
+        })
+        .store(in: &disposeBag)
         
         // setup snap behavior
         Publishers.CombineLatest(
@@ -87,6 +208,20 @@ extension ComposeContentViewController {
             guard let self = self else { return }
             self.viewModel.viewLayoutFrame.update(view: self.view)
         }
+    }
+}
+
+extension ComposeContentViewController {
+    private func setupBackgroundColor(theme: Theme) {
+        let backgroundColor = UIColor(dynamicProvider: { traitCollection in
+            switch traitCollection.userInterfaceStyle {
+            case .light: return .systemBackground
+            default:     return theme.systemElevatedBackgroundColor
+            }
+        })
+        view.backgroundColor = backgroundColor
+        tableView.backgroundColor = backgroundColor
+        composeContentToolbarBackgroundView.backgroundColor = theme.composeToolbarBackgroundColor
     }
 }
 

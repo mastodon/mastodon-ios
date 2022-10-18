@@ -129,6 +129,14 @@ public enum Asset {
     public static let star = ImageAsset(name: "ObjectsAndTools/star")
   }
   public enum Scene {
+    public enum Compose {
+      public static let buttonTint = ColorAsset(name: "Scene/Compose/button.tint")
+      public static let chatWarning = ImageAsset(name: "Scene/Compose/chat.warning")
+      public static let earth = ImageAsset(name: "Scene/Compose/earth")
+      public static let emoji = ImageAsset(name: "Scene/Compose/emoji")
+      public static let media = ImageAsset(name: "Scene/Compose/media")
+      public static let poll = ImageAsset(name: "Scene/Compose/poll")
+    }
     public enum Discovery {
       public static let profileCardBackground = ColorAsset(name: "Scene/Discovery/profile.card.background")
     }
