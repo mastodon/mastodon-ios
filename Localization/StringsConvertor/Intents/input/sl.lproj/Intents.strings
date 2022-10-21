@@ -24,9 +24,9 @@
 
 "Zo4jgJ" = "Vidnost objave";
 
-"apSxMG-dYQ5NN" = "There are ${count} options matching ‘Public’.";
+"apSxMG-dYQ5NN" = "Z \"Javno\" se ujema ${count} možnosti.";
 
-"apSxMG-ehFLjY" = "There are ${count} options matching ‘Followers Only’.";
+"apSxMG-ehFLjY" = "S \"Samo sledilci\" se ujema ${count} možnosti.";
 
 "ayoYEb-dYQ5NN" = "${content}, javno";
 
@@ -42,9 +42,9 @@
 
 "k7dbKQ" = "Uspešno poslana objava.";
 
-"oGiqmY-dYQ5NN" = "Just to confirm, you wanted ‘Public’?";
+"oGiqmY-dYQ5NN" = "Da ne bo nesporazuma - želeli ste \"Javno\"?";
 
-"oGiqmY-ehFLjY" = "Just to confirm, you wanted ‘Followers Only’?";
+"oGiqmY-ehFLjY" = "Da ne bo nesporazuma - želeli ste \"Samo sledilci\"?";
 
 "rM6dvp" = "URL";
 
