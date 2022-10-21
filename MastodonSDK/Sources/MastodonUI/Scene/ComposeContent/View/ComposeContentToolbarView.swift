@@ -5,10 +5,20 @@
 //  Created by MainasuK on 22/10/18.
 //
 
+import os.log
 import SwiftUI
 import MastodonAsset
+import MastodonLocalization
+import MastodonSDK
+
+protocol ComposeContentToolbarViewDelegate: AnyObject {
+    func composeContentToolbarView(_ viewModel: ComposeContentToolbarView.ViewModel, toolbarItemDidPressed action: ComposeContentToolbarView.ViewModel.Action)
+    func composeContentToolbarView(_ viewModel: ComposeContentToolbarView.ViewModel, attachmentMenuDidPressed action: ComposeContentToolbarView.ViewModel.AttachmentAction)
+}
 
 struct ComposeContentToolbarView: View {
+    
+    let logger = Logger(subsystem: "ComposeContentToolbarView", category: "View")
     
     static var toolbarHeight: CGFloat { 48 }
     
@@ -20,20 +30,17 @@ struct ComposeContentToolbarView: View {
                 switch action {
                 case .attachment:
                     Menu {
-                        Button {
-                            
-                        } label: {
-                            Label("Photo Library", systemImage: "photo.on.rectangle")
-                        }
-                        Button {
-                            
-                        } label: {
-                            Label("Camera", systemImage: "camera")
-                        }
-                        Button {
-                            
-                        } label: {
-                            Label("Browse", systemImage: "ellipsis")
+                        ForEach(ComposeContentToolbarView.ViewModel.AttachmentAction.allCases, id: \.self) { attachmentAction in
+                            Button {
+                                logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public), \(attachmentAction.title)")
+                                viewModel.delegate?.composeContentToolbarView(viewModel, attachmentMenuDidPressed: attachmentAction)
+                            } label: {
+                                Label {
+                                    Text(attachmentAction.title)
+                                } icon: {
+                                    Image(uiImage: attachmentAction.image)
+                                }
+                            }
                         }
                     } label: {
                         label(for: action)
@@ -43,18 +50,23 @@ struct ComposeContentToolbarView: View {
                     Menu {
                         Picker(selection: $viewModel.visibility) {
                             ForEach(viewModel.allVisibilities, id: \.self) { visibility in
-                                Label(visibility.rawValue, systemImage: "photo.on.rectangle")
+                                Label {
+                                    Text(visibility.title)
+                                } icon: {
+                                    Image(uiImage: visibility.image)
+                                }
                             }
                         } label: {
-                            Text("Select Visibility")
+                            Text(viewModel.visibility.title)
                         }
                     } label: {
-                        label(for: action)
+                        label(for: viewModel.visibility.image)
                     }
                     .frame(width: 48, height: 48)
                 default:
                     Button {
-                        
+                        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): \(String(describing: action))")
+                        viewModel.delegate?.composeContentToolbarView(viewModel, toolbarItemDidPressed: action)
                     } label: {
                         label(for: action)
                     }
@@ -72,11 +84,38 @@ struct ComposeContentToolbarView: View {
     
 }
 
-
 extension ComposeContentToolbarView {
     func label(for action: ComposeContentToolbarView.ViewModel.Action) -> some View {
-        Image(uiImage: action.image.withRenderingMode(.alwaysTemplate))
+        Image(uiImage: viewModel.image(for: action))
             .foregroundColor(Color(Asset.Scene.Compose.buttonTint.color))
             .frame(width: 24, height: 24, alignment: .center)
+    }
+    
+    func label(for image: UIImage) -> some View {
+        Image(uiImage: image)
+            .foregroundColor(Color(Asset.Scene.Compose.buttonTint.color))
+            .frame(width: 24, height: 24, alignment: .center)
+    }
+}
+
+extension Mastodon.Entity.Status.Visibility {
+    fileprivate var title: String {
+        switch self {
+        case .public:               return L10n.Scene.Compose.Visibility.public
+        case .unlisted:             return L10n.Scene.Compose.Visibility.unlisted
+        case .private:              return L10n.Scene.Compose.Visibility.private
+        case .direct:               return L10n.Scene.Compose.Visibility.direct
+        case ._other(let value):    return value
+        }
+    }
+    
+    fileprivate var image: UIImage {
+        switch self {
+        case .public:       return Asset.Scene.Compose.earth.image.withRenderingMode(.alwaysTemplate)
+        case .unlisted:     return Asset.Scene.Compose.people.image.withRenderingMode(.alwaysTemplate)
+        case .private:      return Asset.Scene.Compose.peopleAdd.image.withRenderingMode(.alwaysTemplate)
+        case .direct:       return Asset.Scene.Compose.mention.image.withRenderingMode(.alwaysTemplate)
+        case ._other:       return Asset.Scene.Compose.more.image.withRenderingMode(.alwaysTemplate)
+        }
     }
 }

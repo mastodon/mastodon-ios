@@ -106,30 +106,7 @@ final class ComposeViewController: UIViewController, NeedsDependency {
 //    var composeToolbarViewBottomLayoutConstraint: NSLayoutConstraint!
 //    let composeToolbarBackgroundView = UIView()
 //
-//    static func createPhotoLibraryPickerConfiguration(selectionLimit: Int = 4) -> PHPickerConfiguration {
-//        var configuration = PHPickerConfiguration()
-//        configuration.filter = .any(of: [.images, .videos])
-//        configuration.selectionLimit = selectionLimit
-//        return configuration
-//    }
-//
-//    private(set) lazy var photoLibraryPicker: PHPickerViewController = {
-//        let imagePicker = PHPickerViewController(configuration: ComposeViewController.createPhotoLibraryPickerConfiguration())
-//        imagePicker.delegate = self
-//        return imagePicker
-//    }()
-//    private(set) lazy var imagePickerController: UIImagePickerController = {
-//        let imagePickerController = UIImagePickerController()
-//        imagePickerController.sourceType = .camera
-//        imagePickerController.delegate = self
-//        return imagePickerController
-//    }()
-//
-//    private(set) lazy var documentPickerController: UIDocumentPickerViewController = {
-//        let documentPickerController = UIDocumentPickerViewController(forOpeningContentTypes: [.image, .movie])
-//        documentPickerController.delegate = self
-//        return documentPickerController
-//    }()
+
 //
 //    private(set) lazy var autoCompleteViewController: AutoCompleteViewController = {
 //        let viewController = AutoCompleteViewController()
@@ -814,29 +791,7 @@ extension ComposeViewController {
 //
 //// MARK: - ComposeToolbarViewDelegate
 //extension ComposeViewController: ComposeToolbarViewDelegate {
-//    
-//    func composeToolbarView(_ composeToolbarView: ComposeToolbarView, mediaButtonDidPressed sender: Any, mediaSelectionType type: ComposeToolbarView.MediaSelectionType) {
-//        switch type {
-//        case .photoLibrary:
-//            present(photoLibraryPicker, animated: true, completion: nil)
-//        case .camera:
-//            present(imagePickerController, animated: true, completion: nil)
-//        case .browse:
-//            #if SNAPSHOT
-//            guard let image = UIImage(named: "Athens") else { return }
-//
-//            let attachmentService = MastodonAttachmentService(
-//                context: context,
-//                image: image,
-//                initialAuthenticationBox: viewModel.authenticationBox
-//            )
-//            viewModel.attachmentServices = viewModel.attachmentServices + [attachmentService]
-//            #else
-//            present(documentPickerController, animated: true, completion: nil)
-//            #endif
-//        }
-//    }
-//    
+
 //    func composeToolbarView(_ composeToolbarView: ComposeToolbarView, pollButtonDidPressed sender: Any) {
 //        // toggle poll composing state
 //        viewModel.isPollComposing.toggle()
@@ -943,59 +898,6 @@ extension ComposeViewController: UIAdaptivePresentationControllerDelegate {
     
 }
 
-//// MARK: - PHPickerViewControllerDelegate
-//extension ComposeViewController: PHPickerViewControllerDelegate {
-//    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-//        picker.dismiss(animated: true, completion: nil)
-//        
-//        let attachmentServices: [MastodonAttachmentService] = results.map { result in
-//            let service = MastodonAttachmentService(
-//                context: context,
-//                pickerResult: result,
-//                initialAuthenticationBox: viewModel.authenticationBox
-//            )
-//            return service
-//        }
-//        viewModel.attachmentServices = viewModel.attachmentServices + attachmentServices
-//    }
-//}
-//
-//// MARK: - UIImagePickerControllerDelegate
-//extension ComposeViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
-//    
-//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-//        picker.dismiss(animated: true, completion: nil)
-//
-//        guard let image = info[.originalImage] as? UIImage else { return }
-//        
-//        let attachmentService = MastodonAttachmentService(
-//            context: context,
-//            image: image,
-//            initialAuthenticationBox: viewModel.authenticationBox
-//        )
-//        viewModel.attachmentServices = viewModel.attachmentServices + [attachmentService]
-//    }
-//    
-//    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-//        os_log("%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-//        picker.dismiss(animated: true, completion: nil)
-//    }
-//}
-//
-//// MARK: - UIDocumentPickerDelegate
-//extension ComposeViewController: UIDocumentPickerDelegate {
-//    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
-//        guard let url = urls.first else { return }
-//
-//        let attachmentService = MastodonAttachmentService(
-//            context: context,
-//            documentURL: url,
-//            initialAuthenticationBox: viewModel.authenticationBox
-//        )
-//        viewModel.attachmentServices = viewModel.attachmentServices + [attachmentService]
-//    }
-//}
-//
 //// MARK: - ComposeStatusAttachmentTableViewCellDelegate
 //extension ComposeViewController: ComposeStatusAttachmentCollectionViewCellDelegate {
 //    

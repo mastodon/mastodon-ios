@@ -131,10 +131,17 @@ public enum Asset {
   public enum Scene {
     public enum Compose {
       public static let buttonTint = ColorAsset(name: "Scene/Compose/button.tint")
+      public static let chatWarningFill = ImageAsset(name: "Scene/Compose/chat.warning.fill")
       public static let chatWarning = ImageAsset(name: "Scene/Compose/chat.warning")
       public static let earth = ImageAsset(name: "Scene/Compose/earth")
+      public static let emojiFill = ImageAsset(name: "Scene/Compose/emoji.fill")
       public static let emoji = ImageAsset(name: "Scene/Compose/emoji")
       public static let media = ImageAsset(name: "Scene/Compose/media")
+      public static let mention = ImageAsset(name: "Scene/Compose/mention")
+      public static let more = ImageAsset(name: "Scene/Compose/more")
+      public static let peopleAdd = ImageAsset(name: "Scene/Compose/people.add")
+      public static let people = ImageAsset(name: "Scene/Compose/people")
+      public static let pollFill = ImageAsset(name: "Scene/Compose/poll.fill")
       public static let poll = ImageAsset(name: "Scene/Compose/poll")
     }
     public enum Discovery {
