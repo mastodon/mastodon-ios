@@ -29,7 +29,7 @@
             },
             "edit_profile_failure": {
                 "title": "Napaka urejanja profila",
-                "message": "Cannot edit profile. Please try again."
+                "message": "Profila ni mogoče urejati. Poskusite znova."
             },
             "sign_out": {
                 "title": "Odjava",
@@ -56,7 +56,7 @@
         "controls": {
             "actions": {
                 "back": "Nazaj",
-                "next": "Next",
+                "next": "Naslednji",
                 "previous": "Prejšnji",
                 "open": "Odpri",
                 "add": "Dodaj",
@@ -147,12 +147,12 @@
                     "show_image": "Pokaži sliko",
                     "show_gif": "Pokaži GIF",
                     "show_video_player": "Pokaži predvajalnik",
-                    "tap_then_hold_to_show_menu": "Tap then hold to show menu"
+                    "tap_then_hold_to_show_menu": "Tapnite, nato držite, da se pojavi meni"
                 },
                 "tag": {
                     "url": "URL",
                     "mention": "Omeni",
-                    "link": "Link",
+                    "link": "Povezava",
                     "hashtag": "Ključnik",
                     "email": "E-naslov",
                     "emoji": "Emotikon"
@@ -250,8 +250,8 @@
             }
         },
         "register": {
-            "title": "Let’s get you set up on %s",
-            "lets_get_you_set_up_on_domain": "Let’s get you set up on %s",
+            "title": "Naj vas namestimo na %s",
+            "lets_get_you_set_up_on_domain": "Naj vas namestimo na %s",
             "input": {
                 "avatar": {
                     "delete": "Izbriši"
@@ -391,7 +391,7 @@
             },
             "visibility": {
                 "public": "Javno",
-                "unlisted": "Unlisted",
+                "unlisted": "Ni prikazano",
                 "private": "Samo sledilci",
                 "direct": "Samo osebe, ki jih omenjam"
             },
@@ -411,7 +411,7 @@
                 "discard_post": "Opusti objavo",
                 "publish_post": "Objavi objavo",
                 "toggle_poll": "Preklopi anketo",
-                "toggle_content_warning": "Toggle Content Warning",
+                "toggle_content_warning": "Preklopi opozorilo o vsebini",
                 "append_attachment_entry": "Dodaj priponko - %s",
                 "select_visibility_entry": "Izberite vidnost - %s"
             }
@@ -436,7 +436,7 @@
                 "posts": "Objave",
                 "replies": "Odgovori",
                 "posts_and_replies": "Objave in odgovori",
-                "media": "Media",
+                "media": "Mediji",
                 "about": "O programu"
             },
             "relationship_action_alert": {
@@ -623,7 +623,7 @@
             "report_sent_title": "Hvala za poročilo, bomo preverili.",
             "send": "Pošlji poročilo",
             "skip_to_send": "Pošlji brez komentarja",
-            "text_placeholder": "Type or paste additional comments",
+            "text_placeholder": "Vnesite ali prilepite dodatne komentarje",
             "reported": "REPORTED",
             "step_one": {
                 "step_1_of_4": "Korak 1 od 4",
