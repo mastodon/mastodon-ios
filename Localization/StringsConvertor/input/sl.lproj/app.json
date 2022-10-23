@@ -154,8 +154,8 @@
                     "mention": "Omeni",
                     "link": "Link",
                     "hashtag": "Ključnik",
-                    "email": "Email",
-                    "emoji": "Emoji"
+                    "email": "E-naslov",
+                    "emoji": "Emotikon"
                 },
                 "visibility": {
                     "unlisted": "Everyone can see this post but not display in the public timeline.",
@@ -166,7 +166,7 @@
             },
             "friendship": {
                 "follow": "Sledi",
-                "following": "Following",
+                "following": "Sledi",
                 "request": "Zahteva",
                 "pending": "Na čakanju",
                 "block": "Blokiraj",
@@ -408,7 +408,7 @@
                 "post_visibility_menu": "Meni vidnosti objave"
             },
             "keyboard": {
-                "discard_post": "Discard Post",
+                "discard_post": "Opusti objavo",
                 "publish_post": "Objavi objavo",
                 "toggle_poll": "Preklopi anketo",
                 "toggle_content_warning": "Toggle Content Warning",
@@ -553,7 +553,7 @@
             }
         },
         "thread": {
-            "back_title": "Post",
+            "back_title": "Objavi",
             "title": "Objavil/a"
         },
         "settings": {
@@ -566,7 +566,7 @@
                     "dark": "Vedno temno"
                 },
                 "look_and_feel": {
-                    "title": "Look and Feel",
+                    "title": "Videz in občutek",
                     "use_system": "Uporabi sistemsko",
                     "really_dark": "Zares temno",
                     "sorta_dark": "Nekako temno",
@@ -588,9 +588,9 @@
                 },
                 "preference": {
                     "title": "Nastavitve",
-                    "true_black_dark_mode": "True black dark mode",
+                    "true_black_dark_mode": "Resnično črni temni način",
                     "disable_avatar_animation": "Onemogoči animirane avatarje",
-                    "disable_emoji_animation": "Disable animated emojis",
+                    "disable_emoji_animation": "Onemogoči animirane emotikone",
                     "using_default_browser": "Uporabi privzeti brskalnik za odpiranje povezav",
                     "open_links_in_mastodon": "Odpri povezave v Mastodonu"
                 },
@@ -671,8 +671,8 @@
         "preview": {
             "keyboard": {
                 "close_preview": "Zapri predogled",
-                "show_next": "Show Next",
-                "show_previous": "Show Previous"
+                "show_next": "Pokaži naslednje",
+                "show_previous": "Pokaži prejšnje"
             }
         },
         "account_list": {
