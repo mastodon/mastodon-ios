@@ -39,8 +39,9 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
         options.append(PollComposeItem.Option())
         return options
     }()
+    @Published public var pollExpireConfigurationOption: PollComposeItem.ExpireConfiguration.Option = .oneDay
     @Published public var maxPollOptionLimit = 4
-
+    
     @Published var isEmojiActive = false
     @Published var isContentWarningActive = false
     

@@ -56,7 +56,11 @@ public struct ComposeContentView: View {
                 }
                 .onPreferenceChange(ViewFramePreferenceKey.self) { frame in
                     logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): content frame: \(frame.debugDescription)")
-                    viewModel.contentCellFrame = frame
+                    let rect = frame.standardized
+                    viewModel.contentCellFrame = CGRect(
+                        origin: frame.origin,
+                        size: CGSize(width: floor(rect.width), height: floor(rect.height))
+                    )
                 }
             )
             Spacer()
@@ -113,58 +117,23 @@ extension ComposeContentView {
                             viewModel.createNewPollOptionIfCould()
                         }
                 }
-            }
-            VStack(spacing: .zero) {
-                // expire configuration
                 Menu {
-                    ForEach(PollComposeItem.ExpireConfiguration.Option.allCases, id: \.self) { option in
-                        Button {
-                            // viewModel.pollExpireConfiguration.option = option
-                            // viewModel.pollExpireConfiguration = viewModel.pollExpireConfiguration
-                        } label: {
+                    Picker(selection: $viewModel.pollExpireConfigurationOption) {
+                        ForEach(PollComposeItem.ExpireConfiguration.Option.allCases, id: \.self) { option in
                             Text(option.title)
                         }
+                    } label: {
+                        Text(L10n.Scene.Compose.Poll.durationTime(viewModel.pollExpireConfigurationOption.title))
                     }
                 } label: {
                     HStack {
-//                        VectorImageView(
-//                            image: Asset.ObjectTools.clock.image.withRenderingMode(.alwaysTemplate),
-//                            tintColor: .secondaryLabel
-//                        )
-//                        .frame(width: 24, height: 24)
-//                        .padding(.vertical, 12)
-//                        let text = viewModel.pollExpireConfigurationFormatter.string(from: TimeInterval(viewModel.pollExpireConfiguration.option.seconds)) ?? "-"
-//                        Text(text)
-//                            .font(.callout)
-//                            .foregroundColor(.primary)
-//                        Spacer()
-//                        VectorImageView(
-//                            image: Asset.Arrows.tablerChevronDown.image.withRenderingMode(.alwaysTemplate),
-//                            tintColor: .secondaryLabel
-//                        )
-//                        .frame(width: 24, height: 24)
-//                        .padding(.vertical, 12)
+                        Text(L10n.Scene.Compose.Poll.durationTime(viewModel.pollExpireConfigurationOption.title))
+                            .foregroundColor(Color(UIColor.label.withAlphaComponent(0.8)))  // Gray/800
+                            .font(Font(UIFontMetrics(forTextStyle: .subheadline).scaledFont(for: .systemFont(ofSize: 13, weight: .semibold))))
+                        Spacer()
                     }
+                    .padding(.vertical, 8)
                 }
-                // multi-selection configuration
-//                Button {
-//                    viewModel.pollMultipleConfiguration.isMultiple.toggle()
-//                    viewModel.pollMultipleConfiguration = viewModel.pollMultipleConfiguration
-//                } label: {
-//                    HStack {
-//                        let selectionImage = viewModel.pollMultipleConfiguration.isMultiple ? Asset.Indices.checkmarkSquare.image.withRenderingMode(.alwaysTemplate) : Asset.Indices.square.image.withRenderingMode(.alwaysTemplate)
-//                        VectorImageView(
-//                            image: selectionImage,
-//                            tintColor: .secondaryLabel
-//                        )
-//                        .frame(width: 24, height: 24)
-//                        .padding(.vertical, 12)
-//                        Text(L10n.Scene.Compose.Vote.multiple)
-//                            .font(.callout)
-//                            .foregroundColor(.primary)
-//                        Spacer()
-//                    }
-//                }
             }
         }   // end VStack
     }
