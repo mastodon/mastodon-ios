@@ -241,7 +241,7 @@
             },
             "input": {
                 "placeholder": "Išči strežnike",
-                "search_servers_or_enter_url": "Search servers or enter URL"
+                "search_servers_or_enter_url": "Iščite strežnike ali vnesite URL"
             },
             "empty_state": {
                 "finding_servers": "Iskanje razpoložljivih strežnikov ...",
