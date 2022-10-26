@@ -21,11 +21,19 @@ extension PollComposeItem {
 
         public weak var textField: UITextField?
         
+        // input
         @Published public var text = ""
         @Published public var shouldBecomeFirstResponder = false
         
+        // output
+        @Published public var backgroundColor = ThemeService.shared.currentTheme.value.composePollRowBackgroundColor
+        
         public override init() {
             super.init()
+            
+            ThemeService.shared.currentTheme
+                .map { $0.composePollRowBackgroundColor }
+                .assign(to: &$backgroundColor)
         }
     }
 }

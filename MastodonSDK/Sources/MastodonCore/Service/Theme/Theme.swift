@@ -40,6 +40,7 @@ public protocol Theme {
     var contentWarningOverlayBackgroundColor: UIColor { get }
     var profileFieldCollectionViewBackgroundColor: UIColor { get }
     var composeToolbarBackgroundColor: UIColor { get }
+    var composePollRowBackgroundColor: UIColor { get }
     var notificationStatusBorderColor: UIColor { get }
 
 }

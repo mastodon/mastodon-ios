@@ -80,7 +80,7 @@ extension ComposeContentView {
                     metaContent: viewModel.name
                 )
                 Text(viewModel.username)
-                    .font(.subheadline)
+                    .font(.system(size: 15, weight: .regular))
                     .foregroundColor(.secondary)
                 Spacer()
             }
@@ -106,6 +106,12 @@ extension ComposeContentView {
                     ) { textField in
                         // viewModel.customEmojiPickerInputViewModel.configure(textInput: textField)
                     }
+                }
+                if viewModel.maxPollOptionLimit != viewModel.pollOptions.count {
+                    PollAddOptionRow()
+                        .onTapGesture {
+                            viewModel.createNewPollOptionIfCould()
+                        }
                 }
             }
             VStack(spacing: .zero) {

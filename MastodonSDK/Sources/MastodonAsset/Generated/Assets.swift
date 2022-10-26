@@ -143,6 +143,7 @@ public enum Asset {
       public static let people = ImageAsset(name: "Scene/Compose/people")
       public static let pollFill = ImageAsset(name: "Scene/Compose/poll.fill")
       public static let poll = ImageAsset(name: "Scene/Compose/poll")
+      public static let reorderDot = ImageAsset(name: "Scene/Compose/reorder.dot")
     }
     public enum Discovery {
       public static let profileCardBackground = ColorAsset(name: "Scene/Discovery/profile.card.background")
@@ -209,6 +210,7 @@ public enum Asset {
   }
   public enum Theme {
     public enum Mastodon {
+      public static let composePollRowBackground = ColorAsset(name: "Theme/Mastodon/compose.poll.row.background")
       public static let composeToolbarBackground = ColorAsset(name: "Theme/Mastodon/compose.toolbar.background")
       public static let contentWarningOverlayBackground = ColorAsset(name: "Theme/Mastodon/content.warning.overlay.background")
       public static let navigationBarBackground = ColorAsset(name: "Theme/Mastodon/navigation.bar.background")
@@ -229,6 +231,7 @@ public enum Asset {
       public static let tabBarItemInactiveIconColor = ColorAsset(name: "Theme/Mastodon/tab.bar.item.inactive.icon.color")
     }
     public enum System {
+      public static let composePollRowBackground = ColorAsset(name: "Theme/system/compose.poll.row.background")
       public static let composeToolbarBackground = ColorAsset(name: "Theme/system/compose.toolbar.background")
       public static let contentWarningOverlayBackground = ColorAsset(name: "Theme/system/content.warning.overlay.background")
       public static let navigationBarBackground = ColorAsset(name: "Theme/system/navigation.bar.background")

@@ -26,8 +26,11 @@ public struct PollOptionTextField: UIViewRepresentable {
         textField.setContentHuggingPriority(.defaultHigh, for: .vertical)
         textField.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         textField.textInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-        textField.borderStyle = .roundedRect
+        textField.borderStyle = .none
+        textField.backgroundColor = .clear
         textField.returnKeyType = .next
+        textField.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 16, weight: .regular))
+        textField.adjustsFontForContentSizeCategory = true
         return textField
     }
     

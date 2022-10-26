@@ -75,6 +75,7 @@ struct ComposeContentToolbarView: View {
             }
             Spacer()
             Text("Hello")
+                .font(.system(size: 16, weight: .regular))
         }
         .padding(.leading, 4)       // 4 + 12 = 16
         .padding(.trailing, 16)
