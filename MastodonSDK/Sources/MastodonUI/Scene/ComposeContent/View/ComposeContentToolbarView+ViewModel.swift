@@ -27,6 +27,10 @@ extension ComposeContentToolbarView {
         @Published var isEmojiActive = false
         @Published var isContentWarningActive = false
         
+        @Published public var maxTextInputLimit = 500
+        @Published public var contentWeightedLength = 0
+        @Published public var contentWarningWeightedLength = 0
+
         // output
         
         init(delegate: ComposeContentToolbarViewDelegate) {

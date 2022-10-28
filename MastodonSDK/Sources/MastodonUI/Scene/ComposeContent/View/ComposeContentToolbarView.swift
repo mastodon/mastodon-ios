@@ -74,8 +74,18 @@ struct ComposeContentToolbarView: View {
                 }
             }
             Spacer()
-            Text("Hello")
-                .font(.system(size: 16, weight: .regular))
+            let count: Int = {
+                if viewModel.isContentWarningActive {
+                    return viewModel.contentWeightedLength + viewModel.contentWarningWeightedLength
+                } else {
+                    return viewModel.contentWeightedLength
+                }
+            }()
+            let remains = viewModel.maxTextInputLimit - count
+            let isOverflow = remains < 0
+            Text("\(remains)")
+                .foregroundColor(Color(isOverflow ? UIColor.systemRed : UIColor.secondaryLabel))
+                .font(.system(size: isOverflow ? 18 : 16, weight: isOverflow ? .medium : .regular))
         }
         .padding(.leading, 4)       // 4 + 12 = 16
         .padding(.trailing, 16)

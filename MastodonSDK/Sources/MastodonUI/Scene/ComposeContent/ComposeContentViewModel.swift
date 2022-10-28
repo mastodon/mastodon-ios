@@ -6,12 +6,13 @@
 //
 
 import os.log
-import Foundation
+import UIKit
 import Combine
 import CoreDataStack
 import MastodonCore
 import Meta
 import MastodonMeta
+import MetaTextKit
 
 public final class ComposeContentViewModel: NSObject, ObservableObject {
     
@@ -30,6 +31,42 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
     @Published var viewLayoutFrame = ViewLayoutFrame()
     @Published var authContext: AuthContext
     
+    // output
+    
+    // limit
+    @Published public var maxTextInputLimit = 500
+    
+    // content
+    public weak var contentMetaText: MetaText? {
+        didSet {
+//            guard let textView = contentMetaText?.textView else { return }
+//            customEmojiPickerInputViewModel.configure(textInput: textView)
+        }
+    }
+    @Published public var initialContent = ""
+    @Published public var content = ""
+    @Published public var contentWeightedLength = 0
+    @Published public var isContentEmpty = true
+    @Published public var isContentValid = true
+    @Published public var isContentEditing = false
+    
+    // content warning
+    weak var contentWarningMetaText: MetaText? {
+        didSet {
+            //guard let textView = contentWarningMetaText?.textView else { return }
+            //customEmojiPickerInputViewModel.configure(textInput: textView)
+        }
+    }
+    @Published public var isContentWarningActive = false
+    @Published public var contentWarning = ""
+    @Published public var contentWarningWeightedLength = 0  // set 0 when not composing
+    @Published public var isContentWarningEditing = false
+
+    // author
+    @Published var avatarURL: URL?
+    @Published var name: MetaContent = PlaintextMetaContent(string: "")
+    @Published var username: String = ""
+    
     // poll
     @Published var isPollActive = false
     @Published public var pollOptions: [PollComposeItem.Option] = {
@@ -42,23 +79,8 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
     @Published public var pollExpireConfigurationOption: PollComposeItem.ExpireConfiguration.Option = .oneDay
     @Published public var maxPollOptionLimit = 4
     
+    // emoji
     @Published var isEmojiActive = false
-    @Published var isContentWarningActive = false
-    
-    // output
-    
-    // content
-    @Published public var initialContent = ""
-    @Published public var content = ""
-    @Published public var contentWeightedLength = 0
-    @Published public var isContentEmpty = true
-    @Published public var isContentValid = true
-    @Published public var isContentEditing = false
-    
-    // author
-    @Published var avatarURL: URL?
-    @Published var name: MetaContent = PlaintextMetaContent(string: "")
-    @Published var username: String = ""
     
     // UI & UX
     @Published var replyToCellFrame: CGRect = .zero
@@ -87,6 +109,26 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
                 self.username = user.acctWithDomain
             }
             .store(in: &disposeBag)
+        
+        // bind text
+        $content
+            .map { $0.count }
+            .assign(to: &$contentWeightedLength)
+        
+        Publishers.CombineLatest(
+            $contentWarning,
+            $isContentWarningActive
+        )
+        .map { $1 ? $0.count : 0 }
+        .assign(to: &$contentWarningWeightedLength)
+        
+        Publishers.CombineLatest3(
+            $contentWeightedLength,
+            $contentWarningWeightedLength,
+            $maxTextInputLimit
+        )
+        .map { $0 + $1 <= $2 }
+        .assign(to: &$isContentValid)
     }
     
     deinit {
@@ -117,6 +159,72 @@ extension ComposeContentViewModel {
         let option = PollComposeItem.Option()
         option.shouldBecomeFirstResponder = true
         pollOptions.append(option)
+    }
+}
+
+// MARK: - UITextViewDelegate
+extension ComposeContentViewModel: UITextViewDelegate {
+    public func textViewDidBeginEditing(_ textView: UITextView) {
+        switch textView {
+        case contentMetaText?.textView:
+            isContentEditing = true
+        case contentWarningMetaText?.textView:
+            isContentWarningEditing = true
+        default:
+            break
+        }
+    }
+    
+    public func textViewDidEndEditing(_ textView: UITextView) {
+        switch textView {
+        case contentMetaText?.textView:
+            isContentEditing = false
+        case contentWarningMetaText?.textView:
+            isContentWarningEditing = false
+        default:
+            break
+        }
+    }
+    
+    public func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        switch textView {
+        case contentMetaText?.textView:
+            return true
+        case contentWarningMetaText?.textView:
+            let isReturn = text == "\n"
+            if isReturn {
+                setContentTextViewFirstResponderIfNeeds()
+            }
+            return !isReturn
+        default:
+            assertionFailure()
+            return true
+        }
+    }
+    
+    func insertContentText(text: String) {
+        guard let contentMetaText = self.contentMetaText else { return }
+        // FIXME: smart prefix and suffix
+        let string = contentMetaText.textStorage.string
+        let isEmpty = string.isEmpty
+        let hasPrefix = string.hasPrefix(" ")
+        if hasPrefix || isEmpty {
+            contentMetaText.textView.insertText(text)
+        } else {
+            contentMetaText.textView.insertText(" " + text)
+        }
+    }
+    
+    func setContentTextViewFirstResponderIfNeeds() {
+        guard let contentMetaText = self.contentMetaText else { return }
+        guard !contentMetaText.textView.isFirstResponder else { return }
+        contentMetaText.textView.becomeFirstResponder()
+    }
+    
+    func setContentWarningTextViewFirstResponderIfNeeds() {
+        guard let contentWarningMetaText = self.contentWarningMetaText else { return }
+        guard !contentWarningMetaText.textView.isFirstResponder else { return }
+        contentWarningMetaText.textView.becomeFirstResponder()
     }
 }
 

@@ -7,8 +7,10 @@
 
 import os.log
 import SwiftUI
+import MastodonAsset
 import MastodonCore
 import MastodonLocalization
+import Stripes
 
 public struct ComposeContentView: View {
     
@@ -22,14 +24,69 @@ public struct ComposeContentView: View {
     public var body: some View {
         VStack(spacing: .zero) {
             Group {
+                // content warning
+                if viewModel.isContentWarningActive {
+                    MetaTextViewRepresentable(
+                        string: $viewModel.contentWarning,
+                        width: viewModel.viewLayoutFrame.layoutFrame.width - ComposeContentView.margin * 2,
+                        configurationHandler: { metaText in
+                            viewModel.contentWarningMetaText = metaText
+                            metaText.textView.attributedPlaceholder = {
+                                var attributes = metaText.textAttributes
+                                attributes[.foregroundColor] = UIColor.secondaryLabel
+                                return NSAttributedString(
+                                    string: L10n.Scene.Compose.contentInputPlaceholder,
+                                    attributes: attributes
+                                )
+                            }()
+                            metaText.textView.returnKeyType = .next
+                            metaText.textView.tag = ComposeContentViewModel.MetaTextViewKind.contentWarning.rawValue
+                            metaText.textView.delegate = viewModel
+                            metaText.delegate = viewModel
+                        }
+                    )
+                    .fixedSize(horizontal: false, vertical: true)
+                    .padding(.horizontal, ComposeContentView.margin)
+                    .background(
+                        Color(UIColor.systemBackground)
+                            .overlay(
+                                HStack {
+                                    Stripes(config: StripesConfig(
+                                        background: Color.yellow,
+                                        foreground: Color.black,
+                                        degrees: 45,
+                                        barWidth: 2.5,
+                                        barSpacing: 3.5
+                                    ))
+                                    .frame(width: ComposeContentView.margin * 0.5)
+                                    .frame(maxHeight: .infinity)
+                                    .id(UUID())
+                                    Spacer()
+                                    Stripes(config: StripesConfig(
+                                        background: Color.yellow,
+                                        foreground: Color.black,
+                                        degrees: 45,
+                                        barWidth: 2.5,
+                                        barSpacing: 3.5
+                                    ))
+                                    .frame(width: ComposeContentView.margin * 0.5)
+                                    .frame(maxHeight: .infinity)
+                                    .scaleEffect(x: -1, y: 1, anchor: .center)
+                                    .id(UUID())
+                                }
+                            )
+                    )
+                } // end if viewModel.isContentWarningActive
                 // author
                 authorView
                     .padding(.top, 14)
+                    .padding(.horizontal, ComposeContentView.margin)
                 // content editor
                 MetaTextViewRepresentable(
                     string: $viewModel.content,
                     width: viewModel.viewLayoutFrame.layoutFrame.width - ComposeContentView.margin * 2,
                     configurationHandler: { metaText in
+                        viewModel.contentMetaText = metaText
                         metaText.textView.attributedPlaceholder = {
                             var attributes = metaText.textAttributes
                             attributes[.foregroundColor] = UIColor.secondaryLabel
@@ -39,16 +96,18 @@ public struct ComposeContentView: View {
                             )
                         }()
                         metaText.textView.keyboardType = .twitter
-                        // metaText.textView.tag = ComposeContentViewModel.MetaTextViewKind.content.rawValue
-                        // metaText.textView.delegate = viewModel
-                        // metaText.delegate = viewModel
+                        metaText.textView.tag = ComposeContentViewModel.MetaTextViewKind.content.rawValue
+                        metaText.textView.delegate = viewModel
+                        metaText.delegate = viewModel
                         metaText.textView.becomeFirstResponder()
                     }
                 )
                 .frame(minHeight: 100)
                 .fixedSize(horizontal: false, vertical: true)
+                .padding(.horizontal, ComposeContentView.margin)
                 // poll
                 pollView
+                    .padding(.horizontal, ComposeContentView.margin)
             }
             .background(
                 GeometryReader { proxy in
@@ -65,8 +124,6 @@ public struct ComposeContentView: View {
             )
             Spacer()
         }   // end VStack
-        .padding(.horizontal, ComposeContentView.margin)
-//        .frame(alignment: .top)
     }   // end body
 }
 

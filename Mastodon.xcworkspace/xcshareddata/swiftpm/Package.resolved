@@ -127,6 +127,15 @@
       }
     },
     {
+      "identity" : "stripes",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/eneko/Stripes.git",
+      "state" : {
+        "revision" : "d533fd44b8043a3abbf523e733599173d6f98c11",
+        "version" : "0.2.0"
+      }
+    },
+    {
       "identity" : "swift-collections",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-collections.git",

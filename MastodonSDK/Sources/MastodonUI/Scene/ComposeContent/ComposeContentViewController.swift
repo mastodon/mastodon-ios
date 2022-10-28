@@ -260,6 +260,9 @@ extension ComposeContentViewController {
         viewModel.$isPollActive.assign(to: &composeContentToolbarViewModel.$isPollActive)
         viewModel.$isEmojiActive.assign(to: &composeContentToolbarViewModel.$isEmojiActive)
         viewModel.$isContentWarningActive.assign(to: &composeContentToolbarViewModel.$isContentWarningActive)
+        viewModel.$maxTextInputLimit.assign(to: &composeContentToolbarViewModel.$maxTextInputLimit)
+        viewModel.$contentWeightedLength.assign(to: &composeContentToolbarViewModel.$contentWeightedLength)
+        viewModel.$contentWarningWeightedLength.assign(to: &composeContentToolbarViewModel.$contentWarningWeightedLength)
     }
 }
 
@@ -385,6 +388,16 @@ extension ComposeContentViewController: ComposeContentToolbarViewDelegate {
             self.viewModel.isEmojiActive.toggle()
         case .contentWarning:
             self.viewModel.isContentWarningActive.toggle()
+            if self.viewModel.isContentWarningActive {
+                Task { @MainActor in
+                    try? await Task.sleep(nanoseconds: .second / 20)     // 0.05s
+                    self.viewModel.setContentWarningTextViewFirstResponderIfNeeds()
+                }   // end Task
+            } else {
+                if self.viewModel.contentWarningMetaText?.textView.isFirstResponder == true {
+                    self.viewModel.setContentTextViewFirstResponderIfNeeds()
+                }
+            }
         case .visibility:
             assertionFailure()
         }
