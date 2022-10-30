@@ -1,5 +1,7 @@
 platform :ios, '14.0'
 
+`bundle exec arkana`
+
 target 'Mastodon' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
@@ -31,17 +33,14 @@ target 'Mastodon' do
 end
 
 target 'AppShared' do 
+  # secret management
+  pod "ArkanaKeys", path: "Pods/ArkanaKeys"
+  pod "ArkanaKeysInterfaces", path: "Pods/ArkanaKeysInterfaces"
+  
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
 end
 
-plugin 'cocoapods-keys', {
-  :project => "Mastodon",
-  :keys => [
-    "notification_endpoint",
-    "notification_endpoint_debug"
-  ]
-}
 
 post_install do |installer|
   installer.pods_project.targets.each do |target|

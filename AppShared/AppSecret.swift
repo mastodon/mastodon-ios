@@ -9,7 +9,7 @@
 import Foundation
 import CryptoKit
 import KeychainAccess
-import Keys
+import ArkanaKeys
 import MastodonCommon
 
 public final class AppSecret {
@@ -36,12 +36,10 @@ public final class AppSecret {
     }()
     
     init() {
-        let keys = MastodonKeys()
-        
         #if DEBUG
-        self.notificationEndpoint = keys.notification_endpoint_debug
+        self.notificationEndpoint = ArkanaKeys.Debug().notificationEndpoint
         #else
-        self.notificationEndpoint = keys.notification_endpoint
+        self.notificationEndpoint = ArkanaKeys.Release().notificationEndpoint
         #endif
     }
     

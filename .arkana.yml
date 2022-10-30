@@ -1,0 +1,7 @@
+package_manager: cocoapods
+result_path: 'Pods'
+environments:
+  - Debug
+  - Release
+environment_secrets:
+  - NotificationEndpoint

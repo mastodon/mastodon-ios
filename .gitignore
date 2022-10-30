@@ -123,3 +123,7 @@ xcuserdata
 # Localization/StringsConvertor/input
 Localization/StringsConvertor/output
 .DS_Store
+
+### Arkana Keys ###
+# Ignore the .env file as it contains user-specific settings
+.env

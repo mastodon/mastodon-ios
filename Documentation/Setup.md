@@ -5,14 +5,17 @@
 - Xcode 13+
 - Swift 5.5+
 - iOS 14.0+
+- [Homebrew package manager](https://brew.sh)
 
 
-Intell the latest version of Xcode from the App Store or Apple Developer Download website. Also, we assert you have the [Homebrew](https://brew.sh) package manager.  
+Install the latest version of Xcode from the App Store or Apple Developer Download website as well as [Homebrew](https://brew.sh) from its website.
 
-This guide may not suit your machine and actually setup procedure may change in the future. Please file the issue or Pull Request if there are any problems.
+This guide may change in the future. Please [create an issue](https://github.com/mastodon/mastodon-ios/issues/new/choose) or [open a pull request](https://github.com/mastodon/mastodon-ios/blob/main/Documentation/CONTRIBUTING.md) if there are any problems.
 
 ## CocoaPods
-The app use [CocoaPods]() and [CocoaPods-Keys](https://github.com/orta/cocoapods-keys). Ruby Gems are managed through Bundler. The M1 Mac needs virtual ruby env to workaround compatibility issues.
+The app uses [CocoaPods](https://cocoapods.org/) and [CocoaPods-Keys](https://github.com/orta/cocoapods-keys). Ruby Gems are managed through Bundler.
+
+The M1 Mac needs a virtual ruby environment to work around compatibility issues.
 
 #### Intel Mac
 
@@ -24,22 +27,25 @@ bundle install
 #### M1 Mac
 
 ```zsh
-# install the rbenv
+# Install the rbenv package
 brew install rbenv
 which ruby
 # > /usr/bin/ruby
+
+# These instructions only work for ZSH (macOS default shell); adjust for your shell
 echo 'eval "$(rbenv init -)"' >> ~/.zprofile
 source ~/.zprofile
+
+# Select a Ruby version to install
+rbenv install --list
+
+# Here we select the latest version in the 3.0.x series
+rbenv install 3.0.4
+rbenv global 3.0.4
 which ruby
 # > /Users/mainasuk/.rbenv/shims/ruby
-
-# select ruby
-rbenv install --list
-# here we use the latest 3.0.x version
-rbenv install 3.0.3
-rbenv global 3.0.3
 ruby --version
-# > ruby 3.0.3p157 (2021-11-24 revision 3fb7d2cadc) [arm64-darwin21]
+# > ruby 3.0.4p208 (2022-04-12 revision 3fa771dded) [arm64-darwin22]
 
 gem install bundler
 bundle install
@@ -48,6 +54,9 @@ bundle install
 ## Bootstrap
 
 ```zsh
+# copy .env.sample to .env (see Push Notifications below)
+cp .env.sample .env
+
 # make a clean build
 bundle install
 bundle exec pod clean
@@ -59,14 +68,12 @@ bundle exec pod install --repo-update
 open Mastodon.xcworkspace
 ```
 
-The CocoaPods-Key plugin will request the push notification endpoint. You can fufill the empty string and set it later. To setup the push notification. Please check section `Push Notification` below.
-
 The app requires the `App Group` capability. To make sure it works for your developer membership. Please check [AppSecret.swift](../AppShared/AppSecret.swift) file and set another unique `groupID` and update `App Group` settings.
 
 #### Push Notification (Optional)
-The app is compatible with [toot-relay](https://github.com/DagAgren/toot-relay) APNs. You can set your push notification endpoint via Cocoapod-Keys. There are two endpoints:
-- notification_endpoint: for `RELEASE` usage
-- notification_endpoint_debug: for `DEBUG` usage
+The app is compatible with [toot-relay](https://github.com/DagAgren/toot-relay) APNs. You can set your push notification endpoint via the `.env` file copied above. There are two endpoints which can be configured:
+- NotificationEndpointRelease: for `RELEASE` usage
+- NotificationEndpointDebug: for `DEBUG` usage
 
 Please check the [Establishing a Certificate-Based Connection to APNs
 ](https://developer.apple.com/documentation/usernotifications/setting_up_a_remote_notification_server/establishing_a_certificate-based_connection_to_apns) document to generate the certificate and exports the p12 file.
