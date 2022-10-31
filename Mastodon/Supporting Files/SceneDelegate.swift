@@ -163,7 +163,7 @@ extension SceneDelegate {
             logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): select search tab")
 
             if let searchViewController = coordinator?.tabBarController.topMost as? SearchViewController {
-                searchViewController.searchBarTapPublisher.send()
+                searchViewController.searchBarTapPublisher.send("")
                 logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): trigger search")
             }
         default:

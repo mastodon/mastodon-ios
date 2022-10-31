@@ -157,7 +157,7 @@ extension RootSplitViewController: ContentSplitViewControllerDelegate {
             }
             guard let navigationController = searchViewController.navigationController else { return }
             if navigationController.viewControllers.count == 1 {
-                searchViewController.searchBarTapPublisher.send()
+                searchViewController.searchBarTapPublisher.send("")
             } else {
                 navigationController.popToRootViewController(animated: true)
             }
