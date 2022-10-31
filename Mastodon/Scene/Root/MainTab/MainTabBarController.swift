@@ -33,6 +33,7 @@ class MainTabBarController: UITabBarController {
         button.layer.masksToBounds = true
         button.layer.cornerCurve = .continuous
         button.layer.cornerRadius = 8
+        button.isAccessibilityElement = false
         return button
     }()
     
@@ -185,14 +186,6 @@ extension MainTabBarController {
             viewController.tabBarItem.largeContentSizeImage = tab.largeImage.imageWithoutBaseline()
             viewController.tabBarItem.accessibilityLabel = tab.title
             viewController.tabBarItem.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
-            
-            switch tab {
-            case .compose:
-                viewController.tabBarItem.isEnabled = false
-            default:
-                break
-            }
-            
             return viewController
         }
         _viewControllers = viewControllers
@@ -363,7 +356,7 @@ extension MainTabBarController {
 
 extension MainTabBarController {
     
-    @objc private func composeButtonDidPressed(_ sender: UIButton) {
+    @objc private func composeButtonDidPressed(_ sender: Any) {
         logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
         guard let authenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else { return }
         let composeViewModel = ComposeViewModel(
@@ -504,6 +497,13 @@ extension MainTabBarController {
 
 // MARK: - UITabBarControllerDelegate
 extension MainTabBarController: UITabBarControllerDelegate {
+    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+        if let tab = Tab(rawValue: viewController.tabBarItem.tag), tab == .compose {
+            composeButtonDidPressed(tabBarController)
+            return false
+        }
+        return true
+    }
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: select %s", ((#file as NSString).lastPathComponent), #line, #function, viewController.debugDescription)
         defer {
