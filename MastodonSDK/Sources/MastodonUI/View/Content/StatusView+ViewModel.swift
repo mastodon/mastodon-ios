@@ -258,8 +258,7 @@ extension StatusView.ViewModel {
             return text
         }
         .removeDuplicates()
-
-        timestampPublisher.assign(to: &$timestampText)
+        .assign(to: &$timestampText)
         
         $timestampText
             .sink { [weak self] text in
@@ -269,9 +268,13 @@ extension StatusView.ViewModel {
             .store(in: &disposeBag)
 
         // accessibility label
-        Publishers.CombineLatest3($authorName, usernamePublisher, timestampPublisher)
-            .map { name, username, timestamp in
-                "\(name?.string ?? "") \(username), \(timestamp)"
+        Publishers.CombineLatest4($authorName, usernamePublisher, $timestampText, $timestamp)
+            .map { name, username, timestampText, timestamp in
+                let formatter = DateFormatter()
+                formatter.dateStyle = .medium
+                formatter.timeStyle = .short
+                let longTimestamp = timestamp.map { formatter.string(from: $0) } ?? ""
+                return "\(name?.string ?? "") \(username), \(timestampText). \(longTimestamp)"
             }
             .assign(to: \.accessibilityLabel, on: authorView)
             .store(in: &disposeBag)

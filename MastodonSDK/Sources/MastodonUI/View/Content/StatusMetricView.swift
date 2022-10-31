@@ -100,6 +100,8 @@ extension StatusMetricView {
         
         reblogButton.addTarget(self, action: #selector(StatusMetricView.reblogButtonDidPressed(_:)), for: .touchUpInside)
         favoriteButton.addTarget(self, action: #selector(StatusMetricView.favoriteButtonDidPressed(_:)), for: .touchUpInside)
+
+        accessibilityElementsHidden = true
     }
 }
 

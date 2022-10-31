@@ -623,6 +623,14 @@ extension StatusView: ActionToolbarContainerDelegate {
     public func actionToolbarContainer(_ actionToolbarContainer: ActionToolbarContainer, buttonDidPressed button: UIButton, action: ActionToolbarContainer.Action) {
         delegate?.statusView(self, actionToolbarContainer: actionToolbarContainer, buttonDidPressed: button, action: action)
     }
+
+    public func actionToolbarContainer(_ actionToolbarContainer: ActionToolbarContainer, showReblogs action: UIAccessibilityCustomAction) {
+        delegate?.statusView(self, statusMetricView: statusMetricView, reblogButtonDidPressed: statusMetricView.reblogButton)
+    }
+
+    public func actionToolbarContainer(_ actionToolbarContainer: ActionToolbarContainer, showFavorites action: UIAccessibilityCustomAction) {
+        delegate?.statusView(self, statusMetricView: statusMetricView, favoriteButtonDidPressed: statusMetricView.favoriteButton)
+    }
 }
 
 // MARK: - StatusMetricViewDelegate
