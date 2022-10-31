@@ -97,12 +97,7 @@ extension StatusThreadRootTableViewCell {
         get {
             var elements = [
                 statusView.headerContainerView,
-                statusView.avatarButton,
-                statusView.authorNameLabel,
-                statusView.menuButton,
-                statusView.authorUsernameLabel,
-                statusView.dateLabel,
-                statusView.contentSensitiveeToggleButton,
+                statusView.authorView,
                 statusView.spoilerOverlayView,
                 statusView.contentMetaText.textView,
                 statusView.mediaGridContainerView,
@@ -111,10 +106,6 @@ extension StatusThreadRootTableViewCell {
                 statusView.actionToolbarContainer,
                 statusView.statusMetricView
             ]
-            
-            if !statusView.viewModel.isMediaSensitive {
-                elements.removeAll(where: { $0 === statusView.contentSensitiveeToggleButton })
-            }
             
             if statusView.viewModel.isContentReveal {
                 elements.removeAll(where: { $0 === statusView.spoilerOverlayView })
