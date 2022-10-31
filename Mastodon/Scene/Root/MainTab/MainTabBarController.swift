@@ -504,6 +504,7 @@ extension MainTabBarController: UITabBarControllerDelegate {
         }
         return true
     }
+
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: select %s", ((#file as NSString).lastPathComponent), #line, #function, viewController.debugDescription)
         defer {
