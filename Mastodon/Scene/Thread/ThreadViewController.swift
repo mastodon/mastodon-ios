@@ -104,6 +104,12 @@ extension ThreadViewController {
         
         tableView.deselectRow(with: transitionCoordinator, animated: animated)
     }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        UIAccessibility.post(notification: .screenChanged, argument: tableView)
+    }
     
 }
 
