@@ -25,7 +25,7 @@ public final class APIService {
     let session: URLSession
     
     // input
-    let backgroundManagedObjectContext: NSManagedObjectContext
+    public let backgroundManagedObjectContext: NSManagedObjectContext
 
     // output
     public let error = PassthroughSubject<APIError, Never>()

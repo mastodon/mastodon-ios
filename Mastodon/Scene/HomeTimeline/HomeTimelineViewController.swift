@@ -165,6 +165,7 @@ extension HomeTimelineViewController {
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
         
+        // // layout publish progress
         publishProgressView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(publishProgressView)
         NSLayoutConstraint.activate([
@@ -204,10 +205,12 @@ extension HomeTimelineViewController {
             }
             .store(in: &disposeBag)
         
-        viewModel.homeTimelineNavigationBarTitleViewModel.publishingProgress
+        context.publisherService.$currentPublishProgress
             .receive(on: DispatchQueue.main)
             .sink { [weak self] progress in
                 guard let self = self else { return }
+                let progress = Float(progress)
+
                 guard progress > 0 else {
                     let dismissAnimator = UIViewPropertyAnimator(duration: 0.1, curve: .easeInOut)
                     dismissAnimator.addAnimations {

@@ -9,10 +9,11 @@ import os.log
 import UIKit
 import Combine
 import CoreDataStack
-import MastodonCore
 import Meta
-import MastodonMeta
 import MetaTextKit
+import MastodonMeta
+import MastodonCore
+import MastodonSDK
 
 public final class ComposeContentViewModel: NSObject, ObservableObject {
     
@@ -29,6 +30,8 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
     let kind: Kind
     
     @Published var viewLayoutFrame = ViewLayoutFrame()
+    
+    // author (me)
     @Published var authContext: AuthContext
     
     // output
@@ -67,6 +70,11 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
     @Published var name: MetaContent = PlaintextMetaContent(string: "")
     @Published var username: String = ""
     
+    // attachment
+    @Published public var attachmentViewModels: [AttachmentViewModel] = []
+    @Published public var maxMediaAttachmentLimit = 4
+    // @Published public internal(set) var isMediaValid = true
+    
     // poll
     @Published var isPollActive = false
     @Published public var pollOptions: [PollComposeItem.Option] = {
@@ -77,10 +85,15 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
         return options
     }()
     @Published public var pollExpireConfigurationOption: PollComposeItem.ExpireConfiguration.Option = .oneDay
+    @Published public var pollMultipleConfigurationOption: PollComposeItem.MultipleConfiguration.Option = false
+
     @Published public var maxPollOptionLimit = 4
     
     // emoji
     @Published var isEmojiActive = false
+    
+    // visibility
+    @Published var visibility: Mastodon.Entity.Status.Visibility
     
     // UI & UX
     @Published var replyToCellFrame: CGRect = .zero
@@ -96,6 +109,41 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
         self.context = context
         self.authContext = authContext
         self.kind = kind
+        self.visibility = {
+            // default private when user locked
+            var visibility: Mastodon.Entity.Status.Visibility = {
+                guard let author = authContext.mastodonAuthenticationBox.authenticationRecord.object(in: context.managedObjectContext)?.user else {
+                    return .public
+                }
+                return author.locked ? .private : .public
+            }()
+            // set visibility for reply post
+            switch kind {
+            case .reply(let record):
+                context.managedObjectContext.performAndWait {
+                    guard let status = record.object(in: context.managedObjectContext) else {
+                        assertionFailure()
+                        return
+                    }
+                    let repliedStatusVisibility = status.visibility
+                    switch repliedStatusVisibility {
+                    case .public, .unlisted:
+                        // keep default
+                        break
+                    case .private:
+                        visibility = .private
+                    case .direct:
+                        visibility = .direct
+                    case ._other:
+                        assertionFailure()
+                        break
+                    }
+                }
+            default:
+                break
+            }
+            return visibility
+        }()
         super.init()
         // end init
         
@@ -160,6 +208,71 @@ extension ComposeContentViewModel {
         option.shouldBecomeFirstResponder = true
         pollOptions.append(option)
     }
+}
+
+extension ComposeContentViewModel {
+    public enum ComposeError: LocalizedError {
+        case pollHasEmptyOption
+        
+        public var errorDescription: String? {
+            switch self {
+            case .pollHasEmptyOption:
+                return "The post poll is invalid"  // TODO: i18n
+            }
+        }
+        
+        public var failureReason: String? {
+            switch self {
+            case .pollHasEmptyOption:
+                return "The poll has empty option"   // TODO: i18n
+            }
+        }
+    }
+    
+    public func statusPublisher() throws -> StatusPublisher {
+        let authContext = self.authContext
+        
+        // author
+        let managedObjectContext = self.context.managedObjectContext
+        var _author: ManagedObjectRecord<MastodonUser>?
+        managedObjectContext.performAndWait {
+            _author = authContext.mastodonAuthenticationBox.authenticationRecord.object(in: managedObjectContext)?.user.asRecrod
+        }
+        guard let author = _author else {
+            throw AppError.badAuthentication
+        }
+        
+        // poll
+        _ = try {
+            guard isPollActive else { return }
+            let isAllNonEmpty = pollOptions
+                .map { $0.text }
+                .allSatisfy { !$0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
+            guard isAllNonEmpty else {
+                throw ComposeError.pollHasEmptyOption
+            }
+        }()
+        
+        return MastodonStatusPublisher(
+            author: author,
+            replyTo: {
+                switch self.kind {
+                case .reply(let status):    return status
+                default:                    return nil
+                }
+            }(),
+            isContentWarningComposing: isContentWarningActive,
+            contentWarning: contentWarning,
+            content: content,
+            isMediaSensitive: isContentWarningActive,
+            attachmentViewModels: attachmentViewModels,
+            isPollComposing: isPollActive,
+            pollOptions: pollOptions,
+            pollExpireConfigurationOption: pollExpireConfigurationOption,
+            pollMultipleConfigurationOption: pollMultipleConfigurationOption,
+            visibility: visibility
+        )
+    }   // end func publisher()
 }
 
 // MARK: - UITextViewDelegate

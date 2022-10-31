@@ -49,6 +49,7 @@ let package = Package(
         .package(url: "https://github.com/woxtu/UIHostingConfigurationBackport.git", from: "0.1.0"),
         .package(url: "https://github.com/SDWebImage/SDWebImage.git", from: "5.12.0"),
         .package(url: "https://github.com/eneko/Stripes.git", from: "0.2.0"),
+        .package(url: "https://github.com/onevcat/Kingfisher.git", from: "7.4.1"),
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -124,6 +125,7 @@ let package = Package(
                 .product(name: "CropViewController", package: "TOCropViewController"),
                 .product(name: "PanModal", package: "PanModal"),
                 .product(name: "Stripes", package: "Stripes"),
+                .product(name: "Kingfisher", package: "Kingfisher"),
             ]
         ),
         .testTarget(

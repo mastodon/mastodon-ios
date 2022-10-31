@@ -44,7 +44,7 @@ final class ComposeViewModel: NSObject {
 //    @Published var autoCompleteRetryLayoutTimes = 0
 //    @Published var autoCompleteInfo: ComposeViewController.AutoCompleteInfo? = nil
 
-//    let traitCollectionDidChangePublisher = CurrentValueSubject<Void, Never>(Void())      // use CurrentValueSubject to make initial event emit
+    let traitCollectionDidChangePublisher = CurrentValueSubject<Void, Never>(Void())      // use CurrentValueSubject to make initial event emit
 //    var isViewAppeared = false
     
     // output

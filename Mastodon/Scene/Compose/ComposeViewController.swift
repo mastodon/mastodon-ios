@@ -57,36 +57,35 @@ final class ComposeViewController: UIViewController, NeedsDependency {
         return barButtonItem
     }()
 
-//    let publishButton: UIButton = {
-//        let button = RoundedEdgesButton(type: .custom)
-//        button.cornerRadius = 10
-//        button.contentEdgeInsets = UIEdgeInsets(top: 6, left: 16, bottom: 5, right: 16)     // set 28pt height
-//        button.titleLabel?.font = .systemFont(ofSize: 14, weight: .bold)
-//        button.setTitle(L10n.Scene.Compose.composeAction, for: .normal)
-//        return button
-//    }()
-//    private(set) lazy var publishBarButtonItem: UIBarButtonItem = {
-//        configurePublishButtonApperance()
-//        let shadowBackgroundContainer = ShadowBackgroundContainer()
-//        publishButton.translatesAutoresizingMaskIntoConstraints = false
-//        shadowBackgroundContainer.addSubview(publishButton)
-//        NSLayoutConstraint.activate([
-//            publishButton.topAnchor.constraint(equalTo: shadowBackgroundContainer.topAnchor),
-//            publishButton.leadingAnchor.constraint(equalTo: shadowBackgroundContainer.leadingAnchor),
-//            publishButton.trailingAnchor.constraint(equalTo: shadowBackgroundContainer.trailingAnchor),
-//            publishButton.bottomAnchor.constraint(equalTo: shadowBackgroundContainer.bottomAnchor),
-//        ])
-//        let barButtonItem = UIBarButtonItem(customView: shadowBackgroundContainer)
-//        return barButtonItem
-//    }()
-//
-//    private func configurePublishButtonApperance() {
-//        publishButton.adjustsImageWhenHighlighted = false
-//        publishButton.setBackgroundImage(.placeholder(color: Asset.Colors.Label.primary.color), for: .normal)
-//        publishButton.setBackgroundImage(.placeholder(color: Asset.Colors.Label.primary.color.withAlphaComponent(0.5)), for: .highlighted)
-//        publishButton.setBackgroundImage(.placeholder(color: Asset.Colors.Button.disabled.color), for: .disabled)
-//        publishButton.setTitleColor(Asset.Colors.Label.primaryReverse.color, for: .normal)
-//    }
+    let publishButton: UIButton = {
+        let button = RoundedEdgesButton(type: .custom)
+        button.cornerRadius = 10
+        button.contentEdgeInsets = UIEdgeInsets(top: 6, left: 16, bottom: 5, right: 16)     // set 28pt height
+        button.titleLabel?.font = .systemFont(ofSize: 14, weight: .bold)
+        button.setTitle(L10n.Scene.Compose.composeAction, for: .normal)
+        return button
+    }()
+    private(set) lazy var publishBarButtonItem: UIBarButtonItem = {
+        configurePublishButtonApperance()
+        let shadowBackgroundContainer = ShadowBackgroundContainer()
+        publishButton.translatesAutoresizingMaskIntoConstraints = false
+        shadowBackgroundContainer.addSubview(publishButton)
+        NSLayoutConstraint.activate([
+            publishButton.topAnchor.constraint(equalTo: shadowBackgroundContainer.topAnchor),
+            publishButton.leadingAnchor.constraint(equalTo: shadowBackgroundContainer.leadingAnchor),
+            publishButton.trailingAnchor.constraint(equalTo: shadowBackgroundContainer.trailingAnchor),
+            publishButton.bottomAnchor.constraint(equalTo: shadowBackgroundContainer.bottomAnchor),
+        ])
+        let barButtonItem = UIBarButtonItem(customView: shadowBackgroundContainer)
+        return barButtonItem
+    }()
+    private func configurePublishButtonApperance() {
+        publishButton.adjustsImageWhenHighlighted = false
+        publishButton.setBackgroundImage(.placeholder(color: Asset.Colors.Label.primary.color), for: .normal)
+        publishButton.setBackgroundImage(.placeholder(color: Asset.Colors.Label.primary.color.withAlphaComponent(0.5)), for: .highlighted)
+        publishButton.setBackgroundImage(.placeholder(color: Asset.Colors.Button.disabled.color), for: .disabled)
+        publishButton.setTitleColor(Asset.Colors.Label.primaryReverse.color, for: .normal)
+    }
     
 //    var systemKeyboardHeight: CGFloat = .zero {
 //        didSet {
@@ -106,7 +105,6 @@ final class ComposeViewController: UIViewController, NeedsDependency {
 //    var composeToolbarViewBottomLayoutConstraint: NSLayoutConstraint!
 //    let composeToolbarBackgroundView = UIView()
 //
-
 //
 //    private(set) lazy var autoCompleteViewController: AutoCompleteViewController = {
 //        let viewController = AutoCompleteViewController()
@@ -142,20 +140,20 @@ extension ComposeViewController {
         super.viewDidLoad()
         
         navigationItem.leftBarButtonItem = cancelBarButtonItem
-        //        navigationItem.rightBarButtonItem = publishBarButtonItem
-        //        viewModel.traitCollectionDidChangePublisher
-        //            .receive(on: DispatchQueue.main)
-        //            .sink { [weak self] _ in
-        //                guard let self = self else { return }
-        //                guard self.traitCollection.userInterfaceIdiom == .pad else { return }
-        //                var items = [self.publishBarButtonItem]
-        //                if self.traitCollection.horizontalSizeClass == .regular {
-        //                    items.append(self.characterCountBarButtonItem)
-        //                }
-        //                self.navigationItem.rightBarButtonItems = items
-        //            }
-        //            .store(in: &disposeBag)
-        //        publishButton.addTarget(self, action: #selector(ComposeViewController.publishBarButtonItemPressed(_:)), for: .touchUpInside)
+        navigationItem.rightBarButtonItem = publishBarButtonItem
+        viewModel.traitCollectionDidChangePublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                guard self.traitCollection.userInterfaceIdiom == .pad else { return }
+                var items = [self.publishBarButtonItem]
+                if self.traitCollection.horizontalSizeClass == .regular {
+                    items.append(self.characterCountBarButtonItem)
+                }
+                self.navigationItem.rightBarButtonItems = items
+            }
+            .store(in: &disposeBag)
+        publishButton.addTarget(self, action: #selector(ComposeViewController.publishBarButtonItemPressed(_:)), for: .touchUpInside)
         
         addChild(composeContentViewController)
         composeContentViewController.view.translatesAutoresizingMaskIntoConstraints = false
@@ -602,8 +600,8 @@ extension ComposeViewController {
         dismiss(animated: true, completion: nil)
     }
     
-//    @objc private func publishBarButtonItemPressed(_ sender: UIBarButtonItem) {
-//        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+    @objc private func publishBarButtonItemPressed(_ sender: UIBarButtonItem) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
 //        do {
 //            try viewModel.checkAttachmentPrecondition()
 //        } catch {
@@ -613,17 +611,32 @@ extension ComposeViewController {
 //            coordinator.present(scene: .alertController(alertController: alertController), from: nil, transition: .alertController(animated: true, completion: nil))
 //            return
 //        }
-//        
+        
 //        guard viewModel.publishStateMachine.enter(ComposeViewModel.PublishState.Publishing.self) else {
 //            // TODO: handle error
 //            return
 //        }
-//        
-//        // context.statusPublishService.publish(composeViewModel: viewModel)
-//        assertionFailure()
-//        
-//        dismiss(animated: true, completion: nil)
-//    }
+        
+        // context.statusPublishService.publish(composeViewModel: viewModel)
+        
+        do {
+            let statusPublisher = try composeContentViewModel.statusPublisher()
+            // let result = try await statusPublisher.publish(api: context.apiService, authContext: viewModel.authContext)
+            // if let reactor = presentingViewController?.topMostNotModal as? StatusPublisherReactor {
+            //     statusPublisher.reactor = reactor
+            // }
+            viewModel.context.publisherService.enqueue(
+                statusPublisher: statusPublisher,
+                authContext: viewModel.authContext
+            )
+        } catch {
+            let alertController = UIAlertController.standardAlert(of: error)
+            present(alertController, animated: true)
+            return
+        }
+
+        dismiss(animated: true, completion: nil)
+    }
     
 }
 

@@ -94,11 +94,13 @@ extension PollComposeItem {
     public final class MultipleConfiguration: Hashable, ObservableObject {
         private let id = UUID()
         
-        @Published public var isMultiple = false
+        @Published public var isMultiple: Option = false
         
         public init() {
             // end init
         }
+        
+        public typealias Option = Bool
         
         public static func == (lhs: MultipleConfiguration, rhs: MultipleConfiguration) -> Bool {
             return lhs.id == rhs.id

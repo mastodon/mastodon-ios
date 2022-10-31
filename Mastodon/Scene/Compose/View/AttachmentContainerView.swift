@@ -9,10 +9,10 @@ import UIKit
 import SwiftUI
 import MastodonUI
 
-final class AttachmentContainerView: UIView {
-        
-    static let containerViewCornerRadius: CGFloat = 4
-    
+//final class AttachmentContainerView: UIView {
+//
+//    static let containerViewCornerRadius: CGFloat = 4
+//
 //    var descriptionBackgroundViewFrameObservation: NSKeyValueObservation?
 //
 //    let activityIndicatorView: UIActivityIndicatorView = {
@@ -60,35 +60,35 @@ final class AttachmentContainerView: UIView {
 //        textView.returnKeyType = .done
 //        return textView
 //    }()
-    
-    private(set) lazy var contentView = AttachmentView(viewModel: viewModel)
-    public var viewModel: AttachmentView.ViewModel!
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        _init()
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        _init()
-    }
-    
-}
+//
+//    private(set) lazy var contentView = AttachmentView(viewModel: viewModel)
+//    public var viewModel: AttachmentView.ViewModel!
+//
+//    override init(frame: CGRect) {
+//        super.init(frame: frame)
+//        _init()
+//    }
+//
+//    required init?(coder: NSCoder) {
+//        super.init(coder: coder)
+//        _init()
+//    }
+//
+//}
 
-extension AttachmentContainerView {
-    
-    private func _init() {
-        let hostingViewController = UIHostingController(rootView: contentView)
-        hostingViewController.view.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(hostingViewController.view)
-        NSLayoutConstraint.activate([
-            hostingViewController.view.topAnchor.constraint(equalTo: topAnchor),
-            hostingViewController.view.leadingAnchor.constraint(equalTo: leadingAnchor),
-            hostingViewController.view.trailingAnchor.constraint(equalTo: trailingAnchor),
-            hostingViewController.view.bottomAnchor.constraint(equalTo: bottomAnchor),
-        ])
-        
+//extension AttachmentContainerView {
+//
+//    private func _init() {
+//        let hostingViewController = UIHostingController(rootView: contentView)
+//        hostingViewController.view.translatesAutoresizingMaskIntoConstraints = false
+//        addSubview(hostingViewController.view)
+//        NSLayoutConstraint.activate([
+//            hostingViewController.view.topAnchor.constraint(equalTo: topAnchor),
+//            hostingViewController.view.leadingAnchor.constraint(equalTo: leadingAnchor),
+//            hostingViewController.view.trailingAnchor.constraint(equalTo: trailingAnchor),
+//            hostingViewController.view.bottomAnchor.constraint(equalTo: bottomAnchor),
+//        ])
+//
 //        previewImageView.translatesAutoresizingMaskIntoConstraints = false
 //        addSubview(previewImageView)
 //        NSLayoutConstraint.activate([
@@ -144,24 +144,24 @@ extension AttachmentContainerView {
 //        activityIndicatorView.startAnimating()
 //
 //        descriptionTextView.delegate = self
-    }
-
-//    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+//    }
+//
+////    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
 //        super.traitCollectionDidChange(previousTraitCollection)
 //
 //        setupBroader()
 //    }
-    
-}
-
-extension AttachmentContainerView {
-
+//
+//}
+//
+//extension AttachmentContainerView {
+//
 //    private func setupBroader() {
 //        emptyStateView.layer.borderWidth = 1
 //        emptyStateView.layer.borderColor = traitCollection.userInterfaceStyle == .dark ? ThemeService.shared.currentTheme.value.tableViewCellSelectionBackgroundColor.cgColor : nil
 //    }
-
-}
+//
+//}
 
 //// MARK: - UITextViewDelegate
 //extension AttachmentContainerView: UITextViewDelegate {
