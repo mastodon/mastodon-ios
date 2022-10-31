@@ -14,6 +14,10 @@ import MastodonAsset
 import MastodonCore
 import MastodonLocalization
 
+public extension CGSize {
+    static let authorAvatarButtonSize = CGSize(width: 46, height: 46)
+}
+
 public protocol StatusViewDelegate: AnyObject {
     func statusView(_ statusView: StatusView, headerDidPressed header: UIView)
     func statusView(_ statusView: StatusView, authorAvatarButtonDidPressed button: AvatarButton)
