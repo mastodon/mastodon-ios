@@ -79,7 +79,7 @@ extension StatusThreadRootTableViewCell {
         statusView.delegate = self
         
         // a11y
-        statusView.contentMetaText.textView.isAccessibilityElement = false
+        statusView.contentMetaText.textView.isAccessibilityElement = true
         statusView.contentMetaText.textView.isSelectable = true
     }
     
@@ -98,8 +98,9 @@ extension StatusThreadRootTableViewCell {
             var elements = [
                 statusView.headerContainerView,
                 statusView.authorView,
-                statusView.spoilerOverlayView,
-                statusView.contentMetaText.textView,
+                statusView.viewModel.isContentReveal
+                ? statusView.contentMetaText.textView
+                : statusView.spoilerOverlayView,
                 statusView.mediaGridContainerView,
                 statusView.pollTableView,
                 statusView.pollStatusStackView,
