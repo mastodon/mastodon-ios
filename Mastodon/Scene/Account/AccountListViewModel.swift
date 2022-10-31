@@ -50,6 +50,12 @@ final class AccountListViewModel: NSObject {
         // end init
         
         mastodonAuthenticationFetchedResultsController.delegate = self
+        do {
+            try mastodonAuthenticationFetchedResultsController.performFetch()
+            authentications = mastodonAuthenticationFetchedResultsController.fetchedObjects?.compactMap { $0.asRecrod } ?? []
+        } catch {
+            assertionFailure(error.localizedDescription)
+        }
 
         $authentications
             .receive(on: DispatchQueue.main)

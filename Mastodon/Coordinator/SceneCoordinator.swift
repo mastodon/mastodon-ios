@@ -216,7 +216,7 @@ extension SceneCoordinator {
         let rootViewController: UIViewController
         
         do {
-            let request = MastodonAuthentication.sortedFetchRequest
+            let request = MastodonAuthentication.activeSortedFetchRequest   // use active order
             let _authentication = try appContext.managedObjectContext.fetch(request).first
             let _authContext = _authentication.flatMap { AuthContext(authentication: $0) }
             self.authContext = _authContext
