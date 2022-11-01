@@ -10,6 +10,7 @@ import UIKit
 import Combine
 import CoreDataStack
 import MastodonCore
+import MastodonExtension
 
 #if PROFILE
 import FPSIndicator
@@ -110,7 +111,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         AppContext.shared.statusFilterService.filterUpdatePublisher.send()
 
         if let shortcutItem = savedShortCutItem {
-            _ = handler(shortcutItem: shortcutItem)
+            Task {
+                _ = await handler(shortcutItem: shortcutItem)
+            }
             savedShortCutItem = nil
         }
     }
@@ -134,14 +137,43 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 }
 
 extension SceneDelegate {
-    func windowScene(_ windowScene: UIWindowScene, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
-        completionHandler(handler(shortcutItem: shortcutItem))
+    
+    func windowScene(_ windowScene: UIWindowScene, performActionFor shortcutItem: UIApplicationShortcutItem) async -> Bool {
+        return await handler(shortcutItem: shortcutItem)
     }
 
-    private func handler(shortcutItem: UIApplicationShortcutItem) -> Bool {
+    @MainActor
+    private func handler(shortcutItem: UIApplicationShortcutItem) async -> Bool {
         logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): \(shortcutItem.type)")
 
         switch shortcutItem.type {
+        case NotificationService.unreadShortcutItemIdentifier:
+            guard let coordinator = self.coordinator else { return false }
+
+            guard let accessToken = shortcutItem.userInfo?["accessToken"] as? String else {
+                assertionFailure()
+                return false
+            }
+            let request = MastodonAuthentication.sortedFetchRequest
+            request.predicate = MastodonAuthentication.predicate(userAccessToken: accessToken)
+            request.fetchLimit = 1
+
+            guard let authentication = try? coordinator.appContext.managedObjectContext.fetch(request).first else {
+                assertionFailure()
+                return false
+            }
+
+            let _isActive = try? await coordinator.appContext.authenticationService.activeMastodonUser(
+                domain: authentication.domain,
+                userID: authentication.userID
+            )
+            
+            guard _isActive == true else {
+                return false
+            }
+
+            coordinator.switchToTabBar(tab: .notification)
+
         case "org.joinmastodon.app.new-post":
             if coordinator?.tabBarController.topMost is ComposeViewController {
                 logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): composing…")
@@ -158,6 +190,7 @@ extension SceneDelegate {
                     logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): not authenticated")
                 }
             }
+
         case "org.joinmastodon.app.search":
             coordinator?.switchToTabBar(tab: .search)
             logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): select search tab")
@@ -166,6 +199,7 @@ extension SceneDelegate {
                 searchViewController.searchBarTapPublisher.send()
                 logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): trigger search")
             }
+
         default:
             assertionFailure()
             break

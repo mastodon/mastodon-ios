@@ -79,7 +79,7 @@ final class ProfileHeaderView: UIView {
     let followsYouLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 15, weight: .regular)
-        label.text = "Follows You"      // TODO: i18n
+        label.text = L10n.Scene.Profile.Header.followsYou
         return label
     }()
     let followsYouMaskView = UIView()

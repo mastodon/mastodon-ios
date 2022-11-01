@@ -37,9 +37,11 @@ public final class AppSecret {
     
     init() {
         #if DEBUG
-        self.notificationEndpoint = Keys.Debug().notificationEndpoint
+        let keys = Keys.Debug()
+        self.notificationEndpoint = keys.notificationEndpoint
         #else
-        self.notificationEndpoint = Keys.Release().notificationEndpoint
+        let keys = Keys.Release()
+        self.notificationEndpoint = keys.notificationEndpoint
         #endif
     }
     

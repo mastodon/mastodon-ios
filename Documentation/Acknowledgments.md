@@ -7,8 +7,6 @@
 - [CommonOSLog](https://github.com/mainasuk/CommonOSLog)
 - [CryptoSwift](https://github.com/krzyzanowskim/CryptoSwift)
 - [DateToolSwift](https://github.com/MatthewYork/DateTools)
-- [DiffableDataSources](https://github.com/ra1028/DiffableDataSources)
-- [DifferenceKit](https://github.com/ra1028/DifferenceKit)
 - [FLAnimatedImage](https://github.com/Flipboard/FLAnimatedImage)
 - [FLEX](https://github.com/FLEXTool/FLEX)
 - [FPSIndicator](https://github.com/MainasuK/FPSIndicator)

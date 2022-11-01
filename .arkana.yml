@@ -13,4 +13,5 @@ global_secrets:
   # nothing
 environment_secrets:
   # Will lookup for <Key>Debug and <Key>Release env vars (assuming no flavor was declared)
+  # Mastodon Push Notification Endpoint
   - NotificationEndpoint

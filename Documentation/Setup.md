@@ -50,10 +50,11 @@ bundle install
 ```zsh
 # make a clean build
 bundle install
+bundle exec pod clean
 
-# setup notification endpoint
+# setup arkana
 # please check the `.env.example` to create your's or use the empty example directly
-bundle exec arkana -e `<your-dot-env-file-path>`
+bundle exec arkana -e ./env/.env
 
 # clean pods
 bundle exec pod clean
@@ -65,13 +66,14 @@ bundle exec pod install --repo-update
 open Mastodon.xcworkspace
 ```
 
-The CocoaPods-Key plugin will request the push notification endpoint. You can fufill the empty string and set it later. To setup the push notification. Please check section `Push Notification` below.
+The Arkana plugin will setup the push notification endpoint. You can use the empty template from `./env/.env` or use your own `.env` file. To setup the push notification. Please check section `Push Notification` below.
 
 The app requires the `App Group` capability. To make sure it works for your developer membership. Please check [AppSecret.swift](../MastodonSDK/Sources/MastodonCore/AppSecret.swift) file and set another unique `groupID` and update `App Group` settings.
 
 #### Push Notification (Optional)
-The app is compatible with [toot-relay](https://github.com/DagAgren/toot-relay) APNs. You can set your push notification endpoint via Arkana. There are one endpoint:
-- NotificationEndpoint:  (e.g. https://<your-domain>/relay-to/production)
+The app is compatible with [toot-relay](https://github.com/DagAgren/toot-relay) APNs. You can set your push notification endpoint via Arkana. There are two endpoints:
+- NotificationEndpointDebug: for `DEBUG` usage. e.g. `https://<your.domin>/relay-to/development`
+- NotificationEndpointRelease: for `RELEASE` usage. e.g. `https://<your.domin>/relay-to/production`
 
 Please check the [Establishing a Certificate-Based Connection to APNs
 ](https://developer.apple.com/documentation/usernotifications/setting_up_a_remote_notification_server/establishing_a_certificate-based_connection_to_apns) document to generate the certificate and exports the p12 file.
