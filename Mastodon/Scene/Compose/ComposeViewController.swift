@@ -1212,3 +1212,33 @@ extension ComposeViewController: UIAdaptivePresentationControllerDelegate {
 //    }
 //    
 //}
+
+extension ComposeViewController {
+    public override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        
+        // Enable pasting images
+        if (action == #selector(UIResponderStandardEditActions.paste(_:))) {
+            return UIPasteboard.general.hasStrings || UIPasteboard.general.hasImages;
+        }
+
+        return super.canPerformAction(action, withSender: sender);
+    }
+    
+    override func paste(_ sender: Any?) {
+        logger.debug("Paste event received")
+
+        // Look for images on the clipboard
+        if (UIPasteboard.general.hasImages) {
+            if let images = UIPasteboard.general.images {
+                logger.warning("Got image paste event, however attachments are not yet re-implemented.");
+//                viewModel.attachmentServices = viewModel.attachmentServices + images.map({ image in
+//                    MastodonAttachmentService(
+//                        context: context,
+//                        image: image,
+//                        initialAuthenticationBox: viewModel.authenticationBox
+//                    )
+//                })
+            }
+        }
+    }
+}
