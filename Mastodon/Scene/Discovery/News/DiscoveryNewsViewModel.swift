@@ -12,6 +12,7 @@ import GameplayKit
 import CoreData
 import CoreDataStack
 import MastodonSDK
+import MastodonCore
 
 final class DiscoveryNewsViewModel {
     
@@ -19,6 +20,7 @@ final class DiscoveryNewsViewModel {
     
     // input
     let context: AppContext
+    let authContext: AuthContext
     let listBatchFetchViewModel = ListBatchFetchViewModel()
 
     // output
@@ -40,8 +42,9 @@ final class DiscoveryNewsViewModel {
     let didLoadLatest = PassthroughSubject<Void, Never>()
     @Published var isServerSupportEndpoint = true
 
-    init(context: AppContext) {
+    init(context: AppContext, authContext: AuthContext) {
         self.context = context
+        self.authContext = authContext
         // end init
         
         Task {
@@ -58,11 +61,9 @@ final class DiscoveryNewsViewModel {
 
 extension DiscoveryNewsViewModel {
     func checkServerEndpoint() async {
-        guard let authenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else { return }
-        
         do {
             _ = try await context.apiService.trendLinks(
-                domain: authenticationBox.domain,
+                domain: authContext.mastodonAuthenticationBox.domain,
                 query: .init(offset: nil, limit: nil)
             )
         } catch let error as Mastodon.API.Error where error.httpResponseStatus.code == 404 {

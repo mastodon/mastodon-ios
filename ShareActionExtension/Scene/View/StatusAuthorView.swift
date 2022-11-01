@@ -8,7 +8,6 @@
 import SwiftUI
 import MastodonUI
 import Nuke
-import NukeFLAnimatedImagePlugin
 import FLAnimatedImage
 
 struct StatusAuthorView: View {

@@ -7,22 +7,23 @@
 
 import Foundation
 import CoreDataStack
+import MastodonCore
 
 extension DataSourceFacade {
     
     static func responseToCreateSearchHistory(
-        provider: DataSourceProvider,
+        provider: DataSourceProvider & AuthContextProvider,
         item: DataSourceItem
     ) async {
         switch item {
         case .status:
             break       // not create search history for status
         case .user(let record):
-            let authenticationBox = provider.context.authenticationService.activeMastodonAuthenticationBox.value
+            let authenticationBox = provider.authContext.mastodonAuthenticationBox
             let managedObjectContext = provider.context.backgroundManagedObjectContext
             
             try? await managedObjectContext.performChanges {
-                guard let me = authenticationBox?.authenticationRecord.object(in: managedObjectContext)?.user else { return }
+                guard let me = authenticationBox.authenticationRecord.object(in: managedObjectContext)?.user else { return }
                 guard let user = record.object(in: managedObjectContext) else { return }
                 _ = Persistence.SearchHistory.createOrMerge(
                     in: managedObjectContext,
@@ -34,13 +35,12 @@ extension DataSourceFacade {
                 )
             }   // end try? await managedObjectContext.performChanges { … }
         case .hashtag(let tag):
-            let _authenticationBox = provider.context.authenticationService.activeMastodonAuthenticationBox.value
+            let authenticationBox = provider.authContext.mastodonAuthenticationBox
             let managedObjectContext = provider.context.backgroundManagedObjectContext
 
             switch tag {
             case .entity(let entity):
                 try? await managedObjectContext.performChanges {
-                    guard let authenticationBox = _authenticationBox else { return }
                     guard let me = authenticationBox.authenticationRecord.object(in: managedObjectContext)?.user else { return }
                     
                     let now = Date()
@@ -66,7 +66,7 @@ extension DataSourceFacade {
                 }   // end try? await managedObjectContext.performChanges { … }
             case .record(let record):
                 try? await managedObjectContext.performChanges {
-                    guard let authenticationBox = _authenticationBox else { return }
+                    let authenticationBox = provider.authContext.mastodonAuthenticationBox
                     guard let me = authenticationBox.authenticationRecord.object(in: managedObjectContext)?.user else { return }
                     guard let tag = record.object(in: managedObjectContext) else { return }
                     
@@ -92,13 +92,12 @@ extension DataSourceFacade {
 extension DataSourceFacade {
     
     static func responseToDeleteSearchHistory(
-        provider: DataSourceProvider
+        provider: DataSourceProvider & AuthContextProvider
     ) async throws {
-        let _authenticationBox = provider.context.authenticationService.activeMastodonAuthenticationBox.value
+        let authenticationBox = provider.authContext.mastodonAuthenticationBox
         let managedObjectContext = provider.context.backgroundManagedObjectContext
         
         try await managedObjectContext.performChanges {
-            guard let authenticationBox = _authenticationBox else { return }
             guard let _ = authenticationBox.authenticationRecord.object(in: managedObjectContext)?.user else { return }
             let request = SearchHistory.sortedFetchRequest
             request.predicate = SearchHistory.predicate(

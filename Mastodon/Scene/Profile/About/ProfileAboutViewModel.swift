@@ -11,6 +11,7 @@ import Combine
 import CoreDataStack
 import MastodonSDK
 import MastodonMeta
+import MastodonCore
 import Kanna
 
 final class ProfileAboutViewModel {

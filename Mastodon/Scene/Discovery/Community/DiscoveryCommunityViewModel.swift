@@ -12,6 +12,7 @@ import GameplayKit
 import CoreData
 import CoreDataStack
 import MastodonSDK
+import MastodonCore
 
 final class DiscoveryCommunityViewModel {
     
@@ -21,6 +22,7 @@ final class DiscoveryCommunityViewModel {
     
     // input
     let context: AppContext
+    let authContext: AuthContext
     let viewDidAppeared = PassthroughSubject<Void, Never>()
     let statusFetchedResultsController: StatusFetchedResultsController
     let listBatchFetchViewModel = ListBatchFetchViewModel()
@@ -42,20 +44,15 @@ final class DiscoveryCommunityViewModel {
     
     let didLoadLatest = PassthroughSubject<Void, Never>()
     
-    init(context: AppContext) {
+    init(context: AppContext, authContext: AuthContext) {
         self.context = context
+        self.authContext = authContext
         self.statusFetchedResultsController = StatusFetchedResultsController(
             managedObjectContext: context.managedObjectContext,
-            domain: nil,
+            domain: authContext.mastodonAuthenticationBox.domain,
             additionalTweetPredicate: nil
         )
         // end init
-        
-        context.authenticationService.activeMastodonAuthentication
-            .map { $0?.domain }
-            .assign(to: \.value, on: statusFetchedResultsController.domain)
-            .store(in: &disposeBag)
-    
     }
     
     deinit {

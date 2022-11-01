@@ -22,14 +22,11 @@ public final class ActionToolbarContainer: UIView {
     static let reblogImage = Asset.Arrow.repeat.image.withRenderingMode(.alwaysTemplate)
     static let starImage = Asset.ObjectsAndTools.star.image.withRenderingMode(.alwaysTemplate)
     static let starFillImage = Asset.ObjectsAndTools.starFill.image.withRenderingMode(.alwaysTemplate)
-    static let bookmarkImage = Asset.ObjectsAndTools.bookmark.image.withRenderingMode(.alwaysTemplate)
-    static let bookmarkFillImage = Asset.ObjectsAndTools.bookmarkFill.image.withRenderingMode(.alwaysTemplate)
-    static let shareImage = Asset.Communication.share.image.withRenderingMode(.alwaysTemplate)
+    static let shareImage = Asset.Arrow.squareAndArrowUp.image.withRenderingMode(.alwaysTemplate)
         
     public let replyButton     = HighlightDimmableButton()
     public let reblogButton    = HighlightDimmableButton()
     public let favoriteButton  = HighlightDimmableButton()
-    public let bookmarkButton  = HighlightDimmableButton()
     public let shareButton     = HighlightDimmableButton()
     
     public weak var delegate: ActionToolbarContainerDelegate?
@@ -64,7 +61,6 @@ extension ActionToolbarContainer {
         replyButton.addTarget(self, action: #selector(ActionToolbarContainer.buttonDidPressed(_:)), for: .touchUpInside)
         reblogButton.addTarget(self, action: #selector(ActionToolbarContainer.buttonDidPressed(_:)), for: .touchUpInside)
         favoriteButton.addTarget(self, action: #selector(ActionToolbarContainer.buttonDidPressed(_:)), for: .touchUpInside)
-        bookmarkButton.addTarget(self, action: #selector(ActionToolbarContainer.buttonDidPressed(_:)), for: .touchUpInside)
         shareButton.addTarget(self, action: #selector(ActionToolbarContainer.buttonDidPressed(_:)), for: .touchUpInside)
     }
     
@@ -79,7 +75,7 @@ extension ActionToolbarContainer {
             subview.removeFromSuperview()
         }
         
-        let buttons = [replyButton, reblogButton, favoriteButton, bookmarkButton, shareButton]
+        let buttons = [replyButton, reblogButton, favoriteButton, shareButton]
         buttons.forEach { button in
             button.tintColor = Asset.Colors.Button.actionToolbar.color
             button.titleLabel?.font = .monospacedDigitSystemFont(ofSize: 12, weight: .regular)
@@ -94,7 +90,6 @@ extension ActionToolbarContainer {
         replyButton.accessibilityLabel = L10n.Common.Controls.Status.Actions.reply
         reblogButton.accessibilityLabel = L10n.Common.Controls.Status.Actions.reblog    // needs update to follow state
         favoriteButton.accessibilityLabel = L10n.Common.Controls.Status.Actions.favorite    // needs update to follow state
-        bookmarkButton.accessibilityLabel = L10n.Common.Controls.Status.Actions.bookmark    // needs update to follow state
         shareButton.accessibilityLabel = L10n.Common.Controls.Actions.share
         
         switch style {
@@ -105,7 +100,6 @@ extension ActionToolbarContainer {
             replyButton.setImage(ActionToolbarContainer.replyImage, for: .normal)
             reblogButton.setImage(ActionToolbarContainer.reblogImage, for: .normal)
             favoriteButton.setImage(ActionToolbarContainer.starImage, for: .normal)
-            bookmarkButton.setImage(ActionToolbarContainer.bookmarkImage, for: .normal)
             shareButton.setImage(ActionToolbarContainer.shareImage, for: .normal)
             
             container.axis = .horizontal
@@ -114,22 +108,18 @@ extension ActionToolbarContainer {
             replyButton.translatesAutoresizingMaskIntoConstraints = false
             reblogButton.translatesAutoresizingMaskIntoConstraints = false
             favoriteButton.translatesAutoresizingMaskIntoConstraints = false
-            bookmarkButton.translatesAutoresizingMaskIntoConstraints = false
             shareButton.translatesAutoresizingMaskIntoConstraints = false
             container.addArrangedSubview(replyButton)
             container.addArrangedSubview(reblogButton)
             container.addArrangedSubview(favoriteButton)
-            container.addArrangedSubview(bookmarkButton)
             container.addArrangedSubview(shareButton)
             NSLayoutConstraint.activate([
                 replyButton.heightAnchor.constraint(equalToConstant: 36).priority(.defaultHigh),
                 replyButton.heightAnchor.constraint(equalTo: reblogButton.heightAnchor).priority(.defaultHigh),
                 replyButton.heightAnchor.constraint(equalTo: favoriteButton.heightAnchor).priority(.defaultHigh),
-                replyButton.heightAnchor.constraint(equalTo: bookmarkButton.heightAnchor).priority(.defaultHigh),
                 replyButton.heightAnchor.constraint(equalTo: shareButton.heightAnchor).priority(.defaultHigh),
                 replyButton.widthAnchor.constraint(equalTo: reblogButton.widthAnchor).priority(.defaultHigh),
                 replyButton.widthAnchor.constraint(equalTo: favoriteButton.widthAnchor).priority(.defaultHigh),
-                replyButton.widthAnchor.constraint(equalTo: bookmarkButton.widthAnchor).priority(.defaultHigh),
             ])
             shareButton.setContentHuggingPriority(.defaultHigh, for: .horizontal)
             shareButton.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
@@ -141,7 +131,6 @@ extension ActionToolbarContainer {
             replyButton.setImage(ActionToolbarContainer.replyImage, for: .normal)
             reblogButton.setImage(ActionToolbarContainer.reblogImage, for: .normal)
             favoriteButton.setImage(ActionToolbarContainer.starImage, for: .normal)
-            bookmarkButton.setImage(ActionToolbarContainer.bookmarkImage, for: .normal)
             
             container.axis = .horizontal
             container.spacing = 8
@@ -150,7 +139,6 @@ extension ActionToolbarContainer {
             container.addArrangedSubview(replyButton)
             container.addArrangedSubview(reblogButton)
             container.addArrangedSubview(favoriteButton)
-            container.addArrangedSubview(bookmarkButton)
         }
     }
     
@@ -197,11 +185,6 @@ extension ActionToolbarContainer {
         favoriteButton.setTitleColor(tintColor, for: .highlighted)
     }
     
-    private func isBookmarkButtonHighlightStateDidChange(to isHighlight: Bool) {
-        let tintColor = isHighlight ? Asset.Colors.brand.color : Asset.Colors.Button.actionToolbar.color
-        bookmarkButton.tintColor = tintColor
-    }
-    
 }
 
 extension ActionToolbarContainer {
@@ -214,7 +197,6 @@ extension ActionToolbarContainer {
         case replyButton:       _action = .reply
         case reblogButton:      _action = .reblog
         case favoriteButton:    _action = .like
-        case bookmarkButton:    _action = .bookmark
         case shareButton:       _action = .share
         default:                _action = nil
         }
@@ -275,20 +257,6 @@ extension ActionToolbarContainer {
         favoriteButton.accessibilityLabel = L10n.Plural.Count.favorite(count)
     }
     
-    public func configureBookmark(isHighlighted: Bool) {
-        let image = isHighlighted ? ActionToolbarContainer.bookmarkFillImage : ActionToolbarContainer.bookmarkImage
-        bookmarkButton.setImage(image, for: .normal)
-        let tintColor = isHighlighted ? Asset.Colors.brand.color : Asset.Colors.Button.actionToolbar.color
-        bookmarkButton.tintColor = tintColor
-        
-        if isHighlighted {
-            bookmarkButton.accessibilityTraits.insert(.selected)
-        } else {
-            bookmarkButton.accessibilityTraits.remove(.selected)
-        }
-        bookmarkButton.accessibilityLabel = isHighlighted ? L10n.Common.Controls.Status.Actions.unbookmark : L10n.Common.Controls.Status.Actions.bookmark
-    }
-    
 }
 
 extension ActionToolbarContainer {
@@ -300,7 +268,7 @@ extension ActionToolbarContainer {
 
 extension ActionToolbarContainer {
     public override var accessibilityElements: [Any]? {
-        get { [replyButton, reblogButton, favoriteButton, bookmarkButton, shareButton] }
+        get { [replyButton, reblogButton, favoriteButton, shareButton] }
         set { }
     }
 }

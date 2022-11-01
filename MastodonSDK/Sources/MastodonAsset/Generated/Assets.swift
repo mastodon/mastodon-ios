@@ -129,6 +129,22 @@ public enum Asset {
     public static let star = ImageAsset(name: "ObjectsAndTools/star")
   }
   public enum Scene {
+    public enum Compose {
+      public static let earth = ImageAsset(name: "Scene/Compose/Earth")
+      public static let mention = ImageAsset(name: "Scene/Compose/Mention")
+      public static let more = ImageAsset(name: "Scene/Compose/More")
+      public static let people = ImageAsset(name: "Scene/Compose/People")
+      public static let buttonTint = ColorAsset(name: "Scene/Compose/button.tint")
+      public static let chatWarningFill = ImageAsset(name: "Scene/Compose/chat.warning.fill")
+      public static let chatWarning = ImageAsset(name: "Scene/Compose/chat.warning")
+      public static let emojiFill = ImageAsset(name: "Scene/Compose/emoji.fill")
+      public static let emoji = ImageAsset(name: "Scene/Compose/emoji")
+      public static let media = ImageAsset(name: "Scene/Compose/media")
+      public static let peopleAdd = ImageAsset(name: "Scene/Compose/people.add")
+      public static let pollFill = ImageAsset(name: "Scene/Compose/poll.fill")
+      public static let poll = ImageAsset(name: "Scene/Compose/poll")
+      public static let reorderDot = ImageAsset(name: "Scene/Compose/reorder.dot")
+    }
     public enum Discovery {
       public static let profileCardBackground = ColorAsset(name: "Scene/Discovery/profile.card.background")
     }
@@ -194,6 +210,7 @@ public enum Asset {
   }
   public enum Theme {
     public enum Mastodon {
+      public static let composePollRowBackground = ColorAsset(name: "Theme/Mastodon/compose.poll.row.background")
       public static let composeToolbarBackground = ColorAsset(name: "Theme/Mastodon/compose.toolbar.background")
       public static let contentWarningOverlayBackground = ColorAsset(name: "Theme/Mastodon/content.warning.overlay.background")
       public static let navigationBarBackground = ColorAsset(name: "Theme/Mastodon/navigation.bar.background")
@@ -214,6 +231,7 @@ public enum Asset {
       public static let tabBarItemInactiveIconColor = ColorAsset(name: "Theme/Mastodon/tab.bar.item.inactive.icon.color")
     }
     public enum System {
+      public static let composePollRowBackground = ColorAsset(name: "Theme/system/compose.poll.row.background")
       public static let composeToolbarBackground = ColorAsset(name: "Theme/system/compose.toolbar.background")
       public static let contentWarningOverlayBackground = ColorAsset(name: "Theme/system/content.warning.overlay.background")
       public static let navigationBarBackground = ColorAsset(name: "Theme/system/navigation.bar.background")

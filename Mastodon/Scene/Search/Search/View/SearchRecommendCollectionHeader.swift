@@ -8,6 +8,8 @@
 import Foundation
 import UIKit
 import MastodonAsset
+import MastodonCore
+import MastodonUI
 import MastodonLocalization
 
 class SearchRecommendCollectionHeader: UIView {

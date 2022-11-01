@@ -12,6 +12,7 @@ import MastodonSDK
 import MastodonUI
 import MastodonAsset
 import MastodonLocalization
+import MastodonCore
 import MastodonUI
 
 protocol ComposeToolbarViewDelegate: AnyObject {

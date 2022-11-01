@@ -10,6 +10,7 @@ import UIKit
 import Combine
 import MetaTextKit
 import Meta
+import MastodonCore
 import MastodonAsset
 import MastodonLocalization
 
@@ -163,6 +164,8 @@ public final class NotificationView: UIView {
         disposeBag.removeAll()
         
         viewModel.objects.removeAll()
+
+        viewModel.authContext = nil
         viewModel.authorAvatarImageURL = nil
         avatarButton.avatarImageView.cancelTask()
         

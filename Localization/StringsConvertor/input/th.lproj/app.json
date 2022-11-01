@@ -546,10 +546,10 @@
                 "show_mentions": "แสดงการกล่าวถึง"
             },
             "follow_request": {
-                "accept": "Accept",
-                "accepted": "Accepted",
-                "reject": "reject",
-                "rejected": "Rejected"
+                "accept": "ยอมรับ",
+                "accepted": "ยอมรับแล้ว",
+                "reject": "ปฏิเสธ",
+                "rejected": "ปฏิเสธแล้ว"
             }
         },
         "thread": {

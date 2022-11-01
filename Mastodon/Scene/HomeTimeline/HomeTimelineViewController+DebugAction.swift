@@ -13,6 +13,7 @@ import CoreData
 import CoreDataStack
 import FLEX
 import SwiftUI
+import MastodonCore
 import MastodonUI
 import MastodonSDK
 import StoreKit
@@ -80,8 +81,11 @@ extension HomeTimelineViewController {
                 },
                 UIAction(title: "Account Recommend", image: UIImage(systemName: "human"), attributes: []) { [weak self] action in
                     guard let self = self else { return }
-                    let suggestionAccountViewModel = SuggestionAccountViewModel(context: self.context)
-                    self.coordinator.present(
+                    let suggestionAccountViewModel = SuggestionAccountViewModel(
+                        context: self.context,
+                        authContext: self.viewModel.authContext
+                    )
+                    _ = self.coordinator.present(
                         scene: .suggestionAccount(viewModel: suggestionAccountViewModel),
                         from: self,
                         transition: .modal(animated: true, completion: nil)
@@ -149,7 +153,7 @@ extension HomeTimelineViewController {
             children: [
                 UIAction(title: "Badge +1", image: UIImage(systemName: "app.badge.fill"), attributes: []) { [weak self] action in
                     guard let self = self else { return }
-                    guard let accessToken = self.context.authenticationService.activeMastodonAuthentication.value?.userAccessToken else { return }
+                    let accessToken = self.viewModel.authContext.mastodonAuthenticationBox.userAuthorization.accessToken
                     UserDefaults.shared.increaseNotificationCount(accessToken: accessToken)
                     self.context.notificationService.applicationIconBadgeNeedsUpdate.send()
                 },
@@ -332,7 +336,8 @@ extension HomeTimelineViewController {
     }
 
     @objc private func showAccountList(_ sender: UIAction) {
-        coordinator.present(scene: .accountList, from: self, transition: .modal(animated: true, completion: nil))
+        let accountListViewModel = AccountListViewModel(context: context, authContext: viewModel.authContext)
+        coordinator.present(scene: .accountList(viewModel: accountListViewModel), from: self, transition: .modal(animated: true, completion: nil))
     }
     
     @objc private func showProfileAction(_ sender: UIAction) {
@@ -341,7 +346,7 @@ extension HomeTimelineViewController {
         let showAction = UIAlertAction(title: "Show", style: .default) { [weak self, weak alertController] _ in
             guard let self = self else { return }
             guard let textField = alertController?.textFields?.first else { return }
-            let profileViewModel = RemoteProfileViewModel(context: self.context, userID: textField.text ?? "")
+            let profileViewModel = RemoteProfileViewModel(context: self.context, authContext: self.viewModel.authContext, userID: textField.text ?? "")
             self.coordinator.present(scene: .profile(viewModel: profileViewModel), from: self, transition: .show)
         }
         alertController.addAction(showAction)
@@ -356,7 +361,7 @@ extension HomeTimelineViewController {
         let showAction = UIAlertAction(title: "Show", style: .default) { [weak self, weak alertController] _ in
             guard let self = self else { return }
             guard let textField = alertController?.textFields?.first else { return }
-            let threadViewModel = RemoteThreadViewModel(context: self.context, statusID: textField.text ?? "")
+            let threadViewModel = RemoteThreadViewModel(context: self.context, authContext: self.viewModel.authContext, statusID: textField.text ?? "")
             self.coordinator.present(scene: .thread(viewModel: threadViewModel), from: self, transition: .show)
         }
         alertController.addAction(showAction)
@@ -366,8 +371,6 @@ extension HomeTimelineViewController {
     }
     
     private func showNotification(_ sender: UIAction, notificationType: Mastodon.Entity.Notification.NotificationType) {
-        guard let authenticationBox = self.context.authenticationService.activeMastodonAuthenticationBox.value else { return }
-        
         let alertController = UIAlertController(title: "Enter notification ID", message: nil, preferredStyle: .alert)
         alertController.addTextField()
         
@@ -379,7 +382,7 @@ extension HomeTimelineViewController {
             else { return }
             
             let pushNotification = MastodonPushNotification(
-                accessToken: authenticationBox.userAuthorization.accessToken,
+                accessToken: self.viewModel.authContext.mastodonAuthenticationBox.userAuthorization.accessToken,
                 notificationID: notificationID,
                 notificationType: notificationType.rawValue,
                 preferredLocale: nil,
@@ -392,7 +395,7 @@ extension HomeTimelineViewController {
         alertController.addAction(showAction)
         
         // for multiple accounts debug
-        let boxes = self.context.authenticationService.mastodonAuthenticationBoxes.value    // already sorted
+        let boxes = self.context.authenticationService.mastodonAuthenticationBoxes    // already sorted
         if boxes.count >= 2 {
             let accessToken = boxes[1].userAuthorization.accessToken
             let showForSecondaryAction = UIAlertAction(title: "Show for Secondary", style: .default) { [weak self, weak alertController] _ in
@@ -419,12 +422,20 @@ extension HomeTimelineViewController {
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alertController.addAction(cancelAction)
         
-        self.coordinator.present(scene: .alertController(alertController: alertController), from: self, transition: .alertController(animated: true, completion: nil))
+        _ = self.coordinator.present(
+            scene: .alertController(alertController: alertController),
+            from: self,
+            transition: .alertController(animated: true, completion: nil)
+        )
     }
     
     @objc private func showSettings(_ sender: UIAction) {
         guard let currentSetting = context.settingService.currentSetting.value else { return }
-        let settingsViewModel = SettingsViewModel(context: context, setting: currentSetting)
+        let settingsViewModel = SettingsViewModel(
+            context: context,
+            authContext: viewModel.authContext,
+            setting: currentSetting
+        )
         coordinator.present(
             scene: .settings(viewModel: settingsViewModel),
             from: self,

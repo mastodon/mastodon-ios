@@ -14,6 +14,7 @@ import UIKit
 import SwiftUI
 import MastodonUI
 import MastodonAsset
+import MastodonCore
 import MastodonLocalization
 
 final class MastodonRegisterViewController: UIViewController, NeedsDependency, OnboardingViewControllerAppearance {

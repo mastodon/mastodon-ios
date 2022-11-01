@@ -8,19 +8,19 @@
 import UIKit
 import CoreData
 import CoreDataStack
+import MastodonCore
 
 extension DataSourceFacade {
-    static func responseToStatusBookmarkAction(
-        provider: DataSourceProvider,
-        status: ManagedObjectRecord<Status>,
-        authenticationBox: MastodonAuthenticationBox
+    public static func responseToStatusBookmarkAction(
+        provider: UIViewController & NeedsDependency & AuthContextProvider,
+        status: ManagedObjectRecord<Status>
     ) async throws {
         let selectionFeedbackGenerator = await UISelectionFeedbackGenerator()
         await selectionFeedbackGenerator.selectionChanged()
         
         _ = try await provider.context.apiService.bookmark(
             record: status,
-            authenticationBox: authenticationBox
+            authenticationBox: provider.authContext.mastodonAuthenticationBox
         )
     }
 }

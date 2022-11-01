@@ -11,6 +11,8 @@ import AVKit
 import Combine
 import GameplayKit
 import MastodonAsset
+import MastodonCore
+import MastodonUI
 import MastodonLocalization
 
 final class BookmarkViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
@@ -132,6 +134,11 @@ extension BookmarkViewController: UITableViewDelegate, AutoGenerateTableViewDele
 
 // MARK: - StatusTableViewCellDelegate
 extension BookmarkViewController: StatusTableViewCellDelegate { }
+
+// MARK: - AuthContextProvider
+extension BookmarkViewController: AuthContextProvider {
+    var authContext: AuthContext { viewModel.authContext }
+}
 
 extension BookmarkViewController {
     override var keyCommands: [UIKeyCommand]? {

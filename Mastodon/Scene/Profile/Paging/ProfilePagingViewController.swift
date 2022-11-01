@@ -11,6 +11,7 @@ import Combine
 import XLPagerTabStrip
 import TabBarPager
 import MastodonAsset
+import MastodonCore
 import MastodonUI
 
 protocol ProfilePagingViewControllerDelegate: AnyObject {

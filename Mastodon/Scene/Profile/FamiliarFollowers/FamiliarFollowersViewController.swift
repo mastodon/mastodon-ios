@@ -8,6 +8,7 @@
 import os.log
 import UIKit
 import Combine
+import MastodonCore
 import MastodonLocalization
 
 final class FamiliarFollowersViewController: UIViewController, NeedsDependency {
@@ -72,6 +73,13 @@ extension FamiliarFollowersViewController {
         tableView.deselectRow(with: transitionCoordinator, animated: animated)
     }
     
+}
+
+// MARK: - AuthContextProvider
+extension FamiliarFollowersViewController: AuthContextProvider {
+    var authContext: AuthContext {
+        viewModel.authContext
+    }
 }
 
 // MARK: - UITableViewDelegate

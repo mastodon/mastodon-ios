@@ -15,6 +15,8 @@ import CropViewController
 import MastodonMeta
 import MetaTextKit
 import MastodonAsset
+import MastodonCore
+import MastodonUI
 import MastodonLocalization
 import TabBarPager
 
@@ -330,10 +332,11 @@ extension ProfileHeaderViewController: ProfileHeaderViewDelegate {
             else { return }
             let followerListViewModel = FollowerListViewModel(
                 context: context,
+                authContext: viewModel.authContext,
                 domain: domain,
                 userID: userID
             )
-            coordinator.present(
+            _ = coordinator.present(
                 scene: .follower(viewModel: followerListViewModel),
                 from: self,
                 transition: .show
@@ -344,10 +347,11 @@ extension ProfileHeaderViewController: ProfileHeaderViewDelegate {
             else { return }
             let followingListViewModel = FollowingListViewModel(
                 context: context,
+                authContext: viewModel.authContext,
                 domain: domain,
                 userID: userID
             )
-            coordinator.present(
+            _ = coordinator.present(
                 scene: .following(viewModel: followingListViewModel),
                 from: self,
                 transition: .show
