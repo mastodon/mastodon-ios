@@ -8,6 +8,8 @@
 import UIKit
 import Combine
 import MetaTextKit
+import MastodonCore
+import MastodonUI
 
 final class CustomEmojiPickerInputViewModel {
     

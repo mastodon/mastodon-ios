@@ -12,6 +12,7 @@ import Combine
 import CoreData
 import CoreDataStack
 import MastodonSDK
+import MastodonCore
 import MastodonMeta
 
 final class MastodonStatusThreadViewModel {

@@ -11,6 +11,7 @@ import Foundation
 import CoreData
 import CoreDataStack
 import GameplayKit
+import MastodonCore
 
 extension HomeTimelineViewModel {
     class LoadLatestState: GKState {
@@ -62,11 +63,6 @@ extension HomeTimelineViewModel.LoadLatestState {
         override func didEnter(from previousState: GKState?) {
             super.didEnter(from: previousState)
             guard let viewModel = viewModel, let stateMachine = stateMachine else { return }
-            guard let activeMastodonAuthenticationBox = viewModel.context.authenticationService.activeMastodonAuthenticationBox.value else {
-                // sign out when loading will enter here
-                stateMachine.enter(Fail.self)
-                return
-            }
             
             let latestFeedRecords = viewModel.fetchedResultsController.records.prefix(APIService.onceRequestStatusMaxCount)
             let parentManagedObjectContext = viewModel.fetchedResultsController.fetchedResultsController.managedObjectContext
@@ -84,7 +80,7 @@ extension HomeTimelineViewModel.LoadLatestState {
 
                 do {
                     let response = try await viewModel.context.apiService.homeTimeline(
-                        authenticationBox: activeMastodonAuthenticationBox
+                        authenticationBox: viewModel.authContext.mastodonAuthenticationBox
                     )
                     
                     await enter(state: Idle.self)

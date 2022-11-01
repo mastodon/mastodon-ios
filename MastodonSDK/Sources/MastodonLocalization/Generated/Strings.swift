@@ -287,6 +287,8 @@ public enum L10n {
           return L10n.tr("Localizable", "Common.Controls.Status.UserRepliedTo", String(describing: p1))
         }
         public enum Actions {
+          /// Bookmark
+          public static let bookmark = L10n.tr("Localizable", "Common.Controls.Status.Actions.Bookmark")
           /// Favorite
           public static let favorite = L10n.tr("Localizable", "Common.Controls.Status.Actions.Favorite")
           /// Hide
@@ -305,6 +307,8 @@ public enum L10n {
           public static let showVideoPlayer = L10n.tr("Localizable", "Common.Controls.Status.Actions.ShowVideoPlayer")
           /// Tap then hold to show menu
           public static let tapThenHoldToShowMenu = L10n.tr("Localizable", "Common.Controls.Status.Actions.TapThenHoldToShowMenu")
+          /// Unbookmark
+          public static let unbookmark = L10n.tr("Localizable", "Common.Controls.Status.Actions.Unbookmark")
           /// Unfavorite
           public static let unfavorite = L10n.tr("Localizable", "Common.Controls.Status.Actions.Unfavorite")
           /// Undo reblog
@@ -402,6 +406,10 @@ public enum L10n {
       public static func tabBarHint(_ p1: Any) -> String {
         return L10n.tr("Localizable", "Scene.AccountList.TabBarHint", String(describing: p1))
       }
+    }
+    public enum Bookmark {
+      /// Your Bookmarks
+      public static let title = L10n.tr("Localizable", "Scene.Bookmark.Title")
     }
     public enum Compose {
       /// Publish

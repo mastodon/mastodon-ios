@@ -12,6 +12,7 @@ import MetaTextKit
 import MastodonLocalization
 import TabBarPager
 import XLPagerTabStrip
+import MastodonCore
 
 protocol ProfileAboutViewControllerDelegate: AnyObject {
     func profileAboutViewController(_ viewController: ProfileAboutViewController, profileFieldCollectionViewCell: ProfileFieldCollectionViewCell, metaLabel: MetaLabel, didSelectMeta meta: Meta)

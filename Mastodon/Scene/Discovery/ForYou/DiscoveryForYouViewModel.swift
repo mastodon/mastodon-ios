@@ -12,6 +12,7 @@ import GameplayKit
 import CoreData
 import CoreDataStack
 import MastodonSDK
+import MastodonCore
 
 final class DiscoveryForYouViewModel {
     
@@ -19,6 +20,7 @@ final class DiscoveryForYouViewModel {
     
     // input
     let context: AppContext
+    let authContext: AuthContext
     let userFetchedResultsController: UserFetchedResultsController
     
     @MainActor
@@ -29,19 +31,15 @@ final class DiscoveryForYouViewModel {
     var diffableDataSource: UITableViewDiffableDataSource<DiscoverySection, DiscoveryItem>?
     let didLoadLatest = PassthroughSubject<Void, Never>()
     
-    init(context: AppContext) {
+    init(context: AppContext, authContext: AuthContext) {
         self.context = context
+        self.authContext = authContext
         self.userFetchedResultsController = UserFetchedResultsController(
             managedObjectContext: context.managedObjectContext,
-            domain: nil,
+            domain: authContext.mastodonAuthenticationBox.domain,
             additionalPredicate: nil
         )
         // end init
-        
-        context.authenticationService.activeMastodonAuthenticationBox
-            .map { $0?.domain }
-            .assign(to: \.domain, on: userFetchedResultsController)
-            .store(in: &disposeBag)
     }
     
     deinit {
@@ -58,16 +56,12 @@ extension DiscoveryForYouViewModel {
         isFetching = true
         defer { isFetching = false }
         
-        guard let authenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else {
-            throw APIService.APIError.implicit(.badRequest)
-        }
-        
         do {
             let userIDs = try await fetchSuggestionAccounts()
             
             let _familiarFollowersResponse = try? await context.apiService.familiarFollowers(
                 query: .init(ids: userIDs),
-                authenticationBox: authenticationBox
+                authenticationBox: authContext.mastodonAuthenticationBox
             )
             familiarFollowers = _familiarFollowersResponse?.value ?? []
             userFetchedResultsController.userIDs = userIDs
@@ -77,14 +71,10 @@ extension DiscoveryForYouViewModel {
     }
     
     private func fetchSuggestionAccounts() async throws -> [Mastodon.Entity.Account.ID] {
-        guard let authenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else {
-            throw APIService.APIError.implicit(.badRequest)
-        }
-        
         do {
             let response = try await context.apiService.suggestionAccountV2(
                 query: nil,
-                authenticationBox: authenticationBox
+                authenticationBox: authContext.mastodonAuthenticationBox
             )
             let userIDs = response.value.map { $0.account.id }
             return userIDs
@@ -92,7 +82,7 @@ extension DiscoveryForYouViewModel {
             // fallback V1
             let response = try await context.apiService.suggestionAccount(
                 query: nil,
-                authenticationBox: authenticationBox
+                authenticationBox: authContext.mastodonAuthenticationBox
             )
             let userIDs = response.value.map { $0.id }
             return userIDs

@@ -7,6 +7,7 @@
 
 import UIKit
 import MastodonUI
+import MastodonCore
 
 final class ThreadMetaView: UIView {
     

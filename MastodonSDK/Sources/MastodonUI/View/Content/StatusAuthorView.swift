@@ -11,6 +11,7 @@ import Combine
 import Meta
 import MetaTextKit
 import MastodonAsset
+import MastodonCore
 import MastodonLocalization
 
 public class StatusAuthorView: UIStackView {
@@ -147,6 +148,7 @@ extension StatusAuthorView {
         public let isMuting: Bool
         public let isBlocking: Bool
         public let isMyself: Bool
+        public let isBookmarking: Bool
     }
 
     public func setupAuthorMenu(menuContext: AuthorMenuContext) -> (UIMenu, [UIAccessibilityCustomAction]) {
@@ -164,6 +166,10 @@ extension StatusAuthorView {
             .reportUser(
                 .init(name: menuContext.name)
             ),
+            .bookmarkStatus(
+                .init(isBookmarking: menuContext.isBookmarking)
+            ),
+            .shareStatus
         ]
 
         if menuContext.isMyself {

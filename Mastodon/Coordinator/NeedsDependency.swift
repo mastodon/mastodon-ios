@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import MastodonCore
 
 protocol NeedsDependency: AnyObject {
     var context: AppContext! { get set }

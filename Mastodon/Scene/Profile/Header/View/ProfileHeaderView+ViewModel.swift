@@ -11,6 +11,7 @@ import Combine
 import CoreDataStack
 import MetaTextKit
 import MastodonMeta
+import MastodonCore
 import MastodonUI
 import MastodonAsset
 import MastodonLocalization

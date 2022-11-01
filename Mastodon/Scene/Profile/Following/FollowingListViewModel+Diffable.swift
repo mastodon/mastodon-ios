@@ -7,6 +7,7 @@
 
 import UIKit
 import MastodonAsset
+import MastodonCore
 import MastodonLocalization
 
 extension FollowingListViewModel {
@@ -44,23 +45,23 @@ extension FollowingListViewModel {
                 snapshot.appendSections([.main])
                 let items = records.map { UserItem.user(record: $0) }
                 snapshot.appendItems(items, toSection: .main)
-                
+
                 if let currentState = self.stateMachine.currentState {
                     switch currentState {
                     case is State.Idle, is State.Loading, is State.Fail:
                         snapshot.appendItems([.bottomLoader], toSection: .main)
                     case is State.NoMore:
-                        guard let activeMastodonAuthenticationBox = self.context.authenticationService.activeMastodonAuthenticationBox.value,
-                              let userID = self.userID.value,
-                              userID != activeMastodonAuthenticationBox.userID
+                        guard let userID = self.userID,
+                              userID != self.authContext.mastodonAuthenticationBox.userID
                         else { break }
+                        // display footer exclude self
                         let text = L10n.Scene.Following.footer
                         snapshot.appendItems([.bottomHeader(text: text)], toSection: .main)
                     default:
                         break
                     }
                 }
-                
+
                 diffableDataSource.apply(snapshot, animatingDifferences: false)
             }
             .store(in: &disposeBag)

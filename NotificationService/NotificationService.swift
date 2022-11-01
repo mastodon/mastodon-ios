@@ -9,7 +9,7 @@ import UserNotifications
 import CommonOSLog
 import CryptoKit
 import AlamofireImage
-import AppShared
+import MastodonCore
 
 class NotificationService: UNNotificationServiceExtension {
 

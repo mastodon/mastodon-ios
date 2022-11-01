@@ -24,7 +24,7 @@ public final class ActionToolbarContainer: UIView {
     static let reblogImage = Asset.Arrow.repeat.image.withRenderingMode(.alwaysTemplate)
     static let starImage = Asset.ObjectsAndTools.star.image.withRenderingMode(.alwaysTemplate)
     static let starFillImage = Asset.ObjectsAndTools.starFill.image.withRenderingMode(.alwaysTemplate)
-    static let shareImage = Asset.Communication.share.image.withRenderingMode(.alwaysTemplate)
+    static let shareImage = Asset.Arrow.squareAndArrowUp.image.withRenderingMode(.alwaysTemplate)
         
     public let replyButton     = HighlightDimmableButton()
     public let reblogButton    = HighlightDimmableButton()
@@ -157,6 +157,7 @@ extension ActionToolbarContainer {
         case reply
         case reblog
         case like
+        case bookmark
         case share
     }
     

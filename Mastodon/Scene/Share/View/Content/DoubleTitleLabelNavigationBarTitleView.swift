@@ -9,6 +9,8 @@ import UIKit
 import Meta
 import MetaTextKit
 import MastodonAsset
+import MastodonCore
+import MastodonUI
 import MastodonLocalization
 
 final class DoubleTitleLabelNavigationBarTitleView: UIView {

@@ -7,6 +7,7 @@
 
 import os.log
 import UIKit
+import MastodonCore
 import MastodonUI
 import MastodonSDK
 
@@ -22,13 +23,16 @@ extension DiscoverySection {
     static let logger = Logger(subsystem: "DiscoverySection", category: "logic")
     
     class Configuration {
+        let authContext: AuthContext
         weak var profileCardTableViewCellDelegate: ProfileCardTableViewCellDelegate?
         let familiarFollowers: Published<[Mastodon.Entity.FamiliarFollowers]>.Publisher?
         
         public init(
+            authContext: AuthContext,
             profileCardTableViewCellDelegate: ProfileCardTableViewCellDelegate? = nil,
             familiarFollowers: Published<[Mastodon.Entity.FamiliarFollowers]>.Publisher? = nil
         ) {
+            self.authContext = authContext
             self.profileCardTableViewCellDelegate = profileCardTableViewCellDelegate
             self.familiarFollowers = familiarFollowers
         }
@@ -72,11 +76,9 @@ extension DiscoverySection {
                     } else {
                         cell.profileCardView.viewModel.familiarFollowers = nil
                     }
+                    // bind me
+                    cell.profileCardView.viewModel.relationshipViewModel.me = configuration.authContext.mastodonAuthenticationBox.authenticationRecord.object(in: context.managedObjectContext)?.user
                 }
-                context.authenticationService.activeMastodonAuthentication
-                    .map { $0?.user }
-                    .assign(to: \.me, on: cell.profileCardView.viewModel.relationshipViewModel)
-                    .store(in: &cell.disposeBag)
                 return cell
             case .bottomLoader:
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self), for: indexPath) as! TimelineBottomLoaderTableViewCell

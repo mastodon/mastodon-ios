@@ -11,6 +11,7 @@ import CoreData
 import CoreDataStack
 import Combine
 import MastodonSDK
+import MastodonCore
 
 final class AuthenticationViewModel {
     
@@ -121,7 +122,7 @@ extension AuthenticationViewModel {
         init?(
             domain: String,
             application: Mastodon.Entity.Application,
-            redirectURI: String = MastodonAuthenticationController.callbackURL
+            redirectURI: String = APIService.oauthCallbackURL
         ) {
             self.domain = domain
             guard let clientID = application.clientID,

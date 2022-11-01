@@ -13,6 +13,8 @@ import MastodonSDK
 import UIKit
 import os.log
 import MastodonAsset
+import MastodonCore
+import MastodonUI
 import MastodonLocalization
 
 enum ReportSection: Equatable, Hashable {
@@ -22,6 +24,7 @@ enum ReportSection: Equatable, Hashable {
 extension ReportSection {
     
     struct Configuration {
+        let authContext: AuthContext
     }
     
     static func diffableDataSource(
@@ -100,13 +103,11 @@ extension ReportSection {
     ) {
         StatusSection.setupStatusPollDataSource(
             context: context,
+            authContext: configuration.authContext,
             statusView: cell.statusView
         )
         
-        context.authenticationService.activeMastodonAuthenticationBox
-            .map { $0 as UserIdentifier? }
-            .assign(to: \.userIdentifier, on: cell.statusView.viewModel)
-            .store(in: &cell.disposeBag)
+        cell.statusView.viewModel.authContext = configuration.authContext
         
         cell.configure(
             tableView: tableView,

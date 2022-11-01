@@ -44,6 +44,8 @@ extension MastodonMenu {
         case blockUser(BlockUserActionContext)
         case reportUser(ReportUserActionContext)
         case shareUser(ShareUserActionContext)
+        case bookmarkStatus(BookmarkStatusActionContext)
+        case shareStatus
         case deleteStatus
         
         func build(delegate: MastodonMenuDelegate) -> BuiltAction {
@@ -84,6 +86,24 @@ extension MastodonMenu {
                     delegate.menuAction(self)
                 }
                 return shareAction
+            case .bookmarkStatus(let context):
+                let action = BuiltAction(
+                    title: context.isBookmarking ? "Remove Bookmark" : "Bookmark",      // TODO: i18n
+                    image: context.isBookmarking ? UIImage(systemName: "bookmark.slash.fill") : UIImage(systemName: "bookmark")
+                ) { [weak delegate] in
+                    guard let delegate = delegate else { return }
+                    delegate.menuAction(self)
+                }
+                return action
+            case .shareStatus:
+                let action = BuiltAction(
+                    title: "Share",      // TODO: i18n
+                    image: UIImage(systemName: "square.and.arrow.up")
+                ) { [weak delegate] in
+                    guard let delegate = delegate else { return }
+                    delegate.menuAction(self)
+                }
+                return action
             case .deleteStatus:
                 let deleteAction = BuiltAction(
                     title: L10n.Common.Controls.Actions.delete,
@@ -159,6 +179,14 @@ extension MastodonMenu {
         public init(name: String, isBlocking: Bool) {
             self.name = name
             self.isBlocking = isBlocking
+        }
+    }
+    
+    public struct BookmarkStatusActionContext {
+        public let isBookmarking: Bool
+        
+        public init(isBookmarking: Bool) {
+            self.isBookmarking = isBookmarking
         }
     }
     

@@ -13,6 +13,7 @@ import MastodonSDK
 import MastodonAsset
 import MastodonLocalization
 import MastodonExtension
+import MastodonCore
 import CoreData
 import CoreDataStack
 
@@ -23,7 +24,7 @@ extension NotificationView {
 
         let logger = Logger(subsystem: "NotificationView", category: "ViewModel")
         
-        @Published public var userIdentifier: UserIdentifier?       // me
+        @Published public var authContext: AuthContext?
         
         @Published public var notificationIndicatorText: MetaContent?
 
@@ -54,11 +55,11 @@ extension NotificationView.ViewModel {
         bindAuthorMenu(notificationView: notificationView)
         bindFollowRequest(notificationView: notificationView)
         
-        $userIdentifier
-            .assign(to: \.userIdentifier, on: notificationView.statusView.viewModel)
+        $authContext
+            .assign(to: \.authContext, on: notificationView.statusView.viewModel)
             .store(in: &disposeBag)
-        $userIdentifier
-            .assign(to: \.userIdentifier, on: notificationView.quoteStatusView.viewModel)
+        $authContext
+            .assign(to: \.authContext, on: notificationView.quoteStatusView.viewModel)
             .store(in: &disposeBag)
     }
  
@@ -143,7 +144,8 @@ extension NotificationView.ViewModel {
                 name: name,
                 isMuting: isMuting,
                 isBlocking: isBlocking,
-                isMyself: isMyself
+                isMyself: isMyself,
+                isBookmarking: false    // no bookmark action display for notification item
             )
             notificationView.menuButton.menu = notificationView.setupAuthorMenu(menuContext: menuContext)
             notificationView.menuButton.showsMenuAsPrimaryAction = true
@@ -178,16 +180,20 @@ extension NotificationView.ViewModel {
             if state == .isAccepting {
                 notificationView.acceptFollowRequestActivityIndicatorView.startAnimating()
                 notificationView.acceptFollowRequestButton.tintColor = .clear
+                notificationView.acceptFollowRequestButton.setTitleColor(.clear, for: .normal)
             } else {
                 notificationView.acceptFollowRequestActivityIndicatorView.stopAnimating()
                 notificationView.acceptFollowRequestButton.tintColor = .white
+                notificationView.acceptFollowRequestButton.setTitleColor(.white, for: .normal)
             }
             if state == .isRejecting {
                 notificationView.rejectFollowRequestActivityIndicatorView.startAnimating()
                 notificationView.rejectFollowRequestButton.tintColor = .clear
+                notificationView.rejectFollowRequestButton.setTitleColor(.clear, for: .normal)
             } else {
                 notificationView.rejectFollowRequestActivityIndicatorView.stopAnimating()
-                notificationView.rejectFollowRequestButton.tintColor = .white
+                notificationView.rejectFollowRequestButton.tintColor = .black
+                notificationView.rejectFollowRequestButton.setTitleColor(.black, for: .normal)
             }
             
             UIView.animate(withDuration: 0.3) {

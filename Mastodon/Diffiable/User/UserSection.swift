@@ -9,8 +9,10 @@ import os.log
 import UIKit
 import CoreData
 import CoreDataStack
-import MetaTextKit
+import MastodonCore
+import MastodonUI
 import MastodonMeta
+import MetaTextKit
 
 enum UserSection: Hashable {
     case main

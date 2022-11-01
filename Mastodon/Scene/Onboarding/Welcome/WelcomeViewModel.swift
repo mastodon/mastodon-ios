@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import MastodonCore
 
 final class WelcomeViewModel {
  
@@ -16,15 +17,14 @@ final class WelcomeViewModel {
     let context: AppContext
     
     // output
-    let needsShowDismissEntry = CurrentValueSubject<Bool, Never>(false)
+    @Published var needsShowDismissEntry = false
     
     init(context: AppContext) {
         self.context = context
         
-        context.authenticationService.mastodonAuthentications
+        context.authenticationService.$mastodonAuthenticationBoxes
             .map { !$0.isEmpty }
-            .assign(to: \.value, on: needsShowDismissEntry)
-            .store(in: &disposeBag)
+            .assign(to: &$needsShowDismissEntry)
     }
     
 }

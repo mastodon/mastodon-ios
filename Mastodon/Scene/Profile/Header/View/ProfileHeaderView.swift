@@ -11,6 +11,7 @@ import Combine
 import FLAnimatedImage
 import MetaTextKit
 import MastodonAsset
+import MastodonCore
 import MastodonLocalization
 import MastodonUI
 
@@ -37,7 +38,8 @@ final class ProfileHeaderView: UIView {
     
     weak var delegate: ProfileHeaderViewDelegate?
     var disposeBag = Set<AnyCancellable>()
-    
+    private var _disposeBag = Set<AnyCancellable>()
+
     func prepareForReuse() {
         disposeBag.removeAll()
     }
@@ -77,7 +79,7 @@ final class ProfileHeaderView: UIView {
     let followsYouLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 15, weight: .regular)
-        label.text = "Follows You"      // TODO: i18n
+        label.text = L10n.Scene.Profile.Header.followsYou
         return label
     }()
     let followsYouMaskView = UIView()
@@ -237,7 +239,7 @@ extension ProfileHeaderView {
                 guard let self = self else { return }
                 self.backgroundColor = theme.systemBackgroundColor
             }
-            .store(in: &disposeBag)
+            .store(in: &_disposeBag)
         
         // banner
         bannerContainerView.translatesAutoresizingMaskIntoConstraints = false

@@ -8,6 +8,7 @@
 import os
 import UIKit
 import Combine
+import MastodonCore
 import MastodonMeta
 import MastodonLocalization
 

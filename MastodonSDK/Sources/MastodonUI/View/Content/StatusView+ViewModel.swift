@@ -9,13 +9,14 @@ import os.log
 import UIKit
 import Combine
 import CoreData
-import Meta
-import MastodonSDK
-import MastodonAsset
-import MastodonLocalization
-import MastodonExtension
-import MastodonCommon
 import CoreDataStack
+import Meta
+import MastodonAsset
+import MastodonCore
+import MastodonCommon
+import MastodonExtension
+import MastodonLocalization
+import MastodonSDK
 
 extension StatusView {
     public final class ViewModel: ObservableObject {
@@ -25,7 +26,7 @@ extension StatusView {
 
         let logger = Logger(subsystem: "StatusView", category: "ViewModel")
         
-        @Published public var userIdentifier: UserIdentifier?       // me
+        public var authContext: AuthContext?
         
         // Header
         @Published public var header: Header = .none
@@ -84,6 +85,7 @@ extension StatusView {
         @Published public var isReblog: Bool = false
         @Published public var isReblogEnabled: Bool = true
         @Published public var isFavorite: Bool = false
+        @Published public var isBookmark: Bool = false
         
         @Published public var replyCount: Int = 0
         @Published public var reblogCount: Int = 0
@@ -125,6 +127,8 @@ extension StatusView {
         }
         
         public func prepareForReuse() {
+            authContext = nil
+            
             authorAvatarImageURL = nil
             
             isContentSensitive = false
@@ -246,7 +250,7 @@ extension StatusView.ViewModel {
             }
             .store(in: &disposeBag)
         // timestamp
-        let timestampPublisher = Publishers.CombineLatest(
+        Publishers.CombineLatest(
             $timestamp,
             timestampUpdatePublisher.prepend(Date()).eraseToAnyPublisher()
         )
@@ -581,13 +585,24 @@ extension StatusView.ViewModel {
     
     private func bindMenu(statusView: StatusView) {
         let authorView = statusView.authorView
-        Publishers.CombineLatest4(
+        let publisherOne = Publishers.CombineLatest(
             $authorName,
-            $isMuting,
-            $isBlocking,
             $isMyself
         )
-        .sink { authorName, isMuting, isBlocking, isMyself in
+        let publishersTwo = Publishers.CombineLatest3(
+            $isMuting,
+            $isBlocking,
+            $isBookmark
+        )
+        
+        Publishers.CombineLatest(
+            publisherOne.eraseToAnyPublisher(),
+            publishersTwo.eraseToAnyPublisher()
+        ).eraseToAnyPublisher()
+        .sink { tupleOne, tupleTwo in
+            let (authorName, isMyself) = tupleOne
+            let (isMuting, isBlocking, isBookmark) = tupleTwo
+            
             guard let name = authorName?.string else {
                 statusView.authorView.menuButton.menu = nil
                 return
@@ -597,7 +612,8 @@ extension StatusView.ViewModel {
                 name: name,
                 isMuting: isMuting,
                 isBlocking: isBlocking,
-                isMyself: isMyself
+                isMyself: isMyself,
+                isBookmarking: isBookmark
             )
             let (menu, actions) = authorView.setupAuthorMenu(menuContext: menuContext)
             authorView.menuButton.menu = menu

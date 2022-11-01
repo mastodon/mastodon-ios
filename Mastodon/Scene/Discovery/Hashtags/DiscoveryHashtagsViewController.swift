@@ -8,6 +8,7 @@
 import os.log
 import UIKit
 import Combine
+import MastodonCore
 import MastodonUI
 
 final class DiscoveryHashtagsViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
@@ -106,7 +107,7 @@ extension DiscoveryHashtagsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): \(indexPath)")
         guard case let .hashtag(tag) = viewModel.diffableDataSource?.itemIdentifier(for: indexPath) else { return }
-        let hashtagTimelineViewModel = HashtagTimelineViewModel(context: context, hashtag: tag.name)
+        let hashtagTimelineViewModel = HashtagTimelineViewModel(context: context, authContext: viewModel.authContext, hashtag: tag.name)
         coordinator.present(
             scene: .hashtagTimeline(viewModel: hashtagTimelineViewModel),
             from: self,
@@ -216,7 +217,7 @@ extension DiscoveryHashtagsViewController: TableViewControllerNavigateable {
         guard let item = diffableDataSource.itemIdentifier(for: indexPathForSelectedRow) else { return }
         
         guard case let .hashtag(tag) = item else { return }
-        let hashtagTimelineViewModel = HashtagTimelineViewModel(context: context, hashtag: tag.name)
+        let hashtagTimelineViewModel = HashtagTimelineViewModel(context: context, authContext: viewModel.authContext, hashtag: tag.name)
         coordinator.present(
             scene: .hashtagTimeline(viewModel: hashtagTimelineViewModel),
             from: self,

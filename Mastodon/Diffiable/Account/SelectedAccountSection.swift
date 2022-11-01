@@ -5,11 +5,11 @@
 //  Created by sxiaojian on 2021/4/22.
 //
 
+import UIKit
 import CoreData
 import CoreDataStack
-import Foundation
+import MastodonCore
 import MastodonSDK
-import UIKit
 
 enum SelectedAccountSection: Equatable, Hashable {
     case main
