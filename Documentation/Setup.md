@@ -7,7 +7,7 @@
 - iOS 14.0+
 
 
-Intell the latest version of Xcode from the App Store or Apple Developer Download website. Also, we assert you have the [Homebrew](https://brew.sh) package manager.  
+Install the latest version of Xcode from the App Store or Apple Developer Download website. Also, we assert you have the [Homebrew](https://brew.sh) package manager.  
 
 This guide may not suit your machine and actually setup procedure may change in the future. Please file the issue or Pull Request if there are any problems.
 
@@ -59,12 +59,12 @@ bundle exec pod install --repo-update
 open Mastodon.xcworkspace
 ```
 
-The CocoaPods-Key plugin will request the push notification endpoint. You can fufill the empty string and set it later. To setup the push notification. Please check section `Push Notification` below.
+The CocoaPods-Keys plugin will request the push notification endpoint. You can fulfill the empty string and set it later. To setup the push notification. Please check section `Push Notification` below.
 
 The app requires the `App Group` capability. To make sure it works for your developer membership. Please check [AppSecret.swift](../AppShared/AppSecret.swift) file and set another unique `groupID` and update `App Group` settings.
 
 #### Push Notification (Optional)
-The app is compatible with [toot-relay](https://github.com/DagAgren/toot-relay) APNs. You can set your push notification endpoint via Cocoapod-Keys. There are two endpoints:
+The app is compatible with [toot-relay](https://github.com/DagAgren/toot-relay) APNs. You can set your push notification endpoint via CocoaPods-Keys. There are two endpoints:
 - notification_endpoint: for `RELEASE` usage
 - notification_endpoint_debug: for `DEBUG` usage
 
