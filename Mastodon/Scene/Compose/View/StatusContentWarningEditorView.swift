@@ -8,6 +8,7 @@
 import UIKit
 import MastodonUI
 import MastodonAsset
+import MastodonCore
 import MastodonLocalization
 
 final class StatusContentWarningEditorView: UIView {

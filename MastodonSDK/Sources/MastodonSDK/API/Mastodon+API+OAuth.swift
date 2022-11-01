@@ -13,9 +13,13 @@ extension Mastodon.API.OAuth {
     public static let authorizationField = "Authorization"
 
     public struct Authorization {
-        public let accessToken: String
+        public private(set) var accessToken: String
         
         public init(accessToken: String) {
+            self.accessToken = accessToken
+        }
+        
+        public mutating func update(accessToken: String) {
             self.accessToken = accessToken
         }
     }

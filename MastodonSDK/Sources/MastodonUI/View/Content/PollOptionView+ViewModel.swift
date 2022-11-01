@@ -10,6 +10,7 @@ import Combine
 import CoreData
 import MetaTextKit
 import MastodonAsset
+import MastodonCore
 
 extension PollOptionView {
     
@@ -29,7 +30,7 @@ extension PollOptionView {
         
         let layoutDidUpdate = PassthroughSubject<Void, Never>()
 
-        @Published public var userIdentifier: UserIdentifier?
+        @Published public var authContext: AuthContext?
 
         @Published public var style: PollOptionView.Style?
 

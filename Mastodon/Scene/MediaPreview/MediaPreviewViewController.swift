@@ -10,6 +10,8 @@ import UIKit
 import Combine
 import Pageboy
 import MastodonAsset
+import MastodonCore
+import MastodonUI
 import MastodonLocalization
 
 final class MediaPreviewViewController: UIViewController, NeedsDependency {

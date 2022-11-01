@@ -13,6 +13,7 @@ import CoreDataStack
 import GameplayKit
 import TabBarPager
 import XLPagerTabStrip
+import MastodonCore
 
 final class UserTimelineViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
     
@@ -100,6 +101,11 @@ extension UserTimelineViewController: CellFrameCacheContainer {
         let key = NSNumber(value: item.hashValue)
         return key
     }
+}
+
+// MARK: - AuthContextProvider
+extension UserTimelineViewController: AuthContextProvider {
+    var authContext: AuthContext { viewModel.authContext }
 }
 
 // MARK: - UITableViewDelegate

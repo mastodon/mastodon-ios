@@ -11,6 +11,7 @@ import MastodonUI
 import CoreDataStack
 import MastodonLocalization
 import MastodonMeta
+import MastodonCore
 import Meta
 
 extension UserView {

@@ -10,6 +10,8 @@ import UIKit
 import Combine
 import MastodonSDK
 import MastodonAsset
+import MastodonCore
+import MastodonUI
 import MastodonLocalization
 
 protocol ComposeToolbarViewDelegate: AnyObject {

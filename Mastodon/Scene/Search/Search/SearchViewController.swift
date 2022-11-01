@@ -11,6 +11,7 @@ import GameplayKit
 import MastodonSDK
 import UIKit
 import MastodonAsset
+import MastodonCore
 import MastodonLocalization
 
 final class HeightFixedSearchBar: UISearchBar {
@@ -29,7 +30,7 @@ final class SearchViewController: UIViewController, NeedsDependency {
     var searchTransitionController = SearchTransitionController()
     
     var disposeBag = Set<AnyCancellable>()
-    private(set) lazy var viewModel = SearchViewModel(context: context)
+    var viewModel: SearchViewModel!
     
     // use AutoLayout could set search bar margin automatically to
     // layout alongside with split mode button (on iPad)
@@ -49,10 +50,16 @@ final class SearchViewController: UIViewController, NeedsDependency {
     // value is the initial search text to set
     let searchBarTapPublisher = PassthroughSubject<String, Never>()
     
-    private(set) lazy var discoveryViewController: DiscoveryViewController = {
+    private(set) lazy var discoveryViewController: DiscoveryViewController? = {
+        guard let authContext = viewModel.authContext else { return nil }
         let viewController = DiscoveryViewController()
         viewController.context = context
         viewController.coordinator = coordinator
+        viewController.viewModel = .init(
+            context: context,
+            coordinator: coordinator,
+            authContext: authContext
+        )
         return viewController
     }()
     
@@ -92,6 +99,8 @@ extension SearchViewController {
 //        viewModel.setupDiffableDataSource(
 //            collectionView: collectionView
 //        )
+        
+        guard let discoveryViewController = self.discoveryViewController else { return }
         
         addChild(discoveryViewController)
         discoveryViewController.view.translatesAutoresizingMaskIntoConstraints = false
@@ -143,7 +152,8 @@ extension SearchViewController {
             .sink { [weak self] initialText in
                 guard let self = self else { return }
                 // push to search detail
-                let searchDetailViewModel = SearchDetailViewModel(initialSearchText: initialText)
+                guard let authContext = self.viewModel.authContext else { return }
+                let searchDetailViewModel = SearchDetailViewModel(authContext: authContext, initialSearchText: initialText)
                 searchDetailViewModel.needsBecomeFirstResponder = true
                 self.navigationController?.delegate = self.searchTransitionController
                 // FIXME:

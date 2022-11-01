@@ -102,7 +102,7 @@ extension Mastodon.Entity {
 }
 
 extension Mastodon.Entity.Status {
-    public enum Visibility: RawRepresentable, Codable {
+    public enum Visibility: RawRepresentable, Codable, Hashable {
         case `public`
         case unlisted
         case `private`

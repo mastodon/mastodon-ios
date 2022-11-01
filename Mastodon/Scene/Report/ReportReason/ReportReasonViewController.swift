@@ -11,6 +11,7 @@ import SwiftUI
 import Combine
 import MastodonUI
 import MastodonAsset
+import MastodonCore
 import MastodonLocalization
 
 protocol ReportReasonViewControllerDelegate: AnyObject {

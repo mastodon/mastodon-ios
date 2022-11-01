@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import MastodonCore
 
 #if DEBUG
 

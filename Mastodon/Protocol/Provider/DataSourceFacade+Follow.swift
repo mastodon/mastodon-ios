@@ -8,31 +8,30 @@
 import UIKit
 import CoreDataStack
 import class CoreDataStack.Notification
+import MastodonCore
 import MastodonSDK
 import MastodonLocalization
 
 extension DataSourceFacade {
     static func responseToUserFollowAction(
-        dependency: NeedsDependency,
-        user: ManagedObjectRecord<MastodonUser>,
-        authenticationBox: MastodonAuthenticationBox
+        dependency: NeedsDependency & AuthContextProvider,
+        user: ManagedObjectRecord<MastodonUser>
     ) async throws {
         let selectionFeedbackGenerator = await UISelectionFeedbackGenerator()
         await selectionFeedbackGenerator.selectionChanged()
     
         _ = try await dependency.context.apiService.toggleFollow(
             user: user,
-            authenticationBox: authenticationBox
+            authenticationBox: dependency.authContext.mastodonAuthenticationBox
         )
     }   // end func
 }
 
 extension DataSourceFacade {
     static func responseToUserFollowRequestAction(
-        dependency: NeedsDependency,
+        dependency: NeedsDependency & AuthContextProvider,
         notification: ManagedObjectRecord<Notification>,
-        query: Mastodon.API.Account.FollowReqeustQuery,
-        authenticationBox: MastodonAuthenticationBox
+        query: Mastodon.API.Account.FollowReqeustQuery
     ) async throws {
         let selectionFeedbackGenerator = await UISelectionFeedbackGenerator()
         await selectionFeedbackGenerator.selectionChanged()
@@ -71,9 +70,10 @@ extension DataSourceFacade {
             _ = try await dependency.context.apiService.followRequest(
                 userID: userID,
                 query: query,
-                authenticationBox: authenticationBox
+                authenticationBox: dependency.authContext.mastodonAuthenticationBox
             )
         } catch {
+            // reset state when failure
             try? await managedObjectContext.performChanges {
                 guard let notification = notification.object(in: managedObjectContext) else { return }
                 notification.transientFollowRequestState = .init(state: .none)
@@ -111,7 +111,8 @@ extension DataSourceFacade {
             case .accept:
                 notification.transientFollowRequestState = .init(state: .isAccept)
             case .reject:
-                notification.transientFollowRequestState = .init(state: .isReject)
+                // do nothing due to will delete notification
+                break
             }
         }
         
@@ -122,7 +123,11 @@ extension DataSourceFacade {
             case .accept:
                 notification.followRequestState = .init(state: .isAccept)
             case .reject:
-                notification.followRequestState = .init(state: .isReject)
+                // delete notification
+                for feed in notification.feeds {
+                    backgroundManagedObjectContext.delete(feed)
+                }
+                backgroundManagedObjectContext.delete(notification)
             }
         }
     }   // end func

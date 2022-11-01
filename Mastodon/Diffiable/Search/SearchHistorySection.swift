@@ -7,6 +7,7 @@
 
 import UIKit
 import CoreDataStack
+import MastodonCore
 
 enum SearchHistorySection: Hashable {
     case main

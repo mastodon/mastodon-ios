@@ -8,6 +8,7 @@
 import os.log
 import UIKit
 import Combine
+import MastodonCore
 import MastodonUI
 
 final class DiscoveryPostsViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
@@ -125,6 +126,11 @@ extension DiscoveryPostsViewController {
         }
     }
     
+}
+
+// MARK: - AuthContextProvider
+extension DiscoveryPostsViewController: AuthContextProvider {
+    var authContext: AuthContext { viewModel.authContext }
 }
 
 // MARK: - UITableViewDelegate

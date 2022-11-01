@@ -217,7 +217,13 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
         if !isInteractive {
             animator.addAnimations {
                 if let targetFrame = targetFrame {
-                    self.transitionItem.snapshotTransitioning?.frame = targetFrame
+                    switch self.transitionItem.source {
+                    case .profileBanner:
+                        fromView.alpha = 0
+                        self.transitionItem.snapshotTransitioning?.alpha = 0
+                    default:
+                        self.transitionItem.snapshotTransitioning?.frame = targetFrame
+                    }
                 } else {
                     fromView.alpha = 0
                 }
@@ -329,13 +335,10 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
             return
         case .began, .changed:
             let translation = sender.translation(in: transitionContext.containerView)
-            let percent = popInteractiveTransitionAnimator.fractionComplete + progressStep(for: translation)
+            let percent = progressStep(for: translation)
             popInteractiveTransitionAnimator.fractionComplete = percent
             transitionContext.updateInteractiveTransition(percent)
             updateTransitionItemPosition(of: translation)
-            
-            // Reset translation to zero
-            sender.setTranslation(CGPoint.zero, in: transitionContext.containerView)
         case .ended, .cancelled:
             let targetPosition = completionPosition()
             os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: target position: %s", ((#file as NSString).lastPathComponent), #line, #function, targetPosition == .end ? "end" : "start")
@@ -379,9 +382,9 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
         let isFlickDown = isFlick && (velocity.dy > 0.0)
         let isFlickUp = isFlick && (velocity.dy < 0.0)
 
-        if (operation == .push && isFlickUp) || (operation == .pop && isFlickDown) {
+        if (operation == .push && isFlickUp) || (operation == .pop && (isFlickDown || isFlickUp)) {
             return .end
-        } else if (operation == .push && isFlickDown) || (operation == .pop && isFlickUp) {
+        } else if (operation == .push && isFlickDown) {
             return .start
         } else if popInteractiveTransitionAnimator.fractionComplete > completionThreshold {
             return .end
@@ -490,7 +493,8 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
     }
 
     private func progressStep(for translation: CGPoint) -> CGFloat {
-        return (operation == .push ? -1.0 : 1.0) * translation.y / transitionContext.containerView.bounds.midY
+        let progress = abs(translation.y) / (transitionContext.containerView.bounds.height / 2)
+        return progress
     }
 
     private func updateTransitionItemPosition(of translation: CGPoint) {
@@ -500,26 +504,32 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
         guard initialSize != .zero else { return }
         // assert(initialSize != .zero)
 
-        guard let snapshot = transitionItem.snapshotTransitioning,
-        let finalSize = transitionItem.targetFrame?.size else {
+        guard let transitionView = transitionItem.transitionView,
+              let snapshot = transitionItem.snapshotTransitioning,
+              let finalSize = transitionItem.targetFrame?.size
+        else {
             return
         }
 
         if snapshot.frame.size == .zero {
+            assertionFailure("divide 0 error")
             snapshot.frame.size = initialSize
         }
 
-        let currentSize = snapshot.frame.size
+        let size = transitionView.frame.size
+        if size.width == .zero || size.height == .zero {
+            assertionFailure("divide 0 error")
+            transitionView.frame.size = initialSize
+        }
 
-        let itemPercentComplete = clip(-0.05, 1.05, (currentSize.width - initialSize.width) / (finalSize.width - initialSize.width) + progress)
+        let itemPercentComplete = clip(-0.05, 1.05, (size.width - initialSize.width) / (finalSize.width - initialSize.width) + progress)
         let itemWidth = lerp(initialSize.width, finalSize.width, itemPercentComplete)
         let itemHeight = lerp(initialSize.height, finalSize.height, itemPercentComplete)
-        assert(currentSize.width != 0.0)
-        assert(currentSize.height != 0.0)
-        let scaleTransform = CGAffineTransform(scaleX: (itemWidth / currentSize.width), y: (itemHeight / currentSize.height))
+        let scaleTransform = CGAffineTransform(scaleX: (itemWidth / size.width), y: (itemHeight / size.height))
         let scaledOffset = transitionItem.touchOffset.apply(transform: scaleTransform)
 
-        snapshot.center = (snapshot.center + (translation + (transitionItem.touchOffset - scaledOffset))).point
+        let center = transitionView.convert(transitionView.center, to: nil)
+        snapshot.center = (center + (translation + (transitionItem.touchOffset - scaledOffset))).point
         snapshot.bounds = CGRect(origin: CGPoint.zero, size: CGSize(width: itemWidth, height: itemHeight))
         transitionItem.touchOffset = scaledOffset
     }

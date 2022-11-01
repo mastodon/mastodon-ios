@@ -9,6 +9,7 @@ import os.log
 import UIKit
 import Combine
 import CoreDataStack
+import MastodonCore
 import MastodonUI
 
 protocol SidebarViewControllerDelegate: AnyObject {
@@ -190,9 +191,10 @@ extension SidebarViewController: UICollectionViewDelegate {
             case .tab(let tab):
                 delegate?.sidebarViewController(self, didSelectTab: tab)
             case .setting:
+                guard let authContext = viewModel.authContext else { return }
                 guard let setting = context.settingService.currentSetting.value else { return }
-                let settingsViewModel = SettingsViewModel(context: context, setting: setting)
-                coordinator.present(scene: .settings(viewModel: settingsViewModel), from: self, transition: .modal(animated: true, completion: nil))
+                let settingsViewModel = SettingsViewModel(context: context, authContext: authContext, setting: setting)
+                _ = coordinator.present(scene: .settings(viewModel: settingsViewModel), from: self, transition: .modal(animated: true, completion: nil))
             case .compose:
                 assertionFailure()
             }
@@ -200,15 +202,15 @@ extension SidebarViewController: UICollectionViewDelegate {
             guard let diffableDataSource = viewModel.secondaryDiffableDataSource else { return }
             guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
             
-            guard let authenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else { return }
+            guard let authContext = viewModel.authContext else { return }
             switch item {
             case .compose:
                 let composeViewModel = ComposeViewModel(
                     context: context,
-                    composeKind: .post,
-                    authenticationBox: authenticationBox
+                    authContext: authContext,
+                    kind: .post
                 )
-                coordinator.present(scene: .compose(viewModel: composeViewModel), from: self, transition: .modal(animated: true, completion: nil))
+                _ = coordinator.present(scene: .compose(viewModel: composeViewModel), from: self, transition: .modal(animated: true, completion: nil))
             default:
                 assertionFailure()
             }

@@ -10,6 +10,7 @@ import Combine
 import CoreData
 import CoreDataStack
 import Pageboy
+import MastodonCore
 
 final class MediaPreviewViewModel: NSObject {
     
@@ -116,6 +117,19 @@ extension MediaPreviewViewModel {
         case profileAvatar(ProfileAvatarPreviewContext)
         case profileBanner(ProfileBannerPreviewContext)
 //        case local(LocalImagePreviewMeta)
+        
+        var isAssetURLValid: Bool {
+            switch self {
+            case .attachment:
+                return true     // default valid
+            case .profileAvatar:
+                return true     // default valid
+            case .profileBanner(let item):
+                guard let assertURL = item.assetURL else { return false }
+                guard !assertURL.hasSuffix("missing.png") else { return false }
+                return true
+            }
+        }
     }
     
     struct AttachmentPreviewContext {

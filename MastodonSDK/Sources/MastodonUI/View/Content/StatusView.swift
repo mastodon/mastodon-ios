@@ -11,6 +11,7 @@ import Combine
 import MetaTextKit
 import Meta
 import MastodonAsset
+import MastodonCore
 import MastodonLocalization
 
 public protocol StatusViewDelegate: AnyObject {
@@ -704,6 +705,7 @@ extension StatusView {
         public let isMuting: Bool
         public let isBlocking: Bool
         public let isMyself: Bool
+        public let isBookmarking: Bool
     }
     
     public func setupAuthorMenu(menuContext: AuthorMenuContext) -> UIMenu {
@@ -721,6 +723,10 @@ extension StatusView {
             .reportUser(
                 .init(name: menuContext.name)
             ),
+            .bookmarkStatus(
+                .init(isBookmarking: menuContext.isBookmarking)
+            ),
+            .shareStatus
         ]
         
         if menuContext.isMyself {

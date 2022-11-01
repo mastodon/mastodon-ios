@@ -7,6 +7,7 @@
 
 import os.log
 import UIKit
+import MastodonCore
 
 extension TableViewControllerNavigateableCore where Self: TableViewControllerNavigateableRelay {
     var navigationKeyCommands: [UIKeyCommand] {
@@ -124,7 +125,7 @@ extension TableViewControllerNavigateableCore {
     
 }
 
-extension TableViewControllerNavigateableCore where Self: DataSourceProvider {
+extension TableViewControllerNavigateableCore where Self: DataSourceProvider & AuthContextProvider {
     func open() {
         guard let indexPathForSelectedRow = tableView.indexPathForSelectedRow else { return }
         let source = DataSourceItem.Source(indexPath: indexPathForSelectedRow)

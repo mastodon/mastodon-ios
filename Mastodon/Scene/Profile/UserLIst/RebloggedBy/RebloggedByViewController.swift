@@ -9,6 +9,7 @@ import os.log
 import UIKit
 import GameplayKit
 import Combine
+import MastodonCore
 import MastodonLocalization
 
 final class RebloggedByViewController: UIViewController, NeedsDependency {
@@ -90,6 +91,11 @@ extension RebloggedByViewController {
         tableView.deselectRow(with: transitionCoordinator, animated: animated)
     }
     
+}
+
+// MARK: - AuthContextProvider
+extension RebloggedByViewController: AuthContextProvider {
+    var authContext: AuthContext { viewModel.authContext }
 }
 
 // MARK: - UITableViewDelegate
