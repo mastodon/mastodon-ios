@@ -261,7 +261,7 @@
                     "duplicate_prompt": "Tên người dùng đã tồn tại."
                 },
                 "display_name": {
-                    "placeholder": "tên hiển thị"
+                    "placeholder": "biệt danh"
                 },
                 "email": {
                     "placeholder": "email"
@@ -491,7 +491,7 @@
             "recommend": {
                 "button_text": "Xem tất cả",
                 "hash_tag": {
-                    "title": "Xu hướng trên Mastodon",
+                    "title": "Nổi bật trên Mastodon",
                     "description": "Những hashtag đang được sử dụng nhiều nhất",
                     "people_talking": "%s người đang thảo luận"
                 },
