@@ -8,10 +8,11 @@
 import Foundation
 import CoreData
 import CoreDataStack
+import MastodonCore
 
 extension DataSourceFacade {
     static func coordinateToStatusThreadScene(
-        provider: DataSourceProvider,
+        provider: DataSourceProvider & AuthContextProvider,
         target: StatusTarget,
         status: ManagedObjectRecord<Status>
     ) async {
@@ -39,14 +40,15 @@ extension DataSourceFacade {
     
     @MainActor
     static func coordinateToStatusThreadScene(
-        provider: DataSourceProvider,
+        provider: DataSourceProvider & AuthContextProvider,
         root: StatusItem.Thread
     ) async {
         let threadViewModel = ThreadViewModel(
             context: provider.context,
+            authContext: provider.authContext,
             optionalRoot: root
         )
-        provider.coordinator.present(
+        _ = provider.coordinator.present(
             scene: .thread(viewModel: threadViewModel),
             from: provider,
             transition: .show

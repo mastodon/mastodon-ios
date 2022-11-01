@@ -8,6 +8,7 @@
 import UIKit
 import Combine
 import CoreDataStack
+import MastodonCore
 import MastodonSDK
 
 class ReportSupplementaryViewModel {
@@ -15,7 +16,8 @@ class ReportSupplementaryViewModel {
     weak var delegate: ReportSupplementaryViewControllerDelegate?
 
     // Input
-    var context: AppContext
+    let context: AppContext
+    let authContext: AuthContext
     let user: ManagedObjectRecord<MastodonUser>
     let commentContext = ReportItem.CommentContext()
     
@@ -28,9 +30,11 @@ class ReportSupplementaryViewModel {
     
     init(
         context: AppContext,
+        authContext: AuthContext,
         user: ManagedObjectRecord<MastodonUser>
     ) {
         self.context = context
+        self.authContext = authContext
         self.user = user
         // end init
         

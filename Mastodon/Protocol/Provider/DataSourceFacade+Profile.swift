@@ -7,11 +7,12 @@
 
 import UIKit
 import CoreDataStack
+import MastodonCore
 
 extension DataSourceFacade {
     
     static func coordinateToProfileScene(
-        provider: DataSourceProvider,
+        provider: DataSourceProvider & AuthContextProvider,
         target: StatusTarget,
         status: ManagedObjectRecord<Status>
     ) async {
@@ -32,7 +33,7 @@ extension DataSourceFacade {
     
     @MainActor
     static func coordinateToProfileScene(
-        provider: DataSourceProvider,
+        provider: DataSourceProvider & AuthContextProvider,
         user: ManagedObjectRecord<MastodonUser>
     ) async {
         guard let user = user.object(in: provider.context.managedObjectContext) else {
@@ -42,6 +43,7 @@ extension DataSourceFacade {
         
         let profileViewModel = CachedProfileViewModel(
             context: provider.context,
+            authContext: provider.authContext,
             mastodonUser: user
         )
         
@@ -57,13 +59,12 @@ extension DataSourceFacade {
 extension DataSourceFacade {
 
     static func coordinateToProfileScene(
-        provider: DataSourceProvider,
+        provider: DataSourceProvider & AuthContextProvider,
         status: ManagedObjectRecord<Status>,
         mention: String,        // username,
         userInfo: [AnyHashable: Any]?
     ) async {
-        guard let authenticationBox = provider.context.authenticationService.activeMastodonAuthenticationBox.value else { return }
-        let domain = authenticationBox.domain
+        let domain = provider.authContext.mastodonAuthenticationBox.domain
         
         let href = userInfo?["href"] as? String
         guard let url = href.flatMap({ URL(string: $0) }) else { return }
@@ -85,8 +86,8 @@ extension DataSourceFacade {
         let userID = mention.id
         let profileViewModel: ProfileViewModel = {
             // check if self
-            guard userID != authenticationBox.userID else {
-                return MeProfileViewModel(context: provider.context)
+            guard userID != provider.authContext.mastodonAuthenticationBox.userID else {
+                return MeProfileViewModel(context: provider.context, authContext: provider.authContext)
             }
 
             let request = MastodonUser.sortedFetchRequest
@@ -95,9 +96,9 @@ extension DataSourceFacade {
             let _user = provider.context.managedObjectContext.safeFetch(request).first
 
             if let user = _user {
-                return CachedProfileViewModel(context: provider.context, mastodonUser: user)
+                return CachedProfileViewModel(context: provider.context, authContext: provider.authContext, mastodonUser: user)
             } else {
-                return RemoteProfileViewModel(context: provider.context, userID: userID)
+                return RemoteProfileViewModel(context: provider.context, authContext: provider.authContext, userID: userID)
             }
         }()
         

@@ -9,6 +9,8 @@ import UIKit
 import Combine
 import CoreData
 import CoreDataStack
+import MastodonCore
+import MastodonUI
 import MastodonSDK
 
 extension ThreadViewModel {
@@ -22,6 +24,7 @@ extension ThreadViewModel {
             tableView: tableView,
             context: context,
             configuration: StatusSection.Configuration(
+                authContext: authContext,
                 statusTableViewCellDelegate: statusTableViewCellDelegate,
                 timelineMiddleLoaderTableViewCellDelegate: nil,
                 filterContext: .thread,

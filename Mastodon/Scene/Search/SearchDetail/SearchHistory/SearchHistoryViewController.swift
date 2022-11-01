@@ -9,6 +9,7 @@ import os.log
 import UIKit
 import Combine
 import CoreDataStack
+import MastodonCore
 
 final class SearchHistoryViewController: UIViewController, NeedsDependency {
     
@@ -106,6 +107,11 @@ extension SearchHistoryViewController: UICollectionViewDelegate {
         }
     }
 
+}
+
+// MARK: - AuthContextProvider
+extension SearchHistoryViewController: AuthContextProvider {
+    var authContext: AuthContext { viewModel.authContext }
 }
 
 // MARK: - SearchHistorySectionHeaderCollectionReusableViewDelegate

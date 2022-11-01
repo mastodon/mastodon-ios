@@ -8,6 +8,7 @@
 import os.log
 import UIKit
 import Combine
+import MastodonCore
 import MastodonUI
 
 // Local Timeline
@@ -113,6 +114,11 @@ extension DiscoveryCommunityViewController {
         }
     }
     
+}
+
+// MARK: - AuthContextProvider
+extension DiscoveryCommunityViewController: AuthContextProvider {
+    var authContext: AuthContext { viewModel.authContext }
 }
 
 // MARK: - UITableViewDelegate

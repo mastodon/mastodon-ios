@@ -8,31 +8,30 @@
 import UIKit
 import CoreDataStack
 import class CoreDataStack.Notification
+import MastodonCore
 import MastodonSDK
 import MastodonLocalization
 
 extension DataSourceFacade {
     static func responseToUserFollowAction(
-        dependency: NeedsDependency,
-        user: ManagedObjectRecord<MastodonUser>,
-        authenticationBox: MastodonAuthenticationBox
+        dependency: NeedsDependency & AuthContextProvider,
+        user: ManagedObjectRecord<MastodonUser>
     ) async throws {
         let selectionFeedbackGenerator = await UISelectionFeedbackGenerator()
         await selectionFeedbackGenerator.selectionChanged()
     
         _ = try await dependency.context.apiService.toggleFollow(
             user: user,
-            authenticationBox: authenticationBox
+            authenticationBox: dependency.authContext.mastodonAuthenticationBox
         )
     }   // end func
 }
 
 extension DataSourceFacade {
     static func responseToUserFollowRequestAction(
-        dependency: NeedsDependency,
+        dependency: NeedsDependency & AuthContextProvider,
         notification: ManagedObjectRecord<Notification>,
-        query: Mastodon.API.Account.FollowReqeustQuery,
-        authenticationBox: MastodonAuthenticationBox
+        query: Mastodon.API.Account.FollowReqeustQuery
     ) async throws {
         let selectionFeedbackGenerator = await UISelectionFeedbackGenerator()
         await selectionFeedbackGenerator.selectionChanged()
@@ -71,7 +70,7 @@ extension DataSourceFacade {
             _ = try await dependency.context.apiService.followRequest(
                 userID: userID,
                 query: query,
-                authenticationBox: authenticationBox
+                authenticationBox: dependency.authContext.mastodonAuthenticationBox
             )
         } catch {
             // reset state when failure

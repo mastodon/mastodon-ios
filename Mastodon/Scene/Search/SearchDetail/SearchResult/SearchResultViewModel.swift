@@ -12,6 +12,7 @@ import CoreDataStack
 import GameplayKit
 import CommonOSLog
 import MastodonSDK
+import MastodonCore
 
 final class SearchResultViewModel {
 
@@ -19,6 +20,7 @@ final class SearchResultViewModel {
 
     // input
     let context: AppContext
+    let authContext: AuthContext
     let searchScope: SearchDetailViewModel.SearchScope
     let searchText = CurrentValueSubject<String, Never>("")
     @Published var hashtags: [Mastodon.Entity.Tag] = []
@@ -47,29 +49,20 @@ final class SearchResultViewModel {
     }()
     let didDataSourceUpdate = PassthroughSubject<Void, Never>()
 
-    init(context: AppContext, searchScope: SearchDetailViewModel.SearchScope) {
+    init(context: AppContext, authContext: AuthContext, searchScope: SearchDetailViewModel.SearchScope) {
         self.context = context
+        self.authContext = authContext
         self.searchScope = searchScope
         self.userFetchedResultsController = UserFetchedResultsController(
             managedObjectContext: context.managedObjectContext,
-            domain: nil,
+            domain: authContext.mastodonAuthenticationBox.domain,
             additionalPredicate: nil
         )
         self.statusFetchedResultsController = StatusFetchedResultsController(
             managedObjectContext: context.managedObjectContext,
-            domain: nil,
+            domain: authContext.mastodonAuthenticationBox.domain,
             additionalTweetPredicate: nil
         )
-
-        context.authenticationService.activeMastodonAuthenticationBox
-            .map { $0?.domain }
-            .assign(to: \.domain, on: userFetchedResultsController)
-            .store(in: &disposeBag)
-        
-        context.authenticationService.activeMastodonAuthenticationBox
-            .map { $0?.domain }
-            .assign(to: \.value, on: statusFetchedResultsController.domain)
-            .store(in: &disposeBag)
 
 //        Publishers.CombineLatest(
 //            items,

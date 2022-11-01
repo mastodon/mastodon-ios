@@ -10,6 +10,8 @@ import SwiftUI
 import MastodonSDK
 import MastodonUI
 import MastodonAsset
+import MastodonCore
+import MastodonUI
 import MastodonLocalization
 import CoreDataStack
 
@@ -154,65 +156,69 @@ struct ReportActionButton: View {
 
 }
 
-#if DEBUG
-struct ReportResultView_Previews: PreviewProvider {
-    
-    static func viewModel(isReported: Bool) -> ReportResultViewModel {
-        let context = AppContext.shared
-        let request = MastodonUser.sortedFetchRequest
-        request.fetchLimit = 1
-        
-        let property = MastodonUser.Property(
-            identifier: "1",
-            domain: "domain.com",
-            id: "1",
-            acct: "@user@domain.com",
-            username: "user",
-            displayName: "User",
-            avatar: "",
-            avatarStatic: "",
-            header: "",
-            headerStatic: "",
-            note: "",
-            url: "",
-            statusesCount: Int64(100),
-            followingCount: Int64(100),
-            followersCount: Int64(100),
-            locked: false,
-            bot: false,
-            suspended: false,
-            createdAt: Date(),
-            updatedAt: Date(),
-            emojis: [],
-            fields: []
-        )
-        let user = try! context.managedObjectContext.fetch(request).first ?? MastodonUser.insert(into: context.managedObjectContext, property: property)
-        
-        return ReportResultViewModel(
-            context: context,
-            user: .init(objectID: user.objectID),
-            isReported: isReported
-        )
-    }
-    static var previews: some View {
-        Group {
-            NavigationView {
-                ReportResultView(viewModel: viewModel(isReported: true))
-                    .navigationBarTitle(Text(""))
-                    .navigationBarTitleDisplayMode(.inline)
-            }
-            NavigationView {
-                ReportResultView(viewModel: viewModel(isReported: false))
-                    .navigationBarTitle(Text(""))
-                    .navigationBarTitleDisplayMode(.inline)
-            }
-            NavigationView {
-                ReportResultView(viewModel: viewModel(isReported: true))
-                    .navigationBarTitle(Text(""))
-                    .navigationBarTitleDisplayMode(.inline)
-            }
-            .preferredColorScheme(.dark)
-        }
-    }
-}
-#endif
+//#if DEBUG
+//
+//struct ReportResultView_Previews: PreviewProvider {
+//
+//    static func viewModel(isReported: Bool) -> ReportResultViewModel {
+//        let context = AppContext.shared
+//        let request = MastodonUser.sortedFetchRequest
+//        request.fetchLimit = 1
+//
+//        let property = MastodonUser.Property(
+//            identifier: "1",
+//            domain: "domain.com",
+//            id: "1",
+//            acct: "@user@domain.com",
+//            username: "user",
+//            displayName: "User",
+//            avatar: "",
+//            avatarStatic: "",
+//            header: "",
+//            headerStatic: "",
+//            note: "",
+//            url: "",
+//            statusesCount: Int64(100),
+//            followingCount: Int64(100),
+//            followersCount: Int64(100),
+//            locked: false,
+//            bot: false,
+//            suspended: false,
+//            createdAt: Date(),
+//            updatedAt: Date(),
+//            emojis: [],
+//            fields: []
+//        )
+//        let user = try! context.managedObjectContext.fetch(request).first ?? MastodonUser.insert(into: context.managedObjectContext, property: property)
+//
+//        return ReportResultViewModel(
+//            context: context,
+//            authContext: nil,
+//            user: .init(objectID: user.objectID),
+//            isReported: isReported
+//        )
+//    }
+//    static var previews: some View {
+//        Group {
+//            NavigationView {
+//                ReportResultView(viewModel: viewModel(isReported: true))
+//                    .navigationBarTitle(Text(""))
+//                    .navigationBarTitleDisplayMode(.inline)
+//            }
+//            NavigationView {
+//                ReportResultView(viewModel: viewModel(isReported: false))
+//                    .navigationBarTitle(Text(""))
+//                    .navigationBarTitleDisplayMode(.inline)
+//            }
+//            NavigationView {
+//                ReportResultView(viewModel: viewModel(isReported: true))
+//                    .navigationBarTitle(Text(""))
+//                    .navigationBarTitleDisplayMode(.inline)
+//            }
+//            .preferredColorScheme(.dark)
+//        }
+//    }
+//    
+//}
+//
+//#endif

@@ -9,6 +9,7 @@ import os.log
 import UIKit
 import CoreData
 import CoreDataStack
+import MastodonUI
 
 extension HomeTimelineViewModel {
     
@@ -21,6 +22,7 @@ extension HomeTimelineViewModel {
             tableView: tableView,
             context: context,
             configuration: StatusSection.Configuration(
+                authContext: authContext,
                 statusTableViewCellDelegate: statusTableViewCellDelegate,
                 timelineMiddleLoaderTableViewCellDelegate: timelineMiddleLoaderTableViewCellDelegate,
                 filterContext: .home,

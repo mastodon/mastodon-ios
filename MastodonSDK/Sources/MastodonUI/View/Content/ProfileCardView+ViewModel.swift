@@ -14,6 +14,7 @@ import CoreDataStack
 import MastodonLocalization
 import MastodonAsset
 import MastodonSDK
+import MastodonCore
 
 extension ProfileCardView {
     public class ViewModel: ObservableObject {

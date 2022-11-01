@@ -9,6 +9,7 @@ import Foundation
 import CoreData
 import CoreDataStack
 import Intents
+import MastodonCore
 
 extension Account {
 

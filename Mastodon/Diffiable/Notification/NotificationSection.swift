@@ -14,6 +14,8 @@ import UIKit
 import MetaTextKit
 import MastodonMeta
 import MastodonAsset
+import MastodonCore
+import MastodonUI
 import MastodonLocalization
 
 enum NotificationSection: Equatable, Hashable {
@@ -23,6 +25,7 @@ enum NotificationSection: Equatable, Hashable {
 extension NotificationSection {
     
     struct Configuration {
+        let authContext: AuthContext
         weak var notificationTableViewCellDelegate: NotificationTableViewCellDelegate?
         let filterContext: Mastodon.Entity.Filter.Context?
         let activeFilters: Published<[Mastodon.Entity.Filter]>.Publisher?
@@ -73,20 +76,19 @@ extension NotificationSection {
         viewModel: NotificationTableViewCell.ViewModel,
         configuration: Configuration
     ) {
+        cell.notificationView.viewModel.authContext = configuration.authContext
+        
         StatusSection.setupStatusPollDataSource(
             context: context,
+            authContext: configuration.authContext,
             statusView: cell.notificationView.statusView
         )
         
         StatusSection.setupStatusPollDataSource(
             context: context,
+            authContext: configuration.authContext,
             statusView: cell.notificationView.quoteStatusView
         )
-        
-        context.authenticationService.activeMastodonAuthenticationBox
-            .map { $0 as UserIdentifier? }
-            .assign(to: \.userIdentifier, on: cell.notificationView.viewModel)
-            .store(in: &cell.disposeBag)
         
         cell.configure(
             tableView: tableView,

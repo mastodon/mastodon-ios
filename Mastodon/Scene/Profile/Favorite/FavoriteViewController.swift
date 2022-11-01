@@ -14,6 +14,8 @@ import AVKit
 import Combine
 import GameplayKit
 import MastodonAsset
+import MastodonCore
+import MastodonUI
 import MastodonLocalization
 
 final class FavoriteViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
@@ -101,6 +103,11 @@ extension FavoriteViewController {
 //        aspectViewDidDisappear(animated)
     }
     
+}
+
+// MARK: - AuthContextProvider
+extension FavoriteViewController: AuthContextProvider {
+    var authContext: AuthContext { viewModel.authContext }
 }
 
 // MARK: - UITableViewDelegate

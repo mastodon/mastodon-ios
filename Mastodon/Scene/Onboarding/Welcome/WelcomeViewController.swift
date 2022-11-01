@@ -9,6 +9,7 @@ import os.log
 import UIKit
 import Combine
 import MastodonAsset
+import MastodonCore
 import MastodonLocalization
 
 final class WelcomeViewController: UIViewController, NeedsDependency {
@@ -143,7 +144,7 @@ extension WelcomeViewController {
         signUpButton.addTarget(self, action: #selector(signUpButtonDidClicked(_:)), for: .touchUpInside)
         signInButton.addTarget(self, action: #selector(signInButtonDidClicked(_:)), for: .touchUpInside)
         
-        viewModel.needsShowDismissEntry
+        viewModel.$needsShowDismissEntry
             .receive(on: DispatchQueue.main)
             .sink { [weak self] needsShowDismissEntry in
                 guard let self = self else { return }

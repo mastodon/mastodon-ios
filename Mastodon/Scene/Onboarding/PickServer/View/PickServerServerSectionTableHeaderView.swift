@@ -9,6 +9,7 @@ import os.log
 import UIKit
 import Tabman
 import MastodonAsset
+import MastodonUI
 import MastodonLocalization
 
 protocol PickServerServerSectionTableHeaderViewDelegate: AnyObject {

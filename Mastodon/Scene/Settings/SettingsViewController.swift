@@ -10,11 +10,13 @@ import UIKit
 import Combine
 import CoreData
 import CoreDataStack
-import MastodonSDK
-import MetaTextKit
-import MastodonMeta
 import AuthenticationServices
+import MetaTextKit
+import MastodonSDK
+import MastodonMeta
 import MastodonAsset
+import MastodonCore
+import MastodonUI
 import MastodonLocalization
 
 class SettingsViewController: UIViewController, NeedsDependency {
@@ -279,7 +281,7 @@ extension SettingsViewController {
         }
         alertController.addAction(cancelAction)
         alertController.addAction(signOutAction)
-        self.coordinator.present(
+        _ = self.coordinator.present(
             scene: .alertController(alertController: alertController),
             from: self,
             transition: .alertController(animated: true, completion: nil)
@@ -287,17 +289,14 @@ extension SettingsViewController {
     }
     
     func signOut() {
-        guard let authenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else {
-            return
-        }
-        
         // clear badge before sign-out
         context.notificationService.clearNotificationCountForActiveUser()
         
         Task { @MainActor in
-            try await context.authenticationService.signOutMastodonUser(authenticationBox: authenticationBox)
+            try await context.authenticationService.signOutMastodonUser(
+                authenticationBox: viewModel.authContext.mastodonAuthenticationBox
+            )
             self.coordinator.setup()
-            self.coordinator.setupOnboardingIfNeeds(animated: true)
         }
     }
     
@@ -371,12 +370,12 @@ extension SettingsViewController: UITableViewDelegate {
             feedbackGenerator.impactOccurred()
             switch link {
             case .accountSettings:
-                guard let box = context.authenticationService.activeMastodonAuthenticationBox.value,
-                      let url = URL(string: "https://\(box.domain)/auth/edit") else { return }
+                let domain = viewModel.authContext.mastodonAuthenticationBox.domain
+                guard let url = URL(string: "https://\(domain)/auth/edit") else { return }
                 viewModel.openAuthenticationPage(authenticateURL: url, presentationContextProvider: self)
             case .github:
                 guard let url = URL(string: "https://github.com/mastodon/mastodon-ios") else { break }
-                coordinator.present(
+                _ = coordinator.present(
                     scene: .safari(url: url),
                     from: self,
                     transition: .safariPresent(animated: true, completion: nil)
@@ -384,7 +383,7 @@ extension SettingsViewController: UITableViewDelegate {
             case .termsOfService, .privacyPolicy:
                 // same URL
                 guard let url = viewModel.privacyURL else { break }
-                coordinator.present(
+                _ = coordinator.present(
                     scene: .safari(url: url),
                     from: self,
                     transition: .safariPresent(animated: true, completion: nil)

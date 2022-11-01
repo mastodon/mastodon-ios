@@ -9,6 +9,8 @@ import os.log
 import UIKit
 import MetaTextKit
 import FLAnimatedImage
+import MastodonCore
+import MastodonUI
 
 final class SidebarListContentView: UIView, UIContentView {
     

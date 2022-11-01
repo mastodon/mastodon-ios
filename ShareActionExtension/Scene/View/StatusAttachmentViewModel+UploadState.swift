@@ -10,6 +10,7 @@ import Foundation
 import Combine
 import GameplayKit
 import MastodonSDK
+import MastodonCore
 
 extension StatusAttachmentViewModel {
     class UploadState: GKState {
@@ -75,7 +76,7 @@ extension StatusAttachmentViewModel.UploadState {
             )
 
             // and needs clone the `query` if needs retry
-            APIService.shared.uploadMedia(
+            viewModel.api.uploadMedia(
                 domain: mastodonAuthenticationBox.domain,
                 query: query,
                 mastodonAuthenticationBox: mastodonAuthenticationBox,

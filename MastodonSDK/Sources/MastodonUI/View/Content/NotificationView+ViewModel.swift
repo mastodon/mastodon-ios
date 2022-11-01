@@ -13,6 +13,7 @@ import MastodonSDK
 import MastodonAsset
 import MastodonLocalization
 import MastodonExtension
+import MastodonCore
 import CoreData
 import CoreDataStack
 
@@ -23,7 +24,7 @@ extension NotificationView {
 
         let logger = Logger(subsystem: "NotificationView", category: "ViewModel")
         
-        @Published public var userIdentifier: UserIdentifier?       // me
+        @Published public var authContext: AuthContext?
         
         @Published public var notificationIndicatorText: MetaContent?
 
@@ -54,11 +55,11 @@ extension NotificationView.ViewModel {
         bindAuthorMenu(notificationView: notificationView)
         bindFollowRequest(notificationView: notificationView)
         
-        $userIdentifier
-            .assign(to: \.userIdentifier, on: notificationView.statusView.viewModel)
+        $authContext
+            .assign(to: \.authContext, on: notificationView.statusView.viewModel)
             .store(in: &disposeBag)
-        $userIdentifier
-            .assign(to: \.userIdentifier, on: notificationView.quoteStatusView.viewModel)
+        $authContext
+            .assign(to: \.authContext, on: notificationView.quoteStatusView.viewModel)
             .store(in: &disposeBag)
     }
  
@@ -143,7 +144,8 @@ extension NotificationView.ViewModel {
                 name: name,
                 isMuting: isMuting,
                 isBlocking: isBlocking,
-                isMyself: isMyself
+                isMyself: isMyself,
+                isBookmarking: false    // no bookmark action display for notification item
             )
             notificationView.menuButton.menu = notificationView.setupAuthorMenu(menuContext: menuContext)
             notificationView.menuButton.showsMenuAsPrimaryAction = true

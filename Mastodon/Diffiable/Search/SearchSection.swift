@@ -7,6 +7,7 @@
 
 import UIKit
 import MastodonSDK
+import MastodonCore
 import MastodonLocalization
 
 enum SearchSection: Hashable {

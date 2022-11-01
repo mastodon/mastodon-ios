@@ -10,6 +10,7 @@ import Combine
 import os.log
 import UIKit
 import WebKit
+import MastodonCore
 
 final class WebViewController: UIViewController, NeedsDependency {
     

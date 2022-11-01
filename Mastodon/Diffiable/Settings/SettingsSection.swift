@@ -9,6 +9,7 @@ import UIKit
 import CoreData
 import CoreDataStack
 import MastodonAsset
+import MastodonCore
 import MastodonLocalization
 
 enum SettingsSection: Hashable {
@@ -124,7 +125,7 @@ extension SettingsSection {
 
 extension SettingsSection {
 
-    static func configureSettingToggle(
+    public static func configureSettingToggle(
         cell: SettingsToggleTableViewCell,
         item: SettingsItem,
         setting: Setting
@@ -155,7 +156,7 @@ extension SettingsSection {
         }
     }
 
-    static func configureSettingToggle(
+    public static func configureSettingToggle(
         cell: SettingsToggleTableViewCell,
         switchMode: SettingsItem.NotificationSwitchMode,
         subscription: NotificationSubscription

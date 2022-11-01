@@ -9,8 +9,9 @@ import os.log
 import UIKit
 import SwiftUI
 import Combine
-import MastodonUI
 import MastodonAsset
+import MastodonCore
+import MastodonUI
 import MastodonLocalization
 
 protocol ReportServerRulesViewControllerDelegate: AnyObject {

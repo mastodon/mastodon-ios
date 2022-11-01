@@ -114,6 +114,15 @@ public final class CoreDataStack {
 }
 
 extension CoreDataStack {
+    public func newTaskContext() -> NSManagedObjectContext {
+        let taskContext = persistentContainer.newBackgroundContext()
+        taskContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        taskContext.undoManager = nil
+        return taskContext
+    }
+}
+
+extension CoreDataStack {
     
     public func rebuild() {
         let oldStoreURL = persistentContainer.persistentStoreCoordinator.url(for: persistentContainer.persistentStoreCoordinator.persistentStores.first!)

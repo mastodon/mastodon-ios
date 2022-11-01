@@ -9,6 +9,8 @@ import os.log
 import UIKit
 import Combine
 import MastodonAsset
+import MastodonCore
+import MastodonUI
 import MastodonLocalization
 
 protocol ThreadReplyLoaderTableViewCellDelegate: AnyObject {

@@ -11,7 +11,7 @@ import GameplayKit
 import CoreDataStack
 
 extension HashtagTimelineViewModel {
-    class State: GKState, NamingState {
+    class State: GKState {
         
         let logger = Logger(subsystem: "HashtagTimelineViewModel.LoadOldestState", category: "StateMachine")
         
@@ -28,10 +28,11 @@ extension HashtagTimelineViewModel {
         }
         
         override func didEnter(from previousState: GKState?) {
-            let previousState = previousState as? HashtagTimelineViewModel.State
-            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [\(self.id.uuidString)] enter \(self.name), previous: \(previousState?.name  ?? "<nil>")")
-
-            viewModel?.loadOldestStateMachinePublisher.send(self)
+            super.didEnter(from: previousState)
+            
+            let from = previousState.flatMap { String(describing: $0) } ?? "nil"
+            let to = String(describing: self)
+            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): \(from) -> \(to)")            
         }
         
         @MainActor
@@ -135,12 +136,6 @@ extension HashtagTimelineViewModel.State {
                 break
             }
             
-            guard let authenticationBox = viewModel.context.authenticationService.activeMastodonAuthenticationBox.value else {
-                assertionFailure()
-                stateMachine.enter(Fail.self)
-                return
-            }
-            
             // TODO: only set large count when using Wi-Fi
             let maxID = self.maxID
             let isReloading = maxID == nil
@@ -148,10 +143,10 @@ extension HashtagTimelineViewModel.State {
             Task {
                 do {
                     let response = try await viewModel.context.apiService.hashtagTimeline(
-                        domain: authenticationBox.domain,
+                        domain: viewModel.authContext.mastodonAuthenticationBox.domain,
                         maxID: maxID,
                         hashtag: viewModel.hashtag,
-                        authenticationBox: authenticationBox
+                        authenticationBox: viewModel.authContext.mastodonAuthenticationBox
                     )
                                         
                     let newMaxID: String? = {
@@ -167,7 +162,7 @@ extension HashtagTimelineViewModel.State {
                     self.maxID = newMaxID
                     
                     var hasNewStatusesAppend = false
-                    var statusIDs = isReloading ? [] : viewModel.fetchedResultsController.statusIDs.value
+                    var statusIDs = isReloading ? [] : viewModel.fetchedResultsController.statusIDs
                     for status in response.value {
                         guard !statusIDs.contains(status.id) else { continue }
                         statusIDs.append(status.id)

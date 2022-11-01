@@ -12,6 +12,7 @@ import MastodonSDK
 import SafariServices
 import MetaTextKit
 import MastodonAsset
+import MastodonCore
 import MastodonLocalization
 
 final class MastodonServerRulesViewController: UIViewController, NeedsDependency {
