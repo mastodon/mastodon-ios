@@ -47,7 +47,8 @@ final class SearchViewController: UIViewController, NeedsDependency {
 //        return collectionView
 //    }()
 
-    let searchBarTapPublisher = PassthroughSubject<Void, Never>()
+    // value is the initial search text to set
+    let searchBarTapPublisher = PassthroughSubject<String, Never>()
     
     private(set) lazy var discoveryViewController: DiscoveryViewController? = {
         guard let authContext = viewModel.authContext else { return nil }
@@ -148,11 +149,11 @@ extension SearchViewController {
 
         searchBarTapPublisher
             .throttle(for: 0.5, scheduler: DispatchQueue.main, latest: false)
-            .sink { [weak self] in
+            .sink { [weak self] initialText in
                 guard let self = self else { return }
                 // push to search detail
                 guard let authContext = self.viewModel.authContext else { return }
-                let searchDetailViewModel = SearchDetailViewModel(authContext: authContext)
+                let searchDetailViewModel = SearchDetailViewModel(authContext: authContext, initialSearchText: initialText)
                 searchDetailViewModel.needsBecomeFirstResponder = true
                 self.navigationController?.delegate = self.searchTransitionController
                 // FIXME:
@@ -169,8 +170,12 @@ extension SearchViewController {
 extension SearchViewController: UISearchBarDelegate {
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
         os_log("%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-        searchBarTapPublisher.send()
+        searchBarTapPublisher.send("")
         return false
+    }
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        searchBar.text = ""
+        searchBarTapPublisher.send(searchText)
     }
 }
 

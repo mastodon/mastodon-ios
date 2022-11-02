@@ -302,6 +302,7 @@ extension SearchDetailViewController {
             searchController.searchBar.sizeToFit()
         }
 
+        searchBar.text = viewModel.searchText.value
         searchBar.delegate = self
     }
 
