@@ -548,7 +548,7 @@
             "follow_request": {
                 "accept": "Accept",
                 "accepted": "Accepted",
-                "reject": "reject",
+                "reject": "agi",
                 "rejected": "Rejected"
             }
         },
