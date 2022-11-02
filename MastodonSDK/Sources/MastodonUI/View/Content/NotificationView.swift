@@ -439,7 +439,7 @@ extension NotificationView: AdaptiveContainerView {
 }
 
 extension NotificationView {
-    public typealias AuthorMenuContext = StatusView.AuthorMenuContext
+    public typealias AuthorMenuContext = StatusAuthorView.AuthorMenuContext
     
     public func setupAuthorMenu(menuContext: AuthorMenuContext) -> UIMenu {
         var actions: [MastodonMenu.Action] = []
