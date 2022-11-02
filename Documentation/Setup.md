@@ -7,7 +7,7 @@
 - iOS 14.0+
 
 
-Intell the latest version of Xcode from the App Store or Apple Developer Download website. Also, we assert you have the [Homebrew](https://brew.sh) package manager.  
+Install the latest version of Xcode from the App Store or Apple Developer Download website. Also, we assert you have the [Homebrew](https://brew.sh) package manager.  
 
 This guide may not suit your machine and actually setup procedure may change in the future. Please file the issue or Pull Request if there are any problems.
 
