@@ -102,6 +102,7 @@ extension Mastodon.API {
     public enum V2 { }
     public enum Account { }
     public enum App { }
+    public enum Bookmarks { }
     public enum CustomEmojis { }
     public enum Favorites { }
     public enum Instance { }

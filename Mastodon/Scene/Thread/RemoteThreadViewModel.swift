@@ -8,28 +8,27 @@
 import os.log
 import UIKit
 import CoreDataStack
+import MastodonCore
 import MastodonSDK
 
 final class RemoteThreadViewModel: ThreadViewModel {
         
     init(
         context: AppContext,
+        authContext: AuthContext,
         statusID: Mastodon.Entity.Status.ID
     ) {
         super.init(
             context: context,
+            authContext: authContext,
             optionalRoot: nil
         )
         
-        guard let authenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else {
-            return
-        }
-        
         Task { @MainActor in
-            let domain = authenticationBox.domain
+            let domain = authContext.mastodonAuthenticationBox.domain
             let response = try await context.apiService.status(
                 statusID: statusID,
-                authenticationBox: authenticationBox
+                authenticationBox: authContext.mastodonAuthenticationBox
             )
             
             let managedObjectContext = context.managedObjectContext
@@ -48,22 +47,20 @@ final class RemoteThreadViewModel: ThreadViewModel {
     
     init(
         context: AppContext,
+        authContext: AuthContext,
         notificationID: Mastodon.Entity.Notification.ID
     ) {
         super.init(
             context: context,
+            authContext: authContext,
             optionalRoot: nil
         )
         
-        guard let authenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else {
-            return
-        }
-        
         Task { @MainActor in
-            let domain = authenticationBox.domain
+            let domain = authContext.mastodonAuthenticationBox.domain
             let response = try await context.apiService.notification(
                 notificationID: notificationID,
-                authenticationBox: authenticationBox
+                authenticationBox: authContext.mastodonAuthenticationBox
             )
             
             guard let statusID = response.value.status?.id else { return }

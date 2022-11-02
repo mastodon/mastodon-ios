@@ -17,6 +17,7 @@ import GameplayKit
 import MobileCoreServices
 import UniformTypeIdentifiers
 import MastodonAsset
+import MastodonCore
 import MastodonLocalization
 
 protocol StatusAttachmentViewModelDelegate: AnyObject {
@@ -40,6 +41,7 @@ final class StatusAttachmentViewModel: ObservableObject, Identifiable {
     let itemProvider: NSItemProvider
 
     // input
+    let api: APIService
     let file = CurrentValueSubject<Mastodon.Query.MediaAttachment?, Never>(nil)
     let authentication = CurrentValueSubject<MastodonAuthentication?, Never>(nil)
     @Published var descriptionContent = ""
@@ -67,7 +69,11 @@ final class StatusAttachmentViewModel: ObservableObject, Identifiable {
     }()
     lazy var uploadStateMachineSubject = CurrentValueSubject<StatusAttachmentViewModel.UploadState?, Never>(nil)
 
-    init(itemProvider: NSItemProvider) {
+    init(
+        api: APIService,
+        itemProvider: NSItemProvider
+    ) {
+        self.api = api
         self.itemProvider = itemProvider
 
         // bind attachment from item provider

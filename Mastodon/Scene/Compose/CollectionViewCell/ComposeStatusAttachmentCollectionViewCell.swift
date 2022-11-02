@@ -27,7 +27,7 @@ final class ComposeStatusAttachmentCollectionViewCell: UICollectionViewCell {
     
     weak var delegate: ComposeStatusAttachmentCollectionViewCellDelegate?
     
-    let attachmentContainerView = AttachmentContainerView()
+//    let attachmentContainerView = AttachmentContainerView()
     let removeButton: UIButton = {
         let button = HighlightDimmableButton()
         button.expandEdgeInsets = UIEdgeInsets(top: -10, left: -10, bottom: -10, right: -10)
@@ -45,11 +45,11 @@ final class ComposeStatusAttachmentCollectionViewCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         
-        attachmentContainerView.activityIndicatorView.startAnimating()
-        attachmentContainerView.previewImageView.af.cancelImageRequest()
-        attachmentContainerView.previewImageView.image = .placeholder(color: .systemFill)
-        delegate = nil
-        disposeBag.removeAll()
+//        attachmentContainerView.activityIndicatorView.startAnimating()
+//        attachmentContainerView.previewImageView.af.cancelImageRequest()
+//        attachmentContainerView.previewImageView.image = .placeholder(color: .systemFill)
+//        delegate = nil
+//        disposeBag.removeAll()
     }
     
     override init(frame: CGRect) {
@@ -73,30 +73,29 @@ extension ComposeStatusAttachmentCollectionViewCell {
     private func _init() {
         // selectionStyle = .none
         
-        attachmentContainerView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(attachmentContainerView)
-        NSLayoutConstraint.activate([
-            attachmentContainerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: ComposeStatusAttachmentCollectionViewCell.verticalMarginHeight),
-            attachmentContainerView.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
-            attachmentContainerView.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor),
-            contentView.bottomAnchor.constraint(equalTo: attachmentContainerView.bottomAnchor, constant: ComposeStatusAttachmentCollectionViewCell.verticalMarginHeight),
-            attachmentContainerView.heightAnchor.constraint(equalToConstant: 205).priority(.defaultHigh),
-        ])
-        
-        removeButton.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(removeButton)
-        NSLayoutConstraint.activate([
-            removeButton.centerXAnchor.constraint(equalTo: attachmentContainerView.trailingAnchor),
-            removeButton.centerYAnchor.constraint(equalTo: attachmentContainerView.topAnchor),
-            removeButton.widthAnchor.constraint(equalToConstant: ComposeStatusAttachmentCollectionViewCell.removeButtonSize.width).priority(.defaultHigh),
-            removeButton.heightAnchor.constraint(equalToConstant: ComposeStatusAttachmentCollectionViewCell.removeButtonSize.height).priority(.defaultHigh),
-        ])
-
-        removeButton.addTarget(self, action: #selector(ComposeStatusAttachmentCollectionViewCell.removeButtonDidPressed(_:)), for: .touchUpInside)
+//        attachmentContainerView.translatesAutoresizingMaskIntoConstraints = false
+//        contentView.addSubview(attachmentContainerView)
+//        NSLayoutConstraint.activate([
+//            attachmentContainerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: ComposeStatusAttachmentCollectionViewCell.verticalMarginHeight),
+//            attachmentContainerView.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
+//            attachmentContainerView.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor),
+//            contentView.bottomAnchor.constraint(equalTo: attachmentContainerView.bottomAnchor, constant: ComposeStatusAttachmentCollectionViewCell.verticalMarginHeight),
+//            attachmentContainerView.heightAnchor.constraint(equalToConstant: 205).priority(.defaultHigh),
+//        ])
+//
+//        removeButton.translatesAutoresizingMaskIntoConstraints = false
+//        contentView.addSubview(removeButton)
+//        NSLayoutConstraint.activate([
+//            removeButton.centerXAnchor.constraint(equalTo: attachmentContainerView.trailingAnchor),
+//            removeButton.centerYAnchor.constraint(equalTo: attachmentContainerView.topAnchor),
+//            removeButton.widthAnchor.constraint(equalToConstant: ComposeStatusAttachmentCollectionViewCell.removeButtonSize.width).priority(.defaultHigh),
+//            removeButton.heightAnchor.constraint(equalToConstant: ComposeStatusAttachmentCollectionViewCell.removeButtonSize.height).priority(.defaultHigh),
+//        ])
+//
+//        removeButton.addTarget(self, action: #selector(ComposeStatusAttachmentCollectionViewCell.removeButtonDidPressed(_:)), for: .touchUpInside)
     }
 
 }
-
 
 extension ComposeStatusAttachmentCollectionViewCell {
 

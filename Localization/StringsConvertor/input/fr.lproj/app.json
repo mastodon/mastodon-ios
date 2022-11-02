@@ -348,7 +348,7 @@
                 "Publishing": "Publication en cours ...",
                 "accessibility": {
                     "logo_label": "Bouton logo",
-                    "logo_hint": "Tap to scroll to top and tap again to previous location"
+                    "logo_hint": "Appuyez pour faire défiler vers le haut et appuyez à nouveau vers l'emplacement précédent"
                 }
             }
         },
@@ -546,10 +546,10 @@
                 "show_mentions": "Afficher les mentions"
             },
             "follow_request": {
-                "accept": "Accept",
-                "accepted": "Accepted",
-                "reject": "reject",
-                "rejected": "Rejected"
+                "accept": "Accepter",
+                "accepted": "Accepté",
+                "reject": "rejeter",
+                "rejected": "Rejeté"
             }
         },
         "thread": {

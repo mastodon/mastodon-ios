@@ -7,6 +7,7 @@
 
 import UIKit
 import MastodonSDK
+import MastodonCore
 
 extension FamiliarFollowersDashboardView {
     public func configure(familiarFollowers: Mastodon.Entity.FamiliarFollowers?) {

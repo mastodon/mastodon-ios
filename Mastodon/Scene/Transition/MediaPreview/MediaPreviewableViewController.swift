@@ -23,8 +23,8 @@ extension MediaPreviewableViewController {
             return mediaView.superview?.convert(mediaView.frame, to: nil)
         case .profileAvatar(let profileHeaderView):
             return profileHeaderView.avatarButton.superview?.convert(profileHeaderView.avatarButton.frame, to: nil)
-        case .profileBanner:
-            return nil      // fallback to snapshot.frame
+        case .profileBanner(let profileHeaderView):
+            return profileHeaderView.bannerImageView.superview?.convert(profileHeaderView.bannerImageView.frame, to: nil)
         }
     }
 }

@@ -10,6 +10,7 @@ import UIKit
 import Combine
 import Pageboy
 import MastodonAsset
+import MastodonCore
 import MastodonLocalization
 
 final class CustomSearchController: UISearchController {
@@ -82,7 +83,7 @@ final class SearchDetailViewController: PageboyViewController, NeedsDependency {
         let searchHistoryViewController = SearchHistoryViewController()
         searchHistoryViewController.context = context
         searchHistoryViewController.coordinator = coordinator
-        searchHistoryViewController.viewModel = SearchHistoryViewModel(context: context)
+        searchHistoryViewController.viewModel = SearchHistoryViewModel(context: context, authContext: viewModel.authContext)
         return searchHistoryViewController
     }()
 }
@@ -130,7 +131,7 @@ extension SearchDetailViewController {
             let searchResultViewController = SearchResultViewController()
             searchResultViewController.context = context
             searchResultViewController.coordinator = coordinator
-            searchResultViewController.viewModel = SearchResultViewModel(context: context, searchScope: scope)
+            searchResultViewController.viewModel = SearchResultViewModel(context: context, authContext: viewModel.authContext, searchScope: scope)
 
             // bind searchText
             viewModel.searchText
@@ -165,7 +166,7 @@ extension SearchDetailViewController {
                         case .hashtags:
                             viewController.viewModel.hashtags = allSearchScopeViewController.viewModel.hashtags
                         case .posts:
-                            viewController.viewModel.statusFetchedResultsController.statusIDs.value = allSearchScopeViewController.viewModel.statusFetchedResultsController.statusIDs.value
+                            viewController.viewModel.statusFetchedResultsController.statusIDs = allSearchScopeViewController.viewModel.statusFetchedResultsController.statusIDs
                         }
                     }
                 }

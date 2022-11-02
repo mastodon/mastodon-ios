@@ -72,6 +72,7 @@ extension SpoilerOverlayView {
         spoilerMetaLabel.isUserInteractionEnabled = false
         
         isAccessibilityElement = true
+        accessibilityTraits.insert(.button)
     }
     
     public func setComponentHidden(_ isHidden: Bool) {

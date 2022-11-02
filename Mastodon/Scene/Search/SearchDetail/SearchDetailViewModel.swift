@@ -10,12 +10,14 @@ import Foundation
 import CoreGraphics
 import Combine
 import MastodonSDK
+import MastodonCore
 import MastodonAsset
 import MastodonLocalization
 
 final class SearchDetailViewModel {
 
     // input
+    let authContext: AuthContext
     var needsBecomeFirstResponder = false
     let viewDidAppear = PassthroughSubject<Void, Never>()
     let navigationBarFrame = CurrentValueSubject<CGRect, Never>(.zero)
@@ -26,7 +28,8 @@ final class SearchDetailViewModel {
     let searchText: CurrentValueSubject<String, Never>
     let searchActionPublisher = PassthroughSubject<Void, Never>()
 
-    init(initialSearchText: String = "") {
+    init(authContext: AuthContext, initialSearchText: String = "") {
+        self.authContext = authContext
         self.searchText = CurrentValueSubject(initialSearchText)
     }
 

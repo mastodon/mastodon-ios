@@ -10,17 +10,15 @@ import Foundation
 import Combine
 import CoreDataStack
 import MastodonSDK
+import MastodonCore
 
 final class RemoteProfileViewModel: ProfileViewModel {
     
-    init(context: AppContext, userID: Mastodon.Entity.Account.ID) {
-        super.init(context: context, optionalMastodonUser: nil)
+    init(context: AppContext, authContext: AuthContext, userID: Mastodon.Entity.Account.ID) {
+        super.init(context: context, authContext: authContext, optionalMastodonUser: nil)
         
-        guard let activeMastodonAuthenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else {
-            return
-        }
-        let domain = activeMastodonAuthenticationBox.domain
-        let authorization = activeMastodonAuthenticationBox.userAuthorization
+        let domain = authContext.mastodonAuthenticationBox.domain
+        let authorization = authContext.mastodonAuthenticationBox.userAuthorization
         Just(userID)
             .asyncMap { userID in
                 try await context.apiService.accountInfo(
@@ -53,23 +51,19 @@ final class RemoteProfileViewModel: ProfileViewModel {
             .store(in: &disposeBag)
     }
     
-    init(context: AppContext, notificationID: Mastodon.Entity.Notification.ID) {
-        super.init(context: context, optionalMastodonUser: nil)
-
-        guard let authenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else {
-            return
-        }
+    init(context: AppContext, authContext: AuthContext, notificationID: Mastodon.Entity.Notification.ID) {
+        super.init(context: context, authContext: authContext, optionalMastodonUser: nil)
 
         Task { @MainActor in
             let response = try await context.apiService.notification(
                 notificationID: notificationID,
-                authenticationBox: authenticationBox
+                authenticationBox: authContext.mastodonAuthenticationBox
             )
             let userID = response.value.account.id
             
             let _user: MastodonUser? = try await context.managedObjectContext.perform {
                 let request = MastodonUser.sortedFetchRequest
-                request.predicate = MastodonUser.predicate(domain: authenticationBox.domain, id: userID)
+                request.predicate = MastodonUser.predicate(domain: authContext.mastodonAuthenticationBox.domain, id: userID)
                 request.fetchLimit = 1
                 return context.managedObjectContext.safeFetch(request).first
             }
@@ -78,14 +72,14 @@ final class RemoteProfileViewModel: ProfileViewModel {
                 self.user = user
             } else {
                 _ = try await context.apiService.accountInfo(
-                    domain: authenticationBox.domain,
+                    domain: authContext.mastodonAuthenticationBox.domain,
                     userID: userID,
-                    authorization: authenticationBox.userAuthorization
+                    authorization: authContext.mastodonAuthenticationBox.userAuthorization
                 )
                 
                 let _user: MastodonUser? = try await context.managedObjectContext.perform {
                     let request = MastodonUser.sortedFetchRequest
-                    request.predicate = MastodonUser.predicate(domain: authenticationBox.domain, id: userID)
+                    request.predicate = MastodonUser.predicate(domain: authContext.mastodonAuthenticationBox.domain, id: userID)
                     request.fetchLimit = 1
                     return context.managedObjectContext.safeFetch(request).first
                 }

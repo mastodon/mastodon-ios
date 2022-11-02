@@ -12,6 +12,8 @@ import CoreData
 import AVKit
 import MastodonMeta
 import MastodonAsset
+import MastodonCore
+import MastodonUI
 import MastodonLocalization
 
 final class ThreadViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
@@ -104,6 +106,12 @@ extension ThreadViewController {
         
         tableView.deselectRow(with: transitionCoordinator, animated: animated)
     }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        UIAccessibility.post(notification: .screenChanged, argument: tableView)
+    }
     
 }
 
@@ -111,13 +119,12 @@ extension ThreadViewController {
     @objc private func replyBarButtonItemPressed(_ sender: UIBarButtonItem) {
         logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
         guard case let .root(threadContext) = viewModel.root else { return }
-        guard let authenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else { return }
         let composeViewModel = ComposeViewModel(
             context: context,
-            composeKind: .reply(status: threadContext.status),
-            authenticationBox: authenticationBox
+            authContext: viewModel.authContext,
+            kind: .reply(status: threadContext.status)
         )
-        coordinator.present(
+        _ = coordinator.present(
             scene: .compose(viewModel: composeViewModel),
             from: self,
             transition: .modal(animated: true, completion: nil)
@@ -125,8 +132,10 @@ extension ThreadViewController {
     }
 }
 
-//// MARK: - StatusTableViewControllerAspect
-//extension ThreadViewController: StatusTableViewControllerAspect { }
+// MARK: - AuthContextProvider
+extension ThreadViewController: AuthContextProvider {
+    var authContext: AuthContext { viewModel.authContext }
+}
 
 // MARK: - UITableViewDelegate
 extension ThreadViewController: UITableViewDelegate, AutoGenerateTableViewDelegate {
@@ -176,7 +185,6 @@ extension ThreadViewController: UITableViewDelegate, AutoGenerateTableViewDelega
 
 // MARK: - StatusTableViewCellDelegate
 extension ThreadViewController: StatusTableViewCellDelegate { }
-
 
 extension ThreadViewController {
     override var keyCommands: [UIKeyCommand]? {
