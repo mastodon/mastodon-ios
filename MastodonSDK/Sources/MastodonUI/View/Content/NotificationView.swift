@@ -226,14 +226,13 @@ extension NotificationView {
             .store(in: &_disposeBag)
         
         // avatarButton
-        let authorAvatarButtonSize = CGSize(width: 46, height: 46)
-        avatarButton.size = authorAvatarButtonSize
-        avatarButton.avatarImageView.imageViewSize = authorAvatarButtonSize
+        avatarButton.size = CGSize.authorAvatarButtonSize
+        avatarButton.avatarImageView.imageViewSize = CGSize.authorAvatarButtonSize
         avatarButton.translatesAutoresizingMaskIntoConstraints = false
         authorContainerView.addArrangedSubview(avatarButton)
         NSLayoutConstraint.activate([
-            avatarButton.widthAnchor.constraint(equalToConstant: authorAvatarButtonSize.width).priority(.required - 1),
-            avatarButton.heightAnchor.constraint(equalToConstant: authorAvatarButtonSize.height).priority(.required - 1),
+            avatarButton.widthAnchor.constraint(equalToConstant: CGSize.authorAvatarButtonSize.width).priority(.required - 1),
+            avatarButton.heightAnchor.constraint(equalToConstant: CGSize.authorAvatarButtonSize.height).priority(.required - 1),
         ])
         avatarButton.setContentHuggingPriority(.required - 1, for: .vertical)
         avatarButton.setContentCompressionResistancePriority(.required - 1, for: .vertical)
