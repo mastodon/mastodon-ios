@@ -77,6 +77,8 @@ Please check your internet connection.";
 "Common.Controls.Friendship.UnblockUser" = "Unblock %@";
 "Common.Controls.Friendship.Unmute" = "Unmute";
 "Common.Controls.Friendship.UnmuteUser" = "Unmute %@";
+"Common.Controls.Friendship.HideReblogs" = "Hide Reblogs";
+"Common.Controls.Friendship.ShowReblogs" = "Show Reblogs";
 "Common.Controls.Keyboard.Common.ComposeNewPost" = "Compose New Post";
 "Common.Controls.Keyboard.Common.OpenSettings" = "Open Settings";
 "Common.Controls.Keyboard.Common.ShowFavorites" = "Show Favorites";

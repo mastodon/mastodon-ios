@@ -205,6 +205,9 @@ extension DataSourceFacade {
         menuContext: MenuContext
     ) async throws {
         switch action {
+          case .hideReblogs(_):
+            //TODO: Implement. Alert. Toggle on Server.
+            return
         case .muteUser(let actionContext):
             let alertController = UIAlertController(
                 title: actionContext.isMuting ? L10n.Scene.Profile.RelationshipActionAlert.ConfirmUnmuteUser.title : L10n.Scene.Profile.RelationshipActionAlert.ConfirmMuteUser.title,

@@ -198,6 +198,8 @@ public enum L10n {
         public static let follow = L10n.tr("Localizable", "Common.Controls.Friendship.Follow")
         /// Following
         public static let following = L10n.tr("Localizable", "Common.Controls.Friendship.Following")
+        /// Hide Reblogs
+        public static let hideReblogs = L10n.tr("Localizable", "Common.Controls.Friendship.HideReblogs")
         /// Mute
         public static let mute = L10n.tr("Localizable", "Common.Controls.Friendship.Mute")
         /// Muted
@@ -210,6 +212,8 @@ public enum L10n {
         public static let pending = L10n.tr("Localizable", "Common.Controls.Friendship.Pending")
         /// Request
         public static let request = L10n.tr("Localizable", "Common.Controls.Friendship.Request")
+        /// Show Reblogs
+        public static let showReblogs = L10n.tr("Localizable", "Common.Controls.Friendship.ShowReblogs")
         /// Unblock
         public static let unblock = L10n.tr("Localizable", "Common.Controls.Friendship.Unblock")
         /// Unblock %@

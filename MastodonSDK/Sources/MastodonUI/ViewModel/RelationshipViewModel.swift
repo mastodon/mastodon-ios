@@ -114,6 +114,7 @@ public final class RelationshipViewModel {
     @Published public var isFollowing = false
     @Published public var isFollowingBy = false
     @Published public var isMuting = false
+    @Published public var showReblogs = false
     @Published public var isBlocking = false
     @Published public var isBlockingBy = false
     @Published public var isSuspended = false
