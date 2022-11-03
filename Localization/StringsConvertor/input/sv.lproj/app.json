@@ -418,7 +418,7 @@
         },
         "profile": {
             "header": {
-                "follows_you": "Follows You"
+                "follows_you": "Följer dig"
             },
             "dashboard": {
                 "posts": "inlägg",
@@ -546,10 +546,10 @@
                 "show_mentions": "Visa omnämningar"
             },
             "follow_request": {
-                "accept": "Accept",
-                "accepted": "Accepted",
-                "reject": "reject",
-                "rejected": "Rejected"
+                "accept": "Godkänn",
+                "accepted": "Godkänd",
+                "reject": "avvisa",
+                "rejected": "Avvisad"
             }
         },
         "thread": {
