@@ -547,6 +547,13 @@ extension StatusView {
 
 }
 
+extension StatusView {
+    public override var accessibilityCustomActions: [UIAccessibilityCustomAction]? {
+        get { contentMetaText.textView.accessibilityCustomActions }
+        set { }
+    }
+}
+
 // MARK: - AdaptiveContainerView
 extension StatusView: AdaptiveContainerView {
     public func updateContainerViewComponentsLayoutMarginsRelativeArrangementBehavior(isEnabled: Bool) {
