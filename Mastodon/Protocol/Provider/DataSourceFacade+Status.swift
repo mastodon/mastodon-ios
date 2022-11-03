@@ -156,8 +156,8 @@ extension DataSourceFacade {
         switch action {
         case .muteUser(let actionContext):
             let alertController = UIAlertController(
-                title: actionContext.isMuting ? "Unmute Account" : "Mute Account",
-                message: actionContext.isMuting ? "Confirm to unmute \(actionContext.name)" : "Confirm to mute \(actionContext.name)",
+                title: actionContext.isMuting ? L10n.Scene.Profile.RelationshipActionAlert.ConfirmUnmuteUser.title : L10n.Scene.Profile.RelationshipActionAlert.ConfirmMuteUser.title,
+                message: actionContext.isMuting ? L10n.Scene.Profile.RelationshipActionAlert.ConfirmUnmuteUser.message(actionContext.name) : L10n.Scene.Profile.RelationshipActionAlert.ConfirmMuteUser.message(actionContext.name),
                 preferredStyle: .alert
             )
             let confirmAction = UIAlertAction(
@@ -184,8 +184,8 @@ extension DataSourceFacade {
             dependency.present(alertController, animated: true, completion: nil)
         case .blockUser(let actionContext):
             let alertController = UIAlertController(
-                title: actionContext.isBlocking ? "Unblock Account" : "Block Account",
-                message: actionContext.isBlocking ? "Confirm to unblock \(actionContext.name)" : "Confirm to block \(actionContext.name)",
+                title: actionContext.isBlocking ? L10n.Scene.Profile.RelationshipActionAlert.ConfirmUnblockUser.title : L10n.Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.title,
+                message: actionContext.isBlocking ? L10n.Scene.Profile.RelationshipActionAlert.ConfirmUnblockUser.message(actionContext.name) : L10n.Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.message(actionContext.name),
                 preferredStyle: .alert
             )
             let confirmAction = UIAlertAction(
@@ -280,8 +280,8 @@ extension DataSourceFacade {
             }   // end Task
         case .deleteStatus:
             let alertController = UIAlertController(
-                title: "Delete Post",
-                message: "Are you sure you want to delete this post?",
+                title: L10n.Common.Alerts.DeletePost.title,
+                message: L10n.Common.Alerts.DeletePost.message,
                 preferredStyle: .alert
             )
             let confirmAction = UIAlertAction(
