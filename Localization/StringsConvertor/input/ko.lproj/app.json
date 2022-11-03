@@ -437,7 +437,7 @@
                 "replies": "답글",
                 "posts_and_replies": "Posts and Replies",
                 "media": "미디어",
-                "about": "About"
+                "about": "정보"
             },
             "relationship_action_alert": {
                 "confirm_mute_user": {
@@ -449,24 +449,24 @@
                     "message": "%s 뮤트 해제 확인"
                 },
                 "confirm_block_user": {
-                    "title": "Block Account",
+                    "title": "계정 차단",
                     "message": "Confirm to block %s"
                 },
                 "confirm_unblock_user": {
-                    "title": "Unblock Account",
+                    "title": "계정 차단 해제",
                     "message": "Confirm to unblock %s"
                 }
             },
             "accessibility": {
                 "show_avatar_image": "Show avatar image",
-                "edit_avatar_image": "Edit avatar image",
-                "show_banner_image": "Show banner image",
-                "double_tap_to_open_the_list": "Double tap to open the list"
+                "edit_avatar_image": "아바타 이미지 변경",
+                "show_banner_image": "배너 이미지 표시",
+                "double_tap_to_open_the_list": "두 번 탭하여 리스트 표시"
             }
         },
         "follower": {
-            "title": "follower",
-            "footer": "Followers from other servers are not displayed."
+            "title": "팔로워",
+            "footer": "다른 서버의 팔로워 표시는 할 수 없습니다."
         },
         "following": {
             "title": "팔로잉",
@@ -474,13 +474,13 @@
         },
         "familiarFollowers": {
             "title": "Followers you familiar",
-            "followed_by_names": "Followed by %s"
+            "followed_by_names": "%s 님이 팔로우함"
         },
         "favorited_by": {
-            "title": "Favorited By"
+            "title": "마음에 들어한 사람들"
         },
         "reblogged_by": {
-            "title": "Reblogged By"
+            "title": "리블로그한 사람들"
         },
         "search": {
             "title": "검색",
@@ -491,12 +491,12 @@
             "recommend": {
                 "button_text": "모두 보기",
                 "hash_tag": {
-                    "title": "Trending on Mastodon",
+                    "title": "마스토돈에서 유행 중",
                     "description": "Hashtags that are getting quite a bit of attention",
-                    "people_talking": "%s people are talking"
+                    "people_talking": "%s 명의 사람들이 말하고 있음"
                 },
                 "accounts": {
-                    "title": "Accounts you might like",
+                    "title": "마음에 들어할만한 계정",
                     "description": "You may like to follow these accounts",
                     "follow": "팔로우"
                 }
@@ -566,7 +566,7 @@
                     "dark": "항상 어두움"
                 },
                 "look_and_feel": {
-                    "title": "Look and Feel",
+                    "title": "인터페이스",
                     "use_system": "시스템 설정 사용",
                     "really_dark": "진짜 어두움",
                     "sorta_dark": "좀 어두움",
@@ -574,16 +574,16 @@
                 },
                 "notifications": {
                     "title": "알림",
-                    "favorites": "Favorites my post",
-                    "follows": "Follows me",
-                    "boosts": "Reblogs my post",
-                    "mentions": "Mentions me",
+                    "favorites": "내 게시물을 마음에 들어할 때",
+                    "follows": "나를 팔로우 할 때",
+                    "boosts": "내 게시물을 리블로그 할 때",
+                    "mentions": "나를 언급할 때",
                     "trigger": {
-                        "anyone": "anyone",
-                        "follower": "a follower",
-                        "follow": "anyone I follow",
-                        "noone": "no one",
-                        "title": "Notify me when"
+                        "anyone": "누구든",
+                        "follower": "팔로워가",
+                        "follow": "내가 팔로우하는 사람이",
+                        "noone": "아무도 못 하게",
+                        "title": "알림을 보낼 조건은"
                     }
                 },
                 "preference": {
@@ -592,7 +592,7 @@
                     "disable_avatar_animation": "움직이는 아바타 비활성화",
                     "disable_emoji_animation": "움직이는 에모지 비활성화",
                     "using_default_browser": "기본 브라우저로 링크 열기",
-                    "open_links_in_mastodon": "Open links in Mastodon"
+                    "open_links_in_mastodon": "마스토돈에서 링크 열기"
                 },
                 "boring_zone": {
                     "title": "지루한 영역",
@@ -614,57 +614,57 @@
             }
         },
         "report": {
-            "title_report": "Report",
+            "title_report": "신고",
             "title": "%s 신고하기",
             "step1": "1단계 (총 2단계)",
             "step2": "2단계 (총 2단계)",
             "content1": "신고에 추가하고 싶은 다른 게시물이 존재하나요?",
             "content2": "이 신고에 대해 중재자들이 알아야 할 것이 있나요?",
-            "report_sent_title": "Thanks for reporting, we’ll look into this.",
+            "report_sent_title": "신고해주셔서 감사합니다, 중재자분들이 확인할 예정입니다.",
             "send": "신고 전송",
             "skip_to_send": "추가설명 없이 보내기",
             "text_placeholder": "추가 설명을 적거나 붙여넣으세요",
-            "reported": "REPORTED",
+            "reported": "신고됨",
             "step_one": {
-                "step_1_of_4": "Step 1 of 4",
-                "whats_wrong_with_this_post": "What's wrong with this post?",
-                "whats_wrong_with_this_account": "What's wrong with this account?",
-                "whats_wrong_with_this_username": "What's wrong with %s?",
-                "select_the_best_match": "Select the best match",
-                "i_dont_like_it": "I don’t like it",
-                "it_is_not_something_you_want_to_see": "It is not something you want to see",
-                "its_spam": "It’s spam",
-                "malicious_links_fake_engagement_or_repetetive_replies": "Malicious links, fake engagement, or repetetive replies",
-                "it_violates_server_rules": "It violates server rules",
-                "you_are_aware_that_it_breaks_specific_rules": "You are aware that it breaks specific rules",
-                "its_something_else": "It’s something else",
-                "the_issue_does_not_fit_into_other_categories": "The issue does not fit into other categories"
+                "step_1_of_4": "1단계 (총 4단계)",
+                "whats_wrong_with_this_post": "이 게시물에 어떤 문제가 있나요?",
+                "whats_wrong_with_this_account": "이 계정에 어떤 문제가 있나요?",
+                "whats_wrong_with_this_username": "%s에 어떤 문제가 있나요?",
+                "select_the_best_match": "가장 알맞은 것을 선택하세요",
+                "i_dont_like_it": "마음에 안 듭니다",
+                "it_is_not_something_you_want_to_see": "내가 보기 싫은 종류에 속합니다",
+                "its_spam": "스팸입니다",
+                "malicious_links_fake_engagement_or_repetetive_replies": "악성 링크, 반응 스팸, 또는 반복적인 답글",
+                "it_violates_server_rules": "서버 규칙을 위반합니다",
+                "you_are_aware_that_it_breaks_specific_rules": "특정 규칙을 위반합니다",
+                "its_something_else": "기타",
+                "the_issue_does_not_fit_into_other_categories": "이슈가 다른 분류에 속하지 않습니다"
             },
             "step_two": {
-                "step_2_of_4": "Step 2 of 4",
-                "which_rules_are_being_violated": "Which rules are being violated?",
-                "select_all_that_apply": "Select all that apply",
-                "i_just_don’t_like_it": "I just don’t like it"
+                "step_2_of_4": "2단계 (총 4단계)",
+                "which_rules_are_being_violated": "어떤 규칙을 위반했나요?",
+                "select_all_that_apply": "해당하는 사항을 모두 선택하세요",
+                "i_just_don’t_like_it": "그냥 마음에 들지 않아요."
             },
             "step_three": {
-                "step_3_of_4": "Step 3 of 4",
-                "are_there_any_posts_that_back_up_this_report": "Are there any posts that back up this report?",
-                "select_all_that_apply": "Select all that apply"
+                "step_3_of_4": "3단계 (총 4단계)",
+                "are_there_any_posts_that_back_up_this_report": "이 신고에 대해서 더 참고해야 할 게시물이 있나요?",
+                "select_all_that_apply": "해당하는 사항을 모두 선택하세요"
             },
             "step_four": {
-                "step_4_of_4": "Step 4 of 4",
-                "is_there_anything_else_we_should_know": "Is there anything else we should know?"
+                "step_4_of_4": "4단계 (총 4단계)",
+                "is_there_anything_else_we_should_know": "우리가 더 알아야 할 내용이 있나요?"
             },
             "step_final": {
-                "dont_want_to_see_this": "Don’t want to see this?",
-                "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "When you see something you don’t like on Mastodon, you can remove the person from your experience.",
-                "unfollow": "Unfollow",
+                "dont_want_to_see_this": "이런 것을 보지 않길 원하나요?",
+                "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "마스토돈에서 보기 싫은 것을 보았다면, 해당하는 사람을 지울 수 있습니다.",
+                "unfollow": "팔로우 해제",
                 "unfollowed": "팔로우 해제함",
                 "unfollow_user": "%s 팔로우 해제",
                 "mute_user": "%s 뮤트",
                 "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "그의 게시물이나 리블로그가 내 홈 피드에 보이지 않습니다. 그는 뮤트 당했다는 사실을 알지 못합니다.",
-                "block_user": "Block %s",
-                "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "They will no longer be able to follow or see your posts, but they can see if they’ve been blocked.",
+                "block_user": "%s 차단",
+                "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "그는 나를 팔로우 하거나 내 게시물을 볼 수 없게 됩니다, 하지만 내가 차단한 사실은 알 수 있습니다.",
                 "while_we_review_this_you_can_take_action_against_user": "서버의 중재자들이 이것을 심사하는 동안, 당신은 %s에 대한 행동을 취할 수 있습니다"
             }
         },
@@ -678,12 +678,12 @@
         "account_list": {
             "tab_bar_hint": "Current selected profile: %s. Double tap then hold to show account switcher",
             "dismiss_account_switcher": "Dismiss Account Switcher",
-            "add_account": "Add Account"
+            "add_account": "계정 추가"
         },
         "wizard": {
-            "new_in_mastodon": "New in Mastodon",
-            "multiple_account_switch_intro_description": "Switch between multiple accounts by holding the profile button.",
-            "accessibility_hint": "Double tap to dismiss this wizard"
+            "new_in_mastodon": "마스토돈의 새 기능",
+            "multiple_account_switch_intro_description": "프로필 버튼을 꾹 눌러서 여러 계정 사이를 전환할 수 있습니다.",
+            "accessibility_hint": "두 번 탭하여 팝업 닫기"
         }
     }
 }
