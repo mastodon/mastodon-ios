@@ -9,6 +9,7 @@ import os.log
 import UIKit
 import Combine
 import MetaTextKit
+import MetaLabel
 import MastodonLocalization
 import TabBarPager
 import XLPagerTabStrip

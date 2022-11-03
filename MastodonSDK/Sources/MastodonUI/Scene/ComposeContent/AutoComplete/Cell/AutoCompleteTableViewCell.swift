@@ -8,6 +8,7 @@
 import UIKit
 import FLAnimatedImage
 import MetaTextKit
+import MetaLabel
 import MastodonAsset
 import MastodonLocalization
 

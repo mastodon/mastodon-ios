@@ -86,8 +86,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/TwidereProject/MetaTextKit.git",
       "state" : {
-        "revision" : "dcd5255d6930c2fab408dc8562c577547e477624",
-        "version" : "2.2.5"
+        "revision" : "374f13342f085848a0386eb57593264aa678be68",
+        "version" : "4.1.3"
       }
     },
     {

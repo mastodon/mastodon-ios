@@ -11,6 +11,7 @@ import Combine
 import MastodonAsset
 import MastodonLocalization
 import MetaTextKit
+import MetaLabel
 import MastodonCore
 import MastodonUI
 

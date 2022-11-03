@@ -9,6 +9,7 @@ import os.log
 import UIKit
 import Combine
 import Meta
+import MetaLabel
 import MetaTextKit
 import MastodonAsset
 import MastodonCore

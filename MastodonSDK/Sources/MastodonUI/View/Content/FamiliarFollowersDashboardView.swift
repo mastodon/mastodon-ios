@@ -8,6 +8,7 @@
 import UIKit
 import MastodonAsset
 import MetaTextKit
+import MetaLabel
 
 public final class FamiliarFollowersDashboardView: UIView {
     

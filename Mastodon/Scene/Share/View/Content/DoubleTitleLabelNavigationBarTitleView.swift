@@ -8,6 +8,7 @@
 import UIKit
 import Meta
 import MetaTextKit
+import MetaLabel
 import MastodonAsset
 import MastodonCore
 import MastodonUI

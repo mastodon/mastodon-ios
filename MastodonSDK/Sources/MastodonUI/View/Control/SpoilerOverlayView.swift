@@ -9,6 +9,7 @@ import UIKit
 import MastodonLocalization
 import MastodonAsset
 import MetaTextKit
+import MetaLabel
 
 public final class SpoilerOverlayView: UIView {
     

@@ -45,7 +45,6 @@ final class ProfileHeaderViewController: UIViewController, NeedsDependency, Medi
     
     let titleView: DoubleTitleLabelNavigationBarTitleView = {
         let titleView = DoubleTitleLabelNavigationBarTitleView()
-        titleView.titleLabel.textColor = .white
         titleView.titleLabel.textAttributes[.foregroundColor] = UIColor.white
         titleView.titleLabel.alpha = 0
         titleView.subtitleLabel.textColor = .white

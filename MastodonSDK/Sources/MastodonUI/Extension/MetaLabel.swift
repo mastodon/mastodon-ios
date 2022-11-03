@@ -7,6 +7,7 @@
 
 import UIKit
 import Meta
+import MetaLabel
 import MetaTextKit
 import MastodonAsset
 
@@ -33,13 +34,16 @@ extension MetaLabel {
         case sidebarSubheadline(isSelected: Bool)
     }
 
+    public var text: String? {
+        textArea.textContentStorage.attributedString?.string
+    }
+
     public convenience init(style: Style) {
         self.init()
 
         layer.masksToBounds = true
-        lineBreakMode = .byTruncatingTail
-        textContainer.lineBreakMode = .byTruncatingTail
-        textContainer.lineFragmentPadding = 0
+        textArea.textContainer.lineBreakMode = .byTruncatingTail
+        textArea.textContainer.lineFragmentPadding = 0
         
         setup(style: style)
     }
@@ -64,10 +68,8 @@ extension MetaLabel {
         case .statusSpoilerOverlay:
             font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 20, weight: .semibold))
             textColor = Asset.Colors.Label.primary.color
-            textAlignment = .center
             paragraphStyle.alignment = .center
-            numberOfLines = 0
-            textContainer.maximumNumberOfLines = 0
+            textArea.textContainer.maximumNumberOfLines = 0
 
         case .statusSpoilerBanner:
             font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .regular))
@@ -96,15 +98,13 @@ extension MetaLabel {
         case .profileCardFamiliarFollowerFooter:
             font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: .systemFont(ofSize: 13, weight: .regular), maximumPointSize: 26)
             textColor = Asset.Colors.Label.secondary.color
-            numberOfLines = 2
-            textContainer.maximumNumberOfLines = 2
+            textArea.textContainer.maximumNumberOfLines = 2
             paragraphStyle.lineSpacing = 0
             paragraphStyle.paragraphSpacing = 0
             
         case .titleView:
             font = .systemFont(ofSize: 17, weight: .semibold)
             textColor = Asset.Colors.Label.primary.color
-            textAlignment = .center
             paragraphStyle.alignment = .center
             
         case .recommendAccountName:
@@ -114,8 +114,7 @@ extension MetaLabel {
         case .settingTableFooter:
             font = .preferredFont(forTextStyle: .footnote)
             textColor = Asset.Colors.Label.secondary.color
-            numberOfLines = 0
-            textContainer.maximumNumberOfLines = 0
+            textArea.textContainer.maximumNumberOfLines = 0
             paragraphStyle.alignment = .center
             
         case .autoCompletion:
@@ -138,9 +137,6 @@ extension MetaLabel {
             font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 13, weight: .regular), maximumPointSize: 18)
             textColor = isSelected ? .white : Asset.Colors.Label.secondary.color
         }
-        
-        self.font = font
-        self.textColor = textColor
         
         textAttributes = [
             .font: font,

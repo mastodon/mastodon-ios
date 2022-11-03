@@ -13,6 +13,7 @@ import Foundation
 import MastodonSDK
 import UIKit
 import MetaTextKit
+import MetaLabel
 import MastodonMeta
 import MastodonAsset
 import MastodonLocalization

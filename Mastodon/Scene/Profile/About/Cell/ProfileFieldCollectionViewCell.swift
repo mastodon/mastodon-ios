@@ -9,6 +9,7 @@ import os.log
 import UIKit
 import Combine
 import MetaTextKit
+import MetaLabel
 import MastodonAsset
 import MastodonLocalization
 
@@ -105,8 +106,8 @@ extension ProfileFieldCollectionViewCell {
         valueContainer.addArrangedSubview(checkmark)
         metaContainer.addArrangedSubview(valueContainer)
         
-        keyMetaLabel.linkDelegate = self
-        valueMetaLabel.linkDelegate = self
+        keyMetaLabel.delegate = self
+        valueMetaLabel.delegate = self
     }
     
     @objc public func didTapCheckmark(_ recognizer: UITapGestureRecognizer) {

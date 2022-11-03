@@ -11,6 +11,7 @@ import MastodonSDK
 import UIKit
 import CoreData
 import CoreDataStack
+import MetaTextKit
 import MastodonAsset
 import MastodonCore
 import MastodonLocalization

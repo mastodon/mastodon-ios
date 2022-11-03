@@ -9,6 +9,7 @@ import UIKit
 import SwiftUI
 import MastodonCore
 import MetaTextKit
+import MetaLabel
 
 public struct MetaLabelRepresentable: UIViewRepresentable {
     

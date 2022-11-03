@@ -10,6 +10,7 @@ import UIKit
 import Combine
 import MastodonMeta
 import MetaTextKit
+import MetaLabel
 import MastodonAsset
 import MastodonCore
 import MastodonUI

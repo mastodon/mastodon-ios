@@ -12,6 +12,7 @@ import CoreData
 import CoreDataStack
 import AuthenticationServices
 import MetaTextKit
+import MetaLabel
 import MastodonSDK
 import MastodonMeta
 import MastodonAsset
