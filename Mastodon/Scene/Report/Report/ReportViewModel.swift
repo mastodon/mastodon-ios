@@ -162,7 +162,7 @@ extension ReportViewModel {
             #else
             let _ = try await context.apiService.report(
                 query: query,
-                authenticationBox: authenticationBox
+                authenticationBox: authContext.mastodonAuthenticationBox
             )
             #endif
             isReportSuccess = true
