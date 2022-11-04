@@ -20,7 +20,6 @@ extension APIService {
         let isFollowing: Bool
         let isPending: Bool
         let needsUnfollow: Bool
-        let showsReblogs: Bool
     }
     
     /// Toggle friendship between target MastodonUser and current MastodonUser
