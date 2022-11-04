@@ -59,7 +59,10 @@ xcrun xcodebuild \
     -archivePath "${ARCHIVE_PATH}" \
     -exportOptionsPlist "${EXPORT_OPTIONS_FILE}" \
     -exportPath "${ARTIFACT_PATH}/${SCHEME}.ipa" \
-    -allowProvisioningUpdates
+    -allowProvisioningUpdates \
+    -authenticationKeyPath "${API_KEY_FILE}" \
+    -authenticationKeyID "${ENV_API_KEY_ID}" \
+    -authenticationKeyIssuerID "${ENV_ISSUER_ID}"
 
 # Zip up the Xcode Archive into Artifacts folder.
 ditto -c -k --sequesterRsrc --keepParent "${ARCHIVE_PATH}" "${ARTIFACT_PATH}/${SCHEME}.xcarchive.zip"
