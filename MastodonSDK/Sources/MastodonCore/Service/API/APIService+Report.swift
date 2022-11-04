@@ -11,7 +11,7 @@ import Combine
 
 extension APIService {
  
-    func report(
+    public func report(
         query: Mastodon.API.Reports.FileReportQuery,
         authenticationBox: MastodonAuthenticationBox
     ) async throws -> Mastodon.Response.Content<Bool> {
