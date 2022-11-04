@@ -493,7 +493,7 @@
                 "hash_tag": {
                     "title": "Trending on Mastodon",
                     "description": "Hashtags that are getting quite a bit of attention",
-                    "people_talking": "%s people are talking"
+                    "people_talking": "%s oseb se pogovarja"
                 },
                 "accounts": {
                     "title": "Računi, ki vam bi bili morda všeč",
