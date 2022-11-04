@@ -89,7 +89,8 @@ final public class MastodonUser: NSManagedObject {
     @NSManaged public private(set) var endorsedBy: Set<MastodonUser>
     @NSManaged public private(set) var domainBlocking: Set<MastodonUser>
     @NSManaged public private(set) var domainBlockingBy: Set<MastodonUser>
-        
+    @NSManaged public private(set) var showingReblogs: Set<MastodonUser>
+    @NSManaged public private(set) var showingReblogsBy: Set<MastodonUser>
 }
 
 extension MastodonUser {
@@ -521,6 +522,7 @@ extension MastodonUser: AutoUpdatableObject {
             }
         }
     }
+
     public func update(isDomainBlocking: Bool, by mastodonUser: MastodonUser) {
         if isDomainBlocking {
             if !self.domainBlockingBy.contains(mastodonUser) {
@@ -533,4 +535,15 @@ extension MastodonUser: AutoUpdatableObject {
         }
     }
 
+    public func update(isShowingReblogs: Bool, by mastodonUser: MastodonUser) {
+        if isShowingReblogs {
+            if !self.showingReblogsBy.contains(mastodonUser) {
+                self.mutableSetValue(forKey: #keyPath(MastodonUser.showingReblogsBy)).add(mastodonUser)
+            }
+        } else {
+            if self.showingReblogsBy.contains(mastodonUser) {
+                self.mutableSetValue(forKey: #keyPath(MastodonUser.showingReblogsBy)).remove(mastodonUser)
+            }
+        }
+    }
 }
