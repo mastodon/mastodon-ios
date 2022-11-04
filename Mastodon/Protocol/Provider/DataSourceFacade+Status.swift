@@ -205,9 +205,42 @@ extension DataSourceFacade {
         menuContext: MenuContext
     ) async throws {
         switch action {
-          case .hideReblogs(_):
-            //TODO: Implement. Alert. Toggle on Server.
-            return
+          case .hideReblogs(let actionContext):
+            //FIXME: Add localized strings
+            let alertController = UIAlertController(
+              title: actionContext.showReblogs ? "Really hide?" : "Really show?",
+              message: actionContext.showReblogs ? "Really??" : "Really??",
+              preferredStyle: .alert
+            )
+
+            let showHideReblogsAction = UIAlertAction(
+              title: actionContext.showReblogs ? "Show" : "Hide",
+              style: .default
+            ) { [weak dependency] _ in
+              guard let dependency else { return }
+
+              Task {
+                  let managedObjectContext = dependency.context.managedObjectContext
+                  let _user: ManagedObjectRecord<MastodonUser>? = try? await managedObjectContext.perform {
+                      guard let user = menuContext.author?.object(in: managedObjectContext) else { return nil }
+                      return ManagedObjectRecord<MastodonUser>(objectID: user.objectID)
+                  }
+
+                  guard let user = _user else { return }
+
+                  try await DataSourceFacade.responseToShowHideReblogAction(
+                      dependency: dependency,
+                      user: user
+                  )
+              }
+            }
+
+            alertController.addAction(showHideReblogsAction)
+
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+            alertController.addAction(cancelAction)
+
+            dependency.present(alertController, animated: true)
         case .muteUser(let actionContext):
             let alertController = UIAlertController(
                 title: actionContext.isMuting ? L10n.Scene.Profile.RelationshipActionAlert.ConfirmUnmuteUser.title : L10n.Scene.Profile.RelationshipActionAlert.ConfirmMuteUser.title,
@@ -233,9 +266,9 @@ extension DataSourceFacade {
                 }   // end Task
             }
             alertController.addAction(confirmAction)
-            let cancelAction = UIAlertAction(title: L10n.Common.Controls.Actions.cancel, style: .cancel, handler: nil)
+            let cancelAction = UIAlertAction(title: L10n.Common.Controls.Actions.cancel, style: .cancel)
             alertController.addAction(cancelAction)
-            dependency.present(alertController, animated: true, completion: nil)
+            dependency.present(alertController, animated: true)
         case .blockUser(let actionContext):
             let alertController = UIAlertController(
                 title: actionContext.isBlocking ? L10n.Scene.Profile.RelationshipActionAlert.ConfirmUnblockUser.title : L10n.Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.title,
@@ -261,9 +294,9 @@ extension DataSourceFacade {
                 }   // end Task
             }
             alertController.addAction(confirmAction)
-            let cancelAction = UIAlertAction(title: L10n.Common.Controls.Actions.cancel, style: .cancel, handler: nil)
+            let cancelAction = UIAlertAction(title: L10n.Common.Controls.Actions.cancel, style: .cancel)
             alertController.addAction(cancelAction)
-            dependency.present(alertController, animated: true, completion: nil)
+            dependency.present(alertController, animated: true)
         case .reportUser:
             Task {
                 guard let user = menuContext.author else { return }
@@ -352,9 +385,9 @@ extension DataSourceFacade {
                 }   // end Task
             }
             alertController.addAction(confirmAction)
-            let cancelAction = UIAlertAction(title: L10n.Common.Controls.Actions.cancel, style: .cancel, handler: nil)
+            let cancelAction = UIAlertAction(title: L10n.Common.Controls.Actions.cancel, style: .cancel)
             alertController.addAction(cancelAction)
-            dependency.present(alertController, animated: true, completion: nil)
+            dependency.present(alertController, animated: true)
             
         }
     }   // end func
@@ -374,3 +407,4 @@ extension DataSourceFacade {
     }
     
 }
+

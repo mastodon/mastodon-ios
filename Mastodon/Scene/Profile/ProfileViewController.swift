@@ -378,8 +378,8 @@ extension ProfileViewController {
             let _ = ManagedObjectRecord<MastodonUser>(objectID: user.objectID)
             let menu = MastodonMenu.setupMenu(
                 actions: [
-                    .hideReblogs(.init(showReblogs: self.viewModel.relationshipViewModel.showReblogs)),
                     .muteUser(.init(name: name, isMuting: self.viewModel.relationshipViewModel.isMuting)),
+                    .hideReblogs(.init(showReblogs: self.viewModel.relationshipViewModel.showReblogs)),
                     .blockUser(.init(name: name, isBlocking: self.viewModel.relationshipViewModel.isBlocking)),
                     .reportUser(.init(name: name)),
                     .shareUser(.init(name: name)),
@@ -398,7 +398,9 @@ extension ProfileViewController {
             }
         } receiveValue: { [weak self] menu in
             guard let self = self else { return }
-            self.moreMenuBarButtonItem.menu = menu
+            OperationQueue.main.addOperation {
+              self.moreMenuBarButtonItem.menu = menu
+            }
         }
         .store(in: &disposeBag)
     }

@@ -13,13 +13,14 @@ import CommonOSLog
 import MastodonSDK
 
 extension APIService {
-    
+
     private struct MastodonFollowContext {
         let sourceUserID: MastodonUser.ID
         let targetUserID: MastodonUser.ID
         let isFollowing: Bool
         let isPending: Bool
         let needsUnfollow: Bool
+        let showsReblogs: Bool
     }
     
     /// Toggle friendship between target MastodonUser and current MastodonUser
@@ -121,5 +122,52 @@ extension APIService {
         let response = try result.get()
         return response
     }
-    
+
+    public func toggleShowReblogs(
+      for user: ManagedObjectRecord<MastodonUser>,
+      authenticationBox: MastodonAuthenticationBox
+    ) async throws -> Mastodon.Response.Content<Mastodon.Entity.Relationship> {
+
+      let managedObjectContext = backgroundManagedObjectContext
+      guard let user = user.object(in: managedObjectContext) else { throw APIError.implicit(.badRequest) }
+
+      let result: Result<Mastodon.Response.Content<Mastodon.Entity.Relationship>, Error>
+      let showReblogs = false //FIXME: Use showReblogs-value from data
+      let oldShowReblogs = true
+
+      do {
+        let response = try await Mastodon.API.Account.follow(
+          session: session,
+          domain: authenticationBox.domain,
+          accountID: user.id,
+          followQueryType: .follow(query: .init(reblogs: showReblogs)),
+          authorization: authenticationBox.userAuthorization
+        ).singleOutput()
+
+        result = .success(response)
+      } catch {
+        result = .failure(error)
+      }
+
+      try await managedObjectContext.performChanges {
+        guard let me = authenticationBox.authenticationRecord.object(in: managedObjectContext)?.user else { return }
+
+        switch result {
+          case .success(let response):
+            Persistence.MastodonUser.update(
+              mastodonUser: user,
+              context: Persistence.MastodonUser.RelationshipContext(
+                entity: response.value,
+                me: me,
+                networkDate: response.networkDate
+              )
+            )
+          case .failure:
+            // rollback
+            user.update(isShowingReblogs: oldShowReblogs, by: me)
+        }
+      }
+
+      return try result.get()
+    }
 }
