@@ -480,7 +480,7 @@
             "title": "Favoriserad av"
         },
         "reblogged_by": {
-            "title": "Ompostat av"
+            "title": "Puffat av"
         },
         "search": {
             "title": "Sök",
@@ -577,7 +577,7 @@
                     "favorites": "Favoriserar mitt inlägg",
                     "follows": "Följer mig",
                     "boosts": "Ompostar mitt inlägg",
-                    "mentions": "Omnämner mig",
+                    "mentions": "Nämner mig",
                     "trigger": {
                         "anyone": "alla",
                         "follower": "en följare",
