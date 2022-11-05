@@ -113,7 +113,7 @@
                     "open_author_profile": "Öppna författarens profil",
                     "open_reblogger_profile": "Öppna ompostarens profil",
                     "reply_status": "Svara på inlägg",
-                    "toggle_reblog": "Växla ompostning på inlägg",
+                    "toggle_reblog": "Växla puff på inlägg",
                     "toggle_favorite": "Växla favorit på inlägg",
                     "toggle_content_warning": "Växla innehållsvarning",
                     "preview_image": "Förhandsgranska bild"
@@ -124,7 +124,7 @@
                 }
             },
             "status": {
-                "user_reblogged": "%s ompostade",
+                "user_reblogged": "%s puffade",
                 "user_replied_to": "Svarade på %s",
                 "show_post": "Visa inlägg",
                 "show_user_profile": "Visa användarprofil",
@@ -138,8 +138,8 @@
                 },
                 "actions": {
                     "reply": "Svara",
-                    "reblog": "Omposta",
-                    "unreblog": "Ångra ompostning",
+                    "reblog": "Puffa",
+                    "unreblog": "Ångra puff",
                     "favorite": "Favorit",
                     "unfavorite": "Ta bort favorit",
                     "menu": "Meny",
@@ -536,7 +536,7 @@
             "notification_description": {
                 "followed_you": "följde dig",
                 "favorited_your_post": "favoriserade ditt inlägg",
-                "reblogged_your_post": "ompostade ditt inlägg",
+                "reblogged_your_post": "puffade ditt inlägg",
                 "mentioned_you": "nämnde dig",
                 "request_to_follow_you": "begär att följa dig",
                 "poll_has_ended": "omröstningen har avslutats"
