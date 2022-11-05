@@ -154,7 +154,7 @@
         <key>one</key>
         <string>%ld ompostning</string>
         <key>other</key>
-        <string>%ld ompostningar</string>
+        <string>%ld puffar</string>
       </dict>
     </dict>
     <key>plural.count.reply</key>
