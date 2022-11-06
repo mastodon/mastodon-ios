@@ -27,6 +27,7 @@ public enum RelationshipAction: Int, CaseIterable {
     case edit
     case editing
     case updating
+    case showReblogs
     
     public var option: RelationshipActionOptionSet {
         return RelationshipActionOptionSet(rawValue: 1 << rawValue)
@@ -57,6 +58,7 @@ public struct RelationshipActionOptionSet: OptionSet {
     public static let edit = RelationshipAction.edit.option
     public static let editing = RelationshipAction.editing.option
     public static let updating = RelationshipAction.updating.option
+    public static let showReblogs = RelationshipAction.showReblogs.option
     
     public static let editOptions: RelationshipActionOptionSet = [.edit, .editing, .updating]
     
@@ -75,24 +77,24 @@ public struct RelationshipActionOptionSet: OptionSet {
             return " "
         }
         switch highPriorityAction {
-        case .isMyself: return ""
-        case .followingBy: return " "
-        case .blockingBy: return " "
-        case .none: return " "
-        case .follow: return L10n.Common.Controls.Friendship.follow
-        case .request: return L10n.Common.Controls.Friendship.request
-        case .pending: return L10n.Common.Controls.Friendship.pending
-        case .following: return L10n.Common.Controls.Friendship.following
-        case .muting: return L10n.Common.Controls.Friendship.muted
-        case .blocked: return L10n.Common.Controls.Friendship.follow   // blocked by user   (deprecated)
-        case .blocking: return L10n.Common.Controls.Friendship.blocked
-        case .suspended: return L10n.Common.Controls.Friendship.follow
-        case .edit: return L10n.Common.Controls.Friendship.editInfo
-        case .editing: return L10n.Common.Controls.Actions.done
-        case .updating: return " "
+            case .isMyself: return ""
+            case .followingBy: return " "
+            case .blockingBy: return " "
+            case .none: return " "
+            case .follow: return L10n.Common.Controls.Friendship.follow
+            case .request: return L10n.Common.Controls.Friendship.request
+            case .pending: return L10n.Common.Controls.Friendship.pending
+            case .following: return L10n.Common.Controls.Friendship.following
+            case .muting: return L10n.Common.Controls.Friendship.muted
+            case .blocked: return L10n.Common.Controls.Friendship.follow   // blocked by user   (deprecated)
+            case .blocking: return L10n.Common.Controls.Friendship.blocked
+            case .suspended: return L10n.Common.Controls.Friendship.follow
+            case .edit: return L10n.Common.Controls.Friendship.editInfo
+            case .editing: return L10n.Common.Controls.Actions.done
+            case .updating: return " "
+            case .showReblogs: return ""
         }
     }
-
 }
 
 public final class RelationshipViewModel {
@@ -185,6 +187,7 @@ extension RelationshipViewModel {
         self.isBlockingBy = optionSet.contains(.blockingBy)
         self.isBlocking = optionSet.contains(.blocking)
         self.isSuspended = optionSet.contains(.suspended)
+        self.showReblogs = optionSet.contains(.showReblogs)
 
         self.optionSet = optionSet
     }
@@ -197,6 +200,7 @@ extension RelationshipViewModel {
         isBlockingBy = false
         isBlocking = false
         optionSet = nil
+        showReblogs = false
     }
 }
 
@@ -215,6 +219,7 @@ extension RelationshipViewModel {
         let isMuting = user.mutingBy.contains(me)
         let isBlockingBy = me.blockingBy.contains(user)
         let isBlocking = user.blockingBy.contains(me)
+        let isShowingReblogs = me.showingReblogsBy.contains(user)// user.showingReblogsBy.contains(me)
         
         var optionSet: RelationshipActionOptionSet = [.follow]
         
@@ -252,6 +257,10 @@ extension RelationshipViewModel {
         
         if user.suspended {
             optionSet.insert(.suspended)
+        }
+
+        if isShowingReblogs {
+            optionSet.insert(.showReblogs)
         }
                 
         return optionSet
