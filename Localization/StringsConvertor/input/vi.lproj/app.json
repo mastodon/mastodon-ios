@@ -198,7 +198,7 @@
                     "user_blocking_warning": "Bạn không thể xem trang %s\ncho tới khi bạn bỏ chặn họ.\nHọ sẽ thấy trang của bạn như thế này.",
                     "blocked_warning": "Bạn không thể xem trang người này\ncho tới khi họ bỏ chặn bạn.",
                     "user_blocked_warning": "Bạn không thể xem trang %s\ncho tới khi họ bỏ chặn bạn.",
-                    "suspended_warning": "Người dùng đã bị vô hiệu hóa.",
+                    "suspended_warning": "Người này đã bị vô hiệu hóa.",
                     "user_suspended_warning": "%s đã bị vô hiệu hóa."
                 }
             }
@@ -236,7 +236,7 @@
             },
             "label": {
                 "language": "NGÔN NGỮ",
-                "users": "NGƯỜI DÙNG",
+                "users": "NGƯỜI",
                 "category": "PHÂN LOẠI"
             },
             "input": {
@@ -441,19 +441,19 @@
             },
             "relationship_action_alert": {
                 "confirm_mute_user": {
-                    "title": "Ẩn người dùng",
+                    "title": "Ẩn người này",
                     "message": "Xác nhận ẩn %s"
                 },
                 "confirm_unmute_user": {
-                    "title": "Bỏ ẩn người dùng",
+                    "title": "Bỏ ẩn người này",
                     "message": "Xác nhận bỏ ẩn %s"
                 },
                 "confirm_block_user": {
-                    "title": "Chặn người dùng",
+                    "title": "Chặn người này",
                     "message": "Xác nhận chặn %s"
                 },
                 "confirm_unblock_user": {
-                    "title": "Bỏ chặn người dùng",
+                    "title": "Bỏ chặn người này",
                     "message": "Xác nhận bỏ chặn %s"
                 }
             },
@@ -485,7 +485,7 @@
         "search": {
             "title": "Tìm kiếm",
             "search_bar": {
-                "placeholder": "Tìm hashtag và người dùng",
+                "placeholder": "Tìm hashtag và mọi người",
                 "cancel": "Hủy bỏ"
             },
             "recommend": {
@@ -504,7 +504,7 @@
             "searching": {
                 "segment": {
                     "all": "Tất cả",
-                    "people": "Người dùng",
+                    "people": "Mọi người",
                     "hashtags": "Hashtag",
                     "posts": "Tút"
                 },
