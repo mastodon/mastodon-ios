@@ -143,7 +143,7 @@ extension APIService {
                 session: session,
                 domain: authenticationBox.domain,
                 accountID: user.id,
-                followQueryType: .follow(query: .init(reblogs: showReblogs)),
+                followQueryType: .follow(query: .init(reblogs: newShowReblogs)),
                 authorization: authenticationBox.userAuthorization
             ).singleOutput()
 
