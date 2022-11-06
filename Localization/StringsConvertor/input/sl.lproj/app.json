@@ -483,7 +483,7 @@
             "title": "Reblogged By"
         },
         "search": {
-            "title": "Search",
+            "title": "Iskanje",
             "search_bar": {
                 "placeholder": "Išči ključnike in uporabnike",
                 "cancel": "Prekliči"
@@ -491,13 +491,13 @@
             "recommend": {
                 "button_text": "Prikaži vse",
                 "hash_tag": {
-                    "title": "Trending on Mastodon",
-                    "description": "Hashtags that are getting quite a bit of attention",
+                    "title": "V trendu na Mastodonu",
+                    "description": "Ključniki, ki imajo veliko pozornosti",
                     "people_talking": "%s oseb se pogovarja"
                 },
                 "accounts": {
                     "title": "Računi, ki vam bi bili morda všeč",
-                    "description": "You may like to follow these accounts",
+                    "description": "Morda želite slediti tem računom",
                     "follow": "Sledi"
                 }
             },
@@ -657,7 +657,7 @@
             },
             "step_final": {
                 "dont_want_to_see_this": "Ne želite videti tega?",
-                "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "When you see something you don’t like on Mastodon, you can remove the person from your experience.",
+                "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "Če vidite nekaj, česar na Masodonu ne želite, lahko odstranite osebo iz svoje izkušnje.",
                 "unfollow": "Prenehaj slediti",
                 "unfollowed": "Unfollowed",
                 "unfollow_user": "Prenehaj slediti %s",
@@ -677,7 +677,7 @@
         },
         "account_list": {
             "tab_bar_hint": "Current selected profile: %s. Double tap then hold to show account switcher",
-            "dismiss_account_switcher": "Dismiss Account Switcher",
+            "dismiss_account_switcher": "Umakni preklopnik med računi",
             "add_account": "Dodaj račun"
         },
         "wizard": {
