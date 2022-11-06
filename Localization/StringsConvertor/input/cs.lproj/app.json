@@ -116,17 +116,17 @@
                     "toggle_reblog": "Toggle Reblog on Post",
                     "toggle_favorite": "Toggle Favorite on Post",
                     "toggle_content_warning": "Toggle Content Warning",
-                    "preview_image": "Preview Image"
+                    "preview_image": "Náhled obrázku"
                 },
                 "segmented_control": {
-                    "previous_section": "Previous Section",
-                    "next_section": "Next Section"
+                    "previous_section": "Předchozí sekce",
+                    "next_section": "Další sekce"
                 }
             },
             "status": {
                 "user_reblogged": "%s reblogged",
                 "user_replied_to": "Replied to %s",
-                "show_post": "Show Post",
+                "show_post": "Zobrazit příspěvek",
                 "show_user_profile": "Show user profile",
                 "content_warning": "Content Warning",
                 "sensitive_content": "Sensitive Content",
