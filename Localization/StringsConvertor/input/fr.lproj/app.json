@@ -469,7 +469,7 @@
             "footer": "Les abonné·e·s issus des autres serveurs ne sont pas affiché·e·s."
         },
         "following": {
-            "title": "following",
+            "title": "abonnement",
             "footer": "Les abonnés issus des autres serveurs ne sont pas affichés."
         },
         "familiarFollowers": {
@@ -477,10 +477,10 @@
             "followed_by_names": "Suivi·e par %s"
         },
         "favorited_by": {
-            "title": "Favorited By"
+            "title": "Favoris par"
         },
         "reblogged_by": {
-            "title": "Reblogged By"
+            "title": "Reblogué par"
         },
         "search": {
             "title": "Rechercher",
@@ -659,7 +659,7 @@
                 "dont_want_to_see_this": "Vous ne voulez pas voir cela ?",
                 "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "Quand vous voyez quelque chose que vous n’aimez pas sur Mastodon, vous pouvez retirer la personne de votre expérience.",
                 "unfollow": "Se désabonner",
-                "unfollowed": "Unfollowed",
+                "unfollowed": "Non-suivi",
                 "unfollow_user": "Ne plus suivre %s",
                 "mute_user": "Masquer %s",
                 "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "Vous ne verrez plus leurs messages ou leurs partages dans votre flux personnel. Iels ne sauront pas qu’iels ont été mis en sourdine.",
