@@ -713,6 +713,12 @@ public enum L10n {
           /// Block Account
           public static let title = L10n.tr("Localizable", "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Title")
         }
+        public enum ConfirmHideReblogs {
+          /// Confirm to hide reblogs
+          public static let message = L10n.tr("Localizable", "Scene.Profile.RelationshipActionAlert.ConfirmHideReblogs.Message")
+          /// Hide reblogs
+          public static let title = L10n.tr("Localizable", "Scene.Profile.RelationshipActionAlert.ConfirmHideReblogs.Title")
+        }
         public enum ConfirmMuteUser {
           /// Confirm to mute %@
           public static func message(_ p1: Any) -> String {
@@ -720,6 +726,12 @@ public enum L10n {
           }
           /// Mute Account
           public static let title = L10n.tr("Localizable", "Scene.Profile.RelationshipActionAlert.ConfirmMuteUser.Title")
+        }
+        public enum ConfirmShowReblogs {
+          /// Confirm to show reblogs
+          public static let message = L10n.tr("Localizable", "Scene.Profile.RelationshipActionAlert.ConfirmShowReblogs.Message")
+          /// Show Reblogs
+          public static let title = L10n.tr("Localizable", "Scene.Profile.RelationshipActionAlert.ConfirmShowReblogs.Title")
         }
         public enum ConfirmUnblockUser {
           /// Confirm to unblock %@

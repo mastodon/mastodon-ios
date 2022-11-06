@@ -79,6 +79,7 @@ Please check your internet connection.";
 "Common.Controls.Friendship.UnmuteUser" = "Unmute %@";
 "Common.Controls.Friendship.HideReblogs" = "Hide Reblogs";
 "Common.Controls.Friendship.ShowReblogs" = "Show Reblogs";
+
 "Common.Controls.Keyboard.Common.ComposeNewPost" = "Compose New Post";
 "Common.Controls.Keyboard.Common.OpenSettings" = "Open Settings";
 "Common.Controls.Keyboard.Common.ShowFavorites" = "Show Favorites";
@@ -264,6 +265,10 @@ uploaded to Mastodon.";
 "Scene.Profile.RelationshipActionAlert.ConfirmUnblockUser.Title" = "Unblock Account";
 "Scene.Profile.RelationshipActionAlert.ConfirmUnmuteUser.Message" = "Confirm to unmute %@";
 "Scene.Profile.RelationshipActionAlert.ConfirmUnmuteUser.Title" = "Unmute Account";
+"Scene.Profile.RelationshipActionAlert.ConfirmShowReblogs.Message" = "Confirm to show reblogs";
+"Scene.Profile.RelationshipActionAlert.ConfirmShowReblogs.Title" = "Show Reblogs";
+"Scene.Profile.RelationshipActionAlert.ConfirmHideReblogs.Message" = "Confirm to hide reblogs";
+"Scene.Profile.RelationshipActionAlert.ConfirmHideReblogs.Title" = "Hide reblogs";
 "Scene.Profile.SegmentedControl.About" = "About";
 "Scene.Profile.SegmentedControl.Media" = "Media";
 "Scene.Profile.SegmentedControl.Posts" = "Posts";

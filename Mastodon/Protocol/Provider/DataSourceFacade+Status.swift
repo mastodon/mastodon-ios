@@ -205,42 +205,45 @@ extension DataSourceFacade {
         menuContext: MenuContext
     ) async throws {
         switch action {
-          case .hideReblogs(let actionContext):
-            //FIXME: Add localized strings
-            let alertController = UIAlertController(
-              title: actionContext.showReblogs ? "Really hide?" : "Really show?",
-              message: actionContext.showReblogs ? "Really??" : "Really??",
-              preferredStyle: .alert
-            )
+            case .hideReblogs(let actionContext):
+                let title = actionContext.showReblogs ? L10n.Scene.Profile.RelationshipActionAlert.ConfirmHideReblogs.title : L10n.Scene.Profile.RelationshipActionAlert.ConfirmShowReblogs.title
+                let message = actionContext.showReblogs ? L10n.Scene.Profile.RelationshipActionAlert.ConfirmHideReblogs.message : L10n.Scene.Profile.RelationshipActionAlert.ConfirmShowReblogs.message
 
-            let showHideReblogsAction = UIAlertAction(
-              title: actionContext.showReblogs ? "Show" : "Hide",
-              style: .default
-            ) { [weak dependency] _ in
-              guard let dependency else { return }
+                let alertController = UIAlertController(
+                    title: title,
+                    message: message,
+                    preferredStyle: .alert
+                )
 
-              Task {
-                  let managedObjectContext = dependency.context.managedObjectContext
-                  let _user: ManagedObjectRecord<MastodonUser>? = try? await managedObjectContext.perform {
-                      guard let user = menuContext.author?.object(in: managedObjectContext) else { return nil }
-                      return ManagedObjectRecord<MastodonUser>(objectID: user.objectID)
-                  }
+                let actionTitle = actionContext.showReblogs ? L10n.Common.Controls.Friendship.hideReblogs : L10n.Common.Controls.Friendship.showReblogs
+                let showHideReblogsAction = UIAlertAction(
+                    title: actionTitle,
+                    style: .destructive
+                ) { [weak dependency] _ in
+                    guard let dependency else { return }
 
-                  guard let user = _user else { return }
+                    Task {
+                        let managedObjectContext = dependency.context.managedObjectContext
+                        let _user: ManagedObjectRecord<MastodonUser>? = try? await managedObjectContext.perform {
+                            guard let user = menuContext.author?.object(in: managedObjectContext) else { return nil }
+                            return ManagedObjectRecord<MastodonUser>(objectID: user.objectID)
+                        }
 
-                  try await DataSourceFacade.responseToShowHideReblogAction(
-                      dependency: dependency,
-                      user: user
-                  )
-              }
-            }
+                        guard let user = _user else { return }
 
-            alertController.addAction(showHideReblogsAction)
+                        try await DataSourceFacade.responseToShowHideReblogAction(
+                            dependency: dependency,
+                            user: user
+                        )
+                    }
+                }
 
-            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
-            alertController.addAction(cancelAction)
+                alertController.addAction(showHideReblogsAction)
 
-            dependency.present(alertController, animated: true)
+                let cancelAction = UIAlertAction(title: L10n.Common.Controls.Actions.cancel, style: .cancel)
+                alertController.addAction(cancelAction)
+
+                dependency.present(alertController, animated: true)
         case .muteUser(let actionContext):
             let alertController = UIAlertController(
                 title: actionContext.isMuting ? L10n.Scene.Profile.RelationshipActionAlert.ConfirmUnmuteUser.title : L10n.Scene.Profile.RelationshipActionAlert.ConfirmMuteUser.title,

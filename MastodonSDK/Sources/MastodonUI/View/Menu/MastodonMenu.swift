@@ -52,7 +52,7 @@ extension MastodonMenu {
         func build(delegate: MastodonMenuDelegate) -> BuiltAction {
             switch self {
             case .hideReblogs(let context):
-                let title = context.showReblogs ? L10n.Common.Controls.Friendship.hideReblogs : L10n.Common.Controls.Friendship.hideReblogs
+                let title = context.showReblogs ? L10n.Common.Controls.Friendship.hideReblogs : L10n.Common.Controls.Friendship.showReblogs
                 let reblogAction = BuiltAction(
                     title: title,
                     image: UIImage(systemName: "arrow.2.squarepath")
