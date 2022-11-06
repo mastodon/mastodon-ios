@@ -92,7 +92,7 @@ public struct RelationshipActionOptionSet: OptionSet {
             case .edit: return L10n.Common.Controls.Friendship.editInfo
             case .editing: return L10n.Common.Controls.Actions.done
             case .updating: return " "
-            case .showReblogs: return ""
+            case .showReblogs: return " "
         }
     }
 }
@@ -219,7 +219,7 @@ extension RelationshipViewModel {
         let isMuting = user.mutingBy.contains(me)
         let isBlockingBy = me.blockingBy.contains(user)
         let isBlocking = user.blockingBy.contains(me)
-        let isShowingReblogs = me.showingReblogsBy.contains(user)// user.showingReblogsBy.contains(me)
+        let isShowingReblogs = me.showingReblogsBy.contains(user)
         
         var optionSet: RelationshipActionOptionSet = [.follow]
         

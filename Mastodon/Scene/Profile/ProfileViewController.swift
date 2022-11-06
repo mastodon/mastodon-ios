@@ -376,14 +376,20 @@ extension ProfileViewController {
             }
             let name = user.displayNameWithFallback
             let _ = ManagedObjectRecord<MastodonUser>(objectID: user.objectID)
+
+            var menuActions: [MastodonMenu.Action] = [
+                .muteUser(.init(name: name, isMuting: self.viewModel.relationshipViewModel.isMuting)),
+                .blockUser(.init(name: name, isBlocking: self.viewModel.relationshipViewModel.isBlocking)),
+                .reportUser(.init(name: name)),
+                .shareUser(.init(name: name)),
+            ]
+
+            if let me = self.viewModel?.me, me.following.contains(user) {
+                menuActions.insert(.hideReblogs(.init(showReblogs: self.viewModel.relationshipViewModel.showReblogs)), at: 1)
+            }
+
             let menu = MastodonMenu.setupMenu(
-                actions: [
-                    .muteUser(.init(name: name, isMuting: self.viewModel.relationshipViewModel.isMuting)),
-                    .hideReblogs(.init(showReblogs: self.viewModel.relationshipViewModel.showReblogs)),
-                    .blockUser(.init(name: name, isBlocking: self.viewModel.relationshipViewModel.isBlocking)),
-                    .reportUser(.init(name: name)),
-                    .shareUser(.init(name: name)),
-                ],
+                actions: menuActions,
                 delegate: self
             )
             return menu
@@ -743,7 +749,7 @@ extension ProfileViewController: ProfileHeaderViewControllerDelegate {
                             let alertController = UIAlertController(for: error, title: L10n.Common.Alerts.EditProfileFailure.title, preferredStyle: .alert)
                             let okAction = UIAlertAction(title: L10n.Common.Controls.Actions.ok, style: .default, handler: nil)
                             alertController.addAction(okAction)
-                            self.coordinator.present(
+                            _ = self.coordinator.present(
                                 scene: .alertController(alertController: alertController),
                                 from: nil,
                                 transition: .alertController(animated: true, completion: nil)
@@ -766,11 +772,11 @@ extension ProfileViewController: ProfileHeaderViewControllerDelegate {
                 break
             case .follow, .request, .pending, .following:
                 guard let user = viewModel.user else { return }
-                let reocrd = ManagedObjectRecord<MastodonUser>(objectID: user.objectID)
+                let record = ManagedObjectRecord<MastodonUser>(objectID: user.objectID)
                 Task {
                     try await DataSourceFacade.responseToUserFollowAction(
                         dependency: self,
-                        user: reocrd
+                        user: record
                     )
                 }
             case .muting:
@@ -819,10 +825,8 @@ extension ProfileViewController: ProfileHeaderViewControllerDelegate {
                 let cancelAction = UIAlertAction(title: L10n.Common.Controls.Actions.cancel, style: .cancel, handler: nil)
                 alertController.addAction(cancelAction)
                 present(alertController, animated: true, completion: nil)
-            case .blocked:
+            case .blocked, .showReblogs, .isMyself,.followingBy, .blockingBy, .suspended, .edit, .editing, .updating:
                 break
-            default:
-                assertionFailure()
             }
         }
         
