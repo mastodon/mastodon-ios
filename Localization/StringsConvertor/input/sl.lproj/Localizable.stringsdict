@@ -148,13 +148,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 post</string>
+        <string>%ld objava</string>
         <key>two</key>
-        <string>%ld posts</string>
+        <string>%ld objavi</string>
         <key>few</key>
-        <string>%ld posts</string>
+        <string>%ld objave</string>
         <key>other</key>
-        <string>%ld posts</string>
+        <string>%ld objav</string>
       </dict>
     </dict>
     <key>plural.count.favorite</key>
@@ -168,13 +168,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 favorite</string>
+        <string>%ld priljubljeni</string>
         <key>two</key>
-        <string>%ld favorites</string>
+        <string>%ld priljubljena</string>
         <key>few</key>
-        <string>%ld favorites</string>
+        <string>%ld priljubljeni</string>
         <key>other</key>
-        <string>%ld favorites</string>
+        <string>%ld priljubljenih</string>
       </dict>
     </dict>
     <key>plural.count.reblog</key>
@@ -208,13 +208,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 reply</string>
+        <string>%ld odgovor</string>
         <key>two</key>
-        <string>%ld replies</string>
+        <string>%ld odgovora</string>
         <key>few</key>
-        <string>%ld replies</string>
+        <string>%ld odgovori</string>
         <key>other</key>
-        <string>%ld replies</string>
+        <string>%ld odgovorov</string>
       </dict>
     </dict>
     <key>plural.count.vote</key>
@@ -228,13 +228,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 vote</string>
+        <string>%ld glas</string>
         <key>two</key>
-        <string>%ld votes</string>
+        <string>%ld glasova</string>
         <key>few</key>
-        <string>%ld votes</string>
+        <string>%ld glasovi</string>
         <key>other</key>
-        <string>%ld votes</string>
+        <string>%ld glasov</string>
       </dict>
     </dict>
     <key>plural.count.voter</key>
