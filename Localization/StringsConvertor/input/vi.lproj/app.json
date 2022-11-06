@@ -392,7 +392,7 @@
             "visibility": {
                 "public": "Công khai",
                 "unlisted": "Hạn chế",
-                "private": "Riêng tư",
+                "private": "Chỉ người theo dõi",
                 "direct": "Nhắn riêng"
             },
             "auto_complete": {
