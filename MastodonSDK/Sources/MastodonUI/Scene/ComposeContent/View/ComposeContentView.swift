@@ -148,8 +148,8 @@ extension ComposeContentView {
             Spacer()
         }
         .accessibilityElement(children: .ignore)
-        // TODO: i18n
-        .accessibilityLabel("Posting as \(viewModel.name.string), \(viewModel.username)")
+        // TODO: i18n (scene.compose.accessibility.posting_as)
+        .accessibilityLabel("Posting as \([viewModel.name.string, viewModel.username].joined(separator: ", "))")
     }
 }
 
