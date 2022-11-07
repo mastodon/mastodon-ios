@@ -40,7 +40,6 @@ let package = Package(
         .package(url: "https://github.com/MainasuK/CommonOSLog", from: "0.1.1"),
         .package(url: "https://github.com/MainasuK/FPSIndicator.git", from: "1.0.0"),
         .package(url: "https://github.com/slackhq/PanModal.git", from: "1.2.7"),
-        .package(url: "https://github.com/SwiftyJSON/SwiftyJSON.git", from: "5.0.0"),
         .package(url: "https://github.com/TimOliver/TOCropViewController.git", from: "2.6.1"),
         .package(url: "https://github.com/TwidereProject/MetaTextKit.git", exact: "2.2.5"),
         .package(url: "https://github.com/TwidereProject/TabBarPager.git", from: "0.1.0"),
@@ -103,7 +102,6 @@ let package = Package(
         .target(
             name: "MastodonSDK",
             dependencies: [
-                .product(name: "SwiftyJSON", package: "SwiftyJSON"),
                 .product(name: "NIOHTTP1", package: "swift-nio"),
             ]
         ),
