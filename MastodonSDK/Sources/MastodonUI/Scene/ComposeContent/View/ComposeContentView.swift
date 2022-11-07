@@ -147,6 +147,9 @@ extension ComposeContentView {
             }
             Spacer()
         }
+        .accessibilityElement(children: .ignore)
+        // TODO: i18n
+        .accessibilityLabel("Posting as \(viewModel.name.string), \(viewModel.username)")
     }
 }
 
