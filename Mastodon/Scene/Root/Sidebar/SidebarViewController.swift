@@ -162,6 +162,19 @@ extension SidebarViewController {
     
 }
 
+extension SidebarViewController: SidebarViewModelDelegate {
+    func sidebarViewModelDidSwitchAccounts(_ sidebarViewModel: SidebarViewModel) {
+        guard let diffableDataSource = viewModel.diffableDataSource else { return }
+        guard let indexPath = diffableDataSource.indexPath(for: .tab(.me)) else { return }
+        guard let cell = collectionView.cellForItem(at: indexPath) else { return }
+        delegate?.sidebarViewController(
+            self,
+            didLongPressItem: .tab(.me),
+            sourceView: cell
+        )
+    }
+}
+
 extension SidebarViewController {
     @objc private func sidebarLongPressGestureRecognizerHandler(_ sender: UILongPressGestureRecognizer) {
         guard sender.state == .began else { return }

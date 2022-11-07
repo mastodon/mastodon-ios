@@ -15,6 +15,10 @@ import MastodonAsset
 import MastodonCore
 import MastodonLocalization
 
+protocol SidebarViewModelDelegate: AnyObject {
+    func sidebarViewModelDidSwitchAccounts(_ sidebarViewModel: SidebarViewModel)
+}
+
 final class SidebarViewModel {
     
     var disposeBag = Set<AnyCancellable>()
@@ -30,6 +34,8 @@ final class SidebarViewModel {
     var diffableDataSource: UICollectionViewDiffableDataSource<Section, Item>?
     var secondaryDiffableDataSource: UICollectionViewDiffableDataSource<Section, Item>?
     @Published private(set) var isReadyForWizardAvatarButton = false
+
+    weak var delegate: SidebarViewModelDelegate?
 
     init(context: AppContext, authContext: AuthContext?) {
         self.context = context
@@ -127,9 +133,18 @@ extension SidebarViewModel {
                 }
                 .store(in: &cell.disposeBag)
             case .me:
-                guard let user = self.authContext?.mastodonAuthenticationBox.authenticationRecord.object(in: self.context.managedObjectContext)?.user else { return }
-                let currentUserDisplayName = user.displayNameWithFallback
-                cell.accessibilityHint = L10n.Scene.AccountList.tabBarHint(currentUserDisplayName)
+                if self.authContext?.mastodonAuthenticationBox.authenticationRecord.object(in: self.context.managedObjectContext)?.user != nil {
+                    cell.accessibilityCustomActions = [
+                        // TODO: i18n (scene.account_list.switch_accounts)
+                        UIAccessibilityCustomAction(name: "Switch Accounts") { [weak self] _ in
+                            guard let self, let delegate = self.delegate else { return false }
+                            delegate.sidebarViewModelDidSwitchAccounts(self)
+                            return true
+                        }
+                    ]
+                } else {
+                    cell.accessibilityCustomActions = []
+                }
             default:
                 break
             }

@@ -298,6 +298,7 @@ extension MainTabBarController {
             }
             .store(in: &disposeBag)
         
+        let profileTabItem = self.tabBar.items?.first { item in item.tag == Tab.me.tag }
         if let user = authContext?.mastodonAuthenticationBox.authenticationRecord.object(in: context.managedObjectContext)?.user {
             self.avatarURLObserver = user.publisher(for: \.avatar)
                 .sink { [weak self, weak user] _ in
@@ -306,15 +307,20 @@ extension MainTabBarController {
                     guard user.managedObjectContext != nil else { return }
                     self.avatarURL = user.avatarImageURL()
                 }
-            
-            // a11y
-            let _profileTabItem = self.tabBar.items?.first { item in item.tag == Tab.me.tag }
-            guard let profileTabItem = _profileTabItem else { return }
-            let currentUserDisplayName = user.displayNameWithFallback ?? "no user"
-            profileTabItem.accessibilityHint = L10n.Scene.AccountList.tabBarHint(currentUserDisplayName)
-            
+            if let profileTabItem {
+                profileTabItem.accessibilityCustomActions = [
+                    // TODO: i18n (scene.account_list.switch_accounts)
+                    UIAccessibilityCustomAction(name: "Switch Accounts") { [weak self] _ in
+                        self?.showAccountSwitcher()
+                        return true
+                    }
+                ]
+            }
         } else {
             self.avatarURLObserver = nil
+            if let profileTabItem {
+                profileTabItem.accessibilityCustomActions = []
+            }
         }
 
         let tabBarLongPressGestureRecognizer = UILongPressGestureRecognizer()
@@ -390,12 +396,16 @@ extension MainTabBarController {
 
         switch tab {
         case .me:
-            guard let authContext = self.authContext else { return }
-            let accountListViewModel = AccountListViewModel(context: context, authContext: authContext)
-            _ = coordinator.present(scene: .accountList(viewModel: accountListViewModel), from: self, transition: .panModal)
+            showAccountSwitcher()
         default:
             break
         }
+    }
+
+    private func showAccountSwitcher() {
+        guard let authContext = self.authContext else { return }
+        let accountListViewModel = AccountListViewModel(context: context, authContext: authContext)
+        _ = coordinator.present(scene: .accountList(viewModel: accountListViewModel), from: self, transition: .panModal)
     }
 }
 
