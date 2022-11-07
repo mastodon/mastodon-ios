@@ -385,7 +385,9 @@ extension ProfileViewController {
             ]
 
             if let me = self.viewModel?.me, me.following.contains(user) {
-                menuActions.insert(.hideReblogs(.init(showReblogs: self.viewModel.relationshipViewModel.showReblogs)), at: 1)
+                let showReblogs = me.showingReblogsBy.contains(user)
+                let context = MastodonMenu.HideReblogsActionContext(showReblogs: showReblogs)
+                menuActions.insert(.hideReblogs(context), at: 1)
             }
 
             let menu = MastodonMenu.setupMenu(

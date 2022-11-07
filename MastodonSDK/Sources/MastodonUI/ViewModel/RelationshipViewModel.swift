@@ -58,8 +58,6 @@ public struct RelationshipActionOptionSet: OptionSet {
     public static let edit = RelationshipAction.edit.option
     public static let editing = RelationshipAction.editing.option
     public static let updating = RelationshipAction.updating.option
-    public static let showReblogs = RelationshipAction.showReblogs.option
-    
     public static let editOptions: RelationshipActionOptionSet = [.edit, .editing, .updating]
     
     public func highPriorityAction(except: RelationshipActionOptionSet) -> RelationshipAction? {
@@ -187,7 +185,7 @@ extension RelationshipViewModel {
         self.isBlockingBy = optionSet.contains(.blockingBy)
         self.isBlocking = optionSet.contains(.blocking)
         self.isSuspended = optionSet.contains(.suspended)
-        self.showReblogs = optionSet.contains(.showReblogs)
+        self.showReblogs = me.showingReblogsBy.contains(user)
 
         self.optionSet = optionSet
     }
@@ -219,8 +217,7 @@ extension RelationshipViewModel {
         let isMuting = user.mutingBy.contains(me)
         let isBlockingBy = me.blockingBy.contains(user)
         let isBlocking = user.blockingBy.contains(me)
-        let isShowingReblogs = me.showingReblogsBy.contains(user)
-        
+
         var optionSet: RelationshipActionOptionSet = [.follow]
         
         if isMyself {
@@ -259,10 +256,6 @@ extension RelationshipViewModel {
             optionSet.insert(.suspended)
         }
 
-        if isShowingReblogs {
-            optionSet.insert(.showReblogs)
-        }
-                
         return optionSet
     }
 }
