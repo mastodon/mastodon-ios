@@ -5,7 +5,7 @@
     <key>There are ${count} options matching ‘${content}’. - 2</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>There are %#@count_option@ matching ‘${content}’.</string>
+      <string>Na voljo: %#@count_option@, ki se ujema z "${content}".</string>
       <key>count_option</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -13,19 +13,19 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>%ld</string>
         <key>one</key>
-        <string>1 option</string>
+        <string>%ld možnost</string>
         <key>two</key>
-        <string>%ld options</string>
+        <string>%ld možnosti</string>
         <key>few</key>
-        <string>%ld options</string>
+        <string>%ld možnosti</string>
         <key>other</key>
-        <string>%ld options</string>
+        <string>%ld možnosti</string>
       </dict>
     </dict>
     <key>There are ${count} options matching ‘${visibility}’.</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>There are %#@count_option@ matching ‘${visibility}’.</string>
+      <string>Na voljo: %#@count_option@, ki se ujema z "${visibility}".</string>
       <key>count_option</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -33,13 +33,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>%ld</string>
         <key>one</key>
-        <string>1 option</string>
+        <string>%ld možnost</string>
         <key>two</key>
-        <string>%ld options</string>
+        <string>%ld možnosti</string>
         <key>few</key>
-        <string>%ld options</string>
+        <string>%ld možnosti</string>
         <key>other</key>
-        <string>%ld options</string>
+        <string>%ld možnosti</string>
       </dict>
     </dict>
   </dict>
