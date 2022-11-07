@@ -125,6 +125,8 @@ extension AccountListTableViewCell {
         
         badgeButton.setBadge(number: 0)
         checkmarkImageView.isHidden = true
+
+        accessibilityTraits.insert(.button)
     }
 
 }
