@@ -92,6 +92,9 @@ struct ComposeContentToolbarView: View {
         .padding(.trailing, 16)
         .frame(height: ComposeContentToolbarView.toolbarHeight)
         .background(Color(viewModel.backgroundColor))
+        .accessibilityElement(children: .contain)
+        // TODO: i18n
+        .accessibilityLabel("Post Options")
     }
     
 }
