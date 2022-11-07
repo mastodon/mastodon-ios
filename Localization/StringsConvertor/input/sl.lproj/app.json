@@ -21,7 +21,7 @@
             },
             "publish_post_failure": {
                 "title": "Spodletela objava",
-                "message": "Failed to publish the post.\nPlease check your internet connection.",
+                "message": "Objava je spodletela.\nPreverite svojo internetno povezavo.",
                 "attachments_message": {
                     "video_attach_with_photo": "Videoposnetka ni mogoče priložiti objavi, ki že vsebuje slike.",
                     "more_than_one_video": "Ni možno priložiti več kot enega videoposnetka."
@@ -50,7 +50,7 @@
             },
             "clean_cache": {
                 "title": "Počisti predpomnilnik",
-                "message": "Successfully cleaned %s cache."
+                "message": "Uspešno počiščem predpomnilnik %s."
             }
         },
         "controls": {
@@ -158,7 +158,7 @@
                     "emoji": "Emotikon"
                 },
                 "visibility": {
-                    "unlisted": "Everyone can see this post but not display in the public timeline.",
+                    "unlisted": "Vsak lahko vidi to objavo, ni pa prikazana na javni časovnici.",
                     "private": "Samo sledilci osebe lahko vidijo to objavo.",
                     "private_from_me": "Samo moji sledilci lahko vidijo to objavo.",
                     "direct": "Samo omenjeni uporabnik lahko vidi to objavo."
@@ -212,8 +212,8 @@
         },
         "server_picker": {
             "title": "Mastodon tvorijo uporabniki z različnih strežnikov.",
-            "subtitle": "Pick a server based on your interests, region, or a general purpose one.",
-            "subtitle_extend": "Pick a server based on your interests, region, or a general purpose one. Each server is operated by an entirely independent organization or individual.",
+            "subtitle": "Strežnik izberite glede na svoje interese, regijo ali pa izberite splošnega.",
+            "subtitle_extend": "Strežnik izberite glede na svoje interese, regijo ali pa izberite splošnega. Z vsakim strežnikom upravlja povsem neodvisna organizacija ali posameznik.",
             "button": {
                 "category": {
                     "all": "Vse",
@@ -245,7 +245,7 @@
             },
             "empty_state": {
                 "finding_servers": "Iskanje razpoložljivih strežnikov ...",
-                "bad_network": "Something went wrong while loading the data. Check your internet connection.",
+                "bad_network": "Med nalaganjem podatkov je prišlo do napake. Preverite svojo internetno povezavo.",
                 "no_results": "Ni rezultatov"
             }
         },
@@ -302,16 +302,16 @@
                     "inclusion": "%s ni podprta vrednost"
                 },
                 "special": {
-                    "username_invalid": "Username must only contain alphanumeric characters and underscores",
-                    "username_too_long": "Username is too long (can’t be longer than 30 characters)",
-                    "email_invalid": "This is not a valid email address",
-                    "password_too_short": "Password is too short (must be at least 8 characters)"
+                    "username_invalid": "Uporabniško ime lahko vsebuje samo alfanumerične znake ter podčrtaje.",
+                    "username_too_long": "Uporabniško ime je predolgo (ne more biti daljše od 30 znakov)",
+                    "email_invalid": "E-naslov ni veljaven",
+                    "password_too_short": "Geslo je prekratko (dolgo mora biti vsaj 8 znakov)"
                 }
             }
         },
         "server_rules": {
             "title": "Nekaj osnovnih pravil.",
-            "subtitle": "These are set and enforced by the %s moderators.",
+            "subtitle": "Slednje določajo in njihovo spoštovanje zagotavljajo moderatorji %s.",
             "prompt": "By continuing, you’re subject to the terms of service and privacy policy for %s.",
             "terms_of_service": "pogoji uporabe",
             "privacy_policy": "pravilnik o zasebnosti",
@@ -321,15 +321,15 @@
         },
         "confirm_email": {
             "title": "Še zadnja stvar.",
-            "subtitle": "Tap the link we emailed to you to verify your account.",
-            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we emailed to you to verify your account",
+            "subtitle": "Tapnite povezavo, ki smo vam jo poslali po e-pošti, da overite svoj račun.",
+            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tapnite povezavo, ki smo vam jo poslali po e-pošti, da overite svoj račun",
             "button": {
                 "open_email_app": "Odpri aplikacijo za e-pošto",
                 "resend": "Ponovno pošlji"
             },
             "dont_receive_email": {
                 "title": "Preverite svojo e-pošto",
-                "description": "Check if your email address is correct as well as your junk folder if you haven’t.",
+                "description": "Preverite, ali je vaš e-naslov pravilen, pa tudi vsebino mape neželene pošte, če tega še niste storili.",
                 "resend_email": "Ponovno pošlji e-pošto"
             },
             "open_email_app": {
@@ -354,7 +354,7 @@
         },
         "suggestion_account": {
             "title": "Poiščite osebe, ki jim želite slediti",
-            "follow_explain": "When you follow someone, you’ll see their posts in your home feed."
+            "follow_explain": "Ko nekomu sledite, vidite njihove objave v svojem domačem viru."
         },
         "compose": {
             "title": {
@@ -373,8 +373,8 @@
                 "photo": "fotografija",
                 "video": "video",
                 "attachment_broken": "This %s is broken and can’t be\nuploaded to Mastodon.",
-                "description_photo": "Describe the photo for the visually-impaired...",
-                "description_video": "Describe the video for the visually-impaired..."
+                "description_photo": "Opiši fotografijo za slabovidne in osebe z okvaro vida ...",
+                "description_video": "Opiši video za slabovidne in osebe z okvaro vida ..."
             },
             "poll": {
                 "duration_time": "Trajanje: %s",
@@ -450,27 +450,27 @@
                 },
                 "confirm_block_user": {
                     "title": "Blokiraj račun",
-                    "message": "Confirm to block %s"
+                    "message": "Potrdite za blokado %s"
                 },
                 "confirm_unblock_user": {
                     "title": "Odblokiraj račun",
-                    "message": "Confirm to unblock %s"
+                    "message": "Potrdite za umik blokade %s"
                 }
             },
             "accessibility": {
                 "show_avatar_image": "Pokaži sliko avatarja",
                 "edit_avatar_image": "Uredi sliko avatarja",
                 "show_banner_image": "Pokaži sliko pasice",
-                "double_tap_to_open_the_list": "Double tap to open the list"
+                "double_tap_to_open_the_list": "Dvakrat tapnite, da se odpre seznam"
             }
         },
         "follower": {
             "title": "sledilec",
-            "footer": "Followers from other servers are not displayed."
+            "footer": "Sledilci z drugih strežnikov niso prikazani."
         },
         "following": {
             "title": "sledi",
-            "footer": "Follows from other servers are not displayed."
+            "footer": "Sledenje z drugih strežnikov ni prikazano."
         },
         "familiarFollowers": {
             "title": "Followers you familiar",
@@ -523,7 +523,7 @@
                 "community": "Skupnost",
                 "for_you": "Za vas"
             },
-            "intro": "These are the posts gaining traction in your corner of Mastodon."
+            "intro": "To so objave, ki plenijo pozornost na vašem koncu Mastodona."
         },
         "favorite": {
             "title": "Vaši priljubljeni"
@@ -538,7 +538,7 @@
                 "favorited_your_post": "je vzljubil/a vašo objavo",
                 "reblogged_your_post": "reblogged your post",
                 "mentioned_you": "vas je omenil/a",
-                "request_to_follow_you": "request to follow you",
+                "request_to_follow_you": "vas je zaprosil za sledenje",
                 "poll_has_ended": "anketa je zaključena"
             },
             "keyobard": {
@@ -602,7 +602,7 @@
                 },
                 "spicy_zone": {
                     "title": "The Spicy Zone",
-                    "clear": "Clear Media Cache",
+                    "clear": "Počisti medijski predpomnilnik",
                     "signout": "Odjava"
                 }
             },
@@ -618,7 +618,7 @@
             "title": "Prijavi %s",
             "step1": "Korak 1 od 2",
             "step2": "Korak 2 od 2",
-            "content1": "Are there any other posts you’d like to add to the report?",
+            "content1": "Ali so še kakšne druge objave, ki bi jih želeli dodati k prijavi?",
             "content2": "Je kaj, kar bi moderatorji morali vedeti o tem poročilu?",
             "report_sent_title": "Hvala za poročilo, bomo preverili.",
             "send": "Pošlji poročilo",
@@ -665,7 +665,7 @@
                 "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or reblogs in your home feed. They won’t know they’ve been muted.",
                 "block_user": "Blokiraj %s",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "They will no longer be able to follow or see your posts, but they can see if they’ve been blocked.",
-                "while_we_review_this_you_can_take_action_against_user": "While we review this, you can take action against %s"
+                "while_we_review_this_you_can_take_action_against_user": "Medtem, ko to pregledujemo, lahko proti %s ukrepate"
             }
         },
         "preview": {
@@ -676,7 +676,7 @@
             }
         },
         "account_list": {
-            "tab_bar_hint": "Current selected profile: %s. Double tap then hold to show account switcher",
+            "tab_bar_hint": "Trenutno izbran profil: %s. Dvakrat tapnite, nato držite, da se pojavi preklopnik med računi.",
             "dismiss_account_switcher": "Umakni preklopnik med računi",
             "add_account": "Dodaj račun"
         },
