@@ -87,6 +87,8 @@ struct ComposeContentToolbarView: View {
             Text("\(remains)")
                 .foregroundColor(Color(isOverflow ? UIColor.systemRed : UIColor.secondaryLabel))
                 .font(.system(size: isOverflow ? 18 : 16, weight: isOverflow ? .medium : .regular))
+                // TODO: i18n
+                .accessibilityLabel("\(remains) characters left")
         }
         .padding(.leading, 4)       // 4 + 12 = 16
         .padding(.trailing, 16)
