@@ -61,6 +61,7 @@ struct ComposeContentToolbarView: View {
                         }
                     } label: {
                         label(for: viewModel.visibility.image)
+                            .accessibilityLabel(L10n.Scene.Compose.Keyboard.selectVisibilityEntry(viewModel.visibility.title))
                     }
                     .frame(width: 48, height: 48)
                 default:
@@ -100,6 +101,7 @@ extension ComposeContentToolbarView {
         Image(uiImage: viewModel.image(for: action))
             .foregroundColor(Color(Asset.Scene.Compose.buttonTint.color))
             .frame(width: 24, height: 24, alignment: .center)
+            .accessibilityLabel(viewModel.label(for: action))
     }
     
     func label(for image: UIImage) -> some View {
