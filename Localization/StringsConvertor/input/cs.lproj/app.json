@@ -115,7 +115,7 @@
                     "reply_status": "Odpovědět na příspěvek",
                     "toggle_reblog": "Toggle Reblog on Post",
                     "toggle_favorite": "Toggle Favorite on Post",
-                    "toggle_content_warning": "Toggle Content Warning",
+                    "toggle_content_warning": "Přepnout varování obsahu",
                     "preview_image": "Náhled obrázku"
                 },
                 "segmented_control": {
@@ -127,11 +127,11 @@
                 "user_reblogged": "%s reblogged",
                 "user_replied_to": "Replied to %s",
                 "show_post": "Zobrazit příspěvek",
-                "show_user_profile": "Show user profile",
-                "content_warning": "Content Warning",
-                "sensitive_content": "Sensitive Content",
-                "media_content_warning": "Tap anywhere to reveal",
-                "tap_to_reveal": "Tap to reveal",
+                "show_user_profile": "Zobrazit profil uživatele",
+                "content_warning": "Varování o obsahu",
+                "sensitive_content": "Citlivý obsah",
+                "media_content_warning": "Klepnutím kdekoli zobrazíte",
+                "tap_to_reveal": "Klepnutím zobrazit",
                 "poll": {
                     "vote": "Hlasovat",
                     "closed": "Uzavřeno"
@@ -168,24 +168,26 @@
                 "follow": "Sledovat",
                 "following": "Following",
                 "request": "Request",
-                "pending": "Pending",
-                "block": "Block",
-                "block_user": "Block %s",
-                "block_domain": "Block %s",
-                "unblock": "Unblock",
-                "unblock_user": "Unblock %s",
+                "pending": "Čekající",
+                "block": "Blokovat",
+                "block_user": "Blokovat %s",
+                "block_domain": "Blokovat %s",
+                "unblock": "Odblokovat",
+                "unblock_user": "Odblokovat %s",
                 "blocked": "Blocked",
-                "mute": "Mute",
-                "mute_user": "Mute %s",
-                "unmute": "Unmute",
-                "unmute_user": "Unmute %s",
-                "muted": "Muted",
-                "edit_info": "Edit Info"
+                "mute": "Skrýt",
+                "mute_user": "Skrýt %s",
+                "unmute": "Odkrýt",
+                "unmute_user": "Odkrýt %s",
+                "muted": "Skrytý",
+                "edit_info": "Upravit informace",
+                "show_reblogs": "Show Reblogs",
+                "hide_reblogs": "Hide Reblogs"
             },
             "timeline": {
                 "filtered": "Filtered",
                 "timestamp": {
-                    "now": "Now"
+                    "now": "Nyní"
                 },
                 "loader": {
                     "load_missing_posts": "Načíst chybějící příspěvky",
@@ -218,9 +220,9 @@
                 "category": {
                     "all": "Vše",
                     "all_accessiblity_description": "Kategorie: Vše",
-                    "academia": "academia",
-                    "activism": "activism",
-                    "food": "food",
+                    "academia": "akademická sféra",
+                    "activism": "aktivismus",
+                    "food": "jídlo",
                     "furry": "furry",
                     "games": "games",
                     "general": "obecné",
@@ -335,17 +337,17 @@
             "open_email_app": {
                 "title": "Check your inbox.",
                 "description": "We just sent you an email. Check your junk folder if you haven’t.",
-                "mail": "Mail",
-                "open_email_client": "Open Email Client"
+                "mail": "Pošta",
+                "open_email_client": "Otevřít e-mailového klienta"
             }
         },
         "home_timeline": {
-            "title": "Home",
+            "title": "Domů",
             "navigation_bar_state": {
                 "offline": "Offline",
-                "new_posts": "See new posts",
-                "published": "Published!",
-                "Publishing": "Publishing post...",
+                "new_posts": "Nové příspěvky",
+                "published": "Publikováno!",
+                "Publishing": "Publikování příspěvku...",
                 "accessibility": {
                     "logo_label": "Logo Button",
                     "logo_hint": "Tap to scroll to top and tap again to previous location"
@@ -358,7 +360,7 @@
         },
         "compose": {
             "title": {
-                "new_post": "New Post",
+                "new_post": "Nový příspěvek",
                 "new_reply": "New Reply"
             },
             "media_selection": {
@@ -455,6 +457,14 @@
                 "confirm_unblock_user": {
                     "title": "Odblokovat účet",
                     "message": "Confirm to unblock %s"
+                },
+                "confirm_show_reblogs": {
+                    "title": "Show Reblogs",
+                    "message": "Confirm to show reblogs"
+                },
+                "confirm_hide_reblogs": {
+                    "title": "Hide Reblogs",
+                    "message": "Confirm to hide reblogs"
                 }
             },
             "accessibility": {
