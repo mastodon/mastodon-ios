@@ -406,10 +406,8 @@ public enum L10n {
       public static let addAccount = L10n.tr("Localizable", "Scene.AccountList.AddAccount")
       /// Dismiss Account Switcher
       public static let dismissAccountSwitcher = L10n.tr("Localizable", "Scene.AccountList.DismissAccountSwitcher")
-      /// Current selected profile: %@. Double tap then hold to show account switcher
-      public static func tabBarHint(_ p1: Any) -> String {
-        return L10n.tr("Localizable", "Scene.AccountList.TabBarHint", String(describing: p1))
-      }
+      /// Switch Accounts
+      public static let switchAccounts = L10n.tr("Localizable", "Scene.AccountList.SwitchAccounts")
     }
     public enum Bookmark {
       /// Your Bookmarks

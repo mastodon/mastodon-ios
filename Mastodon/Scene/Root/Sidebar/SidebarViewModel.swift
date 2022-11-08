@@ -136,8 +136,7 @@ extension SidebarViewModel {
             case .me:
                 if self.authContext?.mastodonAuthenticationBox.authenticationRecord.object(in: self.context.managedObjectContext)?.user != nil {
                     cell.accessibilityCustomActions = [
-                        // TODO: i18n (scene.account_list.switch_accounts)
-                        UIAccessibilityCustomAction(name: "Switch Accounts") { [weak self] _ in
+                        UIAccessibilityCustomAction(name: L10n.Scene.AccountList.switchAccounts) { [weak self] _ in
                             guard let self, let delegate = self.delegate else { return false }
                             delegate.sidebarViewModelDidSwitchAccounts(self)
                             return true

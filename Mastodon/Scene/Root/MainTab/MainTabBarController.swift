@@ -309,8 +309,7 @@ extension MainTabBarController {
                 }
             if let profileTabItem {
                 profileTabItem.accessibilityCustomActions = [
-                    // TODO: i18n (scene.account_list.switch_accounts)
-                    UIAccessibilityCustomAction(name: "Switch Accounts") { [weak self] _ in
+                    UIAccessibilityCustomAction(name: L10n.Scene.AccountList.switchAccounts) { [weak self] _ in
                         self?.showAccountSwitcher()
                         return true
                     }
