@@ -188,12 +188,12 @@
                     "now": "Now"
                 },
                 "loader": {
-                    "load_missing_posts": "Load missing posts",
+                    "load_missing_posts": "Načíst chybějící příspěvky",
                     "loading_missing_posts": "Načíst chybějící příspěvky...",
                     "show_more_replies": "Zobrazit více odovědí"
                 },
                 "header": {
-                    "no_status_found": "No Post Found",
+                    "no_status_found": "Nebyl nalezen žádný příspěvek",
                     "blocking_warning": "You can’t view this user's profile\nuntil you unblock them.\nYour profile looks like this to them.",
                     "user_blocking_warning": "You can’t view %s’s profile\nuntil you unblock them.\nYour profile looks like this to them.",
                     "blocked_warning": "You can’t view this user’s profile\nuntil they unblock you.",
@@ -207,11 +207,11 @@
     "scene": {
         "welcome": {
             "slogan": "Social networking\nback in your hands.",
-            "get_started": "Get Started",
-            "log_in": "Log In"
+            "get_started": "Začínáme",
+            "log_in": "Přihlásit se"
         },
         "server_picker": {
-            "title": "Mastodon is made of users in different servers.",
+            "title": "Mastodon tvoří uživatelé z různých serverů.",
             "subtitle": "Pick a server based on your interests, region, or a general purpose one.",
             "subtitle_extend": "Pick a server based on your interests, region, or a general purpose one. Each server is operated by an entirely independent organization or individual.",
             "button": {
@@ -223,30 +223,30 @@
                     "food": "food",
                     "furry": "furry",
                     "games": "games",
-                    "general": "general",
-                    "journalism": "journalism",
+                    "general": "obecné",
+                    "journalism": "žurnalistika",
                     "lgbt": "lgbt",
-                    "regional": "regional",
-                    "art": "art",
-                    "music": "music",
-                    "tech": "tech"
+                    "regional": "regionální",
+                    "art": "umění",
+                    "music": "hudba",
+                    "tech": "technologie"
                 },
-                "see_less": "See Less",
-                "see_more": "See More"
+                "see_less": "Zobrazit méně",
+                "see_more": "Zobrazit více"
             },
             "label": {
-                "language": "LANGUAGE",
-                "users": "USERS",
-                "category": "CATEGORY"
+                "language": "JAZYK",
+                "users": "UŽIVATELÉ",
+                "category": "KATEGORIE"
             },
             "input": {
-                "placeholder": "Search servers",
-                "search_servers_or_enter_url": "Search servers or enter URL"
+                "placeholder": "Hledat servery",
+                "search_servers_or_enter_url": "Hledat servery nebo zadat URL"
             },
             "empty_state": {
-                "finding_servers": "Finding available servers...",
-                "bad_network": "Something went wrong while loading the data. Check your internet connection.",
-                "no_results": "No results"
+                "finding_servers": "Hledání dostupných serverů...",
+                "bad_network": "Při načítání dat nastala chyba. Zkontrolujte připojení k internetu.",
+                "no_results": "Žádné výsledky"
             }
         },
         "register": {
@@ -254,48 +254,48 @@
             "lets_get_you_set_up_on_domain": "Let’s get you set up on %s",
             "input": {
                 "avatar": {
-                    "delete": "Delete"
+                    "delete": "Smazat"
                 },
                 "username": {
-                    "placeholder": "username",
-                    "duplicate_prompt": "This username is taken."
+                    "placeholder": "uživatelské jméno",
+                    "duplicate_prompt": "Toto uživatelské jméno je použito."
                 },
                 "display_name": {
-                    "placeholder": "display name"
+                    "placeholder": "zobrazované jméno"
                 },
                 "email": {
-                    "placeholder": "email"
+                    "placeholder": "e-mail"
                 },
                 "password": {
-                    "placeholder": "password",
-                    "require": "Your password needs at least:",
-                    "character_limit": "8 characters",
+                    "placeholder": "heslo",
+                    "require": "Heslo musí být alespoň:",
+                    "character_limit": "8 znaků",
                     "accessibility": {
-                        "checked": "checked",
-                        "unchecked": "unchecked"
+                        "checked": "zaškrtnuto",
+                        "unchecked": "nezaškrtnuto"
                     },
-                    "hint": "Your password needs at least eight characters"
+                    "hint": "Vaše heslo musí obsahovat alespoň 8 znaků"
                 },
                 "invite": {
-                    "registration_user_invite_request": "Why do you want to join?"
+                    "registration_user_invite_request": "Proč se chcete připojit?"
                 }
             },
             "error": {
                 "item": {
-                    "username": "Username",
-                    "email": "Email",
-                    "password": "Password",
-                    "agreement": "Agreement",
-                    "locale": "Locale",
-                    "reason": "Reason"
+                    "username": "Uživatelské jméno",
+                    "email": "E-mail",
+                    "password": "Heslo",
+                    "agreement": "Souhlas",
+                    "locale": "Jazyk",
+                    "reason": "Důvod"
                 },
                 "reason": {
                     "blocked": "%s contains a disallowed email provider",
                     "unreachable": "%s does not seem to exist",
-                    "taken": "%s is already in use",
-                    "reserved": "%s is a reserved keyword",
-                    "accepted": "%s must be accepted",
-                    "blank": "%s is required",
+                    "taken": "%s se již používá",
+                    "reserved": "%s je rezervované klíčové slovo",
+                    "accepted": "%s musí být přijato",
+                    "blank": "%s je vyžadováno",
                     "invalid": "%s is invalid",
                     "too_long": "%s is too long",
                     "too_short": "%s is too short",
@@ -304,7 +304,7 @@
                 "special": {
                     "username_invalid": "Username must only contain alphanumeric characters and underscores",
                     "username_too_long": "Username is too long (can’t be longer than 30 characters)",
-                    "email_invalid": "This is not a valid email address",
+                    "email_invalid": "Toto není platná e-mailová adresa",
                     "password_too_short": "Password is too short (must be at least 8 characters)"
                 }
             }
@@ -378,41 +378,41 @@
             },
             "poll": {
                 "duration_time": "Duration: %s",
-                "thirty_minutes": "30 minutes",
-                "one_hour": "1 Hour",
-                "six_hours": "6 Hours",
-                "one_day": "1 Day",
-                "three_days": "3 Days",
-                "seven_days": "7 Days",
-                "option_number": "Option %ld"
+                "thirty_minutes": "30 minut",
+                "one_hour": "1 hodina",
+                "six_hours": "6 hodin",
+                "one_day": "1 den",
+                "three_days": "3 dny",
+                "seven_days": "7 dní",
+                "option_number": "Možnost %ld"
             },
             "content_warning": {
                 "placeholder": "Write an accurate warning here..."
             },
             "visibility": {
-                "public": "Public",
-                "unlisted": "Unlisted",
-                "private": "Followers only",
-                "direct": "Only people I mention"
+                "public": "Veřejný",
+                "unlisted": "Neuvedeno",
+                "private": "Pouze sledující",
+                "direct": "Pouze lidé, které zmíním"
             },
             "auto_complete": {
                 "space_to_add": "Space to add"
             },
             "accessibility": {
-                "append_attachment": "Add Attachment",
-                "append_poll": "Add Poll",
-                "remove_poll": "Remove Poll",
-                "custom_emoji_picker": "Custom Emoji Picker",
-                "enable_content_warning": "Enable Content Warning",
-                "disable_content_warning": "Disable Content Warning",
-                "post_visibility_menu": "Post Visibility Menu"
+                "append_attachment": "Přidat přílohu",
+                "append_poll": "Přidat anketu",
+                "remove_poll": "Odstranit anketu",
+                "custom_emoji_picker": "Vlastní výběr Emoji",
+                "enable_content_warning": "Povolit upozornění na obsah",
+                "disable_content_warning": "Vypnout upozornění na obsah",
+                "post_visibility_menu": "Menu viditelnosti příspěvku"
             },
             "keyboard": {
-                "discard_post": "Discard Post",
-                "publish_post": "Publish Post",
-                "toggle_poll": "Toggle Poll",
+                "discard_post": "Zahodit příspěvek",
+                "publish_post": "Publikovat příspěvek",
+                "toggle_poll": "Přepnout anketu",
                 "toggle_content_warning": "Toggle Content Warning",
-                "append_attachment_entry": "Add Attachment - %s",
+                "append_attachment_entry": "Přidat přílohu - %s",
                 "select_visibility_entry": "Select Visibility - %s"
             }
         },
