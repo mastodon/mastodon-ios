@@ -180,7 +180,9 @@
                 "unmute": "Non Acalar",
                 "unmute_user": "Deixar de acalar a @%s",
                 "muted": "Acalada",
-                "edit_info": "Editar info"
+                "edit_info": "Editar info",
+                "show_reblogs": "Show Reblogs",
+                "hide_reblogs": "Hide Reblogs"
             },
             "timeline": {
                 "filtered": "Filtrado",
@@ -455,6 +457,14 @@
                 "confirm_unblock_user": {
                     "title": "Desbloquear Conta",
                     "message": "Confirma o desbloqueo de %s"
+                },
+                "confirm_show_reblogs": {
+                    "title": "Show Reblogs",
+                    "message": "Confirm to show reblogs"
+                },
+                "confirm_hide_reblogs": {
+                    "title": "Hide Reblogs",
+                    "message": "Confirm to hide reblogs"
                 }
             },
             "accessibility": {
