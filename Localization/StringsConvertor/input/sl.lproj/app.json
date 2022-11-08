@@ -181,8 +181,8 @@
                 "unmute_user": "Odtišaj %s",
                 "muted": "Utišan",
                 "edit_info": "Uredi podatke",
-                "show_reblogs": "Show Reblogs",
-                "hide_reblogs": "Hide Reblogs"
+                "show_reblogs": "Pokaži poobjave",
+                "hide_reblogs": "Skrij poobjave"
             },
             "timeline": {
                 "filtered": "Filtrirano",
@@ -459,12 +459,12 @@
                     "message": "Potrdite za umik blokade %s"
                 },
                 "confirm_show_reblogs": {
-                    "title": "Show Reblogs",
-                    "message": "Confirm to show reblogs"
+                    "title": "Pokaži poobjave",
+                    "message": "Potrdite, da bodo poobjave prikazane"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "Hide Reblogs",
-                    "message": "Confirm to hide reblogs"
+                    "title": "Skrij poobjave",
+                    "message": "Potrdite, da poobjave ne bodo prikazane"
                 }
             },
             "accessibility": {
