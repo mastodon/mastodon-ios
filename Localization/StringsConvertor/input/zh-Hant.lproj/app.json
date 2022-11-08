@@ -181,8 +181,8 @@
                 "unmute_user": "取消靜音 %s",
                 "muted": "已靜音",
                 "edit_info": "編輯",
-                "show_reblogs": "Show Reblogs",
-                "hide_reblogs": "Hide Reblogs"
+                "show_reblogs": "顯示轉嘟",
+                "hide_reblogs": "隱藏轉嘟"
             },
             "timeline": {
                 "filtered": "已過濾",
@@ -459,12 +459,12 @@
                     "message": "確認將 %s 取消封鎖"
                 },
                 "confirm_show_reblogs": {
-                    "title": "Show Reblogs",
-                    "message": "Confirm to show reblogs"
+                    "title": "顯示轉嘟",
+                    "message": "確認顯示轉嘟"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "Hide Reblogs",
-                    "message": "Confirm to hide reblogs"
+                    "title": "隱藏轉嘟",
+                    "message": "確認隱藏轉嘟"
                 }
             },
             "accessibility": {
