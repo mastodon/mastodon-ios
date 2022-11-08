@@ -326,7 +326,11 @@ extension ComposeContentViewController: PHPickerViewControllerDelegate {
         picker.dismiss(animated: true, completion: nil)
 
         let attachmentViewModels: [AttachmentViewModel] = results.map { result in
-            AttachmentViewModel(authContext: viewModel.authContext, input: .pickerResult(result))
+            AttachmentViewModel(
+                api: viewModel.context.apiService,
+                authContext: viewModel.authContext,
+                input: .pickerResult(result)
+            )
         }
         viewModel.attachmentViewModels += attachmentViewModels
     }
