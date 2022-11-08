@@ -182,7 +182,7 @@
                 "muted": "Muted",
                 "edit_info": "Edit Info",
                 "show_reblogs": "Show Reblogs",
-                "hide_reblogs": "Hide Reblogs",
+                "hide_reblogs": "Hide Reblogs"
             },
             "timeline": {
                 "filtered": "Filtered",
@@ -465,7 +465,7 @@
                 "confirm_hide_reblogs": {
                     "title": "Hide Reblogs",
                     "message": "Confirm to hide reblogs"
-                },
+                }
             },
             "accessibility": {
                 "show_avatar_image": "Show avatar image",
