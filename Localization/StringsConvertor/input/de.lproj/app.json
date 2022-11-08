@@ -180,7 +180,9 @@
                 "unmute": "Nicht mehr stummschalten",
                 "unmute_user": "%s nicht mehr stummschalten",
                 "muted": "Stummgeschaltet",
-                "edit_info": "Information bearbeiten"
+                "edit_info": "Information bearbeiten",
+                "show_reblogs": "Reblogs anzeigen",
+                "hide_reblogs": "Reblogs ausblenden"
             },
             "timeline": {
                 "filtered": "Gefiltert",
@@ -455,6 +457,14 @@
                 "confirm_unblock_user": {
                     "title": "Konto entsperren",
                     "message": "Bestätige %s zu entsperren"
+                },
+                "confirm_show_reblogs": {
+                    "title": "Reblogs anzeigen",
+                    "message": "Confirm to show reblogs"
+                },
+                "confirm_hide_reblogs": {
+                    "title": "Reblogs ausblenden",
+                    "message": "Confirm to hide reblogs"
                 }
             },
             "accessibility": {
