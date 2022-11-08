@@ -180,7 +180,9 @@
                 "unmute": "뮤트 해제",
                 "unmute_user": "%s 뮤트 해제",
                 "muted": "뮤트됨",
-                "edit_info": "정보 편집"
+                "edit_info": "정보 편집",
+                "show_reblogs": "Show Reblogs",
+                "hide_reblogs": "Hide Reblogs"
             },
             "timeline": {
                 "filtered": "필터됨",
@@ -455,6 +457,14 @@
                 "confirm_unblock_user": {
                     "title": "계정 차단 해제",
                     "message": "Confirm to unblock %s"
+                },
+                "confirm_show_reblogs": {
+                    "title": "Show Reblogs",
+                    "message": "Confirm to show reblogs"
+                },
+                "confirm_hide_reblogs": {
+                    "title": "Hide Reblogs",
+                    "message": "Confirm to hide reblogs"
                 }
             },
             "accessibility": {
