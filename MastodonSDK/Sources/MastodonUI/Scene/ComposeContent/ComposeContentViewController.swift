@@ -325,16 +325,10 @@ extension ComposeContentViewController: PHPickerViewControllerDelegate {
     public func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         picker.dismiss(animated: true, completion: nil)
 
-        // TODO:
-//        let attachmentServices: [MastodonAttachmentService] = results.map { result in
-//            let service = MastodonAttachmentService(
-//                context: context,
-//                pickerResult: result,
-//                initialAuthenticationBox: viewModel.authenticationBox
-//            )
-//            return service
-//        }
-//        viewModel.attachmentServices = viewModel.attachmentServices + attachmentServices
+        let attachmentViewModels: [AttachmentViewModel] = results.map { result in
+            AttachmentViewModel(authContext: viewModel.authContext, input: .pickerResult(result))
+        }
+        viewModel.attachmentViewModels += attachmentViewModels
     }
 }
 

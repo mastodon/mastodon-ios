@@ -13,18 +13,17 @@ import AVKit
 
 public struct AttachmentView: View {
     
-    static let size = CGSize(width: 56, height: 56)
-    static let cornerRadius: CGFloat = 8
-    
     @ObservedObject var viewModel: AttachmentViewModel
     
     let action: (Action) -> Void
-    
-    @State var isCaptionEditorPresented = false
-    @State var caption = ""
 
     public var body: some View {
-        Text("Hello")
+        ZStack {
+            let image = viewModel.thumbnail ?? .placeholder(color: .secondarySystemFill)
+            Image(uiImage: image)
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+        }
 //        Menu {
 //            menu
 //        } label: {

@@ -77,19 +77,6 @@ struct StatusAttachmentView: View {
     }
 }
 
-extension View {
-    func badgeView<Content>(_ content: Content) -> some View where Content: View {
-        overlay(
-            ZStack {
-                content
-            }
-            .alignmentGuide(.top) { $0.height / 2 }
-            .alignmentGuide(.trailing) { $0.width / 2 }
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
-        )
-    }
-}
-
 /// ref: https://stackoverflow.com/a/57715771/3797903
 extension View {
     func placeholder<Content: View>(

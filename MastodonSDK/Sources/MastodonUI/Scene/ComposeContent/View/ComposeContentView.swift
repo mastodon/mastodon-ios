@@ -11,6 +11,7 @@ import MastodonAsset
 import MastodonCore
 import MastodonLocalization
 import Stripes
+import Kingfisher
 
 public struct ComposeContentView: View {
     
@@ -108,6 +109,9 @@ public struct ComposeContentView: View {
                 // poll
                 pollView
                     .padding(.horizontal, ComposeContentView.margin)
+                // media
+                mediaView
+                    .padding(.horizontal, ComposeContentView.margin)
             }
             .background(
                 GeometryReader { proxy in
@@ -192,6 +196,29 @@ extension ComposeContentView {
                     .padding(.vertical, 8)
                 }
             }
+        }   // end VStack
+    }
+    
+    // MARK: - media
+    var mediaView: some View {
+        VStack(spacing: 16) {
+            ForEach(viewModel.attachmentViewModels, id: \.self) { attachmentViewModel in
+                Color.clear.aspectRatio(358.0/232.0, contentMode: .fill)
+                    .overlay(
+                        AttachmentView(viewModel: attachmentViewModel) { action in
+                            
+                        }
+                    )
+                    .clipShape(Rectangle())
+                    .badgeView(
+                        Button {
+                            viewModel.attachmentViewModels.removeAll(where: { $0 === attachmentViewModel })
+                        } label: {
+                            Image(systemName: "minus.circle.fill")
+                                .foregroundColor(.red)
+                        }
+                    )
+            }   // end ForEach
         }   // end VStack
     }
 }

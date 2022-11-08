@@ -22,6 +22,7 @@ final public class AttachmentViewModel: NSObject, ObservableObject, Identifiable
     var observations = Set<NSKeyValueObservation>()
 
     // input
+    public let authContext: AuthContext
     public let input: Input
     @Published var caption = ""
     @Published var sizeLimit = SizeLimit()
@@ -33,13 +34,19 @@ final public class AttachmentViewModel: NSObject, ObservableObject, Identifiable
     @Published var error: Error?
     let progress = Progress()       // upload progress
     
-    public init(input: Input) {
+    public init(
+        authContext: AuthContext,
+        input: Input
+    ) {
+        self.authContext = authContext
         self.input = input
         super.init()
         // end init
         
         defer {
-            load(input: input)
+            Task {
+                await load(input: input)
+            }
         }
         
         $output
@@ -53,6 +60,7 @@ final public class AttachmentViewModel: NSObject, ObservableObject, Identifiable
                     return nil
                 }
             }
+            .receive(on: DispatchQueue.main)
             .assign(to: &$thumbnail)
     }
     
@@ -86,13 +94,6 @@ extension AttachmentViewModel {
             case png
             case jpg
         }
-        
-        public var twitterMediaCategory: TwitterMediaCategory {
-            switch self {
-            case .image:        return .image
-            case .video:        return .amplifyVideo
-            }
-        }
     }
         
     public struct SizeLimit {
@@ -115,18 +116,13 @@ extension AttachmentViewModel {
         case invalidAttachmentType
         case attachmentTooLarge
     }
-    
-    public enum TwitterMediaCategory: String {
-        case image = "TWEET_IMAGE"
-        case GIF = "TWEET_GIF"
-        case video = "TWEET_VIDEO"
-        case amplifyVideo = "AMPLIFY_VIDEO"
-    }
+
 }
 
 extension AttachmentViewModel {
     
-    private func load(input: Input) {
+    @MainActor
+    private func load(input: Input) async {
         switch input {
         case .image(let image):
             guard let data = image.pngData() else {
@@ -135,32 +131,26 @@ extension AttachmentViewModel {
             }
             output = .image(data, imageKind: .png)
         case .url(let url):
-            Task { @MainActor in
-                do {
-                    let output = try await AttachmentViewModel.load(url: url)
-                    self.output = output
-                } catch {
-                    self.error = error
-                }
-            }   // end Task
+            do {
+                let output = try await AttachmentViewModel.load(url: url)
+                self.output = output
+            } catch {
+                self.error = error
+            }
         case .pickerResult(let pickerResult):
-            Task { @MainActor in
-                do {
-                    let output = try await AttachmentViewModel.load(itemProvider: pickerResult.itemProvider)
-                    self.output = output
-                } catch {
-                    self.error = error
-                }
-            }   // end Task
+            do {
+                let output = try await AttachmentViewModel.load(itemProvider: pickerResult.itemProvider)
+                self.output = output
+            } catch {
+                self.error = error
+            }
         case .itemProvider(let itemProvider):
-            Task { @MainActor in
-                do {
-                    let output = try await AttachmentViewModel.load(itemProvider: itemProvider)
-                    self.output = output
-                } catch {
-                    self.error = error
-                }
-            }   // end Task
+            do {
+                let output = try await AttachmentViewModel.load(itemProvider: itemProvider)
+                self.output = output
+            } catch {
+                self.error = error
+            }
         }
     }
     
