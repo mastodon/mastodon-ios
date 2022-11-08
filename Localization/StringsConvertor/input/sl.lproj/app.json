@@ -180,7 +180,9 @@
                 "unmute": "Odtišaj",
                 "unmute_user": "Odtišaj %s",
                 "muted": "Utišan",
-                "edit_info": "Uredi podatke"
+                "edit_info": "Uredi podatke",
+                "show_reblogs": "Show Reblogs",
+                "hide_reblogs": "Hide Reblogs"
             },
             "timeline": {
                 "filtered": "Filtrirano",
@@ -455,6 +457,14 @@
                 "confirm_unblock_user": {
                     "title": "Odblokiraj račun",
                     "message": "Potrdite za umik blokade %s"
+                },
+                "confirm_show_reblogs": {
+                    "title": "Show Reblogs",
+                    "message": "Confirm to show reblogs"
+                },
+                "confirm_hide_reblogs": {
+                    "title": "Hide Reblogs",
+                    "message": "Confirm to hide reblogs"
                 }
             },
             "accessibility": {
