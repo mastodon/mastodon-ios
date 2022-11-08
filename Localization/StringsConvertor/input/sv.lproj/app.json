@@ -180,7 +180,9 @@
                 "unmute": "Avtysta",
                 "unmute_user": "Avtysta %s",
                 "muted": "Tystad",
-                "edit_info": "Redigera info"
+                "edit_info": "Redigera info",
+                "show_reblogs": "Visa knuffar",
+                "hide_reblogs": "Dölj puffar"
             },
             "timeline": {
                 "filtered": "Filtrerat",
@@ -455,6 +457,14 @@
                 "confirm_unblock_user": {
                     "title": "Avblockera konto",
                     "message": "Bekräfta för att avblockera %s"
+                },
+                "confirm_show_reblogs": {
+                    "title": "Visa puffar",
+                    "message": "Bekräfta för att visa puffar"
+                },
+                "confirm_hide_reblogs": {
+                    "title": "Dölj puffar",
+                    "message": "Bekräfta för att dölja puffar"
                 }
             },
             "accessibility": {
