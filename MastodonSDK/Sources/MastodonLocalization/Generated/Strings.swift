@@ -941,11 +941,11 @@ public enum L10n {
         public static let step1Of4 = L10n.tr("Localizable", "Scene.Report.StepOne.Step1Of4")
         /// The issue does not fit into other categories
         public static let theIssueDoesNotFitIntoOtherCategories = L10n.tr("Localizable", "Scene.Report.StepOne.TheIssueDoesNotFitIntoOtherCategories")
-        /// What's wrong with this account?
+        /// What’s wrong with this account?
         public static let whatsWrongWithThisAccount = L10n.tr("Localizable", "Scene.Report.StepOne.WhatsWrongWithThisAccount")
-        /// What's wrong with this post?
+        /// What’s wrong with this post?
         public static let whatsWrongWithThisPost = L10n.tr("Localizable", "Scene.Report.StepOne.WhatsWrongWithThisPost")
-        /// What's wrong with %@?
+        /// What’s wrong with %@?
         public static func whatsWrongWithThisUsername(_ p1: Any) -> String {
           return L10n.tr("Localizable", "Scene.Report.StepOne.WhatsWrongWithThisUsername", String(describing: p1))
         }
