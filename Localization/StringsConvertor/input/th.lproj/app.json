@@ -180,7 +180,9 @@
                 "unmute": "เลิกซ่อน",
                 "unmute_user": "เลิกซ่อน %s",
                 "muted": "ซ่อนอยู่",
-                "edit_info": "แก้ไขข้อมูล"
+                "edit_info": "แก้ไขข้อมูล",
+                "show_reblogs": "Show Reblogs",
+                "hide_reblogs": "Hide Reblogs"
             },
             "timeline": {
                 "filtered": "กรองอยู่",
@@ -455,6 +457,14 @@
                 "confirm_unblock_user": {
                     "title": "เลิกปิดกั้นบัญชี",
                     "message": "ยืนยันเพื่อเลิกปิดกั้น %s"
+                },
+                "confirm_show_reblogs": {
+                    "title": "Show Reblogs",
+                    "message": "Confirm to show reblogs"
+                },
+                "confirm_hide_reblogs": {
+                    "title": "Hide Reblogs",
+                    "message": "Confirm to hide reblogs"
                 }
             },
             "accessibility": {
