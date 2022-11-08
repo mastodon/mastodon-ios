@@ -180,7 +180,9 @@
                 "unmute": "Noņemt apklusinājumu",
                 "unmute_user": "Noņemt apklusinājumu @%s",
                 "muted": "Apklusināts",
-                "edit_info": "Edit Info"
+                "edit_info": "Edit Info",
+                "show_reblogs": "Show Reblogs",
+                "hide_reblogs": "Hide Reblogs"
             },
             "timeline": {
                 "filtered": "Filtrēts",
@@ -455,6 +457,14 @@
                 "confirm_unblock_user": {
                     "title": "Atbloķēt kontu",
                     "message": "Apstiprini lai atbloķētu %s"
+                },
+                "confirm_show_reblogs": {
+                    "title": "Show Reblogs",
+                    "message": "Confirm to show reblogs"
+                },
+                "confirm_hide_reblogs": {
+                    "title": "Hide Reblogs",
+                    "message": "Confirm to hide reblogs"
                 }
             },
             "accessibility": {
