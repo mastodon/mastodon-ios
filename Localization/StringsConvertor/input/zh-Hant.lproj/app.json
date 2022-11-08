@@ -180,7 +180,9 @@
                 "unmute": "取消靜音",
                 "unmute_user": "取消靜音 %s",
                 "muted": "已靜音",
-                "edit_info": "編輯"
+                "edit_info": "編輯",
+                "show_reblogs": "Show Reblogs",
+                "hide_reblogs": "Hide Reblogs"
             },
             "timeline": {
                 "filtered": "已過濾",
@@ -455,6 +457,14 @@
                 "confirm_unblock_user": {
                     "title": "取消封鎖",
                     "message": "確認將 %s 取消封鎖"
+                },
+                "confirm_show_reblogs": {
+                    "title": "Show Reblogs",
+                    "message": "Confirm to show reblogs"
+                },
+                "confirm_hide_reblogs": {
+                    "title": "Hide Reblogs",
+                    "message": "Confirm to hide reblogs"
                 }
             },
             "accessibility": {
