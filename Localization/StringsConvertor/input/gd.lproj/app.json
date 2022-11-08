@@ -37,7 +37,7 @@
                 "confirm": "Clàraich a-mach"
             },
             "block_domain": {
-                "title": "A bheil thu cinnteach dha-rìribh gu bheil thu airson an àrainn %s a bhacadh uile gu lèir? Mar as trice, foghnaidh gun dèan thu bacadh no mùchadh no dhà gu sònraichte agus bhiod sin na b’ fheàrr. Chan fhaic thu susbaint on àrainn ud agus thèid an luchd-leantainn agad on àrainn ud a thoirt air falbh.",
+                "title": "A bheil thu cinnteach dha-rìribh gu bheil thu airson an àrainn %s a bhacadh uile gu lèir? Mar as trice, foghnaidh gun dèan thu bacadh no mùchadh no dhà gu sònraichte agus bhiodh sin na b’ fheàrr. Chan fhaic thu susbaint on àrainn ud agus thèid an luchd-leantainn agad on àrainn ud a thoirt air falbh.",
                 "block_entire_domain": "Bac an àrainn"
             },
             "save_photo_failure": {
@@ -165,7 +165,7 @@
                 }
             },
             "friendship": {
-                "follow": "Lean air",
+                "follow": "Lean",
                 "following": "’Ga leantainn",
                 "request": "Iarrtas",
                 "pending": "Ri dhèiligeadh",
@@ -354,7 +354,7 @@
         },
         "suggestion_account": {
             "title": "Lorg daoine a leanas tu",
-            "follow_explain": "Nuair a leanas tu air cuideigin, chì thu na puist aca air inbhir na dachaigh agad."
+            "follow_explain": "Nuair a leanas tu cuideigin, chì thu na puist aca air inbhir na dachaigh agad."
         },
         "compose": {
             "title": {
@@ -470,7 +470,7 @@
         },
         "following": {
             "title": "’ga leantainn",
-            "footer": "Cha dèid cò air a leanas tu air frithealaichean eile a shealltainn."
+            "footer": "Cha dèid cò a leanas tu air frithealaichean eile a shealltainn."
         },
         "familiarFollowers": {
             "title": "Luchd-leantainn aithnichte",
@@ -497,8 +497,8 @@
                 },
                 "accounts": {
                     "title": "Cunntasan a chòrdas riut ma dh’fhaoidte",
-                    "description": "Saoil am bu toigh leat leantainn air na cunntasan seo?",
-                    "follow": "Lean air"
+                    "description": "Saoil am bu toigh leat na cunntasan seo a leantainn?",
+                    "follow": "Lean"
                 }
             },
             "searching": {
@@ -538,7 +538,7 @@
                 "favorited_your_post": "– is annsa leotha am post agad",
                 "reblogged_your_post": "– ’s iad air am post agad a bhrosnachadh",
                 "mentioned_you": "– ’s iad air iomradh a thoirt ort",
-                "request_to_follow_you": "iarrtas leantainn ort",
+                "request_to_follow_you": "iarrtas leantainn",
                 "poll_has_ended": "thàinig cunntas-bheachd gu crìoch"
             },
             "keyobard": {
@@ -575,13 +575,13 @@
                 "notifications": {
                     "title": "Brathan",
                     "favorites": "Nuair as annsa leotha am post agam",
-                    "follows": "Nuair a leanas iad orm",
+                    "follows": "Nuair a leanas iad mi",
                     "boosts": "Nuair a bhrosnaicheas iad post uam",
                     "mentions": "Nuair a bheir iad iomradh orm",
                     "trigger": {
                         "anyone": "Airson duine sam bith, cuir brath thugam",
                         "follower": "Airson luchd-leantainn, cuir brath thugam",
-                        "follow": "Airson daoine air a leanas mi, cuir brath thugam",
+                        "follow": "Airson daoine a leanas mi, cuir brath thugam",
                         "noone": "Na cuir brath thugam idir",
                         "title": " "
                     }
@@ -660,11 +660,11 @@
                 "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "Nuair a chì thu rudeigin nach toigh leat air Mastodon, ’s urrainn dhut an neach a chumail fad air falbh uat.",
                 "unfollow": "Na lean tuilleadh",
                 "unfollowed": "Chan eil thu ’ga leantainn tuilleadh",
-                "unfollow_user": "Na lean air %s tuilleadh",
+                "unfollow_user": "Na lean %s tuilleadh",
                 "mute_user": "Mùch %s",
                 "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "Chan fhaic thu na postaichean aca is dè a bhrosnaich iad air inbhir na dachaigh agad tuilleadh. Cha bhi fios aca gun do mhùch thu iad.",
                 "block_user": "Bac %s",
-                "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "Chan urrainn dhaibh leantainn ort is chan fhaic iad na postaichean agad tuilleadh ach chì iad gun deach am bacadh.",
+                "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "Chan urrainn dhaibh ’gad leantainn is chan fhaic iad na postaichean agad tuilleadh ach chì iad gun deach am bacadh.",
                 "while_we_review_this_you_can_take_action_against_user": "Fhad ’s a bhios sinn a’ toirt sùil air, seo nas urrainn dhut dèanamh an aghaidh %s"
             }
         },
