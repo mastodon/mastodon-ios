@@ -180,7 +180,9 @@
                 "unmute": "Desmututu",
                 "unmute_user": "Desmututu %s",
                 "muted": "Mutututa",
-                "edit_info": "Editatu informazioa"
+                "edit_info": "Editatu informazioa",
+                "show_reblogs": "Show Reblogs",
+                "hide_reblogs": "Hide Reblogs"
             },
             "timeline": {
                 "filtered": "Iragazita",
@@ -455,6 +457,14 @@
                 "confirm_unblock_user": {
                     "title": "Desblokeatu kontua",
                     "message": "Berretsi %s desblokeatzea"
+                },
+                "confirm_show_reblogs": {
+                    "title": "Show Reblogs",
+                    "message": "Confirm to show reblogs"
+                },
+                "confirm_hide_reblogs": {
+                    "title": "Hide Reblogs",
+                    "message": "Confirm to hide reblogs"
                 }
             },
             "accessibility": {
