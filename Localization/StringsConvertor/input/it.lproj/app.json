@@ -181,8 +181,8 @@
                 "unmute_user": "Riattiva %s",
                 "muted": "Silenziato",
                 "edit_info": "Modifica info",
-                "show_reblogs": "Show Reblogs",
-                "hide_reblogs": "Hide Reblogs"
+                "show_reblogs": "Mostra le condivisioni",
+                "hide_reblogs": "Nascondi le condivisioni"
             },
             "timeline": {
                 "filtered": "Filtrato",
@@ -459,12 +459,12 @@
                     "message": "Conferma per sbloccare %s"
                 },
                 "confirm_show_reblogs": {
-                    "title": "Show Reblogs",
-                    "message": "Confirm to show reblogs"
+                    "title": "Mostra le condivisioni",
+                    "message": "Conferma di mostrare le condivisioni"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "Hide Reblogs",
-                    "message": "Confirm to hide reblogs"
+                    "title": "Nascondi le condivisioni",
+                    "message": "Conferma di nascondere le condivisioni"
                 }
             },
             "accessibility": {
