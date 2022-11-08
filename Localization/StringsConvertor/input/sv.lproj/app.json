@@ -28,7 +28,7 @@
                 }
             },
             "edit_profile_failure": {
-                "title": "Profilredigering misslyckades",
+                "title": "Kunde inte redigera profil",
                 "message": "Kan inte redigera profil. Var god försök igen."
             },
             "sign_out": {
