@@ -45,11 +45,23 @@ extension MastodonMenu {
         case reportUser(ReportUserActionContext)
         case shareUser(ShareUserActionContext)
         case bookmarkStatus(BookmarkStatusActionContext)
+        case hideReblogs(HideReblogsActionContext)
         case shareStatus
         case deleteStatus
         
         func build(delegate: MastodonMenuDelegate) -> BuiltAction {
             switch self {
+            case .hideReblogs(let context):
+                let title = context.showReblogs ? L10n.Common.Controls.Friendship.hideReblogs : L10n.Common.Controls.Friendship.showReblogs
+                let reblogAction = BuiltAction(
+                    title: title,
+                    image: UIImage(systemName: "arrow.2.squarepath")
+                ) { [weak delegate] in
+                    guard let delegate = delegate else { return }
+                    delegate.menuAction(self)
+                }
+
+                return reblogAction
             case .muteUser(let context):
                 let muteAction = BuiltAction(
                     title: context.isMuting ? L10n.Common.Controls.Friendship.unmuteUser(context.name) : L10n.Common.Controls.Friendship.muteUser(context.name),
@@ -205,5 +217,12 @@ extension MastodonMenu {
             self.name = name
         }
     }
-    
+
+    public struct HideReblogsActionContext {
+        public let showReblogs: Bool
+
+        public init(showReblogs: Bool) {
+            self.showReblogs = showReblogs
+        }
+    }
 }

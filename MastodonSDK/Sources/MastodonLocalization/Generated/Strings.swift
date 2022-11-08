@@ -198,6 +198,8 @@ public enum L10n {
         public static let follow = L10n.tr("Localizable", "Common.Controls.Friendship.Follow")
         /// Following
         public static let following = L10n.tr("Localizable", "Common.Controls.Friendship.Following")
+        /// Hide Reblogs
+        public static let hideReblogs = L10n.tr("Localizable", "Common.Controls.Friendship.HideReblogs")
         /// Mute
         public static let mute = L10n.tr("Localizable", "Common.Controls.Friendship.Mute")
         /// Muted
@@ -210,6 +212,8 @@ public enum L10n {
         public static let pending = L10n.tr("Localizable", "Common.Controls.Friendship.Pending")
         /// Request
         public static let request = L10n.tr("Localizable", "Common.Controls.Friendship.Request")
+        /// Show Reblogs
+        public static let showReblogs = L10n.tr("Localizable", "Common.Controls.Friendship.ShowReblogs")
         /// Unblock
         public static let unblock = L10n.tr("Localizable", "Common.Controls.Friendship.Unblock")
         /// Unblock %@
@@ -709,6 +713,12 @@ public enum L10n {
           /// Block Account
           public static let title = L10n.tr("Localizable", "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Title")
         }
+        public enum ConfirmHideReblogs {
+          /// Confirm to hide reblogs
+          public static let message = L10n.tr("Localizable", "Scene.Profile.RelationshipActionAlert.ConfirmHideReblogs.Message")
+          /// Hide reblogs
+          public static let title = L10n.tr("Localizable", "Scene.Profile.RelationshipActionAlert.ConfirmHideReblogs.Title")
+        }
         public enum ConfirmMuteUser {
           /// Confirm to mute %@
           public static func message(_ p1: Any) -> String {
@@ -716,6 +726,12 @@ public enum L10n {
           }
           /// Mute Account
           public static let title = L10n.tr("Localizable", "Scene.Profile.RelationshipActionAlert.ConfirmMuteUser.Title")
+        }
+        public enum ConfirmShowReblogs {
+          /// Confirm to show reblogs
+          public static let message = L10n.tr("Localizable", "Scene.Profile.RelationshipActionAlert.ConfirmShowReblogs.Message")
+          /// Show Reblogs
+          public static let title = L10n.tr("Localizable", "Scene.Profile.RelationshipActionAlert.ConfirmShowReblogs.Title")
         }
         public enum ConfirmUnblockUser {
           /// Confirm to unblock %@

@@ -132,3 +132,14 @@ extension DataSourceFacade {
         }
     }   // end func
 }
+
+extension DataSourceFacade {
+  static func responseToShowHideReblogAction(
+    dependency: NeedsDependency & AuthContextProvider,
+    user: ManagedObjectRecord<MastodonUser>
+  ) async throws {
+    _ = try await dependency.context.apiService.toggleShowReblogs(
+      for: user,
+      authenticationBox: dependency.authContext.mastodonAuthenticationBox)
+  }
+}
