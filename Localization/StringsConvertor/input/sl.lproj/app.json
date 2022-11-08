@@ -285,7 +285,7 @@
                     "username": "Uporabniško ime",
                     "email": "E-pošta",
                     "password": "Geslo",
-                    "agreement": "Agreement",
+                    "agreement": "Sporazum",
                     "locale": "Krajevne nastavitve",
                     "reason": "Razlog"
                 },
@@ -312,7 +312,7 @@
         "server_rules": {
             "title": "Nekaj osnovnih pravil.",
             "subtitle": "Slednje določajo in njihovo spoštovanje zagotavljajo moderatorji %s.",
-            "prompt": "By continuing, you’re subject to the terms of service and privacy policy for %s.",
+            "prompt": "Če boste nadaljevali, za vas veljajo pogoji storitve in pravilnik o zasebnosti za %s.",
             "terms_of_service": "pogoji uporabe",
             "privacy_policy": "pravilnik o zasebnosti",
             "button": {
@@ -477,7 +477,7 @@
             "followed_by_names": "Sledijo %s"
         },
         "favorited_by": {
-            "title": "Favorited By"
+            "title": "Med priljubljene dal_a"
         },
         "reblogged_by": {
             "title": "Poobjavil_a"
@@ -659,7 +659,7 @@
                 "dont_want_to_see_this": "Ne želite videti tega?",
                 "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "Če vidite nekaj, česar na Masodonu ne želite, lahko odstranite osebo iz svoje izkušnje.",
                 "unfollow": "Prenehaj slediti",
-                "unfollowed": "Unfollowed",
+                "unfollowed": "Ne sledi več",
                 "unfollow_user": "Prenehaj slediti %s",
                 "mute_user": "Utišaj %s",
                 "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "Njihovih objav ali poobjav ne boste videli v svojem domačem viru. Ne bodo vedeli, da so utišani.",
