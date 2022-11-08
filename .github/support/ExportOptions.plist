@@ -4,5 +4,7 @@
 <dict>
   <key>method</key>
   <string>app-store</string>
+  <key>manageAppVersionAndBuildNumber</key>
+  <true/>
 </dict>
 </plist>

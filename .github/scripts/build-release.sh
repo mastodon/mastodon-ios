@@ -20,7 +20,6 @@ ARTIFACT_PATH=${RESULT_PATH:-${BUILD_DIR}/Artifacts}
 RESULT_BUNDLE_PATH="${ARTIFACT_PATH}/${SCHEME}.xcresult"
 ARCHIVE_PATH=${ARCHIVE_PATH:-${BUILD_DIR}/Archives/${SCHEME}.xcarchive}
 DERIVED_DATA_PATH=${DERIVED_DATA_PATH:-${BUILD_DIR}/DerivedData}
-CURRENT_PROJECT_VERSION=${BUILD_NUMBER:-0}
 EXPORT_OPTIONS_FILE=".github/support/ExportOptions.plist"
 
 WORK_DIR=$(pwd)
@@ -31,7 +30,11 @@ rm -rf "${RESULT_BUNDLE_PATH}"
 
 rm -rf "${API_PRIVATE_KEYS_PATH}"
 mkdir -p "${API_PRIVATE_KEYS_PATH}"
-echo -n "${ENV_API_PRIVATE_KEY}" | base64 --decode > "${API_KEY_FILE}"
+echo -n "${ENV_API_PRIVATE_KEY_BASE64}" | base64 --decode > "${API_KEY_FILE}"
+
+BUILD_NUMBER=$(app-store-connect get-latest-testflight-build-number $ENV_APP_ID --issuer-id $ENV_ISSUER_ID --key-id $ENV_API_KEY_ID --private-key @file:$API_KEY_FILE)
+BUILD_NUMBER=$((BUILD_NUMBER+1))
+CURRENT_PROJECT_VERSION=${BUILD_NUMBER:-0}
 
 xcrun xcodebuild clean \
     -workspace "${WORKSPACE}" \
