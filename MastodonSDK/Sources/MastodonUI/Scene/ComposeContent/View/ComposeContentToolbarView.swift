@@ -87,16 +87,14 @@ struct ComposeContentToolbarView: View {
             Text("\(remains)")
                 .foregroundColor(Color(isOverflow ? UIColor.systemRed : UIColor.secondaryLabel))
                 .font(.system(size: isOverflow ? 18 : 16, weight: isOverflow ? .medium : .regular))
-                // TODO: i18n (a11y.plural.count.characters_left)
-                .accessibilityLabel("\(remains) characters left")
+                .accessibilityLabel(L10n.A11y.Plural.Count.charactersLeft(remains))
         }
         .padding(.leading, 4)       // 4 + 12 = 16
         .padding(.trailing, 16)
         .frame(height: ComposeContentToolbarView.toolbarHeight)
         .background(Color(viewModel.backgroundColor))
         .accessibilityElement(children: .contain)
-        // TODO: i18n (scene.compose.accessibility.post_options)
-        .accessibilityLabel("Post Options")
+        .accessibilityLabel(L10n.Scene.Compose.Accessibility.postOptions)
     }
     
 }
