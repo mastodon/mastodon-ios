@@ -1,3 +1,4 @@
+source 'https://cdn.cocoapods.org/'
 platform :ios, '14.0'
 
 target 'Mastodon' do
@@ -34,6 +35,12 @@ post_install do |installer|
   installer.pods_project.targets.each do |target|
     target.build_configurations.each do |config|
       config.build_settings.delete 'IPHONEOS_DEPLOYMENT_TARGET'
+    end
+    # https://github.com/CocoaPods/CocoaPods/issues/11402#issuecomment-1201464693
+    if target.respond_to?(:product_type) and target.product_type == "com.apple.product-type.bundle"
+      target.build_configurations.each do |config|
+          config.build_settings['CODE_SIGNING_ALLOWED'] = 'NO'
+      end
     end
   end
 end
