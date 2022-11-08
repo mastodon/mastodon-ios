@@ -180,7 +180,9 @@
                 "unmute": "Dì-mhùch",
                 "unmute_user": "Dì-mhùch %s",
                 "muted": "’Ga mhùchadh",
-                "edit_info": "Deasaich"
+                "edit_info": "Deasaich",
+                "show_reblogs": "Show Reblogs",
+                "hide_reblogs": "Hide Reblogs"
             },
             "timeline": {
                 "filtered": "Criathraichte",
@@ -455,6 +457,14 @@
                 "confirm_unblock_user": {
                     "title": "Dì-bhac an cunntas",
                     "message": "Dearbh dì-bhacadh %s"
+                },
+                "confirm_show_reblogs": {
+                    "title": "Show Reblogs",
+                    "message": "Confirm to show reblogs"
+                },
+                "confirm_hide_reblogs": {
+                    "title": "Hide Reblogs",
+                    "message": "Confirm to hide reblogs"
                 }
             },
             "accessibility": {
