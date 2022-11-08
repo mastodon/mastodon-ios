@@ -413,47 +413,47 @@
                 "toggle_poll": "Přepnout anketu",
                 "toggle_content_warning": "Toggle Content Warning",
                 "append_attachment_entry": "Přidat přílohu - %s",
-                "select_visibility_entry": "Select Visibility - %s"
+                "select_visibility_entry": "Vyberte viditelnost - %s"
             }
         },
         "profile": {
             "header": {
-                "follows_you": "Follows You"
+                "follows_you": "Sleduje vás"
             },
             "dashboard": {
-                "posts": "posts",
+                "posts": "příspěvky",
                 "following": "following",
-                "followers": "followers"
+                "followers": "sledující"
             },
             "fields": {
-                "add_row": "Add Row",
+                "add_row": "Přidat řádek",
                 "placeholder": {
                     "label": "Label",
-                    "content": "Content"
+                    "content": "Obsah"
                 }
             },
             "segmented_control": {
-                "posts": "Posts",
-                "replies": "Replies",
-                "posts_and_replies": "Posts and Replies",
-                "media": "Media",
+                "posts": "Příspěvky",
+                "replies": "Odpovědí",
+                "posts_and_replies": "Příspěvky a odpovědi",
+                "media": "Média",
                 "about": "About"
             },
             "relationship_action_alert": {
                 "confirm_mute_user": {
-                    "title": "Mute Account",
-                    "message": "Confirm to mute %s"
+                    "title": "Skrýt účet",
+                    "message": "Potvrdit skrytí %s"
                 },
                 "confirm_unmute_user": {
-                    "title": "Unmute Account",
+                    "title": "Zrušit skrytí účtu",
                     "message": "Confirm to unmute %s"
                 },
                 "confirm_block_user": {
-                    "title": "Block Account",
-                    "message": "Confirm to block %s"
+                    "title": "Blokovat účet",
+                    "message": "Potvrdit blokování %s"
                 },
                 "confirm_unblock_user": {
-                    "title": "Unblock Account",
+                    "title": "Odblokovat účet",
                     "message": "Confirm to unblock %s"
                 }
             },
