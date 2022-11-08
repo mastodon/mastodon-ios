@@ -131,6 +131,13 @@ extension DiscoveryViewController: ScrollViewContainer {
     var scrollView: UIScrollView {
         return (currentViewController as? ScrollViewContainer)?.scrollView ?? UIScrollView()
     }
+    func scrollToTop(animated: Bool) {
+        if scrollView.contentOffset.y <= 0 {
+            scrollToPage(.first, animated: animated)
+        } else {
+            scrollView.scrollToTop(animated: animated)
+        }
+    }
 }
 
 extension DiscoveryViewController {
