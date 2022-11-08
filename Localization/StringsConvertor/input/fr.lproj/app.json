@@ -9,10 +9,10 @@
                 "title": "Échec de l'inscription"
             },
             "server_error": {
-                "title": "Erreur du serveur"
+                "title": "Erreur serveur"
             },
             "vote_failure": {
-                "title": "Le vote n’a pas pu être enregistré",
+                "title": "Échec du vote",
                 "poll_ended": "Le sondage est terminé"
             },
             "discard_post_content": {
@@ -180,7 +180,9 @@
                 "unmute": "Ne plus ignorer",
                 "unmute_user": "Ne plus masquer %s",
                 "muted": "Masqué",
-                "edit_info": "Éditer les infos"
+                "edit_info": "Éditer les infos",
+                "show_reblogs": "Afficher les Reblogs",
+                "hide_reblogs": "Masquer les Reblogs"
             },
             "timeline": {
                 "filtered": "Filtré",
@@ -455,6 +457,14 @@
                 "confirm_unblock_user": {
                     "title": "Débloquer le compte",
                     "message": "Confirmer le déblocage de %s"
+                },
+                "confirm_show_reblogs": {
+                    "title": "Afficher les Reblogs",
+                    "message": "Confirmer pour afficher les reblogs"
+                },
+                "confirm_hide_reblogs": {
+                    "title": "Masquer les Reblogs",
+                    "message": "Confirmer pour masquer les reblogs"
                 }
             },
             "accessibility": {
