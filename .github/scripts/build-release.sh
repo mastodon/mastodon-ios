@@ -36,6 +36,8 @@ BUILD_NUMBER=$(app-store-connect get-latest-testflight-build-number $ENV_APP_ID 
 BUILD_NUMBER=$((BUILD_NUMBER+1))
 CURRENT_PROJECT_VERSION=${BUILD_NUMBER:-0}
 
+agvtool new-version -all $CURRENT_PROJECT_VERSION
+
 xcrun xcodebuild clean \
     -workspace "${WORKSPACE}" \
     -scheme "${SCHEME}" \
