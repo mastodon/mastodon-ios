@@ -88,6 +88,7 @@ extension SidebarViewModel {
             cell.setNeedsUpdateConfiguration()
             cell.isAccessibilityElement = true
             cell.accessibilityLabel = item.title
+            cell.accessibilityTraits.insert(.button)
             
             self.$currentTab
                 .receive(on: DispatchQueue.main)
@@ -141,6 +142,7 @@ extension SidebarViewModel {
             cell.setNeedsUpdateConfiguration()
             cell.isAccessibilityElement = true
             cell.accessibilityLabel = item.title
+            cell.accessibilityTraits.insert(.button)
         }
         
         // header

@@ -190,6 +190,16 @@ extension SearchViewController: UISearchControllerDelegate {
     }
 }
 
+// MARK: - ScrollViewContainer
+extension SearchViewController: ScrollViewContainer {
+    var scrollView: UIScrollView {
+        discoveryViewController?.scrollView ?? UIScrollView()
+    }
+    func scrollToTop(animated: Bool) {
+        discoveryViewController?.scrollToTop(animated: animated)
+    }
+}
+
 // MARK: - UICollectionViewDelegate
 //extension SearchViewController: UICollectionViewDelegate {
 //    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
