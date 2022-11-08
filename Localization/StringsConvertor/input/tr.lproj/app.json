@@ -180,7 +180,9 @@
                 "unmute": "Susturmayı kaldır",
                 "unmute_user": "Sesini aç %s",
                 "muted": "Susturuldu",
-                "edit_info": "Bilgiyi Düzenle"
+                "edit_info": "Bilgiyi Düzenle",
+                "show_reblogs": "Show Reblogs",
+                "hide_reblogs": "Hide Reblogs"
             },
             "timeline": {
                 "filtered": "Filtrelenmiş",
@@ -455,6 +457,14 @@
                 "confirm_unblock_user": {
                     "title": "Hesabın Engelini Kaldır",
                     "message": "%s engellemeyi kaldırmayı onaylayın"
+                },
+                "confirm_show_reblogs": {
+                    "title": "Show Reblogs",
+                    "message": "Confirm to show reblogs"
+                },
+                "confirm_hide_reblogs": {
+                    "title": "Hide Reblogs",
+                    "message": "Confirm to hide reblogs"
                 }
             },
             "accessibility": {
