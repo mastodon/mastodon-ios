@@ -308,13 +308,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>Tha %ld a’ leantainn air</string>
+        <string>Tha %ld ’ga leantainn</string>
         <key>two</key>
-        <string>Tha %ld a’ leantainn air</string>
+        <string>Tha %ld ’ga leantainn</string>
         <key>few</key>
-        <string>Tha %ld a’ leantainn air</string>
+        <string>Tha %ld ’ga leantainn</string>
         <key>other</key>
-        <string>Tha %ld a’ leantainn air</string>
+        <string>Tha %ld ’ga leantainn</string>
       </dict>
     </dict>
     <key>date.year.left</key>
