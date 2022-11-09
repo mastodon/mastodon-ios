@@ -136,6 +136,12 @@
                     "vote": "Rösta",
                     "closed": "Stängd"
                 },
+                "meta_entity": {
+                    "url": "Länk: %s",
+                    "hashtag": "Hashtagg %s",
+                    "mention": "Visa profil: %s",
+                    "email": "E-postadress: %s"
+                },
                 "actions": {
                     "reply": "Svara",
                     "reblog": "Puffa",
