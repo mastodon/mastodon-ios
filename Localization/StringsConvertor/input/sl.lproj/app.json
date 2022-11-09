@@ -136,6 +136,12 @@
                     "vote": "Glasuj",
                     "closed": "Zaprto"
                 },
+                "meta_entity": {
+                    "url": "Link: %s",
+                    "hashtag": "Hastag %s",
+                    "mention": "Show Profile: %s",
+                    "email": "Email address: %s"
+                },
                 "actions": {
                     "reply": "Odgovori",
                     "reblog": "Poobjavi",
@@ -696,7 +702,7 @@
             "accessibility_hint": "Dvakrat tapnite, da zapustite tega čarovnika"
         },
         "bookmark": {
-            "title": "Bookmarks"
+            "title": "Zaznamki"
         }
     }
 }
