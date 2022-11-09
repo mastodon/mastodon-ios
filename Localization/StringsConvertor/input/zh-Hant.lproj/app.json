@@ -138,7 +138,7 @@
                 },
                 "meta_entity": {
                     "url": "連結：%s",
-                    "hashtag": "Hashtag: %s",
+                    "hashtag": "主題標籤： %s",
                     "mention": "顯示個人檔案：%s",
                     "email": "電子郵件地址：%s"
                 },
