@@ -136,6 +136,12 @@
                     "vote": "Vota",
                     "closed": "Finalitzada"
                 },
+                "meta_entity": {
+                    "url": "Link: %s",
+                    "hashtag": "Hastag %s",
+                    "mention": "Show Profile: %s",
+                    "email": "Email address: %s"
+                },
                 "actions": {
                     "reply": "Respon",
                     "reblog": "Impuls",
