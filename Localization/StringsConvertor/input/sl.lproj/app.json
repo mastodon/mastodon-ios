@@ -694,6 +694,9 @@
             "new_in_mastodon": "Novo v Mastodonu",
             "multiple_account_switch_intro_description": "Preklopite med več računi s pritiskom gumba profila.",
             "accessibility_hint": "Dvakrat tapnite, da zapustite tega čarovnika"
+        },
+        "bookmark": {
+            "title": "Bookmarks"
         }
     }
 }
