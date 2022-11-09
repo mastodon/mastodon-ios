@@ -19,6 +19,7 @@ class PickServerCategoryView: UIView {
         return view
     }()
 
+    //TODO: @zeitschlag Remove emojiLabel
     let emojiLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center

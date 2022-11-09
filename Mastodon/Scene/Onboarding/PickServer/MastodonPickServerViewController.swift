@@ -172,7 +172,7 @@ extension MastodonPickServerViewController {
             let alertController = UIAlertController(for: error, title: "Error", preferredStyle: .alert)
             let okAction = UIAlertAction(title: L10n.Common.Controls.Actions.ok, style: .default, handler: nil)
             alertController.addAction(okAction)
-            self.coordinator.present(
+            _ = self.coordinator.present(
                 scene: .alertController(alertController: alertController),
                 from: nil,
                 transition: .alertController(animated: true, completion: nil)
@@ -394,7 +394,7 @@ extension MastodonPickServerViewController {
                         instance: response.instance.value,
                         applicationToken: response.applicationToken.value
                     )
-                    self.coordinator.present(scene: .mastodonServerRules(viewModel: mastodonServerRulesViewModel), from: self, transition: .show)
+                    _ = self.coordinator.present(scene: .mastodonServerRules(viewModel: mastodonServerRulesViewModel), from: self, transition: .show)
                 } else {
                     let mastodonRegisterViewModel = MastodonRegisterViewModel(
                         context: self.context,
@@ -403,7 +403,7 @@ extension MastodonPickServerViewController {
                         instance: response.instance.value,
                         applicationToken: response.applicationToken.value
                     )
-                    self.coordinator.present(scene: .mastodonRegister(viewModel: mastodonRegisterViewModel), from: nil, transition: .show)
+                    _ = self.coordinator.present(scene: .mastodonRegister(viewModel: mastodonRegisterViewModel), from: nil, transition: .show)
                 }
             }
             .store(in: &disposeBag)
@@ -499,6 +499,7 @@ extension MastodonPickServerViewController: PickServerServerSectionTableHeaderVi
     }
     
     func pickServerServerSectionTableHeaderView(_ headerView: PickServerServerSectionTableHeaderView, searchTextDidChange searchText: String?) {
+        //TODO:  @zeitschlag Deselect server?
         viewModel.searchText.send(searchText ?? "")
     }
 }

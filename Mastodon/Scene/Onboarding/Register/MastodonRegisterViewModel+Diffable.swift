@@ -11,6 +11,7 @@ import MastodonAsset
 import MastodonLocalization
 
 extension MastodonRegisterViewModel {
+    //TODO: @zeitschlag Remove, as the screen is based on SwiftUI now
     func setupDiffableDataSource(
         tableView: UITableView
     ) {

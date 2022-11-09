@@ -9,6 +9,7 @@ import UIKit
 import MastodonAsset
 import MastodonLocalization
 
+//TODO: @zeitschlag Remove
 final class MastodonRegisterPasswordHintTableViewCell: UITableViewCell {
     
     let passwordRuleLabel: UILabel = {

@@ -10,6 +10,7 @@ import Combine
 import MastodonAsset
 import MastodonLocalization
 
+//TODO: @zeitschlag Remove
 final class MastodonRegisterAvatarTableViewCell: UITableViewCell {
     
     static let containerSize = CGSize(width: 88, height: 88)

@@ -175,6 +175,7 @@ struct MastodonRegisterView: View {
                     case .valid:    return Color(Asset.Colors.TextField.valid.color)
                     }
                 }()
+                //TODO: @zeitschlag Replace shadow with border
                 Color(Asset.Scene.Onboarding.textFieldBackground.color)
                     .cornerRadius(10)
                     .shadow(color: shadowColor, radius: 1, x: 0, y: 2)

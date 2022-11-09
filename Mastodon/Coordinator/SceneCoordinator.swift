@@ -149,6 +149,7 @@ extension SceneCoordinator {
         case mastodonConfirmEmail(viewModel: MastodonConfirmEmailViewModel)
         case mastodonResendEmail(viewModel: MastodonResendEmailViewModel)
         case mastodonWebView(viewModel: WebViewModel)
+        //TODO: @zeitschlag new case for welcome back select your server welcome-screen + Screen and ViewModel etc.
 
         // search
         case searchDetail(viewModel: SearchDetailViewModel)

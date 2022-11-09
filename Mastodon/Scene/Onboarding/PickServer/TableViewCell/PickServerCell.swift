@@ -14,6 +14,7 @@ import Kanna
 import MastodonAsset
 import MastodonLocalization
 
+//TODO:  @zeitschlag Remove Delegate
 protocol PickServerCellDelegate: AnyObject {
 //    func pickServerCell(_ cell: PickServerCell, expandButtonPressed button: UIButton)
 }
@@ -88,6 +89,8 @@ class PickServerCell: UITableViewCell {
         label.adjustsFontForContentSizeCategory = true
         return label
     }()
+
+    //TODO: @zeitschlag New label for "Registrations closed"
     
     private var collapseConstraints: [NSLayoutConstraint] = []
     private var expandConstraints: [NSLayoutConstraint] = []

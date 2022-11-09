@@ -11,13 +11,13 @@ import MastodonUI
 import MastodonAsset
 import MastodonLocalization
 
-final class MastodonRegisterTextFieldTableViewCell: UITableViewCell {
+//TODO: @zeitschlag Removefinal class MastodonRegisterTextFieldTableViewCell: UITableViewCell {
     
     static let textFieldHeight: CGFloat = 50
     static let textFieldLabelFont = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold), maximumPointSize: 22)
 
     var disposeBag = Set<AnyCancellable>()
-    
+
     let textFieldShadowContainer = ShadowBackgroundContainer()
     let textField: UITextField = {
         let textField = UITextField()

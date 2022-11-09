@@ -178,6 +178,7 @@ extension MastodonPickServerViewModel {
             .compactMap { [weak self] searchText -> AnyPublisher<Result<Mastodon.Response.Content<[Mastodon.Entity.Server]>, Error>, Never>? in
                 // Check if searchText is a valid mastodon server domain
                 guard let self = self else { return nil }
+                //TODO:  @zeitschlag Also allow search for incomplete URLs?
                 guard let domain = AuthenticationViewModel.parseDomain(from: searchText) else {
                     return Just(Result.failure(APIService.APIError.implicit(.badRequest))).eraseToAnyPublisher()
                 }
