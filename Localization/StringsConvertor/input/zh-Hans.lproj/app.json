@@ -136,6 +136,12 @@
                     "vote": "投票",
                     "closed": "已关闭"
                 },
+                "meta_entity": {
+                    "url": "Link: %s",
+                    "hashtag": "Hastag %s",
+                    "mention": "Show Profile: %s",
+                    "email": "Email address: %s"
+                },
                 "actions": {
                     "reply": "回复",
                     "reblog": "转发",
