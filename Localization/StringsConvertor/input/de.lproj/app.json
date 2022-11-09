@@ -136,6 +136,12 @@
                     "vote": "Abstimmen",
                     "closed": "Beendet"
                 },
+                "meta_entity": {
+                    "url": "Link: %s",
+                    "hashtag": "Hastag %s",
+                    "mention": "Show Profile: %s",
+                    "email": "Email address: %s"
+                },
                 "actions": {
                     "reply": "Antworten",
                     "reblog": "Teilen",
@@ -460,7 +466,7 @@
                 },
                 "confirm_show_reblogs": {
                     "title": "Reblogs anzeigen",
-                    "message": "Confirm to show reblogs"
+                    "message": "Bestätigen um Reblogs anzuzeigen"
                 },
                 "confirm_hide_reblogs": {
                     "title": "Reblogs ausblenden",
@@ -696,7 +702,7 @@
             "accessibility_hint": "Doppeltippen, um diesen Assistenten zu schließen"
         },
         "bookmark": {
-            "title": "Bookmarks"
+            "title": "Lesezeichen"
         }
     }
 }
