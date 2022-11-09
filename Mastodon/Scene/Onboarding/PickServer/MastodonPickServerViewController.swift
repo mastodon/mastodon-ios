@@ -275,7 +275,8 @@ extension MastodonPickServerViewController {
         case .signUp:   doSignUp()
         }
     }
-    
+
+    //TODO: @zeitschlag Move to MastodonLoginViewController
     private func doSignIn() {
         guard let server = viewModel.selectedServer.value else { return }
         authenticationViewModel.isAuthenticating.send(true)

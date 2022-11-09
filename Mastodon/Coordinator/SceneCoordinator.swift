@@ -149,7 +149,7 @@ extension SceneCoordinator {
         case mastodonConfirmEmail(viewModel: MastodonConfirmEmailViewModel)
         case mastodonResendEmail(viewModel: MastodonResendEmailViewModel)
         case mastodonWebView(viewModel: WebViewModel)
-        //TODO: @zeitschlag new case for welcome back select your server welcome-screen + Screen and ViewModel etc.
+        case mastodonLogin
 
         // search
         case searchDetail(viewModel: SearchDetailViewModel)
@@ -200,6 +200,7 @@ extension SceneCoordinator {
             case .welcome,
                  .mastodonPickServer,
                  .mastodonRegister,
+                 .mastodonLogin,
                  .mastodonServerRules,
                  .mastodonConfirmEmail,
                  .mastodonResendEmail:
@@ -404,6 +405,8 @@ private extension SceneCoordinator {
             let _viewController = MastodonConfirmEmailViewController()
             _viewController.viewModel = viewModel
             viewController = _viewController
+        case .mastodonLogin:
+            viewController = MastodonLoginViewController()
         case .mastodonResendEmail(let viewModel):
             let _viewController = MastodonResendEmailViewController()
             _viewController.viewModel = viewModel

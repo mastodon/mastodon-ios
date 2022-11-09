@@ -88,6 +88,7 @@
 		62FD27D52893708A00B205C5 /* BookmarkViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FD27D42893708A00B205C5 /* BookmarkViewModel+Diffable.swift */; };
 		87FFDA5D898A5C42ADCB35E7 /* Pods_Mastodon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4ABE34829701A4496C5BB64 /* Pods_Mastodon.framework */; };
 		C24C97032922F30500BAE8CB /* RefreshControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24C97022922F30500BAE8CB /* RefreshControl.swift */; };
+		D8A6AB6C291C5136003AB663 /* MastodonLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A6AB6B291C5136003AB663 /* MastodonLoginViewController.swift */; };
 		DB0009A626AEE5DC009B9D2D /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = DB0009A926AEE5DC009B9D2D /* Intents.intentdefinition */; settings = {ATTRIBUTES = (codegen, ); }; };
 		DB0009A726AEE5DC009B9D2D /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = DB0009A926AEE5DC009B9D2D /* Intents.intentdefinition */; };
 		DB0140CF25C42AEE00F9F3CF /* OSLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0140CE25C42AEE00F9F3CF /* OSLog.swift */; };
@@ -608,6 +609,7 @@
 		C3789232A52F43529CA67E95 /* Pods-MastodonIntent.asdk - debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MastodonIntent.asdk - debug.xcconfig"; path = "Target Support Files/Pods-MastodonIntent/Pods-MastodonIntent.asdk - debug.xcconfig"; sourceTree = "<group>"; };
 		CD92E0F10BDE4FE7C4B999F2 /* Pods_MastodonTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MastodonTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7D7CF93E262178800077512 /* Pods-Mastodon-AppShared.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon-AppShared.debug.xcconfig"; path = "Target Support Files/Pods-Mastodon-AppShared/Pods-Mastodon-AppShared.debug.xcconfig"; sourceTree = "<group>"; };
+		D8A6AB6B291C5136003AB663 /* MastodonLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonLoginViewController.swift; sourceTree = "<group>"; };
 		DB0009A826AEE5DC009B9D2D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; name = Base; path = Base.lproj/Intents.intentdefinition; sourceTree = "<group>"; };
 		DB0009AD26AEE5E4009B9D2D /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Intents.strings; sourceTree = "<group>"; };
 		DB0140CE25C42AEE00F9F3CF /* OSLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSLog.swift; sourceTree = "<group>"; };
@@ -1494,9 +1496,18 @@
 			path = Bookmark;
 			sourceTree = "<group>";
 		};
+		D8A6AB68291C50F3003AB663 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				D8A6AB6B291C5136003AB663 /* MastodonLoginViewController.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
 		DB01409B25C40BB600F9F3CF /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
+				D8A6AB68291C50F3003AB663 /* Login */,
 				DB68A03825E900CC00CFDF14 /* Share */,
 				0FAA0FDD25E0B5700017CCDE /* Welcome */,
 				0FAA102525E1125D0017CCDE /* PickServer */,
@@ -3422,6 +3433,7 @@
 				DB697DDB278F4DE3004EF2F7 /* DataSourceProvider+StatusTableViewCellDelegate.swift in Sources */,
 				DB87D4512609CF1E00D12C0D /* ComposeStatusPollOptionAppendEntryCollectionViewCell.swift in Sources */,
 				DBB45B5627B39FC9002DC5A7 /* MediaPreviewVideoViewController.swift in Sources */,
+				D8A6AB6C291C5136003AB663 /* MastodonLoginViewController.swift in Sources */,
 				DB0FCB8027968F70006C02E2 /* MastodonStatusThreadViewModel.swift in Sources */,
 				DB67D08627312E67006A36CF /* WizardViewController.swift in Sources */,
 				DB6746EB278ED8B0008A6B94 /* PollOptionView+Configuration.swift in Sources */,
