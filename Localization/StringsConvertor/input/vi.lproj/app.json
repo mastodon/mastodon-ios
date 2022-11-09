@@ -694,6 +694,9 @@
             "new_in_mastodon": "Mới trên Mastodon",
             "multiple_account_switch_intro_description": "Chuyển đổi giữa nhiều tài khoản bằng cách đè giữ nút tài khoản.",
             "accessibility_hint": "Nhấn hai lần để bỏ qua"
+        },
+        "bookmark": {
+            "title": "Bookmarks"
         }
     }
 }
