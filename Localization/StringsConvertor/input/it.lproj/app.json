@@ -137,10 +137,10 @@
                     "closed": "Chiuso"
                 },
                 "meta_entity": {
-                    "url": "Link: %s",
+                    "url": "Collegamento: %s",
                     "hashtag": "Hastag %s",
-                    "mention": "Show Profile: %s",
-                    "email": "Email address: %s"
+                    "mention": "Mostra il profilo: %s",
+                    "email": "Indirizzo email: %s"
                 },
                 "actions": {
                     "reply": "Rispondi",
