@@ -138,7 +138,7 @@
                 },
                 "meta_entity": {
                     "url": "Länk: %s",
-                    "hashtag": "Hashtagg %s",
+                    "hashtag": "Hashtag: %s",
                     "mention": "Visa profil: %s",
                     "email": "E-postadress: %s"
                 },
