@@ -46,7 +46,10 @@ public final class NotificationView: UIView {
     
     var _disposeBag = Set<AnyCancellable>()
     public var disposeBag = Set<AnyCancellable>()
-    
+
+    var notificationActions = [UIAccessibilityCustomAction]()
+    var authorActions = [UIAccessibilityCustomAction]()
+
     public private(set) lazy var viewModel: ViewModel = {
         let viewModel = ViewModel()
         viewModel.bind(notificationView: self)
@@ -392,6 +395,21 @@ extension NotificationView {
         get { [] }
         set {}
     }
+
+    public override var accessibilityCustomActions: [UIAccessibilityCustomAction]? {
+        get {
+            var actions = notificationActions
+            actions += authorActions
+            if !statusView.isHidden {
+                actions += statusView.accessibilityCustomActions ?? []
+            }
+            if !quoteStatusViewContainerView.isHidden {
+                actions += quoteStatusView.accessibilityCustomActions ?? []
+            }
+            return actions
+        }
+        set {}
+    }
 }
 
 extension NotificationView {
@@ -449,7 +467,7 @@ extension NotificationView: AdaptiveContainerView {
 extension NotificationView {
     public typealias AuthorMenuContext = StatusAuthorView.AuthorMenuContext
     
-    public func setupAuthorMenu(menuContext: AuthorMenuContext) -> UIMenu {
+    public func setupAuthorMenu(menuContext: AuthorMenuContext) -> (UIMenu, [UIAccessibilityCustomAction]) {
         var actions: [MastodonMenu.Action] = []
         
         actions = [
@@ -475,8 +493,13 @@ extension NotificationView {
             actions: actions,
             delegate: self
         )
-        
-        return menu
+
+        let accessibilityActions = MastodonMenu.setupAccessibilityActions(
+            actions: actions,
+            delegate: self
+        )
+
+        return (menu, accessibilityActions)
     }
 
 }
