@@ -180,7 +180,9 @@
                 "unmute": "بێدەنگی مەکە",
                 "unmute_user": "%s بێدەنگ مەکە",
                 "muted": "بێدەنگ کراوە",
-                "edit_info": "دەستکاری"
+                "edit_info": "دەستکاری",
+                "show_reblogs": "Show Reblogs",
+                "hide_reblogs": "Hide Reblogs"
             },
             "timeline": {
                 "filtered": "پاڵێوراو",
@@ -455,6 +457,14 @@
                 "confirm_unblock_user": {
                     "title": "ئاستەنگی مەکە",
                     "message": "دڵنیا ببەوە بۆ لابردنی ئاستەنگی %s"
+                },
+                "confirm_show_reblogs": {
+                    "title": "Show Reblogs",
+                    "message": "Confirm to show reblogs"
+                },
+                "confirm_hide_reblogs": {
+                    "title": "Hide Reblogs",
+                    "message": "Confirm to hide reblogs"
                 }
             },
             "accessibility": {
@@ -684,6 +694,9 @@
             "new_in_mastodon": "نوێ",
             "multiple_account_switch_intro_description": "هەژمارەکەت بگۆڕە بە دەستڕاگرتن لەسەر دوگمەی پرۆفایلەکە.",
             "accessibility_hint": "دوو جار دەستی پیا بنێ بۆ داخستنی"
+        },
+        "bookmark": {
+            "title": "Bookmarks"
         }
     }
 }

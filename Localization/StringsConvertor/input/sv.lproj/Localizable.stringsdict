@@ -90,7 +90,7 @@
         <key>one</key>
         <string>inlägg</string>
         <key>other</key>
-        <string>inläggen</string>
+        <string>inlägg</string>
       </dict>
     </dict>
     <key>plural.count.media</key>
@@ -152,9 +152,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>%ld ompostning</string>
+        <string>%ld puff</string>
         <key>other</key>
-        <string>%ld ompostningar</string>
+        <string>%ld puffar</string>
       </dict>
     </dict>
     <key>plural.count.reply</key>

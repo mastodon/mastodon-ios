@@ -9,10 +9,10 @@
                 "title": "Échec de l'inscription"
             },
             "server_error": {
-                "title": "Erreur du serveur"
+                "title": "Erreur serveur"
             },
             "vote_failure": {
-                "title": "Le vote n’a pas pu être enregistré",
+                "title": "Échec du vote",
                 "poll_ended": "Le sondage est terminé"
             },
             "discard_post_content": {
@@ -180,7 +180,9 @@
                 "unmute": "Ne plus ignorer",
                 "unmute_user": "Ne plus masquer %s",
                 "muted": "Masqué",
-                "edit_info": "Éditer les infos"
+                "edit_info": "Éditer les infos",
+                "show_reblogs": "Afficher les Reblogs",
+                "hide_reblogs": "Masquer les Reblogs"
             },
             "timeline": {
                 "filtered": "Filtré",
@@ -455,6 +457,14 @@
                 "confirm_unblock_user": {
                     "title": "Débloquer le compte",
                     "message": "Confirmer le déblocage de %s"
+                },
+                "confirm_show_reblogs": {
+                    "title": "Afficher les Reblogs",
+                    "message": "Confirmer pour afficher les reblogs"
+                },
+                "confirm_hide_reblogs": {
+                    "title": "Masquer les Reblogs",
+                    "message": "Confirmer pour masquer les reblogs"
                 }
             },
             "accessibility": {
@@ -469,7 +479,7 @@
             "footer": "Les abonné·e·s issus des autres serveurs ne sont pas affiché·e·s."
         },
         "following": {
-            "title": "following",
+            "title": "abonnement",
             "footer": "Les abonnés issus des autres serveurs ne sont pas affichés."
         },
         "familiarFollowers": {
@@ -477,10 +487,10 @@
             "followed_by_names": "Suivi·e par %s"
         },
         "favorited_by": {
-            "title": "Favorited By"
+            "title": "Favoris par"
         },
         "reblogged_by": {
-            "title": "Reblogged By"
+            "title": "Reblogué par"
         },
         "search": {
             "title": "Rechercher",
@@ -659,7 +669,7 @@
                 "dont_want_to_see_this": "Vous ne voulez pas voir cela ?",
                 "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "Quand vous voyez quelque chose que vous n’aimez pas sur Mastodon, vous pouvez retirer la personne de votre expérience.",
                 "unfollow": "Se désabonner",
-                "unfollowed": "Unfollowed",
+                "unfollowed": "Non-suivi",
                 "unfollow_user": "Ne plus suivre %s",
                 "mute_user": "Masquer %s",
                 "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "Vous ne verrez plus leurs messages ou leurs partages dans votre flux personnel. Iels ne sauront pas qu’iels ont été mis en sourdine.",
@@ -684,6 +694,9 @@
             "new_in_mastodon": "Nouveau dans Mastodon",
             "multiple_account_switch_intro_description": "Basculez entre plusieurs comptes en appuyant de maniere prolongée sur le bouton profil.",
             "accessibility_hint": "Tapotez deux fois pour fermer cet assistant"
+        },
+        "bookmark": {
+            "title": "Bookmarks"
         }
     }
 }

@@ -180,7 +180,9 @@
                 "unmute": "Poista mykistys",
                 "unmute_user": "Poista mykistys tililtä %s",
                 "muted": "Mykistetty",
-                "edit_info": "Muokkaa profiilia"
+                "edit_info": "Muokkaa profiilia",
+                "show_reblogs": "Show Reblogs",
+                "hide_reblogs": "Hide Reblogs"
             },
             "timeline": {
                 "filtered": "Suodatettu",
@@ -455,6 +457,14 @@
                 "confirm_unblock_user": {
                     "title": "Unblock Account",
                     "message": "Confirm to unblock %s"
+                },
+                "confirm_show_reblogs": {
+                    "title": "Show Reblogs",
+                    "message": "Confirm to show reblogs"
+                },
+                "confirm_hide_reblogs": {
+                    "title": "Hide Reblogs",
+                    "message": "Confirm to hide reblogs"
                 }
             },
             "accessibility": {
@@ -684,6 +694,9 @@
             "new_in_mastodon": "Uutta Mastodonissa",
             "multiple_account_switch_intro_description": "Vaihda useiden tilien välillä pitämällä profiilipainiketta painettuna.",
             "accessibility_hint": "Hylkää tämä ohjattu toiminto kaksoisnapauttamalla"
+        },
+        "bookmark": {
+            "title": "Bookmarks"
         }
     }
 }

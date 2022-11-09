@@ -180,7 +180,9 @@
                 "unmute": "Kkes asgugem",
                 "unmute_user": "Kkes asgugem ɣef %s",
                 "muted": "Yettwasgugem",
-                "edit_info": "Ẓreg talɣut"
+                "edit_info": "Ẓreg talɣut",
+                "show_reblogs": "Show Reblogs",
+                "hide_reblogs": "Hide Reblogs"
             },
             "timeline": {
                 "filtered": "Yettwasizdeg",
@@ -455,6 +457,14 @@
                 "confirm_unblock_user": {
                     "title": "Kkes asewḥel i umiḍan",
                     "message": "Sentem tukksa n usgugem i %s"
+                },
+                "confirm_show_reblogs": {
+                    "title": "Show Reblogs",
+                    "message": "Confirm to show reblogs"
+                },
+                "confirm_hide_reblogs": {
+                    "title": "Hide Reblogs",
+                    "message": "Confirm to hide reblogs"
                 }
             },
             "accessibility": {
@@ -548,7 +558,7 @@
             "follow_request": {
                 "accept": "Accept",
                 "accepted": "Accepted",
-                "reject": "reject",
+                "reject": "agi",
                 "rejected": "Rejected"
             }
         },
@@ -684,6 +694,9 @@
             "new_in_mastodon": "Amaynut deg Maṣṭudun",
             "multiple_account_switch_intro_description": "Beddel gar waṭas n yimiḍanen s tussda ɣezzifen ɣef tqeffalt n umaɣnu.",
             "accessibility_hint": "Sin isitiyen i usefsex n umarag-a"
+        },
+        "bookmark": {
+            "title": "Bookmarks"
         }
     }
 }
