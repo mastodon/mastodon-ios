@@ -34,18 +34,18 @@
 
 "dUyuGg" = "Post on Mastodon";
 
-"dYQ5NN" = "Public";
+"dYQ5NN" = "공개";
 
-"ehFLjY" = "Followers Only";
+"ehFLjY" = "팔로워 전용";
 
-"gfePDu" = "Posting failed. ${failureReason}";
+"gfePDu" = "게시를 실패했습니다. ${failureReason}";
 
-"k7dbKQ" = "Post was sent successfully.";
+"k7dbKQ" = "성공적으로 게시물을 전송했습니다.";
 
-"oGiqmY-dYQ5NN" = "Just to confirm, you wanted ‘Public’?";
+"oGiqmY-dYQ5NN" = "확인차 물어보건데, '공개'로 게시하시길 원합니까?";
 
-"oGiqmY-ehFLjY" = "Just to confirm, you wanted ‘Followers Only’?";
+"oGiqmY-ehFLjY" = "확인차 물어보건데, '팔로워 전용'으로 게시하시길 원합니까?";
 
 "rM6dvp" = "URL";
 
-"ryJLwG" = "Post was sent successfully. ";
+"ryJLwG" = "성공적으로 게시물을 전송했습니다. ";

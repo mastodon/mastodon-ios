@@ -180,7 +180,9 @@
                 "unmute": "Bêdeng neke",
                 "unmute_user": "%s bêdeng neke",
                 "muted": "Bêdengkirî",
-                "edit_info": "Zanyariyan serrast bike"
+                "edit_info": "Zanyariyan serrast bike",
+                "show_reblogs": "Show Reblogs",
+                "hide_reblogs": "Hide Reblogs"
             },
             "timeline": {
                 "filtered": "Parzûnkirî",
@@ -455,6 +457,14 @@
                 "confirm_unblock_user": {
                     "title": "Astengiyê li ser ajimêr rake",
                     "message": "Ji bo rakirina astengkirinê %s bipejirîne"
+                },
+                "confirm_show_reblogs": {
+                    "title": "Show Reblogs",
+                    "message": "Confirm to show reblogs"
+                },
+                "confirm_hide_reblogs": {
+                    "title": "Hide Reblogs",
+                    "message": "Confirm to hide reblogs"
                 }
             },
             "accessibility": {
@@ -684,6 +694,9 @@
             "new_in_mastodon": "Nû di Mastodon de",
             "multiple_account_switch_intro_description": "Dest bide ser bişkoja profîlê da ku di navbera gelek ajimêrann de biguherînî.",
             "accessibility_hint": "Du caran bitikîne da ku çarçoveyahilpekok ji holê rakî"
+        },
+        "bookmark": {
+            "title": "Bookmarks"
         }
     }
 }

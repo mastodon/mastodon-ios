@@ -234,7 +234,7 @@
         <key>one</key>
         <string>1 takip edilen</string>
         <key>other</key>
-        <string>%ld takip edilen</string>
+        <string>%ld takip</string>
       </dict>
     </dict>
     <key>plural.count.follower</key>

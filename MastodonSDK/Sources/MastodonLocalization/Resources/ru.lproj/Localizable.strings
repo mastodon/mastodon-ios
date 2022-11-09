@@ -68,11 +68,13 @@
 "Common.Controls.Friendship.EditInfo" = "Изменить";
 "Common.Controls.Friendship.Follow" = "Подписаться";
 "Common.Controls.Friendship.Following" = "В подписках";
+"Common.Controls.Friendship.HideReblogs" = "Hide Reblogs";
 "Common.Controls.Friendship.Mute" = "Игнорировать";
 "Common.Controls.Friendship.MuteUser" = "Игнорировать %@";
 "Common.Controls.Friendship.Muted" = "В игнорируемых";
 "Common.Controls.Friendship.Pending" = "Отправлен";
 "Common.Controls.Friendship.Request" = "Отправить запрос";
+"Common.Controls.Friendship.ShowReblogs" = "Show Reblogs";
 "Common.Controls.Friendship.Unblock" = "Разблокировать";
 "Common.Controls.Friendship.UnblockUser" = "Разблокировать %@";
 "Common.Controls.Friendship.Unmute" = "Убрать из игнорируемых";
@@ -157,6 +159,7 @@
 "Scene.AccountList.AddAccount" = "Add Account";
 "Scene.AccountList.DismissAccountSwitcher" = "Dismiss Account Switcher";
 "Scene.AccountList.TabBarHint" = "Current selected profile: %@. Double tap then hold to show account switcher";
+"Scene.Bookmark.Title" = "Bookmarks";
 "Scene.Compose.Accessibility.AppendAttachment" = "Прикрепить файл";
 "Scene.Compose.Accessibility.AppendPoll" = "Добавить опрос";
 "Scene.Compose.Accessibility.CustomEmojiPicker" = "Меню пользовательских эмодзи";
@@ -264,8 +267,12 @@
 "Scene.Profile.Header.FollowsYou" = "Подписан(а) на вас";
 "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Message" = "Confirm to block %@";
 "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Title" = "Block Account";
+"Scene.Profile.RelationshipActionAlert.ConfirmHideReblogs.Message" = "Confirm to hide reblogs";
+"Scene.Profile.RelationshipActionAlert.ConfirmHideReblogs.Title" = "Hide Reblogs";
 "Scene.Profile.RelationshipActionAlert.ConfirmMuteUser.Message" = "Confirm to mute %@";
 "Scene.Profile.RelationshipActionAlert.ConfirmMuteUser.Title" = "Mute Account";
+"Scene.Profile.RelationshipActionAlert.ConfirmShowReblogs.Message" = "Confirm to show reblogs";
+"Scene.Profile.RelationshipActionAlert.ConfirmShowReblogs.Title" = "Show Reblogs";
 "Scene.Profile.RelationshipActionAlert.ConfirmUnblockUser.Message" = "Confirm to unblock %@";
 "Scene.Profile.RelationshipActionAlert.ConfirmUnblockUser.Title" = "Unblock Account";
 "Scene.Profile.RelationshipActionAlert.ConfirmUnmuteUser.Message" = "Убрать %@ из игнорируемых?";

@@ -13,7 +13,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>%ld</string>
         <key>other</key>
-        <string>%ld options</string>
+        <string>%ld 개의 옵션</string>
       </dict>
     </dict>
     <key>There are ${count} options matching ‘${visibility}’.</key>
@@ -27,7 +27,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>%ld</string>
         <key>other</key>
-        <string>%ld options</string>
+        <string>%ld 개의 옵션</string>
       </dict>
     </dict>
   </dict>

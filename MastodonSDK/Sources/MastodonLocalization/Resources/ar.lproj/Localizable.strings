@@ -68,11 +68,13 @@
 "Common.Controls.Friendship.EditInfo" = "تَحريرُ المَعلُومات";
 "Common.Controls.Friendship.Follow" = "مُتابَعَة";
 "Common.Controls.Friendship.Following" = "مُتابَع";
+"Common.Controls.Friendship.HideReblogs" = "Hide Reblogs";
 "Common.Controls.Friendship.Mute" = "كَتم";
 "Common.Controls.Friendship.MuteUser" = "كَتمُ %@";
 "Common.Controls.Friendship.Muted" = "مكتوم";
 "Common.Controls.Friendship.Pending" = "قيد المُراجعة";
 "Common.Controls.Friendship.Request" = "إرسال طَلَب";
+"Common.Controls.Friendship.ShowReblogs" = "Show Reblogs";
 "Common.Controls.Friendship.Unblock" = "رفع الحَظر";
 "Common.Controls.Friendship.UnblockUser" = "رفع الحَظر عن %@";
 "Common.Controls.Friendship.Unmute" = "رفع الكتم";
@@ -149,6 +151,7 @@
 "Scene.AccountList.AddAccount" = "إضافَةُ حِساب";
 "Scene.AccountList.DismissAccountSwitcher" = "تجاهُل مبدِّل الحِساب";
 "Scene.AccountList.TabBarHint" = "المِلَفُّ المُحدَّدُ حالِيًّا: %@. اُنقُر نَقرًا مُزدَوَجًا مَعَ الاِستِمرارِ لِإظهارِ مُبدِّلِ الحِساب";
+"Scene.Bookmark.Title" = "Bookmarks";
 "Scene.Compose.Accessibility.AppendAttachment" = "إضافة مُرفَق";
 "Scene.Compose.Accessibility.AppendPoll" = "اضافة استطلاع رأي";
 "Scene.Compose.Accessibility.CustomEmojiPicker" = "منتقي الرموز التعبيرية المُخصَّص";
@@ -253,8 +256,12 @@
 "Scene.Profile.Header.FollowsYou" = "يُتابِعُك";
 "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Message" = "تأكيدُ حَظر %@";
 "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Title" = "حَظرُ الحِساب";
+"Scene.Profile.RelationshipActionAlert.ConfirmHideReblogs.Message" = "Confirm to hide reblogs";
+"Scene.Profile.RelationshipActionAlert.ConfirmHideReblogs.Title" = "Hide Reblogs";
 "Scene.Profile.RelationshipActionAlert.ConfirmMuteUser.Message" = "تأكيدُ كَتم %@";
 "Scene.Profile.RelationshipActionAlert.ConfirmMuteUser.Title" = "كَتمُ الحِساب";
+"Scene.Profile.RelationshipActionAlert.ConfirmShowReblogs.Message" = "Confirm to show reblogs";
+"Scene.Profile.RelationshipActionAlert.ConfirmShowReblogs.Title" = "Show Reblogs";
 "Scene.Profile.RelationshipActionAlert.ConfirmUnblockUser.Message" = "تأكيدُ رَفع الحَظرِ عَن %@";
 "Scene.Profile.RelationshipActionAlert.ConfirmUnblockUser.Title" = "رَفعُ الحَظرِ عَنِ الحِساب";
 "Scene.Profile.RelationshipActionAlert.ConfirmUnmuteUser.Message" = "أكِّد لرفع الكتمْ عن %@";

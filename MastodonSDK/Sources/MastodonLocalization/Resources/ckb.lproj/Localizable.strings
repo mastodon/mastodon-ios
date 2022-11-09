@@ -68,11 +68,13 @@
 "Common.Controls.Friendship.EditInfo" = "دەستکاری";
 "Common.Controls.Friendship.Follow" = "شوێنی بکەوە";
 "Common.Controls.Friendship.Following" = "شوێنی دەکەویت";
+"Common.Controls.Friendship.HideReblogs" = "Hide Reblogs";
 "Common.Controls.Friendship.Mute" = "بێدەنگی بکە";
 "Common.Controls.Friendship.MuteUser" = "%@ بێدەنگە";
 "Common.Controls.Friendship.Muted" = "بێدەنگ کراوە";
 "Common.Controls.Friendship.Pending" = "داوات کردووە";
 "Common.Controls.Friendship.Request" = "داوای لێ بکە";
+"Common.Controls.Friendship.ShowReblogs" = "Show Reblogs";
 "Common.Controls.Friendship.Unblock" = "ئاستەنگی مەکە";
 "Common.Controls.Friendship.UnblockUser" = "%@ ئاستەنگ مەکە";
 "Common.Controls.Friendship.Unmute" = "بێدەنگی مەکە";
@@ -149,6 +151,7 @@
 "Scene.AccountList.AddAccount" = "هەژمارێک زیاد بکە";
 "Scene.AccountList.DismissAccountSwitcher" = "پێڕستی هەژمارەکان دابخە";
 "Scene.AccountList.TabBarHint" = "هەژماری ئێستا: %@. دوو جا دەستی پیا بنێ بۆ کردنەوەی پێڕستی هەژمارەکان.";
+"Scene.Bookmark.Title" = "Bookmarks";
 "Scene.Compose.Accessibility.AppendAttachment" = "پێوەکراوی پێوە بکە";
 "Scene.Compose.Accessibility.AppendPoll" = "دەنگدان زیاد بکە";
 "Scene.Compose.Accessibility.CustomEmojiPicker" = "هەڵبژێری ئیمۆجی";
@@ -252,8 +255,12 @@
 "Scene.Profile.Header.FollowsYou" = "Follows You";
 "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Message" = "دڵنیا ببەوە بۆ ئاستەنگکردنی %@";
 "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Title" = "ئاستەنگی بکە";
+"Scene.Profile.RelationshipActionAlert.ConfirmHideReblogs.Message" = "Confirm to hide reblogs";
+"Scene.Profile.RelationshipActionAlert.ConfirmHideReblogs.Title" = "Hide Reblogs";
 "Scene.Profile.RelationshipActionAlert.ConfirmMuteUser.Message" = "دڵیا ببەوە بۆ بێدەنگکردنی %@";
 "Scene.Profile.RelationshipActionAlert.ConfirmMuteUser.Title" = "بێدەنگی بکە";
+"Scene.Profile.RelationshipActionAlert.ConfirmShowReblogs.Message" = "Confirm to show reblogs";
+"Scene.Profile.RelationshipActionAlert.ConfirmShowReblogs.Title" = "Show Reblogs";
 "Scene.Profile.RelationshipActionAlert.ConfirmUnblockUser.Message" = "دڵنیا ببەوە بۆ لابردنی ئاستەنگی %@";
 "Scene.Profile.RelationshipActionAlert.ConfirmUnblockUser.Title" = "ئاستەنگی مەکە";
 "Scene.Profile.RelationshipActionAlert.ConfirmUnmuteUser.Message" = "دڵنیا ببەوە بۆ بێدەنگنەکردنی %@";
