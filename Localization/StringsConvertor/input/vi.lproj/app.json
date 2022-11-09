@@ -181,8 +181,8 @@
                 "unmute_user": "Bỏ ẩn %s",
                 "muted": "Đã ẩn",
                 "edit_info": "Chỉnh sửa",
-                "show_reblogs": "Show Reblogs",
-                "hide_reblogs": "Hide Reblogs"
+                "show_reblogs": "Hiện đăng lại",
+                "hide_reblogs": "Ẩn đăng lại"
             },
             "timeline": {
                 "filtered": "Bộ lọc",
@@ -459,12 +459,12 @@
                     "message": "Xác nhận bỏ chặn %s"
                 },
                 "confirm_show_reblogs": {
-                    "title": "Show Reblogs",
-                    "message": "Confirm to show reblogs"
+                    "title": "Hiện đăng lại",
+                    "message": "Xác nhận hiện đăng lại"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "Hide Reblogs",
-                    "message": "Confirm to hide reblogs"
+                    "title": "Ẩn đăng lại",
+                    "message": "Xác nhận ẩn đăng lại"
                 }
             },
             "accessibility": {
