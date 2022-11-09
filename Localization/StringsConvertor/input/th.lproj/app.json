@@ -694,6 +694,9 @@
             "new_in_mastodon": "มาใหม่ใน Mastodon",
             "multiple_account_switch_intro_description": "สลับระหว่างหลายบัญชีโดยกดปุ่มโปรไฟล์ค้างไว้",
             "accessibility_hint": "แตะสองครั้งเพื่อปิดตัวช่วยสร้างนี้"
+        },
+        "bookmark": {
+            "title": "Bookmarks"
         }
     }
 }
