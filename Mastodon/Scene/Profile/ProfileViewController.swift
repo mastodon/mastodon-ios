@@ -51,6 +51,7 @@ final class ProfileViewController: UIViewController, NeedsDependency, MediaPrevi
             action: #selector(ProfileViewController.settingBarButtonItemPressed(_:))
         )
         barButtonItem.tintColor = .white
+        barButtonItem.accessibilityLabel = L10n.Common.Controls.Actions.settings
         return barButtonItem
     }()
 
@@ -62,6 +63,7 @@ final class ProfileViewController: UIViewController, NeedsDependency, MediaPrevi
             action: #selector(ProfileViewController.shareBarButtonItemPressed(_:))
         )
         barButtonItem.tintColor = .white
+        barButtonItem.accessibilityLabel = L10n.Common.Controls.Actions.share
         return barButtonItem
     }()
 
@@ -73,6 +75,7 @@ final class ProfileViewController: UIViewController, NeedsDependency, MediaPrevi
             action: #selector(ProfileViewController.favoriteBarButtonItemPressed(_:))
         )
         barButtonItem.tintColor = .white
+        barButtonItem.accessibilityLabel = L10n.Scene.Favorite.title
         return barButtonItem
     }()
     
@@ -84,18 +87,21 @@ final class ProfileViewController: UIViewController, NeedsDependency, MediaPrevi
             action: #selector(ProfileViewController.bookmarkBarButtonItemPressed(_:))
         )
         barButtonItem.tintColor = .white
+        barButtonItem.accessibilityLabel = L10n.Scene.Bookmark.title
         return barButtonItem
     }()
 
     private(set) lazy var replyBarButtonItem: UIBarButtonItem = {
         let barButtonItem = UIBarButtonItem(image: UIImage(systemName: "arrowshape.turn.up.left"), style: .plain, target: self, action: #selector(ProfileViewController.replyBarButtonItemPressed(_:)))
         barButtonItem.tintColor = .white
+        barButtonItem.accessibilityLabel = L10n.Common.Controls.Actions.reply
         return barButtonItem
     }()
 
     let moreMenuBarButtonItem: UIBarButtonItem = {
         let barButtonItem = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), style: .plain, target: nil, action: nil)
         barButtonItem.tintColor = .white
+        barButtonItem.accessibilityLabel = L10n.Common.Controls.Actions.seeMore
         return barButtonItem
     }()
 
