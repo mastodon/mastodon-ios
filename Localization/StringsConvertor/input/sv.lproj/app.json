@@ -694,6 +694,9 @@
             "new_in_mastodon": "Nytt i Mastodon",
             "multiple_account_switch_intro_description": "Växla mellan flera konton genom att hålla inne profilknappen.",
             "accessibility_hint": "Dubbeltryck för att avvisa den här guiden"
+        },
+        "bookmark": {
+            "title": "Bookmarks"
         }
     }
 }
