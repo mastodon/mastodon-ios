@@ -136,6 +136,12 @@
                     "vote": "투표",
                     "closed": "마감"
                 },
+                "meta_entity": {
+                    "url": "Link: %s",
+                    "hashtag": "Hastag %s",
+                    "mention": "Show Profile: %s",
+                    "email": "Email address: %s"
+                },
                 "actions": {
                     "reply": "답글",
                     "reblog": "리블로그",
