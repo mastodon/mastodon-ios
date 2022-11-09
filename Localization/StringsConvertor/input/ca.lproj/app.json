@@ -138,7 +138,7 @@
                 },
                 "meta_entity": {
                     "url": "Enllaç: %s",
-                    "hashtag": "Etiqueta %s",
+                    "hashtag": "Hashtag: %s",
                     "mention": "Mostra el Perfil: %s",
                     "email": "Correu electrònic: %s"
                 },
