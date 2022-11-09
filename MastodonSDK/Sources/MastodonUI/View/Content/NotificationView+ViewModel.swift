@@ -54,7 +54,7 @@ extension NotificationView.ViewModel {
         bindAuthor(notificationView: notificationView)
         bindAuthorMenu(notificationView: notificationView)
         bindFollowRequest(notificationView: notificationView)
-        
+
         $authContext
             .assign(to: \.authContext, on: notificationView.statusView.viewModel)
             .store(in: &disposeBag)
@@ -100,21 +100,20 @@ extension NotificationView.ViewModel {
             }
             .store(in: &disposeBag)
         // timestamp
-        Publishers.CombineLatest(
+        let formattedTimestamp = Publishers.CombineLatest(
             $timestamp,
             timestampUpdatePublisher.prepend(Date()).eraseToAnyPublisher()
         )
-        .sink { [weak self] timestamp, _ in
-            guard let self = self else { return }
-            guard let timestamp = timestamp else {
-                notificationView.dateLabel.configure(content: PlaintextMetaContent(string: ""))
-                return
-            }
-            
-            let text = timestamp.localizedTimeAgoSinceNow
-            notificationView.dateLabel.configure(content: PlaintextMetaContent(string: text))
+        .map { timestamp, _ in
+            timestamp?.localizedTimeAgoSinceNow ?? ""
         }
-        .store(in: &disposeBag)
+
+        formattedTimestamp
+            .sink { timestamp in
+                notificationView.dateLabel.configure(content: PlaintextMetaContent(string: timestamp))
+            }
+            .store(in: &disposeBag)
+
         // notification type indicator
         $notificationIndicatorText
             .sink { text in
@@ -125,6 +124,27 @@ extension NotificationView.ViewModel {
                 }
             }
             .store(in: &disposeBag)
+
+        Publishers.CombineLatest4(
+            $authorName,
+            $authorUsername,
+            $notificationIndicatorText,
+            formattedTimestamp
+        )
+        .sink { name, username, type, timestamp in
+            notificationView.accessibilityLabel = [
+                "\(name?.string ?? "") \(type?.string ?? "")",
+                username.map { "@\($0)" } ?? "",
+                timestamp
+            ].joined(separator: ", ")
+            if !notificationView.statusView.isHidden {
+                notificationView.accessibilityLabel! += ", " + (notificationView.statusView.accessibilityLabel ?? "")
+            }
+            if !notificationView.quoteStatusViewContainerView.isHidden {
+                notificationView.accessibilityLabel! += ", " + (notificationView.quoteStatusView.accessibilityLabel ?? "")
+            }
+        }
+        .store(in: &disposeBag)
     }
     
     private func bindAuthorMenu(notificationView: NotificationView) {
@@ -207,5 +227,5 @@ extension NotificationView.ViewModel {
         }
         .store(in: &disposeBag)
     }
-    
+
 }

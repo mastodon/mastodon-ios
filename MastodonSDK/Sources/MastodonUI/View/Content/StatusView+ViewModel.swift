@@ -709,13 +709,13 @@ extension StatusView.ViewModel {
             meidaAccessibilityLabel
         )
         .map { author, content, media in
-            let group = [
-                author,
-                content,
-                media
-            ]
-            
-            return group
+            var labels: [String?] = [content, media]
+
+            if statusView.style != .notification {
+                labels.insert(author, at: 0)
+            }
+
+            return labels
                 .compactMap { $0 }
                 .joined(separator: ", ")
         }

@@ -382,6 +382,15 @@ extension NotificationView {
         
         statusView.delegate = self
         quoteStatusView.delegate = self
+
+        isAccessibilityElement = true
+    }
+}
+
+extension NotificationView {
+    public override var accessibilityElements: [Any]? {
+        get { [] }
+        set {}
     }
 }
 
