@@ -68,11 +68,13 @@
 "Common.Controls.Friendship.EditInfo" = "แก้ไขข้อมูล";
 "Common.Controls.Friendship.Follow" = "ติดตาม";
 "Common.Controls.Friendship.Following" = "กำลังติดตาม";
+"Common.Controls.Friendship.HideReblogs" = "Hide Reblogs";
 "Common.Controls.Friendship.Mute" = "ซ่อน";
 "Common.Controls.Friendship.MuteUser" = "ซ่อน %@";
 "Common.Controls.Friendship.Muted" = "ซ่อนอยู่";
 "Common.Controls.Friendship.Pending" = "รอดำเนินการ";
 "Common.Controls.Friendship.Request" = "ขอ";
+"Common.Controls.Friendship.ShowReblogs" = "Show Reblogs";
 "Common.Controls.Friendship.Unblock" = "เลิกปิดกั้น";
 "Common.Controls.Friendship.UnblockUser" = "เลิกปิดกั้น %@";
 "Common.Controls.Friendship.Unmute" = "เลิกซ่อน";
@@ -149,6 +151,7 @@
 "Scene.AccountList.AddAccount" = "เพิ่มบัญชี";
 "Scene.AccountList.DismissAccountSwitcher" = "ปิดตัวสลับบัญชี";
 "Scene.AccountList.TabBarHint" = "โปรไฟล์ที่เลือกในปัจจุบัน: %@ แตะสองครั้งแล้วกดค้างไว้เพื่อแสดงตัวสลับบัญชี";
+"Scene.Bookmark.Title" = "Bookmarks";
 "Scene.Compose.Accessibility.AppendAttachment" = "เพิ่มไฟล์แนบ";
 "Scene.Compose.Accessibility.AppendPoll" = "เพิ่มการสำรวจความคิดเห็น";
 "Scene.Compose.Accessibility.CustomEmojiPicker" = "ตัวเลือกอีโมจิที่กำหนดเอง";
@@ -253,8 +256,12 @@
 "Scene.Profile.Header.FollowsYou" = "ติดตามคุณ";
 "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Message" = "ยืนยันเพื่อปิดกั้น %@";
 "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Title" = "ปิดกั้นบัญชี";
+"Scene.Profile.RelationshipActionAlert.ConfirmHideReblogs.Message" = "Confirm to hide reblogs";
+"Scene.Profile.RelationshipActionAlert.ConfirmHideReblogs.Title" = "Hide Reblogs";
 "Scene.Profile.RelationshipActionAlert.ConfirmMuteUser.Message" = "ยืนยันเพื่อซ่อน %@";
 "Scene.Profile.RelationshipActionAlert.ConfirmMuteUser.Title" = "ซ่อนบัญชี";
+"Scene.Profile.RelationshipActionAlert.ConfirmShowReblogs.Message" = "Confirm to show reblogs";
+"Scene.Profile.RelationshipActionAlert.ConfirmShowReblogs.Title" = "Show Reblogs";
 "Scene.Profile.RelationshipActionAlert.ConfirmUnblockUser.Message" = "ยืนยันเพื่อเลิกปิดกั้น %@";
 "Scene.Profile.RelationshipActionAlert.ConfirmUnblockUser.Title" = "เลิกปิดกั้นบัญชี";
 "Scene.Profile.RelationshipActionAlert.ConfirmUnmuteUser.Message" = "ยืนยันเพื่อเลิกซ่อน %@";
