@@ -694,6 +694,9 @@
             "new_in_mastodon": "Na tha ùr ann am Mastodon",
             "multiple_account_switch_intro_description": "Geàrr leum eadar iomadh cunntas le cumail sìos putan na pròifil.",
             "accessibility_hint": "Thoir gnogag dhùbailte a’ leigeil seachad an draoidh seo"
+        },
+        "bookmark": {
+            "title": "Bookmarks"
         }
     }
 }
