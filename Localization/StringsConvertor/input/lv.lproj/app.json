@@ -136,6 +136,12 @@
                     "vote": "Balsot",
                     "closed": "Aizvērts"
                 },
+                "meta_entity": {
+                    "url": "Link: %s",
+                    "hashtag": "Hastag %s",
+                    "mention": "Show Profile: %s",
+                    "email": "Email address: %s"
+                },
                 "actions": {
                     "reply": "Atbildēt",
                     "reblog": "Reblogot",
