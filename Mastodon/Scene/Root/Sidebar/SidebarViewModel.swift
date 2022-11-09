@@ -100,7 +100,7 @@ extension SidebarViewModel {
                 .store(in: &cell.disposeBag)
             
             switch item {
-            case .notification:
+            case .notifications:
                 Publishers.CombineLatest(
                     self.context.notificationService.unreadNotificationCountDidUpdate,
                     self.$currentTab
@@ -116,7 +116,7 @@ extension SidebarViewModel {
                     }()
                     
                     let image: UIImage = {
-                        if currentTab == .notification {
+                        if currentTab == .notifications {
                             return hasUnreadPushNotification ? Asset.ObjectsAndTools.bellBadgeFill.image.withRenderingMode(.alwaysTemplate) : Asset.ObjectsAndTools.bellFill.image.withRenderingMode(.alwaysTemplate)
                         } else {
                             return hasUnreadPushNotification ? Asset.ObjectsAndTools.bellBadge.image.withRenderingMode(.alwaysTemplate) : Asset.ObjectsAndTools.bell.image.withRenderingMode(.alwaysTemplate)
@@ -192,7 +192,7 @@ extension SidebarViewModel {
         let items: [Item] = [
             .tab(.home),
             .tab(.search),
-            .tab(.notification),
+            .tab(.notifications),
             .tab(.me),
             .setting,
         ]
