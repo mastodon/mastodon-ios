@@ -632,7 +632,6 @@
 		DB0618022785A7100030EE79 /* RegisterSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterSection.swift; sourceTree = "<group>"; };
 		DB0618042785A73D0030EE79 /* RegisterItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterItem.swift; sourceTree = "<group>"; };
 		DB0618062785A8880030EE79 /* MastodonRegisterViewModel+Diffable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MastodonRegisterViewModel+Diffable.swift"; sourceTree = "<group>"; };
-		DB0618092785B2AB0030EE79 /* MastodonRegisterAvatarTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonRegisterAvatarTableViewCell.swift; sourceTree = "<group>"; };
 		DB0A322D280EE9FD001729D2 /* DiscoveryIntroBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryIntroBannerView.swift; sourceTree = "<group>"; };
 		DB0C947626A7FE840088FB11 /* NotificationAvatarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationAvatarButton.swift; sourceTree = "<group>"; };
 		DB0EF72A26FDB1D200347686 /* SidebarListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarListCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -855,8 +854,6 @@
 		DB7A9F922818F33C0016AF98 /* MastodonServerRulesViewController+Debug.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MastodonServerRulesViewController+Debug.swift"; sourceTree = "<group>"; };
 		DB7F48442620241000796008 /* ProfileHeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderViewModel.swift; sourceTree = "<group>"; };
 		DB8190C52601FF0400020C08 /* AttachmentContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentContainerView.swift; sourceTree = "<group>"; };
-		DB8481142788121200BBEABA /* MastodonRegisterTextFieldTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonRegisterTextFieldTableViewCell.swift; sourceTree = "<group>"; };
-		DB84811627883C2600BBEABA /* MastodonRegisterPasswordHintTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonRegisterPasswordHintTableViewCell.swift; sourceTree = "<group>"; };
 		DB848E32282B62A800A302CC /* ReportResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportResultView.swift; sourceTree = "<group>"; };
 		DB852D1826FAEB6B00FC9D81 /* SidebarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarViewController.swift; sourceTree = "<group>"; };
 		DB852D1B26FB021500FC9D81 /* RootSplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootSplitViewController.swift; sourceTree = "<group>"; };
@@ -1560,16 +1557,6 @@
 			isa = PBXGroup;
 			children = (
 				DB0618002785732C0030EE79 /* ServerRulesTableViewCell.swift */,
-			);
-			path = Cell;
-			sourceTree = "<group>";
-		};
-		DB06180B2785B2AF0030EE79 /* Cell */ = {
-			isa = PBXGroup;
-			children = (
-				DB0618092785B2AB0030EE79 /* MastodonRegisterAvatarTableViewCell.swift */,
-				DB8481142788121200BBEABA /* MastodonRegisterTextFieldTableViewCell.swift */,
-				DB84811627883C2600BBEABA /* MastodonRegisterPasswordHintTableViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -2540,7 +2527,6 @@
 		DBE0821A25CD382900FD6BBD /* Register */ = {
 			isa = PBXGroup;
 			children = (
-				DB06180B2785B2AF0030EE79 /* Cell */,
 				DBE0821425CD382600FD6BBD /* MastodonRegisterViewController.swift */,
 				2D939AE725EE1CF80076FA61 /* MastodonRegisterViewController+Avatar.swift */,
 				DBE0822325CD3F1E00FD6BBD /* MastodonRegisterViewModel.swift */,
