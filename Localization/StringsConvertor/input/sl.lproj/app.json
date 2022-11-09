@@ -137,10 +137,10 @@
                     "closed": "Zaprto"
                 },
                 "meta_entity": {
-                    "url": "Link: %s",
-                    "hashtag": "Hastag %s",
-                    "mention": "Show Profile: %s",
-                    "email": "Email address: %s"
+                    "url": "Povezava: %s",
+                    "hashtag": "Ključnik %s",
+                    "mention": "Pokaži profil: %s",
+                    "email": "E-naslov: %s"
                 },
                 "actions": {
                     "reply": "Odgovori",
