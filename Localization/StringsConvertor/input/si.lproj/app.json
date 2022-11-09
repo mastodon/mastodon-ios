@@ -136,6 +136,12 @@
                     "vote": "ඡන්දය",
                     "closed": "වසා ඇත"
                 },
+                "meta_entity": {
+                    "url": "Link: %s",
+                    "hashtag": "Hastag %s",
+                    "mention": "Show Profile: %s",
+                    "email": "Email address: %s"
+                },
                 "actions": {
                     "reply": "පිළිතුරු",
                     "reblog": "Reblog",
