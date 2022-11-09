@@ -694,6 +694,9 @@
             "new_in_mastodon": "Novidade en Mastodon",
             "multiple_account_switch_intro_description": "Cambia dunha conta a outra mantendo preso o botón do perfil.",
             "accessibility_hint": "Dobre toque para desbotar este asistente"
+        },
+        "bookmark": {
+            "title": "Bookmarks"
         }
     }
 }
