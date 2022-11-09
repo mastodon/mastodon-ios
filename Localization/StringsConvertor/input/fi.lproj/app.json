@@ -694,6 +694,9 @@
             "new_in_mastodon": "Uutta Mastodonissa",
             "multiple_account_switch_intro_description": "Vaihda useiden tilien välillä pitämällä profiilipainiketta painettuna.",
             "accessibility_hint": "Hylkää tämä ohjattu toiminto kaksoisnapauttamalla"
+        },
+        "bookmark": {
+            "title": "Bookmarks"
         }
     }
 }
