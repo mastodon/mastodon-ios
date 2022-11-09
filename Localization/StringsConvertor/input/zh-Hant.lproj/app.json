@@ -137,10 +137,10 @@
                     "closed": "已關閉"
                 },
                 "meta_entity": {
-                    "url": "Link: %s",
-                    "hashtag": "Hastag %s",
-                    "mention": "Show Profile: %s",
-                    "email": "Email address: %s"
+                    "url": "連結：%s",
+                    "hashtag": "主題標籤 %s",
+                    "mention": "顯示個人檔案：%s",
+                    "email": "電子郵件地址：%s"
                 },
                 "actions": {
                     "reply": "回覆",
