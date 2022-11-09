@@ -136,6 +136,12 @@
                     "vote": "Cuir bhòt",
                     "closed": "Dùinte"
                 },
+                "meta_entity": {
+                    "url": "Link: %s",
+                    "hashtag": "Hastag %s",
+                    "mention": "Show Profile: %s",
+                    "email": "Email address: %s"
+                },
                 "actions": {
                     "reply": "Freagair",
                     "reblog": "Brosnaich",
