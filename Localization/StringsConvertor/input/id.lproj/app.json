@@ -136,6 +136,12 @@
                     "vote": "Vote",
                     "closed": "Ditutup"
                 },
+                "meta_entity": {
+                    "url": "Link: %s",
+                    "hashtag": "Hastag %s",
+                    "mention": "Show Profile: %s",
+                    "email": "Email address: %s"
+                },
                 "actions": {
                     "reply": "Balas",
                     "reblog": "Reblog",
