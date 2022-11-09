@@ -314,6 +314,24 @@ public enum L10n {
           /// Undo reblog
           public static let unreblog = L10n.tr("Localizable", "Common.Controls.Status.Actions.Unreblog")
         }
+        public enum MetaEntity {
+          /// Email address: %@
+          public static func email(_ p1: Any) -> String {
+            return L10n.tr("Localizable", "Common.Controls.Status.MetaEntity.Email", String(describing: p1))
+          }
+          /// Hastag %@
+          public static func hashtag(_ p1: Any) -> String {
+            return L10n.tr("Localizable", "Common.Controls.Status.MetaEntity.Hashtag", String(describing: p1))
+          }
+          /// Show Profile: %@
+          public static func mention(_ p1: Any) -> String {
+            return L10n.tr("Localizable", "Common.Controls.Status.MetaEntity.Mention", String(describing: p1))
+          }
+          /// Link: %@
+          public static func url(_ p1: Any) -> String {
+            return L10n.tr("Localizable", "Common.Controls.Status.MetaEntity.Url", String(describing: p1))
+          }
+        }
         public enum Poll {
           /// Closed
           public static let closed = L10n.tr("Localizable", "Common.Controls.Status.Poll.Closed")
