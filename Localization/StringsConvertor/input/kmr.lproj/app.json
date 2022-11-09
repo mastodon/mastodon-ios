@@ -136,6 +136,12 @@
                     "vote": "Deng bide",
                     "closed": "Girtî"
                 },
+                "meta_entity": {
+                    "url": "Link: %s",
+                    "hashtag": "Hastag %s",
+                    "mention": "Show Profile: %s",
+                    "email": "Email address: %s"
+                },
                 "actions": {
                     "reply": "Bersivê bide",
                     "reblog": "Ji nû ve nivîsandin",
