@@ -136,6 +136,12 @@
                     "vote": "Проголосовать",
                     "closed": "Завершён"
                 },
+                "meta_entity": {
+                    "url": "Link: %s",
+                    "hashtag": "Hastag %s",
+                    "mention": "Show Profile: %s",
+                    "email": "Email address: %s"
+                },
                 "actions": {
                     "reply": "Ответить",
                     "reblog": "Продвинуть",
