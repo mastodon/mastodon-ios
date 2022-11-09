@@ -694,6 +694,9 @@
             "new_in_mastodon": "Nuovo su Mastodon",
             "multiple_account_switch_intro_description": "Passa tra più account tenendo premuto il pulsante del profilo.",
             "accessibility_hint": "Doppio tocco per eliminare questa procedura guidata"
+        },
+        "bookmark": {
+            "title": "Bookmarks"
         }
     }
 }
