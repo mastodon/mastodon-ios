@@ -137,10 +137,10 @@
                     "closed": "Fermé"
                 },
                 "meta_entity": {
-                    "url": "Link: %s",
-                    "hashtag": "Hastag %s",
-                    "mention": "Show Profile: %s",
-                    "email": "Email address: %s"
+                    "url": "Lien : %s",
+                    "hashtag": "Hastag : %s",
+                    "mention": "Afficher le profile : %s",
+                    "email": "Adresse e-mail : %s"
                 },
                 "actions": {
                     "reply": "Répondre",
@@ -702,7 +702,7 @@
             "accessibility_hint": "Tapotez deux fois pour fermer cet assistant"
         },
         "bookmark": {
-            "title": "Bookmarks"
+            "title": "Favoris"
         }
     }
 }
