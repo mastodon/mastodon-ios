@@ -137,10 +137,10 @@
                     "closed": "ปิดแล้ว"
                 },
                 "meta_entity": {
-                    "url": "Link: %s",
+                    "url": "ลิงก์: %s",
                     "hashtag": "Hastag %s",
-                    "mention": "Show Profile: %s",
-                    "email": "Email address: %s"
+                    "mention": "โปรไฟล์ที่แสดง: %s",
+                    "email": "ที่อยู่อีเมล: %s"
                 },
                 "actions": {
                     "reply": "ตอบกลับ",
@@ -187,8 +187,8 @@
                 "unmute_user": "เลิกซ่อน %s",
                 "muted": "ซ่อนอยู่",
                 "edit_info": "แก้ไขข้อมูล",
-                "show_reblogs": "Show Reblogs",
-                "hide_reblogs": "Hide Reblogs"
+                "show_reblogs": "แสดงการดัน",
+                "hide_reblogs": "ซ่อนการดัน"
             },
             "timeline": {
                 "filtered": "กรองอยู่",
@@ -465,12 +465,12 @@
                     "message": "ยืนยันเพื่อเลิกปิดกั้น %s"
                 },
                 "confirm_show_reblogs": {
-                    "title": "Show Reblogs",
-                    "message": "Confirm to show reblogs"
+                    "title": "แสดงการดัน",
+                    "message": "ยืนยันเพื่อแสดงการดัน"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "Hide Reblogs",
-                    "message": "Confirm to hide reblogs"
+                    "title": "ซ่อนการดัน",
+                    "message": "ยืนยันเพื่อซ่อนการดัน"
                 }
             },
             "accessibility": {
@@ -702,7 +702,7 @@
             "accessibility_hint": "แตะสองครั้งเพื่อปิดตัวช่วยสร้างนี้"
         },
         "bookmark": {
-            "title": "Bookmarks"
+            "title": "ที่คั่นหน้า"
         }
     }
 }
