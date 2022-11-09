@@ -136,6 +136,12 @@
                     "vote": "Bozkatu",
                     "closed": "Itxita"
                 },
+                "meta_entity": {
+                    "url": "Link: %s",
+                    "hashtag": "Hastag %s",
+                    "mention": "Show Profile: %s",
+                    "email": "Email address: %s"
+                },
                 "actions": {
                     "reply": "Erantzun",
                     "reblog": "Bultzada",
