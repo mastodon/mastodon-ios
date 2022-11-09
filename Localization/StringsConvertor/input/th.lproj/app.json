@@ -138,7 +138,7 @@
                 },
                 "meta_entity": {
                     "url": "ลิงก์: %s",
-                    "hashtag": "แฮชแท็ก %s",
+                    "hashtag": "Hashtag: %s",
                     "mention": "โปรไฟล์ที่แสดง: %s",
                     "email": "ที่อยู่อีเมล: %s"
                 },
