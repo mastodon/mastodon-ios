@@ -181,8 +181,8 @@
                 "unmute_user": "%s 뮤트 해제",
                 "muted": "뮤트됨",
                 "edit_info": "정보 편집",
-                "show_reblogs": "Show Reblogs",
-                "hide_reblogs": "Hide Reblogs"
+                "show_reblogs": "리블로그 보기",
+                "hide_reblogs": "리블로그 가리기"
             },
             "timeline": {
                 "filtered": "필터됨",
@@ -459,12 +459,12 @@
                     "message": "Confirm to unblock %s"
                 },
                 "confirm_show_reblogs": {
-                    "title": "Show Reblogs",
-                    "message": "Confirm to show reblogs"
+                    "title": "리블로그 보기",
+                    "message": "리블로그를 보기 전 확인"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "Hide Reblogs",
-                    "message": "Confirm to hide reblogs"
+                    "title": "리블로그 가리기",
+                    "message": "리블로그를 가리기 전 확인"
                 }
             },
             "accessibility": {
