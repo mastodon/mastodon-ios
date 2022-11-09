@@ -137,10 +137,10 @@
                     "closed": "Finalitzada"
                 },
                 "meta_entity": {
-                    "url": "Link: %s",
-                    "hashtag": "Hastag %s",
-                    "mention": "Show Profile: %s",
-                    "email": "Email address: %s"
+                    "url": "Enllaç: %s",
+                    "hashtag": "Etiqueta %s",
+                    "mention": "Mostra el Perfil: %s",
+                    "email": "Correu electrònic: %s"
                 },
                 "actions": {
                     "reply": "Respon",
