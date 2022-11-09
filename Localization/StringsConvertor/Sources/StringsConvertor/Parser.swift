@@ -43,12 +43,7 @@ extension Parser {
                             .map {
                                 switch keyStyle {
                                 case .infoPlist:        return $0
-                                case .swiftgen:
-                                    if $0 == "a11y" {
-                                        return "A11y"
-                                    } else {
-                                        return $0.capitalized
-                                    }
+                                case .swiftgen:         return $0.capitalized
                                 }
                             }
                             .joined()
