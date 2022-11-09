@@ -138,7 +138,7 @@
                 },
                 "meta_entity": {
                     "url": "Collegamento: %s",
-                    "hashtag": "Hastag %s",
+                    "hashtag": "Hashtag: %s",
                     "mention": "Mostra il profilo: %s",
                     "email": "Indirizzo email: %s"
                 },
