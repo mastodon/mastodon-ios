@@ -143,8 +143,7 @@ extension MastodonPickServerViewController {
         viewModel.setupDiffableDataSource(
             for: tableView,
             dependency: self,
-            pickServerServerSectionTableHeaderViewDelegate: self,
-            pickServerCellDelegate: self
+            pickServerServerSectionTableHeaderViewDelegate: self
         )
         
         KeyboardResponderService
@@ -502,11 +501,6 @@ extension MastodonPickServerViewController: PickServerServerSectionTableHeaderVi
         //TODO:  @zeitschlag Deselect server?
         viewModel.searchText.send(searchText ?? "")
     }
-}
-
-// MARK: - PickServerCellDelegate
-extension MastodonPickServerViewController: PickServerCellDelegate {
-    
 }
 
 // MARK: - OnboardingViewControllerAppearance

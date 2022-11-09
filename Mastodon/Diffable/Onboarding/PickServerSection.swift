@@ -18,16 +18,14 @@ enum PickServerSection: Equatable, Hashable {
 extension PickServerSection {
     static func tableViewDiffableDataSource(
         for tableView: UITableView,
-        dependency: NeedsDependency,
-        pickServerCellDelegate: PickServerCellDelegate
+        dependency: NeedsDependency
     ) -> UITableViewDiffableDataSource<PickServerSection, PickServerItem> {
         tableView.register(OnboardingHeadlineTableViewCell.self, forCellReuseIdentifier: String(describing: OnboardingHeadlineTableViewCell.self))
         tableView.register(PickServerCell.self, forCellReuseIdentifier: String(describing: PickServerCell.self))
         tableView.register(PickServerLoaderTableViewCell.self, forCellReuseIdentifier: String(describing: PickServerLoaderTableViewCell.self))
         
         return UITableViewDiffableDataSource(tableView: tableView) { [
-            weak dependency,
-            weak pickServerCellDelegate
+            weak dependency
         ] tableView, indexPath, item -> UITableViewCell? in
             guard let _ = dependency else { return nil }
             switch item {
@@ -37,7 +35,6 @@ extension PickServerSection {
             case .server(let server, let attribute):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PickServerCell.self), for: indexPath) as! PickServerCell
                 PickServerSection.configure(cell: cell, server: server, attribute: attribute)
-                cell.delegate = pickServerCellDelegate
                 return cell
             case .loader(let attribute):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PickServerLoaderTableViewCell.self), for: indexPath) as! PickServerLoaderTableViewCell

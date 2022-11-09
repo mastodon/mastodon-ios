@@ -14,14 +14,7 @@ import Kanna
 import MastodonAsset
 import MastodonLocalization
 
-//TODO:  @zeitschlag Remove Delegate
-protocol PickServerCellDelegate: AnyObject {
-//    func pickServerCell(_ cell: PickServerCell, expandButtonPressed button: UIButton)
-}
-
 class PickServerCell: UITableViewCell {
-    
-    weak var delegate: PickServerCellDelegate?
     
     var disposeBag = Set<AnyCancellable>()
         
