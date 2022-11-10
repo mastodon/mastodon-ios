@@ -5,7 +5,9 @@ PODS:
   - Sourcery (1.6.1):
     - Sourcery/CLI-Only (= 1.6.1)
   - Sourcery/CLI-Only (1.6.1)
+  - SwiftFormat/CLI (0.50.3)
   - SwiftGen (6.4.0)
+  - SwiftLint (0.49.1)
   - "UITextField+Shake (1.2.1)"
   - XLPagerTabStrip (9.0.0)
 
@@ -14,7 +16,9 @@ DEPENDENCIES:
   - FLEX (~> 4.4.0)
   - Kanna (~> 5.2.2)
   - Sourcery (~> 1.6.1)
+  - SwiftFormat/CLI (~> 0.50.3)
   - SwiftGen (~> 6.4.0)
+  - SwiftLint (~> 0.49.1)
   - "UITextField+Shake (~> 1.2)"
   - XLPagerTabStrip (~> 9.0.0)
 
@@ -24,7 +28,9 @@ SPEC REPOS:
     - FLEX
     - Kanna
     - Sourcery
+    - SwiftFormat
     - SwiftGen
+    - SwiftLint
     - "UITextField+Shake"
     - XLPagerTabStrip
 
@@ -33,10 +39,12 @@ SPEC CHECKSUMS:
   FLEX: 7ca2c8cd3a435ff501ff6d2f2141e9bdc934eaab
   Kanna: 01cfbddc127f5ff0963692f285fcbc8a9d62d234
   Sourcery: f3759f803bd0739f74fc92a4341eed0473ce61ac
+  SwiftFormat: 61cda3819dc3a7d69795ce0430e1e1d53c4a4fb2
   SwiftGen: 67860cc7c3cfc2ed25b9b74cfd55495fc89f9108
+  SwiftLint: 32ee33ded0636d0905ef6911b2b67bbaeeedafa5
   "UITextField+Shake": 298ac5a0f239d731bdab999b19b628c956ca0ac3
   XLPagerTabStrip: 61c57fd61f611ee5f01ff1495ad6fbee8bf496c5
 
-PODFILE CHECKSUM: 8b15fb6d4e801b7a7e7761a2e2fe40a89b1da4ff
+PODFILE CHECKSUM: 03bde6bfa9813bd880770f56121d404af0032130
 
 COCOAPODS: 1.11.3

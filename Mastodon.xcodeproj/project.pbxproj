@@ -2722,14 +2722,16 @@
 			buildPhases = (
 				7A04933A2AB1D5B758D4F908 /* [CP] Check Pods Manifest.lock */,
 				5532CB85BBE168B25B20720B /* [CP] Embed Pods Frameworks */,
+				DB3D100425BAA71500EAA174 /* Run swiftgen */,
+				DB025B8E278D6448002F581E /* Run sourcery on MastodonSDK/Sources/CoreDataStack */,
+				DB697DD2278F48D5004EF2F7 /* Run sourcery on Mastodon */,
+				469F86C8291D66AE00F2BA15 /* Run Swiftformat */,
+				46CB9DF9291D711B00F32409 /* Run SwiftLint */,
 				DB427DD025BAA00100D1B89D /* Resources */,
 				DB427DCE25BAA00100D1B89D /* Sources */,
 				DB427DCF25BAA00100D1B89D /* Frameworks */,
 				DB89BA0825C10FD0008580ED /* Embed Frameworks */,
 				DBF8AE1B263293E400C9C23C /* Embed Foundation Extensions */,
-				DB3D100425BAA71500EAA174 /* ShellScript */,
-				DB025B8E278D6448002F581E /* ShellScript */,
-				DB697DD2278F48D5004EF2F7 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -2984,6 +2986,42 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		469F86C8291D66AE00F2BA15 /* Run Swiftformat */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run Swiftformat";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/SwiftFormat/CommandLineTool/swiftformat\" .\n";
+		};
+		46CB9DF9291D711B00F32409 /* Run SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run SwiftLint";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\" lint --config \"${SRCROOT}/.swiftlint.yml\"\n";
+		};
 		5532CB85BBE168B25B20720B /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -3045,7 +3083,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		DB025B8E278D6448002F581E /* ShellScript */ = {
+		DB025B8E278D6448002F581E /* Run sourcery on MastodonSDK/Sources/CoreDataStack */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
 			buildActionMask = 12;
@@ -3055,6 +3093,7 @@
 			);
 			inputPaths = (
 			);
+			name = "Run sourcery on MastodonSDK/Sources/CoreDataStack";
 			outputFileListPaths = (
 			);
 			outputPaths = (
@@ -3063,7 +3102,7 @@
 			shellPath = /bin/sh;
 			shellScript = "if [[ -f \"${PODS_ROOT}/Sourcery/bin/sourcery\" ]]; then\n  \"${PODS_ROOT}/Sourcery/bin/sourcery\" --config ./MastodonSDK/Sources/CoreDataStack\nelse\n  echo \"warning: Sourcery is not installed. Run 'pod install --repo-update' to install it.\"\nfi\n";
 		};
-		DB3D100425BAA71500EAA174 /* ShellScript */ = {
+		DB3D100425BAA71500EAA174 /* Run swiftgen */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
 			buildActionMask = 12;
@@ -3073,6 +3112,7 @@
 			);
 			inputPaths = (
 			);
+			name = "Run swiftgen";
 			outputFileListPaths = (
 			);
 			outputPaths = (
@@ -3081,7 +3121,7 @@
 			shellPath = /bin/sh;
 			shellScript = "if [[ -f \"${PODS_ROOT}/SwiftGen/bin/swiftgen\" ]]; then\n  \"${PODS_ROOT}/SwiftGen/bin/swiftgen\" \nelse\n  echo \"warning: SwiftGen is not installed. Run 'pod install --repo-update' to install it.\"\nfi\n";
 		};
-		DB697DD2278F48D5004EF2F7 /* ShellScript */ = {
+		DB697DD2278F48D5004EF2F7 /* Run sourcery on Mastodon */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
 			buildActionMask = 12;
@@ -3091,6 +3131,7 @@
 			);
 			inputPaths = (
 			);
+			name = "Run sourcery on Mastodon";
 			outputFileListPaths = (
 			);
 			outputPaths = (

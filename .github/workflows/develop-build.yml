@@ -13,7 +13,14 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v2
-      
+
+      # Linting is the most likely to fail for any PR, so it should come first to alert the dev as quickly as possible
+      - name: SwiftFormat
+        run: exec ./Pods/SwiftFormat/CommandLineTool/swiftformat .
+
+      - name: SwiftLint
+        run: exec ./Pods/SwiftLint/swiftlint lint --config .swiftlint.yml
+
       - name: setup
         env: 
           NotificationEndpointDebug: ${{ secrets.NotificationEndpointDebug }}

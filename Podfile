@@ -16,6 +16,8 @@ target 'Mastodon' do
   pod 'DateToolsSwift', '~> 5.0.0'
   pod 'Kanna', '~> 5.2.2'
   pod 'Sourcery', '~> 1.6.1'
+  pod 'SwiftFormat/CLI', '~> 0.50.3'
+  pod 'SwiftLint', '~>0.49.1'
 
   # DEBUG
   pod 'FLEX', '~> 4.4.0', :configurations => ['Debug', "Release Snapshot"]
