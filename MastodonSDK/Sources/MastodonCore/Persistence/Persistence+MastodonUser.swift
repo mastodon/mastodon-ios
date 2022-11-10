@@ -157,5 +157,6 @@ extension Persistence.MastodonUser {
         user.update(isBlocking: relationship.blocking, by: me)
         relationship.domainBlocking.flatMap { user.update(isDomainBlocking: $0, by: me) }
         relationship.blockedBy.flatMap { me.update(isBlocking: $0, by: user) }
+        relationship.showingReblogs.flatMap { me.update(isShowingReblogs: $0, by: user) }
     }
 }

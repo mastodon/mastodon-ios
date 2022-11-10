@@ -198,6 +198,8 @@ public enum L10n {
         public static let follow = L10n.tr("Localizable", "Common.Controls.Friendship.Follow")
         /// Following
         public static let following = L10n.tr("Localizable", "Common.Controls.Friendship.Following")
+        /// Hide Reblogs
+        public static let hideReblogs = L10n.tr("Localizable", "Common.Controls.Friendship.HideReblogs")
         /// Mute
         public static let mute = L10n.tr("Localizable", "Common.Controls.Friendship.Mute")
         /// Muted
@@ -210,6 +212,8 @@ public enum L10n {
         public static let pending = L10n.tr("Localizable", "Common.Controls.Friendship.Pending")
         /// Request
         public static let request = L10n.tr("Localizable", "Common.Controls.Friendship.Request")
+        /// Show Reblogs
+        public static let showReblogs = L10n.tr("Localizable", "Common.Controls.Friendship.ShowReblogs")
         /// Unblock
         public static let unblock = L10n.tr("Localizable", "Common.Controls.Friendship.Unblock")
         /// Unblock %@
@@ -287,8 +291,6 @@ public enum L10n {
           return L10n.tr("Localizable", "Common.Controls.Status.UserRepliedTo", String(describing: p1))
         }
         public enum Actions {
-          /// Bookmark
-          public static let bookmark = L10n.tr("Localizable", "Common.Controls.Status.Actions.Bookmark")
           /// Favorite
           public static let favorite = L10n.tr("Localizable", "Common.Controls.Status.Actions.Favorite")
           /// Hide
@@ -307,12 +309,28 @@ public enum L10n {
           public static let showVideoPlayer = L10n.tr("Localizable", "Common.Controls.Status.Actions.ShowVideoPlayer")
           /// Tap then hold to show menu
           public static let tapThenHoldToShowMenu = L10n.tr("Localizable", "Common.Controls.Status.Actions.TapThenHoldToShowMenu")
-          /// Unbookmark
-          public static let unbookmark = L10n.tr("Localizable", "Common.Controls.Status.Actions.Unbookmark")
           /// Unfavorite
           public static let unfavorite = L10n.tr("Localizable", "Common.Controls.Status.Actions.Unfavorite")
           /// Undo reblog
           public static let unreblog = L10n.tr("Localizable", "Common.Controls.Status.Actions.Unreblog")
+        }
+        public enum MetaEntity {
+          /// Email address: %@
+          public static func email(_ p1: Any) -> String {
+            return L10n.tr("Localizable", "Common.Controls.Status.MetaEntity.Email", String(describing: p1))
+          }
+          /// Hastag %@
+          public static func hashtag(_ p1: Any) -> String {
+            return L10n.tr("Localizable", "Common.Controls.Status.MetaEntity.Hashtag", String(describing: p1))
+          }
+          /// Show Profile: %@
+          public static func mention(_ p1: Any) -> String {
+            return L10n.tr("Localizable", "Common.Controls.Status.MetaEntity.Mention", String(describing: p1))
+          }
+          /// Link: %@
+          public static func url(_ p1: Any) -> String {
+            return L10n.tr("Localizable", "Common.Controls.Status.MetaEntity.Url", String(describing: p1))
+          }
         }
         public enum Poll {
           /// Closed
@@ -408,7 +426,7 @@ public enum L10n {
       }
     }
     public enum Bookmark {
-      /// Your Bookmarks
+      /// Bookmarks
       public static let title = L10n.tr("Localizable", "Scene.Bookmark.Title")
     }
     public enum Compose {
@@ -709,6 +727,12 @@ public enum L10n {
           /// Block Account
           public static let title = L10n.tr("Localizable", "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Title")
         }
+        public enum ConfirmHideReblogs {
+          /// Confirm to hide reblogs
+          public static let message = L10n.tr("Localizable", "Scene.Profile.RelationshipActionAlert.ConfirmHideReblogs.Message")
+          /// Hide Reblogs
+          public static let title = L10n.tr("Localizable", "Scene.Profile.RelationshipActionAlert.ConfirmHideReblogs.Title")
+        }
         public enum ConfirmMuteUser {
           /// Confirm to mute %@
           public static func message(_ p1: Any) -> String {
@@ -716,6 +740,12 @@ public enum L10n {
           }
           /// Mute Account
           public static let title = L10n.tr("Localizable", "Scene.Profile.RelationshipActionAlert.ConfirmMuteUser.Title")
+        }
+        public enum ConfirmShowReblogs {
+          /// Confirm to show reblogs
+          public static let message = L10n.tr("Localizable", "Scene.Profile.RelationshipActionAlert.ConfirmShowReblogs.Message")
+          /// Show Reblogs
+          public static let title = L10n.tr("Localizable", "Scene.Profile.RelationshipActionAlert.ConfirmShowReblogs.Title")
         }
         public enum ConfirmUnblockUser {
           /// Confirm to unblock %@

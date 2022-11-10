@@ -21,7 +21,7 @@
     <key>a11y.plural.count.input_limit_exceeds</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Eingabelimit überschritten %#@character_count@</string>
+      <string>Zeichenanzahl um %#@character_count@ überschritten</string>
       <key>character_count</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -37,7 +37,7 @@
     <key>a11y.plural.count.input_limit_remains</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Eingabelimit eingehalten %#@character_count@</string>
+      <string>Noch %#@character_count@ übrig</string>
       <key>character_count</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -72,9 +72,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>Followed by %1$@, and another mutual</string>
+        <string>Gefolgt von %1$@ und einer weiteren Person, der du folgst</string>
         <key>other</key>
-        <string>Followed by %1$@, and %ld mutuals</string>
+        <string>Gefolgt von %1$@ und %ld weiteren Personen, denen du folgst</string>
       </dict>
     </dict>
     <key>plural.count.metric_formatted.post</key>
@@ -104,9 +104,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 media</string>
+        <string>1 Datei</string>
         <key>other</key>
-        <string>%ld media</string>
+        <string>%ld Dateien</string>
       </dict>
     </dict>
     <key>plural.count.post</key>
@@ -200,7 +200,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 Wähler</string>
+        <string>1 Wähler:in</string>
         <key>other</key>
         <string>%ld Wähler</string>
       </dict>
@@ -216,9 +216,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 Mensch spricht</string>
+        <string>Eine Person redet</string>
         <key>other</key>
-        <string>%ld Leute reden</string>
+        <string>%ld Personen reden</string>
       </dict>
     </dict>
     <key>plural.count.following</key>
@@ -360,7 +360,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>vor 1 Jahr</string>
+        <string>vor einem Jahr</string>
         <key>other</key>
         <string>vor %ld Jahren</string>
       </dict>
@@ -376,7 +376,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>vor 1 M</string>
+        <string>vor einem Monat</string>
         <key>other</key>
         <string>vor %ld Monaten</string>
       </dict>
@@ -392,7 +392,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>vor 1 Tag</string>
+        <string>vor einem Tag</string>
         <key>other</key>
         <string>vor %ld Tagen</string>
       </dict>
@@ -408,7 +408,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>vor 1 Stunde</string>
+        <string>vor einer Stunde</string>
         <key>other</key>
         <string>vor %ld Stunden</string>
       </dict>
@@ -424,7 +424,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>vor 1 Minute</string>
+        <string>vor einer Minute</string>
         <key>other</key>
         <string>vor %ld Minuten</string>
       </dict>
@@ -440,7 +440,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>vor 1 Sekunde</string>
+        <string>vor einer Sekunde</string>
         <key>other</key>
         <string>vor %ld Sekuden</string>
       </dict>
