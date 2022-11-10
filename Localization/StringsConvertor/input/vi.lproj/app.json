@@ -139,8 +139,8 @@
                 "meta_entity": {
                     "url": "Link: %s",
                     "hashtag": "Hashtag: %s",
-                    "mention": "Show Profile: %s",
-                    "email": "Email address: %s"
+                    "mention": "Hiện hồ sơ: %s",
+                    "email": "Email: %s"
                 },
                 "actions": {
                     "reply": "Trả lời",
