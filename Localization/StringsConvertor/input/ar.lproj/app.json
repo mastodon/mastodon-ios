@@ -137,10 +137,10 @@
                     "closed": "انتهى"
                 },
                 "meta_entity": {
-                    "url": "Link: %s",
-                    "hashtag": "Hashtag: %s",
-                    "mention": "Show Profile: %s",
-                    "email": "Email address: %s"
+                    "url": "رابِط: %s",
+                    "hashtag": "وَسْم: %s",
+                    "mention": "إظهار المِلف التعريفي: %s",
+                    "email": "عُنوان البريد الإلكتُروني: %s"
                 },
                 "actions": {
                     "reply": "الرَّد",
@@ -187,8 +187,8 @@
                 "unmute_user": "رفع الكتم عن %s",
                 "muted": "مكتوم",
                 "edit_info": "تَحريرُ المَعلُومات",
-                "show_reblogs": "Show Reblogs",
-                "hide_reblogs": "Hide Reblogs"
+                "show_reblogs": "إظهار إعادات التدوين",
+                "hide_reblogs": "إخفاء إعادات التدوين"
             },
             "timeline": {
                 "filtered": "مُصفَّى",
@@ -465,12 +465,12 @@
                     "message": "تأكيدُ رَفع الحَظرِ عَن %s"
                 },
                 "confirm_show_reblogs": {
-                    "title": "Show Reblogs",
-                    "message": "Confirm to show reblogs"
+                    "title": "إظهار إعادات التدوين",
+                    "message": "التأكيد لِإظهار إعادات التدوين"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "Hide Reblogs",
-                    "message": "Confirm to hide reblogs"
+                    "title": "إخفاء إعادات التدوين",
+                    "message": "التأكيد لِإخفاء إعادات التدوين"
                 }
             },
             "accessibility": {
@@ -702,7 +702,7 @@
             "accessibility_hint": "انقر نقرًا مزدوجًا لتجاهُل النافذة المنبثقة"
         },
         "bookmark": {
-            "title": "Bookmarks"
+            "title": "العَلاماتُ المَرجعيَّة"
         }
     }
 }
