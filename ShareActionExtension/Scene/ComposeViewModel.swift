@@ -11,7 +11,6 @@ import Combine
 import CoreData
 import CoreDataStack
 import MastodonSDK
-import MastodonUI
 import SwiftUI
 import UniformTypeIdentifiers
 import MastodonAsset

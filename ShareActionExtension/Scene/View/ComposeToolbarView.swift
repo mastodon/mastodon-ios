@@ -9,7 +9,6 @@ import os.log
 import UIKit
 import Combine
 import MastodonSDK
-import MastodonUI
 import MastodonAsset
 import MastodonLocalization
 import MastodonCore
