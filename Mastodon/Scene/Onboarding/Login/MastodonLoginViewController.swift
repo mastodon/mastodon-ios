@@ -43,6 +43,7 @@ class MastodonLoginViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
+    defer { setupNavigationBarBackgroundView() }
     setupOnboardingAppearance()
   }
 
