@@ -32,9 +32,9 @@
                 "message": "Nu se poate edita profilul. Vă rugăm să încercaţi din nou."
             },
             "sign_out": {
-                "title": "Deconectați-vă",
+                "title": "Deconectare",
                 "message": "Sigur doriți să vă deconectați?",
-                "confirm": "Deconectați-vă"
+                "confirm": "Deconectare"
             },
             "block_domain": {
                 "title": "Are you really, really sure you want to block the entire %s? In most cases a few targeted blocks or mutes are sufficient and preferable. You will not see content from that domain and any of your followers from that domain will be removed.",
