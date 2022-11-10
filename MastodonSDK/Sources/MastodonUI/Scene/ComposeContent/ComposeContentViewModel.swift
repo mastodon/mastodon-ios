@@ -278,6 +278,11 @@ extension ComposeContentViewModel {
 // MARK: - UITextViewDelegate
 extension ComposeContentViewModel: UITextViewDelegate {
     public func textViewDidBeginEditing(_ textView: UITextView) {
+        // Note:
+        // Xcode warning:
+        // Publishing changes from within view updates is not allowed, this will cause undefined behavior.
+        //
+        // Just ignore the warning and see what will happen…
         switch textView {
         case contentMetaText?.textView:
             isContentEditing = true

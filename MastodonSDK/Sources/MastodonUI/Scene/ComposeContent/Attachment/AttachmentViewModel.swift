@@ -32,12 +32,19 @@ final public class AttachmentViewModel: NSObject, ObservableObject, Identifiable
     // output
     @Published public private(set) var output: Output?
     @Published public private(set) var thumbnail: UIImage?      // original size image thumbnail
-    @Published public private(set) var outputSizeInByte: Int = 0
+    @Published public private(set) var outputSizeInByte: Int64 = 0
     
     @Published public var uploadResult: UploadResult?
     @Published var error: Error?
 
     let progress = Progress()       // upload progress
+    @Published var fractionCompleted: Double = 0
+
+    var displayLink: CADisplayLink!
+    private var lastTimestamp: TimeInterval?
+    private var lastUploadSizeInByte: Int64 = 0
+    private var averageUploadSpeedInByte: Int64 = 0
+    @Published var remainTimeLocalizedString: String?
     
     public init(
         api: APIService,
@@ -49,26 +56,34 @@ final public class AttachmentViewModel: NSObject, ObservableObject, Identifiable
         self.input = input
         super.init()
         // end init
+        
+        self.displayLink = CADisplayLink(
+            target: self,
+            selector: #selector(AttachmentViewModel.step(displayLink:))
+        )
+        displayLink.add(to: .current, forMode: .common)
 
         progress
             .observe(\.fractionCompleted, options: [.initial, .new]) { [weak self] progress, _ in
                 guard let self = self else { return }
                 self.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): publish progress \(progress.fractionCompleted)")
+                self.fractionCompleted = progress.fractionCompleted
                 DispatchQueue.main.async {
                     self.objectWillChange.send()
                 }
             }
             .store(in: &observations)
         
-        progress
-            .observe(\.isFinished, options: [.initial, .new]) { [weak self] progress, _ in
-                guard let self = self else { return }
-                self.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): publish progress \(progress.fractionCompleted)")
-                DispatchQueue.main.async {
-                    self.objectWillChange.send()
-                }
-            }
-            .store(in: &observations)
+        // Note: this observation is redundant if .fractionCompleted listener always emit event when reach 1.0 progress
+        // progress
+        //     .observe(\.isFinished, options: [.initial, .new]) { [weak self] progress, _ in
+        //         guard let self = self else { return }
+        //         self.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): publish progress \(progress.fractionCompleted)")
+        //         DispatchQueue.main.async {
+        //             self.objectWillChange.send()
+        //         }
+        //     }
+        //     .store(in: &observations)
         
         $output
             .map { output -> UIImage? in
@@ -89,7 +104,7 @@ final public class AttachmentViewModel: NSObject, ObservableObject, Identifiable
                 do {
                     let output = try await load(input: input)
                     self.output = output
-                    self.outputSizeInByte = output.asAttachment.sizeInByte ?? 0
+                    self.outputSizeInByte = output.asAttachment.sizeInByte.flatMap { Int64($0) } ?? 0
                     let uploadResult = try await self.upload(context: .init(
                         apiService: self.api,
                         authContext: self.authContext
@@ -103,6 +118,9 @@ final public class AttachmentViewModel: NSObject, ObservableObject, Identifiable
     }
     
     deinit {
+        displayLink.invalidate()
+        displayLink.remove(from: .current, forMode: .common)
+        
         switch output {
         case .image:
             // FIXME:
@@ -112,6 +130,58 @@ final public class AttachmentViewModel: NSObject, ObservableObject, Identifiable
         case nil :
             break
         }
+    }
+}
+
+// calculate the upload speed
+// ref: https://stackoverflow.com/a/3841706/3797903
+extension AttachmentViewModel {
+    
+    static var SpeedSmoothingFactor = 0.4
+    static let remainsTimeFormatter: RelativeDateTimeFormatter = {
+        let formatter = RelativeDateTimeFormatter()
+        formatter.unitsStyle = .short
+        return formatter
+    }()
+    
+    @objc private func step(displayLink: CADisplayLink) {
+        guard let lastTimestamp = self.lastTimestamp else {
+            self.lastTimestamp = displayLink.timestamp
+            self.lastUploadSizeInByte = Int64(Double(outputSizeInByte) * progress.fractionCompleted)
+            return
+        }
+
+        let duration = displayLink.timestamp - lastTimestamp
+        guard duration >= 1.0 else { return }       // update every 1 sec
+        
+        let old = self.lastUploadSizeInByte
+        self.lastUploadSizeInByte = Int64(Double(outputSizeInByte) * progress.fractionCompleted)
+        
+        let newSpeed = self.lastUploadSizeInByte - old
+        let lastAverageSpeed = self.averageUploadSpeedInByte
+        let newAverageSpeed = Int64(AttachmentViewModel.SpeedSmoothingFactor * Double(newSpeed) + (1 - AttachmentViewModel.SpeedSmoothingFactor) * Double(lastAverageSpeed))
+        
+        let remainSizeInByte = Double(outputSizeInByte) * (1 - progress.fractionCompleted)
+        
+        let speed = Double(newAverageSpeed)
+        if speed != .zero {
+            // estimate by speed
+            let uploadRemainTimeInSecond = remainSizeInByte / speed
+            // estimate by progress 1s for 10%
+            let remainPercentage = 1 - progress.fractionCompleted
+            let estimateRemainTimeByProgress = remainPercentage / 0.1
+            // max estimate
+            let remainTimeInSecond = max(estimateRemainTimeByProgress, uploadRemainTimeInSecond)
+            
+            let string = AttachmentViewModel.remainsTimeFormatter.localizedString(fromTimeInterval: remainTimeInSecond)
+            remainTimeLocalizedString = string
+            // print("remains: \(remainSizeInByte), speed: \(newAverageSpeed), \(string)")
+        } else {
+            remainTimeLocalizedString = nil
+        }
+        
+        self.lastTimestamp = displayLink.timestamp
+        self.averageUploadSpeedInByte = newAverageSpeed
     }
 }
 

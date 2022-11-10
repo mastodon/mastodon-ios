@@ -53,32 +53,58 @@ public struct AttachmentView: View {
             if viewModel.output != nil {
                 VisualEffectView(effect: blurEffect)
                 VStack {
-                    let image: UIImage = {
+                    let actionType: AttachmentView.Action = {
                         if let _ = viewModel.error {
-                            return Asset.Scene.Compose.Attachment.retry.image.withRenderingMode(.alwaysTemplate)
+                            return .retry
                         } else {
-                            return Asset.Scene.Compose.Attachment.stop.image.withRenderingMode(.alwaysTemplate)
+                            return .remove
                         }
                     }()
-                    Image(uiImage: image)
-                        .foregroundColor(.white)
-                        .padding()
-                        .background(Color(Asset.Scene.Compose.Attachment.indicatorButtonBackground.color))
-                        .clipShape(Circle())
-                        .padding()
+                    Button {
+                        action(actionType)
+                    } label: {
+                        let image: UIImage = {
+                            switch actionType {
+                            case .remove:
+                                return Asset.Scene.Compose.Attachment.stop.image.withRenderingMode(.alwaysTemplate)
+                            case .retry:
+                                return Asset.Scene.Compose.Attachment.retry.image.withRenderingMode(.alwaysTemplate)
+                            }
+                        }()
+                        Image(uiImage: image)
+                            .foregroundColor(.white)
+                            .padding()
+                            .background(Color(Asset.Scene.Compose.Attachment.indicatorButtonBackground.color))
+                            .overlay(
+                                CircleProgressView(progress: viewModel.fractionCompleted)
+                                    .animation(.default, value: viewModel.fractionCompleted)
+                            )
+                            .clipShape(Circle())
+                            .padding()
+                    }
+
                     let title: String = {
-                        if let _ = viewModel.error {
+                        switch actionType {
+                        case .remove:
+                            let totalSizeInByte = viewModel.outputSizeInByte
+                            let uploadSizeInByte = Double(totalSizeInByte) * viewModel.progress.fractionCompleted
+                            let total = ByteCountFormatter.string(fromByteCount: Int64(totalSizeInByte), countStyle: .memory)
+                            let upload = ByteCountFormatter.string(fromByteCount: Int64(uploadSizeInByte), countStyle: .memory)
+                            return "\(upload)/\(total)"
+                        case .retry:
                             return "Upload Failed"  // TODO: i18n
-                        } else {
-                            let total = ByteCountFormatter.string(fromByteCount: Int64(viewModel.outputSizeInByte), countStyle: .memory)
-                            return "…/\(total)"
                         }
                     }()
                     let subtitle: String = {
-                        if let error = viewModel.error {
-                            return error.localizedDescription
-                        } else {
-                            return "… remaining"
+                        switch actionType {
+                        case .remove:
+                            if viewModel.progress.fractionCompleted < 1 {
+                                return viewModel.remainTimeLocalizedString ?? ""
+                            } else {
+                                return ""
+                            }
+                        case .retry:
+                            return viewModel.error?.localizedDescription ?? ""
                         }
                     }()
                     Text(title)
@@ -92,10 +118,6 @@ public struct AttachmentView: View {
                 }
             }
         }   // end ZStack
-        .onChange(of: viewModel.progress) { progress in
-            // not works…
-            print(progress.completedUnitCount)
-        }
     }   // end body
     
 }
