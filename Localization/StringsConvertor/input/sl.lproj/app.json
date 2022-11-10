@@ -138,7 +138,7 @@
                 },
                 "meta_entity": {
                     "url": "Povezava: %s",
-                    "hashtag": "Hashtag: %s",
+                    "hashtag": "Ključnik: %s",
                     "mention": "Pokaži profil: %s",
                     "email": "E-naslov: %s"
                 },
