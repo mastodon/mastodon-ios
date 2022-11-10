@@ -32,7 +32,6 @@ let package = Package(
         .package(url: "https://github.com/Alamofire/AlamofireImage.git", from: "4.1.0"),
         .package(url: "https://github.com/apple/swift-collections.git", from: "1.0.3"),
         .package(url: "https://github.com/apple/swift-nio.git", from: "1.0.0"),
-        .package(url: "https://github.com/cezheng/Fuzi.git", from: "3.1.3"),
         .package(url: "https://github.com/Flipboard/FLAnimatedImage.git", from: "1.0.0"),
         .package(url: "https://github.com/kean/Nuke-FLAnimatedImage-Plugin.git", from: "8.0.0"),
         .package(url: "https://github.com/kean/Nuke.git", from: "10.3.1"),
