@@ -137,10 +137,10 @@
                     "closed": "Pechada"
                 },
                 "meta_entity": {
-                    "url": "Link: %s",
-                    "hashtag": "Hashtag: %s",
-                    "mention": "Show Profile: %s",
-                    "email": "Email address: %s"
+                    "url": "Ligazón: %s",
+                    "hashtag": "Cancelo: %s",
+                    "mention": "Mostrar Perfil: %s",
+                    "email": "Enderezo de email: %s"
                 },
                 "actions": {
                     "reply": "Responder",
