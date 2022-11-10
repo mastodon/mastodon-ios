@@ -406,7 +406,10 @@ private extension SceneCoordinator {
             _viewController.viewModel = viewModel
             viewController = _viewController
         case .mastodonLogin:
-            viewController = MastodonLoginViewController()
+            let loginViewController = MastodonLoginViewController()
+            loginViewController.delegate = self
+
+            viewController = loginViewController
         case .mastodonResendEmail(let viewModel):
             let _viewController = MastodonResendEmailViewController()
             _viewController.viewModel = viewModel
@@ -533,5 +536,16 @@ private extension SceneCoordinator {
         needs?.context = appContext
         needs?.coordinator = self
     }
-    
+}
+
+//MARK: - MastodonLoginViewControllerDelegate
+
+extension SceneCoordinator: MastodonLoginViewControllerDelegate {
+  func backButtonPressed(_ viewController: MastodonLoginViewController) {
+    viewController.navigationController?.popViewController(animated: true)
+  }
+
+  func nextButtonPressed(_ viewController: MastodonLoginViewController) {
+    //TODO: @zeitschlag implement, show ASWebAuthentication and stuff
+  }
 }

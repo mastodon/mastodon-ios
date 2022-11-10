@@ -322,8 +322,7 @@ extension WelcomeViewController {
     
     @objc
     private func signInButtonDidClicked(_ sender: UIButton) {
-        //TODO: @zeitschlag Present new login-scene
-        _ = coordinator.present(scene: .mastodonPickServer(viewMode: MastodonPickServerViewModel(context: context, mode: .signIn)), from: self, transition: .show)
+        _ = coordinator.present(scene: .mastodonLogin, from: self, transition: .show)
     }
     
     @objc
