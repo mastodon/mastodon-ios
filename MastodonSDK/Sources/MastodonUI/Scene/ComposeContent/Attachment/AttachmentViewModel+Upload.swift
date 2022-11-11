@@ -55,6 +55,7 @@ extension Data {
 extension AttachmentViewModel {
     public enum UploadState {
         case none
+        case compressing
         case ready
         case uploading
         case fail

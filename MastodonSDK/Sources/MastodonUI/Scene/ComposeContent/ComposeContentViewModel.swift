@@ -427,6 +427,8 @@ extension ComposeContentViewModel: AttachmentViewModelDelegate {
             switch attachmentViewModel.uploadState {
             case .none:
                 return
+            case .compressing:
+                return
             case .ready:
                 let count = self.attachmentViewModels.count
                 logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): upload \(i)/\(count) attachment")

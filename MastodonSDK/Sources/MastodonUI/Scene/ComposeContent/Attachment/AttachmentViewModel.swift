@@ -11,6 +11,7 @@ import Combine
 import PhotosUI
 import Kingfisher
 import MastodonCore
+import func QuartzCore.CACurrentMediaTime
 
 public protocol AttachmentViewModelDelegate: AnyObject {
     func attachmentViewModel(_ viewModel: AttachmentViewModel, uploadStateValueDidChange state: AttachmentViewModel.UploadState)
@@ -35,6 +36,12 @@ final public class AttachmentViewModel: NSObject, ObservableObject, Identifiable
         formatter.countStyle = .memory
         return formatter
     }()
+    
+    let percentageFormatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .percent
+        return formatter
+    }()
 
     // input
     public let api: APIService
@@ -43,7 +50,7 @@ final public class AttachmentViewModel: NSObject, ObservableObject, Identifiable
     @Published var caption = ""
     @Published var sizeLimit = SizeLimit()
     
-    var compressVideoTask: Task<URL, Error>?
+    // var compressVideoTask: Task<URL, Error>?
     
     // output
     @Published public private(set) var output: Output?
@@ -54,11 +61,14 @@ final public class AttachmentViewModel: NSObject, ObservableObject, Identifiable
     @Published public private(set) var uploadState: UploadState = .none
     @Published public private(set) var uploadResult: UploadResult?
     @Published var error: Error?
+    
+    var uploadTask: Task<(), Never>?
 
+    @Published var videoCompressProgress: Double = 0
+    
     let progress = Progress()       // upload progress
     @Published var fractionCompleted: Double = 0
 
-    var displayLink: CADisplayLink!
     private var lastTimestamp: TimeInterval?
     private var lastUploadSizeInByte: Int64 = 0
     private var averageUploadSpeedInByte: Int64 = 0
@@ -78,11 +88,15 @@ final public class AttachmentViewModel: NSObject, ObservableObject, Identifiable
         super.init()
         // end init
         
-        self.displayLink = CADisplayLink(
-            target: self,
-            selector: #selector(AttachmentViewModel.step(displayLink:))
-        )
-        displayLink.add(to: .current, forMode: .common)
+        Timer.publish(every: 1.0 / 60.0, on: .main, in: .common)        // 60 FPS
+            .autoconnect()
+            .share()
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                self.step()
+            }
+            .store(in: &disposeBag)
 
         progress
             .observe(\.fractionCompleted, options: [.initial, .new]) { [weak self] progress, _ in
@@ -120,12 +134,14 @@ final public class AttachmentViewModel: NSObject, ObservableObject, Identifiable
             .assign(to: &$thumbnail)
         
         defer {
-            Task { @MainActor in
+            let uploadTask = Task { @MainActor in
                 do {
                     var output = try await load(input: input)
                     
                     switch output {
                     case .video(let fileURL, let mimeType):
+                        self.output = output
+                        self.update(uploadState: .compressing)
                         let compressedFileURL = try await comporessVideo(url: fileURL)
                         output = .video(compressedFileURL, mimeType: mimeType)
                         try? FileManager.default.removeItem(at: fileURL)    // remove old file
@@ -142,12 +158,17 @@ final public class AttachmentViewModel: NSObject, ObservableObject, Identifiable
                     self.error = error
                 }
             }   // end Task
+            self.uploadTask = uploadTask
+            Task {
+                await uploadTask.value
+            }
         }
     }
     
     deinit {
-        displayLink.invalidate()
-        displayLink.remove(from: .current, forMode: .common)
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        
+        uploadTask?.cancel()
         
         switch output {
         case .image:
@@ -172,31 +193,34 @@ extension AttachmentViewModel {
         return formatter
     }()
     
-    @objc private func step(displayLink: CADisplayLink) {
+    @objc private func step() {
+        
+        let uploadProgress = min(progress.fractionCompleted + 0.1, 1)   // the progress split into 9:1 blocks (download : waiting)
+        
         guard let lastTimestamp = self.lastTimestamp else {
-            self.lastTimestamp = displayLink.timestamp
-            self.lastUploadSizeInByte = Int64(Double(outputSizeInByte) * progress.fractionCompleted)
+            self.lastTimestamp = CACurrentMediaTime()
+            self.lastUploadSizeInByte = Int64(Double(outputSizeInByte) * uploadProgress)
             return
         }
 
-        let duration = displayLink.timestamp - lastTimestamp
+        let duration = CACurrentMediaTime() - lastTimestamp
         guard duration >= 1.0 else { return }       // update every 1 sec
         
         let old = self.lastUploadSizeInByte
-        self.lastUploadSizeInByte = Int64(Double(outputSizeInByte) * progress.fractionCompleted)
+        self.lastUploadSizeInByte = Int64(Double(outputSizeInByte) * uploadProgress)
         
         let newSpeed = self.lastUploadSizeInByte - old
         let lastAverageSpeed = self.averageUploadSpeedInByte
         let newAverageSpeed = Int64(AttachmentViewModel.SpeedSmoothingFactor * Double(newSpeed) + (1 - AttachmentViewModel.SpeedSmoothingFactor) * Double(lastAverageSpeed))
         
-        let remainSizeInByte = Double(outputSizeInByte) * (1 - progress.fractionCompleted)
+        let remainSizeInByte = Double(outputSizeInByte) * (1 - uploadProgress)
         
         let speed = Double(newAverageSpeed)
         if speed != .zero {
             // estimate by speed
             let uploadRemainTimeInSecond = remainSizeInByte / speed
             // estimate by progress 1s for 10%
-            let remainPercentage = 1 - progress.fractionCompleted
+            let remainPercentage = 1 - uploadProgress
             let estimateRemainTimeByProgress = remainPercentage / 0.1
             // max estimate
             var remainTimeInSecond = max(estimateRemainTimeByProgress, uploadRemainTimeInSecond)
@@ -216,7 +240,7 @@ extension AttachmentViewModel {
             remainTimeLocalizedString = nil
         }
         
-        self.lastTimestamp = displayLink.timestamp
+        self.lastTimestamp = CACurrentMediaTime()
         self.averageUploadSpeedInByte = newAverageSpeed
     }
 }

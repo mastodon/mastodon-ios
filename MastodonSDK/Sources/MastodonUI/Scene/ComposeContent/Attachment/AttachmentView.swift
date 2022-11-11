@@ -48,7 +48,7 @@ public struct AttachmentView: View {
             // loaded
             // uploading… or upload failed
             // could retry upload when error emit
-            if viewModel.output != nil {
+            if viewModel.output != nil, viewModel.uploadState != .finish {
                 VisualEffectView(effect: blurEffect)
                 VStack {
                     let action: AttachmentViewModel.Action = {
@@ -74,8 +74,18 @@ public struct AttachmentView: View {
                             .padding()
                             .background(Color(Asset.Scene.Compose.Attachment.indicatorButtonBackground.color))
                             .overlay(
-                                CircleProgressView(progress: viewModel.fractionCompleted)
-                                    .animation(.default, value: viewModel.fractionCompleted)
+                                Group {
+                                    switch viewModel.uploadState {
+                                    case .compressing:
+                                        CircleProgressView(progress: viewModel.videoCompressProgress)
+                                            .animation(.default, value: viewModel.videoCompressProgress)
+                                    case .uploading:
+                                        CircleProgressView(progress: viewModel.fractionCompleted)
+                                            .animation(.default, value: viewModel.fractionCompleted)
+                                    default:
+                                        EmptyView()
+                                    }
+                                }
                             )
                             .clipShape(Circle())
                             .padding()
@@ -84,11 +94,20 @@ public struct AttachmentView: View {
                     let title: String = {
                         switch action {
                         case .remove:
-                            let totalSizeInByte = viewModel.outputSizeInByte
-                            let uploadSizeInByte = Double(totalSizeInByte) * min(1.0, viewModel.fractionCompleted)
-                            let total = viewModel.byteCountFormatter.string(fromByteCount: Int64(totalSizeInByte))
-                            let upload = viewModel.byteCountFormatter.string(fromByteCount: Int64(uploadSizeInByte))
-                            return "\(upload) / \(total)"
+                            switch viewModel.uploadState {
+                            case .compressing:
+                                return "Comporessing..."    // TODO: i18n
+                            default:
+                                if viewModel.fractionCompleted < 0.9 {
+                                    let totalSizeInByte = viewModel.outputSizeInByte
+                                    let uploadSizeInByte = Double(totalSizeInByte) * min(1.0, viewModel.fractionCompleted + 0.1)    // 9:1
+                                    let total = viewModel.byteCountFormatter.string(fromByteCount: Int64(totalSizeInByte))
+                                    let upload = viewModel.byteCountFormatter.string(fromByteCount: Int64(uploadSizeInByte))
+                                    return "\(upload) / \(total)"
+                                } else {
+                                    return "Server Processing..."   // TODO: i18n
+                                }
+                            }
                         case .retry:
                             return "Upload Failed"  // TODO: i18n
                         }
@@ -97,7 +116,13 @@ public struct AttachmentView: View {
                         switch action {
                         case .remove:
                             if viewModel.progress.fractionCompleted < 1, viewModel.uploadState == .uploading {
-                                return viewModel.remainTimeLocalizedString ?? ""
+                                if viewModel.progress.fractionCompleted < 0.9 {
+                                    return viewModel.remainTimeLocalizedString ?? ""
+                                } else {
+                                    return ""
+                                }
+                            } else if viewModel.videoCompressProgress < 1, viewModel.uploadState == .compressing {
+                                return viewModel.percentageFormatter.string(from: NSNumber(floatLiteral: viewModel.videoCompressProgress)) ?? ""
                             } else {
                                 return ""
                             }
@@ -113,6 +138,9 @@ public struct AttachmentView: View {
                         .font(.system(size: 12, weight: .regular))
                         .foregroundColor(.white)
                         .padding(.horizontal)
+                        .lineLimit(nil)
+                        .multilineTextAlignment(.center)
+                        .frame(maxWidth: 240)
                 }
             }
         }   // end ZStack
