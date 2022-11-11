@@ -304,25 +304,25 @@
                     "reserved": "%s je rezervované klíčové slovo",
                     "accepted": "%s musí být přijato",
                     "blank": "%s je vyžadováno",
-                    "invalid": "%s is invalid",
-                    "too_long": "%s is too long",
-                    "too_short": "%s is too short",
-                    "inclusion": "%s is not a supported value"
+                    "invalid": "%s je neplatné",
+                    "too_long": "%s je příliš dlouhé",
+                    "too_short": "%s je příliš krátké",
+                    "inclusion": "%s není podporovaná hodnota"
                 },
                 "special": {
-                    "username_invalid": "Username must only contain alphanumeric characters and underscores",
-                    "username_too_long": "Username is too long (can’t be longer than 30 characters)",
+                    "username_invalid": "Uživatelské jméno musí obsahovat pouze alfanumerické znaky a podtržítka",
+                    "username_too_long": "Uživatelské jméno je příliš dlouhé (nemůže být delší než 30 znaků)",
                     "email_invalid": "Toto není platná e-mailová adresa",
-                    "password_too_short": "Password is too short (must be at least 8 characters)"
+                    "password_too_short": "Heslo je příliš krátké (musí mít alespoň 8 znaků)"
                 }
             }
         },
         "server_rules": {
-            "title": "Some ground rules.",
-            "subtitle": "These are set and enforced by the %s moderators.",
-            "prompt": "By continuing, you’re subject to the terms of service and privacy policy for %s.",
-            "terms_of_service": "terms of service",
-            "privacy_policy": "privacy policy",
+            "title": "Některá základní pravidla.",
+            "subtitle": "Ty nastavují a prosazují moderátoři %s.",
+            "prompt": "Pokračováním budete podléhat podmínkám služby a zásad ochrany osobních údajů pro uživatele %s.",
+            "terms_of_service": "podmínky služby",
+            "privacy_policy": "zásady ochrany osobních údajů",
             "button": {
                 "confirm": "I Agree"
             }
@@ -356,7 +356,7 @@
                 "Publishing": "Publikování příspěvku...",
                 "accessibility": {
                     "logo_label": "Logo Button",
-                    "logo_hint": "Tap to scroll to top and tap again to previous location"
+                    "logo_hint": "Klepnutím přejdete nahoru a znovu klepněte na předchozí místo"
                 }
             }
         },
