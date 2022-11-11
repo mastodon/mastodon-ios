@@ -16,6 +16,8 @@ class MastodonLoginView: UIView {
   let titleLabel: UILabel
   let subtitleLabel: UILabel
   private let headerStackView: UIStackView
+  let searchTextField: UITextField
+  let tableView: UITableView
   let navigationActionView: NavigationActionView
 
   override init(frame: CGRect) {
@@ -37,12 +39,27 @@ class MastodonLoginView: UIView {
     headerStackView.spacing = 16
     headerStackView.translatesAutoresizingMaskIntoConstraints = false
 
+    searchTextField = UITextField()
+    searchTextField.translatesAutoresizingMaskIntoConstraints = false
+    searchTextField.backgroundColor = Asset.Scene.Onboarding.textFieldBackground.color
+    searchTextField.layer.cornerRadius = 10 //TODO: Change mask for
+    searchTextField.placeholder = "Search for your server"
+    searchTextField.leftView = UIImageView(image: UIImage(systemName: "magnifyingglass"))
+    searchTextField.leftViewMode = .always
+
+    tableView = UITableView()
+    tableView.translatesAutoresizingMaskIntoConstraints = false
+    tableView.backgroundColor = .green
+    //TODO: @zeitchlag Cell
+    
     navigationActionView = NavigationActionView()
     navigationActionView.translatesAutoresizingMaskIntoConstraints = false
 
     super.init(frame: frame)
 
     addSubview(headerStackView)
+    addSubview(searchTextField)
+    addSubview(tableView)
     addSubview(navigationActionView)
     backgroundColor = .systemBackground
 
@@ -59,6 +76,16 @@ class MastodonLoginView: UIView {
       headerStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
       headerStackView.leadingAnchor.constraint(equalTo: readableContentGuide.leadingAnchor),
       headerStackView.trailingAnchor.constraint(equalTo: readableContentGuide.trailingAnchor),
+
+      searchTextField.topAnchor.constraint(equalTo: headerStackView.bottomAnchor, constant: 32),
+      searchTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+      searchTextField.heightAnchor.constraint(equalToConstant: 55),
+      trailingAnchor.constraint(equalTo: searchTextField.trailingAnchor, constant: 16),
+
+      tableView.topAnchor.constraint(equalTo: searchTextField.bottomAnchor),
+      tableView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+      trailingAnchor.constraint(equalTo: tableView.trailingAnchor, constant: 16),
+      tableView.bottomAnchor.constraint(equalTo: navigationActionView.topAnchor),
 
       navigationActionView.leadingAnchor.constraint(equalTo: leadingAnchor),
       navigationActionView.trailingAnchor.constraint(equalTo: trailingAnchor),

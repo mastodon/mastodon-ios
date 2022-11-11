@@ -36,6 +36,9 @@ class MastodonLoginViewController: UIViewController {
 
     loginView.navigationActionView.nextButton.addTarget(self, action: #selector(MastodonLoginViewController.nextButtonPressed(_:)), for: .touchUpInside)
     loginView.navigationActionView.backButton.addTarget(self, action: #selector(MastodonLoginViewController.backButtonPressed(_:)), for: .touchUpInside)
+    loginView.searchTextField.addTarget(self, action: #selector(MastodonLoginViewController.textfieldDidChange(_:)), for: .editingChanged)
+
+    //TODO: Set tableView.delegate and tableView.dataSource
 
     view = loginView
   }
@@ -101,6 +104,10 @@ class MastodonLoginViewController: UIViewController {
 //        )
 //      }
 //      .store(in: &disposeBag)
+  }
+
+  @objc func textfieldDidChange(_ textField: UITextField) {
+    print(textField.text ?? "---")
   }
 }
 
