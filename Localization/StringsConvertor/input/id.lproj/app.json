@@ -37,16 +37,16 @@
                 "confirm": "Keluar"
             },
             "block_domain": {
-                "title": "Are you really, really sure you want to block the entire %s? In most cases a few targeted blocks or mutes are sufficient and preferable. You will not see content from that domain and any of your followers from that domain will be removed.",
+                "title": "Apakah Anda benar, benar yakin ingin memblokir keseluruhan %s? Dalam kebanyakan kasus, beberapa pemblokiran atau pembisuan yang ditargetkan sudah cukup dan lebih disukai. Anda tidak akan melihat konten dari domain tersebut dan semua pengikut Anda dari domain itu akan dihapus.",
                 "block_entire_domain": "Blokir Domain"
             },
             "save_photo_failure": {
-                "title": "Save Photo Failure",
-                "message": "Please enable the photo library access permission to save the photo."
+                "title": "Gagal Menyimpan Foto",
+                "message": "Mohon aktifkan izin akses pustaka foto untuk menyimpan foto."
             },
             "delete_post": {
                 "title": "Apakah Anda yakin ingin menghapus postingan ini?",
-                "message": "Are you sure you want to delete this post?"
+                "message": "Apakah Anda yakin untuk menghapus kiriman ini?"
             },
             "clean_cache": {
                 "title": "Bersihkan Cache",
@@ -67,11 +67,11 @@
                 "done": "Selesai",
                 "confirm": "Konfirmasi",
                 "continue": "Lanjut",
-                "compose": "Compose",
+                "compose": "Tulis",
                 "cancel": "Batal",
-                "discard": "Discard",
+                "discard": "Buang",
                 "try_again": "Coba Lagi",
-                "take_photo": "Take Photo",
+                "take_photo": "Ambil Foto",
                 "save_photo": "Simpan Foto",
                 "copy_photo": "Salin Foto",
                 "sign_in": "Masuk",
@@ -82,9 +82,9 @@
                 "share_user": "Bagikan %s",
                 "share_post": "Bagikan Postingan",
                 "open_in_safari": "Buka di Safari",
-                "open_in_browser": "Open in Browser",
+                "open_in_browser": "Buka di Peramban",
                 "find_people": "Cari orang untuk diikuti",
-                "manually_search": "Manually search instead",
+                "manually_search": "Cari secara manual saja",
                 "skip": "Lewati",
                 "reply": "Balas",
                 "report_user": "Laporkan %s",
@@ -111,16 +111,16 @@
                     "next_status": "Postingan Selanjutnya",
                     "open_status": "Buka Postingan",
                     "open_author_profile": "Buka Profil Penulis",
-                    "open_reblogger_profile": "Open Reblogger's Profile",
+                    "open_reblogger_profile": "Buka Profil Reblogger",
                     "reply_status": "Balas Postingan",
-                    "toggle_reblog": "Toggle Reblog on Post",
-                    "toggle_favorite": "Toggle Favorite on Post",
-                    "toggle_content_warning": "Toggle Content Warning",
-                    "preview_image": "Preview Image"
+                    "toggle_reblog": "Nyalakan Reblog pada Postingan",
+                    "toggle_favorite": "Nyalakan Favorit pada Postingan",
+                    "toggle_content_warning": "Nyalakan Peringatan Konten",
+                    "preview_image": "Pratinjau Gambar"
                 },
                 "segmented_control": {
-                    "previous_section": "Previous Section",
-                    "next_section": "Next Section"
+                    "previous_section": "Bagian Sebelumnya",
+                    "next_section": "Bagian Selanjutnya"
                 }
             },
             "status": {
