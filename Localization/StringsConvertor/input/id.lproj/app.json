@@ -6,29 +6,29 @@
                 "please_try_again_later": "Silakan coba lagi nanti."
             },
             "sign_up_failure": {
-                "title": "Sign Up Failure"
+                "title": "Gagal Mendaftar"
             },
             "server_error": {
                 "title": "Kesalahan Server"
             },
             "vote_failure": {
-                "title": "Vote Failure",
+                "title": "Gagal Voting",
                 "poll_ended": "Japat telah berakhir"
             },
             "discard_post_content": {
                 "title": "Hapus Draf",
-                "message": "Confirm to discard composed post content."
+                "message": "Konfirmasi untuk mengabaikan postingan yang dibuat."
             },
             "publish_post_failure": {
-                "title": "Publish Failure",
-                "message": "Failed to publish the post.\nPlease check your internet connection.",
+                "title": "Gagal Mempublikasikan",
+                "message": "Gagal mempublikasikan postingan.\nMohon periksa koneksi Internet Anda.",
                 "attachments_message": {
                     "video_attach_with_photo": "Tidak dapat melampirkan video di postingan yang sudah mengandung gambar.",
                     "more_than_one_video": "Tidak dapat melampirkan lebih dari satu video."
                 }
             },
             "edit_profile_failure": {
-                "title": "Edit Profile Error",
+                "title": "Masalah dalam mengubah profil",
                 "message": "Tidak dapat menyunting profil. Harap coba lagi."
             },
             "sign_out": {
