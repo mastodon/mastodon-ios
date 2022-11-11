@@ -43,6 +43,8 @@ final public class AttachmentViewModel: NSObject, ObservableObject, Identifiable
     @Published var caption = ""
     @Published var sizeLimit = SizeLimit()
     
+    var compressVideoTask: Task<URL, Error>?
+    
     // output
     @Published public private(set) var output: Output?
     @Published public private(set) var thumbnail: UIImage?      // original size image thumbnail
@@ -120,9 +122,20 @@ final public class AttachmentViewModel: NSObject, ObservableObject, Identifiable
         defer {
             Task { @MainActor in
                 do {
-                    let output = try await load(input: input)
-                    self.output = output
+                    var output = try await load(input: input)
+                    
+                    switch output {
+                    case .video(let fileURL, let mimeType):
+                        let compressedFileURL = try await comporessVideo(url: fileURL)
+                        output = .video(compressedFileURL, mimeType: mimeType)
+                        try? FileManager.default.removeItem(at: fileURL)    // remove old file
+                    default:
+                        break
+                    }
+                    
                     self.outputSizeInByte = output.asAttachment.sizeInByte.flatMap { Int64($0) } ?? 0
+                    self.output = output
+                    
                     self.update(uploadState: .ready)
                     self.delegate?.attachmentViewModel(self, uploadStateValueDidChange: self.uploadState)
                 } catch {
