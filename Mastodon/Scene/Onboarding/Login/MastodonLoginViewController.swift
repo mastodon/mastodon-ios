@@ -56,6 +56,52 @@ class MastodonLoginViewController: UIViewController {
   @objc func nextButtonPressed(_ sender: Any) {
     delegate?.nextButtonPressed(self)
   }
+
+  @objc func login(_ sender: Any) {
+//    guard let server = viewModel.selectedServer.value else { return }
+//    authenticationViewModel.isAuthenticating.send(true)
+//    context.apiService.createApplication(domain: server.domain)
+//      .tryMap { response -> AuthenticationViewModel.AuthenticateInfo in
+//        let application = response.value
+//        guard let info = AuthenticationViewModel.AuthenticateInfo(
+//          domain: server.domain,
+//          application: application,
+//          redirectURI: response.value.redirectURI ?? APIService.oauthCallbackURL
+//        ) else {
+//          throw APIService.APIError.explicit(.badResponse)
+//        }
+//        return info
+//      }
+//      .receive(on: DispatchQueue.main)
+//      .sink { [weak self] completion in
+//        guard let self = self else { return }
+//        self.authenticationViewModel.isAuthenticating.send(false)
+//
+//        switch completion {
+//          case .failure(let error):
+//            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: sign in fail: %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
+//            self.viewModel.error.send(error)
+//          case .finished:
+//            break
+//        }
+//      } receiveValue: { [weak self] info in
+//        guard let self = self else { return }
+//        let authenticationController = MastodonAuthenticationController(
+//          context: self.context,
+//          authenticateURL: info.authorizeURL
+//        )
+//
+//        self.mastodonAuthenticationController = authenticationController
+//        authenticationController.authenticationSession?.presentationContextProvider = self
+//        authenticationController.authenticationSession?.start()
+//
+//        self.authenticationViewModel.authenticate(
+//          info: info,
+//          pinCodePublisher: authenticationController.pinCodePublisher
+//        )
+//      }
+//      .store(in: &disposeBag)
+  }
 }
 
 // MARK: - OnboardingViewControllerAppearance
