@@ -361,31 +361,31 @@
             }
         },
         "suggestion_account": {
-            "title": "Find People to Follow",
-            "follow_explain": "When you follow someone, you’ll see their posts in your home feed."
+            "title": "Najít lidi pro sledování",
+            "follow_explain": "Když někoho sledujete, uvidíte jejich příspěvky ve vašem domovském kanálu."
         },
         "compose": {
             "title": {
                 "new_post": "Nový příspěvek",
-                "new_reply": "New Reply"
+                "new_reply": "Nová odpověď"
             },
             "media_selection": {
-                "camera": "Take Photo",
-                "photo_library": "Photo Library",
-                "browse": "Browse"
+                "camera": "Vyfotit",
+                "photo_library": "Knihovna fotografií",
+                "browse": "Procházet"
             },
-            "content_input_placeholder": "Type or paste what’s on your mind",
-            "compose_action": "Publish",
-            "replying_to_user": "replying to %s",
+            "content_input_placeholder": "Napište nebo vložte, co je na mysli",
+            "compose_action": "Zveřejnit",
+            "replying_to_user": "odpovídá na %s",
             "attachment": {
-                "photo": "photo",
+                "photo": "fotka",
                 "video": "video",
-                "attachment_broken": "This %s is broken and can’t be\nuploaded to Mastodon.",
-                "description_photo": "Describe the photo for the visually-impaired...",
-                "description_video": "Describe the video for the visually-impaired..."
+                "attachment_broken": "Tento %s je poškozený a nemůže být\nnahrán do Mastodonu.",
+                "description_photo": "Popište fotografii pro zrakově postižené osoby...",
+                "description_video": "Popište video pro zrakově postižené..."
             },
             "poll": {
-                "duration_time": "Duration: %s",
+                "duration_time": "Doba trvání: %s",
                 "thirty_minutes": "30 minut",
                 "one_hour": "1 hodina",
                 "six_hours": "6 hodin",
@@ -395,7 +395,7 @@
                 "option_number": "Možnost %ld"
             },
             "content_warning": {
-                "placeholder": "Write an accurate warning here..."
+                "placeholder": "Zde napište přesné varování..."
             },
             "visibility": {
                 "public": "Veřejný",
@@ -404,7 +404,7 @@
                 "direct": "Pouze lidé, které zmíním"
             },
             "auto_complete": {
-                "space_to_add": "Space to add"
+                "space_to_add": "Mezera k přidání"
             },
             "accessibility": {
                 "append_attachment": "Přidat přílohu",
@@ -419,7 +419,7 @@
                 "discard_post": "Zahodit příspěvek",
                 "publish_post": "Publikovat příspěvek",
                 "toggle_poll": "Přepnout anketu",
-                "toggle_content_warning": "Toggle Content Warning",
+                "toggle_content_warning": "Přepnout varování obsahu",
                 "append_attachment_entry": "Přidat přílohu - %s",
                 "select_visibility_entry": "Vyberte viditelnost - %s"
             }
@@ -430,13 +430,13 @@
             },
             "dashboard": {
                 "posts": "příspěvky",
-                "following": "following",
+                "following": "sledování",
                 "followers": "sledující"
             },
             "fields": {
                 "add_row": "Přidat řádek",
                 "placeholder": {
-                    "label": "Label",
+                    "label": "Označení",
                     "content": "Obsah"
                 }
             },
@@ -445,7 +445,7 @@
                 "replies": "Odpovědí",
                 "posts_and_replies": "Příspěvky a odpovědi",
                 "media": "Média",
-                "about": "About"
+                "about": "O uživateli"
             },
             "relationship_action_alert": {
                 "confirm_mute_user": {
@@ -454,7 +454,7 @@
                 },
                 "confirm_unmute_user": {
                     "title": "Zrušit skrytí účtu",
-                    "message": "Confirm to unmute %s"
+                    "message": "Potvrďte zrušení ztlumení %s"
                 },
                 "confirm_block_user": {
                     "title": "Blokovat účet",
@@ -462,7 +462,7 @@
                 },
                 "confirm_unblock_user": {
                     "title": "Odblokovat účet",
-                    "message": "Confirm to unblock %s"
+                    "message": "Potvrďte odblokování %s"
                 },
                 "confirm_show_reblogs": {
                     "title": "Show Reblogs",
@@ -474,32 +474,32 @@
                 }
             },
             "accessibility": {
-                "show_avatar_image": "Show avatar image",
-                "edit_avatar_image": "Edit avatar image",
-                "show_banner_image": "Show banner image",
-                "double_tap_to_open_the_list": "Double tap to open the list"
+                "show_avatar_image": "Zobrazit obrázek avataru",
+                "edit_avatar_image": "Upravit obrázek avataru",
+                "show_banner_image": "Zobrazit obrázek banneru",
+                "double_tap_to_open_the_list": "Dvojitým poklepáním otevřete seznam"
             }
         },
         "follower": {
-            "title": "follower",
-            "footer": "Followers from other servers are not displayed."
+            "title": "sledující",
+            "footer": "Sledující z jiných serverů nejsou zobrazeni."
         },
         "following": {
-            "title": "following",
-            "footer": "Follows from other servers are not displayed."
+            "title": "sledování",
+            "footer": "Sledování z jiných serverů není zobrazeno."
         },
         "familiarFollowers": {
-            "title": "Followers you familiar",
-            "followed_by_names": "Followed by %s"
+            "title": "Sledující, které znáte",
+            "followed_by_names": "Sledován od %s"
         },
         "favorited_by": {
-            "title": "Favorited By"
+            "title": "Oblíben"
         },
         "reblogged_by": {
             "title": "Reblogged By"
         },
         "search": {
-            "title": "Search",
+            "title": "Hledat",
             "search_bar": {
                 "placeholder": "Search hashtags and users",
                 "cancel": "Cancel"
