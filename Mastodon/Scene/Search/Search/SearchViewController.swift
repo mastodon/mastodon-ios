@@ -73,20 +73,19 @@ extension SearchViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setupBackgroundColor(theme: ThemeService.shared.currentTheme.value)
+        setupAppearance(theme: ThemeService.shared.currentTheme.value)
         ThemeService.shared.currentTheme
             .receive(on: DispatchQueue.main)
             .sink { [weak self] theme in
                 guard let self = self else { return }
-                self.setupBackgroundColor(theme: theme)
+                self.setupAppearance(theme: theme)
             }
             .store(in: &disposeBag)
 
         title = L10n.Scene.Search.title
 
         setupSearchBar()
-        setupNavigationBarAppearance()
-        
+
 //        collectionView.translatesAutoresizingMaskIntoConstraints = false
 //        view.addSubview(collectionView)
 //        NSLayoutConstraint.activate([
@@ -129,8 +128,22 @@ extension SearchViewController {
 }
 
 extension SearchViewController {
-    private func setupBackgroundColor(theme: Theme) {
+    private func setupAppearance(theme: Theme) {
         view.backgroundColor = theme.systemGroupedBackgroundColor
+
+        // Match the DiscoveryViewController tab color and remove the double separator.
+        let navigationBarAppearance = UINavigationBarAppearance()
+        navigationBarAppearance.configureWithOpaqueBackground()
+        navigationBarAppearance.backgroundColor = theme.systemBackgroundColor
+        navigationBarAppearance.shadowColor = nil
+
+        navigationItem.standardAppearance = navigationBarAppearance
+        navigationItem.scrollEdgeAppearance = navigationBarAppearance
+        navigationItem.compactAppearance = navigationBarAppearance
+
+        if #available(iOS 15, *) {
+            navigationItem.compactScrollEdgeAppearance = navigationBarAppearance
+        }
     }
 
     private func setupSearchBar() {
@@ -164,20 +177,6 @@ extension SearchViewController {
                 self.coordinator.present(scene: .searchDetail(viewModel: searchDetailViewModel), from: self, transition: .customPush(animated: false))
             }
             .store(in: &disposeBag)
-    }
-
-    private func setupNavigationBarAppearance() {
-        let appearance = UINavigationBarAppearance()
-        appearance.configureWithOpaqueBackground()
-        appearance.shadowColor = nil
-
-        navigationItem.standardAppearance = appearance
-        navigationItem.scrollEdgeAppearance = appearance
-        navigationItem.compactAppearance = appearance
-
-        if #available(iOS 15, *) {
-            navigationItem.compactScrollEdgeAppearance = appearance
-        }
     }
 
 }
