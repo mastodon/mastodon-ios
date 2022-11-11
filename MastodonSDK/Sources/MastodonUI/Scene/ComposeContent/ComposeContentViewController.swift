@@ -329,7 +329,8 @@ extension ComposeContentViewController: PHPickerViewControllerDelegate {
             AttachmentViewModel(
                 api: viewModel.context.apiService,
                 authContext: viewModel.authContext,
-                input: .pickerResult(result)
+                input: .pickerResult(result),
+                delegate: viewModel
             )
         }
         viewModel.attachmentViewModels += attachmentViewModels

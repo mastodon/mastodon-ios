@@ -205,9 +205,7 @@ extension ComposeContentView {
             ForEach(viewModel.attachmentViewModels, id: \.self) { attachmentViewModel in
                 Color.clear.aspectRatio(358.0/232.0, contentMode: .fill)
                     .overlay(
-                        AttachmentView(viewModel: attachmentViewModel) { action in
-                            
-                        }
+                        AttachmentView(viewModel: attachmentViewModel)
                     )
                     .clipShape(Rectangle())
                     .badgeView(

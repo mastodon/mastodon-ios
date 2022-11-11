@@ -15,9 +15,7 @@ import MastodonAsset
 public struct AttachmentView: View {
     
     @ObservedObject var viewModel: AttachmentViewModel
-    
-    let action: (Action) -> Void
-    
+        
     var blurEffect: UIBlurEffect {
         UIBlurEffect(style: .systemUltraThinMaterialDark)
     }
@@ -53,7 +51,7 @@ public struct AttachmentView: View {
             if viewModel.output != nil {
                 VisualEffectView(effect: blurEffect)
                 VStack {
-                    let actionType: AttachmentView.Action = {
+                    let action: AttachmentViewModel.Action = {
                         if let _ = viewModel.error {
                             return .retry
                         } else {
@@ -61,10 +59,10 @@ public struct AttachmentView: View {
                         }
                     }()
                     Button {
-                        action(actionType)
+                        viewModel.delegate?.attachmentViewModel(viewModel, actionButtonDidPressed: action)
                     } label: {
                         let image: UIImage = {
-                            switch actionType {
+                            switch action {
                             case .remove:
                                 return Asset.Scene.Compose.Attachment.stop.image.withRenderingMode(.alwaysTemplate)
                             case .retry:
@@ -84,21 +82,21 @@ public struct AttachmentView: View {
                     }
 
                     let title: String = {
-                        switch actionType {
+                        switch action {
                         case .remove:
                             let totalSizeInByte = viewModel.outputSizeInByte
-                            let uploadSizeInByte = Double(totalSizeInByte) * viewModel.progress.fractionCompleted
-                            let total = ByteCountFormatter.string(fromByteCount: Int64(totalSizeInByte), countStyle: .memory)
-                            let upload = ByteCountFormatter.string(fromByteCount: Int64(uploadSizeInByte), countStyle: .memory)
-                            return "\(upload)/\(total)"
+                            let uploadSizeInByte = Double(totalSizeInByte) * min(1.0, viewModel.fractionCompleted)
+                            let total = viewModel.byteCountFormatter.string(fromByteCount: Int64(totalSizeInByte))
+                            let upload = viewModel.byteCountFormatter.string(fromByteCount: Int64(uploadSizeInByte))
+                            return "\(upload) / \(total)"
                         case .retry:
                             return "Upload Failed"  // TODO: i18n
                         }
                     }()
                     let subtitle: String = {
-                        switch actionType {
+                        switch action {
                         case .remove:
-                            if viewModel.progress.fractionCompleted < 1 {
+                            if viewModel.progress.fractionCompleted < 1, viewModel.uploadState == .uploading {
                                 return viewModel.remainTimeLocalizedString ?? ""
                             } else {
                                 return ""
@@ -120,11 +118,4 @@ public struct AttachmentView: View {
         }   // end ZStack
     }   // end body
     
-}
-
-extension AttachmentView {
-    public enum Action: Hashable {
-        case remove
-        case retry
-    }
 }

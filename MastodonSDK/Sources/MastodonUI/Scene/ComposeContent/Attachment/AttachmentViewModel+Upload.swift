@@ -53,6 +53,14 @@ extension Data {
 }
 
 extension AttachmentViewModel {
+    public enum UploadState {
+        case none
+        case ready
+        case uploading
+        case fail
+        case finish
+    }
+    
     struct UploadContext {
         let apiService: APIService
         let authContext: AuthContext
@@ -62,12 +70,43 @@ extension AttachmentViewModel {
 }
 
 extension AttachmentViewModel {
-    func upload(context: UploadContext) async throws -> UploadResult {
-        return try await uploadMastodonMedia(
-            context: context
-        )
+    @MainActor
+    func upload(isRetry: Bool = false) async throws {
+        do {
+            let result = try await upload(
+                context: .init(
+                    apiService: self.api,
+                    authContext: self.authContext
+                ),
+                isRetry: isRetry
+            )
+            update(uploadResult: result)
+        } catch {
+            self.error = error
+        }
     }
     
+    @MainActor
+    private func upload(context: UploadContext, isRetry: Bool) async throws -> UploadResult {
+        if isRetry {
+            guard uploadState == .fail else { throw AppError.badRequest }
+            self.error = nil
+            self.fractionCompleted = 0
+        } else {
+            guard uploadState == .ready else { throw AppError.badRequest }
+        }
+        do {
+            update(uploadState: .uploading)
+            let result = try await uploadMastodonMedia(
+                context: context
+            )
+            update(uploadState: .finish)
+            return result
+        } catch {
+            update(uploadState: .fail)
+            throw error
+        }
+    }
     
     // MainActor is required here to trigger stream upload task
     @MainActor
@@ -132,7 +171,7 @@ extension AttachmentViewModel {
         if attachmentUploadResponse.statusCode == 202 {
             // note:
             // the Mastodon server append the attachments in order by upload time
-            // can not upload concurrency
+            // can not upload parallels
             let waitProcessRetryLimit = checkUploadTaskRetryLimit
             var waitProcessRetryCount: Int64 = 0
             

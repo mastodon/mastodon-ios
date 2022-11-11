@@ -12,6 +12,11 @@ import PhotosUI
 import Kingfisher
 import MastodonCore
 
+public protocol AttachmentViewModelDelegate: AnyObject {
+    func attachmentViewModel(_ viewModel: AttachmentViewModel, uploadStateValueDidChange state: AttachmentViewModel.UploadState)
+    func attachmentViewModel(_ viewModel: AttachmentViewModel, actionButtonDidPressed action: AttachmentViewModel.Action)
+}
+
 final public class AttachmentViewModel: NSObject, ObservableObject, Identifiable {
 
     static let logger = Logger(subsystem: "AttachmentViewModel", category: "ViewModel")
@@ -21,6 +26,15 @@ final public class AttachmentViewModel: NSObject, ObservableObject, Identifiable
     
     var disposeBag = Set<AnyCancellable>()
     var observations = Set<NSKeyValueObservation>()
+    
+    weak var delegate: AttachmentViewModelDelegate?
+    
+    let byteCountFormatter: ByteCountFormatter = {
+        let formatter = ByteCountFormatter()
+        formatter.allowsNonnumericFormatting = true
+        formatter.countStyle = .memory
+        return formatter
+    }()
 
     // input
     public let api: APIService
@@ -34,7 +48,9 @@ final public class AttachmentViewModel: NSObject, ObservableObject, Identifiable
     @Published public private(set) var thumbnail: UIImage?      // original size image thumbnail
     @Published public private(set) var outputSizeInByte: Int64 = 0
     
-    @Published public var uploadResult: UploadResult?
+    @MainActor
+    @Published public private(set) var uploadState: UploadState = .none
+    @Published public private(set) var uploadResult: UploadResult?
     @Published var error: Error?
 
     let progress = Progress()       // upload progress
@@ -44,16 +60,19 @@ final public class AttachmentViewModel: NSObject, ObservableObject, Identifiable
     private var lastTimestamp: TimeInterval?
     private var lastUploadSizeInByte: Int64 = 0
     private var averageUploadSpeedInByte: Int64 = 0
+    private var remainTimeInterval: Double?
     @Published var remainTimeLocalizedString: String?
     
     public init(
         api: APIService,
         authContext: AuthContext,
-        input: Input
+        input: Input,
+        delegate: AttachmentViewModelDelegate
     ) {
         self.api = api
         self.authContext = authContext
         self.input = input
+        self.delegate = delegate
         super.init()
         // end init
         
@@ -67,9 +86,8 @@ final public class AttachmentViewModel: NSObject, ObservableObject, Identifiable
             .observe(\.fractionCompleted, options: [.initial, .new]) { [weak self] progress, _ in
                 guard let self = self else { return }
                 self.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): publish progress \(progress.fractionCompleted)")
-                self.fractionCompleted = progress.fractionCompleted
                 DispatchQueue.main.async {
-                    self.objectWillChange.send()
+                    self.fractionCompleted = progress.fractionCompleted
                 }
             }
             .store(in: &observations)
@@ -105,11 +123,8 @@ final public class AttachmentViewModel: NSObject, ObservableObject, Identifiable
                     let output = try await load(input: input)
                     self.output = output
                     self.outputSizeInByte = output.asAttachment.sizeInByte.flatMap { Int64($0) } ?? 0
-                    let uploadResult = try await self.upload(context: .init(
-                        apiService: self.api,
-                        authContext: self.authContext
-                    ))
-                    self.uploadResult = uploadResult
+                    self.update(uploadState: .ready)
+                    self.delegate?.attachmentViewModel(self, uploadStateValueDidChange: self.uploadState)
                 } catch {
                     self.error = error
                 }
@@ -127,7 +142,7 @@ final public class AttachmentViewModel: NSObject, ObservableObject, Identifiable
             break
         case .video(let url, _):
             try? FileManager.default.removeItem(at: url)
-        case nil :
+        case nil:
             break
         }
     }
@@ -140,7 +155,7 @@ extension AttachmentViewModel {
     static var SpeedSmoothingFactor = 0.4
     static let remainsTimeFormatter: RelativeDateTimeFormatter = {
         let formatter = RelativeDateTimeFormatter()
-        formatter.unitsStyle = .short
+        formatter.unitsStyle = .full
         return formatter
     }()
     
@@ -171,7 +186,15 @@ extension AttachmentViewModel {
             let remainPercentage = 1 - progress.fractionCompleted
             let estimateRemainTimeByProgress = remainPercentage / 0.1
             // max estimate
-            let remainTimeInSecond = max(estimateRemainTimeByProgress, uploadRemainTimeInSecond)
+            var remainTimeInSecond = max(estimateRemainTimeByProgress, uploadRemainTimeInSecond)
+            
+            // do not increate timer when < 5 sec
+            if let remainTimeInterval = self.remainTimeInterval, remainTimeInSecond < 5 {
+                remainTimeInSecond = min(remainTimeInterval, remainTimeInSecond)
+                self.remainTimeInterval = remainTimeInSecond
+            } else {
+                self.remainTimeInterval = remainTimeInSecond
+            }
             
             let string = AttachmentViewModel.remainsTimeFormatter.localizedString(fromTimeInterval: remainTimeInSecond)
             remainTimeLocalizedString = string
@@ -236,7 +259,22 @@ extension AttachmentViewModel {
 
 }
 
+extension AttachmentViewModel {
+    public enum Action: Hashable {
+        case remove
+        case retry
+    }
+}
 
-
-
-
+extension AttachmentViewModel {
+    @MainActor
+    func update(uploadState: UploadState) {
+        self.uploadState = uploadState
+        self.delegate?.attachmentViewModel(self, uploadStateValueDidChange: self.uploadState)
+    }
+    
+    @MainActor
+    func update(uploadResult: UploadResult) {
+        self.uploadResult = uploadResult
+    }
+}
