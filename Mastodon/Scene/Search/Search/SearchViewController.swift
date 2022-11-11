@@ -23,15 +23,15 @@ final class HeightFixedSearchBar: UISearchBar {
 final class SearchViewController: UIViewController, NeedsDependency {
 
     let logger = Logger(subsystem: "SearchViewController", category: "ViewController")
-    
+
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
 
     var searchTransitionController = SearchTransitionController()
-    
+
     var disposeBag = Set<AnyCancellable>()
     var viewModel: SearchViewModel!
-    
+
     // use AutoLayout could set search bar margin automatically to
     // layout alongside with split mode button (on iPad)
     let titleViewContainer = UIView()
@@ -85,6 +85,7 @@ extension SearchViewController {
         title = L10n.Scene.Search.title
 
         setupSearchBar()
+        setupNavigationBarAppearance()
         
 //        collectionView.translatesAutoresizingMaskIntoConstraints = false
 //        view.addSubview(collectionView)
@@ -101,7 +102,7 @@ extension SearchViewController {
 //        )
         
         guard let discoveryViewController = self.discoveryViewController else { return }
-        
+
         addChild(discoveryViewController)
         discoveryViewController.view.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(discoveryViewController.view)
@@ -111,15 +112,16 @@ extension SearchViewController {
             discoveryViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             discoveryViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
-        
+
 //        discoveryViewController.view.isHidden = true
+
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
         viewModel.viewDidAppeared.send()
-        
+
         // note:
         // need set alpha because (maybe) SDK forget set alpha back
         titleViewContainer.alpha = 1
@@ -162,6 +164,20 @@ extension SearchViewController {
                 self.coordinator.present(scene: .searchDetail(viewModel: searchDetailViewModel), from: self, transition: .customPush(animated: false))
             }
             .store(in: &disposeBag)
+    }
+
+    private func setupNavigationBarAppearance() {
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.shadowColor = nil
+
+        navigationItem.standardAppearance = appearance
+        navigationItem.scrollEdgeAppearance = appearance
+        navigationItem.compactAppearance = appearance
+
+        if #available(iOS 15, *) {
+            navigationItem.compactScrollEdgeAppearance = appearance
+        }
     }
 
 }
