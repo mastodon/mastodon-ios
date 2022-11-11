@@ -8,6 +8,7 @@
 import os
 import UIKit
 import Combine
+import MastodonAsset
 import MastodonCore
 import MastodonMeta
 import MastodonLocalization
@@ -57,7 +58,17 @@ extension ProfileFieldSection {
             // set background
             var backgroundConfiguration = UIBackgroundConfiguration.listPlainCell()
             backgroundConfiguration.backgroundColor = UIColor.secondarySystemBackground
+            if (field.verifiedAt.value != nil) {
+                backgroundConfiguration.backgroundColor = Asset.Scene.Profile.About.bioAboutFieldValidatedBackground.color
+            }
             cell.backgroundConfiguration = backgroundConfiguration
+            
+            // set checkmark
+            cell.checkmark.isHidden = true
+            if let verifiedAt = field.verifiedAt.value {
+                cell.checkmark.isHidden = false
+                cell.checkmark.accessibilityLabel = "Ownership of this link was checked on \(verifiedAt)" // TODO: I18N / L10N
+            }
 
             cell.delegate = configuration.profileFieldCollectionViewCellDelegate
         }

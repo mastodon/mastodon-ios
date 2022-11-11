@@ -26,6 +26,8 @@ final class ProfileFieldCollectionViewCell: UICollectionViewCell {
     let keyMetaLabel = MetaLabel(style: .profileFieldName)
     let valueMetaLabel = MetaLabel(style: .profileFieldValue)
     
+    let checkmark = UIImageView(image: Asset.Editing.checkmark.image.withRenderingMode(.alwaysTemplate))
+    
     override func prepareForReuse() {
         super.prepareForReuse()
         
@@ -47,6 +49,8 @@ final class ProfileFieldCollectionViewCell: UICollectionViewCell {
 extension ProfileFieldCollectionViewCell {
     
     private func _init() {
+        checkmark.tintColor = Asset.Scene.Profile.About.bioAboutFieldValidatedCheckmark.color;
+        
         // containerStackView: V - [ metaContainer | plainContainer ]
         let containerStackView = UIStackView()
         containerStackView.axis = .vertical
@@ -63,14 +67,21 @@ extension ProfileFieldCollectionViewCell {
             bottomAnchor.constraint(equalTo: containerStackView.bottomAnchor, constant: 11),
         ])
         
-        // metaContainer: V - [ keyMetaLabel | valueMetaLabel ]
+        // metaContainer: V - [ keyMetaLabel | valueContainer ]
         let metaContainer = UIStackView()
         metaContainer.axis = .vertical
         metaContainer.spacing = 2
         containerStackView.addArrangedSubview(metaContainer)
         
+        // valueContainer: H - [ valueMetaLabel | checkmark ]
+        let valueContainer = UIStackView()
+        valueContainer.axis = .horizontal
+        valueContainer.spacing = 2
+        
         metaContainer.addArrangedSubview(keyMetaLabel)
-        metaContainer.addArrangedSubview(valueMetaLabel)
+        valueContainer.addArrangedSubview(valueMetaLabel)
+        valueContainer.addArrangedSubview(checkmark)
+        metaContainer.addArrangedSubview(valueContainer)
         
         keyMetaLabel.linkDelegate = self
         valueMetaLabel.linkDelegate = self
