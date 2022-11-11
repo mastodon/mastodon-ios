@@ -37,12 +37,12 @@
                 "confirm": "Odhlásit se"
             },
             "block_domain": {
-                "title": "Are you really, really sure you want to block the entire %s? In most cases a few targeted blocks or mutes are sufficient and preferable. You will not see content from that domain and any of your followers from that domain will be removed.",
+                "title": "Opravdu chcete blokovat celou doménu %s? Ve většině případů stačí zablokovat nebo skrýt pár konkrétních uživatelů, což také doporučujeme. Z této domény neuvidíte obsah v žádné veřejné časové ose ani v oznámeních. Vaši sledující z této domény budou odstraněni.",
                 "block_entire_domain": "Blokovat doménu"
             },
             "save_photo_failure": {
                 "title": "Uložení fotografie se nezdařilo",
-                "message": "Please enable the photo library access permission to save the photo."
+                "message": "Pro uložení fotografie povolte přístup k knihovně fotografií."
             },
             "delete_post": {
                 "title": "Odstranit příspěvek",
@@ -79,7 +79,7 @@
                 "see_more": "Zobrazit více",
                 "preview": "Náhled",
                 "share": "Sdílet",
-                "share_user": "Share %s",
+                "share_user": "Sdílet %s",
                 "share_post": "Sdílet příspěvek",
                 "open_in_safari": "Otevřít v Safari",
                 "open_in_browser": "Otevřít v prohlížeči",
@@ -137,23 +137,23 @@
                     "closed": "Uzavřeno"
                 },
                 "meta_entity": {
-                    "url": "Link: %s",
+                    "url": "Odkaz: %s",
                     "hashtag": "Hashtag: %s",
-                    "mention": "Show Profile: %s",
-                    "email": "Email address: %s"
+                    "mention": "Zobrazit profil: %s",
+                    "email": "E-mailová adresa: %s"
                 },
                 "actions": {
                     "reply": "Odpovědět",
                     "reblog": "Boostnout",
                     "unreblog": "Undo reblog",
-                    "favorite": "Favorite",
+                    "favorite": "Oblíbit",
                     "unfavorite": "Odebrat z oblízených",
                     "menu": "Nabídka",
                     "hide": "Skrýt",
                     "show_image": "Zobrazit obrázek",
                     "show_gif": "Zobrazit GIF",
                     "show_video_player": "Zobrazit video přehrávač",
-                    "tap_then_hold_to_show_menu": "Tap then hold to show menu"
+                    "tap_then_hold_to_show_menu": "Klepnutím podržte pro zobrazení nabídky"
                 },
                 "tag": {
                     "url": "URL",
@@ -165,22 +165,22 @@
                 },
                 "visibility": {
                     "unlisted": "Každý může vidět tento příspěvek, ale nezobrazovat ve veřejné časové ose.",
-                    "private": "Only their followers can see this post.",
-                    "private_from_me": "Only my followers can see this post.",
-                    "direct": "Only mentioned user can see this post."
+                    "private": "Pouze jejich sledující mohou vidět tento příspěvek.",
+                    "private_from_me": "Pouze moji sledující mohou vidět tento příspěvek.",
+                    "direct": "Pouze zmíněný uživatel může vidět tento příspěvek."
                 }
             },
             "friendship": {
                 "follow": "Sledovat",
-                "following": "Following",
-                "request": "Request",
+                "following": "Sleduji",
+                "request": "Požadavek",
                 "pending": "Čekající",
                 "block": "Blokovat",
                 "block_user": "Blokovat %s",
                 "block_domain": "Blokovat %s",
                 "unblock": "Odblokovat",
                 "unblock_user": "Odblokovat %s",
-                "blocked": "Blocked",
+                "blocked": "Blokovaný",
                 "mute": "Skrýt",
                 "mute_user": "Skrýt %s",
                 "unmute": "Odkrýt",
@@ -191,7 +191,7 @@
                 "hide_reblogs": "Hide Reblogs"
             },
             "timeline": {
-                "filtered": "Filtered",
+                "filtered": "Filtrováno",
                 "timestamp": {
                     "now": "Nyní"
                 },
@@ -204,9 +204,9 @@
                     "no_status_found": "Nebyl nalezen žádný příspěvek",
                     "blocking_warning": "You can’t view this user's profile\nuntil you unblock them.\nYour profile looks like this to them.",
                     "user_blocking_warning": "You can’t view %s’s profile\nuntil you unblock them.\nYour profile looks like this to them.",
-                    "blocked_warning": "You can’t view this user’s profile\nuntil they unblock you.",
+                    "blocked_warning": "Nemůžeš zobrazit profil tohoto uživatele, dokud tě neodblokují.",
                     "user_blocked_warning": "You can’t view %s’s profile\nuntil they unblock you.",
-                    "suspended_warning": "This user has been suspended.",
+                    "suspended_warning": "Tento uživatel byl pozastaven.",
                     "user_suspended_warning": "%s’s account has been suspended."
                 }
             }
@@ -214,14 +214,14 @@
     },
     "scene": {
         "welcome": {
-            "slogan": "Social networking\nback in your hands.",
+            "slogan": "Sociální sítě opět ve vašich rukou.",
             "get_started": "Začínáme",
             "log_in": "Přihlásit se"
         },
         "server_picker": {
             "title": "Mastodon tvoří uživatelé z různých serverů.",
-            "subtitle": "Pick a server based on your interests, region, or a general purpose one.",
-            "subtitle_extend": "Pick a server based on your interests, region, or a general purpose one. Each server is operated by an entirely independent organization or individual.",
+            "subtitle": "Vyberte server založený na vašich zájmech, regionu nebo obecném účelu.",
+            "subtitle_extend": "Vyberte server založený na vašich zájmech, regionu nebo obecném účelu. Každý server je provozován zcela nezávislou organizací nebo jednotlivcem.",
             "button": {
                 "category": {
                     "all": "Vše",
@@ -230,7 +230,7 @@
                     "activism": "aktivismus",
                     "food": "jídlo",
                     "furry": "furry",
-                    "games": "games",
+                    "games": "hry",
                     "general": "obecné",
                     "journalism": "žurnalistika",
                     "lgbt": "lgbt",
@@ -258,8 +258,8 @@
             }
         },
         "register": {
-            "title": "Let’s get you set up on %s",
-            "lets_get_you_set_up_on_domain": "Let’s get you set up on %s",
+            "title": "Pojďme si nastavit %s",
+            "lets_get_you_set_up_on_domain": "Pojďme si nastavit %s",
             "input": {
                 "avatar": {
                     "delete": "Smazat"
@@ -298,8 +298,8 @@
                     "reason": "Důvod"
                 },
                 "reason": {
-                    "blocked": "%s contains a disallowed email provider",
-                    "unreachable": "%s does not seem to exist",
+                    "blocked": "%s používá zakázanou e-mailovou službu",
+                    "unreachable": "%s pravděpodobně neexistuje",
                     "taken": "%s se již používá",
                     "reserved": "%s je rezervované klíčové slovo",
                     "accepted": "%s musí být přijato",
@@ -324,25 +324,25 @@
             "terms_of_service": "podmínky služby",
             "privacy_policy": "zásady ochrany osobních údajů",
             "button": {
-                "confirm": "I Agree"
+                "confirm": "Souhlasím"
             }
         },
         "confirm_email": {
-            "title": "One last thing.",
-            "subtitle": "Tap the link we emailed to you to verify your account.",
-            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we emailed to you to verify your account",
+            "title": "Ještě jedna věc.",
+            "subtitle": "Klepněte na odkaz, který jsme vám poslali e-mailem, abyste ověřili Váš účet.",
+            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Klepněte na odkaz, který jsme vám poslali e-mailem, abyste ověřili Váš účet",
             "button": {
-                "open_email_app": "Open Email App",
-                "resend": "Resend"
+                "open_email_app": "Otevřít e-mailovou aplikaci",
+                "resend": "Poslat znovu"
             },
             "dont_receive_email": {
-                "title": "Check your email",
-                "description": "Check if your email address is correct as well as your junk folder if you haven’t.",
-                "resend_email": "Resend Email"
+                "title": "Zkontrolujte svůj e-mail",
+                "description": "Zkontrolujte, zda je vaše e-mailová adresa správná, stejně jako složka nevyžádané pošty, pokud ji máte.",
+                "resend_email": "Znovu odeslat e-mail"
             },
             "open_email_app": {
-                "title": "Check your inbox.",
-                "description": "We just sent you an email. Check your junk folder if you haven’t.",
+                "title": "Zkontrolujte doručenou poštu.",
+                "description": "Právě jsme vám poslali e-mail. Zkontrolujte složku nevyžádané zprávy, pokud ji máte.",
                 "mail": "Pošta",
                 "open_email_client": "Otevřít e-mailového klienta"
             }
@@ -355,7 +355,7 @@
                 "published": "Publikováno!",
                 "Publishing": "Publikování příspěvku...",
                 "accessibility": {
-                    "logo_label": "Logo Button",
+                    "logo_label": "Tlačítko s logem",
                     "logo_hint": "Klepnutím přejdete nahoru a znovu klepněte na předchozí místo"
                 }
             }
@@ -501,208 +501,208 @@
         "search": {
             "title": "Hledat",
             "search_bar": {
-                "placeholder": "Search hashtags and users",
-                "cancel": "Cancel"
+                "placeholder": "Hledat hashtagy a uživatele",
+                "cancel": "Zrušit"
             },
             "recommend": {
-                "button_text": "See All",
+                "button_text": "Zobrazit vše",
                 "hash_tag": {
-                    "title": "Trending on Mastodon",
-                    "description": "Hashtags that are getting quite a bit of attention",
-                    "people_talking": "%s people are talking"
+                    "title": "Populární na Mastodonu",
+                    "description": "Hashtagy, kterým se dostává dosti pozornosti",
+                    "people_talking": "%s lidí mluví"
                 },
                 "accounts": {
-                    "title": "Accounts you might like",
-                    "description": "You may like to follow these accounts",
-                    "follow": "Follow"
+                    "title": "Účty, které by se vám mohly líbit",
+                    "description": "Možná budete chtít sledovat tyto účty",
+                    "follow": "Sledovat"
                 }
             },
             "searching": {
                 "segment": {
-                    "all": "All",
-                    "people": "People",
-                    "hashtags": "Hashtags",
-                    "posts": "Posts"
+                    "all": "Vše",
+                    "people": "Lidé",
+                    "hashtags": "Hashtagy",
+                    "posts": "Příspěvky"
                 },
                 "empty_state": {
-                    "no_results": "No results"
+                    "no_results": "Žádné výsledky"
                 },
-                "recent_search": "Recent searches",
-                "clear": "Clear"
+                "recent_search": "Nedávná hledání",
+                "clear": "Vymazat"
             }
         },
         "discovery": {
             "tabs": {
-                "posts": "Posts",
-                "hashtags": "Hashtags",
-                "news": "News",
-                "community": "Community",
-                "for_you": "For You"
+                "posts": "Příspěvky",
+                "hashtags": "Hashtagy",
+                "news": "Zprávy",
+                "community": "Komunita",
+                "for_you": "Pro vás"
             },
-            "intro": "These are the posts gaining traction in your corner of Mastodon."
+            "intro": "Toto jsou příspěvky, které získávají pozornost ve vašem koutu Mastodonu."
         },
         "favorite": {
-            "title": "Your Favorites"
+            "title": "Vaše oblíbené"
         },
         "notification": {
             "title": {
-                "Everything": "Everything",
-                "Mentions": "Mentions"
+                "Everything": "Všechno",
+                "Mentions": "Zmínky"
             },
             "notification_description": {
-                "followed_you": "followed you",
-                "favorited_your_post": "favorited your post",
-                "reblogged_your_post": "reblogged your post",
-                "mentioned_you": "mentioned you",
-                "request_to_follow_you": "request to follow you",
-                "poll_has_ended": "poll has ended"
+                "followed_you": "vás sleduje",
+                "favorited_your_post": "si oblíbil váš příspěvek",
+                "reblogged_your_post": "boostnul váš příspěvek",
+                "mentioned_you": "vás zmínil/a",
+                "request_to_follow_you": "požádat vás o sledování",
+                "poll_has_ended": "anketa skončila"
             },
             "keyobard": {
-                "show_everything": "Show Everything",
-                "show_mentions": "Show Mentions"
+                "show_everything": "Zobrazit vše",
+                "show_mentions": "Zobrazit zmínky"
             },
             "follow_request": {
-                "accept": "Accept",
-                "accepted": "Accepted",
-                "reject": "reject",
-                "rejected": "Rejected"
+                "accept": "Přijmout",
+                "accepted": "Přijato",
+                "reject": "odmítnout",
+                "rejected": "Zamítnuto"
             }
         },
         "thread": {
-            "back_title": "Post",
-            "title": "Post from %s"
+            "back_title": "Příspěvek",
+            "title": "Příspěvek od %s"
         },
         "settings": {
-            "title": "Settings",
+            "title": "Nastavení",
             "section": {
                 "appearance": {
-                    "title": "Appearance",
-                    "automatic": "Automatic",
-                    "light": "Always Light",
-                    "dark": "Always Dark"
+                    "title": "Vzhled",
+                    "automatic": "Automaticky",
+                    "light": "Vždy světlý",
+                    "dark": "Vždy tmavý"
                 },
                 "look_and_feel": {
-                    "title": "Look and Feel",
-                    "use_system": "Use System",
-                    "really_dark": "Really Dark",
+                    "title": "Vzhled a chování",
+                    "use_system": "Použít systém",
+                    "really_dark": "Skutečně tmavý",
                     "sorta_dark": "Sorta Dark",
-                    "light": "Light"
+                    "light": "Světlý"
                 },
                 "notifications": {
-                    "title": "Notifications",
-                    "favorites": "Favorites my post",
-                    "follows": "Follows me",
-                    "boosts": "Reblogs my post",
-                    "mentions": "Mentions me",
+                    "title": "Upozornění",
+                    "favorites": "Oblíbil si můj příspěvek",
+                    "follows": "Sleduje mě",
+                    "boosts": "Boostnul můj příspěvek",
+                    "mentions": "Zmiňuje mě",
                     "trigger": {
-                        "anyone": "anyone",
-                        "follower": "a follower",
-                        "follow": "anyone I follow",
-                        "noone": "no one",
-                        "title": "Notify me when"
+                        "anyone": "kdokoliv",
+                        "follower": "sledující",
+                        "follow": "kdokoli, koho sleduji",
+                        "noone": "nikdo",
+                        "title": "Upozornit, když"
                     }
                 },
                 "preference": {
-                    "title": "Preferences",
-                    "true_black_dark_mode": "True black dark mode",
-                    "disable_avatar_animation": "Disable animated avatars",
-                    "disable_emoji_animation": "Disable animated emojis",
-                    "using_default_browser": "Use default browser to open links",
-                    "open_links_in_mastodon": "Open links in Mastodon"
+                    "title": "Předvolby",
+                    "true_black_dark_mode": "Skutečný černý tmavý režim",
+                    "disable_avatar_animation": "Zakázat animované avatary",
+                    "disable_emoji_animation": "Zakázat animované emoji",
+                    "using_default_browser": "Použít výchozí prohlížeč pro otevírání odkazů",
+                    "open_links_in_mastodon": "Otevřít odkazy v Mastodonu"
                 },
                 "boring_zone": {
-                    "title": "The Boring Zone",
-                    "account_settings": "Account Settings",
-                    "terms": "Terms of Service",
-                    "privacy": "Privacy Policy"
+                    "title": "Nudná část",
+                    "account_settings": "Nastavení účtu",
+                    "terms": "Podmínky služby",
+                    "privacy": "Zásady ochrany osobních údajů"
                 },
                 "spicy_zone": {
-                    "title": "The Spicy Zone",
-                    "clear": "Clear Media Cache",
-                    "signout": "Sign Out"
+                    "title": "Ostrá část",
+                    "clear": "Vymazat mezipaměť médií",
+                    "signout": "Odhlásit se"
                 }
             },
             "footer": {
-                "mastodon_description": "Mastodon is open source software. You can report issues on GitHub at %s (%s)"
+                "mastodon_description": "Mastodon je open source software. Na GitHub můžete nahlásit problémy na %s (%s)"
             },
             "keyboard": {
-                "close_settings_window": "Close Settings Window"
+                "close_settings_window": "Zavřít okno nastavení"
             }
         },
         "report": {
-            "title_report": "Report",
-            "title": "Report %s",
-            "step1": "Step 1 of 2",
-            "step2": "Step 2 of 2",
-            "content1": "Are there any other posts you’d like to add to the report?",
-            "content2": "Is there anything the moderators should know about this report?",
-            "report_sent_title": "Thanks for reporting, we’ll look into this.",
-            "send": "Send Report",
-            "skip_to_send": "Send without comment",
-            "text_placeholder": "Type or paste additional comments",
+            "title_report": "Nahlásit",
+            "title": "Nahlásit %s",
+            "step1": "Krok 1 ze 2",
+            "step2": "Krok 2 ze 2",
+            "content1": "Existují nějaké další příspěvky, které byste chtěli přidat do zprávy?",
+            "content2": "Je o tomto hlášení něco, co by měli vědět moderátoři?",
+            "report_sent_title": "Děkujeme za nahlášení, podíváme se na to.",
+            "send": "Odeslat hlášení",
+            "skip_to_send": "Odeslat bez komentáře",
+            "text_placeholder": "Napište nebo vložte další komentáře",
             "reported": "REPORTED",
             "step_one": {
-                "step_1_of_4": "Step 1 of 4",
-                "whats_wrong_with_this_post": "What's wrong with this post?",
-                "whats_wrong_with_this_account": "What's wrong with this account?",
-                "whats_wrong_with_this_username": "What's wrong with %s?",
-                "select_the_best_match": "Select the best match",
-                "i_dont_like_it": "I don’t like it",
-                "it_is_not_something_you_want_to_see": "It is not something you want to see",
-                "its_spam": "It’s spam",
-                "malicious_links_fake_engagement_or_repetetive_replies": "Malicious links, fake engagement, or repetetive replies",
-                "it_violates_server_rules": "It violates server rules",
-                "you_are_aware_that_it_breaks_specific_rules": "You are aware that it breaks specific rules",
-                "its_something_else": "It’s something else",
-                "the_issue_does_not_fit_into_other_categories": "The issue does not fit into other categories"
+                "step_1_of_4": "Krok 1 ze 4",
+                "whats_wrong_with_this_post": "Co je na tomto příspěvku špatně?",
+                "whats_wrong_with_this_account": "Co je špatně s tímto účtem?",
+                "whats_wrong_with_this_username": "Co je špatně na %s?",
+                "select_the_best_match": "Vyberte nejbližší možnost",
+                "i_dont_like_it": "Nelíbí se mi",
+                "it_is_not_something_you_want_to_see": "Není to něco, co chcete vidět",
+                "its_spam": "Je to spam",
+                "malicious_links_fake_engagement_or_repetetive_replies": "Škodlivé odkazy, falešné zapojení nebo opakující se odpovědi",
+                "it_violates_server_rules": "Porušuje pravidla serveru",
+                "you_are_aware_that_it_breaks_specific_rules": "Máte za to, že porušuje konkrétní pravidla",
+                "its_something_else": "Jde o něco jiného",
+                "the_issue_does_not_fit_into_other_categories": "Problém neodpovídá ostatním kategoriím"
             },
             "step_two": {
-                "step_2_of_4": "Step 2 of 4",
-                "which_rules_are_being_violated": "Which rules are being violated?",
-                "select_all_that_apply": "Select all that apply",
-                "i_just_don’t_like_it": "I just don’t like it"
+                "step_2_of_4": "Krok 2 ze 4",
+                "which_rules_are_being_violated": "Jaká pravidla jsou porušována?",
+                "select_all_that_apply": "Vyberte všechna relevantní",
+                "i_just_don’t_like_it": "Jen se mi to nelíbí"
             },
             "step_three": {
-                "step_3_of_4": "Step 3 of 4",
-                "are_there_any_posts_that_back_up_this_report": "Are there any posts that back up this report?",
-                "select_all_that_apply": "Select all that apply"
+                "step_3_of_4": "Krok 3 ze 4",
+                "are_there_any_posts_that_back_up_this_report": "Existují příspěvky dokládající toto hlášení?",
+                "select_all_that_apply": "Vyberte všechna relevantní"
             },
             "step_four": {
-                "step_4_of_4": "Step 4 of 4",
-                "is_there_anything_else_we_should_know": "Is there anything else we should know?"
+                "step_4_of_4": "Krok 4 ze 4",
+                "is_there_anything_else_we_should_know": "Je ještě něco jiného, co bychom měli vědět?"
             },
             "step_final": {
-                "dont_want_to_see_this": "Don’t want to see this?",
-                "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "When you see something you don’t like on Mastodon, you can remove the person from your experience.",
-                "unfollow": "Unfollow",
-                "unfollowed": "Unfollowed",
-                "unfollow_user": "Unfollow %s",
-                "mute_user": "Mute %s",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or reblogs in your home feed. They won’t know they’ve been muted.",
-                "block_user": "Block %s",
+                "dont_want_to_see_this": "Nechcete to vidět?",
+                "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "Když uvidíte něco, co se vám nelíbí na Mastodonu, můžete odstranit tuto osobu ze svého zážitku.",
+                "unfollow": "Přestat sledovat",
+                "unfollowed": "Už nesledujete",
+                "unfollow_user": "Přestat sledovat %s",
+                "mute_user": "Skrýt %s",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "Neuvidíte jejich příspěvky nebo boostnutí v domovském kanálu. Nebudou vědět, že jsou skrytí.",
+                "block_user": "Blokovat %s",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "They will no longer be able to follow or see your posts, but they can see if they’ve been blocked.",
-                "while_we_review_this_you_can_take_action_against_user": "While we review this, you can take action against %s"
+                "while_we_review_this_you_can_take_action_against_user": "Zatímco to posuzujeme, můžete podniknout kroky proti %s"
             }
         },
         "preview": {
             "keyboard": {
-                "close_preview": "Close Preview",
-                "show_next": "Show Next",
-                "show_previous": "Show Previous"
+                "close_preview": "Zavřít náhled",
+                "show_next": "Zobrazit další",
+                "show_previous": "Zobrazit předchozí"
             }
         },
         "account_list": {
-            "tab_bar_hint": "Current selected profile: %s. Double tap then hold to show account switcher",
-            "dismiss_account_switcher": "Dismiss Account Switcher",
-            "add_account": "Add Account"
+            "tab_bar_hint": "Aktuální vybraný profil: %s. Dvojitým poklepáním zobrazíte přepínač účtů",
+            "dismiss_account_switcher": "Zrušit přepínač účtů",
+            "add_account": "Přidat účet"
         },
         "wizard": {
-            "new_in_mastodon": "New in Mastodon",
-            "multiple_account_switch_intro_description": "Switch between multiple accounts by holding the profile button.",
-            "accessibility_hint": "Double tap to dismiss this wizard"
+            "new_in_mastodon": "Nový v Mastodonu",
+            "multiple_account_switch_intro_description": "Přepínání mezi více účty podržením tlačítka profilu.",
+            "accessibility_hint": "Dvojitým poklepáním tohoto průvodce odmítnete"
         },
         "bookmark": {
-            "title": "Bookmarks"
+            "title": "Záložky"
         }
     }
 }
