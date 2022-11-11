@@ -1,51 +1,51 @@
-"16wxgf" = "Post on Mastodon";
+"16wxgf" = "Příspěvek na Mastodon";
 
-"751xkl" = "Text Content";
+"751xkl" = "Textový obsah";
 
-"CsR7G2" = "Post on Mastodon";
+"CsR7G2" = "Příspěvek na Mastodon";
 
-"HZSGTr" = "What content to post?";
+"HZSGTr" = "Jaký obsah se má přidat?";
 
-"HdGikU" = "Posting failed";
+"HdGikU" = "Odeslání se nezdařilo";
 
-"KDNTJ4" = "Failure Reason";
+"KDNTJ4" = "Důvod selhání";
 
-"RHxKOw" = "Send Post with text content";
+"RHxKOw" = "Odeslat příspěvek s textovým obsahem";
 
-"RxSqsb" = "Post";
+"RxSqsb" = "Příspěvek";
 
-"WCIR3D" = "Post ${content} on Mastodon";
+"WCIR3D" = "Zveřejnit ${content} na Mastodon";
 
-"ZKJSNu" = "Post";
+"ZKJSNu" = "Příspěvek";
 
 "ZS1XaK" = "${content}";
 
-"ZbSjzC" = "Visibility";
+"ZbSjzC" = "Viditelnost";
 
-"Zo4jgJ" = "Post Visibility";
+"Zo4jgJ" = "Viditelnost příspěvku";
 
-"apSxMG-dYQ5NN" = "There are ${count} options matching ‘Public’.";
+"apSxMG-dYQ5NN" = "Existuje ${count} možností odpovídajících 'Veřejný'.";
 
-"apSxMG-ehFLjY" = "There are ${count} options matching ‘Followers Only’.";
+"apSxMG-ehFLjY" = "Existuje ${count} možností, které odpovídají „jen sledujícím“.";
 
-"ayoYEb-dYQ5NN" = "${content}, Public";
+"ayoYEb-dYQ5NN" = "${content}, veřejné";
 
-"ayoYEb-ehFLjY" = "${content}, Followers Only";
+"ayoYEb-ehFLjY" = "${content}, pouze sledující";
 
-"dUyuGg" = "Post on Mastodon";
+"dUyuGg" = "Příspěvek na Mastodon";
 
-"dYQ5NN" = "Public";
+"dYQ5NN" = "Veřejný";
 
-"ehFLjY" = "Followers Only";
+"ehFLjY" = "Pouze sledující";
 
 "gfePDu" = "Posting failed. ${failureReason}";
 
-"k7dbKQ" = "Post was sent successfully.";
+"k7dbKQ" = "Příspěvek byl úspěšně odeslán.";
 
-"oGiqmY-dYQ5NN" = "Just to confirm, you wanted ‘Public’?";
+"oGiqmY-dYQ5NN" = "Jen pro kontrolu, chtěli jste „Veřejný“?";
 
-"oGiqmY-ehFLjY" = "Just to confirm, you wanted ‘Followers Only’?";
+"oGiqmY-ehFLjY" = "Jen pro kontrolu, chtěli jste „Pouze sledující“?";
 
 "rM6dvp" = "URL";
 
-"ryJLwG" = "Post was sent successfully. ";
+"ryJLwG" = "Příspěvek byl úspěšně odeslán. ";
