@@ -49,6 +49,10 @@ extension ProfileFieldSection {
             do {
                 let mastodonContent = MastodonContent(content: field.value.value, emojis: field.emojiMeta)
                 let metaContent = try MastodonMetaContent.convert(document: mastodonContent)
+                cell.valueMetaLabel.linkAttributes[.foregroundColor] = Asset.Colors.brand.color
+                if field.verifiedAt.value != nil {
+                    cell.valueMetaLabel.linkAttributes[.foregroundColor] = Asset.Scene.Profile.About.bioAboutFieldValidatedLink.color
+                }
                 cell.valueMetaLabel.configure(content: metaContent)
             } catch {
                 let content = PlaintextMetaContent(string: field.value.value)
@@ -67,7 +71,10 @@ extension ProfileFieldSection {
             cell.checkmark.isHidden = true
             if let verifiedAt = field.verifiedAt.value {
                 cell.checkmark.isHidden = false
-                cell.checkmark.accessibilityLabel = "Ownership of this link was checked on \(verifiedAt)" // TODO: I18N / L10N
+                let formatter = DateFormatter()
+                formatter.dateStyle = .medium
+                formatter.timeStyle = .short
+                cell.checkmark.accessibilityLabel = "Ownership of this link was checked on \(formatter.string(from: verifiedAt))" // TODO: I18N / L10N
             }
 
             cell.delegate = configuration.profileFieldCollectionViewCellDelegate

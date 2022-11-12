@@ -14,6 +14,11 @@ import MastodonLocalization
 
 protocol ProfileFieldCollectionViewCellDelegate: AnyObject {
     func profileFieldCollectionViewCell(_ cell: ProfileFieldCollectionViewCell, metaLebel: MetaLabel, didSelectMeta meta: Meta)
+    func profileFieldCollectionViewCell(_ cell: ProfileFieldCollectionViewCell, didTapAction: ProfileFieldCollectionViewCellAction)
+}
+
+enum ProfileFieldCollectionViewCellAction {
+    case Checkmark
 }
 
 final class ProfileFieldCollectionViewCell: UICollectionViewCell {
@@ -27,6 +32,7 @@ final class ProfileFieldCollectionViewCell: UICollectionViewCell {
     let valueMetaLabel = MetaLabel(style: .profileFieldValue)
     
     let checkmark = UIImageView(image: Asset.Editing.checkmark.image.withRenderingMode(.alwaysTemplate))
+    let tapGesture = UITapGestureRecognizer();
     
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -49,7 +55,13 @@ final class ProfileFieldCollectionViewCell: UICollectionViewCell {
 extension ProfileFieldCollectionViewCell {
     
     private func _init() {
+        // Setup colors
         checkmark.tintColor = Asset.Scene.Profile.About.bioAboutFieldValidatedCheckmark.color;
+        
+        // Setup gestures
+        tapGesture.addTarget(self, action: #selector(ProfileFieldCollectionViewCell.didTapCheckmark(_:)))
+        checkmark.addGestureRecognizer(tapGesture)
+        checkmark.isUserInteractionEnabled = true
         
         // containerStackView: V - [ metaContainer | plainContainer ]
         let containerStackView = UIStackView()
@@ -85,6 +97,10 @@ extension ProfileFieldCollectionViewCell {
         
         keyMetaLabel.linkDelegate = self
         valueMetaLabel.linkDelegate = self
+    }
+    
+    @objc public func didTapCheckmark(_: UITapGestureRecognizer) {
+        delegate?.profileFieldCollectionViewCell(self, didTapAction: .Checkmark)
     }
     
 }
