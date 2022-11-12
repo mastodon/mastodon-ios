@@ -38,7 +38,7 @@
 
 "ehFLjY" = "Pouze sledující";
 
-"gfePDu" = "Posting failed. ${failureReason}";
+"gfePDu" = "Odeslání se nezdařilo. ${failureReason}";
 
 "k7dbKQ" = "Příspěvek byl úspěšně odeslán.";
 
