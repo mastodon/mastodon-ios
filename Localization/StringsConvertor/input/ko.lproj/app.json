@@ -137,10 +137,10 @@
                     "closed": "마감"
                 },
                 "meta_entity": {
-                    "url": "Link: %s",
-                    "hashtag": "Hashtag: %s",
-                    "mention": "Show Profile: %s",
-                    "email": "Email address: %s"
+                    "url": "링크: %s",
+                    "hashtag": "해시태그: %s",
+                    "mention": "프로필 보기: %s",
+                    "email": "이메일 주소: %s"
                 },
                 "actions": {
                     "reply": "답글",
