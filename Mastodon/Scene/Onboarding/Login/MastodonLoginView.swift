@@ -43,14 +43,14 @@ class MastodonLoginView: UIView {
     searchTextField.translatesAutoresizingMaskIntoConstraints = false
     searchTextField.backgroundColor = Asset.Scene.Onboarding.textFieldBackground.color
     searchTextField.layer.cornerRadius = 10 //TODO: Change mask for
-    searchTextField.placeholder = "Search for your server"
+    searchTextField.placeholder = "Search for your server" //TODO: @zeitschlag Localization
     searchTextField.leftView = UIImageView(image: UIImage(systemName: "magnifyingglass"))
     searchTextField.leftViewMode = .always
 
     tableView = UITableView()
     tableView.translatesAutoresizingMaskIntoConstraints = false
-    //TODO: @zeitchlag Cell
-    
+    tableView.backgroundColor = Asset.Scene.Onboarding.background.color
+
     navigationActionView = NavigationActionView()
     navigationActionView.translatesAutoresizingMaskIntoConstraints = false
 
@@ -60,7 +60,7 @@ class MastodonLoginView: UIView {
     addSubview(searchTextField)
     addSubview(tableView)
     addSubview(navigationActionView)
-    backgroundColor = .systemBackground
+    backgroundColor = Asset.Scene.Onboarding.background.color
 
     setupConstraints()
   }

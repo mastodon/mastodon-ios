@@ -8,6 +8,7 @@
 import UIKit
 import MastodonSDK
 import MastodonCore
+import MastodonAsset
 
 protocol MastodonLoginViewControllerDelegate: AnyObject {
   func backButtonPressed(_ viewController: MastodonLoginViewController)
@@ -72,6 +73,15 @@ class MastodonLoginViewController: UIViewController {
 
       cell.contentConfiguration = configuration
       cell.accessoryType = .disclosureIndicator
+
+      if #available(iOS 16.0, *) {
+        var backgroundConfiguration = cell.defaultBackgroundConfiguration()
+        backgroundConfiguration.backgroundColor = Asset.Scene.Onboarding.textFieldBackground.color
+
+        cell.backgroundConfiguration = backgroundConfiguration
+      } else {
+        cell.backgroundColor = .systemBackground
+      }
 
       return cell
     }
