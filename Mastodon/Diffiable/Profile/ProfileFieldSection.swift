@@ -51,7 +51,7 @@ extension ProfileFieldSection {
                 let metaContent = try MastodonMetaContent.convert(document: mastodonContent)
                 cell.valueMetaLabel.linkAttributes[.foregroundColor] = Asset.Colors.brand.color
                 if field.verifiedAt.value != nil {
-                    cell.valueMetaLabel.linkAttributes[.foregroundColor] = Asset.Scene.Profile.About.bioAboutFieldValidatedLink.color
+                    cell.valueMetaLabel.linkAttributes[.foregroundColor] = Asset.Scene.Profile.About.bioAboutFieldVerifiedLink.color
                 }
                 cell.valueMetaLabel.configure(content: metaContent)
             } catch {
@@ -63,7 +63,7 @@ extension ProfileFieldSection {
             var backgroundConfiguration = UIBackgroundConfiguration.listPlainCell()
             backgroundConfiguration.backgroundColor = UIColor.secondarySystemBackground
             if (field.verifiedAt.value != nil) {
-                backgroundConfiguration.backgroundColor = Asset.Scene.Profile.About.bioAboutFieldValidatedBackground.color
+                backgroundConfiguration.backgroundColor = Asset.Scene.Profile.About.bioAboutFieldVerifiedBackground.color
             }
             cell.backgroundConfiguration = backgroundConfiguration
             

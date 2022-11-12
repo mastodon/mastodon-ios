@@ -56,7 +56,7 @@ extension ProfileFieldCollectionViewCell {
     
     private func _init() {
         // Setup colors
-        checkmark.tintColor = Asset.Scene.Profile.About.bioAboutFieldValidatedCheckmark.color;
+        checkmark.tintColor = Asset.Scene.Profile.About.bioAboutFieldVerifiedCheckmark.color;
         
         // Setup gestures
         tapGesture.addTarget(self, action: #selector(ProfileFieldCollectionViewCell.didTapCheckmark(_:)))

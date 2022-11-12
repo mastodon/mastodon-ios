@@ -863,7 +863,7 @@ extension ProfileViewController: ProfileAboutViewControllerDelegate {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
         formatter.timeStyle = .short
-        let alert = UIAlertController(title: "Validated", message: "Ownership of this link was checked on \(formatter.string(from: verifiedAt))", preferredStyle: .alert) // TODO: I18N / L10N
+        let alert = UIAlertController(title: "Verified", message: "Ownership of this link was checked on \(formatter.string(from: verifiedAt))", preferredStyle: .alert) // TODO: I18N / L10N
         alert.addAction(UIAlertAction(title: L10n.Common.Controls.Actions.ok, style: .default) { _ in
             alert.dismiss(animated: true)
         })

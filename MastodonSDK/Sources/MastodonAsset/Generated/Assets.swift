@@ -164,9 +164,9 @@ public enum Asset {
     }
     public enum Profile {
       public enum About {
-        public static let bioAboutFieldValidatedBackground = ColorAsset(name: "Scene/Profile/About/bio.about.field.validated.background")
-        public static let bioAboutFieldValidatedCheckmark = ColorAsset(name: "Scene/Profile/About/bio.about.field.validated.checkmark")
-        public static let bioAboutFieldValidatedLink = ColorAsset(name: "Scene/Profile/About/bio.about.field.validated.link")
+        public static let bioAboutFieldVerifiedBackground = ColorAsset(name: "Scene/Profile/About/bio.about.field.verified.background")
+        public static let bioAboutFieldVerifiedCheckmark = ColorAsset(name: "Scene/Profile/About/bio.about.field.verified.checkmark")
+        public static let bioAboutFieldVerifiedLink = ColorAsset(name: "Scene/Profile/About/bio.about.field.verified.link")
       }
       public enum Banner {
         public static let bioEditBackgroundGray = ColorAsset(name: "Scene/Profile/Banner/bio.edit.background.gray")
