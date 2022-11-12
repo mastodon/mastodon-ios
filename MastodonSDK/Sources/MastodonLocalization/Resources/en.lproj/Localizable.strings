@@ -22,6 +22,8 @@ Please check your internet connection.";
 "Common.Alerts.SignOut.Message" = "Are you sure you want to sign out?";
 "Common.Alerts.SignOut.Title" = "Sign Out";
 "Common.Alerts.SignUpFailure.Title" = "Sign Up Failure";
+"Common.Alerts.Verified.Title" = "Verified";
+"Common.Alerts.Verified.Message" = "Ownership of this link was checked on %s";
 "Common.Alerts.VoteFailure.PollEnded" = "The poll has ended";
 "Common.Alerts.VoteFailure.Title" = "Vote Failure";
 "Common.Controls.Actions.Add" = "Add";

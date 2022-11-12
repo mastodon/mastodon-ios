@@ -51,6 +51,10 @@
             "clean_cache": {
                 "title": "Clean Cache",
                 "message": "Successfully cleaned %s cache."
+            },
+            "verified": {
+                "title": "Verified",
+                "message": "Ownership of this link was checked on %s"
             }
         },
         "controls": {

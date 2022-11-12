@@ -74,7 +74,7 @@ extension ProfileFieldSection {
                 let formatter = DateFormatter()
                 formatter.dateStyle = .medium
                 formatter.timeStyle = .short
-                cell.checkmark.accessibilityLabel = "Ownership of this link was checked on \(formatter.string(from: verifiedAt))" // TODO: I18N / L10N
+                cell.checkmark.accessibilityLabel = L10n.Common.Alerts.Verified.message(formatter.string(from: verifiedAt))
             }
 
             cell.delegate = configuration.profileFieldCollectionViewCellDelegate
