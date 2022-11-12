@@ -854,22 +854,6 @@ extension ProfileViewController: ProfileAboutViewControllerDelegate {
     ) {
         handleMetaPress(meta)
     }
-    
-    func profileAboutViewController(_ viewController: ProfileAboutViewController, didTapCheckmarkFor field: ProfileFieldItem.FieldValue) {
-        guard let verifiedAt = field.verifiedAt.value else {
-            return
-        }
-        
-        let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-        formatter.timeStyle = .short
-        let alert = UIAlertController(title: L10n.Common.Alerts.Verified.title, message: L10n.Common.Alerts.Verified.message(formatter.string(from: verifiedAt)), preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: L10n.Common.Controls.Actions.ok, style: .default) { _ in
-            alert.dismiss(animated: true)
-        })
-        
-        self.present(alert, animated: true)
-    }
 }
 
 // MARK: - MastodonMenuDelegate

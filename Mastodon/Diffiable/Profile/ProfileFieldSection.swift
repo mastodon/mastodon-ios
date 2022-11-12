@@ -67,14 +67,17 @@ extension ProfileFieldSection {
             }
             cell.backgroundConfiguration = backgroundConfiguration
             
-            // set checkmark
+            // set checkmark and edit menu label
             cell.checkmark.isHidden = true
+            cell.checkmarkPopoverString = nil
             if let verifiedAt = field.verifiedAt.value {
                 cell.checkmark.isHidden = false
                 let formatter = DateFormatter()
                 formatter.dateStyle = .medium
                 formatter.timeStyle = .short
-                cell.checkmark.accessibilityLabel = L10n.Common.Alerts.Verified.message(formatter.string(from: verifiedAt))
+                let dateString = formatter.string(from: verifiedAt)
+                cell.checkmark.accessibilityLabel = L10n.Scene.Profile.Fields.Verified.long(dateString)
+                cell.checkmarkPopoverString = L10n.Scene.Profile.Fields.Verified.short(dateString)
             }
 
             cell.delegate = configuration.profileFieldCollectionViewCellDelegate

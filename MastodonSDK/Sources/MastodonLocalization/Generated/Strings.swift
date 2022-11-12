@@ -87,14 +87,6 @@ public enum L10n {
         /// Sign Up Failure
         public static let title = L10n.tr("Localizable", "Common.Alerts.SignUpFailure.Title")
       }
-      public enum Verified {
-        /// Ownership of this link was checked on %s
-        public static func message(_ p1: UnsafePointer<CChar>) -> String {
-          return L10n.tr("Localizable", "Common.Alerts.Verified.Message", p1)
-        }
-        /// Verified
-        public static let title = L10n.tr("Localizable", "Common.Alerts.Verified.Title")
-      }
       public enum VoteFailure {
         /// The poll has ended
         public static let pollEnded = L10n.tr("Localizable", "Common.Alerts.VoteFailure.PollEnded")
@@ -720,6 +712,16 @@ public enum L10n {
           public static let content = L10n.tr("Localizable", "Scene.Profile.Fields.Placeholder.Content")
           /// Label
           public static let label = L10n.tr("Localizable", "Scene.Profile.Fields.Placeholder.Label")
+        }
+        public enum Verified {
+          /// Ownership of this link was checked on %s
+          public static func long(_ p1: UnsafePointer<CChar>) -> String {
+            return L10n.tr("Localizable", "Scene.Profile.Fields.Verified.Long", p1)
+          }
+          /// Verified at %s
+          public static func short(_ p1: UnsafePointer<CChar>) -> String {
+            return L10n.tr("Localizable", "Scene.Profile.Fields.Verified.Short", p1)
+          }
         }
       }
       public enum Header {

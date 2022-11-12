@@ -14,11 +14,6 @@ import MastodonLocalization
 
 protocol ProfileFieldCollectionViewCellDelegate: AnyObject {
     func profileFieldCollectionViewCell(_ cell: ProfileFieldCollectionViewCell, metaLebel: MetaLabel, didSelectMeta meta: Meta)
-    func profileFieldCollectionViewCell(_ cell: ProfileFieldCollectionViewCell, didTapAction: ProfileFieldCollectionViewCellAction)
-}
-
-enum ProfileFieldCollectionViewCellAction {
-    case Checkmark
 }
 
 final class ProfileFieldCollectionViewCell: UICollectionViewCell {
@@ -32,7 +27,14 @@ final class ProfileFieldCollectionViewCell: UICollectionViewCell {
     let valueMetaLabel = MetaLabel(style: .profileFieldValue)
     
     let checkmark = UIImageView(image: Asset.Editing.checkmark.image.withRenderingMode(.alwaysTemplate))
+    var checkmarkPopoverString: String? = nil;
     let tapGesture = UITapGestureRecognizer();
+    private var _editMenuInteraction: Any? = nil
+    @available(iOS 16, *)
+    fileprivate var editMenuInteraction: UIEditMenuInteraction {
+        _editMenuInteraction = _editMenuInteraction ?? UIEditMenuInteraction(delegate: self)
+        return _editMenuInteraction as! UIEditMenuInteraction
+    }
     
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -62,6 +64,9 @@ extension ProfileFieldCollectionViewCell {
         tapGesture.addTarget(self, action: #selector(ProfileFieldCollectionViewCell.didTapCheckmark(_:)))
         checkmark.addGestureRecognizer(tapGesture)
         checkmark.isUserInteractionEnabled = true
+        if #available(iOS 16, *) {
+            checkmark.addInteraction(editMenuInteraction)
+        }
         
         // containerStackView: V - [ metaContainer | plainContainer ]
         let containerStackView = UIStackView()
@@ -99,10 +104,42 @@ extension ProfileFieldCollectionViewCell {
         valueMetaLabel.linkDelegate = self
     }
     
-    @objc public func didTapCheckmark(_: UITapGestureRecognizer) {
-        delegate?.profileFieldCollectionViewCell(self, didTapAction: .Checkmark)
+    @objc public func didTapCheckmark(_ recognizer: UITapGestureRecognizer) {
+        if #available(iOS 16, *) {
+            editMenuInteraction.presentEditMenu(with: UIEditMenuConfiguration(identifier: nil, sourcePoint: recognizer.location(in: checkmark)))
+        } else {
+            guard let editMenuLabel = checkmarkPopoverString else { return }
+
+            self.isUserInteractionEnabled = true
+            self.becomeFirstResponder()
+
+            UIMenuController.shared.menuItems = [
+                UIMenuItem(
+                    title: editMenuLabel,
+                    action: #selector(dismissVerifiedMenu)
+                )
+            ]
+            UIMenuController.shared.showMenu(from: checkmark, rect: checkmark.bounds)
+        }
+    }
+}
+
+// UIMenuController boilerplate
+@available(iOS, deprecated: 16, message: "Can be removed when target version is >=16 -- boilerplate to maintain compatibility with UIMenuController")
+extension ProfileFieldCollectionViewCell {
+    override var canBecomeFirstResponder: Bool { true }
+    
+    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        if action == #selector(dismissVerifiedMenu) {
+            return true
+        }
+        
+        return super.canPerformAction(action, withSender: sender)
     }
     
+    @objc public func dismissVerifiedMenu() {
+        UIMenuController.shared.hideMenu()
+    }
 }
 
 // MARK: - MetaLabelDelegate
@@ -110,5 +147,18 @@ extension ProfileFieldCollectionViewCell: MetaLabelDelegate {
     func metaLabel(_ metaLabel: MetaLabel, didSelectMeta meta: Meta) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         delegate?.profileFieldCollectionViewCell(self, metaLebel: metaLabel, didSelectMeta: meta)
+    }
+}
+
+// MARK: UIEditMenuInteractionDelegate
+@available(iOS 16.0, *)
+extension ProfileFieldCollectionViewCell: UIEditMenuInteractionDelegate {
+    func editMenuInteraction(_ interaction: UIEditMenuInteraction, menuFor configuration: UIEditMenuConfiguration, suggestedActions: [UIMenuElement]) -> UIMenu? {
+        guard let editMenuLabel = checkmarkPopoverString else { return UIMenu(children: []) }
+        return UIMenu(children: [UIAction(title: editMenuLabel) { _ in return }])
+    }
+    
+    func editMenuInteraction(_ interaction: UIEditMenuInteraction, targetRectFor configuration: UIEditMenuConfiguration) -> CGRect {
+        return checkmark.frame
     }
 }

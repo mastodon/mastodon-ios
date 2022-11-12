@@ -16,7 +16,6 @@ import MastodonCore
 
 protocol ProfileAboutViewControllerDelegate: AnyObject {
     func profileAboutViewController(_ viewController: ProfileAboutViewController, profileFieldCollectionViewCell: ProfileFieldCollectionViewCell, metaLabel: MetaLabel, didSelectMeta meta: Meta)
-    func profileAboutViewController(_ viewController: ProfileAboutViewController, didTapCheckmarkFor field: ProfileFieldItem.FieldValue)
 }
 
 final class ProfileAboutViewController: UIViewController {
@@ -152,21 +151,6 @@ extension ProfileAboutViewController: UICollectionViewDelegate {
 extension ProfileAboutViewController: ProfileFieldCollectionViewCellDelegate {
     func profileFieldCollectionViewCell(_ cell: ProfileFieldCollectionViewCell, metaLebel: MetaLabel, didSelectMeta meta: Meta) {
         delegate?.profileAboutViewController(self, profileFieldCollectionViewCell: cell, metaLabel: metaLebel, didSelectMeta: meta)
-    }
-    
-    func profileFieldCollectionViewCell(_ cell: ProfileFieldCollectionViewCell, didTapAction action: ProfileFieldCollectionViewCellAction) {
-        guard let diffableDataSource = viewModel.diffableDataSource else { return }
-        guard let indexPath = collectionView.indexPath(for: cell) else { return }
-        guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
-        
-        switch item {
-        case .field(let field):
-            delegate?.profileAboutViewController(self, didTapCheckmarkFor: field)
-        case .addEntry: fallthrough
-        case .editField: fallthrough
-        case .noResult:
-            break
-        }
     }
 }
 

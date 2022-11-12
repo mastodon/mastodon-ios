@@ -51,10 +51,6 @@
             "clean_cache": {
                 "title": "Clean Cache",
                 "message": "Successfully cleaned %s cache."
-            },
-            "verified": {
-                "title": "Verified",
-                "message": "Ownership of this link was checked on %s"
             }
         },
         "controls": {
@@ -442,6 +438,10 @@
                 "placeholder": {
                     "label": "Label",
                     "content": "Content"
+                },
+                "verified": {
+                    "short": "Verified at %s",
+                    "long": "Ownership of this link was checked on %s"
                 }
             },
             "segmented_control": {
