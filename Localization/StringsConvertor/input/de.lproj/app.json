@@ -482,11 +482,11 @@
         },
         "follower": {
             "title": "Follower",
-            "footer": "Follower von anderen Servern werden nicht angezeigt."
+            "footer": "Folger, die nicht auf deinem Server registriert sind, werden nicht angezeigt."
         },
         "following": {
             "title": "Folgende",
-            "footer": "Gefolgte auf anderen Servern werden nicht angezeigt."
+            "footer": "Gefolgte, die nicht auf deinem Server registriert sind, werden nicht angezeigt."
         },
         "familiarFollowers": {
             "title": "Follower, die dir bekannt vorkommen",
