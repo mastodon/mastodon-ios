@@ -188,5 +188,8 @@ extension MastodonLoginViewController: MastodonLoginViewModelDelegate {
     snapshot.appendItems(viewModel.serverList)
 
     dataSource?.applySnapshot(snapshot, animated: true)
+    OperationQueue.main.addOperation {
+      self.contentView.updateCorners(numberOfResults: viewModel.serverList.count)
+    }
   }
 }

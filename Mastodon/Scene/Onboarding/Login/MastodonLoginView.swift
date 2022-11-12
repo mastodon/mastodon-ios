@@ -18,6 +18,7 @@ class MastodonLoginView: UIView {
   private let headerStackView: UIStackView
   let searchTextField: UITextField
   let tableView: UITableView
+  private var tableViewWrapper: UIView
   let navigationActionView: NavigationActionView
 
   override init(frame: CGRect) {
@@ -42,7 +43,6 @@ class MastodonLoginView: UIView {
     searchTextField = UITextField()
     searchTextField.translatesAutoresizingMaskIntoConstraints = false
     searchTextField.backgroundColor = Asset.Scene.Onboarding.textFieldBackground.color
-    searchTextField.layer.cornerRadius = 10 //TODO: Change mask for
     searchTextField.placeholder = "Search for your server" //TODO: @zeitschlag Localization
     searchTextField.leftView = UIImageView(image: UIImage(systemName: "magnifyingglass"))
     searchTextField.leftViewMode = .always
@@ -51,6 +51,11 @@ class MastodonLoginView: UIView {
     tableView.translatesAutoresizingMaskIntoConstraints = false
     tableView.backgroundColor = Asset.Scene.Onboarding.background.color
 
+    tableViewWrapper = UIView()
+    tableViewWrapper.translatesAutoresizingMaskIntoConstraints = false
+    tableViewWrapper.backgroundColor = .clear
+    tableViewWrapper.addSubview(tableView)
+
     navigationActionView = NavigationActionView()
     navigationActionView.translatesAutoresizingMaskIntoConstraints = false
 
@@ -58,7 +63,7 @@ class MastodonLoginView: UIView {
 
     addSubview(headerStackView)
     addSubview(searchTextField)
-    addSubview(tableView)
+    addSubview(tableViewWrapper)
     addSubview(navigationActionView)
     backgroundColor = Asset.Scene.Onboarding.background.color
 
@@ -81,10 +86,15 @@ class MastodonLoginView: UIView {
       searchTextField.heightAnchor.constraint(equalToConstant: 55),
       trailingAnchor.constraint(equalTo: searchTextField.trailingAnchor, constant: 16),
 
-      tableView.topAnchor.constraint(equalTo: searchTextField.bottomAnchor),
-      tableView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-      trailingAnchor.constraint(equalTo: tableView.trailingAnchor, constant: 16),
-      tableView.bottomAnchor.constraint(equalTo: navigationActionView.topAnchor),
+      tableViewWrapper.topAnchor.constraint(equalTo: searchTextField.bottomAnchor),
+      tableViewWrapper.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+      trailingAnchor.constraint(equalTo: tableViewWrapper.trailingAnchor, constant: 16),
+      tableViewWrapper.bottomAnchor.constraint(equalTo: navigationActionView.topAnchor),
+
+      tableView.topAnchor.constraint(equalTo: tableViewWrapper.topAnchor),
+      tableView.leadingAnchor.constraint(equalTo: tableViewWrapper.leadingAnchor),
+      tableViewWrapper.trailingAnchor.constraint(equalTo: tableView.trailingAnchor),
+      tableViewWrapper.bottomAnchor.constraint(equalTo: tableView.bottomAnchor),
 
       navigationActionView.leadingAnchor.constraint(equalTo: leadingAnchor),
       navigationActionView.trailingAnchor.constraint(equalTo: trailingAnchor),
@@ -93,4 +103,27 @@ class MastodonLoginView: UIView {
     NSLayoutConstraint.activate(constraints)
   }
 
+  func updateCorners(numberOfResults: Int = 0) {
+    let tableViewPath = UIBezierPath(roundedRect:tableViewWrapper.bounds,
+                            byRoundingCorners: [.bottomLeft, .bottomRight],
+                            cornerRadii: CGSize(width: 10, height:  10))
+
+    let tableViewMask = CAShapeLayer()
+    tableViewMask.path = tableViewPath.cgPath
+    tableViewWrapper.layer.mask = tableViewMask
+
+    let searchFieldCorners: UIRectCorner
+    if numberOfResults == 0 {
+      searchFieldCorners = .allCorners
+    } else {
+      searchFieldCorners = [.topLeft, .topRight]
+    }
+
+    let searchFieldPath = UIBezierPath(roundedRect: searchTextField.bounds,
+                                       byRoundingCorners: searchFieldCorners,
+                                       cornerRadii: CGSize(width: 10, height: 10))
+    let searchFieldMask = CAShapeLayer()
+    searchFieldMask.path = searchFieldPath.cgPath
+    searchTextField.layer.mask = searchFieldMask
+  }
 }
