@@ -125,7 +125,7 @@
             },
             "status": {
                 "user_reblogged": "%s reblogged",
-                "user_replied_to": "Replied to %s",
+                "user_replied_to": "Odpověděl %s",
                 "show_post": "Zobrazit příspěvek",
                 "show_user_profile": "Zobrazit profil uživatele",
                 "content_warning": "Varování o obsahu",
@@ -202,12 +202,12 @@
                 },
                 "header": {
                     "no_status_found": "Nebyl nalezen žádný příspěvek",
-                    "blocking_warning": "You can’t view this user's profile\nuntil you unblock them.\nYour profile looks like this to them.",
-                    "user_blocking_warning": "You can’t view %s’s profile\nuntil you unblock them.\nYour profile looks like this to them.",
+                    "blocking_warning": "Nemůžete zobrazit profil tohoto uživatele, dokud ho neodblokujete.\nVáš profil pro něj vypadá takto.",
+                    "user_blocking_warning": "Nemůžete zobrazit profil %s, dokud ho neodblokujete.\nVáš profil pro něj vypadá takto.",
                     "blocked_warning": "Nemůžeš zobrazit profil tohoto uživatele, dokud tě neodblokují.",
-                    "user_blocked_warning": "You can’t view %s’s profile\nuntil they unblock you.",
+                    "user_blocked_warning": "Nemůžete zobrazit profil %s, dokud vás neodblokuje.",
                     "suspended_warning": "Tento uživatel byl pozastaven.",
-                    "user_suspended_warning": "%s’s account has been suspended."
+                    "user_suspended_warning": "Účet %s byl pozastaven."
                 }
             }
         }
@@ -640,7 +640,7 @@
             "send": "Odeslat hlášení",
             "skip_to_send": "Odeslat bez komentáře",
             "text_placeholder": "Napište nebo vložte další komentáře",
-            "reported": "REPORTED",
+            "reported": "NAHLÁŠEN",
             "step_one": {
                 "step_1_of_4": "Krok 1 ze 4",
                 "whats_wrong_with_this_post": "Co je na tomto příspěvku špatně?",
@@ -680,7 +680,7 @@
                 "mute_user": "Skrýt %s",
                 "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "Neuvidíte jejich příspěvky nebo boostnutí v domovském kanálu. Nebudou vědět, že jsou skrytí.",
                 "block_user": "Blokovat %s",
-                "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "They will no longer be able to follow or see your posts, but they can see if they’ve been blocked.",
+                "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "Už nebudou moci sledovat nebo vidět vaše příspěvky, ale mohou vidět, zda byly zablokovány.",
                 "while_we_review_this_you_can_take_action_against_user": "Zatímco to posuzujeme, můžete podniknout kroky proti %s"
             }
         },
