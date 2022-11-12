@@ -317,6 +317,22 @@ extension StatusView.ViewModel {
                 )
                 statusView.contentMetaText.textView.accessibilityTraits = [.staticText]
                 statusView.contentMetaText.textView.accessibilityElementsHidden = false
+
+                if let url = content.entities.first(where: {
+                    switch $0.meta {
+                    case .url:
+                        return true
+                    default:
+                        return false
+                    }
+                }) {
+                    guard case .url(let text, let trimmed, let url, _) = url.meta, let url = URL(string: url) else {
+                        fatalError()
+                    }
+
+                    statusView.linkPreview.configure(content: trimmed)
+                    statusView.setLinkPreviewDisplay()
+                }
             } else {
                 statusView.contentMetaText.reset()
                 statusView.contentMetaText.textView.accessibilityLabel = ""
