@@ -431,7 +431,7 @@
             "dashboard": {
                 "posts": "Beiträge",
                 "following": "Gefolgte",
-                "followers": "Folger"
+                "followers": "Folgende"
             },
             "fields": {
                 "add_row": "Zeile hinzufügen",
@@ -486,7 +486,7 @@
         },
         "following": {
             "title": "Folgende",
-            "footer": "Wem das Konto folgt wird von anderen Servern werden nicht angezeigt."
+            "footer": "Gefolgte auf anderen Servern werden nicht angezeigt."
         },
         "familiarFollowers": {
             "title": "Follower, die dir bekannt vorkommen",
@@ -596,7 +596,7 @@
                     "mentions": "Mich erwähnt",
                     "trigger": {
                         "anyone": "jeder",
-                        "follower": "ein Folger",
+                        "follower": "ein Folgender",
                         "follow": "ein von mir Gefolgter",
                         "noone": "niemand",
                         "title": "Benachrichtige mich, wenn"
