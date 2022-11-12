@@ -108,13 +108,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>post</string>
+        <string>příspěvek</string>
         <key>few</key>
-        <string>posts</string>
+        <string>příspěvky</string>
         <key>many</key>
-        <string>posts</string>
+        <string>příspěvků</string>
         <key>other</key>
-        <string>posts</string>
+        <string>příspěvků</string>
       </dict>
     </dict>
     <key>plural.count.media</key>
