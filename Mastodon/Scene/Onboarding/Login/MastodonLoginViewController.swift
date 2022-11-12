@@ -6,25 +6,38 @@
 //
 
 import UIKit
+import MastodonSDK
+import MastodonCore
 
 protocol MastodonLoginViewControllerDelegate: AnyObject {
   func backButtonPressed(_ viewController: MastodonLoginViewController)
   func nextButtonPressed(_ viewController: MastodonLoginViewController)
 }
 
+enum MastodonLoginViewSection: Hashable {
+  case servers
+}
+
 class MastodonLoginViewController: UIViewController {
 
-  // back-button, next-button (enabled if user selectes a server or url is valid
-  // next-button does MastodonPickServerViewController.doSignIn()
-
   weak var delegate: MastodonLoginViewControllerDelegate?
+  var dataSource: UITableViewDiffableDataSource<MastodonLoginViewSection, Mastodon.Entity.Server>?
+  let viewModel: MastodonLoginViewModel
+  let authenticationViewModel: AuthenticationViewModel
+  weak var appContext: AppContext?
 
   var contentView: MastodonLoginView {
     view as! MastodonLoginView
   }
 
-  init() {
+  init(appContext: AppContext, authenticationViewModel: AuthenticationViewModel) {
+
+    viewModel = MastodonLoginViewModel(appContext: appContext)
+    self.authenticationViewModel = authenticationViewModel
+    self.appContext = appContext
+
     super.init(nibName: nil, bundle: nil)
+    viewModel.delegate = self
 
     navigationItem.hidesBackButton = true
   }
@@ -37,8 +50,9 @@ class MastodonLoginViewController: UIViewController {
     loginView.navigationActionView.nextButton.addTarget(self, action: #selector(MastodonLoginViewController.nextButtonPressed(_:)), for: .touchUpInside)
     loginView.navigationActionView.backButton.addTarget(self, action: #selector(MastodonLoginViewController.backButtonPressed(_:)), for: .touchUpInside)
     loginView.searchTextField.addTarget(self, action: #selector(MastodonLoginViewController.textfieldDidChange(_:)), for: .editingChanged)
-
-    //TODO: Set tableView.delegate and tableView.dataSource
+    loginView.tableView.delegate = self
+    loginView.tableView.register(MastodonLoginServerTableViewCell.self, forCellReuseIdentifier: MastodonLoginServerTableViewCell.reuseIdentifier)
+    loginView.navigationActionView.nextButton.isEnabled = false
 
     view = loginView
   }
@@ -46,8 +60,33 @@ class MastodonLoginViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
+    let dataSource = UITableViewDiffableDataSource<MastodonLoginViewSection, Mastodon.Entity.Server>(tableView: contentView.tableView) { [weak self] tableView, indexPath, itemIdentifier in
+      guard let cell = tableView.dequeueReusableCell(withIdentifier: MastodonLoginServerTableViewCell.reuseIdentifier, for: indexPath) as? MastodonLoginServerTableViewCell,
+      let self = self else {
+        fatalError("Wrong cell")
+      }
+
+      let server = self.viewModel.serverList[indexPath.row]
+      var configuration = cell.defaultContentConfiguration()
+      configuration.text = server.domain
+
+      cell.contentConfiguration = configuration
+      cell.accessoryType = .disclosureIndicator
+
+      return cell
+    }
+
+    contentView.tableView.dataSource = dataSource
+    self.dataSource = dataSource
+
     defer { setupNavigationBarBackgroundView() }
     setupOnboardingAppearance()
+  }
+
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+
+    viewModel.updateServers()
   }
 
   //MARK: - Actions
@@ -108,10 +147,36 @@ class MastodonLoginViewController: UIViewController {
 
   @objc func textfieldDidChange(_ textField: UITextField) {
     print(textField.text ?? "---")
+    //TODO: @zeitschlag filter server-list, update tableview
+
+    contentView.navigationActionView.nextButton.isEnabled = false
   }
 }
 
 // MARK: - OnboardingViewControllerAppearance
 extension MastodonLoginViewController: OnboardingViewControllerAppearance { }
 
+//MARK: - UITableViewDelegate
+extension MastodonLoginViewController: UITableViewDelegate {
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    let server = viewModel.serverList[indexPath.row]
+    viewModel.selectedServer = server
 
+    contentView.searchTextField.text = server.domain
+    //TODO: @zeitschlag filter server list
+
+    contentView.navigationActionView.nextButton.isEnabled = true
+    tableView.deselectRow(at: indexPath, animated: true)
+  }
+}
+
+extension MastodonLoginViewController: MastodonLoginViewModelDelegate {
+  func serversUpdated(_ viewModel: MastodonLoginViewModel) {
+    var snapshot = NSDiffableDataSourceSnapshot<MastodonLoginViewSection, Mastodon.Entity.Server>()
+
+    snapshot.appendSections([MastodonLoginViewSection.servers])
+    snapshot.appendItems(viewModel.serverList)
+
+    dataSource?.applySnapshot(snapshot, animated: true)
+  }
+}

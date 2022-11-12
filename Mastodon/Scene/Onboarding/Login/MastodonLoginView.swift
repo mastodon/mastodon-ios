@@ -49,7 +49,6 @@ class MastodonLoginView: UIView {
 
     tableView = UITableView()
     tableView.translatesAutoresizingMaskIntoConstraints = false
-    tableView.backgroundColor = .green
     //TODO: @zeitchlag Cell
     
     navigationActionView = NavigationActionView()

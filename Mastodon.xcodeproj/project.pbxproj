@@ -89,6 +89,8 @@
 		87FFDA5D898A5C42ADCB35E7 /* Pods_Mastodon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4ABE34829701A4496C5BB64 /* Pods_Mastodon.framework */; };
 		C24C97032922F30500BAE8CB /* RefreshControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24C97022922F30500BAE8CB /* RefreshControl.swift */; };
 		D87BFC8B291D5C6B00FEE264 /* MastodonLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87BFC8A291D5C6B00FEE264 /* MastodonLoginView.swift */; };
+		D87BFC8D291EB81200FEE264 /* MastodonLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87BFC8C291EB81200FEE264 /* MastodonLoginViewModel.swift */; };
+		D87BFC8F291EC26A00FEE264 /* MastodonLoginServerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87BFC8E291EC26A00FEE264 /* MastodonLoginServerTableViewCell.swift */; };
 		D8A6AB6C291C5136003AB663 /* MastodonLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A6AB6B291C5136003AB663 /* MastodonLoginViewController.swift */; };
 		DB0009A626AEE5DC009B9D2D /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = DB0009A926AEE5DC009B9D2D /* Intents.intentdefinition */; settings = {ATTRIBUTES = (codegen, ); }; };
 		DB0009A726AEE5DC009B9D2D /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = DB0009A926AEE5DC009B9D2D /* Intents.intentdefinition */; };
@@ -611,6 +613,8 @@
 		CD92E0F10BDE4FE7C4B999F2 /* Pods_MastodonTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MastodonTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7D7CF93E262178800077512 /* Pods-Mastodon-AppShared.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon-AppShared.debug.xcconfig"; path = "Target Support Files/Pods-Mastodon-AppShared/Pods-Mastodon-AppShared.debug.xcconfig"; sourceTree = "<group>"; };
 		D87BFC8A291D5C6B00FEE264 /* MastodonLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonLoginView.swift; sourceTree = "<group>"; };
+		D87BFC8C291EB81200FEE264 /* MastodonLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonLoginViewModel.swift; sourceTree = "<group>"; };
+		D87BFC8E291EC26A00FEE264 /* MastodonLoginServerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonLoginServerTableViewCell.swift; sourceTree = "<group>"; };
 		D8A6AB6B291C5136003AB663 /* MastodonLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonLoginViewController.swift; sourceTree = "<group>"; };
 		DB0009A826AEE5DC009B9D2D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; name = Base; path = Base.lproj/Intents.intentdefinition; sourceTree = "<group>"; };
 		DB0009AD26AEE5E4009B9D2D /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Intents.strings; sourceTree = "<group>"; };
@@ -1503,6 +1507,8 @@
 			children = (
 				D8A6AB6B291C5136003AB663 /* MastodonLoginViewController.swift */,
 				D87BFC8A291D5C6B00FEE264 /* MastodonLoginView.swift */,
+				D87BFC8C291EB81200FEE264 /* MastodonLoginViewModel.swift */,
+				D87BFC8E291EC26A00FEE264 /* MastodonLoginServerTableViewCell.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -3185,6 +3191,7 @@
 				DB5B54A32833BD1A00DEF8B2 /* UserListViewModel.swift in Sources */,
 				DBF156DF2701B17600EC00B7 /* SidebarAddAccountCollectionViewCell.swift in Sources */,
 				DB0617F1278413D00030EE79 /* PickServerServerSectionTableHeaderView.swift in Sources */,
+				D87BFC8F291EC26A00FEE264 /* MastodonLoginServerTableViewCell.swift in Sources */,
 				DB0FCB7E27958957006C02E2 /* StatusThreadRootTableViewCell+ViewModel.swift in Sources */,
 				DB789A0B25F9F2950071ACA0 /* ComposeViewController.swift in Sources */,
 				DB938F0926240F3C00E5B6C1 /* RemoteThreadViewModel.swift in Sources */,
@@ -3307,6 +3314,7 @@
 				DB0618012785732C0030EE79 /* ServerRulesTableViewCell.swift in Sources */,
 				DB98EB5C27B10A730082E365 /* ReportSupplementaryViewModel.swift in Sources */,
 				DB0617EF277F12720030EE79 /* NavigationActionView.swift in Sources */,
+				D87BFC8D291EB81200FEE264 /* MastodonLoginViewModel.swift in Sources */,
 				DB1FD43625F26899004CFCFC /* MastodonPickServerViewModel+LoadIndexedServerState.swift in Sources */,
 				2D939AE825EE1CF80076FA61 /* MastodonRegisterViewController+Avatar.swift in Sources */,
 				DB1D186C25EF5BA7003F1F23 /* PollTableView.swift in Sources */,

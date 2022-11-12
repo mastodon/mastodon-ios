@@ -9,7 +9,7 @@ import Foundation
 
 extension Mastodon.Entity {
     
-    public struct Server: Codable, Equatable {
+    public struct Server: Codable, Equatable, Hashable {
         public let domain: String
         public let version: String
         public let description: String
@@ -22,7 +22,7 @@ extension Mastodon.Entity {
         public let approvalRequired: Bool
         public let language: String
         public let category: String
-        //TODO: @zeitschlag Is there a way to figure out in advance if a server accepts new registrations? Right now we'd have to query the server and it responts with a `AuthenticationViewModel.AuthenticationError.registrationClosed`
+        //TODO: @zeitschlag Is there a way to figure out in advance if a server accepts new registrations? Right now we'd have to query the server and it responds with a `AuthenticationViewModel.AuthenticationError.registrationClosed`
 
         enum CodingKeys: String, CodingKey {
             case domain
