@@ -51,6 +51,7 @@ final class WelcomeViewController: UIViewController, NeedsDependency {
     private(set) lazy var signUpButton: PrimaryActionButton = {
         let button = PrimaryActionButton()
         button.adjustsBackgroundImageWhenUserInterfaceStyleChanges = false
+        button.titleLabel?.adjustsFontForContentSizeCategory = true
         button.titleLabel?.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold))
         button.setTitle(L10n.Common.Controls.Actions.signUp, for: .normal)
         let backgroundImageColor: UIColor = .white
@@ -65,6 +66,7 @@ final class WelcomeViewController: UIViewController, NeedsDependency {
     private(set) lazy var signInButton: PrimaryActionButton = {
         let button = PrimaryActionButton()
         button.adjustsBackgroundImageWhenUserInterfaceStyleChanges = false
+        button.titleLabel?.adjustsFontForContentSizeCategory = true
         button.titleLabel?.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold))
         button.setTitle(L10n.Scene.Welcome.logIn, for: .normal)
         let backgroundImageColor = Asset.Scene.Welcome.signInButtonBackground.color
@@ -113,12 +115,12 @@ extension WelcomeViewController {
         signUpButton.translatesAutoresizingMaskIntoConstraints = false
         buttonContainer.addArrangedSubview(signUpButton)
         NSLayoutConstraint.activate([
-            signUpButton.heightAnchor.constraint(equalToConstant: WelcomeViewController.actionButtonHeight).priority(.required - 1),
+            signUpButton.heightAnchor.constraint(greaterThanOrEqualToConstant: WelcomeViewController.actionButtonHeight).priority(.required - 1),
         ])
         signInButton.translatesAutoresizingMaskIntoConstraints = false
         buttonContainer.addArrangedSubview(signInButton)
         NSLayoutConstraint.activate([
-            signInButton.heightAnchor.constraint(equalToConstant: WelcomeViewController.actionButtonHeight).priority(.required - 1),
+            signInButton.heightAnchor.constraint(greaterThanOrEqualToConstant: WelcomeViewController.actionButtonHeight).priority(.required - 1),
         ])
         
         signUpButtonShadowView.translatesAutoresizingMaskIntoConstraints = false
@@ -172,7 +174,9 @@ extension WelcomeViewController {
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        
+
+        view.layoutIfNeeded()
+
         setupIllustrationLayout()
         setupButtonShadowView()
     }
@@ -189,7 +193,7 @@ extension WelcomeViewController {
             y: 1,
             blur: 2,
             spread: 0,
-            roundedRect: signInButtonShadowView.bounds,
+            roundedRect: signUpButtonShadowView.bounds,
             byRoundingCorners: .allCorners,
             cornerRadii: CGSize(width: 10, height: 10)
         )
