@@ -46,6 +46,7 @@ public struct AttachmentView: View {
                                 }()
                                 Spacer()
                                 TextField(placeholder, text: $viewModel.caption)
+                                    .lineLimit(1)
                                     .textFieldStyle(.plain)
                                     .foregroundColor(.white)
                                     .placeholder(placeholder, when: viewModel.caption.isEmpty)
@@ -196,6 +197,7 @@ extension View {
         placeholder(when: shouldShow, alignment: alignment) {
             Text(text)
                 .foregroundColor(.white.opacity(0.7))
+                .lineLimit(1)
         }
     }
 }

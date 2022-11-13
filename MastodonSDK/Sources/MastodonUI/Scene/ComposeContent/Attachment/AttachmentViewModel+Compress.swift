@@ -17,6 +17,15 @@ extension AttachmentViewModel {
         let exporter = NextLevelSessionExporter(withAsset: urlAsset)
         exporter.outputFileType = .mp4
         
+        var isLandscape: Bool = {
+            guard let track = urlAsset.tracks(withMediaType: .video).first else {
+                return true
+            }
+            
+            let size = track.naturalSize.applying(track.preferredTransform)
+            return abs(size.width) >= abs(size.height)
+        }()
+        
         let outputURL = try FileManager.default.createTemporaryFileURL(
             filename: UUID().uuidString,
             pathExtension: url.pathExtension
@@ -30,8 +39,8 @@ extension AttachmentViewModel {
         ]
         exporter.videoOutputConfiguration = [
             AVVideoCodecKey: AVVideoCodecType.h264,
-            AVVideoWidthKey: NSNumber(integerLiteral: 1280),
-            AVVideoHeightKey: NSNumber(integerLiteral: 720),
+            AVVideoWidthKey: NSNumber(integerLiteral: isLandscape ? 1280 : 720),
+            AVVideoHeightKey: NSNumber(integerLiteral: isLandscape ? 720 : 1280),
             AVVideoScalingModeKey: AVVideoScalingModeResizeAspectFill,
             AVVideoCompressionPropertiesKey: compressionDict
         ]
