@@ -382,7 +382,11 @@
                 "video": "مقطع مرئي",
                 "attachment_broken": "هذا ال%s مُعطَّل\nويتعذَّرُ رفعُه إلى ماستودون.",
                 "description_photo": "صِف الصورة للمَكفوفين...",
-                "description_video": "صِف المقطع المرئي للمَكفوفين..."
+                "description_video": "صِف المقطع المرئي للمَكفوفين...",
+                "load_failed": "Load Failed",
+                "upload_failed": "Upload Failed",
+                "can_not_recognize_this_media_attachment": "Can not regonize this media attachment",
+                "attachment_too_large": "Attachment too large"
             },
             "poll": {
                 "duration_time": "المُدَّة: %s",
