@@ -22,6 +22,10 @@ extension OnboardingViewControllerAppearance {
     static var actionButtonMarginExtend: CGFloat { return 80 }
     static var viewBottomPaddingHeight: CGFloat { return 11 }
     static var viewBottomPaddingHeightExtend: CGFloat { return 22 }
+
+    // Typically assigned to the button's contentEdgeInsets. Ensures space around content, even when
+    // content is large due to Dynamic Type.
+    static var actionButtonPadding: UIEdgeInsets { return UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8) }
     
     static var largeTitleFont: UIFont {
         return UIFontMetrics(forTextStyle: .largeTitle).scaledFont(for: .systemFont(ofSize: 28, weight: .bold))

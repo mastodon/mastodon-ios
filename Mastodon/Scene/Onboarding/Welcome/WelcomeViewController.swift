@@ -51,6 +51,7 @@ final class WelcomeViewController: UIViewController, NeedsDependency {
     private(set) lazy var signUpButton: PrimaryActionButton = {
         let button = PrimaryActionButton()
         button.adjustsBackgroundImageWhenUserInterfaceStyleChanges = false
+        button.contentEdgeInsets = WelcomeViewController.actionButtonPadding
         button.titleLabel?.adjustsFontForContentSizeCategory = true
         button.titleLabel?.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold))
         button.setTitle(L10n.Common.Controls.Actions.signUp, for: .normal)
@@ -66,6 +67,7 @@ final class WelcomeViewController: UIViewController, NeedsDependency {
     private(set) lazy var signInButton: PrimaryActionButton = {
         let button = PrimaryActionButton()
         button.adjustsBackgroundImageWhenUserInterfaceStyleChanges = false
+        button.contentEdgeInsets = WelcomeViewController.actionButtonPadding
         button.titleLabel?.adjustsFontForContentSizeCategory = true
         button.titleLabel?.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold))
         button.setTitle(L10n.Scene.Welcome.logIn, for: .normal)
