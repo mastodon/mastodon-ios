@@ -91,6 +91,7 @@ final class ProfileHeaderView: UIView {
         view.layer.cornerCurve = .continuous
         view.layer.borderColor = ProfileHeaderView.avatarImageViewBorderColor.cgColor
         view.layer.borderWidth = ProfileHeaderView.avatarImageViewBorderWidth
+        view.layer.anchorPoint = CGPointMake(0.5, 1)
         return view
     }()
     
@@ -382,7 +383,7 @@ extension ProfileHeaderView {
         dashboardContainer.addArrangedSubview(statusDashboardView)
         
         NSLayoutConstraint.activate([
-            avatarImageViewBackgroundView.bottomAnchor.constraint(equalTo: dashboardContainer.bottomAnchor),
+            avatarImageViewBackgroundView.bottomAnchor.constraint(equalTo: dashboardContainer.bottomAnchor, constant: ProfileHeaderView.avatarImageViewSize.height / 2),
         ])
         
         // authorContainer: H - [ nameContainer | padding | relationshipActionButtonShadowContainer ]
