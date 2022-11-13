@@ -8,7 +8,6 @@
 import UIKit
 import Combine
 import MastodonCore
-import MastodonUI
 
 final class AutoCompleteTopChevronView: UIView {
 

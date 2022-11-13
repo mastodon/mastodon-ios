@@ -66,9 +66,9 @@ extension ComposeContentViewModel {
                 guard let replyTo = status.object(in: context.managedObjectContext) else { return }
                 cell.statusView.configure(status: replyTo)
             }
-        case .hashtag(let hashtag):
+        case .hashtag:
             break
-        case .mention(let user):
+        case .mention:
             break
         }
     }

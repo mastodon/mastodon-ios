@@ -185,7 +185,7 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
                     return
                 }
                 let author = authContext.mastodonAuthenticationBox.authenticationRecord.object(in: context.managedObjectContext)?.user
-                
+
                 var mentionAccts: [String] = []
                 if author?.id != status.author.id {
                     mentionAccts.append("@" + status.author.acct)
@@ -204,7 +204,7 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
                     self.isContentWarningActive = true
                     self.contentWarning = spoilerText
                 }
-                
+
                 let initialComposeContent = mentionAccts.joined(separator: " ")
                 let preInsertedContent: String? = initialComposeContent.isEmpty ? nil : initialComposeContent + " "
                 self.initialContent = preInsertedContent ?? ""
@@ -341,11 +341,6 @@ extension ComposeContentViewModel {
                 guard outputs.allSatisfy({ $0 == .finish }) else { return false }
                 return true
             }
-        
-        isMediaUploadAllSuccess.sink { result in
-            print(result)
-        }
-        .store(in: &disposeBag)
         
         let isPollOptionsAllValid = $pollOptions
             .map { options in
@@ -517,14 +512,15 @@ extension ComposeContentViewModel {
 }
 
 extension ComposeContentViewModel {
+    
     public enum AttachmentPrecondition: Error, LocalizedError {
         case videoAttachWithPhoto
         case moreThanOneVideo
-        
+
         public var errorDescription: String? {
             return L10n.Common.Alerts.PublishPostFailure.title
         }
-        
+
         public var failureReason: String? {
             switch self {
             case .videoAttachWithPhoto:
@@ -534,13 +530,14 @@ extension ComposeContentViewModel {
             }
         }
     }
-    
+
     // check exclusive limit:
     // - up to 1 video
     // - up to N photos
     public func checkAttachmentPrecondition() throws {
         let attachmentViewModels = self.attachmentViewModels
         guard !attachmentViewModels.isEmpty else { return }
+        
         var photoAttachmentViewModels: [AttachmentViewModel] = []
         var videoAttachmentViewModels: [AttachmentViewModel] = []
         attachmentViewModels.forEach { attachmentViewModel in
