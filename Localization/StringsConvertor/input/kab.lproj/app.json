@@ -382,7 +382,11 @@
                 "video": "tavidyutt",
                 "attachment_broken": "%s-a yerreẓ, ur yezmir ara\nAd d-yettwasali ɣef Mastodon.",
                 "description_photo": "Glem-d tawlaft i wid yesɛan ugur deg yiẓri...",
-                "description_video": "Glem-d tavidyut i wid yesɛan ugur deg yiẓri..."
+                "description_video": "Glem-d tavidyut i wid yesɛan ugur deg yiẓri...",
+                "load_failed": "Load Failed",
+                "upload_failed": "Upload Failed",
+                "can_not_recognize_this_media_attachment": "Can not regonize this media attachment",
+                "attachment_too_large": "Attachment too large"
             },
             "poll": {
                 "duration_time": "Tangazt: %s",
