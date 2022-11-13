@@ -382,7 +382,11 @@
                 "video": "動画",
                 "attachment_broken": "%sは壊れていてMastodonにアップロードできません。",
                 "description_photo": "閲覧が難しいユーザーへの画像説明",
-                "description_video": "閲覧が難しいユーザーへの映像説明"
+                "description_video": "閲覧が難しいユーザーへの映像説明",
+                "load_failed": "Load Failed",
+                "upload_failed": "Upload Failed",
+                "can_not_recognize_this_media_attachment": "Can not regonize this media attachment",
+                "attachment_too_large": "Attachment too large"
             },
             "poll": {
                 "duration_time": "期間: %s",
