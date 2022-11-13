@@ -382,7 +382,11 @@
                 "video": "video",
                 "attachment_broken": "This %s is broken and can’t be\nuploaded to Mastodon.",
                 "description_photo": "Kuvaile kuva näkövammaisille...",
-                "description_video": "Kuvaile video näkövammaisille..."
+                "description_video": "Kuvaile video näkövammaisille...",
+                "load_failed": "Load Failed",
+                "upload_failed": "Upload Failed",
+                "can_not_recognize_this_media_attachment": "Can not regonize this media attachment",
+                "attachment_too_large": "Attachment too large"
             },
             "poll": {
                 "duration_time": "Kesto: %s",
