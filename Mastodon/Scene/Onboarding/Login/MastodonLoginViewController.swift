@@ -21,7 +21,7 @@ enum MastodonLoginViewSection: Hashable {
   case servers
 }
 
-class MastodonLoginViewController: UIViewController {
+class MastodonLoginViewController: UIViewController, NeedsDependency {
 
   weak var delegate: MastodonLoginViewControllerDelegate?
   var dataSource: UITableViewDiffableDataSource<MastodonLoginViewSection, Mastodon.Entity.Server>?
@@ -29,24 +29,26 @@ class MastodonLoginViewController: UIViewController {
   let authenticationViewModel: AuthenticationViewModel
   var mastodonAuthenticationController: MastodonAuthenticationController?
 
-  weak var appContext: AppContext?
+  weak var context: AppContext!
+  weak var coordinator: SceneCoordinator!
+  
   var disposeBag = Set<AnyCancellable>()
 
   var contentView: MastodonLoginView {
     view as! MastodonLoginView
   }
 
-  init(appContext: AppContext, authenticationViewModel: AuthenticationViewModel) {
+  init(appContext: AppContext, authenticationViewModel: AuthenticationViewModel, sceneCoordinator: SceneCoordinator) {
 
     viewModel = MastodonLoginViewModel(appContext: appContext)
     self.authenticationViewModel = authenticationViewModel
-    self.appContext = appContext
+    self.context = appContext
+    self.coordinator = sceneCoordinator
 
     super.init(nibName: nil, bundle: nil)
     viewModel.delegate = self
 
     navigationItem.hidesBackButton = true
-    //TODO: @zeitschlag consider keyboard, do the notification-dance
   }
 
   required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
@@ -137,8 +139,32 @@ class MastodonLoginViewController: UIViewController {
   @objc func login(_ sender: Any) {
     guard let server = viewModel.selectedServer else { return }
 
+    authenticationViewModel
+        .authenticated
+        .asyncMap { domain, user -> Result<Bool, Error> in
+            do {
+                let result = try await self.context.authenticationService.activeMastodonUser(domain: domain, userID: user.id)
+                return .success(result)
+            } catch {
+                return .failure(error)
+            }
+        }
+        .receive(on: DispatchQueue.main)
+        .sink { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .failure(let error):
+                assertionFailure(error.localizedDescription)
+            case .success(let isActived):
+                assert(isActived)
+                // self.dismiss(animated: true, completion: nil)
+                self.coordinator.setup()
+            }
+        }
+        .store(in: &disposeBag)
+
     authenticationViewModel.isAuthenticating.send(true)
-    appContext?.apiService.createApplication(domain: server.domain)
+    context.apiService.createApplication(domain: server.domain)
       .tryMap { response -> AuthenticationViewModel.AuthenticateInfo in
         let application = response.value
         guard let info = AuthenticationViewModel.AuthenticateInfo(
@@ -157,15 +183,15 @@ class MastodonLoginViewController: UIViewController {
 
         switch completion {
           case .failure(let error):
-//            self.viewModel.error.send(error)
+            //TODO: @zeitschlag show error
             break
           case .finished:
             break
         }
       } receiveValue: { [weak self] info in
-        guard let self, let appContext = self.appContext else { return }
+        guard let self else { return }
         let authenticationController = MastodonAuthenticationController(
-          context: appContext,
+          context: self.context,
           authenticateURL: info.authorizeURL
         )
 
@@ -204,6 +230,7 @@ class MastodonLoginViewController: UIViewController {
           let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber
     else { return }
 
+    //FIXME: @zeitschlag on iPad
     let adjustmentHeight = keyboardFrameValue.cgRectValue.height - view.safeAreaInsets.bottom
     contentView.bottomConstraint?.constant = adjustmentHeight
 
@@ -237,7 +264,6 @@ extension MastodonLoginViewController: UITableViewDelegate {
     viewModel.selectedServer = server
 
     contentView.searchTextField.text = server.domain
-    //TODO: @zeitschlag filter server list
 
     contentView.navigationActionView.nextButton.isEnabled = true
     tableView.deselectRow(at: indexPath, animated: true)

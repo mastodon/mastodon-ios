@@ -406,7 +406,9 @@ private extension SceneCoordinator {
             _viewController.viewModel = viewModel
             viewController = _viewController
         case .mastodonLogin:
-            let loginViewController = MastodonLoginViewController(appContext: appContext, authenticationViewModel: AuthenticationViewModel(context: appContext, coordinator: self, isAuthenticationExist: false))
+            let loginViewController = MastodonLoginViewController(appContext: appContext,
+                                                                  authenticationViewModel: AuthenticationViewModel(context: appContext, coordinator: self, isAuthenticationExist: false),
+                                                                  sceneCoordinator: self)
             loginViewController.delegate = self
 
             viewController = loginViewController

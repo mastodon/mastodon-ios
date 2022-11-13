@@ -51,9 +51,7 @@ class MastodonLoginViewModel {
       return
     }
 
-    filteredServers = serverList.filter { $0.domain.contains(query) }.sorted {$0.totalUsers > $1.totalUsers }
+    filteredServers = serverList.filter { $0.domain.lowercased().contains(query) }.sorted {$0.totalUsers > $1.totalUsers }
     delegate?.serversUpdated(self)
-
-//    AuthenticationViewModel.parseDomain(from: query)
   }
 }
