@@ -83,11 +83,21 @@ class MastodonLoginViewController: UIViewController {
         cell.backgroundColor = .systemBackground
       }
 
+      if self.viewModel.serverList.last == server {
+        cell.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+        cell.layer.cornerRadius = 10
+        cell.layer.masksToBounds = true
+      } else {
+        cell.layer.masksToBounds = false
+      }
+
       return cell
     }
 
     contentView.tableView.dataSource = dataSource
     self.dataSource = dataSource
+
+    contentView.updateCorners()
 
     defer { setupNavigationBarBackgroundView() }
     setupOnboardingAppearance()
@@ -187,9 +197,11 @@ extension MastodonLoginViewController: MastodonLoginViewModelDelegate {
     snapshot.appendSections([MastodonLoginViewSection.servers])
     snapshot.appendItems(viewModel.serverList)
 
-    dataSource?.applySnapshot(snapshot, animated: true)
+    dataSource?.applySnapshot(snapshot, animated: false)
+
     OperationQueue.main.addOperation {
-      self.contentView.updateCorners(numberOfResults: viewModel.serverList.count)
+      let numberOfResults = viewModel.serverList.count
+      self.contentView.updateCorners(numberOfResults: numberOfResults)
     }
   }
 }

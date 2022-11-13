@@ -10,7 +10,6 @@ import MastodonAsset
 
 class MastodonLoginView: UIView {
 
-  // SearchBox, queries api.joinmastodon.org/servers with domain
   // List with (filtered) domains
 
   let titleLabel: UILabel
@@ -46,14 +45,17 @@ class MastodonLoginView: UIView {
     searchTextField.placeholder = "Search for your server" //TODO: @zeitschlag Localization
     searchTextField.leftView = UIImageView(image: UIImage(systemName: "magnifyingglass"))
     searchTextField.leftViewMode = .always
+    searchTextField.layer.cornerRadius = 10
 
-    tableView = UITableView()
+    tableView = ContentSizedTableView()
     tableView.translatesAutoresizingMaskIntoConstraints = false
-    tableView.backgroundColor = Asset.Scene.Onboarding.background.color
+    tableView.backgroundColor = Asset.Scene.Onboarding.textFieldBackground.color
 
     tableViewWrapper = UIView()
     tableViewWrapper.translatesAutoresizingMaskIntoConstraints = false
     tableViewWrapper.backgroundColor = .clear
+    tableViewWrapper.layer.cornerRadius = 10
+    tableViewWrapper.layer.masksToBounds = true
     tableViewWrapper.addSubview(tableView)
 
     navigationActionView = NavigationActionView()
@@ -89,12 +91,12 @@ class MastodonLoginView: UIView {
       tableViewWrapper.topAnchor.constraint(equalTo: searchTextField.bottomAnchor),
       tableViewWrapper.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
       trailingAnchor.constraint(equalTo: tableViewWrapper.trailingAnchor, constant: 16),
-      tableViewWrapper.bottomAnchor.constraint(equalTo: navigationActionView.topAnchor),
+      tableViewWrapper.bottomAnchor.constraint(lessThanOrEqualTo: navigationActionView.topAnchor),
 
       tableView.topAnchor.constraint(equalTo: tableViewWrapper.topAnchor),
       tableView.leadingAnchor.constraint(equalTo: tableViewWrapper.leadingAnchor),
       tableViewWrapper.trailingAnchor.constraint(equalTo: tableView.trailingAnchor),
-      tableViewWrapper.bottomAnchor.constraint(equalTo: tableView.bottomAnchor),
+      tableViewWrapper.bottomAnchor.constraint(greaterThanOrEqualTo: tableView.bottomAnchor),
 
       navigationActionView.leadingAnchor.constraint(equalTo: leadingAnchor),
       navigationActionView.trailingAnchor.constraint(equalTo: trailingAnchor),
@@ -104,26 +106,18 @@ class MastodonLoginView: UIView {
   }
 
   func updateCorners(numberOfResults: Int = 0) {
-    let tableViewPath = UIBezierPath(roundedRect:tableViewWrapper.bounds,
-                            byRoundingCorners: [.bottomLeft, .bottomRight],
-                            cornerRadii: CGSize(width: 10, height:  10))
 
-    let tableViewMask = CAShapeLayer()
-    tableViewMask.path = tableViewPath.cgPath
-    tableViewWrapper.layer.mask = tableViewMask
+    tableView.isHidden = (numberOfResults == 0)
+    tableViewWrapper.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner] // tableViewMask
 
-    let searchFieldCorners: UIRectCorner
+    let maskedCorners: CACornerMask
+
     if numberOfResults == 0 {
-      searchFieldCorners = .allCorners
+      maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner, .layerMaxXMinYCorner, .layerMaxXMaxYCorner]
     } else {
-      searchFieldCorners = [.topLeft, .topRight]
+      maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
     }
 
-    let searchFieldPath = UIBezierPath(roundedRect: searchTextField.bounds,
-                                       byRoundingCorners: searchFieldCorners,
-                                       cornerRadii: CGSize(width: 10, height: 10))
-    let searchFieldMask = CAShapeLayer()
-    searchFieldMask.path = searchFieldPath.cgPath
-    searchTextField.layer.mask = searchFieldMask
+    searchTextField.layer.maskedCorners = maskedCorners
   }
 }
