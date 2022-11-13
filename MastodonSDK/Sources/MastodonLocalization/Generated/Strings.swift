@@ -665,6 +665,16 @@ public enum L10n {
         }
       }
     }
+    public enum Login {
+      /// Log you in with the server where you created your account
+      public static let subtitle = L10n.tr("Localizable", "Scene.Login.Subtitle")
+      /// Welcome Back!
+      public static let title = L10n.tr("Localizable", "Scene.Login.Title")
+      public enum ServerSearchField {
+        /// Search for your server
+        public static let placeholder = L10n.tr("Localizable", "Scene.Login.ServerSearchField.Placeholder")
+      }
+    }
     public enum Notification {
       public enum FollowRequest {
         /// Accept

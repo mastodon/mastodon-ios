@@ -7,6 +7,7 @@
 
 import UIKit
 import MastodonAsset
+import MastodonLocalization
 
 class MastodonLoginView: UIView {
 
@@ -26,13 +27,13 @@ class MastodonLoginView: UIView {
     titleLabel = UILabel()
     titleLabel.font = MastodonLoginViewController.largeTitleFont
     titleLabel.textColor = MastodonLoginViewController.largeTitleTextColor
-    titleLabel.text = "Welcome Back" //TODO: @zeitschlag localization
+    titleLabel.text = L10n.Scene.Login.title
     titleLabel.numberOfLines = 0
 
     subtitleLabel = UILabel()
     subtitleLabel.font = MastodonLoginViewController.subTitleFont
     subtitleLabel.textColor = MastodonLoginViewController.subTitleTextColor
-    subtitleLabel.text = "Log you in with the server where you created your account" //TODO: @zeitschlag localization
+    subtitleLabel.text = L10n.Scene.Login.subtitle
     subtitleLabel.numberOfLines = 0
 
     headerStackView = UIStackView(arrangedSubviews: [titleLabel, subtitleLabel])
@@ -43,7 +44,7 @@ class MastodonLoginView: UIView {
     searchTextField = UITextField()
     searchTextField.translatesAutoresizingMaskIntoConstraints = false
     searchTextField.backgroundColor = Asset.Scene.Onboarding.textFieldBackground.color
-    searchTextField.placeholder = "Search for your server" //TODO: @zeitschlag Localization
+    searchTextField.placeholder = L10n.Scene.Login.ServerSearchField.placeholder
     searchTextField.leftView = UIImageView(image: UIImage(systemName: "magnifyingglass"))
     searchTextField.leftViewMode = .always
     searchTextField.layer.cornerRadius = 10
