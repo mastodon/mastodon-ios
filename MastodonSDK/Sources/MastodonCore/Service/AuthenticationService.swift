@@ -67,7 +67,7 @@ public final class AuthenticationService: NSObject {
             try mastodonAuthenticationFetchedResultsController.performFetch()
             mastodonAuthentications = mastodonAuthenticationFetchedResultsController.fetchedObjects?
                 .sorted(by: { $0.activedAt > $1.activedAt })
-                .compactMap { $0.asRecrod } ?? []
+                .compactMap { $0.asRecord } ?? []
         } catch {
             assertionFailure(error.localizedDescription)
         }
@@ -148,7 +148,7 @@ extension AuthenticationService: NSFetchedResultsControllerDelegate {
     
         mastodonAuthentications = mastodonAuthenticationFetchedResultsController.fetchedObjects?
             .sorted(by: { $0.activedAt > $1.activedAt })
-            .compactMap { $0.asRecrod } ?? []
+            .compactMap { $0.asRecord } ?? []
     }
     
 }
