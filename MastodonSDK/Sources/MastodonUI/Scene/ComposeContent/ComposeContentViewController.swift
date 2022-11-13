@@ -14,6 +14,8 @@ import MastodonCore
 
 public final class ComposeContentViewController: UIViewController {
     
+    static let minAutoCompleteVisibleHeight: CGFloat = 100
+
     let logger = Logger(subsystem: "ComposeContentViewController", category: "ViewController")
     
     var disposeBag = Set<AnyCancellable>()
@@ -40,7 +42,6 @@ public final class ComposeContentViewController: UIViewController {
     }()
     
     // toolbar
-    
     lazy var composeContentToolbarView = ComposeContentToolbarView(viewModel: composeContentToolbarViewModel)
     var composeContentToolbarViewBottomLayoutConstraint: NSLayoutConstraint!
     let composeContentToolbarBackgroundView = UIView()
@@ -146,49 +147,42 @@ extension ComposeContentViewController {
         ])
         
         // bind keyboard
-        let keyboardHasShortcutBar = CurrentValueSubject<Bool, Never>(traitCollection.userInterfaceIdiom == .pad)       // update default value later
         let keyboardEventPublishers = Publishers.CombineLatest3(
             KeyboardResponderService.shared.isShow,
             KeyboardResponderService.shared.state,
             KeyboardResponderService.shared.endFrame
         )
-//        Publishers.CombineLatest3(
-//            viewModel.$isCustomEmojiComposing,
-//        )
-        keyboardEventPublishers
-        .sink(receiveValue: { [weak self] keyboardEvents in
+        Publishers.CombineLatest3(
+            keyboardEventPublishers,
+            viewModel.$isEmojiActive,
+            viewModel.$autoCompleteInfo
+        )
+        .sink(receiveValue: { [weak self] keyboardEvents, isEmojiActive, autoCompleteInfo in
             guard let self = self else { return }
             
             let (isShow, state, endFrame) = keyboardEvents
-            
-//            switch self.traitCollection.userInterfaceIdiom {
-//            case .pad:
-//                keyboardHasShortcutBar.value = state != .floating
-//            default:
-//                keyboardHasShortcutBar.value = false
-//            }
-//
+    
             let extraMargin: CGFloat = {
                 var margin = ComposeContentToolbarView.toolbarHeight
-//                if autoCompleteInfo != nil {
-////                    margin += ComposeViewController.minAutoCompleteVisibleHeight
-//                }
+                if autoCompleteInfo != nil {
+                    margin += ComposeContentViewController.minAutoCompleteVisibleHeight
+                }
                 return margin
             }()
-//
+            
             guard isShow, state == .dock else {
                 self.tableView.contentInset.bottom = extraMargin
                 self.tableView.verticalScrollIndicatorInsets.bottom = extraMargin
 
-//                if let superView = self.autoCompleteViewController.tableView.superview {
-//                    let autoCompleteTableViewBottomInset: CGFloat = {
-//                        let tableViewFrameInWindow = superView.convert(self.autoCompleteViewController.tableView.frame, to: nil)
-//                        let padding = tableViewFrameInWindow.maxY + self.composeToolbarView.frame.height + AutoCompleteViewController.chevronViewHeight - self.view.frame.maxY
-//                        return max(0, padding)
-//                    }()
-//                    self.autoCompleteViewController.tableView.contentInset.bottom = autoCompleteTableViewBottomInset
-//                    self.autoCompleteViewController.tableView.verticalScrollIndicatorInsets.bottom = autoCompleteTableViewBottomInset
-//                }
+                if let superView = self.autoCompleteViewController.tableView.superview {
+                    let autoCompleteTableViewBottomInset: CGFloat = {
+                        let tableViewFrameInWindow = superView.convert(self.autoCompleteViewController.tableView.frame, to: nil)
+                        let padding = tableViewFrameInWindow.maxY + ComposeContentToolbarView.toolbarHeight + AutoCompleteViewController.chevronViewHeight - self.view.frame.maxY
+                        return max(0, padding)
+                    }()
+                    self.autoCompleteViewController.tableView.contentInset.bottom = autoCompleteTableViewBottomInset
+                    self.autoCompleteViewController.tableView.verticalScrollIndicatorInsets.bottom = autoCompleteTableViewBottomInset
+                }
 
                 UIView.animate(withDuration: 0.3) {
                     self.composeContentToolbarViewBottomLayoutConstraint.constant = self.view.safeAreaInsets.bottom
@@ -199,17 +193,16 @@ extension ComposeContentViewController {
                 return
             }
             // isShow AND dock state
-//            self.systemKeyboardHeight = endFrame.height
 
             // adjust inset for auto-complete
-//            let autoCompleteTableViewBottomInset: CGFloat = {
-//                guard let superview = self.autoCompleteViewController.tableView.superview else { return .zero }
-//                let tableViewFrameInWindow = superview.convert(self.autoCompleteViewController.tableView.frame, to: nil)
-//                let padding = tableViewFrameInWindow.maxY + self.composeToolbarView.frame.height + AutoCompleteViewController.chevronViewHeight - endFrame.minY
-//                return max(0, padding)
-//            }()
-//            self.autoCompleteViewController.tableView.contentInset.bottom = autoCompleteTableViewBottomInset
-//            self.autoCompleteViewController.tableView.verticalScrollIndicatorInsets.bottom = autoCompleteTableViewBottomInset
+            let autoCompleteTableViewBottomInset: CGFloat = {
+                guard let superview = self.autoCompleteViewController.tableView.superview else { return .zero }
+                let tableViewFrameInWindow = superview.convert(self.autoCompleteViewController.tableView.frame, to: nil)
+                let padding = tableViewFrameInWindow.maxY + ComposeContentToolbarView.toolbarHeight + AutoCompleteViewController.chevronViewHeight - endFrame.minY
+                return max(0, padding)
+            }()
+            self.autoCompleteViewController.tableView.contentInset.bottom = autoCompleteTableViewBottomInset
+            self.autoCompleteViewController.tableView.verticalScrollIndicatorInsets.bottom = autoCompleteTableViewBottomInset
 
             // adjust inset for tableView
             let contentFrame = self.view.convert(self.tableView.frame, to: nil)
@@ -289,6 +282,15 @@ extension ComposeContentViewController {
         
         // bind toolbar
         bindToolbarViewModel()
+        
+        // bind attachment picker
+        viewModel.$attachmentViewModels
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                self.resetImagePicker()
+            }
+            .store(in: &disposeBag)
     }
     
     public override func viewDidLayoutSubviews() {
@@ -327,6 +329,8 @@ extension ComposeContentViewController {
     }
     
     private func bindToolbarViewModel() {
+        viewModel.$isAttachmentButtonEnabled.assign(to: &composeContentToolbarViewModel.$isAttachmentButtonEnabled)
+        viewModel.$isPollButtonEnabled.assign(to: &composeContentToolbarViewModel.$isPollButtonEnabled)
         viewModel.$isPollActive.assign(to: &composeContentToolbarViewModel.$isPollActive)
         viewModel.$isEmojiActive.assign(to: &composeContentToolbarViewModel.$isEmojiActive)
         viewModel.$isContentWarningActive.assign(to: &composeContentToolbarViewModel.$isContentWarningActive)
@@ -344,6 +348,18 @@ extension ComposeContentViewController {
             }
             autoCompleteViewController.view.frame.size.width = view.frame.width
         }
+    }
+    
+    private func resetImagePicker() {
+        let selectionLimit = max(1, viewModel.maxMediaAttachmentLimit - viewModel.attachmentViewModels.count)
+        let configuration = ComposeContentViewController.createPhotoLibraryPickerConfiguration(selectionLimit: selectionLimit)
+        photoLibraryPicker = createImagePicker(configuration: configuration)
+    }
+    
+    private func createImagePicker(configuration: PHPickerConfiguration) -> PHPickerViewController {
+        let imagePicker = PHPickerViewController(configuration: configuration)
+        imagePicker.delegate = self
+        return imagePicker
     }
 }
 

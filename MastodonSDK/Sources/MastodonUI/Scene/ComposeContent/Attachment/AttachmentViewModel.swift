@@ -57,7 +57,6 @@ final public class AttachmentViewModel: NSObject, ObservableObject, Identifiable
     @Published public private(set) var thumbnail: UIImage?      // original size image thumbnail
     @Published public private(set) var outputSizeInByte: Int64 = 0
     
-    @MainActor
     @Published public private(set) var uploadState: UploadState = .none
     @Published public private(set) var uploadResult: UploadResult?
     @Published var error: Error?

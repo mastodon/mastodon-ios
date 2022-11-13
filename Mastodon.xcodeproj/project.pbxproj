@@ -253,7 +253,6 @@
 		DB64BA452851F23000ADF1B7 /* MastodonAuthentication+Fetch.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB64BA442851F23000ADF1B7 /* MastodonAuthentication+Fetch.swift */; };
 		DB64BA482851F29300ADF1B7 /* Account+Fetch.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB64BA472851F29300ADF1B7 /* Account+Fetch.swift */; };
 		DB65C63727A2AF6C008BAC2E /* ReportItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB65C63627A2AF6C008BAC2E /* ReportItem.swift */; };
-		DB66728C25F9F8DC00D60309 /* ComposeViewModel+DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB66728B25F9F8DC00D60309 /* ComposeViewModel+DataSource.swift */; };
 		DB6746EB278ED8B0008A6B94 /* PollOptionView+Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6746EA278ED8B0008A6B94 /* PollOptionView+Configuration.swift */; };
 		DB6746ED278F45F0008A6B94 /* AutoGenerateProtocolRelayDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6746EC278F45F0008A6B94 /* AutoGenerateProtocolRelayDelegate.swift */; };
 		DB6746F0278F463B008A6B94 /* AutoGenerateProtocolDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6746EF278F463B008A6B94 /* AutoGenerateProtocolDelegate.swift */; };
@@ -333,7 +332,6 @@
 		DB98EB6927B21A7C0082E365 /* ReportResultActionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB98EB6827B21A7C0082E365 /* ReportResultActionTableViewCell.swift */; };
 		DB98EB6B27B243470082E365 /* SettingsAppearanceTableViewCell+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB98EB6A27B243470082E365 /* SettingsAppearanceTableViewCell+ViewModel.swift */; };
 		DB9A486C26032AC1008B817C /* AttachmentContainerView+EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9A486B26032AC1008B817C /* AttachmentContainerView+EmptyStateView.swift */; };
-		DB9A488A26034D40008B817C /* ComposeViewModel+PublishState.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9A488926034D40008B817C /* ComposeViewModel+PublishState.swift */; };
 		DB9D6BE925E4F5340051B173 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D6BE825E4F5340051B173 /* SearchViewController.swift */; };
 		DB9D6BF825E4F5690051B173 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D6BF725E4F5690051B173 /* NotificationViewController.swift */; };
 		DB9D6BFF25E4F5940051B173 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D6BFE25E4F5940051B173 /* ProfileViewController.swift */; };
@@ -811,7 +809,6 @@
 		DB64BA442851F23000ADF1B7 /* MastodonAuthentication+Fetch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MastodonAuthentication+Fetch.swift"; sourceTree = "<group>"; };
 		DB64BA472851F29300ADF1B7 /* Account+Fetch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Account+Fetch.swift"; sourceTree = "<group>"; };
 		DB65C63627A2AF6C008BAC2E /* ReportItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportItem.swift; sourceTree = "<group>"; };
-		DB66728B25F9F8DC00D60309 /* ComposeViewModel+DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ComposeViewModel+DataSource.swift"; sourceTree = "<group>"; };
 		DB6746EA278ED8B0008A6B94 /* PollOptionView+Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PollOptionView+Configuration.swift"; sourceTree = "<group>"; };
 		DB6746EC278F45F0008A6B94 /* AutoGenerateProtocolRelayDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoGenerateProtocolRelayDelegate.swift; sourceTree = "<group>"; };
 		DB6746EF278F463B008A6B94 /* AutoGenerateProtocolDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoGenerateProtocolDelegate.swift; sourceTree = "<group>"; };
@@ -903,7 +900,6 @@
 		DB98EB6827B21A7C0082E365 /* ReportResultActionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportResultActionTableViewCell.swift; sourceTree = "<group>"; };
 		DB98EB6A27B243470082E365 /* SettingsAppearanceTableViewCell+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingsAppearanceTableViewCell+ViewModel.swift"; sourceTree = "<group>"; };
 		DB9A486B26032AC1008B817C /* AttachmentContainerView+EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AttachmentContainerView+EmptyStateView.swift"; sourceTree = "<group>"; };
-		DB9A488926034D40008B817C /* ComposeViewModel+PublishState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ComposeViewModel+PublishState.swift"; sourceTree = "<group>"; };
 		DB9D6BE825E4F5340051B173 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		DB9D6BF725E4F5690051B173 /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
 		DB9D6BFE25E4F5940051B173 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -2134,8 +2130,6 @@
 				DB789A2125F9F76D0071ACA0 /* CollectionViewCell */,
 				DB789A0A25F9F2950071ACA0 /* ComposeViewController.swift */,
 				DB789A1125F9F2CC0071ACA0 /* ComposeViewModel.swift */,
-				DB66728B25F9F8DC00D60309 /* ComposeViewModel+DataSource.swift */,
-				DB9A488926034D40008B817C /* ComposeViewModel+PublishState.swift */,
 			);
 			path = Compose;
 			sourceTree = "<group>";
@@ -3183,7 +3177,6 @@
 				0F1E2D0B2615C39400C38565 /* DoubleTitleLabelNavigationBarTitleView.swift in Sources */,
 				DBDFF1902805543100557A48 /* DiscoveryPostsViewController.swift in Sources */,
 				DB697DD9278F4CED004EF2F7 /* HomeTimelineViewController+DataSourceProvider.swift in Sources */,
-				DB9A488A26034D40008B817C /* ComposeViewModel+PublishState.swift in Sources */,
 				DB45FAD725CA6C76005A8AC7 /* UIBarButtonItem.swift in Sources */,
 				2D8434F525FF465D00EECE90 /* HomeTimelineNavigationBarTitleViewModel.swift in Sources */,
 				DB938F0F2624119800E5B6C1 /* ThreadViewModel+LoadThreadState.swift in Sources */,
@@ -3285,7 +3278,6 @@
 				DB63F7492799126300455B82 /* FollowerListViewController+DataSourceProvider.swift in Sources */,
 				2D198643261BF09500F0B013 /* SearchResultItem.swift in Sources */,
 				2DAC9E38262FC2320062E1A6 /* SuggestionAccountViewController.swift in Sources */,
-				DB66728C25F9F8DC00D60309 /* ComposeViewModel+DataSource.swift in Sources */,
 				DB6180E02639194B0018D199 /* MediaPreviewPagingViewController.swift in Sources */,
 				DBE0822425CD3F1E00FD6BBD /* MastodonRegisterViewModel.swift in Sources */,
 				5B90C45E262599800002E742 /* SettingsViewModel.swift in Sources */,

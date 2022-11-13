@@ -14,6 +14,7 @@ import MetaTextKit
 import MastodonMeta
 import MastodonCore
 import MastodonSDK
+import MastodonLocalization
 
 public protocol ComposeContentViewModelDelegate: AnyObject {
     func composeContentViewModel(_ viewModel: ComposeContentViewModel, handleAutoComplete info: ComposeContentViewModel.AutoCompleteInfo) -> Bool
@@ -58,6 +59,8 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
             customEmojiPickerInputViewModel.configure(textInput: textView)
         }
     }
+    // for hashtag: "#<hashtag> "
+    // for mention: "@<mention> "
     @Published public var initialContent = ""
     @Published public var content = ""
     @Published public var contentWeightedLength = 0
@@ -115,6 +118,14 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
     @Published var contentCellFrame: CGRect = .zero
     @Published var contentTextViewFrame: CGRect = .zero
     @Published var scrollViewState: ScrollViewState = .fold
+    
+    @Published var characterCount: Int = 0
+    
+    @Published public private(set) var isPublishBarButtonItemEnabled = true
+    @Published var isAttachmentButtonEnabled = false
+    @Published var isPollButtonEnabled = false
+    
+    @Published public private(set) var shouldDismiss = true
 
     public init(
         context: AppContext,
@@ -165,6 +176,70 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
         super.init()
         // end init
         
+        // setup initial value
+        switch kind {
+        case .reply(let record):
+            context.managedObjectContext.performAndWait {
+                guard let status = record.object(in: context.managedObjectContext) else {
+                    assertionFailure()
+                    return
+                }
+                let author = authContext.mastodonAuthenticationBox.authenticationRecord.object(in: context.managedObjectContext)?.user
+                
+                var mentionAccts: [String] = []
+                if author?.id != status.author.id {
+                    mentionAccts.append("@" + status.author.acct)
+                }
+                let mentions = status.mentions
+                    .filter { author?.id != $0.id }
+                for mention in mentions {
+                    let acct = "@" + mention.acct
+                    guard !mentionAccts.contains(acct) else { continue }
+                    mentionAccts.append(acct)
+                }
+                for acct in mentionAccts {
+                    UITextChecker.learnWord(acct)
+                }
+                if let spoilerText = status.spoilerText, !spoilerText.isEmpty {
+                    self.isContentWarningActive = true
+                    self.contentWarning = spoilerText
+                }
+                
+                let initialComposeContent = mentionAccts.joined(separator: " ")
+                let preInsertedContent: String? = initialComposeContent.isEmpty ? nil : initialComposeContent + " "
+                self.initialContent = preInsertedContent ?? ""
+                self.content = preInsertedContent ?? ""
+            }
+        case .hashtag(let hashtag):
+            let initialComposeContent = "#" + hashtag
+            UITextChecker.learnWord(initialComposeContent)
+            let preInsertedContent = initialComposeContent + " "
+            self.initialContent = preInsertedContent
+            self.content = preInsertedContent
+        case .mention(let record):
+            context.managedObjectContext.performAndWait {
+                guard let user = record.object(in: context.managedObjectContext) else { return }
+                let initialComposeContent = "@" + user.acct
+                UITextChecker.learnWord(initialComposeContent)
+                let preInsertedContent = initialComposeContent + " "
+                self.initialContent = preInsertedContent
+                self.content = preInsertedContent
+            }
+        case .post:
+            break
+        }
+        
+        bind()
+    }
+    
+    deinit {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+    }
+
+}
+
+extension ComposeContentViewModel {
+    private func bind() {
         // bind author
         $authContext
             .sink { [weak self] authContext in
@@ -210,12 +285,129 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
         // bind emoji inputView
         $isEmojiActive.assign(to: &customEmojiPickerInputViewModel.$isCustomEmojiComposing)
         
-    }
-    
-    deinit {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-    }
+        // bind toolbar
+        Publishers.CombineLatest3(
+            $isPollActive,
+            $attachmentViewModels,
+            $maxMediaAttachmentLimit
+        )
+        .receive(on: DispatchQueue.main)
+        .sink { [weak self] isPollActive, attachmentViewModels, maxMediaAttachmentLimit in
+            guard let self = self else { return }
+            let shouldMediaDisable = isPollActive || attachmentViewModels.count >= maxMediaAttachmentLimit
+            let shouldPollDisable = attachmentViewModels.count > 0
+            
+            self.isAttachmentButtonEnabled = !shouldMediaDisable
+            self.isPollButtonEnabled = !shouldPollDisable
+        }
+        .store(in: &disposeBag)
+        
+        // bind status content character count
+        Publishers.CombineLatest3(
+            $contentWeightedLength,
+            $contentWarningWeightedLength,
+            $isContentWarningActive
+        )
+        .map { contentWeightedLength, contentWarningWeightedLength, isContentWarningActive -> Int in
+            var count = contentWeightedLength
+            if isContentWarningActive {
+                count += contentWarningWeightedLength
+            }
+            return count
+        }
+        .assign(to: &$characterCount)
+        
+        // bind compose bar button item UI state
+        let isComposeContentEmpty = $content
+            .map { $0.isEmpty }
+        let isComposeContentValid = Publishers.CombineLatest(
+            $characterCount,
+            $maxTextInputLimit
+        )
+        .map { characterCount, maxTextInputLimit in
+            characterCount <= maxTextInputLimit
+        }
 
+        let isMediaEmpty = $attachmentViewModels
+            .map { $0.isEmpty }
+        let isMediaUploadAllSuccess = $attachmentViewModels
+            .map { attachmentViewModels in
+                return Publishers.MergeMany(attachmentViewModels.map { $0.$uploadState })
+                    .delay(for: 0.5, scheduler: DispatchQueue.main)     // convert to outputs with delay. Due to @Published emit before changes
+                    .map { _ in attachmentViewModels.map { $0.uploadState } }
+            }
+            .switchToLatest()
+            .map { outputs in
+                guard outputs.allSatisfy({ $0 == .finish }) else { return false }
+                return true
+            }
+        
+        isMediaUploadAllSuccess.sink { result in
+            print(result)
+        }
+        .store(in: &disposeBag)
+        
+        let isPollOptionsAllValid = $pollOptions
+            .map { options in
+                return Publishers.MergeMany(options.map { $0.$text })
+                    .delay(for: 0.5, scheduler: DispatchQueue.main)     // convert to outputs with delay. Due to @Published emit before changes
+                    .map { _ in options.map { $0.text } }
+            }
+            .switchToLatest()
+            .map { outputs in
+                return outputs.allSatisfy { !$0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
+            }
+
+        let isPublishBarButtonItemEnabledPrecondition1 = Publishers.CombineLatest4(
+            isComposeContentEmpty,
+            isComposeContentValid,
+            isMediaEmpty,
+            isMediaUploadAllSuccess
+        )
+        .map { isComposeContentEmpty, isComposeContentValid, isMediaEmpty, isMediaUploadAllSuccess -> Bool in
+            if isMediaEmpty {
+                return isComposeContentValid && !isComposeContentEmpty
+            } else {
+                return isComposeContentValid && isMediaUploadAllSuccess
+            }
+        }
+        .eraseToAnyPublisher()
+
+        let isPublishBarButtonItemEnabledPrecondition2 = Publishers.CombineLatest4(
+            isComposeContentEmpty,
+            isComposeContentValid,
+            $isPollActive,
+            isPollOptionsAllValid
+        )
+        .map { isComposeContentEmpty, isComposeContentValid, isPollComposing, isPollOptionsAllValid -> Bool in
+            if isPollComposing {
+                return isComposeContentValid && !isComposeContentEmpty && isPollOptionsAllValid
+            } else {
+                return isComposeContentValid && !isComposeContentEmpty
+            }
+        }
+        .eraseToAnyPublisher()
+
+        Publishers.CombineLatest(
+            isPublishBarButtonItemEnabledPrecondition1,
+            isPublishBarButtonItemEnabledPrecondition2
+        )
+        .map { $0 && $1 }
+        .assign(to: &$isPublishBarButtonItemEnabled)
+        
+        // bind modal dismiss state
+        $content
+            .receive(on: DispatchQueue.main)
+            .map { [weak self] content in
+                guard let self = self else { return }
+                if content.isEmpty {
+                    return true
+                }
+                // if the trimmed content equal to initial content
+                return content.trimmingCharacters(in: .whitespacesAndNewlines) == self.initialContent
+            }
+            .assign(to: &$shouldDismiss)
+    }
 }
 
 extension ComposeContentViewModel {
@@ -323,6 +515,58 @@ extension ComposeContentViewModel {
             visibility: visibility
         )
     }   // end func publisher()
+}
+
+extension ComposeContentViewModel {
+    public enum AttachmentPrecondition: Error, LocalizedError {
+        case videoAttachWithPhoto
+        case moreThanOneVideo
+        
+        public var errorDescription: String? {
+            return L10n.Common.Alerts.PublishPostFailure.title
+        }
+        
+        public var failureReason: String? {
+            switch self {
+            case .videoAttachWithPhoto:
+                return L10n.Common.Alerts.PublishPostFailure.AttachmentsMessage.videoAttachWithPhoto
+            case .moreThanOneVideo:
+                return L10n.Common.Alerts.PublishPostFailure.AttachmentsMessage.moreThanOneVideo
+            }
+        }
+    }
+    
+    // check exclusive limit:
+    // - up to 1 video
+    // - up to N photos
+    public func checkAttachmentPrecondition() throws {
+        let attachmentViewModels = self.attachmentViewModels
+        guard !attachmentViewModels.isEmpty else { return }
+        var photoAttachmentViewModels: [AttachmentViewModel] = []
+        var videoAttachmentViewModels: [AttachmentViewModel] = []
+        attachmentViewModels.forEach { attachmentViewModel in
+            guard let output = attachmentViewModel.output else {
+                assertionFailure()
+                return
+            }
+            switch output {
+            case .image:
+                photoAttachmentViewModels.append(attachmentViewModel)
+            case .video:
+                videoAttachmentViewModels.append(attachmentViewModel)
+            }
+        }
+
+        if !videoAttachmentViewModels.isEmpty {
+            guard videoAttachmentViewModels.count == 1 else {
+                throw AttachmentPrecondition.moreThanOneVideo
+            }
+            guard photoAttachmentViewModels.isEmpty else {
+                throw AttachmentPrecondition.videoAttachWithPhoto
+            }
+        }
+    }
+    
 }
 
 // MARK: - DeleteBackwardResponseTextFieldRelayDelegate
