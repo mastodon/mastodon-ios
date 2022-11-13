@@ -46,6 +46,7 @@ class MastodonLoginViewController: UIViewController {
     viewModel.delegate = self
 
     navigationItem.hidesBackButton = true
+    //TODO: @zeitschlag consider keyboard, do the notification-dance
   }
 
   required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
@@ -65,6 +66,9 @@ class MastodonLoginViewController: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
+
+    NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShowNotification(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHideNotification(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
 
     let dataSource = UITableViewDiffableDataSource<MastodonLoginViewSection, Mastodon.Entity.Server>(tableView: contentView.tableView) { [weak self] tableView, indexPath, itemIdentifier in
       guard let cell = tableView.dequeueReusableCell(withIdentifier: MastodonLoginServerTableViewCell.reuseIdentifier, for: indexPath) as? MastodonLoginServerTableViewCell,
@@ -191,6 +195,36 @@ class MastodonLoginViewController: UIViewController {
       contentView.navigationActionView.nextButton.isEnabled = false
     }
   }
+
+  // MARK: - Notifications
+  @objc func keyboardWillShowNotification(_ notification: Notification) {
+
+    guard let userInfo = notification.userInfo,
+          let keyboardFrameValue = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue,
+          let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber
+    else { return }
+
+    let adjustmentHeight = keyboardFrameValue.cgRectValue.height - view.safeAreaInsets.bottom
+    contentView.bottomConstraint?.constant = adjustmentHeight
+
+    UIView.animate(withDuration: duration.doubleValue, delay: 0, options: .curveEaseInOut) {
+      self.view.layoutIfNeeded()
+    }
+  }
+
+  @objc func keyboardWillHideNotification(_ notification: Notification) {
+
+    guard let userInfo = notification.userInfo,
+          let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber
+    else { return }
+
+    contentView.bottomConstraint?.constant = 0
+
+    UIView.animate(withDuration: duration.doubleValue, delay: 0, options: .curveEaseInOut) {
+      self.view.layoutIfNeeded()
+    }
+  }
+
 }
 
 // MARK: - OnboardingViewControllerAppearance

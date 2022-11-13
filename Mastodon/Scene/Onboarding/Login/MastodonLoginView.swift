@@ -19,6 +19,7 @@ class MastodonLoginView: UIView {
   let tableView: UITableView
   private var tableViewWrapper: UIView
   let navigationActionView: NavigationActionView
+  var bottomConstraint: NSLayoutConstraint?
 
   override init(frame: CGRect) {
 
@@ -50,6 +51,7 @@ class MastodonLoginView: UIView {
     tableView = ContentSizedTableView()
     tableView.translatesAutoresizingMaskIntoConstraints = false
     tableView.backgroundColor = Asset.Scene.Onboarding.textFieldBackground.color
+    tableView.keyboardDismissMode = .onDrag
 
     tableViewWrapper = UIView()
     tableViewWrapper.translatesAutoresizingMaskIntoConstraints = false
@@ -77,6 +79,9 @@ class MastodonLoginView: UIView {
   }
 
   private func setupConstraints() {
+
+    let bottomConstraint = safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: navigationActionView.bottomAnchor)
+
     let constraints = [
 
       headerStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
@@ -100,8 +105,10 @@ class MastodonLoginView: UIView {
 
       navigationActionView.leadingAnchor.constraint(equalTo: leadingAnchor),
       navigationActionView.trailingAnchor.constraint(equalTo: trailingAnchor),
-      bottomAnchor.constraint(equalTo: navigationActionView.bottomAnchor),
+      bottomConstraint,
     ]
+
+    self.bottomConstraint = bottomConstraint
     NSLayoutConstraint.activate(constraints)
   }
 
