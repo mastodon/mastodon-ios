@@ -87,6 +87,7 @@
 		62FD27D32893707B00B205C5 /* BookmarkViewController+DataSourceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FD27D22893707B00B205C5 /* BookmarkViewController+DataSourceProvider.swift */; };
 		62FD27D52893708A00B205C5 /* BookmarkViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FD27D42893708A00B205C5 /* BookmarkViewModel+Diffable.swift */; };
 		87FFDA5D898A5C42ADCB35E7 /* Pods_Mastodon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4ABE34829701A4496C5BB64 /* Pods_Mastodon.framework */; };
+		CD91FB31290EDA6F00BB9463 /* MetaTextView+PasteExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD91FB30290EDA6F00BB9463 /* MetaTextView+PasteExtensions.swift */; };
 		DB0009A626AEE5DC009B9D2D /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = DB0009A926AEE5DC009B9D2D /* Intents.intentdefinition */; settings = {ATTRIBUTES = (codegen, ); }; };
 		DB0009A726AEE5DC009B9D2D /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = DB0009A926AEE5DC009B9D2D /* Intents.intentdefinition */; };
 		DB0140CF25C42AEE00F9F3CF /* OSLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0140CE25C42AEE00F9F3CF /* OSLog.swift */; };
@@ -604,6 +605,7 @@
 		BB482D32A7B9825BF5327C4F /* Pods-Mastodon-MastodonUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon-MastodonUITests.release.xcconfig"; path = "Target Support Files/Pods-Mastodon-MastodonUITests/Pods-Mastodon-MastodonUITests.release.xcconfig"; sourceTree = "<group>"; };
 		BD7598A87F4497045EDEF252 /* Pods-Mastodon.asdk - release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon.asdk - release.xcconfig"; path = "Target Support Files/Pods-Mastodon/Pods-Mastodon.asdk - release.xcconfig"; sourceTree = "<group>"; };
 		C3789232A52F43529CA67E95 /* Pods-MastodonIntent.asdk - debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MastodonIntent.asdk - debug.xcconfig"; path = "Target Support Files/Pods-MastodonIntent/Pods-MastodonIntent.asdk - debug.xcconfig"; sourceTree = "<group>"; };
+		CD91FB30290EDA6F00BB9463 /* MetaTextView+PasteExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MetaTextView+PasteExtensions.swift"; sourceTree = "<group>"; };
 		CD92E0F10BDE4FE7C4B999F2 /* Pods_MastodonTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MastodonTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7D7CF93E262178800077512 /* Pods-Mastodon-AppShared.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon-AppShared.debug.xcconfig"; path = "Target Support Files/Pods-Mastodon-AppShared/Pods-Mastodon-AppShared.debug.xcconfig"; sourceTree = "<group>"; };
 		DB0009A826AEE5DC009B9D2D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; name = Base; path = Base.lproj/Intents.intentdefinition; sourceTree = "<group>"; };
@@ -1865,6 +1867,7 @@
 				DB8190C52601FF0400020C08 /* AttachmentContainerView.swift */,
 				DB9A486B26032AC1008B817C /* AttachmentContainerView+EmptyStateView.swift */,
 				DBC7A671260C897100E57475 /* StatusContentWarningEditorView.swift */,
+				CD91FB30290EDA6F00BB9463 /* MetaTextView+PasteExtensions.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3293,6 +3296,7 @@
 				2D84350525FF858100EECE90 /* UIScrollView.swift in Sources */,
 				6213AF5A28939C8400BCADB6 /* BookmarkViewModel.swift in Sources */,
 				5B24BBDB262DB14800A9381B /* ReportStatusViewModel+Diffable.swift in Sources */,
+				CD91FB31290EDA6F00BB9463 /* MetaTextView+PasteExtensions.swift in Sources */,
 				DB4F0968269ED8AD00D62E92 /* SearchHistoryTableHeaderView.swift in Sources */,
 				0FB3D2FE25E4CB6400AAD544 /* OnboardingHeadlineTableViewCell.swift in Sources */,
 				5DA732CC2629CEF500A92342 /* UIView+Remove.swift in Sources */,
