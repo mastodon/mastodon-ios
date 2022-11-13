@@ -452,10 +452,3 @@ extension MastodonPickServerViewController: PickServerServerSectionTableHeaderVi
 
 // MARK: - OnboardingViewControllerAppearance
 extension MastodonPickServerViewController: OnboardingViewControllerAppearance { }
-
-// MARK: - ASWebAuthenticationPresentationContextProviding
-extension MastodonPickServerViewController: ASWebAuthenticationPresentationContextProviding {
-    func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
-        return view.window!
-    }
-}
