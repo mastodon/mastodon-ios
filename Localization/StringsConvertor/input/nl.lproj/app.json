@@ -382,7 +382,11 @@
                 "video": "video",
                 "attachment_broken": "Deze %s is corrupt en kan niet geüpload worden naar Mastodon.",
                 "description_photo": "Omschrijf de foto voor mensen met een visuele beperking...",
-                "description_video": "Omschrijf de video voor mensen met een visuele beperking..."
+                "description_video": "Omschrijf de video voor mensen met een visuele beperking...",
+                "load_failed": "Load Failed",
+                "upload_failed": "Upload Failed",
+                "can_not_recognize_this_media_attachment": "Can not regonize this media attachment",
+                "attachment_too_large": "Attachment too large"
             },
             "poll": {
                 "duration_time": "Duur: %s",
