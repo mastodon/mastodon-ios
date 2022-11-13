@@ -382,7 +382,11 @@
                 "video": "Video",
                 "attachment_broken": "Dieses %s scheint defekt zu sein und\nkann nicht auf Mastodon hochgeladen werden.",
                 "description_photo": "Für Menschen mit Sehbehinderung beschreiben...",
-                "description_video": "Für Menschen mit Sehbehinderung beschreiben..."
+                "description_video": "Für Menschen mit Sehbehinderung beschreiben...",
+                "load_failed": "Load Failed",
+                "upload_failed": "Upload Failed",
+                "can_not_recognize_this_media_attachment": "Can not regonize this media attachment",
+                "attachment_too_large": "Attachment too large"
             },
             "poll": {
                 "duration_time": "Dauer: %s",
