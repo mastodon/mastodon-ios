@@ -51,43 +51,6 @@ extension ComposeViewModel {
 //        // setup data source
 //        tableView.dataSource = self
 //    }
-//
-//    func setupCustomEmojiPickerDiffableDataSource(
-//        for collectionView: UICollectionView,
-//        dependency: NeedsDependency
-//    ) {
-//        let diffableDataSource = CustomEmojiPickerSection.collectionViewDiffableDataSource(
-//            for: collectionView,
-//            dependency: dependency
-//        )
-//        self.customEmojiPickerDiffableDataSource = diffableDataSource
-//
-//        let _domain = customEmojiViewModel?.domain
-//        customEmojiViewModel?.emojis
-//            .receive(on: DispatchQueue.main)
-//            .sink { [weak self, weak diffableDataSource] emojis in
-//                guard let _ = self else { return }
-//                guard let diffableDataSource = diffableDataSource else { return }
-//
-//                var snapshot = NSDiffableDataSourceSnapshot<CustomEmojiPickerSection, CustomEmojiPickerItem>()
-//                let domain = _domain?.uppercased() ?? " "
-//                let customEmojiSection = CustomEmojiPickerSection.emoji(name: domain)
-//                snapshot.appendSections([customEmojiSection])
-//                let items: [CustomEmojiPickerItem] = {
-//                    var items = [CustomEmojiPickerItem]()
-//                    for emoji in emojis where emoji.visibleInPicker {
-//                        let attribute = CustomEmojiPickerItem.CustomEmojiAttribute(emoji: emoji)
-//                        let item = CustomEmojiPickerItem.emoji(attribute: attribute)
-//                        items.append(item)
-//                    }
-//                    return items
-//                }()
-//                snapshot.appendItems(items, toSection: customEmojiSection)
-//
-//                diffableDataSource.apply(snapshot)
-//            }
-//            .store(in: &disposeBag)
-//    }
     
 }
 

@@ -72,6 +72,15 @@ public final class ComposeContentViewController: UIViewController {
         documentPickerController.delegate = self
         return documentPickerController
     }()
+    
+    // emoji picker inputView
+    let customEmojiPickerInputView: CustomEmojiPickerInputView = {
+        let view = CustomEmojiPickerInputView(
+            frame: CGRect(x: 0, y: 0, width: 0, height: 300),
+            inputViewStyle: .keyboard
+        )
+        return view
+    }()
 
     deinit {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
@@ -82,6 +91,8 @@ public final class ComposeContentViewController: UIViewController {
 extension ComposeContentViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
+        
+        viewModel.delegate = self
         
         // setup view
         self.setupBackgroundColor(theme: ThemeService.shared.currentTheme.value)
@@ -106,6 +117,12 @@ extension ComposeContentViewController {
         tableView.delegate = self
         viewModel.setupDataSource(tableView: tableView)
         
+        // setup emoji picker
+        customEmojiPickerInputView.collectionView.delegate = self
+        viewModel.customEmojiPickerInputViewModel.customEmojiPickerInputView = customEmojiPickerInputView
+        viewModel.setupCustomEmojiPickerDiffableDataSource(collectionView: customEmojiPickerInputView.collectionView)
+        
+        // setup toolbar
         let toolbarHostingView = UIHostingController(rootView: composeContentToolbarView)
         toolbarHostingView.view.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(toolbarHostingView.view)
@@ -128,6 +145,7 @@ extension ComposeContentViewController {
             view.bottomAnchor.constraint(equalTo: composeContentToolbarBackgroundView.bottomAnchor),
         ])
         
+        // bind keyboard
         let keyboardHasShortcutBar = CurrentValueSubject<Bool, Never>(traitCollection.userInterfaceIdiom == .pad)       // update default value later
         let keyboardEventPublishers = Publishers.CombineLatest3(
             KeyboardResponderService.shared.isShow,
@@ -254,6 +272,19 @@ extension ComposeContentViewController {
                 self.autoCompleteViewController.viewModel.symbolBoundingRect.value = symbolBoundingRectInContainer
                 self.autoCompleteViewController.viewModel.inputText.value = String(info.inputText)
             }
+            .store(in: &disposeBag)
+        
+        // bind emoji picker
+        viewModel.customEmojiViewModel?.emojis
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] emojis in
+                guard let self = self else { return }
+                if emojis.isEmpty {
+                    self.customEmojiPickerInputView.activityIndicatorView.startAnimating()
+                } else {
+                    self.customEmojiPickerInputView.activityIndicatorView.stopAnimating()
+                }
+            })
             .store(in: &disposeBag)
         
         // bind toolbar
@@ -485,5 +516,115 @@ extension ComposeContentViewController: AutoCompleteViewControllerDelegate {
         didSelectItem item: AutoCompleteItem
     ) {
         logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): did select item: \(String(describing: item))")
+        
+        guard let info = viewModel.autoCompleteInfo else { return }
+        guard let metaText = viewModel.contentMetaText else { return }
+        
+        let _replacedText: String? = {
+            var text: String
+            switch item {
+            case .hashtag(let hashtag):
+                text = "#" + hashtag.name
+            case .hashtagV1(let hashtagName):
+                text = "#" + hashtagName
+            case .account(let account):
+                text = "@" + account.acct
+            case .emoji(let emoji):
+                text = ":" + emoji.shortcode + ":"
+            case .bottomLoader:
+                return nil
+            }
+            return text
+        }()
+        guard let replacedText = _replacedText else { return }
+        guard let text = metaText.textView.text else { return }
+        
+        let range = NSRange(info.toHighlightEndRange, in: text)
+        metaText.textStorage.replaceCharacters(in: range, with: replacedText)
+        viewModel.autoCompleteInfo = nil
+        
+        // set selected range
+        let newRange = NSRange(location: range.location + (replacedText as NSString).length, length: 0)
+        guard metaText.textStorage.length <= newRange.location else { return }
+        metaText.textView.selectedRange = newRange
+        
+        // append a space and trigger textView delegate update
+        DispatchQueue.main.async {
+            metaText.textView.insertText(" ")
+        }
+    }
+}
+
+// MARK: - UICollectionViewDelegate
+extension ComposeContentViewController: UICollectionViewDelegate {
+    
+    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: select %s", ((#file as NSString).lastPathComponent), #line, #function, indexPath.debugDescription)
+        
+        switch collectionView {
+        case customEmojiPickerInputView.collectionView:
+            guard let diffableDataSource = viewModel.customEmojiPickerDiffableDataSource else { return }
+            let item = diffableDataSource.itemIdentifier(for: indexPath)
+            guard case let .emoji(attribute) = item else { return }
+            let emoji = attribute.emoji
+            
+            // make click sound
+            UIDevice.current.playInputClick()
+            
+            // retrieve active text input and insert emoji
+            // the trailing space is REQUIRED to make regex happy
+            _ = viewModel.customEmojiPickerInputViewModel.insertText(":\(emoji.shortcode): ")
+        default:
+            assertionFailure()
+        }
+    }   // end func
+    
+}
+
+// MARK: - ComposeContentViewModelDelegate
+extension ComposeContentViewController: ComposeContentViewModelDelegate {
+    public func composeContentViewModel(
+        _ viewModel: ComposeContentViewModel,
+        handleAutoComplete info: ComposeContentViewModel.AutoCompleteInfo
+    ) -> Bool {
+        let snapshot = autoCompleteViewController.viewModel.diffableDataSource.snapshot()
+        guard let item = snapshot.itemIdentifiers.first else { return false }
+        
+        // FIXME: redundant code
+        guard let metaText = viewModel.contentMetaText else { return false }
+        guard let text = metaText.textView.text else { return false }
+        let _replacedText: String? = {
+            var text: String
+            switch item {
+            case .hashtag(let hashtag):
+                text = "#" + hashtag.name
+            case .hashtagV1(let hashtagName):
+                text = "#" + hashtagName
+            case .account(let account):
+                text = "@" + account.acct
+            case .emoji(let emoji):
+                text = ":" + emoji.shortcode + ":"
+            case .bottomLoader:
+                return nil
+            }
+            return text
+        }()
+        guard let replacedText = _replacedText else { return false }
+
+        let range = NSRange(info.toHighlightEndRange, in: text)
+        metaText.textStorage.replaceCharacters(in: range, with: replacedText)
+        viewModel.autoCompleteInfo = nil
+        
+        // set selected range
+        let newRange = NSRange(location: range.location + (replacedText as NSString).length, length: 0)
+        guard metaText.textStorage.length <= newRange.location else { return true }
+        metaText.textView.selectedRange = newRange
+        
+        // append a space and trigger textView delegate update
+        DispatchQueue.main.async {
+            metaText.textView.insertText(" ")
+        }
+        
+        return true
     }
 }

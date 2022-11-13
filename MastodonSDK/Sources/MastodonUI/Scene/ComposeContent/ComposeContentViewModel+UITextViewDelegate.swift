@@ -64,6 +64,12 @@ extension ComposeContentViewModel: UITextViewDelegate {
     public func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         switch textView {
         case contentMetaText?.textView:
+            if text == " ", let autoCompleteInfo = self.autoCompleteInfo {
+                assert(delegate != nil)
+                let isHandled = delegate?.composeContentViewModel(self, handleAutoComplete: autoCompleteInfo) ?? false
+                return !isHandled
+            }
+            
             return true
         case contentWarningMetaText?.textView:
             let isReturn = text == "\n"

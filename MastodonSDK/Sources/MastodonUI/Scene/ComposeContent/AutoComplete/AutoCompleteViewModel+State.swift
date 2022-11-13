@@ -102,7 +102,7 @@ extension AutoCompleteViewModel.State {
                 return
             }
             
-            guard let customEmojiViewModel = viewModel.customEmojiViewModel.value else {
+            guard let customEmojiViewModel = viewModel.customEmojiViewModel else {
                 await enter(state: Fail.self)
                 return
             }

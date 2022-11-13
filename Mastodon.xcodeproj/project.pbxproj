@@ -151,7 +151,6 @@
 		DB1FD44425F26CCC004CFCFC /* PickServerSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1FD44325F26CCC004CFCFC /* PickServerSection.swift */; };
 		DB1FD45025F26FA1004CFCFC /* MastodonPickServerViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1FD44F25F26FA1004CFCFC /* MastodonPickServerViewModel+Diffable.swift */; };
 		DB1FD45A25F27898004CFCFC /* CategoryPickerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1FD45925F27898004CFCFC /* CategoryPickerItem.swift */; };
-		DB221B16260C395900AEFE46 /* CustomEmojiPickerInputViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB221B15260C395900AEFE46 /* CustomEmojiPickerInputViewModel.swift */; };
 		DB22C92228E700A10082A9E9 /* MastodonSDK in Frameworks */ = {isa = PBXBuildFile; productRef = DB22C92128E700A10082A9E9 /* MastodonSDK */; };
 		DB22C92428E700A80082A9E9 /* MastodonSDK in Frameworks */ = {isa = PBXBuildFile; productRef = DB22C92328E700A80082A9E9 /* MastodonSDK */; };
 		DB22C92628E700AF0082A9E9 /* MastodonSDK in Frameworks */ = {isa = PBXBuildFile; productRef = DB22C92528E700AF0082A9E9 /* MastodonSDK */; };
@@ -185,9 +184,6 @@
 		DB427DED25BAA00100D1B89D /* MastodonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB427DEC25BAA00100D1B89D /* MastodonTests.swift */; };
 		DB427DF825BAA00100D1B89D /* MastodonUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB427DF725BAA00100D1B89D /* MastodonUITests.swift */; };
 		DB443CD42694627B00159B29 /* AppearanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB443CD32694627B00159B29 /* AppearanceView.swift */; };
-		DB44767B260B3B8C00B66B82 /* CustomEmojiPickerInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB44767A260B3B8C00B66B82 /* CustomEmojiPickerInputView.swift */; };
-		DB447691260B406600B66B82 /* CustomEmojiPickerItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB447690260B406600B66B82 /* CustomEmojiPickerItemCollectionViewCell.swift */; };
-		DB447697260B439000B66B82 /* CustomEmojiPickerHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB447696260B439000B66B82 /* CustomEmojiPickerHeaderCollectionReusableView.swift */; };
 		DB4481B925EE289600BEFB67 /* UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4481B825EE289600BEFB67 /* UITableView.swift */; };
 		DB45FAB625CA5485005A8AC7 /* UIAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB45FAB525CA5485005A8AC7 /* UIAlertController.swift */; };
 		DB45FAD725CA6C76005A8AC7 /* UIBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB45FAD625CA6C76005A8AC7 /* UIBarButtonItem.swift */; };
@@ -680,7 +676,6 @@
 		DB1FD44F25F26FA1004CFCFC /* MastodonPickServerViewModel+Diffable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MastodonPickServerViewModel+Diffable.swift"; sourceTree = "<group>"; };
 		DB1FD45925F27898004CFCFC /* CategoryPickerItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryPickerItem.swift; sourceTree = "<group>"; };
 		DB1FD45F25F278AF004CFCFC /* CategoryPickerSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryPickerSection.swift; sourceTree = "<group>"; };
-		DB221B15260C395900AEFE46 /* CustomEmojiPickerInputViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEmojiPickerInputViewModel.swift; sourceTree = "<group>"; };
 		DB2B3ABD25E37E15007045F9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DB2F073325E8ECF000957B2D /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
 		DB2FF50F260B113300ADA9FE /* ComposeStatusPollExpiresOptionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeStatusPollExpiresOptionCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -717,9 +712,6 @@
 		DB427DF725BAA00100D1B89D /* MastodonUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonUITests.swift; sourceTree = "<group>"; };
 		DB427DF925BAA00100D1B89D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DB443CD32694627B00159B29 /* AppearanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceView.swift; sourceTree = "<group>"; };
-		DB44767A260B3B8C00B66B82 /* CustomEmojiPickerInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEmojiPickerInputView.swift; sourceTree = "<group>"; };
-		DB447690260B406600B66B82 /* CustomEmojiPickerItemCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEmojiPickerItemCollectionViewCell.swift; sourceTree = "<group>"; };
-		DB447696260B439000B66B82 /* CustomEmojiPickerHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEmojiPickerHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		DB4481B825EE289600BEFB67 /* UITableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITableView.swift; sourceTree = "<group>"; };
 		DB45FAB525CA5485005A8AC7 /* UIAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAlertController.swift; sourceTree = "<group>"; };
 		DB45FAD625CA6C76005A8AC7 /* UIBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBarButtonItem.swift; sourceTree = "<group>"; };
@@ -1876,8 +1868,6 @@
 				DBA0A11225FB3FC10079C110 /* ComposeToolbarView.swift */,
 				DB8190C52601FF0400020C08 /* AttachmentContainerView.swift */,
 				DB9A486B26032AC1008B817C /* AttachmentContainerView+EmptyStateView.swift */,
-				DB44767A260B3B8C00B66B82 /* CustomEmojiPickerInputView.swift */,
-				DB221B15260C395900AEFE46 /* CustomEmojiPickerInputViewModel.swift */,
 				DBC7A671260C897100E57475 /* StatusContentWarningEditorView.swift */,
 			);
 			path = View;
@@ -2157,8 +2147,6 @@
 				DB87D4442609BE0500D12C0D /* ComposeStatusPollOptionCollectionViewCell.swift */,
 				DB87D4502609CF1E00D12C0D /* ComposeStatusPollOptionAppendEntryCollectionViewCell.swift */,
 				DB2FF50F260B113300ADA9FE /* ComposeStatusPollExpiresOptionCollectionViewCell.swift */,
-				DB447690260B406600B66B82 /* CustomEmojiPickerItemCollectionViewCell.swift */,
-				DB447696260B439000B66B82 /* CustomEmojiPickerHeaderCollectionReusableView.swift */,
 			);
 			path = CollectionViewCell;
 			sourceTree = "<group>";
@@ -3335,7 +3323,6 @@
 				DB98EB6227B215EB0082E365 /* ReportResultViewController.swift in Sources */,
 				DB6B74F4272FBAE700C70B6E /* FollowerListViewModel+Diffable.swift in Sources */,
 				DB6B74F2272FB67600C70B6E /* FollowerListViewModel.swift in Sources */,
-				DB44767B260B3B8C00B66B82 /* CustomEmojiPickerInputView.swift in Sources */,
 				0F20222D261457EE000C64BF /* HashtagTimelineViewModel+State.swift in Sources */,
 				DB0009A626AEE5DC009B9D2D /* Intents.intentdefinition in Sources */,
 				5B90C462262599800002E742 /* SettingsSectionHeader.swift in Sources */,
@@ -3349,7 +3336,6 @@
 				DBFEEC9B279BDDD9004F81DD /* ProfileAboutViewModel+Diffable.swift in Sources */,
 				DBB525562611EDCA002F1F29 /* UserTimelineViewModel.swift in Sources */,
 				DB0618012785732C0030EE79 /* ServerRulesTableViewCell.swift in Sources */,
-				DB221B16260C395900AEFE46 /* CustomEmojiPickerInputViewModel.swift in Sources */,
 				DB98EB5C27B10A730082E365 /* ReportSupplementaryViewModel.swift in Sources */,
 				DB0617EF277F12720030EE79 /* NavigationActionView.swift in Sources */,
 				DB1FD43625F26899004CFCFC /* MastodonPickServerViewModel+LoadIndexedServerState.swift in Sources */,
@@ -3433,7 +3419,6 @@
 				2D35237A26256D920031AF25 /* NotificationSection.swift in Sources */,
 				2D4AD89C263165B500613EFC /* SuggestionAccountCollectionViewCell.swift in Sources */,
 				DB98EB6927B21A7C0082E365 /* ReportResultActionTableViewCell.swift in Sources */,
-				DB447691260B406600B66B82 /* CustomEmojiPickerItemCollectionViewCell.swift in Sources */,
 				DB9282B225F3222800823B15 /* PickServerEmptyStateView.swift in Sources */,
 				DB697DDF278F524F004EF2F7 /* DataSourceFacade+Profile.swift in Sources */,
 				DB1FD45025F26FA1004CFCFC /* MastodonPickServerViewModel+Diffable.swift in Sources */,
@@ -3457,7 +3442,6 @@
 				DB63F74D27993F5B00455B82 /* SearchHistoryUserCollectionViewCell.swift in Sources */,
 				DB8AF54425C13647002E6C99 /* SceneCoordinator.swift in Sources */,
 				DB1D84382657B275000346B3 /* SegmentedControlNavigateable.swift in Sources */,
-				DB447697260B439000B66B82 /* CustomEmojiPickerHeaderCollectionReusableView.swift in Sources */,
 				0F20220726134DA4000C64BF /* HashtagTimelineViewModel+Diffable.swift in Sources */,
 				DB7A9F932818F33C0016AF98 /* MastodonServerRulesViewController+Debug.swift in Sources */,
 				2D5A3D2825CF8BC9002347D6 /* HomeTimelineViewModel+Diffable.swift in Sources */,

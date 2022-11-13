@@ -95,11 +95,7 @@ final class ComposeViewController: UIViewController, NeedsDependency {
 //        }
 //    }
 //
-//    // CustomEmojiPickerView
-//    let customEmojiPickerInputView: CustomEmojiPickerInputView = {
-//        let view = CustomEmojiPickerInputView(frame: CGRect(x: 0, y: 0, width: 0, height: 300), inputViewStyle: .keyboard)
-//        return view
-//    }()
+
 //
 //    let composeToolbarView = ComposeToolbarView()
 //    var composeToolbarViewBottomLayoutConstraint: NSLayoutConstraint!
@@ -107,7 +103,6 @@ final class ComposeViewController: UIViewController, NeedsDependency {
 //
 //
 
-    
     deinit {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
     }
@@ -225,13 +220,6 @@ extension ComposeViewController {
 //            }
 //            .store(in: &disposeBag)
         
-//        customEmojiPickerInputView.collectionView.delegate = self
-//        viewModel.customEmojiPickerInputViewModel.customEmojiPickerInputView = customEmojiPickerInputView
-//        viewModel.setupCustomEmojiPickerDiffableDataSource(
-//            for: customEmojiPickerInputView.collectionView,
-//            dependency: self
-//        )
-        
 //        viewModel.composeStatusContentTableViewCell.delegate = self
 //
 //        // update layout when keyboard show/dismiss
@@ -348,19 +336,6 @@ extension ComposeViewController {
 //                self.characterCountLabel.accessibilityLabel = accessibilityLabel
 //                self.characterCountLabel.sizeToFit()
 //            }
-//            .store(in: &disposeBag)
-//
-//        // bind custom emoji picker UI
-//        viewModel.customEmojiViewModel?.emojis
-//            .receive(on: DispatchQueue.main)
-//            .sink(receiveValue: { [weak self] emojis in
-//                guard let self = self else { return }
-//                if emojis.isEmpty {
-//                    self.customEmojiPickerInputView.activityIndicatorView.startAnimating()
-//                } else {
-//                    self.customEmojiPickerInputView.activityIndicatorView.stopAnimating()
-//                }
-//            })
 //            .store(in: &disposeBag)
 //
 //        configureToolbarDisplay(keyboardHasShortcutBar: keyboardHasShortcutBar.value)
@@ -694,30 +669,6 @@ extension ComposeViewController {
 
 //// MARK: - UITableViewDelegate
 //extension ComposeViewController: UITableViewDelegate { }
-//
-//// MARK: - UICollectionViewDelegate
-//extension ComposeViewController: UICollectionViewDelegate {
-//    
-//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: select %s", ((#file as NSString).lastPathComponent), #line, #function, indexPath.debugDescription)
-//
-//        if collectionView === customEmojiPickerInputView.collectionView {
-//            guard let diffableDataSource = viewModel.customEmojiPickerDiffableDataSource else { return }
-//            let item = diffableDataSource.itemIdentifier(for: indexPath)
-//            guard case let .emoji(attribute) = item else { return }
-//            let emoji = attribute.emoji
-//
-//            // make click sound
-//            UIDevice.current.playInputClick()
-//
-//            // retrieve active text input and insert emoji
-//            // the trailing space is REQUIRED to make regex happy
-//            _ = viewModel.customEmojiPickerInputViewModel.insertText(":\(emoji.shortcode): ")
-//        } else {
-//            // do nothing
-//        }
-//    }
-//}
 
 // MARK: - UIAdaptivePresentationControllerDelegate
 extension ComposeViewController: UIAdaptivePresentationControllerDelegate {
@@ -877,49 +828,7 @@ extension ComposeViewController: UIAdaptivePresentationControllerDelegate {
 //        return true
 //    }
 //}
-//
-//// MARK: - AutoCompleteViewControllerDelegate
-//extension ComposeViewController: AutoCompleteViewControllerDelegate {
-//    func autoCompleteViewController(_ viewController: AutoCompleteViewController, didSelectItem item: AutoCompleteItem) {
-//        guard let info = viewModel.autoCompleteInfo else { return }
-//        let _replacedText: String? = {
-//            var text: String
-//            switch item {
-//            case .hashtag(let hashtag):
-//                text = "#" + hashtag.name
-//            case .hashtagV1(let hashtagName):
-//                text = "#" + hashtagName
-//            case .account(let account):
-//                text = "@" + account.acct
-//            case .emoji(let emoji):
-//                text = ":" + emoji.shortcode + ":"
-//            case .bottomLoader:
-//                return nil
-//            }
-//            return text
-//        }()
-//        guard let replacedText = _replacedText else { return }
-//        guard let text = textEditorView.textView.text else { return }
-//
-//        let range = NSRange(info.toHighlightEndRange, in: text)
-//        textEditorView.textStorage.replaceCharacters(in: range, with: replacedText)
-//        DispatchQueue.main.async {
-//            self.textEditorView.textView.insertText(" ") // trigger textView delegate update
-//        }
-//        viewModel.autoCompleteInfo = nil
-//
-//        switch item {
-//        case .emoji, .bottomLoader:
-//            break
-//        default:
-//            // set selected range except emoji
-//            let newRange = NSRange(location: range.location + (replacedText as NSString).length, length: 0)
-//            guard textEditorView.textStorage.length <= newRange.location else { return }
-//            textEditorView.textView.selectedRange = newRange
-//        }
-//    }
-//}
-//
+
 //extension ComposeViewController {
 //    override var keyCommands: [UIKeyCommand]? {
 //        composeKeyCommands

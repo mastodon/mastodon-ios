@@ -102,11 +102,6 @@ final class ComposeViewModel: NSObject {
 //    // for mention: "@<mention> "
 //    var preInsertedContent: String?
 //
-//    // custom emojis
-//    let customEmojiViewModel: EmojiService.CustomEmojiViewModel?
-//    let customEmojiPickerInputViewModel = CustomEmojiPickerInputViewModel()
-//    @Published var isLoadingCustomEmoji = false
-//
 //    // attachment
 //    @Published var attachmentServices: [MastodonAttachmentService] = []
 //

@@ -15,6 +15,10 @@ import MastodonMeta
 import MastodonCore
 import MastodonSDK
 
+public protocol ComposeContentViewModelDelegate: AnyObject {
+    func composeContentViewModel(_ viewModel: ComposeContentViewModel, handleAutoComplete info: ComposeContentViewModel.AutoCompleteInfo) -> Bool
+}
+
 public final class ComposeContentViewModel: NSObject, ObservableObject {
     
     let logger = Logger(subsystem: "ComposeContentViewModel", category: "ViewModel")
@@ -28,6 +32,7 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
     // input
     let context: AppContext
     let kind: Kind
+    weak var delegate: ComposeContentViewModelDelegate?
     
     @Published var viewLayoutFrame = ViewLayoutFrame()
     
@@ -38,6 +43,9 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
     @Published var autoCompleteRetryLayoutTimes = 0
     @Published var autoCompleteInfo: AutoCompleteInfo? = nil
     
+    // emoji
+    var customEmojiPickerDiffableDataSource: UICollectionViewDiffableDataSource<CustomEmojiPickerSection, CustomEmojiPickerItem>?
+    
     // output
     
     // limit
@@ -46,8 +54,8 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
     // content
     public weak var contentMetaText: MetaText? {
         didSet {
-//            guard let textView = contentMetaText?.textView else { return }
-//            customEmojiPickerInputViewModel.configure(textInput: textView)
+            guard let textView = contentMetaText?.textView else { return }
+            customEmojiPickerInputViewModel.configure(textInput: textView)
         }
     }
     @Published public var initialContent = ""
@@ -60,8 +68,8 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
     // content warning
     weak var contentWarningMetaText: MetaText? {
         didSet {
-            //guard let textView = contentWarningMetaText?.textView else { return }
-            //customEmojiPickerInputViewModel.configure(textInput: textView)
+            guard let textView = contentWarningMetaText?.textView else { return }
+            customEmojiPickerInputViewModel.configure(textInput: textView)
         }
     }
     @Published public var isContentWarningActive = false
@@ -95,6 +103,9 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
     
     // emoji
     @Published var isEmojiActive = false
+    let customEmojiViewModel: EmojiService.CustomEmojiViewModel?
+    let customEmojiPickerInputViewModel = CustomEmojiPickerInputViewModel()
+    @Published var isLoadingCustomEmoji = false
     
     // visibility
     @Published var visibility: Mastodon.Entity.Status.Visibility
@@ -148,6 +159,9 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
             }
             return visibility
         }()
+        self.customEmojiViewModel = context.emojiService.dequeueCustomEmojiViewModel(
+            for: authContext.mastodonAuthenticationBox.domain
+        )
         super.init()
         // end init
         
@@ -192,6 +206,10 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
                 }
             }
             .store(in: &disposeBag)
+        
+        // bind emoji inputView
+        $isEmojiActive.assign(to: &customEmojiPickerInputViewModel.$isCustomEmojiComposing)
+        
     }
     
     deinit {
@@ -215,7 +233,7 @@ extension ComposeContentViewModel {
 }
 
 extension ComposeContentViewModel {
-    struct AutoCompleteInfo {
+    public struct AutoCompleteInfo {
         // model
         let inputText: Substring
         // range

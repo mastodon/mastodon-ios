@@ -74,6 +74,7 @@ extension ComposeContentViewModel {
     }
 }
 
+// MARK: - UITableViewDataSource
 extension ComposeContentViewModel: UITableViewDataSource {
     public func numberOfSections(in tableView: UITableView) -> Int {
         return Section.allCases.count
@@ -98,4 +99,43 @@ extension ComposeContentViewModel: UITableViewDataSource {
             return composeContentTableViewCell
         }
     }
+}
+
+extension ComposeContentViewModel {
+    
+    func setupCustomEmojiPickerDiffableDataSource(
+        collectionView: UICollectionView
+    ) {
+        let diffableDataSource = CustomEmojiPickerSection.collectionViewDiffableDataSource(
+            collectionView: collectionView,
+            context: context
+        )
+        self.customEmojiPickerDiffableDataSource = diffableDataSource
+        
+        let domain = authContext.mastodonAuthenticationBox.domain.uppercased()
+        customEmojiViewModel?.emojis
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self, weak diffableDataSource] emojis in
+                guard let _ = self else { return }
+                guard let diffableDataSource = diffableDataSource else { return }
+                
+                var snapshot = NSDiffableDataSourceSnapshot<CustomEmojiPickerSection, CustomEmojiPickerItem>()
+                let customEmojiSection = CustomEmojiPickerSection.emoji(name: domain)
+                snapshot.appendSections([customEmojiSection])
+                let items: [CustomEmojiPickerItem] = {
+                    var items = [CustomEmojiPickerItem]()
+                    for emoji in emojis where emoji.visibleInPicker {
+                        let attribute = CustomEmojiPickerItem.CustomEmojiAttribute(emoji: emoji)
+                        let item = CustomEmojiPickerItem.emoji(attribute: attribute)
+                        items.append(item)
+                    }
+                    return items
+                }()
+                snapshot.appendItems(items, toSection: customEmojiSection)
+                
+                diffableDataSource.apply(snapshot)
+            }
+            .store(in: &disposeBag)
+    }
+    
 }

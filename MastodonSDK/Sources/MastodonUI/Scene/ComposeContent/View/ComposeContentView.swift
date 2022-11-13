@@ -185,7 +185,7 @@ extension ComposeContentView {
                         index: _index,
                         deleteBackwardResponseTextFieldRelayDelegate: viewModel
                     ) { textField in
-                        // viewModel.customEmojiPickerInputViewModel.configure(textInput: textField)
+                        viewModel.customEmojiPickerInputViewModel.configure(textInput: textField)
                     }
                 }
                 if viewModel.maxPollOptionLimit != viewModel.pollOptions.count {
