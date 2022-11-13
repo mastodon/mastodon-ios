@@ -948,7 +948,6 @@
 		DBB525632612C988002F1F29 /* MeProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeProfileViewModel.swift; sourceTree = "<group>"; };
 		DBB8AB4526AECDE200F6D281 /* SendPostIntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendPostIntentHandler.swift; sourceTree = "<group>"; };
 		DBB9759B262462E1004620BD /* ThreadMetaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadMetaView.swift; sourceTree = "<group>"; };
-		DBBC24A726A52F9000398BB9 /* ComposeToolbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeToolbarView.swift; sourceTree = "<group>"; };
 		DBBE1B4425F3474B0081417A /* MastodonPickServerAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonPickServerAppearance.swift; sourceTree = "<group>"; };
 		DBC3872329214121001EC0FD /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		DBC6461226A170AB00B0E31B /* ShareActionExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ShareActionExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1028,15 +1027,7 @@
 		DBFEEC98279BDCDE004F81DD /* ProfileAboutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileAboutViewModel.swift; sourceTree = "<group>"; };
 		DBFEEC9A279BDDD9004F81DD /* ProfileAboutViewModel+Diffable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProfileAboutViewModel+Diffable.swift"; sourceTree = "<group>"; };
 		DBFEEC9C279C12C1004F81DD /* ProfileFieldEditCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFieldEditCollectionViewCell.swift; sourceTree = "<group>"; };
-		DBFEF05526A576EE006D7ED1 /* StatusEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusEditorView.swift; sourceTree = "<group>"; };
-		DBFEF05626A576EE006D7ED1 /* ComposeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeView.swift; sourceTree = "<group>"; };
-		DBFEF05726A576EE006D7ED1 /* ComposeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeViewModel.swift; sourceTree = "<group>"; };
-		DBFEF05826A576EE006D7ED1 /* ContentWarningEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentWarningEditorView.swift; sourceTree = "<group>"; };
-		DBFEF05926A576EE006D7ED1 /* StatusAuthorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusAuthorView.swift; sourceTree = "<group>"; };
-		DBFEF05A26A576EE006D7ED1 /* StatusAttachmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusAttachmentView.swift; sourceTree = "<group>"; };
-		DBFEF06226A577F2006D7ED1 /* StatusAttachmentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusAttachmentViewModel.swift; sourceTree = "<group>"; };
 		DBFEF06726A58D07006D7ED1 /* ShareActionExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShareActionExtension.entitlements; sourceTree = "<group>"; };
-		DBFEF06C26A67FB7006D7ED1 /* StatusAttachmentViewModel+UploadState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StatusAttachmentViewModel+UploadState.swift"; sourceTree = "<group>"; };
 		DDB1B139FA8EA26F510D58B6 /* Pods-AppShared.asdk - release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppShared.asdk - release.xcconfig"; path = "Target Support Files/Pods-AppShared/Pods-AppShared.asdk - release.xcconfig"; sourceTree = "<group>"; };
 		DF65937EC1FF64462BC002EE /* Pods-MastodonTests.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MastodonTests.profile.xcconfig"; path = "Target Support Files/Pods-MastodonTests/Pods-MastodonTests.profile.xcconfig"; sourceTree = "<group>"; };
 		E5C7236E58D14A0322FE00F2 /* Pods-Mastodon-MastodonUITests.asdk - debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon-MastodonUITests.asdk - debug.xcconfig"; path = "Target Support Files/Pods-Mastodon-MastodonUITests/Pods-Mastodon-MastodonUITests.asdk - debug.xcconfig"; sourceTree = "<group>"; };
@@ -2666,26 +2657,9 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
-		DBFEF05426A576EE006D7ED1 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				DBBC24A726A52F9000398BB9 /* ComposeToolbarView.swift */,
-				DBFEF05526A576EE006D7ED1 /* StatusEditorView.swift */,
-				DBFEF05626A576EE006D7ED1 /* ComposeView.swift */,
-				DBFEF05726A576EE006D7ED1 /* ComposeViewModel.swift */,
-				DBFEF05826A576EE006D7ED1 /* ContentWarningEditorView.swift */,
-				DBFEF05926A576EE006D7ED1 /* StatusAuthorView.swift */,
-				DBFEF05A26A576EE006D7ED1 /* StatusAttachmentView.swift */,
-				DBFEF06226A577F2006D7ED1 /* StatusAttachmentViewModel.swift */,
-				DBFEF06C26A67FB7006D7ED1 /* StatusAttachmentViewModel+UploadState.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		DBFEF06126A57721006D7ED1 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
-				DBFEF05426A576EE006D7ED1 /* View */,
 				DBC6462226A1712000B0E31B /* ShareViewModel.swift */,
 				DBC3872329214121001EC0FD /* ShareViewController.swift */,
 			);
