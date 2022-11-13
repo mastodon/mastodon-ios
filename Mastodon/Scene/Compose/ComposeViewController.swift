@@ -106,13 +106,7 @@ final class ComposeViewController: UIViewController, NeedsDependency {
 //    let composeToolbarBackgroundView = UIView()
 //
 //
-//    private(set) lazy var autoCompleteViewController: AutoCompleteViewController = {
-//        let viewController = AutoCompleteViewController()
-//        viewController.viewModel = AutoCompleteViewModel(context: context, authContext: viewModel.authContext)
-//        viewController.delegate = self
-//        viewController.viewModel.customEmojiViewModel.value = viewModel.customEmojiViewModel
-//        return viewController
-//    }()
+
     
     deinit {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
@@ -242,33 +236,6 @@ extension ComposeViewController {
 //
 //        // update layout when keyboard show/dismiss
 //        view.layoutIfNeeded()
-//
-
-//
-//        // bind auto-complete
-//        viewModel.$autoCompleteInfo
-//            .receive(on: DispatchQueue.main)
-//            .sink { [weak self] info in
-//                guard let self = self else { return }
-//                let textEditorView = self.textEditorView
-//                if self.autoCompleteViewController.view.superview == nil {
-//                    self.autoCompleteViewController.view.frame = self.view.bounds
-//                    // add to container view. seealso: `viewDidLayoutSubviews()`
-//                    self.viewModel.composeStatusContentTableViewCell.textEditorViewContainerView.addSubview(self.autoCompleteViewController.view)
-//                    self.addChild(self.autoCompleteViewController)
-//                    self.autoCompleteViewController.didMove(toParent: self)
-//                    self.autoCompleteViewController.view.isHidden = true
-//                    self.tableView.autoCompleteViewController = self.autoCompleteViewController
-//                }
-//                self.updateAutoCompleteViewControllerLayout()
-//                self.autoCompleteViewController.view.isHidden = info == nil
-//                guard let info = info else { return }
-//                let symbolBoundingRectInContainer = textEditorView.textView.convert(info.symbolBoundingRect, to: self.autoCompleteViewController.chevronView)
-//                self.autoCompleteViewController.view.frame.origin.y = info.textBoundingRect.maxY
-//                self.autoCompleteViewController.viewModel.symbolBoundingRect.value = symbolBoundingRectInContainer
-//                self.autoCompleteViewController.viewModel.inputText.value = String(info.inputText)
-//            }
-//            .store(in: &disposeBag)
 //
 //        // bind publish bar button state
 //        viewModel.$isPublishBarButtonItemEnabled
@@ -429,23 +396,6 @@ extension ComposeViewController {
         
 //        configurePublishButtonApperance()
 //        viewModel.traitCollectionDidChangePublisher.send()
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        updateAutoCompleteViewControllerLayout()
-    }
-
-    private func updateAutoCompleteViewControllerLayout() {
-        // pin autoCompleteViewController frame to current view
-//        if let containerView = autoCompleteViewController.view.superview {
-//            let viewFrameInWindow = containerView.convert(autoCompleteViewController.view.frame, to: view)
-//            if viewFrameInWindow.origin.x != 0 {
-//                autoCompleteViewController.view.frame.origin.x = -viewFrameInWindow.origin.x
-//            }
-//            autoCompleteViewController.view.frame.size.width = view.frame.width
-//        }
     }
     
 }
@@ -661,126 +611,11 @@ extension ComposeViewController {
 //        return true
 //    }
 //
-//    func textViewDidChange(_ textView: UITextView) {
-//        switch textView {
-//        case textEditorView.textView:
-//            // update model
-//            let metaText = self.textEditorView
-//            let backedString = metaText.backedString
-//            viewModel.composeStatusAttribute.composeContent = backedString
-//            logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): \(backedString)")
-//            
-//            // configure auto completion
-//            setupAutoComplete(for: textView)
-//        default:
-//            assertionFailure()
-//        }
-//    }
+
 //
-//    struct AutoCompleteInfo {
-//        // model
-//        let inputText: Substring
-//        // range
-//        let symbolRange: Range<String.Index>
-//        let symbolString: Substring
-//        let toCursorRange: Range<String.Index>
-//        let toCursorString: Substring
-//        let toHighlightEndRange: Range<String.Index>
-//        let toHighlightEndString: Substring
-//        // geometry
-//        var textBoundingRect: CGRect = .zero
-//        var symbolBoundingRect: CGRect = .zero
-//    }
+
 //
-//    private func setupAutoComplete(for textView: UITextView) {
-//        guard var autoCompletion = ComposeViewController.scanAutoCompleteInfo(textView: textView) else {
-//            viewModel.autoCompleteInfo = nil
-//            return
-//        }
-//        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: auto complete %s (%s)", ((#file as NSString).lastPathComponent), #line, #function, String(autoCompletion.toHighlightEndString), String(autoCompletion.toCursorString))
-//
-//        // get layout text bounding rect
-//        var glyphRange = NSRange()
-//        textView.layoutManager.characterRange(forGlyphRange: NSRange(autoCompletion.toCursorRange, in: textView.text), actualGlyphRange: &glyphRange)
-//        let textContainer = textView.layoutManager.textContainers[0]
-//        let textBoundingRect = textView.layoutManager.boundingRect(forGlyphRange: glyphRange, in: textContainer)
-//
-//        let retryLayoutTimes = viewModel.autoCompleteRetryLayoutTimes
-//        guard textBoundingRect.size != .zero else {
-//            viewModel.autoCompleteRetryLayoutTimes += 1
-//            // avoid infinite loop
-//            guard retryLayoutTimes < 3 else { return }
-//            // needs retry calculate layout when the rect position changing
-//            DispatchQueue.main.async {
-//                self.setupAutoComplete(for: textView)
-//            }
-//            return
-//        }
-//        viewModel.autoCompleteRetryLayoutTimes = 0
-//
-//        // get symbol bounding rect
-//        textView.layoutManager.characterRange(forGlyphRange: NSRange(autoCompletion.symbolRange, in: textView.text), actualGlyphRange: &glyphRange)
-//        let symbolBoundingRect = textView.layoutManager.boundingRect(forGlyphRange: glyphRange, in: textContainer)
-//
-//        // set bounding rect and trigger layout
-//        autoCompletion.textBoundingRect = textBoundingRect
-//        autoCompletion.symbolBoundingRect = symbolBoundingRect
-//        viewModel.autoCompleteInfo = autoCompletion
-//    }
-//
-//    private static func scanAutoCompleteInfo(textView: UITextView) -> AutoCompleteInfo? {
-//        guard let text = textView.text,
-//              textView.selectedRange.location > 0, !text.isEmpty,
-//              let selectedRange = Range(textView.selectedRange, in: text) else {
-//            return nil
-//        }
-//        let cursorIndex = selectedRange.upperBound
-//        let _highlightStartIndex: String.Index? = {
-//            var index = text.index(before: cursorIndex)
-//            while index > text.startIndex {
-//                let char = text[index]
-//                if char == "@" || char == "#" || char == ":" {
-//                    return index
-//                }
-//                index = text.index(before: index)
-//            }
-//            assert(index == text.startIndex)
-//            let char = text[index]
-//            if char == "@" || char == "#" || char == ":" {
-//                return index
-//            } else {
-//                return nil
-//            }
-//        }()
-//
-//        guard let highlightStartIndex = _highlightStartIndex else { return nil }
-//        let scanRange = NSRange(highlightStartIndex..<text.endIndex, in: text)
-//
-//        guard let match = text.firstMatch(pattern: MastodonRegex.autoCompletePattern, options: [], range: scanRange) else { return nil }
-//        guard let matchRange = Range(match.range(at: 0), in: text) else { return nil }
-//        let matchStartIndex = matchRange.lowerBound
-//        let matchEndIndex = matchRange.upperBound
-//
-//        guard matchStartIndex == highlightStartIndex, matchEndIndex >= cursorIndex else { return nil }
-//        let symbolRange = highlightStartIndex..<text.index(after: highlightStartIndex)
-//        let symbolString = text[symbolRange]
-//        let toCursorRange = highlightStartIndex..<cursorIndex
-//        let toCursorString = text[toCursorRange]
-//        let toHighlightEndRange = matchStartIndex..<matchEndIndex
-//        let toHighlightEndString = text[toHighlightEndRange]
-//
-//        let inputText = toHighlightEndString
-//        let autoCompleteInfo = AutoCompleteInfo(
-//            inputText: inputText,
-//            symbolRange: symbolRange,
-//            symbolString: symbolString,
-//            toCursorRange: toCursorRange,
-//            toCursorString: toCursorString,
-//            toHighlightEndRange: toHighlightEndRange,
-//            toHighlightEndString: toHighlightEndString
-//        )
-//        return autoCompleteInfo
-//    }
+
 //
 //    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
 //        switch textView {

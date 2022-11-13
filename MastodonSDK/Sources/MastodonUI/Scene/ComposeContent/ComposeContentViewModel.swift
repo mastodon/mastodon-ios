@@ -34,6 +34,10 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
     // author (me)
     @Published var authContext: AuthContext
     
+    // auto-complete info
+    @Published var autoCompleteRetryLayoutTimes = 0
+    @Published var autoCompleteInfo: AutoCompleteInfo? = nil
+    
     // output
     
     // limit
@@ -98,8 +102,8 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
     // UI & UX
     @Published var replyToCellFrame: CGRect = .zero
     @Published var contentCellFrame: CGRect = .zero
+    @Published var contentTextViewFrame: CGRect = .zero
     @Published var scrollViewState: ScrollViewState = .fold
-
 
     public init(
         context: AppContext,
@@ -203,10 +207,27 @@ extension ComposeContentViewModel {
         case mention(user: ManagedObjectRecord<MastodonUser>)
         case reply(status: ManagedObjectRecord<Status>)
     }
-
+    
     public enum ScrollViewState {
         case fold       // snap to input
         case expand     // snap to reply
+    }
+}
+
+extension ComposeContentViewModel {
+    struct AutoCompleteInfo {
+        // model
+        let inputText: Substring
+        // range
+        let symbolRange: Range<String.Index>
+        let symbolString: Substring
+        let toCursorRange: Range<String.Index>
+        let toCursorString: Substring
+        let toHighlightEndRange: Range<String.Index>
+        let toHighlightEndString: Substring
+        // geometry
+        var textBoundingRect: CGRect = .zero
+        var symbolBoundingRect: CGRect = .zero
     }
 }
 
@@ -284,77 +305,6 @@ extension ComposeContentViewModel {
             visibility: visibility
         )
     }   // end func publisher()
-}
-
-// MARK: - UITextViewDelegate
-extension ComposeContentViewModel: UITextViewDelegate {
-    public func textViewDidBeginEditing(_ textView: UITextView) {
-        // Note:
-        // Xcode warning:
-        // Publishing changes from within view updates is not allowed, this will cause undefined behavior.
-        //
-        // Just ignore the warning and see what will happen…
-        switch textView {
-        case contentMetaText?.textView:
-            isContentEditing = true
-        case contentWarningMetaText?.textView:
-            isContentWarningEditing = true
-        default:
-            break
-        }
-    }
-    
-    public func textViewDidEndEditing(_ textView: UITextView) {
-        switch textView {
-        case contentMetaText?.textView:
-            isContentEditing = false
-        case contentWarningMetaText?.textView:
-            isContentWarningEditing = false
-        default:
-            break
-        }
-    }
-    
-    public func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        switch textView {
-        case contentMetaText?.textView:
-            return true
-        case contentWarningMetaText?.textView:
-            let isReturn = text == "\n"
-            if isReturn {
-                setContentTextViewFirstResponderIfNeeds()
-            }
-            return !isReturn
-        default:
-            assertionFailure()
-            return true
-        }
-    }
-    
-    func insertContentText(text: String) {
-        guard let contentMetaText = self.contentMetaText else { return }
-        // FIXME: smart prefix and suffix
-        let string = contentMetaText.textStorage.string
-        let isEmpty = string.isEmpty
-        let hasPrefix = string.hasPrefix(" ")
-        if hasPrefix || isEmpty {
-            contentMetaText.textView.insertText(text)
-        } else {
-            contentMetaText.textView.insertText(" " + text)
-        }
-    }
-    
-    func setContentTextViewFirstResponderIfNeeds() {
-        guard let contentMetaText = self.contentMetaText else { return }
-        guard !contentMetaText.textView.isFirstResponder else { return }
-        contentMetaText.textView.becomeFirstResponder()
-    }
-    
-    func setContentWarningTextViewFirstResponderIfNeeds() {
-        guard let contentWarningMetaText = self.contentWarningMetaText else { return }
-        guard !contentWarningMetaText.textView.isFirstResponder else { return }
-        contentWarningMetaText.textView.becomeFirstResponder()
-    }
 }
 
 // MARK: - DeleteBackwardResponseTextFieldRelayDelegate

@@ -18,9 +18,11 @@ public struct ComposeContentView: View {
     static let logger = Logger(subsystem: "ComposeContentView", category: "View")
     var logger: Logger { ComposeContentView.logger }
     
+    static let contentViewCoordinateSpace = "ComposeContentView.Content"
     static var margin: CGFloat = 16
     
     @ObservedObject var viewModel: ComposeContentViewModel
+    
 
     public var body: some View {
         VStack(spacing: .zero) {
@@ -106,6 +108,19 @@ public struct ComposeContentView: View {
                 .frame(minHeight: 100)
                 .fixedSize(horizontal: false, vertical: true)
                 .padding(.horizontal, ComposeContentView.margin)
+                .background(
+                    GeometryReader { proxy in
+                        Color.clear.preference(key: ViewFramePreferenceKey.self, value: proxy.frame(in: .named(ComposeContentView.contentViewCoordinateSpace)))
+                    }
+                    .onPreferenceChange(ViewFramePreferenceKey.self) { frame in
+                        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): content textView frame: \(frame.debugDescription)")
+                        let rect = frame.standardized
+                        viewModel.contentTextViewFrame = CGRect(
+                            origin: frame.origin,
+                            size: CGSize(width: floor(rect.width), height: floor(rect.height))
+                        )
+                    }
+                )
                 // poll
                 pollView
                     .padding(.horizontal, ComposeContentView.margin)
@@ -128,6 +143,7 @@ public struct ComposeContentView: View {
             )
             Spacer()
         }   // end VStack
+        .coordinateSpace(name: ComposeContentView.contentViewCoordinateSpace)
     }   // end body
 }
 

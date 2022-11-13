@@ -20,6 +20,7 @@ public final class ComposeContentViewController: UIViewController {
     public var viewModel: ComposeContentViewModel!
     private(set) lazy var composeContentToolbarViewModel = ComposeContentToolbarView.ViewModel(delegate: self)
     
+    // tableView container
     let tableView: ComposeTableView = {
         let tableView = ComposeTableView()
         tableView.estimatedRowHeight = UITableView.automaticDimension
@@ -28,6 +29,17 @@ public final class ComposeContentViewController: UIViewController {
         tableView.tableFooterView = UIView()
         return tableView
     }()
+    
+    // auto complete
+    private(set) lazy var autoCompleteViewController: AutoCompleteViewController = {
+        let viewController = AutoCompleteViewController()
+        viewController.viewModel = AutoCompleteViewModel(context: viewModel.context, authContext: viewModel.authContext)
+        viewController.delegate = self
+        // viewController.viewModel.customEmojiViewModel.value = viewModel.customEmojiViewModel
+        return viewController
+    }()
+    
+    // toolbar
     
     lazy var composeContentToolbarView = ComposeContentToolbarView(viewModel: composeContentToolbarViewModel)
     var composeContentToolbarViewBottomLayoutConstraint: NSLayoutConstraint!
@@ -218,6 +230,32 @@ extension ComposeContentViewController {
         }
         .store(in: &disposeBag)
         
+        // bind auto-complete
+        viewModel.$autoCompleteInfo
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] info in
+                guard let self = self else { return }
+                guard let textView = self.viewModel.contentMetaText?.textView else { return }
+                if self.autoCompleteViewController.view.superview == nil {
+                    self.autoCompleteViewController.view.frame = self.view.bounds
+                    // add to container view. seealso: `viewDidLayoutSubviews()`
+                    self.viewModel.composeContentTableViewCell.contentView.addSubview(self.autoCompleteViewController.view)
+                    self.addChild(self.autoCompleteViewController)
+                    self.autoCompleteViewController.didMove(toParent: self)
+                    self.autoCompleteViewController.view.isHidden = true
+                    self.tableView.autoCompleteViewController = self.autoCompleteViewController
+                }
+                self.updateAutoCompleteViewControllerLayout()
+                self.autoCompleteViewController.view.isHidden = info == nil
+                guard let info = info else { return }
+                let symbolBoundingRectInContainer = textView.convert(info.symbolBoundingRect, to: self.autoCompleteViewController.chevronView)
+                print(info.symbolBoundingRect)
+                self.autoCompleteViewController.view.frame.origin.y = info.textBoundingRect.maxY + self.viewModel.contentTextViewFrame.minY
+                self.autoCompleteViewController.viewModel.symbolBoundingRect.value = symbolBoundingRectInContainer
+                self.autoCompleteViewController.viewModel.inputText.value = String(info.inputText)
+            }
+            .store(in: &disposeBag)
+        
         // bind toolbar
         bindToolbarViewModel()
     }
@@ -226,6 +264,7 @@ extension ComposeContentViewController {
         super.viewDidLayoutSubviews()
         
         viewModel.viewLayoutFrame.update(view: view)
+        updateAutoCompleteViewControllerLayout()
     }
     
     public override func viewSafeAreaInsetsDidChange() {
@@ -263,6 +302,17 @@ extension ComposeContentViewController {
         viewModel.$maxTextInputLimit.assign(to: &composeContentToolbarViewModel.$maxTextInputLimit)
         viewModel.$contentWeightedLength.assign(to: &composeContentToolbarViewModel.$contentWeightedLength)
         viewModel.$contentWarningWeightedLength.assign(to: &composeContentToolbarViewModel.$contentWarningWeightedLength)
+    }
+    
+    private func updateAutoCompleteViewControllerLayout() {
+        // pin autoCompleteViewController frame to current view
+        if let containerView = autoCompleteViewController.view.superview {
+            let viewFrameInWindow = containerView.convert(autoCompleteViewController.view.frame, to: view)
+            if viewFrameInWindow.origin.x != 0 {
+                autoCompleteViewController.view.frame.origin.x = -viewFrameInWindow.origin.x
+            }
+            autoCompleteViewController.view.frame.size.width = view.frame.width
+        }
     }
 }
 
@@ -425,5 +475,15 @@ extension ComposeContentViewController: ComposeContentToolbarViewDelegate {
             present(documentPickerController, animated: true, completion: nil)
             #endif
         }
+    }
+}
+
+// MARK: - AutoCompleteViewControllerDelegate
+extension ComposeContentViewController: AutoCompleteViewControllerDelegate {
+    func autoCompleteViewController(
+        _ viewController: AutoCompleteViewController,
+        didSelectItem item: AutoCompleteItem
+    ) {
+        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): did select item: \(String(describing: item))")
     }
 }
