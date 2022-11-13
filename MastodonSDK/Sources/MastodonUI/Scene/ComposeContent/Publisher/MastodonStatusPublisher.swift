@@ -125,6 +125,21 @@ extension MastodonStatusPublisher: StatusPublisher {
                 }
                 attachmentIDs.append(attachment.id)
                 
+                let caption = attachmentViewModel.caption
+                guard !caption.isEmpty else { continue }
+                
+                _ = try await api.updateMedia(
+                    domain: authContext.mastodonAuthenticationBox.domain,
+                    attachmentID: attachment.id,
+                    query: .init(
+                        file: nil,
+                        thumbnail: nil,
+                        description: caption,
+                        focus: nil
+                    ),
+                    mastodonAuthenticationBox: authContext.mastodonAuthenticationBox
+                ).singleOutput()
+                
                 // TODO: allow background upload
                 // let attachment = try await attachmentViewModel.upload(context: uploadContext)
                 // let attachmentID = attachment.id

@@ -219,10 +219,7 @@ extension ComposeContentView {
     var mediaView: some View {
         VStack(spacing: 16) {
             ForEach(viewModel.attachmentViewModels, id: \.self) { attachmentViewModel in
-                Color.clear.aspectRatio(358.0/232.0, contentMode: .fill)
-                    .overlay(
-                        AttachmentView(viewModel: attachmentViewModel)
-                    )
+                AttachmentView(viewModel: attachmentViewModel)
                     .clipShape(Rectangle())
                     .badgeView(
                         Button {
