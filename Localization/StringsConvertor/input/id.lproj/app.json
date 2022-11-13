@@ -382,7 +382,11 @@
                 "video": "video",
                 "attachment_broken": "%s ini rusak dan tidak dapat diunggah ke Mastodon.",
                 "description_photo": "Jelaskan fotonya untuk mereka yang tidak dapat melihat dengan jelas...",
-                "description_video": "Jelaskan videonya untuk mereka yang tidak dapat melihat dengan jelas..."
+                "description_video": "Jelaskan videonya untuk mereka yang tidak dapat melihat dengan jelas...",
+                "load_failed": "Load Failed",
+                "upload_failed": "Upload Failed",
+                "can_not_recognize_this_media_attachment": "Can not regonize this media attachment",
+                "attachment_too_large": "Attachment too large"
             },
             "poll": {
                 "duration_time": "Durasi: %s",
