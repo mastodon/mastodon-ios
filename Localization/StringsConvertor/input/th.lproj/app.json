@@ -383,10 +383,10 @@
                 "attachment_broken": "%s นี้เสียหายและไม่สามารถ\nอัปโหลดไปยัง Mastodon",
                 "description_photo": "อธิบายรูปภาพสำหรับผู้บกพร่องทางการมองเห็น...",
                 "description_video": "อธิบายวิดีโอสำหรับผู้บกพร่องทางการมองเห็น...",
-                "load_failed": "Load Failed",
-                "upload_failed": "Upload Failed",
+                "load_failed": "การโหลดล้มเหลว",
+                "upload_failed": "การอัปโหลดล้มเหลว",
                 "can_not_recognize_this_media_attachment": "Can not regonize this media attachment",
-                "attachment_too_large": "Attachment too large"
+                "attachment_too_large": "ไฟล์แนบใหญ่เกินไป"
             },
             "poll": {
                 "duration_time": "ระยะเวลา: %s",
