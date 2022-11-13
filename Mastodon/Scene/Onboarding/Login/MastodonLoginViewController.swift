@@ -63,11 +63,11 @@ class MastodonLoginViewController: UIViewController {
 
     let dataSource = UITableViewDiffableDataSource<MastodonLoginViewSection, Mastodon.Entity.Server>(tableView: contentView.tableView) { [weak self] tableView, indexPath, itemIdentifier in
       guard let cell = tableView.dequeueReusableCell(withIdentifier: MastodonLoginServerTableViewCell.reuseIdentifier, for: indexPath) as? MastodonLoginServerTableViewCell,
-      let self = self else {
+            let self = self else {
         fatalError("Wrong cell")
       }
 
-      let server = self.viewModel.serverList[indexPath.row]
+      let server = self.viewModel.filteredServers[indexPath.row]
       var configuration = cell.defaultContentConfiguration()
       configuration.text = server.domain
 
@@ -83,7 +83,7 @@ class MastodonLoginViewController: UIViewController {
         cell.backgroundColor = .systemBackground
       }
 
-      if self.viewModel.serverList.last == server {
+      if self.viewModel.filteredServers.last == server {
         cell.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         cell.layer.cornerRadius = 10
         cell.layer.masksToBounds = true
@@ -166,9 +166,7 @@ class MastodonLoginViewController: UIViewController {
   }
 
   @objc func textfieldDidChange(_ textField: UITextField) {
-    print(textField.text ?? "---")
-    //TODO: @zeitschlag filter server-list, update tableview
-
+    viewModel.filterServers(withText: textField.text)
     contentView.navigationActionView.nextButton.isEnabled = false
   }
 }
@@ -179,7 +177,7 @@ extension MastodonLoginViewController: OnboardingViewControllerAppearance { }
 //MARK: - UITableViewDelegate
 extension MastodonLoginViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    let server = viewModel.serverList[indexPath.row]
+    let server = viewModel.filteredServers[indexPath.row]
     viewModel.selectedServer = server
 
     contentView.searchTextField.text = server.domain
@@ -195,12 +193,12 @@ extension MastodonLoginViewController: MastodonLoginViewModelDelegate {
     var snapshot = NSDiffableDataSourceSnapshot<MastodonLoginViewSection, Mastodon.Entity.Server>()
 
     snapshot.appendSections([MastodonLoginViewSection.servers])
-    snapshot.appendItems(viewModel.serverList)
+    snapshot.appendItems(viewModel.filteredServers)
 
     dataSource?.applySnapshot(snapshot, animated: false)
 
     OperationQueue.main.addOperation {
-      let numberOfResults = viewModel.serverList.count
+      let numberOfResults = viewModel.filteredServers.count
       self.contentView.updateCorners(numberOfResults: numberOfResults)
     }
   }

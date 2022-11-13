@@ -16,8 +16,9 @@ protocol MastodonLoginViewModelDelegate: AnyObject {
 
 class MastodonLoginViewModel {
 
-  var serverList: [Mastodon.Entity.Server] = []
+  private var serverList: [Mastodon.Entity.Server] = []
   var selectedServer: Mastodon.Entity.Server?
+  var filteredServers: [Mastodon.Entity.Server] = []
 
   weak var appContext: AppContext?
   weak var delegate: MastodonLoginViewModelDelegate?
@@ -41,5 +42,18 @@ class MastodonLoginViewModel {
       let servers = content.value
       self.serverList = servers
     }).store(in: &disposeBag)
+  }
+
+  func filterServers(withText query: String?) {
+    guard let query else {
+      filteredServers = serverList
+      delegate?.serversUpdated(self)
+      return
+    }
+
+    filteredServers = serverList.filter { $0.domain.contains(query) }.sorted {$0.totalUsers > $1.totalUsers }
+    delegate?.serversUpdated(self)
+
+//    AuthenticationViewModel.parseDomain(from: query)
   }
 }
