@@ -120,9 +120,9 @@ extension ComposeViewController {
                 guard let self = self else { return }
                 guard self.traitCollection.userInterfaceIdiom == .pad else { return }
                 var items = [self.publishBarButtonItem]
-                if self.traitCollection.horizontalSizeClass == .regular {
-                    items.append(self.characterCountBarButtonItem)
-                }
+                // if self.traitCollection.horizontalSizeClass == .regular {
+                //     items.append(self.characterCountBarButtonItem)
+                // }
                 self.navigationItem.rightBarButtonItems = items
             }
             .store(in: &disposeBag)
@@ -140,7 +140,7 @@ extension ComposeViewController {
         composeContentViewController.didMove(toParent: self)
 
         // bind navigation bar style
-        configureNavigationBarTitleStyle()
+        // configureNavigationBarTitleStyle()
         viewModel.traitCollectionDidChangePublisher
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
@@ -163,24 +163,6 @@ extension ComposeViewController {
             .receive(on: DispatchQueue.main)
             .assign(to: \.isEnabled, on: publishButton)
             .store(in: &disposeBag)
-//
-//        // bind content warning button state
-//        viewModel.$isContentWarningComposing
-//            .receive(on: DispatchQueue.main)
-//            .sink { [weak self] isContentWarningComposing in
-//                guard let self = self else { return }
-//                let accessibilityLabel = isContentWarningComposing ? L10n.Scene.Compose.Accessibility.disableContentWarning : L10n.Scene.Compose.Accessibility.enableContentWarning
-//                self.composeToolbarView.contentWarningBarButtonItem.accessibilityLabel = accessibilityLabel
-//                self.composeToolbarView.contentWarningButton.accessibilityLabel = accessibilityLabel
-//            }
-//            .store(in: &disposeBag)
-
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-
-//        viewModel.isViewAppeared = true
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
