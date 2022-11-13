@@ -383,10 +383,10 @@
                 "attachment_broken": "Tento %s je poškozený a nemůže být\nnahrán do Mastodonu.",
                 "description_photo": "Popište fotografii pro zrakově postižené osoby...",
                 "description_video": "Popište video pro zrakově postižené...",
-                "load_failed": "Load Failed",
-                "upload_failed": "Upload Failed",
-                "can_not_recognize_this_media_attachment": "Can not regonize this media attachment",
-                "attachment_too_large": "Attachment too large"
+                "load_failed": "Načtení se nezdařilo",
+                "upload_failed": "Nahrání selhalo",
+                "can_not_recognize_this_media_attachment": "Nelze rozpoznat toto medium přílohy",
+                "attachment_too_large": "Příloha je příliš velká"
             },
             "poll": {
                 "duration_time": "Doba trvání: %s",
