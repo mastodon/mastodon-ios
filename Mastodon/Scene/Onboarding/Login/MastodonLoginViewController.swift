@@ -264,6 +264,7 @@ extension MastodonLoginViewController: UITableViewDelegate {
     viewModel.selectedServer = server
 
     contentView.searchTextField.text = server.domain
+    viewModel.filterServers(withText: " ")
 
     contentView.navigationActionView.nextButton.isEnabled = true
     tableView.deselectRow(at: indexPath, animated: true)
