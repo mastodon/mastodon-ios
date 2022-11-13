@@ -398,8 +398,7 @@ extension ComposeContentViewModel {
         // bind modal dismiss state
         $content
             .receive(on: DispatchQueue.main)
-            .map { [weak self] content in
-                guard let self = self else { return }
+            .map { content in
                 if content.isEmpty {
                     return true
                 }
