@@ -13,6 +13,7 @@ import MastodonLocalization
 final class NavigationActionView: UIView {
     
     static let buttonHeight: CGFloat = 50
+    static let minimumBackButtonWidth: CGFloat = 100
     
     private var observations = Set<NSKeyValueObservation>()
     
@@ -27,6 +28,8 @@ final class NavigationActionView: UIView {
     let backButton: PrimaryActionButton = {
         let button = PrimaryActionButton()
         button.action = .back
+        button.contentEdgeInsets = WelcomeViewController.actionButtonPadding
+        button.titleLabel?.adjustsFontForContentSizeCategory = true
         button.setTitle(L10n.Common.Controls.Actions.back, for: .normal)
         return button
     }()
@@ -35,6 +38,8 @@ final class NavigationActionView: UIView {
     let nextButton: PrimaryActionButton = {
         let button = PrimaryActionButton()
         button.action = .next
+        button.contentEdgeInsets = WelcomeViewController.actionButtonPadding
+        button.titleLabel?.adjustsFontForContentSizeCategory = true
         button.setTitle(L10n.Common.Controls.Actions.next, for: .normal)
         return button
     }()
@@ -77,9 +82,8 @@ extension NavigationActionView {
         nextButtonShadowContainer.translatesAutoresizingMaskIntoConstraints = false
         buttonContainer.addArrangedSubview(nextButtonShadowContainer)
         NSLayoutConstraint.activate([
-            backButtonShadowContainer.heightAnchor.constraint(equalToConstant: NavigationActionView.buttonHeight).priority(.required - 1),
-            nextButtonShadowContainer.heightAnchor.constraint(equalToConstant: NavigationActionView.buttonHeight).priority(.required - 1),
-            nextButtonShadowContainer.widthAnchor.constraint(equalTo: backButtonShadowContainer.widthAnchor, multiplier: 2).priority(.required - 1),
+            backButtonShadowContainer.heightAnchor.constraint(greaterThanOrEqualToConstant: NavigationActionView.buttonHeight).priority(.required - 1),
+            nextButtonShadowContainer.heightAnchor.constraint(greaterThanOrEqualToConstant: NavigationActionView.buttonHeight).priority(.required - 1),
         ])
         
         backButton.translatesAutoresizingMaskIntoConstraints = false
@@ -98,6 +102,17 @@ extension NavigationActionView {
             nextButton.leadingAnchor.constraint(equalTo: nextButtonShadowContainer.leadingAnchor),
             nextButton.trailingAnchor.constraint(equalTo: nextButtonShadowContainer.trailingAnchor),
             nextButton.bottomAnchor.constraint(equalTo: nextButtonShadowContainer.bottomAnchor),
+        ])
+
+        // We want the back button to be as small as possible, allowing the next button to take up
+        // any remaining space. .defaultLow is "the priority level at which a button hugs its
+        // contents horizontally". Setting this on backButton allows nextButton to eat up remaining
+        // space. Note that we have to set this on the backButton, not the container, because it's
+        // backButton's size that determines the compression amount.
+        backButton.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        // Ensure that the back button has a reasonable minimum tap area.
+        NSLayoutConstraint.activate([
+            backButton.widthAnchor.constraint(greaterThanOrEqualToConstant: NavigationActionView.minimumBackButtonWidth).priority(.defaultLow - 1)
         ])
     }
     
