@@ -8,7 +8,6 @@
 import os.log
 import UIKit
 import Combine
-import MastodonUI
 import SwiftUI
 import MastodonAsset
 import MastodonLocalization

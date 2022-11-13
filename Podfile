@@ -8,7 +8,6 @@ target 'Mastodon' do
   # Pods for Mastodon
 
   # UI
-  pod 'UITextField+Shake', '~> 1.2'
   pod 'XLPagerTabStrip', '~> 9.0.0'
 
   # misc
