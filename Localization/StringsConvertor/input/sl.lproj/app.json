@@ -382,7 +382,11 @@
                 "video": "video",
                 "attachment_broken": "To %s je okvarjeno in ga ni\nmožno naložiti v Mastodon.",
                 "description_photo": "Opiši fotografijo za slabovidne in osebe z okvaro vida ...",
-                "description_video": "Opiši video za slabovidne in osebe z okvaro vida ..."
+                "description_video": "Opiši video za slabovidne in osebe z okvaro vida ...",
+                "load_failed": "Load Failed",
+                "upload_failed": "Upload Failed",
+                "can_not_recognize_this_media_attachment": "Can not regonize this media attachment",
+                "attachment_too_large": "Attachment too large"
             },
             "poll": {
                 "duration_time": "Trajanje: %s",
