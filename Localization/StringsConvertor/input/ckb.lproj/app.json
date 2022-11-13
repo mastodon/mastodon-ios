@@ -382,7 +382,11 @@
                 "video": "ڤیدیۆ",
                 "attachment_broken": "ئەم %sـە تێک چووە و ناتوانیت بەرزی بکەیتەوە.",
                 "description_photo": "وێنەکەت بۆ نابیناکان باس بکە...",
-                "description_video": "ڤیدیۆکەت بۆ نابیناکان باس بکە..."
+                "description_video": "ڤیدیۆکەت بۆ نابیناکان باس بکە...",
+                "load_failed": "Load Failed",
+                "upload_failed": "Upload Failed",
+                "can_not_recognize_this_media_attachment": "Can not regonize this media attachment",
+                "attachment_too_large": "Attachment too large"
             },
             "poll": {
                 "duration_time": "کات:‌ %s",
