@@ -208,13 +208,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 reply</string>
+        <string>1 odpověď</string>
         <key>few</key>
-        <string>%ld replies</string>
+        <string>%ld odpovědi</string>
         <key>many</key>
-        <string>%ld replies</string>
+        <string>%ld odpovědí</string>
         <key>other</key>
-        <string>%ld replies</string>
+        <string>%ld odpovědí</string>
       </dict>
     </dict>
     <key>plural.count.vote</key>
@@ -228,13 +228,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 vote</string>
+        <string>1 hlas</string>
         <key>few</key>
-        <string>%ld votes</string>
+        <string>%ld hlasy</string>
         <key>many</key>
-        <string>%ld votes</string>
+        <string>%ld hlasů</string>
         <key>other</key>
-        <string>%ld votes</string>
+        <string>%ld hlasů</string>
       </dict>
     </dict>
     <key>plural.count.voter</key>
@@ -248,13 +248,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 voter</string>
+        <string>1 hlasující</string>
         <key>few</key>
-        <string>%ld voters</string>
+        <string>%ld hlasující</string>
         <key>many</key>
-        <string>%ld voters</string>
+        <string>%ld hlasujících</string>
         <key>other</key>
-        <string>%ld voters</string>
+        <string>%ld hlasujících</string>
       </dict>
     </dict>
     <key>plural.people_talking</key>
