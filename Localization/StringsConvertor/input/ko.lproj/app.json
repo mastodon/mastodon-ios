@@ -382,7 +382,11 @@
                 "video": "동영상",
                 "attachment_broken": "This %s is broken and can’t be\nuploaded to Mastodon.",
                 "description_photo": "시각장애인을 위한 사진 설명…",
-                "description_video": "시각장애인을 위한 영상 설명…"
+                "description_video": "시각장애인을 위한 영상 설명…",
+                "load_failed": "Load Failed",
+                "upload_failed": "Upload Failed",
+                "can_not_recognize_this_media_attachment": "Can not regonize this media attachment",
+                "attachment_too_large": "Attachment too large"
             },
             "poll": {
                 "duration_time": "기간: %s",
