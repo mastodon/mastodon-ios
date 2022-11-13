@@ -44,7 +44,9 @@ struct ComposeContentToolbarView: View {
                         }
                     } label: {
                         label(for: action)
+                            .opacity(viewModel.isAttachmentButtonEnabled ? 1.0 : 0.5)
                     }
+                    .disabled(!viewModel.isAttachmentButtonEnabled)
                     .frame(width: 48, height: 48)
                 case .visibility:
                     Menu {
@@ -62,6 +64,16 @@ struct ComposeContentToolbarView: View {
                     } label: {
                         label(for: viewModel.visibility.image)
                     }
+                    .frame(width: 48, height: 48)
+                case .poll:
+                    Button {
+                        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): \(String(describing: action))")
+                        viewModel.delegate?.composeContentToolbarView(viewModel, toolbarItemDidPressed: action)
+                    } label: {
+                        label(for: action)
+                            .opacity(viewModel.isPollButtonEnabled ? 1.0 : 0.5)
+                    }
+                    .disabled(!viewModel.isPollButtonEnabled)
                     .frame(width: 48, height: 48)
                 default:
                     Button {

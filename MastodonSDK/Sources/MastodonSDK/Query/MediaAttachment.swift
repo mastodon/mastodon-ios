@@ -54,7 +54,7 @@ extension Mastodon.Query.MediaAttachment {
         return data.map { "data:" + mimeType + ";base64," + $0.base64EncodedString() }
     }
     
-    var sizeInByte: Int? {
+    public var sizeInByte: Int? {
         switch self {
         case .jpeg(let data), .gif(let data), .png(let data):
             return data?.count
