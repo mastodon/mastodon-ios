@@ -441,12 +441,13 @@ extension ComposeContentViewController: UIImagePickerControllerDelegate & UINavi
 
         guard let image = info[.originalImage] as? UIImage else { return }
 
-//        let attachmentService = MastodonAttachmentService(
-//            context: context,
-//            image: image,
-//            initialAuthenticationBox: viewModel.authenticationBox
-//        )
-//        viewModel.attachmentServices = viewModel.attachmentServices + [attachmentService]
+        let attachmentViewModel = AttachmentViewModel(
+            api: viewModel.context.apiService,
+            authContext: viewModel.authContext,
+            input: .image(image),
+            delegate: viewModel
+        )
+        viewModel.attachmentViewModels += [attachmentViewModel]
     }
 
     public func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -460,12 +461,13 @@ extension ComposeContentViewController: UIDocumentPickerDelegate {
     public func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
         guard let url = urls.first else { return }
 
-//        let attachmentService = MastodonAttachmentService(
-//            context: context,
-//            documentURL: url,
-//            initialAuthenticationBox: viewModel.authenticationBox
-//        )
-//        viewModel.attachmentServices = viewModel.attachmentServices + [attachmentService]
+        let attachmentViewModel = AttachmentViewModel(
+            api: viewModel.context.apiService,
+            authContext: viewModel.authContext,
+            input: .url(url),
+            delegate: viewModel
+        )
+        viewModel.attachmentViewModels += [attachmentViewModel]
     }
 }
 
