@@ -219,10 +219,10 @@
             "log_in": "Log In"
         },
         "login": {
-            "title": "",
-            "subtitle": "",
+            "title": "Welcome back",
+            "subtitle": "Log you in on the server you created your account on.",
             "server_search_field": {
-              "placeholder": "Search for your server"
+              "placeholder": "Enter URL or search for your server"
             }
         }
         "server_picker": {

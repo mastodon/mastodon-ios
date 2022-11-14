@@ -667,12 +667,12 @@ public enum L10n {
     }
     public enum Login {
       /// Log you in with the server where you created your account
-      public static let subtitle = L10n.tr("Localizable", "Scene.Login.Subtitle")
+      public static let subtitle = L10n.tr("Localizable", "Scene.Login.Subtitle", fallback: "Scene.Login.Subtitle")
       /// Welcome Back!
-      public static let title = L10n.tr("Localizable", "Scene.Login.Title")
+      public static let title = L10n.tr("Localizable", "Scene.Login.Title", fallback: "Welcome")
       public enum ServerSearchField {
         /// Search for your server
-        public static let placeholder = L10n.tr("Localizable", "Scene.Login.ServerSearchField.Placeholder")
+        public static let placeholder = L10n.tr("Localizable", "Scene.Login.ServerSearchField.Placeholder", fallback: "Scene.Login.ServerSearchField.Placeholder")
       }
     }
     public enum Notification {
