@@ -171,6 +171,11 @@ public enum Asset {
       public static let textFieldBackground = ColorAsset(name: "Scene/Onboarding/textField.background")
     }
     public enum Profile {
+      public enum About {
+        public static let bioAboutFieldVerifiedBackground = ColorAsset(name: "Scene/Profile/About/bio.about.field.verified.background")
+        public static let bioAboutFieldVerifiedCheckmark = ColorAsset(name: "Scene/Profile/About/bio.about.field.verified.checkmark")
+        public static let bioAboutFieldVerifiedLink = ColorAsset(name: "Scene/Profile/About/bio.about.field.verified.link")
+      }
       public enum Banner {
         public static let bioEditBackgroundGray = ColorAsset(name: "Scene/Profile/Banner/bio.edit.background.gray")
         public static let nameEditBackgroundGray = ColorAsset(name: "Scene/Profile/Banner/name.edit.background.gray")

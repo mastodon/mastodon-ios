@@ -263,6 +263,8 @@ uploaded to Mastodon.";
 "Scene.Profile.Fields.AddRow" = "Add Row";
 "Scene.Profile.Fields.Placeholder.Content" = "Content";
 "Scene.Profile.Fields.Placeholder.Label" = "Label";
+"Scene.Profile.Fields.Verified.Short" = "Verified at %s";
+"Scene.Profile.Fields.Verified.Long" = "Ownership of this link was checked on %s";
 "Scene.Profile.Header.FollowsYou" = "Follows You";
 "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Message" = "Confirm to block %@";
 "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Title" = "Block Account";

@@ -448,6 +448,10 @@
                 "placeholder": {
                     "label": "Label",
                     "content": "Content"
+                },
+                "verified": {
+                    "short": "Verified on %s",
+                    "long": "Ownership of this link was checked on %s"
                 }
             },
             "segmented_control": {
