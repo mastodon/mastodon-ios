@@ -383,10 +383,10 @@
                 "attachment_broken": "To %s je okvarjeno in ga ni\nmožno naložiti v Mastodon.",
                 "description_photo": "Opiši fotografijo za slabovidne in osebe z okvaro vida ...",
                 "description_video": "Opiši video za slabovidne in osebe z okvaro vida ...",
-                "load_failed": "Load Failed",
-                "upload_failed": "Upload Failed",
-                "can_not_recognize_this_media_attachment": "Can not regonize this media attachment",
-                "attachment_too_large": "Attachment too large"
+                "load_failed": "Nalaganje ni uspelo",
+                "upload_failed": "Nalaganje na strežnik ni uspelo",
+                "can_not_recognize_this_media_attachment": "Te medijske priponke ni mogoče prepoznati",
+                "attachment_too_large": "Priponka je prevelika"
             },
             "poll": {
                 "duration_time": "Trajanje: %s",
@@ -418,8 +418,8 @@
                 "enable_content_warning": "Omogoči opozorilo o vsebini",
                 "disable_content_warning": "Onemogoči opozorilo o vsebini",
                 "post_visibility_menu": "Meni vidnosti objave",
-                "post_options": "Post Options",
-                "posting_as": "Posting as %s"
+                "post_options": "Možnosti objave",
+                "posting_as": "Objavljate kot %s"
             },
             "keyboard": {
                 "discard_post": "Opusti objavo",
