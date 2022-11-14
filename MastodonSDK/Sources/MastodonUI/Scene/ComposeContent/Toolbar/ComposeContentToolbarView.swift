@@ -63,6 +63,7 @@ struct ComposeContentToolbarView: View {
                         }
                     } label: {
                         label(for: viewModel.visibility.image)
+                            .accessibilityLabel(L10n.Scene.Compose.Keyboard.selectVisibilityEntry(viewModel.visibility.title))
                     }
                     .frame(width: 48, height: 48)
                 case .poll:
@@ -98,11 +99,14 @@ struct ComposeContentToolbarView: View {
             Text("\(remains)")
                 .foregroundColor(Color(isOverflow ? UIColor.systemRed : UIColor.secondaryLabel))
                 .font(.system(size: isOverflow ? 18 : 16, weight: isOverflow ? .medium : .regular))
+                .accessibilityLabel(L10n.A11y.Plural.Count.charactersLeft(remains))
         }
         .padding(.leading, 4)       // 4 + 12 = 16
         .padding(.trailing, 16)
         .frame(height: ComposeContentToolbarView.toolbarHeight)
         .background(Color(viewModel.backgroundColor))
+        .accessibilityElement(children: .contain)
+        .accessibilityLabel(L10n.Scene.Compose.Accessibility.postOptions)
     }
     
 }
@@ -112,6 +116,7 @@ extension ComposeContentToolbarView {
         Image(uiImage: viewModel.image(for: action))
             .foregroundColor(Color(Asset.Scene.Compose.buttonTint.color))
             .frame(width: 24, height: 24, alignment: .center)
+            .accessibilityLabel(viewModel.label(for: action))
     }
     
     func label(for image: UIImage) -> some View {

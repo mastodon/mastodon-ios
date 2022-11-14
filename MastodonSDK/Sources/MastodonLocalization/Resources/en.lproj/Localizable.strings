@@ -161,7 +161,9 @@ Your profile looks like this to them.";
 "Scene.Compose.Accessibility.CustomEmojiPicker" = "Custom Emoji Picker";
 "Scene.Compose.Accessibility.DisableContentWarning" = "Disable Content Warning";
 "Scene.Compose.Accessibility.EnableContentWarning" = "Enable Content Warning";
+"Scene.Compose.Accessibility.PostOptions" = "Post Options";
 "Scene.Compose.Accessibility.PostVisibilityMenu" = "Post Visibility Menu";
+"Scene.Compose.Accessibility.PostingAs" = "Posting as %@";
 "Scene.Compose.Accessibility.RemovePoll" = "Remove Poll";
 "Scene.Compose.Attachment.AttachmentBroken" = "This %@ is broken and can’t be
 uploaded to Mastodon.";
