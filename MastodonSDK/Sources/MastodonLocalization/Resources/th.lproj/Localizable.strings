@@ -68,13 +68,13 @@
 "Common.Controls.Friendship.EditInfo" = "แก้ไขข้อมูล";
 "Common.Controls.Friendship.Follow" = "ติดตาม";
 "Common.Controls.Friendship.Following" = "กำลังติดตาม";
-"Common.Controls.Friendship.HideReblogs" = "Hide Reblogs";
+"Common.Controls.Friendship.HideReblogs" = "ซ่อนการดัน";
 "Common.Controls.Friendship.Mute" = "ซ่อน";
 "Common.Controls.Friendship.MuteUser" = "ซ่อน %@";
 "Common.Controls.Friendship.Muted" = "ซ่อนอยู่";
 "Common.Controls.Friendship.Pending" = "รอดำเนินการ";
 "Common.Controls.Friendship.Request" = "ขอ";
-"Common.Controls.Friendship.ShowReblogs" = "Show Reblogs";
+"Common.Controls.Friendship.ShowReblogs" = "แสดงการดัน";
 "Common.Controls.Friendship.Unblock" = "เลิกปิดกั้น";
 "Common.Controls.Friendship.UnblockUser" = "เลิกปิดกั้น %@";
 "Common.Controls.Friendship.Unmute" = "เลิกซ่อน";
@@ -108,6 +108,10 @@
 "Common.Controls.Status.Actions.Unreblog" = "เลิกทำการดัน";
 "Common.Controls.Status.ContentWarning" = "คำเตือนเนื้อหา";
 "Common.Controls.Status.MediaContentWarning" = "แตะที่ใดก็ตามเพื่อเปิดเผย";
+"Common.Controls.Status.MetaEntity.Email" = "ที่อยู่อีเมล: %@";
+"Common.Controls.Status.MetaEntity.Hashtag" = "แฮชแท็ก: %@";
+"Common.Controls.Status.MetaEntity.Mention" = "โปรไฟล์ที่แสดง: %@";
+"Common.Controls.Status.MetaEntity.Url" = "ลิงก์: %@";
 "Common.Controls.Status.Poll.Closed" = "ปิดแล้ว";
 "Common.Controls.Status.Poll.Vote" = "ลงคะแนน";
 "Common.Controls.Status.SensitiveContent" = "เนื้อหาที่ละเอียดอ่อน";
@@ -151,7 +155,7 @@
 "Scene.AccountList.AddAccount" = "เพิ่มบัญชี";
 "Scene.AccountList.DismissAccountSwitcher" = "ปิดตัวสลับบัญชี";
 "Scene.AccountList.TabBarHint" = "โปรไฟล์ที่เลือกในปัจจุบัน: %@ แตะสองครั้งแล้วกดค้างไว้เพื่อแสดงตัวสลับบัญชี";
-"Scene.Bookmark.Title" = "Bookmarks";
+"Scene.Bookmark.Title" = "ที่คั่นหน้า";
 "Scene.Compose.Accessibility.AppendAttachment" = "เพิ่มไฟล์แนบ";
 "Scene.Compose.Accessibility.AppendPoll" = "เพิ่มการสำรวจความคิดเห็น";
 "Scene.Compose.Accessibility.CustomEmojiPicker" = "ตัวเลือกอีโมจิที่กำหนดเอง";
@@ -161,9 +165,13 @@
 "Scene.Compose.Accessibility.RemovePoll" = "เอาการสำรวจความคิดเห็นออก";
 "Scene.Compose.Attachment.AttachmentBroken" = "%@ นี้เสียหายและไม่สามารถ
 อัปโหลดไปยัง Mastodon";
+"Scene.Compose.Attachment.AttachmentTooLarge" = "ไฟล์แนบใหญ่เกินไป";
+"Scene.Compose.Attachment.CanNotRecognizeThisMediaAttachment" = "Can not regonize this media attachment";
 "Scene.Compose.Attachment.DescriptionPhoto" = "อธิบายรูปภาพสำหรับผู้บกพร่องทางการมองเห็น...";
 "Scene.Compose.Attachment.DescriptionVideo" = "อธิบายวิดีโอสำหรับผู้บกพร่องทางการมองเห็น...";
+"Scene.Compose.Attachment.LoadFailed" = "การโหลดล้มเหลว";
 "Scene.Compose.Attachment.Photo" = "รูปภาพ";
+"Scene.Compose.Attachment.UploadFailed" = "การอัปโหลดล้มเหลว";
 "Scene.Compose.Attachment.Video" = "วิดีโอ";
 "Scene.Compose.AutoComplete.SpaceToAdd" = "เว้นวรรคเพื่อเพิ่ม";
 "Scene.Compose.ComposeAction" = "เผยแพร่";
@@ -256,12 +264,12 @@
 "Scene.Profile.Header.FollowsYou" = "ติดตามคุณ";
 "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Message" = "ยืนยันเพื่อปิดกั้น %@";
 "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Title" = "ปิดกั้นบัญชี";
-"Scene.Profile.RelationshipActionAlert.ConfirmHideReblogs.Message" = "Confirm to hide reblogs";
-"Scene.Profile.RelationshipActionAlert.ConfirmHideReblogs.Title" = "Hide Reblogs";
+"Scene.Profile.RelationshipActionAlert.ConfirmHideReblogs.Message" = "ยืนยันเพื่อซ่อนการดัน";
+"Scene.Profile.RelationshipActionAlert.ConfirmHideReblogs.Title" = "ซ่อนการดัน";
 "Scene.Profile.RelationshipActionAlert.ConfirmMuteUser.Message" = "ยืนยันเพื่อซ่อน %@";
 "Scene.Profile.RelationshipActionAlert.ConfirmMuteUser.Title" = "ซ่อนบัญชี";
-"Scene.Profile.RelationshipActionAlert.ConfirmShowReblogs.Message" = "Confirm to show reblogs";
-"Scene.Profile.RelationshipActionAlert.ConfirmShowReblogs.Title" = "Show Reblogs";
+"Scene.Profile.RelationshipActionAlert.ConfirmShowReblogs.Message" = "ยืนยันเพื่อแสดงการดัน";
+"Scene.Profile.RelationshipActionAlert.ConfirmShowReblogs.Title" = "แสดงการดัน";
 "Scene.Profile.RelationshipActionAlert.ConfirmUnblockUser.Message" = "ยืนยันเพื่อเลิกปิดกั้น %@";
 "Scene.Profile.RelationshipActionAlert.ConfirmUnblockUser.Title" = "เลิกปิดกั้นบัญชี";
 "Scene.Profile.RelationshipActionAlert.ConfirmUnmuteUser.Message" = "ยืนยันเพื่อเลิกซ่อน %@";
@@ -391,7 +399,7 @@
 "Scene.ServerPicker.Label.Language" = "ภาษา";
 "Scene.ServerPicker.Label.Users" = "ผู้ใช้";
 "Scene.ServerPicker.Subtitle" = "เลือกเซิร์ฟเวอร์ตามความสนใจ, ภูมิภาค หรือวัตถุประสงค์ทั่วไปของคุณ";
-"Scene.ServerPicker.SubtitleExtend" = "เลือกเซิร์ฟเวอร์ตามความสนใจ, ภูมิภาค หรือวัตถุประสงค์ทั่วไปของคุณ แต่ละเซิร์ฟเวอร์ดำเนินการโดยองค์กรหรือบุคคลที่เป็นอิสระโดยสิ้นเชิง";
+"Scene.ServerPicker.SubtitleExtend" = "เลือกเซิร์ฟเวอร์ตามความสนใจ, ภูมิภาค หรือวัตถุประสงค์ทั่วไปของคุณ แต่ละเซิร์ฟเวอร์ได้รับการดำเนินงานโดยองค์กรหรือบุคคลที่เป็นอิสระโดยสิ้นเชิง";
 "Scene.ServerPicker.Title" = "Mastodon ประกอบด้วยผู้ใช้ในเซิร์ฟเวอร์ต่าง ๆ";
 "Scene.ServerRules.Button.Confirm" = "ฉันเห็นด้วย";
 "Scene.ServerRules.PrivacyPolicy" = "นโยบายความเป็นส่วนตัว";

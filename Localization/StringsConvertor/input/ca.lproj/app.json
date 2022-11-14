@@ -136,6 +136,12 @@
                     "vote": "Vota",
                     "closed": "Finalitzada"
                 },
+                "meta_entity": {
+                    "url": "Enllaç: %s",
+                    "hashtag": "Etiqueta %s",
+                    "mention": "Mostra el Perfil: %s",
+                    "email": "Correu electrònic: %s"
+                },
                 "actions": {
                     "reply": "Respon",
                     "reblog": "Impuls",
@@ -376,7 +382,11 @@
                 "video": "vídeo",
                 "attachment_broken": "Aquest %s està trencat i no pot ser\ncarregat a Mastodon.",
                 "description_photo": "Descriu la foto per als disminuïts visuals...",
-                "description_video": "Descriu el vídeo per als disminuïts visuals..."
+                "description_video": "Descriu el vídeo per als disminuïts visuals...",
+                "load_failed": "Ha fallat la càrrega",
+                "upload_failed": "Pujada fallida",
+                "can_not_recognize_this_media_attachment": "No es pot reconèixer l'adjunt multimèdia",
+                "attachment_too_large": "El fitxer adjunt és massa gran"
             },
             "poll": {
                 "duration_time": "Durada: %s",
@@ -696,7 +706,7 @@
             "accessibility_hint": "Toca dues vegades per descartar l'assistent"
         },
         "bookmark": {
-            "title": "Bookmarks"
+            "title": "Marcadors"
         }
     }
 }

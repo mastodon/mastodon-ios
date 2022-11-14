@@ -319,7 +319,7 @@ public enum L10n {
           public static func email(_ p1: Any) -> String {
             return L10n.tr("Localizable", "Common.Controls.Status.MetaEntity.Email", String(describing: p1))
           }
-          /// Hastag %@
+          /// Hashtag: %@
           public static func hashtag(_ p1: Any) -> String {
             return L10n.tr("Localizable", "Common.Controls.Status.MetaEntity.Hashtag", String(describing: p1))
           }
@@ -420,8 +420,10 @@ public enum L10n {
       public static let addAccount = L10n.tr("Localizable", "Scene.AccountList.AddAccount")
       /// Dismiss Account Switcher
       public static let dismissAccountSwitcher = L10n.tr("Localizable", "Scene.AccountList.DismissAccountSwitcher")
-      /// Switch Accounts
-      public static let switchAccounts = L10n.tr("Localizable", "Scene.AccountList.SwitchAccounts")
+      /// Current selected profile: %@. Double tap then hold to show account switcher
+      public static func tabBarHint(_ p1: Any) -> String {
+        return L10n.tr("Localizable", "Scene.AccountList.TabBarHint", String(describing: p1))
+      }
     }
     public enum Bookmark {
       /// Bookmarks
@@ -463,12 +465,24 @@ public enum L10n {
         public static func attachmentBroken(_ p1: Any) -> String {
           return L10n.tr("Localizable", "Scene.Compose.Attachment.AttachmentBroken", String(describing: p1))
         }
+        /// Attachment too large
+        public static let attachmentTooLarge = L10n.tr("Localizable", "Scene.Compose.Attachment.AttachmentTooLarge")
+        /// Can not recognize this media attachment
+        public static let canNotRecognizeThisMediaAttachment = L10n.tr("Localizable", "Scene.Compose.Attachment.CanNotRecognizeThisMediaAttachment")
+        /// Compressing...
+        public static let compressingState = L10n.tr("Localizable", "Scene.Compose.Attachment.CompressingState")
         /// Describe the photo for the visually-impaired...
         public static let descriptionPhoto = L10n.tr("Localizable", "Scene.Compose.Attachment.DescriptionPhoto")
         /// Describe the video for the visually-impaired...
         public static let descriptionVideo = L10n.tr("Localizable", "Scene.Compose.Attachment.DescriptionVideo")
+        /// Load Failed
+        public static let loadFailed = L10n.tr("Localizable", "Scene.Compose.Attachment.LoadFailed")
         /// photo
         public static let photo = L10n.tr("Localizable", "Scene.Compose.Attachment.Photo")
+        /// Server Processing...
+        public static let serverProcessingState = L10n.tr("Localizable", "Scene.Compose.Attachment.ServerProcessingState")
+        /// Upload Failed
+        public static let uploadFailed = L10n.tr("Localizable", "Scene.Compose.Attachment.UploadFailed")
         /// video
         public static let video = L10n.tr("Localizable", "Scene.Compose.Attachment.Video")
       }
@@ -523,6 +537,10 @@ public enum L10n {
         public static let sevenDays = L10n.tr("Localizable", "Scene.Compose.Poll.SevenDays")
         /// 6 Hours
         public static let sixHours = L10n.tr("Localizable", "Scene.Compose.Poll.SixHours")
+        /// The poll has empty option
+        public static let thePollHasEmptyOption = L10n.tr("Localizable", "Scene.Compose.Poll.ThePollHasEmptyOption")
+        /// The poll is invalid
+        public static let thePollIsInvalid = L10n.tr("Localizable", "Scene.Compose.Poll.ThePollIsInvalid")
         /// 30 minutes
         public static let thirtyMinutes = L10n.tr("Localizable", "Scene.Compose.Poll.ThirtyMinutes")
         /// 3 Days
@@ -716,6 +734,16 @@ public enum L10n {
           public static let content = L10n.tr("Localizable", "Scene.Profile.Fields.Placeholder.Content")
           /// Label
           public static let label = L10n.tr("Localizable", "Scene.Profile.Fields.Placeholder.Label")
+        }
+        public enum Verified {
+          /// Ownership of this link was checked on %@
+          public static func long(_ p1: Any) -> String {
+            return L10n.tr("Localizable", "Scene.Profile.Fields.Verified.Long", String(describing: p1))
+          }
+          /// Verified on %@
+          public static func short(_ p1: Any) -> String {
+            return L10n.tr("Localizable", "Scene.Profile.Fields.Verified.Short", String(describing: p1))
+          }
         }
       }
       public enum Header {

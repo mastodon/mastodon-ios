@@ -136,6 +136,12 @@
                     "vote": "Votar",
                     "closed": "Pechada"
                 },
+                "meta_entity": {
+                    "url": "Ligazón: %s",
+                    "hashtag": "Cancelo: %s",
+                    "mention": "Mostrar Perfil: %s",
+                    "email": "Enderezo de email: %s"
+                },
                 "actions": {
                     "reply": "Responder",
                     "reblog": "Promover",
@@ -181,8 +187,8 @@
                 "unmute_user": "Deixar de acalar a @%s",
                 "muted": "Acalada",
                 "edit_info": "Editar info",
-                "show_reblogs": "Show Reblogs",
-                "hide_reblogs": "Hide Reblogs"
+                "show_reblogs": "Mostrar Promocións",
+                "hide_reblogs": "Agochar Promocións"
             },
             "timeline": {
                 "filtered": "Filtrado",
@@ -376,7 +382,11 @@
                 "video": "vídeo",
                 "attachment_broken": "Este %s está estragado e non pode\nser subido a Mastodon.",
                 "description_photo": "Describe a foto para persoas con problemas visuais...",
-                "description_video": "Describe o vídeo para persoas con problemas visuais..."
+                "description_video": "Describe o vídeo para persoas con problemas visuais...",
+                "load_failed": "Fallou a carga",
+                "upload_failed": "Erro na subida",
+                "can_not_recognize_this_media_attachment": "Non se recoñece o tipo de multimedia",
+                "attachment_too_large": "Adxunto demasiado grande"
             },
             "poll": {
                 "duration_time": "Duración: %s",
@@ -459,12 +469,12 @@
                     "message": "Confirma o desbloqueo de %s"
                 },
                 "confirm_show_reblogs": {
-                    "title": "Show Reblogs",
-                    "message": "Confirm to show reblogs"
+                    "title": "Mostrar Promocións",
+                    "message": "Confirma para ver promocións"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "Hide Reblogs",
-                    "message": "Confirm to hide reblogs"
+                    "title": "Agochar Promocións",
+                    "message": "Confirma para agochar promocións"
                 }
             },
             "accessibility": {
@@ -696,7 +706,7 @@
             "accessibility_hint": "Dobre toque para desbotar este asistente"
         },
         "bookmark": {
-            "title": "Bookmarks"
+            "title": "Marcadores"
         }
     }
 }

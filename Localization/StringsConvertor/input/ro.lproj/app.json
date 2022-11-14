@@ -32,9 +32,9 @@
                 "message": "Nu se poate edita profilul. Vă rugăm să încercaţi din nou."
             },
             "sign_out": {
-                "title": "Deconectați-vă",
+                "title": "Deconectare",
                 "message": "Sigur doriți să vă deconectați?",
-                "confirm": "Deconectați-vă"
+                "confirm": "Deconectare"
             },
             "block_domain": {
                 "title": "Are you really, really sure you want to block the entire %s? In most cases a few targeted blocks or mutes are sufficient and preferable. You will not see content from that domain and any of your followers from that domain will be removed.",
@@ -135,6 +135,12 @@
                 "poll": {
                     "vote": "Vote",
                     "closed": "Closed"
+                },
+                "meta_entity": {
+                    "url": "Link: %s",
+                    "hashtag": "Hashtag: %s",
+                    "mention": "Show Profile: %s",
+                    "email": "Email address: %s"
                 },
                 "actions": {
                     "reply": "Reply",
@@ -376,7 +382,11 @@
                 "video": "video",
                 "attachment_broken": "This %s is broken and can’t be\nuploaded to Mastodon.",
                 "description_photo": "Describe the photo for the visually-impaired...",
-                "description_video": "Describe the video for the visually-impaired..."
+                "description_video": "Describe the video for the visually-impaired...",
+                "load_failed": "Load Failed",
+                "upload_failed": "Upload Failed",
+                "can_not_recognize_this_media_attachment": "Can not regonize this media attachment",
+                "attachment_too_large": "Attachment too large"
             },
             "poll": {
                 "duration_time": "Duration: %s",

@@ -136,6 +136,12 @@
                     "vote": "Abstimmen",
                     "closed": "Beendet"
                 },
+                "meta_entity": {
+                    "url": "Link: %s",
+                    "hashtag": "Hashtag: %s",
+                    "mention": "Show Profile: %s",
+                    "email": "Email address: %s"
+                },
                 "actions": {
                     "reply": "Antworten",
                     "reblog": "Teilen",
@@ -376,7 +382,11 @@
                 "video": "Video",
                 "attachment_broken": "Dieses %s scheint defekt zu sein und\nkann nicht auf Mastodon hochgeladen werden.",
                 "description_photo": "Für Menschen mit Sehbehinderung beschreiben...",
-                "description_video": "Für Menschen mit Sehbehinderung beschreiben..."
+                "description_video": "Für Menschen mit Sehbehinderung beschreiben...",
+                "load_failed": "Laden fehlgeschlagen",
+                "upload_failed": "Upload fehlgeschlagen",
+                "can_not_recognize_this_media_attachment": "Medienanhang wurde nicht erkannt",
+                "attachment_too_large": "Anhang zu groß"
             },
             "poll": {
                 "duration_time": "Dauer: %s",
@@ -425,7 +435,7 @@
             "dashboard": {
                 "posts": "Beiträge",
                 "following": "Gefolgte",
-                "followers": "Folger"
+                "followers": "Folgende"
             },
             "fields": {
                 "add_row": "Zeile hinzufügen",
@@ -460,7 +470,7 @@
                 },
                 "confirm_show_reblogs": {
                     "title": "Reblogs anzeigen",
-                    "message": "Confirm to show reblogs"
+                    "message": "Bestätigen um Reblogs anzuzeigen"
                 },
                 "confirm_hide_reblogs": {
                     "title": "Reblogs ausblenden",
@@ -476,11 +486,11 @@
         },
         "follower": {
             "title": "Follower",
-            "footer": "Follower von anderen Servern werden nicht angezeigt."
+            "footer": "Folger, die nicht auf deinem Server registriert sind, werden nicht angezeigt."
         },
         "following": {
             "title": "Folgende",
-            "footer": "Wem das Konto folgt wird von anderen Servern werden nicht angezeigt."
+            "footer": "Gefolgte, die nicht auf deinem Server registriert sind, werden nicht angezeigt."
         },
         "familiarFollowers": {
             "title": "Follower, die dir bekannt vorkommen",
@@ -590,7 +600,7 @@
                     "mentions": "Mich erwähnt",
                     "trigger": {
                         "anyone": "jeder",
-                        "follower": "ein Folger",
+                        "follower": "ein Folgender",
                         "follow": "ein von mir Gefolgter",
                         "noone": "niemand",
                         "title": "Benachrichtige mich, wenn"
@@ -696,7 +706,7 @@
             "accessibility_hint": "Doppeltippen, um diesen Assistenten zu schließen"
         },
         "bookmark": {
-            "title": "Bookmarks"
+            "title": "Lesezeichen"
         }
     }
 }

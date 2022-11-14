@@ -91,7 +91,7 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
     // @Published public internal(set) var isMediaValid = true
     
     // poll
-    @Published var isPollActive = false
+    @Published public var isPollActive = false
     @Published public var pollOptions: [PollComposeItem.Option] = {
         // initial with 2 options
         var options: [PollComposeItem.Option] = []
@@ -111,7 +111,7 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
     @Published var isLoadingCustomEmoji = false
     
     // visibility
-    @Published var visibility: Mastodon.Entity.Status.Visibility
+    @Published public var visibility: Mastodon.Entity.Status.Visibility
     
     // UI & UX
     @Published var replyToCellFrame: CGRect = .zero
@@ -227,6 +227,32 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
             }
         case .post:
             break
+        }
+        
+        // set limit
+        let _configuration: Mastodon.Entity.Instance.Configuration? = {
+            var configuration: Mastodon.Entity.Instance.Configuration? = nil
+            context.managedObjectContext.performAndWait {
+                guard let authentication = authContext.mastodonAuthenticationBox.authenticationRecord.object(in: context.managedObjectContext)
+                else { return }
+                configuration = authentication.instance?.configuration
+            }
+            return configuration
+        }()
+        if let configuration = _configuration {
+            // set character limit
+            if let maxCharacters = configuration.statuses?.maxCharacters {
+                maxTextInputLimit = maxCharacters
+            }
+            // set media limit
+            if let maxMediaAttachments = configuration.statuses?.maxMediaAttachments {
+                maxMediaAttachmentLimit = maxMediaAttachments
+            }
+            // set poll option limit
+            if let maxOptions = configuration.polls?.maxOptions {
+                maxPollOptionLimit = maxOptions
+            }
+            // TODO: more limit
         }
         
         bind()
@@ -453,14 +479,14 @@ extension ComposeContentViewModel {
         public var errorDescription: String? {
             switch self {
             case .pollHasEmptyOption:
-                return "The post poll is invalid"  // TODO: i18n
+                return L10n.Scene.Compose.Poll.thePollIsInvalid
             }
         }
         
         public var failureReason: String? {
             switch self {
             case .pollHasEmptyOption:
-                return "The poll has empty option"   // TODO: i18n
+                return L10n.Scene.Compose.Poll.thePollHasEmptyOption
             }
         }
     }

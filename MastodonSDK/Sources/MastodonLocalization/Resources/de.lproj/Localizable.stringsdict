@@ -248,9 +248,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 Follower</string>
+        <string>1 Folgender</string>
         <key>other</key>
-        <string>%ld Follower</string>
+        <string>%ld Folgende</string>
       </dict>
     </dict>
     <key>date.year.left</key>
