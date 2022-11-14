@@ -11,7 +11,7 @@ target 'Mastodon' do
   pod 'XLPagerTabStrip', '~> 9.0.0'
 
   # misc
-  pod 'SwiftGen', '~> 6.4.0'
+  pod 'SwiftGen', '~> 6.6.2'
   pod 'DateToolsSwift', '~> 5.0.0'
   pod 'Kanna', '~> 5.2.2'
   pod 'Sourcery', '~> 1.6.1'
