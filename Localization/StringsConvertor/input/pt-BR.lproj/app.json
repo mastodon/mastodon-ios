@@ -204,85 +204,85 @@
                     "no_status_found": "Nenhuma postagem encontrada",
                     "blocking_warning": "You can’t view this user's profile\nuntil you unblock them.\nYour profile looks like this to them.",
                     "user_blocking_warning": "You can’t view %s’s profile\nuntil you unblock them.\nYour profile looks like this to them.",
-                    "blocked_warning": "You can’t view this user’s profile\nuntil they unblock you.",
-                    "user_blocked_warning": "You can’t view %s’s profile\nuntil they unblock you.",
-                    "suspended_warning": "This user has been suspended.",
-                    "user_suspended_warning": "%s’s account has been suspended."
+                    "blocked_warning": "Você não pode ver o perfil desse usuário até que ele o desbloqueie.",
+                    "user_blocked_warning": "Você não pode ver o perfil de %s até que ele o desbloqueie.",
+                    "suspended_warning": "Esse usuário foi suspenso.",
+                    "user_suspended_warning": "A conta de %s foi suspensa."
                 }
             }
         }
     },
     "scene": {
         "welcome": {
-            "slogan": "Social networking\nback in your hands.",
-            "get_started": "Get Started",
-            "log_in": "Log In"
+            "slogan": "Você no controle de sua rede social.",
+            "get_started": "Comece já",
+            "log_in": "Entrar"
         },
         "server_picker": {
-            "title": "Mastodon is made of users in different servers.",
-            "subtitle": "Pick a server based on your interests, region, or a general purpose one.",
-            "subtitle_extend": "Pick a server based on your interests, region, or a general purpose one. Each server is operated by an entirely independent organization or individual.",
+            "title": "Mastodon é feito de usuários em instâncias diferentes.",
+            "subtitle": "Escolha uma instância baseada nos seus interesses, região, ou em uma proposta geral.",
+            "subtitle_extend": "Escolha uma instância baseada nos seus interesses, região, ou em uma proposta geral. Cada instância é operada por um indivíduo ou uma organização totalmente independente.",
             "button": {
                 "category": {
-                    "all": "All",
-                    "all_accessiblity_description": "Category: All",
-                    "academia": "academia",
-                    "activism": "activism",
-                    "food": "food",
+                    "all": "Todos",
+                    "all_accessiblity_description": "Categoria: Todos",
+                    "academia": "acadêmico",
+                    "activism": "ativismo",
+                    "food": "comida",
                     "furry": "furry",
-                    "games": "games",
-                    "general": "general",
-                    "journalism": "journalism",
+                    "games": "jogos",
+                    "general": "geral",
+                    "journalism": "jornalismo",
                     "lgbt": "lgbt",
                     "regional": "regional",
-                    "art": "art",
-                    "music": "music",
-                    "tech": "tech"
+                    "art": "arte",
+                    "music": "música",
+                    "tech": "tecnologia"
                 },
-                "see_less": "See Less",
-                "see_more": "See More"
+                "see_less": "Ver menos",
+                "see_more": "Ver mais"
             },
             "label": {
-                "language": "LANGUAGE",
-                "users": "USERS",
-                "category": "CATEGORY"
+                "language": "Idioma",
+                "users": "Usuários",
+                "category": "Categoria"
             },
             "input": {
-                "placeholder": "Search servers",
-                "search_servers_or_enter_url": "Search servers or enter URL"
+                "placeholder": "Procurar instâncias",
+                "search_servers_or_enter_url": "Procurar instâncias ou inserir URL"
             },
             "empty_state": {
-                "finding_servers": "Finding available servers...",
-                "bad_network": "Something went wrong while loading the data. Check your internet connection.",
-                "no_results": "No results"
+                "finding_servers": "Procurando instâncias disponíveis...",
+                "bad_network": "Algo deu errado ao carregar os dados. Verifique sua conexão com a internet.",
+                "no_results": "Sem resultados"
             }
         },
         "register": {
-            "title": "Let’s get you set up on %s",
+            "title": "Vamos configurar você em %s",
             "lets_get_you_set_up_on_domain": "Let’s get you set up on %s",
             "input": {
                 "avatar": {
-                    "delete": "Delete"
+                    "delete": "Excluir"
                 },
                 "username": {
-                    "placeholder": "username",
-                    "duplicate_prompt": "This username is taken."
+                    "placeholder": "nome de usuário",
+                    "duplicate_prompt": "Esse nome de usuário já está sendo usado."
                 },
                 "display_name": {
-                    "placeholder": "display name"
+                    "placeholder": "nome de exibição"
                 },
                 "email": {
-                    "placeholder": "email"
+                    "placeholder": "e-mail"
                 },
                 "password": {
-                    "placeholder": "password",
-                    "require": "Your password needs at least:",
-                    "character_limit": "8 characters",
+                    "placeholder": "senha",
+                    "require": "Sua senha deve ter pelo menos:",
+                    "character_limit": "8 carácteres",
                     "accessibility": {
                         "checked": "checked",
                         "unchecked": "unchecked"
                     },
-                    "hint": "Your password needs at least eight characters"
+                    "hint": "Sua senha precisa ter pelo menos oito carácteres"
                 },
                 "invite": {
                     "registration_user_invite_request": "Why do you want to join?"
@@ -372,14 +372,14 @@
             "media_selection": {
                 "camera": "Take Photo",
                 "photo_library": "Photo Library",
-                "browse": "Browse"
+                "browse": "Navegar"
             },
-            "content_input_placeholder": "Type or paste what’s on your mind",
-            "compose_action": "Publish",
-            "replying_to_user": "replying to %s",
+            "content_input_placeholder": "Digite ou cole o que está na sua mente",
+            "compose_action": "Publicar",
+            "replying_to_user": "em resposta a %s",
             "attachment": {
-                "photo": "photo",
-                "video": "video",
+                "photo": "foto",
+                "video": "vídeo",
                 "attachment_broken": "This %s is broken and can’t be\nuploaded to Mastodon.",
                 "description_photo": "Describe the photo for the visually-impaired...",
                 "description_video": "Describe the video for the visually-impaired...",
@@ -389,14 +389,14 @@
                 "attachment_too_large": "Attachment too large"
             },
             "poll": {
-                "duration_time": "Duration: %s",
-                "thirty_minutes": "30 minutes",
-                "one_hour": "1 Hour",
-                "six_hours": "6 Hours",
-                "one_day": "1 Day",
-                "three_days": "3 Days",
-                "seven_days": "7 Days",
-                "option_number": "Option %ld"
+                "duration_time": "Duração: %s",
+                "thirty_minutes": "30 minutos",
+                "one_hour": "1 hora",
+                "six_hours": "6 horas",
+                "one_day": "1 dia",
+                "three_days": "3 dias",
+                "seven_days": "7 dias",
+                "option_number": "Opção %ld"
             },
             "content_warning": {
                 "placeholder": "Write an accurate warning here..."
@@ -433,9 +433,9 @@
                 "follows_you": "Follows You"
             },
             "dashboard": {
-                "posts": "posts",
-                "following": "following",
-                "followers": "followers"
+                "posts": "toots",
+                "following": "seguindo",
+                "followers": "seguidores"
             },
             "fields": {
                 "add_row": "Add Row",
@@ -518,30 +518,30 @@
                 "accounts": {
                     "title": "Accounts you might like",
                     "description": "You may like to follow these accounts",
-                    "follow": "Follow"
+                    "follow": "Seguir"
                 }
             },
             "searching": {
                 "segment": {
-                    "all": "All",
-                    "people": "People",
+                    "all": "Todos",
+                    "people": "Pessoas",
                     "hashtags": "Hashtags",
-                    "posts": "Posts"
+                    "posts": "Toots"
                 },
                 "empty_state": {
-                    "no_results": "No results"
+                    "no_results": "Sem resultados"
                 },
-                "recent_search": "Recent searches",
-                "clear": "Clear"
+                "recent_search": "Pesquisas recentes",
+                "clear": "Limpar"
             }
         },
         "discovery": {
             "tabs": {
-                "posts": "Posts",
+                "posts": "Toots",
                 "hashtags": "Hashtags",
-                "news": "News",
-                "community": "Community",
-                "for_you": "For You"
+                "news": "Notícias",
+                "community": "Comunidade",
+                "for_you": "Para você"
             },
             "intro": "These are the posts gaining traction in your corner of Mastodon."
         },
