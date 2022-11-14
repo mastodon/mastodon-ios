@@ -24,7 +24,8 @@ public final class InstanceService {
     weak var authenticationService: AuthenticationService?
     
     // output
-    
+    public let updateActiveUserAccountPublisher = PassthroughSubject<Void, Never>()
+
     init(
         apiService: APIService,
         authenticationService: AuthenticationService

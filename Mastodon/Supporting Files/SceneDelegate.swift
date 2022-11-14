@@ -109,6 +109,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         // trigger status filter update
         AppContext.shared.statusFilterService.filterUpdatePublisher.send()
+        
+        // trigger authenticated user account update
+        AppContext.shared.instanceService.updateActiveUserAccountPublisher.send()
 
         if let shortcutItem = savedShortCutItem {
             Task {
