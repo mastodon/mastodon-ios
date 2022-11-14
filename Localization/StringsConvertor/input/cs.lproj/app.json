@@ -417,7 +417,9 @@
                 "custom_emoji_picker": "Vlastní výběr Emoji",
                 "enable_content_warning": "Povolit upozornění na obsah",
                 "disable_content_warning": "Vypnout upozornění na obsah",
-                "post_visibility_menu": "Menu viditelnosti příspěvku"
+                "post_visibility_menu": "Menu viditelnosti příspěvku",
+                "post_options": "Post Options",
+                "posting_as": "Posting as %s"
             },
             "keyboard": {
                 "discard_post": "Zahodit příspěvek",
