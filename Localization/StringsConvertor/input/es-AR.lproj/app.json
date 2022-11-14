@@ -137,10 +137,10 @@
                     "closed": "Cerrada"
                 },
                 "meta_entity": {
-                    "url": "Link: %s",
-                    "hashtag": "Hashtag: %s",
-                    "mention": "Show Profile: %s",
-                    "email": "Email address: %s"
+                    "url": "Enlace: %s",
+                    "hashtag": "Etiqueta: %s",
+                    "mention": "Mostrar perfil: %s",
+                    "email": "Dirección de correo electrónico: %s"
                 },
                 "actions": {
                     "reply": "Responder",
@@ -417,7 +417,9 @@
                 "custom_emoji_picker": "Selector de emoji personalizado",
                 "enable_content_warning": "Habilitar advertencia de contenido",
                 "disable_content_warning": "Deshabilitar advertencia de contenido",
-                "post_visibility_menu": "Menú de visibilidad del mensaje"
+                "post_visibility_menu": "Menú de visibilidad del mensaje",
+                "post_options": "Opciones de mensaje",
+                "posting_as": "Enviar como %s"
             },
             "keyboard": {
                 "discard_post": "Descartar mensaje",
@@ -706,7 +708,7 @@
             "accessibility_hint": "Tocá dos veces para descartar este asistente"
         },
         "bookmark": {
-            "title": "Bookmarks"
+            "title": "Marcadores"
         }
     }
 }
