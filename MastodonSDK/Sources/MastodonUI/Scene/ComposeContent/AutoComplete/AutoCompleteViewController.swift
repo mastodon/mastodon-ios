@@ -88,7 +88,7 @@ extension AutoCompleteViewController {
         ])
         
         tableView.delegate = self
-//        viewModel.setupDiffableDataSource(tableView: tableView)
+        viewModel.setupDiffableDataSource(tableView: tableView)
 
         // bind to layout chevron
         viewModel.symbolBoundingRect

@@ -39,7 +39,7 @@ public struct PollOptionTextField: UIViewRepresentable {
         textField.text = text
         textField.placeholder = {
             if index >= 0 {
-                return L10n.Scene.Compose.Poll.optionNumber(index)
+                return L10n.Scene.Compose.Poll.optionNumber(index + 1)
             } else {
                 assertionFailure()
                 return ""

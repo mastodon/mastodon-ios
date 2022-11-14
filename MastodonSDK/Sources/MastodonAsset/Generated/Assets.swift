@@ -130,6 +130,11 @@ public enum Asset {
   }
   public enum Scene {
     public enum Compose {
+      public enum Attachment {
+        public static let indicatorButtonBackground = ColorAsset(name: "Scene/Compose/Attachment/indicator.button.background")
+        public static let retry = ImageAsset(name: "Scene/Compose/Attachment/retry")
+        public static let stop = ImageAsset(name: "Scene/Compose/Attachment/stop")
+      }
       public static let earth = ImageAsset(name: "Scene/Compose/Earth")
       public static let mention = ImageAsset(name: "Scene/Compose/Mention")
       public static let more = ImageAsset(name: "Scene/Compose/More")

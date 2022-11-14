@@ -13,6 +13,15 @@ import MastodonCommon
 import MastodonSDK
 
 extension APIService {
+    public func authenticatedUserInfo(
+        authenticationBox: MastodonAuthenticationBox
+    ) async throws -> Mastodon.Response.Content<Mastodon.Entity.Account> {
+        try await accountInfo(
+            domain: authenticationBox.domain,
+            userID: authenticationBox.userID,
+            authorization: authenticationBox.userAuthorization
+        )
+    }
 
     public func accountInfo(
         domain: String,

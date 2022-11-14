@@ -10,237 +10,194 @@ import UIKit
 import SwiftUI
 import Introspect
 import AVKit
+import MastodonAsset
+import MastodonLocalization
+import Introspect
 
 public struct AttachmentView: View {
     
-    static let size = CGSize(width: 56, height: 56)
-    static let cornerRadius: CGFloat = 8
-    
     @ObservedObject var viewModel: AttachmentViewModel
-    
-    let action: (Action) -> Void
-    
-    @State var isCaptionEditorPresented = false
-    @State var caption = ""
+        
+    var blurEffect: UIBlurEffect {
+        UIBlurEffect(style: .systemUltraThinMaterialDark)
+    }
 
     public var body: some View {
-        Text("Hello")
-//        Menu {
-//            menu
-//        } label: {
-//            let image = viewModel.thumbnail ?? .placeholder(color: .systemGray3)
-//            Image(uiImage: image)
-//                .resizable()
-//                .aspectRatio(contentMode: .fill)
-//                .frame(width: AttachmentView.size.width, height: AttachmentView.size.height)
-//                .overlay {
-//                    ZStack {
-//                        // spinner
-//                        if viewModel.output == nil {
-//                            Color.clear
-//                                .background(.ultraThinMaterial)
-//                            ProgressView()
-//                                .progressViewStyle(CircularProgressViewStyle())
-//                                .foregroundStyle(.regularMaterial)
-//                        }
-//                        // border
-//                        RoundedRectangle(cornerRadius: AttachmentView.cornerRadius)
-//                            .stroke(Color.black.opacity(0.05))
-//                    }
-//                    .transition(.opacity)
-//                }
-//                .overlay(alignment: .bottom) {
-//                    HStack(alignment: .bottom) {
-//                        // alt
-//                        VStack(spacing: 2) {
-//                            switch viewModel.output {
-//                            case .video:
-//                                Image(uiImage: Asset.Media.playerRectangle.image)
-//                                    .resizable()
-//                                    .frame(width: 16, height: 12)
-//                            default:
-//                                EmptyView()
-//                            }
-//                            if !viewModel.caption.isEmpty {
-//                                Image(uiImage: Asset.Media.altRectangle.image)
-//                                    .resizable()
-//                                    .frame(width: 16, height: 12)
-//                            }
-//                        }
-//                        Spacer()
-//                        // option
-//                        Image(systemName: "ellipsis")
-//                            .resizable()
-//                            .frame(width: 12, height: 12)
-//                            .symbolVariant(.circle)
-//                            .symbolVariant(.fill)
-//                            .symbolRenderingMode(.palette)
-//                            .foregroundStyle(.white, .black)
-//                    }
-//                    .padding(6)
-//                }
-//                .cornerRadius(AttachmentView.cornerRadius)
-//        }   // end Menu
-//        .sheet(isPresented: $isCaptionEditorPresented) {
-//            captionSheet
-//        }   // end caption sheet
-//        .sheet(isPresented: $viewModel.isPreviewPresented) {
-//            previewSheet
-//        }   // end preview sheet
-
+        Color.clear.aspectRatio(358.0/232.0, contentMode: .fill)
+            .overlay(
+                ZStack {
+                    let image = viewModel.thumbnail ?? .placeholder(color: .secondarySystemFill)
+                    Image(uiImage: image)
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                }
+            )
+            .overlay(
+                ZStack {
+                    Color.clear
+                        .overlay(
+                            VStack(alignment: .leading) {
+                                let placeholder: String = {
+                                    switch viewModel.output {
+                                    case .image: return L10n.Scene.Compose.Attachment.descriptionPhoto
+                                    case .video: return L10n.Scene.Compose.Attachment.descriptionVideo
+                                    case nil:    return ""
+                                    }
+                                }()
+                                Spacer()
+                                TextField(placeholder, text: $viewModel.caption)
+                                    .lineLimit(1)
+                                    .textFieldStyle(.plain)
+                                    .foregroundColor(.white)
+                                    .placeholder(placeholder, when: viewModel.caption.isEmpty)
+                                    .padding(8)
+                            }
+                        )
+                    
+                    // loading…
+                    if viewModel.output == nil, viewModel.error == nil {
+                        ProgressView()
+                            .progressViewStyle(.circular)
+                    }
+                    
+                    // load failed
+                    // cannot re-entry
+                    if viewModel.output == nil, let error = viewModel.error {
+                        VisualEffectView(effect: blurEffect)
+                        VStack {
+                            Text("Load Failed")    // TODO: i18n
+                                .font(.system(size: 13, weight: .semibold))
+                            Text(error.localizedDescription)
+                                .font(.system(size: 12, weight: .regular))
+                        }
+                    }
+                    
+                    // loaded
+                    // uploading… or upload failed
+                    // could retry upload when error emit
+                    if viewModel.output != nil, viewModel.uploadState != .finish {
+                        VisualEffectView(effect: blurEffect)
+                        VStack {
+                            let action: AttachmentViewModel.Action = {
+                                if let _ = viewModel.error {
+                                    return .retry
+                                } else {
+                                    return .remove
+                                }
+                            }()
+                            Button {
+                                viewModel.delegate?.attachmentViewModel(viewModel, actionButtonDidPressed: action)
+                            } label: {
+                                let image: UIImage = {
+                                    switch action {
+                                    case .remove:
+                                        return Asset.Scene.Compose.Attachment.stop.image.withRenderingMode(.alwaysTemplate)
+                                    case .retry:
+                                        return Asset.Scene.Compose.Attachment.retry.image.withRenderingMode(.alwaysTemplate)
+                                    }
+                                }()
+                                Image(uiImage: image)
+                                    .foregroundColor(.white)
+                                    .padding()
+                                    .background(Color(Asset.Scene.Compose.Attachment.indicatorButtonBackground.color))
+                                    .overlay(
+                                        Group {
+                                            switch viewModel.uploadState {
+                                            case .compressing:
+                                                CircleProgressView(progress: viewModel.videoCompressProgress)
+                                                    .animation(.default, value: viewModel.videoCompressProgress)
+                                            case .uploading:
+                                                CircleProgressView(progress: viewModel.fractionCompleted)
+                                                    .animation(.default, value: viewModel.fractionCompleted)
+                                            default:
+                                                EmptyView()
+                                            }
+                                        }
+                                    )
+                                    .clipShape(Circle())
+                                    .padding()
+                            }
+                            
+                            let title: String = {
+                                switch action {
+                                case .remove:
+                                    switch viewModel.uploadState {
+                                    case .compressing:
+                                        return "Comporessing..."    // TODO: i18n
+                                    default:
+                                        if viewModel.fractionCompleted < 0.9 {
+                                            let totalSizeInByte = viewModel.outputSizeInByte
+                                            let uploadSizeInByte = Double(totalSizeInByte) * min(1.0, viewModel.fractionCompleted + 0.1)    // 9:1
+                                            let total = viewModel.byteCountFormatter.string(fromByteCount: Int64(totalSizeInByte))
+                                            let upload = viewModel.byteCountFormatter.string(fromByteCount: Int64(uploadSizeInByte))
+                                            return "\(upload) / \(total)"
+                                        } else {
+                                            return "Server Processing..."   // TODO: i18n
+                                        }
+                                    }
+                                case .retry:
+                                    return "Upload Failed"  // TODO: i18n
+                                }
+                            }()
+                            let subtitle: String = {
+                                switch action {
+                                case .remove:
+                                    if viewModel.progress.fractionCompleted < 1, viewModel.uploadState == .uploading {
+                                        if viewModel.progress.fractionCompleted < 0.9 {
+                                            return viewModel.remainTimeLocalizedString ?? ""
+                                        } else {
+                                            return ""
+                                        }
+                                    } else if viewModel.videoCompressProgress < 1, viewModel.uploadState == .compressing {
+                                        return viewModel.percentageFormatter.string(from: NSNumber(floatLiteral: viewModel.videoCompressProgress)) ?? ""
+                                    } else {
+                                        return ""
+                                    }
+                                case .retry:
+                                    return viewModel.error?.localizedDescription ?? ""
+                                }
+                            }()
+                            Text(title)
+                                .font(.system(size: 13, weight: .semibold))
+                                .foregroundColor(.white)
+                                .padding(.horizontal)
+                            Text(subtitle)
+                                .font(.system(size: 12, weight: .regular))
+                                .foregroundColor(.white)
+                                .padding(.horizontal)
+                                .lineLimit(nil)
+                                .multilineTextAlignment(.center)
+                                .frame(maxWidth: 240)
+                        }
+                    }
+                }   // end ZStack
+            )
     }   // end body
-    
-//    var menu: some View {
-//        Group {
-//            Button(
-//                action: {
-//                    action(.preview)
-//                },
-//                label: {
-//                    Label(L10n.Scene.Compose.Media.preview, systemImage: "photo")
-//                }
-//            )
-//            // caption
-//            let canAddCaption: Bool = {
-//                switch viewModel.output {
-//                case .image:        return true
-//                case .video:        return false
-//                case .none:         return false
-//                }
-//            }()
-//            if canAddCaption {
-//                Button(
-//                    action: {
-//                        action(.caption)
-//                        caption = viewModel.caption
-//                        isCaptionEditorPresented.toggle()
-//                    },
-//                    label: {
-//                        let title = viewModel.caption.isEmpty ? L10n.Scene.Compose.Media.Caption.add : L10n.Scene.Compose.Media.Caption.update
-//                        Label(title, systemImage: "text.bubble")
-//                        // FIXME: https://stackoverflow.com/questions/72318730/how-to-customize-swiftui-menu
-//                        // add caption subtitle
-//                    }
-//                )
-//            }
-//            Divider()
-//            // remove
-//            Button(
-//                role: .destructive,
-//                action: {
-//                    action(.remove)
-//                },
-//                label: {
-//                    Label(L10n.Scene.Compose.Media.remove, systemImage: "minus.circle")
-//                }
-//            )
-//        }
-//    }
-    
-//    var captionSheet: some View {
-//        NavigationView {
-//            ScrollView(.vertical) {
-//                VStack {
-//                    // preview
-//                    switch viewModel.output {
-//                    case .image:
-//                        let image = viewModel.thumbnail ?? .placeholder(color: .systemGray3)
-//                        Image(uiImage: image)
-//                            .resizable()
-//                            .aspectRatio(contentMode: .fill)
-//                    case .video(let url, _):
-//                        let player = AVPlayer(url: url)
-//                        VideoPlayer(player: player)
-//                            .frame(height: 300)
-//                    case .none:
-//                        EmptyView()
-//                    }
-//                    // caption textField
-//                    TextField(
-//                        text: $caption,
-//                        prompt: Text(L10n.Scene.Compose.Media.Caption.addADescriptionForThisImage)
-//                    ) {
-//                        Text(L10n.Scene.Compose.Media.Caption.update)
-//                    }
-//                    .padding()
-//                    .introspectTextField { textField in
-//                        textField.becomeFirstResponder()
-//                    }
-//                }
-//            }
-//            .navigationTitle(L10n.Scene.Compose.Media.Caption.update)
-//            .navigationBarTitleDisplayMode(.inline)
-//            .toolbar {
-//                ToolbarItem(placement: .navigationBarLeading) {
-//                    Button {
-//                        isCaptionEditorPresented.toggle()
-//                    } label: {
-//                        Image(systemName: "xmark.circle.fill")
-//                            .resizable()
-//                            .frame(width: 30, height: 30, alignment: .center)
-//                            .symbolRenderingMode(.hierarchical)
-//                            .foregroundStyle(Color(uiColor: .secondaryLabel), Color(uiColor: .tertiaryLabel))
-//                    }
-//                }
-//                ToolbarItem(placement: .navigationBarTrailing) {
-//                    Button {
-//                        viewModel.caption = caption.trimmingCharacters(in: .whitespacesAndNewlines)
-//                        isCaptionEditorPresented.toggle()
-//                    } label: {
-//                        Text(L10n.Common.Controls.Actions.save)
-//                    }
-//                }
-//            }
-//        }   // end NavigationView
-//    }
-    
-    // design for share extension
-    // preferred UIKit preview in app
-//    var previewSheet: some View {
-//        NavigationView {
-//            ScrollView(.vertical) {
-//                VStack {
-//                    // preview
-//                    switch viewModel.output {
-//                    case .image:
-//                        let image = viewModel.thumbnail ?? .placeholder(color: .systemGray3)
-//                        Image(uiImage: image)
-//                            .resizable()
-//                            .aspectRatio(contentMode: .fill)
-//                    case .video(let url, _):
-//                        let player = AVPlayer(url: url)
-//                        VideoPlayer(player: player)
-//                            .frame(height: 300)
-//                    case .none:
-//                        EmptyView()
-//                    }
-//                    Spacer()
-//                }
-//            }
-//            .navigationTitle(L10n.Scene.Compose.Media.preview)
-//            .navigationBarTitleDisplayMode(.inline)
-//            .toolbar {
-//                ToolbarItem(placement: .navigationBarLeading) {
-//                    Button {
-//                        viewModel.isPreviewPresented.toggle()
-//                    } label: {
-//                        Image(systemName: "xmark.circle.fill")
-//                            .resizable()
-//                            .frame(width: 30, height: 30, alignment: .center)
-//                            .symbolRenderingMode(.hierarchical)
-//                            .foregroundStyle(Color(uiColor: .secondaryLabel), Color(uiColor: .tertiaryLabel))
-//                    }
-//                }
-//            }
-//        }   // end NavigationView
-//    }
     
 }
 
-extension AttachmentView {
-    public enum Action: Hashable {
-        case preview
-        case caption
-        case remove
+// https://stackoverflow.com/a/57715771/3797903
+extension View {
+    fileprivate func placeholder<Content: View>(
+        when shouldShow: Bool,
+        alignment: Alignment = .leading,
+        @ViewBuilder placeholder: () -> Content) -> some View {
+
+        ZStack(alignment: alignment) {
+            placeholder().opacity(shouldShow ? 1 : 0)
+            self
+        }
+    }
+    
+    fileprivate func placeholder(
+        _ text: String,
+        when shouldShow: Bool,
+        alignment: Alignment = .leading) -> some View {
+            
+        placeholder(when: shouldShow, alignment: alignment) {
+            Text(text)
+                .foregroundColor(.white.opacity(0.7))
+                .lineLimit(1)
+        }
     }
 }

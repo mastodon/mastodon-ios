@@ -552,6 +552,9 @@ extension ProfileViewController {
             userTimelineViewController.viewModel.stateMachine.enter(UserTimelineViewModel.State.Reloading.self)
         }
 
+        // trigger authenticated user account update
+        viewModel.context.authenticationService.updateActiveUserAccountPublisher.send()
+
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             sender.endRefreshing()
         }
