@@ -385,8 +385,10 @@
                 "description_video": "Descriu el vídeo per als disminuïts visuals...",
                 "load_failed": "Ha fallat la càrrega",
                 "upload_failed": "Pujada fallida",
-                "can_not_recognize_this_media_attachment": "No es pot reconèixer l'adjunt multimèdia",
-                "attachment_too_large": "El fitxer adjunt és massa gran"
+                "can_not_recognize_this_media_attachment": "No es pot reconèixer aquest adjunt multimèdia",
+                "attachment_too_large": "El fitxer adjunt és massa gran",
+                "compressing_state": "Comprimint...",
+                "server_processing_state": "Servidor processant..."
             },
             "poll": {
                 "duration_time": "Durada: %s",
@@ -396,7 +398,9 @@
                 "one_day": "1 Dia",
                 "three_days": "3 Dies",
                 "seven_days": "7 Dies",
-                "option_number": "Opció %ld"
+                "option_number": "Opció %ld",
+                "the_poll_is_invalid": "L'enquesta no és vàlida",
+                "the_poll_has_empty_option": "L'enquesta té una opció buida"
             },
             "content_warning": {
                 "placeholder": "Escriu un advertiment precís aquí..."
@@ -444,6 +448,10 @@
                 "placeholder": {
                     "label": "Etiqueta",
                     "content": "Contingut"
+                },
+                "verified": {
+                    "short": "Verificat a %s",
+                    "long": "La propietat d'aquest enllaç es va verificar el dia %s"
                 }
             },
             "segmented_control": {
