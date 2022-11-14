@@ -417,7 +417,9 @@
                 "custom_emoji_picker": "Selector emoji personalizado",
                 "enable_content_warning": "Marcar con Aviso sobre o contido",
                 "disable_content_warning": "Retirar Aviso sobre o contido",
-                "post_visibility_menu": "Visibilidade da publicación"
+                "post_visibility_menu": "Visibilidade da publicación",
+                "post_options": "Post Options",
+                "posting_as": "Posting as %s"
             },
             "keyboard": {
                 "discard_post": "Descartar publicación",
