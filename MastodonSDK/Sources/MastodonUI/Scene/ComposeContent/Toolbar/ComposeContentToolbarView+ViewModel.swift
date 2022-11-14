@@ -123,4 +123,19 @@ extension ComposeContentToolbarView.ViewModel {
             return action.inactiveImage
         }
     }
+
+    func label(for action: Action) -> String {
+        switch action {
+        case .attachment:
+            return L10n.Scene.Compose.Accessibility.appendAttachment
+        case .poll:
+            return isPollActive ? L10n.Scene.Compose.Accessibility.removePoll : L10n.Scene.Compose.Accessibility.appendPoll
+        case .emoji:
+            return L10n.Scene.Compose.Accessibility.customEmojiPicker
+        case .contentWarning:
+            return isContentWarningActive ? L10n.Scene.Compose.Accessibility.disableContentWarning : L10n.Scene.Compose.Accessibility.enableContentWarning
+        case .visibility:
+            return L10n.Scene.Compose.Accessibility.postVisibilityMenu
+        }
+    }
 }
