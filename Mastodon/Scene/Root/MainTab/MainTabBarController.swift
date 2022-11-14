@@ -313,7 +313,7 @@ extension MainTabBarController {
             let currentUserDisplayName = user.displayNameWithFallback ?? "no user"
             profileTabItem.accessibilityHint = L10n.Scene.AccountList.tabBarHint(currentUserDisplayName)
 
-            context.instanceService.updateActiveUserAccountPublisher
+            context.authenticationService.updateActiveUserAccountPublisher
                 .sink { [weak self] in
                     self?.updateUserAccount()
                 }

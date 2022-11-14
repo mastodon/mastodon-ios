@@ -553,7 +553,7 @@ extension ProfileViewController {
         }
 
         // trigger authenticated user account update
-        viewModel.context.instanceService.updateActiveUserAccountPublisher.send()
+        viewModel.context.authenticationService.updateActiveUserAccountPublisher.send()
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             sender.endRefreshing()
