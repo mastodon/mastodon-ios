@@ -417,7 +417,9 @@
                 "custom_emoji_picker": "自定义表情选择器",
                 "enable_content_warning": "启用内容警告",
                 "disable_content_warning": "关闭内容警告",
-                "post_visibility_menu": "帖子可见性"
+                "post_visibility_menu": "帖子可见性",
+                "post_options": "Post Options",
+                "posting_as": "Posting as %s"
             },
             "keyboard": {
                 "discard_post": "丢弃帖子",
