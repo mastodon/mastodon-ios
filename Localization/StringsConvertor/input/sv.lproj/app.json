@@ -383,9 +383,9 @@
                 "attachment_broken": "Denna %s är trasig och kan inte\nladdas upp till Mastodon.",
                 "description_photo": "Beskriv fotot för synskadade...",
                 "description_video": "Beskriv videon för de synskadade...",
-                "load_failed": "Load Failed",
-                "upload_failed": "Upload Failed",
-                "can_not_recognize_this_media_attachment": "Can not regonize this media attachment",
+                "load_failed": "Det gick inte att läsa in",
+                "upload_failed": "Uppladdning misslyckades",
+                "can_not_recognize_this_media_attachment": "Känner inte igen mediebilagan",
                 "attachment_too_large": "Attachment too large"
             },
             "poll": {
