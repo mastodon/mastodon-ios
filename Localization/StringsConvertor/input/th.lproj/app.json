@@ -418,7 +418,7 @@
                 "enable_content_warning": "เปิดใช้งานคำเตือนเนื้อหา",
                 "disable_content_warning": "ปิดใช้งานคำเตือนเนื้อหา",
                 "post_visibility_menu": "เมนูการมองเห็นโพสต์",
-                "post_options": "Post Options",
+                "post_options": "ตัวเลือกโพสต์",
                 "posting_as": "Posting as %s"
             },
             "keyboard": {
