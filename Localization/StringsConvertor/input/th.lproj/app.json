@@ -136,6 +136,12 @@
                     "vote": "ลงคะแนน",
                     "closed": "ปิดแล้ว"
                 },
+                "meta_entity": {
+                    "url": "ลิงก์: %s",
+                    "hashtag": "แฮชแท็ก: %s",
+                    "mention": "โปรไฟล์ที่แสดง: %s",
+                    "email": "ที่อยู่อีเมล: %s"
+                },
                 "actions": {
                     "reply": "ตอบกลับ",
                     "reblog": "ดัน",
@@ -181,8 +187,8 @@
                 "unmute_user": "เลิกซ่อน %s",
                 "muted": "ซ่อนอยู่",
                 "edit_info": "แก้ไขข้อมูล",
-                "show_reblogs": "Show Reblogs",
-                "hide_reblogs": "Hide Reblogs"
+                "show_reblogs": "แสดงการดัน",
+                "hide_reblogs": "ซ่อนการดัน"
             },
             "timeline": {
                 "filtered": "กรองอยู่",
@@ -215,7 +221,7 @@
         "server_picker": {
             "title": "Mastodon ประกอบด้วยผู้ใช้ในเซิร์ฟเวอร์ต่าง ๆ",
             "subtitle": "เลือกเซิร์ฟเวอร์ตามความสนใจ, ภูมิภาค หรือวัตถุประสงค์ทั่วไปของคุณ",
-            "subtitle_extend": "เลือกเซิร์ฟเวอร์ตามความสนใจ, ภูมิภาค หรือวัตถุประสงค์ทั่วไปของคุณ แต่ละเซิร์ฟเวอร์ดำเนินการโดยองค์กรหรือบุคคลที่เป็นอิสระโดยสิ้นเชิง",
+            "subtitle_extend": "เลือกเซิร์ฟเวอร์ตามความสนใจ, ภูมิภาค หรือวัตถุประสงค์ทั่วไปของคุณ แต่ละเซิร์ฟเวอร์ได้รับการดำเนินงานโดยองค์กรหรือบุคคลที่เป็นอิสระโดยสิ้นเชิง",
             "button": {
                 "category": {
                     "all": "ทั้งหมด",
@@ -376,7 +382,11 @@
                 "video": "วิดีโอ",
                 "attachment_broken": "%s นี้เสียหายและไม่สามารถ\nอัปโหลดไปยัง Mastodon",
                 "description_photo": "อธิบายรูปภาพสำหรับผู้บกพร่องทางการมองเห็น...",
-                "description_video": "อธิบายวิดีโอสำหรับผู้บกพร่องทางการมองเห็น..."
+                "description_video": "อธิบายวิดีโอสำหรับผู้บกพร่องทางการมองเห็น...",
+                "load_failed": "การโหลดล้มเหลว",
+                "upload_failed": "การอัปโหลดล้มเหลว",
+                "can_not_recognize_this_media_attachment": "Can not regonize this media attachment",
+                "attachment_too_large": "ไฟล์แนบใหญ่เกินไป"
             },
             "poll": {
                 "duration_time": "ระยะเวลา: %s",
@@ -459,12 +469,12 @@
                     "message": "ยืนยันเพื่อเลิกปิดกั้น %s"
                 },
                 "confirm_show_reblogs": {
-                    "title": "Show Reblogs",
-                    "message": "Confirm to show reblogs"
+                    "title": "แสดงการดัน",
+                    "message": "ยืนยันเพื่อแสดงการดัน"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "Hide Reblogs",
-                    "message": "Confirm to hide reblogs"
+                    "title": "ซ่อนการดัน",
+                    "message": "ยืนยันเพื่อซ่อนการดัน"
                 }
             },
             "accessibility": {
@@ -696,7 +706,7 @@
             "accessibility_hint": "แตะสองครั้งเพื่อปิดตัวช่วยสร้างนี้"
         },
         "bookmark": {
-            "title": "Bookmarks"
+            "title": "ที่คั่นหน้า"
         }
     }
 }

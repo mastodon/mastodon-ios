@@ -136,6 +136,12 @@
                     "vote": "Oy ver",
                     "closed": "Kapandı"
                 },
+                "meta_entity": {
+                    "url": "Link: %s",
+                    "hashtag": "Hashtag: %s",
+                    "mention": "Show Profile: %s",
+                    "email": "Email address: %s"
+                },
                 "actions": {
                     "reply": "Yanıtla",
                     "reblog": "Yeniden paylaş",
@@ -376,7 +382,11 @@
                 "video": "video",
                 "attachment_broken": "Bu %s bozuk ve Mastodon'a\nyüklenemiyor.",
                 "description_photo": "Görme engelliler için fotoğrafı tarif edin...",
-                "description_video": "Görme engelliler için videoyu tarif edin..."
+                "description_video": "Görme engelliler için videoyu tarif edin...",
+                "load_failed": "Load Failed",
+                "upload_failed": "Upload Failed",
+                "can_not_recognize_this_media_attachment": "Can not regonize this media attachment",
+                "attachment_too_large": "Attachment too large"
             },
             "poll": {
                 "duration_time": "Süre: %s",

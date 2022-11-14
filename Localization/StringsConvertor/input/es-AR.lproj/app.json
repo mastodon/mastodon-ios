@@ -136,6 +136,12 @@
                     "vote": "Votar",
                     "closed": "Cerrada"
                 },
+                "meta_entity": {
+                    "url": "Link: %s",
+                    "hashtag": "Hashtag: %s",
+                    "mention": "Show Profile: %s",
+                    "email": "Email address: %s"
+                },
                 "actions": {
                     "reply": "Responder",
                     "reblog": "Adherir",
@@ -376,7 +382,11 @@
                 "video": "video",
                 "attachment_broken": "Este archivo de %s está roto\ny no se puede subir a Mastodon.",
                 "description_photo": "Describí la imagen para personas con dificultades visuales…",
-                "description_video": "Describí el video para personas con dificultades visuales…"
+                "description_video": "Describí el video para personas con dificultades visuales…",
+                "load_failed": "Falló la descarga",
+                "upload_failed": "Falló la subida",
+                "can_not_recognize_this_media_attachment": "No se pudo reconocer este archivo adjunto",
+                "attachment_too_large": "Adjunto demasiado grande"
             },
             "poll": {
                 "duration_time": "Duración: %s",
