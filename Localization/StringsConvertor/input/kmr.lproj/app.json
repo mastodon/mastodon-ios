@@ -136,6 +136,12 @@
                     "vote": "Deng bide",
                     "closed": "Girtî"
                 },
+                "meta_entity": {
+                    "url": "Girêdan: %s",
+                    "hashtag": "Hashtagê: %s",
+                    "mention": "Profîlê nîşan bide: %s",
+                    "email": "Navnîşanên e-nameyê: %s"
+                },
                 "actions": {
                     "reply": "Bersivê bide",
                     "reblog": "Ji nû ve nivîsandin",
@@ -181,8 +187,8 @@
                 "unmute_user": "%s bêdeng neke",
                 "muted": "Bêdengkirî",
                 "edit_info": "Zanyariyan serrast bike",
-                "show_reblogs": "Show Reblogs",
-                "hide_reblogs": "Hide Reblogs"
+                "show_reblogs": "Bilindkirinan nîşan bide",
+                "hide_reblogs": "Bilindkirinan veşêre"
             },
             "timeline": {
                 "filtered": "Parzûnkirî",
@@ -376,7 +382,11 @@
                 "video": "vîdyo",
                 "attachment_broken": "Ev %s naxebite û nayê barkirin\n li ser Mastodon.",
                 "description_photo": "Wêneyê ji bo kêmbînên dîtbar bide nasîn...",
-                "description_video": "Vîdyoyê ji bo kêmbînên dîtbar bide nasîn..."
+                "description_video": "Vîdyoyê ji bo kêmbînên dîtbar bide nasîn...",
+                "load_failed": "Barkirin têk çû",
+                "upload_failed": "Barkirin têk çû",
+                "can_not_recognize_this_media_attachment": "Nikare ev pêveka medyayê nas bike",
+                "attachment_too_large": "Pêvek pir mezin e"
             },
             "poll": {
                 "duration_time": "Dirêjî: %s",
@@ -459,12 +469,12 @@
                     "message": "Ji bo rakirina astengkirinê %s bipejirîne"
                 },
                 "confirm_show_reblogs": {
-                    "title": "Show Reblogs",
-                    "message": "Confirm to show reblogs"
+                    "title": "Bilindkirinan nîşan bide",
+                    "message": "Bo nîşandana bilindkirinan bipejirîne"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "Hide Reblogs",
-                    "message": "Confirm to hide reblogs"
+                    "title": "Bilindkirinan veşêre",
+                    "message": "Bo veşartina bilindkirinan bipejirîne"
                 }
             },
             "accessibility": {
@@ -696,7 +706,7 @@
             "accessibility_hint": "Du caran bitikîne da ku çarçoveyahilpekok ji holê rakî"
         },
         "bookmark": {
-            "title": "Bookmarks"
+            "title": "Şûnpel"
         }
     }
 }
