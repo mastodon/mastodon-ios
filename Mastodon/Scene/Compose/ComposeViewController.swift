@@ -324,130 +324,137 @@ extension ComposeViewController: UIAdaptivePresentationControllerDelegate {
     
 }
 
-//extension ComposeViewController {
-//    override var keyCommands: [UIKeyCommand]? {
-//        composeKeyCommands
-//    }
-//}
-//
-//extension ComposeViewController {
-//    
-//    enum ComposeKeyCommand: String, CaseIterable {
-//        case discardPost
-//        case publishPost
-//        case mediaBrowse
-//        case mediaPhotoLibrary
-//        case mediaCamera
-//        case togglePoll
-//        case toggleContentWarning
-//        case selectVisibilityPublic
-//        // TODO: remove selectVisibilityUnlisted from codebase
-//        // case selectVisibilityUnlisted
-//        case selectVisibilityPrivate
-//        case selectVisibilityDirect
-//
-//        var title: String {
-//            switch self {
-//            case .discardPost:              return L10n.Scene.Compose.Keyboard.discardPost
-//            case .publishPost:              return L10n.Scene.Compose.Keyboard.publishPost
-//            case .mediaBrowse:              return L10n.Scene.Compose.Keyboard.appendAttachmentEntry(L10n.Scene.Compose.MediaSelection.browse)
-//            case .mediaPhotoLibrary:        return L10n.Scene.Compose.Keyboard.appendAttachmentEntry(L10n.Scene.Compose.MediaSelection.photoLibrary)
-//            case .mediaCamera:              return L10n.Scene.Compose.Keyboard.appendAttachmentEntry(L10n.Scene.Compose.MediaSelection.camera)
-//            case .togglePoll:               return L10n.Scene.Compose.Keyboard.togglePoll
-//            case .toggleContentWarning:     return L10n.Scene.Compose.Keyboard.toggleContentWarning
-//            case .selectVisibilityPublic:   return L10n.Scene.Compose.Keyboard.selectVisibilityEntry(L10n.Scene.Compose.Visibility.public)
-//            // case .selectVisibilityUnlisted: return L10n.Scene.Compose.Keyboard.selectVisibilityEntry(L10n.Scene.Compose.Visibility.unlisted)
-//            case .selectVisibilityPrivate:  return L10n.Scene.Compose.Keyboard.selectVisibilityEntry(L10n.Scene.Compose.Visibility.private)
-//            case .selectVisibilityDirect:   return L10n.Scene.Compose.Keyboard.selectVisibilityEntry(L10n.Scene.Compose.Visibility.direct)
-//            }
-//        }
-//        
-//        // UIKeyCommand input
-//        var input: String {
-//            switch self {
-//            case .discardPost:              return "w"      // + command
-//            case .publishPost:              return "\r"     // (enter) + command
-//            case .mediaBrowse:              return "b"      // + option + command
-//            case .mediaPhotoLibrary:        return "p"      // + option + command
-//            case .mediaCamera:              return "c"      // + option + command
-//            case .togglePoll:               return "p"      // + shift + command
-//            case .toggleContentWarning:     return "c"      // + shift + command
-//            case .selectVisibilityPublic:   return "1"      // + command
-//            // case .selectVisibilityUnlisted: return "2"      // + command
-//            case .selectVisibilityPrivate:  return "2"      // + command
-//            case .selectVisibilityDirect:   return "3"      // + command
-//            }
-//        }
-//        
-//        var modifierFlags: UIKeyModifierFlags {
-//            switch self {
-//            case .discardPost:              return [.command]
-//            case .publishPost:              return [.command]
-//            case .mediaBrowse:              return [.alternate, .command]
-//            case .mediaPhotoLibrary:        return [.alternate, .command]
-//            case .mediaCamera:              return [.alternate, .command]
-//            case .togglePoll:               return [.shift, .command]
-//            case .toggleContentWarning:     return [.shift, .command]
-//            case .selectVisibilityPublic:   return [.command]
-//            // case .selectVisibilityUnlisted: return [.command]
-//            case .selectVisibilityPrivate:  return [.command]
-//            case .selectVisibilityDirect:   return [.command]
-//            }
-//        }
-//        
-//        var propertyList: Any {
-//            return rawValue
-//        }
-//    }
-//    
-//    var composeKeyCommands: [UIKeyCommand]? {
-//        ComposeKeyCommand.allCases.map { command in
-//            UIKeyCommand(
-//                title: command.title,
-//                image: nil,
-//                action: #selector(Self.composeKeyCommandHandler(_:)),
-//                input: command.input,
-//                modifierFlags: command.modifierFlags,
-//                propertyList: command.propertyList,
-//                alternates: [],
-//                discoverabilityTitle: nil,
-//                attributes: [],
-//                state: .off
-//            )
-//        }
-//    }
-//    
-//    @objc private func composeKeyCommandHandler(_ sender: UIKeyCommand) {
-//        guard let rawValue = sender.propertyList as? String,
-//              let command = ComposeKeyCommand(rawValue: rawValue) else { return }
-//        
-//        switch command {
-//        case .discardPost:
-//            cancelBarButtonItemPressed(cancelBarButtonItem)
-//        case .publishPost:
-//            publishBarButtonItemPressed(publishBarButtonItem)
-//        case .mediaBrowse:
-//            present(documentPickerController, animated: true, completion: nil)
-//        case .mediaPhotoLibrary:
-//            present(photoLibraryPicker, animated: true, completion: nil)
-//        case .mediaCamera:
-//            guard UIImagePickerController.isSourceTypeAvailable(.camera) else {
-//                return
-//            }
-//            present(imagePickerController, animated: true, completion: nil)
-//        case .togglePoll:
-//            composeToolbarView.pollButton.sendActions(for: .touchUpInside)
-//        case .toggleContentWarning:
-//            composeToolbarView.contentWarningButton.sendActions(for: .touchUpInside)
-//        case .selectVisibilityPublic:
-//            viewModel.selectedStatusVisibility = .public
-//        // case .selectVisibilityUnlisted:
-//        //     viewModel.selectedStatusVisibility.value = .unlisted
-//        case .selectVisibilityPrivate:
-//            viewModel.selectedStatusVisibility = .private
-//        case .selectVisibilityDirect:
-//            viewModel.selectedStatusVisibility = .direct
-//        }
-//    }
-//    
-//}
+extension ComposeViewController {
+    override var keyCommands: [UIKeyCommand]? {
+        composeKeyCommands
+    }
+}
+
+extension ComposeViewController {
+    
+    enum ComposeKeyCommand: String, CaseIterable {
+        case discardPost
+        case publishPost
+        case mediaBrowse
+        case mediaPhotoLibrary
+        case mediaCamera
+        case togglePoll
+        case toggleContentWarning
+        case selectVisibilityPublic
+        // TODO: remove selectVisibilityUnlisted from codebase
+        // case selectVisibilityUnlisted
+        case selectVisibilityPrivate
+        case selectVisibilityDirect
+
+        var title: String {
+            switch self {
+            case .discardPost:              return L10n.Scene.Compose.Keyboard.discardPost
+            case .publishPost:              return L10n.Scene.Compose.Keyboard.publishPost
+            case .mediaBrowse:              return L10n.Scene.Compose.Keyboard.appendAttachmentEntry(L10n.Scene.Compose.MediaSelection.browse)
+            case .mediaPhotoLibrary:        return L10n.Scene.Compose.Keyboard.appendAttachmentEntry(L10n.Scene.Compose.MediaSelection.photoLibrary)
+            case .mediaCamera:              return L10n.Scene.Compose.Keyboard.appendAttachmentEntry(L10n.Scene.Compose.MediaSelection.camera)
+            case .togglePoll:               return L10n.Scene.Compose.Keyboard.togglePoll
+            case .toggleContentWarning:     return L10n.Scene.Compose.Keyboard.toggleContentWarning
+            case .selectVisibilityPublic:   return L10n.Scene.Compose.Keyboard.selectVisibilityEntry(L10n.Scene.Compose.Visibility.public)
+            // case .selectVisibilityUnlisted: return L10n.Scene.Compose.Keyboard.selectVisibilityEntry(L10n.Scene.Compose.Visibility.unlisted)
+            case .selectVisibilityPrivate:  return L10n.Scene.Compose.Keyboard.selectVisibilityEntry(L10n.Scene.Compose.Visibility.private)
+            case .selectVisibilityDirect:   return L10n.Scene.Compose.Keyboard.selectVisibilityEntry(L10n.Scene.Compose.Visibility.direct)
+            }
+        }
+        
+        // UIKeyCommand input
+        var input: String {
+            switch self {
+            case .discardPost:              return "w"      // + command
+            case .publishPost:              return "\r"     // (enter) + command
+            case .mediaBrowse:              return "b"      // + option + command
+            case .mediaPhotoLibrary:        return "p"      // + option + command
+            case .mediaCamera:              return "c"      // + option + command
+            case .togglePoll:               return "p"      // + shift + command
+            case .toggleContentWarning:     return "c"      // + shift + command
+            case .selectVisibilityPublic:   return "1"      // + command
+            // case .selectVisibilityUnlisted: return "2"      // + command
+            case .selectVisibilityPrivate:  return "2"      // + command
+            case .selectVisibilityDirect:   return "3"      // + command
+            }
+        }
+        
+        var modifierFlags: UIKeyModifierFlags {
+            switch self {
+            case .discardPost:              return [.command]
+            case .publishPost:              return [.command]
+            case .mediaBrowse:              return [.alternate, .command]
+            case .mediaPhotoLibrary:        return [.alternate, .command]
+            case .mediaCamera:              return [.alternate, .command]
+            case .togglePoll:               return [.shift, .command]
+            case .toggleContentWarning:     return [.shift, .command]
+            case .selectVisibilityPublic:   return [.command]
+            // case .selectVisibilityUnlisted: return [.command]
+            case .selectVisibilityPrivate:  return [.command]
+            case .selectVisibilityDirect:   return [.command]
+            }
+        }
+        
+        var propertyList: Any {
+            return rawValue
+        }
+    }
+    
+    var composeKeyCommands: [UIKeyCommand]? {
+        ComposeKeyCommand.allCases.map { command in
+            UIKeyCommand(
+                title: command.title,
+                image: nil,
+                action: #selector(Self.composeKeyCommandHandler(_:)),
+                input: command.input,
+                modifierFlags: command.modifierFlags,
+                propertyList: command.propertyList,
+                alternates: [],
+                discoverabilityTitle: nil,
+                attributes: [],
+                state: .off
+            )
+        }
+    }
+    
+    @objc private func composeKeyCommandHandler(_ sender: UIKeyCommand) {
+        guard let rawValue = sender.propertyList as? String,
+              let command = ComposeKeyCommand(rawValue: rawValue) else { return }
+        
+        switch command {
+        case .discardPost:
+            cancelBarButtonItemPressed(cancelBarButtonItem)
+        case .publishPost:
+            publishBarButtonItemPressed(publishBarButtonItem)
+        case .mediaBrowse:
+            guard !isViewControllerIsAlreadyModal(composeContentViewController.documentPickerController) else { return }
+            present(composeContentViewController.documentPickerController, animated: true, completion: nil)
+        case .mediaPhotoLibrary:
+            guard !isViewControllerIsAlreadyModal(composeContentViewController.photoLibraryPicker) else { return }
+            present(composeContentViewController.photoLibraryPicker, animated: true, completion: nil)
+        case .mediaCamera:
+            guard UIImagePickerController.isSourceTypeAvailable(.camera) else {
+                return
+            }
+            guard !isViewControllerIsAlreadyModal(composeContentViewController.imagePickerController) else { return }
+            present(composeContentViewController.imagePickerController, animated: true, completion: nil)
+        case .togglePoll:
+            composeContentViewModel.isPollActive.toggle()
+        case .toggleContentWarning:
+            composeContentViewModel.isContentWarningActive.toggle()
+        case .selectVisibilityPublic:
+            composeContentViewModel.visibility = .public
+        // case .selectVisibilityUnlisted:
+        //     viewModel.selectedStatusVisibility.value = .unlisted
+        case .selectVisibilityPrivate:
+            composeContentViewModel.visibility = .private
+        case .selectVisibilityDirect:
+            composeContentViewModel.visibility = .direct
+        }
+    }
+    
+    private func isViewControllerIsAlreadyModal(_ viewController: UIViewController) -> Bool {
+        return viewController.presentingViewController != nil
+    }
+    
+}

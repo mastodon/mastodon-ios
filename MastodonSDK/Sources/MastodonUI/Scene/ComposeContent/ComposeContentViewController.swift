@@ -55,20 +55,20 @@ public final class ComposeContentViewController: UIViewController {
         return configuration
     }
 
-    private(set) lazy var photoLibraryPicker: PHPickerViewController = {
+    public private(set) lazy var photoLibraryPicker: PHPickerViewController = {
         let imagePicker = PHPickerViewController(configuration: ComposeContentViewController.createPhotoLibraryPickerConfiguration())
         imagePicker.delegate = self
         return imagePicker
     }()
     
-    private(set) lazy var imagePickerController: UIImagePickerController = {
+    public private(set) lazy var imagePickerController: UIImagePickerController = {
         let imagePickerController = UIImagePickerController()
         imagePickerController.sourceType = .camera
         imagePickerController.delegate = self
         return imagePickerController
     }()
 
-    private(set) lazy var documentPickerController: UIDocumentPickerViewController = {
+    public private(set) lazy var documentPickerController: UIDocumentPickerViewController = {
         let documentPickerController = UIDocumentPickerViewController(forOpeningContentTypes: [.image, .movie])
         documentPickerController.delegate = self
         return documentPickerController
@@ -342,6 +342,7 @@ extension ComposeContentViewController {
         // bind back to source due to visibility not update via delegate
         composeContentToolbarViewModel.$visibility
             .dropFirst()
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] visibility in
                 guard let self = self else { return }
                 if self.viewModel.visibility != visibility {

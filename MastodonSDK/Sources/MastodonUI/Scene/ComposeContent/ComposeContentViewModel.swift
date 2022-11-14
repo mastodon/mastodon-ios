@@ -91,7 +91,7 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
     // @Published public internal(set) var isMediaValid = true
     
     // poll
-    @Published var isPollActive = false
+    @Published public var isPollActive = false
     @Published public var pollOptions: [PollComposeItem.Option] = {
         // initial with 2 options
         var options: [PollComposeItem.Option] = []
@@ -111,7 +111,7 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
     @Published var isLoadingCustomEmoji = false
     
     // visibility
-    @Published var visibility: Mastodon.Entity.Status.Visibility
+    @Published public var visibility: Mastodon.Entity.Status.Visibility
     
     // UI & UX
     @Published var replyToCellFrame: CGRect = .zero
