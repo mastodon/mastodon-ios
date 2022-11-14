@@ -418,8 +418,8 @@
                 "enable_content_warning": "Activa l'Avís de Contingut",
                 "disable_content_warning": "Desactiva l'Avís de Contingut",
                 "post_visibility_menu": "Menú de Visibilitat de Publicació",
-                "post_options": "Post Options",
-                "posting_as": "Posting as %s"
+                "post_options": "Opcions del tut",
+                "posting_as": "Publicant com a %s"
             },
             "keyboard": {
                 "discard_post": "Descarta la Publicació",
