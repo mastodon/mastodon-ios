@@ -417,7 +417,9 @@
                 "custom_emoji_picker": "Izbirnik čustvenčkov po meri",
                 "enable_content_warning": "Omogoči opozorilo o vsebini",
                 "disable_content_warning": "Onemogoči opozorilo o vsebini",
-                "post_visibility_menu": "Meni vidnosti objave"
+                "post_visibility_menu": "Meni vidnosti objave",
+                "post_options": "Post Options",
+                "posting_as": "Posting as %s"
             },
             "keyboard": {
                 "discard_post": "Opusti objavo",
