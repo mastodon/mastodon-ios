@@ -417,7 +417,9 @@
                 "custom_emoji_picker": "Roghnaichear nan Emoji gnàthaichte",
                 "enable_content_warning": "Cuir rabhadh susbainte an comas",
                 "disable_content_warning": "Cuir rabhadh susbainte à comas",
-                "post_visibility_menu": "Clàr-taice faicsinneachd a’ phuist"
+                "post_visibility_menu": "Clàr-taice faicsinneachd a’ phuist",
+                "post_options": "Post Options",
+                "posting_as": "Posting as %s"
             },
             "keyboard": {
                 "discard_post": "Tilg air falbh am post",
