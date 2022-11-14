@@ -385,8 +385,10 @@
                 "description_video": "Describe the video for the visually-impaired...",
                 "load_failed": "Load Failed",
                 "upload_failed": "Upload Failed",
-                "can_not_recognize_this_media_attachment": "Can not regonize this media attachment",
-                "attachment_too_large": "Attachment too large"
+                "can_not_recognize_this_media_attachment": "Can not recognize this media attachment",
+                "attachment_too_large": "Attachment too large",
+                "compressing_state": "Compressing...",
+                "server_processing_state": "Server Processing..."
             },
             "poll": {
                 "duration_time": "Duration: %s",
@@ -396,7 +398,9 @@
                 "one_day": "1 Day",
                 "three_days": "3 Days",
                 "seven_days": "7 Days",
-                "option_number": "Option %ld"
+                "option_number": "Option %ld",
+                "the_poll_is_invalid": "The poll is invalid",
+                "the_poll_has_empty_option": "The poll has empty option"
             },
             "content_warning": {
                 "placeholder": "Write an accurate warning here..."
@@ -444,6 +448,10 @@
                 "placeholder": {
                     "label": "Label",
                     "content": "Content"
+                },
+                "verified": {
+                    "short": "Verified on %s",
+                    "long": "Ownership of this link was checked on %s"
                 }
             },
             "segmented_control": {
