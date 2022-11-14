@@ -114,7 +114,7 @@ public final class StatusView: UIView {
         return metaText
     }()
 
-    public let linkPreview = OpenGraphView()
+    public let linkPreviewButton = LinkPreviewButton()
     
     // content warning
     public let spoilerOverlayView = SpoilerOverlayView()
@@ -219,7 +219,7 @@ public final class StatusView: UIView {
         setMediaDisplay(isDisplay: false)
         setPollDisplay(isDisplay: false)
         setFilterHintLabelDisplay(isDisplay: false)
-        setLinkPreviewDisplay(isDisplay: false)
+        setLinkPreviewButtonDisplay(isDisplay: false)
     }
 
     public override init(frame: CGRect) {
@@ -392,8 +392,8 @@ extension StatusView.Style {
         // status content
         statusView.contentContainer.addArrangedSubview(statusView.contentMetaText.textView)
         statusView.containerStackView.setCustomSpacing(16, after: statusView.contentMetaText.textView)
-        statusView.contentContainer.addArrangedSubview(statusView.linkPreview)
-        statusView.containerStackView.setCustomSpacing(16, after: statusView.linkPreview)
+        statusView.contentContainer.addArrangedSubview(statusView.linkPreviewButton)
+        statusView.containerStackView.setCustomSpacing(16, after: statusView.linkPreviewButton)
 
         statusView.spoilerOverlayView.translatesAutoresizingMaskIntoConstraints = false
         statusView.containerStackView.addSubview(statusView.spoilerOverlayView)
@@ -545,8 +545,8 @@ extension StatusView {
         filterHintLabel.isHidden = !isDisplay
     }
 
-    func setLinkPreviewDisplay(isDisplay: Bool = true) {
-        linkPreview.isHidden = !isDisplay
+    func setLinkPreviewButtonDisplay(isDisplay: Bool = true) {
+        linkPreviewButton.isHidden = !isDisplay
     }
     
     // container width

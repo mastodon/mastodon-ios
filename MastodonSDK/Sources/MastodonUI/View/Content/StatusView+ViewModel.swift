@@ -330,8 +330,8 @@ extension StatusView.ViewModel {
                         fatalError()
                     }
 
-                    statusView.linkPreview.configure(content: trimmed)
-                    statusView.setLinkPreviewDisplay()
+                    statusView.linkPreviewButton.configure(url: url, trimmed: trimmed)
+                    statusView.setLinkPreviewButtonDisplay()
                 }
             } else {
                 statusView.contentMetaText.reset()

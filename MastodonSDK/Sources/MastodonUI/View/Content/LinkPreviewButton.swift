@@ -5,12 +5,17 @@
 //  Created by Kyle Bashour on 11/11/22.
 //
 
+import AlamofireImage
+import LinkPresentation
 import MastodonAsset
 import MastodonCore
 import OpenGraph
 import UIKit
 
-public final class OpenGraphView: UIControl {
+public final class LinkPreviewButton: UIControl {
+    private var linkPresentationTask: Task<Void, Error>?
+    private var url: URL?
+
     private let containerStackView = UIStackView()
     private let labelStackView = UIStackView()
 
@@ -27,17 +32,20 @@ public final class OpenGraphView: UIControl {
         layer.borderColor = ThemeService.shared.currentTheme.value.separator.cgColor
         backgroundColor = ThemeService.shared.currentTheme.value.systemElevatedBackgroundColor
 
-        titleLabel.numberOfLines = 0
+        titleLabel.numberOfLines = 2
         titleLabel.setContentCompressionResistancePriority(.defaultLow - 1, for: .horizontal)
         titleLabel.text = "This is where I'd put a title... if I had one"
         titleLabel.textColor = Asset.Colors.Label.primary.color
 
         subtitleLabel.text = "Subtitle"
+        subtitleLabel.numberOfLines = 1
         subtitleLabel.setContentCompressionResistancePriority(.defaultLow - 1, for: .horizontal)
         subtitleLabel.textColor = Asset.Colors.Label.secondary.color
         subtitleLabel.font = UIFontMetrics(forTextStyle: .subheadline).scaledFont(for: .systemFont(ofSize: 15, weight: .regular), maximumPointSize: 20)
 
         imageView.backgroundColor = UIColor.black.withAlphaComponent(0.15)
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
 
         labelStackView.addArrangedSubview(titleLabel)
         labelStackView.addArrangedSubview(subtitleLabel)
@@ -55,12 +63,13 @@ public final class OpenGraphView: UIControl {
         containerStackView.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-            containerStackView.heightAnchor.constraint(equalToConstant: 80),
+            containerStackView.heightAnchor.constraint(equalToConstant: 85),
             containerStackView.topAnchor.constraint(equalTo: topAnchor),
             containerStackView.bottomAnchor.constraint(equalTo: bottomAnchor),
             containerStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
             containerStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
             imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor),
+            imageView.heightAnchor.constraint(equalTo: heightAnchor),
         ])
     }
     
@@ -68,8 +77,37 @@ public final class OpenGraphView: UIControl {
         fatalError("init(coder:) has not been implemented")
     }
 
-    public func configure(content: String) {
-        self.subtitleLabel.text = content
+    public func configure(url: URL, trimmed: String) {
+        guard url != self.url else {
+            return
+        }
+
+        reset()
+        subtitleLabel.text = trimmed
+        self.url = url
+
+        linkPresentationTask = Task {
+            do {
+                let metadata = try await LPMetadataProvider().startFetchingMetadata(for: url)
+
+                guard !Task.isCancelled else {
+                    return
+                }
+
+                self.titleLabel.text = metadata.title
+                if let result = try await metadata.imageProvider?.loadImageData() {
+                    let image = UIImage(data: result.data)
+
+                    guard !Task.isCancelled else {
+                        return
+                    }
+
+                    self.imageView.image = image
+                }
+            } catch {
+                self.subtitleLabel.text = "Error loading link preview"
+            }
+        }
     }
 
     public override func didMoveToWindow() {
@@ -78,5 +116,13 @@ public final class OpenGraphView: UIControl {
         if let window = window {
             layer.borderWidth = 1 / window.screen.scale
         }
+    }
+
+    private func reset() {
+        linkPresentationTask?.cancel()
+        url = nil
+        imageView.image = nil
+        titleLabel.text = nil
+        subtitleLabel.text = nil
     }
 }
