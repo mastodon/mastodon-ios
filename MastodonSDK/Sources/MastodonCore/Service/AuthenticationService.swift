@@ -25,6 +25,7 @@ public final class AuthenticationService: NSObject {
     // output
     @Published public var mastodonAuthentications: [ManagedObjectRecord<MastodonAuthentication>] = []
     @Published public var mastodonAuthenticationBoxes: [MastodonAuthenticationBox] = []
+    public let updateActiveUserAccountPublisher = PassthroughSubject<Void, Never>()
 
     init(
         managedObjectContext: NSManagedObjectContext,

@@ -107,6 +107,10 @@
 "Common.Controls.Status.Actions.Unreblog" = "Yeniden paylaşımı geri al";
 "Common.Controls.Status.ContentWarning" = "İçerik Uyarısı";
 "Common.Controls.Status.MediaContentWarning" = "Göstermek için herhangi bir yere basın";
+"Common.Controls.Status.MetaEntity.Email" = "Email address: %@";
+"Common.Controls.Status.MetaEntity.Hashtag" = "Hashtag: %@";
+"Common.Controls.Status.MetaEntity.Mention" = "Show Profile: %@";
+"Common.Controls.Status.MetaEntity.Url" = "Link: %@";
 "Common.Controls.Status.Poll.Closed" = "Kapandı";
 "Common.Controls.Status.Poll.Vote" = "Oy ver";
 "Common.Controls.Status.SensitiveContent" = "Hassas İçerik";
@@ -160,9 +164,13 @@ Bu kişiye göre profiliniz böyle gözüküyor.";
 "Scene.Compose.Accessibility.RemovePoll" = "Anketi Kaldır";
 "Scene.Compose.Attachment.AttachmentBroken" = "Bu %@ bozuk ve Mastodon'a
 yüklenemiyor.";
+"Scene.Compose.Attachment.AttachmentTooLarge" = "Attachment too large";
+"Scene.Compose.Attachment.CanNotRecognizeThisMediaAttachment" = "Can not regonize this media attachment";
 "Scene.Compose.Attachment.DescriptionPhoto" = "Görme engelliler için fotoğrafı tarif edin...";
 "Scene.Compose.Attachment.DescriptionVideo" = "Görme engelliler için videoyu tarif edin...";
+"Scene.Compose.Attachment.LoadFailed" = "Load Failed";
 "Scene.Compose.Attachment.Photo" = "fotoğraf";
+"Scene.Compose.Attachment.UploadFailed" = "Upload Failed";
 "Scene.Compose.Attachment.Video" = "video";
 "Scene.Compose.AutoComplete.SpaceToAdd" = "Eklemek için boşluk tuşuna basın";
 "Scene.Compose.ComposeAction" = "Yayınla";

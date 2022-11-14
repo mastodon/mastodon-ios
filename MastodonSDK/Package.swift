@@ -25,9 +25,9 @@ let package = Package(
     ],
     dependencies: [
         .package(name: "ArkanaKeys", path: "../dependencies/ArkanaKeys"),
-        .package(name: "FaviconFinder", url: "https://github.com/will-lumley/FaviconFinder.git", from: "3.2.2"),
-        .package(name: "Introspect", url: "https://github.com/siteline/SwiftUI-Introspect.git", from: "0.1.3"),
-        .package(name: "UITextView+Placeholder", url: "https://github.com/MainasuK/UITextView-Placeholder.git", from: "1.4.1"),
+        .package(url: "https://github.com/will-lumley/FaviconFinder.git", from: "3.2.2"),
+        .package(url: "https://github.com/siteline/SwiftUI-Introspect.git", from: "0.1.3"),
+        .package(url: "https://github.com/MainasuK/UITextView-Placeholder.git", from: "1.4.1"),
         .package(url: "https://github.com/Alamofire/Alamofire.git", from: "5.4.0"),
         .package(url: "https://github.com/Alamofire/AlamofireImage.git", from: "4.1.0"),
         .package(url: "https://github.com/apple/swift-collections.git", from: "1.0.3"),
@@ -49,6 +49,7 @@ let package = Package(
         .package(url: "https://github.com/SDWebImage/SDWebImage.git", from: "5.12.0"),
         .package(url: "https://github.com/eneko/Stripes.git", from: "0.2.0"),
         .package(url: "https://github.com/onevcat/Kingfisher.git", from: "7.4.1"),
+        .package(url: "https://github.com/NextLevel/NextLevelSessionExporter.git", from: "0.4.6"),
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -112,8 +113,8 @@ let package = Package(
                 .product(name: "FLAnimatedImage", package: "FLAnimatedImage"),
                 .product(name: "FaviconFinder", package: "FaviconFinder"),
                 .product(name: "Nuke", package: "Nuke"),
-                .product(name: "Introspect", package: "Introspect"),
-                .product(name: "UITextView+Placeholder", package: "UITextView+Placeholder"),
+                .product(name: "Introspect", package: "SwiftUI-Introspect"),
+                .product(name: "UITextView+Placeholder", package: "UITextView-Placeholder"),
                 .product(name: "UIHostingConfigurationBackport", package: "UIHostingConfigurationBackport"),
                 .product(name: "TabBarPager", package: "TabBarPager"),
                 .product(name: "ThirdPartyMailer", package: "ThirdPartyMailer"),
@@ -124,6 +125,7 @@ let package = Package(
                 .product(name: "PanModal", package: "PanModal"),
                 .product(name: "Stripes", package: "Stripes"),
                 .product(name: "Kingfisher", package: "Kingfisher"),
+                .product(name: "NextLevelSessionExporter", package: "NextLevelSessionExporter"),
             ]
         ),
         .testTarget(

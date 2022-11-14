@@ -108,6 +108,10 @@
 "Common.Controls.Status.Actions.Unreblog" = "取消转发";
 "Common.Controls.Status.ContentWarning" = "内容警告";
 "Common.Controls.Status.MediaContentWarning" = "点击任意位置显示";
+"Common.Controls.Status.MetaEntity.Email" = "Email address: %@";
+"Common.Controls.Status.MetaEntity.Hashtag" = "Hashtag: %@";
+"Common.Controls.Status.MetaEntity.Mention" = "Show Profile: %@";
+"Common.Controls.Status.MetaEntity.Url" = "Link: %@";
 "Common.Controls.Status.Poll.Closed" = "已关闭";
 "Common.Controls.Status.Poll.Vote" = "投票";
 "Common.Controls.Status.SensitiveContent" = "敏感内容";
@@ -161,9 +165,13 @@
 "Scene.Compose.Accessibility.RemovePoll" = "移除投票";
 "Scene.Compose.Attachment.AttachmentBroken" = "%@已损坏
 无法上传到 Mastodon";
+"Scene.Compose.Attachment.AttachmentTooLarge" = "Attachment too large";
+"Scene.Compose.Attachment.CanNotRecognizeThisMediaAttachment" = "Can not regonize this media attachment";
 "Scene.Compose.Attachment.DescriptionPhoto" = "为视觉障碍人士添加照片的文字说明...";
 "Scene.Compose.Attachment.DescriptionVideo" = "为视觉障碍人士添加视频的文字说明...";
+"Scene.Compose.Attachment.LoadFailed" = "Load Failed";
 "Scene.Compose.Attachment.Photo" = "照片";
+"Scene.Compose.Attachment.UploadFailed" = "Upload Failed";
 "Scene.Compose.Attachment.Video" = "视频";
 "Scene.Compose.AutoComplete.SpaceToAdd" = "输入空格键入";
 "Scene.Compose.ComposeAction" = "发送";
