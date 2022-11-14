@@ -130,6 +130,11 @@ public enum Asset {
   }
   public enum Scene {
     public enum Compose {
+      public enum Attachment {
+        public static let indicatorButtonBackground = ColorAsset(name: "Scene/Compose/Attachment/indicator.button.background")
+        public static let retry = ImageAsset(name: "Scene/Compose/Attachment/retry")
+        public static let stop = ImageAsset(name: "Scene/Compose/Attachment/stop")
+      }
       public static let earth = ImageAsset(name: "Scene/Compose/Earth")
       public static let mention = ImageAsset(name: "Scene/Compose/Mention")
       public static let more = ImageAsset(name: "Scene/Compose/More")
@@ -163,6 +168,11 @@ public enum Asset {
       public static let textFieldBackground = ColorAsset(name: "Scene/Onboarding/textField.background")
     }
     public enum Profile {
+      public enum About {
+        public static let bioAboutFieldVerifiedBackground = ColorAsset(name: "Scene/Profile/About/bio.about.field.verified.background")
+        public static let bioAboutFieldVerifiedCheckmark = ColorAsset(name: "Scene/Profile/About/bio.about.field.verified.checkmark")
+        public static let bioAboutFieldVerifiedLink = ColorAsset(name: "Scene/Profile/About/bio.about.field.verified.link")
+      }
       public enum Banner {
         public static let bioEditBackgroundGray = ColorAsset(name: "Scene/Profile/Banner/bio.edit.background.gray")
         public static let nameEditBackgroundGray = ColorAsset(name: "Scene/Profile/Banner/name.edit.background.gray")

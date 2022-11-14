@@ -152,9 +152,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>%ld puff</string>
+        <string>%ld boost</string>
         <key>other</key>
-        <string>%ld puffar</string>
+        <string>%ld boostar</string>
       </dict>
     </dict>
     <key>plural.count.reply</key>

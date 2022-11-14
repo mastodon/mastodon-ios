@@ -136,6 +136,12 @@
                     "vote": "صَوِّت",
                     "closed": "انتهى"
                 },
+                "meta_entity": {
+                    "url": "رابِط: %s",
+                    "hashtag": "وَسْم: %s",
+                    "mention": "إظهار المِلف التعريفي: %s",
+                    "email": "عُنوان البريد الإلكتُروني: %s"
+                },
                 "actions": {
                     "reply": "الرَّد",
                     "reblog": "إعادة النشر",
@@ -181,8 +187,8 @@
                 "unmute_user": "رفع الكتم عن %s",
                 "muted": "مكتوم",
                 "edit_info": "تَحريرُ المَعلُومات",
-                "show_reblogs": "Show Reblogs",
-                "hide_reblogs": "Hide Reblogs"
+                "show_reblogs": "إظهار إعادات التدوين",
+                "hide_reblogs": "إخفاء إعادات التدوين"
             },
             "timeline": {
                 "filtered": "مُصفَّى",
@@ -376,7 +382,11 @@
                 "video": "مقطع مرئي",
                 "attachment_broken": "هذا ال%s مُعطَّل\nويتعذَّرُ رفعُه إلى ماستودون.",
                 "description_photo": "صِف الصورة للمَكفوفين...",
-                "description_video": "صِف المقطع المرئي للمَكفوفين..."
+                "description_video": "صِف المقطع المرئي للمَكفوفين...",
+                "load_failed": "Load Failed",
+                "upload_failed": "Upload Failed",
+                "can_not_recognize_this_media_attachment": "Can not regonize this media attachment",
+                "attachment_too_large": "Attachment too large"
             },
             "poll": {
                 "duration_time": "المُدَّة: %s",
@@ -459,12 +469,12 @@
                     "message": "تأكيدُ رَفع الحَظرِ عَن %s"
                 },
                 "confirm_show_reblogs": {
-                    "title": "Show Reblogs",
-                    "message": "Confirm to show reblogs"
+                    "title": "إظهار إعادات التدوين",
+                    "message": "التأكيد لِإظهار إعادات التدوين"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "Hide Reblogs",
-                    "message": "Confirm to hide reblogs"
+                    "title": "إخفاء إعادات التدوين",
+                    "message": "التأكيد لِإخفاء إعادات التدوين"
                 }
             },
             "accessibility": {
@@ -696,7 +706,7 @@
             "accessibility_hint": "انقر نقرًا مزدوجًا لتجاهُل النافذة المنبثقة"
         },
         "bookmark": {
-            "title": "Bookmarks"
+            "title": "العَلاماتُ المَرجعيَّة"
         }
     }
 }
