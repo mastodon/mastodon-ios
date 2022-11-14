@@ -417,7 +417,9 @@
                 "custom_emoji_picker": "Chọn emoji",
                 "enable_content_warning": "Bật nội dung ẩn",
                 "disable_content_warning": "Tắt nội dung ẩn",
-                "post_visibility_menu": "Menu hiển thị tút"
+                "post_visibility_menu": "Menu hiển thị tút",
+                "post_options": "Post Options",
+                "posting_as": "Posting as %s"
             },
             "keyboard": {
                 "discard_post": "Hủy đăng tút",
