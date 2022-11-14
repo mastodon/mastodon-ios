@@ -418,8 +418,8 @@
                 "enable_content_warning": "啟用內容警告",
                 "disable_content_warning": "停用內容警告",
                 "post_visibility_menu": "嘟文可見性選單",
-                "post_options": "Post Options",
-                "posting_as": "Posting as %s"
+                "post_options": "嘟文選項",
+                "posting_as": "以 %s 發嘟"
             },
             "keyboard": {
                 "discard_post": "捨棄嘟文",
