@@ -417,7 +417,9 @@
                 "custom_emoji_picker": "Selector d'Emoji Personalitzat",
                 "enable_content_warning": "Activa l'Avís de Contingut",
                 "disable_content_warning": "Desactiva l'Avís de Contingut",
-                "post_visibility_menu": "Menú de Visibilitat de Publicació"
+                "post_visibility_menu": "Menú de Visibilitat de Publicació",
+                "post_options": "Post Options",
+                "posting_as": "Posting as %s"
             },
             "keyboard": {
                 "discard_post": "Descarta la Publicació",
