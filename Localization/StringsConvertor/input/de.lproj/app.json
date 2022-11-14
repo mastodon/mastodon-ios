@@ -386,7 +386,9 @@
                 "load_failed": "Laden fehlgeschlagen",
                 "upload_failed": "Upload fehlgeschlagen",
                 "can_not_recognize_this_media_attachment": "Medienanhang wurde nicht erkannt",
-                "attachment_too_large": "Anhang zu groß"
+                "attachment_too_large": "Anhang zu groß",
+                "compressing_state": "Komprimieren...",
+                "server_processing_state": "Serververarbeitung..."
             },
             "poll": {
                 "duration_time": "Dauer: %s",
@@ -396,7 +398,9 @@
                 "one_day": "1 Tag",
                 "three_days": "3 Tage",
                 "seven_days": "7 Tage",
-                "option_number": "Auswahlmöglichkeit %ld"
+                "option_number": "Auswahlmöglichkeit %ld",
+                "the_poll_is_invalid": "Die Umfrage ist ungültig",
+                "the_poll_has_empty_option": "Die Umfrage hat eine leere Option"
             },
             "content_warning": {
                 "placeholder": "Schreibe eine Inhaltswarnung hier..."
@@ -444,6 +448,10 @@
                 "placeholder": {
                     "label": "Bezeichnung",
                     "content": "Inhalt"
+                },
+                "verified": {
+                    "short": "Verified on %s",
+                    "long": "Ownership of this link was checked on %s"
                 }
             },
             "segmented_control": {
