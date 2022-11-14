@@ -44,18 +44,20 @@ final class ComposeViewController: UIViewController, NeedsDependency {
     }()
     
     private(set) lazy var cancelBarButtonItem = UIBarButtonItem(title: L10n.Common.Controls.Actions.cancel, style: .plain, target: self, action: #selector(ComposeViewController.cancelBarButtonItemPressed(_:)))
-    let characterCountLabel: UILabel = {
-        let label = UILabel()
-        label.font = .systemFont(ofSize: 15, weight: .regular)
-        label.text = "500"
-        label.textColor = Asset.Colors.Label.secondary.color
-        label.accessibilityLabel = L10n.A11y.Plural.Count.inputLimitRemains(500)
-        return label
-    }()
-    private(set) lazy var characterCountBarButtonItem: UIBarButtonItem = {
-        let barButtonItem = UIBarButtonItem(customView: characterCountLabel)
-        return barButtonItem
-    }()
+    
+    // FIXME: deprecated
+    // let characterCountLabel: UILabel = {
+    //     let label = UILabel()
+    //     label.font = .systemFont(ofSize: 15, weight: .regular)
+    //     label.text = "500"
+    //     label.textColor = Asset.Colors.Label.secondary.color
+    //     label.accessibilityLabel = L10n.A11y.Plural.Count.inputLimitRemains(500)
+    //     return label
+    // }()
+    // private(set) lazy var characterCountBarButtonItem: UIBarButtonItem = {
+    //     let barButtonItem = UIBarButtonItem(customView: characterCountLabel)
+    //     return barButtonItem
+    // }()
 
     let publishButton: UIButton = {
         let button = RoundedEdgesButton(type: .custom)
@@ -139,16 +141,6 @@ extension ComposeViewController {
         ])
         composeContentViewController.didMove(toParent: self)
 
-        // bind navigation bar style
-        // configureNavigationBarTitleStyle()
-        viewModel.traitCollectionDidChangePublisher
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                guard let self = self else { return }
-                self.configureNavigationBarTitleStyle()
-            }
-            .store(in: &disposeBag)
-
         // bind title
         viewModel.$title
             .receive(on: DispatchQueue.main)
@@ -226,15 +218,7 @@ extension ComposeViewController {
 //            break
 //        }
 //    }
-//    
-    private func configureNavigationBarTitleStyle() {
-        switch traitCollection.userInterfaceIdiom {
-        case .pad:
-            navigationController?.navigationBar.prefersLargeTitles = traitCollection.horizontalSizeClass == .regular
-        default:
-            break
-        }
-    }
+//
 
 }
 
