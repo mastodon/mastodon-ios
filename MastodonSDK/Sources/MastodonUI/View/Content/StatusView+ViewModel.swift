@@ -315,7 +315,6 @@ extension StatusView.ViewModel {
                 statusView.contentMetaText.configure(
                     content: content
                 )
-                statusView.contentMetaText.textView.accessibilityLabel = content.string
                 statusView.contentMetaText.textView.accessibilityTraits = [.staticText]
                 statusView.contentMetaText.textView.accessibilityElementsHidden = false
             } else {
@@ -727,8 +726,23 @@ extension StatusView.ViewModel {
                 statusView.accessibilityLabel = accessibilityLabel
             }
             .store(in: &disposeBag)
+
+        Publishers.CombineLatest(
+            $content,
+            $isContentReveal.removeDuplicates()
+        )
+        .map { content, isRevealed in
+            guard isRevealed, let entities = content?.entities else { return [] }
+            return entities.compactMap { entity in
+                guard let name = entity.accessibilityCustomActionLabel else { return nil }
+                return UIAccessibilityCustomAction(name: name) { action in
+                    statusView.delegate?.statusView(statusView, metaText: statusView.contentMetaText, didSelectMeta: entity.meta)
+                    return true
+                }
+            }
+        }
+        .assign(to: \.accessibilityCustomActions, on: statusView.contentMetaText.textView)
+        .store(in: &disposeBag)
     }
     
 }
-
-

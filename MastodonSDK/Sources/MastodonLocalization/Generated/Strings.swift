@@ -291,8 +291,6 @@ public enum L10n {
           return L10n.tr("Localizable", "Common.Controls.Status.UserRepliedTo", String(describing: p1))
         }
         public enum Actions {
-          /// Bookmark
-          public static let bookmark = L10n.tr("Localizable", "Common.Controls.Status.Actions.Bookmark")
           /// Favorite
           public static let favorite = L10n.tr("Localizable", "Common.Controls.Status.Actions.Favorite")
           /// Hide
@@ -311,12 +309,28 @@ public enum L10n {
           public static let showVideoPlayer = L10n.tr("Localizable", "Common.Controls.Status.Actions.ShowVideoPlayer")
           /// Tap then hold to show menu
           public static let tapThenHoldToShowMenu = L10n.tr("Localizable", "Common.Controls.Status.Actions.TapThenHoldToShowMenu")
-          /// Unbookmark
-          public static let unbookmark = L10n.tr("Localizable", "Common.Controls.Status.Actions.Unbookmark")
           /// Unfavorite
           public static let unfavorite = L10n.tr("Localizable", "Common.Controls.Status.Actions.Unfavorite")
           /// Undo reblog
           public static let unreblog = L10n.tr("Localizable", "Common.Controls.Status.Actions.Unreblog")
+        }
+        public enum MetaEntity {
+          /// Email address: %@
+          public static func email(_ p1: Any) -> String {
+            return L10n.tr("Localizable", "Common.Controls.Status.MetaEntity.Email", String(describing: p1))
+          }
+          /// Hastag %@
+          public static func hashtag(_ p1: Any) -> String {
+            return L10n.tr("Localizable", "Common.Controls.Status.MetaEntity.Hashtag", String(describing: p1))
+          }
+          /// Show Profile: %@
+          public static func mention(_ p1: Any) -> String {
+            return L10n.tr("Localizable", "Common.Controls.Status.MetaEntity.Mention", String(describing: p1))
+          }
+          /// Link: %@
+          public static func url(_ p1: Any) -> String {
+            return L10n.tr("Localizable", "Common.Controls.Status.MetaEntity.Url", String(describing: p1))
+          }
         }
         public enum Poll {
           /// Closed
@@ -412,7 +426,7 @@ public enum L10n {
       }
     }
     public enum Bookmark {
-      /// Your Bookmarks
+      /// Bookmarks
       public static let title = L10n.tr("Localizable", "Scene.Bookmark.Title")
     }
     public enum Compose {
@@ -722,7 +736,7 @@ public enum L10n {
         public enum ConfirmHideReblogs {
           /// Confirm to hide reblogs
           public static let message = L10n.tr("Localizable", "Scene.Profile.RelationshipActionAlert.ConfirmHideReblogs.Message")
-          /// Hide reblogs
+          /// Hide Reblogs
           public static let title = L10n.tr("Localizable", "Scene.Profile.RelationshipActionAlert.ConfirmHideReblogs.Title")
         }
         public enum ConfirmMuteUser {

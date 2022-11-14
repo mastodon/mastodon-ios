@@ -8,7 +8,6 @@
 import UIKit
 import SwiftUI
 import MastodonSDK
-import MastodonUI
 import MastodonAsset
 import MastodonCore
 import MastodonUI

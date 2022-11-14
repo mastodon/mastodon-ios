@@ -1,5 +1,5 @@
 "Common.Alerts.BlockDomain.BlockEntireDomain" = "封鎖網域";
-"Common.Alerts.BlockDomain.Title" = "真的非常確定封鎖整個 %@ 網域嗎？大部分情況下，您只需要封鎖或靜音少數特定的帳帳戶能滿足需求了。您將不能看到來自此網域的內容。您來自該網域的跟隨者也將被移除。";
+"Common.Alerts.BlockDomain.Title" = "真的非常確定要封鎖整個 %@ 網域嗎？大部分情況下，您只需要封鎖或靜音少數特定的帳號能滿足需求了。您將不能看到來自此網域的內容。您來自該網域的跟隨者也將被移除。";
 "Common.Alerts.CleanCache.Message" = "成功清除 %@ 快取。";
 "Common.Alerts.CleanCache.Title" = "清除快取";
 "Common.Alerts.Common.PleaseTryAgain" = "請再試一次。";
@@ -68,11 +68,13 @@
 "Common.Controls.Friendship.EditInfo" = "編輯";
 "Common.Controls.Friendship.Follow" = "跟隨";
 "Common.Controls.Friendship.Following" = "跟隨中";
+"Common.Controls.Friendship.HideReblogs" = "隱藏轉嘟";
 "Common.Controls.Friendship.Mute" = "靜音";
 "Common.Controls.Friendship.MuteUser" = "靜音 %@";
 "Common.Controls.Friendship.Muted" = "已靜音";
 "Common.Controls.Friendship.Pending" = "等待中";
 "Common.Controls.Friendship.Request" = "請求";
+"Common.Controls.Friendship.ShowReblogs" = "顯示轉嘟";
 "Common.Controls.Friendship.Unblock" = "解除封鎖";
 "Common.Controls.Friendship.UnblockUser" = "解除封鎖 %@";
 "Common.Controls.Friendship.Unmute" = "取消靜音";
@@ -145,6 +147,7 @@
 "Scene.AccountList.AddAccount" = "新增帳號";
 "Scene.AccountList.DismissAccountSwitcher" = "關閉帳號切換器";
 "Scene.AccountList.TabBarHint" = "目前已選擇的個人檔案：%@。點兩下然後按住以顯示帳號切換器";
+"Scene.Bookmark.Title" = "Bookmarks";
 "Scene.Compose.Accessibility.AppendAttachment" = "新增附件";
 "Scene.Compose.Accessibility.AppendPoll" = "新增投票";
 "Scene.Compose.Accessibility.CustomEmojiPicker" = "自訂 emoji 選擇器";
@@ -248,8 +251,12 @@
 "Scene.Profile.Header.FollowsYou" = "跟隨了您";
 "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Message" = "確認將 %@ 封鎖";
 "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Title" = "封鎖";
+"Scene.Profile.RelationshipActionAlert.ConfirmHideReblogs.Message" = "確認隱藏轉嘟";
+"Scene.Profile.RelationshipActionAlert.ConfirmHideReblogs.Title" = "隱藏轉嘟";
 "Scene.Profile.RelationshipActionAlert.ConfirmMuteUser.Message" = "確認將 %@ 靜音";
 "Scene.Profile.RelationshipActionAlert.ConfirmMuteUser.Title" = "靜音";
+"Scene.Profile.RelationshipActionAlert.ConfirmShowReblogs.Message" = "確認顯示轉嘟";
+"Scene.Profile.RelationshipActionAlert.ConfirmShowReblogs.Title" = "顯示轉嘟";
 "Scene.Profile.RelationshipActionAlert.ConfirmUnblockUser.Message" = "確認將 %@ 取消封鎖";
 "Scene.Profile.RelationshipActionAlert.ConfirmUnblockUser.Title" = "取消封鎖";
 "Scene.Profile.RelationshipActionAlert.ConfirmUnmuteUser.Message" = "確認將 %@ 取消靜音";

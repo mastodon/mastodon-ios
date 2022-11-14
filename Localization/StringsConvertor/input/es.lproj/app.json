@@ -180,7 +180,9 @@
                 "unmute": "Desmutear",
                 "unmute_user": "Desmutear a %s",
                 "muted": "Silenciado",
-                "edit_info": "Editar Info"
+                "edit_info": "Editar Info",
+                "show_reblogs": "Show Reblogs",
+                "hide_reblogs": "Hide Reblogs"
             },
             "timeline": {
                 "filtered": "Filtrado",
@@ -455,6 +457,14 @@
                 "confirm_unblock_user": {
                     "title": "Desbloquear cuenta",
                     "message": "Confirmar para desbloquear a %s"
+                },
+                "confirm_show_reblogs": {
+                    "title": "Show Reblogs",
+                    "message": "Confirm to show reblogs"
+                },
+                "confirm_hide_reblogs": {
+                    "title": "Hide Reblogs",
+                    "message": "Confirm to hide reblogs"
                 }
             },
             "accessibility": {
@@ -684,6 +694,9 @@
             "new_in_mastodon": "Nuevo en Mastodon",
             "multiple_account_switch_intro_description": "Cambie entre varias cuentas manteniendo presionado el botón de perfil.",
             "accessibility_hint": "Haz doble toque para descartar este asistente"
+        },
+        "bookmark": {
+            "title": "Bookmarks"
         }
     }
 }

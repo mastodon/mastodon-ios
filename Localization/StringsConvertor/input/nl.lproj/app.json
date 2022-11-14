@@ -180,7 +180,9 @@
                 "unmute": "Niet langer negeren",
                 "unmute_user": "%s niet langer negeren",
                 "muted": "Genegeerd",
-                "edit_info": "Bewerken"
+                "edit_info": "Bewerken",
+                "show_reblogs": "Show Reblogs",
+                "hide_reblogs": "Hide Reblogs"
             },
             "timeline": {
                 "filtered": "Gefilterd",
@@ -455,6 +457,14 @@
                 "confirm_unblock_user": {
                     "title": "Deblokkeer Account",
                     "message": "Bevestig om %s te deblokkeren"
+                },
+                "confirm_show_reblogs": {
+                    "title": "Show Reblogs",
+                    "message": "Confirm to show reblogs"
+                },
+                "confirm_hide_reblogs": {
+                    "title": "Hide Reblogs",
+                    "message": "Confirm to hide reblogs"
                 }
             },
             "accessibility": {
@@ -684,6 +694,9 @@
             "new_in_mastodon": "Nieuw in Mastodon",
             "multiple_account_switch_intro_description": "Schakel tussen meerdere accounts door de profielknop in te drukken en vast te houden.",
             "accessibility_hint": "Tik tweemaal om het popup-scherm te sluiten"
+        },
+        "bookmark": {
+            "title": "Bookmarks"
         }
     }
 }

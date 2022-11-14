@@ -68,11 +68,13 @@
 "Common.Controls.Friendship.EditInfo" = "編集";
 "Common.Controls.Friendship.Follow" = "フォロー";
 "Common.Controls.Friendship.Following" = "フォロー中";
+"Common.Controls.Friendship.HideReblogs" = "Hide Reblogs";
 "Common.Controls.Friendship.Mute" = "ミュート";
 "Common.Controls.Friendship.MuteUser" = "%@をミュート";
 "Common.Controls.Friendship.Muted" = "ミュート済み";
 "Common.Controls.Friendship.Pending" = "保留";
 "Common.Controls.Friendship.Request" = "リクエスト";
+"Common.Controls.Friendship.ShowReblogs" = "Show Reblogs";
 "Common.Controls.Friendship.Unblock" = "ブロックを解除";
 "Common.Controls.Friendship.UnblockUser" = "%@のブロックを解除";
 "Common.Controls.Friendship.Unmute" = "ミュートを解除";
@@ -145,6 +147,7 @@
 "Scene.AccountList.AddAccount" = "アカウントを追加";
 "Scene.AccountList.DismissAccountSwitcher" = "アカウント切替画面を閉じます";
 "Scene.AccountList.TabBarHint" = "現在のアカウント: %@. ダブルタップしてアカウント切替画面を表示します";
+"Scene.Bookmark.Title" = "Bookmarks";
 "Scene.Compose.Accessibility.AppendAttachment" = "アタッチメントの追加";
 "Scene.Compose.Accessibility.AppendPoll" = "投票を追加";
 "Scene.Compose.Accessibility.CustomEmojiPicker" = "カスタム絵文字ピッカー";
@@ -248,8 +251,12 @@
 "Scene.Profile.Header.FollowsYou" = "フォローされています";
 "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Message" = "%@をブロックしますか？";
 "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Title" = "アカウントをブロック";
+"Scene.Profile.RelationshipActionAlert.ConfirmHideReblogs.Message" = "Confirm to hide reblogs";
+"Scene.Profile.RelationshipActionAlert.ConfirmHideReblogs.Title" = "Hide Reblogs";
 "Scene.Profile.RelationshipActionAlert.ConfirmMuteUser.Message" = "%@をミュートしますか？";
 "Scene.Profile.RelationshipActionAlert.ConfirmMuteUser.Title" = "アカウントをミュート";
+"Scene.Profile.RelationshipActionAlert.ConfirmShowReblogs.Message" = "Confirm to show reblogs";
+"Scene.Profile.RelationshipActionAlert.ConfirmShowReblogs.Title" = "Show Reblogs";
 "Scene.Profile.RelationshipActionAlert.ConfirmUnblockUser.Message" = "%@のブロックを解除しますか？";
 "Scene.Profile.RelationshipActionAlert.ConfirmUnblockUser.Title" = "アカウントのブロックを解除";
 "Scene.Profile.RelationshipActionAlert.ConfirmUnmuteUser.Message" = "%@をミュートしますか？";

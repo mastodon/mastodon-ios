@@ -180,7 +180,9 @@
                 "unmute": "Susturmayı kaldır",
                 "unmute_user": "Sesini aç %s",
                 "muted": "Susturuldu",
-                "edit_info": "Bilgiyi Düzenle"
+                "edit_info": "Bilgiyi Düzenle",
+                "show_reblogs": "Show Reblogs",
+                "hide_reblogs": "Hide Reblogs"
             },
             "timeline": {
                 "filtered": "Filtrelenmiş",
@@ -241,7 +243,7 @@
             },
             "input": {
                 "placeholder": "Toplulukları ara",
-                "search_servers_or_enter_url": "Search servers or enter URL"
+                "search_servers_or_enter_url": "Sunucuları ara ya da bir bağlantı gir"
             },
             "empty_state": {
                 "finding_servers": "Mevcut sunucular aranıyor...",
@@ -251,7 +253,7 @@
         },
         "register": {
             "title": "%s için kurulumunuzu yapalım",
-            "lets_get_you_set_up_on_domain": "Let’s get you set up on %s",
+            "lets_get_you_set_up_on_domain": "%s için kurulumunuzu yapalım",
             "input": {
                 "avatar": {
                     "delete": "Sil"
@@ -286,7 +288,7 @@
                     "email": "E-posta",
                     "password": "Parola",
                     "agreement": "Anlaşma",
-                    "locale": "Locale",
+                    "locale": "Yerel",
                     "reason": "Sebep"
                 },
                 "reason": {
@@ -322,7 +324,7 @@
         "confirm_email": {
             "title": "Son bir şey.",
             "subtitle": "Hesabınızı doğrulamak için size e-postayla gönderdiğimiz bağlantıya dokunun.",
-            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we emailed to you to verify your account",
+            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Hesabınızı doğrulamak için size e-postayla gönderdiğimiz bağlantıya dokunun",
             "button": {
                 "open_email_app": "E-posta Uygulamasını Aç",
                 "resend": "Yeniden gönder"
@@ -347,7 +349,7 @@
                 "published": "Yayınlandı!",
                 "Publishing": "Gönderi yayınlanıyor...",
                 "accessibility": {
-                    "logo_label": "Logo Button",
+                    "logo_label": "Logo Düğmesi",
                     "logo_hint": "Tap to scroll to top and tap again to previous location"
                 }
             }
@@ -418,7 +420,7 @@
         },
         "profile": {
             "header": {
-                "follows_you": "Follows You"
+                "follows_you": "Seni takip ediyor"
             },
             "dashboard": {
                 "posts": "gönderiler",
@@ -455,6 +457,14 @@
                 "confirm_unblock_user": {
                     "title": "Hesabın Engelini Kaldır",
                     "message": "%s engellemeyi kaldırmayı onaylayın"
+                },
+                "confirm_show_reblogs": {
+                    "title": "Show Reblogs",
+                    "message": "Confirm to show reblogs"
+                },
+                "confirm_hide_reblogs": {
+                    "title": "Hide Reblogs",
+                    "message": "Confirm to hide reblogs"
                 }
             },
             "accessibility": {
@@ -465,11 +475,11 @@
             }
         },
         "follower": {
-            "title": "follower",
+            "title": "takipçi",
             "footer": "Diğer sunucudaki takipçiler gösterilemiyor."
         },
         "following": {
-            "title": "following",
+            "title": "takip",
             "footer": "Diğer sunucudaki takip edilenler gösterilemiyor."
         },
         "familiarFollowers": {
@@ -660,8 +670,8 @@
                 "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "When you see something you don’t like on Mastodon, you can remove the person from your experience.",
                 "unfollow": "Takibi bırak",
                 "unfollowed": "Unfollowed",
-                "unfollow_user": "Unfollow %s",
-                "mute_user": "Mute %s",
+                "unfollow_user": "Takipten çık %s",
+                "mute_user": "Sustur %s",
                 "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or reblogs in your home feed. They won’t know they’ve been muted.",
                 "block_user": "Block %s",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "They will no longer be able to follow or see your posts, but they can see if they’ve been blocked.",
@@ -684,6 +694,9 @@
             "new_in_mastodon": "Mastodon'da Yeni",
             "multiple_account_switch_intro_description": "Profil butonuna basılı tutarak birden fazla hesap arasında geçiş yapın.",
             "accessibility_hint": "Bu yardımı kapatmak için çift tıklayın"
+        },
+        "bookmark": {
+            "title": "Bookmarks"
         }
     }
 }

@@ -37,7 +37,7 @@
                 "confirm": "登出"
             },
             "block_domain": {
-                "title": "真的非常確定封鎖整個 %s 網域嗎？大部分情況下，您只需要封鎖或靜音少數特定的帳帳戶能滿足需求了。您將不能看到來自此網域的內容。您來自該網域的跟隨者也將被移除。",
+                "title": "真的非常確定要封鎖整個 %s 網域嗎？大部分情況下，您只需要封鎖或靜音少數特定的帳號能滿足需求了。您將不能看到來自此網域的內容。您來自該網域的跟隨者也將被移除。",
                 "block_entire_domain": "封鎖網域"
             },
             "save_photo_failure": {
@@ -180,7 +180,9 @@
                 "unmute": "取消靜音",
                 "unmute_user": "取消靜音 %s",
                 "muted": "已靜音",
-                "edit_info": "編輯"
+                "edit_info": "編輯",
+                "show_reblogs": "顯示轉嘟",
+                "hide_reblogs": "隱藏轉嘟"
             },
             "timeline": {
                 "filtered": "已過濾",
@@ -455,6 +457,14 @@
                 "confirm_unblock_user": {
                     "title": "取消封鎖",
                     "message": "確認將 %s 取消封鎖"
+                },
+                "confirm_show_reblogs": {
+                    "title": "顯示轉嘟",
+                    "message": "確認顯示轉嘟"
+                },
+                "confirm_hide_reblogs": {
+                    "title": "隱藏轉嘟",
+                    "message": "確認隱藏轉嘟"
                 }
             },
             "accessibility": {
@@ -684,6 +694,9 @@
             "new_in_mastodon": "Mastodon 新功能",
             "multiple_account_switch_intro_description": "按住個人檔案按鈕以於多個帳號間切換。",
             "accessibility_hint": "點兩下以關閉此設定精靈"
+        },
+        "bookmark": {
+            "title": "Bookmarks"
         }
     }
 }

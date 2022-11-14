@@ -68,11 +68,13 @@
 "Common.Controls.Friendship.EditInfo" = "编辑";
 "Common.Controls.Friendship.Follow" = "关注";
 "Common.Controls.Friendship.Following" = "正在关注";
+"Common.Controls.Friendship.HideReblogs" = "Hide Reblogs";
 "Common.Controls.Friendship.Mute" = "静音";
 "Common.Controls.Friendship.MuteUser" = "静音 %@";
 "Common.Controls.Friendship.Muted" = "已静音";
 "Common.Controls.Friendship.Pending" = "待确认";
 "Common.Controls.Friendship.Request" = "请求";
+"Common.Controls.Friendship.ShowReblogs" = "Show Reblogs";
 "Common.Controls.Friendship.Unblock" = "解除屏蔽";
 "Common.Controls.Friendship.UnblockUser" = "解除屏蔽 %@";
 "Common.Controls.Friendship.Unmute" = "取消静音";
@@ -149,6 +151,7 @@
 "Scene.AccountList.AddAccount" = "添加账户";
 "Scene.AccountList.DismissAccountSwitcher" = "关闭账户切换页面";
 "Scene.AccountList.TabBarHint" = "当前账户：%@。 双击并按住来打开账户切换页面";
+"Scene.Bookmark.Title" = "Bookmarks";
 "Scene.Compose.Accessibility.AppendAttachment" = "添加附件";
 "Scene.Compose.Accessibility.AppendPoll" = "添加投票";
 "Scene.Compose.Accessibility.CustomEmojiPicker" = "自定义表情选择器";
@@ -253,8 +256,12 @@
 "Scene.Profile.Header.FollowsYou" = "关注了你";
 "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Message" = "确认屏蔽 %@";
 "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Title" = "屏蔽帐户";
+"Scene.Profile.RelationshipActionAlert.ConfirmHideReblogs.Message" = "Confirm to hide reblogs";
+"Scene.Profile.RelationshipActionAlert.ConfirmHideReblogs.Title" = "Hide Reblogs";
 "Scene.Profile.RelationshipActionAlert.ConfirmMuteUser.Message" = "确认静音 %@";
 "Scene.Profile.RelationshipActionAlert.ConfirmMuteUser.Title" = "静音账户";
+"Scene.Profile.RelationshipActionAlert.ConfirmShowReblogs.Message" = "Confirm to show reblogs";
+"Scene.Profile.RelationshipActionAlert.ConfirmShowReblogs.Title" = "Show Reblogs";
 "Scene.Profile.RelationshipActionAlert.ConfirmUnblockUser.Message" = "确认取消屏蔽 %@";
 "Scene.Profile.RelationshipActionAlert.ConfirmUnblockUser.Title" = "解除屏蔽帐户";
 "Scene.Profile.RelationshipActionAlert.ConfirmUnmuteUser.Message" = "确认取消静音 %@";
