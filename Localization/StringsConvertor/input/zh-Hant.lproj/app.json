@@ -385,8 +385,10 @@
                 "description_video": "為視障人士提供影片說明...",
                 "load_failed": "讀取失敗",
                 "upload_failed": "上傳失敗",
-                "can_not_recognize_this_media_attachment": "無法識別此媒體附加檔案",
-                "attachment_too_large": "附加檔案大小過大"
+                "can_not_recognize_this_media_attachment": "Can not recognize this media attachment",
+                "attachment_too_large": "附加檔案大小過大",
+                "compressing_state": "Compressing...",
+                "server_processing_state": "Server Processing..."
             },
             "poll": {
                 "duration_time": "持續時間：%s",
@@ -396,7 +398,9 @@
                 "one_day": "一天",
                 "three_days": "三天",
                 "seven_days": "七天",
-                "option_number": "選項 %ld"
+                "option_number": "選項 %ld",
+                "the_poll_is_invalid": "The poll is invalid",
+                "the_poll_has_empty_option": "The poll has empty option"
             },
             "content_warning": {
                 "placeholder": "請於此處寫下精準的警告..."
@@ -444,6 +448,10 @@
                 "placeholder": {
                     "label": "標籤",
                     "content": "內容"
+                },
+                "verified": {
+                    "short": "Verified on %s",
+                    "long": "Ownership of this link was checked on %s"
                 }
             },
             "segmented_control": {
