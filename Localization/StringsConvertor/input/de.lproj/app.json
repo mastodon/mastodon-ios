@@ -417,7 +417,9 @@
                 "custom_emoji_picker": "Benutzerdefinierter Emojiwähler",
                 "enable_content_warning": "Inhaltswarnung einschalten",
                 "disable_content_warning": "Inhaltswarnung ausschalten",
-                "post_visibility_menu": "Sichtbarkeitsmenü"
+                "post_visibility_menu": "Sichtbarkeitsmenü",
+                "post_options": "Post Options",
+                "posting_as": "Posting as %s"
             },
             "keyboard": {
                 "discard_post": "Beitrag verwerfen",
