@@ -385,7 +385,7 @@
                 "description_video": "อธิบายวิดีโอสำหรับผู้บกพร่องทางการมองเห็น...",
                 "load_failed": "การโหลดล้มเหลว",
                 "upload_failed": "การอัปโหลดล้มเหลว",
-                "can_not_recognize_this_media_attachment": "Can not regonize this media attachment",
+                "can_not_recognize_this_media_attachment": "ไม่สามารถระบุไฟล์แนบสื่อนี้",
                 "attachment_too_large": "ไฟล์แนบใหญ่เกินไป"
             },
             "poll": {
@@ -419,7 +419,7 @@
                 "disable_content_warning": "ปิดใช้งานคำเตือนเนื้อหา",
                 "post_visibility_menu": "เมนูการมองเห็นโพสต์",
                 "post_options": "ตัวเลือกโพสต์",
-                "posting_as": "Posting as %s"
+                "posting_as": "กำลังโพสต์เป็น %s"
             },
             "keyboard": {
                 "discard_post": "ละทิ้งโพสต์",
