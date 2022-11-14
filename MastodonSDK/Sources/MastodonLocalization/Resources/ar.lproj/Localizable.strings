@@ -68,13 +68,13 @@
 "Common.Controls.Friendship.EditInfo" = "تَحريرُ المَعلُومات";
 "Common.Controls.Friendship.Follow" = "مُتابَعَة";
 "Common.Controls.Friendship.Following" = "مُتابَع";
-"Common.Controls.Friendship.HideReblogs" = "Hide Reblogs";
+"Common.Controls.Friendship.HideReblogs" = "إخفاء إعادات التدوين";
 "Common.Controls.Friendship.Mute" = "كَتم";
 "Common.Controls.Friendship.MuteUser" = "كَتمُ %@";
 "Common.Controls.Friendship.Muted" = "مكتوم";
 "Common.Controls.Friendship.Pending" = "قيد المُراجعة";
 "Common.Controls.Friendship.Request" = "إرسال طَلَب";
-"Common.Controls.Friendship.ShowReblogs" = "Show Reblogs";
+"Common.Controls.Friendship.ShowReblogs" = "إظهار إعادات التدوين";
 "Common.Controls.Friendship.Unblock" = "رفع الحَظر";
 "Common.Controls.Friendship.UnblockUser" = "رفع الحَظر عن %@";
 "Common.Controls.Friendship.Unmute" = "رفع الكتم";
@@ -108,6 +108,10 @@
 "Common.Controls.Status.Actions.Unreblog" = "التراجُع عن إعادة النشر";
 "Common.Controls.Status.ContentWarning" = "تحذير المُحتوى";
 "Common.Controls.Status.MediaContentWarning" = "اُنقُر لِلكَشف";
+"Common.Controls.Status.MetaEntity.Email" = "عُنوان البريد الإلكتُروني: %@";
+"Common.Controls.Status.MetaEntity.Hashtag" = "وَسْم: %@";
+"Common.Controls.Status.MetaEntity.Mention" = "إظهار المِلف التعريفي: %@";
+"Common.Controls.Status.MetaEntity.Url" = "رابِط: %@";
 "Common.Controls.Status.Poll.Closed" = "انتهى";
 "Common.Controls.Status.Poll.Vote" = "صَوِّت";
 "Common.Controls.Status.SensitiveContent" = "مُحتَوى حَسَّاس";
@@ -151,7 +155,7 @@
 "Scene.AccountList.AddAccount" = "إضافَةُ حِساب";
 "Scene.AccountList.DismissAccountSwitcher" = "تجاهُل مبدِّل الحِساب";
 "Scene.AccountList.TabBarHint" = "المِلَفُّ المُحدَّدُ حالِيًّا: %@. اُنقُر نَقرًا مُزدَوَجًا مَعَ الاِستِمرارِ لِإظهارِ مُبدِّلِ الحِساب";
-"Scene.Bookmark.Title" = "Bookmarks";
+"Scene.Bookmark.Title" = "العَلاماتُ المَرجعيَّة";
 "Scene.Compose.Accessibility.AppendAttachment" = "إضافة مُرفَق";
 "Scene.Compose.Accessibility.AppendPoll" = "اضافة استطلاع رأي";
 "Scene.Compose.Accessibility.CustomEmojiPicker" = "منتقي الرموز التعبيرية المُخصَّص";
@@ -161,9 +165,13 @@
 "Scene.Compose.Accessibility.RemovePoll" = "إزالة الاستطلاع";
 "Scene.Compose.Attachment.AttachmentBroken" = "هذا ال%@ مُعطَّل
 ويتعذَّرُ رفعُه إلى ماستودون.";
+"Scene.Compose.Attachment.AttachmentTooLarge" = "Attachment too large";
+"Scene.Compose.Attachment.CanNotRecognizeThisMediaAttachment" = "Can not regonize this media attachment";
 "Scene.Compose.Attachment.DescriptionPhoto" = "صِف الصورة للمَكفوفين...";
 "Scene.Compose.Attachment.DescriptionVideo" = "صِف المقطع المرئي للمَكفوفين...";
+"Scene.Compose.Attachment.LoadFailed" = "Load Failed";
 "Scene.Compose.Attachment.Photo" = "صورة";
+"Scene.Compose.Attachment.UploadFailed" = "Upload Failed";
 "Scene.Compose.Attachment.Video" = "مقطع مرئي";
 "Scene.Compose.AutoComplete.SpaceToAdd" = "انقر على مساحة لإضافتِها";
 "Scene.Compose.ComposeAction" = "نَشر";
@@ -256,12 +264,12 @@
 "Scene.Profile.Header.FollowsYou" = "يُتابِعُك";
 "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Message" = "تأكيدُ حَظر %@";
 "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Title" = "حَظرُ الحِساب";
-"Scene.Profile.RelationshipActionAlert.ConfirmHideReblogs.Message" = "Confirm to hide reblogs";
-"Scene.Profile.RelationshipActionAlert.ConfirmHideReblogs.Title" = "Hide Reblogs";
+"Scene.Profile.RelationshipActionAlert.ConfirmHideReblogs.Message" = "التأكيد لِإخفاء إعادات التدوين";
+"Scene.Profile.RelationshipActionAlert.ConfirmHideReblogs.Title" = "إخفاء إعادات التدوين";
 "Scene.Profile.RelationshipActionAlert.ConfirmMuteUser.Message" = "تأكيدُ كَتم %@";
 "Scene.Profile.RelationshipActionAlert.ConfirmMuteUser.Title" = "كَتمُ الحِساب";
-"Scene.Profile.RelationshipActionAlert.ConfirmShowReblogs.Message" = "Confirm to show reblogs";
-"Scene.Profile.RelationshipActionAlert.ConfirmShowReblogs.Title" = "Show Reblogs";
+"Scene.Profile.RelationshipActionAlert.ConfirmShowReblogs.Message" = "التأكيد لِإظهار إعادات التدوين";
+"Scene.Profile.RelationshipActionAlert.ConfirmShowReblogs.Title" = "إظهار إعادات التدوين";
 "Scene.Profile.RelationshipActionAlert.ConfirmUnblockUser.Message" = "تأكيدُ رَفع الحَظرِ عَن %@";
 "Scene.Profile.RelationshipActionAlert.ConfirmUnblockUser.Title" = "رَفعُ الحَظرِ عَنِ الحِساب";
 "Scene.Profile.RelationshipActionAlert.ConfirmUnmuteUser.Message" = "أكِّد لرفع الكتمْ عن %@";

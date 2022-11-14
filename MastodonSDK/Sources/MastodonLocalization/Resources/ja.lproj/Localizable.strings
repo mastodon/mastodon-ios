@@ -108,6 +108,10 @@
 "Common.Controls.Status.Actions.Unreblog" = "ブーストを戻す";
 "Common.Controls.Status.ContentWarning" = "コンテンツ警告";
 "Common.Controls.Status.MediaContentWarning" = "どこかをタップして表示";
+"Common.Controls.Status.MetaEntity.Email" = "Email address: %@";
+"Common.Controls.Status.MetaEntity.Hashtag" = "Hashtag: %@";
+"Common.Controls.Status.MetaEntity.Mention" = "Show Profile: %@";
+"Common.Controls.Status.MetaEntity.Url" = "Link: %@";
 "Common.Controls.Status.Poll.Closed" = "終了";
 "Common.Controls.Status.Poll.Vote" = "投票";
 "Common.Controls.Status.SensitiveContent" = "閲覧注意";
@@ -156,9 +160,13 @@
 "Scene.Compose.Accessibility.PostVisibilityMenu" = "投稿の表示メニュー";
 "Scene.Compose.Accessibility.RemovePoll" = "投票を消去";
 "Scene.Compose.Attachment.AttachmentBroken" = "%@は壊れていてMastodonにアップロードできません。";
+"Scene.Compose.Attachment.AttachmentTooLarge" = "Attachment too large";
+"Scene.Compose.Attachment.CanNotRecognizeThisMediaAttachment" = "Can not regonize this media attachment";
 "Scene.Compose.Attachment.DescriptionPhoto" = "閲覧が難しいユーザーへの画像説明";
 "Scene.Compose.Attachment.DescriptionVideo" = "閲覧が難しいユーザーへの映像説明";
+"Scene.Compose.Attachment.LoadFailed" = "Load Failed";
 "Scene.Compose.Attachment.Photo" = "写真";
+"Scene.Compose.Attachment.UploadFailed" = "Upload Failed";
 "Scene.Compose.Attachment.Video" = "動画";
 "Scene.Compose.AutoComplete.SpaceToAdd" = "スペースを追加";
 "Scene.Compose.ComposeAction" = "投稿";

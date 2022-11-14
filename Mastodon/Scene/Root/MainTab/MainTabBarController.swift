@@ -312,7 +312,12 @@ extension MainTabBarController {
             guard let profileTabItem = _profileTabItem else { return }
             let currentUserDisplayName = user.displayNameWithFallback ?? "no user"
             profileTabItem.accessibilityHint = L10n.Scene.AccountList.tabBarHint(currentUserDisplayName)
-            
+
+            context.authenticationService.updateActiveUserAccountPublisher
+                .sink { [weak self] in
+                    self?.updateUserAccount()
+                }
+                .store(in: &disposeBag)
         } else {
             self.avatarURLObserver = nil
         }
@@ -487,6 +492,26 @@ extension MainTabBarController {
         avatarButton.setNeedsLayout()
     }
     
+    private func updateUserAccount() {
+        guard let authContext = authContext else { return }
+        
+        Task { @MainActor in
+            let profileResponse = try await context.apiService.authenticatedUserInfo(
+                authenticationBox: authContext.mastodonAuthenticationBox
+            )
+            
+            if let user = authContext.mastodonAuthenticationBox.authenticationRecord.object(
+                in: context.managedObjectContext
+            )?.user {
+                user.update(
+                    property: .init(
+                        entity: profileResponse.value,
+                        domain: authContext.mastodonAuthenticationBox.domain
+                    )
+                )
+            }
+        }
+    }
 }
 
 extension MainTabBarController {

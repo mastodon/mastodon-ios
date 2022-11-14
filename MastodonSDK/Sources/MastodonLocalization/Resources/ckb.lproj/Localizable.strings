@@ -108,6 +108,10 @@
 "Common.Controls.Status.Actions.Unreblog" = "پۆستکردنەکە بگەڕێنەوە";
 "Common.Controls.Status.ContentWarning" = "ئاگاداریی ناوەڕۆک";
 "Common.Controls.Status.MediaContentWarning" = "دەستی پیا بنێ بۆ نیشاندانی";
+"Common.Controls.Status.MetaEntity.Email" = "Email address: %@";
+"Common.Controls.Status.MetaEntity.Hashtag" = "Hashtag: %@";
+"Common.Controls.Status.MetaEntity.Mention" = "Show Profile: %@";
+"Common.Controls.Status.MetaEntity.Url" = "Link: %@";
 "Common.Controls.Status.Poll.Closed" = "داخراوە";
 "Common.Controls.Status.Poll.Vote" = "دەنگ بدە";
 "Common.Controls.Status.SensitiveContent" = "ناوەڕۆکی هەستیار";
@@ -160,9 +164,13 @@
 "Scene.Compose.Accessibility.PostVisibilityMenu" = "پێڕستی شێوازی دەرکەوتنی پۆست";
 "Scene.Compose.Accessibility.RemovePoll" = "دانگدانەکە لابە";
 "Scene.Compose.Attachment.AttachmentBroken" = "ئەم %@ـە تێک چووە و ناتوانیت بەرزی بکەیتەوە.";
+"Scene.Compose.Attachment.AttachmentTooLarge" = "Attachment too large";
+"Scene.Compose.Attachment.CanNotRecognizeThisMediaAttachment" = "Can not regonize this media attachment";
 "Scene.Compose.Attachment.DescriptionPhoto" = "وێنەکەت بۆ نابیناکان باس بکە...";
 "Scene.Compose.Attachment.DescriptionVideo" = "ڤیدیۆکەت بۆ نابیناکان باس بکە...";
+"Scene.Compose.Attachment.LoadFailed" = "Load Failed";
 "Scene.Compose.Attachment.Photo" = "وێنە";
+"Scene.Compose.Attachment.UploadFailed" = "Upload Failed";
 "Scene.Compose.Attachment.Video" = "ڤیدیۆ";
 "Scene.Compose.AutoComplete.SpaceToAdd" = "بۆشایی دابنێ بۆ زیادکردن";
 "Scene.Compose.ComposeAction" = "بڵاوی بکەوە";

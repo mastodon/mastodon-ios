@@ -108,6 +108,10 @@
 "Common.Controls.Status.Actions.Unreblog" = "取消轉嘟";
 "Common.Controls.Status.ContentWarning" = "內容警告";
 "Common.Controls.Status.MediaContentWarning" = "輕觸任何地方以顯示";
+"Common.Controls.Status.MetaEntity.Email" = "電子郵件地址：%@";
+"Common.Controls.Status.MetaEntity.Hashtag" = "主題標籤： %@";
+"Common.Controls.Status.MetaEntity.Mention" = "顯示個人檔案：%@";
+"Common.Controls.Status.MetaEntity.Url" = "連結：%@";
 "Common.Controls.Status.Poll.Closed" = "已關閉";
 "Common.Controls.Status.Poll.Vote" = "投票";
 "Common.Controls.Status.SensitiveContent" = "敏感內容";
@@ -147,7 +151,7 @@
 "Scene.AccountList.AddAccount" = "新增帳號";
 "Scene.AccountList.DismissAccountSwitcher" = "關閉帳號切換器";
 "Scene.AccountList.TabBarHint" = "目前已選擇的個人檔案：%@。點兩下然後按住以顯示帳號切換器";
-"Scene.Bookmark.Title" = "Bookmarks";
+"Scene.Bookmark.Title" = "書籤";
 "Scene.Compose.Accessibility.AppendAttachment" = "新增附件";
 "Scene.Compose.Accessibility.AppendPoll" = "新增投票";
 "Scene.Compose.Accessibility.CustomEmojiPicker" = "自訂 emoji 選擇器";
@@ -156,9 +160,13 @@
 "Scene.Compose.Accessibility.PostVisibilityMenu" = "嘟文可見性選單";
 "Scene.Compose.Accessibility.RemovePoll" = "移除投票";
 "Scene.Compose.Attachment.AttachmentBroken" = "此 %@ 已損毀，並無法被上傳至 Mastodon。";
+"Scene.Compose.Attachment.AttachmentTooLarge" = "Attachment too large";
+"Scene.Compose.Attachment.CanNotRecognizeThisMediaAttachment" = "Can not regonize this media attachment";
 "Scene.Compose.Attachment.DescriptionPhoto" = "為視障人士提供圖片說明...";
 "Scene.Compose.Attachment.DescriptionVideo" = "為視障人士提供影片說明...";
+"Scene.Compose.Attachment.LoadFailed" = "Load Failed";
 "Scene.Compose.Attachment.Photo" = "照片";
+"Scene.Compose.Attachment.UploadFailed" = "Upload Failed";
 "Scene.Compose.Attachment.Video" = "影片";
 "Scene.Compose.AutoComplete.SpaceToAdd" = "添加的空白";
 "Scene.Compose.ComposeAction" = "嘟出去";

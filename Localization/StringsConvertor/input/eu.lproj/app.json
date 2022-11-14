@@ -136,6 +136,12 @@
                     "vote": "Bozkatu",
                     "closed": "Itxita"
                 },
+                "meta_entity": {
+                    "url": "Link: %s",
+                    "hashtag": "Hashtag: %s",
+                    "mention": "Show Profile: %s",
+                    "email": "Email address: %s"
+                },
                 "actions": {
                     "reply": "Erantzun",
                     "reblog": "Bultzada",
@@ -376,7 +382,11 @@
                 "video": "bideoa",
                 "attachment_broken": "%s hondatuta dago eta ezin da\nMastodonera igo.",
                 "description_photo": "Deskribatu argazkia ikusmen arazoak dituztenentzat...",
-                "description_video": "Deskribatu bideoa ikusmen arazoak dituztenentzat..."
+                "description_video": "Deskribatu bideoa ikusmen arazoak dituztenentzat...",
+                "load_failed": "Load Failed",
+                "upload_failed": "Upload Failed",
+                "can_not_recognize_this_media_attachment": "Can not regonize this media attachment",
+                "attachment_too_large": "Attachment too large"
             },
             "poll": {
                 "duration_time": "Iraupena: %s",

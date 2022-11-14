@@ -108,6 +108,10 @@
 "Common.Controls.Status.Actions.Unreblog" = "Убрать продвижение";
 "Common.Controls.Status.ContentWarning" = "Предупреждение о содержании";
 "Common.Controls.Status.MediaContentWarning" = "Нажмите в любом месте, чтобы показать";
+"Common.Controls.Status.MetaEntity.Email" = "Email address: %@";
+"Common.Controls.Status.MetaEntity.Hashtag" = "Hashtag: %@";
+"Common.Controls.Status.MetaEntity.Mention" = "Show Profile: %@";
+"Common.Controls.Status.MetaEntity.Url" = "Link: %@";
 "Common.Controls.Status.Poll.Closed" = "Завершён";
 "Common.Controls.Status.Poll.Vote" = "Проголосовать";
 "Common.Controls.Status.SensitiveContent" = "Sensitive Content";
@@ -169,9 +173,13 @@
 "Scene.Compose.Accessibility.RemovePoll" = "Убрать опрос";
 "Scene.Compose.Attachment.AttachmentBroken" = "Это %@ повреждено и не может
 быть отправлено в Mastodon.";
+"Scene.Compose.Attachment.AttachmentTooLarge" = "Attachment too large";
+"Scene.Compose.Attachment.CanNotRecognizeThisMediaAttachment" = "Can not regonize this media attachment";
 "Scene.Compose.Attachment.DescriptionPhoto" = "Опишите фото для людей с нарушениями зрения...";
 "Scene.Compose.Attachment.DescriptionVideo" = "Опишите видео для людей с нарушениями зрения...";
+"Scene.Compose.Attachment.LoadFailed" = "Load Failed";
 "Scene.Compose.Attachment.Photo" = "изображение";
+"Scene.Compose.Attachment.UploadFailed" = "Upload Failed";
 "Scene.Compose.Attachment.Video" = "видео";
 "Scene.Compose.AutoComplete.SpaceToAdd" = "Пробел, чтобы добавить";
 "Scene.Compose.ComposeAction" = "Опубликовать";
