@@ -417,7 +417,9 @@
                 "custom_emoji_picker": "커스텀 에모지 선택기",
                 "enable_content_warning": "열람 주의 설정",
                 "disable_content_warning": "열람 주의 해제",
-                "post_visibility_menu": "게시물 공개범위 메뉴"
+                "post_visibility_menu": "게시물 공개범위 메뉴",
+                "post_options": "Post Options",
+                "posting_as": "Posting as %s"
             },
             "keyboard": {
                 "discard_post": "글 버리기",
