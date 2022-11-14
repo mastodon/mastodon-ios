@@ -73,7 +73,7 @@ final class AutoCompleteViewModel {
         
         inputText
             .removeDuplicates()
-            .receive(on: DispatchQueue.main)
+            .throttle(for: .milliseconds(200), scheduler: DispatchQueue.main, latest: true)
             .sink { [weak self] inputText in
                 guard let self = self else { return }
                 self.stateMachine.enter(State.Loading.self)

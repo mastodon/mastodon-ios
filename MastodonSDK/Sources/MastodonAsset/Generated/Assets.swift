@@ -8,6 +8,9 @@
 #elseif os(tvOS) || os(watchOS)
   import UIKit
 #endif
+#if canImport(SwiftUI)
+  import SwiftUI
+#endif
 
 // Deprecated typealiases
 @available(*, deprecated, renamed: "ColorAsset.Color", message: "This typealias will be removed in SwiftGen 7.0")
@@ -279,6 +282,24 @@ public final class ColorAsset {
     return color
   }()
 
+  #if os(iOS) || os(tvOS)
+  @available(iOS 11.0, tvOS 11.0, *)
+  public func color(compatibleWith traitCollection: UITraitCollection) -> Color {
+    let bundle = Bundle.module
+    guard let color = Color(named: name, in: bundle, compatibleWith: traitCollection) else {
+      fatalError("Unable to load color asset named \(name).")
+    }
+    return color
+  }
+  #endif
+
+  #if canImport(SwiftUI)
+  @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+  public private(set) lazy var swiftUIColor: SwiftUI.Color = {
+    SwiftUI.Color(asset: self)
+  }()
+  #endif
+
   fileprivate init(name: String) {
     self.name = name
   }
@@ -298,6 +319,16 @@ public extension ColorAsset.Color {
   }
 }
 
+#if canImport(SwiftUI)
+@available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+public extension SwiftUI.Color {
+  init(asset: ColorAsset) {
+    let bundle = Bundle.module
+    self.init(asset.name, bundle: bundle)
+  }
+}
+#endif
+
 public struct ImageAsset {
   public fileprivate(set) var name: String
 
@@ -307,6 +338,7 @@ public struct ImageAsset {
   public typealias Image = UIImage
   #endif
 
+  @available(iOS 8.0, tvOS 9.0, watchOS 2.0, macOS 10.7, *)
   public var image: Image {
     let bundle = Bundle.module
     #if os(iOS) || os(tvOS)
@@ -322,9 +354,28 @@ public struct ImageAsset {
     }
     return result
   }
+
+  #if os(iOS) || os(tvOS)
+  @available(iOS 8.0, tvOS 9.0, *)
+  public func image(compatibleWith traitCollection: UITraitCollection) -> Image {
+    let bundle = Bundle.module
+    guard let result = Image(named: name, in: bundle, compatibleWith: traitCollection) else {
+      fatalError("Unable to load image asset named \(name).")
+    }
+    return result
+  }
+  #endif
+
+  #if canImport(SwiftUI)
+  @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+  public var swiftUIImage: SwiftUI.Image {
+    SwiftUI.Image(asset: self)
+  }
+  #endif
 }
 
 public extension ImageAsset.Image {
+  @available(iOS 8.0, tvOS 9.0, watchOS 2.0, *)
   @available(macOS, deprecated,
     message: "This initializer is unsafe on macOS, please use the ImageAsset.image property")
   convenience init?(asset: ImageAsset) {
@@ -338,3 +389,23 @@ public extension ImageAsset.Image {
     #endif
   }
 }
+
+#if canImport(SwiftUI)
+@available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+public extension SwiftUI.Image {
+  init(asset: ImageAsset) {
+    let bundle = Bundle.module
+    self.init(asset.name, bundle: bundle)
+  }
+
+  init(asset: ImageAsset, label: Text) {
+    let bundle = Bundle.module
+    self.init(asset.name, bundle: bundle, label: label)
+  }
+
+  init(decorative asset: ImageAsset) {
+    let bundle = Bundle.module
+    self.init(decorative: asset.name, bundle: bundle)
+  }
+}
+#endif
