@@ -417,7 +417,9 @@
                 "custom_emoji_picker": "Hilbijêrê emojî yên kesanekirî",
                 "enable_content_warning": "Hişyariya naverokê çalak bike",
                 "disable_content_warning": "Hişyariya naverokê neçalak bike",
-                "post_visibility_menu": "Kulîna xuyabûna şandiyê"
+                "post_visibility_menu": "Kulîna xuyabûna şandiyê",
+                "post_options": "Post Options",
+                "posting_as": "Posting as %s"
             },
             "keyboard": {
                 "discard_post": "Şandî paşguh bike",
