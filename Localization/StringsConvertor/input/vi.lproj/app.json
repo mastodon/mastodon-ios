@@ -383,10 +383,10 @@
                 "attachment_broken": "%s này bị lỗi và không thể\ntải lên Mastodon.",
                 "description_photo": "Mô tả hình ảnh cho người khiếm thị...",
                 "description_video": "Mô tả video cho người khiếm thị...",
-                "load_failed": "Load Failed",
-                "upload_failed": "Upload Failed",
-                "can_not_recognize_this_media_attachment": "Can not regonize this media attachment",
-                "attachment_too_large": "Attachment too large"
+                "load_failed": "Tải thất bại",
+                "upload_failed": "Tải lên thất bại",
+                "can_not_recognize_this_media_attachment": "Không xem được tập tin đính kèm",
+                "attachment_too_large": "Tập tin đính kèm quá lớn"
             },
             "poll": {
                 "duration_time": "Thời hạn: %s",
@@ -418,8 +418,8 @@
                 "enable_content_warning": "Bật nội dung ẩn",
                 "disable_content_warning": "Tắt nội dung ẩn",
                 "post_visibility_menu": "Menu hiển thị tút",
-                "post_options": "Post Options",
-                "posting_as": "Posting as %s"
+                "post_options": "Tùy chọn đăng",
+                "posting_as": "Đăng dưới dạng %s"
             },
             "keyboard": {
                 "discard_post": "Hủy đăng tút",
