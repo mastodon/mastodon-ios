@@ -164,7 +164,7 @@
                     "emoji": "Emoji"
                 },
                 "visibility": {
-                    "unlisted": "Everyone can see this post but not display in the public timeline.",
+                    "unlisted": "Todos podem ver esta postagem, mas não são exibidos na linha do tempo pública.",
                     "private": "Somente seus seguidores podem ver essa postagem.",
                     "private_from_me": "Somente meus seguidores podem ver essa postagem.",
                     "direct": "Somente o usuário mencionado pode ver essa postagem."
@@ -202,8 +202,8 @@
                 },
                 "header": {
                     "no_status_found": "Nenhuma postagem encontrada",
-                    "blocking_warning": "You can’t view this user's profile\nuntil you unblock them.\nYour profile looks like this to them.",
-                    "user_blocking_warning": "You can’t view %s’s profile\nuntil you unblock them.\nYour profile looks like this to them.",
+                    "blocking_warning": "Você não pode ver o perfil deste usuário até desbloqueá-lo.\nSeu perfil aparece assim para esse usuário.",
+                    "user_blocking_warning": "Você não pode ver o perfil de %s até desbloqueá-lo.\nSeu perfil aparece assim para esse usuário.",
                     "blocked_warning": "Você não pode ver o perfil desse usuário até que ele o desbloqueie.",
                     "user_blocked_warning": "Você não pode ver o perfil de %s até que ele o desbloqueie.",
                     "suspended_warning": "Esse usuário foi suspenso.",
@@ -259,7 +259,7 @@
         },
         "register": {
             "title": "Vamos configurar você em %s",
-            "lets_get_you_set_up_on_domain": "Let’s get you set up on %s",
+            "lets_get_you_set_up_on_domain": "Vamos configurar você em %s",
             "input": {
                 "avatar": {
                     "delete": "Excluir"
@@ -279,13 +279,13 @@
                     "require": "Sua senha deve ter pelo menos:",
                     "character_limit": "8 carácteres",
                     "accessibility": {
-                        "checked": "checked",
-                        "unchecked": "unchecked"
+                        "checked": "marcado",
+                        "unchecked": "desmarcado"
                     },
                     "hint": "Sua senha precisa ter pelo menos oito carácteres"
                 },
                 "invite": {
-                    "registration_user_invite_request": "Why do you want to join?"
+                    "registration_user_invite_request": "Por que você deseja se inscrever?"
                 }
             },
             "error": {
@@ -298,51 +298,51 @@
                     "reason": "Motivo"
                 },
                 "reason": {
-                    "blocked": "%s contains a disallowed email provider",
+                    "blocked": "%s contém um provedor de e-mail não permitido",
                     "unreachable": "%s parece não existir",
                     "taken": "%s já está em uso",
-                    "reserved": "%s is a reserved keyword",
-                    "accepted": "%s must be accepted",
-                    "blank": "%s is required",
-                    "invalid": "%s is invalid",
-                    "too_long": "%s is too long",
-                    "too_short": "%s is too short",
-                    "inclusion": "%s is not a supported value"
+                    "reserved": "%s é uma palavra-chave reservada",
+                    "accepted": "%s deve ser aceite",
+                    "blank": "%s é obrigatório",
+                    "invalid": "%s é inválido",
+                    "too_long": "%s é muito longo",
+                    "too_short": "%s é muito curto",
+                    "inclusion": "%s não é um valor suportado"
                 },
                 "special": {
-                    "username_invalid": "Username must only contain alphanumeric characters and underscores",
-                    "username_too_long": "Username is too long (can’t be longer than 30 characters)",
-                    "email_invalid": "This is not a valid email address",
-                    "password_too_short": "Password is too short (must be at least 8 characters)"
+                    "username_invalid": "O nome de usuário só pode conter caracteres alfanuméricos e underlines (_)",
+                    "username_too_long": "Nome de usuário é muito longo (não pode ter mais de 30 caracteres)",
+                    "email_invalid": "Este não é um endereço de e-mail válido",
+                    "password_too_short": "A senha é muito curta (deve ter pelo menos 8 caracteres)"
                 }
             }
         },
         "server_rules": {
-            "title": "Some ground rules.",
-            "subtitle": "These are set and enforced by the %s moderators.",
-            "prompt": "By continuing, you’re subject to the terms of service and privacy policy for %s.",
-            "terms_of_service": "terms of service",
-            "privacy_policy": "privacy policy",
+            "title": "Algumas regras básicas.",
+            "subtitle": "Estes são definidos e aplicados pelos moderadores da %s.",
+            "prompt": "Ao continuar, você estará sujeito aos termos de serviço e política de privacidade para %s.",
+            "terms_of_service": "termos de serviço",
+            "privacy_policy": "política de privacidade",
             "button": {
-                "confirm": "I Agree"
+                "confirm": "Eu concordo"
             }
         },
         "confirm_email": {
-            "title": "One last thing.",
-            "subtitle": "Tap the link we emailed to you to verify your account.",
-            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we emailed to you to verify your account",
+            "title": "Uma última coisa.",
+            "subtitle": "Clique no link que te enviamos por e-mail para verificar a sua conta.",
+            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Clique no link que te enviamos por e-mail para verificar a sua conta",
             "button": {
-                "open_email_app": "Open Email App",
-                "resend": "Resend"
+                "open_email_app": "Abrir aplicativo de e-mail",
+                "resend": "Reenviar"
             },
             "dont_receive_email": {
-                "title": "Check your email",
-                "description": "Check if your email address is correct as well as your junk folder if you haven’t.",
-                "resend_email": "Resend Email"
+                "title": "Verifique o seu e-mail",
+                "description": "Verifique se o seu endereço de e-mail está correto, e também a sua pasta de spam caso não tenha verificado.",
+                "resend_email": "Reenviar e-mail"
             },
             "open_email_app": {
-                "title": "Check your inbox.",
-                "description": "We just sent you an email. Check your junk folder if you haven’t.",
+                "title": "Verifique sua caixa de entrada.",
+                "description": "Enviamos um e-mail para você. Verifique sua pasta de spam caso ainda tenha verificado.",
                 "mail": "Mail",
                 "open_email_client": "Open Email Client"
             }
@@ -350,12 +350,12 @@
         "home_timeline": {
             "title": "Home",
             "navigation_bar_state": {
-                "offline": "Offline",
-                "new_posts": "See new posts",
-                "published": "Published!",
-                "Publishing": "Publishing post...",
+                "offline": "Desconectado",
+                "new_posts": "Ver novas postagens",
+                "published": "Publicado!",
+                "Publishing": "Publicando toot...",
                 "accessibility": {
-                    "logo_label": "Logo Button",
+                    "logo_label": "Botão do logotipo",
                     "logo_hint": "Tap to scroll to top and tap again to previous location"
                 }
             }
@@ -366,12 +366,12 @@
         },
         "compose": {
             "title": {
-                "new_post": "New Post",
-                "new_reply": "New Reply"
+                "new_post": "Novo toot",
+                "new_reply": "Nova resposta"
             },
             "media_selection": {
-                "camera": "Take Photo",
-                "photo_library": "Photo Library",
+                "camera": "Tirar foto",
+                "photo_library": "Galeria",
                 "browse": "Navegar"
             },
             "content_input_placeholder": "Digite ou cole o que está na sua mente",
@@ -418,8 +418,8 @@
                 "enable_content_warning": "Enable Content Warning",
                 "disable_content_warning": "Disable Content Warning",
                 "post_visibility_menu": "Post Visibility Menu",
-                "post_options": "Post Options",
-                "posting_as": "Posting as %s"
+                "post_options": "Opções de postagem",
+                "posting_as": "Publicando como %s"
             },
             "keyboard": {
                 "discard_post": "Discard Post",
@@ -443,20 +443,20 @@
                 "add_row": "Add Row",
                 "placeholder": {
                     "label": "Label",
-                    "content": "Content"
+                    "content": "Conteúdo"
                 }
             },
             "segmented_control": {
-                "posts": "Posts",
-                "replies": "Replies",
-                "posts_and_replies": "Posts and Replies",
-                "media": "Media",
-                "about": "About"
+                "posts": "Toots",
+                "replies": "Respostas",
+                "posts_and_replies": "Toots e respostas",
+                "media": "Mídia",
+                "about": "Sobre"
             },
             "relationship_action_alert": {
                 "confirm_mute_user": {
-                    "title": "Mute Account",
-                    "message": "Confirm to mute %s"
+                    "title": "Silenciar conta",
+                    "message": "Confirme para silenciar %s"
                 },
                 "confirm_unmute_user": {
                     "title": "Unmute Account",
