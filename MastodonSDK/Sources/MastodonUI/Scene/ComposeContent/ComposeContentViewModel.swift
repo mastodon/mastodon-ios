@@ -229,6 +229,32 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
             break
         }
         
+        // set limit
+        let _configuration: Mastodon.Entity.Instance.Configuration? = {
+            var configuration: Mastodon.Entity.Instance.Configuration? = nil
+            context.managedObjectContext.performAndWait {
+                guard let authentication = authContext.mastodonAuthenticationBox.authenticationRecord.object(in: context.managedObjectContext)
+                else { return }
+                configuration = authentication.instance?.configuration
+            }
+            return configuration
+        }()
+        if let configuration = _configuration {
+            // set character limit
+            if let maxCharacters = configuration.statuses?.maxCharacters {
+                maxTextInputLimit = maxCharacters
+            }
+            // set media limit
+            if let maxMediaAttachments = configuration.statuses?.maxMediaAttachments {
+                maxMediaAttachmentLimit = maxMediaAttachments
+            }
+            // set poll option limit
+            if let maxOptions = configuration.polls?.maxOptions {
+                maxPollOptionLimit = maxOptions
+            }
+            // TODO: more limit
+        }
+        
         bind()
     }
     
