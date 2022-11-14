@@ -65,7 +65,7 @@ public struct AttachmentView: View {
                     if viewModel.output == nil, let error = viewModel.error {
                         VisualEffectView(effect: blurEffect)
                         VStack {
-                            Text(L10n.Scene.Compose.Attachment)    // TODO: i18n
+                            Text(L10n.Scene.Compose.Attachment.loadFailed)
                                 .font(.system(size: 13, weight: .semibold))
                             Text(error.localizedDescription)
                                 .font(.system(size: 12, weight: .regular))
@@ -123,7 +123,7 @@ public struct AttachmentView: View {
                                 case .remove:
                                     switch viewModel.uploadState {
                                     case .compressing:
-                                        return "Comporessing..."    // TODO: i18n
+                                        return "Compressing..."    // TODO: i18n
                                     default:
                                         if viewModel.fractionCompleted < 0.9 {
                                             let totalSizeInByte = viewModel.outputSizeInByte
@@ -136,7 +136,7 @@ public struct AttachmentView: View {
                                         }
                                     }
                                 case .retry:
-                                    return "Upload Failed"  // TODO: i18n
+                                    return L10n.Scene.Compose.Attachment.uploadFailed
                                 }
                             }()
                             let subtitle: String = {

@@ -479,7 +479,7 @@ extension ComposeContentViewModel {
         public var errorDescription: String? {
             switch self {
             case .pollHasEmptyOption:
-                return "The post poll is invalid"  // TODO: i18n
+                return "The poll is invalid"  // TODO: i18n
             }
         }
         

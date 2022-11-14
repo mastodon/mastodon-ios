@@ -11,6 +11,7 @@ import Combine
 import PhotosUI
 import Kingfisher
 import MastodonCore
+import MastodonLocalization
 import func QuartzCore.CACurrentMediaTime
 
 public protocol AttachmentViewModelDelegate: AnyObject {
@@ -48,9 +49,7 @@ final public class AttachmentViewModel: NSObject, ObservableObject, Identifiable
     public let authContext: AuthContext
     public let input: Input
     @Published var caption = ""
-    @Published var sizeLimit = SizeLimit()
-    
-    // var compressVideoTask: Task<URL, Error>?
+    // @Published var sizeLimit = SizeLimit()
     
     // output
     @Published public private(set) var output: Output?
@@ -263,15 +262,16 @@ extension AttachmentViewModel {
         }
     }
         
+    // not in using
     public struct SizeLimit {
         public let image: Int
         public let gif: Int
         public let video: Int
         
         public init(
-            image: Int = 5 * 1024 * 1024,           // 5 MiB,
-            gif: Int = 15 * 1024 * 1024,            // 15 MiB,
-            video: Int = 512 * 1024 * 1024          // 512 MiB
+            image: Int = 10 * 1024 * 1024,          // 10 MiB
+            gif: Int = 40 * 1024 * 1024,            // 40 MiB
+            video: Int = 40 * 1024 * 1024           // 40 MiB
         ) {
             self.image = image
             self.gif = gif
@@ -286,9 +286,9 @@ extension AttachmentViewModel {
         public var errorDescription: String? {
             switch self {
             case .invalidAttachmentType:
-                return "Can not regonize this media attachment" // TODO: i18n
+                return L10n.Scene.Compose.Attachment.canNotRecognizeThisMediaAttachment
             case .attachmentTooLarge:
-                return "Attachment too large"
+                return L10n.Scene.Compose.Attachment.attachmentTooLarge
             }
         }
     }
