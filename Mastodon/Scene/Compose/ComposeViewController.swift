@@ -44,20 +44,6 @@ final class ComposeViewController: UIViewController, NeedsDependency {
     }()
     
     private(set) lazy var cancelBarButtonItem = UIBarButtonItem(title: L10n.Common.Controls.Actions.cancel, style: .plain, target: self, action: #selector(ComposeViewController.cancelBarButtonItemPressed(_:)))
-    
-    // FIXME: deprecated
-    // let characterCountLabel: UILabel = {
-    //     let label = UILabel()
-    //     label.font = .systemFont(ofSize: 15, weight: .regular)
-    //     label.text = "500"
-    //     label.textColor = Asset.Colors.Label.secondary.color
-    //     label.accessibilityLabel = L10n.A11y.Plural.Count.inputLimitRemains(500)
-    //     return label
-    // }()
-    // private(set) lazy var characterCountBarButtonItem: UIBarButtonItem = {
-    //     let barButtonItem = UIBarButtonItem(customView: characterCountLabel)
-    //     return barButtonItem
-    // }()
 
     let publishButton: UIButton = {
         let button = RoundedEdgesButton(type: .custom)
@@ -93,20 +79,6 @@ final class ComposeViewController: UIViewController, NeedsDependency {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
     }
     
-}
-
-extension ComposeViewController {
-    private static func createLayout() -> UICollectionViewLayout {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(44))
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(44))
-        let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
-        let section = NSCollectionLayoutSection(group: group)
-        section.contentInsetsReference = .readableContent
-        // section.interGroupSpacing = 10
-        // section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10)
-        return UICollectionViewCompositionalLayout(section: section)
-    }
 }
 
 extension ComposeViewController {
@@ -180,45 +152,6 @@ extension ComposeViewController {
         alertController.popoverPresentationController?.barButtonItem = cancelBarButtonItem
         present(alertController, animated: true, completion: nil)
     }
-
-//    private func setupBackgroundColor(theme: Theme) {
-//        let backgroundColor = UIColor(dynamicProvider: { traitCollection in
-//            switch traitCollection.userInterfaceStyle {
-//            case .light:
-//                return .systemBackground
-//            default:
-//                return theme.systemElevatedBackgroundColor
-//            }
-//        })
-//        view.backgroundColor = backgroundColor
-////        tableView.backgroundColor = backgroundColor
-////        composeToolbarBackgroundView.backgroundColor = theme.composeToolbarBackgroundColor
-//    }
-//    
-//    // keyboard shortcutBar
-//    private func setupInputAssistantItem(item: UITextInputAssistantItem) {
-//        let barButtonItems = [
-//            composeToolbarView.mediaBarButtonItem,
-//            composeToolbarView.pollBarButtonItem,
-//            composeToolbarView.contentWarningBarButtonItem,
-//            composeToolbarView.visibilityBarButtonItem,
-//        ]
-//        let group = UIBarButtonItemGroup(barButtonItems: barButtonItems, representativeItem: nil)
-//        
-//        item.trailingBarButtonGroups = [group]
-//    }
-//    
-//    private func configureToolbarDisplay(keyboardHasShortcutBar: Bool) {
-//        switch self.traitCollection.userInterfaceIdiom {
-//        case .pad:
-//            let shouldHideToolbar = keyboardHasShortcutBar && self.traitCollection.horizontalSizeClass == .regular
-//            self.composeToolbarView.alpha = shouldHideToolbar ? 0 : 1
-//            self.composeToolbarBackgroundView.alpha = shouldHideToolbar ? 0 : 1
-//        default:
-//            break
-//        }
-//    }
-//
 
 }
 
