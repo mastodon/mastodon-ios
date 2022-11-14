@@ -385,8 +385,10 @@
                 "description_video": "Vîdyoyê ji bo kêmbînên dîtbar bide nasîn...",
                 "load_failed": "Barkirin têk çû",
                 "upload_failed": "Barkirin têk çû",
-                "can_not_recognize_this_media_attachment": "Nikare ev pêveka medyayê nas bike",
-                "attachment_too_large": "Pêvek pir mezin e"
+                "can_not_recognize_this_media_attachment": "Can not recognize this media attachment",
+                "attachment_too_large": "Pêvek pir mezin e",
+                "compressing_state": "Compressing...",
+                "server_processing_state": "Server Processing..."
             },
             "poll": {
                 "duration_time": "Dirêjî: %s",
@@ -396,7 +398,9 @@
                 "one_day": "1 Roj",
                 "three_days": "3 Roj",
                 "seven_days": "7 Roj",
-                "option_number": "Vebijêrk %ld"
+                "option_number": "Vebijêrk %ld",
+                "the_poll_is_invalid": "The poll is invalid",
+                "the_poll_has_empty_option": "The poll has empty option"
             },
             "content_warning": {
                 "placeholder": "Li vir hişyariyek hûrgilî binivîsine..."
@@ -444,6 +448,10 @@
                 "placeholder": {
                     "label": "Nîşan",
                     "content": "Naverok"
+                },
+                "verified": {
+                    "short": "Verified on %s",
+                    "long": "Ownership of this link was checked on %s"
                 }
             },
             "segmented_control": {
