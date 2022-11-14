@@ -383,10 +383,10 @@
                 "attachment_broken": "此 %s 已損毀，並無法被上傳至 Mastodon。",
                 "description_photo": "為視障人士提供圖片說明...",
                 "description_video": "為視障人士提供影片說明...",
-                "load_failed": "Load Failed",
-                "upload_failed": "Upload Failed",
-                "can_not_recognize_this_media_attachment": "Can not regonize this media attachment",
-                "attachment_too_large": "Attachment too large"
+                "load_failed": "讀取失敗",
+                "upload_failed": "上傳失敗",
+                "can_not_recognize_this_media_attachment": "無法識別此媒體附加檔案",
+                "attachment_too_large": "附加檔案大小過大"
             },
             "poll": {
                 "duration_time": "持續時間：%s",
