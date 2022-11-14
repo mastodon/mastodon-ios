@@ -440,7 +440,7 @@
                     "content": "Content"
                 },
                 "verified": {
-                    "short": "Verified at %s",
+                    "short": "Verified on %s",
                     "long": "Ownership of this link was checked on %s"
                 }
             },
