@@ -451,7 +451,7 @@
                 },
                 "verified": {
                     "short": "Verified on %s",
-                    "long": "Ownership of this link was checked on %s"
+                    "long": "Besitz des Links wurde überprüft am %s"
                 }
             },
             "segmented_control": {
