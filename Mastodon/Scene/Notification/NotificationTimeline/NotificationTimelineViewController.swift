@@ -26,8 +26,8 @@ final class NotificationTimelineViewController: UIViewController, NeedsDependenc
 
     var viewModel: NotificationTimelineViewModel!
     
-    private(set) lazy var refreshControl: UIRefreshControl = {
-        let refreshControl = UIRefreshControl()
+    private(set) lazy var refreshControl: RefreshControl = {
+        let refreshControl = RefreshControl()
         refreshControl.addTarget(self, action: #selector(NotificationTimelineViewController.refreshControlValueChanged(_:)), for: .valueChanged)
         return refreshControl
     }()
@@ -137,7 +137,7 @@ extension NotificationTimelineViewController: CellFrameCacheContainer {
 
 extension NotificationTimelineViewController {
 
-    @objc private func refreshControlValueChanged(_ sender: UIRefreshControl) {
+    @objc private func refreshControlValueChanged(_ sender: RefreshControl) {
         logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
         
         Task {

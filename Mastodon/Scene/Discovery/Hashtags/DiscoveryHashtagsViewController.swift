@@ -32,7 +32,7 @@ final class DiscoveryHashtagsViewController: UIViewController, NeedsDependency, 
         return tableView
     }()
     
-    let refreshControl = UIRefreshControl()
+    let refreshControl = RefreshControl()
     
     deinit {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
@@ -88,7 +88,7 @@ extension DiscoveryHashtagsViewController {
 
 extension DiscoveryHashtagsViewController {
     
-    @objc private func refreshControlValueChanged(_ sender: UIRefreshControl) {
+    @objc private func refreshControlValueChanged(_ sender: RefreshControl) {
         Task { @MainActor in
             do {
                 try await viewModel.fetch()

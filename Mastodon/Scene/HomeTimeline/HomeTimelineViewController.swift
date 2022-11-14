@@ -74,7 +74,7 @@ final class HomeTimelineViewController: UIViewController, NeedsDependency, Media
         return progressView
     }()
     
-    let refreshControl = UIRefreshControl()
+    let refreshControl = RefreshControl()
     
     deinit {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s:", ((#file as NSString).lastPathComponent), #line, #function)
@@ -398,7 +398,7 @@ extension HomeTimelineViewController {
         coordinator.present(scene: .settings(viewModel: settingsViewModel), from: self, transition: .modal(animated: true, completion: nil))
     }
 
-    @objc private func refreshControlValueChanged(_ sender: UIRefreshControl) {
+    @objc private func refreshControlValueChanged(_ sender: RefreshControl) {
         guard viewModel.loadLatestStateMachine.enter(HomeTimelineViewModel.LoadLatestState.Loading.self) else {
             sender.endRefreshing()
             return
