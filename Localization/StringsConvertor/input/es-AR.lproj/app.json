@@ -386,7 +386,9 @@
                 "load_failed": "Falló la descarga",
                 "upload_failed": "Falló la subida",
                 "can_not_recognize_this_media_attachment": "No se pudo reconocer este archivo adjunto",
-                "attachment_too_large": "Adjunto demasiado grande"
+                "attachment_too_large": "Adjunto demasiado grande",
+                "compressing_state": "Comprimiendo…",
+                "server_processing_state": "Servidor procesando…"
             },
             "poll": {
                 "duration_time": "Duración: %s",
@@ -396,7 +398,9 @@
                 "one_day": "1 día",
                 "three_days": "3 días",
                 "seven_days": "7 días",
-                "option_number": "Opción %ld"
+                "option_number": "Opción %ld",
+                "the_poll_is_invalid": "La encuesta no es válida",
+                "the_poll_has_empty_option": "La encuesta tiene opción vacía"
             },
             "content_warning": {
                 "placeholder": "Escribí una advertencia precisa acá…"
@@ -444,6 +448,10 @@
                 "placeholder": {
                     "label": "Nombre de campo",
                     "content": "Valor de campo"
+                },
+                "verified": {
+                    "short": "Verificado en %s",
+                    "long": "La propiedad de este enlace fue verificada el %s"
                 }
             },
             "segmented_control": {
