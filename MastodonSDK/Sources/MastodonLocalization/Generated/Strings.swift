@@ -314,6 +314,24 @@ public enum L10n {
           /// Undo reblog
           public static let unreblog = L10n.tr("Localizable", "Common.Controls.Status.Actions.Unreblog")
         }
+        public enum MetaEntity {
+          /// Email address: %@
+          public static func email(_ p1: Any) -> String {
+            return L10n.tr("Localizable", "Common.Controls.Status.MetaEntity.Email", String(describing: p1))
+          }
+          /// Hastag %@
+          public static func hashtag(_ p1: Any) -> String {
+            return L10n.tr("Localizable", "Common.Controls.Status.MetaEntity.Hashtag", String(describing: p1))
+          }
+          /// Show Profile: %@
+          public static func mention(_ p1: Any) -> String {
+            return L10n.tr("Localizable", "Common.Controls.Status.MetaEntity.Mention", String(describing: p1))
+          }
+          /// Link: %@
+          public static func url(_ p1: Any) -> String {
+            return L10n.tr("Localizable", "Common.Controls.Status.MetaEntity.Url", String(describing: p1))
+          }
+        }
         public enum Poll {
           /// Closed
           public static let closed = L10n.tr("Localizable", "Common.Controls.Status.Poll.Closed")
@@ -429,6 +447,12 @@ public enum L10n {
         public static let disableContentWarning = L10n.tr("Localizable", "Scene.Compose.Accessibility.DisableContentWarning")
         /// Enable Content Warning
         public static let enableContentWarning = L10n.tr("Localizable", "Scene.Compose.Accessibility.EnableContentWarning")
+        /// Posting as %@
+        public static func postingAs(_ p1: Any) -> String {
+          return L10n.tr("Localizable", "Scene.Compose.Accessibility.PostingAs", String(describing: p1))
+        }
+        /// Post Options
+        public static let postOptions = L10n.tr("Localizable", "Scene.Compose.Accessibility.PostOptions")
         /// Post Visibility Menu
         public static let postVisibilityMenu = L10n.tr("Localizable", "Scene.Compose.Accessibility.PostVisibilityMenu")
         /// Remove Poll
@@ -1256,6 +1280,10 @@ public enum L10n {
   public enum A11y {
     public enum Plural {
       public enum Count {
+        /// Plural format key: "%#@character_count@ left"
+        public static func charactersLeft(_ p1: Int) -> String {
+          return L10n.tr("Localizable", "a11y.plural.count.characters_left", p1)
+        }
         /// Plural format key: "Input limit exceeds %#@character_count@"
         public static func inputLimitExceeds(_ p1: Int) -> String {
           return L10n.tr("Localizable", "a11y.plural.count.input_limit_exceeds", p1)

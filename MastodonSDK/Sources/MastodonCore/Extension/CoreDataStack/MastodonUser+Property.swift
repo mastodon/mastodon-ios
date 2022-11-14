@@ -10,6 +10,10 @@ import CoreDataStack
 import MastodonSDK
 
 extension MastodonUser.Property {
+    public init(entity: Mastodon.Entity.Account, domain: String) {
+        self.init(entity: entity, domain: domain, networkDate: Date())
+    }
+    
     init(entity: Mastodon.Entity.Account, domain: String, networkDate: Date) {
         self.init(
             identifier: entity.id + "@" + domain,

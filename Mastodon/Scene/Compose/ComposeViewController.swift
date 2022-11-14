@@ -86,34 +86,7 @@ final class ComposeViewController: UIViewController, NeedsDependency {
         publishButton.setBackgroundImage(.placeholder(color: Asset.Colors.Button.disabled.color), for: .disabled)
         publishButton.setTitleColor(Asset.Colors.Label.primaryReverse.color, for: .normal)
     }
-    
-//    var systemKeyboardHeight: CGFloat = .zero {
-//        didSet {
-//            // note: some system AutoLayout warning here
-//            let height = max(300, systemKeyboardHeight)
-//            customEmojiPickerInputView.frame.size.height = height
-//        }
-//    }
-//
-//    // CustomEmojiPickerView
-//    let customEmojiPickerInputView: CustomEmojiPickerInputView = {
-//        let view = CustomEmojiPickerInputView(frame: CGRect(x: 0, y: 0, width: 0, height: 300), inputViewStyle: .keyboard)
-//        return view
-//    }()
-//
-//    let composeToolbarView = ComposeToolbarView()
-//    var composeToolbarViewBottomLayoutConstraint: NSLayoutConstraint!
-//    let composeToolbarBackgroundView = UIView()
-//
-//
-//    private(set) lazy var autoCompleteViewController: AutoCompleteViewController = {
-//        let viewController = AutoCompleteViewController()
-//        viewController.viewModel = AutoCompleteViewModel(context: context, authContext: viewModel.authContext)
-//        viewController.delegate = self
-//        viewController.viewModel.customEmojiViewModel.value = viewModel.customEmojiViewModel
-//        return viewController
-//    }()
-    
+
     deinit {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
     }
@@ -147,9 +120,9 @@ extension ComposeViewController {
                 guard let self = self else { return }
                 guard self.traitCollection.userInterfaceIdiom == .pad else { return }
                 var items = [self.publishBarButtonItem]
-                if self.traitCollection.horizontalSizeClass == .regular {
-                    items.append(self.characterCountBarButtonItem)
-                }
+                // if self.traitCollection.horizontalSizeClass == .regular {
+                //     items.append(self.characterCountBarButtonItem)
+                // }
                 self.navigationItem.rightBarButtonItems = items
             }
             .store(in: &disposeBag)
@@ -166,380 +139,56 @@ extension ComposeViewController {
         ])
         composeContentViewController.didMove(toParent: self)
 
-//        configureNavigationBarTitleStyle()
-//        viewModel.traitCollectionDidChangePublisher
-//            .receive(on: DispatchQueue.main)
-//            .sink { [weak self] _ in
-//                guard let self = self else { return }
-//                self.configureNavigationBarTitleStyle()
-//            }
-//            .store(in: &disposeBag)
-//
-//        viewModel.$title
-//            .receive(on: DispatchQueue.main)
-//            .sink { [weak self] title in
-//                guard let self = self else { return }
-//                self.title = title
-//            }
-//            .store(in: &disposeBag)
-//
-//        composeToolbarView.translatesAutoresizingMaskIntoConstraints = false
-//        view.addSubview(composeToolbarView)
-//        composeToolbarViewBottomLayoutConstraint = view.bottomAnchor.constraint(equalTo: composeToolbarView.bottomAnchor)
-//        NSLayoutConstraint.activate([
-//            composeToolbarView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-//            composeToolbarView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-//            composeToolbarViewBottomLayoutConstraint,
-//            composeToolbarView.heightAnchor.constraint(equalToConstant: ComposeToolbarView.toolbarHeight),
-//        ])
-//        composeToolbarView.preservesSuperviewLayoutMargins = true
-//        composeToolbarView.delegate = self
-//
-//        composeToolbarBackgroundView.translatesAutoresizingMaskIntoConstraints = false
-//        view.insertSubview(composeToolbarBackgroundView, belowSubview: composeToolbarView)
-//        NSLayoutConstraint.activate([
-//            composeToolbarBackgroundView.topAnchor.constraint(equalTo: composeToolbarView.topAnchor),
-//            composeToolbarBackgroundView.leadingAnchor.constraint(equalTo: composeToolbarView.leadingAnchor),
-//            composeToolbarBackgroundView.trailingAnchor.constraint(equalTo: composeToolbarView.trailingAnchor),
-//            view.bottomAnchor.constraint(equalTo: composeToolbarBackgroundView.bottomAnchor),
-//        ])
+        // bind navigation bar style
+        // configureNavigationBarTitleStyle()
+        viewModel.traitCollectionDidChangePublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                self.configureNavigationBarTitleStyle()
+            }
+            .store(in: &disposeBag)
 
-//        tableView.delegate = self
-//        viewModel.setupDataSource(
-//            tableView: tableView,
-//            metaTextDelegate: self,
-//            metaTextViewDelegate: self,
-//            customEmojiPickerInputViewModel: viewModel.customEmojiPickerInputViewModel,
-//            composeStatusAttachmentCollectionViewCellDelegate: self,
-//            composeStatusPollOptionCollectionViewCellDelegate: self,
-//            composeStatusPollOptionAppendEntryCollectionViewCellDelegate: self,
-//            composeStatusPollExpiresOptionCollectionViewCellDelegate: self
-//        )
+        // bind title
+        viewModel.$title
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] title in
+                guard let self = self else { return }
+                self.title = title
+            }
+            .store(in: &disposeBag)
 
-//        viewModel.composeStatusAttribute.$composeContent
-//            .removeDuplicates()
-//            .receive(on: DispatchQueue.main)
-//            .sink { [weak self] _ in
-//                guard let self = self else { return }
-//                guard self.view.window != nil else { return }
-//                UIView.performWithoutAnimation {
-//                    self.tableView.beginUpdates()
-//                    self.tableView.setNeedsLayout()
-//                    self.tableView.layoutIfNeeded()
-//                    self.tableView.endUpdates()
-//                }
-//            }
-//            .store(in: &disposeBag)
-        
-//        customEmojiPickerInputView.collectionView.delegate = self
-//        viewModel.customEmojiPickerInputViewModel.customEmojiPickerInputView = customEmojiPickerInputView
-//        viewModel.setupCustomEmojiPickerDiffableDataSource(
-//            for: customEmojiPickerInputView.collectionView,
-//            dependency: self
-//        )
-        
-//        viewModel.composeStatusContentTableViewCell.delegate = self
-//
-//        // update layout when keyboard show/dismiss
-//        view.layoutIfNeeded()
-//
-
-//
-//        // bind auto-complete
-//        viewModel.$autoCompleteInfo
-//            .receive(on: DispatchQueue.main)
-//            .sink { [weak self] info in
-//                guard let self = self else { return }
-//                let textEditorView = self.textEditorView
-//                if self.autoCompleteViewController.view.superview == nil {
-//                    self.autoCompleteViewController.view.frame = self.view.bounds
-//                    // add to container view. seealso: `viewDidLayoutSubviews()`
-//                    self.viewModel.composeStatusContentTableViewCell.textEditorViewContainerView.addSubview(self.autoCompleteViewController.view)
-//                    self.addChild(self.autoCompleteViewController)
-//                    self.autoCompleteViewController.didMove(toParent: self)
-//                    self.autoCompleteViewController.view.isHidden = true
-//                    self.tableView.autoCompleteViewController = self.autoCompleteViewController
-//                }
-//                self.updateAutoCompleteViewControllerLayout()
-//                self.autoCompleteViewController.view.isHidden = info == nil
-//                guard let info = info else { return }
-//                let symbolBoundingRectInContainer = textEditorView.textView.convert(info.symbolBoundingRect, to: self.autoCompleteViewController.chevronView)
-//                self.autoCompleteViewController.view.frame.origin.y = info.textBoundingRect.maxY
-//                self.autoCompleteViewController.viewModel.symbolBoundingRect.value = symbolBoundingRectInContainer
-//                self.autoCompleteViewController.viewModel.inputText.value = String(info.inputText)
-//            }
-//            .store(in: &disposeBag)
-//
-//        // bind publish bar button state
-//        viewModel.$isPublishBarButtonItemEnabled
-//            .receive(on: DispatchQueue.main)
-//            .assign(to: \.isEnabled, on: publishButton)
-//            .store(in: &disposeBag)
-//
-//        // bind media button toolbar state
-//        viewModel.$isMediaToolbarButtonEnabled
-//            .receive(on: DispatchQueue.main)
-//            .sink { [weak self] isMediaToolbarButtonEnabled in
-//                guard let self = self else { return }
-//                self.composeToolbarView.mediaBarButtonItem.isEnabled = isMediaToolbarButtonEnabled
-//                self.composeToolbarView.mediaButton.isEnabled = isMediaToolbarButtonEnabled
-//            }
-//            .store(in: &disposeBag)
-//
-//        // bind poll button toolbar state
-//        viewModel.$isPollToolbarButtonEnabled
-//            .receive(on: DispatchQueue.main)
-//            .sink { [weak self] isPollToolbarButtonEnabled in
-//                guard let self = self else { return }
-//                self.composeToolbarView.pollBarButtonItem.isEnabled = isPollToolbarButtonEnabled
-//                self.composeToolbarView.pollButton.isEnabled = isPollToolbarButtonEnabled
-//            }
-//            .store(in: &disposeBag)
-//
-//        Publishers.CombineLatest(
-//            viewModel.$isPollComposing,
-//            viewModel.$isPollToolbarButtonEnabled
-//        )
-//        .receive(on: DispatchQueue.main)
-//        .sink { [weak self] isPollComposing, isPollToolbarButtonEnabled in
-//            guard let self = self else { return }
-//            guard isPollToolbarButtonEnabled else {
-//                let accessibilityLabel = L10n.Scene.Compose.Accessibility.appendPoll
-//                self.composeToolbarView.pollBarButtonItem.accessibilityLabel = accessibilityLabel
-//                self.composeToolbarView.pollButton.accessibilityLabel = accessibilityLabel
-//                return
-//            }
-//            let accessibilityLabel = isPollComposing ? L10n.Scene.Compose.Accessibility.removePoll : L10n.Scene.Compose.Accessibility.appendPoll
-//            self.composeToolbarView.pollBarButtonItem.accessibilityLabel = accessibilityLabel
-//            self.composeToolbarView.pollButton.accessibilityLabel = accessibilityLabel
-//        }
-//        .store(in: &disposeBag)
-//
-//        // bind image picker toolbar state
-//        viewModel.$attachmentServices
-//            .receive(on: DispatchQueue.main)
-//            .sink { [weak self] attachmentServices in
-//                guard let self = self else { return }
-//                let isEnabled = attachmentServices.count < self.viewModel.maxMediaAttachments
-//                self.composeToolbarView.mediaBarButtonItem.isEnabled = isEnabled
-//                self.composeToolbarView.mediaButton.isEnabled = isEnabled
-//                self.resetImagePicker()
-//            }
-//            .store(in: &disposeBag)
-//
-//        // bind content warning button state
-//        viewModel.$isContentWarningComposing
-//            .receive(on: DispatchQueue.main)
-//            .sink { [weak self] isContentWarningComposing in
-//                guard let self = self else { return }
-//                let accessibilityLabel = isContentWarningComposing ? L10n.Scene.Compose.Accessibility.disableContentWarning : L10n.Scene.Compose.Accessibility.enableContentWarning
-//                self.composeToolbarView.contentWarningBarButtonItem.accessibilityLabel = accessibilityLabel
-//                self.composeToolbarView.contentWarningButton.accessibilityLabel = accessibilityLabel
-//            }
-//            .store(in: &disposeBag)
-//
-//        // bind visibility toolbar UI
-//        Publishers.CombineLatest(
-//            viewModel.$selectedStatusVisibility,
-//            viewModel.traitCollectionDidChangePublisher
-//        )
-//        .receive(on: DispatchQueue.main)
-//        .sink { [weak self] type, _ in
-//            guard let self = self else { return }
-//            let image = type.image(interfaceStyle: self.traitCollection.userInterfaceStyle)
-//            self.composeToolbarView.visibilityBarButtonItem.image = image
-//            self.composeToolbarView.visibilityButton.setImage(image, for: .normal)
-//            self.composeToolbarView.activeVisibilityType.value = type
-//        }
-//        .store(in: &disposeBag)
-//
-//        viewModel.$characterCount
-//            .receive(on: DispatchQueue.main)
-//            .sink { [weak self] characterCount in
-//                guard let self = self else { return }
-//                let count = self.viewModel.composeContentLimit - characterCount
-//                self.composeToolbarView.characterCountLabel.text = "\(count)"
-//                self.characterCountLabel.text = "\(count)"
-//                let font: UIFont
-//                let textColor: UIColor
-//                let accessibilityLabel: String
-//                switch count {
-//                case _ where count < 0:
-//                    font = .monospacedDigitSystemFont(ofSize: 24, weight: .bold)
-//                    textColor = Asset.Colors.danger.color
-//                    accessibilityLabel = L10n.A11y.Plural.Count.inputLimitExceeds(abs(count))
-//                default:
-//                    font = .monospacedDigitSystemFont(ofSize: 15, weight: .regular)
-//                    textColor = Asset.Colors.Label.secondary.color
-//                    accessibilityLabel = L10n.A11y.Plural.Count.inputLimitRemains(count)
-//                }
-//                self.composeToolbarView.characterCountLabel.font = font
-//                self.composeToolbarView.characterCountLabel.textColor = textColor
-//                self.composeToolbarView.characterCountLabel.accessibilityLabel = accessibilityLabel
-//                self.characterCountLabel.font = font
-//                self.characterCountLabel.textColor = textColor
-//                self.characterCountLabel.accessibilityLabel = accessibilityLabel
-//                self.characterCountLabel.sizeToFit()
-//            }
-//            .store(in: &disposeBag)
-//
-//        // bind custom emoji picker UI
-//        viewModel.customEmojiViewModel?.emojis
-//            .receive(on: DispatchQueue.main)
-//            .sink(receiveValue: { [weak self] emojis in
-//                guard let self = self else { return }
-//                if emojis.isEmpty {
-//                    self.customEmojiPickerInputView.activityIndicatorView.startAnimating()
-//                } else {
-//                    self.customEmojiPickerInputView.activityIndicatorView.stopAnimating()
-//                }
-//            })
-//            .store(in: &disposeBag)
-//
-//        configureToolbarDisplay(keyboardHasShortcutBar: keyboardHasShortcutBar.value)
-//        Publishers.CombineLatest(
-//            keyboardHasShortcutBar,
-//            viewModel.traitCollectionDidChangePublisher
-//        )
-//        .receive(on: DispatchQueue.main)
-//        .sink { [weak self] keyboardHasShortcutBar, _ in
-//            guard let self = self else { return }
-//            self.configureToolbarDisplay(keyboardHasShortcutBar: keyboardHasShortcutBar)
-//        }
-//        .store(in: &disposeBag)
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-//        // update MetaText without trigger call underlaying `UITextStorage.processEditing`
-//        _ = textEditorView.processEditing(textEditorView.textStorage)
-        
-//        markTextEditorViewBecomeFirstResponser()
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-
-//        viewModel.isViewAppeared = true
+        // bind publish bar button state
+        composeContentViewModel.$isPublishBarButtonItemEnabled
+            .receive(on: DispatchQueue.main)
+            .assign(to: \.isEnabled, on: publishButton)
+            .store(in: &disposeBag)
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         
-//        configurePublishButtonApperance()
-//        viewModel.traitCollectionDidChangePublisher.send()
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        updateAutoCompleteViewControllerLayout()
-    }
-
-    private func updateAutoCompleteViewControllerLayout() {
-        // pin autoCompleteViewController frame to current view
-//        if let containerView = autoCompleteViewController.view.superview {
-//            let viewFrameInWindow = containerView.convert(autoCompleteViewController.view.frame, to: view)
-//            if viewFrameInWindow.origin.x != 0 {
-//                autoCompleteViewController.view.frame.origin.x = -viewFrameInWindow.origin.x
-//            }
-//            autoCompleteViewController.view.frame.size.width = view.frame.width
-//        }
+        configurePublishButtonApperance()
+        viewModel.traitCollectionDidChangePublisher.send()
     }
     
 }
 
-//extension ComposeViewController {
-//    
-//    private var textEditorView: MetaText {
-//        return viewModel.composeStatusContentTableViewCell.metaText
-//    }
-//    
-//    private func markTextEditorViewBecomeFirstResponser() {
-//        textEditorView.textView.becomeFirstResponder()
-//    }
-//    
-//    private func contentWarningEditorTextView() -> UITextView? {
-//        viewModel.composeStatusContentTableViewCell.statusContentWarningEditorView.textView
-//    }
-//    
-//    private func pollOptionCollectionViewCell(of item: ComposeStatusPollItem) -> ComposeStatusPollOptionCollectionViewCell? {
-//        guard case .pollOption = item else { return nil }
-//        guard let dataSource = viewModel.composeStatusPollTableViewCell.dataSource else { return nil }
-//        guard let indexPath = dataSource.indexPath(for: item),
-//              let cell = viewModel.composeStatusPollTableViewCell.collectionView.cellForItem(at: indexPath) as? ComposeStatusPollOptionCollectionViewCell else {
-//            return nil
-//        }
-//
-//        return cell
-//    }
-//    
-//    private func firstPollOptionCollectionViewCell() -> ComposeStatusPollOptionCollectionViewCell? {
-//        guard let dataSource = viewModel.composeStatusPollTableViewCell.dataSource else { return nil }
-//        let items = dataSource.snapshot().itemIdentifiers(inSection: .main)
-//        let firstPollItem = items.first { item -> Bool in
-//            guard case .pollOption = item else { return false }
-//            return true
-//        }
-//
-//        guard let item = firstPollItem else {
-//            return nil
-//        }
-//
-//        return pollOptionCollectionViewCell(of: item)
-//    }
-//    
-//    private func lastPollOptionCollectionViewCell() -> ComposeStatusPollOptionCollectionViewCell? {
-//        guard let dataSource = viewModel.composeStatusPollTableViewCell.dataSource else { return nil }
-//        let items = dataSource.snapshot().itemIdentifiers(inSection: .main)
-//        let lastPollItem = items.last { item -> Bool in
-//            guard case .pollOption = item else { return false }
-//            return true
-//        }
-//
-//        guard let item = lastPollItem else {
-//            return nil
-//        }
-//
-//        return pollOptionCollectionViewCell(of: item)
-//    }
-//    
-//    private func markFirstPollOptionCollectionViewCellBecomeFirstResponser() {
-//        guard let cell = firstPollOptionCollectionViewCell() else { return }
-//        cell.pollOptionView.optionTextField.becomeFirstResponder()
-//    }
-//
-//    private func markLastPollOptionCollectionViewCellBecomeFirstResponser() {
-//        guard let cell = lastPollOptionCollectionViewCell() else { return }
-//        cell.pollOptionView.optionTextField.becomeFirstResponder()
-//    }
-//    
-//    private func showDismissConfirmAlertController() {
-//        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-//        let discardAction = UIAlertAction(title: L10n.Common.Controls.Actions.discard, style: .destructive) { [weak self] _ in
-//            guard let self = self else { return }
-//            self.dismiss(animated: true, completion: nil)
-//        }
-//        alertController.addAction(discardAction)
-//        let cancelAction = UIAlertAction(title: L10n.Common.Controls.Actions.cancel, style: .cancel)
-//        alertController.addAction(cancelAction)
-//        alertController.popoverPresentationController?.barButtonItem = cancelBarButtonItem
-//        present(alertController, animated: true, completion: nil)
-//    }
-//    
-//    private func resetImagePicker() {
-//        let selectionLimit = max(1, viewModel.maxMediaAttachments - viewModel.attachmentServices.count)
-//        let configuration = ComposeViewController.createPhotoLibraryPickerConfiguration(selectionLimit: selectionLimit)
-//        photoLibraryPicker = createImagePicker(configuration: configuration)
-//    }
-//    
-//    private func createImagePicker(configuration: PHPickerConfiguration) -> PHPickerViewController {
-//        let imagePicker = PHPickerViewController(configuration: configuration)
-//        imagePicker.delegate = self
-//        return imagePicker
-//    }
-//
+extension ComposeViewController {
+  
+    private func showDismissConfirmAlertController() {
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let discardAction = UIAlertAction(title: L10n.Common.Controls.Actions.discard, style: .destructive) { [weak self] _ in
+            guard let self = self else { return }
+            self.dismiss(animated: true, completion: nil)
+        }
+        alertController.addAction(discardAction)
+        let cancelAction = UIAlertAction(title: L10n.Common.Controls.Actions.cancel, style: .cancel)
+        alertController.addAction(cancelAction)
+        alertController.popoverPresentationController?.barButtonItem = cancelBarButtonItem
+        present(alertController, animated: true, completion: nil)
+    }
+
 //    private func setupBackgroundColor(theme: Theme) {
 //        let backgroundColor = UIColor(dynamicProvider: { traitCollection in
 //            switch traitCollection.userInterfaceStyle {
@@ -578,46 +227,40 @@ extension ComposeViewController {
 //        }
 //    }
 //    
-//    private func configureNavigationBarTitleStyle() {
-//        switch traitCollection.userInterfaceIdiom {
-//        case .pad:
-//            navigationController?.navigationBar.prefersLargeTitles = traitCollection.horizontalSizeClass == .regular
-//        default:
-//            break
-//        }
-//    }
-//
-//}
-//
+    private func configureNavigationBarTitleStyle() {
+        switch traitCollection.userInterfaceIdiom {
+        case .pad:
+            navigationController?.navigationBar.prefersLargeTitles = traitCollection.horizontalSizeClass == .regular
+        default:
+            break
+        }
+    }
+
+}
+
 extension ComposeViewController {
 
     @objc private func cancelBarButtonItemPressed(_ sender: UIBarButtonItem) {
         logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
-//        guard viewModel.shouldDismiss else {
-//            showDismissConfirmAlertController()
-//            return
-//        }
+        guard composeContentViewModel.shouldDismiss else {
+            showDismissConfirmAlertController()
+            return
+        }
         dismiss(animated: true, completion: nil)
     }
     
     @objc private func publishBarButtonItemPressed(_ sender: UIBarButtonItem) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-//        do {
-//            try viewModel.checkAttachmentPrecondition()
-//        } catch {
-//            let alertController = UIAlertController(for: error, title: nil, preferredStyle: .alert)
-//            let okAction = UIAlertAction(title: L10n.Common.Controls.Actions.ok, style: .default, handler: nil)
-//            alertController.addAction(okAction)
-//            coordinator.present(scene: .alertController(alertController: alertController), from: nil, transition: .alertController(animated: true, completion: nil))
-//            return
-//        }
         
-//        guard viewModel.publishStateMachine.enter(ComposeViewModel.PublishState.Publishing.self) else {
-//            // TODO: handle error
-//            return
-//        }
-        
-        // context.statusPublishService.publish(composeViewModel: viewModel)
+        do {
+            try composeContentViewModel.checkAttachmentPrecondition()
+        } catch {
+            let alertController = UIAlertController(for: error, title: nil, preferredStyle: .alert)
+            let okAction = UIAlertAction(title: L10n.Common.Controls.Actions.ok, style: .default, handler: nil)
+            alertController.addAction(okAction)
+            coordinator.present(scene: .alertController(alertController: alertController), from: nil, transition: .alertController(animated: true, completion: nil))
+            return
+        }
         
         do {
             let statusPublisher = try composeContentViewModel.statusPublisher()
@@ -640,249 +283,35 @@ extension ComposeViewController {
     
 }
 
-//// MARK: - MetaTextDelegate
-//extension ComposeViewController: MetaTextDelegate {
-//    func metaText(_ metaText: MetaText, processEditing textStorage: MetaTextStorage) -> MetaContent? {
-//        let string = metaText.textStorage.string
-//        let content = MastodonContent(
-//            content: string,
-//            emojis: viewModel.customEmojiViewModel?.emojiMapping.value ?? [:]
-//        )
-//        let metaContent = MastodonMetaContent.convert(text: content)
-//        return metaContent
-//    }
-//}
-//
-//// MARK: - UITextViewDelegate
-//extension ComposeViewController: UITextViewDelegate {
-//    
-//    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
-//        setupInputAssistantItem(item: textView.inputAssistantItem)
-//        return true
-//    }
-//
-//    func textViewDidChange(_ textView: UITextView) {
-//        switch textView {
-//        case textEditorView.textView:
-//            // update model
-//            let metaText = self.textEditorView
-//            let backedString = metaText.backedString
-//            viewModel.composeStatusAttribute.composeContent = backedString
-//            logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): \(backedString)")
-//            
-//            // configure auto completion
-//            setupAutoComplete(for: textView)
-//        default:
-//            assertionFailure()
-//        }
-//    }
-//
-//    struct AutoCompleteInfo {
-//        // model
-//        let inputText: Substring
-//        // range
-//        let symbolRange: Range<String.Index>
-//        let symbolString: Substring
-//        let toCursorRange: Range<String.Index>
-//        let toCursorString: Substring
-//        let toHighlightEndRange: Range<String.Index>
-//        let toHighlightEndString: Substring
-//        // geometry
-//        var textBoundingRect: CGRect = .zero
-//        var symbolBoundingRect: CGRect = .zero
-//    }
-//
-//    private func setupAutoComplete(for textView: UITextView) {
-//        guard var autoCompletion = ComposeViewController.scanAutoCompleteInfo(textView: textView) else {
-//            viewModel.autoCompleteInfo = nil
-//            return
-//        }
-//        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: auto complete %s (%s)", ((#file as NSString).lastPathComponent), #line, #function, String(autoCompletion.toHighlightEndString), String(autoCompletion.toCursorString))
-//
-//        // get layout text bounding rect
-//        var glyphRange = NSRange()
-//        textView.layoutManager.characterRange(forGlyphRange: NSRange(autoCompletion.toCursorRange, in: textView.text), actualGlyphRange: &glyphRange)
-//        let textContainer = textView.layoutManager.textContainers[0]
-//        let textBoundingRect = textView.layoutManager.boundingRect(forGlyphRange: glyphRange, in: textContainer)
-//
-//        let retryLayoutTimes = viewModel.autoCompleteRetryLayoutTimes
-//        guard textBoundingRect.size != .zero else {
-//            viewModel.autoCompleteRetryLayoutTimes += 1
-//            // avoid infinite loop
-//            guard retryLayoutTimes < 3 else { return }
-//            // needs retry calculate layout when the rect position changing
-//            DispatchQueue.main.async {
-//                self.setupAutoComplete(for: textView)
-//            }
-//            return
-//        }
-//        viewModel.autoCompleteRetryLayoutTimes = 0
-//
-//        // get symbol bounding rect
-//        textView.layoutManager.characterRange(forGlyphRange: NSRange(autoCompletion.symbolRange, in: textView.text), actualGlyphRange: &glyphRange)
-//        let symbolBoundingRect = textView.layoutManager.boundingRect(forGlyphRange: glyphRange, in: textContainer)
-//
-//        // set bounding rect and trigger layout
-//        autoCompletion.textBoundingRect = textBoundingRect
-//        autoCompletion.symbolBoundingRect = symbolBoundingRect
-//        viewModel.autoCompleteInfo = autoCompletion
-//    }
-//
-//    private static func scanAutoCompleteInfo(textView: UITextView) -> AutoCompleteInfo? {
-//        guard let text = textView.text,
-//              textView.selectedRange.location > 0, !text.isEmpty,
-//              let selectedRange = Range(textView.selectedRange, in: text) else {
-//            return nil
-//        }
-//        let cursorIndex = selectedRange.upperBound
-//        let _highlightStartIndex: String.Index? = {
-//            var index = text.index(before: cursorIndex)
-//            while index > text.startIndex {
-//                let char = text[index]
-//                if char == "@" || char == "#" || char == ":" {
-//                    return index
-//                }
-//                index = text.index(before: index)
-//            }
-//            assert(index == text.startIndex)
-//            let char = text[index]
-//            if char == "@" || char == "#" || char == ":" {
-//                return index
-//            } else {
-//                return nil
-//            }
-//        }()
-//
-//        guard let highlightStartIndex = _highlightStartIndex else { return nil }
-//        let scanRange = NSRange(highlightStartIndex..<text.endIndex, in: text)
-//
-//        guard let match = text.firstMatch(pattern: MastodonRegex.autoCompletePattern, options: [], range: scanRange) else { return nil }
-//        guard let matchRange = Range(match.range(at: 0), in: text) else { return nil }
-//        let matchStartIndex = matchRange.lowerBound
-//        let matchEndIndex = matchRange.upperBound
-//
-//        guard matchStartIndex == highlightStartIndex, matchEndIndex >= cursorIndex else { return nil }
-//        let symbolRange = highlightStartIndex..<text.index(after: highlightStartIndex)
-//        let symbolString = text[symbolRange]
-//        let toCursorRange = highlightStartIndex..<cursorIndex
-//        let toCursorString = text[toCursorRange]
-//        let toHighlightEndRange = matchStartIndex..<matchEndIndex
-//        let toHighlightEndString = text[toHighlightEndRange]
-//
-//        let inputText = toHighlightEndString
-//        let autoCompleteInfo = AutoCompleteInfo(
-//            inputText: inputText,
-//            symbolRange: symbolRange,
-//            symbolString: symbolString,
-//            toCursorRange: toCursorRange,
-//            toCursorString: toCursorString,
-//            toHighlightEndRange: toHighlightEndRange,
-//            toHighlightEndString: toHighlightEndString
-//        )
-//        return autoCompleteInfo
-//    }
-//
-//    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-//        switch textView {
-//        case textEditorView.textView:
-//            return false
-//        default:
-//            return true
-//        }
-//    }
-//
-//    func textView(_ textView: UITextView, shouldInteractWith textAttachment: NSTextAttachment, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-//        switch textView {
-//        case textEditorView.textView:
-//            return false
-//        default:
-//            return true
-//        }
-//    }
-//
-//}
-//
-//// MARK: - ComposeToolbarViewDelegate
-//extension ComposeViewController: ComposeToolbarViewDelegate {
+extension ComposeViewController {
+    public override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        
+        // Enable pasting images
+        if (action == #selector(UIResponderStandardEditActions.paste(_:))) {
+            return UIPasteboard.general.hasStrings || UIPasteboard.general.hasImages;
+        }
 
-//    func composeToolbarView(_ composeToolbarView: ComposeToolbarView, pollButtonDidPressed sender: Any) {
-//        // toggle poll composing state
-//        viewModel.isPollComposing.toggle()
-//
-//        // cancel custom picker input
-//        viewModel.isCustomEmojiComposing = false
-//        
-//        // setup initial poll option if needs
-//        if viewModel.isPollComposing, viewModel.pollOptionAttributes.isEmpty {
-//            viewModel.pollOptionAttributes = [ComposeStatusPollItem.PollOptionAttribute(), ComposeStatusPollItem.PollOptionAttribute()]
-//        }
-//        
-//        if viewModel.isPollComposing {
-//            // Magic RunLoop
-//            DispatchQueue.main.async {
-//                self.markFirstPollOptionCollectionViewCellBecomeFirstResponser()
-//            }
-//        } else {
-//            markTextEditorViewBecomeFirstResponser()
-//        }
-//    }
-//    
-//    func composeToolbarView(_ composeToolbarView: ComposeToolbarView, emojiButtonDidPressed sender: Any) {
-//        viewModel.isCustomEmojiComposing.toggle()
-//    }
-//    
-//    func composeToolbarView(_ composeToolbarView: ComposeToolbarView, contentWarningButtonDidPressed sender: Any) {
-//        // cancel custom picker input
-//        viewModel.isCustomEmojiComposing = false
-//
-//        // restore first responder for text editor when content warning dismiss
-//        if viewModel.isContentWarningComposing {
-//            if contentWarningEditorTextView()?.isFirstResponder == true {
-//                markTextEditorViewBecomeFirstResponser()
-//            }
-//        }
-//        
-//        // toggle composing status
-//        viewModel.isContentWarningComposing.toggle()
-//        
-//        // active content warning after toggled
-//        if viewModel.isContentWarningComposing {
-//            contentWarningEditorTextView()?.becomeFirstResponder()
-//        }
-//    }
-//    
-//    func composeToolbarView(_ composeToolbarView: ComposeToolbarView, visibilityButtonDidPressed sender: Any, visibilitySelectionType type: ComposeToolbarView.VisibilitySelectionType) {
-//        viewModel.selectedStatusVisibility = type
-//    }
-//    
-//}
+        return super.canPerformAction(action, withSender: sender);
+    }
+    
+    override func paste(_ sender: Any?) {
+        logger.debug("Paste event received")
 
-//// MARK: - UITableViewDelegate
-//extension ComposeViewController: UITableViewDelegate { }
-//
-//// MARK: - UICollectionViewDelegate
-//extension ComposeViewController: UICollectionViewDelegate {
-//    
-//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: select %s", ((#file as NSString).lastPathComponent), #line, #function, indexPath.debugDescription)
-//
-//        if collectionView === customEmojiPickerInputView.collectionView {
-//            guard let diffableDataSource = viewModel.customEmojiPickerDiffableDataSource else { return }
-//            let item = diffableDataSource.itemIdentifier(for: indexPath)
-//            guard case let .emoji(attribute) = item else { return }
-//            let emoji = attribute.emoji
-//
-//            // make click sound
-//            UIDevice.current.playInputClick()
-//
-//            // retrieve active text input and insert emoji
-//            // the trailing space is REQUIRED to make regex happy
-//            _ = viewModel.customEmojiPickerInputViewModel.insertText(":\(emoji.shortcode): ")
-//        } else {
-//            // do nothing
-//        }
-//    }
-//}
+        // Look for images on the clipboard
+        if UIPasteboard.general.hasImages, let images = UIPasteboard.general.images {
+            logger.warning("Got image paste event, however attachments are not yet re-implemented.");
+            let attachmentViewModels = images.map { image in
+                return AttachmentViewModel(
+                    api: viewModel.context.apiService,
+                    authContext: viewModel.authContext,
+                    input: .image(image),
+                    delegate: composeContentViewModel
+                )
+            }
+            composeContentViewModel.attachmentViewModels += attachmentViewModels
+        }
+    }
+}
 
 // MARK: - UIAdaptivePresentationControllerDelegate
 extension ComposeViewController: UIAdaptivePresentationControllerDelegate {
@@ -895,15 +324,15 @@ extension ComposeViewController: UIAdaptivePresentationControllerDelegate {
             return .pageSheet
         }
     }
-
-//    func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {
-//        return viewModel.shouldDismiss
-//    }
     
-//    func presentationControllerDidAttemptToDismiss(_ presentationController: UIPresentationController) {
-//        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-//        showDismissConfirmAlertController()
-//    }
+    func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {
+        return composeContentViewModel.shouldDismiss
+    }
+    
+    func presentationControllerDidAttemptToDismiss(_ presentationController: UIPresentationController) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        showDismissConfirmAlertController()
+    }
     
     func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
@@ -911,180 +340,6 @@ extension ComposeViewController: UIAdaptivePresentationControllerDelegate {
     
 }
 
-//// MARK: - ComposeStatusAttachmentTableViewCellDelegate
-//extension ComposeViewController: ComposeStatusAttachmentCollectionViewCellDelegate {
-//    
-//    func composeStatusAttachmentCollectionViewCell(_ cell: ComposeStatusAttachmentCollectionViewCell, removeButtonDidPressed button: UIButton) {
-//        guard let diffableDataSource = viewModel.composeStatusAttachmentTableViewCell.dataSource else { return }
-//        guard let indexPath = viewModel.composeStatusAttachmentTableViewCell.collectionView.indexPath(for: cell) else { return }
-//        guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
-//        guard case let .attachment(attachmentService) = item else { return }
-//
-//        var attachmentServices = viewModel.attachmentServices
-//        guard let index = attachmentServices.firstIndex(of: attachmentService) else { return }
-//        let removedItem = attachmentServices[index]
-//        attachmentServices.remove(at: index)
-//        viewModel.attachmentServices = attachmentServices
-//
-//        // cancel task
-//        removedItem.disposeBag.removeAll()
-//    }
-//    
-//}
-//
-//// MARK: - ComposeStatusPollOptionCollectionViewCellDelegate
-//extension ComposeViewController: ComposeStatusPollOptionCollectionViewCellDelegate {
-//    
-//    func composeStatusPollOptionCollectionViewCell(_ cell: ComposeStatusPollOptionCollectionViewCell, textFieldDidBeginEditing textField: UITextField) {
-//        
-//        setupInputAssistantItem(item: textField.inputAssistantItem)
-//        
-//        // FIXME: make poll section visible
-//        // DispatchQueue.main.async {
-//        //     self.collectionView.scroll(to: .bottom, animated: true)
-//        // }
-//    }
-//
-//    
-//    // handle delete backward event for poll option input
-//    func composeStatusPollOptionCollectionViewCell(_ cell: ComposeStatusPollOptionCollectionViewCell, textBeforeDeleteBackward text: String?) {
-//        guard (text ?? "").isEmpty else { return }
-//        guard let dataSource = viewModel.composeStatusPollTableViewCell.dataSource else { return }
-//        guard let indexPath = viewModel.composeStatusPollTableViewCell.collectionView.indexPath(for: cell) else { return }
-//        guard let item = dataSource.itemIdentifier(for: indexPath) else { return }
-//        guard case let .pollOption(attribute) = item else { return }
-//
-//        var pollAttributes = viewModel.pollOptionAttributes
-//        guard let index = pollAttributes.firstIndex(of: attribute) else { return }
-//
-//        // mark previous (fallback to next) item of removed middle poll option become first responder
-//        let pollItems = dataSource.snapshot().itemIdentifiers(inSection: .main)
-//        if let indexOfItem = pollItems.firstIndex(of: item), index > 0 {
-//            func cellBeforeRemoved() -> ComposeStatusPollOptionCollectionViewCell? {
-//                guard index > 0 else { return nil }
-//                let indexBeforeRemoved = pollItems.index(before: indexOfItem)
-//                let itemBeforeRemoved = pollItems[indexBeforeRemoved]
-//                return pollOptionCollectionViewCell(of: itemBeforeRemoved)
-//            }
-//
-//            func cellAfterRemoved() -> ComposeStatusPollOptionCollectionViewCell? {
-//                guard index < pollItems.count - 1 else { return nil }
-//                let indexAfterRemoved = pollItems.index(after: index)
-//                let itemAfterRemoved = pollItems[indexAfterRemoved]
-//                return pollOptionCollectionViewCell(of: itemAfterRemoved)
-//            }
-//
-//            var cell: ComposeStatusPollOptionCollectionViewCell? = cellBeforeRemoved()
-//            if cell == nil {
-//                cell = cellAfterRemoved()
-//            }
-//            cell?.pollOptionView.optionTextField.becomeFirstResponder()
-//        }
-//
-//        guard pollAttributes.count > 2 else {
-//            return
-//        }
-//        pollAttributes.remove(at: index)
-//
-//        // update data source
-//        viewModel.pollOptionAttributes = pollAttributes
-//    }
-//    
-//    // handle keyboard return event for poll option input
-//    func composeStatusPollOptionCollectionViewCell(_ cell: ComposeStatusPollOptionCollectionViewCell, pollOptionTextFieldDidReturn: UITextField) {
-//        guard let dataSource = viewModel.composeStatusPollTableViewCell.dataSource else { return }
-//        guard let indexPath = viewModel.composeStatusPollTableViewCell.collectionView.indexPath(for: cell) else { return }
-//        let pollItems = dataSource.snapshot().itemIdentifiers(inSection: .main).filter { item in
-//            guard case .pollOption = item else { return false }
-//            return true
-//        }
-//        guard let item = dataSource.itemIdentifier(for: indexPath) else { return }
-//        guard let index = pollItems.firstIndex(of: item) else { return }
-//
-//        if index == pollItems.count - 1 {
-//            // is the last
-//            viewModel.createNewPollOptionIfPossible()
-//            DispatchQueue.main.async {
-//                self.markLastPollOptionCollectionViewCellBecomeFirstResponser()
-//            }
-//        } else {
-//            // not the last
-//            let indexAfter = pollItems.index(after: index)
-//            let itemAfter = pollItems[indexAfter]
-//            let cell = pollOptionCollectionViewCell(of: itemAfter)
-//            cell?.pollOptionView.optionTextField.becomeFirstResponder()
-//        }
-//    }
-//    
-//}
-//
-//// MARK: - ComposeStatusPollOptionAppendEntryCollectionViewCellDelegate
-//extension ComposeViewController: ComposeStatusPollOptionAppendEntryCollectionViewCellDelegate {
-//    func composeStatusPollOptionAppendEntryCollectionViewCellDidPressed(_ cell: ComposeStatusPollOptionAppendEntryCollectionViewCell) {
-//        viewModel.createNewPollOptionIfPossible()
-//        DispatchQueue.main.async {
-//            self.markLastPollOptionCollectionViewCellBecomeFirstResponser()
-//        }
-//    }
-//}
-//
-//// MARK: - ComposeStatusPollExpiresOptionCollectionViewCellDelegate
-//extension ComposeViewController: ComposeStatusPollExpiresOptionCollectionViewCellDelegate {
-//    func composeStatusPollExpiresOptionCollectionViewCell(_ cell: ComposeStatusPollExpiresOptionCollectionViewCell, didSelectExpiresOption expiresOption: ComposeStatusPollItem.PollExpiresOptionAttribute.ExpiresOption) {
-//        viewModel.pollExpiresOptionAttribute.expiresOption.value = expiresOption
-//    }
-//}
-//
-//// MARK: - ComposeStatusContentTableViewCellDelegate
-//extension ComposeViewController: ComposeStatusContentTableViewCellDelegate {
-//    func composeStatusContentTableViewCell(_ cell: ComposeStatusContentTableViewCell, textViewShouldBeginEditing textView: UITextView) -> Bool {
-//        setupInputAssistantItem(item: textView.inputAssistantItem)
-//        return true
-//    }
-//}
-//
-//// MARK: - AutoCompleteViewControllerDelegate
-//extension ComposeViewController: AutoCompleteViewControllerDelegate {
-//    func autoCompleteViewController(_ viewController: AutoCompleteViewController, didSelectItem item: AutoCompleteItem) {
-//        guard let info = viewModel.autoCompleteInfo else { return }
-//        let _replacedText: String? = {
-//            var text: String
-//            switch item {
-//            case .hashtag(let hashtag):
-//                text = "#" + hashtag.name
-//            case .hashtagV1(let hashtagName):
-//                text = "#" + hashtagName
-//            case .account(let account):
-//                text = "@" + account.acct
-//            case .emoji(let emoji):
-//                text = ":" + emoji.shortcode + ":"
-//            case .bottomLoader:
-//                return nil
-//            }
-//            return text
-//        }()
-//        guard let replacedText = _replacedText else { return }
-//        guard let text = textEditorView.textView.text else { return }
-//
-//        let range = NSRange(info.toHighlightEndRange, in: text)
-//        textEditorView.textStorage.replaceCharacters(in: range, with: replacedText)
-//        DispatchQueue.main.async {
-//            self.textEditorView.textView.insertText(" ") // trigger textView delegate update
-//        }
-//        viewModel.autoCompleteInfo = nil
-//
-//        switch item {
-//        case .emoji, .bottomLoader:
-//            break
-//        default:
-//            // set selected range except emoji
-//            let newRange = NSRange(location: range.location + (replacedText as NSString).length, length: 0)
-//            guard textEditorView.textStorage.length <= newRange.location else { return }
-//            textEditorView.textView.selectedRange = newRange
-//        }
-//    }
-//}
-//
 //extension ComposeViewController {
 //    override var keyCommands: [UIKeyCommand]? {
 //        composeKeyCommands

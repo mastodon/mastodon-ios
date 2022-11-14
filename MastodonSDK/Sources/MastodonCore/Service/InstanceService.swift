@@ -24,7 +24,7 @@ public final class InstanceService {
     weak var authenticationService: AuthenticationService?
     
     // output
-    
+
     init(
         apiService: APIService,
         authenticationService: AuthenticationService
