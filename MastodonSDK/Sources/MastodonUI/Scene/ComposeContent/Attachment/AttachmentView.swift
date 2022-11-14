@@ -123,7 +123,7 @@ public struct AttachmentView: View {
                                 case .remove:
                                     switch viewModel.uploadState {
                                     case .compressing:
-                                        return "Compressing..."    // TODO: i18n
+                                        return L10n.Scene.Compose.Attachment.compressingState
                                     default:
                                         if viewModel.fractionCompleted < 0.9 {
                                             let totalSizeInByte = viewModel.outputSizeInByte
@@ -132,7 +132,7 @@ public struct AttachmentView: View {
                                             let upload = viewModel.byteCountFormatter.string(fromByteCount: Int64(uploadSizeInByte))
                                             return "\(upload) / \(total)"
                                         } else {
-                                            return "Server Processing..."   // TODO: i18n
+                                            return L10n.Scene.Compose.Attachment.serverProcessingState
                                         }
                                     }
                                 case .retry:

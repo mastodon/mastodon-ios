@@ -479,14 +479,14 @@ extension ComposeContentViewModel {
         public var errorDescription: String? {
             switch self {
             case .pollHasEmptyOption:
-                return "The poll is invalid"  // TODO: i18n
+                return L10n.Scene.Compose.Poll.thePollIsInvalid
             }
         }
         
         public var failureReason: String? {
             switch self {
             case .pollHasEmptyOption:
-                return "The poll has empty option"   // TODO: i18n
+                return L10n.Scene.Compose.Poll.thePollHasEmptyOption
             }
         }
     }

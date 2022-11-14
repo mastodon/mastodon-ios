@@ -47,6 +47,7 @@ private func convert(from inputDirectoryURL: URL, to outputDirectory: URL) {
 
 private func map(language: String) -> String? {
     switch language {
+    case "Base.lproj":      return "Base"
     case "ar.lproj":        return "ar"         // Arabic
     case "eu.lproj":        return "eu"         // Basque
     case "ca.lproj":        return "ca"         // Catalan
