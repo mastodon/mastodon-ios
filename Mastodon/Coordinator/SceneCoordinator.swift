@@ -548,6 +548,6 @@ extension SceneCoordinator: MastodonLoginViewControllerDelegate {
   }
 
   func nextButtonPressed(_ viewController: MastodonLoginViewController) {
-    //TODO: @zeitschlag implement, show ASWebAuthentication and stuff
+    viewController.login()
   }
 }

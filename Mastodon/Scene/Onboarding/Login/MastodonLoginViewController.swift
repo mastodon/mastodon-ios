@@ -133,35 +133,34 @@ class MastodonLoginViewController: UIViewController, NeedsDependency {
   }
 
   @objc func nextButtonPressed(_ sender: Any) {
-    login(sender)
+    delegate?.nextButtonPressed(self)
   }
 
-  @objc func login(_ sender: Any) {
+  @objc func login() {
     guard let server = viewModel.selectedServer else { return }
 
     authenticationViewModel
-        .authenticated
-        .asyncMap { domain, user -> Result<Bool, Error> in
-            do {
-                let result = try await self.context.authenticationService.activeMastodonUser(domain: domain, userID: user.id)
-                return .success(result)
-            } catch {
-                return .failure(error)
-            }
+      .authenticated
+      .asyncMap { domain, user -> Result<Bool, Error> in
+        do {
+          let result = try await self.context.authenticationService.activeMastodonUser(domain: domain, userID: user.id)
+          return .success(result)
+        } catch {
+          return .failure(error)
         }
-        .receive(on: DispatchQueue.main)
-        .sink { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .failure(let error):
-                assertionFailure(error.localizedDescription)
-            case .success(let isActived):
-                assert(isActived)
-                // self.dismiss(animated: true, completion: nil)
-                self.coordinator.setup()
-            }
+      }
+      .receive(on: DispatchQueue.main)
+      .sink { [weak self] result in
+        guard let self = self else { return }
+        switch result {
+          case .failure(let error):
+            assertionFailure(error.localizedDescription)
+          case .success(let isActived):
+            assert(isActived)
+            self.coordinator.setup()
         }
-        .store(in: &disposeBag)
+      }
+      .store(in: &disposeBag)
 
     authenticationViewModel.isAuthenticating.send(true)
     context.apiService.createApplication(domain: server.domain)
@@ -183,9 +182,10 @@ class MastodonLoginViewController: UIViewController, NeedsDependency {
 
         switch completion {
           case .failure(let error):
-            //TODO: @zeitschlag show error
-            break
+            let alert = UIAlertController.standardAlert(of: error)
+            self.present(alert, animated: true)
           case .finished:
+            // do nothing. There's a subscriber above resulting in `coordinator.setup()`
             break
         }
       } receiveValue: { [weak self] info in
@@ -251,7 +251,6 @@ class MastodonLoginViewController: UIViewController, NeedsDependency {
       self.view.layoutIfNeeded()
     }
   }
-
 }
 
 // MARK: - OnboardingViewControllerAppearance
@@ -290,7 +289,7 @@ extension MastodonLoginViewController: MastodonLoginViewModelDelegate {
 
 // MARK: - ASWebAuthenticationPresentationContextProviding
 extension MastodonLoginViewController: ASWebAuthenticationPresentationContextProviding {
-    func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
-        return view.window!
-    }
+  func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
+    return view.window!
+  }
 }
