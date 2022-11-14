@@ -417,7 +417,9 @@
                 "custom_emoji_picker": "هەڵبژێری ئیمۆجی",
                 "enable_content_warning": "ئاگاداریی ناوەڕۆک چالاک بکە",
                 "disable_content_warning": "ئاگاداریی ناوەڕۆک ناچالاک بکە",
-                "post_visibility_menu": "پێڕستی شێوازی دەرکەوتنی پۆست"
+                "post_visibility_menu": "پێڕستی شێوازی دەرکەوتنی پۆست",
+                "post_options": "Post Options",
+                "posting_as": "Posting as %s"
             },
             "keyboard": {
                 "discard_post": "پۆستەکە هەڵوەشێنەوە",
