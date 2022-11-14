@@ -386,7 +386,9 @@
                 "load_failed": "Det gick inte att läsa in",
                 "upload_failed": "Uppladdning misslyckades",
                 "can_not_recognize_this_media_attachment": "Känner inte igen mediebilagan",
-                "attachment_too_large": "Bilagan är för stor"
+                "attachment_too_large": "Bilagan är för stor",
+                "compressing_state": "Komprimerar...",
+                "server_processing_state": "Behandlas av servern..."
             },
             "poll": {
                 "duration_time": "Längd: %s",
@@ -396,7 +398,9 @@
                 "one_day": "1 dag",
                 "three_days": "3 dagar",
                 "seven_days": "7 dagar",
-                "option_number": "Alternativ %ld"
+                "option_number": "Alternativ %ld",
+                "the_poll_is_invalid": "Undersökningen är ogiltig",
+                "the_poll_has_empty_option": "Undersökningen har ett tomt alternativ"
             },
             "content_warning": {
                 "placeholder": "Skriv en noggrann varning här..."
@@ -444,6 +448,10 @@
                 "placeholder": {
                     "label": "Etikett",
                     "content": "Innehåll"
+                },
+                "verified": {
+                    "short": "Verifierad på %s",
+                    "long": "Ägarskap för denna länk kontrollerades den %s"
                 }
             },
             "segmented_control": {
