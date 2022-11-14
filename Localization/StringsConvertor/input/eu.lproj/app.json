@@ -417,7 +417,9 @@
                 "custom_emoji_picker": "Emoji pertsonalizatuen hautatzailea",
                 "enable_content_warning": "Gaitu edukiaren abisua",
                 "disable_content_warning": "Desgaitu edukiaren abisua",
-                "post_visibility_menu": "Bidalketaren ikusgaitasunaren menua"
+                "post_visibility_menu": "Bidalketaren ikusgaitasunaren menua",
+                "post_options": "Post Options",
+                "posting_as": "Posting as %s"
             },
             "keyboard": {
                 "discard_post": "Baztertu bidalketa",
