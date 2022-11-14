@@ -60,7 +60,7 @@ final class SearchDetailViewController: PageboyViewController, NeedsDependency {
     let searchController: CustomSearchController = {
         let searchController = CustomSearchController()
         searchController.automaticallyShowsScopeBar = false
-        searchController.dimsBackgroundDuringPresentation = false
+        searchController.obscuresBackgroundDuringPresentation = false
         return searchController
     }()
     private(set) lazy var searchBar: UISearchBar = {
