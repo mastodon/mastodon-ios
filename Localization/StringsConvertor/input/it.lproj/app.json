@@ -418,8 +418,8 @@
                 "enable_content_warning": "Abilita avvertimento contenuti",
                 "disable_content_warning": "Disabilita avviso di contenuti",
                 "post_visibility_menu": "Menu di visibilità del post",
-                "post_options": "Post Options",
-                "posting_as": "Posting as %s"
+                "post_options": "Opzioni del messaggio",
+                "posting_as": "Pubblicazione come %s"
             },
             "keyboard": {
                 "discard_post": "Scarta post",
