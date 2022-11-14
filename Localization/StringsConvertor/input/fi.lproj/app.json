@@ -385,8 +385,10 @@
                 "description_video": "Kuvaile video näkövammaisille...",
                 "load_failed": "Load Failed",
                 "upload_failed": "Upload Failed",
-                "can_not_recognize_this_media_attachment": "Can not regonize this media attachment",
-                "attachment_too_large": "Attachment too large"
+                "can_not_recognize_this_media_attachment": "Can not recognize this media attachment",
+                "attachment_too_large": "Attachment too large",
+                "compressing_state": "Compressing...",
+                "server_processing_state": "Server Processing..."
             },
             "poll": {
                 "duration_time": "Kesto: %s",
@@ -396,7 +398,9 @@
                 "one_day": "1 päivä",
                 "three_days": "3 päivää",
                 "seven_days": "7 päivää",
-                "option_number": "Vaihtoehto %ld"
+                "option_number": "Vaihtoehto %ld",
+                "the_poll_is_invalid": "The poll is invalid",
+                "the_poll_has_empty_option": "The poll has empty option"
             },
             "content_warning": {
                 "placeholder": "Kirjoita tarkka varoitus tähän..."
@@ -444,6 +448,10 @@
                 "placeholder": {
                     "label": "Nimi",
                     "content": "Sisältö"
+                },
+                "verified": {
+                    "short": "Verified on %s",
+                    "long": "Ownership of this link was checked on %s"
                 }
             },
             "segmented_control": {
