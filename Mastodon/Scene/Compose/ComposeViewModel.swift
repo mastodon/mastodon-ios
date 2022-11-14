@@ -16,6 +16,7 @@ import MastodonAsset
 import MastodonLocalization
 import MastodonMeta
 import MastodonUI
+import Tabman
 
 final class ComposeViewModel: NSObject {
     
@@ -44,6 +45,8 @@ final class ComposeViewModel: NSObject {
     var isViewAppeared = false
     
     // output
+    var publishedStatus: Mastodon.Entity.Status?
+    
     let instanceConfiguration: Mastodon.Entity.Instance.Configuration?
     var composeContentLimit: Int {
         guard let maxCharacters = instanceConfiguration?.statuses?.maxCharacters else { return 500 }
@@ -120,6 +123,7 @@ final class ComposeViewModel: NSObject {
         self.context = context
         self.composeKind = composeKind
         self.authenticationBox = authenticationBox
+        self.publishedStatus = nil
         self.title = {
             switch composeKind {
             case .post, .hashtag, .mention:       return L10n.Scene.Compose.Title.newPost

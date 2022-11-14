@@ -97,6 +97,23 @@ extension ThreadViewController {
             tableView: tableView,
             statusTableViewCellDelegate: self
         )
+        
+        context.statusPublishService.latestPublishingComposeViewModel
+            .receive(on: DispatchQueue.main)
+            .sink { [self] composeViewModel in
+                guard let composeViewModel = composeViewModel else { return }
+                guard let publishedStatus = composeViewModel.publishedStatus else { return }
+                guard let threadContext = self.viewModel.threadContext else {return }
+                
+                self.viewModel.mastodonStatusThreadViewModel.appendDescendant(
+                    domain: threadContext.domain,
+                    nodes: MastodonStatusThreadViewModel.Node.children(
+                        of: threadContext.statusID,
+                        from: [publishedStatus]
+                    )
+                )
+            }
+            .store(in: &disposeBag)
     }
     
     override func viewWillAppear(_ animated: Bool) {

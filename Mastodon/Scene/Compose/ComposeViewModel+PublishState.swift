@@ -138,6 +138,7 @@ extension ComposeViewModel.PublishState {
                     }
                 } receiveValue: { response in
                     os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: status %s published: %s", ((#file as NSString).lastPathComponent), #line, #function, response.value.id, response.value.uri)
+                    self.viewModel?.publishedStatus = response.value
                 }
         }
     }
