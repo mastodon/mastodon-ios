@@ -417,7 +417,9 @@
                 "custom_emoji_picker": "Selettore Emoji personalizzato",
                 "enable_content_warning": "Abilita avvertimento contenuti",
                 "disable_content_warning": "Disabilita avviso di contenuti",
-                "post_visibility_menu": "Menu di visibilità del post"
+                "post_visibility_menu": "Menu di visibilità del post",
+                "post_options": "Post Options",
+                "posting_as": "Posting as %s"
             },
             "keyboard": {
                 "discard_post": "Scarta post",
