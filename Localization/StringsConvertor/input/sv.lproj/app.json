@@ -417,7 +417,9 @@
                 "custom_emoji_picker": "Anpassad emoji-väljare",
                 "enable_content_warning": "Aktivera innehållsvarning",
                 "disable_content_warning": "Inaktivera innehållsvarning",
-                "post_visibility_menu": "Inläggssynlighetsmeny"
+                "post_visibility_menu": "Inläggssynlighetsmeny",
+                "post_options": "Inläggsalternativ",
+                "posting_as": "Postar som %s"
             },
             "keyboard": {
                 "discard_post": "Släng inlägget",
