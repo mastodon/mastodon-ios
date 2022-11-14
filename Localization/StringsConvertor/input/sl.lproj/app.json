@@ -385,8 +385,10 @@
                 "description_video": "Opiši video za slabovidne in osebe z okvaro vida ...",
                 "load_failed": "Nalaganje ni uspelo",
                 "upload_failed": "Nalaganje na strežnik ni uspelo",
-                "can_not_recognize_this_media_attachment": "Te medijske priponke ni mogoče prepoznati",
-                "attachment_too_large": "Priponka je prevelika"
+                "can_not_recognize_this_media_attachment": "Can not recognize this media attachment",
+                "attachment_too_large": "Priponka je prevelika",
+                "compressing_state": "Compressing...",
+                "server_processing_state": "Server Processing..."
             },
             "poll": {
                 "duration_time": "Trajanje: %s",
@@ -396,7 +398,9 @@
                 "one_day": "1 dan",
                 "three_days": "3 dni",
                 "seven_days": "7 dni",
-                "option_number": "Možnost %ld"
+                "option_number": "Možnost %ld",
+                "the_poll_is_invalid": "The poll is invalid",
+                "the_poll_has_empty_option": "The poll has empty option"
             },
             "content_warning": {
                 "placeholder": "Tukaj zapišite opozorilo ..."
@@ -444,6 +448,10 @@
                 "placeholder": {
                     "label": "Oznaka",
                     "content": "Vsebina"
+                },
+                "verified": {
+                    "short": "Verified on %s",
+                    "long": "Ownership of this link was checked on %s"
                 }
             },
             "segmented_control": {
