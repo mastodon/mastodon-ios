@@ -417,7 +417,9 @@
                 "custom_emoji_picker": "Eigen Emojikiezer",
                 "enable_content_warning": "Inhoudswaarschuwing inschakelen",
                 "disable_content_warning": "Inhoudswaarschuwing Uitschakelen",
-                "post_visibility_menu": "Berichtzichtbaarheidsmenu"
+                "post_visibility_menu": "Berichtzichtbaarheidsmenu",
+                "post_options": "Post Options",
+                "posting_as": "Posting as %s"
             },
             "keyboard": {
                 "discard_post": "Bericht Verwijderen",
