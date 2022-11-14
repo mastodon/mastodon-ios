@@ -417,7 +417,9 @@
                 "custom_emoji_picker": "カスタム絵文字ピッカー",
                 "enable_content_warning": "閲覧注意を有効にする",
                 "disable_content_warning": "閲覧注意を無効にする",
-                "post_visibility_menu": "投稿の表示メニュー"
+                "post_visibility_menu": "投稿の表示メニュー",
+                "post_options": "Post Options",
+                "posting_as": "Posting as %s"
             },
             "keyboard": {
                 "discard_post": "投稿を破棄",
