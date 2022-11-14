@@ -417,7 +417,9 @@
                 "custom_emoji_picker": "منتقي الرموز التعبيرية المُخصَّص",
                 "enable_content_warning": "تفعيل تحذير المُحتَوى",
                 "disable_content_warning": "تعطيل تحذير المُحتَوى",
-                "post_visibility_menu": "قائمة ظهور المنشور"
+                "post_visibility_menu": "قائمة ظهور المنشور",
+                "post_options": "Post Options",
+                "posting_as": "Posting as %s"
             },
             "keyboard": {
                 "discard_post": "تجاهُل المنشور",
