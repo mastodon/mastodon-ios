@@ -385,8 +385,10 @@
                 "description_video": "Mìnich a’ video dhan fheadhainn air a bheil cion-lèirsinne…",
                 "load_failed": "Load Failed",
                 "upload_failed": "Upload Failed",
-                "can_not_recognize_this_media_attachment": "Can not regonize this media attachment",
-                "attachment_too_large": "Attachment too large"
+                "can_not_recognize_this_media_attachment": "Can not recognize this media attachment",
+                "attachment_too_large": "Attachment too large",
+                "compressing_state": "Compressing...",
+                "server_processing_state": "Server Processing..."
             },
             "poll": {
                 "duration_time": "Faide: %s",
@@ -396,7 +398,9 @@
                 "one_day": "Latha",
                 "three_days": "3 làithean",
                 "seven_days": "Seachdain",
-                "option_number": "Roghainn %ld"
+                "option_number": "Roghainn %ld",
+                "the_poll_is_invalid": "The poll is invalid",
+                "the_poll_has_empty_option": "The poll has empty option"
             },
             "content_warning": {
                 "placeholder": "Sgrìobh rabhadh pongail an-seo…"
@@ -444,6 +448,10 @@
                 "placeholder": {
                     "label": "Leubail",
                     "content": "Susbaint"
+                },
+                "verified": {
+                    "short": "Verified on %s",
+                    "long": "Ownership of this link was checked on %s"
                 }
             },
             "segmented_control": {
