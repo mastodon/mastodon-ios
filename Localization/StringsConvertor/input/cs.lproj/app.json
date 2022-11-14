@@ -385,10 +385,10 @@
                 "description_video": "Popište video pro zrakově postižené...",
                 "load_failed": "Načtení se nezdařilo",
                 "upload_failed": "Nahrání selhalo",
-                "can_not_recognize_this_media_attachment": "Can not recognize this media attachment",
+                "can_not_recognize_this_media_attachment": "Nelze rozpoznat toto medium přílohy",
                 "attachment_too_large": "Příloha je příliš velká",
-                "compressing_state": "Compressing...",
-                "server_processing_state": "Server Processing..."
+                "compressing_state": "Probíhá komprese...",
+                "server_processing_state": "Zpracování serveru..."
             },
             "poll": {
                 "duration_time": "Doba trvání: %s",
@@ -399,8 +399,8 @@
                 "three_days": "3 dny",
                 "seven_days": "7 dní",
                 "option_number": "Možnost %ld",
-                "the_poll_is_invalid": "The poll is invalid",
-                "the_poll_has_empty_option": "The poll has empty option"
+                "the_poll_is_invalid": "Anketa je neplatná",
+                "the_poll_has_empty_option": "Anketa má prázdnou možnost"
             },
             "content_warning": {
                 "placeholder": "Zde napište přesné varování..."
@@ -450,8 +450,8 @@
                     "content": "Obsah"
                 },
                 "verified": {
-                    "short": "Verified on %s",
-                    "long": "Ownership of this link was checked on %s"
+                    "short": "Ověřeno na %s",
+                    "long": "Vlastnictví tohoto odkazu bylo zkontrolováno na %s"
                 }
             },
             "segmented_control": {
