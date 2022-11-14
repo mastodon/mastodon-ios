@@ -417,7 +417,9 @@
                 "custom_emoji_picker": "Sélecteur d’émojis personnalisés",
                 "enable_content_warning": "Basculer l’avertissement de contenu",
                 "disable_content_warning": "Désactiver l'avertissement de contenu",
-                "post_visibility_menu": "Menu de Visibilité de la publication"
+                "post_visibility_menu": "Menu de Visibilité de la publication",
+                "post_options": "Post Options",
+                "posting_as": "Posting as %s"
             },
             "keyboard": {
                 "discard_post": "Rejeter la publication",
