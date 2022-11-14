@@ -385,8 +385,10 @@
                 "description_video": "시각장애인을 위한 영상 설명…",
                 "load_failed": "불러오기 실패",
                 "upload_failed": "업로드 실패",
-                "can_not_recognize_this_media_attachment": "이 미디어 첨부파일을 인식할 수 없습니다",
-                "attachment_too_large": "첨부파일이 너무 큽니다"
+                "can_not_recognize_this_media_attachment": "Can not recognize this media attachment",
+                "attachment_too_large": "첨부파일이 너무 큽니다",
+                "compressing_state": "Compressing...",
+                "server_processing_state": "Server Processing..."
             },
             "poll": {
                 "duration_time": "기간: %s",
@@ -396,7 +398,9 @@
                 "one_day": "1일",
                 "three_days": "3일",
                 "seven_days": "7일",
-                "option_number": "옵션 %ld"
+                "option_number": "옵션 %ld",
+                "the_poll_is_invalid": "The poll is invalid",
+                "the_poll_has_empty_option": "The poll has empty option"
             },
             "content_warning": {
                 "placeholder": "정확한 경고 문구를 여기에 작성하세요…"
@@ -444,6 +448,10 @@
                 "placeholder": {
                     "label": "라벨",
                     "content": "내용"
+                },
+                "verified": {
+                    "short": "Verified on %s",
+                    "long": "Ownership of this link was checked on %s"
                 }
             },
             "segmented_control": {
