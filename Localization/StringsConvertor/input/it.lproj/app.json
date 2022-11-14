@@ -385,10 +385,10 @@
                 "description_video": "Descrivi il filmato per gli utenti ipovedenti...",
                 "load_failed": "Caricamento fallito",
                 "upload_failed": "Caricamento fallito",
-                "can_not_recognize_this_media_attachment": "Can not recognize this media attachment",
+                "can_not_recognize_this_media_attachment": "Impossibile riconoscere questo allegato multimediale",
                 "attachment_too_large": "Allegato troppo grande",
-                "compressing_state": "Compressing...",
-                "server_processing_state": "Server Processing..."
+                "compressing_state": "Compressione in corso...",
+                "server_processing_state": "Elaborazione del server in corso..."
             },
             "poll": {
                 "duration_time": "Durata: %s",
@@ -399,8 +399,8 @@
                 "three_days": "3 giorni",
                 "seven_days": "7 giorni",
                 "option_number": "Opzione %ld",
-                "the_poll_is_invalid": "The poll is invalid",
-                "the_poll_has_empty_option": "The poll has empty option"
+                "the_poll_is_invalid": "Il sondaggio non è valido",
+                "the_poll_has_empty_option": "Il sondaggio ha un'opzione vuota"
             },
             "content_warning": {
                 "placeholder": "Scrivi un avviso accurato qui..."
@@ -450,8 +450,8 @@
                     "content": "Contenuto"
                 },
                 "verified": {
-                    "short": "Verified on %s",
-                    "long": "Ownership of this link was checked on %s"
+                    "short": "Verificato il %s",
+                    "long": "La proprietà di questo collegamento è stata verificata il %s"
                 }
             },
             "segmented_control": {
