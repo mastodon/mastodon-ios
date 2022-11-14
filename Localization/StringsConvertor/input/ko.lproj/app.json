@@ -383,10 +383,10 @@
                 "attachment_broken": "This %s is broken and can’t be\nuploaded to Mastodon.",
                 "description_photo": "시각장애인을 위한 사진 설명…",
                 "description_video": "시각장애인을 위한 영상 설명…",
-                "load_failed": "Load Failed",
-                "upload_failed": "Upload Failed",
-                "can_not_recognize_this_media_attachment": "Can not regonize this media attachment",
-                "attachment_too_large": "Attachment too large"
+                "load_failed": "불러오기 실패",
+                "upload_failed": "업로드 실패",
+                "can_not_recognize_this_media_attachment": "이 미디어 첨부파일을 인식할 수 없습니다",
+                "attachment_too_large": "첨부파일이 너무 큽니다"
             },
             "poll": {
                 "duration_time": "기간: %s",
