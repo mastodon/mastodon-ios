@@ -6,7 +6,7 @@
                 "please_try_again_later": "Tente novamente mais tarde."
             },
             "sign_up_failure": {
-                "title": "Sign Up Failure"
+                "title": "Falha no cadastro"
             },
             "server_error": {
                 "title": "Erro do servidor"
@@ -17,7 +17,7 @@
             },
             "discard_post_content": {
                 "title": "Deletar Rascunho",
-                "message": "Confirm to discard composed post content."
+                "message": "Confirme para descartar o conteúdo da publicação composta."
             },
             "publish_post_failure": {
                 "title": "Falha ao publicar",
@@ -42,7 +42,7 @@
             },
             "save_photo_failure": {
                 "title": "Falha ao salvar foto",
-                "message": "Please enable the photo library access permission to save the photo."
+                "message": "Por favor, ative a permissão de acesso à galeria para salvar a foto."
             },
             "delete_post": {
                 "title": "Deletar Toot",
@@ -71,137 +71,137 @@
                 "cancel": "Cancelar",
                 "discard": "Descartar",
                 "try_again": "Tente novamente",
-                "take_photo": "Take Photo",
+                "take_photo": "Tirar foto",
                 "save_photo": "Salvar foto",
                 "copy_photo": "Copiar foto",
-                "sign_in": "Sign In",
-                "sign_up": "Sign Up",
-                "see_more": "See More",
-                "preview": "Preview",
+                "sign_in": "Entrar",
+                "sign_up": "Criar conta",
+                "see_more": "Ver mais",
+                "preview": "Pré-visualização",
                 "share": "Compartilhar",
                 "share_user": "Compartilhar %s",
-                "share_post": "Share Post",
-                "open_in_safari": "Open in Safari",
-                "open_in_browser": "Open in Browser",
-                "find_people": "Find people to follow",
-                "manually_search": "Manually search instead",
-                "skip": "Skip",
-                "reply": "Reply",
-                "report_user": "Report %s",
-                "block_domain": "Block %s",
-                "unblock_domain": "Unblock %s",
-                "settings": "Settings",
-                "delete": "Delete"
+                "share_post": "Compartilhar postagem",
+                "open_in_safari": "Abrir no Safari",
+                "open_in_browser": "Abrir no navegador",
+                "find_people": "Encontre pessoas para seguir",
+                "manually_search": "Procure manualmente em vez disso",
+                "skip": "Pular",
+                "reply": "Responder",
+                "report_user": "Denunciar %s",
+                "block_domain": "Bloquear %s",
+                "unblock_domain": "Desbloquear %s",
+                "settings": "Configurações",
+                "delete": "Excluir"
             },
             "tabs": {
-                "home": "Home",
-                "search": "Search",
-                "notification": "Notification",
-                "profile": "Profile"
+                "home": "Início",
+                "search": "Buscar",
+                "notification": "Notificação",
+                "profile": "Perfil"
             },
             "keyboard": {
                 "common": {
-                    "switch_to_tab": "Switch to %s",
-                    "compose_new_post": "Compose New Post",
-                    "show_favorites": "Show Favorites",
-                    "open_settings": "Open Settings"
+                    "switch_to_tab": "Mudar para %s",
+                    "compose_new_post": "Compor novo toot",
+                    "show_favorites": "Mostrar favoritos",
+                    "open_settings": "Abrir configurações"
                 },
                 "timeline": {
-                    "previous_status": "Previous Post",
-                    "next_status": "Next Post",
-                    "open_status": "Open Post",
-                    "open_author_profile": "Open Author's Profile",
-                    "open_reblogger_profile": "Open Reblogger's Profile",
-                    "reply_status": "Reply to Post",
-                    "toggle_reblog": "Toggle Reblog on Post",
-                    "toggle_favorite": "Toggle Favorite on Post",
-                    "toggle_content_warning": "Toggle Content Warning",
-                    "preview_image": "Preview Image"
+                    "previous_status": "Postagem anterior",
+                    "next_status": "Próxima postagem",
+                    "open_status": "Abrir toot",
+                    "open_author_profile": "Abrir perfil do autor",
+                    "open_reblogger_profile": "Abrir perfil do reblogger",
+                    "reply_status": "Responder toot",
+                    "toggle_reblog": "Ativar/desativar Reblog na postagem",
+                    "toggle_favorite": "Ativar/desativar Favorito na postagem",
+                    "toggle_content_warning": "Ativar/desativar Aviso de Conteúdo",
+                    "preview_image": "Pré-visualizar imagem"
                 },
                 "segmented_control": {
-                    "previous_section": "Previous Section",
-                    "next_section": "Next Section"
+                    "previous_section": "Seção anterior",
+                    "next_section": "Próxima seção"
                 }
             },
             "status": {
-                "user_reblogged": "%s reblogged",
-                "user_replied_to": "Replied to %s",
-                "show_post": "Show Post",
-                "show_user_profile": "Show user profile",
-                "content_warning": "Content Warning",
-                "sensitive_content": "Sensitive Content",
-                "media_content_warning": "Tap anywhere to reveal",
-                "tap_to_reveal": "Tap to reveal",
+                "user_reblogged": "%s reblogou",
+                "user_replied_to": "Em resposta a %s",
+                "show_post": "Mostrar postagem",
+                "show_user_profile": "Mostrar perfil de usuário",
+                "content_warning": "Aviso de Conteúdo",
+                "sensitive_content": "Conteúdo sensível",
+                "media_content_warning": "Toque em qualquer lugar para revelar",
+                "tap_to_reveal": "Toque para revelar",
                 "poll": {
-                    "vote": "Vote",
-                    "closed": "Closed"
+                    "vote": "Votar",
+                    "closed": "Fechado"
                 },
                 "meta_entity": {
                     "url": "Link: %s",
                     "hashtag": "Hashtag: %s",
-                    "mention": "Show Profile: %s",
-                    "email": "Email address: %s"
+                    "mention": "Mostrar perfil: %s",
+                    "email": "Endereço de e-mail: %s"
                 },
                 "actions": {
                     "reply": "Responder",
-                    "reblog": "Reblog",
-                    "unreblog": "Undo reblog",
-                    "favorite": "Favorite",
-                    "unfavorite": "Unfavorite",
+                    "reblog": "Reblogar",
+                    "unreblog": "Desfazer reblog",
+                    "favorite": "Favoritar",
+                    "unfavorite": "Remover favorito",
                     "menu": "Menu",
-                    "hide": "Hide",
-                    "show_image": "Show image",
-                    "show_gif": "Show GIF",
-                    "show_video_player": "Show video player",
-                    "tap_then_hold_to_show_menu": "Tap then hold to show menu"
+                    "hide": "Ocultar",
+                    "show_image": "Exibir imagem",
+                    "show_gif": "Exibir GIF",
+                    "show_video_player": "Mostrar reprodutor de vídeo",
+                    "tap_then_hold_to_show_menu": "Toque e em seguida segure para exibir o menu"
                 },
                 "tag": {
                     "url": "URL",
-                    "mention": "Mention",
+                    "mention": "Mencionar",
                     "link": "Link",
                     "hashtag": "Hashtag",
-                    "email": "Email",
+                    "email": "E-mail",
                     "emoji": "Emoji"
                 },
                 "visibility": {
                     "unlisted": "Everyone can see this post but not display in the public timeline.",
-                    "private": "Only their followers can see this post.",
-                    "private_from_me": "Only my followers can see this post.",
-                    "direct": "Only mentioned user can see this post."
+                    "private": "Somente seus seguidores podem ver essa postagem.",
+                    "private_from_me": "Somente meus seguidores podem ver essa postagem.",
+                    "direct": "Somente o usuário mencionado pode ver essa postagem."
                 }
             },
             "friendship": {
-                "follow": "Follow",
-                "following": "Following",
-                "request": "Request",
-                "pending": "Pending",
-                "block": "Block",
-                "block_user": "Block %s",
-                "block_domain": "Block %s",
-                "unblock": "Unblock",
-                "unblock_user": "Unblock %s",
-                "blocked": "Blocked",
-                "mute": "Mute",
-                "mute_user": "Mute %s",
-                "unmute": "Unmute",
-                "unmute_user": "Unmute %s",
-                "muted": "Muted",
-                "edit_info": "Edit Info",
-                "show_reblogs": "Show Reblogs",
-                "hide_reblogs": "Hide Reblogs"
+                "follow": "Seguir",
+                "following": "Seguindo",
+                "request": "Solicitação",
+                "pending": "Pendente",
+                "block": "Bloquear",
+                "block_user": "Bloquear %s",
+                "block_domain": "Bloquear %s",
+                "unblock": "Desbloquear",
+                "unblock_user": "Desbloquear %s",
+                "blocked": "Bloqueado",
+                "mute": "Silenciar",
+                "mute_user": "Silenciar %s",
+                "unmute": "Remover silenciado",
+                "unmute_user": "Remover silenciado %s",
+                "muted": "Silenciado",
+                "edit_info": "Editar informação",
+                "show_reblogs": "Mostrar Reblogs",
+                "hide_reblogs": "Ocultar Reblogs"
             },
             "timeline": {
-                "filtered": "Filtered",
+                "filtered": "Filtrado",
                 "timestamp": {
-                    "now": "Now"
+                    "now": "Agora"
                 },
                 "loader": {
-                    "load_missing_posts": "Load missing posts",
-                    "loading_missing_posts": "Loading missing posts...",
-                    "show_more_replies": "Show more replies"
+                    "load_missing_posts": "Carregar postagens em falta",
+                    "loading_missing_posts": "Carregando postagens em falta...",
+                    "show_more_replies": "Exibir mais respostas"
                 },
                 "header": {
-                    "no_status_found": "No Post Found",
+                    "no_status_found": "Nenhuma postagem encontrada",
                     "blocking_warning": "You can’t view this user's profile\nuntil you unblock them.\nYour profile looks like this to them.",
                     "user_blocking_warning": "You can’t view %s’s profile\nuntil you unblock them.\nYour profile looks like this to them.",
                     "blocked_warning": "You can’t view this user’s profile\nuntil they unblock you.",
@@ -290,17 +290,17 @@
             },
             "error": {
                 "item": {
-                    "username": "Username",
-                    "email": "Email",
-                    "password": "Password",
-                    "agreement": "Agreement",
-                    "locale": "Locale",
-                    "reason": "Reason"
+                    "username": "Nome de usuário",
+                    "email": "E-mail",
+                    "password": "Senha",
+                    "agreement": "Termos de uso",
+                    "locale": "Localidade",
+                    "reason": "Motivo"
                 },
                 "reason": {
                     "blocked": "%s contains a disallowed email provider",
-                    "unreachable": "%s does not seem to exist",
-                    "taken": "%s is already in use",
+                    "unreachable": "%s parece não existir",
+                    "taken": "%s já está em uso",
                     "reserved": "%s is a reserved keyword",
                     "accepted": "%s must be accepted",
                     "blank": "%s is required",
