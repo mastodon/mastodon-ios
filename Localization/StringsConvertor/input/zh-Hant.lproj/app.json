@@ -417,7 +417,9 @@
                 "custom_emoji_picker": "自訂 emoji 選擇器",
                 "enable_content_warning": "啟用內容警告",
                 "disable_content_warning": "停用內容警告",
-                "post_visibility_menu": "嘟文可見性選單"
+                "post_visibility_menu": "嘟文可見性選單",
+                "post_options": "Post Options",
+                "posting_as": "Posting as %s"
             },
             "keyboard": {
                 "discard_post": "捨棄嘟文",
