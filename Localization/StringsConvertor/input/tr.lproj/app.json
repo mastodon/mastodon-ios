@@ -417,7 +417,9 @@
                 "custom_emoji_picker": "Özel Emoji Seçici",
                 "enable_content_warning": "İçerik Uyarısını Etkinleştir",
                 "disable_content_warning": "İçerik Uyarısını Kapat",
-                "post_visibility_menu": "Gönderi Görünürlüğü Menüsü"
+                "post_visibility_menu": "Gönderi Görünürlüğü Menüsü",
+                "post_options": "Post Options",
+                "posting_as": "Posting as %s"
             },
             "keyboard": {
                 "discard_post": "Gönderiyi İptal Et",
