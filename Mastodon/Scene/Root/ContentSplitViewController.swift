@@ -33,7 +33,6 @@ final class ContentSplitViewController: UIViewController, NeedsDependency {
         sidebarViewController.context = context
         sidebarViewController.coordinator = coordinator
         sidebarViewController.viewModel = SidebarViewModel(context: context, authContext: authContext)
-        sidebarViewController.viewModel.delegate = sidebarViewController
         sidebarViewController.delegate = self
         return sidebarViewController
     }()

@@ -686,9 +686,9 @@
             }
         },
         "account_list": {
+            "tab_bar_hint": "Current selected profile: %s. Double tap then hold to show account switcher",
             "dismiss_account_switcher": "Dismiss Account Switcher",
-            "add_account": "Add Account",
-            "switch_accounts": "Switch Accounts"
+            "add_account": "Add Account"
         },
         "wizard": {
             "new_in_mastodon": "New in Mastodon",
