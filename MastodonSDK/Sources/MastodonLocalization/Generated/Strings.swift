@@ -319,7 +319,7 @@ public enum L10n {
           public static func email(_ p1: Any) -> String {
             return L10n.tr("Localizable", "Common.Controls.Status.MetaEntity.Email", String(describing: p1))
           }
-          /// Hastag %@
+          /// Hashtag: %@
           public static func hashtag(_ p1: Any) -> String {
             return L10n.tr("Localizable", "Common.Controls.Status.MetaEntity.Hashtag", String(describing: p1))
           }
@@ -459,12 +459,20 @@ public enum L10n {
         public static func attachmentBroken(_ p1: Any) -> String {
           return L10n.tr("Localizable", "Scene.Compose.Attachment.AttachmentBroken", String(describing: p1))
         }
+        /// Attachment too large
+        public static let attachmentTooLarge = L10n.tr("Localizable", "Scene.Compose.Attachment.AttachmentTooLarge")
+        /// Can not regonize this media attachment
+        public static let canNotRecognizeThisMediaAttachment = L10n.tr("Localizable", "Scene.Compose.Attachment.CanNotRecognizeThisMediaAttachment")
         /// Describe the photo for the visually-impaired...
         public static let descriptionPhoto = L10n.tr("Localizable", "Scene.Compose.Attachment.DescriptionPhoto")
         /// Describe the video for the visually-impaired...
         public static let descriptionVideo = L10n.tr("Localizable", "Scene.Compose.Attachment.DescriptionVideo")
+        /// Load Failed
+        public static let loadFailed = L10n.tr("Localizable", "Scene.Compose.Attachment.LoadFailed")
         /// photo
         public static let photo = L10n.tr("Localizable", "Scene.Compose.Attachment.Photo")
+        /// Upload Failed
+        public static let uploadFailed = L10n.tr("Localizable", "Scene.Compose.Attachment.UploadFailed")
         /// video
         public static let video = L10n.tr("Localizable", "Scene.Compose.Attachment.Video")
       }

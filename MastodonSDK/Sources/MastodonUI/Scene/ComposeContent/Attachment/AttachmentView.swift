@@ -65,7 +65,7 @@ public struct AttachmentView: View {
                     if viewModel.output == nil, let error = viewModel.error {
                         VisualEffectView(effect: blurEffect)
                         VStack {
-                            Text("Load Failed")    // TODO: i18n
+                            Text(L10n.Scene.Compose.Attachment)    // TODO: i18n
                                 .font(.system(size: 13, weight: .semibold))
                             Text(error.localizedDescription)
                                 .font(.system(size: 12, weight: .regular))
