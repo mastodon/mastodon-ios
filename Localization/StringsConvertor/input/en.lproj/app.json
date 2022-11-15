@@ -96,7 +96,7 @@
             "tabs": {
                 "home": "Home",
                 "search": "Search",
-                "notifications": "Notifications",
+                "notification": "Notification",
                 "profile": "Profile"
             },
             "keyboard": {
