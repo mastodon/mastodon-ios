@@ -2,7 +2,7 @@
     "common": {
         "alerts": {
             "common": {
-                "please_try_again": "Por favor tente novamente.",
+                "please_try_again": "Por favor, tente novamente.",
                 "please_try_again_later": "Tente novamente mais tarde."
             },
             "sign_up_failure": {
@@ -467,8 +467,8 @@
                     "message": "Confirme para silenciar %s"
                 },
                 "confirm_unmute_user": {
-                    "title": "Unmute Account",
-                    "message": "Confirm to unmute %s"
+                    "title": "Tirar conta do silenciado",
+                    "message": "Confirme para tirar %s do silenciado"
                 },
                 "confirm_block_user": {
                     "title": "Bloquear conta",
@@ -500,7 +500,7 @@
         },
         "following": {
             "title": "seguindo",
-            "footer": "Follows from other servers are not displayed."
+            "footer": "Contas que você segue de outras instâncias não são exibidas."
         },
         "familiarFollowers": {
             "title": "Seguidores que você conhece",
@@ -568,7 +568,7 @@
                 "favorited_your_post": "favoritou seu toot",
                 "reblogged_your_post": "reblogou seu toot",
                 "mentioned_you": "te mencionou",
-                "request_to_follow_you": "request to follow you",
+                "request_to_follow_you": "solicitação para te seguir",
                 "poll_has_ended": "enquete encerrada"
             },
             "keyobard": {
@@ -583,7 +583,7 @@
             }
         },
         "thread": {
-            "back_title": "Post",
+            "back_title": "Toot",
             "title": "Publicação de %s"
         },
         "settings": {
@@ -596,7 +596,7 @@
                     "dark": "Sempre Escuro"
                 },
                 "look_and_feel": {
-                    "title": "Look and Feel",
+                    "title": "Aparência e Comportamento",
                     "use_system": "Usar configuração do sistema",
                     "really_dark": "Bem escuro",
                     "sorta_dark": "Meio escuro",
@@ -604,10 +604,10 @@
                 },
                 "notifications": {
                     "title": "Notificações",
-                    "favorites": "Favorites my post",
-                    "follows": "Follows me",
-                    "boosts": "Reblogs my post",
-                    "mentions": "Mentions me",
+                    "favorites": "Favoritaram minha publicação",
+                    "follows": "Me segue",
+                    "boosts": "Rebloga minha publicação",
+                    "mentions": "Me menciona",
                     "trigger": {
                         "anyone": "qualquer pessoa",
                         "follower": "um seguidor",
@@ -618,7 +618,7 @@
                 },
                 "preference": {
                     "title": "Preferências",
-                    "true_black_dark_mode": "True black dark mode",
+                    "true_black_dark_mode": "Modo preto",
                     "disable_avatar_animation": "Desativar fotos animadas",
                     "disable_emoji_animation": "Desativar emojis animados",
                     "using_default_browser": "Usar o navegador padrão pra abrir links",
@@ -631,9 +631,9 @@
                     "privacy": "Política de privacidade"
                 },
                 "spicy_zone": {
-                    "title": "The Spicy Zone",
-                    "clear": "Clear Media Cache",
-                    "signout": "Sign Out"
+                    "title": "A zona apimentada",
+                    "clear": "Limpar cachê de mídia",
+                    "signout": "Sair"
                 }
             },
             "footer": {
@@ -678,7 +678,7 @@
             },
             "step_three": {
                 "step_3_of_4": "Passo 3 de 4",
-                "are_there_any_posts_that_back_up_this_report": "Are there any posts that back up this report?",
+                "are_there_any_posts_that_back_up_this_report": "Existem postagens que apoiam essa denúncia?",
                 "select_all_that_apply": "Selecione todos que se aplicam"
             },
             "step_four": {
@@ -692,31 +692,31 @@
                 "unfollowed": "Deixou de seguir",
                 "unfollow_user": "Deixar de seguir %s",
                 "mute_user": "Silenciar %s",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or reblogs in your home feed. They won’t know they’ve been muted.",
-                "block_user": "Block %s",
-                "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "They will no longer be able to follow or see your posts, but they can see if they’ve been blocked.",
-                "while_we_review_this_you_can_take_action_against_user": "While we review this, you can take action against %s"
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "Você não verá as postagens ou reblogs dessa conta na sua pagina inicial. Essa pessoa não saberá que foi silenciada.",
+                "block_user": "Bloquear %s",
+                "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "Essa conta não poderá mais te seguir ou ver suas postagens, mas ela poderá ver que foi bloqueada.",
+                "while_we_review_this_you_can_take_action_against_user": "Enquanto revisamos isso, você pode tomar medidas contra %s"
             }
         },
         "preview": {
             "keyboard": {
-                "close_preview": "Close Preview",
-                "show_next": "Show Next",
-                "show_previous": "Show Previous"
+                "close_preview": "Fechar prévia",
+                "show_next": "Mostrar a próxima",
+                "show_previous": "Mostrar a anterior"
             }
         },
         "account_list": {
-            "tab_bar_hint": "Current selected profile: %s. Double tap then hold to show account switcher",
-            "dismiss_account_switcher": "Dismiss Account Switcher",
-            "add_account": "Add Account"
+            "tab_bar_hint": "Perfil selecionado nesse momento: %s. Toque duas vezes e segure para mostrar o alternador de conta",
+            "dismiss_account_switcher": "Descartar alternador de conta",
+            "add_account": "Adicionar conta"
         },
         "wizard": {
-            "new_in_mastodon": "New in Mastodon",
-            "multiple_account_switch_intro_description": "Switch between multiple accounts by holding the profile button.",
-            "accessibility_hint": "Double tap to dismiss this wizard"
+            "new_in_mastodon": "Novo no Mastodon",
+            "multiple_account_switch_intro_description": "Alterne entre múltiplas contas segurando o botão de perfil.",
+            "accessibility_hint": "Toque duas vezes para descartar este assistente"
         },
         "bookmark": {
-            "title": "Bookmarks"
+            "title": "Marcados"
         }
     }
 }
