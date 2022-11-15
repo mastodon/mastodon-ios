@@ -385,10 +385,10 @@
                 "description_video": "Vîdyoyê ji bo kêmbînên dîtbar bide nasîn...",
                 "load_failed": "Barkirin têk çû",
                 "upload_failed": "Barkirin têk çû",
-                "can_not_recognize_this_media_attachment": "Can not recognize this media attachment",
+                "can_not_recognize_this_media_attachment": "Nikare ev pêveka medyayê nas bike",
                 "attachment_too_large": "Pêvek pir mezin e",
                 "compressing_state": "Compressing...",
-                "server_processing_state": "Server Processing..."
+                "server_processing_state": "Pêvajoya rajekar pêş de diçe..."
             },
             "poll": {
                 "duration_time": "Dirêjî: %s",
@@ -399,7 +399,7 @@
                 "three_days": "3 Roj",
                 "seven_days": "7 Roj",
                 "option_number": "Vebijêrk %ld",
-                "the_poll_is_invalid": "The poll is invalid",
+                "the_poll_is_invalid": "Ev dengdayîn ne derbasdar e",
                 "the_poll_has_empty_option": "The poll has empty option"
             },
             "content_warning": {
@@ -422,8 +422,8 @@
                 "enable_content_warning": "Hişyariya naverokê çalak bike",
                 "disable_content_warning": "Hişyariya naverokê neçalak bike",
                 "post_visibility_menu": "Kulîna xuyabûna şandiyê",
-                "post_options": "Post Options",
-                "posting_as": "Posting as %s"
+                "post_options": "Vebijêrkên şandiyê",
+                "posting_as": "Biweşîne wekî %s"
             },
             "keyboard": {
                 "discard_post": "Şandî paşguh bike",
@@ -450,8 +450,8 @@
                     "content": "Naverok"
                 },
                 "verified": {
-                    "short": "Verified on %s",
-                    "long": "Ownership of this link was checked on %s"
+                    "short": "Hate piştrastkirin li ser %s",
+                    "long": "Xwedaniya li vê girêdanê di %s de hatiye kontrolkirin"
                 }
             },
             "segmented_control": {
