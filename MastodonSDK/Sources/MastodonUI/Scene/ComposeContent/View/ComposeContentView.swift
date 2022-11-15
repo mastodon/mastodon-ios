@@ -222,13 +222,17 @@ extension ComposeContentView {
         VStack(spacing: 16) {
             ForEach(viewModel.attachmentViewModels, id: \.self) { attachmentViewModel in
                 AttachmentView(viewModel: attachmentViewModel)
-                    .clipShape(Rectangle())
+                    .clipShape(RoundedRectangle(cornerRadius: 4))
                     .badgeView(
                         Button {
                             viewModel.attachmentViewModels.removeAll(where: { $0 === attachmentViewModel })
                         } label: {
                             Image(systemName: "minus.circle.fill")
+                                .resizable()
+                                .frame(width: 20, height: 20)
                                 .foregroundColor(.red)
+                                .background(Color.white)
+                                .clipShape(Circle())
                         }
                     )
             }   // end ForEach
