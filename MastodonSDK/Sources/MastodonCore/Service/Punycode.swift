@@ -19,11 +19,11 @@ public enum Punycode {
 
     private static let digits: [String] = "abcdefghijklmnopqrstuvwxyz0123456789".map { String($0) }
 
-    public static func encode(_ input: String) -> String {
+    public static func encode<S: StringProtocol>(_ input: S) -> String {
         let codePoints = input.unicodeScalars
-        let basicCodePoints = codePoints.filter(\.isASCII)
+        let basicCodePoints = String.UnicodeScalarView(codePoints.filter(\.isASCII))
         let codePointsSorted = codePoints.map(\.value).sorted()
-        if basicCodePoints.count == codePoints.count { return input }
+        if basicCodePoints.count == codePoints.count { return String(input) }
 
         // https://datatracker.ietf.org/doc/html/rfc3492#section-6.3
         // [Swift fails on overflow already, so no special consideration necessary]
