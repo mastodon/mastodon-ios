@@ -23,7 +23,7 @@ final class SidebarListContentView: UIView, UIContentView {
         button.borderColor = UIColor.label
         return button
     }()
-    private let accountToggleIndicator = UIImageView(image: UIImage(systemName: "chevron.up.chevron.down"))
+    private let accessoryImageView = UIImageView(image: nil)
 
     private var currentConfiguration: ContentConfiguration!
     var configuration: UIContentConfiguration {
@@ -62,8 +62,8 @@ extension SidebarListContentView {
             imageView.heightAnchor.constraint(equalToConstant: 40).priority(.required - 1),
         ])
         
-        accountToggleIndicator.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(accountToggleIndicator)
+        accessoryImageView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(accessoryImageView)
 
         avatarButton.translatesAutoresizingMaskIntoConstraints = false
         addSubview(avatarButton)
@@ -72,10 +72,10 @@ extension SidebarListContentView {
             avatarButton.centerYAnchor.constraint(equalTo: imageView.centerYAnchor),
             avatarButton.widthAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 1.0).priority(.required - 2),
             avatarButton.heightAnchor.constraint(equalTo: imageView.heightAnchor, multiplier: 1.0).priority(.required - 2),
-            accountToggleIndicator.widthAnchor.constraint(equalToConstant: 12),
-            accountToggleIndicator.heightAnchor.constraint(equalToConstant: 22),
-            accountToggleIndicator.leadingAnchor.constraint(equalTo: avatarButton.trailingAnchor, constant: 4),
-            accountToggleIndicator.centerYAnchor.constraint(equalTo: avatarButton.centerYAnchor)
+            accessoryImageView.widthAnchor.constraint(equalToConstant: 12),
+            accessoryImageView.heightAnchor.constraint(equalToConstant: 22),
+            accessoryImageView.leadingAnchor.constraint(equalTo: avatarButton.trailingAnchor, constant: 4),
+            accessoryImageView.centerYAnchor.constraint(equalTo: avatarButton.centerYAnchor)
         ])
         avatarButton.setContentHuggingPriority(.defaultLow - 10, for: .vertical)
         avatarButton.setContentHuggingPriority(.defaultLow - 10, for: .horizontal)
@@ -104,8 +104,9 @@ extension SidebarListContentView {
         imageView.isHidden = item.imageURL != nil
         avatarButton.isHidden = item.imageURL == nil
         imageView.image = item.isActive ? item.activeImage.withRenderingMode(.alwaysTemplate) : item.image.withRenderingMode(.alwaysTemplate)
-        accountToggleIndicator.isHidden = !item.showAccountSwitcher
-        accountToggleIndicator.tintColor = item.isActive ? .label : .secondaryLabel
+        accessoryImageView.image = item.accessoryImage
+        accessoryImageView.isHidden = item.accessoryImage == nil
+        accessoryImageView.tintColor = item.isActive ? .label : .secondaryLabel
         avatarButton.avatarImageView.setImage(
             url: item.imageURL,
             placeholder: avatarButton.avatarImageView.image ?? .placeholder(color: .systemFill),  // reuse to avoid blink
@@ -122,7 +123,7 @@ extension SidebarListContentView {
         var isSelected: Bool = false
         var isHighlighted: Bool = false
         var isActive: Bool
-        var showAccountSwitcher: Bool
+        var accessoryImage: UIImage? = nil
 
         // model
         let title: String
@@ -135,7 +136,7 @@ extension SidebarListContentView {
             return lhs.isSelected == rhs.isSelected
                 && lhs.isHighlighted == rhs.isHighlighted
                 && lhs.isActive == rhs.isActive
-                && lhs.showAccountSwitcher == rhs.showAccountSwitcher
+                && lhs.accessoryImage == rhs.accessoryImage
                 && lhs.title == rhs.title
                 && lhs.image == rhs.image
                 && lhs.activeImage == rhs.activeImage
@@ -146,7 +147,7 @@ extension SidebarListContentView {
             hasher.combine(isSelected)
             hasher.combine(isHighlighted)
             hasher.combine(isActive)
-            hasher.combine(showAccountSwitcher)
+            hasher.combine(accessoryImage)
             hasher.combine(title)
             hasher.combine(image)
             hasher.combine(activeImage)

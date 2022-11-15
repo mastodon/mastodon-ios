@@ -80,7 +80,7 @@ extension SidebarViewModel {
             }()
             cell.item = SidebarListContentView.Item(
                 isActive: false,
-                showAccountSwitcher: item == .me,
+                accessoryImage: item == .me ? UIImage(systemName: "chevron.up.chevron.down") : nil,
                 title: item.title,
                 image: item.image,
                 activeImage: item.selectedImage,
@@ -158,7 +158,6 @@ extension SidebarViewModel {
             case .setting:
                 let item = SidebarListContentView.Item(
                     isActive: false,
-                    showAccountSwitcher: false,
                     title: L10n.Common.Controls.Actions.settings,
                     image: Asset.ObjectsAndTools.gear.image.withRenderingMode(.alwaysTemplate),
                     activeImage: Asset.ObjectsAndTools.gear.image.withRenderingMode(.alwaysTemplate),
@@ -168,7 +167,7 @@ extension SidebarViewModel {
             case .compose:
                 let item = SidebarListContentView.Item(
                     isActive: false,
-                    showAccountSwitcher: self.currentTab == .me,
+                    accessoryImage: self.currentTab == .me ? UIImage(systemName: "chevron.up.chevron.down") : nil,
                     title: L10n.Common.Controls.Actions.compose,
                     image: Asset.ObjectsAndTools.squareAndPencil.image.withRenderingMode(.alwaysTemplate),
                     activeImage: Asset.ObjectsAndTools.squareAndPencil.image.withRenderingMode(.alwaysTemplate),
@@ -216,7 +215,6 @@ extension SidebarViewModel {
             
             let item = SidebarListContentView.Item(
                 isActive: false,
-                showAccountSwitcher: false,
                 title: L10n.Common.Controls.Actions.compose,
                 image: Asset.ObjectsAndTools.squareAndPencil.image.withRenderingMode(.alwaysTemplate),
                 activeImage: Asset.ObjectsAndTools.squareAndPencil.image.withRenderingMode(.alwaysTemplate),
