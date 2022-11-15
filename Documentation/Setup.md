@@ -12,7 +12,7 @@ Install the latest version of Xcode from the App Store or Apple Developer Downlo
 This guide may not suit your machine and actually setup procedure may change in the future. Please file the issue or Pull Request if there are any problems.
 
 ## CocoaPods
-The app use [CocoaPods]() and [Arkana](https://github.com/rogerluan/arkana). Ruby Gems are managed through Bundler. The M1 Mac needs virtual ruby env to workaround compatibility issues.
+The app use [CocoaPods]() and [Arkana](https://github.com/rogerluan/arkana). Ruby Gems are managed through Bundler. The M1 Mac needs virtual ruby env to workaround compatibility issues. Make sure you have [Rosetta](https://support.apple.com/en-us/HT211861) installed if you are using the M1 Mac.
 
 #### Intel Mac
 
