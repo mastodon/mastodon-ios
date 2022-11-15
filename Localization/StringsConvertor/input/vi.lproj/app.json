@@ -385,10 +385,10 @@
                 "description_video": "Mô tả video cho người khiếm thị...",
                 "load_failed": "Tải thất bại",
                 "upload_failed": "Tải lên thất bại",
-                "can_not_recognize_this_media_attachment": "Can not recognize this media attachment",
+                "can_not_recognize_this_media_attachment": "Không xem được tập tin đính kèm",
                 "attachment_too_large": "Tập tin đính kèm quá lớn",
-                "compressing_state": "Compressing...",
-                "server_processing_state": "Server Processing..."
+                "compressing_state": "Đang nén...",
+                "server_processing_state": "Máy chủ đang xử lý..."
             },
             "poll": {
                 "duration_time": "Thời hạn: %s",
@@ -399,8 +399,8 @@
                 "three_days": "3 ngày",
                 "seven_days": "7 ngày",
                 "option_number": "Lựa chọn %ld",
-                "the_poll_is_invalid": "The poll is invalid",
-                "the_poll_has_empty_option": "The poll has empty option"
+                "the_poll_is_invalid": "Bình chọn không hợp lệ",
+                "the_poll_has_empty_option": "Thiếu lựa chọn"
             },
             "content_warning": {
                 "placeholder": "Viết nội dung ẩn của bạn ở đây..."
@@ -450,8 +450,8 @@
                     "content": "Nội dung"
                 },
                 "verified": {
-                    "short": "Verified on %s",
-                    "long": "Ownership of this link was checked on %s"
+                    "short": "Đã xác minh %s",
+                    "long": "Liên kết này đã được xác minh trên %s"
                 }
             },
             "segmented_control": {
