@@ -72,7 +72,6 @@ extension MediaPreviewImageView {
         doubleTapGestureRecognizer.addTarget(self, action: #selector(MediaPreviewImageView.doubleTapGestureRecognizerHandler(_:)))
         imageView.addGestureRecognizer(doubleTapGestureRecognizer)
         if #available(iOS 16.0, *) {
-            liveTextInteraction.isSupplementaryInterfaceHidden = true
             imageView.addInteraction(liveTextInteraction)
         }
 
@@ -154,10 +153,6 @@ extension MediaPreviewImageView {
                     await MainActor.run {
                         self.liveTextInteraction.analysis = analysis
                         self.liveTextInteraction.preferredInteractionTypes = .automatic
-                        if self.liveTextInteraction.isSupplementaryInterfaceHidden {
-                            self.liveTextInteraction.setSupplementaryInterfaceHidden(false, animated: true)
-                        }
-
                     }
                 } catch {
                     await MainActor.run {
