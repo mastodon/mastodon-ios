@@ -66,7 +66,9 @@ extension MetaLabel {
             textColor = Asset.Colors.Label.primary.color
             textAlignment = .center
             paragraphStyle.alignment = .center
-        
+            numberOfLines = 0
+            textContainer.maximumNumberOfLines = 0
+
         case .statusSpoilerBanner:
             font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .regular))
             textColor = Asset.Colors.Label.primary.color
