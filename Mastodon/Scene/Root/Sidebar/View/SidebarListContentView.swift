@@ -23,7 +23,7 @@ final class SidebarListContentView: UIView, UIContentView {
         button.borderColor = UIColor.label
         return button
     }()
-    let accountSwitcherChevron = UIImageView(image: UIImage(systemName: "chevron.up.chevron.down"))
+    private let accountToggleIndicator = UIImageView(image: UIImage(systemName: "chevron.up.chevron.down"))
 
     private var currentConfiguration: ContentConfiguration!
     var configuration: UIContentConfiguration {
@@ -62,8 +62,8 @@ extension SidebarListContentView {
             imageView.heightAnchor.constraint(equalToConstant: 40).priority(.required - 1),
         ])
         
-        accountSwitcherChevron.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(accountSwitcherChevron)
+        accountToggleIndicator.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(accountToggleIndicator)
 
         avatarButton.translatesAutoresizingMaskIntoConstraints = false
         addSubview(avatarButton)
@@ -72,10 +72,10 @@ extension SidebarListContentView {
             avatarButton.centerYAnchor.constraint(equalTo: imageView.centerYAnchor),
             avatarButton.widthAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 1.0).priority(.required - 2),
             avatarButton.heightAnchor.constraint(equalTo: imageView.heightAnchor, multiplier: 1.0).priority(.required - 2),
-            accountSwitcherChevron.widthAnchor.constraint(equalToConstant: 12),
-            accountSwitcherChevron.heightAnchor.constraint(equalToConstant: 22),
-            accountSwitcherChevron.leadingAnchor.constraint(equalTo: avatarButton.trailingAnchor, constant: 4),
-            accountSwitcherChevron.centerYAnchor.constraint(equalTo: avatarButton.centerYAnchor)
+            accountToggleIndicator.widthAnchor.constraint(equalToConstant: 12),
+            accountToggleIndicator.heightAnchor.constraint(equalToConstant: 22),
+            accountToggleIndicator.leadingAnchor.constraint(equalTo: avatarButton.trailingAnchor, constant: 4),
+            accountToggleIndicator.centerYAnchor.constraint(equalTo: avatarButton.centerYAnchor)
         ])
         avatarButton.setContentHuggingPriority(.defaultLow - 10, for: .vertical)
         avatarButton.setContentHuggingPriority(.defaultLow - 10, for: .horizontal)
@@ -104,8 +104,8 @@ extension SidebarListContentView {
         imageView.isHidden = item.imageURL != nil
         avatarButton.isHidden = item.imageURL == nil
         imageView.image = item.isActive ? item.activeImage.withRenderingMode(.alwaysTemplate) : item.image.withRenderingMode(.alwaysTemplate)
-        accountSwitcherChevron.isHidden = !item.showAccountSwitcher
-        accountSwitcherChevron.tintColor = item.isActive ? .label : .secondaryLabel
+        accountToggleIndicator.isHidden = !item.showAccountSwitcher
+        accountToggleIndicator.tintColor = item.isActive ? .label : .secondaryLabel
         avatarButton.avatarImageView.setImage(
             url: item.imageURL,
             placeholder: avatarButton.avatarImageView.image ?? .placeholder(color: .systemFill),  // reuse to avoid blink
