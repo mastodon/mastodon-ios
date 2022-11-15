@@ -83,8 +83,6 @@ class PickServerCell: UITableViewCell {
         return label
     }()
 
-    //TODO: @zeitschlag New label for "Registrations closed"
-    
     private var collapseConstraints: [NSLayoutConstraint] = []
     private var expandConstraints: [NSLayoutConstraint] = []
     

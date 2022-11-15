@@ -48,7 +48,6 @@ extension PickServerSection {
 extension PickServerSection {
     
     static func configure(cell: PickServerCell, server: Mastodon.Entity.Server, attribute: PickServerItem.ServerItemAttribute) {
-        //TODO: @zeitschlag configure cell if server doesn't allow registrations
         cell.domainLabel.text = server.domain
         cell.descriptionLabel.attributedText = {
             let content: String = {
