@@ -154,7 +154,7 @@ Your profile looks like this to them.";
 "Common.Controls.Timeline.Timestamp.Now" = "Now";
 "Scene.AccountList.AddAccount" = "Add Account";
 "Scene.AccountList.DismissAccountSwitcher" = "Dismiss Account Switcher";
-"Scene.AccountList.SwitchAccounts" = "Switch Accounts";
+"Scene.AccountList.TabBarHint" = "Current selected profile: %@. Double tap then hold to show account switcher";
 "Scene.Bookmark.Title" = "Bookmarks";
 "Scene.Compose.Accessibility.AppendAttachment" = "Add Attachment";
 "Scene.Compose.Accessibility.AppendPoll" = "Add Poll";
