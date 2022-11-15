@@ -445,7 +445,6 @@ extension MastodonPickServerViewController: PickServerServerSectionTableHeaderVi
     }
     
     func pickServerServerSectionTableHeaderView(_ headerView: PickServerServerSectionTableHeaderView, searchTextDidChange searchText: String?) {
-        //TODO:  @zeitschlag Deselect server?
         viewModel.searchText.send(searchText ?? "")
     }
 }

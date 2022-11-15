@@ -129,10 +129,12 @@ class MastodonLoginViewController: UIViewController, NeedsDependency {
   //MARK: - Actions
 
   @objc func backButtonPressed(_ sender: Any) {
+    contentView.searchTextField.resignFirstResponder()
     delegate?.backButtonPressed(self)
   }
 
   @objc func nextButtonPressed(_ sender: Any) {
+    contentView.searchTextField.resignFirstResponder()
     delegate?.nextButtonPressed(self)
   }
 
@@ -230,9 +232,15 @@ class MastodonLoginViewController: UIViewController, NeedsDependency {
           let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber
     else { return }
 
-    //FIXME: @zeitschlag on iPad
-    let adjustmentHeight = keyboardFrameValue.cgRectValue.height - view.safeAreaInsets.bottom
-    contentView.bottomConstraint?.constant = adjustmentHeight
+    // inspired by https://stackoverflow.com/a/30245044
+    let keyboardFrame = keyboardFrameValue.cgRectValue
+
+    let keyboardOrigin = view.convert(keyboardFrame.origin, from: nil)
+    let intersectionY = CGRectGetMaxY(view.frame) - keyboardOrigin.y;
+
+    if intersectionY >= 0 {
+      contentView.bottomConstraint?.constant = intersectionY - view.safeAreaInsets.bottom
+    }
 
     UIView.animate(withDuration: duration.doubleValue, delay: 0, options: .curveEaseInOut) {
       self.view.layoutIfNeeded()
