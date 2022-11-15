@@ -131,6 +131,12 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
             }
             return animator
         }
+
+        if let toVC = transitionContext.viewController(forKey: .to) {
+            animator.addCompletion { _ in
+                toVC.setNeedsStatusBarAppearanceUpdate()
+            }
+        }
         
         // update close button
         UIView.animate(withDuration: 0.33, delay: 0, options: [.curveEaseInOut]) {
