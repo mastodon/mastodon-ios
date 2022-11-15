@@ -105,8 +105,8 @@ final class ProfileViewController: UIViewController, NeedsDependency, MediaPrevi
         return barButtonItem
     }()
 
-    let refreshControl: UIRefreshControl = {
-        let refreshControl = UIRefreshControl()
+    let refreshControl: RefreshControl = {
+        let refreshControl = RefreshControl()
         refreshControl.tintColor = .white
         return refreshControl
     }()
@@ -551,7 +551,7 @@ extension ProfileViewController {
         _ = coordinator.present(scene: .compose(viewModel: composeViewModel), from: self, transition: .modal(animated: true, completion: nil))
     }
 
-    @objc private func refreshControlValueChanged(_ sender: UIRefreshControl) {
+    @objc private func refreshControlValueChanged(_ sender: RefreshControl) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
 
         if let userTimelineViewController = profilePagingViewController.currentViewController as? UserTimelineViewController {

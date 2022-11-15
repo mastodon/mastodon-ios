@@ -33,7 +33,7 @@ final class DiscoveryCommunityViewController: UIViewController, NeedsDependency,
         return tableView
     }()
     
-    let refreshControl = UIRefreshControl()
+    let refreshControl = RefreshControl()
     
     deinit {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
@@ -108,7 +108,7 @@ extension DiscoveryCommunityViewController {
 
 extension DiscoveryCommunityViewController {
     
-    @objc private func refreshControlValueChanged(_ sender: UIRefreshControl) {
+    @objc private func refreshControlValueChanged(_ sender: RefreshControl) {
         if !viewModel.stateMachine.enter(DiscoveryCommunityViewModel.State.Reloading.self) {
             refreshControl.endRefreshing()
         }

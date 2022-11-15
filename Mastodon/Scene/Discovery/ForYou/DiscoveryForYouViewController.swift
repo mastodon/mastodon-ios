@@ -32,7 +32,7 @@ final class DiscoveryForYouViewController: UIViewController, NeedsDependency, Me
         return tableView
     }()
     
-    let refreshControl = UIRefreshControl()
+    let refreshControl = RefreshControl()
     
     deinit {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
@@ -93,7 +93,7 @@ extension DiscoveryForYouViewController {
 
 extension DiscoveryForYouViewController {
     
-    @objc private func refreshControlValueChanged(_ sender: UIRefreshControl) {
+    @objc private func refreshControlValueChanged(_ sender: RefreshControl) {
         Task {
             try await viewModel.fetch()
         }

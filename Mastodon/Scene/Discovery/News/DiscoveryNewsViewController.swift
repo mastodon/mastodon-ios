@@ -32,7 +32,7 @@ final class DiscoveryNewsViewController: UIViewController, NeedsDependency, Medi
         return tableView
     }()
     
-    let refreshControl = UIRefreshControl()
+    let refreshControl = RefreshControl()
     
     deinit {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
@@ -101,7 +101,7 @@ extension DiscoveryNewsViewController {
 
 extension DiscoveryNewsViewController {
     
-    @objc private func refreshControlValueChanged(_ sender: UIRefreshControl) {
+    @objc private func refreshControlValueChanged(_ sender: RefreshControl) {
         guard viewModel.stateMachine.enter(DiscoveryNewsViewModel.State.Reloading.self) else {
             sender.endRefreshing()
             return
