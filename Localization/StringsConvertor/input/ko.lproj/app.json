@@ -422,8 +422,8 @@
                 "enable_content_warning": "열람 주의 설정",
                 "disable_content_warning": "열람 주의 해제",
                 "post_visibility_menu": "게시물 공개범위 메뉴",
-                "post_options": "Post Options",
-                "posting_as": "Posting as %s"
+                "post_options": "게시물 옵션",
+                "posting_as": "%s로 게시"
             },
             "keyboard": {
                 "discard_post": "글 버리기",
