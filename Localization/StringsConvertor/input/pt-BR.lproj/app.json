@@ -637,61 +637,61 @@
                 }
             },
             "footer": {
-                "mastodon_description": "Mastodon is open source software. You can report issues on GitHub at %s (%s)"
+                "mastodon_description": "Mastodon é um software de código aberto. Você pode reportar problemas no GitHub em %s (%s)"
             },
             "keyboard": {
-                "close_settings_window": "Close Settings Window"
+                "close_settings_window": "Fechar janela de configurações"
             }
         },
         "report": {
-            "title_report": "Report",
-            "title": "Report %s",
-            "step1": "Step 1 of 2",
-            "step2": "Step 2 of 2",
-            "content1": "Are there any other posts you’d like to add to the report?",
-            "content2": "Is there anything the moderators should know about this report?",
-            "report_sent_title": "Thanks for reporting, we’ll look into this.",
-            "send": "Send Report",
-            "skip_to_send": "Send without comment",
-            "text_placeholder": "Type or paste additional comments",
-            "reported": "REPORTED",
+            "title_report": "Denunciar",
+            "title": "Denunciar %s",
+            "step1": "Passo 1 de 2",
+            "step2": "Passo 2 de 2",
+            "content1": "Há outras postagens que você gostaria de adicionar na denúncia?",
+            "content2": "Há algo que os moderadores deveriam saber sobre esta denúncia?",
+            "report_sent_title": "Obrigado por denunciar, iremos analisar.",
+            "send": "Enviar denúncia",
+            "skip_to_send": "Enviar sem comentário",
+            "text_placeholder": "Digite ou cole comentários adicionais",
+            "reported": "DENUNCIADO",
             "step_one": {
-                "step_1_of_4": "Step 1 of 4",
-                "whats_wrong_with_this_post": "What's wrong with this post?",
-                "whats_wrong_with_this_account": "What's wrong with this account?",
-                "whats_wrong_with_this_username": "What's wrong with %s?",
-                "select_the_best_match": "Select the best match",
-                "i_dont_like_it": "I don’t like it",
-                "it_is_not_something_you_want_to_see": "It is not something you want to see",
-                "its_spam": "It’s spam",
-                "malicious_links_fake_engagement_or_repetetive_replies": "Malicious links, fake engagement, or repetetive replies",
-                "it_violates_server_rules": "It violates server rules",
-                "you_are_aware_that_it_breaks_specific_rules": "You are aware that it breaks specific rules",
-                "its_something_else": "It’s something else",
-                "the_issue_does_not_fit_into_other_categories": "The issue does not fit into other categories"
+                "step_1_of_4": "Passo 1 de 4",
+                "whats_wrong_with_this_post": "O que há de errado com essa publicação?",
+                "whats_wrong_with_this_account": "O que há de errado com essa conta?",
+                "whats_wrong_with_this_username": "O que há de errado com %s?",
+                "select_the_best_match": "Selecione a melhor alternativa",
+                "i_dont_like_it": "Eu não gosto disso",
+                "it_is_not_something_you_want_to_see": "Não é algo que você gostaria de ver",
+                "its_spam": "É spam",
+                "malicious_links_fake_engagement_or_repetetive_replies": "Links maliciosos, engajamento falso, ou respostas repetitivas",
+                "it_violates_server_rules": "Isso viola as regras do servidor",
+                "you_are_aware_that_it_breaks_specific_rules": "Você está ciente que isso quebra regras específicas",
+                "its_something_else": "É outra coisa",
+                "the_issue_does_not_fit_into_other_categories": "O problema não se encaixa em outras categorias"
             },
             "step_two": {
-                "step_2_of_4": "Step 2 of 4",
-                "which_rules_are_being_violated": "Which rules are being violated?",
-                "select_all_that_apply": "Select all that apply",
-                "i_just_don’t_like_it": "I just don’t like it"
+                "step_2_of_4": "Passo 2 de 4",
+                "which_rules_are_being_violated": "Quais regras estão sendo violadas?",
+                "select_all_that_apply": "Selecione todas que se aplicam",
+                "i_just_don’t_like_it": "Simplesmente não gosto"
             },
             "step_three": {
-                "step_3_of_4": "Step 3 of 4",
+                "step_3_of_4": "Passo 3 de 4",
                 "are_there_any_posts_that_back_up_this_report": "Are there any posts that back up this report?",
-                "select_all_that_apply": "Select all that apply"
+                "select_all_that_apply": "Selecione todos que se aplicam"
             },
             "step_four": {
-                "step_4_of_4": "Step 4 of 4",
-                "is_there_anything_else_we_should_know": "Is there anything else we should know?"
+                "step_4_of_4": "Passo 4 de 4",
+                "is_there_anything_else_we_should_know": "Há algo a mais que deveríamos saber?"
             },
             "step_final": {
-                "dont_want_to_see_this": "Don’t want to see this?",
-                "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "When you see something you don’t like on Mastodon, you can remove the person from your experience.",
-                "unfollow": "Unfollow",
-                "unfollowed": "Unfollowed",
-                "unfollow_user": "Unfollow %s",
-                "mute_user": "Mute %s",
+                "dont_want_to_see_this": "Não quer ver isso?",
+                "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "Quando você vê algo que não gosta no Mastodon, você pode remover essa pessoa da sua experiência.",
+                "unfollow": "Deixar de seguir",
+                "unfollowed": "Deixou de seguir",
+                "unfollow_user": "Deixar de seguir %s",
+                "mute_user": "Silenciar %s",
                 "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or reblogs in your home feed. They won’t know they’ve been muted.",
                 "block_user": "Block %s",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "They will no longer be able to follow or see your posts, but they can see if they’ve been blocked.",
