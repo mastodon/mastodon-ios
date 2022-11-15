@@ -343,12 +343,12 @@
             "open_email_app": {
                 "title": "Verifique sua caixa de entrada.",
                 "description": "Enviamos um e-mail para você. Verifique sua pasta de spam caso ainda tenha verificado.",
-                "mail": "Mail",
-                "open_email_client": "Open Email Client"
+                "mail": "Correio",
+                "open_email_client": "Abrir Cliente de Email"
             }
         },
         "home_timeline": {
-            "title": "Home",
+            "title": "Início",
             "navigation_bar_state": {
                 "offline": "Desconectado",
                 "new_posts": "Ver novas postagens",
@@ -356,13 +356,13 @@
                 "Publishing": "Publicando toot...",
                 "accessibility": {
                     "logo_label": "Botão do logotipo",
-                    "logo_hint": "Tap to scroll to top and tap again to previous location"
+                    "logo_hint": "Toque para rolar para o topo e toque novamente para a localização anterior"
                 }
             }
         },
         "suggestion_account": {
-            "title": "Find People to Follow",
-            "follow_explain": "When you follow someone, you’ll see their posts in your home feed."
+            "title": "Encontre pessoas para seguir",
+            "follow_explain": "Ao seguir alguém, você verá as publicações dessa pessoa na sua página inicial."
         },
         "compose": {
             "title": {
@@ -380,15 +380,15 @@
             "attachment": {
                 "photo": "foto",
                 "video": "vídeo",
-                "attachment_broken": "This %s is broken and can’t be\nuploaded to Mastodon.",
-                "description_photo": "Describe the photo for the visually-impaired...",
-                "description_video": "Describe the video for the visually-impaired...",
-                "load_failed": "Load Failed",
-                "upload_failed": "Upload Failed",
-                "can_not_recognize_this_media_attachment": "Can not recognize this media attachment",
-                "attachment_too_large": "Attachment too large",
-                "compressing_state": "Compressing...",
-                "server_processing_state": "Server Processing..."
+                "attachment_broken": "Este %s está quebrado e não pode ser\nenviado para o Mastodon.",
+                "description_photo": "Descreva a foto para deficientes visuais...",
+                "description_video": "Descreva o vídeo para os deficientes visuais...",
+                "load_failed": "Falha ao carregar",
+                "upload_failed": "Falha no carregamento",
+                "can_not_recognize_this_media_attachment": "Não é possível reconhecer este anexo de mídia",
+                "attachment_too_large": "O anexo é muito grande",
+                "compressing_state": "Compactando...",
+                "server_processing_state": "Servidor processando..."
             },
             "poll": {
                 "duration_time": "Duração: %s",
@@ -399,44 +399,44 @@
                 "three_days": "3 dias",
                 "seven_days": "7 dias",
                 "option_number": "Opção %ld",
-                "the_poll_is_invalid": "The poll is invalid",
-                "the_poll_has_empty_option": "The poll has empty option"
+                "the_poll_is_invalid": "A enquete é inválida",
+                "the_poll_has_empty_option": "A enquete tem uma opção vazia"
             },
             "content_warning": {
-                "placeholder": "Write an accurate warning here..."
+                "placeholder": "Escreva um aviso de conteúdo preciso aqui..."
             },
             "visibility": {
-                "public": "Public",
-                "unlisted": "Unlisted",
-                "private": "Followers only",
-                "direct": "Only people I mention"
+                "public": "Público",
+                "unlisted": "Não listado",
+                "private": "Apenas seguidores",
+                "direct": "Apenas pessoas que menciono"
             },
             "auto_complete": {
-                "space_to_add": "Space to add"
+                "space_to_add": "Espaço a adicionar"
             },
             "accessibility": {
-                "append_attachment": "Add Attachment",
-                "append_poll": "Add Poll",
-                "remove_poll": "Remove Poll",
-                "custom_emoji_picker": "Custom Emoji Picker",
-                "enable_content_warning": "Enable Content Warning",
-                "disable_content_warning": "Disable Content Warning",
-                "post_visibility_menu": "Post Visibility Menu",
+                "append_attachment": "Adicionar anexo",
+                "append_poll": "Adicionar enquete",
+                "remove_poll": "Remover enquete",
+                "custom_emoji_picker": "Seletor de emoji personalizado",
+                "enable_content_warning": "Ativar Aviso de Conteúdo",
+                "disable_content_warning": "Desativar Aviso de Conteúdo",
+                "post_visibility_menu": "Menu de Visibilidade do Post",
                 "post_options": "Opções de postagem",
                 "posting_as": "Publicando como %s"
             },
             "keyboard": {
-                "discard_post": "Discard Post",
-                "publish_post": "Publish Post",
-                "toggle_poll": "Toggle Poll",
-                "toggle_content_warning": "Toggle Content Warning",
-                "append_attachment_entry": "Add Attachment - %s",
-                "select_visibility_entry": "Select Visibility - %s"
+                "discard_post": "Descartar postagem",
+                "publish_post": "Publicar postagem",
+                "toggle_poll": "Alternar enquete",
+                "toggle_content_warning": "Ativar/desativar Aviso de Conteúdo",
+                "append_attachment_entry": "Adicionar Anexo - %s",
+                "select_visibility_entry": "Selecionar Visibilidade - %s"
             }
         },
         "profile": {
             "header": {
-                "follows_you": "Follows You"
+                "follows_you": "Segue você"
             },
             "dashboard": {
                 "posts": "toots",
@@ -444,14 +444,14 @@
                 "followers": "seguidores"
             },
             "fields": {
-                "add_row": "Add Row",
+                "add_row": "Adicionar linha",
                 "placeholder": {
-                    "label": "Label",
+                    "label": "Descrição",
                     "content": "Conteúdo"
                 },
                 "verified": {
-                    "short": "Verified on %s",
-                    "long": "Ownership of this link was checked on %s"
+                    "short": "Verificado em %s",
+                    "long": "O link foi verificado em %s"
                 }
             },
             "segmented_control": {
@@ -471,63 +471,63 @@
                     "message": "Confirm to unmute %s"
                 },
                 "confirm_block_user": {
-                    "title": "Block Account",
-                    "message": "Confirm to block %s"
+                    "title": "Bloquear conta",
+                    "message": "Confirme para bloquear %s"
                 },
                 "confirm_unblock_user": {
-                    "title": "Unblock Account",
-                    "message": "Confirm to unblock %s"
+                    "title": "Desbloquear conta",
+                    "message": "Confirme para desbloquear %s"
                 },
                 "confirm_show_reblogs": {
-                    "title": "Show Reblogs",
-                    "message": "Confirm to show reblogs"
+                    "title": "Mostrar reblogs",
+                    "message": "Confirmar para mostrar reblogs"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "Hide Reblogs",
-                    "message": "Confirm to hide reblogs"
+                    "title": "Ocultar reblogs",
+                    "message": "Confirmar para ocultar reblogs"
                 }
             },
             "accessibility": {
-                "show_avatar_image": "Show avatar image",
-                "edit_avatar_image": "Edit avatar image",
-                "show_banner_image": "Show banner image",
-                "double_tap_to_open_the_list": "Double tap to open the list"
+                "show_avatar_image": "Mostrar foto de perfil",
+                "edit_avatar_image": "Editar foto de perfil",
+                "show_banner_image": "Mostrar foto de capa",
+                "double_tap_to_open_the_list": "Toque duas vezes para abrir a lista"
             }
         },
         "follower": {
-            "title": "follower",
-            "footer": "Followers from other servers are not displayed."
+            "title": "seguidor",
+            "footer": "Seguidores de outras instâncias não são exibidos."
         },
         "following": {
-            "title": "following",
+            "title": "seguindo",
             "footer": "Follows from other servers are not displayed."
         },
         "familiarFollowers": {
-            "title": "Followers you familiar",
-            "followed_by_names": "Followed by %s"
+            "title": "Seguidores que você conhece",
+            "followed_by_names": "Seguido por %s"
         },
         "favorited_by": {
-            "title": "Favorited By"
+            "title": "Favoritado por"
         },
         "reblogged_by": {
-            "title": "Reblogged By"
+            "title": "Reblogado por"
         },
         "search": {
-            "title": "Search",
+            "title": "Buscar",
             "search_bar": {
-                "placeholder": "Search hashtags and users",
-                "cancel": "Cancel"
+                "placeholder": "Buscar hashtags e usuários",
+                "cancel": "Cancelar"
             },
             "recommend": {
-                "button_text": "See All",
+                "button_text": "Ver tudo",
                 "hash_tag": {
-                    "title": "Trending on Mastodon",
-                    "description": "Hashtags that are getting quite a bit of attention",
-                    "people_talking": "%s people are talking"
+                    "title": "Em tendência no Mastodon",
+                    "description": "Hashtags que estão recebendo bastante atenção",
+                    "people_talking": "%s pessoas estão falando"
                 },
                 "accounts": {
-                    "title": "Accounts you might like",
-                    "description": "You may like to follow these accounts",
+                    "title": "Contas que você deve gostar",
+                    "description": "Você pode gostar de seguir estas contas",
                     "follow": "Seguir"
                 }
             },
@@ -553,82 +553,82 @@
                 "community": "Comunidade",
                 "for_you": "Para você"
             },
-            "intro": "These are the posts gaining traction in your corner of Mastodon."
+            "intro": "Esses são os posts que estão ganhando força no seu canto do Mastodon."
         },
         "favorite": {
-            "title": "Your Favorites"
+            "title": "Seus favoritos"
         },
         "notification": {
             "title": {
-                "Everything": "Everything",
-                "Mentions": "Mentions"
+                "Everything": "Tudo",
+                "Mentions": "Menções"
             },
             "notification_description": {
-                "followed_you": "followed you",
-                "favorited_your_post": "favorited your post",
-                "reblogged_your_post": "reblogged your post",
-                "mentioned_you": "mentioned you",
+                "followed_you": "seguiu você",
+                "favorited_your_post": "favoritou seu toot",
+                "reblogged_your_post": "reblogou seu toot",
+                "mentioned_you": "te mencionou",
                 "request_to_follow_you": "request to follow you",
-                "poll_has_ended": "poll has ended"
+                "poll_has_ended": "enquete encerrada"
             },
             "keyobard": {
-                "show_everything": "Show Everything",
-                "show_mentions": "Show Mentions"
+                "show_everything": "Mostrar tudo",
+                "show_mentions": "Mostrar menções"
             },
             "follow_request": {
-                "accept": "Accept",
-                "accepted": "Accepted",
-                "reject": "reject",
-                "rejected": "Rejected"
+                "accept": "Aceitar",
+                "accepted": "Aceito",
+                "reject": "rejeitar",
+                "rejected": "Rejeitado"
             }
         },
         "thread": {
             "back_title": "Post",
-            "title": "Post from %s"
+            "title": "Publicação de %s"
         },
         "settings": {
-            "title": "Settings",
+            "title": "Configurações",
             "section": {
                 "appearance": {
-                    "title": "Appearance",
-                    "automatic": "Automatic",
-                    "light": "Always Light",
-                    "dark": "Always Dark"
+                    "title": "Aparência",
+                    "automatic": "Automático",
+                    "light": "Sempre Claro",
+                    "dark": "Sempre Escuro"
                 },
                 "look_and_feel": {
                     "title": "Look and Feel",
-                    "use_system": "Use System",
-                    "really_dark": "Really Dark",
-                    "sorta_dark": "Sorta Dark",
-                    "light": "Light"
+                    "use_system": "Usar configuração do sistema",
+                    "really_dark": "Bem escuro",
+                    "sorta_dark": "Meio escuro",
+                    "light": "Claro"
                 },
                 "notifications": {
-                    "title": "Notifications",
+                    "title": "Notificações",
                     "favorites": "Favorites my post",
                     "follows": "Follows me",
                     "boosts": "Reblogs my post",
                     "mentions": "Mentions me",
                     "trigger": {
-                        "anyone": "anyone",
-                        "follower": "a follower",
-                        "follow": "anyone I follow",
-                        "noone": "no one",
-                        "title": "Notify me when"
+                        "anyone": "qualquer pessoa",
+                        "follower": "um seguidor",
+                        "follow": "qualquer um que eu siga",
+                        "noone": "ninguém",
+                        "title": "Me notificar quando"
                     }
                 },
                 "preference": {
-                    "title": "Preferences",
+                    "title": "Preferências",
                     "true_black_dark_mode": "True black dark mode",
-                    "disable_avatar_animation": "Disable animated avatars",
-                    "disable_emoji_animation": "Disable animated emojis",
-                    "using_default_browser": "Use default browser to open links",
-                    "open_links_in_mastodon": "Open links in Mastodon"
+                    "disable_avatar_animation": "Desativar fotos animadas",
+                    "disable_emoji_animation": "Desativar emojis animados",
+                    "using_default_browser": "Usar o navegador padrão pra abrir links",
+                    "open_links_in_mastodon": "Abrir links no Mastodon"
                 },
                 "boring_zone": {
-                    "title": "The Boring Zone",
-                    "account_settings": "Account Settings",
-                    "terms": "Terms of Service",
-                    "privacy": "Privacy Policy"
+                    "title": "A zona chata",
+                    "account_settings": "Configurações da conta",
+                    "terms": "Termos de serviço",
+                    "privacy": "Política de privacidade"
                 },
                 "spicy_zone": {
                     "title": "The Spicy Zone",
