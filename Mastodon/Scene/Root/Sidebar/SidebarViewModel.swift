@@ -16,6 +16,9 @@ import MastodonCore
 import MastodonLocalization
 
 final class SidebarViewModel {
+    private enum Constants {
+        static let accountToggleIndicator = UIImage(systemName: "chevron.up.chevron.down")
+    }
     
     var disposeBag = Set<AnyCancellable>()
     
@@ -80,7 +83,7 @@ extension SidebarViewModel {
             }()
             cell.item = SidebarListContentView.Item(
                 isActive: false,
-                accessoryImage: item == .me ? UIImage(systemName: "chevron.up.chevron.down") : nil,
+                accessoryImage: item == .me ? Constants.accountToggleIndicator : nil,
                 title: item.title,
                 image: item.image,
                 activeImage: item.selectedImage,
@@ -167,7 +170,7 @@ extension SidebarViewModel {
             case .compose:
                 let item = SidebarListContentView.Item(
                     isActive: false,
-                    accessoryImage: self.currentTab == .me ? UIImage(systemName: "chevron.up.chevron.down") : nil,
+                    accessoryImage: self.currentTab == .me ? Constants.accountToggleIndicator : nil,
                     title: L10n.Common.Controls.Actions.compose,
                     image: Asset.ObjectsAndTools.squareAndPencil.image.withRenderingMode(.alwaysTemplate),
                     activeImage: Asset.ObjectsAndTools.squareAndPencil.image.withRenderingMode(.alwaysTemplate),
