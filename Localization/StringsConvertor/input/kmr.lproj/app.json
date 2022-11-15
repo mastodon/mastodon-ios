@@ -387,7 +387,7 @@
                 "upload_failed": "Barkirin têk çû",
                 "can_not_recognize_this_media_attachment": "Nikare ev pêveka medyayê nas bike",
                 "attachment_too_large": "Pêvek pir mezin e",
-                "compressing_state": "Compressing...",
+                "compressing_state": "Tê guvaştin...",
                 "server_processing_state": "Pêvajoya rajekar pêş de diçe..."
             },
             "poll": {
@@ -400,7 +400,7 @@
                 "seven_days": "7 Roj",
                 "option_number": "Vebijêrk %ld",
                 "the_poll_is_invalid": "Ev dengdayîn ne derbasdar e",
-                "the_poll_has_empty_option": "The poll has empty option"
+                "the_poll_has_empty_option": "Vebijêrkên vê dengdayînê vala ne"
             },
             "content_warning": {
                 "placeholder": "Li vir hişyariyek hûrgilî binivîsine..."
