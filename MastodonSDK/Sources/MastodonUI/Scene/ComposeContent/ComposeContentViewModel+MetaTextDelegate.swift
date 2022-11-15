@@ -37,7 +37,7 @@ extension ComposeContentViewModel: MetaTextDelegate {
             
             let content = MastodonContent(
                 content: textInput,
-                emojis: [:] // TODO: emojiViewModel?.emojis.asDictionary ?? [:]
+                emojis: [:] // customEmojiViewModel?.emojis.value.asDictionary ?? [:]
             )
             let metaContent = MastodonMetaContent.convert(text: content)
             return metaContent
@@ -48,7 +48,7 @@ extension ComposeContentViewModel: MetaTextDelegate {
             
             let content = MastodonContent(
                 content: textInput,
-                emojis: [:] // emojiViewModel?.emojis.asDictionary ?? [:]
+                emojis: [:] // customEmojiViewModel?.emojis.value.asDictionary ?? [:]
             )
             let metaContent = MastodonMetaContent.convert(text: content)
             return metaContent

@@ -6,17 +6,18 @@
 //
 
 import UIKit
+import MastodonCore
 
 extension AutoCompleteViewModel {
     
-//    func setupDiffableDataSource(
-//        tableView: UITableView
-//    ) {
-//        diffableDataSource = AutoCompleteSection.tableViewDiffableDataSource(for: tableView)
-//
-//        var snapshot = NSDiffableDataSourceSnapshot<AutoCompleteSection, AutoCompleteItem>()
-//        snapshot.appendSections([.main])
-//        diffableDataSource?.apply(snapshot)
-//    }
+    func setupDiffableDataSource(
+        tableView: UITableView
+    ) {
+        diffableDataSource = AutoCompleteSection.tableViewDiffableDataSource(tableView: tableView)
+
+        var snapshot = NSDiffableDataSourceSnapshot<AutoCompleteSection, AutoCompleteItem>()
+        snapshot.appendSections([.main])
+        diffableDataSource?.apply(snapshot)
+    }
     
 }

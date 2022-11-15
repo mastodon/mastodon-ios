@@ -7,6 +7,7 @@
 
 import XCTest
 @testable import Mastodon
+import MastodonCore
 
 @MainActor
 class MastodonTests: XCTestCase {

@@ -5,7 +5,7 @@ PODS:
   - Sourcery (1.6.1):
     - Sourcery/CLI-Only (= 1.6.1)
   - Sourcery/CLI-Only (1.6.1)
-  - SwiftGen (6.4.0)
+  - SwiftGen (6.6.2)
   - XLPagerTabStrip (9.0.0)
 
 DEPENDENCIES:
@@ -13,7 +13,7 @@ DEPENDENCIES:
   - FLEX (~> 4.4.0)
   - Kanna (~> 5.2.2)
   - Sourcery (~> 1.6.1)
-  - SwiftGen (~> 6.4.0)
+  - SwiftGen (~> 6.6.2)
   - XLPagerTabStrip (~> 9.0.0)
 
 SPEC REPOS:
@@ -30,9 +30,9 @@ SPEC CHECKSUMS:
   FLEX: 7ca2c8cd3a435ff501ff6d2f2141e9bdc934eaab
   Kanna: 01cfbddc127f5ff0963692f285fcbc8a9d62d234
   Sourcery: f3759f803bd0739f74fc92a4341eed0473ce61ac
-  SwiftGen: 67860cc7c3cfc2ed25b9b74cfd55495fc89f9108
+  SwiftGen: 1366a7f71aeef49954ca5a63ba4bef6b0f24138c
   XLPagerTabStrip: 61c57fd61f611ee5f01ff1495ad6fbee8bf496c5
 
-PODFILE CHECKSUM: 8fddf46611e09d2eb1a5d67c464c236884a08e80
+PODFILE CHECKSUM: 7499a197793f73c4dcf1d16a315434baaa688873
 
 COCOAPODS: 1.11.3

@@ -52,153 +52,65 @@ extension Data {
     }
 }
 
-// Twitter Only
-//extension AttachmentViewModel {
-//    class SliceResult {
-//
-//        let fileURL: URL
-//        let chunks: Chunked<FileHandle.AsyncBytes>
-//        let chunkCount: Int
-//        let type: UTType
-//        let sizeInBytes: UInt64
-//
-//        public init?(
-//            url: URL,
-//            type: UTType
-//        ) {
-//            guard let chunks = try? FileHandle(forReadingFrom: url).bytes.chunked else { return nil }
-//            let _sizeInBytes: UInt64? = {
-//                let attribute = try? FileManager.default.attributesOfItem(atPath: url.path)
-//                return attribute?[.size] as? UInt64
-//            }()
-//            guard let sizeInBytes = _sizeInBytes else { return nil }
-//
-//            self.fileURL = url
-//            self.chunks = chunks
-//            self.chunkCount = SliceResult.chunkCount(chunkSize: UInt64(chunks.chunkSize), sizeInBytes: sizeInBytes)
-//            self.type = type
-//            self.sizeInBytes = sizeInBytes
-//        }
-//
-//        public init?(
-//            imageData: Data,
-//            type: UTType
-//        ) {
-//            let _fileURL = try? FileManager.default.createTemporaryFileURL(
-//                filename: UUID().uuidString,
-//                pathExtension: imageData.kf.imageFormat == .PNG ? "png" : "jpeg"
-//            )
-//            guard let fileURL = _fileURL else { return nil }
-//
-//            do {
-//                try imageData.write(to: fileURL)
-//            } catch {
-//                return nil
-//            }
-//
-//            guard let chunks = try? FileHandle(forReadingFrom: fileURL).bytes.chunked else {
-//                return nil
-//            }
-//            let sizeInBytes = UInt64(imageData.count)
-//
-//            self.fileURL = fileURL
-//            self.chunks = chunks
-//            self.chunkCount = SliceResult.chunkCount(chunkSize: UInt64(chunks.chunkSize), sizeInBytes: sizeInBytes)
-//            self.type = type
-//            self.sizeInBytes = sizeInBytes
-//        }
-//
-//        static func chunkCount(chunkSize: UInt64, sizeInBytes: UInt64) -> Int {
-//            guard sizeInBytes > 0 else { return 0 }
-//            let count = sizeInBytes / chunkSize
-//            let remains = sizeInBytes % chunkSize
-//            let result = remains > 0 ? count + 1 : count
-//            return Int(result)
-//        }
-//
-//    }
-//
-//    static func slice(output: Output, sizeLimit: SizeLimit) -> SliceResult? {
-//        // needs execute in background
-//        assert(!Thread.isMainThread)
-//
-//        // try png then use JPEG compress with Q=0.8
-//        // then slice into 1MiB chunks
-//        switch output {
-//        case .image(let data, _):
-//            let maxPayloadSizeInBytes = sizeLimit.image
-//
-//            // use processed imageData to remove EXIF
-//            guard let image = UIImage(data: data),
-//                  var imageData = image.pngData()
-//            else { return nil }
-//
-//            var didRemoveEXIF = false
-//            repeat {
-//                guard let image = KFCrossPlatformImage(data: imageData) else { return nil }
-//                if imageData.kf.imageFormat == .PNG {
-//                    // A. png image
-//                    guard let pngData = image.pngData() else { return nil }
-//                    didRemoveEXIF = true
-//                    if pngData.count > maxPayloadSizeInBytes {
-//                        guard let compressedJpegData = image.jpegData(compressionQuality: 0.8) else { return nil }
-//                        os_log("%{public}s[%{public}ld], %{public}s: compress png %.2fMiB -> jpeg %.2fMiB", ((#file as NSString).lastPathComponent), #line, #function, Double(imageData.count) / 1024 / 1024, Double(compressedJpegData.count) / 1024 / 1024)
-//                        imageData = compressedJpegData
-//                    } else {
-//                        os_log("%{public}s[%{public}ld], %{public}s: png %.2fMiB", ((#file as NSString).lastPathComponent), #line, #function, Double(pngData.count) / 1024 / 1024)
-//                        imageData = pngData
-//                    }
-//                } else {
-//                    // B. other image
-//                    if !didRemoveEXIF {
-//                        guard let jpegData = image.jpegData(compressionQuality: 0.8) else { return nil }
-//                        os_log("%{public}s[%{public}ld], %{public}s: compress jpeg %.2fMiB -> jpeg %.2fMiB", ((#file as NSString).lastPathComponent), #line, #function, Double(imageData.count) / 1024 / 1024, Double(jpegData.count) / 1024 / 1024)
-//                        imageData = jpegData
-//                        didRemoveEXIF = true
-//                    } else {
-//                        let targetSize = CGSize(width: image.size.width * 0.8, height: image.size.height * 0.8)
-//                        let scaledImage = image.af.imageScaled(to: targetSize)
-//                        guard let compressedJpegData = scaledImage.jpegData(compressionQuality: 0.8) else { return nil }
-//                        os_log("%{public}s[%{public}ld], %{public}s: compress jpeg %.2fMiB -> jpeg %.2fMiB", ((#file as NSString).lastPathComponent), #line, #function, Double(imageData.count) / 1024 / 1024, Double(compressedJpegData.count) / 1024 / 1024)
-//                        imageData = compressedJpegData
-//                    }
-//                }
-//            } while (imageData.count > maxPayloadSizeInBytes)
-//
-//            return SliceResult(
-//                imageData: imageData,
-//                type: imageData.kf.imageFormat == .PNG ? UTType.png : UTType.jpeg
-//            )
-//
-////        case .gif(let url):
-////            fatalError()
-//        case .video(let url, _):
-//            return SliceResult(
-//                url: url,
-//                type: .movie
-//            )
-//        }
-//    }
-//}
-
 extension AttachmentViewModel {
+    public enum UploadState {
+        case none
+        case compressing
+        case ready
+        case uploading
+        case fail
+        case finish
+    }
+    
     struct UploadContext {
         let apiService: APIService
         let authContext: AuthContext
     }
     
-    enum UploadResult {
-        case mastodon(Mastodon.Response.Content<Mastodon.Entity.Attachment>)
-    }
+    public typealias UploadResult = Mastodon.Entity.Attachment
 }
 
 extension AttachmentViewModel {
-    func upload(context: UploadContext) async throws -> UploadResult  {
-        return try await uploadMastodonMedia(
-            context: context
-        )
+    @MainActor
+    func upload(isRetry: Bool = false) async throws {
+        do {
+            let result = try await upload(
+                context: .init(
+                    apiService: self.api,
+                    authContext: self.authContext
+                ),
+                isRetry: isRetry
+            )
+            update(uploadResult: result)
+        } catch {
+            self.error = error
+        }
     }
     
+    @MainActor
+    private func upload(context: UploadContext, isRetry: Bool) async throws -> UploadResult {
+        if isRetry {
+            guard uploadState == .fail else { throw AppError.badRequest }
+            self.error = nil
+            self.fractionCompleted = 0
+        } else {
+            guard uploadState == .ready else { throw AppError.badRequest }
+        }
+        do {
+            update(uploadState: .uploading)
+            let result = try await uploadMastodonMedia(
+                context: context
+            )
+            update(uploadState: .finish)
+            return result
+        } catch {
+            update(uploadState: .fail)
+            throw error
+        }
+    }
+    
+    // MainActor is required here to trigger stream upload task
+    @MainActor
     private func uploadMastodonMedia(
         context: UploadContext
     ) async throws -> UploadResult {
@@ -260,7 +172,7 @@ extension AttachmentViewModel {
         if attachmentUploadResponse.statusCode == 202 {
             // note:
             // the Mastodon server append the attachments in order by upload time
-            // can not upload concurrency
+            // can not upload parallels
             let waitProcessRetryLimit = checkUploadTaskRetryLimit
             var waitProcessRetryCount: Int64 = 0
             
@@ -283,7 +195,7 @@ extension AttachmentViewModel {
                     
                     // escape here
                     progress.completedUnitCount = progress.totalUnitCount
-                    return .mastodon(attachmentStatusResponse)
+                    return attachmentStatusResponse.value
                     
                 } else {
                     AttachmentViewModel.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): attachment processing. Retry \(waitProcessRetryCount)/\(waitProcessRetryLimit)")
@@ -296,7 +208,7 @@ extension AttachmentViewModel {
         } else {
             AttachmentViewModel.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): upload attachment success: \(attachmentUploadResponse.value.url ?? "<nil>")")
 
-            return .mastodon(attachmentUploadResponse)
+            return attachmentUploadResponse.value
         }
     }
 }
