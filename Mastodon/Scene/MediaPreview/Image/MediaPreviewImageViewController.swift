@@ -111,13 +111,19 @@ extension MediaPreviewImageViewController {
     
 }
 
+extension MediaPreviewImageViewController: MediaPreviewPage {
+    func setShowingChrome(_ showingChrome: Bool) {
+        if #available(iOS 16.0, *) {
+            UIView.animate(withDuration: 0.3) {
+                self.previewImageView.liveTextInteraction.setSupplementaryInterfaceHidden(!showingChrome, animated: true)
+            }
+        }
+    }
+}
+
 // MARK: - ImageAnalysisInteractionDelegate
 @available(iOS 16.0, *)
 extension MediaPreviewImageViewController: ImageAnalysisInteractionDelegate {
-    func contentView(for interaction: ImageAnalysisInteraction) -> UIView? {
-        view
-    }
-
     func presentingViewController(for interaction: ImageAnalysisInteraction) -> UIViewController? {
         self
     }
@@ -128,8 +134,14 @@ extension MediaPreviewImageViewController: UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         if #available(iOS 16.0, *) {
             let location = touch.location(in: previewImageView.imageView)
-            let hasItem = previewImageView.liveTextInteraction.hasInteractiveItem(at: location)
-            return !hasItem
+            // for tap gestures, only items that can be tapped are relevant
+            if gestureRecognizer is UITapGestureRecognizer {
+                return !previewImageView.liveTextInteraction.hasSupplementaryInterface(at: location)
+                    && !previewImageView.liveTextInteraction.hasDataDetector(at: location)
+            } else {
+                // for long press, block out everything
+                return !previewImageView.liveTextInteraction.hasInteractiveItem(at: location)
+            }
         } else {
             return true
         }

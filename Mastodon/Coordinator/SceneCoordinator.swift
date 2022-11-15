@@ -339,7 +339,7 @@ extension SceneCoordinator {
         case .custom(let transitioningDelegate):
             viewController.modalPresentationStyle = .custom
             viewController.transitioningDelegate = transitioningDelegate
-            // viewController.modalPresentationCapturesStatusBarAppearance = true
+            viewController.modalPresentationCapturesStatusBarAppearance = true
             (splitViewController ?? presentingViewController)?.present(viewController, animated: true, completion: nil)
             
         case .customPush(let animated):
