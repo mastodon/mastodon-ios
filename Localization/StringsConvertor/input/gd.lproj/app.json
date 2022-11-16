@@ -74,8 +74,8 @@
                 "take_photo": "Tog dealbh",
                 "save_photo": "Sàbhail an dealbh",
                 "copy_photo": "Dèan lethbhreac dhen dealbh",
-                "sign_in": "Clàraich a-steach",
-                "sign_up": "Clàraich leinn",
+                "sign_in": "Log in",
+                "sign_up": "Create account",
                 "see_more": "Seall a bharrachd",
                 "preview": "Ro-sheall",
                 "share": "Co-roinn",
@@ -218,10 +218,16 @@
             "get_started": "Dèan toiseach-tòiseachaidh",
             "log_in": "Clàraich a-steach"
         },
+        "login": {
+            "title": "Welcome back",
+            "subtitle": "Log you in on the server you created your account on.",
+            "server_search_field": {
+                "placeholder": "Enter URL or search for your server"
+            }
+        },
         "server_picker": {
             "title": "Tha cleachdaichean Mhastodon air iomadh frithealaiche eadar-dhealaichte.",
-            "subtitle": "Tagh frithealaiche stèidhichte air d’ ùidhean, air far a bheil thu no fear coitcheann.",
-            "subtitle_extend": "Tagh frithealaiche stèidhichte air d’ ùidhean, air far a bheil thu no fear coitcheann. Tha gach frithealaiche fo stiùireadh buidhinn no neach neo-eisimeilich fa leth.",
+            "subtitle": "Pick a server based on your region, interests, or a general purpose one. You can still chat with anyone on Mastodon, regardless of your servers.",
             "button": {
                 "category": {
                     "all": "Na h-uile",
@@ -248,8 +254,7 @@
                 "category": "ROINN-SEÒRSA"
             },
             "input": {
-                "placeholder": "Lorg frithealaiche",
-                "search_servers_or_enter_url": "Lorg frithealaiche no cuir a-steach URL"
+                "search_servers_or_enter_url": "Search communities or enter URL"
             },
             "empty_state": {
                 "finding_servers": "A’ lorg nam frithealaichean ri am faighinn…",
