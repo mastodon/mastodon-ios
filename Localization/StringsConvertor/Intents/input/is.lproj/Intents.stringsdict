@@ -15,7 +15,7 @@
         <key>one</key>
         <string>1 valkostur</string>
         <key>other</key>
-        <string>%ld options</string>
+        <string>%ld valkostir</string>
       </dict>
     </dict>
     <key>There are ${count} options matching ‘${visibility}’.</key>
@@ -31,7 +31,7 @@
         <key>one</key>
         <string>1 valkostur</string>
         <key>other</key>
-        <string>%ld options</string>
+        <string>%ld valkostir</string>
       </dict>
     </dict>
   </dict>
