@@ -74,8 +74,8 @@
                 "take_photo": "Ṭṭef tawlaft",
                 "save_photo": "Sekles tawlaft",
                 "copy_photo": "Nɣel tawlaft",
-                "sign_in": "Qqen",
-                "sign_up": "Jerred amiḍan",
+                "sign_in": "Log in",
+                "sign_up": "Create account",
                 "see_more": "Wali ugar",
                 "preview": "Taskant",
                 "share": "Bḍu",
@@ -218,10 +218,16 @@
             "get_started": "Aha bdu tura",
             "log_in": "Qqen"
         },
+        "login": {
+            "title": "Welcome back",
+            "subtitle": "Log you in on the server you created your account on.",
+            "server_search_field": {
+                "placeholder": "Enter URL or search for your server"
+            }
+        },
         "server_picker": {
             "title": "Mastodon yettwaxdem i yiseqdacen deg waṭas n temɣiwnin.",
-            "subtitle": "Fren tamɣiwent almend n wayen tḥemmleḍ, n tmurt-ik neɣ n yiswi-inek amatu.",
-            "subtitle_extend": "Fren tamɣiwent almend n wayen tḥemmleḍ, n tmurt-ik neɣ n yiswi-inek amatu. Yal tamɣiwent tsedday-itt tkebbanit neɣ amdan ilelliyen.",
+            "subtitle": "Pick a server based on your region, interests, or a general purpose one. You can still chat with anyone on Mastodon, regardless of your servers.",
             "button": {
                 "category": {
                     "all": "Akk",
@@ -248,8 +254,7 @@
                 "category": "TAGGAYT"
             },
             "input": {
-                "placeholder": "Nadi timɣiwnin",
-                "search_servers_or_enter_url": "Nadi timɣiwnin neɣ sekcem URL"
+                "search_servers_or_enter_url": "Search communities or enter URL"
             },
             "empty_state": {
                 "finding_servers": "Tifin n yiqeddacen yellan...",
