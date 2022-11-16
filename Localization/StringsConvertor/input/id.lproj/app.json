@@ -74,8 +74,8 @@
                 "take_photo": "Ambil Foto",
                 "save_photo": "Simpan Foto",
                 "copy_photo": "Salin Foto",
-                "sign_in": "Masuk",
-                "sign_up": "Daftar",
+                "sign_in": "Log in",
+                "sign_up": "Create account",
                 "see_more": "Lihat lebih banyak",
                 "preview": "Pratinjau",
                 "share": "Bagikan",
@@ -218,10 +218,16 @@
             "get_started": "Mulai",
             "log_in": "Login"
         },
+        "login": {
+            "title": "Welcome back",
+            "subtitle": "Log you in on the server you created your account on.",
+            "server_search_field": {
+                "placeholder": "Enter URL or search for your server"
+            }
+        },
         "server_picker": {
             "title": "Pilih sebuah server,\nserver manapun.",
-            "subtitle": "Pilih server berdasarkan minat, wilayah, atau tujuan Anda.",
-            "subtitle_extend": "Pilih server berdasarkan minat, wilayah, atau tujuan Anda. Setiap server dioperasikan oleh organisasi atau individu yang sepenuhnya independen.",
+            "subtitle": "Pick a server based on your region, interests, or a general purpose one. You can still chat with anyone on Mastodon, regardless of your servers.",
             "button": {
                 "category": {
                     "all": "Semua",
@@ -248,8 +254,7 @@
                 "category": "KATEGORI"
             },
             "input": {
-                "placeholder": "Cari server",
-                "search_servers_or_enter_url": "Cari server atau masukkan URL"
+                "search_servers_or_enter_url": "Search communities or enter URL"
             },
             "empty_state": {
                 "finding_servers": "Mencari server yang tersedia...",
