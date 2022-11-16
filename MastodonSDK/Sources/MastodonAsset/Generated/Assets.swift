@@ -210,7 +210,6 @@ public enum Asset {
         public static let elephantThreeOnGrassWithTreeTwo = ImageAsset(name: "Scene/Welcome/illustration/elephant.three.on.grass.with.tree.two")
       }
       public static let mastodonLogo = ImageAsset(name: "Scene/Welcome/mastodon.logo")
-      public static let mastodonLogoLarge = ImageAsset(name: "Scene/Welcome/mastodon.logo.large")
       public static let signInButtonBackground = ColorAsset(name: "Scene/Welcome/sign.in.button.background")
     }
   }
