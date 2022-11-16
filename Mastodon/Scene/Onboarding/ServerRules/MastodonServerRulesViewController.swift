@@ -127,7 +127,7 @@ extension MastodonServerRulesViewController {
             instance: viewModel.instance,
             applicationToken: viewModel.applicationToken
         )
-        coordinator.present(scene: .mastodonRegister(viewModel: viewModel), from: self, transition: .show)
+        _ = coordinator.present(scene: .mastodonRegister(viewModel: viewModel), from: self, transition: .show)
     }
     
 }

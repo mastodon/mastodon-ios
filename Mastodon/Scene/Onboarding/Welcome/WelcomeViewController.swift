@@ -317,12 +317,12 @@ extension WelcomeViewController {
 extension WelcomeViewController {
     @objc
     private func signUpButtonDidClicked(_ sender: UIButton) {
-        coordinator.present(scene: .mastodonPickServer(viewMode: MastodonPickServerViewModel(context: context, mode: .signUp)), from: self, transition: .show)
+        _ = coordinator.present(scene: .mastodonPickServer(viewMode: MastodonPickServerViewModel(context: context)), from: self, transition: .show)
     }
     
     @objc
     private func signInButtonDidClicked(_ sender: UIButton) {
-        coordinator.present(scene: .mastodonPickServer(viewMode: MastodonPickServerViewModel(context: context, mode: .signIn)), from: self, transition: .show)
+        _ = coordinator.present(scene: .mastodonLogin, from: self, transition: .show)
     }
     
     @objc

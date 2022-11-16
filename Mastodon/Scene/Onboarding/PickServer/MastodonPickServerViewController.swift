@@ -143,8 +143,7 @@ extension MastodonPickServerViewController {
         viewModel.setupDiffableDataSource(
             for: tableView,
             dependency: self,
-            pickServerServerSectionTableHeaderViewDelegate: self,
-            pickServerCellDelegate: self
+            pickServerServerSectionTableHeaderViewDelegate: self
         )
         
         KeyboardResponderService
@@ -172,7 +171,7 @@ extension MastodonPickServerViewController {
             let alertController = UIAlertController(for: error, title: "Error", preferredStyle: .alert)
             let okAction = UIAlertAction(title: L10n.Common.Controls.Actions.ok, style: .default, handler: nil)
             alertController.addAction(okAction)
-            self.coordinator.present(
+            _ = self.coordinator.present(
                 scene: .alertController(alertController: alertController),
                 from: nil,
                 transition: .alertController(animated: true, completion: nil)
@@ -271,59 +270,6 @@ extension MastodonPickServerViewController {
     }
     
     @objc private func nextButtonDidPressed(_ sender: UIButton) {
-        switch viewModel.mode {
-        case .signIn:   doSignIn()
-        case .signUp:   doSignUp()
-        }
-    }
-    
-    private func doSignIn() {
-        guard let server = viewModel.selectedServer.value else { return }
-        authenticationViewModel.isAuthenticating.send(true)
-        context.apiService.createApplication(domain: server.domain)
-            .tryMap { response -> AuthenticationViewModel.AuthenticateInfo in
-                let application = response.value
-                guard let info = AuthenticationViewModel.AuthenticateInfo(
-                        domain: server.domain,
-                        application: application,
-                        redirectURI: response.value.redirectURI ?? APIService.oauthCallbackURL
-                ) else {
-                    throw APIService.APIError.explicit(.badResponse)
-                }
-                return info
-            }
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] completion in
-                guard let self = self else { return }
-                self.authenticationViewModel.isAuthenticating.send(false)
-                
-                switch completion {
-                case .failure(let error):
-                    os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: sign in fail: %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
-                    self.viewModel.error.send(error)
-                case .finished:
-                    break
-                }
-            } receiveValue: { [weak self] info in
-                guard let self = self else { return }
-                let authenticationController = MastodonAuthenticationController(
-                    context: self.context,
-                    authenticateURL: info.authorizeURL
-                )
-                
-                self.mastodonAuthenticationController = authenticationController
-                authenticationController.authenticationSession?.presentationContextProvider = self
-                authenticationController.authenticationSession?.start()
-                
-                self.authenticationViewModel.authenticate(
-                    info: info,
-                    pinCodePublisher: authenticationController.pinCodePublisher
-                )
-            }
-            .store(in: &disposeBag)
-    }
-    
-    private func doSignUp() {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         guard let server = viewModel.selectedServer.value else { return }
         authenticationViewModel.isAuthenticating.send(true)
@@ -394,7 +340,7 @@ extension MastodonPickServerViewController {
                         instance: response.instance.value,
                         applicationToken: response.applicationToken.value
                     )
-                    self.coordinator.present(scene: .mastodonServerRules(viewModel: mastodonServerRulesViewModel), from: self, transition: .show)
+                    _ = self.coordinator.present(scene: .mastodonServerRules(viewModel: mastodonServerRulesViewModel), from: self, transition: .show)
                 } else {
                     let mastodonRegisterViewModel = MastodonRegisterViewModel(
                         context: self.context,
@@ -403,7 +349,7 @@ extension MastodonPickServerViewController {
                         instance: response.instance.value,
                         applicationToken: response.applicationToken.value
                     )
-                    self.coordinator.present(scene: .mastodonRegister(viewModel: mastodonRegisterViewModel), from: nil, transition: .show)
+                    _ = self.coordinator.present(scene: .mastodonRegister(viewModel: mastodonRegisterViewModel), from: nil, transition: .show)
                 }
             }
             .store(in: &disposeBag)
@@ -503,17 +449,5 @@ extension MastodonPickServerViewController: PickServerServerSectionTableHeaderVi
     }
 }
 
-// MARK: - PickServerCellDelegate
-extension MastodonPickServerViewController: PickServerCellDelegate {
-    
-}
-
 // MARK: - OnboardingViewControllerAppearance
 extension MastodonPickServerViewController: OnboardingViewControllerAppearance { }
-
-// MARK: - ASWebAuthenticationPresentationContextProviding
-extension MastodonPickServerViewController: ASWebAuthenticationPresentationContextProviding {
-    func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
-        return view.window!
-    }
-}
