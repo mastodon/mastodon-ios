@@ -13,7 +13,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>%ld</string>
         <key>one</key>
-        <string>1 option</string>
+        <string>1 valkostur</string>
         <key>other</key>
         <string>%ld options</string>
       </dict>
@@ -29,7 +29,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>%ld</string>
         <key>one</key>
-        <string>1 option</string>
+        <string>1 valkostur</string>
         <key>other</key>
         <string>%ld options</string>
       </dict>
