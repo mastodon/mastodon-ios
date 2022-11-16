@@ -23,7 +23,6 @@ class MastodonLoginView: UIView {
   private let searchContainerLeftPaddingView: UIView
 
   let tableView: UITableView
-  private var tableViewWrapper: UIView
   let navigationActionView: NavigationActionView
   var bottomConstraint: NSLayoutConstraint?
 
@@ -62,7 +61,7 @@ class MastodonLoginView: UIView {
 
     searchTextField = UITextField()
     searchTextField.translatesAutoresizingMaskIntoConstraints = false
-    searchTextField.backgroundColor = Asset.Scene.Onboarding.textFieldBackground.color
+    searchTextField.backgroundColor = Asset.Scene.Onboarding.searchBarBackground.color
     searchTextField.placeholder = L10n.Scene.Login.ServerSearchField.placeholder
     searchTextField.leftView = searchTextFieldLeftView
     searchTextField.leftViewMode = .always
@@ -75,13 +74,7 @@ class MastodonLoginView: UIView {
     tableView.translatesAutoresizingMaskIntoConstraints = false
     tableView.backgroundColor = Asset.Scene.Onboarding.textFieldBackground.color
     tableView.keyboardDismissMode = .onDrag
-
-    tableViewWrapper = UIView()
-    tableViewWrapper.translatesAutoresizingMaskIntoConstraints = false
-    tableViewWrapper.backgroundColor = .clear
-    tableViewWrapper.layer.cornerRadius = 10
-    tableViewWrapper.layer.masksToBounds = true
-    tableViewWrapper.addSubview(tableView)
+    tableView.layer.cornerRadius = 10
 
     navigationActionView = NavigationActionView()
     navigationActionView.translatesAutoresizingMaskIntoConstraints = false
@@ -90,7 +83,7 @@ class MastodonLoginView: UIView {
 
     addSubview(headerStackView)
     addSubview(searchTextField)
-    addSubview(tableViewWrapper)
+    addSubview(tableView)
     addSubview(navigationActionView)
     backgroundColor = Asset.Scene.Onboarding.background.color
 
@@ -126,15 +119,10 @@ class MastodonLoginView: UIView {
       searchContainerLeftPaddingView.bottomAnchor.constraint(equalTo: searchTextFieldLeftView.bottomAnchor),
       searchContainerLeftPaddingView.widthAnchor.constraint(equalToConstant: 4).priority(.defaultHigh),
 
-      tableViewWrapper.topAnchor.constraint(equalTo: searchTextField.bottomAnchor, constant: 2),
-      tableViewWrapper.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-      trailingAnchor.constraint(equalTo: tableViewWrapper.trailingAnchor, constant: 16),
-      tableViewWrapper.bottomAnchor.constraint(lessThanOrEqualTo: navigationActionView.topAnchor),
-
-      tableView.topAnchor.constraint(equalTo: tableViewWrapper.topAnchor),
-      tableView.leadingAnchor.constraint(equalTo: tableViewWrapper.leadingAnchor),
-      tableViewWrapper.trailingAnchor.constraint(equalTo: tableView.trailingAnchor),
-      tableViewWrapper.bottomAnchor.constraint(greaterThanOrEqualTo: tableView.bottomAnchor),
+      tableView.topAnchor.constraint(equalTo: searchTextField.bottomAnchor, constant: 2),
+      tableView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+      trailingAnchor.constraint(equalTo: tableView.trailingAnchor, constant: 16),
+      tableView.bottomAnchor.constraint(lessThanOrEqualTo: navigationActionView.topAnchor),
 
       navigationActionView.leadingAnchor.constraint(equalTo: leadingAnchor),
       navigationActionView.trailingAnchor.constraint(equalTo: trailingAnchor),
@@ -148,7 +136,7 @@ class MastodonLoginView: UIView {
   func updateCorners(numberOfResults: Int = 0) {
 
     tableView.isHidden = (numberOfResults == 0)
-    tableViewWrapper.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+    tableView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
 
     let maskedCorners: CACornerMask
 

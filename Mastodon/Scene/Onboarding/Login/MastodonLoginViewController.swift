@@ -85,22 +85,7 @@ class MastodonLoginViewController: UIViewController, NeedsDependency {
       cell.contentConfiguration = configuration
       cell.accessoryType = .disclosureIndicator
 
-      if #available(iOS 16.0, *) {
-        var backgroundConfiguration = cell.defaultBackgroundConfiguration()
-        backgroundConfiguration.backgroundColor = Asset.Scene.Onboarding.textFieldBackground.color
-
-        cell.backgroundConfiguration = backgroundConfiguration
-      } else {
-        cell.backgroundColor = .systemBackground
-      }
-
-      if self.viewModel.filteredServers.last == server {
-        cell.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
-        cell.layer.cornerRadius = 10
-        cell.layer.masksToBounds = true
-      } else {
-        cell.layer.masksToBounds = false
-      }
+      cell.backgroundColor = Asset.Scene.Onboarding.textFieldBackground.color
 
       return cell
     }
