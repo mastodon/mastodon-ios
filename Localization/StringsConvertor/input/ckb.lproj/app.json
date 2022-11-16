@@ -74,8 +74,8 @@
                 "take_photo": "وێنە بگرە",
                 "save_photo": "هەڵی بگرە",
                 "copy_photo": "لەبەری بگرەوە",
-                "sign_in": "بچۆ ژوورەوە",
-                "sign_up": "خۆت تۆمار بکە",
+                "sign_in": "Log in",
+                "sign_up": "Create account",
                 "see_more": "زیاتر ببینە",
                 "preview": "پێشبینین",
                 "share": "هاوبەشی بکە",
@@ -218,10 +218,16 @@
             "get_started": "دەست پێ بکە",
             "log_in": "بچۆ ژوورەوە"
         },
+        "login": {
+            "title": "Welcome back",
+            "subtitle": "Log you in on the server you created your account on.",
+            "server_search_field": {
+                "placeholder": "Enter URL or search for your server"
+            }
+        },
         "server_picker": {
             "title": "ماستۆدۆن لە چەندان بەکارهێنەر پێک دێت کە لە ڕاژەکاری جیاواز دان.",
-            "subtitle": "ڕاژەکارێکێکی گشتی یان دانەیەک لەسەر بنەمای حەزەکانت و هەرێمەکەت هەڵبژێرە.",
-            "subtitle_extend": "ڕاژەکارێکێکی گشتی یان دانەیەک لەسەر بنەمای حەزەکانت و هەرێمەکەت هەڵبژێرە. هەر ڕاژەکارێک لەلایەن ڕێکخراوێک یان تاکەکەسێک بەڕێوە دەبرێت.",
+            "subtitle": "Pick a server based on your region, interests, or a general purpose one. You can still chat with anyone on Mastodon, regardless of your servers.",
             "button": {
                 "category": {
                     "all": "هەموو",
@@ -248,8 +254,7 @@
                 "category": "بەش"
             },
             "input": {
-                "placeholder": "بگەڕێ",
-                "search_servers_or_enter_url": "Search servers or enter URL"
+                "search_servers_or_enter_url": "Search communities or enter URL"
             },
             "empty_state": {
                 "finding_servers": "ڕاژەکار دەدۆزرێتەوە...",
