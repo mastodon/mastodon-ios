@@ -48,6 +48,9 @@ class MastodonLoginView: UIView {
     searchTextField.leftView = UIImageView(image: UIImage(systemName: "magnifyingglass"))
     searchTextField.leftViewMode = .always
     searchTextField.layer.cornerRadius = 10
+    searchTextField.keyboardType = .URL
+    searchTextField.autocorrectionType = .no
+    searchTextField.autocapitalizationType = .none
 
     tableView = ContentSizedTableView()
     tableView.translatesAutoresizingMaskIntoConstraints = false
