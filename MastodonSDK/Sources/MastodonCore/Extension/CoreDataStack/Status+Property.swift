@@ -53,16 +53,29 @@ extension Mastodon.Entity.Status {
         let attachments = mediaAttachments.compactMap { media -> MastodonAttachment? in
             guard let kind = media.attachmentKind,
                   let meta = media.meta,
-                  let original = meta.original,
-                  let width = original.width,       // audio has width/height
-                  let height = original.height
+                  let original = meta.original
             else { return nil }
-            
+
+            let size: CGSize
+            if let width = original.width,
+               let height = original.height {
+                size = CGSize(width: width, height: height)
+                // audio may have the width/height on the “small” (thumbnail?) property instead
+            } else if
+                kind == .audio,
+                let small = meta.small,
+                let width = small.width,
+                let height = small.height {
+                size = CGSize(width: width, height: height)
+            } else {
+                return nil
+            }
+
             let durationMS: Int? = original.duration.flatMap { Int($0 * 1000) }
             return MastodonAttachment(
                 id: media.id,
                 kind: kind,
-                size: CGSize(width: width, height: height),
+                size: size,
                 focus: nil,    // TODO:
                 blurhash: media.blurhash,
                 assetURL: media.url,
