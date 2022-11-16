@@ -74,8 +74,8 @@
                 "take_photo": "Ota kuva",
                 "save_photo": "Tallenna kuva",
                 "copy_photo": "Kopioi kuva",
-                "sign_in": "Kirjaudu sisään",
-                "sign_up": "Rekisteröidy",
+                "sign_in": "Log in",
+                "sign_up": "Create account",
                 "see_more": "Näytä lisää",
                 "preview": "Esikatselu",
                 "share": "Jaa",
@@ -218,10 +218,16 @@
             "get_started": "Get Started",
             "log_in": "Log In"
         },
+        "login": {
+            "title": "Welcome back",
+            "subtitle": "Log you in on the server you created your account on.",
+            "server_search_field": {
+                "placeholder": "Enter URL or search for your server"
+            }
+        },
         "server_picker": {
             "title": "Valitse palvelin,\nmikä tahansa palvelin.",
-            "subtitle": "Pick a server based on your interests, region, or a general purpose one.",
-            "subtitle_extend": "Pick a server based on your interests, region, or a general purpose one. Each server is operated by an entirely independent organization or individual.",
+            "subtitle": "Pick a server based on your region, interests, or a general purpose one. You can still chat with anyone on Mastodon, regardless of your servers.",
             "button": {
                 "category": {
                     "all": "Kaikki",
@@ -248,8 +254,7 @@
                 "category": "KATEGORIA"
             },
             "input": {
-                "placeholder": "Etsi palvelin tai liity omaan...",
-                "search_servers_or_enter_url": "Search servers or enter URL"
+                "search_servers_or_enter_url": "Search communities or enter URL"
             },
             "empty_state": {
                 "finding_servers": "Etsistään saatavilla olevia palvelimia...",
