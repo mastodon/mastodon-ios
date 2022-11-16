@@ -74,8 +74,8 @@
                 "take_photo": "拍照",
                 "save_photo": "保存照片",
                 "copy_photo": "拷贝照片",
-                "sign_in": "登录",
-                "sign_up": "注册",
+                "sign_in": "Log in",
+                "sign_up": "Create account",
                 "see_more": "查看更多",
                 "preview": "预览",
                 "share": "分享",
@@ -218,10 +218,16 @@
             "get_started": "开始使用",
             "log_in": "登录"
         },
+        "login": {
+            "title": "Welcome back",
+            "subtitle": "Log you in on the server you created your account on.",
+            "server_search_field": {
+                "placeholder": "Enter URL or search for your server"
+            }
+        },
         "server_picker": {
             "title": "挑选一个服务器，\n任意服务器。",
-            "subtitle": "根据你的兴趣、区域或一般目的选择一个社区。",
-            "subtitle_extend": "根据你的兴趣、区域或一般目的选择一个社区。每个社区都由完全独立的组织或个人管理。",
+            "subtitle": "Pick a server based on your region, interests, or a general purpose one. You can still chat with anyone on Mastodon, regardless of your servers.",
             "button": {
                 "category": {
                     "all": "全部",
@@ -248,8 +254,7 @@
                 "category": "类别"
             },
             "input": {
-                "placeholder": "查找或加入你自己的服务器...",
-                "search_servers_or_enter_url": "搜索服务器或输入 URL"
+                "search_servers_or_enter_url": "Search communities or enter URL"
             },
             "empty_state": {
                 "finding_servers": "正在查找可用的服务器...",
@@ -385,8 +390,10 @@
                 "description_video": "为视觉障碍人士添加视频的文字说明...",
                 "load_failed": "Load Failed",
                 "upload_failed": "Upload Failed",
-                "can_not_recognize_this_media_attachment": "Can not regonize this media attachment",
-                "attachment_too_large": "Attachment too large"
+                "can_not_recognize_this_media_attachment": "Can not recognize this media attachment",
+                "attachment_too_large": "Attachment too large",
+                "compressing_state": "Compressing...",
+                "server_processing_state": "Server Processing..."
             },
             "poll": {
                 "duration_time": "时长：%s",
@@ -396,7 +403,9 @@
                 "one_day": "1 天",
                 "three_days": "3 天",
                 "seven_days": "7 天",
-                "option_number": "选项 %ld"
+                "option_number": "选项 %ld",
+                "the_poll_is_invalid": "The poll is invalid",
+                "the_poll_has_empty_option": "The poll has empty option"
             },
             "content_warning": {
                 "placeholder": "在这里写下内容的警告消息..."
@@ -417,7 +426,9 @@
                 "custom_emoji_picker": "自定义表情选择器",
                 "enable_content_warning": "启用内容警告",
                 "disable_content_warning": "关闭内容警告",
-                "post_visibility_menu": "帖子可见性"
+                "post_visibility_menu": "帖子可见性",
+                "post_options": "Post Options",
+                "posting_as": "Posting as %s"
             },
             "keyboard": {
                 "discard_post": "丢弃帖子",
@@ -442,6 +453,10 @@
                 "placeholder": {
                     "label": "标签",
                     "content": "内容"
+                },
+                "verified": {
+                    "short": "Verified on %s",
+                    "long": "Ownership of this link was checked on %s"
                 }
             },
             "segmented_control": {

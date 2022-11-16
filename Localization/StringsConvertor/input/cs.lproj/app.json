@@ -75,7 +75,7 @@
                 "save_photo": "Uložit fotku",
                 "copy_photo": "Kopírovat fotografii",
                 "sign_in": "Přihlásit se",
-                "sign_up": "Zaregistrovat se",
+                "sign_up": "Vytvořit účet",
                 "see_more": "Zobrazit více",
                 "preview": "Náhled",
                 "share": "Sdílet",
@@ -218,10 +218,16 @@
             "get_started": "Začínáme",
             "log_in": "Přihlásit se"
         },
+        "login": {
+            "title": "Vítejte zpět",
+            "subtitle": "Přihlaste se na serveru, na kterém jste si vytvořili účet.",
+            "server_search_field": {
+                "placeholder": "Zadejte URL nebo vyhledávejte váš server"
+            }
+        },
         "server_picker": {
             "title": "Mastodon tvoří uživatelé z různých serverů.",
-            "subtitle": "Vyberte server založený na vašich zájmech, regionu nebo obecném účelu.",
-            "subtitle_extend": "Vyberte server založený na vašich zájmech, regionu nebo obecném účelu. Každý server je provozován zcela nezávislou organizací nebo jednotlivcem.",
+            "subtitle": "Vyberte server založený ve vašem regionu, podle zájmů nebo podle obecného účelu. Stále můžete chatovat s kýmkoli na Mastodonu bez ohledu na vaše servery.",
             "button": {
                 "category": {
                     "all": "Vše",
@@ -248,8 +254,7 @@
                 "category": "KATEGORIE"
             },
             "input": {
-                "placeholder": "Hledat servery",
-                "search_servers_or_enter_url": "Hledat servery nebo zadat URL"
+                "search_servers_or_enter_url": "Hledejte komunity nebo zadejte URL"
             },
             "empty_state": {
                 "finding_servers": "Hledání dostupných serverů...",
@@ -386,7 +391,9 @@
                 "load_failed": "Načtení se nezdařilo",
                 "upload_failed": "Nahrání selhalo",
                 "can_not_recognize_this_media_attachment": "Nelze rozpoznat toto medium přílohy",
-                "attachment_too_large": "Příloha je příliš velká"
+                "attachment_too_large": "Příloha je příliš velká",
+                "compressing_state": "Probíhá komprese...",
+                "server_processing_state": "Zpracování serveru..."
             },
             "poll": {
                 "duration_time": "Doba trvání: %s",
@@ -396,7 +403,9 @@
                 "one_day": "1 den",
                 "three_days": "3 dny",
                 "seven_days": "7 dní",
-                "option_number": "Možnost %ld"
+                "option_number": "Možnost %ld",
+                "the_poll_is_invalid": "Anketa je neplatná",
+                "the_poll_has_empty_option": "Anketa má prázdnou možnost"
             },
             "content_warning": {
                 "placeholder": "Zde napište přesné varování..."
@@ -417,7 +426,9 @@
                 "custom_emoji_picker": "Vlastní výběr Emoji",
                 "enable_content_warning": "Povolit upozornění na obsah",
                 "disable_content_warning": "Vypnout upozornění na obsah",
-                "post_visibility_menu": "Menu viditelnosti příspěvku"
+                "post_visibility_menu": "Menu viditelnosti příspěvku",
+                "post_options": "Post Options",
+                "posting_as": "Posting as %s"
             },
             "keyboard": {
                 "discard_post": "Zahodit příspěvek",
@@ -442,6 +453,10 @@
                 "placeholder": {
                     "label": "Označení",
                     "content": "Obsah"
+                },
+                "verified": {
+                    "short": "Ověřeno na %s",
+                    "long": "Vlastnictví tohoto odkazu bylo zkontrolováno na %s"
                 }
             },
             "segmented_control": {

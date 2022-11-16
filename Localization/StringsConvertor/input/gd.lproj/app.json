@@ -74,8 +74,8 @@
                 "take_photo": "Tog dealbh",
                 "save_photo": "Sàbhail an dealbh",
                 "copy_photo": "Dèan lethbhreac dhen dealbh",
-                "sign_in": "Clàraich a-steach",
-                "sign_up": "Clàraich leinn",
+                "sign_in": "Log in",
+                "sign_up": "Create account",
                 "see_more": "Seall a bharrachd",
                 "preview": "Ro-sheall",
                 "share": "Co-roinn",
@@ -218,10 +218,16 @@
             "get_started": "Dèan toiseach-tòiseachaidh",
             "log_in": "Clàraich a-steach"
         },
+        "login": {
+            "title": "Welcome back",
+            "subtitle": "Log you in on the server you created your account on.",
+            "server_search_field": {
+                "placeholder": "Enter URL or search for your server"
+            }
+        },
         "server_picker": {
             "title": "Tha cleachdaichean Mhastodon air iomadh frithealaiche eadar-dhealaichte.",
-            "subtitle": "Tagh frithealaiche stèidhichte air d’ ùidhean, air far a bheil thu no fear coitcheann.",
-            "subtitle_extend": "Tagh frithealaiche stèidhichte air d’ ùidhean, air far a bheil thu no fear coitcheann. Tha gach frithealaiche fo stiùireadh buidhinn no neach neo-eisimeilich fa leth.",
+            "subtitle": "Pick a server based on your region, interests, or a general purpose one. You can still chat with anyone on Mastodon, regardless of your servers.",
             "button": {
                 "category": {
                     "all": "Na h-uile",
@@ -248,8 +254,7 @@
                 "category": "ROINN-SEÒRSA"
             },
             "input": {
-                "placeholder": "Lorg frithealaiche",
-                "search_servers_or_enter_url": "Lorg frithealaiche no cuir a-steach URL"
+                "search_servers_or_enter_url": "Search communities or enter URL"
             },
             "empty_state": {
                 "finding_servers": "A’ lorg nam frithealaichean ri am faighinn…",
@@ -385,8 +390,10 @@
                 "description_video": "Mìnich a’ video dhan fheadhainn air a bheil cion-lèirsinne…",
                 "load_failed": "Load Failed",
                 "upload_failed": "Upload Failed",
-                "can_not_recognize_this_media_attachment": "Can not regonize this media attachment",
-                "attachment_too_large": "Attachment too large"
+                "can_not_recognize_this_media_attachment": "Can not recognize this media attachment",
+                "attachment_too_large": "Attachment too large",
+                "compressing_state": "Compressing...",
+                "server_processing_state": "Server Processing..."
             },
             "poll": {
                 "duration_time": "Faide: %s",
@@ -396,7 +403,9 @@
                 "one_day": "Latha",
                 "three_days": "3 làithean",
                 "seven_days": "Seachdain",
-                "option_number": "Roghainn %ld"
+                "option_number": "Roghainn %ld",
+                "the_poll_is_invalid": "The poll is invalid",
+                "the_poll_has_empty_option": "The poll has empty option"
             },
             "content_warning": {
                 "placeholder": "Sgrìobh rabhadh pongail an-seo…"
@@ -417,7 +426,9 @@
                 "custom_emoji_picker": "Roghnaichear nan Emoji gnàthaichte",
                 "enable_content_warning": "Cuir rabhadh susbainte an comas",
                 "disable_content_warning": "Cuir rabhadh susbainte à comas",
-                "post_visibility_menu": "Clàr-taice faicsinneachd a’ phuist"
+                "post_visibility_menu": "Clàr-taice faicsinneachd a’ phuist",
+                "post_options": "Post Options",
+                "posting_as": "Posting as %s"
             },
             "keyboard": {
                 "discard_post": "Tilg air falbh am post",
@@ -442,6 +453,10 @@
                 "placeholder": {
                     "label": "Leubail",
                     "content": "Susbaint"
+                },
+                "verified": {
+                    "short": "Verified on %s",
+                    "long": "Ownership of this link was checked on %s"
                 }
             },
             "segmented_control": {

@@ -74,8 +74,8 @@
                 "take_photo": "Prendre une photo",
                 "save_photo": "Enregistrer la photo",
                 "copy_photo": "Copier la photo",
-                "sign_in": "Se connecter",
-                "sign_up": "Créer un compte",
+                "sign_in": "Log in",
+                "sign_up": "Create account",
                 "see_more": "Voir plus",
                 "preview": "Aperçu",
                 "share": "Partager",
@@ -218,10 +218,16 @@
             "get_started": "Prise en main",
             "log_in": "Se connecter"
         },
+        "login": {
+            "title": "Welcome back",
+            "subtitle": "Log you in on the server you created your account on.",
+            "server_search_field": {
+                "placeholder": "Enter URL or search for your server"
+            }
+        },
         "server_picker": {
             "title": "Choisissez un serveur,\nn'importe quel serveur.",
-            "subtitle": "Choisissez une communauté en fonction de vos intérêts, de votre région ou de votre objectif général.",
-            "subtitle_extend": "Choisissez une communauté basée sur vos intérêts, votre région ou un but général. Chaque communauté est gérée par une organisation ou un individu entièrement indépendant.",
+            "subtitle": "Pick a server based on your region, interests, or a general purpose one. You can still chat with anyone on Mastodon, regardless of your servers.",
             "button": {
                 "category": {
                     "all": "Tout",
@@ -248,8 +254,7 @@
                 "category": "CATÉGORIE"
             },
             "input": {
-                "placeholder": "Trouvez un serveur ou rejoignez le vôtre...",
-                "search_servers_or_enter_url": "Rechercher des serveurs ou entrer une URL"
+                "search_servers_or_enter_url": "Search communities or enter URL"
             },
             "empty_state": {
                 "finding_servers": "Recherche des serveurs disponibles...",
@@ -383,10 +388,12 @@
                 "attachment_broken": "Ce %s est brisé et ne peut pas être\ntéléversé sur Mastodon.",
                 "description_photo": "Décrire cette photo pour les personnes malvoyantes...",
                 "description_video": "Décrire cette vidéo pour les personnes malvoyantes...",
-                "load_failed": "Load Failed",
-                "upload_failed": "Upload Failed",
-                "can_not_recognize_this_media_attachment": "Can not regonize this media attachment",
-                "attachment_too_large": "Attachment too large"
+                "load_failed": "Échec du chargement",
+                "upload_failed": "Échec de l’envoi",
+                "can_not_recognize_this_media_attachment": "Impossible de reconnaître cette pièce jointe",
+                "attachment_too_large": "La pièce jointe est trop volumineuse",
+                "compressing_state": "Compression...",
+                "server_processing_state": "Traitement du serveur..."
             },
             "poll": {
                 "duration_time": "Durée: %s",
@@ -396,7 +403,9 @@
                 "one_day": "1 Jour",
                 "three_days": "3 jour",
                 "seven_days": "7 jour",
-                "option_number": "Option %ld"
+                "option_number": "Option %ld",
+                "the_poll_is_invalid": "Le sondage est invalide",
+                "the_poll_has_empty_option": "Le sondage n'a pas d'options"
             },
             "content_warning": {
                 "placeholder": "Écrivez un avertissement précis ici..."
@@ -417,7 +426,9 @@
                 "custom_emoji_picker": "Sélecteur d’émojis personnalisés",
                 "enable_content_warning": "Basculer l’avertissement de contenu",
                 "disable_content_warning": "Désactiver l'avertissement de contenu",
-                "post_visibility_menu": "Menu de Visibilité de la publication"
+                "post_visibility_menu": "Menu de Visibilité de la publication",
+                "post_options": "Options de publication",
+                "posting_as": "Publié en tant que %s"
             },
             "keyboard": {
                 "discard_post": "Rejeter la publication",
@@ -442,6 +453,10 @@
                 "placeholder": {
                     "label": "Étiquette",
                     "content": "Contenu"
+                },
+                "verified": {
+                    "short": "Vérifié le %s",
+                    "long": "La propriété de ce lien a été vérifiée le %s"
                 }
             },
             "segmented_control": {

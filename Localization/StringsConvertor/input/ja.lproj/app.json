@@ -74,8 +74,8 @@
                 "take_photo": "写真を撮る",
                 "save_photo": "写真を撮る",
                 "copy_photo": "写真をコピー",
-                "sign_in": "サインイン",
-                "sign_up": "サインアップ",
+                "sign_in": "Log in",
+                "sign_up": "Create account",
                 "see_more": "もっと見る",
                 "preview": "プレビュー",
                 "share": "共有",
@@ -218,10 +218,16 @@
             "get_started": "はじめる",
             "log_in": "ログイン"
         },
+        "login": {
+            "title": "Welcome back",
+            "subtitle": "Log you in on the server you created your account on.",
+            "server_search_field": {
+                "placeholder": "Enter URL or search for your server"
+            }
+        },
         "server_picker": {
             "title": "サーバーを選択",
-            "subtitle": "あなたの興味分野・地域に合ったコミュニティや、汎用のものを選択してください。",
-            "subtitle_extend": "あなたの興味分野・地域に合ったコミュニティや、汎用のものを選択してください。各コミュニティはそれぞれ完全に独立した組織や個人によって運営されています。",
+            "subtitle": "Pick a server based on your region, interests, or a general purpose one. You can still chat with anyone on Mastodon, regardless of your servers.",
             "button": {
                 "category": {
                     "all": "すべて",
@@ -248,8 +254,7 @@
                 "category": "カテゴリー"
             },
             "input": {
-                "placeholder": "サーバーを探す",
-                "search_servers_or_enter_url": "サーバーを検索またはURLを入力"
+                "search_servers_or_enter_url": "Search communities or enter URL"
             },
             "empty_state": {
                 "finding_servers": "利用可能なサーバーの検索...",
@@ -385,8 +390,10 @@
                 "description_video": "閲覧が難しいユーザーへの映像説明",
                 "load_failed": "Load Failed",
                 "upload_failed": "Upload Failed",
-                "can_not_recognize_this_media_attachment": "Can not regonize this media attachment",
-                "attachment_too_large": "Attachment too large"
+                "can_not_recognize_this_media_attachment": "Can not recognize this media attachment",
+                "attachment_too_large": "Attachment too large",
+                "compressing_state": "Compressing...",
+                "server_processing_state": "Server Processing..."
             },
             "poll": {
                 "duration_time": "期間: %s",
@@ -396,7 +403,9 @@
                 "one_day": "1日",
                 "three_days": "3日",
                 "seven_days": "7日",
-                "option_number": "オプション %ld"
+                "option_number": "オプション %ld",
+                "the_poll_is_invalid": "The poll is invalid",
+                "the_poll_has_empty_option": "The poll has empty option"
             },
             "content_warning": {
                 "placeholder": "ここに警告を書いてください..."
@@ -417,7 +426,9 @@
                 "custom_emoji_picker": "カスタム絵文字ピッカー",
                 "enable_content_warning": "閲覧注意を有効にする",
                 "disable_content_warning": "閲覧注意を無効にする",
-                "post_visibility_menu": "投稿の表示メニュー"
+                "post_visibility_menu": "投稿の表示メニュー",
+                "post_options": "Post Options",
+                "posting_as": "Posting as %s"
             },
             "keyboard": {
                 "discard_post": "投稿を破棄",
@@ -442,6 +453,10 @@
                 "placeholder": {
                     "label": "ラベル",
                     "content": "コンテンツ"
+                },
+                "verified": {
+                    "short": "Verified on %s",
+                    "long": "Ownership of this link was checked on %s"
                 }
             },
             "segmented_control": {

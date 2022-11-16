@@ -75,7 +75,7 @@
                 "save_photo": "Spara foto",
                 "copy_photo": "Kopiera foto",
                 "sign_in": "Logga in",
-                "sign_up": "Registrera dig",
+                "sign_up": "Skapa konto",
                 "see_more": "Visa mer",
                 "preview": "Förhandsvisa",
                 "share": "Dela",
@@ -218,10 +218,16 @@
             "get_started": "Kom igång",
             "log_in": "Logga in"
         },
+        "login": {
+            "title": "Välkommen tillbaka",
+            "subtitle": "Logga in på servern där du skapade ditt konto.",
+            "server_search_field": {
+                "placeholder": "Ange URL eller sök efter din server"
+            }
+        },
         "server_picker": {
             "title": "Mastodon utgörs av användare på olika servrar.",
-            "subtitle": "Välj en server baserat på dina intressen, region eller ett allmänt syfte.",
-            "subtitle_extend": "Välj en server baserat på dina intressen, region eller ett allmänt syfte. Varje server drivs av en helt oberoende organisation eller individ.",
+            "subtitle": "Välj en server baserat på dina intressen, region eller en allmän server. Du kan fortfarande nå alla, oavsett server.",
             "button": {
                 "category": {
                     "all": "Alla",
@@ -248,8 +254,7 @@
                 "category": "KATEGORI"
             },
             "input": {
-                "placeholder": "Sök gemenskaper",
-                "search_servers_or_enter_url": "Sök servrar eller ange URL"
+                "search_servers_or_enter_url": "Sök gemenskaper eller ange URL"
             },
             "empty_state": {
                 "finding_servers": "Söker tillgängliga servrar...",
@@ -386,7 +391,9 @@
                 "load_failed": "Det gick inte att läsa in",
                 "upload_failed": "Uppladdning misslyckades",
                 "can_not_recognize_this_media_attachment": "Känner inte igen mediebilagan",
-                "attachment_too_large": "Bilagan är för stor"
+                "attachment_too_large": "Bilagan är för stor",
+                "compressing_state": "Komprimerar...",
+                "server_processing_state": "Behandlas av servern..."
             },
             "poll": {
                 "duration_time": "Längd: %s",
@@ -396,7 +403,9 @@
                 "one_day": "1 dag",
                 "three_days": "3 dagar",
                 "seven_days": "7 dagar",
-                "option_number": "Alternativ %ld"
+                "option_number": "Alternativ %ld",
+                "the_poll_is_invalid": "Undersökningen är ogiltig",
+                "the_poll_has_empty_option": "Undersökningen har ett tomt alternativ"
             },
             "content_warning": {
                 "placeholder": "Skriv en noggrann varning här..."
@@ -417,7 +426,9 @@
                 "custom_emoji_picker": "Anpassad emoji-väljare",
                 "enable_content_warning": "Aktivera innehållsvarning",
                 "disable_content_warning": "Inaktivera innehållsvarning",
-                "post_visibility_menu": "Inläggssynlighetsmeny"
+                "post_visibility_menu": "Inläggssynlighetsmeny",
+                "post_options": "Inläggsalternativ",
+                "posting_as": "Postar som %s"
             },
             "keyboard": {
                 "discard_post": "Släng inlägget",
@@ -442,6 +453,10 @@
                 "placeholder": {
                     "label": "Etikett",
                     "content": "Innehåll"
+                },
+                "verified": {
+                    "short": "Verifierad på %s",
+                    "long": "Ägarskap för denna länk kontrollerades den %s"
                 }
             },
             "segmented_control": {

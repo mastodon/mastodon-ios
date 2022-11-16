@@ -62,6 +62,26 @@
         <string>%ld znaků</string>
       </dict>
     </dict>
+    <key>a11y.plural.count.characters_left</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@character_count@ left</string>
+      <key>character_count</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>1 znak</string>
+        <key>few</key>
+        <string>%ld znaky</string>
+        <key>many</key>
+        <string>%ld znaků</string>
+        <key>other</key>
+        <string>%ld znaků</string>
+      </dict>
+    </dict>
     <key>plural.count.followed_by_and_mutual</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
@@ -288,13 +308,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 following</string>
+        <string>1 sledující</string>
         <key>few</key>
-        <string>%ld following</string>
+        <string>%ld sledující</string>
         <key>many</key>
-        <string>%ld following</string>
+        <string>%ld sledujících</string>
         <key>other</key>
-        <string>%ld following</string>
+        <string>%ld sledujících</string>
       </dict>
     </dict>
     <key>plural.count.follower</key>
@@ -328,13 +348,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 year left</string>
+        <string>Zbývá 1 rok</string>
         <key>few</key>
-        <string>%ld years left</string>
+        <string>Zbývají %ld roky</string>
         <key>many</key>
-        <string>%ld years left</string>
+        <string>Zbývá %ld roků</string>
         <key>other</key>
-        <string>%ld years left</string>
+        <string>Zbývá %ld roků</string>
       </dict>
     </dict>
     <key>date.month.left</key>
@@ -348,7 +368,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 months left</string>
+        <string>Zbývá 1 měsíc</string>
         <key>few</key>
         <string>%ld months left</string>
         <key>many</key>
