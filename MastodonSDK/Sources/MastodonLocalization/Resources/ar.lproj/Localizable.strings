@@ -55,8 +55,8 @@
 "Common.Controls.Actions.Share" = "المُشارك";
 "Common.Controls.Actions.SharePost" = "مشارك المنشور";
 "Common.Controls.Actions.ShareUser" = "مُشارَكَةُ %@";
-"Common.Controls.Actions.SignIn" = "تسجيل الدخول";
-"Common.Controls.Actions.SignUp" = "إنشاء حِساب";
+"Common.Controls.Actions.SignIn" = "تسجيلُ الدخول";
+"Common.Controls.Actions.SignUp" = "Create account";
 "Common.Controls.Actions.Skip" = "تخطي";
 "Common.Controls.Actions.TakePhoto" = "اِلتِقاطُ صُورَة";
 "Common.Controls.Actions.TryAgain" = "المُحاولة مرة أُخرى";
@@ -161,17 +161,21 @@
 "Scene.Compose.Accessibility.CustomEmojiPicker" = "منتقي الرموز التعبيرية المُخصَّص";
 "Scene.Compose.Accessibility.DisableContentWarning" = "تعطيل تحذير المُحتَوى";
 "Scene.Compose.Accessibility.EnableContentWarning" = "تفعيل تحذير المُحتَوى";
+"Scene.Compose.Accessibility.PostOptions" = "Post Options";
 "Scene.Compose.Accessibility.PostVisibilityMenu" = "قائمة ظهور المنشور";
+"Scene.Compose.Accessibility.PostingAs" = "نَشر كَـ %@";
 "Scene.Compose.Accessibility.RemovePoll" = "إزالة الاستطلاع";
 "Scene.Compose.Attachment.AttachmentBroken" = "هذا ال%@ مُعطَّل
 ويتعذَّرُ رفعُه إلى ماستودون.";
-"Scene.Compose.Attachment.AttachmentTooLarge" = "Attachment too large";
-"Scene.Compose.Attachment.CanNotRecognizeThisMediaAttachment" = "Can not regonize this media attachment";
+"Scene.Compose.Attachment.AttachmentTooLarge" = "المُرفَق كَبيرٌ جِدًّا";
+"Scene.Compose.Attachment.CanNotRecognizeThisMediaAttachment" = "يتعذَّرُ التعرُّفُ على وسائِطِ هذا المُرفَق";
+"Scene.Compose.Attachment.CompressingState" = "يجري الضغط...";
 "Scene.Compose.Attachment.DescriptionPhoto" = "صِف الصورة للمَكفوفين...";
 "Scene.Compose.Attachment.DescriptionVideo" = "صِف المقطع المرئي للمَكفوفين...";
-"Scene.Compose.Attachment.LoadFailed" = "Load Failed";
+"Scene.Compose.Attachment.LoadFailed" = "فَشَلَ التَّحميل";
 "Scene.Compose.Attachment.Photo" = "صورة";
-"Scene.Compose.Attachment.UploadFailed" = "Upload Failed";
+"Scene.Compose.Attachment.ServerProcessingState" = "مُعالجة الخادم جارِيَة...";
+"Scene.Compose.Attachment.UploadFailed" = "فَشَلَ الرَّفع";
 "Scene.Compose.Attachment.Video" = "مقطع مرئي";
 "Scene.Compose.AutoComplete.SpaceToAdd" = "انقر على مساحة لإضافتِها";
 "Scene.Compose.ComposeAction" = "نَشر";
@@ -192,6 +196,8 @@
 "Scene.Compose.Poll.OptionNumber" = "الخيار %ld";
 "Scene.Compose.Poll.SevenDays" = "سبعةُ أيام";
 "Scene.Compose.Poll.SixHours" = "سِتُّ ساعات";
+"Scene.Compose.Poll.ThePollHasEmptyOption" = "يوجَدُ خِيارٌ فارِغٌ فِي الاِستِطلاع";
+"Scene.Compose.Poll.ThePollIsInvalid" = "الاِستِطلاعُ غيرُ صالِح";
 "Scene.Compose.Poll.ThirtyMinutes" = "ثلاثون دقيقة";
 "Scene.Compose.Poll.ThreeDays" = "ثلاثةُ أيام";
 "Scene.Compose.ReplyingToUser" = "رَدًا على %@";
@@ -234,6 +240,9 @@
 "Scene.HomeTimeline.NavigationBarState.Published" = "تمَّ النَّشر!";
 "Scene.HomeTimeline.NavigationBarState.Publishing" = "يَجري نَشر المُشارَكَة...";
 "Scene.HomeTimeline.Title" = "الرَّئِيسَة";
+"Scene.Login.ServerSearchField.Placeholder" = "Enter URL or search for your server";
+"Scene.Login.Subtitle" = "Log you in on the server you created your account on.";
+"Scene.Login.Title" = "Welcome back";
 "Scene.Notification.FollowRequest.Accept" = "قَبُول";
 "Scene.Notification.FollowRequest.Accepted" = "مَقبُول";
 "Scene.Notification.FollowRequest.Reject" = "رَفض";
@@ -261,6 +270,8 @@
 "Scene.Profile.Fields.AddRow" = "إضافة صف";
 "Scene.Profile.Fields.Placeholder.Content" = "المُحتَوى";
 "Scene.Profile.Fields.Placeholder.Label" = "التسمية";
+"Scene.Profile.Fields.Verified.Long" = "تمَّ التَّحقق مِن مِلكية هذا الرابِطِ بِتاريخ %@";
+"Scene.Profile.Fields.Verified.Short" = "تمَّ التَّحقق بِتاريخ %@";
 "Scene.Profile.Header.FollowsYou" = "يُتابِعُك";
 "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Message" = "تأكيدُ حَظر %@";
 "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Title" = "حَظرُ الحِساب";
@@ -393,13 +404,11 @@
 "Scene.ServerPicker.EmptyState.BadNetwork" = "حدث خطأٌ ما أثناء تحميل البيانات. تحقَّق من اتصالك بالإنترنت.";
 "Scene.ServerPicker.EmptyState.FindingServers" = "يجري إيجاد خوادم متوفِّرَة...";
 "Scene.ServerPicker.EmptyState.NoResults" = "لا توجد نتائج";
-"Scene.ServerPicker.Input.Placeholder" = "اِبحَث عن خادِم أو انضم إلى آخر خاص بك...";
-"Scene.ServerPicker.Input.SearchServersOrEnterUrl" = "اِبحَث فِي الخَوادِم أو أدخِل رابِط";
+"Scene.ServerPicker.Input.SearchServersOrEnterUrl" = "Search communities or enter URL";
 "Scene.ServerPicker.Label.Category" = "الفئة";
 "Scene.ServerPicker.Label.Language" = "اللُّغَة";
 "Scene.ServerPicker.Label.Users" = "مُستَخدِم";
-"Scene.ServerPicker.Subtitle" = "اختر مجتمعًا بناءً على اهتماماتك، منطقتك أو يمكنك حتى اختيارُ مجتمعٍ ذي غرضٍ عام.";
-"Scene.ServerPicker.SubtitleExtend" = "اختر مجتمعًا بناءً على اهتماماتك، منطقتك أو يمكنك حتى اختيارُ مجتمعٍ ذي غرضٍ عام. تُشغَّل جميعُ المجتمعِ مِن قِبَلِ مُنظمَةٍ أو فردٍ مُستقلٍ تمامًا.";
+"Scene.ServerPicker.Subtitle" = "Pick a server based on your region, interests, or a general purpose one. You can still chat with anyone on Mastodon, regardless of your servers.";
 "Scene.ServerPicker.Title" = "اِختر خادِم،
 أيًّا مِنهُم.";
 "Scene.ServerRules.Button.Confirm" = "أنا مُوافِق";

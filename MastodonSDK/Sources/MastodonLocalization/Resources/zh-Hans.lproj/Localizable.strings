@@ -55,8 +55,8 @@
 "Common.Controls.Actions.Share" = "分享";
 "Common.Controls.Actions.SharePost" = "分享帖子";
 "Common.Controls.Actions.ShareUser" = "分享 %@";
-"Common.Controls.Actions.SignIn" = "登录";
-"Common.Controls.Actions.SignUp" = "注册";
+"Common.Controls.Actions.SignIn" = "Log in";
+"Common.Controls.Actions.SignUp" = "Create account";
 "Common.Controls.Actions.Skip" = "跳过";
 "Common.Controls.Actions.TakePhoto" = "拍照";
 "Common.Controls.Actions.TryAgain" = "再试一次";
@@ -161,16 +161,20 @@
 "Scene.Compose.Accessibility.CustomEmojiPicker" = "自定义表情选择器";
 "Scene.Compose.Accessibility.DisableContentWarning" = "关闭内容警告";
 "Scene.Compose.Accessibility.EnableContentWarning" = "启用内容警告";
+"Scene.Compose.Accessibility.PostOptions" = "Post Options";
 "Scene.Compose.Accessibility.PostVisibilityMenu" = "帖子可见性";
+"Scene.Compose.Accessibility.PostingAs" = "Posting as %@";
 "Scene.Compose.Accessibility.RemovePoll" = "移除投票";
 "Scene.Compose.Attachment.AttachmentBroken" = "%@已损坏
 无法上传到 Mastodon";
 "Scene.Compose.Attachment.AttachmentTooLarge" = "Attachment too large";
-"Scene.Compose.Attachment.CanNotRecognizeThisMediaAttachment" = "Can not regonize this media attachment";
+"Scene.Compose.Attachment.CanNotRecognizeThisMediaAttachment" = "Can not recognize this media attachment";
+"Scene.Compose.Attachment.CompressingState" = "Compressing...";
 "Scene.Compose.Attachment.DescriptionPhoto" = "为视觉障碍人士添加照片的文字说明...";
 "Scene.Compose.Attachment.DescriptionVideo" = "为视觉障碍人士添加视频的文字说明...";
 "Scene.Compose.Attachment.LoadFailed" = "Load Failed";
 "Scene.Compose.Attachment.Photo" = "照片";
+"Scene.Compose.Attachment.ServerProcessingState" = "Server Processing...";
 "Scene.Compose.Attachment.UploadFailed" = "Upload Failed";
 "Scene.Compose.Attachment.Video" = "视频";
 "Scene.Compose.AutoComplete.SpaceToAdd" = "输入空格键入";
@@ -192,6 +196,8 @@
 "Scene.Compose.Poll.OptionNumber" = "选项 %ld";
 "Scene.Compose.Poll.SevenDays" = "7 天";
 "Scene.Compose.Poll.SixHours" = "6 小时";
+"Scene.Compose.Poll.ThePollHasEmptyOption" = "The poll has empty option";
+"Scene.Compose.Poll.ThePollIsInvalid" = "The poll is invalid";
 "Scene.Compose.Poll.ThirtyMinutes" = "30 分钟";
 "Scene.Compose.Poll.ThreeDays" = "3 天";
 "Scene.Compose.ReplyingToUser" = "回复给 %@";
@@ -234,6 +240,9 @@
 "Scene.HomeTimeline.NavigationBarState.Published" = "已发送";
 "Scene.HomeTimeline.NavigationBarState.Publishing" = "正在发送...";
 "Scene.HomeTimeline.Title" = "主页";
+"Scene.Login.ServerSearchField.Placeholder" = "Enter URL or search for your server";
+"Scene.Login.Subtitle" = "Log you in on the server you created your account on.";
+"Scene.Login.Title" = "Welcome back";
 "Scene.Notification.FollowRequest.Accept" = "接受";
 "Scene.Notification.FollowRequest.Accepted" = "已接受";
 "Scene.Notification.FollowRequest.Reject" = "拒绝";
@@ -261,6 +270,8 @@
 "Scene.Profile.Fields.AddRow" = "添加";
 "Scene.Profile.Fields.Placeholder.Content" = "内容";
 "Scene.Profile.Fields.Placeholder.Label" = "标签";
+"Scene.Profile.Fields.Verified.Long" = "Ownership of this link was checked on %@";
+"Scene.Profile.Fields.Verified.Short" = "Verified on %@";
 "Scene.Profile.Header.FollowsYou" = "关注了你";
 "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Message" = "确认屏蔽 %@";
 "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Title" = "屏蔽帐户";
@@ -393,13 +404,11 @@
 "Scene.ServerPicker.EmptyState.BadNetwork" = "出了些问题。请检查你的互联网连接";
 "Scene.ServerPicker.EmptyState.FindingServers" = "正在查找可用的服务器...";
 "Scene.ServerPicker.EmptyState.NoResults" = "无结果";
-"Scene.ServerPicker.Input.Placeholder" = "查找或加入你自己的服务器...";
-"Scene.ServerPicker.Input.SearchServersOrEnterUrl" = "搜索服务器或输入 URL";
+"Scene.ServerPicker.Input.SearchServersOrEnterUrl" = "Search communities or enter URL";
 "Scene.ServerPicker.Label.Category" = "类别";
 "Scene.ServerPicker.Label.Language" = "语言";
 "Scene.ServerPicker.Label.Users" = "用户";
-"Scene.ServerPicker.Subtitle" = "根据你的兴趣、区域或一般目的选择一个社区。";
-"Scene.ServerPicker.SubtitleExtend" = "根据你的兴趣、区域或一般目的选择一个社区。每个社区都由完全独立的组织或个人管理。";
+"Scene.ServerPicker.Subtitle" = "Pick a server based on your region, interests, or a general purpose one. You can still chat with anyone on Mastodon, regardless of your servers.";
 "Scene.ServerPicker.Title" = "挑选一个服务器，
 任意服务器。";
 "Scene.ServerRules.Button.Confirm" = "我同意";
