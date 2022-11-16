@@ -74,8 +74,8 @@
                 "take_photo": "Fes una foto",
                 "save_photo": "Desa la foto",
                 "copy_photo": "Copia la foto",
-                "sign_in": "Log in",
-                "sign_up": "Create account",
+                "sign_in": "Iniciar sessió",
+                "sign_up": "Crea un compte",
                 "see_more": "Veure més",
                 "preview": "Vista prèvia",
                 "share": "Comparteix",
@@ -219,15 +219,15 @@
             "log_in": "Inicia sessió"
         },
         "login": {
-            "title": "Welcome back",
-            "subtitle": "Log you in on the server you created your account on.",
+            "title": "Ben tornat",
+            "subtitle": "T'inicia sessió en el servidor on has creat el teu compte.",
             "server_search_field": {
-                "placeholder": "Enter URL or search for your server"
+                "placeholder": "Insereix la URL o cerca el teu servidor"
             }
         },
         "server_picker": {
             "title": "Mastodon està fet d'usuaris en diferents comunitats.",
-            "subtitle": "Pick a server based on your region, interests, or a general purpose one. You can still chat with anyone on Mastodon, regardless of your servers.",
+            "subtitle": "Tria un servidor en funció de la teva regió, interessos o un de propòsit general. Seguiràs podent connectar amb tothom a Mastodon, independentment del servidor.",
             "button": {
                 "category": {
                     "all": "Totes",
@@ -254,7 +254,7 @@
                 "category": "CATEGORIA"
             },
             "input": {
-                "search_servers_or_enter_url": "Search communities or enter URL"
+                "search_servers_or_enter_url": "Cerca comunitats o introdueix l'URL"
             },
             "empty_state": {
                 "finding_servers": "Cercant els servidors disponibles...",
