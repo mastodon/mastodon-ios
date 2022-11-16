@@ -74,8 +74,8 @@
                 "take_photo": "ถ่ายรูป",
                 "save_photo": "บันทึกรูปภาพ",
                 "copy_photo": "คัดลอกรูปภาพ",
-                "sign_in": "Log in",
-                "sign_up": "Create account",
+                "sign_in": "เข้าสู่ระบบ",
+                "sign_up": "สร้างบัญชี",
                 "see_more": "ดูเพิ่มเติม",
                 "preview": "แสดงตัวอย่าง",
                 "share": "แบ่งปัน",
@@ -219,15 +219,15 @@
             "log_in": "เข้าสู่ระบบ"
         },
         "login": {
-            "title": "Welcome back",
-            "subtitle": "Log you in on the server you created your account on.",
+            "title": "ยินดีต้อนรับกลับมา",
+            "subtitle": "นำคุณเข้าสู่ระบบในเซิร์ฟเวอร์ที่คุณได้สร้างบัญชีของคุณไว้ใน",
             "server_search_field": {
-                "placeholder": "Enter URL or search for your server"
+                "placeholder": "ป้อน URL หรือค้นหาสำหรับเซิร์ฟเวอร์ของคุณ"
             }
         },
         "server_picker": {
             "title": "Mastodon ประกอบด้วยผู้ใช้ในเซิร์ฟเวอร์ต่าง ๆ",
-            "subtitle": "Pick a server based on your region, interests, or a general purpose one. You can still chat with anyone on Mastodon, regardless of your servers.",
+            "subtitle": "เลือกเซิร์ฟเวอร์ตามภูมิภาค, ความสนใจ หรือวัตถุประสงค์ทั่วไปของคุณ คุณยังคงสามารถแชทกับใครก็ตามใน Mastodon โดยไม่คำนึงถึงเซิร์ฟเวอร์ของคุณ",
             "button": {
                 "category": {
                     "all": "ทั้งหมด",
@@ -254,7 +254,7 @@
                 "category": "หมวดหมู่"
             },
             "input": {
-                "search_servers_or_enter_url": "Search communities or enter URL"
+                "search_servers_or_enter_url": "ค้นหาชุมชนหรือป้อน URL"
             },
             "empty_state": {
                 "finding_servers": "กำลังค้นหาเซิร์ฟเวอร์ที่พร้อมใช้งาน...",
