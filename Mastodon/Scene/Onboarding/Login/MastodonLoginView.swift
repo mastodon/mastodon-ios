@@ -126,7 +126,7 @@ class MastodonLoginView: UIView {
       searchContainerLeftPaddingView.bottomAnchor.constraint(equalTo: searchTextFieldLeftView.bottomAnchor),
       searchContainerLeftPaddingView.widthAnchor.constraint(equalToConstant: 4).priority(.defaultHigh),
 
-      tableViewWrapper.topAnchor.constraint(equalTo: searchTextField.bottomAnchor),
+      tableViewWrapper.topAnchor.constraint(equalTo: searchTextField.bottomAnchor, constant: 2),
       tableViewWrapper.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
       trailingAnchor.constraint(equalTo: tableViewWrapper.trailingAnchor, constant: 16),
       tableViewWrapper.bottomAnchor.constraint(lessThanOrEqualTo: navigationActionView.topAnchor),
@@ -148,7 +148,7 @@ class MastodonLoginView: UIView {
   func updateCorners(numberOfResults: Int = 0) {
 
     tableView.isHidden = (numberOfResults == 0)
-    tableViewWrapper.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner] // tableViewMask
+    tableViewWrapper.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
 
     let maskedCorners: CACornerMask
 
