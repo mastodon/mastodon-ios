@@ -74,8 +74,8 @@
                 "take_photo": "사진 촬영",
                 "save_photo": "사진 저장",
                 "copy_photo": "사진 복사",
-                "sign_in": "Log in",
-                "sign_up": "Create account",
+                "sign_in": "로그인",
+                "sign_up": "계정 생성",
                 "see_more": "더 보기",
                 "preview": "미리보기",
                 "share": "공유",
@@ -219,15 +219,15 @@
             "log_in": "로그인"
         },
         "login": {
-            "title": "Welcome back",
-            "subtitle": "Log you in on the server you created your account on.",
+            "title": "돌아오신 것을 환영합니다",
+            "subtitle": "계정을 만든 서버에 로그인.",
             "server_search_field": {
-                "placeholder": "Enter URL or search for your server"
+                "placeholder": "URL을 입력하거나 서버를 검색"
             }
         },
         "server_picker": {
             "title": "서버를 고르세요,\n아무 서버나 좋습니다.",
-            "subtitle": "Pick a server based on your region, interests, or a general purpose one. You can still chat with anyone on Mastodon, regardless of your servers.",
+            "subtitle": "당신의 지역이나, 관심사에 따라, 혹은 그냥 일반적인 목적의 서버를 고르세요. 어떤 서버를 고르더라도 마스토돈의 다른 모두와 소통할 수 있습니다.",
             "button": {
                 "category": {
                     "all": "모두",
@@ -254,7 +254,7 @@
                 "category": "분류"
             },
             "input": {
-                "search_servers_or_enter_url": "Search communities or enter URL"
+                "search_servers_or_enter_url": "커뮤니티를 검색하거나 URL을 입력"
             },
             "empty_state": {
                 "finding_servers": "사용 가능한 서버를 찾는 중입니다...",
