@@ -13,9 +13,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 unread notification</string>
+        <string>1 ólesin tilkynning</string>
         <key>other</key>
-        <string>%ld unread notification</string>
+        <string>%ld ólesnar tilkynningar</string>
       </dict>
     </dict>
     <key>a11y.plural.count.input_limit_exceeds</key>
@@ -31,7 +31,7 @@
         <key>one</key>
         <string>1 stafur</string>
         <key>other</key>
-        <string>%ld characters</string>
+        <string>%ld stafir</string>
       </dict>
     </dict>
     <key>a11y.plural.count.input_limit_remains</key>
@@ -47,13 +47,13 @@
         <key>one</key>
         <string>1 stafur</string>
         <key>other</key>
-        <string>%ld characters</string>
+        <string>%ld stafir</string>
       </dict>
     </dict>
     <key>a11y.plural.count.characters_left</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>%#@character_count@ left</string>
+      <string>%#@character_count@ eftir</string>
       <key>character_count</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -63,7 +63,7 @@
         <key>one</key>
         <string>1 stafur</string>
         <key>other</key>
-        <string>%ld characters</string>
+        <string>%ld stafir</string>
       </dict>
     </dict>
     <key>plural.count.followed_by_and_mutual</key>
@@ -88,9 +88,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>Followed by %1$@, and another mutual</string>
+        <string>Fylgt af %1$@ og öðrum sameiginlegum</string>
         <key>other</key>
-        <string>Followed by %1$@, and %ld mutuals</string>
+        <string>Fylgt af %1$@ og %ld sameiginlegum</string>
       </dict>
     </dict>
     <key>plural.count.metric_formatted.post</key>
@@ -106,7 +106,7 @@
         <key>one</key>
         <string>færsla</string>
         <key>other</key>
-        <string>posts</string>
+        <string>færslur</string>
       </dict>
     </dict>
     <key>plural.count.media</key>
@@ -122,7 +122,7 @@
         <key>one</key>
         <string>1 gagnamiðill</string>
         <key>other</key>
-        <string>%ld media</string>
+        <string>%ld gagnamiðlar</string>
       </dict>
     </dict>
     <key>plural.count.post</key>
@@ -138,7 +138,7 @@
         <key>one</key>
         <string>1 færsla</string>
         <key>other</key>
-        <string>%ld posts</string>
+        <string>%ld færslur</string>
       </dict>
     </dict>
     <key>plural.count.favorite</key>
@@ -154,7 +154,7 @@
         <key>one</key>
         <string>1 eftirlæti</string>
         <key>other</key>
-        <string>%ld favorites</string>
+        <string>%ld eftirlæti</string>
       </dict>
     </dict>
     <key>plural.count.reblog</key>
@@ -170,7 +170,7 @@
         <key>one</key>
         <string>1 endurbirting</string>
         <key>other</key>
-        <string>%ld reblogs</string>
+        <string>%ld endurbirtingar</string>
       </dict>
     </dict>
     <key>plural.count.reply</key>
@@ -186,7 +186,7 @@
         <key>one</key>
         <string>1 svar</string>
         <key>other</key>
-        <string>%ld replies</string>
+        <string>%ld svör</string>
       </dict>
     </dict>
     <key>plural.count.vote</key>
@@ -202,7 +202,7 @@
         <key>one</key>
         <string>1 atkvæði</string>
         <key>other</key>
-        <string>%ld votes</string>
+        <string>%ld atkvæði</string>
       </dict>
     </dict>
     <key>plural.count.voter</key>
@@ -218,7 +218,7 @@
         <key>one</key>
         <string>1 kjósandi</string>
         <key>other</key>
-        <string>%ld voters</string>
+        <string>%ld kjósendur</string>
       </dict>
     </dict>
     <key>plural.people_talking</key>
@@ -232,9 +232,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 people talking</string>
+        <string>1 aðili að spjalla</string>
         <key>other</key>
-        <string>%ld people talking</string>
+        <string>%ld aðilar að spjalla</string>
       </dict>
     </dict>
     <key>plural.count.following</key>
@@ -248,9 +248,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>Eftirfarandi villur komu upp:</string>
+        <string>1 fylgist með</string>
         <key>other</key>
-        <string>%ld following</string>
+        <string>%ld fylgjast með</string>
       </dict>
     </dict>
     <key>plural.count.follower</key>
@@ -264,9 +264,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 follower</string>
+        <string>1 fylgjandi</string>
         <key>other</key>
-        <string>%ld followers</string>
+        <string>%ld fylgjendur</string>
       </dict>
     </dict>
     <key>date.year.left</key>
@@ -280,9 +280,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 year left</string>
+        <string>1 ár eftir</string>
         <key>other</key>
-        <string>%ld years left</string>
+        <string>%ld ár eftir</string>
       </dict>
     </dict>
     <key>date.month.left</key>
@@ -296,9 +296,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 months left</string>
+        <string>1 mánuður eftir</string>
         <key>other</key>
-        <string>%ld months left</string>
+        <string>%ld mánuðir eftir</string>
       </dict>
     </dict>
     <key>date.day.left</key>
@@ -312,9 +312,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 day left</string>
+        <string>1 dagur eftir</string>
         <key>other</key>
-        <string>%ld days left</string>
+        <string>%ld dagar eftir</string>
       </dict>
     </dict>
     <key>date.hour.left</key>
@@ -328,9 +328,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 hour left</string>
+        <string>1 klukkustund eftir</string>
         <key>other</key>
-        <string>%ld hours left</string>
+        <string>%ld klukkustundir eftir</string>
       </dict>
     </dict>
     <key>date.minute.left</key>
@@ -344,9 +344,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 minute left</string>
+        <string>1 mínúta eftir</string>
         <key>other</key>
-        <string>%ld minutes left</string>
+        <string>%ld mínútur eftir</string>
       </dict>
     </dict>
     <key>date.second.left</key>
@@ -360,9 +360,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 second left</string>
+        <string>1 sekúnda eftir</string>
         <key>other</key>
-        <string>%ld seconds left</string>
+        <string>%ld sekúndur eftir</string>
       </dict>
     </dict>
     <key>date.year.ago.abbr</key>
@@ -376,9 +376,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1y ago</string>
+        <string>Fyrir 1 ári síðan</string>
         <key>other</key>
-        <string>%ldy ago</string>
+        <string>Fyrir %ld árum síðan</string>
       </dict>
     </dict>
     <key>date.month.ago.abbr</key>
@@ -392,9 +392,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1M ago</string>
+        <string>Fyrir 1mín síðan</string>
         <key>other</key>
-        <string>%ldM ago</string>
+        <string>Fyrir %ldmín síðan</string>
       </dict>
     </dict>
     <key>date.day.ago.abbr</key>
@@ -408,9 +408,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1d ago</string>
+        <string>Fyrir 1 degi síðan</string>
         <key>other</key>
-        <string>%ldd ago</string>
+        <string>Fyrir %ld dögum síðan</string>
       </dict>
     </dict>
     <key>date.hour.ago.abbr</key>
@@ -426,7 +426,7 @@
         <key>one</key>
         <string>1klst síðan</string>
         <key>other</key>
-        <string>%ldh ago</string>
+        <string>%ldklst síðan</string>
       </dict>
     </dict>
     <key>date.minute.ago.abbr</key>
@@ -442,7 +442,7 @@
         <key>one</key>
         <string>1m síðan</string>
         <key>other</key>
-        <string>%ldm ago</string>
+        <string>%ldm síðan</string>
       </dict>
     </dict>
     <key>date.second.ago.abbr</key>
@@ -458,7 +458,7 @@
         <key>one</key>
         <string>1s síðan</string>
         <key>other</key>
-        <string>%lds ago</string>
+        <string>%lds síðan</string>
       </dict>
     </dict>
   </dict>
