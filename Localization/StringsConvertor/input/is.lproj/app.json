@@ -6,30 +6,30 @@
                 "please_try_again_later": "Reyndu aftur síðar."
             },
             "sign_up_failure": {
-                "title": "Sign Up Failure"
+                "title": "Innskráning mistókst"
             },
             "server_error": {
                 "title": "Villa á þjóni"
             },
             "vote_failure": {
-                "title": "Vote Failure",
-                "poll_ended": "The poll has ended"
+                "title": "Greiðsla atkvæðis mistókst",
+                "poll_ended": "Könnuninni er lokið"
             },
             "discard_post_content": {
                 "title": "Henda drögum",
                 "message": "Confirm to discard composed post content."
             },
             "publish_post_failure": {
-                "title": "Publish Failure",
-                "message": "Failed to publish the post.\nPlease check your internet connection.",
+                "title": "Mistókst að birta",
+                "message": "Mistókst að birta færsluna.\nAthugaðu nettenginguna þína.",
                 "attachments_message": {
-                    "video_attach_with_photo": "Cannot attach a video to a post that already contains images.",
-                    "more_than_one_video": "Cannot attach more than one video."
+                    "video_attach_with_photo": "Ekki er hægt að hengja myndskeið við færslu sem þegar inniheldur myndir.",
+                    "more_than_one_video": "Ekki er hægt að hengja við fleiri en eitt myndskeið."
                 }
             },
             "edit_profile_failure": {
-                "title": "Edit Profile Error",
-                "message": "Cannot edit profile. Please try again."
+                "title": "Villa við breytingu á notandasniði",
+                "message": "Mistókst að breyta notandasniði. Endilega reyndu aftur."
             },
             "sign_out": {
                 "title": "Skrá út",
@@ -37,11 +37,11 @@
                 "confirm": "Skrá út"
             },
             "block_domain": {
-                "title": "Are you really, really sure you want to block the entire %s? In most cases a few targeted blocks or mutes are sufficient and preferable. You will not see content from that domain and any of your followers from that domain will be removed.",
-                "block_entire_domain": "Block Domain"
+                "title": "Ertu alveg algjörlega viss um að þú viljir loka á allt %s? Í flestum tilfellum er vænlegra að nota færri en markvissari útilokanir eða að þagga niður tiltekna aðila. Þú munt ekki sjá neitt efni frá þessu léni og fylgjendur þínir frá þessu léni verða fjarlægðir.",
+                "block_entire_domain": "Útiloka lén"
             },
             "save_photo_failure": {
-                "title": "Save Photo Failure",
+                "title": "Mistókst að vista mynd",
                 "message": "Please enable the photo library access permission to save the photo."
             },
             "delete_post": {
@@ -50,7 +50,7 @@
             },
             "clean_cache": {
                 "title": "Hreinsa skyndiminni",
-                "message": "Successfully cleaned %s cache."
+                "message": "Tókst að hreinsa %s skyndiminni."
             }
         },
         "controls": {
@@ -97,36 +97,36 @@
                 "home": "Heim",
                 "search": "Leita",
                 "notification": "Tilkynning",
-                "profile": "Profile"
+                "profile": "Notandasnið"
             },
             "keyboard": {
                 "common": {
-                    "switch_to_tab": "Switch to %s",
-                    "compose_new_post": "Compose New Post",
+                    "switch_to_tab": "Skipta yfir í %s",
+                    "compose_new_post": "Semja nýja færslu",
                     "show_favorites": "Birta eftirlæti",
                     "open_settings": "Opna stillingar"
                 },
                 "timeline": {
-                    "previous_status": "Previous Post",
-                    "next_status": "Next Post",
-                    "open_status": "Open Post",
-                    "open_author_profile": "Open Author's Profile",
-                    "open_reblogger_profile": "Open Reblogger's Profile",
-                    "reply_status": "Reply to Post",
-                    "toggle_reblog": "Toggle Reblog on Post",
-                    "toggle_favorite": "Toggle Favorite on Post",
-                    "toggle_content_warning": "Toggle Content Warning",
-                    "preview_image": "Preview Image"
+                    "previous_status": "Fyrri færsla",
+                    "next_status": "Næsta færsla",
+                    "open_status": "Opna færslu",
+                    "open_author_profile": "Opna notandasnið höfundar",
+                    "open_reblogger_profile": "Opna notandasnið þess sem endurbirtir",
+                    "reply_status": "Svara færslu",
+                    "toggle_reblog": "Víxla endurbirtingu færslu af/á",
+                    "toggle_favorite": "Víxla eftirlæti færslu af/á",
+                    "toggle_content_warning": "Víxla af/á viðvörun vegna efnis",
+                    "preview_image": "Forskoða mynd"
                 },
                 "segmented_control": {
-                    "previous_section": "Previous Section",
-                    "next_section": "Next Section"
+                    "previous_section": "Fyrri hluti",
+                    "next_section": "Næsti hluti"
                 }
             },
             "status": {
-                "user_reblogged": "%s reblogged",
-                "user_replied_to": "Replied to %s",
-                "show_post": "Show Post",
+                "user_reblogged": "%s endurbirti",
+                "user_replied_to": "Svaraði %s",
+                "show_post": "Sýna færslu",
                 "show_user_profile": "Birta notandasnið",
                 "content_warning": "Viðvörun vegna efnis",
                 "sensitive_content": "Viðkvæmt efni",
@@ -152,8 +152,8 @@
                     "hide": "Fela",
                     "show_image": "Sýna mynd",
                     "show_gif": "Birta GIF",
-                    "show_video_player": "Show video player",
-                    "tap_then_hold_to_show_menu": "Tap then hold to show menu"
+                    "show_video_player": "Sýna myndspilara",
+                    "tap_then_hold_to_show_menu": "Ýttu og haltu til að sýna valmynd"
                 },
                 "tag": {
                     "url": "URL-slóð",
@@ -164,10 +164,10 @@
                     "emoji": "Tjáningartákn"
                 },
                 "visibility": {
-                    "unlisted": "Everyone can see this post but not display in the public timeline.",
-                    "private": "Only their followers can see this post.",
-                    "private_from_me": "Only my followers can see this post.",
-                    "direct": "Only mentioned user can see this post."
+                    "unlisted": "Allir geta skoðað þessa færslu, en er ekki birt á opinberum tímalínum.",
+                    "private": "Einungis fylgjendur þeirra geta séð þessa færslu.",
+                    "private_from_me": "Einungis fylgjendur mínir geta séð þessa færslu.",
+                    "direct": "Einungis notendur sem minnst er á geta séð þessa færslu."
                 }
             },
             "friendship": {
@@ -186,8 +186,8 @@
                 "unmute": "Afþagga",
                 "unmute_user": "Afþagga %s",
                 "muted": "Þaggað",
-                "edit_info": "Edit Info",
-                "show_reblogs": "Show Reblogs",
+                "edit_info": "Breyta upplýsingum",
+                "show_reblogs": "Sýna endurbirtingar",
                 "hide_reblogs": "Fela endurbirtingar"
             },
             "timeline": {
@@ -196,18 +196,18 @@
                     "now": "Núna"
                 },
                 "loader": {
-                    "load_missing_posts": "Load missing posts",
-                    "loading_missing_posts": "Loading missing posts...",
-                    "show_more_replies": "Show more replies"
+                    "load_missing_posts": "Hlaða inn færslum sem vantar",
+                    "loading_missing_posts": "Hleð inn færslum sem vantar...",
+                    "show_more_replies": "Birta fleiri svör"
                 },
                 "header": {
-                    "no_status_found": "No Post Found",
+                    "no_status_found": "Engar færslur fundust",
                     "blocking_warning": "You can’t view this user's profile\nuntil you unblock them.\nYour profile looks like this to them.",
                     "user_blocking_warning": "You can’t view %s’s profile\nuntil you unblock them.\nYour profile looks like this to them.",
                     "blocked_warning": "You can’t view this user’s profile\nuntil they unblock you.",
                     "user_blocked_warning": "You can’t view %s’s profile\nuntil they unblock you.",
-                    "suspended_warning": "This user has been suspended.",
-                    "user_suspended_warning": "%s’s account has been suspended."
+                    "suspended_warning": "Þessi notandi hefur verið settur í bið.",
+                    "user_suspended_warning": "Notandaaðgangurinn %s hefur verið settur í bið."
                 }
             }
         }
@@ -216,24 +216,24 @@
         "welcome": {
             "slogan": "Samfélagsmiðlar\naftur í þínar hendur.",
             "get_started": "Komast í gang",
-            "log_in": "Log In"
+            "log_in": "Skrá inn"
         },
         "login": {
             "title": "Velkomin aftur",
-            "subtitle": "Log you in on the server you created your account on.",
+            "subtitle": "Skráðu þig inn á netþjóninum þar sem þú útbjóst aðganginn þinn.",
             "server_search_field": {
-                "placeholder": "Enter URL or search for your server"
+                "placeholder": "Settu inn slóð eða leitaðu að þjóninum þínum"
             }
         },
         "server_picker": {
-            "title": "Mastodon is made of users in different servers.",
+            "title": "Mastodon isamanstendur af notendum á mismunandi netþjónum.",
             "subtitle": "Pick a server based on your region, interests, or a general purpose one. You can still chat with anyone on Mastodon, regardless of your servers.",
             "button": {
                 "category": {
                     "all": "Allt",
                     "all_accessiblity_description": "Flokkur: Allt",
                     "academia": "akademískt",
-                    "activism": "activism",
+                    "activism": "aðgerðasinnar",
                     "food": "matur",
                     "furry": "loðið",
                     "games": "leikir",
@@ -254,24 +254,24 @@
                 "category": "FLOKKUR"
             },
             "input": {
-                "search_servers_or_enter_url": "Search communities or enter URL"
+                "search_servers_or_enter_url": "Leitaðu að samfélögum eða settu inn slóð"
             },
             "empty_state": {
-                "finding_servers": "Finding available servers...",
-                "bad_network": "Something went wrong while loading the data. Check your internet connection.",
+                "finding_servers": "Finn tiltæka netþjóna...",
+                "bad_network": "Eitthvað fór úrskeiðis við að hlaða inn gögnunum. Athugaðu nettenginguna þína.",
                 "no_results": "Engar niðurstöður"
             }
         },
         "register": {
-            "title": "Let’s get you set up on %s",
-            "lets_get_you_set_up_on_domain": "Let’s get you set up on %s",
+            "title": "Við skulum koma þér í gang á %s",
+            "lets_get_you_set_up_on_domain": "Við skulum koma þér í gang á %s",
             "input": {
                 "avatar": {
                     "delete": "Eyða"
                 },
                 "username": {
                     "placeholder": "notandanafn",
-                    "duplicate_prompt": "This username is taken."
+                    "duplicate_prompt": "Þetta notandanafn er þegar í notkun."
                 },
                 "display_name": {
                     "placeholder": "birtingarnafn"
@@ -303,27 +303,27 @@
                     "reason": "Ástæða"
                 },
                 "reason": {
-                    "blocked": "%s contains a disallowed email provider",
-                    "unreachable": "%s does not seem to exist",
-                    "taken": "%s is already in use",
-                    "reserved": "%s is a reserved keyword",
-                    "accepted": "%s must be accepted",
-                    "blank": "%s is required",
-                    "invalid": "%s is invalid",
-                    "too_long": "%s is too long",
-                    "too_short": "%s is too short",
-                    "inclusion": "%s is not a supported value"
+                    "blocked": "%s notar óleyfilega tölvupóstþjónustu",
+                    "unreachable": "%s virðist ekki vera til",
+                    "taken": "%s er þegar í notkun",
+                    "reserved": "%s er frátekið stikkorð",
+                    "accepted": "%s verður að samþykkja",
+                    "blank": "%s ier nauðsynlegt",
+                    "invalid": "%s er ógilt",
+                    "too_long": "%s er of langt",
+                    "too_short": "%s er of stutt",
+                    "inclusion": "%s er ekki stutt gildi"
                 },
                 "special": {
-                    "username_invalid": "Username must only contain alphanumeric characters and underscores",
-                    "username_too_long": "Username is too long (can’t be longer than 30 characters)",
-                    "email_invalid": "This is not a valid email address",
-                    "password_too_short": "Password is too short (must be at least 8 characters)"
+                    "username_invalid": "Notendanöfn geta einungis innihaldið bókstafi og undirstrikun",
+                    "username_too_long": "Notandanafnið er of langt (má ekki vera lengra en 30 stafir)",
+                    "email_invalid": "Þetta lítur ekki út eins og löglegt tölvupóstfang",
+                    "password_too_short": "Lykilorð er of stutt (verður að hafa minnst 8 stafi)"
                 }
             }
         },
         "server_rules": {
-            "title": "Some ground rules.",
+            "title": "Nokkrar grunnreglur.",
             "subtitle": "These are set and enforced by the %s moderators.",
             "prompt": "By continuing, you’re subject to the terms of service and privacy policy for %s.",
             "terms_of_service": "þjónustuskilmálar",
@@ -515,7 +515,7 @@
             "title": "Favorited By"
         },
         "reblogged_by": {
-            "title": "Reblogged By"
+            "title": "Endurbirt af"
         },
         "search": {
             "title": "Leita",
