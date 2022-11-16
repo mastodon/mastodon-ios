@@ -74,8 +74,8 @@
                 "take_photo": "Posnemi fotografijo",
                 "save_photo": "Shrani fotografijo",
                 "copy_photo": "Kopiraj fotografijo",
-                "sign_in": "Log in",
-                "sign_up": "Create account",
+                "sign_in": "Prijava",
+                "sign_up": "Ustvari račun",
                 "see_more": "Pokaži več",
                 "preview": "Predogled",
                 "share": "Deli",
@@ -219,15 +219,15 @@
             "log_in": "Prijava"
         },
         "login": {
-            "title": "Welcome back",
-            "subtitle": "Log you in on the server you created your account on.",
+            "title": "Dobrodošli nazaj",
+            "subtitle": "Prijavite se na strežniku, na katerem ste ustvarili račun.",
             "server_search_field": {
-                "placeholder": "Enter URL or search for your server"
+                "placeholder": "Vnesite URL ali poiščite svoj strežnik"
             }
         },
         "server_picker": {
             "title": "Mastodon tvorijo uporabniki z različnih strežnikov.",
-            "subtitle": "Pick a server based on your region, interests, or a general purpose one. You can still chat with anyone on Mastodon, regardless of your servers.",
+            "subtitle": "Strežnik izberite glede na svojo regijo, zanimanje ali pa kar splošno. Še vedno lahko klepetate s komer koli na Mastodonu, ne glede na strežnik.",
             "button": {
                 "category": {
                     "all": "Vse",
@@ -254,7 +254,7 @@
                 "category": "KATEGORIJA"
             },
             "input": {
-                "search_servers_or_enter_url": "Search communities or enter URL"
+                "search_servers_or_enter_url": "Iščite po skupnostih ali vnesite URL"
             },
             "empty_state": {
                 "finding_servers": "Iskanje razpoložljivih strežnikov ...",
