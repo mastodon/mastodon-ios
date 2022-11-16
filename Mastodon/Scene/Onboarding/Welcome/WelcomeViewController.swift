@@ -243,7 +243,7 @@ extension WelcomeViewController {
                 logoImageView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
                 logoImageView.leadingAnchor.constraint(equalTo: view.readableContentGuide.leadingAnchor, constant: 35),
                 view.readableContentGuide.trailingAnchor.constraint(equalTo: logoImageView.trailingAnchor, constant: 35),
-                logoImageView.heightAnchor.constraint(equalTo: logoImageView.widthAnchor, multiplier: 65.4/265.1),
+                logoImageView.heightAnchor.constraint(equalTo: logoImageView.widthAnchor, multiplier: 75.0/269.0),
             ])
             logoImageView.setContentHuggingPriority(.defaultHigh, for: .vertical)
         }
