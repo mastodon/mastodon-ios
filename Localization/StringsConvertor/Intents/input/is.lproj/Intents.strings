@@ -1,42 +1,42 @@
-"16wxgf" = "Post on Mastodon";
+"16wxgf" = "Birta á Mastodon";
 
-"751xkl" = "Text Content";
+"751xkl" = "Efni texta";
 
 "CsR7G2" = "Post on Mastodon";
 
 "HZSGTr" = "What content to post?";
 
-"HdGikU" = "Posting failed";
+"HdGikU" = "Birting færslu mistókst";
 
-"KDNTJ4" = "Failure Reason";
+"KDNTJ4" = "Ástæða bilunar";
 
 "RHxKOw" = "Send Post with text content";
 
-"RxSqsb" = "Post";
+"RxSqsb" = "Færsla";
 
-"WCIR3D" = "Post ${content} on Mastodon";
+"WCIR3D" = "Birta ${content} á Mastodon";
 
-"ZKJSNu" = "Post";
+"ZKJSNu" = "Færsla";
 
 "ZS1XaK" = "${content}";
 
-"ZbSjzC" = "Visibility";
+"ZbSjzC" = "Sýnileiki";
 
-"Zo4jgJ" = "Post Visibility";
+"Zo4jgJ" = "Sýnileiki færslu";
 
 "apSxMG-dYQ5NN" = "There are ${count} options matching ‘Public’.";
 
 "apSxMG-ehFLjY" = "There are ${count} options matching ‘Followers Only’.";
 
-"ayoYEb-dYQ5NN" = "${content}, Public";
+"ayoYEb-dYQ5NN" = "${content}, opinbert";
 
-"ayoYEb-ehFLjY" = "${content}, Followers Only";
+"ayoYEb-ehFLjY" = "${content}, einungis fylgjendur";
 
-"dUyuGg" = "Post on Mastodon";
+"dUyuGg" = "Birta á Mastodon";
 
-"dYQ5NN" = "Public";
+"dYQ5NN" = "Opinbert";
 
-"ehFLjY" = "Followers Only";
+"ehFLjY" = "Einungis fylgjendur";
 
 "gfePDu" = "Posting failed. ${failureReason}";
 
@@ -46,6 +46,6 @@
 
 "oGiqmY-ehFLjY" = "Just to confirm, you wanted ‘Followers Only’?";
 
-"rM6dvp" = "URL";
+"rM6dvp" = "URL-slóð";
 
 "ryJLwG" = "Post was sent successfully. ";
