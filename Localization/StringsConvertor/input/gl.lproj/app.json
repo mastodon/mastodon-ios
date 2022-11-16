@@ -385,10 +385,10 @@
                 "description_video": "Describe o vídeo para persoas con problemas visuais...",
                 "load_failed": "Fallou a carga",
                 "upload_failed": "Erro na subida",
-                "can_not_recognize_this_media_attachment": "Can not recognize this media attachment",
+                "can_not_recognize_this_media_attachment": "Non se recoñece o tipo de multimedia",
                 "attachment_too_large": "Adxunto demasiado grande",
-                "compressing_state": "Compressing...",
-                "server_processing_state": "Server Processing..."
+                "compressing_state": "Comprimindo...",
+                "server_processing_state": "Procesando no servidor..."
             },
             "poll": {
                 "duration_time": "Duración: %s",
@@ -399,8 +399,8 @@
                 "three_days": "3 Días",
                 "seven_days": "7 Días",
                 "option_number": "Opción %ld",
-                "the_poll_is_invalid": "The poll is invalid",
-                "the_poll_has_empty_option": "The poll has empty option"
+                "the_poll_is_invalid": "A enquisa non é válida",
+                "the_poll_has_empty_option": "A enquisa ten unha opción baleira"
             },
             "content_warning": {
                 "placeholder": "Escribe o teu aviso aquí..."
