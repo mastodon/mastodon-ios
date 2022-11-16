@@ -84,7 +84,7 @@ extension DataSourceFacade {
             self.url = url
             self.metadata = LPLinkMetadata()
             metadata.url = url
-            metadata.title = "\(status.author.displayName) (@\(status.author.username)@\(status.author.domain))"
+            metadata.title = "\(status.author.displayName) (@\(status.author.acctWithDomain))"
             metadata.iconProvider = NSItemProvider(object: IconProvider(url: status.author.avatarImageURLWithFallback(domain: status.author.domain)))
         }
 
