@@ -74,8 +74,8 @@
                 "take_photo": "Scatta foto",
                 "save_photo": "Salva foto",
                 "copy_photo": "Copia foto",
-                "sign_in": "Log in",
-                "sign_up": "Create account",
+                "sign_in": "Accedi",
+                "sign_up": "Crea un account",
                 "see_more": "Visualizza altro",
                 "preview": "Anteprima",
                 "share": "Condividi",
@@ -219,15 +219,15 @@
             "log_in": "Accedi"
         },
         "login": {
-            "title": "Welcome back",
-            "subtitle": "Log you in on the server you created your account on.",
+            "title": "Bentornato/a",
+            "subtitle": "Accedi al server sul quale hai creato il tuo account.",
             "server_search_field": {
-                "placeholder": "Enter URL or search for your server"
+                "placeholder": "Inserisci l'URL o cerca il tuo server"
             }
         },
         "server_picker": {
             "title": "Mastodon è fatto di utenti in diverse comunità.",
-            "subtitle": "Pick a server based on your region, interests, or a general purpose one. You can still chat with anyone on Mastodon, regardless of your servers.",
+            "subtitle": "Scegli un server in base alla tua regione, ai tuoi interessi o uno generico. Puoi comunque chattare con chiunque su Mastodon, indipendentemente dai tuoi server.",
             "button": {
                 "category": {
                     "all": "Tutti",
@@ -254,7 +254,7 @@
                 "category": "CATEGORIA"
             },
             "input": {
-                "search_servers_or_enter_url": "Search communities or enter URL"
+                "search_servers_or_enter_url": "Cerca le comunità o inserisci l'URL"
             },
             "empty_state": {
                 "finding_servers": "Ricerca server disponibili...",
