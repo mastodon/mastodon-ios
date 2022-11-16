@@ -130,6 +130,7 @@ extension StatusView {
                                     authorization: authenticationBox.userAuthorization
                                 ).singleOutput()
                             }
+                            .receive(on: DispatchQueue.main)
                             .sink { completion in
                                 // do nothing
                             } receiveValue: { [weak self] response in

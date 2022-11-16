@@ -203,6 +203,7 @@ extension StatusView.ViewModel {
                     statusView.headerInfoLabel.configure(content: info.header)
                     statusView.setHeaderDisplay()
                 case .reply(let info):
+                    assert(Thread.isMainThread)
                     statusView.headerIconImageView.image = UIImage(systemName: "arrowshape.turn.up.left.fill")
                     statusView.headerInfoLabel.configure(content: info.header)
                     statusView.setHeaderDisplay()
