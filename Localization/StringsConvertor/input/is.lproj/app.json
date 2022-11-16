@@ -17,7 +17,7 @@
             },
             "discard_post_content": {
                 "title": "Henda drögum",
-                "message": "Confirm to discard composed post content."
+                "message": "Staðfestu til að henda efni úr saminni færslu."
             },
             "publish_post_failure": {
                 "title": "Mistókst að birta",
@@ -202,10 +202,10 @@
                 },
                 "header": {
                     "no_status_found": "Engar færslur fundust",
-                    "blocking_warning": "You can’t view this user's profile\nuntil you unblock them.\nYour profile looks like this to them.",
-                    "user_blocking_warning": "You can’t view %s’s profile\nuntil you unblock them.\nYour profile looks like this to them.",
-                    "blocked_warning": "You can’t view this user’s profile\nuntil they unblock you.",
-                    "user_blocked_warning": "You can’t view %s’s profile\nuntil they unblock you.",
+                    "blocking_warning": "Þú getur ekki séð snið þessa notanda\nfyrr en þú hættir að útiloka hann.\nSniðið þitt lítur svona út hjá honum.",
+                    "user_blocking_warning": "Þú getur ekki séð sniðið hjá %s\nfyrr en þú hættir að útiloka hann.\nSniðið þitt lítur svona út hjá honum.",
+                    "blocked_warning": "Þú getur ekki séð sniðið hjá þessum notanda\nfyrr en hann hættir að útiloka þig.",
+                    "user_blocked_warning": "Þú getur ekki séð sniðið hjá %s\nfyrr en hann hættir að útiloka þig.",
                     "suspended_warning": "Þessi notandi hefur verið settur í bið.",
                     "user_suspended_warning": "Notandaaðgangurinn %s hefur verið settur í bið."
                 }
@@ -226,7 +226,7 @@
             }
         },
         "server_picker": {
-            "title": "Mastodon isamanstendur af notendum á mismunandi netþjónum.",
+            "title": "Mastodon samanstendur af notendum á mismunandi netþjónum.",
             "subtitle": "Pick a server based on your region, interests, or a general purpose one. You can still chat with anyone on Mastodon, regardless of your servers.",
             "button": {
                 "category": {
