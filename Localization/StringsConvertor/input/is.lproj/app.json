@@ -324,8 +324,8 @@
         },
         "server_rules": {
             "title": "Nokkrar grunnreglur.",
-            "subtitle": "These are set and enforced by the %s moderators.",
-            "prompt": "By continuing, you’re subject to the terms of service and privacy policy for %s.",
+            "subtitle": "Þær eru settar og séð um að þeim sé fylgt af umsjónarmönnum %s.",
+            "prompt": "Með því að halda áfram samþykkir þú þjónustuskilmála og persónuverndarstefnu %s.",
             "terms_of_service": "þjónustuskilmálar",
             "privacy_policy": "persónuverndarstefna",
             "button": {
@@ -333,7 +333,7 @@
             }
         },
         "confirm_email": {
-            "title": "One last thing.",
+            "title": "Eitt að lokum.",
             "subtitle": "Tap the link we emailed to you to verify your account.",
             "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we emailed to you to verify your account",
             "button": {
