@@ -306,12 +306,11 @@ extension MainTabBarController {
                     guard user.managedObjectContext != nil else { return }
                     self.avatarURL = user.avatarImageURL()
                 }
-            
+
             // a11y
             let _profileTabItem = self.tabBar.items?.first { item in item.tag == Tab.me.tag }
             guard let profileTabItem = _profileTabItem else { return }
-            let currentUserDisplayName = user.displayNameWithFallback ?? "no user"
-            profileTabItem.accessibilityHint = L10n.Scene.AccountList.tabBarHint(currentUserDisplayName)
+            profileTabItem.accessibilityHint = L10n.Scene.AccountList.tabBarHint(user.displayNameWithFallback)
 
             context.authenticationService.updateActiveUserAccountPublisher
                 .sink { [weak self] in
