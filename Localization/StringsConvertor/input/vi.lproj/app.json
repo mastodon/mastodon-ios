@@ -74,8 +74,8 @@
                 "take_photo": "Chụp ảnh",
                 "save_photo": "Lưu ảnh",
                 "copy_photo": "Sao chép ảnh",
-                "sign_in": "Log in",
-                "sign_up": "Create account",
+                "sign_in": "Đăng nhập",
+                "sign_up": "Tạo tài khoản",
                 "see_more": "Xem thêm",
                 "preview": "Xem trước",
                 "share": "Chia sẻ",
@@ -219,15 +219,15 @@
             "log_in": "Đăng nhập"
         },
         "login": {
-            "title": "Welcome back",
-            "subtitle": "Log you in on the server you created your account on.",
+            "title": "Chào mừng trở lại!",
+            "subtitle": "Đăng nhập vào máy chủ mà bạn đã tạo tài khoản.",
             "server_search_field": {
-                "placeholder": "Enter URL or search for your server"
+                "placeholder": "Nhập URL hoặc tìm máy chủ"
             }
         },
         "server_picker": {
             "title": "Mastodon gồm nhiều máy chủ với thành viên riêng.",
-            "subtitle": "Pick a server based on your region, interests, or a general purpose one. You can still chat with anyone on Mastodon, regardless of your servers.",
+            "subtitle": "Chọn một máy chủ dựa theo sở thích, tôn giáo, hoặc ý muốn của bạn. Bạn vẫn có thể giao tiếp với bất cứ ai mà không phụ thuộc vào máy chủ của họ.",
             "button": {
                 "category": {
                     "all": "Toàn bộ",
@@ -254,7 +254,7 @@
                 "category": "PHÂN LOẠI"
             },
             "input": {
-                "search_servers_or_enter_url": "Search communities or enter URL"
+                "search_servers_or_enter_url": "Tìm một máy chủ hoặc nhập URL"
             },
             "empty_state": {
                 "finding_servers": "Đang tìm máy chủ hoạt động...",
