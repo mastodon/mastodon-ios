@@ -42,7 +42,7 @@
             },
             "save_photo_failure": {
                 "title": "Mistókst að vista mynd",
-                "message": "Please enable the photo library access permission to save the photo."
+                "message": "Virkjaðu heimild til aðgangs að ljósmyndasafninu til að vista myndina."
             },
             "delete_post": {
                 "title": "Eyða færslu",
@@ -151,7 +151,7 @@
                     "menu": "Valmynd",
                     "hide": "Fela",
                     "show_image": "Sýna mynd",
-                    "show_gif": "Birta GIF",
+                    "show_gif": "Birta GIF-myndir",
                     "show_video_player": "Sýna myndspilara",
                     "tap_then_hold_to_show_menu": "Ýttu og haltu til að sýna valmynd"
                 },
@@ -227,7 +227,7 @@
         },
         "server_picker": {
             "title": "Mastodon samanstendur af notendum á mismunandi netþjónum.",
-            "subtitle": "Pick a server based on your region, interests, or a general purpose one. You can still chat with anyone on Mastodon, regardless of your servers.",
+            "subtitle": "Veldu netþjón út frá svæðinu þínu, áhugamálum, nú eða einhvern almennan. Þú getur samt spjallað við hvern sem er á Mastodon, burtséð frá á hvaða netþjóni þú ert.",
             "button": {
                 "category": {
                     "all": "Allt",
@@ -385,7 +385,7 @@
             "attachment": {
                 "photo": "ljósmynd",
                 "video": "myndskeið",
-                "attachment_broken": "This %s is broken and can’t be\nuploaded to Mastodon.",
+                "attachment_broken": "Þetta %s er skemmt og því ekki\nhægt að senda inn á Mastodon.",
                 "description_photo": "Lýstu myndinni fyrir sjónskerta...",
                 "description_video": "Lýstu myndskeiðinu fyrir sjónskerta...",
                 "load_failed": "Hleðsla mistókst",
@@ -527,7 +527,7 @@
                 "button_text": "Sjá allt",
                 "hash_tag": {
                     "title": "Vinsælt á Mastodon",
-                    "description": "Hashtags that are getting quite a bit of attention",
+                    "description": "Myllumerki sem eru að fá þónokkra athygli",
                     "people_talking": "%s manns eru að spjalla"
                 },
                 "accounts": {
@@ -653,12 +653,12 @@
             "title": "Kæra %s",
             "step1": "Skref 1 af 2",
             "step2": "Skref 2 af 2",
-            "content1": "Are there any other posts you’d like to add to the report?",
-            "content2": "Is there anything the moderators should know about this report?",
-            "report_sent_title": "Thanks for reporting, we’ll look into this.",
+            "content1": "Eru einhverjar færslur sem þú myndir vilja bæta við kæruna?",
+            "content2": "Er eitthvað fleira sem umsjónarmenn ættu að vita varðandi þessa kæru?",
+            "report_sent_title": "Takk fyrir tilkynninguna, við munum skoða málið.",
             "send": "Senda kæru",
             "skip_to_send": "Senda án athugasemdar",
-            "text_placeholder": "Type or paste additional comments",
+            "text_placeholder": "Skrifaðu eða límdu aðrar athugasemdir",
             "reported": "TILKYNNT",
             "step_one": {
                 "step_1_of_4": "Skref 1 af 4",
@@ -668,30 +668,30 @@
                 "select_the_best_match": "Velja bestu samsvörun",
                 "i_dont_like_it": "Mér líkar það ekki",
                 "it_is_not_something_you_want_to_see": "Þetta er ekki eitthvað sem þið viljið sjá",
-                "its_spam": "It’s spam",
-                "malicious_links_fake_engagement_or_repetetive_replies": "Malicious links, fake engagement, or repetetive replies",
-                "it_violates_server_rules": "It violates server rules",
-                "you_are_aware_that_it_breaks_specific_rules": "You are aware that it breaks specific rules",
-                "its_something_else": "It’s something else",
-                "the_issue_does_not_fit_into_other_categories": "The issue does not fit into other categories"
+                "its_spam": "Þetta er ruslpóstur",
+                "malicious_links_fake_engagement_or_repetetive_replies": "Slæmir tenglar, fölsk samskipti eða endurtekin svör",
+                "it_violates_server_rules": "Það gengur þvert á reglur fyrir netþjóninn",
+                "you_are_aware_that_it_breaks_specific_rules": "Þið eruð meðvituð um að þetta brýtur sértækar reglur",
+                "its_something_else": "Það er eitthvað annað",
+                "the_issue_does_not_fit_into_other_categories": "Vandamálið fellur ekki í aðra flokka"
             },
             "step_two": {
                 "step_2_of_4": "Skref 2 af 4",
-                "which_rules_are_being_violated": "Which rules are being violated?",
-                "select_all_that_apply": "Select all that apply",
-                "i_just_don’t_like_it": "I just don’t like it"
+                "which_rules_are_being_violated": "Hvaða reglur eru brotnar?",
+                "select_all_that_apply": "Veldu allt sem á við",
+                "i_just_don’t_like_it": "Mér bara líkar það ekki"
             },
             "step_three": {
                 "step_3_of_4": "Skref 3 af 4",
-                "are_there_any_posts_that_back_up_this_report": "Are there any posts that back up this report?",
-                "select_all_that_apply": "Select all that apply"
+                "are_there_any_posts_that_back_up_this_report": "Eru einhverjar færslur sem styðja þessa kæru?",
+                "select_all_that_apply": "Veldu allt sem á við"
             },
             "step_four": {
                 "step_4_of_4": "Skref 4 af 4",
-                "is_there_anything_else_we_should_know": "Is there anything else we should know?"
+                "is_there_anything_else_we_should_know": "Er eitthvað fleira sem við ættum að vita?"
             },
             "step_final": {
-                "dont_want_to_see_this": "Don’t want to see this?",
+                "dont_want_to_see_this": "Langar þig ekki að sjá þetta?",
                 "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "When you see something you don’t like on Mastodon, you can remove the person from your experience.",
                 "unfollow": "Hætta að fylgjast með",
                 "unfollowed": "Hætti að fylgjast með",
@@ -700,7 +700,7 @@
                 "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or reblogs in your home feed. They won’t know they’ve been muted.",
                 "block_user": "Útiloka %s",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "They will no longer be able to follow or see your posts, but they can see if they’ve been blocked.",
-                "while_we_review_this_you_can_take_action_against_user": "While we review this, you can take action against %s"
+                "while_we_review_this_you_can_take_action_against_user": "Á meðan við yfirförum þetta, geturðu tekið til aðgerða gegn %s"
             }
         },
         "preview": {
