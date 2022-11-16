@@ -407,7 +407,7 @@ extension MainTabBarController {
             assert(Thread.isMainThread)
 
             let request = MastodonAuthentication.sortedFetchRequest
-            guard let accounts = try? context.managedObjectContext.fetch(request) else { return }
+            guard let accounts = try? context.managedObjectContext.fetch(request), accounts.count > 1 else { return }
             
             let nextSelectedAccountIndex: Int? = {
                 for (index, account) in accounts.enumerated() {
