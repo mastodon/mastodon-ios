@@ -29,7 +29,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 character</string>
+        <string>1 stafur</string>
         <key>other</key>
         <string>%ld characters</string>
       </dict>
@@ -45,7 +45,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 character</string>
+        <string>1 stafur</string>
         <key>other</key>
         <string>%ld characters</string>
       </dict>
@@ -61,7 +61,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 character</string>
+        <string>1 stafur</string>
         <key>other</key>
         <string>%ld characters</string>
       </dict>
@@ -104,7 +104,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>post</string>
+        <string>færsla</string>
         <key>other</key>
         <string>posts</string>
       </dict>
@@ -120,7 +120,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 media</string>
+        <string>1 gagnamiðill</string>
         <key>other</key>
         <string>%ld media</string>
       </dict>
@@ -136,7 +136,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 post</string>
+        <string>1 færsla</string>
         <key>other</key>
         <string>%ld posts</string>
       </dict>
@@ -152,7 +152,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 favorite</string>
+        <string>1 eftirlæti</string>
         <key>other</key>
         <string>%ld favorites</string>
       </dict>
@@ -168,7 +168,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 reblog</string>
+        <string>1 endurbirting</string>
         <key>other</key>
         <string>%ld reblogs</string>
       </dict>
@@ -184,7 +184,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 reply</string>
+        <string>1 svar</string>
         <key>other</key>
         <string>%ld replies</string>
       </dict>
@@ -200,7 +200,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 vote</string>
+        <string>1 atkvæði</string>
         <key>other</key>
         <string>%ld votes</string>
       </dict>
@@ -216,7 +216,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 voter</string>
+        <string>1 kjósandi</string>
         <key>other</key>
         <string>%ld voters</string>
       </dict>
@@ -248,7 +248,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 following</string>
+        <string>Eftirfarandi villur komu upp:</string>
         <key>other</key>
         <string>%ld following</string>
       </dict>
@@ -424,7 +424,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1h ago</string>
+        <string>1klst síðan</string>
         <key>other</key>
         <string>%ldh ago</string>
       </dict>
@@ -440,7 +440,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1m ago</string>
+        <string>1m síðan</string>
         <key>other</key>
         <string>%ldm ago</string>
       </dict>
@@ -456,7 +456,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1s ago</string>
+        <string>1s síðan</string>
         <key>other</key>
         <string>%lds ago</string>
       </dict>
