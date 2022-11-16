@@ -74,8 +74,8 @@
                 "take_photo": "Ta foto",
                 "save_photo": "Spara foto",
                 "copy_photo": "Kopiera foto",
-                "sign_in": "Log in",
-                "sign_up": "Create account",
+                "sign_in": "Logga in",
+                "sign_up": "Skapa konto",
                 "see_more": "Visa mer",
                 "preview": "Förhandsvisa",
                 "share": "Dela",
@@ -219,15 +219,15 @@
             "log_in": "Logga in"
         },
         "login": {
-            "title": "Welcome back",
-            "subtitle": "Log you in on the server you created your account on.",
+            "title": "Välkommen tillbaka",
+            "subtitle": "Logga in på servern där du skapade ditt konto.",
             "server_search_field": {
-                "placeholder": "Enter URL or search for your server"
+                "placeholder": "Ange URL eller sök efter din server"
             }
         },
         "server_picker": {
             "title": "Mastodon utgörs av användare på olika servrar.",
-            "subtitle": "Pick a server based on your region, interests, or a general purpose one. You can still chat with anyone on Mastodon, regardless of your servers.",
+            "subtitle": "Välj en server baserat på dina intressen, region eller en allmän server. Du kan fortfarande nå alla, oavsett server.",
             "button": {
                 "category": {
                     "all": "Alla",
@@ -254,7 +254,7 @@
                 "category": "KATEGORI"
             },
             "input": {
-                "search_servers_or_enter_url": "Search communities or enter URL"
+                "search_servers_or_enter_url": "Sök gemenskaper eller ange URL"
             },
             "empty_state": {
                 "finding_servers": "Söker tillgängliga servrar...",
