@@ -74,8 +74,8 @@
                 "take_photo": "Vyfotit",
                 "save_photo": "Uložit fotku",
                 "copy_photo": "Kopírovat fotografii",
-                "sign_in": "Log in",
-                "sign_up": "Create account",
+                "sign_in": "Přihlásit se",
+                "sign_up": "Vytvořit účet",
                 "see_more": "Zobrazit více",
                 "preview": "Náhled",
                 "share": "Sdílet",
@@ -219,15 +219,15 @@
             "log_in": "Přihlásit se"
         },
         "login": {
-            "title": "Welcome back",
-            "subtitle": "Log you in on the server you created your account on.",
+            "title": "Vítejte zpět",
+            "subtitle": "Přihlaste se na serveru, na kterém jste si vytvořili účet.",
             "server_search_field": {
-                "placeholder": "Enter URL or search for your server"
+                "placeholder": "Zadejte URL nebo vyhledávejte váš server"
             }
         },
         "server_picker": {
             "title": "Mastodon tvoří uživatelé z různých serverů.",
-            "subtitle": "Pick a server based on your region, interests, or a general purpose one. You can still chat with anyone on Mastodon, regardless of your servers.",
+            "subtitle": "Vyberte server založený ve vašem regionu, podle zájmů nebo podle obecného účelu. Stále můžete chatovat s kýmkoli na Mastodonu bez ohledu na vaše servery.",
             "button": {
                 "category": {
                     "all": "Vše",
@@ -254,7 +254,7 @@
                 "category": "KATEGORIE"
             },
             "input": {
-                "search_servers_or_enter_url": "Search communities or enter URL"
+                "search_servers_or_enter_url": "Hledejte komunity nebo zadejte URL"
             },
             "empty_state": {
                 "finding_servers": "Hledání dostupných serverů...",
