@@ -224,7 +224,7 @@
             "server_search_field": {
               "placeholder": "Enter URL or search for your server"
             }
-        }
+        },
         "server_picker": {
             "title": "Mastodon is made of users in different servers.",
             "subtitle": "Pick a server based on your region, interests, or a general purpose one. You can still chat with anyone on Mastodon, regardless of your servers.",
