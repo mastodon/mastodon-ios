@@ -4,6 +4,7 @@ on:
   push:
     branches:
     - develop
+    - release*
     - ci-test
 
 jobs:
