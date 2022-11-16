@@ -74,8 +74,8 @@
                 "take_photo": "اِلتِقاطُ صُورَة",
                 "save_photo": "حفظ الصورة",
                 "copy_photo": "نسخ الصورة",
-                "sign_in": "تسجيل الدخول",
-                "sign_up": "إنشاء حِساب",
+                "sign_in": "Log in",
+                "sign_up": "Create account",
                 "see_more": "عرض المزيد",
                 "preview": "مُعاينة",
                 "share": "المُشارك",
@@ -218,10 +218,16 @@
             "get_started": "ابدأ الآن",
             "log_in": "تسجيلُ الدخول"
         },
+        "login": {
+            "title": "Welcome back",
+            "subtitle": "Log you in on the server you created your account on.",
+            "server_search_field": {
+                "placeholder": "Enter URL or search for your server"
+            }
+        },
         "server_picker": {
             "title": "اِختر خادِم،\nأيًّا مِنهُم.",
-            "subtitle": "اختر مجتمعًا بناءً على اهتماماتك، منطقتك أو يمكنك حتى اختيارُ مجتمعٍ ذي غرضٍ عام.",
-            "subtitle_extend": "اختر مجتمعًا بناءً على اهتماماتك، منطقتك أو يمكنك حتى اختيارُ مجتمعٍ ذي غرضٍ عام. تُشغَّل جميعُ المجتمعِ مِن قِبَلِ مُنظمَةٍ أو فردٍ مُستقلٍ تمامًا.",
+            "subtitle": "Pick a server based on your region, interests, or a general purpose one. You can still chat with anyone on Mastodon, regardless of your servers.",
             "button": {
                 "category": {
                     "all": "الكُل",
@@ -248,8 +254,7 @@
                 "category": "الفئة"
             },
             "input": {
-                "placeholder": "اِبحَث عن خادِم أو انضم إلى آخر خاص بك...",
-                "search_servers_or_enter_url": "اِبحَث فِي الخَوادِم أو أدخِل رابِط"
+                "search_servers_or_enter_url": "Search communities or enter URL"
             },
             "empty_state": {
                 "finding_servers": "يجري إيجاد خوادم متوفِّرَة...",
