@@ -450,8 +450,8 @@
                     "content": "Contido"
                 },
                 "verified": {
-                    "short": "Verified on %s",
-                    "long": "Ownership of this link was checked on %s"
+                    "short": "Verificada en %s",
+                    "long": "A propiedade desta ligazón foi verificada o %s"
                 }
             },
             "segmented_control": {
