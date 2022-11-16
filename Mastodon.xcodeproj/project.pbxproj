@@ -895,6 +895,12 @@
 		DB938F0826240F3C00E5B6C1 /* RemoteThreadViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteThreadViewModel.swift; sourceTree = "<group>"; };
 		DB938F0E2624119800E5B6C1 /* ThreadViewModel+LoadThreadState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ThreadViewModel+LoadThreadState.swift"; sourceTree = "<group>"; };
 		DB938F1E2624382F00E5B6C1 /* ThreadViewModel+Diffable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ThreadViewModel+Diffable.swift"; sourceTree = "<group>"; };
+		DB96C25D292505FE00F3B85D /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Intents.strings; sourceTree = "<group>"; };
+		DB96C25E292505FF00F3B85D /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DB96C25F292505FF00F3B85D /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = cs; path = cs.lproj/Intents.stringsdict; sourceTree = "<group>"; };
+		DB96C260292506D600F3B85D /* sl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sl; path = sl.lproj/Intents.strings; sourceTree = "<group>"; };
+		DB96C261292506D700F3B85D /* sl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sl; path = sl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DB96C262292506D700F3B85D /* sl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = sl; path = sl.lproj/Intents.stringsdict; sourceTree = "<group>"; };
 		DB98EB4627B0DFAA0082E365 /* ReportStatusViewModel+State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReportStatusViewModel+State.swift"; sourceTree = "<group>"; };
 		DB98EB4827B0F0CD0082E365 /* ReportStatusTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportStatusTableViewCell.swift; sourceTree = "<group>"; };
 		DB98EB4B27B0F2BC0082E365 /* ReportStatusTableViewCell+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReportStatusTableViewCell+ViewModel.swift"; sourceTree = "<group>"; };
@@ -2872,6 +2878,8 @@
 				gd,
 				"es-AR",
 				fi,
+				cs,
+				sl,
 			);
 			mainGroup = DB427DC925BAA00100D1B89D;
 			packageReferences = (
@@ -3607,6 +3615,8 @@
 				DBC9E3A6282E15190063A4D9 /* gd */,
 				DBC9E3A9282E17DF0063A4D9 /* es-AR */,
 				DB8F40042835EE5E006E7513 /* fi */,
+				DB96C25D292505FE00F3B85D /* cs */,
+				DB96C260292506D600F3B85D /* sl */,
 			);
 			name = Intents.intentdefinition;
 			sourceTree = "<group>";
@@ -3638,6 +3648,8 @@
 				DBC9E3A7282E15190063A4D9 /* gd */,
 				DBC9E3AA282E17DF0063A4D9 /* es-AR */,
 				DB8F40052835EE5E006E7513 /* fi */,
+				DB96C25E292505FF00F3B85D /* cs */,
+				DB96C261292506D700F3B85D /* sl */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -3685,6 +3697,8 @@
 				DBC9E3A8282E15190063A4D9 /* gd */,
 				DBC9E3AB282E17DF0063A4D9 /* es-AR */,
 				DB8F40062835EE5E006E7513 /* fi */,
+				DB96C25F292505FF00F3B85D /* cs */,
+				DB96C262292506D700F3B85D /* sl */,
 			);
 			name = Intents.stringsdict;
 			sourceTree = "<group>";
