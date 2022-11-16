@@ -74,8 +74,8 @@
                 "take_photo": "Foto aufnehmen",
                 "save_photo": "Foto speichern",
                 "copy_photo": "Foto kopieren",
-                "sign_in": "Log in",
-                "sign_up": "Create account",
+                "sign_in": "Anmelden",
+                "sign_up": "Konto erstellen",
                 "see_more": "Mehr anzeigen",
                 "preview": "Vorschau",
                 "share": "Teilen",
@@ -219,15 +219,15 @@
             "log_in": "Anmelden"
         },
         "login": {
-            "title": "Welcome back",
-            "subtitle": "Log you in on the server you created your account on.",
+            "title": "Willkommen zurück",
+            "subtitle": "Melden Sie sich auf dem Server an, auf dem Sie Ihr Konto erstellt haben.",
             "server_search_field": {
-                "placeholder": "Enter URL or search for your server"
+                "placeholder": "URL eingeben oder nach Server suchen"
             }
         },
         "server_picker": {
             "title": "Wähle einen Server,\nbeliebigen Server.",
-            "subtitle": "Pick a server based on your region, interests, or a general purpose one. You can still chat with anyone on Mastodon, regardless of your servers.",
+            "subtitle": "Wähle einen Server basierend auf deinen Interessen oder deiner Region – oder einfach einen allgemeinen. Du kannst trotzdem mit jedem interagieren, egal auf welchem Server.",
             "button": {
                 "category": {
                     "all": "Alle",
@@ -254,7 +254,7 @@
                 "category": "KATEGORIE"
             },
             "input": {
-                "search_servers_or_enter_url": "Search communities or enter URL"
+                "search_servers_or_enter_url": "Suche nach einer Community oder gib eine URL ein"
             },
             "empty_state": {
                 "finding_servers": "Verfügbare Server werden gesucht...",
@@ -455,7 +455,7 @@
                     "content": "Inhalt"
                 },
                 "verified": {
-                    "short": "Verified on %s",
+                    "short": "Überprüft am %s",
                     "long": "Besitz des Links wurde überprüft am %s"
                 }
             },
