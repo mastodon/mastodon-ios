@@ -129,23 +129,23 @@
                 "show_post": "Tampilkan Postingan",
                 "show_user_profile": "Tampilkan Profil Pengguna",
                 "content_warning": "Peringatan Konten",
-                "sensitive_content": "Sensitive Content",
+                "sensitive_content": "Konten Sensitif",
                 "media_content_warning": "Ketuk di mana saja untuk melihat",
-                "tap_to_reveal": "Tap to reveal",
+                "tap_to_reveal": "Ketuk untuk mengungkap",
                 "poll": {
-                    "vote": "Vote",
+                    "vote": "Pilih",
                     "closed": "Ditutup"
                 },
                 "meta_entity": {
-                    "url": "Link: %s",
-                    "hashtag": "Hashtag: %s",
-                    "mention": "Show Profile: %s",
-                    "email": "Email address: %s"
+                    "url": "Tautan: %s",
+                    "hashtag": "Tagar: %s",
+                    "mention": "Tampilkan Profile: %s",
+                    "email": "Alamat email: %s"
                 },
                 "actions": {
                     "reply": "Balas",
                     "reblog": "Reblog",
-                    "unreblog": "Undo reblog",
+                    "unreblog": "Batalkan reblog",
                     "favorite": "Favorit",
                     "unfavorite": "Unfavorite",
                     "menu": "Menu",
