@@ -16,7 +16,12 @@ class MastodonLoginView: UIView {
   let titleLabel: UILabel
   let subtitleLabel: UILabel
   private let headerStackView: UIStackView
+
   let searchTextField: UITextField
+  private let searchTextFieldLeftView: UIView
+  private let searchTextFieldMagnifyingGlass: UIImageView
+  private let searchContainerLeftPaddingView: UIView
+
   let tableView: UITableView
   private var tableViewWrapper: UIView
   let navigationActionView: NavigationActionView
@@ -41,11 +46,25 @@ class MastodonLoginView: UIView {
     headerStackView.spacing = 16
     headerStackView.translatesAutoresizingMaskIntoConstraints = false
 
+    searchTextFieldMagnifyingGlass = UIImageView(image: UIImage(
+      systemName: "magnifyingglass",
+      withConfiguration: UIImage.SymbolConfiguration(pointSize: 15, weight: .regular)
+    ))
+    searchTextFieldMagnifyingGlass.tintColor = Asset.Colors.Label.secondary.color.withAlphaComponent(0.6)
+    searchTextFieldMagnifyingGlass.translatesAutoresizingMaskIntoConstraints = false
+
+    searchContainerLeftPaddingView = UIView()
+    searchContainerLeftPaddingView.translatesAutoresizingMaskIntoConstraints = false
+
+    searchTextFieldLeftView = UIView()
+    searchTextFieldLeftView.addSubview(searchTextFieldMagnifyingGlass)
+    searchTextFieldLeftView.addSubview(searchContainerLeftPaddingView)
+
     searchTextField = UITextField()
     searchTextField.translatesAutoresizingMaskIntoConstraints = false
     searchTextField.backgroundColor = Asset.Scene.Onboarding.textFieldBackground.color
     searchTextField.placeholder = L10n.Scene.Login.ServerSearchField.placeholder
-    searchTextField.leftView = UIImageView(image: UIImage(systemName: "magnifyingglass"))
+    searchTextField.leftView = searchTextFieldLeftView
     searchTextField.leftViewMode = .always
     searchTextField.layer.cornerRadius = 10
     searchTextField.keyboardType = .URL
@@ -96,6 +115,16 @@ class MastodonLoginView: UIView {
       searchTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
       searchTextField.heightAnchor.constraint(equalToConstant: 55),
       trailingAnchor.constraint(equalTo: searchTextField.trailingAnchor, constant: 16),
+
+      searchTextFieldMagnifyingGlass.topAnchor.constraint(equalTo: searchTextFieldLeftView.topAnchor),
+      searchTextFieldMagnifyingGlass.leadingAnchor.constraint(equalTo: searchTextFieldLeftView.leadingAnchor, constant: 8),
+      searchTextFieldMagnifyingGlass.bottomAnchor.constraint(equalTo: searchTextFieldLeftView.bottomAnchor),
+
+      searchContainerLeftPaddingView.topAnchor.constraint(equalTo: searchTextFieldLeftView.topAnchor),
+      searchContainerLeftPaddingView.leadingAnchor.constraint(equalTo: searchTextFieldMagnifyingGlass.trailingAnchor),
+      searchContainerLeftPaddingView.trailingAnchor.constraint(equalTo: searchTextFieldLeftView.trailingAnchor),
+      searchContainerLeftPaddingView.bottomAnchor.constraint(equalTo: searchTextFieldLeftView.bottomAnchor),
+      searchContainerLeftPaddingView.widthAnchor.constraint(equalToConstant: 4).priority(.defaultHigh),
 
       tableViewWrapper.topAnchor.constraint(equalTo: searchTextField.bottomAnchor),
       tableViewWrapper.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
