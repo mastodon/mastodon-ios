@@ -10,7 +10,7 @@
 
 "KDNTJ4" = "Ástæða bilunar";
 
-"RHxKOw" = "Send Post with text content";
+"RHxKOw" = "Senda færslu með textaefni";
 
 "RxSqsb" = "Færsla";
 
@@ -24,9 +24,9 @@
 
 "Zo4jgJ" = "Sýnileiki færslu";
 
-"apSxMG-dYQ5NN" = "There are ${count} options matching ‘Public’.";
+"apSxMG-dYQ5NN" = "Það eru ${count} valkostir sem samsvara ‘Opinbert’.";
 
-"apSxMG-ehFLjY" = "There are ${count} options matching ‘Followers Only’.";
+"apSxMG-ehFLjY" = "Það eru ${count} valkostir sem samsvara ‘Einungis fylgjendur’.";
 
 "ayoYEb-dYQ5NN" = "${content}, opinbert";
 
@@ -38,9 +38,9 @@
 
 "ehFLjY" = "Einungis fylgjendur";
 
-"gfePDu" = "Posting failed. ${failureReason}";
+"gfePDu" = "Birting færslu mistókst. ${failureReason}";
 
-"k7dbKQ" = "Post was sent successfully.";
+"k7dbKQ" = "Það tókst að senda færsluna.";
 
 "oGiqmY-dYQ5NN" = "Bara til að staðfesta, þú vildir 'Opinbert'?";
 
