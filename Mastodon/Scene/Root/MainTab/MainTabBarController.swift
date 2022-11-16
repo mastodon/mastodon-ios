@@ -8,6 +8,7 @@
 import os.log
 import UIKit
 import Combine
+import CoreDataStack
 import SafariServices
 import MastodonAsset
 import MastodonCore
@@ -324,7 +325,12 @@ extension MainTabBarController {
         let tabBarLongPressGestureRecognizer = UILongPressGestureRecognizer()
         tabBarLongPressGestureRecognizer.addTarget(self, action: #selector(MainTabBarController.tabBarLongPressGestureRecognizerHandler(_:)))
         tabBar.addGestureRecognizer(tabBarLongPressGestureRecognizer)
-        
+
+        let tabBarDoubleTapGestureRecognizer = UITapGestureRecognizer()
+        tabBarDoubleTapGestureRecognizer.numberOfTapsRequired = 2
+        tabBarDoubleTapGestureRecognizer.addTarget(self, action: #selector(MainTabBarController.tabBarDoubleTapGestureRecognizerHandler(_:)))
+        tabBar.addGestureRecognizer(tabBarDoubleTapGestureRecognizer)
+
         self.isReadyForWizardAvatarButton = authContext != nil
         
         $currentTab
@@ -375,9 +381,7 @@ extension MainTabBarController {
         _ = coordinator.present(scene: .compose(viewModel: composeViewModel), from: nil, transition: .modal(animated: true, completion: nil))
     }
     
-    @objc private func tabBarLongPressGestureRecognizerHandler(_ sender: UILongPressGestureRecognizer) {
-        guard sender.state == .began else { return }
-
+    private func touchedTab(by sender: UIGestureRecognizer) -> Tab? {
         var _tab: Tab?
         let location = sender.location(in: tabBar)
         for item in tabBar.items ?? [] {
@@ -389,7 +393,57 @@ extension MainTabBarController {
             break
         }
 
-        guard let tab = _tab else { return }
+        return _tab
+    }
+    
+    @objc private func tabBarDoubleTapGestureRecognizerHandler(_ sender: UITapGestureRecognizer) {
+        guard sender.state == .ended else { return }
+        guard let tab = touchedTab(by: sender) else { return }
+        logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): double tap \(tab.title) tab")
+        
+        switch tab {
+        case .me:
+            guard let authContext = authContext else { return }
+            assert(Thread.isMainThread)
+
+            let request = MastodonAuthentication.sortedFetchRequest
+            guard let accounts = try? context.managedObjectContext.fetch(request) else { return }
+            
+            let nextSelectedAccountIndex: Int? = {
+                for (index, account) in accounts.enumerated() {
+                    guard account == authContext.mastodonAuthenticationBox
+                        .authenticationRecord
+                        .object(in: context.managedObjectContext)
+                    else { continue }
+                    
+                    let nextAccountIndex = index + 1
+                    
+                    if accounts.count > nextAccountIndex {
+                        return nextAccountIndex
+                    } else {
+                        return 0
+                    }
+                }
+                
+                return nil
+            }()
+            
+            guard let nextSelectedAccountIndex = nextSelectedAccountIndex, accounts.count > nextSelectedAccountIndex else { return }
+            let nextAccount = accounts[nextSelectedAccountIndex]
+            
+            Task { @MainActor in
+                let isActive = try await context.authenticationService.activeMastodonUser(domain: nextAccount.domain, userID: nextAccount.userID)
+                guard isActive else { return }
+                self.coordinator.setup()
+            }
+        default:
+            break
+        }
+    }
+    
+    @objc private func tabBarLongPressGestureRecognizerHandler(_ sender: UILongPressGestureRecognizer) {
+        guard sender.state == .began else { return }
+        guard let tab = touchedTab(by: sender) else { return }
         logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): long press \(tab.title) tab")
 
         switch tab {
