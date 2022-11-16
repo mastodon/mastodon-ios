@@ -361,7 +361,7 @@
                 "Publishing": "Birti færslu...",
                 "accessibility": {
                     "logo_label": "Hnappur með táknmerki",
-                    "logo_hint": "Tap to scroll to top and tap again to previous location"
+                    "logo_hint": "Ýttu til að skruna efst og ýttu aftur til að fara aftur á fyrri staðsetningu"
                 }
             }
         },
@@ -558,7 +558,7 @@
                 "community": "Samfélag",
                 "for_you": "Fyrir þig"
             },
-            "intro": "These are the posts gaining traction in your corner of Mastodon."
+            "intro": "Þetta eru færslurnar sem eru að fá aukna athygli í þínu horni á Mastodon."
         },
         "favorite": {
             "title": "Eftirlætin þín"
@@ -692,14 +692,14 @@
             },
             "step_final": {
                 "dont_want_to_see_this": "Langar þig ekki að sjá þetta?",
-                "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "When you see something you don’t like on Mastodon, you can remove the person from your experience.",
+                "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "Þegar þú sér eitthvað á Mastodon sem þér líkar ekki, þá geturðu fjarlægt viðkomandi eintakling úr umhverfinu þínu.",
                 "unfollow": "Hætta að fylgjast með",
                 "unfollowed": "Hætti að fylgjast með",
                 "unfollow_user": "Hætta að fylgjast með %s",
                 "mute_user": "Þagga niður í %s",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or reblogs in your home feed. They won’t know they’ve been muted.",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "Þú munt ekki sjá færslur eða endurbirtingar frá viðkomandi á streyminu þínu. Viðkomandi aðilar munu ekki vita að þaggað hefur verið niður í þeim.",
                 "block_user": "Útiloka %s",
-                "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "They will no longer be able to follow or see your posts, but they can see if they’ve been blocked.",
+                "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "Viðkomandi mun ekki lengur geta fylgst með eða séð færslurnar þínar, en munu sjá ef viðkomandi hefur verið útilokaður.",
                 "while_we_review_this_you_can_take_action_against_user": "Á meðan við yfirförum þetta, geturðu tekið til aðgerða gegn %s"
             }
         },
@@ -711,14 +711,14 @@
             }
         },
         "account_list": {
-            "tab_bar_hint": "Current selected profile: %s. Double tap then hold to show account switcher",
-            "dismiss_account_switcher": "Dismiss Account Switcher",
+            "tab_bar_hint": "Fyrirliggjandi valið notandasnið: %s. Tvípikkaðu og haltu niðri til að birta aðgangaskiptinn",
+            "dismiss_account_switcher": "Loka aðgangaskipti",
             "add_account": "Bæta við notandaaðgangi"
         },
         "wizard": {
             "new_in_mastodon": "Nýtt í Mastodon",
-            "multiple_account_switch_intro_description": "Switch between multiple accounts by holding the profile button.",
-            "accessibility_hint": "Double tap to dismiss this wizard"
+            "multiple_account_switch_intro_description": "Skiptu milli notandaaðganga með því að halda niðri notandasniðshnappnum.",
+            "accessibility_hint": "Tvípikkaðu til að loka þessum leiðarvísi"
         },
         "bookmark": {
             "title": "Bókamerki"
