@@ -1440,12 +1440,12 @@
 				DBA9B90325F1D4420012E7B6 /* Control */,
 				2D152A8A25C295B8009AA50C /* Content */,
 				DB1D187125EF5BBD003F1F23 /* TableView */,
-				2D7631A625C1533800929FB9 /* TableviewCell */,
+				2D7631A625C1533800929FB9 /* TableViewCell */,
 			);
 			path = View;
 			sourceTree = "<group>";
 		};
-		2D7631A625C1533800929FB9 /* TableviewCell */ = {
+		2D7631A625C1533800929FB9 /* TableViewCell */ = {
 			isa = PBXGroup;
 			children = (
 				DB697DD3278F4927004EF2F7 /* StatusTableViewCellDelegate.swift */,
@@ -1459,7 +1459,7 @@
 				DB6B750327300B4000C70B6E /* TimelineFooterTableViewCell.swift */,
 				DB02CDAA26256A9500D0A2AF /* ThreadReplyLoaderTableViewCell.swift */,
 			);
-			path = TableviewCell;
+			path = TableViewCell;
 			sourceTree = "<group>";
 		};
 		2DAC9E36262FC20B0062E1A6 /* SuggestionAccount */ = {
