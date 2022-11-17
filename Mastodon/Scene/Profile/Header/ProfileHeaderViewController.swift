@@ -159,6 +159,9 @@ extension ProfileHeaderViewController {
         viewModel.$isUpdating
             .assign(to: \.isUpdating, on: profileHeaderView.viewModel)
             .store(in: &disposeBag)
+        viewModel.profileInfoEditing.$header
+            .assign(to: \.headerImageEditing, on: profileHeaderView.viewModel)
+            .store(in: &disposeBag)
         viewModel.profileInfoEditing.$avatar
             .assign(to: \.avatarImageEditing, on: profileHeaderView.viewModel)
             .store(in: &disposeBag)
@@ -224,7 +227,13 @@ extension ProfileHeaderViewController {
         DispatchQueue.main.async {
             let cropController = CropViewController(croppingStyle: .default, image: image)
             cropController.delegate = self
-            cropController.setAspectRatioPreset(.presetSquare, animated: true)
+            switch self.currentImageType {
+            case .banner:
+                cropController.customAspectRatio = CGSize(width: 3, height: 1)
+                cropController.setAspectRatioPreset(.presetCustom, animated: true)
+            case .avatar:
+                cropController.setAspectRatioPreset(.presetSquare, animated: true)
+            }
             cropController.aspectRatioPickerButtonHidden = true
             cropController.aspectRatioLockEnabled = true
             pickerViewController.dismiss(animated: true, completion: {

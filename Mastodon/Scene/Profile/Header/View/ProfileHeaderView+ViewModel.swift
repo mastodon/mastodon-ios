@@ -28,6 +28,7 @@ extension ProfileHeaderView {
         
         @Published var emojiMeta: MastodonContent.Emojis = [:]
         @Published var headerImageURL: URL?
+        @Published var headerImageEditing: UIImage?
         @Published var avatarImageURL: URL?
         @Published var avatarImageEditing: UIImage?
         
@@ -61,14 +62,19 @@ extension ProfileHeaderView.ViewModel {
 
     func bind(view: ProfileHeaderView) {
         // header
-        Publishers.CombineLatest(
+        Publishers.CombineLatest4(
             $headerImageURL,
+            $headerImageEditing,
+            $isEditing,
             viewDidAppear
         )
-        .sink { headerImageURL, _ in
+        .sink { headerImageURL, headerImageEditing, isEditing, _ in
             view.bannerImageView.af.cancelImageRequest()
-            let placeholder = UIImage.placeholder(color: ProfileHeaderView.bannerImageViewPlaceholderColor)
-            guard let bannerImageURL = headerImageURL else {
+            let defaultPlaceholder = UIImage.placeholder(color: ProfileHeaderView.bannerImageViewPlaceholderColor)
+            let placeholder = isEditing ? (headerImageEditing ?? defaultPlaceholder) : defaultPlaceholder
+            guard let bannerImageURL = headerImageURL,
+                  !isEditing || headerImageEditing == nil
+            else {
                 view.bannerImageView.image = placeholder
                 return
             }
