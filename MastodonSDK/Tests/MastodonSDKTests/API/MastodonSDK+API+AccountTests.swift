@@ -27,7 +27,7 @@ extension MastodonSDKTests {
                 break
             }
         } receiveValue: { response in
-            XCTAssertEqual(response.value.acct, "ugling88")
+            XCTAssertEqual(response.value.acct, "ugling88") // cSpell:disable-line
             theExpectation.fulfill()
         }
         .store(in: &disposeBag)

@@ -45,6 +45,7 @@ private func convert(from inputDirectoryURL: URL, to outputDirectory: URL) {
     }
 }
 
+// cSpell:disable
 private func map(language: String) -> String? {
     switch language {
     case "Base.lproj":      return "Base"
@@ -77,6 +78,7 @@ private func map(language: String) -> String? {
     default:                return nil
     }
 }
+// cSpell:enable
 
 private func map(filename: String) -> (filename: String, keyStyle: Parser.KeyStyle)? {
     switch filename {
