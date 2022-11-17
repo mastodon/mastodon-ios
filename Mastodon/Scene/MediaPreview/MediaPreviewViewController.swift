@@ -65,12 +65,7 @@ extension MediaPreviewViewController {
         pagingViewController.view.translatesAutoresizingMaskIntoConstraints = false
         addChild(pagingViewController)
         visualEffectView.contentView.addSubview(pagingViewController.view)
-        NSLayoutConstraint.activate([
-            visualEffectView.topAnchor.constraint(equalTo: pagingViewController.view.topAnchor),
-            visualEffectView.bottomAnchor.constraint(equalTo: pagingViewController.view.bottomAnchor),
-            visualEffectView.leadingAnchor.constraint(equalTo: pagingViewController.view.leadingAnchor),
-            visualEffectView.trailingAnchor.constraint(equalTo: pagingViewController.view.trailingAnchor),
-        ])
+        visualEffectView.pinTo(to: pagingViewController.view)
         pagingViewController.didMove(toParent: self)
         
         closeButtonBackground.translatesAutoresizingMaskIntoConstraints = false

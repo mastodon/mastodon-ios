@@ -103,12 +103,7 @@ extension ReportResultActionTableViewCell {
         
         reportBannerLabel.translatesAutoresizingMaskIntoConstraints = false
         reportBannerShadowContainer.addSubview(reportBannerLabel)
-        NSLayoutConstraint.activate([
-            reportBannerLabel.topAnchor.constraint(equalTo: reportBannerShadowContainer.topAnchor),
-            reportBannerLabel.leadingAnchor.constraint(equalTo: reportBannerShadowContainer.leadingAnchor),
-            reportBannerLabel.trailingAnchor.constraint(equalTo: reportBannerShadowContainer.trailingAnchor),
-            reportBannerLabel.bottomAnchor.constraint(equalTo: reportBannerShadowContainer.bottomAnchor),
-        ])
+        reportBannerLabel.pinToParent()
         
     }
     

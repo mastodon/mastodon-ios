@@ -58,12 +58,7 @@ final class ComposeViewController: UIViewController, NeedsDependency {
         let shadowBackgroundContainer = ShadowBackgroundContainer()
         publishButton.translatesAutoresizingMaskIntoConstraints = false
         shadowBackgroundContainer.addSubview(publishButton)
-        NSLayoutConstraint.activate([
-            publishButton.topAnchor.constraint(equalTo: shadowBackgroundContainer.topAnchor),
-            publishButton.leadingAnchor.constraint(equalTo: shadowBackgroundContainer.leadingAnchor),
-            publishButton.trailingAnchor.constraint(equalTo: shadowBackgroundContainer.trailingAnchor),
-            publishButton.bottomAnchor.constraint(equalTo: shadowBackgroundContainer.bottomAnchor),
-        ])
+        publishButton.pinToParent()
         let barButtonItem = UIBarButtonItem(customView: shadowBackgroundContainer)
         return barButtonItem
     }()
@@ -102,12 +97,7 @@ extension ComposeViewController {
         addChild(composeContentViewController)
         composeContentViewController.view.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(composeContentViewController.view)
-        NSLayoutConstraint.activate([
-            composeContentViewController.view.topAnchor.constraint(equalTo: view.topAnchor),
-            composeContentViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            composeContentViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            composeContentViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-        ])
+        composeContentViewController.view.pinToParent()
         composeContentViewController.didMove(toParent: self)
 
         // bind title

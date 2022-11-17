@@ -45,12 +45,7 @@ extension FamiliarFollowersDashboardView {
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(stackView)
-        NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: topAnchor),
-            stackView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            stackView.bottomAnchor.constraint(equalTo: bottomAnchor),
-        ])
+        stackView.pinToParent()
         
         avatarContainerView.translatesAutoresizingMaskIntoConstraints = false
         stackView.addArrangedSubview(avatarContainerView)

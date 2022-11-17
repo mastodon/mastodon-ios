@@ -110,12 +110,7 @@ extension PollOptionView {
         
         voteProgressStripView.translatesAutoresizingMaskIntoConstraints = false
         roundedBackgroundView.addSubview(voteProgressStripView)
-        NSLayoutConstraint.activate([
-            voteProgressStripView.topAnchor.constraint(equalTo: roundedBackgroundView.topAnchor),
-            voteProgressStripView.leadingAnchor.constraint(equalTo: roundedBackgroundView.leadingAnchor),
-            voteProgressStripView.trailingAnchor.constraint(equalTo: roundedBackgroundView.trailingAnchor),
-            voteProgressStripView.bottomAnchor.constraint(equalTo: roundedBackgroundView.bottomAnchor),
-        ])
+        voteProgressStripView.pinToParent()
         
         checkmarkBackgroundView.translatesAutoresizingMaskIntoConstraints = false
         roundedBackgroundView.addSubview(checkmarkBackgroundView)
@@ -138,12 +133,7 @@ extension PollOptionView {
         
         plusCircleImageView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(plusCircleImageView)
-        NSLayoutConstraint.activate([
-            plusCircleImageView.topAnchor.constraint(equalTo: checkmarkBackgroundView.topAnchor),
-            plusCircleImageView.leadingAnchor.constraint(equalTo: checkmarkBackgroundView.leadingAnchor),
-            plusCircleImageView.trailingAnchor.constraint(equalTo: checkmarkBackgroundView.trailingAnchor),
-            plusCircleImageView.bottomAnchor.constraint(equalTo: checkmarkBackgroundView.bottomAnchor),
-        ])
+        plusCircleImageView.pinTo(to: checkmarkBackgroundView)
         
         optionTextField.translatesAutoresizingMaskIntoConstraints = false
         roundedBackgroundView.addSubview(optionTextField)

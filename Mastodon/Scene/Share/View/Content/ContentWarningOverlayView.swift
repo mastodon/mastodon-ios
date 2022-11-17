@@ -93,12 +93,7 @@ extension ContentWarningOverlayView {
 
         vibrancyVisualEffectView.translatesAutoresizingMaskIntoConstraints = false
         blurVisualEffectView.contentView.addSubview(vibrancyVisualEffectView)
-        NSLayoutConstraint.activate([
-            vibrancyVisualEffectView.topAnchor.constraint(equalTo: blurVisualEffectView.topAnchor),
-            vibrancyVisualEffectView.leadingAnchor.constraint(equalTo: blurVisualEffectView.leadingAnchor),
-            vibrancyVisualEffectView.trailingAnchor.constraint(equalTo: blurVisualEffectView.trailingAnchor),
-            vibrancyVisualEffectView.bottomAnchor.constraint(equalTo: blurVisualEffectView.bottomAnchor),
-        ])
+        vibrancyVisualEffectView.pinTo(to: blurVisualEffectView)
 
         vibrancyContentWarningLabel.translatesAutoresizingMaskIntoConstraints = false
         vibrancyVisualEffectView.contentView.addSubview(vibrancyContentWarningLabel)
@@ -110,12 +105,7 @@ extension ContentWarningOverlayView {
 
         blurVisualEffectView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(blurVisualEffectView)
-        NSLayoutConstraint.activate([
-            blurVisualEffectView.topAnchor.constraint(equalTo: topAnchor),
-            blurVisualEffectView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            blurVisualEffectView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            blurVisualEffectView.bottomAnchor.constraint(equalTo: bottomAnchor),
-        ])
+        blurVisualEffectView.pinToParent()
 
         // blur image style
         contentOverlayView.translatesAutoresizingMaskIntoConstraints = false
@@ -134,12 +124,7 @@ extension ContentWarningOverlayView {
         
         blurContentWarningLabelContainer.translatesAutoresizingMaskIntoConstraints = false
         contentOverlayView.addSubview(blurContentWarningLabelContainer)
-        NSLayoutConstraint.activate([
-            blurContentWarningLabelContainer.topAnchor.constraint(equalTo: topAnchor),
-            blurContentWarningLabelContainer.leadingAnchor.constraint(equalTo: leadingAnchor),
-            blurContentWarningLabelContainer.trailingAnchor.constraint(equalTo: trailingAnchor),
-            blurContentWarningLabelContainer.bottomAnchor.constraint(equalTo: bottomAnchor),
-        ])
+        blurContentWarningLabelContainer.pinTo(to: self)
 
         let topPaddingView = UIView()
         let bottomPaddingView = UIView()

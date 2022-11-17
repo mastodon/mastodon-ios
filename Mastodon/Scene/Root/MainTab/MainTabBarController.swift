@@ -442,12 +442,7 @@ extension MainTabBarController {
         
         composeButton.translatesAutoresizingMaskIntoConstraints = false
         composeButttonShadowBackgroundContainer.addSubview(composeButton)
-        NSLayoutConstraint.activate([
-            composeButton.topAnchor.constraint(equalTo: composeButttonShadowBackgroundContainer.topAnchor),
-            composeButton.leadingAnchor.constraint(equalTo: composeButttonShadowBackgroundContainer.leadingAnchor),
-            composeButton.trailingAnchor.constraint(equalTo: composeButttonShadowBackgroundContainer.trailingAnchor),
-            composeButton.bottomAnchor.constraint(equalTo: composeButttonShadowBackgroundContainer.bottomAnchor),
-        ])
+        composeButton.pinToParent()
         composeButton.setContentHuggingPriority(.required - 1, for: .horizontal)
         composeButton.setContentHuggingPriority(.required - 1, for: .vertical)
     }

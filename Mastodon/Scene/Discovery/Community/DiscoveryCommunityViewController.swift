@@ -57,12 +57,7 @@ extension DiscoveryCommunityViewController {
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
-        NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-        ])
+        tableView.pinToParent()
         
         tableView.refreshControl = refreshControl
         refreshControl.addTarget(self, action: #selector(DiscoveryCommunityViewController.refreshControlValueChanged(_:)), for: .valueChanged)
