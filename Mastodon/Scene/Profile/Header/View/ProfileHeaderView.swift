@@ -281,7 +281,7 @@ extension ProfileHeaderView {
 
         followsYouVibrantEffectView.translatesAutoresizingMaskIntoConstraints = false
         followsYouBlurEffectView.contentView.addSubview(followsYouVibrantEffectView)
-        followsYouVibrantEffectView.pinToParent()
+        followsYouVibrantEffectView.pinTo(to: followsYouBlurEffectView)
         
         followsYouLabel.translatesAutoresizingMaskIntoConstraints = false
         followsYouVibrantEffectView.contentView.addSubview(followsYouLabel)
