@@ -29,7 +29,7 @@ extension Parser {
 extension Parser {
     
     func generateStrings(keyStyle: KeyStyle = .swiftgen) -> String {
-        let pairs = traval(dictionary: json, prefixKeys: [])
+        let pairs = walk(dictionary: json, prefixKeys: [])
         
         var lines: [String] = []
         for pair in pairs {
@@ -77,7 +77,7 @@ extension Parser {
     typealias PrefixKeys = [String]
     typealias LocalizationPair = (prefix: PrefixKeys, value: String)
 
-    private func traval(dictionary: [String: Any], prefixKeys: PrefixKeys) -> [LocalizationPair] {
+    private func walk(dictionary: [String: Any], prefixKeys: PrefixKeys) -> [LocalizationPair] {
         var pairs: [LocalizationPair] = []
         for (key, any) in dictionary {
             let prefix = prefixKeys + [key]
@@ -90,7 +90,7 @@ extension Parser {
             
             // if not leaf node of dict tree
             if let dict = any as? [String: Any] {
-                let innerPairs = traval(dictionary: dict, prefixKeys: prefix)
+                let innerPairs = walk(dictionary: dict, prefixKeys: prefix)
                 pairs.append(contentsOf: innerPairs)
             }
         }

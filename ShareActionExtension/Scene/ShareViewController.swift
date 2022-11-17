@@ -32,7 +32,7 @@ final class ShareViewController: UIViewController {
         button.setTitle(L10n.Scene.Compose.composeAction, for: .normal)
         return button
     }()
-    private func configurePublishButtonApperance() {
+    private func configurePublishButtonAppearance() {
         publishButton.adjustsImageWhenHighlighted = false
         publishButton.setBackgroundImage(.placeholder(color: Asset.Colors.Label.primary.color), for: .normal)
         publishButton.setBackgroundImage(.placeholder(color: Asset.Colors.Label.primary.color.withAlphaComponent(0.5)), for: .highlighted)
@@ -133,7 +133,7 @@ extension ShareViewController {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         
-        configurePublishButtonApperance()
+        configurePublishButtonAppearance()
     }
 }
 

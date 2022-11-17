@@ -80,7 +80,7 @@ extension ProfileCardView {
 
 extension ProfileCardView.ViewModel {
     func bind(view: ProfileCardView) {
-        bindAppearacne(view: view)
+        bindAppearance(view: view)
         bindHeader(view: view)
         bindUser(view: view)
         bindBio(view: view)
@@ -90,7 +90,7 @@ extension ProfileCardView.ViewModel {
         bindAccessibility(view: view)
     }
     
-    private func bindAppearacne(view: ProfileCardView) {
+    private func bindAppearance(view: ProfileCardView) {
         userInterfaceStyle = view.traitCollection.userInterfaceStyle
         
         $backgroundColor

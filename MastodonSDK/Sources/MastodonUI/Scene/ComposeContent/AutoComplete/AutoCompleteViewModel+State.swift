@@ -58,13 +58,13 @@ extension AutoCompleteViewModel.State {
     
     class Loading: AutoCompleteViewModel.State {
         
-        var previoursSearchText = ""
+        var previousSearchText = ""
         
         override func isValidNextState(_ stateClass: AnyClass) -> Bool {
             guard let viewModel = viewModel else { return false }
             switch stateClass {
             case is Loading.Type:
-                return previoursSearchText != viewModel.inputText.value
+                return previousSearchText != viewModel.inputText.value
             case is Fail.Type:
                 return true
             case is Idle.Type:
@@ -80,7 +80,7 @@ extension AutoCompleteViewModel.State {
 
             let searchText = viewModel.inputText.value
             let searchType = AutoCompleteViewModel.SearchType(inputText: searchText) ?? .default
-            if searchText != previoursSearchText {
+            if searchText != previousSearchText {
                 reset(searchText: searchText)
             }
             
@@ -91,7 +91,7 @@ extension AutoCompleteViewModel.State {
                 }
             default:
                 Task {
-                    await queryRemoteEnitity(searchText: searchText)
+                    await queryRemoteEntity(searchText: searchText)
                 }
             }
         }
@@ -126,7 +126,7 @@ extension AutoCompleteViewModel.State {
             viewModel.autoCompleteItems.value = items
         }
         
-        private func queryRemoteEnitity(searchText: String) async {
+        private func queryRemoteEntity(searchText: String) async {
             guard let viewModel = viewModel else {
                 await enter(state: Fail.self)
                 return
@@ -167,11 +167,11 @@ extension AutoCompleteViewModel.State {
         }
         
         private func reset(searchText: String) {
-            let previoursSearchType = AutoCompleteViewModel.SearchType(inputText: previoursSearchText)
-            previoursSearchText = searchText
+            let previousSearchType = AutoCompleteViewModel.SearchType(inputText: previousSearchText)
+            previousSearchText = searchText
             let currentSearchType = AutoCompleteViewModel.SearchType(inputText: searchText)
             // reset when search type change
-            if previoursSearchType != currentSearchType {
+            if previousSearchType != currentSearchType {
                 viewModel?.autoCompleteItems.value = []
             }
         }

@@ -55,7 +55,7 @@ final class ComposeViewController: UIViewController, NeedsDependency {
         return button
     }()
     private(set) lazy var publishBarButtonItem: UIBarButtonItem = {
-        configurePublishButtonApperance()
+        configurePublishButtonAppearance()
         let shadowBackgroundContainer = ShadowBackgroundContainer()
         publishButton.translatesAutoresizingMaskIntoConstraints = false
         shadowBackgroundContainer.addSubview(publishButton)
@@ -63,7 +63,7 @@ final class ComposeViewController: UIViewController, NeedsDependency {
         let barButtonItem = UIBarButtonItem(customView: shadowBackgroundContainer)
         return barButtonItem
     }()
-    private func configurePublishButtonApperance() {
+    private func configurePublishButtonAppearance() {
         publishButton.adjustsImageWhenHighlighted = false
         publishButton.setBackgroundImage(.placeholder(color: Asset.Colors.Label.primary.color), for: .normal)
         publishButton.setBackgroundImage(.placeholder(color: Asset.Colors.Label.primary.color.withAlphaComponent(0.5)), for: .highlighted)
@@ -120,7 +120,7 @@ extension ComposeViewController {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         
-        configurePublishButtonApperance()
+        configurePublishButtonAppearance()
         viewModel.traitCollectionDidChangePublisher.send()
     }
     

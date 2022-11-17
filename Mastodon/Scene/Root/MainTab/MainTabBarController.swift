@@ -26,7 +26,7 @@ class MainTabBarController: UITabBarController {
     
     var authContext: AuthContext?
     
-    let composeButttonShadowBackgroundContainer = ShadowBackgroundContainer()
+    let composeButtonShadowBackgroundContainer = ShadowBackgroundContainer()
     let composeButton: UIButton = {
         let button = UIButton()
         button.setImage(Asset.ObjectsAndTools.squareAndPencil.image.withRenderingMode(.alwaysTemplate), for: .normal)
@@ -446,10 +446,10 @@ extension MainTabBarController {
         switch traitCollection.horizontalSizeClass {
         case .compact:
             tabBar.isHidden = false
-            composeButttonShadowBackgroundContainer.isHidden = false
+            composeButtonShadowBackgroundContainer.isHidden = false
         default:
             tabBar.isHidden = true
-            composeButttonShadowBackgroundContainer.isHidden = true
+            composeButtonShadowBackgroundContainer.isHidden = true
         }
     }
     
@@ -469,16 +469,16 @@ extension MainTabBarController {
         }
         anchorImageView.alpha = 0
         
-        composeButttonShadowBackgroundContainer.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(composeButttonShadowBackgroundContainer)   // add to tabBar will crash on iPad when size class changing
+        composeButtonShadowBackgroundContainer.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(composeButtonShadowBackgroundContainer)   // add to tabBar will crash on iPad when size class changing
         NSLayoutConstraint.activate([
-            composeButttonShadowBackgroundContainer.centerXAnchor.constraint(equalTo: anchorImageView.centerXAnchor),
-            composeButttonShadowBackgroundContainer.centerYAnchor.constraint(equalTo: anchorImageView.centerYAnchor),
+            composeButtonShadowBackgroundContainer.centerXAnchor.constraint(equalTo: anchorImageView.centerXAnchor),
+            composeButtonShadowBackgroundContainer.centerYAnchor.constraint(equalTo: anchorImageView.centerYAnchor),
         ])
-        composeButttonShadowBackgroundContainer.cornerRadius = composeButton.layer.cornerRadius
+        composeButtonShadowBackgroundContainer.cornerRadius = composeButton.layer.cornerRadius
         
         composeButton.translatesAutoresizingMaskIntoConstraints = false
-        composeButttonShadowBackgroundContainer.addSubview(composeButton)
+        composeButtonShadowBackgroundContainer.addSubview(composeButton)
         composeButton.pinToParent()
         composeButton.setContentHuggingPriority(.required - 1, for: .horizontal)
         composeButton.setContentHuggingPriority(.required - 1, for: .vertical)
