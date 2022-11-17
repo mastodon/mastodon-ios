@@ -219,15 +219,15 @@
             "log_in": "Acceder"
         },
         "login": {
-            "title": "Welcome back",
-            "subtitle": "Log you in on the server you created your account on.",
+            "title": "Benvido outra vez",
+            "subtitle": "Conéctate ao servidor no que creaches a conta.",
             "server_search_field": {
-                "placeholder": "Enter URL or search for your server"
+                "placeholder": "Escribe o URL ou busca o teu servidor"
             }
         },
         "server_picker": {
             "title": "Mastodon fórmano as persoas das diferentes comunidades.",
-            "subtitle": "Pick a server based on your region, interests, or a general purpose one. You can still chat with anyone on Mastodon, regardless of your servers.",
+            "subtitle": "Elixe un servidor en función dos teus intereses, rexión o un de propósito xeral. Poderás conversar con calquera en Mastodon, independentemente do servidor que elixas.",
             "button": {
                 "category": {
                     "all": "Todo",
@@ -254,7 +254,7 @@
                 "category": "CATEGORÍA"
             },
             "input": {
-                "search_servers_or_enter_url": "Search communities or enter URL"
+                "search_servers_or_enter_url": "Busca comunidades ou escribe URL"
             },
             "empty_state": {
                 "finding_servers": "Buscando servidores dispoñibles...",
