@@ -45,7 +45,6 @@ extension MediaPreviewVideoViewController {
             playerViewController.view.widthAnchor.constraint(equalTo: view.widthAnchor),
             playerViewController.view.heightAnchor.constraint(equalTo: view.heightAnchor),
         ])
-        playerViewController.didMove(toParent: self)
         
         if let contentOverlayView = playerViewController.contentOverlayView {
             previewImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -88,6 +87,12 @@ extension MediaPreviewVideoViewController {
                 }
                 .store(in: &disposeBag)
         }
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+
+        playerViewController.didMove(toParent: self)
     }
     
 }
