@@ -36,3 +36,5 @@ jobs:
       - name: checkout
         uses: actions/checkout@v2
       - uses: streetsidesoftware/cspell-action@v2
+        with:
+          files: '**'
