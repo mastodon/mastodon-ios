@@ -9,8 +9,8 @@ import UIKit
 
 final class ProfileFieldCollectionViewHeaderFooterView: UICollectionReusableView {
     
-    static let headerReuseIdentifer = "ProfileFieldCollectionViewHeaderFooterView.Header"
-    static let footerReuseIdentifer = "ProfileFieldCollectionViewHeaderFooterView.Footer"
+    static let headerReuseIdentifier = "ProfileFieldCollectionViewHeaderFooterView.Header"
+    static let footerReuseIdentifier = "ProfileFieldCollectionViewHeaderFooterView.Footer"
     
     override init(frame: CGRect) {
         super.init(frame: frame)

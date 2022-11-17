@@ -29,8 +29,8 @@ extension ProfileFieldSection {
         context: AppContext,
         configuration: Configuration
     ) -> UICollectionViewDiffableDataSource<ProfileFieldSection, ProfileFieldItem> {
-        collectionView.register(ProfileFieldCollectionViewHeaderFooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: ProfileFieldCollectionViewHeaderFooterView.headerReuseIdentifer)
-        collectionView.register(ProfileFieldCollectionViewHeaderFooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: ProfileFieldCollectionViewHeaderFooterView.footerReuseIdentifer)
+        collectionView.register(ProfileFieldCollectionViewHeaderFooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: ProfileFieldCollectionViewHeaderFooterView.headerReuseIdentifier)
+        collectionView.register(ProfileFieldCollectionViewHeaderFooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: ProfileFieldCollectionViewHeaderFooterView.footerReuseIdentifier)
         
         let fieldCellRegistration = UICollectionView.CellRegistration<ProfileFieldCollectionViewCell, ProfileFieldItem> { cell, indexPath, item in
             let key, value: String
@@ -174,11 +174,11 @@ extension ProfileFieldSection {
         dataSource.supplementaryViewProvider = { collectionView, kind, indexPath in
             switch kind {
             case UICollectionView.elementKindSectionHeader:
-                let reusableView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: ProfileFieldCollectionViewHeaderFooterView.headerReuseIdentifer, for: indexPath) as! ProfileFieldCollectionViewHeaderFooterView
+                let reusableView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: ProfileFieldCollectionViewHeaderFooterView.headerReuseIdentifier, for: indexPath) as! ProfileFieldCollectionViewHeaderFooterView
                 reusableView.frame.size.height = 20
                 return reusableView
             case UICollectionView.elementKindSectionFooter:
-                let reusableView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: ProfileFieldCollectionViewHeaderFooterView.footerReuseIdentifer, for: indexPath) as! ProfileFieldCollectionViewHeaderFooterView
+                let reusableView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: ProfileFieldCollectionViewHeaderFooterView.footerReuseIdentifier, for: indexPath) as! ProfileFieldCollectionViewHeaderFooterView
                 return reusableView
             default:
                 return nil
