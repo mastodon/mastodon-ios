@@ -393,7 +393,7 @@ extension Mastodon.API.Account {
 
 extension Mastodon.API.Account {
  
-    static func mutekEndpointURL(domain: String, accountID: Mastodon.Entity.Account.ID) -> URL {
+    static func muteEndpointURL(domain: String, accountID: Mastodon.Entity.Account.ID) -> URL {
         let pathComponent = "accounts/" + accountID + "/mute"
         return Mastodon.API.endpointURL(domain: domain).appendingPathComponent(pathComponent)
     }
@@ -421,7 +421,7 @@ extension Mastodon.API.Account {
         authorization: Mastodon.API.OAuth.Authorization
     ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Relationship>, Error>  {
         let request = Mastodon.API.post(
-            url: mutekEndpointURL(domain: domain, accountID: accountID),
+            url: muteEndpointURL(domain: domain, accountID: accountID),
             query: nil,
             authorization: authorization
         )
@@ -437,7 +437,7 @@ extension Mastodon.API.Account {
 
 extension Mastodon.API.Account {
  
-    static func unmutekEndpointURL(domain: String, accountID: Mastodon.Entity.Account.ID) -> URL {
+    static func unmuteEndpointURL(domain: String, accountID: Mastodon.Entity.Account.ID) -> URL {
         let pathComponent = "accounts/" + accountID + "/unmute"
         return Mastodon.API.endpointURL(domain: domain).appendingPathComponent(pathComponent)
     }
@@ -465,7 +465,7 @@ extension Mastodon.API.Account {
         authorization: Mastodon.API.OAuth.Authorization
     ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Relationship>, Error>  {
         let request = Mastodon.API.post(
-            url: unmutekEndpointURL(domain: domain, accountID: accountID),
+            url: unmuteEndpointURL(domain: domain, accountID: accountID),
             query: nil,
             authorization: authorization
         )
