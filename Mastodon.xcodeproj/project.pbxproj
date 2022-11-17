@@ -2692,9 +2692,9 @@
 				DB427DCF25BAA00100D1B89D /* Frameworks */,
 				DB89BA0825C10FD0008580ED /* Embed Frameworks */,
 				DBF8AE1B263293E400C9C23C /* Embed Foundation Extensions */,
-				DB3D100425BAA71500EAA174 /* ShellScript */,
-				DB025B8E278D6448002F581E /* ShellScript */,
-				DB697DD2278F48D5004EF2F7 /* ShellScript */,
+				DB3D100425BAA71500EAA174 /* Run SwiftGen */,
+				DB025B8E278D6448002F581E /* Run Sourcery: Core Data */,
+				DB697DD2278F48D5004EF2F7 /* Run Sourcery */,
 			);
 			buildRules = (
 			);
@@ -3010,7 +3010,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		DB025B8E278D6448002F581E /* ShellScript */ = {
+		DB025B8E278D6448002F581E /* Run Sourcery: Core Data */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
 			buildActionMask = 12;
@@ -3020,6 +3020,7 @@
 			);
 			inputPaths = (
 			);
+			name = "Run Sourcery: Core Data";
 			outputFileListPaths = (
 			);
 			outputPaths = (
@@ -3028,7 +3029,7 @@
 			shellPath = /bin/sh;
 			shellScript = "if [[ -f \"${PODS_ROOT}/Sourcery/bin/sourcery\" ]]; then\n  \"${PODS_ROOT}/Sourcery/bin/sourcery\" --config ./MastodonSDK/Sources/CoreDataStack\nelse\n  echo \"warning: Sourcery is not installed. Run 'pod install --repo-update' to install it.\"\nfi\n";
 		};
-		DB3D100425BAA71500EAA174 /* ShellScript */ = {
+		DB3D100425BAA71500EAA174 /* Run SwiftGen */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
 			buildActionMask = 12;
@@ -3038,6 +3039,7 @@
 			);
 			inputPaths = (
 			);
+			name = "Run SwiftGen";
 			outputFileListPaths = (
 			);
 			outputPaths = (
@@ -3046,7 +3048,7 @@
 			shellPath = /bin/sh;
 			shellScript = "if [[ -f \"${PODS_ROOT}/SwiftGen/bin/swiftgen\" ]]; then\n  \"${PODS_ROOT}/SwiftGen/bin/swiftgen\" \nelse\n  echo \"warning: SwiftGen is not installed. Run 'pod install --repo-update' to install it.\"\nfi\n";
 		};
-		DB697DD2278F48D5004EF2F7 /* ShellScript */ = {
+		DB697DD2278F48D5004EF2F7 /* Run Sourcery */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
 			buildActionMask = 12;
@@ -3056,6 +3058,7 @@
 			);
 			inputPaths = (
 			);
+			name = "Run Sourcery";
 			outputFileListPaths = (
 			);
 			outputPaths = (
