@@ -262,22 +262,29 @@ extension ProfileHeaderView {
             animator.addAnimations {
                 self.bannerImageViewOverlayVisualEffectView.backgroundColor = ProfileHeaderView.bannerImageViewOverlayViewBackgroundNormalColor
                 self.nameTextFieldBackgroundView.backgroundColor = .clear
+                self.editBannerButton.alpha = 0
                 self.editAvatarBackgroundView.alpha = 0
             }
             animator.addCompletion { _ in
+                self.editBannerButton.isHidden = true
                 self.editAvatarBackgroundView.isHidden = true
+                self.bannerImageViewSingleTapGestureRecognizer.isEnabled = true
             }
         case .editing:
             nameMetaText.textView.alpha = 0
             nameTextField.isEnabled = true
             nameTextField.alpha = 1
             
+            editBannerButton.isHidden = false
+            editBannerButton.alpha = 0
             editAvatarBackgroundView.isHidden = false
             editAvatarBackgroundView.alpha = 0
             bioMetaText.textView.backgroundColor = .clear
+            bannerImageViewSingleTapGestureRecognizer.isEnabled = false
             animator.addAnimations {
                 self.bannerImageViewOverlayVisualEffectView.backgroundColor = ProfileHeaderView.bannerImageViewOverlayViewBackgroundEditingColor
                 self.nameTextFieldBackgroundView.backgroundColor = Asset.Scene.Profile.Banner.nameEditBackgroundGray.color
+                self.editBannerButton.alpha = 1
                 self.editAvatarBackgroundView.alpha = 1
                 self.bioMetaText.textView.backgroundColor = Asset.Scene.Profile.Banner.bioEditBackgroundGray.color
             }

@@ -215,8 +215,11 @@ extension ProfileViewModel {
         let authenticationBox = authContext.mastodonAuthenticationBox
         let domain = authenticationBox.domain
         let authorization = authenticationBox.userAuthorization
-        
-        let _image: UIImage? = {
+
+        // TODO: constrain size?
+        let _header: UIImage? = headerProfileInfo.header
+
+        let _avatar: UIImage? = {
             guard let image = headerProfileInfo.avatar else { return nil }
             guard image.size.width <= ProfileHeaderViewModel.avatarImageMaxSizeInPixel.width else {
                 return image.af.imageScaled(to: ProfileHeaderViewModel.avatarImageMaxSizeInPixel)
@@ -233,8 +236,8 @@ extension ProfileViewModel {
             bot: nil,
             displayName: headerProfileInfo.name,
             note: headerProfileInfo.note,
-            avatar: _image.flatMap { Mastodon.Query.MediaAttachment.png($0.pngData()) },
-            header: nil,
+            avatar: _avatar.flatMap { Mastodon.Query.MediaAttachment.png($0.pngData()) },
+            header: _header.flatMap { Mastodon.Query.MediaAttachment.png($0.pngData()) },
             locked: nil,
             source: nil,
             fieldsAttributes: fieldsAttributes
