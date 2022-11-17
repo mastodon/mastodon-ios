@@ -199,6 +199,7 @@ extension ProfileHeaderViewController {
         var children: [UIMenuElement] = []
         let photoLibraryAction = UIAction(title: L10n.Scene.Compose.MediaSelection.photoLibrary, image: UIImage(systemName: "rectangle.on.rectangle"), identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off) { [weak self] _ in
             guard let self = self else { return }
+            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: mediaSelectionType: .photoLibaray", ((#file as NSString).lastPathComponent), #line, #function)
             self.currentImageType = type
             self.present(self.imagePicker, animated: true, completion: nil)
         }
