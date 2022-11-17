@@ -65,7 +65,7 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
         let initialFrame = transitionItem.initialFrame ?? toViewEndFrame
         let transitionTargetFrame: CGRect = {
             let aspectRatio = transitionItem.aspectRatio ?? CGSize(width: initialFrame.width, height: initialFrame.height)
-            return AVMakeRect(aspectRatio: aspectRatio, insideRect: toView.bounds)
+            return AVMakeRect(aspectRatio: aspectRatio, insideRect: toView.bounds.inset(by: toView.safeAreaInsets))
         }()
         let transitionImageView: UIImageView = {
             let imageView = UIImageView(frame: transitionContext.containerView.convert(initialFrame, from: nil))
