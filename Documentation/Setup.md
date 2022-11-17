@@ -81,6 +81,11 @@ Please check the [Establishing a Certificate-Based Connection to APNs
 Note: 
 Please check and set the `notification.Topic` to the app BundleID in [toot-relay.go](https://github.com/DagAgren/toot-relay/blob/f9d6894040509881fee845972cd38ec6cd8f5a11/toot-relay.go#L112). The server needs use a reverse proxy to port this relay on 443 port with valid domain and HTTPS certificate.
 
+#### Spell Checking (optional)
+To set up spell checking in Xcode, go to Edit → Format → Spelling and Grammar → Check Spelling While Typing. This will help you avoid typos while coding.
+
+Additionally, the Node.js-based tool [CSpell](https://cspell.org) is used in CI and can be used locally to check spelling in the project. If you have Node.js installed, you can run `npm install` and `npm test` to check spelling in the project. If a word you’ve introduced into the project is incorrectly marked as misspelled, add it to one of the text files in the `.cspell` (see the comments at the top to understand what each file contains). If the name you’re using corresponds to a new SF Symbol, run `node .cspell/make-sf-symbols.mjs` for instructions on how to update the list of words in SF Symbol names.
+
 ## Start
 1. Open `Mastodon.xcworkspace` 
 2. Wait for the Swift Package Dependencies resolved. 
