@@ -18,6 +18,7 @@ import MastodonUI
 final class ProfileHeaderViewModel {
     
     static let avatarImageMaxSizeInPixel = CGSize(width: 400, height: 400)
+    static let bannerImageMaxSizeInPixel = CGSize(width: 1500, height: 500)
     static let maxProfileFieldCount = 4
     
     var disposeBag = Set<AnyCancellable>()

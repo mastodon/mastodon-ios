@@ -217,7 +217,13 @@ extension ProfileViewModel {
         let authorization = authenticationBox.userAuthorization
 
         // TODO: constrain size?
-        let _header: UIImage? = headerProfileInfo.header
+        let _header: UIImage? = {
+            guard let image = headerProfileInfo.header else { return nil }
+            guard image.size.width <= ProfileHeaderViewModel.bannerImageMaxSizeInPixel.width else {
+                return image.af.imageScaled(to: ProfileHeaderViewModel.bannerImageMaxSizeInPixel)
+            }
+            return image
+        }()
 
         let _avatar: UIImage? = {
             guard let image = headerProfileInfo.avatar else { return nil }
