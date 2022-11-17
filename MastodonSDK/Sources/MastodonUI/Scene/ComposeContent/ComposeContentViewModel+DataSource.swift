@@ -7,6 +7,7 @@
 
 import UIKit
 import MastodonCore
+import MastodonSDK
 import CoreDataStack
 import UIHostingConfigurationBackport
 
@@ -111,28 +112,68 @@ extension ComposeContentViewModel {
             context: context
         )
         self.customEmojiPickerDiffableDataSource = diffableDataSource
-        
+
         let domain = authContext.mastodonAuthenticationBox.domain.uppercased()
         customEmojiViewModel?.emojis
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self, weak diffableDataSource] emojis in
-                guard let _ = self else { return }
-                guard let diffableDataSource = diffableDataSource else { return }
+            // Don't block the main queue
+            .receive(on: DispatchQueue.global(qos: .userInteractive))
+            // Sort emojis
+            .map({ (emojis) -> [Mastodon.Entity.Emoji] in
+                return emojis.sorted { a, b in
+                    a.shortcode.lowercased() < b.shortcode.lowercased()
+                }
+            })
+            // Collate emojis into categories
+            .map({ (emojis) -> (noCategory: [Mastodon.Entity.Emoji], categorised: [String:[Mastodon.Entity.Emoji]]) in
+                let emojiMap: (noCategory: [Mastodon.Entity.Emoji], categorised: [String:[Mastodon.Entity.Emoji]]) = {
+                    var noCategory = [Mastodon.Entity.Emoji]()
+                    var categorised = [String:[Mastodon.Entity.Emoji]]()
+                    
+                    for emoji in emojis where emoji.visibleInPicker {
+                        if let category = emoji.category {
+                            var categoryArray = categorised[category] ?? [Mastodon.Entity.Emoji]()
+                            categoryArray.append(emoji)
+                            categorised[category] = categoryArray
+                        } else {
+                            noCategory.append(emoji)
+                        }
+                    }
+                    
+                    return (
+                        noCategory,
+                        categorised
+                    )
+                }()
                 
+                return emojiMap
+            })
+            // Build snapshot from emoji map
+            .map({ (emojiMap) -> NSDiffableDataSourceSnapshot<CustomEmojiPickerSection, CustomEmojiPickerItem> in
+
                 var snapshot = NSDiffableDataSourceSnapshot<CustomEmojiPickerSection, CustomEmojiPickerItem>()
                 let customEmojiSection = CustomEmojiPickerSection.emoji(name: domain)
                 snapshot.appendSections([customEmojiSection])
-                let items: [CustomEmojiPickerItem] = {
-                    var items = [CustomEmojiPickerItem]()
-                    for emoji in emojis where emoji.visibleInPicker {
-                        let attribute = CustomEmojiPickerItem.CustomEmojiAttribute(emoji: emoji)
-                        let item = CustomEmojiPickerItem.emoji(attribute: attribute)
-                        items.append(item)
+                snapshot.appendItems(emojiMap.noCategory.map({ emoji in
+                    CustomEmojiPickerItem.emoji(attribute: CustomEmojiPickerItem.CustomEmojiAttribute(emoji: emoji))
+                }), toSection: customEmojiSection)
+                emojiMap.categorised.keys.sorted().forEach { category in
+                    let section = CustomEmojiPickerSection.emoji(name: category)
+                    snapshot.appendSections([section])
+                    if let items = emojiMap.categorised[category] {
+                        snapshot.appendItems(items.map({ emoji in
+                            CustomEmojiPickerItem.emoji(attribute: CustomEmojiPickerItem.CustomEmojiAttribute(emoji: emoji))
+                        }), toSection: section)
                     }
-                    return items
-                }()
-                snapshot.appendItems(items, toSection: customEmojiSection)
-                
+                }
+
+                return snapshot
+            })
+            // Apply snapshot
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self, weak diffableDataSource] snapshot in
+                guard let _ = self else { return }
+                guard let diffableDataSource = diffableDataSource else { return }
+
                 diffableDataSource.apply(snapshot)
             }
             .store(in: &disposeBag)
