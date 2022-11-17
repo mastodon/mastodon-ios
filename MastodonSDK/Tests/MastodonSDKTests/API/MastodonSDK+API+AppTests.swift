@@ -12,11 +12,11 @@ import Combine
 
 extension MastodonSDKTests {
     
-    func testCreateAnAnpplication() throws {
-        try _testCreateAnAnpplication(domain: domain)
+    func testCreateAnApplication() throws {
+        try _testCreateAnApplication(domain: domain)
     }
     
-    func _testCreateAnAnpplication(domain: String) throws {
+    func _testCreateAnApplication(domain: String) throws {
         let theExpectation = expectation(description: "Create An Application")
         
         let query = Mastodon.API.App.CreateQuery(

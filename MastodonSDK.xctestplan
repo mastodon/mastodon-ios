@@ -67,7 +67,7 @@
   "testTargets" : [
     {
       "skippedTests" : [
-        "MastodonSDKTests\/testCreateAnAnpplication()",
+        "MastodonSDKTests\/testCreateAnApplication()",
         "MastodonSDKTests\/testHomeTimeline()",
         "MastodonSDKTests\/testOAuthAuthorize()",
         "MastodonSDKTests\/testRetrieveAccountInfo()",
