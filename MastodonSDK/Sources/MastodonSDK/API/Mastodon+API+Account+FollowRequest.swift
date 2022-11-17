@@ -92,7 +92,7 @@ extension Mastodon.API.Account {
 
 extension Mastodon.API.Account {
  
-    public enum FollowReqeustQuery {
+    public enum FollowRequestQuery {
         case accept
         case reject
     }
@@ -101,7 +101,7 @@ extension Mastodon.API.Account {
         session: URLSession,
         domain: String,
         userID: Mastodon.Entity.Account.ID,
-        query: FollowReqeustQuery,
+        query: FollowRequestQuery,
         authorization: Mastodon.API.OAuth.Authorization
     ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Relationship>, Error> {
         switch query {
