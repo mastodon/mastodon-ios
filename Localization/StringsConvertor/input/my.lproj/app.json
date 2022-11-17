@@ -530,7 +530,7 @@
             "title": "following",
             "footer": "Follows from other servers are not displayed."
         },
-        "familiarFollowers": {
+        "familiar_followers": {
             "title": "Followers you familiar",
             "followed_by_names": "Followed by %s"
         },

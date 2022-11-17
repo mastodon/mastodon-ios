@@ -250,7 +250,7 @@
             "button": {
                 "category": {
                     "all": "Semua",
-                    "all_accessiblity_description": "Kategori: Semua",
+                    "all_accessibility_description": "Kategori: Semua",
                     "academia": "academia",
                     "activism": "aktivisme",
                     "food": "makanan",
@@ -530,7 +530,7 @@
             "title": "mengikuti",
             "footer": "Follows from other servers are not displayed."
         },
-        "familiarFollowers": {
+        "familiar_followers": {
             "title": "Followers you familiar",
             "followed_by_names": "Diikuti oleh %s"
         },
@@ -599,7 +599,7 @@
                 "request_to_follow_you": "meminta mengikutimu",
                 "poll_has_ended": "poll has ended"
             },
-            "keyobard": {
+            "keyboard": {
                 "show_everything": "Tampilkan Segalanya",
                 "show_mentions": "Tampilkan Sebutan"
             },
@@ -640,7 +640,7 @@
                         "anyone": "siapapun",
                         "follower": "seorang pengikut",
                         "follow": "siapapun yang saya ikuti",
-                        "noone": "tidak ada",
+                        "no_one": "tidak ada",
                         "title": "Beritahu saya ketika"
                     }
                 },
@@ -661,7 +661,7 @@
                 "spicy_zone": {
                     "title": "Zona Pedas",
                     "clear": "Hapus Cache Media",
-                    "signout": "Keluar"
+                    "sign_out": "Keluar"
                 }
             },
             "footer": {
@@ -692,7 +692,7 @@
                 "i_dont_like_it": "Saya tidak suka",
                 "it_is_not_something_you_want_to_see": "Ini bukan sesuatu yang Anda ingin lihat",
                 "its_spam": "Ini sampah",
-                "malicious_links_fake_engagement_or_repetetive_replies": "Tautan berbahaya, engagement palsu, atau balasan berulang",
+                "malicious_links_fake_engagement_or_repetitive_replies": "Tautan berbahaya, engagement palsu, atau balasan berulang",
                 "it_violates_server_rules": "Melanggar ketentuan server",
                 "you_are_aware_that_it_breaks_specific_rules": "Anda yakin bahwa ini melanggar ketentuan khusus",
                 "its_something_else": "Alasan lainnya",

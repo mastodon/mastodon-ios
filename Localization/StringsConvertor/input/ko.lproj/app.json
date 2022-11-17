@@ -250,7 +250,7 @@
             "button": {
                 "category": {
                     "all": "모두",
-                    "all_accessiblity_description": "분류: 전체",
+                    "all_accessibility_description": "분류: 전체",
                     "academia": "학술",
                     "activism": "사회운동",
                     "food": "음식",
@@ -530,7 +530,7 @@
             "title": "팔로잉",
             "footer": "Follows from other servers are not displayed."
         },
-        "familiarFollowers": {
+        "familiar_followers": {
             "title": "Followers you familiar",
             "followed_by_names": "%s 님이 팔로우함"
         },
@@ -599,7 +599,7 @@
                 "request_to_follow_you": "팔로우를 요청합니다",
                 "poll_has_ended": "투표가 끝났습니다"
             },
-            "keyobard": {
+            "keyboard": {
                 "show_everything": "모두 보기",
                 "show_mentions": "멘션 보기"
             },
@@ -640,7 +640,7 @@
                         "anyone": "누구든",
                         "follower": "팔로워가",
                         "follow": "내가 팔로우하는 사람이",
-                        "noone": "아무도 못 하게",
+                        "no_one": "아무도 못 하게",
                         "title": "알림을 보낼 조건은"
                     }
                 },
@@ -661,7 +661,7 @@
                 "spicy_zone": {
                     "title": "매운 영역",
                     "clear": "미디어 캐시 삭제",
-                    "signout": "로그아웃"
+                    "sign_out": "로그아웃"
                 }
             },
             "footer": {
@@ -692,7 +692,7 @@
                 "i_dont_like_it": "마음에 안 듭니다",
                 "it_is_not_something_you_want_to_see": "내가 보기 싫은 종류에 속합니다",
                 "its_spam": "스팸입니다",
-                "malicious_links_fake_engagement_or_repetetive_replies": "악성 링크, 반응 스팸, 또는 반복적인 답글",
+                "malicious_links_fake_engagement_or_repetitive_replies": "악성 링크, 반응 스팸, 또는 반복적인 답글",
                 "it_violates_server_rules": "서버 규칙을 위반합니다",
                 "you_are_aware_that_it_breaks_specific_rules": "특정 규칙을 위반합니다",
                 "its_something_else": "기타",

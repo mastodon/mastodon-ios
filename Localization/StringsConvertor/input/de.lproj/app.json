@@ -250,7 +250,7 @@
             "button": {
                 "category": {
                     "all": "Alle",
-                    "all_accessiblity_description": "Kategorie: Alle",
+                    "all_accessibility_description": "Kategorie: Alle",
                     "academia": "Wissenschaft",
                     "activism": "Aktivismus",
                     "food": "Essen",
@@ -530,7 +530,7 @@
             "title": "Gefolgte",
             "footer": "Gefolgte, die nicht auf deinem Server registriert sind, werden nicht angezeigt."
         },
-        "familiarFollowers": {
+        "familiar_followers": {
             "title": "Folgende, die du kennst",
             "followed_by_names": "Gefolgt von %s"
         },
@@ -599,7 +599,7 @@
                 "request_to_follow_you": "Folgeanfrage",
                 "poll_has_ended": "Umfrage wurde beendet"
             },
-            "keyobard": {
+            "keyboard": {
                 "show_everything": "Alles anzeigen",
                 "show_mentions": "Erwähnungen anzeigen"
             },
@@ -640,7 +640,7 @@
                         "anyone": "jeder",
                         "follower": "ein Folgender",
                         "follow": "ein von mir Gefolgter",
-                        "noone": "niemand",
+                        "no_one": "niemand",
                         "title": "Benachrichtige mich, wenn"
                     }
                 },
@@ -661,7 +661,7 @@
                 "spicy_zone": {
                     "title": "Der Gefährliche Bereich",
                     "clear": "Medien-Cache leeren",
-                    "signout": "Abmelden"
+                    "sign_out": "Abmelden"
                 }
             },
             "footer": {
@@ -692,7 +692,7 @@
                 "i_dont_like_it": "Mir gefällt das nicht",
                 "it_is_not_something_you_want_to_see": "Das ist etwas, das man nicht sehen möchte",
                 "its_spam": "Das ist Spam",
-                "malicious_links_fake_engagement_or_repetetive_replies": "Bösartige Links, gefälschtes Engagement oder wiederholte Antworten",
+                "malicious_links_fake_engagement_or_repetitive_replies": "Bösartige Links, gefälschtes Engagement oder wiederholte Antworten",
                 "it_violates_server_rules": "Es verstößt gegen Serverregeln",
                 "you_are_aware_that_it_breaks_specific_rules": "Du weißt, welche Regeln verletzt werden",
                 "its_something_else": "Das ist was anderes",

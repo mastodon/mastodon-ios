@@ -250,7 +250,7 @@
             "button": {
                 "category": {
                     "all": "Tout",
-                    "all_accessiblity_description": "Catégorie: Toutes",
+                    "all_accessibility_description": "Catégorie: Toutes",
                     "academia": "domaine universitaire",
                     "activism": "activisme",
                     "food": "nourriture",
@@ -530,7 +530,7 @@
             "title": "abonnement",
             "footer": "Les abonnés issus des autres serveurs ne sont pas affichés."
         },
-        "familiarFollowers": {
+        "familiar_followers": {
             "title": "Abonné·e·s que vous connaissez",
             "followed_by_names": "Suivi·e par %s"
         },
@@ -599,7 +599,7 @@
                 "request_to_follow_you": "vous a envoyé une demande d’abonnement",
                 "poll_has_ended": "le sondage est terminé"
             },
-            "keyobard": {
+            "keyboard": {
                 "show_everything": "Tout Afficher",
                 "show_mentions": "Afficher les mentions"
             },
@@ -640,7 +640,7 @@
                         "anyone": "n’importe qui",
                         "follower": "un abonné",
                         "follow": "toute personne que je suis",
-                        "noone": "personne",
+                        "no_one": "personne",
                         "title": "Me notifier lorsque"
                     }
                 },
@@ -661,7 +661,7 @@
                 "spicy_zone": {
                     "title": "La Zone Épicée",
                     "clear": "Vider le cache des médias",
-                    "signout": "Se déconnecter"
+                    "sign_out": "Se déconnecter"
                 }
             },
             "footer": {
@@ -692,7 +692,7 @@
                 "i_dont_like_it": "Je n’aime pas",
                 "it_is_not_something_you_want_to_see": "C’est quelque chose que vous ne souhaitez pas voir",
                 "its_spam": "C’est du spam",
-                "malicious_links_fake_engagement_or_repetetive_replies": "Liens malveillants, engagement mensonger ou réponses répétitives",
+                "malicious_links_fake_engagement_or_repetitive_replies": "Liens malveillants, engagement mensonger ou réponses répétitives",
                 "it_violates_server_rules": "Enfreint les règles du serveur",
                 "you_are_aware_that_it_breaks_specific_rules": "Vous savez qu’il enfreint des règles spécifiques",
                 "its_something_else": "Pour une autre raison",

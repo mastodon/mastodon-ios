@@ -250,7 +250,7 @@
             "button": {
                 "category": {
                     "all": "Na h-uile",
-                    "all_accessiblity_description": "Roinn-seòrsa: Na h-uile",
+                    "all_accessibility_description": "Roinn-seòrsa: Na h-uile",
                     "academia": "saoghal nan sgoilear",
                     "activism": "iomairteachd",
                     "food": "biadh",
@@ -530,7 +530,7 @@
             "title": "’ga leantainn",
             "footer": "Cha dèid cò a leanas tu air frithealaichean eile a shealltainn."
         },
-        "familiarFollowers": {
+        "familiar_followers": {
             "title": "Luchd-leantainn aithnichte",
             "followed_by_names": "’Ga leantainn le %s"
         },
@@ -599,7 +599,7 @@
                 "request_to_follow_you": "iarrtas leantainn",
                 "poll_has_ended": "thàinig cunntas-bheachd gu crìoch"
             },
-            "keyobard": {
+            "keyboard": {
                 "show_everything": "Seall a h-uile càil",
                 "show_mentions": "Seall na h-iomraidhean"
             },
@@ -640,7 +640,7 @@
                         "anyone": "Airson duine sam bith, cuir brath thugam",
                         "follower": "Airson luchd-leantainn, cuir brath thugam",
                         "follow": "Airson daoine a leanas mi, cuir brath thugam",
-                        "noone": "Na cuir brath thugam idir",
+                        "no_one": "Na cuir brath thugam idir",
                         "title": " "
                     }
                 },
@@ -661,7 +661,7 @@
                 "spicy_zone": {
                     "title": "Gnìomhan",
                     "clear": "Falamhaich tasgadan nam meadhanan",
-                    "signout": "Clàraich a-mach"
+                    "sign_out": "Clàraich a-mach"
                 }
             },
             "footer": {
@@ -692,7 +692,7 @@
                 "i_dont_like_it": "Cha toigh leam e",
                 "it_is_not_something_you_want_to_see": "Chan eil thu airson seo fhaicinn",
                 "its_spam": "’S e spama a th’ ann",
-                "malicious_links_fake_engagement_or_repetetive_replies": "Ceanglaichean droch-rùnach, conaltradh fuadain no an dearbh fhreagairt a-rithist ’s a-rithist",
+                "malicious_links_fake_engagement_or_repetitive_replies": "Ceanglaichean droch-rùnach, conaltradh fuadain no an dearbh fhreagairt a-rithist ’s a-rithist",
                 "it_violates_server_rules": "Tha e a’ briseadh riaghailtean an fhrithealaiche",
                 "you_are_aware_that_it_breaks_specific_rules": "Mhothaich thu gu bheil e a’ briseadh riaghailtean sònraichte",
                 "its_something_else": "’S rud eile a tha ann",

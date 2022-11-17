@@ -32,7 +32,7 @@ class SettingsViewController: UIViewController, NeedsDependency {
         let anyone = L10n.Scene.Settings.Section.Notifications.Trigger.anyone
         let follower = L10n.Scene.Settings.Section.Notifications.Trigger.follower
         let follow = L10n.Scene.Settings.Section.Notifications.Trigger.follow
-        let noOne = L10n.Scene.Settings.Section.Notifications.Trigger.noone
+        let noOne = L10n.Scene.Settings.Section.Notifications.Trigger.noOne
         let menu = UIMenu(
             image: nil,
             identifier: nil,

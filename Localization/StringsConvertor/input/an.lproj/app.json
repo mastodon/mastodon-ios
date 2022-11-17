@@ -530,7 +530,7 @@
             "title": "seguindo",
             "footer": "No s'amuestran los seguius d'atros servidors."
         },
-        "familiarFollowers": {
+        "familiar_followers": {
             "title": "Seguidores que conoixes",
             "followed_by_names": "Seguiu per %s"
         },

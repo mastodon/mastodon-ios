@@ -237,8 +237,8 @@
 "Scene.Discovery.Tabs.Hashtags" = "هاشتاگەکان";
 "Scene.Discovery.Tabs.News" = "هەواڵەکان";
 "Scene.Discovery.Tabs.Posts" = "پۆستەکان";
-"Scene.Familiarfollowers.FollowedByNames" = "Followed by %@";
-"Scene.Familiarfollowers.Title" = "Followers you familiar";
+"Scene.FamiliarFollowers.FollowedByNames" = "Followed by %@";
+"Scene.FamiliarFollowers.Title" = "Followers you familiar";
 "Scene.Favorite.Title" = "بەدڵبووەکانت";
 "Scene.FavoritedBy.Title" = "Favorited By";
 "Scene.FollowedTags.Actions.Follow" = "Follow";
@@ -265,8 +265,8 @@
 "Scene.Notification.FollowRequest.Accepted" = "Accepted";
 "Scene.Notification.FollowRequest.Reject" = "reject";
 "Scene.Notification.FollowRequest.Rejected" = "Rejected";
-"Scene.Notification.Keyobard.ShowEverything" = "هەموو شتێک نیشان بدە";
-"Scene.Notification.Keyobard.ShowMentions" = "ئاماژەکان نیشان بدە";
+"Scene.Notification.Keyboard.ShowEverything" = "هەموو شتێک نیشان بدە";
+"Scene.Notification.Keyboard.ShowMentions" = "ئاماژەکان نیشان بدە";
 "Scene.Notification.NotificationDescription.FavoritedYourPost" = "پۆستەکەتی بەدڵ بوو";
 "Scene.Notification.NotificationDescription.FollowedYou" = "شوێنت کەوت";
 "Scene.Notification.NotificationDescription.MentionedYou" = "ئاماژەی پێت کرد";
@@ -282,9 +282,12 @@
 "Scene.Profile.Accessibility.EditAvatarImage" = "دەستکاریی وێنەکە بکە";
 "Scene.Profile.Accessibility.ShowAvatarImage" = "وێنەکە نیشان بدە";
 "Scene.Profile.Accessibility.ShowBannerImage" = "وێنەکەی پشتەوە نیشان بدە";
-"Scene.Profile.Dashboard.Followers" = "شوێنکەوتوو";
-"Scene.Profile.Dashboard.Following" = "شوێنکەوتن";
-"Scene.Profile.Dashboard.Posts" = "پۆستەکان";
+"Scene.Profile.Dashboard.MyFollowers" = "followers";
+"Scene.Profile.Dashboard.MyFollowing" = "following";
+"Scene.Profile.Dashboard.MyPosts" = "posts";
+"Scene.Profile.Dashboard.OtherFollowers" = "followers";
+"Scene.Profile.Dashboard.OtherFollowing" = "following";
+"Scene.Profile.Dashboard.OtherPosts" = "posts";
 "Scene.Profile.Fields.AddRow" = "ڕیز زیاد بکە";
 "Scene.Profile.Fields.Joined" = "Joined";
 "Scene.Profile.Fields.Placeholder.Content" = "ناوەڕۆک";
@@ -369,7 +372,7 @@
 "Scene.Report.StepOne.ItViolatesServerRules" = "It violates server rules";
 "Scene.Report.StepOne.ItsSomethingElse" = "It’s something else";
 "Scene.Report.StepOne.ItsSpam" = "It’s spam";
-"Scene.Report.StepOne.MaliciousLinksFakeEngagementOrRepetetiveReplies" = "Malicious links, fake engagement, or repetetive replies";
+"Scene.Report.StepOne.MaliciousLinksFakeEngagementOrRepetitiveReplies" = "Malicious links, fake engagement, or repetitive replies";
 "Scene.Report.StepOne.SelectTheBestMatch" = "Select the best match";
 "Scene.Report.StepOne.Step1Of4" = "Step 1 of 4";
 "Scene.Report.StepOne.TheIssueDoesNotFitIntoOtherCategories" = "The issue does not fit into other categories";
@@ -407,7 +410,7 @@
 "Scene.ServerPicker.Button.Category.Academia" = "ئەکادیمیا";
 "Scene.ServerPicker.Button.Category.Activism" = "چالاکی";
 "Scene.ServerPicker.Button.Category.All" = "هەموو";
-"Scene.ServerPicker.Button.Category.AllAccessiblityDescription" = "بەش: هەموو";
+"Scene.ServerPicker.Button.Category.AllAccessibilityDescription" = "بەش: هەموو";
 "Scene.ServerPicker.Button.Category.Art" = "هونەر";
 "Scene.ServerPicker.Button.Category.Food" = "خواردن";
 "Scene.ServerPicker.Button.Category.Furry" = "furry";
@@ -458,7 +461,7 @@
 "Scene.Settings.Section.Notifications.Trigger.Anyone" = "هەرکەسێک";
 "Scene.Settings.Section.Notifications.Trigger.Follow" = "هەرکەسێک شوێنی دەکەوم";
 "Scene.Settings.Section.Notifications.Trigger.Follower" = "شوێنکەوتووێکم";
-"Scene.Settings.Section.Notifications.Trigger.Noone" = "هیچکەس";
+"Scene.Settings.Section.Notifications.Trigger.NoOne" = "هیچکەس";
 "Scene.Settings.Section.Notifications.Trigger.Title" = "ئاگادارم بکەوە کاتێک";
 "Scene.Settings.Section.Preference.DisableAvatarAnimation" = "وێنە جووڵاوەکان ناچالاک بکە";
 "Scene.Settings.Section.Preference.DisableEmojiAnimation" = "ئیمۆجییە جووڵاوەکان ناچالاک بکە";
@@ -467,7 +470,7 @@
 "Scene.Settings.Section.Preference.TrueBlackDarkMode" = "دۆخی ڕەش";
 "Scene.Settings.Section.Preference.UsingDefaultBrowser" = "وێبگەڕی بنەڕەت بەکار بهێنە بۆ کردنەوەی بەستەرەکان";
 "Scene.Settings.Section.SpicyZone.Clear" = "بیرگە پاک بکەوە";
-"Scene.Settings.Section.SpicyZone.Signout" = "دەربچۆ";
+"Scene.Settings.Section.SpicyZone.SignOut" = "دەربچۆ";
 "Scene.Settings.Section.SpicyZone.Title" = "ناوچەی گەرم";
 "Scene.Settings.Title" = "رێکخستنەکان";
 "Scene.SuggestionAccount.FollowExplain" = "کاتێک شوێنی یەکێک دەکەویت، پۆستەکانی دێتە بەردەمت.";

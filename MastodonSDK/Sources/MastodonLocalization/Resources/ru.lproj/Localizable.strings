@@ -249,8 +249,8 @@
 "Scene.Discovery.Tabs.Hashtags" = "Hashtags";
 "Scene.Discovery.Tabs.News" = "News";
 "Scene.Discovery.Tabs.Posts" = "Posts";
-"Scene.Familiarfollowers.FollowedByNames" = "Followed by %@";
-"Scene.Familiarfollowers.Title" = "Followers you familiar";
+"Scene.FamiliarFollowers.FollowedByNames" = "Followed by %@";
+"Scene.FamiliarFollowers.Title" = "Followers you familiar";
 "Scene.Favorite.Title" = "Ваше избранное";
 "Scene.FavoritedBy.Title" = "Favorited By";
 "Scene.FollowedTags.Actions.Follow" = "Follow";
@@ -277,8 +277,8 @@
 "Scene.Notification.FollowRequest.Accepted" = "Accepted";
 "Scene.Notification.FollowRequest.Reject" = "reject";
 "Scene.Notification.FollowRequest.Rejected" = "Rejected";
-"Scene.Notification.Keyobard.ShowEverything" = "Показать все";
-"Scene.Notification.Keyobard.ShowMentions" = "Показать упоминания";
+"Scene.Notification.Keyboard.ShowEverything" = "Показать все";
+"Scene.Notification.Keyboard.ShowMentions" = "Показать упоминания";
 "Scene.Notification.NotificationDescription.FavoritedYourPost" = "favorited your post";
 "Scene.Notification.NotificationDescription.FollowedYou" = "followed you";
 "Scene.Notification.NotificationDescription.MentionedYou" = "mentioned you";
@@ -294,9 +294,12 @@
 "Scene.Profile.Accessibility.EditAvatarImage" = "Edit avatar image";
 "Scene.Profile.Accessibility.ShowAvatarImage" = "Show avatar image";
 "Scene.Profile.Accessibility.ShowBannerImage" = "Show banner image";
-"Scene.Profile.Dashboard.Followers" = "подписчики";
-"Scene.Profile.Dashboard.Following" = "подписки";
-"Scene.Profile.Dashboard.Posts" = "посты";
+"Scene.Profile.Dashboard.MyFollowers" = "followers";
+"Scene.Profile.Dashboard.MyFollowing" = "following";
+"Scene.Profile.Dashboard.MyPosts" = "posts";
+"Scene.Profile.Dashboard.OtherFollowers" = "followers";
+"Scene.Profile.Dashboard.OtherFollowing" = "following";
+"Scene.Profile.Dashboard.OtherPosts" = "posts";
 "Scene.Profile.Fields.AddRow" = "Добавить строку";
 "Scene.Profile.Fields.Joined" = "Joined";
 "Scene.Profile.Fields.Placeholder.Content" = "Содержимое";
@@ -381,7 +384,7 @@
 "Scene.Report.StepOne.ItViolatesServerRules" = "It violates server rules";
 "Scene.Report.StepOne.ItsSomethingElse" = "It’s something else";
 "Scene.Report.StepOne.ItsSpam" = "It’s spam";
-"Scene.Report.StepOne.MaliciousLinksFakeEngagementOrRepetetiveReplies" = "Malicious links, fake engagement, or repetetive replies";
+"Scene.Report.StepOne.MaliciousLinksFakeEngagementOrRepetitiveReplies" = "Malicious links, fake engagement, or repetitive replies";
 "Scene.Report.StepOne.SelectTheBestMatch" = "Select the best match";
 "Scene.Report.StepOne.Step1Of4" = "Step 1 of 4";
 "Scene.Report.StepOne.TheIssueDoesNotFitIntoOtherCategories" = "The issue does not fit into other categories";
@@ -419,7 +422,7 @@
 "Scene.ServerPicker.Button.Category.Academia" = "академия";
 "Scene.ServerPicker.Button.Category.Activism" = "активизм";
 "Scene.ServerPicker.Button.Category.All" = "Все";
-"Scene.ServerPicker.Button.Category.AllAccessiblityDescription" = "Категория: все";
+"Scene.ServerPicker.Button.Category.AllAccessibilityDescription" = "Категория: все";
 "Scene.ServerPicker.Button.Category.Art" = "арт";
 "Scene.ServerPicker.Button.Category.Food" = "еда";
 "Scene.ServerPicker.Button.Category.Furry" = "фурри";
@@ -471,7 +474,7 @@
 "Scene.Settings.Section.Notifications.Trigger.Anyone" = "кто угодно";
 "Scene.Settings.Section.Notifications.Trigger.Follow" = "любой, на кого я подписан(а)";
 "Scene.Settings.Section.Notifications.Trigger.Follower" = "мой подписчик";
-"Scene.Settings.Section.Notifications.Trigger.Noone" = "никто";
+"Scene.Settings.Section.Notifications.Trigger.NoOne" = "никто";
 "Scene.Settings.Section.Notifications.Trigger.Title" = "Уведомлять меня, когда";
 "Scene.Settings.Section.Preference.DisableAvatarAnimation" = "Отключить анимацию аватарок";
 "Scene.Settings.Section.Preference.DisableEmojiAnimation" = "Отключить анимацию эмодзи";
@@ -480,7 +483,7 @@
 "Scene.Settings.Section.Preference.TrueBlackDarkMode" = "Полноценно чёрный режим";
 "Scene.Settings.Section.Preference.UsingDefaultBrowser" = "Использовать браузер по умолчанию для открытия ссылок";
 "Scene.Settings.Section.SpicyZone.Clear" = "Очистить кэш медиа";
-"Scene.Settings.Section.SpicyZone.Signout" = "Выйти из учётной записи";
+"Scene.Settings.Section.SpicyZone.SignOut" = "Выйти из учётной записи";
 "Scene.Settings.Section.SpicyZone.Title" = "Пикантная зона";
 "Scene.Settings.Title" = "Настройки";
 "Scene.SuggestionAccount.FollowExplain" = "Посты людей, на которых вы подписались, будут видны на главной странице.";

@@ -238,8 +238,8 @@
 "Scene.Discovery.Tabs.Hashtags" = "话题标签";
 "Scene.Discovery.Tabs.News" = "最新消息";
 "Scene.Discovery.Tabs.Posts" = "嘟文";
-"Scene.Familiarfollowers.FollowedByNames" = "%@ 关注了这个账号";
-"Scene.Familiarfollowers.Title" = "你熟悉的关注者";
+"Scene.FamiliarFollowers.FollowedByNames" = "%@ 关注了这个账号";
+"Scene.FamiliarFollowers.Title" = "你熟悉的关注者";
 "Scene.Favorite.Title" = "你的喜欢";
 "Scene.FavoritedBy.Title" = "收藏者";
 "Scene.FollowedTags.Actions.Follow" = "Follow";
@@ -266,8 +266,8 @@
 "Scene.Notification.FollowRequest.Accepted" = "已接受";
 "Scene.Notification.FollowRequest.Reject" = "拒绝";
 "Scene.Notification.FollowRequest.Rejected" = "已拒绝";
-"Scene.Notification.Keyobard.ShowEverything" = "显示全部";
-"Scene.Notification.Keyobard.ShowMentions" = "显示提及";
+"Scene.Notification.Keyboard.ShowEverything" = "显示全部";
+"Scene.Notification.Keyboard.ShowMentions" = "显示提及";
 "Scene.Notification.NotificationDescription.FavoritedYourPost" = "喜欢了你的帖子";
 "Scene.Notification.NotificationDescription.FollowedYou" = "关注了你";
 "Scene.Notification.NotificationDescription.MentionedYou" = "提及了你";
@@ -283,9 +283,12 @@
 "Scene.Profile.Accessibility.EditAvatarImage" = "编辑头像";
 "Scene.Profile.Accessibility.ShowAvatarImage" = "显示头像";
 "Scene.Profile.Accessibility.ShowBannerImage" = "显示顶部横幅图片";
-"Scene.Profile.Dashboard.Followers" = "关注者";
-"Scene.Profile.Dashboard.Following" = "正在关注";
-"Scene.Profile.Dashboard.Posts" = "帖子";
+"Scene.Profile.Dashboard.MyFollowers" = "followers";
+"Scene.Profile.Dashboard.MyFollowing" = "following";
+"Scene.Profile.Dashboard.MyPosts" = "posts";
+"Scene.Profile.Dashboard.OtherFollowers" = "followers";
+"Scene.Profile.Dashboard.OtherFollowing" = "following";
+"Scene.Profile.Dashboard.OtherPosts" = "posts";
 "Scene.Profile.Fields.AddRow" = "添加";
 "Scene.Profile.Fields.Joined" = "Joined";
 "Scene.Profile.Fields.Placeholder.Content" = "内容";
@@ -370,7 +373,7 @@
 "Scene.Report.StepOne.ItViolatesServerRules" = "它违反了服务器规则";
 "Scene.Report.StepOne.ItsSomethingElse" = "其他原因";
 "Scene.Report.StepOne.ItsSpam" = "它是垃圾信息";
-"Scene.Report.StepOne.MaliciousLinksFakeEngagementOrRepetetiveReplies" = "恶意链接、虚假参与或重复性回复";
+"Scene.Report.StepOne.MaliciousLinksFakeEngagementOrRepetitiveReplies" = "恶意链接、虚假参与或重复性回复";
 "Scene.Report.StepOne.SelectTheBestMatch" = "选择最佳匹配";
 "Scene.Report.StepOne.Step1Of4" = "第 1 步（共 4 步）";
 "Scene.Report.StepOne.TheIssueDoesNotFitIntoOtherCategories" = "该问题属于其他类别";
@@ -408,7 +411,7 @@
 "Scene.ServerPicker.Button.Category.Academia" = "学术";
 "Scene.ServerPicker.Button.Category.Activism" = "行动主义";
 "Scene.ServerPicker.Button.Category.All" = "全部";
-"Scene.ServerPicker.Button.Category.AllAccessiblityDescription" = "类别：全部";
+"Scene.ServerPicker.Button.Category.AllAccessibilityDescription" = "类别：全部";
 "Scene.ServerPicker.Button.Category.Art" = "艺术";
 "Scene.ServerPicker.Button.Category.Food" = "美食";
 "Scene.ServerPicker.Button.Category.Furry" = "兽迷";
@@ -460,7 +463,7 @@
 "Scene.Settings.Section.Notifications.Trigger.Anyone" = "任何人";
 "Scene.Settings.Section.Notifications.Trigger.Follow" = "我关注的";
 "Scene.Settings.Section.Notifications.Trigger.Follower" = "关注者";
-"Scene.Settings.Section.Notifications.Trigger.Noone" = "没有人";
+"Scene.Settings.Section.Notifications.Trigger.NoOne" = "没有人";
 "Scene.Settings.Section.Notifications.Trigger.Title" = "提示通知来自";
 "Scene.Settings.Section.Preference.DisableAvatarAnimation" = "禁用动画头像";
 "Scene.Settings.Section.Preference.DisableEmojiAnimation" = "禁用动画表情";
@@ -469,7 +472,7 @@
 "Scene.Settings.Section.Preference.TrueBlackDarkMode" = "纯黑模式";
 "Scene.Settings.Section.Preference.UsingDefaultBrowser" = "使用默认浏览器打开链接";
 "Scene.Settings.Section.SpicyZone.Clear" = "清除图片缓存";
-"Scene.Settings.Section.SpicyZone.Signout" = "退出";
+"Scene.Settings.Section.SpicyZone.SignOut" = "退出";
 "Scene.Settings.Section.SpicyZone.Title" = "The Spicy Zone";
 "Scene.Settings.Title" = "设置";
 "Scene.SuggestionAccount.FollowExplain" = "当你关注某个人时，你将会在主页看到他们的帖子。";

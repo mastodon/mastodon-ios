@@ -87,7 +87,7 @@ extension FamiliarFollowersDashboardView.ViewModel {
                 
                 switch names.count {
                 case 1..<3:
-                    return L10n.Scene.Familiarfollowers.followedByNames(firstTwoNames)
+                    return L10n.Scene.FamiliarFollowers.followedByNames(firstTwoNames)
                 default:
                     // Note: SwiftGen generates wrong formate argv for "%1$@" 
                     let remains = count - 2

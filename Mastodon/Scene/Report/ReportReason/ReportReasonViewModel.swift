@@ -60,7 +60,7 @@ extension ReportReasonViewModel {
             case .dislike:
                 return L10n.Scene.Report.StepOne.itIsNotSomethingYouWantToSee
             case .spam:
-                return L10n.Scene.Report.StepOne.maliciousLinksFakeEngagementOrRepetetiveReplies
+                return L10n.Scene.Report.StepOne.maliciousLinksFakeEngagementOrRepetitiveReplies
             case .violateRule:
                 return L10n.Scene.Report.StepOne.youAreAwareThatItBreaksSpecificRules
             case .other:

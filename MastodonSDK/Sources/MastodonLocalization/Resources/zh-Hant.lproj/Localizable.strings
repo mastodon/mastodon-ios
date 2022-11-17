@@ -134,9 +134,9 @@
 "Common.Controls.Status.Tag.Url" = "網址";
 "Common.Controls.Status.TapToReveal" = "輕觸以顯示";
 "Common.Controls.Status.Translation.ShowOriginal" = "顯示原文";
-"Common.Controls.Status.Translation.TranslatedFrom" = "Translated from %@ using %@";
+"Common.Controls.Status.Translation.TranslatedFrom" = "透過 %@ 翻譯 %@";
 "Common.Controls.Status.Translation.UnknownLanguage" = "未知";
-"Common.Controls.Status.Translation.UnknownProvider" = "Unknown";
+"Common.Controls.Status.Translation.UnknownProvider" = "未知";
 "Common.Controls.Status.UserReblogged" = "%@ 已轉嘟";
 "Common.Controls.Status.UserRepliedTo" = "回覆給 %@";
 "Common.Controls.Status.Visibility.Direct" = "只有被提及的使用者能看到此嘟文。";
@@ -233,8 +233,8 @@
 "Scene.Discovery.Tabs.Hashtags" = "主題標籤";
 "Scene.Discovery.Tabs.News" = "最新消息";
 "Scene.Discovery.Tabs.Posts" = "嘟文";
-"Scene.Familiarfollowers.FollowedByNames" = "被 %@ 跟隨";
-"Scene.Familiarfollowers.Title" = "您熟悉的跟隨者";
+"Scene.FamiliarFollowers.FollowedByNames" = "被 %@ 跟隨";
+"Scene.FamiliarFollowers.Title" = "您熟悉的跟隨者";
 "Scene.Favorite.Title" = "您的最愛";
 "Scene.FavoritedBy.Title" = "已加入最愛";
 "Scene.FollowedTags.Actions.Follow" = "跟隨";
@@ -261,8 +261,8 @@
 "Scene.Notification.FollowRequest.Accepted" = "已接受";
 "Scene.Notification.FollowRequest.Reject" = "拒絕";
 "Scene.Notification.FollowRequest.Rejected" = "已拒絕";
-"Scene.Notification.Keyobard.ShowEverything" = "顯示全部";
-"Scene.Notification.Keyobard.ShowMentions" = "顯示提及";
+"Scene.Notification.Keyboard.ShowEverything" = "顯示全部";
+"Scene.Notification.Keyboard.ShowMentions" = "顯示提及";
 "Scene.Notification.NotificationDescription.FavoritedYourPost" = "最愛了您的嘟文";
 "Scene.Notification.NotificationDescription.FollowedYou" = "跟隨了您";
 "Scene.Notification.NotificationDescription.MentionedYou" = "提到了您";
@@ -278,9 +278,12 @@
 "Scene.Profile.Accessibility.EditAvatarImage" = "編輯大頭貼";
 "Scene.Profile.Accessibility.ShowAvatarImage" = "顯示大頭貼";
 "Scene.Profile.Accessibility.ShowBannerImage" = "顯示橫幅圖片";
-"Scene.Profile.Dashboard.Followers" = "跟隨者";
-"Scene.Profile.Dashboard.Following" = "跟隨中";
-"Scene.Profile.Dashboard.Posts" = "嘟文";
+"Scene.Profile.Dashboard.MyFollowers" = "跟隨者";
+"Scene.Profile.Dashboard.MyFollowing" = "正在跟隨";
+"Scene.Profile.Dashboard.MyPosts" = "嘟文";
+"Scene.Profile.Dashboard.OtherFollowers" = "跟隨者";
+"Scene.Profile.Dashboard.OtherFollowing" = "正在跟隨";
+"Scene.Profile.Dashboard.OtherPosts" = "嘟文";
 "Scene.Profile.Fields.AddRow" = "新增列";
 "Scene.Profile.Fields.Joined" = "加入時間";
 "Scene.Profile.Fields.Placeholder.Content" = "內容";
@@ -365,7 +368,7 @@
 "Scene.Report.StepOne.ItViolatesServerRules" = "違反伺服器規則";
 "Scene.Report.StepOne.ItsSomethingElse" = "其他原因";
 "Scene.Report.StepOne.ItsSpam" = "垃圾訊息";
-"Scene.Report.StepOne.MaliciousLinksFakeEngagementOrRepetetiveReplies" = "有害連結、假造的互動，或是重複性回覆";
+"Scene.Report.StepOne.MaliciousLinksFakeEngagementOrRepetitiveReplies" = "有害連結、假造的互動，或是重複性回覆";
 "Scene.Report.StepOne.SelectTheBestMatch" = "選擇最佳條件符合";
 "Scene.Report.StepOne.Step1Of4" = "四個步驟中的第一步";
 "Scene.Report.StepOne.TheIssueDoesNotFitIntoOtherCategories" = "這個問題不屬於其他分類";
@@ -403,7 +406,7 @@
 "Scene.ServerPicker.Button.Category.Academia" = "學術";
 "Scene.ServerPicker.Button.Category.Activism" = "社會運動";
 "Scene.ServerPicker.Button.Category.All" = "全部";
-"Scene.ServerPicker.Button.Category.AllAccessiblityDescription" = "分類：全部";
+"Scene.ServerPicker.Button.Category.AllAccessibilityDescription" = "分類：全部";
 "Scene.ServerPicker.Button.Category.Art" = "藝術";
 "Scene.ServerPicker.Button.Category.Food" = "食物";
 "Scene.ServerPicker.Button.Category.Furry" = "毛茸茸";
@@ -454,7 +457,7 @@
 "Scene.Settings.Section.Notifications.Trigger.Anyone" = "任何人";
 "Scene.Settings.Section.Notifications.Trigger.Follow" = "任何我跟隨的人";
 "Scene.Settings.Section.Notifications.Trigger.Follower" = "跟隨者";
-"Scene.Settings.Section.Notifications.Trigger.Noone" = "沒有人";
+"Scene.Settings.Section.Notifications.Trigger.NoOne" = "沒有人";
 "Scene.Settings.Section.Notifications.Trigger.Title" = "以下狀況請通知我";
 "Scene.Settings.Section.Preference.DisableAvatarAnimation" = "停用動畫大頭貼";
 "Scene.Settings.Section.Preference.DisableEmojiAnimation" = "停用動畫 emoji";
@@ -463,7 +466,7 @@
 "Scene.Settings.Section.Preference.TrueBlackDarkMode" = "真☆闇黑模式";
 "Scene.Settings.Section.Preference.UsingDefaultBrowser" = "使用預設瀏覽器開啟連結";
 "Scene.Settings.Section.SpicyZone.Clear" = "清除媒體快取";
-"Scene.Settings.Section.SpicyZone.Signout" = "登出";
+"Scene.Settings.Section.SpicyZone.SignOut" = "登出";
 "Scene.Settings.Section.SpicyZone.Title" = "危險地帶";
 "Scene.Settings.Title" = "設定";
 "Scene.SuggestionAccount.FollowExplain" = "當您跟隨這些人時，將會看到他們的嘟文出現在您的首頁時間軸上。";

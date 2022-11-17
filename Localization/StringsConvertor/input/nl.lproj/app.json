@@ -250,7 +250,7 @@
             "button": {
                 "category": {
                     "all": "Alles",
-                    "all_accessiblity_description": "Categorie: Alles",
+                    "all_accessibility_description": "Categorie: Alles",
                     "academia": "academisch",
                     "activism": "activisme",
                     "food": "eten",
@@ -530,7 +530,7 @@
             "title": "volgend",
             "footer": "Volgers van andere servers worden niet weergegeven."
         },
-        "familiarFollowers": {
+        "familiar_followers": {
             "title": "Volgers die je kent",
             "followed_by_names": "Gevolgd door %s"
         },
@@ -599,7 +599,7 @@
                 "request_to_follow_you": "verzoek je te volgen",
                 "poll_has_ended": "de peiling is beëindigd"
             },
-            "keyobard": {
+            "keyboard": {
                 "show_everything": "Alles weergeven",
                 "show_mentions": "Vermeldingen weergeven"
             },
@@ -640,7 +640,7 @@
                         "anyone": "iemand",
                         "follower": "een volger",
                         "follow": "iemand die ik volg",
-                        "noone": "niemand",
+                        "no_one": "niemand",
                         "title": "Stuur mij een melding wanneer"
                     }
                 },
@@ -661,7 +661,7 @@
                 "spicy_zone": {
                     "title": "De Gevaarlijke Instellingen",
                     "clear": "Mediacache wissen",
-                    "signout": "Afmelden"
+                    "sign_out": "Afmelden"
                 }
             },
             "footer": {
@@ -692,7 +692,7 @@
                 "i_dont_like_it": "I don’t like it",
                 "it_is_not_something_you_want_to_see": "It is not something you want to see",
                 "its_spam": "It’s spam",
-                "malicious_links_fake_engagement_or_repetetive_replies": "Malicious links, fake engagement, or repetetive replies",
+                "malicious_links_fake_engagement_or_repetitive_replies": "Malicious links, fake engagement, or repetitive replies",
                 "it_violates_server_rules": "It violates server rules",
                 "you_are_aware_that_it_breaks_specific_rules": "You are aware that it breaks specific rules",
                 "its_something_else": "It’s something else",

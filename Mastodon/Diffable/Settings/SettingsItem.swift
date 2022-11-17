@@ -81,7 +81,7 @@ extension SettingsItem {
             case .termsOfService:    return L10n.Scene.Settings.Section.BoringZone.terms
             case .privacyPolicy:     return L10n.Scene.Settings.Section.BoringZone.privacy
             case .clearMediaCache:   return L10n.Scene.Settings.Section.SpicyZone.clear
-            case .signOut:           return L10n.Scene.Settings.Section.SpicyZone.signout
+            case .signOut:           return L10n.Scene.Settings.Section.SpicyZone.signOut
             }
         }
         

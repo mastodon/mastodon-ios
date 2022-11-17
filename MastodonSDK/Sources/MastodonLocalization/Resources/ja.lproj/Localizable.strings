@@ -233,8 +233,8 @@
 "Scene.Discovery.Tabs.Hashtags" = "ハッシュタグ";
 "Scene.Discovery.Tabs.News" = "ニュース";
 "Scene.Discovery.Tabs.Posts" = "投稿";
-"Scene.Familiarfollowers.FollowedByNames" = "Followed by %@";
-"Scene.Familiarfollowers.Title" = "Followers you familiar";
+"Scene.FamiliarFollowers.FollowedByNames" = "Followed by %@";
+"Scene.FamiliarFollowers.Title" = "Followers you familiar";
 "Scene.Favorite.Title" = "お気に入り";
 "Scene.FavoritedBy.Title" = "お気に入り";
 "Scene.FollowedTags.Actions.Follow" = "Follow";
@@ -261,8 +261,8 @@
 "Scene.Notification.FollowRequest.Accepted" = "承諾済み";
 "Scene.Notification.FollowRequest.Reject" = "拒否";
 "Scene.Notification.FollowRequest.Rejected" = "拒否済み";
-"Scene.Notification.Keyobard.ShowEverything" = "すべて見る";
-"Scene.Notification.Keyobard.ShowMentions" = "メンションを見る";
+"Scene.Notification.Keyboard.ShowEverything" = "すべて見る";
+"Scene.Notification.Keyboard.ShowMentions" = "メンションを見る";
 "Scene.Notification.NotificationDescription.FavoritedYourPost" = "がお気に入りに登録";
 "Scene.Notification.NotificationDescription.FollowedYou" = "にフォローされました";
 "Scene.Notification.NotificationDescription.MentionedYou" = "にメンションされました";
@@ -278,9 +278,12 @@
 "Scene.Profile.Accessibility.EditAvatarImage" = "Edit avatar image";
 "Scene.Profile.Accessibility.ShowAvatarImage" = "Show avatar image";
 "Scene.Profile.Accessibility.ShowBannerImage" = "Show banner image";
-"Scene.Profile.Dashboard.Followers" = "フォロワー";
-"Scene.Profile.Dashboard.Following" = "フォロー";
-"Scene.Profile.Dashboard.Posts" = "投稿";
+"Scene.Profile.Dashboard.MyFollowers" = "followers";
+"Scene.Profile.Dashboard.MyFollowing" = "following";
+"Scene.Profile.Dashboard.MyPosts" = "posts";
+"Scene.Profile.Dashboard.OtherFollowers" = "followers";
+"Scene.Profile.Dashboard.OtherFollowing" = "following";
+"Scene.Profile.Dashboard.OtherPosts" = "posts";
 "Scene.Profile.Fields.AddRow" = "行追加";
 "Scene.Profile.Fields.Joined" = "Joined";
 "Scene.Profile.Fields.Placeholder.Content" = "コンテンツ";
@@ -365,7 +368,7 @@
 "Scene.Report.StepOne.ItViolatesServerRules" = "サーバーのルールに違反しています";
 "Scene.Report.StepOne.ItsSomethingElse" = "その他";
 "Scene.Report.StepOne.ItsSpam" = "これはスパムです";
-"Scene.Report.StepOne.MaliciousLinksFakeEngagementOrRepetetiveReplies" = "悪意あるリンクや虚偽の情報、執拗な返信など";
+"Scene.Report.StepOne.MaliciousLinksFakeEngagementOrRepetitiveReplies" = "悪意あるリンクや虚偽の情報、執拗な返信など";
 "Scene.Report.StepOne.SelectTheBestMatch" = "最も近いものを選んでください";
 "Scene.Report.StepOne.Step1Of4" = "ステップ 1/4";
 "Scene.Report.StepOne.TheIssueDoesNotFitIntoOtherCategories" = "当てはまる選択肢がない場合";
@@ -403,7 +406,7 @@
 "Scene.ServerPicker.Button.Category.Academia" = "アカデミア";
 "Scene.ServerPicker.Button.Category.Activism" = "アクティビズム";
 "Scene.ServerPicker.Button.Category.All" = "すべて";
-"Scene.ServerPicker.Button.Category.AllAccessiblityDescription" = "カテゴリ: すべて";
+"Scene.ServerPicker.Button.Category.AllAccessibilityDescription" = "カテゴリ: すべて";
 "Scene.ServerPicker.Button.Category.Art" = "アート";
 "Scene.ServerPicker.Button.Category.Food" = "食べ物";
 "Scene.ServerPicker.Button.Category.Furry" = "ケモノ";
@@ -454,7 +457,7 @@
 "Scene.Settings.Section.Notifications.Trigger.Anyone" = "誰でも";
 "Scene.Settings.Section.Notifications.Trigger.Follow" = "フォローしている人";
 "Scene.Settings.Section.Notifications.Trigger.Follower" = "フォロワー";
-"Scene.Settings.Section.Notifications.Trigger.Noone" = "なし";
+"Scene.Settings.Section.Notifications.Trigger.NoOne" = "なし";
 "Scene.Settings.Section.Notifications.Trigger.Title" = "通知を受け取る";
 "Scene.Settings.Section.Preference.DisableAvatarAnimation" = "アバターのアニメーションを無効化する";
 "Scene.Settings.Section.Preference.DisableEmojiAnimation" = "絵文字のアニメーションを無効化する";
@@ -463,7 +466,7 @@
 "Scene.Settings.Section.Preference.TrueBlackDarkMode" = "真っ黒なダークテーマを使用する";
 "Scene.Settings.Section.Preference.UsingDefaultBrowser" = "既定のブラウザでリンクを開く";
 "Scene.Settings.Section.SpicyZone.Clear" = "メディアキャッシュをクリア";
-"Scene.Settings.Section.SpicyZone.Signout" = "サインアウト";
+"Scene.Settings.Section.SpicyZone.SignOut" = "サインアウト";
 "Scene.Settings.Section.SpicyZone.Title" = "スパイシーゾーン";
 "Scene.Settings.Title" = "設定";
 "Scene.SuggestionAccount.FollowExplain" = "誰かをフォローすると、その人の投稿がタイムラインに表示されるようになります。";

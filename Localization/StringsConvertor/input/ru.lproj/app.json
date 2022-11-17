@@ -250,7 +250,7 @@
             "button": {
                 "category": {
                     "all": "Все",
-                    "all_accessiblity_description": "Категория: все",
+                    "all_accessibility_description": "Категория: все",
                     "academia": "академия",
                     "activism": "активизм",
                     "food": "еда",
@@ -530,7 +530,7 @@
             "title": "following",
             "footer": "Follows from other servers are not displayed."
         },
-        "familiarFollowers": {
+        "familiar_followers": {
             "title": "Followers you familiar",
             "followed_by_names": "Followed by %s"
         },
@@ -599,7 +599,7 @@
                 "request_to_follow_you": "request to follow you",
                 "poll_has_ended": "poll has ended"
             },
-            "keyobard": {
+            "keyboard": {
                 "show_everything": "Показать все",
                 "show_mentions": "Показать упоминания"
             },
@@ -640,7 +640,7 @@
                         "anyone": "кто угодно",
                         "follower": "мой подписчик",
                         "follow": "любой, на кого я подписан(а)",
-                        "noone": "никто",
+                        "no_one": "никто",
                         "title": "Уведомлять меня, когда"
                     }
                 },
@@ -661,7 +661,7 @@
                 "spicy_zone": {
                     "title": "Пикантная зона",
                     "clear": "Очистить кэш медиа",
-                    "signout": "Выйти из учётной записи"
+                    "sign_out": "Выйти из учётной записи"
                 }
             },
             "footer": {
@@ -692,7 +692,7 @@
                 "i_dont_like_it": "I don’t like it",
                 "it_is_not_something_you_want_to_see": "It is not something you want to see",
                 "its_spam": "It’s spam",
-                "malicious_links_fake_engagement_or_repetetive_replies": "Malicious links, fake engagement, or repetetive replies",
+                "malicious_links_fake_engagement_or_repetitive_replies": "Malicious links, fake engagement, or repetitive replies",
                 "it_violates_server_rules": "It violates server rules",
                 "you_are_aware_that_it_breaks_specific_rules": "You are aware that it breaks specific rules",
                 "its_something_else": "It’s something else",

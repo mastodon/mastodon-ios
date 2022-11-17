@@ -250,7 +250,7 @@
             "button": {
                 "category": {
                     "all": "الكُل",
-                    "all_accessiblity_description": "الفِئَة: الكُل",
+                    "all_accessibility_description": "الفِئَة: الكُل",
                     "academia": "أكاديمي",
                     "activism": "نُشَطاء",
                     "food": "طَعام",
@@ -530,7 +530,7 @@
             "title": "مُتابَعُون",
             "footer": "لا يُمكِن عَرض المُتابَعات مِنَ الخوادم الأُخرى."
         },
-        "familiarFollowers": {
+        "familiar_followers": {
             "title": "مُتابِعُونَ مَألُوفُونَ بِالنِّسبَةِ لَك",
             "followed_by_names": "مُتابَعٌ مِن قِبَلِ %s"
         },
@@ -599,7 +599,7 @@
                 "request_to_follow_you": "طَلَبَ مُتابَعتَك",
                 "poll_has_ended": "انتهى استطلاعُ الرأي"
             },
-            "keyobard": {
+            "keyboard": {
                 "show_everything": "أظْهِر كُلَّ شَيء",
                 "show_mentions": "أظْهِر الإشارَات"
             },
@@ -640,7 +640,7 @@
                         "anyone": "أيُّ شخصٍ",
                         "follower": "مُتابِعٌ",
                         "follow": "أي شخص أُتابِعُه",
-                        "noone": "لَا أحد",
+                        "no_one": "لَا أحد",
                         "title": "أشعِرني عِندما يَقومُ"
                     }
                 },
@@ -661,7 +661,7 @@
                 "spicy_zone": {
                     "title": "المنطِقَةُ اللَّاذِعَة",
                     "clear": "مَحوُ ذاكِرَةِ التَّخزينِ المُؤقَّتِ لِلوسائِط",
-                    "signout": "تَسجيلُ الخُروج"
+                    "sign_out": "تَسجيلُ الخُروج"
                 }
             },
             "footer": {
@@ -692,7 +692,7 @@
                 "i_dont_like_it": "لا يُعجِبُني",
                 "it_is_not_something_you_want_to_see": "إنَّهُ ليسَ شيئًا تُريدُ رُؤيَتَه",
                 "its_spam": "إنَّهُ غَيرٌ مَرغوبٍ فيه",
-                "malicious_links_fake_engagement_or_repetetive_replies": "رَوابِطٌ ضَارَّة، اِرتِباطاتٌ مُزيَّفَة أو رُدودٌ مُتَكَرِّرَة",
+                "malicious_links_fake_engagement_or_repetitive_replies": "رَوابِطٌ ضَارَّة، اِرتِباطاتٌ مُزيَّفَة أو رُدودٌ مُتَكَرِّرَة",
                 "it_violates_server_rules": "يَنتَهِكُ قَواعِدَ الخادِم",
                 "you_are_aware_that_it_breaks_specific_rules": "أنتَ مُدِركٌ لِانتِهاكِهِ قَواعِدًا مُحَدَّدَة",
                 "its_something_else": "إنَّهُ شَيءٌ آخَر",

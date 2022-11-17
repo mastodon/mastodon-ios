@@ -250,7 +250,7 @@
             "button": {
                 "category": {
                     "all": "すべて",
-                    "all_accessiblity_description": "カテゴリ: すべて",
+                    "all_accessibility_description": "カテゴリ: すべて",
                     "academia": "アカデミア",
                     "activism": "アクティビズム",
                     "food": "食べ物",
@@ -530,7 +530,7 @@
             "title": "フォロー",
             "footer": "他のサーバーにいるフォローは表示されません。"
         },
-        "familiarFollowers": {
+        "familiar_followers": {
             "title": "Followers you familiar",
             "followed_by_names": "Followed by %s"
         },
@@ -599,7 +599,7 @@
                 "request_to_follow_you": "からのフォローリクエスト",
                 "poll_has_ended": "のアンケートが終了"
             },
-            "keyobard": {
+            "keyboard": {
                 "show_everything": "すべて見る",
                 "show_mentions": "メンションを見る"
             },
@@ -640,7 +640,7 @@
                         "anyone": "誰でも",
                         "follower": "フォロワー",
                         "follow": "フォローしている人",
-                        "noone": "なし",
+                        "no_one": "なし",
                         "title": "通知を受け取る"
                     }
                 },
@@ -661,7 +661,7 @@
                 "spicy_zone": {
                     "title": "スパイシーゾーン",
                     "clear": "メディアキャッシュをクリア",
-                    "signout": "サインアウト"
+                    "sign_out": "サインアウト"
                 }
             },
             "footer": {
@@ -692,7 +692,7 @@
                 "i_dont_like_it": "興味がありません",
                 "it_is_not_something_you_want_to_see": "見たくない内容の場合",
                 "its_spam": "これはスパムです",
-                "malicious_links_fake_engagement_or_repetetive_replies": "悪意あるリンクや虚偽の情報、執拗な返信など",
+                "malicious_links_fake_engagement_or_repetitive_replies": "悪意あるリンクや虚偽の情報、執拗な返信など",
                 "it_violates_server_rules": "サーバーのルールに違反しています",
                 "you_are_aware_that_it_breaks_specific_rules": "ルールに違反しているのを見つけた場合",
                 "its_something_else": "その他",

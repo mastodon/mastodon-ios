@@ -164,7 +164,7 @@ extension ReportResultViewController: AuthContextProvider {
     var authContext: AuthContext { viewModel.authContext }
 }
 
-// MARK: - PanPopableViewController
+// MARK: - PanPoppableViewController
 extension ReportResultViewController: PanPoppableViewController {
     var isPanPoppable: Bool { false }
 }

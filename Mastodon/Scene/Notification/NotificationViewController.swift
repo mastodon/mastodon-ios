@@ -189,8 +189,8 @@ extension NotificationViewController {
         
         var title: String {
             switch self {
-            case .everything:       return L10n.Scene.Notification.Keyobard.showEverything
-            case .mentions:         return L10n.Scene.Notification.Keyobard.showMentions
+            case .everything:       return L10n.Scene.Notification.Keyboard.showEverything
+            case .mentions:         return L10n.Scene.Notification.Keyboard.showMentions
             }
         }
         

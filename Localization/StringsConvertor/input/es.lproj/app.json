@@ -250,7 +250,7 @@
             "button": {
                 "category": {
                     "all": "Todas",
-                    "all_accessiblity_description": "Categoría: Todas",
+                    "all_accessibility_description": "Categoría: Todas",
                     "academia": "académicos",
                     "activism": "activismo",
                     "food": "comida",
@@ -530,7 +530,7 @@
             "title": "siguiendo",
             "footer": "No se muestran los seguidos de otros servidores."
         },
-        "familiarFollowers": {
+        "familiar_followers": {
             "title": "Seguidores que conoces",
             "followed_by_names": "Seguido por %s"
         },
@@ -599,7 +599,7 @@
                 "request_to_follow_you": "solicitó seguirte",
                 "poll_has_ended": "encuesta ha terminado"
             },
-            "keyobard": {
+            "keyboard": {
                 "show_everything": "Mostrar Todo",
                 "show_mentions": "Mostrar Menciones"
             },
@@ -640,7 +640,7 @@
                         "anyone": "cualquiera",
                         "follower": "un seguidor",
                         "follow": "cualquiera que yo siga",
-                        "noone": "nadie",
+                        "no_one": "nadie",
                         "title": "Recibir notificación cuando"
                     }
                 },
@@ -661,7 +661,7 @@
                 "spicy_zone": {
                     "title": "La Zona Picante",
                     "clear": "Borrar Caché de Multimedia",
-                    "signout": "Cerrar Sesión"
+                    "sign_out": "Cerrar Sesión"
                 }
             },
             "footer": {
@@ -692,7 +692,7 @@
                 "i_dont_like_it": "No me gusta",
                 "it_is_not_something_you_want_to_see": "No es algo que quieras ver",
                 "its_spam": "Es spam",
-                "malicious_links_fake_engagement_or_repetetive_replies": "Enlaces maliciosos, compromisos falsos o respuestas repetitivas",
+                "malicious_links_fake_engagement_or_repetitive_replies": "Enlaces maliciosos, compromisos falsos o respuestas repetitivas",
                 "it_violates_server_rules": "Viola las reglas del servidor",
                 "you_are_aware_that_it_breaks_specific_rules": "Eres consciente de que infringe las normas específicas",
                 "its_something_else": "Es algo más",

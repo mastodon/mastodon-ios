@@ -63,8 +63,8 @@
 "Common.Controls.Actions.SignUp" = "إنشاءُ حِساب";
 "Common.Controls.Actions.Skip" = "تخطي";
 "Common.Controls.Actions.TakePhoto" = "اِلتِقاطُ صُورَة";
-"Common.Controls.Actions.TranslatePost.Title" = "Translate from %@";
-"Common.Controls.Actions.TranslatePost.UnknownLanguage" = "Unknown";
+"Common.Controls.Actions.TranslatePost.Title" = "الترجَمَة مِن %@";
+"Common.Controls.Actions.TranslatePost.UnknownLanguage" = "غير مَعرُوفة";
 "Common.Controls.Actions.TryAgain" = "المُحاولة مرة أُخرى";
 "Common.Controls.Actions.UnblockDomain" = "رفع الحظر عن %@";
 "Common.Controls.Friendship.Block" = "حظر";
@@ -106,7 +106,7 @@
 "Common.Controls.Status.Actions.Menu" = "القائمة";
 "Common.Controls.Status.Actions.Reblog" = "إعادة النشر";
 "Common.Controls.Status.Actions.Reply" = "الرَّد";
-"Common.Controls.Status.Actions.ShareLinkInPost" = "Share Link in Post";
+"Common.Controls.Status.Actions.ShareLinkInPost" = "مُشارَكَة الرابِط فِي مَنشور";
 "Common.Controls.Status.Actions.ShowGif" = "أظْهِر GIF";
 "Common.Controls.Status.Actions.ShowImage" = "أظْهِرِ الصُّورَة";
 "Common.Controls.Status.Actions.ShowVideoPlayer" = "أظْهِر مُشَغِّلَ المَقاطِعِ المَرئِيَّة";
@@ -115,7 +115,7 @@
 "Common.Controls.Status.Actions.Unreblog" = "التراجُع عن إعادة النشر";
 "Common.Controls.Status.ContentWarning" = "تحذير المُحتوى";
 "Common.Controls.Status.LinkViaUser" = "%@ via %@";
-"Common.Controls.Status.LoadEmbed" = "Load Embed";
+"Common.Controls.Status.LoadEmbed" = "تحميل المُضمَن";
 "Common.Controls.Status.MediaContentWarning" = "اُنقُر لِلكَشف";
 "Common.Controls.Status.MetaEntity.Email" = "عُنوان البريد الإلكتُروني: %@";
 "Common.Controls.Status.MetaEntity.Hashtag" = "وَسْم: %@";
@@ -134,9 +134,9 @@
 "Common.Controls.Status.Tag.Url" = "عنوان URL";
 "Common.Controls.Status.TapToReveal" = "اُنقُر لِلكَشف";
 "Common.Controls.Status.Translation.ShowOriginal" = "Shown Original";
-"Common.Controls.Status.Translation.TranslatedFrom" = "Translated from %@ using %@";
-"Common.Controls.Status.Translation.UnknownLanguage" = "Unknown";
-"Common.Controls.Status.Translation.UnknownProvider" = "Unknown";
+"Common.Controls.Status.Translation.TranslatedFrom" = "الترجَمَة مِن %@ بِاستِخدَام %@";
+"Common.Controls.Status.Translation.UnknownLanguage" = "غير مَعرُوفة";
+"Common.Controls.Status.Translation.UnknownProvider" = "غير مَعرُوف";
 "Common.Controls.Status.UserReblogged" = "أعادَ %@ تَدوينَها";
 "Common.Controls.Status.UserRepliedTo" = "رَدًا على %@";
 "Common.Controls.Status.Visibility.Direct" = "المُستخدمِونَ المُشارِ إليهم فَقَطْ مَن يُمكِنُهُم رُؤيَةُ هَذَا المَنشُور.";
@@ -238,8 +238,8 @@
 "Scene.Discovery.Tabs.Hashtags" = "وُسُوم";
 "Scene.Discovery.Tabs.News" = "أخبار";
 "Scene.Discovery.Tabs.Posts" = "مَنشُورات";
-"Scene.Familiarfollowers.FollowedByNames" = "مُتابَعٌ مِن قِبَلِ %@";
-"Scene.Familiarfollowers.Title" = "مُتابِعُونَ مَألُوفُونَ بِالنِّسبَةِ لَك";
+"Scene.FamiliarFollowers.FollowedByNames" = "مُتابَعٌ مِن قِبَلِ %@";
+"Scene.FamiliarFollowers.Title" = "مُتابِعُونَ مَألُوفُونَ بِالنِّسبَةِ لَك";
 "Scene.Favorite.Title" = "مُفضَّلَتُك";
 "Scene.FavoritedBy.Title" = "مُفَضَّلٌ مِن قِبَلِ";
 "Scene.FollowedTags.Actions.Follow" = "مُتابَعَة";
@@ -266,8 +266,8 @@
 "Scene.Notification.FollowRequest.Accepted" = "مَقبُول";
 "Scene.Notification.FollowRequest.Reject" = "رَفض";
 "Scene.Notification.FollowRequest.Rejected" = "مَرفُوض";
-"Scene.Notification.Keyobard.ShowEverything" = "أظْهِر كُلَّ شَيء";
-"Scene.Notification.Keyobard.ShowMentions" = "أظْهِر الإشارَات";
+"Scene.Notification.Keyboard.ShowEverything" = "أظْهِر كُلَّ شَيء";
+"Scene.Notification.Keyboard.ShowMentions" = "أظْهِر الإشارَات";
 "Scene.Notification.NotificationDescription.FavoritedYourPost" = "فَضَّلَ مَنشُورَك";
 "Scene.Notification.NotificationDescription.FollowedYou" = "بَدَأ بِمُتابَعَتِك";
 "Scene.Notification.NotificationDescription.MentionedYou" = "أشارَ إليك";
@@ -283,9 +283,12 @@
 "Scene.Profile.Accessibility.EditAvatarImage" = "تَحريرُ الصُّورَةِ الرَّمزِيَّة";
 "Scene.Profile.Accessibility.ShowAvatarImage" = "أظْهِر الصُّورَةَ الرَّمزِيَّة";
 "Scene.Profile.Accessibility.ShowBannerImage" = "أظْهِر صُورَةَ الرَّايَة";
-"Scene.Profile.Dashboard.Followers" = "مُتابِع";
-"Scene.Profile.Dashboard.Following" = "مُتابَع";
-"Scene.Profile.Dashboard.Posts" = "مَنشورات";
+"Scene.Profile.Dashboard.MyFollowers" = "مُتابِعُون";
+"Scene.Profile.Dashboard.MyFollowing" = "مُتابَعُون";
+"Scene.Profile.Dashboard.MyPosts" = "مَنشورات";
+"Scene.Profile.Dashboard.OtherFollowers" = "مُتابِعُون";
+"Scene.Profile.Dashboard.OtherFollowing" = "مُتابَعُون";
+"Scene.Profile.Dashboard.OtherPosts" = "مَنشورات";
 "Scene.Profile.Fields.AddRow" = "إضافة صف";
 "Scene.Profile.Fields.Joined" = "Joined";
 "Scene.Profile.Fields.Placeholder.Content" = "المُحتَوى";
@@ -370,7 +373,7 @@
 "Scene.Report.StepOne.ItViolatesServerRules" = "يَنتَهِكُ قَواعِدَ الخادِم";
 "Scene.Report.StepOne.ItsSomethingElse" = "إنَّهُ شَيءٌ آخَر";
 "Scene.Report.StepOne.ItsSpam" = "إنَّهُ غَيرٌ مَرغوبٍ فيه";
-"Scene.Report.StepOne.MaliciousLinksFakeEngagementOrRepetetiveReplies" = "رَوابِطٌ ضَارَّة، اِرتِباطاتٌ مُزيَّفَة أو رُدودٌ مُتَكَرِّرَة";
+"Scene.Report.StepOne.MaliciousLinksFakeEngagementOrRepetitiveReplies" = "رَوابِطٌ ضَارَّة، اِرتِباطاتٌ مُزيَّفَة أو رُدودٌ مُتَكَرِّرَة";
 "Scene.Report.StepOne.SelectTheBestMatch" = "اِختَر أفضلَ تَطابُق";
 "Scene.Report.StepOne.Step1Of4" = "الخطوة 1 مِن أصل 4";
 "Scene.Report.StepOne.TheIssueDoesNotFitIntoOtherCategories" = "المُشكِلَةُ لَا تَتَناسَبُ مَعَ الفِئاتِ الأُخرَى";
@@ -408,7 +411,7 @@
 "Scene.ServerPicker.Button.Category.Academia" = "أكاديمي";
 "Scene.ServerPicker.Button.Category.Activism" = "نُشَطاء";
 "Scene.ServerPicker.Button.Category.All" = "الكُل";
-"Scene.ServerPicker.Button.Category.AllAccessiblityDescription" = "الفِئَة: الكُل";
+"Scene.ServerPicker.Button.Category.AllAccessibilityDescription" = "الفِئَة: الكُل";
 "Scene.ServerPicker.Button.Category.Art" = "فُنون";
 "Scene.ServerPicker.Button.Category.Food" = "طَعام";
 "Scene.ServerPicker.Button.Category.Furry" = "مَكسُوٌ بِالفَرو";
@@ -460,7 +463,7 @@
 "Scene.Settings.Section.Notifications.Trigger.Anyone" = "أيُّ شخصٍ";
 "Scene.Settings.Section.Notifications.Trigger.Follow" = "أي شخص أُتابِعُه";
 "Scene.Settings.Section.Notifications.Trigger.Follower" = "مُتابِعٌ";
-"Scene.Settings.Section.Notifications.Trigger.Noone" = "لَا أحد";
+"Scene.Settings.Section.Notifications.Trigger.NoOne" = "لَا أحد";
 "Scene.Settings.Section.Notifications.Trigger.Title" = "أشعِرني عِندما يَقومُ";
 "Scene.Settings.Section.Preference.DisableAvatarAnimation" = "تَعطيلُ الصوَرِ الرمزيَّةِ المُتحرِّكَة";
 "Scene.Settings.Section.Preference.DisableEmojiAnimation" = "تَعطيلُ الرُموزِ التَّعبيريَّةِ المُتحرِّكَة";
@@ -469,7 +472,7 @@
 "Scene.Settings.Section.Preference.TrueBlackDarkMode" = "النَّمَطُ الأسوَدُ الداكِنُ الحَقيقي";
 "Scene.Settings.Section.Preference.UsingDefaultBrowser" = "اِستِخدامُ المُتصفِّحِ الاِفتراضي لِفتحِ الرَّوابِط";
 "Scene.Settings.Section.SpicyZone.Clear" = "مَحوُ ذاكِرَةِ التَّخزينِ المُؤقَّتِ لِلوسائِط";
-"Scene.Settings.Section.SpicyZone.Signout" = "تَسجيلُ الخُروج";
+"Scene.Settings.Section.SpicyZone.SignOut" = "تَسجيلُ الخُروج";
 "Scene.Settings.Section.SpicyZone.Title" = "المنطِقَةُ اللَّاذِعَة";
 "Scene.Settings.Title" = "الإعدادات";
 "Scene.SuggestionAccount.FollowExplain" = "عِندَ مُتابَعَتِكَ لأحدِهِم، سَوف تَرى مَنشوراته في تغذيَتِكَ الرئيسة.";

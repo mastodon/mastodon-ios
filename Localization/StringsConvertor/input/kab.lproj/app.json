@@ -250,7 +250,7 @@
             "button": {
                 "category": {
                     "all": "Akk",
-                    "all_accessiblity_description": "Taggayt: Akk",
+                    "all_accessibility_description": "Taggayt: Akk",
                     "academia": "akadimi",
                     "activism": "tinuɣmest",
                     "food": "učči",
@@ -530,7 +530,7 @@
             "title": "yeṭṭafar",
             "footer": "Ineḍfaren seg yiqeddacen-nniḍen ur d-ttwaskanen ara."
         },
-        "familiarFollowers": {
+        "familiar_followers": {
             "title": "Ineḍfaren i tessneḍ",
             "followed_by_names": "Yeṭṭafar-it %s"
         },
@@ -599,7 +599,7 @@
                 "request_to_follow_you": "issuter aḍfar-inek",
                 "poll_has_ended": "asenqed iffuk"
             },
-            "keyobard": {
+            "keyboard": {
                 "show_everything": "Sken yal taɣawsa",
                 "show_mentions": "Sken tisedmirin"
             },
@@ -640,7 +640,7 @@
                         "anyone": "yal yiwen",
                         "follower": "ameḍfar",
                         "follow": "yal win ara ḍefreɣ",
-                        "noone": "ula yiwen",
+                        "no_one": "ula yiwen",
                         "title": "Selɣu-yi-d mi ara"
                     }
                 },
@@ -661,7 +661,7 @@
                 "spicy_zone": {
                     "title": "Tamnaḍt tamihawt",
                     "clear": "Sfeḍ takatut tuffirt n umidyat",
-                    "signout": "Senser"
+                    "sign_out": "Senser"
                 }
             },
             "footer": {
@@ -692,7 +692,7 @@
                 "i_dont_like_it": "Ur ḥemmleɣ ara aya",
                 "it_is_not_something_you_want_to_see": "D ayen akk ur bɣiɣ ara ad waliɣ",
                 "its_spam": "D aspam",
-                "malicious_links_fake_engagement_or_repetetive_replies": "Yir iseɣwan, yir agman d tririyin i d-yettuɣalen",
+                "malicious_links_fake_engagement_or_repetitive_replies": "Yir iseɣwan, yir agman d tririyin i d-yettuɣalen",
                 "it_violates_server_rules": "Truẓi n yilugan n uqeddac",
                 "you_are_aware_that_it_breaks_specific_rules": "Teẓriḍ y·tettruẓu kra n yilugan",
                 "its_something_else": "Ɣef ssebba-nniḍen",

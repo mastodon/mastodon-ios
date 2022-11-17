@@ -40,7 +40,7 @@ extension FamiliarFollowersViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = L10n.Scene.Familiarfollowers.title
+        title = L10n.Scene.FamiliarFollowers.title
         
         view.backgroundColor = ThemeService.shared.currentTheme.value.secondarySystemBackgroundColor
         ThemeService.shared.currentTheme

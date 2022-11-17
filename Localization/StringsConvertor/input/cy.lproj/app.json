@@ -250,7 +250,7 @@
             "button": {
                 "category": {
                     "all": "Popeth",
-                    "all_accessiblity_description": "Categori: Popeth",
+                    "all_accessibility_description": "Categori: Popeth",
                     "academia": "academaidd",
                     "activism": "gweithgarwch",
                     "food": "bwyd",
@@ -530,7 +530,7 @@
             "title": "yn dilyn",
             "footer": "Ni ddangosir dilynion o weinyddion eraill."
         },
-        "familiarFollowers": {
+        "familiar_followers": {
             "title": "Dilynwyr sy'n gyfarwydd ichi",
             "followed_by_names": "Dilynwyd gan %s"
         },
@@ -599,7 +599,7 @@
                 "request_to_follow_you": "wedi gwneud cais i'ch dilyn",
                 "poll_has_ended": "pôl wedi dod i ben"
             },
-            "keyobard": {
+            "keyboard": {
                 "show_everything": "Dangos Popeth",
                 "show_mentions": "Dangos Crybwylliadau"
             },
@@ -640,7 +640,7 @@
                         "anyone": "unrhyw un",
                         "follower": "dilynwr",
                         "follow": "unrhyw un o'm dilynion",
-                        "noone": "neb",
+                        "no_one": "neb",
                         "title": "Rhowch wybod i mi pan"
                     }
                 },
@@ -661,7 +661,7 @@
                 "spicy_zone": {
                     "title": "Yr Ardal Sbeislyd",
                     "clear": "Clirio Storfa Cyfryngau",
-                    "signout": "Allgofnodi"
+                    "sign_out": "Allgofnodi"
                 }
             },
             "footer": {

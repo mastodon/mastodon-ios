@@ -530,7 +530,7 @@
             "title": "fylgist með",
             "footer": "Fylgjendur af öðrum netþjónum birtast ekki."
         },
-        "familiarFollowers": {
+        "familiar_followers": {
             "title": "Fylgjendur sem þú kannast við",
             "followed_by_names": "Fylgt af %s"
         },

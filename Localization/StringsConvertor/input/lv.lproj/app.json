@@ -250,7 +250,7 @@
             "button": {
                 "category": {
                     "all": "Visi",
-                    "all_accessiblity_description": "Katekorija: Visi",
+                    "all_accessibility_description": "Katekorija: Visi",
                     "academia": "akadēmija",
                     "activism": "aktīvisms",
                     "food": "ēdiens",
@@ -530,7 +530,7 @@
             "title": "seko",
             "footer": "Sekojumi no citiem serveriem netiek rādīti."
         },
-        "familiarFollowers": {
+        "familiar_followers": {
             "title": "Tev pazīstamie sekotāji",
             "followed_by_names": "Seko %s"
         },
@@ -599,7 +599,7 @@
                 "request_to_follow_you": "lūgums tev sekot",
                 "poll_has_ended": "balsošana beidzās"
             },
-            "keyobard": {
+            "keyboard": {
                 "show_everything": "Parādīt man visu",
                 "show_mentions": "Rādīt Pieminējumus"
             },
@@ -640,7 +640,7 @@
                         "anyone": "jebkurš",
                         "follower": "sekottājs",
                         "follow": "jebkurš, kam sekoju",
-                        "noone": "neviens",
+                        "no_one": "neviens",
                         "title": "Paziņot man, kad"
                     }
                 },
@@ -661,7 +661,7 @@
                 "spicy_zone": {
                     "title": "Pikantā zona",
                     "clear": "Notīrīt Multivides Kešatmiņu",
-                    "signout": "Iziet"
+                    "sign_out": "Iziet"
                 }
             },
             "footer": {
@@ -692,7 +692,7 @@
                 "i_dont_like_it": "Man tas nepatīk",
                 "it_is_not_something_you_want_to_see": "Tas nav kaut kas, ko tu vēlies redzēt",
                 "its_spam": "Tas ir spams",
-                "malicious_links_fake_engagement_or_repetetive_replies": "Ļaunprātīgas saites, viltus iesaistīšana vai atkārtotas atbildes",
+                "malicious_links_fake_engagement_or_repetitive_replies": "Ļaunprātīgas saites, viltus iesaistīšana vai atkārtotas atbildes",
                 "it_violates_server_rules": "Tas pārkāpj servera noteikumus",
                 "you_are_aware_that_it_breaks_specific_rules": "Tu zini, ka tas pārkāpj īpašus noteikumus",
                 "its_something_else": "Tas ir kaut kas cits",

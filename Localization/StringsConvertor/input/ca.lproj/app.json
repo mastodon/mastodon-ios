@@ -250,7 +250,7 @@
             "button": {
                 "category": {
                     "all": "Totes",
-                    "all_accessiblity_description": "Categoria: Totes",
+                    "all_accessibility_description": "Categoria: Totes",
                     "academia": "acadèmia",
                     "activism": "activisme",
                     "food": "menjar",
@@ -530,7 +530,7 @@
             "title": "seguint",
             "footer": "Els seguits d'altres servidors no son mostrats."
         },
-        "familiarFollowers": {
+        "familiar_followers": {
             "title": "Seguidors coneguts",
             "followed_by_names": "Seguit per %s"
         },
@@ -599,7 +599,7 @@
                 "request_to_follow_you": "ha sol·licitat seguir-te",
                 "poll_has_ended": "la enquesta ha finalitzat"
             },
-            "keyobard": {
+            "keyboard": {
                 "show_everything": "Mostrar-ho tot",
                 "show_mentions": "Mostrar Mencions"
             },
@@ -640,7 +640,7 @@
                         "anyone": "algú",
                         "follower": "un seguidor",
                         "follow": "a qualsevol que segueixi",
-                        "noone": "ningú",
+                        "no_one": "ningú",
                         "title": "Notifica'm quan"
                     }
                 },
@@ -661,7 +661,7 @@
                 "spicy_zone": {
                     "title": "La Zona Picant",
                     "clear": "Esborra la memòria cau de Mèdia",
-                    "signout": "Tancar Sessió"
+                    "sign_out": "Tancar Sessió"
                 }
             },
             "footer": {
@@ -692,7 +692,7 @@
                 "i_dont_like_it": "No m'agrada",
                 "it_is_not_something_you_want_to_see": "No és una cosa que vulguis veure",
                 "its_spam": "És contingut brossa",
-                "malicious_links_fake_engagement_or_repetetive_replies": "Enllaços maliciosos, compromís falç o respostes repetitives",
+                "malicious_links_fake_engagement_or_repetitive_replies": "Enllaços maliciosos, compromís falç o respostes repetitives",
                 "it_violates_server_rules": "Infringeix les normes del servidor",
                 "you_are_aware_that_it_breaks_specific_rules": "Ets conscient que incompleix normes específiques",
                 "its_something_else": "És una altra cosa",

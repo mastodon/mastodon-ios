@@ -250,7 +250,7 @@
             "button": {
                 "category": {
                     "all": "Всі",
-                    "all_accessiblity_description": "Категорія: Усі",
+                    "all_accessibility_description": "Категорія: Усі",
                     "academia": "академія",
                     "activism": "активізм",
                     "food": "їжа",
@@ -530,7 +530,7 @@
             "title": "підписаний",
             "footer": "Підписки з інших серверів не відображаються."
         },
-        "familiarFollowers": {
+        "familiar_followers": {
             "title": "Підписники, яких ви знаєте",
             "followed_by_names": "Має серед підписників %s"
         },
@@ -599,7 +599,7 @@
                 "request_to_follow_you": "запит на підписку",
                 "poll_has_ended": "опитування завершено"
             },
-            "keyobard": {
+            "keyboard": {
                 "show_everything": "Показати все",
                 "show_mentions": "Показати Згадки"
             },
@@ -640,7 +640,7 @@
                         "anyone": "усі",
                         "follower": "підписник",
                         "follow": "хтось, за ким я слідкую",
-                        "noone": "ніхто",
+                        "no_one": "ніхто",
                         "title": "Повідомити мене, коли"
                     }
                 },
@@ -661,7 +661,7 @@
                 "spicy_zone": {
                     "title": "Гостра зона",
                     "clear": "Очистити кеш медіа",
-                    "signout": "Вийти"
+                    "sign_out": "Вийти"
                 }
             },
             "footer": {
@@ -692,7 +692,7 @@
                 "i_dont_like_it": "Мені це не подобається",
                 "it_is_not_something_you_want_to_see": "Це не те, що ви хотіли б побачити",
                 "its_spam": "Це спам",
-                "malicious_links_fake_engagement_or_repetetive_replies": "Підозрілі посилання, фейкові розмови або відповіді",
+                "malicious_links_fake_engagement_or_repetitive_replies": "Підозрілі посилання, фейкові розмови або відповіді",
                 "it_violates_server_rules": "Це порушує правила сервера",
                 "you_are_aware_that_it_breaks_specific_rules": "Ви впевнені, що це порушує певні правила",
                 "its_something_else": "Це щось інше",

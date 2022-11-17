@@ -675,13 +675,13 @@ public enum L10n {
         public static let posts = L10n.tr("Localizable", "Scene.Discovery.Tabs.Posts", fallback: "Posts")
       }
     }
-    public enum Familiarfollowers {
+    public enum FamiliarFollowers {
       /// Followed by %@
       public static func followedByNames(_ p1: Any) -> String {
-        return L10n.tr("Localizable", "Scene.Familiarfollowers.FollowedByNames", String(describing: p1), fallback: "Followed by %@")
+        return L10n.tr("Localizable", "Scene.FamiliarFollowers.FollowedByNames", String(describing: p1), fallback: "Followed by %@")
       }
       /// Followers you familiar
-      public static let title = L10n.tr("Localizable", "Scene.Familiarfollowers.Title", fallback: "Followers you familiar")
+      public static let title = L10n.tr("Localizable", "Scene.FamiliarFollowers.Title", fallback: "Followers you familiar")
     }
     public enum Favorite {
       /// Your Favorites
@@ -762,11 +762,11 @@ public enum L10n {
         /// Rejected
         public static let rejected = L10n.tr("Localizable", "Scene.Notification.FollowRequest.Rejected", fallback: "Rejected")
       }
-      public enum Keyobard {
+      public enum Keyboard {
         /// Show Everything
-        public static let showEverything = L10n.tr("Localizable", "Scene.Notification.Keyobard.ShowEverything", fallback: "Show Everything")
+        public static let showEverything = L10n.tr("Localizable", "Scene.Notification.Keyboard.ShowEverything", fallback: "Show Everything")
         /// Show Mentions
-        public static let showMentions = L10n.tr("Localizable", "Scene.Notification.Keyobard.ShowMentions", fallback: "Show Mentions")
+        public static let showMentions = L10n.tr("Localizable", "Scene.Notification.Keyboard.ShowMentions", fallback: "Show Mentions")
       }
       public enum NotificationDescription {
         /// favorited your post
@@ -1121,8 +1121,8 @@ public enum L10n {
         public static let itsSpam = L10n.tr("Localizable", "Scene.Report.StepOne.ItsSpam", fallback: "It’s spam")
         /// It violates server rules
         public static let itViolatesServerRules = L10n.tr("Localizable", "Scene.Report.StepOne.ItViolatesServerRules", fallback: "It violates server rules")
-        /// Malicious links, fake engagement, or repetetive replies
-        public static let maliciousLinksFakeEngagementOrRepetetiveReplies = L10n.tr("Localizable", "Scene.Report.StepOne.MaliciousLinksFakeEngagementOrRepetetiveReplies", fallback: "Malicious links, fake engagement, or repetetive replies")
+        /// Malicious links, fake engagement, or repetitive replies
+        public static let maliciousLinksFakeEngagementOrRepetitiveReplies = L10n.tr("Localizable", "Scene.Report.StepOne.MaliciousLinksFakeEngagementOrRepetitiveReplies", fallback: "Malicious links, fake engagement, or repetitive replies")
         /// Select the best match
         public static let selectTheBestMatch = L10n.tr("Localizable", "Scene.Report.StepOne.SelectTheBestMatch", fallback: "Select the best match")
         /// Step 1 of 4
@@ -1233,7 +1233,7 @@ public enum L10n {
           /// All
           public static let all = L10n.tr("Localizable", "Scene.ServerPicker.Button.Category.All", fallback: "All")
           /// Category: All
-          public static let allAccessiblityDescription = L10n.tr("Localizable", "Scene.ServerPicker.Button.Category.AllAccessiblityDescription", fallback: "Category: All")
+          public static let allAccessibilityDescription = L10n.tr("Localizable", "Scene.ServerPicker.Button.Category.AllAccessibilityDescription", fallback: "Category: All")
           /// art
           public static let art = L10n.tr("Localizable", "Scene.ServerPicker.Button.Category.Art", fallback: "art")
           /// food
@@ -1378,7 +1378,7 @@ public enum L10n {
             /// a follower
             public static let follower = L10n.tr("Localizable", "Scene.Settings.Section.Notifications.Trigger.Follower", fallback: "a follower")
             /// no one
-            public static let noone = L10n.tr("Localizable", "Scene.Settings.Section.Notifications.Trigger.Noone", fallback: "no one")
+            public static let noOne = L10n.tr("Localizable", "Scene.Settings.Section.Notifications.Trigger.NoOne", fallback: "no one")
             /// Notify me when
             public static let title = L10n.tr("Localizable", "Scene.Settings.Section.Notifications.Trigger.Title", fallback: "Notify me when")
           }
@@ -1401,7 +1401,7 @@ public enum L10n {
           /// Clear Media Cache
           public static let clear = L10n.tr("Localizable", "Scene.Settings.Section.SpicyZone.Clear", fallback: "Clear Media Cache")
           /// Sign Out
-          public static let signout = L10n.tr("Localizable", "Scene.Settings.Section.SpicyZone.Signout", fallback: "Sign Out")
+          public static let signOut = L10n.tr("Localizable", "Scene.Settings.Section.SpicyZone.SignOut", fallback: "Sign Out")
           /// The Spicy Zone
           public static let title = L10n.tr("Localizable", "Scene.Settings.Section.SpicyZone.Title", fallback: "The Spicy Zone")
         }

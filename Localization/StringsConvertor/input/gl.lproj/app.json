@@ -250,7 +250,7 @@
             "button": {
                 "category": {
                     "all": "Todo",
-                    "all_accessiblity_description": "Categoría: Todo",
+                    "all_accessibility_description": "Categoría: Todo",
                     "academia": "academia",
                     "activism": "activismo",
                     "food": "comida",
@@ -530,7 +530,7 @@
             "title": "seguindo",
             "footer": "Non se mostran os seguimentos desde outros servidores."
         },
-        "familiarFollowers": {
+        "familiar_followers": {
             "title": "Seguimentos próximos",
             "followed_by_names": "Seguimentos de %s"
         },
@@ -599,7 +599,7 @@
                 "request_to_follow_you": "solicitou seguirte",
                 "poll_has_ended": "a enquisa rematou"
             },
-            "keyobard": {
+            "keyboard": {
                 "show_everything": "Mostrar Todo",
                 "show_mentions": "Mostrar mencións"
             },
@@ -640,7 +640,7 @@
                         "anyone": "calquera",
                         "follower": "unha seguidora",
                         "follow": "alguén a quen sigo",
-                        "noone": "ninguén",
+                        "no_one": "ninguén",
                         "title": "Avisarme cando"
                     }
                 },
@@ -661,7 +661,7 @@
                 "spicy_zone": {
                     "title": "A zona picante",
                     "clear": "Limpar caché multimedia",
-                    "signout": "Pechar sesión"
+                    "sign_out": "Pechar sesión"
                 }
             },
             "footer": {
@@ -692,7 +692,7 @@
                 "i_dont_like_it": "Non me gusta",
                 "it_is_not_something_you_want_to_see": "Non é algo que queiras ver",
                 "its_spam": "É spam",
-                "malicious_links_fake_engagement_or_repetetive_replies": "Ligazóns perigosas, relacións falsas, ou respostas repetitivas",
+                "malicious_links_fake_engagement_or_repetitive_replies": "Ligazóns perigosas, relacións falsas, ou respostas repetitivas",
                 "it_violates_server_rules": "Viola as regras do servidor",
                 "you_are_aware_that_it_breaks_specific_rules": "Décheste conta de que quebra unhas normas en concreto",
                 "its_something_else": "É outra cousa",

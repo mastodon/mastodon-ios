@@ -16,7 +16,7 @@ extension Mastodon.API.Subscriptions.Policy {
         case .all:              return L10n.Scene.Settings.Section.Notifications.Trigger.anyone
         case .follower:         return L10n.Scene.Settings.Section.Notifications.Trigger.follower
         case .followed:         return L10n.Scene.Settings.Section.Notifications.Trigger.follow
-        case .none, ._other:    return L10n.Scene.Settings.Section.Notifications.Trigger.noone
+        case .none, ._other:    return L10n.Scene.Settings.Section.Notifications.Trigger.noOne
         }
     }
 }
