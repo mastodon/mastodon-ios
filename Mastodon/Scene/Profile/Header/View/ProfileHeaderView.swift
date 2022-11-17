@@ -50,6 +50,7 @@ final class ProfileHeaderView: UIView {
         return viewModel
     }()
         
+    let bannerImageViewSingleTapGestureRecognizer = UITapGestureRecognizer.singleTapGestureRecognizer
     let bannerContainerView = UIView()
     let bannerImageView: UIImageView = {
         let imageView = UIImageView()
@@ -101,7 +102,9 @@ final class ProfileHeaderView: UIView {
         return button
     }()
 
-    func setupAvatarOverlayViews() {
+    func setupImageOverlayViews() {
+        editBannerButton.tintColor = .white
+
         editAvatarBackgroundView.backgroundColor = UIColor.black.withAlphaComponent(0.6)
         editAvatarButtonOverlayIndicatorView.tintColor = .white
     }
@@ -113,6 +116,13 @@ final class ProfileHeaderView: UIView {
         return visualEffectView
     }()
     
+    let editBannerButton: HighlightDimmableButton = {
+        let button = HighlightDimmableButton()
+        button.setImage(UIImage(systemName: "photo", withConfiguration: UIImage.SymbolConfiguration(pointSize: 28)), for: .normal)
+        button.tintColor = .clear
+        return button
+    }()
+
     let editAvatarBackgroundView: UIView = {
         let view = UIView()
         view.backgroundColor = .clear       // set value after view appeared
@@ -266,7 +276,12 @@ extension ProfileHeaderView {
         bannerImageViewOverlayVisualEffectView.translatesAutoresizingMaskIntoConstraints = false
         bannerImageView.addSubview(bannerImageViewOverlayVisualEffectView)
         bannerImageViewOverlayVisualEffectView.pinToParent()
-        
+
+        editBannerButton.translatesAutoresizingMaskIntoConstraints = false
+        bannerContainerView.addSubview(editBannerButton)
+        editBannerButton.pinTo(to: bannerImageView)
+        bannerContainerView.isUserInteractionEnabled = true
+
         // follows you
         followsYouBlurEffectView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(followsYouBlurEffectView)
@@ -427,8 +442,7 @@ extension ProfileHeaderView {
         statusDashboardView.delegate = self
         bioMetaText.textView.delegate = self
         bioMetaText.textView.linkDelegate = self
-        
-        let bannerImageViewSingleTapGestureRecognizer = UITapGestureRecognizer.singleTapGestureRecognizer
+
         bannerImageView.addGestureRecognizer(bannerImageViewSingleTapGestureRecognizer)
         bannerImageViewSingleTapGestureRecognizer.addTarget(self, action: #selector(ProfileHeaderView.bannerImageViewDidPressed(_:)))
         
