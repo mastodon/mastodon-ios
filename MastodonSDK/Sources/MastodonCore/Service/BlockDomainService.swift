@@ -68,7 +68,7 @@ public final class BlockDomainService {
 //            }
 //            .switchToLatest()
 //            .flatMap { _ -> AnyPublisher<Mastodon.Response.Content<[String]>, Error> in
-//                context.apiService.getDomainblocks(domain: activeMastodonAuthenticationBox.domain, authorizationBox: activeMastodonAuthenticationBox)
+//                context.apiService.getDomainBlocks(domain: activeMastodonAuthenticationBox.domain, authorizationBox: activeMastodonAuthenticationBox)
 //            }
 //            .sink { completion in
 //                switch completion {
@@ -106,7 +106,7 @@ public final class BlockDomainService {
 //            }
 //            .switchToLatest()
 //            .flatMap { _ -> AnyPublisher<Mastodon.Response.Content<[String]>, Error> in
-//                context.apiService.getDomainblocks(domain: activeMastodonAuthenticationBox.domain, authorizationBox: activeMastodonAuthenticationBox)
+//                context.apiService.getDomainBlocks(domain: activeMastodonAuthenticationBox.domain, authorizationBox: activeMastodonAuthenticationBox)
 //            }
 //            .sink { completion in
 //                switch completion {

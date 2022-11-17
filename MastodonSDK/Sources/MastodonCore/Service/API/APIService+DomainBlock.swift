@@ -13,7 +13,7 @@ import Foundation
 import MastodonSDK
 
 extension APIService {
-    func getDomainblocks(
+    func getDomainBlocks(
         domain: String,
         limit: Int = onceRequestDomainBlocksMaxCount,
         authorizationBox: MastodonAuthenticationBox
@@ -23,7 +23,7 @@ extension APIService {
         let query = Mastodon.API.DomainBlock.Query(
             maxID: nil, sinceID: nil, limit: limit
         )
-        return Mastodon.API.DomainBlock.getDomainblocks(
+        return Mastodon.API.DomainBlock.getDomainBlocks(
             domain: domain,
             session: session,
             authorization: authorization,

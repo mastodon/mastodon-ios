@@ -23,7 +23,7 @@ extension Mastodon.API.DomainBlock {
     ///   - session: `URLSession`
     ///   - authorization: User token
     /// - Returns: `AnyPublisher` contains `String` nested in the response
-    public static func getDomainblocks(
+    public static func getDomainBlocks(
         domain: String,
         session: URLSession,
         authorization: Mastodon.API.OAuth.Authorization,
