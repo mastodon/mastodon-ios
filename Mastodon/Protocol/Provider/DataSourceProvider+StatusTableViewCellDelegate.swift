@@ -510,7 +510,7 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider {
     func tableViewCell(
         _ cell: UITableViewCell,
         statusView: StatusView,
-        contentSensitiveeToggleButtonDidPressed button: UIButton
+        sensitiveContentToggleButtonDidPressed button: UIButton
     ) {
         Task {
             let source = DataSourceItem.Source(tableViewCell: cell, indexPath: nil)

@@ -343,7 +343,7 @@ extension StatusView.ViewModel {
         $isMediaSensitive
             .sink { isSensitive in
                 guard isSensitive else { return }
-                statusView.setContentSensitiveeToggleButtonDisplay()
+                statusView.setSensitiveContentToggleButtonDisplay()
             }
             .store(in: &disposeBag)
         
@@ -353,7 +353,7 @@ extension StatusView.ViewModel {
                 // eye: when media is hidden
                 // eye-slash: when media display
                 let image = isSensitiveToggled ? UIImage(systemName: "eye.slash.fill") : UIImage(systemName: "eye.fill")
-                statusView.authorView.contentSensitiveeToggleButton.setImage(image, for: .normal)
+                statusView.authorView.sensitiveContentToggleButton.setImage(image, for: .normal)
             }
             .store(in: &disposeBag)
     }
@@ -762,7 +762,7 @@ extension StatusView.ViewModel {
                 isContentReveal ? L10n.Scene.Compose.Accessibility.enableContentWarning : L10n.Scene.Compose.Accessibility.disableContentWarning
             }
             .sink { label in
-                statusView.authorView.contentSensitiveeToggleButton.accessibilityLabel = label
+                statusView.authorView.sensitiveContentToggleButton.accessibilityLabel = label
             }
             .store(in: &disposeBag)
         

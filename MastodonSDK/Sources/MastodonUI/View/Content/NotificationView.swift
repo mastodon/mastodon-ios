@@ -515,7 +515,7 @@ extension NotificationView: StatusViewDelegate {
         }
     }
     
-    public func statusView(_ statusView: StatusView, contentSensitiveeToggleButtonDidPressed button: UIButton) {
+    public func statusView(_ statusView: StatusView, sensitiveContentToggleButtonDidPressed button: UIButton) {
         assertionFailure()
     }
     

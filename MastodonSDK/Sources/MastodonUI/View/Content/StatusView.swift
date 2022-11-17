@@ -21,7 +21,7 @@ public extension CGSize {
 public protocol StatusViewDelegate: AnyObject {
     func statusView(_ statusView: StatusView, headerDidPressed header: UIView)
     func statusView(_ statusView: StatusView, authorAvatarButtonDidPressed button: AvatarButton)
-    func statusView(_ statusView: StatusView, contentSensitiveeToggleButtonDidPressed button: UIButton)
+    func statusView(_ statusView: StatusView, sensitiveContentToggleButtonDidPressed button: UIButton)
     func statusView(_ statusView: StatusView, metaText: MetaText, didSelectMeta meta: Meta)
     func statusView(_ statusView: StatusView, didTapCardWithURL url: URL)
     func statusView(_ statusView: StatusView, mediaGridContainerView: MediaGridContainerView, mediaView: MediaView, didSelectMediaViewAt index: Int)
@@ -264,7 +264,7 @@ public final class StatusView: UIView {
         }
         
         setHeaderDisplay(isDisplay: false)
-        setContentSensitiveeToggleButtonDisplay(isDisplay: false)
+        setSensitiveContentToggleButtonDisplay(isDisplay: false)
         setSpoilerOverlayViewHidden(isHidden: true)
         setMediaDisplay(isDisplay: false)
         setPollDisplay(isDisplay: false)
@@ -575,8 +575,8 @@ extension StatusView {
         headerAdaptiveMarginContainerView.isHidden = !isDisplay
     }
     
-    func setContentSensitiveeToggleButtonDisplay(isDisplay: Bool = true) {
-        authorView.contentSensitiveeToggleButton.isHidden = !isDisplay
+    func setSensitiveContentToggleButtonDisplay(isDisplay: Bool = true) {
+        authorView.sensitiveContentToggleButton.isHidden = !isDisplay
     }
     
     func setSpoilerOverlayViewHidden(isHidden: Bool) {

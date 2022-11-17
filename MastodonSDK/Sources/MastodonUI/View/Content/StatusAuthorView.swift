@@ -51,7 +51,7 @@ public class StatusAuthorView: UIStackView {
         return button
     }()
 
-    public let contentSensitiveeToggleButton: UIButton = {
+    public let sensitiveContentToggleButton: UIButton = {
         let button = HitTestExpandedButton(type: .system)
         button.expandEdgeInsets = UIEdgeInsets(top: -5, left: -10, bottom: -20, right: -10)
         button.tintColor = Asset.Colors.Label.secondary.color
@@ -92,12 +92,12 @@ public class StatusAuthorView: UIStackView {
     public override var accessibilityCustomActions: [UIAccessibilityCustomAction]? {
         get {
             var actions = authorActions
-            if !contentSensitiveeToggleButton.isHidden {
+            if !sensitiveContentToggleButton.isHidden {
                 actions.append(UIAccessibilityCustomAction(
-                    name: contentSensitiveeToggleButton.accessibilityLabel!,
-                    image: contentSensitiveeToggleButton.image(for: .normal),
+                    name: sensitiveContentToggleButton.accessibilityLabel!,
+                    image: sensitiveContentToggleButton.image(for: .normal),
                     actionHandler: { _ in
-                        self.contentSensitiveeToggleButtonDidPressed(self.contentSensitiveeToggleButton)
+                        self.sensitiveContentToggleButtonDidPressed(self.sensitiveContentToggleButton)
                         return true
                     }
                 ))
@@ -132,8 +132,8 @@ extension StatusAuthorView {
         authorNameLabel.isUserInteractionEnabled = false
         authorUsernameLabel.isUserInteractionEnabled = false
 
-        // contentSensitiveeToggleButton
-        contentSensitiveeToggleButton.addTarget(self, action: #selector(StatusAuthorView.contentSensitiveeToggleButtonDidPressed(_:)), for: .touchUpInside)
+        // sensitiveContentToggleButton
+        sensitiveContentToggleButton.addTarget(self, action: #selector(StatusAuthorView.sensitiveContentToggleButtonDidPressed(_:)), for: .touchUpInside)
 
         // dateLabel
         dateLabel.isUserInteractionEnabled = false
@@ -214,10 +214,10 @@ extension StatusAuthorView {
         statusView.delegate?.statusView(statusView, authorAvatarButtonDidPressed: avatarButton)
     }
 
-    @objc private func contentSensitiveeToggleButtonDidPressed(_ sender: UIButton) {
+    @objc private func sensitiveContentToggleButtonDidPressed(_ sender: UIButton) {
         logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
         guard let statusView = statusView else { return }
-        statusView.delegate?.statusView(statusView, contentSensitiveeToggleButtonDidPressed: sender)
+        statusView.delegate?.statusView(statusView, sensitiveContentToggleButtonDidPressed: sender)
     }
 }
 
@@ -258,7 +258,7 @@ extension StatusAuthorView {
         menuButton.setContentHuggingPriority(.required - 2, for: .horizontal)
         menuButton.setContentCompressionResistancePriority(.required - 2, for: .horizontal)
 
-        // authorSecondaryMetaContainer: H - [ authorUsername | usernameTrialingDotLabel | dateLabel | (padding) | contentSensitiveeToggleButton ]
+        // authorSecondaryMetaContainer: H - [ authorUsername | usernameTrialingDotLabel | dateLabel | (padding) | sensitiveContentToggleButton ]
         let authorSecondaryMetaContainer = UIStackView()
         authorSecondaryMetaContainer.axis = .horizontal
         authorSecondaryMetaContainer.spacing = 4
@@ -274,18 +274,18 @@ extension StatusAuthorView {
         dateLabel.setContentHuggingPriority(.required - 1, for: .horizontal)
         dateLabel.setContentCompressionResistancePriority(.required - 1, for: .horizontal)
         authorSecondaryMetaContainer.addArrangedSubview(UIView())
-        contentSensitiveeToggleButton.translatesAutoresizingMaskIntoConstraints = false
-        authorSecondaryMetaContainer.addArrangedSubview(contentSensitiveeToggleButton)
+        sensitiveContentToggleButton.translatesAutoresizingMaskIntoConstraints = false
+        authorSecondaryMetaContainer.addArrangedSubview(sensitiveContentToggleButton)
         NSLayoutConstraint.activate([
-            contentSensitiveeToggleButton.heightAnchor.constraint(equalTo: authorUsernameLabel.heightAnchor, multiplier: 1.0).priority(.required - 1),
-            contentSensitiveeToggleButton.widthAnchor.constraint(equalTo: contentSensitiveeToggleButton.heightAnchor, multiplier: 1.0).priority(.required - 1),
+            sensitiveContentToggleButton.heightAnchor.constraint(equalTo: authorUsernameLabel.heightAnchor, multiplier: 1.0).priority(.required - 1),
+            sensitiveContentToggleButton.widthAnchor.constraint(equalTo: sensitiveContentToggleButton.heightAnchor, multiplier: 1.0).priority(.required - 1),
         ])
         authorUsernameLabel.setContentHuggingPriority(.required - 1, for: .vertical)
         authorUsernameLabel.setContentCompressionResistancePriority(.required - 1, for: .vertical)
-        contentSensitiveeToggleButton.setContentHuggingPriority(.defaultLow, for: .vertical)
-        contentSensitiveeToggleButton.setContentHuggingPriority(.defaultLow, for: .horizontal)
-        contentSensitiveeToggleButton.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-        contentSensitiveeToggleButton.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
+        sensitiveContentToggleButton.setContentHuggingPriority(.defaultLow, for: .vertical)
+        sensitiveContentToggleButton.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        sensitiveContentToggleButton.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        sensitiveContentToggleButton.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
     }
 
     func layoutReport() {
@@ -297,7 +297,7 @@ extension StatusAuthorView {
     func layoutNotificationQuote() {
         layoutBase()
 
-        contentSensitiveeToggleButton.removeFromSuperview()
+        sensitiveContentToggleButton.removeFromSuperview()
         menuButton.removeFromSuperview()
     }
 
