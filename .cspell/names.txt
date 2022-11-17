@@ -1,3 +1,5 @@
+# Names of people who have contributed to the project
+
 Bashour
 Cirno
 Gargron

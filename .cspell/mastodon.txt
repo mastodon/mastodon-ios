@@ -1,20 +1,11 @@
-apos
-blurhash
-boop
-dont
+# Terms associated with Mastodon
 favorited
 favourited
 freespeechextremist
 idempotency
 joinmastodon
-lerp
 mstdn
-navigateable
-passthroughed
-passthroughs
 pawoo
-poppable
-previewable
 reblog
 reblogged
 reblogger
@@ -22,9 +13,7 @@ reblogs
 repost
 reshare
 shortcode
-Staatliches
 subtrie
-theyve
 unbookmark
 unfollow
 unfollowed

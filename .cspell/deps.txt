@@ -1,3 +1,5 @@
+# Names of and APIs from third-party packages we depend on
+
 Alamofire
 Arkana
 chargepoint

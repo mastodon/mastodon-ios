@@ -4,6 +4,7 @@
   "dictionaries": [
     "deps",
     "mastodon",
+    "misc",
     "names",
     "sdk",
     "sf-symbols",
@@ -19,6 +20,10 @@
     {
       "name": "mastodon",
       "path": "./.cspell/mastodon.txt"
+    },
+    {
+      "name": "misc",
+      "path": "./.cspell/misc.txt"
     },
     {
       "name": "names",
