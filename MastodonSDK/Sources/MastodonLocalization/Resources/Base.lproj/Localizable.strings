@@ -268,6 +268,7 @@ uploaded to Mastodon.";
 "Scene.Profile.Dashboard.Following" = "following";
 "Scene.Profile.Dashboard.Posts" = "posts";
 "Scene.Profile.Fields.AddRow" = "Add Row";
+"Scene.Profile.Fields.Joined" = "Joined";
 "Scene.Profile.Fields.Placeholder.Content" = "Content";
 "Scene.Profile.Fields.Placeholder.Label" = "Label";
 "Scene.Profile.Fields.Verified.Long" = "Ownership of this link was checked on %@";

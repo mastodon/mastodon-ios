@@ -745,6 +745,8 @@ public enum L10n {
       public enum Fields {
         /// Add Row
         public static let addRow = L10n.tr("Localizable", "Scene.Profile.Fields.AddRow", fallback: "Add Row")
+        /// Joined
+        public static let joined = L10n.tr("Localizable", "Scene.Profile.Fields.Joined", fallback: "Joined")
         public enum Placeholder {
           /// Content
           public static let content = L10n.tr("Localizable", "Scene.Profile.Fields.Placeholder.Content", fallback: "Content")

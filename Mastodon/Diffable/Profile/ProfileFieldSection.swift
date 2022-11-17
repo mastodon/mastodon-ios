@@ -33,44 +33,57 @@ extension ProfileFieldSection {
         collectionView.register(ProfileFieldCollectionViewHeaderFooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: ProfileFieldCollectionViewHeaderFooterView.footerReuseIdentifer)
         
         let fieldCellRegistration = UICollectionView.CellRegistration<ProfileFieldCollectionViewCell, ProfileFieldItem> { cell, indexPath, item in
-            guard case let .field(field) = item else { return }
+            let key, value: String
+            let emojiMeta: MastodonContent.Emojis
+            let verified: Bool
+
+            switch item {
+            case .field(field: let field):
+                key = field.name.value
+                value = field.value.value
+                emojiMeta = field.emojiMeta
+                verified = field.verifiedAt.value != nil
+            case .createdAt(date: let date):
+                key = L10n.Scene.Profile.Fields.joined
+                let formatter = DateFormatter()
+                formatter.dateStyle = .medium
+                formatter.timeStyle = .none
+                value = formatter.string(from: date)
+                emojiMeta = [:]
+                verified = false
+            default: return
+            }
             
             // set key
             do {
-                let mastodonContent = MastodonContent(content: field.name.value, emojis: field.emojiMeta)
+                let mastodonContent = MastodonContent(content: key, emojis: emojiMeta)
                 let metaContent = try MastodonMetaContent.convert(document: mastodonContent)
                 cell.keyMetaLabel.configure(content: metaContent)
             } catch {
-                let content = PlaintextMetaContent(string: field.name.value)
+                let content = PlaintextMetaContent(string: key)
                 cell.keyMetaLabel.configure(content: content)
             }
             
             // set value
+            let linkColor = verified ? Asset.Scene.Profile.About.bioAboutFieldVerifiedLink.color : Asset.Colors.brand.color
             do {
-                let mastodonContent = MastodonContent(content: field.value.value, emojis: field.emojiMeta)
+                let mastodonContent = MastodonContent(content: value, emojis: emojiMeta)
                 let metaContent = try MastodonMetaContent.convert(document: mastodonContent)
-                cell.valueMetaLabel.linkAttributes[.foregroundColor] = Asset.Colors.brand.color
-                if field.verifiedAt.value != nil {
-                    cell.valueMetaLabel.linkAttributes[.foregroundColor] = Asset.Scene.Profile.About.bioAboutFieldVerifiedLink.color
-                }
+                cell.valueMetaLabel.linkAttributes[.foregroundColor] = linkColor
                 cell.valueMetaLabel.configure(content: metaContent)
             } catch {
-                let content = PlaintextMetaContent(string: field.value.value)
+                let content = PlaintextMetaContent(string: value)
+                cell.valueMetaLabel.linkAttributes[.foregroundColor] = linkColor
                 cell.valueMetaLabel.configure(content: content)
             }
             
             // set background
             var backgroundConfiguration = UIBackgroundConfiguration.listPlainCell()
-            backgroundConfiguration.backgroundColor = UIColor.secondarySystemBackground
-            if (field.verifiedAt.value != nil) {
-                backgroundConfiguration.backgroundColor = Asset.Scene.Profile.About.bioAboutFieldVerifiedBackground.color
-            }
+            backgroundConfiguration.backgroundColor = verified ? Asset.Scene.Profile.About.bioAboutFieldVerifiedBackground.color : UIColor.secondarySystemBackground
             cell.backgroundConfiguration = backgroundConfiguration
             
             // set checkmark and edit menu label
-            cell.checkmark.isHidden = true
-            cell.checkmarkPopoverString = nil
-            if let verifiedAt = field.verifiedAt.value {
+            if case .field(let field) = item, let verifiedAt = field.verifiedAt.value {
                 cell.checkmark.isHidden = false
                 let formatter = DateFormatter()
                 formatter.dateStyle = .medium
@@ -78,6 +91,9 @@ extension ProfileFieldSection {
                 let dateString = formatter.string(from: verifiedAt)
                 cell.checkmark.accessibilityLabel = L10n.Scene.Profile.Fields.Verified.long(dateString)
                 cell.checkmarkPopoverString = L10n.Scene.Profile.Fields.Verified.short(dateString)
+            } else {
+                cell.checkmark.isHidden = true
+                cell.checkmarkPopoverString = nil
             }
 
             cell.delegate = configuration.profileFieldCollectionViewCellDelegate
@@ -128,26 +144,10 @@ extension ProfileFieldSection {
             }
             cell.backgroundConfiguration = backgroundConfiguration
         }
-        
-        let noResultCellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, ProfileFieldItem> { cell, indexPath, item in
-            guard case .noResult = item else { return }
-            
-            var contentConfiguration = cell.defaultContentConfiguration()
-            contentConfiguration.text = L10n.Scene.Search.Searching.EmptyState.noResults    // FIXME:
-            contentConfiguration.textProperties.alignment = .center
-            cell.contentConfiguration = contentConfiguration
-            
-            
-            var backgroundConfiguration = UIBackgroundConfiguration.listPlainCell()
-            backgroundConfiguration.backgroundColorTransformer = .init { _ in
-                return .secondarySystemBackground
-            }
-            cell.backgroundConfiguration = backgroundConfiguration
-        }
-        
+
         let dataSource = UICollectionViewDiffableDataSource<ProfileFieldSection, ProfileFieldItem>(collectionView: collectionView) { collectionView, indexPath, item in
             switch item {
-            case .field:
+            case .field, .createdAt:
                 return collectionView.dequeueConfiguredReusableCell(
                     using: fieldCellRegistration,
                     for: indexPath,
@@ -162,12 +162,6 @@ extension ProfileFieldSection {
             case .addEntry:
                 return collectionView.dequeueConfiguredReusableCell(
                     using: addEntryCellRegistration,
-                    for: indexPath,
-                    item: item
-                )
-            case .noResult:
-                return collectionView.dequeueConfiguredReusableCell(
-                    using: noResultCellRegistration,
                     for: indexPath,
                     item: item
                 )
