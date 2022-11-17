@@ -74,8 +74,8 @@
                 "take_photo": "Ṭṭef tawlaft",
                 "save_photo": "Sekles tawlaft",
                 "copy_photo": "Nɣel tawlaft",
-                "sign_in": "Log in",
-                "sign_up": "Create account",
+                "sign_in": "Qqen",
+                "sign_up": "Snulfu-d amiḍan",
                 "see_more": "Wali ugar",
                 "preview": "Taskant",
                 "share": "Bḍu",
@@ -219,7 +219,7 @@
             "log_in": "Qqen"
         },
         "login": {
-            "title": "Welcome back",
+            "title": "Ansuf yess·ek·em",
             "subtitle": "Log you in on the server you created your account on.",
             "server_search_field": {
                 "placeholder": "Enter URL or search for your server"
@@ -254,7 +254,7 @@
                 "category": "TAGGAYT"
             },
             "input": {
-                "search_servers_or_enter_url": "Search communities or enter URL"
+                "search_servers_or_enter_url": "Nadi timɣiwnin neɣ sekcem URL"
             },
             "empty_state": {
                 "finding_servers": "Tifin n yiqeddacen yellan...",
