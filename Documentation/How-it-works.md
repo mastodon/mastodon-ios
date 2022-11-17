@@ -90,7 +90,7 @@ Mastodon server accepts push notification register and we use the [toot-relay](h
 When the push notification is incoming. iOS will spawn our NotificationService extension to handle the message. At that time the message is decrypted and displayed as a banner or in-app silent notification event when the app is in the foreground. All the notification count and deep-link logic are handled by the main app.
 
 ## ShareActionExtension
-The iOS Share Extension allows users to share links or media from other apps. The app uses the UIKit implementation. For simplifying we using the SwiftUI implementing a replica one but with fewer features.
+The iOS Share Extension allows users to share links or media from other apps. The app uses the same implementation for the main app and the share extension. Then different is less available memoery for extension so maybe some memory bounded task could crash the app. (Plesae file the issue)
 
 ## MastodonIntent
 iOS Siri shortcut supports. It allows iOS directly publish posts via Shortcut without app launching.
