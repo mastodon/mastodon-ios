@@ -35,7 +35,4 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v2
-      - name: npm install
-        run: npm ci
-      - name: Run spell check
-        run: npm test
+      - uses: streetsidesoftware/cspell-action@v2
