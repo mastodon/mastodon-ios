@@ -55,17 +55,20 @@ extension ProfileFieldSection {
             }
             
             // set key
+            let keyColor = verified ? Asset.Scene.Profile.About.bioAboutFieldVerifiedText.color : Asset.Colors.Label.secondary.color
             do {
                 let mastodonContent = MastodonContent(content: key, emojis: emojiMeta)
                 let metaContent = try MastodonMetaContent.convert(document: mastodonContent)
+                cell.keyMetaLabel.textAttributes[.foregroundColor] = keyColor
                 cell.keyMetaLabel.configure(content: metaContent)
             } catch {
                 let content = PlaintextMetaContent(string: key)
+//                cell.keyMetaLabel.textAttributes[.foregroundColor] = keyColor
                 cell.keyMetaLabel.configure(content: content)
             }
             
             // set value
-            let linkColor = verified ? Asset.Scene.Profile.About.bioAboutFieldVerifiedLink.color : Asset.Colors.brand.color
+            let linkColor = verified ? Asset.Scene.Profile.About.bioAboutFieldVerifiedText.color : Asset.Colors.brand.color
             do {
                 let mastodonContent = MastodonContent(content: value, emojis: emojiMeta)
                 let metaContent = try MastodonMetaContent.convert(document: mastodonContent)
