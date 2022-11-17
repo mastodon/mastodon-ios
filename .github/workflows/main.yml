@@ -23,9 +23,19 @@ jobs:
       - name: checkout
         uses: actions/checkout@v2
       - name: setup
-        env: 
+        env:
           NotificationEndpointDebug: ${{ secrets.NotificationEndpointDebug }}
           NotificationEndpointRelease: ${{ secrets.NotificationEndpointRelease }}
         run: exec ./.github/scripts/setup.sh
       - name: build
         run: exec ./.github/scripts/build.sh
+  spell:
+    name: Spell check
+    runs-on: ubuntu-20.04
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: npm install
+        run: npm ci
+      - name: Run spell check
+        run: npm test
