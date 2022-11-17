@@ -329,6 +329,7 @@ extension MainTabBarController {
         let tabBarDoubleTapGestureRecognizer = UITapGestureRecognizer()
         tabBarDoubleTapGestureRecognizer.numberOfTapsRequired = 2
         tabBarDoubleTapGestureRecognizer.addTarget(self, action: #selector(MainTabBarController.tabBarDoubleTapGestureRecognizerHandler(_:)))
+        tabBarDoubleTapGestureRecognizer.delaysTouchesEnded = false
         tabBar.addGestureRecognizer(tabBarDoubleTapGestureRecognizer)
 
         self.isReadyForWizardAvatarButton = authContext != nil
