@@ -1,0 +1,9 @@
+{
+  "private": true,
+  "scripts": {
+    "test": "cspell \"**\""
+  },
+  "dependencies": {
+    "cspell": "^6.14.3"
+  }
+}

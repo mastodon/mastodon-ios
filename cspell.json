@@ -1,0 +1,51 @@
+{
+  "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
+  "version": "0.2",
+  "dictionaries": [
+    "deps",
+    "mastodon",
+    "names",
+    "sdk",
+    "sf-symbols",
+    "en-gb",
+    "xcode",
+    "swift"
+  ],
+  "dictionaryDefinitions": [
+    {
+      "name": "deps",
+      "path": "./.cspell/deps.txt"
+    },
+    {
+      "name": "mastodon",
+      "path": "./.cspell/mastodon.txt"
+    },
+    {
+      "name": "names",
+      "path": "./.cspell/names.txt"
+    },
+    {
+      "name": "sdk",
+      "path": "./.cspell/sdk.txt"
+    },
+    {
+      "name": "sf-symbols",
+      "path": "./.cspell/sf-symbols.txt"
+    },
+    {
+      "name": "xcode",
+      "path": "./.cspell/xcode.txt"
+    }
+  ],
+  "useGitignore": true,
+  "ignorePaths": [
+    "**/*.lproj/**",
+    "**/*.caf",
+    "Mastodon/Resources/Preview Assets.xcassets/**",
+    "Package.resolved",
+    "local-codes.json"
+  ],
+  "ignoreRegExpList": [
+    "DEVELOPMENT_TEAM = [A-Z0-9]+;"
+  ]
+}
