@@ -28,6 +28,7 @@ extension ProfileHeaderView {
         
         @Published var emojiMeta: MastodonContent.Emojis = [:]
         @Published var headerImageURL: URL?
+        @Published var headerImageEditing: UIImage?
         @Published var avatarImageURL: URL?
         @Published var avatarImageEditing: UIImage?
         
@@ -61,14 +62,19 @@ extension ProfileHeaderView.ViewModel {
 
     func bind(view: ProfileHeaderView) {
         // header
-        Publishers.CombineLatest(
+        Publishers.CombineLatest4(
             $headerImageURL,
+            $headerImageEditing,
+            $isEditing,
             viewDidAppear
         )
-        .sink { headerImageURL, _ in
+        .sink { headerImageURL, headerImageEditing, isEditing, _ in
             view.bannerImageView.af.cancelImageRequest()
-            let placeholder = UIImage.placeholder(color: ProfileHeaderView.bannerImageViewPlaceholderColor)
-            guard let bannerImageURL = headerImageURL else {
+            let defaultPlaceholder = UIImage.placeholder(color: ProfileHeaderView.bannerImageViewPlaceholderColor)
+            let placeholder = isEditing ? (headerImageEditing ?? defaultPlaceholder) : defaultPlaceholder
+            guard let bannerImageURL = headerImageURL,
+                  !isEditing || headerImageEditing == nil
+            else {
                 view.bannerImageView.image = placeholder
                 return
             }
@@ -262,22 +268,29 @@ extension ProfileHeaderView {
             animator.addAnimations {
                 self.bannerImageViewOverlayVisualEffectView.backgroundColor = ProfileHeaderView.bannerImageViewOverlayViewBackgroundNormalColor
                 self.nameTextFieldBackgroundView.backgroundColor = .clear
+                self.editBannerButton.alpha = 0
                 self.editAvatarBackgroundView.alpha = 0
             }
             animator.addCompletion { _ in
+                self.editBannerButton.isHidden = true
                 self.editAvatarBackgroundView.isHidden = true
+                self.bannerImageViewSingleTapGestureRecognizer.isEnabled = true
             }
         case .editing:
             nameMetaText.textView.alpha = 0
             nameTextField.isEnabled = true
             nameTextField.alpha = 1
             
+            editBannerButton.isHidden = false
+            editBannerButton.alpha = 0
             editAvatarBackgroundView.isHidden = false
             editAvatarBackgroundView.alpha = 0
             bioMetaText.textView.backgroundColor = .clear
+            bannerImageViewSingleTapGestureRecognizer.isEnabled = false
             animator.addAnimations {
                 self.bannerImageViewOverlayVisualEffectView.backgroundColor = ProfileHeaderView.bannerImageViewOverlayViewBackgroundEditingColor
                 self.nameTextFieldBackgroundView.backgroundColor = Asset.Scene.Profile.Banner.nameEditBackgroundGray.color
+                self.editBannerButton.alpha = 1
                 self.editAvatarBackgroundView.alpha = 1
                 self.bioMetaText.textView.backgroundColor = Asset.Scene.Profile.Banner.bioEditBackgroundGray.color
             }
