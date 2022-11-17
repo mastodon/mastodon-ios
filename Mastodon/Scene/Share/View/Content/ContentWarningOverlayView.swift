@@ -93,7 +93,7 @@ extension ContentWarningOverlayView {
 
         vibrancyVisualEffectView.translatesAutoresizingMaskIntoConstraints = false
         blurVisualEffectView.contentView.addSubview(vibrancyVisualEffectView)
-        vibrancyVisualEffectView.pinToParent()
+        vibrancyVisualEffectView.pinTo(to: blurVisualEffectView)
 
         vibrancyContentWarningLabel.translatesAutoresizingMaskIntoConstraints = false
         vibrancyVisualEffectView.contentView.addSubview(vibrancyContentWarningLabel)
