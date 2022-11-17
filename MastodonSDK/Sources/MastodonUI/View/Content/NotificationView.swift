@@ -240,16 +240,16 @@ extension NotificationView {
         avatarButton.setContentHuggingPriority(.required - 1, for: .vertical)
         avatarButton.setContentCompressionResistancePriority(.required - 1, for: .vertical)
         
-        // authrMetaContainer: V - [ authorPrimaryContainer | authorSecondaryMetaContainer ]
-        let authrMetaContainer = UIStackView()
-        authrMetaContainer.axis = .vertical
-        authrMetaContainer.spacing = 4
-        authorContainerView.addArrangedSubview(authrMetaContainer)
+        // authorMetaContainer: V - [ authorPrimaryContainer | authorSecondaryMetaContainer ]
+        let authorMetaContainer = UIStackView()
+        authorMetaContainer.axis = .vertical
+        authorMetaContainer.spacing = 4
+        authorContainerView.addArrangedSubview(authorMetaContainer)
         
         // authorPrimaryContainer: H - [ authorNameLabel | notificationTypeIndicatorLabel | (padding) | menuButton ]
         let authorPrimaryContainer = UIStackView()
         authorPrimaryContainer.axis = .horizontal
-        authrMetaContainer.addArrangedSubview(authorPrimaryContainer)
+        authorMetaContainer.addArrangedSubview(authorPrimaryContainer)
         
         authorPrimaryContainer.addArrangedSubview(authorNameLabel)
         authorPrimaryContainer.addArrangedSubview(notificationTypeIndicatorLabel)
@@ -266,8 +266,8 @@ extension NotificationView {
         let authorSecondaryMetaContainer = UIStackView()
         authorSecondaryMetaContainer.axis = .horizontal
         authorSecondaryMetaContainer.spacing = 4
-        authrMetaContainer.addArrangedSubview(authorSecondaryMetaContainer)
-        authrMetaContainer.setCustomSpacing(4, after: authorSecondaryMetaContainer)
+        authorMetaContainer.addArrangedSubview(authorSecondaryMetaContainer)
+        authorMetaContainer.setCustomSpacing(4, after: authorSecondaryMetaContainer)
 
         authorSecondaryMetaContainer.addArrangedSubview(authorUsernameLabel)
         authorUsernameLabel.setContentHuggingPriority(.required - 8, for: .horizontal)

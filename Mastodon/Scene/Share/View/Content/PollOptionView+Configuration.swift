@@ -102,8 +102,8 @@ extension PollOptionView {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] theme in
                 guard let self = self else { return }
-                self.checkmarkBackgroundView.backgroundColor = UIColor(dynamicProvider: { trailtCollection in
-                    return trailtCollection.userInterfaceStyle == .light ? .white : theme.tableViewCellSelectionBackgroundColor
+                self.checkmarkBackgroundView.backgroundColor = UIColor(dynamicProvider: { traitCollection in
+                    return traitCollection.userInterfaceStyle == .light ? .white : theme.tableViewCellSelectionBackgroundColor
                 })
             }
             .store(in: &disposeBag)

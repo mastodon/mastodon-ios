@@ -654,9 +654,9 @@ extension ProfileViewController: TabBarPagerDelegate {
                 to: nil
             )
             if followsYouBlurEffectViewInWindow.minY < tabBarPagerController.containerScrollView.safeAreaInsets.top {
-                let offestY = tabBarPagerController.containerScrollView.safeAreaInsets.top - followsYouBlurEffectViewInWindow.minY
+                let offsetY = tabBarPagerController.containerScrollView.safeAreaInsets.top - followsYouBlurEffectViewInWindow.minY
                 let height = profileHeaderViewController.profileHeaderView.followsYouMaskView.frame.height
-                profileHeaderViewController.profileHeaderView.followsYouMaskView.frame.origin.y = min(offestY, height)
+                profileHeaderViewController.profileHeaderView.followsYouMaskView.frame.origin.y = min(offsetY, height)
             } else {
                 profileHeaderViewController.profileHeaderView.followsYouMaskView.frame.origin.y = .zero
             }

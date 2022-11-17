@@ -99,8 +99,8 @@ extension UIViewController {
     static func topVisibleTableViewCellIndexPath(in tableView: UITableView, navigationBar: UINavigationBar) -> IndexPath? {
         let navigationBarRectInTableView = tableView.convert(navigationBar.bounds, from: navigationBar)
         let navigationBarMaxYPosition = CGPoint(x: 0, y: navigationBarRectInTableView.origin.y + navigationBarRectInTableView.size.height + 1)  // +1pt for UIKit cell locate
-        let mostTopVisiableIndexPath = tableView.indexPathForRow(at: navigationBarMaxYPosition)
-        return mostTopVisiableIndexPath
+        let mostTopVisibleIndexPath = tableView.indexPathForRow(at: navigationBarMaxYPosition)
+        return mostTopVisibleIndexPath
     }
     
     static func tableViewCellOriginOffsetToWindowTop(in tableView: UITableView, at indexPath: IndexPath, navigationBar: UINavigationBar) -> CGFloat {

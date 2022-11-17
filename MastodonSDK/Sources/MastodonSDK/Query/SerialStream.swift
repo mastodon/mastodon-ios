@@ -106,8 +106,8 @@ final class SerialStream: NSObject {
                         continue
                     }
                     
-                    let reaminsCount = SerialStream.bufferSize - readBytesCount
-                    let readCount = inputStream.read(&self.buffer[readBytesCount], maxLength: reaminsCount)
+                    let remainingCount = SerialStream.bufferSize - readBytesCount
+                    let readCount = inputStream.read(&self.buffer[readBytesCount], maxLength: remainingCount)
                     os_log(.debug, "%{public}s[%{public}ld], %{public}s: read source %ld bytes", ((#file as NSString).lastPathComponent), #line, #function, readCount)
 
                     switch readCount {
