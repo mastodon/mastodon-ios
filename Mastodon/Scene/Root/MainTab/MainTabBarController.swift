@@ -218,7 +218,7 @@ extension MainTabBarController {
                     let alertController = UIAlertController(for: error, title: nil, preferredStyle: .alert)
                     let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
                     alertController.addAction(okAction)
-                    coordinator.present(
+                    _ = coordinator.present(
                         scene: .alertController(alertController: alertController),
                         from: nil,
                         transition: .alertController(animated: true, completion: nil)

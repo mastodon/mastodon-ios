@@ -276,7 +276,7 @@ extension MediaPreviewViewController: MediaPreviewImageViewControllerDelegate {
                             title: L10n.Common.Alerts.SavePhotoFailure.title,
                             message: L10n.Common.Alerts.SavePhotoFailure.message
                         )
-                        self.coordinator.present(
+                        _ = self.coordinator.present(
                             scene: .alertController(alertController: alertController),
                             from: self,
                             transition: .alertController(animated: true, completion: nil)

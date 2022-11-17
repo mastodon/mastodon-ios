@@ -117,7 +117,7 @@ extension DiscoveryNewsViewController: UITableViewDelegate {
         logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): \(indexPath)")
         guard case let .link(link) = viewModel.diffableDataSource?.itemIdentifier(for: indexPath) else { return }
         guard let url = URL(string: link.url) else { return }
-        coordinator.present(
+        _ = coordinator.present(
             scene: .safari(url: url),
             from: self,
             transition: .safariPresent(animated: true, completion: nil)
@@ -214,7 +214,7 @@ extension DiscoveryNewsViewController: TableViewControllerNavigateable {
         
         guard case let .link(link) = item else { return }
         guard let url = URL(string: link.url) else { return }
-        coordinator.present(
+        _ = coordinator.present(
             scene: .safari(url: url),
             from: self,
             transition: .safariPresent(animated: true, completion: nil)

@@ -108,7 +108,7 @@ extension DiscoveryHashtagsViewController: UITableViewDelegate {
         logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): \(indexPath)")
         guard case let .hashtag(tag) = viewModel.diffableDataSource?.itemIdentifier(for: indexPath) else { return }
         let hashtagTimelineViewModel = HashtagTimelineViewModel(context: context, authContext: viewModel.authContext, hashtag: tag.name)
-        coordinator.present(
+        _ = coordinator.present(
             scene: .hashtagTimeline(viewModel: hashtagTimelineViewModel),
             from: self,
             transition: .show
@@ -218,7 +218,7 @@ extension DiscoveryHashtagsViewController: TableViewControllerNavigateable {
         
         guard case let .hashtag(tag) = item else { return }
         let hashtagTimelineViewModel = HashtagTimelineViewModel(context: context, authContext: viewModel.authContext, hashtag: tag.name)
-        coordinator.present(
+        _ = coordinator.present(
             scene: .hashtagTimeline(viewModel: hashtagTimelineViewModel),
             from: self,
             transition: .show

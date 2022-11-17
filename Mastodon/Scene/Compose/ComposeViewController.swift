@@ -93,10 +93,7 @@ extension ComposeViewController {
             .sink { [weak self] _ in
                 guard let self = self else { return }
                 guard self.traitCollection.userInterfaceIdiom == .pad else { return }
-                var items = [self.publishBarButtonItem]
-                // if self.traitCollection.horizontalSizeClass == .regular {
-                //     items.append(self.characterCountBarButtonItem)
-                // }
+                let items = [self.publishBarButtonItem]
                 self.navigationItem.rightBarButtonItems = items
             }
             .store(in: &disposeBag)
@@ -175,7 +172,7 @@ extension ComposeViewController {
             let alertController = UIAlertController(for: error, title: nil, preferredStyle: .alert)
             let okAction = UIAlertAction(title: L10n.Common.Controls.Actions.ok, style: .default, handler: nil)
             alertController.addAction(okAction)
-            coordinator.present(scene: .alertController(alertController: alertController), from: nil, transition: .alertController(animated: true, completion: nil))
+            _ = coordinator.present(scene: .alertController(alertController: alertController), from: nil, transition: .alertController(animated: true, completion: nil))
             return
         }
         

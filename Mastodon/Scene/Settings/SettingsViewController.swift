@@ -401,7 +401,7 @@ extension SettingsViewController: UITableViewDelegate {
                         )
                         let okAction = UIAlertAction(title: L10n.Common.Controls.Actions.ok, style: .default, handler: nil)
                         alertController.addAction(okAction)
-                        self.coordinator.present(scene: .alertController(alertController: alertController), from: nil, transition: .alertController(animated: true, completion: nil))
+                        _ = self.coordinator.present(scene: .alertController(alertController: alertController), from: nil, transition: .alertController(animated: true, completion: nil))
                     }
                     .store(in: &disposeBag)
             case .signOut:
@@ -549,7 +549,7 @@ extension SettingsViewController: MetaLabelDelegate {
         switch meta {
         case .url(_, _, let url, _):
             guard let url = URL(string: url) else { return }
-            coordinator.present(scene: .safari(url: url), from: self, transition: .safariPresent(animated: true, completion: nil))
+            _ = coordinator.present(scene: .safari(url: url), from: self, transition: .safariPresent(animated: true, completion: nil))
         default:
             assertionFailure()
         }

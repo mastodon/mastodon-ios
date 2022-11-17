@@ -43,7 +43,7 @@ extension DataSourceFacade {
             dependency: provider,
             status: status
         )
-        provider.coordinator.present(
+        _ = provider.coordinator.present(
             scene: .activityViewController(
                 activityViewController: activityViewController,
                 sourceView: button,
@@ -358,7 +358,8 @@ extension DataSourceFacade {
                     dependency: dependency,
                     status: status
                 )
-                await dependency.coordinator.present(
+                
+                _ = dependency.coordinator.present(
                     scene: .activityViewController(
                         activityViewController: activityViewController,
                         sourceView: menuContext.button,

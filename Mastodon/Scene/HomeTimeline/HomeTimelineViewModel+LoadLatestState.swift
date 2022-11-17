@@ -62,7 +62,7 @@ extension HomeTimelineViewModel.LoadLatestState {
         
         override func didEnter(from previousState: GKState?) {
             super.didEnter(from: previousState)
-            guard let viewModel = viewModel, let stateMachine = stateMachine else { return }
+            guard let viewModel else { return }
             
             let latestFeedRecords = viewModel.fetchedResultsController.records.prefix(APIService.onceRequestStatusMaxCount)
             let parentManagedObjectContext = viewModel.fetchedResultsController.fetchedResultsController.managedObjectContext

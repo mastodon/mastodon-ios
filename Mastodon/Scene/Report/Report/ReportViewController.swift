@@ -126,7 +126,7 @@ extension ReportViewController: ReportServerRulesViewControllerDelegate {
             return
         }
         
-        coordinator.present(
+        _ = coordinator.present(
             scene: .reportStatus(viewModel: viewModel.reportStatusViewModel),
             from: self,
             transition: .show
