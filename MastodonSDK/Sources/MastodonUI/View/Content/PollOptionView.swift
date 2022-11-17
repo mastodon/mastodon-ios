@@ -133,7 +133,7 @@ extension PollOptionView {
         
         plusCircleImageView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(plusCircleImageView)
-        plusCircleImageView.pinToParent()
+        plusCircleImageView.pinTo(to: checkmarkBackgroundView)
         
         optionTextField.translatesAutoresizingMaskIntoConstraints = false
         roundedBackgroundView.addSubview(optionTextField)
