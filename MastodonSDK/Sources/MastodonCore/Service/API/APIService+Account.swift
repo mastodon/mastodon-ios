@@ -85,7 +85,7 @@ extension APIService {
                     )
                 )
                 let flag = result.isNewInsertion ? "+" : "-"
-                logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): mastodon user [\(flag)](\(result.user.id))\(result.user.username) verifed")
+                logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): mastodon user [\(flag)](\(result.user.id))\(result.user.username) verified")
             }
             .setFailureType(to: Error.self)
             .tryMap { result -> Mastodon.Response.Content<Mastodon.Entity.Account> in
@@ -129,7 +129,7 @@ extension APIService {
             let flag = result.isNewInsertion ? "+" : "-"
             let userID = response.value.id
             let username = response.value.username
-            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): mastodon user [\(flag)](\(userID)\(username) verifed")
+            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): mastodon user [\(flag)](\(userID)\(username) verified")
         }
 
         return response

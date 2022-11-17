@@ -13,7 +13,7 @@ extension NotificationService {
     
     static func decrypt(payload: Data, salt: Data, auth: Data, privateKey: P256.KeyAgreement.PrivateKey, publicKey: P256.KeyAgreement.PublicKey) -> Data? {
         guard let sharedSecret = try? privateKey.sharedSecretFromKeyAgreement(with: publicKey) else {
-            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: failed to craete shared secret", ((#file as NSString).lastPathComponent), #line, #function)
+            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: failed to create shared secret", ((#file as NSString).lastPathComponent), #line, #function)
             return nil
         }
         

@@ -17,7 +17,7 @@ extension MastodonSDKTests {
     }
     
     func _testInstance(domain: String) throws {
-        let theExpectation = expectation(description: "Fetch Instance Infomation")
+        let theExpectation = expectation(description: "Fetch Instance Information")
         
         Mastodon.API.Instance.instance(session: session, domain: domain)
             .receive(on: DispatchQueue.main)
@@ -48,7 +48,7 @@ extension MastodonSDKTests {
     }
     
     func _testInstanceRules(domain: String) throws {
-        let theExpectation = expectation(description: "Fetch Instance Infomation")
+        let theExpectation = expectation(description: "Fetch Instance Information")
                 
         Mastodon.API.Instance.instance(session: session, domain: domain)
             .receive(on: DispatchQueue.main)
