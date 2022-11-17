@@ -407,30 +407,7 @@ extension MainTabBarController {
             guard let authContext = authContext else { return }
             assert(Thread.isMainThread)
 
-            let request = MastodonAuthentication.sortedFetchRequest
-            guard let accounts = try? context.managedObjectContext.fetch(request), accounts.count > 1 else { return }
-            
-            let nextSelectedAccountIndex: Int? = {
-                for (index, account) in accounts.enumerated() {
-                    guard account == authContext.mastodonAuthenticationBox
-                        .authenticationRecord
-                        .object(in: context.managedObjectContext)
-                    else { continue }
-                    
-                    let nextAccountIndex = index + 1
-                    
-                    if accounts.count > nextAccountIndex {
-                        return nextAccountIndex
-                    } else {
-                        return 0
-                    }
-                }
-                
-                return nil
-            }()
-            
-            guard let nextSelectedAccountIndex = nextSelectedAccountIndex, accounts.count > nextSelectedAccountIndex else { return }
-            let nextAccount = accounts[nextSelectedAccountIndex]
+            guard let nextAccount = context.nextAccount(in: authContext) else { return }
             
             Task { @MainActor in
                 let isActive = try await context.authenticationService.activeMastodonUser(domain: nextAccount.domain, userID: nextAccount.userID)
