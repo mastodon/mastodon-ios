@@ -46,11 +46,11 @@ extension AdaptiveStatusBarStyleNavigationController: UIGestureRecognizerDelegat
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         let isSystemSwipeToBackEnabled = interactivePopGestureRecognizer?.isEnabled == true
         let isThereStackedViewControllers = viewControllers.count > 1
-        let isPanPopable = (topViewController as? PanPopableViewController)?.isPanPopable ?? true
-        return isSystemSwipeToBackEnabled && isThereStackedViewControllers && isPanPopable
+        let isPanPoppable = (topViewController as? PanPoppableViewController)?.isPanPoppable ?? true
+        return isSystemSwipeToBackEnabled && isThereStackedViewControllers && isPanPoppable
     }
 }
 
-protocol PanPopableViewController: UIViewController {
-    var isPanPopable: Bool { get }
+protocol PanPoppableViewController: UIViewController {
+    var isPanPoppable: Bool { get }
 }

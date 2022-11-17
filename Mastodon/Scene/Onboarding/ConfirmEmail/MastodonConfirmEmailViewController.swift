@@ -220,8 +220,8 @@ extension MastodonConfirmEmailViewController {
 }
 
 // MARK: - PanPopableViewController
-extension MastodonConfirmEmailViewController: PanPopableViewController {
-    var isPanPopable: Bool { false }
+extension MastodonConfirmEmailViewController: PanPoppableViewController {
+    var isPanPoppable: Bool { false }
 }
 
 // MARK: - OnboardingViewControllerAppearance
