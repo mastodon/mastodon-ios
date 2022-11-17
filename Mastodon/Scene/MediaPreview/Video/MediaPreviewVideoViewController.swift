@@ -39,7 +39,7 @@ extension MediaPreviewVideoViewController {
         addChild(playerViewController)
         playerViewController.view.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(playerViewController.view)
-        playerViewController.pinToParent()
+        playerViewController.view.pinToParent()
         playerViewController.didMove(toParent: self)
         
         if let contentOverlayView = playerViewController.contentOverlayView {
