@@ -101,12 +101,7 @@ extension SettingsAppearanceTableViewCell {
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(stackView)
-        NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-        ])
+        stackView.pinToParent()
         
         stackView.addArrangedSubview(systemAppearanceView)
         stackView.addArrangedSubview(darkAppearanceView)

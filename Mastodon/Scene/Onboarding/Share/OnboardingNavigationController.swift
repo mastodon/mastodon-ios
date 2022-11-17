@@ -20,12 +20,7 @@ extension OnboardingNavigationController {
         
         gradientBorderView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(gradientBorderView)
-        NSLayoutConstraint.activate([
-            gradientBorderView.topAnchor.constraint(equalTo: view.topAnchor),
-            gradientBorderView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            gradientBorderView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            gradientBorderView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-        ])
+        gradientBorderView.pinToParent()
         
         updateBorderViewDisplay()
     }

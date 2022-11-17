@@ -259,12 +259,7 @@ extension ProfileViewController {
         tabBarPagerController.view.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tabBarPagerController.view)
         tabBarPagerController.didMove(toParent: self)
-        NSLayoutConstraint.activate([
-            tabBarPagerController.view.topAnchor.constraint(equalTo: view.topAnchor),
-            tabBarPagerController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tabBarPagerController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tabBarPagerController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-        ])
+        tabBarPagerController.view.pinToParent()
 
         tabBarPagerController.delegate = self
         tabBarPagerController.dataSource = self

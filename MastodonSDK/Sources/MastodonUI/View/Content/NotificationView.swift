@@ -292,21 +292,11 @@ extension NotificationView {
         
         acceptFollowRequestButton.translatesAutoresizingMaskIntoConstraints = false
         acceptFollowRequestButtonShadowBackgroundContainer.addSubview(acceptFollowRequestButton)
-        NSLayoutConstraint.activate([
-            acceptFollowRequestButton.topAnchor.constraint(equalTo: acceptFollowRequestButtonShadowBackgroundContainer.topAnchor),
-            acceptFollowRequestButton.leadingAnchor.constraint(equalTo: acceptFollowRequestButtonShadowBackgroundContainer.leadingAnchor),
-            acceptFollowRequestButton.trailingAnchor.constraint(equalTo: acceptFollowRequestButtonShadowBackgroundContainer.trailingAnchor),
-            acceptFollowRequestButton.bottomAnchor.constraint(equalTo: acceptFollowRequestButtonShadowBackgroundContainer.bottomAnchor),
-        ])
+        acceptFollowRequestButton.pinToParent()
         
         rejectFollowRequestButton.translatesAutoresizingMaskIntoConstraints = false
         rejectFollowRequestButtonShadowBackgroundContainer.addSubview(rejectFollowRequestButton)
-        NSLayoutConstraint.activate([
-            rejectFollowRequestButton.topAnchor.constraint(equalTo: rejectFollowRequestButtonShadowBackgroundContainer.topAnchor),
-            rejectFollowRequestButton.leadingAnchor.constraint(equalTo: rejectFollowRequestButtonShadowBackgroundContainer.leadingAnchor),
-            rejectFollowRequestButton.trailingAnchor.constraint(equalTo: rejectFollowRequestButtonShadowBackgroundContainer.trailingAnchor),
-            rejectFollowRequestButton.bottomAnchor.constraint(equalTo: rejectFollowRequestButtonShadowBackgroundContainer.bottomAnchor),
-        ])
+        rejectFollowRequestButton.pinToParent()
         
         followRequestContainerView.axis = .horizontal
         followRequestContainerView.distribution = .fillEqually
@@ -348,12 +338,7 @@ extension NotificationView {
         quoteBackgroundView.layoutMargins = UIEdgeInsets(top: 16, left: 0, bottom: 0, right: 0)
         quoteBackgroundView.translatesAutoresizingMaskIntoConstraints = false
         quoteStatusViewContainerView.addSubview(quoteBackgroundView)
-        NSLayoutConstraint.activate([
-            quoteBackgroundView.topAnchor.constraint(equalTo: quoteStatusViewContainerView.layoutMarginsGuide.topAnchor),
-            quoteBackgroundView.leadingAnchor.constraint(equalTo: quoteStatusViewContainerView.layoutMarginsGuide.leadingAnchor),
-            quoteBackgroundView.trailingAnchor.constraint(equalTo: quoteStatusViewContainerView.layoutMarginsGuide.trailingAnchor),
-            quoteBackgroundView.bottomAnchor.constraint(equalTo: quoteStatusViewContainerView.layoutMarginsGuide.bottomAnchor),
-        ])
+        quoteBackgroundView.pinToParent()
         quoteBackgroundView.backgroundColor = .secondarySystemBackground
         quoteBackgroundView.layer.masksToBounds = true
         quoteBackgroundView.layer.cornerCurve = .continuous
@@ -363,12 +348,7 @@ extension NotificationView {
         
         quoteStatusView.translatesAutoresizingMaskIntoConstraints = false
         quoteBackgroundView.addSubview(quoteStatusView)
-        NSLayoutConstraint.activate([
-            quoteStatusView.topAnchor.constraint(equalTo: quoteBackgroundView.layoutMarginsGuide.topAnchor),
-            quoteStatusView.leadingAnchor.constraint(equalTo: quoteBackgroundView.layoutMarginsGuide.leadingAnchor),
-            quoteStatusView.trailingAnchor.constraint(equalTo: quoteBackgroundView.layoutMarginsGuide.trailingAnchor),
-            quoteStatusView.bottomAnchor.constraint(equalTo: quoteBackgroundView.layoutMarginsGuide.bottomAnchor),
-        ])
+        quoteStatusView.pinToParent()
         quoteStatusView.setup(style: .notificationQuote)
         
         statusView.isHidden = true

@@ -83,11 +83,8 @@ final class PickServerServerSectionTableHeaderView: UIView {
             let paddingView = UIView()
             paddingView.translatesAutoresizingMaskIntoConstraints = false
             containerView.addSubview(paddingView)
+            paddingView.pinToParent()
             NSLayoutConstraint.activate([
-                paddingView.topAnchor.constraint(equalTo: containerView.topAnchor),
-                paddingView.leadingAnchor.constraint(equalTo: imageView.trailingAnchor),
-                paddingView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
-                paddingView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
                 paddingView.widthAnchor.constraint(equalToConstant: 4).priority(.defaultHigh),
             ])
             return containerView

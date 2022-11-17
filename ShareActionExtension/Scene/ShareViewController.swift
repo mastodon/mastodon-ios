@@ -102,12 +102,7 @@ extension ShareViewController {
             addChild(composeContentViewController)
             composeContentViewController.view.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview(composeContentViewController.view)
-            NSLayoutConstraint.activate([
-                composeContentViewController.view.topAnchor.constraint(equalTo: view.topAnchor),
-                composeContentViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-                composeContentViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-                composeContentViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            ])
+            composeContentViewController.view.pinToParent()
             composeContentViewController.didMove(toParent: self)
             
             self.composeContentViewModel = composeContentViewModel

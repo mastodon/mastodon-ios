@@ -124,22 +124,12 @@ extension WelcomeViewController {
         signUpButtonShadowView.translatesAutoresizingMaskIntoConstraints = false
         buttonContainer.addSubview(signUpButtonShadowView)
         buttonContainer.sendSubviewToBack(signUpButtonShadowView)
-        NSLayoutConstraint.activate([
-            signUpButtonShadowView.topAnchor.constraint(equalTo: signUpButton.topAnchor),
-            signUpButtonShadowView.leadingAnchor.constraint(equalTo: signUpButton.leadingAnchor),
-            signUpButtonShadowView.trailingAnchor.constraint(equalTo: signUpButton.trailingAnchor),
-            signUpButtonShadowView.bottomAnchor.constraint(equalTo: signUpButton.bottomAnchor),
-        ])
+        signUpButtonShadowView.pinTo(to: signUpButton)
         
         signInButtonShadowView.translatesAutoresizingMaskIntoConstraints = false
         buttonContainer.addSubview(signInButtonShadowView)
         buttonContainer.sendSubviewToBack(signInButtonShadowView)
-        NSLayoutConstraint.activate([
-            signInButtonShadowView.topAnchor.constraint(equalTo: signInButton.topAnchor),
-            signInButtonShadowView.leadingAnchor.constraint(equalTo: signInButton.leadingAnchor),
-            signInButtonShadowView.trailingAnchor.constraint(equalTo: signInButton.trailingAnchor),
-            signInButtonShadowView.bottomAnchor.constraint(equalTo: signInButton.bottomAnchor),
-        ])
+        signInButtonShadowView.pinTo(to: signInButton)
 
         signUpButton.addTarget(self, action: #selector(signUpButtonDidClicked(_:)), for: .touchUpInside)
         signInButton.addTarget(self, action: #selector(signInButtonDidClicked(_:)), for: .touchUpInside)

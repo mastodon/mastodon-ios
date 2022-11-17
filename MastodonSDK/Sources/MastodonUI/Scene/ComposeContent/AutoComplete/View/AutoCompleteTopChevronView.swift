@@ -65,12 +65,7 @@ extension AutoCompleteTopChevronView {
         
         shadowView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(shadowView)
-        NSLayoutConstraint.activate([
-            shadowView.topAnchor.constraint(equalTo: topAnchor),
-            shadowView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            shadowView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            shadowView.bottomAnchor.constraint(equalTo: bottomAnchor),
-        ])
+        shadowView.pinToParent()
         
         shadowLayer.fillColor = topViewBackgroundColor.cgColor
         shadowView.layer.addSublayer(shadowLayer)
