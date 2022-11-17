@@ -148,7 +148,7 @@ extension SidebarViewController {
         let sidebarDoubleTapGestureRecognizer = UITapGestureRecognizer()
         sidebarDoubleTapGestureRecognizer.numberOfTapsRequired = 2
         sidebarDoubleTapGestureRecognizer.addTarget(self, action: #selector(SidebarViewController.sidebarDoubleTapGestureRecognizerHandler(_:)))
-        sidebarDoubleTapGestureRecognizer.delaysTouchesBegan = true
+        sidebarDoubleTapGestureRecognizer.delaysTouchesEnded = false
         sidebarDoubleTapGestureRecognizer.cancelsTouchesInView = true
         collectionView.addGestureRecognizer(sidebarDoubleTapGestureRecognizer)
 
