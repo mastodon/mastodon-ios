@@ -74,8 +74,8 @@
                 "take_photo": "Ambil Foto",
                 "save_photo": "Simpan Foto",
                 "copy_photo": "Salin Foto",
-                "sign_in": "Log in",
-                "sign_up": "Create account",
+                "sign_in": "Masuk",
+                "sign_up": "Buat akun",
                 "see_more": "Lihat lebih banyak",
                 "preview": "Pratinjau",
                 "share": "Bagikan",
@@ -219,15 +219,15 @@
             "log_in": "Login"
         },
         "login": {
-            "title": "Welcome back",
-            "subtitle": "Log you in on the server you created your account on.",
+            "title": "Selamat datang kembali",
+            "subtitle": "Masuklah pada server yang Anda buat di mana akun Anda berada.",
             "server_search_field": {
-                "placeholder": "Enter URL or search for your server"
+                "placeholder": "Masukkan URL atau pencarian di server Anda"
             }
         },
         "server_picker": {
             "title": "Pilih sebuah server,\nserver manapun.",
-            "subtitle": "Pick a server based on your region, interests, or a general purpose one. You can still chat with anyone on Mastodon, regardless of your servers.",
+            "subtitle": "Pilih server berdasarkan agamamu, minat, atau subjek umum lainnya. Kamu masih bisa berkomunikasi dengan semua orang di Mastodon, tanpa memperdulikan server Anda.",
             "button": {
                 "category": {
                     "all": "Semua",
@@ -254,7 +254,7 @@
                 "category": "KATEGORI"
             },
             "input": {
-                "search_servers_or_enter_url": "Search communities or enter URL"
+                "search_servers_or_enter_url": "Cari komunitas atau masukkan URL"
             },
             "empty_state": {
                 "finding_servers": "Mencari server yang tersedia...",
@@ -315,7 +315,7 @@
                     "inclusion": "%s is not a supported value"
                 },
                 "special": {
-                    "username_invalid": "Username must only contain alphanumeric characters and underscores",
+                    "username_invalid": "Nama pengguna hanya berisi angka karakter dan garis bawah",
                     "username_too_long": "Nama pengguna terlalu panjang (tidak boleh lebih dari 30 karakter)",
                     "email_invalid": "Ini bukan alamat surel yang valid",
                     "password_too_short": "Kata sandi terlalu pendek (harus sekurang-kurangnya 8 karakter)"
