@@ -175,7 +175,7 @@ extension SettingsViewController {
     }
     
     
-    // MAKR: - Private methods
+    // MARK: - Private methods
     private func updateSectionHeaderStackViewLayout() {
         // accessibility
         if traitCollection.preferredContentSizeCategory < .accessibilityMedium {

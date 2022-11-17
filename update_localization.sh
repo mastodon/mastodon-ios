@@ -14,7 +14,7 @@ echo ${SRCROOT}
 
 # clean Base.lproj
 rm -rf ${SRCROOT}/Localization/StringsConvertor/input/Base.lproj
-# copy tempate sources
+# copy template sources
 mkdir ${SRCROOT}/Localization/StringsConvertor/input/Base.lproj
 cp ${SRCROOT}/Localization/app.json ${SRCROOT}/Localization/StringsConvertor/input/Base.lproj/app.json
 cp ${SRCROOT}/Localization/ios-infoPlist.json ${SRCROOT}/Localization/StringsConvertor/input/Base.lproj/ios-infoPlist.json

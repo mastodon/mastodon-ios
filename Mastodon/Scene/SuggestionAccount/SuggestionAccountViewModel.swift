@@ -60,7 +60,7 @@ final class SuggestionAccountViewModel: NSObject {
             MastodonUser.predicate(followRequestedBy: authContext.mastodonAuthenticationBox.userID)
         ])
     
-        // fetch recomment users
+        // fetch recommended users
         Task {
             var userIDs: [MastodonUser.ID] = []
             do {

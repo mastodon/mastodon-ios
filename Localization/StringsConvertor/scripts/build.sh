@@ -2,7 +2,7 @@
 
 set -ev
 
-# Crowin_Latest_Build="https://crowdin.com/backend/download/project/<TBD>.zip"
+# Crowdin_Latest_Build="https://crowdin.com/backend/download/project/<TBD>.zip"
 
 if [[ -d output ]]; then
     rm -rf output

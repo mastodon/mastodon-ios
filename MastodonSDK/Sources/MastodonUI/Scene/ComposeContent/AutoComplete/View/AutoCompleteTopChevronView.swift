@@ -91,7 +91,7 @@ extension AutoCompleteTopChevronView {
             for point in edgePoints {
                 path.addLine(to: point)
             }
-            // up egde
+            // up edge
             path.addLine(to: CGPoint(x: bounds.maxX, y: 0))
             path.addLine(to: CGPoint(x: 0, y: 0))
             path.close()
@@ -107,7 +107,7 @@ extension AutoCompleteTopChevronView {
             for point in edgePoints {
                 path.addLine(to: CGPoint(x: point.x, y: point.y - 2))       // move up 2pt 
             }
-            // bottom egde
+            // bottom edge
             path.addLine(to: CGPoint(x: bounds.maxX, y: 2 * bounds.maxY))
             path.addLine(to: CGPoint(x: 0, y: 2 * bounds.maxY))
             path.close()

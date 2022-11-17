@@ -1,7 +1,7 @@
 import os.log
 import Foundation
 
-// conver i18n JSON templates to strings files
+// convert i18n JSON templates to strings files
 private func convert(from inputDirectoryURL: URL, to outputDirectory: URL) {
     do {
         let inputLanguageDirectoryURLs = try FileManager.default.contentsOfDirectory(

@@ -618,7 +618,7 @@ extension ProfileViewController: TabBarPagerDelegate {
         // elastically banner
 
         // make banner top snap to window top
-        // do not rely on the view frame becase the header frame is .zero during the initial call
+        // do not rely on the view frame because the header frame is .zero during the initial call
         profileHeaderViewController.profileHeaderView.bannerImageViewTopLayoutConstraint.constant = min(0, scrollView.contentOffset.y)
         
         if profileHeaderViewController.profileHeaderView.frame != .zero {
@@ -631,7 +631,7 @@ extension ProfileViewController: TabBarPagerDelegate {
             // print("bannerContainerBottomOffset: \(bannerContainerBottomOffset)")
             
             let height = profileHeaderViewController.view.frame.height - bannerContainerInWindow.height
-            // make avata hidden when scroll 0.5x avatar height 
+            // make avatar hidden when scroll 0.5x avatar height 
             let throttle = height != .zero ? 0.5 * ProfileHeaderView.avatarImageViewSize.height / height : 0
             let progress: CGFloat
             

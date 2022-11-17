@@ -46,7 +46,7 @@ extension Mastodon.API.Media {
         request.httpBodyStream = serialStream.boundStreams.input
         
         // total unit count in bytes count
-        // will small than actally count due to multipart protocol meta
+        // will small than actually count due to multipart protocol meta
         serialStream.progress.totalUnitCount = {
             var size = 0
             size += query.file?.sizeInByte ?? 0

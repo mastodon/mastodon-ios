@@ -26,7 +26,6 @@ extension ComposeStatusSection {
 //        cell: ComposeStatusContentTableViewCell,
 //        attribute: ComposeStatusItem.ComposeStatusAttribute
 //    ) {
-//        cell.prepa
 //        // set avatar
 //        attribute.avatarURL
 //            .receive(on: DispatchQueue.main)

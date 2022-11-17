@@ -54,8 +54,8 @@ public class DiscoveryViewController: TabmanViewController, NeedsDependency {
     }()
     
     func customizeButtonBarAppearance() {
-        // The implmention use CATextlayer. Adapt for Dark Mode without dynamic colors
-        // Needs trigger update when `userInterfaceStyle` chagnes
+        // The implementation use CATextLayer. Adapt for Dark Mode without dynamic colors
+        // Needs trigger update when `userInterfaceStyle` changes
         let userInterfaceStyle = traitCollection.userInterfaceStyle
         buttonBar.buttons.customize { button in
             switch userInterfaceStyle {

@@ -26,7 +26,7 @@ extension Mastodon.API.Reports {
     ///   - domain: Mastodon instance domain. e.g. "example.com"
     ///   - query: fileReportQuery query
     ///   - authorization: User token
-    /// - Returns: `AnyPublisher` contains status indicate if report sucessfully.
+    /// - Returns: `AnyPublisher` contains status indicate if report successfully.
     public static func fileReport(
         session: URLSession,
         domain: String,

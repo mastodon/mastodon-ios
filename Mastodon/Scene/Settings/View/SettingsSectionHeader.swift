@@ -14,7 +14,7 @@ struct GroupedTableViewConstraints {
     static let bottomMargin: CGFloat = 10
 }
 
-/// section header which supports add a custom view blelow the title
+/// section header which supports add a custom view below the title
 class SettingsSectionHeader: UIView {
     lazy var titleLabel: UILabel = {
         let label = UILabel()

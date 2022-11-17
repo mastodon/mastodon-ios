@@ -120,7 +120,7 @@ Add `-only-testing:MastodonUITests/MastodonUISnapshotTests/testSnapshot…` to r
 Use `xcparse screenshots <path_for_xcresult> <path_for_destination>` extracts snapshots.
 
 ```zsh
-# scresult path for previous test case 
+# xcresult path for previous test case 
 xcparse screenshots '<path_for_xcresult>' ~/Downloads/MastodonBuild/Screenshots/
 
 # output

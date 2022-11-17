@@ -197,7 +197,7 @@ extension MainTabBarController {
         let viewControllers: [UIViewController] = tabs.map { tab in
             let viewController = tab.viewController(context: context, authContext: authContext, coordinator: coordinator)
             viewController.tabBarItem.tag = tab.tag
-            viewController.tabBarItem.title = tab.title     // needs for acessiblity large content label
+            viewController.tabBarItem.title = tab.title     // needs for accessibility large content label
             viewController.tabBarItem.image = tab.image.imageWithoutBaseline()
             viewController.tabBarItem.selectedImage = tab.selectedImage.imageWithoutBaseline()
             viewController.tabBarItem.largeContentSizeImage = tab.largeImage.imageWithoutBaseline()
@@ -230,7 +230,7 @@ extension MainTabBarController {
             .store(in: &disposeBag)
         
         // handle post failure
-        // FIXME: refacotr
+        // FIXME: refactor
 //        context.statusPublishService
 //            .latestPublishingComposeViewModel
 //            .receive(on: DispatchQueue.main)

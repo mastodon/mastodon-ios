@@ -25,7 +25,7 @@ protocol StatusTableViewCellDelegate: AnyObject, AutoGenerateProtocolDelegate {
     // sourcery:inline:StatusTableViewCellDelegate.AutoGenerateProtocolDelegate
     func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, headerDidPressed header: UIView)
     func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, authorAvatarButtonDidPressed button: AvatarButton)
-    func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, contentSensitiveeToggleButtonDidPressed button: UIButton)
+    func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, sensitiveContentToggleButtonDidPressed button: UIButton)
     func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, metaText: MetaText, didSelectMeta meta: Meta)
     func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, didTapCardWithURL url: URL)
     func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, mediaGridContainerView: MediaGridContainerView, mediaView: MediaView, didSelectMediaViewAt index: Int)
@@ -56,8 +56,8 @@ extension StatusViewDelegate where Self: StatusViewContainerTableViewCell {
         delegate?.tableViewCell(self, statusView: statusView, authorAvatarButtonDidPressed: button)
     }
 
-    func statusView(_ statusView: StatusView, contentSensitiveeToggleButtonDidPressed button: UIButton) {
-        delegate?.tableViewCell(self, statusView: statusView, contentSensitiveeToggleButtonDidPressed: button)
+    func statusView(_ statusView: StatusView, sensitiveContentToggleButtonDidPressed button: UIButton) {
+        delegate?.tableViewCell(self, statusView: statusView, sensitiveContentToggleButtonDidPressed: button)
     }
 
     func statusView(_ statusView: StatusView, metaText: MetaText, didSelectMeta meta: Meta) {

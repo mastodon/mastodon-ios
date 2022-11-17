@@ -112,7 +112,7 @@ extension NotificationTimelineViewModel {
 
 extension NotificationTimelineViewModel {
     
-    // load lastest
+    // load latest
     func loadLatest() async {
         isLoadingLatest = true
         defer { isLoadingLatest = false }

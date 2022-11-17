@@ -30,7 +30,7 @@ final class ReportSupplementaryViewController: UIViewController, NeedsDependency
     
     var viewModel: ReportSupplementaryViewModel! { willSet { precondition(!isViewLoaded) } }
 
-    // MAKK: - UI
+    // MARK: - UI
     
     lazy var cancelBarButtonItem = UIBarButtonItem(
         barButtonSystemItem: .cancel,

@@ -31,7 +31,7 @@ class ReportStatusViewController: UIViewController, NeedsDependency, ReportViewC
         
     var viewModel: ReportStatusViewModel!
     
-    // MAKK: - UI
+    // MARK: - UI
     
     lazy var cancelBarButtonItem = UIBarButtonItem(
         barButtonSystemItem: .cancel,

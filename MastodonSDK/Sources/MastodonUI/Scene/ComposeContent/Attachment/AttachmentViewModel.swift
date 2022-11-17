@@ -226,7 +226,7 @@ extension AttachmentViewModel {
             // max estimate
             var remainTimeInSecond = max(estimateRemainTimeByProgress, uploadRemainTimeInSecond)
             
-            // do not increate timer when < 5 sec
+            // do not create timer when < 5 sec
             if let remainTimeInterval = self.remainTimeInterval, remainTimeInSecond < 5 {
                 remainTimeInSecond = min(remainTimeInterval, remainTimeInSecond)
                 self.remainTimeInterval = remainTimeInSecond

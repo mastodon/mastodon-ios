@@ -23,7 +23,7 @@ extension AttachmentViewModel: TypeIdentifiedItemProvider {
 extension AttachmentViewModel: NSItemProviderWriting {
     
     
-    /// Attachment uniform type idendifiers
+    /// Attachment uniform type identifiers
     ///
     /// The latest one for in-app drag and drop.
     /// And use generic `image` and `movie` type to

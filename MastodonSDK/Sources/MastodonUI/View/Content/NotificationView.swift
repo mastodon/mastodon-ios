@@ -288,7 +288,7 @@ extension NotificationView {
         ])
         authorContainerViewBottomPaddingView.isHidden = true
         
-        // follow reqeust
+        // follow request
         followRequestAdaptiveMarginContainerView.contentView = followRequestContainerView
         followRequestAdaptiveMarginContainerView.margin = StatusView.containerLayoutMargin
         containerStackView.addArrangedSubview(followRequestAdaptiveMarginContainerView)

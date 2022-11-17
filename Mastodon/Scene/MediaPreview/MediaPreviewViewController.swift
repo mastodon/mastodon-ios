@@ -116,7 +116,7 @@ extension MediaPreviewViewController {
                     let needsHideCloseButton: Bool = {
                         guard index < previewContext.attachments.count else { return false }
                         let attachment = previewContext.attachments[index]
-                        return attachment.kind == .video    // not hide buttno for audio
+                        return attachment.kind == .video    // don’t hide button for audio
                     }()
                     self.closeButton.isHidden = needsHideCloseButton
                 default:
@@ -150,7 +150,7 @@ extension MediaPreviewViewController {
             }
             .store(in: &disposeBag)
         
-//        viewModel.$isPoping
+//        viewModel.$isPopping
 //            .receive(on: DispatchQueue.main)
 //            .removeDuplicates()
 //            .sink { [weak self] _ in

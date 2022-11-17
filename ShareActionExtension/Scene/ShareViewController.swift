@@ -270,7 +270,6 @@ extension ShareViewController {
         let content = await [text, url]
             .compactMap { $0 }
             .joined(separator: " ")
-        // passby the viewModel `content` value
         if !content.isEmpty {
             composeContentViewModel.content = content + " "
             composeContentViewModel.contentMetaText?.textView.insertText(content + " ")

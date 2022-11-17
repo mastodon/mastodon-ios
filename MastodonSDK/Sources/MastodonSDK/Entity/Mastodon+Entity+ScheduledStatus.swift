@@ -38,8 +38,8 @@ extension Mastodon.Entity.ScheduledStatus {
         public let poll: Mastodon.Entity.Poll?         // undocumented
         public let applicationID: String
         
-        // public let idempotency: Bool?               // undoumented
-        // public let withRateLimit                    // undoumented
+        // public let idempotency: Bool?               // undocumented
+        // public let withRateLimit                    // undocumented
         
         enum CodingKeys: String, CodingKey {
             case text

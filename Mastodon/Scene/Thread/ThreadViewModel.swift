@@ -60,7 +60,7 @@ class ThreadViewModel {
         
         ManagedObjectObserver.observe(context: context.managedObjectContext)
             .sink(receiveCompletion: { completion in
-                // do nohting
+                // do nothing
             }, receiveValue: { [weak self] changes in
                 guard let self = self else { return }
                 

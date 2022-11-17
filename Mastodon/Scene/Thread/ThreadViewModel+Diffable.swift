@@ -191,7 +191,7 @@ extension ThreadViewModel {
         // note:
         // tweak the content offset and bottom inset
         // make the table view stable when data reload
-        // the keypoint is set the bottom inset to make the root padding with "TopLoaderHeight" to top edge
+        // the key point is set the bottom inset to make the root padding with "TopLoaderHeight" to top edge
         // and restore the "TopLoaderHeight" when bottom inset adjusted
         
         // set bottom inset. Make root item pin to top.

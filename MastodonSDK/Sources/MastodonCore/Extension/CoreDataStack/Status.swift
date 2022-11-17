@@ -19,7 +19,7 @@ extension Status {
     public var sensitiveType: SensitiveType {
         let spoilerText = self.spoilerText ?? ""
 
-        // cast .all sensitive when has spoiter text
+        // cast .all sensitive when has spoiler text
         if !spoilerText.isEmpty {
             return .all
         }
