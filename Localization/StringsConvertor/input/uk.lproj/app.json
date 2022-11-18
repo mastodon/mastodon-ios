@@ -102,89 +102,89 @@
             "keyboard": {
                 "common": {
                     "switch_to_tab": "Перейти до користувача %s",
-                    "compose_new_post": "Compose New Post",
-                    "show_favorites": "Show Favorites",
-                    "open_settings": "Open Settings"
+                    "compose_new_post": "Написати новий допис",
+                    "show_favorites": "Показати вибрані",
+                    "open_settings": "Відкрити параметри"
                 },
                 "timeline": {
-                    "previous_status": "Previous Post",
-                    "next_status": "Next Post",
-                    "open_status": "Open Post",
-                    "open_author_profile": "Open Author's Profile",
-                    "open_reblogger_profile": "Open Reblogger's Profile",
-                    "reply_status": "Reply to Post",
-                    "toggle_reblog": "Toggle Reblog on Post",
-                    "toggle_favorite": "Toggle Favorite on Post",
-                    "toggle_content_warning": "Toggle Content Warning",
-                    "preview_image": "Preview Image"
+                    "previous_status": "Попередній допис",
+                    "next_status": "Новий допис",
+                    "open_status": "Відкрити допис",
+                    "open_author_profile": "Відкрити профіль автора",
+                    "open_reblogger_profile": "Відкрити профіль реблогера",
+                    "reply_status": "Відповісти на допис",
+                    "toggle_reblog": "Додати/прибрати Реблог",
+                    "toggle_favorite": "Додати/прибрати з Обраного",
+                    "toggle_content_warning": "Додати/прибрати попередження про вміст для дорослих",
+                    "preview_image": "Попередній перегляд"
                 },
                 "segmented_control": {
-                    "previous_section": "Previous Section",
-                    "next_section": "Next Section"
+                    "previous_section": "Попередній розділ",
+                    "next_section": "Наступний розділ"
                 }
             },
             "status": {
-                "user_reblogged": "%s reblogged",
-                "user_replied_to": "Replied to %s",
-                "show_post": "Show Post",
-                "show_user_profile": "Show user profile",
-                "content_warning": "Content Warning",
-                "sensitive_content": "Sensitive Content",
-                "media_content_warning": "Tap anywhere to reveal",
-                "tap_to_reveal": "Tap to reveal",
+                "user_reblogged": "%s Зробив репост",
+                "user_replied_to": "Відповів %s",
+                "show_post": "Показати дописи",
+                "show_user_profile": "Показати профіль користувача",
+                "content_warning": "Попередження про вміст",
+                "sensitive_content": "Контент 18+",
+                "media_content_warning": "Натисніть будь-де, щоб показати більше",
+                "tap_to_reveal": "Натисніть, щоб відобразити",
                 "poll": {
-                    "vote": "Vote",
-                    "closed": "Closed"
+                    "vote": "Проголосувати",
+                    "closed": "Зачинено"
                 },
                 "meta_entity": {
-                    "url": "Link: %s",
-                    "hashtag": "Hashtag: %s",
-                    "mention": "Show Profile: %s",
-                    "email": "Email address: %s"
+                    "url": "Посилання: %s",
+                    "hashtag": "Гештег: %s",
+                    "mention": "Показати профіль: %s",
+                    "email": "Електронна адреса: %s"
                 },
                 "actions": {
-                    "reply": "Reply",
-                    "reblog": "Reblog",
-                    "unreblog": "Undo reblog",
-                    "favorite": "Favorite",
-                    "unfavorite": "Unfavorite",
-                    "menu": "Menu",
-                    "hide": "Hide",
-                    "show_image": "Show image",
-                    "show_gif": "Show GIF",
-                    "show_video_player": "Show video player",
-                    "tap_then_hold_to_show_menu": "Tap then hold to show menu"
+                    "reply": "Відповісти",
+                    "reblog": "Репост",
+                    "unreblog": "Скасувати репост",
+                    "favorite": "Улюблене",
+                    "unfavorite": "Вилучити з улюбленого",
+                    "menu": "Меню",
+                    "hide": "Сховати",
+                    "show_image": "Показати зображення",
+                    "show_gif": "Показати GIF",
+                    "show_video_player": "Показати відеоплеєр",
+                    "tap_then_hold_to_show_menu": "Натисніть та утримуйте, щоб показати меню"
                 },
                 "tag": {
-                    "url": "URL",
-                    "mention": "Mention",
-                    "link": "Link",
-                    "hashtag": "Hashtag",
-                    "email": "Email",
-                    "emoji": "Emoji"
+                    "url": "Адреса URL",
+                    "mention": "Згадати",
+                    "link": "Посилання",
+                    "hashtag": "Гештег",
+                    "email": "Електронна пошта",
+                    "emoji": "Емодзі"
                 },
                 "visibility": {
-                    "unlisted": "Everyone can see this post but not display in the public timeline.",
-                    "private": "Only their followers can see this post.",
-                    "private_from_me": "Only my followers can see this post.",
-                    "direct": "Only mentioned user can see this post."
+                    "unlisted": "Хто завгодно може бачити цей допис, але його не буде відображено у публічній стрічці.",
+                    "private": "Лише їхні підписники можуть бачити цю публікацію.",
+                    "private_from_me": "Тільки мої підписники можуть бачити цю публікацію.",
+                    "direct": "Тільки згаданий користувач може бачити цю публікацію."
                 }
             },
             "friendship": {
-                "follow": "Follow",
-                "following": "Following",
-                "request": "Request",
-                "pending": "Pending",
-                "block": "Block",
-                "block_user": "Block %s",
-                "block_domain": "Block %s",
-                "unblock": "Unblock",
-                "unblock_user": "Unblock %s",
-                "blocked": "Blocked",
-                "mute": "Mute",
-                "mute_user": "Mute %s",
-                "unmute": "Unmute",
-                "unmute_user": "Unmute %s",
+                "follow": "Підписатися",
+                "following": "Підписаний",
+                "request": "Запит",
+                "pending": "Очікується",
+                "block": "Заблокувати",
+                "block_user": "Блокувати %s",
+                "block_domain": "Блокувати %s",
+                "unblock": "Розблокувати",
+                "unblock_user": "Розблокувати %s",
+                "blocked": "Заблоковано",
+                "mute": "Заглушити",
+                "mute_user": "Заглушити %s",
+                "unmute": "Сповіщати",
+                "unmute_user": "Сповіщати %s",
                 "muted": "Muted",
                 "edit_info": "Edit Info",
                 "show_reblogs": "Show Reblogs",
@@ -198,14 +198,14 @@
                 "loader": {
                     "load_missing_posts": "Load missing posts",
                     "loading_missing_posts": "Loading missing posts...",
-                    "show_more_replies": "Show more replies"
+                    "show_more_replies": "Показати більше відповідей"
                 },
                 "header": {
-                    "no_status_found": "No Post Found",
-                    "blocking_warning": "You can’t view this user's profile\nuntil you unblock them.\nYour profile looks like this to them.",
-                    "user_blocking_warning": "You can’t view %s’s profile\nuntil you unblock them.\nYour profile looks like this to them.",
-                    "blocked_warning": "You can’t view this user’s profile\nuntil they unblock you.",
-                    "user_blocked_warning": "You can’t view %s’s profile\nuntil they unblock you.",
+                    "no_status_found": "Публікацій не знайдено",
+                    "blocking_warning": "Ви не можете переглянути профіль цього користувача, поки ви не розблокуєте їх.\nВаш профіль виглядає так.",
+                    "user_blocking_warning": "Ви не можете переглядати профіль %s, поки ви не розблокуєте їх.\nВони бачать ваш профіль так.",
+                    "blocked_warning": "Ви не можете переглянути профіль цього користувача, поки вони не розблокують вас.",
+                    "user_blocked_warning": "Ви не можете переглянути профіль %s, поки він не розблокує вас.",
                     "suspended_warning": "This user has been suspended.",
                     "user_suspended_warning": "%s’s account has been suspended."
                 }
@@ -282,60 +282,60 @@
                 "password": {
                     "placeholder": "password",
                     "require": "Your password needs at least:",
-                    "character_limit": "8 characters",
+                    "character_limit": "8 символів",
                     "accessibility": {
-                        "checked": "checked",
-                        "unchecked": "unchecked"
+                        "checked": "встановлено",
+                        "unchecked": "знято позначку"
                     },
-                    "hint": "Your password needs at least eight characters"
+                    "hint": "Ваш пароль повинен містити принаймні вісім символів"
                 },
                 "invite": {
-                    "registration_user_invite_request": "Why do you want to join?"
+                    "registration_user_invite_request": "Чому ви хочете приєднатися?"
                 }
             },
             "error": {
                 "item": {
-                    "username": "Username",
-                    "email": "Email",
-                    "password": "Password",
-                    "agreement": "Agreement",
-                    "locale": "Locale",
-                    "reason": "Reason"
+                    "username": "Ім'я користувача",
+                    "email": "Електронна пошта",
+                    "password": "Пароль",
+                    "agreement": "Угода",
+                    "locale": "Локаль",
+                    "reason": "Підстава"
                 },
                 "reason": {
-                    "blocked": "%s contains a disallowed email provider",
-                    "unreachable": "%s does not seem to exist",
-                    "taken": "%s is already in use",
-                    "reserved": "%s is a reserved keyword",
-                    "accepted": "%s must be accepted",
-                    "blank": "%s is required",
-                    "invalid": "%s is invalid",
-                    "too_long": "%s is too long",
-                    "too_short": "%s is too short",
-                    "inclusion": "%s is not a supported value"
+                    "blocked": "%s містить заборонених провайдерів email",
+                    "unreachable": "%s здається, не існує",
+                    "taken": "%s вже використовується",
+                    "reserved": "%s є зарезервованим ключовим словом",
+                    "accepted": "%s має бути прийнято",
+                    "blank": "%s необхідно",
+                    "invalid": "%s є недійсним",
+                    "too_long": "%s занадто довгий",
+                    "too_short": "%s є закоротким",
+                    "inclusion": "%s не є підтримуваним значенням"
                 },
                 "special": {
-                    "username_invalid": "Username must only contain alphanumeric characters and underscores",
-                    "username_too_long": "Username is too long (can’t be longer than 30 characters)",
-                    "email_invalid": "This is not a valid email address",
-                    "password_too_short": "Password is too short (must be at least 8 characters)"
+                    "username_invalid": "Ім'я користувача повинно містити лише літери, цифрові символи та знак підкреслення",
+                    "username_too_long": "Ім'я користувача занадто довге (не може бути більше 30 символів)",
+                    "email_invalid": "Це не дійсна адреса електронної пошти",
+                    "password_too_short": "Пароль закороткий (має містити мінімум 8 символів)"
                 }
             }
         },
         "server_rules": {
-            "title": "Some ground rules.",
-            "subtitle": "These are set and enforced by the %s moderators.",
-            "prompt": "By continuing, you’re subject to the terms of service and privacy policy for %s.",
-            "terms_of_service": "terms of service",
-            "privacy_policy": "privacy policy",
+            "title": "Деякі основні правила.",
+            "subtitle": "Ці призначені для модераторів - %s.",
+            "prompt": "Продовжуючи, ви піддаєтеся умовам надання послуг та політики конфіденційності для хвороби %s.",
+            "terms_of_service": "умови використання",
+            "privacy_policy": "політика конфіденційності",
             "button": {
-                "confirm": "I Agree"
+                "confirm": "Я погоджуюся"
             }
         },
         "confirm_email": {
-            "title": "One last thing.",
-            "subtitle": "Tap the link we emailed to you to verify your account.",
-            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we emailed to you to verify your account",
+            "title": "Остання річ.",
+            "subtitle": "Натисніть на посилання, яке ми надіслали на вашу пошту, щоб підтвердити свій обліковий запис.",
+            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Натисніть на посилання, яке ми надіслали на вашу пошту, щоб підтвердити свій обліковий запис",
             "button": {
                 "open_email_app": "Open Email App",
                 "resend": "Resend"
