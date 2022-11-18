@@ -372,12 +372,12 @@
         "compose": {
             "title": {
                 "new_post": "Postingan Baru",
-                "new_reply": "New Reply"
+                "new_reply": "Pesan Baru"
             },
             "media_selection": {
-                "camera": "Take Photo",
+                "camera": "Ambil Foto",
                 "photo_library": "Photo Library",
-                "browse": "Browse"
+                "browse": "Telusuri"
             },
             "content_input_placeholder": "Ketik atau tempel apa yang Anda pada pikiran Anda",
             "compose_action": "Publikasikan",
@@ -388,10 +388,10 @@
                 "attachment_broken": "%s ini rusak dan tidak dapat diunggah ke Mastodon.",
                 "description_photo": "Jelaskan fotonya untuk mereka yang tidak dapat melihat dengan jelas...",
                 "description_video": "Jelaskan videonya untuk mereka yang tidak dapat melihat dengan jelas...",
-                "load_failed": "Load Failed",
-                "upload_failed": "Upload Failed",
-                "can_not_recognize_this_media_attachment": "Can not recognize this media attachment",
-                "attachment_too_large": "Attachment too large",
+                "load_failed": "Gagal Memuat",
+                "upload_failed": "Gagal Mengunggah",
+                "can_not_recognize_this_media_attachment": "Tidak dapat mengenali lampiran media ini",
+                "attachment_too_large": "Lampiran terlalu besar",
                 "compressing_state": "Compressing...",
                 "server_processing_state": "Server Processing..."
             },
@@ -412,7 +412,7 @@
             },
             "visibility": {
                 "public": "Publik",
-                "unlisted": "Unlisted",
+                "unlisted": "Tidak terdaftar",
                 "private": "Pengikut saja",
                 "direct": "Hanya orang yang saya sebut"
             },
