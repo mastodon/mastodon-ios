@@ -112,23 +112,14 @@ extension MediaPreviewImageView {
         // reset to normal
         zoomScale = minimumZoomScale
         
-        let imageViewSize = AVMakeRect(aspectRatio: image.size, insideRect: container.bounds).size
-        let imageContentInset: UIEdgeInsets = {
-            if imageViewSize.width == container.bounds.width {
-                return UIEdgeInsets(top: 0.5 * (container.bounds.height - imageViewSize.height), left: 0, bottom: 0, right: 0)
-            } else {
-                return UIEdgeInsets(top: 0, left: 0.5 * (container.bounds.width - imageViewSize.width), bottom: 0, right: 0)
-            }
-        }()
+        let imageViewSize = AVMakeRect(aspectRatio: image.size, insideRect: container.bounds.inset(by: container.safeAreaInsets)).size
         imageView.frame = CGRect(origin: .zero, size: imageViewSize)
         if imageView.image == nil {
             imageView.image = image
         }
         contentSize = imageViewSize
-        contentInset = imageContentInset
         
         centerScrollViewContents()
-        contentOffset = CGPoint(x: -contentInset.left, y: -contentInset.top)
         
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: setup image for container %s", ((#file as NSString).lastPathComponent), #line, #function, container.frame.debugDescription)
     }
@@ -192,10 +183,7 @@ extension MediaPreviewImageView {
         frame.size = realImageSize
         imageView.frame = frame
 
-        let screenSize = self.frame.size
-        let offsetX = screenSize.width > realImageSize.width ? (screenSize.width - realImageSize.width) / 2 : 0
-        let offsetY = screenSize.height > realImageSize.height ? (screenSize.height - realImageSize.height) / 2 : 0
-        contentInset = UIEdgeInsets(top: offsetY, left: offsetX, bottom: offsetY, right: offsetX)
+        contentInset = self.safeAreaInsets
 
         // The scroll view has zoomed, so you need to re-center the contents
         let scrollViewSize = scrollViewVisibleSize
