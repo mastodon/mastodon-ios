@@ -185,8 +185,8 @@
                 "mute_user": "Заглушити %s",
                 "unmute": "Сповіщати",
                 "unmute_user": "Сповіщати %s",
-                "muted": "Muted",
-                "edit_info": "Edit Info",
+                "muted": "Зам'ютити",
+                "edit_info": "Редагувати інформацію",
                 "show_reblogs": "Show Reblogs",
                 "hide_reblogs": "Hide Reblogs"
             },
