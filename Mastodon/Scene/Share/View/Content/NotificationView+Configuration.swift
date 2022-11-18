@@ -154,7 +154,7 @@ extension NotificationView {
                 )
             case .status:
                 self.viewModel.notificationIndicatorText = createMetaContent(
-                    text: L10n.Scene.Notification.NotificationDescription.mentionedYou,
+                    text: .empty,
                     emojis: emojis.asDictionary
                 )
             case ._other:
