@@ -157,9 +157,9 @@ Váš profil pro něj vypadá takto.";
 "Scene.Compose.Accessibility.CustomEmojiPicker" = "Vlastní výběr Emoji";
 "Scene.Compose.Accessibility.DisableContentWarning" = "Vypnout upozornění na obsah";
 "Scene.Compose.Accessibility.EnableContentWarning" = "Povolit upozornění na obsah";
-"Scene.Compose.Accessibility.PostOptions" = "Post Options";
+"Scene.Compose.Accessibility.PostOptions" = "Možnosti příspěvku";
 "Scene.Compose.Accessibility.PostVisibilityMenu" = "Menu viditelnosti příspěvku";
-"Scene.Compose.Accessibility.PostingAs" = "Posting as %@";
+"Scene.Compose.Accessibility.PostingAs" = "Odesílání jako %@";
 "Scene.Compose.Accessibility.RemovePoll" = "Odstranit anketu";
 "Scene.Compose.Attachment.AttachmentBroken" = "Tento %@ je poškozený a nemůže být
 nahrán do Mastodonu.";

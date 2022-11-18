@@ -55,8 +55,8 @@
 "Common.Controls.Actions.Share" = "แบ่งปัน";
 "Common.Controls.Actions.SharePost" = "แบ่งปันโพสต์";
 "Common.Controls.Actions.ShareUser" = "แบ่งปัน %@";
-"Common.Controls.Actions.SignIn" = "Log in";
-"Common.Controls.Actions.SignUp" = "Create account";
+"Common.Controls.Actions.SignIn" = "เข้าสู่ระบบ";
+"Common.Controls.Actions.SignUp" = "สร้างบัญชี";
 "Common.Controls.Actions.Skip" = "ข้าม";
 "Common.Controls.Actions.TakePhoto" = "ถ่ายรูป";
 "Common.Controls.Actions.TryAgain" = "ลองอีกครั้ง";
@@ -240,9 +240,9 @@
 "Scene.HomeTimeline.NavigationBarState.Published" = "เผยแพร่แล้ว!";
 "Scene.HomeTimeline.NavigationBarState.Publishing" = "กำลังเผยแพร่โพสต์...";
 "Scene.HomeTimeline.Title" = "หน้าแรก";
-"Scene.Login.ServerSearchField.Placeholder" = "Enter URL or search for your server";
-"Scene.Login.Subtitle" = "Log you in on the server you created your account on.";
-"Scene.Login.Title" = "Welcome back";
+"Scene.Login.ServerSearchField.Placeholder" = "ป้อน URL หรือค้นหาสำหรับเซิร์ฟเวอร์ของคุณ";
+"Scene.Login.Subtitle" = "นำคุณเข้าสู่ระบบในเซิร์ฟเวอร์ที่คุณได้สร้างบัญชีของคุณไว้ใน";
+"Scene.Login.Title" = "ยินดีต้อนรับกลับมา";
 "Scene.Notification.FollowRequest.Accept" = "ยอมรับ";
 "Scene.Notification.FollowRequest.Accepted" = "ยอมรับแล้ว";
 "Scene.Notification.FollowRequest.Reject" = "ปฏิเสธ";
@@ -404,11 +404,11 @@
 "Scene.ServerPicker.EmptyState.BadNetwork" = "มีบางอย่างผิดพลาดขณะโหลดข้อมูล ตรวจสอบการเชื่อมต่ออินเทอร์เน็ตของคุณ";
 "Scene.ServerPicker.EmptyState.FindingServers" = "กำลังค้นหาเซิร์ฟเวอร์ที่พร้อมใช้งาน...";
 "Scene.ServerPicker.EmptyState.NoResults" = "ไม่มีผลลัพธ์";
-"Scene.ServerPicker.Input.SearchServersOrEnterUrl" = "Search communities or enter URL";
+"Scene.ServerPicker.Input.SearchServersOrEnterUrl" = "ค้นหาชุมชนหรือป้อน URL";
 "Scene.ServerPicker.Label.Category" = "หมวดหมู่";
 "Scene.ServerPicker.Label.Language" = "ภาษา";
 "Scene.ServerPicker.Label.Users" = "ผู้ใช้";
-"Scene.ServerPicker.Subtitle" = "Pick a server based on your region, interests, or a general purpose one. You can still chat with anyone on Mastodon, regardless of your servers.";
+"Scene.ServerPicker.Subtitle" = "เลือกเซิร์ฟเวอร์ตามภูมิภาค, ความสนใจ หรือวัตถุประสงค์ทั่วไปของคุณ คุณยังคงสามารถแชทกับใครก็ตามใน Mastodon โดยไม่คำนึงถึงเซิร์ฟเวอร์ของคุณ";
 "Scene.ServerPicker.Title" = "Mastodon ประกอบด้วยผู้ใช้ในเซิร์ฟเวอร์ต่าง ๆ";
 "Scene.ServerRules.Button.Confirm" = "ฉันเห็นด้วย";
 "Scene.ServerRules.PrivacyPolicy" = "นโยบายความเป็นส่วนตัว";
