@@ -12,16 +12,17 @@ jobs:
     name: Build
     runs-on: macOS-12
     steps:
-      - name: checkout
+      - name: Checkout
         uses: actions/checkout@v2
       
-      - name: setup
+      - name: Setup
         env: 
           NotificationEndpointDebug: ${{ secrets.NotificationEndpointDebug }}
           NotificationEndpointRelease: ${{ secrets.NotificationEndpointRelease }}
         run: exec ./.github/scripts/setup.sh
 
-      - uses: actions/setup-python@v4
+      - name: Install codemagic-cli-tools
+        uses: actions/setup-python@v4
         with:
           python-version: '3.11' 
       - run: |
@@ -44,7 +45,7 @@ jobs:
           api-key-id: ${{ secrets.APPSTORE_KEY_ID }}
           api-private-key: ${{ secrets.APPSTORE_PRIVATE_KEY }}
 
-      - name: build
+      - name: Build
         env: 
           ENV_APP_ID: ${{ secrets.APP_ID }}
           ENV_ISSUER_ID: ${{ secrets.APPSTORE_ISSUER_ID }}
@@ -60,6 +61,12 @@ jobs:
           issuer-id: ${{ secrets.APPSTORE_ISSUER_ID }}
           api-key-id: ${{ secrets.APPSTORE_KEY_ID }}
           api-private-key: ${{ secrets.APPSTORE_PRIVATE_KEY }}
+
+      - name: Tag commit
+        uses: tvdias/github-tagger@v0.0.1
+        with:
+          repo-token: "${{ secrets.GITHUB_TOKEN }}"
+          tag: "${{ env.GITHUB_TAG_NAME }}"
 
       - name: Clean up keychain and provisioning profile
         if: ${{ always() }}
