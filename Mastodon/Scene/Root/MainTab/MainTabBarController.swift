@@ -326,11 +326,12 @@ extension MainTabBarController {
         tabBarLongPressGestureRecognizer.addTarget(self, action: #selector(MainTabBarController.tabBarLongPressGestureRecognizerHandler(_:)))
         tabBar.addGestureRecognizer(tabBarLongPressGestureRecognizer)
 
-        let tabBarDoubleTapGestureRecognizer = UITapGestureRecognizer()
-        tabBarDoubleTapGestureRecognizer.numberOfTapsRequired = 2
-        tabBarDoubleTapGestureRecognizer.addTarget(self, action: #selector(MainTabBarController.tabBarDoubleTapGestureRecognizerHandler(_:)))
-        tabBarDoubleTapGestureRecognizer.delaysTouchesEnded = false
-        tabBar.addGestureRecognizer(tabBarDoubleTapGestureRecognizer)
+        // todo: reconsider the "double tap to change account" feature -> https://github.com/mastodon/mastodon-ios/issues/628
+//        let tabBarDoubleTapGestureRecognizer = UITapGestureRecognizer()
+//        tabBarDoubleTapGestureRecognizer.numberOfTapsRequired = 2
+//        tabBarDoubleTapGestureRecognizer.addTarget(self, action: #selector(MainTabBarController.tabBarDoubleTapGestureRecognizerHandler(_:)))
+//        tabBarDoubleTapGestureRecognizer.delaysTouchesEnded = false
+//        tabBar.addGestureRecognizer(tabBarDoubleTapGestureRecognizer)
 
         self.isReadyForWizardAvatarButton = authContext != nil
         
