@@ -24,6 +24,7 @@
 		164F0EBC267D4FE400249499 /* BoopSound.caf in Resources */ = {isa = PBXBuildFile; fileRef = 164F0EBB267D4FE400249499 /* BoopSound.caf */; };
 		18BC7629F65E6DB12CB8416D /* Pods_Mastodon_MastodonUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C030226D3C73DCC23D67452 /* Pods_Mastodon_MastodonUITests.framework */; };
 		2A82294F29262EE000D2A1F7 /* AppContext+NextAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A82294E29262EE000D2A1F7 /* AppContext+NextAccount.swift */; };
+		2AE244482927831100BDBF7C /* UIImage+SFSymbols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE244472927831100BDBF7C /* UIImage+SFSymbols.swift */; };
 		2D198643261BF09500F0B013 /* SearchResultItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D198642261BF09500F0B013 /* SearchResultItem.swift */; };
 		2D198649261C0B8500F0B013 /* SearchResultSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D198648261C0B8500F0B013 /* SearchResultSection.swift */; };
 		2D206B8625F5FB0900143C56 /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D206B8525F5FB0900143C56 /* Double.swift */; };
@@ -520,6 +521,7 @@
 		164F0EBB267D4FE400249499 /* BoopSound.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = BoopSound.caf; sourceTree = "<group>"; };
 		1D6D967E77A5357E2C6110D9 /* Pods-Mastodon.asdk - debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon.asdk - debug.xcconfig"; path = "Target Support Files/Pods-Mastodon/Pods-Mastodon.asdk - debug.xcconfig"; sourceTree = "<group>"; };
 		2A82294E29262EE000D2A1F7 /* AppContext+NextAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppContext+NextAccount.swift"; sourceTree = "<group>"; };
+		2AE244472927831100BDBF7C /* UIImage+SFSymbols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+SFSymbols.swift"; sourceTree = "<group>"; };
 		2D198642261BF09500F0B013 /* SearchResultItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultItem.swift; sourceTree = "<group>"; };
 		2D198648261C0B8500F0B013 /* SearchResultSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultSection.swift; sourceTree = "<group>"; };
 		2D206B8525F5FB0900143C56 /* Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
@@ -2244,6 +2246,7 @@
 				2D3F9E0325DFA133004262D9 /* UITapGestureRecognizer.swift */,
 				2D84350425FF858100EECE90 /* UIScrollView.swift */,
 				DB9E0D6E25EE008500CFDD76 /* UIInterpolatingMotionEffect.swift */,
+				2AE244472927831100BDBF7C /* UIImage+SFSymbols.swift */,
 				DBCC3B2F261440A50045B23D /* UITabBarController.swift */,
 				DB73BF4827140BA300781945 /* UICollectionViewDiffableDataSource.swift */,
 				DB73BF4A27140C0800781945 /* UITableViewDiffableDataSource.swift */,
@@ -3273,6 +3276,7 @@
 				DB73BF4927140BA300781945 /* UICollectionViewDiffableDataSource.swift in Sources */,
 				DBA5E7AB263BD3F5004598BB /* TimelineTableViewCellContextMenuConfiguration.swift in Sources */,
 				DB73B490261F030A002E9E9F /* SafariActivity.swift in Sources */,
+				2AE244482927831100BDBF7C /* UIImage+SFSymbols.swift in Sources */,
 				DB63F7492799126300455B82 /* FollowerListViewController+DataSourceProvider.swift in Sources */,
 				2D198643261BF09500F0B013 /* SearchResultItem.swift in Sources */,
 				2DAC9E38262FC2320062E1A6 /* SuggestionAccountViewController.swift in Sources */,

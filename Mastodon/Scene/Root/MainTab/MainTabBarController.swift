@@ -43,6 +43,7 @@ class MainTabBarController: UITabBarController {
     
     static let avatarButtonSize = CGSize(width: 25, height: 25)
     let avatarButton = CircleAvatarButton()
+    let accountSwitcherChevron = UIImageView(image: .chevronUpChevronDown)
     
     @Published var currentTab: Tab = .home
         
@@ -506,13 +507,20 @@ extension MainTabBarController {
         }
         anchorImageView.alpha = 0
         
+        accountSwitcherChevron.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(accountSwitcherChevron)
+        
         self.avatarButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(self.avatarButton)
         NSLayoutConstraint.activate([
-            self.avatarButton.centerXAnchor.constraint(equalTo: anchorImageView.centerXAnchor),
+            self.avatarButton.centerXAnchor.constraint(equalTo: anchorImageView.centerXAnchor, constant: -16),
             self.avatarButton.centerYAnchor.constraint(equalTo: anchorImageView.centerYAnchor),
             self.avatarButton.widthAnchor.constraint(equalToConstant: MainTabBarController.avatarButtonSize.width).priority(.required - 1),
             self.avatarButton.heightAnchor.constraint(equalToConstant: MainTabBarController.avatarButtonSize.height).priority(.required - 1),
+            accountSwitcherChevron.widthAnchor.constraint(equalToConstant: 10),
+            accountSwitcherChevron.heightAnchor.constraint(equalToConstant: 18),
+            accountSwitcherChevron.leadingAnchor.constraint(equalTo: avatarButton.trailingAnchor, constant: 8),
+            accountSwitcherChevron.centerYAnchor.constraint(equalTo: avatarButton.centerYAnchor)
         ])
         self.avatarButton.setContentHuggingPriority(.required - 1, for: .horizontal)
         self.avatarButton.setContentHuggingPriority(.required - 1, for: .vertical)
@@ -520,6 +528,7 @@ extension MainTabBarController {
     }
     
     private func updateAvatarButtonAppearance() {
+        accountSwitcherChevron.tintColor = currentTab == .me ? .label : .secondaryLabel
         avatarButton.borderColor = currentTab == .me ? .label : .systemFill
         avatarButton.setNeedsLayout()
     }
