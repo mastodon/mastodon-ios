@@ -74,8 +74,8 @@
                 "take_photo": "Wêne bikişîne",
                 "save_photo": "Wêneyê tomar bike",
                 "copy_photo": "Wêneyê jê bigire",
-                "sign_in": "Log in",
-                "sign_up": "Create account",
+                "sign_in": "Têkeve",
+                "sign_up": "Ajimêr biafirîne",
                 "see_more": "Bêtir bibîne",
                 "preview": "Pêşdîtin",
                 "share": "Parve bike",
@@ -219,15 +219,15 @@
             "log_in": "Têkeve"
         },
         "login": {
-            "title": "Welcome back",
-            "subtitle": "Log you in on the server you created your account on.",
+            "title": "Dîsa bi xêr hatî",
+            "subtitle": "Têketinê bike ser rajekarê ku te ajimêrê xwe tê de çê kiriye.",
             "server_search_field": {
-                "placeholder": "Enter URL or search for your server"
+                "placeholder": "Girêdanê têxe an jî li rajekarê xwe bigere"
             }
         },
         "server_picker": {
             "title": "Mastodon ji bikarhênerên di civakên cuda de pêk tê.",
-            "subtitle": "Pick a server based on your region, interests, or a general purpose one. You can still chat with anyone on Mastodon, regardless of your servers.",
+            "subtitle": "Li gorî herêm, berjewendî, an jî armanceke giştî rajekarekê hilbijêre. Tu hîn jî dikarî li ser Mastodon bi her kesî re biaxivî, her rajekarê te çi be.",
             "button": {
                 "category": {
                     "all": "Hemû",
@@ -254,7 +254,7 @@
                 "category": "BEŞ"
             },
             "input": {
-                "search_servers_or_enter_url": "Search communities or enter URL"
+                "search_servers_or_enter_url": "Li civakan bigere an jî girêdanê têxe"
             },
             "empty_state": {
                 "finding_servers": "Peydakirina rajekarên berdest...",

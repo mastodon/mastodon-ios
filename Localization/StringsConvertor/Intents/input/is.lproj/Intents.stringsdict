@@ -5,7 +5,7 @@
     <key>There are ${count} options matching ‘${content}’. - 2</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Llan %#@count_option@ i yemṣaḍan d '${content}'.</string>
+      <string>Það eru %#@count_option@ sem samsvara ‘${content}’.</string>
       <key>count_option</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -13,15 +13,15 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>%ld</string>
         <key>one</key>
-        <string>1 textiṛt</string>
+        <string>1 valkostur</string>
         <key>other</key>
-        <string>%ld textiṛiyin</string>
+        <string>%ld valkostir</string>
       </dict>
     </dict>
     <key>There are ${count} options matching ‘${visibility}’.</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Llan %#@count_option@ i yemṣaḍa, d '${visibility}'.</string>
+      <string>Það eru %#@count_option@ sem samsvara ‘${visibility}’.</string>
       <key>count_option</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -29,9 +29,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>%ld</string>
         <key>one</key>
-        <string>%ld n uɣewwaṛ</string>
+        <string>1 valkostur</string>
         <key>other</key>
-        <string>%ld n iɣewwaṛen</string>
+        <string>%ld valkostir</string>
       </dict>
     </dict>
   </dict>

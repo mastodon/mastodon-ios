@@ -74,8 +74,8 @@
                 "take_photo": "Ṭṭef tawlaft",
                 "save_photo": "Sekles tawlaft",
                 "copy_photo": "Nɣel tawlaft",
-                "sign_in": "Log in",
-                "sign_up": "Create account",
+                "sign_in": "Qqen",
+                "sign_up": "Snulfu-d amiḍan",
                 "see_more": "Wali ugar",
                 "preview": "Taskant",
                 "share": "Bḍu",
@@ -137,10 +137,10 @@
                     "closed": "Ifukk"
                 },
                 "meta_entity": {
-                    "url": "Link: %s",
-                    "hashtag": "Hashtag: %s",
-                    "mention": "Show Profile: %s",
-                    "email": "Email address: %s"
+                    "url": "Asaɣ : %s",
+                    "hashtag": "Ahacṭag : %s",
+                    "mention": "Sken-d amaɣnu : %s",
+                    "email": "Tansa imayl : %s"
                 },
                 "actions": {
                     "reply": "Err",
@@ -219,10 +219,10 @@
             "log_in": "Qqen"
         },
         "login": {
-            "title": "Welcome back",
+            "title": "Ansuf yess·ek·em",
             "subtitle": "Log you in on the server you created your account on.",
             "server_search_field": {
-                "placeholder": "Enter URL or search for your server"
+                "placeholder": "Sekcem URL neɣ nadi ɣef uqeddac-ik·im"
             }
         },
         "server_picker": {
@@ -254,7 +254,7 @@
                 "category": "TAGGAYT"
             },
             "input": {
-                "search_servers_or_enter_url": "Search communities or enter URL"
+                "search_servers_or_enter_url": "Nadi timɣiwnin neɣ sekcem URL"
             },
             "empty_state": {
                 "finding_servers": "Tifin n yiqeddacen yellan...",
@@ -357,8 +357,8 @@
             "navigation_bar_state": {
                 "offline": "Beṛṛa n tuqqna",
                 "new_posts": "Tissufaɣ timaynutin",
-                "published": "Yettwasuffeɣ!",
-                "Publishing": "Asuffeɣ tasuffeɣt...",
+                "published": "Tettwasuffeɣ!",
+                "Publishing": "Asuffeɣ n tasuffeɣt...",
                 "accessibility": {
                     "logo_label": "Taqeffalt n ulugu",
                     "logo_hint": "Sit i wakken ad tɛeddiḍ i usawen, sit tikkelt-nniḍen i wakken ad tɛeddiḍ ɣer wadig yezrin"
@@ -671,7 +671,7 @@
                 "its_spam": "D aspam",
                 "malicious_links_fake_engagement_or_repetetive_replies": "Yir iseɣwan, yir agman d tririyin i d-yettuɣalen",
                 "it_violates_server_rules": "Truẓi n yilugan n uqeddac",
-                "you_are_aware_that_it_breaks_specific_rules": "Teẓriḍ y•tettruẓu kra n yilugan",
+                "you_are_aware_that_it_breaks_specific_rules": "Teẓriḍ y·tettruẓu kra n yilugan",
                 "its_something_else": "Ɣef ssebba-nniḍen",
                 "the_issue_does_not_fit_into_other_categories": "Ugur ur yemṣada ara akk d taggayin-nniḍen"
             },

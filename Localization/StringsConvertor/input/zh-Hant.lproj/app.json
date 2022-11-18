@@ -74,8 +74,8 @@
                 "take_photo": "拍攝照片",
                 "save_photo": "儲存照片",
                 "copy_photo": "複製照片",
-                "sign_in": "Log in",
-                "sign_up": "Create account",
+                "sign_in": "登入",
+                "sign_up": "新增帳號",
                 "see_more": "檢視更多",
                 "preview": "預覽",
                 "share": "分享",
@@ -219,15 +219,15 @@
             "log_in": "登入"
         },
         "login": {
-            "title": "Welcome back",
-            "subtitle": "Log you in on the server you created your account on.",
+            "title": "歡迎回來",
+            "subtitle": "登入您新增帳號之伺服器",
             "server_search_field": {
-                "placeholder": "Enter URL or search for your server"
+                "placeholder": "請輸入 URL 或搜尋您的伺服器"
             }
         },
         "server_picker": {
             "title": "Mastodon 由不同伺服器的使用者組成。",
-            "subtitle": "Pick a server based on your region, interests, or a general purpose one. You can still chat with anyone on Mastodon, regardless of your servers.",
+            "subtitle": "基於您的興趣、地區、或一般用途選定一個伺服器。您仍會與任何伺服器中的每個人連結。",
             "button": {
                 "category": {
                     "all": "全部",
@@ -254,7 +254,7 @@
                 "category": "分類"
             },
             "input": {
-                "search_servers_or_enter_url": "Search communities or enter URL"
+                "search_servers_or_enter_url": "搜尋社群或輸入 URL 地址"
             },
             "empty_state": {
                 "finding_servers": "尋找可用的伺服器...",
@@ -390,10 +390,10 @@
                 "description_video": "為視障人士提供影片說明...",
                 "load_failed": "讀取失敗",
                 "upload_failed": "上傳失敗",
-                "can_not_recognize_this_media_attachment": "Can not recognize this media attachment",
+                "can_not_recognize_this_media_attachment": "無法識別此媒體附加檔案",
                 "attachment_too_large": "附加檔案大小過大",
-                "compressing_state": "Compressing...",
-                "server_processing_state": "Server Processing..."
+                "compressing_state": "正在壓縮...",
+                "server_processing_state": "伺服器處理中..."
             },
             "poll": {
                 "duration_time": "持續時間：%s",
@@ -404,8 +404,8 @@
                 "three_days": "三天",
                 "seven_days": "七天",
                 "option_number": "選項 %ld",
-                "the_poll_is_invalid": "The poll is invalid",
-                "the_poll_has_empty_option": "The poll has empty option"
+                "the_poll_is_invalid": "此投票是無效的",
+                "the_poll_has_empty_option": "此投票有空白選項"
             },
             "content_warning": {
                 "placeholder": "請於此處寫下精準的警告..."
@@ -455,8 +455,8 @@
                     "content": "內容"
                 },
                 "verified": {
-                    "short": "Verified on %s",
-                    "long": "Ownership of this link was checked on %s"
+                    "short": "於 %s 上已驗證",
+                    "long": "已在 %s 檢查此連結的擁有者權限"
                 }
             },
             "segmented_control": {

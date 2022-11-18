@@ -12,50 +12,58 @@
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
+        <key>one</key>
+        <string>1 ólesin tilkynning</string>
         <key>other</key>
-        <string>%ld 条未读通知</string>
+        <string>%ld ólesnar tilkynningar</string>
       </dict>
     </dict>
     <key>a11y.plural.count.input_limit_exceeds</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>输入字符限制超出 %#@character_count@</string>
+      <string>Inntak fer fram úr takmörkunum %#@character_count@</string>
       <key>character_count</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
+        <key>one</key>
+        <string>1 stafur</string>
         <key>other</key>
-        <string>%ld 个字符</string>
+        <string>%ld stafir</string>
       </dict>
     </dict>
     <key>a11y.plural.count.input_limit_remains</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>输入字符限制剩余 %#@character_count@</string>
+      <string>Inntakstakmörk haldast %#@character_count@</string>
       <key>character_count</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
+        <key>one</key>
+        <string>1 stafur</string>
         <key>other</key>
-        <string>%ld 个字符</string>
+        <string>%ld stafir</string>
       </dict>
     </dict>
     <key>a11y.plural.count.characters_left</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>%#@character_count@ 剩余</string>
+      <string>%#@character_count@ eftir</string>
       <key>character_count</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
+        <key>one</key>
+        <string>1 stafur</string>
         <key>other</key>
-        <string>%ld 个字符</string>
+        <string>%ld stafir</string>
       </dict>
     </dict>
     <key>plural.count.followed_by_and_mutual</key>
@@ -64,6 +72,8 @@
       <string>%#@names@%#@count_mutual@</string>
       <key>names</key>
       <dict>
+        <key>one</key>
+        <string></string>
         <key>NSStringFormatSpecTypeKey</key>
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
@@ -77,8 +87,10 @@
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
+        <key>one</key>
+        <string>Fylgt af %1$@ og öðrum sameiginlegum</string>
         <key>other</key>
-        <string>%1$@ 和你关注的另外 %ld 人也关注了这个账号</string>
+        <string>Fylgt af %1$@ og %ld sameiginlegum</string>
       </dict>
     </dict>
     <key>plural.count.metric_formatted.post</key>
@@ -91,8 +103,10 @@
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
+        <key>one</key>
+        <string>færsla</string>
         <key>other</key>
-        <string>个帖子</string>
+        <string>færslur</string>
       </dict>
     </dict>
     <key>plural.count.media</key>
@@ -105,8 +119,10 @@
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
+        <key>one</key>
+        <string>1 gagnamiðill</string>
         <key>other</key>
-        <string>%ld 个媒体</string>
+        <string>%ld gagnamiðlar</string>
       </dict>
     </dict>
     <key>plural.count.post</key>
@@ -119,8 +135,10 @@
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
+        <key>one</key>
+        <string>1 færsla</string>
         <key>other</key>
-        <string>%ld 个帖子</string>
+        <string>%ld færslur</string>
       </dict>
     </dict>
     <key>plural.count.favorite</key>
@@ -133,8 +151,10 @@
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
+        <key>one</key>
+        <string>1 eftirlæti</string>
         <key>other</key>
-        <string>%ld 个喜欢</string>
+        <string>%ld eftirlæti</string>
       </dict>
     </dict>
     <key>plural.count.reblog</key>
@@ -147,8 +167,10 @@
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
+        <key>one</key>
+        <string>1 endurbirting</string>
         <key>other</key>
-        <string>%ld 条转发</string>
+        <string>%ld endurbirtingar</string>
       </dict>
     </dict>
     <key>plural.count.reply</key>
@@ -161,8 +183,10 @@
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
+        <key>one</key>
+        <string>1 svar</string>
         <key>other</key>
-        <string>%ld 条回复</string>
+        <string>%ld svör</string>
       </dict>
     </dict>
     <key>plural.count.vote</key>
@@ -175,8 +199,10 @@
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
+        <key>one</key>
+        <string>1 atkvæði</string>
         <key>other</key>
-        <string>%ld 票</string>
+        <string>%ld atkvæði</string>
       </dict>
     </dict>
     <key>plural.count.voter</key>
@@ -189,8 +215,10 @@
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
+        <key>one</key>
+        <string>1 kjósandi</string>
         <key>other</key>
-        <string>%ld 人</string>
+        <string>%ld kjósendur</string>
       </dict>
     </dict>
     <key>plural.people_talking</key>
@@ -203,8 +231,10 @@
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
+        <key>one</key>
+        <string>1 aðili að spjalla</string>
         <key>other</key>
-        <string>%ld 人正在讨论</string>
+        <string>%ld aðilar að spjalla</string>
       </dict>
     </dict>
     <key>plural.count.following</key>
@@ -217,8 +247,10 @@
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
+        <key>one</key>
+        <string>1 fylgist með</string>
         <key>other</key>
-        <string>%ld 人正在关注</string>
+        <string>%ld fylgjast með</string>
       </dict>
     </dict>
     <key>plural.count.follower</key>
@@ -231,8 +263,10 @@
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
+        <key>one</key>
+        <string>1 fylgjandi</string>
         <key>other</key>
-        <string>%ld 个关注者</string>
+        <string>%ld fylgjendur</string>
       </dict>
     </dict>
     <key>date.year.left</key>
@@ -245,8 +279,10 @@
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
+        <key>one</key>
+        <string>1 ár eftir</string>
         <key>other</key>
-        <string>剩余 %ld 年</string>
+        <string>%ld ár eftir</string>
       </dict>
     </dict>
     <key>date.month.left</key>
@@ -259,8 +295,10 @@
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
+        <key>one</key>
+        <string>1 mánuður eftir</string>
         <key>other</key>
-        <string>剩余 %ld 个月</string>
+        <string>%ld mánuðir eftir</string>
       </dict>
     </dict>
     <key>date.day.left</key>
@@ -273,8 +311,10 @@
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
+        <key>one</key>
+        <string>1 dagur eftir</string>
         <key>other</key>
-        <string>剩余 %ld 天</string>
+        <string>%ld dagar eftir</string>
       </dict>
     </dict>
     <key>date.hour.left</key>
@@ -287,8 +327,10 @@
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
+        <key>one</key>
+        <string>1 klukkustund eftir</string>
         <key>other</key>
-        <string>剩余 %ld 小时</string>
+        <string>%ld klukkustundir eftir</string>
       </dict>
     </dict>
     <key>date.minute.left</key>
@@ -301,8 +343,10 @@
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
+        <key>one</key>
+        <string>1 mínúta eftir</string>
         <key>other</key>
-        <string>剩余 %ld 分钟</string>
+        <string>%ld mínútur eftir</string>
       </dict>
     </dict>
     <key>date.second.left</key>
@@ -315,8 +359,10 @@
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
+        <key>one</key>
+        <string>1 sekúnda eftir</string>
         <key>other</key>
-        <string>剩余 %ld 秒</string>
+        <string>%ld sekúndur eftir</string>
       </dict>
     </dict>
     <key>date.year.ago.abbr</key>
@@ -329,8 +375,10 @@
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
+        <key>one</key>
+        <string>Fyrir 1 ári síðan</string>
         <key>other</key>
-        <string>%ld 年前</string>
+        <string>Fyrir %ld árum síðan</string>
       </dict>
     </dict>
     <key>date.month.ago.abbr</key>
@@ -343,8 +391,10 @@
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
+        <key>one</key>
+        <string>Fyrir 1mín síðan</string>
         <key>other</key>
-        <string>%ld 月前</string>
+        <string>Fyrir %ldmín síðan</string>
       </dict>
     </dict>
     <key>date.day.ago.abbr</key>
@@ -357,8 +407,10 @@
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
+        <key>one</key>
+        <string>Fyrir 1 degi síðan</string>
         <key>other</key>
-        <string>%ld 天前</string>
+        <string>Fyrir %ld dögum síðan</string>
       </dict>
     </dict>
     <key>date.hour.ago.abbr</key>
@@ -371,8 +423,10 @@
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
+        <key>one</key>
+        <string>1klst síðan</string>
         <key>other</key>
-        <string>%ld 小时前</string>
+        <string>%ldklst síðan</string>
       </dict>
     </dict>
     <key>date.minute.ago.abbr</key>
@@ -385,8 +439,10 @@
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
+        <key>one</key>
+        <string>1m síðan</string>
         <key>other</key>
-        <string>%ld 分前</string>
+        <string>%ldm síðan</string>
       </dict>
     </dict>
     <key>date.second.ago.abbr</key>
@@ -399,8 +455,10 @@
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
+        <key>one</key>
+        <string>1s síðan</string>
         <key>other</key>
-        <string>%ld 秒前</string>
+        <string>%lds síðan</string>
       </dict>
     </dict>
   </dict>
