@@ -187,17 +187,17 @@
                 "unmute_user": "Сповіщати %s",
                 "muted": "Зам'ютити",
                 "edit_info": "Редагувати інформацію",
-                "show_reblogs": "Show Reblogs",
-                "hide_reblogs": "Hide Reblogs"
+                "show_reblogs": "Показати реблоги",
+                "hide_reblogs": "Сховати реблоги"
             },
             "timeline": {
-                "filtered": "Filtered",
+                "filtered": "Відфільтровано",
                 "timestamp": {
-                    "now": "Now"
+                    "now": "Щойно"
                 },
                 "loader": {
-                    "load_missing_posts": "Load missing posts",
-                    "loading_missing_posts": "Loading missing posts...",
+                    "load_missing_posts": "Завантажити пропущені дописи",
+                    "loading_missing_posts": "Завантаження пропущених дописів...",
                     "show_more_replies": "Показати більше відповідей"
                 },
                 "header": {
@@ -206,82 +206,82 @@
                     "user_blocking_warning": "Ви не можете переглядати профіль %s, поки ви не розблокуєте їх.\nВони бачать ваш профіль так.",
                     "blocked_warning": "Ви не можете переглянути профіль цього користувача, поки вони не розблокують вас.",
                     "user_blocked_warning": "Ви не можете переглянути профіль %s, поки він не розблокує вас.",
-                    "suspended_warning": "This user has been suspended.",
-                    "user_suspended_warning": "%s’s account has been suspended."
+                    "suspended_warning": "Цього користувача було заблоковано.",
+                    "user_suspended_warning": "Обліковий запис %s заблоковано."
                 }
             }
         }
     },
     "scene": {
         "welcome": {
-            "slogan": "Social networking\nback in your hands.",
-            "get_started": "Get Started",
-            "log_in": "Log In"
+            "slogan": "Соціальна мережа під вашим контролем.",
+            "get_started": "Почати",
+            "log_in": "Увійти"
         },
         "login": {
-            "title": "Welcome back",
-            "subtitle": "Log you in on the server you created your account on.",
+            "title": "З поверненням",
+            "subtitle": "Увійдіть на сервері, де ви створили свій обліковий запис.",
             "server_search_field": {
-                "placeholder": "Enter URL or search for your server"
+                "placeholder": "Введіть URL-адресу або адресу сервера"
             }
         },
         "server_picker": {
-            "title": "Mastodon is made of users in different servers.",
-            "subtitle": "Pick a server based on your region, interests, or a general purpose one. You can still chat with anyone on Mastodon, regardless of your servers.",
+            "title": "Mastodon складається з користувачів на різних серверах.",
+            "subtitle": "Оберіть сервер згідно з вашим регіоном, інтересами чи цілями. Ви можете спілкуватися з будь-ким на Mastodon, незалежно від обраних серверів.",
             "button": {
                 "category": {
-                    "all": "All",
-                    "all_accessiblity_description": "Category: All",
-                    "academia": "academia",
-                    "activism": "activism",
-                    "food": "food",
-                    "furry": "furry",
-                    "games": "games",
-                    "general": "general",
-                    "journalism": "journalism",
-                    "lgbt": "lgbt",
-                    "regional": "regional",
-                    "art": "art",
-                    "music": "music",
-                    "tech": "tech"
+                    "all": "Всі",
+                    "all_accessiblity_description": "Категорія: Усі",
+                    "academia": "академія",
+                    "activism": "активізм",
+                    "food": "їжа",
+                    "furry": "фурі",
+                    "games": "ігри",
+                    "general": "загальне",
+                    "journalism": "журналістика",
+                    "lgbt": "лгбт",
+                    "regional": "регіональний",
+                    "art": "мистецтво",
+                    "music": "музика",
+                    "tech": "технології"
                 },
-                "see_less": "See Less",
-                "see_more": "See More"
+                "see_less": "Згорнути",
+                "see_more": "Показати більше"
             },
             "label": {
-                "language": "LANGUAGE",
-                "users": "USERS",
-                "category": "CATEGORY"
+                "language": "МОВА",
+                "users": "КОРИСТУВАЧІ",
+                "category": "КАТЕГОРІЯ"
             },
             "input": {
-                "search_servers_or_enter_url": "Search communities or enter URL"
+                "search_servers_or_enter_url": "Знайти спільноти, або ввести URL"
             },
             "empty_state": {
-                "finding_servers": "Finding available servers...",
-                "bad_network": "Something went wrong while loading the data. Check your internet connection.",
-                "no_results": "No results"
+                "finding_servers": "Пошук доступних серверів...",
+                "bad_network": "Сталася помилка під час завантаження даних. Перевірте підключення до Інтернету.",
+                "no_results": "Жодних результатів"
             }
         },
         "register": {
-            "title": "Let’s get you set up on %s",
-            "lets_get_you_set_up_on_domain": "Let’s get you set up on %s",
+            "title": "Налаштуймо Вас на %s",
+            "lets_get_you_set_up_on_domain": "Налаштуймо Вас на %s",
             "input": {
                 "avatar": {
-                    "delete": "Delete"
+                    "delete": "Видалити"
                 },
                 "username": {
-                    "placeholder": "username",
-                    "duplicate_prompt": "This username is taken."
+                    "placeholder": "ім'я користувача",
+                    "duplicate_prompt": "Це ім'я користувача вже зайняте."
                 },
                 "display_name": {
-                    "placeholder": "display name"
+                    "placeholder": "видиме ім'я"
                 },
                 "email": {
-                    "placeholder": "email"
+                    "placeholder": "електронна пошта"
                 },
                 "password": {
-                    "placeholder": "password",
-                    "require": "Your password needs at least:",
+                    "placeholder": "пароль",
+                    "require": "Ваш пароль повинен містити як мінімум:",
                     "character_limit": "8 символів",
                     "accessibility": {
                         "checked": "встановлено",
@@ -528,56 +528,56 @@
                 "hash_tag": {
                     "title": "У Трендах на Мастодоні",
                     "description": "Гештеги, що привертають увагу",
-                    "people_talking": "%s people are talking"
+                    "people_talking": "%s людей говорять"
                 },
                 "accounts": {
-                    "title": "Accounts you might like",
-                    "description": "You may like to follow these accounts",
-                    "follow": "Follow"
+                    "title": "Акавнти, що можуть вам сподобатися",
+                    "description": "Ви можете зацікавитися цими обліковими записами",
+                    "follow": "Підписатися"
                 }
             },
             "searching": {
                 "segment": {
-                    "all": "All",
-                    "people": "People",
-                    "hashtags": "Hashtags",
-                    "posts": "Posts"
+                    "all": "Всі",
+                    "people": "Громада",
+                    "hashtags": "Гештеги",
+                    "posts": "Дописи"
                 },
                 "empty_state": {
-                    "no_results": "No results"
+                    "no_results": "Жодних результатів"
                 },
-                "recent_search": "Recent searches",
-                "clear": "Clear"
+                "recent_search": "Нещодавні запити",
+                "clear": "Очистити"
             }
         },
         "discovery": {
             "tabs": {
-                "posts": "Posts",
-                "hashtags": "Hashtags",
-                "news": "News",
-                "community": "Community",
-                "for_you": "For You"
+                "posts": "Дописи",
+                "hashtags": "Гештеги",
+                "news": "Новини",
+                "community": "Спільнота",
+                "for_you": "Для Вас"
             },
-            "intro": "These are the posts gaining traction in your corner of Mastodon."
+            "intro": "Ось найбільш популярні дописи серед вашого серверу Mastodon."
         },
         "favorite": {
-            "title": "Your Favorites"
+            "title": "Ваші Вподобання"
         },
         "notification": {
             "title": {
-                "Everything": "Everything",
-                "Mentions": "Mentions"
+                "Everything": "Все",
+                "Mentions": "Згадки"
             },
             "notification_description": {
-                "followed_you": "followed you",
-                "favorited_your_post": "favorited your post",
-                "reblogged_your_post": "reblogged your post",
-                "mentioned_you": "mentioned you",
-                "request_to_follow_you": "request to follow you",
-                "poll_has_ended": "poll has ended"
+                "followed_you": "підписався(-лась) на вас",
+                "favorited_your_post": "вподобав(-ла) ваш допис",
+                "reblogged_your_post": "поширив(-ла) ваш допис",
+                "mentioned_you": "згадав(-ла) вас",
+                "request_to_follow_you": "запит на підписку",
+                "poll_has_ended": "опитування завершено"
             },
             "keyobard": {
-                "show_everything": "Show Everything",
+                "show_everything": "Показати все",
                 "show_mentions": "Show Mentions"
             },
             "follow_request": {
