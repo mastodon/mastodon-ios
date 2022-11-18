@@ -337,31 +337,31 @@
             "subtitle": "Натисніть на посилання, яке ми надіслали на вашу пошту, щоб підтвердити свій обліковий запис.",
             "tap_the_link_we_emailed_to_you_to_verify_your_account": "Натисніть на посилання, яке ми надіслали на вашу пошту, щоб підтвердити свій обліковий запис",
             "button": {
-                "open_email_app": "Open Email App",
-                "resend": "Resend"
+                "open_email_app": "Відкрити додаток Електронної пошти",
+                "resend": "Повторно надіслати"
             },
             "dont_receive_email": {
-                "title": "Check your email",
-                "description": "Check if your email address is correct as well as your junk folder if you haven’t.",
-                "resend_email": "Resend Email"
+                "title": "Перевірте свою електронну пошту",
+                "description": "Перевірте правильність адреси електронної пошти, а також теку зі спамом, якщо ви ще не зробили цього.",
+                "resend_email": "Повторно надіслати лист"
             },
             "open_email_app": {
-                "title": "Check your inbox.",
-                "description": "We just sent you an email. Check your junk folder if you haven’t.",
-                "mail": "Mail",
-                "open_email_client": "Open Email Client"
+                "title": "Перевірте вашу поштову скриньку.",
+                "description": "Ми щойно надіслали вам електронного листа. Перевірте вашу спам теку, якщо ви не зробили цього.",
+                "mail": "Пошта",
+                "open_email_client": "Відкрити поштового клієнта"
             }
         },
         "home_timeline": {
-            "title": "Home",
+            "title": "Головна",
             "navigation_bar_state": {
-                "offline": "Offline",
-                "new_posts": "See new posts",
-                "published": "Published!",
-                "Publishing": "Publishing post...",
+                "offline": "В автономному режимі",
+                "new_posts": "До нових дописів",
+                "published": "Опубліковано!",
+                "Publishing": "Допис публікується...",
                 "accessibility": {
-                    "logo_label": "Logo Button",
-                    "logo_hint": "Tap to scroll to top and tap again to previous location"
+                    "logo_label": "Кнопка Логотипу",
+                    "logo_hint": "Торкніться для прокручування вгору і натисніть ще раз на попереднє розташування"
                 }
             }
         },
@@ -435,99 +435,99 @@
                 "publish_post": "Publish Post",
                 "toggle_poll": "Toggle Poll",
                 "toggle_content_warning": "Toggle Content Warning",
-                "append_attachment_entry": "Add Attachment - %s",
-                "select_visibility_entry": "Select Visibility - %s"
+                "append_attachment_entry": "Додати вкладення - %s",
+                "select_visibility_entry": "Оберіть видимість - %s"
             }
         },
         "profile": {
             "header": {
-                "follows_you": "Follows You"
+                "follows_you": "Підписаний(-на) на вас"
             },
             "dashboard": {
-                "posts": "posts",
-                "following": "following",
-                "followers": "followers"
+                "posts": "дописів",
+                "following": "підписаний",
+                "followers": "підписників"
             },
             "fields": {
-                "add_row": "Add Row",
+                "add_row": "Додати рядок",
                 "placeholder": {
-                    "label": "Label",
-                    "content": "Content"
+                    "label": "Позначка",
+                    "content": "Зміст"
                 },
                 "verified": {
-                    "short": "Verified on %s",
-                    "long": "Ownership of this link was checked on %s"
+                    "short": "Перевірено %s",
+                    "long": "Права власності на це посилання були перевірені %s"
                 }
             },
             "segmented_control": {
-                "posts": "Posts",
-                "replies": "Replies",
-                "posts_and_replies": "Posts and Replies",
-                "media": "Media",
-                "about": "About"
+                "posts": "Дописи",
+                "replies": "Відповіді",
+                "posts_and_replies": "Дописи й відповіді",
+                "media": "Медіа",
+                "about": "Про застосунок"
             },
             "relationship_action_alert": {
                 "confirm_mute_user": {
-                    "title": "Mute Account",
-                    "message": "Confirm to mute %s"
+                    "title": "Заглушити обліковий запис",
+                    "message": "Підтвердити заглушення %s"
                 },
                 "confirm_unmute_user": {
-                    "title": "Unmute Account",
-                    "message": "Confirm to unmute %s"
+                    "title": "Розглушити обліковий запис",
+                    "message": "Підтвердить розглушення %s"
                 },
                 "confirm_block_user": {
-                    "title": "Block Account",
-                    "message": "Confirm to block %s"
+                    "title": "Заблокувати обліковий запис",
+                    "message": "Підтвердити блокування %s"
                 },
                 "confirm_unblock_user": {
-                    "title": "Unblock Account",
-                    "message": "Confirm to unblock %s"
+                    "title": "Розблокувати обліковий запис",
+                    "message": "Підтвердити розблокування %s"
                 },
                 "confirm_show_reblogs": {
-                    "title": "Show Reblogs",
-                    "message": "Confirm to show reblogs"
+                    "title": "Показати реблоги",
+                    "message": "Підтвердити показ реблогів"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "Hide Reblogs",
-                    "message": "Confirm to hide reblogs"
+                    "title": "Сховати реблоги",
+                    "message": "Підтвердити, щоб приховати реблоги"
                 }
             },
             "accessibility": {
-                "show_avatar_image": "Show avatar image",
-                "edit_avatar_image": "Edit avatar image",
-                "show_banner_image": "Show banner image",
-                "double_tap_to_open_the_list": "Double tap to open the list"
+                "show_avatar_image": "Показати аватар користувача",
+                "edit_avatar_image": "Редагувати аватар",
+                "show_banner_image": "Показати зображення банера",
+                "double_tap_to_open_the_list": "Натисніть двічі, щоб відчинити список"
             }
         },
         "follower": {
-            "title": "follower",
-            "footer": "Followers from other servers are not displayed."
+            "title": "підписник",
+            "footer": "Підписники з інших серверів не відображаються."
         },
         "following": {
-            "title": "following",
-            "footer": "Follows from other servers are not displayed."
+            "title": "підписаний",
+            "footer": "Підписки з інших серверів не відображаються."
         },
         "familiarFollowers": {
-            "title": "Followers you familiar",
-            "followed_by_names": "Followed by %s"
+            "title": "Підписники, яких ви знаєте",
+            "followed_by_names": "Має серед підписників %s"
         },
         "favorited_by": {
-            "title": "Favorited By"
+            "title": "Є в обраних у"
         },
         "reblogged_by": {
-            "title": "Reblogged By"
+            "title": "Репостнуто"
         },
         "search": {
-            "title": "Search",
+            "title": "Пошук",
             "search_bar": {
-                "placeholder": "Search hashtags and users",
-                "cancel": "Cancel"
+                "placeholder": "Пошук за гештегами та користувачами",
+                "cancel": "Скасувати"
             },
             "recommend": {
-                "button_text": "See All",
+                "button_text": "Переглянути всі",
                 "hash_tag": {
-                    "title": "Trending on Mastodon",
-                    "description": "Hashtags that are getting quite a bit of attention",
+                    "title": "У Трендах на Мастодоні",
+                    "description": "Гештеги, що привертають увагу",
                     "people_talking": "%s people are talking"
                 },
                 "accounts": {
