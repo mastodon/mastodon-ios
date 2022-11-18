@@ -13,7 +13,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 unread notification</string>
+        <string>1 не прочитане сповіщення</string>
         <key>few</key>
         <string>%ld unread notification</string>
         <key>many</key>
