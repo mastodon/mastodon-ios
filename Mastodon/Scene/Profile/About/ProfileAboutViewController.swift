@@ -60,12 +60,7 @@ extension ProfileAboutViewController {
         
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(collectionView)
-        NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-        ])
+        collectionView.pinToParent()
         
         collectionView.delegate = self
         viewModel.setupDiffableDataSource(

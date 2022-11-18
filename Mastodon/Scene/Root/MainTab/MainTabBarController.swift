@@ -218,7 +218,7 @@ extension MainTabBarController {
                     let alertController = UIAlertController(for: error, title: nil, preferredStyle: .alert)
                     let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
                     alertController.addAction(okAction)
-                    coordinator.present(
+                    _ = coordinator.present(
                         scene: .alertController(alertController: alertController),
                         from: nil,
                         transition: .alertController(animated: true, completion: nil)
@@ -442,12 +442,7 @@ extension MainTabBarController {
         
         composeButton.translatesAutoresizingMaskIntoConstraints = false
         composeButttonShadowBackgroundContainer.addSubview(composeButton)
-        NSLayoutConstraint.activate([
-            composeButton.topAnchor.constraint(equalTo: composeButttonShadowBackgroundContainer.topAnchor),
-            composeButton.leadingAnchor.constraint(equalTo: composeButttonShadowBackgroundContainer.leadingAnchor),
-            composeButton.trailingAnchor.constraint(equalTo: composeButttonShadowBackgroundContainer.trailingAnchor),
-            composeButton.bottomAnchor.constraint(equalTo: composeButttonShadowBackgroundContainer.bottomAnchor),
-        ])
+        composeButton.pinToParent()
         composeButton.setContentHuggingPriority(.required - 1, for: .horizontal)
         composeButton.setContentHuggingPriority(.required - 1, for: .vertical)
     }

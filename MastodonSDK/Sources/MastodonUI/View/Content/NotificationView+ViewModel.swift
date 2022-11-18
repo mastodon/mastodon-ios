@@ -105,7 +105,6 @@ extension NotificationView.ViewModel {
             timestampUpdatePublisher.prepend(Date()).eraseToAnyPublisher()
         )
         .sink { [weak self] timestamp, _ in
-            guard let self = self else { return }
             guard let timestamp = timestamp else {
                 notificationView.dateLabel.configure(content: PlaintextMetaContent(string: ""))
                 return

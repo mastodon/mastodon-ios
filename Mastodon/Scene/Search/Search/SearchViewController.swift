@@ -105,12 +105,7 @@ extension SearchViewController {
         addChild(discoveryViewController)
         discoveryViewController.view.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(discoveryViewController.view)
-        NSLayoutConstraint.activate([
-            discoveryViewController.view.topAnchor.constraint(equalTo: view.topAnchor),
-            discoveryViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            discoveryViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            discoveryViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-        ])
+        discoveryViewController.view.pinToParent()
 
 //        discoveryViewController.view.isHidden = true
 
@@ -151,12 +146,7 @@ extension SearchViewController {
         searchBar.delegate = self
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         titleViewContainer.addSubview(searchBar)
-        NSLayoutConstraint.activate([
-            searchBar.topAnchor.constraint(equalTo: titleViewContainer.topAnchor),
-            searchBar.leadingAnchor.constraint(equalTo: titleViewContainer.leadingAnchor),
-            searchBar.trailingAnchor.constraint(equalTo: titleViewContainer.trailingAnchor),
-            searchBar.bottomAnchor.constraint(equalTo: titleViewContainer.bottomAnchor),
-        ])
+        searchBar.pinToParent()
         searchBar.setContentHuggingPriority(.required, for: .horizontal)
         searchBar.setContentHuggingPriority(.required, for: .vertical)
         navigationItem.titleView = titleViewContainer
@@ -174,7 +164,7 @@ extension SearchViewController {
                 // FIXME:
                 // use `.customPush(animated: false)` false to disable navigation bar animation for searchBar layout
                 // but that should be a fade transition whe fixed size searchBar
-                self.coordinator.present(scene: .searchDetail(viewModel: searchDetailViewModel), from: self, transition: .customPush(animated: false))
+                _ = self.coordinator.present(scene: .searchDetail(viewModel: searchDetailViewModel), from: self, transition: .customPush(animated: false))
             }
             .store(in: &disposeBag)
     }

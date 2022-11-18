@@ -300,7 +300,7 @@ extension HomeTimelineViewController {
     }
     
     @objc private func showWelcomeAction(_ sender: UIAction) {
-        coordinator.present(scene: .welcome, from: self, transition: .modal(animated: true, completion: nil))
+        _ = coordinator.present(scene: .welcome, from: self, transition: .modal(animated: true, completion: nil))
     }
     
     @objc private func showRegisterAction(_ sender: UIAction) {
@@ -332,12 +332,12 @@ extension HomeTimelineViewController {
 
     @objc private func showConfirmEmail(_ sender: UIAction) {
         let mastodonConfirmEmailViewModel = MastodonConfirmEmailViewModel()
-        coordinator.present(scene: .mastodonConfirmEmail(viewModel: mastodonConfirmEmailViewModel), from: nil, transition: .modal(animated: true, completion: nil))
+        _ = coordinator.present(scene: .mastodonConfirmEmail(viewModel: mastodonConfirmEmailViewModel), from: nil, transition: .modal(animated: true, completion: nil))
     }
 
     @objc private func showAccountList(_ sender: UIAction) {
         let accountListViewModel = AccountListViewModel(context: context, authContext: viewModel.authContext)
-        coordinator.present(scene: .accountList(viewModel: accountListViewModel), from: self, transition: .modal(animated: true, completion: nil))
+        _ = coordinator.present(scene: .accountList(viewModel: accountListViewModel), from: self, transition: .modal(animated: true, completion: nil))
     }
     
     @objc private func showProfileAction(_ sender: UIAction) {
@@ -347,12 +347,12 @@ extension HomeTimelineViewController {
             guard let self = self else { return }
             guard let textField = alertController?.textFields?.first else { return }
             let profileViewModel = RemoteProfileViewModel(context: self.context, authContext: self.viewModel.authContext, userID: textField.text ?? "")
-            self.coordinator.present(scene: .profile(viewModel: profileViewModel), from: self, transition: .show)
+            _ = self.coordinator.present(scene: .profile(viewModel: profileViewModel), from: self, transition: .show)
         }
         alertController.addAction(showAction)
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alertController.addAction(cancelAction)
-        coordinator.present(scene: .alertController(alertController: alertController), from: self, transition: .alertController(animated: true, completion: nil))
+        _ = coordinator.present(scene: .alertController(alertController: alertController), from: self, transition: .alertController(animated: true, completion: nil))
     }
     
     @objc private func showThreadAction(_ sender: UIAction) {
@@ -362,12 +362,12 @@ extension HomeTimelineViewController {
             guard let self = self else { return }
             guard let textField = alertController?.textFields?.first else { return }
             let threadViewModel = RemoteThreadViewModel(context: self.context, authContext: self.viewModel.authContext, statusID: textField.text ?? "")
-            self.coordinator.present(scene: .thread(viewModel: threadViewModel), from: self, transition: .show)
+            _ = self.coordinator.present(scene: .thread(viewModel: threadViewModel), from: self, transition: .show)
         }
         alertController.addAction(showAction)
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alertController.addAction(cancelAction)
-        coordinator.present(scene: .alertController(alertController: alertController), from: self, transition: .alertController(animated: true, completion: nil))
+        _ = coordinator.present(scene: .alertController(alertController: alertController), from: self, transition: .alertController(animated: true, completion: nil))
     }
     
     private func showNotification(_ sender: UIAction, notificationType: Mastodon.Entity.Notification.NotificationType) {
@@ -436,7 +436,7 @@ extension HomeTimelineViewController {
             authContext: viewModel.authContext,
             setting: currentSetting
         )
-        coordinator.present(
+        _ = coordinator.present(
             scene: .settings(viewModel: settingsViewModel),
             from: self,
             transition: .modal(animated: true, completion: nil)
