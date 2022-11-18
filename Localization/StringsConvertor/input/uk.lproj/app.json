@@ -2,39 +2,39 @@
     "common": {
         "alerts": {
             "common": {
-                "please_try_again": "Please try again.",
-                "please_try_again_later": "Please try again later."
+                "please_try_again": "Будь ласка, спробуйте ще раз.",
+                "please_try_again_later": "Будь ласка, спробуйте пізніше."
             },
             "sign_up_failure": {
-                "title": "Sign Up Failure"
+                "title": "Помилка реєстрації"
             },
             "server_error": {
-                "title": "Server Error"
+                "title": "Помилка сервера"
             },
             "vote_failure": {
-                "title": "Vote Failure",
-                "poll_ended": "The poll has ended"
+                "title": "Помилка голосування",
+                "poll_ended": "Опитування завершено"
             },
             "discard_post_content": {
-                "title": "Discard Draft",
-                "message": "Confirm to discard composed post content."
+                "title": "Видалити чернетку",
+                "message": "Підтвердьте, щоб відхилити створений вміст публікації."
             },
             "publish_post_failure": {
-                "title": "Publish Failure",
-                "message": "Failed to publish the post.\nPlease check your internet connection.",
+                "title": "Помилка публікації",
+                "message": "Не вдалося опублікувати допис.\nПеревірте підключення до Інтернету.",
                 "attachments_message": {
-                    "video_attach_with_photo": "Cannot attach a video to a post that already contains images.",
-                    "more_than_one_video": "Cannot attach more than one video."
+                    "video_attach_with_photo": "Не можна додати відео до допису з зображенням.",
+                    "more_than_one_video": "Не можна додати більше ніж 1 відео."
                 }
             },
             "edit_profile_failure": {
-                "title": "Edit Profile Error",
-                "message": "Cannot edit profile. Please try again."
+                "title": "Помилка редагування профілю",
+                "message": "Не вдалося редагувати профіль. Будь ласка, спробуйте ще раз."
             },
             "sign_out": {
-                "title": "Sign Out",
-                "message": "Are you sure you want to sign out?",
-                "confirm": "Sign Out"
+                "title": "Вийти",
+                "message": "Ви справді бажаєте вийти?",
+                "confirm": "Вийти"
             },
             "block_domain": {
                 "title": "Are you really, really sure you want to block the entire %s? In most cases a few targeted blocks or mutes are sufficient and preferable. You will not see content from that domain and any of your followers from that domain will be removed.",
