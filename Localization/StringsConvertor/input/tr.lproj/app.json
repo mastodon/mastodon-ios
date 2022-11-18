@@ -74,8 +74,8 @@
                 "take_photo": "Fotoğraf Çek",
                 "save_photo": "Fotoğrafı Kaydet",
                 "copy_photo": "Fotoğrafı Kopyala",
-                "sign_in": "Log in",
-                "sign_up": "Create account",
+                "sign_in": "Giriş Yap",
+                "sign_up": "Hesap oluştur",
                 "see_more": "Daha Fazla Gör",
                 "preview": "Önizleme",
                 "share": "Paylaş",
@@ -137,10 +137,10 @@
                     "closed": "Kapandı"
                 },
                 "meta_entity": {
-                    "url": "Link: %s",
-                    "hashtag": "Hashtag: %s",
-                    "mention": "Show Profile: %s",
-                    "email": "Email address: %s"
+                    "url": "Bağlantı: %s",
+                    "hashtag": "Etiket: %s",
+                    "mention": "Profili Göster: %s",
+                    "email": "E-posta adresi: %s"
                 },
                 "actions": {
                     "reply": "Yanıtla",
@@ -219,7 +219,7 @@
             "log_in": "Oturum Aç"
         },
         "login": {
-            "title": "Welcome back",
+            "title": "Tekrar hoş geldin",
             "subtitle": "Log you in on the server you created your account on.",
             "server_search_field": {
                 "placeholder": "Enter URL or search for your server"
@@ -388,11 +388,11 @@
                 "attachment_broken": "Bu %s bozuk ve Mastodon'a\nyüklenemiyor.",
                 "description_photo": "Görme engelliler için fotoğrafı tarif edin...",
                 "description_video": "Görme engelliler için videoyu tarif edin...",
-                "load_failed": "Load Failed",
+                "load_failed": "Yükleme Başarısız",
                 "upload_failed": "Upload Failed",
                 "can_not_recognize_this_media_attachment": "Can not recognize this media attachment",
                 "attachment_too_large": "Attachment too large",
-                "compressing_state": "Compressing...",
+                "compressing_state": "Sıkıştırılıyor...",
                 "server_processing_state": "Server Processing..."
             },
             "poll": {
@@ -581,10 +581,10 @@
                 "show_mentions": "Bahsetmeleri Göster"
             },
             "follow_request": {
-                "accept": "Accept",
-                "accepted": "Accepted",
-                "reject": "reject",
-                "rejected": "Rejected"
+                "accept": "Kabul Et",
+                "accepted": "Kabul Edildi",
+                "reject": "Reddet",
+                "rejected": "Reddedildi"
             }
         },
         "thread": {
@@ -669,9 +669,9 @@
                 "i_dont_like_it": "Beğenmedim",
                 "it_is_not_something_you_want_to_see": "Görmek isteyeceğim bir şey değil",
                 "its_spam": "Spam",
-                "malicious_links_fake_engagement_or_repetetive_replies": "Malicious links, fake engagement, or repetetive replies",
+                "malicious_links_fake_engagement_or_repetetive_replies": "Kötü niyetli bağlantılar, sahte etkileşim veya tekrarlayan yanıtlar",
                 "it_violates_server_rules": "Sunucu kurallarını ihlal ediyor",
-                "you_are_aware_that_it_breaks_specific_rules": "You are aware that it breaks specific rules",
+                "you_are_aware_that_it_breaks_specific_rules": "Belirli kuralları ihlal ettiğinin farkındasınız",
                 "its_something_else": "Başka bir şey",
                 "the_issue_does_not_fit_into_other_categories": "Sorun bunlardan biri değil"
             },
@@ -692,9 +692,9 @@
             },
             "step_final": {
                 "dont_want_to_see_this": "Bunu görmek istemiyor musunuz?",
-                "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "When you see something you don’t like on Mastodon, you can remove the person from your experience.",
+                "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "Mastodon'da beğenmediğiniz bir şey gördüğünüzde, o kişiyi deneyiminizden çıkarabilirsiniz.",
                 "unfollow": "Takibi bırak",
-                "unfollowed": "Unfollowed",
+                "unfollowed": "Takipten çıkıldı",
                 "unfollow_user": "Takipten çık %s",
                 "mute_user": "Sustur %s",
                 "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or reblogs in your home feed. They won’t know they’ve been muted.",
@@ -721,7 +721,7 @@
             "accessibility_hint": "Bu yardımı kapatmak için çift tıklayın"
         },
         "bookmark": {
-            "title": "Bookmarks"
+            "title": "Yer İmleri"
         }
     }
 }
