@@ -145,12 +145,13 @@ extension SidebarViewController {
         sidebarLongPressGestureRecognizer.addTarget(self, action: #selector(SidebarViewController.sidebarLongPressGestureRecognizerHandler(_:)))
         collectionView.addGestureRecognizer(sidebarLongPressGestureRecognizer)
         
-        let sidebarDoubleTapGestureRecognizer = UITapGestureRecognizer()
-        sidebarDoubleTapGestureRecognizer.numberOfTapsRequired = 2
-        sidebarDoubleTapGestureRecognizer.addTarget(self, action: #selector(SidebarViewController.sidebarDoubleTapGestureRecognizerHandler(_:)))
-        sidebarDoubleTapGestureRecognizer.delaysTouchesEnded = false
-        sidebarDoubleTapGestureRecognizer.cancelsTouchesInView = true
-        collectionView.addGestureRecognizer(sidebarDoubleTapGestureRecognizer)
+        // todo: reconsider the "double tap to change account" feature
+//        let sidebarDoubleTapGestureRecognizer = UITapGestureRecognizer()
+//        sidebarDoubleTapGestureRecognizer.numberOfTapsRequired = 2
+//        sidebarDoubleTapGestureRecognizer.addTarget(self, action: #selector(SidebarViewController.sidebarDoubleTapGestureRecognizerHandler(_:)))
+//        sidebarDoubleTapGestureRecognizer.delaysTouchesEnded = false
+//        sidebarDoubleTapGestureRecognizer.cancelsTouchesInView = true
+//        collectionView.addGestureRecognizer(sidebarDoubleTapGestureRecognizer)
 
     }
     
