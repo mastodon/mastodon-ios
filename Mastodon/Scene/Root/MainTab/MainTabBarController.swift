@@ -43,7 +43,7 @@ class MainTabBarController: UITabBarController {
     
     static let avatarButtonSize = CGSize(width: 25, height: 25)
     let avatarButton = CircleAvatarButton()
-    private let accountToggleIndicator = UIImageView(image: UIImage(systemName: "chevron.up.chevron.down"))
+    let accountSwitcherChevron = UIImageView(image: .chevronUpChevronDown)
     
     @Published var currentTab: Tab = .home
         
@@ -507,8 +507,8 @@ extension MainTabBarController {
         }
         anchorImageView.alpha = 0
         
-        accountToggleIndicator.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(accountToggleIndicator)
+        accountSwitcherChevron.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(accountSwitcherChevron)
         
         self.avatarButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(self.avatarButton)
@@ -517,10 +517,10 @@ extension MainTabBarController {
             self.avatarButton.centerYAnchor.constraint(equalTo: anchorImageView.centerYAnchor),
             self.avatarButton.widthAnchor.constraint(equalToConstant: MainTabBarController.avatarButtonSize.width).priority(.required - 1),
             self.avatarButton.heightAnchor.constraint(equalToConstant: MainTabBarController.avatarButtonSize.height).priority(.required - 1),
-            accountToggleIndicator.widthAnchor.constraint(equalToConstant: 10),
-            accountToggleIndicator.heightAnchor.constraint(equalToConstant: 18),
-            accountToggleIndicator.leadingAnchor.constraint(equalTo: avatarButton.trailingAnchor, constant: 8),
-            accountToggleIndicator.centerYAnchor.constraint(equalTo: avatarButton.centerYAnchor)
+            accountSwitcherChevron.widthAnchor.constraint(equalToConstant: 10),
+            accountSwitcherChevron.heightAnchor.constraint(equalToConstant: 18),
+            accountSwitcherChevron.leadingAnchor.constraint(equalTo: avatarButton.trailingAnchor, constant: 8),
+            accountSwitcherChevron.centerYAnchor.constraint(equalTo: avatarButton.centerYAnchor)
         ])
         self.avatarButton.setContentHuggingPriority(.required - 1, for: .horizontal)
         self.avatarButton.setContentHuggingPriority(.required - 1, for: .vertical)
@@ -528,7 +528,7 @@ extension MainTabBarController {
     }
     
     private func updateAvatarButtonAppearance() {
-        accountToggleIndicator.tintColor = currentTab == .me ? .label : .secondaryLabel
+        accountSwitcherChevron.tintColor = currentTab == .me ? .label : .secondaryLabel
         avatarButton.borderColor = currentTab == .me ? .label : .systemFill
         avatarButton.setNeedsLayout()
     }
