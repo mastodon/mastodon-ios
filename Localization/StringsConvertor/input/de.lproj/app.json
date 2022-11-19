@@ -172,7 +172,7 @@
             },
             "friendship": {
                 "follow": "Folgen",
-                "following": "Folge Ich",
+                "following": "Gefolgt",
                 "request": "Anfragen",
                 "pending": "In Warteschlange",
                 "block": "Blockieren",
@@ -367,7 +367,7 @@
         },
         "suggestion_account": {
             "title": "Finde Personen zum Folgen",
-            "follow_explain": "Wenn du jemandem folgst, dann siehst du deren Beiträge in deinem Home-Feed."
+            "follow_explain": "Sobald du anderen folgst, siehst du deren Beiträge in deinem Home-Feed."
         },
         "compose": {
             "title": {
@@ -508,7 +508,7 @@
             "footer": "Gefolgte, die nicht auf deinem Server registriert sind, werden nicht angezeigt."
         },
         "familiarFollowers": {
-            "title": "Follower, die dir bekannt vorkommen",
+            "title": "Folgende, die du kennst",
             "followed_by_names": "Gefolgt von %s"
         },
         "favorited_by": {
