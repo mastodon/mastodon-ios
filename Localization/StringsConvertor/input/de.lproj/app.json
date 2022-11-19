@@ -139,8 +139,8 @@
                 "meta_entity": {
                     "url": "Link: %s",
                     "hashtag": "Hashtag: %s",
-                    "mention": "Show Profile: %s",
-                    "email": "Email address: %s"
+                    "mention": "Profil anzeigen: %s",
+                    "email": "E-Mail-Adresse: %s"
                 },
                 "actions": {
                     "reply": "Antworten",
@@ -165,8 +165,8 @@
                 },
                 "visibility": {
                     "unlisted": "Jeder kann diesen Post sehen, aber nicht in der öffentlichen Timeline zeigen.",
-                    "private": "Nur Follower des Authors können diesen Beitrag sehen.",
-                    "private_from_me": "Nur meine Follower können diesen Beitrag sehen.",
+                    "private": "Nur die, die dem Autor folgen, können diesen Beitrag sehen.",
+                    "private_from_me": "Nur die, die mir folgen, können diesen Beitrag sehen.",
                     "direct": "Nur erwähnte Benutzer können diesen Beitrag sehen."
                 }
             },
@@ -348,7 +348,7 @@
             "open_email_app": {
                 "title": "Überprüfe deinen Posteingang.",
                 "description": "Wir haben dir gerade eine E-Mail geschickt. Überprüfe deinen Spam-Ordner, falls du es noch nicht getan hast.",
-                "mail": "Mail",
+                "mail": "E-Mail",
                 "open_email_client": "E-Mail-Client öffnen"
             }
         },
@@ -427,8 +427,8 @@
                 "enable_content_warning": "Inhaltswarnung einschalten",
                 "disable_content_warning": "Inhaltswarnung ausschalten",
                 "post_visibility_menu": "Sichtbarkeitsmenü",
-                "post_options": "Post Options",
-                "posting_as": "Posting as %s"
+                "post_options": "Beitragsoptionen",
+                "posting_as": "Posten als %s"
             },
             "keyboard": {
                 "discard_post": "Beitrag verwerfen",
@@ -485,11 +485,11 @@
                 },
                 "confirm_show_reblogs": {
                     "title": "Reblogs anzeigen",
-                    "message": "Bestätigen um Reblogs anzuzeigen"
+                    "message": "Bestätigen, um Teilen anzuzeigen"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "Reblogs ausblenden",
-                    "message": "Confirm to hide reblogs"
+                    "title": "Teilen ausblenden",
+                    "message": "Bestätigen, um Teilen auszublenden"
                 }
             },
             "accessibility": {
@@ -532,7 +532,7 @@
                 },
                 "accounts": {
                     "title": "Konten, die dir gefallen könnten",
-                    "description": "Vielleicht gefallen dir diese Benutzer",
+                    "description": "Vielleicht gefallen dir diese Konten",
                     "follow": "Folgen"
                 }
             },
