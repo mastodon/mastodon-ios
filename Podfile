@@ -14,10 +14,10 @@ target 'Mastodon' do
   pod 'SwiftGen', '~> 6.6.2'
   pod 'DateToolsSwift', '~> 5.0.0'
   pod 'Kanna', '~> 5.2.2'
-  pod 'Sourcery', '~> 1.6.1'
+  pod 'Sourcery', '~> 1.9'
 
   # DEBUG
-  pod 'FLEX', '~> 4.4.0', :configurations => ['Debug', "Release Snapshot"]
+  pod 'FLEX', '~> 5.22.10', :configurations => ['Debug', "Release Snapshot"]
   
   target 'MastodonTests' do
     inherit! :search_paths
