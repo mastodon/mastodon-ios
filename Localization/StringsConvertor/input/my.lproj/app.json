@@ -2,39 +2,39 @@
     "common": {
         "alerts": {
             "common": {
-                "please_try_again": "Please try again.",
-                "please_try_again_later": "Please try again later."
+                "please_try_again": "ပြန်လည်ကြိုးစားကြည့်ပါ",
+                "please_try_again_later": "နောက်မှ ပြန်လည်ကြိုးစားကြည့်ပါ"
             },
             "sign_up_failure": {
-                "title": "Sign Up Failure"
+                "title": "အကောင့်ဖွင့်ခြင်း မအောင်မြင်ပါ"
             },
             "server_error": {
-                "title": "Server Error"
+                "title": "ဆာဗာ အမှား"
             },
             "vote_failure": {
-                "title": "Vote Failure",
-                "poll_ended": "The poll has ended"
+                "title": "မဲပေးမှု မအောင်မြင်ခြင်း",
+                "poll_ended": "စစ်တမ်းကောက်မှု ပြီးဆုံးပါပြီ"
             },
             "discard_post_content": {
-                "title": "Discard Draft",
-                "message": "Confirm to discard composed post content."
+                "title": "မူကြမ်းကို ပယ်ဖျက်ပါ",
+                "message": "ရေးသားထားသောမူကြမ်းကို ပယ်ဖျက်ရန် အတည်ပြုပါ"
             },
             "publish_post_failure": {
-                "title": "Publish Failure",
-                "message": "Failed to publish the post.\nPlease check your internet connection.",
+                "title": "ပို့စ်တင်ခြင်း မအောင်မြင်မှု",
+                "message": "ပို့စ်တင်ခြင်း မအောင်မြင်ပါ၊ သင်၏ အင်တာနက်ချိတ်ဆက်မှုကို စစ်ဆေးပါ။",
                 "attachments_message": {
-                    "video_attach_with_photo": "Cannot attach a video to a post that already contains images.",
-                    "more_than_one_video": "Cannot attach more than one video."
+                    "video_attach_with_photo": "ဓာတ်ပုံများပါဝင်သော ပို့စ်တွင် ဗီဒီိယိုကို တွဲတင်၍ မရပါ",
+                    "more_than_one_video": "ဗီဒီိယို ၁ ခုထက်ပို၍ တွဲတင်၍ မရပါ"
                 }
             },
             "edit_profile_failure": {
-                "title": "Edit Profile Error",
-                "message": "Cannot edit profile. Please try again."
+                "title": "ပရိုဖိုင်ပြင်ဆင်ခြင်း အမှား",
+                "message": "ပရိုဖိုင်ကို ပြင်ဆင်၍ မရပါ၊ ပြန်လည်ကြိုးစားကြည့်ပါ။"
             },
             "sign_out": {
-                "title": "Sign Out",
-                "message": "Are you sure you want to sign out?",
-                "confirm": "Sign Out"
+                "title": "ထွက်မည်",
+                "message": "အကောင့်မှ ထွက်ရန် သေချာပါသလား?",
+                "confirm": "ထွက်မည်"
             },
             "block_domain": {
                 "title": "Are you really, really sure you want to block the entire %s? In most cases a few targeted blocks or mutes are sufficient and preferable. You will not see content from that domain and any of your followers from that domain will be removed.",
