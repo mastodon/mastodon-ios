@@ -92,7 +92,7 @@ extension CategoryPickerItem {
     var accessibilityDescription: String {
         switch self {
         case .all:
-            return L10n.Scene.ServerPicker.Button.Category.allAccessiblityDescription
+            return L10n.Scene.ServerPicker.Button.Category.allAccessibilityDescription
         case .category(let category):
             switch category.category {
             case .academia:

@@ -1127,7 +1127,7 @@ public enum L10n {
           /// All
           public static let all = L10n.tr("Localizable", "Scene.ServerPicker.Button.Category.All", fallback: "All")
           /// Category: All
-          public static let allAccessiblityDescription = L10n.tr("Localizable", "Scene.ServerPicker.Button.Category.AllAccessiblityDescription", fallback: "Category: All")
+          public static let allAccessibilityDescription = L10n.tr("Localizable", "Scene.ServerPicker.Button.Category.AllAccessibilityDescription", fallback: "Category: All")
           /// art
           public static let art = L10n.tr("Localizable", "Scene.ServerPicker.Button.Category.Art", fallback: "art")
           /// food
