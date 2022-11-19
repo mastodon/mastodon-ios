@@ -12,7 +12,7 @@ import SessionExporter
 import MastodonCore
 
 extension AttachmentViewModel {
-    func comporessVideo(url: URL) async throws -> URL {
+    func compressVideo(url: URL) async throws -> URL {
         let urlAsset = AVURLAsset(url: url)
         let exporter = NextLevelSessionExporter(withAsset: urlAsset)
         exporter.outputFileType = .mp4

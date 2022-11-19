@@ -304,9 +304,14 @@ extension StatusView.ViewModel {
             }
             
             let paragraphStyle = statusView.contentMetaText.paragraphStyle
-            if let language = language {
-                let direction = Locale.characterDirection(forLanguage: language)
-                paragraphStyle.alignment = direction == .rightToLeft ? .right : .left
+            if let language = language { 
+                if #available(iOS 16, *) {
+                    let direction = Locale.Language(identifier: language).characterDirection
+                    paragraphStyle.alignment = direction == .rightToLeft ? .right : .left
+                } else {
+                    let direction = Locale.characterDirection(forLanguage: language)
+                    paragraphStyle.alignment = direction == .rightToLeft ? .right : .left
+                };
             } else {
                 paragraphStyle.alignment = .natural
             }
