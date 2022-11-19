@@ -377,7 +377,7 @@
 "Scene.ServerPicker.Button.Category.Academia" = "学术";
 "Scene.ServerPicker.Button.Category.Activism" = "行动主义";
 "Scene.ServerPicker.Button.Category.All" = "全部";
-"Scene.ServerPicker.Button.Category.AllAccessiblityDescription" = "类别：全部";
+"Scene.ServerPicker.Button.Category.AllAccessibilityDescription" = "类别：全部";
 "Scene.ServerPicker.Button.Category.Art" = "艺术";
 "Scene.ServerPicker.Button.Category.Food" = "美食";
 "Scene.ServerPicker.Button.Category.Furry" = "兽迷";

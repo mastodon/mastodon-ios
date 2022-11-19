@@ -377,7 +377,7 @@ tải lên Mastodon.";
 "Scene.ServerPicker.Button.Category.Academia" = "học thuật";
 "Scene.ServerPicker.Button.Category.Activism" = "hoạt động xã hội";
 "Scene.ServerPicker.Button.Category.All" = "Toàn bộ";
-"Scene.ServerPicker.Button.Category.AllAccessiblityDescription" = "Phân loại: Toàn bộ";
+"Scene.ServerPicker.Button.Category.AllAccessibilityDescription" = "Phân loại: Toàn bộ";
 "Scene.ServerPicker.Button.Category.Art" = "nghệ thuật";
 "Scene.ServerPicker.Button.Category.Food" = "ăn uống";
 "Scene.ServerPicker.Button.Category.Furry" = "furry";

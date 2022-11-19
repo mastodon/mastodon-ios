@@ -376,7 +376,7 @@ yüklenemiyor.";
 "Scene.ServerPicker.Button.Category.Academia" = "akademi";
 "Scene.ServerPicker.Button.Category.Activism" = "aktivizm";
 "Scene.ServerPicker.Button.Category.All" = "Tümü";
-"Scene.ServerPicker.Button.Category.AllAccessiblityDescription" = "Kategori: Tümü";
+"Scene.ServerPicker.Button.Category.AllAccessibilityDescription" = "Kategori: Tümü";
 "Scene.ServerPicker.Button.Category.Art" = "sanat";
 "Scene.ServerPicker.Button.Category.Food" = "yiyecek";
 "Scene.ServerPicker.Button.Category.Furry" = "furry";

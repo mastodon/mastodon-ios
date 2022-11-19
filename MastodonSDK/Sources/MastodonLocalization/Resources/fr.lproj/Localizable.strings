@@ -377,7 +377,7 @@ téléversé sur Mastodon.";
 "Scene.ServerPicker.Button.Category.Academia" = "domaine universitaire";
 "Scene.ServerPicker.Button.Category.Activism" = "activisme";
 "Scene.ServerPicker.Button.Category.All" = "Tout";
-"Scene.ServerPicker.Button.Category.AllAccessiblityDescription" = "Catégorie: Toutes";
+"Scene.ServerPicker.Button.Category.AllAccessibilityDescription" = "Catégorie: Toutes";
 "Scene.ServerPicker.Button.Category.Art" = "art";
 "Scene.ServerPicker.Button.Category.Food" = "nourriture";
 "Scene.ServerPicker.Button.Category.Furry" = "furry";

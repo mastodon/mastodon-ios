@@ -377,7 +377,7 @@ a luchdadh suas gu Mastodon.";
 "Scene.ServerPicker.Button.Category.Academia" = "saoghal nan sgoilear";
 "Scene.ServerPicker.Button.Category.Activism" = "iomairteachd";
 "Scene.ServerPicker.Button.Category.All" = "Na h-uile";
-"Scene.ServerPicker.Button.Category.AllAccessiblityDescription" = "Roinn-seòrsa: Na h-uile";
+"Scene.ServerPicker.Button.Category.AllAccessibilityDescription" = "Roinn-seòrsa: Na h-uile";
 "Scene.ServerPicker.Button.Category.Art" = "ealain";
 "Scene.ServerPicker.Button.Category.Food" = "biadh";
 "Scene.ServerPicker.Button.Category.Furry" = "furry";

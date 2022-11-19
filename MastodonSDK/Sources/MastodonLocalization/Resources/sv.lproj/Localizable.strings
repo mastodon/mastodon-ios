@@ -377,7 +377,7 @@ laddas upp till Mastodon.";
 "Scene.ServerPicker.Button.Category.Academia" = "vetenskap";
 "Scene.ServerPicker.Button.Category.Activism" = "aktivism";
 "Scene.ServerPicker.Button.Category.All" = "Alla";
-"Scene.ServerPicker.Button.Category.AllAccessiblityDescription" = "Kategori: Alla";
+"Scene.ServerPicker.Button.Category.AllAccessibilityDescription" = "Kategori: Alla";
 "Scene.ServerPicker.Button.Category.Art" = "konst";
 "Scene.ServerPicker.Button.Category.Food" = "mat";
 "Scene.ServerPicker.Button.Category.Furry" = "furry";

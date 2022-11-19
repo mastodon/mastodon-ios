@@ -377,7 +377,7 @@ kann nicht auf Mastodon hochgeladen werden.";
 "Scene.ServerPicker.Button.Category.Academia" = "Wissenschaft";
 "Scene.ServerPicker.Button.Category.Activism" = "Aktivismus";
 "Scene.ServerPicker.Button.Category.All" = "Alle";
-"Scene.ServerPicker.Button.Category.AllAccessiblityDescription" = "Kategorie: Alle";
+"Scene.ServerPicker.Button.Category.AllAccessibilityDescription" = "Kategorie: Alle";
 "Scene.ServerPicker.Button.Category.Art" = "Kunst";
 "Scene.ServerPicker.Button.Category.Food" = "Essen";
 "Scene.ServerPicker.Button.Category.Furry" = "Furry";

@@ -372,7 +372,7 @@ klik op de link om uw account te bevestigen.";
 "Scene.ServerPicker.Button.Category.Academia" = "academisch";
 "Scene.ServerPicker.Button.Category.Activism" = "activisme";
 "Scene.ServerPicker.Button.Category.All" = "Alles";
-"Scene.ServerPicker.Button.Category.AllAccessiblityDescription" = "Categorie: Alles";
+"Scene.ServerPicker.Button.Category.AllAccessibilityDescription" = "Categorie: Alles";
 "Scene.ServerPicker.Button.Category.Art" = "kunst";
 "Scene.ServerPicker.Button.Category.Food" = "eten";
 "Scene.ServerPicker.Button.Category.Furry" = "furry";

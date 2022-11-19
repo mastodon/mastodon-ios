@@ -372,7 +372,7 @@
 "Scene.ServerPicker.Button.Category.Academia" = "學術";
 "Scene.ServerPicker.Button.Category.Activism" = "社會運動";
 "Scene.ServerPicker.Button.Category.All" = "全部";
-"Scene.ServerPicker.Button.Category.AllAccessiblityDescription" = "分類：全部";
+"Scene.ServerPicker.Button.Category.AllAccessibilityDescription" = "分類：全部";
 "Scene.ServerPicker.Button.Category.Art" = "藝術";
 "Scene.ServerPicker.Button.Category.Food" = "食物";
 "Scene.ServerPicker.Button.Category.Furry" = "毛茸茸";

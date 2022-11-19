@@ -377,7 +377,7 @@ Ad d-yettwasali ɣef Mastodon.";
 "Scene.ServerPicker.Button.Category.Academia" = "akadimi";
 "Scene.ServerPicker.Button.Category.Activism" = "tinuɣmest";
 "Scene.ServerPicker.Button.Category.All" = "Akk";
-"Scene.ServerPicker.Button.Category.AllAccessiblityDescription" = "Taggayt: Akk";
+"Scene.ServerPicker.Button.Category.AllAccessibilityDescription" = "Taggayt: Akk";
 "Scene.ServerPicker.Button.Category.Art" = "taẓuri";
 "Scene.ServerPicker.Button.Category.Food" = "učči";
 "Scene.ServerPicker.Button.Category.Furry" = "s taḍut";

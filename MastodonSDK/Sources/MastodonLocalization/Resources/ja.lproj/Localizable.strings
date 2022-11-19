@@ -372,7 +372,7 @@
 "Scene.ServerPicker.Button.Category.Academia" = "アカデミア";
 "Scene.ServerPicker.Button.Category.Activism" = "アクティビズム";
 "Scene.ServerPicker.Button.Category.All" = "すべて";
-"Scene.ServerPicker.Button.Category.AllAccessiblityDescription" = "カテゴリ: すべて";
+"Scene.ServerPicker.Button.Category.AllAccessibilityDescription" = "カテゴリ: すべて";
 "Scene.ServerPicker.Button.Category.Art" = "アート";
 "Scene.ServerPicker.Button.Category.Food" = "食べ物";
 "Scene.ServerPicker.Button.Category.Furry" = "ケモノ";

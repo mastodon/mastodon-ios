@@ -388,7 +388,7 @@
 "Scene.ServerPicker.Button.Category.Academia" = "академия";
 "Scene.ServerPicker.Button.Category.Activism" = "активизм";
 "Scene.ServerPicker.Button.Category.All" = "Все";
-"Scene.ServerPicker.Button.Category.AllAccessiblityDescription" = "Категория: все";
+"Scene.ServerPicker.Button.Category.AllAccessibilityDescription" = "Категория: все";
 "Scene.ServerPicker.Button.Category.Art" = "арт";
 "Scene.ServerPicker.Button.Category.Food" = "еда";
 "Scene.ServerPicker.Button.Category.Furry" = "фурри";

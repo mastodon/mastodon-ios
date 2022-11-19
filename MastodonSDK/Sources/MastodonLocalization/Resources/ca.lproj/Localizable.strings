@@ -377,7 +377,7 @@ carregat a Mastodon.";
 "Scene.ServerPicker.Button.Category.Academia" = "acadèmia";
 "Scene.ServerPicker.Button.Category.Activism" = "activisme";
 "Scene.ServerPicker.Button.Category.All" = "Totes";
-"Scene.ServerPicker.Button.Category.AllAccessiblityDescription" = "Categoria: Totes";
+"Scene.ServerPicker.Button.Category.AllAccessibilityDescription" = "Categoria: Totes";
 "Scene.ServerPicker.Button.Category.Art" = "art";
 "Scene.ServerPicker.Button.Category.Food" = "menjar";
 "Scene.ServerPicker.Button.Category.Furry" = "peluts";

@@ -378,7 +378,7 @@ girêdanê bitikne da ku ajimêra xwe bidî piştrastkirin.";
 "Scene.ServerPicker.Button.Category.Academia" = "akademî";
 "Scene.ServerPicker.Button.Category.Activism" = "çalakî";
 "Scene.ServerPicker.Button.Category.All" = "Hemû";
-"Scene.ServerPicker.Button.Category.AllAccessiblityDescription" = "Beş: Hemû";
+"Scene.ServerPicker.Button.Category.AllAccessibilityDescription" = "Beş: Hemû";
 "Scene.ServerPicker.Button.Category.Art" = "huner";
 "Scene.ServerPicker.Button.Category.Food" = "xwarin";
 "Scene.ServerPicker.Button.Category.Furry" = "furry";

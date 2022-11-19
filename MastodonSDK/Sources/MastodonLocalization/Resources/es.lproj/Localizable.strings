@@ -378,7 +378,7 @@ pulsa en el enlace para confirmar tu cuenta.";
 "Scene.ServerPicker.Button.Category.Academia" = "académicos";
 "Scene.ServerPicker.Button.Category.Activism" = "activismo";
 "Scene.ServerPicker.Button.Category.All" = "Todas";
-"Scene.ServerPicker.Button.Category.AllAccessiblityDescription" = "Categoría: Todas";
+"Scene.ServerPicker.Button.Category.AllAccessibilityDescription" = "Categoría: Todas";
 "Scene.ServerPicker.Button.Category.Art" = "arte";
 "Scene.ServerPicker.Button.Category.Food" = "comida";
 "Scene.ServerPicker.Button.Category.Furry" = "furry";

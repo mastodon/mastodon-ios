@@ -377,7 +377,7 @@ caricato su Mastodon.";
 "Scene.ServerPicker.Button.Category.Academia" = "accademia";
 "Scene.ServerPicker.Button.Category.Activism" = "attivismo";
 "Scene.ServerPicker.Button.Category.All" = "Tutti";
-"Scene.ServerPicker.Button.Category.AllAccessiblityDescription" = "Categoria: Tutti";
+"Scene.ServerPicker.Button.Category.AllAccessibilityDescription" = "Categoria: Tutti";
 "Scene.ServerPicker.Button.Category.Art" = "arte";
 "Scene.ServerPicker.Button.Category.Food" = "cibo";
 "Scene.ServerPicker.Button.Category.Furry" = "peloso";

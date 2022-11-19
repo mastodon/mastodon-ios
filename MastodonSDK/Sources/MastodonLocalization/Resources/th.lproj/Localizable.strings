@@ -377,7 +377,7 @@
 "Scene.ServerPicker.Button.Category.Academia" = "สถาบันการศึกษา";
 "Scene.ServerPicker.Button.Category.Activism" = "กิจกรรมเพื่อการเปลี่ยนแปลง";
 "Scene.ServerPicker.Button.Category.All" = "ทั้งหมด";
-"Scene.ServerPicker.Button.Category.AllAccessiblityDescription" = "หมวดหมู่: ทั้งหมด";
+"Scene.ServerPicker.Button.Category.AllAccessibilityDescription" = "หมวดหมู่: ทั้งหมด";
 "Scene.ServerPicker.Button.Category.Art" = "ศิลปะ";
 "Scene.ServerPicker.Button.Category.Food" = "อาหาร";
 "Scene.ServerPicker.Button.Category.Furry" = "สัตว์ขนยาว";

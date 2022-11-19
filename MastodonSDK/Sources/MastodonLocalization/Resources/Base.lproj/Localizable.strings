@@ -388,7 +388,7 @@ uploaded to Mastodon.";
 "Scene.ServerPicker.Button.Category.Academia" = "academia";
 "Scene.ServerPicker.Button.Category.Activism" = "activism";
 "Scene.ServerPicker.Button.Category.All" = "All";
-"Scene.ServerPicker.Button.Category.AllAccessiblityDescription" = "Category: All";
+"Scene.ServerPicker.Button.Category.AllAccessibilityDescription" = "Category: All";
 "Scene.ServerPicker.Button.Category.Art" = "art";
 "Scene.ServerPicker.Button.Category.Food" = "food";
 "Scene.ServerPicker.Button.Category.Furry" = "furry";

@@ -376,7 +376,7 @@
 "Scene.ServerPicker.Button.Category.Academia" = "ئەکادیمیا";
 "Scene.ServerPicker.Button.Category.Activism" = "چالاکی";
 "Scene.ServerPicker.Button.Category.All" = "هەموو";
-"Scene.ServerPicker.Button.Category.AllAccessiblityDescription" = "بەش: هەموو";
+"Scene.ServerPicker.Button.Category.AllAccessibilityDescription" = "بەش: هەموو";
 "Scene.ServerPicker.Button.Category.Art" = "هونەر";
 "Scene.ServerPicker.Button.Category.Food" = "خواردن";
 "Scene.ServerPicker.Button.Category.Furry" = "furry";

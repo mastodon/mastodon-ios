@@ -377,7 +377,7 @@ Mastodonera igo.";
 "Scene.ServerPicker.Button.Category.Academia" = "akademia";
 "Scene.ServerPicker.Button.Category.Activism" = "aktibismoa";
 "Scene.ServerPicker.Button.Category.All" = "Guztiak";
-"Scene.ServerPicker.Button.Category.AllAccessiblityDescription" = "Kategoria: Guztiak";
+"Scene.ServerPicker.Button.Category.AllAccessibilityDescription" = "Kategoria: Guztiak";
 "Scene.ServerPicker.Button.Category.Art" = "artea";
 "Scene.ServerPicker.Button.Category.Food" = "janaria";
 "Scene.ServerPicker.Button.Category.Furry" = "furry";

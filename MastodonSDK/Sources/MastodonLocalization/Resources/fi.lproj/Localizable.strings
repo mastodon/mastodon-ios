@@ -377,7 +377,7 @@ uploaded to Mastodon.";
 "Scene.ServerPicker.Button.Category.Academia" = "akateeminen";
 "Scene.ServerPicker.Button.Category.Activism" = "aktivismi";
 "Scene.ServerPicker.Button.Category.All" = "Kaikki";
-"Scene.ServerPicker.Button.Category.AllAccessiblityDescription" = "Kategoria: Kaikki";
+"Scene.ServerPicker.Button.Category.AllAccessibilityDescription" = "Kategoria: Kaikki";
 "Scene.ServerPicker.Button.Category.Art" = "taide";
 "Scene.ServerPicker.Button.Category.Food" = "ruoka";
 "Scene.ServerPicker.Button.Category.Furry" = "turri";

@@ -377,7 +377,7 @@ ser subido a Mastodon.";
 "Scene.ServerPicker.Button.Category.Academia" = "academia";
 "Scene.ServerPicker.Button.Category.Activism" = "activismo";
 "Scene.ServerPicker.Button.Category.All" = "Todo";
-"Scene.ServerPicker.Button.Category.AllAccessiblityDescription" = "Categoría: Todo";
+"Scene.ServerPicker.Button.Category.AllAccessibilityDescription" = "Categoría: Todo";
 "Scene.ServerPicker.Button.Category.Art" = "arte";
 "Scene.ServerPicker.Button.Category.Food" = "comida";
 "Scene.ServerPicker.Button.Category.Furry" = "peluxos";

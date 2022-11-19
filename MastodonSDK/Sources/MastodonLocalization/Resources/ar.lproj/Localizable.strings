@@ -377,7 +377,7 @@
 "Scene.ServerPicker.Button.Category.Academia" = "أكاديمي";
 "Scene.ServerPicker.Button.Category.Activism" = "نُشَطاء";
 "Scene.ServerPicker.Button.Category.All" = "الكُل";
-"Scene.ServerPicker.Button.Category.AllAccessiblityDescription" = "الفِئَة: الكُل";
+"Scene.ServerPicker.Button.Category.AllAccessibilityDescription" = "الفِئَة: الكُل";
 "Scene.ServerPicker.Button.Category.Art" = "فُنون";
 "Scene.ServerPicker.Button.Category.Food" = "طَعام";
 "Scene.ServerPicker.Button.Category.Furry" = "مَكسُوٌ بِالفَرو";
