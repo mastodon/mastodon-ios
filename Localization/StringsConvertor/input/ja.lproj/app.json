@@ -72,9 +72,9 @@
                 "discard": "破棄",
                 "try_again": "再実行",
                 "take_photo": "写真を撮る",
-                "save_photo": "写真を撮る",
+                "save_photo": "写真を保存",
                 "copy_photo": "写真をコピー",
-                "sign_in": "Log in",
+                "sign_in": "ログイン",
                 "sign_up": "Create account",
                 "see_more": "もっと見る",
                 "preview": "プレビュー",
@@ -427,7 +427,7 @@
                 "enable_content_warning": "閲覧注意を有効にする",
                 "disable_content_warning": "閲覧注意を無効にする",
                 "post_visibility_menu": "投稿の表示メニュー",
-                "post_options": "Post Options",
+                "post_options": "投稿オプション",
                 "posting_as": "Posting as %s"
             },
             "keyboard": {
@@ -678,7 +678,7 @@
             "step_two": {
                 "step_2_of_4": "ステップ 2/4",
                 "which_rules_are_being_violated": "どのルールに違反していますか？",
-                "select_all_that_apply": "Select all that apply",
+                "select_all_that_apply": "当てはまるものをすべて選んでください",
                 "i_just_don’t_like_it": "I just don’t like it"
             },
             "step_three": {
@@ -721,7 +721,7 @@
             "accessibility_hint": "チュートリアルを閉じるには、ダブルタップしてください"
         },
         "bookmark": {
-            "title": "Bookmarks"
+            "title": "ブックマーク"
         }
     }
 }
