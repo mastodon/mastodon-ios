@@ -572,8 +572,8 @@
                 "followed_you": "mengikutimu",
                 "favorited_your_post": "menyukai postinganmu",
                 "reblogged_your_post": "reblogged your post",
-                "mentioned_you": "mentioned you",
-                "request_to_follow_you": "request to follow you",
+                "mentioned_you": "menyebutmu",
+                "request_to_follow_you": "meminta mengikutimu",
                 "poll_has_ended": "poll has ended"
             },
             "keyobard": {
@@ -581,10 +581,10 @@
                 "show_mentions": "Tampilkan Sebutan"
             },
             "follow_request": {
-                "accept": "Accept",
-                "accepted": "Accepted",
-                "reject": "reject",
-                "rejected": "Rejected"
+                "accept": "Menerima",
+                "accepted": "Diterima",
+                "reject": "menolak",
+                "rejected": "Ditolak"
             }
         },
         "thread": {
@@ -601,11 +601,11 @@
                     "dark": "Selalu Gelap"
                 },
                 "look_and_feel": {
-                    "title": "Look and Feel",
+                    "title": "Lihat dan Rasakan",
                     "use_system": "Use System",
-                    "really_dark": "Really Dark",
-                    "sorta_dark": "Sorta Dark",
-                    "light": "Light"
+                    "really_dark": "Sangat Gelap",
+                    "sorta_dark": "Agak Gelap",
+                    "light": "Terang"
                 },
                 "notifications": {
                     "title": "Notifikasi",
@@ -617,7 +617,7 @@
                         "anyone": "siapapun",
                         "follower": "seorang pengikut",
                         "follow": "siapapun yang saya ikuti",
-                        "noone": "no one",
+                        "noone": "tidak ada",
                         "title": "Beritahu saya ketika"
                     }
                 },
@@ -627,7 +627,7 @@
                     "disable_avatar_animation": "Disable animated avatars",
                     "disable_emoji_animation": "Disable animated emojis",
                     "using_default_browser": "Use default browser to open links",
-                    "open_links_in_mastodon": "Open links in Mastodon"
+                    "open_links_in_mastodon": "Buka tautan di Mastodon"
                 },
                 "boring_zone": {
                     "title": "Zona Membosankan",
@@ -649,7 +649,7 @@
             }
         },
         "report": {
-            "title_report": "Report",
+            "title_report": "Laporkan",
             "title": "Laporkan %s",
             "step1": "Langkah 1 dari 2",
             "step2": "Langkah 2 dari 2",
@@ -659,13 +659,13 @@
             "send": "Kirim Laporan",
             "skip_to_send": "Kirim tanpa komentar",
             "text_placeholder": "Ketik atau tempel komentar tambahan",
-            "reported": "REPORTED",
+            "reported": "DILAPORKAN",
             "step_one": {
-                "step_1_of_4": "Step 1 of 4",
-                "whats_wrong_with_this_post": "What's wrong with this post?",
-                "whats_wrong_with_this_account": "What's wrong with this account?",
+                "step_1_of_4": "Langkah 1 dari 4",
+                "whats_wrong_with_this_post": "Ada yang salah dengan postingan ini?",
+                "whats_wrong_with_this_account": "Ada yang salah dengan akun ini?",
                 "whats_wrong_with_this_username": "What's wrong with %s?",
-                "select_the_best_match": "Select the best match",
+                "select_the_best_match": "Pilih yang paling cocok",
                 "i_dont_like_it": "I don’t like it",
                 "it_is_not_something_you_want_to_see": "It is not something you want to see",
                 "its_spam": "It’s spam",
