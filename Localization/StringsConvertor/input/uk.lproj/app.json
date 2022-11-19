@@ -578,17 +578,17 @@
             },
             "keyobard": {
                 "show_everything": "Показати все",
-                "show_mentions": "Show Mentions"
+                "show_mentions": "Показати Згадки"
             },
             "follow_request": {
-                "accept": "Accept",
-                "accepted": "Accepted",
-                "reject": "reject",
-                "rejected": "Rejected"
+                "accept": "Прийняти",
+                "accepted": "Прийнято",
+                "reject": "відхилити",
+                "rejected": "Відхилено"
             }
         },
         "thread": {
-            "back_title": "Post",
+            "back_title": "Допис",
             "title": "Post from %s"
         },
         "settings": {
