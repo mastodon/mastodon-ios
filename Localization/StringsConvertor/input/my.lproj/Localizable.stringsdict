@@ -55,7 +55,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld characters</string>
+        <string>စာလုံး %ld လုံး</string>
       </dict>
     </dict>
     <key>plural.count.followed_by_and_mutual</key>
@@ -78,7 +78,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>Followed by %1$@, and %ld mutuals</string>
+        <string>%1$@ နှင့် ဘုံသူငယ်ချင်း %ld ဦးမှ စောင့်ကြည့်နေသည်</string>
       </dict>
     </dict>
     <key>plural.count.metric_formatted.post</key>
@@ -92,7 +92,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>posts</string>
+        <string>ပို့စ်များ</string>
       </dict>
     </dict>
     <key>plural.count.media</key>
@@ -106,7 +106,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld media</string>
+        <string>ရုပ်သံ %ld ခု</string>
       </dict>
     </dict>
     <key>plural.count.post</key>
@@ -120,7 +120,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld posts</string>
+        <string>ပို့စ် %ld ခု</string>
       </dict>
     </dict>
     <key>plural.count.favorite</key>
@@ -134,7 +134,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld favorites</string>
+        <string>အကြိုက်ဆုံး %ld ခု</string>
       </dict>
     </dict>
     <key>plural.count.reblog</key>
@@ -148,7 +148,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld reblogs</string>
+        <string>ပြန်မျှဝေမှု %ld ခု</string>
       </dict>
     </dict>
     <key>plural.count.reply</key>
@@ -162,7 +162,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld replies</string>
+        <string>ပြန်စာ %ld ခု</string>
       </dict>
     </dict>
     <key>plural.count.vote</key>
@@ -176,7 +176,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld votes</string>
+        <string>မဲ %ld မဲ</string>
       </dict>
     </dict>
     <key>plural.count.voter</key>
@@ -190,7 +190,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld voters</string>
+        <string>မဲပေးသူ %ld ဦး</string>
       </dict>
     </dict>
     <key>plural.people_talking</key>
@@ -204,7 +204,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld people talking</string>
+        <string>လူ %ld ဦး ပြောနေသည်</string>
       </dict>
     </dict>
     <key>plural.count.following</key>
@@ -218,7 +218,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld following</string>
+        <string>စောင့်ကြည့်သူ %ld ဦး</string>
       </dict>
     </dict>
     <key>plural.count.follower</key>
@@ -232,7 +232,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld followers</string>
+        <string>စောင့်ကြည့်သူ %ld ဦး</string>
       </dict>
     </dict>
     <key>date.year.left</key>
@@ -246,7 +246,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld years left</string>
+        <string>%ld နှစ် ကျန်ရှိ</string>
       </dict>
     </dict>
     <key>date.month.left</key>
@@ -260,7 +260,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld months left</string>
+        <string>%ld လ ကျန်ရှိ</string>
       </dict>
     </dict>
     <key>date.day.left</key>
@@ -274,7 +274,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld days left</string>
+        <string>%ld ရက် ကျန်ရှိ</string>
       </dict>
     </dict>
     <key>date.hour.left</key>
@@ -288,7 +288,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld hours left</string>
+        <string>%ld နာရီ ကျန်ရှိ</string>
       </dict>
     </dict>
     <key>date.minute.left</key>
@@ -302,7 +302,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld minutes left</string>
+        <string>%ld မိနစ် ကျန်ရှိ</string>
       </dict>
     </dict>
     <key>date.second.left</key>
@@ -316,7 +316,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld seconds left</string>
+        <string>%ld စက္ကန့် ကျန်ရှိ</string>
       </dict>
     </dict>
     <key>date.year.ago.abbr</key>
@@ -330,7 +330,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ldy ago</string>
+        <string>လွန်ခဲ့သော %ld နှစ်က</string>
       </dict>
     </dict>
     <key>date.month.ago.abbr</key>
@@ -344,7 +344,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ldM ago</string>
+        <string>လွန်ခဲ့သော %ld လက</string>
       </dict>
     </dict>
     <key>date.day.ago.abbr</key>
@@ -358,7 +358,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ldd ago</string>
+        <string>လွန်ခဲ့သော %ld ရက်က</string>
       </dict>
     </dict>
     <key>date.hour.ago.abbr</key>
@@ -372,7 +372,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ldh ago</string>
+        <string>လွန်ခဲ့သော %ld နာရီက</string>
       </dict>
     </dict>
     <key>date.minute.ago.abbr</key>
@@ -386,7 +386,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ldm ago</string>
+        <string>လွန်ခဲ့သော %ld မိနစ်က</string>
       </dict>
     </dict>
     <key>date.second.ago.abbr</key>
@@ -400,7 +400,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%lds ago</string>
+        <string>လွန်ခဲ့သော %ld စက္ကန့်က</string>
       </dict>
     </dict>
   </dict>
