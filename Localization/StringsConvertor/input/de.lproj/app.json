@@ -500,11 +500,11 @@
             }
         },
         "follower": {
-            "title": "Follower",
-            "footer": "Folger, die nicht auf deinem Server registriert sind, werden nicht angezeigt."
+            "title": "Folgende",
+            "footer": "Folgende, die nicht auf deinem Server registriert sind, werden nicht angezeigt."
         },
         "following": {
-            "title": "Folgende",
+            "title": "Gefolgte",
             "footer": "Gefolgte, die nicht auf deinem Server registriert sind, werden nicht angezeigt."
         },
         "familiarFollowers": {
