@@ -338,7 +338,7 @@
             "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we emailed to you to verify your account",
             "button": {
                 "open_email_app": "Buka Aplikasi Surel",
-                "resend": "Resend"
+                "resend": "Kirim ulang"
             },
             "dont_receive_email": {
                 "title": "Periksa surel Anda",
@@ -360,13 +360,13 @@
                 "published": "Dipublikasikan!",
                 "Publishing": "Mempublikasikan postingan...",
                 "accessibility": {
-                    "logo_label": "Logo Button",
+                    "logo_label": "Tombol Logo",
                     "logo_hint": "Tap to scroll to top and tap again to previous location"
                 }
             }
         },
         "suggestion_account": {
-            "title": "Find People to Follow",
+            "title": "Temukan Orang untuk Diikuti",
             "follow_explain": "Ketika Anda mengikuti seseorang, Anda akan melihat postingan mereka di beranda Anda."
         },
         "compose": {
@@ -376,7 +376,7 @@
             },
             "media_selection": {
                 "camera": "Ambil Foto",
-                "photo_library": "Photo Library",
+                "photo_library": "Galeri Foto",
                 "browse": "Telusuri"
             },
             "content_input_placeholder": "Ketik atau tempel apa yang Anda pada pikiran Anda",
@@ -441,7 +441,7 @@
         },
         "profile": {
             "header": {
-                "follows_you": "Follows You"
+                "follows_you": "Mengikutimu"
             },
             "dashboard": {
                 "posts": "postingan",
@@ -464,24 +464,24 @@
                 "replies": "Balasan",
                 "posts_and_replies": "Posts and Replies",
                 "media": "Media",
-                "about": "About"
+                "about": "Tentang"
             },
             "relationship_action_alert": {
                 "confirm_mute_user": {
-                    "title": "Mute Account",
-                    "message": "Confirm to mute %s"
+                    "title": "Bisukan Akun",
+                    "message": "Konfirmasi untuk bisukan %s"
                 },
                 "confirm_unmute_user": {
                     "title": "Berhenti Membisukan Akun",
                     "message": "Confirm to unmute %s"
                 },
                 "confirm_block_user": {
-                    "title": "Block Account",
-                    "message": "Confirm to block %s"
+                    "title": "Blokir Akun",
+                    "message": "Konfirmasi memblokir %s"
                 },
                 "confirm_unblock_user": {
-                    "title": "Unblock Account",
-                    "message": "Confirm to unblock %s"
+                    "title": "Buka Blokir Akun",
+                    "message": "Konfirmasi membuka blokir %s"
                 },
                 "confirm_show_reblogs": {
                     "title": "Show Reblogs",
@@ -493,18 +493,18 @@
                 }
             },
             "accessibility": {
-                "show_avatar_image": "Show avatar image",
+                "show_avatar_image": "Tampilkan gambar avatar",
                 "edit_avatar_image": "Edit avatar image",
                 "show_banner_image": "Show banner image",
-                "double_tap_to_open_the_list": "Double tap to open the list"
+                "double_tap_to_open_the_list": "Ketuk ganda untuk membuka daftar"
             }
         },
         "follower": {
-            "title": "follower",
+            "title": "pengikut",
             "footer": "Followers from other servers are not displayed."
         },
         "following": {
-            "title": "following",
+            "title": "mengikuti",
             "footer": "Follows from other servers are not displayed."
         },
         "familiarFollowers": {
@@ -569,8 +569,8 @@
                 "Mentions": "Sebutan"
             },
             "notification_description": {
-                "followed_you": "followed you",
-                "favorited_your_post": "favorited your post",
+                "followed_you": "mengikutimu",
+                "favorited_your_post": "menyukai postinganmu",
                 "reblogged_your_post": "reblogged your post",
                 "mentioned_you": "mentioned you",
                 "request_to_follow_you": "request to follow you",
