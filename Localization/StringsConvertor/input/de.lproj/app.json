@@ -187,8 +187,8 @@
                 "unmute_user": "%s nicht mehr stummschalten",
                 "muted": "Stummgeschaltet",
                 "edit_info": "Information bearbeiten",
-                "show_reblogs": "Reblogs anzeigen",
-                "hide_reblogs": "Reblogs ausblenden"
+                "show_reblogs": "Teilen anzeigen",
+                "hide_reblogs": "Teilen ausblenden"
             },
             "timeline": {
                 "filtered": "Gefiltert",
@@ -484,7 +484,7 @@
                     "message": "Bestätige %s zu entsperren"
                 },
                 "confirm_show_reblogs": {
-                    "title": "Reblogs anzeigen",
+                    "title": "Teilen anzeigen",
                     "message": "Bestätigen, um Teilen anzuzeigen"
                 },
                 "confirm_hide_reblogs": {
