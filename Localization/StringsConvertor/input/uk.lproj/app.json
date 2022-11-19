@@ -589,139 +589,139 @@
         },
         "thread": {
             "back_title": "Допис",
-            "title": "Post from %s"
+            "title": "Публікація від %s"
         },
         "settings": {
-            "title": "Settings",
+            "title": "Налаштування",
             "section": {
                 "appearance": {
-                    "title": "Appearance",
-                    "automatic": "Automatic",
-                    "light": "Always Light",
-                    "dark": "Always Dark"
+                    "title": "Оформлення",
+                    "automatic": "Автоматичне",
+                    "light": "Завжди світле",
+                    "dark": "Завжди темне"
                 },
                 "look_and_feel": {
-                    "title": "Look and Feel",
-                    "use_system": "Use System",
-                    "really_dark": "Really Dark",
-                    "sorta_dark": "Sorta Dark",
-                    "light": "Light"
+                    "title": "Зовнішній вид",
+                    "use_system": "Використати системний",
+                    "really_dark": "Дуже темний",
+                    "sorta_dark": "Трішкий темний",
+                    "light": "Світлий"
                 },
                 "notifications": {
-                    "title": "Notifications",
-                    "favorites": "Favorites my post",
-                    "follows": "Follows me",
-                    "boosts": "Reblogs my post",
-                    "mentions": "Mentions me",
+                    "title": "Сповіщення",
+                    "favorites": "Вподобав ваш допис",
+                    "follows": "Підписався на мене",
+                    "boosts": "Реблог мого посту",
+                    "mentions": "Згадує мене",
                     "trigger": {
-                        "anyone": "anyone",
-                        "follower": "a follower",
-                        "follow": "anyone I follow",
-                        "noone": "no one",
-                        "title": "Notify me when"
+                        "anyone": "усі",
+                        "follower": "підписник",
+                        "follow": "хтось, за ким я слідкую",
+                        "noone": "ніхто",
+                        "title": "Повідомити мене, коли"
                     }
                 },
                 "preference": {
-                    "title": "Preferences",
-                    "true_black_dark_mode": "True black dark mode",
-                    "disable_avatar_animation": "Disable animated avatars",
-                    "disable_emoji_animation": "Disable animated emojis",
-                    "using_default_browser": "Use default browser to open links",
-                    "open_links_in_mastodon": "Open links in Mastodon"
+                    "title": "Налаштування",
+                    "true_black_dark_mode": "Чорний режим",
+                    "disable_avatar_animation": "Вимкнути анімовані аватари",
+                    "disable_emoji_animation": "Вимкнути анімовані емодзі",
+                    "using_default_browser": "Використовувати браузер за замовчуванням, щоб відкрити посилання",
+                    "open_links_in_mastodon": "Відкривати посилання в Mastodon"
                 },
                 "boring_zone": {
-                    "title": "The Boring Zone",
-                    "account_settings": "Account Settings",
-                    "terms": "Terms of Service",
-                    "privacy": "Privacy Policy"
+                    "title": "Нудна зона",
+                    "account_settings": "Налаштування облікового запису",
+                    "terms": "Умови використання",
+                    "privacy": "Політика конфіденційності"
                 },
                 "spicy_zone": {
-                    "title": "The Spicy Zone",
-                    "clear": "Clear Media Cache",
-                    "signout": "Sign Out"
+                    "title": "Гостра зона",
+                    "clear": "Очистити кеш медіа",
+                    "signout": "Вийти"
                 }
             },
             "footer": {
-                "mastodon_description": "Mastodon is open source software. You can report issues on GitHub at %s (%s)"
+                "mastodon_description": "Mastodon — програма з відкритим вихідним кодом. Ви можете повідомити про проблеми на GitHub на %s (%s)"
             },
             "keyboard": {
-                "close_settings_window": "Close Settings Window"
+                "close_settings_window": "Закрити вікно налаштувань"
             }
         },
         "report": {
-            "title_report": "Report",
-            "title": "Report %s",
-            "step1": "Step 1 of 2",
-            "step2": "Step 2 of 2",
-            "content1": "Are there any other posts you’d like to add to the report?",
-            "content2": "Is there anything the moderators should know about this report?",
-            "report_sent_title": "Thanks for reporting, we’ll look into this.",
-            "send": "Send Report",
-            "skip_to_send": "Send without comment",
-            "text_placeholder": "Type or paste additional comments",
-            "reported": "REPORTED",
+            "title_report": "Скарга",
+            "title": "Поскаржитись на %s",
+            "step1": "Крок 1 з 2",
+            "step2": "Крок 2 з 2",
+            "content1": "Чи є інші дописи, які Ви хотіли б додати до скарги?",
+            "content2": "Чи є що-небудь модератори повинні знати про цю скаргу?",
+            "report_sent_title": "Дякуємо за скаргу, ми розглянемо її.",
+            "send": "Надіслати скаргу",
+            "skip_to_send": "Надіслати без коментаря",
+            "text_placeholder": "Введіть або вставте додаткові коментарі",
+            "reported": "Мої скарги",
             "step_one": {
-                "step_1_of_4": "Step 1 of 4",
-                "whats_wrong_with_this_post": "What's wrong with this post?",
-                "whats_wrong_with_this_account": "What's wrong with this account?",
-                "whats_wrong_with_this_username": "What's wrong with %s?",
-                "select_the_best_match": "Select the best match",
-                "i_dont_like_it": "I don’t like it",
-                "it_is_not_something_you_want_to_see": "It is not something you want to see",
-                "its_spam": "It’s spam",
-                "malicious_links_fake_engagement_or_repetetive_replies": "Malicious links, fake engagement, or repetetive replies",
-                "it_violates_server_rules": "It violates server rules",
-                "you_are_aware_that_it_breaks_specific_rules": "You are aware that it breaks specific rules",
-                "its_something_else": "It’s something else",
-                "the_issue_does_not_fit_into_other_categories": "The issue does not fit into other categories"
+                "step_1_of_4": "Крок 1 з 4",
+                "whats_wrong_with_this_post": "Що не так з цим постом?",
+                "whats_wrong_with_this_account": "Що не так з цим обліковим записом?",
+                "whats_wrong_with_this_username": "Що з %s не так?",
+                "select_the_best_match": "Оберіть найвідповідніший збіг",
+                "i_dont_like_it": "Мені це не подобається",
+                "it_is_not_something_you_want_to_see": "Це не те, що ви хотіли б побачити",
+                "its_spam": "Це спам",
+                "malicious_links_fake_engagement_or_repetetive_replies": "Підозрілі посилання, фейкові розмови або відповіді",
+                "it_violates_server_rules": "Це порушує правила сервера",
+                "you_are_aware_that_it_breaks_specific_rules": "Ви впевнені, що це порушує певні правила",
+                "its_something_else": "Це щось інше",
+                "the_issue_does_not_fit_into_other_categories": "Ця проблема не відповідає жодній іншій категорії"
             },
             "step_two": {
-                "step_2_of_4": "Step 2 of 4",
-                "which_rules_are_being_violated": "Which rules are being violated?",
-                "select_all_that_apply": "Select all that apply",
-                "i_just_don’t_like_it": "I just don’t like it"
+                "step_2_of_4": "Крок 2 з 4",
+                "which_rules_are_being_violated": "Які правила порушено?",
+                "select_all_that_apply": "Виберіть усі варіанти, що підходять",
+                "i_just_don’t_like_it": "Мені це не подобається"
             },
             "step_three": {
-                "step_3_of_4": "Step 3 of 4",
-                "are_there_any_posts_that_back_up_this_report": "Are there any posts that back up this report?",
-                "select_all_that_apply": "Select all that apply"
+                "step_3_of_4": "Крок 3 з 4",
+                "are_there_any_posts_that_back_up_this_report": "Чи є публікації, які підтверджують цю скаргу?",
+                "select_all_that_apply": "Виберіть усі варіанти, що підходять"
             },
             "step_four": {
-                "step_4_of_4": "Step 4 of 4",
-                "is_there_anything_else_we_should_know": "Is there anything else we should know?"
+                "step_4_of_4": "Крок 4 з 4",
+                "is_there_anything_else_we_should_know": "Чи є ще щось, що ми повинні знати?"
             },
             "step_final": {
-                "dont_want_to_see_this": "Don’t want to see this?",
-                "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "When you see something you don’t like on Mastodon, you can remove the person from your experience.",
-                "unfollow": "Unfollow",
-                "unfollowed": "Unfollowed",
-                "unfollow_user": "Unfollow %s",
-                "mute_user": "Mute %s",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or reblogs in your home feed. They won’t know they’ve been muted.",
-                "block_user": "Block %s",
-                "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "They will no longer be able to follow or see your posts, but they can see if they’ve been blocked.",
-                "while_we_review_this_you_can_take_action_against_user": "While we review this, you can take action against %s"
+                "dont_want_to_see_this": "Не хочете бачити це?",
+                "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "Якщо бачите щось, що вам не подобається в Mastodon, то можна вилучити людину зі свого оточення.",
+                "unfollow": "Відписатися",
+                "unfollowed": "Відписалися від",
+                "unfollow_user": "Відписатися від %s",
+                "mute_user": "Ігнорувати %s",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "Ви не побачите їхні дописи чи репости на вашій домашній стрічці. Вони не знатимуть, що ви ігноруєте їх.",
+                "block_user": "Заблокувати %s",
+                "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "Вони більше не зможуть стежити або бачити Ваші пости, але вони зможуть побачити, що вони були заблоковані.",
+                "while_we_review_this_you_can_take_action_against_user": "Поки ми переглядаємо це, ви можете вжити заходів проти %s"
             }
         },
         "preview": {
             "keyboard": {
-                "close_preview": "Close Preview",
-                "show_next": "Show Next",
-                "show_previous": "Show Previous"
+                "close_preview": "Закрити перегляд",
+                "show_next": "Показати наступне",
+                "show_previous": "Показувати попереднє"
             }
         },
         "account_list": {
-            "tab_bar_hint": "Current selected profile: %s. Double tap then hold to show account switcher",
-            "dismiss_account_switcher": "Dismiss Account Switcher",
-            "add_account": "Add Account"
+            "tab_bar_hint": "Поточний профіль: %s. Двічі торкніться, щоб показати перемикач ваших профілів",
+            "dismiss_account_switcher": "Відхилити зміну поточного облікового запису",
+            "add_account": "Додати обліковий запис"
         },
         "wizard": {
-            "new_in_mastodon": "New in Mastodon",
-            "multiple_account_switch_intro_description": "Switch between multiple accounts by holding the profile button.",
-            "accessibility_hint": "Double tap to dismiss this wizard"
+            "new_in_mastodon": "Новий в Mastodon",
+            "multiple_account_switch_intro_description": "Натисніть для переходу між кількома обліковими записами, тримаючи кнопку профілю.",
+            "accessibility_hint": "Двічі торкніться, щоб закрити цей майстер"
         },
         "bookmark": {
-            "title": "Bookmarks"
+            "title": "Закладки"
         }
     }
 }
