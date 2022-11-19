@@ -366,75 +366,75 @@
             }
         },
         "suggestion_account": {
-            "title": "Find People to Follow",
-            "follow_explain": "When you follow someone, you’ll see their posts in your home feed."
+            "title": "Знайти людей, аби підписатися",
+            "follow_explain": "Коли ви підпишетесь на когось, ви побачите його дописи у своїй домашній стрічці."
         },
         "compose": {
             "title": {
-                "new_post": "New Post",
-                "new_reply": "New Reply"
+                "new_post": "Новий допис",
+                "new_reply": "Нова відповідь"
             },
             "media_selection": {
-                "camera": "Take Photo",
-                "photo_library": "Photo Library",
-                "browse": "Browse"
+                "camera": "Зробити фото",
+                "photo_library": "Галерея",
+                "browse": "Огляд"
             },
-            "content_input_placeholder": "Type or paste what’s on your mind",
-            "compose_action": "Publish",
-            "replying_to_user": "replying to %s",
+            "content_input_placeholder": "Що у Вас на думці",
+            "compose_action": "Опублікувати",
+            "replying_to_user": "відповідь на: %s",
             "attachment": {
-                "photo": "photo",
-                "video": "video",
-                "attachment_broken": "This %s is broken and can’t be\nuploaded to Mastodon.",
-                "description_photo": "Describe the photo for the visually-impaired...",
-                "description_video": "Describe the video for the visually-impaired...",
-                "load_failed": "Load Failed",
-                "upload_failed": "Upload Failed",
-                "can_not_recognize_this_media_attachment": "Can not recognize this media attachment",
-                "attachment_too_large": "Attachment too large",
-                "compressing_state": "Compressing...",
-                "server_processing_state": "Server Processing..."
+                "photo": "фото",
+                "video": "відео",
+                "attachment_broken": "Цей %s пошкоджений і не може бути\nзавантажений в Mastodon.",
+                "description_photo": "Опишіть фото для людей з вадами зору...",
+                "description_video": "Опишіть відео для людей з вадами зору...",
+                "load_failed": "Не вдалося завантажити",
+                "upload_failed": "Не вдалося завантажити",
+                "can_not_recognize_this_media_attachment": "Неможливо розпізнати цей медіафайл",
+                "attachment_too_large": "Вкладення завелике",
+                "compressing_state": "Стиснення...",
+                "server_processing_state": "Обробка сервера..."
             },
             "poll": {
-                "duration_time": "Duration: %s",
-                "thirty_minutes": "30 minutes",
-                "one_hour": "1 Hour",
-                "six_hours": "6 Hours",
-                "one_day": "1 Day",
-                "three_days": "3 Days",
-                "seven_days": "7 Days",
-                "option_number": "Option %ld",
-                "the_poll_is_invalid": "The poll is invalid",
-                "the_poll_has_empty_option": "The poll has empty option"
+                "duration_time": "Тривалість: %s",
+                "thirty_minutes": "30 хвилин",
+                "one_hour": "1 Година",
+                "six_hours": "6 Годин",
+                "one_day": "1 День",
+                "three_days": "3 Дні",
+                "seven_days": "7 Днів",
+                "option_number": "Параметр %ld",
+                "the_poll_is_invalid": "Неприпустимий варіант опитування",
+                "the_poll_has_empty_option": "В опитуванні є порожній варіант"
             },
             "content_warning": {
-                "placeholder": "Write an accurate warning here..."
+                "placeholder": "Напишіть своє попередження тут..."
             },
             "visibility": {
-                "public": "Public",
-                "unlisted": "Unlisted",
-                "private": "Followers only",
-                "direct": "Only people I mention"
+                "public": "Публічно",
+                "unlisted": "Приховувати зі стрічок",
+                "private": "Тільки для підписників",
+                "direct": "Тільки людям, яких я згадав"
             },
             "auto_complete": {
-                "space_to_add": "Space to add"
+                "space_to_add": "Пробіл, щоб додати"
             },
             "accessibility": {
-                "append_attachment": "Add Attachment",
-                "append_poll": "Add Poll",
-                "remove_poll": "Remove Poll",
-                "custom_emoji_picker": "Custom Emoji Picker",
-                "enable_content_warning": "Enable Content Warning",
-                "disable_content_warning": "Disable Content Warning",
-                "post_visibility_menu": "Post Visibility Menu",
-                "post_options": "Post Options",
-                "posting_as": "Posting as %s"
+                "append_attachment": "Додати вкладення",
+                "append_poll": "Додати опитування",
+                "remove_poll": "Видалити опитування",
+                "custom_emoji_picker": "Вибір власних емодзі",
+                "enable_content_warning": "Увімкнути попередження про контент",
+                "disable_content_warning": "Вимкнути попередження про контент",
+                "post_visibility_menu": "Меню видимості поста",
+                "post_options": "Параметри повідомлення",
+                "posting_as": "Опублікувати як %s"
             },
             "keyboard": {
-                "discard_post": "Discard Post",
-                "publish_post": "Publish Post",
-                "toggle_poll": "Toggle Poll",
-                "toggle_content_warning": "Toggle Content Warning",
+                "discard_post": "Відхилити допис",
+                "publish_post": "Опублікувати повідомлення",
+                "toggle_poll": "Відкрити або закрити опитування",
+                "toggle_content_warning": "Попередження про вміст",
                 "append_attachment_entry": "Додати вкладення - %s",
                 "select_visibility_entry": "Оберіть видимість - %s"
             }
