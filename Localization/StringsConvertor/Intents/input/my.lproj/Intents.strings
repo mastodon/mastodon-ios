@@ -1,51 +1,51 @@
-"16wxgf" = "Post on Mastodon";
+"16wxgf" = "Mastodon တွင် ပို့စ်တင်ရန်";
 
-"751xkl" = "Text Content";
+"751xkl" = "အကြောင်းအရာ";
 
-"CsR7G2" = "Post on Mastodon";
+"CsR7G2" = "Mastodon တွင် ပို့စ်တင်ရန်";
 
-"HZSGTr" = "What content to post?";
+"HZSGTr" = "ဘယ်အကြောင်းအရာကို ပို့စ်တင်မလဲ?";
 
-"HdGikU" = "Posting failed";
+"HdGikU" = "ပို့စ်တင််ခြင်း မအောင်မြင်ပါ";
 
-"KDNTJ4" = "Failure Reason";
+"KDNTJ4" = "မအောင်မြင်ရသည့် အကြောင်းပြချက်";
 
-"RHxKOw" = "Send Post with text content";
+"RHxKOw" = "ပို့စ်ကို အကြောင်းအရာနှင့်တကွ တင်ရန်";
 
-"RxSqsb" = "Post";
+"RxSqsb" = "ပို့စ်";
 
-"WCIR3D" = "Post ${content} on Mastodon";
+"WCIR3D" = "${content} ကို Mastodon တွင် ပိုစ့်တင်ရန်";
 
-"ZKJSNu" = "Post";
+"ZKJSNu" = "ပို့စ်";
 
 "ZS1XaK" = "${content}";
 
-"ZbSjzC" = "Visibility";
+"ZbSjzC" = "မြင်နိုင်မှု";
 
-"Zo4jgJ" = "Post Visibility";
+"Zo4jgJ" = "ပို့်စ်မြင်နိုင်မှု";
 
-"apSxMG-dYQ5NN" = "There are ${count} options matching ‘Public’.";
+"apSxMG-dYQ5NN" = "‘Public’ နှင့် ကိုက်ညီသော ရွေးချယ်စရာ ${count} ခု ရှိသည်။";
 
-"apSxMG-ehFLjY" = "There are ${count} options matching ‘Followers Only’.";
+"apSxMG-ehFLjY" = "‘Followers Only’ နှင့် ကိုက်ညီသော ရွေးချယ်စရာ ${count} ခု ရှိသည်။";
 
-"ayoYEb-dYQ5NN" = "${content}, Public";
+"ayoYEb-dYQ5NN" = "${content}, အများမြင်";
 
-"ayoYEb-ehFLjY" = "${content}, Followers Only";
+"ayoYEb-ehFLjY" = "${content}, စောင့်ကြည့်သူများ သီးသန့်";
 
-"dUyuGg" = "Post on Mastodon";
+"dUyuGg" = "Mastodon တွင် ပို့စ်တင်ရန်";
 
-"dYQ5NN" = "Public";
+"dYQ5NN" = "အများမြင်";
 
-"ehFLjY" = "Followers Only";
+"ehFLjY" = "စောင့်ကြည့်သူများသီးသန့်";
 
-"gfePDu" = "Posting failed. ${failureReason}";
+"gfePDu" = "ပို့စ်တင််ခြင်း မအောင်မြင်ပါ၊ ${failureReason}";
 
-"k7dbKQ" = "Post was sent successfully.";
+"k7dbKQ" = "ပို့စ်ကို အောင်မြင်စွာ ပို့ခဲ့သည်";
 
-"oGiqmY-dYQ5NN" = "Just to confirm, you wanted ‘Public’?";
+"oGiqmY-dYQ5NN" = "\"အများမြင်\" ကို ရွေးမည်် သေချာပါသလား?";
 
-"oGiqmY-ehFLjY" = "Just to confirm, you wanted ‘Followers Only’?";
+"oGiqmY-ehFLjY" = "\"စောင့်ကြည့်သူများသီးသန့်\" ကို ရွေးမည်် သေချာပါသလား?";
 
 "rM6dvp" = "URL";
 
-"ryJLwG" = "Post was sent successfully. ";
+"ryJLwG" = "ပို့စ်ကို အောင်မြင်စွာ ပို့ခဲ့သည်";
