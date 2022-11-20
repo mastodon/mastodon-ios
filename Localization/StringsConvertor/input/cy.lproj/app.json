@@ -226,7 +226,7 @@
             }
         },
         "server_picker": {
-            "title": "Mastodon is made of users in different servers.",
+            "title": "Mae Mastodon yn cynnwys defnyddwyr o weinyddion gwahanol.",
             "subtitle": "Pick a server based on your region, interests, or a general purpose one. You can still chat with anyone on Mastodon, regardless of your servers.",
             "button": {
                 "category": {
@@ -287,7 +287,7 @@
                         "checked": "ticiwyd",
                         "unchecked": "na thiciwyd"
                     },
-                    "hint": "Your password needs at least eight characters"
+                    "hint": "Mae angen o leiaf wyth nod yn eich cyfrinair"
                 },
                 "invite": {
                     "registration_user_invite_request": "Pam ydych chi eisiau ymuno?"
@@ -303,7 +303,7 @@
                     "reason": "Rheswm"
                 },
                 "reason": {
-                    "blocked": "%s contains a disallowed email provider",
+                    "blocked": "Mae %s yn defnyddio darparwr e-bost nad yw'n cael ei ganiatáu",
                     "unreachable": "Nid yw %s yn bodoli",
                     "taken": "Defnyddir %s yn barod",
                     "reserved": "Mae %s yn air allweddol a chadwyd",
@@ -316,16 +316,16 @@
                 },
                 "special": {
                     "username_invalid": "Username must only contain alphanumeric characters and underscores",
-                    "username_too_long": "Username is too long (can’t be longer than 30 characters)",
+                    "username_too_long": "Enw defnyddiwr yn rhy hir (na all fod yn fwy na 30 nodyn)",
                     "email_invalid": "Nid yw'n cyfeiriad e-bost dilys",
-                    "password_too_short": "Password is too short (must be at least 8 characters)"
+                    "password_too_short": "Cyfrinair yn rhy fyr (Rhaid fod o leiaf 8 nodyn)"
                 }
             }
         },
         "server_rules": {
             "title": "Rhai rheolau sylfaenol.",
-            "subtitle": "These are set and enforced by the %s moderators.",
-            "prompt": "By continuing, you’re subject to the terms of service and privacy policy for %s.",
+            "subtitle": "Mae'r rhain yn cael eu gosod a'u gorfodi gan gymedrolwyr %s.",
+            "prompt": "Wrth barhau, rydych yn cytuno â'r Telerau Gwasanaeth a Pholisi Preifatrwydd %s.",
             "terms_of_service": "telerau gwasanaeth",
             "privacy_policy": "polisi preifatrwydd",
             "button": {
@@ -392,8 +392,8 @@
                 "upload_failed": "Methwyd Uwchlwytho",
                 "can_not_recognize_this_media_attachment": "Can not recognize this media attachment",
                 "attachment_too_large": "Mae'r atodiad yn rhy fawr",
-                "compressing_state": "Compressing...",
-                "server_processing_state": "Server Processing..."
+                "compressing_state": "Wrthi'n cywasgu...",
+                "server_processing_state": "Mae'r gweinydd yn prosesu..."
             },
             "poll": {
                 "duration_time": "Hyd: %s",
@@ -414,7 +414,7 @@
                 "public": "Cyhoeddus",
                 "unlisted": "Heb ei rhestru",
                 "private": "Dilynwyr yn unig",
-                "direct": "Only people I mention"
+                "direct": "Dim ond pobl rwy'n eu crybwyll"
             },
             "auto_complete": {
                 "space_to_add": "Lle i ychwanegu"
@@ -426,7 +426,7 @@
                 "custom_emoji_picker": "Dewislen Emoji Bersonol",
                 "enable_content_warning": "Galluogi Rhybudd Cynnwys",
                 "disable_content_warning": "Analluogi Rhybudd Cynnwys",
-                "post_visibility_menu": "Post Visibility Menu",
+                "post_visibility_menu": "Dewislen Breifatrwydd Post",
                 "post_options": "Opsiynau Tŵt",
                 "posting_as": "Cyhoeddi fel %s"
             },
@@ -436,7 +436,7 @@
                 "toggle_poll": "Toglo Pôl",
                 "toggle_content_warning": "Toglo Rhybudd Cynnwys",
                 "append_attachment_entry": "Ychwanegu Atodiad - %s",
-                "select_visibility_entry": "Select Visibility - %s"
+                "select_visibility_entry": "Dewis Preifatrwydd - %s"
             }
         },
         "profile": {
@@ -456,7 +456,7 @@
                 },
                 "verified": {
                     "short": "Wedi dilysu ar %s",
-                    "long": "Ownership of this link was checked on %s"
+                    "long": "Gwiriwyd perchnogaeth y ddolen yma ar %s"
                 }
             },
             "segmented_control": {
@@ -477,7 +477,7 @@
                 },
                 "confirm_block_user": {
                     "title": "Blocio Cyfrif",
-                    "message": "Confirm to block %s"
+                    "message": "Cadarnhau i flocio %s"
                 },
                 "confirm_unblock_user": {
                     "title": "Dadflocio Cyfrif",
@@ -485,7 +485,7 @@
                 },
                 "confirm_show_reblogs": {
                     "title": "Dangos Ailfloggiau",
-                    "message": "Confirm to show reblogs"
+                    "message": "Cadarnhau i ddangos hybiau"
                 },
                 "confirm_hide_reblogs": {
                     "title": "Cuddio Ailflogiau",
@@ -501,18 +501,18 @@
         },
         "follower": {
             "title": "dilynwr",
-            "footer": "Followers from other servers are not displayed."
+            "footer": "Ni ddangosir dilynwyr o weinyddion eraill."
         },
         "following": {
             "title": "yn dilyn",
-            "footer": "Follows from other servers are not displayed."
+            "footer": "Ni ddangosir dilynion o weinyddion eraill."
         },
         "familiarFollowers": {
-            "title": "Followers you familiar",
-            "followed_by_names": "Followed by %s"
+            "title": "Dilynwyr sy'n gyfarwydd ichi",
+            "followed_by_names": "Dilynwyd gan %s"
         },
         "favorited_by": {
-            "title": "Favorited By"
+            "title": "Ffefrynnwyd gan"
         },
         "reblogged_by": {
             "title": "Wedi'i hybu gan"
@@ -531,8 +531,8 @@
                     "people_talking": "%s person yn trafod"
                 },
                 "accounts": {
-                    "title": "Accounts you might like",
-                    "description": "You may like to follow these accounts",
+                    "title": "Cyfrifon ar eich cyfer",
+                    "description": "Cyfrifon sydd efallai o ddiddordeb ichi",
                     "follow": "Dilyn"
                 }
             },
@@ -609,24 +609,24 @@
                 },
                 "notifications": {
                     "title": "Hysbysiadau",
-                    "favorites": "Favorites my post",
-                    "follows": "Follows me",
-                    "boosts": "Reblogs my post",
-                    "mentions": "Mentions me",
+                    "favorites": "Yn ffefrynnu fy mhost",
+                    "follows": "Yn fy nilyn",
+                    "boosts": "Yn hybu fy mhost",
+                    "mentions": "Yn sôn amdana i",
                     "trigger": {
                         "anyone": "unrhyw un",
                         "follower": "dilynwr",
-                        "follow": "anyone I follow",
+                        "follow": "unrhyw un o'm dilynion",
                         "noone": "neb",
-                        "title": "Notify me when"
+                        "title": "Rhowch wybod i mi pan"
                     }
                 },
                 "preference": {
                     "title": "Dewisiadau",
-                    "true_black_dark_mode": "True black dark mode",
+                    "true_black_dark_mode": "Gwedd tywyll go iawn",
                     "disable_avatar_animation": "Analluogi rhithffurfiau wedi'u hanimeiddio",
                     "disable_emoji_animation": "Analluogi emoji wedi'u hanimeiddio",
-                    "using_default_browser": "Use default browser to open links",
+                    "using_default_browser": "Defnyddio porwr rhagosodedig i agor dolenni",
                     "open_links_in_mastodon": "Agor dolenni ym Mastodon"
                 },
                 "boring_zone": {
@@ -655,7 +655,7 @@
             "step2": "Cam 2 o 2",
             "content1": "Are there any other posts you’d like to add to the report?",
             "content2": "Is there anything the moderators should know about this report?",
-            "report_sent_title": "Thanks for reporting, we’ll look into this.",
+            "report_sent_title": "Diolch am adrodd, byddwn yn ymchwilio i hyn.",
             "send": "Anfon adroddiad",
             "skip_to_send": "Anfon heb sylw",
             "text_placeholder": "Teipiwch neu gludwch sylwadau ychwanegol",
@@ -671,27 +671,27 @@
                 "its_spam": "Mae'n sbam",
                 "malicious_links_fake_engagement_or_repetetive_replies": "Dolenni maleisus, ymgysylltu ffug, neu ymatebion ailadroddus",
                 "it_violates_server_rules": "Mae'n torri rheolau'r gweinydd",
-                "you_are_aware_that_it_breaks_specific_rules": "You are aware that it breaks specific rules",
+                "you_are_aware_that_it_breaks_specific_rules": "Rydych yn ymwybodol ei fod yn torri rheolau penodol",
                 "its_something_else": "Mae'n rhywbeth arall",
-                "the_issue_does_not_fit_into_other_categories": "The issue does not fit into other categories"
+                "the_issue_does_not_fit_into_other_categories": "Nid yw'r mater yn ffitio i gategorïau eraill"
             },
             "step_two": {
                 "step_2_of_4": "Cam 2 o 4",
-                "which_rules_are_being_violated": "Which rules are being violated?",
+                "which_rules_are_being_violated": "Pa reolau sy'n cael eu torri?",
                 "select_all_that_apply": "Dewiswch bob un sy'n berthnasol",
                 "i_just_don’t_like_it": "Dydw i ddim yn ei hoffi"
             },
             "step_three": {
                 "step_3_of_4": "Cam 3 o 4",
-                "are_there_any_posts_that_back_up_this_report": "Are there any posts that back up this report?",
+                "are_there_any_posts_that_back_up_this_report": "Oes postiadau eraill sy'n cefnogi'r adroddiad hwn?",
                 "select_all_that_apply": "Dewiswch bob un sy'n berthnasol"
             },
             "step_four": {
                 "step_4_of_4": "Cam 4 o 4",
-                "is_there_anything_else_we_should_know": "Is there anything else we should know?"
+                "is_there_anything_else_we_should_know": "Oes unrhyw beth arall y dylem ei wybod?"
             },
             "step_final": {
-                "dont_want_to_see_this": "Don’t want to see this?",
+                "dont_want_to_see_this": "Ddim eisiau gweld hwn?",
                 "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "When you see something you don’t like on Mastodon, you can remove the person from your experience.",
                 "unfollow": "Dad-ddilyn",
                 "unfollowed": "Dad-ddilynwyd",
@@ -712,13 +712,13 @@
         },
         "account_list": {
             "tab_bar_hint": "Current selected profile: %s. Double tap then hold to show account switcher",
-            "dismiss_account_switcher": "Dismiss Account Switcher",
+            "dismiss_account_switcher": "Diddymu Newidiwr Cyfrifon",
             "add_account": "Ychwanegu Cyfrif"
         },
         "wizard": {
             "new_in_mastodon": "Newydd i Mastodon",
             "multiple_account_switch_intro_description": "Switch between multiple accounts by holding the profile button.",
-            "accessibility_hint": "Double tap to dismiss this wizard"
+            "accessibility_hint": "Tapiwch dwywaith i ddiddymu'r dewin hwn"
         },
         "bookmark": {
             "title": "Tudalnodau"
