@@ -74,8 +74,8 @@
                 "take_photo": "Atera argazkia",
                 "save_photo": "Gorde argazkia",
                 "copy_photo": "Kopiatu argazkia",
-                "sign_in": "Log in",
-                "sign_up": "Create account",
+                "sign_in": "Hasi saioa",
+                "sign_up": "Sortu kontua",
                 "see_more": "Ikusi gehiago",
                 "preview": "Aurrebista",
                 "share": "Partekatu",
@@ -129,7 +129,7 @@
                 "show_post": "Erakutsi bidalketa",
                 "show_user_profile": "Erakutsi erabiltzailearen profila",
                 "content_warning": "Edukiaren abisua",
-                "sensitive_content": "Sensitive Content",
+                "sensitive_content": "Eduki hunkigarria",
                 "media_content_warning": "Ukitu edonon bistaratzeko",
                 "tap_to_reveal": "Sakatu erakusteko",
                 "poll": {
@@ -137,10 +137,10 @@
                     "closed": "Itxita"
                 },
                 "meta_entity": {
-                    "url": "Link: %s",
-                    "hashtag": "Hashtag: %s",
-                    "mention": "Show Profile: %s",
-                    "email": "Email address: %s"
+                    "url": "Lotura: %s",
+                    "hashtag": "Traolak: %s",
+                    "mention": "Erakutsi Profila: %s",
+                    "email": "E-posta helbidea: %s"
                 },
                 "actions": {
                     "reply": "Erantzun",
@@ -187,8 +187,8 @@
                 "unmute_user": "Desmututu %s",
                 "muted": "Mutututa",
                 "edit_info": "Editatu informazioa",
-                "show_reblogs": "Show Reblogs",
-                "hide_reblogs": "Hide Reblogs"
+                "show_reblogs": "Ikusi bultzadak",
+                "hide_reblogs": "Ezkutatu bultzadak"
             },
             "timeline": {
                 "filtered": "Iragazita",
@@ -219,7 +219,7 @@
             "log_in": "Hasi saioa"
         },
         "login": {
-            "title": "Welcome back",
+            "title": "Ongi etorri berriro ere",
             "subtitle": "Log you in on the server you created your account on.",
             "server_search_field": {
                 "placeholder": "Enter URL or search for your server"
@@ -264,7 +264,7 @@
         },
         "register": {
             "title": "Hitz egin iezaguzu zuri buruz.",
-            "lets_get_you_set_up_on_domain": "Let’s get you set up on %s",
+            "lets_get_you_set_up_on_domain": "%s zerbitzariko kontua prestatuko dizugu",
             "input": {
                 "avatar": {
                     "delete": "Ezabatu"
@@ -335,7 +335,7 @@
         "confirm_email": {
             "title": "Eta azkenik...",
             "subtitle": "Sakatu epostaz bidali dizugun loturan zure kontua egiaztatzeko.",
-            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we emailed to you to verify your account",
+            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Sakatu epostaz bidali dizugun loturan zure kontua egiaztatzeko",
             "button": {
                 "open_email_app": "Ireki eposta aplikazioa",
                 "resend": "Berbidali"
@@ -360,7 +360,7 @@
                 "published": "Argitaratua!",
                 "Publishing": "Bidalketa argitaratzen...",
                 "accessibility": {
-                    "logo_label": "Logo Button",
+                    "logo_label": "Logo botoia",
                     "logo_hint": "Tap to scroll to top and tap again to previous location"
                 }
             }
@@ -389,10 +389,10 @@
                 "description_photo": "Deskribatu argazkia ikusmen arazoak dituztenentzat...",
                 "description_video": "Deskribatu bideoa ikusmen arazoak dituztenentzat...",
                 "load_failed": "Load Failed",
-                "upload_failed": "Upload Failed",
+                "upload_failed": "Kargatzeak huts egin du",
                 "can_not_recognize_this_media_attachment": "Can not recognize this media attachment",
-                "attachment_too_large": "Attachment too large",
-                "compressing_state": "Compressing...",
+                "attachment_too_large": "Eranskina handiegia da",
+                "compressing_state": "Konprimatzen...",
                 "server_processing_state": "Server Processing..."
             },
             "poll": {
@@ -404,7 +404,7 @@
                 "three_days": "3 egun",
                 "seven_days": "7 egun",
                 "option_number": "%ld aukera",
-                "the_poll_is_invalid": "The poll is invalid",
+                "the_poll_is_invalid": "Inkesta ez da balekoa",
                 "the_poll_has_empty_option": "The poll has empty option"
             },
             "content_warning": {
@@ -427,7 +427,7 @@
                 "enable_content_warning": "Gaitu edukiaren abisua",
                 "disable_content_warning": "Desgaitu edukiaren abisua",
                 "post_visibility_menu": "Bidalketaren ikusgaitasunaren menua",
-                "post_options": "Post Options",
+                "post_options": "Bildalketaren aukerak",
                 "posting_as": "Posting as %s"
             },
             "keyboard": {
@@ -441,7 +441,7 @@
         },
         "profile": {
             "header": {
-                "follows_you": "Follows You"
+                "follows_you": "Jarraitzen zaitu"
             },
             "dashboard": {
                 "posts": "bidalketa",
@@ -456,7 +456,7 @@
                 },
                 "verified": {
                     "short": "Verified on %s",
-                    "long": "Ownership of this link was checked on %s"
+                    "long": "Esteka honen jabetzaren egiaztaketa data: %s"
                 }
             },
             "segmented_control": {
@@ -484,12 +484,12 @@
                     "message": "Berretsi %s desblokeatzea"
                 },
                 "confirm_show_reblogs": {
-                    "title": "Show Reblogs",
-                    "message": "Confirm to show reblogs"
+                    "title": "Ikusi bultzadak",
+                    "message": "Berretsi birbidalketak ikustea"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "Hide Reblogs",
-                    "message": "Confirm to hide reblogs"
+                    "title": "Ezkutatu bultzadak",
+                    "message": "Berretsi birbidalketak ezkutatzea"
                 }
             },
             "accessibility": {
@@ -500,11 +500,11 @@
             }
         },
         "follower": {
-            "title": "follower",
+            "title": "jarraitzaile",
             "footer": "Beste zerbitzarietako jarraitzaileak ez dira bistaratzen."
         },
         "following": {
-            "title": "following",
+            "title": "jarraitzen",
             "footer": "Beste zerbitzarietan jarraitutakoak ez dira bistaratzen."
         },
         "familiarFollowers": {
@@ -555,10 +555,10 @@
                 "posts": "Argitalpenak",
                 "hashtags": "Traolak",
                 "news": "Albisteak",
-                "community": "Community",
+                "community": "Komunitatea",
                 "for_you": "Zuretzat"
             },
-            "intro": "These are the posts gaining traction in your corner of Mastodon."
+            "intro": "Hauek dira zure Mastodon txokoan beraien lekua hartzen ari diren argitalpenak."
         },
         "favorite": {
             "title": "Zure gogokoak"
@@ -581,10 +581,10 @@
                 "show_mentions": "Erakutsi aipamenak"
             },
             "follow_request": {
-                "accept": "Accept",
-                "accepted": "Accepted",
-                "reject": "reject",
-                "rejected": "Rejected"
+                "accept": "Onartu",
+                "accepted": "Onartuta",
+                "reject": "ukatu",
+                "rejected": "Ukatua"
             }
         },
         "thread": {
@@ -661,46 +661,46 @@
             "text_placeholder": "Idatzi edo itsatsi iruzkin gehigarriak",
             "reported": "SALATUA",
             "step_one": {
-                "step_1_of_4": "Step 1 of 4",
-                "whats_wrong_with_this_post": "What's wrong with this post?",
-                "whats_wrong_with_this_account": "What's wrong with this account?",
-                "whats_wrong_with_this_username": "What's wrong with %s?",
-                "select_the_best_match": "Select the best match",
-                "i_dont_like_it": "I don’t like it",
-                "it_is_not_something_you_want_to_see": "It is not something you want to see",
-                "its_spam": "It’s spam",
-                "malicious_links_fake_engagement_or_repetetive_replies": "Malicious links, fake engagement, or repetetive replies",
-                "it_violates_server_rules": "It violates server rules",
-                "you_are_aware_that_it_breaks_specific_rules": "You are aware that it breaks specific rules",
-                "its_something_else": "It’s something else",
-                "the_issue_does_not_fit_into_other_categories": "The issue does not fit into other categories"
+                "step_1_of_4": "1. urratsa 4tik",
+                "whats_wrong_with_this_post": "Zer du txarra argitalpen honek?",
+                "whats_wrong_with_this_account": "Zer du txarra kontu honek?",
+                "whats_wrong_with_this_username": "Zer du txarra %s?",
+                "select_the_best_match": "Aukeratu egokiena",
+                "i_dont_like_it": "Ez dut gustukoa",
+                "it_is_not_something_you_want_to_see": "Ikusi nahi ez dudan zerbait da",
+                "its_spam": "Spama da",
+                "malicious_links_fake_engagement_or_repetetive_replies": "Esteka maltzurrak, gezurrezko elkarrekintzak edo erantzun errepikakorrak",
+                "it_violates_server_rules": "Zerbitzariaren arauak hausten ditu",
+                "you_are_aware_that_it_breaks_specific_rules": "Arau zehatzak urratzen dituela badakizu",
+                "its_something_else": "Beste zerbait da",
+                "the_issue_does_not_fit_into_other_categories": "Arazoa ezin da beste kategorietan sailkatu"
             },
             "step_two": {
-                "step_2_of_4": "Step 2 of 4",
-                "which_rules_are_being_violated": "Which rules are being violated?",
-                "select_all_that_apply": "Select all that apply",
+                "step_2_of_4": "2. urratsa 4tik",
+                "which_rules_are_being_violated": "Ze arau hautsi ditu?",
+                "select_all_that_apply": "Hautatu dagozkion guztiak",
                 "i_just_don’t_like_it": "I just don’t like it"
             },
             "step_three": {
-                "step_3_of_4": "Step 3 of 4",
-                "are_there_any_posts_that_back_up_this_report": "Are there any posts that back up this report?",
-                "select_all_that_apply": "Select all that apply"
+                "step_3_of_4": "3. urratsa 4tik",
+                "are_there_any_posts_that_back_up_this_report": "Salaketa hau babesten duen bidalketarik badago?",
+                "select_all_that_apply": "Hautatu dagozkion guztiak"
             },
             "step_four": {
-                "step_4_of_4": "Step 4 of 4",
-                "is_there_anything_else_we_should_know": "Is there anything else we should know?"
+                "step_4_of_4": "4. urratsa 4tik",
+                "is_there_anything_else_we_should_know": "Beste zerbait jakin beharko genuke?"
             },
             "step_final": {
-                "dont_want_to_see_this": "Don’t want to see this?",
-                "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "When you see something you don’t like on Mastodon, you can remove the person from your experience.",
-                "unfollow": "Unfollow",
+                "dont_want_to_see_this": "Ez duzu hau ikusi nahi?",
+                "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "Mastodonen gustuko ez duzun zerbait ikusten duzunean, zure esperientziatik atera dezakezu pertsona hori.",
+                "unfollow": "Utzi jarraitzeari",
                 "unfollowed": "Unfollowed",
-                "unfollow_user": "Unfollow %s",
-                "mute_user": "Mute %s",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or reblogs in your home feed. They won’t know they’ve been muted.",
-                "block_user": "Block %s",
-                "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "They will no longer be able to follow or see your posts, but they can see if they’ve been blocked.",
-                "while_we_review_this_you_can_take_action_against_user": "While we review this, you can take action against %s"
+                "unfollow_user": "%s jarraitzeari utzi",
+                "mute_user": "Mututu %s",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "Ez dituzu bere bidalketa eta birbidalketak zure hasierako jarioan ikusiko. Ez dute jakingo isilarazi dituztenik.",
+                "block_user": "Blokeatu %s",
+                "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "Ezin izango dituzte zure bidalketak jarraitu edo ikusi, baina blokeatuta dauden ikusi ahal izango dute.",
+                "while_we_review_this_you_can_take_action_against_user": "Hau berrikusten dugun bitartean, %s erabiltzailearen aurkako neurriak hartu ditzakezu"
             }
         },
         "preview": {
@@ -721,7 +721,7 @@
             "accessibility_hint": "Ukitu birritan morroi hau baztertzeko"
         },
         "bookmark": {
-            "title": "Bookmarks"
+            "title": "Laster-markak"
         }
     }
 }
