@@ -1,8 +1,8 @@
-"16wxgf" = "Post on Mastodon";
+"16wxgf" = "Postio ar Mastodon";
 
-"751xkl" = "Text Content";
+"751xkl" = "Cynnwys Testun";
 
-"CsR7G2" = "Post on Mastodon";
+"CsR7G2" = "Postio ar Mastodon";
 
 "HZSGTr" = "What content to post?";
 
@@ -28,15 +28,15 @@
 
 "apSxMG-ehFLjY" = "There are ${count} options matching ‘Followers Only’.";
 
-"ayoYEb-dYQ5NN" = "${content}, Public";
+"ayoYEb-dYQ5NN" = "${content}, Cyhoeddus";
 
-"ayoYEb-ehFLjY" = "${content}, Followers Only";
+"ayoYEb-ehFLjY" = "${content}, Dilynwyr yn Unig";
 
-"dUyuGg" = "Post on Mastodon";
+"dUyuGg" = "Postio ar Mastodon";
 
-"dYQ5NN" = "Public";
+"dYQ5NN" = "Cyhoeddus";
 
-"ehFLjY" = "Followers Only";
+"ehFLjY" = "Dilynwyr yn unig";
 
 "gfePDu" = "Posting failed. ${failureReason}";
 
