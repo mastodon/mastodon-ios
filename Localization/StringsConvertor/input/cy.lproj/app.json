@@ -2,26 +2,26 @@
     "common": {
         "alerts": {
             "common": {
-                "please_try_again": "Please try again.",
-                "please_try_again_later": "Please try again later."
+                "please_try_again": "Ceisiwch eto.",
+                "please_try_again_later": "Ceisiwch eto nes ymlaen."
             },
             "sign_up_failure": {
-                "title": "Sign Up Failure"
+                "title": "Gwall Ymgofrestru"
             },
             "server_error": {
-                "title": "Server Error"
+                "title": "Gwall Gweinydd"
             },
             "vote_failure": {
-                "title": "Vote Failure",
-                "poll_ended": "The poll has ended"
+                "title": "Gwall Pleidleisio",
+                "poll_ended": "Mae'r pôl wedi dod i ben"
             },
             "discard_post_content": {
-                "title": "Discard Draft",
-                "message": "Confirm to discard composed post content."
+                "title": "Dileu Drafft",
+                "message": "Cadarnhau i ddileu post drafft."
             },
             "publish_post_failure": {
-                "title": "Publish Failure",
-                "message": "Failed to publish the post.\nPlease check your internet connection.",
+                "title": "Gwall Cyhoeddi",
+                "message": "Gwall wrth gyhoeddi'r tŵt.\nGwiriwch eich cysylltiad i'r rhyngrhwyd.",
                 "attachments_message": {
                     "video_attach_with_photo": "Cannot attach a video to a post that already contains images.",
                     "more_than_one_video": "Cannot attach more than one video."
@@ -32,9 +32,9 @@
                 "message": "Cannot edit profile. Please try again."
             },
             "sign_out": {
-                "title": "Sign Out",
+                "title": "Allgofnodi",
                 "message": "Are you sure you want to sign out?",
-                "confirm": "Sign Out"
+                "confirm": "Allgofnodi"
             },
             "block_domain": {
                 "title": "Are you really, really sure you want to block the entire %s? In most cases a few targeted blocks or mutes are sufficient and preferable. You will not see content from that domain and any of your followers from that domain will be removed.",
@@ -45,74 +45,74 @@
                 "message": "Please enable the photo library access permission to save the photo."
             },
             "delete_post": {
-                "title": "Delete Post",
+                "title": "Dileu Tŵt",
                 "message": "Are you sure you want to delete this post?"
             },
             "clean_cache": {
-                "title": "Clean Cache",
-                "message": "Successfully cleaned %s cache."
+                "title": "Clirio storfa",
+                "message": "Cliriwyd storfa %s yn llwyddiannus."
             }
         },
         "controls": {
             "actions": {
-                "back": "Back",
-                "next": "Next",
-                "previous": "Previous",
-                "open": "Open",
-                "add": "Add",
-                "remove": "Remove",
-                "edit": "Edit",
-                "save": "Save",
-                "ok": "OK",
-                "done": "Done",
-                "confirm": "Confirm",
-                "continue": "Continue",
-                "compose": "Compose",
-                "cancel": "Cancel",
-                "discard": "Discard",
-                "try_again": "Try Again",
-                "take_photo": "Take Photo",
-                "save_photo": "Save Photo",
-                "copy_photo": "Copy Photo",
-                "sign_in": "Log in",
-                "sign_up": "Create account",
-                "see_more": "See More",
-                "preview": "Preview",
-                "share": "Share",
-                "share_user": "Share %s",
-                "share_post": "Share Post",
-                "open_in_safari": "Open in Safari",
-                "open_in_browser": "Open in Browser",
-                "find_people": "Find people to follow",
-                "manually_search": "Manually search instead",
-                "skip": "Skip",
-                "reply": "Reply",
-                "report_user": "Report %s",
-                "block_domain": "Block %s",
+                "back": "Nôl",
+                "next": "Ymlaen",
+                "previous": "Blaenorol",
+                "open": "Agor",
+                "add": "Ychwanegu",
+                "remove": "Dileu",
+                "edit": "Golygu",
+                "save": "Cadw",
+                "ok": "Iawn",
+                "done": "Iawn",
+                "confirm": "Cadarnhau",
+                "continue": "Parhau",
+                "compose": "Creu",
+                "cancel": "Canslo",
+                "discard": "Diddymu",
+                "try_again": "Ceisio eto",
+                "take_photo": "Tynnu Llun",
+                "save_photo": "Cadw Llun",
+                "copy_photo": "Copïo Llun",
+                "sign_in": "Mewngofnodi",
+                "sign_up": "Creu cyfrif",
+                "see_more": "Gweld Mwy",
+                "preview": "Rhagolwg",
+                "share": "Rhannu",
+                "share_user": "Rhannu %s",
+                "share_post": "Rhannu Tŵt",
+                "open_in_safari": "Agor yn Safari",
+                "open_in_browser": "Agor yn y Porwr",
+                "find_people": "Dilyn pobl newydd",
+                "manually_search": "Chwilio yn fanwl",
+                "skip": "Anwybyddu",
+                "reply": "Ymateb",
+                "report_user": "Riportio %s",
+                "block_domain": "Blocio %s",
                 "unblock_domain": "Unblock %s",
-                "settings": "Settings",
-                "delete": "Delete"
+                "settings": "Gosodiadau",
+                "delete": "Dileu"
             },
             "tabs": {
-                "home": "Home",
-                "search": "Search",
-                "notification": "Notification",
-                "profile": "Profile"
+                "home": "Hafan",
+                "search": "Chwilio",
+                "notification": "Hysbysiad",
+                "profile": "Proffil"
             },
             "keyboard": {
                 "common": {
-                    "switch_to_tab": "Switch to %s",
-                    "compose_new_post": "Compose New Post",
-                    "show_favorites": "Show Favorites",
-                    "open_settings": "Open Settings"
+                    "switch_to_tab": "Newid i %s",
+                    "compose_new_post": "Creu Tŵt Newydd",
+                    "show_favorites": "Dangos Ffefrynnau",
+                    "open_settings": "Agor Gosodiadau"
                 },
                 "timeline": {
-                    "previous_status": "Previous Post",
-                    "next_status": "Next Post",
-                    "open_status": "Open Post",
-                    "open_author_profile": "Open Author's Profile",
-                    "open_reblogger_profile": "Open Reblogger's Profile",
-                    "reply_status": "Reply to Post",
+                    "previous_status": "Tŵt Blaenorol",
+                    "next_status": "Tŵt Nesaf",
+                    "open_status": "Agor Tŵt",
+                    "open_author_profile": "Agor Proffil yr Awdur",
+                    "open_reblogger_profile": "Agor Proffil yr Ailflogwr",
+                    "reply_status": "Ymateb i Tŵt",
                     "toggle_reblog": "Toggle Reblog on Post",
                     "toggle_favorite": "Toggle Favorite on Post",
                     "toggle_content_warning": "Toggle Content Warning",
@@ -120,88 +120,88 @@
                 },
                 "segmented_control": {
                     "previous_section": "Previous Section",
-                    "next_section": "Next Section"
+                    "next_section": "Adran Nesaf"
                 }
             },
             "status": {
                 "user_reblogged": "%s reblogged",
                 "user_replied_to": "Replied to %s",
-                "show_post": "Show Post",
-                "show_user_profile": "Show user profile",
-                "content_warning": "Content Warning",
-                "sensitive_content": "Sensitive Content",
-                "media_content_warning": "Tap anywhere to reveal",
-                "tap_to_reveal": "Tap to reveal",
+                "show_post": "Dangos Tŵt",
+                "show_user_profile": "Dangos proffil y defnyddiwr",
+                "content_warning": "Rhybudd Cynnwys",
+                "sensitive_content": "Cynnwys Sensitif",
+                "media_content_warning": "Tapiwch unrhywle i weld",
+                "tap_to_reveal": "Tapiwch i weld",
                 "poll": {
-                    "vote": "Vote",
-                    "closed": "Closed"
+                    "vote": "Pleidleisio",
+                    "closed": "Wedi cau"
                 },
                 "meta_entity": {
-                    "url": "Link: %s",
-                    "hashtag": "Hashtag: %s",
-                    "mention": "Show Profile: %s",
-                    "email": "Email address: %s"
+                    "url": "Dolen: %s",
+                    "hashtag": "Hashnod: %s",
+                    "mention": "Dangos Proffil: %s",
+                    "email": "Cyfeiriad e-bost: %s"
                 },
                 "actions": {
-                    "reply": "Reply",
+                    "reply": "Ymateb",
                     "reblog": "Hybwch",
-                    "unreblog": "Undo reblog",
-                    "favorite": "Favorite",
-                    "unfavorite": "Unfavorite",
-                    "menu": "Menu",
-                    "hide": "Hide",
-                    "show_image": "Show image",
-                    "show_gif": "Show GIF",
-                    "show_video_player": "Show video player",
-                    "tap_then_hold_to_show_menu": "Tap then hold to show menu"
+                    "unreblog": "Dadwneud ailfloggiad",
+                    "favorite": "Ffefrynnu",
+                    "unfavorite": "Dad-ffefrynnu",
+                    "menu": "Dewislen",
+                    "hide": "Cuddio",
+                    "show_image": "Dangos llun",
+                    "show_gif": "Dangos GIF",
+                    "show_video_player": "Dangos chwaraewr fideo",
+                    "tap_then_hold_to_show_menu": "Tapiwch a gwasgu i gael y ddewislen"
                 },
                 "tag": {
                     "url": "URL",
-                    "mention": "Mention",
-                    "link": "Link",
-                    "hashtag": "Hashtag",
-                    "email": "Email",
+                    "mention": "Sôn",
+                    "link": "Dolen",
+                    "hashtag": "Hashnod",
+                    "email": "E-bost",
                     "emoji": "Emoji"
                 },
                 "visibility": {
-                    "unlisted": "Everyone can see this post but not display in the public timeline.",
+                    "unlisted": "Gall pawb weld y post hwn ond nid yn y ffrwd cyhoeddus.",
                     "private": "Only their followers can see this post.",
                     "private_from_me": "Only my followers can see this post.",
                     "direct": "Only mentioned user can see this post."
                 }
             },
             "friendship": {
-                "follow": "Follow",
-                "following": "Following",
-                "request": "Request",
-                "pending": "Pending",
-                "block": "Block",
-                "block_user": "Block %s",
-                "block_domain": "Block %s",
-                "unblock": "Unblock",
-                "unblock_user": "Unblock %s",
-                "blocked": "Blocked",
+                "follow": "Dilyn",
+                "following": "Yn dilyn",
+                "request": "Gwneud cais",
+                "pending": "Yn aros",
+                "block": "Blocio",
+                "block_user": "Blocio %s",
+                "block_domain": "Blocio %s",
+                "unblock": "Dadflocio",
+                "unblock_user": "Dadflocio %s",
+                "blocked": "Wedi blocio",
                 "mute": "Mute",
                 "mute_user": "Mute %s",
                 "unmute": "Unmute",
                 "unmute_user": "Unmute %s",
                 "muted": "Muted",
-                "edit_info": "Edit Info",
-                "show_reblogs": "Show Reblogs",
-                "hide_reblogs": "Hide Reblogs"
+                "edit_info": "Golygu",
+                "show_reblogs": "Dangos Ailfloggiau",
+                "hide_reblogs": "Cuddio Ailfloggiau"
             },
             "timeline": {
-                "filtered": "Filtered",
+                "filtered": "Wedi'i hidlo",
                 "timestamp": {
-                    "now": "Now"
+                    "now": "Nawr"
                 },
                 "loader": {
-                    "load_missing_posts": "Load missing posts",
-                    "loading_missing_posts": "Loading missing posts...",
-                    "show_more_replies": "Show more replies"
+                    "load_missing_posts": "Llwytho postau coll",
+                    "loading_missing_posts": "Wrthi'n llwytho postau coll...",
+                    "show_more_replies": "Dangos mwy o ymatebion"
                 },
                 "header": {
-                    "no_status_found": "No Post Found",
+                    "no_status_found": "Ni Chanfuwyd Post",
                     "blocking_warning": "You can’t view this user's profile\nuntil you unblock them.\nYour profile looks like this to them.",
                     "user_blocking_warning": "You can’t view %s’s profile\nuntil you unblock them.\nYour profile looks like this to them.",
                     "blocked_warning": "You can’t view this user’s profile\nuntil they unblock you.",
@@ -216,10 +216,10 @@
         "welcome": {
             "slogan": "Social networking\nback in your hands.",
             "get_started": "Get Started",
-            "log_in": "Log In"
+            "log_in": "Mewngofnodi"
         },
         "login": {
-            "title": "Welcome back",
+            "title": "Croeso nôl",
             "subtitle": "Log you in on the server you created your account on.",
             "server_search_field": {
                 "placeholder": "Enter URL or search for your server"
@@ -230,11 +230,11 @@
             "subtitle": "Pick a server based on your region, interests, or a general purpose one. You can still chat with anyone on Mastodon, regardless of your servers.",
             "button": {
                 "category": {
-                    "all": "All",
+                    "all": "Popeth",
                     "all_accessiblity_description": "Category: All",
-                    "academia": "academia",
-                    "activism": "activism",
-                    "food": "food",
+                    "academia": "academaidd",
+                    "activism": "gweithgarwch",
+                    "food": "bwyd",
                     "furry": "furry",
                     "games": "games",
                     "general": "general",
@@ -250,8 +250,8 @@
             },
             "label": {
                 "language": "LANGUAGE",
-                "users": "USERS",
-                "category": "CATEGORY"
+                "users": "DEFNYDDWYR",
+                "category": "CATEGORI"
             },
             "input": {
                 "search_servers_or_enter_url": "Search communities or enter URL"
@@ -267,22 +267,22 @@
             "lets_get_you_set_up_on_domain": "Let’s get you set up on %s",
             "input": {
                 "avatar": {
-                    "delete": "Delete"
+                    "delete": "Dileu"
                 },
                 "username": {
-                    "placeholder": "username",
-                    "duplicate_prompt": "This username is taken."
+                    "placeholder": "enw defnyddiwr",
+                    "duplicate_prompt": "Defnyddir yr enw hwn yn barod."
                 },
                 "display_name": {
-                    "placeholder": "display name"
+                    "placeholder": "enw arddangos"
                 },
                 "email": {
-                    "placeholder": "email"
+                    "placeholder": "e-bost"
                 },
                 "password": {
-                    "placeholder": "password",
-                    "require": "Your password needs at least:",
-                    "character_limit": "8 characters",
+                    "placeholder": "cyfrinair",
+                    "require": "Mae angen i'ch cyfrinair gael o leiaf:",
+                    "character_limit": "8 nod",
                     "accessibility": {
                         "checked": "checked",
                         "unchecked": "unchecked"
@@ -290,17 +290,17 @@
                     "hint": "Your password needs at least eight characters"
                 },
                 "invite": {
-                    "registration_user_invite_request": "Why do you want to join?"
+                    "registration_user_invite_request": "Pam ydych chi eisiau ymuno?"
                 }
             },
             "error": {
                 "item": {
-                    "username": "Username",
-                    "email": "Email",
-                    "password": "Password",
-                    "agreement": "Agreement",
-                    "locale": "Locale",
-                    "reason": "Reason"
+                    "username": "Enw defnyddiwr",
+                    "email": "E-bost",
+                    "password": "Cyfrinair",
+                    "agreement": "Cytundeb",
+                    "locale": "Lleoliad",
+                    "reason": "Rheswm"
                 },
                 "reason": {
                     "blocked": "%s contains a disallowed email provider",
@@ -323,44 +323,44 @@
             }
         },
         "server_rules": {
-            "title": "Some ground rules.",
+            "title": "Rhai rheolau sylfaenol.",
             "subtitle": "These are set and enforced by the %s moderators.",
             "prompt": "By continuing, you’re subject to the terms of service and privacy policy for %s.",
-            "terms_of_service": "terms of service",
-            "privacy_policy": "privacy policy",
+            "terms_of_service": "telerau gwasanaeth",
+            "privacy_policy": "polisi preifatrwydd",
             "button": {
-                "confirm": "I Agree"
+                "confirm": "Rwy'n cytuno"
             }
         },
         "confirm_email": {
-            "title": "One last thing.",
-            "subtitle": "Tap the link we emailed to you to verify your account.",
-            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we emailed to you to verify your account",
+            "title": "Un peth olaf.",
+            "subtitle": "Tapiwch ar y ddolen yn eich e-bost i ddilysu eich cyfrif.",
+            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tapiwch ar y ddolen yn eich e-bost i ddilysu eich cyfrif",
             "button": {
-                "open_email_app": "Open Email App",
-                "resend": "Resend"
+                "open_email_app": "Agor ap e-byst",
+                "resend": "Ailanfon"
             },
             "dont_receive_email": {
-                "title": "Check your email",
+                "title": "Gwiriwch eich e-byst",
                 "description": "Check if your email address is correct as well as your junk folder if you haven’t.",
-                "resend_email": "Resend Email"
+                "resend_email": "Ailanfon E-bost"
             },
             "open_email_app": {
-                "title": "Check your inbox.",
+                "title": "Gwiriwch eich blwch derbyn.",
                 "description": "We just sent you an email. Check your junk folder if you haven’t.",
                 "mail": "Mail",
                 "open_email_client": "Open Email Client"
             }
         },
         "home_timeline": {
-            "title": "Home",
+            "title": "Hafan",
             "navigation_bar_state": {
-                "offline": "Offline",
-                "new_posts": "See new posts",
-                "published": "Published!",
-                "Publishing": "Publishing post...",
+                "offline": "All-lein",
+                "new_posts": "Gweld tŵts newydd",
+                "published": "Wedi cyhoeddi!",
+                "Publishing": "Wrthi'n cyhoeddi...",
                 "accessibility": {
-                    "logo_label": "Logo Button",
+                    "logo_label": "Botwm Logo",
                     "logo_hint": "Tap to scroll to top and tap again to previous location"
                 }
             }
@@ -371,11 +371,11 @@
         },
         "compose": {
             "title": {
-                "new_post": "New Post",
+                "new_post": "Tŵt Newydd",
                 "new_reply": "New Reply"
             },
             "media_selection": {
-                "camera": "Take Photo",
+                "camera": "Tynnu Llun",
                 "photo_library": "Photo Library",
                 "browse": "Browse"
             },
@@ -398,11 +398,11 @@
             "poll": {
                 "duration_time": "Duration: %s",
                 "thirty_minutes": "30 minutes",
-                "one_hour": "1 Hour",
-                "six_hours": "6 Hours",
-                "one_day": "1 Day",
-                "three_days": "3 Days",
-                "seven_days": "7 Days",
+                "one_hour": "1 awr",
+                "six_hours": "6 awr",
+                "one_day": "1 diwrnod",
+                "three_days": "3 diwrnod",
+                "seven_days": "7 diwrnod",
                 "option_number": "Option %ld",
                 "the_poll_is_invalid": "The poll is invalid",
                 "the_poll_has_empty_option": "The poll has empty option"
@@ -411,9 +411,9 @@
                 "placeholder": "Write an accurate warning here..."
             },
             "visibility": {
-                "public": "Public",
+                "public": "Cyhoeddus",
                 "unlisted": "Unlisted",
-                "private": "Followers only",
+                "private": "Dilynwyr yn unig",
                 "direct": "Only people I mention"
             },
             "auto_complete": {
@@ -445,14 +445,14 @@
             },
             "dashboard": {
                 "posts": "postiadau",
-                "following": "following",
-                "followers": "followers"
+                "following": "yn dilyn",
+                "followers": "dilynwyr"
             },
             "fields": {
-                "add_row": "Add Row",
+                "add_row": "Ychwanegu Rhes",
                 "placeholder": {
                     "label": "Label",
-                    "content": "Content"
+                    "content": "Cynnwys"
                 },
                 "verified": {
                     "short": "Verified on %s",
@@ -461,10 +461,10 @@
             },
             "segmented_control": {
                 "posts": "Postiadau",
-                "replies": "Replies",
+                "replies": "Ymatebion",
                 "posts_and_replies": "Postiadau ac Atebion",
-                "media": "Media",
-                "about": "About"
+                "media": "Cyfryngau",
+                "about": "Ynghylch"
             },
             "relationship_action_alert": {
                 "confirm_mute_user": {
@@ -493,10 +493,10 @@
                 }
             },
             "accessibility": {
-                "show_avatar_image": "Show avatar image",
-                "edit_avatar_image": "Edit avatar image",
-                "show_banner_image": "Show banner image",
-                "double_tap_to_open_the_list": "Double tap to open the list"
+                "show_avatar_image": "Dangos afatar",
+                "edit_avatar_image": "Golygu afatar",
+                "show_banner_image": "Dangos baner",
+                "double_tap_to_open_the_list": "Tapiwch dwywaith i agor y restr"
             }
         },
         "follower": {
@@ -526,46 +526,46 @@
             "recommend": {
                 "button_text": "See All",
                 "hash_tag": {
-                    "title": "Trending on Mastodon",
-                    "description": "Hashtags that are getting quite a bit of attention",
-                    "people_talking": "%s people are talking"
+                    "title": "Pynciau Llosg ar Mastodon",
+                    "description": "Dyma'r hashnodau sy'n derbyn tipyn o sylw",
+                    "people_talking": "%s person yn trafod"
                 },
                 "accounts": {
                     "title": "Accounts you might like",
                     "description": "You may like to follow these accounts",
-                    "follow": "Follow"
+                    "follow": "Dilyn"
                 }
             },
             "searching": {
                 "segment": {
-                    "all": "All",
-                    "people": "People",
-                    "hashtags": "Hashtags",
+                    "all": "Popeth",
+                    "people": "Pobl",
+                    "hashtags": "Hashnodau",
                     "posts": "Postiadau"
                 },
                 "empty_state": {
-                    "no_results": "No results"
+                    "no_results": "Dim canlyniadau"
                 },
-                "recent_search": "Recent searches",
-                "clear": "Clear"
+                "recent_search": "Chwiliadau diweddar",
+                "clear": "Clirio"
             }
         },
         "discovery": {
             "tabs": {
                 "posts": "Postiadau",
-                "hashtags": "Hashtags",
-                "news": "News",
-                "community": "Community",
-                "for_you": "For You"
+                "hashtags": "Hashnodau",
+                "news": "Newyddion",
+                "community": "Cymuned",
+                "for_you": "I Ti"
             },
             "intro": "These are the posts gaining traction in your corner of Mastodon."
         },
         "favorite": {
-            "title": "Your Favorites"
+            "title": "Eich Ffefrynnau"
         },
         "notification": {
             "title": {
-                "Everything": "Everything",
+                "Everything": "Popeth",
                 "Mentions": "Mentions"
             },
             "notification_description": {
@@ -592,30 +592,30 @@
             "title": "Post from %s"
         },
         "settings": {
-            "title": "Settings",
+            "title": "Gosodiadau",
             "section": {
                 "appearance": {
-                    "title": "Appearance",
-                    "automatic": "Automatic",
-                    "light": "Always Light",
-                    "dark": "Always Dark"
+                    "title": "Gwedd",
+                    "automatic": "Awtomatig",
+                    "light": "Golau",
+                    "dark": "Tywyll"
                 },
                 "look_and_feel": {
-                    "title": "Look and Feel",
-                    "use_system": "Use System",
-                    "really_dark": "Really Dark",
-                    "sorta_dark": "Sorta Dark",
-                    "light": "Light"
+                    "title": "Gwedd",
+                    "use_system": "Dull y System",
+                    "really_dark": "Tywyll Iawn",
+                    "sorta_dark": "Eitha' Tywyll",
+                    "light": "Golau"
                 },
                 "notifications": {
-                    "title": "Notifications",
+                    "title": "Hysbysiadau",
                     "favorites": "Favorites my post",
                     "follows": "Follows me",
                     "boosts": "Reblogs my post",
                     "mentions": "Mentions me",
                     "trigger": {
-                        "anyone": "anyone",
-                        "follower": "a follower",
+                        "anyone": "unrhyw un",
+                        "follower": "dilynwr",
                         "follow": "anyone I follow",
                         "noone": "no one",
                         "title": "Notify me when"
@@ -661,7 +661,7 @@
             "text_placeholder": "Type or paste additional comments",
             "reported": "REPORTED",
             "step_one": {
-                "step_1_of_4": "Step 1 of 4",
+                "step_1_of_4": "Cam 1 o 4",
                 "whats_wrong_with_this_post": "What's wrong with this post?",
                 "whats_wrong_with_this_account": "What's wrong with this account?",
                 "whats_wrong_with_this_username": "What's wrong with %s?",
@@ -670,53 +670,53 @@
                 "it_is_not_something_you_want_to_see": "It is not something you want to see",
                 "its_spam": "It’s spam",
                 "malicious_links_fake_engagement_or_repetetive_replies": "Malicious links, fake engagement, or repetetive replies",
-                "it_violates_server_rules": "It violates server rules",
+                "it_violates_server_rules": "Mae'n torri rheolau'r gweinydd",
                 "you_are_aware_that_it_breaks_specific_rules": "You are aware that it breaks specific rules",
-                "its_something_else": "It’s something else",
+                "its_something_else": "Mae'n rhywbeth arall",
                 "the_issue_does_not_fit_into_other_categories": "The issue does not fit into other categories"
             },
             "step_two": {
-                "step_2_of_4": "Step 2 of 4",
+                "step_2_of_4": "Cam 2 o 4",
                 "which_rules_are_being_violated": "Which rules are being violated?",
-                "select_all_that_apply": "Select all that apply",
-                "i_just_don’t_like_it": "I just don’t like it"
+                "select_all_that_apply": "Dewiswch bob un sy'n berthnasol",
+                "i_just_don’t_like_it": "Dydw i ddim yn ei hoffi"
             },
             "step_three": {
-                "step_3_of_4": "Step 3 of 4",
+                "step_3_of_4": "Cam 3 o 4",
                 "are_there_any_posts_that_back_up_this_report": "Are there any posts that back up this report?",
-                "select_all_that_apply": "Select all that apply"
+                "select_all_that_apply": "Dewiswch bob un sy'n berthnasol"
             },
             "step_four": {
-                "step_4_of_4": "Step 4 of 4",
+                "step_4_of_4": "Cam 4 o 4",
                 "is_there_anything_else_we_should_know": "Is there anything else we should know?"
             },
             "step_final": {
                 "dont_want_to_see_this": "Don’t want to see this?",
                 "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "When you see something you don’t like on Mastodon, you can remove the person from your experience.",
-                "unfollow": "Unfollow",
-                "unfollowed": "Unfollowed",
-                "unfollow_user": "Unfollow %s",
+                "unfollow": "Dad-ddilyn",
+                "unfollowed": "Dad-ddilynwyd",
+                "unfollow_user": "Dad-ddilyn %s",
                 "mute_user": "Mute %s",
                 "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or reblogs in your home feed. They won’t know they’ve been muted.",
-                "block_user": "Block %s",
+                "block_user": "Blocio %s",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "They will no longer be able to follow or see your posts, but they can see if they’ve been blocked.",
                 "while_we_review_this_you_can_take_action_against_user": "While we review this, you can take action against %s"
             }
         },
         "preview": {
             "keyboard": {
-                "close_preview": "Close Preview",
-                "show_next": "Show Next",
-                "show_previous": "Show Previous"
+                "close_preview": "Cau Rhagolwg",
+                "show_next": "Dangos Nesaf",
+                "show_previous": "Dangos Blaenorol"
             }
         },
         "account_list": {
             "tab_bar_hint": "Current selected profile: %s. Double tap then hold to show account switcher",
             "dismiss_account_switcher": "Dismiss Account Switcher",
-            "add_account": "Add Account"
+            "add_account": "Ychwanegu Cyfrif"
         },
         "wizard": {
-            "new_in_mastodon": "New in Mastodon",
+            "new_in_mastodon": "Newydd i Mastodon",
             "multiple_account_switch_intro_description": "Switch between multiple accounts by holding the profile button.",
             "accessibility_hint": "Double tap to dismiss this wizard"
         },
