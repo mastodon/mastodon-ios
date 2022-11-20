@@ -4,29 +4,29 @@
 
 "CsR7G2" = "Postio ar Mastodon";
 
-"HZSGTr" = "What content to post?";
+"HZSGTr" = "Pa gynnwys i bostio?";
 
-"HdGikU" = "Posting failed";
+"HdGikU" = "Methwyd postio";
 
-"KDNTJ4" = "Failure Reason";
+"KDNTJ4" = "Rheswm y Gwall";
 
-"RHxKOw" = "Send Post with text content";
+"RHxKOw" = "Cyhoeddi Post â chynnwys testun";
 
 "RxSqsb" = "Post";
 
-"WCIR3D" = "Post ${content} on Mastodon";
+"WCIR3D" = "Postio ${content} ar Mastodon";
 
 "ZKJSNu" = "Post";
 
 "ZS1XaK" = "${content}";
 
-"ZbSjzC" = "Visibility";
+"ZbSjzC" = "Preifatrwydd";
 
-"Zo4jgJ" = "Post Visibility";
+"Zo4jgJ" = "Preifatrwydd Post";
 
-"apSxMG-dYQ5NN" = "There are ${count} options matching ‘Public’.";
+"apSxMG-dYQ5NN" = "Ceir ${count} opsiwn ar gyfer ‘Cyhoeddus’.";
 
-"apSxMG-ehFLjY" = "There are ${count} options matching ‘Followers Only’.";
+"apSxMG-ehFLjY" = "Ceir ${count} opsiwn ar gyfer ‘Dilynwyr yn Unig’.";
 
 "ayoYEb-dYQ5NN" = "${content}, Cyhoeddus";
 
@@ -38,9 +38,9 @@
 
 "ehFLjY" = "Dilynwyr yn unig";
 
-"gfePDu" = "Posting failed. ${failureReason}";
+"gfePDu" = "Methwyd postio. ${failureReason}";
 
-"k7dbKQ" = "Post was sent successfully.";
+"k7dbKQ" = "Cyhoeddwyd y post yn llwyddiannus.";
 
 "oGiqmY-dYQ5NN" = "Just to confirm, you wanted ‘Public’?";
 
@@ -48,4 +48,4 @@
 
 "rM6dvp" = "URL";
 
-"ryJLwG" = "Post was sent successfully. ";
+"ryJLwG" = "Cyhoeddwyd y post yn llwyddiannus. ";
