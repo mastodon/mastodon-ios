@@ -61,17 +61,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld characters</string>
+        <string>%ld nod</string>
         <key>one</key>
-        <string>1 character</string>
+        <string>%ld nod</string>
         <key>two</key>
-        <string>%ld characters</string>
+        <string>%ld nod</string>
         <key>few</key>
-        <string>%ld characters</string>
+        <string>%ld nod</string>
         <key>many</key>
-        <string>%ld characters</string>
+        <string>%ld nod</string>
         <key>other</key>
-        <string>%ld characters</string>
+        <string>%ld nod</string>
       </dict>
     </dict>
     <key>a11y.plural.count.characters_left</key>
@@ -85,17 +85,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld characters</string>
+        <string>%ld nod</string>
         <key>one</key>
-        <string>1 character</string>
+        <string>%ld nod</string>
         <key>two</key>
-        <string>%ld characters</string>
+        <string>%ld nod</string>
         <key>few</key>
-        <string>%ld characters</string>
+        <string>%ld nod</string>
         <key>many</key>
-        <string>%ld characters</string>
+        <string>%ld nod</string>
         <key>other</key>
-        <string>%ld characters</string>
+        <string>%ld nod</string>
       </dict>
     </dict>
     <key>plural.count.followed_by_and_mutual</key>
@@ -156,7 +156,7 @@
         <key>one</key>
         <string>post</string>
         <key>two</key>
-        <string>postiau</string>
+        <string>post</string>
         <key>few</key>
         <string>posts</string>
         <key>many</key>
@@ -176,17 +176,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld media</string>
+        <string>%ld cyfrwng</string>
         <key>one</key>
-        <string>1 media</string>
+        <string>%ld cyfrwng</string>
         <key>two</key>
-        <string>%ld media</string>
+        <string>%ld gyfrwng</string>
         <key>few</key>
-        <string>%ld media</string>
+        <string>%ld cyfrwng</string>
         <key>many</key>
-        <string>%ld media</string>
+        <string>%ld cyfrwng</string>
         <key>other</key>
-        <string>%ld media</string>
+        <string>%ld cyfrwng</string>
       </dict>
     </dict>
     <key>plural.count.post</key>
