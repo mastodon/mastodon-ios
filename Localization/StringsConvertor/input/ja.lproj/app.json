@@ -335,7 +335,7 @@
         "confirm_email": {
             "title": "さいごにもうひとつ。",
             "subtitle": "先程 %s にメールを送信しました。リンクをタップしてアカウントを確認してください。",
-            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we emailed to you to verify your account",
+            "tap_the_link_we_emailed_to_you_to_verify_your_account": "メールで送られたリンクへアクセスし、アカウントを認証してください",
             "button": {
                 "open_email_app": "メールアプリを開く",
                 "resend": "再送信"
@@ -388,10 +388,10 @@
                 "attachment_broken": "%sは壊れていてMastodonにアップロードできません。",
                 "description_photo": "閲覧が難しいユーザーへの画像説明",
                 "description_video": "閲覧が難しいユーザーへの映像説明",
-                "load_failed": "Load Failed",
-                "upload_failed": "Upload Failed",
+                "load_failed": "読み込みに失敗しました",
+                "upload_failed": "アップロードに失敗しました",
                 "can_not_recognize_this_media_attachment": "Can not recognize this media attachment",
-                "attachment_too_large": "Attachment too large",
+                "attachment_too_large": "添付ファイルが大きすぎます",
                 "compressing_state": "Compressing...",
                 "server_processing_state": "Server Processing..."
             },
@@ -420,7 +420,7 @@
                 "space_to_add": "スペースを追加"
             },
             "accessibility": {
-                "append_attachment": "アタッチメントの追加",
+                "append_attachment": "添付ファイルを追加",
                 "append_poll": "投票を追加",
                 "remove_poll": "投票を消去",
                 "custom_emoji_picker": "カスタム絵文字ピッカー",
@@ -435,7 +435,7 @@
                 "publish_post": "投稿する",
                 "toggle_poll": "投票を切り替える",
                 "toggle_content_warning": "閲覧注意を切り替える",
-                "append_attachment_entry": "アタッチメントを追加 - %s",
+                "append_attachment_entry": "添付ファイルを追加 - %s",
                 "select_visibility_entry": "公開設定を選択 - %s"
             }
         },
@@ -679,27 +679,27 @@
                 "step_2_of_4": "ステップ 2/4",
                 "which_rules_are_being_violated": "どのルールに違反していますか？",
                 "select_all_that_apply": "当てはまるものをすべて選んでください",
-                "i_just_don’t_like_it": "I just don’t like it"
+                "i_just_don’t_like_it": "興味がありません"
             },
             "step_three": {
                 "step_3_of_4": "ステップ 3/4",
-                "are_there_any_posts_that_back_up_this_report": "Are there any posts that back up this report?",
-                "select_all_that_apply": "Select all that apply"
+                "are_there_any_posts_that_back_up_this_report": "この通報を裏付けるような投稿はありますか？",
+                "select_all_that_apply": "当てはまるものをすべて選んでください"
             },
             "step_four": {
                 "step_4_of_4": "ステップ 4/4",
                 "is_there_anything_else_we_should_know": "その他に私たちに伝えておくべき事はありますか？"
             },
             "step_final": {
-                "dont_want_to_see_this": "Don’t want to see this?",
-                "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "When you see something you don’t like on Mastodon, you can remove the person from your experience.",
+                "dont_want_to_see_this": "見えないようにしたいですか？",
+                "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "Mastodonで気に入らないものを見た場合、その人をあなたの体験から取り除くことができます。",
                 "unfollow": "フォロー解除",
                 "unfollowed": "フォロー解除しました",
                 "unfollow_user": "%sをフォロー解除",
                 "mute_user": "%sをミュート",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or reblogs in your home feed. They won’t know they’ve been muted.",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "ホームに投稿やブーストは表示されなくなります。相手にミュートしたことは伝わりません。",
                 "block_user": "%sをブロック",
-                "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "They will no longer be able to follow or see your posts, but they can see if they’ve been blocked.",
+                "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "相手はあなたの投稿を見たり、フォローしたりできなくなります。あなたにブロックされていることはわかります。",
                 "while_we_review_this_you_can_take_action_against_user": "私たちが確認している間でも、あなたは%sさんに対して対応することができます。"
             }
         },
