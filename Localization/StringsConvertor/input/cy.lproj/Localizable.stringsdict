@@ -128,17 +128,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>Followed by %1$@, and %ld mutuals</string>
+        <string>Dilynwyd gan %1$@, a %ld mewn cyffredin</string>
         <key>one</key>
-        <string>Followed by %1$@, and another mutual</string>
+        <string>Dilynwyd gan %1$@, a pherson gyffredin</string>
         <key>two</key>
-        <string>Followed by %1$@, and %ld mutuals</string>
+        <string>Dilynwyd gan %1$@, a %ld mewn cyffredin</string>
         <key>few</key>
-        <string>Followed by %1$@, and %ld mutuals</string>
+        <string>Dilynwyd gan %1$@, a %ld mewn cyffredin</string>
         <key>many</key>
-        <string>Followed by %1$@, and %ld mutuals</string>
+        <string>Dilynwyd gan %1$@, a %ld mewn cyffredin</string>
         <key>other</key>
-        <string>Followed by %1$@, and %ld mutuals</string>
+        <string>Dilynwyd gan %1$@, a %ld mewn cyffredin</string>
       </dict>
     </dict>
     <key>plural.count.metric_formatted.post</key>
@@ -224,17 +224,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld favorites</string>
+        <string>%ld ffefrynnau</string>
         <key>one</key>
-        <string>1 favorite</string>
+        <string>%ld ffefryn</string>
         <key>two</key>
-        <string>%ld favorites</string>
+        <string>%ld ffefryn</string>
         <key>few</key>
-        <string>%ld favorites</string>
+        <string>%ld ffefryn</string>
         <key>many</key>
-        <string>%ld favorites</string>
+        <string>%ld ffefryn</string>
         <key>other</key>
-        <string>%ld favorites</string>
+        <string>%ld ffefryn</string>
       </dict>
     </dict>
     <key>plural.count.reblog</key>
