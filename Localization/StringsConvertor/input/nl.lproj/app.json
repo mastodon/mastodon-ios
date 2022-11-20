@@ -335,7 +335,7 @@
         "confirm_email": {
             "title": "Nog één ding.",
             "subtitle": "We hebben een e-mail gestuurd naar %s,\nklik op de link om uw account te bevestigen.",
-            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we emailed to you to verify your account",
+            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tik op de link in de e-mail die je hebt ontvangen om uw account te verifiëren",
             "button": {
                 "open_email_app": "Email Openen",
                 "resend": "Verstuur opnieuw"
@@ -360,8 +360,8 @@
                 "published": "Gepubliceerd!",
                 "Publishing": "Bericht publiceren...",
                 "accessibility": {
-                    "logo_label": "Logo Button",
-                    "logo_hint": "Tap to scroll to top and tap again to previous location"
+                    "logo_label": "Logo knop",
+                    "logo_hint": "Tik om naar boven te scrollen en tik nogmaals om terug te keren naar de vorige locatie"
                 }
             }
         },
@@ -388,12 +388,12 @@
                 "attachment_broken": "Deze %s is corrupt en kan niet geüpload worden naar Mastodon.",
                 "description_photo": "Omschrijf de foto voor mensen met een visuele beperking...",
                 "description_video": "Omschrijf de video voor mensen met een visuele beperking...",
-                "load_failed": "Load Failed",
-                "upload_failed": "Upload Failed",
-                "can_not_recognize_this_media_attachment": "Can not recognize this media attachment",
-                "attachment_too_large": "Attachment too large",
-                "compressing_state": "Compressing...",
-                "server_processing_state": "Server Processing..."
+                "load_failed": "Laden mislukt",
+                "upload_failed": "Uploaden mislukt",
+                "can_not_recognize_this_media_attachment": "Kan de media in de bijlage niet herkennen",
+                "attachment_too_large": "Bijlage te groot",
+                "compressing_state": "Bezig met comprimeren...",
+                "server_processing_state": "Server is bezig met verwerken..."
             },
             "poll": {
                 "duration_time": "Duur: %s",
@@ -404,8 +404,8 @@
                 "three_days": "3 Dagen",
                 "seven_days": "7 Dagen",
                 "option_number": "Optie %ld",
-                "the_poll_is_invalid": "The poll is invalid",
-                "the_poll_has_empty_option": "The poll has empty option"
+                "the_poll_is_invalid": "De peiling is ongeldig",
+                "the_poll_has_empty_option": "De peiling heeft een lege optie"
             },
             "content_warning": {
                 "placeholder": "Schrijf hier een nauwkeurige waarschuwing..."
@@ -427,8 +427,8 @@
                 "enable_content_warning": "Inhoudswaarschuwing inschakelen",
                 "disable_content_warning": "Inhoudswaarschuwing Uitschakelen",
                 "post_visibility_menu": "Berichtzichtbaarheidsmenu",
-                "post_options": "Post Options",
-                "posting_as": "Posting as %s"
+                "post_options": "Plaats Bericht Opties",
+                "posting_as": "Plaats bericht als %s"
             },
             "keyboard": {
                 "discard_post": "Bericht Verwijderen",
@@ -441,7 +441,7 @@
         },
         "profile": {
             "header": {
-                "follows_you": "Follows You"
+                "follows_you": "Volgt jou"
             },
             "dashboard": {
                 "posts": "berichten",
@@ -455,8 +455,8 @@
                     "content": "Inhoud"
                 },
                 "verified": {
-                    "short": "Verified on %s",
-                    "long": "Ownership of this link was checked on %s"
+                    "short": "Geverifieerd op %s",
+                    "long": "Eigendom van deze link is gecontroleerd op %s"
                 }
             },
             "segmented_control": {
@@ -484,12 +484,12 @@
                     "message": "Bevestig om %s te deblokkeren"
                 },
                 "confirm_show_reblogs": {
-                    "title": "Show Reblogs",
-                    "message": "Confirm to show reblogs"
+                    "title": "Toon reblogs",
+                    "message": "Bevestig om reblogs te tonen"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "Hide Reblogs",
-                    "message": "Confirm to hide reblogs"
+                    "title": "Verberg reblogs",
+                    "message": "Bevestig om reblogs te verbergen"
                 }
             },
             "accessibility": {
@@ -500,16 +500,16 @@
             }
         },
         "follower": {
-            "title": "follower",
+            "title": "volger",
             "footer": "Volgers van andere servers worden niet weergegeven."
         },
         "following": {
-            "title": "following",
+            "title": "volgend",
             "footer": "Volgers van andere servers worden niet weergegeven."
         },
         "familiarFollowers": {
-            "title": "Followers you familiar",
-            "followed_by_names": "Followed by %s"
+            "title": "Volgers die je kent",
+            "followed_by_names": "Gevolgd door %s"
         },
         "favorited_by": {
             "title": "Favorited By"
@@ -555,7 +555,7 @@
                 "posts": "Berichten",
                 "hashtags": "Hashtags",
                 "news": "Nieuws",
-                "community": "Community",
+                "community": "Gemeenschap",
                 "for_you": "Voor jou"
             },
             "intro": "Dit zijn de berichten die populair zijn in jouw Mastodon-kringen."
@@ -581,10 +581,10 @@
                 "show_mentions": "Vermeldingen weergeven"
             },
             "follow_request": {
-                "accept": "Accept",
-                "accepted": "Accepted",
-                "reject": "reject",
-                "rejected": "Rejected"
+                "accept": "Accepteren",
+                "accepted": "Geaccepteerd",
+                "reject": "afwijzen",
+                "rejected": "Afgewezen"
             }
         },
         "thread": {
@@ -661,11 +661,11 @@
             "text_placeholder": "Schrijf of plak aanvullende opmerkingen",
             "reported": "Gerapporteerd",
             "step_one": {
-                "step_1_of_4": "Step 1 of 4",
-                "whats_wrong_with_this_post": "What's wrong with this post?",
-                "whats_wrong_with_this_account": "What's wrong with this account?",
-                "whats_wrong_with_this_username": "What's wrong with %s?",
-                "select_the_best_match": "Select the best match",
+                "step_1_of_4": "Stap 1 van 4",
+                "whats_wrong_with_this_post": "Wat is er mis met dit bericht?",
+                "whats_wrong_with_this_account": "Wat is er mis met dit bericht?",
+                "whats_wrong_with_this_username": "Wat is er mis met %s?",
+                "select_the_best_match": "Selecteer de beste overeenkomst",
                 "i_dont_like_it": "I don’t like it",
                 "it_is_not_something_you_want_to_see": "It is not something you want to see",
                 "its_spam": "It’s spam",
