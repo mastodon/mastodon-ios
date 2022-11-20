@@ -80,73 +80,73 @@
                 "preview": "အစမ်းကြည့်",
                 "share": "မျှဝေ",
                 "share_user": "%s ကို မျှဝေပါ",
-                "share_post": "Share Post",
-                "open_in_safari": "Open in Safari",
-                "open_in_browser": "Open in Browser",
-                "find_people": "Find people to follow",
-                "manually_search": "Manually search instead",
-                "skip": "Skip",
-                "reply": "Reply",
-                "report_user": "Report %s",
-                "block_domain": "Block %s",
-                "unblock_domain": "Unblock %s",
-                "settings": "Settings",
-                "delete": "Delete"
+                "share_post": "ပို့စ်ကို မျှဝေရန်",
+                "open_in_safari": "Safari တွင် ဖွင့်ရန်",
+                "open_in_browser": "Browser တွင် ဖွင့်ရန်",
+                "find_people": "စောင့်ကြည့်ရန် လူရှာပါ",
+                "manually_search": "ကိုယ်တိုင် ရှာဖွေရန်",
+                "skip": "ကျော်",
+                "reply": "စာပြန်",
+                "report_user": " %s ကို တိုင်ကြားရန်",
+                "block_domain": "%s ကို ဘလော့လုပ်ရန်",
+                "unblock_domain": "%s ကို ဘလော့ဖြုတ်ရန်",
+                "settings": "ဆက်တင်များ",
+                "delete": "ဖျက်"
             },
             "tabs": {
-                "home": "Home",
-                "search": "Search",
-                "notification": "Notification",
-                "profile": "Profile"
+                "home": "အိမ်",
+                "search": "ရှာဖွေရန်",
+                "notification": "သတိပေးချက်",
+                "profile": "ကိုယ်ရေးမှတ်တမ်း"
             },
             "keyboard": {
                 "common": {
-                    "switch_to_tab": "Switch to %s",
-                    "compose_new_post": "Compose New Post",
-                    "show_favorites": "Show Favorites",
-                    "open_settings": "Open Settings"
+                    "switch_to_tab": "%s သို့ ပြောင်းရန်",
+                    "compose_new_post": "ပို့စ်အသစ် ရေးဖွဲ့",
+                    "show_favorites": "အကြိုက်ဆုံးများ ပြရန်",
+                    "open_settings": "ဆက်တင်ကို ဖွင့်ရန်"
                 },
                 "timeline": {
-                    "previous_status": "Previous Post",
-                    "next_status": "Next Post",
-                    "open_status": "Open Post",
-                    "open_author_profile": "Open Author's Profile",
-                    "open_reblogger_profile": "Open Reblogger's Profile",
-                    "reply_status": "Reply to Post",
-                    "toggle_reblog": "Toggle Reblog on Post",
-                    "toggle_favorite": "Toggle Favorite on Post",
-                    "toggle_content_warning": "Toggle Content Warning",
-                    "preview_image": "Preview Image"
+                    "previous_status": "ယခင်ပို့စ်",
+                    "next_status": "နောက်ပို့စ်",
+                    "open_status": "ပို့စ်ဖွင့်ရန်",
+                    "open_author_profile": "စာရေးသူ၏ ပရိုဖိုင်ကို ဖွင့်ပါ",
+                    "open_reblogger_profile": "ပြန်တင်သူ၏ ပရိုဖိုင်ကို ဖွင့်ပါ",
+                    "reply_status": "ပို့စ်ကို စာပြန်",
+                    "toggle_reblog": "ပို့စ်ကိုပြန်တင်ခွင့်ပေးခြင်းကို ဖွင့်၊ပိတ် လုပ်ပါ",
+                    "toggle_favorite": "အကြိုက်ဆုံးလုပ်ခွင့်ပေးခြင်းကို ဖွင့်၊ပိတ် လုပ်ပါ",
+                    "toggle_content_warning": "အကြောင်းအရာသတိပေးချက်ကို ဖွင့်၊ပိတ် လုပ်ပါ",
+                    "preview_image": "ဓာတ်ပုံကို ကြိုကြည့်"
                 },
                 "segmented_control": {
-                    "previous_section": "Previous Section",
-                    "next_section": "Next Section"
+                    "previous_section": "ယခင်အပိုင်း",
+                    "next_section": "နောက်အပိုင်း"
                 }
             },
             "status": {
-                "user_reblogged": "%s reblogged",
-                "user_replied_to": "Replied to %s",
-                "show_post": "Show Post",
-                "show_user_profile": "Show user profile",
-                "content_warning": "Content Warning",
-                "sensitive_content": "Sensitive Content",
-                "media_content_warning": "Tap anywhere to reveal",
-                "tap_to_reveal": "Tap to reveal",
+                "user_reblogged": "%s ကို ပြန်တင်",
+                "user_replied_to": "%s ထံ စာပြန်",
+                "show_post": "ပို့စ်ကို ပြသ",
+                "show_user_profile": "အသုံးပြုသူ၏ ပရိုဖိုင်ကို ပြရန်",
+                "content_warning": "အကြောင်းအရာသတိပေးချက်",
+                "sensitive_content": "ထိလွယ်ရှလွယ် အကြောင်းအရာ",
+                "media_content_warning": "ဖော်ထုတ်ရန် မည်သည့်နေရာမဆို နှိပ်ပါ",
+                "tap_to_reveal": "ဖော်ထုတ်ရန် နှိပ်ပါ",
                 "poll": {
-                    "vote": "Vote",
-                    "closed": "Closed"
+                    "vote": "မဲပေး",
+                    "closed": "ပိတ်သွားပြီ"
                 },
                 "meta_entity": {
-                    "url": "Link: %s",
-                    "hashtag": "Hashtag: %s",
-                    "mention": "Show Profile: %s",
-                    "email": "Email address: %s"
+                    "url": "လင့်ခ်: %s",
+                    "hashtag": "ဟက်ရှ်တက်ခ်: %s",
+                    "mention": "ပရိုဖိုင် ပြသ: %s",
+                    "email": "အီးမေးလ်လိပ်စာ: %s"
                 },
                 "actions": {
-                    "reply": "Reply",
-                    "reblog": "Reblog",
-                    "unreblog": "Undo reblog",
-                    "favorite": "Favorite",
+                    "reply": "စာပြန်",
+                    "reblog": "ပြန်တင်",
+                    "unreblog": "ပြန်တင်ခြင်းကို ပယ်ဖျက်",
+                    "favorite": "အကြိုက်ဆုံး",
                     "unfavorite": "အကြိုက်ဆုံးမှ ဖယ်ရှားရန်",
                     "menu": "မီနူး",
                     "hide": "ဝှက်ရန်",
@@ -249,9 +249,9 @@
                 "see_more": "See More"
             },
             "label": {
-                "language": "LANGUAGE",
-                "users": "USERS",
-                "category": "CATEGORY"
+                "language": "ဘာသာစကား",
+                "users": "အသုံးပြုသူများ",
+                "category": "အမျိုးအစား"
             },
             "input": {
                 "search_servers_or_enter_url": "Search communities or enter URL"
