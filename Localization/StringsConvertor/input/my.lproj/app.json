@@ -203,37 +203,37 @@
                 "header": {
                     "no_status_found": "ပို့စ်ရှာမတွေ့ပါ",
                     "blocking_warning": "ဒီအသုံးပြုသူ၏ ပရိုဖိုင်ကို ဘလော့မဖြုတ်မချင်း ကြည့်၍မရပါ၊ သင်၏ ပရိုဖိုင်သည် ထိုသူတို့ထံ ဤကဲ့သို့ ပေါ်နေပါမည်။",
-                    "user_blocking_warning": "%s၏ ပရိုဖိုင်ကို ဘလော့မဖြုတ်မချင်း ကြည့်၍မရပါ၊ သင်၏ ပရိုဖိုင်သည် ထိုသူ့ထံ ဤကဲ့သို့ ပေါ်နေပါမည်။",
-                    "blocked_warning": "You can’t view this user’s profile\nuntil they unblock you.",
-                    "user_blocked_warning": "You can’t view %s’s profile\nuntil they unblock you.",
-                    "suspended_warning": "This user has been suspended.",
-                    "user_suspended_warning": "%s’s account has been suspended."
+                    "user_blocking_warning": "%s ၏ ပရိုဖိုင်ကို ဘလော့မဖြုတ်မချင်း ကြည့်၍မရပါ၊ သင်၏ ပရိုဖိုင်သည် ထိုသူ့ထံ ဤကဲ့သို့ ပေါ်နေပါမည်။",
+                    "blocked_warning": "ဤပုဂ္ဂိုလ်မှ သင့်ကို ဘလော့မဖြုတ်မချင်း သူ၏ ပရိုဖိုင်သည် သင် ကြည့်၍မရပါ။",
+                    "user_blocked_warning": "%s မှ သင့်ကို ဘလော့မဖြုတ်မချင်း သူ၏ ပရိုဖိုင်သည် သင် ကြည့်၍မရပါ။",
+                    "suspended_warning": "ဤအသုံးပြုသူသည် ဆိုင်းငံ့ခံထားရသည်။",
+                    "user_suspended_warning": "%s ၏အကောင့်သည် ဆိုင်းငံ့ခံထားရသည်။"
                 }
             }
         }
     },
     "scene": {
         "welcome": {
-            "slogan": "Social networking\nback in your hands.",
-            "get_started": "Get Started",
-            "log_in": "Log In"
+            "slogan": "လူမှုကွန်ယက်ကို သင်၏လက်ထဲသို့ ပြန်လည်ထည့်ပေးလိုက်ပြီ။",
+            "get_started": "စတင်ရန်",
+            "log_in": "လော့ခ်အင်ဝင်ရန်"
         },
         "login": {
-            "title": "Welcome back",
-            "subtitle": "Log you in on the server you created your account on.",
+            "title": "ပြန်လည်ကြိုဆိုပါသည်",
+            "subtitle": "သင်၏အကောင့်ဖွင့်ခဲ့သော ဆာဗာပေါ်တွင် လော့ခ်အင်ဝင်ရောက်ပါ",
             "server_search_field": {
-                "placeholder": "Enter URL or search for your server"
+                "placeholder": "URL ကို ထည့်သွင်းပါ (သို့) သင်၏ ဆာဗာကို ရှာပါ"
             }
         },
         "server_picker": {
-            "title": "Mastodon is made of users in different servers.",
-            "subtitle": "Pick a server based on your region, interests, or a general purpose one. You can still chat with anyone on Mastodon, regardless of your servers.",
+            "title": "Mastodon ကို အသိုင်းအဝန်းပေါင်းစုံမှ အသုံးပြုသူများဖြင့် ဖွဲ့စည်းထားသည်။",
+            "subtitle": "သင်၏ ဒေသ၊ စိတ်ဝင်စားမှု အပေါ်အခြေခံသော ဆာဗာတစ်ခု ရွေးချယ်ပါ၊ မည်သည့်ဆာဗာကို ရွေးချယ်ထားစေကာမူ အခြားအသုံးပြုသူများနှင့် ပုံမှန်အတိုင်း ဆက်သွယ်နိုင်သည်။",
             "button": {
                 "category": {
-                    "all": "All",
-                    "all_accessiblity_description": "Category: All",
-                    "academia": "academia",
-                    "activism": "activism",
+                    "all": "အားလုံး",
+                    "all_accessiblity_description": "အမျိုးအစား - အားလုံး",
+                    "academia": "ပညာရှင်",
+                    "activism": "တက်ကြွလှုပ်ရှားမှု",
                     "food": "အစားအစာ",
                     "furry": "furry",
                     "games": "ဂိမ်း",
@@ -271,7 +271,7 @@
                 },
                 "username": {
                     "placeholder": "အသုံးပြုသူအမည်",
-                    "duplicate_prompt": "This username is taken."
+                    "duplicate_prompt": "ဤအသုံးပြုသူအမည်သည် ရှိနှင့်ပြီးဖြစ်သည်။"
                 },
                 "display_name": {
                     "placeholder": "ပြသမည့် အမည်"
@@ -436,7 +436,7 @@
                 "toggle_poll": "Toggle Poll",
                 "toggle_content_warning": "Toggle Content Warning",
                 "append_attachment_entry": "Add Attachment - %s",
-                "select_visibility_entry": "Select Visibility - %s"
+                "select_visibility_entry": "မြင်နိုင်စွမ်း ရွေးချယ်ရန် - %s"
             }
         },
         "profile": {
