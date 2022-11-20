@@ -74,8 +74,8 @@
                 "take_photo": "Maak foto",
                 "save_photo": "Bewaar foto",
                 "copy_photo": "Kopieer foto",
-                "sign_in": "Log in",
-                "sign_up": "Create account",
+                "sign_in": "Inloggen",
+                "sign_up": "Account aanmaken",
                 "see_more": "Meer",
                 "preview": "Voorvertoning",
                 "share": "Deel",
@@ -139,8 +139,8 @@
                 "meta_entity": {
                     "url": "Link: %s",
                     "hashtag": "Hashtag: %s",
-                    "mention": "Show Profile: %s",
-                    "email": "Email address: %s"
+                    "mention": "Profiel weergeven: %s",
+                    "email": "E-mailadres: %s"
                 },
                 "actions": {
                     "reply": "Reageren",
@@ -187,8 +187,8 @@
                 "unmute_user": "%s niet langer negeren",
                 "muted": "Genegeerd",
                 "edit_info": "Bewerken",
-                "show_reblogs": "Show Reblogs",
-                "hide_reblogs": "Hide Reblogs"
+                "show_reblogs": "Toon reblogs",
+                "hide_reblogs": "Verberg reblogs"
             },
             "timeline": {
                 "filtered": "Gefilterd",
@@ -219,15 +219,15 @@
             "log_in": "Log in"
         },
         "login": {
-            "title": "Welcome back",
-            "subtitle": "Log you in on the server you created your account on.",
+            "title": "Welkom terug",
+            "subtitle": "Log je in op de server waarop je je account hebt aangemaakt.",
             "server_search_field": {
-                "placeholder": "Enter URL or search for your server"
+                "placeholder": "Voer URL in of zoek naar uw server"
             }
         },
         "server_picker": {
             "title": "Kies een server, welke dan ook.",
-            "subtitle": "Pick a server based on your region, interests, or a general purpose one. You can still chat with anyone on Mastodon, regardless of your servers.",
+            "subtitle": "Kies een server gebaseerd op je regio, interesses, of een algemene server. Je kunt nog steeds chatten met iedereen op Mastodon, ongeacht op welke server je zit.",
             "button": {
                 "category": {
                     "all": "Alles",
@@ -254,7 +254,7 @@
                 "category": "CATEGORIE"
             },
             "input": {
-                "search_servers_or_enter_url": "Search communities or enter URL"
+                "search_servers_or_enter_url": "Zoek naar gemeenschappen of voer URL in"
             },
             "empty_state": {
                 "finding_servers": "Beschikbare servers zoeken...",
@@ -264,7 +264,7 @@
         },
         "register": {
             "title": "Vertel ons over uzelf.",
-            "lets_get_you_set_up_on_domain": "Let’s get you set up on %s",
+            "lets_get_you_set_up_on_domain": "Laten we je account instellen op %s",
             "input": {
                 "avatar": {
                     "delete": "Verwijderen"
