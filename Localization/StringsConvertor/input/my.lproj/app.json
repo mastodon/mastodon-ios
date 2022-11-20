@@ -175,35 +175,35 @@
                 "following": "စောင့်ကြည့်နေသည်",
                 "request": "တောင်းဆို",
                 "pending": "ဆိုင်းငံ့ထားသည်",
-                "block": "Block",
-                "block_user": "Block %s",
-                "block_domain": "Block %s",
-                "unblock": "Unblock",
-                "unblock_user": "Unblock %s",
-                "blocked": "Blocked",
-                "mute": "Mute",
-                "mute_user": "Mute %s",
-                "unmute": "Unmute",
-                "unmute_user": "Unmute %s",
-                "muted": "Muted",
-                "edit_info": "Edit Info",
-                "show_reblogs": "Show Reblogs",
-                "hide_reblogs": "Hide Reblogs"
+                "block": "ဘလော့လုပ်ရန်",
+                "block_user": "%s ကို ဘလော့လုပ်ရန်",
+                "block_domain": "%s ကို ဘလော့လုပ်ရန်",
+                "unblock": "ဘလော့ဖြုတ်ရန်",
+                "unblock_user": "%s ကို ဘလော့ဖြုတ်ရန်",
+                "blocked": "ဘလော့ထားသည်",
+                "mute": "ပိတ်ထားရန်",
+                "mute_user": "%s ကို ပိတ်ထားရန်",
+                "unmute": "ပြန်ဖွင့်ရန်",
+                "unmute_user": "%s ကို ပြန်ဖွင့်ရန်",
+                "muted": "ပိတ်ထားဆဲ",
+                "edit_info": "အချက်အလက်တည်းဖြတ်",
+                "show_reblogs": "ပြန်တင်ထားတာတွေ ပြရန်",
+                "hide_reblogs": "ပြန်တင်ထားတာတွေ ဖျောက်ရန်"
             },
             "timeline": {
-                "filtered": "Filtered",
+                "filtered": "စစ်ထုတ်ထားသည်",
                 "timestamp": {
-                    "now": "Now"
+                    "now": "ယခု"
                 },
                 "loader": {
-                    "load_missing_posts": "Load missing posts",
-                    "loading_missing_posts": "Loading missing posts...",
-                    "show_more_replies": "Show more replies"
+                    "load_missing_posts": "ပျောက်နေသော ပို့စ်များကို လုဒ်ပါ",
+                    "loading_missing_posts": "ပျောက်နေသော ပို့စ်များကို လုဒ်ပါ...",
+                    "show_more_replies": "ပြန်စာများထပ်ပြပါ"
                 },
                 "header": {
-                    "no_status_found": "No Post Found",
-                    "blocking_warning": "You can’t view this user's profile\nuntil you unblock them.\nYour profile looks like this to them.",
-                    "user_blocking_warning": "You can’t view %s’s profile\nuntil you unblock them.\nYour profile looks like this to them.",
+                    "no_status_found": "ပို့စ်ရှာမတွေ့ပါ",
+                    "blocking_warning": "ဒီအသုံးပြုသူ၏ ပရိုဖိုင်ကို ဘလော့မဖြုတ်မချင်း ကြည့်၍မရပါ၊ သင်၏ ပရိုဖိုင်သည် ထိုသူတို့ထံ ဤကဲ့သို့ ပေါ်နေပါမည်။",
+                    "user_blocking_warning": "%s၏ ပရိုဖိုင်ကို ဘလော့မဖြုတ်မချင်း ကြည့်၍မရပါ၊ သင်၏ ပရိုဖိုင်သည် ထိုသူ့ထံ ဤကဲ့သို့ ပေါ်နေပါမည်။",
                     "blocked_warning": "You can’t view this user’s profile\nuntil they unblock you.",
                     "user_blocked_warning": "You can’t view %s’s profile\nuntil they unblock you.",
                     "suspended_warning": "This user has been suspended.",
@@ -234,16 +234,16 @@
                     "all_accessiblity_description": "Category: All",
                     "academia": "academia",
                     "activism": "activism",
-                    "food": "food",
+                    "food": "အစားအစာ",
                     "furry": "furry",
-                    "games": "games",
-                    "general": "general",
-                    "journalism": "journalism",
+                    "games": "ဂိမ်း",
+                    "general": "အထွေထွေ",
+                    "journalism": "သတင်းစာပညာ",
                     "lgbt": "lgbt",
-                    "regional": "regional",
-                    "art": "art",
-                    "music": "music",
-                    "tech": "tech"
+                    "regional": "နယ်မြေဆိုင်ရာ",
+                    "art": "အနုပညာ",
+                    "music": "ဂီတ",
+                    "tech": "နည်းပညာ"
                 },
                 "see_less": "လျှော့ ကြည့်ရန်",
                 "see_more": "ပိုမိုကြည့်ရှုရန်"
@@ -270,7 +270,7 @@
                     "delete": "ဖျက်"
                 },
                 "username": {
-                    "placeholder": "username",
+                    "placeholder": "အသုံးပြုသူအမည်",
                     "duplicate_prompt": "This username is taken."
                 },
                 "display_name": {
