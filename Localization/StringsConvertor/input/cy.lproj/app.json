@@ -165,9 +165,9 @@
                 },
                 "visibility": {
                     "unlisted": "Gall pawb weld y post hwn ond nid yn y ffrwd cyhoeddus.",
-                    "private": "Only their followers can see this post.",
-                    "private_from_me": "Only my followers can see this post.",
-                    "direct": "Only mentioned user can see this post."
+                    "private": "Dim ond eu dilynwyr nhw sy'n gallu gweld y post hwn.",
+                    "private_from_me": "Dim ond fy nilynwyr ni sy'n gallu gweld y post hwn.",
+                    "direct": "Dim ond y ddefnyddiwr â soniwyd sy'n gallu gweld y post hwn."
                 }
             },
             "friendship": {
@@ -202,10 +202,10 @@
                 },
                 "header": {
                     "no_status_found": "Ni Chanfuwyd Post",
-                    "blocking_warning": "You can’t view this user's profile\nuntil you unblock them.\nYour profile looks like this to them.",
-                    "user_blocking_warning": "You can’t view %s’s profile\nuntil you unblock them.\nYour profile looks like this to them.",
-                    "blocked_warning": "You can’t view this user’s profile\nuntil they unblock you.",
-                    "user_blocked_warning": "You can’t view %s’s profile\nuntil they unblock you.",
+                    "blocking_warning": "Ni allwch gweld proffil y ddefnyddiwr hwn\nos ydych wedi'u blocio.\nMae'ch proffil chi yn edrych fel hyn iddynt.",
+                    "user_blocking_warning": "Ni allwch gweld proffil %s\nos ydych wedi'u blocio.\nMae'ch proffil chi yn edrych fel hyn iddynt.",
+                    "blocked_warning": "Ni allwch gweld proffil y ddefnyddiwr hwn\ngan eu bod wedi eich blocio chi.",
+                    "user_blocked_warning": "Ni allwch gweld proffil %s\ngan eu bod wedi eich blocio chi.",
                     "suspended_warning": "Mae'r defnyddiwr hwn wedi derbyn gwaharddiad.",
                     "user_suspended_warning": "Mae cyfrif %s wedi derbyn gwaharddiad."
                 }
@@ -220,14 +220,14 @@
         },
         "login": {
             "title": "Croeso nôl",
-            "subtitle": "Log you in on the server you created your account on.",
+            "subtitle": "Mewngofnodi ar y gweinydd y rydych chi wedi creu cyfrif arno.",
             "server_search_field": {
                 "placeholder": "Mewnosod URL neu chwilio am eich gweinydd"
             }
         },
         "server_picker": {
             "title": "Mae Mastodon yn cynnwys defnyddwyr o weinyddion gwahanol.",
-            "subtitle": "Pick a server based on your region, interests, or a general purpose one. You can still chat with anyone on Mastodon, regardless of your servers.",
+            "subtitle": "Dewiswch gweinydd yn ôl eich lleoliad, diddordebau, neu defnydd cyffredin. Gallwch siarad gydag unrhywun ar Mastodon, yn annibynnol o weinyddion chi.",
             "button": {
                 "category": {
                     "all": "Popeth",
@@ -258,7 +258,7 @@
             },
             "empty_state": {
                 "finding_servers": "Wrthi'n chwilio am weinyddion sydd ar gael...",
-                "bad_network": "Something went wrong while loading the data. Check your internet connection.",
+                "bad_network": "Digwyddodd gwall wrth lwytho'r data. Gwiriwch eich cyswllt â'r rhyngrwyd.",
                 "no_results": "Dim canlyniadau"
             }
         },
@@ -315,7 +315,7 @@
                     "inclusion": "Nid yw %s yn gwerth a chefnogir"
                 },
                 "special": {
-                    "username_invalid": "Username must only contain alphanumeric characters and underscores",
+                    "username_invalid": "Dylai enwau ddefnyddiwr gynnwys nodau alffaniwmerig a thanlinellau yn unig",
                     "username_too_long": "Enw defnyddiwr yn rhy hir (na all fod yn fwy na 30 nodyn)",
                     "email_invalid": "Nid yw'n cyfeiriad e-bost dilys",
                     "password_too_short": "Cyfrinair yn rhy fyr (Rhaid fod o leiaf 8 nodyn)"
@@ -342,12 +342,12 @@
             },
             "dont_receive_email": {
                 "title": "Gwiriwch eich e-byst",
-                "description": "Check if your email address is correct as well as your junk folder if you haven’t.",
+                "description": "Gwiriwch a yw eich cyfeiriad e-bost yn gywir a hefyd eich ffolder 'junk' os nad ydych wedi ei gwneud.",
                 "resend_email": "Ailanfon E-bost"
             },
             "open_email_app": {
                 "title": "Gwiriwch eich blwch derbyn.",
-                "description": "We just sent you an email. Check your junk folder if you haven’t.",
+                "description": "Rydym newydd anfon e-bost atoch chi. Gwiriwch eich ffolder 'junk' os nad ydych wedi ei gwneud.",
                 "mail": "Mail",
                 "open_email_client": "Agor Cleient E-byst"
             }
@@ -361,7 +361,7 @@
                 "Publishing": "Wrthi'n cyhoeddi...",
                 "accessibility": {
                     "logo_label": "Botwm Logo",
-                    "logo_hint": "Tap to scroll to top and tap again to previous location"
+                    "logo_hint": "Tapiwch i sgrolio i'r frig, a thapiwch eto er mwyn mynd i'r lleoliad blaenorol"
                 }
             }
         },
@@ -386,11 +386,11 @@
                 "photo": "llun",
                 "video": "fideo",
                 "attachment_broken": "Mae %s wedi torri a ni ellir\nuwchlwytho hwn i Mastodon.",
-                "description_photo": "Describe the photo for the visually-impaired...",
-                "description_video": "Describe the video for the visually-impaired...",
+                "description_photo": "Disgrifio i'r rheini â nam ar eu golwg...",
+                "description_video": "Disgrifio i'r rheini â nam ar eu golwg...",
                 "load_failed": "Methwyd Llwytho",
                 "upload_failed": "Methwyd Uwchlwytho",
-                "can_not_recognize_this_media_attachment": "Can not recognize this media attachment",
+                "can_not_recognize_this_media_attachment": "Ni ellir dilysu'r atodiad cyfrwng",
                 "attachment_too_large": "Mae'r atodiad yn rhy fawr",
                 "compressing_state": "Wrthi'n cywasgu...",
                 "server_processing_state": "Mae'r gweinydd yn prosesu..."
@@ -558,7 +558,7 @@
                 "community": "Cymuned",
                 "for_you": "I Ti"
             },
-            "intro": "These are the posts gaining traction in your corner of Mastodon."
+            "intro": "Dyma'r postiadau sy'n denu tipyn o sylw yn eich cŵr Mastodon."
         },
         "favorite": {
             "title": "Eich Ffefrynnau"
@@ -578,7 +578,7 @@
             },
             "keyobard": {
                 "show_everything": "Dangos Popeth",
-                "show_mentions": "Show Mentions"
+                "show_mentions": "Dangos Crybwylliadau"
             },
             "follow_request": {
                 "accept": "Derbyn",
