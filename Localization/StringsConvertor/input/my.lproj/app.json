@@ -245,8 +245,8 @@
                     "music": "music",
                     "tech": "tech"
                 },
-                "see_less": "See Less",
-                "see_more": "See More"
+                "see_less": "လျှော့ ကြည့်ရန်",
+                "see_more": "ပိုမိုကြည့်ရှုရန်"
             },
             "label": {
                 "language": "ဘာသာစကား",
@@ -254,58 +254,58 @@
                 "category": "အမျိုးအစား"
             },
             "input": {
-                "search_servers_or_enter_url": "Search communities or enter URL"
+                "search_servers_or_enter_url": "အသိုင်းအဝိုင်းများကို ရှာဖွေ (သို့) URL ကို ဝင်ရောက်"
             },
             "empty_state": {
-                "finding_servers": "Finding available servers...",
-                "bad_network": "Something went wrong while loading the data. Check your internet connection.",
-                "no_results": "No results"
+                "finding_servers": "အဆင်သင့်သုံးရသော ဆာဗာများကို ရှာနေသည်...",
+                "bad_network": "ဒေတာဖွင့်နေစဉ် တစ်ခုခုမှားယွင်းသွားသည်၊ အင်တာနက်ချိတ်ဆက်မှုကို စစ်ဆေးပါ။",
+                "no_results": "ရလဒ်မရှိပါ"
             }
         },
         "register": {
-            "title": "Let’s get you set up on %s",
-            "lets_get_you_set_up_on_domain": "Let’s get you set up on %s",
+            "title": "သင့်ကို %s တွင် စတင်လိုက်ရအောင်",
+            "lets_get_you_set_up_on_domain": "သင့်ကို %s တွင် စတင်လိုက်ရအောင်",
             "input": {
                 "avatar": {
-                    "delete": "Delete"
+                    "delete": "ဖျက်"
                 },
                 "username": {
                     "placeholder": "username",
                     "duplicate_prompt": "This username is taken."
                 },
                 "display_name": {
-                    "placeholder": "display name"
+                    "placeholder": "ပြသမည့် အမည်"
                 },
                 "email": {
-                    "placeholder": "email"
+                    "placeholder": "အီးမေးလ်"
                 },
                 "password": {
-                    "placeholder": "password",
-                    "require": "Your password needs at least:",
-                    "character_limit": "8 characters",
+                    "placeholder": "စကားဝှက်",
+                    "require": "သင်၏စကားဝှက်သည် အနည်းဆုံးလိုအပ်သည်:",
+                    "character_limit": "အက္ခရာ ၈ လုံး",
                     "accessibility": {
-                        "checked": "checked",
-                        "unchecked": "unchecked"
+                        "checked": "စစ်ဆေးပြီးပြီ",
+                        "unchecked": "မစစ်ဆေးခဲ့ပါ"
                     },
-                    "hint": "Your password needs at least eight characters"
+                    "hint": "စကားဝှက်သည် အနည်းဆုံး အက္ခရာ ၈ လုံး ရှိရပါမည်။"
                 },
                 "invite": {
-                    "registration_user_invite_request": "Why do you want to join?"
+                    "registration_user_invite_request": "သင် ဘာကြောင့် ပါဝင်ချင်တာပါလဲ?"
                 }
             },
             "error": {
                 "item": {
-                    "username": "Username",
-                    "email": "Email",
-                    "password": "Password",
-                    "agreement": "Agreement",
-                    "locale": "Locale",
-                    "reason": "Reason"
+                    "username": "အသုံးပြုသူအမည်",
+                    "email": "အီးမေးလ်",
+                    "password": "စကားဝှက်",
+                    "agreement": "သဘောတူညီမှု",
+                    "locale": "ဒေသဆိုင်ရာ",
+                    "reason": "အကြောင်းပြချက်"
                 },
                 "reason": {
-                    "blocked": "%s contains a disallowed email provider",
-                    "unreachable": "%s does not seem to exist",
-                    "taken": "%s is already in use",
+                    "blocked": "%s တွင် ခွင့်မပြုထားသော အီးမေးလ်ထောက်ပံ့သူပါဝင်နေသည်။",
+                    "unreachable": "%s တည်ရှိပုံ မပေါ်ပါ",
+                    "taken": "%s ကို အသုံးပြုနေသူ ရှိနှင့်ပြီးဖြစ်သည်။",
                     "reserved": "%s is a reserved keyword",
                     "accepted": "%s must be accepted",
                     "blank": "%s is required",
