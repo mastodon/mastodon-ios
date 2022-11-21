@@ -91,6 +91,11 @@ extension SearchResultViewModel.State {
                 return
             }
 
+            guard searchText.length > 3 else {
+              stateMachine.enter(Fail.self)
+              return
+            }
+
             if searchText != previousSearchText {
                 previousSearchText = searchText
                 offset = nil
