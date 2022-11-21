@@ -108,6 +108,7 @@ extension NotificationView.ViewModel {
         .map { timestamp, _ in
             timestamp?.localizedTimeAgoSinceNow ?? ""
         }
+        .removeDuplicates()
 
         formattedTimestamp
             .sink { timestamp in
