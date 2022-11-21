@@ -105,8 +105,8 @@ final class ProfileViewController: UIViewController, NeedsDependency, MediaPrevi
         return barButtonItem
     }()
 
-    let refreshControl: UIRefreshControl = {
-        let refreshControl = UIRefreshControl()
+    let refreshControl: RefreshControl = {
+        let refreshControl = RefreshControl()
         refreshControl.tintColor = .white
         return refreshControl
     }()
@@ -259,12 +259,7 @@ extension ProfileViewController {
         tabBarPagerController.view.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tabBarPagerController.view)
         tabBarPagerController.didMove(toParent: self)
-        NSLayoutConstraint.activate([
-            tabBarPagerController.view.topAnchor.constraint(equalTo: view.topAnchor),
-            tabBarPagerController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tabBarPagerController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tabBarPagerController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-        ])
+        tabBarPagerController.view.pinToParent()
 
         tabBarPagerController.delegate = self
         tabBarPagerController.dataSource = self
@@ -503,7 +498,7 @@ extension ProfileViewController {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         guard let setting = context.settingService.currentSetting.value else { return }
         let settingsViewModel = SettingsViewModel(context: context, authContext: viewModel.authContext, setting: setting)
-        coordinator.present(scene: .settings(viewModel: settingsViewModel), from: self, transition: .modal(animated: true, completion: nil))
+        _ = coordinator.present(scene: .settings(viewModel: settingsViewModel), from: self, transition: .modal(animated: true, completion: nil))
     }
 
     @objc private func shareBarButtonItemPressed(_ sender: UIBarButtonItem) {
@@ -551,7 +546,7 @@ extension ProfileViewController {
         _ = coordinator.present(scene: .compose(viewModel: composeViewModel), from: self, transition: .modal(animated: true, completion: nil))
     }
 
-    @objc private func refreshControlValueChanged(_ sender: UIRefreshControl) {
+    @objc private func refreshControlValueChanged(_ sender: RefreshControl) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
 
         if let userTimelineViewController = profilePagingViewController.currentViewController as? UserTimelineViewController {

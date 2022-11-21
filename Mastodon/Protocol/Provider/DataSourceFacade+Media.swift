@@ -24,7 +24,7 @@ extension DataSourceFacade {
             item: mediaPreviewItem,
             transitionItem: mediaPreviewTransitionItem
         )
-        dependency.coordinator.present(
+        _ = dependency.coordinator.present(
             scene: .mediaPreview(viewModel: mediaPreviewViewModel),
             from: dependency,
             transition: .custom(transitioningDelegate: dependency.mediaPreviewTransitionController)

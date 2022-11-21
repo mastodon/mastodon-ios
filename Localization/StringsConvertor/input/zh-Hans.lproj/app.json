@@ -75,7 +75,7 @@
                 "save_photo": "保存照片",
                 "copy_photo": "拷贝照片",
                 "sign_in": "登录",
-                "sign_up": "注册",
+                "sign_up": "创建账户",
                 "see_more": "查看更多",
                 "preview": "预览",
                 "share": "分享",
@@ -137,10 +137,10 @@
                     "closed": "已关闭"
                 },
                 "meta_entity": {
-                    "url": "Link: %s",
-                    "hashtag": "Hashtag: %s",
-                    "mention": "Show Profile: %s",
-                    "email": "Email address: %s"
+                    "url": "链接：%s",
+                    "hashtag": "话题：%s",
+                    "mention": "显示用户资料：%s",
+                    "email": "邮箱地址：%s"
                 },
                 "actions": {
                     "reply": "回复",
@@ -187,8 +187,8 @@
                 "unmute_user": "取消静音 %s",
                 "muted": "已静音",
                 "edit_info": "编辑",
-                "show_reblogs": "Show Reblogs",
-                "hide_reblogs": "Hide Reblogs"
+                "show_reblogs": "显示转发",
+                "hide_reblogs": "隐藏转发"
             },
             "timeline": {
                 "filtered": "已过滤",
@@ -218,10 +218,16 @@
             "get_started": "开始使用",
             "log_in": "登录"
         },
+        "login": {
+            "title": "欢迎回来",
+            "subtitle": "登入您账户所在的服务器。",
+            "server_search_field": {
+                "placeholder": "输入网址或搜索您的服务器"
+            }
+        },
         "server_picker": {
             "title": "挑选一个服务器，\n任意服务器。",
-            "subtitle": "根据你的兴趣、区域或一般目的选择一个社区。",
-            "subtitle_extend": "根据你的兴趣、区域或一般目的选择一个社区。每个社区都由完全独立的组织或个人管理。",
+            "subtitle": "根据你的地区、兴趣挑选一个服务器。无论你选择哪个服务器，你都可以跟其他服务器的任何人一起聊天。",
             "button": {
                 "category": {
                     "all": "全部",
@@ -248,8 +254,7 @@
                 "category": "类别"
             },
             "input": {
-                "placeholder": "查找或加入你自己的服务器...",
-                "search_servers_or_enter_url": "搜索服务器或输入 URL"
+                "search_servers_or_enter_url": "搜索社区或输入 URL"
             },
             "empty_state": {
                 "finding_servers": "正在查找可用的服务器...",
@@ -383,10 +388,12 @@
                 "attachment_broken": "%s已损坏\n无法上传到 Mastodon",
                 "description_photo": "为视觉障碍人士添加照片的文字说明...",
                 "description_video": "为视觉障碍人士添加视频的文字说明...",
-                "load_failed": "Load Failed",
-                "upload_failed": "Upload Failed",
-                "can_not_recognize_this_media_attachment": "Can not regonize this media attachment",
-                "attachment_too_large": "Attachment too large"
+                "load_failed": "加载失败",
+                "upload_failed": "上传失败",
+                "can_not_recognize_this_media_attachment": "无法识别此媒体",
+                "attachment_too_large": "附件太大",
+                "compressing_state": "压缩中...",
+                "server_processing_state": "服务器正在处理..."
             },
             "poll": {
                 "duration_time": "时长：%s",
@@ -396,7 +403,9 @@
                 "one_day": "1 天",
                 "three_days": "3 天",
                 "seven_days": "7 天",
-                "option_number": "选项 %ld"
+                "option_number": "选项 %ld",
+                "the_poll_is_invalid": "投票无效",
+                "the_poll_has_empty_option": "投票含有空选项"
             },
             "content_warning": {
                 "placeholder": "在这里写下内容的警告消息..."
@@ -417,7 +426,9 @@
                 "custom_emoji_picker": "自定义表情选择器",
                 "enable_content_warning": "启用内容警告",
                 "disable_content_warning": "关闭内容警告",
-                "post_visibility_menu": "帖子可见性"
+                "post_visibility_menu": "帖子可见性",
+                "post_options": "帖子选项",
+                "posting_as": "以 %s 身份发布"
             },
             "keyboard": {
                 "discard_post": "丢弃帖子",
@@ -442,6 +453,10 @@
                 "placeholder": {
                     "label": "标签",
                     "content": "内容"
+                },
+                "verified": {
+                    "short": "验证于 %s",
+                    "long": "此链接的所有权已在 %s 上检查通过"
                 }
             },
             "segmented_control": {
@@ -469,12 +484,12 @@
                     "message": "确认取消屏蔽 %s"
                 },
                 "confirm_show_reblogs": {
-                    "title": "Show Reblogs",
-                    "message": "Confirm to show reblogs"
+                    "title": "显示转发",
+                    "message": "确认显示转发"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "Hide Reblogs",
-                    "message": "Confirm to hide reblogs"
+                    "title": "隐藏转发",
+                    "message": "确认隐藏转发"
                 }
             },
             "accessibility": {
@@ -706,7 +721,7 @@
             "accessibility_hint": "双击关闭此向导"
         },
         "bookmark": {
-            "title": "Bookmarks"
+            "title": "书签"
         }
     }
 }

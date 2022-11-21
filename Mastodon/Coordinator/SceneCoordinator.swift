@@ -149,6 +149,7 @@ extension SceneCoordinator {
         case mastodonConfirmEmail(viewModel: MastodonConfirmEmailViewModel)
         case mastodonResendEmail(viewModel: MastodonResendEmailViewModel)
         case mastodonWebView(viewModel: WebViewModel)
+        case mastodonLogin
 
         // search
         case searchDetail(viewModel: SearchDetailViewModel)
@@ -199,6 +200,7 @@ extension SceneCoordinator {
             case .welcome,
                  .mastodonPickServer,
                  .mastodonRegister,
+                 .mastodonLogin,
                  .mastodonServerRules,
                  .mastodonConfirmEmail,
                  .mastodonResendEmail:
@@ -403,6 +405,13 @@ private extension SceneCoordinator {
             let _viewController = MastodonConfirmEmailViewController()
             _viewController.viewModel = viewModel
             viewController = _viewController
+        case .mastodonLogin:
+            let loginViewController = MastodonLoginViewController(appContext: appContext,
+                                                                  authenticationViewModel: AuthenticationViewModel(context: appContext, coordinator: self, isAuthenticationExist: false),
+                                                                  sceneCoordinator: self)
+            loginViewController.delegate = self
+
+            viewController = loginViewController
         case .mastodonResendEmail(let viewModel):
             let _viewController = MastodonResendEmailViewController()
             _viewController.viewModel = viewModel
@@ -529,5 +538,16 @@ private extension SceneCoordinator {
         needs?.context = appContext
         needs?.coordinator = self
     }
-    
+}
+
+//MARK: - MastodonLoginViewControllerDelegate
+
+extension SceneCoordinator: MastodonLoginViewControllerDelegate {
+  func backButtonPressed(_ viewController: MastodonLoginViewController) {
+    viewController.navigationController?.popViewController(animated: true)
+  }
+
+  func nextButtonPressed(_ viewController: MastodonLoginViewController) {
+    viewController.login()
+  }
 }

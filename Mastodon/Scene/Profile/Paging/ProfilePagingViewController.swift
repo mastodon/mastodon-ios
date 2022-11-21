@@ -99,12 +99,7 @@ extension ProfilePagingViewController {
         if let buttonBarView = self.buttonBarView {
             buttonBarShadowView.translatesAutoresizingMaskIntoConstraints = false
             view.insertSubview(buttonBarShadowView, belowSubview: buttonBarView)
-            NSLayoutConstraint.activate([
-                buttonBarShadowView.topAnchor.constraint(equalTo: buttonBarView.topAnchor),
-                buttonBarShadowView.leadingAnchor.constraint(equalTo: buttonBarView.leadingAnchor),
-                buttonBarShadowView.trailingAnchor.constraint(equalTo: buttonBarView.trailingAnchor),
-                buttonBarShadowView.bottomAnchor.constraint(equalTo: buttonBarView.bottomAnchor),
-            ])
+            buttonBarShadowView.pinTo(to: buttonBarView)
             
             viewModel.$needsSetupBottomShadow
                 .receive(on: DispatchQueue.main)

@@ -85,12 +85,7 @@ extension MastodonRegisterViewController {
         addChild(hostingViewController)
         hostingViewController.view.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(hostingViewController.view)
-        NSLayoutConstraint.activate([
-            hostingViewController.view.topAnchor.constraint(equalTo: view.topAnchor),
-            hostingViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            hostingViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            hostingViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-        ])
+        hostingViewController.view.pinToParent()
         
         navigationActionView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(navigationActionView)
@@ -145,7 +140,7 @@ extension MastodonRegisterViewController {
                 let alertController = UIAlertController(for: error, title: "Sign Up Failure", preferredStyle: .alert)
                 let okAction = UIAlertAction(title: L10n.Common.Controls.Actions.ok, style: .default, handler: nil)
                 alertController.addAction(okAction)
-                self.coordinator.present(
+                _ = self.coordinator.present(
                     scene: .alertController(alertController: alertController),
                     from: nil,
                     transition: .alertController(animated: true, completion: nil)
@@ -322,7 +317,7 @@ extension MastodonRegisterViewController {
                 )
             }()
             let viewModel = MastodonConfirmEmailViewModel(context: self.context, email: email, authenticateInfo: self.viewModel.authenticateInfo, userToken: userToken, updateCredentialQuery: updateCredentialQuery)
-            self.coordinator.present(scene: .mastodonConfirmEmail(viewModel: viewModel), from: self, transition: .show)
+            _ = self.coordinator.present(scene: .mastodonConfirmEmail(viewModel: viewModel), from: self, transition: .show)
         }
         .store(in: &disposeBag)
     }

@@ -166,7 +166,7 @@ extension AccountListViewModel {
             cell.badgeButton.accessibilityLabel
         ]
         .compactMap { $0 }
-        .joined(separator: " ")
+        .joined(separator: ", ")
     }
 }
 

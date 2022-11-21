@@ -96,12 +96,7 @@ open class TimelineLoaderTableViewCell: UITableViewCell {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.isUserInteractionEnabled = false
         contentView.addSubview(stackView)
-        NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: loadMoreButton.topAnchor),
-            stackView.leadingAnchor.constraint(equalTo: loadMoreButton.leadingAnchor),
-            stackView.trailingAnchor.constraint(equalTo: loadMoreButton.trailingAnchor),
-            stackView.bottomAnchor.constraint(equalTo: loadMoreButton.bottomAnchor),
-        ])
+        stackView.pinTo(to: loadMoreButton)
         let leftPaddingView = UIView()
         leftPaddingView.translatesAutoresizingMaskIntoConstraints = false
         stackView.addArrangedSubview(leftPaddingView)

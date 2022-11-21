@@ -164,10 +164,10 @@ public enum L10n {
         public static func shareUser(_ p1: Any) -> String {
           return L10n.tr("Localizable", "Common.Controls.Actions.ShareUser", String(describing: p1), fallback: "Share %@")
         }
-        /// Sign In
-        public static let signIn = L10n.tr("Localizable", "Common.Controls.Actions.SignIn", fallback: "Sign In")
-        /// Sign Up
-        public static let signUp = L10n.tr("Localizable", "Common.Controls.Actions.SignUp", fallback: "Sign Up")
+        /// Log in
+        public static let signIn = L10n.tr("Localizable", "Common.Controls.Actions.SignIn", fallback: "Log in")
+        /// Create account
+        public static let signUp = L10n.tr("Localizable", "Common.Controls.Actions.SignUp", fallback: "Create account")
         /// Skip
         public static let skip = L10n.tr("Localizable", "Common.Controls.Actions.Skip", fallback: "Skip")
         /// Take Photo
@@ -665,6 +665,16 @@ public enum L10n {
         }
       }
     }
+    public enum Login {
+      /// Log you in on the server you created your account on.
+      public static let subtitle = L10n.tr("Localizable", "Scene.Login.Subtitle", fallback: "Log you in on the server you created your account on.")
+      /// Welcome back
+      public static let title = L10n.tr("Localizable", "Scene.Login.Title", fallback: "Welcome back")
+      public enum ServerSearchField {
+        /// Enter URL or search for your server
+        public static let placeholder = L10n.tr("Localizable", "Scene.Login.ServerSearchField.Placeholder", fallback: "Enter URL or search for your server")
+      }
+    }
     public enum Notification {
       public enum FollowRequest {
         /// Accept
@@ -1100,10 +1110,8 @@ public enum L10n {
       }
     }
     public enum ServerPicker {
-      /// Pick a server based on your interests, region, or a general purpose one.
-      public static let subtitle = L10n.tr("Localizable", "Scene.ServerPicker.Subtitle", fallback: "Pick a server based on your interests, region, or a general purpose one.")
-      /// Pick a server based on your interests, region, or a general purpose one. Each server is operated by an entirely independent organization or individual.
-      public static let subtitleExtend = L10n.tr("Localizable", "Scene.ServerPicker.SubtitleExtend", fallback: "Pick a server based on your interests, region, or a general purpose one. Each server is operated by an entirely independent organization or individual.")
+      /// Pick a server based on your region, interests, or a general purpose one. You can still chat with anyone on Mastodon, regardless of your servers.
+      public static let subtitle = L10n.tr("Localizable", "Scene.ServerPicker.Subtitle", fallback: "Pick a server based on your region, interests, or a general purpose one. You can still chat with anyone on Mastodon, regardless of your servers.")
       /// Mastodon is made of users in different servers.
       public static let title = L10n.tr("Localizable", "Scene.ServerPicker.Title", fallback: "Mastodon is made of users in different servers.")
       public enum Button {
@@ -1151,10 +1159,8 @@ public enum L10n {
         public static let noResults = L10n.tr("Localizable", "Scene.ServerPicker.EmptyState.NoResults", fallback: "No results")
       }
       public enum Input {
-        /// Search servers
-        public static let placeholder = L10n.tr("Localizable", "Scene.ServerPicker.Input.Placeholder", fallback: "Search servers")
-        /// Search servers or enter URL
-        public static let searchServersOrEnterUrl = L10n.tr("Localizable", "Scene.ServerPicker.Input.SearchServersOrEnterUrl", fallback: "Search servers or enter URL")
+        /// Search communities or enter URL
+        public static let searchServersOrEnterUrl = L10n.tr("Localizable", "Scene.ServerPicker.Input.SearchServersOrEnterUrl", fallback: "Search communities or enter URL")
       }
       public enum Label {
         /// CATEGORY

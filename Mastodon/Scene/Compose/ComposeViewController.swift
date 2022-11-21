@@ -58,12 +58,7 @@ final class ComposeViewController: UIViewController, NeedsDependency {
         let shadowBackgroundContainer = ShadowBackgroundContainer()
         publishButton.translatesAutoresizingMaskIntoConstraints = false
         shadowBackgroundContainer.addSubview(publishButton)
-        NSLayoutConstraint.activate([
-            publishButton.topAnchor.constraint(equalTo: shadowBackgroundContainer.topAnchor),
-            publishButton.leadingAnchor.constraint(equalTo: shadowBackgroundContainer.leadingAnchor),
-            publishButton.trailingAnchor.constraint(equalTo: shadowBackgroundContainer.trailingAnchor),
-            publishButton.bottomAnchor.constraint(equalTo: shadowBackgroundContainer.bottomAnchor),
-        ])
+        publishButton.pinToParent()
         let barButtonItem = UIBarButtonItem(customView: shadowBackgroundContainer)
         return barButtonItem
     }()
@@ -93,10 +88,7 @@ extension ComposeViewController {
             .sink { [weak self] _ in
                 guard let self = self else { return }
                 guard self.traitCollection.userInterfaceIdiom == .pad else { return }
-                var items = [self.publishBarButtonItem]
-                // if self.traitCollection.horizontalSizeClass == .regular {
-                //     items.append(self.characterCountBarButtonItem)
-                // }
+                let items = [self.publishBarButtonItem]
                 self.navigationItem.rightBarButtonItems = items
             }
             .store(in: &disposeBag)
@@ -105,12 +97,7 @@ extension ComposeViewController {
         addChild(composeContentViewController)
         composeContentViewController.view.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(composeContentViewController.view)
-        NSLayoutConstraint.activate([
-            composeContentViewController.view.topAnchor.constraint(equalTo: view.topAnchor),
-            composeContentViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            composeContentViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            composeContentViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-        ])
+        composeContentViewController.view.pinToParent()
         composeContentViewController.didMove(toParent: self)
 
         // bind title
@@ -175,7 +162,7 @@ extension ComposeViewController {
             let alertController = UIAlertController(for: error, title: nil, preferredStyle: .alert)
             let okAction = UIAlertAction(title: L10n.Common.Controls.Actions.ok, style: .default, handler: nil)
             alertController.addAction(okAction)
-            coordinator.present(scene: .alertController(alertController: alertController), from: nil, transition: .alertController(animated: true, completion: nil))
+            _ = coordinator.present(scene: .alertController(alertController: alertController), from: nil, transition: .alertController(animated: true, completion: nil))
             return
         }
         

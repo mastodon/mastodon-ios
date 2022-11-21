@@ -75,7 +75,7 @@
                 "save_photo": "Sàbhail an dealbh",
                 "copy_photo": "Dèan lethbhreac dhen dealbh",
                 "sign_in": "Clàraich a-steach",
-                "sign_up": "Clàraich leinn",
+                "sign_up": "Cruthaich cunntas",
                 "see_more": "Seall a bharrachd",
                 "preview": "Ro-sheall",
                 "share": "Co-roinn",
@@ -137,10 +137,10 @@
                     "closed": "Dùinte"
                 },
                 "meta_entity": {
-                    "url": "Link: %s",
-                    "hashtag": "Hashtag: %s",
-                    "mention": "Show Profile: %s",
-                    "email": "Email address: %s"
+                    "url": "Ceangal: %s",
+                    "hashtag": "Taga hais: %s",
+                    "mention": "Seall a’ phròifil: %s",
+                    "email": "Seòladh puist-d: %s"
                 },
                 "actions": {
                     "reply": "Freagair",
@@ -187,8 +187,8 @@
                 "unmute_user": "Dì-mhùch %s",
                 "muted": "’Ga mhùchadh",
                 "edit_info": "Deasaich",
-                "show_reblogs": "Show Reblogs",
-                "hide_reblogs": "Hide Reblogs"
+                "show_reblogs": "Seall na brosnachaidhean",
+                "hide_reblogs": "Falaich na brosnachaidhean"
             },
             "timeline": {
                 "filtered": "Criathraichte",
@@ -218,10 +218,16 @@
             "get_started": "Dèan toiseach-tòiseachaidh",
             "log_in": "Clàraich a-steach"
         },
+        "login": {
+            "title": "Fàilte air ais",
+            "subtitle": "Clàraich a-steach air an fhrithealaiche far an do chruthaich thu an cunntas agad.",
+            "server_search_field": {
+                "placeholder": "Cuir a-steach URL an fhrithealaiche agad"
+            }
+        },
         "server_picker": {
             "title": "Tha cleachdaichean Mhastodon air iomadh frithealaiche eadar-dhealaichte.",
-            "subtitle": "Tagh frithealaiche stèidhichte air d’ ùidhean, air far a bheil thu no fear coitcheann.",
-            "subtitle_extend": "Tagh frithealaiche stèidhichte air d’ ùidhean, air far a bheil thu no fear coitcheann. Tha gach frithealaiche fo stiùireadh buidhinn no neach neo-eisimeilich fa leth.",
+            "subtitle": "Tagh frithealaiche stèidhichte air na sgìre agad, d’ ùidhean, air far a bheil thu no fear coitcheann. ’S urrainn dhut fhathast conaltradh le duine sam bith air Mastodon ge b’ e na frithealaichean agaibh-se.",
             "button": {
                 "category": {
                     "all": "Na h-uile",
@@ -248,8 +254,7 @@
                 "category": "ROINN-SEÒRSA"
             },
             "input": {
-                "placeholder": "Lorg frithealaiche",
-                "search_servers_or_enter_url": "Lorg frithealaiche no cuir a-steach URL"
+                "search_servers_or_enter_url": "Lorg coimhearsnachd no cuir a-steach URL"
             },
             "empty_state": {
                 "finding_servers": "A’ lorg nam frithealaichean ri am faighinn…",
@@ -383,10 +388,12 @@
                 "attachment_broken": "Seo %s a tha briste is cha ghabh\na luchdadh suas gu Mastodon.",
                 "description_photo": "Mìnich an dealbh dhan fheadhainn air a bheil cion-lèirsinne…",
                 "description_video": "Mìnich a’ video dhan fheadhainn air a bheil cion-lèirsinne…",
-                "load_failed": "Load Failed",
-                "upload_failed": "Upload Failed",
-                "can_not_recognize_this_media_attachment": "Can not regonize this media attachment",
-                "attachment_too_large": "Attachment too large"
+                "load_failed": "Dh’fhàillig leis an luchdadh",
+                "upload_failed": "Dh’fhàillig leis an luchdadh suas",
+                "can_not_recognize_this_media_attachment": "Cha do dh’aithnich sinn an ceanglachan meadhain seo",
+                "attachment_too_large": "Tha an ceanglachan ro mhòr",
+                "compressing_state": "’Ga dhùmhlachadh…",
+                "server_processing_state": "Tha am frithealaiche ’ga phròiseasadh…"
             },
             "poll": {
                 "duration_time": "Faide: %s",
@@ -396,7 +403,9 @@
                 "one_day": "Latha",
                 "three_days": "3 làithean",
                 "seven_days": "Seachdain",
-                "option_number": "Roghainn %ld"
+                "option_number": "Roghainn %ld",
+                "the_poll_is_invalid": "Tha an cunntas-bheachd mì-dhligheach",
+                "the_poll_has_empty_option": "Tha roghainn fhalamh aig a’ chunntas-bheachd"
             },
             "content_warning": {
                 "placeholder": "Sgrìobh rabhadh pongail an-seo…"
@@ -417,7 +426,9 @@
                 "custom_emoji_picker": "Roghnaichear nan Emoji gnàthaichte",
                 "enable_content_warning": "Cuir rabhadh susbainte an comas",
                 "disable_content_warning": "Cuir rabhadh susbainte à comas",
-                "post_visibility_menu": "Clàr-taice faicsinneachd a’ phuist"
+                "post_visibility_menu": "Clàr-taice faicsinneachd a’ phuist",
+                "post_options": "Roghainnean postaidh",
+                "posting_as": "A’ postadh mar %s"
             },
             "keyboard": {
                 "discard_post": "Tilg air falbh am post",
@@ -442,6 +453,10 @@
                 "placeholder": {
                     "label": "Leubail",
                     "content": "Susbaint"
+                },
+                "verified": {
+                    "short": "Air a dhearbhadh %s",
+                    "long": "Chaidh dearbhadh cò leis a tha an ceangal seo %s"
                 }
             },
             "segmented_control": {
@@ -469,12 +484,12 @@
                     "message": "Dearbh dì-bhacadh %s"
                 },
                 "confirm_show_reblogs": {
-                    "title": "Show Reblogs",
-                    "message": "Confirm to show reblogs"
+                    "title": "Seall na brosnachaidhean",
+                    "message": "Dearbh sealladh nam brosnachaidhean"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "Hide Reblogs",
-                    "message": "Confirm to hide reblogs"
+                    "title": "Falaich na brosnachaidhean",
+                    "message": "Dearbh falach nam brosnachaidhean"
                 }
             },
             "accessibility": {
@@ -706,7 +721,7 @@
             "accessibility_hint": "Thoir gnogag dhùbailte a’ leigeil seachad an draoidh seo"
         },
         "bookmark": {
-            "title": "Bookmarks"
+            "title": "Comharran-lìn"
         }
     }
 }

@@ -17,7 +17,7 @@ extension AttachmentViewModel {
         let exporter = NextLevelSessionExporter(withAsset: urlAsset)
         exporter.outputFileType = .mp4
         
-        var isLandscape: Bool = {
+        let isLandscape: Bool = {
             guard let track = urlAsset.tracks(withMediaType: .video).first else {
                 return true
             }

@@ -13,15 +13,15 @@
             <key>NSStringFormatValueTypeKey</key>
             <string>ld</string>
             <key>zero</key>
-            <string>no unread notification</string>
+            <string>no unread notifications</string>
             <key>one</key>
             <string>1 unread notification</string>
             <key>few</key>
             <string>%ld unread notifications</string>
             <key>many</key>
-            <string>%ld unread notification</string>
+            <string>%ld unread notifications</string>
             <key>other</key>
-            <string>%ld unread notification</string>
+            <string>%ld unread notifications</string>
         </dict>
     </dict>
     <key>a11y.plural.count.input_limit_exceeds</key>
