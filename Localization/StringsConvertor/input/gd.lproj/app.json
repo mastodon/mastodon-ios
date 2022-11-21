@@ -37,7 +37,7 @@
                 "confirm": "Clàraich a-mach"
             },
             "block_domain": {
-                "title": "A bheil thu cinnteach dha-rìribh gu bheil thu airson an àrainn %s a bhacadh uile gu lèir? Mar as trice, foghnaidh gun dèan thu bacadh no mùchadh no dhà gu sònraichte agus bhiod sin na b’ fheàrr. Chan fhaic thu susbaint on àrainn ud agus thèid an luchd-leantainn agad on àrainn ud a thoirt air falbh.",
+                "title": "A bheil thu cinnteach dha-rìribh gu bheil thu airson an àrainn %s a bhacadh uile gu lèir? Mar as trice, foghnaidh gun dèan thu bacadh no mùchadh no dhà gu sònraichte agus bhiodh sin na b’ fheàrr. Chan fhaic thu susbaint on àrainn ud agus thèid an luchd-leantainn agad on àrainn ud a thoirt air falbh.",
                 "block_entire_domain": "Bac an àrainn"
             },
             "save_photo_failure": {
@@ -45,7 +45,7 @@
                 "message": "Cuir cead inntrigidh do thasg-lann nan dealbhan an comas gus an dealbh a shàbhaladh."
             },
             "delete_post": {
-                "title": "A bheil thu cinnteach gu bheil thu airson am post seo a sguabadh às?",
+                "title": "Sguab às am post",
                 "message": "A bheil thu cinnteach gu bheil thu airson am post seo a sguabadh às?"
             },
             "clean_cache": {
@@ -75,7 +75,7 @@
                 "save_photo": "Sàbhail an dealbh",
                 "copy_photo": "Dèan lethbhreac dhen dealbh",
                 "sign_in": "Clàraich a-steach",
-                "sign_up": "Clàraich leinn",
+                "sign_up": "Cruthaich cunntas",
                 "see_more": "Seall a bharrachd",
                 "preview": "Ro-sheall",
                 "share": "Co-roinn",
@@ -136,6 +136,12 @@
                     "vote": "Cuir bhòt",
                     "closed": "Dùinte"
                 },
+                "meta_entity": {
+                    "url": "Ceangal: %s",
+                    "hashtag": "Taga hais: %s",
+                    "mention": "Seall a’ phròifil: %s",
+                    "email": "Seòladh puist-d: %s"
+                },
                 "actions": {
                     "reply": "Freagair",
                     "reblog": "Brosnaich",
@@ -165,7 +171,7 @@
                 }
             },
             "friendship": {
-                "follow": "Lean air",
+                "follow": "Lean",
                 "following": "’Ga leantainn",
                 "request": "Iarrtas",
                 "pending": "Ri dhèiligeadh",
@@ -180,7 +186,9 @@
                 "unmute": "Dì-mhùch",
                 "unmute_user": "Dì-mhùch %s",
                 "muted": "’Ga mhùchadh",
-                "edit_info": "Deasaich"
+                "edit_info": "Deasaich",
+                "show_reblogs": "Seall na brosnachaidhean",
+                "hide_reblogs": "Falaich na brosnachaidhean"
             },
             "timeline": {
                 "filtered": "Criathraichte",
@@ -210,10 +218,16 @@
             "get_started": "Dèan toiseach-tòiseachaidh",
             "log_in": "Clàraich a-steach"
         },
+        "login": {
+            "title": "Fàilte air ais",
+            "subtitle": "Clàraich a-steach air an fhrithealaiche far an do chruthaich thu an cunntas agad.",
+            "server_search_field": {
+                "placeholder": "Cuir a-steach URL an fhrithealaiche agad"
+            }
+        },
         "server_picker": {
-            "title": "Tagh frithealaiche sam bith.",
-            "subtitle": "Tagh coimhearsnachd stèidhichte air d’ ùidhean no an roinn-dùthcha agad no tè choitcheann.",
-            "subtitle_extend": "Tagh coimhearsnachd stèidhichte air d’ ùidhean no an roinn-dùthcha agad no tè choitcheann. Tha gach coimhearsnachd ’ga stiùireadh le buidheann no neach gu neo-eisimeileach.",
+            "title": "Tha cleachdaichean Mhastodon air iomadh frithealaiche eadar-dhealaichte.",
+            "subtitle": "Tagh frithealaiche stèidhichte air na sgìre agad, d’ ùidhean, air far a bheil thu no fear coitcheann. ’S urrainn dhut fhathast conaltradh le duine sam bith air Mastodon ge b’ e na frithealaichean agaibh-se.",
             "button": {
                 "category": {
                     "all": "Na h-uile",
@@ -240,8 +254,7 @@
                 "category": "ROINN-SEÒRSA"
             },
             "input": {
-                "placeholder": "Lorg frithealaiche no gabh pàirt san fhear agad fhèin…",
-                "search_servers_or_enter_url": "Search servers or enter URL"
+                "search_servers_or_enter_url": "Lorg coimhearsnachd no cuir a-steach URL"
             },
             "empty_state": {
                 "finding_servers": "A’ lorg nam frithealaichean ri am faighinn…",
@@ -250,8 +263,8 @@
             }
         },
         "register": {
-            "title": "Innis dhuinn mu do dhèidhinn.",
-            "lets_get_you_set_up_on_domain": "Let’s get you set up on %s",
+            "title": "’Gad rèiteachadh air %s",
+            "lets_get_you_set_up_on_domain": "’Gad rèiteachadh air %s",
             "input": {
                 "avatar": {
                     "delete": "Sguab às"
@@ -310,8 +323,8 @@
             }
         },
         "server_rules": {
-            "title": "Riaghailt bhunasach no dhà.",
-            "subtitle": "Shuidhich rianairean %s na riaghailtean seo.",
+            "title": "Riaghailtean bunasach.",
+            "subtitle": "Tha na riaghailtean seo ’gan stèidheachadh is a chur an gnìomh leis na maoir aig %s.",
             "prompt": "Ma leanas tu air adhart, bidh thu fo bhuaidh teirmichean seirbheise is poileasaidh prìobhaideachd %s.",
             "terms_of_service": "teirmichean na seirbheise",
             "privacy_policy": "poileasaidh prìobhaideachd",
@@ -321,8 +334,8 @@
         },
         "confirm_email": {
             "title": "Aon rud eile.",
-            "subtitle": "Tha sinn air post-d a chur gu %s,\nthoir gnogag air a’ chunntas a dhearbhadh a’ chunntais agad.",
-            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we emailed to you to verify your account",
+            "subtitle": "Thoir gnogag air a’ cheangal a chuir sinn thugad air a’ phost-d airson an cunntas agad a dhearbhadh.",
+            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Thoir gnogag air a’ cheangal a chuir sinn thugad air a’ phost-d airson an cunntas agad a dhearbhadh",
             "button": {
                 "open_email_app": "Fosgail aplacaid a’ phuist-d",
                 "resend": "Ath-chuir"
@@ -347,14 +360,14 @@
                 "published": "Chaidh fhoillseachadh!",
                 "Publishing": "A’ foillseachadh a’ phuist…",
                 "accessibility": {
-                    "logo_label": "Logo Button",
-                    "logo_hint": "Tap to scroll to top and tap again to previous location"
+                    "logo_label": "Putan an t-suaicheantais",
+                    "logo_hint": "Thoir gnogag a sgroladh dhan bhàrr is thoir gnogag a-rithist a dhol dhan ionad roimhe"
                 }
             }
         },
         "suggestion_account": {
             "title": "Lorg daoine a leanas tu",
-            "follow_explain": "Nuair a leanas tu air cuideigin, chì thu na puist aca air inbhir na dachaigh agad."
+            "follow_explain": "Nuair a leanas tu cuideigin, chì thu na puist aca air inbhir na dachaigh agad."
         },
         "compose": {
             "title": {
@@ -374,7 +387,13 @@
                 "video": "video",
                 "attachment_broken": "Seo %s a tha briste is cha ghabh\na luchdadh suas gu Mastodon.",
                 "description_photo": "Mìnich an dealbh dhan fheadhainn air a bheil cion-lèirsinne…",
-                "description_video": "Mìnich a’ video dhan fheadhainn air a bheil cion-lèirsinne…"
+                "description_video": "Mìnich a’ video dhan fheadhainn air a bheil cion-lèirsinne…",
+                "load_failed": "Dh’fhàillig leis an luchdadh",
+                "upload_failed": "Dh’fhàillig leis an luchdadh suas",
+                "can_not_recognize_this_media_attachment": "Cha do dh’aithnich sinn an ceanglachan meadhain seo",
+                "attachment_too_large": "Tha an ceanglachan ro mhòr",
+                "compressing_state": "’Ga dhùmhlachadh…",
+                "server_processing_state": "Tha am frithealaiche ’ga phròiseasadh…"
             },
             "poll": {
                 "duration_time": "Faide: %s",
@@ -384,7 +403,9 @@
                 "one_day": "Latha",
                 "three_days": "3 làithean",
                 "seven_days": "Seachdain",
-                "option_number": "Roghainn %ld"
+                "option_number": "Roghainn %ld",
+                "the_poll_is_invalid": "Tha an cunntas-bheachd mì-dhligheach",
+                "the_poll_has_empty_option": "Tha roghainn fhalamh aig a’ chunntas-bheachd"
             },
             "content_warning": {
                 "placeholder": "Sgrìobh rabhadh pongail an-seo…"
@@ -405,7 +426,9 @@
                 "custom_emoji_picker": "Roghnaichear nan Emoji gnàthaichte",
                 "enable_content_warning": "Cuir rabhadh susbainte an comas",
                 "disable_content_warning": "Cuir rabhadh susbainte à comas",
-                "post_visibility_menu": "Clàr-taice faicsinneachd a’ phuist"
+                "post_visibility_menu": "Clàr-taice faicsinneachd a’ phuist",
+                "post_options": "Roghainnean postaidh",
+                "posting_as": "A’ postadh mar %s"
             },
             "keyboard": {
                 "discard_post": "Tilg air falbh am post",
@@ -418,7 +441,7 @@
         },
         "profile": {
             "header": {
-                "follows_you": "Follows You"
+                "follows_you": "’Gad leantainn"
             },
             "dashboard": {
                 "posts": "postaichean",
@@ -430,6 +453,10 @@
                 "placeholder": {
                     "label": "Leubail",
                     "content": "Susbaint"
+                },
+                "verified": {
+                    "short": "Air a dhearbhadh %s",
+                    "long": "Chaidh dearbhadh cò leis a tha an ceangal seo %s"
                 }
             },
             "segmented_control": {
@@ -455,6 +482,14 @@
                 "confirm_unblock_user": {
                     "title": "Dì-bhac an cunntas",
                     "message": "Dearbh dì-bhacadh %s"
+                },
+                "confirm_show_reblogs": {
+                    "title": "Seall na brosnachaidhean",
+                    "message": "Dearbh sealladh nam brosnachaidhean"
+                },
+                "confirm_hide_reblogs": {
+                    "title": "Falaich na brosnachaidhean",
+                    "message": "Dearbh falach nam brosnachaidhean"
                 }
             },
             "accessibility": {
@@ -465,22 +500,22 @@
             }
         },
         "follower": {
-            "title": "follower",
+            "title": "neach-leantainn",
             "footer": "Cha dèid luchd-leantainn o fhrithealaichean eile a shealltainn."
         },
         "following": {
-            "title": "following",
-            "footer": "Cha dèid cò air a leanas tu air frithealaichean eile a shealltainn."
+            "title": "’ga leantainn",
+            "footer": "Cha dèid cò a leanas tu air frithealaichean eile a shealltainn."
         },
         "familiarFollowers": {
-            "title": "Followers you familiar",
-            "followed_by_names": "Followed by %s"
+            "title": "Luchd-leantainn aithnichte",
+            "followed_by_names": "’Ga leantainn le %s"
         },
         "favorited_by": {
-            "title": "Favorited By"
+            "title": "’Na annsachd aig"
         },
         "reblogged_by": {
-            "title": "Reblogged By"
+            "title": "’Ga bhrosnachadh le"
         },
         "search": {
             "title": "Lorg",
@@ -497,8 +532,8 @@
                 },
                 "accounts": {
                     "title": "Cunntasan a chòrdas riut ma dh’fhaoidte",
-                    "description": "Saoil am bu toigh leat leantainn air na cunntasan seo?",
-                    "follow": "Lean air"
+                    "description": "Saoil am bu toigh leat na cunntasan seo a leantainn?",
+                    "follow": "Lean"
                 }
             },
             "searching": {
@@ -538,7 +573,7 @@
                 "favorited_your_post": "– is annsa leotha am post agad",
                 "reblogged_your_post": "– ’s iad air am post agad a bhrosnachadh",
                 "mentioned_you": "– ’s iad air iomradh a thoirt ort",
-                "request_to_follow_you": "iarrtas leantainn ort",
+                "request_to_follow_you": "iarrtas leantainn",
                 "poll_has_ended": "thàinig cunntas-bheachd gu crìoch"
             },
             "keyobard": {
@@ -546,10 +581,10 @@
                 "show_mentions": "Seall na h-iomraidhean"
             },
             "follow_request": {
-                "accept": "Accept",
-                "accepted": "Accepted",
-                "reject": "reject",
-                "rejected": "Rejected"
+                "accept": "Gabh ris",
+                "accepted": "Air a ghabhail ris",
+                "reject": "diùlt",
+                "rejected": "Chaidh a dhiùltadh"
             }
         },
         "thread": {
@@ -575,13 +610,13 @@
                 "notifications": {
                     "title": "Brathan",
                     "favorites": "Nuair as annsa leotha am post agam",
-                    "follows": "Nuair a leanas iad orm",
+                    "follows": "Nuair a leanas iad mi",
                     "boosts": "Nuair a bhrosnaicheas iad post uam",
                     "mentions": "Nuair a bheir iad iomradh orm",
                     "trigger": {
                         "anyone": "Airson duine sam bith, cuir brath thugam",
                         "follower": "Airson luchd-leantainn, cuir brath thugam",
-                        "follow": "Airson daoine air a leanas mi, cuir brath thugam",
+                        "follow": "Airson daoine a leanas mi, cuir brath thugam",
                         "noone": "Na cuir brath thugam idir",
                         "title": " "
                     }
@@ -626,46 +661,46 @@
             "text_placeholder": "Sgrìobh no cuir ann beachdan a bharrachd",
             "reported": "CHAIDH GEARAN A DHÈANAMH",
             "step_one": {
-                "step_1_of_4": "Step 1 of 4",
-                "whats_wrong_with_this_post": "What's wrong with this post?",
-                "whats_wrong_with_this_account": "What's wrong with this account?",
-                "whats_wrong_with_this_username": "What's wrong with %s?",
-                "select_the_best_match": "Select the best match",
-                "i_dont_like_it": "I don’t like it",
-                "it_is_not_something_you_want_to_see": "It is not something you want to see",
-                "its_spam": "It’s spam",
-                "malicious_links_fake_engagement_or_repetetive_replies": "Malicious links, fake engagement, or repetetive replies",
-                "it_violates_server_rules": "It violates server rules",
-                "you_are_aware_that_it_breaks_specific_rules": "You are aware that it breaks specific rules",
-                "its_something_else": "It’s something else",
-                "the_issue_does_not_fit_into_other_categories": "The issue does not fit into other categories"
+                "step_1_of_4": "Ceum 1 à 4",
+                "whats_wrong_with_this_post": "Dè tha ceàrr leis a’ phost seo?",
+                "whats_wrong_with_this_account": "Dè tha ceàrr leis an cunntas seo?",
+                "whats_wrong_with_this_username": "Dè tha ceàrr le %s?",
+                "select_the_best_match": "Tagh a’ mhaids as fheàrr",
+                "i_dont_like_it": "Cha toigh leam e",
+                "it_is_not_something_you_want_to_see": "Chan eil thu airson seo fhaicinn",
+                "its_spam": "’S e spama a th’ ann",
+                "malicious_links_fake_engagement_or_repetetive_replies": "Ceanglaichean droch-rùnach, conaltradh fuadain no an dearbh fhreagairt a-rithist ’s a-rithist",
+                "it_violates_server_rules": "Tha e a’ briseadh riaghailtean an fhrithealaiche",
+                "you_are_aware_that_it_breaks_specific_rules": "Mhothaich thu gu bheil e a’ briseadh riaghailtean sònraichte",
+                "its_something_else": "’S rud eile a tha ann",
+                "the_issue_does_not_fit_into_other_categories": "Chan eil na roinnean-seòrsa eile iomchaidh dhan chùis"
             },
             "step_two": {
-                "step_2_of_4": "Step 2 of 4",
-                "which_rules_are_being_violated": "Which rules are being violated?",
-                "select_all_that_apply": "Select all that apply",
-                "i_just_don’t_like_it": "I just don’t like it"
+                "step_2_of_4": "Ceum 2 à 4",
+                "which_rules_are_being_violated": "Dè na riaghailtean a tha ’gam briseadh?",
+                "select_all_that_apply": "Tagh a h-uile gin a tha iomchaidh",
+                "i_just_don’t_like_it": "’S ann nach toigh leam e"
             },
             "step_three": {
-                "step_3_of_4": "Step 3 of 4",
-                "are_there_any_posts_that_back_up_this_report": "Are there any posts that back up this report?",
-                "select_all_that_apply": "Select all that apply"
+                "step_3_of_4": "Ceum 3 à 4",
+                "are_there_any_posts_that_back_up_this_report": "A bheil postaichean sam bith ann a tha ’nam fianais dhan ghearan seo?",
+                "select_all_that_apply": "Tagh a h-uile gin a tha iomchaidh"
             },
             "step_four": {
-                "step_4_of_4": "Step 4 of 4",
-                "is_there_anything_else_we_should_know": "Is there anything else we should know?"
+                "step_4_of_4": "Ceum 4 à 4",
+                "is_there_anything_else_we_should_know": "A bheil rud sam bith eile a bu toigh leat innse dhuinn?"
             },
             "step_final": {
-                "dont_want_to_see_this": "Don’t want to see this?",
-                "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "When you see something you don’t like on Mastodon, you can remove the person from your experience.",
-                "unfollow": "Unfollow",
-                "unfollowed": "Unfollowed",
-                "unfollow_user": "Unfollow %s",
-                "mute_user": "Mute %s",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or reblogs in your home feed. They won’t know they’ve been muted.",
-                "block_user": "Block %s",
-                "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "They will no longer be able to follow or see your posts, but they can see if they’ve been blocked.",
-                "while_we_review_this_you_can_take_action_against_user": "While we review this, you can take action against %s"
+                "dont_want_to_see_this": "Nach eil thu airson seo fhaicinn?",
+                "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "Nuair a chì thu rudeigin nach toigh leat air Mastodon, ’s urrainn dhut an neach a chumail fad air falbh uat.",
+                "unfollow": "Na lean tuilleadh",
+                "unfollowed": "Chan eil thu ’ga leantainn tuilleadh",
+                "unfollow_user": "Na lean %s tuilleadh",
+                "mute_user": "Mùch %s",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "Chan fhaic thu na postaichean aca is dè a bhrosnaich iad air inbhir na dachaigh agad tuilleadh. Cha bhi fios aca gun do mhùch thu iad.",
+                "block_user": "Bac %s",
+                "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "Chan urrainn dhaibh ’gad leantainn is chan fhaic iad na postaichean agad tuilleadh ach chì iad gun deach am bacadh.",
+                "while_we_review_this_you_can_take_action_against_user": "Fhad ’s a bhios sinn a’ toirt sùil air, seo nas urrainn dhut dèanamh an aghaidh %s"
             }
         },
         "preview": {
@@ -684,6 +719,9 @@
             "new_in_mastodon": "Na tha ùr ann am Mastodon",
             "multiple_account_switch_intro_description": "Geàrr leum eadar iomadh cunntas le cumail sìos putan na pròifil.",
             "accessibility_hint": "Thoir gnogag dhùbailte a’ leigeil seachad an draoidh seo"
+        },
+        "bookmark": {
+            "title": "Comharran-lìn"
         }
     }
 }

@@ -10,6 +10,7 @@ import UIKit
 import AVKit
 import Combine
 import AlamofireImage
+import MastodonCore
 
 final class MediaPreviewVideoViewModel {
     

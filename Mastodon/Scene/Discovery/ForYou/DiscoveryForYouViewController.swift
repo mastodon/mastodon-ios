@@ -9,6 +9,7 @@ import os.log
 import UIKit
 import Combine
 import MastodonUI
+import MastodonCore
 
 final class DiscoveryForYouViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
     
@@ -31,7 +32,7 @@ final class DiscoveryForYouViewController: UIViewController, NeedsDependency, Me
         return tableView
     }()
     
-    let refreshControl = UIRefreshControl()
+    let refreshControl = RefreshControl()
     
     deinit {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
@@ -92,12 +93,17 @@ extension DiscoveryForYouViewController {
 
 extension DiscoveryForYouViewController {
     
-    @objc private func refreshControlValueChanged(_ sender: UIRefreshControl) {
+    @objc private func refreshControlValueChanged(_ sender: RefreshControl) {
         Task {
             try await viewModel.fetch()
         }
     }
     
+}
+
+// MARK: - AuthContextProvider
+extension DiscoveryForYouViewController: AuthContextProvider {
+    var authContext: AuthContext { viewModel.authContext }
 }
 
 // MARK: - UITableViewDelegate
@@ -109,9 +115,10 @@ extension DiscoveryForYouViewController: UITableViewDelegate {
         guard let user = record.object(in: context.managedObjectContext) else { return }
         let profileViewModel = CachedProfileViewModel(
             context: context,
+            authContext: viewModel.authContext,
             mastodonUser: user
         )
-        coordinator.present(
+        _ = coordinator.present(
             scene: .profile(viewModel: profileViewModel),
             from: self,
             transition: .show
@@ -127,15 +134,13 @@ extension DiscoveryForYouViewController: ProfileCardTableViewCellDelegate {
         profileCardView: ProfileCardView,
         relationshipButtonDidPressed button: ProfileRelationshipActionButton
     ) {
-        guard let authenticationBox = viewModel.context.authenticationService.activeMastodonAuthenticationBox.value else { return }
         guard let indexPath = tableView.indexPath(for: cell) else { return }
         guard case let .user(record) = viewModel.diffableDataSource?.itemIdentifier(for: indexPath) else { return }
         
         Task {
             try await DataSourceFacade.responseToUserFollowAction(
                 dependency: self,
-                user: record,
-                authenticationBox: authenticationBox
+                user: record
             )
         }   // end Task
     }
@@ -156,9 +161,9 @@ extension DiscoveryForYouViewController: ProfileCardTableViewCellDelegate {
             return
         }
         
-        let familiarFollowersViewModel = FamiliarFollowersViewModel(context: context)
+        let familiarFollowersViewModel = FamiliarFollowersViewModel(context: context, authContext: authContext)
         familiarFollowersViewModel.familiarFollowers = familiarFollowers
-        coordinator.present(
+        _ = coordinator.present(
             scene: .familiarFollowers(viewModel: familiarFollowersViewModel),
             from: self,
             transition: .show

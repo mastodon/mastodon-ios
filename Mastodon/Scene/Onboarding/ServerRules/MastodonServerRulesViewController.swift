@@ -12,6 +12,7 @@ import MastodonSDK
 import SafariServices
 import MetaTextKit
 import MastodonAsset
+import MastodonCore
 import MastodonLocalization
 
 final class MastodonServerRulesViewController: UIViewController, NeedsDependency {
@@ -126,7 +127,7 @@ extension MastodonServerRulesViewController {
             instance: viewModel.instance,
             applicationToken: viewModel.applicationToken
         )
-        coordinator.present(scene: .mastodonRegister(viewModel: viewModel), from: self, transition: .show)
+        _ = coordinator.present(scene: .mastodonRegister(viewModel: viewModel), from: self, transition: .show)
     }
     
 }

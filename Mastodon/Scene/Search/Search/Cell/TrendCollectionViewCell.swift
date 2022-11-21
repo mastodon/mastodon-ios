@@ -9,6 +9,7 @@ import UIKit
 import Combine
 import MetaTextKit
 import MastodonAsset
+import MastodonCore
 import MastodonUI
 
 final class TrendCollectionViewCell: UICollectionViewCell {

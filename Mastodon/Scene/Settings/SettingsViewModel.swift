@@ -13,15 +13,17 @@ import MastodonSDK
 import UIKit
 import os.log
 import AuthenticationServices
+import MastodonCore
 
 class SettingsViewModel {
     
     var disposeBag = Set<AnyCancellable>()
 
+    // input
     let context: AppContext
+    let authContext: AuthContext
     var mastodonAuthenticationController: MastodonAuthenticationController?
 
-    // input
     let setting: CurrentValueSubject<Setting, Never>
     var updateDisposeBag = Set<AnyCancellable>()
     var createDisposeBag = Set<AnyCancellable>()
@@ -41,15 +43,13 @@ class SettingsViewModel {
     let updateSubscriptionSubject = PassthroughSubject<(triggerBy: String, values: [Bool?]), Never>()
     
     lazy var privacyURL: URL? = {
-        guard let box = AppContext.shared.authenticationService.activeMastodonAuthenticationBox.value else {
-            return nil
-        }
-        
-        return Mastodon.API.privacyURL(domain: box.domain)
+        let domain = authContext.mastodonAuthenticationBox.domain
+        return Mastodon.API.privacyURL(domain: domain)
     }()
     
-    init(context: AppContext, setting: Setting) {
+    init(context: AppContext, authContext: AuthContext, setting: Setting) {
         self.context = context
+        self.authContext = authContext
         self.setting = CurrentValueSubject(setting)
         
         self.setting
@@ -59,10 +59,7 @@ class SettingsViewModel {
             })
             .store(in: &disposeBag)
 
-        context.authenticationService.activeMastodonAuthenticationBox
-            .compactMap { $0?.domain }
-            .map { context.apiService.instance(domain: $0) }
-            .switchToLatest()
+        context.apiService.instance(domain: authContext.mastodonAuthenticationBox.domain)
             .sink { [weak self] completion in
                 guard let self = self else { return }
                 switch completion {

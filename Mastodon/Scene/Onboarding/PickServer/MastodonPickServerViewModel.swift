@@ -13,14 +13,11 @@ import MastodonSDK
 import CoreDataStack
 import OrderedCollections
 import Tabman
+import MastodonCore
+import MastodonUI
 
 class MastodonPickServerViewModel: NSObject {
-    
-    enum PickServerMode {
-        case signUp
-        case signIn
-    }
-    
+
     enum EmptyStateViewState {
         case none
         case loading
@@ -32,7 +29,6 @@ class MastodonPickServerViewModel: NSObject {
     let serverSectionHeaderView = PickServerServerSectionTableHeaderView()
 
     // input
-    let mode: PickServerMode
     let context: AppContext
     var categoryPickerItems: [CategoryPickerItem] = {
         var items: [CategoryPickerItem] = []
@@ -70,9 +66,8 @@ class MastodonPickServerViewModel: NSObject {
     let loadingIndexedServersError = CurrentValueSubject<Error?, Never>(nil)
     let emptyStateViewState = CurrentValueSubject<EmptyStateViewState, Never>(.none)
         
-    init(context: AppContext, mode: PickServerMode) {
+    init(context: AppContext) {
         self.context = context
-        self.mode = mode
         super.init()
         
         configure()
@@ -113,9 +108,7 @@ extension MastodonPickServerViewModel {
         .map { indexedServers, selectCategoryItem, searchText -> [Mastodon.Entity.Server] in
             // ignore approval required servers when sign-up
             var indexedServers = indexedServers
-            if self.mode == .signUp {
-                indexedServers = indexedServers.filter { !$0.approvalRequired }
-            }
+            indexedServers = indexedServers.filter { !$0.approvalRequired }
             // Note:
             // sort by calculate last week users count
             // and make medium size (~800) server to top

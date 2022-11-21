@@ -9,6 +9,7 @@ import os.log
 import UIKit
 import Combine
 import MetaTextKit
+import MastodonCore
 
 extension UserView {
     public final class ViewModel: ObservableObject {

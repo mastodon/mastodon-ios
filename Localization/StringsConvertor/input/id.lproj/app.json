@@ -6,29 +6,29 @@
                 "please_try_again_later": "Silakan coba lagi nanti."
             },
             "sign_up_failure": {
-                "title": "Sign Up Failure"
+                "title": "Gagal Mendaftar"
             },
             "server_error": {
                 "title": "Kesalahan Server"
             },
             "vote_failure": {
-                "title": "Vote Failure",
+                "title": "Gagal Voting",
                 "poll_ended": "Japat telah berakhir"
             },
             "discard_post_content": {
                 "title": "Hapus Draf",
-                "message": "Confirm to discard composed post content."
+                "message": "Konfirmasi untuk mengabaikan postingan yang dibuat."
             },
             "publish_post_failure": {
-                "title": "Publish Failure",
-                "message": "Failed to publish the post.\nPlease check your internet connection.",
+                "title": "Gagal Mempublikasikan",
+                "message": "Gagal mempublikasikan postingan.\nMohon periksa koneksi Internet Anda.",
                 "attachments_message": {
                     "video_attach_with_photo": "Tidak dapat melampirkan video di postingan yang sudah mengandung gambar.",
                     "more_than_one_video": "Tidak dapat melampirkan lebih dari satu video."
                 }
             },
             "edit_profile_failure": {
-                "title": "Edit Profile Error",
+                "title": "Masalah dalam mengubah profil",
                 "message": "Tidak dapat menyunting profil. Harap coba lagi."
             },
             "sign_out": {
@@ -37,16 +37,16 @@
                 "confirm": "Keluar"
             },
             "block_domain": {
-                "title": "Are you really, really sure you want to block the entire %s? In most cases a few targeted blocks or mutes are sufficient and preferable. You will not see content from that domain and any of your followers from that domain will be removed.",
+                "title": "Apakah Anda benar, benar yakin ingin memblokir keseluruhan %s? Dalam kebanyakan kasus, beberapa pemblokiran atau pembisuan yang ditargetkan sudah cukup dan lebih disukai. Anda tidak akan melihat konten dari domain tersebut dan semua pengikut Anda dari domain itu akan dihapus.",
                 "block_entire_domain": "Blokir Domain"
             },
             "save_photo_failure": {
-                "title": "Save Photo Failure",
-                "message": "Please enable the photo library access permission to save the photo."
+                "title": "Gagal Menyimpan Foto",
+                "message": "Mohon aktifkan izin akses pustaka foto untuk menyimpan foto."
             },
             "delete_post": {
                 "title": "Apakah Anda yakin ingin menghapus postingan ini?",
-                "message": "Are you sure you want to delete this post?"
+                "message": "Apakah Anda yakin untuk menghapus kiriman ini?"
             },
             "clean_cache": {
                 "title": "Bersihkan Cache",
@@ -67,24 +67,24 @@
                 "done": "Selesai",
                 "confirm": "Konfirmasi",
                 "continue": "Lanjut",
-                "compose": "Compose",
+                "compose": "Tulis",
                 "cancel": "Batal",
-                "discard": "Discard",
+                "discard": "Buang",
                 "try_again": "Coba Lagi",
-                "take_photo": "Take Photo",
+                "take_photo": "Ambil Foto",
                 "save_photo": "Simpan Foto",
                 "copy_photo": "Salin Foto",
                 "sign_in": "Masuk",
-                "sign_up": "Daftar",
+                "sign_up": "Buat akun",
                 "see_more": "Lihat lebih banyak",
                 "preview": "Pratinjau",
                 "share": "Bagikan",
                 "share_user": "Bagikan %s",
                 "share_post": "Bagikan Postingan",
                 "open_in_safari": "Buka di Safari",
-                "open_in_browser": "Open in Browser",
+                "open_in_browser": "Buka di Peramban",
                 "find_people": "Cari orang untuk diikuti",
-                "manually_search": "Manually search instead",
+                "manually_search": "Cari secara manual saja",
                 "skip": "Lewati",
                 "reply": "Balas",
                 "report_user": "Laporkan %s",
@@ -111,16 +111,16 @@
                     "next_status": "Postingan Selanjutnya",
                     "open_status": "Buka Postingan",
                     "open_author_profile": "Buka Profil Penulis",
-                    "open_reblogger_profile": "Open Reblogger's Profile",
+                    "open_reblogger_profile": "Buka Profil Reblogger",
                     "reply_status": "Balas Postingan",
-                    "toggle_reblog": "Toggle Reblog on Post",
-                    "toggle_favorite": "Toggle Favorite on Post",
-                    "toggle_content_warning": "Toggle Content Warning",
-                    "preview_image": "Preview Image"
+                    "toggle_reblog": "Nyalakan Reblog pada Postingan",
+                    "toggle_favorite": "Nyalakan Favorit pada Postingan",
+                    "toggle_content_warning": "Nyalakan Peringatan Konten",
+                    "preview_image": "Pratinjau Gambar"
                 },
                 "segmented_control": {
-                    "previous_section": "Previous Section",
-                    "next_section": "Next Section"
+                    "previous_section": "Bagian Sebelumnya",
+                    "next_section": "Bagian Selanjutnya"
                 }
             },
             "status": {
@@ -129,25 +129,31 @@
                 "show_post": "Tampilkan Postingan",
                 "show_user_profile": "Tampilkan Profil Pengguna",
                 "content_warning": "Peringatan Konten",
-                "sensitive_content": "Sensitive Content",
+                "sensitive_content": "Konten Sensitif",
                 "media_content_warning": "Ketuk di mana saja untuk melihat",
-                "tap_to_reveal": "Tap to reveal",
+                "tap_to_reveal": "Ketuk untuk mengungkap",
                 "poll": {
-                    "vote": "Vote",
+                    "vote": "Pilih",
                     "closed": "Ditutup"
+                },
+                "meta_entity": {
+                    "url": "Tautan: %s",
+                    "hashtag": "Tagar: %s",
+                    "mention": "Tampilkan Profile: %s",
+                    "email": "Alamat email: %s"
                 },
                 "actions": {
                     "reply": "Balas",
                     "reblog": "Reblog",
-                    "unreblog": "Undo reblog",
+                    "unreblog": "Batalkan reblog",
                     "favorite": "Favorit",
-                    "unfavorite": "Unfavorite",
+                    "unfavorite": "Batalkan favorit",
                     "menu": "Menu",
-                    "hide": "Hide",
-                    "show_image": "Show image",
-                    "show_gif": "Show GIF",
-                    "show_video_player": "Show video player",
-                    "tap_then_hold_to_show_menu": "Tap then hold to show menu"
+                    "hide": "Sembunyikan",
+                    "show_image": "Tampilkan gambar",
+                    "show_gif": "Tampilkan GIF",
+                    "show_video_player": "Tampilkan pemutar video",
+                    "tap_then_hold_to_show_menu": "Ketuk lalu tahan untuk menampilkan menu"
                 },
                 "tag": {
                     "url": "URL",
@@ -159,16 +165,16 @@
                 },
                 "visibility": {
                     "unlisted": "Everyone can see this post but not display in the public timeline.",
-                    "private": "Only their followers can see this post.",
-                    "private_from_me": "Only my followers can see this post.",
-                    "direct": "Only mentioned user can see this post."
+                    "private": "Hanya pengikut mereka yang dapat melihat postingan ini.",
+                    "private_from_me": "Hanya pengikut saya yang dapat melihat postingan ini.",
+                    "direct": "Hanya pengguna yang disebut yang dapat melihat postingan ini."
                 }
             },
             "friendship": {
                 "follow": "Ikuti",
                 "following": "Mengikuti",
-                "request": "Request",
-                "pending": "Pending",
+                "request": "Minta",
+                "pending": "Tertunda",
                 "block": "Blokir",
                 "block_user": "Blokir %s",
                 "block_domain": "Blokir %s",
@@ -180,7 +186,9 @@
                 "unmute": "Berhenti membisukan",
                 "unmute_user": "Berhenti membisukan %s",
                 "muted": "Dibisukan",
-                "edit_info": "Sunting Info"
+                "edit_info": "Sunting Info",
+                "show_reblogs": "Tampilkan Reblog",
+                "hide_reblogs": "Sembunyikan Reblog"
             },
             "timeline": {
                 "filtered": "Tersaring",
@@ -188,32 +196,38 @@
                     "now": "Sekarang"
                 },
                 "loader": {
-                    "load_missing_posts": "Load missing posts",
-                    "loading_missing_posts": "Loading missing posts...",
+                    "load_missing_posts": "Muat postingan yang hilang",
+                    "loading_missing_posts": "Memuat postingan yang hilang...",
                     "show_more_replies": "Tampilkan lebih banyak balasan"
                 },
                 "header": {
-                    "no_status_found": "No Post Found",
-                    "blocking_warning": "You can’t view this user's profile\nuntil you unblock them.\nYour profile looks like this to them.",
-                    "user_blocking_warning": "You can’t view %s’s profile\nuntil you unblock them.\nYour profile looks like this to them.",
-                    "blocked_warning": "You can’t view this user’s profile\nuntil they unblock you.",
-                    "user_blocked_warning": "You can’t view %s’s profile\nuntil they unblock you.",
-                    "suspended_warning": "This user has been suspended.",
-                    "user_suspended_warning": "%s’s account has been suspended."
+                    "no_status_found": "Tidak Ditemukan Postingan",
+                    "blocking_warning": "Anda tidak dapat melihat profil pengguna ini sampai Anda membuka blokir mereka.\nProfil Anda terlihat seperti ini bagi mereka.",
+                    "user_blocking_warning": "Anda tidak dapat melihat profil %s sampai Anda membuka blokir mereka.\nProfil Anda terlihat seperti ini bagi mereka.",
+                    "blocked_warning": "Anda tidak dapat melihat profil pengguna ini sampai mereka membuka blokir Anda.",
+                    "user_blocked_warning": "Anda tidak dapat melihat profil %s sampai mereka membuka blokir Anda.",
+                    "suspended_warning": "Pengguna ini telah ditangguhkan.",
+                    "user_suspended_warning": "Akun %s telah ditangguhkan."
                 }
             }
         }
     },
     "scene": {
         "welcome": {
-            "slogan": "Social networking\nback in your hands.",
-            "get_started": "Get Started",
-            "log_in": "Log In"
+            "slogan": "Jejaring sosial dalam genggaman Anda.",
+            "get_started": "Mulai",
+            "log_in": "Login"
+        },
+        "login": {
+            "title": "Selamat datang kembali",
+            "subtitle": "Masuklah pada server yang Anda buat di mana akun Anda berada.",
+            "server_search_field": {
+                "placeholder": "Masukkan URL atau pencarian di server Anda"
+            }
         },
         "server_picker": {
             "title": "Pilih sebuah server,\nserver manapun.",
-            "subtitle": "Pick a server based on your interests, region, or a general purpose one.",
-            "subtitle_extend": "Pick a server based on your interests, region, or a general purpose one. Each server is operated by an entirely independent organization or individual.",
+            "subtitle": "Pilih server berdasarkan agamamu, minat, atau subjek umum lainnya. Kamu masih bisa berkomunikasi dengan semua orang di Mastodon, tanpa memperdulikan server Anda.",
             "button": {
                 "category": {
                     "all": "Semua",
@@ -240,8 +254,7 @@
                 "category": "KATEGORI"
             },
             "input": {
-                "placeholder": "Search servers",
-                "search_servers_or_enter_url": "Search servers or enter URL"
+                "search_servers_or_enter_url": "Cari komunitas atau masukkan URL"
             },
             "empty_state": {
                 "finding_servers": "Mencari server yang tersedia...",
@@ -251,7 +264,7 @@
         },
         "register": {
             "title": "Beritahu kami tentang diri Anda.",
-            "lets_get_you_set_up_on_domain": "Let’s get you set up on %s",
+            "lets_get_you_set_up_on_domain": "Mari kita siapkan Anda di %s",
             "input": {
                 "avatar": {
                     "delete": "Hapus"
@@ -261,18 +274,18 @@
                     "duplicate_prompt": "Nama pengguna ini sudah diambil."
                 },
                 "display_name": {
-                    "placeholder": "display name"
+                    "placeholder": "nama yang ditampilkan"
                 },
                 "email": {
                     "placeholder": "surel"
                 },
                 "password": {
                     "placeholder": "kata sandi",
-                    "require": "Your password needs at least:",
-                    "character_limit": "8 characters",
+                    "require": "Kata sandi Anda harus memiliki setidaknya:",
+                    "character_limit": "8 karakter",
                     "accessibility": {
-                        "checked": "checked",
-                        "unchecked": "unchecked"
+                        "checked": "dicentang",
+                        "unchecked": "tidak dicentang"
                     },
                     "hint": "Kata sandi Anda harus memiliki sekurang-kurangnya delapan karakter"
                 },
@@ -286,7 +299,7 @@
                     "email": "Surel",
                     "password": "Kata sandi",
                     "agreement": "Persetujuan",
-                    "locale": "Locale",
+                    "locale": "Lokal",
                     "reason": "Alasan"
                 },
                 "reason": {
@@ -302,7 +315,7 @@
                     "inclusion": "%s is not a supported value"
                 },
                 "special": {
-                    "username_invalid": "Username must only contain alphanumeric characters and underscores",
+                    "username_invalid": "Nama pengguna hanya berisi angka karakter dan garis bawah",
                     "username_too_long": "Nama pengguna terlalu panjang (tidak boleh lebih dari 30 karakter)",
                     "email_invalid": "Ini bukan alamat surel yang valid",
                     "password_too_short": "Kata sandi terlalu pendek (harus sekurang-kurangnya 8 karakter)"
@@ -359,12 +372,12 @@
         "compose": {
             "title": {
                 "new_post": "Postingan Baru",
-                "new_reply": "New Reply"
+                "new_reply": "Pesan Baru"
             },
             "media_selection": {
-                "camera": "Take Photo",
+                "camera": "Ambil Foto",
                 "photo_library": "Photo Library",
-                "browse": "Browse"
+                "browse": "Telusuri"
             },
             "content_input_placeholder": "Ketik atau tempel apa yang Anda pada pikiran Anda",
             "compose_action": "Publikasikan",
@@ -374,7 +387,13 @@
                 "video": "video",
                 "attachment_broken": "%s ini rusak dan tidak dapat diunggah ke Mastodon.",
                 "description_photo": "Jelaskan fotonya untuk mereka yang tidak dapat melihat dengan jelas...",
-                "description_video": "Jelaskan videonya untuk mereka yang tidak dapat melihat dengan jelas..."
+                "description_video": "Jelaskan videonya untuk mereka yang tidak dapat melihat dengan jelas...",
+                "load_failed": "Gagal Memuat",
+                "upload_failed": "Gagal Mengunggah",
+                "can_not_recognize_this_media_attachment": "Tidak dapat mengenali lampiran media ini",
+                "attachment_too_large": "Lampiran terlalu besar",
+                "compressing_state": "Compressing...",
+                "server_processing_state": "Server Processing..."
             },
             "poll": {
                 "duration_time": "Durasi: %s",
@@ -384,14 +403,16 @@
                 "one_day": "1 Hari",
                 "three_days": "3 Hari",
                 "seven_days": "7 Hari",
-                "option_number": "Option %ld"
+                "option_number": "Option %ld",
+                "the_poll_is_invalid": "The poll is invalid",
+                "the_poll_has_empty_option": "The poll has empty option"
             },
             "content_warning": {
                 "placeholder": "Tulis peringatan yang akurat di sini..."
             },
             "visibility": {
                 "public": "Publik",
-                "unlisted": "Unlisted",
+                "unlisted": "Tidak terdaftar",
                 "private": "Pengikut saja",
                 "direct": "Hanya orang yang saya sebut"
             },
@@ -405,7 +426,9 @@
                 "custom_emoji_picker": "Custom Emoji Picker",
                 "enable_content_warning": "Aktifkan Peringatan Konten",
                 "disable_content_warning": "Nonaktifkan Peringatan Konten",
-                "post_visibility_menu": "Post Visibility Menu"
+                "post_visibility_menu": "Post Visibility Menu",
+                "post_options": "Post Options",
+                "posting_as": "Posting as %s"
             },
             "keyboard": {
                 "discard_post": "Discard Post",
@@ -430,6 +453,10 @@
                 "placeholder": {
                     "label": "Label",
                     "content": "Isi"
+                },
+                "verified": {
+                    "short": "Verified on %s",
+                    "long": "Ownership of this link was checked on %s"
                 }
             },
             "segmented_control": {
@@ -455,6 +482,14 @@
                 "confirm_unblock_user": {
                     "title": "Unblock Account",
                     "message": "Confirm to unblock %s"
+                },
+                "confirm_show_reblogs": {
+                    "title": "Show Reblogs",
+                    "message": "Confirm to show reblogs"
+                },
+                "confirm_hide_reblogs": {
+                    "title": "Hide Reblogs",
+                    "message": "Confirm to hide reblogs"
                 }
             },
             "accessibility": {
@@ -684,6 +719,9 @@
             "new_in_mastodon": "New in Mastodon",
             "multiple_account_switch_intro_description": "Switch between multiple accounts by holding the profile button.",
             "accessibility_hint": "Double tap to dismiss this wizard"
+        },
+        "bookmark": {
+            "title": "Bookmarks"
         }
     }
 }

@@ -9,6 +9,7 @@ import os.log
 import UIKit
 import CoreData
 import CoreDataStack
+import MastodonUI
 
 extension HomeTimelineViewModel {
     
@@ -21,6 +22,7 @@ extension HomeTimelineViewModel {
             tableView: tableView,
             context: context,
             configuration: StatusSection.Configuration(
+                authContext: authContext,
                 statusTableViewCellDelegate: statusTableViewCellDelegate,
                 timelineMiddleLoaderTableViewCellDelegate: timelineMiddleLoaderTableViewCellDelegate,
                 filterContext: .home,
@@ -155,8 +157,14 @@ extension HomeTimelineViewModel {
     ) -> Difference<T>? {
         guard let sourceIndexPath = (tableView.indexPathsForVisibleRows ?? []).sorted().first else { return nil }
         let rectForSourceItemCell = tableView.rectForRow(at: sourceIndexPath)
-        let sourceDistanceToTableViewTopEdge = tableView.convert(rectForSourceItemCell, to: nil).origin.y - tableView.safeAreaInsets.top
-        
+        let sourceDistanceToTableViewTopEdge: CGFloat = {
+            if tableView.window != nil {
+                return tableView.convert(rectForSourceItemCell, to: nil).origin.y - tableView.safeAreaInsets.top
+            } else {
+                return rectForSourceItemCell.origin.y - tableView.contentOffset.y - tableView.safeAreaInsets.top
+            }
+        }()
+
         guard sourceIndexPath.section < oldSnapshot.numberOfSections,
               sourceIndexPath.row < oldSnapshot.numberOfItems(inSection: oldSnapshot.sectionIdentifiers[sourceIndexPath.section])
         else { return nil }

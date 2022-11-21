@@ -7,6 +7,6 @@ set -eo pipefail
 
 xcodebuild -workspace Mastodon.xcworkspace \
 	-scheme Mastodon \
-	-destination "platform=iOS Simulator,name=iPhone SE (2nd generation)" \
+ 	-destination "platform=iOS Simulator,name=iPhone SE (2nd generation)" \
 	clean \
 	build | xcpretty

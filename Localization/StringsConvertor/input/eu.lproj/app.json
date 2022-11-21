@@ -74,8 +74,8 @@
                 "take_photo": "Atera argazkia",
                 "save_photo": "Gorde argazkia",
                 "copy_photo": "Kopiatu argazkia",
-                "sign_in": "Hasi saioa",
-                "sign_up": "Eman Izena",
+                "sign_in": "Log in",
+                "sign_up": "Create account",
                 "see_more": "Ikusi gehiago",
                 "preview": "Aurrebista",
                 "share": "Partekatu",
@@ -136,6 +136,12 @@
                     "vote": "Bozkatu",
                     "closed": "Itxita"
                 },
+                "meta_entity": {
+                    "url": "Link: %s",
+                    "hashtag": "Hashtag: %s",
+                    "mention": "Show Profile: %s",
+                    "email": "Email address: %s"
+                },
                 "actions": {
                     "reply": "Erantzun",
                     "reblog": "Bultzada",
@@ -180,7 +186,9 @@
                 "unmute": "Desmututu",
                 "unmute_user": "Desmututu %s",
                 "muted": "Mutututa",
-                "edit_info": "Editatu informazioa"
+                "edit_info": "Editatu informazioa",
+                "show_reblogs": "Show Reblogs",
+                "hide_reblogs": "Hide Reblogs"
             },
             "timeline": {
                 "filtered": "Iragazita",
@@ -210,10 +218,16 @@
             "get_started": "Nola hasi",
             "log_in": "Hasi saioa"
         },
+        "login": {
+            "title": "Welcome back",
+            "subtitle": "Log you in on the server you created your account on.",
+            "server_search_field": {
+                "placeholder": "Enter URL or search for your server"
+            }
+        },
         "server_picker": {
             "title": "Aukeratu zerbitzari bat,\nedozein zerbitzari.",
-            "subtitle": "Aukeratu komunitate bat zure interes edo lurraldearen arabera, edo erabilera orokorreko bat.",
-            "subtitle_extend": "Aukeratu komunitate bat zure interes edo lurraldearen arabera, edo erabilera orokorreko bat. Komunitate bakoitza erakunde edo norbanako independente batek kudeatzen du.",
+            "subtitle": "Pick a server based on your region, interests, or a general purpose one. You can still chat with anyone on Mastodon, regardless of your servers.",
             "button": {
                 "category": {
                     "all": "Guztiak",
@@ -240,8 +254,7 @@
                 "category": "KATEGORIA"
             },
             "input": {
-                "placeholder": "Bilatu zerbitzari bat edo sortu zurea...",
-                "search_servers_or_enter_url": "Search servers or enter URL"
+                "search_servers_or_enter_url": "Search communities or enter URL"
             },
             "empty_state": {
                 "finding_servers": "Erabilgarri dauden zerbitzariak bilatzen...",
@@ -374,7 +387,13 @@
                 "video": "bideoa",
                 "attachment_broken": "%s hondatuta dago eta ezin da\nMastodonera igo.",
                 "description_photo": "Deskribatu argazkia ikusmen arazoak dituztenentzat...",
-                "description_video": "Deskribatu bideoa ikusmen arazoak dituztenentzat..."
+                "description_video": "Deskribatu bideoa ikusmen arazoak dituztenentzat...",
+                "load_failed": "Load Failed",
+                "upload_failed": "Upload Failed",
+                "can_not_recognize_this_media_attachment": "Can not recognize this media attachment",
+                "attachment_too_large": "Attachment too large",
+                "compressing_state": "Compressing...",
+                "server_processing_state": "Server Processing..."
             },
             "poll": {
                 "duration_time": "Iraupena: %s",
@@ -384,7 +403,9 @@
                 "one_day": "Egun 1",
                 "three_days": "3 egun",
                 "seven_days": "7 egun",
-                "option_number": "%ld aukera"
+                "option_number": "%ld aukera",
+                "the_poll_is_invalid": "The poll is invalid",
+                "the_poll_has_empty_option": "The poll has empty option"
             },
             "content_warning": {
                 "placeholder": "Idatzi abisu zehatz bat hemen..."
@@ -405,7 +426,9 @@
                 "custom_emoji_picker": "Emoji pertsonalizatuen hautatzailea",
                 "enable_content_warning": "Gaitu edukiaren abisua",
                 "disable_content_warning": "Desgaitu edukiaren abisua",
-                "post_visibility_menu": "Bidalketaren ikusgaitasunaren menua"
+                "post_visibility_menu": "Bidalketaren ikusgaitasunaren menua",
+                "post_options": "Post Options",
+                "posting_as": "Posting as %s"
             },
             "keyboard": {
                 "discard_post": "Baztertu bidalketa",
@@ -430,6 +453,10 @@
                 "placeholder": {
                     "label": "Etiketa",
                     "content": "Edukia"
+                },
+                "verified": {
+                    "short": "Verified on %s",
+                    "long": "Ownership of this link was checked on %s"
                 }
             },
             "segmented_control": {
@@ -455,6 +482,14 @@
                 "confirm_unblock_user": {
                     "title": "Desblokeatu kontua",
                     "message": "Berretsi %s desblokeatzea"
+                },
+                "confirm_show_reblogs": {
+                    "title": "Show Reblogs",
+                    "message": "Confirm to show reblogs"
+                },
+                "confirm_hide_reblogs": {
+                    "title": "Hide Reblogs",
+                    "message": "Confirm to hide reblogs"
                 }
             },
             "accessibility": {
@@ -684,6 +719,9 @@
             "new_in_mastodon": "Berria Mastodonen",
             "multiple_account_switch_intro_description": "Aldatu hainbat konturen artean profilaren botoia sakatuta edukiz.",
             "accessibility_hint": "Ukitu birritan morroi hau baztertzeko"
+        },
+        "bookmark": {
+            "title": "Bookmarks"
         }
     }
 }

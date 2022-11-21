@@ -79,7 +79,7 @@ extension StatusThreadRootTableViewCell {
         statusView.delegate = self
         
         // a11y
-        statusView.contentMetaText.textView.isAccessibilityElement = false
+        statusView.contentMetaText.textView.isAccessibilityElement = true
         statusView.contentMetaText.textView.isSelectable = true
     }
     
@@ -97,24 +97,16 @@ extension StatusThreadRootTableViewCell {
         get {
             var elements = [
                 statusView.headerContainerView,
-                statusView.avatarButton,
-                statusView.authorNameLabel,
-                statusView.menuButton,
-                statusView.authorUsernameLabel,
-                statusView.dateLabel,
-                statusView.contentSensitiveeToggleButton,
-                statusView.spoilerOverlayView,
-                statusView.contentMetaText.textView,
+                statusView.authorView,
+                statusView.viewModel.isContentReveal
+                ? statusView.contentMetaText.textView
+                : statusView.spoilerOverlayView,
                 statusView.mediaGridContainerView,
                 statusView.pollTableView,
                 statusView.pollStatusStackView,
-                statusView.actionToolbarContainer,
-                statusView.statusMetricView
+                statusView.actionToolbarContainer
+                // statusMetricView is intentionally excluded
             ]
-            
-            if !statusView.viewModel.isMediaSensitive {
-                elements.removeAll(where: { $0 === statusView.contentSensitiveeToggleButton })
-            }
             
             if statusView.viewModel.isContentReveal {
                 elements.removeAll(where: { $0 === statusView.spoilerOverlayView })

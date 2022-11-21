@@ -7,12 +7,12 @@
 - iOS 14.0+
 
 
-Intell the latest version of Xcode from the App Store or Apple Developer Download website. Also, we assert you have the [Homebrew](https://brew.sh) package manager.  
+Install the latest version of Xcode from the App Store or Apple Developer Download website. Also, we assert you have the [Homebrew](https://brew.sh) package manager.  
 
 This guide may not suit your machine and actually setup procedure may change in the future. Please file the issue or Pull Request if there are any problems.
 
 ## CocoaPods
-The app use [CocoaPods]() and [CocoaPods-Keys](https://github.com/orta/cocoapods-keys). Ruby Gems are managed through Bundler. The M1 Mac needs virtual ruby env to workaround compatibility issues.
+The app use [CocoaPods]() and [Arkana](https://github.com/rogerluan/arkana). Ruby Gems are managed through Bundler. The M1 Mac needs virtual ruby env to workaround compatibility issues. Make sure you have [Rosetta](https://support.apple.com/en-us/HT211861) installed if you are using the M1 Mac.
 
 #### Intel Mac
 
@@ -52,6 +52,13 @@ bundle install
 bundle install
 bundle exec pod clean
 
+# setup arkana
+# please check the `.env.example` to create your's or use the empty example directly
+bundle exec arkana -e ./env/.env
+
+# clean pods
+bundle exec pod clean
+
 # make install
 bundle exec pod install --repo-update
 
@@ -59,14 +66,14 @@ bundle exec pod install --repo-update
 open Mastodon.xcworkspace
 ```
 
-The CocoaPods-Key plugin will request the push notification endpoint. You can fufill the empty string and set it later. To setup the push notification. Please check section `Push Notification` below.
+The Arkana plugin will setup the push notification endpoint. You can use the empty template from `./env/.env` or use your own `.env` file. To setup the push notification. Please check section `Push Notification` below.
 
-The app requires the `App Group` capability. To make sure it works for your developer membership. Please check [AppSecret.swift](../AppShared/AppSecret.swift) file and set another unique `groupID` and update `App Group` settings.
+The app requires the `App Group` capability. To make sure it works for your developer membership. Please check [AppSecret.swift](../MastodonSDK/Sources/MastodonCore/AppSecret.swift) file and set another unique `groupID` and update `App Group` settings.
 
 #### Push Notification (Optional)
-The app is compatible with [toot-relay](https://github.com/DagAgren/toot-relay) APNs. You can set your push notification endpoint via Cocoapod-Keys. There are two endpoints:
-- notification_endpoint: for `RELEASE` usage
-- notification_endpoint_debug: for `DEBUG` usage
+The app is compatible with [toot-relay](https://github.com/DagAgren/toot-relay) APNs. You can set your push notification endpoint via Arkana. There are two endpoints:
+- NotificationEndpointDebug: for `DEBUG` usage. e.g. `https://<your.domin>/relay-to/development`
+- NotificationEndpointRelease: for `RELEASE` usage. e.g. `https://<your.domin>/relay-to/production`
 
 Please check the [Establishing a Certificate-Based Connection to APNs
 ](https://developer.apple.com/documentation/usernotifications/setting_up_a_remote_notification_server/establishing_a_certificate-based_connection_to_apns) document to generate the certificate and exports the p12 file.

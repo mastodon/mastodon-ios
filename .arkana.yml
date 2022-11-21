@@ -1,0 +1,17 @@
+import_name: 'ArkanaKeys'
+namespace: 'Keys'
+result_path: 'Dependencies'
+flavors:
+  - AppStore
+swift_declaration_strategy: let
+should_generate_unit_tests: true
+package_manager: spm
+environments:
+  - Debug
+  - Release
+global_secrets:
+  # nothing
+environment_secrets:
+  # Will lookup for <Key>Debug and <Key>Release env vars (assuming no flavor was declared)
+  # Mastodon Push Notification Endpoint
+  - NotificationEndpoint

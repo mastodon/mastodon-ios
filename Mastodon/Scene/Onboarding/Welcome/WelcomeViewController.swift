@@ -9,6 +9,7 @@ import os.log
 import UIKit
 import Combine
 import MastodonAsset
+import MastodonCore
 import MastodonLocalization
 
 final class WelcomeViewController: UIViewController, NeedsDependency {
@@ -143,7 +144,7 @@ extension WelcomeViewController {
         signUpButton.addTarget(self, action: #selector(signUpButtonDidClicked(_:)), for: .touchUpInside)
         signInButton.addTarget(self, action: #selector(signInButtonDidClicked(_:)), for: .touchUpInside)
         
-        viewModel.needsShowDismissEntry
+        viewModel.$needsShowDismissEntry
             .receive(on: DispatchQueue.main)
             .sink { [weak self] needsShowDismissEntry in
                 guard let self = self else { return }
@@ -242,7 +243,7 @@ extension WelcomeViewController {
                 logoImageView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
                 logoImageView.leadingAnchor.constraint(equalTo: view.readableContentGuide.leadingAnchor, constant: 35),
                 view.readableContentGuide.trailingAnchor.constraint(equalTo: logoImageView.trailingAnchor, constant: 35),
-                logoImageView.heightAnchor.constraint(equalTo: logoImageView.widthAnchor, multiplier: 65.4/265.1),
+                logoImageView.heightAnchor.constraint(equalTo: logoImageView.widthAnchor, multiplier: 75.0/269.0),
             ])
             logoImageView.setContentHuggingPriority(.defaultHigh, for: .vertical)
         }
@@ -316,12 +317,12 @@ extension WelcomeViewController {
 extension WelcomeViewController {
     @objc
     private func signUpButtonDidClicked(_ sender: UIButton) {
-        coordinator.present(scene: .mastodonPickServer(viewMode: MastodonPickServerViewModel(context: context, mode: .signUp)), from: self, transition: .show)
+        _ = coordinator.present(scene: .mastodonPickServer(viewMode: MastodonPickServerViewModel(context: context)), from: self, transition: .show)
     }
     
     @objc
     private func signInButtonDidClicked(_ sender: UIButton) {
-        coordinator.present(scene: .mastodonPickServer(viewMode: MastodonPickServerViewModel(context: context, mode: .signIn)), from: self, transition: .show)
+        _ = coordinator.present(scene: .mastodonLogin, from: self, transition: .show)
     }
     
     @objc

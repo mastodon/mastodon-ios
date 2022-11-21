@@ -10,6 +10,7 @@ import UIKit
 import Combine
 import MetaTextKit
 import Meta
+import MastodonCore
 import MastodonAsset
 import MastodonLocalization
 
@@ -110,17 +111,20 @@ public final class NotificationView: UIView {
     
     let acceptFollowRequestButtonShadowBackgroundContainer = ShadowBackgroundContainer()
     private(set) lazy var acceptFollowRequestButton: UIButton = {
-        let button = UIButton()
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
-        button.setImage(Asset.Editing.checkmark.image.withRenderingMode(.alwaysTemplate), for: .normal)
+        let button = HighlightDimmableButton()
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
+        button.setTitleColor(.white, for: .normal)
+        button.setTitle(L10n.Common.Controls.Actions.confirm, for: .normal)
+        button.setImage(Asset.Editing.checkmark20.image.withRenderingMode(.alwaysTemplate), for: .normal)
         button.imageView?.contentMode = .scaleAspectFit
-        button.setBackgroundImage(.placeholder(color: .systemGreen), for: .normal)
+        button.setBackgroundImage(.placeholder(color: Asset.Scene.Notification.confirmFollowRequestButtonBackground.color), for: .normal)
+        button.setInsets(forContentPadding: UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8), imageTitlePadding: 8)
         button.tintColor = .white
         button.layer.masksToBounds = true
         button.layer.cornerCurve = .continuous
-        button.layer.cornerRadius = 4
+        button.layer.cornerRadius = 10
         button.accessibilityLabel = L10n.Scene.Notification.FollowRequest.accept
-        acceptFollowRequestButtonShadowBackgroundContainer.cornerRadius = 4
+        acceptFollowRequestButtonShadowBackgroundContainer.cornerRadius = 10
         acceptFollowRequestButtonShadowBackgroundContainer.shadowAlpha = 0.1
         button.addTarget(self, action: #selector(NotificationView.acceptFollowRequestButtonDidPressed(_:)), for: .touchUpInside)
         return button
@@ -129,18 +133,20 @@ public final class NotificationView: UIView {
     
     let rejectFollowRequestButtonShadowBackgroundContainer = ShadowBackgroundContainer()
     private(set) lazy var rejectFollowRequestButton: UIButton = {
-        let button = UIButton()
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
-        button.setImage(Asset.Editing.xmark.image.withRenderingMode(.alwaysTemplate), for: .normal)
+        let button = HighlightDimmableButton()
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
+        button.setTitleColor(.black, for: .normal)
+        button.setTitle(L10n.Common.Controls.Actions.delete, for: .normal)
+        button.setImage(Asset.Circles.forbidden20.image.withRenderingMode(.alwaysTemplate), for: .normal)
         button.imageView?.contentMode = .scaleAspectFit
-        button.imageEdgeInsets = UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 2)     // tweak xmark size
-        button.setBackgroundImage(.placeholder(color: .systemRed), for: .normal)
-        button.tintColor = .white
+        button.setInsets(forContentPadding: UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8), imageTitlePadding: 8)
+        button.setBackgroundImage(.placeholder(color: Asset.Scene.Notification.deleteFollowRequestButtonBackground.color), for: .normal)
+        button.tintColor = .black
         button.layer.masksToBounds = true
         button.layer.cornerCurve = .continuous
-        button.layer.cornerRadius = 4
+        button.layer.cornerRadius = 10
         button.accessibilityLabel = L10n.Scene.Notification.FollowRequest.reject
-        rejectFollowRequestButtonShadowBackgroundContainer.cornerRadius = 4
+        rejectFollowRequestButtonShadowBackgroundContainer.cornerRadius = 10
         rejectFollowRequestButtonShadowBackgroundContainer.shadowAlpha = 0.1
         button.addTarget(self, action: #selector(NotificationView.rejectFollowRequestButtonDidPressed(_:)), for: .touchUpInside)
         return button
@@ -158,6 +164,8 @@ public final class NotificationView: UIView {
         disposeBag.removeAll()
         
         viewModel.objects.removeAll()
+
+        viewModel.authContext = nil
         viewModel.authorAvatarImageURL = nil
         avatarButton.avatarImageView.cancelTask()
         
@@ -218,14 +226,13 @@ extension NotificationView {
             .store(in: &_disposeBag)
         
         // avatarButton
-        let authorAvatarButtonSize = CGSize(width: 46, height: 46)
-        avatarButton.size = authorAvatarButtonSize
-        avatarButton.avatarImageView.imageViewSize = authorAvatarButtonSize
+        avatarButton.size = CGSize.authorAvatarButtonSize
+        avatarButton.avatarImageView.imageViewSize = CGSize.authorAvatarButtonSize
         avatarButton.translatesAutoresizingMaskIntoConstraints = false
         authorContainerView.addArrangedSubview(avatarButton)
         NSLayoutConstraint.activate([
-            avatarButton.widthAnchor.constraint(equalToConstant: authorAvatarButtonSize.width).priority(.required - 1),
-            avatarButton.heightAnchor.constraint(equalToConstant: authorAvatarButtonSize.height).priority(.required - 1),
+            avatarButton.widthAnchor.constraint(equalToConstant: CGSize.authorAvatarButtonSize.width).priority(.required - 1),
+            avatarButton.heightAnchor.constraint(equalToConstant: CGSize.authorAvatarButtonSize.height).priority(.required - 1),
         ])
         avatarButton.setContentHuggingPriority(.required - 1, for: .vertical)
         avatarButton.setContentCompressionResistancePriority(.required - 1, for: .vertical)
@@ -303,7 +310,7 @@ extension NotificationView {
         
         followRequestContainerView.axis = .horizontal
         followRequestContainerView.distribution = .fillEqually
-        followRequestContainerView.spacing = 8
+        followRequestContainerView.spacing = 16
         followRequestContainerView.isLayoutMarginsRelativeArrangement = true
         followRequestContainerView.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 16, right: 0)  // set bottom padding
         followRequestContainerView.addArrangedSubview(acceptFollowRequestButtonShadowBackgroundContainer)
@@ -326,7 +333,7 @@ extension NotificationView {
             rejectFollowRequestActivityIndicatorView.centerXAnchor.constraint(equalTo: rejectFollowRequestButton.centerXAnchor),
             rejectFollowRequestActivityIndicatorView.centerYAnchor.constraint(equalTo: rejectFollowRequestButton.centerYAnchor),
         ])
-        rejectFollowRequestActivityIndicatorView.color = .white
+        rejectFollowRequestActivityIndicatorView.color = .black
         acceptFollowRequestActivityIndicatorView.hidesWhenStopped = true
         rejectFollowRequestActivityIndicatorView.stopAnimating()
         
@@ -431,7 +438,7 @@ extension NotificationView: AdaptiveContainerView {
 }
 
 extension NotificationView {
-    public typealias AuthorMenuContext = StatusView.AuthorMenuContext
+    public typealias AuthorMenuContext = StatusAuthorView.AuthorMenuContext
     
     public func setupAuthorMenu(menuContext: AuthorMenuContext) -> UIMenu {
         var actions: [MastodonMenu.Action] = []

@@ -13,7 +13,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld unread notification</string>
+        <string>읽지 않은 알림 %ld개</string>
       </dict>
     </dict>
     <key>a11y.plural.count.input_limit_exceeds</key>
@@ -27,7 +27,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld characters</string>
+        <string>%ld 글자</string>
       </dict>
     </dict>
     <key>a11y.plural.count.input_limit_remains</key>
@@ -41,7 +41,21 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld characters</string>
+        <string>%ld 글자</string>
+      </dict>
+    </dict>
+    <key>a11y.plural.count.characters_left</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@character_count@ 글자 남음</string>
+      <key>character_count</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>other</key>
+        <string>%ld 글자</string>
       </dict>
     </dict>
     <key>plural.count.followed_by_and_mutual</key>
@@ -106,7 +120,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld posts</string>
+        <string>%ld 개의 게시물</string>
       </dict>
     </dict>
     <key>plural.count.favorite</key>
@@ -148,7 +162,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld replies</string>
+        <string>%ld 개의 답글</string>
       </dict>
     </dict>
     <key>plural.count.vote</key>
@@ -204,7 +218,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld following</string>
+        <string>%ld 팔로잉</string>
       </dict>
     </dict>
     <key>plural.count.follower</key>
@@ -218,7 +232,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld followers</string>
+        <string>%ld 팔로워</string>
       </dict>
     </dict>
     <key>date.year.left</key>
@@ -232,7 +246,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld years left</string>
+        <string>%ld 년 남음</string>
       </dict>
     </dict>
     <key>date.month.left</key>
@@ -246,7 +260,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld months left</string>
+        <string>%ld 달 남음</string>
       </dict>
     </dict>
     <key>date.day.left</key>
@@ -260,7 +274,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld days left</string>
+        <string>%ld 일 남음</string>
       </dict>
     </dict>
     <key>date.hour.left</key>
@@ -274,7 +288,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld hours left</string>
+        <string>%ld 시간 남음</string>
       </dict>
     </dict>
     <key>date.minute.left</key>
@@ -288,7 +302,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld minutes left</string>
+        <string>%ld 분 남음</string>
       </dict>
     </dict>
     <key>date.second.left</key>
@@ -302,7 +316,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld seconds left</string>
+        <string>%ld 초 남음</string>
       </dict>
     </dict>
     <key>date.year.ago.abbr</key>
@@ -316,7 +330,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ldy ago</string>
+        <string>%ld 년 전</string>
       </dict>
     </dict>
     <key>date.month.ago.abbr</key>
@@ -330,7 +344,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ldM ago</string>
+        <string>%ld 달 전</string>
       </dict>
     </dict>
     <key>date.day.ago.abbr</key>
@@ -344,7 +358,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ldd ago</string>
+        <string>%ld 일 전</string>
       </dict>
     </dict>
     <key>date.hour.ago.abbr</key>
@@ -358,7 +372,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ldh ago</string>
+        <string>%ld 시간 전</string>
       </dict>
     </dict>
     <key>date.minute.ago.abbr</key>
@@ -372,7 +386,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ldm ago</string>
+        <string>%ld 분 전</string>
       </dict>
     </dict>
     <key>date.second.ago.abbr</key>
@@ -386,7 +400,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%lds ago</string>
+        <string>%ld 초 전</string>
       </dict>
     </dict>
   </dict>

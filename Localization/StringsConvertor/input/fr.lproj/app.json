@@ -9,10 +9,10 @@
                 "title": "Échec de l'inscription"
             },
             "server_error": {
-                "title": "Erreur du serveur"
+                "title": "Erreur serveur"
             },
             "vote_failure": {
-                "title": "Le vote n’a pas pu être enregistré",
+                "title": "Échec du vote",
                 "poll_ended": "Le sondage est terminé"
             },
             "discard_post_content": {
@@ -136,6 +136,12 @@
                     "vote": "Voter",
                     "closed": "Fermé"
                 },
+                "meta_entity": {
+                    "url": "Lien : %s",
+                    "hashtag": "Hashtag : %s",
+                    "mention": "Afficher le profile : %s",
+                    "email": "Adresse e-mail : %s"
+                },
                 "actions": {
                     "reply": "Répondre",
                     "reblog": "Rebloguer",
@@ -180,7 +186,9 @@
                 "unmute": "Ne plus ignorer",
                 "unmute_user": "Ne plus masquer %s",
                 "muted": "Masqué",
-                "edit_info": "Éditer les infos"
+                "edit_info": "Éditer les infos",
+                "show_reblogs": "Afficher les Reblogs",
+                "hide_reblogs": "Masquer les Reblogs"
             },
             "timeline": {
                 "filtered": "Filtré",
@@ -210,10 +218,16 @@
             "get_started": "Prise en main",
             "log_in": "Se connecter"
         },
+        "login": {
+            "title": "Content de vous revoir",
+            "subtitle": "Connectez-vous sur le serveur sur lequel vous avez créé votre compte.",
+            "server_search_field": {
+                "placeholder": "Entrez l'URL ou recherchez votre serveur"
+            }
+        },
         "server_picker": {
             "title": "Choisissez un serveur,\nn'importe quel serveur.",
-            "subtitle": "Choisissez une communauté en fonction de vos intérêts, de votre région ou de votre objectif général.",
-            "subtitle_extend": "Choisissez une communauté basée sur vos intérêts, votre région ou un but général. Chaque communauté est gérée par une organisation ou un individu entièrement indépendant.",
+            "subtitle": "Choisissez un serveur basé sur votre région, vos intérêts ou un généraliste. Vous pouvez toujours discuter avec n'importe qui sur Mastodon, indépendamment de vos serveurs.",
             "button": {
                 "category": {
                     "all": "Tout",
@@ -240,8 +254,7 @@
                 "category": "CATÉGORIE"
             },
             "input": {
-                "placeholder": "Trouvez un serveur ou rejoignez le vôtre...",
-                "search_servers_or_enter_url": "Rechercher des serveurs ou entrer une URL"
+                "search_servers_or_enter_url": "Rechercher parmi les communautés ou renseigner une URL"
             },
             "empty_state": {
                 "finding_servers": "Recherche des serveurs disponibles...",
@@ -348,7 +361,7 @@
                 "Publishing": "Publication en cours ...",
                 "accessibility": {
                     "logo_label": "Bouton logo",
-                    "logo_hint": "Tap to scroll to top and tap again to previous location"
+                    "logo_hint": "Appuyez pour faire défiler vers le haut et appuyez à nouveau vers l'emplacement précédent"
                 }
             }
         },
@@ -374,7 +387,13 @@
                 "video": "vidéo",
                 "attachment_broken": "Ce %s est brisé et ne peut pas être\ntéléversé sur Mastodon.",
                 "description_photo": "Décrire cette photo pour les personnes malvoyantes...",
-                "description_video": "Décrire cette vidéo pour les personnes malvoyantes..."
+                "description_video": "Décrire cette vidéo pour les personnes malvoyantes...",
+                "load_failed": "Échec du chargement",
+                "upload_failed": "Échec de l’envoi",
+                "can_not_recognize_this_media_attachment": "Impossible de reconnaître cette pièce jointe",
+                "attachment_too_large": "La pièce jointe est trop volumineuse",
+                "compressing_state": "Compression...",
+                "server_processing_state": "Traitement du serveur..."
             },
             "poll": {
                 "duration_time": "Durée: %s",
@@ -384,7 +403,9 @@
                 "one_day": "1 Jour",
                 "three_days": "3 jour",
                 "seven_days": "7 jour",
-                "option_number": "Option %ld"
+                "option_number": "Option %ld",
+                "the_poll_is_invalid": "Le sondage est invalide",
+                "the_poll_has_empty_option": "Le sondage n'a pas d'options"
             },
             "content_warning": {
                 "placeholder": "Écrivez un avertissement précis ici..."
@@ -405,7 +426,9 @@
                 "custom_emoji_picker": "Sélecteur d’émojis personnalisés",
                 "enable_content_warning": "Basculer l’avertissement de contenu",
                 "disable_content_warning": "Désactiver l'avertissement de contenu",
-                "post_visibility_menu": "Menu de Visibilité de la publication"
+                "post_visibility_menu": "Menu de Visibilité de la publication",
+                "post_options": "Options de publication",
+                "posting_as": "Publié en tant que %s"
             },
             "keyboard": {
                 "discard_post": "Rejeter la publication",
@@ -430,6 +453,10 @@
                 "placeholder": {
                     "label": "Étiquette",
                     "content": "Contenu"
+                },
+                "verified": {
+                    "short": "Vérifié le %s",
+                    "long": "La propriété de ce lien a été vérifiée le %s"
                 }
             },
             "segmented_control": {
@@ -455,6 +482,14 @@
                 "confirm_unblock_user": {
                     "title": "Débloquer le compte",
                     "message": "Confirmer le déblocage de %s"
+                },
+                "confirm_show_reblogs": {
+                    "title": "Afficher les Reblogs",
+                    "message": "Confirmer pour afficher les reblogs"
+                },
+                "confirm_hide_reblogs": {
+                    "title": "Masquer les Reblogs",
+                    "message": "Confirmer pour masquer les reblogs"
                 }
             },
             "accessibility": {
@@ -469,7 +504,7 @@
             "footer": "Les abonné·e·s issus des autres serveurs ne sont pas affiché·e·s."
         },
         "following": {
-            "title": "following",
+            "title": "abonnement",
             "footer": "Les abonnés issus des autres serveurs ne sont pas affichés."
         },
         "familiarFollowers": {
@@ -477,10 +512,10 @@
             "followed_by_names": "Suivi·e par %s"
         },
         "favorited_by": {
-            "title": "Favorited By"
+            "title": "Favoris par"
         },
         "reblogged_by": {
-            "title": "Reblogged By"
+            "title": "Reblogué par"
         },
         "search": {
             "title": "Rechercher",
@@ -546,10 +581,10 @@
                 "show_mentions": "Afficher les mentions"
             },
             "follow_request": {
-                "accept": "Accept",
-                "accepted": "Accepted",
-                "reject": "reject",
-                "rejected": "Rejected"
+                "accept": "Accepter",
+                "accepted": "Accepté",
+                "reject": "rejeter",
+                "rejected": "Rejeté"
             }
         },
         "thread": {
@@ -659,7 +694,7 @@
                 "dont_want_to_see_this": "Vous ne voulez pas voir cela ?",
                 "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "Quand vous voyez quelque chose que vous n’aimez pas sur Mastodon, vous pouvez retirer la personne de votre expérience.",
                 "unfollow": "Se désabonner",
-                "unfollowed": "Unfollowed",
+                "unfollowed": "Non-suivi",
                 "unfollow_user": "Ne plus suivre %s",
                 "mute_user": "Masquer %s",
                 "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "Vous ne verrez plus leurs messages ou leurs partages dans votre flux personnel. Iels ne sauront pas qu’iels ont été mis en sourdine.",
@@ -684,6 +719,9 @@
             "new_in_mastodon": "Nouveau dans Mastodon",
             "multiple_account_switch_intro_description": "Basculez entre plusieurs comptes en appuyant de maniere prolongée sur le bouton profil.",
             "accessibility_hint": "Tapotez deux fois pour fermer cet assistant"
+        },
+        "bookmark": {
+            "title": "Favoris"
         }
     }
 }

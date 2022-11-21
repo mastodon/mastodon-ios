@@ -74,6 +74,30 @@
         <string>%ld حَرف</string>
       </dict>
     </dict>
+    <key>a11y.plural.count.characters_left</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@character_count@ left</string>
+      <key>character_count</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>zero</key>
+        <string>لَا حَرف</string>
+        <key>one</key>
+        <string>حَرفٌ واحِد</string>
+        <key>two</key>
+        <string>حَرفانِ اِثنان</string>
+        <key>few</key>
+        <string>%ld characters</string>
+        <key>many</key>
+        <string>%ld characters</string>
+        <key>other</key>
+        <string>%ld حَرف</string>
+      </dict>
+    </dict>
     <key>plural.count.followed_by_and_mutual</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
@@ -224,17 +248,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>لا إعاد تدوين</string>
+        <string>لَا إعادَةُ تَدوين</string>
         <key>one</key>
-        <string>إعادةُ تدوينٍ واحِدة</string>
+        <string>إعادَةُ تَدوينٍ واحِدَة</string>
         <key>two</key>
-        <string>إعادتا تدوين</string>
+        <string>إعادَتَا تَدوين</string>
         <key>few</key>
-        <string>%ld إعاداتِ تدوين</string>
+        <string>%ld إعادَاتِ تَدوين</string>
         <key>many</key>
-        <string>%ld إعادةٍ للتدوين</string>
+        <string>%ld إعادَةٍ لِلتَّدوين</string>
         <key>other</key>
-        <string>%ld إعادة تدوين</string>
+        <string>%ld إعادَة تَدوين</string>
       </dict>
     </dict>
     <key>plural.count.reply</key>

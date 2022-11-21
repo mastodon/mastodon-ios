@@ -13,15 +13,11 @@ import CoreDataStack
 import MastodonSDK
 
 extension ThreadViewModel {
-    class LoadThreadState: GKState, NamingState {
+    class LoadThreadState: GKState {
         
         let logger = Logger(subsystem: "ThreadViewModel.LoadThreadState", category: "StateMachine")
 
         let id = UUID()
-
-        var name: String {
-            String(describing: Self.self)
-        }
         
         weak var viewModel: ThreadViewModel?
                 
@@ -31,8 +27,10 @@ extension ThreadViewModel {
         
         override func didEnter(from previousState: GKState?) {
             super.didEnter(from: previousState)
-            let previousState = previousState as? ThreadViewModel.LoadThreadState
-            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [\(self.id.uuidString)] enter \(self.name), previous: \(previousState?.name  ?? "<nil>")")
+            
+            let from = previousState.flatMap { String(describing: $0) } ?? "nil"
+            let to = String(describing: self)
+            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): \(from) -> \(to)")
         }
         
         @MainActor
@@ -41,7 +39,7 @@ extension ThreadViewModel {
         }
         
         deinit {
-            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [\(self.id.uuidString)] \(self.name)")
+            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [\(self.id.uuidString)] \(String(describing: self))")
         }
     }
 }
@@ -69,11 +67,7 @@ extension ThreadViewModel.LoadThreadState {
             super.didEnter(from: previousState)
 
             guard let viewModel = viewModel, let stateMachine = stateMachine else { return }
-            guard let authenticationBox = viewModel.context.authenticationService.activeMastodonAuthenticationBox.value else {
-                stateMachine.enter(Fail.self)
-                return
-            }
-
+            
             guard let threadContext = viewModel.threadContext else {
                 stateMachine.enter(Fail.self)
                 return
@@ -83,7 +77,7 @@ extension ThreadViewModel.LoadThreadState {
                 do {
                     let response = try await viewModel.context.apiService.statusContext(
                         statusID: threadContext.statusID,
-                        authenticationBox: authenticationBox
+                        authenticationBox: viewModel.authContext.mastodonAuthenticationBox
                     )
                     
                     await enter(state: NoMore.self)
@@ -98,19 +92,27 @@ extension ThreadViewModel.LoadThreadState {
                             from: response.value.ancestors
                         )
                     )
+                    // deprecated: Tree mode replies
+                    // viewModel.mastodonStatusThreadViewModel.appendDescendant(
+                    //     domain: threadContext.domain,
+                    //     nodes: MastodonStatusThreadViewModel.Node.children(
+                    //         of: threadContext.statusID,
+                    //         from: response.value.descendants
+                    //     )
+                    // )
+                    
+                    // new: the same order from API
                     viewModel.mastodonStatusThreadViewModel.appendDescendant(
                         domain: threadContext.domain,
-                        nodes: MastodonStatusThreadViewModel.Node.children(
-                            of: threadContext.statusID,
-                            from: response.value.descendants
-                        )
+                        nodes: response.value.descendants.map { status in
+                            return .init(statusID: status.id, children: [])
+                        }
                     )
                 } catch {
                     logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): fetch status context for \(threadContext.statusID) fail: \(error.localizedDescription)")
                     await enter(state: Fail.self)
                 }
-                
-            }
+            }   // end Task
         }
 
     }

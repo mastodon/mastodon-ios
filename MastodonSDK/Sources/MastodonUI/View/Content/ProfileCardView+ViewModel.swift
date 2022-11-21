@@ -14,6 +14,7 @@ import CoreDataStack
 import MastodonLocalization
 import MastodonAsset
 import MastodonSDK
+import MastodonCore
 
 extension ProfileCardView {
     public class ViewModel: ObservableObject {
@@ -58,7 +59,12 @@ extension ProfileCardView {
                 guard let userInterfaceStyle = userInterfaceStyle else { return }
                 switch userInterfaceStyle {
                 case .dark:
-                    self.backgroundColor = theme.systemBackgroundColor
+                    switch theme.themeName {
+                    case .mastodon:
+                        self.backgroundColor = theme.systemBackgroundColor
+                    case .system:
+                        self.backgroundColor = theme.secondarySystemBackgroundColor
+                    }
                 case .light, .unspecified:
                     self.backgroundColor = Asset.Scene.Discovery.profileCardBackground.color
                 @unknown default:
@@ -99,7 +105,10 @@ extension ProfileCardView.ViewModel {
     private func bindHeader(view: ProfileCardView) {
         $authorBannerImageURL
             .sink { url in
-                guard let url = url else { return }
+                guard let url = url, !url.absoluteString.hasSuffix("missing.png") else {
+                    view.bannerImageView.image = .placeholder(color: .systemGray3)
+                    return
+                }
                 view.bannerImageView.af.setImage(
                     withURL: url,
                     placeholderImage: .placeholder(color: .systemGray3),

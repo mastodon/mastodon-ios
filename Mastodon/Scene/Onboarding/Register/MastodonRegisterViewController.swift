@@ -14,6 +14,7 @@ import UIKit
 import SwiftUI
 import MastodonUI
 import MastodonAsset
+import MastodonCore
 import MastodonLocalization
 
 final class MastodonRegisterViewController: UIViewController, NeedsDependency, OnboardingViewControllerAppearance {
@@ -144,7 +145,7 @@ extension MastodonRegisterViewController {
                 let alertController = UIAlertController(for: error, title: "Sign Up Failure", preferredStyle: .alert)
                 let okAction = UIAlertAction(title: L10n.Common.Controls.Actions.ok, style: .default, handler: nil)
                 alertController.addAction(okAction)
-                self.coordinator.present(
+                _ = self.coordinator.present(
                     scene: .alertController(alertController: alertController),
                     from: nil,
                     transition: .alertController(animated: true, completion: nil)
@@ -321,7 +322,7 @@ extension MastodonRegisterViewController {
                 )
             }()
             let viewModel = MastodonConfirmEmailViewModel(context: self.context, email: email, authenticateInfo: self.viewModel.authenticateInfo, userToken: userToken, updateCredentialQuery: updateCredentialQuery)
-            self.coordinator.present(scene: .mastodonConfirmEmail(viewModel: viewModel), from: self, transition: .show)
+            _ = self.coordinator.present(scene: .mastodonConfirmEmail(viewModel: viewModel), from: self, transition: .show)
         }
         .store(in: &disposeBag)
     }

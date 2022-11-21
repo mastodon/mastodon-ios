@@ -11,6 +11,7 @@ import GameplayKit
 import MastodonSDK
 import UIKit
 import MastodonAsset
+import MastodonCore
 import MastodonLocalization
 
 final class HeightFixedSearchBar: UISearchBar {
@@ -22,15 +23,15 @@ final class HeightFixedSearchBar: UISearchBar {
 final class SearchViewController: UIViewController, NeedsDependency {
 
     let logger = Logger(subsystem: "SearchViewController", category: "ViewController")
-    
+
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
 
     var searchTransitionController = SearchTransitionController()
-    
+
     var disposeBag = Set<AnyCancellable>()
-    private(set) lazy var viewModel = SearchViewModel(context: context)
-    
+    var viewModel: SearchViewModel!
+
     // use AutoLayout could set search bar margin automatically to
     // layout alongside with split mode button (on iPad)
     let titleViewContainer = UIView()
@@ -46,12 +47,19 @@ final class SearchViewController: UIViewController, NeedsDependency {
 //        return collectionView
 //    }()
 
-    let searchBarTapPublisher = PassthroughSubject<Void, Never>()
+    // value is the initial search text to set
+    let searchBarTapPublisher = PassthroughSubject<String, Never>()
     
-    private(set) lazy var discoveryViewController: DiscoveryViewController = {
+    private(set) lazy var discoveryViewController: DiscoveryViewController? = {
+        guard let authContext = viewModel.authContext else { return nil }
         let viewController = DiscoveryViewController()
         viewController.context = context
         viewController.coordinator = coordinator
+        viewController.viewModel = .init(
+            context: context,
+            coordinator: coordinator,
+            authContext: authContext
+        )
         return viewController
     }()
     
@@ -65,19 +73,19 @@ extension SearchViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setupBackgroundColor(theme: ThemeService.shared.currentTheme.value)
+        setupAppearance(theme: ThemeService.shared.currentTheme.value)
         ThemeService.shared.currentTheme
             .receive(on: DispatchQueue.main)
             .sink { [weak self] theme in
                 guard let self = self else { return }
-                self.setupBackgroundColor(theme: theme)
+                self.setupAppearance(theme: theme)
             }
             .store(in: &disposeBag)
 
         title = L10n.Scene.Search.title
 
         setupSearchBar()
-        
+
 //        collectionView.translatesAutoresizingMaskIntoConstraints = false
 //        view.addSubview(collectionView)
 //        NSLayoutConstraint.activate([
@@ -92,6 +100,8 @@ extension SearchViewController {
 //            collectionView: collectionView
 //        )
         
+        guard let discoveryViewController = self.discoveryViewController else { return }
+
         addChild(discoveryViewController)
         discoveryViewController.view.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(discoveryViewController.view)
@@ -101,15 +111,16 @@ extension SearchViewController {
             discoveryViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             discoveryViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
-        
+
 //        discoveryViewController.view.isHidden = true
+
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
         viewModel.viewDidAppeared.send()
-        
+
         // note:
         // need set alpha because (maybe) SDK forget set alpha back
         titleViewContainer.alpha = 1
@@ -117,8 +128,22 @@ extension SearchViewController {
 }
 
 extension SearchViewController {
-    private func setupBackgroundColor(theme: Theme) {
+    private func setupAppearance(theme: Theme) {
         view.backgroundColor = theme.systemGroupedBackgroundColor
+
+        // Match the DiscoveryViewController tab color and remove the double separator.
+        let navigationBarAppearance = UINavigationBarAppearance()
+        navigationBarAppearance.configureWithOpaqueBackground()
+        navigationBarAppearance.backgroundColor = theme.systemBackgroundColor
+        navigationBarAppearance.shadowColor = nil
+
+        navigationItem.standardAppearance = navigationBarAppearance
+        navigationItem.scrollEdgeAppearance = navigationBarAppearance
+        navigationItem.compactAppearance = navigationBarAppearance
+
+        if #available(iOS 15, *) {
+            navigationItem.compactScrollEdgeAppearance = navigationBarAppearance
+        }
     }
 
     private func setupSearchBar() {
@@ -139,10 +164,11 @@ extension SearchViewController {
 
         searchBarTapPublisher
             .throttle(for: 0.5, scheduler: DispatchQueue.main, latest: false)
-            .sink { [weak self] in
+            .sink { [weak self] initialText in
                 guard let self = self else { return }
                 // push to search detail
-                let searchDetailViewModel = SearchDetailViewModel()
+                guard let authContext = self.viewModel.authContext else { return }
+                let searchDetailViewModel = SearchDetailViewModel(authContext: authContext, initialSearchText: initialText)
                 searchDetailViewModel.needsBecomeFirstResponder = true
                 self.navigationController?.delegate = self.searchTransitionController
                 // FIXME:
@@ -159,8 +185,12 @@ extension SearchViewController {
 extension SearchViewController: UISearchBarDelegate {
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
         os_log("%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-        searchBarTapPublisher.send()
+        searchBarTapPublisher.send("")
         return false
+    }
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        searchBar.text = ""
+        searchBarTapPublisher.send(searchText)
     }
 }
 
@@ -172,6 +202,16 @@ extension SearchViewController: UISearchControllerDelegate {
     }
     func didPresentSearchController(_ searchController: UISearchController) {
         logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
+    }
+}
+
+// MARK: - ScrollViewContainer
+extension SearchViewController: ScrollViewContainer {
+    var scrollView: UIScrollView {
+        discoveryViewController?.scrollView ?? UIScrollView()
+    }
+    func scrollToTop(animated: Bool) {
+        discoveryViewController?.scrollToTop(animated: animated)
     }
 }
 

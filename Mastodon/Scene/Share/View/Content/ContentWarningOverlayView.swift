@@ -10,6 +10,7 @@ import Foundation
 import Combine
 import UIKit
 import MastodonAsset
+import MastodonCore
 import MastodonLocalization
 import MastodonUI
 

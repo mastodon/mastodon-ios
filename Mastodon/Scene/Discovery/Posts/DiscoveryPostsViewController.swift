@@ -8,6 +8,7 @@
 import os.log
 import UIKit
 import Combine
+import MastodonCore
 import MastodonUI
 
 final class DiscoveryPostsViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
@@ -31,7 +32,7 @@ final class DiscoveryPostsViewController: UIViewController, NeedsDependency, Med
         return tableView
     }()
     
-    let refreshControl = UIRefreshControl()
+    let refreshControl = RefreshControl()
     
     let discoveryIntroBannerView = DiscoveryIntroBannerView()
 
@@ -118,13 +119,18 @@ extension DiscoveryPostsViewController {
 
 extension DiscoveryPostsViewController {
     
-    @objc private func refreshControlValueChanged(_ sender: UIRefreshControl) {
+    @objc private func refreshControlValueChanged(_ sender: RefreshControl) {
         guard viewModel.stateMachine.enter(DiscoveryPostsViewModel.State.Reloading.self) else {
             sender.endRefreshing()
             return
         }
     }
     
+}
+
+// MARK: - AuthContextProvider
+extension DiscoveryPostsViewController: AuthContextProvider {
+    var authContext: AuthContext { viewModel.authContext }
 }
 
 // MARK: - UITableViewDelegate

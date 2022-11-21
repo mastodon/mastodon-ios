@@ -2,22 +2,18 @@ PODS:
   - DateToolsSwift (5.0.0)
   - FLEX (4.4.1)
   - Kanna (5.2.7)
-  - Keys (1.0.1)
   - Sourcery (1.6.1):
     - Sourcery/CLI-Only (= 1.6.1)
   - Sourcery/CLI-Only (1.6.1)
-  - SwiftGen (6.4.0)
-  - "UITextField+Shake (1.2.1)"
+  - SwiftGen (6.6.2)
   - XLPagerTabStrip (9.0.0)
 
 DEPENDENCIES:
   - DateToolsSwift (~> 5.0.0)
   - FLEX (~> 4.4.0)
   - Kanna (~> 5.2.2)
-  - Keys (from `Pods/CocoaPodsKeys`)
   - Sourcery (~> 1.6.1)
-  - SwiftGen (~> 6.4.0)
-  - "UITextField+Shake (~> 1.2)"
+  - SwiftGen (~> 6.6.2)
   - XLPagerTabStrip (~> 9.0.0)
 
 SPEC REPOS:
@@ -27,23 +23,16 @@ SPEC REPOS:
     - Kanna
     - Sourcery
     - SwiftGen
-    - "UITextField+Shake"
     - XLPagerTabStrip
-
-EXTERNAL SOURCES:
-  Keys:
-    :path: Pods/CocoaPodsKeys
 
 SPEC CHECKSUMS:
   DateToolsSwift: 4207ada6ad615d8dc076323d27037c94916dbfa6
   FLEX: 7ca2c8cd3a435ff501ff6d2f2141e9bdc934eaab
   Kanna: 01cfbddc127f5ff0963692f285fcbc8a9d62d234
-  Keys: a576f4c9c1c641ca913a959a9c62ed3f215a8de9
   Sourcery: f3759f803bd0739f74fc92a4341eed0473ce61ac
-  SwiftGen: 67860cc7c3cfc2ed25b9b74cfd55495fc89f9108
-  "UITextField+Shake": 298ac5a0f239d731bdab999b19b628c956ca0ac3
+  SwiftGen: 1366a7f71aeef49954ca5a63ba4bef6b0f24138c
   XLPagerTabStrip: 61c57fd61f611ee5f01ff1495ad6fbee8bf496c5
 
-PODFILE CHECKSUM: 1ac960a2c981ef98f7c24a3bba57bdabc1f66103
+PODFILE CHECKSUM: 7499a197793f73c4dcf1d16a315434baaa688873
 
 COCOAPODS: 1.11.3

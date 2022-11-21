@@ -75,7 +75,7 @@
                 "save_photo": "Sekles tawlaft",
                 "copy_photo": "Nɣel tawlaft",
                 "sign_in": "Qqen",
-                "sign_up": "Jerred amiḍan",
+                "sign_up": "Snulfu-d amiḍan",
                 "see_more": "Wali ugar",
                 "preview": "Taskant",
                 "share": "Bḍu",
@@ -136,6 +136,12 @@
                     "vote": "Dɣeṛ",
                     "closed": "Ifukk"
                 },
+                "meta_entity": {
+                    "url": "Asaɣ : %s",
+                    "hashtag": "Ahacṭag : %s",
+                    "mention": "Sken-d amaɣnu : %s",
+                    "email": "Tansa imayl : %s"
+                },
                 "actions": {
                     "reply": "Err",
                     "reblog": "Aɛiwed n usuffeɣ",
@@ -180,7 +186,9 @@
                 "unmute": "Kkes asgugem",
                 "unmute_user": "Kkes asgugem ɣef %s",
                 "muted": "Yettwasgugem",
-                "edit_info": "Ẓreg talɣut"
+                "edit_info": "Ẓreg talɣut",
+                "show_reblogs": "Show Reblogs",
+                "hide_reblogs": "Hide Reblogs"
             },
             "timeline": {
                 "filtered": "Yettwasizdeg",
@@ -210,10 +218,16 @@
             "get_started": "Aha bdu tura",
             "log_in": "Qqen"
         },
+        "login": {
+            "title": "Ansuf yess·ek·em",
+            "subtitle": "Log you in on the server you created your account on.",
+            "server_search_field": {
+                "placeholder": "Sekcem URL neɣ nadi ɣef uqeddac-ik·im"
+            }
+        },
         "server_picker": {
             "title": "Mastodon yettwaxdem i yiseqdacen deg waṭas n temɣiwnin.",
-            "subtitle": "Fren tamɣiwent almend n wayen tḥemmleḍ, n tmurt-ik neɣ n yiswi-inek amatu.",
-            "subtitle_extend": "Fren tamɣiwent almend n wayen tḥemmleḍ, n tmurt-ik neɣ n yiswi-inek amatu. Yal tamɣiwent tsedday-itt tkebbanit neɣ amdan ilelliyen.",
+            "subtitle": "Pick a server based on your region, interests, or a general purpose one. You can still chat with anyone on Mastodon, regardless of your servers.",
             "button": {
                 "category": {
                     "all": "Akk",
@@ -240,7 +254,6 @@
                 "category": "TAGGAYT"
             },
             "input": {
-                "placeholder": "Nadi timɣiwnin",
                 "search_servers_or_enter_url": "Nadi timɣiwnin neɣ sekcem URL"
             },
             "empty_state": {
@@ -344,8 +357,8 @@
             "navigation_bar_state": {
                 "offline": "Beṛṛa n tuqqna",
                 "new_posts": "Tissufaɣ timaynutin",
-                "published": "Yettwasuffeɣ!",
-                "Publishing": "Asuffeɣ tasuffeɣt...",
+                "published": "Tettwasuffeɣ!",
+                "Publishing": "Asuffeɣ n tasuffeɣt...",
                 "accessibility": {
                     "logo_label": "Taqeffalt n ulugu",
                     "logo_hint": "Sit i wakken ad tɛeddiḍ i usawen, sit tikkelt-nniḍen i wakken ad tɛeddiḍ ɣer wadig yezrin"
@@ -374,7 +387,13 @@
                 "video": "tavidyutt",
                 "attachment_broken": "%s-a yerreẓ, ur yezmir ara\nAd d-yettwasali ɣef Mastodon.",
                 "description_photo": "Glem-d tawlaft i wid yesɛan ugur deg yiẓri...",
-                "description_video": "Glem-d tavidyut i wid yesɛan ugur deg yiẓri..."
+                "description_video": "Glem-d tavidyut i wid yesɛan ugur deg yiẓri...",
+                "load_failed": "Load Failed",
+                "upload_failed": "Upload Failed",
+                "can_not_recognize_this_media_attachment": "Can not recognize this media attachment",
+                "attachment_too_large": "Attachment too large",
+                "compressing_state": "Compressing...",
+                "server_processing_state": "Server Processing..."
             },
             "poll": {
                 "duration_time": "Tangazt: %s",
@@ -384,7 +403,9 @@
                 "one_day": "1 n wass",
                 "three_days": "3 n wussan",
                 "seven_days": "7 n wussan",
-                "option_number": "Taxtiṛt %ld"
+                "option_number": "Taxtiṛt %ld",
+                "the_poll_is_invalid": "The poll is invalid",
+                "the_poll_has_empty_option": "The poll has empty option"
             },
             "content_warning": {
                 "placeholder": "Aru alɣu-inek s telqeyt da..."
@@ -405,7 +426,9 @@
                 "custom_emoji_picker": "Amefran n yimujiten udmawanen",
                 "enable_content_warning": "Rmed alɣu n ugbur",
                 "disable_content_warning": "Sens alɣu n ugbur",
-                "post_visibility_menu": "Umuɣ n ubani n tsuffeɣt"
+                "post_visibility_menu": "Umuɣ n ubani n tsuffeɣt",
+                "post_options": "Post Options",
+                "posting_as": "Posting as %s"
             },
             "keyboard": {
                 "discard_post": "Sefsex tasuffeɣt",
@@ -430,6 +453,10 @@
                 "placeholder": {
                     "label": "Tabzimt",
                     "content": "Agbur"
+                },
+                "verified": {
+                    "short": "Verified on %s",
+                    "long": "Ownership of this link was checked on %s"
                 }
             },
             "segmented_control": {
@@ -455,6 +482,14 @@
                 "confirm_unblock_user": {
                     "title": "Kkes asewḥel i umiḍan",
                     "message": "Sentem tukksa n usgugem i %s"
+                },
+                "confirm_show_reblogs": {
+                    "title": "Show Reblogs",
+                    "message": "Confirm to show reblogs"
+                },
+                "confirm_hide_reblogs": {
+                    "title": "Hide Reblogs",
+                    "message": "Confirm to hide reblogs"
                 }
             },
             "accessibility": {
@@ -548,7 +583,7 @@
             "follow_request": {
                 "accept": "Accept",
                 "accepted": "Accepted",
-                "reject": "reject",
+                "reject": "agi",
                 "rejected": "Rejected"
             }
         },
@@ -636,7 +671,7 @@
                 "its_spam": "D aspam",
                 "malicious_links_fake_engagement_or_repetetive_replies": "Yir iseɣwan, yir agman d tririyin i d-yettuɣalen",
                 "it_violates_server_rules": "Truẓi n yilugan n uqeddac",
-                "you_are_aware_that_it_breaks_specific_rules": "Teẓriḍ y•tettruẓu kra n yilugan",
+                "you_are_aware_that_it_breaks_specific_rules": "Teẓriḍ y·tettruẓu kra n yilugan",
                 "its_something_else": "Ɣef ssebba-nniḍen",
                 "the_issue_does_not_fit_into_other_categories": "Ugur ur yemṣada ara akk d taggayin-nniḍen"
             },
@@ -684,6 +719,9 @@
             "new_in_mastodon": "Amaynut deg Maṣṭudun",
             "multiple_account_switch_intro_description": "Beddel gar waṭas n yimiḍanen s tussda ɣezzifen ɣef tqeffalt n umaɣnu.",
             "accessibility_hint": "Sin isitiyen i usefsex n umarag-a"
+        },
+        "bookmark": {
+            "title": "Bookmarks"
         }
     }
 }

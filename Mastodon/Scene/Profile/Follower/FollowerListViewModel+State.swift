@@ -9,9 +9,10 @@ import os.log
 import Foundation
 import GameplayKit
 import MastodonSDK
+import MastodonCore
 
 extension FollowerListViewModel {
-    class State: GKState, NamingState {
+    class State: GKState {
         
         let logger = Logger(subsystem: "FollowerListViewModel.State", category: "StateMachine")
 
@@ -29,8 +30,10 @@ extension FollowerListViewModel {
         
         override func didEnter(from previousState: GKState?) {
             super.didEnter(from: previousState)
-            let previousState = previousState as? FollowerListViewModel.State
-            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [\(self.id.uuidString)] enter \(self.name), previous: \(previousState?.name  ?? "<nil>")")
+            
+            let from = previousState.flatMap { String(describing: $0) } ?? "nil"
+            let to = String(describing: self)
+            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): \(from) -> \(to)")
         }
         
         @MainActor
@@ -39,7 +42,7 @@ extension FollowerListViewModel {
         }
         
         deinit {
-            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [\(self.id.uuidString)] \(self.name)")
+            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [\(self.id.uuidString)] \(String(describing: self))")
         }
     }
 }
@@ -50,7 +53,7 @@ extension FollowerListViewModel.State {
             guard let viewModel = viewModel else { return false }
             switch stateClass {
             case is Reloading.Type:
-                return viewModel.userID.value != nil
+                return viewModel.userID != nil
             default:
                 return false
             }
@@ -138,12 +141,7 @@ extension FollowerListViewModel.State {
             
             guard let viewModel = viewModel, let stateMachine = stateMachine else { return }
 
-            guard let userID = viewModel.userID.value, !userID.isEmpty else {
-                stateMachine.enter(Fail.self)
-                return
-            }
-
-            guard let authenticationBox = viewModel.context.authenticationService.activeMastodonAuthenticationBox.value else {
+            guard let userID = viewModel.userID, !userID.isEmpty else {
                 stateMachine.enter(Fail.self)
                 return
             }
@@ -153,7 +151,7 @@ extension FollowerListViewModel.State {
                     let response = try await viewModel.context.apiService.followers(
                         userID: userID,
                         maxID: maxID,
-                        authenticationBox: authenticationBox
+                        authenticationBox: viewModel.authContext.mastodonAuthenticationBox
                     )
                     logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): fetch \(response.value.count) followers")
                     

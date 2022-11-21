@@ -9,6 +9,7 @@ import os.log
 import UIKit
 import Combine
 import CoreDataStack
+import MastodonCore
 import MastodonLocalization
 
 final class NotificationTimelineViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
@@ -25,8 +26,8 @@ final class NotificationTimelineViewController: UIViewController, NeedsDependenc
 
     var viewModel: NotificationTimelineViewModel!
     
-    private(set) lazy var refreshControl: UIRefreshControl = {
-        let refreshControl = UIRefreshControl()
+    private(set) lazy var refreshControl: RefreshControl = {
+        let refreshControl = RefreshControl()
         refreshControl.addTarget(self, action: #selector(NotificationTimelineViewController.refreshControlValueChanged(_:)), for: .valueChanged)
         return refreshControl
     }()
@@ -136,7 +137,7 @@ extension NotificationTimelineViewController: CellFrameCacheContainer {
 
 extension NotificationTimelineViewController {
 
-    @objc private func refreshControlValueChanged(_ sender: UIRefreshControl) {
+    @objc private func refreshControlValueChanged(_ sender: RefreshControl) {
         logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
         
         Task {
@@ -144,6 +145,11 @@ extension NotificationTimelineViewController {
         }
     }
 
+}
+
+// MARK: - AuthContextProvider
+extension NotificationTimelineViewController: AuthContextProvider {
+    var authContext: AuthContext { viewModel.authContext }
 }
 
 // MARK: - UITableViewDelegate
@@ -296,9 +302,10 @@ extension NotificationTimelineViewController: TableViewControllerNavigateable {
                 if let stauts = notification.status {
                     let threadViewModel = ThreadViewModel(
                         context: self.context,
+                        authContext: self.viewModel.authContext,
                         optionalRoot: .root(context: .init(status: .init(objectID: stauts.objectID)))
                     )
-                    self.coordinator.present(
+                    _ = self.coordinator.present(
                         scene: .thread(viewModel: threadViewModel),
                         from: self,
                         transition: .show
@@ -306,9 +313,10 @@ extension NotificationTimelineViewController: TableViewControllerNavigateable {
                 } else {
                     let profileViewModel = ProfileViewModel(
                         context: self.context,
+                        authContext: self.viewModel.authContext,
                         optionalMastodonUser: notification.account
                     )
-                    self.coordinator.present(
+                    _ = self.coordinator.present(
                         scene: .profile(viewModel: profileViewModel),
                         from: self,
                         transition: .show

@@ -8,9 +8,9 @@
 import os.log
 import UIKit
 import UserNotifications
-import AppShared
 import AVFoundation
-@_exported import MastodonUI
+import MastodonCore
+import MastodonUI
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -65,11 +65,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 extension AppDelegate {
     func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
-        #if DEBUG
-        return .all
-        #else
         return UIDevice.current.userInterfaceIdiom == .phone ? .portrait : .all
-        #endif
     }
 }
 
@@ -104,6 +100,14 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         
         appContext.notificationService.handle(pushNotification: pushNotification)
         completionHandler([.sound])
+    }
+    
+    
+    // notification present in the background (or resume from background)
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) async -> UIBackgroundFetchResult {
+        let shortcutItems = try? await appContext.notificationService.unreadApplicationShortcutItems()
+        UIApplication.shared.shortcutItems = shortcutItems
+        return .noData
     }
     
     // response to user action for notification (e.g. redirect to post)

@@ -1,4 +1,5 @@
 # Mastodon
+
 [![CI](https://github.com/mastodon/mastodon-ios/actions/workflows/main.yml/badge.svg)](https://github.com/mastodon/mastodon-ios/actions/workflows/main.yml) [![Crowdin](https://badges.crowdin.net/mastodon-for-ios/localized.svg)](https://crowdin.com/project/mastodon-for-ios)
 
 
@@ -11,13 +12,15 @@ This is the repository for the official iOS App for Mastodon. You can install it
 Read this blog post for this app to learn more. 
 > [Developing an official iOS app for Mastodon](https://blog.joinmastodon.org/2021/02/developing-an-official-ios-app-for-mastodon/)
 
-## Getting Start
+## Getting Started
+
 - Read the setup guide [here](./Documentation/Setup.md)
 - About [contributing](./Documentation/CONTRIBUTING.md)
 - [Documentation folder](./Documentation/)
 
 ## Acknowledgments
-Thanks to these open-sources projects listed [here](./Documentation/Acknowledgments.md).
+
+Thanks to these open-source projects listed [here](./Documentation/Acknowledgments.md).
 
 ## License
 

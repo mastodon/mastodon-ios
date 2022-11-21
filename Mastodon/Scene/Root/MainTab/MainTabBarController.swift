@@ -8,8 +8,10 @@
 import os.log
 import UIKit
 import Combine
+import CoreDataStack
 import SafariServices
 import MastodonAsset
+import MastodonCore
 import MastodonLocalization
 import MastodonUI
 
@@ -17,10 +19,12 @@ class MainTabBarController: UITabBarController {
 
     let logger = Logger(subsystem: "MainTabBarController", category: "UI")
     
-    var disposeBag = Set<AnyCancellable>()
+    public var disposeBag = Set<AnyCancellable>()
     
     weak var context: AppContext!
     weak var coordinator: SceneCoordinator!
+    
+    var authContext: AuthContext?
     
     let composeButttonShadowBackgroundContainer = ShadowBackgroundContainer()
     let composeButton: UIButton = {
@@ -33,11 +37,13 @@ class MainTabBarController: UITabBarController {
         button.layer.masksToBounds = true
         button.layer.cornerCurve = .continuous
         button.layer.cornerRadius = 8
+        button.isAccessibilityElement = false
         return button
     }()
     
     static let avatarButtonSize = CGSize(width: 25, height: 25)
     let avatarButton = CircleAvatarButton()
+    let accountSwitcherChevron = UIImageView(image: .chevronUpChevronDown)
     
     @Published var currentTab: Tab = .home
         
@@ -102,18 +108,24 @@ class MainTabBarController: UITabBarController {
             }
         }
         
-        func viewController(context: AppContext, coordinator: SceneCoordinator) -> UIViewController {
+        func viewController(context: AppContext, authContext: AuthContext?, coordinator: SceneCoordinator) -> UIViewController {
+            guard let authContext = authContext else {
+                return UITableViewController()
+            }
+
             let viewController: UIViewController
             switch self {
             case .home:
                 let _viewController = HomeTimelineViewController()
                 _viewController.context = context
                 _viewController.coordinator = coordinator
+                _viewController.viewModel = .init(context: context, authContext: authContext)
                 viewController = _viewController
             case .search:
                 let _viewController = SearchViewController()
                 _viewController.context = context
                 _viewController.coordinator = coordinator
+                _viewController.viewModel = .init(context: context, authContext: authContext)
                 viewController = _viewController
             case .compose:
                 viewController = UIViewController()
@@ -121,12 +133,13 @@ class MainTabBarController: UITabBarController {
                 let _viewController = NotificationViewController()
                 _viewController.context = context
                 _viewController.coordinator = coordinator
+                _viewController.viewModel = .init(context: context, authContext: authContext)
                 viewController = _viewController
             case .me:
                 let _viewController = ProfileViewController()
                 _viewController.context = context
                 _viewController.coordinator = coordinator
-                _viewController.viewModel = MeProfileViewModel(context: context)
+                _viewController.viewModel = MeProfileViewModel(context: context, authContext: authContext)
                 viewController = _viewController
             }
             viewController.title = self.title
@@ -142,9 +155,14 @@ class MainTabBarController: UITabBarController {
     var avatarURLObserver: AnyCancellable?
     @Published var avatarURL: URL?
 
-    init(context: AppContext, coordinator: SceneCoordinator) {
+    init(
+        context: AppContext,
+        coordinator: SceneCoordinator,
+        authContext: AuthContext?
+    ) {
         self.context = context
         self.coordinator = coordinator
+        self.authContext = authContext
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -177,7 +195,7 @@ extension MainTabBarController {
         // seealso: `ThemeService.apply(theme:)`
         let tabs = Tab.allCases
         let viewControllers: [UIViewController] = tabs.map { tab in
-            let viewController = tab.viewController(context: context, coordinator: coordinator)
+            let viewController = tab.viewController(context: context, authContext: authContext, coordinator: coordinator)
             viewController.tabBarItem.tag = tab.tag
             viewController.tabBarItem.title = tab.title     // needs for acessiblity large content label
             viewController.tabBarItem.image = tab.image.imageWithoutBaseline()
@@ -185,14 +203,6 @@ extension MainTabBarController {
             viewController.tabBarItem.largeContentSizeImage = tab.largeImage.imageWithoutBaseline()
             viewController.tabBarItem.accessibilityLabel = tab.title
             viewController.tabBarItem.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
-            
-            switch tab {
-            case .compose:
-                viewController.tabBarItem.isEnabled = false
-            default:
-                break
-            }
-            
             return viewController
         }
         _viewControllers = viewControllers
@@ -220,45 +230,46 @@ extension MainTabBarController {
             .store(in: &disposeBag)
         
         // handle post failure
-        context.statusPublishService
-            .latestPublishingComposeViewModel
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] composeViewModel in
-                guard let self = self else { return }
-                guard let composeViewModel = composeViewModel else { return }
-                guard let currentState = composeViewModel.publishStateMachine.currentState else { return }
-                guard currentState is ComposeViewModel.PublishState.Fail else { return }
-                
-                let alertController = UIAlertController(title: L10n.Common.Alerts.PublishPostFailure.title, message: L10n.Common.Alerts.PublishPostFailure.message, preferredStyle: .alert)
-                let discardAction = UIAlertAction(title: L10n.Common.Controls.Actions.discard, style: .destructive) { [weak self, weak composeViewModel] _ in
-                    guard let self = self else { return }
-                    guard let composeViewModel = composeViewModel else { return }
-                    self.context.statusPublishService.remove(composeViewModel: composeViewModel)
-                }
-                alertController.addAction(discardAction)
-                let retryAction = UIAlertAction(title: L10n.Common.Controls.Actions.tryAgain, style: .default) { [weak composeViewModel] _ in
-                    guard let composeViewModel = composeViewModel else { return }
-                    composeViewModel.publishStateMachine.enter(ComposeViewModel.PublishState.Publishing.self)
-                }
-                alertController.addAction(retryAction)
-                self.present(alertController, animated: true, completion: nil)
-            }
-            .store(in: &disposeBag)
+        // FIXME: refacotr
+//        context.statusPublishService
+//            .latestPublishingComposeViewModel
+//            .receive(on: DispatchQueue.main)
+//            .sink { [weak self] composeViewModel in
+//                guard let self = self else { return }
+//                guard let composeViewModel = composeViewModel else { return }
+//                guard let currentState = composeViewModel.publishStateMachine.currentState else { return }
+//                guard currentState is ComposeViewModel.PublishState.Fail else { return }
+//
+//                let alertController = UIAlertController(title: L10n.Common.Alerts.PublishPostFailure.title, message: L10n.Common.Alerts.PublishPostFailure.message, preferredStyle: .alert)
+//                let discardAction = UIAlertAction(title: L10n.Common.Controls.Actions.discard, style: .destructive) { [weak self, weak composeViewModel] _ in
+//                    guard let self = self else { return }
+//                    guard let composeViewModel = composeViewModel else { return }
+//                    self.context.statusPublishService.remove(composeViewModel: composeViewModel)
+//                }
+//                alertController.addAction(discardAction)
+//                let retryAction = UIAlertAction(title: L10n.Common.Controls.Actions.tryAgain, style: .default) { [weak composeViewModel] _ in
+//                    guard let composeViewModel = composeViewModel else { return }
+//                    composeViewModel.publishStateMachine.enter(ComposeViewModel.PublishState.Publishing.self)
+//                }
+//                alertController.addAction(retryAction)
+//                self.present(alertController, animated: true, completion: nil)
+//            }
+//            .store(in: &disposeBag)
                 
         // handle push notification.
         // toggle entry when finish fetch latest notification
-        Publishers.CombineLatest3(
-            context.authenticationService.activeMastodonAuthentication,
+        Publishers.CombineLatest(
             context.notificationService.unreadNotificationCountDidUpdate,
             $currentTab
         )
         .receive(on: DispatchQueue.main)
-        .sink { [weak self] authentication, _, currentTab in
+        .sink { [weak self] authentication, currentTab in
             guard let self = self else { return }
             guard let notificationViewController = self.notificationViewController else { return }
             
+            let authentication = self.authContext?.mastodonAuthenticationBox.userAuthorization
             let hasUnreadPushNotification: Bool = authentication.flatMap { authentication in
-                let count = UserDefaults.shared.getNotificationCountWithAccessToken(accessToken: authentication.userAccessToken)
+                let count = UserDefaults.shared.getNotificationCountWithAccessToken(accessToken: authentication.accessToken)
                 return count > 0
             } ?? false
             
@@ -288,43 +299,42 @@ extension MainTabBarController {
                 )
             }
             .store(in: &disposeBag)
-        context.authenticationService.activeMastodonAuthentication
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] activeMastodonAuthentication in
-                guard let self = self else { return }
-                
-                if let user = activeMastodonAuthentication?.user {
-                    self.avatarURLObserver = user.publisher(for: \.avatar)
-                        .sink { [weak self, weak user] _ in
-                            guard let self = self else { return }
-                            guard let user = user else { return }
-                            guard user.managedObjectContext != nil else { return }
-                            self.avatarURL = user.avatarImageURL()
-                        }
-                } else {
-                    self.avatarURLObserver = nil
+        
+        if let user = authContext?.mastodonAuthenticationBox.authenticationRecord.object(in: context.managedObjectContext)?.user {
+            self.avatarURLObserver = user.publisher(for: \.avatar)
+                .sink { [weak self, weak user] _ in
+                    guard let self = self else { return }
+                    guard let user = user else { return }
+                    guard user.managedObjectContext != nil else { return }
+                    self.avatarURL = user.avatarImageURL()
                 }
-                
-                // a11y
-                let _profileTabItem = self.tabBar.items?.first { item in item.tag == Tab.me.tag }
-                guard let profileTabItem = _profileTabItem else { return }
-                
-                let currentUserDisplayName = activeMastodonAuthentication?.user.displayNameWithFallback ?? "no user"
-                profileTabItem.accessibilityHint = L10n.Scene.AccountList.tabBarHint(currentUserDisplayName)
-            }
-            .store(in: &disposeBag)
+
+            // a11y
+            let _profileTabItem = self.tabBar.items?.first { item in item.tag == Tab.me.tag }
+            guard let profileTabItem = _profileTabItem else { return }
+            profileTabItem.accessibilityHint = L10n.Scene.AccountList.tabBarHint(user.displayNameWithFallback)
+
+            context.authenticationService.updateActiveUserAccountPublisher
+                .sink { [weak self] in
+                    self?.updateUserAccount()
+                }
+                .store(in: &disposeBag)
+        } else {
+            self.avatarURLObserver = nil
+        }
 
         let tabBarLongPressGestureRecognizer = UILongPressGestureRecognizer()
         tabBarLongPressGestureRecognizer.addTarget(self, action: #selector(MainTabBarController.tabBarLongPressGestureRecognizerHandler(_:)))
         tabBar.addGestureRecognizer(tabBarLongPressGestureRecognizer)
-        
-        context.authenticationService.activeMastodonAuthenticationBox
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] authenticationBox in
-                guard let self = self else { return }
-                self.isReadyForWizardAvatarButton = authenticationBox != nil
-            }
-            .store(in: &disposeBag)
+
+        // todo: reconsider the "double tap to change account" feature -> https://github.com/mastodon/mastodon-ios/issues/628
+//        let tabBarDoubleTapGestureRecognizer = UITapGestureRecognizer()
+//        tabBarDoubleTapGestureRecognizer.numberOfTapsRequired = 2
+//        tabBarDoubleTapGestureRecognizer.addTarget(self, action: #selector(MainTabBarController.tabBarDoubleTapGestureRecognizerHandler(_:)))
+//        tabBarDoubleTapGestureRecognizer.delaysTouchesEnded = false
+//        tabBar.addGestureRecognizer(tabBarDoubleTapGestureRecognizer)
+
+        self.isReadyForWizardAvatarButton = authContext != nil
         
         $currentTab
             .receive(on: DispatchQueue.main)
@@ -363,20 +373,18 @@ extension MainTabBarController {
 
 extension MainTabBarController {
     
-    @objc private func composeButtonDidPressed(_ sender: UIButton) {
+    @objc private func composeButtonDidPressed(_ sender: Any) {
         logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
-        guard let authenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else { return }
+        guard let authContext = self.authContext else { return }
         let composeViewModel = ComposeViewModel(
             context: context,
-            composeKind: .post,
-            authenticationBox: authenticationBox
+            authContext: authContext,
+            kind: .post
         )
-        coordinator.present(scene: .compose(viewModel: composeViewModel), from: nil, transition: .modal(animated: true, completion: nil))
+        _ = coordinator.present(scene: .compose(viewModel: composeViewModel), from: nil, transition: .modal(animated: true, completion: nil))
     }
     
-    @objc private func tabBarLongPressGestureRecognizerHandler(_ sender: UILongPressGestureRecognizer) {
-        guard sender.state == .began else { return }
-
+    private func touchedTab(by sender: UIGestureRecognizer) -> Tab? {
         var _tab: Tab?
         let location = sender.location(in: tabBar)
         for item in tabBar.items ?? [] {
@@ -388,12 +396,41 @@ extension MainTabBarController {
             break
         }
 
-        guard let tab = _tab else { return }
+        return _tab
+    }
+    
+    @objc private func tabBarDoubleTapGestureRecognizerHandler(_ sender: UITapGestureRecognizer) {
+        guard sender.state == .ended else { return }
+        guard let tab = touchedTab(by: sender) else { return }
+        logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): double tap \(tab.title) tab")
+        
+        switch tab {
+        case .me:
+            guard let authContext = authContext else { return }
+            assert(Thread.isMainThread)
+
+            guard let nextAccount = context.nextAccount(in: authContext) else { return }
+            
+            Task { @MainActor in
+                let isActive = try await context.authenticationService.activeMastodonUser(domain: nextAccount.domain, userID: nextAccount.userID)
+                guard isActive else { return }
+                self.coordinator.setup()
+            }
+        default:
+            break
+        }
+    }
+    
+    @objc private func tabBarLongPressGestureRecognizerHandler(_ sender: UILongPressGestureRecognizer) {
+        guard sender.state == .began else { return }
+        guard let tab = touchedTab(by: sender) else { return }
         logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): long press \(tab.title) tab")
 
         switch tab {
         case .me:
-            coordinator.present(scene: .accountList, from: self, transition: .panModal)
+            guard let authContext = self.authContext else { return }
+            let accountListViewModel = AccountListViewModel(context: context, authContext: authContext)
+            _ = coordinator.present(scene: .accountList(viewModel: accountListViewModel), from: self, transition: .panModal)
         default:
             break
         }
@@ -470,13 +507,20 @@ extension MainTabBarController {
         }
         anchorImageView.alpha = 0
         
+        accountSwitcherChevron.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(accountSwitcherChevron)
+        
         self.avatarButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(self.avatarButton)
         NSLayoutConstraint.activate([
-            self.avatarButton.centerXAnchor.constraint(equalTo: anchorImageView.centerXAnchor),
+            self.avatarButton.centerXAnchor.constraint(equalTo: anchorImageView.centerXAnchor, constant: -16),
             self.avatarButton.centerYAnchor.constraint(equalTo: anchorImageView.centerYAnchor),
             self.avatarButton.widthAnchor.constraint(equalToConstant: MainTabBarController.avatarButtonSize.width).priority(.required - 1),
             self.avatarButton.heightAnchor.constraint(equalToConstant: MainTabBarController.avatarButtonSize.height).priority(.required - 1),
+            accountSwitcherChevron.widthAnchor.constraint(equalToConstant: 10),
+            accountSwitcherChevron.heightAnchor.constraint(equalToConstant: 18),
+            accountSwitcherChevron.leadingAnchor.constraint(equalTo: avatarButton.trailingAnchor, constant: 8),
+            accountSwitcherChevron.centerYAnchor.constraint(equalTo: avatarButton.centerYAnchor)
         ])
         self.avatarButton.setContentHuggingPriority(.required - 1, for: .horizontal)
         self.avatarButton.setContentHuggingPriority(.required - 1, for: .vertical)
@@ -484,10 +528,31 @@ extension MainTabBarController {
     }
     
     private func updateAvatarButtonAppearance() {
+        accountSwitcherChevron.tintColor = currentTab == .me ? .label : .secondaryLabel
         avatarButton.borderColor = currentTab == .me ? .label : .systemFill
         avatarButton.setNeedsLayout()
     }
     
+    private func updateUserAccount() {
+        guard let authContext = authContext else { return }
+        
+        Task { @MainActor in
+            let profileResponse = try await context.apiService.authenticatedUserInfo(
+                authenticationBox: authContext.mastodonAuthenticationBox
+            )
+            
+            if let user = authContext.mastodonAuthenticationBox.authenticationRecord.object(
+                in: context.managedObjectContext
+            )?.user {
+                user.update(
+                    property: .init(
+                        entity: profileResponse.value,
+                        domain: authContext.mastodonAuthenticationBox.domain
+                    )
+                )
+            }
+        }
+    }
 }
 
 extension MainTabBarController {
@@ -504,6 +569,14 @@ extension MainTabBarController {
 
 // MARK: - UITabBarControllerDelegate
 extension MainTabBarController: UITabBarControllerDelegate {
+    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+        if let tab = Tab(rawValue: viewController.tabBarItem.tag), tab == .compose {
+            composeButtonDidPressed(tabBarController)
+            return false
+        }
+        return true
+    }
+
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: select %s", ((#file as NSString).lastPathComponent), #line, #function, viewController.debugDescription)
         defer {
@@ -717,26 +790,28 @@ extension MainTabBarController {
     
     @objc private func showFavoritesKeyCommandHandler(_ sender: UIKeyCommand) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-        let favoriteViewModel = FavoriteViewModel(context: context)
-        coordinator.present(scene: .favorite(viewModel: favoriteViewModel), from: nil, transition: .show)
+        guard let authContext = self.authContext else { return }
+        let favoriteViewModel = FavoriteViewModel(context: context, authContext: authContext)
+        _ = coordinator.present(scene: .favorite(viewModel: favoriteViewModel), from: nil, transition: .show)
     }
     
     @objc private func openSettingsKeyCommandHandler(_ sender: UIKeyCommand) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        guard let authContext = self.authContext else { return }
         guard let setting = context.settingService.currentSetting.value else { return }
-        let settingsViewModel = SettingsViewModel(context: context, setting: setting)
-        coordinator.present(scene: .settings(viewModel: settingsViewModel), from: nil, transition: .modal(animated: true, completion: nil))
+        let settingsViewModel = SettingsViewModel(context: context, authContext: authContext, setting: setting)
+        _ = coordinator.present(scene: .settings(viewModel: settingsViewModel), from: nil, transition: .modal(animated: true, completion: nil))
     }
     
     @objc private func composeNewPostKeyCommandHandler(_ sender: UIKeyCommand) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-        guard let authenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else { return }
+        guard let authContext = self.authContext else { return }
         let composeViewModel = ComposeViewModel(
             context: context,
-            composeKind: .post,
-            authenticationBox: authenticationBox
+            authContext: authContext,
+            kind: .post
         )
-        coordinator.present(scene: .compose(viewModel: composeViewModel), from: nil, transition: .modal(animated: true, completion: nil))
+        _ = coordinator.present(scene: .compose(viewModel: composeViewModel), from: nil, transition: .modal(animated: true, completion: nil))
     }
     
 }

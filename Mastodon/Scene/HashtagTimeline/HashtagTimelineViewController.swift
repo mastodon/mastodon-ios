@@ -12,6 +12,8 @@ import Combine
 import GameplayKit
 import CoreData
 import MastodonAsset
+import MastodonCore
+import MastodonUI
 import MastodonLocalization
 
 final class HashtagTimelineViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
@@ -46,7 +48,7 @@ final class HashtagTimelineViewController: UIViewController, NeedsDependency, Me
         return tableView
     }()
     
-    let refreshControl = UIRefreshControl()
+    let refreshControl = RefreshControl()
     
     deinit {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s:", ((#file as NSString).lastPathComponent), #line, #function)
@@ -156,7 +158,7 @@ extension HashtagTimelineViewController {
 
 extension HashtagTimelineViewController {
     
-    @objc private func refreshControlValueChanged(_ sender: UIRefreshControl) {
+    @objc private func refreshControlValueChanged(_ sender: RefreshControl) {
         guard viewModel.stateMachine.enter(HashtagTimelineViewModel.State.Reloading.self) else {
             sender.endRefreshing()
             return
@@ -165,15 +167,19 @@ extension HashtagTimelineViewController {
     
     @objc private func composeBarButtonItemPressed(_ sender: UIBarButtonItem) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-        guard let authenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else { return }
         let composeViewModel = ComposeViewModel(
             context: context,
-            composeKind: .hashtag(hashtag: viewModel.hashtag),
-            authenticationBox: authenticationBox
+            authContext: viewModel.authContext,
+            kind: .hashtag(hashtag: viewModel.hashtag)
         )
-        coordinator.present(scene: .compose(viewModel: composeViewModel), from: self, transition: .modal(animated: true, completion: nil))
+        _ = coordinator.present(scene: .compose(viewModel: composeViewModel), from: self, transition: .modal(animated: true, completion: nil))
     }
 
+}
+
+// MARK: - AuthContextProvider
+extension HashtagTimelineViewController: AuthContextProvider {
+    var authContext: AuthContext { viewModel.authContext }
 }
 
 // MARK: - UITableViewDelegate

@@ -11,6 +11,8 @@ import os.log
 import ThirdPartyMailer
 import UIKit
 import MastodonAsset
+import MastodonCore
+import MastodonUI
 import MastodonLocalization
 
 final class MastodonConfirmEmailViewController: UIViewController, NeedsDependency {
@@ -205,10 +207,10 @@ extension MastodonConfirmEmailViewController {
     }
 
     func showEmailAppAlert() {
-        let clients = ThirdPartyMailClient.clients()
+        let clients = ThirdPartyMailClient.clients
         let application = UIApplication.shared
         let availableClients = clients.filter { client -> Bool in
-            ThirdPartyMailer.application(application, isMailClientAvailable: client)
+            ThirdPartyMailer.isMailClientAvailable(client)
         }
         let alertController = UIAlertController(title: L10n.Scene.ConfirmEmail.OpenEmailApp.openEmailClient, message: nil, preferredStyle: .alert)
 
@@ -218,7 +220,7 @@ extension MastodonConfirmEmailViewController {
         alertController.addAction(alertAction)
         _ = availableClients.compactMap { client -> UIAlertAction in
             let alertAction = UIAlertAction(title: client.name, style: .default) { _ in
-                _ = ThirdPartyMailer.application(application, openMailClient: client)
+                _ = ThirdPartyMailer.open(client, completionHandler: nil)
             }
             alertController.addAction(alertAction)
             return alertAction

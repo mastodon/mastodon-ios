@@ -28,7 +28,7 @@
                 }
             },
             "edit_profile_failure": {
-                "title": "Profilredigering misslyckades",
+                "title": "Kunde inte redigera profil",
                 "message": "Kan inte redigera profil. Var god försök igen."
             },
             "sign_out": {
@@ -75,7 +75,7 @@
                 "save_photo": "Spara foto",
                 "copy_photo": "Kopiera foto",
                 "sign_in": "Logga in",
-                "sign_up": "Registrera dig",
+                "sign_up": "Skapa konto",
                 "see_more": "Visa mer",
                 "preview": "Förhandsvisa",
                 "share": "Dela",
@@ -111,9 +111,9 @@
                     "next_status": "Nästa inlägg",
                     "open_status": "Öppna inlägg",
                     "open_author_profile": "Öppna författarens profil",
-                    "open_reblogger_profile": "Öppna ompostarens profil",
+                    "open_reblogger_profile": "Öppna boostarens profil",
                     "reply_status": "Svara på inlägg",
-                    "toggle_reblog": "Växla ompostning på inlägg",
+                    "toggle_reblog": "Växla boost på inlägg",
                     "toggle_favorite": "Växla favorit på inlägg",
                     "toggle_content_warning": "Växla innehållsvarning",
                     "preview_image": "Förhandsgranska bild"
@@ -124,7 +124,7 @@
                 }
             },
             "status": {
-                "user_reblogged": "%s ompostade",
+                "user_reblogged": "%s boostade",
                 "user_replied_to": "Svarade på %s",
                 "show_post": "Visa inlägg",
                 "show_user_profile": "Visa användarprofil",
@@ -136,10 +136,16 @@
                     "vote": "Rösta",
                     "closed": "Stängd"
                 },
+                "meta_entity": {
+                    "url": "Länk: %s",
+                    "hashtag": "Hashtag: %s",
+                    "mention": "Visa profil: %s",
+                    "email": "E-postadress: %s"
+                },
                 "actions": {
                     "reply": "Svara",
-                    "reblog": "Omposta",
-                    "unreblog": "Ångra ompostning",
+                    "reblog": "Boosta",
+                    "unreblog": "Ångra boost",
                     "favorite": "Favorit",
                     "unfavorite": "Ta bort favorit",
                     "menu": "Meny",
@@ -180,7 +186,9 @@
                 "unmute": "Avtysta",
                 "unmute_user": "Avtysta %s",
                 "muted": "Tystad",
-                "edit_info": "Redigera info"
+                "edit_info": "Redigera info",
+                "show_reblogs": "Visa boostar",
+                "hide_reblogs": "Dölj boostar"
             },
             "timeline": {
                 "filtered": "Filtrerat",
@@ -210,10 +218,16 @@
             "get_started": "Kom igång",
             "log_in": "Logga in"
         },
+        "login": {
+            "title": "Välkommen tillbaka",
+            "subtitle": "Logga in på servern där du skapade ditt konto.",
+            "server_search_field": {
+                "placeholder": "Ange URL eller sök efter din server"
+            }
+        },
         "server_picker": {
             "title": "Mastodon utgörs av användare på olika servrar.",
-            "subtitle": "Välj en server baserat på dina intressen, region eller ett allmänt syfte.",
-            "subtitle_extend": "Välj en server baserat på dina intressen, region eller ett allmänt syfte. Varje server drivs av en helt oberoende organisation eller individ.",
+            "subtitle": "Välj en server baserat på dina intressen, region eller en allmän server. Du kan fortfarande nå alla, oavsett server.",
             "button": {
                 "category": {
                     "all": "Alla",
@@ -240,8 +254,7 @@
                 "category": "KATEGORI"
             },
             "input": {
-                "placeholder": "Sök gemenskaper",
-                "search_servers_or_enter_url": "Sök servrar eller ange URL"
+                "search_servers_or_enter_url": "Sök gemenskaper eller ange URL"
             },
             "empty_state": {
                 "finding_servers": "Söker tillgängliga servrar...",
@@ -374,7 +387,13 @@
                 "video": "video",
                 "attachment_broken": "Denna %s är trasig och kan inte\nladdas upp till Mastodon.",
                 "description_photo": "Beskriv fotot för synskadade...",
-                "description_video": "Beskriv videon för de synskadade..."
+                "description_video": "Beskriv videon för de synskadade...",
+                "load_failed": "Det gick inte att läsa in",
+                "upload_failed": "Uppladdning misslyckades",
+                "can_not_recognize_this_media_attachment": "Känner inte igen mediebilagan",
+                "attachment_too_large": "Bilagan är för stor",
+                "compressing_state": "Komprimerar...",
+                "server_processing_state": "Behandlas av servern..."
             },
             "poll": {
                 "duration_time": "Längd: %s",
@@ -384,7 +403,9 @@
                 "one_day": "1 dag",
                 "three_days": "3 dagar",
                 "seven_days": "7 dagar",
-                "option_number": "Alternativ %ld"
+                "option_number": "Alternativ %ld",
+                "the_poll_is_invalid": "Undersökningen är ogiltig",
+                "the_poll_has_empty_option": "Undersökningen har ett tomt alternativ"
             },
             "content_warning": {
                 "placeholder": "Skriv en noggrann varning här..."
@@ -405,7 +426,9 @@
                 "custom_emoji_picker": "Anpassad emoji-väljare",
                 "enable_content_warning": "Aktivera innehållsvarning",
                 "disable_content_warning": "Inaktivera innehållsvarning",
-                "post_visibility_menu": "Inläggssynlighetsmeny"
+                "post_visibility_menu": "Inläggssynlighetsmeny",
+                "post_options": "Inläggsalternativ",
+                "posting_as": "Postar som %s"
             },
             "keyboard": {
                 "discard_post": "Släng inlägget",
@@ -418,7 +441,7 @@
         },
         "profile": {
             "header": {
-                "follows_you": "Follows You"
+                "follows_you": "Följer dig"
             },
             "dashboard": {
                 "posts": "inlägg",
@@ -430,6 +453,10 @@
                 "placeholder": {
                     "label": "Etikett",
                     "content": "Innehåll"
+                },
+                "verified": {
+                    "short": "Verifierad på %s",
+                    "long": "Ägarskap för denna länk kontrollerades den %s"
                 }
             },
             "segmented_control": {
@@ -455,6 +482,14 @@
                 "confirm_unblock_user": {
                     "title": "Avblockera konto",
                     "message": "Bekräfta för att avblockera %s"
+                },
+                "confirm_show_reblogs": {
+                    "title": "Visa boostar",
+                    "message": "Bekräfta för att visa boostar"
+                },
+                "confirm_hide_reblogs": {
+                    "title": "Dölj boostar",
+                    "message": "Bekräfta för att dölja boostar"
                 }
             },
             "accessibility": {
@@ -480,7 +515,7 @@
             "title": "Favoriserad av"
         },
         "reblogged_by": {
-            "title": "Ompostat av"
+            "title": "Boostat av"
         },
         "search": {
             "title": "Sök",
@@ -536,7 +571,7 @@
             "notification_description": {
                 "followed_you": "följde dig",
                 "favorited_your_post": "favoriserade ditt inlägg",
-                "reblogged_your_post": "ompostade ditt inlägg",
+                "reblogged_your_post": "boostade ditt inlägg",
                 "mentioned_you": "nämnde dig",
                 "request_to_follow_you": "begär att följa dig",
                 "poll_has_ended": "omröstningen har avslutats"
@@ -546,10 +581,10 @@
                 "show_mentions": "Visa omnämningar"
             },
             "follow_request": {
-                "accept": "Accept",
-                "accepted": "Accepted",
-                "reject": "reject",
-                "rejected": "Rejected"
+                "accept": "Godkänn",
+                "accepted": "Godkänd",
+                "reject": "avvisa",
+                "rejected": "Avvisad"
             }
         },
         "thread": {
@@ -576,8 +611,8 @@
                     "title": "Notiser",
                     "favorites": "Favoriserar mitt inlägg",
                     "follows": "Följer mig",
-                    "boosts": "Ompostar mitt inlägg",
-                    "mentions": "Omnämner mig",
+                    "boosts": "Boostar mitt inlägg",
+                    "mentions": "Nämner mig",
                     "trigger": {
                         "anyone": "alla",
                         "follower": "en följare",
@@ -662,7 +697,7 @@
                 "unfollowed": "Slutade följa",
                 "unfollow_user": "Avfölj %s",
                 "mute_user": "Tysta %s",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "Du kommer inte att se deras inlägg eller ompostningar i ditt hemflöde. De kommer inte att veta att de har blivit tystade.",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "Du kommer inte att se deras inlägg eller boostar i ditt hemflöde. De kommer inte att veta att de har blivit tystade.",
                 "block_user": "Blockera %s",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "De kommer inte längre att kunna följa eller se dina inlägg, men de kan se om de har blockerats.",
                 "while_we_review_this_you_can_take_action_against_user": "Medan vi granskar detta kan du vidta åtgärder mot %s"
@@ -684,6 +719,9 @@
             "new_in_mastodon": "Nytt i Mastodon",
             "multiple_account_switch_intro_description": "Växla mellan flera konton genom att hålla inne profilknappen.",
             "accessibility_hint": "Dubbeltryck för att avvisa den här guiden"
+        },
+        "bookmark": {
+            "title": "Bokmärken"
         }
     }
 }

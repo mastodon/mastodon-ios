@@ -9,6 +9,7 @@ import UIKit
 import Combine
 import CoreDataStack
 import CommonOSLog
+import MastodonCore
 
 final class SearchHistoryViewModel {
 
@@ -16,23 +17,19 @@ final class SearchHistoryViewModel {
 
     // input
     let context: AppContext
+    let authContext: AuthContext
     let searchHistoryFetchedResultController: SearchHistoryFetchedResultController
 
     // output
     var diffableDataSource: UICollectionViewDiffableDataSource<SearchHistorySection, SearchHistoryItem>?
 
-    init(context: AppContext) {
+    init(context: AppContext, authContext: AuthContext) {
         self.context = context
+        self.authContext = authContext
         self.searchHistoryFetchedResultController = SearchHistoryFetchedResultController(managedObjectContext: context.managedObjectContext)
 
-        context.authenticationService.activeMastodonAuthenticationBox
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] box in
-                guard let self = self else { return }
-                self.searchHistoryFetchedResultController.domain.value = box?.domain
-                self.searchHistoryFetchedResultController.userID.value = box?.userID
-            }
-            .store(in: &disposeBag)
+        searchHistoryFetchedResultController.domain.value = authContext.mastodonAuthenticationBox.domain
+        searchHistoryFetchedResultController.userID.value = authContext.mastodonAuthenticationBox.userID
     }
 
 }

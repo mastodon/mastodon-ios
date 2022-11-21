@@ -9,6 +9,8 @@ import os.log
 import UIKit
 import Combine
 import CoreDataStack
+import MastodonCore
+import MastodonExtension
 
 #if PROFILE
 import FPSIndicator
@@ -57,7 +59,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.coordinator = sceneCoordinator
         
         sceneCoordinator.setup()
-        sceneCoordinator.setupOnboardingIfNeeds(animated: false)
         window.makeKeyAndVisible()
         
         #if SNAPSHOT
@@ -108,9 +109,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         // trigger status filter update
         AppContext.shared.statusFilterService.filterUpdatePublisher.send()
+        
+        // trigger authenticated user account update
+        AppContext.shared.authenticationService.updateActiveUserAccountPublisher.send()
 
         if let shortcutItem = savedShortCutItem {
-            _ = handler(shortcutItem: shortcutItem)
+            Task {
+                _ = await handler(shortcutItem: shortcutItem)
+            }
             savedShortCutItem = nil
         }
     }
@@ -134,38 +140,69 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 }
 
 extension SceneDelegate {
-    func windowScene(_ windowScene: UIWindowScene, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
-        completionHandler(handler(shortcutItem: shortcutItem))
+    
+    func windowScene(_ windowScene: UIWindowScene, performActionFor shortcutItem: UIApplicationShortcutItem) async -> Bool {
+        return await handler(shortcutItem: shortcutItem)
     }
 
-    private func handler(shortcutItem: UIApplicationShortcutItem) -> Bool {
+    @MainActor
+    private func handler(shortcutItem: UIApplicationShortcutItem) async -> Bool {
         logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): \(shortcutItem.type)")
 
         switch shortcutItem.type {
+        case NotificationService.unreadShortcutItemIdentifier:
+            guard let coordinator = self.coordinator else { return false }
+
+            guard let accessToken = shortcutItem.userInfo?["accessToken"] as? String else {
+                assertionFailure()
+                return false
+            }
+            let request = MastodonAuthentication.sortedFetchRequest
+            request.predicate = MastodonAuthentication.predicate(userAccessToken: accessToken)
+            request.fetchLimit = 1
+
+            guard let authentication = try? coordinator.appContext.managedObjectContext.fetch(request).first else {
+                assertionFailure()
+                return false
+            }
+
+            let _isActive = try? await coordinator.appContext.authenticationService.activeMastodonUser(
+                domain: authentication.domain,
+                userID: authentication.userID
+            )
+            
+            guard _isActive == true else {
+                return false
+            }
+
+            coordinator.switchToTabBar(tab: .notification)
+
         case "org.joinmastodon.app.new-post":
             if coordinator?.tabBarController.topMost is ComposeViewController {
                 logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): composing…")
             } else {
-                if let authenticationBox = AppContext.shared.authenticationService.activeMastodonAuthenticationBox.value {
+                if let authContext = coordinator?.authContext {
                     let composeViewModel = ComposeViewModel(
                         context: AppContext.shared,
-                        composeKind: .post,
-                        authenticationBox: authenticationBox
+                        authContext: authContext,
+                        kind: .post
                     )
-                    coordinator?.present(scene: .compose(viewModel: composeViewModel), from: nil, transition: .modal(animated: true, completion: nil))
+                    _ = coordinator?.present(scene: .compose(viewModel: composeViewModel), from: nil, transition: .modal(animated: true, completion: nil))
                     logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): present compose scene")
                 } else {
                     logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): not authenticated")
                 }
             }
+
         case "org.joinmastodon.app.search":
             coordinator?.switchToTabBar(tab: .search)
             logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): select search tab")
 
             if let searchViewController = coordinator?.tabBarController.topMost as? SearchViewController {
-                searchViewController.searchBarTapPublisher.send()
+                searchViewController.searchBarTapPublisher.send("")
                 logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): trigger search")
             }
+
         default:
             assertionFailure()
             break

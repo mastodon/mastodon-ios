@@ -12,6 +12,7 @@ import GameplayKit
 import CoreData
 import CoreDataStack
 import MastodonSDK
+import MastodonCore
 
 final class DiscoveryPostsViewModel {
     
@@ -19,6 +20,7 @@ final class DiscoveryPostsViewModel {
     
     // input
     let context: AppContext
+    let authContext: AuthContext
     let statusFetchedResultsController: StatusFetchedResultsController
     let listBatchFetchViewModel = ListBatchFetchViewModel()
     
@@ -40,19 +42,15 @@ final class DiscoveryPostsViewModel {
     let didLoadLatest = PassthroughSubject<Void, Never>()
     @Published var isServerSupportEndpoint = true
     
-    init(context: AppContext) {
+    init(context: AppContext, authContext: AuthContext) {
         self.context = context
+        self.authContext = authContext
         self.statusFetchedResultsController = StatusFetchedResultsController(
             managedObjectContext: context.managedObjectContext,
-            domain: nil,
+            domain: authContext.mastodonAuthenticationBox.domain,
             additionalTweetPredicate: nil
         )
         // end init
-        
-        context.authenticationService.activeMastodonAuthentication
-            .map { $0?.domain }
-            .assign(to: \.value, on: statusFetchedResultsController.domain)
-            .store(in: &disposeBag)
         
         Task {
             await checkServerEndpoint()
@@ -67,11 +65,9 @@ final class DiscoveryPostsViewModel {
 
 extension DiscoveryPostsViewModel {
     func checkServerEndpoint() async {
-        guard let authenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else { return }
-        
         do {
             _ = try await context.apiService.trendStatuses(
-                domain: authenticationBox.domain,
+                domain: authContext.mastodonAuthenticationBox.domain,
                 query: .init(offset: nil, limit: nil)
             )
         } catch let error as Mastodon.API.Error where error.httpResponseStatus.code == 404 {

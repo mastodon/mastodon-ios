@@ -14,6 +14,12 @@ protocol ScrollViewContainer: UIViewController {
 
 extension ScrollViewContainer {
     func scrollToTop(animated: Bool) {
-        scrollView.scrollRectToVisible(CGRect(origin: .zero, size: CGSize(width: 1, height: 1)), animated: animated)
+        scrollView.scrollToTop(animated: animated)
+    }
+}
+
+extension UIScrollView {
+    func scrollToTop(animated: Bool) {
+        scrollRectToVisible(CGRect(origin: .zero, size: CGSize(width: 1, height: 1)), animated: animated)
     }
 }

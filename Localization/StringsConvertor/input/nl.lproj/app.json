@@ -74,8 +74,8 @@
                 "take_photo": "Maak foto",
                 "save_photo": "Bewaar foto",
                 "copy_photo": "Kopieer foto",
-                "sign_in": "Aanmelden",
-                "sign_up": "Registreren",
+                "sign_in": "Log in",
+                "sign_up": "Create account",
                 "see_more": "Meer",
                 "preview": "Voorvertoning",
                 "share": "Deel",
@@ -136,6 +136,12 @@
                     "vote": "Stemmen",
                     "closed": "Gesloten"
                 },
+                "meta_entity": {
+                    "url": "Link: %s",
+                    "hashtag": "Hashtag: %s",
+                    "mention": "Show Profile: %s",
+                    "email": "Email address: %s"
+                },
                 "actions": {
                     "reply": "Reageren",
                     "reblog": "Delen",
@@ -180,7 +186,9 @@
                 "unmute": "Niet langer negeren",
                 "unmute_user": "%s niet langer negeren",
                 "muted": "Genegeerd",
-                "edit_info": "Bewerken"
+                "edit_info": "Bewerken",
+                "show_reblogs": "Show Reblogs",
+                "hide_reblogs": "Hide Reblogs"
             },
             "timeline": {
                 "filtered": "Gefilterd",
@@ -210,10 +218,16 @@
             "get_started": "Aan de slag",
             "log_in": "Log in"
         },
+        "login": {
+            "title": "Welcome back",
+            "subtitle": "Log you in on the server you created your account on.",
+            "server_search_field": {
+                "placeholder": "Enter URL or search for your server"
+            }
+        },
         "server_picker": {
             "title": "Kies een server, welke dan ook.",
-            "subtitle": "Kies een gemeenschap gebaseerd op jouw interesses, regio of een algemeen doel.",
-            "subtitle_extend": "Kies een gemeenschap gebaseerd op jouw interesses, regio, of een algemeen doel. Elke gemeenschap wordt beheerd door een volledig onafhankelijke organisatie of individu.",
+            "subtitle": "Pick a server based on your region, interests, or a general purpose one. You can still chat with anyone on Mastodon, regardless of your servers.",
             "button": {
                 "category": {
                     "all": "Alles",
@@ -240,8 +254,7 @@
                 "category": "CATEGORIE"
             },
             "input": {
-                "placeholder": "Zoek uw server of sluit u bij een nieuwe server aan...",
-                "search_servers_or_enter_url": "Search servers or enter URL"
+                "search_servers_or_enter_url": "Search communities or enter URL"
             },
             "empty_state": {
                 "finding_servers": "Beschikbare servers zoeken...",
@@ -374,7 +387,13 @@
                 "video": "video",
                 "attachment_broken": "Deze %s is corrupt en kan niet geüpload worden naar Mastodon.",
                 "description_photo": "Omschrijf de foto voor mensen met een visuele beperking...",
-                "description_video": "Omschrijf de video voor mensen met een visuele beperking..."
+                "description_video": "Omschrijf de video voor mensen met een visuele beperking...",
+                "load_failed": "Load Failed",
+                "upload_failed": "Upload Failed",
+                "can_not_recognize_this_media_attachment": "Can not recognize this media attachment",
+                "attachment_too_large": "Attachment too large",
+                "compressing_state": "Compressing...",
+                "server_processing_state": "Server Processing..."
             },
             "poll": {
                 "duration_time": "Duur: %s",
@@ -384,7 +403,9 @@
                 "one_day": "1 Dag",
                 "three_days": "3 Dagen",
                 "seven_days": "7 Dagen",
-                "option_number": "Optie %ld"
+                "option_number": "Optie %ld",
+                "the_poll_is_invalid": "The poll is invalid",
+                "the_poll_has_empty_option": "The poll has empty option"
             },
             "content_warning": {
                 "placeholder": "Schrijf hier een nauwkeurige waarschuwing..."
@@ -405,7 +426,9 @@
                 "custom_emoji_picker": "Eigen Emojikiezer",
                 "enable_content_warning": "Inhoudswaarschuwing inschakelen",
                 "disable_content_warning": "Inhoudswaarschuwing Uitschakelen",
-                "post_visibility_menu": "Berichtzichtbaarheidsmenu"
+                "post_visibility_menu": "Berichtzichtbaarheidsmenu",
+                "post_options": "Post Options",
+                "posting_as": "Posting as %s"
             },
             "keyboard": {
                 "discard_post": "Bericht Verwijderen",
@@ -430,6 +453,10 @@
                 "placeholder": {
                     "label": "Etiket",
                     "content": "Inhoud"
+                },
+                "verified": {
+                    "short": "Verified on %s",
+                    "long": "Ownership of this link was checked on %s"
                 }
             },
             "segmented_control": {
@@ -455,6 +482,14 @@
                 "confirm_unblock_user": {
                     "title": "Deblokkeer Account",
                     "message": "Bevestig om %s te deblokkeren"
+                },
+                "confirm_show_reblogs": {
+                    "title": "Show Reblogs",
+                    "message": "Confirm to show reblogs"
+                },
+                "confirm_hide_reblogs": {
+                    "title": "Hide Reblogs",
+                    "message": "Confirm to hide reblogs"
                 }
             },
             "accessibility": {
@@ -684,6 +719,9 @@
             "new_in_mastodon": "Nieuw in Mastodon",
             "multiple_account_switch_intro_description": "Schakel tussen meerdere accounts door de profielknop in te drukken en vast te houden.",
             "accessibility_hint": "Tik tweemaal om het popup-scherm te sluiten"
+        },
+        "bookmark": {
+            "title": "Bookmarks"
         }
     }
 }

@@ -9,6 +9,7 @@ import os.log
 import UIKit
 import Combine
 import CoreDataStack
+import MastodonCore
 
 protocol ContentSplitViewControllerDelegate: AnyObject {
     func contentSplitViewController(_ contentSplitViewController: ContentSplitViewController, sidebarViewController: SidebarViewController, didSelectTab tab: MainTabBarController.Tab)
@@ -23,20 +24,22 @@ final class ContentSplitViewController: UIViewController, NeedsDependency {
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
+    var authContext: AuthContext?
+    
     weak var delegate: ContentSplitViewControllerDelegate?
     
     private(set) lazy var sidebarViewController: SidebarViewController = {
         let sidebarViewController = SidebarViewController()
         sidebarViewController.context = context
         sidebarViewController.coordinator = coordinator
-        sidebarViewController.viewModel = SidebarViewModel(context: context)
+        sidebarViewController.viewModel = SidebarViewModel(context: context, authContext: authContext)
         sidebarViewController.delegate = self
         return sidebarViewController
     }()
     
     @Published var currentSupplementaryTab: MainTabBarController.Tab = .home
     private(set) lazy var mainTabBarController: MainTabBarController = {
-        let mainTabBarController = MainTabBarController(context: context, coordinator: coordinator)
+        let mainTabBarController = MainTabBarController(context: context, coordinator: coordinator, authContext: authContext)
         if let homeTimelineViewController = mainTabBarController.viewController(of: HomeTimelineViewController.self) {
             homeTimelineViewController.viewModel.displaySettingBarButtonItem = false
         }
@@ -108,11 +111,30 @@ extension ContentSplitViewController: SidebarViewControllerDelegate {
     
     func sidebarViewController(_ sidebarViewController: SidebarViewController, didLongPressItem item: SidebarViewModel.Item, sourceView: UIView) {
         guard case let .tab(tab) = item, tab == .me else { return }
+        guard let authContext = authContext else { return }
         
-        let accountListViewController = coordinator.present(scene: .accountList, from: nil, transition: .popover(sourceView: sourceView)) as! AccountListViewController
+        let accountListViewModel = AccountListViewModel(context: context, authContext: authContext)
+        let accountListViewController = coordinator.present(
+            scene: .accountList(viewModel: accountListViewModel),
+            from: nil,
+            transition: .popover(sourceView: sourceView)
+        ) as! AccountListViewController
         accountListViewController.dragIndicatorView.barView.isHidden = true
         // content width needs > 300 to make checkmark display
         accountListViewController.preferredContentSize = CGSize(width: 375, height: 400)
     }
     
+    func sidebarViewController(_ sidebarViewController: SidebarViewController, didDoubleTapItem item: SidebarViewModel.Item, sourceView: UIView) {
+        guard case let .tab(tab) = item, tab == .me else { return }
+        guard let authContext = authContext else { return }
+        assert(Thread.isMainThread)
+
+        guard let nextAccount = context.nextAccount(in: authContext) else { return }
+
+        Task { @MainActor in
+            let isActive = try await context.authenticationService.activeMastodonUser(domain: nextAccount.domain, userID: nextAccount.userID)
+            guard isActive else { return }
+            self.coordinator.setup()
+        }
+    }
 }

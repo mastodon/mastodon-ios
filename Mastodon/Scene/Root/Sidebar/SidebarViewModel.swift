@@ -12,14 +12,15 @@ import CoreDataStack
 import Meta
 import MastodonMeta
 import MastodonAsset
+import MastodonCore
 import MastodonLocalization
 
 final class SidebarViewModel {
-    
     var disposeBag = Set<AnyCancellable>()
     
     // input
     let context: AppContext
+    let authContext: AuthContext?
     @Published private var isSidebarDataSourceReady = false
     @Published private var isAvatarButtonDataReady = false
     @Published var currentTab: MainTabBarController.Tab = .home
@@ -29,10 +30,9 @@ final class SidebarViewModel {
     var secondaryDiffableDataSource: UICollectionViewDiffableDataSource<Section, Item>?
     @Published private(set) var isReadyForWizardAvatarButton = false
 
-    let activeMastodonAuthenticationObjectID = CurrentValueSubject<NSManagedObjectID?, Never>(nil)
-
-    init(context: AppContext) {
+    init(context: AppContext, authContext: AuthContext?) {
         self.context = context
+        self.authContext = authContext
         
         Publishers.CombineLatest(
             $isSidebarDataSourceReady,
@@ -41,16 +41,7 @@ final class SidebarViewModel {
         .map { $0 && $1 }
         .assign(to: &$isReadyForWizardAvatarButton)
         
-        context.authenticationService.activeMastodonAuthentication
-            .sink { [weak self] authentication in
-                guard let self = self else { return }
-                
-                // bind objectID
-                self.activeMastodonAuthenticationObjectID.value = authentication?.objectID
-                
-                self.isAvatarButtonDataReady = authentication != nil
-            }
-            .store(in: &disposeBag)
+        self.isAvatarButtonDataReady = authContext != nil
     }
     
 }
@@ -80,14 +71,15 @@ extension SidebarViewModel {
             let imageURL: URL? = {
                 switch item {
                 case .me:
-                    let authentication = self.context.authenticationService.activeMastodonAuthentication.value
-                    return authentication?.user.avatarImageURL()
+                    let user = self.authContext?.mastodonAuthenticationBox.authenticationRecord.object(in: self.context.managedObjectContext)?.user
+                    return user?.avatarImageURL()
                 default:
                     return nil
                 }
             }()
             cell.item = SidebarListContentView.Item(
                 isActive: false,
+                accessoryImage: item == .me ? .chevronUpChevronDown : nil,
                 title: item.title,
                 image: item.image,
                 activeImage: item.selectedImage,
@@ -96,6 +88,7 @@ extension SidebarViewModel {
             cell.setNeedsUpdateConfiguration()
             cell.isAccessibilityElement = true
             cell.accessibilityLabel = item.title
+            cell.accessibilityTraits.insert(.button)
             
             self.$currentTab
                 .receive(on: DispatchQueue.main)
@@ -108,18 +101,19 @@ extension SidebarViewModel {
             
             switch item {
             case .notification:
-                Publishers.CombineLatest3(
-                    self.context.authenticationService.activeMastodonAuthentication,
+                Publishers.CombineLatest(
                     self.context.notificationService.unreadNotificationCountDidUpdate,
                     self.$currentTab
                 )
                 .receive(on: DispatchQueue.main)
-                .sink { [weak cell] authentication, _, currentTab in
+                .sink { [weak cell] authentication, currentTab in
                     guard let cell = cell else { return }
-                    let hasUnreadPushNotification: Bool = authentication.flatMap { authentication in
-                        let count = UserDefaults.shared.getNotificationCountWithAccessToken(accessToken: authentication.userAccessToken)
+                    
+                    let hasUnreadPushNotification: Bool = {
+                        guard let accessToken = self.authContext?.mastodonAuthenticationBox.userAuthorization.accessToken else { return false }
+                        let count = UserDefaults.shared.getNotificationCountWithAccessToken(accessToken: accessToken)
                         return count > 0
-                    } ?? false
+                    }()
                     
                     let image: UIImage = {
                         if currentTab == .notification {
@@ -134,8 +128,8 @@ extension SidebarViewModel {
                 }
                 .store(in: &cell.disposeBag)
             case .me:
-                guard let authentication = self.context.authenticationService.activeMastodonAuthentication.value else { break }
-                let currentUserDisplayName = authentication.user.displayNameWithFallback
+                guard let user = self.authContext?.mastodonAuthenticationBox.authenticationRecord.object(in: self.context.managedObjectContext)?.user else { return }
+                let currentUserDisplayName = user.displayNameWithFallback
                 cell.accessibilityHint = L10n.Scene.AccountList.tabBarHint(currentUserDisplayName)
             default:
                 break
@@ -148,6 +142,7 @@ extension SidebarViewModel {
             cell.setNeedsUpdateConfiguration()
             cell.isAccessibilityElement = true
             cell.accessibilityLabel = item.title
+            cell.accessibilityTraits.insert(.button)
         }
         
         // header
@@ -171,6 +166,7 @@ extension SidebarViewModel {
             case .compose:
                 let item = SidebarListContentView.Item(
                     isActive: false,
+                    accessoryImage: self.currentTab == .me ? .chevronUpChevronDown : nil,
                     title: L10n.Common.Controls.Actions.compose,
                     image: Asset.ObjectsAndTools.squareAndPencil.image.withRenderingMode(.alwaysTemplate),
                     activeImage: Asset.ObjectsAndTools.squareAndPencil.image.withRenderingMode(.alwaysTemplate),

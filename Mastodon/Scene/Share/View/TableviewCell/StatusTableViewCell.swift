@@ -99,6 +99,10 @@ extension StatusTableViewCell {
         return true
     }
 
+    override var accessibilityCustomActions: [UIAccessibilityCustomAction]? {
+        get { statusView.accessibilityCustomActions }
+        set { }
+    }
 }
 
 // MARK: - AdaptiveContainerMarginTableViewCell

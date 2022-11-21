@@ -8,9 +8,10 @@
 import os.log
 import UIKit
 import Combine
-import MastodonAsset
-import MastodonLocalization
 import Pageboy
+import MastodonAsset
+import MastodonCore
+import MastodonLocalization
 
 final class NotificationViewModel {
     
@@ -18,6 +19,7 @@ final class NotificationViewModel {
     
     // input
     let context: AppContext
+    let authContext: AuthContext
     let viewDidLoad = PassthroughSubject<Void, Never>()
     
     // output
@@ -26,8 +28,9 @@ final class NotificationViewModel {
     @Published var currentPageIndex = 0
 
     
-    init(context: AppContext) {
+    init(context: AppContext, authContext: AuthContext) {
         self.context = context
+        self.authContext = authContext
         // end init
     }
 }

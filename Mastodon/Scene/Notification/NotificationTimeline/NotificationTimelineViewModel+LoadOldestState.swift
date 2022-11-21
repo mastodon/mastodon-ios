@@ -12,16 +12,12 @@ import MastodonSDK
 import os.log
 
 extension NotificationTimelineViewModel {
-    class LoadOldestState: GKState, NamingState {
+    class LoadOldestState: GKState {
         
         let logger = Logger(subsystem: "NotificationTimelineViewModel.LoadOldestState", category: "StateMachine")
         
         let id = UUID()
 
-        var name: String {
-            String(describing: Self.self)
-        }
-        
         weak var viewModel: NotificationTimelineViewModel?
         
         init(viewModel: NotificationTimelineViewModel) {
@@ -30,8 +26,10 @@ extension NotificationTimelineViewModel {
         
         override func didEnter(from previousState: GKState?) {
             super.didEnter(from: previousState)
-            let previousState = previousState as? NotificationTimelineViewModel.LoadOldestState
-            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [\(self.id.uuidString)] enter \(self.name), previous: \(previousState?.name  ?? "<nil>")")
+            
+            let from = previousState.flatMap { String(describing: $0) } ?? "nil"
+            let to = String(describing: self)
+            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): \(from) -> \(to)")
         }
         
         @MainActor
@@ -40,7 +38,7 @@ extension NotificationTimelineViewModel {
         }
         
         deinit {
-            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [\(self.id.uuidString)] \(self.name)")
+            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [\(self.id.uuidString)] \(String(describing: self))")
         }
     }
 }
@@ -63,11 +61,6 @@ extension NotificationTimelineViewModel.LoadOldestState {
             super.didEnter(from: previousState)
             
             guard let viewModel = viewModel, let stateMachine = stateMachine else { return }
-            guard let authenticationBox = viewModel.context.authenticationService.activeMastodonAuthenticationBox.value else {
-                assertionFailure()
-                stateMachine.enter(Fail.self)
-                return
-            }
             
             guard let lastFeedRecord = viewModel.feedFetchedResultsController.records.last else {
                 stateMachine.enter(Fail.self)
@@ -93,7 +86,7 @@ extension NotificationTimelineViewModel.LoadOldestState {
                     let response = try await viewModel.context.apiService.notifications(
                         maxID: maxID,
                         scope: scope,
-                        authenticationBox: authenticationBox
+                        authenticationBox: viewModel.authContext.mastodonAuthenticationBox
                     )
                     
                     let notifications = response.value

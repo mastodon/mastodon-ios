@@ -25,7 +25,7 @@ extension ReportStatusViewModel {
         diffableDataSource = ReportSection.diffableDataSource(
             tableView: tableView,
             context: context,
-            configuration: ReportSection.Configuration()
+            configuration: ReportSection.Configuration(authContext: authContext)
         )
 
         var snapshot = NSDiffableDataSourceSnapshot<ReportSection, ReportItem>()

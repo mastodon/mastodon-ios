@@ -6,6 +6,9 @@ on:
     - master
     - develop
     - feature/*
+    - feature-*
+    - issue/*
+    - issue-*
   pull_request:
     branches:
     - develop
@@ -15,13 +18,14 @@ on:
 jobs:
   build:
     name: CI build
-    runs-on: macos-11
+    runs-on: macos-12
     steps:
       - name: checkout
         uses: actions/checkout@v2
-      - name: force Xcode 13.2.1
-        run: sudo xcode-select -switch /Applications/Xcode_13.2.1.app
       - name: setup
+        env: 
+          NotificationEndpointDebug: ${{ secrets.NotificationEndpointDebug }}
+          NotificationEndpointRelease: ${{ secrets.NotificationEndpointRelease }}
         run: exec ./.github/scripts/setup.sh
       - name: build
         run: exec ./.github/scripts/build.sh

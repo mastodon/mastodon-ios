@@ -75,7 +75,7 @@
                 "save_photo": "Salva foto",
                 "copy_photo": "Copia foto",
                 "sign_in": "Accedi",
-                "sign_up": "Registrati",
+                "sign_up": "Crea un account",
                 "see_more": "Visualizza altro",
                 "preview": "Anteprima",
                 "share": "Condividi",
@@ -136,6 +136,12 @@
                     "vote": "Vota",
                     "closed": "Chiuso"
                 },
+                "meta_entity": {
+                    "url": "Collegamento: %s",
+                    "hashtag": "Hashtag: %s",
+                    "mention": "Mostra il profilo: %s",
+                    "email": "Indirizzo email: %s"
+                },
                 "actions": {
                     "reply": "Rispondi",
                     "reblog": "Condivisione",
@@ -180,7 +186,9 @@
                 "unmute": "Riattiva",
                 "unmute_user": "Riattiva %s",
                 "muted": "Silenziato",
-                "edit_info": "Modifica info"
+                "edit_info": "Modifica info",
+                "show_reblogs": "Mostra le condivisioni",
+                "hide_reblogs": "Nascondi le condivisioni"
             },
             "timeline": {
                 "filtered": "Filtrato",
@@ -210,10 +218,16 @@
             "get_started": "Inizia",
             "log_in": "Accedi"
         },
+        "login": {
+            "title": "Bentornato/a",
+            "subtitle": "Accedi al server sul quale hai creato il tuo account.",
+            "server_search_field": {
+                "placeholder": "Inserisci l'URL o cerca il tuo server"
+            }
+        },
         "server_picker": {
             "title": "Mastodon è fatto di utenti in diverse comunità.",
-            "subtitle": "Scegli una comunità basata sui tuoi interessi, regione o uno scopo generale.",
-            "subtitle_extend": "Scegli una comunità basata sui tuoi interessi, regione o uno scopo generale. Ogni comunità è gestita da un'organizzazione completamente indipendente o individuale.",
+            "subtitle": "Scegli un server in base alla tua regione, ai tuoi interessi o uno generico. Puoi comunque chattare con chiunque su Mastodon, indipendentemente dai tuoi server.",
             "button": {
                 "category": {
                     "all": "Tutti",
@@ -240,8 +254,7 @@
                 "category": "CATEGORIA"
             },
             "input": {
-                "placeholder": "Cerca comunità",
-                "search_servers_or_enter_url": "Cerca i server o inserisci l'URL"
+                "search_servers_or_enter_url": "Cerca le comunità o inserisci l'URL"
             },
             "empty_state": {
                 "finding_servers": "Ricerca server disponibili...",
@@ -374,7 +387,13 @@
                 "video": "filmato",
                 "attachment_broken": "Questo %s è rotto e non può essere\ncaricato su Mastodon.",
                 "description_photo": "Descrivi la foto per gli utenti ipovedenti...",
-                "description_video": "Descrivi il filmato per gli utenti ipovedenti..."
+                "description_video": "Descrivi il filmato per gli utenti ipovedenti...",
+                "load_failed": "Caricamento fallito",
+                "upload_failed": "Caricamento fallito",
+                "can_not_recognize_this_media_attachment": "Impossibile riconoscere questo allegato multimediale",
+                "attachment_too_large": "Allegato troppo grande",
+                "compressing_state": "Compressione in corso...",
+                "server_processing_state": "Elaborazione del server in corso..."
             },
             "poll": {
                 "duration_time": "Durata: %s",
@@ -384,7 +403,9 @@
                 "one_day": "1 giorno",
                 "three_days": "3 giorni",
                 "seven_days": "7 giorni",
-                "option_number": "Opzione %ld"
+                "option_number": "Opzione %ld",
+                "the_poll_is_invalid": "Il sondaggio non è valido",
+                "the_poll_has_empty_option": "Il sondaggio ha un'opzione vuota"
             },
             "content_warning": {
                 "placeholder": "Scrivi un avviso accurato qui..."
@@ -405,7 +426,9 @@
                 "custom_emoji_picker": "Selettore Emoji personalizzato",
                 "enable_content_warning": "Abilita avvertimento contenuti",
                 "disable_content_warning": "Disabilita avviso di contenuti",
-                "post_visibility_menu": "Menu di visibilità del post"
+                "post_visibility_menu": "Menu di visibilità del post",
+                "post_options": "Opzioni del messaggio",
+                "posting_as": "Pubblicazione come %s"
             },
             "keyboard": {
                 "discard_post": "Scarta post",
@@ -430,6 +453,10 @@
                 "placeholder": {
                     "label": "Etichetta",
                     "content": "Contenuto"
+                },
+                "verified": {
+                    "short": "Verificato il %s",
+                    "long": "La proprietà di questo collegamento è stata verificata il %s"
                 }
             },
             "segmented_control": {
@@ -455,6 +482,14 @@
                 "confirm_unblock_user": {
                     "title": "Sblocca account",
                     "message": "Conferma per sbloccare %s"
+                },
+                "confirm_show_reblogs": {
+                    "title": "Mostra le condivisioni",
+                    "message": "Conferma di mostrare le condivisioni"
+                },
+                "confirm_hide_reblogs": {
+                    "title": "Nascondi le condivisioni",
+                    "message": "Conferma di nascondere le condivisioni"
                 }
             },
             "accessibility": {
@@ -684,6 +719,9 @@
             "new_in_mastodon": "Nuovo su Mastodon",
             "multiple_account_switch_intro_description": "Passa tra più account tenendo premuto il pulsante del profilo.",
             "accessibility_hint": "Doppio tocco per eliminare questa procedura guidata"
+        },
+        "bookmark": {
+            "title": "Segnalibri"
         }
     }
 }
