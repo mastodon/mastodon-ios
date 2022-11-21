@@ -310,7 +310,6 @@ extension SearchDetailViewController: UISearchBarDelegate {
     }
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): searchTest \(searchText)")
         viewModel.searchText.value = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
     }
 
