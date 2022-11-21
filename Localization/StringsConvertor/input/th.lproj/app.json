@@ -96,7 +96,7 @@
             "tabs": {
                 "home": "หน้าแรก",
                 "search": "ค้นหา",
-                "notification": "การแจ้งเตือน",
+                "notifications": "Notifications",
                 "profile": "โปรไฟล์"
             },
             "keyboard": {
