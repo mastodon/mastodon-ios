@@ -96,7 +96,7 @@
             "tabs": {
                 "home": "Start",
                 "search": "Zoek",
-                "notification": "Melding",
+                "notifications": "Notifications",
                 "profile": "Profiel"
             },
             "keyboard": {
