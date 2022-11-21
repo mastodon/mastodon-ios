@@ -96,7 +96,7 @@
             "tabs": {
                 "home": "Главная",
                 "search": "Поиск",
-                "notification": "Уведомление",
+                "notifications": "Notifications",
                 "profile": "Профиль"
             },
             "keyboard": {
