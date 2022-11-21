@@ -59,7 +59,6 @@ class ReportStatusViewController: UIViewController, NeedsDependency, ReportViewC
         let navigationActionView = NavigationActionView()
         navigationActionView.backgroundColor = Asset.Scene.Onboarding.background.color
         navigationActionView.backButton.setTitle(L10n.Common.Controls.Actions.skip, for: .normal)
-        navigationActionView.hidesBackButton = true
         return navigationActionView
     }()
     
@@ -123,6 +122,10 @@ extension ReportStatusViewController {
             .receive(on: DispatchQueue.main)
             .assign(to: \.isEnabled, on: navigationActionView.nextButton)
             .store(in: &disposeBag)
+        
+        if !viewModel.selectStatuses.isEmpty {
+            navigationActionView.hidesBackButton = true
+        }
         
         navigationActionView.backButton.addTarget(self, action: #selector(ReportStatusViewController.skipButtonDidPressed(_:)), for: .touchUpInside)
         navigationActionView.nextButton.addTarget(self, action: #selector(ReportStatusViewController.nextButtonDidPressed(_:)), for: .touchUpInside)        
