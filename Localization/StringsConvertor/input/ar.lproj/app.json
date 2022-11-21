@@ -96,7 +96,7 @@
             "tabs": {
                 "home": "الرَّئِيسَة",
                 "search": "البَحث",
-                "notifications": "Notifications",
+                "notifications": "الإشعارات",
                 "profile": "المِلَفُّ التَّعريفِيّ"
             },
             "keyboard": {
@@ -219,15 +219,15 @@
             "log_in": "تسجيلُ الدخول"
         },
         "login": {
-            "title": "Welcome back",
+            "title": "مَرحَبًا بِكَ مُجَدَّدًا",
             "subtitle": "Log you in on the server you created your account on.",
             "server_search_field": {
-                "placeholder": "Enter URL or search for your server"
+                "placeholder": "أدخِل عُنوانَ URL أو اِبحَث عَنِ الخادِمِ الخاصّ بِك"
             }
         },
         "server_picker": {
             "title": "اِختر خادِم،\nأيًّا مِنهُم.",
-            "subtitle": "Pick a server based on your region, interests, or a general purpose one. You can still chat with anyone on Mastodon, regardless of your servers.",
+            "subtitle": "اِختر خادمًا بناءً على منطقتك، اِهتماماتك أو يُمكنك حتى اِختيارُ مجتمعٍ ذِي غرضٍ عام. بِإمكانِكَ الدردشة مع أي شخص على مَاستودُون، بغض النظر عن الخادم الخاصة بك.",
             "button": {
                 "category": {
                     "all": "الكُل",
@@ -254,7 +254,7 @@
                 "category": "الفئة"
             },
             "input": {
-                "search_servers_or_enter_url": "Search communities or enter URL"
+                "search_servers_or_enter_url": "اِبحث عَن مُجتَمَعَات أو أدخِل عُنوانَ URL"
             },
             "empty_state": {
                 "finding_servers": "يجري إيجاد خوادم متوفِّرَة...",
@@ -427,7 +427,7 @@
                 "enable_content_warning": "تفعيل تحذير المُحتَوى",
                 "disable_content_warning": "تعطيل تحذير المُحتَوى",
                 "post_visibility_menu": "قائمة ظهور المنشور",
-                "post_options": "Post Options",
+                "post_options": "خياراتُ المَنشور",
                 "posting_as": "نَشر كَـ %s"
             },
             "keyboard": {
