@@ -58,7 +58,6 @@ class ReportStatusViewController: UIViewController, NeedsDependency, ReportViewC
     let navigationActionView: NavigationActionView = {
         let navigationActionView = NavigationActionView()
         navigationActionView.backgroundColor = Asset.Scene.Onboarding.background.color
-        navigationActionView.backButton.setTitle(L10n.Common.Controls.Actions.skip, for: .normal)
         navigationActionView.hidesBackButton = true
         return navigationActionView
     }()
