@@ -96,7 +96,6 @@ extension StatusThreadRootTableViewCell {
     override var accessibilityElements: [Any]? {
         get {
             var elements = [
-                statusView.headerContainerView,
                 statusView.authorView,
                 statusView.viewModel.isContentReveal
                 ? statusView.contentMetaText.textView

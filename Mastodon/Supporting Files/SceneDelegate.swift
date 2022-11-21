@@ -175,7 +175,7 @@ extension SceneDelegate {
                 return false
             }
 
-            coordinator.switchToTabBar(tab: .notification)
+            coordinator.switchToTabBar(tab: .notifications)
 
         case "org.joinmastodon.app.new-post":
             if coordinator?.tabBarController.topMost is ComposeViewController {

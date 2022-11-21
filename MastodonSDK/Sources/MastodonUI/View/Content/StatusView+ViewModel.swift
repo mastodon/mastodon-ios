@@ -239,12 +239,11 @@ extension StatusView.ViewModel {
             }
             .store(in: &disposeBag)
         // username
-        let usernamePublisher = $authorUsername
+        $authorUsername
             .map { text -> String in
                 guard let text = text else { return "" }
                 return "@\(text)"
             }
-        usernamePublisher
             .sink { username in
                 let metaContent = PlaintextMetaContent(string: username)
                 authorView.authorUsernameLabel.configure(content: metaContent)
@@ -270,18 +269,6 @@ extension StatusView.ViewModel {
                 guard let _ = self else { return }
                 authorView.dateLabel.configure(content: PlaintextMetaContent(string: text))
             }
-            .store(in: &disposeBag)
-
-        // accessibility label
-        Publishers.CombineLatest4($authorName, usernamePublisher, $timestampText, $timestamp)
-            .map { name, username, timestampText, timestamp in
-                let formatter = DateFormatter()
-                formatter.dateStyle = .medium
-                formatter.timeStyle = .short
-                let longTimestamp = timestamp.map { formatter.string(from: $0) } ?? ""
-                return "\(name?.string ?? "") \(username), \(timestampText). \(longTimestamp)"
-            }
-            .assign(to: \.accessibilityLabel, on: authorView)
             .store(in: &disposeBag)
     }
     
@@ -635,7 +622,7 @@ extension StatusView.ViewModel {
     }
     
     private func bindAccessibility(statusView: StatusView) {
-        let authorAccessibilityLabel = Publishers.CombineLatest3(
+        let shortAuthorAccessibilityLabel = Publishers.CombineLatest3(
             $header,
             $authorName,
             $timestampText
@@ -645,19 +632,56 @@ extension StatusView.ViewModel {
             
             switch header {
             case .none:
-                break
+                strings.append(authorName?.string)
             case .reply(let info):
+                strings.append(authorName?.string)
                 strings.append(info.header.string)
             case .repost(let info):
                 strings.append(info.header.string)
+                strings.append(authorName?.string)
             }
             
-            strings.append(authorName?.string)
             strings.append(timestamp)
             
             return strings.compactMap { $0 }.joined(separator: ", ")
         }
-        
+
+        let longTimestampFormatter = DateFormatter()
+        longTimestampFormatter.dateStyle = .medium
+        longTimestampFormatter.timeStyle = .short
+        let longTimestampLabel = Publishers.CombineLatest(
+            $timestampText,
+            $timestamp.map { timestamp in
+                if let timestamp {
+                    return longTimestampFormatter.string(from: timestamp)
+                }
+                return ""
+            }
+        )
+            .map { timestampText, longTimestamp in
+                "\(timestampText). \(longTimestamp)"
+            }
+
+        Publishers.CombineLatest4(
+            $header,
+            $authorName,
+            $authorUsername,
+            longTimestampLabel
+        )
+        .map { header, name, username, timestamp in
+            let nameAndUsername = "\(name?.string ?? "") @\(username ?? "")"
+            switch header {
+            case .none:
+                return "\(nameAndUsername), \(timestamp)"
+            case .repost(info: let info):
+                return "\(info.header.string) \(nameAndUsername), \(timestamp)"
+            case .reply(info: let info):
+                return "\(nameAndUsername) \(info.header.string), \(timestamp)"
+            }
+        }
+        .assign(to: \.accessibilityLabel, on: statusView.authorView)
+        .store(in: &disposeBag)
+
         let contentAccessibilityLabel = Publishers.CombineLatest3(
             $isContentReveal,
             $spoilerContent,
@@ -695,8 +719,8 @@ extension StatusView.ViewModel {
                 statusView.spoilerOverlayView.accessibilityLabel = contentAccessibilityLabel
             }
             .store(in: &disposeBag)
-        
-        let meidaAccessibilityLabel = $mediaViewConfigurations
+
+        let mediaAccessibilityLabel = $mediaViewConfigurations
             .map { configurations -> String? in
                 let count = configurations.count
                 return L10n.Plural.Count.media(count)
@@ -705,18 +729,18 @@ extension StatusView.ViewModel {
         // TODO: Toolbar
     
         Publishers.CombineLatest3(
-            authorAccessibilityLabel,
+            shortAuthorAccessibilityLabel,
             contentAccessibilityLabel,
-            meidaAccessibilityLabel
+            mediaAccessibilityLabel
         )
         .map { author, content, media in
-            let group = [
-                author,
-                content,
-                media
-            ]
-            
-            return group
+            var labels: [String?] = [content, media]
+
+            if statusView.style != .notification {
+                labels.insert(author, at: 0)
+            }
+
+            return labels
                 .compactMap { $0 }
                 .joined(separator: ", ")
         }

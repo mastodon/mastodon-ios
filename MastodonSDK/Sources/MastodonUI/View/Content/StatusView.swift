@@ -241,6 +241,7 @@ extension StatusView {
         // header
         headerIconImageView.isUserInteractionEnabled = false
         headerInfoLabel.isUserInteractionEnabled = false
+        headerInfoLabel.isAccessibilityElement = false
         let headerTapGestureRecognizer = UITapGestureRecognizer.singleTapGestureRecognizer
         headerTapGestureRecognizer.addTarget(self, action: #selector(StatusView.headerDidPressed(_:)))
         headerContainerView.addGestureRecognizer(headerTapGestureRecognizer)
