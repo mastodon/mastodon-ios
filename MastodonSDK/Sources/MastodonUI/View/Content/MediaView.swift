@@ -138,12 +138,7 @@ extension MediaView {
     private func layoutImage() {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         container.addSubview(imageView)
-        NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: container.topAnchor),
-            imageView.leadingAnchor.constraint(equalTo: container.leadingAnchor),
-            imageView.trailingAnchor.constraint(equalTo: container.trailingAnchor),
-            imageView.bottomAnchor.constraint(equalTo: container.bottomAnchor),
-        ])
+        imageView.pinToParent()
     }
     
     private func bindImage(configuration: Configuration, info: Configuration.ImageInfo) {        
@@ -168,12 +163,7 @@ extension MediaView {
         // use view controller as View here
         playerViewController.view.translatesAutoresizingMaskIntoConstraints = false
         container.addSubview(playerViewController.view)
-        NSLayoutConstraint.activate([
-            playerViewController.view.topAnchor.constraint(equalTo: container.topAnchor),
-            playerViewController.view.leadingAnchor.constraint(equalTo: container.leadingAnchor),
-            playerViewController.view.trailingAnchor.constraint(equalTo: container.trailingAnchor),
-            playerViewController.view.bottomAnchor.constraint(equalTo: container.bottomAnchor),
-        ])
+        playerViewController.view.pinToParent()
         
         setupIndicatorViewHierarchy()
         playerIndicatorLabel.attributedText = NSAttributedString(string: "GIF")
@@ -213,12 +203,7 @@ extension MediaView {
     private func layoutBlurhash() {
         blurhashImageView.translatesAutoresizingMaskIntoConstraints = false
         container.addSubview(blurhashImageView)
-        NSLayoutConstraint.activate([
-            blurhashImageView.topAnchor.constraint(equalTo: container.topAnchor),
-            blurhashImageView.leadingAnchor.constraint(equalTo: container.leadingAnchor),
-            blurhashImageView.trailingAnchor.constraint(equalTo: container.trailingAnchor),
-            blurhashImageView.bottomAnchor.constraint(equalTo: container.bottomAnchor),
-        ])
+        blurhashImageView.pinToParent()
     }
     
     private func bindBlurhash(configuration: Configuration) {
@@ -304,12 +289,7 @@ extension MediaView {
         guard container.superview == nil else { return }
         container.translatesAutoresizingMaskIntoConstraints = false
         addSubview(container)
-        NSLayoutConstraint.activate([
-            container.topAnchor.constraint(equalTo: topAnchor),
-            container.leadingAnchor.constraint(equalTo: leadingAnchor),
-            container.trailingAnchor.constraint(equalTo: trailingAnchor),
-            container.bottomAnchor.constraint(equalTo: bottomAnchor),
-        ])
+        container.pinToParent()
     }
 
     private func setupIndicatorViewHierarchy() {
@@ -329,12 +309,7 @@ extension MediaView {
         if vibrancyEffectView.superview == nil {
             vibrancyEffectView.translatesAutoresizingMaskIntoConstraints = false
             blurEffectView.contentView.addSubview(vibrancyEffectView)
-            NSLayoutConstraint.activate([
-                vibrancyEffectView.topAnchor.constraint(equalTo: blurEffectView.contentView.topAnchor),
-                vibrancyEffectView.leadingAnchor.constraint(equalTo: blurEffectView.contentView.leadingAnchor),
-                vibrancyEffectView.trailingAnchor.constraint(equalTo: blurEffectView.contentView.trailingAnchor),
-                vibrancyEffectView.bottomAnchor.constraint(equalTo: blurEffectView.contentView.bottomAnchor),
-            ])
+            vibrancyEffectView.pinToParent()
         }
         
         if playerIndicatorLabel.superview == nil {

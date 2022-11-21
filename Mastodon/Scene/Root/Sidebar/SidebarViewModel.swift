@@ -16,7 +16,6 @@ import MastodonCore
 import MastodonLocalization
 
 final class SidebarViewModel {
-    
     var disposeBag = Set<AnyCancellable>()
     
     // input
@@ -80,6 +79,7 @@ extension SidebarViewModel {
             }()
             cell.item = SidebarListContentView.Item(
                 isActive: false,
+                accessoryImage: item == .me ? .chevronUpChevronDown : nil,
                 title: item.title,
                 image: item.image,
                 activeImage: item.selectedImage,
@@ -166,6 +166,7 @@ extension SidebarViewModel {
             case .compose:
                 let item = SidebarListContentView.Item(
                     isActive: false,
+                    accessoryImage: self.currentTab == .me ? .chevronUpChevronDown : nil,
                     title: L10n.Common.Controls.Actions.compose,
                     image: Asset.ObjectsAndTools.squareAndPencil.image.withRenderingMode(.alwaysTemplate),
                     activeImage: Asset.ObjectsAndTools.squareAndPencil.image.withRenderingMode(.alwaysTemplate),

@@ -75,7 +75,7 @@
                 "save_photo": "Guardar foto",
                 "copy_photo": "Copiar foto",
                 "sign_in": "Iniciar sesión",
-                "sign_up": "Registrarse",
+                "sign_up": "Crear cuenta",
                 "see_more": "Ver más",
                 "preview": "Previsualización",
                 "share": "Compartir",
@@ -137,10 +137,10 @@
                     "closed": "Cerrada"
                 },
                 "meta_entity": {
-                    "url": "Link: %s",
-                    "hashtag": "Hashtag: %s",
-                    "mention": "Show Profile: %s",
-                    "email": "Email address: %s"
+                    "url": "Enlace: %s",
+                    "hashtag": "Etiqueta: %s",
+                    "mention": "Mostrar perfil: %s",
+                    "email": "Dirección de correo electrónico: %s"
                 },
                 "actions": {
                     "reply": "Responder",
@@ -218,10 +218,16 @@
             "get_started": "Comenzá",
             "log_in": "Iniciar sesión"
         },
+        "login": {
+            "title": "Hola de nuevo",
+            "subtitle": "Iniciá sesión en el servidor en donde creaste tu cuenta.",
+            "server_search_field": {
+                "placeholder": "Ingresá la dirección web o buscá tu servidor"
+            }
+        },
         "server_picker": {
             "title": "Mastodon está compuesto de cuentas en diferentes servidores.",
-            "subtitle": "Elegí un servidor basado en tus intereses, región, o de propósitos generales.",
-            "subtitle_extend": "Elegí un servidor basado en tus intereses, región, o de propósitos generales. Cada servidor es operado por una organización o individuo totalmente independientes.",
+            "subtitle": "Elegí un servidor basado en tu región, en tus intereses o uno de propósitos generales. Vas a poder interactuar con cualquier cuenta de Mastodon, independientemente del servidor.",
             "button": {
                 "category": {
                     "all": "Todas",
@@ -248,8 +254,7 @@
                 "category": "CATEGORÍA"
             },
             "input": {
-                "placeholder": "Buscar servidores",
-                "search_servers_or_enter_url": "Buscar servidores o introducir dirección web"
+                "search_servers_or_enter_url": "Buscá comunidades o ingresá la dirección web"
             },
             "empty_state": {
                 "finding_servers": "Buscando servidores disponibles…",
@@ -386,7 +391,9 @@
                 "load_failed": "Falló la descarga",
                 "upload_failed": "Falló la subida",
                 "can_not_recognize_this_media_attachment": "No se pudo reconocer este archivo adjunto",
-                "attachment_too_large": "Adjunto demasiado grande"
+                "attachment_too_large": "Adjunto demasiado grande",
+                "compressing_state": "Comprimiendo…",
+                "server_processing_state": "Servidor procesando…"
             },
             "poll": {
                 "duration_time": "Duración: %s",
@@ -396,7 +403,9 @@
                 "one_day": "1 día",
                 "three_days": "3 días",
                 "seven_days": "7 días",
-                "option_number": "Opción %ld"
+                "option_number": "Opción %ld",
+                "the_poll_is_invalid": "La encuesta no es válida",
+                "the_poll_has_empty_option": "La encuesta tiene opción vacía"
             },
             "content_warning": {
                 "placeholder": "Escribí una advertencia precisa acá…"
@@ -417,7 +426,9 @@
                 "custom_emoji_picker": "Selector de emoji personalizado",
                 "enable_content_warning": "Habilitar advertencia de contenido",
                 "disable_content_warning": "Deshabilitar advertencia de contenido",
-                "post_visibility_menu": "Menú de visibilidad del mensaje"
+                "post_visibility_menu": "Menú de visibilidad del mensaje",
+                "post_options": "Opciones de mensaje",
+                "posting_as": "Enviar como %s"
             },
             "keyboard": {
                 "discard_post": "Descartar mensaje",
@@ -442,6 +453,10 @@
                 "placeholder": {
                     "label": "Nombre de campo",
                     "content": "Valor de campo"
+                },
+                "verified": {
+                    "short": "Verificado en %s",
+                    "long": "La propiedad de este enlace fue verificada el %s"
                 }
             },
             "segmented_control": {
@@ -706,7 +721,7 @@
             "accessibility_hint": "Tocá dos veces para descartar este asistente"
         },
         "bookmark": {
-            "title": "Bookmarks"
+            "title": "Marcadores"
         }
     }
 }

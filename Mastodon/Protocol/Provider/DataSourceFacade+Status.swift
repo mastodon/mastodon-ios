@@ -43,7 +43,7 @@ extension DataSourceFacade {
             dependency: provider,
             status: status
         )
-        provider.coordinator.present(
+        _ = provider.coordinator.present(
             scene: .activityViewController(
                 activityViewController: activityViewController,
                 sourceView: button,
@@ -84,7 +84,7 @@ extension DataSourceFacade {
             self.url = url
             self.metadata = LPLinkMetadata()
             metadata.url = url
-            metadata.title = "\(status.author.displayName) (@\(status.author.username)@\(status.author.domain))"
+            metadata.title = "\(status.author.displayName) (@\(status.author.acctWithDomain))"
             metadata.iconProvider = NSItemProvider(object: IconProvider(url: status.author.avatarImageURLWithFallback(domain: status.author.domain)))
         }
 
@@ -358,7 +358,8 @@ extension DataSourceFacade {
                     dependency: dependency,
                     status: status
                 )
-                await dependency.coordinator.present(
+                
+                _ = dependency.coordinator.present(
                     scene: .activityViewController(
                         activityViewController: activityViewController,
                         sourceView: menuContext.button,

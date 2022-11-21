@@ -8,6 +8,7 @@
 import os.log
 import UIKit
 import Combine
+import CoreDataStack
 import SafariServices
 import MastodonAsset
 import MastodonCore
@@ -42,6 +43,7 @@ class MainTabBarController: UITabBarController {
     
     static let avatarButtonSize = CGSize(width: 25, height: 25)
     let avatarButton = CircleAvatarButton()
+    let accountSwitcherChevron = UIImageView(image: .chevronUpChevronDown)
     
     @Published var currentTab: Tab = .home
         
@@ -218,7 +220,7 @@ extension MainTabBarController {
                     let alertController = UIAlertController(for: error, title: nil, preferredStyle: .alert)
                     let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
                     alertController.addAction(okAction)
-                    coordinator.present(
+                    _ = coordinator.present(
                         scene: .alertController(alertController: alertController),
                         from: nil,
                         transition: .alertController(animated: true, completion: nil)
@@ -306,12 +308,11 @@ extension MainTabBarController {
                     guard user.managedObjectContext != nil else { return }
                     self.avatarURL = user.avatarImageURL()
                 }
-            
+
             // a11y
             let _profileTabItem = self.tabBar.items?.first { item in item.tag == Tab.me.tag }
             guard let profileTabItem = _profileTabItem else { return }
-            let currentUserDisplayName = user.displayNameWithFallback ?? "no user"
-            profileTabItem.accessibilityHint = L10n.Scene.AccountList.tabBarHint(currentUserDisplayName)
+            profileTabItem.accessibilityHint = L10n.Scene.AccountList.tabBarHint(user.displayNameWithFallback)
 
             context.authenticationService.updateActiveUserAccountPublisher
                 .sink { [weak self] in
@@ -325,7 +326,14 @@ extension MainTabBarController {
         let tabBarLongPressGestureRecognizer = UILongPressGestureRecognizer()
         tabBarLongPressGestureRecognizer.addTarget(self, action: #selector(MainTabBarController.tabBarLongPressGestureRecognizerHandler(_:)))
         tabBar.addGestureRecognizer(tabBarLongPressGestureRecognizer)
-        
+
+        // todo: reconsider the "double tap to change account" feature -> https://github.com/mastodon/mastodon-ios/issues/628
+//        let tabBarDoubleTapGestureRecognizer = UITapGestureRecognizer()
+//        tabBarDoubleTapGestureRecognizer.numberOfTapsRequired = 2
+//        tabBarDoubleTapGestureRecognizer.addTarget(self, action: #selector(MainTabBarController.tabBarDoubleTapGestureRecognizerHandler(_:)))
+//        tabBarDoubleTapGestureRecognizer.delaysTouchesEnded = false
+//        tabBar.addGestureRecognizer(tabBarDoubleTapGestureRecognizer)
+
         self.isReadyForWizardAvatarButton = authContext != nil
         
         $currentTab
@@ -376,9 +384,7 @@ extension MainTabBarController {
         _ = coordinator.present(scene: .compose(viewModel: composeViewModel), from: nil, transition: .modal(animated: true, completion: nil))
     }
     
-    @objc private func tabBarLongPressGestureRecognizerHandler(_ sender: UILongPressGestureRecognizer) {
-        guard sender.state == .began else { return }
-
+    private func touchedTab(by sender: UIGestureRecognizer) -> Tab? {
         var _tab: Tab?
         let location = sender.location(in: tabBar)
         for item in tabBar.items ?? [] {
@@ -390,7 +396,34 @@ extension MainTabBarController {
             break
         }
 
-        guard let tab = _tab else { return }
+        return _tab
+    }
+    
+    @objc private func tabBarDoubleTapGestureRecognizerHandler(_ sender: UITapGestureRecognizer) {
+        guard sender.state == .ended else { return }
+        guard let tab = touchedTab(by: sender) else { return }
+        logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): double tap \(tab.title) tab")
+        
+        switch tab {
+        case .me:
+            guard let authContext = authContext else { return }
+            assert(Thread.isMainThread)
+
+            guard let nextAccount = context.nextAccount(in: authContext) else { return }
+            
+            Task { @MainActor in
+                let isActive = try await context.authenticationService.activeMastodonUser(domain: nextAccount.domain, userID: nextAccount.userID)
+                guard isActive else { return }
+                self.coordinator.setup()
+            }
+        default:
+            break
+        }
+    }
+    
+    @objc private func tabBarLongPressGestureRecognizerHandler(_ sender: UILongPressGestureRecognizer) {
+        guard sender.state == .began else { return }
+        guard let tab = touchedTab(by: sender) else { return }
         logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): long press \(tab.title) tab")
 
         switch tab {
@@ -443,12 +476,7 @@ extension MainTabBarController {
         
         composeButton.translatesAutoresizingMaskIntoConstraints = false
         composeButttonShadowBackgroundContainer.addSubview(composeButton)
-        NSLayoutConstraint.activate([
-            composeButton.topAnchor.constraint(equalTo: composeButttonShadowBackgroundContainer.topAnchor),
-            composeButton.leadingAnchor.constraint(equalTo: composeButttonShadowBackgroundContainer.leadingAnchor),
-            composeButton.trailingAnchor.constraint(equalTo: composeButttonShadowBackgroundContainer.trailingAnchor),
-            composeButton.bottomAnchor.constraint(equalTo: composeButttonShadowBackgroundContainer.bottomAnchor),
-        ])
+        composeButton.pinToParent()
         composeButton.setContentHuggingPriority(.required - 1, for: .horizontal)
         composeButton.setContentHuggingPriority(.required - 1, for: .vertical)
     }
@@ -474,13 +502,20 @@ extension MainTabBarController {
         }
         anchorImageView.alpha = 0
         
+        accountSwitcherChevron.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(accountSwitcherChevron)
+        
         self.avatarButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(self.avatarButton)
         NSLayoutConstraint.activate([
-            self.avatarButton.centerXAnchor.constraint(equalTo: anchorImageView.centerXAnchor),
+            self.avatarButton.centerXAnchor.constraint(equalTo: anchorImageView.centerXAnchor, constant: -16),
             self.avatarButton.centerYAnchor.constraint(equalTo: anchorImageView.centerYAnchor),
             self.avatarButton.widthAnchor.constraint(equalToConstant: MainTabBarController.avatarButtonSize.width).priority(.required - 1),
             self.avatarButton.heightAnchor.constraint(equalToConstant: MainTabBarController.avatarButtonSize.height).priority(.required - 1),
+            accountSwitcherChevron.widthAnchor.constraint(equalToConstant: 10),
+            accountSwitcherChevron.heightAnchor.constraint(equalToConstant: 18),
+            accountSwitcherChevron.leadingAnchor.constraint(equalTo: avatarButton.trailingAnchor, constant: 8),
+            accountSwitcherChevron.centerYAnchor.constraint(equalTo: avatarButton.centerYAnchor)
         ])
         self.avatarButton.setContentHuggingPriority(.required - 1, for: .horizontal)
         self.avatarButton.setContentHuggingPriority(.required - 1, for: .vertical)
@@ -488,6 +523,7 @@ extension MainTabBarController {
     }
     
     private func updateAvatarButtonAppearance() {
+        accountSwitcherChevron.tintColor = currentTab == .me ? .label : .secondaryLabel
         avatarButton.borderColor = currentTab == .me ? .label : .systemFill
         avatarButton.setNeedsLayout()
     }

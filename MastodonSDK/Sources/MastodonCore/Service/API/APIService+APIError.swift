@@ -43,7 +43,7 @@ extension APIService.APIError: LocalizedError {
     
     public var errorDescription: String? {
         switch errorReason {
-        case .authenticationMissing:        return "Fail to Authenticatie"
+        case .authenticationMissing:        return "Fail to Authenticate"
         case .badRequest:                   return "Bad Request"
         case .badResponse:                  return "Bad Response"
         case .requestThrottle:              return "Request Throttled"

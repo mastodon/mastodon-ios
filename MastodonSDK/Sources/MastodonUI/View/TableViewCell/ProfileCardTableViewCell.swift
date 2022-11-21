@@ -67,12 +67,7 @@ extension ProfileCardTableViewCell {
         
         profileCardView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(profileCardView)
-        NSLayoutConstraint.activate([
-            profileCardView.topAnchor.constraint(equalTo: shadowBackgroundContainer.topAnchor),
-            profileCardView.leadingAnchor.constraint(equalTo: shadowBackgroundContainer.leadingAnchor),
-            profileCardView.trailingAnchor.constraint(equalTo: shadowBackgroundContainer.trailingAnchor),
-            profileCardView.bottomAnchor.constraint(equalTo: shadowBackgroundContainer.bottomAnchor),
-        ])
+        profileCardView.pinTo(to: shadowBackgroundContainer)
         
         profileCardView.delegate = self
         

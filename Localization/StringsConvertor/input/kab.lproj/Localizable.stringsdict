@@ -50,6 +50,22 @@
         <string>%ld yisekkilen</string>
       </dict>
     </dict>
+    <key>a11y.plural.count.characters_left</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@character_count@ left</string>
+      <key>character_count</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>1 n usekkil</string>
+        <key>other</key>
+        <string>%ld n isekkilen</string>
+      </dict>
+    </dict>
     <key>plural.count.followed_by_and_mutual</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
@@ -120,7 +136,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 tsuffeɣt</string>
+        <string>1 n tsuffeɣt</string>
         <key>other</key>
         <string>%ld n tsuffaɣ</string>
       </dict>
@@ -296,9 +312,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>Yeqqim-d 1 wass</string>
+        <string>Yeqqim-d 1 n wass</string>
         <key>other</key>
-        <string>Qqimen-d %ld wussan</string>
+        <string>Qqimen-d %ld n wussan</string>
       </dict>
     </dict>
     <key>date.hour.left</key>
@@ -312,9 +328,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>Yeqqim-d 1 usrag</string>
+        <string>Yeqqim-d 1 n wesrag</string>
         <key>other</key>
-        <string>Qqimen-d %ld yisragen</string>
+        <string>Qqimen-d %ld n yisragen</string>
       </dict>
     </dict>
     <key>date.minute.left</key>
@@ -328,9 +344,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 tesdat i d-yeqqimen</string>
+        <string>1 n tesdat i d-yeqqimen</string>
         <key>other</key>
-        <string>%ld tesdatin i d-yeqqimen</string>
+        <string>%ld n tesdatin i d-yeqqimen</string>
       </dict>
     </dict>
     <key>date.second.left</key>
@@ -344,9 +360,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 tasint i d-yeqqimen</string>
+        <string>1 n tasint i d-yeqqimen</string>
         <key>other</key>
-        <string>%ld tsinin i d-yeqqimen</string>
+        <string>%ld n tasinin i d-yeqqimen</string>
       </dict>
     </dict>
     <key>date.year.ago.abbr</key>
@@ -360,9 +376,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 useggas aya</string>
+        <string>%ld n useggas aya</string>
         <key>other</key>
-        <string>%ld yiseggasen aya</string>
+        <string>%ld n yiseggasen aya</string>
       </dict>
     </dict>
     <key>date.month.ago.abbr</key>
@@ -376,9 +392,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 wayyur aya</string>
+        <string>%ld n wayyur aya</string>
         <key>other</key>
-        <string>%ld wayyuren aya</string>
+        <string>%ld n wayyuren aya</string>
       </dict>
     </dict>
     <key>date.day.ago.abbr</key>
@@ -392,9 +408,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 wass aya</string>
+        <string>%ld n wass aya</string>
         <key>other</key>
-        <string>%ld wussan aya</string>
+        <string>%ld n wussan aya</string>
       </dict>
     </dict>
     <key>date.hour.ago.abbr</key>
@@ -408,9 +424,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 usrag aya</string>
+        <string>%ld n wesrag aya</string>
         <key>other</key>
-        <string>%ld yisragen aya</string>
+        <string>%ld n yisragen aya</string>
       </dict>
     </dict>
     <key>date.minute.ago.abbr</key>
@@ -424,9 +440,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 tesdat aya</string>
+        <string>%ld n tesdat aya</string>
         <key>other</key>
-        <string>%ld tesdatin aya</string>
+        <string>%ld n tesdatin aya</string>
       </dict>
     </dict>
     <key>date.second.ago.abbr</key>
@@ -440,9 +456,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 tasint aya</string>
+        <string>%ld n tasint aya</string>
         <key>other</key>
-        <string>%ld tsinin aya</string>
+        <string>%ld n tasinin aya</string>
       </dict>
     </dict>
   </dict>

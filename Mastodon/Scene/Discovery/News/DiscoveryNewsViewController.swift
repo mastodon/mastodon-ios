@@ -32,7 +32,7 @@ final class DiscoveryNewsViewController: UIViewController, NeedsDependency, Medi
         return tableView
     }()
     
-    let refreshControl = UIRefreshControl()
+    let refreshControl = RefreshControl()
     
     deinit {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
@@ -56,12 +56,7 @@ extension DiscoveryNewsViewController {
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
-        NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-        ])
+        tableView.pinToParent()
 
         tableView.delegate = self
         viewModel.setupDiffableDataSource(
@@ -101,7 +96,7 @@ extension DiscoveryNewsViewController {
 
 extension DiscoveryNewsViewController {
     
-    @objc private func refreshControlValueChanged(_ sender: UIRefreshControl) {
+    @objc private func refreshControlValueChanged(_ sender: RefreshControl) {
         guard viewModel.stateMachine.enter(DiscoveryNewsViewModel.State.Reloading.self) else {
             sender.endRefreshing()
             return
@@ -117,7 +112,7 @@ extension DiscoveryNewsViewController: UITableViewDelegate {
         logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): \(indexPath)")
         guard case let .link(link) = viewModel.diffableDataSource?.itemIdentifier(for: indexPath) else { return }
         guard let url = URL(string: link.url) else { return }
-        coordinator.present(
+        _ = coordinator.present(
             scene: .safari(url: url),
             from: self,
             transition: .safariPresent(animated: true, completion: nil)
@@ -214,7 +209,7 @@ extension DiscoveryNewsViewController: TableViewControllerNavigateable {
         
         guard case let .link(link) = item else { return }
         guard let url = URL(string: link.url) else { return }
-        coordinator.present(
+        _ = coordinator.present(
             scene: .safari(url: url),
             from: self,
             transition: .safariPresent(animated: true, completion: nil)

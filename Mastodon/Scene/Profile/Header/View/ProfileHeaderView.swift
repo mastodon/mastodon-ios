@@ -50,6 +50,7 @@ final class ProfileHeaderView: UIView {
         return viewModel
     }()
         
+    let bannerImageViewSingleTapGestureRecognizer = UITapGestureRecognizer.singleTapGestureRecognizer
     let bannerContainerView = UIView()
     let bannerImageView: UIImageView = {
         let imageView = UIImageView()
@@ -101,7 +102,9 @@ final class ProfileHeaderView: UIView {
         return button
     }()
 
-    func setupAvatarOverlayViews() {
+    func setupImageOverlayViews() {
+        editBannerButton.tintColor = .white
+
         editAvatarBackgroundView.backgroundColor = UIColor.black.withAlphaComponent(0.6)
         editAvatarButtonOverlayIndicatorView.tintColor = .white
     }
@@ -113,6 +116,13 @@ final class ProfileHeaderView: UIView {
         return visualEffectView
     }()
     
+    let editBannerButton: HighlightDimmableButton = {
+        let button = HighlightDimmableButton()
+        button.setImage(UIImage(systemName: "photo", withConfiguration: UIImage.SymbolConfiguration(pointSize: 28)), for: .normal)
+        button.tintColor = .clear
+        return button
+    }()
+
     let editAvatarBackgroundView: UIView = {
         let view = UIView()
         view.backgroundColor = .clear       // set value after view appeared
@@ -265,13 +275,13 @@ extension ProfileHeaderView {
         
         bannerImageViewOverlayVisualEffectView.translatesAutoresizingMaskIntoConstraints = false
         bannerImageView.addSubview(bannerImageViewOverlayVisualEffectView)
-        NSLayoutConstraint.activate([
-            bannerImageViewOverlayVisualEffectView.topAnchor.constraint(equalTo: bannerImageView.topAnchor),
-            bannerImageViewOverlayVisualEffectView.leadingAnchor.constraint(equalTo: bannerImageView.leadingAnchor),
-            bannerImageViewOverlayVisualEffectView.trailingAnchor.constraint(equalTo: bannerImageView.trailingAnchor),
-            bannerImageViewOverlayVisualEffectView.bottomAnchor.constraint(equalTo: bannerImageView.bottomAnchor),
-        ])
-        
+        bannerImageViewOverlayVisualEffectView.pinToParent()
+
+        editBannerButton.translatesAutoresizingMaskIntoConstraints = false
+        bannerContainerView.addSubview(editBannerButton)
+        editBannerButton.pinTo(to: bannerImageView)
+        bannerContainerView.isUserInteractionEnabled = true
+
         // follows you
         followsYouBlurEffectView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(followsYouBlurEffectView)
@@ -286,12 +296,7 @@ extension ProfileHeaderView {
 
         followsYouVibrantEffectView.translatesAutoresizingMaskIntoConstraints = false
         followsYouBlurEffectView.contentView.addSubview(followsYouVibrantEffectView)
-        NSLayoutConstraint.activate([
-            followsYouVibrantEffectView.topAnchor.constraint(equalTo: followsYouBlurEffectView.topAnchor),
-            followsYouVibrantEffectView.leadingAnchor.constraint(equalTo: followsYouBlurEffectView.leadingAnchor),
-            followsYouVibrantEffectView.trailingAnchor.constraint(equalTo: followsYouBlurEffectView.trailingAnchor),
-            followsYouVibrantEffectView.bottomAnchor.constraint(equalTo: followsYouBlurEffectView.bottomAnchor),
-        ])
+        followsYouVibrantEffectView.pinTo(to: followsYouBlurEffectView)
         
         followsYouLabel.translatesAutoresizingMaskIntoConstraints = false
         followsYouVibrantEffectView.contentView.addSubview(followsYouLabel)
@@ -327,30 +332,15 @@ extension ProfileHeaderView {
 
         avatarImageViewOverlayVisualEffectView.translatesAutoresizingMaskIntoConstraints = false
         avatarImageViewBackgroundView.addSubview(avatarImageViewOverlayVisualEffectView)
-        NSLayoutConstraint.activate([
-            avatarImageViewOverlayVisualEffectView.topAnchor.constraint(equalTo: avatarImageViewBackgroundView.topAnchor),
-            avatarImageViewOverlayVisualEffectView.leadingAnchor.constraint(equalTo: avatarImageViewBackgroundView.leadingAnchor),
-            avatarImageViewOverlayVisualEffectView.trailingAnchor.constraint(equalTo: avatarImageViewBackgroundView.trailingAnchor),
-            avatarImageViewOverlayVisualEffectView.bottomAnchor.constraint(equalTo: avatarImageViewBackgroundView.bottomAnchor),
-        ])
+        avatarImageViewOverlayVisualEffectView.pinToParent()
     
         editAvatarBackgroundView.translatesAutoresizingMaskIntoConstraints = false
         avatarButton.addSubview(editAvatarBackgroundView)
-        NSLayoutConstraint.activate([
-            editAvatarBackgroundView.topAnchor.constraint(equalTo: avatarButton.topAnchor),
-            editAvatarBackgroundView.leadingAnchor.constraint(equalTo: avatarButton.leadingAnchor),
-            editAvatarBackgroundView.trailingAnchor.constraint(equalTo: avatarButton.trailingAnchor),
-            editAvatarBackgroundView.bottomAnchor.constraint(equalTo: avatarButton.bottomAnchor),
-        ])
+        editAvatarBackgroundView.pinToParent()
         
         editAvatarButtonOverlayIndicatorView.translatesAutoresizingMaskIntoConstraints = false
         editAvatarBackgroundView.addSubview(editAvatarButtonOverlayIndicatorView)
-        NSLayoutConstraint.activate([
-            editAvatarButtonOverlayIndicatorView.topAnchor.constraint(equalTo: editAvatarBackgroundView.topAnchor),
-            editAvatarButtonOverlayIndicatorView.leadingAnchor.constraint(equalTo: editAvatarBackgroundView.leadingAnchor),
-            editAvatarButtonOverlayIndicatorView.trailingAnchor.constraint(equalTo: editAvatarBackgroundView.trailingAnchor),
-            editAvatarButtonOverlayIndicatorView.bottomAnchor.constraint(equalTo: editAvatarBackgroundView.bottomAnchor),
-        ])
+        editAvatarButtonOverlayIndicatorView.pinToParent()
         editAvatarBackgroundView.isUserInteractionEnabled = true
         avatarButton.isUserInteractionEnabled = true
         
@@ -436,11 +426,8 @@ extension ProfileHeaderView {
         
         relationshipActionButton.translatesAutoresizingMaskIntoConstraints = false
         relationshipActionButtonShadowContainer.addSubview(relationshipActionButton)
+        relationshipActionButton.pinToParent()
         NSLayoutConstraint.activate([
-            relationshipActionButton.topAnchor.constraint(equalTo: relationshipActionButtonShadowContainer.topAnchor),
-            relationshipActionButton.leadingAnchor.constraint(equalTo: relationshipActionButtonShadowContainer.leadingAnchor),
-            relationshipActionButton.trailingAnchor.constraint(equalTo: relationshipActionButtonShadowContainer.trailingAnchor),
-            relationshipActionButton.bottomAnchor.constraint(equalTo: relationshipActionButtonShadowContainer.bottomAnchor),
             relationshipActionButton.widthAnchor.constraint(greaterThanOrEqualToConstant: ProfileHeaderView.friendshipActionButtonSize.width).priority(.required - 1),
             relationshipActionButton.heightAnchor.constraint(equalToConstant: ProfileHeaderView.friendshipActionButtonSize.height).priority(.defaultHigh),
         ])
@@ -455,8 +442,7 @@ extension ProfileHeaderView {
         statusDashboardView.delegate = self
         bioMetaText.textView.delegate = self
         bioMetaText.textView.linkDelegate = self
-        
-        let bannerImageViewSingleTapGestureRecognizer = UITapGestureRecognizer.singleTapGestureRecognizer
+
         bannerImageView.addGestureRecognizer(bannerImageViewSingleTapGestureRecognizer)
         bannerImageViewSingleTapGestureRecognizer.addTarget(self, action: #selector(ProfileHeaderView.bannerImageViewDidPressed(_:)))
         

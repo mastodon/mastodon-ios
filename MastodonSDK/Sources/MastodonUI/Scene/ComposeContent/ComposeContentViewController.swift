@@ -108,12 +108,7 @@ extension ComposeContentViewController {
         // setup tableView
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
-        NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-        ])
+        tableView.pinToParent()
         
         tableView.delegate = self
         viewModel.setupDataSource(tableView: tableView)
@@ -627,10 +622,10 @@ extension ComposeContentViewController: ComposeContentViewModelDelegate {
         let _replacedText: String? = {
             var text: String
             switch item {
-            case .hashtag(let hashtag):
-                text = "#" + hashtag.name
-            case .hashtagV1(let hashtagName):
-                text = "#" + hashtagName
+            case .hashtag, .hashtagV1:
+                // do no fill the hashtag
+                // allow user delete suffix and post they want
+                return nil
             case .account(let account):
                 text = "@" + account.acct
             case .emoji(let emoji):

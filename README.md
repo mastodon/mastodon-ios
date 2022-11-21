@@ -20,7 +20,7 @@ Read this blog post for this app to learn more.
 
 ## Acknowledgments
 
-Thanks to these open-sources projects listed [here](./Documentation/Acknowledgments.md).
+Thanks to these open-source projects listed [here](./Documentation/Acknowledgments.md).
 
 ## License
 
