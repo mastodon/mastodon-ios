@@ -498,7 +498,7 @@ extension ComposeContentViewModel {
         let managedObjectContext = self.context.managedObjectContext
         var _author: ManagedObjectRecord<MastodonUser>?
         managedObjectContext.performAndWait {
-            _author = authContext.mastodonAuthenticationBox.authenticationRecord.object(in: managedObjectContext)?.user.asRecrod
+            _author = authContext.mastodonAuthenticationBox.authenticationRecord.object(in: managedObjectContext)?.user.asRecord
         }
         guard let author = _author else {
             throw AppError.badAuthentication

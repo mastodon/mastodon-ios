@@ -33,7 +33,7 @@ extension SearchResultViewModel {
             userFetchedResultsController.$records,
             $hashtags
         )
-        .map { statusRecrods, userRecords, hashtags in
+        .map { statusRecords, userRecords, hashtags in
             var items: [SearchResultItem] = []
             
             let userItems = userRecords.map { SearchResultItem.user($0) }
@@ -42,7 +42,7 @@ extension SearchResultViewModel {
             let hashtagItems = hashtags.map { SearchResultItem.hashtag(tag: $0) }
             items.append(contentsOf: hashtagItems)
             
-            let statusItems = statusRecrods.map { SearchResultItem.status($0) }
+            let statusItems = statusRecords.map { SearchResultItem.status($0) }
             items.append(contentsOf: statusItems)
 
             return items
