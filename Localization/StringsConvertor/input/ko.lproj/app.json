@@ -96,7 +96,7 @@
             "tabs": {
                 "home": "홈",
                 "search": "검색",
-                "notification": "알림",
+                "notifications": "Notifications",
                 "profile": "프로필"
             },
             "keyboard": {
