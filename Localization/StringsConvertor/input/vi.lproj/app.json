@@ -75,7 +75,7 @@
                 "save_photo": "Lưu ảnh",
                 "copy_photo": "Sao chép ảnh",
                 "sign_in": "Đăng nhập",
-                "sign_up": "Đăng ký",
+                "sign_up": "Tạo tài khoản",
                 "see_more": "Xem thêm",
                 "preview": "Xem trước",
                 "share": "Chia sẻ",
@@ -218,10 +218,16 @@
             "get_started": "Bắt đầu",
             "log_in": "Đăng nhập"
         },
+        "login": {
+            "title": "Chào mừng trở lại!",
+            "subtitle": "Đăng nhập vào máy chủ mà bạn đã tạo tài khoản.",
+            "server_search_field": {
+                "placeholder": "Nhập URL hoặc tìm máy chủ"
+            }
+        },
         "server_picker": {
             "title": "Mastodon gồm nhiều máy chủ với thành viên riêng.",
-            "subtitle": "Chọn một máy chủ dựa theo sở thích, tôn giáo, hoặc ý muốn của bạn.",
-            "subtitle_extend": "Chọn một máy chủ dựa theo sở thích, tôn giáo, hoặc ý muốn của bạn. Mỗi máy chủ có thể được vận hành bởi một cá nhân hoặc một tổ chức.",
+            "subtitle": "Chọn một máy chủ dựa theo sở thích, tôn giáo, hoặc ý muốn của bạn. Bạn vẫn có thể giao tiếp với bất cứ ai mà không phụ thuộc vào máy chủ của họ.",
             "button": {
                 "category": {
                     "all": "Toàn bộ",
@@ -248,8 +254,7 @@
                 "category": "PHÂN LOẠI"
             },
             "input": {
-                "placeholder": "Tìm máy chủ",
-                "search_servers_or_enter_url": "Tìm máy chủ hoặc nhập URL"
+                "search_servers_or_enter_url": "Tìm một máy chủ hoặc nhập URL"
             },
             "empty_state": {
                 "finding_servers": "Đang tìm máy chủ hoạt động...",
@@ -383,10 +388,12 @@
                 "attachment_broken": "%s này bị lỗi và không thể\ntải lên Mastodon.",
                 "description_photo": "Mô tả hình ảnh cho người khiếm thị...",
                 "description_video": "Mô tả video cho người khiếm thị...",
-                "load_failed": "Load Failed",
-                "upload_failed": "Upload Failed",
-                "can_not_recognize_this_media_attachment": "Can not regonize this media attachment",
-                "attachment_too_large": "Attachment too large"
+                "load_failed": "Tải thất bại",
+                "upload_failed": "Tải lên thất bại",
+                "can_not_recognize_this_media_attachment": "Không xem được tập tin đính kèm",
+                "attachment_too_large": "Tập tin đính kèm quá lớn",
+                "compressing_state": "Đang nén...",
+                "server_processing_state": "Máy chủ đang xử lý..."
             },
             "poll": {
                 "duration_time": "Thời hạn: %s",
@@ -396,7 +403,9 @@
                 "one_day": "1 ngày",
                 "three_days": "3 ngày",
                 "seven_days": "7 ngày",
-                "option_number": "Lựa chọn %ld"
+                "option_number": "Lựa chọn %ld",
+                "the_poll_is_invalid": "Bình chọn không hợp lệ",
+                "the_poll_has_empty_option": "Thiếu lựa chọn"
             },
             "content_warning": {
                 "placeholder": "Viết nội dung ẩn của bạn ở đây..."
@@ -417,7 +426,9 @@
                 "custom_emoji_picker": "Chọn emoji",
                 "enable_content_warning": "Bật nội dung ẩn",
                 "disable_content_warning": "Tắt nội dung ẩn",
-                "post_visibility_menu": "Menu hiển thị tút"
+                "post_visibility_menu": "Menu hiển thị tút",
+                "post_options": "Tùy chọn đăng",
+                "posting_as": "Đăng dưới dạng %s"
             },
             "keyboard": {
                 "discard_post": "Hủy đăng tút",
@@ -442,6 +453,10 @@
                 "placeholder": {
                     "label": "Nhãn",
                     "content": "Nội dung"
+                },
+                "verified": {
+                    "short": "Đã xác minh %s",
+                    "long": "Liên kết này đã được xác minh trên %s"
                 }
             },
             "segmented_control": {

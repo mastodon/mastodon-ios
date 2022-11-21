@@ -74,8 +74,8 @@
                 "take_photo": "Ota kuva",
                 "save_photo": "Tallenna kuva",
                 "copy_photo": "Kopioi kuva",
-                "sign_in": "Kirjaudu sisään",
-                "sign_up": "Rekisteröidy",
+                "sign_in": "Log in",
+                "sign_up": "Create account",
                 "see_more": "Näytä lisää",
                 "preview": "Esikatselu",
                 "share": "Jaa",
@@ -218,10 +218,16 @@
             "get_started": "Get Started",
             "log_in": "Log In"
         },
+        "login": {
+            "title": "Welcome back",
+            "subtitle": "Log you in on the server you created your account on.",
+            "server_search_field": {
+                "placeholder": "Enter URL or search for your server"
+            }
+        },
         "server_picker": {
             "title": "Valitse palvelin,\nmikä tahansa palvelin.",
-            "subtitle": "Pick a server based on your interests, region, or a general purpose one.",
-            "subtitle_extend": "Pick a server based on your interests, region, or a general purpose one. Each server is operated by an entirely independent organization or individual.",
+            "subtitle": "Pick a server based on your region, interests, or a general purpose one. You can still chat with anyone on Mastodon, regardless of your servers.",
             "button": {
                 "category": {
                     "all": "Kaikki",
@@ -248,8 +254,7 @@
                 "category": "KATEGORIA"
             },
             "input": {
-                "placeholder": "Etsi palvelin tai liity omaan...",
-                "search_servers_or_enter_url": "Search servers or enter URL"
+                "search_servers_or_enter_url": "Search communities or enter URL"
             },
             "empty_state": {
                 "finding_servers": "Etsistään saatavilla olevia palvelimia...",
@@ -385,8 +390,10 @@
                 "description_video": "Kuvaile video näkövammaisille...",
                 "load_failed": "Load Failed",
                 "upload_failed": "Upload Failed",
-                "can_not_recognize_this_media_attachment": "Can not regonize this media attachment",
-                "attachment_too_large": "Attachment too large"
+                "can_not_recognize_this_media_attachment": "Can not recognize this media attachment",
+                "attachment_too_large": "Attachment too large",
+                "compressing_state": "Compressing...",
+                "server_processing_state": "Server Processing..."
             },
             "poll": {
                 "duration_time": "Kesto: %s",
@@ -396,7 +403,9 @@
                 "one_day": "1 päivä",
                 "three_days": "3 päivää",
                 "seven_days": "7 päivää",
-                "option_number": "Vaihtoehto %ld"
+                "option_number": "Vaihtoehto %ld",
+                "the_poll_is_invalid": "The poll is invalid",
+                "the_poll_has_empty_option": "The poll has empty option"
             },
             "content_warning": {
                 "placeholder": "Kirjoita tarkka varoitus tähän..."
@@ -417,7 +426,9 @@
                 "custom_emoji_picker": "Mukautettu emojivalitsin",
                 "enable_content_warning": "Ota sisältövaroitus käyttöön",
                 "disable_content_warning": "Poista sisältövaroitus käytöstä",
-                "post_visibility_menu": "Julkaisun näkyvyysvalikko"
+                "post_visibility_menu": "Julkaisun näkyvyysvalikko",
+                "post_options": "Post Options",
+                "posting_as": "Posting as %s"
             },
             "keyboard": {
                 "discard_post": "Hylkää julkaisu",
@@ -442,6 +453,10 @@
                 "placeholder": {
                     "label": "Nimi",
                     "content": "Sisältö"
+                },
+                "verified": {
+                    "short": "Verified on %s",
+                    "long": "Ownership of this link was checked on %s"
                 }
             },
             "segmented_control": {

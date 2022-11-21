@@ -11,7 +11,7 @@ import enum NIOHTTP1.HTTPResponseStatus
 
 extension Mastodon.API {
         
-    static let timeoutInterval: TimeInterval = 10
+    static let timeoutInterval: TimeInterval = 60
     
     static let httpHeaderDateFormatter: ISO8601DateFormatter = {
         var formatter = ISO8601DateFormatter()

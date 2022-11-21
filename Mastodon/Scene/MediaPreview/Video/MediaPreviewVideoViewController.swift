@@ -80,6 +80,12 @@ extension MediaPreviewVideoViewController {
         }
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+
+        playerViewController.didMove(toParent: self)
+    }
+    
 }
 
 // MARK: - ShareActivityProvider
