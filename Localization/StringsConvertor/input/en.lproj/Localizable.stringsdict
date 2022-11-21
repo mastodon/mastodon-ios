@@ -60,8 +60,14 @@
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
+        <key>zero</key>
+        <string>no characters</string>
         <key>one</key>
         <string>1 character</string>
+        <key>few</key>
+        <string>%ld characters</string>
+        <key>many</key>
+        <string>%ld characters</string>
         <key>other</key>
         <string>%ld characters</string>
       </dict>

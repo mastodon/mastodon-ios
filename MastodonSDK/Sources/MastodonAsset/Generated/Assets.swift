@@ -8,6 +8,9 @@
 #elseif os(tvOS) || os(watchOS)
   import UIKit
 #endif
+#if canImport(SwiftUI)
+  import SwiftUI
+#endif
 
 // Deprecated typealiases
 @available(*, deprecated, renamed: "ColorAsset.Color", message: "This typealias will be removed in SwiftGen 7.0")
@@ -130,6 +133,11 @@ public enum Asset {
   }
   public enum Scene {
     public enum Compose {
+      public enum Attachment {
+        public static let indicatorButtonBackground = ColorAsset(name: "Scene/Compose/Attachment/indicator.button.background")
+        public static let retry = ImageAsset(name: "Scene/Compose/Attachment/retry")
+        public static let stop = ImageAsset(name: "Scene/Compose/Attachment/stop")
+      }
       public static let earth = ImageAsset(name: "Scene/Compose/Earth")
       public static let mention = ImageAsset(name: "Scene/Compose/Mention")
       public static let more = ImageAsset(name: "Scene/Compose/More")
@@ -163,6 +171,11 @@ public enum Asset {
       public static let textFieldBackground = ColorAsset(name: "Scene/Onboarding/textField.background")
     }
     public enum Profile {
+      public enum About {
+        public static let bioAboutFieldVerifiedBackground = ColorAsset(name: "Scene/Profile/About/bio.about.field.verified.background")
+        public static let bioAboutFieldVerifiedCheckmark = ColorAsset(name: "Scene/Profile/About/bio.about.field.verified.checkmark")
+        public static let bioAboutFieldVerifiedLink = ColorAsset(name: "Scene/Profile/About/bio.about.field.verified.link")
+      }
       public enum Banner {
         public static let bioEditBackgroundGray = ColorAsset(name: "Scene/Profile/Banner/bio.edit.background.gray")
         public static let nameEditBackgroundGray = ColorAsset(name: "Scene/Profile/Banner/name.edit.background.gray")
@@ -196,10 +209,7 @@ public enum Asset {
         public static let elephantThreeOnGrassWithTreeThree = ImageAsset(name: "Scene/Welcome/illustration/elephant.three.on.grass.with.tree.three")
         public static let elephantThreeOnGrassWithTreeTwo = ImageAsset(name: "Scene/Welcome/illustration/elephant.three.on.grass.with.tree.two")
       }
-      public static let mastodonLogoBlack = ImageAsset(name: "Scene/Welcome/mastodon.logo.black")
-      public static let mastodonLogoBlackLarge = ImageAsset(name: "Scene/Welcome/mastodon.logo.black.large")
       public static let mastodonLogo = ImageAsset(name: "Scene/Welcome/mastodon.logo")
-      public static let mastodonLogoLarge = ImageAsset(name: "Scene/Welcome/mastodon.logo.large")
       public static let signInButtonBackground = ColorAsset(name: "Scene/Welcome/sign.in.button.background")
     }
   }
@@ -274,6 +284,24 @@ public final class ColorAsset {
     return color
   }()
 
+  #if os(iOS) || os(tvOS)
+  @available(iOS 11.0, tvOS 11.0, *)
+  public func color(compatibleWith traitCollection: UITraitCollection) -> Color {
+    let bundle = Bundle.module
+    guard let color = Color(named: name, in: bundle, compatibleWith: traitCollection) else {
+      fatalError("Unable to load color asset named \(name).")
+    }
+    return color
+  }
+  #endif
+
+  #if canImport(SwiftUI)
+  @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+  public private(set) lazy var swiftUIColor: SwiftUI.Color = {
+    SwiftUI.Color(asset: self)
+  }()
+  #endif
+
   fileprivate init(name: String) {
     self.name = name
   }
@@ -293,6 +321,16 @@ public extension ColorAsset.Color {
   }
 }
 
+#if canImport(SwiftUI)
+@available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+public extension SwiftUI.Color {
+  init(asset: ColorAsset) {
+    let bundle = Bundle.module
+    self.init(asset.name, bundle: bundle)
+  }
+}
+#endif
+
 public struct ImageAsset {
   public fileprivate(set) var name: String
 
@@ -302,6 +340,7 @@ public struct ImageAsset {
   public typealias Image = UIImage
   #endif
 
+  @available(iOS 8.0, tvOS 9.0, watchOS 2.0, macOS 10.7, *)
   public var image: Image {
     let bundle = Bundle.module
     #if os(iOS) || os(tvOS)
@@ -317,9 +356,28 @@ public struct ImageAsset {
     }
     return result
   }
+
+  #if os(iOS) || os(tvOS)
+  @available(iOS 8.0, tvOS 9.0, *)
+  public func image(compatibleWith traitCollection: UITraitCollection) -> Image {
+    let bundle = Bundle.module
+    guard let result = Image(named: name, in: bundle, compatibleWith: traitCollection) else {
+      fatalError("Unable to load image asset named \(name).")
+    }
+    return result
+  }
+  #endif
+
+  #if canImport(SwiftUI)
+  @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+  public var swiftUIImage: SwiftUI.Image {
+    SwiftUI.Image(asset: self)
+  }
+  #endif
 }
 
 public extension ImageAsset.Image {
+  @available(iOS 8.0, tvOS 9.0, watchOS 2.0, *)
   @available(macOS, deprecated,
     message: "This initializer is unsafe on macOS, please use the ImageAsset.image property")
   convenience init?(asset: ImageAsset) {
@@ -333,3 +391,23 @@ public extension ImageAsset.Image {
     #endif
   }
 }
+
+#if canImport(SwiftUI)
+@available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+public extension SwiftUI.Image {
+  init(asset: ImageAsset) {
+    let bundle = Bundle.module
+    self.init(asset.name, bundle: bundle)
+  }
+
+  init(asset: ImageAsset, label: Text) {
+    let bundle = Bundle.module
+    self.init(asset.name, bundle: bundle, label: label)
+  }
+
+  init(decorative asset: ImageAsset) {
+    let bundle = Bundle.module
+    self.init(decorative: asset.name, bundle: bundle)
+  }
+}
+#endif

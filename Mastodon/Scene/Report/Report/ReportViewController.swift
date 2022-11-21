@@ -61,12 +61,7 @@ extension ReportViewController {
         reportReasonViewController.view.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(reportReasonViewController.view)
         reportReasonViewController.didMove(toParent: self)
-        NSLayoutConstraint.activate([
-            reportReasonViewController.view.topAnchor.constraint(equalTo: view.topAnchor),
-            reportReasonViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            reportReasonViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            reportReasonViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-        ])
+        reportReasonViewController.view.pinToParent()
     }
     
 }
@@ -126,7 +121,7 @@ extension ReportViewController: ReportServerRulesViewControllerDelegate {
             return
         }
         
-        coordinator.present(
+        _ = coordinator.present(
             scene: .reportStatus(viewModel: viewModel.reportStatusViewModel),
             from: self,
             transition: .show

@@ -23,6 +23,8 @@
 		0FB3D33825E6401400AAD544 /* PickServerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB3D33725E6401400AAD544 /* PickServerCell.swift */; };
 		164F0EBC267D4FE400249499 /* BoopSound.caf in Resources */ = {isa = PBXBuildFile; fileRef = 164F0EBB267D4FE400249499 /* BoopSound.caf */; };
 		18BC7629F65E6DB12CB8416D /* Pods_Mastodon_MastodonUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C030226D3C73DCC23D67452 /* Pods_Mastodon_MastodonUITests.framework */; };
+		2A82294F29262EE000D2A1F7 /* AppContext+NextAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A82294E29262EE000D2A1F7 /* AppContext+NextAccount.swift */; };
+		2AE244482927831100BDBF7C /* UIImage+SFSymbols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE244472927831100BDBF7C /* UIImage+SFSymbols.swift */; };
 		2D198643261BF09500F0B013 /* SearchResultItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D198642261BF09500F0B013 /* SearchResultItem.swift */; };
 		2D198649261C0B8500F0B013 /* SearchResultSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D198648261C0B8500F0B013 /* SearchResultSection.swift */; };
 		2D206B8625F5FB0900143C56 /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D206B8525F5FB0900143C56 /* Double.swift */; };
@@ -87,6 +89,12 @@
 		62FD27D32893707B00B205C5 /* BookmarkViewController+DataSourceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FD27D22893707B00B205C5 /* BookmarkViewController+DataSourceProvider.swift */; };
 		62FD27D52893708A00B205C5 /* BookmarkViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FD27D42893708A00B205C5 /* BookmarkViewModel+Diffable.swift */; };
 		87FFDA5D898A5C42ADCB35E7 /* Pods_Mastodon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4ABE34829701A4496C5BB64 /* Pods_Mastodon.framework */; };
+		C24C97032922F30500BAE8CB /* RefreshControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24C97022922F30500BAE8CB /* RefreshControl.swift */; };
+		D87BFC8B291D5C6B00FEE264 /* MastodonLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87BFC8A291D5C6B00FEE264 /* MastodonLoginView.swift */; };
+		D87BFC8D291EB81200FEE264 /* MastodonLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87BFC8C291EB81200FEE264 /* MastodonLoginViewModel.swift */; };
+		D87BFC8F291EC26A00FEE264 /* MastodonLoginServerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87BFC8E291EC26A00FEE264 /* MastodonLoginServerTableViewCell.swift */; };
+		D8916DC029211BE500124085 /* ContentSizedTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8916DBF29211BE500124085 /* ContentSizedTableView.swift */; };
+		D8A6AB6C291C5136003AB663 /* MastodonLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A6AB6B291C5136003AB663 /* MastodonLoginViewController.swift */; };
 		DB0009A626AEE5DC009B9D2D /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = DB0009A926AEE5DC009B9D2D /* Intents.intentdefinition */; settings = {ATTRIBUTES = (codegen, ); }; };
 		DB0009A726AEE5DC009B9D2D /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = DB0009A926AEE5DC009B9D2D /* Intents.intentdefinition */; };
 		DB0140CF25C42AEE00F9F3CF /* OSLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0140CE25C42AEE00F9F3CF /* OSLog.swift */; };
@@ -151,7 +159,6 @@
 		DB1FD44425F26CCC004CFCFC /* PickServerSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1FD44325F26CCC004CFCFC /* PickServerSection.swift */; };
 		DB1FD45025F26FA1004CFCFC /* MastodonPickServerViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1FD44F25F26FA1004CFCFC /* MastodonPickServerViewModel+Diffable.swift */; };
 		DB1FD45A25F27898004CFCFC /* CategoryPickerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1FD45925F27898004CFCFC /* CategoryPickerItem.swift */; };
-		DB221B16260C395900AEFE46 /* CustomEmojiPickerInputViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB221B15260C395900AEFE46 /* CustomEmojiPickerInputViewModel.swift */; };
 		DB22C92228E700A10082A9E9 /* MastodonSDK in Frameworks */ = {isa = PBXBuildFile; productRef = DB22C92128E700A10082A9E9 /* MastodonSDK */; };
 		DB22C92428E700A80082A9E9 /* MastodonSDK in Frameworks */ = {isa = PBXBuildFile; productRef = DB22C92328E700A80082A9E9 /* MastodonSDK */; };
 		DB22C92628E700AF0082A9E9 /* MastodonSDK in Frameworks */ = {isa = PBXBuildFile; productRef = DB22C92528E700AF0082A9E9 /* MastodonSDK */; };
@@ -185,9 +192,6 @@
 		DB427DED25BAA00100D1B89D /* MastodonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB427DEC25BAA00100D1B89D /* MastodonTests.swift */; };
 		DB427DF825BAA00100D1B89D /* MastodonUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB427DF725BAA00100D1B89D /* MastodonUITests.swift */; };
 		DB443CD42694627B00159B29 /* AppearanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB443CD32694627B00159B29 /* AppearanceView.swift */; };
-		DB44767B260B3B8C00B66B82 /* CustomEmojiPickerInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB44767A260B3B8C00B66B82 /* CustomEmojiPickerInputView.swift */; };
-		DB447691260B406600B66B82 /* CustomEmojiPickerItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB447690260B406600B66B82 /* CustomEmojiPickerItemCollectionViewCell.swift */; };
-		DB447697260B439000B66B82 /* CustomEmojiPickerHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB447696260B439000B66B82 /* CustomEmojiPickerHeaderCollectionReusableView.swift */; };
 		DB4481B925EE289600BEFB67 /* UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4481B825EE289600BEFB67 /* UITableView.swift */; };
 		DB45FAB625CA5485005A8AC7 /* UIAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB45FAB525CA5485005A8AC7 /* UIAlertController.swift */; };
 		DB45FAD725CA6C76005A8AC7 /* UIBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB45FAD625CA6C76005A8AC7 /* UIBarButtonItem.swift */; };
@@ -257,7 +261,6 @@
 		DB64BA452851F23000ADF1B7 /* MastodonAuthentication+Fetch.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB64BA442851F23000ADF1B7 /* MastodonAuthentication+Fetch.swift */; };
 		DB64BA482851F29300ADF1B7 /* Account+Fetch.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB64BA472851F29300ADF1B7 /* Account+Fetch.swift */; };
 		DB65C63727A2AF6C008BAC2E /* ReportItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB65C63627A2AF6C008BAC2E /* ReportItem.swift */; };
-		DB66728C25F9F8DC00D60309 /* ComposeViewModel+DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB66728B25F9F8DC00D60309 /* ComposeViewModel+DataSource.swift */; };
 		DB6746EB278ED8B0008A6B94 /* PollOptionView+Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6746EA278ED8B0008A6B94 /* PollOptionView+Configuration.swift */; };
 		DB6746ED278F45F0008A6B94 /* AutoGenerateProtocolRelayDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6746EC278F45F0008A6B94 /* AutoGenerateProtocolRelayDelegate.swift */; };
 		DB6746F0278F463B008A6B94 /* AutoGenerateProtocolDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6746EF278F463B008A6B94 /* AutoGenerateProtocolDelegate.swift */; };
@@ -337,7 +340,6 @@
 		DB98EB6927B21A7C0082E365 /* ReportResultActionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB98EB6827B21A7C0082E365 /* ReportResultActionTableViewCell.swift */; };
 		DB98EB6B27B243470082E365 /* SettingsAppearanceTableViewCell+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB98EB6A27B243470082E365 /* SettingsAppearanceTableViewCell+ViewModel.swift */; };
 		DB9A486C26032AC1008B817C /* AttachmentContainerView+EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9A486B26032AC1008B817C /* AttachmentContainerView+EmptyStateView.swift */; };
-		DB9A488A26034D40008B817C /* ComposeViewModel+PublishState.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9A488926034D40008B817C /* ComposeViewModel+PublishState.swift */; };
 		DB9D6BE925E4F5340051B173 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D6BE825E4F5340051B173 /* SearchViewController.swift */; };
 		DB9D6BF825E4F5690051B173 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D6BF725E4F5690051B173 /* NotificationViewController.swift */; };
 		DB9D6BFF25E4F5940051B173 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D6BFE25E4F5940051B173 /* ProfileViewController.swift */; };
@@ -376,12 +378,11 @@
 		DBB8AB4626AECDE200F6D281 /* SendPostIntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB8AB4526AECDE200F6D281 /* SendPostIntentHandler.swift */; };
 		DBB8AB4F26AED13F00F6D281 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB427DDE25BAA00100D1B89D /* Assets.xcassets */; };
 		DBB9759C262462E1004620BD /* ThreadMetaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB9759B262462E1004620BD /* ThreadMetaView.swift */; };
-		DBBC24DC26A54BCB00398BB9 /* MastodonRegex.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBC24D626A54BCB00398BB9 /* MastodonRegex.swift */; };
 		DBBE1B4525F3474B0081417A /* MastodonPickServerAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBE1B4425F3474B0081417A /* MastodonPickServerAppearance.swift */; };
-		DBC6461526A170AB00B0E31B /* ComposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC6461426A170AB00B0E31B /* ComposeViewController.swift */; };
+		DBC3872429214121001EC0FD /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC3872329214121001EC0FD /* ShareViewController.swift */; };
 		DBC6461826A170AB00B0E31B /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DBC6461626A170AB00B0E31B /* MainInterface.storyboard */; };
 		DBC6461C26A170AB00B0E31B /* ShareActionExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DBC6461226A170AB00B0E31B /* ShareActionExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		DBC6462326A1712000B0E31B /* ComposeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC6462226A1712000B0E31B /* ComposeViewModel.swift */; };
+		DBC6462326A1712000B0E31B /* ShareViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC6462226A1712000B0E31B /* ShareViewModel.swift */; };
 		DBC6462826A1736300B0E31B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB427DDE25BAA00100D1B89D /* Assets.xcassets */; };
 		DBC7A672260C897100E57475 /* StatusContentWarningEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC7A671260C897100E57475 /* StatusContentWarningEditorView.swift */; };
 		DBCA0EBC282BB38A0029E2B0 /* PageboyNavigateable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCA0EBB282BB38A0029E2B0 /* PageboyNavigateable.swift */; };
@@ -519,6 +520,8 @@
 		0FB3D33725E6401400AAD544 /* PickServerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickServerCell.swift; sourceTree = "<group>"; };
 		164F0EBB267D4FE400249499 /* BoopSound.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = BoopSound.caf; sourceTree = "<group>"; };
 		1D6D967E77A5357E2C6110D9 /* Pods-Mastodon.asdk - debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon.asdk - debug.xcconfig"; path = "Target Support Files/Pods-Mastodon/Pods-Mastodon.asdk - debug.xcconfig"; sourceTree = "<group>"; };
+		2A82294E29262EE000D2A1F7 /* AppContext+NextAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppContext+NextAccount.swift"; sourceTree = "<group>"; };
+		2AE244472927831100BDBF7C /* UIImage+SFSymbols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+SFSymbols.swift"; sourceTree = "<group>"; };
 		2D198642261BF09500F0B013 /* SearchResultItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultItem.swift; sourceTree = "<group>"; };
 		2D198648261C0B8500F0B013 /* SearchResultSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultSection.swift; sourceTree = "<group>"; };
 		2D206B8525F5FB0900143C56 /* Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
@@ -610,9 +613,15 @@
 		B44342AC2B6585F8295F1DDF /* Pods-Mastodon-NotificationService.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon-NotificationService.release.xcconfig"; path = "Target Support Files/Pods-Mastodon-NotificationService/Pods-Mastodon-NotificationService.release.xcconfig"; sourceTree = "<group>"; };
 		BB482D32A7B9825BF5327C4F /* Pods-Mastodon-MastodonUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon-MastodonUITests.release.xcconfig"; path = "Target Support Files/Pods-Mastodon-MastodonUITests/Pods-Mastodon-MastodonUITests.release.xcconfig"; sourceTree = "<group>"; };
 		BD7598A87F4497045EDEF252 /* Pods-Mastodon.asdk - release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon.asdk - release.xcconfig"; path = "Target Support Files/Pods-Mastodon/Pods-Mastodon.asdk - release.xcconfig"; sourceTree = "<group>"; };
+		C24C97022922F30500BAE8CB /* RefreshControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshControl.swift; sourceTree = "<group>"; };
 		C3789232A52F43529CA67E95 /* Pods-MastodonIntent.asdk - debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MastodonIntent.asdk - debug.xcconfig"; path = "Target Support Files/Pods-MastodonIntent/Pods-MastodonIntent.asdk - debug.xcconfig"; sourceTree = "<group>"; };
 		CD92E0F10BDE4FE7C4B999F2 /* Pods_MastodonTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MastodonTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7D7CF93E262178800077512 /* Pods-Mastodon-AppShared.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon-AppShared.debug.xcconfig"; path = "Target Support Files/Pods-Mastodon-AppShared/Pods-Mastodon-AppShared.debug.xcconfig"; sourceTree = "<group>"; };
+		D87BFC8A291D5C6B00FEE264 /* MastodonLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonLoginView.swift; sourceTree = "<group>"; };
+		D87BFC8C291EB81200FEE264 /* MastodonLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonLoginViewModel.swift; sourceTree = "<group>"; };
+		D87BFC8E291EC26A00FEE264 /* MastodonLoginServerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonLoginServerTableViewCell.swift; sourceTree = "<group>"; };
+		D8916DBF29211BE500124085 /* ContentSizedTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentSizedTableView.swift; sourceTree = "<group>"; };
+		D8A6AB6B291C5136003AB663 /* MastodonLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonLoginViewController.swift; sourceTree = "<group>"; };
 		DB0009A826AEE5DC009B9D2D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; name = Base; path = Base.lproj/Intents.intentdefinition; sourceTree = "<group>"; };
 		DB0009AD26AEE5E4009B9D2D /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Intents.strings; sourceTree = "<group>"; };
 		DB0140CE25C42AEE00F9F3CF /* OSLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSLog.swift; sourceTree = "<group>"; };
@@ -637,7 +646,6 @@
 		DB0618022785A7100030EE79 /* RegisterSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterSection.swift; sourceTree = "<group>"; };
 		DB0618042785A73D0030EE79 /* RegisterItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterItem.swift; sourceTree = "<group>"; };
 		DB0618062785A8880030EE79 /* MastodonRegisterViewModel+Diffable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MastodonRegisterViewModel+Diffable.swift"; sourceTree = "<group>"; };
-		DB0618092785B2AB0030EE79 /* MastodonRegisterAvatarTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonRegisterAvatarTableViewCell.swift; sourceTree = "<group>"; };
 		DB0A322D280EE9FD001729D2 /* DiscoveryIntroBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryIntroBannerView.swift; sourceTree = "<group>"; };
 		DB0C947626A7FE840088FB11 /* NotificationAvatarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationAvatarButton.swift; sourceTree = "<group>"; };
 		DB0EF72A26FDB1D200347686 /* SidebarListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarListCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -681,7 +689,6 @@
 		DB1FD44F25F26FA1004CFCFC /* MastodonPickServerViewModel+Diffable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MastodonPickServerViewModel+Diffable.swift"; sourceTree = "<group>"; };
 		DB1FD45925F27898004CFCFC /* CategoryPickerItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryPickerItem.swift; sourceTree = "<group>"; };
 		DB1FD45F25F278AF004CFCFC /* CategoryPickerSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryPickerSection.swift; sourceTree = "<group>"; };
-		DB221B15260C395900AEFE46 /* CustomEmojiPickerInputViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEmojiPickerInputViewModel.swift; sourceTree = "<group>"; };
 		DB2B3ABD25E37E15007045F9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DB2F073325E8ECF000957B2D /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
 		DB2FF50F260B113300ADA9FE /* ComposeStatusPollExpiresOptionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeStatusPollExpiresOptionCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -718,9 +725,6 @@
 		DB427DF725BAA00100D1B89D /* MastodonUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonUITests.swift; sourceTree = "<group>"; };
 		DB427DF925BAA00100D1B89D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DB443CD32694627B00159B29 /* AppearanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceView.swift; sourceTree = "<group>"; };
-		DB44767A260B3B8C00B66B82 /* CustomEmojiPickerInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEmojiPickerInputView.swift; sourceTree = "<group>"; };
-		DB447690260B406600B66B82 /* CustomEmojiPickerItemCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEmojiPickerItemCollectionViewCell.swift; sourceTree = "<group>"; };
-		DB447696260B439000B66B82 /* CustomEmojiPickerHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEmojiPickerHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		DB4481B825EE289600BEFB67 /* UITableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITableView.swift; sourceTree = "<group>"; };
 		DB45FAB525CA5485005A8AC7 /* UIAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAlertController.swift; sourceTree = "<group>"; };
 		DB45FAD625CA6C76005A8AC7 /* UIBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBarButtonItem.swift; sourceTree = "<group>"; };
@@ -820,7 +824,6 @@
 		DB64BA442851F23000ADF1B7 /* MastodonAuthentication+Fetch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MastodonAuthentication+Fetch.swift"; sourceTree = "<group>"; };
 		DB64BA472851F29300ADF1B7 /* Account+Fetch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Account+Fetch.swift"; sourceTree = "<group>"; };
 		DB65C63627A2AF6C008BAC2E /* ReportItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportItem.swift; sourceTree = "<group>"; };
-		DB66728B25F9F8DC00D60309 /* ComposeViewModel+DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ComposeViewModel+DataSource.swift"; sourceTree = "<group>"; };
 		DB6746EA278ED8B0008A6B94 /* PollOptionView+Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PollOptionView+Configuration.swift"; sourceTree = "<group>"; };
 		DB6746EC278F45F0008A6B94 /* AutoGenerateProtocolRelayDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoGenerateProtocolRelayDelegate.swift; sourceTree = "<group>"; };
 		DB6746EF278F463B008A6B94 /* AutoGenerateProtocolDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoGenerateProtocolDelegate.swift; sourceTree = "<group>"; };
@@ -865,8 +868,6 @@
 		DB7A9F922818F33C0016AF98 /* MastodonServerRulesViewController+Debug.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MastodonServerRulesViewController+Debug.swift"; sourceTree = "<group>"; };
 		DB7F48442620241000796008 /* ProfileHeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderViewModel.swift; sourceTree = "<group>"; };
 		DB8190C52601FF0400020C08 /* AttachmentContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentContainerView.swift; sourceTree = "<group>"; };
-		DB8481142788121200BBEABA /* MastodonRegisterTextFieldTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonRegisterTextFieldTableViewCell.swift; sourceTree = "<group>"; };
-		DB84811627883C2600BBEABA /* MastodonRegisterPasswordHintTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonRegisterPasswordHintTableViewCell.swift; sourceTree = "<group>"; };
 		DB848E32282B62A800A302CC /* ReportResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportResultView.swift; sourceTree = "<group>"; };
 		DB852D1826FAEB6B00FC9D81 /* SidebarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarViewController.swift; sourceTree = "<group>"; };
 		DB852D1B26FB021500FC9D81 /* RootSplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootSplitViewController.swift; sourceTree = "<group>"; };
@@ -898,6 +899,12 @@
 		DB938F0826240F3C00E5B6C1 /* RemoteThreadViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteThreadViewModel.swift; sourceTree = "<group>"; };
 		DB938F0E2624119800E5B6C1 /* ThreadViewModel+LoadThreadState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ThreadViewModel+LoadThreadState.swift"; sourceTree = "<group>"; };
 		DB938F1E2624382F00E5B6C1 /* ThreadViewModel+Diffable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ThreadViewModel+Diffable.swift"; sourceTree = "<group>"; };
+		DB96C25D292505FE00F3B85D /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Intents.strings; sourceTree = "<group>"; };
+		DB96C25E292505FF00F3B85D /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DB96C25F292505FF00F3B85D /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = cs; path = cs.lproj/Intents.stringsdict; sourceTree = "<group>"; };
+		DB96C260292506D600F3B85D /* sl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sl; path = sl.lproj/Intents.strings; sourceTree = "<group>"; };
+		DB96C261292506D700F3B85D /* sl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sl; path = sl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DB96C262292506D700F3B85D /* sl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = sl; path = sl.lproj/Intents.stringsdict; sourceTree = "<group>"; };
 		DB98EB4627B0DFAA0082E365 /* ReportStatusViewModel+State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReportStatusViewModel+State.swift"; sourceTree = "<group>"; };
 		DB98EB4827B0F0CD0082E365 /* ReportStatusTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportStatusTableViewCell.swift; sourceTree = "<group>"; };
 		DB98EB4B27B0F2BC0082E365 /* ReportStatusTableViewCell+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReportStatusTableViewCell+ViewModel.swift"; sourceTree = "<group>"; };
@@ -912,7 +919,6 @@
 		DB98EB6827B21A7C0082E365 /* ReportResultActionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportResultActionTableViewCell.swift; sourceTree = "<group>"; };
 		DB98EB6A27B243470082E365 /* SettingsAppearanceTableViewCell+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingsAppearanceTableViewCell+ViewModel.swift"; sourceTree = "<group>"; };
 		DB9A486B26032AC1008B817C /* AttachmentContainerView+EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AttachmentContainerView+EmptyStateView.swift"; sourceTree = "<group>"; };
-		DB9A488926034D40008B817C /* ComposeViewModel+PublishState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ComposeViewModel+PublishState.swift"; sourceTree = "<group>"; };
 		DB9D6BE825E4F5340051B173 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		DB9D6BF725E4F5690051B173 /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
 		DB9D6BFE25E4F5940051B173 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -961,14 +967,12 @@
 		DBB525632612C988002F1F29 /* MeProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeProfileViewModel.swift; sourceTree = "<group>"; };
 		DBB8AB4526AECDE200F6D281 /* SendPostIntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendPostIntentHandler.swift; sourceTree = "<group>"; };
 		DBB9759B262462E1004620BD /* ThreadMetaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadMetaView.swift; sourceTree = "<group>"; };
-		DBBC24A726A52F9000398BB9 /* ComposeToolbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeToolbarView.swift; sourceTree = "<group>"; };
-		DBBC24D626A54BCB00398BB9 /* MastodonRegex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MastodonRegex.swift; sourceTree = "<group>"; };
 		DBBE1B4425F3474B0081417A /* MastodonPickServerAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonPickServerAppearance.swift; sourceTree = "<group>"; };
+		DBC3872329214121001EC0FD /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		DBC6461226A170AB00B0E31B /* ShareActionExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ShareActionExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		DBC6461426A170AB00B0E31B /* ComposeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeViewController.swift; sourceTree = "<group>"; };
 		DBC6461726A170AB00B0E31B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		DBC6461926A170AB00B0E31B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DBC6462226A1712000B0E31B /* ComposeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComposeViewModel.swift; sourceTree = "<group>"; };
+		DBC6462226A1712000B0E31B /* ShareViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareViewModel.swift; sourceTree = "<group>"; };
 		DBC7A671260C897100E57475 /* StatusContentWarningEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusContentWarningEditorView.swift; sourceTree = "<group>"; };
 		DBC9E3A3282E13BB0063A4D9 /* eu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = eu; path = eu.lproj/Intents.strings; sourceTree = "<group>"; };
 		DBC9E3A4282E13BB0063A4D9 /* eu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = eu; path = eu.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -1042,15 +1046,7 @@
 		DBFEEC98279BDCDE004F81DD /* ProfileAboutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileAboutViewModel.swift; sourceTree = "<group>"; };
 		DBFEEC9A279BDDD9004F81DD /* ProfileAboutViewModel+Diffable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProfileAboutViewModel+Diffable.swift"; sourceTree = "<group>"; };
 		DBFEEC9C279C12C1004F81DD /* ProfileFieldEditCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFieldEditCollectionViewCell.swift; sourceTree = "<group>"; };
-		DBFEF05526A576EE006D7ED1 /* StatusEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusEditorView.swift; sourceTree = "<group>"; };
-		DBFEF05626A576EE006D7ED1 /* ComposeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeView.swift; sourceTree = "<group>"; };
-		DBFEF05726A576EE006D7ED1 /* ComposeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeViewModel.swift; sourceTree = "<group>"; };
-		DBFEF05826A576EE006D7ED1 /* ContentWarningEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentWarningEditorView.swift; sourceTree = "<group>"; };
-		DBFEF05926A576EE006D7ED1 /* StatusAuthorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusAuthorView.swift; sourceTree = "<group>"; };
-		DBFEF05A26A576EE006D7ED1 /* StatusAttachmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusAttachmentView.swift; sourceTree = "<group>"; };
-		DBFEF06226A577F2006D7ED1 /* StatusAttachmentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusAttachmentViewModel.swift; sourceTree = "<group>"; };
 		DBFEF06726A58D07006D7ED1 /* ShareActionExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShareActionExtension.entitlements; sourceTree = "<group>"; };
-		DBFEF06C26A67FB7006D7ED1 /* StatusAttachmentViewModel+UploadState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StatusAttachmentViewModel+UploadState.swift"; sourceTree = "<group>"; };
 		DDB1B139FA8EA26F510D58B6 /* Pods-AppShared.asdk - release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppShared.asdk - release.xcconfig"; path = "Target Support Files/Pods-AppShared/Pods-AppShared.asdk - release.xcconfig"; sourceTree = "<group>"; };
 		DF65937EC1FF64462BC002EE /* Pods-MastodonTests.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MastodonTests.profile.xcconfig"; path = "Target Support Files/Pods-MastodonTests/Pods-MastodonTests.profile.xcconfig"; sourceTree = "<group>"; };
 		E5C7236E58D14A0322FE00F2 /* Pods-Mastodon-MastodonUITests.asdk - debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon-MastodonUITests.asdk - debug.xcconfig"; path = "Target Support Files/Pods-Mastodon-MastodonUITests/Pods-Mastodon-MastodonUITests.asdk - debug.xcconfig"; sourceTree = "<group>"; };
@@ -1342,7 +1338,7 @@
 			path = Protocol;
 			sourceTree = "<group>";
 		};
-		2D76319C25C151DE00929FB9 /* Diffiable */ = {
+		2D76319C25C151DE00929FB9 /* Diffable */ = {
 			isa = PBXGroup;
 			children = (
 				DB4F097826A039B400D62E92 /* Onboarding */,
@@ -1357,7 +1353,7 @@
 				DB3E6FE52806A5BA00B035AE /* Discovery */,
 				DB0617FA27855B660030EE79 /* Settings */,
 			);
-			path = Diffiable;
+			path = Diffable;
 			sourceTree = "<group>";
 		};
 		2D7631A425C1532200929FB9 /* Share */ = {
@@ -1518,9 +1514,22 @@
 			path = Bookmark;
 			sourceTree = "<group>";
 		};
+		D8A6AB68291C50F3003AB663 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				D8A6AB6B291C5136003AB663 /* MastodonLoginViewController.swift */,
+				D87BFC8A291D5C6B00FEE264 /* MastodonLoginView.swift */,
+				D87BFC8C291EB81200FEE264 /* MastodonLoginViewModel.swift */,
+				D87BFC8E291EC26A00FEE264 /* MastodonLoginServerTableViewCell.swift */,
+				D8916DBF29211BE500124085 /* ContentSizedTableView.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
 		DB01409B25C40BB600F9F3CF /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
+				D8A6AB68291C50F3003AB663 /* Login */,
 				DB68A03825E900CC00CFDF14 /* Share */,
 				0FAA0FDD25E0B5700017CCDE /* Welcome */,
 				0FAA102525E1125D0017CCDE /* PickServer */,
@@ -1581,16 +1590,6 @@
 			isa = PBXGroup;
 			children = (
 				DB0618002785732C0030EE79 /* ServerRulesTableViewCell.swift */,
-			);
-			path = Cell;
-			sourceTree = "<group>";
-		};
-		DB06180B2785B2AF0030EE79 /* Cell */ = {
-			isa = PBXGroup;
-			children = (
-				DB0618092785B2AB0030EE79 /* MastodonRegisterAvatarTableViewCell.swift */,
-				DB8481142788121200BBEABA /* MastodonRegisterTextFieldTableViewCell.swift */,
-				DB84811627883C2600BBEABA /* MastodonRegisterPasswordHintTableViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -1762,7 +1761,7 @@
 			children = (
 				DB89BA1025C10FF5008580ED /* Mastodon.entitlements */,
 				DB427DE325BAA00100D1B89D /* Info.plist */,
-				2D76319C25C151DE00929FB9 /* Diffiable */,
+				2D76319C25C151DE00929FB9 /* Diffable */,
 				DB8AF55525C1379F002E6C99 /* Scene */,
 				DB8AF54125C13647002E6C99 /* Coordinator */,
 				DB8AF56225C138BC002E6C99 /* Extension */,
@@ -1878,8 +1877,6 @@
 				DBA0A11225FB3FC10079C110 /* ComposeToolbarView.swift */,
 				DB8190C52601FF0400020C08 /* AttachmentContainerView.swift */,
 				DB9A486B26032AC1008B817C /* AttachmentContainerView+EmptyStateView.swift */,
-				DB44767A260B3B8C00B66B82 /* CustomEmojiPickerInputView.swift */,
-				DB221B15260C395900AEFE46 /* CustomEmojiPickerInputViewModel.swift */,
 				DBC7A671260C897100E57475 /* StatusContentWarningEditorView.swift */,
 			);
 			path = View;
@@ -2146,8 +2143,6 @@
 				DB789A2125F9F76D0071ACA0 /* CollectionViewCell */,
 				DB789A0A25F9F2950071ACA0 /* ComposeViewController.swift */,
 				DB789A1125F9F2CC0071ACA0 /* ComposeViewModel.swift */,
-				DB66728B25F9F8DC00D60309 /* ComposeViewModel+DataSource.swift */,
-				DB9A488926034D40008B817C /* ComposeViewModel+PublishState.swift */,
 			);
 			path = Compose;
 			sourceTree = "<group>";
@@ -2159,8 +2154,6 @@
 				DB87D4442609BE0500D12C0D /* ComposeStatusPollOptionCollectionViewCell.swift */,
 				DB87D4502609CF1E00D12C0D /* ComposeStatusPollOptionAppendEntryCollectionViewCell.swift */,
 				DB2FF50F260B113300ADA9FE /* ComposeStatusPollExpiresOptionCollectionViewCell.swift */,
-				DB447690260B406600B66B82 /* CustomEmojiPickerItemCollectionViewCell.swift */,
-				DB447696260B439000B66B82 /* CustomEmojiPickerHeaderCollectionReusableView.swift */,
 			);
 			path = CollectionViewCell;
 			sourceTree = "<group>";
@@ -2233,6 +2226,7 @@
 			isa = PBXGroup;
 			children = (
 				2DF123A625C3B0210020F248 /* ActiveLabel.swift */,
+				2A82294E29262EE000D2A1F7 /* AppContext+NextAccount.swift */,
 				5DF1056325F887CB00D6C0D4 /* AVPlayer.swift */,
 				2D206B8525F5FB0900143C56 /* Double.swift */,
 				DBB3BA2926A81C020004F2D4 /* FLAnimatedImageView.swift */,
@@ -2252,6 +2246,7 @@
 				2D3F9E0325DFA133004262D9 /* UITapGestureRecognizer.swift */,
 				2D84350425FF858100EECE90 /* UIScrollView.swift */,
 				DB9E0D6E25EE008500CFDD76 /* UIInterpolatingMotionEffect.swift */,
+				2AE244472927831100BDBF7C /* UIImage+SFSymbols.swift */,
 				DBCC3B2F261440A50045B23D /* UITabBarController.swift */,
 				DB73BF4827140BA300781945 /* UICollectionViewDiffableDataSource.swift */,
 				DB73BF4A27140C0800781945 /* UITableViewDiffableDataSource.swift */,
@@ -2452,6 +2447,7 @@
 			isa = PBXGroup;
 			children = (
 				DB02CDBE2625AE5000D0A2AF /* AdaptiveUserInterfaceStyleBarButtonItem.swift */,
+				C24C97022922F30500BAE8CB /* RefreshControl.swift */,
 			);
 			path = Control;
 			sourceTree = "<group>";
@@ -2520,7 +2516,6 @@
 		DBBC24D526A54BCB00398BB9 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
-				DBBC24D626A54BCB00398BB9 /* MastodonRegex.swift */,
 				DBF3B7402733EB9400E21627 /* MastodonLocalCode.swift */,
 			);
 			path = Helper;
@@ -2567,7 +2562,6 @@
 		DBE0821A25CD382900FD6BBD /* Register */ = {
 			isa = PBXGroup;
 			children = (
-				DB06180B2785B2AF0030EE79 /* Cell */,
 				DBE0821425CD382600FD6BBD /* MastodonRegisterViewController.swift */,
 				2D939AE725EE1CF80076FA61 /* MastodonRegisterViewController+Avatar.swift */,
 				DBE0822325CD3F1E00FD6BBD /* MastodonRegisterViewModel.swift */,
@@ -2687,28 +2681,11 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
-		DBFEF05426A576EE006D7ED1 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				DBBC24A726A52F9000398BB9 /* ComposeToolbarView.swift */,
-				DBFEF05526A576EE006D7ED1 /* StatusEditorView.swift */,
-				DBFEF05626A576EE006D7ED1 /* ComposeView.swift */,
-				DBFEF05726A576EE006D7ED1 /* ComposeViewModel.swift */,
-				DBFEF05826A576EE006D7ED1 /* ContentWarningEditorView.swift */,
-				DBFEF05926A576EE006D7ED1 /* StatusAuthorView.swift */,
-				DBFEF05A26A576EE006D7ED1 /* StatusAttachmentView.swift */,
-				DBFEF06226A577F2006D7ED1 /* StatusAttachmentViewModel.swift */,
-				DBFEF06C26A67FB7006D7ED1 /* StatusAttachmentViewModel+UploadState.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		DBFEF06126A57721006D7ED1 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
-				DBFEF05426A576EE006D7ED1 /* View */,
-				DBC6462226A1712000B0E31B /* ComposeViewModel.swift */,
-				DBC6461426A170AB00B0E31B /* ComposeViewController.swift */,
+				DBC6462226A1712000B0E31B /* ShareViewModel.swift */,
+				DBC3872329214121001EC0FD /* ShareViewController.swift */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
@@ -2727,9 +2704,9 @@
 				DB427DCF25BAA00100D1B89D /* Frameworks */,
 				DB89BA0825C10FD0008580ED /* Embed Frameworks */,
 				DBF8AE1B263293E400C9C23C /* Embed Foundation Extensions */,
-				DB3D100425BAA71500EAA174 /* ShellScript */,
-				DB025B8E278D6448002F581E /* ShellScript */,
-				DB697DD2278F48D5004EF2F7 /* ShellScript */,
+				DB3D100425BAA71500EAA174 /* Run SwiftGen */,
+				DB025B8E278D6448002F581E /* Run Sourcery: Core Data */,
+				DB697DD2278F48D5004EF2F7 /* Run Sourcery */,
 			);
 			buildRules = (
 			);
@@ -2907,6 +2884,8 @@
 				gd,
 				"es-AR",
 				fi,
+				cs,
+				sl,
 			);
 			mainGroup = DB427DC925BAA00100D1B89D;
 			packageReferences = (
@@ -3045,7 +3024,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		DB025B8E278D6448002F581E /* ShellScript */ = {
+		DB025B8E278D6448002F581E /* Run Sourcery: Core Data */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
 			buildActionMask = 12;
@@ -3055,6 +3034,7 @@
 			);
 			inputPaths = (
 			);
+			name = "Run Sourcery: Core Data";
 			outputFileListPaths = (
 			);
 			outputPaths = (
@@ -3063,7 +3043,7 @@
 			shellPath = /bin/sh;
 			shellScript = "if [[ -f \"${PODS_ROOT}/Sourcery/bin/sourcery\" ]]; then\n  \"${PODS_ROOT}/Sourcery/bin/sourcery\" --config ./MastodonSDK/Sources/CoreDataStack\nelse\n  echo \"warning: Sourcery is not installed. Run 'pod install --repo-update' to install it.\"\nfi\n";
 		};
-		DB3D100425BAA71500EAA174 /* ShellScript */ = {
+		DB3D100425BAA71500EAA174 /* Run SwiftGen */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
 			buildActionMask = 12;
@@ -3073,6 +3053,7 @@
 			);
 			inputPaths = (
 			);
+			name = "Run SwiftGen";
 			outputFileListPaths = (
 			);
 			outputPaths = (
@@ -3081,7 +3062,7 @@
 			shellPath = /bin/sh;
 			shellScript = "if [[ -f \"${PODS_ROOT}/SwiftGen/bin/swiftgen\" ]]; then\n  \"${PODS_ROOT}/SwiftGen/bin/swiftgen\" \nelse\n  echo \"warning: SwiftGen is not installed. Run 'pod install --repo-update' to install it.\"\nfi\n";
 		};
-		DB697DD2278F48D5004EF2F7 /* ShellScript */ = {
+		DB697DD2278F48D5004EF2F7 /* Run Sourcery */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
 			buildActionMask = 12;
@@ -3091,6 +3072,7 @@
 			);
 			inputPaths = (
 			);
+			name = "Run Sourcery";
 			outputFileListPaths = (
 			);
 			outputPaths = (
@@ -3198,7 +3180,6 @@
 				0F1E2D0B2615C39400C38565 /* DoubleTitleLabelNavigationBarTitleView.swift in Sources */,
 				DBDFF1902805543100557A48 /* DiscoveryPostsViewController.swift in Sources */,
 				DB697DD9278F4CED004EF2F7 /* HomeTimelineViewController+DataSourceProvider.swift in Sources */,
-				DB9A488A26034D40008B817C /* ComposeViewModel+PublishState.swift in Sources */,
 				DB45FAD725CA6C76005A8AC7 /* UIBarButtonItem.swift in Sources */,
 				2D8434F525FF465D00EECE90 /* HomeTimelineNavigationBarTitleViewModel.swift in Sources */,
 				DB938F0F2624119800E5B6C1 /* ThreadViewModel+LoadThreadState.swift in Sources */,
@@ -3230,6 +3211,7 @@
 				DB5B54A32833BD1A00DEF8B2 /* UserListViewModel.swift in Sources */,
 				DBF156DF2701B17600EC00B7 /* SidebarAddAccountCollectionViewCell.swift in Sources */,
 				DB0617F1278413D00030EE79 /* PickServerServerSectionTableHeaderView.swift in Sources */,
+				D87BFC8F291EC26A00FEE264 /* MastodonLoginServerTableViewCell.swift in Sources */,
 				DB0FCB7E27958957006C02E2 /* StatusThreadRootTableViewCell+ViewModel.swift in Sources */,
 				DB789A0B25F9F2950071ACA0 /* ComposeViewController.swift in Sources */,
 				DB938F0926240F3C00E5B6C1 /* RemoteThreadViewModel.swift in Sources */,
@@ -3246,7 +3228,6 @@
 				DBFEEC9D279C12C1004F81DD /* ProfileFieldEditCollectionViewCell.swift in Sources */,
 				DB3E6FEC2806D7F100B035AE /* DiscoveryNewsViewController.swift in Sources */,
 				DB2FF510260B113300ADA9FE /* ComposeStatusPollExpiresOptionCollectionViewCell.swift in Sources */,
-				DBBC24DC26A54BCB00398BB9 /* MastodonRegex.swift in Sources */,
 				DBCBED1726132DB500B49291 /* UserTimelineViewModel+Diffable.swift in Sources */,
 				2DE0FACE2615F7AD00CDF649 /* RecommendAccountSection.swift in Sources */,
 				2DAC9E3E262FC2400062E1A6 /* SuggestionAccountViewModel.swift in Sources */,
@@ -3298,10 +3279,10 @@
 				DB73BF4927140BA300781945 /* UICollectionViewDiffableDataSource.swift in Sources */,
 				DBA5E7AB263BD3F5004598BB /* TimelineTableViewCellContextMenuConfiguration.swift in Sources */,
 				DB73B490261F030A002E9E9F /* SafariActivity.swift in Sources */,
+				2AE244482927831100BDBF7C /* UIImage+SFSymbols.swift in Sources */,
 				DB63F7492799126300455B82 /* FollowerListViewController+DataSourceProvider.swift in Sources */,
 				2D198643261BF09500F0B013 /* SearchResultItem.swift in Sources */,
 				2DAC9E38262FC2320062E1A6 /* SuggestionAccountViewController.swift in Sources */,
-				DB66728C25F9F8DC00D60309 /* ComposeViewModel+DataSource.swift in Sources */,
 				DB6180E02639194B0018D199 /* MediaPreviewPagingViewController.swift in Sources */,
 				DBE0822425CD3F1E00FD6BBD /* MastodonRegisterViewModel.swift in Sources */,
 				5B90C45E262599800002E742 /* SettingsViewModel.swift in Sources */,
@@ -3339,7 +3320,6 @@
 				DB98EB6227B215EB0082E365 /* ReportResultViewController.swift in Sources */,
 				DB6B74F4272FBAE700C70B6E /* FollowerListViewModel+Diffable.swift in Sources */,
 				DB6B74F2272FB67600C70B6E /* FollowerListViewModel.swift in Sources */,
-				DB44767B260B3B8C00B66B82 /* CustomEmojiPickerInputView.swift in Sources */,
 				0F20222D261457EE000C64BF /* HashtagTimelineViewModel+State.swift in Sources */,
 				DB0009A626AEE5DC009B9D2D /* Intents.intentdefinition in Sources */,
 				5B90C462262599800002E742 /* SettingsSectionHeader.swift in Sources */,
@@ -3352,10 +3332,11 @@
 				DB63F769279A5EBB00455B82 /* NotificationTimelineViewModel+Diffable.swift in Sources */,
 				DBFEEC9B279BDDD9004F81DD /* ProfileAboutViewModel+Diffable.swift in Sources */,
 				DBB525562611EDCA002F1F29 /* UserTimelineViewModel.swift in Sources */,
+				D8916DC029211BE500124085 /* ContentSizedTableView.swift in Sources */,
 				DB0618012785732C0030EE79 /* ServerRulesTableViewCell.swift in Sources */,
-				DB221B16260C395900AEFE46 /* CustomEmojiPickerInputViewModel.swift in Sources */,
 				DB98EB5C27B10A730082E365 /* ReportSupplementaryViewModel.swift in Sources */,
 				DB0617EF277F12720030EE79 /* NavigationActionView.swift in Sources */,
+				D87BFC8D291EB81200FEE264 /* MastodonLoginViewModel.swift in Sources */,
 				DB1FD43625F26899004CFCFC /* MastodonPickServerViewModel+LoadIndexedServerState.swift in Sources */,
 				2D939AE825EE1CF80076FA61 /* MastodonRegisterViewController+Avatar.swift in Sources */,
 				DB1D186C25EF5BA7003F1F23 /* PollTableView.swift in Sources */,
@@ -3424,6 +3405,7 @@
 				DBCC3B8F26148F7B0045B23D /* CachedProfileViewModel.swift in Sources */,
 				DB4F097526A037F500D62E92 /* SearchHistoryViewModel.swift in Sources */,
 				DB3EA8E9281B7A3700598866 /* DiscoveryCommunityViewModel.swift in Sources */,
+				D87BFC8B291D5C6B00FEE264 /* MastodonLoginView.swift in Sources */,
 				DB6180F826391D660018D199 /* MediaPreviewingViewController.swift in Sources */,
 				DBEFCD71282A12B200C0ABEA /* ReportReasonViewController.swift in Sources */,
 				DB0140CF25C42AEE00F9F3CF /* OSLog.swift in Sources */,
@@ -3437,7 +3419,6 @@
 				2D35237A26256D920031AF25 /* NotificationSection.swift in Sources */,
 				2D4AD89C263165B500613EFC /* SuggestionAccountCollectionViewCell.swift in Sources */,
 				DB98EB6927B21A7C0082E365 /* ReportResultActionTableViewCell.swift in Sources */,
-				DB447691260B406600B66B82 /* CustomEmojiPickerItemCollectionViewCell.swift in Sources */,
 				DB9282B225F3222800823B15 /* PickServerEmptyStateView.swift in Sources */,
 				DB697DDF278F524F004EF2F7 /* DataSourceFacade+Profile.swift in Sources */,
 				DB1FD45025F26FA1004CFCFC /* MastodonPickServerViewModel+Diffable.swift in Sources */,
@@ -3461,7 +3442,6 @@
 				DB63F74D27993F5B00455B82 /* SearchHistoryUserCollectionViewCell.swift in Sources */,
 				DB8AF54425C13647002E6C99 /* SceneCoordinator.swift in Sources */,
 				DB1D84382657B275000346B3 /* SegmentedControlNavigateable.swift in Sources */,
-				DB447697260B439000B66B82 /* CustomEmojiPickerHeaderCollectionReusableView.swift in Sources */,
 				0F20220726134DA4000C64BF /* HashtagTimelineViewModel+Diffable.swift in Sources */,
 				DB7A9F932818F33C0016AF98 /* MastodonServerRulesViewController+Debug.swift in Sources */,
 				2D5A3D2825CF8BC9002347D6 /* HomeTimelineViewModel+Diffable.swift in Sources */,
@@ -3487,6 +3467,7 @@
 				DB697DDB278F4DE3004EF2F7 /* DataSourceProvider+StatusTableViewCellDelegate.swift in Sources */,
 				DB87D4512609CF1E00D12C0D /* ComposeStatusPollOptionAppendEntryCollectionViewCell.swift in Sources */,
 				DBB45B5627B39FC9002DC5A7 /* MediaPreviewVideoViewController.swift in Sources */,
+				D8A6AB6C291C5136003AB663 /* MastodonLoginViewController.swift in Sources */,
 				DB0FCB8027968F70006C02E2 /* MastodonStatusThreadViewModel.swift in Sources */,
 				DB67D08627312E67006A36CF /* WizardViewController.swift in Sources */,
 				DB6746EB278ED8B0008A6B94 /* PollOptionView+Configuration.swift in Sources */,
@@ -3494,6 +3475,7 @@
 				DBFEEC99279BDCDE004F81DD /* ProfileAboutViewModel.swift in Sources */,
 				2D198649261C0B8500F0B013 /* SearchResultSection.swift in Sources */,
 				DB4F097B26A039FF00D62E92 /* SearchHistorySection.swift in Sources */,
+				2A82294F29262EE000D2A1F7 /* AppContext+NextAccount.swift in Sources */,
 				DBB525302611EBF3002F1F29 /* ProfilePagingViewModel.swift in Sources */,
 				DB9F58EC26EF435000E7BBE9 /* AccountViewController.swift in Sources */,
 				2D5A3D6225CFD9CB002347D6 /* HomeTimelineViewController+DebugAction.swift in Sources */,
@@ -3520,6 +3502,7 @@
 				5BB04FF5262F0E6D0043BFF6 /* ReportSection.swift in Sources */,
 				DBEFCD82282A2AB100C0ABEA /* ReportServerRulesView.swift in Sources */,
 				DBA94436265CBB7400C537E1 /* ProfileFieldItem.swift in Sources */,
+				C24C97032922F30500BAE8CB /* RefreshControl.swift in Sources */,
 				DB023D2A27A0FE5C005AC798 /* DataSourceProvider+NotificationTableViewCellDelegate.swift in Sources */,
 				DB98EB6027B10E150082E365 /* ReportCommentTableViewCell.swift in Sources */,
 				DB0FCB962797E6C2006C02E2 /* SearchResultViewController+DataSourceProvider.swift in Sources */,
@@ -3567,9 +3550,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DBC6462326A1712000B0E31B /* ComposeViewModel.swift in Sources */,
+				DBC6462326A1712000B0E31B /* ShareViewModel.swift in Sources */,
 				DBB3BA2B26A81D060004F2D4 /* FLAnimatedImageView.swift in Sources */,
-				DBC6461526A170AB00B0E31B /* ComposeViewController.swift in Sources */,
+				DBC3872429214121001EC0FD /* ShareViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3643,6 +3626,8 @@
 				DBC9E3A6282E15190063A4D9 /* gd */,
 				DBC9E3A9282E17DF0063A4D9 /* es-AR */,
 				DB8F40042835EE5E006E7513 /* fi */,
+				DB96C25D292505FE00F3B85D /* cs */,
+				DB96C260292506D600F3B85D /* sl */,
 			);
 			name = Intents.intentdefinition;
 			sourceTree = "<group>";
@@ -3674,6 +3659,8 @@
 				DBC9E3A7282E15190063A4D9 /* gd */,
 				DBC9E3AA282E17DF0063A4D9 /* es-AR */,
 				DB8F40052835EE5E006E7513 /* fi */,
+				DB96C25E292505FF00F3B85D /* cs */,
+				DB96C261292506D700F3B85D /* sl */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -3721,6 +3708,8 @@
 				DBC9E3A8282E15190063A4D9 /* gd */,
 				DBC9E3AB282E17DF0063A4D9 /* es-AR */,
 				DB8F40062835EE5E006E7513 /* fi */,
+				DB96C25F292505FF00F3B85D /* cs */,
+				DB96C262292506D700F3B85D /* sl */,
 			);
 			name = Intents.stringsdict;
 			sourceTree = "<group>";

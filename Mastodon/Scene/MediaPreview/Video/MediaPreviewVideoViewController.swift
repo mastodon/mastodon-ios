@@ -39,23 +39,13 @@ extension MediaPreviewVideoViewController {
         addChild(playerViewController)
         playerViewController.view.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(playerViewController.view)
-        NSLayoutConstraint.activate([
-            playerViewController.view.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            playerViewController.view.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            playerViewController.view.widthAnchor.constraint(equalTo: view.widthAnchor),
-            playerViewController.view.heightAnchor.constraint(equalTo: view.heightAnchor),
-        ])
+        playerViewController.view.pinToParent()
         playerViewController.didMove(toParent: self)
         
         if let contentOverlayView = playerViewController.contentOverlayView {
             previewImageView.translatesAutoresizingMaskIntoConstraints = false
             contentOverlayView.addSubview(previewImageView)
-            NSLayoutConstraint.activate([
-                previewImageView.topAnchor.constraint(equalTo: contentOverlayView.topAnchor),
-                previewImageView.leadingAnchor.constraint(equalTo: contentOverlayView.leadingAnchor),
-                previewImageView.trailingAnchor.constraint(equalTo: contentOverlayView.trailingAnchor),
-                previewImageView.bottomAnchor.constraint(equalTo: contentOverlayView.bottomAnchor),
-            ])
+            previewImageView.pinToParent()
         }
         
         playerViewController.delegate = self
@@ -88,6 +78,12 @@ extension MediaPreviewVideoViewController {
                 }
                 .store(in: &disposeBag)
         }
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+
+        playerViewController.didMove(toParent: self)
     }
     
 }

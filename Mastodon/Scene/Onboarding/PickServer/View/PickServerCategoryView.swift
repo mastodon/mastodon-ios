@@ -19,13 +19,6 @@ class PickServerCategoryView: UIView {
         return view
     }()
 
-    let emojiLabel: UILabel = {
-        let label = UILabel()
-        label.textAlignment = .center
-        label.font = .systemFont(ofSize: 34, weight: .regular)
-        return label
-    }()
-    
     let titleLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
@@ -50,23 +43,18 @@ extension PickServerCategoryView {
     private func configure() {
         let container = UIStackView()
         container.axis = .vertical
+        container.spacing = 2
         container.distribution = .fillProportionally
         
         container.translatesAutoresizingMaskIntoConstraints = false
         addSubview(container)
-        NSLayoutConstraint.activate([
-            container.topAnchor.constraint(equalTo: topAnchor),
-            container.leadingAnchor.constraint(equalTo: leadingAnchor),
-            container.trailingAnchor.constraint(equalTo: trailingAnchor),
-            container.bottomAnchor.constraint(equalTo: bottomAnchor),
-        ])
+        container.pinToParent()
         
-        container.addArrangedSubview(emojiLabel)
         container.addArrangedSubview(titleLabel)
         highlightedIndicatorView.translatesAutoresizingMaskIntoConstraints = false
         container.addArrangedSubview(highlightedIndicatorView)
         NSLayoutConstraint.activate([
-            highlightedIndicatorView.heightAnchor.constraint(equalToConstant: 3).priority(.required - 1),
+            highlightedIndicatorView.heightAnchor.constraint(equalToConstant: 3)//.priority(.required - 1),
         ])
         titleLabel.setContentHuggingPriority(.required - 1, for: .vertical)
     }

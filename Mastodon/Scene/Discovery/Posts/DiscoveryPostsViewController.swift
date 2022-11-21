@@ -32,7 +32,7 @@ final class DiscoveryPostsViewController: UIViewController, NeedsDependency, Med
         return tableView
     }()
     
-    let refreshControl = UIRefreshControl()
+    let refreshControl = RefreshControl()
     
     let discoveryIntroBannerView = DiscoveryIntroBannerView()
 
@@ -58,12 +58,7 @@ extension DiscoveryPostsViewController {
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
-        NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-        ])
+        tableView.pinToParent()
         
         discoveryIntroBannerView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(discoveryIntroBannerView)
@@ -119,7 +114,7 @@ extension DiscoveryPostsViewController {
 
 extension DiscoveryPostsViewController {
     
-    @objc private func refreshControlValueChanged(_ sender: UIRefreshControl) {
+    @objc private func refreshControlValueChanged(_ sender: RefreshControl) {
         guard viewModel.stateMachine.enter(DiscoveryPostsViewModel.State.Reloading.self) else {
             sender.endRefreshing()
             return

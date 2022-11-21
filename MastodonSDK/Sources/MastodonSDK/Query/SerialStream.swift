@@ -82,6 +82,10 @@ final class SerialStream: NSObject {
                         
                         self.progress.completedUnitCount += Int64(writeResult)
                         self.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): estimate progress: \(self.progress.completedUnitCount)/\(self.progress.totalUnitCount)")
+                        
+                        if writeResult == -1 {
+                            break
+                        }
                     }
                 }
                 

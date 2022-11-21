@@ -236,12 +236,7 @@ extension StatusView {
         // container
         containerStackView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(containerStackView)
-        NSLayoutConstraint.activate([
-            containerStackView.topAnchor.constraint(equalTo: topAnchor),
-            containerStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            containerStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            containerStackView.bottomAnchor.constraint(equalTo: bottomAnchor),
-        ])
+        containerStackView.pinToParent()
         
         // header
         headerIconImageView.isUserInteractionEnabled = false
@@ -392,12 +387,7 @@ extension StatusView.Style {
 
         statusView.spoilerOverlayView.translatesAutoresizingMaskIntoConstraints = false
         statusView.containerStackView.addSubview(statusView.spoilerOverlayView)
-        NSLayoutConstraint.activate([
-            statusView.contentContainer.topAnchor.constraint(equalTo: statusView.spoilerOverlayView.topAnchor),
-            statusView.contentContainer.leadingAnchor.constraint(equalTo: statusView.spoilerOverlayView.leadingAnchor),
-            statusView.contentContainer.trailingAnchor.constraint(equalTo: statusView.spoilerOverlayView.trailingAnchor),
-            statusView.contentContainer.bottomAnchor.constraint(equalTo: statusView.spoilerOverlayView.bottomAnchor),
-        ])
+        statusView.contentContainer.pinTo(to: statusView.spoilerOverlayView)
 
         // media container: V - [ mediaGridContainerView ]
         statusView.mediaContainerView.translatesAutoresizingMaskIntoConstraints = false
@@ -409,12 +399,7 @@ extension StatusView.Style {
 
         statusView.mediaGridContainerView.translatesAutoresizingMaskIntoConstraints = false
         statusView.mediaContainerView.addSubview(statusView.mediaGridContainerView)
-        NSLayoutConstraint.activate([
-            statusView.mediaGridContainerView.topAnchor.constraint(equalTo: statusView.mediaContainerView.topAnchor),
-            statusView.mediaGridContainerView.leadingAnchor.constraint(equalTo: statusView.mediaContainerView.leadingAnchor),
-            statusView.mediaGridContainerView.trailingAnchor.constraint(equalTo: statusView.mediaContainerView.trailingAnchor),
-            statusView.mediaGridContainerView.bottomAnchor.constraint(equalTo: statusView.mediaContainerView.bottomAnchor),
-        ])
+        statusView.mediaGridContainerView.pinToParent()
 
         // pollContainerView: V - [ pollTableView | pollStatusStackView ]
         statusView.pollAdaptiveMarginContainerView.contentView = statusView.pollContainerView
@@ -545,6 +530,13 @@ extension StatusView {
         return frame.width
     }
 
+}
+
+extension StatusView {
+    public override var accessibilityCustomActions: [UIAccessibilityCustomAction]? {
+        get { contentMetaText.textView.accessibilityCustomActions }
+        set { }
+    }
 }
 
 // MARK: - AdaptiveContainerView

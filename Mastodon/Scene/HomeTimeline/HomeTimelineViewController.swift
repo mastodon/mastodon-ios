@@ -74,7 +74,7 @@ final class HomeTimelineViewController: UIViewController, NeedsDependency, Media
         return progressView
     }()
     
-    let refreshControl = UIRefreshControl()
+    let refreshControl = RefreshControl()
     
     deinit {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s:", ((#file as NSString).lastPathComponent), #line, #function)
@@ -158,12 +158,7 @@ extension HomeTimelineViewController {
 
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
-        NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-        ])
+        tableView.pinToParent()
         
         // // layout publish progress
         publishProgressView.translatesAutoresizingMaskIntoConstraints = false
@@ -388,17 +383,17 @@ extension HomeTimelineViewController {
     @objc private func manuallySearchButtonPressed(_ sender: UIButton) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         let searchDetailViewModel = SearchDetailViewModel(authContext: viewModel.authContext)
-        coordinator.present(scene: .searchDetail(viewModel: searchDetailViewModel), from: self, transition: .modal(animated: true, completion: nil))
+        _ = coordinator.present(scene: .searchDetail(viewModel: searchDetailViewModel), from: self, transition: .modal(animated: true, completion: nil))
     }
     
     @objc private func settingBarButtonItemPressed(_ sender: UIBarButtonItem) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         guard let setting = context.settingService.currentSetting.value else { return }
         let settingsViewModel = SettingsViewModel(context: context, authContext: viewModel.authContext, setting: setting)
-        coordinator.present(scene: .settings(viewModel: settingsViewModel), from: self, transition: .modal(animated: true, completion: nil))
+        _ = coordinator.present(scene: .settings(viewModel: settingsViewModel), from: self, transition: .modal(animated: true, completion: nil))
     }
 
-    @objc private func refreshControlValueChanged(_ sender: UIRefreshControl) {
+    @objc private func refreshControlValueChanged(_ sender: RefreshControl) {
         guard viewModel.loadLatestStateMachine.enter(HomeTimelineViewModel.LoadLatestState.Loading.self) else {
             sender.endRefreshing()
             return

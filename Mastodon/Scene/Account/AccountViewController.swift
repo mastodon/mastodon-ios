@@ -34,7 +34,9 @@ final class AccountListViewController: UIViewController, NeedsDependency {
         return barButtonItem
     }()
 
-    let dragIndicatorView = DragIndicatorView()
+    lazy var dragIndicatorView = DragIndicatorView { [weak self] in
+        self?.dismiss(animated: true, completion: nil)
+    }
 
     var hasLoaded = false
     private(set) lazy var tableView: UITableView = {
@@ -130,14 +132,6 @@ extension AccountListViewController {
                 self.panModalTransition(to: .shortForm)
             }
             .store(in: &disposeBag)
-        
-        if UIAccessibility.isVoiceOverRunning {
-            let dragIndicatorTapGestureRecognizer = UITapGestureRecognizer.singleTapGestureRecognizer
-            dragIndicatorView.addGestureRecognizer(dragIndicatorTapGestureRecognizer)
-            dragIndicatorTapGestureRecognizer.addTarget(self, action: #selector(AccountListViewController.dragIndicatorTapGestureRecognizerHandler(_:)))
-            dragIndicatorView.isAccessibilityElement = true
-            dragIndicatorView.accessibilityLabel = L10n.Scene.AccountList.dismissAccountSwitcher
-        }
     }
 
     private func setupBackgroundColor(theme: Theme) {
@@ -160,10 +154,11 @@ extension AccountListViewController {
         logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
         _ = coordinator.present(scene: .welcome, from: self, transition: .modal(animated: true, completion: nil))
     }
-    
-    @objc private func dragIndicatorTapGestureRecognizerHandler(_ sender: UITapGestureRecognizer) {
+
+    override func accessibilityPerformEscape() -> Bool {
         logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
         dismiss(animated: true, completion: nil)
+        return true
     }
 
 }

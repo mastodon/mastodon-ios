@@ -292,21 +292,11 @@ extension NotificationView {
         
         acceptFollowRequestButton.translatesAutoresizingMaskIntoConstraints = false
         acceptFollowRequestButtonShadowBackgroundContainer.addSubview(acceptFollowRequestButton)
-        NSLayoutConstraint.activate([
-            acceptFollowRequestButton.topAnchor.constraint(equalTo: acceptFollowRequestButtonShadowBackgroundContainer.topAnchor),
-            acceptFollowRequestButton.leadingAnchor.constraint(equalTo: acceptFollowRequestButtonShadowBackgroundContainer.leadingAnchor),
-            acceptFollowRequestButton.trailingAnchor.constraint(equalTo: acceptFollowRequestButtonShadowBackgroundContainer.trailingAnchor),
-            acceptFollowRequestButton.bottomAnchor.constraint(equalTo: acceptFollowRequestButtonShadowBackgroundContainer.bottomAnchor),
-        ])
+        acceptFollowRequestButton.pinToParent()
         
         rejectFollowRequestButton.translatesAutoresizingMaskIntoConstraints = false
         rejectFollowRequestButtonShadowBackgroundContainer.addSubview(rejectFollowRequestButton)
-        NSLayoutConstraint.activate([
-            rejectFollowRequestButton.topAnchor.constraint(equalTo: rejectFollowRequestButtonShadowBackgroundContainer.topAnchor),
-            rejectFollowRequestButton.leadingAnchor.constraint(equalTo: rejectFollowRequestButtonShadowBackgroundContainer.leadingAnchor),
-            rejectFollowRequestButton.trailingAnchor.constraint(equalTo: rejectFollowRequestButtonShadowBackgroundContainer.trailingAnchor),
-            rejectFollowRequestButton.bottomAnchor.constraint(equalTo: rejectFollowRequestButtonShadowBackgroundContainer.bottomAnchor),
-        ])
+        rejectFollowRequestButton.pinToParent()
         
         followRequestContainerView.axis = .horizontal
         followRequestContainerView.distribution = .fillEqually

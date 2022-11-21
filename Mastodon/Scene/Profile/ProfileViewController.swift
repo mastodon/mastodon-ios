@@ -51,6 +51,7 @@ final class ProfileViewController: UIViewController, NeedsDependency, MediaPrevi
             action: #selector(ProfileViewController.settingBarButtonItemPressed(_:))
         )
         barButtonItem.tintColor = .white
+        barButtonItem.accessibilityLabel = L10n.Common.Controls.Actions.settings
         return barButtonItem
     }()
 
@@ -62,6 +63,7 @@ final class ProfileViewController: UIViewController, NeedsDependency, MediaPrevi
             action: #selector(ProfileViewController.shareBarButtonItemPressed(_:))
         )
         barButtonItem.tintColor = .white
+        barButtonItem.accessibilityLabel = L10n.Common.Controls.Actions.share
         return barButtonItem
     }()
 
@@ -73,6 +75,7 @@ final class ProfileViewController: UIViewController, NeedsDependency, MediaPrevi
             action: #selector(ProfileViewController.favoriteBarButtonItemPressed(_:))
         )
         barButtonItem.tintColor = .white
+        barButtonItem.accessibilityLabel = L10n.Scene.Favorite.title
         return barButtonItem
     }()
     
@@ -84,23 +87,26 @@ final class ProfileViewController: UIViewController, NeedsDependency, MediaPrevi
             action: #selector(ProfileViewController.bookmarkBarButtonItemPressed(_:))
         )
         barButtonItem.tintColor = .white
+        barButtonItem.accessibilityLabel = L10n.Scene.Bookmark.title
         return barButtonItem
     }()
 
     private(set) lazy var replyBarButtonItem: UIBarButtonItem = {
         let barButtonItem = UIBarButtonItem(image: UIImage(systemName: "arrowshape.turn.up.left"), style: .plain, target: self, action: #selector(ProfileViewController.replyBarButtonItemPressed(_:)))
         barButtonItem.tintColor = .white
+        barButtonItem.accessibilityLabel = L10n.Common.Controls.Actions.reply
         return barButtonItem
     }()
 
     let moreMenuBarButtonItem: UIBarButtonItem = {
         let barButtonItem = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), style: .plain, target: nil, action: nil)
         barButtonItem.tintColor = .white
+        barButtonItem.accessibilityLabel = L10n.Common.Controls.Actions.seeMore
         return barButtonItem
     }()
 
-    let refreshControl: UIRefreshControl = {
-        let refreshControl = UIRefreshControl()
+    let refreshControl: RefreshControl = {
+        let refreshControl = RefreshControl()
         refreshControl.tintColor = .white
         return refreshControl
     }()
@@ -253,12 +259,7 @@ extension ProfileViewController {
         tabBarPagerController.view.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tabBarPagerController.view)
         tabBarPagerController.didMove(toParent: self)
-        NSLayoutConstraint.activate([
-            tabBarPagerController.view.topAnchor.constraint(equalTo: view.topAnchor),
-            tabBarPagerController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tabBarPagerController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tabBarPagerController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-        ])
+        tabBarPagerController.view.pinToParent()
 
         tabBarPagerController.delegate = self
         tabBarPagerController.dataSource = self
@@ -497,7 +498,7 @@ extension ProfileViewController {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         guard let setting = context.settingService.currentSetting.value else { return }
         let settingsViewModel = SettingsViewModel(context: context, authContext: viewModel.authContext, setting: setting)
-        coordinator.present(scene: .settings(viewModel: settingsViewModel), from: self, transition: .modal(animated: true, completion: nil))
+        _ = coordinator.present(scene: .settings(viewModel: settingsViewModel), from: self, transition: .modal(animated: true, completion: nil))
     }
 
     @objc private func shareBarButtonItemPressed(_ sender: UIBarButtonItem) {
@@ -545,12 +546,15 @@ extension ProfileViewController {
         _ = coordinator.present(scene: .compose(viewModel: composeViewModel), from: self, transition: .modal(animated: true, completion: nil))
     }
 
-    @objc private func refreshControlValueChanged(_ sender: UIRefreshControl) {
+    @objc private func refreshControlValueChanged(_ sender: RefreshControl) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
 
         if let userTimelineViewController = profilePagingViewController.currentViewController as? UserTimelineViewController {
             userTimelineViewController.viewModel.stateMachine.enter(UserTimelineViewModel.State.Reloading.self)
         }
+
+        // trigger authenticated user account update
+        viewModel.context.authenticationService.updateActiveUserAccountPublisher.send()
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             sender.endRefreshing()

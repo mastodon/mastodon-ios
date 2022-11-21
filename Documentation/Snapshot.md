@@ -14,7 +14,7 @@ We use `xcodebuild` CLI tool to trigger UITest.
 Set the `name` in `-destination` option to add device for snapshot. For example:
 `-destination 'platform=iOS Simulator,name=iPad Pro (12.9-inch) (5th generation)' \`
 
-You can list the avaiable simulator:
+You can list the available simulators:
 ```zsh
 # list the destinations
 xcodebuild \
