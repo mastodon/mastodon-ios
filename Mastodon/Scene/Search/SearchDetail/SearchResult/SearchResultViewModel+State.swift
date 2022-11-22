@@ -36,7 +36,7 @@ extension SearchResultViewModel.State {
     class Initial: SearchResultViewModel.State {
         override func isValidNextState(_ stateClass: AnyClass) -> Bool {
             guard let viewModel = viewModel else { return false }
-            return stateClass == Loading.self && !viewModel.searchText.value.isEmpty
+            return stateClass == Loading.self && (viewModel.searchText.value.isEmpty == false)
         }
     }
 
@@ -60,7 +60,7 @@ extension SearchResultViewModel.State {
 
         override func didEnter(from previousState: GKState?) {
             super.didEnter(from: previousState)
-            guard let viewModel = viewModel, let stateMachine = stateMachine else { return }
+            guard let viewModel, let stateMachine = stateMachine else { return }
 
             let searchText = viewModel.searchText.value
             let searchType = viewModel.searchScope.searchType
