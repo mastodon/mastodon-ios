@@ -75,7 +75,7 @@
                 "save_photo": "写真を保存",
                 "copy_photo": "写真をコピー",
                 "sign_in": "ログイン",
-                "sign_up": "Create account",
+                "sign_up": "アカウント作成",
                 "see_more": "もっと見る",
                 "preview": "プレビュー",
                 "share": "共有",
@@ -96,7 +96,7 @@
             "tabs": {
                 "home": "ホーム",
                 "search": "検索",
-                "notifications": "Notifications",
+                "notifications": "通知",
                 "profile": "プロフィール"
             },
             "keyboard": {
@@ -137,10 +137,10 @@
                     "closed": "終了"
                 },
                 "meta_entity": {
-                    "url": "Link: %s",
-                    "hashtag": "Hashtag: %s",
-                    "mention": "Show Profile: %s",
-                    "email": "Email address: %s"
+                    "url": "リンク: %s",
+                    "hashtag": "ハッシュタグ: %s",
+                    "mention": "プロフィールを表示: %s",
+                    "email": "メールアドレス: %s"
                 },
                 "actions": {
                     "reply": "返信",
@@ -220,14 +220,14 @@
         },
         "login": {
             "title": "Welcome back",
-            "subtitle": "Log you in on the server you created your account on.",
+            "subtitle": "アカウントを作成したサーバーにログインします。",
             "server_search_field": {
-                "placeholder": "Enter URL or search for your server"
+                "placeholder": "URLを入力またはサーバーを検索"
             }
         },
         "server_picker": {
             "title": "サーバーを選択",
-            "subtitle": "Pick a server based on your region, interests, or a general purpose one. You can still chat with anyone on Mastodon, regardless of your servers.",
+            "subtitle": "お住まいの地域、興味、目的に基づいてサーバーを選択してください。 サーバーに関係なく、Mastodonの誰とでも話せます。",
             "button": {
                 "category": {
                     "all": "すべて",
@@ -254,7 +254,7 @@
                 "category": "カテゴリー"
             },
             "input": {
-                "search_servers_or_enter_url": "Search communities or enter URL"
+                "search_servers_or_enter_url": "コミュニティを検索またはURLを入力"
             },
             "empty_state": {
                 "finding_servers": "利用可能なサーバーの検索...",
