@@ -123,6 +123,10 @@ extension ReportStatusViewController {
             .assign(to: \.isEnabled, on: navigationActionView.nextButton)
             .store(in: &disposeBag)
         
+        if !viewModel.selectStatuses.isEmpty {
+            navigationActionView.hidesBackButton = true
+        }
+        
         navigationActionView.backButton.addTarget(self, action: #selector(ReportStatusViewController.skipButtonDidPressed(_:)), for: .touchUpInside)
         navigationActionView.nextButton.addTarget(self, action: #selector(ReportStatusViewController.nextButtonDidPressed(_:)), for: .touchUpInside)        
     }
