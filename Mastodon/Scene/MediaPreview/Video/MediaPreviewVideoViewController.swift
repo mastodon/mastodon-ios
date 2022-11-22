@@ -107,6 +107,12 @@ extension MediaPreviewVideoViewController {
 //    }
 //}
 
+extension MediaPreviewVideoViewController: MediaPreviewPage {
+    func setShowingChrome(_ showingChrome: Bool) {
+        // TODO: does this do anything?
+    }
+}
+
 // MARK: - AVPlayerViewControllerDelegate
 extension MediaPreviewVideoViewController: AVPlayerViewControllerDelegate {
     
