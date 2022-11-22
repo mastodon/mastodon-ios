@@ -220,7 +220,7 @@
         },
         "login": {
             "title": "مَرحَبًا بِكَ مُجَدَّدًا",
-            "subtitle": "Log you in on the server you created your account on.",
+            "subtitle": "سَجِّل دُخولَكَ إلى الخادِم الَّذي أنشأتَ حِسابَكَ فيه.",
             "server_search_field": {
                 "placeholder": "أدخِل عُنوانَ URL أو اِبحَث عَنِ الخادِمِ الخاصّ بِك"
             }
