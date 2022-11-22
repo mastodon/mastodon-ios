@@ -369,6 +369,9 @@ extension MainTabBarController {
         updateAvatarButtonAppearance()
     }
 
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return UIDevice.current.userInterfaceIdiom == .phone ? .portrait : .all
+    }
 }
 
 extension MainTabBarController {
