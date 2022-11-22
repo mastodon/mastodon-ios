@@ -1,51 +1,51 @@
-"16wxgf" = "Post on Mastodon";
+"16wxgf" = "Publicar en Mastodon";
 
-"751xkl" = "Text Content";
+"751xkl" = "Conteniu de Texto";
 
-"CsR7G2" = "Post on Mastodon";
+"CsR7G2" = "Publicar en Mastodon";
 
-"HZSGTr" = "What content to post?";
+"HZSGTr" = "Qué conteniu publicar?";
 
-"HdGikU" = "Posting failed";
+"HdGikU" = "Publicación fallida";
 
-"KDNTJ4" = "Failure Reason";
+"KDNTJ4" = "Motivo d'o Fallo";
 
-"RHxKOw" = "Send Post with text content";
+"RHxKOw" = "Ninviar Publicación con conteniu de texto";
 
-"RxSqsb" = "Post";
+"RxSqsb" = "Publicación";
 
-"WCIR3D" = "Post ${content} on Mastodon";
+"WCIR3D" = "Publicar ${content} en Mastodon";
 
-"ZKJSNu" = "Post";
+"ZKJSNu" = "Publicación";
 
 "ZS1XaK" = "${content}";
 
-"ZbSjzC" = "Visibility";
+"ZbSjzC" = "Visibilidat";
 
-"Zo4jgJ" = "Post Visibility";
+"Zo4jgJ" = "Visibilidat d'o Post";
 
-"apSxMG-dYQ5NN" = "There are ${count} options matching ‘Public’.";
+"apSxMG-dYQ5NN" = "I hai ${count} opcions que coinciden con «Publico».";
 
-"apSxMG-ehFLjY" = "There are ${count} options matching ‘Followers Only’.";
+"apSxMG-ehFLjY" = "I hai ${count} opcions que coinciden con «Solo seguidores».";
 
-"ayoYEb-dYQ5NN" = "${content}, Public";
+"ayoYEb-dYQ5NN" = "${content}, Publico";
 
-"ayoYEb-ehFLjY" = "${content}, Followers Only";
+"ayoYEb-ehFLjY" = "${content}, Nomás Seguidores";
 
-"dUyuGg" = "Post on Mastodon";
+"dUyuGg" = "Publicar en Mastodon";
 
-"dYQ5NN" = "Public";
+"dYQ5NN" = "Publico";
 
-"ehFLjY" = "Followers Only";
+"ehFLjY" = "Solo Seguidores";
 
-"gfePDu" = "Posting failed. ${failureReason}";
+"gfePDu" = "Publicación fallida. ${failureReason}";
 
-"k7dbKQ" = "Post was sent successfully.";
+"k7dbKQ" = "Publicación ninviada con exito.";
 
-"oGiqmY-dYQ5NN" = "Just to confirm, you wanted ‘Public’?";
+"oGiqmY-dYQ5NN" = "Nomás per confirmar, querebas «Publico»?";
 
-"oGiqmY-ehFLjY" = "Just to confirm, you wanted ‘Followers Only’?";
+"oGiqmY-ehFLjY" = "Nomás per confirmar, querebas «Nomás seguidores»?";
 
 "rM6dvp" = "URL";
 
-"ryJLwG" = "Post was sent successfully. ";
+"ryJLwG" = "Publicación ninviada con exito. ";
