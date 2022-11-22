@@ -80,10 +80,12 @@ extension SearchResultViewModel.State {
                 return
             }
 
-            guard searchText.length > 3 else {
-              stateMachine.enter(Fail.self)
+            guard (viewModel.forceSearch || searchText.length > 3) else {
+              stateMachine.enter(NoMore.self)
               return
             }
+
+            viewModel.forceSearch = false
 
             if searchText != previousSearchText {
                 previousSearchText = searchText
@@ -104,14 +106,8 @@ extension SearchResultViewModel.State {
             let query = Mastodon.API.V2.Search.Query(
                 q: searchText,
                 type: searchType,
-                accountID: nil,
-                maxID: nil,
-                minID: nil,
-                excludeUnreviewed: nil,
                 resolve: true,
-                limit: nil,
-                offset: _offset,
-                following: nil
+                offset: _offset
             )
 
             let id = UUID()

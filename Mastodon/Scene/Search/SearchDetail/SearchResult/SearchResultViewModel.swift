@@ -23,6 +23,7 @@ final class SearchResultViewModel {
     let authContext: AuthContext
     let searchScope: SearchDetailViewModel.SearchScope
     let searchText = CurrentValueSubject<String, Never>("")
+    var forceSearch: Bool = false
     @Published var hashtags: [Mastodon.Entity.Tag] = []
     let userFetchedResultsController: UserFetchedResultsController
     let statusFetchedResultsController: StatusFetchedResultsController
