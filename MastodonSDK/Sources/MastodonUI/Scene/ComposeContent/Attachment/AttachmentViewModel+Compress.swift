@@ -8,11 +8,12 @@
 import os.log
 import UIKit
 import AVKit
-import SessionExporter
 import MastodonCore
+import SessionExporter
+import Kingfisher
 
 extension AttachmentViewModel {
-    func comporessVideo(url: URL) async throws -> URL {
+    func compressVideo(url: URL) async throws -> URL {
         let urlAsset = AVURLAsset(url: url)
         let exporter = NextLevelSessionExporter(withAsset: urlAsset)
         exporter.outputFileType = .mp4
@@ -91,4 +92,58 @@ extension AttachmentViewModel {
             })
         }
     }   // end func
+}
+
+extension AttachmentViewModel {
+    @AttachmentViewModelActor
+    func compressImage(data: Data, sizeLimit: SizeLimit) throws -> Output {
+        let maxPayloadSizeInBytes = sizeLimit.image ?? 10 * 1024 * 1024
+
+        guard let image = KFCrossPlatformImage(data: data)?.kf.normalized,
+              var imageData = image.kf.pngRepresentation()
+        else {
+            throw AttachmentError.invalidAttachmentType
+        }
+        
+        repeat {
+            guard let image = KFCrossPlatformImage(data: imageData) else {
+                throw AttachmentError.invalidAttachmentType
+            }
+
+            if imageData.kf.imageFormat == .PNG {
+                // A. png image
+                if imageData.count > maxPayloadSizeInBytes {
+                    guard let compressedJpegData = image.jpegData(compressionQuality: 0.8) else {
+                        throw AttachmentError.invalidAttachmentType
+                    }
+                    os_log("%{public}s[%{public}ld], %{public}s: compress png %.2fMiB -> jpeg %.2fMiB", ((#file as NSString).lastPathComponent), #line, #function, Double(imageData.count) / 1024 / 1024, Double(compressedJpegData.count) / 1024 / 1024)
+                    imageData = compressedJpegData
+                } else {
+                    os_log("%{public}s[%{public}ld], %{public}s: png %.2fMiB", ((#file as NSString).lastPathComponent), #line, #function, Double(imageData.count) / 1024 / 1024)
+                    break
+                }
+            } else {
+                // B. other image
+                if imageData.count > maxPayloadSizeInBytes {
+                    let targetSize = CGSize(width: image.size.width * 0.8, height: image.size.height * 0.8)
+                    let scaledImage = image.kf.resize(to: targetSize)
+                    guard let compressedJpegData = scaledImage.jpegData(compressionQuality: 0.8) else {
+                        throw AttachmentError.invalidAttachmentType
+                    }
+                    os_log("%{public}s[%{public}ld], %{public}s: compress jpeg %.2fMiB -> jpeg %.2fMiB", ((#file as NSString).lastPathComponent), #line, #function, Double(imageData.count) / 1024 / 1024, Double(compressedJpegData.count) / 1024 / 1024)
+                    imageData = compressedJpegData
+                } else {
+                    os_log("%{public}s[%{public}ld], %{public}s: jpeg %.2fMiB", ((#file as NSString).lastPathComponent), #line, #function, Double(imageData.count) / 1024 / 1024)
+                    break
+                }
+            }
+        } while (imageData.count > maxPayloadSizeInBytes)
+        
+        
+        return .image(imageData, imageKind: imageData.kf.imageFormat == .PNG ? .png : .jpg)
+    }
+}
+
+@globalActor actor AttachmentViewModelActor {
+    static var shared = AttachmentViewModelActor()
 }
