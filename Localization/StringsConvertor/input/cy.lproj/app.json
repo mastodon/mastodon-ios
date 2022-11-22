@@ -96,7 +96,7 @@
             "tabs": {
                 "home": "Hafan",
                 "search": "Chwilio",
-                "notifications": "Notifications",
+                "notifications": "Hysbysiadau",
                 "profile": "Proffil"
             },
             "keyboard": {
@@ -367,7 +367,7 @@
         },
         "suggestion_account": {
             "title": "Chwilio a Dilyn Pobl",
-            "follow_explain": "When you follow someone, you’ll see their posts in your home feed."
+            "follow_explain": "Ar ôl ichi ddilyn rhywun, byddwch yn gweld eu postiadau yn eich ffrwd hafan."
         },
         "compose": {
             "title": {
