@@ -653,7 +653,7 @@
             "title": "Riportio %s",
             "step1": "Cam 1 o 2",
             "step2": "Cam 2 o 2",
-            "content1": "Are there any other posts you’d like to add to the report?",
+            "content1": "Hoffech chi ychwanegu unrhyw postiadau eraill i'r adroddiad?",
             "content2": "Is there anything the moderators should know about this report?",
             "report_sent_title": "Diolch am adrodd, byddwn yn ymchwilio i hyn.",
             "send": "Anfon adroddiad",
@@ -697,10 +697,10 @@
                 "unfollowed": "Dad-ddilynwyd",
                 "unfollow_user": "Dad-ddilyn %s",
                 "mute_user": "Anwybyddu %s",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or reblogs in your home feed. They won’t know they’ve been muted.",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "Ni fyddwch yn gweld eu postiadau neu hybiau yn eich ffrwd hafan. Ni fyddant yn gwybod eich bod wedi eu hanwybyddu.",
                 "block_user": "Blocio %s",
-                "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "They will no longer be able to follow or see your posts, but they can see if they’ve been blocked.",
-                "while_we_review_this_you_can_take_action_against_user": "While we review this, you can take action against %s"
+                "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "Ni fyddant yn gallu eich dilyn neu weld eich postiadau, ond maen nhw'n gallu gweld eich bod wedi'u blocio.",
+                "while_we_review_this_you_can_take_action_against_user": "Tra byddwn ni'n edrych ar hyn, gallwch gymryd camau yn erbyn %s"
             }
         },
         "preview": {
@@ -711,13 +711,13 @@
             }
         },
         "account_list": {
-            "tab_bar_hint": "Current selected profile: %s. Double tap then hold to show account switcher",
+            "tab_bar_hint": "Proffil cyfredol: %s. Tapiwch dwywaith a gwasgu i ddefnyddio'r newidiwr cyfrifon",
             "dismiss_account_switcher": "Diddymu Newidiwr Cyfrifon",
             "add_account": "Ychwanegu Cyfrif"
         },
         "wizard": {
             "new_in_mastodon": "Newydd i Mastodon",
-            "multiple_account_switch_intro_description": "Switch between multiple accounts by holding the profile button.",
+            "multiple_account_switch_intro_description": "Newid rhwng cyfrifon gwahanol wrth wasgu'r botwm proffil.",
             "accessibility_hint": "Tapiwch dwywaith i ddiddymu'r dewin hwn"
         },
         "bookmark": {
