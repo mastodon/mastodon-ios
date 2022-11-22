@@ -179,8 +179,8 @@
                 "block_user": "Bloca %s",
                 "block_domain": "Bloca %s",
                 "unblock": "Desbloca",
-                "unblock_user": "Desbloqueja %s",
-                "blocked": "Bloquejat",
+                "unblock_user": "Desbloca %s",
+                "blocked": "Blocat",
                 "mute": "Silencia",
                 "mute_user": "Silencia %s",
                 "unmute": "Deixa de silenciar",
@@ -196,16 +196,16 @@
                     "now": "Ara"
                 },
                 "loader": {
-                    "load_missing_posts": "Carrega les publicacions faltants",
-                    "loading_missing_posts": "Carregant les publicacions faltants...",
+                    "load_missing_posts": "Carrega les publicacions restants",
+                    "loading_missing_posts": "Carregant les publicacions restants...",
                     "show_more_replies": "Mostra més respostes"
                 },
                 "header": {
                     "no_status_found": "No s'ha trobat cap publicació",
-                    "blocking_warning": "No pots veure el perfil d'aquest usuari\n fins que el desbloquegis.\nEl teu perfil els sembla així.",
-                    "user_blocking_warning": "No pots veure el perfil de %s\n fins que el desbloquegis.\nEl teu perfil els sembla així.",
-                    "blocked_warning": "No pots veure el perfil d'aquest usuari\nfins que et desbloquegi.",
-                    "user_blocked_warning": "No pots veure el perfil de %s\n fins que et desbloquegi.",
+                    "blocking_warning": "No pots veure el perfil d'aquest usuari\nfins que el desbloquis.\nEl teu perfil els sembla així.",
+                    "user_blocking_warning": "No pots veure el perfil de %s\nfins que el desbloquis.\nEl teu perfil els sembla així.",
+                    "blocked_warning": "No pots veure el perfil d'aquest usuari\nfins que et desbloqui.",
+                    "user_blocked_warning": "No pots veure el perfil de %s\n fins que et desbloqui.",
                     "suspended_warning": "Aquest usuari ha estat suspès.",
                     "user_suspended_warning": "El compte de %s ha estat suspès."
                 }
@@ -226,7 +226,7 @@
             }
         },
         "server_picker": {
-            "title": "Mastodon està fet d'usuaris en diferents comunitats.",
+            "title": "Mastodon està fet d'usuaris en diferents servidors.",
             "subtitle": "Tria un servidor en funció de la teva regió, interessos o un de propòsit general. Seguiràs podent connectar amb tothom a Mastodon, independentment del servidor.",
             "button": {
                 "category": {
@@ -367,11 +367,11 @@
         },
         "suggestion_account": {
             "title": "Cerca Persones a Seguir",
-            "follow_explain": "Quan segueixes algú, veuràs les seves publicacions a Inici."
+            "follow_explain": "Quan segueixes algú, veuràs els seus tuts a Inici."
         },
         "compose": {
             "title": {
-                "new_post": "Nova publicació",
+                "new_post": "Nou Tut",
                 "new_reply": "Nova Resposta"
             },
             "media_selection": {
@@ -386,8 +386,8 @@
                 "photo": "foto",
                 "video": "vídeo",
                 "attachment_broken": "Aquest %s està trencat i no pot ser\ncarregat a Mastodon.",
-                "description_photo": "Descriu la foto per als disminuïts visuals...",
-                "description_video": "Descriu el vídeo per als disminuïts visuals...",
+                "description_photo": "Descriu la foto per a les persones amb diversitat funcional...",
+                "description_video": "Descriu el vídeo per a les persones amb diversitat funcional...",
                 "load_failed": "Ha fallat la càrrega",
                 "upload_failed": "Pujada fallida",
                 "can_not_recognize_this_media_attachment": "No es pot reconèixer aquest adjunt multimèdia",
@@ -426,13 +426,13 @@
                 "custom_emoji_picker": "Selector d'Emoji Personalitzat",
                 "enable_content_warning": "Activa l'Avís de Contingut",
                 "disable_content_warning": "Desactiva l'Avís de Contingut",
-                "post_visibility_menu": "Menú de Visibilitat de Publicació",
-                "post_options": "Opcions del tut",
+                "post_visibility_menu": "Menú de Visibilitat del Tut",
+                "post_options": "Opcions del Tut",
                 "posting_as": "Publicant com a %s"
             },
             "keyboard": {
-                "discard_post": "Descarta la Publicació",
-                "publish_post": "Envia la Publicació",
+                "discard_post": "Descarta el Tut",
+                "publish_post": "Envia el Tut",
                 "toggle_poll": "Commuta l'enquesta",
                 "toggle_content_warning": "Commuta l'Avís de Contingut",
                 "append_attachment_entry": "Afegeix Adjunt - %s",
@@ -444,7 +444,7 @@
                 "follows_you": "Et segueix"
             },
             "dashboard": {
-                "posts": "publicacions",
+                "posts": "tuts",
                 "following": "seguint",
                 "followers": "seguidors"
             },
@@ -460,9 +460,9 @@
                 }
             },
             "segmented_control": {
-                "posts": "Publicacions",
+                "posts": "Tuts",
                 "replies": "Respostes",
-                "posts_and_replies": "Publicacions i Respostes",
+                "posts_and_replies": "Tuts i Respostes",
                 "media": "Mèdia",
                 "about": "Quant a"
             },
@@ -476,12 +476,12 @@
                     "message": "Confirma deixar de silenciar a %s"
                 },
                 "confirm_block_user": {
-                    "title": "Bloqueja el Compte",
-                    "message": "Confirma per a bloquejar %s"
+                    "title": "Bloca el Compte",
+                    "message": "Confirma per a blocar %s"
                 },
                 "confirm_unblock_user": {
-                    "title": "Desbloqueja el Compte",
-                    "message": "Confirma per a desbloquejar %s"
+                    "title": "Desbloca el Compte",
+                    "message": "Confirma per a desblocar %s"
                 },
                 "confirm_show_reblogs": {
                     "title": "Mostra els Impulsos",
@@ -541,7 +541,7 @@
                     "all": "Tots",
                     "people": "Gent",
                     "hashtags": "Etiquetes",
-                    "posts": "Publicacions"
+                    "posts": "Tuts"
                 },
                 "empty_state": {
                     "no_results": "No hi ha resultats"
@@ -552,13 +552,13 @@
         },
         "discovery": {
             "tabs": {
-                "posts": "Publicacions",
+                "posts": "Tuts",
                 "hashtags": "Etiquetes",
                 "news": "Notícies",
                 "community": "Comunitat",
                 "for_you": "Per a tu"
             },
-            "intro": "Aquestes son les publicacions que criden l'atenció en el teu racó de Mastodon."
+            "intro": "Aquests son els tuts que criden l'atenció en el teu racó de Mastodon."
         },
         "favorite": {
             "title": "Els teus Favorits"
@@ -588,8 +588,8 @@
             }
         },
         "thread": {
-            "back_title": "Publicació",
-            "title": "Publicació de %s"
+            "back_title": "Tut",
+            "title": "Tut de %s"
         },
         "settings": {
             "title": "Configuració",
@@ -609,9 +609,9 @@
                 },
                 "notifications": {
                     "title": "Notificacions",
-                    "favorites": "Ha afavorit el meu estat",
+                    "favorites": "Ha afavorit el meu tut",
                     "follows": "Em segueix",
-                    "boosts": "Ha impulsat el meu estat",
+                    "boosts": "Ha impulsat el meu tut",
                     "mentions": "M'ha mencionat",
                     "trigger": {
                         "anyone": "algú",
@@ -653,7 +653,7 @@
             "title": "Informa sobre %s",
             "step1": "Pas 1 de 2",
             "step2": "Pas 2 de 2",
-            "content1": "Hi ha alguna altre publicació que vulguis afegir a l'informe?",
+            "content1": "Hi ha algun altre tut que vulguis afegir a l'informe?",
             "content2": "Hi ha alguna cosa que els moderadors hagin de saber sobre aquest informe?",
             "report_sent_title": "Gràcies per informar, ho investigarem.",
             "send": "Envia Informe",
@@ -662,7 +662,7 @@
             "reported": "REPORTAT",
             "step_one": {
                 "step_1_of_4": "Pas 1 de 4",
-                "whats_wrong_with_this_post": "Quin és el problema amb aquesta publicació?",
+                "whats_wrong_with_this_post": "Quin és el problema amb aquest tut?",
                 "whats_wrong_with_this_account": "Quin és el problema amb aquest compte?",
                 "whats_wrong_with_this_username": "Quin és el problema amb %s?",
                 "select_the_best_match": "Selecciona la millor coincidència",
@@ -683,7 +683,7 @@
             },
             "step_three": {
                 "step_3_of_4": "Pas 3 de 4",
-                "are_there_any_posts_that_back_up_this_report": "Hi ha alguna publicació que recolzi aquest informe?",
+                "are_there_any_posts_that_back_up_this_report": "Hi ha alguns tuts que recolzin aquest informe?",
                 "select_all_that_apply": "Selecciona tot el que correspongui"
             },
             "step_four": {
@@ -692,14 +692,14 @@
             },
             "step_final": {
                 "dont_want_to_see_this": "No vols veure això?",
-                "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "Quan veus alguna cosa que no t'agrada a Mastodon, pots eliminar la persona de la vostra experiència.",
+                "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "Quan veus alguna cosa que no t'agrada a Mastodon, pots eliminar la persona de la teva experiència.",
                 "unfollow": "Deixa de seguir",
                 "unfollowed": "S'ha deixat de seguir",
                 "unfollow_user": "Deixa de seguir %s",
                 "mute_user": "Silencia %s",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "No veuràs les seves publicacions o impulsos a la teva línia de temps personal. No sabran que han estat silenciats.",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "No veuràs els seus tuts o impulsos a la teva línia de temps personal. No sabran que han estat silenciats.",
                 "block_user": "Bloca %s",
-                "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "Ja no podran seguir ni veure les teves publicacions, però poden veure si han estat bloquejats.",
+                "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "Ja no podran seguir ni veure els teus tus, però poden veure si han estat blocats.",
                 "while_we_review_this_you_can_take_action_against_user": "Mentre ho revisem, pots prendre mesures contra %s"
             }
         },
