@@ -512,10 +512,10 @@
             "followed_by_names": "Followed by %s"
         },
         "favorited_by": {
-            "title": "Favorited By"
+            "title": "お気に入り"
         },
         "reblogged_by": {
-            "title": "Reblogged By"
+            "title": "ブースト"
         },
         "search": {
             "title": "検索",
