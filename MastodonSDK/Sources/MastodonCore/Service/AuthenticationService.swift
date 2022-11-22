@@ -25,6 +25,7 @@ public final class AuthenticationService: NSObject {
     // output
     @Published public var mastodonAuthentications: [ManagedObjectRecord<MastodonAuthentication>] = []
     @Published public var mastodonAuthenticationBoxes: [MastodonAuthenticationBox] = []
+    public let updateActiveUserAccountPublisher = PassthroughSubject<Void, Never>()
 
     init(
         managedObjectContext: NSManagedObjectContext,
@@ -67,7 +68,7 @@ public final class AuthenticationService: NSObject {
             try mastodonAuthenticationFetchedResultsController.performFetch()
             mastodonAuthentications = mastodonAuthenticationFetchedResultsController.fetchedObjects?
                 .sorted(by: { $0.activedAt > $1.activedAt })
-                .compactMap { $0.asRecrod } ?? []
+                .compactMap { $0.asRecord } ?? []
         } catch {
             assertionFailure(error.localizedDescription)
         }
@@ -148,7 +149,7 @@ extension AuthenticationService: NSFetchedResultsControllerDelegate {
     
         mastodonAuthentications = mastodonAuthenticationFetchedResultsController.fetchedObjects?
             .sorted(by: { $0.activedAt > $1.activedAt })
-            .compactMap { $0.asRecrod } ?? []
+            .compactMap { $0.asRecord } ?? []
     }
     
 }

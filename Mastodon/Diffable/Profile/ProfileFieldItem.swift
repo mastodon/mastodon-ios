@@ -23,6 +23,7 @@ extension ProfileFieldItem {
 
         var name: CurrentValueSubject<String, Never>
         var value: CurrentValueSubject<String, Never>
+        var verifiedAt: CurrentValueSubject<Date?, Never>
         
         let emojiMeta: MastodonContent.Emojis
 
@@ -30,11 +31,13 @@ extension ProfileFieldItem {
             id: UUID = UUID(),
             name: String,
             value: String,
+            verifiedAt: Date?,
             emojiMeta: MastodonContent.Emojis
         ) {
             self.id = id
             self.name = CurrentValueSubject(name)
             self.value = CurrentValueSubject(value)
+            self.verifiedAt = CurrentValueSubject(verifiedAt)
             self.emojiMeta = emojiMeta
         }
         
@@ -45,6 +48,7 @@ extension ProfileFieldItem {
             return lhs.id == rhs.id
                 && lhs.name.value == rhs.name.value
                 && lhs.value.value == rhs.value.value
+                && lhs.verifiedAt.value == rhs.verifiedAt.value
                 && lhs.emojiMeta == rhs.emojiMeta
         }
         

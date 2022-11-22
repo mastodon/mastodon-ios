@@ -20,7 +20,7 @@ final class AutoCompleteViewModel {
     let authContext: AuthContext
     public let inputText = CurrentValueSubject<String, Never>("")  // contains "@" or "#" prefix
     public let symbolBoundingRect = CurrentValueSubject<CGRect, Never>(.zero)
-    public let customEmojiViewModel = CurrentValueSubject<EmojiService.CustomEmojiViewModel?, Never>(nil)
+    public let customEmojiViewModel: EmojiService.CustomEmojiViewModel?
     
     // output
     public var autoCompleteItems = CurrentValueSubject<[AutoCompleteItem], Never>([])
@@ -40,6 +40,8 @@ final class AutoCompleteViewModel {
     init(context: AppContext, authContext: AuthContext) {
         self.context = context
         self.authContext = authContext
+        self.customEmojiViewModel = context.emojiService.dequeueCustomEmojiViewModel(for: authContext.mastodonAuthenticationBox.domain)
+        // end init
         
         autoCompleteItems
             .receive(on: DispatchQueue.main)
@@ -71,7 +73,7 @@ final class AutoCompleteViewModel {
         
         inputText
             .removeDuplicates()
-            .receive(on: DispatchQueue.main)
+            .throttle(for: .milliseconds(200), scheduler: DispatchQueue.main, latest: true)
             .sink { [weak self] inputText in
                 guard let self = self else { return }
                 self.stateMachine.enter(State.Loading.self)

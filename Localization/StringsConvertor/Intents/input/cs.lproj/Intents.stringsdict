@@ -5,7 +5,7 @@
     <key>There are ${count} options matching ‘${content}’. - 2</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>There are %#@count_option@ matching ‘${content}’.</string>
+      <string>Existuje %#@count_option@ odpovídající „${content}“.</string>
       <key>count_option</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>

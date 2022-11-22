@@ -109,6 +109,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         // trigger status filter update
         AppContext.shared.statusFilterService.filterUpdatePublisher.send()
+        
+        // trigger authenticated user account update
+        AppContext.shared.authenticationService.updateActiveUserAccountPublisher.send()
 
         if let shortcutItem = savedShortCutItem {
             Task {
@@ -172,7 +175,7 @@ extension SceneDelegate {
                 return false
             }
 
-            coordinator.switchToTabBar(tab: .notification)
+            coordinator.switchToTabBar(tab: .notifications)
 
         case "org.joinmastodon.app.new-post":
             if coordinator?.tabBarController.topMost is ComposeViewController {

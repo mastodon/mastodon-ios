@@ -47,11 +47,13 @@ private func convert(from inputDirectoryURL: URL, to outputDirectory: URL) {
 
 private func map(language: String) -> String? {
     switch language {
+    case "Base.lproj":      return "Base"
     case "ar.lproj":        return "ar"         // Arabic
     case "eu.lproj":        return "eu"         // Basque
     case "ca.lproj":        return "ca"         // Catalan
     case "zh-Hans.lproj":   return "zh-Hans"    // Chinese Simplified
     case "zh-Hant.lproj":   return "zh-Hant"    // Chinese Traditional
+    case "cs.lproj":        return "cs"         // Czech
     case "nl.lproj":        return "nl"         // Dutch
     case "en.lproj":        return "en"
     case "fi.lproj":        return "fi"         // Finnish
@@ -64,6 +66,7 @@ private func map(language: String) -> String? {
     case "kmr.lproj":       return "ku"         // Kurmanji (Kurdish) [intent mapping]
     case "ru.lproj":        return "ru"         // Russian
     case "gd.lproj":        return "gd"         // Scottish Gaelic
+    case "sl.lproj":        return "sl"         // Slovenian
     case "ckb.lproj":       return "ckb"        // Sorani (Kurdish)
     case "es.lproj":        return "es"         // Spanish
     case "es_AR.lproj":     return "es-AR"      // Spanish, Argentina

@@ -47,12 +47,7 @@ extension HomeTimelineNavigationBarTitleView {
     private func _init() {
         containerView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(containerView)
-        NSLayoutConstraint.activate([
-            containerView.topAnchor.constraint(equalTo: topAnchor),
-            containerView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            containerView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            containerView.bottomAnchor.constraint(equalTo: bottomAnchor),
-        ])
+        containerView.pinToParent()
         
         containerView.addArrangedSubview(logoButton)
         button.translatesAutoresizingMaskIntoConstraints = false

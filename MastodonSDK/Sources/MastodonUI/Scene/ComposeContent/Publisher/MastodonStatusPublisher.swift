@@ -119,13 +119,31 @@ extension MastodonStatusPublisher: StatusPublisher {
             progress.addChild(attachmentViewModel.progress, withPendingUnitCount: publishAttachmentTaskWeight)
             // upload media
             do {
-                let result = try await attachmentViewModel.upload(context: uploadContext)
-                guard case let .mastodon(response) = result else {
-                    assertionFailure()
-                    continue
+                guard let attachment = attachmentViewModel.uploadResult else {
+                    // precondition: all media uploaded
+                    throw AppError.badRequest
                 }
-                let attachmentID = response.value.id
-                attachmentIDs.append(attachmentID)
+                attachmentIDs.append(attachment.id)
+                
+                let caption = attachmentViewModel.caption
+                guard !caption.isEmpty else { continue }
+                
+                _ = try await api.updateMedia(
+                    domain: authContext.mastodonAuthenticationBox.domain,
+                    attachmentID: attachment.id,
+                    query: .init(
+                        file: nil,
+                        thumbnail: nil,
+                        description: caption,
+                        focus: nil
+                    ),
+                    mastodonAuthenticationBox: authContext.mastodonAuthenticationBox
+                ).singleOutput()
+                
+                // TODO: allow background upload
+                // let attachment = try await attachmentViewModel.upload(context: uploadContext)
+                // let attachmentID = attachment.id
+                // attachmentIDs.append(attachmentID)
             } catch {
                 logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): upload attachment fail: \(error.localizedDescription)")
                 _state = .failure(error)

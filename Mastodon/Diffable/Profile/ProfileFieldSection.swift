@@ -8,6 +8,7 @@
 import os
 import UIKit
 import Combine
+import MastodonAsset
 import MastodonCore
 import MastodonMeta
 import MastodonLocalization
@@ -48,6 +49,10 @@ extension ProfileFieldSection {
             do {
                 let mastodonContent = MastodonContent(content: field.value.value, emojis: field.emojiMeta)
                 let metaContent = try MastodonMetaContent.convert(document: mastodonContent)
+                cell.valueMetaLabel.linkAttributes[.foregroundColor] = Asset.Colors.brand.color
+                if field.verifiedAt.value != nil {
+                    cell.valueMetaLabel.linkAttributes[.foregroundColor] = Asset.Scene.Profile.About.bioAboutFieldVerifiedLink.color
+                }
                 cell.valueMetaLabel.configure(content: metaContent)
             } catch {
                 let content = PlaintextMetaContent(string: field.value.value)
@@ -57,7 +62,23 @@ extension ProfileFieldSection {
             // set background
             var backgroundConfiguration = UIBackgroundConfiguration.listPlainCell()
             backgroundConfiguration.backgroundColor = UIColor.secondarySystemBackground
+            if (field.verifiedAt.value != nil) {
+                backgroundConfiguration.backgroundColor = Asset.Scene.Profile.About.bioAboutFieldVerifiedBackground.color
+            }
             cell.backgroundConfiguration = backgroundConfiguration
+            
+            // set checkmark and edit menu label
+            cell.checkmark.isHidden = true
+            cell.checkmarkPopoverString = nil
+            if let verifiedAt = field.verifiedAt.value {
+                cell.checkmark.isHidden = false
+                let formatter = DateFormatter()
+                formatter.dateStyle = .medium
+                formatter.timeStyle = .short
+                let dateString = formatter.string(from: verifiedAt)
+                cell.checkmark.accessibilityLabel = L10n.Scene.Profile.Fields.Verified.long(dateString)
+                cell.checkmarkPopoverString = L10n.Scene.Profile.Fields.Verified.short(dateString)
+            }
 
             cell.delegate = configuration.profileFieldCollectionViewCellDelegate
         }

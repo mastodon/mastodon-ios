@@ -88,21 +88,11 @@ extension NavigationActionView {
         
         backButton.translatesAutoresizingMaskIntoConstraints = false
         backButtonShadowContainer.addSubview(backButton)
-        NSLayoutConstraint.activate([
-            backButton.topAnchor.constraint(equalTo: backButtonShadowContainer.topAnchor),
-            backButton.leadingAnchor.constraint(equalTo: backButtonShadowContainer.leadingAnchor),
-            backButton.trailingAnchor.constraint(equalTo: backButtonShadowContainer.trailingAnchor),
-            backButton.bottomAnchor.constraint(equalTo: backButtonShadowContainer.bottomAnchor),
-        ])
+        backButton.pinToParent()
         
         nextButton.translatesAutoresizingMaskIntoConstraints = false
-        nextButtonShadowContainer.addSubview(nextButton)
-        NSLayoutConstraint.activate([
-            nextButton.topAnchor.constraint(equalTo: nextButtonShadowContainer.topAnchor),
-            nextButton.leadingAnchor.constraint(equalTo: nextButtonShadowContainer.leadingAnchor),
-            nextButton.trailingAnchor.constraint(equalTo: nextButtonShadowContainer.trailingAnchor),
-            nextButton.bottomAnchor.constraint(equalTo: nextButtonShadowContainer.bottomAnchor),
-        ])
+        nextButtonShadowContainer.addSubview(nextButton)        
+        nextButton.pinToParent()
 
         // We want the back button to be as small as possible, allowing the next button to take up
         // any remaining space. .defaultLow is "the priority level at which a button hugs its

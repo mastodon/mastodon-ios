@@ -69,12 +69,7 @@ extension MastodonServerRulesViewController {
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
-        NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-        ])
+        tableView.pinToParent()
         
         navigationActionView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(navigationActionView)
@@ -127,7 +122,7 @@ extension MastodonServerRulesViewController {
             instance: viewModel.instance,
             applicationToken: viewModel.applicationToken
         )
-        coordinator.present(scene: .mastodonRegister(viewModel: viewModel), from: self, transition: .show)
+        _ = coordinator.present(scene: .mastodonRegister(viewModel: viewModel), from: self, transition: .show)
     }
     
 }

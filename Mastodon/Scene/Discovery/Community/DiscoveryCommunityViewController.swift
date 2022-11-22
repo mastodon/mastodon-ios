@@ -33,7 +33,7 @@ final class DiscoveryCommunityViewController: UIViewController, NeedsDependency,
         return tableView
     }()
     
-    let refreshControl = UIRefreshControl()
+    let refreshControl = RefreshControl()
     
     deinit {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
@@ -57,12 +57,7 @@ extension DiscoveryCommunityViewController {
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
-        NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-        ])
+        tableView.pinToParent()
         
         tableView.refreshControl = refreshControl
         refreshControl.addTarget(self, action: #selector(DiscoveryCommunityViewController.refreshControlValueChanged(_:)), for: .valueChanged)
@@ -108,7 +103,7 @@ extension DiscoveryCommunityViewController {
 
 extension DiscoveryCommunityViewController {
     
-    @objc private func refreshControlValueChanged(_ sender: UIRefreshControl) {
+    @objc private func refreshControlValueChanged(_ sender: RefreshControl) {
         if !viewModel.stateMachine.enter(DiscoveryCommunityViewModel.State.Reloading.self) {
             refreshControl.endRefreshing()
         }

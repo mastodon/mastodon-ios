@@ -75,7 +75,7 @@
                 "save_photo": "Wêneyê tomar bike",
                 "copy_photo": "Wêneyê jê bigire",
                 "sign_in": "Têkeve",
-                "sign_up": "Tomar bibe",
+                "sign_up": "Ajimêr biafirîne",
                 "see_more": "Bêtir bibîne",
                 "preview": "Pêşdîtin",
                 "share": "Parve bike",
@@ -136,6 +136,12 @@
                     "vote": "Deng bide",
                     "closed": "Girtî"
                 },
+                "meta_entity": {
+                    "url": "Girêdan: %s",
+                    "hashtag": "Hashtagê: %s",
+                    "mention": "Profîlê nîşan bide: %s",
+                    "email": "Navnîşanên e-nameyê: %s"
+                },
                 "actions": {
                     "reply": "Bersivê bide",
                     "reblog": "Ji nû ve nivîsandin",
@@ -181,8 +187,8 @@
                 "unmute_user": "%s bêdeng neke",
                 "muted": "Bêdengkirî",
                 "edit_info": "Zanyariyan serrast bike",
-                "show_reblogs": "Show Reblogs",
-                "hide_reblogs": "Hide Reblogs"
+                "show_reblogs": "Bilindkirinan nîşan bide",
+                "hide_reblogs": "Bilindkirinan veşêre"
             },
             "timeline": {
                 "filtered": "Parzûnkirî",
@@ -212,10 +218,16 @@
             "get_started": "Dest pê bike",
             "log_in": "Têkeve"
         },
+        "login": {
+            "title": "Dîsa bi xêr hatî",
+            "subtitle": "Têketinê bike ser rajekarê ku te ajimêrê xwe tê de çê kiriye.",
+            "server_search_field": {
+                "placeholder": "Girêdanê têxe an jî li rajekarê xwe bigere"
+            }
+        },
         "server_picker": {
             "title": "Mastodon ji bikarhênerên di civakên cuda de pêk tê.",
-            "subtitle": "Li gorî berjewendî, herêm, an jî armancek gelemperî civakekê hilbijêre.",
-            "subtitle_extend": "Li gorî berjewendî, herêm, an jî armancek gelemperî civakekê hilbijêre. Her civakek ji hêla rêxistinek an kesek bi tevahî serbixwe ve tê xebitandin.",
+            "subtitle": "Li gorî herêm, berjewendî, an jî armanceke giştî rajekarekê hilbijêre. Tu hîn jî dikarî li ser Mastodon bi her kesî re biaxivî, her rajekarê te çi be.",
             "button": {
                 "category": {
                     "all": "Hemû",
@@ -242,8 +254,7 @@
                 "category": "BEŞ"
             },
             "input": {
-                "placeholder": "Li rajekaran bigere",
-                "search_servers_or_enter_url": "Li rajekaran bigere an jî girêdanê têxe"
+                "search_servers_or_enter_url": "Li civakan bigere an jî girêdanê têxe"
             },
             "empty_state": {
                 "finding_servers": "Peydakirina rajekarên berdest...",
@@ -376,7 +387,13 @@
                 "video": "vîdyo",
                 "attachment_broken": "Ev %s naxebite û nayê barkirin\n li ser Mastodon.",
                 "description_photo": "Wêneyê ji bo kêmbînên dîtbar bide nasîn...",
-                "description_video": "Vîdyoyê ji bo kêmbînên dîtbar bide nasîn..."
+                "description_video": "Vîdyoyê ji bo kêmbînên dîtbar bide nasîn...",
+                "load_failed": "Barkirin têk çû",
+                "upload_failed": "Barkirin têk çû",
+                "can_not_recognize_this_media_attachment": "Nikare ev pêveka medyayê nas bike",
+                "attachment_too_large": "Pêvek pir mezin e",
+                "compressing_state": "Tê guvaştin...",
+                "server_processing_state": "Pêvajoya rajekar pêş de diçe..."
             },
             "poll": {
                 "duration_time": "Dirêjî: %s",
@@ -386,7 +403,9 @@
                 "one_day": "1 Roj",
                 "three_days": "3 Roj",
                 "seven_days": "7 Roj",
-                "option_number": "Vebijêrk %ld"
+                "option_number": "Vebijêrk %ld",
+                "the_poll_is_invalid": "Ev dengdayîn ne derbasdar e",
+                "the_poll_has_empty_option": "Vebijêrkên vê dengdayînê vala ne"
             },
             "content_warning": {
                 "placeholder": "Li vir hişyariyek hûrgilî binivîsine..."
@@ -407,7 +426,9 @@
                 "custom_emoji_picker": "Hilbijêrê emojî yên kesanekirî",
                 "enable_content_warning": "Hişyariya naverokê çalak bike",
                 "disable_content_warning": "Hişyariya naverokê neçalak bike",
-                "post_visibility_menu": "Kulîna xuyabûna şandiyê"
+                "post_visibility_menu": "Kulîna xuyabûna şandiyê",
+                "post_options": "Vebijêrkên şandiyê",
+                "posting_as": "Biweşîne wekî %s"
             },
             "keyboard": {
                 "discard_post": "Şandî paşguh bike",
@@ -432,6 +453,10 @@
                 "placeholder": {
                     "label": "Nîşan",
                     "content": "Naverok"
+                },
+                "verified": {
+                    "short": "Hate piştrastkirin li ser %s",
+                    "long": "Xwedaniya li vê girêdanê di %s de hatiye kontrolkirin"
                 }
             },
             "segmented_control": {
@@ -459,12 +484,12 @@
                     "message": "Ji bo rakirina astengkirinê %s bipejirîne"
                 },
                 "confirm_show_reblogs": {
-                    "title": "Show Reblogs",
-                    "message": "Confirm to show reblogs"
+                    "title": "Bilindkirinan nîşan bide",
+                    "message": "Bo nîşandana bilindkirinan bipejirîne"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "Hide Reblogs",
-                    "message": "Confirm to hide reblogs"
+                    "title": "Bilindkirinan veşêre",
+                    "message": "Bo veşartina bilindkirinan bipejirîne"
                 }
             },
             "accessibility": {
@@ -696,7 +721,7 @@
             "accessibility_hint": "Du caran bitikîne da ku çarçoveyahilpekok ji holê rakî"
         },
         "bookmark": {
-            "title": "Bookmarks"
+            "title": "Şûnpel"
         }
     }
 }

@@ -50,6 +50,22 @@
         <string>%ld tecken</string>
       </dict>
     </dict>
+    <key>a11y.plural.count.characters_left</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@character_count@ kvar</string>
+      <key>character_count</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>%ld tecken</string>
+        <key>other</key>
+        <string>%ld tecken</string>
+      </dict>
+    </dict>
     <key>plural.count.followed_by_and_mutual</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
@@ -152,9 +168,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>%ld puff</string>
+        <string>%ld boost</string>
         <key>other</key>
-        <string>%ld puffar</string>
+        <string>%ld boostar</string>
       </dict>
     </dict>
     <key>plural.count.reply</key>

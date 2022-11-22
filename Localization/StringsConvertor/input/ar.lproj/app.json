@@ -74,8 +74,8 @@
                 "take_photo": "اِلتِقاطُ صُورَة",
                 "save_photo": "حفظ الصورة",
                 "copy_photo": "نسخ الصورة",
-                "sign_in": "تسجيل الدخول",
-                "sign_up": "إنشاء حِساب",
+                "sign_in": "تسجيلُ الدخول",
+                "sign_up": "Create account",
                 "see_more": "عرض المزيد",
                 "preview": "مُعاينة",
                 "share": "المُشارك",
@@ -136,6 +136,12 @@
                     "vote": "صَوِّت",
                     "closed": "انتهى"
                 },
+                "meta_entity": {
+                    "url": "رابِط: %s",
+                    "hashtag": "وَسْم: %s",
+                    "mention": "إظهار المِلف التعريفي: %s",
+                    "email": "عُنوان البريد الإلكتُروني: %s"
+                },
                 "actions": {
                     "reply": "الرَّد",
                     "reblog": "إعادة النشر",
@@ -181,8 +187,8 @@
                 "unmute_user": "رفع الكتم عن %s",
                 "muted": "مكتوم",
                 "edit_info": "تَحريرُ المَعلُومات",
-                "show_reblogs": "Show Reblogs",
-                "hide_reblogs": "Hide Reblogs"
+                "show_reblogs": "إظهار إعادات التدوين",
+                "hide_reblogs": "إخفاء إعادات التدوين"
             },
             "timeline": {
                 "filtered": "مُصفَّى",
@@ -212,10 +218,16 @@
             "get_started": "ابدأ الآن",
             "log_in": "تسجيلُ الدخول"
         },
+        "login": {
+            "title": "Welcome back",
+            "subtitle": "Log you in on the server you created your account on.",
+            "server_search_field": {
+                "placeholder": "Enter URL or search for your server"
+            }
+        },
         "server_picker": {
             "title": "اِختر خادِم،\nأيًّا مِنهُم.",
-            "subtitle": "اختر مجتمعًا بناءً على اهتماماتك، منطقتك أو يمكنك حتى اختيارُ مجتمعٍ ذي غرضٍ عام.",
-            "subtitle_extend": "اختر مجتمعًا بناءً على اهتماماتك، منطقتك أو يمكنك حتى اختيارُ مجتمعٍ ذي غرضٍ عام. تُشغَّل جميعُ المجتمعِ مِن قِبَلِ مُنظمَةٍ أو فردٍ مُستقلٍ تمامًا.",
+            "subtitle": "Pick a server based on your region, interests, or a general purpose one. You can still chat with anyone on Mastodon, regardless of your servers.",
             "button": {
                 "category": {
                     "all": "الكُل",
@@ -242,8 +254,7 @@
                 "category": "الفئة"
             },
             "input": {
-                "placeholder": "اِبحَث عن خادِم أو انضم إلى آخر خاص بك...",
-                "search_servers_or_enter_url": "اِبحَث فِي الخَوادِم أو أدخِل رابِط"
+                "search_servers_or_enter_url": "Search communities or enter URL"
             },
             "empty_state": {
                 "finding_servers": "يجري إيجاد خوادم متوفِّرَة...",
@@ -376,7 +387,13 @@
                 "video": "مقطع مرئي",
                 "attachment_broken": "هذا ال%s مُعطَّل\nويتعذَّرُ رفعُه إلى ماستودون.",
                 "description_photo": "صِف الصورة للمَكفوفين...",
-                "description_video": "صِف المقطع المرئي للمَكفوفين..."
+                "description_video": "صِف المقطع المرئي للمَكفوفين...",
+                "load_failed": "فَشَلَ التَّحميل",
+                "upload_failed": "فَشَلَ الرَّفع",
+                "can_not_recognize_this_media_attachment": "يتعذَّرُ التعرُّفُ على وسائِطِ هذا المُرفَق",
+                "attachment_too_large": "المُرفَق كَبيرٌ جِدًّا",
+                "compressing_state": "يجري الضغط...",
+                "server_processing_state": "مُعالجة الخادم جارِيَة..."
             },
             "poll": {
                 "duration_time": "المُدَّة: %s",
@@ -386,7 +403,9 @@
                 "one_day": "يومٌ واحِد",
                 "three_days": "ثلاثةُ أيام",
                 "seven_days": "سبعةُ أيام",
-                "option_number": "الخيار %ld"
+                "option_number": "الخيار %ld",
+                "the_poll_is_invalid": "الاِستِطلاعُ غيرُ صالِح",
+                "the_poll_has_empty_option": "يوجَدُ خِيارٌ فارِغٌ فِي الاِستِطلاع"
             },
             "content_warning": {
                 "placeholder": "اكتب تَحذيرًا دَقيقًا هُنا..."
@@ -407,7 +426,9 @@
                 "custom_emoji_picker": "منتقي الرموز التعبيرية المُخصَّص",
                 "enable_content_warning": "تفعيل تحذير المُحتَوى",
                 "disable_content_warning": "تعطيل تحذير المُحتَوى",
-                "post_visibility_menu": "قائمة ظهور المنشور"
+                "post_visibility_menu": "قائمة ظهور المنشور",
+                "post_options": "Post Options",
+                "posting_as": "نَشر كَـ %s"
             },
             "keyboard": {
                 "discard_post": "تجاهُل المنشور",
@@ -432,6 +453,10 @@
                 "placeholder": {
                     "label": "التسمية",
                     "content": "المُحتَوى"
+                },
+                "verified": {
+                    "short": "تمَّ التَّحقق بِتاريخ %s",
+                    "long": "تمَّ التَّحقق مِن مِلكية هذا الرابِطِ بِتاريخ %s"
                 }
             },
             "segmented_control": {
@@ -459,12 +484,12 @@
                     "message": "تأكيدُ رَفع الحَظرِ عَن %s"
                 },
                 "confirm_show_reblogs": {
-                    "title": "Show Reblogs",
-                    "message": "Confirm to show reblogs"
+                    "title": "إظهار إعادات التدوين",
+                    "message": "التأكيد لِإظهار إعادات التدوين"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "Hide Reblogs",
-                    "message": "Confirm to hide reblogs"
+                    "title": "إخفاء إعادات التدوين",
+                    "message": "التأكيد لِإخفاء إعادات التدوين"
                 }
             },
             "accessibility": {
@@ -696,7 +721,7 @@
             "accessibility_hint": "انقر نقرًا مزدوجًا لتجاهُل النافذة المنبثقة"
         },
         "bookmark": {
-            "title": "Bookmarks"
+            "title": "العَلاماتُ المَرجعيَّة"
         }
     }
 }

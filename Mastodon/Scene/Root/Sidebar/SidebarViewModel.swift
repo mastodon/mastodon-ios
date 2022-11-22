@@ -16,7 +16,6 @@ import MastodonCore
 import MastodonLocalization
 
 final class SidebarViewModel {
-    
     var disposeBag = Set<AnyCancellable>()
     
     // input
@@ -80,6 +79,7 @@ extension SidebarViewModel {
             }()
             cell.item = SidebarListContentView.Item(
                 isActive: false,
+                accessoryImage: item == .me ? .chevronUpChevronDown : nil,
                 title: item.title,
                 image: item.image,
                 activeImage: item.selectedImage,
@@ -100,7 +100,7 @@ extension SidebarViewModel {
                 .store(in: &cell.disposeBag)
             
             switch item {
-            case .notification:
+            case .notifications:
                 Publishers.CombineLatest(
                     self.context.notificationService.unreadNotificationCountDidUpdate,
                     self.$currentTab
@@ -116,7 +116,7 @@ extension SidebarViewModel {
                     }()
                     
                     let image: UIImage = {
-                        if currentTab == .notification {
+                        if currentTab == .notifications {
                             return hasUnreadPushNotification ? Asset.ObjectsAndTools.bellBadgeFill.image.withRenderingMode(.alwaysTemplate) : Asset.ObjectsAndTools.bellFill.image.withRenderingMode(.alwaysTemplate)
                         } else {
                             return hasUnreadPushNotification ? Asset.ObjectsAndTools.bellBadge.image.withRenderingMode(.alwaysTemplate) : Asset.ObjectsAndTools.bell.image.withRenderingMode(.alwaysTemplate)
@@ -166,6 +166,7 @@ extension SidebarViewModel {
             case .compose:
                 let item = SidebarListContentView.Item(
                     isActive: false,
+                    accessoryImage: self.currentTab == .me ? .chevronUpChevronDown : nil,
                     title: L10n.Common.Controls.Actions.compose,
                     image: Asset.ObjectsAndTools.squareAndPencil.image.withRenderingMode(.alwaysTemplate),
                     activeImage: Asset.ObjectsAndTools.squareAndPencil.image.withRenderingMode(.alwaysTemplate),
@@ -192,7 +193,7 @@ extension SidebarViewModel {
         let items: [Item] = [
             .tab(.home),
             .tab(.search),
-            .tab(.notification),
+            .tab(.notifications),
             .tab(.me),
             .setting,
         ]

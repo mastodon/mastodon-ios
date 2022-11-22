@@ -46,7 +46,7 @@ extension FavoriteViewModel {
 extension FavoriteViewModel.State {
     class Initial: FavoriteViewModel.State {
         override func isValidNextState(_ stateClass: AnyClass) -> Bool {
-            guard let viewModel = viewModel else { return false }
+            guard viewModel != nil else { return false }
             switch stateClass {
             case is Reloading.Type:
                 return true
@@ -130,12 +130,11 @@ extension FavoriteViewModel.State {
         
         override func didEnter(from previousState: GKState?) {
             super.didEnter(from: previousState)
-            guard let viewModel = viewModel, let stateMachine = stateMachine else { return }
+            guard let viewModel else { return }
             
             if previousState is Reloading {
                 maxID = nil
             }
-            
             
             Task {
                 do {

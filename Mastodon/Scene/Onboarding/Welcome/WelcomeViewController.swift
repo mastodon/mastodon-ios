@@ -128,22 +128,12 @@ extension WelcomeViewController {
         signUpButtonShadowView.translatesAutoresizingMaskIntoConstraints = false
         buttonContainer.addSubview(signUpButtonShadowView)
         buttonContainer.sendSubviewToBack(signUpButtonShadowView)
-        NSLayoutConstraint.activate([
-            signUpButtonShadowView.topAnchor.constraint(equalTo: signUpButton.topAnchor),
-            signUpButtonShadowView.leadingAnchor.constraint(equalTo: signUpButton.leadingAnchor),
-            signUpButtonShadowView.trailingAnchor.constraint(equalTo: signUpButton.trailingAnchor),
-            signUpButtonShadowView.bottomAnchor.constraint(equalTo: signUpButton.bottomAnchor),
-        ])
+        signUpButtonShadowView.pinTo(to: signUpButton)
         
         signInButtonShadowView.translatesAutoresizingMaskIntoConstraints = false
         buttonContainer.addSubview(signInButtonShadowView)
         buttonContainer.sendSubviewToBack(signInButtonShadowView)
-        NSLayoutConstraint.activate([
-            signInButtonShadowView.topAnchor.constraint(equalTo: signInButton.topAnchor),
-            signInButtonShadowView.leadingAnchor.constraint(equalTo: signInButton.leadingAnchor),
-            signInButtonShadowView.trailingAnchor.constraint(equalTo: signInButton.trailingAnchor),
-            signInButtonShadowView.bottomAnchor.constraint(equalTo: signInButton.bottomAnchor),
-        ])
+        signInButtonShadowView.pinTo(to: signInButton)
 
         signUpButton.addTarget(self, action: #selector(signUpButtonDidClicked(_:)), for: .touchUpInside)
         signInButton.addTarget(self, action: #selector(signInButtonDidClicked(_:)), for: .touchUpInside)
@@ -249,7 +239,7 @@ extension WelcomeViewController {
                 logoImageView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
                 logoImageView.leadingAnchor.constraint(equalTo: view.readableContentGuide.leadingAnchor, constant: 35),
                 view.readableContentGuide.trailingAnchor.constraint(equalTo: logoImageView.trailingAnchor, constant: 35),
-                logoImageView.heightAnchor.constraint(equalTo: logoImageView.widthAnchor, multiplier: 65.4/265.1),
+                logoImageView.heightAnchor.constraint(equalTo: logoImageView.widthAnchor, multiplier: 75.0/269.0),
             ])
             logoImageView.setContentHuggingPriority(.defaultHigh, for: .vertical)
         }
@@ -323,12 +313,12 @@ extension WelcomeViewController {
 extension WelcomeViewController {
     @objc
     private func signUpButtonDidClicked(_ sender: UIButton) {
-        coordinator.present(scene: .mastodonPickServer(viewMode: MastodonPickServerViewModel(context: context, mode: .signUp)), from: self, transition: .show)
+        _ = coordinator.present(scene: .mastodonPickServer(viewMode: MastodonPickServerViewModel(context: context)), from: self, transition: .show)
     }
     
     @objc
     private func signInButtonDidClicked(_ sender: UIButton) {
-        coordinator.present(scene: .mastodonPickServer(viewMode: MastodonPickServerViewModel(context: context, mode: .signIn)), from: self, transition: .show)
+        _ = coordinator.present(scene: .mastodonLogin, from: self, transition: .show)
     }
     
     @objc

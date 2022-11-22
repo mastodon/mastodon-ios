@@ -11,15 +11,18 @@ import MastodonAsset
 import MastodonCore
 import MastodonLocalization
 import Stripes
+import Kingfisher
 
 public struct ComposeContentView: View {
     
     static let logger = Logger(subsystem: "ComposeContentView", category: "View")
     var logger: Logger { ComposeContentView.logger }
     
+    static let contentViewCoordinateSpace = "ComposeContentView.Content"
     static var margin: CGFloat = 16
     
     @ObservedObject var viewModel: ComposeContentViewModel
+    
 
     public var body: some View {
         VStack(spacing: .zero) {
@@ -105,8 +108,24 @@ public struct ComposeContentView: View {
                 .frame(minHeight: 100)
                 .fixedSize(horizontal: false, vertical: true)
                 .padding(.horizontal, ComposeContentView.margin)
+                .background(
+                    GeometryReader { proxy in
+                        Color.clear.preference(key: ViewFramePreferenceKey.self, value: proxy.frame(in: .named(ComposeContentView.contentViewCoordinateSpace)))
+                    }
+                    .onPreferenceChange(ViewFramePreferenceKey.self) { frame in
+                        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): content textView frame: \(frame.debugDescription)")
+                        let rect = frame.standardized
+                        viewModel.contentTextViewFrame = CGRect(
+                            origin: frame.origin,
+                            size: CGSize(width: floor(rect.width), height: floor(rect.height))
+                        )
+                    }
+                )
                 // poll
                 pollView
+                    .padding(.horizontal, ComposeContentView.margin)
+                // media
+                mediaView
                     .padding(.horizontal, ComposeContentView.margin)
             }
             .background(
@@ -124,6 +143,7 @@ public struct ComposeContentView: View {
             )
             Spacer()
         }   // end VStack
+        .coordinateSpace(name: ComposeContentView.contentViewCoordinateSpace)
     }   // end body
 }
 
@@ -147,6 +167,8 @@ extension ComposeContentView {
             }
             Spacer()
         }
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(L10n.Scene.Compose.Accessibility.postingAs([viewModel.name.string, viewModel.username].joined(separator: ", ")))
     }
 }
 
@@ -165,7 +187,7 @@ extension ComposeContentView {
                         index: _index,
                         deleteBackwardResponseTextFieldRelayDelegate: viewModel
                     ) { textField in
-                        // viewModel.customEmojiPickerInputViewModel.configure(textInput: textField)
+                        viewModel.customEmojiPickerInputViewModel.configure(textInput: textField)
                     }
                 }
                 if viewModel.maxPollOptionLimit != viewModel.pollOptions.count {
@@ -192,6 +214,28 @@ extension ComposeContentView {
                     .padding(.vertical, 8)
                 }
             }
+        }   // end VStack
+    }
+    
+    // MARK: - media
+    var mediaView: some View {
+        VStack(spacing: 16) {
+            ForEach(viewModel.attachmentViewModels, id: \.self) { attachmentViewModel in
+                AttachmentView(viewModel: attachmentViewModel)
+                    .clipShape(RoundedRectangle(cornerRadius: 4))
+                    .badgeView(
+                        Button {
+                            viewModel.attachmentViewModels.removeAll(where: { $0 === attachmentViewModel })
+                        } label: {
+                            Image(systemName: "minus.circle.fill")
+                                .resizable()
+                                .frame(width: 20, height: 20)
+                                .foregroundColor(.red)
+                                .background(Color.white)
+                                .clipShape(Circle())
+                        }
+                    )
+            }   // end ForEach
         }   // end VStack
     }
 }

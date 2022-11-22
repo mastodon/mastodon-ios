@@ -75,7 +75,7 @@
                 "save_photo": "사진 저장",
                 "copy_photo": "사진 복사",
                 "sign_in": "로그인",
-                "sign_up": "회원가입",
+                "sign_up": "계정 생성",
                 "see_more": "더 보기",
                 "preview": "미리보기",
                 "share": "공유",
@@ -129,12 +129,18 @@
                 "show_post": "게시물 보기",
                 "show_user_profile": "사용자 프로필 보기",
                 "content_warning": "열람 주의",
-                "sensitive_content": "Sensitive Content",
+                "sensitive_content": "민감한 콘텐츠",
                 "media_content_warning": "아무 곳이나 눌러서 보기",
                 "tap_to_reveal": "눌러서 확인",
                 "poll": {
                     "vote": "투표",
                     "closed": "마감"
+                },
+                "meta_entity": {
+                    "url": "링크: %s",
+                    "hashtag": "해시태그: %s",
+                    "mention": "프로필 보기: %s",
+                    "email": "이메일 주소: %s"
                 },
                 "actions": {
                     "reply": "답글",
@@ -212,10 +218,16 @@
             "get_started": "시작하기",
             "log_in": "로그인"
         },
+        "login": {
+            "title": "돌아오신 것을 환영합니다",
+            "subtitle": "계정을 만든 서버에 로그인.",
+            "server_search_field": {
+                "placeholder": "URL을 입력하거나 서버를 검색"
+            }
+        },
         "server_picker": {
             "title": "서버를 고르세요,\n아무 서버나 좋습니다.",
-            "subtitle": "Pick a server based on your interests, region, or a general purpose one.",
-            "subtitle_extend": "Pick a server based on your interests, region, or a general purpose one. Each server is operated by an entirely independent organization or individual.",
+            "subtitle": "당신의 지역이나, 관심사에 따라, 혹은 그냥 일반적인 목적의 서버를 고르세요. 어떤 서버를 고르더라도 마스토돈의 다른 모두와 소통할 수 있습니다.",
             "button": {
                 "category": {
                     "all": "모두",
@@ -242,8 +254,7 @@
                 "category": "분류"
             },
             "input": {
-                "placeholder": "서버 검색",
-                "search_servers_or_enter_url": "서버를 검색하거나 URL을 입력하세요"
+                "search_servers_or_enter_url": "커뮤니티를 검색하거나 URL을 입력"
             },
             "empty_state": {
                 "finding_servers": "사용 가능한 서버를 찾는 중입니다...",
@@ -376,7 +387,13 @@
                 "video": "동영상",
                 "attachment_broken": "This %s is broken and can’t be\nuploaded to Mastodon.",
                 "description_photo": "시각장애인을 위한 사진 설명…",
-                "description_video": "시각장애인을 위한 영상 설명…"
+                "description_video": "시각장애인을 위한 영상 설명…",
+                "load_failed": "불러오기 실패",
+                "upload_failed": "업로드 실패",
+                "can_not_recognize_this_media_attachment": "Can not recognize this media attachment",
+                "attachment_too_large": "첨부파일이 너무 큽니다",
+                "compressing_state": "Compressing...",
+                "server_processing_state": "Server Processing..."
             },
             "poll": {
                 "duration_time": "기간: %s",
@@ -386,7 +403,9 @@
                 "one_day": "1일",
                 "three_days": "3일",
                 "seven_days": "7일",
-                "option_number": "옵션 %ld"
+                "option_number": "옵션 %ld",
+                "the_poll_is_invalid": "The poll is invalid",
+                "the_poll_has_empty_option": "The poll has empty option"
             },
             "content_warning": {
                 "placeholder": "정확한 경고 문구를 여기에 작성하세요…"
@@ -407,7 +426,9 @@
                 "custom_emoji_picker": "커스텀 에모지 선택기",
                 "enable_content_warning": "열람 주의 설정",
                 "disable_content_warning": "열람 주의 해제",
-                "post_visibility_menu": "게시물 공개범위 메뉴"
+                "post_visibility_menu": "게시물 공개범위 메뉴",
+                "post_options": "게시물 옵션",
+                "posting_as": "%s로 게시"
             },
             "keyboard": {
                 "discard_post": "글 버리기",
@@ -432,6 +453,10 @@
                 "placeholder": {
                     "label": "라벨",
                     "content": "내용"
+                },
+                "verified": {
+                    "short": "Verified on %s",
+                    "long": "Ownership of this link was checked on %s"
                 }
             },
             "segmented_control": {

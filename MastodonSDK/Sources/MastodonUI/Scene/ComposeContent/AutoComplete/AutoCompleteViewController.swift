@@ -80,15 +80,10 @@ extension AutoCompleteViewController {
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
         containerBackgroundView.addSubview(tableView)
-        NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: containerBackgroundView.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: containerBackgroundView.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: containerBackgroundView.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: containerBackgroundView.bottomAnchor),
-        ])
+        tableView.pinToParent()
         
         tableView.delegate = self
-//        viewModel.setupDiffableDataSource(tableView: tableView)
+        viewModel.setupDiffableDataSource(tableView: tableView)
 
         // bind to layout chevron
         viewModel.symbolBoundingRect
