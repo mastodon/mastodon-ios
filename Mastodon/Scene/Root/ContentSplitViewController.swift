@@ -124,4 +124,17 @@ extension ContentSplitViewController: SidebarViewControllerDelegate {
         accountListViewController.preferredContentSize = CGSize(width: 375, height: 400)
     }
     
+    func sidebarViewController(_ sidebarViewController: SidebarViewController, didDoubleTapItem item: SidebarViewModel.Item, sourceView: UIView) {
+        guard case let .tab(tab) = item, tab == .me else { return }
+        guard let authContext = authContext else { return }
+        assert(Thread.isMainThread)
+
+        guard let nextAccount = context.nextAccount(in: authContext) else { return }
+
+        Task { @MainActor in
+            let isActive = try await context.authenticationService.activeMastodonUser(domain: nextAccount.domain, userID: nextAccount.userID)
+            guard isActive else { return }
+            self.coordinator.setup()
+        }
+    }
 }

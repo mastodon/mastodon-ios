@@ -111,6 +111,7 @@ extension NotificationView {
                 self.viewModel.notificationIndicatorText = nil
                 return
             }
+            self.viewModel.type = type
 
             func createMetaContent(text: String, emojis: MastodonContent.Emojis) -> MetaContent {
                 let content = MastodonContent(content: text, emojis: emojis)
@@ -154,7 +155,7 @@ extension NotificationView {
                 )
             case .status:
                 self.viewModel.notificationIndicatorText = createMetaContent(
-                    text: L10n.Scene.Notification.NotificationDescription.mentionedYou,
+                    text: .empty,
                     emojis: emojis.asDictionary
                 )
             case ._other:

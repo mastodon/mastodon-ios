@@ -359,7 +359,7 @@ extension ComposeContentViewModel {
         let isMediaUploadAllSuccess = $attachmentViewModels
             .map { attachmentViewModels in
                 return Publishers.MergeMany(attachmentViewModels.map { $0.$uploadState })
-                    .delay(for: 0.5, scheduler: DispatchQueue.main)     // convert to outputs with delay. Due to @Published emit before changes
+                    .delay(for: 0.3, scheduler: DispatchQueue.main)     // convert to outputs with delay. Due to @Published emit before changes
                     .map { _ in attachmentViewModels.map { $0.uploadState } }
             }
             .switchToLatest()
@@ -367,18 +367,20 @@ extension ComposeContentViewModel {
                 guard outputs.allSatisfy({ $0 == .finish }) else { return false }
                 return true
             }
+            .prepend(true)
         
         let isPollOptionsAllValid = $pollOptions
             .map { options in
                 return Publishers.MergeMany(options.map { $0.$text })
-                    .delay(for: 0.5, scheduler: DispatchQueue.main)     // convert to outputs with delay. Due to @Published emit before changes
+                    .delay(for: 0.3, scheduler: DispatchQueue.main)     // convert to outputs with delay. Due to @Published emit before changes
                     .map { _ in options.map { $0.text } }
             }
             .switchToLatest()
             .map { outputs in
                 return outputs.allSatisfy { !$0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
             }
-
+            .prepend(true)
+        
         let isPublishBarButtonItemEnabledPrecondition1 = Publishers.CombineLatest4(
             isComposeContentEmpty,
             isComposeContentValid,
@@ -394,17 +396,15 @@ extension ComposeContentViewModel {
         }
         .eraseToAnyPublisher()
 
-        let isPublishBarButtonItemEnabledPrecondition2 = Publishers.CombineLatest4(
-            isComposeContentEmpty,
-            isComposeContentValid,
+        let isPublishBarButtonItemEnabledPrecondition2 = Publishers.CombineLatest(
             $isPollActive,
             isPollOptionsAllValid
         )
-        .map { isComposeContentEmpty, isComposeContentValid, isPollComposing, isPollOptionsAllValid -> Bool in
-            if isPollComposing {
-                return isComposeContentValid && !isComposeContentEmpty && isPollOptionsAllValid
+        .map { isPollActive, isPollOptionsAllValid -> Bool in
+            if isPollActive {
+                return isPollOptionsAllValid
             } else {
-                return isComposeContentValid && !isComposeContentEmpty
+                return true
             }
         }
         .eraseToAnyPublisher()
@@ -498,7 +498,7 @@ extension ComposeContentViewModel {
         let managedObjectContext = self.context.managedObjectContext
         var _author: ManagedObjectRecord<MastodonUser>?
         managedObjectContext.performAndWait {
-            _author = authContext.mastodonAuthenticationBox.authenticationRecord.object(in: managedObjectContext)?.user.asRecrod
+            _author = authContext.mastodonAuthenticationBox.authenticationRecord.object(in: managedObjectContext)?.user.asRecord
         }
         guard let author = _author else {
             throw AppError.badAuthentication

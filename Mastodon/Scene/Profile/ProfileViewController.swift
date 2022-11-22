@@ -541,7 +541,7 @@ extension ProfileViewController {
         let composeViewModel = ComposeViewModel(
             context: context,
             authContext: viewModel.authContext,
-            kind: .mention(user: mastodonUser.asRecrod)
+            kind: .mention(user: mastodonUser.asRecord)
         )
         _ = coordinator.present(scene: .compose(viewModel: composeViewModel), from: self, transition: .modal(animated: true, completion: nil))
     }

@@ -8,6 +8,7 @@
 import os.log
 import UIKit
 import Combine
+import CoreDataStack
 import SafariServices
 import MastodonAsset
 import MastodonCore
@@ -42,6 +43,7 @@ class MainTabBarController: UITabBarController {
     
     static let avatarButtonSize = CGSize(width: 25, height: 25)
     let avatarButton = CircleAvatarButton()
+    let accountSwitcherChevron = UIImageView(image: .chevronUpChevronDown)
     
     @Published var currentTab: Tab = .home
         
@@ -49,7 +51,7 @@ class MainTabBarController: UITabBarController {
         case home
         case search
         case compose
-        case notification
+        case notifications
         case me
 
         var tag: Int {
@@ -61,7 +63,7 @@ class MainTabBarController: UITabBarController {
             case .home:             return L10n.Common.Controls.Tabs.home
             case .search:           return L10n.Common.Controls.Tabs.search
             case .compose:          return L10n.Common.Controls.Actions.compose
-            case .notification:     return L10n.Common.Controls.Tabs.notification
+            case .notifications:    return L10n.Common.Controls.Tabs.notifications
             case .me:               return L10n.Common.Controls.Tabs.profile
             }
         }
@@ -71,7 +73,7 @@ class MainTabBarController: UITabBarController {
             case .home:             return Asset.ObjectsAndTools.house.image.withRenderingMode(.alwaysTemplate)
             case .search:           return Asset.ObjectsAndTools.magnifyingglass.image.withRenderingMode(.alwaysTemplate)
             case .compose:          return Asset.ObjectsAndTools.squareAndPencil.image.withRenderingMode(.alwaysTemplate)
-            case .notification:     return Asset.ObjectsAndTools.bell.image.withRenderingMode(.alwaysTemplate)
+            case .notifications:    return Asset.ObjectsAndTools.bell.image.withRenderingMode(.alwaysTemplate)
             case .me:               return UIImage(systemName: "person")!
             }
         }
@@ -81,7 +83,7 @@ class MainTabBarController: UITabBarController {
             case .home:             return Asset.ObjectsAndTools.houseFill.image.withRenderingMode(.alwaysTemplate)
             case .search:           return Asset.ObjectsAndTools.magnifyingglassFill.image.withRenderingMode(.alwaysTemplate)
             case .compose:          return Asset.ObjectsAndTools.squareAndPencil.image.withRenderingMode(.alwaysTemplate)
-            case .notification:     return Asset.ObjectsAndTools.bellFill.image.withRenderingMode(.alwaysTemplate)
+            case .notifications:    return Asset.ObjectsAndTools.bellFill.image.withRenderingMode(.alwaysTemplate)
             case .me:               return UIImage(systemName: "person.fill")!
             }
         }
@@ -91,7 +93,7 @@ class MainTabBarController: UITabBarController {
             case .home:             return Asset.ObjectsAndTools.house.image.withRenderingMode(.alwaysTemplate).resized(size: CGSize(width: 80, height: 80))
             case .search:           return Asset.ObjectsAndTools.magnifyingglass.image.withRenderingMode(.alwaysTemplate).resized(size: CGSize(width: 80, height: 80))
             case .compose:          return Asset.ObjectsAndTools.squareAndPencil.image.withRenderingMode(.alwaysTemplate).resized(size: CGSize(width: 80, height: 80))
-            case .notification:     return Asset.ObjectsAndTools.bell.image.withRenderingMode(.alwaysTemplate).resized(size: CGSize(width: 80, height: 80))
+            case .notifications:    return Asset.ObjectsAndTools.bell.image.withRenderingMode(.alwaysTemplate).resized(size: CGSize(width: 80, height: 80))
             case .me:               return UIImage(systemName: "person", withConfiguration: UIImage.SymbolConfiguration(pointSize: 80))!
             }
         }
@@ -101,7 +103,7 @@ class MainTabBarController: UITabBarController {
             case .home:             return Asset.ObjectsAndTools.house.image.withRenderingMode(.alwaysTemplate)
             case .search:           return Asset.ObjectsAndTools.magnifyingglass.image.withRenderingMode(.alwaysTemplate)
             case .compose:          return Asset.ObjectsAndTools.squareAndPencil.image.withRenderingMode(.alwaysTemplate)
-            case .notification:     return Asset.ObjectsAndTools.bell.image.withRenderingMode(.alwaysTemplate)
+            case .notifications:    return Asset.ObjectsAndTools.bell.image.withRenderingMode(.alwaysTemplate)
             case .me:               return UIImage(systemName: "person")!
             }
         }
@@ -127,7 +129,7 @@ class MainTabBarController: UITabBarController {
                 viewController = _viewController
             case .compose:
                 viewController = UIViewController()
-            case .notification:
+            case .notifications:
                 let _viewController = NotificationViewController()
                 _viewController.context = context
                 _viewController.coordinator = coordinator
@@ -272,7 +274,7 @@ extension MainTabBarController {
             } ?? false
             
             let image: UIImage = {
-                if currentTab == .notification {
+                if currentTab == .notifications {
                     return hasUnreadPushNotification ? Asset.ObjectsAndTools.bellBadgeFill.image.withRenderingMode(.alwaysTemplate) : Asset.ObjectsAndTools.bellFill.image.withRenderingMode(.alwaysTemplate)
                 } else {
                     return hasUnreadPushNotification ? Asset.ObjectsAndTools.bellBadge.image.withRenderingMode(.alwaysTemplate) : Asset.ObjectsAndTools.bell.image.withRenderingMode(.alwaysTemplate)
@@ -324,7 +326,14 @@ extension MainTabBarController {
         let tabBarLongPressGestureRecognizer = UILongPressGestureRecognizer()
         tabBarLongPressGestureRecognizer.addTarget(self, action: #selector(MainTabBarController.tabBarLongPressGestureRecognizerHandler(_:)))
         tabBar.addGestureRecognizer(tabBarLongPressGestureRecognizer)
-        
+
+        // todo: reconsider the "double tap to change account" feature -> https://github.com/mastodon/mastodon-ios/issues/628
+//        let tabBarDoubleTapGestureRecognizer = UITapGestureRecognizer()
+//        tabBarDoubleTapGestureRecognizer.numberOfTapsRequired = 2
+//        tabBarDoubleTapGestureRecognizer.addTarget(self, action: #selector(MainTabBarController.tabBarDoubleTapGestureRecognizerHandler(_:)))
+//        tabBarDoubleTapGestureRecognizer.delaysTouchesEnded = false
+//        tabBar.addGestureRecognizer(tabBarDoubleTapGestureRecognizer)
+
         self.isReadyForWizardAvatarButton = authContext != nil
         
         $currentTab
@@ -375,9 +384,7 @@ extension MainTabBarController {
         _ = coordinator.present(scene: .compose(viewModel: composeViewModel), from: nil, transition: .modal(animated: true, completion: nil))
     }
     
-    @objc private func tabBarLongPressGestureRecognizerHandler(_ sender: UILongPressGestureRecognizer) {
-        guard sender.state == .began else { return }
-
+    private func touchedTab(by sender: UIGestureRecognizer) -> Tab? {
         var _tab: Tab?
         let location = sender.location(in: tabBar)
         for item in tabBar.items ?? [] {
@@ -389,7 +396,34 @@ extension MainTabBarController {
             break
         }
 
-        guard let tab = _tab else { return }
+        return _tab
+    }
+    
+    @objc private func tabBarDoubleTapGestureRecognizerHandler(_ sender: UITapGestureRecognizer) {
+        guard sender.state == .ended else { return }
+        guard let tab = touchedTab(by: sender) else { return }
+        logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): double tap \(tab.title) tab")
+        
+        switch tab {
+        case .me:
+            guard let authContext = authContext else { return }
+            assert(Thread.isMainThread)
+
+            guard let nextAccount = context.nextAccount(in: authContext) else { return }
+            
+            Task { @MainActor in
+                let isActive = try await context.authenticationService.activeMastodonUser(domain: nextAccount.domain, userID: nextAccount.userID)
+                guard isActive else { return }
+                self.coordinator.setup()
+            }
+        default:
+            break
+        }
+    }
+    
+    @objc private func tabBarLongPressGestureRecognizerHandler(_ sender: UILongPressGestureRecognizer) {
+        guard sender.state == .began else { return }
+        guard let tab = touchedTab(by: sender) else { return }
         logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): long press \(tab.title) tab")
 
         switch tab {
@@ -468,13 +502,20 @@ extension MainTabBarController {
         }
         anchorImageView.alpha = 0
         
+        accountSwitcherChevron.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(accountSwitcherChevron)
+        
         self.avatarButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(self.avatarButton)
         NSLayoutConstraint.activate([
-            self.avatarButton.centerXAnchor.constraint(equalTo: anchorImageView.centerXAnchor),
+            self.avatarButton.centerXAnchor.constraint(equalTo: anchorImageView.centerXAnchor, constant: -16),
             self.avatarButton.centerYAnchor.constraint(equalTo: anchorImageView.centerYAnchor),
             self.avatarButton.widthAnchor.constraint(equalToConstant: MainTabBarController.avatarButtonSize.width).priority(.required - 1),
             self.avatarButton.heightAnchor.constraint(equalToConstant: MainTabBarController.avatarButtonSize.height).priority(.required - 1),
+            accountSwitcherChevron.widthAnchor.constraint(equalToConstant: 10),
+            accountSwitcherChevron.heightAnchor.constraint(equalToConstant: 18),
+            accountSwitcherChevron.leadingAnchor.constraint(equalTo: avatarButton.trailingAnchor, constant: 8),
+            accountSwitcherChevron.centerYAnchor.constraint(equalTo: avatarButton.centerYAnchor)
         ])
         self.avatarButton.setContentHuggingPriority(.required - 1, for: .horizontal)
         self.avatarButton.setContentHuggingPriority(.required - 1, for: .vertical)
@@ -482,6 +523,7 @@ extension MainTabBarController {
     }
     
     private func updateAvatarButtonAppearance() {
+        accountSwitcherChevron.tintColor = currentTab == .me ? .label : .secondaryLabel
         avatarButton.borderColor = currentTab == .me ? .label : .systemFill
         avatarButton.setNeedsLayout()
     }
@@ -612,7 +654,7 @@ extension MainTabBarController {
         let tabs: [Tab] = [
             .home,
             .search,
-            .notification,
+            .notifications,
             .me
         ]
         for (i, tab) in tabs.enumerated() {

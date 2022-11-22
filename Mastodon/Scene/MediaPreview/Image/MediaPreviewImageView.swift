@@ -9,6 +9,7 @@ import os.log
 import func AVFoundation.AVMakeRect
 import UIKit
 import FLAnimatedImage
+import VisionKit
 
 final class MediaPreviewImageView: UIScrollView {
     
@@ -28,9 +29,21 @@ final class MediaPreviewImageView: UIScrollView {
         tapGestureRecognizer.numberOfTapsRequired = 2
         return tapGestureRecognizer
     }()
-    
+
     private var containerFrame: CGRect?
-    
+
+    private var _interaction: UIInteraction? = {
+        if #available(iOS 16.0, *) {
+            return ImageAnalysisInteraction()
+        } else {
+            return nil
+        }
+    }()
+    @available(iOS 16.0, *)
+    var liveTextInteraction: ImageAnalysisInteraction {
+        _interaction as! ImageAnalysisInteraction
+    }
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         _init()
@@ -55,10 +68,13 @@ extension MediaPreviewImageView {
         maximumZoomScale = 4.0
         
         addSubview(imageView)
-        
+
         doubleTapGestureRecognizer.addTarget(self, action: #selector(MediaPreviewImageView.doubleTapGestureRecognizerHandler(_:)))
         imageView.addGestureRecognizer(doubleTapGestureRecognizer)
-        
+        if #available(iOS 16.0, *) {
+            imageView.addInteraction(liveTextInteraction)
+        }
+
         delegate = self
     }
     
@@ -120,6 +136,22 @@ extension MediaPreviewImageView {
         contentSize = imageViewSize
         
         centerScrollViewContents()
+
+        if #available(iOS 16.0, *) {
+            Task.detached(priority: .userInitiated) {
+                do {
+                    let analysis = try await ImageAnalyzer.shared.analyze(image, configuration: ImageAnalyzer.Configuration([.text, .machineReadableCode]))
+                    await MainActor.run {
+                        self.liveTextInteraction.analysis = analysis
+                        self.liveTextInteraction.preferredInteractionTypes = .automatic
+                    }
+                } catch {
+                    await MainActor.run {
+                        self.liveTextInteraction.preferredInteractionTypes = []
+                    }
+                }
+            }
+        }
         
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: setup image for container %s", ((#file as NSString).lastPathComponent), #line, #function, container.frame.debugDescription)
     }

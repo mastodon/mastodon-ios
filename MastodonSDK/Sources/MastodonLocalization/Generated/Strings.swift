@@ -366,8 +366,8 @@ public enum L10n {
       public enum Tabs {
         /// Home
         public static let home = L10n.tr("Localizable", "Common.Controls.Tabs.Home", fallback: "Home")
-        /// Notification
-        public static let notification = L10n.tr("Localizable", "Common.Controls.Tabs.Notification", fallback: "Notification")
+        /// Notifications
+        public static let notifications = L10n.tr("Localizable", "Common.Controls.Tabs.Notifications", fallback: "Notifications")
         /// Profile
         public static let profile = L10n.tr("Localizable", "Common.Controls.Tabs.Profile", fallback: "Profile")
         /// Search

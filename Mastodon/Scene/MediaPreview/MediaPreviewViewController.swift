@@ -132,6 +132,17 @@ extension MediaPreviewViewController {
                 }
             }
             .store(in: &disposeBag)
+
+        viewModel.$showingChrome
+            .receive(on: DispatchQueue.main)
+            .removeDuplicates()
+            .sink { [weak self] showingChrome in
+                UIView.animate(withDuration: 0.3) {
+                    self?.setNeedsStatusBarAppearanceUpdate()
+                    self?.closeButtonBackground.alpha = showingChrome ? 1 : 0
+                }
+            }
+            .store(in: &disposeBag)
         
 //        viewModel.$isPoping
 //            .receive(on: DispatchQueue.main)
@@ -146,6 +157,14 @@ extension MediaPreviewViewController {
 //            .store(in: &disposeBag)
     }
     
+}
+
+extension MediaPreviewViewController {
+
+    override var prefersStatusBarHidden: Bool {
+        !viewModel.showingChrome
+    }
+
 }
 
 extension MediaPreviewViewController {
@@ -234,8 +253,11 @@ extension MediaPreviewViewController: MediaPreviewImageViewControllerDelegate {
         let location = tapGestureRecognizer.location(in: viewController.previewImageView.imageView)
         let isContainsTap = viewController.previewImageView.imageView.frame.contains(location)
         
-        guard !isContainsTap else { return }
-        dismiss(animated: true, completion: nil)
+        if isContainsTap {
+            self.viewModel.showingChrome.toggle()
+        } else {
+            dismiss(animated: true, completion: nil)
+        }
     }
     
     func mediaPreviewImageViewController(_ viewController: MediaPreviewImageViewController, longPressGestureRecognizerDidTrigger longPressGestureRecognizer: UILongPressGestureRecognizer) {

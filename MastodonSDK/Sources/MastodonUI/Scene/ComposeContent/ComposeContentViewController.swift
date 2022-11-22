@@ -622,10 +622,10 @@ extension ComposeContentViewController: ComposeContentViewModelDelegate {
         let _replacedText: String? = {
             var text: String
             switch item {
-            case .hashtag(let hashtag):
-                text = "#" + hashtag.name
-            case .hashtagV1(let hashtagName):
-                text = "#" + hashtagName
+            case .hashtag, .hashtagV1:
+                // do no fill the hashtag
+                // allow user delete suffix and post they want
+                return nil
             case .account(let account):
                 text = "@" + account.acct
             case .emoji(let emoji):

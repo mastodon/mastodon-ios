@@ -80,6 +80,12 @@ extension MediaPreviewVideoViewController {
         }
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+
+        playerViewController.didMove(toParent: self)
+    }
+    
 }
 
 // MARK: - ShareActivityProvider
@@ -100,6 +106,12 @@ extension MediaPreviewVideoViewController {
 //        }
 //    }
 //}
+
+extension MediaPreviewVideoViewController: MediaPreviewPage {
+    func setShowingChrome(_ showingChrome: Bool) {
+        // TODO: does this do anything?
+    }
+}
 
 // MARK: - AVPlayerViewControllerDelegate
 extension MediaPreviewVideoViewController: AVPlayerViewControllerDelegate {
