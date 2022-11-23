@@ -97,7 +97,7 @@ extension AttachmentViewModel {
 extension AttachmentViewModel {
     @AttachmentViewModelActor
     func compressImage(data: Data, sizeLimit: SizeLimit) throws -> Output {
-        let maxPayloadSizeInBytes = sizeLimit.image ?? 10 * 1024 * 1024
+        let maxPayloadSizeInBytes = max((sizeLimit.image ?? 10 * 1024 * 1024), 1 * 1024 * 1024)
 
         guard let image = KFCrossPlatformImage(data: data)?.kf.normalized,
               var imageData = image.kf.pngRepresentation()
