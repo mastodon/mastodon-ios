@@ -48,8 +48,8 @@ final public class AttachmentViewModel: NSObject, ObservableObject, Identifiable
     public let api: APIService
     public let authContext: AuthContext
     public let input: Input
+    public let sizeLimit: SizeLimit
     @Published var caption = ""
-    // @Published var sizeLimit = SizeLimit()
     
     // output
     @Published public private(set) var output: Output?
@@ -77,11 +77,13 @@ final public class AttachmentViewModel: NSObject, ObservableObject, Identifiable
         api: APIService,
         authContext: AuthContext,
         input: Input,
+        sizeLimit: SizeLimit,
         delegate: AttachmentViewModelDelegate
     ) {
         self.api = api
         self.authContext = authContext
         self.input = input
+        self.sizeLimit = sizeLimit
         self.delegate = delegate
         super.init()
         // end init
@@ -137,14 +139,17 @@ final public class AttachmentViewModel: NSObject, ObservableObject, Identifiable
                     var output = try await load(input: input)
                     
                     switch output {
+                    case .image(let data, _):
+                        self.output = output
+                        self.update(uploadState: .compressing)
+                        let compressedOutput = try await compressImage(data: data, sizeLimit: sizeLimit)
+                        output = compressedOutput
                     case .video(let fileURL, let mimeType):
                         self.output = output
                         self.update(uploadState: .compressing)
-                        let compressedFileURL = try await comporessVideo(url: fileURL)
+                        let compressedFileURL = try await compressVideo(url: fileURL)
                         output = .video(compressedFileURL, mimeType: mimeType)
                         try? FileManager.default.removeItem(at: fileURL)    // remove old file
-                    default:
-                        break
                     }
                     
                     self.outputSizeInByte = output.asAttachment.sizeInByte.flatMap { Int64($0) } ?? 0
@@ -262,19 +267,15 @@ extension AttachmentViewModel {
         }
     }
         
-    // not in using
     public struct SizeLimit {
-        public let image: Int
-        public let gif: Int
-        public let video: Int
+        public let image: Int?
+        public let video: Int?
         
         public init(
-            image: Int = 10 * 1024 * 1024,          // 10 MiB
-            gif: Int = 40 * 1024 * 1024,            // 40 MiB
-            video: Int = 40 * 1024 * 1024           // 40 MiB
+            image: Int?,
+            video: Int?
         ) {
             self.image = image
-            self.gif = gif
             self.video = video
         }
     }

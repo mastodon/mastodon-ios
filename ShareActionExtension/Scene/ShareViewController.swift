@@ -276,6 +276,7 @@ extension ShareViewController {
                 api: context.apiService,
                 authContext: authContext,
                 input: .itemProvider(movieProvider),
+                sizeLimit: .init(image: nil, video: nil),
                 delegate: composeContentViewModel
             )
             composeContentViewModel.attachmentViewModels.append(attachmentViewModel)
@@ -285,6 +286,7 @@ extension ShareViewController {
                     api: context.apiService,
                     authContext: authContext,
                     input: .itemProvider(provider),
+                    sizeLimit: .init(image: nil, video: nil),
                     delegate: composeContentViewModel
                 )
             }

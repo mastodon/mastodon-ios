@@ -209,6 +209,7 @@ extension ComposeViewController {
                     api: viewModel.context.apiService,
                     authContext: viewModel.authContext,
                     input: .image(image),
+                    sizeLimit: composeContentViewModel.sizeLimit,
                     delegate: composeContentViewModel
                 )
             }

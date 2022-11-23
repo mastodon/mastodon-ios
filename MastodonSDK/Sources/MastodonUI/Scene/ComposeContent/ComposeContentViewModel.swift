@@ -88,7 +88,7 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
     // attachment
     @Published public var attachmentViewModels: [AttachmentViewModel] = []
     @Published public var maxMediaAttachmentLimit = 4
-    // @Published public internal(set) var isMediaValid = true
+    @Published public internal(set) var maxImageMediaSizeLimitInByte = 10 * 1024 * 1024     // 10 MiB
     
     // poll
     @Published public var isPollActive = false
@@ -126,6 +126,14 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
     @Published var isPollButtonEnabled = false
     
     @Published public private(set) var shouldDismiss = true
+    
+    // size limit
+    public var sizeLimit: AttachmentViewModel.SizeLimit {
+        AttachmentViewModel.SizeLimit(
+            image: maxImageMediaSizeLimitInByte,
+            video: nil
+        )
+    }
 
     public init(
         context: AppContext,
@@ -251,6 +259,10 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
             // set poll option limit
             if let maxOptions = configuration.polls?.maxOptions {
                 maxPollOptionLimit = maxOptions
+            }
+            // set photo attachment limit
+            if let imageSizeLimit = configuration.mediaAttachments?.imageSizeLimit {
+                maxImageMediaSizeLimitInByte = imageSizeLimit
             }
             // TODO: more limit
         }

@@ -16,7 +16,7 @@ extension AttachmentViewModel {
     func load(input: Input) async throws -> Output {
         switch input {
         case .image(let image):
-            guard let data = image.pngData() else {
+            guard let data = image.normalized()?.pngData() else {
                 throw AttachmentError.invalidAttachmentType
             }
             return .image(data, imageKind: .png)
