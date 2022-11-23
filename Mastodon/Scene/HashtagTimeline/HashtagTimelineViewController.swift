@@ -178,6 +178,11 @@ extension HashtagTimelineViewController {
         }
         headerView.update(tag)
     }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        headerView.updateWidthConstraint(tableView.bounds.width)
+    }
 }
 
 extension HashtagTimelineViewController {

@@ -25,6 +25,8 @@ final class HashtagTimelineHeaderView: UIView {
     let participantsDescLabel = UILabel()
     let postsTodayDescLabel = UILabel()
     
+    private var widthConstraint: NSLayoutConstraint!
+    
     let followButton: UIButton = {
         let button = RoundedEdgesButton(type: .custom)
         button.cornerRadius = 10
@@ -67,8 +69,12 @@ private extension HashtagTimelineHeaderView {
         postCountDescLabel.text = "posts"
         participantsDescLabel.text = "participants"
         postsTodayDescLabel.text = "posts today"
-        
+                
+        widthConstraint = widthAnchor.constraint(equalToConstant: 0)
+
         NSLayoutConstraint.activate([
+            widthConstraint,
+            
             titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: .padding),
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .padding),
             titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -CGFloat.padding),
@@ -105,5 +111,9 @@ extension HashtagTimelineHeaderView {
     func update(_ entity: Mastodon.Entity.Tag) {
         titleLabel.text = "#\(entity.name)"
         followButton.setTitle(entity.following == true ? "Unfollow" : "Follow", for: .normal)
+    }
+    
+    func updateWidthConstraint(_ constant: CGFloat) {
+        widthConstraint.constant = constant
     }
 }
