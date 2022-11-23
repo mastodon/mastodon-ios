@@ -28,6 +28,8 @@ final class HashtagTimelineHeaderView: UIView {
     
     private var widthConstraint: NSLayoutConstraint!
     
+    var onButtonTapped: (() -> Void)?
+    
     let followButton: UIButton = {
         let button = RoundedEdgesButton(type: .custom)
         button.cornerRadius = 10
@@ -69,7 +71,11 @@ private extension HashtagTimelineHeaderView {
         postCountDescLabel.text = "posts"
         participantsDescLabel.text = "participants"
         postsTodayDescLabel.text = "posts today"
-                
+                        
+        followButton.addAction(UIAction(handler: { [weak self] _ in
+            self?.onButtonTapped?()
+        }), for: .touchUpInside)
+        
         widthConstraint = widthAnchor.constraint(equalToConstant: 0)
 
         NSLayoutConstraint.activate([
@@ -133,7 +139,7 @@ extension HashtagTimelineHeaderView {
             postsTodayLabel.text = history.first?.uses
         }
     }
-    
+        
     func updateWidthConstraint(_ constant: CGFloat) {
         widthConstraint.constant = constant
     }

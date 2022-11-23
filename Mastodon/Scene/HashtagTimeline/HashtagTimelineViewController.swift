@@ -177,6 +177,16 @@ extension HashtagTimelineViewController {
             tableView.tableHeaderView = headerView
         }
         headerView.update(tag)
+        headerView.onButtonTapped = { [weak self] in
+            switch tag.following {
+            case .some(false):
+                self?.viewModel.followTag()
+            case .some(true):
+                self?.viewModel.unfollowTag()
+            default:
+                break
+            }
+        }
     }
     
     override func viewDidLayoutSubviews() {

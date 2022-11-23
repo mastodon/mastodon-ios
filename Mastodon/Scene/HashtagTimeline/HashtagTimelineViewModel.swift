@@ -72,6 +72,30 @@ final class HashtagTimelineViewModel {
     
 }
 
+extension HashtagTimelineViewModel {
+    func followTag() {
+        self.hashtagDetails.send(hashtagDetails.value?.copy(following: true))
+        Task { @MainActor in
+            let tag = try? await context.apiService.followTag(
+                for: hashtag,
+                authenticationBox: authContext.mastodonAuthenticationBox
+            ).value
+            self.hashtagDetails.send(tag)
+        }
+    }
+    
+    func unfollowTag() {
+        self.hashtagDetails.send(hashtagDetails.value?.copy(following: false))
+        Task { @MainActor in
+            let tag = try? await context.apiService.unfollowTag(
+                for: hashtag,
+                authenticationBox: authContext.mastodonAuthenticationBox
+            ).value
+            self.hashtagDetails.send(tag)
+        }
+    }
+}
+
 private extension HashtagTimelineViewModel {
     func updateTagInformation() {
         Task { @MainActor in

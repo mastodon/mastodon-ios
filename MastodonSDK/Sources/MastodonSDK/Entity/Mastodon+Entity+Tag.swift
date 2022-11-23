@@ -41,5 +41,9 @@ extension Mastodon.Entity {
             hasher.combine(name)
             hasher.combine(url)
         }
+        
+        public func copy(following: Bool?) -> Self {
+            Tag(name: name, url: url, history: history, following: following)
+        }
     }
 }
