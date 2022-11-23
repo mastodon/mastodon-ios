@@ -8,6 +8,7 @@
 import UIKit
 import MastodonSDK
 import MastodonUI
+import MastodonAsset
 
 fileprivate extension CGFloat {
     static let padding: CGFloat = 16
@@ -32,7 +33,6 @@ final class HashtagTimelineHeaderView: UIView {
         button.cornerRadius = 10
         button.contentEdgeInsets = UIEdgeInsets(top: 6, left: 16, bottom: 5, right: 16)     // set 28pt height
         button.titleLabel?.font = .systemFont(ofSize: 14, weight: .bold)
-        button.backgroundColor = .black
         return button
     }()
     
@@ -101,8 +101,7 @@ private extension HashtagTimelineHeaderView {
         
             followButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -CGFloat.padding),
             followButton.bottomAnchor.constraint(equalTo: postsTodayDescLabel.bottomAnchor),
-            followButton.topAnchor.constraint(equalTo: postsTodayLabel.topAnchor),
-            followButton.widthAnchor.constraint(equalToConstant: 84)
+            followButton.topAnchor.constraint(equalTo: postsTodayLabel.topAnchor)
         ])
     }
 }
@@ -111,6 +110,28 @@ extension HashtagTimelineHeaderView {
     func update(_ entity: Mastodon.Entity.Tag) {
         titleLabel.text = "#\(entity.name)"
         followButton.setTitle(entity.following == true ? "Unfollow" : "Follow", for: .normal)
+
+        followButton.backgroundColor = entity.following == true ? Asset.Colors.Button.tagUnfollow.color : Asset.Colors.Button.tagFollow.color
+        followButton.setTitleColor(
+            entity.following == true ? Asset.Colors.Button.tagFollow.color : Asset.Colors.Button.tagUnfollow.color,
+            for: .normal
+        )
+
+        if let history = entity.history {
+            postCountLabel.text = String(
+                history.reduce(0) { res, acc in
+                    res + (Int(acc.uses) ?? 0)
+                }
+            )
+            
+            participantsLabel.text = String(
+                history.reduce(0) { res, acc in
+                    res + (Int(acc.accounts) ?? 0)
+                }
+            )
+            
+            postsTodayLabel.text = history.first?.uses
+        }
     }
     
     func updateWidthConstraint(_ constant: CGFloat) {
