@@ -15,6 +15,7 @@ import MastodonAsset
 import MastodonCore
 import MastodonUI
 import MastodonLocalization
+import MastodonSDK
 
 final class HashtagTimelineViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
     
@@ -27,6 +28,18 @@ final class HashtagTimelineViewController: UIViewController, NeedsDependency, Me
 
     var disposeBag = Set<AnyCancellable>()
     var viewModel: HashtagTimelineViewModel!
+    
+    private lazy var headerView: HashtagTimelineHeaderView = {
+        let headerView = HashtagTimelineHeaderView()
+        headerView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            headerView.heightAnchor.constraint(equalToConstant: 118),
+//            headerView.widthAnchor.constraint(equalTo: tableView.widthAnchor)
+        ])
+
+        return headerView
+    }()
         
     let composeBarButtonItem: UIBarButtonItem = {
         let barButtonItem = UIBarButtonItem()
@@ -114,6 +127,14 @@ extension HashtagTimelineViewController {
                 self?.updatePromptTitle()
             }
             .store(in: &disposeBag)
+        
+        viewModel.hashtagDetails
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] tag in
+                guard let tag = tag else { return }
+                self?.updateHeaderView(with: tag)
+            }
+            .store(in: &disposeBag)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -148,7 +169,15 @@ extension HashtagTimelineViewController {
             subtitle = L10n.Plural.peopleTalking(peopleTalkingNumber)
         }
     }
+}
 
+extension HashtagTimelineViewController {
+    private func updateHeaderView(with tag: Mastodon.Entity.Tag) {
+        if tableView.tableHeaderView == nil {
+            tableView.tableHeaderView = headerView
+        }
+        headerView.update(tag)
+    }
 }
 
 extension HashtagTimelineViewController {

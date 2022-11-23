@@ -161,3 +161,40 @@ extension APIService {
     }
     
 }
+
+extension APIService {
+    public func getFollowedTags(
+        domain: String,
+        query: Mastodon.API.Account.FollowedTagsQuery,
+        authenticationBox: MastodonAuthenticationBox
+    ) async throws -> Mastodon.Response.Content<[Mastodon.Entity.Tag]> {
+        let domain = authenticationBox.domain
+        let authorization = authenticationBox.userAuthorization
+        
+        let response = try await Mastodon.API.Account.followedTags(
+            session: session,
+            domain: domain,
+            query: query,
+            authorization: authorization
+        ).singleOutput()
+        
+        let managedObjectContext = self.backgroundManagedObjectContext
+        try await managedObjectContext.performChanges {
+            let me = authenticationBox.authenticationRecord.object(in: managedObjectContext)?.user
+
+            for entity in response.value {
+                _ = Persistence.Tag.createOrMerge(
+                    in: managedObjectContext,
+                    context: Persistence.Tag.PersistContext(
+                        domain: domain,
+                        entity: entity,
+                        me: me,
+                        networkDate: response.networkDate
+                    )
+                )
+            }
+        }
+        
+        return response
+    }   // end func
+}

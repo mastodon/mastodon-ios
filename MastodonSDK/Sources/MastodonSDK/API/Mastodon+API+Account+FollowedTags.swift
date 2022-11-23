@@ -28,7 +28,7 @@ extension Mastodon.API.Account {
     ///   - domain: Mastodon instance domain. e.g. "example.com"
     ///   - authorization: User token
     /// - Returns: `AnyPublisher` contains `[Tag]` nested in the response
-    public static func followers(
+    public static func followedTags(
         session: URLSession,
         domain: String,
         query: FollowedTagsQuery,

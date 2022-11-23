@@ -23,7 +23,7 @@ final class HashtagTimelineViewModel {
     var disposeBag = Set<AnyCancellable>()
     
     var needLoadMiddleIndex: Int? = nil
-    
+
     // input
     let context: AppContext
     let authContext: AuthContext
@@ -32,10 +32,11 @@ final class HashtagTimelineViewModel {
     let timelinePredicate = CurrentValueSubject<NSPredicate?, Never>(nil)
     let hashtagEntity = CurrentValueSubject<Mastodon.Entity.Tag?, Never>(nil)
     let listBatchFetchViewModel = ListBatchFetchViewModel()
-    
+
     // output
     var diffableDataSource: UITableViewDiffableDataSource<StatusSection, StatusItem>?
     let didLoadLatest = PassthroughSubject<Void, Never>()
+    let hashtagDetails = CurrentValueSubject<Mastodon.Entity.Tag?, Never>(nil)
 
     // bottom loader
     private(set) lazy var stateMachine: GKStateMachine = {
@@ -61,6 +62,7 @@ final class HashtagTimelineViewModel {
             domain: authContext.mastodonAuthenticationBox.domain,
             additionalTweetPredicate: nil
         )
+        updateTagInformation()
         // end init
     }
     
@@ -70,3 +72,15 @@ final class HashtagTimelineViewModel {
     
 }
 
+private extension HashtagTimelineViewModel {
+    func updateTagInformation() {
+        Task { @MainActor in
+            let tag = try? await context.apiService.getTagInformation(
+                for: hashtag,
+                authenticationBox: authContext.mastodonAuthenticationBox
+            ).value
+            
+            self.hashtagDetails.send(tag)
+        }
+    }
+}
