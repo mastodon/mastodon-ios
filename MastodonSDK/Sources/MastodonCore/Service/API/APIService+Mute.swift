@@ -97,6 +97,7 @@ extension APIService {
                     accountID: muteContext.targetUserID,
                     authorization: authenticationBox.userAuthorization
                 ).singleOutput()
+                try await getMutes(authenticationBox: authenticationBox)
                 result = .success(response)
             } else {
                 let response = try await Mastodon.API.Account.mute(
@@ -105,6 +106,7 @@ extension APIService {
                     accountID: muteContext.targetUserID,
                     authorization: authenticationBox.userAuthorization
                 ).singleOutput()
+                try await getMutes(authenticationBox: authenticationBox)
                 result = .success(response)
             }
         } catch {
