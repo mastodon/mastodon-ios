@@ -13,7 +13,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld unread notifications</string>
+        <string>%ld notifikasi belum dibaca</string>
       </dict>
     </dict>
     <key>a11y.plural.count.input_limit_exceeds</key>
@@ -47,7 +47,7 @@
     <key>a11y.plural.count.characters_left</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>%#@character_count@ left</string>
+      <string>tersisa %#@character_count@</string>
       <key>character_count</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -55,7 +55,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld characters</string>
+        <string>%ld karakter</string>
       </dict>
     </dict>
     <key>plural.count.followed_by_and_mutual</key>
@@ -162,7 +162,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld replies</string>
+        <string>%ld balasan</string>
       </dict>
     </dict>
     <key>plural.count.vote</key>
@@ -204,7 +204,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld people talking</string>
+        <string>%ld obrolan</string>
       </dict>
     </dict>
     <key>plural.count.following</key>
@@ -218,7 +218,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld following</string>
+        <string>%ld mengikuti</string>
       </dict>
     </dict>
     <key>plural.count.follower</key>
