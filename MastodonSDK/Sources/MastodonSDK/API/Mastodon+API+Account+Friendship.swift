@@ -256,7 +256,7 @@ public extension Mastodon.API.Account {
     
     private struct BlocksQuery: GetQuery {
         var queryItems: [URLQueryItem]? {
-            [URLQueryItem(name: "limit", value: "-1")]
+            nil
         }
     }
     
@@ -506,7 +506,7 @@ extension Mastodon.API.Account {
            
            struct MutesQuery: GetQuery {
                var queryItems: [URLQueryItem]? {
-                   [URLQueryItem(name: "limit", value: "-1")]
+                   nil
                }
            }
        }
