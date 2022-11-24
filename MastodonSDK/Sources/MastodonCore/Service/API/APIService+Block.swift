@@ -26,12 +26,12 @@ extension APIService {
     public func getBlocked(
         authenticationBox: MastodonAuthenticationBox
     ) async throws -> Mastodon.Response.Content<[Mastodon.Entity.Account]> {
-        try await _getBlocked(sinceID: nil, limit: 40, authenticationBox: authenticationBox)
+        try await _getBlocked(sinceID: nil, limit: nil, authenticationBox: authenticationBox)
     }
     
     private func _getBlocked(
         sinceID: Mastodon.Entity.Status.ID?,
-        limit: Int,
+        limit: Int?,
         authenticationBox: MastodonAuthenticationBox
     ) async throws -> Mastodon.Response.Content<[Mastodon.Entity.Account]> {
         let managedObjectContext = backgroundManagedObjectContext
@@ -57,13 +57,8 @@ extension APIService {
                 managedObjectContext.delete(account)
             }
         }
-        
-        /// only try to paginate if retrieved userIDs count is larger than the set limit and if we get a prev linkId that's different than the currently used one
-        guard userIDs.count == limit, let prevSinceId = response.link?.linkIDs[.linkPrev]?.sinceId, sinceID != prevSinceId else {
-            return response
-        }
-        
-        return try await _getBlocked(sinceID: prevSinceId, limit: limit, authenticationBox: authenticationBox)
+
+        return response
     }
     
     public func toggleBlock(

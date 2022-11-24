@@ -239,8 +239,8 @@ public extension Mastodon.API.Account {
     static func blocks(
         session: URLSession,
         domain: String,
-        sinceID: Mastodon.Entity.Status.ID? = nil,
-        limit: Int,
+        sinceID: Mastodon.Entity.Status.ID?,
+        limit: Int?,
         authorization: Mastodon.API.OAuth.Authorization
     ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Account]>, Error>  {
         let request = Mastodon.API.get(
