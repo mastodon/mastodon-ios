@@ -112,6 +112,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         // trigger authenticated user account update
         AppContext.shared.authenticationService.updateActiveUserAccountPublisher.send()
+        
+        // update mutes and blocks and remove related data
+        AppContext.shared.instanceService.updateMutesAndBlocks()
 
         if let shortcutItem = savedShortCutItem {
             Task {

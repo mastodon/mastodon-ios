@@ -21,6 +21,36 @@ extension APIService {
         let isMuting: Bool
     }
     
+    @discardableResult
+    public func getMutes(
+        authenticationBox: MastodonAuthenticationBox
+    ) async throws -> Mastodon.Response.Content<[Mastodon.Entity.Account]> {
+        let managedObjectContext = backgroundManagedObjectContext
+        
+        let response = try await Mastodon.API.Account.mutes(
+            session: session,
+            domain: authenticationBox.domain,
+            authorization: authenticationBox.userAuthorization
+        ).singleOutput()
+        
+        let userIDs = response.value.map { $0.id }
+        let predicate = NSPredicate(format: "%K IN %@", #keyPath(MastodonUser.id), userIDs)
+        
+        let fetchRequest = MastodonUser.fetchRequest()
+        fetchRequest.predicate = predicate
+        fetchRequest.includesPropertyValues = false
+        
+        try await managedObjectContext.performChanges {
+            let accounts = try managedObjectContext.fetch(fetchRequest) as! [MastodonUser]
+            
+            for account in accounts {
+                managedObjectContext.delete(account)
+            }
+        }
+        
+        return response
+    }
+    
     public func toggleMute(
         user: ManagedObjectRecord<MastodonUser>,
         authenticationBox: MastodonAuthenticationBox

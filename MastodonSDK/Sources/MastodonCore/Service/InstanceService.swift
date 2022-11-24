@@ -101,3 +101,20 @@ extension InstanceService {
             .store(in: &disposeBag)
     }
 }
+
+public extension InstanceService {
+    func updateMutesAndBlocks() {
+        Task {
+            for authBox in authenticationService?.mastodonAuthenticationBoxes ?? [] {
+                do {
+                    try await apiService?.getMutes(
+                        authenticationBox: authBox
+                    )
+                    self.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [Instance] update mutes and blocks succeeded")
+                } catch {
+                    self.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [Instance] update mutes and blocks failure: \(error.localizedDescription)")
+                }
+            }
+        }
+    }
+}
