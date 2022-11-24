@@ -120,7 +120,36 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
             )
         }
     }
-    
+
+}
+
+// MARK: - card
+extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthContextProvider {
+
+    func tableViewCell(
+        _ cell: UITableViewCell,
+        statusView: StatusView,
+        didTapCardWithURL url: URL
+    ) {
+        Task {
+            let source = DataSourceItem.Source(tableViewCell: cell, indexPath: nil)
+            guard let item = await item(from: source) else {
+                assertionFailure()
+                return
+            }
+            guard case let .status(status) = item else {
+                assertionFailure("only works for status data provider")
+                return
+            }
+
+            await DataSourceFacade.responseToURLAction(
+                provider: self,
+                status: status,
+                url: url
+            )
+        }
+    }
+
 }
 
 // MARK: - media

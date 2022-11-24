@@ -16,6 +16,7 @@ public final class LinkPreviewButton: UIControl {
     private let containerStackView = UIStackView()
     private let labelStackView = UIStackView()
 
+    private let highlightView = UIView()
     private let imageView = UIImageView()
     private let titleLabel = UILabel()
     private let linkLabel = UILabel()
@@ -30,6 +31,12 @@ public final class LinkPreviewButton: UIControl {
         imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 21 / 40),
     ]
 
+    public override var isHighlighted: Bool {
+        didSet {
+            highlightView.isHidden = !isHighlighted
+        }
+    }
+
     public override init(frame: CGRect) {
         super.init(frame: frame)
 
@@ -37,6 +44,9 @@ public final class LinkPreviewButton: UIControl {
         layer.cornerCurve = .continuous
         layer.cornerRadius = 10
         layer.borderColor = ThemeService.shared.currentTheme.value.separator.cgColor
+
+        highlightView.backgroundColor = UIColor.black.withAlphaComponent(0.1)
+        highlightView.isHidden = true
 
         titleLabel.numberOfLines = 2
         titleLabel.setContentCompressionResistancePriority(.defaultLow - 1, for: .horizontal)
@@ -61,17 +71,23 @@ public final class LinkPreviewButton: UIControl {
 
         containerStackView.addArrangedSubview(imageView)
         containerStackView.addArrangedSubview(labelStackView)
-        containerStackView.distribution = .fill
 
         addSubview(containerStackView)
+        addSubview(highlightView)
 
+        containerStackView.isUserInteractionEnabled = false
         containerStackView.translatesAutoresizingMaskIntoConstraints = false
+        highlightView.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
             containerStackView.topAnchor.constraint(equalTo: topAnchor),
             containerStackView.bottomAnchor.constraint(equalTo: bottomAnchor),
             containerStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
             containerStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            highlightView.topAnchor.constraint(equalTo: topAnchor),
+            highlightView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            highlightView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            highlightView.trailingAnchor.constraint(equalTo: trailingAnchor),
         ])
     }
     
@@ -100,10 +116,12 @@ public final class LinkPreviewButton: UIControl {
         if isCompact {
             containerStackView.alignment = .center
             containerStackView.axis = .horizontal
+            containerStackView.distribution = .fill
             NSLayoutConstraint.activate(compactImageConstraints)
         } else {
             containerStackView.alignment = .fill
             containerStackView.axis = .vertical
+            containerStackView.distribution = .equalSpacing
             NSLayoutConstraint.activate(largeImageConstraints)
         }
     }

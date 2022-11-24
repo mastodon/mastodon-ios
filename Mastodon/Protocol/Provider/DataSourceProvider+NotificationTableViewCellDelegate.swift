@@ -516,6 +516,61 @@ extension NotificationTableViewCellDelegate where Self: DataSourceProvider & Aut
     
 }
 
+// MARK: - card
+extension NotificationTableViewCellDelegate where Self: DataSourceProvider & AuthContextProvider {
+
+    func tableViewCell(
+        _ cell: UITableViewCell,
+        notificationView: NotificationView,
+        statusView: StatusView,
+        didTapCardWithURL url: URL
+    ) {
+        Task {
+            let source = DataSourceItem.Source(tableViewCell: cell, indexPath: nil)
+            guard let item = await item(from: source) else {
+                assertionFailure()
+                return
+            }
+            guard case let .status(status) = item else {
+                assertionFailure("only works for status data provider")
+                return
+            }
+
+            await DataSourceFacade.responseToURLAction(
+                provider: self,
+                status: status,
+                url: url
+            )
+        }
+    }
+
+    func tableViewCell(
+        _ cell: UITableViewCell,
+        notificationView: NotificationView,
+        quoteStatusView: StatusView,
+        didTapCardWithURL url: URL
+    ) {
+        Task {
+            let source = DataSourceItem.Source(tableViewCell: cell, indexPath: nil)
+            guard let item = await item(from: source) else {
+                assertionFailure()
+                return
+            }
+            guard case let .status(status) = item else {
+                assertionFailure("only works for status data provider")
+                return
+            }
+
+            await DataSourceFacade.responseToURLAction(
+                provider: self,
+                status: status,
+                url: url
+            )
+        }
+    }
+
+}
+
 // MARK: a11y
 extension NotificationTableViewCellDelegate where Self: DataSourceProvider & AuthContextProvider {
     func tableViewCell(_ cell: UITableViewCell, notificationView: NotificationView, accessibilityActivate: Void) {

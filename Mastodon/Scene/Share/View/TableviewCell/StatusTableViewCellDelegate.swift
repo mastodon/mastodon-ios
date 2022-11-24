@@ -27,6 +27,7 @@ protocol StatusTableViewCellDelegate: AnyObject, AutoGenerateProtocolDelegate {
     func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, authorAvatarButtonDidPressed button: AvatarButton)
     func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, contentSensitiveeToggleButtonDidPressed button: UIButton)
     func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, metaText: MetaText, didSelectMeta meta: Meta)
+    func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, didTapCardWithURL url: URL)
     func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, mediaGridContainerView: MediaGridContainerView, mediaView: MediaView, didSelectMediaViewAt index: Int)
     func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, pollTableView tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, pollVoteButtonPressed button: UIButton)
@@ -59,6 +60,10 @@ extension StatusViewDelegate where Self: StatusViewContainerTableViewCell {
 
     func statusView(_ statusView: StatusView, metaText: MetaText, didSelectMeta meta: Meta) {
         delegate?.tableViewCell(self, statusView: statusView, metaText: metaText, didSelectMeta: meta)
+    }
+
+    func statusView(_ statusView: StatusView, didTapCardWithURL url: URL) {
+        delegate?.tableViewCell(self, statusView: statusView, didTapCardWithURL: url)
     }
 
     func statusView(_ statusView: StatusView, mediaGridContainerView: MediaGridContainerView, mediaView: MediaView, didSelectMediaViewAt index: Int) {
