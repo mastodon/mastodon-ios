@@ -29,7 +29,7 @@
     <key>a11y.plural.count.input_limit_exceeds</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Input limit exceeds %#@character_count@</string>
+      <string>Mae'r terfyn mewnbwn yn fwy na %#@character_count@</string>
       <key>character_count</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -53,7 +53,7 @@
     <key>a11y.plural.count.input_limit_remains</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Input limit remains %#@character_count@</string>
+      <string>Mae'r terfyn mewnbwn yn %#@character_count@</string>
       <key>character_count</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
