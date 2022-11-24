@@ -187,8 +187,8 @@
                 "unmute_user": "%sのミュートを解除",
                 "muted": "ミュート済み",
                 "edit_info": "編集",
-                "show_reblogs": "Show Reblogs",
-                "hide_reblogs": "Hide Reblogs"
+                "show_reblogs": "ブーストを表示",
+                "hide_reblogs": "ブーストを非表示"
             },
             "timeline": {
                 "filtered": "フィルター済み",
@@ -484,12 +484,12 @@
                     "message": "%sのブロックを解除しますか？"
                 },
                 "confirm_show_reblogs": {
-                    "title": "Show Reblogs",
-                    "message": "Confirm to show reblogs"
+                    "title": "ブーストを表示",
+                    "message": "ブーストを表示しますか？"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "Hide Reblogs",
-                    "message": "Confirm to hide reblogs"
+                    "title": "ブーストを非表示",
+                    "message": "ブーストを非表示にしますか？"
                 }
             },
             "accessibility": {
