@@ -25,17 +25,26 @@ extension APIService {
     public func getMutes(
         authenticationBox: MastodonAuthenticationBox
     ) async throws -> Mastodon.Response.Content<[Mastodon.Entity.Account]> {
+        try await _getMutes(sinceID: nil, limit: 40, authenticationBox: authenticationBox)
+    }
+    
+    private func _getMutes(
+        sinceID: Mastodon.Entity.Status.ID?,
+        limit: Int,
+        authenticationBox: MastodonAuthenticationBox
+    ) async throws -> Mastodon.Response.Content<[Mastodon.Entity.Account]> {
         let managedObjectContext = backgroundManagedObjectContext
-        
         let response = try await Mastodon.API.Account.mutes(
             session: session,
             domain: authenticationBox.domain,
+            sinceID: sinceID,
+            limit: limit,
             authorization: authenticationBox.userAuthorization
         ).singleOutput()
         
         let userIDs = response.value.map { $0.id }
         let predicate = MastodonUser.predicate(domain: authenticationBox.domain, ids: userIDs)
-        
+
         let fetchRequest = MastodonUser.fetchRequest()
         fetchRequest.predicate = predicate
         fetchRequest.includesPropertyValues = false
@@ -48,7 +57,12 @@ extension APIService {
             }
         }
         
-        return response
+        /// only try to paginate if retrieved userIDs count is larger than the set limit and if we get a prev linkId that's different than the currently used one
+        guard userIDs.count == limit, let prevSinceId = response.link?.linkIDs[.linkPrev]?.sinceId, sinceID != prevSinceId else {
+            return response
+        }
+        
+        return try await _getMutes(sinceID: prevSinceId, limit: limit, authenticationBox: authenticationBox)
     }
     
     public func toggleMute(
