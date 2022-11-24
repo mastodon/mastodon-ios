@@ -110,6 +110,11 @@ public extension InstanceService {
                     try await apiService?.getMutes(
                         authenticationBox: authBox
                     )
+                    
+                    try await apiService?.getBlocked(
+                        authenticationBox: authBox
+                    )
+                    
                     self.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [Instance] update mutes and blocks succeeded")
                 } catch {
                     self.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): [Instance] update mutes and blocks failure: \(error.localizedDescription)")
