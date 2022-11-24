@@ -9,18 +9,26 @@ import AlamofireImage
 import LinkPresentation
 import MastodonAsset
 import MastodonCore
+import CoreDataStack
 import UIKit
 
 public final class LinkPreviewButton: UIControl {
-    private var linkPresentationTask: Task<Void, Error>?
-    private var url: URL?
-
     private let containerStackView = UIStackView()
     private let labelStackView = UIStackView()
 
     private let imageView = UIImageView()
     private let titleLabel = UILabel()
-    private let subtitleLabel = UILabel()
+    private let linkLabel = UILabel()
+
+    private lazy var compactImageConstraints = [
+        imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor),
+        imageView.heightAnchor.constraint(equalTo: heightAnchor),
+        containerStackView.heightAnchor.constraint(equalToConstant: 85),
+    ]
+
+    private lazy var largeImageConstraints = [
+        imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 21 / 40),
+    ]
 
     public override init(frame: CGRect) {
         super.init(frame: frame)
@@ -29,25 +37,24 @@ public final class LinkPreviewButton: UIControl {
         layer.cornerCurve = .continuous
         layer.cornerRadius = 10
         layer.borderColor = ThemeService.shared.currentTheme.value.separator.cgColor
-        backgroundColor = ThemeService.shared.currentTheme.value.systemElevatedBackgroundColor
 
         titleLabel.numberOfLines = 2
         titleLabel.setContentCompressionResistancePriority(.defaultLow - 1, for: .horizontal)
         titleLabel.text = "This is where I'd put a title... if I had one"
         titleLabel.textColor = Asset.Colors.Label.primary.color
 
-        subtitleLabel.text = "Subtitle"
-        subtitleLabel.numberOfLines = 1
-        subtitleLabel.setContentCompressionResistancePriority(.defaultLow - 1, for: .horizontal)
-        subtitleLabel.textColor = Asset.Colors.Label.secondary.color
-        subtitleLabel.font = UIFontMetrics(forTextStyle: .subheadline).scaledFont(for: .systemFont(ofSize: 15, weight: .regular), maximumPointSize: 20)
+        linkLabel.text = "Subtitle"
+        linkLabel.numberOfLines = 1
+        linkLabel.setContentCompressionResistancePriority(.defaultLow - 1, for: .horizontal)
+        linkLabel.textColor = Asset.Colors.Label.secondary.color
 
-        imageView.backgroundColor = UIColor.black.withAlphaComponent(0.15)
+        imageView.tintColor = Asset.Colors.Label.secondary.color
+        imageView.backgroundColor = ThemeService.shared.currentTheme.value.systemElevatedBackgroundColor
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
 
+        labelStackView.addArrangedSubview(linkLabel)
         labelStackView.addArrangedSubview(titleLabel)
-        labelStackView.addArrangedSubview(subtitleLabel)
         labelStackView.layoutMargins = .init(top: 8, left: 10, bottom: 8, right: 10)
         labelStackView.isLayoutMarginsRelativeArrangement = true
         labelStackView.axis = .vertical
@@ -55,20 +62,16 @@ public final class LinkPreviewButton: UIControl {
         containerStackView.addArrangedSubview(imageView)
         containerStackView.addArrangedSubview(labelStackView)
         containerStackView.distribution = .fill
-        containerStackView.alignment = .center
 
         addSubview(containerStackView)
 
         containerStackView.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-            containerStackView.heightAnchor.constraint(equalToConstant: 85),
             containerStackView.topAnchor.constraint(equalTo: topAnchor),
             containerStackView.bottomAnchor.constraint(equalTo: bottomAnchor),
             containerStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
             containerStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor),
-            imageView.heightAnchor.constraint(equalTo: heightAnchor),
         ])
     }
     
@@ -76,36 +79,32 @@ public final class LinkPreviewButton: UIControl {
         fatalError("init(coder:) has not been implemented")
     }
 
-    public func configure(url: URL, trimmed: String) {
-        guard url != self.url else {
-            return
+    public func configure(card: Card) {
+        let isCompact = card.width == card.height
+
+        titleLabel.text = card.title
+        linkLabel.text = card.url?.host
+        imageView.contentMode = .center
+
+        imageView.sd_setImage(
+            with: card.imageURL,
+            placeholderImage: isCompact ? newsIcon : photoIcon
+        ) { [weak imageView] image, _, _, _ in
+            if image != nil {
+                imageView?.contentMode = .scaleAspectFill
+            }
         }
 
-        reset()
-        subtitleLabel.text = trimmed
-        self.url = url
+        NSLayoutConstraint.deactivate(compactImageConstraints + largeImageConstraints)
 
-        linkPresentationTask = Task {
-            do {
-                let metadata = try await LPMetadataProvider().startFetchingMetadata(for: url)
-
-                guard !Task.isCancelled else {
-                    return
-                }
-
-                self.titleLabel.text = metadata.title
-                if let result = try await metadata.imageProvider?.loadImageData() {
-                    let image = UIImage(data: result.data)
-
-                    guard !Task.isCancelled else {
-                        return
-                    }
-
-                    self.imageView.image = image
-                }
-            } catch {
-                self.subtitleLabel.text = "Error loading link preview"
-            }
+        if isCompact {
+            containerStackView.alignment = .center
+            containerStackView.axis = .horizontal
+            NSLayoutConstraint.activate(compactImageConstraints)
+        } else {
+            containerStackView.alignment = .fill
+            containerStackView.axis = .vertical
+            NSLayoutConstraint.activate(largeImageConstraints)
         }
     }
 
@@ -117,11 +116,12 @@ public final class LinkPreviewButton: UIControl {
         }
     }
 
-    private func reset() {
-        linkPresentationTask?.cancel()
-        url = nil
-        imageView.image = nil
-        titleLabel.text = nil
-        subtitleLabel.text = nil
+    private var newsIcon: UIImage? {
+        UIImage(systemName: "newspaper.fill")
+    }
+
+    private var photoIcon: UIImage? {
+        let configuration = UIImage.SymbolConfiguration(pointSize: 40)
+        return UIImage(systemName: "photo", withConfiguration: configuration)
     }
 }

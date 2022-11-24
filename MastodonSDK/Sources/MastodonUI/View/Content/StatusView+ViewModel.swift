@@ -69,7 +69,10 @@ extension StatusView {
         @Published public var voteCount = 0
         @Published public var expireAt: Date?
         @Published public var expired: Bool = false
-        
+
+        // Card
+        @Published public var card: Card?
+
         // Visibility
         @Published public var visibility: MastodonVisibility = .public
         
@@ -185,6 +188,7 @@ extension StatusView.ViewModel {
         bindContent(statusView: statusView)
         bindMedia(statusView: statusView)
         bindPoll(statusView: statusView)
+        bindCard(statusView: statusView)
         bindToolbar(statusView: statusView)
         bindMetric(statusView: statusView)
         bindMenu(statusView: statusView)
@@ -306,21 +310,6 @@ extension StatusView.ViewModel {
                 statusView.contentMetaText.textView.accessibilityTraits = [.staticText]
                 statusView.contentMetaText.textView.accessibilityElementsHidden = false
 
-                if let url = content.entities.first(where: {
-                    switch $0.meta {
-                    case .url:
-                        return true
-                    default:
-                        return false
-                    }
-                }) {
-                    guard case .url(let text, let trimmed, let url, _) = url.meta, let url = URL(string: url) else {
-                        fatalError()
-                    }
-
-                    statusView.linkPreviewButton.configure(url: url, trimmed: trimmed)
-                    statusView.setLinkPreviewButtonDisplay()
-                }
             } else {
                 statusView.contentMetaText.reset()
                 statusView.contentMetaText.textView.accessibilityLabel = ""
@@ -495,6 +484,15 @@ extension StatusView.ViewModel {
         $isVoteButtonEnabled
             .assign(to: \.isEnabled, on: statusView.pollVoteButton)
             .store(in: &disposeBag)
+    }
+
+    private func bindCard(statusView: StatusView) {
+        $card.sink { card in
+            guard let card = card else { return }
+            statusView.linkPreviewButton.configure(card: card)
+            statusView.setLinkPreviewButtonDisplay()
+        }
+        .store(in: &disposeBag)
     }
     
     private func bindToolbar(statusView: StatusView) {

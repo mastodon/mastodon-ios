@@ -10,7 +10,11 @@ import CoreData
 
 public final class Card: NSManagedObject {
     // sourcery: autoGenerateProperty
-    @NSManaged public private(set) var url: String
+    @NSManaged public private(set) var urlRaw: String
+    public var url: URL? {
+        URL(string: urlRaw)
+    }
+
     // sourcery: autoGenerateProperty
     @NSManaged public private(set) var title: String
     // sourcery: autoGenerateProperty
@@ -26,19 +30,23 @@ public final class Card: NSManagedObject {
     // sourcery: autoGenerateProperty
     @NSManaged public private(set) var authorName: String?
     // sourcery: autoGenerateProperty
-    @NSManaged public private(set) var authorURL: String?
+    @NSManaged public private(set) var authorURLRaw: String?
     // sourcery: autoGenerateProperty
     @NSManaged public private(set) var providerName: String?
     // sourcery: autoGenerateProperty
-    @NSManaged public private(set) var providerURL: String?
+    @NSManaged public private(set) var providerURLRaw: String?
     // sourcery: autoGenerateProperty
     @NSManaged public private(set) var width: Int64
     // sourcery: autoGenerateProperty
     @NSManaged public private(set) var height: Int64
     // sourcery: autoGenerateProperty
     @NSManaged public private(set) var image: String?
+    public var imageURL: URL? {
+        image.flatMap(URL.init)
+    }
+
     // sourcery: autoGenerateProperty
-    @NSManaged public private(set) var embedURL: String?
+    @NSManaged public private(set) var embedURLRaw: String?
     // sourcery: autoGenerateProperty
     @NSManaged public private(set) var blurhash: String?
 
@@ -75,64 +83,64 @@ extension Card: AutoGenerateProperty {
     // Generated using Sourcery
     // DO NOT EDIT
     public struct Property {
-        public let url: String
+        public let urlRaw: String
         public let title: String
         public let desc: String
         public let type: MastodonCardType
         public let authorName: String?
-        public let authorURL: String?
+        public let authorURLRaw: String?
         public let providerName: String?
-        public let providerURL: String?
+        public let providerURLRaw: String?
         public let width: Int64
         public let height: Int64
         public let image: String?
-        public let embedURL: String?
+        public let embedURLRaw: String?
         public let blurhash: String?
 
     	public init(
-    		url: String,
+    		urlRaw: String,
     		title: String,
     		desc: String,
     		type: MastodonCardType,
     		authorName: String?,
-    		authorURL: String?,
+    		authorURLRaw: String?,
     		providerName: String?,
-    		providerURL: String?,
+    		providerURLRaw: String?,
     		width: Int64,
     		height: Int64,
     		image: String?,
-    		embedURL: String?,
+    		embedURLRaw: String?,
     		blurhash: String?
     	) {
-    		self.url = url
+    		self.urlRaw = urlRaw
     		self.title = title
     		self.desc = desc
     		self.type = type
     		self.authorName = authorName
-    		self.authorURL = authorURL
+    		self.authorURLRaw = authorURLRaw
     		self.providerName = providerName
-    		self.providerURL = providerURL
+    		self.providerURLRaw = providerURLRaw
     		self.width = width
     		self.height = height
     		self.image = image
-    		self.embedURL = embedURL
+    		self.embedURLRaw = embedURLRaw
     		self.blurhash = blurhash
     	}
     }
 
     public func configure(property: Property) {
-    	self.url = property.url
+    	self.urlRaw = property.urlRaw
     	self.title = property.title
     	self.desc = property.desc
     	self.type = property.type
     	self.authorName = property.authorName
-    	self.authorURL = property.authorURL
+    	self.authorURLRaw = property.authorURLRaw
     	self.providerName = property.providerName
-    	self.providerURL = property.providerURL
+    	self.providerURLRaw = property.providerURLRaw
     	self.width = property.width
     	self.height = property.height
     	self.image = property.image
-    	self.embedURL = property.embedURL
+    	self.embedURLRaw = property.embedURLRaw
     	self.blurhash = property.blurhash
     }
 

@@ -40,6 +40,14 @@ extension StatusView {
 
 extension StatusView {
     public func configure(status: Status) {
+        if let card = status.card {
+            print("---- \(card.title)")
+            print("---- \(card.url)")
+            print("---- \(card.image)")
+            print("---- \(card.width)")
+            print("---- \(card.height)")
+        }
+
         viewModel.objects.insert(status)
         if let reblog = status.reblog {
             viewModel.objects.insert(reblog)
@@ -53,6 +61,7 @@ extension StatusView {
         configureContent(status: status)
         configureMedia(status: status)
         configurePoll(status: status)
+        configureCard(status: status)
         configureToolbar(status: status)
         configureFilter(status: status)
     }
@@ -348,6 +357,17 @@ extension StatusView {
         status.poll?.publisher(for: \.isVoting)
             .assign(to: \.isVoting, on: viewModel)
             .store(in: &disposeBag)
+    }
+
+    private func configureCard(status: Status) {
+        let status = status.reblog ?? status
+        if viewModel.mediaViewConfigurations.isEmpty {
+            status.publisher(for: \.card)
+                .assign(to: \.card, on: viewModel)
+                .store(in: &disposeBag)
+        } else {
+            viewModel.card = nil
+        }
     }
     
     private func configureToolbar(status: Status) {

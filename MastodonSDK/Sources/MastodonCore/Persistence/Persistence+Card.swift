@@ -65,18 +65,18 @@ extension Persistence.Card {
         }
 
         let property = Card.Property(
-            url: context.entity.url,
+            urlRaw: context.entity.url,
             title: context.entity.title,
             desc: context.entity.description,
             type: type,
             authorName: context.entity.authorName,
-            authorURL: context.entity.authorURL,
+            authorURLRaw: context.entity.authorURL,
             providerName: context.entity.providerName,
-            providerURL: context.entity.providerURL,
+            providerURLRaw: context.entity.providerURL,
             width: Int64(context.entity.width ?? 0),
             height: Int64(context.entity.height ?? 0),
             image: context.entity.image,
-            embedURL: context.entity.embedURL,
+            embedURLRaw: context.entity.embedURL,
             blurhash: context.entity.blurhash
         )
 
