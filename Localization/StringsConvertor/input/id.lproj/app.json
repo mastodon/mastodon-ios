@@ -96,7 +96,7 @@
             "tabs": {
                 "home": "Beranda",
                 "search": "Cari",
-                "notifications": "Notifications",
+                "notifications": "Notifikasi",
                 "profile": "Profil"
             },
             "keyboard": {
@@ -348,8 +348,8 @@
             "open_email_app": {
                 "title": "Periksa kotak masuk Anda.",
                 "description": "Kami baru saja mengirimkan Anda sebuah surel. Periksa folder junk Anda jika Anda belum memeriksanya.",
-                "mail": "Mail",
-                "open_email_client": "Open Email Client"
+                "mail": "Pesan",
+                "open_email_client": "Buka Email Klien"
             }
         },
         "home_timeline": {
@@ -431,8 +431,8 @@
                 "posting_as": "Posting as %s"
             },
             "keyboard": {
-                "discard_post": "Discard Post",
-                "publish_post": "Publish Post",
+                "discard_post": "Hapus Postingan",
+                "publish_post": "Publikasikan Postingan",
                 "toggle_poll": "Toggle Poll",
                 "toggle_content_warning": "Toggle Content Warning",
                 "append_attachment_entry": "Tambahkan Lampiran - %s",
@@ -449,20 +449,20 @@
                 "followers": "pengikut"
             },
             "fields": {
-                "add_row": "Add Row",
+                "add_row": "Tambah Baris",
                 "placeholder": {
                     "label": "Label",
                     "content": "Isi"
                 },
                 "verified": {
-                    "short": "Verified on %s",
-                    "long": "Ownership of this link was checked on %s"
+                    "short": "Verifikasi %s",
+                    "long": "Kepemilikan tautan ini dapat dicek pada %s"
                 }
             },
             "segmented_control": {
                 "posts": "Postingan",
                 "replies": "Balasan",
-                "posts_and_replies": "Posts and Replies",
+                "posts_and_replies": "Kirim dan Balas",
                 "media": "Media",
                 "about": "Tentang"
             },
@@ -473,7 +473,7 @@
                 },
                 "confirm_unmute_user": {
                     "title": "Berhenti Membisukan Akun",
-                    "message": "Confirm to unmute %s"
+                    "message": "Konfirmasi untuk membisukan %s"
                 },
                 "confirm_block_user": {
                     "title": "Blokir Akun",
@@ -494,7 +494,7 @@
             },
             "accessibility": {
                 "show_avatar_image": "Tampilkan gambar avatar",
-                "edit_avatar_image": "Edit avatar image",
+                "edit_avatar_image": "Ubah gambar avatar",
                 "show_banner_image": "Show banner image",
                 "double_tap_to_open_the_list": "Ketuk ganda untuk membuka daftar"
             }
@@ -509,7 +509,7 @@
         },
         "familiarFollowers": {
             "title": "Followers you familiar",
-            "followed_by_names": "Followed by %s"
+            "followed_by_names": "Diikuti oleh %s"
         },
         "favorited_by": {
             "title": "Favorited By"
@@ -546,22 +546,22 @@
                 "empty_state": {
                     "no_results": "Tidak ada hasil"
                 },
-                "recent_search": "Recent searches",
+                "recent_search": "Pencarian terbaru",
                 "clear": "Hapus"
             }
         },
         "discovery": {
             "tabs": {
                 "posts": "Posts",
-                "hashtags": "Hashtags",
-                "news": "News",
-                "community": "Community",
-                "for_you": "For You"
+                "hashtags": "Tagar",
+                "news": "Berita",
+                "community": "Komunitas",
+                "for_you": "Untuk Anda"
             },
             "intro": "These are the posts gaining traction in your corner of Mastodon."
         },
         "favorite": {
-            "title": "Your Favorites"
+            "title": "Favorit Anda"
         },
         "notification": {
             "title": {
