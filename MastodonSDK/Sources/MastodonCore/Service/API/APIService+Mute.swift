@@ -34,7 +34,7 @@ extension APIService {
         ).singleOutput()
         
         let userIDs = response.value.map { $0.id }
-        let predicate = NSPredicate(format: "%K IN %@", #keyPath(MastodonUser.id), userIDs)
+        let predicate = MastodonUser.predicate(domain: authenticationBox.domain, ids: userIDs)
         
         let fetchRequest = MastodonUser.fetchRequest()
         fetchRequest.predicate = predicate
