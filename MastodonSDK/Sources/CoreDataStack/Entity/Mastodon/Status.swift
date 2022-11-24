@@ -84,7 +84,9 @@ public final class Status: NSManagedObject {
     @NSManaged public private(set) var pinnedBy: MastodonUser?
     // sourcery: autoGenerateRelationship
     @NSManaged public private(set) var poll: Poll?
-        
+    // sourcery: autoGenerateRelationship
+    @NSManaged public private(set) var card: Card?
+
     // one-to-many relationship
     @NSManaged public private(set) var feeds: Set<Feed>
     
@@ -379,15 +381,18 @@ extension Status: AutoGenerateRelationship {
     	public let author: MastodonUser
     	public let reblog: Status?
     	public let poll: Poll?
+    	public let card: Card?
 
     	public init(
     		author: MastodonUser,
     		reblog: Status?,
-    		poll: Poll?
+    		poll: Poll?,
+    		card: Card?
     	) {
     		self.author = author
     		self.reblog = reblog
     		self.poll = poll
+    		self.card = card
     	}
     }
 
@@ -395,6 +400,7 @@ extension Status: AutoGenerateRelationship {
     	self.author = relationship.author
     	self.reblog = relationship.reblog
     	self.poll = relationship.poll
+    	self.card = relationship.card
     }
     // sourcery:end
 }

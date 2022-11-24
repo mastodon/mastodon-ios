@@ -107,7 +107,20 @@ extension Persistence.Status {
                 )
                 return result.poll
             }()
-            
+
+            let card: Card? = {
+                guard let entity = context.entity.card else { return nil }
+                let result = Persistence.Card.create(
+                    in: managedObjectContext,
+                    context: Persistence.Card.PersistContext(
+                        domain: context.domain,
+                        entity: entity,
+                        me: context.me
+                    )
+                )
+                return result.card
+            }()
+
             let authorResult = Persistence.MastodonUser.createOrMerge(
                 in: managedObjectContext,
                 context: Persistence.MastodonUser.PersistContext(
@@ -122,7 +135,8 @@ extension Persistence.Status {
             let relationship = Status.Relationship(
                 author: author,
                 reblog: reblog,
-                poll: poll
+                poll: poll,
+                card: card
             )
             let status = create(
                 in: managedObjectContext,
