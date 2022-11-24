@@ -654,7 +654,7 @@
             "step1": "Cam 1 o 2",
             "step2": "Cam 2 o 2",
             "content1": "Hoffech chi ychwanegu unrhyw postiadau eraill i'r adroddiad?",
-            "content2": "Is there anything the moderators should know about this report?",
+            "content2": "Oes unrhyw beth y dylai'r cymedrolwyr wybod yn yr adroddiad hwn?",
             "report_sent_title": "Diolch am adrodd, byddwn yn ymchwilio i hyn.",
             "send": "Anfon adroddiad",
             "skip_to_send": "Anfon heb sylw",
@@ -692,7 +692,7 @@
             },
             "step_final": {
                 "dont_want_to_see_this": "Ddim eisiau gweld hwn?",
-                "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "When you see something you don’t like on Mastodon, you can remove the person from your experience.",
+                "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "Pan welwch chi gynnwys nad ydych chi'n ei hoffi ar Mastodon, gallwch dynnu'r person o'ch profiad.",
                 "unfollow": "Dad-ddilyn",
                 "unfollowed": "Dad-ddilynwyd",
                 "unfollow_user": "Dad-ddilyn %s",
