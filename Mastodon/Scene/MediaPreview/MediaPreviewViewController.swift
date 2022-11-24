@@ -16,8 +16,6 @@ import MastodonLocalization
 
 final class MediaPreviewViewController: UIViewController, NeedsDependency {
     
-    static let closeButtonSize = CGSize(width: 30, height: 30)
-    
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
@@ -27,23 +25,9 @@ final class MediaPreviewViewController: UIViewController, NeedsDependency {
     let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .systemMaterial))
     let pagingViewController = MediaPreviewPagingViewController()
     
-    let closeButtonBackground: UIVisualEffectView = {
-        let backgroundView = UIVisualEffectView(effect: UIBlurEffect(style: .systemUltraThinMaterial))
-        backgroundView.alpha = 0.9
-        backgroundView.layer.masksToBounds = true
-        backgroundView.layer.cornerRadius = MediaPreviewViewController.closeButtonSize.width * 0.5
-        return backgroundView
-    }()
-    
-    let closeButtonBackgroundVisualEffectView = UIVisualEffectView(effect: UIVibrancyEffect(blurEffect: UIBlurEffect(style: .systemUltraThinMaterial)))
-    
-    let closeButton: UIButton = {
-        let button = HighlightDimmableButton()
-        button.expandEdgeInsets = UIEdgeInsets(top: -10, left: -10, bottom: -10, right: -10)
-        button.imageView?.tintColor = .label
+    let closeButton = HUDButton { button in
         button.setImage(UIImage(systemName: "xmark", withConfiguration: UIImage.SymbolConfiguration(pointSize: 16, weight: .bold))!, for: .normal)
-        return button
-    }()
+    }
 
     deinit {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
@@ -67,25 +51,12 @@ extension MediaPreviewViewController {
         visualEffectView.contentView.addSubview(pagingViewController.view)
         visualEffectView.pinTo(to: pagingViewController.view)
         pagingViewController.didMove(toParent: self)
-        
-        closeButtonBackground.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(closeButtonBackground)
-        NSLayoutConstraint.activate([
-            closeButtonBackground.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 12),
-            closeButtonBackground.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor)
-        ])
-        closeButtonBackgroundVisualEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        closeButtonBackground.contentView.addSubview(closeButtonBackgroundVisualEffectView)
 
-        closeButton.translatesAutoresizingMaskIntoConstraints = false
-        closeButtonBackgroundVisualEffectView.contentView.addSubview(closeButton)
+        view.addSubview(closeButton)
         NSLayoutConstraint.activate([
-            closeButton.topAnchor.constraint(equalTo: closeButtonBackgroundVisualEffectView.topAnchor),
-            closeButton.leadingAnchor.constraint(equalTo: closeButtonBackgroundVisualEffectView.leadingAnchor),
-            closeButtonBackgroundVisualEffectView.trailingAnchor.constraint(equalTo: closeButton.trailingAnchor),
-            closeButtonBackgroundVisualEffectView.bottomAnchor.constraint(equalTo: closeButton.bottomAnchor),
-            closeButton.heightAnchor.constraint(equalToConstant: MediaPreviewViewController.closeButtonSize.height).priority(.defaultHigh),
-            closeButton.widthAnchor.constraint(equalToConstant: MediaPreviewViewController.closeButtonSize.width).priority(.defaultHigh),
+            closeButton.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 12),
+            closeButton.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
+            closeButton.widthAnchor.constraint(equalToConstant: HUDButton.height).priority(.defaultHigh),
         ])
         
         viewModel.mediaPreviewImageViewControllerDelegate = self
@@ -94,7 +65,7 @@ extension MediaPreviewViewController {
         pagingViewController.delegate = self
         pagingViewController.dataSource = viewModel
         
-        closeButton.addTarget(self, action: #selector(MediaPreviewViewController.closeButtonPressed(_:)), for: .touchUpInside)
+        closeButton.button.addTarget(self, action: #selector(MediaPreviewViewController.closeButtonPressed(_:)), for: .touchUpInside)
         
         // bind view model
         viewModel.$currentPage
@@ -126,7 +97,7 @@ extension MediaPreviewViewController {
                         let attachment = previewContext.attachments[index]
                         return attachment.kind == .video    // not hide buttno for audio
                     }()
-                    self.closeButtonBackground.isHidden = needsHideCloseButton
+                    self.closeButton.isHidden = needsHideCloseButton
                 default:
                     break
                 }
@@ -139,7 +110,7 @@ extension MediaPreviewViewController {
             .sink { [weak self] showingChrome in
                 UIView.animate(withDuration: 0.3) {
                     self?.setNeedsStatusBarAppearanceUpdate()
-                    self?.closeButtonBackground.alpha = showingChrome ? 1 : 0
+                    self?.closeButton.alpha = showingChrome ? 1 : 0
                 }
             }
             .store(in: &disposeBag)
