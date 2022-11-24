@@ -9,7 +9,6 @@ import AlamofireImage
 import LinkPresentation
 import MastodonAsset
 import MastodonCore
-import OpenGraph
 import UIKit
 
 public final class LinkPreviewButton: UIControl {
