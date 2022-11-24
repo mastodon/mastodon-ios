@@ -75,7 +75,7 @@
                 "save_photo": "Shrani fotografijo",
                 "copy_photo": "Kopiraj fotografijo",
                 "sign_in": "Prijava",
-                "sign_up": "Registracija",
+                "sign_up": "Ustvari račun",
                 "see_more": "Pokaži več",
                 "preview": "Predogled",
                 "share": "Deli",
@@ -135,6 +135,12 @@
                 "poll": {
                     "vote": "Glasuj",
                     "closed": "Zaprto"
+                },
+                "meta_entity": {
+                    "url": "Povezava: %s",
+                    "hashtag": "Ključnik: %s",
+                    "mention": "Pokaži profil: %s",
+                    "email": "E-naslov: %s"
                 },
                 "actions": {
                     "reply": "Odgovori",
@@ -212,10 +218,16 @@
             "get_started": "Začnite",
             "log_in": "Prijava"
         },
+        "login": {
+            "title": "Dobrodošli nazaj",
+            "subtitle": "Prijavite se na strežniku, na katerem ste ustvarili račun.",
+            "server_search_field": {
+                "placeholder": "Vnesite URL ali poiščite svoj strežnik"
+            }
+        },
         "server_picker": {
             "title": "Mastodon tvorijo uporabniki z različnih strežnikov.",
-            "subtitle": "Strežnik izberite glede na svoje interese, regijo ali pa izberite splošnega.",
-            "subtitle_extend": "Strežnik izberite glede na svoje interese, regijo ali pa izberite splošnega. Z vsakim strežnikom upravlja povsem neodvisna organizacija ali posameznik.",
+            "subtitle": "Strežnik izberite glede na svojo regijo, zanimanje ali pa kar splošno. Še vedno lahko klepetate s komer koli na Mastodonu, ne glede na strežnik.",
             "button": {
                 "category": {
                     "all": "Vse",
@@ -242,8 +254,7 @@
                 "category": "KATEGORIJA"
             },
             "input": {
-                "placeholder": "Išči strežnike",
-                "search_servers_or_enter_url": "Iščite strežnike ali vnesite URL"
+                "search_servers_or_enter_url": "Iščite po skupnostih ali vnesite URL"
             },
             "empty_state": {
                 "finding_servers": "Iskanje razpoložljivih strežnikov ...",
@@ -376,7 +387,13 @@
                 "video": "video",
                 "attachment_broken": "To %s je okvarjeno in ga ni\nmožno naložiti v Mastodon.",
                 "description_photo": "Opiši fotografijo za slabovidne in osebe z okvaro vida ...",
-                "description_video": "Opiši video za slabovidne in osebe z okvaro vida ..."
+                "description_video": "Opiši video za slabovidne in osebe z okvaro vida ...",
+                "load_failed": "Nalaganje ni uspelo",
+                "upload_failed": "Nalaganje na strežnik ni uspelo",
+                "can_not_recognize_this_media_attachment": "Te medijske priponke ni mogoče prepoznati",
+                "attachment_too_large": "Priponka je prevelika",
+                "compressing_state": "Stiskanje ...",
+                "server_processing_state": "Obdelovanje na strežniku ..."
             },
             "poll": {
                 "duration_time": "Trajanje: %s",
@@ -386,7 +403,9 @@
                 "one_day": "1 dan",
                 "three_days": "3 dni",
                 "seven_days": "7 dni",
-                "option_number": "Možnost %ld"
+                "option_number": "Možnost %ld",
+                "the_poll_is_invalid": "Anketa je neveljavna",
+                "the_poll_has_empty_option": "Anketa ima prazno izbiro"
             },
             "content_warning": {
                 "placeholder": "Tukaj zapišite opozorilo ..."
@@ -407,7 +426,9 @@
                 "custom_emoji_picker": "Izbirnik čustvenčkov po meri",
                 "enable_content_warning": "Omogoči opozorilo o vsebini",
                 "disable_content_warning": "Onemogoči opozorilo o vsebini",
-                "post_visibility_menu": "Meni vidnosti objave"
+                "post_visibility_menu": "Meni vidnosti objave",
+                "post_options": "Možnosti objave",
+                "posting_as": "Objavljate kot %s"
             },
             "keyboard": {
                 "discard_post": "Opusti objavo",
@@ -432,6 +453,10 @@
                 "placeholder": {
                     "label": "Oznaka",
                     "content": "Vsebina"
+                },
+                "verified": {
+                    "short": "Preverjeno %s",
+                    "long": "Lastništvo te povezave je bilo preverjeno %s"
                 }
             },
             "segmented_control": {
@@ -696,7 +721,7 @@
             "accessibility_hint": "Dvakrat tapnite, da zapustite tega čarovnika"
         },
         "bookmark": {
-            "title": "Bookmarks"
+            "title": "Zaznamki"
         }
     }
 }

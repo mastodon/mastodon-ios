@@ -74,8 +74,8 @@
                 "take_photo": "Сделать фото",
                 "save_photo": "Сохранить изображение",
                 "copy_photo": "Скопировать изображение",
-                "sign_in": "Войти",
-                "sign_up": "Зарегистрироваться",
+                "sign_in": "Log in",
+                "sign_up": "Create account",
                 "see_more": "Ещё",
                 "preview": "Предпросмотр",
                 "share": "Поделиться",
@@ -135,6 +135,12 @@
                 "poll": {
                     "vote": "Проголосовать",
                     "closed": "Завершён"
+                },
+                "meta_entity": {
+                    "url": "Link: %s",
+                    "hashtag": "Hashtag: %s",
+                    "mention": "Show Profile: %s",
+                    "email": "Email address: %s"
                 },
                 "actions": {
                     "reply": "Ответить",
@@ -212,10 +218,16 @@
             "get_started": "Присоединиться",
             "log_in": "Вход"
         },
+        "login": {
+            "title": "Welcome back",
+            "subtitle": "Log you in on the server you created your account on.",
+            "server_search_field": {
+                "placeholder": "Enter URL or search for your server"
+            }
+        },
         "server_picker": {
             "title": "Выберите сервер,\nлюбой сервер.",
-            "subtitle": "Выберите сообщество на основе своих интересов, региона или общей тематики.",
-            "subtitle_extend": "Pick a server based on your interests, region, or a general purpose one. Each server is operated by an entirely independent organization or individual.",
+            "subtitle": "Pick a server based on your region, interests, or a general purpose one. You can still chat with anyone on Mastodon, regardless of your servers.",
             "button": {
                 "category": {
                     "all": "Все",
@@ -242,8 +254,7 @@
                 "category": "КАТЕГОРИЯ"
             },
             "input": {
-                "placeholder": "Найдите сервер или присоединитесь к своему...",
-                "search_servers_or_enter_url": "Поиск по серверам или ссылке"
+                "search_servers_or_enter_url": "Search communities or enter URL"
             },
             "empty_state": {
                 "finding_servers": "Ищем доступные сервера...",
@@ -376,7 +387,13 @@
                 "video": "видео",
                 "attachment_broken": "Это %s повреждено и не может\nбыть отправлено в Mastodon.",
                 "description_photo": "Опишите фото для людей с нарушениями зрения...",
-                "description_video": "Опишите видео для людей с нарушениями зрения..."
+                "description_video": "Опишите видео для людей с нарушениями зрения...",
+                "load_failed": "Load Failed",
+                "upload_failed": "Upload Failed",
+                "can_not_recognize_this_media_attachment": "Can not recognize this media attachment",
+                "attachment_too_large": "Attachment too large",
+                "compressing_state": "Compressing...",
+                "server_processing_state": "Server Processing..."
             },
             "poll": {
                 "duration_time": "Продолжительность: %s",
@@ -386,7 +403,9 @@
                 "one_day": "1 день",
                 "three_days": "3 дня",
                 "seven_days": "7 дней",
-                "option_number": "Вариант %ld"
+                "option_number": "Вариант %ld",
+                "the_poll_is_invalid": "The poll is invalid",
+                "the_poll_has_empty_option": "The poll has empty option"
             },
             "content_warning": {
                 "placeholder": "Напишите предупреждение здесь..."
@@ -407,7 +426,9 @@
                 "custom_emoji_picker": "Меню пользовательских эмодзи",
                 "enable_content_warning": "Добавить предупреждение о содержании",
                 "disable_content_warning": "Убрать предупреждение о содержании",
-                "post_visibility_menu": "Меню видимости поста"
+                "post_visibility_menu": "Меню видимости поста",
+                "post_options": "Post Options",
+                "posting_as": "Posting as %s"
             },
             "keyboard": {
                 "discard_post": "Удалить пост",
@@ -432,6 +453,10 @@
                 "placeholder": {
                     "label": "Ярлык",
                     "content": "Содержимое"
+                },
+                "verified": {
+                    "short": "Verified on %s",
+                    "long": "Ownership of this link was checked on %s"
                 }
             },
             "segmented_control": {

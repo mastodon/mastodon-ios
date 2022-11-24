@@ -74,8 +74,8 @@
                 "take_photo": "وێنە بگرە",
                 "save_photo": "هەڵی بگرە",
                 "copy_photo": "لەبەری بگرەوە",
-                "sign_in": "بچۆ ژوورەوە",
-                "sign_up": "خۆت تۆمار بکە",
+                "sign_in": "Log in",
+                "sign_up": "Create account",
                 "see_more": "زیاتر ببینە",
                 "preview": "پێشبینین",
                 "share": "هاوبەشی بکە",
@@ -135,6 +135,12 @@
                 "poll": {
                     "vote": "دەنگ بدە",
                     "closed": "داخراوە"
+                },
+                "meta_entity": {
+                    "url": "Link: %s",
+                    "hashtag": "Hashtag: %s",
+                    "mention": "Show Profile: %s",
+                    "email": "Email address: %s"
                 },
                 "actions": {
                     "reply": "وەڵامی بدەوە",
@@ -212,10 +218,16 @@
             "get_started": "دەست پێ بکە",
             "log_in": "بچۆ ژوورەوە"
         },
+        "login": {
+            "title": "Welcome back",
+            "subtitle": "Log you in on the server you created your account on.",
+            "server_search_field": {
+                "placeholder": "Enter URL or search for your server"
+            }
+        },
         "server_picker": {
             "title": "ماستۆدۆن لە چەندان بەکارهێنەر پێک دێت کە لە ڕاژەکاری جیاواز دان.",
-            "subtitle": "ڕاژەکارێکێکی گشتی یان دانەیەک لەسەر بنەمای حەزەکانت و هەرێمەکەت هەڵبژێرە.",
-            "subtitle_extend": "ڕاژەکارێکێکی گشتی یان دانەیەک لەسەر بنەمای حەزەکانت و هەرێمەکەت هەڵبژێرە. هەر ڕاژەکارێک لەلایەن ڕێکخراوێک یان تاکەکەسێک بەڕێوە دەبرێت.",
+            "subtitle": "Pick a server based on your region, interests, or a general purpose one. You can still chat with anyone on Mastodon, regardless of your servers.",
             "button": {
                 "category": {
                     "all": "هەموو",
@@ -242,8 +254,7 @@
                 "category": "بەش"
             },
             "input": {
-                "placeholder": "بگەڕێ",
-                "search_servers_or_enter_url": "Search servers or enter URL"
+                "search_servers_or_enter_url": "Search communities or enter URL"
             },
             "empty_state": {
                 "finding_servers": "ڕاژەکار دەدۆزرێتەوە...",
@@ -376,7 +387,13 @@
                 "video": "ڤیدیۆ",
                 "attachment_broken": "ئەم %sـە تێک چووە و ناتوانیت بەرزی بکەیتەوە.",
                 "description_photo": "وێنەکەت بۆ نابیناکان باس بکە...",
-                "description_video": "ڤیدیۆکەت بۆ نابیناکان باس بکە..."
+                "description_video": "ڤیدیۆکەت بۆ نابیناکان باس بکە...",
+                "load_failed": "Load Failed",
+                "upload_failed": "Upload Failed",
+                "can_not_recognize_this_media_attachment": "Can not recognize this media attachment",
+                "attachment_too_large": "Attachment too large",
+                "compressing_state": "Compressing...",
+                "server_processing_state": "Server Processing..."
             },
             "poll": {
                 "duration_time": "کات:‌ %s",
@@ -386,7 +403,9 @@
                 "one_day": "1 ڕۆژ",
                 "three_days": "3 ڕۆژ",
                 "seven_days": "7 ڕۆژ",
-                "option_number": "بژاردەی %ld"
+                "option_number": "بژاردەی %ld",
+                "the_poll_is_invalid": "The poll is invalid",
+                "the_poll_has_empty_option": "The poll has empty option"
             },
             "content_warning": {
                 "placeholder": "ئاگادارییەکەت لێرە بنووسە..."
@@ -407,7 +426,9 @@
                 "custom_emoji_picker": "هەڵبژێری ئیمۆجی",
                 "enable_content_warning": "ئاگاداریی ناوەڕۆک چالاک بکە",
                 "disable_content_warning": "ئاگاداریی ناوەڕۆک ناچالاک بکە",
-                "post_visibility_menu": "پێڕستی شێوازی دەرکەوتنی پۆست"
+                "post_visibility_menu": "پێڕستی شێوازی دەرکەوتنی پۆست",
+                "post_options": "Post Options",
+                "posting_as": "Posting as %s"
             },
             "keyboard": {
                 "discard_post": "پۆستەکە هەڵوەشێنەوە",
@@ -432,6 +453,10 @@
                 "placeholder": {
                     "label": "ناونیشان",
                     "content": "ناوەڕۆک"
+                },
+                "verified": {
+                    "short": "Verified on %s",
+                    "long": "Ownership of this link was checked on %s"
                 }
             },
             "segmented_control": {

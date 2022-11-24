@@ -74,8 +74,8 @@
                 "take_photo": "Fotoğraf Çek",
                 "save_photo": "Fotoğrafı Kaydet",
                 "copy_photo": "Fotoğrafı Kopyala",
-                "sign_in": "Giriş Yap",
-                "sign_up": "Kaydol",
+                "sign_in": "Log in",
+                "sign_up": "Create account",
                 "see_more": "Daha Fazla Gör",
                 "preview": "Önizleme",
                 "share": "Paylaş",
@@ -135,6 +135,12 @@
                 "poll": {
                     "vote": "Oy ver",
                     "closed": "Kapandı"
+                },
+                "meta_entity": {
+                    "url": "Link: %s",
+                    "hashtag": "Hashtag: %s",
+                    "mention": "Show Profile: %s",
+                    "email": "Email address: %s"
                 },
                 "actions": {
                     "reply": "Yanıtla",
@@ -212,10 +218,16 @@
             "get_started": "Başlayın",
             "log_in": "Oturum Aç"
         },
+        "login": {
+            "title": "Welcome back",
+            "subtitle": "Log you in on the server you created your account on.",
+            "server_search_field": {
+                "placeholder": "Enter URL or search for your server"
+            }
+        },
         "server_picker": {
             "title": "Mastodon, farklı topluluklardaki kullanıcılardan oluşur.",
-            "subtitle": "İlgi alanlarınıza, bölgenize veya genel amaçlı bir topluluk seçin.",
-            "subtitle_extend": "İlgi alanlarınıza, bölgenize veya genel amaçlı bir topluluk seçin. Her topluluk tamamen bağımsız bir kuruluş veya kişi tarafından işletilmektedir.",
+            "subtitle": "Pick a server based on your region, interests, or a general purpose one. You can still chat with anyone on Mastodon, regardless of your servers.",
             "button": {
                 "category": {
                     "all": "Tümü",
@@ -242,8 +254,7 @@
                 "category": "KATEGORİ"
             },
             "input": {
-                "placeholder": "Toplulukları ara",
-                "search_servers_or_enter_url": "Sunucuları ara ya da bir bağlantı gir"
+                "search_servers_or_enter_url": "Search communities or enter URL"
             },
             "empty_state": {
                 "finding_servers": "Mevcut sunucular aranıyor...",
@@ -376,7 +387,13 @@
                 "video": "video",
                 "attachment_broken": "Bu %s bozuk ve Mastodon'a\nyüklenemiyor.",
                 "description_photo": "Görme engelliler için fotoğrafı tarif edin...",
-                "description_video": "Görme engelliler için videoyu tarif edin..."
+                "description_video": "Görme engelliler için videoyu tarif edin...",
+                "load_failed": "Load Failed",
+                "upload_failed": "Upload Failed",
+                "can_not_recognize_this_media_attachment": "Can not recognize this media attachment",
+                "attachment_too_large": "Attachment too large",
+                "compressing_state": "Compressing...",
+                "server_processing_state": "Server Processing..."
             },
             "poll": {
                 "duration_time": "Süre: %s",
@@ -386,7 +403,9 @@
                 "one_day": "1 Gün",
                 "three_days": "3 Gün",
                 "seven_days": "7 Gün",
-                "option_number": "Seçenek %ld"
+                "option_number": "Seçenek %ld",
+                "the_poll_is_invalid": "The poll is invalid",
+                "the_poll_has_empty_option": "The poll has empty option"
             },
             "content_warning": {
                 "placeholder": "Buraya kesin bir uyarı yazın..."
@@ -407,7 +426,9 @@
                 "custom_emoji_picker": "Özel Emoji Seçici",
                 "enable_content_warning": "İçerik Uyarısını Etkinleştir",
                 "disable_content_warning": "İçerik Uyarısını Kapat",
-                "post_visibility_menu": "Gönderi Görünürlüğü Menüsü"
+                "post_visibility_menu": "Gönderi Görünürlüğü Menüsü",
+                "post_options": "Post Options",
+                "posting_as": "Posting as %s"
             },
             "keyboard": {
                 "discard_post": "Gönderiyi İptal Et",
@@ -432,6 +453,10 @@
                 "placeholder": {
                     "label": "Etiket",
                     "content": "İçerik"
+                },
+                "verified": {
+                    "short": "Verified on %s",
+                    "long": "Ownership of this link was checked on %s"
                 }
             },
             "segmented_control": {

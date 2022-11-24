@@ -65,7 +65,7 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
         let initialFrame = transitionItem.initialFrame ?? toViewEndFrame
         let transitionTargetFrame: CGRect = {
             let aspectRatio = transitionItem.aspectRatio ?? CGSize(width: initialFrame.width, height: initialFrame.height)
-            return AVMakeRect(aspectRatio: aspectRatio, insideRect: toView.bounds)
+            return AVMakeRect(aspectRatio: aspectRatio, insideRect: toView.bounds.inset(by: toView.safeAreaInsets))
         }()
         let transitionImageView: UIImageView = {
             let imageView = UIImageView(frame: transitionContext.containerView.convert(initialFrame, from: nil))
@@ -130,6 +130,12 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
                 self.transitionItem.source.updateAppearance(position: .end, index: nil)
             }
             return animator
+        }
+
+        if let toVC = transitionContext.viewController(forKey: .to) {
+            animator.addCompletion { _ in
+                toVC.setNeedsStatusBarAppearanceUpdate()
+            }
         }
         
         // update close button
@@ -263,7 +269,7 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
             }()
             
             // FIXME:
-            let maskLayerToFinalPath = maskLayerToFinalRect.flatMap { UIBezierPath(rect: $0) }?.cgPath
+            _ = maskLayerToFinalRect.flatMap { UIBezierPath(rect: $0) }?.cgPath
             
             if let maskLayerToPath = maskLayerToPath {
                 maskLayer.path = maskLayerToPath

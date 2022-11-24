@@ -75,7 +75,7 @@
                 "save_photo": "Foto speichern",
                 "copy_photo": "Foto kopieren",
                 "sign_in": "Anmelden",
-                "sign_up": "Registrieren",
+                "sign_up": "Konto erstellen",
                 "see_more": "Mehr anzeigen",
                 "preview": "Vorschau",
                 "share": "Teilen",
@@ -135,6 +135,12 @@
                 "poll": {
                     "vote": "Abstimmen",
                     "closed": "Beendet"
+                },
+                "meta_entity": {
+                    "url": "Link: %s",
+                    "hashtag": "Hashtag: %s",
+                    "mention": "Show Profile: %s",
+                    "email": "Email address: %s"
                 },
                 "actions": {
                     "reply": "Antworten",
@@ -212,10 +218,16 @@
             "get_started": "Registrieren",
             "log_in": "Anmelden"
         },
+        "login": {
+            "title": "Willkommen zurück",
+            "subtitle": "Melden Sie sich auf dem Server an, auf dem Sie Ihr Konto erstellt haben.",
+            "server_search_field": {
+                "placeholder": "URL eingeben oder nach Server suchen"
+            }
+        },
         "server_picker": {
             "title": "Wähle einen Server,\nbeliebigen Server.",
-            "subtitle": "Wähle eine Gemeinschaft, die auf deinen Interessen, Region oder einem allgemeinen Zweck basiert.",
-            "subtitle_extend": "Wähle eine Gemeinschaft basierend auf deinen Interessen, deiner Region oder einem allgemeinen Zweck. Jede Gemeinschaft wird von einer völlig unabhängigen Organisation oder Einzelperson betrieben.",
+            "subtitle": "Wähle einen Server basierend auf deinen Interessen oder deiner Region – oder einfach einen allgemeinen. Du kannst trotzdem mit jedem interagieren, egal auf welchem Server.",
             "button": {
                 "category": {
                     "all": "Alle",
@@ -242,8 +254,7 @@
                 "category": "KATEGORIE"
             },
             "input": {
-                "placeholder": "Nach Server suchen oder URL eingeben",
-                "search_servers_or_enter_url": "Nach Server suchen oder URL eingeben"
+                "search_servers_or_enter_url": "Suche nach einer Community oder gib eine URL ein"
             },
             "empty_state": {
                 "finding_servers": "Verfügbare Server werden gesucht...",
@@ -376,7 +387,13 @@
                 "video": "Video",
                 "attachment_broken": "Dieses %s scheint defekt zu sein und\nkann nicht auf Mastodon hochgeladen werden.",
                 "description_photo": "Für Menschen mit Sehbehinderung beschreiben...",
-                "description_video": "Für Menschen mit Sehbehinderung beschreiben..."
+                "description_video": "Für Menschen mit Sehbehinderung beschreiben...",
+                "load_failed": "Laden fehlgeschlagen",
+                "upload_failed": "Upload fehlgeschlagen",
+                "can_not_recognize_this_media_attachment": "Medienanhang wurde nicht erkannt",
+                "attachment_too_large": "Anhang zu groß",
+                "compressing_state": "Komprimieren...",
+                "server_processing_state": "Serververarbeitung..."
             },
             "poll": {
                 "duration_time": "Dauer: %s",
@@ -386,7 +403,9 @@
                 "one_day": "1 Tag",
                 "three_days": "3 Tage",
                 "seven_days": "7 Tage",
-                "option_number": "Auswahlmöglichkeit %ld"
+                "option_number": "Auswahlmöglichkeit %ld",
+                "the_poll_is_invalid": "Die Umfrage ist ungültig",
+                "the_poll_has_empty_option": "Die Umfrage hat eine leere Option"
             },
             "content_warning": {
                 "placeholder": "Schreibe eine Inhaltswarnung hier..."
@@ -407,7 +426,9 @@
                 "custom_emoji_picker": "Benutzerdefinierter Emojiwähler",
                 "enable_content_warning": "Inhaltswarnung einschalten",
                 "disable_content_warning": "Inhaltswarnung ausschalten",
-                "post_visibility_menu": "Sichtbarkeitsmenü"
+                "post_visibility_menu": "Sichtbarkeitsmenü",
+                "post_options": "Post Options",
+                "posting_as": "Posting as %s"
             },
             "keyboard": {
                 "discard_post": "Beitrag verwerfen",
@@ -425,13 +446,17 @@
             "dashboard": {
                 "posts": "Beiträge",
                 "following": "Gefolgte",
-                "followers": "Folger"
+                "followers": "Folgende"
             },
             "fields": {
                 "add_row": "Zeile hinzufügen",
                 "placeholder": {
                     "label": "Bezeichnung",
                     "content": "Inhalt"
+                },
+                "verified": {
+                    "short": "Überprüft am %s",
+                    "long": "Besitz des Links wurde überprüft am %s"
                 }
             },
             "segmented_control": {
@@ -460,7 +485,7 @@
                 },
                 "confirm_show_reblogs": {
                     "title": "Reblogs anzeigen",
-                    "message": "Confirm to show reblogs"
+                    "message": "Bestätigen um Reblogs anzuzeigen"
                 },
                 "confirm_hide_reblogs": {
                     "title": "Reblogs ausblenden",
@@ -476,11 +501,11 @@
         },
         "follower": {
             "title": "Follower",
-            "footer": "Follower von anderen Servern werden nicht angezeigt."
+            "footer": "Folger, die nicht auf deinem Server registriert sind, werden nicht angezeigt."
         },
         "following": {
             "title": "Folgende",
-            "footer": "Wem das Konto folgt wird von anderen Servern werden nicht angezeigt."
+            "footer": "Gefolgte, die nicht auf deinem Server registriert sind, werden nicht angezeigt."
         },
         "familiarFollowers": {
             "title": "Follower, die dir bekannt vorkommen",
@@ -590,7 +615,7 @@
                     "mentions": "Mich erwähnt",
                     "trigger": {
                         "anyone": "jeder",
-                        "follower": "ein Folger",
+                        "follower": "ein Folgender",
                         "follow": "ein von mir Gefolgter",
                         "noone": "niemand",
                         "title": "Benachrichtige mich, wenn"
@@ -696,7 +721,7 @@
             "accessibility_hint": "Doppeltippen, um diesen Assistenten zu schließen"
         },
         "bookmark": {
-            "title": "Bookmarks"
+            "title": "Lesezeichen"
         }
     }
 }

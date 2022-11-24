@@ -108,6 +108,8 @@ extension AddAccountTableViewCell {
             separatorLine.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             separatorLine.heightAnchor.constraint(equalToConstant: UIView.separatorLineHeight(of: contentView)),
         ])
+
+        accessibilityTraits.insert(.button)
     }
 
 }

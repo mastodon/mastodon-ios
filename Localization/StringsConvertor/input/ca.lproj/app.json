@@ -75,7 +75,7 @@
                 "save_photo": "Desa la foto",
                 "copy_photo": "Copia la foto",
                 "sign_in": "Iniciar sessió",
-                "sign_up": "Registre",
+                "sign_up": "Crea un compte",
                 "see_more": "Veure més",
                 "preview": "Vista prèvia",
                 "share": "Comparteix",
@@ -135,6 +135,12 @@
                 "poll": {
                     "vote": "Vota",
                     "closed": "Finalitzada"
+                },
+                "meta_entity": {
+                    "url": "Enllaç: %s",
+                    "hashtag": "Etiqueta %s",
+                    "mention": "Mostra el Perfil: %s",
+                    "email": "Correu electrònic: %s"
                 },
                 "actions": {
                     "reply": "Respon",
@@ -212,10 +218,16 @@
             "get_started": "Comença",
             "log_in": "Inicia sessió"
         },
+        "login": {
+            "title": "Ben tornat",
+            "subtitle": "T'inicia sessió en el servidor on has creat el teu compte.",
+            "server_search_field": {
+                "placeholder": "Insereix la URL o cerca el teu servidor"
+            }
+        },
         "server_picker": {
             "title": "Mastodon està fet d'usuaris en diferents comunitats.",
-            "subtitle": "Tria una comunitat segons els teus interessos, regió o una de propòsit general.",
-            "subtitle_extend": "Tria una comunitat segons els teus interessos, regió o una de propòsit general. Cada comunitat és operada per una organització totalment independent o individualment.",
+            "subtitle": "Tria un servidor en funció de la teva regió, interessos o un de propòsit general. Seguiràs podent connectar amb tothom a Mastodon, independentment del servidor.",
             "button": {
                 "category": {
                     "all": "Totes",
@@ -242,8 +254,7 @@
                 "category": "CATEGORIA"
             },
             "input": {
-                "placeholder": "Cerca servidors",
-                "search_servers_or_enter_url": "Cerca servidors o introdueix l'enllaç"
+                "search_servers_or_enter_url": "Cerca comunitats o introdueix l'URL"
             },
             "empty_state": {
                 "finding_servers": "Cercant els servidors disponibles...",
@@ -376,7 +387,13 @@
                 "video": "vídeo",
                 "attachment_broken": "Aquest %s està trencat i no pot ser\ncarregat a Mastodon.",
                 "description_photo": "Descriu la foto per als disminuïts visuals...",
-                "description_video": "Descriu el vídeo per als disminuïts visuals..."
+                "description_video": "Descriu el vídeo per als disminuïts visuals...",
+                "load_failed": "Ha fallat la càrrega",
+                "upload_failed": "Pujada fallida",
+                "can_not_recognize_this_media_attachment": "No es pot reconèixer aquest adjunt multimèdia",
+                "attachment_too_large": "El fitxer adjunt és massa gran",
+                "compressing_state": "Comprimint...",
+                "server_processing_state": "Servidor processant..."
             },
             "poll": {
                 "duration_time": "Durada: %s",
@@ -386,7 +403,9 @@
                 "one_day": "1 Dia",
                 "three_days": "3 Dies",
                 "seven_days": "7 Dies",
-                "option_number": "Opció %ld"
+                "option_number": "Opció %ld",
+                "the_poll_is_invalid": "L'enquesta no és vàlida",
+                "the_poll_has_empty_option": "L'enquesta té una opció buida"
             },
             "content_warning": {
                 "placeholder": "Escriu un advertiment precís aquí..."
@@ -407,7 +426,9 @@
                 "custom_emoji_picker": "Selector d'Emoji Personalitzat",
                 "enable_content_warning": "Activa l'Avís de Contingut",
                 "disable_content_warning": "Desactiva l'Avís de Contingut",
-                "post_visibility_menu": "Menú de Visibilitat de Publicació"
+                "post_visibility_menu": "Menú de Visibilitat de Publicació",
+                "post_options": "Opcions del tut",
+                "posting_as": "Publicant com a %s"
             },
             "keyboard": {
                 "discard_post": "Descarta la Publicació",
@@ -432,6 +453,10 @@
                 "placeholder": {
                     "label": "Etiqueta",
                     "content": "Contingut"
+                },
+                "verified": {
+                    "short": "Verificat a %s",
+                    "long": "La propietat d'aquest enllaç es va verificar el dia %s"
                 }
             },
             "segmented_control": {
@@ -696,7 +721,7 @@
             "accessibility_hint": "Toca dues vegades per descartar l'assistent"
         },
         "bookmark": {
-            "title": "Bookmarks"
+            "title": "Marcadors"
         }
     }
 }

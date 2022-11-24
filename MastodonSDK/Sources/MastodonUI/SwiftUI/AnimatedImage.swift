@@ -37,12 +37,7 @@ final public class FLAnimatedImageViewProxy: UIView {
 
         imageView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(imageView)
-        NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: topAnchor),
-            imageView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            imageView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            imageView.bottomAnchor.constraint(equalTo: bottomAnchor),
-        ])
+        imageView.pinToParent()
     }
 
     required init?(coder: NSCoder) {

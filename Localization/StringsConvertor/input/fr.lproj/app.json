@@ -136,6 +136,12 @@
                     "vote": "Voter",
                     "closed": "Fermé"
                 },
+                "meta_entity": {
+                    "url": "Lien : %s",
+                    "hashtag": "Hashtag : %s",
+                    "mention": "Afficher le profile : %s",
+                    "email": "Adresse e-mail : %s"
+                },
                 "actions": {
                     "reply": "Répondre",
                     "reblog": "Rebloguer",
@@ -212,10 +218,16 @@
             "get_started": "Prise en main",
             "log_in": "Se connecter"
         },
+        "login": {
+            "title": "Content de vous revoir",
+            "subtitle": "Connectez-vous sur le serveur sur lequel vous avez créé votre compte.",
+            "server_search_field": {
+                "placeholder": "Entrez l'URL ou recherchez votre serveur"
+            }
+        },
         "server_picker": {
             "title": "Choisissez un serveur,\nn'importe quel serveur.",
-            "subtitle": "Choisissez une communauté en fonction de vos intérêts, de votre région ou de votre objectif général.",
-            "subtitle_extend": "Choisissez une communauté basée sur vos intérêts, votre région ou un but général. Chaque communauté est gérée par une organisation ou un individu entièrement indépendant.",
+            "subtitle": "Choisissez un serveur basé sur votre région, vos intérêts ou un généraliste. Vous pouvez toujours discuter avec n'importe qui sur Mastodon, indépendamment de vos serveurs.",
             "button": {
                 "category": {
                     "all": "Tout",
@@ -242,8 +254,7 @@
                 "category": "CATÉGORIE"
             },
             "input": {
-                "placeholder": "Trouvez un serveur ou rejoignez le vôtre...",
-                "search_servers_or_enter_url": "Rechercher des serveurs ou entrer une URL"
+                "search_servers_or_enter_url": "Rechercher parmi les communautés ou renseigner une URL"
             },
             "empty_state": {
                 "finding_servers": "Recherche des serveurs disponibles...",
@@ -376,7 +387,13 @@
                 "video": "vidéo",
                 "attachment_broken": "Ce %s est brisé et ne peut pas être\ntéléversé sur Mastodon.",
                 "description_photo": "Décrire cette photo pour les personnes malvoyantes...",
-                "description_video": "Décrire cette vidéo pour les personnes malvoyantes..."
+                "description_video": "Décrire cette vidéo pour les personnes malvoyantes...",
+                "load_failed": "Échec du chargement",
+                "upload_failed": "Échec de l’envoi",
+                "can_not_recognize_this_media_attachment": "Impossible de reconnaître cette pièce jointe",
+                "attachment_too_large": "La pièce jointe est trop volumineuse",
+                "compressing_state": "Compression...",
+                "server_processing_state": "Traitement du serveur..."
             },
             "poll": {
                 "duration_time": "Durée: %s",
@@ -386,7 +403,9 @@
                 "one_day": "1 Jour",
                 "three_days": "3 jour",
                 "seven_days": "7 jour",
-                "option_number": "Option %ld"
+                "option_number": "Option %ld",
+                "the_poll_is_invalid": "Le sondage est invalide",
+                "the_poll_has_empty_option": "Le sondage n'a pas d'options"
             },
             "content_warning": {
                 "placeholder": "Écrivez un avertissement précis ici..."
@@ -407,7 +426,9 @@
                 "custom_emoji_picker": "Sélecteur d’émojis personnalisés",
                 "enable_content_warning": "Basculer l’avertissement de contenu",
                 "disable_content_warning": "Désactiver l'avertissement de contenu",
-                "post_visibility_menu": "Menu de Visibilité de la publication"
+                "post_visibility_menu": "Menu de Visibilité de la publication",
+                "post_options": "Options de publication",
+                "posting_as": "Publié en tant que %s"
             },
             "keyboard": {
                 "discard_post": "Rejeter la publication",
@@ -432,6 +453,10 @@
                 "placeholder": {
                     "label": "Étiquette",
                     "content": "Contenu"
+                },
+                "verified": {
+                    "short": "Vérifié le %s",
+                    "long": "La propriété de ce lien a été vérifiée le %s"
                 }
             },
             "segmented_control": {
@@ -696,7 +721,7 @@
             "accessibility_hint": "Tapotez deux fois pour fermer cet assistant"
         },
         "bookmark": {
-            "title": "Bookmarks"
+            "title": "Favoris"
         }
     }
 }

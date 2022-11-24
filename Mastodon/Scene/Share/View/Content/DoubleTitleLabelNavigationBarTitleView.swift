@@ -47,12 +47,7 @@ extension DoubleTitleLabelNavigationBarTitleView {
         containerView.distribution = .fill
         containerView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(containerView)
-        NSLayoutConstraint.activate([
-            containerView.topAnchor.constraint(equalTo: topAnchor),
-            containerView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            containerView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            containerView.bottomAnchor.constraint(equalTo: bottomAnchor),
-        ])
+        containerView.pinToParent()
         
         containerView.addArrangedSubview(titleLabel)
         containerView.addArrangedSubview(subtitleLabel)

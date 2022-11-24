@@ -11,36 +11,113 @@ import Combine
 import PhotosUI
 import Kingfisher
 import MastodonCore
+import MastodonLocalization
+import func QuartzCore.CACurrentMediaTime
+
+public protocol AttachmentViewModelDelegate: AnyObject {
+    func attachmentViewModel(_ viewModel: AttachmentViewModel, uploadStateValueDidChange state: AttachmentViewModel.UploadState)
+    func attachmentViewModel(_ viewModel: AttachmentViewModel, actionButtonDidPressed action: AttachmentViewModel.Action)
+}
 
 final public class AttachmentViewModel: NSObject, ObservableObject, Identifiable {
 
     static let logger = Logger(subsystem: "AttachmentViewModel", category: "ViewModel")
+    let logger = Logger(subsystem: "AttachmentViewModel", category: "ViewModel")
     
     public let id = UUID()
     
     var disposeBag = Set<AnyCancellable>()
     var observations = Set<NSKeyValueObservation>()
+    
+    weak var delegate: AttachmentViewModelDelegate?
+    
+    let byteCountFormatter: ByteCountFormatter = {
+        let formatter = ByteCountFormatter()
+        formatter.allowsNonnumericFormatting = true
+        formatter.countStyle = .memory
+        return formatter
+    }()
+    
+    let percentageFormatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .percent
+        return formatter
+    }()
 
     // input
+    public let api: APIService
+    public let authContext: AuthContext
     public let input: Input
+    public let sizeLimit: SizeLimit
     @Published var caption = ""
-    @Published var sizeLimit = SizeLimit()
-    @Published public var isPreviewPresented = false
     
     // output
     @Published public private(set) var output: Output?
     @Published public private(set) var thumbnail: UIImage?      // original size image thumbnail
-    @Published var error: Error?
-    let progress = Progress()       // upload progress
+    @Published public private(set) var outputSizeInByte: Int64 = 0
     
-    public init(input: Input) {
+    @Published public private(set) var uploadState: UploadState = .none
+    @Published public private(set) var uploadResult: UploadResult?
+    @Published var error: Error?
+    
+    var uploadTask: Task<(), Never>?
+
+    @Published var videoCompressProgress: Double = 0
+    
+    let progress = Progress()       // upload progress
+    @Published var fractionCompleted: Double = 0
+
+    private var lastTimestamp: TimeInterval?
+    private var lastUploadSizeInByte: Int64 = 0
+    private var averageUploadSpeedInByte: Int64 = 0
+    private var remainTimeInterval: Double?
+    @Published var remainTimeLocalizedString: String?
+    
+    public init(
+        api: APIService,
+        authContext: AuthContext,
+        input: Input,
+        sizeLimit: SizeLimit,
+        delegate: AttachmentViewModelDelegate
+    ) {
+        self.api = api
+        self.authContext = authContext
         self.input = input
+        self.sizeLimit = sizeLimit
+        self.delegate = delegate
         super.init()
         // end init
         
-        defer {
-            load(input: input)
-        }
+        Timer.publish(every: 1.0 / 60.0, on: .main, in: .common)        // 60 FPS
+            .autoconnect()
+            .share()
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                self.step()
+            }
+            .store(in: &disposeBag)
+
+        progress
+            .observe(\.fractionCompleted, options: [.initial, .new]) { [weak self] progress, _ in
+                guard let self = self else { return }
+                self.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): publish progress \(progress.fractionCompleted)")
+                DispatchQueue.main.async {
+                    self.fractionCompleted = progress.fractionCompleted
+                }
+            }
+            .store(in: &observations)
+        
+        // Note: this observation is redundant if .fractionCompleted listener always emit event when reach 1.0 progress
+        // progress
+        //     .observe(\.isFinished, options: [.initial, .new]) { [weak self] progress, _ in
+        //         guard let self = self else { return }
+        //         self.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): publish progress \(progress.fractionCompleted)")
+        //         DispatchQueue.main.async {
+        //             self.objectWillChange.send()
+        //         }
+        //     }
+        //     .store(in: &observations)
         
         $output
             .map { output -> UIImage? in
@@ -53,19 +130,121 @@ final public class AttachmentViewModel: NSObject, ObservableObject, Identifiable
                     return nil
                 }
             }
+            .receive(on: DispatchQueue.main)
             .assign(to: &$thumbnail)
+        
+        defer {
+            let uploadTask = Task { @MainActor in
+                do {
+                    var output = try await load(input: input)
+                    
+                    switch output {
+                    case .image(let data, _):
+                        self.output = output
+                        self.update(uploadState: .compressing)
+                        let compressedOutput = try await compressImage(data: data, sizeLimit: sizeLimit)
+                        output = compressedOutput
+                    case .video(let fileURL, let mimeType):
+                        self.output = output
+                        self.update(uploadState: .compressing)
+                        let compressedFileURL = try await compressVideo(url: fileURL)
+                        output = .video(compressedFileURL, mimeType: mimeType)
+                        try? FileManager.default.removeItem(at: fileURL)    // remove old file
+                    }
+                    
+                    self.outputSizeInByte = output.asAttachment.sizeInByte.flatMap { Int64($0) } ?? 0
+                    self.output = output
+                    
+                    self.update(uploadState: .ready)
+                    self.delegate?.attachmentViewModel(self, uploadStateValueDidChange: self.uploadState)
+                } catch {
+                    self.error = error
+                }
+            }   // end Task
+            self.uploadTask = uploadTask
+            Task {
+                await uploadTask.value
+            }
+        }
     }
     
     deinit {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        
+        uploadTask?.cancel()
+        
         switch output {
         case .image:
             // FIXME:
             break
         case .video(let url, _):
             try? FileManager.default.removeItem(at: url)
-        case nil :
+        case nil:
             break
         }
+    }
+}
+
+// calculate the upload speed
+// ref: https://stackoverflow.com/a/3841706/3797903
+extension AttachmentViewModel {
+    
+    static var SpeedSmoothingFactor = 0.4
+    static let remainsTimeFormatter: RelativeDateTimeFormatter = {
+        let formatter = RelativeDateTimeFormatter()
+        formatter.unitsStyle = .full
+        return formatter
+    }()
+    
+    @objc private func step() {
+        
+        let uploadProgress = min(progress.fractionCompleted + 0.1, 1)   // the progress split into 9:1 blocks (download : waiting)
+        
+        guard let lastTimestamp = self.lastTimestamp else {
+            self.lastTimestamp = CACurrentMediaTime()
+            self.lastUploadSizeInByte = Int64(Double(outputSizeInByte) * uploadProgress)
+            return
+        }
+
+        let duration = CACurrentMediaTime() - lastTimestamp
+        guard duration >= 1.0 else { return }       // update every 1 sec
+        
+        let old = self.lastUploadSizeInByte
+        self.lastUploadSizeInByte = Int64(Double(outputSizeInByte) * uploadProgress)
+        
+        let newSpeed = self.lastUploadSizeInByte - old
+        let lastAverageSpeed = self.averageUploadSpeedInByte
+        let newAverageSpeed = Int64(AttachmentViewModel.SpeedSmoothingFactor * Double(newSpeed) + (1 - AttachmentViewModel.SpeedSmoothingFactor) * Double(lastAverageSpeed))
+        
+        let remainSizeInByte = Double(outputSizeInByte) * (1 - uploadProgress)
+        
+        let speed = Double(newAverageSpeed)
+        if speed != .zero {
+            // estimate by speed
+            let uploadRemainTimeInSecond = remainSizeInByte / speed
+            // estimate by progress 1s for 10%
+            let remainPercentage = 1 - uploadProgress
+            let estimateRemainTimeByProgress = remainPercentage / 0.1
+            // max estimate
+            var remainTimeInSecond = max(estimateRemainTimeByProgress, uploadRemainTimeInSecond)
+            
+            // do not increate timer when < 5 sec
+            if let remainTimeInterval = self.remainTimeInterval, remainTimeInSecond < 5 {
+                remainTimeInSecond = min(remainTimeInterval, remainTimeInSecond)
+                self.remainTimeInterval = remainTimeInSecond
+            } else {
+                self.remainTimeInterval = remainTimeInSecond
+            }
+            
+            let string = AttachmentViewModel.remainsTimeFormatter.localizedString(fromTimeInterval: remainTimeInSecond)
+            remainTimeLocalizedString = string
+            // print("remains: \(remainSizeInByte), speed: \(newAverageSpeed), \(string)")
+        } else {
+            remainTimeLocalizedString = nil
+        }
+        
+        self.lastTimestamp = CACurrentMediaTime()
+        self.averageUploadSpeedInByte = newAverageSpeed
     }
 }
 
@@ -86,316 +265,53 @@ extension AttachmentViewModel {
             case png
             case jpg
         }
-        
-        public var twitterMediaCategory: TwitterMediaCategory {
-            switch self {
-            case .image:        return .image
-            case .video:        return .amplifyVideo
-            }
-        }
     }
         
     public struct SizeLimit {
-        public let image: Int
-        public let gif: Int
-        public let video: Int
+        public let image: Int?
+        public let video: Int?
         
         public init(
-            image: Int = 5 * 1024 * 1024,           // 5 MiB,
-            gif: Int = 15 * 1024 * 1024,            // 15 MiB,
-            video: Int = 512 * 1024 * 1024          // 512 MiB
+            image: Int?,
+            video: Int?
         ) {
             self.image = image
-            self.gif = gif
             self.video = video
         }
     }
     
-    public enum AttachmentError: Error {
+    public enum AttachmentError: Error, LocalizedError {
         case invalidAttachmentType
         case attachmentTooLarge
-    }
-    
-    public enum TwitterMediaCategory: String {
-        case image = "TWEET_IMAGE"
-        case GIF = "TWEET_GIF"
-        case video = "TWEET_VIDEO"
-        case amplifyVideo = "AMPLIFY_VIDEO"
-    }
-}
-
-extension AttachmentViewModel {
-    
-    private func load(input: Input) {
-        switch input {
-        case .image(let image):
-            guard let data = image.pngData() else {
-                error = AttachmentError.invalidAttachmentType
-                return
-            }
-            output = .image(data, imageKind: .png)
-        case .url(let url):
-            Task { @MainActor in
-                do {
-                    let output = try await AttachmentViewModel.load(url: url)
-                    self.output = output
-                } catch {
-                    self.error = error
-                }
-            }   // end Task
-        case .pickerResult(let pickerResult):
-            Task { @MainActor in
-                do {
-                    let output = try await AttachmentViewModel.load(itemProvider: pickerResult.itemProvider)
-                    self.output = output
-                } catch {
-                    self.error = error
-                }
-            }   // end Task
-        case .itemProvider(let itemProvider):
-            Task { @MainActor in
-                do {
-                    let output = try await AttachmentViewModel.load(itemProvider: itemProvider)
-                    self.output = output
-                } catch {
-                    self.error = error
-                }
-            }   // end Task
-        }
-    }
-    
-    private static func load(url: URL) async throws -> Output {
-        guard let uti = UTType(filenameExtension: url.pathExtension) else {
-            throw AttachmentError.invalidAttachmentType
-        }
         
-        if uti.conforms(to: .image) {
-            guard url.startAccessingSecurityScopedResource() else {
-                throw AttachmentError.invalidAttachmentType
+        public var errorDescription: String? {
+            switch self {
+            case .invalidAttachmentType:
+                return L10n.Scene.Compose.Attachment.canNotRecognizeThisMediaAttachment
+            case .attachmentTooLarge:
+                return L10n.Scene.Compose.Attachment.attachmentTooLarge
             }
-            defer { url.stopAccessingSecurityScopedResource() }
-            let imageData = try Data(contentsOf: url)
-            return .image(imageData, imageKind: imageData.kf.imageFormat == .PNG ? .png : .jpg)
-        } else if uti.conforms(to: .movie) {
-            guard url.startAccessingSecurityScopedResource() else {
-                throw AttachmentError.invalidAttachmentType
-            }
-            defer { url.stopAccessingSecurityScopedResource() }
-            
-            let fileName = UUID().uuidString
-            let tempDirectoryURL = FileManager.default.temporaryDirectory
-            let fileURL = tempDirectoryURL.appendingPathComponent(fileName).appendingPathExtension(url.pathExtension)
-            try FileManager.default.createDirectory(at: tempDirectoryURL, withIntermediateDirectories: true, attributes: nil)
-            try FileManager.default.copyItem(at: url, to: fileURL)
-            return .video(fileURL, mimeType: UTType.movie.preferredMIMEType ?? "video/mp4")
-        } else {
-            throw AttachmentError.invalidAttachmentType
-        }
-    }
-    
-    private static func load(itemProvider: NSItemProvider) async throws -> Output {
-        if itemProvider.isImage() {
-            guard let result = try await itemProvider.loadImageData() else {
-                throw AttachmentError.invalidAttachmentType
-            }
-            let imageKind: Output.ImageKind = {
-                if let type = result.type {
-                    if type == UTType.png {
-                        return .png
-                    }
-                    if type == UTType.jpeg {
-                        return .jpg
-                    }
-                }
-                
-                let imageData = result.data
-
-                if imageData.kf.imageFormat == .PNG {
-                    return .png
-                }
-                if imageData.kf.imageFormat == .JPEG {
-                    return .jpg
-                }
-                
-                assertionFailure("unknown image kind")
-                return .jpg
-            }()
-            return .image(result.data, imageKind: imageKind)
-        } else if itemProvider.isMovie() {
-            guard let result = try await itemProvider.loadVideoData() else {
-                throw AttachmentError.invalidAttachmentType
-            }
-            return .video(result.url, mimeType: "video/mp4")
-        } else {
-            assertionFailure()
-            throw AttachmentError.invalidAttachmentType
         }
     }
 
 }
 
 extension AttachmentViewModel {
-    static func createThumbnailForVideo(url: URL) -> UIImage? {
-        guard FileManager.default.fileExists(atPath: url.path) else { return nil }
-        let asset = AVURLAsset(url: url)
-        let assetImageGenerator = AVAssetImageGenerator(asset: asset)
-        assetImageGenerator.appliesPreferredTrackTransform = true   // fix orientation
-        do {
-            let cgImage = try assetImageGenerator.copyCGImage(at: CMTimeMake(value: 0, timescale: 1), actualTime: nil)
-            let image = UIImage(cgImage: cgImage)
-            return image
-        } catch {
-            AttachmentViewModel.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): thumbnail generate fail: \(error.localizedDescription)")
-            return nil
-        }
+    public enum Action: Hashable {
+        case remove
+        case retry
     }
 }
 
-// MARK: - TypeIdentifiedItemProvider
-extension AttachmentViewModel: TypeIdentifiedItemProvider {
-    public static var typeIdentifier: String {
-        // must in UTI format
-        // https://developer.apple.com/library/archive/qa/qa1796/_index.html
-        return "com.twidere.AttachmentViewModel"
-    }
-}
-
-// MARK: - NSItemProviderWriting
-extension AttachmentViewModel: NSItemProviderWriting {
-    
-    
-    /// Attachment uniform type idendifiers
-    ///
-    /// The latest one for in-app drag and drop.
-    /// And use generic `image` and `movie` type to
-    /// allows transformable media in different formats
-    public static var writableTypeIdentifiersForItemProvider: [String] {
-        return [
-            UTType.image.identifier,
-            UTType.movie.identifier,
-            AttachmentViewModel.typeIdentifier,
-        ]
+extension AttachmentViewModel {
+    @MainActor
+    func update(uploadState: UploadState) {
+        self.uploadState = uploadState
+        self.delegate?.attachmentViewModel(self, uploadStateValueDidChange: self.uploadState)
     }
     
-    public var writableTypeIdentifiersForItemProvider: [String] {
-        // should append elements in priority order from high to low
-        var typeIdentifiers: [String] = []
-        
-        // FIXME: check jpg or png
-        switch input {
-        case .image:
-            typeIdentifiers.append(UTType.png.identifier)
-        case .url(let url):
-            let _uti = UTType(filenameExtension: url.pathExtension)
-            if let uti = _uti {
-                if uti.conforms(to: .image) {
-                    typeIdentifiers.append(UTType.png.identifier)
-                } else if uti.conforms(to: .movie) {
-                    typeIdentifiers.append(UTType.mpeg4Movie.identifier)
-                }
-            }
-        case .pickerResult(let item):
-            if item.itemProvider.isImage() {
-                typeIdentifiers.append(UTType.png.identifier)
-            } else if item.itemProvider.isMovie() {
-                typeIdentifiers.append(UTType.mpeg4Movie.identifier)
-            }
-        case .itemProvider(let itemProvider):
-            if itemProvider.isImage() {
-                typeIdentifiers.append(UTType.png.identifier)
-            } else if itemProvider.isMovie() {
-                typeIdentifiers.append(UTType.mpeg4Movie.identifier)
-            }
-        }
-        
-        typeIdentifiers.append(AttachmentViewModel.typeIdentifier)
-        
-        return typeIdentifiers
-    }
-    
-    public func loadData(
-        withTypeIdentifier typeIdentifier: String,
-        forItemProviderCompletionHandler completionHandler: @escaping (Data?, Error?) -> Void
-    ) -> Progress? {
-        switch typeIdentifier {
-        case AttachmentViewModel.typeIdentifier:
-            do {
-                let archiver = NSKeyedArchiver(requiringSecureCoding: false)
-                try archiver.encodeEncodable(id, forKey: NSKeyedArchiveRootObjectKey)
-                archiver.finishEncoding()
-                let data = archiver.encodedData
-                completionHandler(data, nil)
-            } catch {
-                assertionFailure()
-                completionHandler(nil, nil)
-            }
-        default:
-            break
-        }
-        
-        let loadingProgress = Progress(totalUnitCount: 100)
-        
-        Publishers.CombineLatest(
-            $output,
-            $error
-        )
-        .sink { [weak self] output, error in
-            guard let self = self else { return }
-            
-            // continue when load completed
-            guard output != nil || error != nil else { return }
-            
-            switch output {
-            case .image(let data, _):
-                switch typeIdentifier {
-                case UTType.png.identifier:
-                    loadingProgress.completedUnitCount = 100
-                    completionHandler(data, nil)
-                default:
-                    completionHandler(nil, nil)
-                }
-            case .video(let url, _):
-                switch typeIdentifier {
-                case UTType.png.identifier:
-                    let _image = AttachmentViewModel.createThumbnailForVideo(url: url)
-                    let _data = _image?.pngData()
-                    loadingProgress.completedUnitCount = 100
-                    completionHandler(_data, nil)
-                case UTType.mpeg4Movie.identifier:
-                    let task = URLSession.shared.dataTask(with: url) { data, response, error in
-                        completionHandler(data, error)
-                    }
-                    task.progress.observe(\.fractionCompleted) { progress, change in
-                        loadingProgress.completedUnitCount = Int64(100 * progress.fractionCompleted)
-                    }
-                    .store(in: &self.observations)
-                    task.resume()
-                default:
-                    completionHandler(nil, nil)
-                }
-            case nil:
-                completionHandler(nil, error)
-            }
-        }
-        .store(in: &disposeBag)
-        
-        return loadingProgress
-    }
-    
-}
-
-extension NSItemProvider {
-    fileprivate func isImage() -> Bool {
-        return hasRepresentationConforming(
-            toTypeIdentifier: UTType.image.identifier,
-            fileOptions: []
-        )
-    }
-    
-    fileprivate func isMovie() -> Bool {
-        return hasRepresentationConforming(
-            toTypeIdentifier: UTType.movie.identifier,
-            fileOptions: []
-        )
+    @MainActor
+    func update(uploadResult: UploadResult) {
+        self.uploadResult = uploadResult
     }
 }

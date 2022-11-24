@@ -91,6 +91,15 @@
       }
     },
     {
+      "identity" : "nextlevelsessionexporter",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/NextLevel/NextLevelSessionExporter.git",
+      "state" : {
+        "revision" : "b6c0cce1aa37fe1547d694f958fac3c3524b74da",
+        "version" : "0.4.6"
+      }
+    },
+    {
       "identity" : "nuke",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/kean/Nuke.git",

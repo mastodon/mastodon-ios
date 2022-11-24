@@ -14,12 +14,15 @@ import MastodonCore
 
 public final class ComposeContentViewController: UIViewController {
     
+    static let minAutoCompleteVisibleHeight: CGFloat = 100
+
     let logger = Logger(subsystem: "ComposeContentViewController", category: "ViewController")
     
     var disposeBag = Set<AnyCancellable>()
     public var viewModel: ComposeContentViewModel!
     private(set) lazy var composeContentToolbarViewModel = ComposeContentToolbarView.ViewModel(delegate: self)
     
+    // tableView container
     let tableView: ComposeTableView = {
         let tableView = ComposeTableView()
         tableView.estimatedRowHeight = UITableView.automaticDimension
@@ -29,6 +32,16 @@ public final class ComposeContentViewController: UIViewController {
         return tableView
     }()
     
+    // auto complete
+    private(set) lazy var autoCompleteViewController: AutoCompleteViewController = {
+        let viewController = AutoCompleteViewController()
+        viewController.viewModel = AutoCompleteViewModel(context: viewModel.context, authContext: viewModel.authContext)
+        viewController.delegate = self
+        // viewController.viewModel.customEmojiViewModel.value = viewModel.customEmojiViewModel
+        return viewController
+    }()
+    
+    // toolbar
     lazy var composeContentToolbarView = ComposeContentToolbarView(viewModel: composeContentToolbarViewModel)
     var composeContentToolbarViewBottomLayoutConstraint: NSLayoutConstraint!
     let composeContentToolbarBackgroundView = UIView()
@@ -42,23 +55,32 @@ public final class ComposeContentViewController: UIViewController {
         return configuration
     }
 
-    private(set) lazy var photoLibraryPicker: PHPickerViewController = {
+    public private(set) lazy var photoLibraryPicker: PHPickerViewController = {
         let imagePicker = PHPickerViewController(configuration: ComposeContentViewController.createPhotoLibraryPickerConfiguration())
         imagePicker.delegate = self
         return imagePicker
     }()
     
-    private(set) lazy var imagePickerController: UIImagePickerController = {
+    public private(set) lazy var imagePickerController: UIImagePickerController = {
         let imagePickerController = UIImagePickerController()
         imagePickerController.sourceType = .camera
         imagePickerController.delegate = self
         return imagePickerController
     }()
 
-    private(set) lazy var documentPickerController: UIDocumentPickerViewController = {
+    public private(set) lazy var documentPickerController: UIDocumentPickerViewController = {
         let documentPickerController = UIDocumentPickerViewController(forOpeningContentTypes: [.image, .movie])
         documentPickerController.delegate = self
         return documentPickerController
+    }()
+    
+    // emoji picker inputView
+    let customEmojiPickerInputView: CustomEmojiPickerInputView = {
+        let view = CustomEmojiPickerInputView(
+            frame: CGRect(x: 0, y: 0, width: 0, height: 300),
+            inputViewStyle: .keyboard
+        )
+        return view
     }()
 
     deinit {
@@ -70,6 +92,8 @@ public final class ComposeContentViewController: UIViewController {
 extension ComposeContentViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
+        
+        viewModel.delegate = self
         
         // setup view
         self.setupBackgroundColor(theme: ThemeService.shared.currentTheme.value)
@@ -84,16 +108,17 @@ extension ComposeContentViewController {
         // setup tableView
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
-        NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-        ])
+        tableView.pinToParent()
         
         tableView.delegate = self
         viewModel.setupDataSource(tableView: tableView)
         
+        // setup emoji picker
+        customEmojiPickerInputView.collectionView.delegate = self
+        viewModel.customEmojiPickerInputViewModel.customEmojiPickerInputView = customEmojiPickerInputView
+        viewModel.setupCustomEmojiPickerDiffableDataSource(collectionView: customEmojiPickerInputView.collectionView)
+        
+        // setup toolbar
         let toolbarHostingView = UIHostingController(rootView: composeContentToolbarView)
         toolbarHostingView.view.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(toolbarHostingView.view)
@@ -116,49 +141,43 @@ extension ComposeContentViewController {
             view.bottomAnchor.constraint(equalTo: composeContentToolbarBackgroundView.bottomAnchor),
         ])
         
-        let keyboardHasShortcutBar = CurrentValueSubject<Bool, Never>(traitCollection.userInterfaceIdiom == .pad)       // update default value later
+        // bind keyboard
         let keyboardEventPublishers = Publishers.CombineLatest3(
             KeyboardResponderService.shared.isShow,
             KeyboardResponderService.shared.state,
             KeyboardResponderService.shared.endFrame
         )
-//        Publishers.CombineLatest3(
-//            viewModel.$isCustomEmojiComposing,
-//        )
-        keyboardEventPublishers
-        .sink(receiveValue: { [weak self] keyboardEvents in
+        Publishers.CombineLatest3(
+            keyboardEventPublishers,
+            viewModel.$isEmojiActive,
+            viewModel.$autoCompleteInfo
+        )
+        .sink(receiveValue: { [weak self] keyboardEvents, isEmojiActive, autoCompleteInfo in
             guard let self = self else { return }
             
             let (isShow, state, endFrame) = keyboardEvents
-            
-//            switch self.traitCollection.userInterfaceIdiom {
-//            case .pad:
-//                keyboardHasShortcutBar.value = state != .floating
-//            default:
-//                keyboardHasShortcutBar.value = false
-//            }
-//
+    
             let extraMargin: CGFloat = {
                 var margin = ComposeContentToolbarView.toolbarHeight
-//                if autoCompleteInfo != nil {
-////                    margin += ComposeViewController.minAutoCompleteVisibleHeight
-//                }
+                if autoCompleteInfo != nil {
+                    margin += ComposeContentViewController.minAutoCompleteVisibleHeight
+                }
                 return margin
             }()
-//
+            
             guard isShow, state == .dock else {
                 self.tableView.contentInset.bottom = extraMargin
                 self.tableView.verticalScrollIndicatorInsets.bottom = extraMargin
 
-//                if let superView = self.autoCompleteViewController.tableView.superview {
-//                    let autoCompleteTableViewBottomInset: CGFloat = {
-//                        let tableViewFrameInWindow = superView.convert(self.autoCompleteViewController.tableView.frame, to: nil)
-//                        let padding = tableViewFrameInWindow.maxY + self.composeToolbarView.frame.height + AutoCompleteViewController.chevronViewHeight - self.view.frame.maxY
-//                        return max(0, padding)
-//                    }()
-//                    self.autoCompleteViewController.tableView.contentInset.bottom = autoCompleteTableViewBottomInset
-//                    self.autoCompleteViewController.tableView.verticalScrollIndicatorInsets.bottom = autoCompleteTableViewBottomInset
-//                }
+                if let superView = self.autoCompleteViewController.tableView.superview {
+                    let autoCompleteTableViewBottomInset: CGFloat = {
+                        let tableViewFrameInWindow = superView.convert(self.autoCompleteViewController.tableView.frame, to: nil)
+                        let padding = tableViewFrameInWindow.maxY + ComposeContentToolbarView.toolbarHeight + AutoCompleteViewController.chevronViewHeight - self.view.frame.maxY
+                        return max(0, padding)
+                    }()
+                    self.autoCompleteViewController.tableView.contentInset.bottom = autoCompleteTableViewBottomInset
+                    self.autoCompleteViewController.tableView.verticalScrollIndicatorInsets.bottom = autoCompleteTableViewBottomInset
+                }
 
                 UIView.animate(withDuration: 0.3) {
                     self.composeContentToolbarViewBottomLayoutConstraint.constant = self.view.safeAreaInsets.bottom
@@ -169,17 +188,16 @@ extension ComposeContentViewController {
                 return
             }
             // isShow AND dock state
-//            self.systemKeyboardHeight = endFrame.height
 
             // adjust inset for auto-complete
-//            let autoCompleteTableViewBottomInset: CGFloat = {
-//                guard let superview = self.autoCompleteViewController.tableView.superview else { return .zero }
-//                let tableViewFrameInWindow = superview.convert(self.autoCompleteViewController.tableView.frame, to: nil)
-//                let padding = tableViewFrameInWindow.maxY + self.composeToolbarView.frame.height + AutoCompleteViewController.chevronViewHeight - endFrame.minY
-//                return max(0, padding)
-//            }()
-//            self.autoCompleteViewController.tableView.contentInset.bottom = autoCompleteTableViewBottomInset
-//            self.autoCompleteViewController.tableView.verticalScrollIndicatorInsets.bottom = autoCompleteTableViewBottomInset
+            let autoCompleteTableViewBottomInset: CGFloat = {
+                guard let superview = self.autoCompleteViewController.tableView.superview else { return .zero }
+                let tableViewFrameInWindow = superview.convert(self.autoCompleteViewController.tableView.frame, to: nil)
+                let padding = tableViewFrameInWindow.maxY + ComposeContentToolbarView.toolbarHeight + AutoCompleteViewController.chevronViewHeight - endFrame.minY
+                return max(0, padding)
+            }()
+            self.autoCompleteViewController.tableView.contentInset.bottom = autoCompleteTableViewBottomInset
+            self.autoCompleteViewController.tableView.verticalScrollIndicatorInsets.bottom = autoCompleteTableViewBottomInset
 
             // adjust inset for tableView
             let contentFrame = self.view.convert(self.tableView.frame, to: nil)
@@ -218,14 +236,63 @@ extension ComposeContentViewController {
         }
         .store(in: &disposeBag)
         
+        // bind auto-complete
+        viewModel.$autoCompleteInfo
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] info in
+                guard let self = self else { return }
+                guard let textView = self.viewModel.contentMetaText?.textView else { return }
+                if self.autoCompleteViewController.view.superview == nil {
+                    self.autoCompleteViewController.view.frame = self.view.bounds
+                    // add to container view. seealso: `viewDidLayoutSubviews()`
+                    self.viewModel.composeContentTableViewCell.contentView.addSubview(self.autoCompleteViewController.view)
+                    self.addChild(self.autoCompleteViewController)
+                    self.autoCompleteViewController.didMove(toParent: self)
+                    self.autoCompleteViewController.view.isHidden = true
+                    self.tableView.autoCompleteViewController = self.autoCompleteViewController
+                }
+                self.updateAutoCompleteViewControllerLayout()
+                self.autoCompleteViewController.view.isHidden = info == nil
+                guard let info = info else { return }
+                let symbolBoundingRectInContainer = textView.convert(info.symbolBoundingRect, to: self.autoCompleteViewController.chevronView)
+                print(info.symbolBoundingRect)
+                self.autoCompleteViewController.view.frame.origin.y = info.textBoundingRect.maxY + self.viewModel.contentTextViewFrame.minY
+                self.autoCompleteViewController.viewModel.symbolBoundingRect.value = symbolBoundingRectInContainer
+                self.autoCompleteViewController.viewModel.inputText.value = String(info.inputText)
+            }
+            .store(in: &disposeBag)
+        
+        // bind emoji picker
+        viewModel.customEmojiViewModel?.emojis
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] emojis in
+                guard let self = self else { return }
+                if emojis.isEmpty {
+                    self.customEmojiPickerInputView.activityIndicatorView.startAnimating()
+                } else {
+                    self.customEmojiPickerInputView.activityIndicatorView.stopAnimating()
+                }
+            })
+            .store(in: &disposeBag)
+        
         // bind toolbar
         bindToolbarViewModel()
+        
+        // bind attachment picker
+        viewModel.$attachmentViewModels
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                self.resetImagePicker()
+            }
+            .store(in: &disposeBag)
     }
     
     public override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
         viewModel.viewLayoutFrame.update(view: view)
+        updateAutoCompleteViewControllerLayout()
     }
     
     public override func viewSafeAreaInsetsDidChange() {
@@ -257,12 +324,50 @@ extension ComposeContentViewController {
     }
     
     private func bindToolbarViewModel() {
+        viewModel.$isAttachmentButtonEnabled.assign(to: &composeContentToolbarViewModel.$isAttachmentButtonEnabled)
+        viewModel.$isPollButtonEnabled.assign(to: &composeContentToolbarViewModel.$isPollButtonEnabled)
         viewModel.$isPollActive.assign(to: &composeContentToolbarViewModel.$isPollActive)
         viewModel.$isEmojiActive.assign(to: &composeContentToolbarViewModel.$isEmojiActive)
         viewModel.$isContentWarningActive.assign(to: &composeContentToolbarViewModel.$isContentWarningActive)
+        viewModel.$visibility.assign(to: &composeContentToolbarViewModel.$visibility)
         viewModel.$maxTextInputLimit.assign(to: &composeContentToolbarViewModel.$maxTextInputLimit)
         viewModel.$contentWeightedLength.assign(to: &composeContentToolbarViewModel.$contentWeightedLength)
         viewModel.$contentWarningWeightedLength.assign(to: &composeContentToolbarViewModel.$contentWarningWeightedLength)
+        
+        // bind back to source due to visibility not update via delegate
+        composeContentToolbarViewModel.$visibility
+            .dropFirst()
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] visibility in
+                guard let self = self else { return }
+                if self.viewModel.visibility != visibility {
+                    self.viewModel.visibility = visibility
+                }
+            }
+            .store(in: &disposeBag)
+    }
+    
+    private func updateAutoCompleteViewControllerLayout() {
+        // pin autoCompleteViewController frame to current view
+        if let containerView = autoCompleteViewController.view.superview {
+            let viewFrameInWindow = containerView.convert(autoCompleteViewController.view.frame, to: view)
+            if viewFrameInWindow.origin.x != 0 {
+                autoCompleteViewController.view.frame.origin.x = -viewFrameInWindow.origin.x
+            }
+            autoCompleteViewController.view.frame.size.width = view.frame.width
+        }
+    }
+    
+    private func resetImagePicker() {
+        let selectionLimit = max(1, viewModel.maxMediaAttachmentLimit - viewModel.attachmentViewModels.count)
+        let configuration = ComposeContentViewController.createPhotoLibraryPickerConfiguration(selectionLimit: selectionLimit)
+        photoLibraryPicker = createImagePicker(configuration: configuration)
+    }
+    
+    private func createImagePicker(configuration: PHPickerConfiguration) -> PHPickerViewController {
+        let imagePicker = PHPickerViewController(configuration: configuration)
+        imagePicker.delegate = self
+        return imagePicker
     }
 }
 
@@ -325,16 +430,16 @@ extension ComposeContentViewController: PHPickerViewControllerDelegate {
     public func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         picker.dismiss(animated: true, completion: nil)
 
-        // TODO:
-//        let attachmentServices: [MastodonAttachmentService] = results.map { result in
-//            let service = MastodonAttachmentService(
-//                context: context,
-//                pickerResult: result,
-//                initialAuthenticationBox: viewModel.authenticationBox
-//            )
-//            return service
-//        }
-//        viewModel.attachmentServices = viewModel.attachmentServices + attachmentServices
+        let attachmentViewModels: [AttachmentViewModel] = results.map { result in
+            AttachmentViewModel(
+                api: viewModel.context.apiService,
+                authContext: viewModel.authContext,
+                input: .pickerResult(result),
+                sizeLimit: viewModel.sizeLimit,
+                delegate: viewModel
+            )
+        }
+        viewModel.attachmentViewModels += attachmentViewModels
     }
 }
 
@@ -345,12 +450,14 @@ extension ComposeContentViewController: UIImagePickerControllerDelegate & UINavi
 
         guard let image = info[.originalImage] as? UIImage else { return }
 
-//        let attachmentService = MastodonAttachmentService(
-//            context: context,
-//            image: image,
-//            initialAuthenticationBox: viewModel.authenticationBox
-//        )
-//        viewModel.attachmentServices = viewModel.attachmentServices + [attachmentService]
+        let attachmentViewModel = AttachmentViewModel(
+            api: viewModel.context.apiService,
+            authContext: viewModel.authContext,
+            input: .image(image),
+            sizeLimit: viewModel.sizeLimit,
+            delegate: viewModel
+        )
+        viewModel.attachmentViewModels += [attachmentViewModel]
     }
 
     public func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -364,12 +471,14 @@ extension ComposeContentViewController: UIDocumentPickerDelegate {
     public func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
         guard let url = urls.first else { return }
 
-//        let attachmentService = MastodonAttachmentService(
-//            context: context,
-//            documentURL: url,
-//            initialAuthenticationBox: viewModel.authenticationBox
-//        )
-//        viewModel.attachmentServices = viewModel.attachmentServices + [attachmentService]
+        let attachmentViewModel = AttachmentViewModel(
+            api: viewModel.context.apiService,
+            authContext: viewModel.authContext,
+            input: .url(url),
+            sizeLimit: viewModel.sizeLimit,
+            delegate: viewModel
+        )
+        viewModel.attachmentViewModels += [attachmentViewModel]
     }
 }
 
@@ -426,5 +535,125 @@ extension ComposeContentViewController: ComposeContentToolbarViewDelegate {
             present(documentPickerController, animated: true, completion: nil)
             #endif
         }
+    }
+}
+
+// MARK: - AutoCompleteViewControllerDelegate
+extension ComposeContentViewController: AutoCompleteViewControllerDelegate {
+    func autoCompleteViewController(
+        _ viewController: AutoCompleteViewController,
+        didSelectItem item: AutoCompleteItem
+    ) {
+        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): did select item: \(String(describing: item))")
+        
+        guard let info = viewModel.autoCompleteInfo else { return }
+        guard let metaText = viewModel.contentMetaText else { return }
+        
+        let _replacedText: String? = {
+            var text: String
+            switch item {
+            case .hashtag(let hashtag):
+                text = "#" + hashtag.name
+            case .hashtagV1(let hashtagName):
+                text = "#" + hashtagName
+            case .account(let account):
+                text = "@" + account.acct
+            case .emoji(let emoji):
+                text = ":" + emoji.shortcode + ":"
+            case .bottomLoader:
+                return nil
+            }
+            return text
+        }()
+        guard let replacedText = _replacedText else { return }
+        guard let text = metaText.textView.text else { return }
+        
+        let range = NSRange(info.toHighlightEndRange, in: text)
+        metaText.textStorage.replaceCharacters(in: range, with: replacedText)
+        viewModel.autoCompleteInfo = nil
+        
+        // set selected range
+        let newRange = NSRange(location: range.location + (replacedText as NSString).length, length: 0)
+        guard metaText.textStorage.length <= newRange.location else { return }
+        metaText.textView.selectedRange = newRange
+        
+        // append a space and trigger textView delegate update
+        DispatchQueue.main.async {
+            metaText.textView.insertText(" ")
+        }
+    }
+}
+
+// MARK: - UICollectionViewDelegate
+extension ComposeContentViewController: UICollectionViewDelegate {
+    
+    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: select %s", ((#file as NSString).lastPathComponent), #line, #function, indexPath.debugDescription)
+        
+        switch collectionView {
+        case customEmojiPickerInputView.collectionView:
+            guard let diffableDataSource = viewModel.customEmojiPickerDiffableDataSource else { return }
+            let item = diffableDataSource.itemIdentifier(for: indexPath)
+            guard case let .emoji(attribute) = item else { return }
+            let emoji = attribute.emoji
+            
+            // make click sound
+            UIDevice.current.playInputClick()
+            
+            // retrieve active text input and insert emoji
+            // the trailing space is REQUIRED to make regex happy
+            _ = viewModel.customEmojiPickerInputViewModel.insertText(":\(emoji.shortcode): ")
+        default:
+            assertionFailure()
+        }
+    }   // end func
+    
+}
+
+// MARK: - ComposeContentViewModelDelegate
+extension ComposeContentViewController: ComposeContentViewModelDelegate {
+    public func composeContentViewModel(
+        _ viewModel: ComposeContentViewModel,
+        handleAutoComplete info: ComposeContentViewModel.AutoCompleteInfo
+    ) -> Bool {
+        let snapshot = autoCompleteViewController.viewModel.diffableDataSource.snapshot()
+        guard let item = snapshot.itemIdentifiers.first else { return false }
+        
+        // FIXME: redundant code
+        guard let metaText = viewModel.contentMetaText else { return false }
+        guard let text = metaText.textView.text else { return false }
+        let _replacedText: String? = {
+            var text: String
+            switch item {
+            case .hashtag, .hashtagV1:
+                // do no fill the hashtag
+                // allow user delete suffix and post they want
+                return nil
+            case .account(let account):
+                text = "@" + account.acct
+            case .emoji(let emoji):
+                text = ":" + emoji.shortcode + ":"
+            case .bottomLoader:
+                return nil
+            }
+            return text
+        }()
+        guard let replacedText = _replacedText else { return false }
+
+        let range = NSRange(info.toHighlightEndRange, in: text)
+        metaText.textStorage.replaceCharacters(in: range, with: replacedText)
+        viewModel.autoCompleteInfo = nil
+        
+        // set selected range
+        let newRange = NSRange(location: range.location + (replacedText as NSString).length, length: 0)
+        guard metaText.textStorage.length <= newRange.location else { return true }
+        metaText.textView.selectedRange = newRange
+        
+        // append a space and trigger textView delegate update
+        DispatchQueue.main.async {
+            metaText.textView.insertText(" ")
+        }
+        
+        return true
     }
 }

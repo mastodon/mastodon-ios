@@ -74,8 +74,8 @@
                 "take_photo": "Tomar foto",
                 "save_photo": "Guardar foto",
                 "copy_photo": "Copiar foto",
-                "sign_in": "Iniciar sesión",
-                "sign_up": "Regístrate",
+                "sign_in": "Log in",
+                "sign_up": "Create account",
                 "see_more": "Ver más",
                 "preview": "Vista previa",
                 "share": "Compartir",
@@ -135,6 +135,12 @@
                 "poll": {
                     "vote": "Vota",
                     "closed": "Cerrado"
+                },
+                "meta_entity": {
+                    "url": "Link: %s",
+                    "hashtag": "Hashtag: %s",
+                    "mention": "Show Profile: %s",
+                    "email": "Email address: %s"
                 },
                 "actions": {
                     "reply": "Responder",
@@ -212,10 +218,16 @@
             "get_started": "Empezar",
             "log_in": "Iniciar sesión"
         },
+        "login": {
+            "title": "Welcome back",
+            "subtitle": "Log you in on the server you created your account on.",
+            "server_search_field": {
+                "placeholder": "Enter URL or search for your server"
+            }
+        },
         "server_picker": {
             "title": "Elige un servidor,\ncualquier servidor.",
-            "subtitle": "Elige una comunidad relacionada con tus intereses, con tu región o una más genérica.",
-            "subtitle_extend": "Elige una comunidad relacionada con tus intereses, con tu región o una más genérica. Cada comunidad está operada por una organización o individuo completamente independiente.",
+            "subtitle": "Pick a server based on your region, interests, or a general purpose one. You can still chat with anyone on Mastodon, regardless of your servers.",
             "button": {
                 "category": {
                     "all": "Todas",
@@ -242,8 +254,7 @@
                 "category": "CATEGORÍA"
             },
             "input": {
-                "placeholder": "Encuentra un servidor o únete al tuyo propio...",
-                "search_servers_or_enter_url": "Buscar servidores o introducir la URL"
+                "search_servers_or_enter_url": "Search communities or enter URL"
             },
             "empty_state": {
                 "finding_servers": "Encontrando servidores disponibles...",
@@ -376,7 +387,13 @@
                 "video": "vídeo",
                 "attachment_broken": "Este %s está roto y no puede\nsubirse a Mastodon.",
                 "description_photo": "Describe la foto para los usuarios con dificultad visual...",
-                "description_video": "Describe el vídeo para los usuarios con dificultad visual..."
+                "description_video": "Describe el vídeo para los usuarios con dificultad visual...",
+                "load_failed": "Load Failed",
+                "upload_failed": "Upload Failed",
+                "can_not_recognize_this_media_attachment": "Can not recognize this media attachment",
+                "attachment_too_large": "Attachment too large",
+                "compressing_state": "Compressing...",
+                "server_processing_state": "Server Processing..."
             },
             "poll": {
                 "duration_time": "Duración: %s",
@@ -386,7 +403,9 @@
                 "one_day": "1 Día",
                 "three_days": "4 Días",
                 "seven_days": "7 Días",
-                "option_number": "Opción %ld"
+                "option_number": "Opción %ld",
+                "the_poll_is_invalid": "The poll is invalid",
+                "the_poll_has_empty_option": "The poll has empty option"
             },
             "content_warning": {
                 "placeholder": "Escribe una advertencia precisa aquí..."
@@ -407,7 +426,9 @@
                 "custom_emoji_picker": "Selector de Emojis Personalizados",
                 "enable_content_warning": "Activar Advertencia de Contenido",
                 "disable_content_warning": "Desactivar Advertencia de Contenido",
-                "post_visibility_menu": "Menú de Visibilidad de la Publicación"
+                "post_visibility_menu": "Menú de Visibilidad de la Publicación",
+                "post_options": "Post Options",
+                "posting_as": "Posting as %s"
             },
             "keyboard": {
                 "discard_post": "Descartar Publicación",
@@ -432,6 +453,10 @@
                 "placeholder": {
                     "label": "Nombre para el campo",
                     "content": "Contenido"
+                },
+                "verified": {
+                    "short": "Verified on %s",
+                    "long": "Ownership of this link was checked on %s"
                 }
             },
             "segmented_control": {

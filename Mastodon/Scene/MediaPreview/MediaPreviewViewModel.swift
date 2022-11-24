@@ -12,6 +12,10 @@ import CoreDataStack
 import Pageboy
 import MastodonCore
 
+protocol MediaPreviewPage: UIViewController {
+    func setShowingChrome(_ showingChrome: Bool)
+}
+
 final class MediaPreviewViewModel: NSObject {
     
     weak var mediaPreviewImageViewControllerDelegate: MediaPreviewImageViewControllerDelegate?
@@ -22,9 +26,12 @@ final class MediaPreviewViewModel: NSObject {
     let transitionItem: MediaPreviewTransitionItem
     
     @Published var currentPage: Int
+    @Published var showingChrome = true
     
     // output
     let viewControllers: [UIViewController]
+
+    private var disposeBag: Set<AnyCancellable> = []
     
     init(
         context: AppContext,
@@ -34,7 +41,7 @@ final class MediaPreviewViewModel: NSObject {
         self.context = context
         self.item = item
         var currentPage = 0
-        var viewControllers: [UIViewController] = []
+        var viewControllers: [MediaPreviewPage] = []
         switch item {
         case .attachment(let previewContext):
             currentPage = previewContext.initialIndex
@@ -106,6 +113,14 @@ final class MediaPreviewViewModel: NSObject {
         self.currentPage = currentPage
         self.transitionItem = transitionItem
         super.init()
+
+        for viewController in viewControllers {
+            self.$showingChrome
+                .sink { [weak viewController] showingChrome in
+                    viewController?.setShowingChrome(showingChrome)
+                }
+                .store(in: &disposeBag)
+        }
     }
 
 }

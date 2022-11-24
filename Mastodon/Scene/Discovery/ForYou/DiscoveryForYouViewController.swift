@@ -32,7 +32,7 @@ final class DiscoveryForYouViewController: UIViewController, NeedsDependency, Me
         return tableView
     }()
     
-    let refreshControl = UIRefreshControl()
+    let refreshControl = RefreshControl()
     
     deinit {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
@@ -56,12 +56,7 @@ extension DiscoveryForYouViewController {
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
-        NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-        ])
+        tableView.pinToParent()
 
         tableView.delegate = self
         viewModel.setupDiffableDataSource(
@@ -93,7 +88,7 @@ extension DiscoveryForYouViewController {
 
 extension DiscoveryForYouViewController {
     
-    @objc private func refreshControlValueChanged(_ sender: UIRefreshControl) {
+    @objc private func refreshControlValueChanged(_ sender: RefreshControl) {
         Task {
             try await viewModel.fetch()
         }

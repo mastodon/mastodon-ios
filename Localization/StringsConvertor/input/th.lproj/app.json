@@ -74,8 +74,8 @@
                 "take_photo": "ถ่ายรูป",
                 "save_photo": "บันทึกรูปภาพ",
                 "copy_photo": "คัดลอกรูปภาพ",
-                "sign_in": "ลงชื่อเข้า",
-                "sign_up": "ลงทะเบียน",
+                "sign_in": "เข้าสู่ระบบ",
+                "sign_up": "สร้างบัญชี",
                 "see_more": "ดูเพิ่มเติม",
                 "preview": "แสดงตัวอย่าง",
                 "share": "แบ่งปัน",
@@ -136,6 +136,12 @@
                     "vote": "ลงคะแนน",
                     "closed": "ปิดแล้ว"
                 },
+                "meta_entity": {
+                    "url": "ลิงก์: %s",
+                    "hashtag": "แฮชแท็ก: %s",
+                    "mention": "โปรไฟล์ที่แสดง: %s",
+                    "email": "ที่อยู่อีเมล: %s"
+                },
                 "actions": {
                     "reply": "ตอบกลับ",
                     "reblog": "ดัน",
@@ -181,8 +187,8 @@
                 "unmute_user": "เลิกซ่อน %s",
                 "muted": "ซ่อนอยู่",
                 "edit_info": "แก้ไขข้อมูล",
-                "show_reblogs": "Show Reblogs",
-                "hide_reblogs": "Hide Reblogs"
+                "show_reblogs": "แสดงการดัน",
+                "hide_reblogs": "ซ่อนการดัน"
             },
             "timeline": {
                 "filtered": "กรองอยู่",
@@ -212,10 +218,16 @@
             "get_started": "เริ่มต้นใช้งาน",
             "log_in": "เข้าสู่ระบบ"
         },
+        "login": {
+            "title": "ยินดีต้อนรับกลับมา",
+            "subtitle": "นำคุณเข้าสู่ระบบในเซิร์ฟเวอร์ที่คุณได้สร้างบัญชีของคุณไว้ใน",
+            "server_search_field": {
+                "placeholder": "ป้อน URL หรือค้นหาสำหรับเซิร์ฟเวอร์ของคุณ"
+            }
+        },
         "server_picker": {
             "title": "Mastodon ประกอบด้วยผู้ใช้ในเซิร์ฟเวอร์ต่าง ๆ",
-            "subtitle": "เลือกเซิร์ฟเวอร์ตามความสนใจ, ภูมิภาค หรือวัตถุประสงค์ทั่วไปของคุณ",
-            "subtitle_extend": "เลือกเซิร์ฟเวอร์ตามความสนใจ, ภูมิภาค หรือวัตถุประสงค์ทั่วไปของคุณ แต่ละเซิร์ฟเวอร์ดำเนินการโดยองค์กรหรือบุคคลที่เป็นอิสระโดยสิ้นเชิง",
+            "subtitle": "เลือกเซิร์ฟเวอร์ตามภูมิภาค, ความสนใจ หรือวัตถุประสงค์ทั่วไปของคุณ คุณยังคงสามารถแชทกับใครก็ตามใน Mastodon โดยไม่คำนึงถึงเซิร์ฟเวอร์ของคุณ",
             "button": {
                 "category": {
                     "all": "ทั้งหมด",
@@ -242,8 +254,7 @@
                 "category": "หมวดหมู่"
             },
             "input": {
-                "placeholder": "ค้นหาเซิร์ฟเวอร์",
-                "search_servers_or_enter_url": "ค้นหาเซิร์ฟเวอร์หรือป้อน URL"
+                "search_servers_or_enter_url": "ค้นหาชุมชนหรือป้อน URL"
             },
             "empty_state": {
                 "finding_servers": "กำลังค้นหาเซิร์ฟเวอร์ที่พร้อมใช้งาน...",
@@ -293,7 +304,7 @@
                 },
                 "reason": {
                     "blocked": "%s มีผู้ให้บริการอีเมลที่ไม่ได้รับอนุญาต",
-                    "unreachable": "ดูเหมือนว่า %s จะไม่มีอยู่",
+                    "unreachable": "ดูเหมือนว่าจะไม่มี %s อยู่",
                     "taken": "%s ถูกใช้งานแล้ว",
                     "reserved": "%s เป็นคำสงวน",
                     "accepted": "ต้องยอมรับ %s",
@@ -331,12 +342,12 @@
             },
             "dont_receive_email": {
                 "title": "ตรวจสอบอีเมลของคุณ",
-                "description": "หากคุณยังไม่ได้รับอีเมล ตรวจสอบว่าที่อยู่อีเมลของคุณถูกต้อง รวมถึงโฟลเดอร์อีเมลขยะของคุณ",
+                "description": "ตรวจสอบว่าที่อยู่อีเมลของคุณถูกต้องเช่นเดียวกับโฟลเดอร์อีเมลขยะหากคุณยังไม่ได้ทำ",
                 "resend_email": "ส่งอีเมลใหม่"
             },
             "open_email_app": {
                 "title": "ตรวจสอบกล่องขาเข้าของคุณ",
-                "description": "เราเพิ่งส่งอีเมลหาคุณ หากคุณยังไม่ได้รับอีเมล โปรดตรวจสอบโฟลเดอร์อีเมลขยะ",
+                "description": "เราเพิ่งส่งอีเมลถึงคุณ ตรวจสอบโฟลเดอร์อีเมลขยะของคุณหากคุณยังไม่ได้ทำ",
                 "mail": "จดหมาย",
                 "open_email_client": "เปิดไคลเอ็นต์อีเมล"
             }
@@ -376,7 +387,13 @@
                 "video": "วิดีโอ",
                 "attachment_broken": "%s นี้เสียหายและไม่สามารถ\nอัปโหลดไปยัง Mastodon",
                 "description_photo": "อธิบายรูปภาพสำหรับผู้บกพร่องทางการมองเห็น...",
-                "description_video": "อธิบายวิดีโอสำหรับผู้บกพร่องทางการมองเห็น..."
+                "description_video": "อธิบายวิดีโอสำหรับผู้บกพร่องทางการมองเห็น...",
+                "load_failed": "การโหลดล้มเหลว",
+                "upload_failed": "การอัปโหลดล้มเหลว",
+                "can_not_recognize_this_media_attachment": "ไม่สามารถระบุไฟล์แนบสื่อนี้",
+                "attachment_too_large": "ไฟล์แนบใหญ่เกินไป",
+                "compressing_state": "กำลังบีบอัด...",
+                "server_processing_state": "เซิร์ฟเวอร์กำลังประมวลผล..."
             },
             "poll": {
                 "duration_time": "ระยะเวลา: %s",
@@ -386,7 +403,9 @@
                 "one_day": "1 วัน",
                 "three_days": "3 วัน",
                 "seven_days": "7 วัน",
-                "option_number": "ตัวเลือก %ld"
+                "option_number": "ตัวเลือก %ld",
+                "the_poll_is_invalid": "การสำรวจความคิดเห็นไม่ถูกต้อง",
+                "the_poll_has_empty_option": "การสำรวจความคิดเห็นมีตัวเลือกที่ว่างเปล่า"
             },
             "content_warning": {
                 "placeholder": "เขียนคำเตือนที่ถูกต้องที่นี่..."
@@ -407,7 +426,9 @@
                 "custom_emoji_picker": "ตัวเลือกอีโมจิที่กำหนดเอง",
                 "enable_content_warning": "เปิดใช้งานคำเตือนเนื้อหา",
                 "disable_content_warning": "ปิดใช้งานคำเตือนเนื้อหา",
-                "post_visibility_menu": "เมนูการมองเห็นโพสต์"
+                "post_visibility_menu": "เมนูการมองเห็นโพสต์",
+                "post_options": "ตัวเลือกโพสต์",
+                "posting_as": "กำลังโพสต์เป็น %s"
             },
             "keyboard": {
                 "discard_post": "ละทิ้งโพสต์",
@@ -432,6 +453,10 @@
                 "placeholder": {
                     "label": "ป้ายชื่อ",
                     "content": "เนื้อหา"
+                },
+                "verified": {
+                    "short": "ตรวจสอบเมื่อ %s",
+                    "long": "ตรวจสอบความเป็นเจ้าของของลิงก์นี้เมื่อ %s"
                 }
             },
             "segmented_control": {
@@ -459,12 +484,12 @@
                     "message": "ยืนยันเพื่อเลิกปิดกั้น %s"
                 },
                 "confirm_show_reblogs": {
-                    "title": "Show Reblogs",
-                    "message": "Confirm to show reblogs"
+                    "title": "แสดงการดัน",
+                    "message": "ยืนยันเพื่อแสดงการดัน"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "Hide Reblogs",
-                    "message": "Confirm to hide reblogs"
+                    "title": "ซ่อนการดัน",
+                    "message": "ยืนยันเพื่อซ่อนการดัน"
                 }
             },
             "accessibility": {
@@ -696,7 +721,7 @@
             "accessibility_hint": "แตะสองครั้งเพื่อปิดตัวช่วยสร้างนี้"
         },
         "bookmark": {
-            "title": "Bookmarks"
+            "title": "ที่คั่นหน้า"
         }
     }
 }

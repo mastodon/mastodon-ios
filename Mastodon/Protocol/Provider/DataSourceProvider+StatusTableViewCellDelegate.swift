@@ -487,7 +487,7 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
                 authContext: authContext,
                 kind: .rebloggedBy(status: status)
             )
-            await coordinator.present(
+            _ = await coordinator.present(
                 scene: .rebloggedBy(viewModel: userListViewModel),
                 from: self,
                 transition: .show
@@ -511,7 +511,7 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
                 authContext: authContext,
                 kind: .favoritedBy(status: status)
             )
-            await coordinator.present(
+            _ = await coordinator.present(
                 scene: .favoritedBy(viewModel: userListViewModel),
                 from: self,
                 transition: .show

@@ -14,13 +14,7 @@ import Kanna
 import MastodonAsset
 import MastodonLocalization
 
-protocol PickServerCellDelegate: AnyObject {
-//    func pickServerCell(_ cell: PickServerCell, expandButtonPressed button: UIButton)
-}
-
 class PickServerCell: UITableViewCell {
-    
-    weak var delegate: PickServerCellDelegate?
     
     var disposeBag = Set<AnyCancellable>()
         
@@ -88,7 +82,7 @@ class PickServerCell: UITableViewCell {
         label.adjustsFontForContentSizeCategory = true
         return label
     }()
-    
+
     private var collapseConstraints: [NSLayoutConstraint] = []
     private var expandConstraints: [NSLayoutConstraint] = []
     

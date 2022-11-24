@@ -51,6 +51,8 @@ final class WelcomeViewController: UIViewController, NeedsDependency {
     private(set) lazy var signUpButton: PrimaryActionButton = {
         let button = PrimaryActionButton()
         button.adjustsBackgroundImageWhenUserInterfaceStyleChanges = false
+        button.contentEdgeInsets = WelcomeViewController.actionButtonPadding
+        button.titleLabel?.adjustsFontForContentSizeCategory = true
         button.titleLabel?.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold))
         button.setTitle(L10n.Common.Controls.Actions.signUp, for: .normal)
         let backgroundImageColor: UIColor = .white
@@ -65,6 +67,8 @@ final class WelcomeViewController: UIViewController, NeedsDependency {
     private(set) lazy var signInButton: PrimaryActionButton = {
         let button = PrimaryActionButton()
         button.adjustsBackgroundImageWhenUserInterfaceStyleChanges = false
+        button.contentEdgeInsets = WelcomeViewController.actionButtonPadding
+        button.titleLabel?.adjustsFontForContentSizeCategory = true
         button.titleLabel?.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold))
         button.setTitle(L10n.Scene.Welcome.logIn, for: .normal)
         let backgroundImageColor = Asset.Scene.Welcome.signInButtonBackground.color
@@ -113,33 +117,23 @@ extension WelcomeViewController {
         signUpButton.translatesAutoresizingMaskIntoConstraints = false
         buttonContainer.addArrangedSubview(signUpButton)
         NSLayoutConstraint.activate([
-            signUpButton.heightAnchor.constraint(equalToConstant: WelcomeViewController.actionButtonHeight).priority(.required - 1),
+            signUpButton.heightAnchor.constraint(greaterThanOrEqualToConstant: WelcomeViewController.actionButtonHeight).priority(.required - 1),
         ])
         signInButton.translatesAutoresizingMaskIntoConstraints = false
         buttonContainer.addArrangedSubview(signInButton)
         NSLayoutConstraint.activate([
-            signInButton.heightAnchor.constraint(equalToConstant: WelcomeViewController.actionButtonHeight).priority(.required - 1),
+            signInButton.heightAnchor.constraint(greaterThanOrEqualToConstant: WelcomeViewController.actionButtonHeight).priority(.required - 1),
         ])
         
         signUpButtonShadowView.translatesAutoresizingMaskIntoConstraints = false
         buttonContainer.addSubview(signUpButtonShadowView)
         buttonContainer.sendSubviewToBack(signUpButtonShadowView)
-        NSLayoutConstraint.activate([
-            signUpButtonShadowView.topAnchor.constraint(equalTo: signUpButton.topAnchor),
-            signUpButtonShadowView.leadingAnchor.constraint(equalTo: signUpButton.leadingAnchor),
-            signUpButtonShadowView.trailingAnchor.constraint(equalTo: signUpButton.trailingAnchor),
-            signUpButtonShadowView.bottomAnchor.constraint(equalTo: signUpButton.bottomAnchor),
-        ])
+        signUpButtonShadowView.pinTo(to: signUpButton)
         
         signInButtonShadowView.translatesAutoresizingMaskIntoConstraints = false
         buttonContainer.addSubview(signInButtonShadowView)
         buttonContainer.sendSubviewToBack(signInButtonShadowView)
-        NSLayoutConstraint.activate([
-            signInButtonShadowView.topAnchor.constraint(equalTo: signInButton.topAnchor),
-            signInButtonShadowView.leadingAnchor.constraint(equalTo: signInButton.leadingAnchor),
-            signInButtonShadowView.trailingAnchor.constraint(equalTo: signInButton.trailingAnchor),
-            signInButtonShadowView.bottomAnchor.constraint(equalTo: signInButton.bottomAnchor),
-        ])
+        signInButtonShadowView.pinTo(to: signInButton)
 
         signUpButton.addTarget(self, action: #selector(signUpButtonDidClicked(_:)), for: .touchUpInside)
         signInButton.addTarget(self, action: #selector(signInButtonDidClicked(_:)), for: .touchUpInside)
@@ -172,7 +166,9 @@ extension WelcomeViewController {
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        
+
+        view.layoutIfNeeded()
+
         setupIllustrationLayout()
         setupButtonShadowView()
     }
@@ -189,7 +185,7 @@ extension WelcomeViewController {
             y: 1,
             blur: 2,
             spread: 0,
-            roundedRect: signInButtonShadowView.bounds,
+            roundedRect: signUpButtonShadowView.bounds,
             byRoundingCorners: .allCorners,
             cornerRadii: CGSize(width: 10, height: 10)
         )
@@ -243,7 +239,7 @@ extension WelcomeViewController {
                 logoImageView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
                 logoImageView.leadingAnchor.constraint(equalTo: view.readableContentGuide.leadingAnchor, constant: 35),
                 view.readableContentGuide.trailingAnchor.constraint(equalTo: logoImageView.trailingAnchor, constant: 35),
-                logoImageView.heightAnchor.constraint(equalTo: logoImageView.widthAnchor, multiplier: 65.4/265.1),
+                logoImageView.heightAnchor.constraint(equalTo: logoImageView.widthAnchor, multiplier: 75.0/269.0),
             ])
             logoImageView.setContentHuggingPriority(.defaultHigh, for: .vertical)
         }
@@ -317,12 +313,12 @@ extension WelcomeViewController {
 extension WelcomeViewController {
     @objc
     private func signUpButtonDidClicked(_ sender: UIButton) {
-        coordinator.present(scene: .mastodonPickServer(viewMode: MastodonPickServerViewModel(context: context, mode: .signUp)), from: self, transition: .show)
+        _ = coordinator.present(scene: .mastodonPickServer(viewMode: MastodonPickServerViewModel(context: context)), from: self, transition: .show)
     }
     
     @objc
     private func signInButtonDidClicked(_ sender: UIButton) {
-        coordinator.present(scene: .mastodonPickServer(viewMode: MastodonPickServerViewModel(context: context, mode: .signIn)), from: self, transition: .show)
+        _ = coordinator.present(scene: .mastodonLogin, from: self, transition: .show)
     }
     
     @objc
