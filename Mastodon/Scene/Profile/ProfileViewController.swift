@@ -885,7 +885,7 @@ extension ProfileViewController: MastodonMenuDelegate {
 // MARK: - ScrollViewContainer
 extension ProfileViewController: ScrollViewContainer {
     var scrollView: UIScrollView {
-        return tabBarPagerController.containerScrollView
+        return tabBarPagerController.relayScrollView
     }
 }
 
