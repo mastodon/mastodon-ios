@@ -50,10 +50,10 @@ extension APIService {
         fetchRequest.includesPropertyValues = false
         
         try await managedObjectContext.performChanges {
-            let accounts = try managedObjectContext.fetch(fetchRequest) as! [MastodonUser]
+            let users = try managedObjectContext.fetch(fetchRequest) as! [MastodonUser]
             
-            for account in accounts {
-                managedObjectContext.delete(account)
+            for user in users {
+                user.statuses.deleteAllFeedsForBlockOrMute(in: managedObjectContext)
             }
         }
 
