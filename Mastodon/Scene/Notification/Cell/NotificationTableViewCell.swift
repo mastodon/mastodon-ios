@@ -55,7 +55,7 @@ extension NotificationTableViewCell {
             notificationView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
             containerViewLeadingLayoutConstraint,
             containerViewTrailingLayoutConstraint,
-            contentView.bottomAnchor.constraint(equalTo: notificationView.bottomAnchor),
+            contentView.bottomAnchor.constraint(equalTo: notificationView.bottomAnchor).priority(.defaultHigh),
         ])
         updateContainerViewMarginConstraints()
         

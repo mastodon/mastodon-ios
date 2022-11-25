@@ -19,7 +19,7 @@ extension PollComposeItem {
     public final class Option: NSObject, Identifiable, ObservableObject {
         public let id = UUID()
 
-        public weak var textField: UITextField?
+        public weak var textView: UITextView?
         
         // input
         @Published public var text = ""

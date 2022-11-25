@@ -12,8 +12,6 @@ import MastodonLocalization
 
 public final class PollOptionTableViewCell: UITableViewCell {
 
-    static let height: CGFloat = PollOptionView.height
-
     public var disposeBag = Set<AnyCancellable>()
     
     public let pollOptionView = PollOptionView()

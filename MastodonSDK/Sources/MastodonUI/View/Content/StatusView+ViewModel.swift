@@ -411,7 +411,6 @@ extension StatusView.ViewModel {
                     statusView.pollTableViewDiffableDataSource?.apply(snapshot, animatingDifferences: false)
                 }
                 
-                statusView.pollTableViewHeightLayoutConstraint.constant = CGFloat(items.count) * PollOptionTableViewCell.height
                 statusView.setPollDisplay()
             }
             .store(in: &disposeBag)

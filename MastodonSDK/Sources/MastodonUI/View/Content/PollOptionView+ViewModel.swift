@@ -132,20 +132,21 @@ extension PollOptionView.ViewModel {
             .store(in: &disposeBag)
         // content
         NotificationCenter.default
-            .publisher(for: UITextField.textDidChangeNotification, object: view.optionTextField)
+            .publisher(for: UITextView.textDidChangeNotification, object: view.optionTextView)
             .receive(on: DispatchQueue.main)
-            .map { _ in view.optionTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? "" }
+            .map { _ in view.optionTextView.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? "" }
             .assign(to: &$content)
         // metaContent
         $metaContent
             .sink { metaContent in
                 guard let metaContent = metaContent else {
-                    view.optionTextField.text = ""
-                    view.optionTextField.accessibilityLabel = ""
+                    view.optionTextView.text = ""
+                    view.optionTextView.accessibilityLabel = ""
                     return
                 }
-                view.optionTextField.text = metaContent.string
-                view.optionTextField.accessibilityLabel = metaContent.string
+                view.optionTextView.text = metaContent.string
+                view.optionTextView.accessibilityLabel = metaContent.string
+                view.layoutIfNeeded()
             }
             .store(in: &disposeBag)
         // selectState
@@ -194,15 +195,15 @@ extension PollOptionView.ViewModel {
             
             switch voteState {
             case .hidden:
-                view.optionTextField.textColor = Asset.Colors.Label.primary.color
-                view.optionTextField.layer.removeShadow()
+                view.optionTextView.textColor = Asset.Colors.Label.primary.color
+                view.optionTextView.layer.removeShadow()
             case .reveal(_, let percentage, _):
                 if CGFloat(percentage) * view.roundedBackgroundView.frame.width > view.optionLabelMiddlePaddingView.frame.minX {
-                    view.optionTextField.textColor = .white
-                    view.optionTextField.layer.setupShadow(x: 0, y: 0, blur: 4, spread: 0)
+                    view.optionTextView.textColor = .white
+                    view.optionTextView.layer.setupShadow(x: 0, y: 0, blur: 4, spread: 0)
                 } else {
-                    view.optionTextField.textColor = Asset.Colors.Label.primary.color
-                    view.optionTextField.layer.removeShadow()
+                    view.optionTextView.textColor = Asset.Colors.Label.primary.color
+                    view.optionTextView.layer.removeShadow()
                 }
 
                 if CGFloat(percentage) * view.roundedBackgroundView.frame.width > view.optionLabelMiddlePaddingView.frame.maxX {

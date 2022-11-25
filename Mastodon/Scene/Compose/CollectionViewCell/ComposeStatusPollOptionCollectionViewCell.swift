@@ -14,9 +14,9 @@ import MastodonLocalization
 import MastodonUI
 
 protocol ComposeStatusPollOptionCollectionViewCellDelegate: AnyObject {
-    func composeStatusPollOptionCollectionViewCell(_ cell: ComposeStatusPollOptionCollectionViewCell, textFieldDidBeginEditing textField: UITextField)
+    func composeStatusPollOptionCollectionViewCell(_ cell: ComposeStatusPollOptionCollectionViewCell, textViewDidBeginEditing textView: UITextView)
     func composeStatusPollOptionCollectionViewCell(_ cell: ComposeStatusPollOptionCollectionViewCell, textBeforeDeleteBackward text: String?)
-    func composeStatusPollOptionCollectionViewCell(_ cell: ComposeStatusPollOptionCollectionViewCell, pollOptionTextFieldDidReturn: UITextField)
+    func composeStatusPollOptionCollectionViewCell(_ cell: ComposeStatusPollOptionCollectionViewCell, pollOptionTextViewDidReturn: UITextView)
 }
 
 final class ComposeStatusPollOptionCollectionViewCell: UICollectionViewCell {
@@ -86,7 +86,7 @@ extension ComposeStatusPollOptionCollectionViewCell {
         
         pollOptionView.checkmarkImageView.isHidden = true
         pollOptionView.optionPercentageLabel.isHidden = true
-        pollOptionView.optionTextField.text = nil
+        pollOptionView.optionTextView.text = nil
 
         pollOptionView.roundedBackgroundView.backgroundColor = ThemeService.shared.currentTheme.value.tertiarySystemGroupedBackgroundColor
         pollOptionView.checkmarkBackgroundView.backgroundColor = UIColor(dynamicProvider: { traitCollection in
@@ -97,15 +97,15 @@ extension ComposeStatusPollOptionCollectionViewCell {
         pollOptionView.addGestureRecognizer(singleTagGestureRecognizer)
         singleTagGestureRecognizer.addTarget(self, action: #selector(ComposeStatusPollOptionCollectionViewCell.singleTagGestureRecognizerHandler(_:)))
         
-        pollOptionSubscription = NotificationCenter.default.publisher(for: UITextField.textDidChangeNotification, object: pollOptionView.optionTextField)
+        pollOptionSubscription = NotificationCenter.default.publisher(for: UITextView.textDidChangeNotification, object: pollOptionView.optionTextView)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] notification in
                 guard let self = self else { return }
-                guard let textField = notification.object as? UITextField else { return }
-                self.pollOption.send(textField.text ?? "")
+                guard let textView = notification.object as? UITextView else { return }
+                self.pollOption.send(textView.text ?? "")
             }
-        pollOptionView.optionTextField.deleteBackwardDelegate = self
-        pollOptionView.optionTextField.delegate = self
+        pollOptionView.optionTextView.deleteBackwardDelegate = self
+        pollOptionView.optionTextView.delegate = self
     }
     
     private func setupBorderColor() {
@@ -128,30 +128,30 @@ extension ComposeStatusPollOptionCollectionViewCell {
 
     @objc private func singleTagGestureRecognizerHandler(_ sender: UITapGestureRecognizer) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-        pollOptionView.optionTextField.becomeFirstResponder()
+        pollOptionView.optionTextView.becomeFirstResponder()
     }
     
 }
 
-// MARK: - DeleteBackwardResponseTextFieldDelegate
-extension ComposeStatusPollOptionCollectionViewCell: DeleteBackwardResponseTextFieldDelegate {
-    func deleteBackwardResponseTextField(_ textField: DeleteBackwardResponseTextField, textBeforeDelete: String?) {
+// MARK: - DeleteBackwardResponseTextViewDelegate
+extension ComposeStatusPollOptionCollectionViewCell: DeleteBackwardResponseTextViewDelegate {
+    func deleteBackwardResponseTextView(_ textView: DeleteBackwardResponseTextView, textBeforeDelete: String?) {
         delegate?.composeStatusPollOptionCollectionViewCell(self, textBeforeDeleteBackward: textBeforeDelete)
     }
 }
 
-// MARK: - UITextFieldDelegate
-extension ComposeStatusPollOptionCollectionViewCell: UITextFieldDelegate {
+// MARK: - UITextViewDelegate
+extension ComposeStatusPollOptionCollectionViewCell: UITextViewDelegate {
     
-    func textFieldDidBeginEditing(_ textField: UITextField) {
+    func textViewDidBeginEditing(_ textView: UITextView) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-        delegate?.composeStatusPollOptionCollectionViewCell(self, textFieldDidBeginEditing: textField)
+        delegate?.composeStatusPollOptionCollectionViewCell(self, textViewDidBeginEditing: textView)
     }
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    func textViewShouldReturn(_ textView: UITextView) -> Bool {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-        if textField === pollOptionView.optionTextField {
-            delegate?.composeStatusPollOptionCollectionViewCell(self, pollOptionTextFieldDidReturn: textField)
+        if textView === pollOptionView.optionTextView {
+            delegate?.composeStatusPollOptionCollectionViewCell(self, pollOptionTextViewDidReturn: textView)
         }
         return true
     }

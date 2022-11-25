@@ -83,7 +83,7 @@ extension ComposeStatusPollOptionAppendEntryCollectionViewCell {
         pollOptionView.checkmarkImageView.isHidden = true
         pollOptionView.checkmarkBackgroundView.isHidden = true
         pollOptionView.optionPercentageLabel.isHidden = true
-        pollOptionView.optionTextField.isHidden = true
+        pollOptionView.optionTextView.isHidden = true
         pollOptionView.plusCircleImageView.isHidden = false
         
         pollOptionView.roundedBackgroundView.backgroundColor = ThemeService.shared.currentTheme.value.tertiarySystemGroupedBackgroundColor

@@ -8,6 +8,7 @@
 import UIKit
 import MastodonAsset
 import MastodonLocalization
+import MastodonUI
 
 class MastodonLoginView: UIView {
 

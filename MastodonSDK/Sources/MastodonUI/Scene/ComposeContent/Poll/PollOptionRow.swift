@@ -14,8 +14,8 @@ public struct PollOptionRow: View {
     @ObservedObject var viewModel: PollComposeItem.Option
     
     let index: Int?
-    let deleteBackwardResponseTextFieldRelayDelegate: DeleteBackwardResponseTextFieldRelayDelegate?
-    let configurationHandler: (DeleteBackwardResponseTextField) -> Void
+    let deleteBackwardResponseTextViewRelayDelegate: DeleteBackwardResponseTextViewRelayDelegate?
+    let configurationHandler: (DeleteBackwardResponseTextView) -> Void
 
     public var body: some View {
         HStack(alignment: .center, spacing: 16) {
@@ -23,20 +23,20 @@ public struct PollOptionRow: View {
                 Image(systemName: "circle")
                     .frame(width: 20, height: 20)
                     .padding(.leading, 16)
-                    .padding(.trailing, 16 - 10)     // 8pt for TextField leading
+                    .padding(.trailing, 16 - 10)     // 8pt for TextView leading
                     .font(.system(size: 17))
-                PollOptionTextField(
+                PollOptionTextView(
                     text: $viewModel.text,
                     index: index ?? -1,
-                    delegate: deleteBackwardResponseTextFieldRelayDelegate
-                ) { textField in
-                    viewModel.textField = textField
-                    configurationHandler(textField)
+                    delegate: deleteBackwardResponseTextViewRelayDelegate
+                ) { textView in
+                    viewModel.textView = textView
+                    configurationHandler(textView)
                 }
                 .onReceive(viewModel.$shouldBecomeFirstResponder) { shouldBecomeFirstResponder in
                     guard shouldBecomeFirstResponder else { return }
                     viewModel.shouldBecomeFirstResponder = false
-                    viewModel.textField?.becomeFirstResponder()
+                    viewModel.textView?.becomeFirstResponder()
                 }
             }
             .background(Color(viewModel.backgroundColor))

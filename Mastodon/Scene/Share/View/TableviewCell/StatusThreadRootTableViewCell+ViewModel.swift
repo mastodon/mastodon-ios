@@ -56,6 +56,18 @@ extension StatusThreadRootTableViewCell {
                 tableView.endUpdates()
             }
             .store(in: &disposeBag)
+
+        statusView.viewModel.$content
+            .receive(on: DispatchQueue.main)
+            .sink { [weak tableView, weak self] _ in
+                guard let tableView, let self, self.contentView.window != nil else { return }
+
+                UIView.performWithoutAnimation {
+                    tableView.beginUpdates()
+                    tableView.endUpdates()
+                }
+            }
+            .store(in: &disposeBag)
     }
     
 }

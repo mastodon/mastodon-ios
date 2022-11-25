@@ -125,16 +125,15 @@ public final class StatusView: UIView {
     let pollAdaptiveMarginContainerView = AdaptiveMarginContainerView()
     let pollContainerView = UIStackView()
     public let pollTableView: UITableView = {
-        let tableView = UITableView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        let tableView = ContentSizedTableView(frame: .zero)
         tableView.register(PollOptionTableViewCell.self, forCellReuseIdentifier: String(describing: PollOptionTableViewCell.self))
         tableView.isScrollEnabled = false
-        tableView.estimatedRowHeight = 36
+        tableView.rowHeight = UITableView.automaticDimension
         tableView.tableFooterView = UIView()
         tableView.backgroundColor = .clear
         tableView.separatorStyle = .none
         return tableView
     }()
-    public var pollTableViewHeightLayoutConstraint: NSLayoutConstraint!
     public var pollTableViewDiffableDataSource: UITableViewDiffableDataSource<PollSection, PollItem>?
     
     public let pollStatusStackView = UIStackView()
@@ -263,10 +262,6 @@ extension StatusView {
         
         // poll
         pollTableView.translatesAutoresizingMaskIntoConstraints = false
-        pollTableViewHeightLayoutConstraint = pollTableView.heightAnchor.constraint(equalToConstant: 44.0).priority(.required - 1)
-        NSLayoutConstraint.activate([
-            pollTableViewHeightLayoutConstraint,
-        ])
         pollTableView.delegate = self
         pollVoteButton.addTarget(self, action: #selector(StatusView.pollVoteButtonDidPressed(_:)), for: .touchUpInside)
         
@@ -379,8 +374,6 @@ extension StatusView.Style {
         statusView.contentAdaptiveMarginContainerView.contentView = statusView.contentContainer
         statusView.contentAdaptiveMarginContainerView.margin = StatusView.containerLayoutMargin
         statusView.containerStackView.addArrangedSubview(statusView.contentAdaptiveMarginContainerView)
-        statusView.contentContainer.setContentHuggingPriority(.required - 1, for: .vertical)
-        statusView.contentContainer.setContentCompressionResistancePriority(.required - 1, for: .vertical)
 
         // status content
         statusView.contentContainer.addArrangedSubview(statusView.contentMetaText.textView)
