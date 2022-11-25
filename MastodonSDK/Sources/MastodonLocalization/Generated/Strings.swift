@@ -636,6 +636,20 @@ public enum L10n {
     public enum FollowedTags {
       /// Followed Tags
       public static let title = L10n.tr("Localizable", "Scene.FollowedTags.Title", fallback: "Followed Tags")
+      public enum Actions {
+        /// follow
+        public static let follow = L10n.tr("Localizable", "Scene.FollowedTags.Actions.Follow", fallback: "follow")
+      }
+      public enum Header {
+        /// participants
+        public static let participants = L10n.tr("Localizable", "Scene.FollowedTags.Header.Participants", fallback: "participants")
+        /// posts
+        public static let posts = L10n.tr("Localizable", "Scene.FollowedTags.Header.Posts", fallback: "posts")
+        /// posts today
+        public static let postsToday = L10n.tr("Localizable", "Scene.FollowedTags.Header.PostsToday", fallback: "posts today")
+        /// unfollow
+        public static let unfollow = L10n.tr("Localizable", "Scene.FollowedTags.Header.Unfollow", fallback: "unfollow")
+      }
     }
     public enum Follower {
       /// Followers from other servers are not displayed.

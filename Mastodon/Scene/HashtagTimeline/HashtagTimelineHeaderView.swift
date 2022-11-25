@@ -105,9 +105,9 @@ private extension HashtagTimelineHeaderView {
             $0.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: .systemFont(ofSize: 13, weight: .regular))
         }
         
-        postCountDescLabel.text = "posts"
-        participantsDescLabel.text = "participants"
-        postsTodayDescLabel.text = "posts today"
+        postCountDescLabel.text = L10n.Scene.FollowedTags.Header.posts
+        participantsDescLabel.text = L10n.Scene.FollowedTags.Header.participants
+        postsTodayDescLabel.text = L10n.Scene.FollowedTags.Header.postsToday
                         
         followButton.addAction(UIAction(handler: { [weak self] _ in
             self?.onButtonTapped?()
@@ -152,7 +152,7 @@ private extension HashtagTimelineHeaderView {
 extension HashtagTimelineHeaderView {
     func update(_ entity: HashtagTimelineHeaderView.Data) {
         titleLabel.text = "#\(entity.name)"
-        followButton.setTitle(entity.following == true ? "Unfollow" : "Follow", for: .normal)
+        followButton.setTitle(entity.following == true ? L10n.Scene.FollowedTags.Actions.unfollow : L10n.Scene.FollowedTags.Actions.follow, for: .normal)
 
         followButton.backgroundColor = entity.following == true ? Asset.Colors.Button.tagUnfollow.color : Asset.Colors.Button.tagFollow.color
         followButton.setTitleColor(
