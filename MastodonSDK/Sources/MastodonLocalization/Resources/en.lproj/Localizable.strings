@@ -236,7 +236,7 @@ uploaded to Mastodon.";
 "Scene.FollowedTags.Header.Participants" = "participants";
 "Scene.FollowedTags.Header.PostsToday" = "posts today";
 "Scene.FollowedTags.Actions.Follow" = "follow";
-"Scene.FollowedTags.Header.Unfollow" = "unfollow";
+"Scene.FollowedTags.Actions.Unfollow" = "unfollow";
 "Scene.Following.Footer" = "Follows from other servers are not displayed.";
 "Scene.Following.Title" = "following";
 "Scene.HomeTimeline.NavigationBarState.Accessibility.LogoHint" = "Tap to scroll to top and tap again to previous location";

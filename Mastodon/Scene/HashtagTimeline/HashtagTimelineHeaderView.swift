@@ -10,6 +10,7 @@ import CoreDataStack
 import MastodonSDK
 import MastodonUI
 import MastodonAsset
+import MastodonLocalization
 
 fileprivate extension CGFloat {
     static let padding: CGFloat = 16
@@ -155,10 +156,19 @@ extension HashtagTimelineHeaderView {
         followButton.setTitle(entity.following == true ? L10n.Scene.FollowedTags.Actions.unfollow : L10n.Scene.FollowedTags.Actions.follow, for: .normal)
 
         followButton.backgroundColor = entity.following == true ? Asset.Colors.Button.tagUnfollow.color : Asset.Colors.Button.tagFollow.color
-        followButton.setTitleColor(
-            entity.following == true ? Asset.Colors.Button.tagFollow.color : Asset.Colors.Button.tagUnfollow.color,
-            for: .normal
-        )
+        
+        switch traitCollection.userInterfaceStyle {
+        case .dark:
+            followButton.setTitleColor(
+                .lightGray,
+                for: .normal
+            )
+        default:
+            followButton.setTitleColor(
+                entity.following == true ? Asset.Colors.Button.tagFollow.color : Asset.Colors.Button.tagUnfollow.color,
+                for: .normal
+            )
+        }
 
         postCountLabel.text = String(entity.postCount)
         participantsLabel.text = String(entity.participantsCount)
