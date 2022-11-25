@@ -54,7 +54,7 @@ extension APIService {
             let users = try managedObjectContext.fetch(fetchRequest) as! [MastodonUser]
             
             for user in users {
-                user.statuses.deleteAllFeedsForBlockOrMute(in: managedObjectContext)
+                user.deleteStatusAndNotificationFeeds(in: managedObjectContext)
             }
         }
 
@@ -150,10 +150,20 @@ extension APIService {
     
 }
 
-extension Set<Status> {
-    func deleteAllFeedsForBlockOrMute(in managedObjectContext: NSManagedObjectContext) {
-        map { $0.feeds.union($0.reblogFrom.map { $0.feeds }.flatMap { $0 }) }
+extension MastodonUser {
+    func deleteStatusAndNotificationFeeds(in context: NSManagedObjectContext) {
+        statuses.map {
+            $0.feeds
+                .union($0.reblogFrom.map { $0.feeds }.flatMap { $0 })
+                .union($0.notifications.map { $0.feeds }.flatMap { $0 })
+        }
         .flatMap { $0 }
-        .forEach(managedObjectContext.delete)
+        .forEach(context.delete)
+        
+        notifications.map {
+            $0.feeds
+        }
+        .flatMap { $0 }
+        .forEach(context.delete)
     }
 }

@@ -53,7 +53,7 @@ extension APIService {
             let users = try managedObjectContext.fetch(fetchRequest) as! [MastodonUser]
             
             for user in users {
-                user.statuses.deleteAllFeedsForBlockOrMute(in: managedObjectContext)
+                user.deleteStatusAndNotificationFeeds(in: managedObjectContext)
             }
         }
 
