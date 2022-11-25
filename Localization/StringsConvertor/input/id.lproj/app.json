@@ -164,7 +164,7 @@
                     "emoji": "Emoji"
                 },
                 "visibility": {
-                    "unlisted": "Everyone can see this post but not display in the public timeline.",
+                    "unlisted": "Postingan ini dapat dilihat semua orang tetapi tidak ditampilkan di timeline publik.",
                     "private": "Hanya pengikut mereka yang dapat melihat postingan ini.",
                     "private_from_me": "Hanya pengikut saya yang dapat melihat postingan ini.",
                     "direct": "Hanya pengguna yang disebut yang dapat melihat postingan ini."
@@ -306,13 +306,13 @@
                     "blocked": "%s mengandung penyedia surel yang dilarang",
                     "unreachable": "%s sepertinya tidak ada",
                     "taken": "%s sudah digunakan",
-                    "reserved": "%s is a reserved keyword",
+                    "reserved": "%s adalah kata kunci yang dipesan",
                     "accepted": "%s harus diterima",
                     "blank": "%s diperlukan",
                     "invalid": "%s tidak valid",
                     "too_long": "%s terlalu panjang",
                     "too_short": "%s terlalu pendek",
-                    "inclusion": "%s is not a supported value"
+                    "inclusion": "%s bukan nilai yang didukung"
                 },
                 "special": {
                     "username_invalid": "Nama pengguna hanya berisi angka karakter dan garis bawah",
@@ -325,7 +325,7 @@
         "server_rules": {
             "title": "Beberapa aturan dasar.",
             "subtitle": "Peraturan ini ditetapkan oleh admin %s.",
-            "prompt": "By continuing, you’re subject to the terms of service and privacy policy for %s.",
+            "prompt": "Dengan melanjutkan, Anda tunduk pada ketentuan layanan dan kebijakan privasi untuk %s.",
             "terms_of_service": "kebijakan layanan",
             "privacy_policy": "kebijakan privasi",
             "button": {
@@ -335,7 +335,7 @@
         "confirm_email": {
             "title": "Satu hal lagi.",
             "subtitle": "Kami baru saja mengirim sebuah surel ke %s,\nketuk tautannya untuk mengkonfirmasi akun Anda.",
-            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we emailed to you to verify your account",
+            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Ketuk tautan yang kami kirimkan kepada Anda via email untuk memverifikasi akun Anda",
             "button": {
                 "open_email_app": "Buka Aplikasi Surel",
                 "resend": "Kirim ulang"
@@ -361,7 +361,7 @@
                 "Publishing": "Mempublikasikan postingan...",
                 "accessibility": {
                     "logo_label": "Tombol Logo",
-                    "logo_hint": "Tap to scroll to top and tap again to previous location"
+                    "logo_hint": "Ketuk untuk menggulir ke atas dan ketuk lagi ke lokasi sebelumnya"
                 }
             }
         },
@@ -392,8 +392,8 @@
                 "upload_failed": "Gagal Mengunggah",
                 "can_not_recognize_this_media_attachment": "Tidak dapat mengenali lampiran media ini",
                 "attachment_too_large": "Lampiran terlalu besar",
-                "compressing_state": "Compressing...",
-                "server_processing_state": "Server Processing..."
+                "compressing_state": "Mengompres...",
+                "server_processing_state": "Server Memproses..."
             },
             "poll": {
                 "duration_time": "Durasi: %s",
@@ -403,9 +403,9 @@
                 "one_day": "1 Hari",
                 "three_days": "3 Hari",
                 "seven_days": "7 Hari",
-                "option_number": "Option %ld",
-                "the_poll_is_invalid": "The poll is invalid",
-                "the_poll_has_empty_option": "The poll has empty option"
+                "option_number": "Opsi %ld",
+                "the_poll_is_invalid": "Japat tidak valid",
+                "the_poll_has_empty_option": "Japat memiliki opsi kosong"
             },
             "content_warning": {
                 "placeholder": "Tulis peringatan yang akurat di sini..."
@@ -417,7 +417,7 @@
                 "direct": "Hanya orang yang saya sebut"
             },
             "auto_complete": {
-                "space_to_add": "Space to add"
+                "space_to_add": "Tekan spasi untuk menambahkan"
             },
             "accessibility": {
                 "append_attachment": "Tambahkan Lampiran",
