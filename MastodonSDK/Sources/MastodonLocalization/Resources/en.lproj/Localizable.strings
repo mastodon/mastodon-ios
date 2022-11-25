@@ -231,6 +231,7 @@ uploaded to Mastodon.";
 "Scene.FavoritedBy.Title" = "Favorited By";
 "Scene.Follower.Footer" = "Followers from other servers are not displayed.";
 "Scene.Follower.Title" = "follower";
+"Scene.FollowedTags.Title" = "Followed Tags";
 "Scene.Following.Footer" = "Follows from other servers are not displayed.";
 "Scene.Following.Title" = "following";
 "Scene.HomeTimeline.NavigationBarState.Accessibility.LogoHint" = "Tap to scroll to top and tap again to previous location";

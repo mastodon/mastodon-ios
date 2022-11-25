@@ -722,6 +722,10 @@
         },
         "bookmark": {
             "title": "Bookmarks"
+
+        },
+        "followed_tags": {
+            "title": "Followed Tags"
         }
     }
 }

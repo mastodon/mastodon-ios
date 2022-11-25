@@ -108,7 +108,7 @@ final class ProfileViewController: UIViewController, NeedsDependency, MediaPrevi
     private(set) lazy var followedTagsBarButtonItem: UIBarButtonItem = {
         let barButtonItem = UIBarButtonItem(image: UIImage(systemName: "number"), style: .plain, target: self, action: #selector(ProfileViewController.followedTagsItemPressed(_:)))
         barButtonItem.tintColor = .white
-        //barButtonItem.accessibilityLabel = "" TODO: add missing L10n.Common.Controls.Actions.XXXXXX
+        barButtonItem.accessibilityLabel = L10n.Scene.FollowedTags.title
         return barButtonItem
     }()
 

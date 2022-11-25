@@ -42,7 +42,7 @@ extension FollowedTagsViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let _title = "Followed Tags"
+        let _title = L10n.Scene.FollowedTags.title
         title = _title
         titleView.update(title: _title, subtitle: nil)
 

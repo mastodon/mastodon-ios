@@ -633,6 +633,10 @@ public enum L10n {
       /// Favorited By
       public static let title = L10n.tr("Localizable", "Scene.FavoritedBy.Title", fallback: "Favorited By")
     }
+    public enum FollowedTags {
+      /// Followed Tags
+      public static let title = L10n.tr("Localizable", "Scene.FollowedTags.Title", fallback: "Followed Tags")
+    }
     public enum Follower {
       /// Followers from other servers are not displayed.
       public static let footer = L10n.tr("Localizable", "Scene.Follower.Footer", fallback: "Followers from other servers are not displayed.")
