@@ -526,9 +526,9 @@
             "recommend": {
                 "button_text": "Lihat Semua",
                 "hash_tag": {
-                    "title": "Trending on Mastodon",
+                    "title": "Sedang Tren di Mastodon",
                     "description": "Hashtags that are getting quite a bit of attention",
-                    "people_talking": "%s people are talking"
+                    "people_talking": "%s orang sedang membicarakan"
                 },
                 "accounts": {
                     "title": "Akun-akun yang mungkin Anda sukai",
@@ -624,8 +624,8 @@
                 "preference": {
                     "title": "Preferensi",
                     "true_black_dark_mode": "True black dark mode",
-                    "disable_avatar_animation": "Disable animated avatars",
-                    "disable_emoji_animation": "Disable animated emojis",
+                    "disable_avatar_animation": "Nonaktifkan animasi avatar",
+                    "disable_emoji_animation": "Nonaktifkan animasi emoji",
                     "using_default_browser": "Use default browser to open links",
                     "open_links_in_mastodon": "Buka tautan di Mastodon"
                 },
@@ -655,7 +655,7 @@
             "step2": "Langkah 2 dari 2",
             "content1": "Apakah ada postingan lain yang ingin Anda tambahkan ke laporannya?",
             "content2": "Ada yang moderator harus tahu tentang laporan ini?",
-            "report_sent_title": "Thanks for reporting, we’ll look into this.",
+            "report_sent_title": "Terima kasih atas pelaporan Anda, kami akan memeriksa ini lebih lanjut.",
             "send": "Kirim Laporan",
             "skip_to_send": "Kirim tanpa komentar",
             "text_placeholder": "Ketik atau tempel komentar tambahan",
@@ -664,13 +664,13 @@
                 "step_1_of_4": "Langkah 1 dari 4",
                 "whats_wrong_with_this_post": "Ada yang salah dengan postingan ini?",
                 "whats_wrong_with_this_account": "Ada yang salah dengan akun ini?",
-                "whats_wrong_with_this_username": "What's wrong with %s?",
+                "whats_wrong_with_this_username": "Ada yang salah dengan %s?",
                 "select_the_best_match": "Pilih yang paling cocok",
-                "i_dont_like_it": "I don’t like it",
-                "it_is_not_something_you_want_to_see": "It is not something you want to see",
-                "its_spam": "It’s spam",
-                "malicious_links_fake_engagement_or_repetetive_replies": "Malicious links, fake engagement, or repetetive replies",
-                "it_violates_server_rules": "It violates server rules",
+                "i_dont_like_it": "Saya tidak suka",
+                "it_is_not_something_you_want_to_see": "Ini bukan sesuatu yang Anda ingin lihat",
+                "its_spam": "Ini sampah",
+                "malicious_links_fake_engagement_or_repetetive_replies": "Tautan berbahaya, engagement palsu, atau balasan berulang",
+                "it_violates_server_rules": "Melanggar ketentuan server",
                 "you_are_aware_that_it_breaks_specific_rules": "You are aware that it breaks specific rules",
                 "its_something_else": "It’s something else",
                 "the_issue_does_not_fit_into_other_categories": "The issue does not fit into other categories"
