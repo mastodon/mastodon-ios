@@ -31,6 +31,7 @@ public final class FollowedTagsFetchedResultController: NSObject {
         self.fetchedResultsController = {
             let fetchRequest = Tag.sortedFetchRequest
             fetchRequest.predicate = Tag.predicate(domain: domain, following: true, by: user)
+            fetchRequest.sortDescriptors = Tag.defaultSortDescriptors
             fetchRequest.returnsObjectsAsFaults = false
             fetchRequest.fetchBatchSize = 20
             let controller = NSFetchedResultsController(
@@ -74,17 +75,11 @@ public final class FollowedTagsFetchedResultController: NSObject {
 
 // MARK: - NSFetchedResultsControllerDelegate
 extension FollowedTagsFetchedResultController: NSFetchedResultsControllerDelegate {
-    public func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChangeContentWith snapshot: NSDiffableDataSourceSnapshotReference) {
+    public func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         os_log("%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         
         let objects = fetchedResultsController.fetchedObjects ?? []
-        
-        let items: [NSManagedObjectID] = objects
-//            .compactMap { object in
-//                indexes.firstIndex(of: object.id).map { index in (index, object) }
-//            }
-//            .sorted { $0.0 < $1.0 }
-            .map { $0.objectID }
-        self._objectIDs.value = items
+        self._objectIDs.value = objects.map { $0.objectID }
+
     }
 }

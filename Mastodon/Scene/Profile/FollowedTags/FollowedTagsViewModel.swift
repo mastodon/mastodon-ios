@@ -24,6 +24,9 @@ final class FollowedTagsViewModel: NSObject {
     let context: AppContext
     let authContext: AuthContext
     
+    // output
+    let presentHashtagTimeline = PassthroughSubject<HashtagTimelineViewModel, Never>()
+    
     init(context: AppContext, authContext: AuthContext) {
         self.context = context
         self.authContext = authContext
@@ -115,6 +118,21 @@ extension FollowedTagsViewModel: UITableViewDataSource {
 
 extension FollowedTagsViewModel: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): \(indexPath)")
         tableView.deselectRow(at: indexPath, animated: true)
+
+        guard
+            indexPath.section == 0,
+            let object = fetchedResultsController.records[indexPath.row].object(in: context.managedObjectContext)
+        else {
+            return
+        }
+
+        let hashtagTimelineViewModel = HashtagTimelineViewModel(
+            context: self.context,
+            authContext: self.authContext,
+            hashtag: object.name
+        )
+        presentHashtagTimeline.send(hashtagTimelineViewModel)
     }
 }

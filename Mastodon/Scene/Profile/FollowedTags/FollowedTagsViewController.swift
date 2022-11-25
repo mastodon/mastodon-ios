@@ -61,5 +61,17 @@ extension FollowedTagsViewController {
         view.addSubview(tableView)
         tableView.pinToParent()
         viewModel.setupTableView(tableView)
+        
+        viewModel.presentHashtagTimeline
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] hashtagTimelineViewModel in
+                guard let self = self else { return }
+                _ = self.coordinator.present(
+                    scene: .hashtagTimeline(viewModel: hashtagTimelineViewModel),
+                    from: self,
+                    transition: .show
+                )
+            }
+            .store(in: &disposeBag)
     }
 }

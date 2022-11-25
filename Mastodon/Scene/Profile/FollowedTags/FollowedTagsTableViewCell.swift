@@ -24,9 +24,11 @@ final class FollowedTagsTableViewCell: UITableViewCell {
     }
     
     override func prepareForReuse() {
+        hashtagView.removeFromSuperview()
         viewModel = nil
-        hashtagView = HashtagTimelineHeaderView()
+        hashtagView = nil
         super.prepareForReuse()
+        setup()
     }
 }
 
