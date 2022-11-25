@@ -423,12 +423,12 @@
                 "append_attachment": "Tambahkan Lampiran",
                 "append_poll": "Tambahkan Japat",
                 "remove_poll": "Hapus Japat",
-                "custom_emoji_picker": "Custom Emoji Picker",
+                "custom_emoji_picker": "Pemilih Emoji Kustom",
                 "enable_content_warning": "Aktifkan Peringatan Konten",
                 "disable_content_warning": "Nonaktifkan Peringatan Konten",
-                "post_visibility_menu": "Post Visibility Menu",
-                "post_options": "Post Options",
-                "posting_as": "Posting as %s"
+                "post_visibility_menu": "Menu Visibilitas Postingan",
+                "post_options": "Opsi Postingan",
+                "posting_as": "Posting sebagai %s"
             },
             "keyboard": {
                 "discard_post": "Hapus Postingan",
