@@ -560,6 +560,9 @@ extension ProfileViewController {
     
     @objc private func followedTagsItemPressed(_ sender: UIBarButtonItem) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        
+        let followedTagsViewModel = FollowedTagsViewModel(context: context, authContext: viewModel.authContext)
+        _ = coordinator.present(scene: .followedTags(viewModel: followedTagsViewModel), from: self, transition: .show)
     }
 
     @objc private func refreshControlValueChanged(_ sender: RefreshControl) {

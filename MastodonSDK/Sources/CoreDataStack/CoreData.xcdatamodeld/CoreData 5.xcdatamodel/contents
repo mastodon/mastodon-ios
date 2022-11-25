@@ -93,6 +93,7 @@
         <relationship name="endorsed" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="endorsedBy" inverseEntity="MastodonUser"/>
         <relationship name="endorsedBy" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="endorsed" inverseEntity="MastodonUser"/>
         <relationship name="favourite" toMany="YES" deletionRule="Nullify" destinationEntity="Status" inverseName="favouritedBy" inverseEntity="Status"/>
+        <relationship name="followedTags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Tag" inverseName="followedBy" inverseEntity="Tag"/>
         <relationship name="following" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="followingBy" inverseEntity="MastodonUser"/>
         <relationship name="followingBy" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="following" inverseEntity="MastodonUser"/>
         <relationship name="followRequested" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="followRequestedBy" inverseEntity="MastodonUser"/>
@@ -245,11 +246,13 @@
     <entity name="Tag" representedClassName="CoreDataStack.Tag" syncable="YES">
         <attribute name="createAt" attributeType="Date" defaultDateTimeInterval="631123200" usesScalarValueType="NO"/>
         <attribute name="domain" attributeType="String" defaultValueString=""/>
+        <attribute name="following" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="histories" optional="YES" attributeType="Binary"/>
         <attribute name="identifier" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" attributeType="String"/>
         <attribute name="updatedAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="url" attributeType="String"/>
+        <relationship name="followedBy" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="followedTags" inverseEntity="MastodonUser"/>
         <relationship name="searchHistories" toMany="YES" deletionRule="Nullify" destinationEntity="SearchHistory" inverseName="hashtag" inverseEntity="SearchHistory"/>
     </entity>
 </model>

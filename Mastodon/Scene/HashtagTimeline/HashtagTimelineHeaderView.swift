@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreDataStack
 import MastodonSDK
 import MastodonUI
 import MastodonAsset
@@ -16,6 +17,42 @@ fileprivate extension CGFloat {
 }
 
 final class HashtagTimelineHeaderView: UIView {
+    struct Data {
+        let name: String
+        let following: Bool
+        let postCount: Int
+        let participantsCount: Int
+        let postsTodayCount: Int
+        
+        static func from(_ entity: Mastodon.Entity.Tag) -> Self {
+            Data(
+                name: entity.name,
+                following: entity.following == true,
+                postCount: (entity.history ?? []).reduce(0) { res, acc in
+                    res + (Int(acc.uses) ?? 0)
+                },
+                participantsCount: (entity.history ?? []).reduce(0) { res, acc in
+                    res + (Int(acc.accounts) ?? 0)
+                },
+                postsTodayCount: Int(entity.history?.first?.uses ?? "0") ?? 0
+            )
+        }
+        
+        static func from(_ entity: Tag) -> Self {
+            Data(
+                name: entity.name,
+                following: entity.following,
+                postCount: entity.histories.reduce(0) { res, acc in
+                    res + (Int(acc.uses) ?? 0)
+                },
+                participantsCount: entity.histories.reduce(0) { res, acc in
+                    res + (Int(acc.accounts) ?? 0)
+                },
+                postsTodayCount: Int(entity.histories.first?.uses ?? "0") ?? 0
+            )
+        }
+    }
+    
     let titleLabel = UILabel()
 
     let postCountLabel = UILabel()
@@ -31,7 +68,7 @@ final class HashtagTimelineHeaderView: UIView {
     var onButtonTapped: (() -> Void)?
     
     let followButton: UIButton = {
-        let button = RoundedEdgesButton(type: .custom)
+        let button = HashtagTimelineHeaderViewActionButton()
         button.cornerRadius = 10
         button.contentEdgeInsets = UIEdgeInsets(top: 6, left: 16, bottom: 5, right: 16)     // set 28pt height
         button.titleLabel?.font = .systemFont(ofSize: 14, weight: .bold)
@@ -76,7 +113,7 @@ private extension HashtagTimelineHeaderView {
             self?.onButtonTapped?()
         }), for: .touchUpInside)
         
-        widthConstraint = widthAnchor.constraint(equalToConstant: 0)
+        widthConstraint = widthAnchor.constraint(greaterThanOrEqualToConstant: 0)
 
         NSLayoutConstraint.activate([
             widthConstraint,
@@ -113,7 +150,7 @@ private extension HashtagTimelineHeaderView {
 }
 
 extension HashtagTimelineHeaderView {
-    func update(_ entity: Mastodon.Entity.Tag) {
+    func update(_ entity: HashtagTimelineHeaderView.Data) {
         titleLabel.text = "#\(entity.name)"
         followButton.setTitle(entity.following == true ? "Unfollow" : "Follow", for: .normal)
 
@@ -123,21 +160,9 @@ extension HashtagTimelineHeaderView {
             for: .normal
         )
 
-        if let history = entity.history {
-            postCountLabel.text = String(
-                history.reduce(0) { res, acc in
-                    res + (Int(acc.uses) ?? 0)
-                }
-            )
-            
-            participantsLabel.text = String(
-                history.reduce(0) { res, acc in
-                    res + (Int(acc.accounts) ?? 0)
-                }
-            )
-            
-            postsTodayLabel.text = history.first?.uses
-        }
+        postCountLabel.text = String(entity.postCount)
+        participantsLabel.text = String(entity.participantsCount)
+        postsTodayLabel.text = String(entity.postsTodayCount)
     }
         
     func updateWidthConstraint(_ constant: CGFloat) {

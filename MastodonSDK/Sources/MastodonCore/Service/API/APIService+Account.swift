@@ -163,6 +163,7 @@ extension APIService {
 }
 
 extension APIService {
+    @discardableResult
     public func getFollowedTags(
         domain: String,
         query: Mastodon.API.Account.FollowedTagsQuery,

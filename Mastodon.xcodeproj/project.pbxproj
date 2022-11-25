@@ -23,8 +23,11 @@
 		0FB3D33825E6401400AAD544 /* PickServerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB3D33725E6401400AAD544 /* PickServerCell.swift */; };
 		164F0EBC267D4FE400249499 /* BoopSound.caf in Resources */ = {isa = PBXBuildFile; fileRef = 164F0EBB267D4FE400249499 /* BoopSound.caf */; };
 		18BC7629F65E6DB12CB8416D /* Pods_Mastodon_MastodonUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C030226D3C73DCC23D67452 /* Pods_Mastodon_MastodonUITests.framework */; };
+		2A3F6FE3292ECB5E002E6DA7 /* FollowedTagsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A3F6FE2292ECB5E002E6DA7 /* FollowedTagsViewModel.swift */; };
+		2A3F6FE5292F6E44002E6DA7 /* FollowedTagsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A3F6FE4292F6E44002E6DA7 /* FollowedTagsTableViewCell.swift */; };
 		2A506CF4292CD85800059C37 /* FollowedTagsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A506CF3292CD85800059C37 /* FollowedTagsViewController.swift */; };
 		2A506CF6292D040100059C37 /* HashtagTimelineHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A506CF5292D040100059C37 /* HashtagTimelineHeaderView.swift */; };
+		2A76F75C2930D94700B3388D /* HashtagTimelineHeaderViewActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A76F75B2930D94700B3388D /* HashtagTimelineHeaderViewActionButton.swift */; };
 		2A82294F29262EE000D2A1F7 /* AppContext+NextAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A82294E29262EE000D2A1F7 /* AppContext+NextAccount.swift */; };
 		2AE244482927831100BDBF7C /* UIImage+SFSymbols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE244472927831100BDBF7C /* UIImage+SFSymbols.swift */; };
 		2D198643261BF09500F0B013 /* SearchResultItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D198642261BF09500F0B013 /* SearchResultItem.swift */; };
@@ -522,8 +525,11 @@
 		0FB3D33725E6401400AAD544 /* PickServerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickServerCell.swift; sourceTree = "<group>"; };
 		164F0EBB267D4FE400249499 /* BoopSound.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = BoopSound.caf; sourceTree = "<group>"; };
 		1D6D967E77A5357E2C6110D9 /* Pods-Mastodon.asdk - debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon.asdk - debug.xcconfig"; path = "Target Support Files/Pods-Mastodon/Pods-Mastodon.asdk - debug.xcconfig"; sourceTree = "<group>"; };
+		2A3F6FE2292ECB5E002E6DA7 /* FollowedTagsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowedTagsViewModel.swift; sourceTree = "<group>"; };
+		2A3F6FE4292F6E44002E6DA7 /* FollowedTagsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowedTagsTableViewCell.swift; sourceTree = "<group>"; };
 		2A506CF3292CD85800059C37 /* FollowedTagsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowedTagsViewController.swift; sourceTree = "<group>"; };
 		2A506CF5292D040100059C37 /* HashtagTimelineHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagTimelineHeaderView.swift; sourceTree = "<group>"; };
+		2A76F75B2930D94700B3388D /* HashtagTimelineHeaderViewActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagTimelineHeaderViewActionButton.swift; sourceTree = "<group>"; };
 		2A82294E29262EE000D2A1F7 /* AppContext+NextAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppContext+NextAccount.swift"; sourceTree = "<group>"; };
 		2AE244472927831100BDBF7C /* UIImage+SFSymbols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+SFSymbols.swift"; sourceTree = "<group>"; };
 		2D198642261BF09500F0B013 /* SearchResultItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultItem.swift; sourceTree = "<group>"; };
@@ -1129,6 +1135,7 @@
 				0F20220626134DA4000C64BF /* HashtagTimelineViewModel+Diffable.swift */,
 				0F20222C261457EE000C64BF /* HashtagTimelineViewModel+State.swift */,
 				2A506CF5292D040100059C37 /* HashtagTimelineHeaderView.swift */,
+				2A76F75B2930D94700B3388D /* HashtagTimelineHeaderViewActionButton.swift */,
 			);
 			path = HashtagTimeline;
 			sourceTree = "<group>";
@@ -1235,6 +1242,8 @@
 			isa = PBXGroup;
 			children = (
 				2A506CF3292CD85800059C37 /* FollowedTagsViewController.swift */,
+				2A3F6FE2292ECB5E002E6DA7 /* FollowedTagsViewModel.swift */,
+				2A3F6FE4292F6E44002E6DA7 /* FollowedTagsTableViewCell.swift */,
 			);
 			path = FollowedTags;
 			sourceTree = "<group>";
@@ -3480,6 +3489,7 @@
 				DBCC3B30261440A50045B23D /* UITabBarController.swift in Sources */,
 				DB3E6FE42806A5B800B035AE /* DiscoverySection.swift in Sources */,
 				DB8190C62601FF0400020C08 /* AttachmentContainerView.swift in Sources */,
+				2A76F75C2930D94700B3388D /* HashtagTimelineHeaderViewActionButton.swift in Sources */,
 				DB697DDB278F4DE3004EF2F7 /* DataSourceProvider+StatusTableViewCellDelegate.swift in Sources */,
 				DB87D4512609CF1E00D12C0D /* ComposeStatusPollOptionAppendEntryCollectionViewCell.swift in Sources */,
 				DBB45B5627B39FC9002DC5A7 /* MediaPreviewVideoViewController.swift in Sources */,
@@ -3488,6 +3498,7 @@
 				DB67D08627312E67006A36CF /* WizardViewController.swift in Sources */,
 				DB6746EB278ED8B0008A6B94 /* PollOptionView+Configuration.swift in Sources */,
 				DB0F9D54283EB3C000379AF8 /* ProfileHeaderView+ViewModel.swift in Sources */,
+				2A3F6FE3292ECB5E002E6DA7 /* FollowedTagsViewModel.swift in Sources */,
 				DBFEEC99279BDCDE004F81DD /* ProfileAboutViewModel.swift in Sources */,
 				2D198649261C0B8500F0B013 /* SearchResultSection.swift in Sources */,
 				DB4F097B26A039FF00D62E92 /* SearchHistorySection.swift in Sources */,
@@ -3518,6 +3529,7 @@
 				5BB04FF5262F0E6D0043BFF6 /* ReportSection.swift in Sources */,
 				DBEFCD82282A2AB100C0ABEA /* ReportServerRulesView.swift in Sources */,
 				DBA94436265CBB7400C537E1 /* ProfileFieldItem.swift in Sources */,
+				2A3F6FE5292F6E44002E6DA7 /* FollowedTagsTableViewCell.swift in Sources */,
 				C24C97032922F30500BAE8CB /* RefreshControl.swift in Sources */,
 				DB023D2A27A0FE5C005AC798 /* DataSourceProvider+NotificationTableViewCellDelegate.swift in Sources */,
 				DB98EB6027B10E150082E365 /* ReportCommentTableViewCell.swift in Sources */,

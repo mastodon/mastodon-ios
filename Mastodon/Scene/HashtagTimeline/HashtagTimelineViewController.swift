@@ -35,7 +35,6 @@ final class HashtagTimelineViewController: UIViewController, NeedsDependency, Me
         
         NSLayoutConstraint.activate([
             headerView.heightAnchor.constraint(equalToConstant: 118),
-//            headerView.widthAnchor.constraint(equalTo: tableView.widthAnchor)
         ])
 
         return headerView
@@ -176,7 +175,7 @@ extension HashtagTimelineViewController {
         if tableView.tableHeaderView == nil {
             tableView.tableHeaderView = headerView
         }
-        headerView.update(tag)
+        headerView.update(HashtagTimelineHeaderView.Data.from(tag))
         headerView.onButtonTapped = { [weak self] in
             switch tag.following {
             case .some(false):
