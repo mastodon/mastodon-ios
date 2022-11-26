@@ -63,7 +63,7 @@ class AltViewController: UIViewController {
         super.viewDidLayoutSubviews()
         UIView.performWithoutAnimation {
             preferredContentSize = CGSize(
-                width: label.intrinsicContentSize.width + view.layoutMargins.left + view.layoutMargins.right,
+                width: label.intrinsicContentSize.width + 16,
                 height: label.intrinsicContentSize.height + view.layoutMargins.top + view.layoutMargins.bottom
             )
         }
