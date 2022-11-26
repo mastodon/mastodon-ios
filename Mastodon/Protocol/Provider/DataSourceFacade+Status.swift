@@ -85,7 +85,22 @@ extension DataSourceFacade {
             self.metadata = LPLinkMetadata()
             metadata.url = url
             metadata.title = "\(status.author.displayName) (@\(status.author.acctWithDomain))"
-            metadata.iconProvider = NSItemProvider(object: IconProvider(url: status.author.avatarImageURLWithFallback(domain: status.author.domain)))
+            metadata.iconProvider = NSItemProvider(object: ImageProvider(
+                url: status.author.avatarImageURLWithFallback(domain: status.author.domain),
+                filter: ScaledToSizeFilter(size: CGSize.authorAvatarButtonSize)
+            ))
+            if let media = status.attachments.first,
+               let urlStr = media.assetURL,
+               let url = URL(string: urlStr) {
+                if media.kind == .image {
+                    metadata.imageProvider = NSItemProvider(object: ImageProvider(
+                        url: url,
+                        filter: nil
+                    ))
+                } else if media.kind == .gifv || media.kind == .video {
+                    metadata.remoteVideoURL = url
+                }
+            }
         }
 
         let url: URL
@@ -103,10 +118,12 @@ extension DataSourceFacade {
             metadata
         }
 
-        private class IconProvider: NSObject, NSItemProviderWriting {
+        private class ImageProvider: NSObject, NSItemProviderWriting {
             let url: URL
-            init(url: URL) {
+            let filter: ImageFilter?
+            init(url: URL, filter: ImageFilter? = nil) {
                 self.url = url
+                self.filter = filter
             }
 
             static var writableTypeIdentifiersForItemProvider: [String] {
@@ -114,7 +131,6 @@ extension DataSourceFacade {
             }
 
             func loadData(withTypeIdentifier typeIdentifier: String, forItemProviderCompletionHandler completionHandler: @escaping @Sendable (Data?, Error?) -> Void) -> Progress? {
-                let filter = ScaledToSizeFilter(size: CGSize.authorAvatarButtonSize)
                 let receipt = UIImageView.af.sharedImageDownloader.download(URLRequest(url: url), filter: filter, completion: { response in
                     switch response.result {
                     case .failure(let error): completionHandler(nil, error)
