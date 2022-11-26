@@ -110,6 +110,10 @@ extension MediaPreviewImageViewController: MediaPreviewPage {
             }
         }
     }
+
+    var altText: String? {
+        viewModel.item.altText
+    }
 }
 
 // MARK: - ImageAnalysisInteractionDelegate

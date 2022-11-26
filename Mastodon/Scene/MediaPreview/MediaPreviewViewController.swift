@@ -29,6 +29,10 @@ final class MediaPreviewViewController: UIViewController, NeedsDependency {
         button.setImage(UIImage(systemName: "xmark", withConfiguration: UIImage.SymbolConfiguration(pointSize: 16, weight: .bold))!, for: .normal)
     }
 
+    let altButton = HUDButton { button in
+        button.setTitle("ALT", for: .normal)
+    }
+
     deinit {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
     }
@@ -58,7 +62,13 @@ extension MediaPreviewViewController {
             closeButton.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
             closeButton.widthAnchor.constraint(equalToConstant: HUDButton.height).priority(.defaultHigh),
         ])
-        
+
+        view.addSubview(altButton)
+        NSLayoutConstraint.activate([
+            altButton.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 12),
+            altButton.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
+        ])
+
         viewModel.mediaPreviewImageViewControllerDelegate = self
 
         pagingViewController.interPageSpacing = 10
@@ -66,7 +76,8 @@ extension MediaPreviewViewController {
         pagingViewController.dataSource = viewModel
         
         closeButton.button.addTarget(self, action: #selector(MediaPreviewViewController.closeButtonPressed(_:)), for: .touchUpInside)
-        
+        altButton.button.addTarget(self, action: #selector(MediaPreviewViewController.altButtonPressed(_:)), for: .touchUpInside)
+
         // bind view model
         viewModel.$currentPage
             .receive(on: DispatchQueue.main)
@@ -144,7 +155,12 @@ extension MediaPreviewViewController {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         dismiss(animated: true, completion: nil)
     }
-    
+
+    @objc private func altButtonPressed(_ sender: UIButton) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        present(AltViewController(alt: viewModel.viewControllers[viewModel.currentPage].altText, sourceView: sender), animated: true)
+    }
+
 }
 
 // MARK: - MediaPreviewingViewController

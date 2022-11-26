@@ -14,6 +14,7 @@ import MastodonCore
 
 protocol MediaPreviewPage: UIViewController {
     func setShowingChrome(_ showingChrome: Bool)
+    var altText: String? { get }
 }
 
 final class MediaPreviewViewModel: NSObject {
@@ -27,9 +28,9 @@ final class MediaPreviewViewModel: NSObject {
     
     @Published var currentPage: Int
     @Published var showingChrome = true
-    
+
     // output
-    let viewControllers: [UIViewController]
+    let viewControllers: [MediaPreviewPage]
 
     private var disposeBag: Set<AnyCancellable> = []
     
@@ -65,7 +66,8 @@ final class MediaPreviewViewModel: NSObject {
                         context: context,
                         item: .gif(.init(
                             assetURL: attachment.assetURL.flatMap { URL(string: $0) },
-                            previewURL: attachment.previewURL.flatMap { URL(string: $0) }
+                            previewURL: attachment.previewURL.flatMap { URL(string: $0) },
+                            altText: attachment.altDescription
                         ))
                     )
                     viewController.viewModel = viewModel
@@ -76,7 +78,8 @@ final class MediaPreviewViewModel: NSObject {
                         context: context,
                         item: .video(.init(
                             assetURL: attachment.assetURL.flatMap { URL(string: $0) },
-                            previewURL: attachment.previewURL.flatMap { URL(string: $0) }
+                            previewURL: attachment.previewURL.flatMap { URL(string: $0) },
+                            altText: attachment.altDescription
                         ))
                     )
                     viewController.viewModel = viewModel

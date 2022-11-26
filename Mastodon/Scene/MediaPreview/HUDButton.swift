@@ -25,7 +25,9 @@ class HUDButton: UIView {
     let button: UIButton = {
         let button = HighlightDimmableButton()
         button.expandEdgeInsets = UIEdgeInsets(top: -10, left: -10, bottom: -10, right: -10)
+        button.contentEdgeInsets = .constant(7)
         button.imageView?.tintColor = .label
+        button.titleLabel?.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 15, weight: .bold))
         return button
     }()
 
@@ -55,5 +57,10 @@ class HUDButton: UIView {
         NSLayoutConstraint.activate([
             heightAnchor.constraint(equalToConstant: HUDButton.height).priority(.defaultHigh),
         ])
+    }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        button.titleLabel?.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 15, weight: .bold))
     }
 }
