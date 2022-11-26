@@ -63,4 +63,12 @@ class HUDButton: UIView {
         super.traitCollectionDidChange(previousTraitCollection)
         button.titleLabel?.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 15, weight: .bold))
     }
+
+    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        button.point(inside: button.convert(point, from: self), with: event)
+    }
+
+    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        button
+    }
 }

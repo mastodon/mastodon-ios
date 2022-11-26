@@ -24,7 +24,32 @@ final class MediaPreviewViewController: UIViewController, NeedsDependency {
         
     let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .systemMaterial))
     let pagingViewController = MediaPreviewPagingViewController()
-    
+
+    let topToolbar: UIStackView = {
+        class TouchTransparentStackView: UIStackView {
+            // allow button hit boxes to grow outside of this view’s bounds
+            override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+                subviews.contains { $0.point(inside: $0.convert(point, from: self), with: event) }
+            }
+
+            // allow taps on blank areas to pass through
+            override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+                let view = super.hitTest(point, with: event)
+                if view == self {
+                    return nil
+                }
+                return view
+            }
+        }
+
+        let stackView = TouchTransparentStackView()
+        stackView.axis = .horizontal
+        stackView.distribution = .equalSpacing
+        stackView.alignment = .fill
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
+
     let closeButton = HUDButton { button in
         button.setImage(UIImage(systemName: "xmark", withConfiguration: UIImage.SymbolConfiguration(pointSize: 16, weight: .bold))!, for: .normal)
     }
@@ -56,18 +81,19 @@ extension MediaPreviewViewController {
         visualEffectView.pinTo(to: pagingViewController.view)
         pagingViewController.didMove(toParent: self)
 
-        view.addSubview(closeButton)
+        view.addSubview(topToolbar)
         NSLayoutConstraint.activate([
-            closeButton.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 12),
-            closeButton.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
+            topToolbar.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 12),
+            topToolbar.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
+            topToolbar.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
+        ])
+
+        topToolbar.addArrangedSubview(closeButton)
+        NSLayoutConstraint.activate([
             closeButton.widthAnchor.constraint(equalToConstant: HUDButton.height).priority(.defaultHigh),
         ])
 
-        view.addSubview(altButton)
-        NSLayoutConstraint.activate([
-            altButton.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 12),
-            altButton.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
-        ])
+        topToolbar.addArrangedSubview(altButton)
 
         viewModel.mediaPreviewImageViewControllerDelegate = self
 
@@ -121,7 +147,7 @@ extension MediaPreviewViewController {
             .sink { [weak self] showingChrome in
                 UIView.animate(withDuration: 0.3) {
                     self?.setNeedsStatusBarAppearanceUpdate()
-                    self?.closeButton.alpha = showingChrome ? 1 : 0
+                    self?.topToolbar.alpha = showingChrome ? 1 : 0
                 }
             }
             .store(in: &disposeBag)
