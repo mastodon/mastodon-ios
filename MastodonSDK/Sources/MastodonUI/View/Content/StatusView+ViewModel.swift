@@ -9,13 +9,14 @@ import os.log
 import UIKit
 import Combine
 import CoreData
-import Meta
-import MastodonSDK
-import MastodonAsset
-import MastodonLocalization
-import MastodonExtension
-import MastodonCommon
 import CoreDataStack
+import Meta
+import MastodonAsset
+import MastodonCore
+import MastodonCommon
+import MastodonExtension
+import MastodonLocalization
+import MastodonSDK
 
 extension StatusView {
     public final class ViewModel: ObservableObject {
@@ -25,7 +26,7 @@ extension StatusView {
 
         let logger = Logger(subsystem: "StatusView", category: "ViewModel")
         
-        @Published public var userIdentifier: UserIdentifier?       // me
+        public var authContext: AuthContext?
         
         // Header
         @Published public var header: Header = .none
@@ -84,6 +85,7 @@ extension StatusView {
         @Published public var isReblog: Bool = false
         @Published public var isReblogEnabled: Bool = true
         @Published public var isFavorite: Bool = false
+        @Published public var isBookmark: Bool = false
         
         @Published public var replyCount: Int = 0
         @Published public var reblogCount: Int = 0
@@ -125,6 +127,8 @@ extension StatusView {
         }
         
         public func prepareForReuse() {
+            authContext = nil
+            
             authorAvatarImageURL = nil
             
             isContentSensitive = false
@@ -199,6 +203,7 @@ extension StatusView.ViewModel {
                     statusView.headerInfoLabel.configure(content: info.header)
                     statusView.setHeaderDisplay()
                 case .reply(let info):
+                    assert(Thread.isMainThread)
                     statusView.headerIconImageView.image = UIImage(systemName: "arrowshape.turn.up.left.fill")
                     statusView.headerInfoLabel.configure(content: info.header)
                     statusView.setHeaderDisplay()
@@ -208,6 +213,7 @@ extension StatusView.ViewModel {
     }
     
     private func bindAuthor(statusView: StatusView) {
+        let authorView = statusView.authorView
         // avatar
         Publishers.CombineLatest(
             $authorAvatarImage.removeDuplicates(),
@@ -221,15 +227,15 @@ extension StatusView.ViewModel {
                     return AvatarImageView.Configuration(url: url)
                 }
             }()
-            statusView.avatarButton.avatarImageView.configure(configuration: configuration)
-            statusView.avatarButton.avatarImageView.configure(cornerConfiguration: .init(corner: .fixed(radius: 12)))
+            authorView.avatarButton.avatarImageView.configure(configuration: configuration)
+            authorView.avatarButton.avatarImageView.configure(cornerConfiguration: .init(corner: .fixed(radius: 12)))
         }
         .store(in: &disposeBag)
         // name
         $authorName
             .sink { metaContent in
                 let metaContent = metaContent ?? PlaintextMetaContent(string: " ")
-                statusView.authorNameLabel.configure(content: metaContent)
+                authorView.authorNameLabel.configure(content: metaContent)
             }
             .store(in: &disposeBag)
         // username
@@ -240,7 +246,7 @@ extension StatusView.ViewModel {
             }
             .sink { username in
                 let metaContent = PlaintextMetaContent(string: username)
-                statusView.authorUsernameLabel.configure(content: metaContent)
+                authorView.authorUsernameLabel.configure(content: metaContent)
             }
             .store(in: &disposeBag)
         // timestamp
@@ -261,7 +267,7 @@ extension StatusView.ViewModel {
         $timestampText
             .sink { [weak self] text in
                 guard let _ = self else { return }
-                statusView.dateLabel.configure(content: PlaintextMetaContent(string: text))
+                authorView.dateLabel.configure(content: PlaintextMetaContent(string: text))
             }
             .store(in: &disposeBag)
     }
@@ -297,7 +303,6 @@ extension StatusView.ViewModel {
                 statusView.contentMetaText.configure(
                     content: content
                 )
-                statusView.contentMetaText.textView.accessibilityLabel = content.string
                 statusView.contentMetaText.textView.accessibilityTraits = [.staticText]
                 statusView.contentMetaText.textView.accessibilityElementsHidden = false
             } else {
@@ -326,7 +331,7 @@ extension StatusView.ViewModel {
                 // eye: when media is hidden
                 // eye-slash: when media display
                 let image = isSensitiveToggled ? UIImage(systemName: "eye.slash.fill") : UIImage(systemName: "eye.fill")
-                statusView.contentSensitiveeToggleButton.setImage(image, for: .normal)
+                statusView.authorView.contentSensitiveeToggleButton.setImage(image, for: .normal)
             }
             .store(in: &disposeBag)
     }
@@ -566,26 +571,41 @@ extension StatusView.ViewModel {
     }
     
     private func bindMenu(statusView: StatusView) {
-        Publishers.CombineLatest4(
+        let authorView = statusView.authorView
+        let publisherOne = Publishers.CombineLatest(
             $authorName,
-            $isMuting,
-            $isBlocking,
             $isMyself
         )
-        .sink { authorName, isMuting, isBlocking, isMyself in
+        let publishersTwo = Publishers.CombineLatest3(
+            $isMuting,
+            $isBlocking,
+            $isBookmark
+        )
+        
+        Publishers.CombineLatest(
+            publisherOne.eraseToAnyPublisher(),
+            publishersTwo.eraseToAnyPublisher()
+        ).eraseToAnyPublisher()
+        .sink { tupleOne, tupleTwo in
+            let (authorName, isMyself) = tupleOne
+            let (isMuting, isBlocking, isBookmark) = tupleTwo
+            
             guard let name = authorName?.string else {
-                statusView.menuButton.menu = nil
+                statusView.authorView.menuButton.menu = nil
                 return
             }
             
-            let menuContext = StatusView.AuthorMenuContext(
+            let menuContext = StatusAuthorView.AuthorMenuContext(
                 name: name,
                 isMuting: isMuting,
                 isBlocking: isBlocking,
-                isMyself: isMyself
+                isMyself: isMyself,
+                isBookmarking: isBookmark
             )
-            statusView.menuButton.menu = statusView.setupAuthorMenu(menuContext: menuContext)
-            statusView.menuButton.showsMenuAsPrimaryAction = true
+            let (menu, actions) = authorView.setupAuthorMenu(menuContext: menuContext)
+            authorView.menuButton.menu = menu
+            authorView.authorActions = actions
+            authorView.menuButton.showsMenuAsPrimaryAction = true
         }
         .store(in: &disposeBag)
     }
@@ -602,7 +622,7 @@ extension StatusView.ViewModel {
     }
     
     private func bindAccessibility(statusView: StatusView) {
-        let authorAccessibilityLabel = Publishers.CombineLatest3(
+        let shortAuthorAccessibilityLabel = Publishers.CombineLatest3(
             $header,
             $authorName,
             $timestampText
@@ -612,19 +632,56 @@ extension StatusView.ViewModel {
             
             switch header {
             case .none:
-                break
+                strings.append(authorName?.string)
             case .reply(let info):
+                strings.append(authorName?.string)
                 strings.append(info.header.string)
             case .repost(let info):
                 strings.append(info.header.string)
+                strings.append(authorName?.string)
             }
             
-            strings.append(authorName?.string)
             strings.append(timestamp)
             
             return strings.compactMap { $0 }.joined(separator: ", ")
         }
-        
+
+        let longTimestampFormatter = DateFormatter()
+        longTimestampFormatter.dateStyle = .medium
+        longTimestampFormatter.timeStyle = .short
+        let longTimestampLabel = Publishers.CombineLatest(
+            $timestampText,
+            $timestamp.map { timestamp in
+                if let timestamp {
+                    return longTimestampFormatter.string(from: timestamp)
+                }
+                return ""
+            }
+        )
+            .map { timestampText, longTimestamp in
+                "\(timestampText). \(longTimestamp)"
+            }
+
+        Publishers.CombineLatest4(
+            $header,
+            $authorName,
+            $authorUsername,
+            longTimestampLabel
+        )
+        .map { header, name, username, timestamp in
+            let nameAndUsername = "\(name?.string ?? "") @\(username ?? "")"
+            switch header {
+            case .none:
+                return "\(nameAndUsername), \(timestamp)"
+            case .repost(info: let info):
+                return "\(info.header.string) \(nameAndUsername), \(timestamp)"
+            case .reply(info: let info):
+                return "\(nameAndUsername) \(info.header.string), \(timestamp)"
+            }
+        }
+        .assign(to: \.accessibilityLabel, on: statusView.authorView)
+        .store(in: &disposeBag)
+
         let contentAccessibilityLabel = Publishers.CombineLatest3(
             $isContentReveal,
             $spoilerContent,
@@ -653,7 +710,7 @@ extension StatusView.ViewModel {
                 isContentReveal ? L10n.Scene.Compose.Accessibility.enableContentWarning : L10n.Scene.Compose.Accessibility.disableContentWarning
             }
             .sink { label in
-                statusView.contentSensitiveeToggleButton.accessibilityLabel = label
+                statusView.authorView.contentSensitiveeToggleButton.accessibilityLabel = label
             }
             .store(in: &disposeBag)
         
@@ -662,8 +719,8 @@ extension StatusView.ViewModel {
                 statusView.spoilerOverlayView.accessibilityLabel = contentAccessibilityLabel
             }
             .store(in: &disposeBag)
-        
-        let meidaAccessibilityLabel = $mediaViewConfigurations
+
+        let mediaAccessibilityLabel = $mediaViewConfigurations
             .map { configurations -> String? in
                 let count = configurations.count
                 return L10n.Plural.Count.media(count)
@@ -672,18 +729,18 @@ extension StatusView.ViewModel {
         // TODO: Toolbar
     
         Publishers.CombineLatest3(
-            authorAccessibilityLabel,
+            shortAuthorAccessibilityLabel,
             contentAccessibilityLabel,
-            meidaAccessibilityLabel
+            mediaAccessibilityLabel
         )
         .map { author, content, media in
-            let group = [
-                author,
-                content,
-                media
-            ]
-            
-            return group
+            var labels: [String?] = [content, media]
+
+            if statusView.style != .notification {
+                labels.insert(author, at: 0)
+            }
+
+            return labels
                 .compactMap { $0 }
                 .joined(separator: ", ")
         }
@@ -694,8 +751,23 @@ extension StatusView.ViewModel {
                 statusView.accessibilityLabel = accessibilityLabel
             }
             .store(in: &disposeBag)
+
+        Publishers.CombineLatest(
+            $content,
+            $isContentReveal.removeDuplicates()
+        )
+        .map { content, isRevealed in
+            guard isRevealed, let entities = content?.entities else { return [] }
+            return entities.compactMap { entity in
+                guard let name = entity.accessibilityCustomActionLabel else { return nil }
+                return UIAccessibilityCustomAction(name: name) { action in
+                    statusView.delegate?.statusView(statusView, metaText: statusView.contentMetaText, didSelectMeta: entity.meta)
+                    return true
+                }
+            }
+        }
+        .assign(to: \.accessibilityCustomActions, on: statusView.contentMetaText.textView)
+        .store(in: &disposeBag)
     }
     
 }
-
-

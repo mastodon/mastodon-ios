@@ -11,7 +11,12 @@ import Combine
 import MetaTextKit
 import Meta
 import MastodonAsset
+import MastodonCore
 import MastodonLocalization
+
+public extension CGSize {
+    static let authorAvatarButtonSize = CGSize(width: 46, height: 46)
+}
 
 public protocol StatusViewDelegate: AnyObject {
     func statusView(_ statusView: StatusView, headerDidPressed header: UIView)
@@ -75,52 +80,8 @@ public final class StatusView: UIView {
     
     // author
     let authorAdaptiveMarginContainerView = AdaptiveMarginContainerView()
-    let authorContainerView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.spacing = 12
-        return stackView
-    }()
-    
-    // avatar
-    public let avatarButton = AvatarButton()
-    
-    // author name
-    public let authorNameLabel = MetaLabel(style: .statusName)
-    
-    // author username
-    public let authorUsernameLabel = MetaLabel(style: .statusUsername)
-        
-    public let usernameTrialingDotLabel: MetaLabel = {
-        let label = MetaLabel(style: .statusUsername)
-        label.configure(content: PlaintextMetaContent(string: "·"))
-        return label
-    }()
+    public let authorView = StatusAuthorView()
 
-    // timestamp
-    public let dateLabel = MetaLabel(style: .statusUsername)
-    
-    public let menuButton: UIButton = {
-        let button = HitTestExpandedButton(type: .system)
-        button.expandEdgeInsets = UIEdgeInsets(top: -20, left: -10, bottom: -5, right: -10)
-        button.tintColor = Asset.Colors.Label.secondary.color
-        let image = UIImage(systemName: "ellipsis", withConfiguration: UIImage.SymbolConfiguration(font: .systemFont(ofSize: 15)))
-        button.setImage(image, for: .normal)
-        button.accessibilityLabel = L10n.Common.Controls.Status.Actions.menu
-        return button
-    }()
-    
-    public let contentSensitiveeToggleButton: UIButton = {
-        let button = HitTestExpandedButton(type: .system)
-        button.expandEdgeInsets = UIEdgeInsets(top: -5, left: -10, bottom: -20, right: -10)
-        button.tintColor = Asset.Colors.Label.secondary.color
-        button.imageView?.contentMode = .scaleAspectFill
-        button.imageView?.clipsToBounds = false
-        let image = UIImage(systemName: "eye.slash.fill", withConfiguration: UIImage.SymbolConfiguration(font: .systemFont(ofSize: 15)))
-        button.setImage(image, for: .normal)
-        return button
-    }()
-    
     // content
     let contentAdaptiveMarginContainerView = AdaptiveMarginContainerView()
     let contentContainer = UIStackView()
@@ -147,8 +108,8 @@ public final class StatusView: UIView {
             .foregroundColor: Asset.Colors.Label.primary.color,
         ]
         metaText.linkAttributes = [
-            .font: UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold)),
-            .foregroundColor: Asset.Colors.brandBlue.color,
+            .font: UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 17, weight: .regular)),
+            .foregroundColor: Asset.Colors.brand.color,
         ]
         return metaText
     }()
@@ -203,8 +164,8 @@ public final class StatusView: UIView {
         let button = HitTestExpandedButton()
         button.titleLabel?.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 14, weight: .semibold))
         button.setTitle(L10n.Common.Controls.Status.Poll.vote, for: .normal)
-        button.setTitleColor(Asset.Colors.brandBlue.color, for: .normal)
-        button.setTitleColor(Asset.Colors.brandBlue.color.withAlphaComponent(0.8), for: .highlighted)
+        button.setTitleColor(Asset.Colors.brand.color, for: .normal)
+        button.setTitleColor(Asset.Colors.brand.color.withAlphaComponent(0.8), for: .highlighted)
         button.setTitleColor(Asset.Colors.Button.disabled.color, for: .disabled)
         button.isEnabled = false
         return button
@@ -239,7 +200,7 @@ public final class StatusView: UIView {
         viewModel.objects.removeAll()
         viewModel.prepareForReuse()
         
-        avatarButton.avatarImageView.cancelTask()
+        authorView.avatarButton.avatarImageView.cancelTask()
         if var snapshot = pollTableViewDiffableDataSource?.snapshot() {
             snapshot.deleteAllItems()
             if #available(iOS 15.0, *) {
@@ -275,31 +236,19 @@ extension StatusView {
         // container
         containerStackView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(containerStackView)
-        NSLayoutConstraint.activate([
-            containerStackView.topAnchor.constraint(equalTo: topAnchor),
-            containerStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            containerStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            containerStackView.bottomAnchor.constraint(equalTo: bottomAnchor),
-        ])
+        containerStackView.pinToParent()
         
         // header
         headerIconImageView.isUserInteractionEnabled = false
         headerInfoLabel.isUserInteractionEnabled = false
+        headerInfoLabel.isAccessibilityElement = false
         let headerTapGestureRecognizer = UITapGestureRecognizer.singleTapGestureRecognizer
         headerTapGestureRecognizer.addTarget(self, action: #selector(StatusView.headerDidPressed(_:)))
         headerContainerView.addGestureRecognizer(headerTapGestureRecognizer)
-        
-        // avatar button
-        avatarButton.addTarget(self, action: #selector(StatusView.authorAvatarButtonDidPressed(_:)), for: .touchUpInside)
-        authorNameLabel.isUserInteractionEnabled = false
-        authorUsernameLabel.isUserInteractionEnabled = false
-        
-        // contentSensitiveeToggleButton
-        contentSensitiveeToggleButton.addTarget(self, action: #selector(StatusView.contentSensitiveeToggleButtonDidPressed(_:)), for: .touchUpInside)
-        
-        // dateLabel
-        dateLabel.isUserInteractionEnabled = false
-        
+
+        // author view
+        authorView.statusView = self
+
         // content warning
         let spoilerOverlayViewTapGestureRecognizer = UITapGestureRecognizer.singleTapGestureRecognizer
         spoilerOverlayView.addGestureRecognizer(spoilerOverlayViewTapGestureRecognizer)
@@ -335,16 +284,6 @@ extension StatusView {
         logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
         assert(sender.view === headerContainerView)
         delegate?.statusView(self, headerDidPressed: headerContainerView)
-    }
-
-    @objc private func authorAvatarButtonDidPressed(_ sender: UIButton) {
-        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
-        delegate?.statusView(self, authorAvatarButtonDidPressed: avatarButton)
-    }
-    
-    @objc private func contentSensitiveeToggleButtonDidPressed(_ sender: UIButton) {
-        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
-        delegate?.statusView(self, contentSensitiveeToggleButtonDidPressed: sender)
     }
     
     @objc private func pollVoteButtonDidPressed(_ sender: UIButton) {
@@ -394,6 +333,8 @@ extension StatusView.Style {
         case .composeStatusReplica: composeStatusReplica(statusView: statusView)
         case .composeStatusAuthor:  composeStatusAuthor(statusView: statusView)
         }
+
+        statusView.authorView.layout(style: self)
     }
     
     private func base(statusView: StatusView) {
@@ -425,81 +366,9 @@ extension StatusView.Style {
         statusView.headerIconImageView.setContentCompressionResistancePriority(.defaultLow - 100, for: .vertical)
         statusView.headerIconImageView.setContentCompressionResistancePriority(.defaultLow - 100, for: .horizontal)
 
-        // author container: H - [ avatarButton | author meta container | contentWarningToggleButton ]
-        statusView.authorAdaptiveMarginContainerView.contentView = statusView.authorContainerView
+        statusView.authorAdaptiveMarginContainerView.contentView = statusView.authorView
         statusView.authorAdaptiveMarginContainerView.margin = StatusView.containerLayoutMargin
         statusView.containerStackView.addArrangedSubview(statusView.authorAdaptiveMarginContainerView)
-        
-        UIContentSizeCategory.publisher
-            .sink { category in
-                statusView.authorContainerView.axis = category > .accessibilityLarge ? .vertical : .horizontal
-                statusView.authorContainerView.alignment = category > .accessibilityLarge ? .leading : .center
-            }
-            .store(in: &statusView._disposeBag)
-
-        // avatarButton
-        let authorAvatarButtonSize = CGSize(width: 46, height: 46)
-        statusView.avatarButton.size = authorAvatarButtonSize
-        statusView.avatarButton.avatarImageView.imageViewSize = authorAvatarButtonSize
-        statusView.avatarButton.translatesAutoresizingMaskIntoConstraints = false
-        statusView.authorContainerView.addArrangedSubview(statusView.avatarButton)
-        NSLayoutConstraint.activate([
-            statusView.avatarButton.widthAnchor.constraint(equalToConstant: authorAvatarButtonSize.width).priority(.required - 1),
-            statusView.avatarButton.heightAnchor.constraint(equalToConstant: authorAvatarButtonSize.height).priority(.required - 1),
-        ])
-        statusView.avatarButton.setContentHuggingPriority(.required - 1, for: .vertical)
-        statusView.avatarButton.setContentCompressionResistancePriority(.required - 1, for: .vertical)
-
-        // authrMetaContainer: V - [ authorPrimaryMetaContainer | authorSecondaryMetaContainer ]
-        let authorMetaContainer = UIStackView()
-        authorMetaContainer.axis = .vertical
-        authorMetaContainer.spacing = 4
-        statusView.authorContainerView.addArrangedSubview(authorMetaContainer)
-
-        // authorPrimaryMetaContainer: H - [ authorNameLabel | (padding) | menuButton ]
-        let authorPrimaryMetaContainer = UIStackView()
-        authorPrimaryMetaContainer.axis = .horizontal
-        authorPrimaryMetaContainer.spacing = 10
-        authorMetaContainer.addArrangedSubview(authorPrimaryMetaContainer)
-
-        // authorNameLabel
-        authorPrimaryMetaContainer.addArrangedSubview(statusView.authorNameLabel)
-        statusView.authorNameLabel.setContentHuggingPriority(.required - 10, for: .horizontal)
-        statusView.authorNameLabel.setContentCompressionResistancePriority(.required - 10, for: .horizontal)
-        authorPrimaryMetaContainer.addArrangedSubview(UIView())
-        // menuButton
-        authorPrimaryMetaContainer.addArrangedSubview(statusView.menuButton)
-        statusView.menuButton.setContentHuggingPriority(.required - 2, for: .horizontal)
-        statusView.menuButton.setContentCompressionResistancePriority(.required - 2, for: .horizontal)
-
-        // authorSecondaryMetaContainer: H - [ authorUsername | usernameTrialingDotLabel | dateLabel | (padding) | contentSensitiveeToggleButton ]
-        let authorSecondaryMetaContainer = UIStackView()
-        authorSecondaryMetaContainer.axis = .horizontal
-        authorSecondaryMetaContainer.spacing = 4
-        authorMetaContainer.addArrangedSubview(authorSecondaryMetaContainer)
-
-        authorSecondaryMetaContainer.addArrangedSubview(statusView.authorUsernameLabel)
-        statusView.authorUsernameLabel.setContentHuggingPriority(.required - 8, for: .horizontal)
-        statusView.authorUsernameLabel.setContentCompressionResistancePriority(.required - 8, for: .horizontal)
-        authorSecondaryMetaContainer.addArrangedSubview(statusView.usernameTrialingDotLabel)
-        statusView.usernameTrialingDotLabel.setContentHuggingPriority(.required - 2, for: .horizontal)
-        statusView.usernameTrialingDotLabel.setContentCompressionResistancePriority(.required - 2, for: .horizontal)
-        authorSecondaryMetaContainer.addArrangedSubview(statusView.dateLabel)
-        statusView.dateLabel.setContentHuggingPriority(.required - 1, for: .horizontal)
-        statusView.dateLabel.setContentCompressionResistancePriority(.required - 1, for: .horizontal)
-        authorSecondaryMetaContainer.addArrangedSubview(UIView())
-        statusView.contentSensitiveeToggleButton.translatesAutoresizingMaskIntoConstraints = false
-        authorSecondaryMetaContainer.addArrangedSubview(statusView.contentSensitiveeToggleButton)
-        NSLayoutConstraint.activate([
-            statusView.contentSensitiveeToggleButton.heightAnchor.constraint(equalTo: statusView.authorUsernameLabel.heightAnchor, multiplier: 1.0).priority(.required - 1),
-            statusView.contentSensitiveeToggleButton.widthAnchor.constraint(equalTo: statusView.contentSensitiveeToggleButton.heightAnchor, multiplier: 1.0).priority(.required - 1),
-        ])
-        statusView.authorUsernameLabel.setContentHuggingPriority(.required - 1, for: .vertical)
-        statusView.authorUsernameLabel.setContentCompressionResistancePriority(.required - 1, for: .vertical)
-        statusView.contentSensitiveeToggleButton.setContentHuggingPriority(.defaultLow, for: .vertical)
-        statusView.contentSensitiveeToggleButton.setContentHuggingPriority(.defaultLow, for: .horizontal)
-        statusView.contentSensitiveeToggleButton.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-        statusView.contentSensitiveeToggleButton.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
 
         // content container: V - [ contentMetaText ]
         statusView.contentContainer.axis = .vertical
@@ -519,12 +388,7 @@ extension StatusView.Style {
 
         statusView.spoilerOverlayView.translatesAutoresizingMaskIntoConstraints = false
         statusView.containerStackView.addSubview(statusView.spoilerOverlayView)
-        NSLayoutConstraint.activate([
-            statusView.contentContainer.topAnchor.constraint(equalTo: statusView.spoilerOverlayView.topAnchor),
-            statusView.contentContainer.leadingAnchor.constraint(equalTo: statusView.spoilerOverlayView.leadingAnchor),
-            statusView.contentContainer.trailingAnchor.constraint(equalTo: statusView.spoilerOverlayView.trailingAnchor),
-            statusView.contentContainer.bottomAnchor.constraint(equalTo: statusView.spoilerOverlayView.bottomAnchor),
-        ])
+        statusView.contentContainer.pinTo(to: statusView.spoilerOverlayView)
 
         // media container: V - [ mediaGridContainerView ]
         statusView.mediaContainerView.translatesAutoresizingMaskIntoConstraints = false
@@ -536,12 +400,7 @@ extension StatusView.Style {
 
         statusView.mediaGridContainerView.translatesAutoresizingMaskIntoConstraints = false
         statusView.mediaContainerView.addSubview(statusView.mediaGridContainerView)
-        NSLayoutConstraint.activate([
-            statusView.mediaGridContainerView.topAnchor.constraint(equalTo: statusView.mediaContainerView.topAnchor),
-            statusView.mediaGridContainerView.leadingAnchor.constraint(equalTo: statusView.mediaContainerView.leadingAnchor),
-            statusView.mediaGridContainerView.trailingAnchor.constraint(equalTo: statusView.mediaContainerView.trailingAnchor),
-            statusView.mediaGridContainerView.bottomAnchor.constraint(equalTo: statusView.mediaContainerView.bottomAnchor),
-        ])
+        statusView.mediaGridContainerView.pinToParent()
 
         // pollContainerView: V - [ pollTableView | pollStatusStackView ]
         statusView.pollAdaptiveMarginContainerView.contentView = statusView.pollContainerView
@@ -605,7 +464,6 @@ extension StatusView.Style {
     func report(statusView: StatusView) {
         base(statusView: statusView)      // override the base style
 
-        statusView.menuButton.removeFromSuperview()
         statusView.actionToolbarAdaptiveMarginContainerView.removeFromSuperview()
     }
     
@@ -621,26 +479,18 @@ extension StatusView.Style {
         
         statusView.contentAdaptiveMarginContainerView.bottomLayoutConstraint?.constant = 16     // fix bottom margin missing issue
         statusView.pollAdaptiveMarginContainerView.bottomLayoutConstraint?.constant = 16        // fix bottom margin missing issue
-        statusView.contentSensitiveeToggleButton.removeFromSuperview()
-        statusView.menuButton.removeFromSuperview()
         statusView.actionToolbarAdaptiveMarginContainerView.removeFromSuperview()
     }
     
     func composeStatusReplica(statusView: StatusView) {
         base(statusView: statusView)
         
-        statusView.avatarButton.isUserInteractionEnabled = false
-        statusView.menuButton.removeFromSuperview()
         statusView.actionToolbarAdaptiveMarginContainerView.removeFromSuperview()
     }
     
     func composeStatusAuthor(statusView: StatusView) {
         base(statusView: statusView)
         
-        statusView.avatarButton.isUserInteractionEnabled = false
-        statusView.menuButton.removeFromSuperview()
-        statusView.usernameTrialingDotLabel.removeFromSuperview()
-        statusView.dateLabel.removeFromSuperview()
         statusView.contentAdaptiveMarginContainerView.removeFromSuperview()
         statusView.spoilerOverlayView.removeFromSuperview()
         statusView.mediaContainerView.removeFromSuperview()
@@ -656,7 +506,7 @@ extension StatusView {
     }
     
     func setContentSensitiveeToggleButtonDisplay(isDisplay: Bool = true) {
-        contentSensitiveeToggleButton.isHidden = !isDisplay
+        authorView.contentSensitiveeToggleButton.isHidden = !isDisplay
     }
     
     func setSpoilerOverlayViewHidden(isHidden: Bool) {
@@ -683,6 +533,13 @@ extension StatusView {
 
 }
 
+extension StatusView {
+    public override var accessibilityCustomActions: [UIAccessibilityCustomAction]? {
+        get { contentMetaText.textView.accessibilityCustomActions }
+        set { }
+    }
+}
+
 // MARK: - AdaptiveContainerView
 extension StatusView: AdaptiveContainerView {
     public func updateContainerViewComponentsLayoutMarginsRelativeArrangementBehavior(isEnabled: Bool) {
@@ -694,48 +551,6 @@ extension StatusView: AdaptiveContainerView {
         actionToolbarAdaptiveMarginContainerView.margin = margin
         statusMetricViewAdaptiveMarginContainerView.margin = margin
     }
-}
-
-extension StatusView {
-    
-    public struct AuthorMenuContext {
-        public let name: String
-        
-        public let isMuting: Bool
-        public let isBlocking: Bool
-        public let isMyself: Bool
-    }
-    
-    public func setupAuthorMenu(menuContext: AuthorMenuContext) -> UIMenu {
-        var actions: [MastodonMenu.Action] = []
-        
-        actions = [
-            .muteUser(.init(
-                name: menuContext.name,
-                isMuting: menuContext.isMuting
-            )),
-            .blockUser(.init(
-                name: menuContext.name,
-                isBlocking: menuContext.isBlocking
-            )),
-            .reportUser(
-                .init(name: menuContext.name)
-            ),
-        ]
-        
-        if menuContext.isMyself {
-            actions.append(.deleteStatus)
-        }
-        
-        
-        let menu = MastodonMenu.setupMenu(
-            actions: actions,
-            delegate: self
-        )
-        
-        return menu
-    }
-
 }
 
 // MARK: - UITextViewDelegate
@@ -806,6 +621,14 @@ extension StatusView: ActionToolbarContainerDelegate {
     public func actionToolbarContainer(_ actionToolbarContainer: ActionToolbarContainer, buttonDidPressed button: UIButton, action: ActionToolbarContainer.Action) {
         delegate?.statusView(self, actionToolbarContainer: actionToolbarContainer, buttonDidPressed: button, action: action)
     }
+
+    public func actionToolbarContainer(_ actionToolbarContainer: ActionToolbarContainer, showReblogs action: UIAccessibilityCustomAction) {
+        delegate?.statusView(self, statusMetricView: statusMetricView, reblogButtonDidPressed: statusMetricView.reblogButton)
+    }
+
+    public func actionToolbarContainer(_ actionToolbarContainer: ActionToolbarContainer, showFavorites action: UIAccessibilityCustomAction) {
+        delegate?.statusView(self, statusMetricView: statusMetricView, favoriteButtonDidPressed: statusMetricView.favoriteButton)
+    }
 }
 
 // MARK: - StatusMetricViewDelegate
@@ -823,7 +646,7 @@ extension StatusView: StatusMetricViewDelegate {
 extension StatusView: MastodonMenuDelegate {
     public func menuAction(_ action: MastodonMenu.Action) {
         logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
-        delegate?.statusView(self, menuButton: menuButton, didSelectAction: action)
+        delegate?.statusView(self, menuButton: authorView.menuButton, didSelectAction: action)
     }
 }
 

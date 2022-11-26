@@ -10,6 +10,7 @@ import UIKit
 import SwiftUI
 import Combine
 import MastodonAsset
+import MastodonCore
 import MastodonLocalization
 
 final class ReportResultViewController: UIViewController, NeedsDependency, ReportViewControllerAppearance {
@@ -59,12 +60,7 @@ extension ReportResultViewController {
         addChild(hostingViewController)
         hostingViewController.view.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(hostingViewController.view)
-        NSLayoutConstraint.activate([
-            hostingViewController.view.topAnchor.constraint(equalTo: view.topAnchor),
-            hostingViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            hostingViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            hostingViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-        ])
+        hostingViewController.view.pinToParent()
         
         navigationActionView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(navigationActionView)
@@ -92,17 +88,13 @@ extension ReportResultViewController {
             .throttle(for: 0.3, scheduler: DispatchQueue.main, latest: false)
             .sink { [weak self] in
                 guard let self = self else { return }
-                guard let authenticationBox = self.context.authenticationService.activeMastodonAuthenticationBox.value else {
-                    return
-                }
                 Task { @MainActor in
                     guard !self.viewModel.isRequestFollow else { return }
                     self.viewModel.isRequestFollow = true
                     do {
                         try await DataSourceFacade.responseToUserFollowAction(
                             dependency: self,
-                            user: self.viewModel.user,
-                            authenticationBox: authenticationBox
+                            user: self.viewModel.user
                         )
                     } catch {
                         // handle error
@@ -116,17 +108,13 @@ extension ReportResultViewController {
             .throttle(for: 0.3, scheduler: DispatchQueue.main, latest: false)
             .sink { [weak self] in
                 guard let self = self else { return }
-                guard let authenticationBox = self.context.authenticationService.activeMastodonAuthenticationBox.value else {
-                    return
-                }
                 Task { @MainActor in
                     guard !self.viewModel.isRequestMute else { return }
                     self.viewModel.isRequestMute = true
                     do {
                         try await DataSourceFacade.responseToUserMuteAction(
                             dependency: self,
-                            user: self.viewModel.user,
-                            authenticationBox: authenticationBox
+                            user: self.viewModel.user
                         )
                     } catch {
                         // handle error
@@ -140,17 +128,13 @@ extension ReportResultViewController {
             .throttle(for: 0.3, scheduler: DispatchQueue.main, latest: false)
             .sink { [weak self] in
                 guard let self = self else { return }
-                guard let authenticationBox = self.context.authenticationService.activeMastodonAuthenticationBox.value else {
-                    return
-                }
                 Task { @MainActor in
                     guard !self.viewModel.isRequestBlock else { return }
                     self.viewModel.isRequestBlock = true
                     do {
                         try await DataSourceFacade.responseToUserBlockAction(
                             dependency: self,
-                            user: self.viewModel.user,
-                            authenticationBox: authenticationBox
+                            user: self.viewModel.user
                         )
                     } catch {
                         // handle error
@@ -173,6 +157,11 @@ extension ReportResultViewController {
         dismiss(animated: true, completion: nil)
     }
 
+}
+
+// MARK: - AuthContextProvider
+extension ReportResultViewController: AuthContextProvider {
+    var authContext: AuthContext { viewModel.authContext }
 }
 
 // MARK: - PanPopableViewController

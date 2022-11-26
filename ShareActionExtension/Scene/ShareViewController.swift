@@ -1,221 +1,198 @@
 //
 //  ShareViewController.swift
-//  MastodonShareAction
+//  ShareActionExtension
 //
-//  Created by MainasuK Cirno on 2021-7-16.
+//  Created by MainasuK on 2022/11/13.
 //
 
 import os.log
 import UIKit
 import Combine
+import CoreDataStack
+import MastodonCore
 import MastodonUI
-import SwiftUI
 import MastodonAsset
 import MastodonLocalization
-import MastodonUI
+import UniformTypeIdentifiers
 
-class ShareViewController: UIViewController {
-
-    let logger = Logger(subsystem: "ShareViewController", category: "UI")
-
+final class ShareViewController: UIViewController {
+    
+    let logger = Logger(subsystem: "ShareViewController", category: "ViewController")
+    
     var disposeBag = Set<AnyCancellable>()
-    let viewModel = ShareViewModel()
-
+    
+    let context = AppContext.shared
+    private(set) lazy var viewModel = ShareViewModel(context: context)
+    
     let publishButton: UIButton = {
         let button = RoundedEdgesButton(type: .custom)
-        button.setTitle(L10n.Scene.Compose.composeAction, for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 14, weight: .bold)
-        button.setBackgroundImage(.placeholder(color: Asset.Colors.brandBlue.color), for: .normal)
-        button.setBackgroundImage(.placeholder(color: Asset.Colors.brandBlue.color.withAlphaComponent(0.5)), for: .highlighted)
-        button.setBackgroundImage(.placeholder(color: Asset.Colors.Button.disabled.color), for: .disabled)
-        button.setTitleColor(.white, for: .normal)
+        button.cornerRadius = 10
         button.contentEdgeInsets = UIEdgeInsets(top: 6, left: 16, bottom: 5, right: 16)     // set 28pt height
-        button.adjustsImageWhenHighlighted = false
+        button.titleLabel?.font = .systemFont(ofSize: 14, weight: .bold)
+        button.setTitle(L10n.Scene.Compose.composeAction, for: .normal)
         return button
     }()
-
+    private func configurePublishButtonApperance() {
+        publishButton.adjustsImageWhenHighlighted = false
+        publishButton.setBackgroundImage(.placeholder(color: Asset.Colors.Label.primary.color), for: .normal)
+        publishButton.setBackgroundImage(.placeholder(color: Asset.Colors.Label.primary.color.withAlphaComponent(0.5)), for: .highlighted)
+        publishButton.setBackgroundImage(.placeholder(color: Asset.Colors.Button.disabled.color), for: .disabled)
+        publishButton.setTitleColor(Asset.Colors.Label.primaryReverse.color, for: .normal)
+    }
+    
     private(set) lazy var cancelBarButtonItem = UIBarButtonItem(title: L10n.Common.Controls.Actions.cancel, style: .plain, target: self, action: #selector(ShareViewController.cancelBarButtonItemPressed(_:)))
     private(set) lazy var publishBarButtonItem: UIBarButtonItem = {
         let barButtonItem = UIBarButtonItem(customView: publishButton)
         publishButton.addTarget(self, action: #selector(ShareViewController.publishBarButtonItemPressed(_:)), for: .touchUpInside)
         return barButtonItem
     }()
-
     let activityIndicatorBarButtonItem: UIBarButtonItem = {
         let indicatorView = UIActivityIndicatorView(style: .medium)
         let barButtonItem = UIBarButtonItem(customView: indicatorView)
         indicatorView.startAnimating()
         return barButtonItem
     }()
+    
+    private var composeContentViewModel: ComposeContentViewModel?
+    private var composeContentViewController: ComposeContentViewController?
+    
+    let notSignInLabel: UILabel = {
+        let label = UILabel()
+        label.font = .preferredFont(forTextStyle: .subheadline)
+        label.textColor = .secondaryLabel
+        label.text = "No Available Account" // TODO: i18n
+        return label
+    }()
+    
+    deinit {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+    }
 
-
-    let viewSafeAreaDidChange = PassthroughSubject<Void, Never>()
-    let composeToolbarView = ComposeToolbarView()
-    var composeToolbarViewBottomLayoutConstraint: NSLayoutConstraint!
-    let composeToolbarBackgroundView = UIView()
 }
 
 extension ShareViewController {
-
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        navigationController?.presentationController?.delegate = self
-
-        setupBackgroundColor(theme: ThemeService.shared.currentTheme.value)
+        
+        setupTheme(theme: ThemeService.shared.currentTheme.value)
+        ThemeService.shared.apply(theme: ThemeService.shared.currentTheme.value)
         ThemeService.shared.currentTheme
             .receive(on: DispatchQueue.main)
             .sink { [weak self] theme in
                 guard let self = self else { return }
-                self.setupBackgroundColor(theme: theme)
+                self.setupTheme(theme: theme)
             }
             .store(in: &disposeBag)
-
+        
+        view.backgroundColor = .systemBackground
+        title = L10n.Scene.Compose.Title.newPost
+        
         navigationItem.leftBarButtonItem = cancelBarButtonItem
-        viewModel.isBusy
+        navigationItem.rightBarButtonItem = publishBarButtonItem
+        
+        do {
+            guard let authContext = try setupAuthContext() else {
+                setupHintLabel()
+                return
+            }
+            viewModel.authContext = authContext
+            let composeContentViewModel = ComposeContentViewModel(
+                context: context,
+                authContext: authContext,
+                kind: .post
+            )
+            let composeContentViewController = ComposeContentViewController()
+            composeContentViewController.viewModel = composeContentViewModel
+            addChild(composeContentViewController)
+            composeContentViewController.view.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview(composeContentViewController.view)
+            composeContentViewController.view.pinToParent()
+            composeContentViewController.didMove(toParent: self)
+            
+            self.composeContentViewModel = composeContentViewModel
+            self.composeContentViewController = composeContentViewController
+            
+            Task { @MainActor in
+                let inputItems = self.extensionContext?.inputItems.compactMap { $0 as? NSExtensionItem } ?? []
+                await load(inputItems: inputItems)
+            }   // end Task
+        } catch {
+            logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): error: \(error.localizedDescription)")
+        }
+        
+        viewModel.$isPublishing
             .receive(on: DispatchQueue.main)
             .sink { [weak self] isBusy in
                 guard let self = self else { return }
                 self.navigationItem.rightBarButtonItem = isBusy ? self.activityIndicatorBarButtonItem : self.publishBarButtonItem
             }
             .store(in: &disposeBag)
-
-        let hostingViewController = UIHostingController(
-            rootView: ComposeView().environmentObject(viewModel.composeViewModel)
-        )
-        addChild(hostingViewController)
-        view.addSubview(hostingViewController.view)
-        hostingViewController.view.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(hostingViewController.view)
-        NSLayoutConstraint.activate([
-            hostingViewController.view.topAnchor.constraint(equalTo: view.topAnchor),
-            hostingViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            hostingViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            hostingViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-        ])
-        hostingViewController.didMove(toParent: self)
-
-        composeToolbarView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(composeToolbarView)
-        composeToolbarViewBottomLayoutConstraint = view.bottomAnchor.constraint(equalTo: composeToolbarView.bottomAnchor)
-        NSLayoutConstraint.activate([
-            composeToolbarView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            composeToolbarView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            composeToolbarViewBottomLayoutConstraint,
-            composeToolbarView.heightAnchor.constraint(equalToConstant: ComposeToolbarView.toolbarHeight),
-        ])
-        composeToolbarView.preservesSuperviewLayoutMargins = true
-        composeToolbarView.delegate = self
-
-        composeToolbarBackgroundView.translatesAutoresizingMaskIntoConstraints = false
-        view.insertSubview(composeToolbarBackgroundView, belowSubview: composeToolbarView)
-        NSLayoutConstraint.activate([
-            composeToolbarBackgroundView.topAnchor.constraint(equalTo: composeToolbarView.topAnchor),
-            composeToolbarBackgroundView.leadingAnchor.constraint(equalTo: composeToolbarView.leadingAnchor),
-            composeToolbarBackgroundView.trailingAnchor.constraint(equalTo: composeToolbarView.trailingAnchor),
-            view.bottomAnchor.constraint(equalTo: composeToolbarBackgroundView.bottomAnchor),
-        ])
-
-        // FIXME: using iOS 15 toolbar for .keyboard placement
-        let keyboardEventPublishers = Publishers.CombineLatest3(
-            KeyboardResponderService.shared.isShow,
-            KeyboardResponderService.shared.state,
-            KeyboardResponderService.shared.endFrame
-        )
-
-        Publishers.CombineLatest(
-            keyboardEventPublishers,
-            viewSafeAreaDidChange
-        )
-        .sink(receiveValue: { [weak self] keyboardEvents, _ in
-            guard let self = self else { return }
-
-            let (isShow, state, endFrame) = keyboardEvents
-            guard isShow, state == .dock else {
-                UIView.animate(withDuration: 0.3) {
-                    self.composeToolbarViewBottomLayoutConstraint.constant = self.view.safeAreaInsets.bottom
-                    self.view.layoutIfNeeded()
-                }
-                return
-            }
-            // isShow AND dock state
-
-            UIView.animate(withDuration: 0.3) {
-                self.composeToolbarViewBottomLayoutConstraint.constant = endFrame.height
-                self.view.layoutIfNeeded()
-            }
-        })
-        .store(in: &disposeBag)
-
-        // bind visibility toolbar UI
-        Publishers.CombineLatest(
-            viewModel.selectedStatusVisibility,
-            viewModel.traitCollectionDidChangePublisher
-        )
-        .receive(on: DispatchQueue.main)
-        .sink { [weak self] type, _ in
-            guard let self = self else { return }
-            let image = type.image(interfaceStyle: self.traitCollection.userInterfaceStyle)
-            self.composeToolbarView.visibilityButton.setImage(image, for: .normal)
-            self.composeToolbarView.activeVisibilityType.value = type
-        }
-        .store(in: &disposeBag)
-
-        // bind counter
-        viewModel.characterCount
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] characterCount in
-                guard let self = self else { return }
-                let count = ShareViewModel.composeContentLimit - characterCount
-                self.composeToolbarView.characterCountLabel.text = "\(count)"
-                switch count {
-                case _ where count < 0:
-                    self.composeToolbarView.characterCountLabel.font = .monospacedDigitSystemFont(ofSize: 24, weight: .bold)
-                    self.composeToolbarView.characterCountLabel.textColor = Asset.Colors.danger.color
-                    self.composeToolbarView.characterCountLabel.accessibilityLabel = L10n.A11y.Plural.Count.inputLimitExceeds(abs(count))
-                default:
-                    self.composeToolbarView.characterCountLabel.font = .monospacedDigitSystemFont(ofSize: 15, weight: .regular)
-                    self.composeToolbarView.characterCountLabel.textColor = Asset.Colors.Label.secondary.color
-                    self.composeToolbarView.characterCountLabel.accessibilityLabel = L10n.A11y.Plural.Count.inputLimitRemains(count)
-                }
-            }
-            .store(in: &disposeBag)
-
-        // bind valid
-        viewModel.isValid
-            .receive(on: DispatchQueue.main)
-            .assign(to: \.isEnabled, on: publishButton)
-            .store(in: &disposeBag)
     }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-
-        viewModel.viewDidAppear.value = true
-        viewModel.inputItems.value = extensionContext?.inputItems.compactMap { $0 as? NSExtensionItem } ?? []
-
-        viewModel.composeViewModel.viewDidAppear = true
-    }
-
-    override func viewSafeAreaInsetsDidChange() {
-        super.viewSafeAreaInsetsDidChange()
-
-        viewSafeAreaDidChange.send()
-    }
-
+    
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-
-        viewModel.traitCollectionDidChangePublisher.send()
+        
+        configurePublishButtonApperance()
     }
-
 }
 
 extension ShareViewController {
-    private func setupBackgroundColor(theme: Theme) {
+    @objc private func cancelBarButtonItemPressed(_ sender: UIBarButtonItem) {
+        logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
+
+        extensionContext?.cancelRequest(withError: NSError(domain: "org.joinmastodon.app.ShareActionExtension", code: -1))
+    }
+
+    @objc private func publishBarButtonItemPressed(_ sender: UIBarButtonItem) {
+        logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
+
+        
+        Task { @MainActor in
+            viewModel.isPublishing = true
+            do {
+                guard let statusPublisher = try composeContentViewModel?.statusPublisher(),
+                      let authContext = viewModel.authContext
+                else {
+                    throw AppError.badRequest
+                }
+                
+                _ = try await statusPublisher.publish(api: context.apiService, authContext: authContext)
+                
+                self.publishButton.setTitle(L10n.Common.Controls.Actions.done, for: .normal)
+                try await Task.sleep(nanoseconds: 1 * .second)
+                
+                self.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
+
+            } catch {
+                let alertController = UIAlertController.standardAlert(of: error)
+                present(alertController, animated: true)
+                return
+            }
+            viewModel.isPublishing = false
+
+        }
+    }
+}
+
+extension ShareViewController {
+    private func setupAuthContext() throws -> AuthContext? {
+        let request = MastodonAuthentication.activeSortedFetchRequest   // use active order
+        let _authentication = try context.managedObjectContext.fetch(request).first
+        let _authContext = _authentication.flatMap { AuthContext(authentication: $0) }
+        return _authContext
+    }
+    
+    private func setupHintLabel() {
+        notSignInLabel.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(notSignInLabel)
+        NSLayoutConstraint.activate([
+            notSignInLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            notSignInLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+        ])
+    }
+
+    private func setupTheme(theme: Theme) {
         view.backgroundColor = theme.systemElevatedBackgroundColor
-        viewModel.composeViewModel.backgroundColor = theme.systemElevatedBackgroundColor
-        composeToolbarBackgroundView.backgroundColor = theme.composeToolbarBackgroundColor
 
         let barAppearance = UINavigationBarAppearance()
         barAppearance.configureWithDefaultBackground()
@@ -228,7 +205,7 @@ extension ShareViewController {
     private func showDismissConfirmAlertController() {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)        // can not use alert in extension
         let discardAction = UIAlertAction(title: L10n.Common.Controls.Actions.discard, style: .destructive) { _ in
-            self.extensionContext?.cancelRequest(withError: ShareViewModel.ShareError.userCancelShare)
+            self.extensionContext?.cancelRequest(withError: ShareError.userCancelShare)
         }
         alertController.addAction(discardAction)
         let okAction = UIAlertAction(title: L10n.Common.Controls.Actions.ok, style: .cancel, handler: nil)
@@ -237,88 +214,122 @@ extension ShareViewController {
     }
 }
 
-extension ShareViewController {
-    @objc private func cancelBarButtonItemPressed(_ sender: UIBarButtonItem) {
-        logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
-
-        showDismissConfirmAlertController()
-    }
-
-    @objc private func publishBarButtonItemPressed(_ sender: UIBarButtonItem) {
-        logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
-
-        viewModel.isPublishing.value = true
-
-        viewModel.publish()
-            .delay(for: 2, scheduler: DispatchQueue.main)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] completion in
-                guard let self = self else { return }
-                self.viewModel.isPublishing.value = false
-
-                switch completion {
-                case .failure:
-                    let alertController = UIAlertController(
-                        title: L10n.Common.Alerts.PublishPostFailure.title,
-                        message: L10n.Common.Alerts.PublishPostFailure.message,
-                        preferredStyle: .actionSheet        // can not use alert in extension
-                    )
-                    let okAction = UIAlertAction(
-                        title: L10n.Common.Controls.Actions.ok,
-                        style: .cancel,
-                        handler: nil
-                    )
-                    alertController.addAction(okAction)
-                    self.present(alertController, animated: true, completion: nil)
-                case .finished:
-                    self.publishButton.setTitle(L10n.Common.Controls.Actions.done, for: .normal)
-                    self.publishButton.isUserInteractionEnabled = false
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
-                        guard let self = self else { return }
-                        self.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
-                    }
-                }
-            } receiveValue: { response in
-                // do nothing
-            }
-            .store(in: &disposeBag)
-    }
-}
-
-// MARK - ComposeToolbarViewDelegate
-extension ShareViewController: ComposeToolbarViewDelegate {
-
-    func composeToolbarView(_ composeToolbarView: ComposeToolbarView, contentWarningButtonDidPressed sender: UIButton) {
-        logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
-
-        withAnimation {
-            viewModel.composeViewModel.isContentWarningComposing.toggle()
-        }
-    }
-
-    func composeToolbarView(_ composeToolbarView: ComposeToolbarView, visibilityButtonDidPressed sender: UIButton, visibilitySelectionType type: ComposeToolbarView.VisibilitySelectionType) {
-        logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
-
-        viewModel.selectedStatusVisibility.value = type
-    }
-
-}
-
 // MARK: - UIAdaptivePresentationControllerDelegate
 extension ShareViewController: UIAdaptivePresentationControllerDelegate {
-
+    
     func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {
-        return viewModel.shouldDismiss.value
+        return composeContentViewModel?.shouldDismiss ?? true
     }
-
+    
     func presentationControllerDidAttemptToDismiss(_ presentationController: UIPresentationController) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         showDismissConfirmAlertController()
-
     }
-
+    
     func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
     }
+    
+}
 
+extension ShareViewController {
+    
+    private func load(inputItems: [NSExtensionItem]) async {
+        guard let composeContentViewModel = self.composeContentViewModel,
+              let authContext = viewModel.authContext
+        else {
+            assertionFailure()
+            return
+        }
+        var itemProviders: [NSItemProvider] = []
+
+        for item in inputItems {
+            itemProviders.append(contentsOf: item.attachments ?? [])
+        }
+        
+        let _textProvider = itemProviders.first { provider in
+            return provider.hasRepresentationConforming(toTypeIdentifier: UTType.plainText.identifier, fileOptions: [])
+        }
+        
+        let _urlProvider = itemProviders.first { provider in
+            return provider.hasRepresentationConforming(toTypeIdentifier: UTType.url.identifier, fileOptions: [])
+        }
+
+        let _movieProvider = itemProviders.first { provider in
+            return provider.hasRepresentationConforming(toTypeIdentifier: UTType.movie.identifier, fileOptions: [])
+        }
+
+        let imageProviders = itemProviders.filter { provider in
+            return provider.hasRepresentationConforming(toTypeIdentifier: UTType.image.identifier, fileOptions: [])
+        }
+        
+        async let text = ShareViewController.loadText(textProvider: _textProvider)
+        async let url = ShareViewController.loadURL(textProvider: _urlProvider)
+        
+        let content = await [text, url]
+            .compactMap { $0 }
+            .joined(separator: " ")
+        // passby the viewModel `content` value
+        if !content.isEmpty {
+            composeContentViewModel.content = content + " "
+            composeContentViewModel.contentMetaText?.textView.insertText(content + " ")
+        }
+
+        if let movieProvider = _movieProvider {
+            let attachmentViewModel = AttachmentViewModel(
+                api: context.apiService,
+                authContext: authContext,
+                input: .itemProvider(movieProvider),
+                sizeLimit: .init(image: nil, video: nil),
+                delegate: composeContentViewModel
+            )
+            composeContentViewModel.attachmentViewModels.append(attachmentViewModel)
+        } else if !imageProviders.isEmpty {
+            let attachmentViewModels = imageProviders.map { provider in
+                AttachmentViewModel(
+                    api: context.apiService,
+                    authContext: authContext,
+                    input: .itemProvider(provider),
+                    sizeLimit: .init(image: nil, video: nil),
+                    delegate: composeContentViewModel
+                )
+            }
+            composeContentViewModel.attachmentViewModels.append(contentsOf: attachmentViewModels)
+        }
+    }
+    
+    private static func loadText(textProvider: NSItemProvider?) async -> String? {
+        guard let textProvider = textProvider else { return nil }
+        do {
+            let item = try await textProvider.loadItem(forTypeIdentifier: UTType.plainText.identifier)
+            guard let text = item as? String else { return nil }
+            return text
+        } catch {
+            return nil
+        }
+    }
+    
+    private static func loadURL(textProvider: NSItemProvider?) async -> String? {
+        guard let textProvider = textProvider else { return nil }
+        do {
+            let item = try await textProvider.loadItem(forTypeIdentifier: UTType.url.identifier)
+            guard let url = item as? URL else { return nil }
+            return url.absoluteString
+        } catch {
+            return nil
+        }
+    }
+
+}
+
+extension ShareViewController {
+    enum ShareError: Error {
+        case `internal`(error: Error)
+        case userCancelShare
+        case missingAuthentication
+    }
+}
+
+extension AppContext {
+    static let shared = AppContext()
 }

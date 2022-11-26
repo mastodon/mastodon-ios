@@ -38,7 +38,7 @@
 
 "ehFLjY" = "Endast följare";
 
-"gfePDu" = "Publicering misslyckades. ${failureReason}";
+"gfePDu" = "Kunde inte publicera. ${failureReason}";
 
 "k7dbKQ" = "Inlägget har publicerats.";
 

@@ -47,12 +47,7 @@ extension HomeTimelineNavigationBarTitleView {
     private func _init() {
         containerView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(containerView)
-        NSLayoutConstraint.activate([
-            containerView.topAnchor.constraint(equalTo: topAnchor),
-            containerView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            containerView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            containerView.bottomAnchor.constraint(equalTo: bottomAnchor),
-        ])
+        containerView.pinToParent()
         
         containerView.addArrangedSubview(logoButton)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -114,7 +109,7 @@ extension HomeTimelineNavigationBarTitleView {
             configureButton(
                 title: L10n.Scene.HomeTimeline.NavigationBarState.newPosts,
                 textColor: .white,
-                backgroundColor: Asset.Colors.brandBlue.color
+                backgroundColor: Asset.Colors.brand.color
             )
             button.isHidden = false
             button.accessibilityLabel = L10n.Scene.HomeTimeline.NavigationBarState.newPosts

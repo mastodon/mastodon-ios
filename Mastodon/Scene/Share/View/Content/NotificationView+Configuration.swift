@@ -13,6 +13,7 @@ import MetaTextKit
 import MastodonMeta
 import Meta
 import MastodonAsset
+import MastodonCore
 import MastodonLocalization
 import class CoreDataStack.Notification
 
@@ -29,6 +30,8 @@ extension NotificationView {
 
 extension NotificationView {
     public func configure(notification: Notification) {
+        viewModel.objects.insert(notification)
+
         configureAuthor(notification: notification)
         
         guard let type = MastodonNotificationType(rawValue: notification.typeRaw) else {
@@ -36,23 +39,26 @@ extension NotificationView {
             return
         }
         
-        if let status = notification.status {
-            switch type {
-            case .follow, .followRequest:
-                setAuthorContainerBottomPaddingViewDisplay()
-            case .mention, .status:
+        switch type {
+        case .follow:
+            setAuthorContainerBottomPaddingViewDisplay()
+        case .followRequest:
+            setFollowRequestAdaptiveMarginContainerViewDisplay()
+        case .mention, .status:
+            if let status = notification.status {
                 statusView.configure(status: status)
                 setStatusViewDisplay()
-            case .reblog, .favourite, .poll:
+            }
+        case .reblog, .favourite, .poll:
+            if let status = notification.status {
                 quoteStatusView.configure(status: status)
                 setQuoteStatusViewDisplay()
-            case ._other:
-                setAuthorContainerBottomPaddingViewDisplay()
-                assertionFailure()
             }
-        } else {
+        case ._other:
             setAuthorContainerBottomPaddingViewDisplay()
+            assertionFailure()
         }
+        
     }
 }
 
@@ -105,6 +111,7 @@ extension NotificationView {
                 self.viewModel.notificationIndicatorText = nil
                 return
             }
+            self.viewModel.type = type
 
             func createMetaContent(text: String, emojis: MastodonContent.Emojis) -> MetaContent {
                 let content = MastodonContent(content: text, emojis: emojis)
@@ -148,7 +155,7 @@ extension NotificationView {
                 )
             case .status:
                 self.viewModel.notificationIndicatorText = createMetaContent(
-                    text: L10n.Scene.Notification.NotificationDescription.mentionedYou,
+                    text: .empty,
                     emojis: emojis.asDictionary
                 )
             case ._other:
@@ -156,44 +163,48 @@ extension NotificationView {
             }
         }
         .store(in: &disposeBag)
+        
+        let authContext = viewModel.authContext
         // isMuting
-        Publishers.CombineLatest(
-            viewModel.$userIdentifier,
-            author.publisher(for: \.mutingBy)
-        )
-        .map { userIdentifier, mutingBy in
-            guard let userIdentifier = userIdentifier else { return false }
-            return mutingBy.contains(where: {
-                $0.id == userIdentifier.userID && $0.domain == userIdentifier.domain
-            })
-        }
-        .assign(to: \.isMuting, on: viewModel)
-        .store(in: &disposeBag)
+        author.publisher(for: \.mutingBy)
+            .map { mutingBy in
+                guard let authContext = authContext else { return false }
+                return mutingBy.contains(where: {
+                    $0.id == authContext.mastodonAuthenticationBox.userID
+                    && $0.domain == authContext.mastodonAuthenticationBox.domain
+                })
+            }
+            .assign(to: \.isMuting, on: viewModel)
+            .store(in: &disposeBag)
         // isBlocking
-        Publishers.CombineLatest(
-            viewModel.$userIdentifier,
-            author.publisher(for: \.blockingBy)
-        )
-        .map { userIdentifier, blockingBy in
-            guard let userIdentifier = userIdentifier else { return false }
-            return blockingBy.contains(where: {
-                $0.id == userIdentifier.userID && $0.domain == userIdentifier.domain
-            })
-        }
-        .assign(to: \.isBlocking, on: viewModel)
-        .store(in: &disposeBag)
+        author.publisher(for: \.blockingBy)
+            .map { blockingBy in
+                guard let authContext = authContext else { return false }
+                return blockingBy.contains(where: {
+                    $0.id == authContext.mastodonAuthenticationBox.userID
+                    && $0.domain == authContext.mastodonAuthenticationBox.domain
+                })
+            }
+            .assign(to: \.isBlocking, on: viewModel)
+            .store(in: &disposeBag)
         // isMyself
-        Publishers.CombineLatest3(
-            viewModel.$userIdentifier,
+        Publishers.CombineLatest(
             author.publisher(for: \.domain),
             author.publisher(for: \.id)
         )
-        .map { userIdentifier, domain, id in
-            guard let userIdentifier = userIdentifier else { return false }
-            return userIdentifier.domain == domain
-                && userIdentifier.userID == id
+        .map { domain, id in
+            guard let authContext = authContext else { return false }
+            return authContext.mastodonAuthenticationBox.domain == domain
+                && authContext.mastodonAuthenticationBox.userID == id
         }
         .assign(to: \.isMyself, on: viewModel)
         .store(in: &disposeBag)
+        // follow request state
+        notification.publisher(for: \.followRequestState)
+            .assign(to: \.followRequestState, on: viewModel)
+            .store(in: &disposeBag)
+        notification.publisher(for: \.transientFollowRequestState)
+            .assign(to: \.transientFollowRequestState, on: viewModel)
+            .store(in: &disposeBag)
     }
 }

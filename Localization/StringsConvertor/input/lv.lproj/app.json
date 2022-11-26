@@ -1,0 +1,727 @@
+{
+    "common": {
+        "alerts": {
+            "common": {
+                "please_try_again": "Lūdzu, mēģiniet vēlreiz.",
+                "please_try_again_later": "Lūdzu, mēģiniet vēlreiz vēlāk."
+            },
+            "sign_up_failure": {
+                "title": "Sign Up Failure"
+            },
+            "server_error": {
+                "title": "Servera kļūda"
+            },
+            "vote_failure": {
+                "title": "Vote Failure",
+                "poll_ended": "Balsošana beidzās"
+            },
+            "discard_post_content": {
+                "title": "Atmest malnrakstu",
+                "message": "Confirm to discard composed post content."
+            },
+            "publish_post_failure": {
+                "title": "Publish Failure",
+                "message": "Failed to publish the post.\nPlease check your internet connection.",
+                "attachments_message": {
+                    "video_attach_with_photo": "Cannot attach a video to a post that already contains images.",
+                    "more_than_one_video": "Cannot attach more than one video."
+                }
+            },
+            "edit_profile_failure": {
+                "title": "Edit Profile Error",
+                "message": "Cannot edit profile. Please try again."
+            },
+            "sign_out": {
+                "title": "Iziet",
+                "message": "Vai tiešām vēlaties iziet?",
+                "confirm": "Iziet"
+            },
+            "block_domain": {
+                "title": "Are you really, really sure you want to block the entire %s? In most cases a few targeted blocks or mutes are sufficient and preferable. You will not see content from that domain and any of your followers from that domain will be removed.",
+                "block_entire_domain": "Block Domain"
+            },
+            "save_photo_failure": {
+                "title": "Save Photo Failure",
+                "message": "Please enable the photo library access permission to save the photo."
+            },
+            "delete_post": {
+                "title": "Dzēst ierakstu",
+                "message": "Vai tiešām vēlies dzēst ierakstu?"
+            },
+            "clean_cache": {
+                "title": "Clean Cache",
+                "message": "Successfully cleaned %s cache."
+            }
+        },
+        "controls": {
+            "actions": {
+                "back": "Atpakaļ",
+                "next": "Nākamais",
+                "previous": "Iepriekšējais",
+                "open": "Atvērt",
+                "add": "Pievienot",
+                "remove": "Noņemt",
+                "edit": "Rediģēt",
+                "save": "Saglabāt",
+                "ok": "Labi",
+                "done": "Pabeigts",
+                "confirm": "Apstiprināt",
+                "continue": "Turpināt",
+                "compose": "Rakstīt",
+                "cancel": "Atcelt",
+                "discard": "Atmest",
+                "try_again": "Mēģināt vēlreiz",
+                "take_photo": "Uzņemt bildi",
+                "save_photo": "Saglabāt bildi",
+                "copy_photo": "Kopēt bildi",
+                "sign_in": "Log in",
+                "sign_up": "Create account",
+                "see_more": "Skatīt vairāk",
+                "preview": "Priekšskatījums",
+                "share": "Dalīties",
+                "share_user": "Share %s",
+                "share_post": "Share Post",
+                "open_in_safari": "Atvērt Safari",
+                "open_in_browser": "Atvērt pārlūkprogrammā",
+                "find_people": "Atrodi cilvēkus kam sekot",
+                "manually_search": "Manually search instead",
+                "skip": "Izlaist",
+                "reply": "Atbildēt",
+                "report_user": "Ziņot par lietotāju @%s",
+                "block_domain": "Bloķēt %s",
+                "unblock_domain": "Atbloķēt %s",
+                "settings": "Iestatījumi",
+                "delete": "Dzēst"
+            },
+            "tabs": {
+                "home": "Sākums",
+                "search": "Meklēšana",
+                "notification": "Paziņojums",
+                "profile": "Profils"
+            },
+            "keyboard": {
+                "common": {
+                    "switch_to_tab": "Pārslēgties uz: %s",
+                    "compose_new_post": "Veidot jaunu ziņu",
+                    "show_favorites": "Show Favorites",
+                    "open_settings": "Atvērt iestatījumus"
+                },
+                "timeline": {
+                    "previous_status": "Previous Post",
+                    "next_status": "Next Post",
+                    "open_status": "Open Post",
+                    "open_author_profile": "Open Author's Profile",
+                    "open_reblogger_profile": "Open Reblogger's Profile",
+                    "reply_status": "Reply to Post",
+                    "toggle_reblog": "Toggle Reblog on Post",
+                    "toggle_favorite": "Toggle Favorite on Post",
+                    "toggle_content_warning": "Toggle Content Warning",
+                    "preview_image": "Priekšskata attēls"
+                },
+                "segmented_control": {
+                    "previous_section": "Iepriekšējā sadaļa",
+                    "next_section": "Nākamā sadaļa"
+                }
+            },
+            "status": {
+                "user_reblogged": "%s reblogged",
+                "user_replied_to": "Replied to %s",
+                "show_post": "Show Post",
+                "show_user_profile": "Parādīt lietotāja profilu",
+                "content_warning": "Satura brīdinājums",
+                "sensitive_content": "Sensitīvs saturs",
+                "media_content_warning": "Tap anywhere to reveal",
+                "tap_to_reveal": "Tap to reveal",
+                "poll": {
+                    "vote": "Balsot",
+                    "closed": "Aizvērts"
+                },
+                "meta_entity": {
+                    "url": "Link: %s",
+                    "hashtag": "Hashtag: %s",
+                    "mention": "Show Profile: %s",
+                    "email": "Email address: %s"
+                },
+                "actions": {
+                    "reply": "Atbildēt",
+                    "reblog": "Reblogot",
+                    "unreblog": "Undo reblog",
+                    "favorite": "Izlase",
+                    "unfavorite": "Izņemt no izlases",
+                    "menu": "Izvēlne",
+                    "hide": "Slēpt",
+                    "show_image": "Rādīt attēlu",
+                    "show_gif": "Rādīt GIF",
+                    "show_video_player": "Show video player",
+                    "tap_then_hold_to_show_menu": "Tap then hold to show menu"
+                },
+                "tag": {
+                    "url": "URL",
+                    "mention": "Pieminēt",
+                    "link": "Saite",
+                    "hashtag": "Hashtag",
+                    "email": "E-pasts",
+                    "emoji": "Emocijzīmes"
+                },
+                "visibility": {
+                    "unlisted": "Everyone can see this post but not display in the public timeline.",
+                    "private": "Only their followers can see this post.",
+                    "private_from_me": "Only my followers can see this post.",
+                    "direct": "Only mentioned user can see this post."
+                }
+            },
+            "friendship": {
+                "follow": "Sekot",
+                "following": "Seko",
+                "request": "Pieprasījums",
+                "pending": "Gaida",
+                "block": "Bloķēt",
+                "block_user": "Bloķēt %s",
+                "block_domain": "Bloķēt %s",
+                "unblock": "Atbloķēt",
+                "unblock_user": "Atbloķēt %s",
+                "blocked": "Bloķēts",
+                "mute": "Apklusināt",
+                "mute_user": "Aplusināt %s",
+                "unmute": "Noņemt apklusinājumu",
+                "unmute_user": "Noņemt apklusinājumu @%s",
+                "muted": "Apklusināts",
+                "edit_info": "Edit Info",
+                "show_reblogs": "Show Reblogs",
+                "hide_reblogs": "Hide Reblogs"
+            },
+            "timeline": {
+                "filtered": "Filtrēts",
+                "timestamp": {
+                    "now": "Tagad"
+                },
+                "loader": {
+                    "load_missing_posts": "Load missing posts",
+                    "loading_missing_posts": "Loading missing posts...",
+                    "show_more_replies": "Rādīt vairāk atbildes"
+                },
+                "header": {
+                    "no_status_found": "No Post Found",
+                    "blocking_warning": "You can’t view this user's profile\nuntil you unblock them.\nYour profile looks like this to them.",
+                    "user_blocking_warning": "You can’t view %s’s profile\nuntil you unblock them.\nYour profile looks like this to them.",
+                    "blocked_warning": "You can’t view this user’s profile\nuntil they unblock you.",
+                    "user_blocked_warning": "You can’t view %s’s profile\nuntil they unblock you.",
+                    "suspended_warning": "This user has been suspended.",
+                    "user_suspended_warning": "%s’s account has been suspended."
+                }
+            }
+        }
+    },
+    "scene": {
+        "welcome": {
+            "slogan": "Social networking\nback in your hands.",
+            "get_started": "Get Started",
+            "log_in": "Pieteikties"
+        },
+        "login": {
+            "title": "Welcome back",
+            "subtitle": "Log you in on the server you created your account on.",
+            "server_search_field": {
+                "placeholder": "Enter URL or search for your server"
+            }
+        },
+        "server_picker": {
+            "title": "Mastodon is made of users in different servers.",
+            "subtitle": "Pick a server based on your region, interests, or a general purpose one. You can still chat with anyone on Mastodon, regardless of your servers.",
+            "button": {
+                "category": {
+                    "all": "Visi",
+                    "all_accessiblity_description": "Katekorija: Visi",
+                    "academia": "academia",
+                    "activism": "activism",
+                    "food": "ēdiens",
+                    "furry": "furry",
+                    "games": "spēles",
+                    "general": "general",
+                    "journalism": "žurnālisms",
+                    "lgbt": "lgbt",
+                    "regional": "regionāli",
+                    "art": "māksla",
+                    "music": "mūzika",
+                    "tech": "tehnoloģija"
+                },
+                "see_less": "Rādīt mazāk",
+                "see_more": "Skatīt vairāk"
+            },
+            "label": {
+                "language": "VALODA",
+                "users": "LIETOTĀJI",
+                "category": "KATEGORIJA"
+            },
+            "input": {
+                "search_servers_or_enter_url": "Search communities or enter URL"
+            },
+            "empty_state": {
+                "finding_servers": "Finding available servers...",
+                "bad_network": "Something went wrong while loading the data. Check your internet connection.",
+                "no_results": "Nav rezultātu"
+            }
+        },
+        "register": {
+            "title": "Let’s get you set up on %s",
+            "lets_get_you_set_up_on_domain": "Let’s get you set up on %s",
+            "input": {
+                "avatar": {
+                    "delete": "Dzēst"
+                },
+                "username": {
+                    "placeholder": "lietotājvārds",
+                    "duplicate_prompt": "Šis lietotājvārds jau ir aizņemts."
+                },
+                "display_name": {
+                    "placeholder": "parādāmais vārds"
+                },
+                "email": {
+                    "placeholder": "e-pasts"
+                },
+                "password": {
+                    "placeholder": "parole",
+                    "require": "Your password needs at least:",
+                    "character_limit": "8 rakstzīmes",
+                    "accessibility": {
+                        "checked": "atzīmēts",
+                        "unchecked": "neatzīmēts"
+                    },
+                    "hint": "Parolei jābūt vismaz 8 simboliem"
+                },
+                "invite": {
+                    "registration_user_invite_request": "Kāpēc tu vēlies pievienoties?"
+                }
+            },
+            "error": {
+                "item": {
+                    "username": "Lietotājvārds",
+                    "email": "E-pasts",
+                    "password": "Parole",
+                    "agreement": "Līgums",
+                    "locale": "Lokalizācija",
+                    "reason": "Iemesls"
+                },
+                "reason": {
+                    "blocked": "%s contains a disallowed email provider",
+                    "unreachable": "%s šķiet, ka neeksistē",
+                    "taken": "%s jau tiek izmantots",
+                    "reserved": "%s is a reserved keyword",
+                    "accepted": "%s must be accepted",
+                    "blank": "%s ir obligāts",
+                    "invalid": "%s ir nederīgs",
+                    "too_long": "%s ir pārāk garaš",
+                    "too_short": "%s ir pārāk īs",
+                    "inclusion": "%s is not a supported value"
+                },
+                "special": {
+                    "username_invalid": "Username must only contain alphanumeric characters and underscores",
+                    "username_too_long": "Username is too long (can’t be longer than 30 characters)",
+                    "email_invalid": "This is not a valid email address",
+                    "password_too_short": "Password is too short (must be at least 8 characters)"
+                }
+            }
+        },
+        "server_rules": {
+            "title": "Some ground rules.",
+            "subtitle": "These are set and enforced by the %s moderators.",
+            "prompt": "By continuing, you’re subject to the terms of service and privacy policy for %s.",
+            "terms_of_service": "pakalpojuma noteikumi",
+            "privacy_policy": "privātuma nosacījumi",
+            "button": {
+                "confirm": "Es piekrītu"
+            }
+        },
+        "confirm_email": {
+            "title": "One last thing.",
+            "subtitle": "Tap the link we emailed to you to verify your account.",
+            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we emailed to you to verify your account",
+            "button": {
+                "open_email_app": "Open Email App",
+                "resend": "Nosūtīt atkārtoti"
+            },
+            "dont_receive_email": {
+                "title": "Pārbaudi savu e-pastu",
+                "description": "Check if your email address is correct as well as your junk folder if you haven’t.",
+                "resend_email": "Atkārtoti nosūtīt e-pastu"
+            },
+            "open_email_app": {
+                "title": "Check your inbox.",
+                "description": "We just sent you an email. Check your junk folder if you haven’t.",
+                "mail": "Mail",
+                "open_email_client": "Open Email Client"
+            }
+        },
+        "home_timeline": {
+            "title": "Home",
+            "navigation_bar_state": {
+                "offline": "Offline",
+                "new_posts": "See new posts",
+                "published": "Published!",
+                "Publishing": "Publishing post...",
+                "accessibility": {
+                    "logo_label": "Logo Button",
+                    "logo_hint": "Tap to scroll to top and tap again to previous location"
+                }
+            }
+        },
+        "suggestion_account": {
+            "title": "Find People to Follow",
+            "follow_explain": "When you follow someone, you’ll see their posts in your home feed."
+        },
+        "compose": {
+            "title": {
+                "new_post": "New Post",
+                "new_reply": "Jauna atbilde"
+            },
+            "media_selection": {
+                "camera": "Uzņemt bildi",
+                "photo_library": "Attēlu krātuve",
+                "browse": "Pārlūkot"
+            },
+            "content_input_placeholder": "Type or paste what’s on your mind",
+            "compose_action": "Publicēt",
+            "replying_to_user": "replying to %s",
+            "attachment": {
+                "photo": "attēls",
+                "video": "video",
+                "attachment_broken": "This %s is broken and can’t be\nuploaded to Mastodon.",
+                "description_photo": "Describe the photo for the visually-impaired...",
+                "description_video": "Describe the video for the visually-impaired...",
+                "load_failed": "Load Failed",
+                "upload_failed": "Upload Failed",
+                "can_not_recognize_this_media_attachment": "Can not recognize this media attachment",
+                "attachment_too_large": "Attachment too large",
+                "compressing_state": "Compressing...",
+                "server_processing_state": "Server Processing..."
+            },
+            "poll": {
+                "duration_time": "Duration: %s",
+                "thirty_minutes": "30 minūtes",
+                "one_hour": "1 Stunda",
+                "six_hours": "6 stundas",
+                "one_day": "1 Diena",
+                "three_days": "3 Dienas",
+                "seven_days": "7 Dienas",
+                "option_number": "Option %ld",
+                "the_poll_is_invalid": "The poll is invalid",
+                "the_poll_has_empty_option": "The poll has empty option"
+            },
+            "content_warning": {
+                "placeholder": "Write an accurate warning here..."
+            },
+            "visibility": {
+                "public": "Publisks",
+                "unlisted": "Neiekļautie",
+                "private": "Tikai sekotājiem",
+                "direct": "Tikai cilvēki, kurus es pieminu"
+            },
+            "auto_complete": {
+                "space_to_add": "Space to add"
+            },
+            "accessibility": {
+                "append_attachment": "Pievienot pielikumu",
+                "append_poll": "Pievienot aptauju",
+                "remove_poll": "Noņemt aptauju",
+                "custom_emoji_picker": "Custom Emoji Picker",
+                "enable_content_warning": "Enable Content Warning",
+                "disable_content_warning": "Disable Content Warning",
+                "post_visibility_menu": "Post Visibility Menu",
+                "post_options": "Post Options",
+                "posting_as": "Posting as %s"
+            },
+            "keyboard": {
+                "discard_post": "Discard Post",
+                "publish_post": "Publish Post",
+                "toggle_poll": "Toggle Poll",
+                "toggle_content_warning": "Toggle Content Warning",
+                "append_attachment_entry": "Pievienot pielikumu - %s",
+                "select_visibility_entry": "Select Visibility - %s"
+            }
+        },
+        "profile": {
+            "header": {
+                "follows_you": "Seko tev"
+            },
+            "dashboard": {
+                "posts": "posts",
+                "following": "seko",
+                "followers": "sekottāji"
+            },
+            "fields": {
+                "add_row": "Pievienot rindu",
+                "placeholder": {
+                    "label": "Label",
+                    "content": "Saturs"
+                },
+                "verified": {
+                    "short": "Verified on %s",
+                    "long": "Ownership of this link was checked on %s"
+                }
+            },
+            "segmented_control": {
+                "posts": "Posts",
+                "replies": "Atbildes",
+                "posts_and_replies": "Ziņas un atbildes",
+                "media": "Multivide",
+                "about": "Par"
+            },
+            "relationship_action_alert": {
+                "confirm_mute_user": {
+                    "title": "Mute Account",
+                    "message": "Confirm to mute %s"
+                },
+                "confirm_unmute_user": {
+                    "title": "Unmute Account",
+                    "message": "Confirm to unmute %s"
+                },
+                "confirm_block_user": {
+                    "title": "Bloķēts kontu",
+                    "message": "Confirm to block %s"
+                },
+                "confirm_unblock_user": {
+                    "title": "Atbloķēt kontu",
+                    "message": "Apstiprini lai atbloķētu %s"
+                },
+                "confirm_show_reblogs": {
+                    "title": "Show Reblogs",
+                    "message": "Confirm to show reblogs"
+                },
+                "confirm_hide_reblogs": {
+                    "title": "Hide Reblogs",
+                    "message": "Confirm to hide reblogs"
+                }
+            },
+            "accessibility": {
+                "show_avatar_image": "Show avatar image",
+                "edit_avatar_image": "Edit avatar image",
+                "show_banner_image": "Show banner image",
+                "double_tap_to_open_the_list": "Double tap to open the list"
+            }
+        },
+        "follower": {
+            "title": "sekottājs",
+            "footer": "Followers from other servers are not displayed."
+        },
+        "following": {
+            "title": "seko",
+            "footer": "Follows from other servers are not displayed."
+        },
+        "familiarFollowers": {
+            "title": "Followers you familiar",
+            "followed_by_names": "Followed by %s"
+        },
+        "favorited_by": {
+            "title": "Favorited By"
+        },
+        "reblogged_by": {
+            "title": "Reblogged By"
+        },
+        "search": {
+            "title": "Meklēt",
+            "search_bar": {
+                "placeholder": "Search hashtags and users",
+                "cancel": "Atcelt"
+            },
+            "recommend": {
+                "button_text": "Skatīt visu",
+                "hash_tag": {
+                    "title": "Trending on Mastodon",
+                    "description": "Hashtags that are getting quite a bit of attention",
+                    "people_talking": "%s people are talking"
+                },
+                "accounts": {
+                    "title": "Accounts you might like",
+                    "description": "You may like to follow these accounts",
+                    "follow": "Follow"
+                }
+            },
+            "searching": {
+                "segment": {
+                    "all": "All",
+                    "people": "People",
+                    "hashtags": "Hashtags",
+                    "posts": "Posts"
+                },
+                "empty_state": {
+                    "no_results": "No results"
+                },
+                "recent_search": "Recent searches",
+                "clear": "Clear"
+            }
+        },
+        "discovery": {
+            "tabs": {
+                "posts": "Ziņas",
+                "hashtags": "Hashtags",
+                "news": "Ziņas",
+                "community": "Community",
+                "for_you": "Priekš tevis"
+            },
+            "intro": "These are the posts gaining traction in your corner of Mastodon."
+        },
+        "favorite": {
+            "title": "Tava izlase"
+        },
+        "notification": {
+            "title": {
+                "Everything": "Visi",
+                "Mentions": "Pieminējumi"
+            },
+            "notification_description": {
+                "followed_you": "followed you",
+                "favorited_your_post": "favorited your post",
+                "reblogged_your_post": "reblogged your post",
+                "mentioned_you": "pieminēja tevi",
+                "request_to_follow_you": "request to follow you",
+                "poll_has_ended": "balsošana beidzās"
+            },
+            "keyobard": {
+                "show_everything": "Parādīt man visu",
+                "show_mentions": "Show Mentions"
+            },
+            "follow_request": {
+                "accept": "Pieņemt",
+                "accepted": "Pieņemts",
+                "reject": "noraidīt",
+                "rejected": "Noraidīts"
+            }
+        },
+        "thread": {
+            "back_title": "Ziņa",
+            "title": "Post from %s"
+        },
+        "settings": {
+            "title": "Iestatījumi",
+            "section": {
+                "appearance": {
+                    "title": "Izskats",
+                    "automatic": "Automātiski",
+                    "light": "Vienmēr gaišs",
+                    "dark": "Vienmēr tumšs"
+                },
+                "look_and_feel": {
+                    "title": "Izskats",
+                    "use_system": "Use System",
+                    "really_dark": "Ļoti tumšs",
+                    "sorta_dark": "Itkā tumšs",
+                    "light": "Gaišs"
+                },
+                "notifications": {
+                    "title": "Paziņojumi",
+                    "favorites": "Favorites my post",
+                    "follows": "Seko man",
+                    "boosts": "Reblogs my post",
+                    "mentions": "Pieminējumi",
+                    "trigger": {
+                        "anyone": "jebkurš",
+                        "follower": "sekottājs",
+                        "follow": "anyone I follow",
+                        "noone": "neviens",
+                        "title": "Notify me when"
+                    }
+                },
+                "preference": {
+                    "title": "Uzstādījumi",
+                    "true_black_dark_mode": "True black dark mode",
+                    "disable_avatar_animation": "Disable animated avatars",
+                    "disable_emoji_animation": "Disable animated emojis",
+                    "using_default_browser": "Use default browser to open links",
+                    "open_links_in_mastodon": "Open links in Mastodon"
+                },
+                "boring_zone": {
+                    "title": "The Boring Zone",
+                    "account_settings": "Konta iestatījumi",
+                    "terms": "Pakalpojuma noteikumi",
+                    "privacy": "Privātuma politika"
+                },
+                "spicy_zone": {
+                    "title": "The Spicy Zone",
+                    "clear": "Clear Media Cache",
+                    "signout": "Iziet"
+                }
+            },
+            "footer": {
+                "mastodon_description": "Mastodon ir atvērtā koda programmatūra. Tu vari ziņot par problēmām GitHub %s (%s)"
+            },
+            "keyboard": {
+                "close_settings_window": "Close Settings Window"
+            }
+        },
+        "report": {
+            "title_report": "Ziņot",
+            "title": "Ziņot %s",
+            "step1": "1. solis no 2",
+            "step2": "2. solis no 2",
+            "content1": "Are there any other posts you’d like to add to the report?",
+            "content2": "Is there anything the moderators should know about this report?",
+            "report_sent_title": "Thanks for reporting, we’ll look into this.",
+            "send": "Nosūtīt Sūdzību",
+            "skip_to_send": "Sūtīt bez komentāra",
+            "text_placeholder": "Type or paste additional comments",
+            "reported": "REPORTED",
+            "step_one": {
+                "step_1_of_4": "1. solis no 4",
+                "whats_wrong_with_this_post": "What's wrong with this post?",
+                "whats_wrong_with_this_account": "What's wrong with this account?",
+                "whats_wrong_with_this_username": "What's wrong with %s?",
+                "select_the_best_match": "Izvēlieties labāko atbilstību",
+                "i_dont_like_it": "Man tas nepatīk",
+                "it_is_not_something_you_want_to_see": "Tas nav kaut kas, ko tu vēlies redzēt",
+                "its_spam": "Tas ir spams",
+                "malicious_links_fake_engagement_or_repetetive_replies": "Malicious links, fake engagement, or repetetive replies",
+                "it_violates_server_rules": "It violates server rules",
+                "you_are_aware_that_it_breaks_specific_rules": "Tu zini, ka tas pārkāpj īpašus noteikumus",
+                "its_something_else": "Tas ir kaut kas cits",
+                "the_issue_does_not_fit_into_other_categories": "Šis jautājums neietilpst citās kategorijās"
+            },
+            "step_two": {
+                "step_2_of_4": "2. solis no 4",
+                "which_rules_are_being_violated": "Kuri noteikumi tiek pārkāpti?",
+                "select_all_that_apply": "Atlasi visus atbilstošos",
+                "i_just_don’t_like_it": "I just don’t like it"
+            },
+            "step_three": {
+                "step_3_of_4": "3. solis no 4",
+                "are_there_any_posts_that_back_up_this_report": "Vai ir kādas ziņas, kas atbalsta šo ziņojumu?",
+                "select_all_that_apply": "Atlasi visus atbilstošos"
+            },
+            "step_four": {
+                "step_4_of_4": "4. solis no 4",
+                "is_there_anything_else_we_should_know": "Vai ir vēl kas mums būtu jāzina?"
+            },
+            "step_final": {
+                "dont_want_to_see_this": "Vai nevēlies to redzēt?",
+                "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "When you see something you don’t like on Mastodon, you can remove the person from your experience.",
+                "unfollow": "Atsekot",
+                "unfollowed": "Atsekoja",
+                "unfollow_user": "Atsekot %s",
+                "mute_user": "Apklusināt %s",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or reblogs in your home feed. They won’t know they’ve been muted.",
+                "block_user": "Bloķēt %s",
+                "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "They will no longer be able to follow or see your posts, but they can see if they’ve been blocked.",
+                "while_we_review_this_you_can_take_action_against_user": "Kamēr mēs to izskatām, tu vari veikt darbības pret @%s"
+            }
+        },
+        "preview": {
+            "keyboard": {
+                "close_preview": "Close Preview",
+                "show_next": "Show Next",
+                "show_previous": "Show Previous"
+            }
+        },
+        "account_list": {
+            "tab_bar_hint": "Current selected profile: %s. Double tap then hold to show account switcher",
+            "dismiss_account_switcher": "Dismiss Account Switcher",
+            "add_account": "Pievienot kontu"
+        },
+        "wizard": {
+            "new_in_mastodon": "New in Mastodon",
+            "multiple_account_switch_intro_description": "Switch between multiple accounts by holding the profile button.",
+            "accessibility_hint": "Double tap to dismiss this wizard"
+        },
+        "bookmark": {
+            "title": "Bookmarks"
+        }
+    }
+}

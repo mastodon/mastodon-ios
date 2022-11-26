@@ -8,6 +8,7 @@
 import os.log
 import UIKit
 import CoreDataStack
+import MastodonCore
 
 extension StatusTableViewControllerNavigateableCore where Self: DataSourceProvider & StatusTableViewControllerNavigateableRelay {
 
@@ -30,7 +31,7 @@ extension StatusTableViewControllerNavigateableCore where Self: DataSourceProvid
 
 }
 
-extension StatusTableViewControllerNavigateableCore where Self: DataSourceProvider {
+extension StatusTableViewControllerNavigateableCore where Self: DataSourceProvider & AuthContextProvider {
 
     func statusKeyCommandHandler(_ sender: UIKeyCommand) {
         guard let rawValue = sender.propertyList as? String,
@@ -53,7 +54,7 @@ extension StatusTableViewControllerNavigateableCore where Self: DataSourceProvid
 }
 
 // status coordinate
-extension StatusTableViewControllerNavigateableCore where Self: DataSourceProvider {
+extension StatusTableViewControllerNavigateableCore where Self: DataSourceProvider & AuthContextProvider {
     
     @MainActor
     private func statusRecord() async -> ManagedObjectRecord<Status>? {
@@ -93,16 +94,15 @@ extension StatusTableViewControllerNavigateableCore where Self: DataSourceProvid
     private func replyStatus() async {
         guard let status = await statusRecord() else { return }
         
-        guard let authenticationBox = self.context.authenticationService.activeMastodonAuthenticationBox.value else { return }
         let selectionFeedbackGenerator = UISelectionFeedbackGenerator()
         selectionFeedbackGenerator.selectionChanged()
         
         let composeViewModel = ComposeViewModel(
             context: self.context,
-            composeKind: .reply(status: status),
-            authenticationBox: authenticationBox
+            authContext: authContext,
+            kind: .reply(status: status)
         )
-        self.coordinator.present(
+        _ = self.coordinator.present(
             scene: .compose(viewModel: composeViewModel),
             from: self,
             transition: .modal(animated: true, completion: nil)
@@ -112,6 +112,12 @@ extension StatusTableViewControllerNavigateableCore where Self: DataSourceProvid
     @MainActor
     private func previewImage() async {
         guard let status = await statusRecord() else { return }
+        
+        // workaround media preview not first responder issue
+        if let presentedViewController = presentedViewController as? MediaPreviewViewController {
+            presentedViewController.dismiss(animated: true, completion: nil)
+            return
+        }
 
         guard let provider = self as? (DataSourceProvider & MediaPreviewableViewController) else { return }
         guard let indexPathForSelectedRow = tableView.indexPathForSelectedRow,
@@ -138,19 +144,16 @@ extension StatusTableViewControllerNavigateableCore where Self: DataSourceProvid
 }
 
 // toggle
-extension StatusTableViewControllerNavigateableCore where Self: DataSourceProvider {
+extension StatusTableViewControllerNavigateableCore where Self: DataSourceProvider & AuthContextProvider {
 
     @MainActor
     private func toggleReblog() async {
         guard let status = await statusRecord() else { return }
-
-        guard let authenticationBox = self.context.authenticationService.activeMastodonAuthenticationBox.value else { return }
         
         do {
             try await DataSourceFacade.responseToStatusReblogAction(
                 provider: self,
-                status: status,
-                authenticationBox: authenticationBox
+                status: status
             )
         } catch {
             assertionFailure()
@@ -161,13 +164,10 @@ extension StatusTableViewControllerNavigateableCore where Self: DataSourceProvid
     private func toggleFavorite() async {
         guard let status = await statusRecord() else { return }
 
-        guard let authenticationBox = self.context.authenticationService.activeMastodonAuthenticationBox.value else { return }
-
         do {
             try await DataSourceFacade.responseToStatusFavoriteAction(
                 provider: self,
-                status: status,
-                authenticationBox: authenticationBox
+                status: status
             )
         } catch {
             assertionFailure()

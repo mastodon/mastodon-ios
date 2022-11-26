@@ -62,6 +62,26 @@
         <string>%ld caractar</string>
       </dict>
     </dict>
+    <key>a11y.plural.count.characters_left</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@character_count@ air fhàgail</string>
+      <key>character_count</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>%ld charactar</string>
+        <key>two</key>
+        <string>%ld charactar</string>
+        <key>few</key>
+        <string>%ld caractaran</string>
+        <key>other</key>
+        <string>%ld caractar</string>
+      </dict>
+    </dict>
     <key>plural.count.followed_by_and_mutual</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
@@ -88,13 +108,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>Followed by %1$@, and another mutual</string>
+        <string>’Ga leantainn le %1$@ ’s %ld eile an cumantas</string>
         <key>two</key>
-        <string>Followed by %1$@, and %ld mutuals</string>
+        <string>’Ga leantainn le %1$@ ’s %ld eile an cumantas</string>
         <key>few</key>
-        <string>Followed by %1$@, and %ld mutuals</string>
+        <string>’Ga leantainn le %1$@ ’s %ld eile an cumantas</string>
         <key>other</key>
-        <string>Followed by %1$@, and %ld mutuals</string>
+        <string>’Ga leantainn le %1$@ ’s %ld eile an cumantas</string>
       </dict>
     </dict>
     <key>plural.count.metric_formatted.post</key>
@@ -128,13 +148,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 media</string>
+        <string>%ld mheadhan</string>
         <key>two</key>
-        <string>%ld media</string>
+        <string>%ld mheadhan</string>
         <key>few</key>
-        <string>%ld media</string>
+        <string>%ld meadhanan</string>
         <key>other</key>
-        <string>%ld media</string>
+        <string>%ld meadhan</string>
       </dict>
     </dict>
     <key>plural.count.post</key>
@@ -308,13 +328,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>Tha %ld a’ leantainn air</string>
+        <string>Tha %ld ’ga leantainn</string>
         <key>two</key>
-        <string>Tha %ld a’ leantainn air</string>
+        <string>Tha %ld ’ga leantainn</string>
         <key>few</key>
-        <string>Tha %ld a’ leantainn air</string>
+        <string>Tha %ld ’ga leantainn</string>
         <key>other</key>
-        <string>Tha %ld a’ leantainn air</string>
+        <string>Tha %ld ’ga leantainn</string>
       </dict>
     </dict>
     <key>date.year.left</key>

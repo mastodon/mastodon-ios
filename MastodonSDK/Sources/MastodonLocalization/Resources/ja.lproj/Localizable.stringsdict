@@ -44,6 +44,20 @@
         <string>%ld 文字</string>
       </dict>
     </dict>
+    <key>a11y.plural.count.characters_left</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@character_count@ left</string>
+      <key>character_count</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>other</key>
+        <string>%ld characters</string>
+      </dict>
+    </dict>
     <key>plural.count.followed_by_and_mutual</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
@@ -92,7 +106,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld media</string>
+        <string>%ld件のメディア</string>
       </dict>
     </dict>
     <key>plural.count.post</key>
@@ -106,7 +120,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld posts</string>
+        <string>%ld件の投稿</string>
       </dict>
     </dict>
     <key>plural.count.favorite</key>
@@ -148,7 +162,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld replies</string>
+        <string>%ld件の返信</string>
       </dict>
     </dict>
     <key>plural.count.vote</key>
@@ -176,7 +190,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld voters</string>
+        <string>%ld人の投票</string>
       </dict>
     </dict>
     <key>plural.people_talking</key>
@@ -316,7 +330,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld 年前</string>
+        <string>%ld年前</string>
       </dict>
     </dict>
     <key>date.month.ago.abbr</key>

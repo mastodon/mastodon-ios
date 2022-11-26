@@ -74,8 +74,8 @@
                 "take_photo": "Fotoğraf Çek",
                 "save_photo": "Fotoğrafı Kaydet",
                 "copy_photo": "Fotoğrafı Kopyala",
-                "sign_in": "Giriş Yap",
-                "sign_up": "Kaydol",
+                "sign_in": "Log in",
+                "sign_up": "Create account",
                 "see_more": "Daha Fazla Gör",
                 "preview": "Önizleme",
                 "share": "Paylaş",
@@ -136,6 +136,12 @@
                     "vote": "Oy ver",
                     "closed": "Kapandı"
                 },
+                "meta_entity": {
+                    "url": "Link: %s",
+                    "hashtag": "Hashtag: %s",
+                    "mention": "Show Profile: %s",
+                    "email": "Email address: %s"
+                },
                 "actions": {
                     "reply": "Yanıtla",
                     "reblog": "Yeniden paylaş",
@@ -180,7 +186,9 @@
                 "unmute": "Susturmayı kaldır",
                 "unmute_user": "Sesini aç %s",
                 "muted": "Susturuldu",
-                "edit_info": "Bilgiyi Düzenle"
+                "edit_info": "Bilgiyi Düzenle",
+                "show_reblogs": "Show Reblogs",
+                "hide_reblogs": "Hide Reblogs"
             },
             "timeline": {
                 "filtered": "Filtrelenmiş",
@@ -210,10 +218,16 @@
             "get_started": "Başlayın",
             "log_in": "Oturum Aç"
         },
+        "login": {
+            "title": "Welcome back",
+            "subtitle": "Log you in on the server you created your account on.",
+            "server_search_field": {
+                "placeholder": "Enter URL or search for your server"
+            }
+        },
         "server_picker": {
             "title": "Mastodon, farklı topluluklardaki kullanıcılardan oluşur.",
-            "subtitle": "İlgi alanlarınıza, bölgenize veya genel amaçlı bir topluluk seçin.",
-            "subtitle_extend": "İlgi alanlarınıza, bölgenize veya genel amaçlı bir topluluk seçin. Her topluluk tamamen bağımsız bir kuruluş veya kişi tarafından işletilmektedir.",
+            "subtitle": "Pick a server based on your region, interests, or a general purpose one. You can still chat with anyone on Mastodon, regardless of your servers.",
             "button": {
                 "category": {
                     "all": "Tümü",
@@ -240,8 +254,7 @@
                 "category": "KATEGORİ"
             },
             "input": {
-                "placeholder": "Toplulukları ara",
-                "search_servers_or_enter_url": "Search servers or enter URL"
+                "search_servers_or_enter_url": "Search communities or enter URL"
             },
             "empty_state": {
                 "finding_servers": "Mevcut sunucular aranıyor...",
@@ -251,7 +264,7 @@
         },
         "register": {
             "title": "%s için kurulumunuzu yapalım",
-            "lets_get_you_set_up_on_domain": "Let’s get you set up on %s",
+            "lets_get_you_set_up_on_domain": "%s için kurulumunuzu yapalım",
             "input": {
                 "avatar": {
                     "delete": "Sil"
@@ -286,7 +299,7 @@
                     "email": "E-posta",
                     "password": "Parola",
                     "agreement": "Anlaşma",
-                    "locale": "Locale",
+                    "locale": "Yerel",
                     "reason": "Sebep"
                 },
                 "reason": {
@@ -322,7 +335,7 @@
         "confirm_email": {
             "title": "Son bir şey.",
             "subtitle": "Hesabınızı doğrulamak için size e-postayla gönderdiğimiz bağlantıya dokunun.",
-            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we emailed to you to verify your account",
+            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Hesabınızı doğrulamak için size e-postayla gönderdiğimiz bağlantıya dokunun",
             "button": {
                 "open_email_app": "E-posta Uygulamasını Aç",
                 "resend": "Yeniden gönder"
@@ -347,7 +360,7 @@
                 "published": "Yayınlandı!",
                 "Publishing": "Gönderi yayınlanıyor...",
                 "accessibility": {
-                    "logo_label": "Logo Button",
+                    "logo_label": "Logo Düğmesi",
                     "logo_hint": "Tap to scroll to top and tap again to previous location"
                 }
             }
@@ -374,7 +387,13 @@
                 "video": "video",
                 "attachment_broken": "Bu %s bozuk ve Mastodon'a\nyüklenemiyor.",
                 "description_photo": "Görme engelliler için fotoğrafı tarif edin...",
-                "description_video": "Görme engelliler için videoyu tarif edin..."
+                "description_video": "Görme engelliler için videoyu tarif edin...",
+                "load_failed": "Load Failed",
+                "upload_failed": "Upload Failed",
+                "can_not_recognize_this_media_attachment": "Can not recognize this media attachment",
+                "attachment_too_large": "Attachment too large",
+                "compressing_state": "Compressing...",
+                "server_processing_state": "Server Processing..."
             },
             "poll": {
                 "duration_time": "Süre: %s",
@@ -384,7 +403,9 @@
                 "one_day": "1 Gün",
                 "three_days": "3 Gün",
                 "seven_days": "7 Gün",
-                "option_number": "Seçenek %ld"
+                "option_number": "Seçenek %ld",
+                "the_poll_is_invalid": "The poll is invalid",
+                "the_poll_has_empty_option": "The poll has empty option"
             },
             "content_warning": {
                 "placeholder": "Buraya kesin bir uyarı yazın..."
@@ -405,7 +426,9 @@
                 "custom_emoji_picker": "Özel Emoji Seçici",
                 "enable_content_warning": "İçerik Uyarısını Etkinleştir",
                 "disable_content_warning": "İçerik Uyarısını Kapat",
-                "post_visibility_menu": "Gönderi Görünürlüğü Menüsü"
+                "post_visibility_menu": "Gönderi Görünürlüğü Menüsü",
+                "post_options": "Post Options",
+                "posting_as": "Posting as %s"
             },
             "keyboard": {
                 "discard_post": "Gönderiyi İptal Et",
@@ -417,6 +440,9 @@
             }
         },
         "profile": {
+            "header": {
+                "follows_you": "Seni takip ediyor"
+            },
             "dashboard": {
                 "posts": "gönderiler",
                 "following": "takip ediliyor",
@@ -427,6 +453,10 @@
                 "placeholder": {
                     "label": "Etiket",
                     "content": "İçerik"
+                },
+                "verified": {
+                    "short": "Verified on %s",
+                    "long": "Ownership of this link was checked on %s"
                 }
             },
             "segmented_control": {
@@ -452,6 +482,14 @@
                 "confirm_unblock_user": {
                     "title": "Hesabın Engelini Kaldır",
                     "message": "%s engellemeyi kaldırmayı onaylayın"
+                },
+                "confirm_show_reblogs": {
+                    "title": "Show Reblogs",
+                    "message": "Confirm to show reblogs"
+                },
+                "confirm_hide_reblogs": {
+                    "title": "Hide Reblogs",
+                    "message": "Confirm to hide reblogs"
                 }
             },
             "accessibility": {
@@ -462,11 +500,11 @@
             }
         },
         "follower": {
-            "title": "follower",
+            "title": "takipçi",
             "footer": "Diğer sunucudaki takipçiler gösterilemiyor."
         },
         "following": {
-            "title": "following",
+            "title": "takip",
             "footer": "Diğer sunucudaki takip edilenler gösterilemiyor."
         },
         "familiarFollowers": {
@@ -541,6 +579,12 @@
             "keyobard": {
                 "show_everything": "Her Şeyi Göster",
                 "show_mentions": "Bahsetmeleri Göster"
+            },
+            "follow_request": {
+                "accept": "Accept",
+                "accepted": "Accepted",
+                "reject": "reject",
+                "rejected": "Rejected"
             }
         },
         "thread": {
@@ -651,8 +695,8 @@
                 "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "When you see something you don’t like on Mastodon, you can remove the person from your experience.",
                 "unfollow": "Takibi bırak",
                 "unfollowed": "Unfollowed",
-                "unfollow_user": "Unfollow %s",
-                "mute_user": "Mute %s",
+                "unfollow_user": "Takipten çık %s",
+                "mute_user": "Sustur %s",
                 "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or reblogs in your home feed. They won’t know they’ve been muted.",
                 "block_user": "Block %s",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "They will no longer be able to follow or see your posts, but they can see if they’ve been blocked.",
@@ -675,6 +719,9 @@
             "new_in_mastodon": "Mastodon'da Yeni",
             "multiple_account_switch_intro_description": "Profil butonuna basılı tutarak birden fazla hesap arasında geçiş yapın.",
             "accessibility_hint": "Bu yardımı kapatmak için çift tıklayın"
+        },
+        "bookmark": {
+            "title": "Bookmarks"
         }
     }
 }

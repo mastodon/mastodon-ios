@@ -11,6 +11,7 @@ import Combine
 import FLAnimatedImage
 import MetaTextKit
 import MastodonAsset
+import MastodonCore
 import MastodonLocalization
 import MastodonUI
 
@@ -37,7 +38,8 @@ final class ProfileHeaderView: UIView {
     
     weak var delegate: ProfileHeaderViewDelegate?
     var disposeBag = Set<AnyCancellable>()
-    
+    private var _disposeBag = Set<AnyCancellable>()
+
     func prepareForReuse() {
         disposeBag.removeAll()
     }
@@ -48,6 +50,7 @@ final class ProfileHeaderView: UIView {
         return viewModel
     }()
         
+    let bannerImageViewSingleTapGestureRecognizer = UITapGestureRecognizer.singleTapGestureRecognizer
     let bannerContainerView = UIView()
     let bannerImageView: UIImageView = {
         let imageView = UIImageView()
@@ -71,6 +74,16 @@ final class ProfileHeaderView: UIView {
     }()
     var bannerImageViewTopLayoutConstraint: NSLayoutConstraint!
     var bannerImageViewBottomLayoutConstraint: NSLayoutConstraint!
+    
+    let followsYouBlurEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .regular))
+    let followsYouVibrantEffectView = UIVisualEffectView(effect: UIVibrancyEffect(blurEffect: UIBlurEffect(style: .regular), style: .label))
+    let followsYouLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+        label.text = L10n.Scene.Profile.Header.followsYou
+        return label
+    }()
+    let followsYouMaskView = UIView()
 
     let avatarImageViewBackgroundView: UIView = {
         let view = UIView()
@@ -89,7 +102,9 @@ final class ProfileHeaderView: UIView {
         return button
     }()
 
-    func setupAvatarOverlayViews() {
+    func setupImageOverlayViews() {
+        editBannerButton.tintColor = .white
+
         editAvatarBackgroundView.backgroundColor = UIColor.black.withAlphaComponent(0.6)
         editAvatarButtonOverlayIndicatorView.tintColor = .white
     }
@@ -101,6 +116,13 @@ final class ProfileHeaderView: UIView {
         return visualEffectView
     }()
     
+    let editBannerButton: HighlightDimmableButton = {
+        let button = HighlightDimmableButton()
+        button.setImage(UIImage(systemName: "photo", withConfiguration: UIImage.SymbolConfiguration(pointSize: 28)), for: .normal)
+        button.tintColor = .clear
+        return button
+    }()
+
     let editAvatarBackgroundView: UIView = {
         let view = UIView()
         view.backgroundColor = .clear       // set value after view appeared
@@ -173,9 +195,6 @@ final class ProfileHeaderView: UIView {
         button.titleLabel?.minimumScaleFactor = 0.5
         return button
     }()
-    
-    // let bioContainerView = UIView()
-    // let fieldContainerStackView = UIStackView()
 
     let bioMetaText: MetaText = {
         let metaText = MetaText()
@@ -204,7 +223,7 @@ final class ProfileHeaderView: UIView {
         ]
         metaText.linkAttributes = [
             .font: UIFont.preferredFont(forTextStyle: .body),
-            .foregroundColor: Asset.Colors.brandBlue.color,
+            .foregroundColor: Asset.Colors.brand.color,
         ]
         return metaText
     }()
@@ -230,7 +249,7 @@ extension ProfileHeaderView {
                 guard let self = self else { return }
                 self.backgroundColor = theme.systemBackgroundColor
             }
-            .store(in: &disposeBag)
+            .store(in: &_disposeBag)
         
         // banner
         bannerContainerView.translatesAutoresizingMaskIntoConstraints = false
@@ -256,13 +275,42 @@ extension ProfileHeaderView {
         
         bannerImageViewOverlayVisualEffectView.translatesAutoresizingMaskIntoConstraints = false
         bannerImageView.addSubview(bannerImageViewOverlayVisualEffectView)
-        NSLayoutConstraint.activate([
-            bannerImageViewOverlayVisualEffectView.topAnchor.constraint(equalTo: bannerImageView.topAnchor),
-            bannerImageViewOverlayVisualEffectView.leadingAnchor.constraint(equalTo: bannerImageView.leadingAnchor),
-            bannerImageViewOverlayVisualEffectView.trailingAnchor.constraint(equalTo: bannerImageView.trailingAnchor),
-            bannerImageViewOverlayVisualEffectView.bottomAnchor.constraint(equalTo: bannerImageView.bottomAnchor),
-        ])
+        bannerImageViewOverlayVisualEffectView.pinToParent()
 
+        editBannerButton.translatesAutoresizingMaskIntoConstraints = false
+        bannerContainerView.addSubview(editBannerButton)
+        editBannerButton.pinTo(to: bannerImageView)
+        bannerContainerView.isUserInteractionEnabled = true
+
+        // follows you
+        followsYouBlurEffectView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(followsYouBlurEffectView)
+        NSLayoutConstraint.activate([
+            layoutMarginsGuide.trailingAnchor.constraint(equalTo: followsYouBlurEffectView.trailingAnchor),
+            bannerContainerView.bottomAnchor.constraint(equalTo: followsYouBlurEffectView.bottomAnchor, constant: 16),
+        ])
+        followsYouBlurEffectView.layer.masksToBounds = true
+        followsYouBlurEffectView.layer.cornerRadius = 8
+        followsYouBlurEffectView.layer.cornerCurve = .continuous
+        followsYouBlurEffectView.isHidden = true
+
+        followsYouVibrantEffectView.translatesAutoresizingMaskIntoConstraints = false
+        followsYouBlurEffectView.contentView.addSubview(followsYouVibrantEffectView)
+        followsYouVibrantEffectView.pinTo(to: followsYouBlurEffectView)
+        
+        followsYouLabel.translatesAutoresizingMaskIntoConstraints = false
+        followsYouVibrantEffectView.contentView.addSubview(followsYouLabel)
+        NSLayoutConstraint.activate([
+            followsYouLabel.topAnchor.constraint(equalTo: followsYouVibrantEffectView.topAnchor, constant: 4),
+            followsYouLabel.leadingAnchor.constraint(equalTo: followsYouVibrantEffectView.leadingAnchor, constant: 6),
+            followsYouVibrantEffectView.trailingAnchor.constraint(equalTo: followsYouLabel.trailingAnchor, constant: 6),
+            followsYouVibrantEffectView.bottomAnchor.constraint(equalTo: followsYouLabel.bottomAnchor, constant: 4),
+        ])
+        
+        followsYouMaskView.frame = CGRect(x: 0, y: 0, width: 1000, height: 1000)
+        followsYouMaskView.backgroundColor = .red
+        followsYouBlurEffectView.mask = followsYouMaskView
+        
         // avatar
         avatarImageViewBackgroundView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(avatarImageViewBackgroundView)
@@ -284,30 +332,15 @@ extension ProfileHeaderView {
 
         avatarImageViewOverlayVisualEffectView.translatesAutoresizingMaskIntoConstraints = false
         avatarImageViewBackgroundView.addSubview(avatarImageViewOverlayVisualEffectView)
-        NSLayoutConstraint.activate([
-            avatarImageViewOverlayVisualEffectView.topAnchor.constraint(equalTo: avatarImageViewBackgroundView.topAnchor),
-            avatarImageViewOverlayVisualEffectView.leadingAnchor.constraint(equalTo: avatarImageViewBackgroundView.leadingAnchor),
-            avatarImageViewOverlayVisualEffectView.trailingAnchor.constraint(equalTo: avatarImageViewBackgroundView.trailingAnchor),
-            avatarImageViewOverlayVisualEffectView.bottomAnchor.constraint(equalTo: avatarImageViewBackgroundView.bottomAnchor),
-        ])
+        avatarImageViewOverlayVisualEffectView.pinToParent()
     
         editAvatarBackgroundView.translatesAutoresizingMaskIntoConstraints = false
         avatarButton.addSubview(editAvatarBackgroundView)
-        NSLayoutConstraint.activate([
-            editAvatarBackgroundView.topAnchor.constraint(equalTo: avatarButton.topAnchor),
-            editAvatarBackgroundView.leadingAnchor.constraint(equalTo: avatarButton.leadingAnchor),
-            editAvatarBackgroundView.trailingAnchor.constraint(equalTo: avatarButton.trailingAnchor),
-            editAvatarBackgroundView.bottomAnchor.constraint(equalTo: avatarButton.bottomAnchor),
-        ])
+        editAvatarBackgroundView.pinToParent()
         
         editAvatarButtonOverlayIndicatorView.translatesAutoresizingMaskIntoConstraints = false
         editAvatarBackgroundView.addSubview(editAvatarButtonOverlayIndicatorView)
-        NSLayoutConstraint.activate([
-            editAvatarButtonOverlayIndicatorView.topAnchor.constraint(equalTo: editAvatarBackgroundView.topAnchor),
-            editAvatarButtonOverlayIndicatorView.leadingAnchor.constraint(equalTo: editAvatarBackgroundView.leadingAnchor),
-            editAvatarButtonOverlayIndicatorView.trailingAnchor.constraint(equalTo: editAvatarBackgroundView.trailingAnchor),
-            editAvatarButtonOverlayIndicatorView.bottomAnchor.constraint(equalTo: editAvatarBackgroundView.bottomAnchor),
-        ])
+        editAvatarButtonOverlayIndicatorView.pinToParent()
         editAvatarBackgroundView.isUserInteractionEnabled = true
         avatarButton.isUserInteractionEnabled = true
         
@@ -393,11 +426,8 @@ extension ProfileHeaderView {
         
         relationshipActionButton.translatesAutoresizingMaskIntoConstraints = false
         relationshipActionButtonShadowContainer.addSubview(relationshipActionButton)
+        relationshipActionButton.pinToParent()
         NSLayoutConstraint.activate([
-            relationshipActionButton.topAnchor.constraint(equalTo: relationshipActionButtonShadowContainer.topAnchor),
-            relationshipActionButton.leadingAnchor.constraint(equalTo: relationshipActionButtonShadowContainer.leadingAnchor),
-            relationshipActionButton.trailingAnchor.constraint(equalTo: relationshipActionButtonShadowContainer.trailingAnchor),
-            relationshipActionButton.bottomAnchor.constraint(equalTo: relationshipActionButtonShadowContainer.bottomAnchor),
             relationshipActionButton.widthAnchor.constraint(greaterThanOrEqualToConstant: ProfileHeaderView.friendshipActionButtonSize.width).priority(.required - 1),
             relationshipActionButton.heightAnchor.constraint(equalToConstant: ProfileHeaderView.friendshipActionButtonSize.height).priority(.defaultHigh),
         ])
@@ -406,13 +436,13 @@ extension ProfileHeaderView {
         container.addArrangedSubview(bioMetaText.textView)
     
         bringSubviewToFront(bannerContainerView)
+        bringSubviewToFront(followsYouBlurEffectView)
         bringSubviewToFront(avatarImageViewBackgroundView)
         
         statusDashboardView.delegate = self
         bioMetaText.textView.delegate = self
         bioMetaText.textView.linkDelegate = self
-        
-        let bannerImageViewSingleTapGestureRecognizer = UITapGestureRecognizer.singleTapGestureRecognizer
+
         bannerImageView.addGestureRecognizer(bannerImageViewSingleTapGestureRecognizer)
         bannerImageViewSingleTapGestureRecognizer.addTarget(self, action: #selector(ProfileHeaderView.bannerImageViewDidPressed(_:)))
         

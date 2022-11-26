@@ -50,10 +50,10 @@ extension FollowerListViewModel {
                     case is State.Idle, is State.Loading, is State.Fail:
                         snapshot.appendItems([.bottomLoader], toSection: .main)
                     case is State.NoMore:
-                        guard let activeMastodonAuthenticationBox = self.context.authenticationService.activeMastodonAuthenticationBox.value,
-                              let userID = self.userID.value,
-                              userID != activeMastodonAuthenticationBox.userID
+                        guard let userID = self.userID,
+                              userID != self.authContext.mastodonAuthenticationBox.userID
                         else { break }
+                        // display hint footer exclude self
                         let text = L10n.Scene.Follower.footer
                         snapshot.appendItems([.bottomHeader(text: text)], toSection: .main)
                     default:

@@ -11,6 +11,7 @@ import Combine
 import CoreDataStack
 import MetaTextKit
 import MastodonMeta
+import MastodonCore
 import MastodonUI
 import MastodonAsset
 import MastodonLocalization
@@ -27,13 +28,14 @@ extension ProfileHeaderView {
         
         @Published var emojiMeta: MastodonContent.Emojis = [:]
         @Published var headerImageURL: URL?
+        @Published var headerImageEditing: UIImage?
         @Published var avatarImageURL: URL?
         @Published var avatarImageEditing: UIImage?
         
         @Published var name: String?
         @Published var nameEditing: String?
         
-        @Published var username: String?
+        @Published var acct: String?
         
         @Published var note: String?
         @Published var noteEditing: String?
@@ -60,14 +62,19 @@ extension ProfileHeaderView.ViewModel {
 
     func bind(view: ProfileHeaderView) {
         // header
-        Publishers.CombineLatest(
+        Publishers.CombineLatest4(
             $headerImageURL,
+            $headerImageEditing,
+            $isEditing,
             viewDidAppear
         )
-        .sink { headerImageURL, _ in
+        .sink { headerImageURL, headerImageEditing, isEditing, _ in
             view.bannerImageView.af.cancelImageRequest()
-            let placeholder = UIImage.placeholder(color: ProfileHeaderView.bannerImageViewPlaceholderColor)
-            guard let bannerImageURL = headerImageURL else {
+            let defaultPlaceholder = UIImage.placeholder(color: ProfileHeaderView.bannerImageViewPlaceholderColor)
+            let placeholder = isEditing ? (headerImageEditing ?? defaultPlaceholder) : defaultPlaceholder
+            guard let bannerImageURL = headerImageURL,
+                  !isEditing || headerImageEditing == nil
+            else {
                 view.bannerImageView.image = placeholder
                 return
             }
@@ -88,6 +95,13 @@ extension ProfileHeaderView.ViewModel {
             )
         }
         .store(in: &disposeBag)
+        // follows you
+        $relationshipActionOptionSet
+            .map { $0.contains(.followingBy) && !$0.contains(.isMyself) }
+            .sink { isFollowingBy in
+                view.followsYouBlurEffectView.isHidden = !isFollowingBy
+            }
+            .store(in: &disposeBag)
         // avatar
         Publishers.CombineLatest4(
             $avatarImageURL,
@@ -102,7 +116,7 @@ extension ProfileHeaderView.ViewModel {
             ))
         }
         .store(in: &disposeBag)
-        // blur
+        // blur for blocking & blockingBy
         $relationshipActionOptionSet
             .map { $0.contains(.blocking) || $0.contains(.blockingBy) }
             .sink { needsImageOverlayBlurred in
@@ -133,8 +147,8 @@ extension ProfileHeaderView.ViewModel {
         }
         .store(in: &disposeBag)
         // username
-        $username
-            .map { username in username.flatMap { "@" + $0 } ?? " " }
+        $acct
+            .map { acct in acct.flatMap { "@" + $0 } ?? " " }
             .assign(to: \.text, on: view.usernameLabel)
             .store(in: &disposeBag)
         // bio
@@ -254,22 +268,29 @@ extension ProfileHeaderView {
             animator.addAnimations {
                 self.bannerImageViewOverlayVisualEffectView.backgroundColor = ProfileHeaderView.bannerImageViewOverlayViewBackgroundNormalColor
                 self.nameTextFieldBackgroundView.backgroundColor = .clear
+                self.editBannerButton.alpha = 0
                 self.editAvatarBackgroundView.alpha = 0
             }
             animator.addCompletion { _ in
+                self.editBannerButton.isHidden = true
                 self.editAvatarBackgroundView.isHidden = true
+                self.bannerImageViewSingleTapGestureRecognizer.isEnabled = true
             }
         case .editing:
             nameMetaText.textView.alpha = 0
             nameTextField.isEnabled = true
             nameTextField.alpha = 1
             
+            editBannerButton.isHidden = false
+            editBannerButton.alpha = 0
             editAvatarBackgroundView.isHidden = false
             editAvatarBackgroundView.alpha = 0
             bioMetaText.textView.backgroundColor = .clear
+            bannerImageViewSingleTapGestureRecognizer.isEnabled = false
             animator.addAnimations {
                 self.bannerImageViewOverlayVisualEffectView.backgroundColor = ProfileHeaderView.bannerImageViewOverlayViewBackgroundEditingColor
                 self.nameTextFieldBackgroundView.backgroundColor = Asset.Scene.Profile.Banner.nameEditBackgroundGray.color
+                self.editBannerButton.alpha = 1
                 self.editAvatarBackgroundView.alpha = 1
                 self.bioMetaText.textView.backgroundColor = Asset.Scene.Profile.Banner.bioEditBackgroundGray.color
             }

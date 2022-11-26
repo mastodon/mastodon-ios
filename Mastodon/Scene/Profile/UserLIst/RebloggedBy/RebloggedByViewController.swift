@@ -9,6 +9,7 @@ import os.log
 import UIKit
 import GameplayKit
 import Combine
+import MastodonCore
 import MastodonLocalization
 
 final class RebloggedByViewController: UIViewController, NeedsDependency {
@@ -60,12 +61,7 @@ extension RebloggedByViewController {
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
-        NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-        ])
+        tableView.pinToParent()
         
         tableView.delegate = self
         viewModel.setupDiffableDataSource(
@@ -90,6 +86,11 @@ extension RebloggedByViewController {
         tableView.deselectRow(with: transitionCoordinator, animated: animated)
     }
     
+}
+
+// MARK: - AuthContextProvider
+extension RebloggedByViewController: AuthContextProvider {
+    var authContext: AuthContext { viewModel.authContext }
 }
 
 // MARK: - UITableViewDelegate

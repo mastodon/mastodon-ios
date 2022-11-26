@@ -11,6 +11,7 @@ import Combine
 import CoreDataStack
 import MastodonSDK
 import MastodonMeta
+import MastodonCore
 import Kanna
 
 final class ProfileAboutViewModel {
@@ -51,7 +52,7 @@ final class ProfileAboutViewModel {
             $emojiMeta
         )
         .map { fields, emojiMeta in
-            fields.map { ProfileFieldItem.FieldValue(name: $0.name, value: $0.value, emojiMeta: emojiMeta) }
+            fields.map { ProfileFieldItem.FieldValue(name: $0.name, value: $0.value, verifiedAt: $0.verifiedAt, emojiMeta: emojiMeta) }
         }
         .assign(to: &profileInfo.$fields)
         
@@ -63,19 +64,15 @@ final class ProfileAboutViewModel {
         .sink { [weak self] account, emojiMeta in
             guard let self = self else { return }
             guard let account = account else { return }
-            
-            self.profileInfo.fields = account.source?.fields?.compactMap { field in
-                ProfileFieldItem.FieldValue(
-                    name: field.name,
-                    value: field.value,
-                    emojiMeta: emojiMeta
-                )
-            } ?? []
+                
+            // update profileInfo will occurs race condition issue
+            // bind user.fields to profileInfo to avoid it
             
             self.profileInfoEditing.fields = account.source?.fields?.compactMap { field in
                 ProfileFieldItem.FieldValue(
                     name: field.name,
                     value: field.value,
+                    verifiedAt: field.verifiedAt,
                     emojiMeta: [:]      // no use for editing
                 )
             } ?? []
@@ -96,7 +93,7 @@ extension ProfileAboutViewModel {
     func appendFieldItem() {
         var fields = profileInfoEditing.fields
         guard fields.count < ProfileHeaderViewModel.maxProfileFieldCount else { return }
-        fields.append(ProfileFieldItem.FieldValue(name: "", value: "", emojiMeta: [:]))
+        fields.append(ProfileFieldItem.FieldValue(name: "", value: "", verifiedAt: nil, emojiMeta: [:]))
         profileInfoEditing.fields = fields
     }
     
@@ -116,7 +113,7 @@ extension ProfileAboutViewModel: ProfileViewModelEditable {
         
         let isFieldsEqual: Bool = {
             let originalFields = self.accountForEdit?.source?.fields?.compactMap { field in
-                ProfileFieldItem.FieldValue(name: field.name, value: field.value, emojiMeta: [:])
+                ProfileFieldItem.FieldValue(name: field.name, value: field.value, verifiedAt: nil, emojiMeta: [:])
             } ?? []
             let editFields = profileInfoEditing.fields
             guard editFields.count == originalFields.count else { return false }

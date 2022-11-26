@@ -8,6 +8,8 @@
 import os.log
 import UIKit
 import Combine
+import MastodonCore
+import MastodonUI
 
 final class SearchResultViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
     
@@ -47,12 +49,7 @@ extension SearchResultViewController {
 
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
-        NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-        ])
+        tableView.pinToParent()
 
         tableView.delegate = self
 //        tableView.prefetchDataSource = self
@@ -152,10 +149,9 @@ extension SearchResultViewController {
 }
 
 // MARK: - StatusTableViewCellDelegate
-//extension SearchResultViewController: StatusTableViewCellDelegate {
-//    weak var playerViewControllerDelegate: AVPlayerViewControllerDelegate? { return self }
-//    func parent() -> UIViewController { return self }
-//}
+extension SearchResultViewController: AuthContextProvider {
+    var authContext: AuthContext { viewModel.authContext }
+}
 
 // MARK: - UITableViewDelegate
 extension SearchResultViewController: UITableViewDelegate, AutoGenerateTableViewDelegate {

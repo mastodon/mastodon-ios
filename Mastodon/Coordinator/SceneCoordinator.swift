@@ -8,8 +8,9 @@ import UIKit
 import Combine
 import SafariServices
 import CoreDataStack
-import MastodonSDK
 import PanModal
+import MastodonSDK
+import MastodonCore
 import MastodonAsset
 import MastodonLocalization
 
@@ -19,7 +20,9 @@ final public class SceneCoordinator {
     
     private weak var scene: UIScene!
     private weak var sceneDelegate: SceneDelegate!
-    private weak var appContext: AppContext!
+    private(set) weak var appContext: AppContext!
+    
+    private(set) var authContext: AuthContext?
     
     let id = UUID().uuidString
     
@@ -29,7 +32,11 @@ final public class SceneCoordinator {
     
     private(set) var secondaryStackHashValues = Set<Int>()
     
-    init(scene: UIScene, sceneDelegate: SceneDelegate, appContext: AppContext) {
+    init(
+        scene: UIScene,
+        sceneDelegate: SceneDelegate,
+        appContext: AppContext
+    ) {
         self.scene = scene
         self.sceneDelegate = sceneDelegate
         self.appContext = appContext
@@ -38,100 +45,83 @@ final public class SceneCoordinator {
         
         appContext.notificationService.requestRevealNotificationPublisher
             .receive(on: DispatchQueue.main)
-            .compactMap { [weak self] pushNotification -> AnyPublisher<MastodonPushNotification?, Never> in
-                guard let self = self else { return Just(nil).eraseToAnyPublisher() }
-                // skip if no available account
-                guard let currentActiveAuthenticationBox = appContext.authenticationService.activeMastodonAuthenticationBox.value else {
-                    return Just(nil).eraseToAnyPublisher()
-                }
-                
-                let accessToken = pushNotification.accessToken     // use raw accessToken value without normalize
-                if currentActiveAuthenticationBox.userAuthorization.accessToken == accessToken {
-                    // do nothing if notification for current account
-                    return Just(pushNotification).eraseToAnyPublisher()
-                } else {
-                    // switch to notification's account
-                    let request = MastodonAuthentication.sortedFetchRequest
-                    request.predicate = MastodonAuthentication.predicate(userAccessToken: accessToken)
-                    request.returnsObjectsAsFaults = false
-                    request.fetchLimit = 1
-                    do {
-                        guard let authentication = try appContext.managedObjectContext.fetch(request).first else {
-                            return Just(nil).eraseToAnyPublisher()
-                        }
-                        let domain = authentication.domain
-                        let userID = authentication.userID
-                        return appContext.authenticationService.activeMastodonUser(domain: domain, userID: userID)
-                            .receive(on: DispatchQueue.main)
-                            .map { [weak self] result -> MastodonPushNotification? in
-                                guard let self = self else { return nil }
-                                switch result {
-                                case .success:
-                                    // reset view hierarchy
-                                    self.setup()
-                                    return pushNotification
-                                case .failure:
-                                    return nil
-                                }
-                            }
-                            .delay(for: 1, scheduler: DispatchQueue.main)   // set delay to slow transition (not must)
-                            .eraseToAnyPublisher()
-                    } catch {
-                        assertionFailure(error.localizedDescription)
-                        return Just(nil).eraseToAnyPublisher()
-                    }
-                }
-            }
-            .switchToLatest()
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] pushNotification in
+            .sink(receiveValue: { [weak self] pushNotification in
                 guard let self = self else { return }
-                guard let pushNotification = pushNotification else { return }
-                
-                // redirect to notification tab
-                self.switchToTabBar(tab: .notification)
-                
-
-                // Delay in next run loop
-                DispatchQueue.main.async { [weak self] in
-                    guard let self = self else { return }
-
-                    // Note:
-                    // show (push) on phone and pad
-                    let from: UIViewController? = {
-                        if let splitViewController = self.splitViewController {
-                            if splitViewController.compactMainTabBarViewController.topMost?.view.window != nil {
-                                // compact
-                                return splitViewController.compactMainTabBarViewController.topMost
-                            } else {
-                                // expand
-                                return splitViewController.contentSplitViewController.mainTabBarController.topMost
+                Task {
+                    guard let currentActiveAuthenticationBox = self.authContext?.mastodonAuthenticationBox else { return }
+                    let accessToken = pushNotification.accessToken     // use raw accessToken value without normalize
+                    if currentActiveAuthenticationBox.userAuthorization.accessToken == accessToken {
+                        // do nothing if notification for current account
+                        return
+                    } else {
+                        // switch to notification's account
+                        let request = MastodonAuthentication.sortedFetchRequest
+                        request.predicate = MastodonAuthentication.predicate(userAccessToken: accessToken)
+                        request.returnsObjectsAsFaults = false
+                        request.fetchLimit = 1
+                        do {
+                            guard let authentication = try appContext.managedObjectContext.fetch(request).first else {
+                                return
                             }
-                        } else {
-                            return self.tabBarController.topMost
+                            let domain = authentication.domain
+                            let userID = authentication.userID
+                            let isSuccess = try await appContext.authenticationService.activeMastodonUser(domain: domain, userID: userID)
+                            guard isSuccess else { return }
+                            
+                            self.setup()
+                            try await Task.sleep(nanoseconds: .second * 1)
+                            
+                            // redirect to notifications tab
+                            self.switchToTabBar(tab: .notifications)
+                            
+                            // Delay in next run loop
+                            DispatchQueue.main.async { [weak self] in
+                                guard let self = self else { return }
+                                
+                                // Note:
+                                // show (push) on phone and pad
+                                let from: UIViewController? = {
+                                    if let splitViewController = self.splitViewController {
+                                        if splitViewController.compactMainTabBarViewController.topMost?.view.window != nil {
+                                            // compact
+                                            return splitViewController.compactMainTabBarViewController.topMost
+                                        } else {
+                                            // expand
+                                            return splitViewController.contentSplitViewController.mainTabBarController.topMost
+                                        }
+                                    } else {
+                                        return self.tabBarController.topMost
+                                    }
+                                }()
+                                
+                                // show notification related content
+                                guard let type = Mastodon.Entity.Notification.NotificationType(rawValue: pushNotification.notificationType) else { return }
+                                guard let authContext = self.authContext else { return }
+                                let notificationID = String(pushNotification.notificationID)
+                                
+                                switch type {
+                                case .follow:
+                                    let profileViewModel = RemoteProfileViewModel(context: appContext, authContext: authContext, notificationID: notificationID)
+                                    _ = self.present(scene: .profile(viewModel: profileViewModel), from: from, transition: .show)
+                                case .followRequest:
+                                    // do nothing
+                                    break
+                                case .mention, .reblog, .favourite, .poll, .status:
+                                    let threadViewModel = RemoteThreadViewModel(context: appContext, authContext: authContext, notificationID: notificationID)
+                                    _ = self.present(scene: .thread(viewModel: threadViewModel), from: from, transition: .show)
+                                case ._other:
+                                    assertionFailure()
+                                    break
+                                }
+                            }   // end DispatchQueue.main.async
+                            
+                        } catch {
+                            assertionFailure(error.localizedDescription)
+                            return
                         }
-                    }()
-
-                    // show notification related content
-                    guard let type = Mastodon.Entity.Notification.NotificationType(rawValue: pushNotification.notificationType) else { return }
-                    let notificationID = String(pushNotification.notificationID)
-
-                    switch type {
-                    case .follow:
-                        let profileViewModel = RemoteProfileViewModel(context: appContext, notificationID: notificationID)
-                        self.present(scene: .profile(viewModel: profileViewModel), from: from, transition: .show)
-                    case .followRequest:
-                        // do nothing
-                        break
-                    case .mention, .reblog, .favourite, .poll, .status:
-                        let threadViewModel = RemoteThreadViewModel(context: appContext, notificationID: notificationID)
-                        self.present(scene: .thread(viewModel: threadViewModel), from: from, transition: .show)
-                    case ._other:
-                        assertionFailure()
-                        break
                     }
-                }   // end DispatchQueue.main.async
-            }
+                }   // end Task
+            })
             .store(in: &disposeBag)
     }
 }
@@ -159,6 +149,7 @@ extension SceneCoordinator {
         case mastodonConfirmEmail(viewModel: MastodonConfirmEmailViewModel)
         case mastodonResendEmail(viewModel: MastodonResendEmailViewModel)
         case mastodonWebView(viewModel: WebViewModel)
+        case mastodonLogin
 
         // search
         case searchDetail(viewModel: SearchDetailViewModel)
@@ -173,7 +164,7 @@ extension SceneCoordinator {
         case hashtagTimeline(viewModel: HashtagTimelineViewModel)
       
         // profile
-        case accountList
+        case accountList(viewModel: AccountListViewModel)
         case profile(viewModel: ProfileViewModel)
         case favorite(viewModel: FavoriteViewModel)
         case follower(viewModel: FollowerListViewModel)
@@ -181,6 +172,7 @@ extension SceneCoordinator {
         case familiarFollowers(viewModel: FamiliarFollowersViewModel)
         case rebloggedBy(viewModel: UserListViewModel)
         case favoritedBy(viewModel: UserListViewModel)
+        case bookmark(viewModel: BookmarkViewModel)
 
         // setting
         case settings(viewModel: SettingsViewModel)
@@ -208,6 +200,7 @@ extension SceneCoordinator {
             case .welcome,
                  .mastodonPickServer,
                  .mastodonRegister,
+                 .mastodonLogin,
                  .mastodonServerRules,
                  .mastodonConfirmEmail,
                  .mastodonResendEmail:
@@ -223,55 +216,61 @@ extension SceneCoordinator {
     
     func setup() {
         let rootViewController: UIViewController
-        switch UIDevice.current.userInterfaceIdiom {
-        case .phone:
-            let viewController = MainTabBarController(context: appContext, coordinator: self)
-            self.splitViewController = nil
-            self.tabBarController = viewController
-            rootViewController = viewController
-        default:
-            let splitViewController = RootSplitViewController(context: appContext, coordinator: self)
-            self.splitViewController = splitViewController
-            self.tabBarController = splitViewController.contentSplitViewController.mainTabBarController
-            rootViewController = splitViewController
-        }
         
-        let wizardViewController = WizardViewController()
-        if !wizardViewController.items.isEmpty,
-           let delegate = rootViewController as? WizardViewControllerDelegate
-        {
-            // do not add as child view controller.
-            // otherwise, the tab bar controller will add as a new tab
-            wizardViewController.delegate = delegate
-            wizardViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-            wizardViewController.view.frame = rootViewController.view.bounds
-            rootViewController.view.addSubview(wizardViewController.view)
-            self.wizardViewController = wizardViewController
-        }
-                
-        sceneDelegate.window?.rootViewController = rootViewController
-    }
-    
-    func setupOnboardingIfNeeds(animated: Bool) {
-        // Check user authentication status and show onboarding if needs
         do {
-            let request = MastodonAuthentication.sortedFetchRequest
-            if try appContext.managedObjectContext.count(for: request) == 0 {
+            let request = MastodonAuthentication.activeSortedFetchRequest   // use active order
+            let _authentication = try appContext.managedObjectContext.fetch(request).first
+            let _authContext = _authentication.flatMap { AuthContext(authentication: $0) }
+            self.authContext = _authContext
+            
+            switch UIDevice.current.userInterfaceIdiom {
+            case .phone:
+                let viewController = MainTabBarController(context: appContext, coordinator: self, authContext: _authContext)
+                self.splitViewController = nil
+                self.tabBarController = viewController
+                rootViewController = viewController
+            default:
+                let splitViewController = RootSplitViewController(context: appContext, coordinator: self, authContext: _authContext)
+                self.splitViewController = splitViewController
+                self.tabBarController = splitViewController.contentSplitViewController.mainTabBarController
+                rootViewController = splitViewController
+            }
+            sceneDelegate.window?.rootViewController = rootViewController                   // base: main
+
+            if _authContext == nil {                                                        // entry #1: welcome
                 DispatchQueue.main.async {
-                    self.present(
+                    _ = self.present(
                         scene: .welcome,
                         from: self.sceneDelegate.window?.rootViewController,
-                        transition: .modal(animated: animated, completion: nil)
+                        transition: .modal(animated: true, completion: nil)
                     )
                 }
+            } else {
+                let wizardViewController = WizardViewController()
+                if !wizardViewController.items.isEmpty,
+                   let delegate = rootViewController as? WizardViewControllerDelegate
+                {
+                    // do not add as child view controller.
+                    // otherwise, the tab bar controller will add as a new tab
+                    wizardViewController.delegate = delegate
+                    wizardViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+                    wizardViewController.view.frame = rootViewController.view.bounds
+                    rootViewController.view.addSubview(wizardViewController.view)
+                    self.wizardViewController = wizardViewController
+                }
             }
+            
         } catch {
             assertionFailure(error.localizedDescription)
+            Task {
+                try? await Task.sleep(nanoseconds: .second * 2)
+                setup()                                                                     // entry #2: retry
+            }   // end Task
         }
     }
-    
-    @discardableResult
+
     @MainActor
+    @discardableResult
     func present(scene: Scene, from sender: UIViewController?, transition: Transition) -> UIViewController? {
         guard let viewController = get(scene: scene) else {
             return nil
@@ -342,7 +341,7 @@ extension SceneCoordinator {
         case .custom(let transitioningDelegate):
             viewController.modalPresentationStyle = .custom
             viewController.transitioningDelegate = transitioningDelegate
-            // viewController.modalPresentationCapturesStatusBarAppearance = true
+            viewController.modalPresentationCapturesStatusBarAppearance = true
             (splitViewController ?? presentingViewController)?.present(viewController, animated: true, completion: nil)
             
         case .customPush(let animated):
@@ -406,6 +405,13 @@ private extension SceneCoordinator {
             let _viewController = MastodonConfirmEmailViewController()
             _viewController.viewModel = viewModel
             viewController = _viewController
+        case .mastodonLogin:
+            let loginViewController = MastodonLoginViewController(appContext: appContext,
+                                                                  authenticationViewModel: AuthenticationViewModel(context: appContext, coordinator: self, isAuthenticationExist: false),
+                                                                  sceneCoordinator: self)
+            loginViewController.delegate = self
+
+            viewController = loginViewController
         case .mastodonResendEmail(let viewModel):
             let _viewController = MastodonResendEmailViewController()
             _viewController.viewModel = viewModel
@@ -430,11 +436,16 @@ private extension SceneCoordinator {
             let _viewController = HashtagTimelineViewController()
             _viewController.viewModel = viewModel
             viewController = _viewController
-        case .accountList:
+        case .accountList(let viewModel):
             let _viewController = AccountListViewController()
+            _viewController.viewModel = viewModel
             viewController = _viewController
         case .profile(let viewModel):
             let _viewController = ProfileViewController()
+            _viewController.viewModel = viewModel
+            viewController = _viewController
+        case .bookmark(let viewModel):
+            let _viewController = BookmarkViewController()
             _viewController.viewModel = viewModel
             viewController = _viewController
         case .favorite(let viewModel):
@@ -496,7 +507,7 @@ private extension SceneCoordinator {
             }
             let _viewController = SFSafariViewController(url: url)
             _viewController.preferredBarTintColor = ThemeService.shared.currentTheme.value.navigationBarBackgroundColor
-            _viewController.preferredControlTintColor = Asset.Colors.brandBlue.color
+            _viewController.preferredControlTintColor = Asset.Colors.brand.color
             viewController = _viewController
 
         case .alertController(let alertController):
@@ -527,5 +538,16 @@ private extension SceneCoordinator {
         needs?.context = appContext
         needs?.coordinator = self
     }
-    
+}
+
+//MARK: - MastodonLoginViewControllerDelegate
+
+extension SceneCoordinator: MastodonLoginViewControllerDelegate {
+  func backButtonPressed(_ viewController: MastodonLoginViewController) {
+    viewController.navigationController?.popViewController(animated: true)
+  }
+
+  func nextButtonPressed(_ viewController: MastodonLoginViewController) {
+    viewController.login()
+  }
 }

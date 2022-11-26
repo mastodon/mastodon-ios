@@ -8,10 +8,11 @@
 import UIKit
 import CoreDataStack
 import MetaTextKit
+import MastodonCore
 import MastodonUI
 
 // MARK: - header
-extension StatusTableViewCellDelegate where Self: DataSourceProvider {
+extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthContextProvider {
     
     func tableViewCell(
         _ cell: UITableViewCell,
@@ -64,7 +65,7 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider {
 }
 
 // MARK: - avatar button
-extension StatusTableViewCellDelegate where Self: DataSourceProvider {
+extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthContextProvider {
 
     func tableViewCell(
         _ cell: UITableViewCell,
@@ -92,7 +93,7 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider {
 }
 
 // MARK: - content
-extension StatusTableViewCellDelegate where Self: DataSourceProvider {
+extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthContextProvider {
     
     func tableViewCell(
         _ cell: UITableViewCell,
@@ -169,7 +170,7 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & MediaPrev
 
 
 // MARK: - poll
-extension StatusTableViewCellDelegate where Self: DataSourceProvider {
+extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthContextProvider {
     
     func tableViewCell(
         _ cell: UITableViewCell,
@@ -177,7 +178,6 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider {
         pollTableView tableView: UITableView,
         didSelectRowAt indexPath: IndexPath
     ) {
-        guard let authenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else { return }
         guard let pollTableViewDiffableDataSource = statusView.pollTableViewDiffableDataSource else { return }
         guard let pollItem = pollTableViewDiffableDataSource.itemIdentifier(for: indexPath) else { return }
                 
@@ -226,7 +226,7 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider {
                 _ = try await context.apiService.vote(
                     poll: poll,
                     choices: [choice],
-                    authenticationBox: authenticationBox
+                    authenticationBox: authContext.mastodonAuthenticationBox
                 )
                 logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): vote poll for \(choice) success")
             } catch {
@@ -248,7 +248,6 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider {
         statusView: StatusView,
         pollVoteButtonPressed button: UIButton
     ) {
-        guard let authenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else { return }
         guard let pollTableViewDiffableDataSource = statusView.pollTableViewDiffableDataSource else { return }
         guard let firstPollItem = pollTableViewDiffableDataSource.snapshot().itemIdentifiers.first else { return }
         guard case let .option(firstPollOption) = firstPollItem else { return }
@@ -284,7 +283,7 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider {
                 _ = try await context.apiService.vote(
                     poll: poll,
                     choices: choices,
-                    authenticationBox: authenticationBox
+                    authenticationBox: authContext.mastodonAuthenticationBox
                 )
                 logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): vote poll for \(choices) success")
             } catch {
@@ -303,7 +302,7 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider {
 }
 
 // MARK: - toolbar
-extension StatusTableViewCellDelegate where Self: DataSourceProvider {
+extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthContextProvider {
     func tableViewCell(
         _ cell: UITableViewCell,
         statusView: StatusView,
@@ -311,7 +310,6 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider {
         buttonDidPressed button: UIButton,
         action: ActionToolbarContainer.Action
     ) {
-        guard let authenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else { return }
         Task {
             let source = DataSourceItem.Source(tableViewCell: cell, indexPath: nil)
             guard let item = await item(from: source) else {
@@ -327,7 +325,6 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider {
                 provider: self,
                 status: status,
                 action: action,
-                authenticationBox: authenticationBox,
                 sender: button
             )
         }   // end Task
@@ -336,14 +333,13 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider {
 }
 
 // MARK: - menu button
-extension StatusTableViewCellDelegate where Self: DataSourceProvider {
+extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthContextProvider {
     func tableViewCell(
         _ cell: UITableViewCell,
         statusView: StatusView,
         menuButton button: UIButton,
         didSelectAction action: MastodonMenu.Action
     ) {
-        guard let authenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else { return }
         Task {
             let source = DataSourceItem.Source(tableViewCell: cell, indexPath: nil)
             guard let item = await item(from: source) else {
@@ -372,8 +368,7 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider {
                     status: status,
                     button: button,
                     barButtonItem: nil
-                ),
-                authenticationBox: authenticationBox
+                )
             )
         }   // end Task
     }
@@ -475,7 +470,7 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider {
 }
 
 // MARK: - StatusMetricView
-extension StatusTableViewCellDelegate where Self: DataSourceProvider {
+extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthContextProvider {
     func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, statusMetricView: StatusMetricView, reblogButtonDidPressed button: UIButton) {
         Task {
             let source = DataSourceItem.Source(tableViewCell: cell, indexPath: nil)
@@ -489,9 +484,10 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider {
             }
             let userListViewModel = UserListViewModel(
                 context: context,
+                authContext: authContext,
                 kind: .rebloggedBy(status: status)
             )
-            await coordinator.present(
+            _ = await coordinator.present(
                 scene: .rebloggedBy(viewModel: userListViewModel),
                 from: self,
                 transition: .show
@@ -512,9 +508,10 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider {
             }
             let userListViewModel = UserListViewModel(
                 context: context,
+                authContext: authContext,
                 kind: .favoritedBy(status: status)
             )
-            await coordinator.present(
+            _ = await coordinator.present(
                 scene: .favoritedBy(viewModel: userListViewModel),
                 from: self,
                 transition: .show
@@ -524,7 +521,7 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider {
 }
 
 // MARK: a11y
-extension StatusTableViewCellDelegate where Self: DataSourceProvider {
+extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthContextProvider {
     func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, accessibilityActivate: Void) {
         Task {
             let source = DataSourceItem.Source(tableViewCell: cell, indexPath: nil)

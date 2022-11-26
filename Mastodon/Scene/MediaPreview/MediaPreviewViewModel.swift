@@ -10,6 +10,11 @@ import Combine
 import CoreData
 import CoreDataStack
 import Pageboy
+import MastodonCore
+
+protocol MediaPreviewPage: UIViewController {
+    func setShowingChrome(_ showingChrome: Bool)
+}
 
 final class MediaPreviewViewModel: NSObject {
     
@@ -21,9 +26,12 @@ final class MediaPreviewViewModel: NSObject {
     let transitionItem: MediaPreviewTransitionItem
     
     @Published var currentPage: Int
+    @Published var showingChrome = true
     
     // output
     let viewControllers: [UIViewController]
+
+    private var disposeBag: Set<AnyCancellable> = []
     
     init(
         context: AppContext,
@@ -33,7 +41,7 @@ final class MediaPreviewViewModel: NSObject {
         self.context = context
         self.item = item
         var currentPage = 0
-        var viewControllers: [UIViewController] = []
+        var viewControllers: [MediaPreviewPage] = []
         switch item {
         case .attachment(let previewContext):
             currentPage = previewContext.initialIndex
@@ -105,6 +113,14 @@ final class MediaPreviewViewModel: NSObject {
         self.currentPage = currentPage
         self.transitionItem = transitionItem
         super.init()
+
+        for viewController in viewControllers {
+            self.$showingChrome
+                .sink { [weak viewController] showingChrome in
+                    viewController?.setShowingChrome(showingChrome)
+                }
+                .store(in: &disposeBag)
+        }
     }
 
 }
@@ -116,6 +132,19 @@ extension MediaPreviewViewModel {
         case profileAvatar(ProfileAvatarPreviewContext)
         case profileBanner(ProfileBannerPreviewContext)
 //        case local(LocalImagePreviewMeta)
+        
+        var isAssetURLValid: Bool {
+            switch self {
+            case .attachment:
+                return true     // default valid
+            case .profileAvatar:
+                return true     // default valid
+            case .profileBanner(let item):
+                guard let assertURL = item.assetURL else { return false }
+                guard !assertURL.hasSuffix("missing.png") else { return false }
+                return true
+            }
+        }
     }
     
     struct AttachmentPreviewContext {

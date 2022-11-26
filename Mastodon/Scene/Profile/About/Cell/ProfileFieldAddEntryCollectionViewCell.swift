@@ -11,6 +11,7 @@ import Combine
 import MastodonAsset
 import MastodonLocalization
 import MetaTextKit
+import MastodonCore
 import MastodonUI
 
 final class ProfileFieldAddEntryCollectionViewCell: UICollectionViewCell {

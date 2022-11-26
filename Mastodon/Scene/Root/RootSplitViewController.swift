@@ -9,6 +9,7 @@ import os.log
 import UIKit
 import Combine
 import CoreDataStack
+import MastodonCore
 
 final class RootSplitViewController: UISplitViewController, NeedsDependency {
     
@@ -19,12 +20,15 @@ final class RootSplitViewController: UISplitViewController, NeedsDependency {
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
+    var authContext: AuthContext?
+    
     private var isPrimaryDisplay = false
     
     private(set) lazy var contentSplitViewController: ContentSplitViewController = {
         let contentSplitViewController = ContentSplitViewController()
         contentSplitViewController.context = context
         contentSplitViewController.coordinator = coordinator
+        contentSplitViewController.authContext = authContext
         contentSplitViewController.delegate = self
         return contentSplitViewController
     }()
@@ -33,16 +37,21 @@ final class RootSplitViewController: UISplitViewController, NeedsDependency {
         let searchViewController = SearchViewController()
         searchViewController.context = context
         searchViewController.coordinator = coordinator
+        searchViewController.viewModel = .init(
+            context: context,
+            authContext: authContext
+        )
         return searchViewController
     }()
     
-    lazy var compactMainTabBarViewController = MainTabBarController(context: context, coordinator: coordinator)
+    lazy var compactMainTabBarViewController = MainTabBarController(context: context, coordinator: coordinator, authContext: authContext)
     
     let separatorLine = UIView.separatorLine
     
-    init(context: AppContext, coordinator: SceneCoordinator) {
+    init(context: AppContext, coordinator: SceneCoordinator, authContext: AuthContext?) {
         self.context = context
         self.coordinator = coordinator
+        self.authContext = authContext
         super.init(style: .doubleColumn)
         
         primaryEdge = .trailing
@@ -157,7 +166,7 @@ extension RootSplitViewController: ContentSplitViewControllerDelegate {
             }
             guard let navigationController = searchViewController.navigationController else { return }
             if navigationController.viewControllers.count == 1 {
-                searchViewController.searchBarTapPublisher.send()
+                searchViewController.searchBarTapPublisher.send("")
             } else {
                 navigationController.popToRootViewController(animated: true)
             }

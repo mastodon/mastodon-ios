@@ -148,6 +148,18 @@ extension MastodonAuthentication: Managed {
     public static var defaultSortDescriptors: [NSSortDescriptor] {
         return [NSSortDescriptor(keyPath: \MastodonAuthentication.createdAt, ascending: false)]
     }
+    
+    public static var activeSortDescriptors: [NSSortDescriptor] {
+        return [NSSortDescriptor(keyPath: \MastodonAuthentication.activedAt, ascending: false)]
+    }
+}
+
+extension MastodonAuthentication {
+    public static var activeSortedFetchRequest: NSFetchRequest<MastodonAuthentication> {
+        let request = NSFetchRequest<MastodonAuthentication>(entityName: entityName)
+        request.sortDescriptors = activeSortDescriptors
+        return request
+    }
 }
 
 extension MastodonAuthentication {
@@ -169,6 +181,14 @@ extension MastodonAuthentication {
     
     public static func predicate(userAccessToken: String) -> NSPredicate {
         return NSPredicate(format: "%K == %@", #keyPath(MastodonAuthentication.userAccessToken), userAccessToken)
+    }
+    
+    public static func predicate(identifier: UUID) -> NSPredicate {
+        return NSPredicate(format: "%K == %@", #keyPath(MastodonAuthentication.identifier), identifier as NSUUID)
+    }
+    
+    public static func predicate(identifiers: [UUID]) -> NSPredicate {
+        return NSPredicate(format: "%K IN %@", #keyPath(MastodonAuthentication.identifier), identifiers as [NSUUID])
     }
     
 }

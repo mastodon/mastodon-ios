@@ -10,6 +10,7 @@ import UIKit
 import Combine
 import CoreDataStack
 import MastodonAsset
+import MastodonCore
 import MastodonLocalization
 
 class ReportViewController: UIViewController, NeedsDependency, ReportViewControllerAppearance {
@@ -60,12 +61,7 @@ extension ReportViewController {
         reportReasonViewController.view.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(reportReasonViewController.view)
         reportReasonViewController.didMove(toParent: self)
-        NSLayoutConstraint.activate([
-            reportReasonViewController.view.topAnchor.constraint(equalTo: view.topAnchor),
-            reportReasonViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            reportReasonViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            reportReasonViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-        ])
+        reportReasonViewController.view.pinToParent()
     }
     
 }
@@ -93,22 +89,23 @@ extension ReportViewController: ReportReasonViewControllerDelegate {
         case .dislike:
             let reportResultViewModel = ReportResultViewModel(
                 context: context,
+                authContext: viewModel.authContext,
                 user: viewModel.user,
                 isReported: false
             )
-            coordinator.present(
+            _ = coordinator.present(
                 scene: .reportResult(viewModel: reportResultViewModel),
                 from: self,
                 transition: .show
             )
         case .violateRule:
-            coordinator.present(
+            _ = coordinator.present(
                 scene: .reportServerRules(viewModel: viewModel.reportServerRulesViewModel),
                 from: self,
                 transition: .show
             )
         case .spam, .other:
-            coordinator.present(
+            _ = coordinator.present(
                 scene: .reportStatus(viewModel: viewModel.reportStatusViewModel),
                 from: self,
                 transition: .show
@@ -124,7 +121,7 @@ extension ReportViewController: ReportServerRulesViewControllerDelegate {
             return
         }
         
-        coordinator.present(
+        _ = coordinator.present(
             scene: .reportStatus(viewModel: viewModel.reportStatusViewModel),
             from: self,
             transition: .show
@@ -143,7 +140,7 @@ extension ReportViewController: ReportStatusViewControllerDelegate {
     }
     
     private func coordinateToReportSupplementary() {
-        coordinator.present(
+        _ = coordinator.present(
             scene: .reportSupplementary(viewModel: viewModel.reportSupplementaryViewModel),
             from: self,
             transition: .show
@@ -169,11 +166,12 @@ extension ReportViewController: ReportSupplementaryViewControllerDelegate {
                 
                 let reportResultViewModel = ReportResultViewModel(
                     context: context,
+                    authContext: viewModel.authContext,
                     user: viewModel.user,
                     isReported: true
                 )
                 
-                coordinator.present(
+                _ = coordinator.present(
                     scene: .reportResult(viewModel: reportResultViewModel),
                     from: self,
                     transition: .show
@@ -183,7 +181,7 @@ extension ReportViewController: ReportSupplementaryViewControllerDelegate {
                 let alertController = UIAlertController(for: error, title: nil, preferredStyle: .alert)
                 let okAction = UIAlertAction(title: L10n.Common.Controls.Actions.ok, style: .default, handler: nil)
                 alertController.addAction(okAction)
-                self.coordinator.present(
+                _ = self.coordinator.present(
                     scene: .alertController(alertController: alertController),
                     from: nil,
                     transition: .alertController(animated: true, completion: nil)

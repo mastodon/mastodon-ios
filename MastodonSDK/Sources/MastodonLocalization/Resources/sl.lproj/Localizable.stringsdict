@@ -1,0 +1,581 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>a11y.plural.count.unread.notification</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@notification_count_unread_notification@</string>
+      <key>notification_count_unread_notification</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>%ld neprebrano obvestilo</string>
+        <key>two</key>
+        <string>%ld neprebrani obvestili</string>
+        <key>few</key>
+        <string>%ld neprebrana obvestila</string>
+        <key>other</key>
+        <string>%ld neprebranih obvestil</string>
+      </dict>
+    </dict>
+    <key>a11y.plural.count.input_limit_exceeds</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>Omejitev vnosa presega %#@character_count@</string>
+      <key>character_count</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>%ld znak</string>
+        <key>two</key>
+        <string>%ld znaka</string>
+        <key>few</key>
+        <string>%ld znaki</string>
+        <key>other</key>
+        <string>%ld znakov</string>
+      </dict>
+    </dict>
+    <key>a11y.plural.count.input_limit_remains</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>Omejitev vnosa ostaja %#@character_count@</string>
+      <key>character_count</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>%ld znak</string>
+        <key>two</key>
+        <string>%ld znaka</string>
+        <key>few</key>
+        <string>%ld znaki</string>
+        <key>other</key>
+        <string>%ld znakov</string>
+      </dict>
+    </dict>
+    <key>a11y.plural.count.characters_left</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>preostaja %#@character_count@</string>
+      <key>character_count</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>%ld znak</string>
+        <key>two</key>
+        <string>%ld znaka</string>
+        <key>few</key>
+        <string>%ld znaki</string>
+        <key>other</key>
+        <string>%ld znakov</string>
+      </dict>
+    </dict>
+    <key>plural.count.followed_by_and_mutual</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@names@%#@count_mutual@</string>
+      <key>names</key>
+      <dict>
+        <key>one</key>
+        <string></string>
+        <key>two</key>
+        <string></string>
+        <key>few</key>
+        <string></string>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>other</key>
+        <string></string>
+      </dict>
+      <key>count_mutual</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>Sledijo %1$@ in %ld skupni</string>
+        <key>two</key>
+        <string>Sledijo %1$@ in %ld skupna</string>
+        <key>few</key>
+        <string>Sledijo %1$@ in %ld skupni</string>
+        <key>other</key>
+        <string>Sledijo %1$@ in %ld skupnih</string>
+      </dict>
+    </dict>
+    <key>plural.count.metric_formatted.post</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%@ %#@post_count@</string>
+      <key>post_count</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>objava</string>
+        <key>two</key>
+        <string>objavi</string>
+        <key>few</key>
+        <string>objave</string>
+        <key>other</key>
+        <string>objav</string>
+      </dict>
+    </dict>
+    <key>plural.count.media</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@media_count@</string>
+      <key>media_count</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>%ld medij</string>
+        <key>two</key>
+        <string>%ld medija</string>
+        <key>few</key>
+        <string>%ld mediji</string>
+        <key>other</key>
+        <string>%ld medijev</string>
+      </dict>
+    </dict>
+    <key>plural.count.post</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@post_count@</string>
+      <key>post_count</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>%ld objava</string>
+        <key>two</key>
+        <string>%ld objavi</string>
+        <key>few</key>
+        <string>%ld objave</string>
+        <key>other</key>
+        <string>%ld objav</string>
+      </dict>
+    </dict>
+    <key>plural.count.favorite</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@favorite_count@</string>
+      <key>favorite_count</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>%ld priljubljeni</string>
+        <key>two</key>
+        <string>%ld priljubljena</string>
+        <key>few</key>
+        <string>%ld priljubljeni</string>
+        <key>other</key>
+        <string>%ld priljubljenih</string>
+      </dict>
+    </dict>
+    <key>plural.count.reblog</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@reblog_count@</string>
+      <key>reblog_count</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>%ld poobjava</string>
+        <key>two</key>
+        <string>%ld poobjavi</string>
+        <key>few</key>
+        <string>%ld poobjave</string>
+        <key>other</key>
+        <string>%ld poobjav</string>
+      </dict>
+    </dict>
+    <key>plural.count.reply</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@reply_count@</string>
+      <key>reply_count</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>%ld odgovor</string>
+        <key>two</key>
+        <string>%ld odgovora</string>
+        <key>few</key>
+        <string>%ld odgovori</string>
+        <key>other</key>
+        <string>%ld odgovorov</string>
+      </dict>
+    </dict>
+    <key>plural.count.vote</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@vote_count@</string>
+      <key>vote_count</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>%ld glas</string>
+        <key>two</key>
+        <string>%ld glasova</string>
+        <key>few</key>
+        <string>%ld glasovi</string>
+        <key>other</key>
+        <string>%ld glasov</string>
+      </dict>
+    </dict>
+    <key>plural.count.voter</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@voter_count@</string>
+      <key>voter_count</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>%ld glasovalec</string>
+        <key>two</key>
+        <string>%ld glasovalca</string>
+        <key>few</key>
+        <string>%ld glasovalci</string>
+        <key>other</key>
+        <string>%ld glasovalcev</string>
+      </dict>
+    </dict>
+    <key>plural.people_talking</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_people_talking@</string>
+      <key>count_people_talking</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>%ld oseba se pogovarja</string>
+        <key>two</key>
+        <string>%ld osebi se pogovarjata</string>
+        <key>few</key>
+        <string>%ld osebe se pogovarjajo</string>
+        <key>other</key>
+        <string>%ld oseb se pogovarja</string>
+      </dict>
+    </dict>
+    <key>plural.count.following</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_following@</string>
+      <key>count_following</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>%ld sledi</string>
+        <key>two</key>
+        <string>%ld sledita</string>
+        <key>few</key>
+        <string>%ld sledijo</string>
+        <key>other</key>
+        <string>%ld sledijo</string>
+      </dict>
+    </dict>
+    <key>plural.count.follower</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_follower@</string>
+      <key>count_follower</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>%ld sledilec</string>
+        <key>two</key>
+        <string>%ld sledilca</string>
+        <key>few</key>
+        <string>%ld sledilci</string>
+        <key>other</key>
+        <string>%ld sledilcev</string>
+      </dict>
+    </dict>
+    <key>date.year.left</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_year_left@</string>
+      <key>count_year_left</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>na voljo še %ld leto</string>
+        <key>two</key>
+        <string>na voljo še %ld leti</string>
+        <key>few</key>
+        <string>na voljo še %ld leta</string>
+        <key>other</key>
+        <string>na voljo še %ld let</string>
+      </dict>
+    </dict>
+    <key>date.month.left</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_month_left@</string>
+      <key>count_month_left</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>na voljo še %ld mesec</string>
+        <key>two</key>
+        <string>na voljo še %ld meseca</string>
+        <key>few</key>
+        <string>na voljo še %ld mesece</string>
+        <key>other</key>
+        <string>na voljo še %ld mesecev</string>
+      </dict>
+    </dict>
+    <key>date.day.left</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_day_left@</string>
+      <key>count_day_left</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>še %ld dan</string>
+        <key>two</key>
+        <string>še %ld dneva</string>
+        <key>few</key>
+        <string>še %ld dnevi</string>
+        <key>other</key>
+        <string>še %ld dni</string>
+      </dict>
+    </dict>
+    <key>date.hour.left</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_hour_left@</string>
+      <key>count_hour_left</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>na voljo še %ld uro</string>
+        <key>two</key>
+        <string>na voljo še %ld uri</string>
+        <key>few</key>
+        <string>na voljo še %ld ure</string>
+        <key>other</key>
+        <string>na voljo še %ld ur</string>
+      </dict>
+    </dict>
+    <key>date.minute.left</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_minute_left@</string>
+      <key>count_minute_left</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>Še %ld min.</string>
+        <key>two</key>
+        <string>Še %ld min.</string>
+        <key>few</key>
+        <string>Še %ld min.</string>
+        <key>other</key>
+        <string>Še %ld min.</string>
+      </dict>
+    </dict>
+    <key>date.second.left</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_second_left@</string>
+      <key>count_second_left</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>Preostane še %ld s</string>
+        <key>two</key>
+        <string>Preostaneta še %ld s</string>
+        <key>few</key>
+        <string>Preostanejo še %ld s</string>
+        <key>other</key>
+        <string>Preostane še %ld s</string>
+      </dict>
+    </dict>
+    <key>date.year.ago.abbr</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_year_ago_abbr@</string>
+      <key>count_year_ago_abbr</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>pred %ld letom</string>
+        <key>two</key>
+        <string>pred %ld letoma</string>
+        <key>few</key>
+        <string>pred %ld leti</string>
+        <key>other</key>
+        <string>pred %ld leti</string>
+      </dict>
+    </dict>
+    <key>date.month.ago.abbr</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_month_ago_abbr@</string>
+      <key>count_month_ago_abbr</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>pred %ld mesecem</string>
+        <key>two</key>
+        <string>pred %ld mesecema</string>
+        <key>few</key>
+        <string>pred %ld meseci</string>
+        <key>other</key>
+        <string>pred %ld meseci</string>
+      </dict>
+    </dict>
+    <key>date.day.ago.abbr</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_day_ago_abbr@</string>
+      <key>count_day_ago_abbr</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>pred %ld dnem</string>
+        <key>two</key>
+        <string>pred %ld dnevoma</string>
+        <key>few</key>
+        <string>pred %ld dnemi</string>
+        <key>other</key>
+        <string>pred %ld dnemi</string>
+      </dict>
+    </dict>
+    <key>date.hour.ago.abbr</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_hour_ago_abbr@</string>
+      <key>count_hour_ago_abbr</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>pred %ld uro</string>
+        <key>two</key>
+        <string>pred %ld urama</string>
+        <key>few</key>
+        <string>pred %ld urami</string>
+        <key>other</key>
+        <string>pred %ld urami</string>
+      </dict>
+    </dict>
+    <key>date.minute.ago.abbr</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_minute_ago_abbr@</string>
+      <key>count_minute_ago_abbr</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>pred %ld min</string>
+        <key>two</key>
+        <string>pred %ld min</string>
+        <key>few</key>
+        <string>pred %ld min</string>
+        <key>other</key>
+        <string>pred %ld min</string>
+      </dict>
+    </dict>
+    <key>date.second.ago.abbr</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_second_ago_abbr@</string>
+      <key>count_second_ago_abbr</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>pred %ld s</string>
+        <key>two</key>
+        <string>pred %ld s</string>
+        <key>few</key>
+        <string>pred %ld s</string>
+        <key>other</key>
+        <string>pred %ld s</string>
+      </dict>
+    </dict>
+  </dict>
+</plist>

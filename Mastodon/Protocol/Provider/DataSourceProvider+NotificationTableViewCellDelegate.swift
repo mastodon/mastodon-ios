@@ -7,18 +7,18 @@
 
 import UIKit
 import MetaTextKit
-import MastodonUI
 import CoreDataStack
+import MastodonCore
+import MastodonUI
 
 // MARK: - Notification AuthorMenuAction
-extension NotificationTableViewCellDelegate where Self: DataSourceProvider {
+extension NotificationTableViewCellDelegate where Self: DataSourceProvider & AuthContextProvider {
     func tableViewCell(
         _ cell: UITableViewCell,
         notificationView: NotificationView,
         menuButton button: UIButton,
         didSelectAction action: MastodonMenu.Action
     ) {
-        guard let authenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else { return }
         Task {
             let source = DataSourceItem.Source(tableViewCell: cell, indexPath: nil)
             guard let item = await item(from: source) else {
@@ -47,15 +47,14 @@ extension NotificationTableViewCellDelegate where Self: DataSourceProvider {
                     status: nil,
                     button: button,
                     barButtonItem: nil
-                ),
-                authenticationBox: authenticationBox
+                )
             )
         }   // end Task
     }
 }
 
 // MARK: - Notification Author Avatar
-extension NotificationTableViewCellDelegate where Self: DataSourceProvider {
+extension NotificationTableViewCellDelegate where Self: DataSourceProvider & AuthContextProvider {
     func tableViewCell(
         _ cell: UITableViewCell,
         notificationView: NotificationView,
@@ -87,8 +86,61 @@ extension NotificationTableViewCellDelegate where Self: DataSourceProvider {
     }
 }
 
+// MARK: - Follow Request
+extension NotificationTableViewCellDelegate where Self: DataSourceProvider & AuthContextProvider {
+ 
+    func tableViewCell(
+        _ cell: UITableViewCell,
+        notificationView: NotificationView,
+        acceptFollowRequestButtonDidPressed button: UIButton
+    ) {
+        Task {
+            let source = DataSourceItem.Source(tableViewCell: cell, indexPath: nil)
+            guard let item = await item(from: source) else {
+                assertionFailure()
+                return
+            }
+            guard case let .notification(notification) = item else {
+                assertionFailure("only works for status data provider")
+                return
+            }
+            
+            try await DataSourceFacade.responseToUserFollowRequestAction(
+                dependency: self,
+                notification: notification,
+                query: .accept
+            )
+        } // end Task
+    }
+    
+    func tableViewCell(
+        _ cell: UITableViewCell,
+        notificationView: NotificationView,
+        rejectFollowRequestButtonDidPressed button: UIButton
+    ) {
+        Task {
+            let source = DataSourceItem.Source(tableViewCell: cell, indexPath: nil)
+            guard let item = await item(from: source) else {
+                assertionFailure()
+                return
+            }
+            guard case let .notification(notification) = item else {
+                assertionFailure("only works for status data provider")
+                return
+            }
+            
+            try await DataSourceFacade.responseToUserFollowRequestAction(
+                dependency: self,
+                notification: notification,
+                query: .reject
+            )
+        } // end Task
+    }
+    
+}
+
 // MARK: - Status Content
-extension NotificationTableViewCellDelegate where Self: DataSourceProvider {
+extension NotificationTableViewCellDelegate where Self: DataSourceProvider & AuthContextProvider {
     func tableViewCell(
         _ cell: UITableViewCell,
         notificationView: NotificationView,
@@ -216,7 +268,7 @@ extension NotificationTableViewCellDelegate where Self: DataSourceProvider & Med
 }
 
 // MARK: - Status Toolbar
-extension NotificationTableViewCellDelegate where Self: DataSourceProvider {
+extension NotificationTableViewCellDelegate where Self: DataSourceProvider & AuthContextProvider  {
     func tableViewCell(
         _ cell: UITableViewCell,
         notificationView: NotificationView,
@@ -224,7 +276,6 @@ extension NotificationTableViewCellDelegate where Self: DataSourceProvider {
         buttonDidPressed button: UIButton,
         action: ActionToolbarContainer.Action
     ) {
-        guard let authenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else { return }
         Task {
             let source = DataSourceItem.Source(tableViewCell: cell, indexPath: nil)
             guard let item = await item(from: source) else {
@@ -248,7 +299,6 @@ extension NotificationTableViewCellDelegate where Self: DataSourceProvider {
                 provider: self,
                 status: status,
                 action: action,
-                authenticationBox: authenticationBox,
                 sender: button
             )
         }   // end Task
@@ -256,7 +306,7 @@ extension NotificationTableViewCellDelegate where Self: DataSourceProvider {
 }
 
 // MARK: - Status Author Avatar
-extension NotificationTableViewCellDelegate where Self: DataSourceProvider {
+extension NotificationTableViewCellDelegate where Self: DataSourceProvider & AuthContextProvider {
     func tableViewCell(
         _ cell: UITableViewCell,
         notificationView: NotificationView,
@@ -291,7 +341,7 @@ extension NotificationTableViewCellDelegate where Self: DataSourceProvider {
 }
 
 // MARK: - Status Content
-extension NotificationTableViewCellDelegate where Self: DataSourceProvider {
+extension NotificationTableViewCellDelegate where Self: DataSourceProvider & AuthContextProvider {
     
     func tableViewCell(
         _ cell: UITableViewCell,
@@ -467,7 +517,7 @@ extension NotificationTableViewCellDelegate where Self: DataSourceProvider {
 }
 
 // MARK: a11y
-extension NotificationTableViewCellDelegate where Self: DataSourceProvider {
+extension NotificationTableViewCellDelegate where Self: DataSourceProvider & AuthContextProvider {
     func tableViewCell(_ cell: UITableViewCell, notificationView: NotificationView, accessibilityActivate: Void) {
         Task {
             let source = DataSourceItem.Source(tableViewCell: cell, indexPath: nil)

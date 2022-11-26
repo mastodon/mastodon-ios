@@ -10,6 +10,7 @@ import Combine
 import os.log
 import UIKit
 import WebKit
+import MastodonCore
 
 final class WebViewController: UIViewController, NeedsDependency {
     
@@ -48,12 +49,7 @@ extension WebViewController {
         
         webView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(webView)
-        NSLayoutConstraint.activate([
-            webView.topAnchor.constraint(equalTo: view.topAnchor),
-            webView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            webView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            webView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-        ])
+        webView.pinToParent()
         
         let request = URLRequest(url: viewModel.url)
         webView.load(request)

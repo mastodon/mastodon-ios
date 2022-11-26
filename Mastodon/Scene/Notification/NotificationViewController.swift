@@ -12,6 +12,7 @@ import MastodonAsset
 import MastodonLocalization
 import Tabman
 import Pageboy
+import MastodonCore
 
 final class NotificationViewController: TabmanViewController, NeedsDependency {
     
@@ -23,7 +24,7 @@ final class NotificationViewController: TabmanViewController, NeedsDependency {
     var disposeBag = Set<AnyCancellable>()
     var observations = Set<NSKeyValueObservation>()
 
-    private(set) lazy var viewModel = NotificationViewModel(context: context)
+    var viewModel: NotificationViewModel!
     
     let pageSegmentedControl = UISegmentedControl()
 
@@ -153,6 +154,7 @@ extension NotificationViewController {
         viewController.coordinator = coordinator
         viewController.viewModel = NotificationTimelineViewModel(
             context: context,
+            authContext: viewModel.authContext,
             scope: scope
         )
         return viewController

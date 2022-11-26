@@ -16,3 +16,14 @@ extension UIImage {
     }
     
 }
+
+extension UIImage {
+    public func normalized() -> UIImage? {
+        if imageOrientation == .up { return self }
+        UIGraphicsBeginImageContext(size)
+        draw(in: CGRect(origin: CGPoint.zero, size: size))
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image
+    }
+ }

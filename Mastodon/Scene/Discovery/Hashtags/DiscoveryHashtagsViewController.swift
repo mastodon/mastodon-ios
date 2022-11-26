@@ -8,6 +8,7 @@
 import os.log
 import UIKit
 import Combine
+import MastodonCore
 import MastodonUI
 
 final class DiscoveryHashtagsViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
@@ -31,7 +32,7 @@ final class DiscoveryHashtagsViewController: UIViewController, NeedsDependency, 
         return tableView
     }()
     
-    let refreshControl = UIRefreshControl()
+    let refreshControl = RefreshControl()
     
     deinit {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
@@ -55,12 +56,7 @@ extension DiscoveryHashtagsViewController {
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
-        NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-        ])
+        tableView.pinToParent()
         
         tableView.refreshControl = refreshControl
         refreshControl.addTarget(self, action: #selector(DiscoveryHashtagsViewController.refreshControlValueChanged(_:)), for: .valueChanged)
@@ -87,7 +83,7 @@ extension DiscoveryHashtagsViewController {
 
 extension DiscoveryHashtagsViewController {
     
-    @objc private func refreshControlValueChanged(_ sender: UIRefreshControl) {
+    @objc private func refreshControlValueChanged(_ sender: RefreshControl) {
         Task { @MainActor in
             do {
                 try await viewModel.fetch()
@@ -106,8 +102,8 @@ extension DiscoveryHashtagsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): \(indexPath)")
         guard case let .hashtag(tag) = viewModel.diffableDataSource?.itemIdentifier(for: indexPath) else { return }
-        let hashtagTimelineViewModel = HashtagTimelineViewModel(context: context, hashtag: tag.name)
-        coordinator.present(
+        let hashtagTimelineViewModel = HashtagTimelineViewModel(context: context, authContext: viewModel.authContext, hashtag: tag.name)
+        _ = coordinator.present(
             scene: .hashtagTimeline(viewModel: hashtagTimelineViewModel),
             from: self,
             transition: .show
@@ -216,8 +212,8 @@ extension DiscoveryHashtagsViewController: TableViewControllerNavigateable {
         guard let item = diffableDataSource.itemIdentifier(for: indexPathForSelectedRow) else { return }
         
         guard case let .hashtag(tag) = item else { return }
-        let hashtagTimelineViewModel = HashtagTimelineViewModel(context: context, hashtag: tag.name)
-        coordinator.present(
+        let hashtagTimelineViewModel = HashtagTimelineViewModel(context: context, authContext: viewModel.authContext, hashtag: tag.name)
+        _ = coordinator.present(
             scene: .hashtagTimeline(viewModel: hashtagTimelineViewModel),
             from: self,
             transition: .show

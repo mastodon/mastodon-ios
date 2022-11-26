@@ -8,9 +8,11 @@
 import UIKit
 import Combine
 import MastodonAsset
+import MastodonCore
+import MastodonUI
 import MastodonLocalization
 
-final class PickServerLoaderTableViewCell: TimelineLoaderTableViewCell {
+public final class PickServerLoaderTableViewCell: TimelineLoaderTableViewCell {
     
     let containerView: UIView = {
         let view = UIView()
@@ -28,7 +30,7 @@ final class PickServerLoaderTableViewCell: TimelineLoaderTableViewCell {
         return label
     }()
     
-    override func _init() {
+    public override func _init() {
         super._init()
                 
 

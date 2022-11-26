@@ -48,12 +48,7 @@ extension SpoilerOverlayView {
     private func _init() {
         containerStackView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(containerStackView)
-        NSLayoutConstraint.activate([
-            containerStackView.topAnchor.constraint(equalTo: topAnchor),
-            containerStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            containerStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            containerStackView.bottomAnchor.constraint(equalTo: bottomAnchor),
-        ])
+        containerStackView.pinToParent()
         
         let topPaddingView = UIView()
         topPaddingView.translatesAutoresizingMaskIntoConstraints = false
@@ -72,6 +67,7 @@ extension SpoilerOverlayView {
         spoilerMetaLabel.isUserInteractionEnabled = false
         
         isAccessibilityElement = true
+        accessibilityTraits.insert(.button)
     }
     
     public func setComponentHidden(_ isHidden: Bool) {

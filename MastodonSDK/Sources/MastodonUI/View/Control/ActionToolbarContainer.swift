@@ -12,6 +12,8 @@ import MastodonLocalization
 
 public protocol ActionToolbarContainerDelegate: AnyObject {
     func actionToolbarContainer(_ actionToolbarContainer: ActionToolbarContainer, buttonDidPressed button: UIButton, action: ActionToolbarContainer.Action)
+    func actionToolbarContainer(_ actionToolbarContainer: ActionToolbarContainer, showReblogs action: UIAccessibilityCustomAction)
+    func actionToolbarContainer(_ actionToolbarContainer: ActionToolbarContainer, showFavorites action: UIAccessibilityCustomAction)
 }
 
 public final class ActionToolbarContainer: UIView {
@@ -22,7 +24,7 @@ public final class ActionToolbarContainer: UIView {
     static let reblogImage = Asset.Arrow.repeat.image.withRenderingMode(.alwaysTemplate)
     static let starImage = Asset.ObjectsAndTools.star.image.withRenderingMode(.alwaysTemplate)
     static let starFillImage = Asset.ObjectsAndTools.starFill.image.withRenderingMode(.alwaysTemplate)
-    static let shareImage = Asset.Communication.share.image.withRenderingMode(.alwaysTemplate)
+    static let shareImage = Asset.Arrow.squareAndArrowUp.image.withRenderingMode(.alwaysTemplate)
         
     public let replyButton     = HighlightDimmableButton()
     public let reblogButton    = HighlightDimmableButton()
@@ -155,6 +157,7 @@ extension ActionToolbarContainer {
         case reply
         case reblog
         case like
+        case bookmark
         case share
     }
     
@@ -216,12 +219,14 @@ extension ActionToolbarContainer {
     public func configureReply(count: Int, isEnabled: Bool) {
         let title = ActionToolbarContainer.title(from: count)
         replyButton.setTitle(title, for: .normal)
-        replyButton.accessibilityLabel = L10n.Plural.Count.reply(count)
+        replyButton.accessibilityLabel = L10n.Common.Controls.Actions.reply
+        replyButton.accessibilityValue = L10n.Plural.Count.reply(count)
     }
     
     public func configureReblog(count: Int, isEnabled: Bool, isHighlighted: Bool) {
         let title = ActionToolbarContainer.title(from: count)
         reblogButton.setTitle(title, for: .normal)
+        reblogButton.accessibilityValue = L10n.Plural.Count.reblog(count)
         reblogButton.isEnabled = isEnabled
         reblogButton.setImage(ActionToolbarContainer.reblogImage, for: .normal)
         let tintColor = isHighlighted ? Asset.Colors.successGreen.color : Asset.Colors.Button.actionToolbar.color
@@ -231,15 +236,24 @@ extension ActionToolbarContainer {
         
         if isHighlighted {
             reblogButton.accessibilityTraits.insert(.selected)
+            reblogButton.accessibilityLabel = L10n.Common.Controls.Status.Actions.unreblog
         } else {
             reblogButton.accessibilityTraits.remove(.selected)
+            reblogButton.accessibilityLabel = L10n.Common.Controls.Status.Actions.reblog
         }
-        reblogButton.accessibilityLabel = L10n.Plural.Count.reblog(count)
+        reblogButton.accessibilityCustomActions = [
+            UIAccessibilityCustomAction(name: "Show All Reblogs") { [weak self] action in
+                guard let self = self else { return false }
+                self.delegate?.actionToolbarContainer(self, showReblogs: action)
+                return true
+            }
+        ]
     }
     
     public func configureFavorite(count: Int, isEnabled: Bool, isHighlighted: Bool) {
         let title = ActionToolbarContainer.title(from: count)
         favoriteButton.setTitle(title, for: .normal)
+        favoriteButton.accessibilityValue = L10n.Plural.Count.favorite(count)
         favoriteButton.isEnabled = isEnabled
         let image = isHighlighted ? ActionToolbarContainer.starFillImage : ActionToolbarContainer.starImage
         favoriteButton.setImage(image, for: .normal)
@@ -250,10 +264,18 @@ extension ActionToolbarContainer {
         
         if isHighlighted {
             favoriteButton.accessibilityTraits.insert(.selected)
+            favoriteButton.accessibilityLabel = L10n.Common.Controls.Status.Actions.unfavorite
         } else {
             favoriteButton.accessibilityTraits.remove(.selected)
+            favoriteButton.accessibilityLabel = L10n.Common.Controls.Status.Actions.favorite
         }
-        favoriteButton.accessibilityLabel = L10n.Plural.Count.favorite(count)
+        favoriteButton.accessibilityCustomActions = [
+            UIAccessibilityCustomAction(name: "Show All Favorites") { [weak self] action in
+                guard let self = self else { return false }
+                self.delegate?.actionToolbarContainer(self, showFavorites: action)
+                return true
+            }
+        ]
     }
     
 }

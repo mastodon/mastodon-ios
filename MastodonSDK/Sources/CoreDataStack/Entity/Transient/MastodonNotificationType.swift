@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum MastodonNotificationType: RawRepresentable {
+public enum MastodonNotificationType: RawRepresentable, Equatable {
     case follow
     case followRequest
     case mention
@@ -21,7 +21,7 @@ public enum MastodonNotificationType: RawRepresentable {
     public init?(rawValue: String) {
         switch rawValue {
         case "follow":              self = .follow
-        case "followRequest":       self = .followRequest
+        case "follow_request":      self = .followRequest
         case "mention":             self = .mention
         case "reblog":              self = .reblog
         case "favourite":           self = .favourite
@@ -34,7 +34,7 @@ public enum MastodonNotificationType: RawRepresentable {
     public var rawValue: String {
         switch self {
         case .follow:               return "follow"
-        case .followRequest:        return "followRequest"
+        case .followRequest:        return "follow_request"
         case .mention:              return "mention"
         case .reblog:               return "reblog"
         case .favourite:            return "favourite"

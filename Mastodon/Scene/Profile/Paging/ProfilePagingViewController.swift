@@ -11,6 +11,8 @@ import Combine
 import XLPagerTabStrip
 import TabBarPager
 import MastodonAsset
+import MastodonCore
+import MastodonUI
 
 protocol ProfilePagingViewControllerDelegate: AnyObject {
     func profilePagingViewController(_ viewController: ProfilePagingViewController, didScrollToPostCustomScrollViewContainerController customScrollViewContainerController: ScrollViewContainer, atIndex index: Int)
@@ -87,6 +89,7 @@ extension ProfilePagingViewController {
             .sink { [weak self] theme in
                 guard let self = self else { return }
                 self.settings.style.buttonBarBackgroundColor = theme.systemBackgroundColor
+                self.buttonBarView.backgroundColor = self.settings.style.buttonBarBackgroundColor
                 self.barButtonLayout?.invalidateLayout()
             }
             .store(in: &disposeBag)
@@ -96,12 +99,7 @@ extension ProfilePagingViewController {
         if let buttonBarView = self.buttonBarView {
             buttonBarShadowView.translatesAutoresizingMaskIntoConstraints = false
             view.insertSubview(buttonBarShadowView, belowSubview: buttonBarView)
-            NSLayoutConstraint.activate([
-                buttonBarShadowView.topAnchor.constraint(equalTo: buttonBarView.topAnchor),
-                buttonBarShadowView.leadingAnchor.constraint(equalTo: buttonBarView.leadingAnchor),
-                buttonBarShadowView.trailingAnchor.constraint(equalTo: buttonBarView.trailingAnchor),
-                buttonBarShadowView.bottomAnchor.constraint(equalTo: buttonBarView.bottomAnchor),
-            ])
+            buttonBarShadowView.pinTo(to: buttonBarView)
             
             viewModel.$needsSetupBottomShadow
                 .receive(on: DispatchQueue.main)

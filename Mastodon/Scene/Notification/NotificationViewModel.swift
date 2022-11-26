@@ -8,9 +8,10 @@
 import os.log
 import UIKit
 import Combine
-import MastodonAsset
-import MastodonLocalization
 import Pageboy
+import MastodonAsset
+import MastodonCore
+import MastodonLocalization
 
 final class NotificationViewModel {
     
@@ -18,6 +19,7 @@ final class NotificationViewModel {
     
     // input
     let context: AppContext
+    let authContext: AuthContext
     let viewDidLoad = PassthroughSubject<Void, Never>()
     
     // output
@@ -26,8 +28,9 @@ final class NotificationViewModel {
     @Published var currentPageIndex = 0
 
     
-    init(context: AppContext) {
+    init(context: AppContext, authContext: AuthContext) {
         self.context = context
+        self.authContext = authContext
         // end init
     }
 }
@@ -42,42 +45,6 @@ extension NotificationTimelineViewModel.Scope {
         }
     }
 }
-
-//    func acceptFollowRequest(notification: MastodonNotification) {
-//        guard let activeMastodonAuthenticationBox = self.activeMastodonAuthenticationBox.value else { return }
-//        context.apiService.acceptFollowRequest(mastodonUserID: notification.account.id, mastodonAuthenticationBox: activeMastodonAuthenticationBox)
-//            .sink { [weak self] completion in
-//                switch completion {
-//                case .failure(let error):
-//                    os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: accept FollowRequest fail: %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
-//                case .finished:
-//                    break
-////                    self?.loadLatestStateMachine.enter(NotificationViewModel.LoadLatestState.Loading.self)
-//                }
-//            } receiveValue: { _ in
-//
-//            }
-//            .store(in: &disposeBag)
-//    }
-//
-//    func rejectFollowRequest(notification: MastodonNotification) {
-//        guard let activeMastodonAuthenticationBox = self.activeMastodonAuthenticationBox.value else { return }
-//        context.apiService.rejectFollowRequest(mastodonUserID: notification.account.id, mastodonAuthenticationBox: activeMastodonAuthenticationBox)
-//            .sink { [weak self] completion in
-//                switch completion {
-//                case .failure(let error):
-//                    os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: reject FollowRequest fail: %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
-//                case .finished:
-//                    break
-////                    self?.loadLatestStateMachine.enter(NotificationViewModel.LoadLatestState.Loading.self)
-//                }
-//            } receiveValue: { _ in
-//
-//            }
-//            .store(in: &disposeBag)
-//    }
-//}
-
 
 // MARK: - PageboyViewControllerDataSource
 extension NotificationViewModel: PageboyViewControllerDataSource {

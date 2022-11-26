@@ -124,6 +124,9 @@ xcuserdata
 Localization/StringsConvertor/output
 .DS_Store
 
+env/**/**
+!env/.env.DS_Store
+
 
 ## Ruby ###
 vendor/

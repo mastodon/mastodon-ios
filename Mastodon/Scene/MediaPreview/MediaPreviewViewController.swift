@@ -10,6 +10,8 @@ import UIKit
 import Combine
 import Pageboy
 import MastodonAsset
+import MastodonCore
+import MastodonUI
 import MastodonLocalization
 
 final class MediaPreviewViewController: UIViewController, NeedsDependency {
@@ -63,12 +65,7 @@ extension MediaPreviewViewController {
         pagingViewController.view.translatesAutoresizingMaskIntoConstraints = false
         addChild(pagingViewController)
         visualEffectView.contentView.addSubview(pagingViewController.view)
-        NSLayoutConstraint.activate([
-            visualEffectView.topAnchor.constraint(equalTo: pagingViewController.view.topAnchor),
-            visualEffectView.bottomAnchor.constraint(equalTo: pagingViewController.view.bottomAnchor),
-            visualEffectView.leadingAnchor.constraint(equalTo: pagingViewController.view.leadingAnchor),
-            visualEffectView.trailingAnchor.constraint(equalTo: pagingViewController.view.trailingAnchor),
-        ])
+        visualEffectView.pinTo(to: pagingViewController.view)
         pagingViewController.didMove(toParent: self)
         
         closeButtonBackground.translatesAutoresizingMaskIntoConstraints = false
@@ -135,6 +132,17 @@ extension MediaPreviewViewController {
                 }
             }
             .store(in: &disposeBag)
+
+        viewModel.$showingChrome
+            .receive(on: DispatchQueue.main)
+            .removeDuplicates()
+            .sink { [weak self] showingChrome in
+                UIView.animate(withDuration: 0.3) {
+                    self?.setNeedsStatusBarAppearanceUpdate()
+                    self?.closeButtonBackground.alpha = showingChrome ? 1 : 0
+                }
+            }
+            .store(in: &disposeBag)
         
 //        viewModel.$isPoping
 //            .receive(on: DispatchQueue.main)
@@ -149,6 +157,14 @@ extension MediaPreviewViewController {
 //            .store(in: &disposeBag)
     }
     
+}
+
+extension MediaPreviewViewController {
+
+    override var prefersStatusBarHidden: Bool {
+        !viewModel.showingChrome
+    }
+
 }
 
 extension MediaPreviewViewController {
@@ -237,8 +253,11 @@ extension MediaPreviewViewController: MediaPreviewImageViewControllerDelegate {
         let location = tapGestureRecognizer.location(in: viewController.previewImageView.imageView)
         let isContainsTap = viewController.previewImageView.imageView.frame.contains(location)
         
-        guard !isContainsTap else { return }
-        dismiss(animated: true, completion: nil)
+        if isContainsTap {
+            self.viewModel.showingChrome.toggle()
+        } else {
+            dismiss(animated: true, completion: nil)
+        }
     }
     
     func mediaPreviewImageViewController(_ viewController: MediaPreviewImageViewController, longPressGestureRecognizerDidTrigger longPressGestureRecognizer: UILongPressGestureRecognizer) {
@@ -274,7 +293,7 @@ extension MediaPreviewViewController: MediaPreviewImageViewControllerDelegate {
                             title: L10n.Common.Alerts.SavePhotoFailure.title,
                             message: L10n.Common.Alerts.SavePhotoFailure.message
                         )
-                        self.coordinator.present(
+                        _ = self.coordinator.present(
                             scene: .alertController(alertController: alertController),
                             from: self,
                             transition: .alertController(animated: true, completion: nil)

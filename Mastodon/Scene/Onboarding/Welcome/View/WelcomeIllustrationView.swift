@@ -7,6 +7,8 @@
 
 import UIKit
 import MastodonAsset
+import MastodonCore
+import MastodonUI
 import MastodonLocalization
 
 final class WelcomeIllustrationView: UIView {
@@ -94,12 +96,7 @@ extension WelcomeIllustrationView {
         ].forEach { imageView in
             imageView.translatesAutoresizingMaskIntoConstraints = false
             addSubview(imageView)
-            NSLayoutConstraint.activate([
-                imageView.topAnchor.constraint(equalTo: cloudBaseImageView.topAnchor),
-                imageView.leadingAnchor.constraint(equalTo: cloudBaseImageView.leadingAnchor),
-                imageView.trailingAnchor.constraint(equalTo: cloudBaseImageView.trailingAnchor),
-                imageView.bottomAnchor.constraint(equalTo: cloudBaseImageView.bottomAnchor),
-            ])
+            imageView.pinTo(to: cloudBaseImageView)
         }
         
         aspectLayoutConstraint = cloudBaseImageView.widthAnchor.constraint(equalTo: cloudBaseImageView.heightAnchor, multiplier: layout.artworkImageSize.width / layout.artworkImageSize.height)

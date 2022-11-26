@@ -75,7 +75,7 @@
                 "save_photo": "Gardar foto",
                 "copy_photo": "Copiar foto",
                 "sign_in": "Acceder",
-                "sign_up": "Inscribirse",
+                "sign_up": "Crear conta",
                 "see_more": "Ver máis",
                 "preview": "Vista previa",
                 "share": "Compartir",
@@ -136,6 +136,12 @@
                     "vote": "Votar",
                     "closed": "Pechada"
                 },
+                "meta_entity": {
+                    "url": "Ligazón: %s",
+                    "hashtag": "Cancelo: %s",
+                    "mention": "Mostrar Perfil: %s",
+                    "email": "Enderezo de email: %s"
+                },
                 "actions": {
                     "reply": "Responder",
                     "reblog": "Promover",
@@ -180,7 +186,9 @@
                 "unmute": "Non Acalar",
                 "unmute_user": "Deixar de acalar a @%s",
                 "muted": "Acalada",
-                "edit_info": "Editar info"
+                "edit_info": "Editar info",
+                "show_reblogs": "Mostrar Promocións",
+                "hide_reblogs": "Agochar Promocións"
             },
             "timeline": {
                 "filtered": "Filtrado",
@@ -210,10 +218,16 @@
             "get_started": "Crear conta",
             "log_in": "Acceder"
         },
+        "login": {
+            "title": "Benvido outra vez",
+            "subtitle": "Conéctate ao servidor no que creaches a conta.",
+            "server_search_field": {
+                "placeholder": "Escribe o URL ou busca o teu servidor"
+            }
+        },
         "server_picker": {
             "title": "Mastodon fórmano as persoas das diferentes comunidades.",
-            "subtitle": "Elixe unha comunidade en función dos teus intereses, rexión ou unha de propósito xeral.",
-            "subtitle_extend": "Elixe unha comunidade en función dos teus intereses, rexión ou unha de propósito xeral. Cada comunidade está xestionada por unha organización totalmente independente ou unha única persoa.",
+            "subtitle": "Elixe un servidor en función dos teus intereses, rexión o un de propósito xeral. Poderás conversar con calquera en Mastodon, independentemente do servidor que elixas.",
             "button": {
                 "category": {
                     "all": "Todo",
@@ -240,8 +254,7 @@
                 "category": "CATEGORÍA"
             },
             "input": {
-                "placeholder": "Buscar comunidades",
-                "search_servers_or_enter_url": "Search servers or enter URL"
+                "search_servers_or_enter_url": "Busca comunidades ou escribe URL"
             },
             "empty_state": {
                 "finding_servers": "Buscando servidores dispoñibles...",
@@ -374,7 +387,13 @@
                 "video": "vídeo",
                 "attachment_broken": "Este %s está estragado e non pode\nser subido a Mastodon.",
                 "description_photo": "Describe a foto para persoas con problemas visuais...",
-                "description_video": "Describe o vídeo para persoas con problemas visuais..."
+                "description_video": "Describe o vídeo para persoas con problemas visuais...",
+                "load_failed": "Fallou a carga",
+                "upload_failed": "Erro na subida",
+                "can_not_recognize_this_media_attachment": "Non se recoñece o tipo de multimedia",
+                "attachment_too_large": "Adxunto demasiado grande",
+                "compressing_state": "Comprimindo...",
+                "server_processing_state": "Procesando no servidor..."
             },
             "poll": {
                 "duration_time": "Duración: %s",
@@ -384,7 +403,9 @@
                 "one_day": "1 Día",
                 "three_days": "3 Días",
                 "seven_days": "7 Días",
-                "option_number": "Opción %ld"
+                "option_number": "Opción %ld",
+                "the_poll_is_invalid": "A enquisa non é válida",
+                "the_poll_has_empty_option": "A enquisa ten unha opción baleira"
             },
             "content_warning": {
                 "placeholder": "Escribe o teu aviso aquí..."
@@ -405,7 +426,9 @@
                 "custom_emoji_picker": "Selector emoji personalizado",
                 "enable_content_warning": "Marcar con Aviso sobre o contido",
                 "disable_content_warning": "Retirar Aviso sobre o contido",
-                "post_visibility_menu": "Visibilidade da publicación"
+                "post_visibility_menu": "Visibilidade da publicación",
+                "post_options": "Opcións da publicación",
+                "posting_as": "Publicando como %s"
             },
             "keyboard": {
                 "discard_post": "Descartar publicación",
@@ -417,6 +440,9 @@
             }
         },
         "profile": {
+            "header": {
+                "follows_you": "Séguete"
+            },
             "dashboard": {
                 "posts": "publicacións",
                 "following": "seguindo",
@@ -427,6 +453,10 @@
                 "placeholder": {
                     "label": "Etiqueta",
                     "content": "Contido"
+                },
+                "verified": {
+                    "short": "Verificada en %s",
+                    "long": "A propiedade desta ligazón foi verificada o %s"
                 }
             },
             "segmented_control": {
@@ -452,6 +482,14 @@
                 "confirm_unblock_user": {
                     "title": "Desbloquear Conta",
                     "message": "Confirma o desbloqueo de %s"
+                },
+                "confirm_show_reblogs": {
+                    "title": "Mostrar Promocións",
+                    "message": "Confirma para ver promocións"
+                },
+                "confirm_hide_reblogs": {
+                    "title": "Agochar Promocións",
+                    "message": "Confirma para agochar promocións"
                 }
             },
             "accessibility": {
@@ -462,22 +500,22 @@
             }
         },
         "follower": {
-            "title": "follower",
+            "title": "seguidora",
             "footer": "Non se mostran seguidoras desde outros servidores."
         },
         "following": {
-            "title": "following",
+            "title": "seguindo",
             "footer": "Non se mostran os seguimentos desde outros servidores."
         },
         "familiarFollowers": {
-            "title": "Followers you familiar",
-            "followed_by_names": "Followed by %s"
+            "title": "Seguimentos próximos",
+            "followed_by_names": "Seguimentos de %s"
         },
         "favorited_by": {
-            "title": "Favorited By"
+            "title": "Favorecido por"
         },
         "reblogged_by": {
-            "title": "Reblogged By"
+            "title": "Promovido por"
         },
         "search": {
             "title": "Procurar",
@@ -541,6 +579,12 @@
             "keyobard": {
                 "show_everything": "Mostrar Todo",
                 "show_mentions": "Mostrar mencións"
+            },
+            "follow_request": {
+                "accept": "Aceptar",
+                "accepted": "Aceptada",
+                "reject": "rexeitar",
+                "rejected": "Rexeitada"
             }
         },
         "thread": {
@@ -675,6 +719,9 @@
             "new_in_mastodon": "Novidade en Mastodon",
             "multiple_account_switch_intro_description": "Cambia dunha conta a outra mantendo preso o botón do perfil.",
             "accessibility_hint": "Dobre toque para desbotar este asistente"
+        },
+        "bookmark": {
+            "title": "Marcadores"
         }
     }
 }

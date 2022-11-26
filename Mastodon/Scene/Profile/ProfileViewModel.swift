@@ -12,6 +12,7 @@ import CoreDataStack
 import MastodonSDK
 import MastodonMeta
 import MastodonAsset
+import MastodonCore
 import MastodonLocalization
 import MastodonUI
 
@@ -34,6 +35,7 @@ class ProfileViewModel: NSObject {
     
     // input
     let context: AppContext
+    let authContext: AuthContext
     @Published var me: MastodonUser?
     @Published var user: MastodonUser?
     
@@ -57,21 +59,25 @@ class ProfileViewModel: NSObject {
     // @Published var protected: Bool? = nil
     // let needsPagePinToTop = CurrentValueSubject<Bool, Never>(false)
     
-    init(context: AppContext, optionalMastodonUser mastodonUser: MastodonUser?) {
+    init(context: AppContext, authContext: AuthContext, optionalMastodonUser mastodonUser: MastodonUser?) {
         self.context = context
+        self.authContext = authContext
         self.user = mastodonUser
         self.postsUserTimelineViewModel = UserTimelineViewModel(
             context: context,
+            authContext: authContext,
             title: L10n.Scene.Profile.SegmentedControl.posts,
             queryFilter: .init(excludeReplies: true)
         )
         self.repliesUserTimelineViewModel = UserTimelineViewModel(
             context: context,
+            authContext: authContext,
             title: L10n.Scene.Profile.SegmentedControl.postsAndReplies,
-            queryFilter: .init(excludeReplies: true)
+            queryFilter: .init(excludeReplies: false)
         )
         self.mediaUserTimelineViewModel = UserTimelineViewModel(
             context: context,
+            authContext: authContext,
             title: L10n.Scene.Profile.SegmentedControl.media,
             queryFilter: .init(onlyMedia: true)
         )
@@ -79,13 +85,7 @@ class ProfileViewModel: NSObject {
         super.init()
         
         // bind me
-        context.authenticationService.activeMastodonAuthenticationBox
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] authenticationBox in
-                guard let self = self else { return }
-                self.me = authenticationBox?.authenticationRecord.object(in: context.managedObjectContext)?.user
-            }
-            .store(in: &disposeBag)
+        self.me = authContext.mastodonAuthenticationBox.authenticationRecord.object(in: context.managedObjectContext)?.user
         $me
             .assign(to: \.me, on: relationshipViewModel)
             .store(in: &disposeBag)
@@ -131,21 +131,18 @@ class ProfileViewModel: NSObject {
         let pendingRetryPublisher = CurrentValueSubject<TimeInterval, Never>(1)
 
         // observe friendship
-        Publishers.CombineLatest3(
+        Publishers.CombineLatest(
             userRecord,
-            context.authenticationService.activeMastodonAuthenticationBox,
             pendingRetryPublisher
         )
-        .sink { [weak self] userRecord, authenticationBox, _ in
+        .sink { [weak self] userRecord, _ in
             guard let self = self else { return }
-            guard let userRecord = userRecord,
-                  let authenticationBox = authenticationBox
-            else { return }
+            guard let userRecord = userRecord else { return }
             Task {
                 do {
                     let response = try await self.updateRelationship(
                         record: userRecord,
-                        authenticationBox: authenticationBox
+                        authenticationBox: self.authContext.mastodonAuthenticationBox
                     )
                     // there are seconds delay after request follow before requested -> following. Query again when needs
                     guard let relationship = response.value.first else { return }
@@ -163,7 +160,7 @@ class ProfileViewModel: NSObject {
             }   // end Task
         }
         .store(in: &disposeBag)
-//
+
         let isBlockingOrBlocked = Publishers.CombineLatest(
             relationshipViewModel.$isBlocking,
             relationshipViewModel.$isBlockingBy
@@ -215,14 +212,20 @@ extension ProfileViewModel {
         headerProfileInfo: ProfileHeaderViewModel.ProfileInfo,
         aboutProfileInfo: ProfileAboutViewModel.ProfileInfo
     ) async throws -> Mastodon.Response.Content<Mastodon.Entity.Account> {
-        guard let authenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else {
-            throw APIService.APIError.implicit(.badRequest)
-        }
-        
+        let authenticationBox = authContext.mastodonAuthenticationBox
         let domain = authenticationBox.domain
         let authorization = authenticationBox.userAuthorization
-        
-        let _image: UIImage? = {
+
+        // TODO: constrain size?
+        let _header: UIImage? = {
+            guard let image = headerProfileInfo.header else { return nil }
+            guard image.size.width <= ProfileHeaderViewModel.bannerImageMaxSizeInPixel.width else {
+                return image.af.imageScaled(to: ProfileHeaderViewModel.bannerImageMaxSizeInPixel)
+            }
+            return image
+        }()
+
+        let _avatar: UIImage? = {
             guard let image = headerProfileInfo.avatar else { return nil }
             guard image.size.width <= ProfileHeaderViewModel.avatarImageMaxSizeInPixel.width else {
                 return image.af.imageScaled(to: ProfileHeaderViewModel.avatarImageMaxSizeInPixel)
@@ -239,8 +242,8 @@ extension ProfileViewModel {
             bot: nil,
             displayName: headerProfileInfo.name,
             note: headerProfileInfo.note,
-            avatar: _image.flatMap { Mastodon.Query.MediaAttachment.png($0.pngData()) },
-            header: nil,
+            avatar: _avatar.flatMap { Mastodon.Query.MediaAttachment.png($0.pngData()) },
+            header: _header.flatMap { Mastodon.Query.MediaAttachment.png($0.pngData()) },
             locked: nil,
             source: nil,
             fieldsAttributes: fieldsAttributes

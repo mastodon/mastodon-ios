@@ -7,6 +7,7 @@
 
 import UIKit
 import Combine
+import MastodonCore
 import MastodonSDK
 import CoreDataStack
 
@@ -16,6 +17,7 @@ final class FamiliarFollowersViewModel {
 
     // input
     let context: AppContext
+    let authContext: AuthContext
     let userFetchedResultsController: UserFetchedResultsController
 
     @Published var familiarFollowers: Mastodon.Entity.FamiliarFollowers?
@@ -23,19 +25,15 @@ final class FamiliarFollowersViewModel {
     // output
     var diffableDataSource: UITableViewDiffableDataSource<UserSection, UserItem>?
     
-    init(context: AppContext) {
+    init(context: AppContext, authContext: AuthContext) {
         self.context = context
+        self.authContext = authContext
         self.userFetchedResultsController = UserFetchedResultsController(
             managedObjectContext: context.managedObjectContext,
-            domain: nil,
+            domain: authContext.mastodonAuthenticationBox.domain,
             additionalPredicate: nil
         )
         // end init
-        
-        context.authenticationService.activeMastodonAuthenticationBox
-            .map { $0?.domain }
-            .assign(to: \.domain, on: userFetchedResultsController)
-            .store(in: &disposeBag)
         
         $familiarFollowers
             .map { familiarFollowers -> [MastodonUser.ID] in

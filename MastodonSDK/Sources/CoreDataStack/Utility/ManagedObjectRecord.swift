@@ -30,3 +30,9 @@ public class ManagedObjectRecord<T: NSFetchRequestResult>: Hashable {
     }
     
 }
+
+extension Managed where Self: NSManagedObject {
+    public var asRecord: ManagedObjectRecord<Self> {
+        return .init(objectID: objectID)
+    }
+}

@@ -1,3 +1,4 @@
+source 'https://cdn.cocoapods.org/'
 platform :ios, '14.0'
 
 inhibit_all_warnings!
@@ -9,11 +10,10 @@ target 'Mastodon' do
   # Pods for Mastodon
 
   # UI
-  pod 'UITextField+Shake', '~> 1.2'
   pod 'XLPagerTabStrip', '~> 9.0.0'
 
   # misc
-  pod 'SwiftGen', '~> 6.4.0'
+  pod 'SwiftGen', '~> 6.6.2'
   pod 'DateToolsSwift', '~> 5.0.0'
   pod 'Kanna', '~> 5.2.2'
   pod 'Sourcery', '~> 1.6.1'
@@ -32,23 +32,16 @@ target 'Mastodon' do
 
 end
 
-target 'AppShared' do 
-  # Comment the next line if you don't want to use dynamic frameworks
-  use_frameworks!
-end
-
-plugin 'cocoapods-keys', {
-  :project => "Mastodon",
-  :keys => [
-    "notification_endpoint",
-    "notification_endpoint_debug"
-  ]
-}
-
 post_install do |installer|
   installer.pods_project.targets.each do |target|
     target.build_configurations.each do |config|
       config.build_settings.delete 'IPHONEOS_DEPLOYMENT_TARGET'
+    end
+    # https://github.com/CocoaPods/CocoaPods/issues/11402#issuecomment-1201464693
+    if target.respond_to?(:product_type) and target.product_type == "com.apple.product-type.bundle"
+      target.build_configurations.each do |config|
+          config.build_settings['CODE_SIGNING_ALLOWED'] = 'NO'
+      end
     end
   end
 end

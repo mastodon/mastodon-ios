@@ -8,19 +8,19 @@
 import UIKit
 import CoreData
 import CoreDataStack
+import MastodonCore
 
 extension DataSourceFacade {
-    static func responseToStatusFavoriteAction(
-        provider: DataSourceProvider,
-        status: ManagedObjectRecord<Status>,
-        authenticationBox: MastodonAuthenticationBox
+    public static func responseToStatusFavoriteAction(
+        provider: DataSourceProvider & AuthContextProvider,
+        status: ManagedObjectRecord<Status>
     ) async throws {
-        let selectionFeedbackGenerator = UISelectionFeedbackGenerator()
+        let selectionFeedbackGenerator = await UISelectionFeedbackGenerator()
         await selectionFeedbackGenerator.selectionChanged()
         
         _ = try await provider.context.apiService.favorite(
             record: status,
-            authenticationBox: authenticationBox
+            authenticationBox: provider.authContext.mastodonAuthenticationBox
         )
     }
 }

@@ -9,6 +9,7 @@ import os.log
 import UIKit
 import Combine
 import CoreDataStack
+import MastodonCore
 
 final class SearchHistoryViewController: UIViewController, NeedsDependency {
     
@@ -46,12 +47,7 @@ extension SearchHistoryViewController {
 
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(collectionView)
-        NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-        ])
+        collectionView.pinToParent()
         
         collectionView.delegate = self
         viewModel.setupDiffableDataSource(
@@ -106,6 +102,11 @@ extension SearchHistoryViewController: UICollectionViewDelegate {
         }
     }
 
+}
+
+// MARK: - AuthContextProvider
+extension SearchHistoryViewController: AuthContextProvider {
+    var authContext: AuthContext { viewModel.authContext }
 }
 
 // MARK: - SearchHistorySectionHeaderCollectionReusableViewDelegate

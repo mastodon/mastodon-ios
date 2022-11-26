@@ -7,6 +7,7 @@
 
 import Combine
 import Foundation
+import MastodonCore
 import MastodonSDK
 
 final class MastodonConfirmEmailViewModel {

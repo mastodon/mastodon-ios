@@ -15,6 +15,10 @@ import Combine
 // - https://gist.github.com/khanlou/b5e07f963bedcb6e0fcc5387b46991c3
 
 final class SerialStream: NSObject {
+    
+    let logger = Logger(subsystem: "SerialStream", category: "Stream")
+    
+    public let progress = Progress()
     var writingTimerSubscriber: AnyCancellable?
 
     // serial stream source
@@ -70,10 +74,18 @@ final class SerialStream: NSObject {
                     var baseAddress = 0
                     var remainsBytes = readBytesCount
                     while remainsBytes > 0 {
-                        let result = self.boundStreams.output.write(&self.buffer[baseAddress], maxLength: remainsBytes)
-                        baseAddress += result
-                        remainsBytes -= result
-                        os_log(.debug, "%{public}s[%{public}ld], %{public}s: write %ld/%ld bytes. write result: %ld", ((#file as NSString).lastPathComponent), #line, #function, baseAddress, readBytesCount, result)
+                        let writeResult = self.boundStreams.output.write(&self.buffer[baseAddress], maxLength: remainsBytes)
+                        baseAddress += writeResult
+                        remainsBytes -= writeResult
+                        
+                        os_log(.debug, "%{public}s[%{public}ld], %{public}s: write %ld/%ld bytes. write result: %ld", ((#file as NSString).lastPathComponent), #line, #function, baseAddress, readBytesCount, writeResult)
+                        
+                        self.progress.completedUnitCount += Int64(writeResult)
+                        self.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): estimate progress: \(self.progress.completedUnitCount)/\(self.progress.totalUnitCount)")
+                        
+                        if writeResult == -1 {
+                            break
+                        }
                     }
                 }
                 

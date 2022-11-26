@@ -89,7 +89,8 @@ final public class MastodonUser: NSManagedObject {
     @NSManaged public private(set) var endorsedBy: Set<MastodonUser>
     @NSManaged public private(set) var domainBlocking: Set<MastodonUser>
     @NSManaged public private(set) var domainBlockingBy: Set<MastodonUser>
-        
+    @NSManaged public private(set) var showingReblogs: Set<MastodonUser>
+    @NSManaged public private(set) var showingReblogsBy: Set<MastodonUser>
 }
 
 extension MastodonUser {
@@ -362,82 +363,6 @@ extension MastodonUser: AutoGenerateProperty {
     }
     // sourcery:end
 }
-    
-//extension MastodonUser {
-//    public struct Property {
-//        public let identifier: String
-//        public let domain: String
-//
-//        public let id: String
-//        public let acct: String
-//        public let username: String
-//        public let displayName: String
-//        public let avatar: String
-//        public let avatarStatic: String?
-//        public let header: String
-//        public let headerStatic: String?
-//        public let note: String?
-//        public let url: String?
-//        public let emojisData: Data?
-//        public let fieldsData: Data?
-//        public let statusesCount: Int
-//        public let followingCount: Int
-//        public let followersCount: Int
-//        public let locked: Bool
-//        public let bot: Bool?
-//        public let suspended: Bool?
-//
-//        public let createdAt: Date
-//        public let networkDate: Date
-//
-//        public init(
-//            id: String,
-//            domain: String,
-//            acct: String,
-//            username: String,
-//            displayName: String,
-//            avatar: String,
-//            avatarStatic: String?,
-//            header: String,
-//            headerStatic: String?,
-//            note: String?,
-//            url: String?,
-//            emojisData: Data?,
-//            fieldsData: Data?,
-//            statusesCount: Int,
-//            followingCount: Int,
-//            followersCount: Int,
-//            locked: Bool,
-//            bot: Bool?,
-//            suspended: Bool?,
-//            createdAt: Date,
-//            networkDate: Date
-//        ) {
-//            self.identifier = id + "@" + domain
-//            self.domain = domain
-//            self.id = id
-//            self.acct = acct
-//            self.username = username
-//            self.displayName = displayName
-//            self.avatar = avatar
-//            self.avatarStatic = avatarStatic
-//            self.header = header
-//            self.headerStatic = headerStatic
-//            self.note = note
-//            self.url = url
-//            self.emojisData = emojisData
-//            self.fieldsData = fieldsData
-//            self.statusesCount = statusesCount
-//            self.followingCount = followingCount
-//            self.followersCount = followersCount
-//            self.locked = locked
-//            self.bot = bot
-//            self.suspended = suspended
-//            self.createdAt = createdAt
-//            self.networkDate = networkDate
-//        }
-//    }
-//}
 
 // MARK: - AutoUpdatableObject
 extension MastodonUser: AutoUpdatableObject {
@@ -597,6 +522,7 @@ extension MastodonUser: AutoUpdatableObject {
             }
         }
     }
+
     public func update(isDomainBlocking: Bool, by mastodonUser: MastodonUser) {
         if isDomainBlocking {
             if !self.domainBlockingBy.contains(mastodonUser) {
@@ -609,4 +535,15 @@ extension MastodonUser: AutoUpdatableObject {
         }
     }
 
+    public func update(isShowingReblogs: Bool, by mastodonUser: MastodonUser) {
+        if isShowingReblogs {
+            if !self.showingReblogsBy.contains(mastodonUser) {
+                self.mutableSetValue(forKey: #keyPath(MastodonUser.showingReblogsBy)).add(mastodonUser)
+            }
+        } else {
+            if self.showingReblogsBy.contains(mastodonUser) {
+                self.mutableSetValue(forKey: #keyPath(MastodonUser.showingReblogsBy)).remove(mastodonUser)
+            }
+        }
+    }
 }

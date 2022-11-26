@@ -14,6 +14,7 @@ import MastodonSDK
 import OrderedCollections
 import os.log
 import UIKit
+import MastodonCore
 
 class ReportStatusViewModel {
     
@@ -23,6 +24,7 @@ class ReportStatusViewModel {
     
     // input
     let context: AppContext
+    let authContext: AuthContext
     let user: ManagedObjectRecord<MastodonUser>
     let status: ManagedObjectRecord<Status>?
     let statusFetchedResultsController: StatusFetchedResultsController
@@ -49,15 +51,17 @@ class ReportStatusViewModel {
     
     init(
         context: AppContext,
+        authContext: AuthContext,
         user: ManagedObjectRecord<MastodonUser>,
         status: ManagedObjectRecord<Status>?
     ) {
         self.context = context
+        self.authContext = authContext
         self.user = user
         self.status = status
         self.statusFetchedResultsController = StatusFetchedResultsController(
             managedObjectContext: context.managedObjectContext,
-            domain: nil,
+            domain: authContext.mastodonAuthenticationBox.domain,
             additionalTweetPredicate: nil
         )
         // end init
@@ -65,16 +69,9 @@ class ReportStatusViewModel {
         if let status = status {
             selectStatuses.append(status)
         }
-        
-        context.authenticationService.activeMastodonAuthenticationBox
-            .map { $0?.domain }
-            .assign(to: \.value, on: statusFetchedResultsController.domain)
-            .store(in: &disposeBag)
-        
+
         $selectStatuses
-            .map { statuses -> Bool in
-                return status == nil ? !statuses.isEmpty : statuses.count > 1
-            }
+            .map { !$0.isEmpty }
             .assign(to: &$isNextButtonEnabled)
     }
 

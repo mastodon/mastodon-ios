@@ -10,6 +10,7 @@ import UIKit
 import Combine
 import CoreDataStack
 import GameplayKit
+import MastodonCore
 
 final class UserListViewModel {
     
@@ -18,6 +19,7 @@ final class UserListViewModel {
     
     // input
     let context: AppContext
+    let authContext: AuthContext
     let kind: Kind
     let userFetchedResultsController: UserFetchedResultsController
     let listBatchFetchViewModel = ListBatchFetchViewModel()
@@ -36,23 +38,20 @@ final class UserListViewModel {
         return stateMachine
     }()
     
-    init(
+    public init(
         context: AppContext,
+        authContext: AuthContext,
         kind: Kind
     ) {
         self.context = context
+        self.authContext = authContext
         self.kind = kind
         self.userFetchedResultsController = UserFetchedResultsController(
             managedObjectContext: context.managedObjectContext,
-            domain: nil,
+            domain: authContext.mastodonAuthenticationBox.domain,
             additionalPredicate: nil
         )
         // end init
-
-        context.authenticationService.activeMastodonAuthenticationBox
-            .map { $0?.domain }
-            .assign(to: \.domain, on: userFetchedResultsController)
-            .store(in: &disposeBag)
     }
     
 }

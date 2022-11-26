@@ -9,6 +9,7 @@ import UIKit
 import Combine
 import CoreDataStack
 import MetaTextKit
+import MastodonCore
 import MastodonUI
 
 extension PollOptionView {
@@ -56,13 +57,13 @@ extension PollOptionView {
             option.publisher(for: \.poll),
             option.publisher(for: \.votedBy),
             option.publisher(for: \.isSelected),
-            viewModel.$userIdentifier
+            viewModel.$authContext
         )
-        .sink { [weak self] poll, optionVotedBy, isSelected, userIdentifier in
+        .sink { [weak self] poll, optionVotedBy, isSelected, authContext in
             guard let self = self else { return }
 
-            let domain = userIdentifier?.domain ?? ""
-            let userID = userIdentifier?.userID ?? ""
+            let domain = authContext?.mastodonAuthenticationBox.domain ?? ""
+            let userID = authContext?.mastodonAuthenticationBox.userID ?? ""
             
             let options = poll.options
             let pollVoteBy = poll.votedBy ?? Set()
@@ -101,7 +102,9 @@ extension PollOptionView {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] theme in
                 guard let self = self else { return }
-                self.checkmarkBackgroundView.backgroundColor = theme.tertiarySystemBackgroundColor
+                self.checkmarkBackgroundView.backgroundColor = UIColor(dynamicProvider: { trailtCollection in
+                    return trailtCollection.userInterfaceStyle == .light ? .white : theme.tableViewCellSelectionBackgroundColor
+                })
             }
             .store(in: &disposeBag)
     }

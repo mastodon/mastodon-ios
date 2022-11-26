@@ -14,6 +14,8 @@ import AVKit
 import Combine
 import GameplayKit
 import MastodonAsset
+import MastodonCore
+import MastodonUI
 import MastodonLocalization
 
 final class FavoriteViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
@@ -65,12 +67,7 @@ extension FavoriteViewController {
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
-        NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-        ])
+        tableView.pinToParent()
 
         tableView.delegate = self
         viewModel.setupDiffableDataSource(
@@ -101,6 +98,11 @@ extension FavoriteViewController {
 //        aspectViewDidDisappear(animated)
     }
     
+}
+
+// MARK: - AuthContextProvider
+extension FavoriteViewController: AuthContextProvider {
+    var authContext: AuthContext { viewModel.authContext }
 }
 
 // MARK: - UITableViewDelegate

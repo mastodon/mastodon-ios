@@ -9,6 +9,8 @@ import UIKit
 import Combine
 import CoreDataStack
 import MastodonAsset
+import MastodonCore
+import MastodonUI
 import MastodonMeta
 import Meta
 

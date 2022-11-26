@@ -75,7 +75,7 @@
                 "save_photo": "Lưu ảnh",
                 "copy_photo": "Sao chép ảnh",
                 "sign_in": "Đăng nhập",
-                "sign_up": "Đăng ký",
+                "sign_up": "Tạo tài khoản",
                 "see_more": "Xem thêm",
                 "preview": "Xem trước",
                 "share": "Chia sẻ",
@@ -136,6 +136,12 @@
                     "vote": "Bình chọn",
                     "closed": "Kết thúc"
                 },
+                "meta_entity": {
+                    "url": "Link: %s",
+                    "hashtag": "Hashtag: %s",
+                    "mention": "Hiện hồ sơ: %s",
+                    "email": "Email: %s"
+                },
                 "actions": {
                     "reply": "Trả lời",
                     "reblog": "Đăng lại",
@@ -180,7 +186,9 @@
                 "unmute": "Bỏ ẩn",
                 "unmute_user": "Bỏ ẩn %s",
                 "muted": "Đã ẩn",
-                "edit_info": "Chỉnh sửa"
+                "edit_info": "Chỉnh sửa",
+                "show_reblogs": "Hiện đăng lại",
+                "hide_reblogs": "Ẩn đăng lại"
             },
             "timeline": {
                 "filtered": "Bộ lọc",
@@ -198,7 +206,7 @@
                     "user_blocking_warning": "Bạn không thể xem trang %s\ncho tới khi bạn bỏ chặn họ.\nHọ sẽ thấy trang của bạn như thế này.",
                     "blocked_warning": "Bạn không thể xem trang người này\ncho tới khi họ bỏ chặn bạn.",
                     "user_blocked_warning": "Bạn không thể xem trang %s\ncho tới khi họ bỏ chặn bạn.",
-                    "suspended_warning": "Người dùng đã bị vô hiệu hóa.",
+                    "suspended_warning": "Người này đã bị vô hiệu hóa.",
                     "user_suspended_warning": "%s đã bị vô hiệu hóa."
                 }
             }
@@ -210,10 +218,16 @@
             "get_started": "Bắt đầu",
             "log_in": "Đăng nhập"
         },
+        "login": {
+            "title": "Chào mừng trở lại!",
+            "subtitle": "Đăng nhập vào máy chủ mà bạn đã tạo tài khoản.",
+            "server_search_field": {
+                "placeholder": "Nhập URL hoặc tìm máy chủ"
+            }
+        },
         "server_picker": {
             "title": "Mastodon gồm nhiều máy chủ với thành viên riêng.",
-            "subtitle": "Chọn một máy chủ dựa theo sở thích, tôn giáo, hoặc ý muốn của bạn.",
-            "subtitle_extend": "Chọn một máy chủ dựa theo sở thích, tôn giáo, hoặc ý muốn của bạn. Mỗi máy chủ có thể được vận hành bởi một cá nhân hoặc một tổ chức.",
+            "subtitle": "Chọn một máy chủ dựa theo sở thích, tôn giáo, hoặc ý muốn của bạn. Bạn vẫn có thể giao tiếp với bất cứ ai mà không phụ thuộc vào máy chủ của họ.",
             "button": {
                 "category": {
                     "all": "Toàn bộ",
@@ -236,12 +250,11 @@
             },
             "label": {
                 "language": "NGÔN NGỮ",
-                "users": "NGƯỜI DÙNG",
+                "users": "NGƯỜI",
                 "category": "PHÂN LOẠI"
             },
             "input": {
-                "placeholder": "Tìm máy chủ",
-                "search_servers_or_enter_url": "Search servers or enter URL"
+                "search_servers_or_enter_url": "Tìm một máy chủ hoặc nhập URL"
             },
             "empty_state": {
                 "finding_servers": "Đang tìm máy chủ hoạt động...",
@@ -261,7 +274,7 @@
                     "duplicate_prompt": "Tên người dùng đã tồn tại."
                 },
                 "display_name": {
-                    "placeholder": "tên hiển thị"
+                    "placeholder": "biệt danh"
                 },
                 "email": {
                     "placeholder": "email"
@@ -374,7 +387,13 @@
                 "video": "video",
                 "attachment_broken": "%s này bị lỗi và không thể\ntải lên Mastodon.",
                 "description_photo": "Mô tả hình ảnh cho người khiếm thị...",
-                "description_video": "Mô tả video cho người khiếm thị..."
+                "description_video": "Mô tả video cho người khiếm thị...",
+                "load_failed": "Tải thất bại",
+                "upload_failed": "Tải lên thất bại",
+                "can_not_recognize_this_media_attachment": "Không xem được tập tin đính kèm",
+                "attachment_too_large": "Tập tin đính kèm quá lớn",
+                "compressing_state": "Đang nén...",
+                "server_processing_state": "Máy chủ đang xử lý..."
             },
             "poll": {
                 "duration_time": "Thời hạn: %s",
@@ -384,7 +403,9 @@
                 "one_day": "1 ngày",
                 "three_days": "3 ngày",
                 "seven_days": "7 ngày",
-                "option_number": "Lựa chọn %ld"
+                "option_number": "Lựa chọn %ld",
+                "the_poll_is_invalid": "Bình chọn không hợp lệ",
+                "the_poll_has_empty_option": "Thiếu lựa chọn"
             },
             "content_warning": {
                 "placeholder": "Viết nội dung ẩn của bạn ở đây..."
@@ -392,7 +413,7 @@
             "visibility": {
                 "public": "Công khai",
                 "unlisted": "Hạn chế",
-                "private": "Riêng tư",
+                "private": "Chỉ người theo dõi",
                 "direct": "Nhắn riêng"
             },
             "auto_complete": {
@@ -405,7 +426,9 @@
                 "custom_emoji_picker": "Chọn emoji",
                 "enable_content_warning": "Bật nội dung ẩn",
                 "disable_content_warning": "Tắt nội dung ẩn",
-                "post_visibility_menu": "Menu hiển thị tút"
+                "post_visibility_menu": "Menu hiển thị tút",
+                "post_options": "Tùy chọn đăng",
+                "posting_as": "Đăng dưới dạng %s"
             },
             "keyboard": {
                 "discard_post": "Hủy đăng tút",
@@ -417,6 +440,9 @@
             }
         },
         "profile": {
+            "header": {
+                "follows_you": "Đang theo dõi bạn"
+            },
             "dashboard": {
                 "posts": "tút",
                 "following": "theo dõi",
@@ -427,6 +453,10 @@
                 "placeholder": {
                     "label": "Nhãn",
                     "content": "Nội dung"
+                },
+                "verified": {
+                    "short": "Đã xác minh %s",
+                    "long": "Liên kết này đã được xác minh trên %s"
                 }
             },
             "segmented_control": {
@@ -438,20 +468,28 @@
             },
             "relationship_action_alert": {
                 "confirm_mute_user": {
-                    "title": "Ẩn người dùng",
+                    "title": "Ẩn người này",
                     "message": "Xác nhận ẩn %s"
                 },
                 "confirm_unmute_user": {
-                    "title": "Bỏ ẩn người dùng",
+                    "title": "Bỏ ẩn người này",
                     "message": "Xác nhận bỏ ẩn %s"
                 },
                 "confirm_block_user": {
-                    "title": "Chặn người dùng",
+                    "title": "Chặn người này",
                     "message": "Xác nhận chặn %s"
                 },
                 "confirm_unblock_user": {
-                    "title": "Bỏ chặn người dùng",
+                    "title": "Bỏ chặn người này",
                     "message": "Xác nhận bỏ chặn %s"
+                },
+                "confirm_show_reblogs": {
+                    "title": "Hiện đăng lại",
+                    "message": "Xác nhận hiện đăng lại"
+                },
+                "confirm_hide_reblogs": {
+                    "title": "Ẩn đăng lại",
+                    "message": "Xác nhận ẩn đăng lại"
                 }
             },
             "accessibility": {
@@ -482,13 +520,13 @@
         "search": {
             "title": "Tìm kiếm",
             "search_bar": {
-                "placeholder": "Tìm hashtag và người dùng",
+                "placeholder": "Tìm hashtag và mọi người",
                 "cancel": "Hủy bỏ"
             },
             "recommend": {
                 "button_text": "Xem tất cả",
                 "hash_tag": {
-                    "title": "Xu hướng trên Mastodon",
+                    "title": "Nổi bật trên Mastodon",
                     "description": "Những hashtag đang được sử dụng nhiều nhất",
                     "people_talking": "%s người đang thảo luận"
                 },
@@ -501,7 +539,7 @@
             "searching": {
                 "segment": {
                     "all": "Tất cả",
-                    "people": "Người dùng",
+                    "people": "Mọi người",
                     "hashtags": "Hashtag",
                     "posts": "Tút"
                 },
@@ -541,6 +579,12 @@
             "keyobard": {
                 "show_everything": "Hiện mọi thứ",
                 "show_mentions": "Hiện lượt nhắc"
+            },
+            "follow_request": {
+                "accept": "Chấp nhận",
+                "accepted": "Đã chấp nhận",
+                "reject": "từ chối",
+                "rejected": "Đã từ chối"
             }
         },
         "thread": {
@@ -675,6 +719,9 @@
             "new_in_mastodon": "Mới trên Mastodon",
             "multiple_account_switch_intro_description": "Chuyển đổi giữa nhiều tài khoản bằng cách đè giữ nút tài khoản.",
             "accessibility_hint": "Nhấn hai lần để bỏ qua"
+        },
+        "bookmark": {
+            "title": "Tút đã lưu"
         }
     }
 }

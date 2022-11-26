@@ -78,7 +78,7 @@ public final class ProfileCardView: UIView {
         ]
         metaText.linkAttributes = [
             .font: UIFont.preferredFont(forTextStyle: .body),
-            .foregroundColor: Asset.Colors.brandBlue.color,
+            .foregroundColor: Asset.Colors.brand.color,
         ]
         return metaText
     }()
@@ -137,12 +137,7 @@ extension ProfileCardView {
         container.spacing = 8
         container.translatesAutoresizingMaskIntoConstraints = false
         addSubview(container)
-        NSLayoutConstraint.activate([
-            container.topAnchor.constraint(equalTo: topAnchor),
-            container.leadingAnchor.constraint(equalTo: leadingAnchor),
-            container.trailingAnchor.constraint(equalTo: trailingAnchor),
-            container.bottomAnchor.constraint(equalTo: bottomAnchor),
-        ])
+        container.pinToParent()
         
         // bannerContainer
         let bannerContainer = UIView()
@@ -237,11 +232,8 @@ extension ProfileCardView {
 
         relationshipActionButton.translatesAutoresizingMaskIntoConstraints = false
         relationshipActionButtonShadowContainer.addSubview(relationshipActionButton)
+        relationshipActionButton.pinToParent()
         NSLayoutConstraint.activate([
-            relationshipActionButton.topAnchor.constraint(equalTo: relationshipActionButtonShadowContainer.topAnchor),
-            relationshipActionButton.leadingAnchor.constraint(equalTo: relationshipActionButtonShadowContainer.leadingAnchor),
-            relationshipActionButton.trailingAnchor.constraint(equalTo: relationshipActionButtonShadowContainer.trailingAnchor),
-            relationshipActionButton.bottomAnchor.constraint(equalTo: relationshipActionButtonShadowContainer.bottomAnchor),
             relationshipActionButtonShadowContainer.widthAnchor.constraint(greaterThanOrEqualToConstant: ProfileCardView.friendshipActionButtonSize.width).priority(.required - 1),
             relationshipActionButtonShadowContainer.heightAnchor.constraint(equalToConstant: ProfileCardView.friendshipActionButtonSize.height).priority(.required - 1),
         ])

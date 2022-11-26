@@ -10,6 +10,8 @@ import UIKit
 import Combine
 import CoreDataStack
 import MastodonAsset
+import MastodonCore
+import MastodonUI
 import MastodonLocalization
 
 protocol ReportStatusViewControllerDelegate: AnyObject {
@@ -78,12 +80,7 @@ extension ReportStatusViewController {
                 
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
-        NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-        ])
+        tableView.pinToParent()
         
         tableView.delegate = self
         viewModel.setupDiffableDataSource(
@@ -125,6 +122,10 @@ extension ReportStatusViewController {
             .receive(on: DispatchQueue.main)
             .assign(to: \.isEnabled, on: navigationActionView.nextButton)
             .store(in: &disposeBag)
+        
+        if !viewModel.selectStatuses.isEmpty {
+            navigationActionView.hidesBackButton = true
+        }
         
         navigationActionView.backButton.addTarget(self, action: #selector(ReportStatusViewController.skipButtonDidPressed(_:)), for: .touchUpInside)
         navigationActionView.nextButton.addTarget(self, action: #selector(ReportStatusViewController.nextButtonDidPressed(_:)), for: .touchUpInside)        

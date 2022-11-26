@@ -7,12 +7,13 @@
 
 import UIKit
 import CoreDataStack
+import MastodonCore
 import MastodonSDK
 
 extension DataSourceFacade {
     @MainActor
     static func coordinateToHashtagScene(
-        provider: DataSourceProvider,
+        provider: DataSourceProvider & AuthContextProvider,
         tag: DataSourceItem.TagKind
     ) async {
         switch tag {
@@ -25,15 +26,16 @@ extension DataSourceFacade {
     
     @MainActor
     static func coordinateToHashtagScene(
-        provider: DataSourceProvider,
+        provider: DataSourceProvider & AuthContextProvider,
         tag: Mastodon.Entity.Tag
     ) async {
         let hashtagTimelineViewModel = HashtagTimelineViewModel(
             context: provider.context,
+            authContext: provider.authContext,
             hashtag: tag.name
         )
         
-        provider.coordinator.present(
+        _ = provider.coordinator.present(
             scene: .hashtagTimeline(viewModel: hashtagTimelineViewModel),
             from: provider,
             transition: .show
@@ -42,7 +44,7 @@ extension DataSourceFacade {
     
     @MainActor
     static func coordinateToHashtagScene(
-        provider: DataSourceProvider,
+        provider: DataSourceProvider & AuthContextProvider,
         tag: ManagedObjectRecord<Tag>
     ) async {
         let managedObjectContext = provider.context.managedObjectContext
@@ -55,10 +57,11 @@ extension DataSourceFacade {
         
         let hashtagTimelineViewModel = HashtagTimelineViewModel(
             context: provider.context,
+            authContext: provider.authContext,
             hashtag: name
         )
         
-        provider.coordinator.present(
+        _ = provider.coordinator.present(
             scene: .hashtagTimeline(viewModel: hashtagTimelineViewModel),
             from: provider,
             transition: .show

@@ -66,7 +66,9 @@ extension MetaLabel {
             textColor = Asset.Colors.Label.primary.color
             textAlignment = .center
             paragraphStyle.alignment = .center
-        
+            numberOfLines = 0
+            textContainer.maximumNumberOfLines = 0
+
         case .statusSpoilerBanner:
             font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .regular))
             textColor = Asset.Colors.Label.primary.color
@@ -118,7 +120,7 @@ extension MetaLabel {
             
         case .autoCompletion:
             font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold), maximumPointSize: 22)
-            textColor = Asset.Colors.brandBlue.color
+            textColor = Asset.Colors.brand.color
             
         case .accountListName:
             font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .regular), maximumPointSize: 22)
@@ -146,7 +148,7 @@ extension MetaLabel {
         ]
         linkAttributes = [
             .font: font,
-            .foregroundColor: Asset.Colors.brandBlue.color
+            .foregroundColor: Asset.Colors.brand.color
         ]
     }
 

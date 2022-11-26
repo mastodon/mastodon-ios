@@ -8,6 +8,7 @@
 import Combine
 import Foundation
 import UIKit
+import MastodonCore
 
 final class HomeTimelineNavigationBarTitleViewModel {
     
@@ -48,21 +49,44 @@ final class HomeTimelineNavigationBarTitleViewModel {
             .assign(to: \.value, on: isOffline)
             .store(in: &disposeBag)
         
-        context.statusPublishService.latestPublishingComposeViewModel
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] composeViewModel in
-                guard let self = self else { return }
-                guard let composeViewModel = composeViewModel,
-                      let state = composeViewModel.publishStateMachine.currentState else {
-                    self.isPublishingPost.value = false
+        Publishers.CombineLatest(
+            context.publisherService.$statusPublishers,
+            context.publisherService.statusPublishResult.prepend(.failure(AppError.badRequest))
+        )
+        .receive(on: DispatchQueue.main)
+        .sink { [weak self] statusPublishers, publishResult in
+            guard let self = self else { return }
+            
+            if statusPublishers.isEmpty {
+                self.isPublishingPost.value = false
+                self.isPublished.value = false
+            } else {
+                self.isPublishingPost.value = true
+                switch publishResult {
+                case .success:
+                    self.isPublished.value = true
+                case .failure:
                     self.isPublished.value = false
-                    return
                 }
-                
-                self.isPublishingPost.value = state is ComposeViewModel.PublishState.Publishing || state is ComposeViewModel.PublishState.Fail
-                self.isPublished.value = state is ComposeViewModel.PublishState.Finish
             }
-            .store(in: &disposeBag)
+        }
+        .store(in: &disposeBag)
+        
+//        context.statusPublishService.latestPublishingComposeViewModel
+//            .receive(on: DispatchQueue.main)
+//            .sink { [weak self] composeViewModel in
+//                guard let self = self else { return }
+//                guard let composeViewModel = composeViewModel,
+//                      let state = composeViewModel.publishStateMachine.currentState else {
+//                    self.isPublishingPost.value = false
+//                    self.isPublished.value = false
+//                    return
+//                }
+//                
+//                self.isPublishingPost.value = state is ComposeViewModel.PublishState.Publishing || state is ComposeViewModel.PublishState.Fail
+//                self.isPublished.value = state is ComposeViewModel.PublishState.Finish
+//            }
+//            .store(in: &disposeBag)
         
         Publishers.CombineLatest4(
             hasNewPosts.eraseToAnyPublisher(),
@@ -81,19 +105,19 @@ final class HomeTimelineNavigationBarTitleViewModel {
         .assign(to: \.value, on: state)
         .store(in: &disposeBag)
         
-        state
-            .removeDuplicates()
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] state in
-                guard let self = self else { return }
-                switch state {
-                case .publishingPostLabel:
-                    self.setupPublishingProgress()
-                default:
-                    self.suspendPublishingProgress()
-                }
-            }
-            .store(in: &disposeBag)
+//        state
+//            .removeDuplicates()
+//            .receive(on: DispatchQueue.main)
+//            .sink { [weak self] state in
+//                guard let self = self else { return }
+//                switch state {
+//                case .publishingPostLabel:
+//                    self.setupPublishingProgress()
+//                default:
+//                    self.suspendPublishingProgress()
+//                }
+//            }
+//            .store(in: &disposeBag)
     }
 }
 
@@ -149,26 +173,26 @@ extension HomeTimelineNavigationBarTitleViewModel {
 }
 
 // MARK: Publish post state
-extension HomeTimelineNavigationBarTitleViewModel {
-    
-    func setupPublishingProgress() {
-        let progressUpdatePublisher = Timer.publish(every: 0.016, on: .main, in: .common)     // ~ 60FPS
-            .autoconnect()
-            .share()
-            .eraseToAnyPublisher()
-        
-        publishingProgressSubscription = progressUpdatePublisher
-            .map { _ in Float(0) }
-            .scan(0.0) { progress, _ -> Float in
-                return 0.95 * progress + 0.05    // progress + 0.05 * (1.0 - progress). ~ 1 sec to 0.95 (under 60FPS)
-            }
-            .subscribe(publishingProgress)
-    }
-    
-    func suspendPublishingProgress() {
-        publishingProgressSubscription = nil
-        publishingProgress.send(0)
-    }
-
-}
+//extension HomeTimelineNavigationBarTitleViewModel {
+//
+//    func setupPublishingProgress() {
+//        let progressUpdatePublisher = Timer.publish(every: 0.016, on: .main, in: .common)     // ~ 60FPS
+//            .autoconnect()
+//            .share()
+//            .eraseToAnyPublisher()
+//
+//        publishingProgressSubscription = progressUpdatePublisher
+//            .map { _ in Float(0) }
+//            .scan(0.0) { progress, _ -> Float in
+//                return 0.95 * progress + 0.05    // progress + 0.05 * (1.0 - progress). ~ 1 sec to 0.95 (under 60FPS)
+//            }
+//            .subscribe(publishingProgress)
+//    }
+//
+//    func suspendPublishingProgress() {
+//        publishingProgressSubscription = nil
+//        publishingProgress.send(0)
+//    }
+//
+//}
 

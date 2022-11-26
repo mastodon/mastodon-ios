@@ -75,7 +75,7 @@
                 "save_photo": "Foto speichern",
                 "copy_photo": "Foto kopieren",
                 "sign_in": "Anmelden",
-                "sign_up": "Registrieren",
+                "sign_up": "Konto erstellen",
                 "see_more": "Mehr anzeigen",
                 "preview": "Vorschau",
                 "share": "Teilen",
@@ -136,6 +136,12 @@
                     "vote": "Abstimmen",
                     "closed": "Beendet"
                 },
+                "meta_entity": {
+                    "url": "Link: %s",
+                    "hashtag": "Hashtag: %s",
+                    "mention": "Show Profile: %s",
+                    "email": "Email address: %s"
+                },
                 "actions": {
                     "reply": "Antworten",
                     "reblog": "Teilen",
@@ -180,7 +186,9 @@
                 "unmute": "Nicht mehr stummschalten",
                 "unmute_user": "%s nicht mehr stummschalten",
                 "muted": "Stummgeschaltet",
-                "edit_info": "Information bearbeiten"
+                "edit_info": "Information bearbeiten",
+                "show_reblogs": "Reblogs anzeigen",
+                "hide_reblogs": "Reblogs ausblenden"
             },
             "timeline": {
                 "filtered": "Gefiltert",
@@ -210,10 +218,16 @@
             "get_started": "Registrieren",
             "log_in": "Anmelden"
         },
+        "login": {
+            "title": "Willkommen zurück",
+            "subtitle": "Melden Sie sich auf dem Server an, auf dem Sie Ihr Konto erstellt haben.",
+            "server_search_field": {
+                "placeholder": "URL eingeben oder nach Server suchen"
+            }
+        },
         "server_picker": {
             "title": "Wähle einen Server,\nbeliebigen Server.",
-            "subtitle": "Wähle eine Gemeinschaft, die auf deinen Interessen, Region oder einem allgemeinen Zweck basiert.",
-            "subtitle_extend": "Wähle eine Gemeinschaft basierend auf deinen Interessen, deiner Region oder einem allgemeinen Zweck. Jede Gemeinschaft wird von einer völlig unabhängigen Organisation oder Einzelperson betrieben.",
+            "subtitle": "Wähle einen Server basierend auf deinen Interessen oder deiner Region – oder einfach einen allgemeinen. Du kannst trotzdem mit jedem interagieren, egal auf welchem Server.",
             "button": {
                 "category": {
                     "all": "Alle",
@@ -240,8 +254,7 @@
                 "category": "KATEGORIE"
             },
             "input": {
-                "placeholder": "Nach Server suchen oder URL eingeben",
-                "search_servers_or_enter_url": "Search servers or enter URL"
+                "search_servers_or_enter_url": "Suche nach einer Community oder gib eine URL ein"
             },
             "empty_state": {
                 "finding_servers": "Verfügbare Server werden gesucht...",
@@ -251,7 +264,7 @@
         },
         "register": {
             "title": "Erzähle uns von dir.",
-            "lets_get_you_set_up_on_domain": "Let’s get you set up on %s",
+            "lets_get_you_set_up_on_domain": "Okay, lass uns mit %s anfangen",
             "input": {
                 "avatar": {
                     "delete": "Löschen"
@@ -322,7 +335,7 @@
         "confirm_email": {
             "title": "Noch eine letzte Sache.",
             "subtitle": "Schaue kurz in dein E-Mail-Postfach und tippe den Link an, den wir dir gesendet haben.",
-            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we emailed to you to verify your account",
+            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Schaue kurz in dein E-Mail-Postfach und tippe den Link an, den wir dir gesendet haben",
             "button": {
                 "open_email_app": "E-Mail-App öffnen",
                 "resend": "Erneut senden"
@@ -347,8 +360,8 @@
                 "published": "Veröffentlicht!",
                 "Publishing": "Beitrag wird veröffentlicht...",
                 "accessibility": {
-                    "logo_label": "Logo Button",
-                    "logo_hint": "Tap to scroll to top and tap again to previous location"
+                    "logo_label": "Logo-Button",
+                    "logo_hint": "Zum Scrollen nach oben tippen und zum vorherigen Ort erneut tippen"
                 }
             }
         },
@@ -374,7 +387,13 @@
                 "video": "Video",
                 "attachment_broken": "Dieses %s scheint defekt zu sein und\nkann nicht auf Mastodon hochgeladen werden.",
                 "description_photo": "Für Menschen mit Sehbehinderung beschreiben...",
-                "description_video": "Für Menschen mit Sehbehinderung beschreiben..."
+                "description_video": "Für Menschen mit Sehbehinderung beschreiben...",
+                "load_failed": "Laden fehlgeschlagen",
+                "upload_failed": "Upload fehlgeschlagen",
+                "can_not_recognize_this_media_attachment": "Medienanhang wurde nicht erkannt",
+                "attachment_too_large": "Anhang zu groß",
+                "compressing_state": "Komprimieren...",
+                "server_processing_state": "Serververarbeitung..."
             },
             "poll": {
                 "duration_time": "Dauer: %s",
@@ -384,7 +403,9 @@
                 "one_day": "1 Tag",
                 "three_days": "3 Tage",
                 "seven_days": "7 Tage",
-                "option_number": "Auswahlmöglichkeit %ld"
+                "option_number": "Auswahlmöglichkeit %ld",
+                "the_poll_is_invalid": "Die Umfrage ist ungültig",
+                "the_poll_has_empty_option": "Die Umfrage hat eine leere Option"
             },
             "content_warning": {
                 "placeholder": "Schreibe eine Inhaltswarnung hier..."
@@ -405,7 +426,9 @@
                 "custom_emoji_picker": "Benutzerdefinierter Emojiwähler",
                 "enable_content_warning": "Inhaltswarnung einschalten",
                 "disable_content_warning": "Inhaltswarnung ausschalten",
-                "post_visibility_menu": "Sichtbarkeitsmenü"
+                "post_visibility_menu": "Sichtbarkeitsmenü",
+                "post_options": "Post Options",
+                "posting_as": "Posting as %s"
             },
             "keyboard": {
                 "discard_post": "Beitrag verwerfen",
@@ -417,16 +440,23 @@
             }
         },
         "profile": {
+            "header": {
+                "follows_you": "Folgt dir"
+            },
             "dashboard": {
                 "posts": "Beiträge",
                 "following": "Gefolgte",
-                "followers": "Folger"
+                "followers": "Folgende"
             },
             "fields": {
                 "add_row": "Zeile hinzufügen",
                 "placeholder": {
                     "label": "Bezeichnung",
                     "content": "Inhalt"
+                },
+                "verified": {
+                    "short": "Überprüft am %s",
+                    "long": "Besitz des Links wurde überprüft am %s"
                 }
             },
             "segmented_control": {
@@ -452,6 +482,14 @@
                 "confirm_unblock_user": {
                     "title": "Konto entsperren",
                     "message": "Bestätige %s zu entsperren"
+                },
+                "confirm_show_reblogs": {
+                    "title": "Reblogs anzeigen",
+                    "message": "Bestätigen um Reblogs anzuzeigen"
+                },
+                "confirm_hide_reblogs": {
+                    "title": "Reblogs ausblenden",
+                    "message": "Confirm to hide reblogs"
                 }
             },
             "accessibility": {
@@ -462,22 +500,22 @@
             }
         },
         "follower": {
-            "title": "follower",
-            "footer": "Follower von anderen Servern werden nicht angezeigt."
+            "title": "Follower",
+            "footer": "Folger, die nicht auf deinem Server registriert sind, werden nicht angezeigt."
         },
         "following": {
-            "title": "following",
-            "footer": "Wem das Konto folgt wird von anderen Servern werden nicht angezeigt."
+            "title": "Folgende",
+            "footer": "Gefolgte, die nicht auf deinem Server registriert sind, werden nicht angezeigt."
         },
         "familiarFollowers": {
-            "title": "Followers you familiar",
-            "followed_by_names": "Followed by %s"
+            "title": "Follower, die dir bekannt vorkommen",
+            "followed_by_names": "Gefolgt von %s"
         },
         "favorited_by": {
-            "title": "Favorited By"
+            "title": "Favorisiert von"
         },
         "reblogged_by": {
-            "title": "Reblogged By"
+            "title": "Geteilt von"
         },
         "search": {
             "title": "Suche",
@@ -541,6 +579,12 @@
             "keyobard": {
                 "show_everything": "Alles anzeigen",
                 "show_mentions": "Erwähnungen anzeigen"
+            },
+            "follow_request": {
+                "accept": "Akzeptieren",
+                "accepted": "Akzeptiert",
+                "reject": "Ablehnen",
+                "rejected": "Abgelehnt"
             }
         },
         "thread": {
@@ -571,7 +615,7 @@
                     "mentions": "Mich erwähnt",
                     "trigger": {
                         "anyone": "jeder",
-                        "follower": "ein Folger",
+                        "follower": "ein Folgender",
                         "follow": "ein von mir Gefolgter",
                         "noone": "niemand",
                         "title": "Benachrichtige mich, wenn"
@@ -617,46 +661,46 @@
             "text_placeholder": "Zusätzliche Kommentare eingeben oder einfügen",
             "reported": "GEMELDET",
             "step_one": {
-                "step_1_of_4": "Step 1 of 4",
-                "whats_wrong_with_this_post": "What's wrong with this post?",
-                "whats_wrong_with_this_account": "What's wrong with this account?",
-                "whats_wrong_with_this_username": "What's wrong with %s?",
-                "select_the_best_match": "Select the best match",
-                "i_dont_like_it": "I don’t like it",
-                "it_is_not_something_you_want_to_see": "It is not something you want to see",
-                "its_spam": "It’s spam",
-                "malicious_links_fake_engagement_or_repetetive_replies": "Malicious links, fake engagement, or repetetive replies",
-                "it_violates_server_rules": "It violates server rules",
-                "you_are_aware_that_it_breaks_specific_rules": "You are aware that it breaks specific rules",
-                "its_something_else": "It’s something else",
-                "the_issue_does_not_fit_into_other_categories": "The issue does not fit into other categories"
+                "step_1_of_4": "Schritt 1 von 4",
+                "whats_wrong_with_this_post": "Was stimmt mit diesem Beitrag nicht?",
+                "whats_wrong_with_this_account": "Was stimmt mit diesem Konto nicht?",
+                "whats_wrong_with_this_username": "Was ist los mit %s?",
+                "select_the_best_match": "Wähle die passende Kategorie",
+                "i_dont_like_it": "Mir gefällt das nicht",
+                "it_is_not_something_you_want_to_see": "Das ist etwas, das man nicht sehen möchte",
+                "its_spam": "Das ist Spam",
+                "malicious_links_fake_engagement_or_repetetive_replies": "Bösartige Links, gefälschtes Engagement oder wiederholte Antworten",
+                "it_violates_server_rules": "Es verstößt gegen Serverregeln",
+                "you_are_aware_that_it_breaks_specific_rules": "Du weißt, welche Regeln verletzt werden",
+                "its_something_else": "Das ist was anderes",
+                "the_issue_does_not_fit_into_other_categories": "Das Problem passt nicht in die Kategorien"
             },
             "step_two": {
-                "step_2_of_4": "Step 2 of 4",
-                "which_rules_are_being_violated": "Which rules are being violated?",
-                "select_all_that_apply": "Select all that apply",
-                "i_just_don’t_like_it": "I just don’t like it"
+                "step_2_of_4": "Schritt 2 von 4",
+                "which_rules_are_being_violated": "Welche Regeln werden verletzt?",
+                "select_all_that_apply": "Alles Zutreffende auswählen",
+                "i_just_don’t_like_it": "Das gefällt mir einfach nicht"
             },
             "step_three": {
-                "step_3_of_4": "Step 3 of 4",
-                "are_there_any_posts_that_back_up_this_report": "Are there any posts that back up this report?",
-                "select_all_that_apply": "Select all that apply"
+                "step_3_of_4": "Schritt 3 von 4",
+                "are_there_any_posts_that_back_up_this_report": "Gibt es Beiträge, die diesen Bericht unterstützen?",
+                "select_all_that_apply": "Alles Zutreffende auswählen"
             },
             "step_four": {
-                "step_4_of_4": "Step 4 of 4",
-                "is_there_anything_else_we_should_know": "Is there anything else we should know?"
+                "step_4_of_4": "Schritt 4 von 4",
+                "is_there_anything_else_we_should_know": "Gibt es etwas anderes, was wir wissen sollten?"
             },
             "step_final": {
-                "dont_want_to_see_this": "Don’t want to see this?",
-                "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "When you see something you don’t like on Mastodon, you can remove the person from your experience.",
-                "unfollow": "Unfollow",
-                "unfollowed": "Unfollowed",
-                "unfollow_user": "Unfollow %s",
-                "mute_user": "Mute %s",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or reblogs in your home feed. They won’t know they’ve been muted.",
-                "block_user": "Block %s",
-                "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "They will no longer be able to follow or see your posts, but they can see if they’ve been blocked.",
-                "while_we_review_this_you_can_take_action_against_user": "While we review this, you can take action against %s"
+                "dont_want_to_see_this": "Du willst das nicht mehr sehen?",
+                "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "Wenn du etwas auf Mastodon nicht sehen willst, kannst du den Nutzer aus deiner Erfahrung streichen.",
+                "unfollow": "Entfolgen",
+                "unfollowed": "Entfolgt",
+                "unfollow_user": "%s entfolgen",
+                "mute_user": "%s stummschalten",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "Du wirst die Beiträge vom Konto nicht mehr sehen. Das Konto kann dir immer noch folgen, und die Person hinter dem Konto wird deine Beiträge sehen können und nicht wissen, dass du sie stummgeschaltet hast.",
+                "block_user": "%s blockieren",
+                "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "Du wirst die Beiträge von diesem Konto nicht sehen. Das Konto wird nicht in der Lage sein, deine Beiträge zu sehen oder dir zu folgen. Die Person hinter dem Konto wird wissen, dass du das Konto blockiert hast.",
+                "while_we_review_this_you_can_take_action_against_user": "Während wir dies überprüfen, kannst du gegen %s vorgehen"
             }
         },
         "preview": {
@@ -675,6 +719,9 @@
             "new_in_mastodon": "Neu in Mastodon",
             "multiple_account_switch_intro_description": "Wechsel zwischen mehreren Konten durch Drücken der Profil-Schaltfläche.",
             "accessibility_hint": "Doppeltippen, um diesen Assistenten zu schließen"
+        },
+        "bookmark": {
+            "title": "Lesezeichen"
         }
     }
 }

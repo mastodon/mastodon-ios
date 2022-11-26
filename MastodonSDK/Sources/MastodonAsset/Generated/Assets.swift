@@ -8,6 +8,9 @@
 #elseif os(tvOS) || os(watchOS)
   import UIKit
 #endif
+#if canImport(SwiftUI)
+  import SwiftUI
+#endif
 
 // Deprecated typealiases
 @available(*, deprecated, renamed: "ColorAsset.Color", message: "This typealias will be removed in SwiftGen 7.0")
@@ -32,6 +35,7 @@ public enum Asset {
     public static let mastodonTextLogo = ImageAsset(name: "Asset/mastodon.text.logo")
   }
   public enum Circles {
+    public static let forbidden20 = ImageAsset(name: "Circles/forbidden.20")
     public static let plusCircleFill = ImageAsset(name: "Circles/plus.circle.fill")
     public static let plusCircle = ImageAsset(name: "Circles/plus.circle")
   }
@@ -63,6 +67,10 @@ public enum Asset {
     public enum Poll {
       public static let disabled = ColorAsset(name: "Colors/Poll/disabled")
     }
+    public enum Primary {
+      public static let _300 = ColorAsset(name: "Colors/Primary/300")
+      public static let _700 = ColorAsset(name: "Colors/Primary/700")
+    }
     public enum Shadow {
       public static let searchCard = ColorAsset(name: "Colors/Shadow/SearchCard")
     }
@@ -77,10 +85,13 @@ public enum Asset {
     public static let alertYellow = ColorAsset(name: "Colors/alert.yellow")
     public static let badgeBackground = ColorAsset(name: "Colors/badge.background")
     public static let battleshipGrey = ColorAsset(name: "Colors/battleshipGrey")
-    public static let brandBlue = ColorAsset(name: "Colors/brand.blue")
-    public static let brandBlueDarken20 = ColorAsset(name: "Colors/brand.blue.darken.20")
+    public static let brand = ColorAsset(name: "Colors/brand")
     public static let dangerBorder = ColorAsset(name: "Colors/danger.border")
     public static let danger = ColorAsset(name: "Colors/danger")
+    public enum Deprecated {
+      public static let brandBlue = ColorAsset(name: "Colors/deprecated/brand.blue")
+      public static let brandBlueDarken20 = ColorAsset(name: "Colors/deprecated/brand.blue.darken.20")
+    }
     public static let disabled = ColorAsset(name: "Colors/disabled")
     public static let inactive = ColorAsset(name: "Colors/inactive")
     public static let mediaTypeIndicotor = ColorAsset(name: "Colors/media.type.indicotor")
@@ -94,6 +105,11 @@ public enum Asset {
   public enum Connectivity {
     public static let photoFillSplit = ImageAsset(name: "Connectivity/photo.fill.split")
   }
+  public enum Editing {
+    public static let checkmark20 = ImageAsset(name: "Editing/checkmark.20")
+    public static let checkmark = ImageAsset(name: "Editing/checkmark")
+    public static let xmark = ImageAsset(name: "Editing/xmark")
+  }
   public enum Human {
     public static let eyeCircleFill = ImageAsset(name: "Human/eye.circle.fill")
     public static let eyeSlashCircleFill = ImageAsset(name: "Human/eye.slash.circle.fill")
@@ -104,6 +120,8 @@ public enum Asset {
     public static let bellBadge = ImageAsset(name: "ObjectsAndTools/bell.badge")
     public static let bellFill = ImageAsset(name: "ObjectsAndTools/bell.fill")
     public static let bell = ImageAsset(name: "ObjectsAndTools/bell")
+    public static let bookmarkFill = ImageAsset(name: "ObjectsAndTools/bookmark.fill")
+    public static let bookmark = ImageAsset(name: "ObjectsAndTools/bookmark")
     public static let gear = ImageAsset(name: "ObjectsAndTools/gear")
     public static let houseFill = ImageAsset(name: "ObjectsAndTools/house.fill")
     public static let house = ImageAsset(name: "ObjectsAndTools/house")
@@ -114,8 +132,33 @@ public enum Asset {
     public static let star = ImageAsset(name: "ObjectsAndTools/star")
   }
   public enum Scene {
+    public enum Compose {
+      public enum Attachment {
+        public static let indicatorButtonBackground = ColorAsset(name: "Scene/Compose/Attachment/indicator.button.background")
+        public static let retry = ImageAsset(name: "Scene/Compose/Attachment/retry")
+        public static let stop = ImageAsset(name: "Scene/Compose/Attachment/stop")
+      }
+      public static let earth = ImageAsset(name: "Scene/Compose/Earth")
+      public static let mention = ImageAsset(name: "Scene/Compose/Mention")
+      public static let more = ImageAsset(name: "Scene/Compose/More")
+      public static let people = ImageAsset(name: "Scene/Compose/People")
+      public static let buttonTint = ColorAsset(name: "Scene/Compose/button.tint")
+      public static let chatWarningFill = ImageAsset(name: "Scene/Compose/chat.warning.fill")
+      public static let chatWarning = ImageAsset(name: "Scene/Compose/chat.warning")
+      public static let emojiFill = ImageAsset(name: "Scene/Compose/emoji.fill")
+      public static let emoji = ImageAsset(name: "Scene/Compose/emoji")
+      public static let media = ImageAsset(name: "Scene/Compose/media")
+      public static let peopleAdd = ImageAsset(name: "Scene/Compose/people.add")
+      public static let pollFill = ImageAsset(name: "Scene/Compose/poll.fill")
+      public static let poll = ImageAsset(name: "Scene/Compose/poll")
+      public static let reorderDot = ImageAsset(name: "Scene/Compose/reorder.dot")
+    }
     public enum Discovery {
       public static let profileCardBackground = ColorAsset(name: "Scene/Discovery/profile.card.background")
+    }
+    public enum Notification {
+      public static let confirmFollowRequestButtonBackground = ColorAsset(name: "Scene/Notification/confirm.follow.request.button.background")
+      public static let deleteFollowRequestButtonBackground = ColorAsset(name: "Scene/Notification/delete.follow.request.button.background")
     }
     public enum Onboarding {
       public static let avatarPlaceholder = ImageAsset(name: "Scene/Onboarding/avatar.placeholder")
@@ -128,6 +171,11 @@ public enum Asset {
       public static let textFieldBackground = ColorAsset(name: "Scene/Onboarding/textField.background")
     }
     public enum Profile {
+      public enum About {
+        public static let bioAboutFieldVerifiedBackground = ColorAsset(name: "Scene/Profile/About/bio.about.field.verified.background")
+        public static let bioAboutFieldVerifiedCheckmark = ColorAsset(name: "Scene/Profile/About/bio.about.field.verified.checkmark")
+        public static let bioAboutFieldVerifiedLink = ColorAsset(name: "Scene/Profile/About/bio.about.field.verified.link")
+      }
       public enum Banner {
         public static let bioEditBackgroundGray = ColorAsset(name: "Scene/Profile/Banner/bio.edit.background.gray")
         public static let nameEditBackgroundGray = ColorAsset(name: "Scene/Profile/Banner/name.edit.background.gray")
@@ -161,10 +209,7 @@ public enum Asset {
         public static let elephantThreeOnGrassWithTreeThree = ImageAsset(name: "Scene/Welcome/illustration/elephant.three.on.grass.with.tree.three")
         public static let elephantThreeOnGrassWithTreeTwo = ImageAsset(name: "Scene/Welcome/illustration/elephant.three.on.grass.with.tree.two")
       }
-      public static let mastodonLogoBlack = ImageAsset(name: "Scene/Welcome/mastodon.logo.black")
-      public static let mastodonLogoBlackLarge = ImageAsset(name: "Scene/Welcome/mastodon.logo.black.large")
       public static let mastodonLogo = ImageAsset(name: "Scene/Welcome/mastodon.logo")
-      public static let mastodonLogoLarge = ImageAsset(name: "Scene/Welcome/mastodon.logo.large")
       public static let signInButtonBackground = ColorAsset(name: "Scene/Welcome/sign.in.button.background")
     }
   }
@@ -175,6 +220,7 @@ public enum Asset {
   }
   public enum Theme {
     public enum Mastodon {
+      public static let composePollRowBackground = ColorAsset(name: "Theme/Mastodon/compose.poll.row.background")
       public static let composeToolbarBackground = ColorAsset(name: "Theme/Mastodon/compose.toolbar.background")
       public static let contentWarningOverlayBackground = ColorAsset(name: "Theme/Mastodon/content.warning.overlay.background")
       public static let navigationBarBackground = ColorAsset(name: "Theme/Mastodon/navigation.bar.background")
@@ -195,6 +241,7 @@ public enum Asset {
       public static let tabBarItemInactiveIconColor = ColorAsset(name: "Theme/Mastodon/tab.bar.item.inactive.icon.color")
     }
     public enum System {
+      public static let composePollRowBackground = ColorAsset(name: "Theme/system/compose.poll.row.background")
       public static let composeToolbarBackground = ColorAsset(name: "Theme/system/compose.toolbar.background")
       public static let contentWarningOverlayBackground = ColorAsset(name: "Theme/system/content.warning.overlay.background")
       public static let navigationBarBackground = ColorAsset(name: "Theme/system/navigation.bar.background")
@@ -237,6 +284,24 @@ public final class ColorAsset {
     return color
   }()
 
+  #if os(iOS) || os(tvOS)
+  @available(iOS 11.0, tvOS 11.0, *)
+  public func color(compatibleWith traitCollection: UITraitCollection) -> Color {
+    let bundle = Bundle.module
+    guard let color = Color(named: name, in: bundle, compatibleWith: traitCollection) else {
+      fatalError("Unable to load color asset named \(name).")
+    }
+    return color
+  }
+  #endif
+
+  #if canImport(SwiftUI)
+  @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+  public private(set) lazy var swiftUIColor: SwiftUI.Color = {
+    SwiftUI.Color(asset: self)
+  }()
+  #endif
+
   fileprivate init(name: String) {
     self.name = name
   }
@@ -256,6 +321,16 @@ public extension ColorAsset.Color {
   }
 }
 
+#if canImport(SwiftUI)
+@available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+public extension SwiftUI.Color {
+  init(asset: ColorAsset) {
+    let bundle = Bundle.module
+    self.init(asset.name, bundle: bundle)
+  }
+}
+#endif
+
 public struct ImageAsset {
   public fileprivate(set) var name: String
 
@@ -265,6 +340,7 @@ public struct ImageAsset {
   public typealias Image = UIImage
   #endif
 
+  @available(iOS 8.0, tvOS 9.0, watchOS 2.0, macOS 10.7, *)
   public var image: Image {
     let bundle = Bundle.module
     #if os(iOS) || os(tvOS)
@@ -280,9 +356,28 @@ public struct ImageAsset {
     }
     return result
   }
+
+  #if os(iOS) || os(tvOS)
+  @available(iOS 8.0, tvOS 9.0, *)
+  public func image(compatibleWith traitCollection: UITraitCollection) -> Image {
+    let bundle = Bundle.module
+    guard let result = Image(named: name, in: bundle, compatibleWith: traitCollection) else {
+      fatalError("Unable to load image asset named \(name).")
+    }
+    return result
+  }
+  #endif
+
+  #if canImport(SwiftUI)
+  @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+  public var swiftUIImage: SwiftUI.Image {
+    SwiftUI.Image(asset: self)
+  }
+  #endif
 }
 
 public extension ImageAsset.Image {
+  @available(iOS 8.0, tvOS 9.0, watchOS 2.0, *)
   @available(macOS, deprecated,
     message: "This initializer is unsafe on macOS, please use the ImageAsset.image property")
   convenience init?(asset: ImageAsset) {
@@ -296,3 +391,23 @@ public extension ImageAsset.Image {
     #endif
   }
 }
+
+#if canImport(SwiftUI)
+@available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+public extension SwiftUI.Image {
+  init(asset: ImageAsset) {
+    let bundle = Bundle.module
+    self.init(asset.name, bundle: bundle)
+  }
+
+  init(asset: ImageAsset, label: Text) {
+    let bundle = Bundle.module
+    self.init(asset.name, bundle: bundle, label: label)
+  }
+
+  init(decorative asset: ImageAsset) {
+    let bundle = Bundle.module
+    self.init(decorative: asset.name, bundle: bundle)
+  }
+}
+#endif

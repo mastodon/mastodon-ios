@@ -17,6 +17,7 @@ extension SuggestionAccountViewModel {
             tableView: tableView,
             context: context,
             configuration: RecommendAccountSection.Configuration(
+                authContext: authContext,
                 suggestionAccountTableViewCellDelegate: suggestionAccountTableViewCellDelegate
             )
         )

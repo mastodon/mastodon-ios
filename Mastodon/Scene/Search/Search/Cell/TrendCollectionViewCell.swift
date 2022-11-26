@@ -9,6 +9,7 @@ import UIKit
 import Combine
 import MetaTextKit
 import MastodonAsset
+import MastodonCore
 import MastodonUI
 
 final class TrendCollectionViewCell: UICollectionViewCell {
@@ -47,12 +48,7 @@ extension TrendCollectionViewCell {
         
         trendView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(trendView)
-        NSLayoutConstraint.activate([
-            trendView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            trendView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            trendView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            trendView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-        ])
+        trendView.pinToParent()
     }
     
     override func updateConfiguration(using state: UICellConfigurationState) {

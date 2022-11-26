@@ -11,6 +11,8 @@ import os.log
 import ThirdPartyMailer
 import UIKit
 import MastodonAsset
+import MastodonCore
+import MastodonUI
 import MastodonLocalization
 
 final class MastodonConfirmEmailViewController: UIViewController, NeedsDependency {
@@ -187,7 +189,7 @@ extension MastodonConfirmEmailViewController {
         alertController.addAction(openEmailAction)
         alertController.addAction(cancelAction)
         alertController.preferredAction = openEmailAction
-        self.coordinator.present(scene: .alertController(alertController: alertController), from: self, transition: .alertController(animated: true, completion: nil))
+        _ = self.coordinator.present(scene: .alertController(alertController: alertController), from: self, transition: .alertController(animated: true, completion: nil))
     }
 
     @objc private func resendButtonPressed(_ sender: UIButton) {
@@ -195,20 +197,19 @@ extension MastodonConfirmEmailViewController {
         let resendAction = UIAlertAction(title: L10n.Scene.ConfirmEmail.DontReceiveEmail.resendEmail, style: .default) { _ in
             let url = Mastodon.API.resendEmailURL(domain: self.viewModel.authenticateInfo.domain)
             let viewModel = MastodonResendEmailViewModel(resendEmailURL: url, email: self.viewModel.email)
-            self.coordinator.present(scene: .mastodonResendEmail(viewModel: viewModel), from: self, transition: .modal(animated: true, completion: nil))
+            _ = self.coordinator.present(scene: .mastodonResendEmail(viewModel: viewModel), from: self, transition: .modal(animated: true, completion: nil))
         }
         let okAction = UIAlertAction(title: L10n.Common.Controls.Actions.ok, style: .default) { _ in
         }
         alertController.addAction(resendAction)
         alertController.addAction(okAction)
-        self.coordinator.present(scene: .alertController(alertController: alertController), from: self, transition: .alertController(animated: true, completion: nil))
+        _ = self.coordinator.present(scene: .alertController(alertController: alertController), from: self, transition: .alertController(animated: true, completion: nil))
     }
 
     func showEmailAppAlert() {
-        let clients = ThirdPartyMailClient.clients()
-        let application = UIApplication.shared
+        let clients = ThirdPartyMailClient.clients
         let availableClients = clients.filter { client -> Bool in
-            ThirdPartyMailer.application(application, isMailClientAvailable: client)
+            ThirdPartyMailer.isMailClientAvailable(client)
         }
         let alertController = UIAlertController(title: L10n.Scene.ConfirmEmail.OpenEmailApp.openEmailClient, message: nil, preferredStyle: .alert)
 
@@ -218,14 +219,14 @@ extension MastodonConfirmEmailViewController {
         alertController.addAction(alertAction)
         _ = availableClients.compactMap { client -> UIAlertAction in
             let alertAction = UIAlertAction(title: client.name, style: .default) { _ in
-                _ = ThirdPartyMailer.application(application, openMailClient: client)
+                ThirdPartyMailer.open(client, completionHandler: nil)
             }
             alertController.addAction(alertAction)
             return alertAction
         }
         let cancelAction = UIAlertAction(title: L10n.Common.Controls.Actions.cancel, style: .cancel, handler: nil)
         alertController.addAction(cancelAction)
-        self.coordinator.present(scene: .alertController(alertController: alertController), from: self, transition: .alertController(animated: true, completion: nil))
+        _ = self.coordinator.present(scene: .alertController(alertController: alertController), from: self, transition: .alertController(animated: true, completion: nil))
     }
 }
 

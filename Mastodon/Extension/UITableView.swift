@@ -35,7 +35,7 @@ extension UITableView {
             let backgroundColor = cell.backgroundColor
             
             UIView.animate(withDuration: 0.3) {
-                cell.backgroundColor = Asset.Colors.brandBlue.color.withAlphaComponent(0.5)
+                cell.backgroundColor = Asset.Colors.brand.color.withAlphaComponent(0.5)
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     UIView.animate(withDuration: 0.3) {
                         cell.backgroundColor = backgroundColor
