@@ -8,21 +8,17 @@
 import SwiftUI
 
 class AltViewController: UIViewController {
-    var alt: String?
+    private var alt: String
     let label = UILabel()
 
-    convenience init(alt: String?, sourceView: UIView?) {
-        self.init(nibName: nil, bundle: nil)
+    init(alt: String, sourceView: UIView?) {
         self.alt = alt
+        super.init(nibName: nil, bundle: nil)
         self.modalPresentationStyle = .popover
         self.popoverPresentationController?.delegate = self
         self.popoverPresentationController?.permittedArrowDirections = .up
         self.popoverPresentationController?.sourceView = sourceView
         self.overrideUserInterfaceStyle = .dark
-    }
-
-    @objc override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
 
     @MainActor required dynamic init?(coder aDecoder: NSCoder) {
@@ -37,7 +33,7 @@ class AltViewController: UIViewController {
         label.lineBreakMode = .byWordWrapping
         label.lineBreakStrategy = .standard
         label.font = .preferredFont(forTextStyle: .callout)
-        label.text = alt ?? "ummmmmmm tbd but you shouldn’t see this"
+        label.text = alt
 
         view.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(label)

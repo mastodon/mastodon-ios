@@ -111,10 +111,6 @@ extension MediaPreviewVideoViewController: MediaPreviewPage {
     func setShowingChrome(_ showingChrome: Bool) {
         // TODO: does this do anything?
     }
-
-    var altText: String? {
-        viewModel.item.altText
-    }
 }
 
 // MARK: - AVPlayerViewControllerDelegate

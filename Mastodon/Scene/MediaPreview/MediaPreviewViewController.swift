@@ -141,6 +141,20 @@ extension MediaPreviewViewController {
             }
             .store(in: &disposeBag)
 
+        viewModel.$altText
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] altText in
+                guard let self else { return }
+                UIView.animate(withDuration: 0.3) {
+                    if altText == nil {
+                        self.altButton.alpha = 0
+                    } else {
+                        self.altButton.alpha = 1
+                    }
+                }
+            }
+            .store(in: &disposeBag)
+
         viewModel.$showingChrome
             .receive(on: DispatchQueue.main)
             .removeDuplicates()
@@ -184,7 +198,8 @@ extension MediaPreviewViewController {
 
     @objc private func altButtonPressed(_ sender: UIButton) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-        present(AltViewController(alt: viewModel.viewControllers[viewModel.currentPage].altText, sourceView: sender), animated: true)
+        guard let alt = viewModel.altText else { return }
+        present(AltViewController(alt: alt, sourceView: sender), animated: true)
     }
 
 }

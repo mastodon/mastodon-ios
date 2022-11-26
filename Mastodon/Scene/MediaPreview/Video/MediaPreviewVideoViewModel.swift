@@ -125,13 +125,6 @@ extension MediaPreviewVideoViewModel {
             case .gif(let mediaContext):        return mediaContext.assetURL
             }
         }
-
-        var altText: String? {
-            switch self {
-            case .video(let mediaContext):      return mediaContext.altText
-            case .gif(let mediaContext):        return mediaContext.altText
-            }
-        }
     }
     
     struct RemoteVideoContext {
