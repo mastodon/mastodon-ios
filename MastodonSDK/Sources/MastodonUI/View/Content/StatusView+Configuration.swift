@@ -40,14 +40,6 @@ extension StatusView {
 
 extension StatusView {
     public func configure(status: Status) {
-        if let card = status.card {
-            print("---- \(card.title)")
-            print("---- \(card.url)")
-            print("---- \(card.image)")
-            print("---- \(card.width)")
-            print("---- \(card.height)")
-        }
-
         viewModel.objects.insert(status)
         if let reblog = status.reblog {
             viewModel.objects.insert(reblog)
