@@ -6,29 +6,38 @@
 //
 
 import AlamofireImage
-import LinkPresentation
+import Combine
 import MastodonAsset
 import MastodonCore
 import CoreDataStack
 import UIKit
 
 public final class LinkPreviewButton: UIControl {
-    private let containerStackView = UIStackView()
-    private let labelStackView = UIStackView()
+    private var disposeBag = Set<AnyCancellable>()
 
+    private let labelContainer = UIView()
     private let highlightView = UIView()
     private let imageView = UIImageView()
     private let titleLabel = UILabel()
     private let linkLabel = UILabel()
 
     private lazy var compactImageConstraints = [
+        labelContainer.topAnchor.constraint(greaterThanOrEqualTo: topAnchor),
+        labelContainer.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor),
+        labelContainer.centerYAnchor.constraint(equalTo: centerYAnchor),
+        labelContainer.leadingAnchor.constraint(equalTo: imageView.trailingAnchor),
         imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor),
         imageView.heightAnchor.constraint(equalTo: heightAnchor),
-        containerStackView.heightAnchor.constraint(equalToConstant: 85),
+        heightAnchor.constraint(equalToConstant: 85),
     ]
 
     private lazy var largeImageConstraints = [
+        labelContainer.topAnchor.constraint(equalTo: imageView.bottomAnchor),
+        labelContainer.bottomAnchor.constraint(equalTo: bottomAnchor),
+        labelContainer.leadingAnchor.constraint(equalTo: leadingAnchor),
         imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 21 / 40),
+        imageView.trailingAnchor.constraint(equalTo: trailingAnchor),
+        imageView.widthAnchor.constraint(equalTo: widthAnchor),
     ]
 
     public override var isHighlighted: Bool {
@@ -40,50 +49,62 @@ public final class LinkPreviewButton: UIControl {
     public override init(frame: CGRect) {
         super.init(frame: frame)
 
+        apply(theme: ThemeService.shared.currentTheme.value)
+
+        ThemeService.shared.currentTheme.sink { [weak self] theme in
+            self?.apply(theme: theme)
+        }.store(in: &disposeBag)
+
         clipsToBounds = true
         layer.cornerCurve = .continuous
         layer.cornerRadius = 10
-        layer.borderColor = ThemeService.shared.currentTheme.value.separator.cgColor
 
         highlightView.backgroundColor = UIColor.black.withAlphaComponent(0.1)
         highlightView.isHidden = true
 
         titleLabel.numberOfLines = 2
-        titleLabel.setContentCompressionResistancePriority(.defaultLow - 1, for: .horizontal)
-        titleLabel.text = "This is where I'd put a title... if I had one"
         titleLabel.textColor = Asset.Colors.Label.primary.color
+        titleLabel.font = .preferredFont(forTextStyle: .body)
 
-        linkLabel.text = "Subtitle"
         linkLabel.numberOfLines = 1
-        linkLabel.setContentCompressionResistancePriority(.defaultLow - 1, for: .horizontal)
         linkLabel.textColor = Asset.Colors.Label.secondary.color
+        linkLabel.font = .preferredFont(forTextStyle: .subheadline)
 
         imageView.tintColor = Asset.Colors.Label.secondary.color
-        imageView.backgroundColor = ThemeService.shared.currentTheme.value.systemElevatedBackgroundColor
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
 
-        labelStackView.addArrangedSubview(linkLabel)
-        labelStackView.addArrangedSubview(titleLabel)
-        labelStackView.layoutMargins = .init(top: 8, left: 10, bottom: 8, right: 10)
-        labelStackView.isLayoutMarginsRelativeArrangement = true
-        labelStackView.axis = .vertical
+        labelContainer.addSubview(titleLabel)
+        labelContainer.addSubview(linkLabel)
+        labelContainer.layoutMargins = .init(top: 10, left: 10, bottom: 10, right: 10)
 
-        containerStackView.addArrangedSubview(imageView)
-        containerStackView.addArrangedSubview(labelStackView)
-
-        addSubview(containerStackView)
+        addSubview(imageView)
+        addSubview(labelContainer)
         addSubview(highlightView)
 
-        containerStackView.isUserInteractionEnabled = false
-        containerStackView.translatesAutoresizingMaskIntoConstraints = false
+        subviews.forEach { $0.isUserInteractionEnabled = false }
+
+        labelContainer.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        linkLabel.translatesAutoresizingMaskIntoConstraints = false
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         highlightView.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-            containerStackView.topAnchor.constraint(equalTo: topAnchor),
-            containerStackView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            containerStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            containerStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            titleLabel.topAnchor.constraint(equalTo: labelContainer.layoutMarginsGuide.topAnchor),
+            titleLabel.leadingAnchor.constraint(equalTo: labelContainer.layoutMarginsGuide.leadingAnchor),
+            titleLabel.trailingAnchor.constraint(equalTo: labelContainer.layoutMarginsGuide.trailingAnchor),
+
+            linkLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 2),
+            linkLabel.bottomAnchor.constraint(equalTo: labelContainer.layoutMarginsGuide.bottomAnchor),
+            linkLabel.leadingAnchor.constraint(equalTo: labelContainer.layoutMarginsGuide.leadingAnchor),
+            linkLabel.trailingAnchor.constraint(equalTo: labelContainer.layoutMarginsGuide.trailingAnchor),
+
+            labelContainer.trailingAnchor.constraint(equalTo: trailingAnchor),
+
+            imageView.topAnchor.constraint(equalTo: topAnchor),
+            imageView.leadingAnchor.constraint(equalTo: leadingAnchor),
+
             highlightView.topAnchor.constraint(equalTo: topAnchor),
             highlightView.bottomAnchor.constraint(equalTo: bottomAnchor),
             highlightView.leadingAnchor.constraint(equalTo: leadingAnchor),
@@ -114,16 +135,13 @@ public final class LinkPreviewButton: UIControl {
         NSLayoutConstraint.deactivate(compactImageConstraints + largeImageConstraints)
 
         if isCompact {
-            containerStackView.alignment = .center
-            containerStackView.axis = .horizontal
-            containerStackView.distribution = .fill
             NSLayoutConstraint.activate(compactImageConstraints)
         } else {
-            containerStackView.alignment = .fill
-            containerStackView.axis = .vertical
-            containerStackView.distribution = .equalSpacing
             NSLayoutConstraint.activate(largeImageConstraints)
         }
+
+        setNeedsLayout()
+        layoutIfNeeded()
     }
 
     public override func didMoveToWindow() {
@@ -139,7 +157,12 @@ public final class LinkPreviewButton: UIControl {
     }
 
     private var photoIcon: UIImage? {
-        let configuration = UIImage.SymbolConfiguration(pointSize: 40)
+        let configuration = UIImage.SymbolConfiguration(pointSize: 32)
         return UIImage(systemName: "photo", withConfiguration: configuration)
+    }
+
+    private func apply(theme: Theme) {
+        layer.borderColor = theme.separator.cgColor
+        imageView.backgroundColor = theme.systemElevatedBackgroundColor
     }
 }

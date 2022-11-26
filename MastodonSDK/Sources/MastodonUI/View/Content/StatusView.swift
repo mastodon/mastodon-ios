@@ -388,7 +388,7 @@ extension StatusView.Style {
 
         // content container: V - [ contentMetaText ]
         statusView.contentContainer.axis = .vertical
-        statusView.contentContainer.spacing = 12
+        statusView.contentContainer.spacing = 10
         statusView.contentContainer.distribution = .fill
         statusView.contentContainer.alignment = .fill
 
@@ -400,9 +400,7 @@ extension StatusView.Style {
 
         // status content
         statusView.contentContainer.addArrangedSubview(statusView.contentMetaText.textView)
-        statusView.containerStackView.setCustomSpacing(16, after: statusView.contentMetaText.textView)
         statusView.contentContainer.addArrangedSubview(statusView.linkPreviewButton)
-        statusView.containerStackView.setCustomSpacing(16, after: statusView.linkPreviewButton)
 
         statusView.spoilerOverlayView.translatesAutoresizingMaskIntoConstraints = false
         statusView.containerStackView.addSubview(statusView.spoilerOverlayView)
