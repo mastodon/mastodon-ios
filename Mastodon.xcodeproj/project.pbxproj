@@ -666,6 +666,12 @@
 		D8A6FE5A293244B500666A47 /* WelcomeContentPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeContentPage.swift; sourceTree = "<group>"; };
 		D8A6FE5C293244C300666A47 /* WelcomeContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeContentViewController.swift; sourceTree = "<group>"; };
 		D8A6FE5E29324BBC00666A47 /* WelcomeContentPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeContentPageView.swift; sourceTree = "<group>"; };
+		D8A6FE6129325F5900666A47 /* Intents.stringsdict */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; path = Intents.stringsdict; sourceTree = "<group>"; };
+		D8A6FE6229325F5900666A47 /* app.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = app.json; sourceTree = "<group>"; };
+		D8A6FE6329325F5900666A47 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		D8A6FE6429325F5900666A47 /* StringsConvertor */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = StringsConvertor; sourceTree = "<group>"; };
+		D8A6FE6529325F5900666A47 /* ios-infoPlist.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "ios-infoPlist.json"; sourceTree = "<group>"; };
+		D8A6FE6629325F5900666A47 /* Localizable.stringsdict */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; path = Localizable.stringsdict; sourceTree = "<group>"; };
 		DB0009A826AEE5DC009B9D2D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; name = Base; path = Base.lproj/Intents.intentdefinition; sourceTree = "<group>"; };
 		DB0009AD26AEE5E4009B9D2D /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Intents.strings; sourceTree = "<group>"; };
 		DB0140CE25C42AEE00F9F3CF /* OSLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSLog.swift; sourceTree = "<group>"; };
@@ -1591,6 +1597,19 @@
 			path = Pages;
 			sourceTree = "<group>";
 		};
+		D8A6FE6029325F5900666A47 /* Localization */ = {
+			isa = PBXGroup;
+			children = (
+				D8A6FE6129325F5900666A47 /* Intents.stringsdict */,
+				D8A6FE6229325F5900666A47 /* app.json */,
+				D8A6FE6329325F5900666A47 /* README.md */,
+				D8A6FE6429325F5900666A47 /* StringsConvertor */,
+				D8A6FE6529325F5900666A47 /* ios-infoPlist.json */,
+				D8A6FE6629325F5900666A47 /* Localizable.stringsdict */,
+			);
+			path = Localization;
+			sourceTree = "<group>";
+		};
 		DB01409B25C40BB600F9F3CF /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
@@ -1797,6 +1816,7 @@
 				1EBA4F56E920856A3FC84ACB /* Pods */,
 				3FE14AD363ED19AE7FF210A6 /* Frameworks */,
 				DB98335F25C93B0400AD9700 /* Recovered References */,
+				D8A6FE6029325F5900666A47 /* Localization */,
 			);
 			sourceTree = "<group>";
 		};
