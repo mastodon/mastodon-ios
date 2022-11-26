@@ -42,11 +42,11 @@
             },
             "save_photo_failure": {
                 "title": "Error en desar la foto",
-                "message": "Activa el permís d'accés a la biblioteca de fotos per desar-la."
+                "message": "Activa el permís d'accés a la biblioteca de fotos per a desar-la."
             },
             "delete_post": {
-                "title": "Esborrar Publicació",
-                "message": "Estàs segur que vols suprimir aquesta publicació?"
+                "title": "Eliminar la publicació",
+                "message": "Segur que vols eliminar aquesta publicació?"
             },
             "clean_cache": {
                 "title": "Neteja la memòria cau",
@@ -67,20 +67,20 @@
                 "done": "Fet",
                 "confirm": "Confirma",
                 "continue": "Continua",
-                "compose": "Composa",
+                "compose": "Redacta",
                 "cancel": "Cancel·la",
                 "discard": "Descarta",
                 "try_again": "Torna a provar",
                 "take_photo": "Fes una foto",
                 "save_photo": "Desa la foto",
                 "copy_photo": "Copia la foto",
-                "sign_in": "Iniciar sessió",
+                "sign_in": "Inicia sessió",
                 "sign_up": "Crea un compte",
-                "see_more": "Veure més",
+                "see_more": "Mostra'n més",
                 "preview": "Vista prèvia",
                 "share": "Comparteix",
                 "share_user": "Comparteix %s",
-                "share_post": "Compartir Publicació",
+                "share_post": "Comparteix la publicació",
                 "open_in_safari": "Obrir a Safari",
                 "open_in_browser": "Obre al navegador",
                 "find_people": "Busca persones a seguir",
@@ -110,9 +110,9 @@
                     "previous_status": "Publicació anterior",
                     "next_status": "Publicació següent",
                     "open_status": "Obre la publicació",
-                    "open_author_profile": "Obre el Perfil de l'Autor",
-                    "open_reblogger_profile": "Obre el Perfil del Impulsor",
-                    "reply_status": "Respon a la Publicació",
+                    "open_author_profile": "Obre el perfil de l'autor",
+                    "open_reblogger_profile": "Obre el perfil de l'impuls",
+                    "reply_status": "Respon a la publicació",
                     "toggle_reblog": "Commuta l'Impuls de la Publicació",
                     "toggle_favorite": "Commuta el Favorit de la Publicació",
                     "toggle_content_warning": "Commuta l'Avís de Contingut",
@@ -138,16 +138,16 @@
                 },
                 "meta_entity": {
                     "url": "Enllaç: %s",
-                    "hashtag": "Etiqueta %s",
-                    "mention": "Mostra el Perfil: %s",
+                    "hashtag": "Etiqueta: %s",
+                    "mention": "Mostra el perfil: %s",
                     "email": "Correu electrònic: %s"
                 },
                 "actions": {
                     "reply": "Respon",
-                    "reblog": "Impuls",
-                    "unreblog": "Desfer l'impuls",
+                    "reblog": "Impulsa",
+                    "unreblog": "Desfés l'impuls",
                     "favorite": "Favorit",
-                    "unfavorite": "Desfer Favorit",
+                    "unfavorite": "Desfés el favorit",
                     "menu": "Menú",
                     "hide": "Amaga",
                     "show_image": "Mostra la imatge",
@@ -161,10 +161,10 @@
                     "link": "Enllaç",
                     "hashtag": "Etiqueta",
                     "email": "Correu electrònic",
-                    "emoji": "Emoji"
+                    "emoji": "Emojis"
                 },
                 "visibility": {
-                    "unlisted": "Tothom pot veure aquesta publicació però no es mostra en la línia de temps pública.",
+                    "unlisted": "Tothom pot veure aquesta publicació, però no es mostra en la línia de temps pública.",
                     "private": "Només els seus seguidors poden veure aquesta publicació.",
                     "private_from_me": "Només els meus seguidors poden veure aquesta publicació.",
                     "direct": "Només l'usuari mencionat pot veure aquesta publicació."
@@ -173,7 +173,7 @@
             "friendship": {
                 "follow": "Segueix",
                 "following": "Seguint",
-                "request": "Petició",
+                "request": "Sol·licitud",
                 "pending": "Pendent",
                 "block": "Bloca",
                 "block_user": "Bloca %s",
