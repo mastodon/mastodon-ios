@@ -51,11 +51,11 @@ final class MediaPreviewViewModel: NSObject {
                     let viewController = MediaPreviewImageViewController()
                     let viewModel = MediaPreviewImageViewModel(
                         context: context,
-                        item: .remote(.init(
+                        item: .init(
                             assetURL: attachment.assetURL.flatMap { URL(string: $0) },
                             thumbnail: previewContext.thumbnail(at: i),
                             altText: attachment.altDescription
-                        ))
+                        )
                     )
                     viewController.viewModel = viewModel
                     viewControllers.append(viewController)
@@ -87,11 +87,11 @@ final class MediaPreviewViewModel: NSObject {
             let viewController = MediaPreviewImageViewController()
             let viewModel = MediaPreviewImageViewModel(
                 context: context,
-                item: .remote(.init(
+                item: .init(
                     assetURL: previewContext.assetURL.flatMap { URL(string: $0) },
                     thumbnail: previewContext.thumbnail,
                     altText: nil
-                ))
+                )
             )
             viewController.viewModel = viewModel
             viewControllers.append(viewController)
@@ -99,11 +99,11 @@ final class MediaPreviewViewModel: NSObject {
             let viewController = MediaPreviewImageViewController()
             let viewModel = MediaPreviewImageViewModel(
                 context: context,
-                item: .remote(.init(
+                item: .init(
                     assetURL: previewContext.assetURL.flatMap { URL(string: $0) },
                     thumbnail: previewContext.thumbnail,
                     altText: nil
-                ))
+                )
             )
             viewController.viewModel = viewModel
             viewControllers.append(viewController)

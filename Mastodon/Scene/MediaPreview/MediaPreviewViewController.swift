@@ -241,19 +241,8 @@ extension MediaPreviewViewController: MediaPreviewImageViewControllerDelegate {
     ) {
         switch action {
         case .savePhoto:
-            let _savePublisher: AnyPublisher<Void, Error>? = {
-                switch viewController.viewModel.item {
-                case .remote(let previewContext):
-                    guard let assetURL = previewContext.assetURL else { return nil }
-                    return context.photoLibraryService.save(imageSource: .url(assetURL))
-                case .local(let previewContext):
-                    return context.photoLibraryService.save(imageSource: .image(previewContext.image))
-                }
-            }()
-            guard let savePublisher = _savePublisher else {
-                return
-            }
-            savePublisher
+            guard let assetURL = viewController.viewModel.item.assetURL else { return }
+            context.photoLibraryService.save(imageSource: .url(assetURL))
                 .sink { [weak self] completion in
                     guard let self = self else { return }
                     switch completion {
@@ -277,20 +266,9 @@ extension MediaPreviewViewController: MediaPreviewImageViewControllerDelegate {
                 }
                 .store(in: &context.disposeBag)
         case .copyPhoto:
-            let _copyPublisher: AnyPublisher<Void, Error>? = {
-                switch viewController.viewModel.item {
-                case .remote(let previewContext):
-                    guard let assetURL = previewContext.assetURL else { return nil }
-                    return context.photoLibraryService.copy(imageSource: .url(assetURL))
-                case .local(let previewContext):
-                    return context.photoLibraryService.copy(imageSource: .image(previewContext.image))
-                }
-            }()
-            guard let copyPublisher = _copyPublisher else {
-                return
-            }
+            guard let assetURL = viewController.viewModel.item.assetURL else { return }
 
-            copyPublisher
+            context.photoLibraryService.copy(imageSource: .url(assetURL))
                 .sink { completion in
                     switch completion {
                     case .failure(let error):
@@ -309,13 +287,8 @@ extension MediaPreviewViewController: MediaPreviewImageViewControllerDelegate {
             let activityViewController = UIActivityViewController(
                 activityItems: {
                     var activityItems: [Any] = []
-                    switch viewController.viewModel.item {
-                    case .remote(let previewContext):
-                        if let assetURL = previewContext.assetURL {
-                            activityItems.append(assetURL)
-                        }
-                    case .local(let previewContext):
-                        activityItems.append(previewContext.image)
+                    if let assetURL = viewController.viewModel.item.assetURL {
+                        activityItems.append(assetURL)
                     }
                     return activityItems
                 }(),
