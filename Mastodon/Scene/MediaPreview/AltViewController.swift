@@ -9,7 +9,7 @@ import SwiftUI
 
 class AltViewController: UIViewController {
     private var alt: String
-    let label = UILabel()
+    let label = UITextView()
 
     init(alt: String, sourceView: UIView?) {
         self.alt = alt
@@ -29,10 +29,20 @@ class AltViewController: UIViewController {
         super.viewDidLoad()
 
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.numberOfLines = 0
-        label.lineBreakMode = .byWordWrapping
-        label.lineBreakStrategy = .standard
+        label.textContainer.maximumNumberOfLines = 0
+        label.textContainer.lineBreakMode = .byWordWrapping
+        label.textContainerInset = UIEdgeInsets(
+            top: 8,
+            left: 0,
+            bottom: -label.textContainer.lineFragmentPadding,
+            right: 0
+        )
         label.font = .preferredFont(forTextStyle: .callout)
+        label.isScrollEnabled = false
+        label.backgroundColor = .clear
+        label.isOpaque = false
+        label.isEditable = false
+        label.tintColor = .white
         label.text = alt
 
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -42,7 +52,7 @@ class AltViewController: UIViewController {
             NSLayoutConstraint.constraints(withVisualFormat: "V:|-[label]-|", metrics: nil, views: ["label": label])
         )
         NSLayoutConstraint.activate(
-            NSLayoutConstraint.constraints(withVisualFormat: "H:|-[label]-|", metrics: nil, views: ["label": label])
+            NSLayoutConstraint.constraints(withVisualFormat: "H:|-(8)-[label]-(8)-|", metrics: nil, views: ["label": label])
         )
         NSLayoutConstraint.activate([
             label.widthAnchor.constraint(lessThanOrEqualToConstant: 400),
