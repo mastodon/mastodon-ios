@@ -17,19 +17,25 @@ class WelcomeContentPageView: UIView {
   init(page: WelcomeContentPage) {
 
     //TODO: @zeitschlag Decide based on page which titleView, first page has mastodon-logo in it
-    //TODO: @zeitschlag Add styling
     titleView = UILabel()
+    titleView.font = WelcomeViewController.largeTitleFont
+    titleView.textColor = WelcomeViewController.largeTitleTextColor
     titleView.text = page.title
+    titleView.adjustsFontForContentSizeCategory = true
+    titleView.numberOfLines = 0
 
-    //TODO: @zeitschlag Add styling
     label = UILabel()
     label.text = page.content
+    label.font = WelcomeViewController.subTitleFont
+    label.textColor = WelcomeViewController.largeTitleTextColor
+    label.adjustsFontForContentSizeCategory = true
     label.numberOfLines = 0
 
     contentStackView = UIStackView(arrangedSubviews: [titleView, label, UIView()])
     contentStackView.translatesAutoresizingMaskIntoConstraints = false
     contentStackView.axis = .vertical
     contentStackView.alignment = .leading
+    contentStackView.spacing = 8
 
     super.init(frame: .zero)
 

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import MastodonLocalization
 
 enum WelcomeContentPage: CaseIterable {
   case whatIsMastodon
@@ -26,22 +27,22 @@ enum WelcomeContentPage: CaseIterable {
   var title: String {
     switch self {
       case .whatIsMastodon:
-        return "What is Mastodon?"
+        return L10n.Scene.Welcome.Education.WhatIsMastodon.title
       case .mastodonIsLikeThat:
-        return "Mastodon is like that"
+        return L10n.Scene.Welcome.Education.MastodonIsLikeThat.title
       case .howDoIPickAServer:
-        return "How to I pick a server?"
+        return L10n.Scene.Welcome.Education.HowDoIPickAServer.title
     }
   }
 
   var content: String {
     switch self {
       case .whatIsMastodon:
-        return "Long text\n\nhat is Mastodon?"
+        return L10n.Scene.Welcome.Education.WhatIsMastodon.description
       case .mastodonIsLikeThat:
-        return "Long text\n\nwhat Mastodon is like"
+        return L10n.Scene.Welcome.Education.MastodonIsLikeThat.description
       case .howDoIPickAServer:
-        return "Long text\n\nHow to I pick a server?"
+        return L10n.Scene.Welcome.Education.HowDoIPickAServer.description
     }
 
   }
