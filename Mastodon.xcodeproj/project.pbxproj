@@ -115,6 +115,9 @@
 		D87BFC8F291EC26A00FEE264 /* MastodonLoginServerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87BFC8E291EC26A00FEE264 /* MastodonLoginServerTableViewCell.swift */; };
 		D8916DC029211BE500124085 /* ContentSizedTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8916DBF29211BE500124085 /* ContentSizedTableView.swift */; };
 		D8A6AB6C291C5136003AB663 /* MastodonLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A6AB6B291C5136003AB663 /* MastodonLoginViewController.swift */; };
+		D8A6FE5B293244B500666A47 /* WelcomeContentPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A6FE5A293244B500666A47 /* WelcomeContentPage.swift */; };
+		D8A6FE5D293244C300666A47 /* WelcomeContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A6FE5C293244C300666A47 /* WelcomeContentViewController.swift */; };
+		D8A6FE5F29324BBC00666A47 /* WelcomeContentPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A6FE5E29324BBC00666A47 /* WelcomeContentPageView.swift */; };
 		DB0009A626AEE5DC009B9D2D /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = DB0009A926AEE5DC009B9D2D /* Intents.intentdefinition */; settings = {ATTRIBUTES = (codegen, ); }; };
 		DB0009A726AEE5DC009B9D2D /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = DB0009A926AEE5DC009B9D2D /* Intents.intentdefinition */; };
 		DB0140CF25C42AEE00F9F3CF /* OSLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0140CE25C42AEE00F9F3CF /* OSLog.swift */; };
@@ -660,6 +663,9 @@
 		D87BFC8E291EC26A00FEE264 /* MastodonLoginServerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonLoginServerTableViewCell.swift; sourceTree = "<group>"; };
 		D8916DBF29211BE500124085 /* ContentSizedTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentSizedTableView.swift; sourceTree = "<group>"; };
 		D8A6AB6B291C5136003AB663 /* MastodonLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonLoginViewController.swift; sourceTree = "<group>"; };
+		D8A6FE5A293244B500666A47 /* WelcomeContentPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeContentPage.swift; sourceTree = "<group>"; };
+		D8A6FE5C293244C300666A47 /* WelcomeContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeContentViewController.swift; sourceTree = "<group>"; };
+		D8A6FE5E29324BBC00666A47 /* WelcomeContentPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeContentPageView.swift; sourceTree = "<group>"; };
 		DB0009A826AEE5DC009B9D2D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; name = Base; path = Base.lproj/Intents.intentdefinition; sourceTree = "<group>"; };
 		DB0009AD26AEE5E4009B9D2D /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Intents.strings; sourceTree = "<group>"; };
 		DB0140CE25C42AEE00F9F3CF /* OSLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSLog.swift; sourceTree = "<group>"; };
@@ -1573,6 +1579,16 @@
 				D8916DBF29211BE500124085 /* ContentSizedTableView.swift */,
 			);
 			path = Login;
+			sourceTree = "<group>";
+		};
+		D8A6FE5929323DC200666A47 /* Pages */ = {
+			isa = PBXGroup;
+			children = (
+				D8A6FE5A293244B500666A47 /* WelcomeContentPage.swift */,
+				D8A6FE5C293244C300666A47 /* WelcomeContentViewController.swift */,
+				D8A6FE5E29324BBC00666A47 /* WelcomeContentPageView.swift */,
+			);
+			path = Pages;
 			sourceTree = "<group>";
 		};
 		DB01409B25C40BB600F9F3CF /* Onboarding */ = {
@@ -2498,6 +2514,7 @@
 		DBABE3F125ECAC4E00879EE5 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				D8A6FE5929323DC200666A47 /* Pages */,
 				DBABE3EB25ECAC4B00879EE5 /* WelcomeIllustrationView.swift */,
 				DB4932B026F1FB5300EF46D4 /* WizardCardView.swift */,
 				DB0617EA277EF3820030EE79 /* GradientBorderView.swift */,
@@ -3287,6 +3304,8 @@
 				DB603113279EBEBA00A935FE /* DataSourceFacade+Block.swift in Sources */,
 				DB63F777279A9A2A00455B82 /* NotificationView+Configuration.swift in Sources */,
 				DB029E95266A20430062874E /* MastodonAuthenticationController.swift in Sources */,
+				DB0C947726A7FE840088FB11 /* NotificationAvatarButton.swift in Sources */,
+				D8A6FE5F29324BBC00666A47 /* WelcomeContentPageView.swift in Sources */,
 				5B90C461262599800002E742 /* SettingsLinkTableViewCell.swift in Sources */,
 				DB6180DD263918E30018D199 /* MediaPreviewViewController.swift in Sources */,
 				DBE3CDEC261C6B2900430CC6 /* FavoriteViewController.swift in Sources */,
@@ -3499,6 +3518,7 @@
 				DB1D84382657B275000346B3 /* SegmentedControlNavigateable.swift in Sources */,
 				0F20220726134DA4000C64BF /* HashtagTimelineViewModel+Diffable.swift in Sources */,
 				DB7A9F932818F33C0016AF98 /* MastodonServerRulesViewController+Debug.swift in Sources */,
+				D8A6FE5D293244C300666A47 /* WelcomeContentViewController.swift in Sources */,
 				2D5A3D2825CF8BC9002347D6 /* HomeTimelineViewModel+Diffable.swift in Sources */,
 				DB6B74FC272FF55800C70B6E /* UserSection.swift in Sources */,
 				DB0FCB862796BDA1006C02E2 /* SearchSection.swift in Sources */,
@@ -3574,6 +3594,7 @@
 				2D6DE40026141DF600A63F6A /* SearchViewModel.swift in Sources */,
 				DB0617FD27855BFE0030EE79 /* ServerRuleItem.swift in Sources */,
 				5BB04FD5262E7AFF0043BFF6 /* ReportViewController.swift in Sources */,
+				D8A6FE5B293244B500666A47 /* WelcomeContentPage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
