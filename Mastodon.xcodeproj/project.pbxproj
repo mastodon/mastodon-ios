@@ -98,7 +98,6 @@
 		62FD27D52893708A00B205C5 /* BookmarkViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FD27D42893708A00B205C5 /* BookmarkViewModel+Diffable.swift */; };
 		85904C02293BC0EB0011C817 /* ImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85904C01293BC0EB0011C817 /* ImageProvider.swift */; };
 		85904C04293BC1940011C817 /* URLActivityItemWithMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85904C03293BC1940011C817 /* URLActivityItemWithMetadata.swift */; };
-		85BC11B1292FF92C00E191CD /* HUDButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85BC11B0292FF92C00E191CD /* HUDButton.swift */; };
 		85BC11B32932414900E191CD /* AltViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85BC11B22932414900E191CD /* AltViewController.swift */; };
 		87FFDA5D898A5C42ADCB35E7 /* Pods_Mastodon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4ABE34829701A4496C5BB64 /* Pods_Mastodon.framework */; };
 		C24C97032922F30500BAE8CB /* RefreshControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24C97022922F30500BAE8CB /* RefreshControl.swift */; };
@@ -622,7 +621,6 @@
 		819CEC9DCAD8E8E7BD85A7BB /* Pods-Mastodon.asdk.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon.asdk.xcconfig"; path = "Target Support Files/Pods-Mastodon/Pods-Mastodon.asdk.xcconfig"; sourceTree = "<group>"; };
 		85904C01293BC0EB0011C817 /* ImageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageProvider.swift; sourceTree = "<group>"; };
 		85904C03293BC1940011C817 /* URLActivityItemWithMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLActivityItemWithMetadata.swift; sourceTree = "<group>"; };
-		85BC11B0292FF92C00E191CD /* HUDButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HUDButton.swift; sourceTree = "<group>"; };
 		85BC11B22932414900E191CD /* AltViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AltViewController.swift; sourceTree = "<group>"; };
 		8850E70A1D5FF51432E43653 /* Pods-Mastodon-MastodonUITests.asdk - release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon-MastodonUITests.asdk - release.xcconfig"; path = "Target Support Files/Pods-Mastodon-MastodonUITests/Pods-Mastodon-MastodonUITests.asdk - release.xcconfig"; sourceTree = "<group>"; };
 		8E79CCBE51FBC3F7FE8CF49F /* Pods-MastodonTests.release snapshot.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MastodonTests.release snapshot.xcconfig"; path = "Target Support Files/Pods-MastodonTests/Pods-MastodonTests.release snapshot.xcconfig"; sourceTree = "<group>"; };
@@ -1978,7 +1976,6 @@
 				DBB45B5727B39FCC002DC5A7 /* Video */,
 				DB6180F026391CAB0018D199 /* Image */,
 				DB6180E1263919780018D199 /* Paging */,
-				85BC11B0292FF92C00E191CD /* HUDButton.swift */,
 				DB6180DC263918E30018D199 /* MediaPreviewViewController.swift */,
 				85BC11B22932414900E191CD /* AltViewController.swift */,
 				DB6180F926391F2E0018D199 /* MediaPreviewViewModel.swift */,
@@ -3425,7 +3422,6 @@
 				2DCB73FD2615C13900EC03D4 /* SearchRecommendCollectionHeader.swift in Sources */,
 				2A1FE47C2938BB2600784BF1 /* FollowedTagsViewModel+DiffableDataSource.swift in Sources */,
 				DB852D1C26FB021500FC9D81 /* RootSplitViewController.swift in Sources */,
-				85BC11B1292FF92C00E191CD /* HUDButton.swift in Sources */,
 				DB697DD1278F4871004EF2F7 /* AutoGenerateTableViewDelegate.swift in Sources */,
 				DB02CDBF2625AE5000D0A2AF /* AdaptiveUserInterfaceStyleBarButtonItem.swift in Sources */,
 				DB3E6FFA2807C47900B035AE /* DiscoveryForYouViewModel+Diffable.swift in Sources */,

@@ -6,11 +6,10 @@
 //
 
 import UIKit
-import MastodonUI
 
-class HUDButton: UIView {
+public class HUDButton: UIView {
 
-    static let height: CGFloat = 30
+    public static let height: CGFloat = 30
 
     let background: UIVisualEffectView = {
         let backgroundView = UIVisualEffectView(effect: UIBlurEffect(style: .systemUltraThinMaterial))
@@ -22,7 +21,7 @@ class HUDButton: UIView {
 
     let vibrancyView = UIVisualEffectView(effect: UIVibrancyEffect(blurEffect: UIBlurEffect(style: .systemUltraThinMaterial)))
 
-    let button: UIButton = {
+    public let button: UIButton = {
         let button = HighlightDimmableButton()
         button.expandEdgeInsets = UIEdgeInsets(top: -10, left: -10, bottom: -10, right: -10)
         button.contentEdgeInsets = .constant(7)
@@ -31,7 +30,7 @@ class HUDButton: UIView {
         return button
     }()
 
-    init(configure: (UIButton) -> Void) {
+    public init(configure: (UIButton) -> Void) {
         super.init(frame: .zero)
 
         configure(button)
@@ -59,16 +58,16 @@ class HUDButton: UIView {
         ])
     }
 
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         button.titleLabel?.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 15, weight: .bold))
     }
 
-    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+    public override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
         button.point(inside: button.convert(point, from: self), with: event)
     }
 
-    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+    public override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         button
     }
 }
