@@ -671,57 +671,57 @@
                 "its_spam": "Ini sampah",
                 "malicious_links_fake_engagement_or_repetetive_replies": "Tautan berbahaya, engagement palsu, atau balasan berulang",
                 "it_violates_server_rules": "Melanggar ketentuan server",
-                "you_are_aware_that_it_breaks_specific_rules": "You are aware that it breaks specific rules",
-                "its_something_else": "It’s something else",
+                "you_are_aware_that_it_breaks_specific_rules": "Anda yakin bahwa ini melanggar ketentuan khusus",
+                "its_something_else": "Alasan lainnya",
                 "the_issue_does_not_fit_into_other_categories": "The issue does not fit into other categories"
             },
             "step_two": {
-                "step_2_of_4": "Step 2 of 4",
-                "which_rules_are_being_violated": "Which rules are being violated?",
-                "select_all_that_apply": "Select all that apply",
+                "step_2_of_4": "Langkah 2 dari 4",
+                "which_rules_are_being_violated": "Ketentuan manakah yang dilanggar?",
+                "select_all_that_apply": "Pilih semua yang berlaku",
                 "i_just_don’t_like_it": "I just don’t like it"
             },
             "step_three": {
-                "step_3_of_4": "Step 3 of 4",
+                "step_3_of_4": "Langkah 3 dari 4",
                 "are_there_any_posts_that_back_up_this_report": "Are there any posts that back up this report?",
-                "select_all_that_apply": "Select all that apply"
+                "select_all_that_apply": "Pilih semua yang berlaku"
             },
             "step_four": {
-                "step_4_of_4": "Step 4 of 4",
-                "is_there_anything_else_we_should_know": "Is there anything else we should know?"
+                "step_4_of_4": "Langkah 4 dari 4",
+                "is_there_anything_else_we_should_know": "Ada hal lain yang perlu kami ketahui?"
             },
             "step_final": {
-                "dont_want_to_see_this": "Don’t want to see this?",
+                "dont_want_to_see_this": "Tidak ingin melihat ini?",
                 "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "When you see something you don’t like on Mastodon, you can remove the person from your experience.",
-                "unfollow": "Unfollow",
+                "unfollow": "Berhenti ikuti",
                 "unfollowed": "Unfollowed",
-                "unfollow_user": "Unfollow %s",
-                "mute_user": "Mute %s",
+                "unfollow_user": "Berhenti ikuti %s",
+                "mute_user": "Senyapkan %s",
                 "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or reblogs in your home feed. They won’t know they’ve been muted.",
-                "block_user": "Block %s",
+                "block_user": "Blokir %s",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "They will no longer be able to follow or see your posts, but they can see if they’ve been blocked.",
                 "while_we_review_this_you_can_take_action_against_user": "While we review this, you can take action against %s"
             }
         },
         "preview": {
             "keyboard": {
-                "close_preview": "Close Preview",
-                "show_next": "Show Next",
-                "show_previous": "Show Previous"
+                "close_preview": "Tutup Pratinjau",
+                "show_next": "Tampilkan Berikutnya",
+                "show_previous": "Tampilkan Sebelumnya"
             }
         },
         "account_list": {
-            "tab_bar_hint": "Current selected profile: %s. Double tap then hold to show account switcher",
+            "tab_bar_hint": "Profil yang dipilih saat ini: %s. Ketuk dua kali kemudian tahan untuk tampilkan ikon beralih akun",
             "dismiss_account_switcher": "Dismiss Account Switcher",
-            "add_account": "Add Account"
+            "add_account": "Tambah Akun"
         },
         "wizard": {
-            "new_in_mastodon": "New in Mastodon",
+            "new_in_mastodon": "Baru di Mastodon",
             "multiple_account_switch_intro_description": "Switch between multiple accounts by holding the profile button.",
             "accessibility_hint": "Double tap to dismiss this wizard"
         },
         "bookmark": {
-            "title": "Bookmarks"
+            "title": "Tandai"
         }
     }
 }
