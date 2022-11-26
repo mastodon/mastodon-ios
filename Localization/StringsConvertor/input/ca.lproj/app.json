@@ -2,46 +2,46 @@
     "common": {
         "alerts": {
             "common": {
-                "please_try_again": "Si us plau intenta-ho de nou.",
-                "please_try_again_later": "Si us plau, prova-ho més tard."
+                "please_try_again": "Torna-ho a provar.",
+                "please_try_again_later": "Prova-ho més tard."
             },
             "sign_up_failure": {
                 "title": "Error en el registre"
             },
             "server_error": {
-                "title": "Error del Servidor"
+                "title": "Error del servidor"
             },
             "vote_failure": {
-                "title": "Error del Vot",
+                "title": "Error en votar",
                 "poll_ended": "L'enquesta ha finalitzat"
             },
             "discard_post_content": {
                 "title": "Descarta l'esborrany",
-                "message": "Confirma per a descartar el contingut de la publicació composta."
+                "message": "Confirma per a descartar el contingut de la publicació."
             },
             "publish_post_failure": {
-                "title": "Error de Publicació",
-                "message": "No s'ha pogut enviar la publicació.\nComprova la teva connexió a Internet.",
+                "title": "Error en publicar",
+                "message": "No s'ha pogut enviar la publicació.\nComprova la connexió a Internet.",
                 "attachments_message": {
                     "video_attach_with_photo": "No es pot adjuntar un vídeo a una publicació que ja contingui imatges.",
-                    "more_than_one_video": "No pots adjuntar més d'un vídeo."
+                    "more_than_one_video": "No es pot adjuntar més d'un vídeo."
                 }
             },
             "edit_profile_failure": {
-                "title": "Error al Editar el Perfil",
-                "message": "No es pot editar el perfil. Si us plau torna-ho a provar."
+                "title": "Error en editar el perfil",
+                "message": "No es pot editar el perfil. Torna-ho a provar."
             },
             "sign_out": {
-                "title": "Tancar Sessió",
-                "message": "Estàs segur que vols tancar la sessió?",
-                "confirm": "Tancar Sessió"
+                "title": "Tanca la sessió",
+                "message": "Segur que vols tancar la sessió?",
+                "confirm": "Tanca la sessió"
             },
             "block_domain": {
-                "title": "Estàs segur, realment segur que vols bloquejar totalment %s? En la majoria dels casos bloquejar o silenciar uns pocs objectius és suficient i preferible. No veureu contingut d’aquest domini i se suprimirà qualsevol dels vostres seguidors d’aquest domini.",
-                "block_entire_domain": "Bloquejar Domini"
+                "title": "Estàs totalment segur que vols bloquejar per complet %s? En la majoria dels casos bloquejar o silenciar uns pocs objectius és suficient i preferible. No veureu contingut d’aquest domini i se suprimirà qualsevol dels vostres seguidors d’aquest domini.",
+                "block_entire_domain": "Bloca el domini"
             },
             "save_photo_failure": {
-                "title": "Error al Desar la Foto",
+                "title": "Error en desar la foto",
                 "message": "Activa el permís d'accés a la biblioteca de fotos per desar-la."
             },
             "delete_post": {
@@ -79,7 +79,7 @@
                 "see_more": "Veure més",
                 "preview": "Vista prèvia",
                 "share": "Comparteix",
-                "share_user": "Compartir %s",
+                "share_user": "Comparteix %s",
                 "share_post": "Compartir Publicació",
                 "open_in_safari": "Obrir a Safari",
                 "open_in_browser": "Obre al navegador",
