@@ -50,7 +50,7 @@ public final class Card: NSManagedObject {
     // sourcery: autoGenerateProperty
     @NSManaged public private(set) var blurhash: String?
 
-    // one-to-one relationship
+    // sourcery: autoGenerateRelationship
     @NSManaged public private(set) var status: Status
 }
 
@@ -157,13 +157,17 @@ extension Card: AutoGenerateRelationship {
     // Generated using Sourcery
     // DO NOT EDIT
     public struct Relationship {
+    	public let status: Status
 
     	public init(
+    		status: Status
     	) {
+    		self.status = status
     	}
     }
 
     public func configure(relationship: Relationship) {
+    	self.status = relationship.status
     }
 
     // sourcery:end

@@ -87,7 +87,7 @@ extension Persistence.Status {
         }
         
         if let oldStatus = fetch(in: managedObjectContext, context: context) {
-            merge(mastodonStatus: oldStatus, context: context)
+            merge(in: managedObjectContext, mastodonStatus: oldStatus, context: context)
             return PersistResult(
                 status: oldStatus,
                 isNewInsertion: false,
@@ -108,18 +108,7 @@ extension Persistence.Status {
                 return result.poll
             }()
 
-            let card: Card? = {
-                guard let entity = context.entity.card else { return nil }
-                let result = Persistence.Card.create(
-                    in: managedObjectContext,
-                    context: Persistence.Card.PersistContext(
-                        domain: context.domain,
-                        entity: entity,
-                        me: context.me
-                    )
-                )
-                return result.card
-            }()
+            let card = createCard(in: managedObjectContext, context: context)
 
             let authorResult = Persistence.MastodonUser.createOrMerge(
                 in: managedObjectContext,
@@ -196,6 +185,7 @@ extension Persistence.Status {
     }
     
     public static func merge(
+        in managedObjectContext: NSManagedObjectContext,
         mastodonStatus status: Status,
         context: PersistContext
     ) {
@@ -217,7 +207,30 @@ extension Persistence.Status {
                 )
             )
         }
+
+        if status.card == nil, context.entity.card != nil {
+            let card = createCard(in: managedObjectContext, context: context)
+            let relationship = Card.Relationship(status: status)
+            card?.configure(relationship: relationship)
+        }
+
         update(status: status, context: context)
+    }
+
+    private static func createCard(
+        in managedObjectContext: NSManagedObjectContext,
+        context: PersistContext
+    ) -> Card? {
+        guard let entity = context.entity.card else { return nil }
+        let result = Persistence.Card.create(
+            in: managedObjectContext,
+            context: Persistence.Card.PersistContext(
+                domain: context.domain,
+                entity: entity,
+                me: context.me
+            )
+        )
+        return result.card
     }
     
     private static func update(
