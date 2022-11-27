@@ -145,6 +145,13 @@ extension WelcomeViewController {
     view.addSubview(pageViewController.view)
     pageViewController.didMove(toParent: self)
 
+
+    let scrollviews = pageViewController.view.subviews.filter { type(of: $0).isSubclass(of: UIScrollView.self) }.compactMap { $0 as? UIScrollView }
+
+    for scrollView in scrollviews {
+      scrollView.delegate = self
+    }
+
     NSLayoutConstraint.activate([
       pageViewController.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
       pageViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -398,6 +405,8 @@ extension WelcomeViewController: UIPageViewControllerDelegate {
     guard let currentViewController = pageViewController.viewControllers?.first as? WelcomeContentViewController else { return }
 
     currentPage = currentViewController.page
+    //FIXME: @zeitschlag fix
+//    welcomeIllustrationView.update(for: currentPage, contentOffset: 1000)
   }
 }
 
@@ -441,5 +450,13 @@ extension WelcomeViewController: UIPageViewControllerDataSource {
       case .howDoIPickAServer:
         return nil
     }
+  }
+}
+
+extension WelcomeViewController: UIScrollViewDelegate {
+  func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    print(scrollView.contentOffset.x)
+    //TODO: @zeitschlag sync view
+    welcomeIllustrationView.update(currentPage: currentPage, contentOffset: scrollView.contentOffset.x)
   }
 }

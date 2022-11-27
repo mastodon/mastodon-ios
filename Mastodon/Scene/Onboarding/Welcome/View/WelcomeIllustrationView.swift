@@ -205,32 +205,10 @@ extension WelcomeIllustrationView {
             }
         }
     }
-    
+
+  func update(currentPage: WelcomeContentPage, contentOffset: CGFloat) {
+    // why does it jump back???
+    print("\(contentOffset) — \(currentPage)")
+    //TODO: @zeitschlag update frames
+  }
 }
-
-#if canImport(SwiftUI) && DEBUG
-import SwiftUI
-
-struct WelcomeIllustrationView_Previews: PreviewProvider {
-    
-    static var previews: some View {
-        Group {
-            UIViewPreview(width: 375) {
-                let view = WelcomeIllustrationView()
-                view.layout = .compact
-                return view
-            }
-            .previewLayout(.fixed(width: 375, height: 1500))
-            UIViewPreview(width: 547) {
-                let view = WelcomeIllustrationView()
-                view.layout = .regular
-                return view
-            }
-            .previewLayout(.fixed(width: 547, height: 1500))
-        }
-    }
-    
-}
-
-#endif
-
