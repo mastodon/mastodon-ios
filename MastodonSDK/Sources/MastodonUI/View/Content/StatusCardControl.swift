@@ -89,6 +89,7 @@ public final class StatusCardControl: UIControl {
         containerStackView.addArrangedSubview(imageView)
         containerStackView.addArrangedSubview(labelStackView)
         containerStackView.isUserInteractionEnabled = false
+        containerStackView.distribution = .fill
 
         addSubview(containerStackView)
         addSubview(highlightView)
@@ -133,12 +134,10 @@ public final class StatusCardControl: UIControl {
         if isCompact {
             containerStackView.alignment = .center
             containerStackView.axis = .horizontal
-            containerStackView.distribution = .fill
             NSLayoutConstraint.activate(compactImageConstraints)
         } else {
             containerStackView.alignment = .fill
             containerStackView.axis = .vertical
-            containerStackView.distribution = .equalSpacing
             NSLayoutConstraint.activate(largeImageConstraints)
         }
     }
