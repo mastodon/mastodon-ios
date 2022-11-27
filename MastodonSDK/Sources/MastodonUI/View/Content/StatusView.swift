@@ -388,7 +388,7 @@ extension StatusView.Style {
 
         // content container: V - [ contentMetaText ]
         statusView.contentContainer.axis = .vertical
-        statusView.contentContainer.spacing = 10
+        statusView.contentContainer.spacing = 12
         statusView.contentContainer.distribution = .fill
         statusView.contentContainer.alignment = .fill
 
