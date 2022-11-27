@@ -15,29 +15,25 @@ import UIKit
 public final class LinkPreviewButton: UIControl {
     private var disposeBag = Set<AnyCancellable>()
 
-    private let labelContainer = UIView()
+    private let containerStackView = UIStackView()
+    private let labelStackView = UIStackView()
+
     private let highlightView = UIView()
     private let imageView = UIImageView()
     private let titleLabel = UILabel()
     private let linkLabel = UILabel()
 
     private lazy var compactImageConstraints = [
-        labelContainer.topAnchor.constraint(greaterThanOrEqualTo: topAnchor),
-        labelContainer.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor),
-        labelContainer.centerYAnchor.constraint(equalTo: centerYAnchor),
-        labelContainer.leadingAnchor.constraint(equalTo: imageView.trailingAnchor),
-        imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor),
         imageView.heightAnchor.constraint(equalTo: heightAnchor),
+        imageView.widthAnchor.constraint(equalTo: heightAnchor),
         heightAnchor.constraint(equalToConstant: 85),
     ]
 
     private lazy var largeImageConstraints = [
-        labelContainer.topAnchor.constraint(equalTo: imageView.bottomAnchor),
-        labelContainer.bottomAnchor.constraint(equalTo: bottomAnchor),
-        labelContainer.leadingAnchor.constraint(equalTo: leadingAnchor),
-        imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 21 / 40),
-        imageView.trailingAnchor.constraint(equalTo: trailingAnchor),
-        imageView.widthAnchor.constraint(equalTo: widthAnchor),
+        imageView.heightAnchor.constraint(
+            equalTo: imageView.widthAnchor,
+            multiplier: 21 / 40
+        ).priority(.defaultLow - 1),
     ]
 
     public override var isHighlighted: Bool {
@@ -73,43 +69,29 @@ public final class LinkPreviewButton: UIControl {
         imageView.tintColor = Asset.Colors.Label.secondary.color
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
+        imageView.setContentHuggingPriority(.zero, for: .horizontal)
+        imageView.setContentHuggingPriority(.zero, for: .vertical)
+        imageView.setContentCompressionResistancePriority(.zero, for: .horizontal)
+        imageView.setContentCompressionResistancePriority(.zero, for: .vertical)
 
-        labelContainer.addSubview(titleLabel)
-        labelContainer.addSubview(linkLabel)
-        labelContainer.layoutMargins = .init(top: 10, left: 10, bottom: 10, right: 10)
+        labelStackView.addArrangedSubview(titleLabel)
+        labelStackView.addArrangedSubview(linkLabel)
+        labelStackView.layoutMargins = .init(top: 10, left: 10, bottom: 10, right: 10)
+        labelStackView.isLayoutMarginsRelativeArrangement = true
+        labelStackView.axis = .vertical
 
-        addSubview(imageView)
-        addSubview(labelContainer)
+        containerStackView.addArrangedSubview(imageView)
+        containerStackView.addArrangedSubview(labelStackView)
+        containerStackView.isUserInteractionEnabled = false
+
+        addSubview(containerStackView)
         addSubview(highlightView)
 
-        subviews.forEach { $0.isUserInteractionEnabled = false }
-
-        labelContainer.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        linkLabel.translatesAutoresizingMaskIntoConstraints = false
-        imageView.translatesAutoresizingMaskIntoConstraints = false
+        containerStackView.translatesAutoresizingMaskIntoConstraints = false
         highlightView.translatesAutoresizingMaskIntoConstraints = false
 
-        NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: labelContainer.layoutMarginsGuide.topAnchor),
-            titleLabel.leadingAnchor.constraint(equalTo: labelContainer.layoutMarginsGuide.leadingAnchor),
-            titleLabel.trailingAnchor.constraint(equalTo: labelContainer.layoutMarginsGuide.trailingAnchor),
-
-            linkLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 2),
-            linkLabel.bottomAnchor.constraint(equalTo: labelContainer.layoutMarginsGuide.bottomAnchor),
-            linkLabel.leadingAnchor.constraint(equalTo: labelContainer.layoutMarginsGuide.leadingAnchor),
-            linkLabel.trailingAnchor.constraint(equalTo: labelContainer.layoutMarginsGuide.trailingAnchor),
-
-            labelContainer.trailingAnchor.constraint(equalTo: trailingAnchor),
-
-            imageView.topAnchor.constraint(equalTo: topAnchor),
-            imageView.leadingAnchor.constraint(equalTo: leadingAnchor),
-
-            highlightView.topAnchor.constraint(equalTo: topAnchor),
-            highlightView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            highlightView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            highlightView.trailingAnchor.constraint(equalTo: trailingAnchor),
-        ])
+        containerStackView.pinToParent()
+        highlightView.pinToParent()
     }
     
     required init?(coder: NSCoder) {
@@ -129,19 +111,24 @@ public final class LinkPreviewButton: UIControl {
         ) { [weak imageView] image, _, _, _ in
             if image != nil {
                 imageView?.contentMode = .scaleAspectFill
+                self.containerStackView.setNeedsLayout()
+                self.containerStackView.layoutIfNeeded()
             }
         }
 
         NSLayoutConstraint.deactivate(compactImageConstraints + largeImageConstraints)
 
         if isCompact {
+            containerStackView.alignment = .center
+            containerStackView.axis = .horizontal
+            containerStackView.distribution = .fill
             NSLayoutConstraint.activate(compactImageConstraints)
         } else {
+            containerStackView.alignment = .fill
+            containerStackView.axis = .vertical
+            containerStackView.distribution = .equalSpacing
             NSLayoutConstraint.activate(largeImageConstraints)
         }
-
-        setNeedsLayout()
-        layoutIfNeeded()
     }
 
     public override func didMoveToWindow() {
@@ -165,4 +152,8 @@ public final class LinkPreviewButton: UIControl {
         layer.borderColor = theme.separator.cgColor
         imageView.backgroundColor = theme.systemElevatedBackgroundColor
     }
+}
+
+private extension UILayoutPriority {
+    static let zero = UILayoutPriority(rawValue: 0)
 }
