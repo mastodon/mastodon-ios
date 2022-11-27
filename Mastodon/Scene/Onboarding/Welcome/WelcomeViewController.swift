@@ -85,6 +85,7 @@ final class WelcomeViewController: UIViewController, NeedsDependency {
     return pageController
   }()
   var currentPage: WelcomeContentPage = .whatIsMastodon
+  var currentPageOffset = 0
 }
 
 extension WelcomeViewController {
@@ -405,8 +406,11 @@ extension WelcomeViewController: UIPageViewControllerDelegate {
     guard let currentViewController = pageViewController.viewControllers?.first as? WelcomeContentViewController else { return }
 
     currentPage = currentViewController.page
-    //FIXME: @zeitschlag fix
-//    welcomeIllustrationView.update(for: currentPage, contentOffset: 1000)
+
+    if let pageIndex = WelcomeContentPage.allCases.firstIndex(of: currentPage) {
+      let offset = Int(pageIndex) * Int(pageViewController.view.frame.width)
+      currentPageOffset = offset
+    }
   }
 }
 
@@ -455,8 +459,9 @@ extension WelcomeViewController: UIPageViewControllerDataSource {
 
 extension WelcomeViewController: UIScrollViewDelegate {
   func scrollViewDidScroll(_ scrollView: UIScrollView) {
-    print(scrollView.contentOffset.x)
-    //TODO: @zeitschlag sync view
-    welcomeIllustrationView.update(currentPage: currentPage, contentOffset: scrollView.contentOffset.x)
+    let weirdScrollViewJumpingCorrectionFactor = pageViewController.view.frame.width
+    let contentOffset = CGFloat(currentPageOffset) + scrollView.contentOffset.x - weirdScrollViewJumpingCorrectionFactor
+
+    welcomeIllustrationView.update(contentOffset: contentOffset)
   }
 }

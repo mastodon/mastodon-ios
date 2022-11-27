@@ -206,9 +206,8 @@ extension WelcomeIllustrationView {
         }
     }
 
-  func update(currentPage: WelcomeContentPage, contentOffset: CGFloat) {
-    // why does it jump back???
-    print("\(contentOffset) — \(currentPage)")
+  func update(contentOffset: CGFloat) {
     //TODO: @zeitschlag update frames
+    print(Int(contentOffset))
   }
 }
