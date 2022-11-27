@@ -316,7 +316,7 @@ extension StatusView.ViewModel {
             }
             
             statusView.contentMetaText.textView.alpha = isContentReveal ? 1 : 0     // keep the frame size and only display when revealing
-            statusView.linkPreviewButton.alpha = isContentReveal ? 1 : 0
+            statusView.statusCardControl.alpha = isContentReveal ? 1 : 0
             
             statusView.setSpoilerOverlayViewHidden(isHidden: isContentReveal)
             
@@ -490,8 +490,8 @@ extension StatusView.ViewModel {
     private func bindCard(statusView: StatusView) {
         $card.sink { card in
             guard let card = card else { return }
-            statusView.linkPreviewButton.configure(card: card)
-            statusView.setLinkPreviewButtonDisplay()
+            statusView.statusCardControl.configure(card: card)
+            statusView.setStatusCardControlDisplay()
         }
         .store(in: &disposeBag)
     }

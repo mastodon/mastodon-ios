@@ -115,7 +115,7 @@ public final class StatusView: UIView {
         return metaText
     }()
 
-    public let linkPreviewButton = LinkPreviewButton()
+    public let statusCardControl = StatusCardControl()
     
     // content warning
     public let spoilerOverlayView = SpoilerOverlayView()
@@ -220,7 +220,7 @@ public final class StatusView: UIView {
         setMediaDisplay(isDisplay: false)
         setPollDisplay(isDisplay: false)
         setFilterHintLabelDisplay(isDisplay: false)
-        setLinkPreviewButtonDisplay(isDisplay: false)
+        setStatusCardControlDisplay(isDisplay: false)
     }
 
     public override init(frame: CGRect) {
@@ -261,15 +261,12 @@ extension StatusView {
         // content
         contentMetaText.textView.delegate = self
         contentMetaText.textView.linkDelegate = self
-        
+
+        // card
+        statusCardControl.addTarget(self, action: #selector(statusCardControlPressed), for: .touchUpInside)
+
         // media
         mediaGridContainerView.delegate = self
-
-        linkPreviewButton.addTarget(
-            self,
-            action: #selector(linkPreviewButtonPressed),
-            for: .touchUpInside
-        )
 
         // poll
         pollTableView.translatesAutoresizingMaskIntoConstraints = false
@@ -306,7 +303,7 @@ extension StatusView {
         delegate?.statusView(self, spoilerOverlayViewDidPressed: spoilerOverlayView)
     }
 
-    @objc private func linkPreviewButtonPressed(_ sender: LinkPreviewButton) {
+    @objc private func statusCardControlPressed(_ sender: StatusCardControl) {
         logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
         guard let url = viewModel.card?.url else { return }
         delegate?.statusView(self, didTapCardWithURL: url)
@@ -386,7 +383,7 @@ extension StatusView.Style {
         statusView.authorAdaptiveMarginContainerView.margin = StatusView.containerLayoutMargin
         statusView.containerStackView.addArrangedSubview(statusView.authorAdaptiveMarginContainerView)
 
-        // content container: V - [ contentMetaText ]
+        // content container: V - [ contentMetaText statusCardControl ]
         statusView.contentContainer.axis = .vertical
         statusView.contentContainer.spacing = 12
         statusView.contentContainer.distribution = .fill
@@ -400,7 +397,7 @@ extension StatusView.Style {
 
         // status content
         statusView.contentContainer.addArrangedSubview(statusView.contentMetaText.textView)
-        statusView.contentContainer.addArrangedSubview(statusView.linkPreviewButton)
+        statusView.contentContainer.addArrangedSubview(statusView.statusCardControl)
 
         statusView.spoilerOverlayView.translatesAutoresizingMaskIntoConstraints = false
         statusView.containerStackView.addSubview(statusView.spoilerOverlayView)
@@ -542,8 +539,8 @@ extension StatusView {
         filterHintLabel.isHidden = !isDisplay
     }
 
-    func setLinkPreviewButtonDisplay(isDisplay: Bool = true) {
-        linkPreviewButton.isHidden = !isDisplay
+    func setStatusCardControlDisplay(isDisplay: Bool = true) {
+        statusCardControl.isHidden = !isDisplay
     }
     
     // container width

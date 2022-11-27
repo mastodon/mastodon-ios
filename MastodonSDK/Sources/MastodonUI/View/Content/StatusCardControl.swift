@@ -12,7 +12,7 @@ import MastodonCore
 import CoreDataStack
 import UIKit
 
-public final class LinkPreviewButton: UIControl {
+public final class StatusCardControl: UIControl {
     private var disposeBag = Set<AnyCancellable>()
 
     private let containerStackView = UIStackView()
@@ -25,21 +25,23 @@ public final class LinkPreviewButton: UIControl {
 
     private lazy var compactImageConstraints = [
         imageView.heightAnchor.constraint(equalTo: heightAnchor),
-        imageView.widthAnchor.constraint(equalTo: heightAnchor),
-        heightAnchor.constraint(equalToConstant: 85),
+        imageView.widthAnchor.constraint(equalToConstant: 85),
+        heightAnchor.constraint(equalToConstant: 85).priority(.defaultLow - 1),
+        heightAnchor.constraint(greaterThanOrEqualToConstant: 85)
     ]
 
     private lazy var largeImageConstraints = [
         imageView.heightAnchor.constraint(
             equalTo: imageView.widthAnchor,
             multiplier: 21 / 40
-        ).priority(.defaultLow - 1),
+        )
+        // This priority is important or constraints break;
+        // it still renders the card correctly.
+        .priority(.defaultLow - 1),
     ]
 
     public override var isHighlighted: Bool {
-        didSet {
-            highlightView.isHidden = !isHighlighted
-        }
+        didSet { highlightView.isHidden = !isHighlighted }
     }
 
     public override init(frame: CGRect) {
@@ -54,6 +56,10 @@ public final class LinkPreviewButton: UIControl {
         clipsToBounds = true
         layer.cornerCurve = .continuous
         layer.cornerRadius = 10
+
+        if #available(iOS 15, *) {
+            maximumContentSizeCategory = .accessibilityLarge
+        }
 
         highlightView.backgroundColor = UIColor.black.withAlphaComponent(0.1)
         highlightView.isHidden = true
@@ -100,6 +106,12 @@ public final class LinkPreviewButton: UIControl {
 
     public func configure(card: Card) {
         let isCompact = card.width == card.height
+
+        if let host = card.url?.host {
+            accessibilityLabel = "\(card.title) \(host)"
+        } else {
+            accessibilityLabel = card.title
+        }
 
         titleLabel.text = card.title
         linkLabel.text = card.url?.host
