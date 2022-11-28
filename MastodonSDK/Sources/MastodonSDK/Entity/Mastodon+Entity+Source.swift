@@ -40,32 +40,5 @@ extension Mastodon.Entity {
 }
 
 extension Mastodon.Entity.Source {
-    public enum Privacy: RawRepresentable, Codable, Sendable {
-        case `public`
-        case unlisted
-        case `private`
-        case direct
-        
-        case _other(String)
-        
-        public init?(rawValue: String) {
-            switch rawValue {
-            case "public":                  self = .public
-            case "unlisted":                self = .unlisted
-            case "private":                 self = .private
-            case "direct":                  self = .direct
-            default:                        self = ._other(rawValue)
-            }
-        }
-        
-        public var rawValue: String {
-            switch self {
-            case .public:                       return "public"
-            case .unlisted:                     return "unlisted"
-            case .private:                      return "private"
-            case .direct:                       return "direct"
-            case ._other(let value):            return value
-            }
-        }
-    }
+    public typealias Privacy = Mastodon.Entity.Status.Visibility
 }
