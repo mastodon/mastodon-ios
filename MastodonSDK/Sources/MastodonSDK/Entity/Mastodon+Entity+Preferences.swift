@@ -58,8 +58,8 @@ extension Mastodon.Entity.Preferences {
         public init?(rawValue: String) {
             switch rawValue {
             case "default":                 self = .default
-            case "showAll":                 self = .showAll
-            case "hideAll":                 self = .hideAll
+            case "show_all":                self = .showAll
+            case "hide_all":                self = .hideAll
             default:                        self = ._other(rawValue)
             }
         }
@@ -67,8 +67,8 @@ extension Mastodon.Entity.Preferences {
         public var rawValue: String {
             switch self {
             case .default:                      return "default"
-            case .showAll:                      return "showAll"
-            case .hideAll:                      return "hideAll"
+            case .showAll:                      return "show_all"
+            case .hideAll:                      return "hide_all"
             case ._other(let value):            return value
             }
         }
