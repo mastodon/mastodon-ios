@@ -23,22 +23,8 @@ public final class StatusCardControl: UIControl {
     private let titleLabel = UILabel()
     private let linkLabel = UILabel()
 
-    private lazy var compactImageConstraints = [
-        imageView.heightAnchor.constraint(equalTo: heightAnchor),
-        imageView.widthAnchor.constraint(equalToConstant: 85),
-        heightAnchor.constraint(equalToConstant: 85).priority(.defaultLow - 1),
-        heightAnchor.constraint(greaterThanOrEqualToConstant: 85)
-    ]
-
-    private lazy var largeImageConstraints = [
-        imageView.heightAnchor.constraint(
-            equalTo: imageView.widthAnchor,
-            multiplier: 21 / 40
-        )
-        // This priority is important or constraints break;
-        // it still renders the card correctly.
-        .priority(.defaultLow - 1),
-    ]
+    private var layout: Layout?
+    private var layoutConstraints: [NSLayoutConstraint] = []
 
     public override var isHighlighted: Bool {
         didSet { highlightView.isHidden = !isHighlighted }
@@ -85,6 +71,7 @@ public final class StatusCardControl: UIControl {
         labelStackView.layoutMargins = .init(top: 10, left: 10, bottom: 10, right: 10)
         labelStackView.isLayoutMarginsRelativeArrangement = true
         labelStackView.axis = .vertical
+        labelStackView.spacing = 2
 
         containerStackView.addArrangedSubview(imageView)
         containerStackView.addArrangedSubview(labelStackView)
@@ -106,8 +93,6 @@ public final class StatusCardControl: UIControl {
     }
 
     public func configure(card: Card) {
-        let isCompact = card.width == card.height
-
         if let host = card.url?.host {
             accessibilityLabel = "\(card.title) \(host)"
         } else {
@@ -120,26 +105,17 @@ public final class StatusCardControl: UIControl {
 
         imageView.sd_setImage(
             with: card.imageURL,
-            placeholderImage: isCompact ? newsIcon : photoIcon
-        ) { [weak imageView] image, _, _, _ in
+            placeholderImage: icon(for: card.layout)
+        ) { [weak self] image, _, _, _ in
             if image != nil {
-                imageView?.contentMode = .scaleAspectFill
-                self.containerStackView.setNeedsLayout()
-                self.containerStackView.layoutIfNeeded()
+                self?.imageView.contentMode = .scaleAspectFill
             }
+
+            self?.containerStackView.setNeedsLayout()
+            self?.containerStackView.layoutIfNeeded()
         }
 
-        NSLayoutConstraint.deactivate(compactImageConstraints + largeImageConstraints)
-
-        if isCompact {
-            containerStackView.alignment = .center
-            containerStackView.axis = .horizontal
-            NSLayoutConstraint.activate(compactImageConstraints)
-        } else {
-            containerStackView.alignment = .fill
-            containerStackView.axis = .vertical
-            NSLayoutConstraint.activate(largeImageConstraints)
-        }
+        updateConstraints(for: card.layout)
     }
 
     public override func didMoveToWindow() {
@@ -150,18 +126,67 @@ public final class StatusCardControl: UIControl {
         }
     }
 
-    private var newsIcon: UIImage? {
-        UIImage(systemName: "newspaper.fill")
+    private func updateConstraints(for layout: Layout) {
+        guard layout != self.layout else { return }
+        self.layout = layout
+
+        NSLayoutConstraint.deactivate(layoutConstraints)
+
+        switch layout {
+        case .large(let aspectRatio):
+            containerStackView.alignment = .fill
+            containerStackView.axis = .vertical
+            layoutConstraints = [
+                imageView.widthAnchor.constraint(
+                    equalTo: imageView.heightAnchor,
+                    multiplier: aspectRatio
+                )
+                // This priority is important or constraints break;
+                // it still renders the card correctly.
+                .priority(.defaultLow - 1),
+            ]
+        case .compact:
+            containerStackView.alignment = .center
+            containerStackView.axis = .horizontal
+            layoutConstraints = [
+                imageView.heightAnchor.constraint(equalTo: heightAnchor),
+                imageView.widthAnchor.constraint(equalToConstant: 85),
+                heightAnchor.constraint(equalToConstant: 85).priority(.defaultLow - 1),
+                heightAnchor.constraint(greaterThanOrEqualToConstant: 85)
+            ]
+        }
+
+        NSLayoutConstraint.activate(layoutConstraints)
     }
 
-    private var photoIcon: UIImage? {
-        let configuration = UIImage.SymbolConfiguration(pointSize: 32)
-        return UIImage(systemName: "photo", withConfiguration: configuration)
+    private func icon(for layout: Layout) -> UIImage? {
+        switch layout {
+        case .compact:
+            return UIImage(systemName: "newspaper.fill")
+        case .large:
+            let configuration = UIImage.SymbolConfiguration(pointSize: 32)
+            return UIImage(systemName: "photo", withConfiguration: configuration)
+        }
     }
 
     private func apply(theme: Theme) {
         layer.borderColor = theme.separator.cgColor
         imageView.backgroundColor = theme.systemElevatedBackgroundColor
+    }
+}
+
+private extension StatusCardControl {
+    enum Layout: Equatable {
+        case compact
+        case large(aspectRatio: CGFloat)
+    }
+}
+
+private extension Card {
+    var layout: StatusCardControl.Layout {
+        return width == height || image == nil
+        ? .compact
+        : .large(aspectRatio: CGFloat(width) / CGFloat(height))
     }
 }
 
