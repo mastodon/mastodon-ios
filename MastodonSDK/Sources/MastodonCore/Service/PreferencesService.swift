@@ -5,6 +5,7 @@
 //  Created by Jed Fox on 2022-11-28.
 //
 
+import os.log
 import Combine
 import CoreDataStack
 import MastodonSDK
@@ -21,6 +22,9 @@ public final class PreferencesService {
 
     // output
     public let currentPreferences = CurrentValueSubject<Mastodon.Entity.Preferences, Never>(.default)
+
+    static let logger = Logger(subsystem: "PreferencesService", category: "Service")
+
 
     init(
         apiService: APIService,
@@ -55,7 +59,13 @@ public final class PreferencesService {
                 authentication?.update(preferences: prefs.value)
             }
         }
-        .sink { _ in } receiveValue: { _ in }
+        .sink { completion in
+            if case .failure(let error) = completion {
+                // NOTE: this should be changed to .sensitive or .private if we ever allow
+                // user input in preferences beyond simple boolean/enum options.
+                Self.logger.warning("Error parsing preferences: \(error, privacy: .public)")
+            }
+        } receiveValue: { _ in }
         .store(in: &disposeBag)
 
         authenticationService.$mastodonAuthenticationBoxes
