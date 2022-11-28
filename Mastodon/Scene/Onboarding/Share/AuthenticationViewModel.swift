@@ -215,7 +215,8 @@ extension AuthenticationViewModel {
                 appAccessToken: userToken.accessToken,  // TODO: swap app token
                 userAccessToken: userToken.accessToken,
                 clientID: info.clientID,
-                clientSecret: info.clientSecret
+                clientSecret: info.clientSecret,
+                preferences: nil
             )
             return managedObjectContext.performChanges {
                 _ = APIService.CoreData.createOrMergeMastodonAuthentication(

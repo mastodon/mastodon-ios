@@ -23,6 +23,7 @@ public class AppContext: ObservableObject {
     
     public let apiService: APIService
     public let authenticationService: AuthenticationService
+    public let preferencesService: PreferencesService
     public let emojiService: EmojiService
     // public let statusPublishService = StatusPublishService()
     public let publisherService: PublisherService
@@ -63,6 +64,11 @@ public class AppContext: ObservableObject {
             apiService: _apiService
         )
         authenticationService = _authenticationService
+
+        preferencesService = PreferencesService(
+            apiService: apiService,
+            authenticationService: authenticationService
+        )
         
         emojiService = EmojiService(
             apiService: apiService

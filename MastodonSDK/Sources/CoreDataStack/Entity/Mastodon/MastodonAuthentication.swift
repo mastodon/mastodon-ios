@@ -26,7 +26,9 @@ final public class MastodonAuthentication: NSManagedObject {
     @NSManaged public private(set) var createdAt: Date
     @NSManaged public private(set) var updatedAt: Date
     @NSManaged public private(set) var activedAt: Date
-    
+
+    @NSManaged public private(set) var preferencesRaw: Data?
+
     // one-to-one relationship
     @NSManaged public private(set) var user: MastodonUser
     
@@ -105,6 +107,12 @@ extension MastodonAuthentication {
             self.instance = instance
         }
     }
+
+    public func update(preferencesRaw: Data?) {
+        if self.preferencesRaw != preferencesRaw {
+            self.preferencesRaw = preferencesRaw
+        }
+    }
     
     public func didUpdate(at networkDate: Date) {
         self.updatedAt = networkDate
@@ -122,6 +130,7 @@ extension MastodonAuthentication {
         public let userAccessToken: String
         public let clientID: String
         public let clientSecret: String
+        public let preferencesRaw: Data?
     
         public init(
             domain: String,
@@ -130,7 +139,8 @@ extension MastodonAuthentication {
             appAccessToken: String,
             userAccessToken: String,
             clientID: String,
-            clientSecret: String
+            clientSecret: String,
+            preferencesRaw: Data?
         ) {
             self.domain = domain
             self.userID = userID
@@ -139,6 +149,7 @@ extension MastodonAuthentication {
             self.userAccessToken = userAccessToken
             self.clientID = clientID
             self.clientSecret = clientSecret
+            self.preferencesRaw = preferencesRaw
         }
         
     }
