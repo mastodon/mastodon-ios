@@ -569,25 +569,24 @@ extension MainTabBarController: UITabBarControllerDelegate {
             composeButtonDidPressed(tabBarController)
             return false
         }
+
+        // Assert index is as same as the tab rawValue. This check needs to be done `shouldSelect`
+        // because the nav controller has already popped in `didSelect`.
+        if currentTab.rawValue == tabBarController.selectedIndex,
+           let navigationController = viewController as? UINavigationController,
+           navigationController.viewControllers.count == 1,
+           let scrollViewContainer = navigationController.topViewController as? ScrollViewContainer  {
+            scrollViewContainer.scrollToTop(animated: true)
+        }
+
         return true
     }
 
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: select %s", ((#file as NSString).lastPathComponent), #line, #function, viewController.debugDescription)
-        defer {
-            if let tab = Tab(rawValue: viewController.tabBarItem.tag) {
-                currentTab = tab
-            }
+        if let tab = Tab(rawValue: viewController.tabBarItem.tag) {
+            currentTab = tab
         }
-        // assert index is as same as the tab rawValue
-        guard currentTab.rawValue == tabBarController.selectedIndex,
-              let navigationController = viewController as? UINavigationController,
-              navigationController.viewControllers.count == 1,
-              let scrollViewContainer = navigationController.topViewController as? ScrollViewContainer else {
-            return
-        }
-
-        scrollViewContainer.scrollToTop(animated: true)
     }
 }
 
