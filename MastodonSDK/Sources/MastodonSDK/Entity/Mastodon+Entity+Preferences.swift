@@ -26,6 +26,16 @@ extension Mastodon.Entity {
 }
 
 extension Mastodon.Entity.Preferences {
+    public static let `default` = Mastodon.Entity.Preferences(
+        postingDefaultVisibility: .public,
+        postingDefaultSensitive: false,
+        postingDefaultLanguage: "en",
+        readingExpandMedia: .default,
+        readingExpandSpoilers: false
+    )
+}
+
+extension Mastodon.Entity.Preferences {
     public typealias Visibility = Mastodon.Entity.Source.Privacy
 }
 

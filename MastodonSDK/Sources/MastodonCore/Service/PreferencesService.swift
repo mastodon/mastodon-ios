@@ -20,7 +20,7 @@ public final class PreferencesService {
     weak var authenticationService: AuthenticationService?
 
     // output
-    public let currentPreferences = CurrentValueSubject<Mastodon.Entity.Preferences?, Never>(nil)
+    public let currentPreferences = CurrentValueSubject<Mastodon.Entity.Preferences, Never>(.default)
 
     init(
         apiService: APIService,
@@ -63,7 +63,7 @@ public final class PreferencesService {
             .sink { [weak self] authenticationRecord in
                 guard let self = self, let apiService = self.apiService else { return }
                 self.currentPreferences.send(
-                    authenticationRecord.object(in: apiService.backgroundManagedObjectContext)?.preferences
+                    authenticationRecord.object(in: apiService.backgroundManagedObjectContext)?.preferences ?? .default
                 )
             }
             .store(in: &disposeBag)

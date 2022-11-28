@@ -157,17 +157,7 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
         self.destination = destination
         self.composeContext = composeContext
         self.visibility = {
-            // default private when user locked
-            var visibility: Mastodon.Entity.Status.Visibility = {
-                if let prefs = context.preferencesService.currentPreferences.value {
-                    return prefs.postingDefaultVisibility
-                }
-                if let author = authContext.mastodonAuthenticationBox.authenticationRecord.object(in: context.managedObjectContext)?.user,
-                   author.locked {
-                    return .private
-                }
-                return .public
-            }()
+            var visibility = context.preferencesService.currentPreferences.value.postingDefaultVisibility
             // set visibility for reply post
             if case .reply(let record) = destination {
                 context.managedObjectContext.performAndWait {
