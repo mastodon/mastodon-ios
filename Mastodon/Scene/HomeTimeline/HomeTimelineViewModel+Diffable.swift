@@ -27,7 +27,8 @@ extension HomeTimelineViewModel {
                 statusTableViewCellDelegate: statusTableViewCellDelegate,
                 timelineMiddleLoaderTableViewCellDelegate: timelineMiddleLoaderTableViewCellDelegate,
                 filterContext: .home,
-                activeFilters: context.statusFilterService.$activeFilters
+                activeFilters: context.statusFilterService.$activeFilters,
+                preferences: context.preferencesService.currentPreferences
             )
         )
 

@@ -29,7 +29,8 @@ extension ThreadViewModel {
                 statusTableViewCellDelegate: statusTableViewCellDelegate,
                 timelineMiddleLoaderTableViewCellDelegate: nil,
                 filterContext: .thread,
-                activeFilters: context.statusFilterService.$activeFilters
+                activeFilters: context.statusFilterService.$activeFilters,
+                preferences: context.preferencesService.currentPreferences
             )
         )
         

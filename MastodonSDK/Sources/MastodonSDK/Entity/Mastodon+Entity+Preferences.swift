@@ -40,7 +40,7 @@ extension Mastodon.Entity.Preferences {
 }
 
 extension Mastodon.Entity.Preferences {
-    public enum ExpandMedia: RawRepresentable, Codable {
+    public enum ExpandMedia: RawRepresentable, Codable, Equatable {
         case `default`
         case showAll
         case hideAll
