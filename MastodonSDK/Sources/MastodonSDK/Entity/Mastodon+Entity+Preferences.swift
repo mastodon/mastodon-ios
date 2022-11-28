@@ -22,6 +22,14 @@ extension Mastodon.Entity {
         public let postingDefaultLanguage: String?      // (ISO 639-1 language two-letter code)
         public let readingExpandMedia: ExpandMedia
         public let readingExpandSpoilers: Bool
+
+        enum CodingKeys: String, CodingKey {
+            case postingDefaultVisibility = "posting:default:visibility"
+            case postingDefaultSensitive = "posting:default:sensitive"
+            case postingDefaultLanguage = "posting:default:language"
+            case readingExpandMedia = "reading:expand:media"
+            case readingExpandSpoilers = "reading:expand:spoilers"
+        }
     }
 }
 
