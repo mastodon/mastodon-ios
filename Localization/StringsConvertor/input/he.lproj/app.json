@@ -75,7 +75,7 @@
                 "save_photo": "Save Photo",
                 "copy_photo": "Copy Photo",
                 "sign_in": "Log in",
-                "sign_up": "Create account",
+                "sign_up": "יצירת חשבון",
                 "see_more": "See More",
                 "preview": "Preview",
                 "share": "Share",
@@ -88,16 +88,16 @@
                 "skip": "Skip",
                 "reply": "Reply",
                 "report_user": "Report %s",
-                "block_domain": "Block %s",
-                "unblock_domain": "Unblock %s",
-                "settings": "Settings",
+                "block_domain": "חסימת %s",
+                "unblock_domain": "הסרת חסימה מ־%s",
+                "settings": "הגדרות",
                 "delete": "Delete"
             },
             "tabs": {
                 "home": "Home",
                 "search": "Search",
                 "notifications": "Notifications",
-                "profile": "Profile"
+                "profile": "פרופיל"
             },
             "keyboard": {
                 "common": {
@@ -129,7 +129,7 @@
                 "show_post": "Show Post",
                 "show_user_profile": "Show user profile",
                 "content_warning": "Content Warning",
-                "sensitive_content": "Sensitive Content",
+                "sensitive_content": "תוכן רגיש",
                 "media_content_warning": "Tap anywhere to reveal",
                 "tap_to_reveal": "Tap to reveal",
                 "poll": {
@@ -143,7 +143,7 @@
                     "email": "Email address: %s"
                 },
                 "actions": {
-                    "reply": "Reply",
+                    "reply": "תגובה",
                     "reblog": "Reblog",
                     "unreblog": "Undo reblog",
                     "favorite": "Favorite",
@@ -215,7 +215,7 @@
     "scene": {
         "welcome": {
             "slogan": "Social networking\nback in your hands.",
-            "get_started": "Get Started",
+            "get_started": "בואו נתחיל",
             "log_in": "Log In"
         },
         "login": {
@@ -233,16 +233,16 @@
                     "all": "All",
                     "all_accessiblity_description": "Category: All",
                     "academia": "academia",
-                    "activism": "activism",
-                    "food": "food",
+                    "activism": "אקטיביזם",
+                    "food": "אוכל",
                     "furry": "furry",
-                    "games": "games",
-                    "general": "general",
+                    "games": "משחקים",
+                    "general": "כללי",
                     "journalism": "journalism",
-                    "lgbt": "lgbt",
+                    "lgbt": "להט\"ב",
                     "regional": "regional",
-                    "art": "art",
-                    "music": "music",
+                    "art": "אומנות",
+                    "music": "מוזיקה",
                     "tech": "tech"
                 },
                 "see_less": "See Less",
@@ -270,17 +270,17 @@
                     "delete": "Delete"
                 },
                 "username": {
-                    "placeholder": "username",
+                    "placeholder": "שם משתמש/ת",
                     "duplicate_prompt": "This username is taken."
                 },
                 "display_name": {
-                    "placeholder": "display name"
+                    "placeholder": "שם תצוגה"
                 },
                 "email": {
-                    "placeholder": "email"
+                    "placeholder": "דוא״ל"
                 },
                 "password": {
-                    "placeholder": "password",
+                    "placeholder": "סיסמה",
                     "require": "Your password needs at least:",
                     "character_limit": "8 characters",
                     "accessibility": {
@@ -295,9 +295,9 @@
             },
             "error": {
                 "item": {
-                    "username": "Username",
-                    "email": "Email",
-                    "password": "Password",
+                    "username": "שם משתמש/ת",
+                    "email": "דוא״ל",
+                    "password": "סיסמה",
                     "agreement": "Agreement",
                     "locale": "Locale",
                     "reason": "Reason"
@@ -397,12 +397,12 @@
             },
             "poll": {
                 "duration_time": "Duration: %s",
-                "thirty_minutes": "30 minutes",
-                "one_hour": "1 Hour",
-                "six_hours": "6 Hours",
-                "one_day": "1 Day",
-                "three_days": "3 Days",
-                "seven_days": "7 Days",
+                "thirty_minutes": "חצי שעה",
+                "one_hour": "שעה",
+                "six_hours": "6 שעות",
+                "one_day": "יום אחד",
+                "three_days": "3 ימים",
+                "seven_days": "7 ימים",
                 "option_number": "Option %ld",
                 "the_poll_is_invalid": "The poll is invalid",
                 "the_poll_has_empty_option": "The poll has empty option"
@@ -413,7 +413,7 @@
             "visibility": {
                 "public": "Public",
                 "unlisted": "Unlisted",
-                "private": "Followers only",
+                "private": "לעוקבים בלבד",
                 "direct": "Only people I mention"
             },
             "auto_complete": {
