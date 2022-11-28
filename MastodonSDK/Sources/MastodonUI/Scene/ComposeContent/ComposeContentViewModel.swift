@@ -159,10 +159,14 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
         self.visibility = {
             // default private when user locked
             var visibility: Mastodon.Entity.Status.Visibility = {
-                guard let author = authContext.mastodonAuthenticationBox.authenticationRecord.object(in: context.managedObjectContext)?.user else {
-                    return .public
+                if let prefs = context.preferencesService.currentPreferences.value {
+                    return prefs.postingDefaultVisibility
                 }
-                return author.locked ? .private : .public
+                if let author = authContext.mastodonAuthenticationBox.authenticationRecord.object(in: context.managedObjectContext)?.user,
+                   author.locked {
+                    return .private
+                }
+                return .public
             }()
             // set visibility for reply post
             if case .reply(let record) = destination {
