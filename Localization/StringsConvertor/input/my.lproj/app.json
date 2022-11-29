@@ -96,7 +96,7 @@
             "tabs": {
                 "home": "အိမ်",
                 "search": "ရှာဖွေရန်",
-                "notifications": "Notifications",
+                "notifications": "အသိပေးချက်များ",
                 "profile": "ကိုယ်ရေးမှတ်တမ်း"
             },
             "keyboard": {
@@ -306,19 +306,19 @@
                     "blocked": "%s တွင် ခွင့်မပြုထားသော အီးမေးလ်ထောက်ပံ့သူပါဝင်နေသည်။",
                     "unreachable": "%s တည်ရှိပုံ မပေါ်ပါ",
                     "taken": "%s ကို အသုံးပြုနေသူ ရှိနှင့်ပြီးဖြစ်သည်။",
-                    "reserved": "%s is a reserved keyword",
-                    "accepted": "%s must be accepted",
-                    "blank": "%s is required",
-                    "invalid": "%s is invalid",
-                    "too_long": "%s is too long",
-                    "too_short": "%s is too short",
-                    "inclusion": "%s is not a supported value"
+                    "reserved": "%s သည် သီးသန့်ဖယ်ထားသောစကားလုံး ဖြစ်သည်။",
+                    "accepted": "%s ကို လက်ခံရမည်ဖြစ်သည်",
+                    "blank": "%s ကို လိုအပ်သည်",
+                    "invalid": "%s သည် မခိုင်လုံပါ",
+                    "too_long": "%s သည် ရှည်လွန်းသည်",
+                    "too_short": "%s သည် တိုလွန်းသည်",
+                    "inclusion": "%s သည် ထောက်ပံ့ထားသောတန်ဖိုး မဟုတ်ပါ"
                 },
                 "special": {
-                    "username_invalid": "Username must only contain alphanumeric characters and underscores",
-                    "username_too_long": "Username is too long (can’t be longer than 30 characters)",
-                    "email_invalid": "This is not a valid email address",
-                    "password_too_short": "Password is too short (must be at least 8 characters)"
+                    "username_invalid": "အသုံးပြုသူအမည်တွင် ဂဏန်းအက္ခရာစာလုံးနှင့် အောက်မျဉ်း သာလျှင် ပါဝင်နိုင်သည်",
+                    "username_too_long": "အသုံးပြုသူအမည်ရှည်လွန်းသည် (စာလုံး ၃၀ လုံးထက် ရှည်၍ မရပါ)",
+                    "email_invalid": "ဤအီးမေးလ်လိပ်စာသည် ခိုင်လုံမှု မရှိပါ",
+                    "password_too_short": "စကားဝှက်တိုလွန်းသည် (အနည်းဆုံး စာလုံး ၈ လုံး ရှိရမည်)"
                 }
             }
         },
