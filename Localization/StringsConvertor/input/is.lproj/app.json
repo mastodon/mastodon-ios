@@ -206,8 +206,8 @@
                     "user_blocking_warning": "Þú getur ekki séð sniðið hjá %s\nfyrr en þú hættir að útiloka hann.\nSniðið þitt lítur svona út hjá honum.",
                     "blocked_warning": "Þú getur ekki séð sniðið hjá þessum notanda\nfyrr en hann hættir að útiloka þig.",
                     "user_blocked_warning": "Þú getur ekki séð sniðið hjá %s\nfyrr en hann hættir að útiloka þig.",
-                    "suspended_warning": "Þessi notandi hefur verið settur í bið.",
-                    "user_suspended_warning": "Notandaaðgangurinn %s hefur verið settur í bið."
+                    "suspended_warning": "Þessi notandi hefur verið settur í frysti.",
+                    "user_suspended_warning": "Notandaaðgangurinn %s hefur verið settur í frysti."
                 }
             }
         }
