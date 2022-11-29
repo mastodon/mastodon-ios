@@ -323,44 +323,44 @@
             }
         },
         "server_rules": {
-            "title": "Some ground rules.",
-            "subtitle": "These are set and enforced by the %s moderators.",
-            "prompt": "By continuing, you’re subject to the terms of service and privacy policy for %s.",
-            "terms_of_service": "terms of service",
-            "privacy_policy": "privacy policy",
+            "title": "အခြေခံမှုအချို့",
+            "subtitle": "ဤစည်းမျဉ်းများကို ထိန်းညှိသူ %s ယောက်က သတ်မှတ်ကွပ်ကဲသည်။",
+            "prompt": "ဆက်လက်သွားမည်ဆိုပါက သင်သည် %s အတွက် ဝန်ဆောင်မှုနှင့် ကိုယ်ရေးကိုယ်တာမူဝါဒများကို လိုက်နာရမည်ဖြစ်သည်။",
+            "terms_of_service": "ဝန်ဆောင်မှုစည်းကမ်းချက်များ",
+            "privacy_policy": "ကိုယ်ရေးကိုယ်တာမူဝါဒ",
             "button": {
-                "confirm": "I Agree"
+                "confirm": "သဘောတူညီသည်"
             }
         },
         "confirm_email": {
-            "title": "One last thing.",
-            "subtitle": "Tap the link we emailed to you to verify your account.",
-            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we emailed to you to verify your account",
+            "title": "နောက််ဆုံးတစ်ခု",
+            "subtitle": "သင့်ကို ပို့လိုက်သောအီးမေးလ်တွင် ပါဝင်သည့်လင့်ခ်ကို နှိပ်ပါ။",
+            "tap_the_link_we_emailed_to_you_to_verify_your_account": "သင့်ကို ပို့လိုက်သောအီးမေးလ်တွင် ပါဝင်သည့်လင့်ခ်ကို နှိပ်ပါ။",
             "button": {
-                "open_email_app": "Open Email App",
-                "resend": "Resend"
+                "open_email_app": "အီးမေးလ်ကို ဖွင့်ပါ",
+                "resend": "ပြန်ပို့ပါ"
             },
             "dont_receive_email": {
-                "title": "Check your email",
+                "title": "သင့်အီးမေးလ်ကို စစ်ကြည့်ပါ",
                 "description": "Check if your email address is correct as well as your junk folder if you haven’t.",
-                "resend_email": "Resend Email"
+                "resend_email": "အီးမေးလ်ကိုပြန်ပို့ပါ"
             },
             "open_email_app": {
-                "title": "Check your inbox.",
+                "title": "သင်၏စာဝင်ပုံးကို စစ်ဆေးပါ",
                 "description": "We just sent you an email. Check your junk folder if you haven’t.",
-                "mail": "Mail",
+                "mail": "မေးလ်",
                 "open_email_client": "Open Email Client"
             }
         },
         "home_timeline": {
-            "title": "Home",
+            "title": "အိမ်",
             "navigation_bar_state": {
-                "offline": "Offline",
-                "new_posts": "See new posts",
-                "published": "Published!",
-                "Publishing": "Publishing post...",
+                "offline": "အော့ဖ်လိုင်း",
+                "new_posts": "ပို့စ်အသစ်ကြည့်ရန်",
+                "published": "တင်လိုက်ပါပြီ!",
+                "Publishing": "ပို့စ်ကို တင်နေသည်...",
                 "accessibility": {
-                    "logo_label": "Logo Button",
+                    "logo_label": "လိုဂိုခလုတ်",
                     "logo_hint": "Tap to scroll to top and tap again to previous location"
                 }
             }
@@ -371,20 +371,20 @@
         },
         "compose": {
             "title": {
-                "new_post": "New Post",
-                "new_reply": "New Reply"
+                "new_post": "ပို့စ်အသစ်",
+                "new_reply": "စာပြန်အသစ်"
             },
             "media_selection": {
-                "camera": "Take Photo",
-                "photo_library": "Photo Library",
-                "browse": "Browse"
+                "camera": "ဓါတ်ပုံရိုက်",
+                "photo_library": "ဓာတ်ပုံပြတိုက်",
+                "browse": "ရှာဖွေ"
             },
             "content_input_placeholder": "Type or paste what’s on your mind",
-            "compose_action": "Publish",
-            "replying_to_user": "replying to %s",
+            "compose_action": "ပို့စ်တင်",
+            "replying_to_user": "%s ထံ စာပြန်နေသည်",
             "attachment": {
-                "photo": "photo",
-                "video": "video",
+                "photo": "ဓာတ်ပုံ",
+                "video": "ဗီဒီယို",
                 "attachment_broken": "This %s is broken and can’t be\nuploaded to Mastodon.",
                 "description_photo": "Describe the photo for the visually-impaired...",
                 "description_video": "Describe the video for the visually-impaired...",
