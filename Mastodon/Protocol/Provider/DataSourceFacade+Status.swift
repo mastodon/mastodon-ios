@@ -393,6 +393,12 @@ extension DataSourceFacade {
             alertController.addAction(cancelAction)
             dependency.present(alertController, animated: true)
             
+        case let .translateStatus(translationContext):
+            guard let status = menuContext.status else { return }
+            try await DataSourceFacade.translateStatus(
+                provider: dependency,
+                status: status
+            )
         }
     }   // end func
 }

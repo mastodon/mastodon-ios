@@ -17,6 +17,7 @@ import MastodonCommon
 import MastodonExtension
 import MastodonLocalization
 import MastodonSDK
+import MastodonMeta
 
 extension StatusView {
     public final class ViewModel: ObservableObject {
@@ -27,7 +28,8 @@ extension StatusView {
         let logger = Logger(subsystem: "StatusView", category: "ViewModel")
         
         public var authContext: AuthContext?
-        
+        public var originalStatus: Status?
+    
         // Header
         @Published public var header: Header = .none
         
@@ -42,6 +44,7 @@ extension StatusView {
         @Published public var isMyself = false
         @Published public var isMuting = false
         @Published public var isBlocking = false
+        @Published public var isTranslated = false
         
         @Published public var timestamp: Date?
         public var timestampFormatter: ((_ date: Date) -> String)?
@@ -134,12 +137,13 @@ extension StatusView {
             isContentSensitive = false
             isMediaSensitive = false
             isSensitiveToggled = false
+            isTranslated = false
             
             activeFilters = []
             filterContext = nil
         }
         
-        init() {
+        init() {    
             // isReblogEnabled
             Publishers.CombineLatest(
                 $visibility,
@@ -581,15 +585,21 @@ extension StatusView.ViewModel {
             $isBlocking,
             $isBookmark
         )
+        let publishersThree = Publishers.CombineLatest(
+            $isTranslated,
+            $language
+        )
         
-        Publishers.CombineLatest(
+        Publishers.CombineLatest3(
             publisherOne.eraseToAnyPublisher(),
-            publishersTwo.eraseToAnyPublisher()
+            publishersTwo.eraseToAnyPublisher(),
+            publishersThree.eraseToAnyPublisher()
         ).eraseToAnyPublisher()
-        .sink { tupleOne, tupleTwo in
+        .sink { tupleOne, tupleTwo, tupleThree in
             let (authorName, isMyself) = tupleOne
             let (isMuting, isBlocking, isBookmark) = tupleTwo
-            
+            let (isTranslated, language) = tupleThree
+    
             guard let name = authorName?.string else {
                 statusView.authorView.menuButton.menu = nil
                 return
@@ -600,7 +610,9 @@ extension StatusView.ViewModel {
                 isMuting: isMuting,
                 isBlocking: isBlocking,
                 isMyself: isMyself,
-                isBookmarking: isBookmark
+                isBookmarking: isBookmark,
+                isTranslated: isTranslated,
+                statusLanguage: language
             )
             let (menu, actions) = authorView.setupAuthorMenu(menuContext: menuContext)
             authorView.menuButton.menu = menu

@@ -275,6 +275,16 @@ extension StatusView {
         
         // statusMetricView
         statusMetricView.delegate = self
+        
+        // status translation
+        viewModel.$isTranslated.sink { [weak self] isTranslated in
+            guard
+                let self = self,
+                let status = self.viewModel.originalStatus
+            else { return }
+            self.configureTranslated(status: status)
+        }
+        .store(in: &disposeBag)
     }
 }
 

@@ -81,6 +81,14 @@ extension StatusThreadRootTableViewCell {
         // a11y
         statusView.contentMetaText.textView.isAccessibilityElement = true
         statusView.contentMetaText.textView.isSelectable = true
+        
+        statusView.viewModel
+            .$isTranslated
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] _ in
+                self?.invalidateIntrinsicContentSize()
+            })
+            .store(in: &disposeBag)
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

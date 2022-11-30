@@ -37,6 +37,7 @@ extension NotificationView {
         @Published public var isMyself = false
         @Published public var isMuting = false
         @Published public var isBlocking = false
+        @Published public var isTranslated = false
         
         @Published public var timestamp: Date?
         
@@ -203,20 +204,27 @@ extension NotificationView.ViewModel {
             $authorName,
             $isMuting,
             $isBlocking,
-            $isMyself
+            Publishers.CombineLatest(
+                $isMyself,
+                $isTranslated
+            )
         )
-        .sink { authorName, isMuting, isBlocking, isMyself in
+        .sink { authorName, isMuting, isBlocking, comb2 in
             guard let name = authorName?.string else {
                 notificationView.menuButton.menu = nil
                 return
             }
+            
+            let (isMyself, isTranslated) = comb2
             
             let menuContext = NotificationView.AuthorMenuContext(
                 name: name,
                 isMuting: isMuting,
                 isBlocking: isBlocking,
                 isMyself: isMyself,
-                isBookmarking: false    // no bookmark action display for notification item
+                isBookmarking: false,    // no bookmark action display for notification item
+                isTranslated: isTranslated,
+                statusLanguage: ""
             )
             let (menu, actions) = notificationView.setupAuthorMenu(menuContext: menuContext)
             notificationView.menuButton.menu = menu

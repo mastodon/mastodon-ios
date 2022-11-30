@@ -149,12 +149,21 @@ extension StatusAuthorView {
         public let isBlocking: Bool
         public let isMyself: Bool
         public let isBookmarking: Bool
+        
+        public let isTranslated: Bool
+        public let statusLanguage: String?
     }
 
     public func setupAuthorMenu(menuContext: AuthorMenuContext) -> (UIMenu, [UIAccessibilityCustomAction]) {
         var actions = [MastodonMenu.Action]()
 
         if !menuContext.isMyself {
+            if let statusLanguage = menuContext.statusLanguage, !menuContext.isTranslated {
+                actions.append(
+                    .translateStatus(.init(language: statusLanguage))
+                )
+            }
+            
             actions.append(contentsOf: [
                 .muteUser(.init(
                     name: menuContext.name,

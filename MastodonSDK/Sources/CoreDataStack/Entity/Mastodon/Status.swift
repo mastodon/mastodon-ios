@@ -99,6 +99,8 @@ public final class Status: NSManagedObject {
     @NSManaged public private(set) var deletedAt: Date?
     // sourcery: autoUpdatableObject
     @NSManaged public private(set) var revealedAt: Date?
+    
+    @Published public var translatedContent: String?
 }
 
 extension Status {

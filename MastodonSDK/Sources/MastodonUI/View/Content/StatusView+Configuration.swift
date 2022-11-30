@@ -55,6 +55,14 @@ extension StatusView {
         configurePoll(status: status)
         configureToolbar(status: status)
         configureFilter(status: status)
+        
+        status.$translatedContent
+            .receive(on: DispatchQueue.main)
+            .compactMap { $0 }
+            .sink { [weak self] _ in
+                self?.configureTranslated(status: status)
+            }
+            .store(in: &disposeBag)
     }
 }
 
@@ -231,7 +239,28 @@ extension StatusView {
             .store(in: &disposeBag)
     }
     
+    func configureTranslated(status: Status) {
+        guard
+            let translatedContent = status.translatedContent
+        else { return }
+
+        // content
+        do {
+            let content = MastodonContent(content: translatedContent, emojis: status.emojis.asDictionary)
+            let metaContent = try MastodonMetaContent.convert(document: content)
+            viewModel.content = metaContent
+            viewModel.isTranslated = true
+        } catch {
+            assertionFailure(error.localizedDescription)
+            viewModel.content = PlaintextMetaContent(string: "")
+        }
+    }
+    
     private func configureContent(status: Status) {
+        guard status.translatedContent == nil else {
+            return configureTranslated(status: status)
+        }
+        
         let status = status.reblog ?? status
         
         // spoilerText
@@ -254,6 +283,7 @@ extension StatusView {
             let content = MastodonContent(content: status.content, emojis: status.emojis.asDictionary)
             let metaContent = try MastodonMetaContent.convert(document: content)
             viewModel.content = metaContent
+            viewModel.isTranslated = false
         } catch {
             assertionFailure(error.localizedDescription)
             viewModel.content = PlaintextMetaContent(string: "")
