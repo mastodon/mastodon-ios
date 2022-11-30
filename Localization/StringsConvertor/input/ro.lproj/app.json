@@ -13,7 +13,7 @@
             },
             "vote_failure": {
                 "title": "Eșec la vot",
-                "poll_ended": "The poll has ended"
+                "poll_ended": "Sondajul tău s-a încheiat"
             },
             "discard_post_content": {
                 "title": "Șterge Schită",
@@ -41,7 +41,7 @@
                 "block_entire_domain": "Block Domain"
             },
             "save_photo_failure": {
-                "title": "Save Photo Failure",
+                "title": "Salvarea fotografiei a eșuat",
                 "message": "Please enable the photo library access permission to save the photo."
             },
             "delete_post": {
@@ -55,13 +55,13 @@
         },
         "controls": {
             "actions": {
-                "back": "Back",
-                "next": "Next",
+                "back": "Înapoi",
+                "next": "Înainte",
                 "previous": "Previous",
                 "open": "Deschide",
-                "add": "Add",
+                "add": "Adaugă",
                 "remove": "Elimină",
-                "edit": "Edit",
+                "edit": "Modifică",
                 "save": "Salvează",
                 "ok": "OK",
                 "done": "Done",
@@ -82,10 +82,10 @@
                 "share_user": "Share %s",
                 "share_post": "Share Post",
                 "open_in_safari": "Open in Safari",
-                "open_in_browser": "Open in Browser",
-                "find_people": "Find people to follow",
+                "open_in_browser": "Deschide în browser",
+                "find_people": "Găsește persoane de urmărit",
                 "manually_search": "Manually search instead",
-                "skip": "Skip",
+                "skip": "Treci peste",
                 "reply": "Reply",
                 "report_user": "Report %s",
                 "block_domain": "Block %s",
@@ -94,7 +94,7 @@
                 "delete": "Delete"
             },
             "tabs": {
-                "home": "Home",
+                "home": "Acasă",
                 "search": "Search",
                 "notifications": "Notifications",
                 "profile": "Profile"
