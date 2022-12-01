@@ -95,7 +95,7 @@
             },
             "tabs": {
                 "home": "Serrûpel",
-                "search": "Bigere",
+                "search_and_explore": "Search and Explore",
                 "notifications": "Agahdarî",
                 "profile": "Profîl"
             },
@@ -724,15 +724,15 @@
             "title": "Şûnpel"
         },
         "followed_tags": {
-            "title": "Followed Tags",
+            "title": "Hashtagên şopandî",
             "header": {
-                "posts": "posts",
-                "participants": "participants",
-                "posts_today": "posts today"
+                "posts": "şandî",
+                "participants": "beşdar",
+                "posts_today": "şandiyên îro"
             },
             "actions": {
-                "follow": "Follow",
-                "unfollow": "Unfollow"
+                "follow": "Bişopîne",
+                "unfollow": "Neşopîne"
             }
         }
     }
