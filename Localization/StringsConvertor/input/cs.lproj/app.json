@@ -95,8 +95,8 @@
             },
             "tabs": {
                 "home": "Domů",
-                "search": "Hledat",
-                "notifications": "Notifications",
+                "search_and_explore": "Search and Explore",
+                "notifications": "Oznámení",
                 "profile": "Profil"
             },
             "keyboard": {
@@ -113,7 +113,7 @@
                     "open_author_profile": "Otevřít profil autora",
                     "open_reblogger_profile": "Otevřít rebloggerův profil",
                     "reply_status": "Odpovědět na příspěvek",
-                    "toggle_reblog": "Toggle Reblog on Post",
+                    "toggle_reblog": "Přepnout Reblog na příspěvku",
                     "toggle_favorite": "Toggle Favorite on Post",
                     "toggle_content_warning": "Přepnout varování obsahu",
                     "preview_image": "Náhled obrázku"
@@ -724,15 +724,15 @@
             "title": "Záložky"
         },
         "followed_tags": {
-            "title": "Followed Tags",
+            "title": "Sledované štítky",
             "header": {
-                "posts": "posts",
-                "participants": "participants",
-                "posts_today": "posts today"
+                "posts": "příspěvky",
+                "participants": "účastníci",
+                "posts_today": "příspěvky dnes"
             },
             "actions": {
-                "follow": "Follow",
-                "unfollow": "Unfollow"
+                "follow": "Sledovat",
+                "unfollow": "Přestat sledovat"
             }
         }
     }
