@@ -95,7 +95,7 @@
             },
             "tabs": {
                 "home": "Inizio",
-                "search": "Cerca",
+                "search_and_explore": "Search and Explore",
                 "notifications": "Notifiche",
                 "profile": "Profilo"
             },
@@ -159,7 +159,7 @@
                     "url": "URL",
                     "mention": "Menzione",
                     "link": "Collegamento",
-                    "hashtag": "Etichetta",
+                    "hashtag": "Hashtag",
                     "email": "Email",
                     "emoji": "Emoji"
                 },
@@ -724,15 +724,15 @@
             "title": "Segnalibri"
         },
         "followed_tags": {
-            "title": "Followed Tags",
+            "title": "Etichette seguite",
             "header": {
-                "posts": "posts",
-                "participants": "participants",
-                "posts_today": "posts today"
+                "posts": "post",
+                "participants": "partecipanti",
+                "posts_today": "post di oggi"
             },
             "actions": {
-                "follow": "Follow",
-                "unfollow": "Unfollow"
+                "follow": "Segui",
+                "unfollow": "Smetti di seguire"
             }
         }
     }
