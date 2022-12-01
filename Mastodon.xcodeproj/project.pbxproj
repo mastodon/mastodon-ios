@@ -23,6 +23,7 @@
 		0FB3D33825E6401400AAD544 /* PickServerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB3D33725E6401400AAD544 /* PickServerCell.swift */; };
 		164F0EBC267D4FE400249499 /* BoopSound.caf in Resources */ = {isa = PBXBuildFile; fileRef = 164F0EBB267D4FE400249499 /* BoopSound.caf */; };
 		18BC7629F65E6DB12CB8416D /* Pods_Mastodon_MastodonUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C030226D3C73DCC23D67452 /* Pods_Mastodon_MastodonUITests.framework */; };
+		2A1FE47C2938BB2600784BF1 /* FollowedTagsViewModel+DiffableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1FE47B2938BB2600784BF1 /* FollowedTagsViewModel+DiffableDataSource.swift */; };
 		2A3F6FE3292ECB5E002E6DA7 /* FollowedTagsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A3F6FE2292ECB5E002E6DA7 /* FollowedTagsViewModel.swift */; };
 		2A3F6FE5292F6E44002E6DA7 /* FollowedTagsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A3F6FE4292F6E44002E6DA7 /* FollowedTagsTableViewCell.swift */; };
 		2A506CF4292CD85800059C37 /* FollowedTagsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A506CF3292CD85800059C37 /* FollowedTagsViewController.swift */; };
@@ -525,6 +526,7 @@
 		0FB3D33725E6401400AAD544 /* PickServerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickServerCell.swift; sourceTree = "<group>"; };
 		164F0EBB267D4FE400249499 /* BoopSound.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = BoopSound.caf; sourceTree = "<group>"; };
 		1D6D967E77A5357E2C6110D9 /* Pods-Mastodon.asdk - debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon.asdk - debug.xcconfig"; path = "Target Support Files/Pods-Mastodon/Pods-Mastodon.asdk - debug.xcconfig"; sourceTree = "<group>"; };
+		2A1FE47B2938BB2600784BF1 /* FollowedTagsViewModel+DiffableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FollowedTagsViewModel+DiffableDataSource.swift"; sourceTree = "<group>"; };
 		2A3F6FE2292ECB5E002E6DA7 /* FollowedTagsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowedTagsViewModel.swift; sourceTree = "<group>"; };
 		2A3F6FE4292F6E44002E6DA7 /* FollowedTagsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowedTagsTableViewCell.swift; sourceTree = "<group>"; };
 		2A506CF3292CD85800059C37 /* FollowedTagsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowedTagsViewController.swift; sourceTree = "<group>"; };
@@ -1243,6 +1245,7 @@
 			children = (
 				2A506CF3292CD85800059C37 /* FollowedTagsViewController.swift */,
 				2A3F6FE2292ECB5E002E6DA7 /* FollowedTagsViewModel.swift */,
+				2A1FE47B2938BB2600784BF1 /* FollowedTagsViewModel+DiffableDataSource.swift */,
 				2A3F6FE4292F6E44002E6DA7 /* FollowedTagsTableViewCell.swift */,
 			);
 			path = FollowedTags;
@@ -3398,6 +3401,7 @@
 				DB938EED2623F79B00E5B6C1 /* ThreadViewModel.swift in Sources */,
 				DB6988DE2848D11C002398EF /* PagerTabStripNavigateable.swift in Sources */,
 				2DCB73FD2615C13900EC03D4 /* SearchRecommendCollectionHeader.swift in Sources */,
+				2A1FE47C2938BB2600784BF1 /* FollowedTagsViewModel+DiffableDataSource.swift in Sources */,
 				DB852D1C26FB021500FC9D81 /* RootSplitViewController.swift in Sources */,
 				DB697DD1278F4871004EF2F7 /* AutoGenerateTableViewDelegate.swift in Sources */,
 				DB02CDBF2625AE5000D0A2AF /* AdaptiveUserInterfaceStyleBarButtonItem.swift in Sources */,

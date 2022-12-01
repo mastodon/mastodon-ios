@@ -19,7 +19,8 @@ final class FollowedTagsViewModel: NSObject {
     let fetchedResultsController: FollowedTagsFetchedResultController
 
     private weak var tableView: UITableView?
-    
+    var diffableDataSource: UITableViewDiffableDataSource<Section, Item>?
+
     // input
     let context: AppContext
     let authContext: AuthContext
@@ -35,12 +36,18 @@ final class FollowedTagsViewModel: NSObject {
             domain: authContext.mastodonAuthenticationBox.domain,
             user: authContext.mastodonAuthenticationBox.authenticationRecord.object(in: context.managedObjectContext)!.user
         )
+
         super.init()
+
         self.fetchedResultsController
             .$records
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                self?.tableView?.reloadSections(IndexSet(integer: 0), with: .automatic)
+            .sink { [weak self] records in
+                guard let self = self else { return }
+                var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
+                snapshot.appendSections([.main])
+                snapshot.appendItems(records.map {.hashtag($0) })
+                self.diffableDataSource?.applySnapshot(snapshot, animated: true)
             }
             .store(in: &disposeBag)
     }
@@ -49,29 +56,22 @@ final class FollowedTagsViewModel: NSObject {
 extension FollowedTagsViewModel {
     func setupTableView(_ tableView: UITableView) {
         self.tableView = tableView
-        tableView.dataSource = self
+        setupDiffableDataSource(tableView: tableView)
         tableView.delegate = self
         
-        fetchFollowedTags {
-            tableView.reloadData()
+        fetchFollowedTags()
+    }
+    
+    func fetchFollowedTags() {
+        Task { @MainActor in
+            try await context.apiService.getFollowedTags(
+                domain: authContext.mastodonAuthenticationBox.domain,
+                query: Mastodon.API.Account.FollowedTagsQuery(limit: nil),
+                authenticationBox: authContext.mastodonAuthenticationBox
+            )
         }
     }
-    
-    func fetchFollowedTags(_ done: @escaping () -> Void) {
-        Task { @MainActor [weak self] in
-            try? await self?._fetchFollowedTags()
-            done()
-        }
-    }
-    
-    private func _fetchFollowedTags() async throws {
-        try await context.apiService.getFollowedTags(
-            domain: authContext.mastodonAuthenticationBox.domain,
-            query: Mastodon.API.Account.FollowedTagsQuery(limit: nil),
-            authenticationBox: authContext.mastodonAuthenticationBox
-        )
-    }
-    
+
     func followOrUnfollow(_ tag: Tag) {
         Task { @MainActor in
             switch tag.following {
@@ -86,33 +86,8 @@ extension FollowedTagsViewModel {
                     authenticationBox: authContext.mastodonAuthenticationBox
                 )
             }
-            try? await _fetchFollowedTags()
+            fetchFollowedTags()
         }
-    }
-}
-
-extension FollowedTagsViewModel: UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        1
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        fetchedResultsController.records.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard
-            indexPath.section == 0,
-            let object = fetchedResultsController.records[indexPath.row].object(in: context.managedObjectContext)
-        else {
-            return UITableViewCell()
-        }
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: FollowedTagsTableViewCell.self), for: indexPath) as! FollowedTagsTableViewCell
-
-        cell.setup(self)
-        cell.populate(with: object)
-        return cell
     }
 }
 
@@ -121,18 +96,14 @@ extension FollowedTagsViewModel: UITableViewDelegate {
         logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): \(indexPath)")
         tableView.deselectRow(at: indexPath, animated: true)
 
-        guard
-            indexPath.section == 0,
-            let object = fetchedResultsController.records[indexPath.row].object(in: context.managedObjectContext)
-        else {
-            return
-        }
+        let object = fetchedResultsController.records[indexPath.row]
 
         let hashtagTimelineViewModel = HashtagTimelineViewModel(
             context: self.context,
             authContext: self.authContext,
             hashtag: object.name
         )
+        
         presentHashtagTimeline.send(hashtagTimelineViewModel)
     }
 }

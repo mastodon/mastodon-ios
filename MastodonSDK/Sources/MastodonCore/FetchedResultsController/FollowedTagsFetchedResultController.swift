@@ -23,8 +23,7 @@ public final class FollowedTagsFetchedResultController: NSObject {
     @Published public var user: MastodonUser? = nil
 
     // output
-    let _objectIDs = CurrentValueSubject<[NSManagedObjectID], Never>([])
-    @Published public private(set) var records: [ManagedObjectRecord<Tag>] = []
+    @Published public private(set) var records: [Tag] = []
     
     public init(managedObjectContext: NSManagedObjectContext, domain: String, user: MastodonUser) {
         self.domain = domain
@@ -44,13 +43,7 @@ public final class FollowedTagsFetchedResultController: NSObject {
             return controller
         }()
         super.init()
-        
-        // debounce output to prevent UI update issues
-        _objectIDs
-            .throttle(for: 0.1, scheduler: DispatchQueue.main, latest: true)
-            .map { objectIDs in objectIDs.map { ManagedObjectRecord(objectID: $0) } }
-            .assign(to: &$records)
-        
+
         fetchedResultsController.delegate = self
         try? fetchedResultsController.performFetch()
         
@@ -75,11 +68,10 @@ public final class FollowedTagsFetchedResultController: NSObject {
 
 // MARK: - NSFetchedResultsControllerDelegate
 extension FollowedTagsFetchedResultController: NSFetchedResultsControllerDelegate {
-    public func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+    public func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChangeContentWith snapshot: NSDiffableDataSourceSnapshotReference) {
         os_log("%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         
         let objects = fetchedResultsController.fetchedObjects ?? []
-        self._objectIDs.value = objects.map { $0.objectID }
-
+        self.records = objects
     }
 }
