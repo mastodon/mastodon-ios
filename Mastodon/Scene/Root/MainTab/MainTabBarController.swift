@@ -61,7 +61,7 @@ class MainTabBarController: UITabBarController {
         var title: String {
             switch self {
             case .home:             return L10n.Common.Controls.Tabs.home
-            case .search:           return L10n.Common.Controls.Tabs.search
+            case .search:           return L10n.Common.Controls.Tabs.searchAndExplore
             case .compose:          return L10n.Common.Controls.Actions.compose
             case .notifications:    return L10n.Common.Controls.Tabs.notifications
             case .me:               return L10n.Common.Controls.Tabs.profile

@@ -133,7 +133,7 @@ Please check your internet connection.";
 "Common.Controls.Tabs.Home" = "Home";
 "Common.Controls.Tabs.Notifications" = "Notifications";
 "Common.Controls.Tabs.Profile" = "Profile";
-"Common.Controls.Tabs.Search" = "Search";
+"Common.Controls.Tabs.SearchAndExplore" = "Search and Explore";
 "Common.Controls.Timeline.Filtered" = "Filtered";
 "Common.Controls.Timeline.Header.BlockedWarning" = "You can’t view this user’s profile
 until they unblock you.";
