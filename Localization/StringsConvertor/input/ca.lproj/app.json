@@ -95,7 +95,7 @@
             },
             "tabs": {
                 "home": "Inici",
-                "search": "Cerca",
+                "search_and_explore": "Search and Explore",
                 "notifications": "Notificacions",
                 "profile": "Perfil"
             },
@@ -724,15 +724,15 @@
             "title": "Marcadors"
         },
         "followed_tags": {
-            "title": "Followed Tags",
+            "title": "Etiquetes seguides",
             "header": {
-                "posts": "posts",
+                "posts": "tuts",
                 "participants": "participants",
-                "posts_today": "posts today"
+                "posts_today": "tuts d'avui"
             },
             "actions": {
-                "follow": "Follow",
-                "unfollow": "Unfollow"
+                "follow": "Segueix",
+                "unfollow": "Deixa de seguir"
             }
         }
     }
