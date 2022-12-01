@@ -95,7 +95,7 @@
             },
             "tabs": {
                 "home": "Accueil",
-                "search": "Rechercher",
+                "search_and_explore": "Search and Explore",
                 "notifications": "Notifications",
                 "profile": "Profil"
             },
