@@ -124,8 +124,8 @@ private extension HashtagTimelineHeaderView {
             titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -CGFloat.padding),
             
             postCountLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: .padding),
-            postCountLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
-            postCountDescLabel.leadingAnchor.constraint(equalTo: postCountLabel.leadingAnchor),
+            postCountLabel.centerXAnchor.constraint(equalTo: postCountDescLabel.centerXAnchor),
+            postCountDescLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
             
             participantsDescLabel.leadingAnchor.constraint(equalTo: postCountDescLabel.trailingAnchor, constant: .descriptionLabelSpacing),
             participantsLabel.centerXAnchor.constraint(equalTo: participantsDescLabel.centerXAnchor),
