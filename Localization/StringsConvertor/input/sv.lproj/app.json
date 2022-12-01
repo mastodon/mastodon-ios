@@ -95,7 +95,7 @@
             },
             "tabs": {
                 "home": "Hem",
-                "search_and_explore": "Search and Explore",
+                "search_and_explore": "Sök och utforska",
                 "notifications": "Notiser",
                 "profile": "Profil"
             },
@@ -724,15 +724,15 @@
             "title": "Bokmärken"
         },
         "followed_tags": {
-            "title": "Followed Tags",
+            "title": "Följda hashtaggar",
             "header": {
-                "posts": "posts",
-                "participants": "participants",
-                "posts_today": "posts today"
+                "posts": "inlägg",
+                "participants": "deltagare",
+                "posts_today": "inlägg idag"
             },
             "actions": {
-                "follow": "Follow",
-                "unfollow": "Unfollow"
+                "follow": "Följ",
+                "unfollow": "Avfölj"
             }
         }
     }
