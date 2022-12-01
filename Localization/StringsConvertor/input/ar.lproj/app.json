@@ -95,7 +95,7 @@
             },
             "tabs": {
                 "home": "الرَّئِيسَة",
-                "search": "البَحث",
+                "search_and_explore": "Search and Explore",
                 "notifications": "الإشعارات",
                 "profile": "المِلَفُّ التَّعريفِيّ"
             },
@@ -724,15 +724,15 @@
             "title": "العَلاماتُ المَرجعيَّة"
         },
         "followed_tags": {
-            "title": "Followed Tags",
+            "title": "وُسُومُ المُتابَع",
             "header": {
-                "posts": "posts",
-                "participants": "participants",
-                "posts_today": "posts today"
+                "posts": "مَنشورات",
+                "participants": "المُشارِكُون",
+                "posts_today": "مَنشوراتُ اليَوم"
             },
             "actions": {
-                "follow": "Follow",
-                "unfollow": "Unfollow"
+                "follow": "مُتابَعَة",
+                "unfollow": "إلغاءُ المُتابَعَة"
             }
         }
     }
