@@ -157,18 +157,10 @@ extension HashtagTimelineHeaderView {
 
         followButton.backgroundColor = entity.following == true ? Asset.Colors.Button.tagUnfollow.color : Asset.Colors.Button.tagFollow.color
         
-        switch traitCollection.userInterfaceStyle {
-        case .dark:
-            followButton.setTitleColor(
-                .lightGray,
-                for: .normal
-            )
-        default:
-            followButton.setTitleColor(
-                entity.following == true ? Asset.Colors.Button.tagFollow.color : Asset.Colors.Button.tagUnfollow.color,
-                for: .normal
-            )
-        }
+        followButton.setTitleColor(
+            entity.following == true ? Asset.Colors.Button.tagFollow.color : Asset.Colors.Button.tagUnfollow.color,
+            for: .normal
+        )
 
         postCountLabel.text = String(entity.postCount)
         participantsLabel.text = String(entity.participantsCount)

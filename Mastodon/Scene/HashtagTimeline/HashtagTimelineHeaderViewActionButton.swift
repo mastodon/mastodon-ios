@@ -22,8 +22,17 @@ class HashtagTimelineHeaderViewActionButton: RoundedEdgesButton {
     public override func layoutSubviews() {
         super.layoutSubviews()
 
+        let shadowColor: UIColor = {
+            switch traitCollection.userInterfaceStyle {
+            case .dark:
+                return .darkGray
+            default:
+                return .lightGray
+            }
+        }()
+        
         layer.setupShadow(
-            color: .lightGray,
+            color: shadowColor,
             alpha: 1,
             x: 0,
             y: 1,
