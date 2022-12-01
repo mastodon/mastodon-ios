@@ -633,6 +633,24 @@ public enum L10n {
       /// Favorited By
       public static let title = L10n.tr("Localizable", "Scene.FavoritedBy.Title", fallback: "Favorited By")
     }
+    public enum FollowedTags {
+      /// Followed Tags
+      public static let title = L10n.tr("Localizable", "Scene.FollowedTags.Title", fallback: "Followed Tags")
+      public enum Actions {
+        /// follow
+        public static let follow = L10n.tr("Localizable", "Scene.FollowedTags.Actions.Follow", fallback: "follow")
+        /// unfollow
+        public static let unfollow = L10n.tr("Localizable", "Scene.FollowedTags.Actions.Unfollow", fallback: "unfollow")
+      }
+      public enum Header {
+        /// participants
+        public static let participants = L10n.tr("Localizable", "Scene.FollowedTags.Header.Participants", fallback: "participants")
+        /// posts
+        public static let posts = L10n.tr("Localizable", "Scene.FollowedTags.Header.Posts", fallback: "posts")
+        /// posts today
+        public static let postsToday = L10n.tr("Localizable", "Scene.FollowedTags.Header.PostsToday", fallback: "posts today")
+      }
+    }
     public enum Follower {
       /// Followers from other servers are not displayed.
       public static let footer = L10n.tr("Localizable", "Scene.Follower.Footer", fallback: "Followers from other servers are not displayed.")

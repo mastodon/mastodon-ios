@@ -103,6 +103,9 @@ extension Persistence.Tag {
             property: property
         )
         update(tag: object, context: context)
+        if let followingUser = context.me {
+            object.update(followed: property.following, by: followingUser)
+        }
         return object
     }
     
@@ -116,7 +119,11 @@ extension Persistence.Tag {
             domain: context.domain,
             networkDate: context.networkDate
         )
+
         tag.update(property: property)
+        if let followingUser = context.me {
+            tag.update(followed: property.following, by: followingUser)
+        }
         update(tag: tag, context: context)
     }
     

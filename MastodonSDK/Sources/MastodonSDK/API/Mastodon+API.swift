@@ -112,6 +112,7 @@ extension Mastodon.API {
     public enum Polls { }
     public enum Reblog { }
     public enum Statuses { }
+    public enum Tags {}
     public enum Timeline { }
     public enum Trends { }
     public enum Suggestions { }

@@ -23,3 +23,10 @@ extension Instance {
         return try? JSONEncoder().encode(configuration)
     }
 }
+
+extension Instance {
+    public var canFollowTags: Bool {
+        guard let majorVersionString = version?.split(separator: ".").first else { return false }
+        return Int(majorVersionString) == 4 // following Tags is support beginning with Mastodon v4.0.0
+    }
+}
