@@ -95,7 +95,7 @@
             },
             "tabs": {
                 "home": "Heim",
-                "search": "Leita",
+                "search_and_explore": "Search and Explore",
                 "notifications": "Tilkynningar",
                 "profile": "Notandasnið"
             },
@@ -724,15 +724,15 @@
             "title": "Bókamerki"
         },
         "followed_tags": {
-            "title": "Followed Tags",
+            "title": "Myllumerki sem fylgst er með",
             "header": {
-                "posts": "posts",
-                "participants": "participants",
-                "posts_today": "posts today"
+                "posts": "færslur",
+                "participants": "þátttakendur",
+                "posts_today": "færslur í dag"
             },
             "actions": {
-                "follow": "Follow",
-                "unfollow": "Unfollow"
+                "follow": "Fylgjast með",
+                "unfollow": "Hætta að fylgjast með"
             }
         }
     }
