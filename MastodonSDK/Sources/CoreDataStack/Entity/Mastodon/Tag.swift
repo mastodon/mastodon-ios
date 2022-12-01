@@ -91,7 +91,8 @@ public extension Tag {
     }
     
     static func predicate(name: String) -> NSPredicate {
-        NSPredicate(format: "%K == %@", #keyPath(Tag.name), name)
+        // use case-insensitive query as tags #CaN #BE #speLLed #USiNG #arbITRARy #cASe
+        NSPredicate(format: "%K contains[c] %@", #keyPath(Tag.name), name)
     }
     
     static func predicate(domain: String, following: Bool) -> NSPredicate {

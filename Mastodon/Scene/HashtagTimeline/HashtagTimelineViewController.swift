@@ -139,6 +139,7 @@ extension HashtagTimelineViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        viewModel.viewWillAppear()
         tableView.deselectRow(with: transitionCoordinator, animated: animated)
     }
     

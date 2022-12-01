@@ -70,6 +70,20 @@ final class HashtagTimelineViewModel {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s:", ((#file as NSString).lastPathComponent), #line, #function)
     }
     
+    func viewWillAppear() {
+        let predicate = Tag.predicate(
+            domain: authContext.mastodonAuthenticationBox.domain,
+            name: hashtag
+        )
+
+        guard
+            let object = Tag.findOrFetch(in: context.managedObjectContext, matching: predicate)
+        else {
+            return hashtagDetails.send(hashtagDetails.value?.copy(following: false))
+        }
+
+        hashtagDetails.send(hashtagDetails.value?.copy(following: object.following))
+    }
 }
 
 extension HashtagTimelineViewModel {
