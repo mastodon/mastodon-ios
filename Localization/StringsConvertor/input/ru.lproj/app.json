@@ -95,7 +95,7 @@
             },
             "tabs": {
                 "home": "Главная",
-                "search": "Поиск",
+                "search_and_explore": "Search and Explore",
                 "notifications": "Notifications",
                 "profile": "Профиль"
             },
