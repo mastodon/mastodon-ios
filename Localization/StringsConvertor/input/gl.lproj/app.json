@@ -95,7 +95,7 @@
             },
             "tabs": {
                 "home": "Inicio",
-                "search_and_explore": "Search and Explore",
+                "search_and_explore": "Buscar e Explorar",
                 "notifications": "Notificacións",
                 "profile": "Perfil"
             },
@@ -724,15 +724,15 @@
             "title": "Marcadores"
         },
         "followed_tags": {
-            "title": "Followed Tags",
+            "title": "Cancelos seguidos",
             "header": {
-                "posts": "posts",
-                "participants": "participants",
-                "posts_today": "posts today"
+                "posts": "publicacións",
+                "participants": "participantes",
+                "posts_today": "publicacións de hoxe"
             },
             "actions": {
-                "follow": "Follow",
-                "unfollow": "Unfollow"
+                "follow": "Seguir",
+                "unfollow": "Deixar de seguir"
             }
         }
     }
