@@ -95,7 +95,7 @@
             },
             "tabs": {
                 "home": "Bảng tin",
-                "search_and_explore": "Search and Explore",
+                "search_and_explore": "Tìm và Khám Phá",
                 "notifications": "Thông báo",
                 "profile": "Trang hồ sơ"
             },
@@ -724,15 +724,15 @@
             "title": "Tút đã lưu"
         },
         "followed_tags": {
-            "title": "Followed Tags",
+            "title": "Hashtag Theo Dõi",
             "header": {
-                "posts": "posts",
-                "participants": "participants",
-                "posts_today": "posts today"
+                "posts": "tút",
+                "participants": "người thảo luận",
+                "posts_today": "tút hôm nay"
             },
             "actions": {
-                "follow": "Follow",
-                "unfollow": "Unfollow"
+                "follow": "Theo dõi",
+                "unfollow": "Ngưng theo dõi"
             }
         }
     }
