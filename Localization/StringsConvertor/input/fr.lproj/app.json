@@ -95,7 +95,7 @@
             },
             "tabs": {
                 "home": "Accueil",
-                "search_and_explore": "Search and Explore",
+                "search_and_explore": "Rechercher et explorer",
                 "notifications": "Notifications",
                 "profile": "Profil"
             },
@@ -724,15 +724,15 @@
             "title": "Favoris"
         },
         "followed_tags": {
-            "title": "Followed Tags",
+            "title": "Tags suivis",
             "header": {
-                "posts": "posts",
+                "posts": "messages",
                 "participants": "participants",
-                "posts_today": "posts today"
+                "posts_today": "messages aujourd'hui"
             },
             "actions": {
-                "follow": "Follow",
-                "unfollow": "Unfollow"
+                "follow": "Suivre",
+                "unfollow": "Ne plus suivre"
             }
         }
     }
