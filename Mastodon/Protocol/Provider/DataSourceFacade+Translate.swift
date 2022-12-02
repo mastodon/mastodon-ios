@@ -18,7 +18,19 @@ extension DataSourceFacade {
         let selectionFeedbackGenerator = await UISelectionFeedbackGenerator()
         await selectionFeedbackGenerator.selectionChanged()
 
-        let status = status.object(in: provider.context.managedObjectContext)
-        status?.translatedContent = "LOREM IPSUM TRANSLATED TEXT"
+        guard
+            let status = status.object(in: provider.context.managedObjectContext)
+        else {
+            return
+        }
+        
+        let result = try await provider.context
+            .apiService
+            .translateStatus(
+                statusID: status.id,
+                authenticationBox: provider.authContext.mastodonAuthenticationBox
+            ).value
+        
+        status.translatedContent = result.content
     }
 }
