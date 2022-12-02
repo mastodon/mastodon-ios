@@ -724,15 +724,15 @@
             "title": "Bookmarks"
         },
         "followed_tags": {
-            "title": "Followed Tags",
+            "title": "팔로우한 태그",
             "header": {
-                "posts": "posts",
-                "participants": "participants",
-                "posts_today": "posts today"
+                "posts": "게시물",
+                "participants": "참가자",
+                "posts_today": "오늘"
             },
             "actions": {
-                "follow": "Follow",
-                "unfollow": "Unfollow"
+                "follow": "팔로우",
+                "unfollow": "팔로우 해제"
             }
         }
     }
