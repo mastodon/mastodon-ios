@@ -637,10 +637,10 @@ public enum L10n {
       /// Followed Tags
       public static let title = L10n.tr("Localizable", "Scene.FollowedTags.Title", fallback: "Followed Tags")
       public enum Actions {
-        /// follow
-        public static let follow = L10n.tr("Localizable", "Scene.FollowedTags.Actions.Follow", fallback: "follow")
-        /// unfollow
-        public static let unfollow = L10n.tr("Localizable", "Scene.FollowedTags.Actions.Unfollow", fallback: "unfollow")
+        /// Follow
+        public static let follow = L10n.tr("Localizable", "Scene.FollowedTags.Actions.Follow", fallback: "Follow")
+        /// Unfollow
+        public static let unfollow = L10n.tr("Localizable", "Scene.FollowedTags.Actions.Unfollow", fallback: "Unfollow")
       }
       public enum Header {
         /// participants

@@ -722,6 +722,19 @@
         },
         "bookmark": {
             "title": "Bookmarks"
+
+        },
+        "followed_tags": {
+            "title": "Followed Tags",
+            "header": {
+                "posts": "posts",
+                "participants": "participants",
+                "posts_today": "posts today"
+            },
+            "actions": {
+                "follow": "Follow",
+                "unfollow": "Unfollow"
+            }
         }
     }
 }
