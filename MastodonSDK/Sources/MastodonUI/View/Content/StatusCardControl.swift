@@ -184,9 +184,10 @@ private extension StatusCardControl {
 
 private extension Card {
     var layout: StatusCardControl.Layout {
-        return width == height || image == nil
+        let aspectRatio = CGFloat(width) / CGFloat(height)
+        return abs(aspectRatio - 1) < 0.05 || image == nil
         ? .compact
-        : .large(aspectRatio: CGFloat(width) / CGFloat(height))
+        : .large(aspectRatio: aspectRatio)
     }
 }
 
