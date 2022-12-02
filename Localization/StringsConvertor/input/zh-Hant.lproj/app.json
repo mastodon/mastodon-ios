@@ -95,7 +95,7 @@
             },
             "tabs": {
                 "home": "首頁",
-                "search_and_explore": "Search and Explore",
+                "search_and_explore": "搜尋與探索",
                 "notifications": "通知",
                 "profile": "個人檔案"
             },
@@ -724,15 +724,15 @@
             "title": "書籤"
         },
         "followed_tags": {
-            "title": "Followed Tags",
+            "title": "已跟隨主題標籤",
             "header": {
-                "posts": "posts",
-                "participants": "participants",
-                "posts_today": "posts today"
+                "posts": "嘟文",
+                "participants": "參與者",
+                "posts_today": "本日嘟文"
             },
             "actions": {
-                "follow": "Follow",
-                "unfollow": "Unfollow"
+                "follow": "跟隨",
+                "unfollow": "取消跟隨"
             }
         }
     }
