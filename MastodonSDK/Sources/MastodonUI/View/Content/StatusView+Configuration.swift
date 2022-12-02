@@ -63,6 +63,14 @@ extension StatusView {
                 self?.configureTranslated(status: status)
             }
             .store(in: &disposeBag)
+        
+        status.reblog?.$translatedContent
+            .receive(on: DispatchQueue.main)
+            .compactMap { $0 }
+            .sink { [weak self] _ in
+                self?.configureTranslated(status: status)
+            }
+            .store(in: &disposeBag)
     }
 }
 
@@ -240,9 +248,19 @@ extension StatusView {
     }
     
     func configureTranslated(status: Status) {
+        let translatedContent: String? = {
+            if let translatedContent = status.reblog?.translatedContent {
+                return translatedContent
+            }
+            return status.translatedContent
+
+        }()
+        
         guard
-            let translatedContent = status.translatedContent
-        else { return }
+            let translatedContent = translatedContent
+        else {
+            return
+        }
 
         // content
         do {

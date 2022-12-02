@@ -24,13 +24,20 @@ extension DataSourceFacade {
             return
         }
         
-        let result = try await provider.context
-            .apiService
-            .translateStatus(
-                statusID: status.id,
-                authenticationBox: provider.authContext.mastodonAuthenticationBox
-            ).value
+        func translate(status: Status) async throws -> String? {
+           let value = try await provider.context
+               .apiService
+               .translateStatus(
+                   statusID: status.id,
+                   authenticationBox: provider.authContext.mastodonAuthenticationBox
+               ).value
+           return value.content
+       }
         
-        status.translatedContent = result.content
+        if let reblog = status.reblog {
+            reblog.translatedContent = try await translate(status: reblog)
+        } else {
+            status.translatedContent = try await translate(status: status)
+        }
     }
 }
