@@ -144,6 +144,9 @@ public final class StatusCardControl: UIControl {
                 // This priority is important or constraints break;
                 // it still renders the card correctly.
                 .priority(.defaultLow - 1),
+                // set a reasonable max height for very tall images
+                imageView.heightAnchor
+                    .constraint(lessThanOrEqualToConstant: 400)
             ]
         case .compact:
             containerStackView.alignment = .center
