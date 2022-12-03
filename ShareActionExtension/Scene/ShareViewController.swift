@@ -21,7 +21,7 @@ final class ShareViewController: UIViewController {
     
     var disposeBag = Set<AnyCancellable>()
     
-    let context = AppContext()
+    let context = AppContext.shared
     private(set) lazy var viewModel = ShareViewModel(context: context)
     
     let publishButton: UIButton = {
@@ -63,6 +63,10 @@ final class ShareViewController: UIViewController {
         label.text = "No Available Account" // TODO: i18n
         return label
     }()
+    
+    deinit {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+    }
 
 }
 
@@ -156,7 +160,7 @@ extension ShareViewController {
                 _ = try await statusPublisher.publish(api: context.apiService, authContext: authContext)
                 
                 self.publishButton.setTitle(L10n.Common.Controls.Actions.done, for: .normal)
-                try await  Task.sleep(nanoseconds: 1 * .second)
+                try await Task.sleep(nanoseconds: 1 * .second)
                 
                 self.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
 
@@ -325,4 +329,8 @@ extension ShareViewController {
         case userCancelShare
         case missingAuthentication
     }
+}
+
+extension AppContext {
+    static let shared = AppContext()
 }

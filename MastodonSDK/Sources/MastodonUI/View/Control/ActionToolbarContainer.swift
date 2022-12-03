@@ -105,7 +105,7 @@ extension ActionToolbarContainer {
             shareButton.setImage(ActionToolbarContainer.shareImage, for: .normal)
             
             container.axis = .horizontal
-            container.distribution = .fill
+            container.distribution = .equalSpacing
             
             replyButton.translatesAutoresizingMaskIntoConstraints = false
             reblogButton.translatesAutoresizingMaskIntoConstraints = false

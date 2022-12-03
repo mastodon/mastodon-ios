@@ -10,7 +10,8 @@ import CoreData
 
 public final class Instance: NSManagedObject {
     @NSManaged public var domain: String
-    
+    @NSManaged public var version: String?
+
     @NSManaged public private(set) var createdAt: Date
     @NSManaged public private(set) var updatedAt: Date
 
@@ -35,6 +36,7 @@ extension Instance {
     ) -> Instance {
         let instance: Instance = context.insertObject()
         instance.domain = property.domain
+        instance.version = property.version
         return instance
     }
     
@@ -50,9 +52,11 @@ extension Instance {
 extension Instance {
     public struct Property {
         public let domain: String
-        
-        public init(domain: String) {
+        public let version: String?
+
+        public init(domain: String, version: String?) {
             self.domain = domain
+            self.version = version
         }
     }
 }

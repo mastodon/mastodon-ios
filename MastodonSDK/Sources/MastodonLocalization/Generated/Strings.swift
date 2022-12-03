@@ -380,8 +380,8 @@ public enum L10n {
         public static let notifications = L10n.tr("Localizable", "Common.Controls.Tabs.Notifications", fallback: "Notifications")
         /// Profile
         public static let profile = L10n.tr("Localizable", "Common.Controls.Tabs.Profile", fallback: "Profile")
-        /// Search
-        public static let search = L10n.tr("Localizable", "Common.Controls.Tabs.Search", fallback: "Search")
+        /// Search and Explore
+        public static let searchAndExplore = L10n.tr("Localizable", "Common.Controls.Tabs.SearchAndExplore", fallback: "Search and Explore")
       }
       public enum Timeline {
         /// Filtered
@@ -642,6 +642,24 @@ public enum L10n {
     public enum FavoritedBy {
       /// Favorited By
       public static let title = L10n.tr("Localizable", "Scene.FavoritedBy.Title", fallback: "Favorited By")
+    }
+    public enum FollowedTags {
+      /// Followed Tags
+      public static let title = L10n.tr("Localizable", "Scene.FollowedTags.Title", fallback: "Followed Tags")
+      public enum Actions {
+        /// Follow
+        public static let follow = L10n.tr("Localizable", "Scene.FollowedTags.Actions.Follow", fallback: "Follow")
+        /// Unfollow
+        public static let unfollow = L10n.tr("Localizable", "Scene.FollowedTags.Actions.Unfollow", fallback: "Unfollow")
+      }
+      public enum Header {
+        /// participants
+        public static let participants = L10n.tr("Localizable", "Scene.FollowedTags.Header.Participants", fallback: "participants")
+        /// posts
+        public static let posts = L10n.tr("Localizable", "Scene.FollowedTags.Header.Posts", fallback: "posts")
+        /// posts today
+        public static let postsToday = L10n.tr("Localizable", "Scene.FollowedTags.Header.PostsToday", fallback: "posts today")
+      }
     }
     public enum Follower {
       /// Followers from other servers are not displayed.

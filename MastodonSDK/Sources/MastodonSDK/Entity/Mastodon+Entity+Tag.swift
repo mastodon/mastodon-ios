@@ -11,9 +11,9 @@ extension Mastodon.Entity {
     /// Tag
     ///
     /// - Since: 0.9.0
-    /// - Version: 3.3.0
+    /// - Version: 4.0.0
     /// # Last Update
-    ///   2021/1/28
+    ///   2022/11/22
     /// # Reference
     ///  [Document](https://docs.joinmastodon.org/entities/tag/)
     public struct Tag: Hashable, Codable {
@@ -23,11 +23,13 @@ extension Mastodon.Entity {
         public let url: String
         
         public let history: [History]?
+        public let following: Bool?
         
         enum CodingKeys: String, CodingKey {
             case name
             case url
             case history
+            case following
         }
         
         public static func == (lhs: Mastodon.Entity.Tag, rhs: Mastodon.Entity.Tag) -> Bool {
@@ -38,6 +40,10 @@ extension Mastodon.Entity {
         public func hash(into hasher: inout Hasher) {
             hasher.combine(name)
             hasher.combine(url)
+        }
+        
+        public func copy(following: Bool?) -> Self {
+            Tag(name: name, url: url, history: history, following: following)
         }
     }
 }
