@@ -33,7 +33,15 @@ public final class StatusCardControl: UIControl {
     private var layoutConstraints: [NSLayoutConstraint] = []
 
     public override var isHighlighted: Bool {
-        didSet { highlightView.isHidden = !isHighlighted }
+        didSet {
+            // override UIKit behavior of highlighting subviews when cell is highlighted
+            if isHighlighted,
+               let cell = sequence(first: self, next: \.superview).first(where: { $0 is UITableViewCell }) as? UITableViewCell {
+                highlightView.isHidden = cell.isHighlighted
+            } else {
+                highlightView.isHidden = !isHighlighted
+            }
+        }
     }
 
     public override init(frame: CGRect) {
@@ -53,7 +61,7 @@ public final class StatusCardControl: UIControl {
             maximumContentSizeCategory = .accessibilityLarge
         }
 
-        highlightView.backgroundColor = UIColor.black.withAlphaComponent(0.1)
+        highlightView.backgroundColor = UIColor.label.withAlphaComponent(0.1)
         highlightView.isHidden = true
 
         titleLabel.numberOfLines = 2
