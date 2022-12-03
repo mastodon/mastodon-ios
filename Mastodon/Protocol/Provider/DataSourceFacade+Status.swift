@@ -59,8 +59,18 @@ extension DataSourceFacade {
         status: ManagedObjectRecord<Status>
     ) async throws -> UIActivityViewController {
         var activityItems: [Any] = try await dependency.context.managedObjectContext.perform {
-            guard let status = status.object(in: dependency.context.managedObjectContext) else { return [] }
-            return [StatusActivityItem(status: status)].compactMap { $0 } as [Any]
+            guard let status = status.object(in: dependency.context.managedObjectContext),
+                  let url = URL(string: status.url ?? status.uri)
+            else { return [] }
+            return [
+                URLActivityItemWithMetadata(url: url) { metadata in
+                    metadata.title = "\(status.author.displayName) (@\(status.author.acctWithDomain))"
+                    metadata.iconProvider = ImageProvider(
+                        url: status.author.avatarImageURLWithFallback(domain: status.author.domain),
+                        filter: ScaledToSizeFilter(size: CGSize.authorAvatarButtonSize)
+                    ).itemProvider
+                }
+            ] as [Any]
         }
         var applicationActivities: [UIActivity] = [
             SafariActivity(sceneCoordinator: dependency.coordinator),     // open URL
@@ -76,54 +86,6 @@ extension DataSourceFacade {
             applicationActivities: applicationActivities
         )
         return activityViewController
-    }
-
-    private class StatusActivityItem: NSObject, UIActivityItemSource {
-        init?(status: Status) {
-            guard let url = URL(string: status.url ?? status.uri) else { return nil }
-            self.url = url
-            self.metadata = LPLinkMetadata()
-            metadata.url = url
-            metadata.title = "\(status.author.displayName) (@\(status.author.acctWithDomain))"
-            metadata.iconProvider = NSItemProvider(object: IconProvider(url: status.author.avatarImageURLWithFallback(domain: status.author.domain)))
-        }
-
-        let url: URL
-        let metadata: LPLinkMetadata
-
-        func activityViewControllerPlaceholderItem(_ activityViewController: UIActivityViewController) -> Any {
-            url
-        }
-
-        func activityViewController(_ activityViewController: UIActivityViewController, itemForActivityType activityType: UIActivity.ActivityType?) -> Any? {
-            url
-        }
-
-        func activityViewControllerLinkMetadata(_ activityViewController: UIActivityViewController) -> LPLinkMetadata? {
-            metadata
-        }
-
-        private class IconProvider: NSObject, NSItemProviderWriting {
-            let url: URL
-            init(url: URL) {
-                self.url = url
-            }
-
-            static var writableTypeIdentifiersForItemProvider: [String] {
-                [UTType.png.identifier]
-            }
-
-            func loadData(withTypeIdentifier typeIdentifier: String, forItemProviderCompletionHandler completionHandler: @escaping @Sendable (Data?, Error?) -> Void) -> Progress? {
-                let filter = ScaledToSizeFilter(size: CGSize.authorAvatarButtonSize)
-                let receipt = UIImageView.af.sharedImageDownloader.download(URLRequest(url: url), filter: filter, completion: { response in
-                    switch response.result {
-                    case .failure(let error): completionHandler(nil, error)
-                    case .success(let image): completionHandler(image.pngData(), nil)
-                    }
-                })
-                return receipt?.request.downloadProgress
-            }
-        }
     }
 }
 

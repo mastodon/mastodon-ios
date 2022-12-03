@@ -95,7 +95,8 @@ extension ShareViewController {
             let composeContentViewModel = ComposeContentViewModel(
                 context: context,
                 authContext: authContext,
-                kind: .post
+                destination: .topLevel,
+                initialContent: ""
             )
             let composeContentViewController = ComposeContentViewController()
             composeContentViewController.viewModel = composeContentViewModel
