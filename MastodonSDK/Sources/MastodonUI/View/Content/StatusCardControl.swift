@@ -26,6 +26,23 @@ public final class StatusCardControl: UIControl {
     private let imageView = UIImageView()
     private let titleLabel = UILabel()
     private let linkLabel = UILabel()
+    private lazy var showEmbedButton: UIButton = {
+        if #available(iOS 15.0, *) {
+            var configuration = UIButton.Configuration.gray()
+            configuration.background.visualEffect = UIBlurEffect(style: .systemUltraThinMaterial)
+            configuration.baseBackgroundColor = .clear
+            configuration.cornerStyle = .capsule
+            configuration.buttonSize = .large
+            return UIButton(configuration: configuration, primaryAction: UIAction { [weak self] _ in
+                self?.showWebView()
+            })
+        }
+
+        return UIButton(type: .system, primaryAction: UIAction { [weak self] _ in
+            self?.showWebView()
+        })
+    }()
+    private var html = ""
 
     private static let cardContentPool = WKProcessPool()
     private var webView: WKWebView?
@@ -95,14 +112,23 @@ public final class StatusCardControl: UIControl {
         containerStackView.isUserInteractionEnabled = false
         containerStackView.distribution = .fill
 
+        showEmbedButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
+
         addSubview(containerStackView)
         addSubview(highlightView)
+        addSubview(showEmbedButton)
 
         containerStackView.translatesAutoresizingMaskIntoConstraints = false
         highlightView.translatesAutoresizingMaskIntoConstraints = false
+        showEmbedButton.translatesAutoresizingMaskIntoConstraints = false
 
         containerStackView.pinToParent()
         highlightView.pinToParent()
+        NSLayoutConstraint.activate([
+            showEmbedButton.widthAnchor.constraint(equalTo: showEmbedButton.heightAnchor),
+            showEmbedButton.centerXAnchor.constraint(equalTo: imageView.centerXAnchor),
+            showEmbedButton.centerYAnchor.constraint(equalTo: imageView.centerYAnchor),
+        ])
     }
     
     required init?(coder: NSCoder) {
@@ -133,12 +159,13 @@ public final class StatusCardControl: UIControl {
         }
 
         if let html = card.html, !html.isEmpty {
-            let webView = setupWebView()
-            webView.loadHTMLString("<meta name='viewport' content='width=device-width,user-scalable=no'><style>body { margin: 0; color-scheme: light dark; } body > :only-child { width: 100vw !important; height: 100vh !important }</style>" + html, baseURL: nil)
-            addSubview(webView)
+            showEmbedButton.isHidden = false
+            self.html = html
         } else {
             webView?.removeFromSuperview()
             webView = nil
+            showEmbedButton.isHidden = true
+            self.html = ""
         }
 
         updateConstraints(for: card.layout)
@@ -190,10 +217,6 @@ public final class StatusCardControl: UIControl {
             dividerConstraint = dividerView.widthAnchor.constraint(equalToConstant: pixelSize).activate()
         }
 
-        if let webView {
-            layoutConstraints += webView.pinTo(to: imageView)
-        }
-
         NSLayoutConstraint.activate(layoutConstraints)
     }
 
@@ -211,6 +234,15 @@ public final class StatusCardControl: UIControl {
         layer.borderColor = theme.separator.cgColor
         dividerView.backgroundColor = theme.separator
         imageView.backgroundColor = theme.systemElevatedBackgroundColor
+    }
+}
+
+extension StatusCardControl {
+    fileprivate func showWebView() {
+        let webView = setupWebView()
+        webView.loadHTMLString("<meta name='viewport' content='width=device-width,user-scalable=no'><style>body { margin: 0; color-scheme: light dark; } body > :only-child { width: 100vw !important; height: 100vh !important }</style>" + html, baseURL: nil)
+        addSubview(webView)
+        webView.pinTo(to: imageView)
     }
 }
 
