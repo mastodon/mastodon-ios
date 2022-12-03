@@ -28,13 +28,11 @@ protocol NotificationTableViewCellDelegate: AnyObject, AutoGenerateProtocolDeleg
     func tableViewCell(_ cell: UITableViewCell, notificationView: NotificationView, acceptFollowRequestButtonDidPressed button: UIButton)
     func tableViewCell(_ cell: UITableViewCell, notificationView: NotificationView, rejectFollowRequestButtonDidPressed button: UIButton)
     func tableViewCell(_ cell: UITableViewCell, notificationView: NotificationView, statusView: StatusView, metaText: MetaText, didSelectMeta meta: Meta)
-    func tableViewCell(_ cell: UITableViewCell, notificationView: NotificationView, statusView: StatusView, didTapCardWithURL url: URL)
     func tableViewCell(_ cell: UITableViewCell, notificationView: NotificationView, statusView: StatusView, spoilerOverlayViewDidPressed overlayView: SpoilerOverlayView)
     func tableViewCell(_ cell: UITableViewCell, notificationView: NotificationView, statusView: StatusView, mediaGridContainerView: MediaGridContainerView, mediaView: MediaView, didSelectMediaViewAt index: Int)
     func tableViewCell(_ cell: UITableViewCell, notificationView: NotificationView, statusView: StatusView, actionToolbarContainer: ActionToolbarContainer, buttonDidPressed button: UIButton, action: ActionToolbarContainer.Action)
     func tableViewCell(_ cell: UITableViewCell, notificationView: NotificationView, quoteStatusView: StatusView, authorAvatarButtonDidPressed button: AvatarButton)
     func tableViewCell(_ cell: UITableViewCell, notificationView: NotificationView, quoteStatusView: StatusView, metaText: MetaText, didSelectMeta meta: Meta)
-    func tableViewCell(_ cell: UITableViewCell, notificationView: NotificationView, quoteStatusView: StatusView, didTapCardWithURL url: URL)
     func tableViewCell(_ cell: UITableViewCell, notificationView: NotificationView, quoteStatusView: StatusView, spoilerOverlayViewDidPressed overlayView: SpoilerOverlayView)
     func tableViewCell(_ cell: UITableViewCell, notificationView: NotificationView, quoteStatusView: StatusView, mediaGridContainerView: MediaGridContainerView, mediaView: MediaView, didSelectMediaViewAt index: Int)
     func tableViewCell(_ cell: UITableViewCell, notificationView: NotificationView, accessibilityActivate: Void)
@@ -65,10 +63,6 @@ extension NotificationViewDelegate where Self: NotificationViewContainerTableVie
         delegate?.tableViewCell(self, notificationView: notificationView, statusView: statusView, metaText: metaText, didSelectMeta: meta)
     }
 
-    func notificationView(_ notificationView: NotificationView, statusView: StatusView, didTapCardWithURL url: URL) {
-        delegate?.tableViewCell(self, notificationView: notificationView, statusView: statusView, didTapCardWithURL: url)
-    }
-
     func notificationView(_ notificationView: NotificationView, statusView: StatusView, spoilerOverlayViewDidPressed overlayView: SpoilerOverlayView) {
         delegate?.tableViewCell(self, notificationView: notificationView, statusView: statusView, spoilerOverlayViewDidPressed: overlayView)
     }
@@ -87,10 +81,6 @@ extension NotificationViewDelegate where Self: NotificationViewContainerTableVie
 
     func notificationView(_ notificationView: NotificationView, quoteStatusView: StatusView, metaText: MetaText, didSelectMeta meta: Meta) {
         delegate?.tableViewCell(self, notificationView: notificationView, quoteStatusView: quoteStatusView, metaText: metaText, didSelectMeta: meta)
-    }
-
-    func notificationView(_ notificationView: NotificationView, quoteStatusView: StatusView, didTapCardWithURL url: URL) {
-        delegate?.tableViewCell(self, notificationView: notificationView, quoteStatusView: quoteStatusView, didTapCardWithURL: url)
     }
 
     func notificationView(_ notificationView: NotificationView, quoteStatusView: StatusView, spoilerOverlayViewDidPressed overlayView: SpoilerOverlayView) {

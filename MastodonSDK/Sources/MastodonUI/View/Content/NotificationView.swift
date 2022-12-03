@@ -22,7 +22,6 @@ public protocol NotificationViewDelegate: AnyObject {
     func notificationView(_ notificationView: NotificationView, rejectFollowRequestButtonDidPressed button: UIButton)
     
     func notificationView(_ notificationView: NotificationView, statusView: StatusView, metaText: MetaText, didSelectMeta meta: Meta)
-    func notificationView(_ notificationView: NotificationView, statusView: StatusView, didTapCardWithURL url: URL)
     func notificationView(_ notificationView: NotificationView, statusView: StatusView, spoilerOverlayViewDidPressed overlayView: SpoilerOverlayView)
     func notificationView(_ notificationView: NotificationView, statusView: StatusView, mediaGridContainerView: MediaGridContainerView, mediaView: MediaView, didSelectMediaViewAt index: Int)
 
@@ -30,7 +29,6 @@ public protocol NotificationViewDelegate: AnyObject {
 
     func notificationView(_ notificationView: NotificationView, quoteStatusView: StatusView, authorAvatarButtonDidPressed button: AvatarButton)
     func notificationView(_ notificationView: NotificationView, quoteStatusView: StatusView, metaText: MetaText, didSelectMeta meta: Meta)
-    func notificationView(_ notificationView: NotificationView, quoteStatusView: StatusView, didTapCardWithURL url: URL)
     func notificationView(_ notificationView: NotificationView, quoteStatusView: StatusView, spoilerOverlayViewDidPressed overlayView: SpoilerOverlayView)
     func notificationView(_ notificationView: NotificationView, quoteStatusView: StatusView, mediaGridContainerView: MediaGridContainerView, mediaView: MediaView, didSelectMediaViewAt index: Int)
     
@@ -499,14 +497,7 @@ extension NotificationView {
 // MARK: - StatusViewDelegate
 extension NotificationView: StatusViewDelegate {
     public func statusView(_ statusView: StatusView, didTapCardWithURL url: URL) {
-        switch statusView {
-        case self.statusView:
-            delegate?.notificationView(self, statusView: statusView, didTapCardWithURL: url)
-        case quoteStatusView:
-            delegate?.notificationView(self, quoteStatusView: statusView, didTapCardWithURL: url)
-        default:
-            assertionFailure()
-        }
+        assertionFailure()
     }
 
     public func statusView(_ statusView: StatusView, headerDidPressed header: UIView) {

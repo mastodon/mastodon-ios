@@ -488,6 +488,7 @@ extension StatusView.Style {
         
         statusView.headerAdaptiveMarginContainerView.removeFromSuperview()
         statusView.authorAdaptiveMarginContainerView.removeFromSuperview()
+        statusView.statusCardControl.removeFromSuperview()
     }
     
     func notificationQuote(statusView: StatusView) {
@@ -496,6 +497,7 @@ extension StatusView.Style {
         statusView.contentAdaptiveMarginContainerView.bottomLayoutConstraint?.constant = 16     // fix bottom margin missing issue
         statusView.pollAdaptiveMarginContainerView.bottomLayoutConstraint?.constant = 16        // fix bottom margin missing issue
         statusView.actionToolbarAdaptiveMarginContainerView.removeFromSuperview()
+        statusView.statusCardControl.removeFromSuperview()
     }
     
     func composeStatusReplica(statusView: StatusView) {
