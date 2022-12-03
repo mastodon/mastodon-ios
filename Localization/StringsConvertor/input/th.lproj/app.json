@@ -95,7 +95,7 @@
             },
             "tabs": {
                 "home": "หน้าแรก",
-                "search_and_explore": "Search and Explore",
+                "search_and_explore": "ค้นหาและสำรวจ",
                 "notifications": "การแจ้งเตือน",
                 "profile": "โปรไฟล์"
             },
@@ -724,15 +724,15 @@
             "title": "ที่คั่นหน้า"
         },
         "followed_tags": {
-            "title": "Followed Tags",
+            "title": "แท็กที่ติดตาม",
             "header": {
-                "posts": "posts",
-                "participants": "participants",
-                "posts_today": "posts today"
+                "posts": "โพสต์",
+                "participants": "ผู้เข้าร่วม",
+                "posts_today": "โพสต์วันนี้"
             },
             "actions": {
-                "follow": "Follow",
-                "unfollow": "Unfollow"
+                "follow": "ติดตาม",
+                "unfollow": "เลิกติดตาม"
             }
         }
     }
