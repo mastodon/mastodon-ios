@@ -238,7 +238,7 @@ public final class StatusCardControl: UIControl {
     }
 }
 
-extension StatusCardControl {
+extension StatusCardControl: WKNavigationDelegate, WKUIDelegate {
     fileprivate func showWebView() {
         let webView = setupWebView()
         webView.loadHTMLString("<meta name='viewport' content='width=device-width,user-scalable=no'><style>body { margin: 0; color-scheme: light dark; } body > :only-child { width: 100vw !important; height: 100vh !important }</style>" + html, baseURL: nil)
@@ -247,10 +247,8 @@ extension StatusCardControl {
             webView.pinTo(to: imageView)
         }
     }
-}
 
-extension StatusCardControl: WKNavigationDelegate, WKUIDelegate {
-    fileprivate func setupWebView() -> WKWebView {
+    private func setupWebView() -> WKWebView {
         if let webView { return webView }
 
         let config = WKWebViewConfiguration()
