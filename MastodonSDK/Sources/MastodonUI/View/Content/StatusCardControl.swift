@@ -125,6 +125,9 @@ public final class StatusCardControl: UIControl {
             let webView = setupWebView()
             webView.loadHTMLString("<meta name='viewport' content='width=device-width,user-scalable=no'><style>body { margin: 0; color-scheme: light dark; } body > :only-child { width: 100vw !important; height: 100vh !important }</style>" + html, baseURL: nil)
             addSubview(webView)
+        } else {
+            webView?.removeFromSuperview()
+            webView = nil
         }
 
         updateConstraints(for: card.layout)
@@ -135,9 +138,6 @@ public final class StatusCardControl: UIControl {
 
         if let window = window {
             layer.borderWidth = 1 / window.screen.scale
-        } else {
-            webView?.removeFromSuperview()
-            webView = nil
         }
     }
 
@@ -199,6 +199,8 @@ public final class StatusCardControl: UIControl {
 
 extension StatusCardControl: WKNavigationDelegate, WKUIDelegate {
     fileprivate func setupWebView() -> WKWebView {
+        if let webView { return webView }
+
         let config = WKWebViewConfiguration()
         config.processPool = Self.cardContentPool
         config.websiteDataStore = .nonPersistent() // private/incognito mode
