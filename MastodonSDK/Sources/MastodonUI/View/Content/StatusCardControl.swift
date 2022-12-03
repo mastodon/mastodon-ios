@@ -326,7 +326,7 @@ private extension Card {
         if !aspectRatio.isFinite {
             aspectRatio = 1
         }
-        return abs(aspectRatio - 1) < 0.05 || image == nil
+        return (abs(aspectRatio - 1) < 0.05 || image == nil) && html == nil
         ? .compact
         : .large(aspectRatio: aspectRatio)
     }
