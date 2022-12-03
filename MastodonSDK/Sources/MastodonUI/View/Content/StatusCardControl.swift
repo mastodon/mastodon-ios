@@ -22,6 +22,7 @@ public final class StatusCardControl: UIControl {
     private let labelStackView = UIStackView()
 
     private let highlightView = UIView()
+    private let dividerView = UIView()
     private let imageView = UIImageView()
     private let titleLabel = UILabel()
     private let linkLabel = UILabel()
@@ -31,6 +32,7 @@ public final class StatusCardControl: UIControl {
 
     private var layout: Layout?
     private var layoutConstraints: [NSLayoutConstraint] = []
+    private var dividerConstraint: NSLayoutConstraint?
 
     public override var isHighlighted: Bool {
         didSet {
@@ -88,6 +90,7 @@ public final class StatusCardControl: UIControl {
         labelStackView.spacing = 2
 
         containerStackView.addArrangedSubview(imageView)
+        containerStackView.addArrangedSubview(dividerView)
         containerStackView.addArrangedSubview(labelStackView)
         containerStackView.isUserInteractionEnabled = false
         containerStackView.distribution = .fill
@@ -146,6 +149,7 @@ public final class StatusCardControl: UIControl {
 
         if let window = window {
             layer.borderWidth = 1 / window.screen.scale
+            dividerConstraint?.constant = 1 / window.screen.scale
         }
     }
 
@@ -154,7 +158,9 @@ public final class StatusCardControl: UIControl {
         self.layout = layout
 
         NSLayoutConstraint.deactivate(layoutConstraints)
+        dividerConstraint?.deactivate()
 
+        let pixelSize = 1 / (window?.screen.scale ?? 1)
         switch layout {
         case .large(let aspectRatio):
             containerStackView.alignment = .fill
@@ -169,8 +175,9 @@ public final class StatusCardControl: UIControl {
                 .priority(.defaultLow - 1),
                 // set a reasonable max height for very tall images
                 imageView.heightAnchor
-                    .constraint(lessThanOrEqualToConstant: 400)
+                    .constraint(lessThanOrEqualToConstant: 400),
             ]
+            dividerConstraint = dividerView.heightAnchor.constraint(equalToConstant: pixelSize).activate()
         case .compact:
             containerStackView.alignment = .center
             containerStackView.axis = .horizontal
@@ -178,8 +185,9 @@ public final class StatusCardControl: UIControl {
                 imageView.heightAnchor.constraint(equalTo: heightAnchor),
                 imageView.widthAnchor.constraint(equalToConstant: 85),
                 heightAnchor.constraint(equalToConstant: 85).priority(.defaultLow - 1),
-                heightAnchor.constraint(greaterThanOrEqualToConstant: 85)
+                heightAnchor.constraint(greaterThanOrEqualToConstant: 85),
             ]
+            dividerConstraint = dividerView.widthAnchor.constraint(equalToConstant: pixelSize).activate()
         }
 
         if let webView {
@@ -201,6 +209,7 @@ public final class StatusCardControl: UIControl {
 
     private func apply(theme: Theme) {
         layer.borderColor = theme.separator.cgColor
+        dividerView.backgroundColor = theme.separator
         imageView.backgroundColor = theme.systemElevatedBackgroundColor
     }
 }
