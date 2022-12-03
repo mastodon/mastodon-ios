@@ -221,6 +221,7 @@ public final class StatusCardControl: UIControl {
                 imageView.widthAnchor.constraint(equalToConstant: 85),
                 heightAnchor.constraint(equalToConstant: 85).priority(.defaultLow - 1),
                 heightAnchor.constraint(greaterThanOrEqualToConstant: 85),
+                dividerView.heightAnchor.constraint(equalTo: containerStackView.heightAnchor),
             ]
             dividerConstraint = dividerView.widthAnchor.constraint(equalToConstant: pixelSize).activate()
         }
