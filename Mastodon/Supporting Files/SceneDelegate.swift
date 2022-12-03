@@ -185,7 +185,7 @@ extension SceneDelegate {
                     let composeViewModel = ComposeViewModel(
                         context: AppContext.shared,
                         authContext: authContext,
-                        kind: .post
+                        destination: .topLevel
                     )
                     _ = coordinator?.present(scene: .compose(viewModel: composeViewModel), from: nil, transition: .modal(animated: true, completion: nil))
                     logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): present compose scene")

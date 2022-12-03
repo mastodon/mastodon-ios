@@ -227,7 +227,7 @@ extension SidebarViewController: UICollectionViewDelegate {
                 let composeViewModel = ComposeViewModel(
                     context: context,
                     authContext: authContext,
-                    kind: .post
+                    destination: .topLevel
                 )
                 _ = coordinator.present(scene: .compose(viewModel: composeViewModel), from: self, transition: .modal(animated: true, completion: nil))
             default:

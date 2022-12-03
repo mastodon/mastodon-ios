@@ -162,10 +162,13 @@ extension HashtagTimelineViewController {
     
     @objc private func composeBarButtonItemPressed(_ sender: UIBarButtonItem) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        let hashtag = "#" + viewModel.hashtag
+        UITextChecker.learnWord(hashtag)
         let composeViewModel = ComposeViewModel(
             context: context,
             authContext: viewModel.authContext,
-            kind: .hashtag(hashtag: viewModel.hashtag)
+            destination: .topLevel,
+            initialContent: hashtag
         )
         _ = coordinator.present(scene: .compose(viewModel: composeViewModel), from: self, transition: .modal(animated: true, completion: nil))
     }

@@ -538,10 +538,13 @@ extension ProfileViewController {
     @objc private func replyBarButtonItemPressed(_ sender: UIBarButtonItem) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         guard let mastodonUser = viewModel.user else { return }
+        let mention = "@" + mastodonUser.acct
+        UITextChecker.learnWord(mention)
         let composeViewModel = ComposeViewModel(
             context: context,
             authContext: viewModel.authContext,
-            kind: .mention(user: mastodonUser.asRecord)
+            destination: .topLevel,
+            initialContent: mention
         )
         _ = coordinator.present(scene: .compose(viewModel: composeViewModel), from: self, transition: .modal(animated: true, completion: nil))
     }
