@@ -112,6 +112,8 @@ public enum L10n {
         public static let confirm = L10n.tr("Localizable", "Common.Controls.Actions.Confirm", fallback: "Confirm")
         /// Continue
         public static let `continue` = L10n.tr("Localizable", "Common.Controls.Actions.Continue", fallback: "Continue")
+        /// Copy
+        public static let copy = L10n.tr("Localizable", "Common.Controls.Actions.Copy", fallback: "Copy")
         /// Copy Photo
         public static let copyPhoto = L10n.tr("Localizable", "Common.Controls.Actions.CopyPhoto", fallback: "Copy Photo")
         /// Delete
@@ -272,6 +274,10 @@ public enum L10n {
       public enum Status {
         /// Content Warning
         public static let contentWarning = L10n.tr("Localizable", "Common.Controls.Status.ContentWarning", fallback: "Content Warning")
+        /// %@ via %@
+        public static func linkViaUser(_ p1: Any, _ p2: Any) -> String {
+          return L10n.tr("Localizable", "Common.Controls.Status.LinkViaUser", String(describing: p1), String(describing: p2), fallback: "%@ via %@")
+        }
         /// Load Embed
         public static let loadEmbed = L10n.tr("Localizable", "Common.Controls.Status.LoadEmbed", fallback: "Load Embed")
         /// Tap anywhere to reveal
@@ -303,6 +309,8 @@ public enum L10n {
           public static let reblog = L10n.tr("Localizable", "Common.Controls.Status.Actions.Reblog", fallback: "Reblog")
           /// Reply
           public static let reply = L10n.tr("Localizable", "Common.Controls.Status.Actions.Reply", fallback: "Reply")
+          /// Share Link in Post
+          public static let shareLinkInPost = L10n.tr("Localizable", "Common.Controls.Status.Actions.ShareLinkInPost", fallback: "Share Link in Post")
           /// Show GIF
           public static let showGif = L10n.tr("Localizable", "Common.Controls.Status.Actions.ShowGif", fallback: "Show GIF")
           /// Show image

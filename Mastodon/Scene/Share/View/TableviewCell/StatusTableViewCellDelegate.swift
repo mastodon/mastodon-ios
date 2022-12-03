@@ -37,6 +37,8 @@ protocol StatusTableViewCellDelegate: AnyObject, AutoGenerateProtocolDelegate {
     func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, mediaGridContainerView: MediaGridContainerView, mediaSensitiveButtonDidPressed button: UIButton)
     func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, statusMetricView: StatusMetricView, reblogButtonDidPressed button: UIButton)
     func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, statusMetricView: StatusMetricView, favoriteButtonDidPressed button: UIButton)
+    func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, cardControl: StatusCardControl, didTapURL url: URL)
+    func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, cardControlMenu: StatusCardControl) -> UIMenu?
     func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, accessibilityActivate: Void)
     // sourcery:end
 }
@@ -100,6 +102,14 @@ extension StatusViewDelegate where Self: StatusViewContainerTableViewCell {
 
     func statusView(_ statusView: StatusView, statusMetricView: StatusMetricView, favoriteButtonDidPressed button: UIButton) {
         delegate?.tableViewCell(self, statusView: statusView, statusMetricView: statusMetricView, favoriteButtonDidPressed: button)
+    }
+
+    func statusView(_ statusView: StatusView, cardControl: StatusCardControl, didTapURL url: URL) {
+        delegate?.tableViewCell(self, statusView: statusView, cardControl: cardControl, didTapURL: url)
+    }
+
+    func statusView(_ statusView: StatusView, cardControlMenu: StatusCardControl) -> UIMenu? {
+        return delegate?.tableViewCell(self, statusView: statusView, cardControlMenu: cardControlMenu)
     }
 
     func statusView(_ statusView: StatusView, accessibilityActivate: Void) {

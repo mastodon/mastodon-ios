@@ -10,6 +10,9 @@ import CoreDataStack
 import MetaTextKit
 import MastodonCore
 import MastodonUI
+import MastodonLocalization
+import MastodonAsset
+import LinkPresentation
 
 // MARK: - header
 extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthContextProvider {
@@ -148,6 +151,99 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
                 url: url
             )
         }
+    }
+
+    func tableViewCell(
+        _ cell: UITableViewCell,
+        statusView: StatusView,
+        cardControl: StatusCardControl,
+        didTapURL url: URL
+    ) {
+        Task {
+            let source = DataSourceItem.Source(tableViewCell: cell, indexPath: nil)
+            guard let item = await item(from: source) else {
+                assertionFailure()
+                return
+            }
+            guard case let .status(status) = item else {
+                assertionFailure("only works for status data provider")
+                return
+            }
+
+            await DataSourceFacade.responseToURLAction(
+                provider: self,
+                status: status,
+                url: url
+            )
+        }
+    }
+
+    func tableViewCell(
+        _ cell: UITableViewCell,
+        statusView: StatusView,
+        cardControlMenu statusCardControl: StatusCardControl
+    ) -> UIMenu? {
+        guard let card = statusView.viewModel.card,
+              let url = card.url else {
+            return nil
+        }
+
+        return UIMenu(children: [
+            UIAction(
+                title: L10n.Common.Controls.Actions.copy,
+                image: UIImage(systemName: "doc.on.doc")
+            ) { _ in
+                UIPasteboard.general.url = url
+            },
+            UIAction(
+                title: L10n.Common.Controls.Actions.share,
+                image: Asset.Arrow.squareAndArrowUp.image.withRenderingMode(.alwaysTemplate)
+            ) { _ in
+                Task {
+                    await MainActor.run {
+                        let activityViewController = UIActivityViewController(
+                            activityItems: [
+                                URLActivityItemWithMetadata(url: url) { metadata in
+                                    metadata.title = card.title
+                                    
+                                    if let image = card.imageURL {
+                                        metadata.iconProvider = ImageProvider(url: image, filter: nil).itemProvider
+                                    }
+                                }
+                            ],
+                            applicationActivities: []
+                        )
+                        self.coordinator.present(
+                            scene: .activityViewController(
+                                activityViewController: activityViewController,
+                                sourceView: statusCardControl, barButtonItem: nil
+                            ),
+                            from: self,
+                            transition: .activityViewControllerPresent(animated: true)
+                        )
+                    }
+                }
+            },
+            UIAction(
+                title: L10n.Common.Controls.Status.Actions.shareLinkInPost,
+                image: Asset.ObjectsAndTools.squareAndPencil.image.withRenderingMode(.alwaysTemplate)
+            ) { _ in
+                Task {
+                    await MainActor.run {
+                        self.coordinator.present(
+                            scene: .compose(viewModel: ComposeViewModel(
+                                context: self.context,
+                                authContext: self.authContext,
+                                destination: .topLevel,
+                                initialContent: L10n.Common.Controls.Status.linkViaUser(url.absoluteString, "@" + (statusView.viewModel.authorUsername ?? ""))
+                            )),
+                            from: self,
+                            transition: .modal(animated: true)
+                        )
+                    }
+                }
+            }
+        ])
     }
 
 }

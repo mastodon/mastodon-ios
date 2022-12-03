@@ -14,8 +14,13 @@ import CoreDataStack
 import UIKit
 import WebKit
 
+public protocol StatusCardControlDelegate: AnyObject {
+    func statusCardControl(_ statusCardControl: StatusCardControl, didTapURL url: URL)
+    func statusCardControlMenu(_ statusCardControl: StatusCardControl) -> UIMenu?
+}
+
 public final class StatusCardControl: UIControl {
-    public var urlToOpen = PassthroughSubject<URL, Never>()
+    public weak var delegate: StatusCardControlDelegate?
 
     private var disposeBag = Set<AnyCancellable>()
 
@@ -130,6 +135,8 @@ public final class StatusCardControl: UIControl {
             showEmbedButton.centerXAnchor.constraint(equalTo: imageView.centerXAnchor),
             showEmbedButton.centerYAnchor.constraint(equalTo: imageView.centerYAnchor),
         ])
+
+        addInteraction(UIContextMenuInteraction(delegate: self))
     }
     
     required init?(coder: NSCoder) {
@@ -238,6 +245,7 @@ public final class StatusCardControl: UIControl {
     }
 }
 
+// MARK: WKWebView delegates
 extension StatusCardControl: WKNavigationDelegate, WKUIDelegate {
     fileprivate func showWebView() {
         let webView = setupWebView()
@@ -279,7 +287,7 @@ extension StatusCardControl: WKNavigationDelegate, WKUIDelegate {
            navigationAction.navigationType == .linkActivated || navigationAction.navigationType == .other,
            let url = navigationAction.request.url,
            url.absoluteString != "about:blank" {
-            urlToOpen.send(url)
+            delegate?.statusCardControl(self, didTapURL: url)
             return .cancel
         }
         return .allow
@@ -288,6 +296,19 @@ extension StatusCardControl: WKNavigationDelegate, WKUIDelegate {
     public func webViewDidClose(_ webView: WKWebView) {
         webView.removeFromSuperview()
         self.webView = nil
+    }
+}
+
+// MARK: UIContextMenuInteractionDelegate
+extension StatusCardControl {
+    public override func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
+        return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { elements in
+            self.delegate?.statusCardControlMenu(self)
+        }
+    }
+
+    public override func contextMenuInteraction(_ interaction: UIContextMenuInteraction, previewForDismissingMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
+        UITargetedPreview(view: self)
     }
 }
 

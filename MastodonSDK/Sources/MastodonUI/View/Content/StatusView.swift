@@ -33,6 +33,8 @@ public protocol StatusViewDelegate: AnyObject {
     func statusView(_ statusView: StatusView, mediaGridContainerView: MediaGridContainerView, mediaSensitiveButtonDidPressed button: UIButton)
     func statusView(_ statusView: StatusView, statusMetricView: StatusMetricView, reblogButtonDidPressed button: UIButton)
     func statusView(_ statusView: StatusView, statusMetricView: StatusMetricView, favoriteButtonDidPressed button: UIButton)
+    func statusView(_ statusView: StatusView, cardControl: StatusCardControl, didTapURL url: URL)
+    func statusView(_ statusView: StatusView, cardControlMenu: StatusCardControl) -> UIMenu?
     
     // a11y
     func statusView(_ statusView: StatusView, accessibilityActivate: Void)
@@ -264,6 +266,7 @@ extension StatusView {
 
         // card
         statusCardControl.addTarget(self, action: #selector(statusCardControlPressed), for: .touchUpInside)
+        statusCardControl.delegate = self
 
         // media
         mediaGridContainerView.delegate = self
@@ -664,6 +667,17 @@ extension StatusView: MastodonMenuDelegate {
     public func menuAction(_ action: MastodonMenu.Action) {
         logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
         delegate?.statusView(self, menuButton: authorView.menuButton, didSelectAction: action)
+    }
+}
+
+// MARK: StatusCardControlDelegate
+extension StatusView: StatusCardControlDelegate {
+    public func statusCardControl(_ statusCardControl: StatusCardControl, didTapURL url: URL) {
+        delegate?.statusView(self, cardControl: statusCardControl, didTapURL: url)
+    }
+
+    public func statusCardControlMenu(_ statusCardControl: StatusCardControl) -> UIMenu? {
+        delegate?.statusView(self, cardControlMenu: statusCardControl)
     }
 }
 
