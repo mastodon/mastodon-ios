@@ -241,8 +241,10 @@ extension StatusCardControl {
     fileprivate func showWebView() {
         let webView = setupWebView()
         webView.loadHTMLString("<meta name='viewport' content='width=device-width,user-scalable=no'><style>body { margin: 0; color-scheme: light dark; } body > :only-child { width: 100vw !important; height: 100vh !important }</style>" + html, baseURL: nil)
-        addSubview(webView)
-        webView.pinTo(to: imageView)
+        if webView.superview == nil {
+            addSubview(webView)
+            webView.pinTo(to: imageView)
+        }
     }
 }
 
@@ -259,6 +261,8 @@ extension StatusCardControl: WKNavigationDelegate, WKUIDelegate {
         webView.uiDelegate = self
         webView.navigationDelegate = self
         webView.translatesAutoresizingMaskIntoConstraints = false
+        webView.isOpaque = false
+        webView.backgroundColor = .clear
         self.webView = webView
         return webView
     }
