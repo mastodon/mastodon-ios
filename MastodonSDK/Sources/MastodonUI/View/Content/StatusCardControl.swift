@@ -242,7 +242,7 @@ public final class StatusCardControl: UIControl {
     private func apply(theme: Theme) {
         layer.borderColor = theme.separator.cgColor
         dividerView.backgroundColor = theme.separator
-        imageView.backgroundColor = theme.systemElevatedBackgroundColor
+        imageView.backgroundColor = UIColor.tertiarySystemFill
     }
 }
 
