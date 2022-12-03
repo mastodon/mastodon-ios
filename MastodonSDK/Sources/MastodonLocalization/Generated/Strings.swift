@@ -1338,9 +1338,9 @@ public enum L10n {
   public enum A11y {
     public enum Plural {
       public enum Count {
-        /// Plural format key: "%#@character_count@ left"
+        /// Plural format key: "%#@character_count@"
         public static func charactersLeft(_ p1: Int) -> String {
-          return L10n.tr("Localizable", "a11y.plural.count.characters_left", p1, fallback: "Plural format key: \"%#@character_count@ left\"")
+          return L10n.tr("Localizable", "a11y.plural.count.characters_left", p1, fallback: "Plural format key: \"%#@character_count@\"")
         }
         /// Plural format key: "Input limit exceeds %#@character_count@"
         public static func inputLimitExceeds(_ p1: Int) -> String {
