@@ -107,6 +107,7 @@ Please check your internet connection.";
 "Common.Controls.Status.Actions.Unfavorite" = "Unfavorite";
 "Common.Controls.Status.Actions.Unreblog" = "Undo reblog";
 "Common.Controls.Status.ContentWarning" = "Content Warning";
+"Common.Controls.Status.LoadEmbed" = "Load Embed";
 "Common.Controls.Status.MediaContentWarning" = "Tap anywhere to reveal";
 "Common.Controls.Status.MetaEntity.Email" = "Email address: %@";
 "Common.Controls.Status.MetaEntity.Hashtag" = "Hashtag: %@";

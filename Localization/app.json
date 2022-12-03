@@ -132,6 +132,7 @@
                 "sensitive_content": "Sensitive Content",
                 "media_content_warning": "Tap anywhere to reveal",
                 "tap_to_reveal": "Tap to reveal",
+                "load_embed": "Load Embed",
                 "poll": {
                     "vote": "Vote",
                     "closed": "Closed"

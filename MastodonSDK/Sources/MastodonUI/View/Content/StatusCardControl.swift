@@ -9,6 +9,7 @@ import AlamofireImage
 import Combine
 import MastodonAsset
 import MastodonCore
+import MastodonLocalization
 import CoreDataStack
 import UIKit
 import WebKit
@@ -33,6 +34,9 @@ public final class StatusCardControl: UIControl {
             configuration.baseBackgroundColor = .clear
             configuration.cornerStyle = .capsule
             configuration.buttonSize = .large
+            configuration.title = L10n.Common.Controls.Status.loadEmbed
+            configuration.image = UIImage(systemName: "play.fill")
+            configuration.imagePadding = 12
             return UIButton(configuration: configuration, primaryAction: UIAction { [weak self] _ in
                 self?.showWebView()
             })
@@ -112,8 +116,6 @@ public final class StatusCardControl: UIControl {
         containerStackView.isUserInteractionEnabled = false
         containerStackView.distribution = .fill
 
-        showEmbedButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
-
         addSubview(containerStackView)
         addSubview(highlightView)
         addSubview(showEmbedButton)
@@ -125,7 +127,6 @@ public final class StatusCardControl: UIControl {
         containerStackView.pinToParent()
         highlightView.pinToParent()
         NSLayoutConstraint.activate([
-            showEmbedButton.widthAnchor.constraint(equalTo: showEmbedButton.heightAnchor),
             showEmbedButton.centerXAnchor.constraint(equalTo: imageView.centerXAnchor),
             showEmbedButton.centerYAnchor.constraint(equalTo: imageView.centerYAnchor),
         ])
