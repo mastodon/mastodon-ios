@@ -11,8 +11,11 @@ import MastodonAsset
 import MastodonCore
 import CoreDataStack
 import UIKit
+import WebKit
 
 public final class StatusCardControl: UIControl {
+    public var urlToOpen = PassthroughSubject<URL, Never>()
+
     private var disposeBag = Set<AnyCancellable>()
 
     private let containerStackView = UIStackView()
@@ -22,6 +25,9 @@ public final class StatusCardControl: UIControl {
     private let imageView = UIImageView()
     private let titleLabel = UILabel()
     private let linkLabel = UILabel()
+
+    private static let cardContentPool = WKProcessPool()
+    private var webView: WKWebView?
 
     private var layout: Layout?
     private var layoutConstraints: [NSLayoutConstraint] = []
@@ -115,6 +121,12 @@ public final class StatusCardControl: UIControl {
             self?.containerStackView.layoutIfNeeded()
         }
 
+        if let html = card.html, !html.isEmpty {
+            let webView = setupWebView()
+            webView.loadHTMLString("<meta name='viewport' content='width=device-width,user-scalable=no'><style>body { margin: 0; color-scheme: light dark; } body > :only-child { width: 100vw !important; height: 100vh !important }</style>" + html, baseURL: nil)
+            addSubview(webView)
+        }
+
         updateConstraints(for: card.layout)
     }
 
@@ -123,6 +135,9 @@ public final class StatusCardControl: UIControl {
 
         if let window = window {
             layer.borderWidth = 1 / window.screen.scale
+        } else {
+            webView?.removeFromSuperview()
+            webView = nil
         }
     }
 
@@ -159,6 +174,10 @@ public final class StatusCardControl: UIControl {
             ]
         }
 
+        if let webView {
+            layoutConstraints += webView.pinTo(to: imageView)
+        }
+
         NSLayoutConstraint.activate(layoutConstraints)
     }
 
@@ -178,6 +197,46 @@ public final class StatusCardControl: UIControl {
     }
 }
 
+extension StatusCardControl: WKNavigationDelegate, WKUIDelegate {
+    fileprivate func setupWebView() -> WKWebView {
+        let config = WKWebViewConfiguration()
+        config.processPool = Self.cardContentPool
+        config.websiteDataStore = .nonPersistent() // private/incognito mode
+        config.suppressesIncrementalRendering = true
+        config.allowsInlineMediaPlayback = true
+        let webView = WKWebView(frame: .zero, configuration: config)
+        webView.uiDelegate = self
+        webView.navigationDelegate = self
+        webView.translatesAutoresizingMaskIntoConstraints = false
+        self.webView = webView
+        return webView
+    }
+
+    public func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction) async -> WKNavigationActionPolicy {
+        let isTopLevelNavigation: Bool
+        if let frame = navigationAction.targetFrame {
+            isTopLevelNavigation = frame.isMainFrame
+        } else {
+            isTopLevelNavigation = true
+        }
+
+        if isTopLevelNavigation,
+           // ignore form submits and such
+           navigationAction.navigationType == .linkActivated || navigationAction.navigationType == .other,
+           let url = navigationAction.request.url,
+           url.absoluteString != "about:blank" {
+            urlToOpen.send(url)
+            return .cancel
+        }
+        return .allow
+    }
+
+    public func webViewDidClose(_ webView: WKWebView) {
+        webView.removeFromSuperview()
+        self.webView = nil
+    }
+}
+
 private extension StatusCardControl {
     enum Layout: Equatable {
         case compact
@@ -187,7 +246,10 @@ private extension StatusCardControl {
 
 private extension Card {
     var layout: StatusCardControl.Layout {
-        let aspectRatio = CGFloat(width) / CGFloat(height)
+        var aspectRatio = CGFloat(width) / CGFloat(height)
+        if !aspectRatio.isFinite {
+            aspectRatio = 1
+        }
         return abs(aspectRatio - 1) < 0.05 || image == nil
         ? .compact
         : .large(aspectRatio: aspectRatio)

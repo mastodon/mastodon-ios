@@ -49,6 +49,8 @@ public final class Card: NSManagedObject {
     @NSManaged public private(set) var embedURLRaw: String?
     // sourcery: autoGenerateProperty
     @NSManaged public private(set) var blurhash: String?
+    // sourcery: autoGenerateProperty
+    @NSManaged public private(set) var html: String?
 
     // sourcery: autoGenerateRelationship
     @NSManaged public private(set) var status: Status
@@ -96,6 +98,7 @@ extension Card: AutoGenerateProperty {
         public let image: String?
         public let embedURLRaw: String?
         public let blurhash: String?
+        public let html: String?
 
     	public init(
     		urlRaw: String,
@@ -110,7 +113,8 @@ extension Card: AutoGenerateProperty {
     		height: Int64,
     		image: String?,
     		embedURLRaw: String?,
-    		blurhash: String?
+    		blurhash: String?,
+    		html: String?
     	) {
     		self.urlRaw = urlRaw
     		self.title = title
@@ -125,6 +129,7 @@ extension Card: AutoGenerateProperty {
     		self.image = image
     		self.embedURLRaw = embedURLRaw
     		self.blurhash = blurhash
+    		self.html = html
     	}
     }
 
@@ -142,6 +147,7 @@ extension Card: AutoGenerateProperty {
     	self.image = property.image
     	self.embedURLRaw = property.embedURLRaw
     	self.blurhash = property.blurhash
+    	self.html = property.html
     }
 
     public func update(property: Property) {

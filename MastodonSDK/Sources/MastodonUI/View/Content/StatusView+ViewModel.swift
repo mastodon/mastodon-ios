@@ -494,6 +494,12 @@ extension StatusView.ViewModel {
             statusView.setStatusCardControlDisplay()
         }
         .store(in: &disposeBag)
+
+        statusView.statusCardControl.urlToOpen
+            .sink { url in
+                statusView.delegate?.statusView(statusView, didTapCardWithURL: url)
+            }
+            .store(in: &disposeBag)
     }
     
     private func bindToolbar(statusView: StatusView) {

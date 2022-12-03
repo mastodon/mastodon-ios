@@ -77,7 +77,8 @@ extension Persistence.Card {
             height: Int64(context.entity.height ?? 0),
             image: context.entity.image,
             embedURLRaw: context.entity.embedURL,
-            blurhash: context.entity.blurhash
+            blurhash: context.entity.blurhash,
+            html: context.entity.html.flatMap { $0.isEmpty ? nil : $0 }
         )
 
         let card = Card.insert(
