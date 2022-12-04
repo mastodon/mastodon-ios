@@ -21,28 +21,8 @@ final class WelcomeViewController: UIViewController, NeedsDependency {
   private(set) lazy var viewModel = WelcomeViewModel(context: context)
 
   let welcomeIllustrationView = WelcomeIllustrationView()
-  var welcomeIllustrationViewBottomAnchorLayoutConstraint: NSLayoutConstraint?
 
   private(set) lazy var dismissBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(WelcomeViewController.dismissBarButtonItemDidPressed(_:)))
-
-  private(set) lazy var logoImageView: UIImageView = {
-    let image = Asset.Scene.Welcome.mastodonLogo.image
-    let imageView = UIImageView(image: image)
-    imageView.translatesAutoresizingMaskIntoConstraints = false
-    imageView.isHidden = true
-    return imageView
-  }()
-
-  private(set) lazy var sloganLabel: UILabel = {
-    let label = UILabel()
-    label.font = UIFontMetrics(forTextStyle: .largeTitle).scaledFont(for: .systemFont(ofSize: 34, weight: .bold))
-    label.textColor = Asset.Colors.Label.primary.color
-    label.text = L10n.Scene.Welcome.slogan
-    label.adjustsFontForContentSizeCategory = true
-    label.translatesAutoresizingMaskIntoConstraints = false
-    label.numberOfLines = 0
-    return label
-  }()
 
   let buttonContainer = UIStackView()
 
@@ -101,7 +81,20 @@ extension WelcomeViewController {
     view.overrideUserInterfaceStyle = .light
 
     setupOnboardingAppearance()
-    setupIllustrationLayout()
+
+    view.addSubview(welcomeIllustrationView)
+    welcomeIllustrationView.translatesAutoresizingMaskIntoConstraints = false
+
+    let bottomAnchorLayoutConstraint = welcomeIllustrationView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+
+    NSLayoutConstraint.activate([
+      welcomeIllustrationView.topAnchor.constraint(equalTo: view.topAnchor),
+      welcomeIllustrationView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+      view.trailingAnchor.constraint(equalTo: welcomeIllustrationView.trailingAnchor),
+      bottomAnchorLayoutConstraint
+    ])
+
+    welcomeIllustrationView.bottomAnchorLayoutConstraint = bottomAnchorLayoutConstraint
 
     buttonContainer.axis = .vertical
     buttonContainer.spacing = 12
@@ -147,6 +140,8 @@ extension WelcomeViewController {
     pageViewController.didMove(toParent: self)
 
 
+
+
     let scrollviews = pageViewController.view.subviews.filter { type(of: $0).isSubclass(of: UIScrollView.self) }.compactMap { $0 as? UIScrollView }
 
     for scrollView in scrollviews {
@@ -183,7 +178,7 @@ extension WelcomeViewController {
     if view.safeAreaInsets.bottom == 0 {
       overlap += 56
     }
-    welcomeIllustrationViewBottomAnchorLayoutConstraint?.constant = overlap
+    welcomeIllustrationView.bottomAnchorLayoutConstraint?.constant = overlap
   }
 
   override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -194,7 +189,6 @@ extension WelcomeViewController {
     setupIllustrationLayout()
     setupButtonShadowView()
   }
-
 }
 
 extension WelcomeViewController {
@@ -245,91 +239,7 @@ extension WelcomeViewController {
   }
 
   private func setupIllustrationLayout() {
-    welcomeIllustrationView.layout = {
-      switch traitCollection.userInterfaceIdiom {
-        case .phone:
-          return .compact
-        default:
-          return .regular
-      }
-    }()
-
-    // set logo
-    if logoImageView.superview == nil {
-      view.addSubview(logoImageView)
-      NSLayoutConstraint.activate([
-        logoImageView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
-        logoImageView.leadingAnchor.constraint(equalTo: view.readableContentGuide.leadingAnchor, constant: 35),
-        view.readableContentGuide.trailingAnchor.constraint(equalTo: logoImageView.trailingAnchor, constant: 35),
-        logoImageView.heightAnchor.constraint(equalTo: logoImageView.widthAnchor, multiplier: 75.0/269.0),
-      ])
-      logoImageView.setContentHuggingPriority(.defaultHigh, for: .vertical)
-    }
-
-    // set illustration
-    guard welcomeIllustrationView.superview == nil else {
-      return
-    }
-    welcomeIllustrationView.contentMode = .scaleAspectFit
-
-    welcomeIllustrationView.translatesAutoresizingMaskIntoConstraints = false
-    welcomeIllustrationViewBottomAnchorLayoutConstraint = welcomeIllustrationView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 5)
-
-    view.addSubview(welcomeIllustrationView)
-    //      welcomeIllustrationView.isHidden = true
-    NSLayoutConstraint.activate([
-      view.leftAnchor.constraint(equalTo: welcomeIllustrationView.leftAnchor, constant: 15),
-      welcomeIllustrationView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 15),
-      welcomeIllustrationViewBottomAnchorLayoutConstraint!.priority(.required - 1),
-    ])
-
-    welcomeIllustrationView.cloudBaseImageView.addMotionEffect(
-      UIInterpolatingMotionEffect.motionEffect(minX: -5, maxX: 5, minY: -5, maxY: 5)
-    )
-    welcomeIllustrationView.rightHillImageView.addMotionEffect(
-      UIInterpolatingMotionEffect.motionEffect(minX: -15, maxX: 25, minY: -10, maxY: 10)
-    )
-    welcomeIllustrationView.leftHillImageView.addMotionEffect(
-      UIInterpolatingMotionEffect.motionEffect(minX: -25, maxX: 15, minY: -15, maxY: 15)
-    )
-    welcomeIllustrationView.centerHillImageView.addMotionEffect(
-      UIInterpolatingMotionEffect.motionEffect(minX: -14, maxX: 14, minY: -5, maxY: 25)
-    )
-
-    let topPaddingView = UIView()
-    topPaddingView.translatesAutoresizingMaskIntoConstraints = false
-    view.addSubview(topPaddingView)
-    NSLayoutConstraint.activate([
-      topPaddingView.topAnchor.constraint(equalTo: logoImageView.bottomAnchor),
-      topPaddingView.leadingAnchor.constraint(equalTo: logoImageView.leadingAnchor),
-      topPaddingView.trailingAnchor.constraint(equalTo: logoImageView.trailingAnchor),
-    ])
-    welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.translatesAutoresizingMaskIntoConstraints = false
-    view.addSubview(welcomeIllustrationView.elephantOnAirplaneWithContrailImageView)
-    NSLayoutConstraint.activate([
-      view.leftAnchor.constraint(equalTo: welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.leftAnchor, constant: 12),  // add 12pt bleeding
-      welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.topAnchor.constraint(equalTo: topPaddingView.bottomAnchor),
-      // make a little bit large
-      welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.84),
-      welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.heightAnchor.constraint(equalTo: welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.widthAnchor, multiplier: 105.0/318.0),
-    ])
-    let bottomPaddingView = UIView()
-    bottomPaddingView.translatesAutoresizingMaskIntoConstraints = false
-    view.addSubview(bottomPaddingView)
-    NSLayoutConstraint.activate([
-      bottomPaddingView.topAnchor.constraint(equalTo: welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.bottomAnchor),
-      bottomPaddingView.leadingAnchor.constraint(equalTo: logoImageView.leadingAnchor),
-      bottomPaddingView.trailingAnchor.constraint(equalTo: logoImageView.trailingAnchor),
-      bottomPaddingView.bottomAnchor.constraint(equalTo: view.centerYAnchor),
-      bottomPaddingView.heightAnchor.constraint(equalTo: topPaddingView.heightAnchor, multiplier: 4),
-    ])
-
-    welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.addMotionEffect(
-      UIInterpolatingMotionEffect.motionEffect(minX: -20, maxX: 12, minY: -20, maxY: 12)  // maxX should not larger then the bleeding (12pt)
-    )
-
-    view.bringSubviewToFront(logoImageView)
-    view.bringSubviewToFront(sloganLabel)
+    welcomeIllustrationView.setup()
   }
 }
 
@@ -410,6 +320,7 @@ extension WelcomeViewController: UIPageViewControllerDelegate {
     if let pageIndex = WelcomeContentPage.allCases.firstIndex(of: currentPage) {
       let offset = Int(pageIndex) * Int(pageViewController.view.frame.width)
       currentPageOffset = offset
+      welcomeIllustrationView.update(contentOffset: CGFloat(offset))
     }
   }
 }
