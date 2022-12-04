@@ -45,6 +45,7 @@ public final class StatusCardControl: UIControl {
             self?.showWebView()
         })
     }()
+    private var url: URL?
     private var html = ""
 
     private static let cardContentPool = WKProcessPool()
@@ -129,6 +130,7 @@ public final class StatusCardControl: UIControl {
         ])
 
         addInteraction(UIContextMenuInteraction(delegate: self))
+        addInteraction(UIDragInteraction(delegate: self))
         isAccessibilityElement = true
         accessibilityTraits.insert(.link)
     }
@@ -138,6 +140,7 @@ public final class StatusCardControl: UIControl {
     }
 
     public func configure(card: Card) {
+        self.url = card.url
         if let host = card.url?.host {
             accessibilityLabel = "\(card.title) \(host)"
         } else {
@@ -314,6 +317,14 @@ extension StatusCardControl {
 
     public override func contextMenuInteraction(_ interaction: UIContextMenuInteraction, previewForDismissingMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
         UITargetedPreview(view: self)
+    }
+}
+
+// MARK: UIDragInteractionDelegate
+extension StatusCardControl: UIDragInteractionDelegate {
+    public func dragInteraction(_ interaction: UIDragInteraction, itemsForBeginning session: UIDragSession) -> [UIDragItem] {
+        guard let url else { return [] }
+        return [UIDragItem(itemProvider: NSItemProvider(object: url as NSURL))]
     }
 }
 
