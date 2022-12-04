@@ -389,8 +389,8 @@
                 "description_photo": "Görme engelliler için fotoğrafı tarif edin...",
                 "description_video": "Görme engelliler için videoyu tarif edin...",
                 "load_failed": "Yükleme Başarısız",
-                "upload_failed": "Upload Failed",
-                "can_not_recognize_this_media_attachment": "Can not recognize this media attachment",
+                "upload_failed": "Yükleme Başarısız",
+                "can_not_recognize_this_media_attachment": "Ekteki medya uzantısı görüntülenemiyor",
                 "attachment_too_large": "Ek boyutu çok büyük",
                 "compressing_state": "Sıkıştırılıyor...",
                 "server_processing_state": "Sunucu İşliyor..."
@@ -427,8 +427,8 @@
                 "enable_content_warning": "İçerik Uyarısını Etkinleştir",
                 "disable_content_warning": "İçerik Uyarısını Kapat",
                 "post_visibility_menu": "Gönderi Görünürlüğü Menüsü",
-                "post_options": "Post Options",
-                "posting_as": "Posting as %s"
+                "post_options": "Gönderi Seçenekleri",
+                "posting_as": "%s olarak paylaşılıyor"
             },
             "keyboard": {
                 "discard_post": "Gönderiyi İptal Et",
@@ -455,8 +455,8 @@
                     "content": "İçerik"
                 },
                 "verified": {
-                    "short": "Verified on %s",
-                    "long": "Ownership of this link was checked on %s"
+                    "short": "%s tarafında onaylı",
+                    "long": "%s adresinin sahipliği kontrol edilmiş"
                 }
             },
             "segmented_control": {
@@ -484,12 +484,12 @@
                     "message": "%s engellemeyi kaldırmayı onaylayın"
                 },
                 "confirm_show_reblogs": {
-                    "title": "Show Reblogs",
-                    "message": "Confirm to show reblogs"
+                    "title": "Yeniden Paylaşımları Göster",
+                    "message": "Yeniden paylaşımları göstermeyi onayla"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "Hide Reblogs",
-                    "message": "Confirm to hide reblogs"
+                    "title": "Yeniden Paylaşımları Gizle",
+                    "message": "Yeniden paylaşımları gizlemeyi onayla"
                 }
             },
             "accessibility": {
@@ -508,8 +508,8 @@
             "footer": "Diğer sunucudaki takip edilenler gösterilemiyor."
         },
         "familiarFollowers": {
-            "title": "Followers you familiar",
-            "followed_by_names": "Followed by %s"
+            "title": "Tanıyor olabileceğin takipçiler",
+            "followed_by_names": "%s tarafından takip ediliyor"
         },
         "favorited_by": {
             "title": "Favorited By"
@@ -698,9 +698,9 @@
                 "unfollow_user": "Takipten çık %s",
                 "mute_user": "Sustur %s",
                 "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or reblogs in your home feed. They won’t know they’ve been muted.",
-                "block_user": "Block %s",
-                "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "They will no longer be able to follow or see your posts, but they can see if they’ve been blocked.",
-                "while_we_review_this_you_can_take_action_against_user": "While we review this, you can take action against %s"
+                "block_user": "%s kişisini engelle",
+                "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "Artık sizi takip edemez ve gönderilerinizi göremezler ama engellendiklerini görebilirler.",
+                "while_we_review_this_you_can_take_action_against_user": "Biz bunu incelerken siz %s hesabına karşı önlem alabilirsiniz"
             }
         },
         "preview": {
@@ -724,15 +724,15 @@
             "title": "Yer İmleri"
         },
         "followed_tags": {
-            "title": "Followed Tags",
+            "title": "Takip Edilen Etiketler",
             "header": {
-                "posts": "posts",
-                "participants": "participants",
+                "posts": "gönderiler",
+                "participants": "katılımcılar",
                 "posts_today": "posts today"
             },
             "actions": {
-                "follow": "Follow",
-                "unfollow": "Unfollow"
+                "follow": "Takip et",
+                "unfollow": "Takibi bırak"
             }
         }
     }
