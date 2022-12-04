@@ -132,6 +132,7 @@ public final class StatusView: UIView {
     // content
     let contentAdaptiveMarginContainerView = AdaptiveMarginContainerView()
     let contentContainer = UIStackView()
+    lazy var contentContextMenuInteraction = UIContextMenuInteraction(delegate: self)
     public let contentMetaText: MetaText = {
         let metaText = MetaText()
         metaText.textView.backgroundColor = .clear
@@ -366,6 +367,7 @@ extension StatusView {
         // content
         contentMetaText.textView.delegate = self
         contentMetaText.textView.linkDelegate = self
+        contentMetaText.textView.addInteraction(contentContextMenuInteraction)
 
         // card
         statusCardControl.addTarget(self, action: #selector(statusCardControlPressed), for: .touchUpInside)
@@ -732,6 +734,52 @@ extension StatusView: MetaTextViewDelegate {
             assertionFailure()
             break
         }
+    }
+}
+
+// MARK: - UIContextMenuInteractionDelegate
+private class MetaContextMenuConfiguration: UIContextMenuConfiguration {
+    var meta: Meta!
+    var range: NSRange!
+}
+extension StatusView: UIContextMenuInteractionDelegate {
+    public func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
+        let glyphIndex = contentMetaText.layoutManager.glyphIndex(for: location, in: contentMetaText.textView.textContainer)
+        let index = contentMetaText.layoutManager.characterIndexForGlyph(at: glyphIndex)
+        if index < contentMetaText.textStorage.length {
+            var effectiveRange: NSRange = NSRange()
+            let key = NSAttributedString.Key("MetaAttributeKey.meta")
+            guard let meta = contentMetaText.textStorage.attribute(key, at: index, longestEffectiveRange: &effectiveRange, in: NSRange(..<contentMetaText.textStorage.length)) as? Meta
+            else { return nil }
+            if case .url(_, _, let url, _) = meta {
+                let config = MetaContextMenuConfiguration(actionProvider: { _ in
+                    UIMenu(children: [
+                        UIAction(title: url, handler: { _ in })
+                    ])
+                })
+                config.meta = meta
+                config.range = effectiveRange
+                return config
+            }
+        }
+        return nil
+    }
+
+    public func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configuration: UIContextMenuConfiguration, highlightPreviewForItemWithIdentifier identifier: NSCopying) -> UITargetedPreview? {
+        guard let config = configuration as? MetaContextMenuConfiguration else { return nil }
+        var rects = [CGRect]()
+        var combinedRect = CGRect.null
+        let combinedPath = UIBezierPath()
+        contentMetaText.layoutManager.enumerateEnclosingRects(forGlyphRange: config.range, withinSelectedGlyphRange: NSMakeRange(NSNotFound, 0), in: contentMetaText.textView.textContainer) { rect, _ in
+            rects.append(rect)
+            combinedRect = combinedRect.union(rect)
+            combinedPath.append(UIBezierPath(rect: rect))
+        }
+        return UITargetedPreview(
+            view: contentMetaText.textView.snapshotView(afterScreenUpdates: false)!,
+            parameters: UIPreviewParameters(textLineRects: rects.map(NSValue.init)),
+            target: UIPreviewTarget(container: contentMetaText.textView, center: CGPoint(x: combinedRect.midX, y: combinedRect.midY))
+        )
     }
 }
 
