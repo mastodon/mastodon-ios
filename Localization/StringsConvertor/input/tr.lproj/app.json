@@ -95,8 +95,8 @@
             },
             "tabs": {
                 "home": "Ana Sayfa",
-                "search_and_explore": "Search and Explore",
-                "notifications": "Notifications",
+                "search_and_explore": "Ara ve Keşfet",
+                "notifications": "Bildirimler",
                 "profile": "Profil"
             },
             "keyboard": {
@@ -187,8 +187,8 @@
                 "unmute_user": "Sesini aç %s",
                 "muted": "Susturuldu",
                 "edit_info": "Bilgiyi Düzenle",
-                "show_reblogs": "Show Reblogs",
-                "hide_reblogs": "Hide Reblogs"
+                "show_reblogs": "Yeniden Paylaşımları Göster",
+                "hide_reblogs": "Yeniden Paylaşımları Gizle"
             },
             "timeline": {
                 "filtered": "Filtrelenmiş",
@@ -220,14 +220,14 @@
         },
         "login": {
             "title": "Tekrar hoş geldin",
-            "subtitle": "Log you in on the server you created your account on.",
+            "subtitle": "Hesabını oluşturduğun sunucuya giriş yap.",
             "server_search_field": {
-                "placeholder": "Enter URL or search for your server"
+                "placeholder": "Bir URL girin ya da sunucunuzu arayın"
             }
         },
         "server_picker": {
             "title": "Mastodon, farklı topluluklardaki kullanıcılardan oluşur.",
-            "subtitle": "Pick a server based on your region, interests, or a general purpose one. You can still chat with anyone on Mastodon, regardless of your servers.",
+            "subtitle": "Bölgenize dayalı, ilginize dayalı ya da genel amaçlı bir sunucu seçin. Hangi sunucuda olduğunuz fark etmeksizin Mastodon'daki herkes ile konuşabilirsiniz.",
             "button": {
                 "category": {
                     "all": "Tümü",
@@ -254,7 +254,7 @@
                 "category": "KATEGORİ"
             },
             "input": {
-                "search_servers_or_enter_url": "Search communities or enter URL"
+                "search_servers_or_enter_url": "Topluluklar arayın ya da bir URL girin"
             },
             "empty_state": {
                 "finding_servers": "Mevcut sunucular aranıyor...",
@@ -391,9 +391,9 @@
                 "load_failed": "Yükleme Başarısız",
                 "upload_failed": "Upload Failed",
                 "can_not_recognize_this_media_attachment": "Can not recognize this media attachment",
-                "attachment_too_large": "Attachment too large",
+                "attachment_too_large": "Ek boyutu çok büyük",
                 "compressing_state": "Sıkıştırılıyor...",
-                "server_processing_state": "Server Processing..."
+                "server_processing_state": "Sunucu İşliyor..."
             },
             "poll": {
                 "duration_time": "Süre: %s",
@@ -404,7 +404,7 @@
                 "three_days": "3 Gün",
                 "seven_days": "7 Gün",
                 "option_number": "Seçenek %ld",
-                "the_poll_is_invalid": "The poll is invalid",
+                "the_poll_is_invalid": "Anket geçersiz",
                 "the_poll_has_empty_option": "The poll has empty option"
             },
             "content_warning": {
