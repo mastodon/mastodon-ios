@@ -381,7 +381,7 @@ extension StatusView.Style {
 
         statusView.spoilerOverlayView.translatesAutoresizingMaskIntoConstraints = false
         statusView.containerStackView.addSubview(statusView.spoilerOverlayView)
-        statusView.contentContainer.pinTo(to: statusView.spoilerOverlayView)
+        statusView.spoilerOverlayView.pinTo(to: statusView.contentContainer)
 
         // media container: V - [ mediaGridContainerView ]
         statusView.mediaContainerView.translatesAutoresizingMaskIntoConstraints = false

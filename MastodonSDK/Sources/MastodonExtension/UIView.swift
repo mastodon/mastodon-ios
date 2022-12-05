@@ -54,12 +54,12 @@ public extension UIView {
     }
     
     func pinTo(to view: UIView?) {
-        guard let pinToView = view else { return }
+        guard let view else { return }
         NSLayoutConstraint.activate([
-            topAnchor.constraint(equalTo: pinToView.topAnchor),
-            leadingAnchor.constraint(equalTo: pinToView.leadingAnchor),
-            trailingAnchor.constraint(equalTo: pinToView.trailingAnchor),
-            bottomAnchor.constraint(equalTo: pinToView.bottomAnchor),
+            topAnchor.constraint(equalTo: view.topAnchor),
+            leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            view.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])
     }
 }
