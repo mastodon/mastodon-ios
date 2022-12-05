@@ -49,7 +49,7 @@ fileprivate final class TouchView: UIView {
 
 public final class TouchesVisibleWindow: UIWindow {
     
-    var touchesVisible = false {
+    public var touchesVisible = false {
         didSet {
             if !touchesVisible {
                 cleanUpAllTouches()
