@@ -122,8 +122,8 @@ extension HomeTimelineViewController {
             identifier: nil,
             options: [],
             children: [
-                UIAction(title: "Toggle Visible Touches", image: UIImage(systemName: "hand.tap"), attributes: []) { [weak self] action in
-                    guard let window = UIApplication.shared.keyWindow as? TouchesVisibleWindow else { return }
+                UIAction(title: "Toggle Visible Touches", image: UIImage(systemName: "hand.tap"), attributes: []) { _ in
+                    guard let window = UIApplication.shared.getKeyWindow() as? TouchesVisibleWindow else { return }
                     window.touchesVisible = !window.touchesVisible
                 },
                 UIAction(title: "Toggle EmptyView", image: UIImage(systemName: "clear"), attributes: []) { [weak self] action in
