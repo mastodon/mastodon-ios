@@ -68,6 +68,11 @@ extension ProfileFieldCollectionViewCell {
             checkmark.addInteraction(editMenuInteraction)
         }
         
+        // Setup Accessibility
+        checkmark.isAccessibilityElement = true
+        checkmark.accessibilityTraits = .none
+        keyMetaLabel.accessibilityTraits = .none
+
         // containerStackView: V - [ metaContainer | plainContainer ]
         let containerStackView = UIStackView()
         containerStackView.axis = .vertical

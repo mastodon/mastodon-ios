@@ -104,6 +104,13 @@ final class ProfileViewController: UIViewController, NeedsDependency, MediaPrevi
         barButtonItem.accessibilityLabel = L10n.Common.Controls.Actions.seeMore
         return barButtonItem
     }()
+    
+    private(set) lazy var followedTagsBarButtonItem: UIBarButtonItem = {
+        let barButtonItem = UIBarButtonItem(image: UIImage(systemName: "number"), style: .plain, target: self, action: #selector(ProfileViewController.followedTagsItemPressed(_:)))
+        barButtonItem.tintColor = .white
+        barButtonItem.accessibilityLabel = L10n.Scene.FollowedTags.title
+        return barButtonItem
+    }()
 
     let refreshControl: RefreshControl = {
         let refreshControl = RefreshControl()
@@ -243,6 +250,11 @@ extension ProfileViewController {
                 items.append(self.shareBarButtonItem)
                 items.append(self.favoriteBarButtonItem)
                 items.append(self.bookmarkBarButtonItem)
+                
+                if self.currentInstance?.canFollowTags == true {
+                    items.append(self.followedTagsBarButtonItem)
+                }
+                
                 return
             }
 
@@ -544,6 +556,13 @@ extension ProfileViewController {
             kind: .mention(user: mastodonUser.asRecord)
         )
         _ = coordinator.present(scene: .compose(viewModel: composeViewModel), from: self, transition: .modal(animated: true, completion: nil))
+    }
+    
+    @objc private func followedTagsItemPressed(_ sender: UIBarButtonItem) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        
+        let followedTagsViewModel = FollowedTagsViewModel(context: context, authContext: viewModel.authContext)
+        _ = coordinator.present(scene: .followedTags(viewModel: followedTagsViewModel), from: self, transition: .show)
     }
 
     @objc private func refreshControlValueChanged(_ sender: RefreshControl) {
@@ -914,3 +933,13 @@ extension ProfileViewController: PagerTabStripNavigateable {
 
 }
 
+private extension ProfileViewController {
+    var currentInstance: Instance? {
+        guard let authenticationRecord = authContext.mastodonAuthenticationBox
+            .authenticationRecord
+            .object(in: context.managedObjectContext)
+        else { return nil }
+        
+        return authenticationRecord.instance
+    }
+}

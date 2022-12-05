@@ -22,6 +22,7 @@ extension Tag.Property {
             updatedAt: networkDate,
             name: entity.name,
             url: entity.url,
+            following: entity.following ?? false,
             histories: {
                 guard let histories = entity.history else { return [] }
                 let result: [MastodonTagHistory] = histories.map { history in
