@@ -52,10 +52,10 @@ public final class AdaptiveMarginContainerView: UIView {
 extension AdaptiveMarginContainerView {
     
     public override func updateConstraints() {
-        super.updateConstraints()
-        
         leadingLayoutConstraint?.constant = margin
         trailingLayoutConstraint?.constant = margin
+
+        super.updateConstraints()
     }
     
 }

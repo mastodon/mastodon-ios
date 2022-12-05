@@ -146,7 +146,6 @@ extension PollOptionView.ViewModel {
                 }
                 view.optionTextView.text = metaContent.string
                 view.optionTextView.accessibilityLabel = metaContent.string
-                view.layoutIfNeeded()
             }
             .store(in: &disposeBag)
         // selectState

@@ -54,8 +54,8 @@ public final class PollOptionView: UIView {
         return imageView
     }()
     
-    public let optionTextView: DeleteBackwardResponseTextView = {
-        let textView = DeleteBackwardResponseTextView()
+    public let optionTextView: UITextView = {
+        let textView = UITextView()
         textView.font = .systemFont(ofSize: 15, weight: .medium)
         textView.textColor = Asset.Colors.Label.primary.color
         textView.backgroundColor = .clear
