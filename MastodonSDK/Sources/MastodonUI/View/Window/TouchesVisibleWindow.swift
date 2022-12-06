@@ -23,13 +23,15 @@ private final class TouchView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        let isLightMode = traitCollection.userInterfaceStyle == .light
+        
         backgroundColor = .clear
         layer.masksToBounds = true
         layer.cornerCurve = .circular
-        layer.borderColor = UIColor.white.cgColor
+        layer.borderColor = isLightMode ? UIColor.gray.cgColor : UIColor.white.cgColor
         layer.borderWidth = 2.0
         
-        let blurEffect = traitCollection.userInterfaceStyle == .light ?
+        let blurEffect = isLightMode ?
             UIBlurEffect(style: .systemUltraThinMaterialDark) :
             UIBlurEffect(style: .systemUltraThinMaterialLight)
         blurView.effect = blurEffect
