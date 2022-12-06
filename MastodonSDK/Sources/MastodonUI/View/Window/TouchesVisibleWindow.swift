@@ -10,9 +10,9 @@
 import UIKit
 
 /// View that represents a single touch from the user.
-fileprivate final class TouchView: UIView {
+private final class TouchView: UIView {
     
-    private let blurView: UIVisualEffectView
+    private let blurView = UIVisualEffectView(effect: nil)
     
     override var frame: CGRect {
         didSet {
@@ -21,9 +21,6 @@ fileprivate final class TouchView: UIView {
     }
     
     override init(frame: CGRect) {
-        let blurEffect = UIBlurEffect(style: .systemUltraThinMaterialLight)
-        blurView = UIVisualEffectView(effect: blurEffect)
-        
         super.init(frame: frame)
         
         backgroundColor = .clear
@@ -32,6 +29,10 @@ fileprivate final class TouchView: UIView {
         layer.borderColor = UIColor.white.cgColor
         layer.borderWidth = 2.0
         
+        let blurEffect = traitCollection.userInterfaceStyle == .light ?
+            UIBlurEffect(style: .systemUltraThinMaterialDark) :
+            UIBlurEffect(style: .systemUltraThinMaterialLight)
+        blurView.effect = blurEffect
         addSubview(blurView)
     }
     
