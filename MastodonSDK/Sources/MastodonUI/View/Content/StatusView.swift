@@ -208,7 +208,7 @@ public final class StatusView: UIView {
         }
         
         NSLayoutConstraint.activate([
-            containerView.heightAnchor.constraint(equalToConstant: 20),
+            containerView.heightAnchor.constraint(equalToConstant: 24),
             translatedInfoLabel.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
             translatedInfoLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16),
             revertButton.topAnchor.constraint(equalTo: containerView.topAnchor),
@@ -469,6 +469,10 @@ extension StatusView.Style {
         statusView.pollStatusDotLabel.setContentHuggingPriority(.defaultHigh + 1, for: .horizontal)
         statusView.pollCountdownLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
         statusView.pollVoteButton.setContentHuggingPriority(.defaultHigh + 3, for: .horizontal)
+        
+        // translated info
+        statusView.containerStackView.addArrangedSubview(statusView.isTranslatingLoadingView)
+        statusView.containerStackView.addArrangedSubview(statusView.translatedInfoView)
 
         // action toolbar
         statusView.actionToolbarAdaptiveMarginContainerView.contentView = statusView.actionToolbarContainer
@@ -483,10 +487,6 @@ extension StatusView.Style {
             statusView.filterHintLabel.centerXAnchor.constraint(equalTo: statusView.containerStackView.centerXAnchor),
             statusView.filterHintLabel.centerYAnchor.constraint(equalTo: statusView.containerStackView.centerYAnchor),
         ])
-        
-        // translated info
-        statusView.containerStackView.addArrangedSubview(statusView.isTranslatingLoadingView)
-        statusView.containerStackView.addArrangedSubview(statusView.translatedInfoView)
     }
     
     func inline(statusView: StatusView) {
