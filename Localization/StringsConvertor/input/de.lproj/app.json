@@ -45,7 +45,7 @@
                 "message": "Bitte aktiviere den Zugriff auf die Fotobibliothek, um das Foto zu speichern."
             },
             "delete_post": {
-                "title": "Bist du dir sicher, dass du diesen Beitrag löschen möchtest?",
+                "title": "Beiträge löschen",
                 "message": "Bist du dir sicher, dass du diesen Beitrag löschen willst?"
             },
             "clean_cache": {
@@ -83,7 +83,7 @@
                 "share_post": "Beitrag teilen",
                 "open_in_safari": "In Safari öffnen",
                 "open_in_browser": "Im Browser anzeigen",
-                "find_people": "Finde Personen zum Folgen",
+                "find_people": "Personen zum Folgen finden",
                 "manually_search": "Stattdessen manuell suchen",
                 "skip": "Überspringen",
                 "reply": "Antworten",
@@ -197,7 +197,7 @@
                 },
                 "loader": {
                     "load_missing_posts": "Fehlende Beiträge laden",
-                    "loading_missing_posts": "Lade fehlende Beiträge...",
+                    "loading_missing_posts": "Fehlende Beiträge werden geladen …",
                     "show_more_replies": "Weitere Antworten anzeigen"
                 },
                 "header": {
@@ -257,7 +257,7 @@
                 "search_servers_or_enter_url": "Suche nach einer Community oder gib eine URL ein"
             },
             "empty_state": {
-                "finding_servers": "Verfügbare Server werden gesucht...",
+                "finding_servers": "Verfügbare Server werden gesucht …",
                 "bad_network": "Beim Laden der Daten ist etwas schief gelaufen. Überprüfe deine Internetverbindung.",
                 "no_results": "Keine Ergebnisse"
             }
@@ -358,7 +358,7 @@
                 "offline": "Offline",
                 "new_posts": "Neue Beiträge anzeigen",
                 "published": "Veröffentlicht!",
-                "Publishing": "Beitrag wird veröffentlicht...",
+                "Publishing": "Beitrag wird veröffentlicht …",
                 "accessibility": {
                     "logo_label": "Logo-Button",
                     "logo_hint": "Zum Scrollen nach oben tippen und zum vorherigen Ort erneut tippen"
@@ -386,14 +386,14 @@
                 "photo": "Foto",
                 "video": "Video",
                 "attachment_broken": "Dieses %s scheint defekt zu sein und\nkann nicht auf Mastodon hochgeladen werden.",
-                "description_photo": "Für Menschen mit Sehbehinderung beschreiben...",
-                "description_video": "Für Menschen mit Sehbehinderung beschreiben...",
+                "description_photo": "Für Menschen mit Sehbehinderung beschreiben …",
+                "description_video": "Für Menschen mit Sehbehinderung beschreiben …",
                 "load_failed": "Laden fehlgeschlagen",
                 "upload_failed": "Upload fehlgeschlagen",
                 "can_not_recognize_this_media_attachment": "Medienanhang wurde nicht erkannt",
                 "attachment_too_large": "Anhang zu groß",
-                "compressing_state": "Komprimieren...",
-                "server_processing_state": "Serververarbeitung..."
+                "compressing_state": "wird komprimiert …",
+                "server_processing_state": "Serververarbeitung …"
             },
             "poll": {
                 "duration_time": "Dauer: %s",
@@ -408,7 +408,7 @@
                 "the_poll_has_empty_option": "Die Umfrage hat eine leere Option"
             },
             "content_warning": {
-                "placeholder": "Schreibe eine Inhaltswarnung hier..."
+                "placeholder": "Hier eine Inhaltswarnung schreiben …"
             },
             "visibility": {
                 "public": "Öffentlich",
@@ -428,7 +428,7 @@
                 "disable_content_warning": "Inhaltswarnung ausschalten",
                 "post_visibility_menu": "Sichtbarkeitsmenü",
                 "post_options": "Beitragsoptionen",
-                "posting_as": "Posten als %s"
+                "posting_as": "Veröffentlichen als %s"
             },
             "keyboard": {
                 "discard_post": "Beitrag verwerfen",
@@ -726,9 +726,9 @@
         "followed_tags": {
             "title": "Gefolgte Hashtags",
             "header": {
-                "posts": "Posts",
+                "posts": "Beiträge",
                 "participants": "Teilnehmer*innen",
-                "posts_today": "Posts heute"
+                "posts_today": "Beiträge heute"
             },
             "actions": {
                 "follow": "Folgen",
