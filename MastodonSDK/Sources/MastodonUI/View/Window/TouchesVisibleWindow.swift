@@ -115,10 +115,9 @@ public final class TouchesVisibleWindow: UIWindow {
                     touchViews[touch] = touchView
                     
                 case .moved:
-                    guard let touchView = touchViews[touch] else {
-                        return
+                    if let touchView = touchViews[touch] {
+                        touchView.center = touchLocation
                     }
-                    touchView.center = touchLocation
                     
                 case .ended, .cancelled:
                     cleanupTouch(touch)
