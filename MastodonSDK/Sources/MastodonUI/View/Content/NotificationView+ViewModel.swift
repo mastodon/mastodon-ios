@@ -209,13 +209,13 @@ extension NotificationView.ViewModel {
                 $isTranslated
             )
         )
-        .sink { authorName, isMuting, isBlocking, comb2 in
+        .sink { authorName, isMuting, isBlocking, isMyselfIsTranslated in
             guard let name = authorName?.string else {
                 notificationView.menuButton.menu = nil
                 return
             }
             
-            let (isMyself, isTranslated) = comb2
+            let (isMyself, isTranslated) = isMyselfIsTranslated
             
             let menuContext = NotificationView.AuthorMenuContext(
                 name: name,

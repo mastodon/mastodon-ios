@@ -148,7 +148,7 @@ extension StatusView {
             filterContext = nil
         }
         
-        init() {    
+        init() {
             // isReblogEnabled
             Publishers.CombineLatest(
                 $visibility,
