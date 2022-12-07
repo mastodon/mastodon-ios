@@ -11,9 +11,19 @@ import MastodonCore
 import MastodonUI
 import MastodonLocalization
 
-final class WelcomeIllustrationView: UIView {
+fileprivate extension CGFloat {
+  static let centerHillStartPosition = 20.0
+  static let airplaneStartPosition = -178.0
+  static let leftHillStartPosition = 30.0
+  static let rightHillStartPosition = -161.0
 
-  let cloudBaseImageView = UIImageView()
+  static let airplaneSpeed = 50.0
+  static let leftHillSpeed = 20.0
+  static let centerHillSpeed = 40.0
+  static let rightHillSpeed = 20.0
+}
+
+final class WelcomeIllustrationView: UIView {
 
   private let cloudBaseImage = Asset.Scene.Welcome.Illustration.cloudBase.image
   private let cloudBaseExtendImage = Asset.Scene.Welcome.Illustration.cloudBaseExtend.image
@@ -42,7 +52,7 @@ final class WelcomeIllustrationView: UIView {
   }()
 
   let leftHillImageView: UIImageView = {
-    let imageView = UIImageView(image: Asset.Scene.Welcome.Illustration.elephantThreeOnGrassWithTreeTwo.image)
+    let imageView = UIImageView(image: Asset.Scene.Welcome.Illustration.elephantThreeOnGrassWithTreeThree.image)
     imageView.translatesAutoresizingMaskIntoConstraints = false
     imageView.contentMode = .scaleAspectFill
     return imageView
@@ -55,6 +65,12 @@ final class WelcomeIllustrationView: UIView {
     return imageView
   }()
 
+  let cloudBaseImageView: UIImageView = {
+    let imageView = UIImageView(image: Asset.Scene.Welcome.Illustration.cloudBase.image)
+    imageView.translatesAutoresizingMaskIntoConstraints = false
+    imageView.contentMode = .scaleAspectFit
+    return imageView
+  }()
 
   var aspectLayoutConstraint: NSLayoutConstraint!
 
@@ -84,56 +100,47 @@ extension WelcomeIllustrationView {
       cloudBaseImageView.topAnchor.constraint(equalTo: topAnchor)
     ])
 
-    rightHillImageView.translatesAutoresizingMaskIntoConstraints = false
-
-    let rightHillRightConstraint = rightAnchor.constraint(equalTo: rightHillImageView.rightAnchor)
+    let rightHillRightConstraint = rightAnchor.constraint(equalTo: rightHillImageView.rightAnchor, constant: .rightHillStartPosition)
     addSubview(rightHillImageView)
     NSLayoutConstraint.activate([
-      rightHillImageView.widthAnchor.constraint(equalTo: widthAnchor),
+      rightHillImageView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.64),
       rightHillRightConstraint,
-      bottomAnchor.constraint(equalTo: rightHillImageView.bottomAnchor),
+      bottomAnchor.constraint(equalTo: rightHillImageView.bottomAnchor, constant: 149),
     ])
     self.rightHillRightConstraint = rightHillRightConstraint
 
-    leftHillImageView.translatesAutoresizingMaskIntoConstraints = false
-
-    let leftHillLeftConstraint = leftHillImageView.leftAnchor.constraint(equalTo: leftAnchor)
+    let leftHillLeftConstraint = leftAnchor.constraint(equalTo: leftHillImageView.leftAnchor, constant: .leftHillStartPosition)
     addSubview(leftHillImageView)
     NSLayoutConstraint.activate([
-      leftHillImageView.widthAnchor.constraint(equalTo: widthAnchor),
+      leftHillImageView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.72),
       leftHillLeftConstraint,
-      bottomAnchor.constraint(equalTo: leftHillImageView.bottomAnchor),
+      bottomAnchor.constraint(equalTo: leftHillImageView.bottomAnchor, constant: 187),
     ])
 
     self.leftHillLeftConstraint = leftHillLeftConstraint
 
-    centerHillImageView.translatesAutoresizingMaskIntoConstraints = false
-
-    let centerHillLeftConstraint = centerHillImageView.leftAnchor.constraint(equalTo: leftAnchor)
+    let centerHillLeftConstraint = leftAnchor.constraint(equalTo: centerHillImageView.leftAnchor, constant: .centerHillStartPosition)
 
     addSubview(centerHillImageView)
     NSLayoutConstraint.activate([
       centerHillLeftConstraint,
-      bottomAnchor.constraint(equalTo: centerHillImageView.bottomAnchor),
-      trailingAnchor.constraint(equalTo: centerHillImageView.trailingAnchor),
+      bottomAnchor.constraint(equalTo: centerHillImageView.bottomAnchor, constant: -18),
+      centerHillImageView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 1.2),
     ])
 
     self.centerHillLeftConstraint = centerHillLeftConstraint
 
     addSubview(elephantOnAirplaneWithContrailImageView)
 
-    let elephantOnAirplaneLeftConstraint = leftAnchor.constraint(equalTo: elephantOnAirplaneWithContrailImageView.leftAnchor, constant: 178)  // add 12pt bleeding
+    let elephantOnAirplaneLeftConstraint = elephantOnAirplaneWithContrailImageView.leftAnchor.constraint(equalTo: leftAnchor, constant: .airplaneStartPosition)  // add 12pt bleeding
     NSLayoutConstraint.activate([
       elephantOnAirplaneLeftConstraint,
-      elephantOnAirplaneWithContrailImageView.bottomAnchor.constraint(equalTo: centerYAnchor),
+      elephantOnAirplaneWithContrailImageView.bottomAnchor.constraint(equalTo: leftHillImageView.topAnchor),
       // make a little bit large
       elephantOnAirplaneWithContrailImageView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.84),
     ])
 
     self.elephantOnAirplaneLeftConstraint = elephantOnAirplaneLeftConstraint
-
-//    aspectLayoutConstraint = cloudBaseImageView.widthAnchor.constraint(equalTo: cloudBaseImageView.heightAnchor, multiplier: layout.artworkImageSize.width / layout.artworkImageSize.height)
-//    aspectLayoutConstraint.isActive = true
   }
 
   func setup() {
@@ -163,10 +170,9 @@ extension WelcomeIllustrationView {
   }
 
   func update(contentOffset: CGFloat) {
-    // updating the constraints doesn't work smoothly.
-    elephantOnAirplaneLeftConstraint?.constant = -(contentOffset / 50) + 111
-    leftHillLeftConstraint?.constant = (contentOffset / 50) + 111
-    centerHillLeftConstraint?.constant = (contentOffset / 50) + 111
-    rightHillRightConstraint?.constant = (contentOffset / 50) + 111
+    elephantOnAirplaneLeftConstraint?.constant = contentOffset / .airplaneSpeed + .airplaneStartPosition
+    leftHillLeftConstraint?.constant = contentOffset / .leftHillSpeed + .leftHillStartPosition
+    centerHillLeftConstraint?.constant = contentOffset / .centerHillSpeed + .centerHillStartPosition
+    rightHillRightConstraint?.constant = contentOffset / .rightHillSpeed + .rightHillStartPosition
   }
 }
