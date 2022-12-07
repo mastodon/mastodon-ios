@@ -262,6 +262,7 @@ extension StatusView {
         guard
             let translatedContent = translatedContent
         else {
+            viewModel.isCurrentlyTranslating = false
             return
         }
 
@@ -271,6 +272,7 @@ extension StatusView {
             let metaContent = try MastodonMetaContent.convert(document: content)
             viewModel.content = metaContent
             viewModel.translatedFromLanguage = status.reblog?.language ?? status.language
+            viewModel.isCurrentlyTranslating = false
         } catch {
             assertionFailure(error.localizedDescription)
             viewModel.content = PlaintextMetaContent(string: "")
@@ -305,6 +307,7 @@ extension StatusView {
             let metaContent = try MastodonMetaContent.convert(document: content)
             viewModel.content = metaContent
             viewModel.translatedFromLanguage = nil
+            viewModel.isCurrentlyTranslating = false
         } catch {
             assertionFailure(error.localizedDescription)
             viewModel.content = PlaintextMetaContent(string: "")

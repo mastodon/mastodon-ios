@@ -47,9 +47,7 @@ extension StatusView {
         
         // Translation
         @Published public var isCurrentlyTranslating = false
-        @Published public var translatedFromLanguage: String? {
-            didSet { isCurrentlyTranslating = false }
-        }
+        @Published public var translatedFromLanguage: String?
         
         @Published public var timestamp: Date?
         public var timestampFormatter: ((_ date: Date) -> String)?
@@ -143,6 +141,7 @@ extension StatusView {
             isMediaSensitive = false
             isSensitiveToggled = false
             translatedFromLanguage = nil
+            isCurrentlyTranslating = false
             
             activeFilters = []
             filterContext = nil
