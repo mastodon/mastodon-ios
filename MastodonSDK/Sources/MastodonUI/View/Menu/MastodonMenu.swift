@@ -129,7 +129,7 @@ extension MastodonMenu {
                 return deleteAction
             case let .translateStatus(context):
                 let translateAction = BuiltAction(
-                    title: String(format: "Translate from %@", Locale.current.localizedString(forIdentifier: context.language) ?? "Unknown"),
+                    title: L10n.Common.Controls.Actions.TranslatePost.title(Locale.current.localizedString(forIdentifier: context.language) ?? L10n.Common.Controls.Actions.TranslatePost.unknownLanguage),
                     image: UIImage(systemName: "character.book.closed")
                 ) { [weak delegate] in
                     guard let delegate = delegate else { return }

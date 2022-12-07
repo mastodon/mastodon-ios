@@ -178,6 +178,14 @@ public enum L10n {
         public static func unblockDomain(_ p1: Any) -> String {
           return L10n.tr("Localizable", "Common.Controls.Actions.UnblockDomain", String(describing: p1), fallback: "Unblock %@")
         }
+        public enum TranslatePost {
+          /// Translate from %@
+          public static func title(_ p1: Any) -> String {
+            return L10n.tr("Localizable", "Common.Controls.Actions.TranslatePost.Title", String(describing: p1), fallback: "Translate from %@")
+          }
+          /// Unknown
+          public static let unknownLanguage = L10n.tr("Localizable", "Common.Controls.Actions.TranslatePost.UnknownLanguage", fallback: "Unknown")
+        }
       }
       public enum Friendship {
         /// Block
@@ -351,6 +359,16 @@ public enum L10n {
           public static let mention = L10n.tr("Localizable", "Common.Controls.Status.Tag.Mention", fallback: "Mention")
           /// URL
           public static let url = L10n.tr("Localizable", "Common.Controls.Status.Tag.Url", fallback: "URL")
+        }
+        public enum Translation {
+          /// Show Original
+          public static let showOriginal = L10n.tr("Localizable", "Common.Controls.Status.Translation.ShowOriginal", fallback: "Show Original")
+          /// Translated from %@
+          public static func translatedFrom(_ p1: Any) -> String {
+            return L10n.tr("Localizable", "Common.Controls.Status.Translation.TranslatedFrom", String(describing: p1), fallback: "Translated from %@")
+          }
+          /// Unknown
+          public static let unknownLanguage = L10n.tr("Localizable", "Common.Controls.Status.Translation.UnknownLanguage", fallback: "Unknown")
         }
         public enum Visibility {
           /// Only mentioned user can see this post.

@@ -91,7 +91,11 @@
                 "block_domain": "Block %s",
                 "unblock_domain": "Unblock %s",
                 "settings": "Settings",
-                "delete": "Delete"
+                "delete": "Delete",
+                "translate_post": {
+                    "title": "Translate from %s",
+                    "unknown_language": "Unknown"
+                }
             },
             "tabs": {
                 "home": "Home",
@@ -168,6 +172,11 @@
                     "private": "Only their followers can see this post.",
                     "private_from_me": "Only my followers can see this post.",
                     "direct": "Only mentioned user can see this post."
+                },
+                "translation": {
+                    "translated_from": "Translated from %s",
+                    "unknown_language": "Unknown",
+                    "show_original": "Shown Original"
                 }
             },
             "friendship": {

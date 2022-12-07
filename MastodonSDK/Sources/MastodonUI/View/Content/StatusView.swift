@@ -193,7 +193,7 @@ public final class StatusView: UIView {
     
         let revertButton = UIButton()
         revertButton.titleLabel?.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: .systemFont(ofSize: 13, weight: .bold))
-        revertButton.setTitle("Show Original", for: .normal)
+        revertButton.setTitle(L10n.Common.Controls.Status.Translation.showOriginal, for: .normal)
         revertButton.setTitleColor(Asset.Colors.brand.color, for: .normal)
         revertButton.addAction(UIAction { [weak self] _ in
             self?.revertTranslation()
@@ -718,7 +718,7 @@ extension StatusView {
             .sink { [weak self] translatedFromLanguage in
                 guard let self = self else { return }
                 if let translatedFromLanguage = translatedFromLanguage {
-                    self.translatedInfoLabel.text = String(format: "Translated from %@", Locale.current.localizedString(forIdentifier: translatedFromLanguage) ?? "Unknown")
+                    self.translatedInfoLabel.text = L10n.Common.Controls.Status.Translation.translatedFrom(Locale.current.localizedString(forIdentifier: translatedFromLanguage) ?? L10n.Common.Controls.Status.Translation.unknownLanguage)
                     self.translatedInfoView.isHidden = false
                 } else {
                     self.translatedInfoView.isHidden = true
