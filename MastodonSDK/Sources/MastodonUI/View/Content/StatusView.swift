@@ -176,6 +176,12 @@ public final class StatusView: UIView {
         indicatorView.stopAnimating()
         return indicatorView
     }()
+    let isTranslatingLoadingView: UIActivityIndicatorView = {
+        let activityIndicatorView = UIActivityIndicatorView(style: .medium)
+        activityIndicatorView.hidesWhenStopped = true
+        activityIndicatorView.stopAnimating()
+        return activityIndicatorView
+    }()
     private let translatedInfoLabel = UILabel()
     lazy var translatedInfoView: UIView = {
         let containerView = UIView()
@@ -199,8 +205,9 @@ public final class StatusView: UIView {
             containerView.heightAnchor.constraint(equalToConstant: 20),
             translatedInfoLabel.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
             translatedInfoLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16),
-            revertButton.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
-            revertButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16)
+            revertButton.topAnchor.constraint(equalTo: containerView.topAnchor),
+            revertButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16),
+            revertButton.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
         ])
         
         containerView.isHidden = true
@@ -472,6 +479,7 @@ extension StatusView.Style {
         ])
         
         // translated info
+        statusView.containerStackView.addArrangedSubview(statusView.isTranslatingLoadingView)
         statusView.containerStackView.addArrangedSubview(statusView.translatedInfoView)
     }
     
@@ -687,6 +695,18 @@ extension StatusView: MastodonMenuDelegate {
 
 extension StatusView {
     func setupTranslationIndicator() {
+        viewModel.$isCurrentlyTranslating
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] isTranslating in
+                switch isTranslating {
+                case true:
+                    self?.isTranslatingLoadingView.startAnimating()
+                case false:
+                    self?.isTranslatingLoadingView.stopAnimating()
+                }
+            }
+            .store(in: &disposeBag)
+        
         viewModel.$translatedFromLanguage
             .receive(on: DispatchQueue.main)
             .sink { [weak self] translatedFromLanguage in

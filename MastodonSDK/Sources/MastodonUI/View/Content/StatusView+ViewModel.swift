@@ -44,7 +44,12 @@ extension StatusView {
         @Published public var isMyself = false
         @Published public var isMuting = false
         @Published public var isBlocking = false
-        @Published public var translatedFromLanguage: String?
+        
+        // Translation
+        @Published public var isCurrentlyTranslating = false
+        @Published public var translatedFromLanguage: String? {
+            didSet { isCurrentlyTranslating = false }
+        }
         
         @Published public var timestamp: Date?
         public var timestampFormatter: ((_ date: Date) -> String)?
