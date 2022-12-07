@@ -85,16 +85,12 @@ extension WelcomeViewController {
     view.addSubview(welcomeIllustrationView)
     welcomeIllustrationView.translatesAutoresizingMaskIntoConstraints = false
 
-    let bottomAnchorLayoutConstraint = welcomeIllustrationView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-
     NSLayoutConstraint.activate([
       welcomeIllustrationView.topAnchor.constraint(equalTo: view.topAnchor),
       welcomeIllustrationView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
       view.trailingAnchor.constraint(equalTo: welcomeIllustrationView.trailingAnchor),
-      bottomAnchorLayoutConstraint
+      view.bottomAnchor.constraint(equalTo: welcomeIllustrationView.bottomAnchor)
     ])
-
-    welcomeIllustrationView.bottomAnchorLayoutConstraint = bottomAnchorLayoutConstraint
 
     buttonContainer.axis = .vertical
     buttonContainer.spacing = 12
@@ -139,9 +135,6 @@ extension WelcomeViewController {
     view.addSubview(pageViewController.view)
     pageViewController.didMove(toParent: self)
 
-
-
-
     let scrollviews = pageViewController.view.subviews.filter { type(of: $0).isSubclass(of: UIScrollView.self) }.compactMap { $0 as? UIScrollView }
 
     for scrollView in scrollviews {
@@ -178,7 +171,6 @@ extension WelcomeViewController {
     if view.safeAreaInsets.bottom == 0 {
       overlap += 56
     }
-    welcomeIllustrationView.bottomAnchorLayoutConstraint?.constant = overlap
   }
 
   override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
