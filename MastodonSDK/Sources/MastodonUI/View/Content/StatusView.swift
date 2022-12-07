@@ -176,6 +176,37 @@ public final class StatusView: UIView {
         indicatorView.stopAnimating()
         return indicatorView
     }()
+    private let translatedInfoLabel = UILabel()
+    lazy var translatedInfoView: UIView = {
+        let containerView = UIView()
+    
+        let revertButton = UIButton()
+        revertButton.setTitle("Show Original", for: .normal)
+        revertButton.setTitleColor(Asset.Colors.brand.color, for: .normal)
+        revertButton.addAction(UIAction { [weak self] _ in
+            self?.revertTranslation()
+        }, for: .touchUpInside)
+        
+        [containerView, translatedInfoLabel, revertButton].forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
+        
+        [translatedInfoLabel, revertButton].forEach {
+            containerView.addSubview($0)
+        }
+        
+        NSLayoutConstraint.activate([
+            containerView.heightAnchor.constraint(equalToConstant: 20),
+            translatedInfoLabel.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
+            translatedInfoLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16),
+            revertButton.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
+            revertButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16)
+        ])
+        
+        containerView.isHidden = true
+        
+        return containerView
+    }()
 
     // toolbar
     let actionToolbarAdaptiveMarginContainerView = AdaptiveMarginContainerView()
@@ -217,6 +248,7 @@ public final class StatusView: UIView {
         setMediaDisplay(isDisplay: false)
         setPollDisplay(isDisplay: false)
         setFilterHintLabelDisplay(isDisplay: false)
+        setupTranslationIndicator()
     }
 
     public override init(frame: CGRect) {
@@ -275,16 +307,6 @@ extension StatusView {
         
         // statusMetricView
         statusMetricView.delegate = self
-        
-        // status translation
-        viewModel.$isTranslated.sink { [weak self] isTranslated in
-            guard
-                let self = self,
-                let status = self.viewModel.originalStatus
-            else { return }
-            self.configureTranslated(status: status)
-        }
-        .store(in: &disposeBag)
     }
 }
 
@@ -448,6 +470,9 @@ extension StatusView.Style {
             statusView.filterHintLabel.centerXAnchor.constraint(equalTo: statusView.containerStackView.centerXAnchor),
             statusView.filterHintLabel.centerYAnchor.constraint(equalTo: statusView.containerStackView.centerYAnchor),
         ])
+        
+        // translated info
+        statusView.containerStackView.addArrangedSubview(statusView.translatedInfoView)
     }
     
     func inline(statusView: StatusView) {
@@ -657,6 +682,23 @@ extension StatusView: MastodonMenuDelegate {
     public func menuAction(_ action: MastodonMenu.Action) {
         logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
         delegate?.statusView(self, menuButton: authorView.menuButton, didSelectAction: action)
+    }
+}
+
+extension StatusView {
+    func setupTranslationIndicator() {
+        viewModel.$translatedFromLanguage
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] translatedFromLanguage in
+                guard let self = self else { return }
+                if let translatedFromLanguage = translatedFromLanguage {
+                    self.translatedInfoLabel.text = String(format: "Translated from %@", Locale.current.localizedString(forIdentifier: translatedFromLanguage) ?? "Unknown")
+                    self.translatedInfoView.isHidden = false
+                } else {
+                    self.translatedInfoView.isHidden = true
+                }
+            }
+            .store(in: &disposeBag)
     }
 }
 

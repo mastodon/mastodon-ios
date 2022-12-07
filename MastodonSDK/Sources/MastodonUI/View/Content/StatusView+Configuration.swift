@@ -55,18 +55,13 @@ extension StatusView {
         configurePoll(status: status)
         configureToolbar(status: status)
         configureFilter(status: status)
-        
-        status.$translatedContent
+        viewModel.originalStatus = status
+        [
+            status.$translatedContent,
+            status.reblog?.$translatedContent
+        ].compactMap { $0 }
+            .last?
             .receive(on: DispatchQueue.main)
-            .compactMap { $0 }
-            .sink { [weak self] _ in
-                self?.configureTranslated(status: status)
-            }
-            .store(in: &disposeBag)
-        
-        status.reblog?.$translatedContent
-            .receive(on: DispatchQueue.main)
-            .compactMap { $0 }
             .sink { [weak self] _ in
                 self?.configureTranslated(status: status)
             }
@@ -247,6 +242,14 @@ extension StatusView {
             .store(in: &disposeBag)
     }
     
+    func revertTranslation() {
+        guard let originalStatus = viewModel.originalStatus else { return }
+        viewModel.translatedFromLanguage = nil
+        originalStatus.reblog?.translatedContent = nil
+        originalStatus.translatedContent = nil
+        configure(status: originalStatus)
+    }
+    
     func configureTranslated(status: Status) {
         let translatedContent: String? = {
             if let translatedContent = status.reblog?.translatedContent {
@@ -267,7 +270,7 @@ extension StatusView {
             let content = MastodonContent(content: translatedContent, emojis: status.emojis.asDictionary)
             let metaContent = try MastodonMetaContent.convert(document: content)
             viewModel.content = metaContent
-            viewModel.isTranslated = true
+            viewModel.translatedFromLanguage = status.reblog?.language ?? status.language
         } catch {
             assertionFailure(error.localizedDescription)
             viewModel.content = PlaintextMetaContent(string: "")
@@ -301,7 +304,7 @@ extension StatusView {
             let content = MastodonContent(content: status.content, emojis: status.emojis.asDictionary)
             let metaContent = try MastodonMetaContent.convert(document: content)
             viewModel.content = metaContent
-            viewModel.isTranslated = false
+            viewModel.translatedFromLanguage = nil
         } catch {
             assertionFailure(error.localizedDescription)
             viewModel.content = PlaintextMetaContent(string: "")

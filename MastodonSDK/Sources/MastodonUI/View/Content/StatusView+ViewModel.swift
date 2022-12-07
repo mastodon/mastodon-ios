@@ -44,7 +44,7 @@ extension StatusView {
         @Published public var isMyself = false
         @Published public var isMuting = false
         @Published public var isBlocking = false
-        @Published public var isTranslated = false
+        @Published public var translatedFromLanguage: String?
         
         @Published public var timestamp: Date?
         public var timestampFormatter: ((_ date: Date) -> String)?
@@ -137,7 +137,7 @@ extension StatusView {
             isContentSensitive = false
             isMediaSensitive = false
             isSensitiveToggled = false
-            isTranslated = false
+            translatedFromLanguage = nil
             
             activeFilters = []
             filterContext = nil
@@ -586,7 +586,7 @@ extension StatusView.ViewModel {
             $isBookmark
         )
         let publishersThree = Publishers.CombineLatest(
-            $isTranslated,
+            $translatedFromLanguage,
             $language
         )
         
@@ -598,7 +598,7 @@ extension StatusView.ViewModel {
         .sink { tupleOne, tupleTwo, tupleThree in
             let (authorName, isMyself) = tupleOne
             let (isMuting, isBlocking, isBookmark) = tupleTwo
-            let (isTranslated, language) = tupleThree
+            let (translatedFromLanguage, language) = tupleThree
     
             guard let name = authorName?.string else {
                 statusView.authorView.menuButton.menu = nil
@@ -611,7 +611,7 @@ extension StatusView.ViewModel {
                 isBlocking: isBlocking,
                 isMyself: isMyself,
                 isBookmarking: isBookmark,
-                isTranslated: isTranslated,
+                isTranslated: translatedFromLanguage != nil,
                 statusLanguage: language
             )
             let (menu, actions) = authorView.setupAuthorMenu(menuContext: menuContext)

@@ -83,7 +83,7 @@ extension StatusThreadRootTableViewCell {
         statusView.contentMetaText.textView.isSelectable = true
         
         statusView.viewModel
-            .$isTranslated
+            .$translatedFromLanguage
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] _ in
                 self?.invalidateIntrinsicContentSize()
