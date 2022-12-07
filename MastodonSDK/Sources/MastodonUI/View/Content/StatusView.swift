@@ -182,11 +182,17 @@ public final class StatusView: UIView {
         activityIndicatorView.stopAnimating()
         return activityIndicatorView
     }()
-    private let translatedInfoLabel = UILabel()
+    private let translatedInfoLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: .systemFont(ofSize: 13, weight: .regular))
+        label.textColor = Asset.Colors.Label.secondary.color
+        return label
+    }()
     lazy var translatedInfoView: UIView = {
         let containerView = UIView()
     
         let revertButton = UIButton()
+        revertButton.titleLabel?.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: .systemFont(ofSize: 13, weight: .bold))
         revertButton.setTitle("Show Original", for: .normal)
         revertButton.setTitleColor(Asset.Colors.brand.color, for: .normal)
         revertButton.addAction(UIAction { [weak self] _ in
