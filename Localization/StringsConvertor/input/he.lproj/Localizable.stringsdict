@@ -13,13 +13,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 unread notification</string>
+        <string>התראה אחת שלא נקראה</string>
         <key>two</key>
-        <string>%ld unread notifications</string>
+        <string>שתי התראות שלא נקראו</string>
         <key>many</key>
         <string>%ld unread notifications</string>
         <key>other</key>
-        <string>%ld unread notifications</string>
+        <string>%ld התראות שלא נקראו</string>
       </dict>
     </dict>
     <key>a11y.plural.count.input_limit_exceeds</key>
@@ -468,13 +468,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1y ago</string>
+        <string>לפני שנה</string>
         <key>two</key>
-        <string>%ldy ago</string>
+        <string>לפני שנתיים</string>
         <key>many</key>
         <string>%ldy ago</string>
         <key>other</key>
-        <string>%ldy ago</string>
+        <string>לפני %ld שנים</string>
       </dict>
     </dict>
     <key>date.month.ago.abbr</key>
@@ -488,13 +488,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1M ago</string>
+        <string>לפני חודש</string>
         <key>two</key>
-        <string>%ldM ago</string>
+        <string>לפני חודשיים</string>
         <key>many</key>
         <string>%ldM ago</string>
         <key>other</key>
-        <string>%ldM ago</string>
+        <string>לפני %ld חודשים</string>
       </dict>
     </dict>
     <key>date.day.ago.abbr</key>
@@ -508,13 +508,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1d ago</string>
+        <string>לפני יום</string>
         <key>two</key>
-        <string>%ldd ago</string>
+        <string>לפני יומיים</string>
         <key>many</key>
         <string>%ldd ago</string>
         <key>other</key>
-        <string>%ldd ago</string>
+        <string>לפני %ld ימים</string>
       </dict>
     </dict>
     <key>date.hour.ago.abbr</key>
@@ -528,9 +528,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1h ago</string>
+        <string>לפני שעה</string>
         <key>two</key>
-        <string>%ldh ago</string>
+        <string>לפני שעתיים</string>
         <key>many</key>
         <string>%ldh ago</string>
         <key>other</key>
