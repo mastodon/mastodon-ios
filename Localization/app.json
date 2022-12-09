@@ -51,6 +51,11 @@
             "clean_cache": {
                 "title": "Clean Cache",
                 "message": "Successfully cleaned %s cache."
+            },
+            "translation_failed": {
+                "title": "Note",
+                "message": "Translation failed. Maybe the administrator has not enabled translations on this instance or this instance is running an older version of Mastodon where translations are not yet supported.",
+                "button": "OK"
             }
         },
         "controls": {

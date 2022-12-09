@@ -11,6 +11,10 @@ import CoreDataStack
 import MastodonCore
 
 extension DataSourceFacade {
+    enum TranslationFailure: Error {
+        case emptyOrInvalidResponse
+    }
+    
     public static func translateStatus(
         provider: UIViewController & NeedsDependency & AuthContextProvider,
         status: ManagedObjectRecord<Status>
@@ -25,19 +29,37 @@ extension DataSourceFacade {
         }
         
         func translate(status: Status) async throws -> String? {
-           let value = try await provider.context
-               .apiService
-               .translateStatus(
-                   statusID: status.id,
-                   authenticationBox: provider.authContext.mastodonAuthenticationBox
-               ).value
-           return value.content
-       }
+            do {
+                let value = try await provider.context
+                    .apiService
+                    .translateStatus(
+                        statusID: status.id,
+                        authenticationBox: provider.authContext.mastodonAuthenticationBox
+                    ).value
+
+                guard let content = value.content else {
+                    throw TranslationFailure.emptyOrInvalidResponse
+                }
+                
+                return content
+            } catch {
+                throw TranslationFailure.emptyOrInvalidResponse
+            }
+        }
+        
+        func translateAndApply(to status: Status) async throws {
+            do {
+                status.translatedContent = try await translate(status: status)
+            } catch {
+                status.translatedContent = nil
+                throw TranslationFailure.emptyOrInvalidResponse
+            }
+        }
         
         if let reblog = status.reblog {
-            reblog.translatedContent = try await translate(status: reblog)
+            try await translateAndApply(to: reblog)
         } else {
-            status.translatedContent = try await translate(status: status)
+            try await translateAndApply(to: status)
         }
     }
 }
