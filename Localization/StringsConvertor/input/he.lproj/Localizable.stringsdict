@@ -534,7 +534,7 @@
         <key>many</key>
         <string>%ldh ago</string>
         <key>other</key>
-        <string>%ldh ago</string>
+        <string>לפני %ld שעות</string>
       </dict>
     </dict>
     <key>date.minute.ago.abbr</key>
@@ -548,13 +548,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1m ago</string>
+        <string>לפני דקה</string>
         <key>two</key>
-        <string>%ldm ago</string>
+        <string>לפני שתי דקות</string>
         <key>many</key>
         <string>%ldm ago</string>
         <key>other</key>
-        <string>%ldm ago</string>
+        <string>לפני %ld דקות</string>
       </dict>
     </dict>
     <key>date.second.ago.abbr</key>
@@ -568,13 +568,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1s ago</string>
+        <string>לפני שנייה</string>
         <key>two</key>
-        <string>%lds ago</string>
+        <string>לפני שתי שניות</string>
         <key>many</key>
         <string>%lds ago</string>
         <key>other</key>
-        <string>%lds ago</string>
+        <string>לפני %ld שניות</string>
       </dict>
     </dict>
   </dict>
