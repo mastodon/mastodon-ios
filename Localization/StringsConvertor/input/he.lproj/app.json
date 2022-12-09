@@ -56,8 +56,8 @@
         "controls": {
             "actions": {
                 "back": "Back",
-                "next": "Next",
-                "previous": "Previous",
+                "next": "הבא",
+                "previous": "הקודם",
                 "open": "Open",
                 "add": "Add",
                 "remove": "Remove",
