@@ -22,12 +22,12 @@ extension ServerRuleSection {
             switch item {
             case .header(let domain):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: OnboardingHeadlineTableViewCell.self), for: indexPath) as! OnboardingHeadlineTableViewCell
-                cell.titleLabel.text = L10n.Scene.ServerRules.title
                 cell.subTitleLabel.text = L10n.Scene.ServerRules.subtitle(domain)
                 return cell
             case .rule(let ruleContext):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ServerRulesTableViewCell.self), for: indexPath) as! ServerRulesTableViewCell
-                cell.indexImageView.image = UIImage(systemName: "\(ruleContext.index + 1).circle.fill") ?? UIImage(systemName: "questionmark.circle.fill")
+                cell.indexImageView.image = UIImage(systemName: "\(ruleContext.index + 1).circle") ?? UIImage(systemName: "questionmark.circle")
+                cell.indexImageView.tintColor = Asset.Colors.brand.color
                 cell.ruleLabel.text = ruleContext.rule.text
                 return cell
             }

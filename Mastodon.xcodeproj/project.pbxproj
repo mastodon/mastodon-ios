@@ -1906,8 +1906,6 @@
 				DB1E347725F519300079D7DF /* PickServerItem.swift */,
 				DB1E346725F518E20079D7DF /* CategoryPickerSection.swift */,
 				DB1FD45925F27898004CFCFC /* CategoryPickerItem.swift */,
-				DB0617F427855AB90030EE79 /* ServerRuleSection.swift */,
-				DB0617FC27855BFE0030EE79 /* ServerRuleItem.swift */,
 				DB0618022785A7100030EE79 /* RegisterSection.swift */,
 				DB0618042785A73D0030EE79 /* RegisterItem.swift */,
 			);
@@ -2203,6 +2201,8 @@
 				DB7A9F922818F33C0016AF98 /* MastodonServerRulesViewController+Debug.swift */,
 				DB72602625E36A6F00235243 /* MastodonServerRulesViewModel.swift */,
 				DB0617FE27855D6C0030EE79 /* MastodonServerRulesViewModel+Diffable.swift */,
+				DB0617F427855AB90030EE79 /* ServerRuleSection.swift */,
+				DB0617FC27855BFE0030EE79 /* ServerRuleItem.swift */,
 			);
 			path = ServerRules;
 			sourceTree = "<group>";

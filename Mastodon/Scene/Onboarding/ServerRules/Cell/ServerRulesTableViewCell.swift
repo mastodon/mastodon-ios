@@ -21,13 +21,13 @@ final class ServerRulesTableViewCell: UITableViewCell {
     
     let ruleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold))
+        label.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .regular))
         label.textColor = Asset.Colors.Label.primary.color
         label.numberOfLines = 0
         return label
     }()
     
-    let separalerLine: UIView = {
+    let separatorLine: UIView = {
         let view = UIView()
         view.backgroundColor = Asset.Theme.System.separator.color
         return view
@@ -54,7 +54,7 @@ extension ServerRulesTableViewCell {
         indexImageView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(indexImageView)
         NSLayoutConstraint.activate([
-            indexImageView.topAnchor.constraint(greaterThanOrEqualTo: contentView.topAnchor, constant: ServerRulesTableViewCell.margin),
+            indexImageView.topAnchor.constraint(greaterThanOrEqualTo: contentView.topAnchor, constant: 11),
             indexImageView.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
             contentView.bottomAnchor.constraint(greaterThanOrEqualTo: indexImageView.bottomAnchor, constant: ServerRulesTableViewCell.margin),
             indexImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
@@ -65,20 +65,20 @@ extension ServerRulesTableViewCell {
         ruleLabel.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(ruleLabel)
         NSLayoutConstraint.activate([
-            ruleLabel.topAnchor.constraint(greaterThanOrEqualTo: contentView.topAnchor, constant: ServerRulesTableViewCell.margin),
-            ruleLabel.leadingAnchor.constraint(equalTo: indexImageView.trailingAnchor, constant: 16),
-            ruleLabel.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor),
-            contentView.bottomAnchor.constraint(greaterThanOrEqualTo: ruleLabel.bottomAnchor, constant: ServerRulesTableViewCell.margin),
+            ruleLabel.topAnchor.constraint(greaterThanOrEqualTo: contentView.topAnchor, constant: 11),
+            ruleLabel.leadingAnchor.constraint(equalTo: indexImageView.trailingAnchor, constant: 14),
+            ruleLabel.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor, constant: 16),
+            contentView.bottomAnchor.constraint(greaterThanOrEqualTo: ruleLabel.bottomAnchor, constant: 11),
             ruleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
         ])
         
-        separalerLine.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(separalerLine)
+        separatorLine.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(separatorLine)
         NSLayoutConstraint.activate([
-            separalerLine.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
-            separalerLine.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor),
-            separalerLine.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            separalerLine.heightAnchor.constraint(equalToConstant: UIView.separatorLineHeight(of: contentView)).priority(.required - 1),
+            separatorLine.leadingAnchor.constraint(equalTo: ruleLabel.leadingAnchor),
+            separatorLine.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            separatorLine.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            separatorLine.heightAnchor.constraint(equalToConstant: UIView.separatorLineHeight(of: contentView)).priority(.required - 1),
         ])
     }
     

@@ -45,10 +45,10 @@ final class MastodonServerRulesViewModel {
             guard i < 50 else {
                 return NSAttributedString(string: "\(i)" + separatorString + rule.text.trimmingCharacters(in: .whitespacesAndNewlines) + "\n\n")
             }
-            let imageName = String(i + 1) + ".circle.fill"
+            let imageName = String(i + 1) + ".circle"
             let image = UIImage(systemName: imageName, withConfiguration: configuration)!
             let attachment = NSTextAttachment()
-            attachment.image = image.withTintColor(Asset.Colors.Label.primary.color)
+            attachment.image = image.withTintColor(Asset.Colors.brand.color)
             let imageAttribute = NSMutableAttributedString(attachment: attachment)
             imageAttribute.addAttributes([NSAttributedString.Key.baselineOffset : -1.5], range: NSRange(location: 0, length: imageAttribute.length))
         
