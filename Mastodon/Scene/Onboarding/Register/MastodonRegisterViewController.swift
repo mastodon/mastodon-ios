@@ -54,26 +54,13 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
         documentPickerController.delegate = self
         return documentPickerController
     }()
-    
-    let navigationActionView: NavigationActionView = {
-        let navigationActionView = NavigationActionView()
-        navigationActionView.backgroundColor = Asset.Scene.Onboarding.background.color
-        return navigationActionView
-    }()
-    
-    deinit {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", (#file as NSString).lastPathComponent, #line, #function)
-    }
-    
 }
 
 extension MastodonRegisterViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        navigationItem.leftBarButtonItem = UIBarButtonItem()
-        
+
         setupOnboardingAppearance()
         viewModel.backgroundColor = view.backgroundColor ?? .clear
         defer {
@@ -86,34 +73,14 @@ extension MastodonRegisterViewController {
         hostingViewController.view.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(hostingViewController.view)
         hostingViewController.view.pinToParent()
-        
-        navigationActionView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(navigationActionView)
-        defer {
-            view.bringSubviewToFront(navigationActionView)
-        }
-        NSLayoutConstraint.activate([
-            navigationActionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            navigationActionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            view.bottomAnchor.constraint(equalTo: navigationActionView.bottomAnchor),
-        ])
-        
-        navigationActionView
-            .observe(\.bounds, options: [.initial, .new]) { [weak self] navigationActionView, _ in
-                guard let self = self else { return }
-                let inset = navigationActionView.frame.height
-                self.viewModel.bottomPaddingHeight = inset
-            }
-            .store(in: &observations)
-        
-        navigationActionView.backButton.addTarget(self, action: #selector(MastodonRegisterViewController.backButtonPressed(_:)), for: .touchUpInside)
-        navigationActionView.nextButton.addTarget(self, action: #selector(MastodonRegisterViewController.nextButtonPressed(_:)), for: .touchUpInside)
-        
+
+      navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Next", style: .done, target: self, action: #selector(MastodonRegisterViewController.nextButtonPressed(_:)))
+
         viewModel.$isAllValid
             .receive(on: DispatchQueue.main)
             .sink { [weak self] isAllValid in
                 guard let self = self else { return }
-                self.navigationActionView.nextButton.isEnabled = isAllValid
+                self.navigationItem.rightBarButtonItem?.isEnabled = isAllValid
             }
             .store(in: &disposeBag)
 
@@ -165,13 +132,15 @@ extension MastodonRegisterViewController {
             }
             .store(in: &disposeBag)
         
-        viewModel.$isRegistering
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] isRegistering in
-                guard let self = self else { return }
-                isRegistering ? self.navigationActionView.nextButton.showLoading() : self.navigationActionView.nextButton.stopLoading()
-            }
-            .store(in: &disposeBag)
+//        viewModel.$isRegistering
+//            .receive(on: DispatchQueue.main)
+//            .sink { [weak self] isRegistering in
+//                guard let self = self else { return }
+//                isRegistering ? self.navigationActionView.nextButton.showLoading() : self.navigationActionView.nextButton.stopLoading()
+//            }
+//            .store(in: &disposeBag)
+
+          title = L10n.Scene.Register.title(viewModel.domain)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -183,12 +152,7 @@ extension MastodonRegisterViewController {
 }
 
 extension MastodonRegisterViewController {
-    
-    @objc private func backButtonPressed(_ sender: UIButton) {
-        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
-        navigationController?.popViewController(animated: true)
-    }
-    
+
     @objc private func nextButtonPressed(_ sender: UIButton) {
         logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
 

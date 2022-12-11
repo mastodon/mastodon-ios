@@ -26,9 +26,7 @@ final class MastodonServerRulesViewController: UIViewController, NeedsDependency
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
     var viewModel: MastodonServerRulesViewModel!
-    
-    let stackView = UIStackView()
-    
+
     let tableView: UITableView = {
         let tableView = UITableView()
         tableView.register(OnboardingHeadlineTableViewCell.self, forCellReuseIdentifier: String(describing: OnboardingHeadlineTableViewCell.self))
@@ -40,17 +38,6 @@ final class MastodonServerRulesViewController: UIViewController, NeedsDependency
         tableView.sectionHeaderTopPadding = 0
         return tableView
     }()
-
-    let navigationActionView: NavigationActionView = {
-        let navigationActionView = NavigationActionView()
-        navigationActionView.backgroundColor = Asset.Scene.Onboarding.background.color
-        return navigationActionView
-    }()
-    
-    deinit {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-    }
-     
 }
 
 extension MastodonServerRulesViewController {
@@ -58,39 +45,19 @@ extension MastodonServerRulesViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem()
-
         setupOnboardingAppearance()
         defer { setupNavigationBarBackgroundView() }
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
         tableView.pinToParent()
-        
-        navigationActionView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(navigationActionView)
-        defer {
-            view.bringSubviewToFront(navigationActionView)
-        }
-        NSLayoutConstraint.activate([
-            navigationActionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            navigationActionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            view.bottomAnchor.constraint(equalTo: navigationActionView.bottomAnchor),
-        ])
-        
-        navigationActionView
-            .observe(\.bounds, options: [.initial, .new]) { [weak self] navigationActionView, _ in
-                guard let self = self else { return }
-                let inset = navigationActionView.frame.height
-                self.tableView.contentInset.bottom = inset
-            }
-            .store(in: &observations)
-        
+
         tableView.delegate = self
         viewModel.setupDiffableDataSource(tableView: tableView)
 
-        navigationActionView.backButton.addTarget(self, action: #selector(MastodonServerRulesViewController.backButtonPressed(_:)), for: .touchUpInside)
-        navigationActionView.nextButton.addTarget(self, action: #selector(MastodonServerRulesViewController.nextButtonPressed(_:)), for: .touchUpInside)
+
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "I agree", style: .done, target: self, action: #selector(MastodonServerRulesViewController.nextButtonPressed(_:)))
+        title = L10n.Scene.ServerRules.title
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -104,13 +71,10 @@ extension MastodonServerRulesViewController {
 extension MastodonServerRulesViewController {
     
     @objc private func backButtonPressed(_ sender: UIButton) {
-        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
         navigationController?.popViewController(animated: true)
     }
     
     @objc private func nextButtonPressed(_ sender: UIButton) {
-        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
-
         let viewModel = MastodonRegisterViewModel(
             context: context,
             domain: viewModel.domain,

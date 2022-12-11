@@ -67,8 +67,6 @@ extension MastodonConfirmEmailViewController {
 
     override func viewDidLoad() {
 
-        navigationItem.leftBarButtonItem = UIBarButtonItem()
-
         setupOnboardingAppearance()
         configureTitleLabel()
         configureMargin()

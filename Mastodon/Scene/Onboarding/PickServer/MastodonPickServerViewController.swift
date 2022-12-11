@@ -234,7 +234,6 @@ extension MastodonPickServerViewController {
             }
             .store(in: &disposeBag)
         
-        navigationActionView.backButton.addTarget(self, action: #selector(MastodonPickServerViewController.backButtonDidPressed(_:)), for: .touchUpInside)
         navigationActionView.nextButton.addTarget(self, action: #selector(MastodonPickServerViewController.nextButtonDidPressed(_:)), for: .touchUpInside)
     }
     
@@ -260,11 +259,7 @@ extension MastodonPickServerViewController {
 }
 
 extension MastodonPickServerViewController {
-    
-    @objc private func backButtonDidPressed(_ sender: UIButton) {
-        navigationController?.popViewController(animated: true)
-    }
-    
+
     @objc private func nextButtonDidPressed(_ sender: UIButton) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         guard let server = viewModel.selectedServer.value else { return }
