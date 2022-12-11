@@ -381,7 +381,7 @@
             },
             "content_input_placeholder": "Cho thế giới biết bạn đang nghĩ gì",
             "compose_action": "Đăng",
-            "replying_to_user": "trả lời %s",
+            "replying_to_user": "%s viết tiếp",
             "attachment": {
                 "photo": "ảnh",
                 "video": "video",
