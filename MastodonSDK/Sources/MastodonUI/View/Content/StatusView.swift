@@ -8,6 +8,7 @@
 import os.log
 import UIKit
 import Combine
+import SafariServices
 import MetaTextKit
 import Meta
 import MastodonAsset
@@ -741,6 +742,7 @@ extension StatusView: MetaTextViewDelegate {
 private class MetaContextMenuConfiguration: UIContextMenuConfiguration {
     var meta: Meta!
     var range: NSRange!
+    var preview: UITargetedPreview?
 }
 extension StatusView: UIContextMenuInteractionDelegate {
     public func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
@@ -759,31 +761,35 @@ extension StatusView: UIContextMenuInteractionDelegate {
                 })
                 config.meta = meta
                 config.range = effectiveRange
+                var rects = [CGRect]()
+                var combinedRect = CGRect.null
+                let combinedPath = UIBezierPath()
+                contentMetaText.layoutManager.enumerateEnclosingRects(forGlyphRange: config.range, withinSelectedGlyphRange: NSMakeRange(NSNotFound, 0), in: contentMetaText.textView.textContainer) { rect, _ in
+                    rects.append(rect)
+                    combinedRect = combinedRect.union(rect)
+                    combinedPath.append(UIBezierPath(rect: rect))
+                }
+                if let snapshot = contentMetaText.textView.snapshotView(afterScreenUpdates: false) {
+                    let mask = CAShapeLayer()
+                    mask.path = combinedPath.cgPath
+                    snapshot.layer.mask = mask
+                    config.preview = UITargetedPreview(
+                        view: snapshot,
+                        parameters: UIPreviewParameters(textLineRects: rects.map(NSValue.init)),
+                        target: UIPreviewTarget(container: contentMetaText.textView, center: CGPoint(x: combinedRect.midX, y: combinedRect.midY))
+                    )
+                }
                 return config
             }
         }
         return nil
     }
 
-    public func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configuration: UIContextMenuConfiguration, highlightPreviewForItemWithIdentifier identifier: NSCopying) -> UITargetedPreview? {
-        guard let config = configuration as? MetaContextMenuConfiguration else { return nil }
-        var rects = [CGRect]()
-        var combinedRect = CGRect.null
-        let combinedPath = UIBezierPath()
-        contentMetaText.layoutManager.enumerateEnclosingRects(forGlyphRange: config.range, withinSelectedGlyphRange: NSMakeRange(NSNotFound, 0), in: contentMetaText.textView.textContainer) { rect, _ in
-            rects.append(rect)
-            combinedRect = combinedRect.union(rect)
-            combinedPath.append(UIBezierPath(rect: rect))
-        }
-        guard let snapshot = contentMetaText.textView.snapshotView(afterScreenUpdates: false) else { return nil }
-        let mask = CAShapeLayer()
-        mask.path = combinedPath.cgPath
-        snapshot.layer.mask = mask
-        return UITargetedPreview(
-            view: snapshot,
-            parameters: UIPreviewParameters(textLineRects: rects.map(NSValue.init)),
-            target: UIPreviewTarget(container: contentMetaText.textView, center: CGPoint(x: combinedRect.midX, y: combinedRect.midY))
-        )
+    public func contextMenuInteraction(_ interaction: UIContextMenuInteraction, previewForHighlightingMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
+        (configuration as? MetaContextMenuConfiguration)?.preview
+    }
+    public func contextMenuInteraction(_ interaction: UIContextMenuInteraction, previewForDismissingMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
+        (configuration as? MetaContextMenuConfiguration)?.preview
     }
 }
 
