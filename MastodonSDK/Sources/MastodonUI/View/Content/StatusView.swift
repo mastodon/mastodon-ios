@@ -778,6 +778,7 @@ extension StatusView: UIContextMenuInteractionDelegate {
                     let mask = CAShapeLayer()
                     mask.path = combinedPath.cgPath
                     snapshot.layer.mask = mask
+                    snapshot.backgroundColor = ThemeService.shared.currentTheme.value.systemBackgroundColor
                     config.preview = UITargetedPreview(
                         view: snapshot,
                         parameters: UIPreviewParameters(textLineRects: rects.map(NSValue.init)),
