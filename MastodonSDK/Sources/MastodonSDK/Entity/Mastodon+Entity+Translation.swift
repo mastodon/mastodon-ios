@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  Mastodon+Entity+Translation.swift
 //  
 //
 //  Created by Marcus Kida on 02.12.22.
