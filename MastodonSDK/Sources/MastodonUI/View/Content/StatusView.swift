@@ -775,8 +775,12 @@ extension StatusView: UIContextMenuInteractionDelegate {
             combinedRect = combinedRect.union(rect)
             combinedPath.append(UIBezierPath(rect: rect))
         }
+        guard let snapshot = contentMetaText.textView.snapshotView(afterScreenUpdates: false) else { return nil }
+        let mask = CAShapeLayer()
+        mask.path = combinedPath.cgPath
+        snapshot.layer.mask = mask
         return UITargetedPreview(
-            view: contentMetaText.textView.snapshotView(afterScreenUpdates: false)!,
+            view: snapshot,
             parameters: UIPreviewParameters(textLineRects: rects.map(NSValue.init)),
             target: UIPreviewTarget(container: contentMetaText.textView, center: CGPoint(x: combinedRect.midX, y: combinedRect.midY))
         )
