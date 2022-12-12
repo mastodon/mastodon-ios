@@ -13,6 +13,7 @@ import MastodonLocalization
 import CoreDataStack
 import UIKit
 import WebKit
+import SafariServices
 
 public protocol StatusCardControlDelegate: AnyObject {
     func statusCardControl(_ statusCardControl: StatusCardControl, didTapURL url: URL)
@@ -307,7 +308,9 @@ extension StatusCardControl: WKNavigationDelegate, WKUIDelegate {
 // MARK: UIContextMenuInteractionDelegate
 extension StatusCardControl {
     public override func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
-        return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ in
+        return UIContextMenuConfiguration(identifier: nil) {
+            self.url.map { SFSafariViewController(url: $0) }
+        } actionProvider: { elements in
             if let elements = self.delegate?.statusCardControlMenu(self)?.map(\.menuElement) {
                 return UIMenu(children: elements)
             }
