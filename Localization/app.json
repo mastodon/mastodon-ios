@@ -54,7 +54,7 @@
             },
             "translation_failed": {
                 "title": "Note",
-                "message": "Translation failed. Maybe the administrator has not enabled translations on this instance or this instance is running an older version of Mastodon where translations are not yet supported.",
+                "message": "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.",
                 "button": "OK"
             }
         },

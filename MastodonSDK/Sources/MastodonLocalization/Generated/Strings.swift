@@ -90,8 +90,8 @@ public enum L10n {
       public enum TranslationFailed {
         /// OK
         public static let button = L10n.tr("Localizable", "Common.Alerts.TranslationFailed.Button", fallback: "OK")
-        /// Translation failed. Maybe the administrator has not enabled translations on this instance or this instance is running an older version of Mastodon where translations are not yet supported.
-        public static let message = L10n.tr("Localizable", "Common.Alerts.TranslationFailed.Message", fallback: "Translation failed. Maybe the administrator has not enabled translations on this instance or this instance is running an older version of Mastodon where translations are not yet supported.")
+        /// Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.
+        public static let message = L10n.tr("Localizable", "Common.Alerts.TranslationFailed.Message", fallback: "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.")
         /// Note
         public static let title = L10n.tr("Localizable", "Common.Alerts.TranslationFailed.Title", fallback: "Note")
       }
