@@ -753,12 +753,17 @@ extension StatusView: UIContextMenuInteractionDelegate {
             let key = NSAttributedString.Key("MetaAttributeKey.meta")
             guard let meta = contentMetaText.textStorage.attribute(key, at: index, longestEffectiveRange: &effectiveRange, in: NSRange(..<contentMetaText.textStorage.length)) as? Meta
             else { return nil }
-            if case .url(_, _, let url, _) = meta {
-                let config = MetaContextMenuConfiguration(actionProvider: { _ in
-                    UIMenu(children: [
-                        UIAction(title: url, handler: { _ in })
-                    ])
-                })
+            if case .url(_, _, let url, _) = meta, let url = URL(string: url) {
+                let config = MetaContextMenuConfiguration(
+                    previewProvider: {
+                        SFSafariViewController(url: url)
+                    },
+                    actionProvider: { _ in
+                        UIMenu(children: [
+                            UIAction(title: url.absoluteString, handler: { _ in })
+                        ])
+                    }
+                )
                 config.meta = meta
                 config.range = effectiveRange
                 var rects = [CGRect]()
