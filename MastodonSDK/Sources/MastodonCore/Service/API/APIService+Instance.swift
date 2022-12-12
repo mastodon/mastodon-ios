@@ -20,4 +20,9 @@ extension APIService {
         return Mastodon.API.Instance.instance(session: session, domain: domain)
     }
     
+    public func instanceV2(
+        domain: String
+    ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.V2.Instance>, Error> {
+        return Mastodon.API.V2.Instance.instance(session: session, domain: domain)
+    }
 }

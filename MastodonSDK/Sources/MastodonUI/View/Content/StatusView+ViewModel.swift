@@ -27,6 +27,7 @@ extension StatusView {
 
         let logger = Logger(subsystem: "StatusView", category: "ViewModel")
         
+        public var context: AppContext?
         public var authContext: AuthContext?
         public var originalStatus: Status?
     
@@ -609,12 +610,28 @@ extension StatusView.ViewModel {
                 return
             }
             
+            lazy var instanceConfigurationV2: Mastodon.Entity.V2.Instance.Configuration? = {
+                guard
+                    let context = self.context,
+                    let authContext = self.authContext
+                else { return nil }
+                
+                var configuration: Mastodon.Entity.V2.Instance.Configuration? = nil
+                context.managedObjectContext.performAndWait {
+                    guard let authentication = authContext.mastodonAuthenticationBox.authenticationRecord.object(in: context.managedObjectContext)
+                    else { return }
+                    configuration = authentication.instance?.configurationV2
+                }
+                return configuration
+            }()
+            
             let menuContext = StatusAuthorView.AuthorMenuContext(
                 name: name,
                 isMuting: isMuting,
                 isBlocking: isBlocking,
                 isMyself: isMyself,
                 isBookmarking: isBookmark,
+                isTranslationEnabled: instanceConfigurationV2?.translation?.enabled == true,
                 isTranslated: translatedFromLanguage != nil,
                 statusLanguage: language
             )

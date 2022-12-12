@@ -50,42 +50,18 @@ extension InstanceService {
     func updateInstance(domain: String) {
         guard let apiService = self.apiService else { return }
         apiService.instance(domain: domain)
-            .flatMap { response -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Instance>, Error> in
-                let managedObjectContext = self.backgroundManagedObjectContext
-                return managedObjectContext.performChanges {
-                    // get instance
-                    let (instance, _) = APIService.CoreData.createOrMergeInstance(
-                        into: managedObjectContext,
-                        domain: domain,
-                        entity: response.value,
-                        networkDate: response.networkDate,
-                        log: Logger(subsystem: "Update", category: "InstanceService")
-                    )
-                    
-                    // update relationship
-                    let request = MastodonAuthentication.sortedFetchRequest
-                    request.predicate = MastodonAuthentication.predicate(domain: domain)
-                    request.returnsObjectsAsFaults = false
-                    do {
-                        let authentications = try managedObjectContext.fetch(request)
-                        for authentication in authentications {
-                            authentication.update(instance: instance)
-                        }
-                    } catch {
-                        assertionFailure(error.localizedDescription)
-                    }
+            .flatMap { [unowned self] response -> AnyPublisher<Void, Error> in
+                if response.value.version?.majorServerVersion(greaterThanOrEquals: 4) == true {
+                    return apiService.instanceV2(domain: domain)
+                        .flatMap { return self.updateInstanceV2(domain: domain, response: $0) }
+                        .eraseToAnyPublisher()
+                } else {
+                    return self.updateInstance(domain: domain, response: response)
                 }
-                .setFailureType(to: Error.self)
-                .tryMap { result -> Mastodon.Response.Content<Mastodon.Entity.Instance> in
-                    switch result {
-                    case .success:
-                        return response
-                    case .failure(let error):
-                        throw error
-                    }
-                }
-                .eraseToAnyPublisher()
             }
+//            .flatMap { [unowned self] response -> AnyPublisher<Void, Error> in
+//                return
+//            }
             .sink { [weak self] completion in
                 guard let self = self else { return }
                 switch completion {
@@ -99,6 +75,80 @@ extension InstanceService {
                 // do nothing
             }
             .store(in: &disposeBag)
+    }
+    
+    private func updateInstance(domain: String, response: Mastodon.Response.Content<Mastodon.Entity.Instance>) -> AnyPublisher<Void, Error> {
+        let managedObjectContext = self.backgroundManagedObjectContext
+        return managedObjectContext.performChanges {
+            // get instance
+            let (instance, _) = APIService.CoreData.createOrMergeInstance(
+                into: managedObjectContext,
+                domain: domain,
+                entity: response.value,
+                networkDate: response.networkDate,
+                log: Logger(subsystem: "Update", category: "InstanceService")
+            )
+            
+            // update relationship
+            let request = MastodonAuthentication.sortedFetchRequest
+            request.predicate = MastodonAuthentication.predicate(domain: domain)
+            request.returnsObjectsAsFaults = false
+            do {
+                let authentications = try managedObjectContext.fetch(request)
+                for authentication in authentications {
+                    authentication.update(instance: instance)
+                }
+            } catch {
+                assertionFailure(error.localizedDescription)
+            }
+        }
+        .setFailureType(to: Error.self)
+        .tryMap { result in
+            switch result {
+            case .success:
+                break
+            case .failure(let error):
+                throw error
+            }
+        }
+        .eraseToAnyPublisher()
+    }
+    
+    private func updateInstanceV2(domain: String, response: Mastodon.Response.Content<Mastodon.Entity.V2.Instance>) -> AnyPublisher<Void, Error> {
+        let managedObjectContext = self.backgroundManagedObjectContext
+        return managedObjectContext.performChanges {
+            // get instance
+            let (instance, _) = APIService.CoreData.createOrMergeInstanceV2(
+                into: managedObjectContext,
+                domain: domain,
+                entity: response.value,
+                networkDate: response.networkDate,
+                log: Logger(subsystem: "Update", category: "InstanceService")
+            )
+            
+            // update relationship
+            let request = MastodonAuthentication.sortedFetchRequest
+            request.predicate = MastodonAuthentication.predicate(domain: domain)
+            request.returnsObjectsAsFaults = false
+            do {
+                let authentications = try managedObjectContext.fetch(request)
+                for authentication in authentications {
+                    authentication.update(instance: instance)
+                }
+            } catch {
+                assertionFailure(error.localizedDescription)
+            }
+        }
+        .setFailureType(to: Error.self)
+        .tryMap { result in
+            switch result {
+            case .success:
+                break
+            case .failure(let error):
+                throw error
+            }
+        }
+        .eraseToAnyPublisher()
     }
 }
 

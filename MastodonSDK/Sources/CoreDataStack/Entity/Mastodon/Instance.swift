@@ -16,7 +16,8 @@ public final class Instance: NSManagedObject {
     @NSManaged public private(set) var updatedAt: Date
 
     @NSManaged public private(set) var configurationRaw: Data?
-    
+    @NSManaged public private(set) var configurationV2Raw: Data?
+
     // MARK: one-to-many relationships
     @NSManaged public var authentications: Set<MastodonAuthentication>
 }
@@ -42,6 +43,10 @@ extension Instance {
     
     public func update(configurationRaw: Data?) {
         self.configurationRaw = configurationRaw
+    }
+    
+    public func update(configurationV2Raw: Data?) {
+        self.configurationV2Raw = configurationV2Raw
     }
     
     public func didUpdate(at networkDate: Date) {

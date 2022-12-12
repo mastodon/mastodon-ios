@@ -150,6 +150,7 @@ extension StatusAuthorView {
         public let isMyself: Bool
         public let isBookmarking: Bool
         
+        public let isTranslationEnabled: Bool
         public let isTranslated: Bool
         public let statusLanguage: String?
     }
@@ -158,7 +159,7 @@ extension StatusAuthorView {
         var actions = [MastodonMenu.Action]()
 
         if !menuContext.isMyself {
-            if let statusLanguage = menuContext.statusLanguage, !menuContext.isTranslated {
+            if let statusLanguage = menuContext.statusLanguage, menuContext.isTranslationEnabled, !menuContext.isTranslated {
                 actions.append(
                     .translateStatus(.init(language: statusLanguage))
                 )
