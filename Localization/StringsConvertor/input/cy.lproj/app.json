@@ -95,7 +95,7 @@
             },
             "tabs": {
                 "home": "Hafan",
-                "search_and_explore": "Search and Explore",
+                "search_and_explore": "Chwilio ac Archwilio",
                 "notifications": "Hysbysiadau",
                 "profile": "Proffil"
             },
@@ -724,15 +724,15 @@
             "title": "Tudalnodau"
         },
         "followed_tags": {
-            "title": "Followed Tags",
+            "title": "Tagiau a Ddilynwyd",
             "header": {
-                "posts": "posts",
-                "participants": "participants",
-                "posts_today": "posts today"
+                "posts": "postiadau",
+                "participants": "cyfranwyr",
+                "posts_today": "postiadau heddiw"
             },
             "actions": {
-                "follow": "Follow",
-                "unfollow": "Unfollow"
+                "follow": "Dilyn",
+                "unfollow": "Dad-ddilyn"
             }
         }
     }
