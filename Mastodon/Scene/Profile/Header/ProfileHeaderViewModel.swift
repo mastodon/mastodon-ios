@@ -30,6 +30,7 @@ final class ProfileHeaderViewModel {
     @Published var user: MastodonUser?
     @Published var relationshipActionOptionSet: RelationshipActionOptionSet = .none
 
+    @Published var isMyself = false
     @Published var isEditing = false
     @Published var isUpdating = false
     

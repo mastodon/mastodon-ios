@@ -311,6 +311,9 @@ extension ProfileViewController {
         viewModel.$isUpdating
             .assign(to: \.isUpdating, on: headerViewModel)
             .store(in: &disposeBag)
+        viewModel.relationshipViewModel.$isMyself
+            .assign(to: \.isMyself, on: headerViewModel)
+            .store(in: &disposeBag)
         viewModel.relationshipViewModel.$optionSet
             .map { $0 ?? .none }
             .assign(to: \.relationshipActionOptionSet, on: headerViewModel)

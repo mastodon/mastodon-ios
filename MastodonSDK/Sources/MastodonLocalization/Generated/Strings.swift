@@ -754,11 +754,17 @@ public enum L10n {
       }
       public enum Dashboard {
         /// followers
-        public static let followers = L10n.tr("Localizable", "Scene.Profile.Dashboard.Followers", fallback: "followers")
+        public static let myFollowers = L10n.tr("Localizable", "Scene.Profile.Dashboard.MyFollowers", fallback: "followers")
         /// following
-        public static let following = L10n.tr("Localizable", "Scene.Profile.Dashboard.Following", fallback: "following")
+        public static let myFollowing = L10n.tr("Localizable", "Scene.Profile.Dashboard.MyFollowing", fallback: "following")
         /// posts
-        public static let posts = L10n.tr("Localizable", "Scene.Profile.Dashboard.Posts", fallback: "posts")
+        public static let myPosts = L10n.tr("Localizable", "Scene.Profile.Dashboard.MyPosts", fallback: "posts")
+        /// followers
+        public static let otherFollowers = L10n.tr("Localizable", "Scene.Profile.Dashboard.OtherFollowers", fallback: "followers")
+        /// following
+        public static let otherFollowing = L10n.tr("Localizable", "Scene.Profile.Dashboard.OtherFollowing", fallback: "following")
+        /// posts
+        public static let otherPosts = L10n.tr("Localizable", "Scene.Profile.Dashboard.OtherPosts", fallback: "posts")
       }
       public enum Fields {
         /// Add Row
