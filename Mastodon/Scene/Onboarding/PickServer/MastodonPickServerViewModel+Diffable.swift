@@ -38,7 +38,6 @@ extension MastodonPickServerViewModel {
         
         var snapshot = NSDiffableDataSourceSnapshot<PickServerSection, PickServerItem>()
         snapshot.appendSections([.header, .servers])
-        snapshot.appendItems([.header], toSection: .header)
         diffableDataSource?.apply(snapshot, animatingDifferences: false, completion: nil)
         
         loadIndexedServerStateMachine.enter(LoadIndexedServerState.Loading.self)
@@ -61,7 +60,6 @@ extension MastodonPickServerViewModel {
             
             var snapshot = NSDiffableDataSourceSnapshot<PickServerSection, PickServerItem>()
             snapshot.appendSections([.header, .servers])
-            snapshot.appendItems([.header], toSection: .header)
 
             // TODO: handle filter
             var serverItems: [PickServerItem] = []

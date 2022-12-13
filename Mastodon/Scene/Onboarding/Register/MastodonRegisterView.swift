@@ -21,15 +21,6 @@ struct MastodonRegisterView: View {
         ScrollView(.vertical) {
             let margin: CGFloat = 16
             
-            // header
-            HStack {
-                Text(L10n.Scene.Register.title(viewModel.domain))
-                    .font(Font(MastodonPickServerViewController.largeTitleFont as CTFont))
-                    .foregroundColor(Color(Asset.Colors.Label.primary.color))
-                Spacer()
-            }
-            .padding(.horizontal, margin)
-            
             // Avatar selector
             Menu {
                 // Photo Library

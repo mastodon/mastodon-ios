@@ -1186,10 +1186,8 @@ public enum L10n {
       }
     }
     public enum ServerPicker {
-      /// Pick a server based on your region, interests, or a general purpose one. You can still chat with anyone on Mastodon, regardless of your servers.
-      public static let subtitle = L10n.tr("Localizable", "Scene.ServerPicker.Subtitle", fallback: "Pick a server based on your region, interests, or a general purpose one. You can still chat with anyone on Mastodon, regardless of your servers.")
-      /// Mastodon is made of users in different servers.
-      public static let title = L10n.tr("Localizable", "Scene.ServerPicker.Title", fallback: "Mastodon is made of users in different servers.")
+      /// Pick server
+      public static let title = L10n.tr("Localizable", "Scene.ServerPicker.Title", fallback: "Pick server")
       public enum Button {
         /// See Less
         public static let seeLess = L10n.tr("Localizable", "Scene.ServerPicker.Button.SeeLess", fallback: "See Less")

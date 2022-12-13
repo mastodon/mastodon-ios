@@ -11,21 +11,10 @@ import MastodonLocalization
 
 final class OnboardingHeadlineTableViewCell: UITableViewCell {
     
-    let titleLabel: UILabel = {
-        let label = UILabel()
-        label.font = MastodonPickServerViewController.largeTitleFont
-        label.textColor = MastodonPickServerViewController.largeTitleTextColor
-        label.text = L10n.Scene.ServerPicker.title
-        label.adjustsFontForContentSizeCategory = true
-        label.numberOfLines = 0
-        return label
-    }()
-    
     let subTitleLabel: UILabel = {
         let label = UILabel()
         label.font = MastodonPickServerViewController.subTitleFont
-        label.textColor = MastodonPickServerViewController.subTitleTextColor
-        label.text = L10n.Scene.ServerPicker.subtitle
+        label.textColor = Asset.Colors.Label.primary.color
         label.adjustsFontForContentSizeCategory = true
         label.numberOfLines = 0
         return label
@@ -57,10 +46,9 @@ extension OnboardingHeadlineTableViewCell {
             container.topAnchor.constraint(equalTo: contentView.topAnchor),
             container.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
             container.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor),
-            contentView.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: 11),
+            contentView.bottomAnchor.constraint(equalTo: container.bottomAnchor),
         ])
         
-        container.addArrangedSubview(titleLabel)
         container.addArrangedSubview(subTitleLabel)
     }
 

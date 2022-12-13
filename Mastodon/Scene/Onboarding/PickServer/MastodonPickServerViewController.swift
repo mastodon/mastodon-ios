@@ -204,6 +204,8 @@ extension MastodonPickServerViewController {
             .store(in: &disposeBag)
         
         onboardingNextView.nextButton.addTarget(self, action: #selector(MastodonPickServerViewController.nextButtonDidPressed(_:)), for: .touchUpInside)
+
+        title = L10n.Scene.ServerPicker.title
     }
     
     override func viewWillAppear(_ animated: Bool) {
