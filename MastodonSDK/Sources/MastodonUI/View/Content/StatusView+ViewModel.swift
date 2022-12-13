@@ -543,13 +543,14 @@ extension StatusView.ViewModel {
                 let formatter = DateFormatter()
                 
                 // make adaptive UI
-                if UIView.isZoomedMode || metricButtonTitleLength > 20 {
+                if UIView.isZoomedMode || metricButtonTitleLength > 30 {
                     formatter.dateStyle = .short
                     formatter.timeStyle = .short
                 } else {
                     formatter.dateStyle = .medium
                     formatter.timeStyle = .short
                 }
+                formatter.doesRelativeDateFormatting = true
                 return formatter.string(from: timestamp)
             }()
             
@@ -648,6 +649,7 @@ extension StatusView.ViewModel {
 
         let longTimestampFormatter = DateFormatter()
         longTimestampFormatter.dateStyle = .medium
+        longTimestampFormatter.doesRelativeDateFormatting = true
         longTimestampFormatter.timeStyle = .short
         let longTimestampLabel = Publishers.CombineLatest(
             $timestampText,
