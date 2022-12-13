@@ -48,6 +48,13 @@ extension Instance {
     public var canFollowTags: Bool {
         version?.majorServerVersion(greaterThanOrEquals: 4) ?? false // following Tags is support beginning with Mastodon v4.0.0
     }
+    
+    var isTranslationEnabled: Bool {
+        if let configuration = configurationV2 {
+            return configuration.translation?.enabled == true
+        }
+        return false
+    }
 }
 
 extension String {
@@ -58,14 +65,5 @@ extension String {
         else { return false }
         
         return majorVersionInt >= comparedVersion
-    }
-}
-
-extension Instance {
-    var isTranslationEnabled: Bool {
-        if let configuration = configurationV2 {
-            return configuration.translation?.enabled == true
-        }
-        return false
     }
 }
