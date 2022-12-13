@@ -46,20 +46,15 @@ final class MastodonPickServerViewController: UIViewController, NeedsDependency 
         tableView.sectionHeaderTopPadding = .leastNonzeroMagnitude
         return tableView
     }()
-    
-    let navigationActionView: NavigationActionView = {
-        let navigationActionView = NavigationActionView()
-        navigationActionView.backgroundColor = Asset.Scene.Onboarding.background.color
-        return navigationActionView
+
+    let onboardingNextView: OnboardingNextView = {
+        let onboardingNextView = OnboardingNextView()
+        onboardingNextView.translatesAutoresizingMaskIntoConstraints = false
+        onboardingNextView.backgroundColor = UIColor.secondarySystemBackground
+        return onboardingNextView
     }()
     
     var mastodonAuthenticationController: MastodonAuthenticationController?
-    
-    deinit {
-        tableViewObservation = nil
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-    }
-    
 }
 
 extension MastodonPickServerViewController {    
@@ -72,17 +67,6 @@ extension MastodonPickServerViewController {
         setupOnboardingAppearance()
         defer { setupNavigationBarBackgroundView() }
 
-        #if DEBUG
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), style: .plain, target: nil, action: nil)
-        let children: [UIMenuElement] = [
-            UIAction(title: "Dismiss", image: nil, identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off, handler: { [weak self] _ in
-                guard let self = self else { return }
-                self.dismiss(animated: true, completion: nil)
-            })
-        ]
-        navigationItem.rightBarButtonItem?.menu = UIMenu(title: "Debug Tool", image: nil, identifier: nil, options: [], children: children)
-        #endif
-        
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
         NSLayoutConstraint.activate([
@@ -92,36 +76,21 @@ extension MastodonPickServerViewController {
             tableView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor),
         ])
         
-        navigationActionView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(navigationActionView)
-        defer {
-            view.bringSubviewToFront(navigationActionView)
-        }
+        view.addSubview(onboardingNextView)
+
         NSLayoutConstraint.activate([
-            navigationActionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            navigationActionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            view.bottomAnchor.constraint(equalTo: navigationActionView.bottomAnchor),
+            onboardingNextView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            onboardingNextView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            view.bottomAnchor.constraint(equalTo: onboardingNextView.bottomAnchor),
         ])
         
-        navigationActionView
+        onboardingNextView
             .observe(\.bounds, options: [.initial, .new]) { [weak self] _, _ in
                 guard let self = self else { return }
-                let inset = self.navigationActionView.frame.height
+                let inset = self.onboardingNextView.frame.height
                 self.viewModel.additionalTableViewInsets.bottom = inset
             }
             .store(in: &observations)
-
-        // fix AutoLayout warning when observe before view appear
-        viewModel.viewWillAppear
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] in
-                guard let self = self else { return }
-                self.tableViewObservation = self.tableView.observe(\.contentSize, options: [.initial, .new]) { [weak self] tableView, _ in
-                    guard let self = self else { return }
-                    self.updateEmptyStateViewLayout()
-                }
-            }
-            .store(in: &disposeBag)
 
         emptyStateView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(emptyStateView)
@@ -131,7 +100,7 @@ extension MastodonPickServerViewController {
             emptyStateView.topAnchor.constraint(equalTo: view.topAnchor),
             emptyStateViewLeadingLayoutConstraint,
             emptyStateViewTrailingLayoutConstraint,
-            navigationActionView.topAnchor.constraint(equalTo: emptyStateView.bottomAnchor, constant: 21),
+            onboardingNextView.topAnchor.constraint(equalTo: emptyStateView.bottomAnchor, constant: 21),
         ])
         view.sendSubviewToBack(emptyStateView)
 
@@ -153,7 +122,7 @@ extension MastodonPickServerViewController {
         viewModel
             .selectedServer
             .map { $0 != nil }
-            .assign(to: \.isEnabled, on: navigationActionView.nextButton)
+            .assign(to: \.isEnabled, on: onboardingNextView.nextButton)
             .store(in: &disposeBag)
 
         Publishers.Merge(
@@ -203,7 +172,7 @@ extension MastodonPickServerViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] isAuthenticating in
                 guard let self = self else { return }
-                isAuthenticating ? self.navigationActionView.nextButton.showLoading() : self.navigationActionView.nextButton.stopLoading()
+//                isAuthenticating ? self.navigationActionView.nextButton.showLoading() : self.navigationActionView.nextButton.stopLoading()
             }
             .store(in: &disposeBag)
 
@@ -234,7 +203,7 @@ extension MastodonPickServerViewController {
             }
             .store(in: &disposeBag)
         
-        navigationActionView.nextButton.addTarget(self, action: #selector(MastodonPickServerViewController.nextButtonDidPressed(_:)), for: .touchUpInside)
+        onboardingNextView.nextButton.addTarget(self, action: #selector(MastodonPickServerViewController.nextButtonDidPressed(_:)), for: .touchUpInside)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -253,7 +222,6 @@ extension MastodonPickServerViewController {
         super.traitCollectionDidChange(previousTraitCollection)
         
         setupNavigationBarAppearance()
-        updateEmptyStateViewLayout()
     }
     
 }
@@ -405,26 +373,6 @@ extension MastodonPickServerViewController: UITableViewDelegate {
         }
     }
     
-}
-
-extension MastodonPickServerViewController {
-    private func updateEmptyStateViewLayout() {
-//        guard let diffableDataSource = self.viewModel.diffableDataSource else { return }
-//        guard let indexPath = diffableDataSource.indexPath(for: .search) else { return }
-//        let rectInTableView = tableView.rectForRow(at: indexPath)
-//
-//        emptyStateView.topPaddingViewTopLayoutConstraint.constant = rectInTableView.maxY
-//
-//        switch traitCollection.horizontalSizeClass {
-//        case .regular:
-//            emptyStateViewLeadingLayoutConstraint.constant = MastodonPickServerViewController.viewEdgeMargin
-//            emptyStateViewTrailingLayoutConstraint.constant = MastodonPickServerViewController.viewEdgeMargin
-//        default:
-//            let margin = tableView.layoutMarginsGuide.layoutFrame.origin.x
-//            emptyStateViewLeadingLayoutConstraint.constant = margin
-//            emptyStateViewTrailingLayoutConstraint.constant = margin
-//        }
-    }
 }
 
 // MARK: - PickServerServerSectionTableHeaderViewDelegate
