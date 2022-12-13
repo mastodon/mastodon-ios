@@ -20,7 +20,6 @@ extension PickServerSection {
         for tableView: UITableView,
         dependency: NeedsDependency
     ) -> UITableViewDiffableDataSource<PickServerSection, PickServerItem> {
-        tableView.register(OnboardingHeadlineTableViewCell.self, forCellReuseIdentifier: String(describing: OnboardingHeadlineTableViewCell.self))
         tableView.register(PickServerCell.self, forCellReuseIdentifier: String(describing: PickServerCell.self))
         tableView.register(PickServerLoaderTableViewCell.self, forCellReuseIdentifier: String(describing: PickServerLoaderTableViewCell.self))
         
@@ -29,9 +28,6 @@ extension PickServerSection {
         ] tableView, indexPath, item -> UITableViewCell? in
             guard let _ = dependency else { return nil }
             switch item {
-            case .header:
-                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: OnboardingHeadlineTableViewCell.self), for: indexPath) as! OnboardingHeadlineTableViewCell
-                return cell
             case .server(let server, let attribute):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PickServerCell.self), for: indexPath) as! PickServerCell
                 PickServerSection.configure(cell: cell, server: server, attribute: attribute)
