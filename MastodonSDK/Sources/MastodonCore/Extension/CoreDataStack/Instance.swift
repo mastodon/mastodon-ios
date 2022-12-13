@@ -26,8 +26,13 @@ extension Instance {
 
 extension Instance {
     public var configurationV2: Mastodon.Entity.V2.Instance.Configuration? {
-        guard let configurationRaw = configurationV2Raw else { return nil }
-        guard let configuration = try? JSONDecoder().decode(Mastodon.Entity.V2.Instance.Configuration.self, from: configurationRaw) else {
+        guard
+            let configurationRaw = configurationV2Raw,
+            let configuration = try? JSONDecoder().decode(
+                Mastodon.Entity.V2.Instance.Configuration.self,
+                from: configurationRaw
+            )
+        else {
             return nil
         }
 

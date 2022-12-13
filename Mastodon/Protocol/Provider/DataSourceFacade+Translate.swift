@@ -10,13 +10,15 @@ import CoreData
 import CoreDataStack
 import MastodonCore
 
+typealias Provider = UIViewController & NeedsDependency & AuthContextProvider
+
 extension DataSourceFacade {
     enum TranslationFailure: Error {
         case emptyOrInvalidResponse
     }
     
     public static func translateStatus(
-        provider: UIViewController & NeedsDependency & AuthContextProvider,
+        provider: Provider,
         status: ManagedObjectRecord<Status>
     ) async throws {
         let selectionFeedbackGenerator = await UISelectionFeedbackGenerator()
@@ -28,38 +30,40 @@ extension DataSourceFacade {
             return
         }
         
-        func translate(status: Status) async throws -> String? {
-            do {
-                let value = try await provider.context
-                    .apiService
-                    .translateStatus(
-                        statusID: status.id,
-                        authenticationBox: provider.authContext.mastodonAuthenticationBox
-                    ).value
-
-                guard let content = value.content else {
-                    throw TranslationFailure.emptyOrInvalidResponse
-                }
-                
-                return content
-            } catch {
-                throw TranslationFailure.emptyOrInvalidResponse
-            }
-        }
-        
-        func translateAndApply(to status: Status) async throws {
-            do {
-                status.translatedContent = try await translate(status: status)
-            } catch {
-                status.translatedContent = nil
-                throw TranslationFailure.emptyOrInvalidResponse
-            }
-        }
-        
         if let reblog = status.reblog {
-            try await translateAndApply(to: reblog)
+            try await translateAndApply(provider: provider, status: reblog)
         } else {
-            try await translateAndApply(to: status)
+            try await translateAndApply(provider: provider, status: status)
+        }
+    }
+}
+
+private extension DataSourceFacade {
+    static func translateStatus(provider: Provider, status: Status) async throws -> String? {
+        do {
+            let value = try await provider.context
+                .apiService
+                .translateStatus(
+                    statusID: status.id,
+                    authenticationBox: provider.authContext.mastodonAuthenticationBox
+                ).value
+
+            guard let content = value.content else {
+                throw TranslationFailure.emptyOrInvalidResponse
+            }
+            
+            return content
+        } catch {
+            throw TranslationFailure.emptyOrInvalidResponse
+        }
+    }
+    
+    static func translateAndApply(provider: Provider, status: Status) async throws {
+        do {
+            status.translatedContent = try await translateStatus(provider: provider, status: status)
+        } catch {
+            status.translatedContent = nil
+            throw TranslationFailure.emptyOrInvalidResponse
         }
     }
 }
