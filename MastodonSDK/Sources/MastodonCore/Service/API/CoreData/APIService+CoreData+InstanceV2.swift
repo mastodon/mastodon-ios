@@ -6,17 +6,33 @@ import MastodonSDK
 
 extension APIService.CoreData {
     
-    static func createOrMergeInstanceV2(
-        into managedObjectContext: NSManagedObjectContext,
-        domain: String,
-        entity: Mastodon.Entity.V2.Instance,
-        networkDate: Date,
-        log: Logger
+    public struct PersistContext {
+        public let domain: String
+        public let entity: Mastodon.Entity.V2.Instance
+        public let networkDate: Date
+        public let log: Logger
+        
+        public init(
+            domain: String,
+            entity: Mastodon.Entity.V2.Instance,
+            networkDate: Date,
+            log: Logger
+        ) {
+            self.domain = domain
+            self.entity = entity
+            self.networkDate = networkDate
+            self.log = log
+        }
+    }
+    
+    static func createOrMergeInstance(
+        in managedObjectContext: NSManagedObjectContext,
+        context: PersistContext
     ) -> (instance: Instance, isCreated: Bool) {
         // fetch old mastodon user
         let old: Instance? = {
             let request = Instance.sortedFetchRequest
-            request.predicate = Instance.predicate(domain: domain)
+            request.predicate = Instance.predicate(domain: context.domain)
             request.fetchLimit = 1
             request.returnsObjectsAsFaults = false
             do {
@@ -28,19 +44,17 @@ extension APIService.CoreData {
         }()
         
         if let old = old {
-            APIService.CoreData.mergeV2(
+            APIService.CoreData.merge(
                 instance: old,
-                entity: entity,
-                domain: domain,
-                networkDate: networkDate
+                context: context
             )
             return (old, false)
         } else {
             let instance = Instance.insert(
                 into: managedObjectContext,
-                property: Instance.Property(domain: domain, version: entity.version)
+                property: Instance.Property(domain: context.domain, version: context.entity.version)
             )
-            let configurationRaw = entity.configuration.flatMap { Instance.encodeV2(configuration: $0) }
+            let configurationRaw = context.entity.configuration.flatMap { Instance.encodeV2(configuration: $0) }
             instance.update(configurationV2Raw: configurationRaw)
             
             return (instance, true)
@@ -51,19 +65,17 @@ extension APIService.CoreData {
 
 extension APIService.CoreData {
     
-    static func mergeV2(
+    static func merge(
         instance: Instance,
-        entity: Mastodon.Entity.V2.Instance,
-        domain: String,
-        networkDate: Date
+        context: PersistContext
     ) {
-        guard networkDate > instance.updatedAt else { return }
+        guard context.networkDate > instance.updatedAt else { return }
 
-        let configurationRaw = entity.configuration.flatMap { Instance.encodeV2(configuration: $0) }
+        let configurationRaw = context.entity.configuration.flatMap { Instance.encodeV2(configuration: $0) }
         instance.update(configurationV2Raw: configurationRaw)
-        instance.version = entity.version
+        instance.version = context.entity.version
 
-        instance.didUpdate(at: networkDate)
+        instance.didUpdate(at: context.networkDate)
     }
     
 }

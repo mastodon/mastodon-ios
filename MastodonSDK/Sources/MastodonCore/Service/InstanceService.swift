@@ -118,12 +118,14 @@ extension InstanceService {
         let managedObjectContext = self.backgroundManagedObjectContext
         return managedObjectContext.performChanges {
             // get instance
-            let (instance, _) = APIService.CoreData.createOrMergeInstanceV2(
-                into: managedObjectContext,
-                domain: domain,
-                entity: response.value,
-                networkDate: response.networkDate,
-                log: Logger(subsystem: "Update", category: "InstanceService")
+            let (instance, _) = APIService.CoreData.createOrMergeInstance(
+                in: managedObjectContext,
+                context: .init(
+                    domain: domain,
+                    entity: response.value,
+                    networkDate: response.networkDate,
+                    log: Logger(subsystem: "Update", category: "InstanceService")
+                )
             )
             
             // update relationship
