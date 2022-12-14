@@ -57,8 +57,8 @@ extension StatusView {
         configureFilter(status: status)
         viewModel.originalStatus = status
         [
-            status.$translatedContent,
-            status.reblog?.$translatedContent
+            status.publisher(for: \.translatedContent),
+            status.reblog?.publisher(for: \.translatedContent)
         ].compactMap { $0 }
             .last?
             .receive(on: DispatchQueue.main)
@@ -245,8 +245,8 @@ extension StatusView {
     func revertTranslation() {
         guard let originalStatus = viewModel.originalStatus else { return }
         viewModel.translatedFromLanguage = nil
-        originalStatus.reblog?.translatedContent = nil
-        originalStatus.translatedContent = nil
+        originalStatus.reblog?.update(translatedContent: nil)
+        originalStatus.update(translatedContent: nil)
         configure(status: originalStatus)
     }
     

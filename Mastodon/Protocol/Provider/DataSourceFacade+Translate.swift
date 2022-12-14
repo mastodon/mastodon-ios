@@ -60,9 +60,10 @@ private extension DataSourceFacade {
     
     static func translateAndApply(provider: Provider, status: Status) async throws {
         do {
-            status.translatedContent = try await translateStatus(provider: provider, status: status)
+            let translated = try await translateStatus(provider: provider, status: status)
+            status.update(translatedContent: translated)
         } catch {
-            status.translatedContent = nil
+            status.update(translatedContent: nil)
             throw TranslationFailure.emptyOrInvalidResponse
         }
     }
