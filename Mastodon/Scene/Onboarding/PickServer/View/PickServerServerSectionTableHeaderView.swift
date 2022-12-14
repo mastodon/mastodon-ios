@@ -14,16 +14,14 @@ import MastodonLocalization
 
 protocol PickServerServerSectionTableHeaderViewDelegate: AnyObject {
     func pickServerServerSectionTableHeaderView(_ headerView: PickServerServerSectionTableHeaderView, collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
-    func pickServerServerSectionTableHeaderView(_ headerView: PickServerServerSectionTableHeaderView, searchTextDidChange searchText: String?)
 }
 
 final class PickServerServerSectionTableHeaderView: UIView {
     
     static let collectionViewHeight: CGFloat = 30
-    static let searchTextFieldHeight: CGFloat = 38
-    static let spacing: CGFloat = 11
+    static let spacing: CGFloat = 16
     
-    static let height: CGFloat = collectionViewHeight + spacing + searchTextFieldHeight + spacing
+    static let height: CGFloat = collectionViewHeight + spacing
     
     weak var delegate: PickServerServerSectionTableHeaderViewDelegate?
 
@@ -58,66 +56,7 @@ final class PickServerServerSectionTableHeaderView: UIView {
         view.layer.masksToBounds = false
         return view
     }()
-    
-    let searchTextField: UITextField = {
-        let textField = UITextField()
-        textField.backgroundColor = Asset.Scene.Onboarding.searchBarBackground.color
-        textField.leftView = {
-            let imageView = UIImageView(
-                image: UIImage(
-                    systemName: "magnifyingglass",
-                    withConfiguration: UIImage.SymbolConfiguration(pointSize: 15, weight: .regular)
-                )
-            )
-            imageView.tintColor = Asset.Colors.Label.secondary.color.withAlphaComponent(0.6)
-            
-            let containerView = UIView()
-            imageView.translatesAutoresizingMaskIntoConstraints = false
-            containerView.addSubview(imageView)
-            NSLayoutConstraint.activate([
-                imageView.topAnchor.constraint(equalTo: containerView.topAnchor),
-                imageView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 8),
-                imageView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
-            ])
-            
-            let paddingView = UIView()
-            paddingView.translatesAutoresizingMaskIntoConstraints = false
-            containerView.addSubview(paddingView)
-            NSLayoutConstraint.activate([
-                paddingView.topAnchor.constraint(equalTo: containerView.topAnchor),
-                paddingView.leadingAnchor.constraint(equalTo: imageView.trailingAnchor),
-                paddingView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
-                paddingView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
-                paddingView.widthAnchor.constraint(equalToConstant: 4).priority(.defaultHigh),
-            ])
-            return containerView
-        }()
-        textField.leftViewMode = .always
-        textField.font = .systemFont(ofSize: 15, weight: .regular)
-        textField.tintColor = Asset.Colors.Label.primary.color
-        textField.textColor = Asset.Colors.Label.primary.color
-        textField.adjustsFontForContentSizeCategory = true
-        textField.attributedPlaceholder = NSAttributedString(
-            string: L10n.Scene.ServerPicker.Input.searchServersOrEnterUrl,
-            attributes: [
-                .font: UIFont.systemFont(ofSize: 15, weight: .regular),
-                .foregroundColor: Asset.Colors.Label.secondary.color.withAlphaComponent(0.6)
-            ]
-        )
-        textField.clearButtonMode = .whileEditing
-        textField.autocapitalizationType = .none
-        textField.autocorrectionType = .no
-        textField.returnKeyType = .done
-        textField.keyboardType = .URL
-        textField.borderStyle = .none
-        
-        textField.layer.masksToBounds = true
-        textField.layer.cornerRadius = 10
-        textField.layer.cornerCurve = .continuous
-        
-        return textField
-    }()
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         _init()
@@ -133,7 +72,6 @@ final class PickServerServerSectionTableHeaderView: UIView {
         
         collectionView.invalidateIntrinsicContentSize()
     }
-    
 }
 
 extension PickServerServerSectionTableHeaderView {
@@ -148,28 +86,11 @@ extension PickServerServerSectionTableHeaderView {
             collectionView.topAnchor.constraint(equalTo: topAnchor),
             collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            collectionView.heightAnchor.constraint(equalToConstant: PickServerServerSectionTableHeaderView.collectionViewHeight).priority(.required - 1),
+            collectionView.heightAnchor.constraint(equalToConstant: PickServerServerSectionTableHeaderView.collectionViewHeight),
+            bottomAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: PickServerServerSectionTableHeaderView.spacing),
         ])
-        
-        searchTextField.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(searchTextField)
-        NSLayoutConstraint.activate([
-            searchTextField.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: PickServerServerSectionTableHeaderView.spacing),
-            searchTextField.leadingAnchor.constraint(equalTo: readableContentGuide.leadingAnchor),
-            searchTextField.trailingAnchor.constraint(equalTo: readableContentGuide.trailingAnchor),
-            bottomAnchor.constraint(equalTo: searchTextField.bottomAnchor, constant: PickServerServerSectionTableHeaderView.spacing),
-            searchTextField.heightAnchor.constraint(equalToConstant: PickServerServerSectionTableHeaderView.searchTextFieldHeight).priority(.required - 1),
-        ])
-        
-        collectionView.delegate = self
-        searchTextField.delegate = self        
-        searchTextField.addTarget(self, action: #selector(PickServerServerSectionTableHeaderView.textFieldDidChange(_:)), for: .editingChanged)
-    }
-}
 
-extension PickServerServerSectionTableHeaderView {
-    @objc private func textFieldDidChange(_ textField: UITextField) {
-        delegate?.pickServerServerSectionTableHeaderView(self, searchTextDidChange: textField.text)
+        collectionView.delegate = self
     }
 }
 
@@ -180,7 +101,6 @@ extension PickServerServerSectionTableHeaderView: UICollectionViewDelegate {
         collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
         delegate?.pickServerServerSectionTableHeaderView(self, collectionView: collectionView, didSelectItemAt: indexPath)
     }
-
 }
 
 extension PickServerServerSectionTableHeaderView {
@@ -191,8 +111,11 @@ extension PickServerServerSectionTableHeaderView {
     }
 
     override func accessibilityElement(at index: Int) -> Any? {
-        if let item = collectionView.cellForItem(at: IndexPath(item: index, section: 0)) { return item }
-        return searchTextField
+        if let item = collectionView.cellForItem(at: IndexPath(item: index, section: 0)) {
+            return item
+        } else {
+            return nil
+        }
     }
 
 }
