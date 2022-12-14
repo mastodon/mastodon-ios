@@ -12,51 +12,49 @@ import MastodonUI
 import MastodonLocalization
 
 class PickServerCategoryView: UIView {
-    
-    let highlightedIndicatorView: UIView = {
-        let view = UIView()
-        view.backgroundColor = Asset.Colors.Label.primary.color
-        return view
-    }()
 
     let titleLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.font = .systemFont(ofSize: 17, weight: .semibold)
+        label.font = .systemFont(ofSize: 15, weight: .semibold)
         label.textColor = Asset.Colors.Label.secondary.color
         return label
     }()
+
+    //TODO: @zeitschlag add chevron
     
     init() {
         super.init(frame: .zero)
-        configure()
+        _init()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        configure()
+        _init()
     }
-}
 
-extension PickServerCategoryView {
-    
-    private func configure() {
+    private func _init() {
         let container = UIStackView()
-        container.axis = .vertical
-        container.spacing = 2
+        container.axis = .horizontal
+        container.spacing = 4
         container.distribution = .fillProportionally
         
         container.translatesAutoresizingMaskIntoConstraints = false
         addSubview(container)
-        container.pinToParent()
+        let constraints = [
+            container.topAnchor.constraint(equalTo: topAnchor, constant: 6),
+            container.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12),
+            trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: 12),
+            bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: 6),
+        ]
+        
+        NSLayoutConstraint.activate(constraints)
         
         container.addArrangedSubview(titleLabel)
-        highlightedIndicatorView.translatesAutoresizingMaskIntoConstraints = false
-        container.addArrangedSubview(highlightedIndicatorView)
-        NSLayoutConstraint.activate([
-            highlightedIndicatorView.heightAnchor.constraint(equalToConstant: 3)//.priority(.required - 1),
-        ])
-        titleLabel.setContentHuggingPriority(.required - 1, for: .vertical)
+
+        layer.borderColor = UIColor.black.cgColor
+        layer.borderWidth = 1.0
+        applyCornerRadius(radius: 15)
     }
     
 }

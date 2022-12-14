@@ -23,7 +23,7 @@ extension CategoryPickerSection {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: PickServerCategoryCollectionViewCell.self), for: indexPath) as! PickServerCategoryCollectionViewCell
             cell.categoryView.titleLabel.text = item.title
             cell.observe(\.isSelected, options: [.initial, .new]) { cell, _ in
-                cell.categoryView.highlightedIndicatorView.alpha = cell.isSelected ? 1 : 0
+//                cell.categoryView.highlightedIndicatorView.alpha = cell.isSelected ? 1 : 0
                 cell.categoryView.titleLabel.textColor = cell.isSelected ? Asset.Colors.Label.primary.color : Asset.Colors.Label.secondary.color
             }
             .store(in: &cell.observations)

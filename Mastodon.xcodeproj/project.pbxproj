@@ -1203,6 +1203,8 @@
 				DB1FD43525F26899004CFCFC /* MastodonPickServerViewModel+LoadIndexedServerState.swift */,
 				DB1FD44325F26CCC004CFCFC /* PickServerSection.swift */,
 				DB1E347725F519300079D7DF /* PickServerItem.swift */,
+				DB1E346725F518E20079D7DF /* CategoryPickerSection.swift */,
+				DB1FD45925F27898004CFCFC /* CategoryPickerItem.swift */,
 			);
 			path = PickServer;
 			sourceTree = "<group>";
@@ -1907,8 +1909,6 @@
 		DB4F097826A039B400D62E92 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
-				DB1E346725F518E20079D7DF /* CategoryPickerSection.swift */,
-				DB1FD45925F27898004CFCFC /* CategoryPickerItem.swift */,
 				DB0618022785A7100030EE79 /* RegisterSection.swift */,
 				DB0618042785A73D0030EE79 /* RegisterItem.swift */,
 			);

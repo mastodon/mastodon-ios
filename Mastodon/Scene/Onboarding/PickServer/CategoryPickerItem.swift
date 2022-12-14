@@ -18,41 +18,6 @@ enum CategoryPickerItem {
 
 extension CategoryPickerItem {
     
-    var emoji: String {
-        switch self {
-        case .all:
-            return "💬"
-        case .category(let category):
-            switch category.category {
-            case .academia:
-                return "📚"
-            case .activism:
-                return "✊"
-            case .food:
-                return "🍕"
-            case .furry:
-                return "🦁"
-            case .games:
-                return "🕹"
-            case .general:
-                return "🐘"
-            case .journalism:
-                return "📰"
-            case .lgbt:
-                return "🏳️‍🌈"
-            case .regional:
-                return "📍"
-            case .art:
-                return "🎨"
-            case .music:
-                return "🎼"
-            case .tech:
-                return "📱"
-            case ._other:
-                return "❓"
-            }
-        }
-    }
     var title: String {
         switch self {
         case .all:
