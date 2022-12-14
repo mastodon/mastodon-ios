@@ -37,7 +37,6 @@ class PickServerCell: UITableViewCell {
     let checkbox: UIImageView = {
         let imageView = UIImageView()
         imageView.preferredSymbolConfiguration = UIImage.SymbolConfiguration(textStyle: .body)
-        imageView.tintColor = Asset.Colors.Label.secondary.color
         imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
@@ -83,17 +82,17 @@ extension PickServerCell {
         checkbox.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(checkbox)
         NSLayoutConstraint.activate([
-            checkbox.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor, constant: 1),
-            checkbox.heightAnchor.constraint(equalToConstant: 32).priority(.required - 1),
-            checkbox.widthAnchor.constraint(equalToConstant: 32).priority(.required - 1),
+            contentView.readableContentGuide.trailingAnchor.constraint(equalTo: checkbox.trailingAnchor, constant: 16),
+            checkbox.heightAnchor.constraint(equalToConstant: 20),
+            checkbox.widthAnchor.constraint(equalTo: checkbox.heightAnchor),
         ])
         
         containerView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(containerView)
         NSLayoutConstraint.activate([
             containerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 11),
-            containerView.leadingAnchor.constraint(equalTo: checkbox.trailingAnchor, constant: 22),
-            containerView.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor),
+            containerView.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor, constant: 16),
+            checkbox.leadingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: 16),
             contentView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: 11),
             checkbox.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
         ])
@@ -106,11 +105,10 @@ extension PickServerCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         if selected {
-            checkbox.image = UIImage(systemName: "checkmark.circle.fill")
-            checkbox.tintColor = Asset.Colors.Label.primary.color
+            checkbox.image = UIImage(systemName: "checkmark")
+            checkbox.tintColor = Asset.Colors.brand.color
         } else {
-            checkbox.image = UIImage(systemName: "circle")
-            checkbox.tintColor = Asset.Colors.Label.secondary.color
+            checkbox.image = nil
         }
     }
 
