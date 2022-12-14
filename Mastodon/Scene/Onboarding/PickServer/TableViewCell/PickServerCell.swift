@@ -20,9 +20,18 @@ class PickServerCell: UITableViewCell {
         
     let containerView: UIStackView = {
         let view = UIStackView()
+        view.translatesAutoresizingMaskIntoConstraints = false
         view.axis = .vertical
         view.spacing = 4
         return view
+    }()
+
+    let thumbnailImageView: UIImageView = {
+        let thumbnail = UIImageView()
+        thumbnail.translatesAutoresizingMaskIntoConstraints = false
+        thumbnail.backgroundColor = Asset.Colors.brand.color
+        thumbnail.layer.cornerRadius = 8
+        return thumbnail
     }()
     
     let domainLabel: UILabel = {
@@ -78,28 +87,36 @@ extension PickServerCell {
     private func _init() {
         selectionStyle = .none
         backgroundColor = Asset.Scene.Onboarding.background.color
-                
-        checkbox.translatesAutoresizingMaskIntoConstraints = false
+
+        contentView.addSubview(containerView)
+        contentView.addSubview(thumbnailImageView)
         contentView.addSubview(checkbox)
+
+        NSLayoutConstraint.activate([
+            thumbnailImageView.heightAnchor.constraint(equalToConstant: 32),
+            thumbnailImageView.widthAnchor.constraint(equalTo: thumbnailImageView.heightAnchor),
+
+            thumbnailImageView.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor, constant: 16),
+            thumbnailImageView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
+        ])
+
+        NSLayoutConstraint.activate([
+            containerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 11),
+            containerView.leadingAnchor.constraint(equalTo: thumbnailImageView.trailingAnchor, constant: 16),
+            checkbox.leadingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: 16),
+            contentView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: 11),
+            checkbox.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
+        ])
+
+        containerView.addArrangedSubview(domainLabel)
+        containerView.addArrangedSubview(descriptionLabel)
+        containerView.setCustomSpacing(6, after: descriptionLabel)
+
         NSLayoutConstraint.activate([
             contentView.readableContentGuide.trailingAnchor.constraint(equalTo: checkbox.trailingAnchor, constant: 16),
             checkbox.heightAnchor.constraint(equalToConstant: 20),
             checkbox.widthAnchor.constraint(equalTo: checkbox.heightAnchor),
         ])
-        
-        containerView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(containerView)
-        NSLayoutConstraint.activate([
-            containerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 11),
-            containerView.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor, constant: 16),
-            checkbox.leadingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: 16),
-            contentView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: 11),
-            checkbox.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
-        ])
-        
-        containerView.addArrangedSubview(domainLabel)
-        containerView.addArrangedSubview(descriptionLabel)
-        containerView.setCustomSpacing(6, after: descriptionLabel)
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
