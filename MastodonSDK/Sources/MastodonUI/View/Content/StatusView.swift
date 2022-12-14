@@ -431,6 +431,10 @@ extension StatusView.Style {
         statusView.contentContainer.addArrangedSubview(statusView.contentMetaText.textView)
         statusView.containerStackView.setCustomSpacing(16, after: statusView.contentMetaText.textView)
 
+        // translated info
+        statusView.containerStackView.addArrangedSubview(statusView.isTranslatingLoadingView)
+        statusView.containerStackView.addArrangedSubview(statusView.translatedInfoView)
+
         statusView.spoilerOverlayView.translatesAutoresizingMaskIntoConstraints = false
         statusView.containerStackView.addSubview(statusView.spoilerOverlayView)
         statusView.contentContainer.pinTo(to: statusView.spoilerOverlayView)
@@ -470,10 +474,6 @@ extension StatusView.Style {
         statusView.pollCountdownLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
         statusView.pollVoteButton.setContentHuggingPriority(.defaultHigh + 3, for: .horizontal)
         
-        // translated info
-        statusView.containerStackView.addArrangedSubview(statusView.isTranslatingLoadingView)
-        statusView.containerStackView.addArrangedSubview(statusView.translatedInfoView)
-
         // action toolbar
         statusView.actionToolbarAdaptiveMarginContainerView.contentView = statusView.actionToolbarContainer
         statusView.actionToolbarAdaptiveMarginContainerView.margin = StatusView.containerLayoutMargin
