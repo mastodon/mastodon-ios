@@ -63,44 +63,6 @@ extension PickServerSection {
                 ]
             )
         }()
-        cell.usersValueLabel.attributedText = {
-            let attributedString = NSMutableAttributedString()
-            let attachment = NSTextAttachment(image: UIImage(systemName: "person.2.fill")!)
-            let attachmentAttributedString = NSAttributedString(attachment: attachment)
-            attributedString.append(attachmentAttributedString)
-            attributedString.append(NSAttributedString(string: " "))
-            
-            let paragraphStyle = NSMutableParagraphStyle()
-            paragraphStyle.lineHeightMultiple = 1.12
-            let valueAttributedString = NSAttributedString(
-                string: server.totalUsers.asAbbreviatedCountString(),
-                attributes: [
-                    .paragraphStyle: paragraphStyle
-                ]
-            )
-            attributedString.append(valueAttributedString)
-            
-            return attributedString
-        }()
-        cell.langValueLabel.attributedText = {
-            let attributedString = NSMutableAttributedString()
-            let attachment = NSTextAttachment(image: UIImage(systemName: "text.bubble.fill")!)
-            let attachmentAttributedString = NSAttributedString(attachment: attachment)
-            attributedString.append(attachmentAttributedString)
-            attributedString.append(NSAttributedString(string: " "))
-            
-            let paragraphStyle = NSMutableParagraphStyle()
-            paragraphStyle.lineHeightMultiple = 1.12
-            let valueAttributedString = NSAttributedString(
-                string: server.language.uppercased(),
-                attributes: [
-                    .paragraphStyle: paragraphStyle
-                ]
-            )
-            attributedString.append(valueAttributedString)
-
-            return attributedString
-        }()
       
         attribute.isLast
             .receive(on: DispatchQueue.main)

@@ -53,36 +53,6 @@ class PickServerCell: UITableViewCell {
         return label
     }()
     
-    let infoStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.spacing = 16
-        return stackView
-    }()
-    
-    let separator: UIView = {
-        let view = UIView()
-        view.backgroundColor = Asset.Theme.System.separator.color
-        return view
-    }()
-    
-    let langValueLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = Asset.Colors.Label.primary.color
-        label.font = UIFontMetrics(forTextStyle: .caption1).scaledFont(for: .systemFont(ofSize: 12, weight: .regular))
-        label.textAlignment = .center
-        label.adjustsFontForContentSizeCategory = true
-        return label
-    }()
-    
-    let usersValueLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = Asset.Colors.Label.primary.color
-        label.font = UIFontMetrics(forTextStyle: .caption1).scaledFont(for: .systemFont(ofSize: 12, weight: .regular))
-        label.adjustsFontForContentSizeCategory = true
-        return label
-    }()
-
     private var collapseConstraints: [NSLayoutConstraint] = []
     private var expandConstraints: [NSLayoutConstraint] = []
     
@@ -131,20 +101,6 @@ extension PickServerCell {
         containerView.addArrangedSubview(domainLabel)
         containerView.addArrangedSubview(descriptionLabel)
         containerView.setCustomSpacing(6, after: descriptionLabel)
-        containerView.addArrangedSubview(infoStackView)
-        
-        infoStackView.addArrangedSubview(usersValueLabel)
-        infoStackView.addArrangedSubview(langValueLabel)
-        infoStackView.addArrangedSubview(UIView())
-        
-        separator.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(separator)
-        NSLayoutConstraint.activate([
-            separator.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
-            contentView.readableContentGuide.trailingAnchor.constraint(equalTo: separator.trailingAnchor),
-            separator.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            separator.heightAnchor.constraint(equalToConstant: UIView.separatorLineHeight(of: contentView)).priority(.required - 1),
-        ])
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
