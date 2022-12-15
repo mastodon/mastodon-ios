@@ -53,9 +53,9 @@
                 "message": "مُحِيَ ما مَساحَتُهُ %s مِن ذاكِرَةِ التَّخزينِ المُؤقَّت بِنجاح."
             },
             "translation_failed": {
-                "title": "Note",
+                "title": "مُلاحظة",
                 "message": "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.",
-                "button": "OK"
+                "button": "حسنًا"
             }
         },
         "controls": {
@@ -83,7 +83,7 @@
                 "sign_up": "إنشاءُ حِساب",
                 "see_more": "عرض المزيد",
                 "preview": "مُعاينة",
-                "copy": "Copy",
+                "copy": "نَسخ",
                 "share": "المُشارك",
                 "share_user": "مُشارَكَةُ %s",
                 "share_post": "مشارك المنشور",
