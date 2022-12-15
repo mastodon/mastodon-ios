@@ -51,6 +51,11 @@
             "clean_cache": {
                 "title": "مَحوُ ذاكِرَةِ التَّخزينِ المُؤقَّت",
                 "message": "مُحِيَ ما مَساحَتُهُ %s مِن ذاكِرَةِ التَّخزينِ المُؤقَّت بِنجاح."
+            },
+            "translation_failed": {
+                "title": "Note",
+                "message": "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.",
+                "button": "OK"
             }
         },
         "controls": {
@@ -91,7 +96,11 @@
                 "block_domain": "حظر %s",
                 "unblock_domain": "رفع الحظر عن %s",
                 "settings": "الإعدادات",
-                "delete": "حذف"
+                "delete": "حذف",
+                "translate_post": {
+                    "title": "Translate from %s",
+                    "unknown_language": "Unknown"
+                }
             },
             "tabs": {
                 "home": "الرَّئِيسَة",
@@ -168,6 +177,11 @@
                     "private": "فَقَطْ مُتابِعينَهُم مَن يُمكِنُهُم رُؤيَةُ هَذَا المَنشُور.",
                     "private_from_me": "فَقَطْ مُتابِعيني أنَا مَن يُمكِنُهُم رُؤيَةُ هَذَا المَنشُور.",
                     "direct": "المُستخدمِونَ المُشارِ إليهم فَقَطْ مَن يُمكِنُهُم رُؤيَةُ هَذَا المَنشُور."
+                },
+                "translation": {
+                    "translated_from": "Translated from %s",
+                    "unknown_language": "Unknown",
+                    "show_original": "Shown Original"
                 }
             },
             "friendship": {
