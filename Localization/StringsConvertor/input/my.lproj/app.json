@@ -83,6 +83,7 @@
                 "sign_up": "အကောင့်ဖန်တီး",
                 "see_more": "ပိုမိုကြည့်ရှုရန်",
                 "preview": "အစမ်းကြည့်",
+                "copy": "Copy",
                 "share": "မျှဝေ",
                 "share_user": "%s ကို မျှဝေပါ",
                 "share_post": "ပို့စ်ကို မျှဝေရန်",
@@ -141,6 +142,8 @@
                 "sensitive_content": "ထိလွယ်ရှလွယ် အကြောင်းအရာ",
                 "media_content_warning": "ဖော်ထုတ်ရန် မည်သည့်နေရာမဆို နှိပ်ပါ",
                 "tap_to_reveal": "ဖော်ထုတ်ရန် နှိပ်ပါ",
+                "load_embed": "Load Embed",
+                "link_via_user": "%s via %s",
                 "poll": {
                     "vote": "မဲပေး",
                     "closed": "ပိတ်သွားပြီ"
@@ -162,6 +165,7 @@
                     "show_image": "ဓာတ်ပုံပြရန်",
                     "show_gif": "GIF ပြရန်",
                     "show_video_player": "ဗီဒီယိုဖွင့်စက် ပြရန်",
+                    "share_link_in_post": "Share Link in Post",
                     "tap_then_hold_to_show_menu": "မီနူးပြရန် ဖိထားပါ"
                 },
                 "tag": {
