@@ -83,6 +83,7 @@
                 "sign_up": "Sortu kontua",
                 "see_more": "Ikusi gehiago",
                 "preview": "Aurrebista",
+                "copy": "Copy",
                 "share": "Partekatu",
                 "share_user": "Partekatu %s",
                 "share_post": "Partekatu bidalketa",
@@ -141,6 +142,8 @@
                 "sensitive_content": "Eduki hunkigarria",
                 "media_content_warning": "Ukitu edonon bistaratzeko",
                 "tap_to_reveal": "Sakatu erakusteko",
+                "load_embed": "Load Embed",
+                "link_via_user": "%s via %s",
                 "poll": {
                     "vote": "Bozkatu",
                     "closed": "Itxita"
@@ -162,6 +165,7 @@
                     "show_image": "Erakutsi irudia",
                     "show_gif": "Erakutsi GIFa",
                     "show_video_player": "Erakutsi bideo-erreproduzigailua",
+                    "share_link_in_post": "Share Link in Post",
                     "tap_then_hold_to_show_menu": "Sakatu eta eutsi menua erakusteko"
                 },
                 "tag": {
