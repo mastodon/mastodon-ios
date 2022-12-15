@@ -74,10 +74,7 @@ extension DataSourceFacade {
                        let urlStr = media.assetURL,
                        let url = URL(string: urlStr) {
                         if media.kind == .image {
-                            metadata.imageProvider = NSItemProvider(object: ImageProvider(
-                                url: url,
-                                filter: nil
-                            ))
+                            metadata.imageProvider = ImageProvider(url: url, filter: nil).itemProvider
                         } else if media.kind == .gifv || media.kind == .video {
                             metadata.remoteVideoURL = url
                         }
