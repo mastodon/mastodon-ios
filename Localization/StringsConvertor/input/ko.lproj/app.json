@@ -83,6 +83,7 @@
                 "sign_up": "계정 생성",
                 "see_more": "더 보기",
                 "preview": "미리보기",
+                "copy": "Copy",
                 "share": "공유",
                 "share_user": "%s를 공유",
                 "share_post": "게시물 공유",
@@ -141,6 +142,8 @@
                 "sensitive_content": "민감한 콘텐츠",
                 "media_content_warning": "아무 곳이나 눌러서 보기",
                 "tap_to_reveal": "눌러서 확인",
+                "load_embed": "Load Embed",
+                "link_via_user": "%s via %s",
                 "poll": {
                     "vote": "투표",
                     "closed": "마감"
@@ -162,6 +165,7 @@
                     "show_image": "이미지 표시",
                     "show_gif": "GIF 보기",
                     "show_video_player": "비디오 플레이어 보기",
+                    "share_link_in_post": "Share Link in Post",
                     "tap_then_hold_to_show_menu": "Tap then hold to show menu"
                 },
                 "tag": {
