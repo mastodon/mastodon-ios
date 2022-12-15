@@ -53,8 +53,8 @@
                 "message": "成功清除 %s 快取。"
             },
             "translation_failed": {
-                "title": "Note",
-                "message": "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.",
+                "title": "備註",
+                "message": "翻譯失敗。也許管理員未於此伺服器啟用翻譯功能，或此伺服器為未支援翻譯功能之舊版本 Mastodon。",
                 "button": "OK"
             }
         },
@@ -98,8 +98,8 @@
                 "settings": "設定",
                 "delete": "刪除",
                 "translate_post": {
-                    "title": "Translate from %s",
-                    "unknown_language": "Unknown"
+                    "title": "翻譯自 %s",
+                    "unknown_language": "未知"
                 }
             },
             "tabs": {
@@ -179,9 +179,9 @@
                     "direct": "只有被提及的使用者能看到此嘟文。"
                 },
                 "translation": {
-                    "translated_from": "Translated from %s",
-                    "unknown_language": "Unknown",
-                    "show_original": "Shown Original"
+                    "translated_from": "翻譯自 %s",
+                    "unknown_language": "未知",
+                    "show_original": "顯示原文"
                 }
             },
             "friendship": {
