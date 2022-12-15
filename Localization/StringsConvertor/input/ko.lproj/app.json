@@ -55,7 +55,7 @@
             "translation_failed": {
                 "title": "Note",
                 "message": "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.",
-                "button": "OK"
+                "button": "확인"
             }
         },
         "controls": {
@@ -179,9 +179,9 @@
                     "direct": "Only mentioned user can see this post."
                 },
                 "translation": {
-                    "translated_from": "Translated from %s",
-                    "unknown_language": "Unknown",
-                    "show_original": "Shown Original"
+                    "translated_from": "%s에서 번역됨",
+                    "unknown_language": "알 수 없음",
+                    "show_original": "원본 보기"
                 }
             },
             "friendship": {
