@@ -51,6 +51,11 @@
             "clean_cache": {
                 "title": "Pêşbîrê pak bike",
                 "message": "Pêşbîra %s biserketî hate pakkirin."
+            },
+            "translation_failed": {
+                "title": "Note",
+                "message": "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.",
+                "button": "OK"
             }
         },
         "controls": {
@@ -91,7 +96,11 @@
                 "block_domain": "%s asteng bike",
                 "unblock_domain": "%s asteng neke",
                 "settings": "Sazkarî",
-                "delete": "Jê bibe"
+                "delete": "Jê bibe",
+                "translate_post": {
+                    "title": "Translate from %s",
+                    "unknown_language": "Unknown"
+                }
             },
             "tabs": {
                 "home": "Serrûpel",
@@ -168,6 +177,11 @@
                     "private": "Tenê şopînerên wan dikarin vê şandiyê bibînin.",
                     "private_from_me": "Tenê şopînerên min dikarin vê şandiyê bibînin.",
                     "direct": "Tenê bikarhênerê qalkirî dikare vê şandiyê bibîne."
+                },
+                "translation": {
+                    "translated_from": "Translated from %s",
+                    "unknown_language": "Unknown",
+                    "show_original": "Shown Original"
                 }
             },
             "friendship": {
