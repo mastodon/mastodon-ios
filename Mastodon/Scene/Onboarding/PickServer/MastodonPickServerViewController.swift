@@ -54,6 +54,11 @@ final class MastodonPickServerViewController: UIViewController, NeedsDependency 
     }()
     
     var mastodonAuthenticationController: MastodonAuthenticationController?
+
+    let searchController: UISearchController = {
+        let searchController = UISearchController(searchResultsController: nil)
+        return searchController
+    }()
 }
 
 extension MastodonPickServerViewController {    
@@ -203,6 +208,9 @@ extension MastodonPickServerViewController {
         onboardingNextView.nextButton.addTarget(self, action: #selector(MastodonPickServerViewController.nextButtonDidPressed(_:)), for: .touchUpInside)
 
         title = L10n.Scene.ServerPicker.title
+
+        navigationItem.searchController = searchController
+        searchController.searchResultsUpdater = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -381,11 +389,16 @@ extension MastodonPickServerViewController: PickServerServerSectionTableHeaderVi
         let item = diffableDataSource.itemIdentifier(for: indexPath)
         viewModel.selectCategoryItem.value = item ?? .all
     }
-    
-    func pickServerServerSectionTableHeaderView(_ headerView: PickServerServerSectionTableHeaderView, searchTextDidChange searchText: String?) {
-        viewModel.searchText.send(searchText ?? "")
-    }
 }
 
 // MARK: - OnboardingViewControllerAppearance
 extension MastodonPickServerViewController: OnboardingViewControllerAppearance { }
+
+// MARK: - UISearchResultsUpdating
+
+extension MastodonPickServerViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let searchText = searchController.searchBar.text else { return }
+        viewModel.searchText.send(searchText)
+    }
+}
