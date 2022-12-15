@@ -83,6 +83,7 @@
                 "sign_up": "Cruthaich cunntas",
                 "see_more": "Seall a bharrachd",
                 "preview": "Ro-sheall",
+                "copy": "Copy",
                 "share": "Co-roinn",
                 "share_user": "Co-roinn %s",
                 "share_post": "Co-roinn am post",
@@ -141,6 +142,8 @@
                 "sensitive_content": "Susbaint fhrionasach",
                 "media_content_warning": "Thoir gnogag àite sam bith gus a nochdadh",
                 "tap_to_reveal": "Thoir gnogag gus a nochdadh",
+                "load_embed": "Load Embed",
+                "link_via_user": "%s via %s",
                 "poll": {
                     "vote": "Cuir bhòt",
                     "closed": "Dùinte"
@@ -162,6 +165,7 @@
                     "show_image": "Seall an dealbh",
                     "show_gif": "Seall an GIF",
                     "show_video_player": "Seall cluicheadair video",
+                    "share_link_in_post": "Share Link in Post",
                     "tap_then_hold_to_show_menu": "Thoir gnogag ’s cùm sìos a shealltainn a’ chlàir-thaice"
                 },
                 "tag": {
