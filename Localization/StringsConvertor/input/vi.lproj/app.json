@@ -83,6 +83,7 @@
                 "sign_up": "Tạo tài khoản",
                 "see_more": "Xem thêm",
                 "preview": "Xem trước",
+                "copy": "Copy",
                 "share": "Chia sẻ",
                 "share_user": "Chia sẻ %s",
                 "share_post": "Chia sẻ tút",
@@ -141,6 +142,8 @@
                 "sensitive_content": "Nội dung nhạy cảm",
                 "media_content_warning": "Nhấn để hiển thị",
                 "tap_to_reveal": "Nhấn để xem",
+                "load_embed": "Load Embed",
+                "link_via_user": "%s via %s",
                 "poll": {
                     "vote": "Bình chọn",
                     "closed": "Kết thúc"
@@ -162,6 +165,7 @@
                     "show_image": "Hiển thị hình ảnh",
                     "show_gif": "Hiển thị GIF",
                     "show_video_player": "Hiện trình phát video",
+                    "share_link_in_post": "Share Link in Post",
                     "tap_then_hold_to_show_menu": "Nhấn giữ để hiện menu"
                 },
                 "tag": {
