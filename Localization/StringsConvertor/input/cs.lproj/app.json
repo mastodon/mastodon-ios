@@ -51,6 +51,11 @@
             "clean_cache": {
                 "title": "Vyčistit mezipaměť",
                 "message": "Úspěšně vyčištěno %s mezipaměti."
+            },
+            "translation_failed": {
+                "title": "Note",
+                "message": "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.",
+                "button": "OK"
             }
         },
         "controls": {
@@ -91,7 +96,11 @@
                 "block_domain": "Blokovat %s",
                 "unblock_domain": "Odblokovat %s",
                 "settings": "Nastavení",
-                "delete": "Smazat"
+                "delete": "Smazat",
+                "translate_post": {
+                    "title": "Translate from %s",
+                    "unknown_language": "Unknown"
+                }
             },
             "tabs": {
                 "home": "Domů",
@@ -168,6 +177,11 @@
                     "private": "Pouze jejich sledující mohou vidět tento příspěvek.",
                     "private_from_me": "Pouze moji sledující mohou vidět tento příspěvek.",
                     "direct": "Pouze zmíněný uživatel může vidět tento příspěvek."
+                },
+                "translation": {
+                    "translated_from": "Translated from %s",
+                    "unknown_language": "Unknown",
+                    "show_original": "Shown Original"
                 }
             },
             "friendship": {
