@@ -16,7 +16,7 @@ class PickServerCategoryView: UIView {
     let titleLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.font = .systemFont(ofSize: 15, weight: .semibold)
+        label.font = .systemFont(ofSize: 15, weight: .regular)
         label.textColor = Asset.Colors.Label.secondary.color
         return label
     }()
