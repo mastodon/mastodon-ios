@@ -72,7 +72,7 @@
         <attribute name="clientSecret" attributeType="String"/>
         <attribute name="createdAt" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="domain" attributeType="String"/>
-        <attribute name=" identifier" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="identifier" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="updatedAt" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="userAccessToken" attributeType="String"/>
         <attribute name="userID" attributeType="String"/>

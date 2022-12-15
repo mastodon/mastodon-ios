@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21512" systemVersion="22C65" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Application" representedClassName="CoreDataStack.Application" syncable="YES">
-        <attribute name="ident ifier" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="identifier" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" attributeType="String"/>
         <attribute name="vapidKey" optional="YES" attributeType="String"/>
         <attribute name="website" optional="YES" attributeType="String"/>
