@@ -51,6 +51,11 @@
             "clean_cache": {
                 "title": "Önbelleği Temizle",
                 "message": "%s boyutunda önbellek temizlendi."
+            },
+            "translation_failed": {
+                "title": "Note",
+                "message": "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.",
+                "button": "OK"
             }
         },
         "controls": {
@@ -91,7 +96,11 @@
                 "block_domain": "%s kişisini engelle",
                 "unblock_domain": "%s kişisinin engelini kaldır",
                 "settings": "Ayarlar",
-                "delete": "Sil"
+                "delete": "Sil",
+                "translate_post": {
+                    "title": "Translate from %s",
+                    "unknown_language": "Unknown"
+                }
             },
             "tabs": {
                 "home": "Ana Sayfa",
@@ -168,6 +177,11 @@
                     "private": "Sadece gönderi sahibinin takipçileri bu gönderiyi görebilir.",
                     "private_from_me": "Sadece benim takipçilerim bu gönderiyi görebilir.",
                     "direct": "Sadece bahsedilen kullanıcı bu gönderiyi görebilir."
+                },
+                "translation": {
+                    "translated_from": "Translated from %s",
+                    "unknown_language": "Unknown",
+                    "show_original": "Shown Original"
                 }
             },
             "friendship": {
