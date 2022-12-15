@@ -53,6 +53,7 @@ extension StatusView {
         configureContent(status: status)
         configureMedia(status: status)
         configurePoll(status: status)
+        configureCard(status: status)
         configureToolbar(status: status)
         configureFilter(status: status)
         viewModel.originalStatus = status
@@ -402,6 +403,17 @@ extension StatusView {
         status.poll?.publisher(for: \.isVoting)
             .assign(to: \.isVoting, on: viewModel)
             .store(in: &disposeBag)
+    }
+
+    private func configureCard(status: Status) {
+        let status = status.reblog ?? status
+        if viewModel.mediaViewConfigurations.isEmpty {
+            status.publisher(for: \.card)
+                .assign(to: \.card, on: viewModel)
+                .store(in: &disposeBag)
+        } else {
+            viewModel.card = nil
+        }
     }
     
     private func configureToolbar(status: Status) {

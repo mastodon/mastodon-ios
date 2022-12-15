@@ -15,6 +15,7 @@ extension Persistence {
     public enum MastodonUser { }
     public enum Status { }
     public enum Poll { }
+    public enum Card { }
     public enum PollOption { }
     public enum Tag { }
     public enum SearchHistory { }

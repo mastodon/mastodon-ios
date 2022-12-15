@@ -23,6 +23,7 @@
 		0FB3D33825E6401400AAD544 /* PickServerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB3D33725E6401400AAD544 /* PickServerCell.swift */; };
 		164F0EBC267D4FE400249499 /* BoopSound.caf in Resources */ = {isa = PBXBuildFile; fileRef = 164F0EBB267D4FE400249499 /* BoopSound.caf */; };
 		18BC7629F65E6DB12CB8416D /* Pods_Mastodon_MastodonUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C030226D3C73DCC23D67452 /* Pods_Mastodon_MastodonUITests.framework */; };
+		27D701F5292FC2D60031BCBB /* DataSourceFacade+URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D701F4292FC2D60031BCBB /* DataSourceFacade+URL.swift */; };
 		2A1FE47C2938BB2600784BF1 /* FollowedTagsViewModel+DiffableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1FE47B2938BB2600784BF1 /* FollowedTagsViewModel+DiffableDataSource.swift */; };
 		2A1FE47E2938C11200784BF1 /* Collection+IsNotEmpty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1FE47D2938C11200784BF1 /* Collection+IsNotEmpty.swift */; };
 		2A3F6FE3292ECB5E002E6DA7 /* FollowedTagsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A3F6FE2292ECB5E002E6DA7 /* FollowedTagsViewModel.swift */; };
@@ -96,6 +97,8 @@
 		62FD27D12893707600B205C5 /* BookmarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FD27D02893707600B205C5 /* BookmarkViewController.swift */; };
 		62FD27D32893707B00B205C5 /* BookmarkViewController+DataSourceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FD27D22893707B00B205C5 /* BookmarkViewController+DataSourceProvider.swift */; };
 		62FD27D52893708A00B205C5 /* BookmarkViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FD27D42893708A00B205C5 /* BookmarkViewModel+Diffable.swift */; };
+		85904C02293BC0EB0011C817 /* ImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85904C01293BC0EB0011C817 /* ImageProvider.swift */; };
+		85904C04293BC1940011C817 /* URLActivityItemWithMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85904C03293BC1940011C817 /* URLActivityItemWithMetadata.swift */; };
 		87FFDA5D898A5C42ADCB35E7 /* Pods_Mastodon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4ABE34829701A4496C5BB64 /* Pods_Mastodon.framework */; };
 		C24C97032922F30500BAE8CB /* RefreshControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24C97022922F30500BAE8CB /* RefreshControl.swift */; };
 		D87BFC8B291D5C6B00FEE264 /* MastodonLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87BFC8A291D5C6B00FEE264 /* MastodonLoginView.swift */; };
@@ -528,6 +531,7 @@
 		0FB3D33725E6401400AAD544 /* PickServerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickServerCell.swift; sourceTree = "<group>"; };
 		164F0EBB267D4FE400249499 /* BoopSound.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = BoopSound.caf; sourceTree = "<group>"; };
 		1D6D967E77A5357E2C6110D9 /* Pods-Mastodon.asdk - debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon.asdk - debug.xcconfig"; path = "Target Support Files/Pods-Mastodon/Pods-Mastodon.asdk - debug.xcconfig"; sourceTree = "<group>"; };
+		27D701F4292FC2D60031BCBB /* DataSourceFacade+URL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataSourceFacade+URL.swift"; sourceTree = "<group>"; };
 		2A1FE47B2938BB2600784BF1 /* FollowedTagsViewModel+DiffableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FollowedTagsViewModel+DiffableDataSource.swift"; sourceTree = "<group>"; };
 		2A1FE47D2938C11200784BF1 /* Collection+IsNotEmpty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+IsNotEmpty.swift"; sourceTree = "<group>"; };
 		2A3F6FE2292ECB5E002E6DA7 /* FollowedTagsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowedTagsViewModel.swift; sourceTree = "<group>"; };
@@ -616,6 +620,8 @@
 		7CB58D292DA7ACEF179A9050 /* Pods-Mastodon.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon.profile.xcconfig"; path = "Target Support Files/Pods-Mastodon/Pods-Mastodon.profile.xcconfig"; sourceTree = "<group>"; };
 		7CEFFAE9AF9284B13C0A758D /* Pods-MastodonTests.asdk - debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MastodonTests.asdk - debug.xcconfig"; path = "Target Support Files/Pods-MastodonTests/Pods-MastodonTests.asdk - debug.xcconfig"; sourceTree = "<group>"; };
 		819CEC9DCAD8E8E7BD85A7BB /* Pods-Mastodon.asdk.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon.asdk.xcconfig"; path = "Target Support Files/Pods-Mastodon/Pods-Mastodon.asdk.xcconfig"; sourceTree = "<group>"; };
+		85904C01293BC0EB0011C817 /* ImageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageProvider.swift; sourceTree = "<group>"; };
+		85904C03293BC1940011C817 /* URLActivityItemWithMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLActivityItemWithMetadata.swift; sourceTree = "<group>"; };
 		8850E70A1D5FF51432E43653 /* Pods-Mastodon-MastodonUITests.asdk - release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon-MastodonUITests.asdk - release.xcconfig"; path = "Target Support Files/Pods-Mastodon-MastodonUITests/Pods-Mastodon-MastodonUITests.asdk - release.xcconfig"; sourceTree = "<group>"; };
 		8E79CCBE51FBC3F7FE8CF49F /* Pods-MastodonTests.release snapshot.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MastodonTests.release snapshot.xcconfig"; path = "Target Support Files/Pods-MastodonTests/Pods-MastodonTests.release snapshot.xcconfig"; sourceTree = "<group>"; };
 		8ED8C4B1F1BA2DCFF2926BB1 /* Pods-Mastodon-NotificationService.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon-NotificationService.debug.xcconfig"; path = "Target Support Files/Pods-Mastodon-NotificationService/Pods-Mastodon-NotificationService.debug.xcconfig"; sourceTree = "<group>"; };
@@ -2118,6 +2124,7 @@
 				DB63F778279ABF9C00455B82 /* DataSourceFacade+Reblog.swift */,
 				DB63F77A279ACAE500455B82 /* DataSourceFacade+Favorite.swift */,
 				DB0FCB67279507EF006C02E2 /* DataSourceFacade+Meta.swift */,
+				27D701F4292FC2D60031BCBB /* DataSourceFacade+URL.swift */,
 				DB0FCB79279576A2006C02E2 /* DataSourceFacade+Thread.swift */,
 				DB63F74627990B0600455B82 /* DataSourceFacade+Hashtag.swift */,
 				DB63F7532799491600455B82 /* DataSourceFacade+SearchHistory.swift */,
@@ -2549,6 +2556,8 @@
 			isa = PBXGroup;
 			children = (
 				DBF3B7402733EB9400E21627 /* MastodonLocalCode.swift */,
+				85904C01293BC0EB0011C817 /* ImageProvider.swift */,
+				85904C03293BC1940011C817 /* URLActivityItemWithMetadata.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -3174,6 +3183,7 @@
 				DB03A793272A7E5700EE37C5 /* SidebarListHeaderView.swift in Sources */,
 				DB4FFC2B269EC39600D62E92 /* SearchToSearchDetailViewControllerAnimatedTransitioning.swift in Sources */,
 				DB5B7298273112C800081888 /* FollowingListViewModel.swift in Sources */,
+				27D701F5292FC2D60031BCBB /* DataSourceFacade+URL.swift in Sources */,
 				0FB3D2F725E4C24D00AAD544 /* MastodonPickServerViewModel.swift in Sources */,
 				DB5B54AE2833C15F00DEF8B2 /* UserListViewModel+Diffable.swift in Sources */,
 				DB482A3F261331E8008AE74C /* UserTimelineViewModel+State.swift in Sources */,
@@ -3200,6 +3210,7 @@
 				62FD27D52893708A00B205C5 /* BookmarkViewModel+Diffable.swift in Sources */,
 				DB72602725E36A6F00235243 /* MastodonServerRulesViewModel.swift in Sources */,
 				2D364F7225E66D7500204FDC /* MastodonResendEmailViewController.swift in Sources */,
+				85904C04293BC1940011C817 /* URLActivityItemWithMetadata.swift in Sources */,
 				DB68A06325E905E000CFDF14 /* UIApplication.swift in Sources */,
 				DB02CDAB26256A9500D0A2AF /* ThreadReplyLoaderTableViewCell.swift in Sources */,
 				DBEFCD80282A2AA900C0ABEA /* ReportServerRulesViewModel.swift in Sources */,
@@ -3340,6 +3351,7 @@
 				DB1D843026566512000346B3 /* KeyboardPreference.swift in Sources */,
 				DB852D1926FAEB6B00FC9D81 /* SidebarViewController.swift in Sources */,
 				2D206B9225F60EA700143C56 /* UIControl.swift in Sources */,
+				85904C02293BC0EB0011C817 /* ImageProvider.swift in Sources */,
 				DBDFF1932805554900557A48 /* DiscoveryPostsViewModel.swift in Sources */,
 				DB3E6FE72806A7A200B035AE /* DiscoveryItem.swift in Sources */,
 				DB8AF55D25C138B7002E6C99 /* UIViewController.swift in Sources */,
