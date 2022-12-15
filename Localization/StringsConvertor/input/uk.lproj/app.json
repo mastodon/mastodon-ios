@@ -51,6 +51,11 @@
             "clean_cache": {
                 "title": "Очистити кеш",
                 "message": "%s успішно очищено."
+            },
+            "translation_failed": {
+                "title": "Note",
+                "message": "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.",
+                "button": "OK"
             }
         },
         "controls": {
@@ -91,7 +96,11 @@
                 "block_domain": "Блокувати %s",
                 "unblock_domain": "Розблокувати %s",
                 "settings": "Налаштування",
-                "delete": "Видалити"
+                "delete": "Видалити",
+                "translate_post": {
+                    "title": "Translate from %s",
+                    "unknown_language": "Unknown"
+                }
             },
             "tabs": {
                 "home": "Головна",
@@ -168,6 +177,11 @@
                     "private": "Лише їхні підписники можуть бачити цю публікацію.",
                     "private_from_me": "Тільки мої підписники можуть бачити цю публікацію.",
                     "direct": "Тільки згаданий користувач може бачити цю публікацію."
+                },
+                "translation": {
+                    "translated_from": "Translated from %s",
+                    "unknown_language": "Unknown",
+                    "show_original": "Shown Original"
                 }
             },
             "friendship": {
