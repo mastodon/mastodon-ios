@@ -69,6 +69,7 @@ final class WelcomeIllustrationView: UIView {
     let imageView = UIImageView(image: Asset.Scene.Welcome.Illustration.cloudBase.image)
     imageView.translatesAutoresizingMaskIntoConstraints = false
     imageView.contentMode = .scaleAspectFit
+    imageView.alpha = 0.3
     return imageView
   }()
 
