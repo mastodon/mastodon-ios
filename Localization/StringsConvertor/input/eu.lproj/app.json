@@ -51,6 +51,11 @@
             "clean_cache": {
                 "title": "Garbitu cache-a",
                 "message": "Behar bezala garbitu da %s cache-a."
+            },
+            "translation_failed": {
+                "title": "Note",
+                "message": "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.",
+                "button": "OK"
             }
         },
         "controls": {
@@ -91,7 +96,11 @@
                 "block_domain": "Blokeatu %s",
                 "unblock_domain": "Desblokeatu %s",
                 "settings": "Ezarpenak",
-                "delete": "Ezabatu"
+                "delete": "Ezabatu",
+                "translate_post": {
+                    "title": "Translate from %s",
+                    "unknown_language": "Unknown"
+                }
             },
             "tabs": {
                 "home": "Hasiera",
@@ -168,6 +177,11 @@
                     "private": "Beren jarraitzaileek soilik ikus dezakete bidalketa hau.",
                     "private_from_me": "Nire jarraitzaileek soilik ikus dezakete bidalketa hau.",
                     "direct": "Aipatutako erabiltzaileek soilik ikus dezakete bidalketa hau."
+                },
+                "translation": {
+                    "translated_from": "Translated from %s",
+                    "unknown_language": "Unknown",
+                    "show_original": "Shown Original"
                 }
             },
             "friendship": {
