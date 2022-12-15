@@ -51,6 +51,11 @@
             "clean_cache": {
                 "title": "Cache ကို ရှင်းပါ",
                 "message": "%s cache ကို အောင်မြင်စွာ ရှင်းလင်းပြီးပါပြီ"
+            },
+            "translation_failed": {
+                "title": "Note",
+                "message": "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.",
+                "button": "OK"
             }
         },
         "controls": {
@@ -91,7 +96,11 @@
                 "block_domain": "%s ကို ဘလော့လုပ်ရန်",
                 "unblock_domain": "%s ကို ဘလော့ဖြုတ်ရန်",
                 "settings": "ဆက်တင်များ",
-                "delete": "ဖျက်"
+                "delete": "ဖျက်",
+                "translate_post": {
+                    "title": "Translate from %s",
+                    "unknown_language": "Unknown"
+                }
             },
             "tabs": {
                 "home": "အိမ်",
@@ -168,6 +177,11 @@
                     "private": "သူတို့၏ စောင့်ကြည့်သူများသာ ဒီပို့စ်ကို မြင်နိုင်သည်",
                     "private_from_me": "ကျွန်ုပ်၏ စောင့်ကြည့်သူများသာ ဒီပို့စ်ကို မြင်နိုင်သည်",
                     "direct": "ရည်ညွှန်းခံရသောအသုံးပြုသူများသာ ဒီပို့စ်ကို မြင်နိုင်သည်"
+                },
+                "translation": {
+                    "translated_from": "Translated from %s",
+                    "unknown_language": "Unknown",
+                    "show_original": "Shown Original"
                 }
             },
             "friendship": {
