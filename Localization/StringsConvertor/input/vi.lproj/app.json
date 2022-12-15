@@ -53,8 +53,8 @@
                 "message": "Đã xóa %s bộ nhớ đệm."
             },
             "translation_failed": {
-                "title": "Note",
-                "message": "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.",
+                "title": "Ghi chú",
+                "message": "Dịch không thành công. Có thể quản trị viên chưa bật dịch trên máy chủ này hoặc máy chủ này đang chạy phiên bản cũ hơn của Mastodon chưa hỗ trợ dịch.",
                 "button": "OK"
             }
         },
@@ -98,8 +98,8 @@
                 "settings": "Cài đặt",
                 "delete": "Xóa",
                 "translate_post": {
-                    "title": "Translate from %s",
-                    "unknown_language": "Unknown"
+                    "title": "Dịch từ %s",
+                    "unknown_language": "Chưa xác định"
                 }
             },
             "tabs": {
@@ -179,9 +179,9 @@
                     "direct": "Chỉ người được nhắc đến có thể thấy tút."
                 },
                 "translation": {
-                    "translated_from": "Translated from %s",
-                    "unknown_language": "Unknown",
-                    "show_original": "Shown Original"
+                    "translated_from": "Dịch từ %s",
+                    "unknown_language": "Không xác định",
+                    "show_original": "Bản gốc"
                 }
             },
             "friendship": {
