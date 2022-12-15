@@ -54,8 +54,8 @@
             },
             "translation_failed": {
                 "title": "หมายเหตุ",
-                "message": "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.",
-                "button": "OK"
+                "message": "การแปลล้มเหลว บางทีผู้ดูแลอาจไม่ได้เปิดใช้งานการแปลในเซิร์ฟเวอร์นี้หรือเซิร์ฟเวอร์นี้กำลังใช้ Mastodon รุ่นเก่ากว่าที่ยังไม่รองรับการแปล",
+                "button": "ตกลง"
             }
         },
         "controls": {
@@ -83,7 +83,7 @@
                 "sign_up": "สร้างบัญชี",
                 "see_more": "ดูเพิ่มเติม",
                 "preview": "แสดงตัวอย่าง",
-                "copy": "Copy",
+                "copy": "คัดลอก",
                 "share": "แบ่งปัน",
                 "share_user": "แบ่งปัน %s",
                 "share_post": "แบ่งปันโพสต์",
@@ -99,8 +99,8 @@
                 "settings": "การตั้งค่า",
                 "delete": "ลบ",
                 "translate_post": {
-                    "title": "Translate from %s",
-                    "unknown_language": "Unknown"
+                    "title": "แปลจาก %s",
+                    "unknown_language": "ไม่รู้จัก"
                 }
             },
             "tabs": {
@@ -142,8 +142,8 @@
                 "sensitive_content": "เนื้อหาที่ละเอียดอ่อน",
                 "media_content_warning": "แตะที่ใดก็ตามเพื่อเปิดเผย",
                 "tap_to_reveal": "แตะเพื่อเปิดเผย",
-                "load_embed": "Load Embed",
-                "link_via_user": "%s via %s",
+                "load_embed": "โหลดที่ฝังไว้",
+                "link_via_user": "%s ผ่าน %s",
                 "poll": {
                     "vote": "ลงคะแนน",
                     "closed": "ปิดแล้ว"
@@ -165,7 +165,7 @@
                     "show_image": "แสดงภาพ",
                     "show_gif": "แสดง GIF",
                     "show_video_player": "แสดงตัวเล่นวิดีโอ",
-                    "share_link_in_post": "Share Link in Post",
+                    "share_link_in_post": "แบ่งปันลิงก์ในโพสต์",
                     "tap_then_hold_to_show_menu": "แตะค้างไว้เพื่อแสดงเมนู"
                 },
                 "tag": {
@@ -183,9 +183,9 @@
                     "direct": "เฉพาะผู้ใช้ที่กล่าวถึงเท่านั้นที่สามารถเห็นโพสต์นี้"
                 },
                 "translation": {
-                    "translated_from": "Translated from %s",
-                    "unknown_language": "Unknown",
-                    "show_original": "Shown Original"
+                    "translated_from": "แปลจาก %s",
+                    "unknown_language": "ไม่รู้จัก",
+                    "show_original": "แสดงดั้งเดิมอยู่"
                 }
             },
             "friendship": {
