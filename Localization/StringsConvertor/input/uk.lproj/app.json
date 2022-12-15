@@ -83,6 +83,7 @@
                 "sign_up": "Створити обліковий запис",
                 "see_more": "Дивіться більше",
                 "preview": "Попередній перегляд",
+                "copy": "Copy",
                 "share": "Поділитись",
                 "share_user": "Поділитися %s",
                 "share_post": "Поділитися записом",
@@ -141,6 +142,8 @@
                 "sensitive_content": "Контент 18+",
                 "media_content_warning": "Натисніть будь-де, щоб показати більше",
                 "tap_to_reveal": "Натисніть, щоб відобразити",
+                "load_embed": "Load Embed",
+                "link_via_user": "%s via %s",
                 "poll": {
                     "vote": "Проголосувати",
                     "closed": "Зачинено"
@@ -162,6 +165,7 @@
                     "show_image": "Показати зображення",
                     "show_gif": "Показати GIF",
                     "show_video_player": "Показати відеоплеєр",
+                    "share_link_in_post": "Share Link in Post",
                     "tap_then_hold_to_show_menu": "Натисніть та утримуйте, щоб показати меню"
                 },
                 "tag": {
