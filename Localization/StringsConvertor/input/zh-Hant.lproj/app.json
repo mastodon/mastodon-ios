@@ -51,6 +51,11 @@
             "clean_cache": {
                 "title": "清除快取",
                 "message": "成功清除 %s 快取。"
+            },
+            "translation_failed": {
+                "title": "Note",
+                "message": "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.",
+                "button": "OK"
             }
         },
         "controls": {
@@ -91,7 +96,11 @@
                 "block_domain": "封鎖 %s",
                 "unblock_domain": "解除封鎖 %s",
                 "settings": "設定",
-                "delete": "刪除"
+                "delete": "刪除",
+                "translate_post": {
+                    "title": "Translate from %s",
+                    "unknown_language": "Unknown"
+                }
             },
             "tabs": {
                 "home": "首頁",
@@ -168,6 +177,11 @@
                     "private": "只有他們的跟隨者能看到此嘟文。",
                     "private_from_me": "只有我的跟隨者能看到此嘟文。",
                     "direct": "只有被提及的使用者能看到此嘟文。"
+                },
+                "translation": {
+                    "translated_from": "Translated from %s",
+                    "unknown_language": "Unknown",
+                    "show_original": "Shown Original"
                 }
             },
             "friendship": {
