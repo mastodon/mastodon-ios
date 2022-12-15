@@ -83,6 +83,7 @@
                 "sign_up": "Create account",
                 "see_more": "තව බලන්න",
                 "preview": "පෙරදසුන",
+                "copy": "Copy",
                 "share": "බෙදාගන්න",
                 "share_user": "%s බෙදාගන්න",
                 "share_post": "Share Post",
@@ -141,6 +142,8 @@
                 "sensitive_content": "Sensitive Content",
                 "media_content_warning": "Tap anywhere to reveal",
                 "tap_to_reveal": "Tap to reveal",
+                "load_embed": "Load Embed",
+                "link_via_user": "%s via %s",
                 "poll": {
                     "vote": "ඡන්දය",
                     "closed": "වසා ඇත"
@@ -162,6 +165,7 @@
                     "show_image": "Show image",
                     "show_gif": "Show GIF",
                     "show_video_player": "Show video player",
+                    "share_link_in_post": "Share Link in Post",
                     "tap_then_hold_to_show_menu": "Tap then hold to show menu"
                 },
                 "tag": {
