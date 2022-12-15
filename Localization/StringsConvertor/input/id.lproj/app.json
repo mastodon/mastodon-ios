@@ -51,6 +51,11 @@
             "clean_cache": {
                 "title": "Bersihkan Cache",
                 "message": "Berhasil menghapus %s cache."
+            },
+            "translation_failed": {
+                "title": "Note",
+                "message": "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.",
+                "button": "OK"
             }
         },
         "controls": {
@@ -91,7 +96,11 @@
                 "block_domain": "Blokir %s",
                 "unblock_domain": "Berhenti memblokir %s",
                 "settings": "Pengaturan",
-                "delete": "Hapus"
+                "delete": "Hapus",
+                "translate_post": {
+                    "title": "Translate from %s",
+                    "unknown_language": "Unknown"
+                }
             },
             "tabs": {
                 "home": "Beranda",
@@ -168,6 +177,11 @@
                     "private": "Hanya pengikut mereka yang dapat melihat postingan ini.",
                     "private_from_me": "Hanya pengikut saya yang dapat melihat postingan ini.",
                     "direct": "Hanya pengguna yang disebut yang dapat melihat postingan ini."
+                },
+                "translation": {
+                    "translated_from": "Translated from %s",
+                    "unknown_language": "Unknown",
+                    "show_original": "Shown Original"
                 }
             },
             "friendship": {
