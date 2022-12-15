@@ -87,6 +87,14 @@ public enum L10n {
         /// Sign Up Failure
         public static let title = L10n.tr("Localizable", "Common.Alerts.SignUpFailure.Title", fallback: "Sign Up Failure")
       }
+      public enum TranslationFailed {
+        /// OK
+        public static let button = L10n.tr("Localizable", "Common.Alerts.TranslationFailed.Button", fallback: "OK")
+        /// Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.
+        public static let message = L10n.tr("Localizable", "Common.Alerts.TranslationFailed.Message", fallback: "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.")
+        /// Note
+        public static let title = L10n.tr("Localizable", "Common.Alerts.TranslationFailed.Title", fallback: "Note")
+      }
       public enum VoteFailure {
         /// The poll has ended
         public static let pollEnded = L10n.tr("Localizable", "Common.Alerts.VoteFailure.PollEnded", fallback: "The poll has ended")
@@ -177,6 +185,14 @@ public enum L10n {
         /// Unblock %@
         public static func unblockDomain(_ p1: Any) -> String {
           return L10n.tr("Localizable", "Common.Controls.Actions.UnblockDomain", String(describing: p1), fallback: "Unblock %@")
+        }
+        public enum TranslatePost {
+          /// Translate from %@
+          public static func title(_ p1: Any) -> String {
+            return L10n.tr("Localizable", "Common.Controls.Actions.TranslatePost.Title", String(describing: p1), fallback: "Translate from %@")
+          }
+          /// Unknown
+          public static let unknownLanguage = L10n.tr("Localizable", "Common.Controls.Actions.TranslatePost.UnknownLanguage", fallback: "Unknown")
         }
       }
       public enum Friendship {
@@ -351,6 +367,16 @@ public enum L10n {
           public static let mention = L10n.tr("Localizable", "Common.Controls.Status.Tag.Mention", fallback: "Mention")
           /// URL
           public static let url = L10n.tr("Localizable", "Common.Controls.Status.Tag.Url", fallback: "URL")
+        }
+        public enum Translation {
+          /// Show Original
+          public static let showOriginal = L10n.tr("Localizable", "Common.Controls.Status.Translation.ShowOriginal", fallback: "Show Original")
+          /// Translated from %@
+          public static func translatedFrom(_ p1: Any) -> String {
+            return L10n.tr("Localizable", "Common.Controls.Status.Translation.TranslatedFrom", String(describing: p1), fallback: "Translated from %@")
+          }
+          /// Unknown
+          public static let unknownLanguage = L10n.tr("Localizable", "Common.Controls.Status.Translation.UnknownLanguage", fallback: "Unknown")
         }
         public enum Visibility {
           /// Only mentioned user can see this post.

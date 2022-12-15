@@ -27,6 +27,7 @@ extension StatusSection {
     static let logger = Logger(subsystem: "StatusSection", category: "logic")
     
     struct Configuration {
+        let context: AppContext
         let authContext: AuthContext
         weak var statusTableViewCellDelegate: StatusTableViewCellDelegate?
         weak var timelineMiddleLoaderTableViewCellDelegate: TimelineMiddleLoaderTableViewCellDelegate?
@@ -250,6 +251,7 @@ extension StatusSection {
             statusView: cell.statusView
         )
         
+        cell.statusView.viewModel.context = configuration.context
         cell.statusView.viewModel.authContext = configuration.authContext
         
         cell.configure(

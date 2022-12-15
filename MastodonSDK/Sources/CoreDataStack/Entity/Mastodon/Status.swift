@@ -99,6 +99,9 @@ public final class Status: NSManagedObject {
     @NSManaged public private(set) var deletedAt: Date?
     // sourcery: autoUpdatableObject
     @NSManaged public private(set) var revealedAt: Date?
+    
+    // sourcery: autoUpdatableObject
+    @NSManaged public private(set) var translatedContent: String?
 }
 
 extension Status {
@@ -493,6 +496,11 @@ extension Status: AutoUpdatableObject {
     public func update(revealedAt: Date?) {
     	if self.revealedAt != revealedAt {
     		self.revealedAt = revealedAt
+    	}
+    }
+    public func update(translatedContent: String?) {
+    	if self.translatedContent != translatedContent {
+    		self.translatedContent = translatedContent
     	}
     }
     public func update(attachments: [MastodonAttachment]) {

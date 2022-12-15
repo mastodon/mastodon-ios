@@ -18,6 +18,7 @@ extension UserTimelineViewModel {
             tableView: tableView,
             context: context,
             configuration: StatusSection.Configuration(
+                context: context,
                 authContext: authContext,
                 statusTableViewCellDelegate: statusTableViewCellDelegate,
                 timelineMiddleLoaderTableViewCellDelegate: nil,

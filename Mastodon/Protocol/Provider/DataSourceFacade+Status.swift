@@ -393,6 +393,18 @@ extension DataSourceFacade {
             alertController.addAction(cancelAction)
             dependency.present(alertController, animated: true)
             
+        case .translateStatus:
+            guard let status = menuContext.status else { return }
+            do {
+                try await DataSourceFacade.translateStatus(
+                    provider: dependency,
+                    status: status
+                )
+            } catch TranslationFailure.emptyOrInvalidResponse {
+                let alertController = UIAlertController(title: L10n.Common.Alerts.TranslationFailed.title, message: L10n.Common.Alerts.TranslationFailed.message, preferredStyle: .alert)
+                alertController.addAction(UIAlertAction(title: L10n.Common.Alerts.TranslationFailed.button, style: .default))
+                dependency.present(alertController, animated: true)
+            }
         }
     }   // end func
 }
