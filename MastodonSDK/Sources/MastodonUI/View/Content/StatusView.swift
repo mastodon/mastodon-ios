@@ -747,49 +747,29 @@ private class MetaContextMenuConfiguration: UIContextMenuConfiguration {
 extension StatusView: UIContextMenuInteractionDelegate {
     public func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
         let location = contentMetaText.textView.convert(location, from: interaction.view!)
-        let glyphIndex = contentMetaText.layoutManager.glyphIndex(for: location, in: contentMetaText.textView.textContainer)
-        let bounds = contentMetaText.layoutManager.boundingRect(forGlyphRange: NSMakeRange(glyphIndex, 1), in: contentMetaText.textView.textContainer)
-        guard bounds.contains(location) else { return nil }
-        let index = contentMetaText.layoutManager.characterIndexForGlyph(at: glyphIndex)
-        if index < contentMetaText.textStorage.length {
-            var effectiveRange: NSRange = NSRange()
-            let key = NSAttributedString.Key("MetaAttributeKey.meta")
-            guard let meta = contentMetaText.textStorage.attribute(key, at: index, longestEffectiveRange: &effectiveRange, in: NSRange(..<contentMetaText.textStorage.length)) as? Meta
-            else { return nil }
-            if case .url(_, _, let url, _) = meta, let url = URL(string: url) {
-                let config = MetaContextMenuConfiguration(
-                    previewProvider: {
-                        SFSafariViewController(url: url)
-                    },
-                    actionProvider: { _ in
-                        UIMenu(children: [
-                            UIAction(title: url.absoluteString, handler: { _ in })
-                        ])
-                    }
+        if let (meta, effectiveRange) = contentMetaText.textView.meta(at: location),
+           case .url(_, _, let url, _) = meta,
+            let url = URL(string: url) {
+            let config = MetaContextMenuConfiguration(
+                previewProvider: {
+                    SFSafariViewController(url: url)
+                },
+                actionProvider: { _ in
+                    UIMenu(children: [
+                        UIAction(title: url.absoluteString, handler: { _ in })
+                    ])
+                }
+            )
+            config.meta = meta
+            config.range = effectiveRange
+            if let (snapshot, textLineRects, center) = contentMetaText.textView.snapshot(of: effectiveRange, backgroundColor: ThemeService.shared.currentTheme.value.systemBackgroundColor) {
+                config.preview = UITargetedPreview(
+                    view: snapshot,
+                    parameters: UIPreviewParameters(textLineRects: textLineRects),
+                    target: UIPreviewTarget(container: contentMetaText.textView, center: center)
                 )
-                config.meta = meta
-                config.range = effectiveRange
-                var rects = [CGRect]()
-                var combinedRect = CGRect.null
-                let combinedPath = UIBezierPath()
-                contentMetaText.layoutManager.enumerateEnclosingRects(forGlyphRange: config.range, withinSelectedGlyphRange: NSMakeRange(NSNotFound, 0), in: contentMetaText.textView.textContainer) { rect, _ in
-                    rects.append(rect)
-                    combinedRect = combinedRect.union(rect)
-                    combinedPath.append(UIBezierPath(rect: rect))
-                }
-                if let snapshot = contentMetaText.textView.snapshotView(afterScreenUpdates: false) {
-                    let mask = CAShapeLayer()
-                    mask.path = combinedPath.cgPath
-                    snapshot.layer.mask = mask
-                    snapshot.backgroundColor = ThemeService.shared.currentTheme.value.systemBackgroundColor
-                    config.preview = UITargetedPreview(
-                        view: snapshot,
-                        parameters: UIPreviewParameters(textLineRects: rects.map(NSValue.init)),
-                        target: UIPreviewTarget(container: contentMetaText.textView, center: CGPoint(x: combinedRect.midX, y: combinedRect.midY))
-                    )
-                }
-                return config
             }
+            return config
         }
         return nil
     }
