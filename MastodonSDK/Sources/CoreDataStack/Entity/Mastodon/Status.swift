@@ -84,7 +84,9 @@ public final class Status: NSManagedObject {
     @NSManaged public private(set) var pinnedBy: MastodonUser?
     // sourcery: autoGenerateRelationship
     @NSManaged public private(set) var poll: Poll?
-        
+    // sourcery: autoGenerateRelationship
+    @NSManaged public private(set) var card: Card?
+
     // one-to-many relationship
     @NSManaged public private(set) var feeds: Set<Feed>
     
@@ -99,6 +101,9 @@ public final class Status: NSManagedObject {
     @NSManaged public private(set) var deletedAt: Date?
     // sourcery: autoUpdatableObject
     @NSManaged public private(set) var revealedAt: Date?
+    
+    // sourcery: autoUpdatableObject
+    @NSManaged public private(set) var translatedContent: String?
 }
 
 extension Status {
@@ -379,15 +384,18 @@ extension Status: AutoGenerateRelationship {
     	public let author: MastodonUser
     	public let reblog: Status?
     	public let poll: Poll?
+    	public let card: Card?
 
     	public init(
     		author: MastodonUser,
     		reblog: Status?,
-    		poll: Poll?
+    		poll: Poll?,
+    		card: Card?
     	) {
     		self.author = author
     		self.reblog = reblog
     		self.poll = poll
+    		self.card = card
     	}
     }
 
@@ -395,6 +403,7 @@ extension Status: AutoGenerateRelationship {
     	self.author = relationship.author
     	self.reblog = relationship.reblog
     	self.poll = relationship.poll
+    	self.card = relationship.card
     }
     // sourcery:end
 }
@@ -493,6 +502,11 @@ extension Status: AutoUpdatableObject {
     public func update(revealedAt: Date?) {
     	if self.revealedAt != revealedAt {
     		self.revealedAt = revealedAt
+    	}
+    }
+    public func update(translatedContent: String?) {
+    	if self.translatedContent != translatedContent {
+    		self.translatedContent = translatedContent
     	}
     }
     public func update(attachments: [MastodonAttachment]) {

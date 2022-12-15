@@ -22,6 +22,7 @@ extension HomeTimelineViewModel {
             tableView: tableView,
             context: context,
             configuration: StatusSection.Configuration(
+                context: context,
                 authContext: authContext,
                 statusTableViewCellDelegate: statusTableViewCellDelegate,
                 timelineMiddleLoaderTableViewCellDelegate: timelineMiddleLoaderTableViewCellDelegate,
@@ -41,7 +42,7 @@ extension HomeTimelineViewModel {
                 guard let self = self else { return }
                 guard let diffableDataSource = self.diffableDataSource else { return }
                 self.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): incoming \(records.count) objects")
-                Task {
+                Task { @MainActor in
                     let start = CACurrentMediaTime()
                     defer {
                         let end = CACurrentMediaTime()
@@ -98,22 +99,22 @@ extension HomeTimelineViewModel {
                         self.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): snapshot has changes")
                     }
 
-                    guard let difference = await self.calculateReloadSnapshotDifference(
+                    guard let difference = self.calculateReloadSnapshotDifference(
                         tableView: tableView,
                         oldSnapshot: oldSnapshot,
                         newSnapshot: newSnapshot
                     ) else {
-                        await self.updateSnapshotUsingReloadData(snapshot: newSnapshot)
+                        self.updateSnapshotUsingReloadData(snapshot: newSnapshot)
                         self.didLoadLatest.send()
                         self.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): applied new snapshot")
                         return
                     }
                     
-                    await self.updateSnapshotUsingReloadData(snapshot: newSnapshot)
-                    await tableView.scrollToRow(at: difference.targetIndexPath, at: .top, animated: false)
-                    var contentOffset = await tableView.contentOffset
-                    contentOffset.y = await tableView.contentOffset.y - difference.sourceDistanceToTableViewTopEdge
-                    await tableView.setContentOffset(contentOffset, animated: false)
+                    self.updateSnapshotUsingReloadData(snapshot: newSnapshot)
+                    tableView.scrollToRow(at: difference.targetIndexPath, at: .top, animated: false)
+                    var contentOffset = tableView.contentOffset
+                    contentOffset.y = tableView.contentOffset.y - difference.sourceDistanceToTableViewTopEdge
+                    tableView.setContentOffset(contentOffset, animated: false)
                     self.didLoadLatest.send()
                     self.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): applied new snapshot")
                 }   // end Task
@@ -135,9 +136,9 @@ extension HomeTimelineViewModel {
     
     @MainActor func updateSnapshotUsingReloadData(
         snapshot: NSDiffableDataSourceSnapshot<StatusSection, StatusItem>
-    ) async {
+    ) {
         if #available(iOS 15.0, *) {
-            await self.diffableDataSource?.applySnapshotUsingReloadData(snapshot)
+            self.diffableDataSource?.applySnapshotUsingReloadData(snapshot)
         } else {
             diffableDataSource?.applySnapshot(snapshot, animated: false, completion: nil)
         }

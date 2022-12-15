@@ -59,8 +59,31 @@ extension DataSourceFacade {
         status: ManagedObjectRecord<Status>
     ) async throws -> UIActivityViewController {
         var activityItems: [Any] = try await dependency.context.managedObjectContext.perform {
-            guard let status = status.object(in: dependency.context.managedObjectContext) else { return [] }
-            return [StatusActivityItem(status: status)].compactMap { $0 } as [Any]
+            guard let status = status.object(in: dependency.context.managedObjectContext),
+                  let url = URL(string: status.url ?? status.uri)
+            else { return [] }
+            return [
+                URLActivityItemWithMetadata(url: url) { metadata in
+                    metadata.title = "\(status.author.displayName) (@\(status.author.acctWithDomain))"
+                    metadata.iconProvider = ImageProvider(
+                        url: status.author.avatarImageURLWithFallback(domain: status.author.domain),
+                        filter: ScaledToSizeFilter(size: CGSize.authorAvatarButtonSize)
+                    ).itemProvider
+
+                    if let media = status.attachments.first,
+                       let urlStr = media.assetURL,
+                       let url = URL(string: urlStr) {
+                        if media.kind == .image {
+                            metadata.imageProvider = NSItemProvider(object: ImageProvider(
+                                url: url,
+                                filter: nil
+                            ))
+                        } else if media.kind == .gifv || media.kind == .video {
+                            metadata.remoteVideoURL = url
+                        }
+                    }
+                }
+            ] as [Any]
         }
         var applicationActivities: [UIActivity] = [
             SafariActivity(sceneCoordinator: dependency.coordinator),     // open URL
@@ -76,70 +99,6 @@ extension DataSourceFacade {
             applicationActivities: applicationActivities
         )
         return activityViewController
-    }
-
-    private class StatusActivityItem: NSObject, UIActivityItemSource {
-        init?(status: Status) {
-            guard let url = URL(string: status.url ?? status.uri) else { return nil }
-            self.url = url
-            self.metadata = LPLinkMetadata()
-            metadata.url = url
-            metadata.title = "\(status.author.displayName) (@\(status.author.acctWithDomain))"
-            metadata.iconProvider = NSItemProvider(object: ImageProvider(
-                url: status.author.avatarImageURLWithFallback(domain: status.author.domain),
-                filter: ScaledToSizeFilter(size: CGSize.authorAvatarButtonSize)
-            ))
-            if let media = status.attachments.first,
-               let urlStr = media.assetURL,
-               let url = URL(string: urlStr) {
-                if media.kind == .image {
-                    metadata.imageProvider = NSItemProvider(object: ImageProvider(
-                        url: url,
-                        filter: nil
-                    ))
-                } else if media.kind == .gifv || media.kind == .video {
-                    metadata.remoteVideoURL = url
-                }
-            }
-        }
-
-        let url: URL
-        let metadata: LPLinkMetadata
-
-        func activityViewControllerPlaceholderItem(_ activityViewController: UIActivityViewController) -> Any {
-            url
-        }
-
-        func activityViewController(_ activityViewController: UIActivityViewController, itemForActivityType activityType: UIActivity.ActivityType?) -> Any? {
-            url
-        }
-
-        func activityViewControllerLinkMetadata(_ activityViewController: UIActivityViewController) -> LPLinkMetadata? {
-            metadata
-        }
-
-        private class ImageProvider: NSObject, NSItemProviderWriting {
-            let url: URL
-            let filter: ImageFilter?
-            init(url: URL, filter: ImageFilter? = nil) {
-                self.url = url
-                self.filter = filter
-            }
-
-            static var writableTypeIdentifiersForItemProvider: [String] {
-                [UTType.png.identifier]
-            }
-
-            func loadData(withTypeIdentifier typeIdentifier: String, forItemProviderCompletionHandler completionHandler: @escaping @Sendable (Data?, Error?) -> Void) -> Progress? {
-                let receipt = UIImageView.af.sharedImageDownloader.download(URLRequest(url: url), filter: filter, completion: { response in
-                    switch response.result {
-                    case .failure(let error): completionHandler(nil, error)
-                    case .success(let image): completionHandler(image.pngData(), nil)
-                    }
-                })
-                return receipt?.request.downloadProgress
-            }
-        }
     }
 }
 
@@ -171,7 +130,7 @@ extension DataSourceFacade {
             let composeViewModel = ComposeViewModel(
                 context: provider.context,
                 authContext: provider.authContext,
-                kind: .reply(status: status)
+                destination: .reply(parent: status)
             )
             _ = provider.coordinator.present(
                 scene: .compose(viewModel: composeViewModel),
@@ -409,6 +368,18 @@ extension DataSourceFacade {
             alertController.addAction(cancelAction)
             dependency.present(alertController, animated: true)
             
+        case .translateStatus:
+            guard let status = menuContext.status else { return }
+            do {
+                try await DataSourceFacade.translateStatus(
+                    provider: dependency,
+                    status: status
+                )
+            } catch TranslationFailure.emptyOrInvalidResponse {
+                let alertController = UIAlertController(title: L10n.Common.Alerts.TranslationFailed.title, message: L10n.Common.Alerts.TranslationFailed.message, preferredStyle: .alert)
+                alertController.addAction(UIAlertAction(title: L10n.Common.Alerts.TranslationFailed.button, style: .default))
+                dependency.present(alertController, animated: true)
+            }
         }
     }   // end func
 }

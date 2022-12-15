@@ -53,8 +53,20 @@ extension StatusView {
         configureContent(status: status)
         configureMedia(status: status)
         configurePoll(status: status)
+        configureCard(status: status)
         configureToolbar(status: status)
         configureFilter(status: status)
+        viewModel.originalStatus = status
+        [
+            status.publisher(for: \.translatedContent),
+            status.reblog?.publisher(for: \.translatedContent)
+        ].compactMap { $0 }
+            .last?
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.configureTranslated(status: status)
+            }
+            .store(in: &disposeBag)
     }
 }
 
@@ -231,7 +243,48 @@ extension StatusView {
             .store(in: &disposeBag)
     }
     
+    func revertTranslation() {
+        guard let originalStatus = viewModel.originalStatus else { return }
+        viewModel.translatedFromLanguage = nil
+        originalStatus.reblog?.update(translatedContent: nil)
+        originalStatus.update(translatedContent: nil)
+        configure(status: originalStatus)
+    }
+    
+    func configureTranslated(status: Status) {
+        let translatedContent: String? = {
+            if let translatedContent = status.reblog?.translatedContent {
+                return translatedContent
+            }
+            return status.translatedContent
+
+        }()
+        
+        guard
+            let translatedContent = translatedContent
+        else {
+            viewModel.isCurrentlyTranslating = false
+            return
+        }
+
+        // content
+        do {
+            let content = MastodonContent(content: translatedContent, emojis: status.emojis.asDictionary)
+            let metaContent = try MastodonMetaContent.convert(document: content)
+            viewModel.content = metaContent
+            viewModel.translatedFromLanguage = status.reblog?.language ?? status.language
+            viewModel.isCurrentlyTranslating = false
+        } catch {
+            assertionFailure(error.localizedDescription)
+            viewModel.content = PlaintextMetaContent(string: "")
+        }
+    }
+    
     private func configureContent(status: Status) {
+        guard status.translatedContent == nil else {
+            return configureTranslated(status: status)
+        }
+        
         let status = status.reblog ?? status
         
         // spoilerText
@@ -254,6 +307,8 @@ extension StatusView {
             let content = MastodonContent(content: status.content, emojis: status.emojis.asDictionary)
             let metaContent = try MastodonMetaContent.convert(document: content)
             viewModel.content = metaContent
+            viewModel.translatedFromLanguage = nil
+            viewModel.isCurrentlyTranslating = false
         } catch {
             assertionFailure(error.localizedDescription)
             viewModel.content = PlaintextMetaContent(string: "")
@@ -348,6 +403,17 @@ extension StatusView {
         status.poll?.publisher(for: \.isVoting)
             .assign(to: \.isVoting, on: viewModel)
             .store(in: &disposeBag)
+    }
+
+    private func configureCard(status: Status) {
+        let status = status.reblog ?? status
+        if viewModel.mediaViewConfigurations.isEmpty {
+            status.publisher(for: \.card)
+                .assign(to: \.card, on: viewModel)
+                .store(in: &disposeBag)
+        } else {
+            viewModel.card = nil
+        }
     }
     
     private func configureToolbar(status: Status) {

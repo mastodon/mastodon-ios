@@ -215,6 +215,70 @@ extension Mastodon.API.Account {
 
 }
 
+public extension Mastodon.API.Account {
+ 
+    static func blocksEndpointURL(domain: String) -> URL {
+        return Mastodon.API.endpointURL(domain: domain).appendingPathComponent("blocks")
+    }
+    
+    /// Block
+    ///
+    /// Block the given account. Clients should filter statuses from this account if received (e.g. due to a boost in the Home timeline).
+    ///
+    /// - Since: 0.0.0
+    /// - Version: 3.3.0
+    /// # Last Update
+    ///   2021/4/1
+    /// # Reference
+    ///   [Document](https://docs.joinmastodon.org/methods/blocks/)
+    /// - Parameters:
+    ///   - session: `URLSession`
+    ///   - domain: Mastodon instance domain. e.g. "example.com"
+    ///   - authorization: User token.
+    /// - Returns: `AnyPublisher` contains `Relationship` nested in the response
+    static func blocks(
+        session: URLSession,
+        domain: String,
+        sinceID: Mastodon.Entity.Status.ID?,
+        limit: Int?,
+        authorization: Mastodon.API.OAuth.Authorization
+    ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Account]>, Error>  {
+        let request = Mastodon.API.get(
+            url: blocksEndpointURL(domain: domain),
+            query: BlocksQuery(sinceID: sinceID, limit: limit),
+            authorization: authorization
+        )
+        return session.dataTaskPublisher(for: request)
+            .tryMap { data, response in
+                let value = try Mastodon.API.decode(type: [Mastodon.Entity.Account].self, from: data, response: response)
+                return Mastodon.Response.Content(value: value, response: response)
+            }
+            .eraseToAnyPublisher()
+    }
+    
+    private struct BlocksQuery: GetQuery {
+        private let sinceID: Mastodon.Entity.Status.ID?
+        private let limit: Int?
+
+        public init(
+            sinceID: Mastodon.Entity.Status.ID?,
+            limit: Int?
+        ) {
+            self.sinceID = sinceID
+            self.limit = limit
+        }
+
+        var queryItems: [URLQueryItem]? {
+            var items: [URLQueryItem] = []
+            sinceID.flatMap { items.append(URLQueryItem(name: "since_id", value: $0)) }
+            limit.flatMap { items.append(URLQueryItem(name: "limit", value: String($0))) }
+            guard !items.isEmpty else { return nil }
+            return items
+        }
+    }
+    
+}
+
 extension Mastodon.API.Account {
  
     static func blockEndpointURL(domain: String, accountID: Mastodon.Entity.Account.ID) -> URL {
@@ -413,4 +477,71 @@ extension Mastodon.API.Account {
             .eraseToAnyPublisher()
     }
     
+}
+
+extension Mastodon.API.Account {
+    
+       static func mutesEndpointURL(
+        domain: String
+       ) -> URL {
+           return Mastodon.API.endpointURL(domain: domain)
+               .appendingPathComponent("mutes")
+       }
+       
+       /// View all mutes
+       ///
+       /// View your mutes. See also accounts/:id/{mute,unmute}.
+       ///
+       /// - Since: 0.0.0
+       /// - Version: 3.3.0
+       /// # Last Update
+       ///   2021/4/1
+       /// # Reference
+       ///   [Document](https://docs.joinmastodon.org/methods/accounts/)
+       /// - Parameters:
+       ///   - session: `URLSession`
+       ///   - domain: Mastodon instance domain. e.g. "example.com"
+       ///   - accountID: id for account
+       ///   - authorization: User token.
+       /// - Returns: `AnyPublisher` contains `Relationship` nested in the response
+       public static func mutes(
+           session: URLSession,
+           domain: String,
+           sinceID: Mastodon.Entity.Status.ID? = nil,
+           limit: Int?,
+           authorization: Mastodon.API.OAuth.Authorization
+       ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Account]>, Error>  {
+           let request = Mastodon.API.get(
+                url: mutesEndpointURL(domain: domain),
+                query: MutesQuery(sinceID: sinceID, limit: limit),
+                authorization: authorization
+           )
+           return session.dataTaskPublisher(for: request)
+               .tryMap { data, response in
+                   let value = try Mastodon.API.decode(type: [Mastodon.Entity.Account].self, from: data, response: response)
+                   return Mastodon.Response.Content(value: value, response: response)
+               }
+               .eraseToAnyPublisher()
+           
+           struct MutesQuery: GetQuery {
+               private let sinceID: Mastodon.Entity.Status.ID?
+               private let limit: Int?
+
+               public init(
+                   sinceID: Mastodon.Entity.Status.ID?,
+                   limit: Int?
+               ) {
+                   self.sinceID = sinceID
+                   self.limit = limit
+               }
+
+               var queryItems: [URLQueryItem]? {
+                   var items: [URLQueryItem] = []
+                   sinceID.flatMap { items.append(URLQueryItem(name: "since_id", value: $0)) }
+                   limit.flatMap { items.append(URLQueryItem(name: "limit", value: String($0))) }
+                   guard !items.isEmpty else { return nil }
+                   return items
+               }
+           }
+       }
 }

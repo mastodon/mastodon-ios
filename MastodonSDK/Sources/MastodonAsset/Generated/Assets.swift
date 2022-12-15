@@ -49,6 +49,8 @@ public enum Asset {
       public static let actionToolbar = ColorAsset(name: "Colors/Button/action.toolbar")
       public static let disabled = ColorAsset(name: "Colors/Button/disabled")
       public static let inactive = ColorAsset(name: "Colors/Button/inactive")
+      public static let tagFollow = ColorAsset(name: "Colors/Button/tagFollow")
+      public static let tagUnfollow = ColorAsset(name: "Colors/Button/tagUnfollow")
     }
     public enum Icon {
       public static let plus = ColorAsset(name: "Colors/Icon/plus")

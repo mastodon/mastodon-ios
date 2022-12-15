@@ -17,6 +17,7 @@ import MastodonCommon
 import MastodonExtension
 import MastodonLocalization
 import MastodonSDK
+import MastodonMeta
 
 extension StatusView {
     public final class ViewModel: ObservableObject {
@@ -26,8 +27,10 @@ extension StatusView {
 
         let logger = Logger(subsystem: "StatusView", category: "ViewModel")
         
+        public var context: AppContext?
         public var authContext: AuthContext?
-        
+        public var originalStatus: Status?
+    
         // Header
         @Published public var header: Header = .none
         
@@ -42,6 +45,10 @@ extension StatusView {
         @Published public var isMyself = false
         @Published public var isMuting = false
         @Published public var isBlocking = false
+        
+        // Translation
+        @Published public var isCurrentlyTranslating = false
+        @Published public var translatedFromLanguage: String?
         
         @Published public var timestamp: Date?
         public var timestampFormatter: ((_ date: Date) -> String)?
@@ -69,7 +76,10 @@ extension StatusView {
         @Published public var voteCount = 0
         @Published public var expireAt: Date?
         @Published public var expired: Bool = false
-        
+
+        // Card
+        @Published public var card: Card?
+
         // Visibility
         @Published public var visibility: MastodonVisibility = .public
         
@@ -134,6 +144,8 @@ extension StatusView {
             isContentSensitive = false
             isMediaSensitive = false
             isSensitiveToggled = false
+            translatedFromLanguage = nil
+            isCurrentlyTranslating = false
             
             activeFilters = []
             filterContext = nil
@@ -185,6 +197,7 @@ extension StatusView.ViewModel {
         bindContent(statusView: statusView)
         bindMedia(statusView: statusView)
         bindPoll(statusView: statusView)
+        bindCard(statusView: statusView)
         bindToolbar(statusView: statusView)
         bindMetric(statusView: statusView)
         bindMenu(statusView: statusView)
@@ -305,12 +318,14 @@ extension StatusView.ViewModel {
                 )
                 statusView.contentMetaText.textView.accessibilityTraits = [.staticText]
                 statusView.contentMetaText.textView.accessibilityElementsHidden = false
+
             } else {
                 statusView.contentMetaText.reset()
                 statusView.contentMetaText.textView.accessibilityLabel = ""
             }
             
             statusView.contentMetaText.textView.alpha = isContentReveal ? 1 : 0     // keep the frame size and only display when revealing
+            statusView.statusCardControl.alpha = isContentReveal ? 1 : 0
             
             statusView.setSpoilerOverlayViewHidden(isHidden: isContentReveal)
             
@@ -456,7 +471,7 @@ extension StatusView.ViewModel {
             pollCountdownDescription
         )
         .sink { pollVoteDescription, pollCountdownDescription in
-            statusView.pollVoteCountLabel.text = pollVoteDescription ?? "-"
+            statusView.pollVoteCountLabel.text = pollVoteDescription
             statusView.pollCountdownLabel.text = pollCountdownDescription ?? "-"
         }
         .store(in: &disposeBag)
@@ -479,6 +494,15 @@ extension StatusView.ViewModel {
         $isVoteButtonEnabled
             .assign(to: \.isEnabled, on: statusView.pollVoteButton)
             .store(in: &disposeBag)
+    }
+
+    private func bindCard(statusView: StatusView) {
+        $card.sink { card in
+            guard let card = card else { return }
+            statusView.statusCardControl.configure(card: card)
+            statusView.setStatusCardControlDisplay()
+        }
+        .store(in: &disposeBag)
     }
     
     private func bindToolbar(statusView: StatusView) {
@@ -581,26 +605,50 @@ extension StatusView.ViewModel {
             $isBlocking,
             $isBookmark
         )
+        let publishersThree = Publishers.CombineLatest(
+            $translatedFromLanguage,
+            $language
+        )
         
-        Publishers.CombineLatest(
+        Publishers.CombineLatest3(
             publisherOne.eraseToAnyPublisher(),
-            publishersTwo.eraseToAnyPublisher()
+            publishersTwo.eraseToAnyPublisher(),
+            publishersThree.eraseToAnyPublisher()
         ).eraseToAnyPublisher()
-        .sink { tupleOne, tupleTwo in
+        .sink { tupleOne, tupleTwo, tupleThree in
             let (authorName, isMyself) = tupleOne
             let (isMuting, isBlocking, isBookmark) = tupleTwo
-            
+            let (translatedFromLanguage, language) = tupleThree
+    
             guard let name = authorName?.string else {
                 statusView.authorView.menuButton.menu = nil
                 return
             }
+            
+            lazy var instanceConfigurationV2: Mastodon.Entity.V2.Instance.Configuration? = {
+                guard
+                    let context = self.context,
+                    let authContext = self.authContext
+                else { return nil }
+                
+                var configuration: Mastodon.Entity.V2.Instance.Configuration? = nil
+                context.managedObjectContext.performAndWait {
+                    guard let authentication = authContext.mastodonAuthenticationBox.authenticationRecord.object(in: context.managedObjectContext)
+                    else { return }
+                    configuration = authentication.instance?.configurationV2
+                }
+                return configuration
+            }()
             
             let menuContext = StatusAuthorView.AuthorMenuContext(
                 name: name,
                 isMuting: isMuting,
                 isBlocking: isBlocking,
                 isMyself: isMyself,
-                isBookmarking: isBookmark
+                isBookmarking: isBookmark,
+                isTranslationEnabled: instanceConfigurationV2?.translation?.enabled == true,
+                isTranslated: translatedFromLanguage != nil,
+                statusLanguage: language
             )
             let (menu, actions) = authorView.setupAuthorMenu(menuContext: menuContext)
             authorView.menuButton.menu = menu
