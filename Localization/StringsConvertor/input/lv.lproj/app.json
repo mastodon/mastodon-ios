@@ -83,6 +83,7 @@
                 "sign_up": "Create account",
                 "see_more": "Skatīt vairāk",
                 "preview": "Priekšskatījums",
+                "copy": "Copy",
                 "share": "Dalīties",
                 "share_user": "Share %s",
                 "share_post": "Share Post",
@@ -141,6 +142,8 @@
                 "sensitive_content": "Sensitīvs saturs",
                 "media_content_warning": "Tap anywhere to reveal",
                 "tap_to_reveal": "Tap to reveal",
+                "load_embed": "Load Embed",
+                "link_via_user": "%s via %s",
                 "poll": {
                     "vote": "Balsot",
                     "closed": "Aizvērts"
@@ -162,6 +165,7 @@
                     "show_image": "Rādīt attēlu",
                     "show_gif": "Rādīt GIF",
                     "show_video_player": "Show video player",
+                    "share_link_in_post": "Share Link in Post",
                     "tap_then_hold_to_show_menu": "Tap then hold to show menu"
                 },
                 "tag": {
