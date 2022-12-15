@@ -83,6 +83,7 @@
                 "sign_up": "Creu cyfrif",
                 "see_more": "Gweld Mwy",
                 "preview": "Rhagolwg",
+                "copy": "Copy",
                 "share": "Rhannu",
                 "share_user": "Rhannu %s",
                 "share_post": "Rhannu Tŵt",
@@ -141,6 +142,8 @@
                 "sensitive_content": "Cynnwys Sensitif",
                 "media_content_warning": "Tapiwch unrhywle i weld",
                 "tap_to_reveal": "Tapiwch i weld",
+                "load_embed": "Load Embed",
+                "link_via_user": "%s via %s",
                 "poll": {
                     "vote": "Pleidleisio",
                     "closed": "Wedi cau"
@@ -162,6 +165,7 @@
                     "show_image": "Dangos llun",
                     "show_gif": "Dangos GIF",
                     "show_video_player": "Dangos chwaraewr fideo",
+                    "share_link_in_post": "Share Link in Post",
                     "tap_then_hold_to_show_menu": "Tapiwch a gwasgu i gael y ddewislen"
                 },
                 "tag": {
