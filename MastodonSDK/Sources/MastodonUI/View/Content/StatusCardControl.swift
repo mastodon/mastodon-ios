@@ -184,8 +184,8 @@ public final class StatusCardControl: UIControl {
         super.didMoveToWindow()
 
         if let window = window {
-            layer.borderWidth = 1 / window.screen.scale
-            dividerConstraint?.constant = 1 / window.screen.scale
+            layer.borderWidth = window.screen.pixelSize
+            dividerConstraint?.constant = 1 / window.screen.pixelSize
         }
     }
 
@@ -196,7 +196,7 @@ public final class StatusCardControl: UIControl {
         NSLayoutConstraint.deactivate(layoutConstraints)
         dividerConstraint?.deactivate()
 
-        let pixelSize = 1 / (window?.screen.scale ?? 1)
+        let pixelSize = 1 / (window?.screen.pixelSize ?? 1)
         switch layout {
         case .large(let aspectRatio):
             containerStackView.alignment = .fill
