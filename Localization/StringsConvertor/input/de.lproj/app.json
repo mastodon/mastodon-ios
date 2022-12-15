@@ -54,7 +54,7 @@
             },
             "translation_failed": {
                 "title": "Hinweis",
-                "message": "Übersetzung fehlgeschlagen. Möglicherweise hat der Administrator die Übersetzungen auf diesem Server nicht aktiviert oder dieser Server läuft mit einer älteren Version von Mastodon, in der Übersetzungen noch nicht unterstützt werden.",
+                "message": "Übersetzung fehlgeschlagen. Möglicherweise hat der/die Administrator*in die Übersetzungen auf diesem Server nicht aktiviert oder dieser Server läuft mit einer älteren Version von Mastodon, in der Übersetzungen noch nicht unterstützt wurden.",
                 "button": "OK"
             }
         },
@@ -99,7 +99,7 @@
                 "settings": "Einstellungen",
                 "delete": "Löschen",
                 "translate_post": {
-                    "title": "Übersetzen von %s",
+                    "title": "Von %s übersetzen",
                     "unknown_language": "Unbekannt"
                 }
             },
@@ -185,7 +185,7 @@
                 "translation": {
                     "translated_from": "Übersetzt von %s",
                     "unknown_language": "Unbekannt",
-                    "show_original": "Shown Original"
+                    "show_original": "Original anzeigen"
                 }
             },
             "friendship": {
