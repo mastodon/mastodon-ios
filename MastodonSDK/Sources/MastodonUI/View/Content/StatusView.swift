@@ -746,7 +746,10 @@ private class MetaContextMenuConfiguration: UIContextMenuConfiguration {
 }
 extension StatusView: UIContextMenuInteractionDelegate {
     public func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
+        let location = contentMetaText.textView.convert(location, from: interaction.view!)
         let glyphIndex = contentMetaText.layoutManager.glyphIndex(for: location, in: contentMetaText.textView.textContainer)
+        let bounds = contentMetaText.layoutManager.boundingRect(forGlyphRange: NSMakeRange(glyphIndex, 1), in: contentMetaText.textView.textContainer)
+        guard bounds.contains(location) else { return nil }
         let index = contentMetaText.layoutManager.characterIndexForGlyph(at: glyphIndex)
         if index < contentMetaText.textStorage.length {
             var effectiveRange: NSRange = NSRange()
