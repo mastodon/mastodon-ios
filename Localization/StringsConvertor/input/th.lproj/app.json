@@ -53,7 +53,7 @@
                 "message": "ล้างแคช %s สำเร็จ"
             },
             "translation_failed": {
-                "title": "Note",
+                "title": "หมายเหตุ",
                 "message": "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.",
                 "button": "OK"
             }
