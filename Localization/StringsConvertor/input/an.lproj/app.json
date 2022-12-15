@@ -51,6 +51,11 @@
             "clean_cache": {
                 "title": "Limpiar Caché",
                 "message": "S'ha limpiau con exito %s de caché."
+            },
+            "translation_failed": {
+                "title": "Note",
+                "message": "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.",
+                "button": "OK"
             }
         },
         "controls": {
@@ -91,7 +96,11 @@
                 "block_domain": "Blocar %s",
                 "unblock_domain": "Desbloquiar %s",
                 "settings": "Configuración",
-                "delete": "Borrar"
+                "delete": "Borrar",
+                "translate_post": {
+                    "title": "Translate from %s",
+                    "unknown_language": "Unknown"
+                }
             },
             "tabs": {
                 "home": "Inicio",
@@ -168,6 +177,11 @@
                     "private": "Nomás los suyos seguidores pueden veyer este mensache.",
                     "private_from_me": "Nomás los míos seguidores pueden veyer este mensache.",
                     "direct": "Nomás l'usuario mencionau puede veyer este mensache."
+                },
+                "translation": {
+                    "translated_from": "Translated from %s",
+                    "unknown_language": "Unknown",
+                    "show_original": "Shown Original"
                 }
             },
             "friendship": {
