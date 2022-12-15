@@ -83,6 +83,7 @@
                 "sign_up": "Konto erstellen",
                 "see_more": "Mehr anzeigen",
                 "preview": "Vorschau",
+                "copy": "Kopieren",
                 "share": "Teilen",
                 "share_user": "%s teilen",
                 "share_post": "Beitrag teilen",
@@ -141,6 +142,8 @@
                 "sensitive_content": "NSFW-Inhalt",
                 "media_content_warning": "Tippe irgendwo zum Anzeigen",
                 "tap_to_reveal": "Zum Anzeigen tippen",
+                "load_embed": "Eingebettetes laden",
+                "link_via_user": "%s via %s",
                 "poll": {
                     "vote": "Abstimmen",
                     "closed": "Beendet"
@@ -162,6 +165,7 @@
                     "show_image": "Bild anzeigen",
                     "show_gif": "GIF anzeigen",
                     "show_video_player": "Zeige Video-Player",
+                    "share_link_in_post": "Link im Beitrag teilen",
                     "tap_then_hold_to_show_menu": "Halte gedrückt um das Menü anzuzeigen"
                 },
                 "tag": {
