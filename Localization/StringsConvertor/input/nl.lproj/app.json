@@ -83,6 +83,7 @@
                 "sign_up": "Account aanmaken",
                 "see_more": "Meer",
                 "preview": "Voorvertoning",
+                "copy": "Copy",
                 "share": "Deel",
                 "share_user": "Delen %s",
                 "share_post": "Deel bericht",
@@ -141,6 +142,8 @@
                 "sensitive_content": "Gevoelige inhoud",
                 "media_content_warning": "Tap hier om te tonen",
                 "tap_to_reveal": "Tik om te onthullen",
+                "load_embed": "Load Embed",
+                "link_via_user": "%s via %s",
                 "poll": {
                     "vote": "Stemmen",
                     "closed": "Gesloten"
@@ -162,6 +165,7 @@
                     "show_image": "Toon afbeelding",
                     "show_gif": "GIF weergeven",
                     "show_video_player": "Toon videospeler",
+                    "share_link_in_post": "Share Link in Post",
                     "tap_then_hold_to_show_menu": "Tik en houd vast om menu te tonen"
                 },
                 "tag": {
