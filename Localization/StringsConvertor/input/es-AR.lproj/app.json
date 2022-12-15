@@ -53,9 +53,9 @@
                 "message": "Se limpió exitosamente %s de la memoria caché."
             },
             "translation_failed": {
-                "title": "Note",
-                "message": "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.",
-                "button": "OK"
+                "title": "Nota",
+                "message": "Falló la traducción. Tal vez el administrador no habilitó las traducciones en este servidor, o este servidor está ejecutando una versión antigua de Mastodon en donde las traducciones aún no estaban disponibles.",
+                "button": "Aceptar"
             }
         },
         "controls": {
@@ -98,8 +98,8 @@
                 "settings": "Configuración",
                 "delete": "Eliminar",
                 "translate_post": {
-                    "title": "Translate from %s",
-                    "unknown_language": "Unknown"
+                    "title": "Traducido desde el %s",
+                    "unknown_language": "Desconocido"
                 }
             },
             "tabs": {
@@ -179,9 +179,9 @@
                     "direct": "Sólo el usuario mencionado puede ver este mensaje."
                 },
                 "translation": {
-                    "translated_from": "Translated from %s",
-                    "unknown_language": "Unknown",
-                    "show_original": "Shown Original"
+                    "translated_from": "Traducido desde el %s",
+                    "unknown_language": "Desconocido",
+                    "show_original": "Mostrar original"
                 }
             },
             "friendship": {
