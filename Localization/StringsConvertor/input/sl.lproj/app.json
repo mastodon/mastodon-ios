@@ -83,6 +83,7 @@
                 "sign_up": "Ustvari račun",
                 "see_more": "Pokaži več",
                 "preview": "Predogled",
+                "copy": "Copy",
                 "share": "Deli",
                 "share_user": "Deli %s",
                 "share_post": "Deli objavo",
@@ -141,6 +142,8 @@
                 "sensitive_content": "Občutljiva vsebina",
                 "media_content_warning": "Tapnite kamorkoli, da razkrijete",
                 "tap_to_reveal": "Tapnite za razkritje",
+                "load_embed": "Load Embed",
+                "link_via_user": "%s via %s",
                 "poll": {
                     "vote": "Glasuj",
                     "closed": "Zaprto"
@@ -162,6 +165,7 @@
                     "show_image": "Pokaži sliko",
                     "show_gif": "Pokaži GIF",
                     "show_video_player": "Pokaži predvajalnik",
+                    "share_link_in_post": "Share Link in Post",
                     "tap_then_hold_to_show_menu": "Tapnite, nato držite, da se pojavi meni"
                 },
                 "tag": {
