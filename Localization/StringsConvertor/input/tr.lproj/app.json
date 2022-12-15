@@ -83,6 +83,7 @@
                 "sign_up": "Hesap oluştur",
                 "see_more": "Daha Fazla Gör",
                 "preview": "Önizleme",
+                "copy": "Copy",
                 "share": "Paylaş",
                 "share_user": "%s ile paylaş",
                 "share_post": "Gönderiyi Paylaş",
@@ -141,6 +142,8 @@
                 "sensitive_content": "Hassas İçerik",
                 "media_content_warning": "Göstermek için herhangi bir yere basın",
                 "tap_to_reveal": "Göstermek için basın",
+                "load_embed": "Load Embed",
+                "link_via_user": "%s via %s",
                 "poll": {
                     "vote": "Oy ver",
                     "closed": "Kapandı"
@@ -162,6 +165,7 @@
                     "show_image": "Görüntüyü göster",
                     "show_gif": "GIF'i göster",
                     "show_video_player": "Video oynatıcıyı göster",
+                    "share_link_in_post": "Share Link in Post",
                     "tap_then_hold_to_show_menu": "Menüyü göstermek için dokunun ve basılı tutun"
                 },
                 "tag": {
