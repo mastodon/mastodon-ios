@@ -51,6 +51,11 @@
             "clean_cache": {
                 "title": "Limpar Cache",
                 "message": "%s do cache removidos com sucesso."
+            },
+            "translation_failed": {
+                "title": "Note",
+                "message": "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.",
+                "button": "OK"
             }
         },
         "controls": {
@@ -91,7 +96,11 @@
                 "block_domain": "Bloquear %s",
                 "unblock_domain": "Desbloquear %s",
                 "settings": "Configurações",
-                "delete": "Excluir"
+                "delete": "Excluir",
+                "translate_post": {
+                    "title": "Translate from %s",
+                    "unknown_language": "Unknown"
+                }
             },
             "tabs": {
                 "home": "Início",
@@ -168,6 +177,11 @@
                     "private": "Somente seus seguidores podem ver essa postagem.",
                     "private_from_me": "Somente meus seguidores podem ver essa postagem.",
                     "direct": "Somente o usuário mencionado pode ver essa postagem."
+                },
+                "translation": {
+                    "translated_from": "Translated from %s",
+                    "unknown_language": "Unknown",
+                    "show_original": "Shown Original"
                 }
             },
             "friendship": {
