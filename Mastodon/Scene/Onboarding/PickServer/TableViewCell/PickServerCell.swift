@@ -38,7 +38,7 @@ class PickServerCell: UITableViewCell {
     
     let domainLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 20, weight: .semibold))
+        label.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold))
         label.textColor = Asset.Colors.Label.primary.color
         label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -55,9 +55,9 @@ class PickServerCell: UITableViewCell {
     
     let descriptionLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFontMetrics(forTextStyle: .caption1).scaledFont(for: .systemFont(ofSize: 13, weight: .regular))
+        label.font = UIFontMetrics(forTextStyle: .caption1).scaledFont(for: .systemFont(ofSize: 15, weight: .regular))
         label.numberOfLines = 0
-        label.textColor = Asset.Colors.Label.primary.color
+        label.textColor = Asset.Colors.Label.secondary.color
         label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -99,7 +99,7 @@ extension PickServerCell {
             thumbnailImageView.heightAnchor.constraint(equalToConstant: 32),
             thumbnailImageView.widthAnchor.constraint(equalTo: thumbnailImageView.heightAnchor),
 
-            thumbnailImageView.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor, constant: 16),
+            thumbnailImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             thumbnailImageView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
         ])
 
@@ -116,7 +116,7 @@ extension PickServerCell {
         containerView.setCustomSpacing(6, after: descriptionLabel)
 
         NSLayoutConstraint.activate([
-            contentView.readableContentGuide.trailingAnchor.constraint(equalTo: checkbox.trailingAnchor, constant: 16),
+            contentView.trailingAnchor.constraint(equalTo: checkbox.trailingAnchor, constant: 16),
             checkbox.heightAnchor.constraint(equalToConstant: 20),
             checkbox.widthAnchor.constraint(equalTo: checkbox.heightAnchor),
         ])
