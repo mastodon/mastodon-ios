@@ -53,8 +53,8 @@
                 "message": "Rensade %s cache."
             },
             "translation_failed": {
-                "title": "Note",
-                "message": "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.",
+                "title": "Anteckning",
+                "message": "Översättningen misslyckades. Det kan hända att administratören inte har aktiverat översättningar på den här servern eller att servern kör en äldre version av Mastodon som inte har stöd för översättningar ännu.",
                 "button": "OK"
             }
         },
@@ -98,8 +98,8 @@
                 "settings": "Inställningar",
                 "delete": "Radera",
                 "translate_post": {
-                    "title": "Translate from %s",
-                    "unknown_language": "Unknown"
+                    "title": "Översätt från %s",
+                    "unknown_language": "Okänt"
                 }
             },
             "tabs": {
@@ -179,9 +179,9 @@
                     "direct": "Endast omnämnda användare kan se detta inlägg."
                 },
                 "translation": {
-                    "translated_from": "Translated from %s",
-                    "unknown_language": "Unknown",
-                    "show_original": "Shown Original"
+                    "translated_from": "Översatt från %s",
+                    "unknown_language": "Okänt",
+                    "show_original": "Visa original"
                 }
             },
             "friendship": {
