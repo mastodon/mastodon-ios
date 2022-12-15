@@ -31,6 +31,8 @@ class PickServerCell: UITableViewCell {
         thumbnail.translatesAutoresizingMaskIntoConstraints = false
         thumbnail.backgroundColor = Asset.Colors.brand.color
         thumbnail.layer.cornerRadius = 8
+        thumbnail.contentMode = .scaleAspectFill
+        thumbnail.layer.masksToBounds = true
         return thumbnail
     }()
     
@@ -66,7 +68,8 @@ class PickServerCell: UITableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        
+        thumbnailImageView.isHidden = true
+        thumbnailImageView.image = nil
         disposeBag.removeAll()
     }
     
