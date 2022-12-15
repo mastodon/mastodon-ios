@@ -83,6 +83,7 @@
                 "sign_up": "アカウント作成",
                 "see_more": "もっと見る",
                 "preview": "プレビュー",
+                "copy": "Copy",
                 "share": "共有",
                 "share_user": "%sを共有",
                 "share_post": "投稿を共有",
@@ -141,6 +142,8 @@
                 "sensitive_content": "閲覧注意",
                 "media_content_warning": "どこかをタップして表示",
                 "tap_to_reveal": "タップして表示",
+                "load_embed": "Load Embed",
+                "link_via_user": "%s via %s",
                 "poll": {
                     "vote": "投票",
                     "closed": "終了"
@@ -162,6 +165,7 @@
                     "show_image": "画像を表示",
                     "show_gif": "GIFを表示",
                     "show_video_player": "Show video player",
+                    "share_link_in_post": "Share Link in Post",
                     "tap_then_hold_to_show_menu": "Tap then hold to show menu"
                 },
                 "tag": {
