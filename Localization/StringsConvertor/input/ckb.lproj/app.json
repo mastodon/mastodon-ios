@@ -51,6 +51,11 @@
             "clean_cache": {
                 "title": "بیرگە پاک بکەوە",
                 "message": "سەرکەوتووانە بیرگەی %s پاک کرایەوە."
+            },
+            "translation_failed": {
+                "title": "Note",
+                "message": "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.",
+                "button": "OK"
             }
         },
         "controls": {
@@ -91,7 +96,11 @@
                 "block_domain": "%s ئاستەنگ بکە",
                 "unblock_domain": "%s ئاستەنگ مەکە",
                 "settings": "رێکخستنەکان",
-                "delete": "بیسڕەوە"
+                "delete": "بیسڕەوە",
+                "translate_post": {
+                    "title": "Translate from %s",
+                    "unknown_language": "Unknown"
+                }
             },
             "tabs": {
                 "home": "ماڵەوە",
@@ -168,6 +177,11 @@
                     "private": "تەنیا شوێنکەوتووەکانی دەتوانن ئەم پۆستە ببینن.",
                     "private_from_me": "تەنیا شوێنکەوتووەکانم دەتوانن ئەم پۆستە ببینن.",
                     "direct": "تەنیا بەکارهێنەرە ئاماژە پێکراوەکە دەتوانێت ئەم پۆستە ببینێت."
+                },
+                "translation": {
+                    "translated_from": "Translated from %s",
+                    "unknown_language": "Unknown",
+                    "show_original": "Shown Original"
                 }
             },
             "friendship": {
