@@ -51,6 +51,11 @@
             "clean_cache": {
                 "title": "Xóa bộ nhớ đệm",
                 "message": "Đã xóa %s bộ nhớ đệm."
+            },
+            "translation_failed": {
+                "title": "Note",
+                "message": "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.",
+                "button": "OK"
             }
         },
         "controls": {
@@ -91,7 +96,11 @@
                 "block_domain": "Chặn %s",
                 "unblock_domain": "Bỏ chặn %s",
                 "settings": "Cài đặt",
-                "delete": "Xóa"
+                "delete": "Xóa",
+                "translate_post": {
+                    "title": "Translate from %s",
+                    "unknown_language": "Unknown"
+                }
             },
             "tabs": {
                 "home": "Bảng tin",
@@ -168,6 +177,11 @@
                     "private": "Chỉ người theo dõi của họ có thể thấy tút này.",
                     "private_from_me": "Chỉ người theo dõi tôi có thể thấy tút này.",
                     "direct": "Chỉ người được nhắc đến có thể thấy tút."
+                },
+                "translation": {
+                    "translated_from": "Translated from %s",
+                    "unknown_language": "Unknown",
+                    "show_original": "Shown Original"
                 }
             },
             "friendship": {
