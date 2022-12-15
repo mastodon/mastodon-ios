@@ -83,6 +83,7 @@
                 "sign_up": "Crear cuenta",
                 "see_more": "Ver más",
                 "preview": "Previsualización",
+                "copy": "Copiar",
                 "share": "Compartir",
                 "share_user": "Compartir %s",
                 "share_post": "Compartir mensaje",
@@ -141,6 +142,8 @@
                 "sensitive_content": "Contenido sensible",
                 "media_content_warning": "Tocá en cualquier parte para mostrar",
                 "tap_to_reveal": "Tocá para mostrar",
+                "load_embed": "Cargar lo insertado",
+                "link_via_user": "%s vía %s",
                 "poll": {
                     "vote": "Votar",
                     "closed": "Cerrada"
@@ -162,6 +165,7 @@
                     "show_image": "Mostrar imagen",
                     "show_gif": "Mostrar GIF",
                     "show_video_player": "Mostrar reproductor de video",
+                    "share_link_in_post": "Compartir enlace en mensaje",
                     "tap_then_hold_to_show_menu": "Tocá y mantené presionado para mostrar el menú"
                 },
                 "tag": {
