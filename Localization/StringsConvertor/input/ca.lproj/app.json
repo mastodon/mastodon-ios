@@ -83,6 +83,7 @@
                 "sign_up": "Crea un compte",
                 "see_more": "Mostra'n més",
                 "preview": "Vista prèvia",
+                "copy": "Copia",
                 "share": "Comparteix",
                 "share_user": "Comparteix %s",
                 "share_post": "Comparteix la publicació",
@@ -141,6 +142,8 @@
                 "sensitive_content": "Contingut sensible",
                 "media_content_warning": "Toca qualsevol lloc per a mostrar",
                 "tap_to_reveal": "Toca per a mostrar",
+                "load_embed": "Carregar incrustat",
+                "link_via_user": "%s través de %s",
                 "poll": {
                     "vote": "Vota",
                     "closed": "Finalitzada"
@@ -162,6 +165,7 @@
                     "show_image": "Mostra la imatge",
                     "show_gif": "Mostra el GIF",
                     "show_video_player": "Mostra el reproductor de vídeo",
+                    "share_link_in_post": "Compartir l'Enllaç en el Tut",
                     "tap_then_hold_to_show_menu": "Toca i manté per a veure el menú"
                 },
                 "tag": {
