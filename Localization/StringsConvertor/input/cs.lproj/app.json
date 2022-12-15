@@ -83,6 +83,7 @@
                 "sign_up": "Vytvořit účet",
                 "see_more": "Zobrazit více",
                 "preview": "Náhled",
+                "copy": "Copy",
                 "share": "Sdílet",
                 "share_user": "Sdílet %s",
                 "share_post": "Sdílet příspěvek",
@@ -141,6 +142,8 @@
                 "sensitive_content": "Citlivý obsah",
                 "media_content_warning": "Klepnutím kdekoli zobrazíte",
                 "tap_to_reveal": "Klepnutím zobrazit",
+                "load_embed": "Load Embed",
+                "link_via_user": "%s via %s",
                 "poll": {
                     "vote": "Hlasovat",
                     "closed": "Uzavřeno"
@@ -162,6 +165,7 @@
                     "show_image": "Zobrazit obrázek",
                     "show_gif": "Zobrazit GIF",
                     "show_video_player": "Zobrazit video přehrávač",
+                    "share_link_in_post": "Share Link in Post",
                     "tap_then_hold_to_show_menu": "Klepnutím podržte pro zobrazení nabídky"
                 },
                 "tag": {
