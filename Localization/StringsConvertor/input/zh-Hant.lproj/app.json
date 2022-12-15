@@ -83,6 +83,7 @@
                 "sign_up": "新增帳號",
                 "see_more": "檢視更多",
                 "preview": "預覽",
+                "copy": "Copy",
                 "share": "分享",
                 "share_user": "分享 %s",
                 "share_post": "分享嘟文",
@@ -141,6 +142,8 @@
                 "sensitive_content": "敏感內容",
                 "media_content_warning": "輕觸任何地方以顯示",
                 "tap_to_reveal": "輕觸以顯示",
+                "load_embed": "Load Embed",
+                "link_via_user": "%s via %s",
                 "poll": {
                     "vote": "投票",
                     "closed": "已關閉"
@@ -162,6 +165,7 @@
                     "show_image": "顯示圖片",
                     "show_gif": "顯示 GIF",
                     "show_video_player": "顯示影片播放器",
+                    "share_link_in_post": "Share Link in Post",
                     "tap_then_hold_to_show_menu": "輕觸然後按住以顯示選單"
                 },
                 "tag": {
