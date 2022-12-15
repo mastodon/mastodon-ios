@@ -747,31 +747,31 @@ private class MetaContextMenuConfiguration: UIContextMenuConfiguration {
 extension StatusView: UIContextMenuInteractionDelegate {
     public func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
         let location = contentMetaText.textView.convert(location, from: interaction.view!)
-        if let (meta, effectiveRange) = contentMetaText.textView.meta(at: location),
-           case .url(_, _, let url, _) = meta,
-            let url = URL(string: url) {
-            let config = MetaContextMenuConfiguration(
-                previewProvider: {
-                    SFSafariViewController(url: url)
-                },
-                actionProvider: { _ in
-                    UIMenu(children: [
-                        UIAction(title: url.absoluteString, handler: { _ in })
-                    ])
-                }
-            )
-            config.meta = meta
-            config.range = effectiveRange
-            if let (snapshot, textLineRects, center) = contentMetaText.textView.snapshot(of: effectiveRange, backgroundColor: ThemeService.shared.currentTheme.value.systemBackgroundColor) {
-                config.preview = UITargetedPreview(
-                    view: snapshot,
-                    parameters: UIPreviewParameters(textLineRects: textLineRects),
-                    target: UIPreviewTarget(container: contentMetaText.textView, center: center)
-                )
+        guard
+            let (meta, effectiveRange) = contentMetaText.textView.meta(at: location),
+            case .url(_, _, let url, _) = meta,
+            let url = URL(string: url)
+        else { return nil }
+        let config = MetaContextMenuConfiguration(
+            previewProvider: {
+                SFSafariViewController(url: url)
+            },
+            actionProvider: { _ in
+                UIMenu(children: [
+                    UIAction(title: url.absoluteString, handler: { _ in })
+                ])
             }
-            return config
+        )
+        config.meta = meta
+        config.range = effectiveRange
+        if let (snapshot, textLineRects, center) = contentMetaText.textView.snapshot(of: effectiveRange, backgroundColor: ThemeService.shared.currentTheme.value.systemBackgroundColor) {
+            config.preview = UITargetedPreview(
+                view: snapshot,
+                parameters: UIPreviewParameters(textLineRects: textLineRects),
+                target: UIPreviewTarget(container: contentMetaText.textView, center: center)
+            )
         }
-        return nil
+        return config
     }
 
     public func contextMenuInteraction(_ interaction: UIContextMenuInteraction, previewForHighlightingMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
