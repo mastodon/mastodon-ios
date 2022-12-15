@@ -133,7 +133,6 @@ public final class StatusView: UIView {
     // content
     let contentAdaptiveMarginContainerView = AdaptiveMarginContainerView()
     let contentContainer = UIStackView()
-    lazy var contentContextMenuInteraction = UIContextMenuInteraction(delegate: self)
     public let contentMetaText: MetaText = {
         let metaText = MetaText()
         metaText.textView.backgroundColor = .clear
@@ -344,6 +343,12 @@ public final class StatusView: UIView {
 
 extension StatusView {
     private func _init() {
+        let dragInteraction = UIDragInteraction(delegate: self)
+        dragInteraction.allowsSimultaneousRecognitionDuringLift = true
+        dragInteraction.isEnabled = true
+        addInteraction(dragInteraction)
+        addInteraction(UIContextMenuInteraction(delegate: self))
+
         // container
         containerStackView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(containerStackView)
@@ -368,7 +373,6 @@ extension StatusView {
         // content
         contentMetaText.textView.delegate = self
         contentMetaText.textView.linkDelegate = self
-        contentMetaText.textView.addInteraction(contentContextMenuInteraction)
 
         // card
         statusCardControl.addTarget(self, action: #selector(statusCardControlPressed), for: .touchUpInside)
@@ -735,6 +739,37 @@ extension StatusView: MetaTextViewDelegate {
             assertionFailure()
             break
         }
+    }
+}
+
+// MARK: - UIDragInteractionDelegate
+extension StatusView: UIDragInteractionDelegate {
+    public func dragInteraction(_ interaction: UIDragInteraction, itemsForBeginning session: UIDragSession) -> [UIDragItem] {
+        guard
+            let (meta, effectiveRange) = contentMetaText.textView.meta(at: session.location(in: contentMetaText.textView)),
+            case let .url(text, trimmed, url, _) = meta,
+            let url = URL(string: url)
+        else { return [] }
+        let item = UIDragItem(itemProvider: NSItemProvider(object: url as NSURL))
+        item.localObject = (url, effectiveRange)
+        item.previewProvider = { UIDragPreview(for: url, title: trimmed) }
+        return [item]
+    }
+
+    public func dragInteraction(_ interaction: UIDragInteraction, previewForLifting item: UIDragItem, session: UIDragSession) -> UITargetedDragPreview? {
+        guard let (url, effectiveRange) = item.localObject as? (URL, NSRange) else {
+            assertionFailure()
+            return nil
+        }
+
+        if let (snapshot, textLineRects, center) = contentMetaText.textView.snapshot(of: effectiveRange, backgroundColor: ThemeService.shared.currentTheme.value.systemBackgroundColor) {
+            return UITargetedDragPreview(
+                view: snapshot,
+                parameters: UIPreviewParameters(textLineRects: textLineRects),
+                target: UIPreviewTarget(container: contentMetaText.textView, center: center)
+            )
+        }
+        return nil
     }
 }
 
