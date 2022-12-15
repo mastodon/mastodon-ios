@@ -142,7 +142,7 @@
                 "sensitive_content": "敏感內容",
                 "media_content_warning": "輕觸任何地方以顯示",
                 "tap_to_reveal": "輕觸以顯示",
-                "load_embed": "讀取嵌入",
+                "load_embed": "讀取嵌入內容",
                 "link_via_user": "%s 透過 %s",
                 "poll": {
                     "vote": "投票",
