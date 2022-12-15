@@ -195,52 +195,50 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
             ) { _ in
                 UIPasteboard.general.url = url
             },
+
             UIAction(
                 title: L10n.Common.Controls.Actions.share,
                 image: Asset.Arrow.squareAndArrowUp.image.withRenderingMode(.alwaysTemplate)
             ) { _ in
-                Task {
-                    await MainActor.run {
-                        let activityViewController = UIActivityViewController(
-                            activityItems: [
-                                URLActivityItemWithMetadata(url: url) { metadata in
-                                    metadata.title = card.title
-                                    
-                                    if let image = card.imageURL {
-                                        metadata.iconProvider = ImageProvider(url: image, filter: nil).itemProvider
-                                    }
+                DispatchQueue.main.async {
+                    let activityViewController = UIActivityViewController(
+                        activityItems: [
+                            URLActivityItemWithMetadata(url: url) { metadata in
+                                metadata.title = card.title
+
+                                if let image = card.imageURL {
+                                    metadata.iconProvider = ImageProvider(url: image, filter: nil).itemProvider
                                 }
-                            ],
-                            applicationActivities: []
-                        )
-                        self.coordinator.present(
-                            scene: .activityViewController(
-                                activityViewController: activityViewController,
-                                sourceView: statusCardControl, barButtonItem: nil
-                            ),
-                            from: self,
-                            transition: .activityViewControllerPresent(animated: true)
-                        )
-                    }
+                            }
+                        ],
+                        applicationActivities: []
+                    )
+                    self.coordinator.present(
+                        scene: .activityViewController(
+                            activityViewController: activityViewController,
+                            sourceView: statusCardControl, barButtonItem: nil
+                        ),
+                        from: self,
+                        transition: .activityViewControllerPresent(animated: true)
+                    )
                 }
             },
+
             UIAction(
                 title: L10n.Common.Controls.Status.Actions.shareLinkInPost,
                 image: Asset.ObjectsAndTools.squareAndPencil.image.withRenderingMode(.alwaysTemplate)
             ) { _ in
-                Task {
-                    await MainActor.run {
-                        self.coordinator.present(
-                            scene: .compose(viewModel: ComposeViewModel(
-                                context: self.context,
-                                authContext: self.authContext,
-                                destination: .topLevel,
-                                initialContent: L10n.Common.Controls.Status.linkViaUser(url.absoluteString, "@" + (statusView.viewModel.authorUsername ?? ""))
-                            )),
-                            from: self,
-                            transition: .modal(animated: true)
-                        )
-                    }
+                DispatchQueue.main.async {
+                    self.coordinator.present(
+                        scene: .compose(viewModel: ComposeViewModel(
+                            context: self.context,
+                            authContext: self.authContext,
+                            destination: .topLevel,
+                            initialContent: L10n.Common.Controls.Status.linkViaUser(url.absoluteString, "@" + (statusView.viewModel.authorUsername ?? ""))
+                        )),
+                        from: self,
+                        transition: .modal(animated: true)
+                    )
                 }
             }
         ])
