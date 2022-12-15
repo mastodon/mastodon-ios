@@ -83,6 +83,7 @@
                 "sign_up": "Create account",
                 "see_more": "Ещё",
                 "preview": "Предпросмотр",
+                "copy": "Copy",
                 "share": "Поделиться",
                 "share_user": "Поделиться %s",
                 "share_post": "Поделиться постом",
@@ -141,6 +142,8 @@
                 "sensitive_content": "Sensitive Content",
                 "media_content_warning": "Нажмите в любом месте, чтобы показать",
                 "tap_to_reveal": "Нажмите, чтобы показать",
+                "load_embed": "Load Embed",
+                "link_via_user": "%s via %s",
                 "poll": {
                     "vote": "Проголосовать",
                     "closed": "Завершён"
@@ -162,6 +165,7 @@
                     "show_image": "Показать изображение",
                     "show_gif": "Показать GIF",
                     "show_video_player": "Показать видеопроигрыватель",
+                    "share_link_in_post": "Share Link in Post",
                     "tap_then_hold_to_show_menu": "Нажмите и удерживайте, чтобы показать меню"
                 },
                 "tag": {
