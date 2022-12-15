@@ -51,6 +51,11 @@
             "clean_cache": {
                 "title": "Falamhaich an tasgadan",
                 "message": "Chaidh %s a thasgadan fhalamhachadh."
+            },
+            "translation_failed": {
+                "title": "Note",
+                "message": "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.",
+                "button": "OK"
             }
         },
         "controls": {
@@ -91,7 +96,11 @@
                 "block_domain": "Bac %s",
                 "unblock_domain": "Dì-bhac %s",
                 "settings": "Roghainnean",
-                "delete": "Sguab às"
+                "delete": "Sguab às",
+                "translate_post": {
+                    "title": "Translate from %s",
+                    "unknown_language": "Unknown"
+                }
             },
             "tabs": {
                 "home": "Dachaigh",
@@ -168,6 +177,11 @@
                     "private": "Chan fhaic ach an luchd-leantainn aca am post seo.",
                     "private_from_me": "Chan fhaic ach an luchd-leantainn agam am post seo.",
                     "direct": "Chan fhaic ach an cleachdaiche air an dugadh iomradh am post seo."
+                },
+                "translation": {
+                    "translated_from": "Translated from %s",
+                    "unknown_language": "Unknown",
+                    "show_original": "Shown Original"
                 }
             },
             "friendship": {
