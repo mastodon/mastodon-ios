@@ -83,6 +83,7 @@
                 "sign_up": "Snulfu-d amiḍan",
                 "see_more": "Wali ugar",
                 "preview": "Taskant",
+                "copy": "Copy",
                 "share": "Bḍu",
                 "share_user": "Bḍu %s",
                 "share_post": "Bḍu tasuffeɣt",
@@ -141,6 +142,8 @@
                 "sensitive_content": "Agbur amḥulfu",
                 "media_content_warning": "Sit anida tebɣiḍ i wakken ad twaliḍ",
                 "tap_to_reveal": "Sit i uskan",
+                "load_embed": "Load Embed",
+                "link_via_user": "%s via %s",
                 "poll": {
                     "vote": "Dɣeṛ",
                     "closed": "Ifukk"
@@ -162,6 +165,7 @@
                     "show_image": "Sken tugna",
                     "show_gif": "Sken GIF",
                     "show_video_player": "Sken ameɣri n tvidyut",
+                    "share_link_in_post": "Share Link in Post",
                     "tap_then_hold_to_show_menu": "Sit teǧǧeḍ aḍad-ik•im i wakken ad d-iffeɣ wumuɣ"
                 },
                 "tag": {
