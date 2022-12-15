@@ -51,6 +51,11 @@
             "clean_cache": {
                 "title": "Rensa cache",
                 "message": "Rensade %s cache."
+            },
+            "translation_failed": {
+                "title": "Note",
+                "message": "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.",
+                "button": "OK"
             }
         },
         "controls": {
@@ -91,7 +96,11 @@
                 "block_domain": "Blockera %s",
                 "unblock_domain": "Avblockera %s",
                 "settings": "Inställningar",
-                "delete": "Radera"
+                "delete": "Radera",
+                "translate_post": {
+                    "title": "Translate from %s",
+                    "unknown_language": "Unknown"
+                }
             },
             "tabs": {
                 "home": "Hem",
@@ -168,6 +177,11 @@
                     "private": "Endast deras följare kan se detta inlägg.",
                     "private_from_me": "Bara mina följare kan se det här inlägget.",
                     "direct": "Endast omnämnda användare kan se detta inlägg."
+                },
+                "translation": {
+                    "translated_from": "Translated from %s",
+                    "unknown_language": "Unknown",
+                    "show_original": "Shown Original"
                 }
             },
             "friendship": {
