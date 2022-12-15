@@ -51,6 +51,11 @@
             "clean_cache": {
                 "title": "清除缓存",
                 "message": "成功清除 %s 缓存。"
+            },
+            "translation_failed": {
+                "title": "Note",
+                "message": "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.",
+                "button": "OK"
             }
         },
         "controls": {
@@ -91,7 +96,11 @@
                 "block_domain": "屏蔽 %s",
                 "unblock_domain": "解除屏蔽 %s",
                 "settings": "设置",
-                "delete": "删除"
+                "delete": "删除",
+                "translate_post": {
+                    "title": "Translate from %s",
+                    "unknown_language": "Unknown"
+                }
             },
             "tabs": {
                 "home": "主页",
@@ -168,6 +177,11 @@
                     "private": "只有作者的关注者才能看到此帖子。",
                     "private_from_me": "只有我的关注者才能看到此帖子。",
                     "direct": "只有提到的用户才能看到此帖子。"
+                },
+                "translation": {
+                    "translated_from": "Translated from %s",
+                    "unknown_language": "Unknown",
+                    "show_original": "Shown Original"
                 }
             },
             "friendship": {
