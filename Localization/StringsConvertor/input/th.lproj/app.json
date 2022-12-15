@@ -83,6 +83,7 @@
                 "sign_up": "สร้างบัญชี",
                 "see_more": "ดูเพิ่มเติม",
                 "preview": "แสดงตัวอย่าง",
+                "copy": "Copy",
                 "share": "แบ่งปัน",
                 "share_user": "แบ่งปัน %s",
                 "share_post": "แบ่งปันโพสต์",
@@ -141,6 +142,8 @@
                 "sensitive_content": "เนื้อหาที่ละเอียดอ่อน",
                 "media_content_warning": "แตะที่ใดก็ตามเพื่อเปิดเผย",
                 "tap_to_reveal": "แตะเพื่อเปิดเผย",
+                "load_embed": "Load Embed",
+                "link_via_user": "%s via %s",
                 "poll": {
                     "vote": "ลงคะแนน",
                     "closed": "ปิดแล้ว"
@@ -162,6 +165,7 @@
                     "show_image": "แสดงภาพ",
                     "show_gif": "แสดง GIF",
                     "show_video_player": "แสดงตัวเล่นวิดีโอ",
+                    "share_link_in_post": "Share Link in Post",
                     "tap_then_hold_to_show_menu": "แตะค้างไว้เพื่อแสดงเมนู"
                 },
                 "tag": {
