@@ -49,7 +49,7 @@ extension ServerRulesTableViewCell {
     
     private func _init() {
         selectionStyle = .none
-        backgroundColor = .clear
+//        backgroundColor = .systemBackground
         
         indexImageView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(indexImageView)
@@ -70,15 +70,6 @@ extension ServerRulesTableViewCell {
             ruleLabel.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor, constant: 16),
             contentView.bottomAnchor.constraint(greaterThanOrEqualTo: ruleLabel.bottomAnchor, constant: 11),
             ruleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-        ])
-        
-        separatorLine.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(separatorLine)
-        NSLayoutConstraint.activate([
-            separatorLine.leadingAnchor.constraint(equalTo: ruleLabel.leadingAnchor),
-            separatorLine.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            separatorLine.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            separatorLine.heightAnchor.constraint(equalToConstant: UIView.separatorLineHeight(of: contentView)).priority(.required - 1),
         ])
     }
     

@@ -28,12 +28,11 @@ final class MastodonServerRulesViewController: UIViewController, NeedsDependency
     var viewModel: MastodonServerRulesViewModel!
 
     let tableView: UITableView = {
-        let tableView = UITableView()
+        let tableView = UITableView(frame: .zero, style: .insetGrouped)
         tableView.register(OnboardingHeadlineTableViewCell.self, forCellReuseIdentifier: String(describing: OnboardingHeadlineTableViewCell.self))
         tableView.register(ServerRulesTableViewCell.self, forCellReuseIdentifier: String(describing: ServerRulesTableViewCell.self))
         tableView.rowHeight = UITableView.automaticDimension
-        tableView.separatorStyle = .none
-        tableView.backgroundColor = .clear
+        tableView.backgroundColor = .secondarySystemGroupedBackground
         tableView.keyboardDismissMode = .onDrag
         tableView.sectionHeaderTopPadding = 0
         return tableView
