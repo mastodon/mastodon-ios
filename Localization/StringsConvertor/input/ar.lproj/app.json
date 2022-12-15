@@ -83,6 +83,7 @@
                 "sign_up": "إنشاءُ حِساب",
                 "see_more": "عرض المزيد",
                 "preview": "مُعاينة",
+                "copy": "Copy",
                 "share": "المُشارك",
                 "share_user": "مُشارَكَةُ %s",
                 "share_post": "مشارك المنشور",
@@ -141,6 +142,8 @@
                 "sensitive_content": "مُحتَوى حَسَّاس",
                 "media_content_warning": "اُنقُر لِلكَشف",
                 "tap_to_reveal": "اُنقُر لِلكَشف",
+                "load_embed": "Load Embed",
+                "link_via_user": "%s via %s",
                 "poll": {
                     "vote": "صَوِّت",
                     "closed": "انتهى"
@@ -162,6 +165,7 @@
                     "show_image": "أظْهِرِ الصُّورَة",
                     "show_gif": "أظْهِر GIF",
                     "show_video_player": "أظْهِر مُشَغِّلَ المَقاطِعِ المَرئِيَّة",
+                    "share_link_in_post": "Share Link in Post",
                     "tap_then_hold_to_show_menu": "اُنقُر مُطَوَّلًا لِإظْهَارِ القائِمَة"
                 },
                 "tag": {
