@@ -83,6 +83,7 @@
                 "sign_up": "Create account",
                 "see_more": "زیاتر ببینە",
                 "preview": "پێشبینین",
+                "copy": "Copy",
                 "share": "هاوبەشی بکە",
                 "share_user": "%s هاوبەش بکە",
                 "share_post": "هاوبەشی بکە",
@@ -141,6 +142,8 @@
                 "sensitive_content": "ناوەڕۆکی هەستیار",
                 "media_content_warning": "دەستی پیا بنێ بۆ نیشاندانی",
                 "tap_to_reveal": "دەستی پیا بنێ بۆ نیشاندانی",
+                "load_embed": "Load Embed",
+                "link_via_user": "%s via %s",
                 "poll": {
                     "vote": "دەنگ بدە",
                     "closed": "داخراوە"
@@ -162,6 +165,7 @@
                     "show_image": "وێنەکە نیشان بدە",
                     "show_gif": "گیفەکە نیشان بدە",
                     "show_video_player": "ڤیدیۆکە لێ بدە",
+                    "share_link_in_post": "Share Link in Post",
                     "tap_then_hold_to_show_menu": "دەستی پیا بنێ و بیگرە بۆ نیشاندانی پێڕستەکە"
                 },
                 "tag": {
