@@ -61,8 +61,6 @@ extension MastodonPickServerViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem()
-        
         setupOnboardingAppearance()
         defer { setupNavigationBarBackgroundView() }
 
