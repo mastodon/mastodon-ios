@@ -83,6 +83,7 @@
                 "sign_up": "创建账户",
                 "see_more": "查看更多",
                 "preview": "预览",
+                "copy": "Copy",
                 "share": "分享",
                 "share_user": "分享 %s",
                 "share_post": "分享帖子",
@@ -141,6 +142,8 @@
                 "sensitive_content": "敏感内容",
                 "media_content_warning": "点击任意位置显示",
                 "tap_to_reveal": "点击以显示",
+                "load_embed": "Load Embed",
+                "link_via_user": "%s via %s",
                 "poll": {
                     "vote": "投票",
                     "closed": "已关闭"
@@ -162,6 +165,7 @@
                     "show_image": "显示图片",
                     "show_gif": "显示 GIF",
                     "show_video_player": "显示视频播放器",
+                    "share_link_in_post": "Share Link in Post",
                     "tap_then_hold_to_show_menu": "长按以显示菜单"
                 },
                 "tag": {
