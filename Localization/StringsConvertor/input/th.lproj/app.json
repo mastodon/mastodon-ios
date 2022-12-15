@@ -51,6 +51,11 @@
             "clean_cache": {
                 "title": "ล้างแคช",
                 "message": "ล้างแคช %s สำเร็จ"
+            },
+            "translation_failed": {
+                "title": "Note",
+                "message": "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.",
+                "button": "OK"
             }
         },
         "controls": {
@@ -91,7 +96,11 @@
                 "block_domain": "ปิดกั้น %s",
                 "unblock_domain": "เลิกปิดกั้น %s",
                 "settings": "การตั้งค่า",
-                "delete": "ลบ"
+                "delete": "ลบ",
+                "translate_post": {
+                    "title": "Translate from %s",
+                    "unknown_language": "Unknown"
+                }
             },
             "tabs": {
                 "home": "หน้าแรก",
@@ -168,6 +177,11 @@
                     "private": "เฉพาะผู้ติดตามของเขาเท่านั้นที่สามารถเห็นโพสต์นี้",
                     "private_from_me": "เฉพาะผู้ติดตามของฉันเท่านั้นที่สามารถเห็นโพสต์นี้",
                     "direct": "เฉพาะผู้ใช้ที่กล่าวถึงเท่านั้นที่สามารถเห็นโพสต์นี้"
+                },
+                "translation": {
+                    "translated_from": "Translated from %s",
+                    "unknown_language": "Unknown",
+                    "show_original": "Shown Original"
                 }
             },
             "friendship": {
