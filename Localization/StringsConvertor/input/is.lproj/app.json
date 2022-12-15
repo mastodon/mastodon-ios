@@ -83,6 +83,7 @@
                 "sign_up": "Stofna notandaaðgang",
                 "see_more": "Sjá fleira",
                 "preview": "Forskoða",
+                "copy": "Copy",
                 "share": "Deila",
                 "share_user": "Deila %s",
                 "share_post": "Deila færslu",
@@ -141,6 +142,8 @@
                 "sensitive_content": "Viðkvæmt efni",
                 "media_content_warning": "Ýttu hvar sem er til að birta",
                 "tap_to_reveal": "Ýttu til að birta",
+                "load_embed": "Load Embed",
+                "link_via_user": "%s via %s",
                 "poll": {
                     "vote": "Greiða atkvæði",
                     "closed": "Lokið"
@@ -162,6 +165,7 @@
                     "show_image": "Sýna mynd",
                     "show_gif": "Birta GIF-myndir",
                     "show_video_player": "Sýna myndspilara",
+                    "share_link_in_post": "Share Link in Post",
                     "tap_then_hold_to_show_menu": "Ýttu og haltu til að sýna valmynd"
                 },
                 "tag": {
