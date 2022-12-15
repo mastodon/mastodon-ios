@@ -128,6 +128,7 @@ public final class StatusCardControl: UIControl {
         containerStackView.translatesAutoresizingMaskIntoConstraints = false
         highlightView.translatesAutoresizingMaskIntoConstraints = false
         showEmbedButton.translatesAutoresizingMaskIntoConstraints = false
+        dividerView.translatesAutoresizingMaskIntoConstraints = false
 
         containerStackView.pinToParent()
         highlightView.pinToParent()
