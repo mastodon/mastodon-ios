@@ -83,6 +83,7 @@
                 "sign_up": "Buat akun",
                 "see_more": "Lihat lebih banyak",
                 "preview": "Pratinjau",
+                "copy": "Copy",
                 "share": "Bagikan",
                 "share_user": "Bagikan %s",
                 "share_post": "Bagikan Postingan",
@@ -141,6 +142,8 @@
                 "sensitive_content": "Konten Sensitif",
                 "media_content_warning": "Ketuk di mana saja untuk melihat",
                 "tap_to_reveal": "Ketuk untuk mengungkap",
+                "load_embed": "Load Embed",
+                "link_via_user": "%s via %s",
                 "poll": {
                     "vote": "Pilih",
                     "closed": "Ditutup"
@@ -162,6 +165,7 @@
                     "show_image": "Tampilkan gambar",
                     "show_gif": "Tampilkan GIF",
                     "show_video_player": "Tampilkan pemutar video",
+                    "share_link_in_post": "Share Link in Post",
                     "tap_then_hold_to_show_menu": "Ketuk lalu tahan untuk menampilkan menu"
                 },
                 "tag": {
