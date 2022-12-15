@@ -4,7 +4,7 @@
         <attribute name="identifier" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" attributeType="String"/>
         <attribute name="vapidKey" optional="YES" attributeType="String"/>
-        <attribute name="website" optional="YES" attributeType="String"/>
+        <attribut e name="website" optional="YES" attributeType="String"/>
         <relationship name="status" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Status" inverseName="application" inverseEntity="Status"/>
     </entity>
     <entity name="Attachment" representedClassName=".Attachment" syncable="YES">
