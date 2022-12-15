@@ -53,9 +53,9 @@
                 "message": "Uspešno počiščem predpomnilnik %s."
             },
             "translation_failed": {
-                "title": "Note",
-                "message": "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.",
-                "button": "OK"
+                "title": "Opomba",
+                "message": "Prevod je spodletel. Morda skrbnik ni omogočil prevajanja na tem strežniku ali pa strežnik teče na starejši različici Masotodona, na kateri prevajanje še ni podprto.",
+                "button": "V redu"
             }
         },
         "controls": {
@@ -98,8 +98,8 @@
                 "settings": "Nastavitve",
                 "delete": "Izbriši",
                 "translate_post": {
-                    "title": "Translate from %s",
-                    "unknown_language": "Unknown"
+                    "title": "Prevedi iz: %s",
+                    "unknown_language": "Neznano"
                 }
             },
             "tabs": {
@@ -179,9 +179,9 @@
                     "direct": "Samo omenjeni uporabnik lahko vidi to objavo."
                 },
                 "translation": {
-                    "translated_from": "Translated from %s",
-                    "unknown_language": "Unknown",
-                    "show_original": "Shown Original"
+                    "translated_from": "Prevedeno iz jezika: %s",
+                    "unknown_language": "Neznano",
+                    "show_original": "Pokaži izvirnik"
                 }
             },
             "friendship": {
