@@ -83,6 +83,7 @@
                 "sign_up": "Skapa konto",
                 "see_more": "Visa mer",
                 "preview": "Förhandsvisa",
+                "copy": "Copy",
                 "share": "Dela",
                 "share_user": "Dela %s",
                 "share_post": "Dela inlägg",
@@ -141,6 +142,8 @@
                 "sensitive_content": "Känsligt innehåll",
                 "media_content_warning": "Tryck var som helst för att visa",
                 "tap_to_reveal": "Tryck för att visa",
+                "load_embed": "Load Embed",
+                "link_via_user": "%s via %s",
                 "poll": {
                     "vote": "Rösta",
                     "closed": "Stängd"
@@ -162,6 +165,7 @@
                     "show_image": "Visa bild",
                     "show_gif": "Visa GIF",
                     "show_video_player": "Visa videospelare",
+                    "share_link_in_post": "Share Link in Post",
                     "tap_then_hold_to_show_menu": "Tryck och håll ned för att visa menyn"
                 },
                 "tag": {
