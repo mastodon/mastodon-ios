@@ -83,6 +83,7 @@
                 "sign_up": "Crear cuenta",
                 "see_more": "Veyer mas",
                 "preview": "Vista previa",
+                "copy": "Copy",
                 "share": "Compartir",
                 "share_user": "Compartir %s",
                 "share_post": "Compartir publicación",
@@ -141,6 +142,8 @@
                 "sensitive_content": "Conteniu sensible",
                 "media_content_warning": "Preta en qualsequier puesto pa amostrar",
                 "tap_to_reveal": "Tocar pa revelar",
+                "load_embed": "Load Embed",
+                "link_via_user": "%s via %s",
                 "poll": {
                     "vote": "Vota",
                     "closed": "Zarrau"
@@ -162,6 +165,7 @@
                     "show_image": "Amostrar imachen",
                     "show_gif": "Amostrar GIF",
                     "show_video_player": "Amostrar reproductor de video",
+                    "share_link_in_post": "Share Link in Post",
                     "tap_then_hold_to_show_menu": "Toca, dimpués mantiene pa amostrar lo menú"
                 },
                 "tag": {
