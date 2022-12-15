@@ -50,7 +50,7 @@ extension UIView {
 public extension UIView {
     
     func pinToParent() {
-        pinTo(to: self.superview)
+        pinTo(to: superview)
     }
     
     func pinTo(to view: UIView?) {

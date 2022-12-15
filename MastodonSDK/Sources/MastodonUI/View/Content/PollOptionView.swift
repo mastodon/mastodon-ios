@@ -63,6 +63,8 @@ public final class PollOptionView: UIView {
         textView.textAlignment = UIApplication.shared.userInterfaceLayoutDirection == .leftToRight ? .left : .right
         textView.isEditable = false
         textView.isScrollEnabled = false
+        textView.showsHorizontalScrollIndicator = false
+        textView.showsVerticalScrollIndicator = false
         return textView
     }()
     

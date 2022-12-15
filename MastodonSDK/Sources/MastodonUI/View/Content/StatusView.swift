@@ -91,6 +91,8 @@ public final class StatusView: UIView {
         metaText.textView.isEditable = false
         metaText.textView.isSelectable = false
         metaText.textView.isScrollEnabled = false
+        metaText.textView.showsHorizontalScrollIndicator = false
+        metaText.textView.showsVerticalScrollIndicator = false
         metaText.textView.textContainer.lineFragmentPadding = 0
         metaText.textView.textContainerInset = .zero
         metaText.textView.layer.masksToBounds = false
@@ -128,6 +130,8 @@ public final class StatusView: UIView {
         let tableView = ContentSizedTableView(frame: .zero)
         tableView.register(PollOptionTableViewCell.self, forCellReuseIdentifier: String(describing: PollOptionTableViewCell.self))
         tableView.isScrollEnabled = false
+        tableView.showsHorizontalScrollIndicator = false
+        tableView.showsVerticalScrollIndicator = false
         tableView.rowHeight = UITableView.automaticDimension
         tableView.tableFooterView = UIView()
         tableView.backgroundColor = .clear
