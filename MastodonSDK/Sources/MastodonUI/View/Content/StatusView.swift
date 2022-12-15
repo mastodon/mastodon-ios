@@ -745,9 +745,13 @@ extension StatusView: MetaTextViewDelegate {
 // MARK: - UIDragInteractionDelegate
 extension StatusView: UIDragInteractionDelegate {
     public func dragInteraction(_ interaction: UIDragInteraction, itemsForBeginning session: UIDragSession) -> [UIDragItem] {
+        dragInteraction(interaction, itemsForAddingTo: session, withTouchAt: session.location(in: interaction.view!))
+    }
+
+    public func dragInteraction(_ interaction: UIDragInteraction, itemsForAddingTo session: UIDragSession, withTouchAt point: CGPoint) -> [UIDragItem] {
         guard
-            let (meta, effectiveRange) = contentMetaText.textView.meta(at: session.location(in: contentMetaText.textView)),
-            case let .url(text, trimmed, url, _) = meta,
+            let (meta, effectiveRange) = contentMetaText.textView.meta(at: contentMetaText.textView.convert(point, from: interaction.view!)),
+            case let .url(_, trimmed, url, _) = meta,
             let url = URL(string: url)
         else { return [] }
         let item = UIDragItem(itemProvider: NSItemProvider(object: url as NSURL))
@@ -757,7 +761,7 @@ extension StatusView: UIDragInteractionDelegate {
     }
 
     public func dragInteraction(_ interaction: UIDragInteraction, previewForLifting item: UIDragItem, session: UIDragSession) -> UITargetedDragPreview? {
-        guard let (url, effectiveRange) = item.localObject as? (URL, NSRange) else {
+        guard let (_, effectiveRange) = item.localObject as? (URL, NSRange) else {
             assertionFailure()
             return nil
         }

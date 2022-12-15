@@ -326,8 +326,13 @@ extension StatusCardControl {
 // MARK: UIDragInteractionDelegate
 extension StatusCardControl: UIDragInteractionDelegate {
     public func dragInteraction(_ interaction: UIDragInteraction, itemsForBeginning session: UIDragSession) -> [UIDragItem] {
+        dragInteraction(interaction, itemsForAddingTo: session, withTouchAt: session.location(in: self))
+    }
+
+    public func dragInteraction(_ interaction: UIDragInteraction, itemsForAddingTo session: UIDragSession, withTouchAt point: CGPoint) -> [UIDragItem] {
         guard let url else { return [] }
-        return [UIDragItem(itemProvider: NSItemProvider(object: url as NSURL))]
+        let item = UIDragItem(itemProvider: NSItemProvider(object: url as NSURL))
+        return [item]
     }
 }
 
