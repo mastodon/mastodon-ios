@@ -53,9 +53,9 @@
                 "message": "Pêşbîra %s biserketî hate pakkirin."
             },
             "translation_failed": {
-                "title": "Note",
-                "message": "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.",
-                "button": "OK"
+                "title": "Nîşe",
+                "message": "Werger têk çû. Dibe ku rêvebir werger li ser vê rajakarê çalak nekiribe an jî ev rajakar guhertoyek kevntir a Mastodon e ku werger hîn nehatiye piştgirîkirin.",
+                "button": "BAŞ E"
             }
         },
         "controls": {
@@ -98,8 +98,8 @@
                 "settings": "Sazkarî",
                 "delete": "Jê bibe",
                 "translate_post": {
-                    "title": "Translate from %s",
-                    "unknown_language": "Unknown"
+                    "title": "Ji %s hate wergerandin",
+                    "unknown_language": "Nenas"
                 }
             },
             "tabs": {
@@ -179,9 +179,9 @@
                     "direct": "Tenê bikarhênerê qalkirî dikare vê şandiyê bibîne."
                 },
                 "translation": {
-                    "translated_from": "Translated from %s",
-                    "unknown_language": "Unknown",
-                    "show_original": "Shown Original"
+                    "translated_from": "Ji %s hate wergerandin",
+                    "unknown_language": "Nenas",
+                    "show_original": "A resen nîşan bide"
                 }
             },
             "friendship": {
