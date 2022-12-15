@@ -483,6 +483,12 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
                 return
             }
             
+            if let cell = cell as? StatusTableViewCell {
+                DispatchQueue.main.async {
+                    cell.statusView.viewModel.isCurrentlyTranslating = true
+                }
+            }
+                        
             try await DataSourceFacade.responseToMenuAction(
                 dependency: self,
                 action: action,
