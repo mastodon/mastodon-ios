@@ -53,8 +53,8 @@
                 "message": "Baleirouse %s da caché correctamente."
             },
             "translation_failed": {
-                "title": "Note",
-                "message": "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.",
+                "title": "Nota",
+                "message": "Fallou a tradución. É posible que a administración non activase a tradución neste servidor ou que o servidor teña unha versión antiga de Mastodon que non ten soporte para a tradución.",
                 "button": "OK"
             }
         },
@@ -83,7 +83,7 @@
                 "sign_up": "Crear conta",
                 "see_more": "Ver máis",
                 "preview": "Vista previa",
-                "copy": "Copy",
+                "copy": "Copiar",
                 "share": "Compartir",
                 "share_user": "Compartir %s",
                 "share_post": "Compartir publicación",
@@ -99,8 +99,8 @@
                 "settings": "Axustes",
                 "delete": "Eliminar",
                 "translate_post": {
-                    "title": "Translate from %s",
-                    "unknown_language": "Unknown"
+                    "title": "Traducido do %s",
+                    "unknown_language": "Descoñecido"
                 }
             },
             "tabs": {
@@ -142,8 +142,8 @@
                 "sensitive_content": "Contido sensible",
                 "media_content_warning": "Toca nalgures para mostrar",
                 "tap_to_reveal": "Toca para mostrar",
-                "load_embed": "Load Embed",
-                "link_via_user": "%s via %s",
+                "load_embed": "Cargar o contido",
+                "link_via_user": "%s vía %s",
                 "poll": {
                     "vote": "Votar",
                     "closed": "Pechada"
@@ -165,7 +165,7 @@
                     "show_image": "Mostrar a imaxe",
                     "show_gif": "Mostrar GIF",
                     "show_video_player": "Mostrar reprodutor de vídeo",
-                    "share_link_in_post": "Share Link in Post",
+                    "share_link_in_post": "Compartir Ligazón na Publicación",
                     "tap_then_hold_to_show_menu": "Toca e mantén preso para menú"
                 },
                 "tag": {
@@ -183,9 +183,9 @@
                     "direct": "Só a usuaria mencionada pode ver a publicación."
                 },
                 "translation": {
-                    "translated_from": "Translated from %s",
-                    "unknown_language": "Unknown",
-                    "show_original": "Shown Original"
+                    "translated_from": "Traducido do %s",
+                    "unknown_language": "Descoñecido",
+                    "show_original": "Mostrar o orixinal"
                 }
             },
             "friendship": {
