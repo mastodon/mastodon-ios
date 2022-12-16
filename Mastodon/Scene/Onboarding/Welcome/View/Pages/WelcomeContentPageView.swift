@@ -16,7 +16,6 @@ class WelcomeContentPageView: UIView {
     
     init(page: WelcomeContentPage) {
         
-        //TODO: @zeitschlag Decide based on page which titleView, first page has mastodon-logo in it
         titleView = UILabel()
         titleView.font = WelcomeViewController.largeTitleFont
         titleView.textColor = WelcomeViewController.largeTitleTextColor
