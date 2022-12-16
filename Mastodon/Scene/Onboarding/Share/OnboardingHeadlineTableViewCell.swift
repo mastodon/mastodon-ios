@@ -10,6 +10,8 @@ import MastodonAsset
 import MastodonLocalization
 
 final class OnboardingHeadlineTableViewCell: UITableViewCell {
+
+    static let reuseIdentifier = "OnboardingHeadlineTableViewCell"
     
     let subTitleLabel: UILabel = {
         let label = UILabel()

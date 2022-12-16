@@ -68,22 +68,13 @@ extension MastodonServerRulesViewController {
 }
 
 extension MastodonServerRulesViewController {
-    
     @objc private func backButtonPressed(_ sender: UIButton) {
         navigationController?.popViewController(animated: true)
     }
-    
+
     @objc private func nextButtonPressed(_ sender: UIButton) {
-        let viewModel = MastodonRegisterViewModel(
-            context: context,
-            domain: viewModel.domain,
-            authenticateInfo: viewModel.authenticateInfo,
-            instance: viewModel.instance,
-            applicationToken: viewModel.applicationToken
-        )
-        _ = coordinator.present(scene: .mastodonRegister(viewModel: viewModel), from: self, transition: .show)
+        _ = coordinator.present(scene: .mastodonPrivacyPolicies, from: self, transition: .show)
     }
-    
 }
 
 // MARK: - OnboardingViewControllerAppearance
