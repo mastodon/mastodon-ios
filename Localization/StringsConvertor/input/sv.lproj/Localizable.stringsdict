@@ -280,7 +280,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>%ld år kvar</string>
+        <string>1 år kvar</string>
         <key>other</key>
         <string>%ld år kvar</string>
       </dict>
@@ -296,7 +296,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>%ld månad kvar</string>
+        <string>1 månad kvar</string>
         <key>other</key>
         <string>%ld månader kvar</string>
       </dict>
@@ -360,7 +360,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>%ld sekund kvar</string>
+        <string>1 sekund kvar</string>
         <key>other</key>
         <string>%ld sekunder kvar</string>
       </dict>
@@ -408,7 +408,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>%ldd sedan</string>
+        <string>1d sedan</string>
         <key>other</key>
         <string>%ldd sedan</string>
       </dict>
