@@ -42,22 +42,17 @@ final class WelcomeViewController: UIViewController, NeedsDependency {
   }()
   let signUpButtonShadowView = UIView()
 
-  private(set) lazy var signInButton: PrimaryActionButton = {
-    let button = PrimaryActionButton()
-    button.adjustsBackgroundImageWhenUserInterfaceStyleChanges = false
+  private(set) lazy var signInButton: UIButton = {
+    let button = UIButton()
     button.contentEdgeInsets = WelcomeViewController.actionButtonPadding
     button.titleLabel?.adjustsFontForContentSizeCategory = true
     button.titleLabel?.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold))
     button.setTitle(L10n.Scene.Welcome.logIn, for: .normal)
-    let backgroundImageColor = Asset.Scene.Welcome.signInButtonBackground.color
-    let backgroundImageHighlightedColor = Asset.Scene.Welcome.signInButtonBackground.color.withAlphaComponent(0.8)
-    button.setBackgroundImage(.placeholder(color: backgroundImageColor), for: .normal)
-    button.setBackgroundImage(.placeholder(color: backgroundImageHighlightedColor), for: .highlighted)
     let titleColor: UIColor = UIColor.white.withAlphaComponent(0.9)
     button.setTitleColor(titleColor, for: .normal)
+    button.setTitleColor(titleColor.withAlphaComponent(0.3), for: .highlighted)
     return button
   }()
-  let signInButtonShadowView = UIView()
 
   private(set) lazy var pageViewController: UIPageViewController = {
     let pageController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
@@ -119,11 +114,6 @@ extension WelcomeViewController {
     buttonContainer.addSubview(signUpButtonShadowView)
     buttonContainer.sendSubviewToBack(signUpButtonShadowView)
     signUpButtonShadowView.pinTo(to: signUpButton)
-
-    signInButtonShadowView.translatesAutoresizingMaskIntoConstraints = false
-    buttonContainer.addSubview(signInButtonShadowView)
-    buttonContainer.sendSubviewToBack(signInButtonShadowView)
-    signInButtonShadowView.pinTo(to: signInButton)
 
     signUpButton.addTarget(self, action: #selector(signUpButtonDidClicked(_:)), for: .touchUpInside)
     signInButton.addTarget(self, action: #selector(signInButtonDidClicked(_:)), for: .touchUpInside)
@@ -194,17 +184,6 @@ extension WelcomeViewController {
       blur: 2,
       spread: 0,
       roundedRect: signUpButtonShadowView.bounds,
-      byRoundingCorners: .allCorners,
-      cornerRadii: CGSize(width: 10, height: 10)
-    )
-    signInButtonShadowView.layer.setupShadow(
-      color: .black,
-      alpha: 0.25,
-      x: 0,
-      y: 1,
-      blur: 2,
-      spread: 0,
-      roundedRect: signInButtonShadowView.bounds,
       byRoundingCorners: .allCorners,
       cornerRadii: CGSize(width: 10, height: 10)
     )
