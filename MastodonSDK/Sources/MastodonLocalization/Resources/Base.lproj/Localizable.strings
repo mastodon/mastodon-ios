@@ -485,7 +485,7 @@ uploaded to Mastodon.";
 "Scene.Welcome.LogIn" = "Log In";
 "Scene.Welcome.Slogan" = "Social networking
 back in your hands.";
-"Scene.Welcome.Education.WhatIsMastodon.title" = "What is Mastodon?";
+"Scene.Welcome.Education.WhatIsMastodon.title" = "What is";
 "Scene.Welcome.Education.WhatIsMastodon.description" = "Imagine you have an email address that ends with @example.com.
 
 You can still send and receive emails from anyone, even if their email ends in @gmail.com or @icloud.com or @example.com.";

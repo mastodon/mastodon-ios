@@ -244,7 +244,7 @@
             "log_in": "Log In",
             "education": {
               "what_is_mastodon": {
-                "title": "What is Mastodon?",
+                "title": "What is",
                 "description": "Imagine you have an email address that ends with @example.com.\n\nYou can still send and receive emails from anyone, even if their email ends in @gmail.com or @icloud.com or @example.com.",
               },
               "mastodon_is_like_that": {

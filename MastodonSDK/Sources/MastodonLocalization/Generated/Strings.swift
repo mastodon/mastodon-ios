@@ -1401,8 +1401,8 @@ public enum L10n {
           /// 
           /// You can still send and receive emails from anyone, even if their email ends in @gmail.com or @icloud.com or @example.com.
           public static let description = L10n.tr("Localizable", "Scene.Welcome.Education.WhatIsMastodon.description", fallback: "Imagine you have an email address that ends with @example.com.\n\nYou can still send and receive emails from anyone, even if their email ends in @gmail.com or @icloud.com or @example.com.")
-          /// What is Mastodon?
-          public static let title = L10n.tr("Localizable", "Scene.Welcome.Education.WhatIsMastodon.title", fallback: "What is Mastodon?")
+          /// What is
+          public static let title = L10n.tr("Localizable", "Scene.Welcome.Education.WhatIsMastodon.title", fallback: "What is")
         }
       }
     }
