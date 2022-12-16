@@ -73,7 +73,10 @@ extension MastodonServerRulesViewController {
     }
 
     @objc private func nextButtonPressed(_ sender: UIButton) {
-        _ = coordinator.present(scene: .mastodonPrivacyPolicies, from: self, transition: .show)
+        let domain = viewModel.domain
+        let viewModel = PrivacyViewModel(domain: domain, authenticateInfo: viewModel.authenticateInfo, rows: [.iOSApp, .server(domain: domain)], instance: viewModel.instance, applicationToken: viewModel.applicationToken)
+
+        _ = coordinator.present(scene: .mastodonPrivacyPolicies(viewModel: viewModel), from: self, transition: .show)
     }
 }
 

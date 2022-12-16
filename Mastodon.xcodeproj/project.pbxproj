@@ -112,6 +112,7 @@
 		C24C97032922F30500BAE8CB /* RefreshControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24C97022922F30500BAE8CB /* RefreshControl.swift */; };
 		D8099078294BC8A30050219F /* PrivacyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8099077294BC8A30050219F /* PrivacyTableViewController.swift */; };
 		D809907A294BC9390050219F /* PrivacyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8099079294BC9390050219F /* PrivacyTableViewCell.swift */; };
+		D809907C294D25510050219F /* PrivacyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D809907B294D25510050219F /* PrivacyViewModel.swift */; };
 		D8363B1629469CE200A74079 /* OnboardingNextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8363B1529469CE200A74079 /* OnboardingNextView.swift */; };
 		D87BFC8B291D5C6B00FEE264 /* MastodonLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87BFC8A291D5C6B00FEE264 /* MastodonLoginView.swift */; };
 		D87BFC8D291EB81200FEE264 /* MastodonLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87BFC8C291EB81200FEE264 /* MastodonLoginViewModel.swift */; };
@@ -663,6 +664,7 @@
 		D7D7CF93E262178800077512 /* Pods-Mastodon-AppShared.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon-AppShared.debug.xcconfig"; path = "Target Support Files/Pods-Mastodon-AppShared/Pods-Mastodon-AppShared.debug.xcconfig"; sourceTree = "<group>"; };
 		D8099077294BC8A30050219F /* PrivacyTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyTableViewController.swift; sourceTree = "<group>"; };
 		D8099079294BC9390050219F /* PrivacyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyTableViewCell.swift; sourceTree = "<group>"; };
+		D809907B294D25510050219F /* PrivacyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyViewModel.swift; sourceTree = "<group>"; };
 		D8363B1529469CE200A74079 /* OnboardingNextView.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = OnboardingNextView.swift; sourceTree = "<group>"; tabWidth = 4; };
 		D87BFC8A291D5C6B00FEE264 /* MastodonLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonLoginView.swift; sourceTree = "<group>"; };
 		D87BFC8C291EB81200FEE264 /* MastodonLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonLoginViewModel.swift; sourceTree = "<group>"; };
@@ -1591,6 +1593,7 @@
 			children = (
 				D8099077294BC8A30050219F /* PrivacyTableViewController.swift */,
 				D8099079294BC9390050219F /* PrivacyTableViewCell.swift */,
+				D809907B294D25510050219F /* PrivacyViewModel.swift */,
 			);
 			path = Privacy;
 			sourceTree = "<group>";
@@ -3537,6 +3540,7 @@
 				DB1FD45025F26FA1004CFCFC /* MastodonPickServerViewModel+Diffable.swift in Sources */,
 				DB4F097D26A03A5B00D62E92 /* SearchHistoryItem.swift in Sources */,
 				DBD5B1FA27BD013700BD6B38 /* DataSourceProvider+StatusTableViewControllerNavigateable.swift in Sources */,
+				D809907C294D25510050219F /* PrivacyViewModel.swift in Sources */,
 				DB5B549A2833A60400DEF8B2 /* FamiliarFollowersViewController.swift in Sources */,
 				DB3E6FE22806A50100B035AE /* DiscoveryHashtagsViewModel+Diffable.swift in Sources */,
 				DB427DD625BAA00100D1B89D /* AppDelegate.swift in Sources */,

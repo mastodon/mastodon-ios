@@ -145,7 +145,7 @@ extension SceneCoordinator {
         case welcome
         case mastodonPickServer(viewMode: MastodonPickServerViewModel)
         case mastodonRegister(viewModel: MastodonRegisterViewModel)
-        case mastodonPrivacyPolicies
+        case mastodonPrivacyPolicies(viewModel: PrivacyViewModel)
         case mastodonServerRules(viewModel: MastodonServerRulesViewModel)
         case mastodonConfirmEmail(viewModel: MastodonConfirmEmailViewModel)
         case mastodonResendEmail(viewModel: MastodonResendEmailViewModel)
@@ -414,8 +414,8 @@ private extension SceneCoordinator {
             loginViewController.delegate = self
 
             viewController = loginViewController
-        case .mastodonPrivacyPolicies:
-            let privacyViewController = PrivacyTableViewController(context: appContext, coordinator: self)
+        case .mastodonPrivacyPolicies(let viewModel):
+            let privacyViewController = PrivacyTableViewController(context: appContext, coordinator: self, viewModel: viewModel)
             viewController = privacyViewController
         case .mastodonResendEmail(let viewModel):
             let _viewController = MastodonResendEmailViewController()
