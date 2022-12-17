@@ -47,7 +47,7 @@ final class FollowedTagsViewModel: NSObject {
                 var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
                 snapshot.appendSections([.main])
                 snapshot.appendItems(records.map {.hashtag($0) })
-                self.diffableDataSource?.applySnapshot(snapshot, animated: true)
+                self.diffableDataSource?.apply(snapshot, animatingDifferences: true)
             }
             .store(in: &disposeBag)
     }
