@@ -436,6 +436,7 @@ uploaded to Mastodon.";
 "Scene.ServerPicker.Label.Language" = "LANGUAGE";
 "Scene.ServerPicker.Label.Users" = "USERS";
 "Scene.ServerPicker.Title" = "Pick server";
+"Scene.ServerPicker.NoServerSelectedHint" = "We’ll pick a server based on your language if you continue without making a selection.";
 "Scene.ServerRules.Button.Confirm" = "I Agree";
 "Scene.ServerRules.PrivacyPolicy" = "privacy policy";
 "Scene.ServerRules.Prompt" = "By continuing, you’re subject to the terms of service and privacy policy for %@.";
@@ -498,3 +499,8 @@ You can’t go wrong with any of our recommend servers, so regardless of which o
 "Scene.Wizard.AccessibilityHint" = "Double tap to dismiss this wizard";
 "Scene.Wizard.MultipleAccountSwitchIntroDescription" = "Switch between multiple accounts by holding the profile button.";
 "Scene.Wizard.NewInMastodon" = "New in Mastodon";
+"Scene.Privacy.Title" = "Privacy";
+"Scene.Privacy.Description" = "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy. Take a minute to review and agree to the Mastodon app privacy policy and your server’s privacy policy.";
+"Scene.Privacy.Button.confirm" = "I agree";
+"Scene.Privacy.Policy.Ios" = "Privacy Policy - Mastodon for iOS";
+"Scene.Privacy.Policy.Server" = "Privacy Policy - %@";

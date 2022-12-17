@@ -300,6 +300,17 @@
                 "no_results": "No results"
             }
         },
+        "privacy": {
+            "title": "Privacy",
+            "policy": {
+                "ios": "Privacy Policy - Mastodon for iOS";
+                "server" = "Privacy Policy - %s";
+
+            },
+            "button": {
+                "confirm": "I agree"
+            }
+        }
         "register": {
             "title": "Let’s get you set up on %s",
             "lets_get_you_set_up_on_domain": "Let’s get you set up on %s",

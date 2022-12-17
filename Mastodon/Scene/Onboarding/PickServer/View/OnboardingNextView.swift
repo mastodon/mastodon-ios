@@ -40,7 +40,7 @@ final class OnboardingNextView: UIView {
         label.numberOfLines = 0
         label.textColor = .secondaryLabel
         label.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: .systemFont(ofSize: 13, weight: .regular))
-        label.text = "We’ll pick a server based on your language if you continue without making a selection." //TODO: @zeitschlag localize
+        label.text = L10n.Scene.ServerPicker.noServerSelectedHint
         return label
     }()
 

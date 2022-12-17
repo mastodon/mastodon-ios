@@ -8,7 +8,8 @@
 import UIKit
 import MastodonCore
 import MastodonSDK
-import SafariServices
+import MastodonLocalization
+import MastodonAsset
 
 enum PrivacyRow {
     case iOSApp
@@ -26,9 +27,9 @@ enum PrivacyRow {
     var title: String {
         switch self {
             case .iOSApp:
-                return "Privacy Policy - Mastodon for iOS"
+                return L10n.Scene.Privacy.Policy.ios
             case .server(let domain):
-                return "Privacy Policy - \(domain)"
+                return L10n.Scene.Privacy.Policy.server(domain)
         }
     }
 }
@@ -61,7 +62,9 @@ class PrivacyTableViewController: UIViewController, NeedsDependency {
         view.addSubview(tableView)
         setupConstraints()
 
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "I agree", style: .done, target: self, action: #selector(PrivacyTableViewController.nextButtonPressed(_:)))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: L10n.Scene.Privacy.Button.confirm, style: .done, target: self, action: #selector(PrivacyTableViewController.nextButtonPressed(_:)))
+
+        title = L10n.Scene.Privacy.title
     }
 
     required init?(coder: NSCoder) { fatalError("init(coder:) won't been implemented, please don't use Storyboards.") }

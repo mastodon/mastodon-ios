@@ -791,6 +791,24 @@ public enum L10n {
         public static let showPrevious = L10n.tr("Localizable", "Scene.Preview.Keyboard.ShowPrevious", fallback: "Show Previous")
       }
     }
+    public enum Privacy {
+      /// Although the Mastodon app does not collect any data, the server you sign up through may have a different policy. Take a minute to review and agree to the Mastodon app privacy policy and your server’s privacy policy.
+      public static let description = L10n.tr("Localizable", "Scene.Privacy.Description", fallback: "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy. Take a minute to review and agree to the Mastodon app privacy policy and your server’s privacy policy.")
+      /// Privacy
+      public static let title = L10n.tr("Localizable", "Scene.Privacy.Title", fallback: "Privacy")
+      public enum Button {
+        /// I agree
+        public static let confirm = L10n.tr("Localizable", "Scene.Privacy.Button.confirm", fallback: "I agree")
+      }
+      public enum Policy {
+        /// Privacy Policy - Mastodon for iOS
+        public static let ios = L10n.tr("Localizable", "Scene.Privacy.Policy.Ios", fallback: "Privacy Policy - Mastodon for iOS")
+        /// Privacy Policy - %@
+        public static func server(_ p1: Any) -> String {
+          return L10n.tr("Localizable", "Scene.Privacy.Policy.Server", String(describing: p1), fallback: "Privacy Policy - %@")
+        }
+      }
+    }
     public enum Profile {
       public enum Accessibility {
         /// Double tap to open the list
@@ -1186,6 +1204,8 @@ public enum L10n {
       }
     }
     public enum ServerPicker {
+      /// We’ll pick a server based on your language if you continue without making a selection.
+      public static let noServerSelectedHint = L10n.tr("Localizable", "Scene.ServerPicker.NoServerSelectedHint", fallback: "We’ll pick a server based on your language if you continue without making a selection.")
       /// Pick server
       public static let title = L10n.tr("Localizable", "Scene.ServerPicker.Title", fallback: "Pick server")
       public enum Button {

@@ -55,7 +55,7 @@ extension MastodonServerRulesViewController {
         viewModel.setupDiffableDataSource(tableView: tableView)
 
 
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "I agree", style: .done, target: self, action: #selector(MastodonServerRulesViewController.nextButtonPressed(_:)))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: L10n.Scene.ServerRules.Button.confirm, style: .done, target: self, action: #selector(MastodonServerRulesViewController.nextButtonPressed(_:)))
         title = L10n.Scene.ServerRules.title
     }
     
