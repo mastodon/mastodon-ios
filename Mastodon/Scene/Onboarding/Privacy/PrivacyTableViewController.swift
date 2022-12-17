@@ -71,12 +71,18 @@ class PrivacyTableViewController: UIViewController, NeedsDependency {
 
     private func setupConstraints() {
         let constraints = [
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             view.trailingAnchor.constraint(equalTo: tableView.trailingAnchor),
             view.bottomAnchor.constraint(equalTo: tableView.bottomAnchor)
         ]
         NSLayoutConstraint.activate(constraints)
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        setupOnboardingAppearance()
     }
 
     //MARK: - Actions
@@ -124,4 +130,26 @@ extension PrivacyTableViewController: UITableViewDelegate {
 
         _ = coordinator.present(scene: .safari(url: url), from: self, transition: .safariPresent(animated: true))
     }
+
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let wrapper = UIView()
+
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.numberOfLines = 0
+        label.text = L10n.Scene.Privacy.description
+        label.textColor = Asset.Colors.Label.primary.color
+        wrapper.addSubview(label)
+
+        NSLayoutConstraint.activate([
+            label.topAnchor.constraint(equalTo: wrapper.topAnchor, constant: 16),
+            label.leadingAnchor.constraint(equalTo: wrapper.leadingAnchor),
+            wrapper.trailingAnchor.constraint(equalTo: label.trailingAnchor),
+            wrapper.bottomAnchor.constraint(equalTo: label.bottomAnchor, constant: 16),
+        ])
+
+        return wrapper
+    }
 }
+
+extension PrivacyTableViewController: OnboardingViewControllerAppearance { }

@@ -27,12 +27,6 @@ final class ServerRulesTableViewCell: UITableViewCell {
         return label
     }()
     
-    let separatorLine: UIView = {
-        let view = UIView()
-        view.backgroundColor = Asset.Theme.System.separator.color
-        return view
-    }()
-    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         _init()

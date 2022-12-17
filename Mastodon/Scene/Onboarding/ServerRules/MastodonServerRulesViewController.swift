@@ -29,10 +29,8 @@ final class MastodonServerRulesViewController: UIViewController, NeedsDependency
 
     let tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .insetGrouped)
-        tableView.register(OnboardingHeadlineTableViewCell.self, forCellReuseIdentifier: String(describing: OnboardingHeadlineTableViewCell.self))
         tableView.register(ServerRulesTableViewCell.self, forCellReuseIdentifier: String(describing: ServerRulesTableViewCell.self))
         tableView.rowHeight = UITableView.automaticDimension
-        tableView.backgroundColor = .secondarySystemGroupedBackground
         tableView.keyboardDismissMode = .onDrag
         tableView.sectionHeaderTopPadding = 0
         return tableView
@@ -53,7 +51,6 @@ extension MastodonServerRulesViewController {
 
         tableView.delegate = self
         viewModel.setupDiffableDataSource(tableView: tableView)
-
 
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: L10n.Scene.ServerRules.Button.confirm, style: .done, target: self, action: #selector(MastodonServerRulesViewController.nextButtonPressed(_:)))
         title = L10n.Scene.ServerRules.title
@@ -86,20 +83,24 @@ extension MastodonServerRulesViewController: OnboardingViewControllerAppearance 
 // MARK: - UITableViewDelegate
 extension MastodonServerRulesViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return UIView()
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        guard let diffableDataSource = viewModel.diffableDataSource,
-              section < diffableDataSource.snapshot().numberOfSections
-        else { return .leastNonzeroMagnitude }
-        
-        let sectionItem = diffableDataSource.snapshot().sectionIdentifiers[section]
-        switch sectionItem {
-        case .header:
-            return .leastNonzeroMagnitude
-        case .rules:
-            return 16
-        }
+        let wrapper = UIView()
+
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = MastodonPickServerViewController.subTitleFont
+        label.textColor = Asset.Colors.Label.primary.color
+        label.adjustsFontForContentSizeCategory = true
+        label.numberOfLines = 0
+        label.text = L10n.Scene.ServerRules.subtitle(viewModel.domain)
+        wrapper.addSubview(label)
+
+        NSLayoutConstraint.activate([
+            label.topAnchor.constraint(equalTo: wrapper.topAnchor, constant: 16),
+            label.leadingAnchor.constraint(equalTo: wrapper.leadingAnchor),
+            wrapper.trailingAnchor.constraint(equalTo: label.trailingAnchor),
+            wrapper.bottomAnchor.constraint(equalTo: label.bottomAnchor, constant: 16),
+        ])
+
+        return wrapper
     }
 }

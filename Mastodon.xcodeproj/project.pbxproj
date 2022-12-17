@@ -17,7 +17,6 @@
 		0FAA101C25E10E760017CCDE /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FAA101B25E10E760017CCDE /* UIFont.swift */; };
 		0FAA102725E1126A0017CCDE /* MastodonPickServerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FAA102625E1126A0017CCDE /* MastodonPickServerViewController.swift */; };
 		0FB3D2F725E4C24D00AAD544 /* MastodonPickServerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB3D2F625E4C24D00AAD544 /* MastodonPickServerViewModel.swift */; };
-		0FB3D2FE25E4CB6400AAD544 /* OnboardingHeadlineTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB3D2FD25E4CB6400AAD544 /* OnboardingHeadlineTableViewCell.swift */; };
 		0FB3D30F25E525CD00AAD544 /* PickServerCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB3D30E25E525CD00AAD544 /* PickServerCategoryView.swift */; };
 		0FB3D31E25E534C700AAD544 /* PickServerCategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB3D31D25E534C700AAD544 /* PickServerCategoryCollectionViewCell.swift */; };
 		0FB3D33825E6401400AAD544 /* PickServerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB3D33725E6401400AAD544 /* PickServerCell.swift */; };
@@ -546,7 +545,6 @@
 		0FAA101B25E10E760017CCDE /* UIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFont.swift; sourceTree = "<group>"; };
 		0FAA102625E1126A0017CCDE /* MastodonPickServerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonPickServerViewController.swift; sourceTree = "<group>"; };
 		0FB3D2F625E4C24D00AAD544 /* MastodonPickServerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonPickServerViewModel.swift; sourceTree = "<group>"; };
-		0FB3D2FD25E4CB6400AAD544 /* OnboardingHeadlineTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingHeadlineTableViewCell.swift; sourceTree = "<group>"; };
 		0FB3D30E25E525CD00AAD544 /* PickServerCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickServerCategoryView.swift; sourceTree = "<group>"; };
 		0FB3D31D25E534C700AAD544 /* PickServerCategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickServerCategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		0FB3D33725E6401400AAD544 /* PickServerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickServerCell.swift; sourceTree = "<group>"; };
@@ -2157,7 +2155,6 @@
 				DB029E94266A20430062874E /* MastodonAuthenticationController.swift */,
 				2D82B9FE25E7863200E36F0F /* OnboardingViewControllerAppearance.swift */,
 				DB0617EC277F02C50030EE79 /* OnboardingNavigationController.swift */,
-				0FB3D2FD25E4CB6400AAD544 /* OnboardingHeadlineTableViewCell.swift */,
 				DB0617EE277F12720030EE79 /* NavigationActionView.swift */,
 			);
 			path = Share;
@@ -3413,7 +3410,6 @@
 				6213AF5A28939C8400BCADB6 /* BookmarkViewModel.swift in Sources */,
 				5B24BBDB262DB14800A9381B /* ReportStatusViewModel+Diffable.swift in Sources */,
 				DB4F0968269ED8AD00D62E92 /* SearchHistoryTableHeaderView.swift in Sources */,
-				0FB3D2FE25E4CB6400AAD544 /* OnboardingHeadlineTableViewCell.swift in Sources */,
 				5DA732CC2629CEF500A92342 /* UIView+Remove.swift in Sources */,
 				2A506CF4292CD85800059C37 /* FollowedTagsViewController.swift in Sources */,
 				DB1D843026566512000346B3 /* KeyboardPreference.swift in Sources */,
