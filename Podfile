@@ -1,5 +1,5 @@
 source 'https://cdn.cocoapods.org/'
-platform :ios, '14.0'
+platform :ios, '15.0'
 
 target 'Mastodon' do
   # Comment the next line if you don't want to use dynamic frameworks
