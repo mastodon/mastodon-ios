@@ -307,7 +307,6 @@
 		DB72602725E36A6F00235243 /* MastodonServerRulesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB72602625E36A6F00235243 /* MastodonServerRulesViewModel.swift */; };
 		DB7274F4273BB9B200577D95 /* ListBatchFetchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7274F3273BB9B200577D95 /* ListBatchFetchViewModel.swift */; };
 		DB73B490261F030A002E9E9F /* SafariActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB73B48F261F030A002E9E9F /* SafariActivity.swift */; };
-		DB73BF4927140BA300781945 /* UICollectionViewDiffableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB73BF4827140BA300781945 /* UICollectionViewDiffableDataSource.swift */; };
 		DB73BF4B27140C0800781945 /* UITableViewDiffableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB73BF4A27140C0800781945 /* UITableViewDiffableDataSource.swift */; };
 		DB75BF1E263C1C1B00EDBF1F /* CustomScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB75BF1D263C1C1B00EDBF1F /* CustomScheduler.swift */; };
 		DB789A0B25F9F2950071ACA0 /* ComposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB789A0A25F9F2950071ACA0 /* ComposeViewController.swift */; };
@@ -881,7 +880,6 @@
 		DB72602625E36A6F00235243 /* MastodonServerRulesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonServerRulesViewModel.swift; sourceTree = "<group>"; };
 		DB7274F3273BB9B200577D95 /* ListBatchFetchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListBatchFetchViewModel.swift; sourceTree = "<group>"; };
 		DB73B48F261F030A002E9E9F /* SafariActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariActivity.swift; sourceTree = "<group>"; };
-		DB73BF4827140BA300781945 /* UICollectionViewDiffableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionViewDiffableDataSource.swift; sourceTree = "<group>"; };
 		DB73BF4A27140C0800781945 /* UITableViewDiffableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewDiffableDataSource.swift; sourceTree = "<group>"; };
 		DB75BF1D263C1C1B00EDBF1F /* CustomScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomScheduler.swift; sourceTree = "<group>"; };
 		DB789A0A25F9F2950071ACA0 /* ComposeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeViewController.swift; sourceTree = "<group>"; };
@@ -2285,7 +2283,6 @@
 				DB9E0D6E25EE008500CFDD76 /* UIInterpolatingMotionEffect.swift */,
 				2AE244472927831100BDBF7C /* UIImage+SFSymbols.swift */,
 				DBCC3B2F261440A50045B23D /* UITabBarController.swift */,
-				DB73BF4827140BA300781945 /* UICollectionViewDiffableDataSource.swift */,
 				DB73BF4A27140C0800781945 /* UITableViewDiffableDataSource.swift */,
 				2A1FE47D2938C11200784BF1 /* Collection+IsNotEmpty.swift */,
 			);
@@ -3320,7 +3317,6 @@
 				2DF123A725C3B0210020F248 /* ActiveLabel.swift in Sources */,
 				DBF9814C265E339500E4BA07 /* ProfileFieldAddEntryCollectionViewCell.swift in Sources */,
 				DB63F76227996B6600455B82 /* SearchHistoryViewController+DataSourceProvider.swift in Sources */,
-				DB73BF4927140BA300781945 /* UICollectionViewDiffableDataSource.swift in Sources */,
 				DBA5E7AB263BD3F5004598BB /* TimelineTableViewCellContextMenuConfiguration.swift in Sources */,
 				DB73B490261F030A002E9E9F /* SafariActivity.swift in Sources */,
 				2AE244482927831100BDBF7C /* UIImage+SFSymbols.swift in Sources */,
