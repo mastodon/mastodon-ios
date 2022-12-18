@@ -467,6 +467,7 @@
                 "followers": "luchd-leantainn"
             },
             "fields": {
+                "joined": "Joined",
                 "add_row": "Cuir ràgh ris",
                 "placeholder": {
                     "label": "Leubail",
