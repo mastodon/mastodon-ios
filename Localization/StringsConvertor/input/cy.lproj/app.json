@@ -467,6 +467,7 @@
                 "followers": "dilynwyr"
             },
             "fields": {
+                "joined": "Joined",
                 "add_row": "Ychwanegu Rhes",
                 "placeholder": {
                     "label": "Label",
