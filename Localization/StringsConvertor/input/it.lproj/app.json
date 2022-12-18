@@ -467,6 +467,7 @@
                 "followers": "seguaci"
             },
             "fields": {
+                "joined": "Joined",
                 "add_row": "Aggiungi riga",
                 "placeholder": {
                     "label": "Etichetta",
