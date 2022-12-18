@@ -338,6 +338,7 @@ uploaded to Mastodon.";
 "Scene.Register.Input.Password.CharacterLimit" = "8 characters";
 "Scene.Register.Input.Password.Hint" = "Your password needs at least eight characters";
 "Scene.Register.Input.Password.Placeholder" = "password";
+"Scene.Register.Input.Password.ConfirmationPlaceholder" = "Confirm password";
 "Scene.Register.Input.Password.Require" = "Your password needs at least:";
 "Scene.Register.Input.Username.DuplicatePrompt" = "This username is taken.";
 "Scene.Register.Input.Username.Placeholder" = "username";

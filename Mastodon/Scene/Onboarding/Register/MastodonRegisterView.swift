@@ -20,13 +20,13 @@ struct MastodonRegisterView: View {
     var body: some View {
         ScrollView(.vertical) {
             let margin: CGFloat = 16
-            // Display Name & Username
             VStack(alignment: .leading, spacing: 11) {
                 TextField(L10n.Scene.Register.Input.DisplayName.placeholder.localizedCapitalized, text: $viewModel.name)
                     .textContentType(.name)
                     .disableAutocorrection(true)
                     .modifier(FormTextFieldModifier(validateState: viewModel.displayNameValidateState))
                 HStack {
+                    Text("@")
                     TextField(L10n.Scene.Register.Input.Username.placeholder.localizedCapitalized, text: $viewModel.username)
                         .textContentType(.username)
                         .autocapitalization(.none)
@@ -44,12 +44,6 @@ struct MastodonRegisterView: View {
                     Text(errorPrompt)
                         .modifier(FormFootnoteModifier())
                 }
-            }
-            .padding(.horizontal, margin)
-            .padding(.bottom, 22)
-            
-            // Email & Password & Password hint
-            VStack(alignment: .leading, spacing: 11) {
                 TextField(L10n.Scene.Register.Input.Email.placeholder.localizedCapitalized, text: $viewModel.email)
                     .textContentType(.emailAddress)
                     .autocapitalization(.none)
@@ -60,7 +54,17 @@ struct MastodonRegisterView: View {
                     Text(errorPrompt)
                         .modifier(FormFootnoteModifier())
                 }
+
+            }
+            .padding(.horizontal, margin)
+            .padding(.bottom, 32)
+            
+            // Email & Password & Password hint
+            VStack(alignment: .leading, spacing: margin) {
                 SecureField(L10n.Scene.Register.Input.Password.placeholder.localizedCapitalized, text: $viewModel.password)
+                    .textContentType(.newPassword)
+                    .modifier(FormTextFieldModifier(validateState: viewModel.passwordValidateState))
+                SecureField(L10n.Scene.Register.Input.Password.confirmationPlaceholder.localizedCapitalized, text: $viewModel.passwordConfirmation)
                     .textContentType(.newPassword)
                     .modifier(FormTextFieldModifier(validateState: viewModel.passwordValidateState))
                 Text(L10n.Scene.Register.Input.Password.hint)
@@ -112,7 +116,6 @@ struct MastodonRegisterView: View {
 
                 Color(Asset.Scene.Onboarding.textFieldBackground.color)
                     .cornerRadius(10)
-                    .shadow(color: .black.opacity(0.125), radius: 1, x: 0, y: 2)
 
                 content
                     .padding()
@@ -157,7 +160,7 @@ extension View {
 
 #if DEBUG
 struct MastodonRegisterView_Previews: PreviewProvider {
-    static var viewMdoel: MastodonRegisterViewModel {
+    static var viewModel: MastodonRegisterViewModel {
         let domain = "mstdn.jp"
         return MastodonRegisterViewModel(
             context: .shared,
@@ -183,55 +186,28 @@ struct MastodonRegisterView_Previews: PreviewProvider {
             )
         )
     }
-    
-    static var viewMdoel2: MastodonRegisterViewModel {
-        let domain = "mstdn.jp"
-        return MastodonRegisterViewModel(
-            context: .shared,
-            domain: domain,
-            authenticateInfo: AuthenticationViewModel.AuthenticateInfo(
-                domain: domain,
-                application:  Mastodon.Entity.Application(
-                    name: "Preview",
-                    website: nil,
-                    vapidKey: nil,
-                    redirectURI: nil,
-                    clientID: "",
-                    clientSecret: ""
-                ),
-                redirectURI: ""
-            )!,
-            instance: Mastodon.Entity.Instance(domain: "mstdn.jp", approvalRequired: true),
-            applicationToken: Mastodon.Entity.Token(
-                accessToken: "",
-                tokenType: "",
-                scope: "",
-                createdAt: Date()
-            )
-        )
-    }
             
     static var previews: some View {
         Group {
             NavigationView {
-                MastodonRegisterView(viewModel: viewMdoel)
+                MastodonRegisterView(viewModel: viewModel)
                     .navigationBarTitle(Text(""))
                     .navigationBarTitleDisplayMode(.inline)
             }
             NavigationView {
-                MastodonRegisterView(viewModel: viewMdoel)
+                MastodonRegisterView(viewModel: viewModel)
                     .navigationBarTitle(Text(""))
                     .navigationBarTitleDisplayMode(.inline)
             }
             .preferredColorScheme(.dark)
             NavigationView {
-                MastodonRegisterView(viewModel: viewMdoel)
+                MastodonRegisterView(viewModel: viewModel)
                     .navigationBarTitle(Text(""))
                     .navigationBarTitleDisplayMode(.inline)
             }
             .environment(\.sizeCategory, .accessibilityExtraLarge)
             NavigationView {
-                MastodonRegisterView(viewModel: viewMdoel2)
+                MastodonRegisterView(viewModel: viewModel)
                     .navigationBarTitle(Text(""))
                     .navigationBarTitleDisplayMode(.inline)
             }

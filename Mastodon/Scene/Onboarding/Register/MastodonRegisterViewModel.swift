@@ -29,6 +29,7 @@ final class MastodonRegisterViewModel: ObservableObject {
     @Published var username = ""
     @Published var email = ""
     @Published var password = ""
+    @Published var passwordConfirmation = ""
     @Published var reason = ""
     
     @Published var usernameErrorPrompt: String? = nil

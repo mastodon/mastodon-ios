@@ -301,11 +301,18 @@
             }
         },
         "privacy": {
-            "title": "Privacy"
+            "title": "Privacy",
+            "policy": {
+                "ios": "Privacy Policy - Mastodon for iOS";
+                "server" = "Privacy Policy - %s";
+
+            },
+            "button": {
+                "confirm": "I agree"
+            }
         }
         "register": {
-            "title": "Let’s get you set up on %s",
-            "lets_get_you_set_up_on_domain": "Let’s get you set up on %s",
+            "title": "Create account",
             "input": {
                 "avatar": {
                     "delete": "Delete"
@@ -322,6 +329,7 @@
                 },
                 "password": {
                     "placeholder": "password",
+                    "confirmation_placeholder": "Confirm Password",
                     "require": "Your password needs at least:",
                     "character_limit": "8 characters",
                     "accessibility": {
