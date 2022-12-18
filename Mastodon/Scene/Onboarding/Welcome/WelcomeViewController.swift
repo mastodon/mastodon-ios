@@ -72,7 +72,6 @@ extension WelcomeViewController {
     preferredContentSize = CGSize(width: 547, height: 678)
 
     navigationController?.navigationBar.prefersLargeTitles = true
-    navigationItem.largeTitleDisplayMode = .never
     view.overrideUserInterfaceStyle = .light
 
     setupOnboardingAppearance()
