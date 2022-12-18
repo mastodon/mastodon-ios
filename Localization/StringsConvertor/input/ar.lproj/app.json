@@ -467,6 +467,7 @@
                 "followers": "مُتابِع"
             },
             "fields": {
+                "joined": "Joined",
                 "add_row": "إضافة صف",
                 "placeholder": {
                     "label": "التسمية",
