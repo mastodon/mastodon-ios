@@ -467,6 +467,7 @@
                 "followers": "подписчики"
             },
             "fields": {
+                "joined": "Joined",
                 "add_row": "Добавить строку",
                 "placeholder": {
                     "label": "Ярлык",
