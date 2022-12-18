@@ -467,6 +467,7 @@
                 "followers": "підписників"
             },
             "fields": {
+                "joined": "Joined",
                 "add_row": "Додати рядок",
                 "placeholder": {
                     "label": "Позначка",
