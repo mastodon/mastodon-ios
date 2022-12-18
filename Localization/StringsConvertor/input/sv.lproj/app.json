@@ -467,7 +467,7 @@
                 "followers": "följare"
             },
             "fields": {
-                "joined": "Joined",
+                "joined": "Gick med",
                 "add_row": "Lägg till rad",
                 "placeholder": {
                     "label": "Etikett",
