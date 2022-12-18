@@ -467,6 +467,7 @@
                 "followers": "sekottāji"
             },
             "fields": {
+                "joined": "Joined",
                 "add_row": "Pievienot rindu",
                 "placeholder": {
                     "label": "Label",
