@@ -467,6 +467,7 @@
                 "followers": "seguidores"
             },
             "fields": {
+                "joined": "Joined",
                 "add_row": "Anyadir Ringlera",
                 "placeholder": {
                     "label": "Nombre pa lo campo",
