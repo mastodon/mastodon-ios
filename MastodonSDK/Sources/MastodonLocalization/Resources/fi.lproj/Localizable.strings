@@ -234,7 +234,7 @@ uploaded to Mastodon.";
 "Scene.Following.Footer" = "Seurauksia muilta palvelimilta ei näytetä.";
 "Scene.Following.Title" = "following";
 "Scene.HomeTimeline.NavigationBarState.Accessibility.LogoHint" = "Tap to scroll to top and tap again to previous location";
-"Scene.HomeTimeline.NavigationBarState.Accessibility.LogoLabel" = "Logo Button";
+"Scene.HomeTimeline.NavigationBarState.Accessibility.LogoLabel" = "Mastodon Back to Top";
 "Scene.HomeTimeline.NavigationBarState.NewPosts" = "Uusia julkaisuja";
 "Scene.HomeTimeline.NavigationBarState.Offline" = "Yhteydetön";
 "Scene.HomeTimeline.NavigationBarState.Published" = "Julkaistu!";
