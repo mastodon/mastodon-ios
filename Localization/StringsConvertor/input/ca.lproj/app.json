@@ -467,6 +467,7 @@
                 "followers": "seguidors"
             },
             "fields": {
+                "joined": "Joined",
                 "add_row": "Afegeix fila",
                 "placeholder": {
                     "label": "Etiqueta",
