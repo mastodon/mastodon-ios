@@ -467,6 +467,7 @@
                 "followers": "şopîner"
             },
             "fields": {
+                "joined": "Joined",
                 "add_row": "Rêzê tevlî bike",
                 "placeholder": {
                     "label": "Nîşan",
