@@ -467,6 +467,7 @@
                 "followers": "người theo dõi"
             },
             "fields": {
+                "joined": "Joined",
                 "add_row": "Thêm hàng",
                 "placeholder": {
                     "label": "Nhãn",
