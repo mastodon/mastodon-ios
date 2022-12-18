@@ -467,6 +467,7 @@
                 "followers": "fylgjendur"
             },
             "fields": {
+                "joined": "Joined",
                 "add_row": "Bæta við röð",
                 "placeholder": {
                     "label": "Skýring",
