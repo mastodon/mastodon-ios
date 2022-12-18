@@ -467,6 +467,7 @@
                 "followers": "följare"
             },
             "fields": {
+                "joined": "Joined",
                 "add_row": "Lägg till rad",
                 "placeholder": {
                     "label": "Etikett",
