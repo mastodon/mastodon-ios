@@ -467,6 +467,7 @@
                 "followers": "フォロワー"
             },
             "fields": {
+                "joined": "Joined",
                 "add_row": "行追加",
                 "placeholder": {
                     "label": "ラベル",
