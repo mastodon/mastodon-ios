@@ -467,6 +467,7 @@
                 "followers": "jarraitzaile"
             },
             "fields": {
+                "joined": "Joined",
                 "add_row": "Gehitu errenkada",
                 "placeholder": {
                     "label": "Etiketa",
