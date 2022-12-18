@@ -924,14 +924,8 @@ public enum L10n {
       public static let title = L10n.tr("Localizable", "Scene.RebloggedBy.Title", fallback: "Reblogged By")
     }
     public enum Register {
-      /// Let’s get you set up on %@
-      public static func letsGetYouSetUpOnDomain(_ p1: Any) -> String {
-        return L10n.tr("Localizable", "Scene.Register.LetsGetYouSetUpOnDomain", String(describing: p1), fallback: "Let’s get you set up on %@")
-      }
-      /// Let’s get you set up on %@
-      public static func title(_ p1: Any) -> String {
-        return L10n.tr("Localizable", "Scene.Register.Title", String(describing: p1), fallback: "Let’s get you set up on %@")
-      }
+      /// Create account
+      public static let title = L10n.tr("Localizable", "Scene.Register.Title", fallback: "Create account")
       public enum Error {
         public enum Item {
           /// Agreement

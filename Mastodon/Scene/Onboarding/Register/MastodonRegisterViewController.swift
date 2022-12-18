@@ -140,7 +140,7 @@ extension MastodonRegisterViewController {
 //            }
 //            .store(in: &disposeBag)
 
-          title = L10n.Scene.Register.title(viewModel.domain)
+          title = L10n.Scene.Register.title
     }
     
     override func viewDidAppear(_ animated: Bool) {
