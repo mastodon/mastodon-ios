@@ -174,7 +174,11 @@ extension MastodonPickServerViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] isAuthenticating in
                 guard let self = self else { return }
-//                isAuthenticating ? self.navigationActionView.nextButton.showLoading() : self.navigationActionView.nextButton.stopLoading()
+                if isAuthenticating {
+                    self.onboardingNextView.showLoading()
+                } else {
+                    self.onboardingNextView.stopLoading()
+                }
             }
             .store(in: &disposeBag)
 

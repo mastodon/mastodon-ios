@@ -13,7 +13,6 @@ import MastodonLocalization
 final class OnboardingNextView: UIView {
     
     static let buttonHeight: CGFloat = 50
-    static let minimumBackButtonWidth: CGFloat = 100
     
     private var observations = Set<NSKeyValueObservation>()
     
@@ -43,6 +42,14 @@ final class OnboardingNextView: UIView {
         label.text = L10n.Scene.ServerPicker.noServerSelectedHint
         return label
     }()
+
+    lazy var activityIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView(style: .medium)
+        indicator.color = .white
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        return indicator
+    }()
+    private var isLoading: Bool = false
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -74,6 +81,30 @@ final class OnboardingNextView: UIView {
         NSLayoutConstraint.activate([
             nextButton.heightAnchor.constraint(greaterThanOrEqualToConstant: NavigationActionView.buttonHeight)
         ])
+    }
+
+    func showLoading() {
+        guard isLoading == false else { return }
+        nextButton.isEnabled = false
+        isLoading = true
+        nextButton.setTitle("", for: .disabled)
+
+        nextButton.addSubview(activityIndicator)
+        NSLayoutConstraint.activate([
+            activityIndicator.centerXAnchor.constraint(equalTo: nextButton.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: nextButton.centerYAnchor),
+        ])
+        activityIndicator.startAnimating()
+    }
+
+    func stopLoading() {
+        guard isLoading else { return }
+        isLoading = false
+        if activityIndicator.superview == nextButton {
+            activityIndicator.removeFromSuperview()
+        }
+        nextButton.isEnabled = true
+        nextButton.setTitle(L10n.Common.Controls.Actions.next, for: .disabled)
     }
 }
 
