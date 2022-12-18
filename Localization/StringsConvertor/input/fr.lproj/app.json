@@ -467,6 +467,7 @@
                 "followers": "abonnés"
             },
             "fields": {
+                "joined": "Joined",
                 "add_row": "Ajouter une rangée",
                 "placeholder": {
                     "label": "Étiquette",
