@@ -467,6 +467,7 @@
                 "followers": "seuraajat"
             },
             "fields": {
+                "joined": "Joined",
                 "add_row": "Lisää rivi",
                 "placeholder": {
                     "label": "Nimi",
