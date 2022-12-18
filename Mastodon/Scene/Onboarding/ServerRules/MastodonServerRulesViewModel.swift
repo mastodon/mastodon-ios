@@ -36,27 +36,4 @@ final class MastodonServerRulesViewModel {
         self.instance = instance
         self.applicationToken = applicationToken
     }
-    
-    var rulesAttributedString: NSAttributedString {
-        let attributedString = NSMutableAttributedString(string: "\n")
-        let configuration = UIImage.SymbolConfiguration(font: .preferredFont(forTextStyle: .title3))
-        let separatorString = Array(repeating: " ", count: 4).joined()
-        for (i, rule) in rules.enumerated() {
-            guard i < 50 else {
-                return NSAttributedString(string: "\(i)" + separatorString + rule.text.trimmingCharacters(in: .whitespacesAndNewlines) + "\n\n")
-            }
-            let imageName = String(i + 1) + ".circle"
-            let image = UIImage(systemName: imageName, withConfiguration: configuration)!
-            let attachment = NSTextAttachment()
-            attachment.image = image.withTintColor(Asset.Colors.brand.color)
-            let imageAttribute = NSMutableAttributedString(attachment: attachment)
-            imageAttribute.addAttributes([NSAttributedString.Key.baselineOffset : -1.5], range: NSRange(location: 0, length: imageAttribute.length))
-        
-            let ruleString = NSAttributedString(string: separatorString + rule.text.trimmingCharacters(in: .whitespacesAndNewlines) + "\n\n")
-            attributedString.append(imageAttribute)
-            attributedString.append(ruleString)
-        }
-        return attributedString
-    }
-    
 }

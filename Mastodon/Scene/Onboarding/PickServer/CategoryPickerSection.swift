@@ -30,8 +30,8 @@ extension CategoryPickerSection {
 
                 if cell.isSelected {
                     textColor = .white
-                    backgroundColor = Asset.Colors.Primary._700.color
-                    borderColor = Asset.Colors.Primary._700.color
+                    backgroundColor = Asset.Colors.Brand.blurple.color
+                    borderColor = Asset.Colors.Brand.blurple.color
                 } else {
                     textColor = .label
                     backgroundColor = .clear

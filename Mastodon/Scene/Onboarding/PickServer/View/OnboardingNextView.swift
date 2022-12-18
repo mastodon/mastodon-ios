@@ -30,7 +30,7 @@ final class OnboardingNextView: UIView {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.cornerRadius = 14
-        button.backgroundColor = Asset.Colors.brand.color
+        button.backgroundColor = Asset.Colors.Brand.blurple.color
         button.setTitle(L10n.Common.Controls.Actions.next, for: .normal)
         return button
     }()
