@@ -11,10 +11,10 @@ import MastodonSDK
 import MastodonMeta
 
 enum ProfileFieldItem: Hashable {
+    case createdAt(date: Date)
     case field(field: FieldValue)
     case editField(field: FieldValue)
     case addEntry
-    case noResult
 }
 
 extension ProfileFieldItem {
