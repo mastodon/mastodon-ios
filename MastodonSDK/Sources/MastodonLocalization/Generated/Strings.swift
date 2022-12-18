@@ -715,7 +715,7 @@ public enum L10n {
           /// Tap to scroll to top and tap again to previous location
           public static let logoHint = L10n.tr("Localizable", "Scene.HomeTimeline.NavigationBarState.Accessibility.LogoHint", fallback: "Tap to scroll to top and tap again to previous location")
           /// Logo Button
-          public static let logoLabel = L10n.tr("Localizable", "Scene.HomeTimeline.NavigationBarState.Accessibility.LogoLabel", fallback: "Mastodon Back to Top")
+          public static let logoLabel = L10n.tr("Localizable", "Scene.HomeTimeline.NavigationBarState.Accessibility.LogoLabel", fallback: "Logo Button")
         }
       }
     }
