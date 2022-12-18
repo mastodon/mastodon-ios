@@ -467,6 +467,7 @@
                 "followers": "ผู้ติดตาม"
             },
             "fields": {
+                "joined": "Joined",
                 "add_row": "เพิ่มแถว",
                 "placeholder": {
                     "label": "ป้ายชื่อ",
