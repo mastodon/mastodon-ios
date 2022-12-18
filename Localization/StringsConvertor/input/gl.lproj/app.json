@@ -467,6 +467,7 @@
                 "followers": "seguidoras"
             },
             "fields": {
+                "joined": "Joined",
                 "add_row": "Engadir fila",
                 "placeholder": {
                     "label": "Etiqueta",
