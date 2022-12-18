@@ -234,7 +234,7 @@ Mastodonera igo.";
 "Scene.Following.Footer" = "Beste zerbitzarietan jarraitutakoak ez dira bistaratzen.";
 "Scene.Following.Title" = "following";
 "Scene.HomeTimeline.NavigationBarState.Accessibility.LogoHint" = "Tap to scroll to top and tap again to previous location";
-"Scene.HomeTimeline.NavigationBarState.Accessibility.LogoLabel" = "Mastodon Back to Top";
+"Scene.HomeTimeline.NavigationBarState.Accessibility.LogoLabel" = "Logo Button";
 "Scene.HomeTimeline.NavigationBarState.NewPosts" = "Ikusi bidal. berriak";
 "Scene.HomeTimeline.NavigationBarState.Offline" = "Konexio gabe";
 "Scene.HomeTimeline.NavigationBarState.Published" = "Argitaratua!";

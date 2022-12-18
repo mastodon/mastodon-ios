@@ -103,7 +103,7 @@ extension HomeTimelineNavigationBarTitleView {
             logoButton.setImage(Asset.Asset.mastodonTextLogo.image.withRenderingMode(.alwaysTemplate), for: .normal)
             logoButton.contentMode = .center
             logoButton.isHidden = false
-            logoButton.accessibilityLabel = "Mastodon Back to Top"   // TODO :i18n
+            logoButton.accessibilityLabel = "Logo Button"   // TODO :i18n
             logoButton.accessibilityHint = "Tap to scroll to top and tap again to previous location"
         case .newPostButton:
             configureButton(

@@ -360,7 +360,7 @@
                 "published": "Gepubliceerd!",
                 "Publishing": "Bericht publiceren...",
                 "accessibility": {
-          "logo_label": "Mastodon Back to Top",
+                    "logo_label": "Logo Button",
                     "logo_hint": "Tap to scroll to top and tap again to previous location"
                 }
             }

@@ -233,7 +233,7 @@
 "Scene.Following.Footer" = "شوێنکەوتنەکانی بۆ هەژماری ڕاژەکارەکانی تر نیشان نادرێت.";
 "Scene.Following.Title" = "following";
 "Scene.HomeTimeline.NavigationBarState.Accessibility.LogoHint" = "Tap to scroll to top and tap again to previous location";
-"Scene.HomeTimeline.NavigationBarState.Accessibility.LogoLabel" = "Mastodon Back to Top";
+"Scene.HomeTimeline.NavigationBarState.Accessibility.LogoLabel" = "Logo Button";
 "Scene.HomeTimeline.NavigationBarState.NewPosts" = "پۆستە نوێکان ببینە";
 "Scene.HomeTimeline.NavigationBarState.Offline" = "دەرهێڵ";
 "Scene.HomeTimeline.NavigationBarState.Published" = "بڵاوکرایەوە!";
