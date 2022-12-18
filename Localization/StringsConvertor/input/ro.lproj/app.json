@@ -467,6 +467,7 @@
                 "followers": "followers"
             },
             "fields": {
+                "joined": "Joined",
                 "add_row": "Add Row",
                 "placeholder": {
                     "label": "Label",
