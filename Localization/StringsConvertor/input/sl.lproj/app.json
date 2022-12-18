@@ -467,6 +467,7 @@
                 "followers": "sledilcev"
             },
             "fields": {
+                "joined": "Joined",
                 "add_row": "Dodaj vrstico",
                 "placeholder": {
                     "label": "Oznaka",
