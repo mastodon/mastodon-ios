@@ -467,6 +467,7 @@
                 "followers": "imeḍfaren"
             },
             "fields": {
+                "joined": "Joined",
                 "add_row": "Rnu izirig",
                 "placeholder": {
                     "label": "Tabzimt",
