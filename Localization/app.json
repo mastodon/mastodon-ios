@@ -378,7 +378,7 @@
                 "published": "Published!",
                 "Publishing": "Publishing post...",
                 "accessibility": {
-          "logo_label": "Mastodon Back to Top",
+          "logo_label": "Mastodon",
                     "logo_hint": "Tap to scroll to top and tap again to previous location"
                 }
             }

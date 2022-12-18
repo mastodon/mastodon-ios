@@ -229,7 +229,7 @@ klik op de link om uw account te bevestigen.";
 "Scene.Following.Footer" = "Volgers van andere servers worden niet weergegeven.";
 "Scene.Following.Title" = "following";
 "Scene.HomeTimeline.NavigationBarState.Accessibility.LogoHint" = "Tap to scroll to top and tap again to previous location";
-"Scene.HomeTimeline.NavigationBarState.Accessibility.LogoLabel" = "Mastodon Back to Top";
+"Scene.HomeTimeline.NavigationBarState.Accessibility.LogoLabel" = "Mastodon";
 "Scene.HomeTimeline.NavigationBarState.NewPosts" = "Bekijk nieuwe berichten";
 "Scene.HomeTimeline.NavigationBarState.Offline" = "Offline";
 "Scene.HomeTimeline.NavigationBarState.Published" = "Gepubliceerd!";

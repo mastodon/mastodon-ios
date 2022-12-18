@@ -242,7 +242,7 @@ uploaded to Mastodon.";
 "Scene.Following.Footer" = "Follows from other servers are not displayed.";
 "Scene.Following.Title" = "following";
 "Scene.HomeTimeline.NavigationBarState.Accessibility.LogoHint" = "Tap to scroll to top and tap again to previous location";
-"Scene.HomeTimeline.NavigationBarState.Accessibility.LogoLabel" = "Mastodon Back to Top";
+"Scene.HomeTimeline.NavigationBarState.Accessibility.LogoLabel" = "Mastodon";
 "Scene.HomeTimeline.NavigationBarState.NewPosts" = "See new posts";
 "Scene.HomeTimeline.NavigationBarState.Offline" = "Offline";
 "Scene.HomeTimeline.NavigationBarState.Published" = "Published!";
