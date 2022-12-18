@@ -467,6 +467,7 @@
                 "followers": "seguidores"
             },
             "fields": {
+                "joined": "Joined",
                 "add_row": "Adicionar linha",
                 "placeholder": {
                     "label": "Descrição",
