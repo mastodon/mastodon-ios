@@ -113,6 +113,7 @@ extension PrivacyTableViewController: UITableViewDataSource {
         let row = viewModel.rows[indexPath.row]
 
         var contentConfiguration = cell.defaultContentConfiguration()
+        contentConfiguration.textProperties.color = Asset.Colors.Brand.blurple.color
         contentConfiguration.text = row.title
 
         cell.contentConfiguration = contentConfiguration
