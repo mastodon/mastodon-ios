@@ -467,7 +467,7 @@
                 "followers": "seguidores"
             },
             "fields": {
-                "joined": "Joined",
+                "joined": "En este servidor desde",
                 "add_row": "Agregar fila",
                 "placeholder": {
                     "label": "Nombre de campo",
