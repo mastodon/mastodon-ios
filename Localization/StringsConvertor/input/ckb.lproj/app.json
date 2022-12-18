@@ -467,6 +467,7 @@
                 "followers": "شوێنکەوتوو"
             },
             "fields": {
+                "joined": "Joined",
                 "add_row": "ڕیز زیاد بکە",
                 "placeholder": {
                     "label": "ناونیشان",
