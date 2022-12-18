@@ -467,6 +467,7 @@
                 "followers": "关注者"
             },
             "fields": {
+                "joined": "Joined",
                 "add_row": "添加",
                 "placeholder": {
                     "label": "标签",
