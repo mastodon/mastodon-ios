@@ -467,6 +467,7 @@
                 "followers": "跟隨者"
             },
             "fields": {
+                "joined": "Joined",
                 "add_row": "新增列",
                 "placeholder": {
                     "label": "標籤",
