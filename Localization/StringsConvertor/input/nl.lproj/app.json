@@ -467,6 +467,7 @@
                 "followers": "volgers"
             },
             "fields": {
+                "joined": "Joined",
                 "add_row": "Rij Toevoegen",
                 "placeholder": {
                     "label": "Etiket",
