@@ -245,7 +245,7 @@
 "Scene.Following.Footer" = "Follows from other servers are not displayed.";
 "Scene.Following.Title" = "following";
 "Scene.HomeTimeline.NavigationBarState.Accessibility.LogoHint" = "Tap to scroll to top and tap again to previous location";
-"Scene.HomeTimeline.NavigationBarState.Accessibility.LogoLabel" = "Mastodon";
+"Scene.HomeTimeline.NavigationBarState.Accessibility.LogoLabel" = "Mastodon Back to Top";
 "Scene.HomeTimeline.NavigationBarState.NewPosts" = "Показать новые";
 "Scene.HomeTimeline.NavigationBarState.Offline" = "Не в сети";
 "Scene.HomeTimeline.NavigationBarState.Published" = "Опубликовано!";
