@@ -20,55 +20,7 @@ struct MastodonRegisterView: View {
     var body: some View {
         ScrollView(.vertical) {
             let margin: CGFloat = 16
-            
-            // Avatar selector
-            Menu {
-                // Photo Library
-                Button {
-                    viewModel.avatarMediaMenuActionPublisher.send(.photoLibrary)
-                } label: {
-                    Label(L10n.Scene.Compose.MediaSelection.photoLibrary, systemImage: "photo")
-                }
-                // Camera
-                if UIImagePickerController.isSourceTypeAvailable(.camera) {
-                    Button {
-                        viewModel.avatarMediaMenuActionPublisher.send(.camera)
-                    } label: {
-                        Label(L10n.Scene.Compose.MediaSelection.camera, systemImage: "camera")
-                    }
-                }
-                // Browse
-                Button {
-                    viewModel.avatarMediaMenuActionPublisher.send(.browse)
-                } label: {
-                    Label(L10n.Scene.Compose.MediaSelection.browse, systemImage: "folder")
-                }
-                // Delete
-                if viewModel.avatarImage != nil {
-                    Divider()
-                    Button(role: .destructive) {
-                        viewModel.avatarMediaMenuActionPublisher.send(.delete)
-                    } label: {
-                        Label(L10n.Scene.Register.Input.Avatar.delete, systemImage: "delete.left")
-                    }
-                }
-            } label: {
-                let avatarImage = viewModel.avatarImage ?? Asset.Scene.Onboarding.avatarPlaceholder.image
-                Image(uiImage: avatarImage)
-                    .resizable()
-                    .frame(width: 88, height: 88, alignment: .center)
-                    .overlay(ZStack {
-                        Color.black.opacity(0.5)
-                            .frame(height: 22, alignment: .bottom)
-                        Text(L10n.Common.Controls.Actions.edit)
-                            .font(.system(size: 13, weight: .semibold))
-                            .foregroundColor(.white)
-                    }, alignment: .bottom)
-                    .cornerRadius(22)
-            }
-            .padding(EdgeInsets(top: 20, leading: 0, bottom: 20, trailing: 0))
-
-            // Display Name & Uesrname
+            // Display Name & Username
             VStack(alignment: .leading, spacing: 11) {
                 TextField(L10n.Scene.Register.Input.DisplayName.placeholder.localizedCapitalized, text: $viewModel.name)
                     .textContentType(.name)

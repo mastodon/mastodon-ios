@@ -31,29 +31,6 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
     
     var viewModel: MastodonRegisterViewModel!
     private(set) lazy var mastodonRegisterView = MastodonRegisterView(viewModel: viewModel)
-
-    // picker
-    private(set) lazy var imagePicker: PHPickerViewController = {
-        var configuration = PHPickerConfiguration()
-        configuration.filter = .images
-        configuration.selectionLimit = 1
-
-        let imagePicker = PHPickerViewController(configuration: configuration)
-        imagePicker.delegate = self
-        return imagePicker
-    }()
-    private(set) lazy var imagePickerController: UIImagePickerController = {
-        let imagePickerController = UIImagePickerController()
-        imagePickerController.sourceType = .camera
-        imagePickerController.delegate = self
-        return imagePickerController
-    }()
-    
-    private(set) lazy var documentPickerController: UIDocumentPickerViewController = {
-        let documentPickerController = UIDocumentPickerViewController(forOpeningContentTypes: [.image])
-        documentPickerController.delegate = self
-        return documentPickerController
-    }()
 }
 
 extension MastodonRegisterViewController {
@@ -115,23 +92,6 @@ extension MastodonRegisterViewController {
             }
             .store(in: &disposeBag)
 
-        viewModel.avatarMediaMenuActionPublisher
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] action in
-                guard let self = self else { return }
-                switch action {
-                case .photoLibrary:
-                    self.present(self.imagePicker, animated: true, completion: nil)
-                case .camera:
-                    self.present(self.imagePickerController, animated: true, completion: nil)
-                case .browse:
-                    self.present(self.documentPickerController, animated: true, completion: nil)
-                case .delete:
-                    self.viewModel.avatarImage = nil
-                }
-            }
-            .store(in: &disposeBag)
-        
 //        viewModel.$isRegistering
 //            .receive(on: DispatchQueue.main)
 //            .sink { [weak self] isRegistering in
@@ -154,8 +114,6 @@ extension MastodonRegisterViewController {
 extension MastodonRegisterViewController {
 
     @objc private func nextButtonPressed(_ sender: UIButton) {
-        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
-
         guard viewModel.isAllValid else { return }
 
         guard !viewModel.isRegistering else { return }
@@ -268,16 +226,9 @@ extension MastodonRegisterViewController {
             let userToken = response.value
             let updateCredentialQuery: Mastodon.API.Account.UpdateCredentialQuery = {
                 let displayName: String? = self.viewModel.name.isEmpty ? nil : self.viewModel.name
-                let avatar: Mastodon.Query.MediaAttachment? = {
-                    guard let avatarImage = self.viewModel.avatarImage else { return nil }
-                    guard avatarImage.size.width <= MastodonRegisterViewController.avatarImageMaxSizeInPixel.width else {
-                        return .png(avatarImage.af.imageScaled(to: MastodonRegisterViewController.avatarImageMaxSizeInPixel).pngData())
-                    }
-                    return .png(avatarImage.pngData())
-                }()
                 return Mastodon.API.Account.UpdateCredentialQuery(
                     displayName: displayName,
-                    avatar: avatar
+                    avatar: nil
                 )
             }()
             let viewModel = MastodonConfirmEmailViewModel(context: self.context, email: email, authenticateInfo: self.viewModel.authenticateInfo, userToken: userToken, updateCredentialQuery: updateCredentialQuery)
