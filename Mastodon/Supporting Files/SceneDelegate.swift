@@ -11,6 +11,7 @@ import Combine
 import CoreDataStack
 import MastodonCore
 import MastodonExtension
+import MastodonUI
 
 #if PROFILE
 import FPSIndicator
@@ -35,8 +36,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = scene as? UIWindowScene else { return }
         
+        #if DEBUG
+        let window = TouchesVisibleWindow(windowScene: windowScene)
+        self.window = window
+        #else
         let window = UIWindow(windowScene: windowScene)
         self.window = window
+        #endif
 
         // set tint color
         window.tintColor = UIColor.label
