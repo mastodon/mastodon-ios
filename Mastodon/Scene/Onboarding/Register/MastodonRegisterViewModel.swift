@@ -150,10 +150,15 @@ final class MastodonRegisterViewModel: ObservableObject {
             .assign(to: \.emailValidateState, on: self)
             .store(in: &disposeBag)
         
-        $password
-            .map { password in
+        Publishers.CombineLatest($password, $passwordConfirmation)
+            .map { password, confirmation in
                 guard !password.isEmpty else { return .empty }
-                return password.count >= 8 ? .valid : .invalid
+
+                if password.count >= 8 && password == confirmation {
+                    return .valid
+                } else {
+                    return .invalid
+                }
             }
             .assign(to: \.passwordValidateState, on: self)
             .store(in: &disposeBag)
