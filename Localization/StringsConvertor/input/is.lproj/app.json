@@ -53,9 +53,9 @@
                 "message": "Tókst að hreinsa %s skyndiminni."
             },
             "translation_failed": {
-                "title": "Note",
-                "message": "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.",
-                "button": "OK"
+                "title": "Athugasemd",
+                "message": "Þýðing mistókst. Mögulega hefur kerfisstjórinn ekki virkjað þýðingar á þessum netþjóni, eða að netþjónninn sé keyrður á eldri útgáfu Mastodon þar sem þýðingar séu ekki studdar.",
+                "button": "Í lagi"
             }
         },
         "controls": {
@@ -83,7 +83,7 @@
                 "sign_up": "Stofna notandaaðgang",
                 "see_more": "Sjá fleira",
                 "preview": "Forskoða",
-                "copy": "Copy",
+                "copy": "Afrita",
                 "share": "Deila",
                 "share_user": "Deila %s",
                 "share_post": "Deila færslu",
@@ -99,8 +99,8 @@
                 "settings": "Stillingar",
                 "delete": "Eyða",
                 "translate_post": {
-                    "title": "Translate from %s",
-                    "unknown_language": "Unknown"
+                    "title": "Þýða úr %s",
+                    "unknown_language": "Óþekkt"
                 }
             },
             "tabs": {
@@ -143,7 +143,7 @@
                 "media_content_warning": "Ýttu hvar sem er til að birta",
                 "tap_to_reveal": "Ýttu til að birta",
                 "load_embed": "Load Embed",
-                "link_via_user": "%s via %s",
+                "link_via_user": "%s með %s",
                 "poll": {
                     "vote": "Greiða atkvæði",
                     "closed": "Lokið"
@@ -165,7 +165,7 @@
                     "show_image": "Sýna mynd",
                     "show_gif": "Birta GIF-myndir",
                     "show_video_player": "Sýna myndspilara",
-                    "share_link_in_post": "Share Link in Post",
+                    "share_link_in_post": "Deila tengli í færslu",
                     "tap_then_hold_to_show_menu": "Ýttu og haltu til að sýna valmynd"
                 },
                 "tag": {
@@ -183,9 +183,9 @@
                     "direct": "Einungis notendur sem minnst er á geta séð þessa færslu."
                 },
                 "translation": {
-                    "translated_from": "Translated from %s",
-                    "unknown_language": "Unknown",
-                    "show_original": "Shown Original"
+                    "translated_from": "Þýtt úr %s",
+                    "unknown_language": "Óþekkt",
+                    "show_original": "Birta upprunalegt"
                 }
             },
             "friendship": {
@@ -467,7 +467,7 @@
                 "followers": "fylgjendur"
             },
             "fields": {
-                "joined": "Joined",
+                "joined": "Gerðist þátttakandi",
                 "add_row": "Bæta við röð",
                 "placeholder": {
                     "label": "Skýring",
