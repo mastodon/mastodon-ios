@@ -183,9 +183,9 @@
                     "direct": "Només l'usuari mencionat pot veure aquesta publicació."
                 },
                 "translation": {
-                    "translated_from": "Translated from %s using %s",
+                    "translated_from": "Traduït del %s fent servir %s",
                     "unknown_language": "Desconegut",
-                    "unknown_provider": "Unknown",
+                    "unknown_provider": "Desconegut",
                     "show_original": "Mostra l'original"
                 }
             },
