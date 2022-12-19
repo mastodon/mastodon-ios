@@ -183,9 +183,9 @@
                     "direct": "只有被提及的使用者能看到此嘟文。"
                 },
                 "translation": {
-                    "translated_from": "Translated from %s using %s",
+                    "translated_from": "透過 %s 翻譯 %s",
                     "unknown_language": "未知",
-                    "unknown_provider": "Unknown",
+                    "unknown_provider": "未知",
                     "show_original": "顯示原文"
                 }
             },
