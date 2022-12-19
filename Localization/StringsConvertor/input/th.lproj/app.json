@@ -183,8 +183,9 @@
                     "direct": "เฉพาะผู้ใช้ที่กล่าวถึงเท่านั้นที่สามารถเห็นโพสต์นี้"
                 },
                 "translation": {
-                    "translated_from": "แปลจาก %s",
+                    "translated_from": "Translated from %s using %s",
                     "unknown_language": "ไม่รู้จัก",
+                    "unknown_provider": "Unknown",
                     "show_original": "แสดงดั้งเดิมอยู่"
                 }
             },
