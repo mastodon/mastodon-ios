@@ -183,8 +183,9 @@
                     "direct": "Só a usuaria mencionada pode ver a publicación."
                 },
                 "translation": {
-                    "translated_from": "Traducido do %s",
+                    "translated_from": "Translated from %s using %s",
                     "unknown_language": "Descoñecido",
+                    "unknown_provider": "Unknown",
                     "show_original": "Mostrar o orixinal"
                 }
             },
