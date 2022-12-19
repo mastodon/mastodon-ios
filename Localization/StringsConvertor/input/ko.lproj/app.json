@@ -467,7 +467,7 @@
                 "followers": "팔로워"
             },
             "fields": {
-                "joined": "Joined",
+                "joined": "가입일",
                 "add_row": "행 추가",
                 "placeholder": {
                     "label": "라벨",
