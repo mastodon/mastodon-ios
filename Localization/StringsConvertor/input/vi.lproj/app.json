@@ -183,9 +183,9 @@
                     "direct": "Chỉ người được nhắc đến có thể thấy tút."
                 },
                 "translation": {
-                    "translated_from": "Translated from %s using %s",
+                    "translated_from": "Dịch từ %s bằng %s",
                     "unknown_language": "Không xác định",
-                    "unknown_provider": "Unknown",
+                    "unknown_provider": "Không biết",
                     "show_original": "Bản gốc"
                 }
             },
