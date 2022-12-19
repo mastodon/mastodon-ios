@@ -191,7 +191,7 @@ public final class StatusView: UIView {
         let label = UILabel()
         label.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: .systemFont(ofSize: 13, weight: .regular))
         label.textColor = Asset.Colors.Label.secondary.color
-        label.numberOfLines = 2
+        label.numberOfLines = 0
         return label
     }()
     lazy var translatedInfoView: UIView = {
