@@ -183,8 +183,9 @@
                     "direct": "Solo l'utente menzionato può vedere questo post."
                 },
                 "translation": {
-                    "translated_from": "Tradotto da %s",
+                    "translated_from": "Translated from %s using %s",
                     "unknown_language": "Sconosciuto",
+                    "unknown_provider": "Unknown",
                     "show_original": "Mostra l'originale"
                 }
             },
@@ -467,7 +468,7 @@
                 "followers": "seguaci"
             },
             "fields": {
-                "joined": "Joined",
+                "joined": "Profilo iscritto",
                 "add_row": "Aggiungi riga",
                 "placeholder": {
                     "label": "Etichetta",
