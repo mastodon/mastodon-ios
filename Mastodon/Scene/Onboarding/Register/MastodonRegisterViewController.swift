@@ -31,6 +31,16 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
     
     var viewModel: MastodonRegisterViewModel!
     private(set) lazy var mastodonRegisterView = MastodonRegisterView(viewModel: viewModel)
+
+    var activityIndicator: UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView(style: .medium)
+        activityIndicator.color = Asset.Colors.Brand.blurple.color
+        return activityIndicator
+    }()
+
+    func nextBarButtonItem() -> UIBarButtonItem {
+        return UIBarButtonItem(title: "Next", style: .done, target: self, action: #selector(MastodonRegisterViewController.nextButtonPressed(_:)))
+    }
 }
 
 extension MastodonRegisterViewController {
@@ -51,7 +61,7 @@ extension MastodonRegisterViewController {
         view.addSubview(hostingViewController.view)
         hostingViewController.view.pinToParent()
 
-      navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Next", style: .done, target: self, action: #selector(MastodonRegisterViewController.nextButtonPressed(_:)))
+      navigationItem.rightBarButtonItem = nextBarButtonItem()
 
         viewModel.$isAllValid
             .receive(on: DispatchQueue.main)
@@ -92,13 +102,25 @@ extension MastodonRegisterViewController {
             }
             .store(in: &disposeBag)
 
-//        viewModel.$isRegistering
-//            .receive(on: DispatchQueue.main)
-//            .sink { [weak self] isRegistering in
-//                guard let self = self else { return }
-//                isRegistering ? self.navigationActionView.nextButton.showLoading() : self.navigationActionView.nextButton.stopLoading()
-//            }
-//            .store(in: &disposeBag)
+        viewModel.$isRegistering
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] isRegistering in
+                guard let self = self else { return }
+
+                let rightBarButtonItem: UIBarButtonItem
+                if isRegistering {
+                    self.activityIndicator.startAnimating()
+
+                    rightBarButtonItem = UIBarButtonItem(customView: self.activityIndicator)
+                    rightBarButtonItem.isEnabled = false
+                } else {
+                    self.activityIndicator.stopAnimating()
+
+                    rightBarButtonItem = self.nextBarButtonItem()
+                }
+                self.navigationItem.rightBarButtonItem = rightBarButtonItem
+            }
+            .store(in: &disposeBag)
 
           title = L10n.Scene.Register.title
     }
@@ -109,10 +131,7 @@ extension MastodonRegisterViewController {
         viewModel.viewDidAppear.send()
     }
     
-}
-
-extension MastodonRegisterViewController {
-
+    //MARK: - Actions
     @objc private func nextButtonPressed(_ sender: UIButton) {
         guard viewModel.isAllValid else { return }
 
