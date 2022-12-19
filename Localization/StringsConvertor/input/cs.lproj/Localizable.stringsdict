@@ -65,7 +65,7 @@
     <key>a11y.plural.count.characters_left</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>%#@character_count@ left</string>
+      <string>%#@character_count@ zbývá</string>
       <key>character_count</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
