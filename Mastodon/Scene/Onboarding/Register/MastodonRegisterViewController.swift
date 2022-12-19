@@ -39,7 +39,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
     }()
 
     func nextBarButtonItem() -> UIBarButtonItem {
-        return UIBarButtonItem(title: "Next", style: .done, target: self, action: #selector(MastodonRegisterViewController.nextButtonPressed(_:)))
+        return UIBarButtonItem(title: L10n.Common.Controls.Actions.Next, style: .done, target: self, action: #selector(MastodonRegisterViewController.nextButtonPressed(_:)))
     }
 }
 
@@ -91,7 +91,7 @@ extension MastodonRegisterViewController {
             .sink { [weak self] error in
                 guard let self = self else { return }
                 guard let error = error as? Mastodon.API.Error else { return }
-                let alertController = UIAlertController(for: error, title: "Sign Up Failure", preferredStyle: .alert)
+                let alertController = UIAlertController(for: error, title: L10n.Common.Alerts.SignUpFailure.title, preferredStyle: .alert)
                 let okAction = UIAlertAction(title: L10n.Common.Controls.Actions.ok, style: .default, handler: nil)
                 alertController.addAction(okAction)
                 _ = self.coordinator.present(
@@ -255,5 +255,4 @@ extension MastodonRegisterViewController {
         }
         .store(in: &disposeBag)
     }
-    
 }
