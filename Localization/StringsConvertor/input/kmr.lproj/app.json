@@ -183,8 +183,9 @@
                     "direct": "Tenê bikarhênerê qalkirî dikare vê şandiyê bibîne."
                 },
                 "translation": {
-                    "translated_from": "Ji %s hate wergerandin",
+                    "translated_from": "Translated from %s using %s",
                     "unknown_language": "Nenas",
+                    "unknown_provider": "Unknown",
                     "show_original": "A resen nîşan bide"
                 }
             },
