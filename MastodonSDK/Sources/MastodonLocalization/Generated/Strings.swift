@@ -381,12 +381,14 @@ public enum L10n {
         public enum Translation {
           /// Show Original
           public static let showOriginal = L10n.tr("Localizable", "Common.Controls.Status.Translation.ShowOriginal", fallback: "Show Original")
-          /// Translated from %@
-          public static func translatedFrom(_ p1: Any) -> String {
-            return L10n.tr("Localizable", "Common.Controls.Status.Translation.TranslatedFrom", String(describing: p1), fallback: "Translated from %@")
+          /// Translated from %@ using %@
+          public static func translatedFrom(_ p1: Any, _ p2: Any) -> String {
+            return L10n.tr("Localizable", "Common.Controls.Status.Translation.TranslatedFrom", String(describing: p1), String(describing: p2), fallback: "Translated from %@ using %@")
           }
           /// Unknown
           public static let unknownLanguage = L10n.tr("Localizable", "Common.Controls.Status.Translation.UnknownLanguage", fallback: "Unknown")
+          /// Unknown
+          public static let unknownProvider = L10n.tr("Localizable", "Common.Controls.Status.Translation.UnknownProvider", fallback: "Unknown")
         }
         public enum Visibility {
           /// Only mentioned user can see this post.

@@ -246,13 +246,14 @@ extension StatusView {
     func revertTranslation() {
         guard let originalStatus = viewModel.originalStatus else { return }
         viewModel.translatedFromLanguage = nil
+        viewModel.translatedUsingProvider = nil
         originalStatus.reblog?.update(translatedContent: nil)
         originalStatus.update(translatedContent: nil)
         configure(status: originalStatus)
     }
     
     func configureTranslated(status: Status) {
-        let translatedContent: String? = {
+        let translatedContent: Status.TranslatedContent? = {
             if let translatedContent = status.reblog?.translatedContent {
                 return translatedContent
             }
@@ -269,10 +270,11 @@ extension StatusView {
 
         // content
         do {
-            let content = MastodonContent(content: translatedContent, emojis: status.emojis.asDictionary)
+            let content = MastodonContent(content: translatedContent.content, emojis: status.emojis.asDictionary)
             let metaContent = try MastodonMetaContent.convert(document: content)
             viewModel.content = metaContent
             viewModel.translatedFromLanguage = status.reblog?.language ?? status.language
+            viewModel.translatedUsingProvider = status.reblog?.translatedContent?.provider ?? status.translatedContent?.provider
             viewModel.isCurrentlyTranslating = false
         } catch {
             assertionFailure(error.localizedDescription)

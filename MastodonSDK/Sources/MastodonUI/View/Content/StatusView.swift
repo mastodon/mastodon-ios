@@ -191,6 +191,7 @@ public final class StatusView: UIView {
         let label = UILabel()
         label.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: .systemFont(ofSize: 13, weight: .regular))
         label.textColor = Asset.Colors.Label.secondary.color
+        label.numberOfLines = 0
         return label
     }()
     lazy var translatedInfoView: UIView = {
@@ -212,10 +213,14 @@ public final class StatusView: UIView {
             containerView.addSubview($0)
         }
         
+        translatedInfoLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        revertButton.setContentHuggingPriority(.required, for: .horizontal)
+        
         NSLayoutConstraint.activate([
             containerView.heightAnchor.constraint(equalToConstant: 24),
             translatedInfoLabel.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
             translatedInfoLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16),
+            translatedInfoLabel.trailingAnchor.constraint(equalTo: revertButton.leadingAnchor, constant: -16),
             revertButton.topAnchor.constraint(equalTo: containerView.topAnchor),
             revertButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16),
             revertButton.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
@@ -735,12 +740,18 @@ extension StatusView {
             }
             .store(in: &disposeBag)
 
-        viewModel.$translatedFromLanguage
+        Publishers.CombineLatest(
+            viewModel.$translatedFromLanguage,
+            viewModel.$translatedUsingProvider
+        )
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] translatedFromLanguage in
+            .sink { [weak self] translatedFromLanguage, translatedUsingProvider in
                 guard let self = self else { return }
                 if let translatedFromLanguage = translatedFromLanguage {
-                    self.translatedInfoLabel.text = L10n.Common.Controls.Status.Translation.translatedFrom(Locale.current.localizedString(forIdentifier: translatedFromLanguage) ?? L10n.Common.Controls.Status.Translation.unknownLanguage)
+                    self.translatedInfoLabel.text = L10n.Common.Controls.Status.Translation.translatedFrom(
+                        Locale.current.localizedString(forIdentifier: translatedFromLanguage) ?? L10n.Common.Controls.Status.Translation.unknownLanguage,
+                        translatedUsingProvider ?? L10n.Common.Controls.Status.Translation.unknownProvider
+                    )
                     self.translatedInfoView.isHidden = false
                 } else {
                     self.translatedInfoView.isHidden = true
