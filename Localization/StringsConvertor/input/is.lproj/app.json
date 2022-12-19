@@ -142,7 +142,7 @@
                 "sensitive_content": "Viðkvæmt efni",
                 "media_content_warning": "Ýttu hvar sem er til að birta",
                 "tap_to_reveal": "Ýttu til að birta",
-                "load_embed": "Load Embed",
+                "load_embed": "Hlaða inn ívöfnu",
                 "link_via_user": "%s með %s",
                 "poll": {
                     "vote": "Greiða atkvæði",
@@ -183,9 +183,9 @@
                     "direct": "Einungis notendur sem minnst er á geta séð þessa færslu."
                 },
                 "translation": {
-                    "translated_from": "Translated from %s using %s",
+                    "translated_from": "Þýtt úr %s með %s",
                     "unknown_language": "Óþekkt",
-                    "unknown_provider": "Unknown",
+                    "unknown_provider": "Óþekkt",
                     "show_original": "Birta upprunalegt"
                 }
             },
