@@ -183,8 +183,9 @@
                     "direct": "Seul·e l’utilisateur·rice mentionnée peut voir ce message."
                 },
                 "translation": {
-                    "translated_from": "Traduit depuis %s",
+                    "translated_from": "Translated from %s using %s",
                     "unknown_language": "Inconnu",
+                    "unknown_provider": "Unknown",
                     "show_original": "Afficher l’original"
                 }
             },
