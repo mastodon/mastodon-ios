@@ -709,6 +709,9 @@ extension StatusView.ViewModel {
             )
             let (menu, actions) = authorView.setupAuthorMenu(menuContext: menuContext)
             authorView.menuButton.menu = menu
+            if #available(iOS 16.0, *) {
+                authorView.menuButton.preferredMenuElementOrder = .priority
+            }
             authorView.authorActions = actions
             authorView.menuButton.showsMenuAsPrimaryAction = true
         }
