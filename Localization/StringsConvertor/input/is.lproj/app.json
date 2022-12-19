@@ -183,8 +183,9 @@
                     "direct": "Einungis notendur sem minnst er á geta séð þessa færslu."
                 },
                 "translation": {
-                    "translated_from": "Þýtt úr %s",
+                    "translated_from": "Translated from %s using %s",
                     "unknown_language": "Óþekkt",
+                    "unknown_provider": "Unknown",
                     "show_original": "Birta upprunalegt"
                 }
             },
