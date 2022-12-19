@@ -361,7 +361,6 @@ extension DataSourceFacade {
             let cancelAction = UIAlertAction(title: L10n.Common.Controls.Actions.cancel, style: .cancel)
             alertController.addAction(cancelAction)
             dependency.present(alertController, animated: true)
-            
         case .translateStatus:
             guard let status = menuContext.status else { return }
             do {
@@ -375,7 +374,6 @@ extension DataSourceFacade {
                 dependency.present(alertController, animated: true)
             }
         case .editStatus:
-
             guard let status = menuContext.status?.object(in: dependency.context.managedObjectContext) else { return }
 
             let statusSource = try await dependency.context.apiService.getStatusSource(
@@ -389,6 +387,17 @@ extension DataSourceFacade {
                 composeContext: .editStatus(status: status, statusSource: statusSource),
                 destination: .topLevel)
             _ = dependency.coordinator.present(scene: .editStatus(viewModel: editStatusViewModel), transition: .modal(animated: true))
+        case let .showActionSheet(title, actions):
+            let actionSheet = UIAlertController(title: title, message: nil, preferredStyle: .actionSheet)
+            actions.forEach { actionSheet.addAction($0) }
+            actionSheet.addAction(UIAlertAction(title: L10n.Common.Controls.Actions.cancel, style: .cancel))
+            actionSheet.popoverPresentationController?.sourceView = menuContext.button
+            actionSheet.popoverPresentationController?.barButtonItem = menuContext.barButtonItem
+            dependency.coordinator.present(
+                scene: .alertController(alertController: actionSheet),
+                from: dependency,
+                transition: .alertController(animated: true)
+            )
         }
     }   // end func
 }

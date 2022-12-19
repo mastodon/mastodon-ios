@@ -209,8 +209,21 @@ extension StatusAuthorView {
             ),
         ].compactMap { $0 })
 
+        let seeMoreActions: [MastodonMenu.Action]
+        if userActions.isEmpty {
+            seeMoreActions = []
+        } else {
+            seeMoreActions = [.showActionSheet(
+                title: L10n.Common.Controls.Actions.manageAuthor,
+                actions: MastodonMenu.setupAlertActions(
+                    actions: userActions,
+                    delegate: self.statusView!
+                )
+            )]
+        }
+
         let accessibilityActions = MastodonMenu.setupAccessibilityActions(
-            actions: statusActions + userActions,
+            actions: statusActions + seeMoreActions,
             delegate: self.statusView!
         )
 
