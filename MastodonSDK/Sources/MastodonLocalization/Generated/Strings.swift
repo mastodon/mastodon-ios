@@ -120,6 +120,8 @@ public enum L10n {
         public static let confirm = L10n.tr("Localizable", "Common.Controls.Actions.Confirm", fallback: "Confirm")
         /// Continue
         public static let `continue` = L10n.tr("Localizable", "Common.Controls.Actions.Continue", fallback: "Continue")
+        /// Copy
+        public static let copy = L10n.tr("Localizable", "Common.Controls.Actions.Copy", fallback: "Copy")
         /// Copy Photo
         public static let copyPhoto = L10n.tr("Localizable", "Common.Controls.Actions.CopyPhoto", fallback: "Copy Photo")
         /// Delete
@@ -288,6 +290,12 @@ public enum L10n {
       public enum Status {
         /// Content Warning
         public static let contentWarning = L10n.tr("Localizable", "Common.Controls.Status.ContentWarning", fallback: "Content Warning")
+        /// %@ via %@
+        public static func linkViaUser(_ p1: Any, _ p2: Any) -> String {
+          return L10n.tr("Localizable", "Common.Controls.Status.LinkViaUser", String(describing: p1), String(describing: p2), fallback: "%@ via %@")
+        }
+        /// Load Embed
+        public static let loadEmbed = L10n.tr("Localizable", "Common.Controls.Status.LoadEmbed", fallback: "Load Embed")
         /// Tap anywhere to reveal
         public static let mediaContentWarning = L10n.tr("Localizable", "Common.Controls.Status.MediaContentWarning", fallback: "Tap anywhere to reveal")
         /// Sensitive Content
@@ -317,6 +325,8 @@ public enum L10n {
           public static let reblog = L10n.tr("Localizable", "Common.Controls.Status.Actions.Reblog", fallback: "Reblog")
           /// Reply
           public static let reply = L10n.tr("Localizable", "Common.Controls.Status.Actions.Reply", fallback: "Reply")
+          /// Share Link in Post
+          public static let shareLinkInPost = L10n.tr("Localizable", "Common.Controls.Status.Actions.ShareLinkInPost", fallback: "Share Link in Post")
           /// Show GIF
           public static let showGif = L10n.tr("Localizable", "Common.Controls.Status.Actions.ShowGif", fallback: "Show GIF")
           /// Show image
@@ -369,14 +379,16 @@ public enum L10n {
           public static let url = L10n.tr("Localizable", "Common.Controls.Status.Tag.Url", fallback: "URL")
         }
         public enum Translation {
-          /// Show Original
-          public static let showOriginal = L10n.tr("Localizable", "Common.Controls.Status.Translation.ShowOriginal", fallback: "Show Original")
-          /// Translated from %@
-          public static func translatedFrom(_ p1: Any) -> String {
-            return L10n.tr("Localizable", "Common.Controls.Status.Translation.TranslatedFrom", String(describing: p1), fallback: "Translated from %@")
+          /// Shown Original
+          public static let showOriginal = L10n.tr("Localizable", "Common.Controls.Status.Translation.ShowOriginal", fallback: "Shown Original")
+          /// Translated from %@ using %@
+          public static func translatedFrom(_ p1: Any, _ p2: Any) -> String {
+            return L10n.tr("Localizable", "Common.Controls.Status.Translation.TranslatedFrom", String(describing: p1), String(describing: p2), fallback: "Translated from %@ using %@")
           }
           /// Unknown
           public static let unknownLanguage = L10n.tr("Localizable", "Common.Controls.Status.Translation.UnknownLanguage", fallback: "Unknown")
+          /// Unknown
+          public static let unknownProvider = L10n.tr("Localizable", "Common.Controls.Status.Translation.UnknownProvider", fallback: "Unknown")
         }
         public enum Visibility {
           /// Only mentioned user can see this post.
@@ -789,6 +801,8 @@ public enum L10n {
       public enum Fields {
         /// Add Row
         public static let addRow = L10n.tr("Localizable", "Scene.Profile.Fields.AddRow", fallback: "Add Row")
+        /// Joined
+        public static let joined = L10n.tr("Localizable", "Scene.Profile.Fields.Joined", fallback: "Joined")
         public enum Placeholder {
           /// Content
           public static let content = L10n.tr("Localizable", "Scene.Profile.Fields.Placeholder.Content", fallback: "Content")

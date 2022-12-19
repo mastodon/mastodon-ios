@@ -22,7 +22,7 @@
 
 "ZbSjzC" = "Visibilitat";
 
-"Zo4jgJ" = "Visibilitat de la Publicació";
+"Zo4jgJ" = "Visibilitat de la publicació";
 
 "apSxMG-dYQ5NN" = "Hi ha ${count} opcions que coincideixen amb ‘Públic’.";
 
@@ -30,9 +30,9 @@
 
 "ayoYEb-dYQ5NN" = "${content}, Públic";
 
-"ayoYEb-ehFLjY" = "${content}, Només Seguidors";
+"ayoYEb-ehFLjY" = "${content}, Només seguidors";
 
-"dUyuGg" = "Publicació";
+"dUyuGg" = "Publica a Mastodon";
 
 "dYQ5NN" = "Públic";
 

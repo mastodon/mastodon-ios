@@ -51,6 +51,11 @@
             "clean_cache": {
                 "title": "Sfeḍ tuffirt",
                 "message": "Yettwasfeḍ %s n tkatut tuffirt akken iwata."
+            },
+            "translation_failed": {
+                "title": "Note",
+                "message": "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.",
+                "button": "OK"
             }
         },
         "controls": {
@@ -78,6 +83,7 @@
                 "sign_up": "Snulfu-d amiḍan",
                 "see_more": "Wali ugar",
                 "preview": "Taskant",
+                "copy": "Copy",
                 "share": "Bḍu",
                 "share_user": "Bḍu %s",
                 "share_post": "Bḍu tasuffeɣt",
@@ -91,12 +97,16 @@
                 "block_domain": "Sewḥel %s",
                 "unblock_domain": "Serreḥ i %s",
                 "settings": "Iɣewwaṛen",
-                "delete": "Kkes"
+                "delete": "Kkes",
+                "translate_post": {
+                    "title": "Translate from %s",
+                    "unknown_language": "Unknown"
+                }
             },
             "tabs": {
                 "home": "Agejdan",
-                "search": "Nadi",
-                "notification": "Tilɣa",
+                "search_and_explore": "Search and Explore",
+                "notifications": "Notifications",
                 "profile": "Amaɣnu"
             },
             "keyboard": {
@@ -132,6 +142,8 @@
                 "sensitive_content": "Agbur amḥulfu",
                 "media_content_warning": "Sit anida tebɣiḍ i wakken ad twaliḍ",
                 "tap_to_reveal": "Sit i uskan",
+                "load_embed": "Load Embed",
+                "link_via_user": "%s via %s",
                 "poll": {
                     "vote": "Dɣeṛ",
                     "closed": "Ifukk"
@@ -153,6 +165,7 @@
                     "show_image": "Sken tugna",
                     "show_gif": "Sken GIF",
                     "show_video_player": "Sken ameɣri n tvidyut",
+                    "share_link_in_post": "Share Link in Post",
                     "tap_then_hold_to_show_menu": "Sit teǧǧeḍ aḍad-ik•im i wakken ad d-iffeɣ wumuɣ"
                 },
                 "tag": {
@@ -168,6 +181,12 @@
                     "private": "D ineḍfaren-is kan i izemren ad walin tsuffeɣ-a.",
                     "private_from_me": "D ineḍfaren-is kan i izemren ad walin tsuffeɣ-a.",
                     "direct": "D ineḍfaren-is kan i izemren ad walin tsuffeɣ-a."
+                },
+                "translation": {
+                    "translated_from": "Translated from %s using %s",
+                    "unknown_language": "Unknown",
+                    "unknown_provider": "Unknown",
+                    "show_original": "Shown Original"
                 }
             },
             "friendship": {
@@ -449,6 +468,7 @@
                 "followers": "imeḍfaren"
             },
             "fields": {
+                "joined": "Joined",
                 "add_row": "Rnu izirig",
                 "placeholder": {
                     "label": "Tabzimt",
@@ -722,6 +742,18 @@
         },
         "bookmark": {
             "title": "Bookmarks"
+        },
+        "followed_tags": {
+            "title": "Followed Tags",
+            "header": {
+                "posts": "posts",
+                "participants": "participants",
+                "posts_today": "posts today"
+            },
+            "actions": {
+                "follow": "Follow",
+                "unfollow": "Unfollow"
+            }
         }
     }
 }

@@ -51,6 +51,11 @@
             "clean_cache": {
                 "title": "ล้างแคช",
                 "message": "ล้างแคช %s สำเร็จ"
+            },
+            "translation_failed": {
+                "title": "หมายเหตุ",
+                "message": "การแปลล้มเหลว บางทีผู้ดูแลอาจไม่ได้เปิดใช้งานการแปลในเซิร์ฟเวอร์นี้หรือเซิร์ฟเวอร์นี้กำลังใช้ Mastodon รุ่นเก่ากว่าที่ยังไม่รองรับการแปล",
+                "button": "ตกลง"
             }
         },
         "controls": {
@@ -78,6 +83,7 @@
                 "sign_up": "สร้างบัญชี",
                 "see_more": "ดูเพิ่มเติม",
                 "preview": "แสดงตัวอย่าง",
+                "copy": "คัดลอก",
                 "share": "แบ่งปัน",
                 "share_user": "แบ่งปัน %s",
                 "share_post": "แบ่งปันโพสต์",
@@ -91,12 +97,16 @@
                 "block_domain": "ปิดกั้น %s",
                 "unblock_domain": "เลิกปิดกั้น %s",
                 "settings": "การตั้งค่า",
-                "delete": "ลบ"
+                "delete": "ลบ",
+                "translate_post": {
+                    "title": "แปลจาก %s",
+                    "unknown_language": "ไม่รู้จัก"
+                }
             },
             "tabs": {
                 "home": "หน้าแรก",
-                "search": "ค้นหา",
-                "notification": "การแจ้งเตือน",
+                "search_and_explore": "ค้นหาและสำรวจ",
+                "notifications": "การแจ้งเตือน",
                 "profile": "โปรไฟล์"
             },
             "keyboard": {
@@ -132,6 +142,8 @@
                 "sensitive_content": "เนื้อหาที่ละเอียดอ่อน",
                 "media_content_warning": "แตะที่ใดก็ตามเพื่อเปิดเผย",
                 "tap_to_reveal": "แตะเพื่อเปิดเผย",
+                "load_embed": "โหลดที่ฝังไว้",
+                "link_via_user": "%s ผ่าน %s",
                 "poll": {
                     "vote": "ลงคะแนน",
                     "closed": "ปิดแล้ว"
@@ -153,6 +165,7 @@
                     "show_image": "แสดงภาพ",
                     "show_gif": "แสดง GIF",
                     "show_video_player": "แสดงตัวเล่นวิดีโอ",
+                    "share_link_in_post": "แบ่งปันลิงก์ในโพสต์",
                     "tap_then_hold_to_show_menu": "แตะค้างไว้เพื่อแสดงเมนู"
                 },
                 "tag": {
@@ -168,6 +181,12 @@
                     "private": "เฉพาะผู้ติดตามของเขาเท่านั้นที่สามารถเห็นโพสต์นี้",
                     "private_from_me": "เฉพาะผู้ติดตามของฉันเท่านั้นที่สามารถเห็นโพสต์นี้",
                     "direct": "เฉพาะผู้ใช้ที่กล่าวถึงเท่านั้นที่สามารถเห็นโพสต์นี้"
+                },
+                "translation": {
+                    "translated_from": "Translated from %s using %s",
+                    "unknown_language": "ไม่รู้จัก",
+                    "unknown_provider": "Unknown",
+                    "show_original": "แสดงดั้งเดิมอยู่"
                 }
             },
             "friendship": {
@@ -449,6 +468,7 @@
                 "followers": "ผู้ติดตาม"
             },
             "fields": {
+                "joined": "Joined",
                 "add_row": "เพิ่มแถว",
                 "placeholder": {
                     "label": "ป้ายชื่อ",
@@ -722,6 +742,18 @@
         },
         "bookmark": {
             "title": "ที่คั่นหน้า"
+        },
+        "followed_tags": {
+            "title": "แท็กที่ติดตาม",
+            "header": {
+                "posts": "โพสต์",
+                "participants": "ผู้เข้าร่วม",
+                "posts_today": "โพสต์วันนี้"
+            },
+            "actions": {
+                "follow": "ติดตาม",
+                "unfollow": "เลิกติดตาม"
+            }
         }
     }
 }

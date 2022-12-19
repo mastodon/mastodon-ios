@@ -6,6 +6,9 @@ func methodDeclaration(_ method: SourceryRuntime.Method) -> String {
     } else if method.rethrows {
         result = result + " rethrows"
     }
+    if method.returnTypeName.isVoid {
+        return result
+    }
     return result + " -> \(method.returnTypeName)"
 }
 -%>
@@ -42,7 +45,7 @@ func methodCall(
     guard let aProtocol = types.protocols.first(where: { $0.name == protocolToGenerate }) else { continue } -%>
 // sourcery:inline:<%= type.name %>.AutoGenerateProtocolRelayDelegate
 <% for method in aProtocol.methods { -%>
-func <%= method.name -%> {
+func <%= methodDeclaration(method) -%> {
     <%= methodCall(method, replaceOf: replaceOf, replaceWith: replaceWith) %>
 }
 

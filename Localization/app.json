@@ -83,6 +83,7 @@
                 "sign_up": "Create account",
                 "see_more": "See More",
                 "preview": "Preview",
+                "copy": "Copy",
                 "share": "Share",
                 "share_user": "Share %s",
                 "share_post": "Share Post",
@@ -141,6 +142,8 @@
                 "sensitive_content": "Sensitive Content",
                 "media_content_warning": "Tap anywhere to reveal",
                 "tap_to_reveal": "Tap to reveal",
+                "load_embed": "Load Embed",
+                "link_via_user": "%s via %s",
                 "poll": {
                     "vote": "Vote",
                     "closed": "Closed"
@@ -162,6 +165,7 @@
                     "show_image": "Show image",
                     "show_gif": "Show GIF",
                     "show_video_player": "Show video player",
+                    "share_link_in_post": "Share Link in Post",
                     "tap_then_hold_to_show_menu": "Tap then hold to show menu"
                 },
                 "tag": {
@@ -179,8 +183,9 @@
                     "direct": "Only mentioned user can see this post."
                 },
                 "translation": {
-                    "translated_from": "Translated from %s",
+                    "translated_from": "Translated from %s using %s",
                     "unknown_language": "Unknown",
+                    "unknown_provider": "Unknown",
                     "show_original": "Shown Original"
                 }
             },
@@ -463,6 +468,7 @@
                 "followers": "followers"
             },
             "fields": {
+                "joined": "Joined",
                 "add_row": "Add Row",
                 "placeholder": {
                     "label": "Label",

@@ -1,6 +1,6 @@
 {
-    "NSCameraUsageDescription": "Used to take photo for post status",
-    "NSPhotoLibraryAddUsageDescription": "Used to save photo into the Photo Library",
-    "NewPostShortcutItemTitle": "New Post",
-    "SearchShortcutItemTitle": "Search"
+    "NSCameraUsageDescription": "Використовується, щоб зробити фотографію для статусу публікації",
+    "NSPhotoLibraryAddUsageDescription": "Використовується для збереження фото в бібліотеку",
+    "NewPostShortcutItemTitle": "Новий допис",
+    "SearchShortcutItemTitle": "Пошук"
 }

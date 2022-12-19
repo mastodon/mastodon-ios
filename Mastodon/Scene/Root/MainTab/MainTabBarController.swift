@@ -379,7 +379,7 @@ extension MainTabBarController {
         let composeViewModel = ComposeViewModel(
             context: context,
             authContext: authContext,
-            kind: .post
+            destination: .topLevel
         )
         _ = coordinator.present(scene: .compose(viewModel: composeViewModel), from: nil, transition: .modal(animated: true, completion: nil))
     }
@@ -803,7 +803,7 @@ extension MainTabBarController {
         let composeViewModel = ComposeViewModel(
             context: context,
             authContext: authContext,
-            kind: .post
+            destination: .topLevel
         )
         _ = coordinator.present(scene: .compose(viewModel: composeViewModel), from: nil, transition: .modal(animated: true, completion: nil))
     }

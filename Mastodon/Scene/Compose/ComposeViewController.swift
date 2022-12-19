@@ -34,7 +34,8 @@ final class ComposeViewController: UIViewController, NeedsDependency {
         return ComposeContentViewModel(
             context: context,
             authContext: viewModel.authContext,
-            kind: viewModel.kind
+            destination: viewModel.destination,
+            initialContent: viewModel.initialContent
         )
     }()
     private(set) lazy var composeContentViewController: ComposeContentViewController = {

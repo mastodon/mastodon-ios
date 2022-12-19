@@ -51,6 +51,11 @@
             "clean_cache": {
                 "title": "Počisti predpomnilnik",
                 "message": "Uspešno počiščem predpomnilnik %s."
+            },
+            "translation_failed": {
+                "title": "Opomba",
+                "message": "Prevod je spodletel. Morda skrbnik ni omogočil prevajanja na tem strežniku ali pa strežnik teče na starejši različici Masotodona, na kateri prevajanje še ni podprto.",
+                "button": "V redu"
             }
         },
         "controls": {
@@ -78,6 +83,7 @@
                 "sign_up": "Ustvari račun",
                 "see_more": "Pokaži več",
                 "preview": "Predogled",
+                "copy": "Kopiraj",
                 "share": "Deli",
                 "share_user": "Deli %s",
                 "share_post": "Deli objavo",
@@ -91,12 +97,16 @@
                 "block_domain": "Blokiraj %s",
                 "unblock_domain": "Odblokiraj %s",
                 "settings": "Nastavitve",
-                "delete": "Izbriši"
+                "delete": "Izbriši",
+                "translate_post": {
+                    "title": "Prevedi iz: %s",
+                    "unknown_language": "Neznano"
+                }
             },
             "tabs": {
                 "home": "Domov",
-                "search": "Iskanje",
-                "notification": "Obvestilo",
+                "search_and_explore": "Poišči in razišči",
+                "notifications": "Obvestila",
                 "profile": "Profil"
             },
             "keyboard": {
@@ -132,6 +142,8 @@
                 "sensitive_content": "Občutljiva vsebina",
                 "media_content_warning": "Tapnite kamorkoli, da razkrijete",
                 "tap_to_reveal": "Tapnite za razkritje",
+                "load_embed": "Naloži vdelano",
+                "link_via_user": "%s prek %s",
                 "poll": {
                     "vote": "Glasuj",
                     "closed": "Zaprto"
@@ -153,6 +165,7 @@
                     "show_image": "Pokaži sliko",
                     "show_gif": "Pokaži GIF",
                     "show_video_player": "Pokaži predvajalnik",
+                    "share_link_in_post": "Deli povezavo v objavi",
                     "tap_then_hold_to_show_menu": "Tapnite, nato držite, da se pojavi meni"
                 },
                 "tag": {
@@ -168,6 +181,12 @@
                     "private": "Samo sledilci osebe lahko vidijo to objavo.",
                     "private_from_me": "Samo moji sledilci lahko vidijo to objavo.",
                     "direct": "Samo omenjeni uporabnik lahko vidi to objavo."
+                },
+                "translation": {
+                    "translated_from": "Translated from %s using %s",
+                    "unknown_language": "Neznano",
+                    "unknown_provider": "Unknown",
+                    "show_original": "Pokaži izvirnik"
                 }
             },
             "friendship": {
@@ -449,6 +468,7 @@
                 "followers": "sledilcev"
             },
             "fields": {
+                "joined": "Joined",
                 "add_row": "Dodaj vrstico",
                 "placeholder": {
                     "label": "Oznaka",
@@ -722,6 +742,18 @@
         },
         "bookmark": {
             "title": "Zaznamki"
+        },
+        "followed_tags": {
+            "title": "Sledene značke",
+            "header": {
+                "posts": "objav",
+                "participants": "udeležencev",
+                "posts_today": "objav danes"
+            },
+            "actions": {
+                "follow": "Sledi",
+                "unfollow": "Prenehaj slediti"
+            }
         }
     }
 }

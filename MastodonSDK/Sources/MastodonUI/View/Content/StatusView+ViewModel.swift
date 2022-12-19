@@ -49,7 +49,8 @@ extension StatusView {
         // Translation
         @Published public var isCurrentlyTranslating = false
         @Published public var translatedFromLanguage: String?
-        
+        @Published public var translatedUsingProvider: String?
+
         @Published public var timestamp: Date?
         public var timestampFormatter: ((_ date: Date) -> String)?
         @Published public var timestampText = ""
@@ -76,7 +77,10 @@ extension StatusView {
         @Published public var voteCount = 0
         @Published public var expireAt: Date?
         @Published public var expired: Bool = false
-        
+
+        // Card
+        @Published public var card: Card?
+
         // Visibility
         @Published public var visibility: MastodonVisibility = .public
         
@@ -142,6 +146,7 @@ extension StatusView {
             isMediaSensitive = false
             isSensitiveToggled = false
             translatedFromLanguage = nil
+            translatedUsingProvider = nil
             isCurrentlyTranslating = false
             
             activeFilters = []
@@ -194,6 +199,7 @@ extension StatusView.ViewModel {
         bindContent(statusView: statusView)
         bindMedia(statusView: statusView)
         bindPoll(statusView: statusView)
+        bindCard(statusView: statusView)
         bindToolbar(statusView: statusView)
         bindMetric(statusView: statusView)
         bindMenu(statusView: statusView)
@@ -314,12 +320,14 @@ extension StatusView.ViewModel {
                 )
                 statusView.contentMetaText.textView.accessibilityTraits = [.staticText]
                 statusView.contentMetaText.textView.accessibilityElementsHidden = false
+
             } else {
                 statusView.contentMetaText.reset()
                 statusView.contentMetaText.textView.accessibilityLabel = ""
             }
             
             statusView.contentMetaText.textView.alpha = isContentReveal ? 1 : 0     // keep the frame size and only display when revealing
+            statusView.statusCardControl.alpha = isContentReveal ? 1 : 0
             
             statusView.setSpoilerOverlayViewHidden(isHidden: isContentReveal)
             
@@ -489,6 +497,15 @@ extension StatusView.ViewModel {
             .assign(to: \.isEnabled, on: statusView.pollVoteButton)
             .store(in: &disposeBag)
     }
+
+    private func bindCard(statusView: StatusView) {
+        $card.sink { card in
+            guard let card = card else { return }
+            statusView.statusCardControl.configure(card: card)
+            statusView.setStatusCardControlDisplay()
+        }
+        .store(in: &disposeBag)
+    }
     
     private func bindToolbar(statusView: StatusView) {
         $replyCount
@@ -614,7 +631,9 @@ extension StatusView.ViewModel {
                 guard
                     let context = self.context,
                     let authContext = self.authContext
-                else { return nil }
+                else {
+                    return nil
+                }
                 
                 var configuration: Mastodon.Entity.V2.Instance.Configuration? = nil
                 context.managedObjectContext.performAndWait {
