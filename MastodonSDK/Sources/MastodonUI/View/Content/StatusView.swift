@@ -611,7 +611,10 @@ extension StatusView {
 
 extension StatusView {
     public override var accessibilityCustomActions: [UIAccessibilityCustomAction]? {
-        get { contentMetaText.textView.accessibilityCustomActions }
+        get {
+            (contentMetaText.textView.accessibilityCustomActions ?? [])
+            + (authorView.accessibilityCustomActions ?? [])
+        }
         set { }
     }
 }
