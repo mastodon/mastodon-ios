@@ -51,6 +51,11 @@
             "clean_cache": {
                 "title": "Pêşbîrê pak bike",
                 "message": "Pêşbîra %s biserketî hate pakkirin."
+            },
+            "translation_failed": {
+                "title": "Nîşe",
+                "message": "Werger têk çû. Dibe ku rêvebir werger li ser vê rajakarê çalak nekiribe an jî ev rajakar guhertoyek kevntir a Mastodon e ku werger hîn nehatiye piştgirîkirin.",
+                "button": "BAŞ E"
             }
         },
         "controls": {
@@ -78,6 +83,7 @@
                 "sign_up": "Ajimêr biafirîne",
                 "see_more": "Bêtir bibîne",
                 "preview": "Pêşdîtin",
+                "copy": "Copy",
                 "share": "Parve bike",
                 "share_user": "%s parve bike",
                 "share_post": "Şandiyê parve bike",
@@ -91,12 +97,16 @@
                 "block_domain": "%s asteng bike",
                 "unblock_domain": "%s asteng neke",
                 "settings": "Sazkarî",
-                "delete": "Jê bibe"
+                "delete": "Jê bibe",
+                "translate_post": {
+                    "title": "Ji %s hate wergerandin",
+                    "unknown_language": "Nenas"
+                }
             },
             "tabs": {
                 "home": "Serrûpel",
-                "search": "Bigere",
-                "notification": "Agahdarî",
+                "search_and_explore": "Bigere û vekole",
+                "notifications": "Agahdarî",
                 "profile": "Profîl"
             },
             "keyboard": {
@@ -132,6 +142,8 @@
                 "sensitive_content": "Naveroka hestiyarî",
                 "media_content_warning": "Ji bo eşkerekirinê li derekî bitikîne",
                 "tap_to_reveal": "Ji bo dîtinê bitikîne",
+                "load_embed": "Load Embed",
+                "link_via_user": "%s via %s",
                 "poll": {
                     "vote": "Deng bide",
                     "closed": "Girtî"
@@ -153,6 +165,7 @@
                     "show_image": "Wêneyê nîşan bide",
                     "show_gif": "GIF nîşan bide",
                     "show_video_player": "Lêdera vîdyoyê nîşan bide",
+                    "share_link_in_post": "Share Link in Post",
                     "tap_then_hold_to_show_menu": "Ji bo nîşandana menuyê dirêj bitikîne"
                 },
                 "tag": {
@@ -168,6 +181,12 @@
                     "private": "Tenê şopînerên wan dikarin vê şandiyê bibînin.",
                     "private_from_me": "Tenê şopînerên min dikarin vê şandiyê bibînin.",
                     "direct": "Tenê bikarhênerê qalkirî dikare vê şandiyê bibîne."
+                },
+                "translation": {
+                    "translated_from": "Translated from %s using %s",
+                    "unknown_language": "Nenas",
+                    "unknown_provider": "Unknown",
+                    "show_original": "A resen nîşan bide"
                 }
             },
             "friendship": {
@@ -449,6 +468,7 @@
                 "followers": "şopîner"
             },
             "fields": {
+                "joined": "Dîroka tevlîbûnê",
                 "add_row": "Rêzê tevlî bike",
                 "placeholder": {
                     "label": "Nîşan",
@@ -722,6 +742,18 @@
         },
         "bookmark": {
             "title": "Şûnpel"
+        },
+        "followed_tags": {
+            "title": "Hashtagên şopandî",
+            "header": {
+                "posts": "şandî",
+                "participants": "beşdar",
+                "posts_today": "şandiyên îro"
+            },
+            "actions": {
+                "follow": "Bişopîne",
+                "unfollow": "Neşopîne"
+            }
         }
     }
 }

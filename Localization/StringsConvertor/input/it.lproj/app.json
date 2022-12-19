@@ -51,6 +51,11 @@
             "clean_cache": {
                 "title": "Pulisci la cache",
                 "message": "Cache %s pulita con successo."
+            },
+            "translation_failed": {
+                "title": "Nota",
+                "message": "Traduzione fallita. Forse l'amministratore non ha abilitato le traduzioni su questo server o questo server sta eseguendo una versione precedente di Mastodon in cui le traduzioni non sono ancora supportate.",
+                "button": "OK"
             }
         },
         "controls": {
@@ -78,6 +83,7 @@
                 "sign_up": "Crea un account",
                 "see_more": "Visualizza altro",
                 "preview": "Anteprima",
+                "copy": "Copia",
                 "share": "Condividi",
                 "share_user": "Condividi %s",
                 "share_post": "Condividi il post",
@@ -91,12 +97,16 @@
                 "block_domain": "Blocca %s",
                 "unblock_domain": "Sblocca %s",
                 "settings": "Impostazioni",
-                "delete": "Elimina"
+                "delete": "Elimina",
+                "translate_post": {
+                    "title": "Traduci da %s",
+                    "unknown_language": "Sconosciuto"
+                }
             },
             "tabs": {
                 "home": "Inizio",
-                "search": "Cerca",
-                "notification": "Notifiche",
+                "search_and_explore": "Cerca ed Esplora",
+                "notifications": "Notifiche",
                 "profile": "Profilo"
             },
             "keyboard": {
@@ -132,6 +142,8 @@
                 "sensitive_content": "Contenuto sensibile",
                 "media_content_warning": "Tocca ovunque per rivelare",
                 "tap_to_reveal": "Tocca per rivelare",
+                "load_embed": "Carica Incorpora",
+                "link_via_user": "%s tramite %s",
                 "poll": {
                     "vote": "Vota",
                     "closed": "Chiuso"
@@ -153,13 +165,14 @@
                     "show_image": "Mostra immagine",
                     "show_gif": "Mostra GIF",
                     "show_video_player": "Mostra lettore video",
+                    "share_link_in_post": "Condividi il collegamento nel post",
                     "tap_then_hold_to_show_menu": "Tocca quindi tieni premuto per mostrare il menu"
                 },
                 "tag": {
                     "url": "URL",
                     "mention": "Menzione",
                     "link": "Collegamento",
-                    "hashtag": "Etichetta",
+                    "hashtag": "Hashtag",
                     "email": "Email",
                     "emoji": "Emoji"
                 },
@@ -168,6 +181,12 @@
                     "private": "Solo i loro seguaci possono vedere questo post.",
                     "private_from_me": "Solo i miei seguaci possono vedere questo post.",
                     "direct": "Solo l'utente menzionato può vedere questo post."
+                },
+                "translation": {
+                    "translated_from": "Translated from %s using %s",
+                    "unknown_language": "Sconosciuto",
+                    "unknown_provider": "Unknown",
+                    "show_original": "Mostra l'originale"
                 }
             },
             "friendship": {
@@ -449,6 +468,7 @@
                 "followers": "seguaci"
             },
             "fields": {
+                "joined": "Profilo iscritto",
                 "add_row": "Aggiungi riga",
                 "placeholder": {
                     "label": "Etichetta",
@@ -722,6 +742,18 @@
         },
         "bookmark": {
             "title": "Segnalibri"
+        },
+        "followed_tags": {
+            "title": "Etichette seguite",
+            "header": {
+                "posts": "post",
+                "participants": "partecipanti",
+                "posts_today": "post di oggi"
+            },
+            "actions": {
+                "follow": "Segui",
+                "unfollow": "Smetti di seguire"
+            }
         }
     }
 }

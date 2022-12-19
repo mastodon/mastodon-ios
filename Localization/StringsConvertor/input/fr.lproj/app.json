@@ -51,6 +51,11 @@
             "clean_cache": {
                 "title": "Vider le cache",
                 "message": "Cache de %s effacé avec succès."
+            },
+            "translation_failed": {
+                "title": "Note",
+                "message": "La traduction a échoué. Peut-être que l'administrateur n'a pas activé les traductions sur ce serveur ou que ce serveur utilise une ancienne version de Mastodon où les traductions ne sont pas encore prises en charge.",
+                "button": "OK"
             }
         },
         "controls": {
@@ -78,6 +83,7 @@
                 "sign_up": "Créer un compte",
                 "see_more": "Voir plus",
                 "preview": "Aperçu",
+                "copy": "Copier",
                 "share": "Partager",
                 "share_user": "Partager %s",
                 "share_post": "Partager la publication",
@@ -91,12 +97,16 @@
                 "block_domain": "Bloquer %s",
                 "unblock_domain": "Débloquer %s",
                 "settings": "Paramètres",
-                "delete": "Supprimer"
+                "delete": "Supprimer",
+                "translate_post": {
+                    "title": "Traduit depuis %s",
+                    "unknown_language": "Inconnu"
+                }
             },
             "tabs": {
                 "home": "Accueil",
-                "search": "Rechercher",
-                "notification": "Notification",
+                "search_and_explore": "Rechercher et explorer",
+                "notifications": "Notifications",
                 "profile": "Profil"
             },
             "keyboard": {
@@ -132,6 +142,8 @@
                 "sensitive_content": "Contenu sensible",
                 "media_content_warning": "Tapotez n’importe où pour révéler la publication",
                 "tap_to_reveal": "Appuyer pour afficher",
+                "load_embed": "Charger l'intégration",
+                "link_via_user": "%s via %s",
                 "poll": {
                     "vote": "Voter",
                     "closed": "Fermé"
@@ -153,6 +165,7 @@
                     "show_image": "Afficher l’image",
                     "show_gif": "Afficher le GIF",
                     "show_video_player": "Afficher le lecteur vidéo",
+                    "share_link_in_post": "Partager le lien dans le message",
                     "tap_then_hold_to_show_menu": "Appuyez et maintenez pour afficher le menu"
                 },
                 "tag": {
@@ -168,6 +181,12 @@
                     "private": "Seul·e·s leurs abonné·e·s peuvent voir ce message.",
                     "private_from_me": "Seul·e·s mes abonné·e·s peuvent voir ce message.",
                     "direct": "Seul·e l’utilisateur·rice mentionnée peut voir ce message."
+                },
+                "translation": {
+                    "translated_from": "Translated from %s using %s",
+                    "unknown_language": "Inconnu",
+                    "unknown_provider": "Unknown",
+                    "show_original": "Afficher l’original"
                 }
             },
             "friendship": {
@@ -449,6 +468,7 @@
                 "followers": "abonnés"
             },
             "fields": {
+                "joined": "Ici depuis",
                 "add_row": "Ajouter une rangée",
                 "placeholder": {
                     "label": "Étiquette",
@@ -722,6 +742,18 @@
         },
         "bookmark": {
             "title": "Favoris"
+        },
+        "followed_tags": {
+            "title": "Tags suivis",
+            "header": {
+                "posts": "messages",
+                "participants": "participants",
+                "posts_today": "messages aujourd'hui"
+            },
+            "actions": {
+                "follow": "Suivre",
+                "unfollow": "Ne plus suivre"
+            }
         }
     }
 }

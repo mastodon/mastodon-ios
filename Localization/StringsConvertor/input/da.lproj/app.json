@@ -51,6 +51,11 @@
             "clean_cache": {
                 "title": "Clean Cache",
                 "message": "Successfully cleaned %s cache."
+            },
+            "translation_failed": {
+                "title": "Note",
+                "message": "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.",
+                "button": "OK"
             }
         },
         "controls": {
@@ -78,6 +83,7 @@
                 "sign_up": "Create account",
                 "see_more": "See More",
                 "preview": "Preview",
+                "copy": "Copy",
                 "share": "Share",
                 "share_user": "Share %s",
                 "share_post": "Share Post",
@@ -91,12 +97,16 @@
                 "block_domain": "Block %s",
                 "unblock_domain": "Unblock %s",
                 "settings": "Settings",
-                "delete": "Delete"
+                "delete": "Delete",
+                "translate_post": {
+                    "title": "Translate from %s",
+                    "unknown_language": "Unknown"
+                }
             },
             "tabs": {
                 "home": "Home",
-                "search": "Search",
-                "notification": "Notification",
+                "search_and_explore": "Search and Explore",
+                "notifications": "Notifications",
                 "profile": "Profile"
             },
             "keyboard": {
@@ -132,6 +142,8 @@
                 "sensitive_content": "Sensitive Content",
                 "media_content_warning": "Tap anywhere to reveal",
                 "tap_to_reveal": "Tap to reveal",
+                "load_embed": "Load Embed",
+                "link_via_user": "%s via %s",
                 "poll": {
                     "vote": "Vote",
                     "closed": "Closed"
@@ -153,6 +165,7 @@
                     "show_image": "Show image",
                     "show_gif": "Show GIF",
                     "show_video_player": "Show video player",
+                    "share_link_in_post": "Share Link in Post",
                     "tap_then_hold_to_show_menu": "Tap then hold to show menu"
                 },
                 "tag": {
@@ -168,6 +181,12 @@
                     "private": "Only their followers can see this post.",
                     "private_from_me": "Only my followers can see this post.",
                     "direct": "Only mentioned user can see this post."
+                },
+                "translation": {
+                    "translated_from": "Translated from %s using %s",
+                    "unknown_language": "Unknown",
+                    "unknown_provider": "Unknown",
+                    "show_original": "Shown Original"
                 }
             },
             "friendship": {
@@ -449,6 +468,7 @@
                 "followers": "followers"
             },
             "fields": {
+                "joined": "Joined",
                 "add_row": "Add Row",
                 "placeholder": {
                     "label": "Label",
@@ -722,6 +742,18 @@
         },
         "bookmark": {
             "title": "Bookmarks"
+        },
+        "followed_tags": {
+            "title": "Followed Tags",
+            "header": {
+                "posts": "posts",
+                "participants": "participants",
+                "posts_today": "posts today"
+            },
+            "actions": {
+                "follow": "Follow",
+                "unfollow": "Unfollow"
+            }
         }
     }
 }
