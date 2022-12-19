@@ -183,8 +183,9 @@
                     "direct": "Pouze zmíněný uživatel může vidět tento příspěvek."
                 },
                 "translation": {
-                    "translated_from": "Translated from %s",
+                    "translated_from": "Translated from %s using %s",
                     "unknown_language": "Unknown",
+                    "unknown_provider": "Unknown",
                     "show_original": "Shown Original"
                 }
             },
