@@ -467,7 +467,7 @@
                 "followers": "pengikut"
             },
             "fields": {
-                "joined": "Joined",
+                "joined": "Bergabung",
                 "add_row": "Tambah Baris",
                 "placeholder": {
                     "label": "Label",
