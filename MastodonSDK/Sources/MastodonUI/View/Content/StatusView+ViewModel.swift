@@ -314,16 +314,18 @@ extension StatusView.ViewModel {
             }
             statusView.contentMetaText.paragraphStyle = paragraphStyle
             
-            if let content = content {
+            if let content = content, !(content.string.isEmpty && content.entities.isEmpty) {
                 statusView.contentMetaText.configure(
                     content: content
                 )
                 statusView.contentMetaText.textView.accessibilityTraits = [.staticText]
                 statusView.contentMetaText.textView.accessibilityElementsHidden = false
+                statusView.contentMetaText.textView.isHidden = false
 
             } else {
                 statusView.contentMetaText.reset()
                 statusView.contentMetaText.textView.accessibilityLabel = ""
+                statusView.contentMetaText.textView.isHidden = true
             }
             
             statusView.contentMetaText.textView.alpha = isContentReveal ? 1 : 0     // keep the frame size and only display when revealing
