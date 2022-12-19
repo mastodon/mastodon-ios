@@ -183,9 +183,9 @@
                     "direct": "Samo omenjeni uporabnik lahko vidi to objavo."
                 },
                 "translation": {
-                    "translated_from": "Translated from %s using %s",
+                    "translated_from": "Prevedeno iz %s s pomočjo %s",
                     "unknown_language": "Neznano",
-                    "unknown_provider": "Unknown",
+                    "unknown_provider": "Neznano",
                     "show_original": "Pokaži izvirnik"
                 }
             },
@@ -468,7 +468,7 @@
                 "followers": "sledilcev"
             },
             "fields": {
-                "joined": "Joined",
+                "joined": "Pridružen_a",
                 "add_row": "Dodaj vrstico",
                 "placeholder": {
                     "label": "Oznaka",
