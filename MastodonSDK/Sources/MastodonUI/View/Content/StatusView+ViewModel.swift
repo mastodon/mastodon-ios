@@ -49,7 +49,8 @@ extension StatusView {
         // Translation
         @Published public var isCurrentlyTranslating = false
         @Published public var translatedFromLanguage: String?
-        
+        @Published public var translatedUsingProvider: String?
+
         @Published public var timestamp: Date?
         public var timestampFormatter: ((_ date: Date) -> String)?
         @Published public var timestampText = ""
@@ -145,6 +146,7 @@ extension StatusView {
             isMediaSensitive = false
             isSensitiveToggled = false
             translatedFromLanguage = nil
+            translatedUsingProvider = nil
             isCurrentlyTranslating = false
             
             activeFilters = []
@@ -629,7 +631,9 @@ extension StatusView.ViewModel {
                 guard
                     let context = self.context,
                     let authContext = self.authContext
-                else { return nil }
+                else {
+                    return nil
+                }
                 
                 var configuration: Mastodon.Entity.V2.Instance.Configuration? = nil
                 context.managedObjectContext.performAndWait {
