@@ -164,29 +164,29 @@
                     "hide": "Slēpt",
                     "show_image": "Rādīt attēlu",
                     "show_gif": "Rādīt GIF",
-                    "show_video_player": "Show video player",
-                    "share_link_in_post": "Share Link in Post",
-                    "tap_then_hold_to_show_menu": "Tap then hold to show menu"
+                    "show_video_player": "Rādīt video atskaņotāju",
+                    "share_link_in_post": "Kopīgot Saiti Ziņā",
+                    "tap_then_hold_to_show_menu": "Pieskaries un turi, lai parādītu izvēlni"
                 },
                 "tag": {
                     "url": "URL",
                     "mention": "Pieminēt",
                     "link": "Saite",
-                    "hashtag": "Hashtag",
+                    "hashtag": "Tēmturis",
                     "email": "E-pasts",
                     "emoji": "Emocijzīmes"
                 },
                 "visibility": {
-                    "unlisted": "Everyone can see this post but not display in the public timeline.",
-                    "private": "Only their followers can see this post.",
-                    "private_from_me": "Only my followers can see this post.",
-                    "direct": "Only mentioned user can see this post."
+                    "unlisted": "Ikviens var redzēt šo ziņu, bet to nevar parādīt publiskajā laikrindā.",
+                    "private": "Šo ziņu var redzēt tikai viņu sekotāji.",
+                    "private_from_me": "Šo ziņu var redzēt tikai mani sekotāji.",
+                    "direct": "Šo ziņu var redzēt tikai minētais lietotājs."
                 },
                 "translation": {
-                    "translated_from": "Translated from %s using %s",
-                    "unknown_language": "Unknown",
-                    "unknown_provider": "Unknown",
-                    "show_original": "Shown Original"
+                    "translated_from": "Tulkots no %s, izmantojot %s",
+                    "unknown_language": "Nezināms",
+                    "unknown_provider": "Nezināms",
+                    "show_original": "Parādīts Oriģināls"
                 }
             },
             "friendship": {
@@ -205,9 +205,9 @@
                 "unmute": "Noņemt apklusinājumu",
                 "unmute_user": "Noņemt apklusinājumu @%s",
                 "muted": "Apklusināts",
-                "edit_info": "Edit Info",
-                "show_reblogs": "Show Reblogs",
-                "hide_reblogs": "Hide Reblogs"
+                "edit_info": "Rediģēt",
+                "show_reblogs": "Rādīt Reblogus",
+                "hide_reblogs": "Paslēpt Reblogus"
             },
             "timeline": {
                 "filtered": "Filtrēts",
@@ -215,26 +215,26 @@
                     "now": "Tagad"
                 },
                 "loader": {
-                    "load_missing_posts": "Load missing posts",
-                    "loading_missing_posts": "Loading missing posts...",
+                    "load_missing_posts": "Ielādēt trūkstošās ziņas",
+                    "loading_missing_posts": "Ielādē trūkstošās ziņas...",
                     "show_more_replies": "Rādīt vairāk atbildes"
                 },
                 "header": {
-                    "no_status_found": "No Post Found",
-                    "blocking_warning": "You can’t view this user's profile\nuntil you unblock them.\nYour profile looks like this to them.",
-                    "user_blocking_warning": "You can’t view %s’s profile\nuntil you unblock them.\nYour profile looks like this to them.",
-                    "blocked_warning": "You can’t view this user’s profile\nuntil they unblock you.",
-                    "user_blocked_warning": "You can’t view %s’s profile\nuntil they unblock you.",
-                    "suspended_warning": "This user has been suspended.",
-                    "user_suspended_warning": "%s’s account has been suspended."
+                    "no_status_found": "Nav Atrastu Ziņu",
+                    "blocking_warning": "Tu nevari skatīt šī lietotāja profilu,\nlīdz tu tos atbloķē.\nTavs profils viņiem izskatās šādi.",
+                    "user_blocking_warning": "Tu nevari skatīt %s profilu,\nlīdz tu tos atbloķē.\nTavs profils viņiem izskatās šādi.",
+                    "blocked_warning": "Tu nevari skatīt šī lietotāja profilu\nlīdz tie tevi atbloķē.",
+                    "user_blocked_warning": "Tu nevari skatīt %s profilu,\nlīdz tie tevi atbloķē.",
+                    "suspended_warning": "Šī lietotāja darbība ir apturēta.",
+                    "user_suspended_warning": "%s konta darbība ir apturēta."
                 }
             }
         }
     },
     "scene": {
         "welcome": {
-            "slogan": "Social networking\nback in your hands.",
-            "get_started": "Get Started",
+            "slogan": "Sociālie tīkli\natpakaļ tavās rokās.",
+            "get_started": "Sāc",
             "log_in": "Pieteikties"
         },
         "login": {
