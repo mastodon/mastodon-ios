@@ -183,8 +183,9 @@
                     "direct": "المُستخدمِونَ المُشارِ إليهم فَقَطْ مَن يُمكِنُهُم رُؤيَةُ هَذَا المَنشُور."
                 },
                 "translation": {
-                    "translated_from": "Translated from %s",
+                    "translated_from": "Translated from %s using %s",
                     "unknown_language": "Unknown",
+                    "unknown_provider": "Unknown",
                     "show_original": "Shown Original"
                 }
             },
