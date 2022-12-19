@@ -83,7 +83,7 @@
                 "sign_up": "Ajimêr biafirîne",
                 "see_more": "Bêtir bibîne",
                 "preview": "Pêşdîtin",
-                "copy": "Copy",
+                "copy": "Jê bigire",
                 "share": "Parve bike",
                 "share_user": "%s parve bike",
                 "share_post": "Şandiyê parve bike",
@@ -99,7 +99,7 @@
                 "settings": "Sazkarî",
                 "delete": "Jê bibe",
                 "translate_post": {
-                    "title": "Ji %s hate wergerandin",
+                    "title": "Ji %s wergerîne",
                     "unknown_language": "Nenas"
                 }
             },
@@ -143,7 +143,7 @@
                 "media_content_warning": "Ji bo eşkerekirinê li derekî bitikîne",
                 "tap_to_reveal": "Ji bo dîtinê bitikîne",
                 "load_embed": "Load Embed",
-                "link_via_user": "%s via %s",
+                "link_via_user": "%s bi riya %s",
                 "poll": {
                     "vote": "Deng bide",
                     "closed": "Girtî"
@@ -165,7 +165,7 @@
                     "show_image": "Wêneyê nîşan bide",
                     "show_gif": "GIF nîşan bide",
                     "show_video_player": "Lêdera vîdyoyê nîşan bide",
-                    "share_link_in_post": "Share Link in Post",
+                    "share_link_in_post": "Girêdanê di şandiyê de parve bike",
                     "tap_then_hold_to_show_menu": "Ji bo nîşandana menuyê dirêj bitikîne"
                 },
                 "tag": {
@@ -183,9 +183,9 @@
                     "direct": "Tenê bikarhênerê qalkirî dikare vê şandiyê bibîne."
                 },
                 "translation": {
-                    "translated_from": "Translated from %s using %s",
+                    "translated_from": "Hate wergerandin ji %s bi riya %s",
                     "unknown_language": "Nenas",
-                    "unknown_provider": "Unknown",
+                    "unknown_provider": "Nenas",
                     "show_original": "A resen nîşan bide"
                 }
             },
