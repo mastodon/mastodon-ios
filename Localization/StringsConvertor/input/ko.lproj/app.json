@@ -183,8 +183,9 @@
                     "direct": "Only mentioned user can see this post."
                 },
                 "translation": {
-                    "translated_from": "%s에서 번역됨",
+                    "translated_from": "Translated from %s using %s",
                     "unknown_language": "알 수 없음",
+                    "unknown_provider": "Unknown",
                     "show_original": "원본 보기"
                 }
             },
