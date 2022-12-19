@@ -183,9 +183,9 @@
                     "direct": "Solo l'utente menzionato può vedere questo post."
                 },
                 "translation": {
-                    "translated_from": "Translated from %s using %s",
+                    "translated_from": "Tradotto da %s utilizzando %s",
                     "unknown_language": "Sconosciuto",
-                    "unknown_provider": "Unknown",
+                    "unknown_provider": "Sconosciuto",
                     "show_original": "Mostra l'originale"
                 }
             },
