@@ -39,7 +39,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
     }()
 
     func nextBarButtonItem() -> UIBarButtonItem {
-        return UIBarButtonItem(title: L10n.Common.Controls.Actions.Next, style: .done, target: self, action: #selector(MastodonRegisterViewController.nextButtonPressed(_:)))
+        return UIBarButtonItem(title: L10n.Common.Controls.Actions.next, style: .done, target: self, action: #selector(MastodonRegisterViewController.nextButtonPressed(_:)))
     }
 }
 
