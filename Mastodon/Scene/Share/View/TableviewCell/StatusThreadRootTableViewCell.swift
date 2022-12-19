@@ -62,7 +62,7 @@ extension StatusThreadRootTableViewCell {
             statusView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
             containerViewLeadingLayoutConstraint,
             containerViewTrailingLayoutConstraint,
-            statusView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            contentView.bottomAnchor.constraint(equalTo: statusView.bottomAnchor).priority(.defaultHigh),
         ])
         statusView.setup(style: .plain)
         updateContainerViewMarginConstraints()

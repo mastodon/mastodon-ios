@@ -288,6 +288,11 @@ public final class StatusView: UIView {
         _init()
     }
     
+    public override func layoutSubviews() {
+        super.layoutSubviews()
+
+        spoilerOverlayView.frame.size = contentContainer.frame.size
+    }
 }
 
 extension StatusView {
@@ -449,13 +454,16 @@ extension StatusView.Style {
         statusView.contentContainer.addArrangedSubview(statusView.contentMetaText.textView)
         statusView.contentContainer.addArrangedSubview(statusView.statusCardControl)
 
+        statusView.spoilerOverlayView.translatesAutoresizingMaskIntoConstraints = false
+        statusView.containerStackView.addSubview(statusView.spoilerOverlayView)
+        NSLayoutConstraint.activate([
+            statusView.spoilerOverlayView.centerXAnchor.constraint(equalTo: statusView.contentContainer.centerXAnchor),
+            statusView.spoilerOverlayView.centerYAnchor.constraint(equalTo: statusView.contentContainer.centerYAnchor),
+        ])
+
         // translated info
         statusView.containerStackView.addArrangedSubview(statusView.isTranslatingLoadingView)
         statusView.containerStackView.addArrangedSubview(statusView.translatedInfoView)
-
-        statusView.spoilerOverlayView.translatesAutoresizingMaskIntoConstraints = false
-        statusView.containerStackView.addSubview(statusView.spoilerOverlayView)
-        statusView.spoilerOverlayView.pinTo(to: statusView.contentContainer)
 
         // media container: V - [ mediaGridContainerView ]
         statusView.mediaContainerView.translatesAutoresizingMaskIntoConstraints = false

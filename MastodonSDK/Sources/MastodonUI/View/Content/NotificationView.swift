@@ -345,7 +345,7 @@ extension NotificationView {
             quoteBackgroundView.topAnchor.constraint(equalTo: quoteStatusViewContainerView.layoutMarginsGuide.topAnchor),
             quoteBackgroundView.leadingAnchor.constraint(equalTo: quoteStatusViewContainerView.layoutMarginsGuide.leadingAnchor),
             quoteBackgroundView.trailingAnchor.constraint(equalTo: quoteStatusViewContainerView.layoutMarginsGuide.trailingAnchor),
-            quoteBackgroundView.bottomAnchor.constraint(equalTo: quoteStatusViewContainerView.layoutMarginsGuide.bottomAnchor),
+            quoteStatusViewContainerView.bottomAnchor.constraint(equalTo: quoteBackgroundView.layoutMarginsGuide.bottomAnchor),
         ])
         quoteBackgroundView.backgroundColor = .secondarySystemBackground
         quoteBackgroundView.layer.masksToBounds = true
@@ -360,7 +360,7 @@ extension NotificationView {
             quoteStatusView.topAnchor.constraint(equalTo: quoteBackgroundView.layoutMarginsGuide.topAnchor),
             quoteStatusView.leadingAnchor.constraint(equalTo: quoteBackgroundView.layoutMarginsGuide.leadingAnchor),
             quoteStatusView.trailingAnchor.constraint(equalTo: quoteBackgroundView.layoutMarginsGuide.trailingAnchor),
-            quoteStatusView.bottomAnchor.constraint(equalTo: quoteBackgroundView.layoutMarginsGuide.bottomAnchor),
+            quoteBackgroundView.bottomAnchor.constraint(equalTo: quoteStatusView.layoutMarginsGuide.bottomAnchor),
         ])
         quoteStatusView.setup(style: .notificationQuote)
         
