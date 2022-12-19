@@ -183,8 +183,9 @@
                     "direct": "Nomás l'usuario mencionau puede veyer este mensache."
                 },
                 "translation": {
-                    "translated_from": "Translated from %s",
+                    "translated_from": "Translated from %s using %s",
                     "unknown_language": "Unknown",
+                    "unknown_provider": "Unknown",
                     "show_original": "Shown Original"
                 }
             },
