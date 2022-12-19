@@ -157,20 +157,21 @@ extension StatusAuthorView {
     }
 
     public func setupAuthorMenu(menuContext: AuthorMenuContext) -> (UIMenu, [UIAccessibilityCustomAction]) {
-        var actions = [MastodonMenu.Action]()
+        var statusActions = [MastodonMenu.Action]()
+        var userActions = [MastodonMenu.Action]()
 
         if menuContext.isMyself {
-            actions.append(.editStatus)
+            statusActions.append(.editStatus)
         }
 
         if !menuContext.isMyself {
             if let statusLanguage = menuContext.statusLanguage, menuContext.isTranslationEnabled, !menuContext.isTranslated {
-                actions.append(
+                statusActions.append(
                     .translateStatus(.init(language: statusLanguage))
                 )
             }
             
-            actions.append(contentsOf: [
+            userActions.append(contentsOf: [
                 .muteUser(.init(
                     name: menuContext.name,
                     isMuting: menuContext.isMuting
@@ -185,7 +186,7 @@ extension StatusAuthorView {
             ])
         }
         
-        actions.append(contentsOf: [
+        statusActions.append(contentsOf: [
             .bookmarkStatus(
                 .init(isBookmarking: menuContext.isBookmarking)
             ),
@@ -193,17 +194,23 @@ extension StatusAuthorView {
         ])
 
         if menuContext.isMyself {
-            actions.append(.deleteStatus)
+            statusActions.append(.deleteStatus)
         }
 
 
-        let menu = MastodonMenu.setupMenu(
-            actions: actions,
-            delegate: self.statusView!
-        )
+        let menu = UIMenu(children: [
+            MastodonMenu.setupMenu(
+                actions: statusActions,
+                delegate: self.statusView!
+            ),
+            userActions.isEmpty ? nil : MastodonMenu.setupMenu(
+                actions: userActions,
+                delegate: self.statusView!
+            ),
+        ].compactMap { $0 })
 
         let accessibilityActions = MastodonMenu.setupAccessibilityActions(
-            actions: actions,
+            actions: statusActions + userActions,
             delegate: self.statusView!
         )
 

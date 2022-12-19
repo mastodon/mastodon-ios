@@ -30,7 +30,7 @@ public enum MastodonMenu {
             }
             children.append(element)
         }
-        return UIMenu(children: children)
+        return UIMenu(options: .displayInline, children: children)
     }
 
     public static func setupAccessibilityActions(
