@@ -21,7 +21,11 @@ class PickServerCategoryView: UIView {
         return label
     }()
 
-    //TODO: @zeitschlag add chevron
+    let chevron: UIImageView = {
+        let chevron = UIImageView(image: UIImage(systemName: "chevron.down"))
+        chevron.translatesAutoresizingMaskIntoConstraints = false
+        return chevron
+    }()
     
     init() {
         super.init(frame: .zero)
@@ -34,11 +38,14 @@ class PickServerCategoryView: UIView {
     }
 
     private func _init() {
+
         let container = UIStackView()
         container.axis = .horizontal
         container.spacing = 4
         container.distribution = .fillProportionally
-        
+        container.addArrangedSubview(titleLabel)
+        container.addArrangedSubview(chevron)
+
         container.translatesAutoresizingMaskIntoConstraints = false
         addSubview(container)
         let constraints = [
@@ -50,7 +57,6 @@ class PickServerCategoryView: UIView {
         
         NSLayoutConstraint.activate(constraints)
         
-        container.addArrangedSubview(titleLabel)
 
         layer.borderColor = UIColor.black.cgColor
         layer.borderWidth = 1.0
