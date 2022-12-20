@@ -391,6 +391,7 @@ extension MastodonPickServerViewController: PickServerServerSectionTableHeaderVi
     func pickServerServerSectionTableHeaderView(_ headerView: PickServerServerSectionTableHeaderView, collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let diffableDataSource = headerView.diffableDataSource else { return }
         let item = diffableDataSource.itemIdentifier(for: indexPath)
+        //TODO: @zeitschlag Consider language etc. also: show menu
         viewModel.selectCategoryItem.value = item ?? .all
     }
 }

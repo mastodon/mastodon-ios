@@ -33,6 +33,7 @@ class MastodonPickServerViewModel: NSObject {
     var categoryPickerItems: [CategoryPickerItem] = {
         var items: [CategoryPickerItem] = []
         items.append(.all)
+        items.append(.language(language: nil))
         items.append(contentsOf: APIService.stubCategories().map { CategoryPickerItem.category(category: $0) })
         return items
     }()
@@ -156,6 +157,9 @@ extension MastodonPickServerViewModel {
             switch selectCategoryItem {
             case .all:
                 return MastodonPickServerViewModel.filterServers(servers: indexedServers, category: nil, searchText: searchText)
+            case .language(let language):
+                //TODO: @zeitschlag Cache selected language
+                return MastodonPickServerViewModel.filterServers(servers: indexedServers, language: "de", category: nil, searchText: searchText)
             case .category(let category):
                 return MastodonPickServerViewModel.filterServers(servers: indexedServers, category: category.category.rawValue, searchText: searchText)
             }
@@ -210,16 +214,16 @@ extension MastodonPickServerViewModel {
     }
 
 }
-   
+
 extension MastodonPickServerViewModel {
-    private static func filterServers(servers: [Mastodon.Entity.Server], category: String?, searchText: String) -> [Mastodon.Entity.Server] {
-        return servers
-            // 1. Filter the category
+    private static func filterServers(servers: [Mastodon.Entity.Server], language: String? = nil, category: String?, searchText: String) -> [Mastodon.Entity.Server] {
+        let filteredServers = servers
+        // 1. Filter the category
             .filter {
                 guard let category = category else  { return true }
                 return $0.category.caseInsensitiveCompare(category) == .orderedSame
             }
-            // 2. Filter the searchText
+        // 2. Filter the searchText
             .filter {
                 let searchText = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
                 guard !searchText.isEmpty else {
@@ -227,6 +231,11 @@ extension MastodonPickServerViewModel {
                 }
                 return $0.domain.lowercased().contains(searchText.lowercased())
             }
+            .filter {
+                guard let language else { return true }
+                return $0.language.lowercased() == language.lowercased()
+            }
+        return filteredServers
     }
 }
 

@@ -22,6 +22,10 @@ extension CategoryPickerSection {
             guard let _ = dependency else { return nil }
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: PickServerCategoryCollectionViewCell.self), for: indexPath) as! PickServerCategoryCollectionViewCell
             cell.categoryView.titleLabel.text = item.title
+            
+            let isLanguage = (item == .language(language: nil))
+            cell.categoryView.chevron.isHidden = (isLanguage == false)
+
             cell.observe(\.isSelected, options: [.initial, .new]) { cell, _ in
 
                 let textColor: UIColor
@@ -41,6 +45,7 @@ extension CategoryPickerSection {
                 cell.categoryView.backgroundColor = backgroundColor
                 cell.categoryView.titleLabel.textColor = textColor
                 cell.categoryView.layer.borderColor = borderColor.cgColor
+                cell.categoryView.chevron.tintColor = textColor
             }
             .store(in: &cell.observations)
             

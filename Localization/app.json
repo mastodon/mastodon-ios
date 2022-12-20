@@ -267,6 +267,7 @@
         "server_picker": {
             "title": "Pick Server",
             "button": {
+                "language": "Language",
                 "category": {
                     "all": "All",
                     "all_accessiblity_description": "Category: All",

@@ -1205,6 +1205,8 @@ public enum L10n {
       /// Pick server
       public static let title = L10n.tr("Localizable", "Scene.ServerPicker.Title", fallback: "Pick server")
       public enum Button {
+        /// Language
+        public static let language = L10n.tr("Localizable", "Scene.ServerPicker.Button.Language", fallback: "Language")
         /// See Less
         public static let seeLess = L10n.tr("Localizable", "Scene.ServerPicker.Button.SeeLess", fallback: "See Less")
         /// See More

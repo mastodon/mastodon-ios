@@ -428,6 +428,7 @@ uploaded to Mastodon.";
 "Scene.ServerPicker.Button.Category.Tech" = "tech";
 "Scene.ServerPicker.Button.SeeLess" = "See Less";
 "Scene.ServerPicker.Button.SeeMore" = "See More";
+"Scene.ServerPicker.Button.Language" = "Language";
 "Scene.ServerPicker.EmptyState.BadNetwork" = "Something went wrong while loading the data. Check your internet connection.";
 "Scene.ServerPicker.EmptyState.FindingServers" = "Finding available servers...";
 "Scene.ServerPicker.EmptyState.NoResults" = "No results";
