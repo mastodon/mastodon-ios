@@ -463,12 +463,12 @@
                 "follows_you": "Följer dig"
             },
             "dashboard": {
-                "my_posts": "posts",
-                "my_following": "following",
-                "my_followers": "followers",
-                "other_posts": "posts",
-                "other_following": "following",
-                "other_followers": "followers"
+                "my_posts": "inlägg",
+                "my_following": "följer",
+                "my_followers": "följare",
+                "other_posts": "inlägg",
+                "other_following": "följer",
+                "other_followers": "följare"
             },
             "fields": {
                 "joined": "Gick med",
