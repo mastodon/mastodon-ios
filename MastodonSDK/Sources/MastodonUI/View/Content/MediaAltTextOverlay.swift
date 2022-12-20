@@ -24,6 +24,8 @@ struct MediaAltTextOverlay: View {
                             Spacer()
                             Button(action: { showingAlt = false }) {
                                 Image(systemName: "xmark.circle.fill")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
                                     .frame(width: 20, height: 20)
                             }
                         }
