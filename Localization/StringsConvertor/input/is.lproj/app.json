@@ -463,12 +463,12 @@
                 "follows_you": "Fylgist með þér"
             },
             "dashboard": {
-                "my_posts": "posts",
-                "my_following": "following",
-                "my_followers": "followers",
-                "other_posts": "posts",
-                "other_following": "following",
-                "other_followers": "followers"
+                "my_posts": "færslur",
+                "my_following": "er fylgst með",
+                "my_followers": "fylgjendur",
+                "other_posts": "færslur",
+                "other_following": "er fylgst með",
+                "other_followers": "fylgjendur"
             },
             "fields": {
                 "joined": "Gerðist þátttakandi",
