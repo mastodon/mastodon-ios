@@ -68,6 +68,10 @@ public class HUDButton: UIView {
     }
 
     public override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-        button
+        if self.point(inside: point, with: event) {
+            return button
+        } else {
+            return nil
+        }
     }
 }
