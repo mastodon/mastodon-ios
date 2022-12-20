@@ -463,12 +463,12 @@
                 "follows_you": "Te sigue"
             },
             "dashboard": {
-                "my_posts": "posts",
-                "my_following": "following",
-                "my_followers": "followers",
-                "other_posts": "posts",
-                "other_following": "following",
-                "other_followers": "followers"
+                "my_posts": "mensajes",
+                "my_following": "siguiendo",
+                "my_followers": "seguidores",
+                "other_posts": "mensajes",
+                "other_following": "siguiendo",
+                "other_followers": "seguidores"
             },
             "fields": {
                 "joined": "En este servidor desde",
