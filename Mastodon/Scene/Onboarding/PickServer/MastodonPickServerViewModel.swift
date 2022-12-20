@@ -41,6 +41,7 @@ class MastodonPickServerViewModel: NSObject {
     let selectCategoryItem = CurrentValueSubject<CategoryPickerItem, Never>(.all)
     let searchText = CurrentValueSubject<String, Never>("")
     let selectedLanguage = CurrentValueSubject<String?, Never>(nil)
+    let allLanguages = CurrentValueSubject<[Mastodon.Entity.Language], Never>([])
     let indexedServers = CurrentValueSubject<[Mastodon.Entity.Server], Never>([])
     let unindexedServers = CurrentValueSubject<[Mastodon.Entity.Server]?, Never>([])    // set nil when loading
     let viewWillAppear = PassthroughSubject<Void, Never>()
@@ -72,7 +73,7 @@ class MastodonPickServerViewModel: NSObject {
     init(context: AppContext) {
         self.context = context
         super.init()
-        
+
         configure()
     }
     
@@ -85,6 +86,14 @@ class MastodonPickServerViewModel: NSObject {
 extension MastodonPickServerViewModel {
     
     private func configure() {
+
+        context.apiService.languages().sink { completion in
+            
+        } receiveValue: { response in
+            self.allLanguages.value = response.value
+        }
+        .store(in: &disposeBag)
+
         Publishers.CombineLatest(
             isLoadingIndexedServers,
             loadingIndexedServersError
@@ -272,15 +281,17 @@ extension MastodonPickServerViewModel: TMBarDataSource {
 extension MastodonPickServerViewModel: PickServerCategoryCollectionViewCellDelegate {
     func didPressMenuButton(in cell: PickServerCategoryCollectionViewCell) {
 
+        guard allLanguages.value.isNotEmpty else { return }
+
         let allLanguagesAction = UIAction(title: "All") { _ in
             self.selectedLanguage.value = nil
             cell.titleLabel.text = L10n.Scene.ServerPicker.Button.language
         }
 
-        let languageActions = ["de", "en"].compactMap { language in
-            UIAction(title: language) { action in
-                self.selectedLanguage.value = language
-                cell.titleLabel.text = language
+        let languageActions = allLanguages.value.compactMap { language in
+            UIAction(title: language.language ?? language.locale) { action in
+                self.selectedLanguage.value = language.locale
+                cell.titleLabel.text = language.language
             }
         }
 
