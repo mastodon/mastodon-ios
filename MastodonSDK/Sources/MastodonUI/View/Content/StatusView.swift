@@ -52,7 +52,10 @@ public final class StatusView: UIView {
     public weak var delegate: StatusViewDelegate?
     
     public private(set) var style: Style?
-    
+
+    // accessibility actions
+    var toolbarActions = [UIAccessibilityCustomAction]()
+
     public private(set) lazy var viewModel: ViewModel = {
         let viewModel = ViewModel()
         viewModel.bind(statusView: self)
@@ -611,7 +614,11 @@ extension StatusView {
 
 extension StatusView {
     public override var accessibilityCustomActions: [UIAccessibilityCustomAction]? {
-        get { contentMetaText.textView.accessibilityCustomActions }
+        get {
+            (contentMetaText.textView.accessibilityCustomActions ?? [])
+            + toolbarActions
+            + (authorView.accessibilityCustomActions ?? [])
+        }
         set { }
     }
 }

@@ -778,7 +778,48 @@ extension StatusView.ViewModel {
                 return L10n.Plural.Count.media(count)
             }
             
-        // TODO: Toolbar
+        let replyLabel = $replyCount
+            .map { [L10n.Common.Controls.Actions.reply, L10n.Plural.Count.reply($0)] }
+            .map { $0.joined(separator: ", ") }
+
+        let reblogLabel = Publishers.CombineLatest($isReblog, $reblogCount)
+            .map { isReblog, reblogCount in
+                [
+                    isReblog ? L10n.Common.Controls.Status.Actions.unreblog : L10n.Common.Controls.Status.Actions.reblog,
+                    L10n.Plural.Count.reblog(reblogCount)
+                ]
+            }
+            .map { $0.joined(separator: ", ") }
+
+        let favoriteLabel = Publishers.CombineLatest($isFavorite, $favoriteCount)
+            .map { isFavorite, favoriteCount in
+                [
+                    isFavorite ? L10n.Common.Controls.Status.Actions.unfavorite : L10n.Common.Controls.Status.Actions.favorite,
+                    L10n.Plural.Count.favorite(favoriteCount)
+                ]
+            }
+            .map { $0.joined(separator: ", ") }
+
+        Publishers.CombineLatest4(replyLabel, reblogLabel, $isReblogEnabled, favoriteLabel)
+            .map { replyLabel, reblogLabel, canReblog, favoriteLabel in
+                let toolbar = statusView.actionToolbarContainer
+                let replyAction = UIAccessibilityCustomAction(name: replyLabel) { _ in
+                    statusView.actionToolbarContainer(toolbar, buttonDidPressed: toolbar.replyButton, action: .reply)
+                    return true
+                }
+                let reblogAction = UIAccessibilityCustomAction(name: reblogLabel) { _ in
+                    statusView.actionToolbarContainer(toolbar, buttonDidPressed: toolbar.reblogButton, action: .reblog)
+                    return true
+                }
+                let favoriteAction = UIAccessibilityCustomAction(name: favoriteLabel) { _ in
+                    statusView.actionToolbarContainer(toolbar, buttonDidPressed: toolbar.favoriteButton, action: .like)
+                    return true
+                }
+                // (share, bookmark are excluded since they are already present in the “…” menu action set)
+                return canReblog ? [replyAction, reblogAction, favoriteAction] : [replyAction, favoriteAction]
+            }
+            .assign(to: \.toolbarActions, on: statusView)
+            .store(in: &disposeBag)
     
         Publishers.CombineLatest3(
             shortAuthorAccessibilityLabel,
