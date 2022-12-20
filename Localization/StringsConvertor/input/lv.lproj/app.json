@@ -463,12 +463,12 @@
                 "follows_you": "Seko tev"
             },
             "dashboard": {
-                "my_posts": "posts",
-                "my_following": "following",
-                "my_followers": "followers",
-                "other_posts": "posts",
-                "other_following": "following",
-                "other_followers": "followers"
+                "my_posts": "ziņas",
+                "my_following": "seko",
+                "my_followers": "sekotāji",
+                "other_posts": "ziņas",
+                "other_following": "seko",
+                "other_followers": "sekotāji"
             },
             "fields": {
                 "joined": "Pievienojās",
