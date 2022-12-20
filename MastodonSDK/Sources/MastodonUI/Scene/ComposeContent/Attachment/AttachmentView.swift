@@ -46,12 +46,15 @@ public struct AttachmentView: View {
                                     }
                                 }()
                                 Spacer()
-                                TextField(placeholder, text: $viewModel.caption)
+                                TextField("", text: $viewModel.caption)
                                     .lineLimit(1)
                                     .textFieldStyle(.plain)
                                     .foregroundColor(.white)
-                                    .placeholder(placeholder, when: viewModel.caption.isEmpty)
-                                    .padding(8)
+                                    .background(Color.black.opacity(0.4))
+                                    .placeholder(when: viewModel.caption.isEmpty) {
+                                        Text(placeholder).foregroundColor(.white)
+                                    }
+                                    .padding(6)
                             }
                         )
                     
