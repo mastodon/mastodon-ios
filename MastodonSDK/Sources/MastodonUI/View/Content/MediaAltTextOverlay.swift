@@ -27,16 +27,22 @@ struct MediaAltTextOverlay: View {
                                     .frame(width: 20, height: 20)
                             }
                         }
-                        .transition(.scale(scale: 0.1, anchor: .bottomLeading))
                         .padding(8)
-                        .frame(width: geom.size.width)
-                        .fixedSize()
-                        .matchedGeometryEffect(id: "background", in: namespace)
+                        .matchedGeometryEffect(id: "background", in: namespace, properties: .position)
+                        .transition(
+                            .scale(scale: 0.2, anchor: .bottomLeading)
+                            .combined(with: .opacity)
+                        )
                     } else {
                         Button("ALT") { showingAlt = true }
-                            .fixedSize()
-                            .buttonStyle(AltButtonStyle())
-                            .matchedGeometryEffect(id: "background", in: namespace)
+                            .font(.caption.weight(.semibold))
+                            .padding(.horizontal, 8)
+                            .padding(.vertical, 3)
+                            .matchedGeometryEffect(id: "background", in: namespace, properties: .position)
+                            .transition(
+                                .scale(scale: 3, anchor: .trailing)
+                                .combined(with: .opacity)
+                            )
                     }
                 }
             }
@@ -50,7 +56,7 @@ struct MediaAltTextOverlay: View {
                     .inset(by: -0.5)
                     .stroke(lineWidth: 0.5)
             )
-            .animation(.spring(response: 0.25), value: showingAlt)
+            .animation(.spring(response: 0.3), value: showingAlt)
             .frame(width: geom.size.width, height: geom.size.height, alignment: .bottomLeading)
         }
         .padding(.horizontal, 16)
@@ -58,17 +64,6 @@ struct MediaAltTextOverlay: View {
         .onChange(of: altDescription) { _ in
             showingAlt = false
         }
-    }
-}
-
-@available(iOS 15.0, *)
-private struct AltButtonStyle: ButtonStyle {
-    func makeBody(configuration: Configuration) -> some View {
-        configuration.label
-            .font(.caption.weight(.semibold))
-            .padding(.horizontal, 8)
-            .padding(.vertical, 3)
-            .opacity(configuration.isPressed ? 0.5 : 1)
     }
 }
 
