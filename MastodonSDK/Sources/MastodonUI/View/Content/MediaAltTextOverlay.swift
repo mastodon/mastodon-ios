@@ -44,6 +44,12 @@ struct MediaAltTextOverlay: View {
             .tint(.white)
             .background(Color.black.opacity(0.85))
             .cornerRadius(4)
+            .overlay(
+                .white.opacity(0.5),
+                in: RoundedRectangle(cornerRadius: 4)
+                    .inset(by: -0.5)
+                    .stroke(lineWidth: 0.5)
+            )
             .animation(.spring(response: 0.25), value: showingAlt)
             .frame(width: geom.size.width, height: geom.size.height, alignment: .bottomLeading)
         }
