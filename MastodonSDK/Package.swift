@@ -3,6 +3,17 @@
 
 import PackageDescription
 
+let publicLibraryTargets = [
+    "CoreDataStack",
+    "MastodonAsset",
+    "MastodonCommon",
+    "MastodonCore",
+    "MastodonExtension",
+    "MastodonLocalization",
+    "MastodonSDK",
+    "MastodonUI",
+]
+
 let package = Package(
     name: "MastodonSDK",
     defaultLocalization: "en",
@@ -10,19 +21,16 @@ let package = Package(
         .iOS(.v14),
     ],
     products: [
+        // Static Library
         .library(
             name: "MastodonSDK",
+            targets: publicLibraryTargets
+        ),
+        // Dynamic Library
+        .library(
+            name: "MastodonSDKDynamic",
             type: .dynamic,
-            targets: [
-                "CoreDataStack",
-                "MastodonAsset",
-                "MastodonCommon",
-                "MastodonCore",
-                "MastodonExtension",
-                "MastodonLocalization",
-                "MastodonSDK",
-                "MastodonUI",
-            ]
+            targets: publicLibraryTargets
         )
     ],
     dependencies: [
