@@ -463,9 +463,12 @@
                 "follows_you": "Folgt dir"
             },
             "dashboard": {
-                "posts": "Beiträge",
-                "following": "Gefolgte",
-                "followers": "Folgende"
+                "my_posts": "posts",
+                "my_following": "following",
+                "my_followers": "followers",
+                "other_posts": "posts",
+                "other_following": "following",
+                "other_followers": "followers"
             },
             "fields": {
                 "joined": "Beigetreten",
