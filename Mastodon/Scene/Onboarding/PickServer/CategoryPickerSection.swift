@@ -16,15 +16,25 @@ enum CategoryPickerSection: Equatable, Hashable {
 extension CategoryPickerSection {
     static func collectionViewDiffableDataSource(
         for collectionView: UICollectionView,
-        dependency: NeedsDependency
+        dependency: NeedsDependency,
+        buttonDelegate: PickServerCategoryCollectionViewCellDelegate?
     ) -> UICollectionViewDiffableDataSource<CategoryPickerSection, CategoryPickerItem> {
         UICollectionViewDiffableDataSource(collectionView: collectionView) { [weak dependency] collectionView, indexPath, item -> UICollectionViewCell? in
             guard let _ = dependency else { return nil }
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: PickServerCategoryCollectionViewCell.self), for: indexPath) as! PickServerCategoryCollectionViewCell
-            cell.categoryView.titleLabel.text = item.title
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PickServerCategoryCollectionViewCell.reuseIdentifier, for: indexPath) as! PickServerCategoryCollectionViewCell
+
+            cell.titleLabel.text = item.title
+            cell.delegate = buttonDelegate
             
             let isLanguage = (item == .language(language: nil))
-            cell.categoryView.chevron.isHidden = (isLanguage == false)
+            if isLanguage {
+                cell.chevron.isHidden = false
+                cell.menuButton.isUserInteractionEnabled = true
+
+            } else {
+                cell.chevron.isHidden = true
+                cell.menuButton.isUserInteractionEnabled = false
+            }
 
             cell.observe(\.isSelected, options: [.initial, .new]) { cell, _ in
 
@@ -42,10 +52,10 @@ extension CategoryPickerSection {
                     borderColor = .separator
                 }
 
-                cell.categoryView.backgroundColor = backgroundColor
-                cell.categoryView.titleLabel.textColor = textColor
-                cell.categoryView.layer.borderColor = borderColor.cgColor
-                cell.categoryView.chevron.tintColor = textColor
+                cell.backgroundColor = backgroundColor
+                cell.titleLabel.textColor = textColor
+                cell.layer.borderColor = borderColor.cgColor
+                cell.chevron.tintColor = textColor
             }
             .store(in: &cell.observations)
             

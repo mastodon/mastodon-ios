@@ -18,7 +18,8 @@ extension MastodonPickServerViewModel {
         // set section header
         serverSectionHeaderView.diffableDataSource = CategoryPickerSection.collectionViewDiffableDataSource(
             for: serverSectionHeaderView.collectionView,
-            dependency: dependency
+            dependency: dependency,
+            buttonDelegate: self
         )
         var sectionHeaderSnapshot = NSDiffableDataSourceSnapshot<CategoryPickerSection, CategoryPickerItem>()
         sectionHeaderSnapshot.appendSections([.main])

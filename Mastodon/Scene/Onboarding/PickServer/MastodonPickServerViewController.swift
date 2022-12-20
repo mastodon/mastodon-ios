@@ -392,7 +392,12 @@ extension MastodonPickServerViewController: PickServerServerSectionTableHeaderVi
         guard let diffableDataSource = headerView.diffableDataSource else { return }
         let item = diffableDataSource.itemIdentifier(for: indexPath)
         //TODO: @zeitschlag Consider language etc. also: show menu
-        viewModel.selectCategoryItem.value = item ?? .all
+
+        if case let .language(_) = item {
+            
+        } else {
+            viewModel.selectCategoryItem.value = item ?? .all
+        }
     }
 }
 

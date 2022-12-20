@@ -15,6 +15,7 @@ import OrderedCollections
 import Tabman
 import MastodonCore
 import MastodonUI
+import MastodonLocalization
 
 class MastodonPickServerViewModel: NSObject {
 
@@ -39,6 +40,7 @@ class MastodonPickServerViewModel: NSObject {
     }()
     let selectCategoryItem = CurrentValueSubject<CategoryPickerItem, Never>(.all)
     let searchText = CurrentValueSubject<String, Never>("")
+    let selectedLanguage = CurrentValueSubject<String?, Never>(nil)
     let indexedServers = CurrentValueSubject<[Mastodon.Entity.Server], Never>([])
     let unindexedServers = CurrentValueSubject<[Mastodon.Entity.Server]?, Never>([])    // set nil when loading
     let viewWillAppear = PassthroughSubject<Void, Never>()
@@ -101,12 +103,13 @@ extension MastodonPickServerViewModel {
         .assign(to: \.value, on: emptyStateViewState)
         .store(in: &disposeBag)
         
-        Publishers.CombineLatest3(
+        Publishers.CombineLatest4(
             indexedServers.eraseToAnyPublisher(),
             selectCategoryItem.eraseToAnyPublisher(),
-            searchText.debounce(for: .milliseconds(300), scheduler: DispatchQueue.main).removeDuplicates()
+            searchText.debounce(for: .milliseconds(300), scheduler: DispatchQueue.main).removeDuplicates(),
+            selectedLanguage.eraseToAnyPublisher()
         )
-        .map { indexedServers, selectCategoryItem, searchText -> [Mastodon.Entity.Server] in
+        .map { indexedServers, selectCategoryItem, searchText, selectedLanguage -> [Mastodon.Entity.Server] in
             // ignore approval required servers when sign-up
             var indexedServers = indexedServers
             indexedServers = indexedServers.filter { !$0.approvalRequired }
@@ -156,12 +159,11 @@ extension MastodonPickServerViewModel {
             // Filter the indexed servers by category or search text
             switch selectCategoryItem {
             case .all:
-                return MastodonPickServerViewModel.filterServers(servers: indexedServers, category: nil, searchText: searchText)
-            case .language(let language):
-                //TODO: @zeitschlag Cache selected language
-                return MastodonPickServerViewModel.filterServers(servers: indexedServers, language: "de", category: nil, searchText: searchText)
+                return MastodonPickServerViewModel.filterServers(servers: indexedServers, language: selectedLanguage, category: nil, searchText: searchText)
+            case .language(_):
+                return MastodonPickServerViewModel.filterServers(servers: indexedServers, language: selectedLanguage, category: nil, searchText: searchText)
             case .category(let category):
-                return MastodonPickServerViewModel.filterServers(servers: indexedServers, category: category.category.rawValue, searchText: searchText)
+                return MastodonPickServerViewModel.filterServers(servers: indexedServers, language: selectedLanguage, category: category.category.rawValue, searchText: searchText)
             }
         }
         .assign(to: \.value, on: filteredIndexedServers)
@@ -264,5 +266,30 @@ extension MastodonPickServerViewModel: TMBarDataSource {
         let item = categoryPickerItems[index]
         let barItem = TMBarItem(title: item.title)
         return barItem
+    }
+}
+
+extension MastodonPickServerViewModel: PickServerCategoryCollectionViewCellDelegate {
+    func didPressMenuButton(in cell: PickServerCategoryCollectionViewCell) {
+
+        let allLanguagesAction = UIAction(title: "All") { _ in
+            self.selectedLanguage.value = nil
+            cell.titleLabel.text = L10n.Scene.ServerPicker.Button.language
+        }
+
+        let languageActions = ["de", "en"].compactMap { language in
+            UIAction(title: language) { action in
+                self.selectedLanguage.value = language
+                cell.titleLabel.text = language
+            }
+        }
+
+        var allActions = [allLanguagesAction]
+        allActions.append(contentsOf: languageActions)
+        
+        let languageMenu = UIMenu(title: L10n.Scene.ServerPicker.Button.language,
+                                  children: allActions)
+
+        cell.menuButton.menu = languageMenu
     }
 }
