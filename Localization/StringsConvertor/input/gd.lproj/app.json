@@ -463,9 +463,12 @@
                 "follows_you": "’Gad leantainn"
             },
             "dashboard": {
-                "posts": "postaichean",
-                "following": "a’ leantainn",
-                "followers": "luchd-leantainn"
+                "my_posts": "posts",
+                "my_following": "following",
+                "my_followers": "followers",
+                "other_posts": "posts",
+                "other_following": "following",
+                "other_followers": "followers"
             },
             "fields": {
                 "joined": "Joined",
