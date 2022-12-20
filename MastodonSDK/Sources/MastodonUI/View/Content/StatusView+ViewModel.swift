@@ -161,11 +161,11 @@ extension StatusView {
             )
             .map { visibility, isMyself in
                 switch visibility {
-                case .public, .unlisted:
+                case .public, .unlisted, ._other:
                     return true
                 case .private where isMyself:
                     return true
-                case .private, .direct, ._other:
+                case .private, .direct:
                     return false
                 }
             }
