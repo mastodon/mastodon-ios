@@ -463,12 +463,12 @@
                 "follows_you": "Vam sledi"
             },
             "dashboard": {
-                "my_posts": "posts",
-                "my_following": "following",
-                "my_followers": "followers",
-                "other_posts": "posts",
-                "other_following": "following",
-                "other_followers": "followers"
+                "my_posts": "objav",
+                "my_following": "sledi",
+                "my_followers": "sledilcev",
+                "other_posts": "objav",
+                "other_following": "sledi",
+                "other_followers": "sledilcev"
             },
             "fields": {
                 "joined": "Pridružen_a",
