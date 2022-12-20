@@ -298,6 +298,10 @@ public enum L10n {
         public static let loadEmbed = L10n.tr("Localizable", "Common.Controls.Status.LoadEmbed", fallback: "Load Embed")
         /// Tap anywhere to reveal
         public static let mediaContentWarning = L10n.tr("Localizable", "Common.Controls.Status.MediaContentWarning", fallback: "Tap anywhere to reveal")
+        /// %@, attachment %d of %d
+        public static func mediaLabel(_ p1: Any, _ p2: Int, _ p3: Int) -> String {
+          return L10n.tr("Localizable", "Common.Controls.Status.MediaLabel", String(describing: p1), p2, p3, fallback: "%@, attachment %d of %d")
+        }
         /// Sensitive Content
         public static let sensitiveContent = L10n.tr("Localizable", "Common.Controls.Status.SensitiveContent", fallback: "Sensitive Content")
         /// Show Post

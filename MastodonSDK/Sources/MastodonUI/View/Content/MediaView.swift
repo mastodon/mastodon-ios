@@ -11,6 +11,7 @@ import UIKit
 import Combine
 import AlamofireImage
 import SwiftUI
+import MastodonLocalization
 
 public final class MediaView: UIView {
     
@@ -168,12 +169,9 @@ extension MediaView {
         }
         .store(in: &configuration.disposeBag)
 
-        accessibilityLabel = info.altDescription
-        if #available(iOS 15.0, *) {
-            altViewController.rootView.altDescription = info.altDescription
-        }
+        bindAlt(configuration: configuration, altDescription: info.altDescription)
     }
-        
+    
     private func layoutGIF() {
         // use view controller as View here
         playerViewController.view.translatesAutoresizingMaskIntoConstraints = false
@@ -195,10 +193,7 @@ extension MediaView {
         // auto play for GIF
         player.play()
 
-        accessibilityLabel = info.altDescription
-        if #available(iOS 15.0, *) {
-            altViewController.rootView.altDescription = info.altDescription
-        }
+        bindAlt(configuration: configuration, altDescription: info.altDescription)
     }
     
     private func layoutVideo() {
@@ -223,6 +218,21 @@ extension MediaView {
         bindImage(configuration: configuration, info: imageInfo)
     }
     
+    private func bindAlt(configuration: Configuration, altDescription: String?) {
+        if configuration.total > 1 {
+            accessibilityLabel = L10n.Common.Controls.Status.mediaLabel(
+                altDescription ?? "",
+                configuration.index + 1,
+                configuration.total
+            )
+        } else {
+            accessibilityLabel = altDescription
+        }
+        if #available(iOS 15.0, *) {
+            altViewController.rootView.altDescription = altDescription
+        }
+    }
+
     private func layoutBlurhash() {
         blurhashImageView.translatesAutoresizingMaskIntoConstraints = false
         container.addSubview(blurhashImageView)

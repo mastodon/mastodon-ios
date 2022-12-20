@@ -117,6 +117,7 @@ Please check your internet connection.";
 "Common.Controls.Status.LinkViaUser" = "%@ via %@";
 "Common.Controls.Status.LoadEmbed" = "Load Embed";
 "Common.Controls.Status.MediaContentWarning" = "Tap anywhere to reveal";
+"Common.Controls.Status.MediaLabel" = "%@, attachment %d of %d";
 "Common.Controls.Status.MetaEntity.Email" = "Email address: %@";
 "Common.Controls.Status.MetaEntity.Hashtag" = "Hashtag: %@";
 "Common.Controls.Status.MetaEntity.Mention" = "Show Profile: %@";

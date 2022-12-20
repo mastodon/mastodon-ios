@@ -21,6 +21,8 @@ extension MediaView {
         
         public let info: Info
         public let blurhash: String?
+        public let index: Int
+        public let total: Int
         
         @Published public var isReveal = true
         @Published public var previewImage: UIImage?
@@ -29,10 +31,14 @@ extension MediaView {
         
         public init(
             info: MediaView.Configuration.Info,
-            blurhash: String?
+            blurhash: String?,
+            index: Int,
+            total: Int
         ) {
             self.info = info
             self.blurhash = blurhash
+            self.index = index
+            self.total = total
         }
         
         public var aspectRadio: CGSize {
@@ -186,7 +192,7 @@ extension MediaView {
         
         let status = status.reblog ?? status
         let attachments = status.attachments
-        let configurations = attachments.map { attachment -> MediaView.Configuration in
+        let configurations = attachments.enumerated().map { (idx, attachment) -> MediaView.Configuration in
             let configuration: MediaView.Configuration = {
                 switch attachment.kind {
                 case .image:
@@ -197,25 +203,33 @@ extension MediaView {
                     )
                     return .init(
                         info: .image(info: info),
-                        blurhash: attachment.blurhash
+                        blurhash: attachment.blurhash,
+                        index: idx,
+                        total: attachments.count
                     )
                 case .video:
                     let info = videoInfo(from: attachment)
                     return .init(
                         info: .video(info: info),
-                        blurhash: attachment.blurhash
+                        blurhash: attachment.blurhash,
+                        index: idx,
+                        total: attachments.count
                     )
                 case .gifv:
                     let info = videoInfo(from: attachment)
                     return .init(
                         info: .gif(info: info),
-                        blurhash: attachment.blurhash
+                        blurhash: attachment.blurhash,
+                        index: idx,
+                        total: attachments.count
                     )
                 case .audio:
                     let info = videoInfo(from: attachment)
                     return .init(
                         info: .video(info: info),
-                        blurhash: attachment.blurhash
+                        blurhash: attachment.blurhash,
+                        index: idx,
+                        total: attachments.count
                     )
                 }   // end switch
             }()

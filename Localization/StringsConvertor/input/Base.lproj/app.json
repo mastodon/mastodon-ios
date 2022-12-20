@@ -144,6 +144,7 @@
                 "tap_to_reveal": "Tap to reveal",
                 "load_embed": "Load Embed",
                 "link_via_user": "%s via %s",
+                "media_label": "%s, attachment %d of %d",
                 "poll": {
                     "vote": "Vote",
                     "closed": "Closed"
