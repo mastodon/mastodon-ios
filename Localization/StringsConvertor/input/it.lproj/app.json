@@ -463,9 +463,12 @@
                 "follows_you": "Ti segue"
             },
             "dashboard": {
-                "posts": "post",
-                "following": "seguendo",
-                "followers": "seguaci"
+                "my_posts": "posts",
+                "my_following": "following",
+                "my_followers": "followers",
+                "other_posts": "posts",
+                "other_following": "following",
+                "other_followers": "followers"
             },
             "fields": {
                 "joined": "Profilo iscritto",
