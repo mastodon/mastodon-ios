@@ -45,12 +45,17 @@
                 "message": "Bitte aktiviere den Zugriff auf die Fotobibliothek, um das Foto zu speichern."
             },
             "delete_post": {
-                "title": "Bist du dir sicher, dass du diesen Beitrag löschen möchtest?",
+                "title": "Beiträge löschen",
                 "message": "Bist du dir sicher, dass du diesen Beitrag löschen willst?"
             },
             "clean_cache": {
                 "title": "Zwischenspeicher leeren",
                 "message": "%s erfolgreich aus dem Cache gelöscht."
+            },
+            "translation_failed": {
+                "title": "Hinweis",
+                "message": "Übersetzung fehlgeschlagen. Möglicherweise hat der/die Administrator*in die Übersetzungen auf diesem Server nicht aktiviert oder dieser Server läuft mit einer älteren Version von Mastodon, in der Übersetzungen noch nicht unterstützt wurden.",
+                "button": "OK"
             }
         },
         "controls": {
@@ -66,7 +71,7 @@
                 "ok": "OK",
                 "done": "Fertig",
                 "confirm": "Bestätigen",
-                "continue": "Fortfahren",
+                "continue": "Weiter",
                 "compose": "Neue Nachricht",
                 "cancel": "Abbrechen",
                 "discard": "Verwerfen",
@@ -78,12 +83,13 @@
                 "sign_up": "Konto erstellen",
                 "see_more": "Mehr anzeigen",
                 "preview": "Vorschau",
+                "copy": "Kopieren",
                 "share": "Teilen",
                 "share_user": "%s teilen",
                 "share_post": "Beitrag teilen",
                 "open_in_safari": "In Safari öffnen",
                 "open_in_browser": "Im Browser anzeigen",
-                "find_people": "Finde Personen zum Folgen",
+                "find_people": "Personen zum Folgen finden",
                 "manually_search": "Stattdessen manuell suchen",
                 "skip": "Überspringen",
                 "reply": "Antworten",
@@ -91,12 +97,16 @@
                 "block_domain": "%s blockieren",
                 "unblock_domain": "Blockierung von %s aufheben",
                 "settings": "Einstellungen",
-                "delete": "Löschen"
+                "delete": "Löschen",
+                "translate_post": {
+                    "title": "Von %s übersetzen",
+                    "unknown_language": "Unbekannt"
+                }
             },
             "tabs": {
                 "home": "Startseite",
-                "search": "Suche",
-                "notification": "Benachrichtigungen",
+                "search_and_explore": "Suchen und Entdecken",
+                "notifications": "Mitteilungen",
                 "profile": "Profil"
             },
             "keyboard": {
@@ -132,6 +142,8 @@
                 "sensitive_content": "NSFW-Inhalt",
                 "media_content_warning": "Tippe irgendwo zum Anzeigen",
                 "tap_to_reveal": "Zum Anzeigen tippen",
+                "load_embed": "Eingebettetes laden",
+                "link_via_user": "%s via %s",
                 "poll": {
                     "vote": "Abstimmen",
                     "closed": "Beendet"
@@ -139,8 +151,8 @@
                 "meta_entity": {
                     "url": "Link: %s",
                     "hashtag": "Hashtag: %s",
-                    "mention": "Show Profile: %s",
-                    "email": "Email address: %s"
+                    "mention": "Profil anzeigen: %s",
+                    "email": "E-Mail-Adresse: %s"
                 },
                 "actions": {
                     "reply": "Antworten",
@@ -153,6 +165,7 @@
                     "show_image": "Bild anzeigen",
                     "show_gif": "GIF anzeigen",
                     "show_video_player": "Zeige Video-Player",
+                    "share_link_in_post": "Link im Beitrag teilen",
                     "tap_then_hold_to_show_menu": "Halte gedrückt um das Menü anzuzeigen"
                 },
                 "tag": {
@@ -165,14 +178,20 @@
                 },
                 "visibility": {
                     "unlisted": "Jeder kann diesen Post sehen, aber nicht in der öffentlichen Timeline zeigen.",
-                    "private": "Nur Follower des Authors können diesen Beitrag sehen.",
-                    "private_from_me": "Nur meine Follower können diesen Beitrag sehen.",
+                    "private": "Nur die, die dem Autor folgen, können diesen Beitrag sehen.",
+                    "private_from_me": "Nur die, die mir folgen, können diesen Beitrag sehen.",
                     "direct": "Nur erwähnte Benutzer können diesen Beitrag sehen."
+                },
+                "translation": {
+                    "translated_from": "Translated from %s using %s",
+                    "unknown_language": "Unbekannt",
+                    "unknown_provider": "Unknown",
+                    "show_original": "Original anzeigen"
                 }
             },
             "friendship": {
                 "follow": "Folgen",
-                "following": "Folge Ich",
+                "following": "Gefolgt",
                 "request": "Anfragen",
                 "pending": "In Warteschlange",
                 "block": "Blockieren",
@@ -187,8 +206,8 @@
                 "unmute_user": "%s nicht mehr stummschalten",
                 "muted": "Stummgeschaltet",
                 "edit_info": "Information bearbeiten",
-                "show_reblogs": "Reblogs anzeigen",
-                "hide_reblogs": "Reblogs ausblenden"
+                "show_reblogs": "Teilen anzeigen",
+                "hide_reblogs": "Teilen ausblenden"
             },
             "timeline": {
                 "filtered": "Gefiltert",
@@ -197,7 +216,7 @@
                 },
                 "loader": {
                     "load_missing_posts": "Fehlende Beiträge laden",
-                    "loading_missing_posts": "Lade fehlende Beiträge...",
+                    "loading_missing_posts": "Fehlende Beiträge werden geladen …",
                     "show_more_replies": "Weitere Antworten anzeigen"
                 },
                 "header": {
@@ -257,7 +276,7 @@
                 "search_servers_or_enter_url": "Suche nach einer Community oder gib eine URL ein"
             },
             "empty_state": {
-                "finding_servers": "Verfügbare Server werden gesucht...",
+                "finding_servers": "Verfügbare Server werden gesucht …",
                 "bad_network": "Beim Laden der Daten ist etwas schief gelaufen. Überprüfe deine Internetverbindung.",
                 "no_results": "Keine Ergebnisse"
             }
@@ -348,7 +367,7 @@
             "open_email_app": {
                 "title": "Überprüfe deinen Posteingang.",
                 "description": "Wir haben dir gerade eine E-Mail geschickt. Überprüfe deinen Spam-Ordner, falls du es noch nicht getan hast.",
-                "mail": "Mail",
+                "mail": "E-Mail",
                 "open_email_client": "E-Mail-Client öffnen"
             }
         },
@@ -358,7 +377,7 @@
                 "offline": "Offline",
                 "new_posts": "Neue Beiträge anzeigen",
                 "published": "Veröffentlicht!",
-                "Publishing": "Beitrag wird veröffentlicht...",
+                "Publishing": "Beitrag wird veröffentlicht …",
                 "accessibility": {
                     "logo_label": "Logo-Button",
                     "logo_hint": "Zum Scrollen nach oben tippen und zum vorherigen Ort erneut tippen"
@@ -367,7 +386,7 @@
         },
         "suggestion_account": {
             "title": "Finde Personen zum Folgen",
-            "follow_explain": "Wenn du jemandem folgst, dann siehst du deren Beiträge in deinem Home-Feed."
+            "follow_explain": "Sobald du anderen folgst, siehst du deren Beiträge in deinem Home-Feed."
         },
         "compose": {
             "title": {
@@ -386,14 +405,14 @@
                 "photo": "Foto",
                 "video": "Video",
                 "attachment_broken": "Dieses %s scheint defekt zu sein und\nkann nicht auf Mastodon hochgeladen werden.",
-                "description_photo": "Für Menschen mit Sehbehinderung beschreiben...",
-                "description_video": "Für Menschen mit Sehbehinderung beschreiben...",
+                "description_photo": "Für Menschen mit Sehbehinderung beschreiben …",
+                "description_video": "Für Menschen mit Sehbehinderung beschreiben …",
                 "load_failed": "Laden fehlgeschlagen",
                 "upload_failed": "Upload fehlgeschlagen",
                 "can_not_recognize_this_media_attachment": "Medienanhang wurde nicht erkannt",
                 "attachment_too_large": "Anhang zu groß",
-                "compressing_state": "Komprimieren...",
-                "server_processing_state": "Serververarbeitung..."
+                "compressing_state": "wird komprimiert …",
+                "server_processing_state": "Serververarbeitung …"
             },
             "poll": {
                 "duration_time": "Dauer: %s",
@@ -408,7 +427,7 @@
                 "the_poll_has_empty_option": "Die Umfrage hat eine leere Option"
             },
             "content_warning": {
-                "placeholder": "Schreibe eine Inhaltswarnung hier..."
+                "placeholder": "Hier eine Inhaltswarnung schreiben …"
             },
             "visibility": {
                 "public": "Öffentlich",
@@ -427,8 +446,8 @@
                 "enable_content_warning": "Inhaltswarnung einschalten",
                 "disable_content_warning": "Inhaltswarnung ausschalten",
                 "post_visibility_menu": "Sichtbarkeitsmenü",
-                "post_options": "Post Options",
-                "posting_as": "Posting as %s"
+                "post_options": "Beitragsoptionen",
+                "posting_as": "Veröffentlichen als %s"
             },
             "keyboard": {
                 "discard_post": "Beitrag verwerfen",
@@ -449,6 +468,7 @@
                 "followers": "Folgende"
             },
             "fields": {
+                "joined": "Beigetreten",
                 "add_row": "Zeile hinzufügen",
                 "placeholder": {
                     "label": "Bezeichnung",
@@ -484,12 +504,12 @@
                     "message": "Bestätige %s zu entsperren"
                 },
                 "confirm_show_reblogs": {
-                    "title": "Reblogs anzeigen",
-                    "message": "Bestätigen um Reblogs anzuzeigen"
+                    "title": "Teilen anzeigen",
+                    "message": "Bestätigen, um Teilen anzuzeigen"
                 },
                 "confirm_hide_reblogs": {
-                    "title": "Reblogs ausblenden",
-                    "message": "Confirm to hide reblogs"
+                    "title": "Teilen ausblenden",
+                    "message": "Bestätigen, um Teilen auszublenden"
                 }
             },
             "accessibility": {
@@ -500,15 +520,15 @@
             }
         },
         "follower": {
-            "title": "Follower",
-            "footer": "Folger, die nicht auf deinem Server registriert sind, werden nicht angezeigt."
+            "title": "Folgende",
+            "footer": "Folgende, die nicht auf deinem Server registriert sind, werden nicht angezeigt."
         },
         "following": {
-            "title": "Folgende",
+            "title": "Gefolgte",
             "footer": "Gefolgte, die nicht auf deinem Server registriert sind, werden nicht angezeigt."
         },
         "familiarFollowers": {
-            "title": "Follower, die dir bekannt vorkommen",
+            "title": "Folgende, die du kennst",
             "followed_by_names": "Gefolgt von %s"
         },
         "favorited_by": {
@@ -532,7 +552,7 @@
                 },
                 "accounts": {
                     "title": "Konten, die dir gefallen könnten",
-                    "description": "Vielleicht gefallen dir diese Benutzer",
+                    "description": "Vielleicht gefallen dir diese Konten",
                     "follow": "Folgen"
                 }
             },
@@ -722,6 +742,18 @@
         },
         "bookmark": {
             "title": "Lesezeichen"
+        },
+        "followed_tags": {
+            "title": "Gefolgte Hashtags",
+            "header": {
+                "posts": "Beiträge",
+                "participants": "Teilnehmer*innen",
+                "posts_today": "Beiträge heute"
+            },
+            "actions": {
+                "follow": "Folgen",
+                "unfollow": "Entfolgen"
+            }
         }
     }
 }

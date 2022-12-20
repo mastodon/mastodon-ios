@@ -4,13 +4,13 @@
 
 "CsR7G2" = "Buat Postingan di Mastodon";
 
-"HZSGTr" = "What content to post?";
+"HZSGTr" = "Konten apa yang ingin diposting?";
 
 "HdGikU" = "Gagal memposting";
 
 "KDNTJ4" = "Alasan Kegagalan";
 
-"RHxKOw" = "Send Post with text content";
+"RHxKOw" = "Kirim Postingan dengan konten berupa teks";
 
 "RxSqsb" = "Postingan";
 
@@ -24,9 +24,9 @@
 
 "Zo4jgJ" = "Visibilitas Postingan";
 
-"apSxMG-dYQ5NN" = "There are ${count} options matching ‘Public’.";
+"apSxMG-dYQ5NN" = "Tidak ada ${count} opsi yang cocok dengan 'Publik'.";
 
-"apSxMG-ehFLjY" = "There are ${count} options matching ‘Followers Only’.";
+"apSxMG-ehFLjY" = "Tidak ada ${count} opsi yang cocok dengan 'Untuk Pengikut Saja'.";
 
 "ayoYEb-dYQ5NN" = "${content}, Publik";
 

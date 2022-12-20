@@ -51,6 +51,11 @@
             "clean_cache": {
                 "title": "Rensa cache",
                 "message": "Rensade %s cache."
+            },
+            "translation_failed": {
+                "title": "Anteckning",
+                "message": "Översättningen misslyckades. Det kan hända att administratören inte har aktiverat översättningar på den här servern eller att servern kör en äldre version av Mastodon som inte har stöd för översättningar ännu.",
+                "button": "OK"
             }
         },
         "controls": {
@@ -78,6 +83,7 @@
                 "sign_up": "Skapa konto",
                 "see_more": "Visa mer",
                 "preview": "Förhandsvisa",
+                "copy": "Kopiera",
                 "share": "Dela",
                 "share_user": "Dela %s",
                 "share_post": "Dela inlägg",
@@ -91,12 +97,16 @@
                 "block_domain": "Blockera %s",
                 "unblock_domain": "Avblockera %s",
                 "settings": "Inställningar",
-                "delete": "Radera"
+                "delete": "Radera",
+                "translate_post": {
+                    "title": "Översätt från %s",
+                    "unknown_language": "Okänt"
+                }
             },
             "tabs": {
                 "home": "Hem",
-                "search": "Sök",
-                "notification": "Notis",
+                "search_and_explore": "Sök och utforska",
+                "notifications": "Notiser",
                 "profile": "Profil"
             },
             "keyboard": {
@@ -132,6 +142,8 @@
                 "sensitive_content": "Känsligt innehåll",
                 "media_content_warning": "Tryck var som helst för att visa",
                 "tap_to_reveal": "Tryck för att visa",
+                "load_embed": "Ladda inbäddning",
+                "link_via_user": "%s via %s",
                 "poll": {
                     "vote": "Rösta",
                     "closed": "Stängd"
@@ -153,6 +165,7 @@
                     "show_image": "Visa bild",
                     "show_gif": "Visa GIF",
                     "show_video_player": "Visa videospelare",
+                    "share_link_in_post": "Dela länk i inlägg",
                     "tap_then_hold_to_show_menu": "Tryck och håll ned för att visa menyn"
                 },
                 "tag": {
@@ -168,6 +181,12 @@
                     "private": "Endast deras följare kan se detta inlägg.",
                     "private_from_me": "Bara mina följare kan se det här inlägget.",
                     "direct": "Endast omnämnda användare kan se detta inlägg."
+                },
+                "translation": {
+                    "translated_from": "Translated from %s using %s",
+                    "unknown_language": "Okänt",
+                    "unknown_provider": "Unknown",
+                    "show_original": "Visa original"
                 }
             },
             "friendship": {
@@ -449,6 +468,7 @@
                 "followers": "följare"
             },
             "fields": {
+                "joined": "Gick med",
                 "add_row": "Lägg till rad",
                 "placeholder": {
                     "label": "Etikett",
@@ -722,6 +742,18 @@
         },
         "bookmark": {
             "title": "Bokmärken"
+        },
+        "followed_tags": {
+            "title": "Följda hashtaggar",
+            "header": {
+                "posts": "inlägg",
+                "participants": "deltagare",
+                "posts_today": "inlägg idag"
+            },
+            "actions": {
+                "follow": "Följ",
+                "unfollow": "Avfölj"
+            }
         }
     }
 }
