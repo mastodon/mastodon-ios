@@ -12,6 +12,7 @@ struct MediaAltTextOverlay: View {
     var altDescription: String?
     
     @State private var showingAlt = false
+    @Namespace private var namespace
 
     var body: some View {
         GeometryReader { geom in
@@ -26,13 +27,16 @@ struct MediaAltTextOverlay: View {
                                     .frame(width: 20, height: 20)
                             }
                         }
+                        .transition(.scale(scale: 0.1, anchor: .bottomLeading))
                         .padding(8)
                         .frame(width: geom.size.width)
                         .fixedSize()
+                        .matchedGeometryEffect(id: "background", in: namespace)
                     } else {
                         Button("ALT") { showingAlt = true }
                             .fixedSize()
                             .buttonStyle(AltButtonStyle())
+                            .matchedGeometryEffect(id: "background", in: namespace)
                     }
                 }
             }
@@ -40,6 +44,7 @@ struct MediaAltTextOverlay: View {
             .tint(.white)
             .background(Color.black.opacity(0.85))
             .cornerRadius(4)
+            .animation(.spring(response: 0.25), value: showingAlt)
             .frame(width: geom.size.width, height: geom.size.height, alignment: .bottomLeading)
         }
         .padding(.horizontal, 16)
