@@ -189,7 +189,8 @@ extension MediaView {
     private func bindVideo(configuration: Configuration, info: Configuration.VideoInfo) {
         let imageInfo = Configuration.ImageInfo(
             aspectRadio: info.aspectRadio,
-            assetURL: info.previewURL
+            assetURL: info.previewURL,
+            altDescription: info.altDescription
         )
         bindImage(configuration: configuration, info: imageInfo)
     }

@@ -39,7 +39,8 @@ extension NewsView {
         let configuration = MediaView.Configuration(
             info: .image(info: .init(
                 aspectRadio: CGSize(width: link.width, height: link.height),
-                assetURL: link.image
+                assetURL: link.image,
+                altDescription: nil
             )),
             blurhash: link.blurhash
         )
