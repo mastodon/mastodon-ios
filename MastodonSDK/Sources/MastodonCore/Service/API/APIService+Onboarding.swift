@@ -28,5 +28,8 @@ extension APIService {
             return Mastodon.Entity.Category(category: kind.rawValue, serversCount: 0)
         }
     }
-    
+
+    public func languages() -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Language]>, Error> {
+        return Mastodon.API.Onboarding.languages(session: session)
+    }
 }

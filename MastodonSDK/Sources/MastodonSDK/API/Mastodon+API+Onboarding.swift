@@ -12,6 +12,7 @@ extension Mastodon.API.Onboarding {
     
     static let serversEndpointURL = Mastodon.API.joinMastodonEndpointURL.appendingPathComponent("servers")
     static let categoriesEndpointURL = Mastodon.API.joinMastodonEndpointURL.appendingPathComponent("categories")
+    static let languagesEndpointURL = Mastodon.API.joinMastodonEndpointURL.appendingPathComponent("languages")
  
     /// Fetch server list
     ///
@@ -68,7 +69,33 @@ extension Mastodon.API.Onboarding {
             }
             .eraseToAnyPublisher()
     }
-    
+
+    /// Fetch server languages
+    ///
+    /// Using this endpoint to fetch booked languages
+    ///
+    /// # Last Update
+    ///   2022/12/19
+    /// # Reference
+    ///   undocumented
+    /// - Parameters:
+    ///   - session: `URLSession`
+    /// - Returns: `AnyPublisher` contains `Language` nested in the response
+    public static func languages(
+        session: URLSession
+    ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Language]>, Error>  {
+        let request = Mastodon.API.get(
+            url: languagesEndpointURL,
+            query: nil,
+            authorization: nil
+        )
+        return session.dataTaskPublisher(for: request)
+            .tryMap { data, response in
+                let value = try Mastodon.API.decode(type: [Mastodon.Entity.Language].self, from: data, response: response)
+                return Mastodon.Response.Content(value: value, response: response)
+            }
+            .eraseToAnyPublisher()
+    }
 }
 
 extension Mastodon.API.Onboarding {
