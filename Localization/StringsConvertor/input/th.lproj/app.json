@@ -463,9 +463,12 @@
                 "follows_you": "ติดตามคุณ"
             },
             "dashboard": {
-                "posts": "โพสต์",
-                "following": "กำลังติดตาม",
-                "followers": "ผู้ติดตาม"
+                "my_posts": "posts",
+                "my_following": "following",
+                "my_followers": "followers",
+                "other_posts": "posts",
+                "other_following": "following",
+                "other_followers": "followers"
             },
             "fields": {
                 "joined": "เข้าร่วมเมื่อ",
