@@ -463,9 +463,12 @@
                 "follows_you": "关注了你"
             },
             "dashboard": {
-                "posts": "帖子",
-                "following": "正在关注",
-                "followers": "关注者"
+                "my_posts": "posts",
+                "my_following": "following",
+                "my_followers": "followers",
+                "other_posts": "posts",
+                "other_following": "following",
+                "other_followers": "followers"
             },
             "fields": {
                 "joined": "Joined",
