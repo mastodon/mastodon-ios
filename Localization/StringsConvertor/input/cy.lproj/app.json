@@ -54,7 +54,7 @@
             },
             "translation_failed": {
                 "title": "Nodyn",
-                "message": "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.",
+                "message": "Methwyd cyfieithu. Efallai nad yw'r gweinyddwr wedi galluogi cyfieithiadau ar y gweinydd hwn neu mae'r gweinydd hwn yn rhedeg fersiwn hŷn o Mastodon lle nad yw cyfieithiadau ar gael eto.",
                 "button": "Iawn"
             }
         },
@@ -186,7 +186,7 @@
                     "translated_from": "Cyfieithwyd o %s gan ddefnyddio %s",
                     "unknown_language": "Anhysbys",
                     "unknown_provider": "Anhysbys",
-                    "show_original": "Shown Original"
+                    "show_original": "Dangos y Gwreiddiol"
                 }
             },
             "friendship": {
