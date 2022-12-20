@@ -43,10 +43,10 @@ class PickServerCategoryCollectionViewCell: UICollectionViewCell {
     private let container: UIStackView = {
         let container = UIStackView()
         container.translatesAutoresizingMaskIntoConstraints = false
-
         container.axis = .horizontal
         container.spacing = 4
         container.distribution = .fillProportionally
+        container.alignment = .center
         return container
     }()
         
@@ -60,6 +60,7 @@ class PickServerCategoryCollectionViewCell: UICollectionViewCell {
         super.init(frame: .zero)
 
         container.addArrangedSubview(titleLabel)
+        titleLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
         container.addArrangedSubview(chevron)
 
         menuButton.addTarget(self, action: #selector(PickServerCategoryCollectionViewCell.didPressButton(_:)), for: .touchUpInside)
@@ -81,6 +82,9 @@ class PickServerCategoryCollectionViewCell: UICollectionViewCell {
             container.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
             contentView.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: 12),
             contentView.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: 6),
+
+            chevron.heightAnchor.constraint(equalToConstant: 16),
+            chevron.widthAnchor.constraint(equalToConstant: 14),
         ]
 
         constraints.append(contentsOf: menuButton.pinToParent())
@@ -93,6 +97,7 @@ class PickServerCategoryCollectionViewCell: UICollectionViewCell {
 
     @objc func didPressButton(_ sender: Any) {
         delegate?.didPressMenuButton(in: self)
+        invalidateIntrinsicContentSize()
     }
 
 }
