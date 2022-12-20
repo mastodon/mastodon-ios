@@ -12,6 +12,7 @@ let package = Package(
     products: [
         .library(
             name: "MastodonSDK",
+            type: .dynamic,
             targets: [
                 "CoreDataStack",
                 "MastodonAsset",
@@ -21,7 +22,8 @@ let package = Package(
                 "MastodonLocalization",
                 "MastodonSDK",
                 "MastodonUI",
-            ])
+            ]
+        )
     ],
     dependencies: [
         .package(name: "ArkanaKeys", path: "../dependencies/ArkanaKeys"),
