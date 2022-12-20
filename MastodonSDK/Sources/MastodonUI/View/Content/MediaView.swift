@@ -10,6 +10,7 @@ import AVKit
 import UIKit
 import Combine
 import AlamofireImage
+import SwiftUI
 
 public final class MediaView: UIView {
     
@@ -70,6 +71,20 @@ public final class MediaView: UIView {
         label.textColor = .secondaryLabel
         return label
     }()
+    
+    let _altViewController: UIViewController! = {
+        if #available(iOS 15.0, *) {
+            let vc = UIHostingController(rootView: MediaAltTextOverlay())
+            vc.view.backgroundColor = .clear
+            return vc
+        } else {
+            return nil
+        }
+    }()
+    @available(iOS 15.0, *)
+    var altViewController: UIHostingController<MediaAltTextOverlay> {
+        _altViewController as! UIHostingController<MediaAltTextOverlay>
+    }
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
@@ -133,6 +148,7 @@ extension MediaView {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         container.addSubview(imageView)
         imageView.pinToParent()
+        layoutAlt()
     }
     
     private func bindImage(configuration: Configuration, info: Configuration.ImageInfo) {        
@@ -151,6 +167,9 @@ extension MediaView {
             self.imageView.image = image
         }
         .store(in: &configuration.disposeBag)
+        if #available(iOS 15.0, *) {
+            altViewController.rootView.altDescription = info.altDescription
+        }
     }
         
     private func layoutGIF() {
@@ -161,6 +180,8 @@ extension MediaView {
         
         setupIndicatorViewHierarchy()
         playerIndicatorLabel.attributedText = NSAttributedString(string: "GIF")
+        
+        layoutAlt()
     }
     
     private func bindGIF(configuration: Configuration, info: Configuration.VideoInfo) {
@@ -171,6 +192,9 @@ extension MediaView {
         
         // auto play for GIF
         player.play()
+        if #available(iOS 15.0, *) {
+            altViewController.rootView.altDescription = info.altDescription
+        }
     }
     
     private func layoutVideo() {
@@ -223,6 +247,14 @@ extension MediaView {
             .store(in: &_disposeBag)
     }
     
+    private func layoutAlt() {
+        if #available(iOS 15.0, *) {
+            altViewController.view.translatesAutoresizingMaskIntoConstraints = false
+            container.addSubview(altViewController.view)
+            altViewController.view.pinToParent()
+        }
+    }
+    
     public func prepareForReuse() {
         _disposeBag.removeAll()
         
@@ -257,6 +289,10 @@ extension MediaView {
         // reset container
         container.removeFromSuperview()
         container.removeConstraints(container.constraints)
+        
+        if #available(iOS 15.0, *) {
+            altViewController.rootView.altDescription = nil
+        }
         
         // reset configuration
         configuration = nil
