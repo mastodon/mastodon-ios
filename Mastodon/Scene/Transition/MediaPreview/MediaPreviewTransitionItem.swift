@@ -69,5 +69,14 @@ extension MediaPreviewTransitionItem {
                 break    // keep source
             }
         }
+        
+        var view: UIView {
+            switch self {
+            case .attachment(let attachment): return attachment
+            case .attachments(let attachments): return attachments
+            case .profileAvatar(let header): return header.avatarButton
+            case .profileBanner(let header): return header.bannerImageView
+            }
+        }
     }
 }
