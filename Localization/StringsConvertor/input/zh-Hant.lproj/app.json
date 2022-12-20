@@ -463,9 +463,12 @@
                 "follows_you": "跟隨了您"
             },
             "dashboard": {
-                "posts": "嘟文",
-                "following": "跟隨中",
-                "followers": "跟隨者"
+                "my_posts": "posts",
+                "my_following": "following",
+                "my_followers": "followers",
+                "other_posts": "posts",
+                "other_following": "following",
+                "other_followers": "followers"
             },
             "fields": {
                 "joined": "加入時間",
