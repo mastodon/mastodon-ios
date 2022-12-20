@@ -174,6 +174,11 @@ extension MediaPreviewViewController {
         dismiss(animated: true, completion: nil)
     }
     
+    override func accessibilityPerformEscape() -> Bool {
+        dismiss(animated: true, completion: nil)
+        return true
+    }
+    
 }
 
 // MARK: - MediaPreviewingViewController
