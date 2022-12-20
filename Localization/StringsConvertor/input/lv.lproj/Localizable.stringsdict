@@ -170,11 +170,11 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld favorites</string>
+        <string>%ld iecienītu</string>
         <key>one</key>
-        <string>1 favorite</string>
+        <string>1 iecienīts</string>
         <key>other</key>
-        <string>%ld favorites</string>
+        <string>%ld iecienīti</string>
       </dict>
     </dict>
     <key>plural.count.reblog</key>
@@ -188,11 +188,11 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld reblogs</string>
+        <string>%ld reblogu</string>
         <key>one</key>
-        <string>1 reblog</string>
+        <string>1 reblogs</string>
         <key>other</key>
-        <string>%ld reblogs</string>
+        <string>%ld reblogi</string>
       </dict>
     </dict>
     <key>plural.count.reply</key>
@@ -206,11 +206,11 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld replies</string>
+        <string>%ld atbilžu</string>
         <key>one</key>
-        <string>1 reply</string>
+        <string>1 atbilde</string>
         <key>other</key>
-        <string>%ld replies</string>
+        <string>%ld atbildes</string>
       </dict>
     </dict>
     <key>plural.count.vote</key>
@@ -224,11 +224,11 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld votes</string>
+        <string>%ld balsu</string>
         <key>one</key>
-        <string>1 vote</string>
+        <string>1 balss</string>
         <key>other</key>
-        <string>%ld votes</string>
+        <string>%ld balsis</string>
       </dict>
     </dict>
     <key>plural.count.voter</key>
@@ -242,11 +242,11 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld voters</string>
+        <string>%ld balsotāju</string>
         <key>one</key>
-        <string>1 voter</string>
+        <string>1 balsotājs</string>
         <key>other</key>
-        <string>%ld voters</string>
+        <string>%ld balsotāji</string>
       </dict>
     </dict>
     <key>plural.people_talking</key>
@@ -260,11 +260,11 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld people talking</string>
+        <string>%ld cilvēku apspriež</string>
         <key>one</key>
-        <string>1 people talking</string>
+        <string>1 cilvēks apspriež</string>
         <key>other</key>
-        <string>%ld people talking</string>
+        <string>%ld cilvēki apspriež</string>
       </dict>
     </dict>
     <key>plural.count.following</key>
@@ -278,11 +278,11 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld following</string>
+        <string>%ld sekotāju</string>
         <key>one</key>
-        <string>1 following</string>
+        <string>1 sekotājs</string>
         <key>other</key>
-        <string>%ld following</string>
+        <string>%ld sekotāji</string>
       </dict>
     </dict>
     <key>plural.count.follower</key>
@@ -296,11 +296,11 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld followers</string>
+        <string>%ld sekotāju</string>
         <key>one</key>
-        <string>1 follower</string>
+        <string>1 sekotājs</string>
         <key>other</key>
-        <string>%ld followers</string>
+        <string>%ld sekotāji</string>
       </dict>
     </dict>
     <key>date.year.left</key>
@@ -314,11 +314,11 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld years left</string>
+        <string>palicis %ld gadu</string>
         <key>one</key>
-        <string>1 year left</string>
+        <string>palicis 1 gads</string>
         <key>other</key>
-        <string>%ld years left</string>
+        <string>palikuši %ld gadi</string>
       </dict>
     </dict>
     <key>date.month.left</key>
@@ -332,11 +332,11 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld months left</string>
+        <string>palicis %ld mēnešu</string>
         <key>one</key>
-        <string>1 months left</string>
+        <string>palicis 1 mēnesis</string>
         <key>other</key>
-        <string>%ld months left</string>
+        <string>palikuši %ld mēneši</string>
       </dict>
     </dict>
     <key>date.day.left</key>
@@ -350,11 +350,11 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld days left</string>
+        <string>palikušas %ld dienas</string>
         <key>one</key>
-        <string>1 day left</string>
+        <string>palikusi 1 diena</string>
         <key>other</key>
-        <string>%ld days left</string>
+        <string>palikušas %ld dienas</string>
       </dict>
     </dict>
     <key>date.hour.left</key>
@@ -368,11 +368,11 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld hours left</string>
+        <string>atlikušas %ld stundas</string>
         <key>one</key>
-        <string>1 hour left</string>
+        <string>atlikusi 1 stunda</string>
         <key>other</key>
-        <string>%ld hours left</string>
+        <string>atlikušas %ld stundas</string>
       </dict>
     </dict>
     <key>date.minute.left</key>
@@ -386,11 +386,11 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld minutes left</string>
+        <string>atlikušas %ld minūtes</string>
         <key>one</key>
-        <string>1 minute left</string>
+        <string>atlikusi 1 minūte</string>
         <key>other</key>
-        <string>%ld minutes left</string>
+        <string>atlikušas %ld minūtes</string>
       </dict>
     </dict>
     <key>date.second.left</key>
@@ -404,11 +404,11 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld seconds left</string>
+        <string>atlikušas %ld sekundes</string>
         <key>one</key>
-        <string>1 second left</string>
+        <string>atlikusi 1 sekunde</string>
         <key>other</key>
-        <string>%ld seconds left</string>
+        <string>atlikušas %ld sekundes</string>
       </dict>
     </dict>
     <key>date.year.ago.abbr</key>
@@ -422,11 +422,11 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ldy ago</string>
+        <string>pirms %ld g.</string>
         <key>one</key>
-        <string>1y ago</string>
+        <string>pirms 1 g.</string>
         <key>other</key>
-        <string>%ldy ago</string>
+        <string>pirms %ld g.</string>
       </dict>
     </dict>
     <key>date.month.ago.abbr</key>
@@ -440,11 +440,11 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ldM ago</string>
+        <string>pirms %ld M.</string>
         <key>one</key>
-        <string>1M ago</string>
+        <string>pirms 1 M.</string>
         <key>other</key>
-        <string>%ldM ago</string>
+        <string>pirms %ld M.</string>
       </dict>
     </dict>
     <key>date.day.ago.abbr</key>
@@ -458,11 +458,11 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ldd ago</string>
+        <string>pirms %ld d.</string>
         <key>one</key>
-        <string>1d ago</string>
+        <string>pirms 1 d.</string>
         <key>other</key>
-        <string>%ldd ago</string>
+        <string>pirms %ld d.</string>
       </dict>
     </dict>
     <key>date.hour.ago.abbr</key>
@@ -476,11 +476,11 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ldh ago</string>
+        <string>pirms %ld st.</string>
         <key>one</key>
-        <string>1h ago</string>
+        <string>pirms 1 st.</string>
         <key>other</key>
-        <string>%ldh ago</string>
+        <string>pirms %ld st.</string>
       </dict>
     </dict>
     <key>date.minute.ago.abbr</key>
@@ -494,11 +494,11 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ldm ago</string>
+        <string>pirms %ld m.</string>
         <key>one</key>
-        <string>1m ago</string>
+        <string>pirms 1 m.</string>
         <key>other</key>
-        <string>%ldm ago</string>
+        <string>pirms %ld m.</string>
       </dict>
     </dict>
     <key>date.second.ago.abbr</key>
@@ -512,11 +512,11 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%lds ago</string>
+        <string>pirms %ld s.</string>
         <key>one</key>
-        <string>1s ago</string>
+        <string>pirms 1 s.</string>
         <key>other</key>
-        <string>%lds ago</string>
+        <string>pirms %ld s.</string>
       </dict>
     </dict>
   </dict>
