@@ -463,9 +463,12 @@
                 "follows_you": "Te dişopîne"
             },
             "dashboard": {
-                "posts": "şandî",
-                "following": "dişopîne",
-                "followers": "şopîner"
+                "my_posts": "posts",
+                "my_following": "following",
+                "my_followers": "followers",
+                "other_posts": "posts",
+                "other_following": "following",
+                "other_followers": "followers"
             },
             "fields": {
                 "joined": "Dîroka tevlîbûnê",
