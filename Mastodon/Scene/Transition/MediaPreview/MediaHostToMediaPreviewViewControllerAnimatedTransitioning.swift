@@ -287,7 +287,10 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
         
         animator.addCompletion { position in
             if position == .end {
-                UIAccessibility.post(notification: .screenChanged, argument: self.transitionItem.source.view)
+                UIAccessibility.post(
+                    notification: .screenChanged,
+                    argument: toVC.sourceView(transitionItem: self.transitionItem, index: index)
+                )
             }
         }
         
