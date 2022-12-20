@@ -16,12 +16,6 @@ public final class MediaView: UIView {
     var _disposeBag = Set<AnyCancellable>()
     
     public static let cornerRadius: CGFloat = 0
-    public static let durationFormatter: DateComponentsFormatter = {
-        let formatter = DateComponentsFormatter()
-        formatter.zeroFormattingBehavior = .pad
-        formatter.allowedUnits = [.minute, .second]
-        return formatter
-    }()
     public static let placeholderImage = UIImage.placeholder(color: .systemGray6)
     
     public let container = TouchBlockingView()
