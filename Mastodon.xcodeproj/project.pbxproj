@@ -129,7 +129,6 @@
 		DB0618032785A7100030EE79 /* RegisterSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0618022785A7100030EE79 /* RegisterSection.swift */; };
 		DB0618052785A73D0030EE79 /* RegisterItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0618042785A73D0030EE79 /* RegisterItem.swift */; };
 		DB0A322E280EE9FD001729D2 /* DiscoveryIntroBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0A322D280EE9FD001729D2 /* DiscoveryIntroBannerView.swift */; };
-		DB0C947726A7FE840088FB11 /* NotificationAvatarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0C947626A7FE840088FB11 /* NotificationAvatarButton.swift */; };
 		DB0EF72B26FDB1D200347686 /* SidebarListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0EF72A26FDB1D200347686 /* SidebarListCollectionViewCell.swift */; };
 		DB0EF72E26FDB24F00347686 /* SidebarListContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0EF72D26FDB24F00347686 /* SidebarListContentView.swift */; };
 		DB0F8150264D1E2500F2A12B /* PickServerLoaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0F814F264D1E2500F2A12B /* PickServerLoaderTableViewCell.swift */; };
@@ -667,7 +666,6 @@
 		DB0618042785A73D0030EE79 /* RegisterItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterItem.swift; sourceTree = "<group>"; };
 		DB0618062785A8880030EE79 /* MastodonRegisterViewModel+Diffable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MastodonRegisterViewModel+Diffable.swift"; sourceTree = "<group>"; };
 		DB0A322D280EE9FD001729D2 /* DiscoveryIntroBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryIntroBannerView.swift; sourceTree = "<group>"; };
-		DB0C947626A7FE840088FB11 /* NotificationAvatarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationAvatarButton.swift; sourceTree = "<group>"; };
 		DB0EF72A26FDB1D200347686 /* SidebarListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarListCollectionViewCell.swift; sourceTree = "<group>"; };
 		DB0EF72D26FDB24F00347686 /* SidebarListContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarListContentView.swift; sourceTree = "<group>"; };
 		DB0F814E264CFFD300F2A12B /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -1635,14 +1633,6 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		DB0C947826A7FE950088FB11 /* Button */ = {
-			isa = PBXGroup;
-			children = (
-				DB0C947626A7FE840088FB11 /* NotificationAvatarButton.swift */,
-			);
-			path = Button;
-			sourceTree = "<group>";
-		};
 		DB0EF72C26FDB1D600347686 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -2393,7 +2383,6 @@
 			isa = PBXGroup;
 			children = (
 				DB63F765279A5E5600455B82 /* NotificationTimeline */,
-				DB0C947826A7FE950088FB11 /* Button */,
 				2D35237F26256F470031AF25 /* Cell */,
 				DB9D6BF725E4F5690051B173 /* NotificationViewController.swift */,
 				2D607AD726242FC500B70763 /* NotificationViewModel.swift */,
@@ -3274,7 +3263,6 @@
 				DB603113279EBEBA00A935FE /* DataSourceFacade+Block.swift in Sources */,
 				DB63F777279A9A2A00455B82 /* NotificationView+Configuration.swift in Sources */,
 				DB029E95266A20430062874E /* MastodonAuthenticationController.swift in Sources */,
-				DB0C947726A7FE840088FB11 /* NotificationAvatarButton.swift in Sources */,
 				5B90C461262599800002E742 /* SettingsLinkTableViewCell.swift in Sources */,
 				DB6180DD263918E30018D199 /* MediaPreviewViewController.swift in Sources */,
 				DBE3CDEC261C6B2900430CC6 /* FavoriteViewController.swift in Sources */,
