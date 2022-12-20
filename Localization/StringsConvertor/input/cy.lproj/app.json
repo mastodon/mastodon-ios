@@ -53,9 +53,9 @@
                 "message": "Cliriwyd storfa %s yn llwyddiannus."
             },
             "translation_failed": {
-                "title": "Note",
+                "title": "Nodyn",
                 "message": "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.",
-                "button": "OK"
+                "button": "Iawn"
             }
         },
         "controls": {
@@ -83,7 +83,7 @@
                 "sign_up": "Creu cyfrif",
                 "see_more": "Gweld Mwy",
                 "preview": "Rhagolwg",
-                "copy": "Copy",
+                "copy": "Copïo",
                 "share": "Rhannu",
                 "share_user": "Rhannu %s",
                 "share_post": "Rhannu Tŵt",
@@ -99,8 +99,8 @@
                 "settings": "Gosodiadau",
                 "delete": "Dileu",
                 "translate_post": {
-                    "title": "Translate from %s",
-                    "unknown_language": "Unknown"
+                    "title": "Cyfieithu o %s",
+                    "unknown_language": "Anhysbys"
                 }
             },
             "tabs": {
@@ -143,7 +143,7 @@
                 "media_content_warning": "Tapiwch unrhywle i weld",
                 "tap_to_reveal": "Tapiwch i weld",
                 "load_embed": "Load Embed",
-                "link_via_user": "%s via %s",
+                "link_via_user": "%s trwy %s",
                 "poll": {
                     "vote": "Pleidleisio",
                     "closed": "Wedi cau"
@@ -184,8 +184,8 @@
                 },
                 "translation": {
                     "translated_from": "Translated from %s using %s",
-                    "unknown_language": "Unknown",
-                    "unknown_provider": "Unknown",
+                    "unknown_language": "Anhysbys",
+                    "unknown_provider": "Anhysbys",
                     "show_original": "Shown Original"
                 }
             },
@@ -463,12 +463,15 @@
                 "follows_you": "Yn eich dilyn"
             },
             "dashboard": {
-                "posts": "postiadau",
-                "following": "yn dilyn",
-                "followers": "dilynwyr"
+                "my_posts": "posts",
+                "my_following": "following",
+                "my_followers": "followers",
+                "other_posts": "posts",
+                "other_following": "following",
+                "other_followers": "followers"
             },
             "fields": {
-                "joined": "Joined",
+                "joined": "Ymunwyd",
                 "add_row": "Ychwanegu Rhes",
                 "placeholder": {
                     "label": "Label",
