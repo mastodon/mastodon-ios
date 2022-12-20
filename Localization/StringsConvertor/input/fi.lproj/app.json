@@ -183,9 +183,9 @@
                     "direct": "Only mentioned user can see this post."
                 },
                 "translation": {
-                    "translated_from": "Translated from %s using %s",
+                    "translated_from": "Käännetty kielestä %s palvelulla %s",
                     "unknown_language": "Unknown",
-                    "unknown_provider": "Unknown",
+                    "unknown_provider": "Tuntematon",
                     "show_original": "Shown Original"
                 }
             },
@@ -463,12 +463,12 @@
                 "follows_you": "Follows You"
             },
             "dashboard": {
-                "my_posts": "posts",
-                "my_following": "following",
-                "my_followers": "followers",
-                "other_posts": "posts",
-                "other_following": "following",
-                "other_followers": "followers"
+                "my_posts": "julkaisut",
+                "my_following": "seurattavat",
+                "my_followers": "seuraajat",
+                "other_posts": "julkaisut",
+                "other_following": "seurattavat",
+                "other_followers": "seuraajat"
             },
             "fields": {
                 "joined": "Joined",
