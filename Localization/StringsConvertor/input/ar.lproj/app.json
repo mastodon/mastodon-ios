@@ -99,8 +99,8 @@
                 "settings": "الإعدادات",
                 "delete": "حذف",
                 "translate_post": {
-                    "title": "Translate from %s",
-                    "unknown_language": "Unknown"
+                    "title": "الترجَمَة مِن %s",
+                    "unknown_language": "غير مَعرُوفة"
                 }
             },
             "tabs": {
@@ -142,7 +142,7 @@
                 "sensitive_content": "مُحتَوى حَسَّاس",
                 "media_content_warning": "اُنقُر لِلكَشف",
                 "tap_to_reveal": "اُنقُر لِلكَشف",
-                "load_embed": "Load Embed",
+                "load_embed": "تحميل المُضمَن",
                 "link_via_user": "%s via %s",
                 "poll": {
                     "vote": "صَوِّت",
@@ -165,7 +165,7 @@
                     "show_image": "أظْهِرِ الصُّورَة",
                     "show_gif": "أظْهِر GIF",
                     "show_video_player": "أظْهِر مُشَغِّلَ المَقاطِعِ المَرئِيَّة",
-                    "share_link_in_post": "Share Link in Post",
+                    "share_link_in_post": "مُشارَكَة الرابِط فِي مَنشور",
                     "tap_then_hold_to_show_menu": "اُنقُر مُطَوَّلًا لِإظْهَارِ القائِمَة"
                 },
                 "tag": {
@@ -183,9 +183,9 @@
                     "direct": "المُستخدمِونَ المُشارِ إليهم فَقَطْ مَن يُمكِنُهُم رُؤيَةُ هَذَا المَنشُور."
                 },
                 "translation": {
-                    "translated_from": "Translated from %s using %s",
-                    "unknown_language": "Unknown",
-                    "unknown_provider": "Unknown",
+                    "translated_from": "الترجَمَة مِن %s بِاستِخدَام %s",
+                    "unknown_language": "غير مَعرُوفة",
+                    "unknown_provider": "غير مَعرُوف",
                     "show_original": "Shown Original"
                 }
             },
@@ -463,12 +463,12 @@
                 "follows_you": "يُتابِعُك"
             },
             "dashboard": {
-                "my_posts": "posts",
-                "my_following": "following",
-                "my_followers": "followers",
-                "other_posts": "posts",
-                "other_following": "following",
-                "other_followers": "followers"
+                "my_posts": "مَنشورات",
+                "my_following": "مُتابَعُون",
+                "my_followers": "مُتابِعُون",
+                "other_posts": "مَنشورات",
+                "other_following": "مُتابَعُون",
+                "other_followers": "مُتابِعُون"
             },
             "fields": {
                 "joined": "Joined",
