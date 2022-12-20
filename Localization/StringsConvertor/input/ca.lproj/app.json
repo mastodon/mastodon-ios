@@ -463,12 +463,12 @@
                 "follows_you": "Et segueix"
             },
             "dashboard": {
-                "my_posts": "posts",
-                "my_following": "following",
-                "my_followers": "followers",
-                "other_posts": "posts",
-                "other_following": "following",
-                "other_followers": "followers"
+                "my_posts": "tuts",
+                "my_following": "seguint",
+                "my_followers": "seguidors",
+                "other_posts": "tuts",
+                "other_following": "seguint",
+                "other_followers": "seguidors"
             },
             "fields": {
                 "joined": "S'hi va unir",
