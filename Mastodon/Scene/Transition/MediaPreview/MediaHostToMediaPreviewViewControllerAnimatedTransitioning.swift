@@ -534,7 +534,7 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
         let scaleTransform = CGAffineTransform(scaleX: (itemWidth / size.width), y: (itemHeight / size.height))
         let scaledOffset = transitionItem.touchOffset.apply(transform: scaleTransform)
 
-        let center = transitionView.convert(transitionView.center, to: nil)
+        let center = transitionView.convert(CGPoint(x: transitionView.bounds.midX, y: transitionView.bounds.midY), to: nil)
         snapshot.center = (center + (translation + (transitionItem.touchOffset - scaledOffset))).point
         snapshot.bounds = CGRect(origin: CGPoint.zero, size: CGSize(width: itemWidth, height: itemHeight))
         transitionItem.touchOffset = scaledOffset
