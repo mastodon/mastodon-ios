@@ -160,14 +160,12 @@ extension StatusView {
                 $isMyself
             )
             .map { visibility, isMyself in
-                if isMyself {
-                    return true
-                }
-                
                 switch visibility {
-                case .public, .unlisted:
+                case .public, .unlisted, ._other:
                     return true
-                case .private, .direct, ._other:
+                case .private where isMyself:
+                    return true
+                case .private, .direct:
                     return false
                 }
             }
