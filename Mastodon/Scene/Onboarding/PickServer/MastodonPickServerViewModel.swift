@@ -33,9 +33,9 @@ class MastodonPickServerViewModel: NSObject {
     let context: AppContext
     var categoryPickerItems: [CategoryPickerItem] = {
         var items: [CategoryPickerItem] = []
-        items.append(.all)
         items.append(.language(language: nil))
         items.append(.signupSpeed(manuallyReviewed: nil))
+        items.append(.all)
         items.append(contentsOf: APIService.stubCategories().map { CategoryPickerItem.category(category: $0) })
         return items
     }()
