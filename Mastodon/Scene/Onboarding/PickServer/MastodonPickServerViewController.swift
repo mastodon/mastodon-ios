@@ -391,10 +391,10 @@ extension MastodonPickServerViewController: PickServerServerSectionTableHeaderVi
     func pickServerServerSectionTableHeaderView(_ headerView: PickServerServerSectionTableHeaderView, collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let diffableDataSource = headerView.diffableDataSource else { return }
         let item = diffableDataSource.itemIdentifier(for: indexPath)
-        //TODO: @zeitschlag Consider language etc. also: show menu
-
         if case let .language(_) = item {
-            
+            // is handled by the button
+        } else if case let .signupSpeed(_) = item {
+            // gets also handled by button
         } else {
             viewModel.selectCategoryItem.value = item ?? .all
         }

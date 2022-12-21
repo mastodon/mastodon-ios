@@ -27,13 +27,15 @@ extension CategoryPickerSection {
             cell.delegate = buttonDelegate
             
             let isLanguage = (item == .language(language: nil))
-            if isLanguage {
+            let isSignupSpeed = (item == .signupSpeed(manuallyReviewed: nil))
+            if isLanguage || isSignupSpeed {
                 cell.chevron.isHidden = false
                 cell.menuButton.isUserInteractionEnabled = true
-
+                cell.menuButton.isHidden = false
             } else {
                 cell.chevron.isHidden = true
                 cell.menuButton.isUserInteractionEnabled = false
+                cell.menuButton.isHidden = true
             }
 
             cell.observe(\.isSelected, options: [.initial, .new]) { cell, _ in

@@ -35,12 +35,14 @@ class MastodonPickServerViewModel: NSObject {
         var items: [CategoryPickerItem] = []
         items.append(.all)
         items.append(.language(language: nil))
+        items.append(.signupSpeed(manuallyReviewed: nil))
         items.append(contentsOf: APIService.stubCategories().map { CategoryPickerItem.category(category: $0) })
         return items
     }()
     let selectCategoryItem = CurrentValueSubject<CategoryPickerItem, Never>(.all)
     let searchText = CurrentValueSubject<String, Never>("")
     let selectedLanguage = CurrentValueSubject<String?, Never>(nil)
+    let manualApprovalRequired = CurrentValueSubject<Bool?, Never>(nil)
     let allLanguages = CurrentValueSubject<[Mastodon.Entity.Language], Never>([])
     let indexedServers = CurrentValueSubject<[Mastodon.Entity.Server], Never>([])
     let unindexedServers = CurrentValueSubject<[Mastodon.Entity.Server]?, Never>([])    // set nil when loading
@@ -169,7 +171,7 @@ extension MastodonPickServerViewModel {
             switch selectCategoryItem {
             case .all:
                 return MastodonPickServerViewModel.filterServers(servers: indexedServers, language: selectedLanguage, category: nil, searchText: searchText)
-            case .language(_):
+            case .language(_), .signupSpeed(_):
                 return MastodonPickServerViewModel.filterServers(servers: indexedServers, language: selectedLanguage, category: nil, searchText: searchText)
             case .category(let category):
                 return MastodonPickServerViewModel.filterServers(servers: indexedServers, language: selectedLanguage, category: category.category.rawValue, searchText: searchText)
@@ -227,7 +229,7 @@ extension MastodonPickServerViewModel {
 }
 
 extension MastodonPickServerViewModel {
-    private static func filterServers(servers: [Mastodon.Entity.Server], language: String? = nil, category: String?, searchText: String) -> [Mastodon.Entity.Server] {
+    private static func filterServers(servers: [Mastodon.Entity.Server], language: String? = nil, manualApprovalRequired: Bool? = nil, category: String?, searchText: String) -> [Mastodon.Entity.Server] {
         let filteredServers = servers
         // 1. Filter the category
             .filter {
@@ -244,7 +246,13 @@ extension MastodonPickServerViewModel {
             }
             .filter {
                 guard let language else { return true }
+
                 return $0.language.lowercased() == language.lowercased()
+            }
+            .filter {
+                guard let manualApprovalRequired else { return true }
+
+                return $0.approvalRequired == manualApprovalRequired
             }
         return filteredServers
     }
