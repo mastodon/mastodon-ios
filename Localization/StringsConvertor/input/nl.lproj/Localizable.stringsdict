@@ -13,9 +13,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 unread notification</string>
+        <string>1 ongelezen melding</string>
         <key>other</key>
-        <string>%ld unread notifications</string>
+        <string>%ld ongelezen meldingen</string>
       </dict>
     </dict>
     <key>a11y.plural.count.input_limit_exceeds</key>
@@ -61,9 +61,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 character left</string>
+        <string>1 teken over</string>
         <key>other</key>
-        <string>%ld characters left</string>
+        <string>%ld tekens over</string>
       </dict>
     </dict>
     <key>plural.count.followed_by_and_mutual</key>
@@ -88,9 +88,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>Followed by %1$@, and another mutual</string>
+        <string>Gevolgd door %1$@, en nog een mutual</string>
         <key>other</key>
-        <string>Followed by %1$@, and %ld mutuals</string>
+        <string>Gevolgd door %1$@ en %ld mutuals</string>
       </dict>
     </dict>
     <key>plural.count.metric_formatted.post</key>
@@ -184,9 +184,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 reply</string>
+        <string>1 antwoord</string>
         <key>other</key>
-        <string>%ld replies</string>
+        <string>%ld antwoorden</string>
       </dict>
     </dict>
     <key>plural.count.vote</key>
@@ -376,9 +376,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1y ago</string>
+        <string>1 jr geleden</string>
         <key>other</key>
-        <string>%ldy ago</string>
+        <string>%ld jr geleden</string>
       </dict>
     </dict>
     <key>date.month.ago.abbr</key>
@@ -392,9 +392,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1M ago</string>
+        <string>1 mnd geleden</string>
         <key>other</key>
-        <string>%ldM ago</string>
+        <string>%ld mnd geleden</string>
       </dict>
     </dict>
     <key>date.day.ago.abbr</key>
@@ -408,9 +408,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1d ago</string>
+        <string>1 dag geleden</string>
         <key>other</key>
-        <string>%ldd ago</string>
+        <string>%ld dgn geleden</string>
       </dict>
     </dict>
     <key>date.hour.ago.abbr</key>
@@ -424,9 +424,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1h ago</string>
+        <string>1 uur geleden</string>
         <key>other</key>
-        <string>%ldh ago</string>
+        <string>%ld uur geleden</string>
       </dict>
     </dict>
     <key>date.minute.ago.abbr</key>
@@ -440,9 +440,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1m ago</string>
+        <string>1 min geleden</string>
         <key>other</key>
-        <string>%ldm ago</string>
+        <string>%ld min geleden</string>
       </dict>
     </dict>
     <key>date.second.ago.abbr</key>
@@ -456,9 +456,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1s ago</string>
+        <string>1 sec geleden</string>
         <key>other</key>
-        <string>%lds ago</string>
+        <string>%ld sec geleden</string>
       </dict>
     </dict>
   </dict>
