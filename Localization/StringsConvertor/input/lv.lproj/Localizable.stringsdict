@@ -67,11 +67,11 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld characters left</string>
+        <string>Atlikušas %ld rakstzīmju</string>
         <key>one</key>
-        <string>1 character left</string>
+        <string>Atlikusi 1 rakstzīme</string>
         <key>other</key>
-        <string>%ld characters left</string>
+        <string>Atlikušas %ld rakstzīmes</string>
       </dict>
     </dict>
     <key>plural.count.followed_by_and_mutual</key>
