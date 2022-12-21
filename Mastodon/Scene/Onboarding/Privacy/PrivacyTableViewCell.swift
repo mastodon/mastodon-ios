@@ -9,5 +9,4 @@ import UIKit
 
 class PrivacyTableViewCell: UITableViewCell {
     static let reuseIdentifier = "PrivacyTableViewCell"
-    //TODO: @zeitschlag Implement
 }
