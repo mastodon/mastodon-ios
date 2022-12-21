@@ -243,11 +243,13 @@ final class ProfileHeaderView: UIView {
 extension ProfileHeaderView {
     private func _init() {
         backgroundColor = ThemeService.shared.currentTheme.value.systemBackgroundColor
+        avatarButton.backgroundColor = ThemeService.shared.currentTheme.value.secondarySystemBackgroundColor
         ThemeService.shared.currentTheme
             .receive(on: DispatchQueue.main)
             .sink { [weak self] theme in
                 guard let self = self else { return }
                 self.backgroundColor = theme.systemBackgroundColor
+                self.avatarButton.backgroundColor = theme.secondarySystemBackgroundColor
             }
             .store(in: &_disposeBag)
         
@@ -322,10 +324,10 @@ extension ProfileHeaderView {
         avatarButton.translatesAutoresizingMaskIntoConstraints = false
         avatarImageViewBackgroundView.addSubview(avatarButton)
         NSLayoutConstraint.activate([
-            avatarButton.topAnchor.constraint(equalTo: avatarImageViewBackgroundView.topAnchor, constant: 0.5 * ProfileHeaderView.avatarImageViewBorderWidth),
-            avatarButton.leadingAnchor.constraint(equalTo: avatarImageViewBackgroundView.leadingAnchor, constant: 0.5 * ProfileHeaderView.avatarImageViewBorderWidth),
-            avatarImageViewBackgroundView.trailingAnchor.constraint(equalTo: avatarButton.trailingAnchor, constant: 0.5 * ProfileHeaderView.avatarImageViewBorderWidth),
-            avatarImageViewBackgroundView.bottomAnchor.constraint(equalTo: avatarButton.bottomAnchor, constant: 0.5 * ProfileHeaderView.avatarImageViewBorderWidth),
+            avatarButton.topAnchor.constraint(equalTo: avatarImageViewBackgroundView.topAnchor, constant: ProfileHeaderView.avatarImageViewBorderWidth),
+            avatarButton.leadingAnchor.constraint(equalTo: avatarImageViewBackgroundView.leadingAnchor, constant: ProfileHeaderView.avatarImageViewBorderWidth),
+            avatarImageViewBackgroundView.trailingAnchor.constraint(equalTo: avatarButton.trailingAnchor, constant: ProfileHeaderView.avatarImageViewBorderWidth),
+            avatarImageViewBackgroundView.bottomAnchor.constraint(equalTo: avatarButton.bottomAnchor, constant: ProfileHeaderView.avatarImageViewBorderWidth),
             avatarButton.widthAnchor.constraint(equalToConstant: ProfileHeaderView.avatarImageViewSize.width).priority(.required - 1),
             avatarButton.heightAnchor.constraint(equalToConstant: ProfileHeaderView.avatarImageViewSize.height).priority(.required - 1),
         ])
