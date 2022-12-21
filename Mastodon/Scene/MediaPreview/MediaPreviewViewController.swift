@@ -359,12 +359,12 @@ extension MediaPreviewViewController: MediaPreviewImageViewControllerDelegate {
 
 extension MediaPreviewViewController {
     
-    var closeKeyCommand: UIKeyCommand {
+    func closeKeyCommand(input: String) -> UIKeyCommand {
         UIKeyCommand(
             title: L10n.Scene.Preview.Keyboard.closePreview,
             image: nil,
             action: #selector(MediaPreviewViewController.closePreviewKeyCommandHandler(_:)),
-            input: "i",
+            input: input,
             modifierFlags: [],
             propertyList: nil,
             alternates: [],
@@ -408,7 +408,8 @@ extension MediaPreviewViewController {
     
     override var keyCommands: [UIKeyCommand] {
         return [
-            closeKeyCommand,
+            closeKeyCommand(input: UIKeyCommand.inputEscape),
+            closeKeyCommand(input: "i"),
             showNextKeyCommand,
             showPreviousKeyCommand,
         ]
