@@ -463,9 +463,12 @@
                 "follows_you": "Mengikutimu"
             },
             "dashboard": {
-                "posts": "postingan",
-                "following": "mengikuti",
-                "followers": "pengikut"
+                "my_posts": "posts",
+                "my_following": "following",
+                "my_followers": "followers",
+                "other_posts": "posts",
+                "other_following": "following",
+                "other_followers": "followers"
             },
             "fields": {
                 "joined": "Bergabung",
