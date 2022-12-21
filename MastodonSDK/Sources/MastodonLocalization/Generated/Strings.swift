@@ -1211,6 +1211,8 @@ public enum L10n {
         public static let seeLess = L10n.tr("Localizable", "Scene.ServerPicker.Button.SeeLess", fallback: "See Less")
         /// See More
         public static let seeMore = L10n.tr("Localizable", "Scene.ServerPicker.Button.SeeMore", fallback: "See More")
+        /// Sign-up Speed
+        public static let signupSpeed = L10n.tr("Localizable", "Scene.ServerPicker.Button.SignupSpeed", fallback: "Sign-up Speed")
         public enum Category {
           /// academia
           public static let academia = L10n.tr("Localizable", "Scene.ServerPicker.Button.Category.Academia", fallback: "academia")
@@ -1261,6 +1263,14 @@ public enum L10n {
         public static let language = L10n.tr("Localizable", "Scene.ServerPicker.Label.Language", fallback: "LANGUAGE")
         /// USERS
         public static let users = L10n.tr("Localizable", "Scene.ServerPicker.Label.Users", fallback: "USERS")
+      }
+      public enum SignupSpeed {
+        /// All
+        public static let all = L10n.tr("Localizable", "Scene.ServerPicker.SignupSpeed.All", fallback: "All")
+        /// Instant Sign-up
+        public static let instant = L10n.tr("Localizable", "Scene.ServerPicker.SignupSpeed.Instant", fallback: "Instant Sign-up")
+        /// Manual Review
+        public static let manuallyReviewed = L10n.tr("Localizable", "Scene.ServerPicker.SignupSpeed.ManuallyReviewed", fallback: "Manual Review")
       }
     }
     public enum ServerRules {
