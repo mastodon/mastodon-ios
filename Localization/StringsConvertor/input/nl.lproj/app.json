@@ -53,8 +53,8 @@
                 "message": "Cache-geheugen (%s) succesvol gewist."
             },
             "translation_failed": {
-                "title": "Note",
-                "message": "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.",
+                "title": "Opmerking",
+                "message": "Vertaling mislukt. Mogelijk heeft de serverbeheerder vertalingen niet ingeschakeld op deze server, of draait deze server een oude versie van Mastodon waar vertalingen nog niet ondersteund worden.",
                 "button": "OK"
             }
         },
@@ -83,7 +83,7 @@
                 "sign_up": "Account aanmaken",
                 "see_more": "Meer",
                 "preview": "Voorvertoning",
-                "copy": "Copy",
+                "copy": "Kopiëren",
                 "share": "Deel",
                 "share_user": "Delen %s",
                 "share_post": "Deel bericht",
@@ -99,14 +99,14 @@
                 "settings": "Instellingen",
                 "delete": "Verwijder",
                 "translate_post": {
-                    "title": "Translate from %s",
-                    "unknown_language": "Unknown"
+                    "title": "Vertaald uit het %s",
+                    "unknown_language": "Onbekend"
                 }
             },
             "tabs": {
                 "home": "Start",
-                "search_and_explore": "Search and Explore",
-                "notifications": "Notifications",
+                "search_and_explore": "Zoeken en verkennen",
+                "notifications": "Meldingen",
                 "profile": "Profiel"
             },
             "keyboard": {
@@ -142,7 +142,7 @@
                 "sensitive_content": "Gevoelige inhoud",
                 "media_content_warning": "Tap hier om te tonen",
                 "tap_to_reveal": "Tik om te onthullen",
-                "load_embed": "Load Embed",
+                "load_embed": "Embed laden",
                 "link_via_user": "%s via %s",
                 "poll": {
                     "vote": "Stemmen",
@@ -165,7 +165,7 @@
                     "show_image": "Toon afbeelding",
                     "show_gif": "GIF weergeven",
                     "show_video_player": "Toon videospeler",
-                    "share_link_in_post": "Share Link in Post",
+                    "share_link_in_post": "Deel link in bericht",
                     "tap_then_hold_to_show_menu": "Tik en houd vast om menu te tonen"
                 },
                 "tag": {
@@ -183,10 +183,10 @@
                     "direct": "Alleen de vermelde persoon kan dit bericht zien."
                 },
                 "translation": {
-                    "translated_from": "Translated from %s using %s",
-                    "unknown_language": "Unknown",
-                    "unknown_provider": "Unknown",
-                    "show_original": "Shown Original"
+                    "translated_from": "Vertaald uit het %s door %s",
+                    "unknown_language": "Onbekend",
+                    "unknown_provider": "Onbekend",
+                    "show_original": "Toon origineel"
                 }
             },
             "friendship": {
@@ -463,15 +463,15 @@
                 "follows_you": "Volgt jou"
             },
             "dashboard": {
-                "my_posts": "posts",
-                "my_following": "following",
-                "my_followers": "followers",
-                "other_posts": "posts",
-                "other_following": "following",
-                "other_followers": "followers"
+                "my_posts": "berichten",
+                "my_following": "volgend",
+                "my_followers": "volgers",
+                "other_posts": "berichten",
+                "other_following": "volgend",
+                "other_followers": "volgers"
             },
             "fields": {
-                "joined": "Joined",
+                "joined": "Geregistreerd",
                 "add_row": "Rij Toevoegen",
                 "placeholder": {
                     "label": "Etiket",
@@ -535,10 +535,10 @@
             "followed_by_names": "Gevolgd door %s"
         },
         "favorited_by": {
-            "title": "Favorited By"
+            "title": "Gefavoriet door"
         },
         "reblogged_by": {
-            "title": "Reblogged By"
+            "title": "Geboost door"
         },
         "search": {
             "title": "Zoeken",
@@ -689,41 +689,41 @@
                 "whats_wrong_with_this_account": "Wat is er mis met dit bericht?",
                 "whats_wrong_with_this_username": "Wat is er mis met %s?",
                 "select_the_best_match": "Selecteer de beste overeenkomst",
-                "i_dont_like_it": "I don’t like it",
-                "it_is_not_something_you_want_to_see": "It is not something you want to see",
-                "its_spam": "It’s spam",
-                "malicious_links_fake_engagement_or_repetetive_replies": "Malicious links, fake engagement, or repetetive replies",
-                "it_violates_server_rules": "It violates server rules",
-                "you_are_aware_that_it_breaks_specific_rules": "You are aware that it breaks specific rules",
-                "its_something_else": "It’s something else",
-                "the_issue_does_not_fit_into_other_categories": "The issue does not fit into other categories"
+                "i_dont_like_it": "Ik vind het niet leuk",
+                "it_is_not_something_you_want_to_see": "Iets wat je niet wilt zien",
+                "its_spam": "Spam",
+                "malicious_links_fake_engagement_or_repetetive_replies": "Schadelijke links, misleiding of herhalende antwoorden",
+                "it_violates_server_rules": "Het schendt de serverregels",
+                "you_are_aware_that_it_breaks_specific_rules": "Je weet dat het specifieke regels schendt",
+                "its_something_else": "Iets anders",
+                "the_issue_does_not_fit_into_other_categories": "Probleem valt niet onder de andere categorieën"
             },
             "step_two": {
-                "step_2_of_4": "Step 2 of 4",
-                "which_rules_are_being_violated": "Which rules are being violated?",
-                "select_all_that_apply": "Select all that apply",
-                "i_just_don’t_like_it": "I just don’t like it"
+                "step_2_of_4": "Stap 2 van 4",
+                "which_rules_are_being_violated": "Welke regels worden geschonden?",
+                "select_all_that_apply": "Selecteer wat van toepassing is",
+                "i_just_don’t_like_it": "Ik vind het gewoon niet leuk"
             },
             "step_three": {
-                "step_3_of_4": "Step 3 of 4",
-                "are_there_any_posts_that_back_up_this_report": "Are there any posts that back up this report?",
-                "select_all_that_apply": "Select all that apply"
+                "step_3_of_4": "Stap 3 van 4",
+                "are_there_any_posts_that_back_up_this_report": "Zijn er berichten die deze melding ondersteunen?",
+                "select_all_that_apply": "Selecteer wat van toepassing is"
             },
             "step_four": {
-                "step_4_of_4": "Step 4 of 4",
-                "is_there_anything_else_we_should_know": "Is there anything else we should know?"
+                "step_4_of_4": "Stap 4 van 4",
+                "is_there_anything_else_we_should_know": "Moeten we nog iets anders weten?"
             },
             "step_final": {
-                "dont_want_to_see_this": "Don’t want to see this?",
-                "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "When you see something you don’t like on Mastodon, you can remove the person from your experience.",
-                "unfollow": "Unfollow",
-                "unfollowed": "Unfollowed",
-                "unfollow_user": "Unfollow %s",
-                "mute_user": "Mute %s",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or reblogs in your home feed. They won’t know they’ve been muted.",
-                "block_user": "Block %s",
-                "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "They will no longer be able to follow or see your posts, but they can see if they’ve been blocked.",
-                "while_we_review_this_you_can_take_action_against_user": "While we review this, you can take action against %s"
+                "dont_want_to_see_this": "Wil je dit niet zien?",
+                "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "Als je iets ziet dat je niet leuk vindt op Mastodon, dan kun je die persoon op meerdere manieren verwijderen van je tijdlijn.",
+                "unfollow": "Ontvolgen",
+                "unfollowed": "Ontvolgd",
+                "unfollow_user": "Ontvolg %s",
+                "mute_user": "Negeer %s",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "Je zult niet langer berichten of boosts van deze persoon zien in je tijdlijn. Ze weten niet dat je hun negeert.",
+                "block_user": "Blokkeer %s",
+                "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "Het is niet meer mogelijk om je te volgen of om je berichten te zien, maar ze kunnen wel zien dat ze geblokkeerd zijn.",
+                "while_we_review_this_you_can_take_action_against_user": "Terwijl we dit onderzoeken kun je deze acties tegen %s nemen"
             }
         },
         "preview": {
@@ -744,18 +744,18 @@
             "accessibility_hint": "Tik tweemaal om het popup-scherm te sluiten"
         },
         "bookmark": {
-            "title": "Bookmarks"
+            "title": "Bladwijzers"
         },
         "followed_tags": {
-            "title": "Followed Tags",
+            "title": "Gevolgde tags",
             "header": {
-                "posts": "posts",
-                "participants": "participants",
-                "posts_today": "posts today"
+                "posts": "berichten",
+                "participants": "deelnemers",
+                "posts_today": "berichten vandaag"
             },
             "actions": {
-                "follow": "Follow",
-                "unfollow": "Unfollow"
+                "follow": "Volgen",
+                "unfollow": "Ontvolgen"
             }
         }
     }
