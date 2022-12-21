@@ -243,11 +243,13 @@ final class ProfileHeaderView: UIView {
 extension ProfileHeaderView {
     private func _init() {
         backgroundColor = ThemeService.shared.currentTheme.value.systemBackgroundColor
+        avatarButton.backgroundColor = ThemeService.shared.currentTheme.value.secondarySystemBackgroundColor
         ThemeService.shared.currentTheme
             .receive(on: DispatchQueue.main)
             .sink { [weak self] theme in
                 guard let self = self else { return }
                 self.backgroundColor = theme.systemBackgroundColor
+                self.avatarButton.backgroundColor = theme.secondarySystemBackgroundColor
             }
             .store(in: &_disposeBag)
         
