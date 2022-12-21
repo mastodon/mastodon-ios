@@ -463,11 +463,11 @@
                 "follows_you": "Folgt dir"
             },
             "dashboard": {
-                "my_posts": "posts",
-                "my_following": "following",
+                "my_posts": "Beiträge",
+                "my_following": "folge ich",
                 "my_followers": "followers",
-                "other_posts": "posts",
-                "other_following": "following",
+                "other_posts": "Beiträge",
+                "other_following": "folge ich",
                 "other_followers": "followers"
             },
             "fields": {
