@@ -320,9 +320,9 @@ extension MastodonPickServerViewModel: PickServerCategoryCollectionViewCellDeleg
 
         case .signupSpeed(_):
 
-            let doesntMatterAction = UIAction(title: L10n.Scene.ServerPicker.SignupSpeed.all) { action in
+            let doesntMatterAction = UIAction(title: L10n.Scene.ServerPicker.SignupSpeed.all) { _ in
                 self.manualApprovalRequired.value = nil
-                cell.titleLabel.text = action.title
+                cell.titleLabel.text = L10n.Scene.ServerPicker.Button.signupSpeed
             }
 
             let manualApprovalAction = UIAction(title: L10n.Scene.ServerPicker.SignupSpeed.manuallyReviewed) { action in
