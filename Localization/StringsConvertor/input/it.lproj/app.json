@@ -192,7 +192,7 @@
                     "accessibility_label": "%s, allegato %d di %d",
                     "expand_image_hint": "Espande l'immagine. Tocca due volte e tieni premuto per mostrare le azioni",
                     "expand_gif_hint": "Espande la GIF. Tocca due volte e tieni premuto per mostrare le azioni",
-                    "expand_video_hint": "Shows the video player. Double-tap and hold to show actions"
+                    "expand_video_hint": "Mostra il lettore video. Tocca due volte e tieni premuto per mostrare le azioni"
                 }
             },
             "friendship": {
