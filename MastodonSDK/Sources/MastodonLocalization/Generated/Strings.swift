@@ -298,10 +298,6 @@ public enum L10n {
         public static let loadEmbed = L10n.tr("Localizable", "Common.Controls.Status.LoadEmbed", fallback: "Load Embed")
         /// Tap anywhere to reveal
         public static let mediaContentWarning = L10n.tr("Localizable", "Common.Controls.Status.MediaContentWarning", fallback: "Tap anywhere to reveal")
-        /// %@, attachment %d of %d
-        public static func mediaLabel(_ p1: Any, _ p2: Int, _ p3: Int) -> String {
-          return L10n.tr("Localizable", "Common.Controls.Status.MediaLabel", String(describing: p1), p2, p3, fallback: "%@, attachment %d of %d")
-        }
         /// Sensitive Content
         public static let sensitiveContent = L10n.tr("Localizable", "Common.Controls.Status.SensitiveContent", fallback: "Sensitive Content")
         /// Show Post
@@ -343,6 +339,18 @@ public enum L10n {
           public static let unfavorite = L10n.tr("Localizable", "Common.Controls.Status.Actions.Unfavorite", fallback: "Unfavorite")
           /// Undo reblog
           public static let unreblog = L10n.tr("Localizable", "Common.Controls.Status.Actions.Unreblog", fallback: "Undo reblog")
+        }
+        public enum Media {
+          /// %@, attachment %d of %d
+          public static func accessibilityLabel(_ p1: Any, _ p2: Int, _ p3: Int) -> String {
+            return L10n.tr("Localizable", "Common.Controls.Status.Media.AccessibilityLabel", String(describing: p1), p2, p3, fallback: "%@, attachment %d of %d")
+          }
+          /// Expands the GIF. Double-tap and hold to show actions
+          public static let expandGifHint = L10n.tr("Localizable", "Common.Controls.Status.Media.ExpandGifHint", fallback: "Expands the GIF. Double-tap and hold to show actions")
+          /// Expands the image. Double-tap and hold to show actions
+          public static let expandImageHint = L10n.tr("Localizable", "Common.Controls.Status.Media.ExpandImageHint", fallback: "Expands the image. Double-tap and hold to show actions")
+          /// Shows the video player. Double-tap and hold to show actions
+          public static let expandVideoHint = L10n.tr("Localizable", "Common.Controls.Status.Media.ExpandVideoHint", fallback: "Shows the video player. Double-tap and hold to show actions")
         }
         public enum MetaEntity {
           /// Email address: %@

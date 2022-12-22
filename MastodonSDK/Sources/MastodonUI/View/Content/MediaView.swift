@@ -128,15 +128,15 @@ extension MediaView {
         case .image(let info):
             layoutImage()
             bindImage(configuration: configuration, info: info)
-            accessibilityHint = "Expands the image. Double-tap and hold to show actions" // TODO: i18n
+            accessibilityHint = L10n.Common.Controls.Status.Media.expandImageHint
         case .gif(let info):
             layoutGIF()
             bindGIF(configuration: configuration, info: info)
-            accessibilityHint = "Expands the GIF. Double-tap and hold to show actions" // TODO: i18n
+            accessibilityHint = L10n.Common.Controls.Status.Media.expandGifHint
         case .video(let info):
             layoutVideo()
             bindVideo(configuration: configuration, info: info)
-            accessibilityHint = "Shows video player. Double-tap and hold to show actions" // TODO: i18n
+            accessibilityHint = L10n.Common.Controls.Status.Media.expandVideoHint
         }
         
         accessibilityTraits.insert([.button, .image])
@@ -220,7 +220,7 @@ extension MediaView {
     
     private func bindAlt(configuration: Configuration, altDescription: String?) {
         if configuration.total > 1 {
-            accessibilityLabel = L10n.Common.Controls.Status.mediaLabel(
+            accessibilityLabel = L10n.Common.Controls.Status.Media.accessibilityLabel(
                 altDescription ?? "",
                 configuration.index + 1,
                 configuration.total
