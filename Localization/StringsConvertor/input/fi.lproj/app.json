@@ -190,9 +190,9 @@
                 },
                 "media": {
                     "accessibility_label": "%s, liite %d/%d",
-                    "expand_image_hint": "Expands the image. Double-tap and hold to show actions",
-                    "expand_gif_hint": "Expands the GIF. Double-tap and hold to show actions",
-                    "expand_video_hint": "Shows the video player. Double-tap and hold to show actions"
+                    "expand_image_hint": "Laajentaa kuvan. Näytä toiminnot kaksoisnapautuksella ja painamalla",
+                    "expand_gif_hint": "Laajentaa GIF-kuvan. Näytä toiminnot kaksoisnapautuksella ja painamalla",
+                    "expand_video_hint": "Näyttää videosoittimen. Näytä toiminnot kaksoisnapautuksella ja painamalla"
                 }
             },
             "friendship": {
