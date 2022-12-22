@@ -26,22 +26,6 @@ final class MediaPreviewViewController: UIViewController, NeedsDependency {
     let pagingViewController = MediaPreviewPagingViewController()
 
     let topToolbar: UIStackView = {
-        class TouchTransparentStackView: UIStackView {
-            // allow button hit boxes to grow outside of this view’s bounds
-            override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
-                subviews.contains { $0.point(inside: $0.convert(point, from: self), with: event) }
-            }
-
-            // allow taps on blank areas to pass through
-            override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-                let view = super.hitTest(point, with: event)
-                if view == self {
-                    return nil
-                }
-                return view
-            }
-        }
-
         let stackView = TouchTransparentStackView()
         stackView.axis = .horizontal
         stackView.distribution = .equalSpacing
