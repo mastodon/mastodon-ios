@@ -340,6 +340,18 @@ public enum L10n {
           /// Undo reblog
           public static let unreblog = L10n.tr("Localizable", "Common.Controls.Status.Actions.Unreblog", fallback: "Undo reblog")
         }
+        public enum Media {
+          /// %@, attachment %d of %d
+          public static func accessibilityLabel(_ p1: Any, _ p2: Int, _ p3: Int) -> String {
+            return L10n.tr("Localizable", "Common.Controls.Status.Media.AccessibilityLabel", String(describing: p1), p2, p3, fallback: "%@, attachment %d of %d")
+          }
+          /// Expands the GIF. Double-tap and hold to show actions
+          public static let expandGifHint = L10n.tr("Localizable", "Common.Controls.Status.Media.ExpandGifHint", fallback: "Expands the GIF. Double-tap and hold to show actions")
+          /// Expands the image. Double-tap and hold to show actions
+          public static let expandImageHint = L10n.tr("Localizable", "Common.Controls.Status.Media.ExpandImageHint", fallback: "Expands the image. Double-tap and hold to show actions")
+          /// Shows the video player. Double-tap and hold to show actions
+          public static let expandVideoHint = L10n.tr("Localizable", "Common.Controls.Status.Media.ExpandVideoHint", fallback: "Shows the video player. Double-tap and hold to show actions")
+        }
         public enum MetaEntity {
           /// Email address: %@
           public static func email(_ p1: Any) -> String {
