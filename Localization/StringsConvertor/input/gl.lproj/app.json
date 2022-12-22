@@ -183,9 +183,9 @@
                     "direct": "Só a usuaria mencionada pode ver a publicación."
                 },
                 "translation": {
-                    "translated_from": "Translated from %s using %s",
+                    "translated_from": "Traducido do %s usando %s",
                     "unknown_language": "Descoñecido",
-                    "unknown_provider": "Unknown",
+                    "unknown_provider": "Descoñecido",
                     "show_original": "Mostrar o orixinal"
                 }
             },
@@ -463,9 +463,12 @@
                 "follows_you": "Séguete"
             },
             "dashboard": {
-                "posts": "publicacións",
-                "following": "seguindo",
-                "followers": "seguidoras"
+                "my_posts": "publicacións",
+                "my_following": "seguindo",
+                "my_followers": "seguidoras",
+                "other_posts": "publicacións",
+                "other_following": "seguindo",
+                "other_followers": "seguidoras"
             },
             "fields": {
                 "joined": "Uniuse",

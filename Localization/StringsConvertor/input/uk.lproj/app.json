@@ -463,9 +463,12 @@
                 "follows_you": "Підписаний(-на) на вас"
             },
             "dashboard": {
-                "posts": "дописів",
-                "following": "підписаний",
-                "followers": "підписників"
+                "my_posts": "posts",
+                "my_following": "following",
+                "my_followers": "followers",
+                "other_posts": "posts",
+                "other_following": "following",
+                "other_followers": "followers"
             },
             "fields": {
                 "joined": "Joined",

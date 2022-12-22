@@ -1,6 +1,6 @@
 {
-    "NSCameraUsageDescription": "Used to take photo for post status",
-    "NSPhotoLibraryAddUsageDescription": "Used to save photo into the Photo Library",
-    "NewPostShortcutItemTitle": "New Post",
-    "SearchShortcutItemTitle": "Search"
+    "NSCameraUsageDescription": "Izmanto, lai fotografētu ziņas statusu",
+    "NSPhotoLibraryAddUsageDescription": "Izmanto, lai saglabātu fotoattēlu Photo Library",
+    "NewPostShortcutItemTitle": "Jauna Ziņa",
+    "SearchShortcutItemTitle": "Meklēt"
 }

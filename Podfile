@@ -12,7 +12,6 @@ target 'Mastodon' do
 
   # misc
   pod 'SwiftGen', '~> 6.6.2'
-  pod 'DateToolsSwift', '~> 5.0.0'
   pod 'Kanna', '~> 5.2.2'
   pod 'Sourcery', '~> 1.6.1'
 
