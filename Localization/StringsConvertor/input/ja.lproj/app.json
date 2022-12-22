@@ -83,7 +83,7 @@
                 "sign_up": "アカウント作成",
                 "see_more": "もっと見る",
                 "preview": "プレビュー",
-                "copy": "Copy",
+                "copy": "コピー",
                 "share": "共有",
                 "share_user": "%sを共有",
                 "share_post": "投稿を共有",
@@ -99,8 +99,8 @@
                 "settings": "設定",
                 "delete": "削除",
                 "translate_post": {
-                    "title": "Translate from %s",
-                    "unknown_language": "Unknown"
+                    "title": "%sから翻訳",
+                    "unknown_language": "不明"
                 }
             },
             "tabs": {
@@ -142,7 +142,7 @@
                 "sensitive_content": "閲覧注意",
                 "media_content_warning": "どこかをタップして表示",
                 "tap_to_reveal": "タップして表示",
-                "load_embed": "Load Embed",
+                "load_embed": "埋め込みを読み込む",
                 "link_via_user": "%s via %s",
                 "poll": {
                     "vote": "投票",
@@ -184,8 +184,8 @@
                 },
                 "translation": {
                     "translated_from": "Translated from %s using %s",
-                    "unknown_language": "Unknown",
-                    "unknown_provider": "Unknown",
+                    "unknown_language": "不明",
+                    "unknown_provider": "不明",
                     "show_original": "Shown Original"
                 }
             },
@@ -463,10 +463,10 @@
                 "follows_you": "フォローされています"
             },
             "dashboard": {
-                "my_posts": "posts",
+                "my_posts": "投稿",
                 "my_following": "following",
                 "my_followers": "followers",
-                "other_posts": "posts",
+                "other_posts": "投稿",
                 "other_following": "following",
                 "other_followers": "followers"
             },
@@ -516,9 +516,9 @@
                 }
             },
             "accessibility": {
-                "show_avatar_image": "Show avatar image",
-                "edit_avatar_image": "Edit avatar image",
-                "show_banner_image": "Show banner image",
+                "show_avatar_image": "アバター画像を表示",
+                "edit_avatar_image": "アバター画像を編集",
+                "show_banner_image": "バナー画像を表示",
                 "double_tap_to_open_the_list": "Double tap to open the list"
             }
         },
@@ -532,7 +532,7 @@
         },
         "familiarFollowers": {
             "title": "Followers you familiar",
-            "followed_by_names": "Followed by %s"
+            "followed_by_names": "%sがフォロー"
         },
         "favorited_by": {
             "title": "お気に入り"
@@ -747,15 +747,15 @@
             "title": "ブックマーク"
         },
         "followed_tags": {
-            "title": "Followed Tags",
+            "title": "フォロー済みタグ",
             "header": {
-                "posts": "posts",
-                "participants": "participants",
-                "posts_today": "posts today"
+                "posts": "投稿",
+                "participants": "参加者",
+                "posts_today": "今日の投稿"
             },
             "actions": {
-                "follow": "Follow",
-                "unfollow": "Unfollow"
+                "follow": "フォロー",
+                "unfollow": "フォロー解除"
             }
         }
     }
