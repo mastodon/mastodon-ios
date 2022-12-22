@@ -189,10 +189,10 @@
                     "show_original": "Pokaži izvirnik"
                 },
                 "media": {
-                    "accessibility_label": "%s, attachment %d of %d",
-                    "expand_image_hint": "Expands the image. Double-tap and hold to show actions",
-                    "expand_gif_hint": "Expands the GIF. Double-tap and hold to show actions",
-                    "expand_video_hint": "Shows the video player. Double-tap and hold to show actions"
+                    "accessibility_label": "%s, priponka %d od %d",
+                    "expand_image_hint": "Razširi sliko. Dvakrat tapnite in držite, da se pokažejo dejanja",
+                    "expand_gif_hint": "Razširi GIF. Dvakrat tapnite in držite, da se pokažejo dejanja",
+                    "expand_video_hint": "Pokaže predvajalnik videoposnetkov. Dvakrat tapnite in držite, da se pokažejo dejanja"
                 }
             },
             "friendship": {
