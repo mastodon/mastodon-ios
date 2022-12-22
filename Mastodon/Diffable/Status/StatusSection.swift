@@ -279,6 +279,7 @@ extension StatusSection {
             statusView: cell.statusView
         )
         
+        cell.statusView.viewModel.context = configuration.context
         cell.statusView.viewModel.authContext = configuration.authContext
         
         cell.configure(

@@ -6,30 +6,30 @@
                 "please_try_again_later": "Lūdzu, mēģiniet vēlreiz vēlāk."
             },
             "sign_up_failure": {
-                "title": "Sign Up Failure"
+                "title": "Reģistrācijas Neveiksme"
             },
             "server_error": {
                 "title": "Servera kļūda"
             },
             "vote_failure": {
-                "title": "Vote Failure",
+                "title": "Balsošanas Neveiksme",
                 "poll_ended": "Balsošana beidzās"
             },
             "discard_post_content": {
                 "title": "Atmest malnrakstu",
-                "message": "Confirm to discard composed post content."
+                "message": "Apstiprini, lai atmestu izveidotās ziņas saturu."
             },
             "publish_post_failure": {
-                "title": "Publish Failure",
-                "message": "Failed to publish the post.\nPlease check your internet connection.",
+                "title": "Publicēšanas Neveiksme",
+                "message": "Neizdevās publicēt ziņu.\nLūdzu, pārbaudi savu interneta savienojumu.",
                 "attachments_message": {
-                    "video_attach_with_photo": "Cannot attach a video to a post that already contains images.",
-                    "more_than_one_video": "Cannot attach more than one video."
+                    "video_attach_with_photo": "Nevar pievienot videoklipu ziņai, kurā jau ir attēli.",
+                    "more_than_one_video": "Nevar pievienot vairāk kā vienu video."
                 }
             },
             "edit_profile_failure": {
-                "title": "Edit Profile Error",
-                "message": "Cannot edit profile. Please try again."
+                "title": "Profila Rediģēšanas Kļūda",
+                "message": "Nevar rediģēt profilu. Lūdzu mēģini vēlreiz."
             },
             "sign_out": {
                 "title": "Iziet",
@@ -37,20 +37,25 @@
                 "confirm": "Iziet"
             },
             "block_domain": {
-                "title": "Are you really, really sure you want to block the entire %s? In most cases a few targeted blocks or mutes are sufficient and preferable. You will not see content from that domain and any of your followers from that domain will be removed.",
-                "block_entire_domain": "Block Domain"
+                "title": "Vai tiešām tiešām vēlies bloķēt visu %s? Vairumā gadījumu pietiek ar dažiem mērķtiecīgiem blokiem vai klusinātājiem, un tie ir vēlami. Tu neredzēsi saturu no šī domēna, un visi tavi sekotāji no šī domēna tiks noņemti.",
+                "block_entire_domain": "Bloķēt Domēnu"
             },
             "save_photo_failure": {
-                "title": "Save Photo Failure",
-                "message": "Please enable the photo library access permission to save the photo."
+                "title": "Attēla Saglabāšanas Kļūda",
+                "message": "Lai saglabātu fotoattēlu, lūdzu, iespējo fotoattēlu bibliotēkas piekļuves atļauju."
             },
             "delete_post": {
                 "title": "Dzēst ierakstu",
                 "message": "Vai tiešām vēlies dzēst ierakstu?"
             },
             "clean_cache": {
-                "title": "Clean Cache",
-                "message": "Successfully cleaned %s cache."
+                "title": "Iztīrīt Kešatmiņu",
+                "message": "%s kešatmiņa ir veiksmīgi iztīrīta."
+            },
+            "translation_failed": {
+                "title": "Piezīme",
+                "message": "Tulkošana neizdevās. Varbūt administrators nav iespējojis tulkojumus šajā serverī vai arī šajā serverī darbojas vecāka Mastodon versija, kurā tulkojumi vēl netiek atbalstīti.",
+                "button": "Labi"
             }
         },
         "controls": {
@@ -74,48 +79,53 @@
                 "take_photo": "Uzņemt bildi",
                 "save_photo": "Saglabāt bildi",
                 "copy_photo": "Kopēt bildi",
-                "sign_in": "Log in",
-                "sign_up": "Create account",
+                "sign_in": "Pieteikties",
+                "sign_up": "Izveidot kontu",
                 "see_more": "Skatīt vairāk",
                 "preview": "Priekšskatījums",
+                "copy": "Kopēt",
                 "share": "Dalīties",
-                "share_user": "Share %s",
-                "share_post": "Share Post",
+                "share_user": "Kopīgot %s",
+                "share_post": "Kopīgot Ziņu",
                 "open_in_safari": "Atvērt Safari",
                 "open_in_browser": "Atvērt pārlūkprogrammā",
                 "find_people": "Atrodi cilvēkus kam sekot",
-                "manually_search": "Manually search instead",
+                "manually_search": "Tā vietā meklēt manuāli",
                 "skip": "Izlaist",
                 "reply": "Atbildēt",
                 "report_user": "Ziņot par lietotāju @%s",
                 "block_domain": "Bloķēt %s",
                 "unblock_domain": "Atbloķēt %s",
                 "settings": "Iestatījumi",
-                "delete": "Dzēst"
+                "delete": "Dzēst",
+                "translate_post": {
+                    "title": "Tulkot no %s",
+                    "unknown_language": "Nezināms"
+                }
             },
             "tabs": {
                 "home": "Sākums",
-                "search": "Meklēšana",
-                "notification": "Paziņojums",
+                "search_and_explore": "Meklēt un Pārlūkot",
+                "notifications": "Paziņojumi",
                 "profile": "Profils"
             },
             "keyboard": {
                 "common": {
                     "switch_to_tab": "Pārslēgties uz: %s",
                     "compose_new_post": "Veidot jaunu ziņu",
-                    "show_favorites": "Show Favorites",
+                    "show_favorites": "Parādīt Izlasi",
                     "open_settings": "Atvērt iestatījumus"
                 },
                 "timeline": {
-                    "previous_status": "Previous Post",
-                    "next_status": "Next Post",
-                    "open_status": "Open Post",
-                    "open_author_profile": "Open Author's Profile",
-                    "open_reblogger_profile": "Open Reblogger's Profile",
-                    "reply_status": "Reply to Post",
-                    "toggle_reblog": "Toggle Reblog on Post",
-                    "toggle_favorite": "Toggle Favorite on Post",
-                    "toggle_content_warning": "Toggle Content Warning",
+                    "previous_status": "Iepriekšējā Ziņa",
+                    "next_status": "Nākamā Ziņa",
+                    "open_status": "Atvērt Ziņu",
+                    "open_author_profile": "Atvērt Autora Profilu",
+                    "open_reblogger_profile": "Atvērt Pārpublicētāja Profilu",
+                    "reply_status": "Atbildēt uz Ziņu",
+                    "toggle_reblog": "Pārslēgt Atbilde uz Ziņu",
+                    "toggle_favorite": "Pārslēgt Izlasi uz Ziņas",
+                    "toggle_content_warning": "Pārslēgt Satura Brīdinājumu",
                     "preview_image": "Priekšskata attēls"
                 },
                 "segmented_control": {
@@ -124,28 +134,30 @@
                 }
             },
             "status": {
-                "user_reblogged": "%s reblogged",
-                "user_replied_to": "Replied to %s",
-                "show_post": "Show Post",
+                "user_reblogged": "%s pārpublicēja",
+                "user_replied_to": "Atbildēja %s",
+                "show_post": "Parādīt Ziņu",
                 "show_user_profile": "Parādīt lietotāja profilu",
                 "content_warning": "Satura brīdinājums",
                 "sensitive_content": "Sensitīvs saturs",
-                "media_content_warning": "Tap anywhere to reveal",
-                "tap_to_reveal": "Tap to reveal",
+                "media_content_warning": "Pieskarieties jebkurā vietā, lai atklātu",
+                "tap_to_reveal": "Piest, lai atklātu",
+                "load_embed": "Ielādēt Iegultos",
+                "link_via_user": "%s caur %s",
                 "poll": {
                     "vote": "Balsot",
                     "closed": "Aizvērts"
                 },
                 "meta_entity": {
-                    "url": "Link: %s",
-                    "hashtag": "Hashtag: %s",
-                    "mention": "Show Profile: %s",
-                    "email": "Email address: %s"
+                    "url": "Saite: %s",
+                    "hashtag": "Sajaukt: %s",
+                    "mention": "Rādīt Profilu: %s",
+                    "email": "E-pasta adrese: %s"
                 },
                 "actions": {
                     "reply": "Atbildēt",
                     "reblog": "Reblogot",
-                    "unreblog": "Undo reblog",
+                    "unreblog": "Atsaukt pārpublicēšanu",
                     "favorite": "Izlase",
                     "unfavorite": "Izņemt no izlases",
                     "menu": "Izvēlne",
@@ -153,6 +165,7 @@
                     "show_image": "Rādīt attēlu",
                     "show_gif": "Rādīt GIF",
                     "show_video_player": "Show video player",
+                    "share_link_in_post": "Share Link in Post",
                     "tap_then_hold_to_show_menu": "Tap then hold to show menu"
                 },
                 "tag": {
@@ -168,6 +181,12 @@
                     "private": "Only their followers can see this post.",
                     "private_from_me": "Only my followers can see this post.",
                     "direct": "Only mentioned user can see this post."
+                },
+                "translation": {
+                    "translated_from": "Translated from %s using %s",
+                    "unknown_language": "Unknown",
+                    "unknown_provider": "Unknown",
+                    "show_original": "Shown Original"
                 }
             },
             "friendship": {
@@ -449,6 +468,7 @@
                 "followers": "sekottāji"
             },
             "fields": {
+                "joined": "Joined",
                 "add_row": "Pievienot rindu",
                 "placeholder": {
                     "label": "Label",
@@ -722,6 +742,18 @@
         },
         "bookmark": {
             "title": "Bookmarks"
+        },
+        "followed_tags": {
+            "title": "Followed Tags",
+            "header": {
+                "posts": "posts",
+                "participants": "participants",
+                "posts_today": "posts today"
+            },
+            "actions": {
+                "follow": "Follow",
+                "unfollow": "Unfollow"
+            }
         }
     }
 }

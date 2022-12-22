@@ -51,6 +51,11 @@
             "clean_cache": {
                 "title": "Vyčistit mezipaměť",
                 "message": "Úspěšně vyčištěno %s mezipaměti."
+            },
+            "translation_failed": {
+                "title": "Note",
+                "message": "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.",
+                "button": "OK"
             }
         },
         "controls": {
@@ -78,6 +83,7 @@
                 "sign_up": "Vytvořit účet",
                 "see_more": "Zobrazit více",
                 "preview": "Náhled",
+                "copy": "Copy",
                 "share": "Sdílet",
                 "share_user": "Sdílet %s",
                 "share_post": "Sdílet příspěvek",
@@ -91,12 +97,16 @@
                 "block_domain": "Blokovat %s",
                 "unblock_domain": "Odblokovat %s",
                 "settings": "Nastavení",
-                "delete": "Smazat"
+                "delete": "Smazat",
+                "translate_post": {
+                    "title": "Translate from %s",
+                    "unknown_language": "Unknown"
+                }
             },
             "tabs": {
                 "home": "Domů",
-                "search": "Hledat",
-                "notification": "Oznamování",
+                "search_and_explore": "Search and Explore",
+                "notifications": "Oznámení",
                 "profile": "Profil"
             },
             "keyboard": {
@@ -113,7 +123,7 @@
                     "open_author_profile": "Otevřít profil autora",
                     "open_reblogger_profile": "Otevřít rebloggerův profil",
                     "reply_status": "Odpovědět na příspěvek",
-                    "toggle_reblog": "Toggle Reblog on Post",
+                    "toggle_reblog": "Přepnout Reblog na příspěvku",
                     "toggle_favorite": "Toggle Favorite on Post",
                     "toggle_content_warning": "Přepnout varování obsahu",
                     "preview_image": "Náhled obrázku"
@@ -132,6 +142,8 @@
                 "sensitive_content": "Citlivý obsah",
                 "media_content_warning": "Klepnutím kdekoli zobrazíte",
                 "tap_to_reveal": "Klepnutím zobrazit",
+                "load_embed": "Load Embed",
+                "link_via_user": "%s via %s",
                 "poll": {
                     "vote": "Hlasovat",
                     "closed": "Uzavřeno"
@@ -153,6 +165,7 @@
                     "show_image": "Zobrazit obrázek",
                     "show_gif": "Zobrazit GIF",
                     "show_video_player": "Zobrazit video přehrávač",
+                    "share_link_in_post": "Share Link in Post",
                     "tap_then_hold_to_show_menu": "Klepnutím podržte pro zobrazení nabídky"
                 },
                 "tag": {
@@ -168,6 +181,12 @@
                     "private": "Pouze jejich sledující mohou vidět tento příspěvek.",
                     "private_from_me": "Pouze moji sledující mohou vidět tento příspěvek.",
                     "direct": "Pouze zmíněný uživatel může vidět tento příspěvek."
+                },
+                "translation": {
+                    "translated_from": "Translated from %s using %s",
+                    "unknown_language": "Unknown",
+                    "unknown_provider": "Unknown",
+                    "show_original": "Shown Original"
                 }
             },
             "friendship": {
@@ -449,6 +468,7 @@
                 "followers": "sledující"
             },
             "fields": {
+                "joined": "Joined",
                 "add_row": "Přidat řádek",
                 "placeholder": {
                     "label": "Označení",
@@ -722,6 +742,18 @@
         },
         "bookmark": {
             "title": "Záložky"
+        },
+        "followed_tags": {
+            "title": "Sledované štítky",
+            "header": {
+                "posts": "příspěvky",
+                "participants": "účastníci",
+                "posts_today": "příspěvky dnes"
+            },
+            "actions": {
+                "follow": "Sledovat",
+                "unfollow": "Přestat sledovat"
+            }
         }
     }
 }

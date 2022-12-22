@@ -51,6 +51,11 @@
             "clean_cache": {
                 "title": "Limpar caché",
                 "message": "Baleirouse %s da caché correctamente."
+            },
+            "translation_failed": {
+                "title": "Nota",
+                "message": "Fallou a tradución. É posible que a administración non activase a tradución neste servidor ou que o servidor teña unha versión antiga de Mastodon que non ten soporte para a tradución.",
+                "button": "OK"
             }
         },
         "controls": {
@@ -78,6 +83,7 @@
                 "sign_up": "Crear conta",
                 "see_more": "Ver máis",
                 "preview": "Vista previa",
+                "copy": "Copiar",
                 "share": "Compartir",
                 "share_user": "Compartir %s",
                 "share_post": "Compartir publicación",
@@ -91,12 +97,16 @@
                 "block_domain": "Bloquear a %s",
                 "unblock_domain": "Desbloquear a %s",
                 "settings": "Axustes",
-                "delete": "Eliminar"
+                "delete": "Eliminar",
+                "translate_post": {
+                    "title": "Traducido do %s",
+                    "unknown_language": "Descoñecido"
+                }
             },
             "tabs": {
                 "home": "Inicio",
-                "search": "Busca",
-                "notification": "Notificación",
+                "search_and_explore": "Buscar e Explorar",
+                "notifications": "Notificacións",
                 "profile": "Perfil"
             },
             "keyboard": {
@@ -132,6 +142,8 @@
                 "sensitive_content": "Contido sensible",
                 "media_content_warning": "Toca nalgures para mostrar",
                 "tap_to_reveal": "Toca para mostrar",
+                "load_embed": "Cargar o contido",
+                "link_via_user": "%s vía %s",
                 "poll": {
                     "vote": "Votar",
                     "closed": "Pechada"
@@ -153,6 +165,7 @@
                     "show_image": "Mostrar a imaxe",
                     "show_gif": "Mostrar GIF",
                     "show_video_player": "Mostrar reprodutor de vídeo",
+                    "share_link_in_post": "Compartir Ligazón na Publicación",
                     "tap_then_hold_to_show_menu": "Toca e mantén preso para menú"
                 },
                 "tag": {
@@ -168,6 +181,12 @@
                     "private": "Só as seguidoras poden ver a publicación.",
                     "private_from_me": "Só as miñas seguidoras poden ver esta publicación.",
                     "direct": "Só a usuaria mencionada pode ver a publicación."
+                },
+                "translation": {
+                    "translated_from": "Translated from %s using %s",
+                    "unknown_language": "Descoñecido",
+                    "unknown_provider": "Unknown",
+                    "show_original": "Mostrar o orixinal"
                 }
             },
             "friendship": {
@@ -449,6 +468,7 @@
                 "followers": "seguidoras"
             },
             "fields": {
+                "joined": "Uniuse",
                 "add_row": "Engadir fila",
                 "placeholder": {
                     "label": "Etiqueta",
@@ -722,6 +742,18 @@
         },
         "bookmark": {
             "title": "Marcadores"
+        },
+        "followed_tags": {
+            "title": "Cancelos seguidos",
+            "header": {
+                "posts": "publicacións",
+                "participants": "participantes",
+                "posts_today": "publicacións de hoxe"
+            },
+            "actions": {
+                "follow": "Seguir",
+                "unfollow": "Deixar de seguir"
+            }
         }
     }
 }
