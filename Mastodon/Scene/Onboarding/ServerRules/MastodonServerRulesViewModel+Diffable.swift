@@ -21,6 +21,6 @@ extension MastodonServerRulesViewModel {
             return ServerRuleItem.rule(ruleContext)
         }
         snapshot.appendItems(ruleItems, toSection: .rules)
-        diffableDataSource?.applySnapshot(snapshot, animated: false, completion: nil)
+        diffableDataSource?.apply(snapshot, animatingDifferences: false)
     }
 }

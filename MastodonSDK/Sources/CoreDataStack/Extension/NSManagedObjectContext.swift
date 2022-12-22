@@ -50,43 +50,16 @@ extension NSManagedObjectContext {
 
 extension NSManagedObjectContext {
     public func perform<T>(block: @escaping () throws -> T) async throws -> T {
-        if #available(iOS 15.0, *) {
-            return try await perform(schedule: .enqueued) {
-                try block()
-            }
-        } else {
-            return try await withCheckedThrowingContinuation { continuation in
-                self.perform {
-                    do {
-                        let value = try block()
-                        continuation.resume(returning: value)
-                    } catch {
-                        continuation.resume(throwing: error)
-                    }
-                }
-            }   // end return
+        return try await perform(schedule: .enqueued) {
+            try block()
         }
     }
-
+    
     public func performChanges<T>(block: @escaping () throws -> T) async throws -> T {
-        if #available(iOS 15.0, *) {
-            return try await perform(schedule: .enqueued) {
-                let value = try block()
-                try self.saveOrRollback()
-                return value
-            }
-        } else {
-            return try await withCheckedThrowingContinuation { continuation in
-                self.perform {
-                    do {
-                        let value = try block()
-                        try self.saveOrRollback()
-                        continuation.resume(returning: value)
-                    } catch {
-                        continuation.resume(throwing: error)
-                    }
-                }
-            }   // end return
+        return try await perform(schedule: .enqueued) {
+            let value = try block()
+            try self.saveOrRollback()
+            return value
         }
     }   // end func
 }

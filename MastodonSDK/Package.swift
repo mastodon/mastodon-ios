@@ -7,7 +7,7 @@ let package = Package(
     name: "MastodonSDK",
     defaultLocalization: "en",
     platforms: [
-        .iOS(.v14),
+        .iOS(.v15),
     ],
     products: [
         .library(

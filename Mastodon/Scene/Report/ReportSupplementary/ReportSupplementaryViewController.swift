@@ -52,11 +52,7 @@ final class ReportSupplementaryViewController: UIViewController, NeedsDependency
         tableView.separatorStyle = .none
         tableView.backgroundColor = .clear
         tableView.keyboardDismissMode = .onDrag
-        if #available(iOS 15.0, *) {
-            tableView.sectionHeaderTopPadding = .leastNonzeroMagnitude
-        } else {
-            // Fallback on earlier versions
-        }
+        tableView.sectionHeaderTopPadding = .leastNonzeroMagnitude
         return tableView
     }()
     
