@@ -189,10 +189,10 @@
                     "show_original": "Toon origineel"
                 },
                 "media": {
-                    "accessibility_label": "%s, attachment %d of %d",
-                    "expand_image_hint": "Expands the image. Double-tap and hold to show actions",
-                    "expand_gif_hint": "Expands the GIF. Double-tap and hold to show actions",
-                    "expand_video_hint": "Shows the video player. Double-tap and hold to show actions"
+                    "accessibility_label": "%s, bijlage %d van %d",
+                    "expand_image_hint": "Vergroot de afbeelding. Tik twee keer en houd vast om acties te zien",
+                    "expand_gif_hint": "Vergroot de GIF. Tik twee keer en houd vast om acties te zien",
+                    "expand_video_hint": "Toont de videospeler. Tik twee keer en houd vast om acties te zien"
                 }
             },
             "friendship": {
