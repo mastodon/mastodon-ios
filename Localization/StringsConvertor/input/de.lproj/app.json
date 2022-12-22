@@ -164,7 +164,7 @@
                     "hide": "Verstecken",
                     "show_image": "Bild anzeigen",
                     "show_gif": "GIF anzeigen",
-                    "show_video_player": "Zeige Video-Player",
+                    "show_video_player": "Filmwiedergabe anzeigen",
                     "share_link_in_post": "Link im Beitrag teilen",
                     "tap_then_hold_to_show_menu": "Halte gedrückt um das Menü anzuzeigen"
                 },
@@ -190,9 +190,9 @@
                 },
                 "media": {
                     "accessibility_label": "%s, Anhang %d von %d",
-                    "expand_image_hint": "Expands the image. Double-tap and hold to show actions",
-                    "expand_gif_hint": "Expands the GIF. Double-tap and hold to show actions",
-                    "expand_video_hint": "Shows the video player. Double-tap and hold to show actions"
+                    "expand_image_hint": "Erweitert das Bild. Doppeltippen und halten um Aktionen anzuzeigen.",
+                    "expand_gif_hint": "Erweitert das GIF. Doppeltippen und halten um Aktionen anzuzeigen.",
+                    "expand_video_hint": "Zeigt die Filmwiedergabe. Doppeltippen und halten um Aktionen anzuzeigen."
                 }
             },
             "friendship": {
