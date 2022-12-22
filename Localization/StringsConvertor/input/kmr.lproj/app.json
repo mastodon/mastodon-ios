@@ -305,14 +305,14 @@
                     "placeholder": "e-name"
                 },
                 "password": {
-                    "placeholder": "pêborîn",
+                    "placeholder": "borînpeyv",
                     "require": "Pêdiviya pêborîna te ya herî kêm:",
                     "character_limit": "8 tîp",
                     "accessibility": {
                         "checked": "hate kontrolkirin",
                         "unchecked": "nehate kontrolkirin"
                     },
-                    "hint": "Pêborîna te herî kêm divê ji 8 tîpan pêk bê"
+                    "hint": "Borînpeyva te herî kêm divê ji 8 tîpan pêk be"
                 },
                 "invite": {
                     "registration_user_invite_request": "Tu çima dixwazî beşdar bibî?"
@@ -322,7 +322,7 @@
                 "item": {
                     "username": "Navê bikarhêner",
                     "email": "E-name",
-                    "password": "Pêborîn",
+                    "password": "Borînpeyv",
                     "agreement": "Peyman",
                     "locale": "Zimanê navrûyê",
                     "reason": "Sedem"
@@ -343,7 +343,7 @@
                     "username_invalid": "Navê bikarhêner divê tenê ji tîpên alfajimarî û binxêz pêk be",
                     "username_too_long": "Navê bikarhêner pir dirêj e (ji 30 tîpan dirêjtir nabe)",
                     "email_invalid": "Ev navnîşaneke e-nameyê ne derbasdar e",
-                    "password_too_short": "Pêborîn pir kurt e (divê herî kêm 8 tîp be)"
+                    "password_too_short": "Borînpeyv pir kurt e (divê herî kêm 8 tîp be)"
                 }
             }
         },
