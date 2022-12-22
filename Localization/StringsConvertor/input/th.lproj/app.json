@@ -187,6 +187,12 @@
                     "unknown_language": "ไม่รู้จัก",
                     "unknown_provider": "ไม่รู้จัก",
                     "show_original": "แสดงดั้งเดิมอยู่"
+                },
+                "media": {
+                    "accessibility_label": "%s, attachment %d of %d",
+                    "expand_image_hint": "Expands the image. Double-tap and hold to show actions",
+                    "expand_gif_hint": "Expands the GIF. Double-tap and hold to show actions",
+                    "expand_video_hint": "Shows the video player. Double-tap and hold to show actions"
                 }
             },
             "friendship": {
