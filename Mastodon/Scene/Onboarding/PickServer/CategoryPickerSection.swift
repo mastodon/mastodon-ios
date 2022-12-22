@@ -25,6 +25,7 @@ extension CategoryPickerSection {
 
             cell.titleLabel.text = item.title
             cell.delegate = buttonDelegate
+            cell.item = item
             
             let isLanguage = (item == .language(language: nil))
             let isSignupSpeed = (item == .signupSpeed(manuallyReviewed: nil))

@@ -20,6 +20,8 @@ class PickServerCategoryCollectionViewCell: UICollectionViewCell {
     static let reuseIdentifier = "PickServerCategoryCollectionViewCell"
     weak var delegate: PickServerCategoryCollectionViewCellDelegate?
 
+    var item: CategoryPickerItem?
+
     let titleLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center

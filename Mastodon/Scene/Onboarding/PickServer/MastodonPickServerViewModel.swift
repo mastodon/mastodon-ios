@@ -289,26 +289,56 @@ extension MastodonPickServerViewModel: TMBarDataSource {
 extension MastodonPickServerViewModel: PickServerCategoryCollectionViewCellDelegate {
     func didPressMenuButton(in cell: PickServerCategoryCollectionViewCell) {
 
-        guard allLanguages.value.isNotEmpty else { return }
+        guard let item = cell.item else { return }
 
-        let allLanguagesAction = UIAction(title: "All") { _ in
-            self.selectedLanguage.value = nil
-            cell.titleLabel.text = L10n.Scene.ServerPicker.Button.language
-        }
+        switch item {
+        case .all, .category(_):
+            return
+        case .language(_):
+            guard allLanguages.value.isNotEmpty else { return }
 
-        let languageActions = allLanguages.value.compactMap { language in
-            UIAction(title: language.language ?? language.locale) { action in
-                self.selectedLanguage.value = language.locale
-                cell.titleLabel.text = language.language
+            //FIXME: @zeitschlag localize
+            let allLanguagesAction = UIAction(title: "All") { _ in
+                self.selectedLanguage.value = nil
+                cell.titleLabel.text = L10n.Scene.ServerPicker.Button.language
             }
+
+            let languageActions = allLanguages.value.compactMap { language in
+                UIAction(title: language.language ?? language.locale) { action in
+                    self.selectedLanguage.value = language.locale
+                    cell.titleLabel.text = language.language
+                }
+            }
+
+            var allActions = [allLanguagesAction]
+            allActions.append(contentsOf: languageActions)
+
+            let languageMenu = UIMenu(title: L10n.Scene.ServerPicker.Button.language,
+                                      children: allActions)
+
+            cell.menuButton.menu = languageMenu
+
+        case .signupSpeed(_):
+
+            let doesntMatterAction = UIAction(title: L10n.Scene.ServerPicker.SignupSpeed.all) { action in
+                self.manualApprovalRequired.value = nil
+                cell.titleLabel.text = action.title
+            }
+
+            let manualApprovalAction = UIAction(title: L10n.Scene.ServerPicker.SignupSpeed.manuallyReviewed) { action in
+                self.manualApprovalRequired.value = true
+                cell.titleLabel.text = action.title
+            }
+
+            let instantSignupAction = UIAction(title: L10n.Scene.ServerPicker.SignupSpeed.instant) { action in
+                self.manualApprovalRequired.value = false
+                cell.titleLabel.text = action.title
+            }
+
+            let signupSpeedMenu = UIMenu(title: L10n.Scene.ServerPicker.Button.signupSpeed,
+                                         children: [doesntMatterAction, manualApprovalAction, instantSignupAction])
+
+            cell.menuButton.menu = signupSpeedMenu
         }
-
-        var allActions = [allLanguagesAction]
-        allActions.append(contentsOf: languageActions)
-        
-        let languageMenu = UIMenu(title: L10n.Scene.ServerPicker.Button.language,
-                                  children: allActions)
-
-        cell.menuButton.menu = languageMenu
     }
 }
