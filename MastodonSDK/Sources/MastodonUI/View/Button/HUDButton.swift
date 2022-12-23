@@ -12,13 +12,13 @@ public class HUDButton: UIView {
     public static let height: CGFloat = 30
 
     let background: UIVisualEffectView = {
-        let backgroundView = UIVisualEffectView(effect: UIBlurEffect(style: .systemThinMaterial))
+        let backgroundView = UIVisualEffectView(effect: UIBlurEffect(style: .systemMaterial))
         backgroundView.layer.masksToBounds = true
         backgroundView.layer.cornerRadius = HUDButton.height * 0.5
         return backgroundView
     }()
 
-    let vibrancyView = UIVisualEffectView(effect: UIVibrancyEffect(blurEffect: UIBlurEffect(style: .systemThinMaterial)))
+    let vibrancyView = UIVisualEffectView(effect: UIVibrancyEffect(blurEffect: UIBlurEffect(style: .systemMaterial)))
 
     public let button: UIButton = {
         let button = HighlightDimmableButton()
