@@ -79,6 +79,11 @@ class AltViewController: UIViewController {
             )
         }
     }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        label.font = .preferredFont(forTextStyle: .callout)
+    }
 }
 
 // MARK: UIPopoverPresentationControllerDelegate
