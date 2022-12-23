@@ -9,7 +9,14 @@ import SwiftUI
 
 class AltViewController: UIViewController {
     private var alt: String
-    let label = UITextView()
+    let label = {
+        if #available(iOS 16, *) {
+            // TODO: update code below to use TextKit 2 when dropping iOS 15 support
+            return UITextView(usingTextLayoutManager: false)
+        } else {
+            return UITextView()
+        }
+    }()
 
     init(alt: String, sourceView: UIView?) {
         self.alt = alt
@@ -23,6 +30,11 @@ class AltViewController: UIViewController {
 
     @MainActor required dynamic init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func loadView() {
+        super.loadView()
+        view.translatesAutoresizingMaskIntoConstraints = false
     }
 
     override func viewDidLoad() {
@@ -38,22 +50,20 @@ class AltViewController: UIViewController {
             right: 0
         )
         label.font = .preferredFont(forTextStyle: .callout)
-        label.isScrollEnabled = false
+        label.isScrollEnabled = true
         label.backgroundColor = .clear
         label.isOpaque = false
         label.isEditable = false
         label.tintColor = .white
         label.text = alt
+        label.textContainerInset = UIEdgeInsets(top: 12, left: 8, bottom: 8, right: 8)
+        label.contentInsetAdjustmentBehavior = .always
+        label.verticalScrollIndicatorInsets.bottom = 4
 
-        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .systemBackground
         view.addSubview(label)
 
-        NSLayoutConstraint.activate(
-            NSLayoutConstraint.constraints(withVisualFormat: "V:|-[label]-|", metrics: nil, views: ["label": label])
-        )
-        NSLayoutConstraint.activate(
-            NSLayoutConstraint.constraints(withVisualFormat: "H:|-(8)-[label]-(8)-|", metrics: nil, views: ["label": label])
-        )
+        label.pinToParent()
         NSLayoutConstraint.activate([
             label.widthAnchor.constraint(lessThanOrEqualToConstant: 400),
         ])
@@ -62,11 +72,17 @@ class AltViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         UIView.performWithoutAnimation {
+            let size = label.layoutManager.boundingRect(forGlyphRange: NSMakeRange(0, (label.textStorage.string as NSString).length), in: label.textContainer).size
             preferredContentSize = CGSize(
-                width: label.intrinsicContentSize.width + 16,
-                height: label.intrinsicContentSize.height + view.layoutMargins.top + view.layoutMargins.bottom
+                width: size.width + (8 + label.textContainer.lineFragmentPadding) * 2,
+                height: size.height + 12 + (label.textContainer.lineFragmentPadding * 2)
             )
         }
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        label.font = .preferredFont(forTextStyle: .callout)
     }
 }
 
