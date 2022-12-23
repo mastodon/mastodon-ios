@@ -49,10 +49,13 @@ class AltViewController: UIViewController {
         label.isEditable = false
         label.tintColor = .white
         label.text = alt
+        label.textContainerInset = UIEdgeInsets(horizontal: 8, vertical: 16)
+        label.verticalScrollIndicatorInsets.bottom = 4
 
+        view.backgroundColor = .systemBackground
         view.addSubview(label)
 
-        label.pinToParent(padding: UIEdgeInsets(horizontal: 8, vertical: 0))
+        label.pinToParent()
         NSLayoutConstraint.activate([
             label.widthAnchor.constraint(lessThanOrEqualToConstant: 400),
         ])
