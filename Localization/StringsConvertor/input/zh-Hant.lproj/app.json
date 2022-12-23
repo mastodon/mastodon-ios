@@ -189,10 +189,10 @@
                     "show_original": "顯示原文"
                 },
                 "media": {
-                    "accessibility_label": "%s, attachment %d of %d",
-                    "expand_image_hint": "Expands the image. Double-tap and hold to show actions",
-                    "expand_gif_hint": "Expands the GIF. Double-tap and hold to show actions",
-                    "expand_video_hint": "Shows the video player. Double-tap and hold to show actions"
+                    "accessibility_label": "%s 附件 %d 之 %d",
+                    "expand_image_hint": "展開圖片。雙擊然後按住以顯示動作",
+                    "expand_gif_hint": "展開 GIF 圖片。雙擊然後按住以顯示動作",
+                    "expand_video_hint": "展開影片播放器。雙擊然後按住以顯示動作"
                 }
             },
             "friendship": {
