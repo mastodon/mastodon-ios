@@ -75,6 +75,11 @@
 		2DAC9E46262FC9FD0062E1A6 /* SuggestionAccountTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DAC9E45262FC9FD0062E1A6 /* SuggestionAccountTableViewCell.swift */; };
 		2DCB73FD2615C13900EC03D4 /* SearchRecommendCollectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DCB73FC2615C13900EC03D4 /* SearchRecommendCollectionHeader.swift */; };
 		2DE0FACE2615F7AD00CDF649 /* RecommendAccountSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DE0FACD2615F7AD00CDF649 /* RecommendAccountSection.swift */; };
+		357FEEAF29523D470021C9DC /* MastodonSDKDynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 357FEEAE29523D470021C9DC /* MastodonSDKDynamic */; };
+		357FEEB029523D470021C9DC /* MastodonSDKDynamic in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 357FEEAE29523D470021C9DC /* MastodonSDKDynamic */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		357FEEB229523D510021C9DC /* MastodonSDKDynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 357FEEB129523D510021C9DC /* MastodonSDKDynamic */; };
+		357FEEB629523D5C0021C9DC /* MastodonSDKDynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 357FEEB529523D5C0021C9DC /* MastodonSDKDynamic */; };
+		357FEEBA29523D660021C9DC /* MastodonSDKDynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 357FEEB929523D660021C9DC /* MastodonSDKDynamic */; };
 		5B24BBDA262DB14800A9381B /* ReportViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B24BBD7262DB14800A9381B /* ReportViewModel.swift */; };
 		5B24BBDB262DB14800A9381B /* ReportStatusViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B24BBD8262DB14800A9381B /* ReportStatusViewModel+Diffable.swift */; };
 		5B90C45E262599800002E742 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B90C456262599800002E742 /* SettingsViewModel.swift */; };
@@ -170,10 +175,6 @@
 		DB1FD44425F26CCC004CFCFC /* PickServerSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1FD44325F26CCC004CFCFC /* PickServerSection.swift */; };
 		DB1FD45025F26FA1004CFCFC /* MastodonPickServerViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1FD44F25F26FA1004CFCFC /* MastodonPickServerViewModel+Diffable.swift */; };
 		DB1FD45A25F27898004CFCFC /* CategoryPickerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1FD45925F27898004CFCFC /* CategoryPickerItem.swift */; };
-		DB22C92228E700A10082A9E9 /* MastodonSDK in Frameworks */ = {isa = PBXBuildFile; productRef = DB22C92128E700A10082A9E9 /* MastodonSDK */; };
-		DB22C92428E700A80082A9E9 /* MastodonSDK in Frameworks */ = {isa = PBXBuildFile; productRef = DB22C92328E700A80082A9E9 /* MastodonSDK */; };
-		DB22C92628E700AF0082A9E9 /* MastodonSDK in Frameworks */ = {isa = PBXBuildFile; productRef = DB22C92528E700AF0082A9E9 /* MastodonSDK */; };
-		DB22C92828E700B70082A9E9 /* MastodonSDK in Frameworks */ = {isa = PBXBuildFile; productRef = DB22C92728E700B70082A9E9 /* MastodonSDK */; };
 		DB2B3ABC25E37E15007045F9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DB2B3ABE25E37E15007045F9 /* InfoPlist.strings */; };
 		DB2F073525E8ECF000957B2D /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2F073325E8ECF000957B2D /* AuthenticationViewModel.swift */; };
 		DB2FF510260B113300ADA9FE /* ComposeStatusPollExpiresOptionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2FF50F260B113300ADA9FE /* ComposeStatusPollExpiresOptionCollectionViewCell.swift */; };
@@ -491,6 +492,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				357FEEB029523D470021C9DC /* MastodonSDKDynamic in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1083,7 +1085,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DB22C92428E700A80082A9E9 /* MastodonSDK in Frameworks */,
+				357FEEAF29523D470021C9DC /* MastodonSDKDynamic in Frameworks */,
 				DBF96326262EC0A6001D8D25 /* AuthenticationServices.framework in Frameworks */,
 				87FFDA5D898A5C42ADCB35E7 /* Pods_Mastodon.framework in Frameworks */,
 			);
@@ -1110,7 +1112,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DB22C92828E700B70082A9E9 /* MastodonSDK in Frameworks */,
+				357FEEBA29523D660021C9DC /* MastodonSDKDynamic in Frameworks */,
 				DB8FABC726AEC7B2008E5AF4 /* Intents.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1119,7 +1121,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DB22C92628E700AF0082A9E9 /* MastodonSDK in Frameworks */,
+				357FEEB629523D5C0021C9DC /* MastodonSDKDynamic in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1127,7 +1129,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DB22C92228E700A10082A9E9 /* MastodonSDK in Frameworks */,
+				357FEEB229523D510021C9DC /* MastodonSDKDynamic in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2752,7 +2754,7 @@
 			);
 			name = Mastodon;
 			packageProductDependencies = (
-				DB22C92328E700A80082A9E9 /* MastodonSDK */,
+				357FEEAE29523D470021C9DC /* MastodonSDKDynamic */,
 			);
 			productName = Mastodon;
 			productReference = DB427DD225BAA00100D1B89D /* Mastodon.app */;
@@ -2811,7 +2813,7 @@
 			);
 			name = MastodonIntent;
 			packageProductDependencies = (
-				DB22C92728E700B70082A9E9 /* MastodonSDK */,
+				357FEEB929523D660021C9DC /* MastodonSDKDynamic */,
 			);
 			productName = MastodonIntent;
 			productReference = DB8FABC626AEC7B2008E5AF4 /* MastodonIntent.appex */;
@@ -2831,7 +2833,7 @@
 			);
 			name = ShareActionExtension;
 			packageProductDependencies = (
-				DB22C92528E700AF0082A9E9 /* MastodonSDK */,
+				357FEEB529523D5C0021C9DC /* MastodonSDKDynamic */,
 			);
 			productName = ShareActionExtension;
 			productReference = DBC6461226A170AB00B0E31B /* ShareActionExtension.appex */;
@@ -2851,7 +2853,7 @@
 			);
 			name = NotificationService;
 			packageProductDependencies = (
-				DB22C92128E700A10082A9E9 /* MastodonSDK */,
+				357FEEB129523D510021C9DC /* MastodonSDKDynamic */,
 			);
 			productName = NotificationService;
 			productReference = DBF8AE13263293E400C9C23C /* NotificationService.appex */;
@@ -3932,6 +3934,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "Mastodon/Resources/Preview\\ Assets.xcassets";
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
+				EXCLUDED_SOURCE_FILE_NAMES = "Mastodon/Resources/Preview\\ Assets.xcassets";
 				INFOPLIST_FILE = Mastodon/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4638,21 +4641,21 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		DB22C92128E700A10082A9E9 /* MastodonSDK */ = {
+		357FEEAE29523D470021C9DC /* MastodonSDKDynamic */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = MastodonSDK;
+			productName = MastodonSDKDynamic;
 		};
-		DB22C92328E700A80082A9E9 /* MastodonSDK */ = {
+		357FEEB129523D510021C9DC /* MastodonSDKDynamic */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = MastodonSDK;
+			productName = MastodonSDKDynamic;
 		};
-		DB22C92528E700AF0082A9E9 /* MastodonSDK */ = {
+		357FEEB529523D5C0021C9DC /* MastodonSDKDynamic */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = MastodonSDK;
+			productName = MastodonSDKDynamic;
 		};
-		DB22C92728E700B70082A9E9 /* MastodonSDK */ = {
+		357FEEB929523D660021C9DC /* MastodonSDKDynamic */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = MastodonSDK;
+			productName = MastodonSDKDynamic;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
