@@ -9,7 +9,14 @@ import SwiftUI
 
 class AltViewController: UIViewController {
     private var alt: String
-    let label = UITextView()
+    let label = {
+        if #available(iOS 16, *) {
+            // TODO: update code below to use TextKit 2 when dropping iOS 15 support
+            return UITextView(usingTextLayoutManager: false)
+        } else {
+            return UITextView()
+        }
+    }()
 
     init(alt: String, sourceView: UIView?) {
         self.alt = alt
@@ -49,7 +56,8 @@ class AltViewController: UIViewController {
         label.isEditable = false
         label.tintColor = .white
         label.text = alt
-        label.textContainerInset = UIEdgeInsets(horizontal: 8, vertical: 16)
+        label.textContainerInset = UIEdgeInsets(top: 12, left: 8, bottom: 8, right: 8)
+        label.contentInsetAdjustmentBehavior = .always
         label.verticalScrollIndicatorInsets.bottom = 4
 
         view.backgroundColor = .systemBackground
@@ -64,9 +72,10 @@ class AltViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         UIView.performWithoutAnimation {
+            let size = label.layoutManager.boundingRect(forGlyphRange: NSMakeRange(0, (label.textStorage.string as NSString).length), in: label.textContainer).size
             preferredContentSize = CGSize(
-                width: label.contentSize.width + 16,
-                height: label.contentSize.height + view.layoutMargins.top + view.layoutMargins.bottom
+                width: size.width + (8 + label.textContainer.lineFragmentPadding) * 2,
+                height: size.height + 12 + (label.textContainer.lineFragmentPadding * 2)
             )
         }
     }
