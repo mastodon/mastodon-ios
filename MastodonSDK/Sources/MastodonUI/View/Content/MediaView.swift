@@ -333,6 +333,7 @@ extension MediaView {
         let playerItem = AVPlayerItem(url: url)
         let player = AVQueuePlayer(playerItem: playerItem)
         player.isMuted = true
+        player.preventsDisplaySleepDuringVideoPlayback = false
         return player
     }
     
