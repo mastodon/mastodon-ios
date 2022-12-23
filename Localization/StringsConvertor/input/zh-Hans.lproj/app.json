@@ -53,9 +53,9 @@
                 "message": "成功清除 %s 缓存。"
             },
             "translation_failed": {
-                "title": "Note",
-                "message": "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.",
-                "button": "OK"
+                "title": "备注",
+                "message": "翻译失败，可能是管理员没有在这个实例上启用翻译功能，也可能是这台实例的服务端运行较旧版本的 Mastodon，此服务端还未支持翻译功能。",
+                "button": "确定"
             }
         },
         "controls": {
@@ -83,7 +83,7 @@
                 "sign_up": "创建账户",
                 "see_more": "查看更多",
                 "preview": "预览",
-                "copy": "Copy",
+                "copy": "复制",
                 "share": "分享",
                 "share_user": "分享 %s",
                 "share_post": "分享帖子",
@@ -99,13 +99,13 @@
                 "settings": "设置",
                 "delete": "删除",
                 "translate_post": {
-                    "title": "Translate from %s",
-                    "unknown_language": "Unknown"
+                    "title": "翻译自 %s",
+                    "unknown_language": "未知的"
                 }
             },
             "tabs": {
                 "home": "主页",
-                "search_and_explore": "Search and Explore",
+                "search_and_explore": "搜索和探寻",
                 "notifications": "通知",
                 "profile": "个人资料"
             },
@@ -142,8 +142,8 @@
                 "sensitive_content": "敏感内容",
                 "media_content_warning": "点击任意位置显示",
                 "tap_to_reveal": "点击以显示",
-                "load_embed": "Load Embed",
-                "link_via_user": "%s via %s",
+                "load_embed": "加载嵌入内容",
+                "link_via_user": "%s 通过 %s",
                 "poll": {
                     "vote": "投票",
                     "closed": "已关闭"
@@ -165,7 +165,7 @@
                     "show_image": "显示图片",
                     "show_gif": "显示 GIF",
                     "show_video_player": "显示视频播放器",
-                    "share_link_in_post": "Share Link in Post",
+                    "share_link_in_post": "分享链接到嘟文中",
                     "tap_then_hold_to_show_menu": "长按以显示菜单"
                 },
                 "tag": {
@@ -183,16 +183,16 @@
                     "direct": "只有提到的用户才能看到此帖子。"
                 },
                 "translation": {
-                    "translated_from": "Translated from %s using %s",
-                    "unknown_language": "Unknown",
-                    "unknown_provider": "Unknown",
-                    "show_original": "Shown Original"
+                    "translated_from": "从 %s 翻译成 %s",
+                    "unknown_language": "未知的",
+                    "unknown_provider": "未知的",
+                    "show_original": "显示原文"
                 },
                 "media": {
-                    "accessibility_label": "%s, attachment %d of %d",
-                    "expand_image_hint": "Expands the image. Double-tap and hold to show actions",
-                    "expand_gif_hint": "Expands the GIF. Double-tap and hold to show actions",
-                    "expand_video_hint": "Shows the video player. Double-tap and hold to show actions"
+                    "accessibility_label": "%s，附件 %d / %d",
+                    "expand_image_hint": "展开图像 双击并按住以显示可执行操作",
+                    "expand_gif_hint": "展开GIF 双击并按住以显示可执行操作",
+                    "expand_video_hint": "展开视频 双击并按住以显示可执行操作"
                 }
             },
             "friendship": {
@@ -469,10 +469,10 @@
                 "follows_you": "关注了你"
             },
             "dashboard": {
-                "my_posts": "posts",
-                "my_following": "following",
-                "my_followers": "followers",
-                "other_posts": "posts",
+                "my_posts": "嘟文",
+                "my_following": "正在关注",
+                "my_followers": "跟随者",
+                "other_posts": "嘟文",
                 "other_following": "following",
                 "other_followers": "followers"
             },
