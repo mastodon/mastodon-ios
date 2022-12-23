@@ -7,13 +7,19 @@
 
 import SwiftUI
 
-struct MediaAltTextOverlay: View {
-    var altDescription: String?
+public struct MediaAltTextOverlay: View {
+    public var altDescription: String?
     
     @State private var showingAlt = false
     @Namespace private var namespace
 
-    var body: some View {
+    public init() {}
+
+    public init(altDescription: String?) {
+        self.altDescription = altDescription
+    }
+
+    public var body: some View {
         GeometryReader { geom in
             ZStack {
                 if let altDescription {
