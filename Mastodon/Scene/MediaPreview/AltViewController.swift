@@ -10,14 +10,9 @@ import SwiftUI
 class AltViewController: UIViewController {
     private var alt: String
     let label = {
-        if #available(iOS 16, *) {
-            // TODO: update code below to use TextKit 2 when dropping iOS 15 support
-            return UITextView(usingTextLayoutManager: false)
-        } else {
-            return UITextView()
-        }
+        return UITextView()
     }()
-
+    
     init(alt: String, sourceView: UIView?) {
         self.alt = alt
         super.init(nibName: nil, bundle: nil)

@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-@available(iOS 15.0, *)
 struct MediaAltTextOverlay: View {
     var altDescription: String?
     
@@ -69,7 +68,6 @@ struct MediaAltTextOverlay: View {
     }
 }
 
-@available(iOS 15.0, *)
 struct MediaAltTextOverlay_Previews: PreviewProvider {
     static var previews: some View {
         MediaAltTextOverlay(altDescription: "Hello, world!")
