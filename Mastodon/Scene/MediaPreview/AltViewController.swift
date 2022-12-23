@@ -24,6 +24,11 @@ class AltViewController: UIViewController {
     @MainActor required dynamic init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    override func loadView() {
+        super.loadView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,22 +43,16 @@ class AltViewController: UIViewController {
             right: 0
         )
         label.font = .preferredFont(forTextStyle: .callout)
-        label.isScrollEnabled = false
+        label.isScrollEnabled = true
         label.backgroundColor = .clear
         label.isOpaque = false
         label.isEditable = false
         label.tintColor = .white
         label.text = alt
 
-        view.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(label)
 
-        NSLayoutConstraint.activate(
-            NSLayoutConstraint.constraints(withVisualFormat: "V:|-[label]-|", metrics: nil, views: ["label": label])
-        )
-        NSLayoutConstraint.activate(
-            NSLayoutConstraint.constraints(withVisualFormat: "H:|-(8)-[label]-(8)-|", metrics: nil, views: ["label": label])
-        )
+        label.pinToParent(padding: UIEdgeInsets(horizontal: 8, vertical: 0))
         NSLayoutConstraint.activate([
             label.widthAnchor.constraint(lessThanOrEqualToConstant: 400),
         ])
@@ -63,8 +62,8 @@ class AltViewController: UIViewController {
         super.viewDidLayoutSubviews()
         UIView.performWithoutAnimation {
             preferredContentSize = CGSize(
-                width: label.intrinsicContentSize.width + 16,
-                height: label.intrinsicContentSize.height + view.layoutMargins.top + view.layoutMargins.bottom
+                width: label.contentSize.width + 16,
+                height: label.contentSize.height + view.layoutMargins.top + view.layoutMargins.bottom
             )
         }
     }
