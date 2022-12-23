@@ -52,9 +52,10 @@ public struct AttachmentView: View {
                                     .foregroundColor(.white)
                                     .background(Color.black.opacity(0.4))
                                     .placeholder(when: viewModel.caption.isEmpty) {
-                                        Text(placeholder).foregroundColor(.white)
+                                        Text(placeholder).foregroundColor(.white).padding(EdgeInsets(top: 0, leading: 8, bottom: 0, trailing: 4))
+                                            .lineLimit(1)
                                     }
-                                    .padding(6)
+                                    .padding(EdgeInsets(top: 6, leading: 0, bottom: 10, trailing: 0))
                             }
                         )
                     
