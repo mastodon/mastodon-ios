@@ -113,17 +113,20 @@ extension MastodonPickServerViewModel {
         }
         .assign(to: \.value, on: emptyStateViewState)
         .store(in: &disposeBag)
-        
+
         Publishers.CombineLatest4(
             indexedServers.eraseToAnyPublisher(),
             selectCategoryItem.eraseToAnyPublisher(),
             searchText.debounce(for: .milliseconds(300), scheduler: DispatchQueue.main).removeDuplicates(),
-            selectedLanguage.eraseToAnyPublisher()
+            Publishers.CombineLatest(
+                selectedLanguage.eraseToAnyPublisher(),
+                manualApprovalRequired.eraseToAnyPublisher()
+            ).map { selectedLanguage, manualApprovalRequired -> (selectedLanguage: String?, manualApprovalRequired: Bool?) in
+                (selectedLanguage, manualApprovalRequired)
+            }
         )
-        .map { indexedServers, selectCategoryItem, searchText, selectedLanguage -> [Mastodon.Entity.Server] in
+        .map { indexedServers, selectCategoryItem, searchText, filters -> [Mastodon.Entity.Server] in
             // ignore approval required servers when sign-up
-            var indexedServers = indexedServers
-            indexedServers = indexedServers.filter { !$0.approvalRequired }
             // Note:
             // sort by calculate last week users count
             // and make medium size (~800) server to top
@@ -170,11 +173,11 @@ extension MastodonPickServerViewModel {
             // Filter the indexed servers by category or search text
             switch selectCategoryItem {
             case .all:
-                return MastodonPickServerViewModel.filterServers(servers: indexedServers, language: selectedLanguage, category: nil, searchText: searchText)
+                return MastodonPickServerViewModel.filterServers(servers: indexedServers, language: filters.selectedLanguage, manualApprovalRequired: filters.manualApprovalRequired, category: nil, searchText: searchText)
             case .language(_), .signupSpeed(_):
-                return MastodonPickServerViewModel.filterServers(servers: indexedServers, language: selectedLanguage, category: nil, searchText: searchText)
+                return MastodonPickServerViewModel.filterServers(servers: indexedServers, language: filters.selectedLanguage, manualApprovalRequired: filters.manualApprovalRequired, category: nil, searchText: searchText)
             case .category(let category):
-                return MastodonPickServerViewModel.filterServers(servers: indexedServers, language: selectedLanguage, category: category.category.rawValue, searchText: searchText)
+                return MastodonPickServerViewModel.filterServers(servers: indexedServers, language: filters.selectedLanguage, manualApprovalRequired: filters.manualApprovalRequired, category: category.category.rawValue, searchText: searchText)
             }
         }
         .assign(to: \.value, on: filteredIndexedServers)
@@ -252,6 +255,7 @@ extension MastodonPickServerViewModel {
             .filter {
                 guard let manualApprovalRequired else { return true }
 
+                print("\($0.domain) \($0.approvalRequired) < \(manualApprovalRequired)")
                 return $0.approvalRequired == manualApprovalRequired
             }
         return filteredServers
