@@ -114,6 +114,7 @@ extension MastodonPickServerViewModel {
         .assign(to: \.value, on: emptyStateViewState)
         .store(in: &disposeBag)
 
+
         Publishers.CombineLatest4(
             indexedServers.eraseToAnyPublisher(),
             selectCategoryItem.eraseToAnyPublisher(),
@@ -127,6 +128,7 @@ extension MastodonPickServerViewModel {
         )
         .map { indexedServers, selectCategoryItem, searchText, filters -> [Mastodon.Entity.Server] in
             // ignore approval required servers when sign-up
+            var indexedServers = indexedServers
             // Note:
             // sort by calculate last week users count
             // and make medium size (~800) server to top
