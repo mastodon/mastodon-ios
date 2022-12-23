@@ -1264,6 +1264,10 @@ public enum L10n {
         /// USERS
         public static let users = L10n.tr("Localizable", "Scene.ServerPicker.Label.Users", fallback: "USERS")
       }
+      public enum Search {
+        /// Search name or URL
+        public static let placeholder = L10n.tr("Localizable", "Scene.ServerPicker.Search.Placeholder", fallback: "Search name or URL")
+      }
       public enum SignupSpeed {
         /// All
         public static let all = L10n.tr("Localizable", "Scene.ServerPicker.SignupSpeed.All", fallback: "All")

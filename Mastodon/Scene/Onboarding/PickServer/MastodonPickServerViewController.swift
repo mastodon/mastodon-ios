@@ -57,6 +57,7 @@ final class MastodonPickServerViewController: UIViewController, NeedsDependency 
 
     let searchController: UISearchController = {
         let searchController = UISearchController(searchResultsController: nil)
+        searchController.searchBar.placeholder = L10n.Scene.ServerPicker.Search.placeholder
         return searchController
     }()
 }
