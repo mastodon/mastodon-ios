@@ -12,18 +12,17 @@ public class HUDButton: UIView {
     public static let height: CGFloat = 30
 
     let background: UIVisualEffectView = {
-        let backgroundView = UIVisualEffectView(effect: UIBlurEffect(style: .systemUltraThinMaterial))
-        backgroundView.alpha = 0.9
+        let backgroundView = UIVisualEffectView(effect: UIBlurEffect(style: .systemThinMaterial))
         backgroundView.layer.masksToBounds = true
         backgroundView.layer.cornerRadius = HUDButton.height * 0.5
         return backgroundView
     }()
 
-    let vibrancyView = UIVisualEffectView(effect: UIVibrancyEffect(blurEffect: UIBlurEffect(style: .systemUltraThinMaterial)))
+    let vibrancyView = UIVisualEffectView(effect: UIVibrancyEffect(blurEffect: UIBlurEffect(style: .systemThinMaterial)))
 
     public let button: UIButton = {
         let button = HighlightDimmableButton()
-        button.expandEdgeInsets = UIEdgeInsets(top: -10, left: -10, bottom: -10, right: -10)
+        button.expandEdgeInsets = .constant(-10)
         button.contentEdgeInsets = .constant(7)
         button.imageView?.tintColor = .label
         button.titleLabel?.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 15, weight: .bold))
