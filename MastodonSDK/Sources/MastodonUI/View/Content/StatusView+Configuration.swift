@@ -117,6 +117,32 @@ extension StatusView {
         }
         return .reply(header: metaContent)
     }
+    
+    private func fetchReplyToAccount(_ id: MastodonUser.ID) {
+        guard let authenticationBox = viewModel.authContext?.mastodonAuthenticationBox else {
+            return
+        }
+
+        Just(id)
+            .asyncMap { userID in
+                return try await Mastodon.API.Account.accountInfo(
+                    session: .shared,
+                    domain: authenticationBox.domain,
+                    userID: userID,
+                    authorization: authenticationBox.userAuthorization
+                ).singleOutput()
+            }
+            .receive(on: DispatchQueue.main)
+            .sink { completion in
+                // do nothing
+            } receiveValue: { [weak self] response in
+                guard let self = self else { return }
+                let user = response.value
+                let header = self.createReplyHeader(name: user.displayNameWithFallback, emojis: user.emojiMeta)
+                self.viewModel.header = header
+            }
+            .store(in: &disposeBag)
+    }
 
     private func configureHeader(status: Status) {
         if status.reblog != nil {
@@ -156,39 +182,31 @@ extension StatusView {
             return
         }
 
-        // B. replyTo status not exist
-        let request = MastodonUser.sortedFetchRequest
-        request.predicate = MastodonUser.predicate(domain: status.domain, id: inReplyToAccountID)
-        if let user = status.managedObjectContext?.safeFetch(request).first {
-            // B1. replyTo user exist
-            let header = createReplyHeader(name: user.displayNameWithFallback, emojis: user.emojis.asDictionary)
-            viewModel.header = header
+        viewModel.header = createReplyHeader(name: nil, emojis: nil)
+        
+        guard let context = viewModel.context?.backgroundManagedObjectContext else {
+            fetchReplyToAccount(inReplyToAccountID)
             return
         }
-        // B2. replyTo user not exist
-        let header = createReplyHeader(name: nil, emojis: nil)
-        viewModel.header = header
-        
-        if let authenticationBox = viewModel.authContext?.mastodonAuthenticationBox {
-            Just(inReplyToAccountID)
-                .asyncMap { userID in
-                    return try await Mastodon.API.Account.accountInfo(
-                        session: .shared,
-                        domain: authenticationBox.domain,
-                        userID: userID,
-                        authorization: authenticationBox.userAuthorization
-                    ).singleOutput()
+
+        // B. replyTo status not exist
+        Task {
+            let header: ViewModel.Header? = try await context.perform {
+                let request = MastodonUser.sortedFetchRequest
+                request.predicate = MastodonUser.predicate(domain: status.domain, id: inReplyToAccountID)
+                if let user = context.safeFetch(request).first {
+                    let header = self.createReplyHeader(name: user.displayNameWithFallback, emojis: user.emojis.asDictionary)
+                    return header
                 }
-                .receive(on: DispatchQueue.main)
-                .sink { completion in
-                    // do nothing
-                } receiveValue: { [weak self] response in
-                    guard let self = self else { return }
-                    let user = response.value
-                    let header = self.createReplyHeader(name: user.displayNameWithFallback, emojis: user.emojiMeta)
+                return nil
+            }
+            await MainActor.run {
+                if let header {
                     self.viewModel.header = header
+                } else {
+                    self.fetchReplyToAccount(inReplyToAccountID)
                 }
-                .store(in: &disposeBag)
+            }
         }
     }
     
