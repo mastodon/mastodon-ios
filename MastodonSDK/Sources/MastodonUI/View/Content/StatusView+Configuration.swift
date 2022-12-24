@@ -200,6 +200,7 @@ extension StatusView {
                 }
                 return nil
             }
+            try Task.checkCancellation()
             await MainActor.run {
                 if let header {
                     self.viewModel.header = header
@@ -207,7 +208,7 @@ extension StatusView {
                     self.fetchReplyToAccount(inReplyToAccountID)
                 }
             }
-        }
+        }.store(in: &disposeBag)
     }
     
     public func configureAuthor(author: MastodonUser) {
