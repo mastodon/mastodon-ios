@@ -190,9 +190,9 @@
                 },
                 "media": {
                     "accessibility_label": "%s, attachment %d of %d",
-                    "expand_image_hint": "Expands the image. Double-tap and hold to show actions",
-                    "expand_gif_hint": "Expands the GIF. Double-tap and hold to show actions",
-                    "expand_video_hint": "Shows the video player. Double-tap and hold to show actions"
+                    "expand_image_hint": "Rozšíří obrázek. Dvojitým klepnutím a podržením zobrazíte akce",
+                    "expand_gif_hint": "Rozšíří GIF. Dvojitým klepnutím a podržením zobrazíte akce",
+                    "expand_video_hint": "Zobrazí přehrávač videa. Dvojitým klepnutím a podržením zobrazíte akce"
                 }
             },
             "friendship": {
