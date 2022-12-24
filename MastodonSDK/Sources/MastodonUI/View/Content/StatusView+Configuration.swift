@@ -103,15 +103,16 @@ extension StatusView {
         name: String?,
         emojis: MastodonContent.Emojis?
     ) -> ViewModel.Header {
-        let fallbackMetaContent = PlaintextMetaContent(string: L10n.Common.Controls.Status.userRepliedTo("…"))
         guard let name = name,
               let emojis = emojis
         else {
-            return .reply(header: fallbackMetaContent)
+            let unknownUserMetaContent = PlaintextMetaContent(string: L10n.Common.Controls.Status.userRepliedTo("…"))
+            return .reply(header: unknownUserMetaContent)
         }
         
         let content = MastodonContent(content: L10n.Common.Controls.Status.userRepliedTo(name), emojis: emojis)
         guard let metaContent = try? MastodonMetaContent.convert(document: content) else {
+            let fallbackMetaContent = PlaintextMetaContent(string: L10n.Common.Controls.Status.userRepliedTo(name))
             return .reply(header: fallbackMetaContent)
         }
         return .reply(header: metaContent)
