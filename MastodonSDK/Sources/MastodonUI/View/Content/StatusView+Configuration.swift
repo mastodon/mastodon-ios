@@ -7,6 +7,7 @@
 
 import UIKit
 import Combine
+import CoreData
 import CoreDataStack
 import MastodonSDK
 import MastodonCore
@@ -118,32 +119,6 @@ extension StatusView {
         return .reply(header: metaContent)
     }
     
-    private func fetchReplyToAccount(_ id: MastodonUser.ID) {
-        guard let authenticationBox = viewModel.authContext?.mastodonAuthenticationBox else {
-            return
-        }
-
-        Just(id)
-            .asyncMap { userID in
-                return try await Mastodon.API.Account.accountInfo(
-                    session: .shared,
-                    domain: authenticationBox.domain,
-                    userID: userID,
-                    authorization: authenticationBox.userAuthorization
-                ).singleOutput()
-            }
-            .receive(on: DispatchQueue.main)
-            .sink { completion in
-                // do nothing
-            } receiveValue: { [weak self] response in
-                guard let self = self else { return }
-                let user = response.value
-                let header = self.createReplyHeader(name: user.displayNameWithFallback, emojis: user.emojiMeta)
-                self.viewModel.header = header
-            }
-            .store(in: &disposeBag)
-    }
-
     private func configureHeader(status: Status) {
         if status.reblog != nil {
             Publishers.CombineLatest(
@@ -184,29 +159,45 @@ extension StatusView {
 
         viewModel.header = createReplyHeader(name: nil, emojis: nil)
         
-        guard let context = viewModel.context?.backgroundManagedObjectContext else {
-            fetchReplyToAccount(inReplyToAccountID)
-            return
-        }
-
         // B. replyTo status not exist
         Task {
-            let header: ViewModel.Header? = try await context.perform {
-                let request = MastodonUser.sortedFetchRequest
-                request.predicate = MastodonUser.predicate(domain: status.domain, id: inReplyToAccountID)
-                if let user = context.safeFetch(request).first {
-                    let header = self.createReplyHeader(name: user.displayNameWithFallback, emojis: user.emojis.asDictionary)
-                    return header
-                }
-                return nil
+            guard
+                let authContext = self.viewModel.authContext,
+                let context = self.viewModel.context?.backgroundManagedObjectContext
+            else { return }
+
+            let user: MastodonUser
+
+            let existingUser = try await context.perform {
+                MastodonUser.findOrFetch(
+                    in: context,
+                    matching: MastodonUser.predicate(domain: status.domain, id: inReplyToAccountID)
+                )
             }
+            if let existingUser {
+                user = existingUser
+            } else {
+                let domain = authContext.mastodonAuthenticationBox.domain
+                let response = try await Mastodon.API.Account.accountInfo(
+                    session: .shared,
+                    domain: domain,
+                    userID: inReplyToAccountID,
+                    authorization: authContext.mastodonAuthenticationBox.userAuthorization
+                ).singleOutput()
+                
+                user = try await context.perform {
+                    Persistence.MastodonUser.create(in: context, context: .init(
+                        domain: domain,
+                        entity: response.value,
+                        cache: nil,
+                        networkDate: response.networkDate
+                    ))
+                }
+            }
+            let header = self.createReplyHeader(name: user.displayNameWithFallback, emojis: user.emojis.asDictionary)
             try Task.checkCancellation()
             await MainActor.run {
-                if let header {
-                    self.viewModel.header = header
-                } else {
-                    self.fetchReplyToAccount(inReplyToAccountID)
-                }
+                self.viewModel.header = header
             }
         }.store(in: &disposeBag)
     }
