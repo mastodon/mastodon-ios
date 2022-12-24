@@ -189,8 +189,8 @@
                     "show_original": "แสดงดั้งเดิมอยู่"
                 },
                 "media": {
-                    "accessibility_label": "%s, attachment %d of %d",
-                    "expand_image_hint": "Expands the image. Double-tap and hold to show actions",
+                    "accessibility_label": "%s ไฟล์แนบ %d จาก %d",
+                    "expand_image_hint": "ขยายภาพ แตะสองครั้งค้างไว้เพื่อแสดงการกระทำ",
                     "expand_gif_hint": "Expands the GIF. Double-tap and hold to show actions",
                     "expand_video_hint": "Shows the video player. Double-tap and hold to show actions"
                 }
