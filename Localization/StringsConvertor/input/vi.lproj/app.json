@@ -189,10 +189,10 @@
                     "show_original": "Bản gốc"
                 },
                 "media": {
-                    "accessibility_label": "%s, attachment %d of %d",
-                    "expand_image_hint": "Expands the image. Double-tap and hold to show actions",
-                    "expand_gif_hint": "Expands the GIF. Double-tap and hold to show actions",
-                    "expand_video_hint": "Shows the video player. Double-tap and hold to show actions"
+                    "accessibility_label": "%s, đính kèm %d từ %d",
+                    "expand_image_hint": "Mở rộng hình. Nhấn hai lần và giữ để hiện hành động",
+                    "expand_gif_hint": "Mở rộng GIF. Nhấn hai lần và giữ để hiện hành động",
+                    "expand_video_hint": "Hiện trình phát video. Nhấn hai lần và giữ để hiện hành động"
                 }
             },
             "friendship": {
@@ -469,12 +469,12 @@
                 "follows_you": "Đang theo dõi bạn"
             },
             "dashboard": {
-                "my_posts": "posts",
-                "my_following": "following",
-                "my_followers": "followers",
-                "other_posts": "posts",
-                "other_following": "following",
-                "other_followers": "followers"
+                "my_posts": "tút",
+                "my_following": "theo dõi",
+                "my_followers": "người theo dõi",
+                "other_posts": "tút",
+                "other_following": "theo dõi",
+                "other_followers": "người theo dõi"
             },
             "fields": {
                 "joined": "Đã tham gia",
