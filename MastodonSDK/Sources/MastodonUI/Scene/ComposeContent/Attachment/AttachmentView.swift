@@ -49,7 +49,7 @@ public struct AttachmentView: View {
                                 TextField("", text: $viewModel.caption)
                                     .lineLimit(1)
                                     .textFieldStyle(.plain)
-                                    .foregroundColor(.white)
+                                    .foregroundColor(.white).padding(EdgeInsets(top: 0, leading: 8, bottom: 0, trailing: 4))
                                     .background(Color.black.opacity(0.4))
                                     .placeholder(when: viewModel.caption.isEmpty) {
                                         Text(placeholder).foregroundColor(.white).padding(EdgeInsets(top: 0, leading: 8, bottom: 0, trailing: 4))
