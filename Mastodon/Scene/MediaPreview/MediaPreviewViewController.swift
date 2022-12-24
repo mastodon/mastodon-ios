@@ -13,6 +13,8 @@ import MastodonAsset
 import MastodonCore
 import MastodonUI
 import MastodonLocalization
+import SwiftUI
+import MastodonSDK
 
 final class MediaPreviewViewController: UIViewController, NeedsDependency {
     
@@ -38,14 +40,11 @@ final class MediaPreviewViewController: UIViewController, NeedsDependency {
         button.setImage(UIImage(systemName: "xmark", withConfiguration: UIImage.SymbolConfiguration(pointSize: 16, weight: .bold))!, for: .normal)
     }
 
-    let altButton = HUDButton { button in
-        button.setTitle("ALT", for: .normal)
-    }
-
-    deinit {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-    }
-    
+    let altViewController: UIHostingController<MediaAltTextOverlay> = {
+        let vc = UIHostingController(rootView: MediaAltTextOverlay())
+        vc.view.backgroundColor = .clear
+        return vc
+    }()
 }
 
 extension MediaPreviewViewController {
@@ -77,7 +76,10 @@ extension MediaPreviewViewController {
             closeButton.widthAnchor.constraint(equalToConstant: HUDButton.height).priority(.defaultHigh),
         ])
 
-        topToolbar.addArrangedSubview(altButton)
+        altViewController.view.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(altViewController.view)
+        altViewController.didMove(toParent: self)
+        altViewController.view.pinToParent()
 
         viewModel.mediaPreviewImageViewControllerDelegate = self
 
@@ -86,7 +88,6 @@ extension MediaPreviewViewController {
         pagingViewController.dataSource = viewModel
         
         closeButton.button.addTarget(self, action: #selector(MediaPreviewViewController.closeButtonPressed(_:)), for: .touchUpInside)
-        altButton.button.addTarget(self, action: #selector(MediaPreviewViewController.altButtonPressed(_:)), for: .touchUpInside)
 
         // bind view model
         viewModel.$currentPage
@@ -129,11 +130,14 @@ extension MediaPreviewViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] altText in
                 guard let self else { return }
+
+                self.altViewController.rootView.altDescription = altText
+
                 UIView.animate(withDuration: 0.3) {
                     if altText == nil {
-                        self.altButton.alpha = 0
-                    } else {
-                        self.altButton.alpha = 1
+//                        self.altButton.alpha = 0
+//                    } else {
+//                        self.altButton.alpha = 1
                     }
                 }
             }
@@ -178,12 +182,6 @@ extension MediaPreviewViewController {
     @objc private func closeButtonPressed(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
     }
-
-    @objc private func altButtonPressed(_ sender: UIButton) {
-        guard let alt = viewModel.altText else { return }
-        present(AltViewController(alt: alt, sourceView: sender), animated: true)
-    }
-
 }
 
 // MARK: - MediaPreviewingViewController
