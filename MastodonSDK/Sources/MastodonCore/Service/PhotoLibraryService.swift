@@ -32,7 +32,7 @@ extension PhotoLibraryService {
 
 extension PhotoLibraryService {
 
-    public func save(imageSource source: ImageSource) -> AnyPublisher<Void, Error> {
+    public func save(imageSource source: ImageSource, imageType: PHAssetResourceType = .photo) -> AnyPublisher<Void, Error> {
         let impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .light)
         let notificationFeedbackGenerator = UINotificationFeedbackGenerator()
 
@@ -48,7 +48,7 @@ extension PhotoLibraryService {
 
         return imageDataPublisher
             .flatMap { data in
-                PhotoLibraryService.save(imageData: data)
+                PhotoLibraryService.save(imageData: data, imageType: imageType)
             }
             .handleEvents(receiveSubscription: { _ in
                 impactFeedbackGenerator.impactOccurred()
@@ -130,23 +130,52 @@ extension PhotoLibraryService {
         .eraseToAnyPublisher()
     }
 
-    static func save(imageData: Data) -> AnyPublisher<Void, Error> {
+    static func save(imageData: Data, imageType: PHAssetResourceType) -> AnyPublisher<Void, Error> {
         guard PHPhotoLibrary.authorizationStatus(for: .addOnly) != .denied else {
             return Fail(error: PhotoLibraryError.noPermission).eraseToAnyPublisher()
         }
-
-        return Future<Void, Error> { promise in
-            PHPhotoLibrary.shared().performChanges {
-                PHAssetCreationRequest.forAsset().addResource(with: .photo, data: imageData, options: nil)
-            } completionHandler: { isSuccess, error in
-                if let error = error {
-                    promise(.failure(error))
-                } else {
-                    promise(.success(Void()))
+        
+        if imageType == .video {
+            return Future<Void, Error> { promise in
+                let filename = UUID().uuidString
+                let path = FileManager.default.temporaryDirectory.appendingPathComponent("\(filename)")
+                let url = path.appendingPathExtension("mp4")
+                do {
+                    try imageData.write(to: url)
+                } catch {
+                    print(error)
+                }
+                PHPhotoLibrary.shared().performChanges {
+                    PHAssetCreationRequest.forAsset().addResource(with: .video, fileURL: url, options: nil)
+                } completionHandler: { isSuccess, error in
+                    do {
+                        // remove video file
+                        try FileManager.default.removeItem(at: url)
+                    } catch {
+                        
+                    }
+                    if let error = error {
+                        promise(.failure(error))
+                    } else {
+                        promise(.success(Void()))
+                    }
                 }
             }
+            .eraseToAnyPublisher()
+        } else {
+            return Future<Void, Error> { promise in
+                PHPhotoLibrary.shared().performChanges {
+                    PHAssetCreationRequest.forAsset().addResource(with: .photo, data: imageData, options: nil)
+                } completionHandler: { isSuccess, error in
+                    if let error = error {
+                        promise(.failure(error))
+                    } else {
+                        promise(.success(Void()))
+                    }
+                }
+            }
+            .eraseToAnyPublisher()
         }
-        .eraseToAnyPublisher()
     }
 
     static func copy(imageData: Data) -> AnyPublisher<Void, Error> {
