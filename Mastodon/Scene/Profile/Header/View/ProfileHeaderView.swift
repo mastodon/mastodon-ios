@@ -242,14 +242,13 @@ final class ProfileHeaderView: UIView {
 
 extension ProfileHeaderView {
     private func _init() {
-        backgroundColor = ThemeService.shared.currentTheme.value.systemBackgroundColor
-        avatarButton.backgroundColor = ThemeService.shared.currentTheme.value.secondarySystemBackgroundColor
-        ThemeService.shared.currentTheme
+        let currentTheme = ThemeService.shared.currentTheme
+        setColors(from: currentTheme.value)
+        
+        currentTheme
             .receive(on: DispatchQueue.main)
             .sink { [weak self] theme in
-                guard let self = self else { return }
-                self.backgroundColor = theme.systemBackgroundColor
-                self.avatarButton.backgroundColor = theme.secondarySystemBackgroundColor
+                self?.setColors(from: theme)
             }
             .store(in: &_disposeBag)
         
@@ -454,6 +453,11 @@ extension ProfileHeaderView {
         configure(state: .normal)
         
         updateLayoutMargins()
+    }
+
+    private func setColors(from theme: Theme) {
+        backgroundColor = theme.systemBackgroundColor
+        avatarButton.backgroundColor = theme.secondarySystemBackgroundColor
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
