@@ -62,9 +62,9 @@ extension Mastodon.Entity.Status {
                let original = meta.original,
                let originalWidth = original.width,
                let originalHeight = original.height {
-                width = originalWidth;              // audio has width/height
-                height = originalHeight;
-                durationMS = original.duration.flatMap { Int($0 * 1000) }
+                width = originalWidth               // audio has width/height
+                height = originalHeight
+                durationMS = original.duration.map { Int($0 * 1000) }
             }
             else {
                 // In case metadata field is missing, use default values.
