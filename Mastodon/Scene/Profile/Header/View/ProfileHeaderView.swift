@@ -28,7 +28,6 @@ final class ProfileHeaderView: UIView {
     
     static let avatarImageViewSize = CGSize(width: 98, height: 98)
     static let avatarImageViewCornerRadius: CGFloat = 25
-    static let avatarImageViewBorderColor = UIColor.white
     static let avatarImageViewBorderWidth: CGFloat = 2
     static let friendshipActionButtonSize = CGSize(width: 108, height: 34)
     static let bannerImageViewPlaceholderColor = UIColor.systemGray
@@ -90,7 +89,6 @@ final class ProfileHeaderView: UIView {
         view.layer.masksToBounds = true
         view.layer.cornerRadius = ProfileHeaderView.avatarImageViewCornerRadius
         view.layer.cornerCurve = .continuous
-        view.layer.borderColor = ProfileHeaderView.avatarImageViewBorderColor.cgColor
         view.layer.borderWidth = ProfileHeaderView.avatarImageViewBorderWidth
         return view
     }()
@@ -458,6 +456,7 @@ extension ProfileHeaderView {
     private func setColors(from theme: Theme) {
         backgroundColor = theme.systemBackgroundColor
         avatarButton.backgroundColor = theme.secondarySystemBackgroundColor
+        avatarImageViewBackgroundView.layer.borderColor = theme.systemBackgroundColor.cgColor
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
