@@ -385,7 +385,7 @@
                 "published": "Wedi cyhoeddi!",
                 "Publishing": "Wrthi'n cyhoeddi...",
                 "accessibility": {
-                    "logo_label": "Botwm Logo",
+                    "logo_label": "Mastodon",
                     "logo_hint": "Tapiwch i sgrolio i'r frig, a thapiwch eto er mwyn mynd i'r lleoliad blaenorol"
                 }
             }
