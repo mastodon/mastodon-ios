@@ -385,7 +385,7 @@
                 "published": "¡Enviado!",
                 "Publishing": "Enviando mensaje…",
                 "accessibility": {
-                    "logo_label": "Botón de logo",
+                    "logo_label": "Mastodon",
                     "logo_hint": "Tocá para desplazarte hacia arriba y tocá de nuevo para ir a la ubicación anterior"
                 }
             }
