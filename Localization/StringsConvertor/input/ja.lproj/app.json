@@ -385,7 +385,7 @@
                 "published": "投稿しました!",
                 "Publishing": "投稿中...",
                 "accessibility": {
-                    "logo_label": "ロゴボタン",
+                    "logo_label": "Mastodon",
                     "logo_hint": "タップすると一番上までスクロールし、もう一度タップすると元の場所に戻ります"
                 }
             }
