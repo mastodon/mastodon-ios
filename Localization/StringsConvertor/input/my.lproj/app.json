@@ -385,7 +385,7 @@
                 "published": "တင်လိုက်ပါပြီ!",
                 "Publishing": "ပို့စ်ကို တင်နေသည်...",
                 "accessibility": {
-                    "logo_label": "လိုဂိုခလုတ်",
+                    "logo_label": "Mastodon",
                     "logo_hint": "Tap to scroll to top and tap again to previous location"
                 }
             }
