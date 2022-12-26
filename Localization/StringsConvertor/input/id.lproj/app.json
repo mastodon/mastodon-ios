@@ -385,7 +385,7 @@
                 "published": "Dipublikasikan!",
                 "Publishing": "Mempublikasikan postingan...",
                 "accessibility": {
-                    "logo_label": "Tombol Logo",
+                    "logo_label": "Mastodon",
                     "logo_hint": "Ketuk untuk menggulir ke atas dan ketuk lagi ke lokasi sebelumnya"
                 }
             }
