@@ -385,7 +385,7 @@
                 "published": "Gepubliceerd!",
                 "Publishing": "Bericht publiceren...",
                 "accessibility": {
-                    "logo_label": "Logo knop",
+                    "logo_label": "Mastodon",
                     "logo_hint": "Tik om naar boven te scrollen en tik nogmaals om terug te keren naar de vorige locatie"
                 }
             }
