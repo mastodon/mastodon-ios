@@ -385,7 +385,7 @@
                 "published": "Publikováno!",
                 "Publishing": "Publikování příspěvku...",
                 "accessibility": {
-                    "logo_label": "Tlačítko s logem",
+                    "logo_label": "Mastodon",
                     "logo_hint": "Klepnutím přejdete nahoru a znovu klepněte na předchozí místo"
                 }
             }
