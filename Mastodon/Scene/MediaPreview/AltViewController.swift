@@ -8,18 +8,33 @@
 import SwiftUI
 
 class AltViewController: UIViewController {
-    private var alt: String
-    let label = {
+    let textView = {
+        let textView: UITextView
+
         if #available(iOS 16, *) {
             // TODO: update code below to use TextKit 2 when dropping iOS 15 support
-            return UITextView(usingTextLayoutManager: false)
+            textView = UITextView(usingTextLayoutManager: false)
         } else {
-            return UITextView()
+            textView = UITextView()
         }
+
+        textView.textContainer.maximumNumberOfLines = 0
+        textView.textContainer.lineBreakMode = .byWordWrapping
+        textView.font = .preferredFont(forTextStyle: .callout)
+        textView.isScrollEnabled = true
+        textView.backgroundColor = .clear
+        textView.isOpaque = false
+        textView.isEditable = false
+        textView.tintColor = .white
+        textView.textContainerInset = UIEdgeInsets(top: 12, left: 8, bottom: 8, right: 8)
+        textView.contentInsetAdjustmentBehavior = .always
+        textView.verticalScrollIndicatorInsets.bottom = 4
+
+        return textView
     }()
 
     init(alt: String, sourceView: UIView?) {
-        self.alt = alt
+        textView.text = alt
         super.init(nibName: nil, bundle: nil)
         self.modalPresentationStyle = .popover
         self.popoverPresentationController?.delegate = self
@@ -40,49 +55,32 @@ class AltViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textContainer.maximumNumberOfLines = 0
-        label.textContainer.lineBreakMode = .byWordWrapping
-        label.textContainerInset = UIEdgeInsets(
-            top: 8,
-            left: 0,
-            bottom: -label.textContainer.lineFragmentPadding,
-            right: 0
-        )
-        label.font = .preferredFont(forTextStyle: .callout)
-        label.isScrollEnabled = true
-        label.backgroundColor = .clear
-        label.isOpaque = false
-        label.isEditable = false
-        label.tintColor = .white
-        label.text = alt
-        label.textContainerInset = UIEdgeInsets(top: 12, left: 8, bottom: 8, right: 8)
-        label.contentInsetAdjustmentBehavior = .always
-        label.verticalScrollIndicatorInsets.bottom = 4
-
+        textView.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .systemBackground
-        view.addSubview(label)
+        view.addSubview(textView)
 
-        label.pinToParent()
+        textView.pinToParent()
         NSLayoutConstraint.activate([
-            label.widthAnchor.constraint(lessThanOrEqualToConstant: 400),
+            textView.widthAnchor.constraint(lessThanOrEqualToConstant: 400),
         ])
     }
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         UIView.performWithoutAnimation {
-            let size = label.layoutManager.boundingRect(forGlyphRange: NSMakeRange(0, (label.textStorage.string as NSString).length), in: label.textContainer).size
+
+            let size = textView.layoutManager.boundingRect(forGlyphRange: NSMakeRange(0, (textView.textStorage.string as NSString).length), in: textView.textContainer).size
+
             preferredContentSize = CGSize(
-                width: size.width + (8 + label.textContainer.lineFragmentPadding) * 2,
-                height: size.height + 12 + (label.textContainer.lineFragmentPadding * 2)
+                width: size.width + (8 + textView.textContainer.lineFragmentPadding) * 2,
+                height: size.height + 12 + (textView.textContainer.lineFragmentPadding) * 2
             )
         }
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        label.font = .preferredFont(forTextStyle: .callout)
+        textView.font = .preferredFont(forTextStyle: .callout)
     }
 }
 
