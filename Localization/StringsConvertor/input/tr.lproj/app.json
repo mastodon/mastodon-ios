@@ -385,7 +385,7 @@
                 "published": "Yayınlandı!",
                 "Publishing": "Gönderi yayınlanıyor...",
                 "accessibility": {
-                    "logo_label": "Logo Düğmesi",
+                    "logo_label": "Mastodon",
                     "logo_hint": "Tap to scroll to top and tap again to previous location"
                 }
             }
