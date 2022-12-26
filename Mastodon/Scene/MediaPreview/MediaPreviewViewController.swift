@@ -27,15 +27,6 @@ final class MediaPreviewViewController: UIViewController, NeedsDependency {
     let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .systemMaterial))
     let pagingViewController = MediaPreviewPagingViewController()
 
-    let topToolbar: UIStackView = {
-        let stackView = TouchTransparentStackView()
-        stackView.axis = .horizontal
-        stackView.distribution = .equalSpacing
-        stackView.alignment = .fill
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        return stackView
-    }()
-
     let closeButton = HUDButton { button in
         button.setImage(UIImage(systemName: "xmark", withConfiguration: UIImage.SymbolConfiguration(pointSize: 16, weight: .bold))!, for: .normal)
     }
@@ -64,18 +55,6 @@ extension MediaPreviewViewController {
         visualEffectView.pinTo(to: pagingViewController.view)
         pagingViewController.didMove(toParent: self)
 
-        view.addSubview(topToolbar)
-        NSLayoutConstraint.activate([
-            topToolbar.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 12),
-            topToolbar.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
-            topToolbar.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
-        ])
-
-        topToolbar.addArrangedSubview(closeButton)
-        NSLayoutConstraint.activate([
-            closeButton.widthAnchor.constraint(equalToConstant: HUDButton.height).priority(.defaultHigh),
-        ])
-
         altViewController.view.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(altViewController.view)
         altViewController.didMove(toParent: self)
@@ -86,7 +65,13 @@ extension MediaPreviewViewController {
         pagingViewController.interPageSpacing = 10
         pagingViewController.delegate = self
         pagingViewController.dataSource = viewModel
-        
+
+        view.addSubview(closeButton)
+        NSLayoutConstraint.activate([
+            closeButton.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 12),
+            closeButton.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
+            closeButton.widthAnchor.constraint(equalTo: closeButton.heightAnchor),
+        ])
         closeButton.button.addTarget(self, action: #selector(MediaPreviewViewController.closeButtonPressed(_:)), for: .touchUpInside)
 
         // bind view model
@@ -149,7 +134,7 @@ extension MediaPreviewViewController {
             .sink { [weak self] showingChrome in
                 UIView.animate(withDuration: 0.3) {
                     self?.setNeedsStatusBarAppearanceUpdate()
-                    self?.topToolbar.alpha = showingChrome ? 1 : 0
+                    self?.closeButton.alpha = showingChrome ? 1 : 0
                 }
             }
             .store(in: &disposeBag)

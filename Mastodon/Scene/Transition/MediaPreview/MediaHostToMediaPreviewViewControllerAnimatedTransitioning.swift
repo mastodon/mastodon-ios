@@ -81,7 +81,7 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
         transitionItem.transitionView = transitionImageView
         transitionContext.containerView.addSubview(transitionImageView)
         
-        toVC.topToolbar.alpha = 0
+        toVC.closeButton.alpha = 0
 
         if UIAccessibility.isReduceTransparencyEnabled {
             toVC.visualEffectView.alpha = 0
@@ -101,7 +101,7 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
             toVC.pagingViewController.view.alpha = 1
             transitionImageView.removeFromSuperview()
             UIView.animate(withDuration: 0.33, delay: 0, options: [.curveEaseInOut]) {
-                toVC.topToolbar.alpha = 1
+                toVC.closeButton.alpha = 1
             }
             transitionContext.completeTransition(position == .end)
         }
@@ -140,11 +140,11 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
         
         // update top toolbar
         UIView.animate(withDuration: 0.33, delay: 0, options: [.curveEaseInOut]) {
-            fromVC.topToolbar.alpha = 0
+            fromVC.closeButton.alpha = 0
         }
         animator.addCompletion { position in
             UIView.animate(withDuration: 0.33, delay: 0, options: [.curveEaseInOut]) {
-                fromVC.topToolbar.alpha = position == .end ? 0 : 1
+                fromVC.closeButton.alpha = position == .end ? 0 : 1
             }
         }
         
@@ -202,7 +202,7 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
         mediaPreviewTransitionContext.snapshot.contentMode = .scaleAspectFill
         mediaPreviewTransitionContext.snapshot.clipsToBounds = true
         transitionMaskView.addSubview(mediaPreviewTransitionContext.snapshot)
-        fromVC.view.bringSubviewToFront(fromVC.topToolbar)
+        fromVC.view.bringSubviewToFront(fromVC.closeButton)
 
         transitionItem.transitionView = mediaPreviewTransitionContext.transitionView
         transitionItem.snapshotTransitioning = mediaPreviewTransitionContext.snapshot
