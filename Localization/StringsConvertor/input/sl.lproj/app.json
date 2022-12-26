@@ -385,7 +385,7 @@
                 "published": "Objavljeno!",
                 "Publishing": "Objavljanje objave ...",
                 "accessibility": {
-                    "logo_label": "Gumb logotipa",
+                    "logo_label": "Mastodon",
                     "logo_hint": "Tapnite, da podrsate na vrh; tapnite znova, da se pomaknete na prejšnji položaj"
                 }
             }
