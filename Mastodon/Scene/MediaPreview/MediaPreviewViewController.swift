@@ -274,9 +274,9 @@ extension MediaPreviewViewController: MediaPreviewImageViewControllerDelegate {
                 switch viewController.viewModel.item {
                 case .remote(let previewContext):
                     guard let assetURL = previewContext.assetURL else { return nil }
-                    return context.photoLibraryService.save(imageSource: .url(assetURL))
+                    return context.photoLibraryService.save(assetSource: .url(assetURL), assetType: .photo)
                 case .local(let previewContext):
-                    return context.photoLibraryService.save(imageSource: .image(previewContext.image))
+                    return context.photoLibraryService.save(assetSource: .image(previewContext.image), assetType: .photo)
                 }
             }()
             guard let savePublisher = _savePublisher else {
