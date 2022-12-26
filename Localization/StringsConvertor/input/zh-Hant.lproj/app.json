@@ -385,7 +385,7 @@
                 "published": "嘟出去！",
                 "Publishing": "發表嘟文...",
                 "accessibility": {
-                    "logo_label": "標誌按鈕",
+                    "logo_label": "Mastodon",
                     "logo_hint": "輕點一下捲至頂端並且再點ㄧ下回到原先位置"
                 }
             }
