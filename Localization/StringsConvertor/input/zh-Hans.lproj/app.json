@@ -385,7 +385,7 @@
                 "published": "已发送",
                 "Publishing": "正在发送...",
                 "accessibility": {
-                    "logo_label": "Logo 按钮",
+                    "logo_label": "Mastodon",
                     "logo_hint": "轻点滚到顶部，再次轻点回到原处"
                 }
             }
