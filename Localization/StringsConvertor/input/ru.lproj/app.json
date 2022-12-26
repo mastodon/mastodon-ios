@@ -385,7 +385,7 @@
                 "published": "Опубликовано!",
                 "Publishing": "Публикуем пост...",
                 "accessibility": {
-                    "logo_label": "Logo Button",
+                    "logo_label": "Mastodon",
                     "logo_hint": "Tap to scroll to top and tap again to previous location"
                 }
             }
