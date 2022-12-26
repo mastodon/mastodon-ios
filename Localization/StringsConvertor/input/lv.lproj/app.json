@@ -385,7 +385,7 @@
                 "published": "Publicēts!",
                 "Publishing": "Publicē ziņu...",
                 "accessibility": {
-                    "logo_label": "Logotipa Poga",
+                    "logo_label": "Mastodon",
                     "logo_hint": "Pieskaries, lai ritinātu uz augšu, un vēlreiz pieskaries iepriekšējai atrašanās vietai"
                 }
             }
