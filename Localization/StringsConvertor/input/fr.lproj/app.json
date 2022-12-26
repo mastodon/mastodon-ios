@@ -189,10 +189,10 @@
                     "show_original": "Afficher l’original"
                 },
                 "media": {
-                    "accessibility_label": "%s, attachment %d of %d",
-                    "expand_image_hint": "Expands the image. Double-tap and hold to show actions",
-                    "expand_gif_hint": "Expands the GIF. Double-tap and hold to show actions",
-                    "expand_video_hint": "Shows the video player. Double-tap and hold to show actions"
+                    "accessibility_label": "%s, pièce jointe %d sur %d",
+                    "expand_image_hint": "Développe l'image. Appuyez deux fois et maintenez pour afficher les actions",
+                    "expand_gif_hint": "Développe le GIF. Appuyez deux fois et maintenez pour afficher les actions",
+                    "expand_video_hint": "Affiche le lecteur vidéo. Appuyez deux fois et maintenez enfoncé pour afficher les actions"
                 }
             },
             "friendship": {
