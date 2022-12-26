@@ -385,7 +385,7 @@
                 "published": "Argitaratua!",
                 "Publishing": "Bidalketa argitaratzen...",
                 "accessibility": {
-                    "logo_label": "Logo botoia",
+                    "logo_label": "Mastodon",
                     "logo_hint": "Tap to scroll to top and tap again to previous location"
                 }
             }
