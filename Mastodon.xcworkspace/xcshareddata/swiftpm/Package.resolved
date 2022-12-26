@@ -109,15 +109,6 @@
       }
     },
     {
-      "identity" : "nuke-flanimatedimage-plugin",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/kean/Nuke-FLAnimatedImage-Plugin.git",
-      "state" : {
-        "revision" : "b59c346a7d536336db3b0f12c72c6e53ee709e16",
-        "version" : "8.0.0"
-      }
-    },
-    {
       "identity" : "pageboy",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/uias/Pageboy",

@@ -15,7 +15,6 @@
 - [KeychainAccess](https://github.com/kishikawakatsumi/KeychainAccess.git)
 - [Kingfisher](https://github.com/onevcat/Kingfisher)
 - [MetaTextKit](https://github.com/TwidereProject/MetaTextKit)
-- [Nuke-FLAnimatedImage-Plugin](https://github.com/kean/Nuke-FLAnimatedImage-Plugin)
 - [Nuke](https://github.com/kean/Nuke)
 - [Pageboy](https://github.com/uias/Pageboy#the-basics)
 - [PanModal](https://github.com/slackhq/PanModal.git)
