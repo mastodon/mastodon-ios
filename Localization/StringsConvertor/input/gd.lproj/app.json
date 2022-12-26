@@ -385,7 +385,7 @@
                 "published": "Chaidh fhoillseachadh!",
                 "Publishing": "A’ foillseachadh a’ phuist…",
                 "accessibility": {
-                    "logo_label": "Putan an t-suaicheantais",
+                    "logo_label": "Mastodon",
                     "logo_hint": "Thoir gnogag a sgroladh dhan bhàrr is thoir gnogag a-rithist a dhol dhan ionad roimhe"
                 }
             }
