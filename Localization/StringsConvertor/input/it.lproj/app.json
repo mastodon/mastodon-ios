@@ -385,7 +385,7 @@
                 "published": "Pubblicato!",
                 "Publishing": "Pubblicazione post...",
                 "accessibility": {
-                    "logo_label": "Pulsante Logo",
+                    "logo_label": "Mastodon",
                     "logo_hint": "Tocca per scorrere verso l'alto e tocca di nuovo verso la posizione precedente"
                 }
             }
