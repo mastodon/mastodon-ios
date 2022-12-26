@@ -385,7 +385,7 @@
                 "published": "Publicerat!",
                 "Publishing": "Publicerar inlägget...",
                 "accessibility": {
-                    "logo_label": "Logo-knapp",
+                    "logo_label": "Mastodon",
                     "logo_hint": "Tryck för att bläddra till toppen och tryck igen för föregående plats"
                 }
             }
