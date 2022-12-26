@@ -385,7 +385,7 @@
                 "published": "Publicat!",
                 "Publishing": "S'està publicant...",
                 "accessibility": {
-                    "logo_label": "Botó de logotip",
+                    "logo_label": "Mastodon",
                     "logo_hint": "Toca per desplaçar-te cap a dalt i torna a toca de nou per tornar a la ubicació anterior"
                 }
             }
