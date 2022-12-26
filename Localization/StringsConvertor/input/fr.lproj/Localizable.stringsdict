@@ -61,7 +61,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 character left</string>
+        <string>%@ caractère restant</string>
         <key>other</key>
         <string>%ld characters left</string>
       </dict>
