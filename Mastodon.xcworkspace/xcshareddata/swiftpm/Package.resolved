@@ -104,8 +104,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/kean/Nuke.git",
       "state" : {
-        "revision" : "0ea7545b5c918285aacc044dc75048625c8257cc",
-        "version" : "10.8.0"
+        "revision" : "81f6a3dea0c8ce3b87389c241c48601be07af0b1",
+        "version" : "11.5.1"
       }
     },
     {
