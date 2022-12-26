@@ -385,7 +385,7 @@
                 "published": "¡Publicado!",
                 "Publishing": "Publicación en curso...",
                 "accessibility": {
-                    "logo_label": "Botón del logo",
+                    "logo_label": "Mastodon",
                     "logo_hint": "Toca para desplazarte hacia arriba y toca de nuevo para la localización anterior"
                 }
             }
