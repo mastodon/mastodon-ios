@@ -12,6 +12,7 @@ import Combine
 import AlamofireImage
 import SwiftUI
 import MastodonLocalization
+import MastodonAsset
 
 public final class MediaView: UIView {
     
@@ -49,11 +50,20 @@ public final class MediaView: UIView {
         return playerViewController
     }()
     private var playerLooper: AVPlayerLooper?
-    private(set) lazy var playbackImageView: UIImageView = {
+
+    private(set) lazy var playbackImageView: UIView = {
+        let wrapper = UIView()
+
         let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = UIImage(systemName: "play.circle.fill")
-        imageView.tintColor = .white
-        return imageView
+        imageView.tintColor = Asset.Colors.Label.primary.color
+        wrapper.addSubview(imageView)
+        imageView.pinToParent(padding: .init(top: 8, left: 8, bottom: 8, right: 8))
+        wrapper.backgroundColor = Asset.Theme.Mastodon.systemBackground.color.withAlphaComponent(0.8)
+        wrapper.applyCornerRadius(radius: 8)
+
+        return wrapper
     }()
     
     private(set) lazy var indicatorBlurEffectView: UIVisualEffectView = {
