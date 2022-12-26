@@ -385,7 +385,7 @@
                 "published": "Đã đăng!",
                 "Publishing": "Đang đăng tút...",
                 "accessibility": {
-                    "logo_label": "Nút biểu tượng",
+                    "logo_label": "Mastodon",
                     "logo_hint": "Nhấn để cuộn lên trên và nhấn lại lần nữa để trở về vị trí cũ"
                 }
             }
