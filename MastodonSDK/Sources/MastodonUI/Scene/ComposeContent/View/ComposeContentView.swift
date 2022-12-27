@@ -12,6 +12,7 @@ import MastodonCore
 import MastodonLocalization
 import Stripes
 import Kingfisher
+import NukeUI
 
 public struct ComposeContentView: View {
     
@@ -150,7 +151,7 @@ public struct ComposeContentView: View {
 extension ComposeContentView {
     var authorView: some View {
         HStack(spacing: 8) {
-            AnimatedImage(imageURL: viewModel.avatarURL)
+            LazyImage(url: viewModel.avatarURL)
                 .frame(width: 46, height: 46)
                 .background(Color(UIColor.systemFill))
                 .cornerRadius(12)

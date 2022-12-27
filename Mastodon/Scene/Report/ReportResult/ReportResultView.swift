@@ -13,6 +13,7 @@ import MastodonCore
 import MastodonUI
 import MastodonLocalization
 import CoreDataStack
+import NukeUI
 
 struct ReportResultView: View {
     
@@ -22,7 +23,7 @@ struct ReportResultView: View {
         HStack {
             Spacer()
             ZStack {
-                AnimatedImage(imageURL: viewModel.avatarURL)
+                LazyImage(url: viewModel.avatarURL)
                     .frame(width: 106, height: 106, alignment: .center)
                     .background(Color(UIColor.systemFill))
                     .cornerRadius(27)
