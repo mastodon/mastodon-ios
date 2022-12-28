@@ -237,6 +237,39 @@ extension ShareViewController: UIAdaptivePresentationControllerDelegate {
 
 extension ShareViewController {
     
+    private struct TypedProvider {
+        let provider: NSItemProvider
+        let type: ProvidedItemType
+        
+        init?(_ provider: NSItemProvider) {
+            self.provider = provider
+            for type in ProvidedItemType.allCases {
+                if provider.hasRepresentationConforming(toTypeIdentifier: type.uti.identifier) {
+                    self.type = type
+                    return
+                }
+            }
+            return nil
+        }
+
+        enum ProvidedItemType: CaseIterable {
+            // in order of priority
+            case movie
+            case image
+            case url
+            case text
+            
+            var uti: UTType {
+                switch self {
+                case .movie: return .movie
+                case .image: return .image
+                case .url: return .url
+                case .text: return .plainText
+                }
+            }
+        }
+    }
+    
     private func load(inputItems: [NSExtensionItem]) async {
         guard let composeContentViewModel = self.composeContentViewModel,
               let authContext = viewModel.authContext
@@ -244,85 +277,46 @@ extension ShareViewController {
             assertionFailure()
             return
         }
-        var itemProviders: [NSItemProvider] = []
-
-        for item in inputItems {
-            itemProviders.append(contentsOf: item.attachments ?? [])
-        }
         
-        let _textProvider = itemProviders.first { provider in
-            return provider.hasRepresentationConforming(toTypeIdentifier: UTType.plainText.identifier, fileOptions: [])
-        }
+        let itemProviders = inputItems
+            .flatMap { $0.attachments ?? [] }
+            .compactMap(TypedProvider.init)
         
-        let _urlProvider = itemProviders.first { provider in
-            return provider.hasRepresentationConforming(toTypeIdentifier: UTType.url.identifier, fileOptions: [])
-        }
-
-        let _movieProvider = itemProviders.first { provider in
-            return provider.hasRepresentationConforming(toTypeIdentifier: UTType.movie.identifier, fileOptions: [])
-        }
-
-        let imageProviders = itemProviders.filter { provider in
-            return provider.hasRepresentationConforming(toTypeIdentifier: UTType.image.identifier, fileOptions: [])
-        }
+        async let text: String? = loadItem(from: itemProviders, ofType: .text)
+        async let url: URL? = loadItem(from: itemProviders, ofType: .url)
         
-        async let text = ShareViewController.loadText(textProvider: _textProvider)
-        async let url = ShareViewController.loadURL(textProvider: _urlProvider)
-        
-        let content = await [text, url]
-            .compactMap { $0 }
-            .joined(separator: " ")
+        let content = await [
+            text ?? inputItems.compactMap(\.attributedContentText).first?.string,
+            url?.absoluteString
+        ].compactMap { $0 }.joined(separator: " ")
         // passby the viewModel `content` value
         if !content.isEmpty {
             composeContentViewModel.content = content + " "
             composeContentViewModel.contentMetaText?.textView.insertText(content + " ")
         }
 
-        if let movieProvider = _movieProvider {
-            let attachmentViewModel = AttachmentViewModel(
+        let attachmentViewModels = itemProviders.filter { [.movie, .image].contains($0.type) }.map { provider in
+            AttachmentViewModel(
                 api: context.apiService,
                 authContext: authContext,
-                input: .itemProvider(movieProvider),
+                input: .itemProvider(provider.provider),
                 sizeLimit: .init(image: nil, video: nil),
                 delegate: composeContentViewModel
             )
-            composeContentViewModel.attachmentViewModels.append(attachmentViewModel)
-        } else if !imageProviders.isEmpty {
-            let attachmentViewModels = imageProviders.map { provider in
-                AttachmentViewModel(
-                    api: context.apiService,
-                    authContext: authContext,
-                    input: .itemProvider(provider),
-                    sizeLimit: .init(image: nil, video: nil),
-                    delegate: composeContentViewModel
-                )
-            }
-            composeContentViewModel.attachmentViewModels.append(contentsOf: attachmentViewModels)
         }
+        composeContentViewModel.attachmentViewModels.append(contentsOf: attachmentViewModels)
     }
     
-    private static func loadText(textProvider: NSItemProvider?) async -> String? {
-        guard let textProvider = textProvider else { return nil }
+    private func loadItem<Item>(from providers: [TypedProvider], ofType type: TypedProvider.ProvidedItemType) async -> Item? {
+        guard let provider = providers.first(where: { $0.type == type }) else { return nil }
         do {
-            let item = try await textProvider.loadItem(forTypeIdentifier: UTType.plainText.identifier)
-            guard let text = item as? String else { return nil }
-            return text
+            let item = try await provider.provider.loadItem(forTypeIdentifier: type.uti.identifier)
+            guard let result = item as? Item else { return nil }
+            return result
         } catch {
             return nil
         }
     }
-    
-    private static func loadURL(textProvider: NSItemProvider?) async -> String? {
-        guard let textProvider = textProvider else { return nil }
-        do {
-            let item = try await textProvider.loadItem(forTypeIdentifier: UTType.url.identifier)
-            guard let url = item as? URL else { return nil }
-            return url.absoluteString
-        } catch {
-            return nil
-        }
-    }
-
 }
 
 extension ShareViewController {
