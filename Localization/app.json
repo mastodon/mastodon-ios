@@ -396,7 +396,6 @@
             "title": "Check Your Inbox",
             "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we sent you to verify %@. We’ll wait right here.",
             "button": {
-                "open_email_app": "Open Email App",
                 "resend": "Resend"
             },
             "dont_receive_email": {

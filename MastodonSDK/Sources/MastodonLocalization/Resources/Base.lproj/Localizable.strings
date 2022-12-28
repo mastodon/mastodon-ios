@@ -224,7 +224,6 @@ uploaded to Mastodon.";
 "Scene.Compose.Visibility.Private" = "Followers only";
 "Scene.Compose.Visibility.Public" = "Public";
 "Scene.Compose.Visibility.Unlisted" = "Unlisted";
-"Scene.ConfirmEmail.Button.OpenEmailApp" = "Open Email App";
 "Scene.ConfirmEmail.Button.Resend" = "Resend";
 "Scene.ConfirmEmail.DontReceiveEmail.Description" = "Check if your email address is correct as well as your junk folder if you haven’t.";
 "Scene.ConfirmEmail.DontReceiveEmail.ResendEmail" = "Resend Email";

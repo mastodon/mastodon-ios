@@ -41,13 +41,6 @@ final class MastodonConfirmEmailViewController: UIViewController, NeedsDependenc
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
-    
-    let navigationActionView: NavigationActionView = {
-        let navigationActionView = NavigationActionView()
-        navigationActionView.backgroundColor = Asset.Scene.Onboarding.background.color
-        return navigationActionView
-    }()
-    
 }
 
 extension MastodonConfirmEmailViewController {
@@ -69,7 +62,6 @@ extension MastodonConfirmEmailViewController {
         stackView.addArrangedSubview(emailImageView)
         emailImageView.setContentHuggingPriority(.defaultLow, for: .vertical)
         emailImageView.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
-        stackView.addArrangedSubview(navigationActionView)
 
         view.addSubview(stackView)
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -121,13 +113,6 @@ extension MastodonConfirmEmailViewController {
             }
             .store(in: &self.disposeBag)
         
-        
-        navigationActionView.backButton.setTitle(L10n.Scene.ConfirmEmail.Button.resend, for: .normal)
-        navigationActionView.backButton.addTarget(self, action: #selector(MastodonConfirmEmailViewController.resendButtonPressed(_:)), for: .touchUpInside)
-        
-        navigationActionView.nextButton.setTitle(L10n.Scene.ConfirmEmail.Button.openEmailApp, for: .normal)
-        navigationActionView.nextButton.addTarget(self, action: #selector(MastodonConfirmEmailViewController.openEmailButtonPressed(_:)), for: .touchUpInside)
-
         title = L10n.Scene.ConfirmEmail.title
     }
     
@@ -152,19 +137,6 @@ extension MastodonConfirmEmailViewController {
 }
 
 extension MastodonConfirmEmailViewController {
-    @objc private func openEmailButtonPressed(_ sender: UIButton) {
-        let alertController = UIAlertController(title: L10n.Scene.ConfirmEmail.OpenEmailApp.title, message: L10n.Scene.ConfirmEmail.OpenEmailApp.description, preferredStyle: .alert)
-        let openEmailAction = UIAlertAction(title: L10n.Scene.ConfirmEmail.Button.openEmailApp, style: .default) { [weak self] _ in
-            guard let self = self else { return }
-            self.showEmailAppAlert()
-        }
-        let cancelAction = UIAlertAction(title: L10n.Common.Controls.Actions.cancel, style: .cancel, handler: nil)
-        alertController.addAction(openEmailAction)
-        alertController.addAction(cancelAction)
-        alertController.preferredAction = openEmailAction
-        _ = self.coordinator.present(scene: .alertController(alertController: alertController), from: self, transition: .alertController(animated: true, completion: nil))
-    }
-
     @objc private func resendButtonPressed(_ sender: UIButton) {
         let alertController = UIAlertController(title: L10n.Scene.ConfirmEmail.DontReceiveEmail.title, message: L10n.Scene.ConfirmEmail.DontReceiveEmail.description, preferredStyle: .alert)
         let resendAction = UIAlertAction(title: L10n.Scene.ConfirmEmail.DontReceiveEmail.resendEmail, style: .default) { _ in
@@ -176,29 +148,6 @@ extension MastodonConfirmEmailViewController {
         }
         alertController.addAction(resendAction)
         alertController.addAction(okAction)
-        _ = self.coordinator.present(scene: .alertController(alertController: alertController), from: self, transition: .alertController(animated: true, completion: nil))
-    }
-
-    func showEmailAppAlert() {
-        let clients = ThirdPartyMailClient.clients
-        let availableClients = clients.filter { client -> Bool in
-            ThirdPartyMailer.isMailClientAvailable(client)
-        }
-        let alertController = UIAlertController(title: L10n.Scene.ConfirmEmail.OpenEmailApp.openEmailClient, message: nil, preferredStyle: .alert)
-
-        let alertAction = UIAlertAction(title: L10n.Scene.ConfirmEmail.OpenEmailApp.mail, style: .default) { _ in
-            UIApplication.shared.open(URL(string: "message://")!, options: [:], completionHandler: nil)
-        }
-        alertController.addAction(alertAction)
-        _ = availableClients.compactMap { client -> UIAlertAction in
-            let alertAction = UIAlertAction(title: client.name, style: .default) { _ in
-                ThirdPartyMailer.open(client, completionHandler: nil)
-            }
-            alertController.addAction(alertAction)
-            return alertAction
-        }
-        let cancelAction = UIAlertAction(title: L10n.Common.Controls.Actions.cancel, style: .cancel, handler: nil)
-        alertController.addAction(cancelAction)
         _ = self.coordinator.present(scene: .alertController(alertController: alertController), from: self, transition: .alertController(animated: true, completion: nil))
     }
 }
