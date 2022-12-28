@@ -81,6 +81,7 @@ extension NSItemProvider {
                 type: cgImage.utType.flatMap { UTType($0 as String) }
             )
         } else {
+            assertionFailure("Invalid image type \(type(of: result))")
             return nil
         }
     }
