@@ -329,7 +329,8 @@
                 },
                 "username": {
                     "placeholder": "username",
-                    "duplicate_prompt": "This username is taken."
+                    "duplicate_prompt": "This username is taken.",
+                    "suggestion": "amazing_%@"
                 },
                 "display_name": {
                     "placeholder": "display name"

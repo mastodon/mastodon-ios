@@ -1034,6 +1034,10 @@ public enum L10n {
           public static let duplicatePrompt = L10n.tr("Localizable", "Scene.Register.Input.Username.DuplicatePrompt", fallback: "This username is taken.")
           /// username
           public static let placeholder = L10n.tr("Localizable", "Scene.Register.Input.Username.Placeholder", fallback: "username")
+          /// amazing_%@
+          public static func suggestion(_ p1: Any) -> String {
+            return L10n.tr("Localizable", "Scene.Register.Input.Username.Suggestion", String(describing: p1), fallback: "amazing_%@")
+          }
         }
       }
     }

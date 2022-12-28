@@ -49,9 +49,9 @@ struct MastodonRegisterView: View {
                             Button {
                                 viewModel.usernameErrorPrompt = nil
                                 viewModel.usernameValidateState = .empty
-                                viewModel.username = "amazing_\(viewModel.username)"
+                                viewModel.username = L10n.Scene.Register.Input.Username.suggestion(viewModel.username)
                             } label: {
-                                Text("amazing_\(viewModel.username)")
+                                Text(L10n.Scene.Register.Input.Username.suggestion(viewModel.username))
                                     .foregroundColor(Asset.Colors.Brand.blurple.swiftUIColor)
                                     .font(Font(UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 17, weight: .bold))))
 
