@@ -471,10 +471,10 @@
             "dashboard": {
                 "my_posts": "Beiträge",
                 "my_following": "folge ich",
-                "my_followers": "followers",
+                "my_followers": "Follower",
                 "other_posts": "Beiträge",
                 "other_following": "folge ich",
-                "other_followers": "followers"
+                "other_followers": "Followers"
             },
             "fields": {
                 "joined": "Beigetreten",
