@@ -138,12 +138,16 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
         context: AppContext,
         authContext: AuthContext,
         destination: Destination,
-        initialContent: String
+        initialContent: String,
+        initialVisibility: Mastodon.Entity.Status.Visibility?
     ) {
         self.context = context
         self.authContext = authContext
         self.destination = destination
         self.visibility = {
+            if let initialVisibility {
+                return initialVisibility
+            }
             // default private when user locked
             var visibility: Mastodon.Entity.Status.Visibility = {
                 guard let author = authContext.mastodonAuthenticationBox.authenticationRecord.object(in: context.managedObjectContext)?.user else {

@@ -100,7 +100,8 @@ extension ShareViewController {
                 context: context,
                 authContext: authContext,
                 destination: .topLevel,
-                initialContent: ""
+                initialContent: "",
+                initialVisibility: nil
             )
             let composeContentViewController = ComposeContentViewController()
             composeContentViewController.viewModel = composeContentViewModel

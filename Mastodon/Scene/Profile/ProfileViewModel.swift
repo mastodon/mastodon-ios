@@ -51,7 +51,7 @@ class ProfileViewModel: NSObject {
     @Published var userIdentifier: UserIdentifier? = nil
     
     @Published var isRelationshipActionButtonHidden: Bool = true
-    @Published var isReplyBarButtonItemHidden: Bool = true
+    @Published var isDMBarButtonItemHidden: Bool = true
     @Published var isMoreMenuBarButtonItemHidden: Bool = true
     @Published var isMeBarButtonItemsHidden: Bool = true
     @Published var isPagingEnabled = true
@@ -111,14 +111,14 @@ class ProfileViewModel: NSObject {
             .sink { [weak self] optionSet in
                 guard let self = self else { return }
                 guard let optionSet = optionSet, !optionSet.contains(.none) else {
-                    self.isReplyBarButtonItemHidden = true
+                    self.isDMBarButtonItemHidden = true
                     self.isMoreMenuBarButtonItemHidden = true
                     self.isMeBarButtonItemsHidden = true
                     return
                 }
                 
                 let isMyself = optionSet.contains(.isMyself)
-                self.isReplyBarButtonItemHidden = isMyself
+                self.isDMBarButtonItemHidden = isMyself
                 self.isMoreMenuBarButtonItemHidden = isMyself
                 self.isMeBarButtonItemsHidden = !isMyself
             }
