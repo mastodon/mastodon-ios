@@ -20,7 +20,7 @@ struct MastodonRegisterView: View {
     var body: some View {
         ScrollView(.vertical) {
             let margin: CGFloat = 16
-            VStack(alignment: .leading, spacing: 11) {
+            VStack(alignment: .leading, spacing: 16) {
                 TextField(L10n.Scene.Register.Input.DisplayName.placeholder.localizedCapitalized, text: $viewModel.name)
                     .textContentType(.name)
                     .disableAutocorrection(true)
@@ -41,8 +41,23 @@ struct MastodonRegisterView: View {
                 .modifier(FormTextFieldModifier(validateState: viewModel.usernameValidateState))
                 .environment(\.layoutDirection, .leftToRight)   // force LTR
                 if let errorPrompt = viewModel.usernameErrorPrompt {
-                    Text(errorPrompt)
-                        .modifier(FormFootnoteModifier())
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text(errorPrompt)
+                            .font(Font(UIFontMetrics(forTextStyle: .caption1).scaledFont(for: .systemFont(ofSize: 13, weight: .regular))))
+                        //FIXME: Better way than comparing strings
+                        if errorPrompt == L10n.Scene.Register.Error.Reason.taken(L10n.Scene.Register.Error.Item.username) {
+                            Button {
+                                viewModel.usernameErrorPrompt = nil
+                                viewModel.usernameValidateState = .empty
+                                viewModel.username = "amazing_\(viewModel.username)"
+                            } label: {
+                                Text("amazing_\(viewModel.username)")
+                                    .foregroundColor(Asset.Colors.Brand.blurple.swiftUIColor)
+                                    .font(Font(UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 17, weight: .bold))))
+
+                            }
+                        }
+                    }
                 }
                 TextField(L10n.Scene.Register.Input.Email.placeholder.localizedCapitalized, text: $viewModel.email)
                     .textContentType(.emailAddress)
@@ -109,23 +124,23 @@ struct MastodonRegisterView: View {
                 let borderColor: Color = {
                     switch validateState {
                         case .empty:    return Color(Asset.Scene.Onboarding.textFieldBackground.color)
-                        case .invalid:  return Color(Asset.Colors.TextField.invalid.color)
+                        case .invalid:  return Color(Asset.Colors.TextField.invalid.color.withAlphaComponent(0.25))
                         case .valid:    return Color(Asset.Scene.Onboarding.textFieldBackground.color)
                     }
                 }()
 
-                Color(Asset.Scene.Onboarding.textFieldBackground.color)
+                borderColor
                     .cornerRadius(10)
 
                 content
                     .padding()
-                    .background(Color(Asset.Scene.Onboarding.textFieldBackground.color))
+                    .background(borderColor)
                     .cornerRadius(10)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 10)
-                            .stroke(borderColor, lineWidth: 1)
-                            .animation(.easeInOut, value: validateState)
-                    )
+//                    .overlay(
+//                        RoundedRectangle(cornerRadius: 10)
+//                            .stroke(borderColor, lineWidth: 1)
+//                            .animation(.easeInOut, value: validateState)
+//                    )
             }
         }
     }
@@ -136,7 +151,6 @@ struct MastodonRegisterView: View {
             content
                 .font(.footnote)
                 .foregroundColor(foregroundColor)
-                .padding(.horizontal)
         }
     }
     
