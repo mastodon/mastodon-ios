@@ -620,12 +620,12 @@ public enum L10n {
       }
     }
     public enum ConfirmEmail {
-      /// Tap the link we emailed to you to verify your account.
-      public static let subtitle = L10n.tr("Localizable", "Scene.ConfirmEmail.Subtitle", fallback: "Tap the link we emailed to you to verify your account.")
-      /// Tap the link we emailed to you to verify your account
-      public static let tapTheLinkWeEmailedToYouToVerifyYourAccount = L10n.tr("Localizable", "Scene.ConfirmEmail.TapTheLinkWeEmailedToYouToVerifyYourAccount", fallback: "Tap the link we emailed to you to verify your account")
-      /// One last thing.
-      public static let title = L10n.tr("Localizable", "Scene.ConfirmEmail.Title", fallback: "One last thing.")
+      /// Tap the link we sent you to verify %@. We'll wait right here.
+      public static func tapTheLinkWeEmailedToYouToVerifyYourAccount(_ p1: Any) -> String {
+        return L10n.tr("Localizable", "Scene.ConfirmEmail.TapTheLinkWeEmailedToYouToVerifyYourAccount", String(describing: p1), fallback: "Tap the link we sent you to verify %@. We'll wait right here.")
+      }
+      /// Check Your Inbox
+      public static let title = L10n.tr("Localizable", "Scene.ConfirmEmail.Title", fallback: "Check Your Inbox")
       public enum Button {
         /// Open Email App
         public static let openEmailApp = L10n.tr("Localizable", "Scene.ConfirmEmail.Button.OpenEmailApp", fallback: "Open Email App")

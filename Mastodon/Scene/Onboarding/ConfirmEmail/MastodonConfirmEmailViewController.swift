@@ -26,19 +26,10 @@ final class MastodonConfirmEmailViewController: UIViewController, NeedsDependenc
 
     let stackView = UIStackView()
 
-    let largeTitleLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFontMetrics(forTextStyle: .largeTitle).scaledFont(for: UIFont.systemFont(ofSize: 34, weight: .bold))
-        label.textColor = .label
-        label.text = L10n.Scene.ConfirmEmail.title
-        return label
-    }()
-
     private(set) lazy var subtitleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFontMetrics(forTextStyle: .title1).scaledFont(for: UIFont.systemFont(ofSize: 20))
-        label.textColor = .secondaryLabel
-        label.text = L10n.Scene.ConfirmEmail.tapTheLinkWeEmailedToYouToVerifyYourAccount
+        label.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: UIFont.systemFont(ofSize: 17))
+        label.textColor = .label
         label.numberOfLines = 0
         return label
     }()
@@ -57,10 +48,6 @@ final class MastodonConfirmEmailViewController: UIViewController, NeedsDependenc
         return navigationActionView
     }()
     
-    deinit {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-    }
-    
 }
 
 extension MastodonConfirmEmailViewController {
@@ -68,8 +55,9 @@ extension MastodonConfirmEmailViewController {
     override func viewDidLoad() {
 
         setupOnboardingAppearance()
-        configureTitleLabel()
         configureMargin()
+
+        subtitleLabel.text = L10n.Scene.ConfirmEmail.tapTheLinkWeEmailedToYouToVerifyYourAccount(viewModel.email)
 
         // stackView
         stackView.axis = .vertical
@@ -77,7 +65,6 @@ extension MastodonConfirmEmailViewController {
         stackView.spacing = 10
         stackView.layoutMargins = UIEdgeInsets(top: 10, left: 0, bottom: 23, right: 0)
         stackView.isLayoutMarginsRelativeArrangement = true
-        stackView.addArrangedSubview(largeTitleLabel)
         stackView.addArrangedSubview(subtitleLabel)
         stackView.addArrangedSubview(emailImageView)
         emailImageView.setContentHuggingPriority(.defaultLow, for: .vertical)
@@ -140,31 +127,19 @@ extension MastodonConfirmEmailViewController {
         
         navigationActionView.nextButton.setTitle(L10n.Scene.ConfirmEmail.Button.openEmailApp, for: .normal)
         navigationActionView.nextButton.addTarget(self, action: #selector(MastodonConfirmEmailViewController.openEmailButtonPressed(_:)), for: .touchUpInside)
+
+        title = L10n.Scene.ConfirmEmail.title
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         
-        configureTitleLabel()
         configureMargin()
     }
     
 }
 
 extension MastodonConfirmEmailViewController {
-    private func configureTitleLabel() {
-        switch traitCollection.horizontalSizeClass {
-        case .regular:
-            navigationItem.largeTitleDisplayMode = .always
-            navigationItem.title = L10n.Scene.ConfirmEmail.title.replacingOccurrences(of: "\n", with: " ")
-            largeTitleLabel.isHidden = true
-        default:
-            navigationItem.largeTitleDisplayMode = .never
-            navigationItem.title = nil
-            largeTitleLabel.isHidden = false
-        }
-    }
-    
     private func configureMargin() {
         switch traitCollection.horizontalSizeClass {
         case .regular:
