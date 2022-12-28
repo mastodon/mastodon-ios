@@ -20,7 +20,7 @@ import MastodonLocalization
 class MastodonPickServerViewModel: NSObject {
 
     enum EmptyStateViewState {
-        case none
+        case none   
         case loading
         case badNetwork
     }
@@ -35,11 +35,10 @@ class MastodonPickServerViewModel: NSObject {
         var items: [CategoryPickerItem] = []
         items.append(.language(language: nil))
         items.append(.signupSpeed(manuallyReviewed: nil))
-        items.append(.all)
         items.append(contentsOf: APIService.stubCategories().map { CategoryPickerItem.category(category: $0) })
         return items
     }()
-    let selectCategoryItem = CurrentValueSubject<CategoryPickerItem, Never>(.all)
+    let selectCategoryItem = CurrentValueSubject<CategoryPickerItem, Never>(.category(category: Mastodon.Entity.Category(category: Mastodon.Entity.Category.Kind.general.rawValue, serversCount: 0)))
     let searchText = CurrentValueSubject<String, Never>("")
     let selectedLanguage = CurrentValueSubject<String?, Never>(nil)
     let manualApprovalRequired = CurrentValueSubject<Bool?, Never>(nil)
@@ -174,8 +173,6 @@ extension MastodonPickServerViewModel {
             
             // Filter the indexed servers by category or search text
             switch selectCategoryItem {
-            case .all:
-                return MastodonPickServerViewModel.filterServers(servers: indexedServers, language: filters.selectedLanguage, manualApprovalRequired: filters.manualApprovalRequired, category: nil, searchText: searchText)
             case .language(_), .signupSpeed(_):
                 return MastodonPickServerViewModel.filterServers(servers: indexedServers, language: filters.selectedLanguage, manualApprovalRequired: filters.manualApprovalRequired, category: nil, searchText: searchText)
             case .category(let category):
@@ -298,7 +295,7 @@ extension MastodonPickServerViewModel: PickServerCategoryCollectionViewCellDeleg
         guard let item = cell.item else { return }
 
         switch item {
-        case .all, .category(_):
+        case .category(_):
             return
         case .language(_):
             guard allLanguages.value.isNotEmpty else { return }

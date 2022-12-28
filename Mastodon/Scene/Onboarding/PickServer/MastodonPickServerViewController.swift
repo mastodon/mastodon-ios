@@ -14,6 +14,7 @@ import MastodonAsset
 import MastodonCore
 import MastodonLocalization
 import MastodonUI
+import MastodonSDK
 
 final class MastodonPickServerViewController: UIViewController, NeedsDependency {
     
@@ -390,14 +391,17 @@ extension MastodonPickServerViewController: UITableViewDelegate {
 // MARK: - PickServerServerSectionTableHeaderViewDelegate
 extension MastodonPickServerViewController: PickServerServerSectionTableHeaderViewDelegate {
     func pickServerServerSectionTableHeaderView(_ headerView: PickServerServerSectionTableHeaderView, collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let diffableDataSource = headerView.diffableDataSource else { return }
-        let item = diffableDataSource.itemIdentifier(for: indexPath)
+        guard let diffableDataSource = headerView.diffableDataSource,
+              let item = diffableDataSource.itemIdentifier(for: indexPath),
+              let cell = collectionView.cellForItem(at: indexPath) as? PickServerCategoryCollectionViewCell else { return }
+
         if case let .language(_) = item {
-            // is handled by the button
+            viewModel.didPressMenuButton(in: cell)
         } else if case let .signupSpeed(_) = item {
             // gets also handled by button
+            viewModel.didPressMenuButton(in: cell)
         } else {
-            viewModel.selectCategoryItem.value = item ?? .all
+            viewModel.selectCategoryItem.value = item
         }
     }
 }

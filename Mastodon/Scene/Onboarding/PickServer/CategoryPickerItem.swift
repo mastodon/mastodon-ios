@@ -12,7 +12,6 @@ import MastodonLocalization
 
 /// Note: update Equatable when change case
 enum CategoryPickerItem {
-    case all
     case language(language: String?)
     case signupSpeed(manuallyReviewed: Bool?)
     case category(category: Mastodon.Entity.Category)
@@ -22,8 +21,6 @@ extension CategoryPickerItem {
     
     var title: String {
         switch self {
-        case .all:
-            return L10n.Scene.ServerPicker.Button.Category.all
         case .language(let language):
             if let language {
                 return language
@@ -74,8 +71,6 @@ extension CategoryPickerItem {
     
     var accessibilityDescription: String {
         switch self {
-        case .all:
-            return L10n.Scene.ServerPicker.Button.Category.allAccessiblityDescription
         case .language(let language):
             if let language {
                 return language
@@ -128,8 +123,6 @@ extension CategoryPickerItem {
 extension CategoryPickerItem: Equatable {
     static func == (lhs: CategoryPickerItem, rhs: CategoryPickerItem) -> Bool {
         switch (lhs, rhs) {
-        case (.all, .all):
-            return true
         case (.category(let categoryLeft), .category(let categoryRight)):
             return categoryLeft.category.rawValue == categoryRight.category.rawValue
         case (.language(let languageLeft), .language(let languageRight)):
@@ -145,8 +138,6 @@ extension CategoryPickerItem: Equatable {
 extension CategoryPickerItem: Hashable {
     func hash(into hasher: inout Hasher) {
         switch self {
-        case .all:
-            hasher.combine(String(describing: CategoryPickerItem.all.self))
         case .language(let language):
             if let language {
                 return hasher.combine(language)

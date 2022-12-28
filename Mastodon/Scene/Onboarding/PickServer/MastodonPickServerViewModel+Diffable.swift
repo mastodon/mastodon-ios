@@ -7,6 +7,7 @@
 
 import UIKit
 import Combine
+import MastodonSDK
 
 extension MastodonPickServerViewModel {
     
@@ -27,8 +28,9 @@ extension MastodonPickServerViewModel {
         serverSectionHeaderView.delegate = pickServerServerSectionTableHeaderViewDelegate
         serverSectionHeaderView.diffableDataSource?.apply(sectionHeaderSnapshot, animatingDifferences: false) { [weak self] in
             guard let self = self else { return }
-            guard let indexPath = self.serverSectionHeaderView.diffableDataSource?.indexPath(for: .all) else { return }
-            self.serverSectionHeaderView.collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .centeredHorizontally)
+            guard let indexPath = self.serverSectionHeaderView.diffableDataSource?.indexPath(for: .category(category: .init(category: Mastodon.Entity.Category.Kind.general.rawValue, serversCount: 0))) else { return }
+
+            self.serverSectionHeaderView.collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .right)
         }
         
         // set tableView
