@@ -12,14 +12,14 @@ import MastodonUI
 import MastodonLocalization
 
 fileprivate extension CGFloat {
-    static let cloudsStartPosition = 0.0
+    static let cloudsStartPosition = -20.0
     static let centerHillStartPosition = 20.0
     static let airplaneStartPosition = -178.0
     static let leftHillStartPosition = 30.0
-    static let rightHillStartPosition = -161.0
-    static let leftHillSpeed = 20.0
+    static let rightHillStartPosition = -200.0
+    static let leftHillSpeed = 6.0
     static let centerHillSpeed = 40.0
-    static let rightHillSpeed = 20.0
+    static let rightHillSpeed = 6.0
 }
 
 final class WelcomeIllustrationView: UIView {
@@ -177,11 +177,7 @@ extension WelcomeIllustrationView {
     }
     
     func update(contentOffset: CGFloat) {
-        cloudsLeftAnchor?.constant = {
-            let val = contentOffset / cloudsDrag + .cloudsStartPosition
-            print(val)
-            return val
-        }()
+        cloudsLeftAnchor?.constant = contentOffset / cloudsDrag + .cloudsStartPosition
         elephantOnAirplaneLeftConstraint?.constant = contentOffset / airplaneDrag + .airplaneStartPosition
         leftHillLeftConstraint?.constant = contentOffset / .leftHillSpeed + .leftHillStartPosition
         centerHillLeftConstraint?.constant = contentOffset / .centerHillSpeed + .centerHillStartPosition
