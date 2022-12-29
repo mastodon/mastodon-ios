@@ -48,14 +48,10 @@ extension Date {
                 if earlierDate.timeIntervalSince(latestDate) < -(7 * 24 * 60 * 60) {
                     let currentYear = Date.calendar.dateComponents([.year], from: Date())
                     let earlierDateYear = Date.calendar.dateComponents([.year], from: earlierDate)
-                    if #available(iOS 15.0, *) {
-                        if currentYear.year! > earlierDateYear.year! {
-                            return earlierDate.formatted(.dateTime.year().month(.abbreviated).day())
-                        } else {
-                            return earlierDate.formatted(.dateTime.month(.abbreviated).day())
-                        }
+                    if currentYear.year! > earlierDateYear.year! {
+                        return earlierDate.formatted(.dateTime.year().month(.abbreviated).day())
                     } else {
-                        return Date.abbreviatedDateFormatter.string(from: earlierDate)
+                        return earlierDate.formatted(.dateTime.month(.abbreviated).day())
                     }
                 } else {
                     return Date.relativeTimestampFormatter.localizedString(for: earlierDate, relativeTo: latestDate)

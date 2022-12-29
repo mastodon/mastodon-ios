@@ -52,9 +52,7 @@ extension ThemeService {
         UINavigationBar.appearance().standardAppearance = appearance
         UINavigationBar.appearance().compactAppearance = appearance
         UINavigationBar.appearance().scrollEdgeAppearance = appearance
-        if #available(iOS 15.0, *) {
-            UINavigationBar.appearance().compactScrollEdgeAppearance = appearance
-        }
+        UINavigationBar.appearance().compactScrollEdgeAppearance = appearance
 
         // set tab bar appearance
         let tabBarAppearance = UITabBarAppearance()
@@ -76,11 +74,7 @@ extension ThemeService {
         tabBarAppearance.backgroundColor = theme.tabBarBackgroundColor
         tabBarAppearance.selectionIndicatorTintColor = ThemeService.tintColor
         UITabBar.appearance().standardAppearance = tabBarAppearance
-        if #available(iOS 15.0, *) {
-            UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
-        } else {
-            // Fallback on earlier versions
-        }
+        UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
         UITabBar.appearance().barTintColor = theme.tabBarBackgroundColor
 
         // set table view cell appearance
