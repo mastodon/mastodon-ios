@@ -77,7 +77,7 @@ extension PickServerSection {
             let paragraphStyle = NSMutableParagraphStyle()
             paragraphStyle.lineHeightMultiple = 1.12
             let valueAttributedString = NSAttributedString(
-                string: parseUsersCount(server.totalUsers),
+                string: server.totalUsers.asAbbreviatedCountString(),
                 attributes: [
                     .paragraphStyle: paragraphStyle
                 ]
@@ -125,17 +125,6 @@ extension PickServerSection {
             }
             .store(in: &cell.disposeBag)
     }
-    
-    private static func parseUsersCount(_ usersCount: Int) -> String {
-        switch usersCount {
-        case 0..<1000:
-            return "\(usersCount)"
-        default:
-            let usersCountInThousand = Float(usersCount) / 1000.0
-            return String(format: "%.1fK", usersCountInThousand)
-        }
-    }
-    
 }
 
 extension PickServerSection {
