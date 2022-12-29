@@ -277,10 +277,11 @@ extension ComposeContentViewModel {
         $content
             .sink { [weak self] _ in
                 DispatchQueue.main.async {
-                    guard let attributedText = self?.contentMetaText?.textView.attributedText else {
+                    guard let self, let attributedText = self.contentMetaText?.textView.attributedText else {
                         self?.contentWeightedLength = 0
                         return
                     }
+                    let urlCharCount = self.authContext.mastodonAuthenticationBox.authenticationRecord.object(in: self.context.managedObjectContext)?.instance?.configuration?.statuses?.charactersReservedPerURL ?? 23
                     // Reference: StatusLengthValidator.countable_text
                     // not entirely accurate: Ruby code says “To ensure that we only
                     // give length concessions to entities that will be correctly
@@ -293,15 +294,14 @@ extension ComposeContentViewModel {
                         let meta = attributes[NSAttributedString.Key("MetaAttributeKey.meta")] as? Meta
                         switch meta {
                         case .url:
-                            // StatusLengthValidator::URL_PLACEHOLDER_CHARS
-                            length += 23
+                            length += urlCharCount
                         case .mention(_, mention: let mention, userInfo: _):
                             length += ("@" + mention.prefix(while: { $0 != "@" })).count
                         default:
                             length += range.length
                         }
                     }
-                    self?.contentWeightedLength = length
+                    self.contentWeightedLength = length
                 }
             }
             .store(in: &disposeBag)
