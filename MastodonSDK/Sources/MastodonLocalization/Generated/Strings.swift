@@ -630,6 +630,16 @@ public enum L10n {
         /// Resend
         public static let resend = L10n.tr("Localizable", "Scene.ConfirmEmail.Button.Resend", fallback: "Resend")
       }
+      public enum DidntGetLink {
+        /// Didn't get a Link?
+        public static let `prefix` = L10n.tr("Localizable", "Scene.ConfirmEmail.DidntGetLink.Prefix", fallback: "Didn't get a Link?")
+        /// Resend (%@)
+        public static func resendIn(_ p1: Any) -> String {
+          return L10n.tr("Localizable", "Scene.ConfirmEmail.DidntGetLink.ResendIn", String(describing: p1), fallback: "Resend (%@)")
+        }
+        /// Resend now.
+        public static let resendNow = L10n.tr("Localizable", "Scene.ConfirmEmail.DidntGetLink.ResendNow", fallback: "Resend now.")
+      }
       public enum DontReceiveEmail {
         /// Check if your email address is correct as well as your junk folder if you haven’t.
         public static let description = L10n.tr("Localizable", "Scene.ConfirmEmail.DontReceiveEmail.Description", fallback: "Check if your email address is correct as well as your junk folder if you haven’t.")

@@ -408,6 +408,11 @@
                 "description": "We just sent you an email. Check your junk folder if you haven’t.",
                 "mail": "Mail",
                 "open_email_client": "Open Email Client"
+            },
+            "didnt_get_link": {
+                "prefix": "Didn't get a Link?",
+                "resend_in": "Resend (%@)",
+                "resend_now": "Resend now."
             }
         },
         "home_timeline": {

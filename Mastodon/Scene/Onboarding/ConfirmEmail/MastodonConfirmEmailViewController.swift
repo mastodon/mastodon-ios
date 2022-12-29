@@ -43,8 +43,18 @@ final class MastodonConfirmEmailViewController: UIViewController, NeedsDependenc
     }()
 
     let resendEmailButton: UIButton = {
+
+        let boldFont = UIFontMetrics(forTextStyle: .subheadline).scaledFont(for: .systemFont(ofSize: 15, weight: .bold))
+        let regularFont = UIFontMetrics(forTextStyle: .subheadline).scaledFont(for: .systemFont(ofSize: 15, weight: .regular))
+
         var buttonConfiguration = UIButton.Configuration.plain()
-        buttonConfiguration.attributedTitle = try! AttributedString(markdown: "Didn't get a link? **Resend (10)**")
+        var boldResendString = AttributedString(L10n.Scene.ConfirmEmail.DidntGetLink.resendIn(60), attributes: .init([.font: boldFont]))
+        var attributedTitle = AttributedString(L10n.Scene.ConfirmEmail.DidntGetLink.prefix, attributes: .init([.font: regularFont]))
+
+        attributedTitle.append(AttributedString(" "))
+        attributedTitle.append(boldResendString)
+
+        buttonConfiguration.attributedTitle = attributedTitle
 
         let button = UIButton(configuration: buttonConfiguration)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -141,16 +151,21 @@ extension MastodonConfirmEmailViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        // start timer
-        let nowIn60Seconds = Date().addingTimeInterval(10)
+        let nowIn60Seconds = Date().addingTimeInterval(60)
+        let boldFont = UIFontMetrics(forTextStyle: .subheadline).scaledFont(for: .systemFont(ofSize: 15, weight: .bold))
+        let regularFont = UIFontMetrics(forTextStyle: .subheadline).scaledFont(for: .systemFont(ofSize: 15, weight: .regular))
 
         let timer = Timer(timeInterval: 1.0, repeats: true) { [weak self] in 
             guard Date() < nowIn60Seconds else {
-                // enable button
                 self?.resendEmailButton.isEnabled = true
 
                 var configuration = self?.resendEmailButton.configuration
-                let attributedTitle = try! AttributedString(markdown: "Didn't get a link? **Resend**")
+
+                let boldResendString = AttributedString(L10n.Scene.ConfirmEmail.DidntGetLink.resendNow, attributes: .init([.font: boldFont]))
+                var attributedTitle = AttributedString(L10n.Scene.ConfirmEmail.DidntGetLink.prefix, attributes: .init([.font: regularFont]))
+
+                attributedTitle.append(AttributedString(" "))
+                attributedTitle.append(boldResendString)
 
                 configuration?.attributedTitle = attributedTitle
                 self?.resendEmailButton.configuration = configuration
@@ -160,10 +175,13 @@ extension MastodonConfirmEmailViewController {
                 return
             }
 
-            //TODO: @zeitschlag Add localization
-            //TODO: @zeitschlag Add styling
             var configuration = self?.resendEmailButton.configuration
-            let attributedTitle = try! AttributedString(markdown: "Didn't get a link? **Resend (\(Int(nowIn60Seconds.timeIntervalSinceNow) + 1))**")
+
+            let boldResendString = AttributedString(L10n.Scene.ConfirmEmail.DidntGetLink.resendIn(Int(nowIn60Seconds.timeIntervalSinceNow) + 1), attributes: .init([.font: boldFont]))
+            var attributedTitle = AttributedString(L10n.Scene.ConfirmEmail.DidntGetLink.prefix, attributes: .init([.font: regularFont]))
+
+            attributedTitle.append(AttributedString(" "))
+            attributedTitle.append(boldResendString)
 
             configuration?.attributedTitle = attributedTitle
             self?.resendEmailButton.configuration = configuration
@@ -171,7 +189,6 @@ extension MastodonConfirmEmailViewController {
         }
 
         RunLoop.main.add(timer, forMode: .default)
-//        self.resendButtonTimer = timer
     }
 }
 
