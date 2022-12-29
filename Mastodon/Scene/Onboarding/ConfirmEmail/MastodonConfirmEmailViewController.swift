@@ -41,6 +41,19 @@ final class MastodonConfirmEmailViewController: UIViewController, NeedsDependenc
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
+
+    let resendEmailButton: UIButton = {
+        var buttonConfiguration = UIButton.Configuration.plain()
+        buttonConfiguration.attributedTitle = try! AttributedString(markdown: "Didn't get a link? **Resend (10)**")
+
+        let button = UIButton(configuration: buttonConfiguration)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.isEnabled = false
+
+        return button
+    }()
+
+    var resendButtonTimer: Timer?
 }
 
 extension MastodonConfirmEmailViewController {
@@ -52,6 +65,8 @@ extension MastodonConfirmEmailViewController {
 
         subtitleLabel.text = L10n.Scene.ConfirmEmail.tapTheLinkWeEmailedToYouToVerifyYourAccount(viewModel.email)
 
+        resendEmailButton.addTarget(self, action: #selector(MastodonConfirmEmailViewController.resendButtonPressed(_:)), for: .touchUpInside)
+
         // stackView
         stackView.axis = .vertical
         stackView.distribution = .fill
@@ -60,6 +75,7 @@ extension MastodonConfirmEmailViewController {
         stackView.isLayoutMarginsRelativeArrangement = true
         stackView.addArrangedSubview(subtitleLabel)
         stackView.addArrangedSubview(emailImageView)
+        stackView.addArrangedSubview(resendEmailButton)
         emailImageView.setContentHuggingPriority(.defaultLow, for: .vertical)
         emailImageView.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
 
@@ -121,7 +137,42 @@ extension MastodonConfirmEmailViewController {
         
         configureMargin()
     }
-    
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        // start timer
+        let nowIn60Seconds = Date().addingTimeInterval(10)
+
+        let timer = Timer(timeInterval: 1.0, repeats: true) { [weak self] in 
+            guard Date() < nowIn60Seconds else {
+                // enable button
+                self?.resendEmailButton.isEnabled = true
+
+                var configuration = self?.resendEmailButton.configuration
+                let attributedTitle = try! AttributedString(markdown: "Didn't get a link? **Resend**")
+
+                configuration?.attributedTitle = attributedTitle
+                self?.resendEmailButton.configuration = configuration
+                self?.resendEmailButton.setNeedsUpdateConfiguration()
+
+                $0.invalidate()
+                return
+            }
+
+            //TODO: @zeitschlag Add localization
+            //TODO: @zeitschlag Add styling
+            var configuration = self?.resendEmailButton.configuration
+            let attributedTitle = try! AttributedString(markdown: "Didn't get a link? **Resend (\(Int(nowIn60Seconds.timeIntervalSinceNow) + 1))**")
+
+            configuration?.attributedTitle = attributedTitle
+            self?.resendEmailButton.configuration = configuration
+            self?.resendEmailButton.setNeedsUpdateConfiguration()
+        }
+
+        RunLoop.main.add(timer, forMode: .default)
+//        self.resendButtonTimer = timer
+    }
 }
 
 extension MastodonConfirmEmailViewController {

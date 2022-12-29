@@ -627,8 +627,6 @@ public enum L10n {
       /// Check Your Inbox
       public static let title = L10n.tr("Localizable", "Scene.ConfirmEmail.Title", fallback: "Check Your Inbox")
       public enum Button {
-        /// Open Email App
-        public static let openEmailApp = L10n.tr("Localizable", "Scene.ConfirmEmail.Button.OpenEmailApp", fallback: "Open Email App")
         /// Resend
         public static let resend = L10n.tr("Localizable", "Scene.ConfirmEmail.Button.Resend", fallback: "Resend")
       }
