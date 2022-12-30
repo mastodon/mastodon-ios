@@ -149,8 +149,8 @@ Your profile looks like this to them.";
 "Scene.Compose.Accessibility.RemovePoll" = "Remove Poll";
 "Scene.Compose.Attachment.AttachmentBroken" = "This %@ is broken and can’t be
 uploaded to Mastodon.";
-"Scene.Compose.Attachment.DescriptionPhoto" = "Describe the photo for the visually-impaired...";
-"Scene.Compose.Attachment.DescriptionVideo" = "Describe the video for the visually-impaired...";
+"Scene.Compose.Attachment.DescriptionPhoto" = "Describe the photo for people who are blind or have low vision";
+"Scene.Compose.Attachment.DescriptionVideo" = "Describe the video for people who are blind or have low vision";
 "Scene.Compose.Attachment.Photo" = "photo";
 "Scene.Compose.Attachment.Video" = "video";
 "Scene.Compose.AutoComplete.SpaceToAdd" = "Space to add";

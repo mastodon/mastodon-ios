@@ -527,10 +527,10 @@ public enum L10n {
         public static let canNotRecognizeThisMediaAttachment = L10n.tr("Localizable", "Scene.Compose.Attachment.CanNotRecognizeThisMediaAttachment", fallback: "Can not recognize this media attachment")
         /// Compressing...
         public static let compressingState = L10n.tr("Localizable", "Scene.Compose.Attachment.CompressingState", fallback: "Compressing...")
-        /// Describe the photo for the visually-impaired...
-        public static let descriptionPhoto = L10n.tr("Localizable", "Scene.Compose.Attachment.DescriptionPhoto", fallback: "Describe the photo for the visually-impaired...")
-        /// Describe the video for the visually-impaired...
-        public static let descriptionVideo = L10n.tr("Localizable", "Scene.Compose.Attachment.DescriptionVideo", fallback: "Describe the video for the visually-impaired...")
+        /// Describe the photo for people who are blind or have low vision
+        public static let descriptionPhoto = L10n.tr("Localizable", "Scene.Compose.Attachment.DescriptionPhoto", fallback: "Describe the photo for people who are blind or have low vision")
+        /// Describe the video for people who are blind or have low vision
+        public static let descriptionVideo = L10n.tr("Localizable", "Scene.Compose.Attachment.DescriptionVideo", fallback: "Describe the video for people who are blind or have low vision")
         /// Load Failed
         public static let loadFailed = L10n.tr("Localizable", "Scene.Compose.Attachment.LoadFailed", fallback: "Load Failed")
         /// photo
