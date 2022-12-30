@@ -3,25 +3,35 @@
 
 import PackageDescription
 
+let publicLibraryTargets = [
+    "CoreDataStack",
+    "MastodonAsset",
+    "MastodonCommon",
+    "MastodonCore",
+    "MastodonExtension",
+    "MastodonLocalization",
+    "MastodonSDK",
+    "MastodonUI",
+]
+
 let package = Package(
     name: "MastodonSDK",
     defaultLocalization: "en",
     platforms: [
-        .iOS(.v14),
+        .iOS(.v15),
     ],
     products: [
+        // Static Library
         .library(
             name: "MastodonSDK",
-            targets: [
-                "CoreDataStack",
-                "MastodonAsset",
-                "MastodonCommon",
-                "MastodonCore",
-                "MastodonExtension",
-                "MastodonLocalization",
-                "MastodonSDK",
-                "MastodonUI",
-            ])
+            targets: publicLibraryTargets
+        ),
+        // Dynamic Library
+        .library(
+            name: "MastodonSDKDynamic",
+            type: .dynamic,
+            targets: publicLibraryTargets
+        )
     ],
     dependencies: [
         .package(name: "ArkanaKeys", path: "../dependencies/ArkanaKeys"),

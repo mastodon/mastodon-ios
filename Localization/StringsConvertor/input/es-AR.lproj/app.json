@@ -51,6 +51,11 @@
             "clean_cache": {
                 "title": "Limpiar caché",
                 "message": "Se limpió exitosamente %s de la memoria caché."
+            },
+            "translation_failed": {
+                "title": "Nota",
+                "message": "Falló la traducción. Tal vez el administrador no habilitó las traducciones en este servidor, o este servidor está ejecutando una versión antigua de Mastodon en donde las traducciones aún no estaban disponibles.",
+                "button": "Aceptar"
             }
         },
         "controls": {
@@ -78,6 +83,7 @@
                 "sign_up": "Crear cuenta",
                 "see_more": "Ver más",
                 "preview": "Previsualización",
+                "copy": "Copiar",
                 "share": "Compartir",
                 "share_user": "Compartir %s",
                 "share_post": "Compartir mensaje",
@@ -91,12 +97,16 @@
                 "block_domain": "Bloquear a %s",
                 "unblock_domain": "Desbloquear a %s",
                 "settings": "Configuración",
-                "delete": "Eliminar"
+                "delete": "Eliminar",
+                "translate_post": {
+                    "title": "Traducido desde el %s",
+                    "unknown_language": "Desconocido"
+                }
             },
             "tabs": {
                 "home": "Principal",
-                "search": "Buscar",
-                "notification": "Notificación",
+                "search_and_explore": "Buscar y explorar",
+                "notifications": "Notificaciones",
                 "profile": "Perfil"
             },
             "keyboard": {
@@ -132,6 +142,8 @@
                 "sensitive_content": "Contenido sensible",
                 "media_content_warning": "Tocá en cualquier parte para mostrar",
                 "tap_to_reveal": "Tocá para mostrar",
+                "load_embed": "Cargar lo insertado",
+                "link_via_user": "%s vía %s",
                 "poll": {
                     "vote": "Votar",
                     "closed": "Cerrada"
@@ -153,6 +165,7 @@
                     "show_image": "Mostrar imagen",
                     "show_gif": "Mostrar GIF",
                     "show_video_player": "Mostrar reproductor de video",
+                    "share_link_in_post": "Compartir enlace en mensaje",
                     "tap_then_hold_to_show_menu": "Tocá y mantené presionado para mostrar el menú"
                 },
                 "tag": {
@@ -168,6 +181,12 @@
                     "private": "Sólo sus seguidores pueden ver este mensaje.",
                     "private_from_me": "Sólo mis seguidores pueden ver este mensaje.",
                     "direct": "Sólo el usuario mencionado puede ver este mensaje."
+                },
+                "translation": {
+                    "translated_from": "Traducido desde el %s vía %s",
+                    "unknown_language": "Desconocido",
+                    "unknown_provider": "Desconocido",
+                    "show_original": "Mostrar original"
                 }
             },
             "friendship": {
@@ -444,11 +463,15 @@
                 "follows_you": "Te sigue"
             },
             "dashboard": {
-                "posts": "mensajes",
-                "following": "siguiendo",
-                "followers": "seguidores"
+                "my_posts": "mensajes",
+                "my_following": "siguiendo",
+                "my_followers": "seguidores",
+                "other_posts": "mensajes",
+                "other_following": "siguiendo",
+                "other_followers": "seguidores"
             },
             "fields": {
+                "joined": "En este servidor desde",
                 "add_row": "Agregar fila",
                 "placeholder": {
                     "label": "Nombre de campo",
@@ -722,6 +745,18 @@
         },
         "bookmark": {
             "title": "Marcadores"
+        },
+        "followed_tags": {
+            "title": "Etiquetas seguidas",
+            "header": {
+                "posts": "mensajes",
+                "participants": "participantes",
+                "posts_today": "mensajes hoy"
+            },
+            "actions": {
+                "follow": "Seguir",
+                "unfollow": "Dejar de seguir"
+            }
         }
     }
 }

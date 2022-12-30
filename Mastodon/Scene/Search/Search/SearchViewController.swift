@@ -135,10 +135,7 @@ extension SearchViewController {
         navigationItem.standardAppearance = navigationBarAppearance
         navigationItem.scrollEdgeAppearance = navigationBarAppearance
         navigationItem.compactAppearance = navigationBarAppearance
-
-        if #available(iOS 15, *) {
-            navigationItem.compactScrollEdgeAppearance = navigationBarAppearance
-        }
+        navigationItem.compactScrollEdgeAppearance = navigationBarAppearance
     }
 
     private func setupSearchBar() {

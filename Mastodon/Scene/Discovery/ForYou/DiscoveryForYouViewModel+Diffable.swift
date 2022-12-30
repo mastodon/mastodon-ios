@@ -41,7 +41,7 @@ extension DiscoveryForYouViewModel {
                 let items = records.map { DiscoveryItem.user($0) }
                 snapshot.appendItems(items, toSection: .forYou)
             
-                diffableDataSource.applySnapshot(snapshot, animated: false)
+                diffableDataSource.apply(snapshot, animatingDifferences: false)
             }
             .store(in: &disposeBag)
     }

@@ -34,12 +34,7 @@ extension SuggestionAccountViewModel {
                 let items: [RecommendAccountItem] = records.map { RecommendAccountItem.account($0) }
                 snapshot.appendItems(items, toSection: .main)
                 
-                if #available(iOS 15.0, *) {
-                    tableViewDiffableDataSource.applySnapshotUsingReloadData(snapshot, completion: nil)
-                } else {
-                    // Fallback on earlier versions
-                    tableViewDiffableDataSource.applySnapshot(snapshot, animated: false, completion: nil)
-                }
+                tableViewDiffableDataSource.applySnapshotUsingReloadData(snapshot, completion: nil)
             }
             .store(in: &disposeBag)
     }
@@ -71,13 +66,7 @@ extension SuggestionAccountViewModel {
                 }
                 
                 snapshot.appendItems(items, toSection: .main)
-                
-                if #available(iOS 15.0, *) {
-                    collectionViewDiffableDataSource.applySnapshotUsingReloadData(snapshot, completion: nil)
-                } else {
-                    // Fallback on earlier versions
-                    collectionViewDiffableDataSource.applySnapshot(snapshot, animated: false, completion: nil)
-                }
+                collectionViewDiffableDataSource.applySnapshotUsingReloadData(snapshot, completion: nil)
             }
             .store(in: &disposeBag)
     }

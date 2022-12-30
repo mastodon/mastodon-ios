@@ -496,7 +496,10 @@ extension NotificationView {
 
 // MARK: - StatusViewDelegate
 extension NotificationView: StatusViewDelegate {
-    
+    public func statusView(_ statusView: StatusView, didTapCardWithURL url: URL) {
+        assertionFailure()
+    }
+
     public func statusView(_ statusView: StatusView, headerDidPressed header: UIView) {
         // do nothing
     }
@@ -599,6 +602,15 @@ extension NotificationView: StatusViewDelegate {
         assertionFailure()
     }
     
+    public func statusView(_ statusView: StatusView, cardControl: StatusCardControl, didTapURL url: URL) {
+        assertionFailure()
+    }
+
+    public func statusView(_ statusView: StatusView, cardControlMenu: StatusCardControl) -> UIMenu? {
+        assertionFailure()
+        return nil
+    }
+
 }
 
 // MARK: - MastodonMenuDelegate

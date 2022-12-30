@@ -106,6 +106,7 @@ extension Mastodon.Response {
     public struct Link {
         public let maxID: Mastodon.Entity.Status.ID?
         public let minID: Mastodon.Entity.Status.ID?
+        public let linkIDs: [String: Mastodon.Entity.Status.ID]
         public let offset: Int?
         
         init(link: String) {
@@ -135,6 +136,33 @@ extension Mastodon.Response {
                 let offset = link[range]
                 return Int(offset)
             }()
+            self.linkIDs = {
+                var linkIDs = [String: Mastodon.Entity.Status.ID]()
+                let links = link.components(separatedBy: ", ")
+                for link in links {
+                    guard let regex = try? NSRegularExpression(pattern: "<(.*)>; *rel=\"(.*)\"") else { return [:] }
+                    let results = regex.matches(in: link, options: [], range: NSRange(link.startIndex..<link.endIndex, in: link))
+                    for match in results {
+                        guard
+                            let labelRange = Range(match.range(at: 2), in: link),
+                            let linkRange = Range(match.range(at: 1), in: link)
+                        else {
+                            continue
+                        }
+                        linkIDs[String(link[labelRange])] = String(link[linkRange])
+                    }
+                }
+                return linkIDs
+            }()
         }
+    }
+}
+
+public extension Mastodon.Entity.Status.ID {
+    static let linkPrev = "prev"
+    static let linkNext = "next"
+    
+    var sinceId: String? {
+        components(separatedBy: "&since_id=").last
     }
 }

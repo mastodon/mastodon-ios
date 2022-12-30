@@ -87,6 +87,14 @@ public enum L10n {
         /// Sign Up Failure
         public static let title = L10n.tr("Localizable", "Common.Alerts.SignUpFailure.Title", fallback: "Sign Up Failure")
       }
+      public enum TranslationFailed {
+        /// OK
+        public static let button = L10n.tr("Localizable", "Common.Alerts.TranslationFailed.Button", fallback: "OK")
+        /// Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.
+        public static let message = L10n.tr("Localizable", "Common.Alerts.TranslationFailed.Message", fallback: "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.")
+        /// Note
+        public static let title = L10n.tr("Localizable", "Common.Alerts.TranslationFailed.Title", fallback: "Note")
+      }
       public enum VoteFailure {
         /// The poll has ended
         public static let pollEnded = L10n.tr("Localizable", "Common.Alerts.VoteFailure.PollEnded", fallback: "The poll has ended")
@@ -112,6 +120,8 @@ public enum L10n {
         public static let confirm = L10n.tr("Localizable", "Common.Controls.Actions.Confirm", fallback: "Confirm")
         /// Continue
         public static let `continue` = L10n.tr("Localizable", "Common.Controls.Actions.Continue", fallback: "Continue")
+        /// Copy
+        public static let copy = L10n.tr("Localizable", "Common.Controls.Actions.Copy", fallback: "Copy")
         /// Copy Photo
         public static let copyPhoto = L10n.tr("Localizable", "Common.Controls.Actions.CopyPhoto", fallback: "Copy Photo")
         /// Delete
@@ -177,6 +187,14 @@ public enum L10n {
         /// Unblock %@
         public static func unblockDomain(_ p1: Any) -> String {
           return L10n.tr("Localizable", "Common.Controls.Actions.UnblockDomain", String(describing: p1), fallback: "Unblock %@")
+        }
+        public enum TranslatePost {
+          /// Translate from %@
+          public static func title(_ p1: Any) -> String {
+            return L10n.tr("Localizable", "Common.Controls.Actions.TranslatePost.Title", String(describing: p1), fallback: "Translate from %@")
+          }
+          /// Unknown
+          public static let unknownLanguage = L10n.tr("Localizable", "Common.Controls.Actions.TranslatePost.UnknownLanguage", fallback: "Unknown")
         }
       }
       public enum Friendship {
@@ -272,6 +290,12 @@ public enum L10n {
       public enum Status {
         /// Content Warning
         public static let contentWarning = L10n.tr("Localizable", "Common.Controls.Status.ContentWarning", fallback: "Content Warning")
+        /// %@ via %@
+        public static func linkViaUser(_ p1: Any, _ p2: Any) -> String {
+          return L10n.tr("Localizable", "Common.Controls.Status.LinkViaUser", String(describing: p1), String(describing: p2), fallback: "%@ via %@")
+        }
+        /// Load Embed
+        public static let loadEmbed = L10n.tr("Localizable", "Common.Controls.Status.LoadEmbed", fallback: "Load Embed")
         /// Tap anywhere to reveal
         public static let mediaContentWarning = L10n.tr("Localizable", "Common.Controls.Status.MediaContentWarning", fallback: "Tap anywhere to reveal")
         /// Sensitive Content
@@ -301,6 +325,8 @@ public enum L10n {
           public static let reblog = L10n.tr("Localizable", "Common.Controls.Status.Actions.Reblog", fallback: "Reblog")
           /// Reply
           public static let reply = L10n.tr("Localizable", "Common.Controls.Status.Actions.Reply", fallback: "Reply")
+          /// Share Link in Post
+          public static let shareLinkInPost = L10n.tr("Localizable", "Common.Controls.Status.Actions.ShareLinkInPost", fallback: "Share Link in Post")
           /// Show GIF
           public static let showGif = L10n.tr("Localizable", "Common.Controls.Status.Actions.ShowGif", fallback: "Show GIF")
           /// Show image
@@ -313,6 +339,18 @@ public enum L10n {
           public static let unfavorite = L10n.tr("Localizable", "Common.Controls.Status.Actions.Unfavorite", fallback: "Unfavorite")
           /// Undo reblog
           public static let unreblog = L10n.tr("Localizable", "Common.Controls.Status.Actions.Unreblog", fallback: "Undo reblog")
+        }
+        public enum Media {
+          /// %@, attachment %d of %d
+          public static func accessibilityLabel(_ p1: Any, _ p2: Int, _ p3: Int) -> String {
+            return L10n.tr("Localizable", "Common.Controls.Status.Media.AccessibilityLabel", String(describing: p1), p2, p3, fallback: "%@, attachment %d of %d")
+          }
+          /// Expands the GIF. Double-tap and hold to show actions
+          public static let expandGifHint = L10n.tr("Localizable", "Common.Controls.Status.Media.ExpandGifHint", fallback: "Expands the GIF. Double-tap and hold to show actions")
+          /// Expands the image. Double-tap and hold to show actions
+          public static let expandImageHint = L10n.tr("Localizable", "Common.Controls.Status.Media.ExpandImageHint", fallback: "Expands the image. Double-tap and hold to show actions")
+          /// Shows the video player. Double-tap and hold to show actions
+          public static let expandVideoHint = L10n.tr("Localizable", "Common.Controls.Status.Media.ExpandVideoHint", fallback: "Shows the video player. Double-tap and hold to show actions")
         }
         public enum MetaEntity {
           /// Email address: %@
@@ -352,6 +390,18 @@ public enum L10n {
           /// URL
           public static let url = L10n.tr("Localizable", "Common.Controls.Status.Tag.Url", fallback: "URL")
         }
+        public enum Translation {
+          /// Shown Original
+          public static let showOriginal = L10n.tr("Localizable", "Common.Controls.Status.Translation.ShowOriginal", fallback: "Shown Original")
+          /// Translated from %@ using %@
+          public static func translatedFrom(_ p1: Any, _ p2: Any) -> String {
+            return L10n.tr("Localizable", "Common.Controls.Status.Translation.TranslatedFrom", String(describing: p1), String(describing: p2), fallback: "Translated from %@ using %@")
+          }
+          /// Unknown
+          public static let unknownLanguage = L10n.tr("Localizable", "Common.Controls.Status.Translation.UnknownLanguage", fallback: "Unknown")
+          /// Unknown
+          public static let unknownProvider = L10n.tr("Localizable", "Common.Controls.Status.Translation.UnknownProvider", fallback: "Unknown")
+        }
         public enum Visibility {
           /// Only mentioned user can see this post.
           public static let direct = L10n.tr("Localizable", "Common.Controls.Status.Visibility.Direct", fallback: "Only mentioned user can see this post.")
@@ -370,8 +420,8 @@ public enum L10n {
         public static let notifications = L10n.tr("Localizable", "Common.Controls.Tabs.Notifications", fallback: "Notifications")
         /// Profile
         public static let profile = L10n.tr("Localizable", "Common.Controls.Tabs.Profile", fallback: "Profile")
-        /// Search
-        public static let search = L10n.tr("Localizable", "Common.Controls.Tabs.Search", fallback: "Search")
+        /// Search and Explore
+        public static let searchAndExplore = L10n.tr("Localizable", "Common.Controls.Tabs.SearchAndExplore", fallback: "Search and Explore")
       }
       public enum Timeline {
         /// Filtered
@@ -633,6 +683,24 @@ public enum L10n {
       /// Favorited By
       public static let title = L10n.tr("Localizable", "Scene.FavoritedBy.Title", fallback: "Favorited By")
     }
+    public enum FollowedTags {
+      /// Followed Tags
+      public static let title = L10n.tr("Localizable", "Scene.FollowedTags.Title", fallback: "Followed Tags")
+      public enum Actions {
+        /// Follow
+        public static let follow = L10n.tr("Localizable", "Scene.FollowedTags.Actions.Follow", fallback: "Follow")
+        /// Unfollow
+        public static let unfollow = L10n.tr("Localizable", "Scene.FollowedTags.Actions.Unfollow", fallback: "Unfollow")
+      }
+      public enum Header {
+        /// participants
+        public static let participants = L10n.tr("Localizable", "Scene.FollowedTags.Header.Participants", fallback: "participants")
+        /// posts
+        public static let posts = L10n.tr("Localizable", "Scene.FollowedTags.Header.Posts", fallback: "posts")
+        /// posts today
+        public static let postsToday = L10n.tr("Localizable", "Scene.FollowedTags.Header.PostsToday", fallback: "posts today")
+      }
+    }
     public enum Follower {
       /// Followers from other servers are not displayed.
       public static let footer = L10n.tr("Localizable", "Scene.Follower.Footer", fallback: "Followers from other servers are not displayed.")
@@ -660,8 +728,8 @@ public enum L10n {
         public enum Accessibility {
           /// Tap to scroll to top and tap again to previous location
           public static let logoHint = L10n.tr("Localizable", "Scene.HomeTimeline.NavigationBarState.Accessibility.LogoHint", fallback: "Tap to scroll to top and tap again to previous location")
-          /// Logo Button
-          public static let logoLabel = L10n.tr("Localizable", "Scene.HomeTimeline.NavigationBarState.Accessibility.LogoLabel", fallback: "Logo Button")
+          /// Mastodon
+          public static let logoLabel = L10n.tr("Localizable", "Scene.HomeTimeline.NavigationBarState.Accessibility.LogoLabel", fallback: "Mastodon")
         }
       }
     }
@@ -736,15 +804,23 @@ public enum L10n {
       }
       public enum Dashboard {
         /// followers
-        public static let followers = L10n.tr("Localizable", "Scene.Profile.Dashboard.Followers", fallback: "followers")
+        public static let myFollowers = L10n.tr("Localizable", "Scene.Profile.Dashboard.MyFollowers", fallback: "followers")
         /// following
-        public static let following = L10n.tr("Localizable", "Scene.Profile.Dashboard.Following", fallback: "following")
+        public static let myFollowing = L10n.tr("Localizable", "Scene.Profile.Dashboard.MyFollowing", fallback: "following")
         /// posts
-        public static let posts = L10n.tr("Localizable", "Scene.Profile.Dashboard.Posts", fallback: "posts")
+        public static let myPosts = L10n.tr("Localizable", "Scene.Profile.Dashboard.MyPosts", fallback: "posts")
+        /// followers
+        public static let otherFollowers = L10n.tr("Localizable", "Scene.Profile.Dashboard.OtherFollowers", fallback: "followers")
+        /// following
+        public static let otherFollowing = L10n.tr("Localizable", "Scene.Profile.Dashboard.OtherFollowing", fallback: "following")
+        /// posts
+        public static let otherPosts = L10n.tr("Localizable", "Scene.Profile.Dashboard.OtherPosts", fallback: "posts")
       }
       public enum Fields {
         /// Add Row
         public static let addRow = L10n.tr("Localizable", "Scene.Profile.Fields.AddRow", fallback: "Add Row")
+        /// Joined
+        public static let joined = L10n.tr("Localizable", "Scene.Profile.Fields.Joined", fallback: "Joined")
         public enum Placeholder {
           /// Content
           public static let content = L10n.tr("Localizable", "Scene.Profile.Fields.Placeholder.Content", fallback: "Content")
@@ -1320,9 +1396,9 @@ public enum L10n {
   public enum A11y {
     public enum Plural {
       public enum Count {
-        /// Plural format key: "%#@character_count@ left"
+        /// Plural format key: "%#@character_count@"
         public static func charactersLeft(_ p1: Int) -> String {
-          return L10n.tr("Localizable", "a11y.plural.count.characters_left", p1, fallback: "Plural format key: \"%#@character_count@ left\"")
+          return L10n.tr("Localizable", "a11y.plural.count.characters_left", p1, fallback: "Plural format key: \"%#@character_count@\"")
         }
         /// Plural format key: "Input limit exceeds %#@character_count@"
         public static func inputLimitExceeds(_ p1: Int) -> String {

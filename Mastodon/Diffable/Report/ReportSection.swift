@@ -107,6 +107,7 @@ extension ReportSection {
             statusView: cell.statusView
         )
         
+        cell.statusView.viewModel.context = context
         cell.statusView.viewModel.authContext = configuration.authContext
         
         cell.configure(

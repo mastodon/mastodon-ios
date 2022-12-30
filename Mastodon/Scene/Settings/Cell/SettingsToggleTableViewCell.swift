@@ -86,7 +86,7 @@ extension SettingsToggleTableViewCell {
                 return nil
             default:
                 // set tint black for Light Mode
-                return self.contentView.window?.tintColor ?? nil
+                return self.contentView.window?.tintColor
             }
         }()
     }

@@ -31,6 +31,7 @@ final class ProfileAboutViewModel {
     
     @Published var fields: [MastodonField] = []
     @Published var emojiMeta: MastodonContent.Emojis = [:]
+    @Published var createdAt: Date = Date()
 
     init(context: AppContext) {
         self.context = context
@@ -46,6 +47,11 @@ final class ProfileAboutViewModel {
             .compactMap { $0 }
             .flatMap { $0.publisher(for: \.fields) }
             .assign(to: &$fields)
+
+        $user
+            .compactMap { $0 }
+            .flatMap { $0.publisher(for: \.createdAt) }
+            .assign(to: &$createdAt)
         
         Publishers.CombineLatest(
             $fields,

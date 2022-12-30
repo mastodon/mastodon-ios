@@ -1,51 +1,51 @@
-"16wxgf" = "Post on Mastodon";
+"16wxgf" = "Поділитись в Mastodon";
 
-"751xkl" = "Text Content";
+"751xkl" = "Текстовий вміст";
 
-"CsR7G2" = "Post on Mastodon";
+"CsR7G2" = "Поділитись в Mastodon";
 
-"HZSGTr" = "What content to post?";
+"HZSGTr" = "Який зміст допису?";
 
-"HdGikU" = "Posting failed";
+"HdGikU" = "Помилка при надсиланні";
 
-"KDNTJ4" = "Failure Reason";
+"KDNTJ4" = "Причина помилки";
 
-"RHxKOw" = "Send Post with text content";
+"RHxKOw" = "Надіслати пост із текстом";
 
-"RxSqsb" = "Post";
+"RxSqsb" = "Допис";
 
-"WCIR3D" = "Post ${content} on Mastodon";
+"WCIR3D" = "Опублікувати ${content} на Mastodon";
 
-"ZKJSNu" = "Post";
+"ZKJSNu" = "Допис";
 
 "ZS1XaK" = "${content}";
 
-"ZbSjzC" = "Visibility";
+"ZbSjzC" = "Видимість";
 
-"Zo4jgJ" = "Post Visibility";
+"Zo4jgJ" = "Видимість допису";
 
-"apSxMG-dYQ5NN" = "There are ${count} options matching ‘Public’.";
+"apSxMG-dYQ5NN" = "Знайдено ${count} варіантів, що задовольняють \"Публічні\".";
 
-"apSxMG-ehFLjY" = "There are ${count} options matching ‘Followers Only’.";
+"apSxMG-ehFLjY" = "Знайдено ${count} варіантів, які відповідають \"Тільки для підписників\".";
 
-"ayoYEb-dYQ5NN" = "${content}, Public";
+"ayoYEb-dYQ5NN" = "${content}, публічний";
 
-"ayoYEb-ehFLjY" = "${content}, Followers Only";
+"ayoYEb-ehFLjY" = "${content}, тільки підписники";
 
-"dUyuGg" = "Post on Mastodon";
+"dUyuGg" = "Поділитись в Mastodon";
 
-"dYQ5NN" = "Public";
+"dYQ5NN" = "Публічно";
 
-"ehFLjY" = "Followers Only";
+"ehFLjY" = "Тільки для підписників";
 
-"gfePDu" = "Posting failed. ${failureReason}";
+"gfePDu" = "Помилка. ${failureReason}";
 
-"k7dbKQ" = "Post was sent successfully.";
+"k7dbKQ" = "Допис успішно відправлено.";
 
-"oGiqmY-dYQ5NN" = "Just to confirm, you wanted ‘Public’?";
+"oGiqmY-dYQ5NN" = "Вам дійсно потрібні \"Публічно\"?";
 
-"oGiqmY-ehFLjY" = "Just to confirm, you wanted ‘Followers Only’?";
+"oGiqmY-ehFLjY" = "Вам дійсно потрібні \"Тільки для підписників\"?";
 
 "rM6dvp" = "URL";
 
-"ryJLwG" = "Post was sent successfully. ";
+"ryJLwG" = "Допис успішно відправлено. ";

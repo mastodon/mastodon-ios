@@ -51,16 +51,20 @@ extension DoubleTitleLabelNavigationBarTitleView {
         
         containerView.addArrangedSubview(titleLabel)
         containerView.addArrangedSubview(subtitleLabel)
+
+        isAccessibilityElement = true
     }
 
     func update(title: String, subtitle: String?) {
         titleLabel.configure(content: PlaintextMetaContent(string: title))
         update(subtitle: subtitle)
+        accessibilityLabel = subtitle.map { "\(title), \($0)" } ?? title
     }
     
     func update(titleMetaContent: MetaContent, subtitle: String?) {
         titleLabel.configure(content: titleMetaContent)
         update(subtitle: subtitle)
+        accessibilityLabel = subtitle.map { "\(titleMetaContent.string), \($0)" } ?? titleMetaContent.string
     }
 
     func update(subtitle: String?) {

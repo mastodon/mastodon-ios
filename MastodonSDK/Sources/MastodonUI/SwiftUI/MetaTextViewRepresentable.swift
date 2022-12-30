@@ -50,6 +50,8 @@ public struct MetaTextViewRepresentable: UIViewRepresentable {
             .foregroundColor: Asset.Colors.brand.color,
         ]
                 
+        metaText.paragraphStyle = NSMutableParagraphStyle()
+        
         configurationHandler(metaText)
             
         metaText.configure(content: PlaintextMetaContent(string: string))

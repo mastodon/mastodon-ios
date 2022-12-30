@@ -51,6 +51,11 @@
             "clean_cache": {
                 "title": "캐시 삭제",
                 "message": "Successfully cleaned %s cache."
+            },
+            "translation_failed": {
+                "title": "Note",
+                "message": "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.",
+                "button": "확인"
             }
         },
         "controls": {
@@ -78,6 +83,7 @@
                 "sign_up": "계정 생성",
                 "see_more": "더 보기",
                 "preview": "미리보기",
+                "copy": "Copy",
                 "share": "공유",
                 "share_user": "%s를 공유",
                 "share_post": "게시물 공유",
@@ -91,12 +97,16 @@
                 "block_domain": "%s 차단하기",
                 "unblock_domain": "%s 차단 해제",
                 "settings": "설정",
-                "delete": "삭제"
+                "delete": "삭제",
+                "translate_post": {
+                    "title": "Translate from %s",
+                    "unknown_language": "Unknown"
+                }
             },
             "tabs": {
                 "home": "홈",
-                "search": "검색",
-                "notification": "알림",
+                "search_and_explore": "Search and Explore",
+                "notifications": "Notifications",
                 "profile": "프로필"
             },
             "keyboard": {
@@ -132,6 +142,8 @@
                 "sensitive_content": "민감한 콘텐츠",
                 "media_content_warning": "아무 곳이나 눌러서 보기",
                 "tap_to_reveal": "눌러서 확인",
+                "load_embed": "Load Embed",
+                "link_via_user": "%s via %s",
                 "poll": {
                     "vote": "투표",
                     "closed": "마감"
@@ -153,6 +165,7 @@
                     "show_image": "이미지 표시",
                     "show_gif": "GIF 보기",
                     "show_video_player": "비디오 플레이어 보기",
+                    "share_link_in_post": "Share Link in Post",
                     "tap_then_hold_to_show_menu": "Tap then hold to show menu"
                 },
                 "tag": {
@@ -168,6 +181,12 @@
                     "private": "Only their followers can see this post.",
                     "private_from_me": "Only my followers can see this post.",
                     "direct": "Only mentioned user can see this post."
+                },
+                "translation": {
+                    "translated_from": "%s에서 %s를 사용해 번역됨",
+                    "unknown_language": "알 수 없음",
+                    "unknown_provider": "알 수 없음",
+                    "show_original": "원본 보기"
                 }
             },
             "friendship": {
@@ -444,11 +463,15 @@
                 "follows_you": "Follows You"
             },
             "dashboard": {
-                "posts": "게시물",
-                "following": "팔로잉",
-                "followers": "팔로워"
+                "my_posts": "posts",
+                "my_following": "following",
+                "my_followers": "followers",
+                "other_posts": "posts",
+                "other_following": "following",
+                "other_followers": "followers"
             },
             "fields": {
+                "joined": "가입일",
                 "add_row": "행 추가",
                 "placeholder": {
                     "label": "라벨",
@@ -722,6 +745,18 @@
         },
         "bookmark": {
             "title": "Bookmarks"
+        },
+        "followed_tags": {
+            "title": "팔로우한 태그",
+            "header": {
+                "posts": "게시물",
+                "participants": "참가자",
+                "posts_today": "오늘"
+            },
+            "actions": {
+                "follow": "팔로우",
+                "unfollow": "팔로우 해제"
+            }
         }
     }
 }
