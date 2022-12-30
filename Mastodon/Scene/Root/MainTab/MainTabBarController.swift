@@ -572,7 +572,7 @@ extension MainTabBarController: UITabBarControllerDelegate {
 
         // Assert index is as same as the tab rawValue. This check needs to be done `shouldSelect`
         // because the nav controller has already popped in `didSelect`.
-        if currentTab.rawValue == tabBarController.selectedIndex,
+        if currentTab.rawValue == viewController.tabBarItem.tag,
            let navigationController = viewController as? UINavigationController,
            navigationController.viewControllers.count == 1,
            let scrollViewContainer = navigationController.topViewController as? ScrollViewContainer  {
