@@ -183,9 +183,9 @@
                     "direct": "Seul·e l’utilisateur·rice mentionnée peut voir ce message."
                 },
                 "translation": {
-                    "translated_from": "Translated from %s using %s",
+                    "translated_from": "Traduit de %s en utilisant %s",
                     "unknown_language": "Inconnu",
-                    "unknown_provider": "Unknown",
+                    "unknown_provider": "Inconnu",
                     "show_original": "Afficher l’original"
                 }
             },
@@ -463,9 +463,12 @@
                 "follows_you": "Vous suit"
             },
             "dashboard": {
-                "posts": "publications",
-                "following": "abonnements",
-                "followers": "abonnés"
+                "my_posts": "messages",
+                "my_following": "abonnement",
+                "my_followers": "abonnés",
+                "other_posts": "publications",
+                "other_following": "abonnement",
+                "other_followers": "abonnés"
             },
             "fields": {
                 "joined": "Ici depuis",

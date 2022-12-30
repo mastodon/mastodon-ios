@@ -55,19 +55,10 @@ struct MastodonRegisterView: View {
                 // Delete
                 if viewModel.avatarImage != nil {
                     Divider()
-                    if #available(iOS 15.0, *) {
-                        Button(role: .destructive) {
-                            viewModel.avatarMediaMenuActionPublisher.send(.delete)
-                        } label: {
-                            Label(L10n.Scene.Register.Input.Avatar.delete, systemImage: "delete.left")
-                        }
-                    } else {
-                        // Fallback on earlier ve rsions
-                        Button {
-                            viewModel.avatarMediaMenuActionPublisher.send(.delete)
-                        } label: {
-                            Label(L10n.Scene.Register.Input.Avatar.delete, systemImage: "delete.left")
-                        }
+                    Button(role: .destructive) {
+                        viewModel.avatarMediaMenuActionPublisher.send(.delete)
+                    } label: {
+                        Label(L10n.Scene.Register.Input.Avatar.delete, systemImage: "delete.left")
                     }
                 }
             } label: {

@@ -28,13 +28,8 @@ extension UserListViewModel {
         var snapshot = NSDiffableDataSourceSnapshot<UserSection, UserItem>()
         snapshot.appendSections([.main])
         snapshot.appendItems([.bottomLoader], toSection: .main)
-        if #available(iOS 15.0, *) {
-            diffableDataSource?.applySnapshotUsingReloadData(snapshot, completion: nil)
-        } else {
-            // Fallback on earlier versions
-            diffableDataSource?.apply(snapshot, animatingDifferences: false)
-        }
-        
+        diffableDataSource?.applySnapshotUsingReloadData(snapshot)
+
         // trigger initial loading
         stateMachine.enter(UserListViewModel.State.Reloading.self)
         

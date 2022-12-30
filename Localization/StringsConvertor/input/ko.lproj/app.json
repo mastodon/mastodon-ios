@@ -183,9 +183,9 @@
                     "direct": "Only mentioned user can see this post."
                 },
                 "translation": {
-                    "translated_from": "Translated from %s using %s",
+                    "translated_from": "%s에서 %s를 사용해 번역됨",
                     "unknown_language": "알 수 없음",
-                    "unknown_provider": "Unknown",
+                    "unknown_provider": "알 수 없음",
                     "show_original": "원본 보기"
                 }
             },
@@ -463,9 +463,12 @@
                 "follows_you": "Follows You"
             },
             "dashboard": {
-                "posts": "게시물",
-                "following": "팔로잉",
-                "followers": "팔로워"
+                "my_posts": "posts",
+                "my_following": "following",
+                "my_followers": "followers",
+                "other_posts": "posts",
+                "other_following": "following",
+                "other_followers": "followers"
             },
             "fields": {
                 "joined": "가입일",

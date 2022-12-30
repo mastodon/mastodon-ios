@@ -160,14 +160,12 @@ extension StatusView {
                 $isMyself
             )
             .map { visibility, isMyself in
-                if isMyself {
-                    return true
-                }
-                
                 switch visibility {
-                case .public, .unlisted:
+                case .public, .unlisted, ._other:
                     return true
-                case .private, .direct, ._other:
+                case .private where isMyself:
+                    return true
+                case .private, .direct:
                     return false
                 }
             }
@@ -314,16 +312,18 @@ extension StatusView.ViewModel {
             }
             statusView.contentMetaText.paragraphStyle = paragraphStyle
             
-            if let content = content {
+            if let content = content, !(content.string.isEmpty && content.entities.isEmpty) {
                 statusView.contentMetaText.configure(
                     content: content
                 )
                 statusView.contentMetaText.textView.accessibilityTraits = [.staticText]
                 statusView.contentMetaText.textView.accessibilityElementsHidden = false
+                statusView.contentMetaText.textView.isHidden = false
 
             } else {
                 statusView.contentMetaText.reset()
                 statusView.contentMetaText.textView.accessibilityLabel = ""
+                statusView.contentMetaText.textView.isHidden = true
             }
             
             statusView.contentMetaText.textView.alpha = isContentReveal ? 1 : 0     // keep the frame size and only display when revealing
@@ -421,12 +421,7 @@ extension StatusView.ViewModel {
                 var snapshot = NSDiffableDataSourceSnapshot<PollSection, PollItem>()
                 snapshot.appendSections([.main])
                 snapshot.appendItems(items, toSection: .main)
-                if #available(iOS 15.0, *) {
-                    statusView.pollTableViewDiffableDataSource?.applySnapshotUsingReloadData(snapshot)
-                } else {
-                    // Fallback on earlier versions
-                    statusView.pollTableViewDiffableDataSource?.apply(snapshot, animatingDifferences: false)
-                }
+                statusView.pollTableViewDiffableDataSource?.applySnapshotUsingReloadData(snapshot)
                 
                 statusView.pollTableViewHeightLayoutConstraint.constant = CGFloat(items.count) * PollOptionTableViewCell.height
                 statusView.setPollDisplay()

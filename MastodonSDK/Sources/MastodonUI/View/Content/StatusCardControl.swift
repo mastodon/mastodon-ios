@@ -33,21 +33,15 @@ public final class StatusCardControl: UIControl {
     private let titleLabel = UILabel()
     private let linkLabel = UILabel()
     private lazy var showEmbedButton: UIButton = {
-        if #available(iOS 15.0, *) {
-            var configuration = UIButton.Configuration.gray()
-            configuration.background.visualEffect = UIBlurEffect(style: .systemUltraThinMaterial)
-            configuration.baseBackgroundColor = .clear
-            configuration.cornerStyle = .capsule
-            configuration.buttonSize = .large
-            configuration.title = L10n.Common.Controls.Status.loadEmbed
-            configuration.image = UIImage(systemName: "play.fill")
-            configuration.imagePadding = 12
-            return UIButton(configuration: configuration, primaryAction: UIAction { [weak self] _ in
-                self?.showWebView()
-            })
-        }
-
-        return UIButton(type: .system, primaryAction: UIAction { [weak self] _ in
+        var configuration = UIButton.Configuration.gray()
+        configuration.background.visualEffect = UIBlurEffect(style: .systemUltraThinMaterial)
+        configuration.baseBackgroundColor = .clear
+        configuration.cornerStyle = .capsule
+        configuration.buttonSize = .large
+        configuration.title = L10n.Common.Controls.Status.loadEmbed
+        configuration.image = UIImage(systemName: "play.fill")
+        configuration.imagePadding = 12
+        return UIButton(configuration: configuration, primaryAction: UIAction { [weak self] _ in
             self?.showWebView()
         })
     }()
@@ -85,10 +79,7 @@ public final class StatusCardControl: UIControl {
         layer.cornerCurve = .continuous
         layer.cornerRadius = 10
 
-        if #available(iOS 15, *) {
-            maximumContentSizeCategory = .accessibilityLarge
-        }
-
+        maximumContentSizeCategory = .accessibilityLarge
         highlightView.backgroundColor = UIColor.label.withAlphaComponent(0.1)
         highlightView.isHidden = true
 

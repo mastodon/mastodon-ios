@@ -183,9 +183,9 @@
                     "direct": "Només l'usuari mencionat pot veure aquesta publicació."
                 },
                 "translation": {
-                    "translated_from": "Translated from %s using %s",
+                    "translated_from": "Traduït del %s fent servir %s",
                     "unknown_language": "Desconegut",
-                    "unknown_provider": "Unknown",
+                    "unknown_provider": "Desconegut",
                     "show_original": "Mostra l'original"
                 }
             },
@@ -463,9 +463,12 @@
                 "follows_you": "Et segueix"
             },
             "dashboard": {
-                "posts": "tuts",
-                "following": "seguint",
-                "followers": "seguidors"
+                "my_posts": "tuts",
+                "my_following": "seguint",
+                "my_followers": "seguidors",
+                "other_posts": "tuts",
+                "other_following": "seguint",
+                "other_followers": "seguidors"
             },
             "fields": {
                 "joined": "S'hi va unir",

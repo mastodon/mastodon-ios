@@ -260,12 +260,7 @@ public final class StatusView: UIView {
         authorView.avatarButton.avatarImageView.cancelTask()
         if var snapshot = pollTableViewDiffableDataSource?.snapshot() {
             snapshot.deleteAllItems()
-            if #available(iOS 15.0, *) {
-                pollTableViewDiffableDataSource?.applySnapshotUsingReloadData(snapshot)
-            } else {
-                // Fallback on earlier versions
-                pollTableViewDiffableDataSource?.apply(snapshot, animatingDifferences: false)
-            }
+            pollTableViewDiffableDataSource?.applySnapshotUsingReloadData(snapshot)
         }
         
         setHeaderDisplay(isDisplay: false)
