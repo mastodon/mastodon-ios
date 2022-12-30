@@ -13,9 +13,7 @@ import MastodonLocalization
 final class OnboardingNextView: UIView {
     
     static let buttonHeight: CGFloat = 50
-    
-    private var observations = Set<NSKeyValueObservation>()
-    
+        
     private let container: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -24,7 +22,6 @@ final class OnboardingNextView: UIView {
         return stackView
     }()
 
-    //TODO: Show loading
     let nextButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false

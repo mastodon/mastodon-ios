@@ -123,12 +123,6 @@ extension MastodonPickServerViewController {
             )
             .store(in: &disposeBag)
 
-        viewModel
-            .selectedServer
-            .map { $0 != nil }
-            .assign(to: \.isEnabled, on: onboardingNextView.nextButton)
-            .store(in: &disposeBag)
-
         Publishers.Merge(
             viewModel.error,
             authenticationViewModel.error
@@ -211,7 +205,7 @@ extension MastodonPickServerViewController {
             }
             .store(in: &disposeBag)
         
-        onboardingNextView.nextButton.addTarget(self, action: #selector(MastodonPickServerViewController.nextButtonDidPressed(_:)), for: .touchUpInside)
+        onboardingNextView.nextButton.addTarget(self, action: #selector(MastodonPickServerViewController.next(_:)), for: .touchUpInside)
 
         title = L10n.Scene.ServerPicker.title
 
@@ -241,9 +235,18 @@ extension MastodonPickServerViewController {
 
 extension MastodonPickServerViewController {
 
-    @objc private func nextButtonDidPressed(_ sender: UIButton) {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-        guard let server = viewModel.selectedServer.value else { return }
+    @objc private func next(_ sender: UIButton) {
+
+        let server: Mastodon.Entity.Server
+
+        if let selectedServer = viewModel.selectedServer.value {
+            server = selectedServer
+        } else if let randomServer = viewModel.chooseRandomServer() {
+            server = randomServer
+        } else {
+            return
+        }
+
         authenticationViewModel.isAuthenticating.send(true)
         
         context.apiService.instance(domain: server.domain)
