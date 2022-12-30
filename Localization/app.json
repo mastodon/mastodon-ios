@@ -306,6 +306,9 @@
                 "instant": "Instant Sign-up",
                 "manually_reviewed" = "Manual Review"
             },
+            "language": {
+                "all": "All"
+            },
             "search": {
                 "placeholder": "Search name or URL"
             }

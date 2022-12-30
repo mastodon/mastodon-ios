@@ -300,8 +300,7 @@ extension MastodonPickServerViewModel: PickServerCategoryCollectionViewCellDeleg
         case .language(_):
             guard allLanguages.value.isNotEmpty else { return }
 
-            //FIXME: @zeitschlag localize
-            let allLanguagesAction = UIAction(title: "All") { _ in
+            let allLanguagesAction = UIAction(title: L10n.Scene.ServerPicker.Language.all) { _ in
                 self.selectedLanguage.value = nil
                 cell.titleLabel.text = L10n.Scene.ServerPicker.Button.language
             }

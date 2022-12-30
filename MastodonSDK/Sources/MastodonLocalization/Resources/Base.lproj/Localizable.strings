@@ -444,6 +444,7 @@ uploaded to Mastodon.";
 "Scene.ServerPicker.SignupSpeed.All" = "All";
 "Scene.ServerPicker.SignupSpeed.Instant" = "Instant Sign-up";
 "Scene.ServerPicker.SignupSpeed.ManuallyReviewed" = "Manual Review";
+"Scene.ServerPicker.Language.All" = "All";
 "Scene.ServerPicker.Search.Placeholder" = "Search name or URL";
 "Scene.ServerRules.Button.Confirm" = "I Agree";
 "Scene.ServerRules.PrivacyPolicy" = "privacy policy";
