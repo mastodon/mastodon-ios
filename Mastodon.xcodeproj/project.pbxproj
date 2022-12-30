@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		029D1ED3295C3225004B5858 /* MetaTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029D1ED2295C3225004B5858 /* MetaTextView.swift */; };
 		0F1E2D0B2615C39400C38565 /* DoubleTitleLabelNavigationBarTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1E2D0A2615C39400C38565 /* DoubleTitleLabelNavigationBarTitleView.swift */; };
 		0F2021FB2613262F000C64BF /* HashtagTimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2021FA2613262F000C64BF /* HashtagTimelineViewController.swift */; };
 		0F202201261326E6000C64BF /* HashtagTimelineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F202200261326E6000C64BF /* HashtagTimelineViewModel.swift */; };
@@ -512,6 +513,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		029D1ED2295C3225004B5858 /* MetaTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetaTextView.swift; sourceTree = "<group>"; };
 		0655B257371274BEB7EB1C19 /* Pods-Mastodon.release snapshot.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon.release snapshot.xcconfig"; path = "Target Support Files/Pods-Mastodon/Pods-Mastodon.release snapshot.xcconfig"; sourceTree = "<group>"; };
 		0827D1674B2523503E8605F6 /* Pods-Mastodon-MastodonUITests.release snapshot.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon-MastodonUITests.release snapshot.xcconfig"; path = "Target Support Files/Pods-Mastodon-MastodonUITests/Pods-Mastodon-MastodonUITests.release snapshot.xcconfig"; sourceTree = "<group>"; };
 		0F1E2D0A2615C39400C38565 /* DoubleTitleLabelNavigationBarTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleTitleLabelNavigationBarTitleView.swift; sourceTree = "<group>"; };
@@ -2274,6 +2276,7 @@
 				2AE244472927831100BDBF7C /* UIImage+SFSymbols.swift */,
 				DBCC3B2F261440A50045B23D /* UITabBarController.swift */,
 				2A1FE47D2938C11200784BF1 /* Collection+IsNotEmpty.swift */,
+				029D1ED2295C3225004B5858 /* MetaTextView.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -3426,6 +3429,7 @@
 				DB63F77B279ACAE500455B82 /* DataSourceFacade+Favorite.swift in Sources */,
 				DB9D6BF825E4F5690051B173 /* NotificationViewController.swift in Sources */,
 				2DAC9E46262FC9FD0062E1A6 /* SuggestionAccountTableViewCell.swift in Sources */,
+				029D1ED3295C3225004B5858 /* MetaTextView.swift in Sources */,
 				DB4FFC2C269EC39600D62E92 /* SearchTransitionController.swift in Sources */,
 				6213AF5E2893A8B200BCADB6 /* DataSourceFacade+Bookmark.swift in Sources */,
 				DBA5E7A9263BD3A4004598BB /* ContextMenuImagePreviewViewController.swift in Sources */,
