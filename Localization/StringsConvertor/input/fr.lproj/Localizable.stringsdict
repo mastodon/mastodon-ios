@@ -63,7 +63,7 @@
         <key>one</key>
         <string>%@ caractère restant</string>
         <key>other</key>
-        <string>%ld characters left</string>
+        <string>%ld caractères restants</string>
       </dict>
     </dict>
     <key>plural.count.followed_by_and_mutual</key>
