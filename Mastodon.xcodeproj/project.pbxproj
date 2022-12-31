@@ -101,6 +101,8 @@
 		62FD27D12893707600B205C5 /* BookmarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FD27D02893707600B205C5 /* BookmarkViewController.swift */; };
 		62FD27D32893707B00B205C5 /* BookmarkViewController+DataSourceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FD27D22893707B00B205C5 /* BookmarkViewController+DataSourceProvider.swift */; };
 		62FD27D52893708A00B205C5 /* BookmarkViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FD27D42893708A00B205C5 /* BookmarkViewModel+Diffable.swift */; };
+		855149C8295F1C5F00943D96 /* UIInterfaceOrientationMask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855149C7295F1C5F00943D96 /* UIInterfaceOrientationMask.swift */; };
+		855149CA29606D6400943D96 /* PortraitAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855149C929606D6400943D96 /* PortraitAlertController.swift */; };
 		85904C02293BC0EB0011C817 /* ImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85904C01293BC0EB0011C817 /* ImageProvider.swift */; };
 		85904C04293BC1940011C817 /* URLActivityItemWithMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85904C03293BC1940011C817 /* URLActivityItemWithMetadata.swift */; };
 		85BC11B32932414900E191CD /* AltViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85BC11B22932414900E191CD /* AltViewController.swift */; };
@@ -618,6 +620,8 @@
 		7CB58D292DA7ACEF179A9050 /* Pods-Mastodon.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon.profile.xcconfig"; path = "Target Support Files/Pods-Mastodon/Pods-Mastodon.profile.xcconfig"; sourceTree = "<group>"; };
 		7CEFFAE9AF9284B13C0A758D /* Pods-MastodonTests.asdk - debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MastodonTests.asdk - debug.xcconfig"; path = "Target Support Files/Pods-MastodonTests/Pods-MastodonTests.asdk - debug.xcconfig"; sourceTree = "<group>"; };
 		819CEC9DCAD8E8E7BD85A7BB /* Pods-Mastodon.asdk.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon.asdk.xcconfig"; path = "Target Support Files/Pods-Mastodon/Pods-Mastodon.asdk.xcconfig"; sourceTree = "<group>"; };
+		855149C7295F1C5F00943D96 /* UIInterfaceOrientationMask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIInterfaceOrientationMask.swift; sourceTree = "<group>"; };
+		855149C929606D6400943D96 /* PortraitAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortraitAlertController.swift; sourceTree = "<group>"; };
 		85904C01293BC0EB0011C817 /* ImageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageProvider.swift; sourceTree = "<group>"; };
 		85904C03293BC1940011C817 /* URLActivityItemWithMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLActivityItemWithMetadata.swift; sourceTree = "<group>"; };
 		85BC11B22932414900E191CD /* AltViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AltViewController.swift; sourceTree = "<group>"; };
@@ -2274,6 +2278,7 @@
 				2AE244472927831100BDBF7C /* UIImage+SFSymbols.swift */,
 				DBCC3B2F261440A50045B23D /* UITabBarController.swift */,
 				2A1FE47D2938C11200784BF1 /* Collection+IsNotEmpty.swift */,
+				855149C7295F1C5F00943D96 /* UIInterfaceOrientationMask.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -2543,6 +2548,7 @@
 				DBF3B7402733EB9400E21627 /* MastodonLocalCode.swift */,
 				85904C01293BC0EB0011C817 /* ImageProvider.swift */,
 				85904C03293BC1940011C817 /* URLActivityItemWithMetadata.swift */,
+				855149C929606D6400943D96 /* PortraitAlertController.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -3185,6 +3191,7 @@
 				DB1E347825F519300079D7DF /* PickServerItem.swift in Sources */,
 				DB336F3F278E668C0031E64B /* StatusTableViewCell+ViewModel.swift in Sources */,
 				DB63F764279A5E3C00455B82 /* NotificationTimelineViewController.swift in Sources */,
+				855149C8295F1C5F00943D96 /* UIInterfaceOrientationMask.swift in Sources */,
 				DBA5A53126F08EF000CACBAA /* DragIndicatorView.swift in Sources */,
 				DB1FD45A25F27898004CFCFC /* CategoryPickerItem.swift in Sources */,
 				DB6180F626391D580018D199 /* MediaPreviewableViewController.swift in Sources */,
@@ -3529,6 +3536,7 @@
 				DBEFCD7D282A2A3B00C0ABEA /* ReportServerRulesViewController.swift in Sources */,
 				DBB525362611ECEB002F1F29 /* UserTimelineViewController.swift in Sources */,
 				DB98EB4927B0F0CD0082E365 /* ReportStatusTableViewCell.swift in Sources */,
+				855149CA29606D6400943D96 /* PortraitAlertController.swift in Sources */,
 				DBF3B7412733EB9400E21627 /* MastodonLocalCode.swift in Sources */,
 				DB98EB6527B216500082E365 /* ReportResultViewModel.swift in Sources */,
 				DB4F096A269EDAD200D62E92 /* SearchResultViewModel+State.swift in Sources */,

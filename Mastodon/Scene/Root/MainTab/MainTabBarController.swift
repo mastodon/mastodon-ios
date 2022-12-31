@@ -370,7 +370,7 @@ extension MainTabBarController {
     }
 
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        return UIDevice.current.userInterfaceIdiom == .phone ? .portrait : .all
+        .portraitOnPhone
     }
 }
 

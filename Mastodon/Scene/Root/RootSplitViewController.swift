@@ -114,7 +114,7 @@ extension RootSplitViewController {
     }
 
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        return UIDevice.current.userInterfaceIdiom == .phone ? .portrait : .all
+        .portraitOnPhone
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
