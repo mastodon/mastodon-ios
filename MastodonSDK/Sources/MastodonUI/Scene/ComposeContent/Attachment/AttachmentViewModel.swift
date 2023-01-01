@@ -136,7 +136,7 @@ final public class AttachmentViewModel: NSObject, ObservableObject, Identifiable
         
         let uploadTask = Task { @MainActor in
             do {
-                if case .draft(_, let remoteID) = input {
+                if case .draft(let fileURL, let remoteID) = input {
                     do {
                         let response = try await self.api.getMedia(
                             attachmentID: remoteID,
@@ -144,6 +144,14 @@ final public class AttachmentViewModel: NSObject, ObservableObject, Identifiable
                         ).singleOutput()
                         self.update(uploadState: .finish)
                         self.update(uploadResult: response.value)
+                        switch response.value.type {
+                        case .video:
+                            self.output = .video(fileURL, mimeType: UTType(filenameExtension: fileURL.pathExtension)?.preferredMIMEType ?? "video/mp4")
+                        case .image:
+                            self.output = .image(try Data(contentsOf: fileURL, options: .mappedIfSafe), imageKind: fileURL.pathExtension == "png" ? .png : .jpg)
+                        default:
+                            self.output = nil
+                        }
                         return
                     } catch {
                         // e.g. draft is > 1 day old and the media attachment has been vacuumed up by the server
@@ -279,6 +287,13 @@ extension AttachmentViewModel {
         public enum ImageKind {
             case png
             case jpg
+            
+            var type: UTType {
+                switch self {
+                case .png: return .png
+                case .jpg: return .jpeg
+                }
+            }
         }
     }
         
