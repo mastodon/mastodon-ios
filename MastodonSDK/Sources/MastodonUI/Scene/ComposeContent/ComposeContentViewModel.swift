@@ -33,6 +33,7 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
     // input
     let context: AppContext
     let destination: Destination
+    let draft: Draft?
     weak var delegate: ComposeContentViewModelDelegate?
     
     @Published var viewLayoutFrame = ViewLayoutFrame()
@@ -143,6 +144,7 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
         self.context = context
         self.authContext = authContext
         self.destination = destination
+        self.draft = nil
         self.visibility = {
             // default private when user locked
             var visibility: Mastodon.Entity.Status.Visibility = {
@@ -221,6 +223,43 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
             self.content = initialContentWithSpace
         }
 
+        _init()
+    }
+    
+    public init(
+        context: AppContext,
+        authContext: AuthContext,
+        destination: Destination,
+        draft: Draft
+    ) {
+        self.context = context
+        self.authContext = authContext
+        self.destination = destination
+        self.draft = draft
+        self.customEmojiViewModel = context.emojiService.dequeueCustomEmojiViewModel(
+            for: authContext.mastodonAuthenticationBox.domain
+        )
+        self.visibility = .init(draft.visibility)
+        super.init()
+        _init()
+        
+        self.content = draft.content
+        if let contentWarning = draft.contentWarning {
+            self.contentWarning = contentWarning
+            self.isContentWarningActive = true
+        }
+        self.attachmentViewModels = draft.attachments.map { attachment in
+            AttachmentViewModel(
+                api: context.apiService,
+                authContext: authContext,
+                input: attachment.remoteID.map { .draft(attachment.fileURL, remoteID: $0) } ?? .url(attachment.fileURL),
+                sizeLimit: sizeLimit,
+                delegate: self
+            )
+        }
+    }
+
+    private func _init() {
         // set limit
         let _configuration: Mastodon.Entity.Instance.Configuration? = {
             var configuration: Mastodon.Entity.Instance.Configuration? = nil
@@ -686,6 +725,18 @@ extension ComposeContentViewModel: AttachmentViewModelDelegate {
             Task {
                 try await uploadMediaInQueue()
             }
+        }
+    }
+}
+
+extension Mastodon.Entity.Status.Visibility {
+    public init(_ mastodonVisibility: MastodonVisibility) {
+        switch mastodonVisibility {
+        case .public: self = .public
+        case .unlisted: self = .unlisted
+        case .private: self = .private
+        case .direct: self = .direct
+        case ._other(let string): self = ._other(string)
         }
     }
 }

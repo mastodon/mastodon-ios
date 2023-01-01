@@ -20,7 +20,7 @@ extension AttachmentViewModel {
                 throw AttachmentError.invalidAttachmentType
             }
             return .image(data, imageKind: .png)
-        case .url(let url):
+        case .url(let url), .draft(let url, _):
             do {
                 let output = try await AttachmentViewModel.load(url: url)
                 return output

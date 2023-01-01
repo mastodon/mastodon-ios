@@ -10,6 +10,7 @@ import UIKit
 import Combine
 import PhotosUI
 import Kingfisher
+import CoreDataStack
 import MastodonCore
 import MastodonLocalization
 import func QuartzCore.CACurrentMediaTime
@@ -135,6 +136,22 @@ final public class AttachmentViewModel: NSObject, ObservableObject, Identifiable
         
         let uploadTask = Task { @MainActor in
             do {
+                if case .draft(_, let remoteID) = input {
+                    do {
+                        let response = try await self.api.getMedia(
+                            attachmentID: remoteID,
+                            mastodonAuthenticationBox: authContext.mastodonAuthenticationBox
+                        ).singleOutput()
+                        self.update(uploadState: .finish)
+                        self.update(uploadResult: response.value)
+                        return
+                    } catch {
+                        // e.g. draft is > 1 day old and the media attachment has been vacuumed up by the server
+                        // (or we’re offline or something, no problem with just uploading again)
+                        // so continue to upload again.
+                    }
+                }
+                
                 var output = try await load(input: input)
                 
                 switch output {
@@ -155,7 +172,6 @@ final public class AttachmentViewModel: NSObject, ObservableObject, Identifiable
                 self.output = output
                 
                 self.update(uploadState: .ready)
-                self.delegate?.attachmentViewModel(self, uploadStateValueDidChange: self.uploadState)
             } catch {
                 self.error = error
             }
@@ -252,6 +268,7 @@ extension AttachmentViewModel {
         case url(URL)
         case pickerResult(PHPickerResult)
         case itemProvider(NSItemProvider)
+        case draft(URL, remoteID: String)
     }
     
     public enum Output {

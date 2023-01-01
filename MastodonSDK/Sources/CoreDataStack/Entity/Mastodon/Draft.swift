@@ -94,12 +94,9 @@ extension Draft {
 
 extension Draft {
     public final class Attachment: NSObject, Codable {
-        public let value: Value
-        
-        public enum Value: Codable {
-            case uploaded(MastodonAttachment)
-            case local(URL)
-        }
+        public let fileURL: URL
+        // Mastodon.Entity.Attachment.ID
+        public let remoteID: String?
     }
 
     @objc public final class Poll: NSObject, Codable {

@@ -44,7 +44,7 @@ extension AttachmentViewModel: NSItemProviderWriting {
         switch input {
         case .image:
             typeIdentifiers.append(UTType.png.identifier)
-        case .url(let url):
+        case .url(let url), .draft(let url, _):
             let _uti = UTType(filenameExtension: url.pathExtension)
             if let uti = _uti {
                 if uti.conforms(to: .image) {
