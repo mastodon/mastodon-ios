@@ -616,9 +616,21 @@ extension ComposeContentViewModel {
             pollOptions: pollOptions,
             pollExpireConfigurationOption: pollExpireConfigurationOption,
             pollMultipleConfigurationOption: pollMultipleConfigurationOption,
-            visibility: visibility
+            visibility: visibility,
+            cleanup: self.discardDraft
         )
     }   // end func publisher()
+    
+    public func discardDraft() {
+        if let draft {
+            let managedObjectContext = context.managedObjectContext
+            Task {
+                try? await managedObjectContext.perform {
+                    managedObjectContext.delete(draft)
+                }
+            }
+        }
+    }
 }
 
 extension ComposeContentViewModel {

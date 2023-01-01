@@ -141,6 +141,7 @@ extension ComposeViewController {
         
         let discardAction = UIAlertAction(title: L10n.Common.Controls.Actions.discard, style: .destructive) { [weak self] _ in
             guard let self = self else { return }
+            self.composeContentViewModel.discardDraft()
             self.dismiss(animated: true, completion: nil)
         }
         alertController.addAction(discardAction)

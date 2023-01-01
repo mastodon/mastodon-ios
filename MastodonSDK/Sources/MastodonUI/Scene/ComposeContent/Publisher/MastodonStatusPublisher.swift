@@ -39,13 +39,14 @@ public final class MastodonStatusPublisher: NSObject, ProgressReporting {
     // visibility
     public let visibility: MastodonVisibility
     
+    // called if publish is successful
+    public let cleanup: () -> Void
+    
     // Output
     let _progress = Progress()
     public var progress: Progress { _progress }
     @Published var _state: StatusPublisherState = .pending
     public var state: Published<StatusPublisherState>.Publisher { $_state }
-    
-    public var reactor: StatusPublisherReactor?
 
     public init(
         author: ManagedObjectRecord<MastodonUser>,
@@ -59,7 +60,8 @@ public final class MastodonStatusPublisher: NSObject, ProgressReporting {
         pollOptions: [PollComposeItem.Option],
         pollExpireConfigurationOption: Draft.Poll.Expiration,
         pollMultipleConfigurationOption: PollComposeItem.MultipleConfiguration.Option,
-        visibility: MastodonVisibility
+        visibility: MastodonVisibility,
+        cleanup: @escaping () -> Void
     ) {
         self.author = author
         self.replyTo = replyTo
@@ -73,6 +75,7 @@ public final class MastodonStatusPublisher: NSObject, ProgressReporting {
         self.pollExpireConfigurationOption = pollExpireConfigurationOption
         self.pollMultipleConfigurationOption = pollMultipleConfigurationOption
         self.visibility = visibility
+        self.cleanup = cleanup
     }
     
 }
@@ -193,6 +196,7 @@ extension MastodonStatusPublisher: StatusPublisher {
         _state = .success
         logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): status published: \(publishResponse.value.id)")
         
+        cleanup()
         return .mastodon(publishResponse)
     }
     

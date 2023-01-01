@@ -9,6 +9,5 @@ import Foundation
 
 public protocol StatusPublisher: ProgressReporting {
     var state: Published<StatusPublisherState>.Publisher { get }
-    var reactor: StatusPublisherReactor? { get set }
     func publish(api: APIService, authContext: AuthContext) async throws -> StatusPublishResult
 }
