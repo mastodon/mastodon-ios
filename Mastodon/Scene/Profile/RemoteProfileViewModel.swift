@@ -17,42 +17,40 @@ final class RemoteProfileViewModel: ProfileViewModel {
     init(context: AppContext, authContext: AuthContext, userID: Mastodon.Entity.Account.ID) {
         super.init(context: context, authContext: authContext, optionalMastodonUser: nil)
         
-        Task { @MainActor in
-            let domain = authContext.mastodonAuthenticationBox.domain
-            let authorization = authContext.mastodonAuthenticationBox.userAuthorization
-            Just(userID)
-                .asyncMap { userID in
-                    try await context.apiService.accountInfo(
-                        domain: domain,
-                        userID: userID,
-                        authorization: authorization
-                    )
+        let domain = authContext.mastodonAuthenticationBox.domain
+        let authorization = authContext.mastodonAuthenticationBox.userAuthorization
+        Just(userID)
+            .asyncMap { userID in
+                try await context.apiService.accountInfo(
+                    domain: domain,
+                    userID: userID,
+                    authorization: authorization
+                )
+            }
+            .retry(3)
+            .sink { completion in
+                switch completion {
+                case .failure(let error):
+                    // TODO: handle error
+                    os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: remote user %s fetch failed: %s", ((#file as NSString).lastPathComponent), #line, #function, userID, error.localizedDescription)
+                case .finished:
+                    os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: remote user %s fetched", ((#file as NSString).lastPathComponent), #line, #function, userID)
                 }
-                .retry(3)
-                .sink { completion in
-                    switch completion {
-                    case .failure(let error):
-                        // TODO: handle error
-                        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: remote user %s fetch failed: %s", ((#file as NSString).lastPathComponent), #line, #function, userID, error.localizedDescription)
-                    case .finished:
-                        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: remote user %s fetched", ((#file as NSString).lastPathComponent), #line, #function, userID)
-                    }
-                } receiveValue: { [weak self] response in
-                    guard let self = self else { return }
-                    let managedObjectContext = context.managedObjectContext
-                    let request = MastodonUser.sortedFetchRequest
-                    request.fetchLimit = 1
-                    request.predicate = MastodonUser.predicate(domain: domain, id: response.value.id)
-                    guard let mastodonUser = managedObjectContext.safeFetch(request).first else {
-                        assertionFailure()
-                        return
-                    }
-                    DispatchQueue.main.async {
-                        self.user = mastodonUser
-                    }
+            } receiveValue: { [weak self] response in
+                guard let self = self else { return }
+                let managedObjectContext = context.managedObjectContext
+                let request = MastodonUser.sortedFetchRequest
+                request.fetchLimit = 1
+                request.predicate = MastodonUser.predicate(domain: domain, id: response.value.id)
+                guard let mastodonUser = managedObjectContext.safeFetch(request).first else {
+                    assertionFailure()
+                    return
                 }
-                .store(in: &disposeBag)
-        }
+                DispatchQueue.main.async {
+                    self.user = mastodonUser
+                }
+            }
+            .store(in: &disposeBag)
     }
     
     init(context: AppContext, authContext: AuthContext, notificationID: Mastodon.Entity.Notification.ID) {

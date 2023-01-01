@@ -16,10 +16,9 @@ extension APIService {
     
     public func statusContext(
         statusID: Mastodon.Entity.Status.ID,
-        authenticationBox: MastodonAuthenticationBox,
-        domain: String? = nil
+        authenticationBox: MastodonAuthenticationBox
     ) async throws -> Mastodon.Response.Content<Mastodon.Entity.Context> {
-        let domain = domain ?? authenticationBox.domain
+        let domain = authenticationBox.domain
         let authorization = authenticationBox.userAuthorization
         
         let response = try await Mastodon.API.Statuses.statusContext(
@@ -54,9 +53,9 @@ extension APIService {
     
     public func fetchThread(
         statusID: Mastodon.Entity.Status.ID,
-        domain: String,
         authenticationBox: MastodonAuthenticationBox
     ) async throws -> Status? {
+        let domain = authenticationBox.domain
         let authorization = authenticationBox.userAuthorization
         let managedObjectContext = self.backgroundManagedObjectContext
 

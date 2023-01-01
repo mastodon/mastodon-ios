@@ -245,29 +245,17 @@ extension SceneDelegate {
         print("source application = \(sendingAppID ?? "Unknown")")
         print("url = \(url)")
         
-        if let username = url.user {
-            guard let host = url.host else { return }
+        switch url.host {
+        case "post":
+            showComposeViewController()
+        case "profile":
             let components = url.pathComponents
-            if components.count == 3 && components[1] == "status" {
-                let statusId = components[2]
-                // View post from user
-                print("view status \(statusId)")
-                if let authContext = coordinator?.authContext {
-                    Task {
-                        guard let thread = try await AppContext.shared.apiService.fetchThread(
-                            statusID: statusId,
-                            domain: host,
-                            authenticationBox: authContext.mastodonAuthenticationBox
-                        ) else { return }
-                        
-                        let threadViewModel = CachedThreadViewModel(context: AppContext.shared,
-                                                                    authContext: authContext,
-                                                                    status: thread)
-                        coordinator?.present(scene: .thread(viewModel: threadViewModel), from: nil, transition: .show)
-                    }
-                }
-            } else {
-                print("view profile \(username)@\(host)")
+            if components.count == 2 && components[0] == "/" {
+                let addr = components[1]
+                let tokens = addr.components(separatedBy: "@")
+                if tokens.count != 2 { return }
+                let username = tokens[0]
+                let host = tokens[1]
                 if let authContext = coordinator?.authContext {
                     Task { @MainActor in
                         guard let user = try await AppContext.shared.apiService.fetchUser(
@@ -287,12 +275,28 @@ extension SceneDelegate {
                     }
                 }
             }
-        } else {
-            guard let action = url.host else { return }
-            if action == "post" {
-                print("make post")
-                showComposeViewController()
+        case "status":
+            let components = url.pathComponents
+            if components.count == 2 && components[0] == "/" {
+                let statusId = components[1]
+                // View post from user
+                print("view status \(statusId)")
+                if let authContext = coordinator?.authContext {
+                    Task {
+                        guard let thread = try await AppContext.shared.apiService.fetchThread(
+                            statusID: statusId,
+                            authenticationBox: authContext.mastodonAuthenticationBox
+                        ) else { return }
+                        
+                        let threadViewModel = CachedThreadViewModel(context: AppContext.shared,
+                                                                    authContext: authContext,
+                                                                    status: thread)
+                        coordinator?.present(scene: .thread(viewModel: threadViewModel), from: nil, transition: .show)
+                    }
+                }
             }
+        default:
+            return
         }
     }
 }
