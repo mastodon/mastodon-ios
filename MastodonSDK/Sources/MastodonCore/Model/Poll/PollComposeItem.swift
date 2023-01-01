@@ -8,6 +8,7 @@
 import UIKit
 import Combine
 import MastodonLocalization
+import CoreDataStack
 
 public enum PollComposeItem: Hashable {
     case option(Option)
@@ -42,7 +43,7 @@ extension PollComposeItem {
     public final class ExpireConfiguration: Identifiable, Hashable, ObservableObject {
         public let id = UUID()
         
-        @Published public var option: Option = .oneDay              // Mastodon
+        @Published public var option: Draft.Poll.Expiration = .oneDay              // Mastodon
     
         public init() {
             // end init
@@ -55,37 +56,6 @@ extension PollComposeItem {
 
         public func hash(into hasher: inout Hasher) {
             hasher.combine(id)
-        }
-
-        public enum Option: String, Hashable, CaseIterable {
-            case thirtyMinutes
-            case oneHour
-            case sixHours
-            case oneDay
-            case threeDays
-            case sevenDays
-
-            public var title: String {
-                switch self {
-                case .thirtyMinutes: return L10n.Scene.Compose.Poll.thirtyMinutes
-                case .oneHour: return L10n.Scene.Compose.Poll.oneHour
-                case .sixHours: return L10n.Scene.Compose.Poll.sixHours
-                case .oneDay: return L10n.Scene.Compose.Poll.oneDay
-                case .threeDays: return L10n.Scene.Compose.Poll.threeDays
-                case .sevenDays: return L10n.Scene.Compose.Poll.sevenDays
-                }
-            }
-
-            public var seconds: Int {
-                switch self {
-                case .thirtyMinutes: return 60 * 30
-                case .oneHour: return 60 * 60 * 1
-                case .sixHours: return 60 * 60 * 6
-                case .oneDay: return 60 * 60 * 24
-                case .threeDays: return 60 * 60 * 24 * 3
-                case .sevenDays: return 60 * 60 * 24 * 7
-                }
-            }
         }
     }
 }

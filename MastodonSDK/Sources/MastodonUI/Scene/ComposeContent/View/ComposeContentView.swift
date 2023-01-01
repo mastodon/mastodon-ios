@@ -7,6 +7,7 @@
 
 import os.log
 import SwiftUI
+import CoreDataStack
 import MastodonAsset
 import MastodonCore
 import MastodonLocalization
@@ -198,7 +199,7 @@ extension ComposeContentView {
                 }
                 Menu {
                     Picker(selection: $viewModel.pollExpireConfigurationOption) {
-                        ForEach(PollComposeItem.ExpireConfiguration.Option.allCases, id: \.self) { option in
+                        ForEach(Draft.Poll.Expiration.allCases, id: \.self) { option in
                             Text(option.title)
                         }
                     } label: {

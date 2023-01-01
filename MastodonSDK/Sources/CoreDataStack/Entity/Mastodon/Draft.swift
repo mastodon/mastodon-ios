@@ -118,6 +118,11 @@ extension Draft {
             public init(rawValue: TimeInterval) {
                 self.rawValue = rawValue
             }
+
+            public var title: String {
+                (Date.now..<Date.now.advanced(by: rawValue))
+                    .formatted(Date.ComponentsFormatStyle(style: .wide))
+            }
         }
     }
 }

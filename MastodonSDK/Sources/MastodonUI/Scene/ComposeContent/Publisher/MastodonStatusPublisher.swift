@@ -33,7 +33,7 @@ public final class MastodonStatusPublisher: NSObject, ProgressReporting {
     // poll
     public let isPollComposing: Bool
     public let pollOptions: [PollComposeItem.Option]
-    public let pollExpireConfigurationOption: PollComposeItem.ExpireConfiguration.Option
+    public let pollExpireConfigurationOption: Draft.Poll.Expiration
     public let pollMultipleConfigurationOption: PollComposeItem.MultipleConfiguration.Option
     // visibility
     public let visibility: Mastodon.Entity.Status.Visibility
@@ -56,7 +56,7 @@ public final class MastodonStatusPublisher: NSObject, ProgressReporting {
         attachmentViewModels: [AttachmentViewModel],
         isPollComposing: Bool,
         pollOptions: [PollComposeItem.Option],
-        pollExpireConfigurationOption: PollComposeItem.ExpireConfiguration.Option,
+        pollExpireConfigurationOption: Draft.Poll.Expiration,
         pollMultipleConfigurationOption: PollComposeItem.MultipleConfiguration.Option,
         visibility: Mastodon.Entity.Status.Visibility
     ) {
@@ -159,7 +159,7 @@ extension MastodonStatusPublisher: StatusPublisher {
         let pollExpiresIn: Int? = {
             guard self.isPollComposing else { return nil }
             guard pollOptions != nil else { return nil }
-            return self.pollExpireConfigurationOption.seconds
+            return Int(self.pollExpireConfigurationOption.rawValue)
         }()
         let pollMultiple: Bool? = {
             guard self.isPollComposing else { return nil }

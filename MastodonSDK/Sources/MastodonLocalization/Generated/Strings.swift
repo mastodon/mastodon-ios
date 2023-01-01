@@ -581,26 +581,14 @@ public enum L10n {
         public static func durationTime(_ p1: Any) -> String {
           return L10n.tr("Localizable", "Scene.Compose.Poll.DurationTime", String(describing: p1), fallback: "Duration: %@")
         }
-        /// 1 Day
-        public static let oneDay = L10n.tr("Localizable", "Scene.Compose.Poll.OneDay", fallback: "1 Day")
-        /// 1 Hour
-        public static let oneHour = L10n.tr("Localizable", "Scene.Compose.Poll.OneHour", fallback: "1 Hour")
         /// Option %ld
         public static func optionNumber(_ p1: Int) -> String {
           return L10n.tr("Localizable", "Scene.Compose.Poll.OptionNumber", p1, fallback: "Option %ld")
         }
-        /// 7 Days
-        public static let sevenDays = L10n.tr("Localizable", "Scene.Compose.Poll.SevenDays", fallback: "7 Days")
-        /// 6 Hours
-        public static let sixHours = L10n.tr("Localizable", "Scene.Compose.Poll.SixHours", fallback: "6 Hours")
         /// The poll has empty option
         public static let thePollHasEmptyOption = L10n.tr("Localizable", "Scene.Compose.Poll.ThePollHasEmptyOption", fallback: "The poll has empty option")
         /// The poll is invalid
         public static let thePollIsInvalid = L10n.tr("Localizable", "Scene.Compose.Poll.ThePollIsInvalid", fallback: "The poll is invalid")
-        /// 30 minutes
-        public static let thirtyMinutes = L10n.tr("Localizable", "Scene.Compose.Poll.ThirtyMinutes", fallback: "30 minutes")
-        /// 3 Days
-        public static let threeDays = L10n.tr("Localizable", "Scene.Compose.Poll.ThreeDays", fallback: "3 Days")
       }
       public enum Title {
         /// New Post
