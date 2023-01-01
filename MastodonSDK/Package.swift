@@ -112,6 +112,7 @@ let package = Package(
         .target(
             name: "MastodonSDK",
             dependencies: [
+                "MastodonCommon",
                 .product(name: "NIOHTTP1", package: "swift-nio"),
             ]
         ),
