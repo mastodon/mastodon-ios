@@ -141,11 +141,13 @@ extension Draft {
     @discardableResult
     public static func insert(
         into context: NSManagedObjectContext,
-        property: Property
+        property: Property,
+        relationship: Relationship
     ) -> Draft {
         let object: Draft = context.insertObject()
         
         object.configure(property: property)
+        object.configure(relationship: relationship)
         object.createdAt = .now
         object.updatedAt = .now
         

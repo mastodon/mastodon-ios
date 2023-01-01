@@ -523,17 +523,23 @@ extension ComposeContentViewModel {
                 multiple: pollMultipleConfigurationOption
             ) : nil
         )
-        try await context.perform { [self] in
-            let draft = self.draft ?? Draft(entity: Draft.entity(), insertInto: context)
-            draft.configure(property: property)
-            let replyTo: Status?
-            if case .reply(let parent) = destination {
-                replyTo = parent.object(in: context)
+        try await context.performChanges { [self] in
+            let relationship: Draft.Relationship = {
+                let replyTo: Status?
+                if case .reply(let parent) = destination {
+                    replyTo = parent.object(in: context)
+                } else {
+                    replyTo = nil
+                }
+                let authentication = authContext.mastodonAuthenticationBox.authenticationRecord.object(in: context)!
+                return .init(author: authentication.user, replyTo: replyTo)
+            }()
+            if let draft = self.draft {
+                draft.configure(property: property)
+                draft.configure(relationship: relationship)
             } else {
-                replyTo = nil
+                Draft.insert(into: context, property: property, relationship: relationship)
             }
-            let authentication = authContext.mastodonAuthenticationBox.authenticationRecord.object(in: context)!
-            draft.configure(relationship: .init(author: authentication.user, replyTo: replyTo))
         }
     }
 }
