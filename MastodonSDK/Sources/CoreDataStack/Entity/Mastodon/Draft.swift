@@ -148,6 +148,7 @@ extension Draft {
         
         object.configure(property: property)
         object.configure(relationship: relationship)
+        object.identifier = UUID()
         object.createdAt = .now
         object.updatedAt = .now
         

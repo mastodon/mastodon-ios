@@ -149,9 +149,13 @@ extension ComposeViewController {
         let draftAction = UIAlertAction(title: "[Save Draft]", style: .default) { [weak self] _ in
             guard let self = self else { return }
             Task {
-                try await self.composeContentViewModel.saveToDraft(in: self.context.managedObjectContext)
-                await MainActor.run {
-                    self.dismiss(animated: true, completion: nil)
+                do {
+                    try await self.composeContentViewModel.saveToDraft(in: self.context.managedObjectContext)
+                    await MainActor.run {
+                        self.dismiss(animated: true, completion: nil)
+                    }
+                } catch {
+                    print(error)
                 }
             }
         }
