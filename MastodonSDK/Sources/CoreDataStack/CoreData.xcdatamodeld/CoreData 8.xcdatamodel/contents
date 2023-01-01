@@ -42,7 +42,6 @@
         <attribute name="content" attributeType="String"/>
         <attribute name="contentWarning" optional="YES" attributeType="String"/>
         <attribute name="createdAt" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="domain" attributeType="String"/>
         <attribute name="identifier" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="poll" optional="YES" attributeType="Binary"/>
         <attribute name="updatedAt" attributeType="Date" usesScalarValueType="NO"/>

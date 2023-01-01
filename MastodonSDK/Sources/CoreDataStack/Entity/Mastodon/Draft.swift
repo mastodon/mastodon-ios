@@ -11,7 +11,8 @@ import MastodonCommon
 
 public final class Draft: NSManagedObject {
     @NSManaged public private(set) var identifier: UUID
-    @NSManaged public private(set) var domain: String
+    // sourcery: autoGenerateRelationship
+    @NSManaged public private(set) var author: MastodonUser
 
     @NSManaged public private(set) var createdAt: Date
     @NSManaged public private(set) var updatedAt: Date
@@ -160,15 +161,6 @@ extension Draft {
     
 }
 
-extension Draft {
-    static func predicate(domain: String, id: UUID) -> NSPredicate {
-        NSCompoundPredicate(andPredicateWithSubpredicates: [
-            NSPredicate(format: "%K == %@", #keyPath(Draft.domain), domain),
-            NSPredicate(format: "%K == %@", #keyPath(Draft.identifier), id.uuidString),
-        ])
-    }
-}
-
 extension Draft: Managed {
     public static var defaultSortDescriptors: [NSSortDescriptor] {
         return []
@@ -229,16 +221,20 @@ extension Draft: AutoGenerateRelationship {
     // Generated using Sourcery
     // DO NOT EDIT
     public struct Relationship {
+    	public let author: MastodonUser
     	public let replyTo: Status?
 
     	public init(
+    		author: MastodonUser,
     		replyTo: Status?
     	) {
+    		self.author = author
     		self.replyTo = replyTo
     	}
     }
 
     public func configure(relationship: Relationship) {
+    	self.author = relationship.author
     	self.replyTo = relationship.replyTo
     }
     
