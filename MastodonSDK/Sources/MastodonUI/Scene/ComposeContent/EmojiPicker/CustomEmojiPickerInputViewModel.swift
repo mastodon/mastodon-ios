@@ -10,6 +10,20 @@ import Combine
 import MetaTextKit
 import MastodonCore
 
+public protocol CustomEmojiReplaceableTextInput: UITextInput & UIResponder {
+    var inputView: UIView? { get set }
+}
+
+public class CustomEmojiReplaceableTextInputReference {
+    public weak var value: CustomEmojiReplaceableTextInput?
+    public init(value: CustomEmojiReplaceableTextInput? = nil) {
+        self.value = value
+    }
+}
+
+extension UITextField: CustomEmojiReplaceableTextInput { }
+extension UITextView: CustomEmojiReplaceableTextInput { }
+
 final class CustomEmojiPickerInputViewModel {
     
     var disposeBag = Set<AnyCancellable>()
