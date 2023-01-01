@@ -159,6 +159,13 @@ extension Draft {
         }
     }
     
+    public override func prepareForDeletion() {
+        super.prepareForDeletion()
+        for attachment in attachments {
+            try? FileManager.default.removeItem(at: attachment.fileURL)
+        }
+    }
+    
 }
 
 extension Draft: Managed {
