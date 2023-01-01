@@ -42,7 +42,7 @@ public final class Draft: NSManagedObject {
 
 extension Draft {
     // sourcery: autoUpdatableObject, autoGenerateProperty
-    @objc public var attachments: [MastodonAttachment] {
+    @objc public var attachments: [Attachment] {
         get {
             let keyPath = #keyPath(Draft.attachments)
             willAccessValue(forKey: keyPath)
@@ -50,7 +50,7 @@ extension Draft {
             didAccessValue(forKey: keyPath)
             do {
                 guard let data = _data else { return [] }
-                let attachments = try JSONDecoder().decode([MastodonAttachment].self, from: data)
+                let attachments = try JSONDecoder().decode([Attachment].self, from: data)
                 return attachments
             } catch {
                 assertionFailure(error.localizedDescription)
@@ -93,6 +93,15 @@ extension Draft {
 }
 
 extension Draft {
+    public final class Attachment: NSObject, Codable {
+        public let value: Value
+        
+        public enum Value: Codable {
+            case uploaded(MastodonAttachment)
+            case local(URL)
+        }
+    }
+
     @objc public final class Poll: NSObject, Codable {
         public init(items: [String], expiration: Draft.Poll.Expiration, multiple: Bool) {
             self.items = items
@@ -172,7 +181,7 @@ extension Draft: AutoGenerateProperty {
         public let content: String
         public let contentWarning: String?
         public let visibility: MastodonVisibility
-        public let attachments: [MastodonAttachment]
+        public let attachments: [Attachment]
         public let poll: Poll?
 
     	public init(
@@ -183,7 +192,7 @@ extension Draft: AutoGenerateProperty {
     		content: String,
     		contentWarning: String?,
     		visibility: MastodonVisibility,
-    		attachments: [MastodonAttachment],
+    		attachments: [Attachment],
     		poll: Poll?
     	) {
     		self.identifier = identifier
@@ -265,7 +274,7 @@ extension Draft: AutoUpdatableObject {
     		self.visibility = visibility
     	}
     }
-    public func update(attachments: [MastodonAttachment]) {
+    public func update(attachments: [Attachment]) {
     	if self.attachments != attachments {
     		self.attachments = attachments
     	}
