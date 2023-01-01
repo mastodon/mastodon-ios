@@ -128,7 +128,12 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
     @Published var isAttachmentButtonEnabled = false
     @Published var isPollButtonEnabled = false
     
-    @Published public private(set) var shouldDismiss = true
+    public var shouldDismiss: Bool {
+        let contentDirty = !content.isEmpty && content.trimmingCharacters(in: .whitespacesAndNewlines) != initialContent
+        let attachmentDirty = !attachmentViewModels.isEmpty || isPollActive
+        let dirty = contentDirty || !contentWarning.isEmpty || attachmentDirty
+        return !dirty
+    }
     
     // size limit
     public var sizeLimit: AttachmentViewModel.SizeLimit {
@@ -452,18 +457,6 @@ extension ComposeContentViewModel {
         )
         .map { $0 && $1 }
         .assign(to: &$isPublishBarButtonItemEnabled)
-        
-        // bind modal dismiss state
-        $content
-            .receive(on: DispatchQueue.main)
-            .map { content in
-                if content.isEmpty {
-                    return true
-                }
-                // if the trimmed content equal to initial content
-                return content.trimmingCharacters(in: .whitespacesAndNewlines) == self.initialContent
-            }
-            .assign(to: &$shouldDismiss)
     }
 }
 
