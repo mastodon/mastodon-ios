@@ -498,7 +498,7 @@ extension ComposeContentViewModel {
 }
 
 extension ComposeContentViewModel {
-    func saveToDraft(in context: NSManagedObjectContext) async throws -> Draft {
+    public func saveToDraft(in context: NSManagedObjectContext) async throws {
         var attachments: [Draft.Attachment] = []
         let attachmentsFolder = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
             .appendingPathComponent("draft-attachments", isDirectory: true)
@@ -520,8 +520,7 @@ extension ComposeContentViewModel {
             }
             attachments.append(.init(fileURL: fileURL, remoteID: attachment.uploadResult?.id))
         }
-        let draft = self.draft ?? Draft(entity: Draft.entity(), insertInto: context)
-        draft.configure(property: .init(
+        let property = Draft.Property(
             content: content,
             contentWarning: isContentWarningActive ? contentWarning : nil,
             visibility: visibility,
@@ -531,8 +530,18 @@ extension ComposeContentViewModel {
                 expiration: pollExpireConfigurationOption,
                 multiple: pollMultipleConfigurationOption
             ) : nil
-        ))
-        return draft
+        )
+        try await context.perform { [self] in
+            let draft = self.draft ?? Draft(entity: Draft.entity(), insertInto: context)
+            draft.configure(property: property)
+            let replyTo: Status?
+            if case .reply(let parent) = destination {
+                replyTo = parent.object(in: context)
+            } else {
+                replyTo = nil
+            }
+            draft.configure(relationship: .init(replyTo: replyTo))
+        }
     }
 }
 
