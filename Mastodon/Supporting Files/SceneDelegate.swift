@@ -12,6 +12,7 @@ import CoreDataStack
 import MastodonCore
 import MastodonExtension
 import MastodonUI
+import MastodonSDK
 
 #if PROFILE
 import FPSIndicator
@@ -66,6 +67,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         sceneCoordinator.setup()
         window.makeKeyAndVisible()
+        
+        if let urlContext = connectionOptions.urlContexts.first {
+            handleUrl(context: urlContext)
+        }
         
         #if SNAPSHOT
         // speedup animation
@@ -187,21 +192,7 @@ extension SceneDelegate {
             coordinator.switchToTabBar(tab: .notifications)
 
         case "org.joinmastodon.app.new-post":
-            if coordinator?.tabBarController.topMost is ComposeViewController {
-                logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): composing…")
-            } else {
-                if let authContext = coordinator?.authContext {
-                    let composeViewModel = ComposeViewModel(
-                        context: AppContext.shared,
-                        authContext: authContext,
-                        destination: .topLevel
-                    )
-                    _ = coordinator?.present(scene: .compose(viewModel: composeViewModel), from: nil, transition: .modal(animated: true, completion: nil))
-                    logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): present compose scene")
-                } else {
-                    logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): not authenticated")
-                }
-            }
+            showComposeViewController()
 
         case "org.joinmastodon.app.search":
             coordinator?.switchToTabBar(tab: .search)
@@ -218,5 +209,90 @@ extension SceneDelegate {
         }
 
         return true
+    }
+    
+    func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+        // Determine who sent the URL.
+        if let urlContext = URLContexts.first {
+            handleUrl(context: urlContext)
+        }
+    }
+    
+    private func showComposeViewController() {
+        if coordinator?.tabBarController.topMost is ComposeViewController {
+            logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): composing…")
+        } else {
+            if let authContext = coordinator?.authContext {
+                let composeViewModel = ComposeViewModel(
+                    context: AppContext.shared,
+                    authContext: authContext,
+                    destination: .topLevel
+                )
+                _ = coordinator?.present(scene: .compose(viewModel: composeViewModel), from: nil, transition: .modal(animated: true, completion: nil))
+                logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): present compose scene")
+            } else {
+                logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): not authenticated")
+            }
+        }
+    }
+    
+    private func handleUrl(context: UIOpenURLContext) {
+        let sendingAppID = context.options.sourceApplication
+        let url = context.url
+
+        if !UIApplication.shared.canOpenURL(url) { return }
+
+        print("source application = \(sendingAppID ?? "Unknown")")
+        print("url = \(url)")
+        
+        if let username = url.user {
+            guard let host = url.host else { return }
+            let components = url.pathComponents
+            if components.count == 3 && components[1] == "status" {
+                let statusId = components[2]
+                // View post from user
+                print("view status \(statusId)")
+                if let authContext = coordinator?.authContext {
+                    Task {
+                        guard let thread = try await AppContext.shared.apiService.fetchThread(
+                            statusID: statusId,
+                            domain: host,
+                            authenticationBox: authContext.mastodonAuthenticationBox
+                        ) else { return }
+                        
+                        let threadViewModel = CachedThreadViewModel(context: AppContext.shared,
+                                                                    authContext: authContext,
+                                                                    status: thread)
+                        coordinator?.present(scene: .thread(viewModel: threadViewModel), from: nil, transition: .show)
+                    }
+                }
+            } else {
+                print("view profile \(username)@\(host)")
+                if let authContext = coordinator?.authContext {
+                    Task { @MainActor in
+                        guard let user = try await AppContext.shared.apiService.fetchUser(
+                            username: username,
+                            domain: host,
+                            authenticationBox: authContext.mastodonAuthenticationBox
+                        ) else { return }
+                        
+                        let profileViewModel = RemoteProfileViewModel(context: AppContext.shared,
+                                                                      authContext: authContext,
+                                                                      userID: user.id)
+                        self.coordinator?.present(
+                            scene: .profile(viewModel: profileViewModel),
+                            from: nil,
+                            transition: .show
+                        )
+                    }
+                }
+            }
+        } else {
+            guard let action = url.host else { return }
+            if action == "post" {
+                print("make post")
+                showComposeViewController()
+            }
+        }
     }
 }
