@@ -7,6 +7,7 @@
 
 import SwiftUI
 import MastodonCore
+import MastodonCommon
 import MastodonAsset
 import MastodonLocalization
 import MastodonSDK
@@ -18,8 +19,8 @@ extension ComposeContentToolbarView {
         
         // input
         @Published var backgroundColor = ThemeService.shared.currentTheme.value.composeToolbarBackgroundColor
-        @Published var visibility: Mastodon.Entity.Status.Visibility = .public
-        var allVisibilities: [Mastodon.Entity.Status.Visibility] {
+        @Published var visibility: MastodonVisibility = .public
+        var allVisibilities: [MastodonVisibility] {
             return [.public, .private, .direct]
         }
         

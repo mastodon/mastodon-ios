@@ -7,6 +7,7 @@
 
 import CoreData
 import Foundation
+import MastodonCommon
 
 public final class Status: NSManagedObject {
     public typealias ID = String

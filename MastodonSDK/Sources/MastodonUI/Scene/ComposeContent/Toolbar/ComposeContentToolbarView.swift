@@ -8,6 +8,7 @@
 import os.log
 import SwiftUI
 import MastodonAsset
+import MastodonCommon
 import MastodonLocalization
 import MastodonSDK
 
@@ -126,7 +127,7 @@ extension ComposeContentToolbarView {
     }
 }
 
-extension Mastodon.Entity.Status.Visibility {
+extension MastodonVisibility {
     fileprivate var title: String {
         switch self {
         case .public:               return L10n.Scene.Compose.Visibility.public

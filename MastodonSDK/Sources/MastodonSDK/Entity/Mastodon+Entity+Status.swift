@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import MastodonCommon
 
 extension Mastodon.Entity {
         
@@ -28,7 +29,7 @@ extension Mastodon.Entity {
         public let account: Account
         public let content: String? // will be optional when delete status
         
-        public let visibility: Visibility?
+        public let visibility: MastodonVisibility?
         public let sensitive: Bool?
         public let spoilerText: String?
         public let mediaAttachments: [Attachment]?
@@ -99,35 +100,4 @@ extension Mastodon.Entity {
         }
     }
     
-}
-
-extension Mastodon.Entity.Status {
-    public enum Visibility: RawRepresentable, Codable, Hashable {
-        case `public`
-        case unlisted
-        case `private`
-        case direct
-        
-        case _other(String)
-        
-        public init?(rawValue: String) {
-            switch rawValue {
-            case "public":                      self = .public
-            case "unlisted":                    self = .unlisted
-            case "private":                     self = .private
-            case "direct":                      self = .direct
-            default:                            self = ._other(rawValue)
-            }
-        }
-        
-        public var rawValue: String {
-            switch self {
-            case .public:                       return "public"
-            case .unlisted:                     return "unlisted"
-            case .private:                      return "private"
-            case .direct:                       return "direct"
-            case ._other(let value):            return value
-            }
-        }
-    }
 }

@@ -12,9 +12,11 @@ import CoreDataStack
 import Meta
 import MetaTextKit
 import MastodonMeta
+import MastodonCommon
 import MastodonCore
 import MastodonSDK
 import MastodonLocalization
+import CoreData
 
 public protocol ComposeContentViewModelDelegate: AnyObject {
     func composeContentViewModel(_ viewModel: ComposeContentViewModel, handleAutoComplete info: ComposeContentViewModel.AutoCompleteInfo) -> Bool
@@ -111,7 +113,7 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
     @Published var isLoadingCustomEmoji = false
     
     // visibility
-    @Published public var visibility: Mastodon.Entity.Status.Visibility
+    @Published public var visibility: MastodonVisibility
     
     // UI & UX
     @Published var replyToCellFrame: CGRect = .zero
@@ -147,7 +149,7 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
         self.draft = nil
         self.visibility = {
             // default private when user locked
-            var visibility: Mastodon.Entity.Status.Visibility = {
+            var visibility: MastodonVisibility = {
                 guard let author = authContext.mastodonAuthenticationBox.authenticationRecord.object(in: context.managedObjectContext)?.user else {
                     return .public
                 }
@@ -239,7 +241,7 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
         self.customEmojiViewModel = context.emojiService.dequeueCustomEmojiViewModel(
             for: authContext.mastodonAuthenticationBox.domain
         )
-        self.visibility = .init(draft.visibility)
+        self.visibility = draft.visibility
         super.init()
         _init()
         
@@ -725,18 +727,6 @@ extension ComposeContentViewModel: AttachmentViewModelDelegate {
             Task {
                 try await uploadMediaInQueue()
             }
-        }
-    }
-}
-
-extension Mastodon.Entity.Status.Visibility {
-    public init(_ mastodonVisibility: MastodonVisibility) {
-        switch mastodonVisibility {
-        case .public: self = .public
-        case .unlisted: self = .unlisted
-        case .private: self = .private
-        case .direct: self = .direct
-        case ._other(let string): self = ._other(string)
         }
     }
 }

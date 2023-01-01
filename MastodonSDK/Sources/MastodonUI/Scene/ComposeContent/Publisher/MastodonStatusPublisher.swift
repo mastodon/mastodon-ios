@@ -10,6 +10,7 @@ import Foundation
 import CoreData
 import CoreDataStack
 import MastodonCore
+import MastodonCommon
 import MastodonSDK
 
 public final class MastodonStatusPublisher: NSObject, ProgressReporting {
@@ -36,7 +37,7 @@ public final class MastodonStatusPublisher: NSObject, ProgressReporting {
     public let pollExpireConfigurationOption: Draft.Poll.Expiration
     public let pollMultipleConfigurationOption: PollComposeItem.MultipleConfiguration.Option
     // visibility
-    public let visibility: Mastodon.Entity.Status.Visibility
+    public let visibility: MastodonVisibility
     
     // Output
     let _progress = Progress()
@@ -58,7 +59,7 @@ public final class MastodonStatusPublisher: NSObject, ProgressReporting {
         pollOptions: [PollComposeItem.Option],
         pollExpireConfigurationOption: Draft.Poll.Expiration,
         pollMultipleConfigurationOption: PollComposeItem.MultipleConfiguration.Option,
-        visibility: Mastodon.Entity.Status.Visibility
+        visibility: MastodonVisibility
     ) {
         self.author = author
         self.replyTo = replyTo

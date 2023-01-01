@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum MastodonVisibility: RawRepresentable {
+public enum MastodonVisibility: RawRepresentable, Codable, Hashable {
     case `public`
     case unlisted
     case `private`

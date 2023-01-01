@@ -5,6 +5,7 @@
 //  Created by MainasuK Cirno on 2021-3-10.
 //
 
+import MastodonCommon
 import Foundation
 import Combine
 
@@ -105,7 +106,7 @@ extension Mastodon.API.Statuses {
         public let inReplyToID: Mastodon.Entity.Status.ID?
         public let sensitive: Bool?
         public let spoilerText: String?
-        public let visibility: Mastodon.Entity.Status.Visibility?
+        public let visibility: MastodonVisibility?
         
         public init(
             status: String?,
@@ -115,7 +116,7 @@ extension Mastodon.API.Statuses {
             inReplyToID: Mastodon.Entity.Status.ID?,
             sensitive: Bool?,
             spoilerText: String?,
-            visibility: Mastodon.Entity.Status.Visibility?
+            visibility: MastodonVisibility?
         ) {
             self.status = status
             self.mediaIDs = mediaIDs

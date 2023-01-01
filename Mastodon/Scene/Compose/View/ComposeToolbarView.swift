@@ -10,6 +10,7 @@ import UIKit
 import Combine
 import MastodonSDK
 import MastodonAsset
+import MastodonCommon
 import MastodonCore
 import MastodonUI
 import MastodonLocalization
@@ -248,7 +249,7 @@ extension ComposeToolbarView {
             }
         }
         
-        var visibility: Mastodon.Entity.Status.Visibility {
+        var visibility: MastodonVisibility {
             switch self {
             case .public: return .public
             // case .unlisted: return .unlisted

@@ -12,6 +12,7 @@ import CoreData
 import CoreDataStack
 import MastodonSDK
 import MastodonCore
+import MastodonCommon
 
 final class SendPostIntentHandler: NSObject {
 
@@ -35,7 +36,7 @@ extension SendPostIntentHandler: SendPostIntentHandling {
             return SendPostIntentResponse(code: .failure, userActivity: nil)
         }
         
-        let visibility: Mastodon.Entity.Status.Visibility = {
+        let visibility: MastodonVisibility = {
             switch intent.visibility {
             case .unknown:          return .public
             case .public:           return .public

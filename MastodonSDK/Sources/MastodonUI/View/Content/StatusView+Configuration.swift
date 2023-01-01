@@ -10,6 +10,7 @@ import Combine
 import CoreDataStack
 import MastodonSDK
 import MastodonCore
+import MastodonCommon
 import MastodonLocalization
 import MastodonMeta
 import Meta

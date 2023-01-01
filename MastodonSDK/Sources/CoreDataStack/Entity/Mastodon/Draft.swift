@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreData
+import MastodonCommon
 
 public final class Draft: NSManagedObject {
     // sourcery: autoGenerateProperty

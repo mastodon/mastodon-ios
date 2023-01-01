@@ -8,6 +8,7 @@
 import Foundation
 import CoreGraphics
 import CoreDataStack
+import MastodonCommon
 import MastodonSDK
 
 extension Status.Property {
@@ -19,7 +20,7 @@ extension Status.Property {
             uri: entity.uri,
             createdAt: entity.createdAt,
             content: entity.content ?? "",
-            visibility: entity.mastodonVisibility,
+            visibility: entity.visibility ?? ._other(""),
             sensitive: entity.sensitive ?? false,
             spoilerText: entity.spoilerText,
             reblogsCount: Int64(entity.reblogsCount),
@@ -36,13 +37,6 @@ extension Status.Property {
             emojis: entity.mastodonEmojis,
             mentions: entity.mastodonMentions
         )
-    }
-}
-
-extension Mastodon.Entity.Status {
-    public var mastodonVisibility: MastodonVisibility {
-        let rawValue = visibility?.rawValue ?? ""
-        return MastodonVisibility(rawValue: rawValue) ?? ._other(rawValue)
     }
 }
 
