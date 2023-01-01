@@ -379,7 +379,8 @@ extension MainTabBarController {
         let composeViewModel = ComposeViewModel(
             context: context,
             authContext: authContext,
-            destination: .topLevel
+            destination: .topLevel,
+            allowDraft: true
         )
         _ = coordinator.present(scene: .compose(viewModel: composeViewModel), from: nil, transition: .modal(animated: true, completion: nil))
     }
@@ -803,7 +804,8 @@ extension MainTabBarController {
         let composeViewModel = ComposeViewModel(
             context: context,
             authContext: authContext,
-            destination: .topLevel
+            destination: .topLevel,
+            allowDraft: true
         )
         _ = coordinator.present(scene: .compose(viewModel: composeViewModel), from: nil, transition: .modal(animated: true, completion: nil))
     }

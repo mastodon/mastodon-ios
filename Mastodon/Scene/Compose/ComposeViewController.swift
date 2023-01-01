@@ -31,6 +31,14 @@ final class ComposeViewController: UIViewController, NeedsDependency {
     let logger = Logger(subsystem: "ComposeViewController", category: "logic")
     
     lazy var composeContentViewModel: ComposeContentViewModel = {
+        let authentication = viewModel.authContext.mastodonAuthenticationBox.authenticationRecord.object(in: context.managedObjectContext)
+        if viewModel.allowDraft, let draft = authentication?.user.drafts.first {
+            return ComposeContentViewModel(
+                context: context,
+                authContext: viewModel.authContext,
+                draft: draft
+            )
+        }
         return ComposeContentViewModel(
             context: context,
             authContext: viewModel.authContext,

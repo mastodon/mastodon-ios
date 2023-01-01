@@ -232,12 +232,11 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
     public init(
         context: AppContext,
         authContext: AuthContext,
-        destination: Destination,
         draft: Draft
     ) {
         self.context = context
         self.authContext = authContext
-        self.destination = destination
+        self.destination = draft.replyTo.map { .reply(parent: $0.asRecord) } ?? .topLevel
         self.draft = draft
         self.customEmojiViewModel = context.emojiService.dequeueCustomEmojiViewModel(
             for: authContext.mastodonAuthenticationBox.domain

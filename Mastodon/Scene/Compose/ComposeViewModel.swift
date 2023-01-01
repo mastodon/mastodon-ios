@@ -31,6 +31,7 @@ final class ComposeViewModel {
     let authContext: AuthContext
     let destination: ComposeContentViewModel.Destination
     let initialContent: String
+    let allowDraft: Bool
 
     let traitCollectionDidChangePublisher = CurrentValueSubject<Void, Never>(Void())      // use CurrentValueSubject to make initial event emit
     
@@ -43,12 +44,14 @@ final class ComposeViewModel {
         context: AppContext,
         authContext: AuthContext,
         destination: ComposeContentViewModel.Destination,
-        initialContent: String = ""
+        initialContent: String = "",
+        allowDraft: Bool = false
     ) {
         self.context = context
         self.authContext = authContext
         self.destination = destination
         self.initialContent = initialContent
+        self.allowDraft = allowDraft
         // end init
         
         self.title = {
