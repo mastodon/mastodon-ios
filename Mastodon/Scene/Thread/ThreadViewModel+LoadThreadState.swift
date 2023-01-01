@@ -73,11 +73,12 @@ extension ThreadViewModel.LoadThreadState {
                 return
             }
             
-            Task {
+            Task { @MainActor in
                 do {
                     let response = try await viewModel.context.apiService.statusContext(
                         statusID: threadContext.statusID,
-                        authenticationBox: viewModel.authContext.mastodonAuthenticationBox
+                        authenticationBox: viewModel.authContext.mastodonAuthenticationBox,
+                        domain: threadContext.domain
                     )
                     
                     await enter(state: NoMore.self)
