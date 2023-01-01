@@ -10,14 +10,10 @@ import CoreData
 import MastodonCommon
 
 public final class Draft: NSManagedObject {
-    // sourcery: autoGenerateProperty
     @NSManaged public private(set) var identifier: UUID
-    // sourcery: autoGenerateProperty
     @NSManaged public private(set) var domain: String
 
-    // sourcery: autoGenerateProperty
     @NSManaged public private(set) var createdAt: Date
-    // sourcery: autoGenerateProperty
     @NSManaged public private(set) var updatedAt: Date
 
     // sourcery: autoUpdatableObject, autoGenerateProperty
@@ -98,6 +94,11 @@ extension Draft {
         public let fileURL: URL
         // Mastodon.Entity.Attachment.ID
         public let remoteID: String?
+        
+        public init(fileURL: URL, remoteID: String?) {
+            self.fileURL = fileURL
+            self.remoteID = remoteID
+        }
     }
 
     @objc public final class Poll: NSObject, Codable {
@@ -159,6 +160,15 @@ extension Draft {
     
 }
 
+extension Draft {
+    static func predicate(domain: String, id: UUID) -> NSPredicate {
+        NSCompoundPredicate(andPredicateWithSubpredicates: [
+            NSPredicate(format: "%K == %@", #keyPath(Draft.domain), domain),
+            NSPredicate(format: "%K == %@", #keyPath(Draft.identifier), id.uuidString),
+        ])
+    }
+}
+
 extension Draft: Managed {
     public static var defaultSortDescriptors: [NSSortDescriptor] {
         return []
@@ -172,10 +182,6 @@ extension Draft: AutoGenerateProperty {
     // Generated using Sourcery
     // DO NOT EDIT
     public struct Property {
-        public let identifier: UUID
-        public let domain: String
-        public let createdAt: Date
-        public let updatedAt: Date
         public let content: String
         public let contentWarning: String?
         public let visibility: MastodonVisibility
@@ -183,20 +189,12 @@ extension Draft: AutoGenerateProperty {
         public let poll: Poll?
 
     	public init(
-    		identifier: UUID,
-    		domain: String,
-    		createdAt: Date,
-    		updatedAt: Date,
     		content: String,
     		contentWarning: String?,
     		visibility: MastodonVisibility,
     		attachments: [Attachment],
     		poll: Poll?
     	) {
-    		self.identifier = identifier
-    		self.domain = domain
-    		self.createdAt = createdAt
-    		self.updatedAt = updatedAt
     		self.content = content
     		self.contentWarning = contentWarning
     		self.visibility = visibility
@@ -206,10 +204,6 @@ extension Draft: AutoGenerateProperty {
     }
 
     public func configure(property: Property) {
-    	self.identifier = property.identifier
-    	self.domain = property.domain
-    	self.createdAt = property.createdAt
-    	self.updatedAt = property.updatedAt
     	self.content = property.content
     	self.contentWarning = property.contentWarning
     	self.visibility = property.visibility

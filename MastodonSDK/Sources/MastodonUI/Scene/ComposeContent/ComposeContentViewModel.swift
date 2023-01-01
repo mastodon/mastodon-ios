@@ -17,6 +17,7 @@ import MastodonCore
 import MastodonSDK
 import MastodonLocalization
 import CoreData
+import UniformTypeIdentifiers
 
 public protocol ComposeContentViewModelDelegate: AnyObject {
     func composeContentViewModel(_ viewModel: ComposeContentViewModel, handleAutoComplete info: ComposeContentViewModel.AutoCompleteInfo) -> Bool
@@ -493,6 +494,45 @@ extension ComposeContentViewModel {
         // geometry
         var textBoundingRect: CGRect = .zero
         var symbolBoundingRect: CGRect = .zero
+    }
+}
+
+extension ComposeContentViewModel {
+    func saveToDraft(in context: NSManagedObjectContext) async throws -> Draft {
+        var attachments: [Draft.Attachment] = []
+        let attachmentsFolder = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+            .appendingPathComponent("draft-attachments", isDirectory: true)
+        try FileManager.default.createDirectory(at: attachmentsFolder, withIntermediateDirectories: true)
+
+        for attachment in self.attachmentViewModels {
+            let fileURL: URL
+            switch attachment.output {
+            case nil:
+                fileURL = attachmentsFolder
+                print("****")
+            case .image(let data, let kind):
+                fileURL = attachmentsFolder.appendingPathComponent(attachment.id.uuidString, conformingTo: kind.type)
+                try data.write(to: fileURL)
+            case .video(let url, let mimeType):
+                fileURL = attachmentsFolder.appendingPathComponent(attachment.id.uuidString, conformingTo: UTType(mimeType: mimeType) ?? .mpeg4Movie)
+                // keep a copy until we’re done with it instead of allowing the system to clean up
+                try FileManager.default.copyItem(at: url, to: fileURL)
+            }
+            attachments.append(.init(fileURL: fileURL, remoteID: attachment.uploadResult?.id))
+        }
+        let draft = self.draft ?? Draft(entity: Draft.entity(), insertInto: context)
+        draft.configure(property: .init(
+            content: content,
+            contentWarning: isContentWarningActive ? contentWarning : nil,
+            visibility: visibility,
+            attachments: attachments,
+            poll: isPollActive ? Draft.Poll(
+                items: pollOptions.map(\.text),
+                expiration: pollExpireConfigurationOption,
+                multiple: pollMultipleConfigurationOption
+            ) : nil
+        ))
+        return draft
     }
 }
 
