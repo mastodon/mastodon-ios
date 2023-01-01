@@ -348,7 +348,7 @@
             }
         },
         "server_rules": {
-            "title": "Quy tắc máy chủ.",
+            "title": "Nội quy máy chủ.",
             "subtitle": "Được ban hành và áp dụng bởi quản trị viên %s",
             "prompt": "Tiếp tục nghĩa là bạn đồng ý điều khoản dịch vụ và chính sách bảo mật của %s.",
             "terms_of_service": "điều khoản dịch vụ",
@@ -699,14 +699,14 @@
                 "it_is_not_something_you_want_to_see": "Đó không phải là thứ gì mà bạn muốn thấy",
                 "its_spam": "Đây là spam",
                 "malicious_links_fake_engagement_or_repetetive_replies": "Liên kết độc hại, tạo tương tác giả hoặc trả lời lặp đi lặp lại",
-                "it_violates_server_rules": "Vi phạm quy tắc máy chủ",
-                "you_are_aware_that_it_breaks_specific_rules": "Bạn nhận thấy nó vi phạm quy tắc máy chủ",
+                "it_violates_server_rules": "Vi phạm nội quy máy chủ",
+                "you_are_aware_that_it_breaks_specific_rules": "Bạn nhận thấy nó vi phạm nội quy máy chủ",
                 "its_something_else": "Một lý do khác",
                 "the_issue_does_not_fit_into_other_categories": "Vấn đề không nằm trong những mục trên"
             },
             "step_two": {
                 "step_2_of_4": "Bước 2 trong 4",
-                "which_rules_are_being_violated": "Vi phạm quy tắc nào?",
+                "which_rules_are_being_violated": "Vi phạm nội quy nào?",
                 "select_all_that_apply": "Chọn tất cả những gì phù hợp",
                 "i_just_don’t_like_it": "Tôi không thích nó"
             },
