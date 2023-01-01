@@ -539,7 +539,8 @@ extension ComposeContentViewModel {
             } else {
                 replyTo = nil
             }
-            draft.configure(relationship: .init(replyTo: replyTo))
+            let authentication = authContext.mastodonAuthenticationBox.authenticationRecord.object(in: context)!
+            draft.configure(relationship: .init(author: authentication.user, replyTo: replyTo))
         }
     }
 }
