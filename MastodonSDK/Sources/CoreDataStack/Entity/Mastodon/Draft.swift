@@ -106,6 +106,10 @@ extension Draft {
             self.fileURL = fileURL
             self.status = status
         }
+        
+        public func prepareForDeletion() {
+            try? FileManager.default.removeItem(at: fileURL)
+        }
     }
 
     @objc public final class Poll: NSObject, Codable {
@@ -171,7 +175,7 @@ extension Draft {
     public override func prepareForDeletion() {
         super.prepareForDeletion()
         for attachment in attachments {
-            try? FileManager.default.removeItem(at: attachment.fileURL)
+            attachment.prepareForDeletion()
         }
     }
     

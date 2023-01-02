@@ -544,6 +544,7 @@ extension ComposeContentViewModel {
                 multiple: pollMultipleConfigurationOption
             ) : nil
         )
+        let oldAttachments = draft?.attachments ?? []
         try await context.performChanges { [self] in
             let relationship: Draft.Relationship = {
                 let replyTo: Status?
@@ -561,6 +562,9 @@ extension ComposeContentViewModel {
             } else {
                 self.draft = Draft.insert(into: context, property: property, relationship: relationship)
             }
+        }
+        for attachment in oldAttachments {
+            attachment.prepareForDeletion()
         }
     }
 }
