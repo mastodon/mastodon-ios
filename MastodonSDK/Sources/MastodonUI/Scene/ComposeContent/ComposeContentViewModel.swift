@@ -36,7 +36,7 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
     // input
     let context: AppContext
     let destination: Destination
-    let draft: Draft?
+    var draft: Draft?
     weak var delegate: ComposeContentViewModelDelegate?
     
     @Published var viewLayoutFrame = ViewLayoutFrame()
@@ -538,7 +538,7 @@ extension ComposeContentViewModel {
                 draft.configure(property: property)
                 draft.configure(relationship: relationship)
             } else {
-                Draft.insert(into: context, property: property, relationship: relationship)
+                self.draft = Draft.insert(into: context, property: property, relationship: relationship)
             }
         }
     }
@@ -576,6 +576,10 @@ extension ComposeContentViewModel {
     
     public func statusPublisher() throws -> StatusPublisher {
         let authContext = self.authContext
+        
+        Task {
+            try await self.saveToDraft(in: self.context.managedObjectContext)
+        }
         
         // author
         let managedObjectContext = self.context.managedObjectContext
@@ -628,6 +632,7 @@ extension ComposeContentViewModel {
                     managedObjectContext.delete(draft)
                 }
             }
+            self.draft = nil
         }
     }
 }
