@@ -169,8 +169,7 @@ final public class AttachmentViewModel: NSObject, ObservableObject, Identifiable
         }   // end Task
         self.compressTask = compressTask
 
-        uploadTask = Task { @MainActor in
-            
+        Task { @MainActor in
             do {
                 var (output, needCompress) = try await compressTask.value
 
@@ -199,6 +198,10 @@ final public class AttachmentViewModel: NSObject, ObservableObject, Identifiable
                 self.output = output
                 
                 self.update(uploadState: .ready)
+
+                // clean up no longer relevant tasks
+                self.compressTask = nil
+                self.uploadTask = nil
             } catch {
                 self.error = error
             }
@@ -208,6 +211,7 @@ final public class AttachmentViewModel: NSObject, ObservableObject, Identifiable
     deinit {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         
+        compressTask?.cancel()
         uploadTask?.cancel()
         
         switch output {

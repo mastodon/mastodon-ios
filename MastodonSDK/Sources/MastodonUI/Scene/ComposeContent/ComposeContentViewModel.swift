@@ -504,10 +504,17 @@ extension ComposeContentViewModel {
 
         for attachment in self.attachmentViewModels {
             let fileURL: URL
-            switch attachment.output {
+            var output = attachment.output
+            if output == nil, let compressTask = attachment.compressTask {
+                (output, _) = try await compressTask.value
+            }
+            switch output {
             case nil:
-                fileURL = attachmentsFolder
-                print("****")
+                if attachment.error == nil {
+                    assertionFailure("Should be impossible!")
+                }
+                // remove the attachment from the list. No other choice unfortunately
+                continue
             case .image(let data, let kind):
                 fileURL = attachmentsFolder.appendingPathComponent(attachment.id.uuidString, conformingTo: kind.type)
                 try data.write(to: fileURL)
