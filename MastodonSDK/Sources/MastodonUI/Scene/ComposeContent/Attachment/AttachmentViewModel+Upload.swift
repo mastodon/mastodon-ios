@@ -74,21 +74,20 @@ extension AttachmentViewModel {
     @MainActor
     func upload(isRetry: Bool = false) async throws {
         do {
-            let result = try await upload(
+            try await upload(
                 context: .init(
                     apiService: self.api,
                     authContext: self.authContext
                 ),
                 isRetry: isRetry
             )
-            update(uploadResult: result)
         } catch {
             self.error = error
         }
     }
     
     @MainActor
-    private func upload(context: UploadContext, isRetry: Bool) async throws -> UploadResult {
+    private func upload(context: UploadContext, isRetry: Bool) async throws {
         if isRetry {
             guard uploadState == .fail else { throw AppError.badRequest }
             self.error = nil
@@ -101,8 +100,8 @@ extension AttachmentViewModel {
             let result = try await uploadMastodonMedia(
                 context: context
             )
+            update(uploadResult: result)
             update(uploadState: .finish)
-            return result
         } catch {
             update(uploadState: .fail)
             throw error

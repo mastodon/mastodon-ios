@@ -142,8 +142,8 @@ final public class AttachmentViewModel: NSObject, ObservableObject, Identifiable
                             attachmentID: remoteID,
                             mastodonAuthenticationBox: authContext.mastodonAuthenticationBox
                         ).singleOutput()
-                        self.update(uploadState: .finish)
                         self.update(uploadResult: response.value)
+                        self.update(uploadState: .finish)
                         switch response.value.type {
                         case .video:
                             self.output = .video(fileURL, mimeType: UTType(filenameExtension: fileURL.pathExtension)?.preferredMIMEType ?? "video/mp4")
