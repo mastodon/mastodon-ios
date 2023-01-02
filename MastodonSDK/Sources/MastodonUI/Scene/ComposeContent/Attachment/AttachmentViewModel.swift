@@ -61,6 +61,7 @@ final public class AttachmentViewModel: NSObject, ObservableObject, Identifiable
     @Published public private(set) var uploadResult: UploadResult?
     @Published var error: Error?
     
+    var compressTask: Task<(Output, needCompress: Bool), Error>?
     var uploadTask: Task<(), Never>?
 
     @Published var videoCompressProgress: Double = 0
@@ -134,41 +135,52 @@ final public class AttachmentViewModel: NSObject, ObservableObject, Identifiable
             .receive(on: DispatchQueue.main)
             .assign(to: &$thumbnail)
         
-        let uploadTask = Task { @MainActor in
-            do {
-                if case .draft(let fileURL, let remoteID) = input, let remoteID {
-                    do {
-                        let response = try await self.api.getMedia(
-                            attachmentID: remoteID,
-                            mastodonAuthenticationBox: authContext.mastodonAuthenticationBox
-                        ).singleOutput()
-                        self.update(uploadResult: response.value)
-                        self.update(uploadState: .finish)
-                        switch response.value.type {
-                        case .video:
-                            self.output = .video(fileURL, mimeType: UTType(filenameExtension: fileURL.pathExtension)?.preferredMIMEType ?? "video/mp4")
-                        case .image:
-                            self.output = .image(try Data(contentsOf: fileURL, options: .mappedIfSafe), imageKind: fileURL.pathExtension == "png" ? .png : .jpg)
-                        default:
-                            self.output = nil
-                        }
-                        return
-                    } catch {
-                        // e.g. draft is > 1 day old and the media attachment has been vacuumed up by the server
-                        // (or we’re offline or something, no problem with just uploading again)
-                        // so continue to upload again.
+        let compressTask: Task<(Output, needCompress: Bool), Error> = Task { @MainActor in
+            if case .draft(let fileURL, let remoteID) = input, let remoteID {
+                do {
+                    let response = try await self.api.getMedia(
+                        attachmentID: remoteID,
+                        mastodonAuthenticationBox: authContext.mastodonAuthenticationBox
+                    ).singleOutput()
+                    self.update(uploadResult: response.value)
+                    self.update(uploadState: .finish)
+
+                    // return something for saving draft again / upload task
+                    switch response.value.type {
+                    case .video:
+                        let mimeType = UTType(filenameExtension: fileURL.pathExtension)?.preferredMIMEType ?? "video/mp4"
+                        return (.video(fileURL, mimeType: mimeType), false)
+                    case .image:
+                        let data = try Data(contentsOf: fileURL, options: .mappedIfSafe)
+                        return (.image(data, imageKind: fileURL.pathExtension == "png" ? .png : .jpg), false)
+                    default:
+                        // invalid attachment type (this shouldn’t happen)
+                        // so upload it again
+                        break
                     }
+                } catch {
+                    // e.g. draft is > 1 day old and the media attachment has been vacuumed up by the server
+                    // (or we’re offline or something, no problem with just uploading again)
+                    // so continue to upload again.
                 }
-                
-                var output = try await load(input: input)
-                
+            }
+            
+            return (try await load(input: input), true)
+        }   // end Task
+        self.compressTask = compressTask
+
+        uploadTask = Task { @MainActor in
+            
+            do {
+                var (output, needCompress) = try await compressTask.value
+
                 // don’t compress again if already compressed
-                if case .draft = input {
+                guard needCompress else  {
                     self.output = output
                     self.update(uploadState: .ready)
                     return
                 }
-
+                
                 switch output {
                 case .image(let data, _):
                     self.output = output
@@ -190,10 +202,6 @@ final public class AttachmentViewModel: NSObject, ObservableObject, Identifiable
             } catch {
                 self.error = error
             }
-        }   // end Task
-        self.uploadTask = uploadTask
-        Task {
-            await uploadTask.value
         }
     }
     
