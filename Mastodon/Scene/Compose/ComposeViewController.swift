@@ -146,7 +146,7 @@ extension ComposeViewController {
         }
         alertController.addAction(discardAction)
         
-        let draftAction = UIAlertAction(title: "[Save Draft]", style: .default) { [weak self] _ in
+        let draftAction = UIAlertAction(title: L10n.Scene.Compose.saveDraft, style: .default) { [weak self] _ in
             guard let self = self else { return }
             Task {
                 do {

@@ -406,6 +406,7 @@
             },
             "content_input_placeholder": "Type or paste what’s on your mind",
             "compose_action": "Publish",
+            "save_draft": "Save Draft",
             "replying_to_user": "replying to %s",
             "attachment": {
                 "photo": "photo",

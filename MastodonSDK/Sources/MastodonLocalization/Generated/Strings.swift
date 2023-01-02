@@ -493,6 +493,8 @@ public enum L10n {
       public static func replyingToUser(_ p1: Any) -> String {
         return L10n.tr("Localizable", "Scene.Compose.ReplyingToUser", String(describing: p1), fallback: "replying to %@")
       }
+      /// Save Draft
+      public static let saveDraft = L10n.tr("Localizable", "Scene.Compose.SaveDraft", fallback: "Save Draft")
       public enum Accessibility {
         /// Add Attachment
         public static let appendAttachment = L10n.tr("Localizable", "Scene.Compose.Accessibility.AppendAttachment", fallback: "Add Attachment")

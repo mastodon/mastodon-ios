@@ -212,6 +212,7 @@ uploaded to Mastodon.";
 "Scene.Compose.Poll.ThePollHasEmptyOption" = "The poll has empty option";
 "Scene.Compose.Poll.ThePollIsInvalid" = "The poll is invalid";
 "Scene.Compose.ReplyingToUser" = "replying to %@";
+"Scene.Compose.SaveDraft" = "Save Draft";
 "Scene.Compose.Title.NewPost" = "New Post";
 "Scene.Compose.Title.NewReply" = "New Reply";
 "Scene.Compose.Visibility.Direct" = "Only people I mention";
