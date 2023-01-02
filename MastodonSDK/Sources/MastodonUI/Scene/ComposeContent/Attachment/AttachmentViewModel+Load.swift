@@ -20,9 +20,16 @@ extension AttachmentViewModel {
                 throw AttachmentError.invalidAttachmentType
             }
             return .image(data, imageKind: .png)
-        case .url(let url), .draft(let url, _):
+        case .url(let url):
             do {
-                let output = try await AttachmentViewModel.load(url: url)
+                let output = try await AttachmentViewModel.load(url: url, securityScoped: true)
+                return output
+            } catch {
+                throw error
+            }
+        case .draft(let url, _):
+            do {
+                let output = try await AttachmentViewModel.load(url: url, securityScoped: false)
                 return output
             } catch {
                 throw error
@@ -44,24 +51,36 @@ extension AttachmentViewModel {
         }
     }
     
-    private static func load(url: URL) async throws -> Output {
+    private static func load(url: URL, securityScoped: Bool) async throws -> Output {
         guard let uti = UTType(filenameExtension: url.pathExtension) else {
             throw AttachmentError.invalidAttachmentType
         }
         
         if uti.conforms(to: .image) {
-            guard url.startAccessingSecurityScopedResource() else {
-                throw AttachmentError.invalidAttachmentType
+            if securityScoped {
+                guard url.startAccessingSecurityScopedResource() else {
+                    throw AttachmentError.invalidAttachmentType
+                }
             }
-            defer { url.stopAccessingSecurityScopedResource() }
+            defer {
+                if securityScoped {
+                    url.stopAccessingSecurityScopedResource()
+                }
+            }
             let imageData = try Data(contentsOf: url)
             return .image(imageData, imageKind: imageData.kf.imageFormat == .PNG ? .png : .jpg)
         } else if uti.conforms(to: .movie) {
-            guard url.startAccessingSecurityScopedResource() else {
-                throw AttachmentError.invalidAttachmentType
+            if securityScoped {
+                guard url.startAccessingSecurityScopedResource() else {
+                    throw AttachmentError.invalidAttachmentType
+                }
             }
-            defer { url.stopAccessingSecurityScopedResource() }
-            
+            defer {
+                if securityScoped {
+                    url.stopAccessingSecurityScopedResource()
+                }
+            }
+
             let fileName = UUID().uuidString
             let tempDirectoryURL = FileManager.default.temporaryDirectory
             let fileURL = tempDirectoryURL.appendingPathComponent(fileName).appendingPathExtension(url.pathExtension)
