@@ -136,7 +136,7 @@ final public class AttachmentViewModel: NSObject, ObservableObject, Identifiable
         
         let uploadTask = Task { @MainActor in
             do {
-                if case .draft(let fileURL, let remoteID) = input {
+                if case .draft(let fileURL, let remoteID) = input, let remoteID {
                     do {
                         let response = try await self.api.getMedia(
                             attachmentID: remoteID,
@@ -162,6 +162,13 @@ final public class AttachmentViewModel: NSObject, ObservableObject, Identifiable
                 
                 var output = try await load(input: input)
                 
+                // don’t compress again if already compressed
+                if case .draft = input {
+                    self.output = output
+                    self.update(uploadState: .ready)
+                    return
+                }
+
                 switch output {
                 case .image(let data, _):
                     self.output = output
@@ -276,7 +283,7 @@ extension AttachmentViewModel {
         case url(URL)
         case pickerResult(PHPickerResult)
         case itemProvider(NSItemProvider)
-        case draft(URL, remoteID: String)
+        case draft(URL, remoteID: String?)
     }
     
     public enum Output {

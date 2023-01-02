@@ -93,12 +93,18 @@ extension Draft {
 extension Draft {
     public final class Attachment: NSObject, Codable {
         public let fileURL: URL
-        // Mastodon.Entity.Attachment.ID
-        public let remoteID: String?
+        // nil means the attachment was not yet compressed
+        public let status: Status?
         
-        public init(fileURL: URL, remoteID: String?) {
+        public enum Status: Codable {
+            case compressed
+            // Mastodon.Entity.Attachment.ID
+            case uploaded(remoteID: String?)
+        }
+        
+        public init(fileURL: URL, status: Status?) {
             self.fileURL = fileURL
-            self.remoteID = remoteID
+            self.status = status
         }
     }
 

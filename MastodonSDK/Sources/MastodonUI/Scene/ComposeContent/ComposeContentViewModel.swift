@@ -256,10 +256,16 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
             self.isContentWarningActive = true
         }
         self.attachmentViewModels = draft.attachments.map { attachment in
-            AttachmentViewModel(
+            let input: AttachmentViewModel.Input
+            switch attachment.status {
+            case nil: input = .url(attachment.fileURL)
+            case .compressed: input = .draft(attachment.fileURL, remoteID: nil)
+            case .uploaded(let remoteID): input = .draft(attachment.fileURL, remoteID: remoteID)
+            }
+            return AttachmentViewModel(
                 api: context.apiService,
                 authContext: authContext,
-                input: attachment.remoteID.map { .draft(attachment.fileURL, remoteID: $0) } ?? .url(attachment.fileURL),
+                input: input,
                 sizeLimit: sizeLimit,
                 delegate: self
             )
@@ -510,7 +516,15 @@ extension ComposeContentViewModel {
                 // keep a copy until we’re done with it instead of allowing the system to clean up
                 try FileManager.default.copyItem(at: url, to: fileURL)
             }
-            attachments.append(.init(fileURL: fileURL, remoteID: attachment.uploadResult?.id))
+            switch attachment.uploadState {
+            case .none, .compressing:
+                attachments.append(.init(fileURL: fileURL, status: nil))
+            case .ready, .fail, .uploading:
+                attachments.append(.init(fileURL: fileURL, status: .compressed))
+            case .finish:
+                // if in the .finish state, `uploadResult` must be set
+                attachments.append(.init(fileURL: fileURL, status: .uploaded(remoteID: attachment.uploadResult!.id)))
+            }
         }
         let property = Draft.Property(
             content: content,
