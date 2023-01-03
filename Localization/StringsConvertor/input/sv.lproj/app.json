@@ -189,10 +189,10 @@
                     "show_original": "Visa original"
                 },
                 "media": {
-                    "accessibility_label": "%s, attachment %d of %d",
-                    "expand_image_hint": "Expands the image. Double-tap and hold to show actions",
-                    "expand_gif_hint": "Expands the GIF. Double-tap and hold to show actions",
-                    "expand_video_hint": "Shows the video player. Double-tap and hold to show actions"
+                    "accessibility_label": "%s, bilaga %d av %d",
+                    "expand_image_hint": "Expanderar bilden. Dubbeltryck och håll för att visa åtgärder",
+                    "expand_gif_hint": "Expanderar GIF:en. Dubbeltryck och håll för att visa åtgärder",
+                    "expand_video_hint": "Visar videospelaren. Dubbeltryck och håll för att visa åtgärder"
                 }
             },
             "friendship": {
