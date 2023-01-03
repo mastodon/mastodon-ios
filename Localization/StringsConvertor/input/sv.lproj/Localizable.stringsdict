@@ -61,9 +61,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 character left</string>
+        <string>1 tecken kvar</string>
         <key>other</key>
-        <string>%ld characters left</string>
+        <string>%ld tecken kvar</string>
       </dict>
     </dict>
     <key>plural.count.followed_by_and_mutual</key>
