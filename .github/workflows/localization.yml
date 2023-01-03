@@ -43,7 +43,7 @@ jobs:
           fi
       - name: Commit and push changes
         if: steps.changes.outputs.changes == 'true'
-        uses: EndBug/add-and-commit@v7
+        uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          default_author: github_actions
-          message: "Auto-update generated files"
+          commit_message: "Auto-update generated files"
+          commit_author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
