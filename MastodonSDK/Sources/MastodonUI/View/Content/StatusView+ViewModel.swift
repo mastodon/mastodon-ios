@@ -17,6 +17,7 @@ import MastodonCommon
 import MastodonExtension
 import MastodonLocalization
 import MastodonSDK
+import MastodonMeta
 
 extension StatusView {
     public final class ViewModel: ObservableObject {
@@ -26,8 +27,10 @@ extension StatusView {
 
         let logger = Logger(subsystem: "StatusView", category: "ViewModel")
         
+        public var context: AppContext?
         public var authContext: AuthContext?
-        
+        public var originalStatus: Status?
+    
         // Header
         @Published public var header: Header = .none
         
@@ -43,6 +46,11 @@ extension StatusView {
         @Published public var isMuting = false
         @Published public var isBlocking = false
         
+        // Translation
+        @Published public var isCurrentlyTranslating = false
+        @Published public var translatedFromLanguage: String?
+        @Published public var translatedUsingProvider: String?
+
         @Published public var timestamp: Date?
         public var timestampFormatter: ((_ date: Date) -> String)?
         @Published public var timestampText = ""
@@ -69,7 +77,10 @@ extension StatusView {
         @Published public var voteCount = 0
         @Published public var expireAt: Date?
         @Published public var expired: Bool = false
-        
+
+        // Card
+        @Published public var card: Card?
+
         // Visibility
         @Published public var visibility: MastodonVisibility = .public
         
@@ -134,6 +145,9 @@ extension StatusView {
             isContentSensitive = false
             isMediaSensitive = false
             isSensitiveToggled = false
+            translatedFromLanguage = nil
+            translatedUsingProvider = nil
+            isCurrentlyTranslating = false
             
             activeFilters = []
             filterContext = nil
@@ -146,14 +160,12 @@ extension StatusView {
                 $isMyself
             )
             .map { visibility, isMyself in
-                if isMyself {
-                    return true
-                }
-                
                 switch visibility {
-                case .public, .unlisted:
+                case .public, .unlisted, ._other:
                     return true
-                case .private, .direct, ._other:
+                case .private where isMyself:
+                    return true
+                case .private, .direct:
                     return false
                 }
             }
@@ -185,6 +197,7 @@ extension StatusView.ViewModel {
         bindContent(statusView: statusView)
         bindMedia(statusView: statusView)
         bindPoll(statusView: statusView)
+        bindCard(statusView: statusView)
         bindToolbar(statusView: statusView)
         bindMetric(statusView: statusView)
         bindMenu(statusView: statusView)
@@ -299,18 +312,22 @@ extension StatusView.ViewModel {
             }
             statusView.contentMetaText.paragraphStyle = paragraphStyle
             
-            if let content = content {
+            if let content = content, !(content.string.isEmpty && content.entities.isEmpty) {
                 statusView.contentMetaText.configure(
                     content: content
                 )
                 statusView.contentMetaText.textView.accessibilityTraits = [.staticText]
                 statusView.contentMetaText.textView.accessibilityElementsHidden = false
+                statusView.contentMetaText.textView.isHidden = false
+
             } else {
                 statusView.contentMetaText.reset()
                 statusView.contentMetaText.textView.accessibilityLabel = ""
+                statusView.contentMetaText.textView.isHidden = true
             }
             
             statusView.contentMetaText.textView.alpha = isContentReveal ? 1 : 0     // keep the frame size and only display when revealing
+            statusView.statusCardControl.alpha = isContentReveal ? 1 : 0
             
             statusView.setSpoilerOverlayViewHidden(isHidden: isContentReveal)
             
@@ -404,12 +421,7 @@ extension StatusView.ViewModel {
                 var snapshot = NSDiffableDataSourceSnapshot<PollSection, PollItem>()
                 snapshot.appendSections([.main])
                 snapshot.appendItems(items, toSection: .main)
-                if #available(iOS 15.0, *) {
-                    statusView.pollTableViewDiffableDataSource?.applySnapshotUsingReloadData(snapshot)
-                } else {
-                    // Fallback on earlier versions
-                    statusView.pollTableViewDiffableDataSource?.apply(snapshot, animatingDifferences: false)
-                }
+                statusView.pollTableViewDiffableDataSource?.applySnapshotUsingReloadData(snapshot)
                 
                 statusView.pollTableViewHeightLayoutConstraint.constant = CGFloat(items.count) * PollOptionTableViewCell.height
                 statusView.setPollDisplay()
@@ -456,7 +468,7 @@ extension StatusView.ViewModel {
             pollCountdownDescription
         )
         .sink { pollVoteDescription, pollCountdownDescription in
-            statusView.pollVoteCountLabel.text = pollVoteDescription 
+            statusView.pollVoteCountLabel.text = pollVoteDescription
             statusView.pollCountdownLabel.text = pollCountdownDescription ?? "-"
         }
         .store(in: &disposeBag)
@@ -479,6 +491,15 @@ extension StatusView.ViewModel {
         $isVoteButtonEnabled
             .assign(to: \.isEnabled, on: statusView.pollVoteButton)
             .store(in: &disposeBag)
+    }
+
+    private func bindCard(statusView: StatusView) {
+        $card.sink { card in
+            guard let card = card else { return }
+            statusView.statusCardControl.configure(card: card)
+            statusView.setStatusCardControlDisplay()
+        }
+        .store(in: &disposeBag)
     }
     
     private func bindToolbar(statusView: StatusView) {
@@ -581,26 +602,52 @@ extension StatusView.ViewModel {
             $isBlocking,
             $isBookmark
         )
+        let publishersThree = Publishers.CombineLatest(
+            $translatedFromLanguage,
+            $language
+        )
         
-        Publishers.CombineLatest(
+        Publishers.CombineLatest3(
             publisherOne.eraseToAnyPublisher(),
-            publishersTwo.eraseToAnyPublisher()
+            publishersTwo.eraseToAnyPublisher(),
+            publishersThree.eraseToAnyPublisher()
         ).eraseToAnyPublisher()
-        .sink { tupleOne, tupleTwo in
+        .sink { tupleOne, tupleTwo, tupleThree in
             let (authorName, isMyself) = tupleOne
             let (isMuting, isBlocking, isBookmark) = tupleTwo
-            
+            let (translatedFromLanguage, language) = tupleThree
+    
             guard let name = authorName?.string else {
                 statusView.authorView.menuButton.menu = nil
                 return
             }
+            
+            lazy var instanceConfigurationV2: Mastodon.Entity.V2.Instance.Configuration? = {
+                guard
+                    let context = self.context,
+                    let authContext = self.authContext
+                else {
+                    return nil
+                }
+                
+                var configuration: Mastodon.Entity.V2.Instance.Configuration? = nil
+                context.managedObjectContext.performAndWait {
+                    guard let authentication = authContext.mastodonAuthenticationBox.authenticationRecord.object(in: context.managedObjectContext)
+                    else { return }
+                    configuration = authentication.instance?.configurationV2
+                }
+                return configuration
+            }()
             
             let menuContext = StatusAuthorView.AuthorMenuContext(
                 name: name,
                 isMuting: isMuting,
                 isBlocking: isBlocking,
                 isMyself: isMyself,
-                isBookmarking: isBookmark
+                isBookmarking: isBookmark,
+                isTranslationEnabled: instanceConfigurationV2?.translation?.enabled == true,
+                isTranslated: translatedFromLanguage != nil,
+                statusLanguage: language
             )
             let (menu, actions) = authorView.setupAuthorMenu(menuContext: menuContext)
             authorView.menuButton.menu = menu
@@ -726,7 +773,48 @@ extension StatusView.ViewModel {
                 return L10n.Plural.Count.media(count)
             }
             
-        // TODO: Toolbar
+        let replyLabel = $replyCount
+            .map { [L10n.Common.Controls.Actions.reply, L10n.Plural.Count.reply($0)] }
+            .map { $0.joined(separator: ", ") }
+
+        let reblogLabel = Publishers.CombineLatest($isReblog, $reblogCount)
+            .map { isReblog, reblogCount in
+                [
+                    isReblog ? L10n.Common.Controls.Status.Actions.unreblog : L10n.Common.Controls.Status.Actions.reblog,
+                    L10n.Plural.Count.reblog(reblogCount)
+                ]
+            }
+            .map { $0.joined(separator: ", ") }
+
+        let favoriteLabel = Publishers.CombineLatest($isFavorite, $favoriteCount)
+            .map { isFavorite, favoriteCount in
+                [
+                    isFavorite ? L10n.Common.Controls.Status.Actions.unfavorite : L10n.Common.Controls.Status.Actions.favorite,
+                    L10n.Plural.Count.favorite(favoriteCount)
+                ]
+            }
+            .map { $0.joined(separator: ", ") }
+
+        Publishers.CombineLatest4(replyLabel, reblogLabel, $isReblogEnabled, favoriteLabel)
+            .map { replyLabel, reblogLabel, canReblog, favoriteLabel in
+                let toolbar = statusView.actionToolbarContainer
+                let replyAction = UIAccessibilityCustomAction(name: replyLabel) { _ in
+                    statusView.actionToolbarContainer(toolbar, buttonDidPressed: toolbar.replyButton, action: .reply)
+                    return true
+                }
+                let reblogAction = UIAccessibilityCustomAction(name: reblogLabel) { _ in
+                    statusView.actionToolbarContainer(toolbar, buttonDidPressed: toolbar.reblogButton, action: .reblog)
+                    return true
+                }
+                let favoriteAction = UIAccessibilityCustomAction(name: favoriteLabel) { _ in
+                    statusView.actionToolbarContainer(toolbar, buttonDidPressed: toolbar.favoriteButton, action: .like)
+                    return true
+                }
+                // (share, bookmark are excluded since they are already present in the “…” menu action set)
+                return canReblog ? [replyAction, reblogAction, favoriteAction] : [replyAction, favoriteAction]
+            }
+            .assign(to: \.toolbarActions, on: statusView)
+            .store(in: &disposeBag)
     
         Publishers.CombineLatest3(
             shortAuthorAccessibilityLabel,

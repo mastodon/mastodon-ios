@@ -271,7 +271,7 @@ extension MastodonLoginViewController: MastodonLoginViewModelDelegate {
     snapshot.appendSections([MastodonLoginViewSection.servers])
     snapshot.appendItems(viewModel.filteredServers)
 
-    dataSource?.applySnapshot(snapshot, animated: false)
+    dataSource?.apply(snapshot, animatingDifferences: false)
 
     OperationQueue.main.addOperation {
       let numberOfResults = viewModel.filteredServers.count

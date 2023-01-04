@@ -22,6 +22,9 @@
 "Common.Alerts.SignOut.Message" = "دڵنیایت دەتەوێت دەربچیت؟";
 "Common.Alerts.SignOut.Title" = "دەربچۆ";
 "Common.Alerts.SignUpFailure.Title" = "تۆمارکردنەکە سەرکەوتوو نەبوو";
+"Common.Alerts.TranslationFailed.Button" = "OK";
+"Common.Alerts.TranslationFailed.Message" = "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.";
+"Common.Alerts.TranslationFailed.Title" = "Note";
 "Common.Alerts.VoteFailure.PollEnded" = "دەنگدانەکە کۆتایی هاتووە";
 "Common.Alerts.VoteFailure.Title" = "نەتوانرا دەنگ بدرێت";
 "Common.Controls.Actions.Add" = "زیادی بکە";
@@ -31,6 +34,7 @@
 "Common.Controls.Actions.Compose" = "پۆست بکە";
 "Common.Controls.Actions.Confirm" = "پشتڕاستی بکەوە";
 "Common.Controls.Actions.Continue" = "بەردەوام بە";
+"Common.Controls.Actions.Copy" = "Copy";
 "Common.Controls.Actions.CopyPhoto" = "لەبەری بگرەوە";
 "Common.Controls.Actions.Delete" = "بیسڕەوە";
 "Common.Controls.Actions.Discard" = "وازی لێ بێنە";
@@ -59,6 +63,8 @@
 "Common.Controls.Actions.SignUp" = "Create account";
 "Common.Controls.Actions.Skip" = "بیپەڕێنە";
 "Common.Controls.Actions.TakePhoto" = "وێنە بگرە";
+"Common.Controls.Actions.TranslatePost.Title" = "Translate from %@";
+"Common.Controls.Actions.TranslatePost.UnknownLanguage" = "Unknown";
 "Common.Controls.Actions.TryAgain" = "هەوڵ بدەوە";
 "Common.Controls.Actions.UnblockDomain" = "%@ ئاستەنگ مەکە";
 "Common.Controls.Friendship.Block" = "ئاستەنگی بکە";
@@ -100,6 +106,7 @@
 "Common.Controls.Status.Actions.Menu" = "پێڕست";
 "Common.Controls.Status.Actions.Reblog" = "پۆستی بکەوە";
 "Common.Controls.Status.Actions.Reply" = "وەڵامی بدەوە";
+"Common.Controls.Status.Actions.ShareLinkInPost" = "Share Link in Post";
 "Common.Controls.Status.Actions.ShowGif" = "گیفەکە نیشان بدە";
 "Common.Controls.Status.Actions.ShowImage" = "وێنەکە نیشان بدە";
 "Common.Controls.Status.Actions.ShowVideoPlayer" = "ڤیدیۆکە لێ بدە";
@@ -107,6 +114,8 @@
 "Common.Controls.Status.Actions.Unfavorite" = "بەدڵبوونەکە بگەڕێنەوە";
 "Common.Controls.Status.Actions.Unreblog" = "پۆستکردنەکە بگەڕێنەوە";
 "Common.Controls.Status.ContentWarning" = "ئاگاداریی ناوەڕۆک";
+"Common.Controls.Status.LinkViaUser" = "%@ via %@";
+"Common.Controls.Status.LoadEmbed" = "Load Embed";
 "Common.Controls.Status.MediaContentWarning" = "دەستی پیا بنێ بۆ نیشاندانی";
 "Common.Controls.Status.MetaEntity.Email" = "Email address: %@";
 "Common.Controls.Status.MetaEntity.Hashtag" = "Hashtag: %@";
@@ -124,6 +133,10 @@
 "Common.Controls.Status.Tag.Mention" = "ئاماژە";
 "Common.Controls.Status.Tag.Url" = "بەستەر";
 "Common.Controls.Status.TapToReveal" = "دەستی پیا بنێ بۆ نیشاندانی";
+"Common.Controls.Status.Translation.ShowOriginal" = "Shown Original";
+"Common.Controls.Status.Translation.TranslatedFrom" = "Translated from %@ using %@";
+"Common.Controls.Status.Translation.UnknownLanguage" = "Unknown";
+"Common.Controls.Status.Translation.UnknownProvider" = "Unknown";
 "Common.Controls.Status.UserReblogged" = "%@ پۆست کرایەوە";
 "Common.Controls.Status.UserRepliedTo" = "لە وەڵامدا بۆ %@";
 "Common.Controls.Status.Visibility.Direct" = "تەنیا بەکارهێنەرە ئاماژە پێکراوەکە دەتوانێت ئەم پۆستە ببینێت.";
@@ -131,9 +144,9 @@
 "Common.Controls.Status.Visibility.PrivateFromMe" = "تەنیا شوێنکەوتووەکانم دەتوانن ئەم پۆستە ببینن.";
 "Common.Controls.Status.Visibility.Unlisted" = "هەرکەسێک دەتوانێت ئەم پۆستە ببینێت بەڵام ناچێتە بەردەمیان.";
 "Common.Controls.Tabs.Home" = "ماڵەوە";
-"Common.Controls.Tabs.Notification" = "ئاگادارکردنەوەکان";
+"Common.Controls.Tabs.Notifications" = "Notifications";
 "Common.Controls.Tabs.Profile" = "پرۆفایل";
-"Common.Controls.Tabs.Search" = "بگەڕێ";
+"Common.Controls.Tabs.SearchAndExplore" = "Search and Explore";
 "Common.Controls.Timeline.Filtered" = "پاڵێوراو";
 "Common.Controls.Timeline.Header.BlockedWarning" = "ناتوانیت پرۆفایلی ئەم بەکارهێنەرە ببینیت
 تا ئەو کاتەی ئاستەنگەکەت لادەبات.";
@@ -228,6 +241,12 @@
 "Scene.Familiarfollowers.Title" = "Followers you familiar";
 "Scene.Favorite.Title" = "بەدڵبووەکانت";
 "Scene.FavoritedBy.Title" = "Favorited By";
+"Scene.FollowedTags.Actions.Follow" = "Follow";
+"Scene.FollowedTags.Actions.Unfollow" = "Unfollow";
+"Scene.FollowedTags.Header.Participants" = "participants";
+"Scene.FollowedTags.Header.Posts" = "posts";
+"Scene.FollowedTags.Header.PostsToday" = "posts today";
+"Scene.FollowedTags.Title" = "Followed Tags";
 "Scene.Follower.Footer" = "شوێنکەوتووەکانی لە ڕاژەکارەکانی ترەوە نیشان نادرێت.";
 "Scene.Follower.Title" = "follower";
 "Scene.Following.Footer" = "شوێنکەوتنەکانی بۆ هەژماری ڕاژەکارەکانی تر نیشان نادرێت.";
@@ -267,6 +286,7 @@
 "Scene.Profile.Dashboard.Following" = "شوێنکەوتن";
 "Scene.Profile.Dashboard.Posts" = "پۆستەکان";
 "Scene.Profile.Fields.AddRow" = "ڕیز زیاد بکە";
+"Scene.Profile.Fields.Joined" = "Joined";
 "Scene.Profile.Fields.Placeholder.Content" = "ناوەڕۆک";
 "Scene.Profile.Fields.Placeholder.Label" = "ناونیشان";
 "Scene.Profile.Fields.Verified.Long" = "Ownership of this link was checked on %@";

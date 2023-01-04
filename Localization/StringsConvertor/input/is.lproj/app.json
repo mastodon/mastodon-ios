@@ -51,6 +51,11 @@
             "clean_cache": {
                 "title": "Hreinsa skyndiminni",
                 "message": "Tókst að hreinsa %s skyndiminni."
+            },
+            "translation_failed": {
+                "title": "Athugasemd",
+                "message": "Þýðing mistókst. Mögulega hefur kerfisstjórinn ekki virkjað þýðingar á þessum netþjóni, eða að netþjónninn sé keyrður á eldri útgáfu Mastodon þar sem þýðingar séu ekki studdar.",
+                "button": "Í lagi"
             }
         },
         "controls": {
@@ -78,6 +83,7 @@
                 "sign_up": "Stofna notandaaðgang",
                 "see_more": "Sjá fleira",
                 "preview": "Forskoða",
+                "copy": "Afrita",
                 "share": "Deila",
                 "share_user": "Deila %s",
                 "share_post": "Deila færslu",
@@ -91,12 +97,16 @@
                 "block_domain": "Útiloka %s",
                 "unblock_domain": "Opna á %s",
                 "settings": "Stillingar",
-                "delete": "Eyða"
+                "delete": "Eyða",
+                "translate_post": {
+                    "title": "Þýða úr %s",
+                    "unknown_language": "Óþekkt"
+                }
             },
             "tabs": {
                 "home": "Heim",
-                "search": "Leita",
-                "notification": "Tilkynning",
+                "search_and_explore": "Leita og kanna",
+                "notifications": "Tilkynningar",
                 "profile": "Notandasnið"
             },
             "keyboard": {
@@ -132,6 +142,8 @@
                 "sensitive_content": "Viðkvæmt efni",
                 "media_content_warning": "Ýttu hvar sem er til að birta",
                 "tap_to_reveal": "Ýttu til að birta",
+                "load_embed": "Hlaða inn ívöfnu",
+                "link_via_user": "%s með %s",
                 "poll": {
                     "vote": "Greiða atkvæði",
                     "closed": "Lokið"
@@ -153,6 +165,7 @@
                     "show_image": "Sýna mynd",
                     "show_gif": "Birta GIF-myndir",
                     "show_video_player": "Sýna myndspilara",
+                    "share_link_in_post": "Deila tengli í færslu",
                     "tap_then_hold_to_show_menu": "Ýttu og haltu til að sýna valmynd"
                 },
                 "tag": {
@@ -168,6 +181,12 @@
                     "private": "Einungis fylgjendur þeirra geta séð þessa færslu.",
                     "private_from_me": "Einungis fylgjendur mínir geta séð þessa færslu.",
                     "direct": "Einungis notendur sem minnst er á geta séð þessa færslu."
+                },
+                "translation": {
+                    "translated_from": "Þýtt úr %s með %s",
+                    "unknown_language": "Óþekkt",
+                    "unknown_provider": "Óþekkt",
+                    "show_original": "Birta upprunalegt"
                 }
             },
             "friendship": {
@@ -206,8 +225,8 @@
                     "user_blocking_warning": "Þú getur ekki séð sniðið hjá %s\nfyrr en þú hættir að útiloka hann.\nSniðið þitt lítur svona út hjá honum.",
                     "blocked_warning": "Þú getur ekki séð sniðið hjá þessum notanda\nfyrr en hann hættir að útiloka þig.",
                     "user_blocked_warning": "Þú getur ekki séð sniðið hjá %s\nfyrr en hann hættir að útiloka þig.",
-                    "suspended_warning": "Þessi notandi hefur verið settur í bið.",
-                    "user_suspended_warning": "Notandaaðgangurinn %s hefur verið settur í bið."
+                    "suspended_warning": "Þessi notandi hefur verið settur í frysti.",
+                    "user_suspended_warning": "Notandaaðgangurinn %s hefur verið settur í frysti."
                 }
             }
         }
@@ -444,11 +463,15 @@
                 "follows_you": "Fylgist með þér"
             },
             "dashboard": {
-                "posts": "færslur",
-                "following": "fylgist með",
-                "followers": "fylgjendur"
+                "my_posts": "færslur",
+                "my_following": "er fylgst með",
+                "my_followers": "fylgjendur",
+                "other_posts": "færslur",
+                "other_following": "er fylgst með",
+                "other_followers": "fylgjendur"
             },
             "fields": {
+                "joined": "Gerðist þátttakandi",
                 "add_row": "Bæta við röð",
                 "placeholder": {
                     "label": "Skýring",
@@ -722,6 +745,18 @@
         },
         "bookmark": {
             "title": "Bókamerki"
+        },
+        "followed_tags": {
+            "title": "Myllumerki sem fylgst er með",
+            "header": {
+                "posts": "færslur",
+                "participants": "þátttakendur",
+                "posts_today": "færslur í dag"
+            },
+            "actions": {
+                "follow": "Fylgjast með",
+                "unfollow": "Hætta að fylgjast með"
+            }
         }
     }
 }

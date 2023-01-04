@@ -32,7 +32,7 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
     
     // input
     let context: AppContext
-    let kind: Kind
+    let destination: Destination
     weak var delegate: ComposeContentViewModelDelegate?
     
     @Published var viewLayoutFrame = ViewLayoutFrame()
@@ -59,8 +59,7 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
             customEmojiPickerInputViewModel.configure(textInput: textView)
         }
     }
-    // for hashtag: "#<hashtag> "
-    // for mention: "@<mention> "
+    // allow dismissing the compose view without confirmation if content == intialContent
     @Published public var initialContent = ""
     @Published public var content = ""
     @Published public var contentWeightedLength = 0
@@ -138,11 +137,12 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
     public init(
         context: AppContext,
         authContext: AuthContext,
-        kind: Kind
+        destination: Destination,
+        initialContent: String
     ) {
         self.context = context
         self.authContext = authContext
-        self.kind = kind
+        self.destination = destination
         self.visibility = {
             // default private when user locked
             var visibility: Mastodon.Entity.Status.Visibility = {
@@ -152,8 +152,7 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
                 return author.locked ? .private : .public
             }()
             // set visibility for reply post
-            switch kind {
-            case .reply(let record):
+            if case .reply(let record) = destination {
                 context.managedObjectContext.performAndWait {
                     guard let status = record.object(in: context.managedObjectContext) else {
                         assertionFailure()
@@ -173,8 +172,6 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
                         break
                     }
                 }
-            default:
-                break
             }
             return visibility
         }()
@@ -185,7 +182,8 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
         // end init
         
         // setup initial value
-        switch kind {
+        let initialContentWithSpace = initialContent.isEmpty ? "" : initialContent + " "
+        switch destination {
         case .reply(let record):
             context.managedObjectContext.performAndWait {
                 guard let status = record.object(in: context.managedObjectContext) else {
@@ -214,29 +212,15 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
                 }
 
                 let initialComposeContent = mentionAccts.joined(separator: " ")
-                let preInsertedContent: String? = initialComposeContent.isEmpty ? nil : initialComposeContent + " "
-                self.initialContent = preInsertedContent ?? ""
-                self.content = preInsertedContent ?? ""
+                let preInsertedContent = initialComposeContent.isEmpty ? "" : initialComposeContent + " "
+                self.initialContent = preInsertedContent + initialContentWithSpace
+                self.content = preInsertedContent + initialContentWithSpace
             }
-        case .hashtag(let hashtag):
-            let initialComposeContent = "#" + hashtag
-            UITextChecker.learnWord(initialComposeContent)
-            let preInsertedContent = initialComposeContent + " "
-            self.initialContent = preInsertedContent
-            self.content = preInsertedContent
-        case .mention(let record):
-            context.managedObjectContext.performAndWait {
-                guard let user = record.object(in: context.managedObjectContext) else { return }
-                let initialComposeContent = "@" + user.acct
-                UITextChecker.learnWord(initialComposeContent)
-                let preInsertedContent = initialComposeContent + " "
-                self.initialContent = preInsertedContent
-                self.content = preInsertedContent
-            }
-        case .post:
-            break
+        case .topLevel:
+            self.initialContent = initialContentWithSpace
+            self.content = initialContentWithSpace
         }
-        
+
         // set limit
         let _configuration: Mastodon.Entity.Instance.Configuration? = {
             var configuration: Mastodon.Entity.Instance.Configuration? = nil
@@ -443,11 +427,9 @@ extension ComposeContentViewModel {
 }
 
 extension ComposeContentViewModel {
-    public enum Kind {
-        case post
-        case hashtag(hashtag: String)
-        case mention(user: ManagedObjectRecord<MastodonUser>)
-        case reply(status: ManagedObjectRecord<Status>)
+    public enum Destination {
+        case topLevel
+        case reply(parent: ManagedObjectRecord<Status>)
     }
     
     public enum ScrollViewState {
@@ -530,10 +512,10 @@ extension ComposeContentViewModel {
         return MastodonStatusPublisher(
             author: author,
             replyTo: {
-                switch self.kind {
-                case .reply(let status):    return status
-                default:                    return nil
+                if case .reply(let status) = destination {
+                    return status
                 }
+                return nil
             }(),
             isContentWarningComposing: isContentWarningActive,
             contentWarning: contentWarning,

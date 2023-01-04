@@ -66,11 +66,7 @@ extension OnboardingViewControllerAppearance {
         navigationItem.standardAppearance = barAppearance
         navigationItem.compactAppearance = barAppearance
         navigationItem.scrollEdgeAppearance = barAppearance
-        if #available(iOS 15.0, *) {
-            navigationItem.compactScrollEdgeAppearance = barAppearance
-        } else {
-            // Fallback on earlier versions
-        }
+        navigationItem.compactScrollEdgeAppearance = barAppearance
     }
     
     func setupNavigationBarBackgroundView() {

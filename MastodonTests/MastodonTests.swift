@@ -48,7 +48,6 @@ extension MastodonTests {
         }
     }
 
-    @available(iOS 15.0, *)
     func testConnectOnion() async throws {
         let request = URLRequest(
             url: URL(string: "http://a232ncr7jexk2chvubaq2v6qdizbocllqap7mnn7w7vrdutyvu32jeyd.onion/@k0gen")!,

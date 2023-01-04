@@ -65,7 +65,7 @@ extension ReportStatusViewModel {
                     break
                 }
                 
-                diffableDataSource.applySnapshot(snapshot, animated: false) { [weak self] in
+                diffableDataSource.apply(snapshot, animatingDifferences: false) { [weak self] in
                     guard let self = self else { return }
                     guard let diffableDataSource = self.diffableDataSource else { return }
                     

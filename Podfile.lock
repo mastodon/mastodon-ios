@@ -1,5 +1,4 @@
 PODS:
-  - DateToolsSwift (5.0.0)
   - FLEX (4.4.1)
   - Kanna (5.2.7)
   - Sourcery (1.6.1):
@@ -9,7 +8,6 @@ PODS:
   - XLPagerTabStrip (9.0.0)
 
 DEPENDENCIES:
-  - DateToolsSwift (~> 5.0.0)
   - FLEX (~> 4.4.0)
   - Kanna (~> 5.2.2)
   - Sourcery (~> 1.6.1)
@@ -18,7 +16,6 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
-    - DateToolsSwift
     - FLEX
     - Kanna
     - Sourcery
@@ -26,13 +23,12 @@ SPEC REPOS:
     - XLPagerTabStrip
 
 SPEC CHECKSUMS:
-  DateToolsSwift: 4207ada6ad615d8dc076323d27037c94916dbfa6
   FLEX: 7ca2c8cd3a435ff501ff6d2f2141e9bdc934eaab
   Kanna: 01cfbddc127f5ff0963692f285fcbc8a9d62d234
   Sourcery: f3759f803bd0739f74fc92a4341eed0473ce61ac
   SwiftGen: 1366a7f71aeef49954ca5a63ba4bef6b0f24138c
   XLPagerTabStrip: 61c57fd61f611ee5f01ff1495ad6fbee8bf496c5
 
-PODFILE CHECKSUM: d29eb92012bf66fbd1baad303c44dade1312d897
+PODFILE CHECKSUM: 5b1dbf90a3e6fff01240ad0a2ceb2bc7f7bb4e36
 
 COCOAPODS: 1.11.3

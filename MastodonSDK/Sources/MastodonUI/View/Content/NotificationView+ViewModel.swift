@@ -23,7 +23,8 @@ extension NotificationView {
         public var objects = Set<NSManagedObject>()
 
         let logger = Logger(subsystem: "NotificationView", category: "ViewModel")
-        
+
+        @Published public var context: AppContext?
         @Published public var authContext: AuthContext?
 
         @Published public var type: MastodonNotificationType?
@@ -37,6 +38,7 @@ extension NotificationView {
         @Published public var isMyself = false
         @Published public var isMuting = false
         @Published public var isBlocking = false
+        @Published public var isTranslated = false
         
         @Published public var timestamp: Date?
         
@@ -56,6 +58,9 @@ extension NotificationView.ViewModel {
         bindAuthorMenu(notificationView: notificationView)
         bindFollowRequest(notificationView: notificationView)
 
+        $context
+            .assign(to: \.context, on: notificationView.statusView.viewModel)
+            .store(in: &disposeBag)
         $authContext
             .assign(to: \.authContext, on: notificationView.statusView.viewModel)
             .store(in: &disposeBag)
@@ -203,20 +208,44 @@ extension NotificationView.ViewModel {
             $authorName,
             $isMuting,
             $isBlocking,
-            $isMyself
+            Publishers.CombineLatest(
+                $isMyself,
+                $isTranslated
+            )
         )
-        .sink { authorName, isMuting, isBlocking, isMyself in
+        .sink { [weak self] authorName, isMuting, isBlocking, isMyselfIsTranslated in
             guard let name = authorName?.string else {
                 notificationView.menuButton.menu = nil
                 return
             }
+            
+            let (isMyself, isTranslated) = isMyselfIsTranslated
+            
+            lazy var instanceConfigurationV2: Mastodon.Entity.V2.Instance.Configuration? = {
+                guard
+                    let self = self,
+                    let context = self.context,
+                    let authContext = self.authContext
+                else { return nil }
+                
+                var configuration: Mastodon.Entity.V2.Instance.Configuration? = nil
+                context.managedObjectContext.performAndWait {
+                    guard let authentication = authContext.mastodonAuthenticationBox.authenticationRecord.object(in: context.managedObjectContext)
+                    else { return }
+                    configuration = authentication.instance?.configurationV2
+                }
+                return configuration
+            }()
             
             let menuContext = NotificationView.AuthorMenuContext(
                 name: name,
                 isMuting: isMuting,
                 isBlocking: isBlocking,
                 isMyself: isMyself,
-                isBookmarking: false    // no bookmark action display for notification item
+                isBookmarking: false,    // no bookmark action display for notification item
+                isTranslationEnabled: instanceConfigurationV2?.translation?.enabled == true,
+                isTranslated: isTranslated,
+                statusLanguage: ""
             )
             let (menu, actions) = notificationView.setupAuthorMenu(menuContext: menuContext)
             notificationView.menuButton.menu = menu

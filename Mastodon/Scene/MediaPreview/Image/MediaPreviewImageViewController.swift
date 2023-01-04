@@ -68,30 +68,21 @@ extension MediaPreviewImageViewController {
         let previewImageViewContextMenuInteraction = UIContextMenuInteraction(delegate: self)
         previewImageView.addInteraction(previewImageViewContextMenuInteraction)
 
-        switch viewModel.item {
-        case .remote(let imageContext):
-            previewImageView.imageView.accessibilityLabel = imageContext.altText
-            
-            if let thumbnail = imageContext.thumbnail {
-                previewImageView.imageView.image = thumbnail
-                previewImageView.setup(image: thumbnail, container: self.previewImageView, forceUpdate: true)
-            }
-            
-            previewImageView.imageView.setImage(
-                url: imageContext.assetURL,
-                placeholder: imageContext.thumbnail,
-                scaleToSize: nil
-            ) { [weak self] image in
-                guard let self = self else { return }
-                guard let image = image else { return }
-                self.previewImageView.setup(image: image, container: self.previewImageView, forceUpdate: true)
-            }
-            
-        case .local(let imageContext):
-            let image = imageContext.image
-            previewImageView.imageView.image = image
-            previewImageView.setup(image: image, container: previewImageView, forceUpdate: true)
-            
+        previewImageView.imageView.accessibilityLabel = viewModel.item.altText
+
+        if let thumbnail = viewModel.item.thumbnail {
+            previewImageView.imageView.image = thumbnail
+            previewImageView.setup(image: thumbnail, container: self.previewImageView, forceUpdate: true)
+        }
+
+        previewImageView.imageView.setImage(
+            url: viewModel.item.assetURL,
+            placeholder: viewModel.item.thumbnail,
+            scaleToSize: nil
+        ) { [weak self] image in
+            guard let self = self else { return }
+            guard let image = image else { return }
+            self.previewImageView.setup(image: image, container: self.previewImageView, forceUpdate: true)
         }
     }
     

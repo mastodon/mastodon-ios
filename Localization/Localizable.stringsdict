@@ -71,7 +71,7 @@
 	<key>a11y.plural.count.characters_left</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@character_count@ left</string>
+		<string>%#@character_count@</string>
 		<key>character_count</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -79,15 +79,15 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>ld</string>
 			<key>zero</key>
-			<string>no characters</string>
+			<string>no characters left</string>
 			<key>one</key>
-			<string>1 character</string>
+			<string>1 character left</string>
 			<key>few</key>
-			<string>%ld characters</string>
+			<string>%ld characters left</string>
 			<key>many</key>
-			<string>%ld characters</string>
+			<string>%ld characters left</string>
 			<key>other</key>
-			<string>%ld characters</string>
+			<string>%ld characters left</string>
 		</dict>
 	</dict>
     <key>plural.count.followed_by_and_mutual</key>

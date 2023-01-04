@@ -10,12 +10,14 @@ import CoreData
 
 public final class Instance: NSManagedObject {
     @NSManaged public var domain: String
-    
+    @NSManaged public var version: String?
+
     @NSManaged public private(set) var createdAt: Date
     @NSManaged public private(set) var updatedAt: Date
 
     @NSManaged public private(set) var configurationRaw: Data?
-    
+    @NSManaged public private(set) var configurationV2Raw: Data?
+
     // MARK: one-to-many relationships
     @NSManaged public var authentications: Set<MastodonAuthentication>
 }
@@ -35,11 +37,16 @@ extension Instance {
     ) -> Instance {
         let instance: Instance = context.insertObject()
         instance.domain = property.domain
+        instance.version = property.version
         return instance
     }
     
     public func update(configurationRaw: Data?) {
         self.configurationRaw = configurationRaw
+    }
+    
+    public func update(configurationV2Raw: Data?) {
+        self.configurationV2Raw = configurationV2Raw
     }
     
     public func didUpdate(at networkDate: Date) {
@@ -50,9 +57,11 @@ extension Instance {
 extension Instance {
     public struct Property {
         public let domain: String
-        
-        public init(domain: String) {
+        public let version: String?
+
+        public init(domain: String, version: String?) {
             self.domain = domain
+            self.version = version
         }
     }
 }
