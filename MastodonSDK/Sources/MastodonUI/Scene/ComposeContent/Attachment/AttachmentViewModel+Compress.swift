@@ -11,6 +11,7 @@ import AVKit
 import MastodonCore
 import SessionExporter
 import Kingfisher
+import Nuke
 
 extension AttachmentViewModel {
     func compressVideo(url: URL) async throws -> URL {
@@ -110,7 +111,7 @@ extension AttachmentViewModel {
                 throw AttachmentError.invalidAttachmentType
             }
 
-            if imageData.kf.imageFormat == .PNG {
+            if AssetType(imageData) == .png {
                 // A. png image
                 if imageData.count > maxPayloadSizeInBytes {
                     guard let compressedJpegData = image.jpegData(compressionQuality: 0.8) else {
@@ -140,7 +141,7 @@ extension AttachmentViewModel {
         } while (imageData.count > maxPayloadSizeInBytes)
         
         
-        return .image(imageData, imageKind: imageData.kf.imageFormat == .PNG ? .png : .jpg)
+        return .image(imageData, imageKind: AssetType(imageData) == .png ? .png : .jpg)
     }
 }
 
