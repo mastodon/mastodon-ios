@@ -172,15 +172,26 @@ final class ProfileHeaderView: UIView {
         textField.autocapitalizationType = .none
         return textField
     }()
-
-    let usernameLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFontMetrics(forTextStyle: .callout).scaledFont(for: .systemFont(ofSize: 16, weight: .regular))
-        label.adjustsFontSizeToFitWidth = true
-        label.minimumScaleFactor = 0.5
-        label.textColor = Asset.Colors.Label.secondary.color
-        label.text = "@alice"
-        return label
+    
+    private lazy var usernameButtonMenu: UIMenu = {
+        UIMenu(children: [
+            UIAction(title: L10n.Common.Controls.Actions.copy, handler: { [weak self] _ in
+                UIPasteboard.general.string = self?.usernameButton.title(for: .normal)
+            })
+        ])
+    }()
+    
+    lazy var usernameButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("@alice", for: .normal)
+        button.titleLabel?.font = UIFontMetrics(forTextStyle: .callout).scaledFont(for: .systemFont(ofSize: 16, weight: .regular))
+        button.titleLabel?.adjustsFontSizeToFitWidth = true
+        button.titleLabel?.minimumScaleFactor = 0.5
+        button.setTitleColor(Asset.Colors.Label.secondary.color, for: .normal)
+        button.menu = usernameButtonMenu
+        button.showsMenuAsPrimaryAction = true
+        button.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        return button
     }()
     
     let statusDashboardView = ProfileStatusDashboardView()
@@ -417,7 +428,11 @@ extension ProfileHeaderView {
         // nameMetaText.textView.setContentHuggingPriority(, for: <#T##NSLayoutConstraint.Axis#>)
         
         nameContainerStackView.addArrangedSubview(displayNameStackView)
-        nameContainerStackView.addArrangedSubview(usernameLabel)
+        nameContainerStackView.addArrangedSubview(usernameButton)
+        
+        NSLayoutConstraint.activate([
+            usernameButton.heightAnchor.constraint(equalToConstant: 20)
+        ])
         
         authorContainer.addArrangedSubview(nameContainerStackView)
         authorContainer.addArrangedSubview(UIView())
