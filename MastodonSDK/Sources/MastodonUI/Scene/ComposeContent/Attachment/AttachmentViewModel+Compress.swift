@@ -10,7 +10,6 @@ import UIKit
 import AVKit
 import MastodonCore
 import SessionExporter
-import Kingfisher
 import Nuke
 
 extension AttachmentViewModel {
