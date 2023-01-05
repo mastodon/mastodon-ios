@@ -18,6 +18,7 @@ extension DiscoveryPostsViewModel {
             tableView: tableView,
             context: context,
             configuration: StatusSection.Configuration(
+                context: context,
                 authContext: authContext,
                 statusTableViewCellDelegate: statusTableViewCellDelegate,
                 timelineMiddleLoaderTableViewCellDelegate: nil,
@@ -58,7 +59,7 @@ extension DiscoveryPostsViewModel {
                     }
                 }
             
-                diffableDataSource.applySnapshot(snapshot, animated: false)
+                diffableDataSource.apply(snapshot, animatingDifferences: false)
             }
             .store(in: &disposeBag)
     }

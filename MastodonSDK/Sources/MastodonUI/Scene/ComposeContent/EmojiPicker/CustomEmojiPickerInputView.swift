@@ -44,12 +44,7 @@ extension CustomEmojiPickerInputView {
 
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(collectionView)
-        NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: topAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: bottomAnchor),
-        ])
+        collectionView.pinToParent()
         
         activityIndicatorView.hidesWhenStopped = true
         activityIndicatorView.startAnimating()

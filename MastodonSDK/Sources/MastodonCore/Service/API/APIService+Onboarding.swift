@@ -12,8 +12,8 @@ import MastodonSDK
 extension APIService {
  
     public func servers(
-        language: String?,
-        category: String?
+        language: String? = nil,
+        category: String? = nil
     ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Server]>, Error> {
         let query = Mastodon.API.Onboarding.ServersQuery(language: language, category: category)
         return Mastodon.API.Onboarding.servers(session: session, query: query)

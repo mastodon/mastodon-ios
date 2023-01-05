@@ -51,6 +51,11 @@
             "clean_cache": {
                 "title": "Pulisci la cache",
                 "message": "Cache %s pulita con successo."
+            },
+            "translation_failed": {
+                "title": "Nota",
+                "message": "Traduzione fallita. Forse l'amministratore non ha abilitato le traduzioni su questo server o questo server sta eseguendo una versione precedente di Mastodon in cui le traduzioni non sono ancora supportate.",
+                "button": "OK"
             }
         },
         "controls": {
@@ -75,9 +80,10 @@
                 "save_photo": "Salva foto",
                 "copy_photo": "Copia foto",
                 "sign_in": "Accedi",
-                "sign_up": "Registrati",
+                "sign_up": "Crea un account",
                 "see_more": "Visualizza altro",
                 "preview": "Anteprima",
+                "copy": "Copia",
                 "share": "Condividi",
                 "share_user": "Condividi %s",
                 "share_post": "Condividi il post",
@@ -91,12 +97,16 @@
                 "block_domain": "Blocca %s",
                 "unblock_domain": "Sblocca %s",
                 "settings": "Impostazioni",
-                "delete": "Elimina"
+                "delete": "Elimina",
+                "translate_post": {
+                    "title": "Traduci da %s",
+                    "unknown_language": "Sconosciuto"
+                }
             },
             "tabs": {
                 "home": "Inizio",
-                "search": "Cerca",
-                "notification": "Notifiche",
+                "search_and_explore": "Cerca ed Esplora",
+                "notifications": "Notifiche",
                 "profile": "Profilo"
             },
             "keyboard": {
@@ -132,6 +142,8 @@
                 "sensitive_content": "Contenuto sensibile",
                 "media_content_warning": "Tocca ovunque per rivelare",
                 "tap_to_reveal": "Tocca per rivelare",
+                "load_embed": "Carica Incorpora",
+                "link_via_user": "%s tramite %s",
                 "poll": {
                     "vote": "Vota",
                     "closed": "Chiuso"
@@ -153,13 +165,14 @@
                     "show_image": "Mostra immagine",
                     "show_gif": "Mostra GIF",
                     "show_video_player": "Mostra lettore video",
+                    "share_link_in_post": "Condividi il collegamento nel post",
                     "tap_then_hold_to_show_menu": "Tocca quindi tieni premuto per mostrare il menu"
                 },
                 "tag": {
                     "url": "URL",
                     "mention": "Menzione",
                     "link": "Collegamento",
-                    "hashtag": "Etichetta",
+                    "hashtag": "Hashtag",
                     "email": "Email",
                     "emoji": "Emoji"
                 },
@@ -168,6 +181,12 @@
                     "private": "Solo i loro seguaci possono vedere questo post.",
                     "private_from_me": "Solo i miei seguaci possono vedere questo post.",
                     "direct": "Solo l'utente menzionato può vedere questo post."
+                },
+                "translation": {
+                    "translated_from": "Tradotto da %s utilizzando %s",
+                    "unknown_language": "Sconosciuto",
+                    "unknown_provider": "Sconosciuto",
+                    "show_original": "Mostra l'originale"
                 }
             },
             "friendship": {
@@ -218,10 +237,16 @@
             "get_started": "Inizia",
             "log_in": "Accedi"
         },
+        "login": {
+            "title": "Bentornato/a",
+            "subtitle": "Accedi al server sul quale hai creato il tuo account.",
+            "server_search_field": {
+                "placeholder": "Inserisci l'URL o cerca il tuo server"
+            }
+        },
         "server_picker": {
             "title": "Mastodon è fatto di utenti in diverse comunità.",
-            "subtitle": "Scegli una comunità basata sui tuoi interessi, regione o uno scopo generale.",
-            "subtitle_extend": "Scegli una comunità basata sui tuoi interessi, regione o uno scopo generale. Ogni comunità è gestita da un'organizzazione completamente indipendente o individuale.",
+            "subtitle": "Scegli un server in base alla tua regione, ai tuoi interessi o uno generico. Puoi comunque chattare con chiunque su Mastodon, indipendentemente dai tuoi server.",
             "button": {
                 "category": {
                     "all": "Tutti",
@@ -248,8 +273,7 @@
                 "category": "CATEGORIA"
             },
             "input": {
-                "placeholder": "Cerca comunità",
-                "search_servers_or_enter_url": "Cerca i server o inserisci l'URL"
+                "search_servers_or_enter_url": "Cerca le comunità o inserisci l'URL"
             },
             "empty_state": {
                 "finding_servers": "Ricerca server disponibili...",
@@ -386,7 +410,9 @@
                 "load_failed": "Caricamento fallito",
                 "upload_failed": "Caricamento fallito",
                 "can_not_recognize_this_media_attachment": "Impossibile riconoscere questo allegato multimediale",
-                "attachment_too_large": "Allegato troppo grande"
+                "attachment_too_large": "Allegato troppo grande",
+                "compressing_state": "Compressione in corso...",
+                "server_processing_state": "Elaborazione del server in corso..."
             },
             "poll": {
                 "duration_time": "Durata: %s",
@@ -396,7 +422,9 @@
                 "one_day": "1 giorno",
                 "three_days": "3 giorni",
                 "seven_days": "7 giorni",
-                "option_number": "Opzione %ld"
+                "option_number": "Opzione %ld",
+                "the_poll_is_invalid": "Il sondaggio non è valido",
+                "the_poll_has_empty_option": "Il sondaggio ha un'opzione vuota"
             },
             "content_warning": {
                 "placeholder": "Scrivi un avviso accurato qui..."
@@ -417,7 +445,9 @@
                 "custom_emoji_picker": "Selettore Emoji personalizzato",
                 "enable_content_warning": "Abilita avvertimento contenuti",
                 "disable_content_warning": "Disabilita avviso di contenuti",
-                "post_visibility_menu": "Menu di visibilità del post"
+                "post_visibility_menu": "Menu di visibilità del post",
+                "post_options": "Opzioni del messaggio",
+                "posting_as": "Pubblicazione come %s"
             },
             "keyboard": {
                 "discard_post": "Scarta post",
@@ -433,15 +463,23 @@
                 "follows_you": "Ti segue"
             },
             "dashboard": {
-                "posts": "post",
-                "following": "seguendo",
-                "followers": "seguaci"
+                "my_posts": "post",
+                "my_following": "seguendo",
+                "my_followers": "seguaci",
+                "other_posts": "post",
+                "other_following": "seguendo",
+                "other_followers": "seguaci"
             },
             "fields": {
+                "joined": "Profilo iscritto",
                 "add_row": "Aggiungi riga",
                 "placeholder": {
                     "label": "Etichetta",
                     "content": "Contenuto"
+                },
+                "verified": {
+                    "short": "Verificato il %s",
+                    "long": "La proprietà di questo collegamento è stata verificata il %s"
                 }
             },
             "segmented_control": {
@@ -707,6 +745,18 @@
         },
         "bookmark": {
             "title": "Segnalibri"
+        },
+        "followed_tags": {
+            "title": "Etichette seguite",
+            "header": {
+                "posts": "post",
+                "participants": "partecipanti",
+                "posts_today": "post di oggi"
+            },
+            "actions": {
+                "follow": "Segui",
+                "unfollow": "Smetti di seguire"
+            }
         }
     }
 }

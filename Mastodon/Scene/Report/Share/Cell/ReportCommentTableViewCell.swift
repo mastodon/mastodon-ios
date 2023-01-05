@@ -74,11 +74,8 @@ extension ReportCommentTableViewCell {
         
         commentTextView.translatesAutoresizingMaskIntoConstraints = false
         commentTextViewShadowBackgroundContainer.addSubview(commentTextView)
+        commentTextView.pinToParent()
         NSLayoutConstraint.activate([
-            commentTextView.topAnchor.constraint(equalTo: commentTextViewShadowBackgroundContainer.topAnchor),
-            commentTextView.leadingAnchor.constraint(equalTo: commentTextViewShadowBackgroundContainer.leadingAnchor),
-            commentTextView.trailingAnchor.constraint(equalTo: commentTextViewShadowBackgroundContainer.trailingAnchor),
-            commentTextView.bottomAnchor.constraint(equalTo: commentTextViewShadowBackgroundContainer.bottomAnchor),
             commentTextView.heightAnchor.constraint(greaterThanOrEqualToConstant: 100).priority(.defaultHigh),
         ])
     }

@@ -50,6 +50,22 @@
         <string>%ld caracteres</string>
       </dict>
     </dict>
+    <key>a11y.plural.count.characters_left</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@character_count@ restantes</string>
+      <key>character_count</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>1 carácter</string>
+        <key>other</key>
+        <string>%ld carácteres</string>
+      </dict>
+    </dict>
     <key>plural.count.followed_by_and_mutual</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
@@ -72,9 +88,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>Followed by %1$@, and another mutual</string>
+        <string>Seguido por %1$@, e outro em comum</string>
         <key>other</key>
-        <string>Followed by %1$@, and %ld mutuals</string>
+        <string>Seguido por %1$@, e %ld em comum</string>
       </dict>
     </dict>
     <key>plural.count.metric_formatted.post</key>
@@ -104,9 +120,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 media</string>
+        <string>1 mídia</string>
         <key>other</key>
-        <string>%ld media</string>
+        <string>%ld mídias</string>
       </dict>
     </dict>
     <key>plural.count.post</key>

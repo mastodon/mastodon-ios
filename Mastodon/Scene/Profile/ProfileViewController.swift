@@ -104,6 +104,13 @@ final class ProfileViewController: UIViewController, NeedsDependency, MediaPrevi
         barButtonItem.accessibilityLabel = L10n.Common.Controls.Actions.seeMore
         return barButtonItem
     }()
+    
+    private(set) lazy var followedTagsBarButtonItem: UIBarButtonItem = {
+        let barButtonItem = UIBarButtonItem(image: UIImage(systemName: "number"), style: .plain, target: self, action: #selector(ProfileViewController.followedTagsItemPressed(_:)))
+        barButtonItem.tintColor = .white
+        barButtonItem.accessibilityLabel = L10n.Scene.FollowedTags.title
+        return barButtonItem
+    }()
 
     let refreshControl: RefreshControl = {
         let refreshControl = RefreshControl()
@@ -243,6 +250,11 @@ extension ProfileViewController {
                 items.append(self.shareBarButtonItem)
                 items.append(self.favoriteBarButtonItem)
                 items.append(self.bookmarkBarButtonItem)
+                
+                if self.currentInstance?.canFollowTags == true {
+                    items.append(self.followedTagsBarButtonItem)
+                }
+                
                 return
             }
 
@@ -259,12 +271,7 @@ extension ProfileViewController {
         tabBarPagerController.view.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tabBarPagerController.view)
         tabBarPagerController.didMove(toParent: self)
-        NSLayoutConstraint.activate([
-            tabBarPagerController.view.topAnchor.constraint(equalTo: view.topAnchor),
-            tabBarPagerController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tabBarPagerController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tabBarPagerController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-        ])
+        tabBarPagerController.view.pinToParent()
 
         tabBarPagerController.delegate = self
         tabBarPagerController.dataSource = self
@@ -303,6 +310,9 @@ extension ProfileViewController {
             .store(in: &disposeBag)
         viewModel.$isUpdating
             .assign(to: \.isUpdating, on: headerViewModel)
+            .store(in: &disposeBag)
+        viewModel.relationshipViewModel.$isMyself
+            .assign(to: \.isMyself, on: headerViewModel)
             .store(in: &disposeBag)
         viewModel.relationshipViewModel.$optionSet
             .map { $0 ?? .none }
@@ -503,7 +513,7 @@ extension ProfileViewController {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         guard let setting = context.settingService.currentSetting.value else { return }
         let settingsViewModel = SettingsViewModel(context: context, authContext: viewModel.authContext, setting: setting)
-        coordinator.present(scene: .settings(viewModel: settingsViewModel), from: self, transition: .modal(animated: true, completion: nil))
+        _ = coordinator.present(scene: .settings(viewModel: settingsViewModel), from: self, transition: .modal(animated: true, completion: nil))
     }
 
     @objc private func shareBarButtonItemPressed(_ sender: UIBarButtonItem) {
@@ -543,12 +553,22 @@ extension ProfileViewController {
     @objc private func replyBarButtonItemPressed(_ sender: UIBarButtonItem) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         guard let mastodonUser = viewModel.user else { return }
+        let mention = "@" + mastodonUser.acct
+        UITextChecker.learnWord(mention)
         let composeViewModel = ComposeViewModel(
             context: context,
             authContext: viewModel.authContext,
-            kind: .mention(user: mastodonUser.asRecrod)
+            destination: .topLevel,
+            initialContent: mention
         )
         _ = coordinator.present(scene: .compose(viewModel: composeViewModel), from: self, transition: .modal(animated: true, completion: nil))
+    }
+    
+    @objc private func followedTagsItemPressed(_ sender: UIBarButtonItem) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        
+        let followedTagsViewModel = FollowedTagsViewModel(context: context, authContext: viewModel.authContext)
+        _ = coordinator.present(scene: .followedTags(viewModel: followedTagsViewModel), from: self, transition: .show)
     }
 
     @objc private func refreshControlValueChanged(_ sender: RefreshControl) {
@@ -890,7 +910,7 @@ extension ProfileViewController: MastodonMenuDelegate {
 // MARK: - ScrollViewContainer
 extension ProfileViewController: ScrollViewContainer {
     var scrollView: UIScrollView {
-        return tabBarPagerController.containerScrollView
+        return tabBarPagerController.relayScrollView
     }
 }
 
@@ -919,3 +939,13 @@ extension ProfileViewController: PagerTabStripNavigateable {
 
 }
 
+private extension ProfileViewController {
+    var currentInstance: Instance? {
+        guard let authenticationRecord = authContext.mastodonAuthenticationBox
+            .authenticationRecord
+            .object(in: context.managedObjectContext)
+        else { return nil }
+        
+        return authenticationRecord.instance
+    }
+}

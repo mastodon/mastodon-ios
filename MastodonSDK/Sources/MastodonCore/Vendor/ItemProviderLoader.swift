@@ -48,13 +48,13 @@ extension ItemProviderLoader {
                 let maxPixelSize: Int = 1536        // fit 120MB RAM limit
                 #endif
                 
-                let downsampleOptions = [
+                let downsampleOptions: [CFString: Any] = [
                     kCGImageSourceCreateThumbnailFromImageAlways: true,
                     kCGImageSourceCreateThumbnailWithTransform: true,
                     kCGImageSourceThumbnailMaxPixelSize: maxPixelSize,
-                ] as CFDictionary
+                ]
                 
-                guard let cgImage = CGImageSourceCreateThumbnailAtIndex(source, 0, downsampleOptions) else {
+                guard let cgImage = CGImageSourceCreateThumbnailAtIndex(source, 0, downsampleOptions as CFDictionary) else {
                     // fallback to loadItem when create thumbnail failure
                     itemProvider.loadItem(forTypeIdentifier: UTType.image.identifier, options: nil) { image, error in
                         if let error = error {
@@ -77,7 +77,7 @@ extension ItemProviderLoader {
                 }
                 
                 let data = NSMutableData()
-                guard let imageDestination = CGImageDestinationCreateWithData(data, kUTTypeJPEG, 1, nil) else {
+                guard let imageDestination = CGImageDestinationCreateWithData(data, UTType.jpeg.identifier as CFString, 1, nil) else {
                     promise(.success(nil))
                     return
                 }

@@ -1,4 +1,4 @@
-"NSCameraUsageDescription" = "Used to take photo for post status";
-"NSPhotoLibraryAddUsageDescription" = "Used to save photo into the Photo Library";
-"NewPostShortcutItemTitle" = "New Post";
-"SearchShortcutItemTitle" = "Search";
+"NSCameraUsageDescription" = "Bidalketetarako argazkiak ateratzeko erabiltzen da";
+"NSPhotoLibraryAddUsageDescription" = "Argazkiak Argazki-liburutegian gordetzeko erabiltzen da";
+"NewPostShortcutItemTitle" = "Bidalketa berria";
+"SearchShortcutItemTitle" = "Bilatu";

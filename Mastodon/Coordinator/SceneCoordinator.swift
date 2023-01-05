@@ -71,8 +71,8 @@ final public class SceneCoordinator {
                             self.setup()
                             try await Task.sleep(nanoseconds: .second * 1)
                             
-                            // redirect to notification tab
-                            self.switchToTabBar(tab: .notification)
+                            // redirect to notifications tab
+                            self.switchToTabBar(tab: .notifications)
                             
                             // Delay in next run loop
                             DispatchQueue.main.async { [weak self] in
@@ -149,6 +149,7 @@ extension SceneCoordinator {
         case mastodonConfirmEmail(viewModel: MastodonConfirmEmailViewModel)
         case mastodonResendEmail(viewModel: MastodonResendEmailViewModel)
         case mastodonWebView(viewModel: WebViewModel)
+        case mastodonLogin
 
         // search
         case searchDetail(viewModel: SearchDetailViewModel)
@@ -172,6 +173,7 @@ extension SceneCoordinator {
         case rebloggedBy(viewModel: UserListViewModel)
         case favoritedBy(viewModel: UserListViewModel)
         case bookmark(viewModel: BookmarkViewModel)
+        case followedTags(viewModel: FollowedTagsViewModel)
 
         // setting
         case settings(viewModel: SettingsViewModel)
@@ -199,6 +201,7 @@ extension SceneCoordinator {
             case .welcome,
                  .mastodonPickServer,
                  .mastodonRegister,
+                 .mastodonLogin,
                  .mastodonServerRules,
                  .mastodonConfirmEmail,
                  .mastodonResendEmail:
@@ -339,7 +342,7 @@ extension SceneCoordinator {
         case .custom(let transitioningDelegate):
             viewController.modalPresentationStyle = .custom
             viewController.transitioningDelegate = transitioningDelegate
-            // viewController.modalPresentationCapturesStatusBarAppearance = true
+            viewController.modalPresentationCapturesStatusBarAppearance = true
             (splitViewController ?? presentingViewController)?.present(viewController, animated: true, completion: nil)
             
         case .customPush(let animated):
@@ -403,6 +406,13 @@ private extension SceneCoordinator {
             let _viewController = MastodonConfirmEmailViewController()
             _viewController.viewModel = viewModel
             viewController = _viewController
+        case .mastodonLogin:
+            let loginViewController = MastodonLoginViewController(appContext: appContext,
+                                                                  authenticationViewModel: AuthenticationViewModel(context: appContext, coordinator: self, isAuthenticationExist: false),
+                                                                  sceneCoordinator: self)
+            loginViewController.delegate = self
+
+            viewController = loginViewController
         case .mastodonResendEmail(let viewModel):
             let _viewController = MastodonResendEmailViewController()
             _viewController.viewModel = viewModel
@@ -437,6 +447,10 @@ private extension SceneCoordinator {
             viewController = _viewController
         case .bookmark(let viewModel):
             let _viewController = BookmarkViewController()
+            _viewController.viewModel = viewModel
+            viewController = _viewController
+        case .followedTags(let viewModel):
+            let _viewController = FollowedTagsViewController()
             _viewController.viewModel = viewModel
             viewController = _viewController
         case .favorite(let viewModel):
@@ -529,5 +543,16 @@ private extension SceneCoordinator {
         needs?.context = appContext
         needs?.coordinator = self
     }
-    
+}
+
+//MARK: - MastodonLoginViewControllerDelegate
+
+extension SceneCoordinator: MastodonLoginViewControllerDelegate {
+  func backButtonPressed(_ viewController: MastodonLoginViewController) {
+    viewController.navigationController?.popViewController(animated: true)
+  }
+
+  func nextButtonPressed(_ viewController: MastodonLoginViewController) {
+    viewController.login()
+  }
 }

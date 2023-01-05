@@ -87,12 +87,7 @@ extension ThreadViewController {
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
-        NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-        ])
+        tableView.pinToParent()
         
         tableView.delegate = self
         viewModel.setupDiffableDataSource(
@@ -122,7 +117,7 @@ extension ThreadViewController {
         let composeViewModel = ComposeViewModel(
             context: context,
             authContext: viewModel.authContext,
-            kind: .reply(status: threadContext.status)
+            destination: .reply(parent: threadContext.status)
         )
         _ = coordinator.present(
             scene: .compose(viewModel: composeViewModel),

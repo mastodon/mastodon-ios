@@ -50,6 +50,22 @@
         <string>%ld tecken</string>
       </dict>
     </dict>
+    <key>a11y.plural.count.characters_left</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@character_count@ kvar</string>
+      <key>character_count</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>%ld tecken</string>
+        <key>other</key>
+        <string>%ld tecken</string>
+      </dict>
+    </dict>
     <key>plural.count.followed_by_and_mutual</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
@@ -264,7 +280,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>%ld år kvar</string>
+        <string>1 år kvar</string>
         <key>other</key>
         <string>%ld år kvar</string>
       </dict>
@@ -280,7 +296,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>%ld månad kvar</string>
+        <string>1 månad kvar</string>
         <key>other</key>
         <string>%ld månader kvar</string>
       </dict>
@@ -296,7 +312,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>%ld dag kvar</string>
+        <string>1 dag kvar</string>
         <key>other</key>
         <string>%ld dagar kvar</string>
       </dict>
@@ -344,7 +360,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>%ld sekund kvar</string>
+        <string>1 sekund kvar</string>
         <key>other</key>
         <string>%ld sekunder kvar</string>
       </dict>
@@ -392,7 +408,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>%ldd sedan</string>
+        <string>1d sedan</string>
         <key>other</key>
         <string>%ldd sedan</string>
       </dict>
@@ -408,7 +424,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>%ldt sedan</string>
+        <string>1t sedan</string>
         <key>other</key>
         <string>%ldt sedan</string>
       </dict>

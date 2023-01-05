@@ -16,8 +16,6 @@ import MastodonLocalization
 
 final class MediaPreviewViewController: UIViewController, NeedsDependency {
     
-    static let closeButtonSize = CGSize(width: 30, height: 30)
-    
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
@@ -26,24 +24,23 @@ final class MediaPreviewViewController: UIViewController, NeedsDependency {
         
     let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .systemMaterial))
     let pagingViewController = MediaPreviewPagingViewController()
-    
-    let closeButtonBackground: UIVisualEffectView = {
-        let backgroundView = UIVisualEffectView(effect: UIBlurEffect(style: .systemUltraThinMaterial))
-        backgroundView.alpha = 0.9
-        backgroundView.layer.masksToBounds = true
-        backgroundView.layer.cornerRadius = MediaPreviewViewController.closeButtonSize.width * 0.5
-        return backgroundView
+
+    let topToolbar: UIStackView = {
+        let stackView = TouchTransparentStackView()
+        stackView.axis = .horizontal
+        stackView.distribution = .equalSpacing
+        stackView.alignment = .fill
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
     }()
-    
-    let closeButtonBackgroundVisualEffectView = UIVisualEffectView(effect: UIVibrancyEffect(blurEffect: UIBlurEffect(style: .systemUltraThinMaterial)))
-    
-    let closeButton: UIButton = {
-        let button = HighlightDimmableButton()
-        button.expandEdgeInsets = UIEdgeInsets(top: -10, left: -10, bottom: -10, right: -10)
-        button.imageView?.tintColor = .label
+
+    let closeButton = HUDButton { button in
         button.setImage(UIImage(systemName: "xmark", withConfiguration: UIImage.SymbolConfiguration(pointSize: 16, weight: .bold))!, for: .normal)
-        return button
-    }()
+    }
+
+    let altButton = HUDButton { button in
+        button.setTitle("ALT", for: .normal)
+    }
 
     deinit {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
@@ -65,42 +62,32 @@ extension MediaPreviewViewController {
         pagingViewController.view.translatesAutoresizingMaskIntoConstraints = false
         addChild(pagingViewController)
         visualEffectView.contentView.addSubview(pagingViewController.view)
-        NSLayoutConstraint.activate([
-            visualEffectView.topAnchor.constraint(equalTo: pagingViewController.view.topAnchor),
-            visualEffectView.bottomAnchor.constraint(equalTo: pagingViewController.view.bottomAnchor),
-            visualEffectView.leadingAnchor.constraint(equalTo: pagingViewController.view.leadingAnchor),
-            visualEffectView.trailingAnchor.constraint(equalTo: pagingViewController.view.trailingAnchor),
-        ])
+        visualEffectView.pinTo(to: pagingViewController.view)
         pagingViewController.didMove(toParent: self)
-        
-        closeButtonBackground.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(closeButtonBackground)
-        NSLayoutConstraint.activate([
-            closeButtonBackground.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 12),
-            closeButtonBackground.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor)
-        ])
-        closeButtonBackgroundVisualEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        closeButtonBackground.contentView.addSubview(closeButtonBackgroundVisualEffectView)
 
-        closeButton.translatesAutoresizingMaskIntoConstraints = false
-        closeButtonBackgroundVisualEffectView.contentView.addSubview(closeButton)
+        view.addSubview(topToolbar)
         NSLayoutConstraint.activate([
-            closeButton.topAnchor.constraint(equalTo: closeButtonBackgroundVisualEffectView.topAnchor),
-            closeButton.leadingAnchor.constraint(equalTo: closeButtonBackgroundVisualEffectView.leadingAnchor),
-            closeButtonBackgroundVisualEffectView.trailingAnchor.constraint(equalTo: closeButton.trailingAnchor),
-            closeButtonBackgroundVisualEffectView.bottomAnchor.constraint(equalTo: closeButton.bottomAnchor),
-            closeButton.heightAnchor.constraint(equalToConstant: MediaPreviewViewController.closeButtonSize.height).priority(.defaultHigh),
-            closeButton.widthAnchor.constraint(equalToConstant: MediaPreviewViewController.closeButtonSize.width).priority(.defaultHigh),
+            topToolbar.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 12),
+            topToolbar.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
+            topToolbar.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
         ])
-        
+
+        topToolbar.addArrangedSubview(closeButton)
+        NSLayoutConstraint.activate([
+            closeButton.widthAnchor.constraint(equalToConstant: HUDButton.height).priority(.defaultHigh),
+        ])
+
+        topToolbar.addArrangedSubview(altButton)
+
         viewModel.mediaPreviewImageViewControllerDelegate = self
 
         pagingViewController.interPageSpacing = 10
         pagingViewController.delegate = self
         pagingViewController.dataSource = viewModel
         
-        closeButton.addTarget(self, action: #selector(MediaPreviewViewController.closeButtonPressed(_:)), for: .touchUpInside)
-        
+        closeButton.button.addTarget(self, action: #selector(MediaPreviewViewController.closeButtonPressed(_:)), for: .touchUpInside)
+        altButton.button.addTarget(self, action: #selector(MediaPreviewViewController.altButtonPressed(_:)), for: .touchUpInside)
+
         // bind view model
         viewModel.$currentPage
             .receive(on: DispatchQueue.main)
@@ -131,9 +118,34 @@ extension MediaPreviewViewController {
                         let attachment = previewContext.attachments[index]
                         return attachment.kind == .video    // not hide buttno for audio
                     }()
-                    self.closeButtonBackground.isHidden = needsHideCloseButton
+                    self.closeButton.isHidden = needsHideCloseButton
                 default:
                     break
+                }
+            }
+            .store(in: &disposeBag)
+
+        viewModel.$altText
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] altText in
+                guard let self else { return }
+                UIView.animate(withDuration: 0.3) {
+                    if altText == nil {
+                        self.altButton.alpha = 0
+                    } else {
+                        self.altButton.alpha = 1
+                    }
+                }
+            }
+            .store(in: &disposeBag)
+
+        viewModel.$showingChrome
+            .receive(on: DispatchQueue.main)
+            .removeDuplicates()
+            .sink { [weak self] showingChrome in
+                UIView.animate(withDuration: 0.3) {
+                    self?.setNeedsStatusBarAppearanceUpdate()
+                    self?.topToolbar.alpha = showingChrome ? 1 : 0
                 }
             }
             .store(in: &disposeBag)
@@ -154,12 +166,24 @@ extension MediaPreviewViewController {
 }
 
 extension MediaPreviewViewController {
+
+    override var prefersStatusBarHidden: Bool {
+        !viewModel.showingChrome
+    }
+
+}
+
+extension MediaPreviewViewController {
     
     @objc private func closeButtonPressed(_ sender: UIButton) {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         dismiss(animated: true, completion: nil)
     }
-    
+
+    @objc private func altButtonPressed(_ sender: UIButton) {
+        guard let alt = viewModel.altText else { return }
+
+        present(AltViewController(alt: alt, sourceView: sender), animated: true)
+    }
 }
 
 // MARK: - MediaPreviewingViewController
@@ -239,8 +263,11 @@ extension MediaPreviewViewController: MediaPreviewImageViewControllerDelegate {
         let location = tapGestureRecognizer.location(in: viewController.previewImageView.imageView)
         let isContainsTap = viewController.previewImageView.imageView.frame.contains(location)
         
-        guard !isContainsTap else { return }
-        dismiss(animated: true, completion: nil)
+        if isContainsTap {
+            self.viewModel.showingChrome.toggle()
+        } else {
+            dismiss(animated: true, completion: nil)
+        }
     }
     
     func mediaPreviewImageViewController(_ viewController: MediaPreviewImageViewController, longPressGestureRecognizerDidTrigger longPressGestureRecognizer: UILongPressGestureRecognizer) {
@@ -253,19 +280,8 @@ extension MediaPreviewViewController: MediaPreviewImageViewControllerDelegate {
     ) {
         switch action {
         case .savePhoto:
-            let _savePublisher: AnyPublisher<Void, Error>? = {
-                switch viewController.viewModel.item {
-                case .remote(let previewContext):
-                    guard let assetURL = previewContext.assetURL else { return nil }
-                    return context.photoLibraryService.save(imageSource: .url(assetURL))
-                case .local(let previewContext):
-                    return context.photoLibraryService.save(imageSource: .image(previewContext.image))
-                }
-            }()
-            guard let savePublisher = _savePublisher else {
-                return
-            }
-            savePublisher
+            guard let assetURL = viewController.viewModel.item.assetURL else { return }
+            context.photoLibraryService.save(imageSource: .url(assetURL))
                 .sink { [weak self] completion in
                     guard let self = self else { return }
                     switch completion {
@@ -276,7 +292,7 @@ extension MediaPreviewViewController: MediaPreviewImageViewControllerDelegate {
                             title: L10n.Common.Alerts.SavePhotoFailure.title,
                             message: L10n.Common.Alerts.SavePhotoFailure.message
                         )
-                        self.coordinator.present(
+                        _ = self.coordinator.present(
                             scene: .alertController(alertController: alertController),
                             from: self,
                             transition: .alertController(animated: true, completion: nil)
@@ -289,20 +305,9 @@ extension MediaPreviewViewController: MediaPreviewImageViewControllerDelegate {
                 }
                 .store(in: &context.disposeBag)
         case .copyPhoto:
-            let _copyPublisher: AnyPublisher<Void, Error>? = {
-                switch viewController.viewModel.item {
-                case .remote(let previewContext):
-                    guard let assetURL = previewContext.assetURL else { return nil }
-                    return context.photoLibraryService.copy(imageSource: .url(assetURL))
-                case .local(let previewContext):
-                    return context.photoLibraryService.copy(imageSource: .image(previewContext.image))
-                }
-            }()
-            guard let copyPublisher = _copyPublisher else {
-                return
-            }
+            guard let assetURL = viewController.viewModel.item.assetURL else { return }
 
-            copyPublisher
+            context.photoLibraryService.copy(imageSource: .url(assetURL))
                 .sink { completion in
                     switch completion {
                     case .failure(let error):
@@ -321,13 +326,8 @@ extension MediaPreviewViewController: MediaPreviewImageViewControllerDelegate {
             let activityViewController = UIActivityViewController(
                 activityItems: {
                     var activityItems: [Any] = []
-                    switch viewController.viewModel.item {
-                    case .remote(let previewContext):
-                        if let assetURL = previewContext.assetURL {
-                            activityItems.append(assetURL)
-                        }
-                    case .local(let previewContext):
-                        activityItems.append(previewContext.image)
+                    if let assetURL = viewController.viewModel.item.assetURL {
+                        activityItems.append(assetURL)
                     }
                     return activityItems
                 }(),
@@ -342,12 +342,12 @@ extension MediaPreviewViewController: MediaPreviewImageViewControllerDelegate {
 
 extension MediaPreviewViewController {
     
-    var closeKeyCommand: UIKeyCommand {
+    func closeKeyCommand(input: String) -> UIKeyCommand {
         UIKeyCommand(
             title: L10n.Scene.Preview.Keyboard.closePreview,
             image: nil,
             action: #selector(MediaPreviewViewController.closePreviewKeyCommandHandler(_:)),
-            input: "i",
+            input: input,
             modifierFlags: [],
             propertyList: nil,
             alternates: [],
@@ -391,7 +391,8 @@ extension MediaPreviewViewController {
     
     override var keyCommands: [UIKeyCommand] {
         return [
-            closeKeyCommand,
+            closeKeyCommand(input: UIKeyCommand.inputEscape),
+            closeKeyCommand(input: "i"),
             showNextKeyCommand,
             showPreviousKeyCommand,
         ]

@@ -9,7 +9,7 @@ import Foundation
 
 extension Mastodon.Entity {
     
-    public struct Server: Codable, Equatable {
+    public struct Server: Codable, Equatable, Hashable {
         public let domain: String
         public let version: String
         public let description: String

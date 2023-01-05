@@ -46,7 +46,10 @@ public final class NotificationView: UIView {
     
     var _disposeBag = Set<AnyCancellable>()
     public var disposeBag = Set<AnyCancellable>()
-    
+
+    var notificationActions = [UIAccessibilityCustomAction]()
+    var authorActions = [UIAccessibilityCustomAction]()
+
     public private(set) lazy var viewModel: ViewModel = {
         let viewModel = ViewModel()
         viewModel.bind(notificationView: self)
@@ -292,21 +295,11 @@ extension NotificationView {
         
         acceptFollowRequestButton.translatesAutoresizingMaskIntoConstraints = false
         acceptFollowRequestButtonShadowBackgroundContainer.addSubview(acceptFollowRequestButton)
-        NSLayoutConstraint.activate([
-            acceptFollowRequestButton.topAnchor.constraint(equalTo: acceptFollowRequestButtonShadowBackgroundContainer.topAnchor),
-            acceptFollowRequestButton.leadingAnchor.constraint(equalTo: acceptFollowRequestButtonShadowBackgroundContainer.leadingAnchor),
-            acceptFollowRequestButton.trailingAnchor.constraint(equalTo: acceptFollowRequestButtonShadowBackgroundContainer.trailingAnchor),
-            acceptFollowRequestButton.bottomAnchor.constraint(equalTo: acceptFollowRequestButtonShadowBackgroundContainer.bottomAnchor),
-        ])
+        acceptFollowRequestButton.pinToParent()
         
         rejectFollowRequestButton.translatesAutoresizingMaskIntoConstraints = false
         rejectFollowRequestButtonShadowBackgroundContainer.addSubview(rejectFollowRequestButton)
-        NSLayoutConstraint.activate([
-            rejectFollowRequestButton.topAnchor.constraint(equalTo: rejectFollowRequestButtonShadowBackgroundContainer.topAnchor),
-            rejectFollowRequestButton.leadingAnchor.constraint(equalTo: rejectFollowRequestButtonShadowBackgroundContainer.leadingAnchor),
-            rejectFollowRequestButton.trailingAnchor.constraint(equalTo: rejectFollowRequestButtonShadowBackgroundContainer.trailingAnchor),
-            rejectFollowRequestButton.bottomAnchor.constraint(equalTo: rejectFollowRequestButtonShadowBackgroundContainer.bottomAnchor),
-        ])
+        rejectFollowRequestButton.pinToParent()
         
         followRequestContainerView.axis = .horizontal
         followRequestContainerView.distribution = .fillEqually
@@ -382,6 +375,30 @@ extension NotificationView {
         
         statusView.delegate = self
         quoteStatusView.delegate = self
+
+        isAccessibilityElement = true
+    }
+}
+
+extension NotificationView {
+    public override var accessibilityElements: [Any]? {
+        get { [] }
+        set {}
+    }
+
+    public override var accessibilityCustomActions: [UIAccessibilityCustomAction]? {
+        get {
+            var actions = notificationActions
+            actions += authorActions
+            if !statusView.isHidden {
+                actions += statusView.accessibilityCustomActions ?? []
+            }
+            if !quoteStatusViewContainerView.isHidden {
+                actions += quoteStatusView.accessibilityCustomActions ?? []
+            }
+            return actions
+        }
+        set {}
     }
 }
 
@@ -440,7 +457,7 @@ extension NotificationView: AdaptiveContainerView {
 extension NotificationView {
     public typealias AuthorMenuContext = StatusAuthorView.AuthorMenuContext
     
-    public func setupAuthorMenu(menuContext: AuthorMenuContext) -> UIMenu {
+    public func setupAuthorMenu(menuContext: AuthorMenuContext) -> (UIMenu, [UIAccessibilityCustomAction]) {
         var actions: [MastodonMenu.Action] = []
         
         actions = [
@@ -466,15 +483,23 @@ extension NotificationView {
             actions: actions,
             delegate: self
         )
-        
-        return menu
+
+        let accessibilityActions = MastodonMenu.setupAccessibilityActions(
+            actions: actions,
+            delegate: self
+        )
+
+        return (menu, accessibilityActions)
     }
 
 }
 
 // MARK: - StatusViewDelegate
 extension NotificationView: StatusViewDelegate {
-    
+    public func statusView(_ statusView: StatusView, didTapCardWithURL url: URL) {
+        assertionFailure()
+    }
+
     public func statusView(_ statusView: StatusView, headerDidPressed header: UIView) {
         // do nothing
     }
@@ -577,6 +602,15 @@ extension NotificationView: StatusViewDelegate {
         assertionFailure()
     }
     
+    public func statusView(_ statusView: StatusView, cardControl: StatusCardControl, didTapURL url: URL) {
+        assertionFailure()
+    }
+
+    public func statusView(_ statusView: StatusView, cardControlMenu: StatusCardControl) -> UIMenu? {
+        assertionFailure()
+        return nil
+    }
+
 }
 
 // MARK: - MastodonMenuDelegate

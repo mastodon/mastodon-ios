@@ -22,6 +22,9 @@
 "Common.Alerts.SignOut.Message" = "هل أنت متأكد من رغبتك في تسجيل الخُروج؟";
 "Common.Alerts.SignOut.Title" = "تَسجيلُ الخُروج";
 "Common.Alerts.SignUpFailure.Title" = "إخفاقٌ فِي التَّسجيل";
+"Common.Alerts.TranslationFailed.Button" = "حسنًا";
+"Common.Alerts.TranslationFailed.Message" = "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.";
+"Common.Alerts.TranslationFailed.Title" = "مُلاحظة";
 "Common.Alerts.VoteFailure.PollEnded" = "اِنتَهَى اِستِطلاعُ الرَّأي";
 "Common.Alerts.VoteFailure.Title" = "إخفاقٌ فِي التَّصويت";
 "Common.Controls.Actions.Add" = "إضافة";
@@ -31,6 +34,7 @@
 "Common.Controls.Actions.Compose" = "تأليف";
 "Common.Controls.Actions.Confirm" = "تأكيد";
 "Common.Controls.Actions.Continue" = "واصل";
+"Common.Controls.Actions.Copy" = "نَسخ";
 "Common.Controls.Actions.CopyPhoto" = "نسخ الصورة";
 "Common.Controls.Actions.Delete" = "حذف";
 "Common.Controls.Actions.Discard" = "تجاهُل";
@@ -55,10 +59,12 @@
 "Common.Controls.Actions.Share" = "المُشارك";
 "Common.Controls.Actions.SharePost" = "مشارك المنشور";
 "Common.Controls.Actions.ShareUser" = "مُشارَكَةُ %@";
-"Common.Controls.Actions.SignIn" = "تسجيل الدخول";
-"Common.Controls.Actions.SignUp" = "إنشاء حِساب";
+"Common.Controls.Actions.SignIn" = "تسجيلُ الدخول";
+"Common.Controls.Actions.SignUp" = "إنشاءُ حِساب";
 "Common.Controls.Actions.Skip" = "تخطي";
 "Common.Controls.Actions.TakePhoto" = "اِلتِقاطُ صُورَة";
+"Common.Controls.Actions.TranslatePost.Title" = "Translate from %@";
+"Common.Controls.Actions.TranslatePost.UnknownLanguage" = "Unknown";
 "Common.Controls.Actions.TryAgain" = "المُحاولة مرة أُخرى";
 "Common.Controls.Actions.UnblockDomain" = "رفع الحظر عن %@";
 "Common.Controls.Friendship.Block" = "حظر";
@@ -100,6 +106,7 @@
 "Common.Controls.Status.Actions.Menu" = "القائمة";
 "Common.Controls.Status.Actions.Reblog" = "إعادة النشر";
 "Common.Controls.Status.Actions.Reply" = "الرَّد";
+"Common.Controls.Status.Actions.ShareLinkInPost" = "Share Link in Post";
 "Common.Controls.Status.Actions.ShowGif" = "أظْهِر GIF";
 "Common.Controls.Status.Actions.ShowImage" = "أظْهِرِ الصُّورَة";
 "Common.Controls.Status.Actions.ShowVideoPlayer" = "أظْهِر مُشَغِّلَ المَقاطِعِ المَرئِيَّة";
@@ -107,6 +114,8 @@
 "Common.Controls.Status.Actions.Unfavorite" = "إزالة التفضيل";
 "Common.Controls.Status.Actions.Unreblog" = "التراجُع عن إعادة النشر";
 "Common.Controls.Status.ContentWarning" = "تحذير المُحتوى";
+"Common.Controls.Status.LinkViaUser" = "%@ via %@";
+"Common.Controls.Status.LoadEmbed" = "Load Embed";
 "Common.Controls.Status.MediaContentWarning" = "اُنقُر لِلكَشف";
 "Common.Controls.Status.MetaEntity.Email" = "عُنوان البريد الإلكتُروني: %@";
 "Common.Controls.Status.MetaEntity.Hashtag" = "وَسْم: %@";
@@ -124,6 +133,10 @@
 "Common.Controls.Status.Tag.Mention" = "إشارة";
 "Common.Controls.Status.Tag.Url" = "عنوان URL";
 "Common.Controls.Status.TapToReveal" = "اُنقُر لِلكَشف";
+"Common.Controls.Status.Translation.ShowOriginal" = "Shown Original";
+"Common.Controls.Status.Translation.TranslatedFrom" = "Translated from %@ using %@";
+"Common.Controls.Status.Translation.UnknownLanguage" = "Unknown";
+"Common.Controls.Status.Translation.UnknownProvider" = "Unknown";
 "Common.Controls.Status.UserReblogged" = "أعادَ %@ تَدوينَها";
 "Common.Controls.Status.UserRepliedTo" = "رَدًا على %@";
 "Common.Controls.Status.Visibility.Direct" = "المُستخدمِونَ المُشارِ إليهم فَقَطْ مَن يُمكِنُهُم رُؤيَةُ هَذَا المَنشُور.";
@@ -131,9 +144,9 @@
 "Common.Controls.Status.Visibility.PrivateFromMe" = "فَقَطْ مُتابِعيني أنَا مَن يُمكِنُهُم رُؤيَةُ هَذَا المَنشُور.";
 "Common.Controls.Status.Visibility.Unlisted" = "يُمكِنُ لِلجَميعِ رُؤيَةُ هَذَا المَنشورِ وَلكِنَّهُ لَا يُعرَضُ فِي الخَطِّ الزَمنيّ العام.";
 "Common.Controls.Tabs.Home" = "الرَّئِيسَة";
-"Common.Controls.Tabs.Notification" = "الإشعارات";
+"Common.Controls.Tabs.Notifications" = "الإشعارات";
 "Common.Controls.Tabs.Profile" = "المِلَفُّ التَّعريفِيّ";
-"Common.Controls.Tabs.Search" = "البَحث";
+"Common.Controls.Tabs.SearchAndExplore" = "البَحث وَالاِستِكشاف";
 "Common.Controls.Timeline.Filtered" = "مُصفَّى";
 "Common.Controls.Timeline.Header.BlockedWarning" = "لا يُمكِنُكَ عَرض الملف التَعريفي لهذا المُستخدِم
 حتَّى يَرفَعَ الحَظرَ عَنك.";
@@ -161,17 +174,21 @@
 "Scene.Compose.Accessibility.CustomEmojiPicker" = "منتقي الرموز التعبيرية المُخصَّص";
 "Scene.Compose.Accessibility.DisableContentWarning" = "تعطيل تحذير المُحتَوى";
 "Scene.Compose.Accessibility.EnableContentWarning" = "تفعيل تحذير المُحتَوى";
+"Scene.Compose.Accessibility.PostOptions" = "خياراتُ المَنشور";
 "Scene.Compose.Accessibility.PostVisibilityMenu" = "قائمة ظهور المنشور";
+"Scene.Compose.Accessibility.PostingAs" = "نَشر كَـ %@";
 "Scene.Compose.Accessibility.RemovePoll" = "إزالة الاستطلاع";
 "Scene.Compose.Attachment.AttachmentBroken" = "هذا ال%@ مُعطَّل
 ويتعذَّرُ رفعُه إلى ماستودون.";
-"Scene.Compose.Attachment.AttachmentTooLarge" = "Attachment too large";
-"Scene.Compose.Attachment.CanNotRecognizeThisMediaAttachment" = "Can not regonize this media attachment";
+"Scene.Compose.Attachment.AttachmentTooLarge" = "المُرفَق كَبيرٌ جِدًّا";
+"Scene.Compose.Attachment.CanNotRecognizeThisMediaAttachment" = "يتعذَّرُ التعرُّفُ على وسائِطِ هذا المُرفَق";
+"Scene.Compose.Attachment.CompressingState" = "يجري الضغط...";
 "Scene.Compose.Attachment.DescriptionPhoto" = "صِف الصورة للمَكفوفين...";
 "Scene.Compose.Attachment.DescriptionVideo" = "صِف المقطع المرئي للمَكفوفين...";
-"Scene.Compose.Attachment.LoadFailed" = "Load Failed";
+"Scene.Compose.Attachment.LoadFailed" = "فَشَلَ التَّحميل";
 "Scene.Compose.Attachment.Photo" = "صورة";
-"Scene.Compose.Attachment.UploadFailed" = "Upload Failed";
+"Scene.Compose.Attachment.ServerProcessingState" = "مُعالجة الخادم جارِيَة...";
+"Scene.Compose.Attachment.UploadFailed" = "فَشَلَ الرَّفع";
 "Scene.Compose.Attachment.Video" = "مقطع مرئي";
 "Scene.Compose.AutoComplete.SpaceToAdd" = "انقر على مساحة لإضافتِها";
 "Scene.Compose.ComposeAction" = "نَشر";
@@ -192,6 +209,8 @@
 "Scene.Compose.Poll.OptionNumber" = "الخيار %ld";
 "Scene.Compose.Poll.SevenDays" = "سبعةُ أيام";
 "Scene.Compose.Poll.SixHours" = "سِتُّ ساعات";
+"Scene.Compose.Poll.ThePollHasEmptyOption" = "يوجَدُ خِيارٌ فارِغٌ فِي الاِستِطلاع";
+"Scene.Compose.Poll.ThePollIsInvalid" = "الاِستِطلاعُ غيرُ صالِح";
 "Scene.Compose.Poll.ThirtyMinutes" = "ثلاثون دقيقة";
 "Scene.Compose.Poll.ThreeDays" = "ثلاثةُ أيام";
 "Scene.Compose.ReplyingToUser" = "رَدًا على %@";
@@ -223,6 +242,12 @@
 "Scene.Familiarfollowers.Title" = "مُتابِعُونَ مَألُوفُونَ بِالنِّسبَةِ لَك";
 "Scene.Favorite.Title" = "مُفضَّلَتُك";
 "Scene.FavoritedBy.Title" = "مُفَضَّلٌ مِن قِبَلِ";
+"Scene.FollowedTags.Actions.Follow" = "مُتابَعَة";
+"Scene.FollowedTags.Actions.Unfollow" = "إلغاءُ المُتابَعَة";
+"Scene.FollowedTags.Header.Participants" = "المُشارِكُون";
+"Scene.FollowedTags.Header.Posts" = "مَنشورات";
+"Scene.FollowedTags.Header.PostsToday" = "مَنشوراتُ اليَوم";
+"Scene.FollowedTags.Title" = "وُسُومُ المُتابَع";
 "Scene.Follower.Footer" = "لا يُمكِن عَرض المُتابِعين مِنَ الخوادم الأُخرى.";
 "Scene.Follower.Title" = "مُتابِعِين";
 "Scene.Following.Footer" = "لا يُمكِن عَرض المُتابَعات مِنَ الخوادم الأُخرى.";
@@ -234,6 +259,9 @@
 "Scene.HomeTimeline.NavigationBarState.Published" = "تمَّ النَّشر!";
 "Scene.HomeTimeline.NavigationBarState.Publishing" = "يَجري نَشر المُشارَكَة...";
 "Scene.HomeTimeline.Title" = "الرَّئِيسَة";
+"Scene.Login.ServerSearchField.Placeholder" = "أدخِل عُنوانَ URL أو اِبحَث عَنِ الخادِمِ الخاصّ بِك";
+"Scene.Login.Subtitle" = "سَجِّل دُخولَكَ إلى الخادِم الَّذي أنشأتَ حِسابَكَ فيه.";
+"Scene.Login.Title" = "مَرحَبًا بِكَ مُجَدَّدًا";
 "Scene.Notification.FollowRequest.Accept" = "قَبُول";
 "Scene.Notification.FollowRequest.Accepted" = "مَقبُول";
 "Scene.Notification.FollowRequest.Reject" = "رَفض";
@@ -259,8 +287,11 @@
 "Scene.Profile.Dashboard.Following" = "مُتابَع";
 "Scene.Profile.Dashboard.Posts" = "مَنشورات";
 "Scene.Profile.Fields.AddRow" = "إضافة صف";
+"Scene.Profile.Fields.Joined" = "Joined";
 "Scene.Profile.Fields.Placeholder.Content" = "المُحتَوى";
 "Scene.Profile.Fields.Placeholder.Label" = "التسمية";
+"Scene.Profile.Fields.Verified.Long" = "تمَّ التَّحقق مِن مِلكية هذا الرابِطِ بِتاريخ %@";
+"Scene.Profile.Fields.Verified.Short" = "تمَّ التَّحقق بِتاريخ %@";
 "Scene.Profile.Header.FollowsYou" = "يُتابِعُك";
 "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Message" = "تأكيدُ حَظر %@";
 "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Title" = "حَظرُ الحِساب";
@@ -393,13 +424,11 @@
 "Scene.ServerPicker.EmptyState.BadNetwork" = "حدث خطأٌ ما أثناء تحميل البيانات. تحقَّق من اتصالك بالإنترنت.";
 "Scene.ServerPicker.EmptyState.FindingServers" = "يجري إيجاد خوادم متوفِّرَة...";
 "Scene.ServerPicker.EmptyState.NoResults" = "لا توجد نتائج";
-"Scene.ServerPicker.Input.Placeholder" = "اِبحَث عن خادِم أو انضم إلى آخر خاص بك...";
-"Scene.ServerPicker.Input.SearchServersOrEnterUrl" = "اِبحَث فِي الخَوادِم أو أدخِل رابِط";
+"Scene.ServerPicker.Input.SearchServersOrEnterUrl" = "اِبحث عَن مُجتَمَعَات أو أدخِل عُنوانَ URL";
 "Scene.ServerPicker.Label.Category" = "الفئة";
 "Scene.ServerPicker.Label.Language" = "اللُّغَة";
 "Scene.ServerPicker.Label.Users" = "مُستَخدِم";
-"Scene.ServerPicker.Subtitle" = "اختر مجتمعًا بناءً على اهتماماتك، منطقتك أو يمكنك حتى اختيارُ مجتمعٍ ذي غرضٍ عام.";
-"Scene.ServerPicker.SubtitleExtend" = "اختر مجتمعًا بناءً على اهتماماتك، منطقتك أو يمكنك حتى اختيارُ مجتمعٍ ذي غرضٍ عام. تُشغَّل جميعُ المجتمعِ مِن قِبَلِ مُنظمَةٍ أو فردٍ مُستقلٍ تمامًا.";
+"Scene.ServerPicker.Subtitle" = "اِختر خادمًا بناءً على منطقتك، اِهتماماتك أو يُمكنك حتى اِختيارُ مجتمعٍ ذِي غرضٍ عام. بِإمكانِكَ الدردشة مع أي شخص على مَاستودُون، بغض النظر عن الخادم الخاصة بك.";
 "Scene.ServerPicker.Title" = "اِختر خادِم،
 أيًّا مِنهُم.";
 "Scene.ServerRules.Button.Confirm" = "أنا مُوافِق";

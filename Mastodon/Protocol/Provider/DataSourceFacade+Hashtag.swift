@@ -35,7 +35,7 @@ extension DataSourceFacade {
             hashtag: tag.name
         )
         
-        provider.coordinator.present(
+        _ = provider.coordinator.present(
             scene: .hashtagTimeline(viewModel: hashtagTimelineViewModel),
             from: provider,
             transition: .show
@@ -61,7 +61,7 @@ extension DataSourceFacade {
             hashtag: name
         )
         
-        provider.coordinator.present(
+        _ = provider.coordinator.present(
             scene: .hashtagTimeline(viewModel: hashtagTimelineViewModel),
             from: provider,
             transition: .show

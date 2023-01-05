@@ -21,7 +21,6 @@ extension CategoryPickerSection {
         UICollectionViewDiffableDataSource(collectionView: collectionView) { [weak dependency] collectionView, indexPath, item -> UICollectionViewCell? in
             guard let _ = dependency else { return nil }
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: PickServerCategoryCollectionViewCell.self), for: indexPath) as! PickServerCategoryCollectionViewCell
-            cell.categoryView.emojiLabel.text = item.emoji
             cell.categoryView.titleLabel.text = item.title
             cell.observe(\.isSelected, options: [.initial, .new]) { cell, _ in
                 cell.categoryView.highlightedIndicatorView.alpha = cell.isSelected ? 1 : 0

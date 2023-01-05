@@ -19,7 +19,7 @@ protocol PickServerServerSectionTableHeaderViewDelegate: AnyObject {
 
 final class PickServerServerSectionTableHeaderView: UIView {
     
-    static let collectionViewHeight: CGFloat = 88
+    static let collectionViewHeight: CGFloat = 30
     static let searchTextFieldHeight: CGFloat = 38
     static let spacing: CGFloat = 11
     
@@ -177,7 +177,6 @@ extension PickServerServerSectionTableHeaderView {
 extension PickServerServerSectionTableHeaderView: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: indexPath: %s", ((#file as NSString).lastPathComponent), #line, #function, indexPath.debugDescription)
         collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
         delegate?.pickServerServerSectionTableHeaderView(self, collectionView: collectionView, didSelectItemAt: indexPath)
     }
@@ -205,5 +204,5 @@ extension PickServerServerSectionTableHeaderView: UITextFieldDelegate {
         textField.resignFirstResponder()
         return false
     }
-    
+
 }

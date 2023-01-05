@@ -161,7 +161,7 @@ extension SuggestionAccountViewController: UITableViewDelegate {
         case .account(let record):
             guard let account = record.object(in: context.managedObjectContext) else { return }
             let cachedProfileViewModel = CachedProfileViewModel(context: context, authContext: viewModel.authContext, mastodonUser: account)
-            coordinator.present(
+            _ = coordinator.present(
                 scene: .profile(viewModel: cachedProfileViewModel),
                 from: self,
                 transition: .show

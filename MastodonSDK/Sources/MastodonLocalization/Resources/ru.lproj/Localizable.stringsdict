@@ -15,11 +15,11 @@
         <key>one</key>
         <string>1 unread notification</string>
         <key>few</key>
-        <string>%ld unread notification</string>
+        <string>%ld unread notifications</string>
         <key>many</key>
-        <string>%ld unread notification</string>
+        <string>%ld unread notifications</string>
         <key>other</key>
-        <string>%ld unread notification</string>
+        <string>%ld unread notifications</string>
       </dict>
     </dict>
     <key>a11y.plural.count.input_limit_exceeds</key>
@@ -60,6 +60,26 @@
         <string>%ld символов осталось</string>
         <key>other</key>
         <string>%ld символа осталось</string>
+      </dict>
+    </dict>
+    <key>a11y.plural.count.characters_left</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@character_count@ left</string>
+      <key>character_count</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>1 character</string>
+        <key>few</key>
+        <string>%ld characters</string>
+        <key>many</key>
+        <string>%ld characters</string>
+        <key>other</key>
+        <string>%ld characters</string>
       </dict>
     </dict>
     <key>plural.count.followed_by_and_mutual</key>

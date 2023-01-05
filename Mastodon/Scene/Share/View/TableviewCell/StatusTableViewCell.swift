@@ -86,6 +86,14 @@ extension StatusTableViewCell {
                 self.accessibilityLabel = accessibilityLabel
             }
             .store(in: &_disposeBag)
+        
+        statusView.viewModel
+            .$translatedFromLanguage
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] _ in
+                self?.invalidateIntrinsicContentSize()
+            })
+            .store(in: &_disposeBag)
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

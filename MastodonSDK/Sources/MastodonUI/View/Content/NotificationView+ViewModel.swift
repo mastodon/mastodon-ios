@@ -23,9 +23,11 @@ extension NotificationView {
         public var objects = Set<NSManagedObject>()
 
         let logger = Logger(subsystem: "NotificationView", category: "ViewModel")
-        
+
+        @Published public var context: AppContext?
         @Published public var authContext: AuthContext?
-        
+
+        @Published public var type: MastodonNotificationType?
         @Published public var notificationIndicatorText: MetaContent?
 
         @Published public var authorAvatarImage: UIImage?
@@ -36,6 +38,7 @@ extension NotificationView {
         @Published public var isMyself = false
         @Published public var isMuting = false
         @Published public var isBlocking = false
+        @Published public var isTranslated = false
         
         @Published public var timestamp: Date?
         
@@ -54,7 +57,10 @@ extension NotificationView.ViewModel {
         bindAuthor(notificationView: notificationView)
         bindAuthorMenu(notificationView: notificationView)
         bindFollowRequest(notificationView: notificationView)
-        
+
+        $context
+            .assign(to: \.context, on: notificationView.statusView.viewModel)
+            .store(in: &disposeBag)
         $authContext
             .assign(to: \.authContext, on: notificationView.statusView.viewModel)
             .store(in: &disposeBag)
@@ -100,21 +106,21 @@ extension NotificationView.ViewModel {
             }
             .store(in: &disposeBag)
         // timestamp
-        Publishers.CombineLatest(
+        let formattedTimestamp = Publishers.CombineLatest(
             $timestamp,
             timestampUpdatePublisher.prepend(Date()).eraseToAnyPublisher()
         )
-        .sink { [weak self] timestamp, _ in
-            guard let self = self else { return }
-            guard let timestamp = timestamp else {
-                notificationView.dateLabel.configure(content: PlaintextMetaContent(string: ""))
-                return
-            }
-            
-            let text = timestamp.localizedTimeAgoSinceNow
-            notificationView.dateLabel.configure(content: PlaintextMetaContent(string: text))
+        .map { timestamp, _ in
+            timestamp?.localizedTimeAgoSinceNow ?? ""
         }
-        .store(in: &disposeBag)
+        .removeDuplicates()
+
+        formattedTimestamp
+            .sink { timestamp in
+                notificationView.dateLabel.configure(content: PlaintextMetaContent(string: timestamp))
+            }
+            .store(in: &disposeBag)
+
         // notification type indicator
         $notificationIndicatorText
             .sink { text in
@@ -125,6 +131,76 @@ extension NotificationView.ViewModel {
                 }
             }
             .store(in: &disposeBag)
+
+        Publishers.CombineLatest4(
+            $authorName,
+            $authorUsername,
+            $notificationIndicatorText,
+            formattedTimestamp
+        )
+        .sink { name, username, type, timestamp in
+            notificationView.accessibilityLabel = [
+                "\(name?.string ?? "") \(type?.string ?? "")",
+                username.map { "@\($0)" } ?? "",
+                timestamp
+            ].joined(separator: ", ")
+            if !notificationView.statusView.isHidden {
+                notificationView.accessibilityLabel! += ", " + (notificationView.statusView.accessibilityLabel ?? "")
+            }
+            if !notificationView.quoteStatusViewContainerView.isHidden {
+                notificationView.accessibilityLabel! += ", " + (notificationView.quoteStatusView.accessibilityLabel ?? "")
+            }
+        }
+        .store(in: &disposeBag)
+
+        Publishers.CombineLatest(
+            $authorAvatarImage,
+            $type
+        )
+        .sink { avatarImage, type in
+            var actions = [UIAccessibilityCustomAction]()
+
+            // these notifications can be directly actioned to view the profile
+            if type != .follow, type != .followRequest {
+                actions.append(
+                    UIAccessibilityCustomAction(
+                        name: L10n.Common.Controls.Status.showUserProfile,
+                        image: avatarImage
+                    ) { [weak notificationView] _ in
+                        guard let notificationView = notificationView, let delegate = notificationView.delegate else { return false }
+                        delegate.notificationView(notificationView, authorAvatarButtonDidPressed: notificationView.avatarButton)
+                        return true
+                    }
+                )
+            }
+
+            if type == .followRequest {
+                actions.append(
+                    UIAccessibilityCustomAction(
+                        name: L10n.Common.Controls.Actions.confirm,
+                        image: Asset.Editing.checkmark20.image
+                    ) { [weak notificationView] _ in
+                        guard let notificationView = notificationView, let delegate = notificationView.delegate else { return false }
+                        delegate.notificationView(notificationView, acceptFollowRequestButtonDidPressed: notificationView.acceptFollowRequestButton)
+                        return true
+                    }
+                )
+
+                actions.append(
+                    UIAccessibilityCustomAction(
+                        name: L10n.Common.Controls.Actions.delete,
+                        image: Asset.Circles.forbidden20.image
+                    ) { [weak notificationView] _ in
+                        guard let notificationView = notificationView, let delegate = notificationView.delegate else { return false }
+                        delegate.notificationView(notificationView, rejectFollowRequestButtonDidPressed: notificationView.rejectFollowRequestButton)
+                        return true
+                    }
+                )
+            }
+
+            notificationView.notificationActions = actions
+        }
+        .store(in: &disposeBag)
     }
     
     private func bindAuthorMenu(notificationView: NotificationView) {
@@ -132,22 +208,48 @@ extension NotificationView.ViewModel {
             $authorName,
             $isMuting,
             $isBlocking,
-            $isMyself
+            Publishers.CombineLatest(
+                $isMyself,
+                $isTranslated
+            )
         )
-        .sink { authorName, isMuting, isBlocking, isMyself in
+        .sink { [weak self] authorName, isMuting, isBlocking, isMyselfIsTranslated in
             guard let name = authorName?.string else {
                 notificationView.menuButton.menu = nil
                 return
             }
+            
+            let (isMyself, isTranslated) = isMyselfIsTranslated
+            
+            lazy var instanceConfigurationV2: Mastodon.Entity.V2.Instance.Configuration? = {
+                guard
+                    let self = self,
+                    let context = self.context,
+                    let authContext = self.authContext
+                else { return nil }
+                
+                var configuration: Mastodon.Entity.V2.Instance.Configuration? = nil
+                context.managedObjectContext.performAndWait {
+                    guard let authentication = authContext.mastodonAuthenticationBox.authenticationRecord.object(in: context.managedObjectContext)
+                    else { return }
+                    configuration = authentication.instance?.configurationV2
+                }
+                return configuration
+            }()
             
             let menuContext = NotificationView.AuthorMenuContext(
                 name: name,
                 isMuting: isMuting,
                 isBlocking: isBlocking,
                 isMyself: isMyself,
-                isBookmarking: false    // no bookmark action display for notification item
+                isBookmarking: false,    // no bookmark action display for notification item
+                isTranslationEnabled: instanceConfigurationV2?.translation?.enabled == true,
+                isTranslated: isTranslated,
+                statusLanguage: ""
             )
-            notificationView.menuButton.menu = notificationView.setupAuthorMenu(menuContext: menuContext)
+            let (menu, actions) = notificationView.setupAuthorMenu(menuContext: menuContext)
+            notificationView.menuButton.menu = menu
+            notificationView.authorActions = actions
             notificationView.menuButton.showsMenuAsPrimaryAction = true
             
             notificationView.menuButton.isHidden = menuContext.isMyself
@@ -207,5 +309,5 @@ extension NotificationView.ViewModel {
         }
         .store(in: &disposeBag)
     }
-    
+
 }

@@ -15,6 +15,7 @@ import MastodonAsset
 import MastodonCore
 import MastodonUI
 import MastodonLocalization
+import MastodonSDK
 
 final class HashtagTimelineViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
     
@@ -27,6 +28,17 @@ final class HashtagTimelineViewController: UIViewController, NeedsDependency, Me
 
     var disposeBag = Set<AnyCancellable>()
     var viewModel: HashtagTimelineViewModel!
+    
+    private lazy var headerView: HashtagTimelineHeaderView = {
+        let headerView = HashtagTimelineHeaderView()
+        headerView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            headerView.heightAnchor.constraint(equalToConstant: 118),
+        ])
+
+        return headerView
+    }()
         
     let composeBarButtonItem: UIBarButtonItem = {
         let barButtonItem = UIBarButtonItem()
@@ -80,12 +92,7 @@ extension HashtagTimelineViewController {
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
-        NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-        ])
+        tableView.pinToParent()
 
         tableView.delegate = self
         viewModel.setupDiffableDataSource(
@@ -119,11 +126,20 @@ extension HashtagTimelineViewController {
                 self?.updatePromptTitle()
             }
             .store(in: &disposeBag)
+        
+        viewModel.hashtagDetails
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] tag in
+                guard let tag = tag else { return }
+                self?.updateHeaderView(with: tag)
+            }
+            .store(in: &disposeBag)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        viewModel.viewWillAppear()
         tableView.deselectRow(with: transitionCoordinator, animated: animated)
     }
     
@@ -153,7 +169,30 @@ extension HashtagTimelineViewController {
             subtitle = L10n.Plural.peopleTalking(peopleTalkingNumber)
         }
     }
+}
 
+extension HashtagTimelineViewController {
+    private func updateHeaderView(with tag: Mastodon.Entity.Tag) {
+        if tableView.tableHeaderView == nil {
+            tableView.tableHeaderView = headerView
+        }
+        headerView.update(HashtagTimelineHeaderView.Data.from(tag))
+        headerView.onButtonTapped = { [weak self] in
+            switch tag.following {
+            case .some(false):
+                self?.viewModel.followTag()
+            case .some(true):
+                self?.viewModel.unfollowTag()
+            default:
+                break
+            }
+        }
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        headerView.updateWidthConstraint(tableView.bounds.width)
+    }
 }
 
 extension HashtagTimelineViewController {
@@ -167,10 +206,13 @@ extension HashtagTimelineViewController {
     
     @objc private func composeBarButtonItemPressed(_ sender: UIBarButtonItem) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        let hashtag = "#" + viewModel.hashtag
+        UITextChecker.learnWord(hashtag)
         let composeViewModel = ComposeViewModel(
             context: context,
             authContext: viewModel.authContext,
-            kind: .hashtag(hashtag: viewModel.hashtag)
+            destination: .topLevel,
+            initialContent: hashtag
         )
         _ = coordinator.present(scene: .compose(viewModel: composeViewModel), from: self, transition: .modal(animated: true, completion: nil))
     }

@@ -11,6 +11,7 @@ import Combine
 import CoreDataStack
 import MastodonCore
 import MastodonExtension
+import MastodonUI
 
 #if PROFILE
 import FPSIndicator
@@ -35,8 +36,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = scene as? UIWindowScene else { return }
         
+        #if DEBUG
+        let window = TouchesVisibleWindow(windowScene: windowScene)
+        self.window = window
+        #else
         let window = UIWindow(windowScene: windowScene)
         self.window = window
+        #endif
 
         // set tint color
         window.tintColor = UIColor.label
@@ -112,6 +118,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         // trigger authenticated user account update
         AppContext.shared.authenticationService.updateActiveUserAccountPublisher.send()
+        
+        // update mutes and blocks and remove related data
+        AppContext.shared.instanceService.updateMutesAndBlocks()
 
         if let shortcutItem = savedShortCutItem {
             Task {
@@ -175,7 +184,7 @@ extension SceneDelegate {
                 return false
             }
 
-            coordinator.switchToTabBar(tab: .notification)
+            coordinator.switchToTabBar(tab: .notifications)
 
         case "org.joinmastodon.app.new-post":
             if coordinator?.tabBarController.topMost is ComposeViewController {
@@ -185,7 +194,7 @@ extension SceneDelegate {
                     let composeViewModel = ComposeViewModel(
                         context: AppContext.shared,
                         authContext: authContext,
-                        kind: .post
+                        destination: .topLevel
                     )
                     _ = coordinator?.present(scene: .compose(viewModel: composeViewModel), from: nil, transition: .modal(animated: true, completion: nil))
                     logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): present compose scene")

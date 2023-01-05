@@ -1,0 +1,762 @@
+{
+    "common": {
+        "alerts": {
+            "common": {
+                "please_try_again": "Endilega reyndu aftur.",
+                "please_try_again_later": "Reyndu aftur síðar."
+            },
+            "sign_up_failure": {
+                "title": "Innskráning mistókst"
+            },
+            "server_error": {
+                "title": "Villa á þjóni"
+            },
+            "vote_failure": {
+                "title": "Greiðsla atkvæðis mistókst",
+                "poll_ended": "Könnuninni er lokið"
+            },
+            "discard_post_content": {
+                "title": "Henda drögum",
+                "message": "Staðfestu til að henda efni úr saminni færslu."
+            },
+            "publish_post_failure": {
+                "title": "Mistókst að birta",
+                "message": "Mistókst að birta færsluna.\nAthugaðu nettenginguna þína.",
+                "attachments_message": {
+                    "video_attach_with_photo": "Ekki er hægt að hengja myndskeið við færslu sem þegar inniheldur myndir.",
+                    "more_than_one_video": "Ekki er hægt að hengja við fleiri en eitt myndskeið."
+                }
+            },
+            "edit_profile_failure": {
+                "title": "Villa við breytingu á notandasniði",
+                "message": "Mistókst að breyta notandasniði. Endilega reyndu aftur."
+            },
+            "sign_out": {
+                "title": "Skrá út",
+                "message": "Ertu viss um að þú viljir skrá þig út?",
+                "confirm": "Skrá út"
+            },
+            "block_domain": {
+                "title": "Ertu alveg algjörlega viss um að þú viljir loka á allt %s? Í flestum tilfellum er vænlegra að nota færri en markvissari útilokanir eða að þagga niður tiltekna aðila. Þú munt ekki sjá neitt efni frá þessu léni og fylgjendur þínir frá þessu léni verða fjarlægðir.",
+                "block_entire_domain": "Útiloka lén"
+            },
+            "save_photo_failure": {
+                "title": "Mistókst að vista mynd",
+                "message": "Virkjaðu heimild til aðgangs að ljósmyndasafninu til að vista myndina."
+            },
+            "delete_post": {
+                "title": "Eyða færslu",
+                "message": "Ertu viss um að þú viljir eyða þessari færslu?"
+            },
+            "clean_cache": {
+                "title": "Hreinsa skyndiminni",
+                "message": "Tókst að hreinsa %s skyndiminni."
+            },
+            "translation_failed": {
+                "title": "Athugasemd",
+                "message": "Þýðing mistókst. Mögulega hefur kerfisstjórinn ekki virkjað þýðingar á þessum netþjóni, eða að netþjónninn sé keyrður á eldri útgáfu Mastodon þar sem þýðingar séu ekki studdar.",
+                "button": "Í lagi"
+            }
+        },
+        "controls": {
+            "actions": {
+                "back": "Til baka",
+                "next": "Næsta",
+                "previous": "Fyrri",
+                "open": "Opna",
+                "add": "Bæta við",
+                "remove": "Fjarlægja",
+                "edit": "Breyta",
+                "save": "Vista",
+                "ok": "Í lagi",
+                "done": "Lokið",
+                "confirm": "Staðfesta",
+                "continue": "Halda áfram",
+                "compose": "Skrifa",
+                "cancel": "Hætta við",
+                "discard": "Henda",
+                "try_again": "Reyna aftur",
+                "take_photo": "Taka ljósmynd",
+                "save_photo": "Vista mynd",
+                "copy_photo": "Afrita mynd",
+                "sign_in": "Skrá inn",
+                "sign_up": "Stofna notandaaðgang",
+                "see_more": "Sjá fleira",
+                "preview": "Forskoða",
+                "copy": "Afrita",
+                "share": "Deila",
+                "share_user": "Deila %s",
+                "share_post": "Deila færslu",
+                "open_in_safari": "Opna í Safari",
+                "open_in_browser": "Opna í vafra",
+                "find_people": "Finna fólk til að fylgjast með",
+                "manually_search": "Leita handvirkt í staðinn",
+                "skip": "Sleppa",
+                "reply": "Svara",
+                "report_user": "Kæra %s",
+                "block_domain": "Útiloka %s",
+                "unblock_domain": "Opna á %s",
+                "settings": "Stillingar",
+                "delete": "Eyða",
+                "translate_post": {
+                    "title": "Þýða úr %s",
+                    "unknown_language": "Óþekkt"
+                }
+            },
+            "tabs": {
+                "home": "Heim",
+                "search_and_explore": "Leita og kanna",
+                "notifications": "Tilkynningar",
+                "profile": "Notandasnið"
+            },
+            "keyboard": {
+                "common": {
+                    "switch_to_tab": "Skipta yfir í %s",
+                    "compose_new_post": "Semja nýja færslu",
+                    "show_favorites": "Birta eftirlæti",
+                    "open_settings": "Opna stillingar"
+                },
+                "timeline": {
+                    "previous_status": "Fyrri færsla",
+                    "next_status": "Næsta færsla",
+                    "open_status": "Opna færslu",
+                    "open_author_profile": "Opna notandasnið höfundar",
+                    "open_reblogger_profile": "Opna notandasnið þess sem endurbirtir",
+                    "reply_status": "Svara færslu",
+                    "toggle_reblog": "Víxla endurbirtingu færslu af/á",
+                    "toggle_favorite": "Víxla eftirlæti færslu af/á",
+                    "toggle_content_warning": "Víxla af/á viðvörun vegna efnis",
+                    "preview_image": "Forskoða mynd"
+                },
+                "segmented_control": {
+                    "previous_section": "Fyrri hluti",
+                    "next_section": "Næsti hluti"
+                }
+            },
+            "status": {
+                "user_reblogged": "%s endurbirti",
+                "user_replied_to": "Svaraði %s",
+                "show_post": "Sýna færslu",
+                "show_user_profile": "Birta notandasnið",
+                "content_warning": "Viðvörun vegna efnis",
+                "sensitive_content": "Viðkvæmt efni",
+                "media_content_warning": "Ýttu hvar sem er til að birta",
+                "tap_to_reveal": "Ýttu til að birta",
+                "load_embed": "Hlaða inn ívöfnu",
+                "link_via_user": "%s með %s",
+                "poll": {
+                    "vote": "Greiða atkvæði",
+                    "closed": "Lokið"
+                },
+                "meta_entity": {
+                    "url": "Tengill: %s",
+                    "hashtag": "Myllumerki: %s",
+                    "mention": "Sýna notandasnið: %s",
+                    "email": "Tölvupóstfang: %s"
+                },
+                "actions": {
+                    "reply": "Svara",
+                    "reblog": "Endurbirta",
+                    "unreblog": "Afturkalla endurbirtingu",
+                    "favorite": "Eftirlæti",
+                    "unfavorite": "Taka úr eftirlætum",
+                    "menu": "Valmynd",
+                    "hide": "Fela",
+                    "show_image": "Sýna mynd",
+                    "show_gif": "Birta GIF-myndir",
+                    "show_video_player": "Sýna myndspilara",
+                    "share_link_in_post": "Deila tengli í færslu",
+                    "tap_then_hold_to_show_menu": "Ýttu og haltu til að sýna valmynd"
+                },
+                "tag": {
+                    "url": "URL-slóð",
+                    "mention": "Minnst á",
+                    "link": "Tengill",
+                    "hashtag": "Myllumerki",
+                    "email": "Tölvupóstur",
+                    "emoji": "Tjáningartákn"
+                },
+                "visibility": {
+                    "unlisted": "Allir geta skoðað þessa færslu, en er ekki birt á opinberum tímalínum.",
+                    "private": "Einungis fylgjendur þeirra geta séð þessa færslu.",
+                    "private_from_me": "Einungis fylgjendur mínir geta séð þessa færslu.",
+                    "direct": "Einungis notendur sem minnst er á geta séð þessa færslu."
+                },
+                "translation": {
+                    "translated_from": "Þýtt úr %s með %s",
+                    "unknown_language": "Óþekkt",
+                    "unknown_provider": "Óþekkt",
+                    "show_original": "Birta upprunalegt"
+                }
+            },
+            "friendship": {
+                "follow": "Fylgja",
+                "following": "Fylgist með",
+                "request": "Beiðni",
+                "pending": "Í bið",
+                "block": "Útilokun",
+                "block_user": "Útiloka %s",
+                "block_domain": "Útiloka %s",
+                "unblock": "Aflétta útilokun",
+                "unblock_user": "Opna á %s",
+                "blocked": "Útilokað",
+                "mute": "Þagga niður",
+                "mute_user": "Þagga niður í %s",
+                "unmute": "Afþagga",
+                "unmute_user": "Afþagga %s",
+                "muted": "Þaggað",
+                "edit_info": "Breyta upplýsingum",
+                "show_reblogs": "Sýna endurbirtingar",
+                "hide_reblogs": "Fela endurbirtingar"
+            },
+            "timeline": {
+                "filtered": "Síað",
+                "timestamp": {
+                    "now": "Núna"
+                },
+                "loader": {
+                    "load_missing_posts": "Hlaða inn færslum sem vantar",
+                    "loading_missing_posts": "Hleð inn færslum sem vantar...",
+                    "show_more_replies": "Birta fleiri svör"
+                },
+                "header": {
+                    "no_status_found": "Engar færslur fundust",
+                    "blocking_warning": "Þú getur ekki séð snið þessa notanda\nfyrr en þú hættir að útiloka hann.\nSniðið þitt lítur svona út hjá honum.",
+                    "user_blocking_warning": "Þú getur ekki séð sniðið hjá %s\nfyrr en þú hættir að útiloka hann.\nSniðið þitt lítur svona út hjá honum.",
+                    "blocked_warning": "Þú getur ekki séð sniðið hjá þessum notanda\nfyrr en hann hættir að útiloka þig.",
+                    "user_blocked_warning": "Þú getur ekki séð sniðið hjá %s\nfyrr en hann hættir að útiloka þig.",
+                    "suspended_warning": "Þessi notandi hefur verið settur í frysti.",
+                    "user_suspended_warning": "Notandaaðgangurinn %s hefur verið settur í frysti."
+                }
+            }
+        }
+    },
+    "scene": {
+        "welcome": {
+            "slogan": "Samfélagsmiðlar\naftur í þínar hendur.",
+            "get_started": "Komast í gang",
+            "log_in": "Skrá inn"
+        },
+        "login": {
+            "title": "Velkomin aftur",
+            "subtitle": "Skráðu þig inn á netþjóninum þar sem þú útbjóst aðganginn þinn.",
+            "server_search_field": {
+                "placeholder": "Settu inn slóð eða leitaðu að þjóninum þínum"
+            }
+        },
+        "server_picker": {
+            "title": "Mastodon samanstendur af notendum á mismunandi netþjónum.",
+            "subtitle": "Veldu netþjón út frá svæðinu þínu, áhugamálum, nú eða einhvern almennan. Þú getur samt spjallað við hvern sem er á Mastodon, burtséð frá á hvaða netþjóni þú ert.",
+            "button": {
+                "category": {
+                    "all": "Allt",
+                    "all_accessiblity_description": "Flokkur: Allt",
+                    "academia": "akademískt",
+                    "activism": "aðgerðasinnar",
+                    "food": "matur",
+                    "furry": "loðið",
+                    "games": "leikir",
+                    "general": "almennt",
+                    "journalism": "blaðamennska",
+                    "lgbt": "lgbt",
+                    "regional": "svæðisbundið",
+                    "art": "listir",
+                    "music": "tónlist",
+                    "tech": "tækni"
+                },
+                "see_less": "Sjá minna",
+                "see_more": "Sjá meira"
+            },
+            "label": {
+                "language": "TUNGUMÁL",
+                "users": "NOTENDUR",
+                "category": "FLOKKUR"
+            },
+            "input": {
+                "search_servers_or_enter_url": "Leitaðu að samfélögum eða settu inn slóð"
+            },
+            "empty_state": {
+                "finding_servers": "Finn tiltæka netþjóna...",
+                "bad_network": "Eitthvað fór úrskeiðis við að hlaða inn gögnunum. Athugaðu nettenginguna þína.",
+                "no_results": "Engar niðurstöður"
+            }
+        },
+        "register": {
+            "title": "Við skulum koma þér í gang á %s",
+            "lets_get_you_set_up_on_domain": "Við skulum koma þér í gang á %s",
+            "input": {
+                "avatar": {
+                    "delete": "Eyða"
+                },
+                "username": {
+                    "placeholder": "notandanafn",
+                    "duplicate_prompt": "Þetta notandanafn er þegar í notkun."
+                },
+                "display_name": {
+                    "placeholder": "birtingarnafn"
+                },
+                "email": {
+                    "placeholder": "tölvupóstur"
+                },
+                "password": {
+                    "placeholder": "lykilorð",
+                    "require": "Lykilorðið þitt þarf að minnsta kosti:",
+                    "character_limit": "8 stafi",
+                    "accessibility": {
+                        "checked": "merkt",
+                        "unchecked": "ekki merkt"
+                    },
+                    "hint": "Lykilorðið þitt verður að vera að minnsta kosti 8 stafa langt"
+                },
+                "invite": {
+                    "registration_user_invite_request": "Hvers vegna vilt þú taka þátt?"
+                }
+            },
+            "error": {
+                "item": {
+                    "username": "Notandanafn",
+                    "email": "Tölvupóstur",
+                    "password": "Lykilorð",
+                    "agreement": "Notkunarskilmálar",
+                    "locale": "Staðfærsla",
+                    "reason": "Ástæða"
+                },
+                "reason": {
+                    "blocked": "%s notar óleyfilega tölvupóstþjónustu",
+                    "unreachable": "%s virðist ekki vera til",
+                    "taken": "%s er þegar í notkun",
+                    "reserved": "%s er frátekið stikkorð",
+                    "accepted": "%s verður að samþykkja",
+                    "blank": "%s ier nauðsynlegt",
+                    "invalid": "%s er ógilt",
+                    "too_long": "%s er of langt",
+                    "too_short": "%s er of stutt",
+                    "inclusion": "%s er ekki stutt gildi"
+                },
+                "special": {
+                    "username_invalid": "Notendanöfn geta einungis innihaldið bókstafi og undirstrikun",
+                    "username_too_long": "Notandanafnið er of langt (má ekki vera lengra en 30 stafir)",
+                    "email_invalid": "Þetta lítur ekki út eins og löglegt tölvupóstfang",
+                    "password_too_short": "Lykilorð er of stutt (verður að hafa minnst 8 stafi)"
+                }
+            }
+        },
+        "server_rules": {
+            "title": "Nokkrar grunnreglur.",
+            "subtitle": "Þær eru settar og séð um að þeim sé fylgt af umsjónarmönnum %s.",
+            "prompt": "Með því að halda áfram samþykkir þú þjónustuskilmála og persónuverndarstefnu %s.",
+            "terms_of_service": "þjónustuskilmálar",
+            "privacy_policy": "persónuverndarstefna",
+            "button": {
+                "confirm": "Ég samþykki"
+            }
+        },
+        "confirm_email": {
+            "title": "Eitt að lokum.",
+            "subtitle": "Ýttu á tengilinn sem við sendum þér til að staðfesta tölvupóstfangið þitt.",
+            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Ýttu á tengilinn sem við sendum þér til að staðfesta tölvupóstfangið þitt",
+            "button": {
+                "open_email_app": "Opna tölvupóstforrit",
+                "resend": "Endursenda"
+            },
+            "dont_receive_email": {
+                "title": "Athugaðu tölvupóstinn þinn",
+                "description": "Athugaðu hvort tölvupóstfangið þitt sé rétt auk þess að skoða í ruslpóstmöppuna þína ef þú hefur ekki gert það.",
+                "resend_email": "Endursenda tölvupóst"
+            },
+            "open_email_app": {
+                "title": "Athugaðu pósthólfið þitt.",
+                "description": "Við vorum að senda þér tölvupóst. Skoðaðu í ruslpóstmöppuna þína ef þú hefur ekki gert það.",
+                "mail": "Tölvupóstur",
+                "open_email_client": "Opna tölvupóstforrit"
+            }
+        },
+        "home_timeline": {
+            "title": "Heim",
+            "navigation_bar_state": {
+                "offline": "Ónettengt",
+                "new_posts": "Skoða nýjar færslur",
+                "published": "Birt!",
+                "Publishing": "Birti færslu...",
+                "accessibility": {
+                    "logo_label": "Hnappur með táknmerki",
+                    "logo_hint": "Ýttu til að skruna efst og ýttu aftur til að fara aftur á fyrri staðsetningu"
+                }
+            }
+        },
+        "suggestion_account": {
+            "title": "Finndu fólk til að fylgjast með",
+            "follow_explain": "Þegar þú fylgist með einhverjum, muntu sjá færslur frá viðkomandi á streyminu þínu."
+        },
+        "compose": {
+            "title": {
+                "new_post": "Ný færsla",
+                "new_reply": "Nýtt svar"
+            },
+            "media_selection": {
+                "camera": "Taktu mynd",
+                "photo_library": "Myndasafn",
+                "browse": "Flakka"
+            },
+            "content_input_placeholder": "Skrifaðu eða límdu það sem þér liggur á hjarta",
+            "compose_action": "Birta",
+            "replying_to_user": "svarar til @%s",
+            "attachment": {
+                "photo": "ljósmynd",
+                "video": "myndskeið",
+                "attachment_broken": "Þetta %s er skemmt og því ekki\nhægt að senda inn á Mastodon.",
+                "description_photo": "Lýstu myndinni fyrir sjónskerta...",
+                "description_video": "Lýstu myndskeiðinu fyrir sjónskerta...",
+                "load_failed": "Hleðsla mistókst",
+                "upload_failed": "Innsending mistókst",
+                "can_not_recognize_this_media_attachment": "Þekki ekki þetta myndviðhengi",
+                "attachment_too_large": "Viðhengi of stórt",
+                "compressing_state": "Þjappa...",
+                "server_processing_state": "Netþjónn er að vinna..."
+            },
+            "poll": {
+                "duration_time": "Tímalengd: %s",
+                "thirty_minutes": "30 mínútur",
+                "one_hour": "1 klukkustund",
+                "six_hours": "6 klukkustundir",
+                "one_day": "1 dagur",
+                "three_days": "3 dagar",
+                "seven_days": "7 dagar",
+                "option_number": "Valkostur %ld",
+                "the_poll_is_invalid": "Könnunin er ógild",
+                "the_poll_has_empty_option": "Könnunin er með auðan valkost"
+            },
+            "content_warning": {
+                "placeholder": "Skrifaðu nákvæma aðvörun hér..."
+            },
+            "visibility": {
+                "public": "Opinbert",
+                "unlisted": "Óskráð",
+                "private": "Einungis fylgjendur",
+                "direct": "Einungis fólk sem ég minnist á"
+            },
+            "auto_complete": {
+                "space_to_add": "Bil sem á að bæta við"
+            },
+            "accessibility": {
+                "append_attachment": "Bæta við viðhengi",
+                "append_poll": "Bæta við könnun",
+                "remove_poll": "Fjarlægja könnun",
+                "custom_emoji_picker": "Sérsniðið emoji-tánmyndaval",
+                "enable_content_warning": "Virkja viðvörun vegna efnis",
+                "disable_content_warning": "Gera viðvörun vegna efnis óvirka",
+                "post_visibility_menu": "Sýnileikavalmynd færslu",
+                "post_options": "Valkostir færslu",
+                "posting_as": "Birti sem %s"
+            },
+            "keyboard": {
+                "discard_post": "Henda færslu",
+                "publish_post": "Birta færslu",
+                "toggle_poll": "Víxla könnun af/á",
+                "toggle_content_warning": "Víxla af/á viðvörun vegna efnis",
+                "append_attachment_entry": "Bæta við viðhengi - %s",
+                "select_visibility_entry": "Veldu sýnileika - %s"
+            }
+        },
+        "profile": {
+            "header": {
+                "follows_you": "Fylgist með þér"
+            },
+            "dashboard": {
+                "my_posts": "færslur",
+                "my_following": "er fylgst með",
+                "my_followers": "fylgjendur",
+                "other_posts": "færslur",
+                "other_following": "er fylgst með",
+                "other_followers": "fylgjendur"
+            },
+            "fields": {
+                "joined": "Gerðist þátttakandi",
+                "add_row": "Bæta við röð",
+                "placeholder": {
+                    "label": "Skýring",
+                    "content": "Efni"
+                },
+                "verified": {
+                    "short": "Sannreynt þann %s",
+                    "long": "Eignarhald á þessum tengli var athugað þann %s"
+                }
+            },
+            "segmented_control": {
+                "posts": "Færslur",
+                "replies": "Svör",
+                "posts_and_replies": "Færslur og svör",
+                "media": "Gagnamiðlar",
+                "about": "Um hugbúnaðinn"
+            },
+            "relationship_action_alert": {
+                "confirm_mute_user": {
+                    "title": "Þagga niður í aðgangi",
+                    "message": "Staðfestu til að þagga niður í %s"
+                },
+                "confirm_unmute_user": {
+                    "title": "Hætta að þagga niður í aðgangi",
+                    "message": "Staðfestu til hætta að að þagga niður í %s"
+                },
+                "confirm_block_user": {
+                    "title": "Útiloka notandaaðgang",
+                    "message": "Staðfestu til að útiloka %s"
+                },
+                "confirm_unblock_user": {
+                    "title": "Aflétta útilokun aðgangs",
+                    "message": "Staðfestu til að hætta að útiloka %s"
+                },
+                "confirm_show_reblogs": {
+                    "title": "Sýna endurbirtingar",
+                    "message": "Staðfestu til að sýna endurbirtingar"
+                },
+                "confirm_hide_reblogs": {
+                    "title": "Fela endurbirtingar",
+                    "message": "Staðfestu til að fela endurbirtingar"
+                }
+            },
+            "accessibility": {
+                "show_avatar_image": "Sýna auðkennismynd",
+                "edit_avatar_image": "Breyta auðkennismynd",
+                "show_banner_image": "Sýna myndborða",
+                "double_tap_to_open_the_list": "Tvípikkaðu til að opna listann"
+            }
+        },
+        "follower": {
+            "title": "fylgjandi",
+            "footer": "Fylgjendur af öðrum netþjónum birtast ekki."
+        },
+        "following": {
+            "title": "fylgist með",
+            "footer": "Fylgjendur af öðrum netþjónum birtast ekki."
+        },
+        "familiarFollowers": {
+            "title": "Fylgjendur sem þú kannast við",
+            "followed_by_names": "Fylgt af %s"
+        },
+        "favorited_by": {
+            "title": "Sett í eftirlæti af"
+        },
+        "reblogged_by": {
+            "title": "Endurbirt af"
+        },
+        "search": {
+            "title": "Leita",
+            "search_bar": {
+                "placeholder": "Leita að myllumerkjum og notendum",
+                "cancel": "Hætta við"
+            },
+            "recommend": {
+                "button_text": "Sjá allt",
+                "hash_tag": {
+                    "title": "Vinsælt á Mastodon",
+                    "description": "Myllumerki sem eru að fá þónokkra athygli",
+                    "people_talking": "%s manns eru að spjalla"
+                },
+                "accounts": {
+                    "title": "Notandaaðgangar sem þú gætir haft áhuga á",
+                    "description": "Þú gætir viljað fylgjast með þessum aðgöngum",
+                    "follow": "Fylgjast með"
+                }
+            },
+            "searching": {
+                "segment": {
+                    "all": "Allt",
+                    "people": "Fólk",
+                    "hashtags": "Myllumerki",
+                    "posts": "Færslur"
+                },
+                "empty_state": {
+                    "no_results": "Engar niðurstöður"
+                },
+                "recent_search": "Nýlegar leitir",
+                "clear": "Hreinsa"
+            }
+        },
+        "discovery": {
+            "tabs": {
+                "posts": "Færslur",
+                "hashtags": "Myllumerki",
+                "news": "Fréttir",
+                "community": "Samfélag",
+                "for_you": "Fyrir þig"
+            },
+            "intro": "Þetta eru færslurnar sem eru að fá aukna athygli í þínu horni á Mastodon."
+        },
+        "favorite": {
+            "title": "Eftirlætin þín"
+        },
+        "notification": {
+            "title": {
+                "Everything": "Allt",
+                "Mentions": "Minnst á"
+            },
+            "notification_description": {
+                "followed_you": "fylgdi þér",
+                "favorited_your_post": "setti færslu frá þér í eftirlæti",
+                "reblogged_your_post": "endurbirti færsluna þína",
+                "mentioned_you": "minntist á þig",
+                "request_to_follow_you": "bað um að fylgjast með þér",
+                "poll_has_ended": "könnun er lokið"
+            },
+            "keyobard": {
+                "show_everything": "Sýna allt",
+                "show_mentions": "Sýna þegar minnst er á"
+            },
+            "follow_request": {
+                "accept": "Samþykkja",
+                "accepted": "Samþykkt",
+                "reject": "hafna",
+                "rejected": "Hafnað"
+            }
+        },
+        "thread": {
+            "back_title": "Færsla",
+            "title": "Færsla frá %s"
+        },
+        "settings": {
+            "title": "Stillingar",
+            "section": {
+                "appearance": {
+                    "title": "Útlit",
+                    "automatic": "Sjálfvirkt",
+                    "light": "Alltaf ljóst",
+                    "dark": "Alltaf dökkt"
+                },
+                "look_and_feel": {
+                    "title": "Útlit og viðmót",
+                    "use_system": "Nota stillingar kerfis",
+                    "really_dark": "Mjög dökkt",
+                    "sorta_dark": "Nokkuð dökkt",
+                    "light": "Ljóst"
+                },
+                "notifications": {
+                    "title": "Tilkynningar",
+                    "favorites": "Setur færsluna mína í eftirlæti",
+                    "follows": "Fylgist með mér",
+                    "boosts": "Endurbirtir færsluna mína",
+                    "mentions": "Minnist á mig",
+                    "trigger": {
+                        "anyone": "hver sem er",
+                        "follower": "fylgjandi",
+                        "follow": "hverjum sá sem ég fylgi",
+                        "noone": "enginn",
+                        "title": "Tilkynna mér þegar"
+                    }
+                },
+                "preference": {
+                    "title": "Kjörstillingar",
+                    "true_black_dark_mode": "Sannur svartur dökkur hamur",
+                    "disable_avatar_animation": "Gera auðkennismyndir með hreyfingu óvirkar",
+                    "disable_emoji_animation": "Gera tjáningartákn með hreyfingu óvirkar",
+                    "using_default_browser": "Nota sjálfgefinn vafra til að opna tengla",
+                    "open_links_in_mastodon": "Opna tengla í Mastodon"
+                },
+                "boring_zone": {
+                    "title": "Óhressa svæðið",
+                    "account_settings": "Stillingar aðgangs",
+                    "terms": "Þjónustuskilmálar",
+                    "privacy": "Meðferð persónuupplýsinga"
+                },
+                "spicy_zone": {
+                    "title": "Kryddaða svæðið",
+                    "clear": "Hreinsa skyndiminni margmiðlunarefnis",
+                    "signout": "Skrá út"
+                }
+            },
+            "footer": {
+                "mastodon_description": "Mastodon er frjáls hugbúnaður með opinn grunnkóða. Þú getur tilkynnt vandamál í gegnum GitHub á %s (%s)"
+            },
+            "keyboard": {
+                "close_settings_window": "Loka stillingaglugga"
+            }
+        },
+        "report": {
+            "title_report": "Kæra",
+            "title": "Kæra %s",
+            "step1": "Skref 1 af 2",
+            "step2": "Skref 2 af 2",
+            "content1": "Eru einhverjar færslur sem þú myndir vilja bæta við kæruna?",
+            "content2": "Er eitthvað fleira sem umsjónarmenn ættu að vita varðandi þessa kæru?",
+            "report_sent_title": "Takk fyrir tilkynninguna, við munum skoða málið.",
+            "send": "Senda kæru",
+            "skip_to_send": "Senda án athugasemdar",
+            "text_placeholder": "Skrifaðu eða límdu aðrar athugasemdir",
+            "reported": "TILKYNNT",
+            "step_one": {
+                "step_1_of_4": "Skref 1 af 4",
+                "whats_wrong_with_this_post": "Hvað er athugavert við þessa færslu?",
+                "whats_wrong_with_this_account": "Hvað er athugavert við þennan notandaaðgang?",
+                "whats_wrong_with_this_username": "Hvað er athugavert við %s?",
+                "select_the_best_match": "Velja bestu samsvörun",
+                "i_dont_like_it": "Mér líkar það ekki",
+                "it_is_not_something_you_want_to_see": "Þetta er ekki eitthvað sem þið viljið sjá",
+                "its_spam": "Þetta er ruslpóstur",
+                "malicious_links_fake_engagement_or_repetetive_replies": "Slæmir tenglar, fölsk samskipti eða endurtekin svör",
+                "it_violates_server_rules": "Það gengur þvert á reglur fyrir netþjóninn",
+                "you_are_aware_that_it_breaks_specific_rules": "Þið eruð meðvituð um að þetta brýtur sértækar reglur",
+                "its_something_else": "Það er eitthvað annað",
+                "the_issue_does_not_fit_into_other_categories": "Vandamálið fellur ekki í aðra flokka"
+            },
+            "step_two": {
+                "step_2_of_4": "Skref 2 af 4",
+                "which_rules_are_being_violated": "Hvaða reglur eru brotnar?",
+                "select_all_that_apply": "Veldu allt sem á við",
+                "i_just_don’t_like_it": "Mér bara líkar það ekki"
+            },
+            "step_three": {
+                "step_3_of_4": "Skref 3 af 4",
+                "are_there_any_posts_that_back_up_this_report": "Eru einhverjar færslur sem styðja þessa kæru?",
+                "select_all_that_apply": "Veldu allt sem á við"
+            },
+            "step_four": {
+                "step_4_of_4": "Skref 4 af 4",
+                "is_there_anything_else_we_should_know": "Er eitthvað fleira sem við ættum að vita?"
+            },
+            "step_final": {
+                "dont_want_to_see_this": "Langar þig ekki að sjá þetta?",
+                "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "Þegar þú sér eitthvað á Mastodon sem þér líkar ekki, þá geturðu fjarlægt viðkomandi eintakling úr umhverfinu þínu.",
+                "unfollow": "Hætta að fylgjast með",
+                "unfollowed": "Hætti að fylgjast með",
+                "unfollow_user": "Hætta að fylgjast með %s",
+                "mute_user": "Þagga niður í %s",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "Þú munt ekki sjá færslur eða endurbirtingar frá viðkomandi á streyminu þínu. Viðkomandi aðilar munu ekki vita að þaggað hefur verið niður í þeim.",
+                "block_user": "Útiloka %s",
+                "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "Viðkomandi mun ekki lengur geta fylgst með eða séð færslurnar þínar, en munu sjá ef viðkomandi hefur verið útilokaður.",
+                "while_we_review_this_you_can_take_action_against_user": "Á meðan við yfirförum þetta, geturðu tekið til aðgerða gegn %s"
+            }
+        },
+        "preview": {
+            "keyboard": {
+                "close_preview": "Loka forskoðun",
+                "show_next": "Sýna næsta",
+                "show_previous": "Sýna fyrri"
+            }
+        },
+        "account_list": {
+            "tab_bar_hint": "Fyrirliggjandi valið notandasnið: %s. Tvípikkaðu og haltu niðri til að birta aðgangaskiptinn",
+            "dismiss_account_switcher": "Loka aðgangaskipti",
+            "add_account": "Bæta við notandaaðgangi"
+        },
+        "wizard": {
+            "new_in_mastodon": "Nýtt í Mastodon",
+            "multiple_account_switch_intro_description": "Skiptu milli notandaaðganga með því að halda niðri notandasniðshnappnum.",
+            "accessibility_hint": "Tvípikkaðu til að loka þessum leiðarvísi"
+        },
+        "bookmark": {
+            "title": "Bókamerki"
+        },
+        "followed_tags": {
+            "title": "Myllumerki sem fylgst er með",
+            "header": {
+                "posts": "færslur",
+                "participants": "þátttakendur",
+                "posts_today": "færslur í dag"
+            },
+            "actions": {
+                "follow": "Fylgjast með",
+                "unfollow": "Hætta að fylgjast með"
+            }
+        }
+    }
+}

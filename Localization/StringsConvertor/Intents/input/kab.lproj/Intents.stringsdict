@@ -29,9 +29,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>%ld</string>
         <key>one</key>
-        <string>1 uɣewwaṛ</string>
+        <string>%ld n uɣewwaṛ</string>
         <key>other</key>
-        <string>%ld iɣewwaṛen</string>
+        <string>%ld n iɣewwaṛen</string>
       </dict>
     </dict>
   </dict>

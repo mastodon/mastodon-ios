@@ -134,7 +134,7 @@ extension UserListViewModel.State {
                 maxID = nil
             }
             
-            guard let viewModel = viewModel, let stateMachine = stateMachine else { return }
+            guard let viewModel = viewModel else { return }
             
             let maxID = self.maxID
             

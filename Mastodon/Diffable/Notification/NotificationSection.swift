@@ -76,6 +76,7 @@ extension NotificationSection {
         viewModel: NotificationTableViewCell.ViewModel,
         configuration: Configuration
     ) {
+        cell.notificationView.viewModel.context = context
         cell.notificationView.viewModel.authContext = configuration.authContext
         
         StatusSection.setupStatusPollDataSource(

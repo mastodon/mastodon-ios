@@ -92,19 +92,27 @@ extension ThreadViewModel.LoadThreadState {
                             from: response.value.ancestors
                         )
                     )
+                    // deprecated: Tree mode replies
+                    // viewModel.mastodonStatusThreadViewModel.appendDescendant(
+                    //     domain: threadContext.domain,
+                    //     nodes: MastodonStatusThreadViewModel.Node.children(
+                    //         of: threadContext.statusID,
+                    //         from: response.value.descendants
+                    //     )
+                    // )
+                    
+                    // new: the same order from API
                     viewModel.mastodonStatusThreadViewModel.appendDescendant(
                         domain: threadContext.domain,
-                        nodes: MastodonStatusThreadViewModel.Node.children(
-                            of: threadContext.statusID,
-                            from: response.value.descendants
-                        )
+                        nodes: response.value.descendants.map { status in
+                            return .init(statusID: status.id, children: [])
+                        }
                     )
                 } catch {
                     logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): fetch status context for \(threadContext.statusID) fail: \(error.localizedDescription)")
                     await enter(state: Fail.self)
                 }
-                
-            }
+            }   // end Task
         }
 
     }

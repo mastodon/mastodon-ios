@@ -85,12 +85,7 @@ extension AppearanceView {
     private func setupUI() {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageViewShadowBackgroundContainer.addSubview(imageView)
-        NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: imageViewShadowBackgroundContainer.topAnchor),
-            imageView.leadingAnchor.constraint(equalTo: imageViewShadowBackgroundContainer.leadingAnchor),
-            imageView.trailingAnchor.constraint(equalTo: imageViewShadowBackgroundContainer.trailingAnchor),
-            imageView.bottomAnchor.constraint(equalTo: imageViewShadowBackgroundContainer.bottomAnchor),
-        ])
+        imageView.pinToParent()
         imageViewShadowBackgroundContainer.cornerRadius = 4
         
         stackView.addArrangedSubview(imageViewShadowBackgroundContainer)
@@ -100,11 +95,8 @@ extension AppearanceView {
         addSubview(stackView)
         translatesAutoresizingMaskIntoConstraints = false
         stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.pinToParent()
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: self.topAnchor),
-            stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 121.0 / 100.0),        // height / width
         ])
     }

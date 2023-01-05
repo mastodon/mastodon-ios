@@ -28,12 +28,6 @@ class ThreadViewModel {
     let context: AppContext
     let authContext: AuthContext
     let mastodonStatusThreadViewModel: MastodonStatusThreadViewModel
-
-//    let cellFrameCache = NSCache<NSNumber, NSValue>()
-//    let existStatusFetchedResultsController: StatusFetchedResultsController
-
-//    weak var contentOffsetAdjustableTimelineViewControllerDelegate: ContentOffsetAdjustableTimelineViewControllerDelegate?
-//    weak var tableView: UITableView?
     
     // output
     var diffableDataSource: UITableViewDiffableDataSource<StatusSection, StatusItem>?
@@ -62,12 +56,6 @@ class ThreadViewModel {
         self.authContext = authContext
         self.root = optionalRoot
         self.mastodonStatusThreadViewModel = MastodonStatusThreadViewModel(context: context)
-//        self.rootNode = CurrentValueSubject(optionalStatus.flatMap { RootNode(domain: $0.domain, statusID: $0.id, replyToID: $0.inReplyToID) })
-//        self.rootItem = CurrentValueSubject(optionalStatus.flatMap { Item.root(statusObjectID: $0.objectID, attribute: Item.StatusAttribute()) })
-//        self.existStatusFetchedResultsController = StatusFetchedResultsController(managedObjectContext: context.managedObjectContext, domain: nil, additionalTweetPredicate: nil)
-//        self.navigationBarTitle = CurrentValueSubject(
-//            optionalStatus.flatMap { L10n.Scene.Thread.title($0.author.displayNameWithFallback) })
-//        self.navigationBarTitleEmojiMeta = CurrentValueSubject(optionalStatus.flatMap { $0.author.emojis.asDictionary } ?? [:])
         // end init
         
         ManagedObjectObserver.observe(context: context.managedObjectContext)
@@ -84,24 +72,6 @@ class ThreadViewModel {
                 self.delete(objectIDs: objectIDs)
             })
             .store(in: &disposeBag)
-        
-//        // bind fetcher domain
-//        context.authenticationService.activeMastodonAuthenticationBox
-//            .receive(on: RunLoop.main)
-//            .sink { [weak self] box in
-//                guard let self = self else { return }
-//                self.existStatusFetchedResultsController.domain.value = box?.domain
-//            }
-//            .store(in: &disposeBag)
-//
-//        rootNode
-//            .receive(on: DispatchQueue.main)
-//            .sink { [weak self] rootNode in
-//                guard let self = self else { return }
-//                guard rootNode != nil else { return }
-//                self.loadThreadStateMachine.enter(LoadThreadState.Loading.self)
-//            }
-//            .store(in: &disposeBag)
         
         $root
             .receive(on: DispatchQueue.main)
@@ -125,102 +95,6 @@ class ThreadViewModel {
                 }()
             }
             .store(in: &disposeBag)
-
-//        rootItem
-//            .receive(on: DispatchQueue.main)
-//            .sink { [weak self] rootItem in
-//                guard let self = self else { return }
-//                guard case let .root(objectID, _) = rootItem else { return }
-//                self.context.managedObjectContext.perform {
-//                    guard let status = self.context.managedObjectContext.object(with: objectID) as? Status else {
-//                        return
-//                    }
-//                    self.rootItemObserver = ManagedObjectObserver.observe(object: status)
-//                        .receive(on: DispatchQueue.main)
-//                        .sink(receiveCompletion: { _ in
-//                            // do nothing
-//                        }, receiveValue: { [weak self] change in
-//                            guard let self = self else { return }
-//                            switch change.changeType {
-//                            case .delete:
-//                                self.rootItem.value = nil
-//                            default:
-//                                break
-//                            }
-//                        })
-//                }
-//            }
-//            .store(in: &disposeBag)
-//                
-//        ancestorNodes
-//            .receive(on: DispatchQueue.main)
-//            .compactMap { [weak self] nodes -> [Item]? in
-//                guard let self = self else { return nil }
-//                guard !nodes.isEmpty else { return [] }
-//                
-//                guard let diffableDataSource = self.diffableDataSource else { return nil }
-//                let oldSnapshot = diffableDataSource.snapshot()
-//                var oldSnapshotAttributeDict: [NSManagedObjectID : Item.StatusAttribute] = [:]
-//                for item in oldSnapshot.itemIdentifiers {
-//                    switch item {
-//                    case .reply(let objectID, let attribute):
-//                        oldSnapshotAttributeDict[objectID] = attribute
-//                    default:
-//                        break
-//                    }
-//                }
-//                
-//                var items: [Item] = []
-//                for node in nodes {
-//                    let attribute = oldSnapshotAttributeDict[node.statusObjectID] ?? Item.StatusAttribute()
-//                    items.append(Item.reply(statusObjectID: node.statusObjectID, attribute: attribute))
-//                }
-//                
-//                return items.reversed()
-//            }
-//            .assign(to: \.value, on: ancestorItems)
-//            .store(in: &disposeBag)
-//        
-//        descendantNodes
-//            .receive(on: DispatchQueue.main)
-//            .compactMap { [weak self] nodes -> [Item]? in
-//                guard let self = self else { return nil }
-//                guard !nodes.isEmpty else { return [] }
-//                
-//                guard let diffableDataSource = self.diffableDataSource else { return nil }
-//                let oldSnapshot = diffableDataSource.snapshot()
-//                var oldSnapshotAttributeDict: [NSManagedObjectID : Item.StatusAttribute] = [:]
-//                for item in oldSnapshot.itemIdentifiers {
-//                    switch item {
-//                    case .leaf(let objectID, let attribute):
-//                        oldSnapshotAttributeDict[objectID] = attribute
-//                    default:
-//                        break
-//                    }
-//                }
-//                
-//                var items: [Item] = []
-//                
-//                func buildThread(node: LeafNode) {
-//                    let attribute = oldSnapshotAttributeDict[node.objectID] ?? Item.StatusAttribute()
-//                    items.append(Item.leaf(statusObjectID: node.objectID, attribute: attribute))
-//                    // only expand the first child
-//                    if let firstChild = node.children.first {
-//                        if !node.isChildrenExpanded {
-//                            items.append(Item.leafBottomLoader(statusObjectID: node.objectID))
-//                        } else {
-//                            buildThread(node: firstChild)
-//                        }
-//                    }
-//                }
-//                
-//                for node in nodes {
-//                    buildThread(node: node)
-//                }
-//                return items
-//            }
-//            .assign(to: \.value, on: descendantItems)
-//            .store(in: &disposeBag)
     }
     
     deinit {

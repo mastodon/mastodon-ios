@@ -32,12 +32,7 @@ open class AvatarButton: UIControl {
         avatarImageView.frame = bounds
         avatarImageView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(avatarImageView)
-        NSLayoutConstraint.activate([
-            avatarImageView.topAnchor.constraint(equalTo: topAnchor),
-            avatarImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            avatarImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            avatarImageView.bottomAnchor.constraint(equalTo: bottomAnchor),
-        ])
+        avatarImageView.pinToParent()
         
         isAccessibilityElement = true
         accessibilityLabel = L10n.Common.Controls.Status.showUserProfile

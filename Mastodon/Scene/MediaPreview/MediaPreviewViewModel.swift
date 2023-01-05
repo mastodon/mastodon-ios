@@ -12,6 +12,10 @@ import CoreDataStack
 import Pageboy
 import MastodonCore
 
+protocol MediaPreviewPage: UIViewController {
+    func setShowingChrome(_ showingChrome: Bool)
+}
+
 final class MediaPreviewViewModel: NSObject {
     
     weak var mediaPreviewImageViewControllerDelegate: MediaPreviewImageViewControllerDelegate?
@@ -22,9 +26,13 @@ final class MediaPreviewViewModel: NSObject {
     let transitionItem: MediaPreviewTransitionItem
     
     @Published var currentPage: Int
-    
+    @Published var showingChrome = true
+    @Published var altText: String?
+
     // output
-    let viewControllers: [UIViewController]
+    let viewControllers: [MediaPreviewPage]
+
+    private var disposeBag: Set<AnyCancellable> = []
     
     init(
         context: AppContext,
@@ -34,9 +42,12 @@ final class MediaPreviewViewModel: NSObject {
         self.context = context
         self.item = item
         var currentPage = 0
-        var viewControllers: [UIViewController] = []
+        var viewControllers: [MediaPreviewPage] = []
+        var getAltText = { (page: Int) -> String? in nil }
         switch item {
         case .attachment(let previewContext):
+            getAltText = { previewContext.attachments[$0].altDescription }
+
             currentPage = previewContext.initialIndex
             for (i, attachment) in previewContext.attachments.enumerated() {
                 switch attachment.kind {
@@ -44,11 +55,11 @@ final class MediaPreviewViewModel: NSObject {
                     let viewController = MediaPreviewImageViewController()
                     let viewModel = MediaPreviewImageViewModel(
                         context: context,
-                        item: .remote(.init(
+                        item: .init(
                             assetURL: attachment.assetURL.flatMap { URL(string: $0) },
                             thumbnail: previewContext.thumbnail(at: i),
                             altText: attachment.altDescription
-                        ))
+                        )
                     )
                     viewController.viewModel = viewModel
                     viewControllers.append(viewController)
@@ -58,7 +69,8 @@ final class MediaPreviewViewModel: NSObject {
                         context: context,
                         item: .gif(.init(
                             assetURL: attachment.assetURL.flatMap { URL(string: $0) },
-                            previewURL: attachment.previewURL.flatMap { URL(string: $0) }
+                            previewURL: attachment.previewURL.flatMap { URL(string: $0) },
+                            altText: attachment.altDescription
                         ))
                     )
                     viewController.viewModel = viewModel
@@ -69,7 +81,8 @@ final class MediaPreviewViewModel: NSObject {
                         context: context,
                         item: .video(.init(
                             assetURL: attachment.assetURL.flatMap { URL(string: $0) },
-                            previewURL: attachment.previewURL.flatMap { URL(string: $0) }
+                            previewURL: attachment.previewURL.flatMap { URL(string: $0) },
+                            altText: attachment.altDescription
                         ))
                     )
                     viewController.viewModel = viewModel
@@ -80,11 +93,11 @@ final class MediaPreviewViewModel: NSObject {
             let viewController = MediaPreviewImageViewController()
             let viewModel = MediaPreviewImageViewModel(
                 context: context,
-                item: .remote(.init(
+                item: .init(
                     assetURL: previewContext.assetURL.flatMap { URL(string: $0) },
                     thumbnail: previewContext.thumbnail,
                     altText: nil
-                ))
+                )
             )
             viewController.viewModel = viewModel
             viewControllers.append(viewController)
@@ -92,11 +105,11 @@ final class MediaPreviewViewModel: NSObject {
             let viewController = MediaPreviewImageViewController()
             let viewModel = MediaPreviewImageViewModel(
                 context: context,
-                item: .remote(.init(
+                item: .init(
                     assetURL: previewContext.assetURL.flatMap { URL(string: $0) },
                     thumbnail: previewContext.thumbnail,
                     altText: nil
-                ))
+                )
             )
             viewController.viewModel = viewModel
             viewControllers.append(viewController)
@@ -106,6 +119,18 @@ final class MediaPreviewViewModel: NSObject {
         self.currentPage = currentPage
         self.transitionItem = transitionItem
         super.init()
+
+        self.$currentPage
+            .map(getAltText)
+            .assign(to: &$altText)
+
+        for viewController in viewControllers {
+            self.$showingChrome
+                .sink { [weak viewController] showingChrome in
+                    viewController?.setShowingChrome(showingChrome)
+                }
+                .store(in: &disposeBag)
+        }
     }
 
 }

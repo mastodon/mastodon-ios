@@ -51,6 +51,11 @@
             "clean_cache": {
                 "title": "清除快取",
                 "message": "成功清除 %s 快取。"
+            },
+            "translation_failed": {
+                "title": "備註",
+                "message": "翻譯失敗。也許管理員未於此伺服器啟用翻譯功能，或此伺服器為未支援翻譯功能之舊版本 Mastodon。",
+                "button": "OK"
             }
         },
         "controls": {
@@ -75,9 +80,10 @@
                 "save_photo": "儲存照片",
                 "copy_photo": "複製照片",
                 "sign_in": "登入",
-                "sign_up": "註冊",
+                "sign_up": "新增帳號",
                 "see_more": "檢視更多",
                 "preview": "預覽",
+                "copy": "複製",
                 "share": "分享",
                 "share_user": "分享 %s",
                 "share_post": "分享嘟文",
@@ -91,12 +97,16 @@
                 "block_domain": "封鎖 %s",
                 "unblock_domain": "解除封鎖 %s",
                 "settings": "設定",
-                "delete": "刪除"
+                "delete": "刪除",
+                "translate_post": {
+                    "title": "翻譯自 %s",
+                    "unknown_language": "未知"
+                }
             },
             "tabs": {
                 "home": "首頁",
-                "search": "搜尋",
-                "notification": "通知",
+                "search_and_explore": "搜尋與探索",
+                "notifications": "通知",
                 "profile": "個人檔案"
             },
             "keyboard": {
@@ -132,6 +142,8 @@
                 "sensitive_content": "敏感內容",
                 "media_content_warning": "輕觸任何地方以顯示",
                 "tap_to_reveal": "輕觸以顯示",
+                "load_embed": "讀取嵌入內容",
+                "link_via_user": "%s 透過 %s",
                 "poll": {
                     "vote": "投票",
                     "closed": "已關閉"
@@ -153,6 +165,7 @@
                     "show_image": "顯示圖片",
                     "show_gif": "顯示 GIF",
                     "show_video_player": "顯示影片播放器",
+                    "share_link_in_post": "於嘟文中分享鏈結",
                     "tap_then_hold_to_show_menu": "輕觸然後按住以顯示選單"
                 },
                 "tag": {
@@ -168,6 +181,12 @@
                     "private": "只有他們的跟隨者能看到此嘟文。",
                     "private_from_me": "只有我的跟隨者能看到此嘟文。",
                     "direct": "只有被提及的使用者能看到此嘟文。"
+                },
+                "translation": {
+                    "translated_from": "透過 %s 翻譯 %s",
+                    "unknown_language": "未知",
+                    "unknown_provider": "未知",
+                    "show_original": "顯示原文"
                 }
             },
             "friendship": {
@@ -218,10 +237,16 @@
             "get_started": "新手上路",
             "log_in": "登入"
         },
+        "login": {
+            "title": "歡迎回來",
+            "subtitle": "登入您新增帳號之伺服器",
+            "server_search_field": {
+                "placeholder": "請輸入 URL 或搜尋您的伺服器"
+            }
+        },
         "server_picker": {
             "title": "Mastodon 由不同伺服器的使用者組成。",
-            "subtitle": "基於您的興趣、地區、或一般用途選定一個伺服器。",
-            "subtitle_extend": "基於您的興趣、地區、或一般用途選定一個伺服器。每個伺服器是由完全獨立的組織或個人營運。",
+            "subtitle": "基於您的興趣、地區、或一般用途選定一個伺服器。您仍會與任何伺服器中的每個人連結。",
             "button": {
                 "category": {
                     "all": "全部",
@@ -248,8 +273,7 @@
                 "category": "分類"
             },
             "input": {
-                "placeholder": "搜尋伺服器",
-                "search_servers_or_enter_url": "搜尋伺服器或輸入網址"
+                "search_servers_or_enter_url": "搜尋社群或輸入 URL 地址"
             },
             "empty_state": {
                 "finding_servers": "尋找可用的伺服器...",
@@ -383,10 +407,12 @@
                 "attachment_broken": "此 %s 已損毀，並無法被上傳至 Mastodon。",
                 "description_photo": "為視障人士提供圖片說明...",
                 "description_video": "為視障人士提供影片說明...",
-                "load_failed": "Load Failed",
-                "upload_failed": "Upload Failed",
-                "can_not_recognize_this_media_attachment": "Can not regonize this media attachment",
-                "attachment_too_large": "Attachment too large"
+                "load_failed": "讀取失敗",
+                "upload_failed": "上傳失敗",
+                "can_not_recognize_this_media_attachment": "無法識別此媒體附加檔案",
+                "attachment_too_large": "附加檔案大小過大",
+                "compressing_state": "正在壓縮...",
+                "server_processing_state": "伺服器處理中..."
             },
             "poll": {
                 "duration_time": "持續時間：%s",
@@ -396,7 +422,9 @@
                 "one_day": "一天",
                 "three_days": "三天",
                 "seven_days": "七天",
-                "option_number": "選項 %ld"
+                "option_number": "選項 %ld",
+                "the_poll_is_invalid": "此投票是無效的",
+                "the_poll_has_empty_option": "此投票有空白選項"
             },
             "content_warning": {
                 "placeholder": "請於此處寫下精準的警告..."
@@ -417,7 +445,9 @@
                 "custom_emoji_picker": "自訂 emoji 選擇器",
                 "enable_content_warning": "啟用內容警告",
                 "disable_content_warning": "停用內容警告",
-                "post_visibility_menu": "嘟文可見性選單"
+                "post_visibility_menu": "嘟文可見性選單",
+                "post_options": "嘟文選項",
+                "posting_as": "以 %s 發嘟"
             },
             "keyboard": {
                 "discard_post": "捨棄嘟文",
@@ -433,15 +463,23 @@
                 "follows_you": "跟隨了您"
             },
             "dashboard": {
-                "posts": "嘟文",
-                "following": "跟隨中",
-                "followers": "跟隨者"
+                "my_posts": "嘟文",
+                "my_following": "正在跟隨",
+                "my_followers": "跟隨者",
+                "other_posts": "嘟文",
+                "other_following": "正在跟隨",
+                "other_followers": "跟隨者"
             },
             "fields": {
+                "joined": "加入時間",
                 "add_row": "新增列",
                 "placeholder": {
                     "label": "標籤",
                     "content": "內容"
+                },
+                "verified": {
+                    "short": "於 %s 上已驗證",
+                    "long": "已在 %s 檢查此連結的擁有者權限"
                 }
             },
             "segmented_control": {
@@ -707,6 +745,18 @@
         },
         "bookmark": {
             "title": "書籤"
+        },
+        "followed_tags": {
+            "title": "已跟隨主題標籤",
+            "header": {
+                "posts": "嘟文",
+                "participants": "參與者",
+                "posts_today": "本日嘟文"
+            },
+            "actions": {
+                "follow": "跟隨",
+                "unfollow": "取消跟隨"
+            }
         }
     }
 }

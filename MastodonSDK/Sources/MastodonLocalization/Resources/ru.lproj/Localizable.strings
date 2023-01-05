@@ -22,6 +22,9 @@
 "Common.Alerts.SignOut.Message" = "Вы действительно хотите выйти из учётной записи?";
 "Common.Alerts.SignOut.Title" = "Выход";
 "Common.Alerts.SignUpFailure.Title" = "Ошибка регистрации";
+"Common.Alerts.TranslationFailed.Button" = "OK";
+"Common.Alerts.TranslationFailed.Message" = "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.";
+"Common.Alerts.TranslationFailed.Title" = "Note";
 "Common.Alerts.VoteFailure.PollEnded" = "Опрос уже завершился";
 "Common.Alerts.VoteFailure.Title" = "Не удалось проголосовать";
 "Common.Controls.Actions.Add" = "Добавить";
@@ -31,6 +34,7 @@
 "Common.Controls.Actions.Compose" = "Написать";
 "Common.Controls.Actions.Confirm" = "Подтвердить";
 "Common.Controls.Actions.Continue" = "Продолжить";
+"Common.Controls.Actions.Copy" = "Copy";
 "Common.Controls.Actions.CopyPhoto" = "Скопировать изображение";
 "Common.Controls.Actions.Delete" = "Удалить";
 "Common.Controls.Actions.Discard" = "Отмена";
@@ -55,10 +59,12 @@
 "Common.Controls.Actions.Share" = "Поделиться";
 "Common.Controls.Actions.SharePost" = "Поделиться постом";
 "Common.Controls.Actions.ShareUser" = "Поделиться %@";
-"Common.Controls.Actions.SignIn" = "Войти";
-"Common.Controls.Actions.SignUp" = "Зарегистрироваться";
+"Common.Controls.Actions.SignIn" = "Log in";
+"Common.Controls.Actions.SignUp" = "Create account";
 "Common.Controls.Actions.Skip" = "Пропустить";
 "Common.Controls.Actions.TakePhoto" = "Сделать фото";
+"Common.Controls.Actions.TranslatePost.Title" = "Translate from %@";
+"Common.Controls.Actions.TranslatePost.UnknownLanguage" = "Unknown";
 "Common.Controls.Actions.TryAgain" = "Попробовать снова";
 "Common.Controls.Actions.UnblockDomain" = "Разблокировать %@";
 "Common.Controls.Friendship.Block" = "Заблокировать";
@@ -100,6 +106,7 @@
 "Common.Controls.Status.Actions.Menu" = "Меню";
 "Common.Controls.Status.Actions.Reblog" = "Продвинуть";
 "Common.Controls.Status.Actions.Reply" = "Ответить";
+"Common.Controls.Status.Actions.ShareLinkInPost" = "Share Link in Post";
 "Common.Controls.Status.Actions.ShowGif" = "Показать GIF";
 "Common.Controls.Status.Actions.ShowImage" = "Показать изображение";
 "Common.Controls.Status.Actions.ShowVideoPlayer" = "Показать видеопроигрыватель";
@@ -107,6 +114,8 @@
 "Common.Controls.Status.Actions.Unfavorite" = "Убрать из избранного";
 "Common.Controls.Status.Actions.Unreblog" = "Убрать продвижение";
 "Common.Controls.Status.ContentWarning" = "Предупреждение о содержании";
+"Common.Controls.Status.LinkViaUser" = "%@ via %@";
+"Common.Controls.Status.LoadEmbed" = "Load Embed";
 "Common.Controls.Status.MediaContentWarning" = "Нажмите в любом месте, чтобы показать";
 "Common.Controls.Status.MetaEntity.Email" = "Email address: %@";
 "Common.Controls.Status.MetaEntity.Hashtag" = "Hashtag: %@";
@@ -124,6 +133,10 @@
 "Common.Controls.Status.Tag.Mention" = "Упоминание";
 "Common.Controls.Status.Tag.Url" = "Ссылка";
 "Common.Controls.Status.TapToReveal" = "Нажмите, чтобы показать";
+"Common.Controls.Status.Translation.ShowOriginal" = "Shown Original";
+"Common.Controls.Status.Translation.TranslatedFrom" = "Translated from %@ using %@";
+"Common.Controls.Status.Translation.UnknownLanguage" = "Unknown";
+"Common.Controls.Status.Translation.UnknownProvider" = "Unknown";
 "Common.Controls.Status.UserReblogged" = "%@ продвинул(а)";
 "Common.Controls.Status.UserRepliedTo" = "Ответил(а) %@";
 "Common.Controls.Status.Visibility.Direct" = "Only mentioned user can see this post.";
@@ -131,9 +144,9 @@
 "Common.Controls.Status.Visibility.PrivateFromMe" = "Only my followers can see this post.";
 "Common.Controls.Status.Visibility.Unlisted" = "Everyone can see this post but not display in the public timeline.";
 "Common.Controls.Tabs.Home" = "Главная";
-"Common.Controls.Tabs.Notification" = "Уведомление";
+"Common.Controls.Tabs.Notifications" = "Notifications";
 "Common.Controls.Tabs.Profile" = "Профиль";
-"Common.Controls.Tabs.Search" = "Поиск";
+"Common.Controls.Tabs.SearchAndExplore" = "Search and Explore";
 "Common.Controls.Timeline.Filtered" = "Отфильтровано";
 "Common.Controls.Timeline.Header.BlockedWarning" = "Вы не можете просматривать
 профиль этого пользователя
@@ -169,16 +182,20 @@
 "Scene.Compose.Accessibility.CustomEmojiPicker" = "Меню пользовательских эмодзи";
 "Scene.Compose.Accessibility.DisableContentWarning" = "Убрать предупреждение о содержании";
 "Scene.Compose.Accessibility.EnableContentWarning" = "Добавить предупреждение о содержании";
+"Scene.Compose.Accessibility.PostOptions" = "Post Options";
 "Scene.Compose.Accessibility.PostVisibilityMenu" = "Меню видимости поста";
+"Scene.Compose.Accessibility.PostingAs" = "Posting as %@";
 "Scene.Compose.Accessibility.RemovePoll" = "Убрать опрос";
 "Scene.Compose.Attachment.AttachmentBroken" = "Это %@ повреждено и не может
 быть отправлено в Mastodon.";
 "Scene.Compose.Attachment.AttachmentTooLarge" = "Attachment too large";
-"Scene.Compose.Attachment.CanNotRecognizeThisMediaAttachment" = "Can not regonize this media attachment";
+"Scene.Compose.Attachment.CanNotRecognizeThisMediaAttachment" = "Can not recognize this media attachment";
+"Scene.Compose.Attachment.CompressingState" = "Compressing...";
 "Scene.Compose.Attachment.DescriptionPhoto" = "Опишите фото для людей с нарушениями зрения...";
 "Scene.Compose.Attachment.DescriptionVideo" = "Опишите видео для людей с нарушениями зрения...";
 "Scene.Compose.Attachment.LoadFailed" = "Load Failed";
 "Scene.Compose.Attachment.Photo" = "изображение";
+"Scene.Compose.Attachment.ServerProcessingState" = "Server Processing...";
 "Scene.Compose.Attachment.UploadFailed" = "Upload Failed";
 "Scene.Compose.Attachment.Video" = "видео";
 "Scene.Compose.AutoComplete.SpaceToAdd" = "Пробел, чтобы добавить";
@@ -200,6 +217,8 @@
 "Scene.Compose.Poll.OptionNumber" = "Вариант %ld";
 "Scene.Compose.Poll.SevenDays" = "7 дней";
 "Scene.Compose.Poll.SixHours" = "6 часов";
+"Scene.Compose.Poll.ThePollHasEmptyOption" = "The poll has empty option";
+"Scene.Compose.Poll.ThePollIsInvalid" = "The poll is invalid";
 "Scene.Compose.Poll.ThirtyMinutes" = "30 минут";
 "Scene.Compose.Poll.ThreeDays" = "3 дня";
 "Scene.Compose.ReplyingToUser" = "ответ %@";
@@ -234,6 +253,12 @@
 "Scene.Familiarfollowers.Title" = "Followers you familiar";
 "Scene.Favorite.Title" = "Ваше избранное";
 "Scene.FavoritedBy.Title" = "Favorited By";
+"Scene.FollowedTags.Actions.Follow" = "Follow";
+"Scene.FollowedTags.Actions.Unfollow" = "Unfollow";
+"Scene.FollowedTags.Header.Participants" = "participants";
+"Scene.FollowedTags.Header.Posts" = "posts";
+"Scene.FollowedTags.Header.PostsToday" = "posts today";
+"Scene.FollowedTags.Title" = "Followed Tags";
 "Scene.Follower.Footer" = "Followers from other servers are not displayed.";
 "Scene.Follower.Title" = "follower";
 "Scene.Following.Footer" = "Follows from other servers are not displayed.";
@@ -245,6 +270,9 @@
 "Scene.HomeTimeline.NavigationBarState.Published" = "Опубликовано!";
 "Scene.HomeTimeline.NavigationBarState.Publishing" = "Публикуем пост...";
 "Scene.HomeTimeline.Title" = "Главная";
+"Scene.Login.ServerSearchField.Placeholder" = "Enter URL or search for your server";
+"Scene.Login.Subtitle" = "Log you in on the server you created your account on.";
+"Scene.Login.Title" = "Welcome back";
 "Scene.Notification.FollowRequest.Accept" = "Accept";
 "Scene.Notification.FollowRequest.Accepted" = "Accepted";
 "Scene.Notification.FollowRequest.Reject" = "reject";
@@ -270,8 +298,11 @@
 "Scene.Profile.Dashboard.Following" = "подписки";
 "Scene.Profile.Dashboard.Posts" = "посты";
 "Scene.Profile.Fields.AddRow" = "Добавить строку";
+"Scene.Profile.Fields.Joined" = "Joined";
 "Scene.Profile.Fields.Placeholder.Content" = "Содержимое";
 "Scene.Profile.Fields.Placeholder.Label" = "Ярлык";
+"Scene.Profile.Fields.Verified.Long" = "Ownership of this link was checked on %@";
+"Scene.Profile.Fields.Verified.Short" = "Verified on %@";
 "Scene.Profile.Header.FollowsYou" = "Подписан(а) на вас";
 "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Message" = "Confirm to block %@";
 "Scene.Profile.RelationshipActionAlert.ConfirmBlockUser.Title" = "Block Account";
@@ -404,13 +435,11 @@
 "Scene.ServerPicker.EmptyState.BadNetwork" = "Что-то пошло не так при загрузке данных. Проверьте подключение к интернету.";
 "Scene.ServerPicker.EmptyState.FindingServers" = "Ищем доступные сервера...";
 "Scene.ServerPicker.EmptyState.NoResults" = "Нет результатов";
-"Scene.ServerPicker.Input.Placeholder" = "Найдите сервер или присоединитесь к своему...";
-"Scene.ServerPicker.Input.SearchServersOrEnterUrl" = "Поиск по серверам или ссылке";
+"Scene.ServerPicker.Input.SearchServersOrEnterUrl" = "Search communities or enter URL";
 "Scene.ServerPicker.Label.Category" = "КАТЕГОРИЯ";
 "Scene.ServerPicker.Label.Language" = "ЯЗЫК";
 "Scene.ServerPicker.Label.Users" = "ПОЛЬЗОВАТЕЛИ";
-"Scene.ServerPicker.Subtitle" = "Выберите сообщество на основе своих интересов, региона или общей тематики.";
-"Scene.ServerPicker.SubtitleExtend" = "Pick a server based on your interests, region, or a general purpose one. Each server is operated by an entirely independent organization or individual.";
+"Scene.ServerPicker.Subtitle" = "Pick a server based on your region, interests, or a general purpose one. You can still chat with anyone on Mastodon, regardless of your servers.";
 "Scene.ServerPicker.Title" = "Выберите сервер,
 любой сервер.";
 "Scene.ServerRules.Button.Confirm" = "Принимаю";

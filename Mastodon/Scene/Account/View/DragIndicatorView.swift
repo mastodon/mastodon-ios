@@ -15,17 +15,17 @@ final class DragIndicatorView: UIView {
 
     let barView = UIView()
     let separatorLine = UIView.separatorLine
+    let onDismiss: () -> Void
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(onDismiss: @escaping () -> Void) {
+        self.onDismiss = onDismiss
+        super.init(frame: .zero)
         _init()
     }
 
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        _init()
+        fatalError("init(coder:) is not supported")
     }
-
 }
 
 extension DragIndicatorView {
@@ -52,6 +52,14 @@ extension DragIndicatorView {
             separatorLine.bottomAnchor.constraint(equalTo: bottomAnchor),
             separatorLine.heightAnchor.constraint(equalToConstant: UIView.separatorLineHeight(of: self)),
         ])
+
+        isAccessibilityElement = true
+        accessibilityTraits = .button
+        accessibilityLabel = L10n.Scene.AccountList.dismissAccountSwitcher
     }
 
+    override func accessibilityActivate() -> Bool {
+        self.onDismiss()
+        return true
+    }
 }

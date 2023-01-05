@@ -1,0 +1,4 @@
+"NSCameraUsageDescription" = "Uporabljeno za zajem fotografij za stanje objave";
+"NSPhotoLibraryAddUsageDescription" = "Uporabljeno za shranjevanje fotografije v knjižnico fotografij";
+"NewPostShortcutItemTitle" = "Nova objava";
+"SearchShortcutItemTitle" = "Iskanje";

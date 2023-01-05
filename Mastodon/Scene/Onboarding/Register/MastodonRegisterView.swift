@@ -55,19 +55,10 @@ struct MastodonRegisterView: View {
                 // Delete
                 if viewModel.avatarImage != nil {
                     Divider()
-                    if #available(iOS 15.0, *) {
-                        Button(role: .destructive) {
-                            viewModel.avatarMediaMenuActionPublisher.send(.delete)
-                        } label: {
-                            Label(L10n.Scene.Register.Input.Avatar.delete, systemImage: "delete.left")
-                        }
-                    } else {
-                        // Fallback on earlier ve rsions
-                        Button {
-                            viewModel.avatarMediaMenuActionPublisher.send(.delete)
-                        } label: {
-                            Label(L10n.Scene.Register.Input.Avatar.delete, systemImage: "delete.left")
-                        }
+                    Button(role: .destructive) {
+                        viewModel.avatarMediaMenuActionPublisher.send(.delete)
+                    } label: {
+                        Label(L10n.Scene.Register.Input.Avatar.delete, systemImage: "delete.left")
                     }
                 }
             } label: {
@@ -168,21 +159,27 @@ struct MastodonRegisterView: View {
 
         func body(content: Content) -> some View {
             ZStack {
-                let shadowColor: Color = {
+                let borderColor: Color = {
                     switch validateState {
-                    case .empty:    return .black.opacity(0.125)
-                    case .invalid:  return Color(Asset.Colors.TextField.invalid.color)
-                    case .valid:    return Color(Asset.Colors.TextField.valid.color)
+                        case .empty:    return Color(Asset.Scene.Onboarding.textFieldBackground.color)
+                        case .invalid:  return Color(Asset.Colors.TextField.invalid.color)
+                        case .valid:    return Color(Asset.Scene.Onboarding.textFieldBackground.color)
                     }
                 }()
+
                 Color(Asset.Scene.Onboarding.textFieldBackground.color)
                     .cornerRadius(10)
-                    .shadow(color: shadowColor, radius: 1, x: 0, y: 2)
-                    .animation(.easeInOut, value: validateState)
+                    .shadow(color: .black.opacity(0.125), radius: 1, x: 0, y: 2)
+
                 content
                     .padding()
                     .background(Color(Asset.Scene.Onboarding.textFieldBackground.color))
                     .cornerRadius(10)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(borderColor, lineWidth: 1)
+                            .animation(.easeInOut, value: validateState)
+                    )
             }
         }
     }

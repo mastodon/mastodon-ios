@@ -136,12 +136,7 @@ extension MediaGridContainerView {
     private func layoutContentWarningOverlay() {
         contentWarningOverlay.translatesAutoresizingMaskIntoConstraints = false
         addSubview(contentWarningOverlay)
-        NSLayoutConstraint.activate([
-            contentWarningOverlay.topAnchor.constraint(equalTo: topAnchor),
-            contentWarningOverlay.leadingAnchor.constraint(equalTo: leadingAnchor),
-            contentWarningOverlay.trailingAnchor.constraint(equalTo: trailingAnchor),
-            contentWarningOverlay.bottomAnchor.constraint(equalTo: bottomAnchor),
-        ])
+        contentWarningOverlay.pinToParent()
     }
 }
 
@@ -208,12 +203,7 @@ extension MediaGridContainerView {
             let containerVerticalStackView = createStackView(axis: .vertical)
             containerVerticalStackView.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview(containerVerticalStackView)
-            NSLayoutConstraint.activate([
-                containerVerticalStackView.topAnchor.constraint(equalTo: view.topAnchor),
-                containerVerticalStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-                containerVerticalStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-                containerVerticalStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            ])
+            containerVerticalStackView.pinToParent()
             
             let count = mediaViews.count
             switch count {

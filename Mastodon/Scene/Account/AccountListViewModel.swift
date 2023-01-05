@@ -52,7 +52,7 @@ final class AccountListViewModel: NSObject {
         mastodonAuthenticationFetchedResultsController.delegate = self
         do {
             try mastodonAuthenticationFetchedResultsController.performFetch()
-            authentications = mastodonAuthenticationFetchedResultsController.fetchedObjects?.compactMap { $0.asRecrod } ?? []
+            authentications = mastodonAuthenticationFetchedResultsController.fetchedObjects?.compactMap { $0.asRecord } ?? []
         } catch {
             assertionFailure(error.localizedDescription)
         }
@@ -166,7 +166,7 @@ extension AccountListViewModel {
             cell.badgeButton.accessibilityLabel
         ]
         .compactMap { $0 }
-        .joined(separator: " ")
+        .joined(separator: ", ")
     }
 }
 
@@ -183,7 +183,7 @@ extension AccountListViewModel: NSFetchedResultsControllerDelegate {
             return
         }
         
-        authentications = mastodonAuthenticationFetchedResultsController.fetchedObjects?.compactMap { $0.asRecrod } ?? []
+        authentications = mastodonAuthenticationFetchedResultsController.fetchedObjects?.compactMap { $0.asRecord } ?? []
     }
     
 }

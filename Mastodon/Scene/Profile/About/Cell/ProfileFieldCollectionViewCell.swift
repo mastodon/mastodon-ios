@@ -58,7 +58,7 @@ extension ProfileFieldCollectionViewCell {
     
     private func _init() {
         // Setup colors
-        checkmark.tintColor = Asset.Scene.Profile.About.bioAboutFieldVerifiedCheckmark.color;
+        checkmark.tintColor = Asset.Scene.Profile.About.bioAboutFieldVerifiedText.color;
         
         // Setup gestures
         tapGesture.addTarget(self, action: #selector(ProfileFieldCollectionViewCell.didTapCheckmark(_:)))
@@ -68,6 +68,11 @@ extension ProfileFieldCollectionViewCell {
             checkmark.addInteraction(editMenuInteraction)
         }
         
+        // Setup Accessibility
+        checkmark.isAccessibilityElement = true
+        checkmark.accessibilityTraits = .none
+        keyMetaLabel.accessibilityTraits = .none
+
         // containerStackView: V - [ metaContainer | plainContainer ]
         let containerStackView = UIStackView()
         containerStackView.axis = .vertical

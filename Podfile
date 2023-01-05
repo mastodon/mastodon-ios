@@ -1,5 +1,7 @@
 source 'https://cdn.cocoapods.org/'
-platform :ios, '14.0'
+platform :ios, '15.0'
+
+inhibit_all_warnings!
 
 target 'Mastodon' do
   # Comment the next line if you don't want to use dynamic frameworks
@@ -12,7 +14,6 @@ target 'Mastodon' do
 
   # misc
   pod 'SwiftGen', '~> 6.6.2'
-  pod 'DateToolsSwift', '~> 5.0.0'
   pod 'Kanna', '~> 5.2.2'
   pod 'Sourcery', '~> 1.6.1'
 

@@ -60,12 +60,7 @@ extension ReportResultViewController {
         addChild(hostingViewController)
         hostingViewController.view.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(hostingViewController.view)
-        NSLayoutConstraint.activate([
-            hostingViewController.view.topAnchor.constraint(equalTo: view.topAnchor),
-            hostingViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            hostingViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            hostingViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-        ])
+        hostingViewController.view.pinToParent()
         
         navigationActionView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(navigationActionView)

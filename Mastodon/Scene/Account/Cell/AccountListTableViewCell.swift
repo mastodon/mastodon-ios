@@ -69,6 +69,7 @@ extension AccountListTableViewCell {
         ])
         avatarButton.setContentHuggingPriority(.defaultLow, for: .horizontal)
         avatarButton.setContentHuggingPriority(.defaultLow, for: .vertical)
+        avatarButton.isAccessibilityElement = false
 
         let labelContainerStackView = UIStackView()
         labelContainerStackView.axis = .vertical
@@ -124,6 +125,8 @@ extension AccountListTableViewCell {
         
         badgeButton.setBadge(number: 0)
         checkmarkImageView.isHidden = true
+
+        accessibilityTraits.insert(.button)
     }
 
 }

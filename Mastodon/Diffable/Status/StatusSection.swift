@@ -27,6 +27,7 @@ extension StatusSection {
     static let logger = Logger(subsystem: "StatusSection", category: "logic")
     
     struct Configuration {
+        let context: AppContext
         let authContext: AuthContext
         weak var statusTableViewCellDelegate: StatusTableViewCellDelegate?
         weak var timelineMiddleLoaderTableViewCellDelegate: TimelineMiddleLoaderTableViewCellDelegate?
@@ -227,11 +228,7 @@ extension StatusSection {
         }
         var _snapshot = NSDiffableDataSourceSnapshot<PollSection, PollItem>()
         _snapshot.appendSections([.main])
-        if #available(iOS 15.0, *) {
-            statusView.pollTableViewDiffableDataSource?.applySnapshotUsingReloadData(_snapshot)
-        } else {
-            statusView.pollTableViewDiffableDataSource?.apply(_snapshot, animatingDifferences: false)
-        }
+        statusView.pollTableViewDiffableDataSource?.applySnapshotUsingReloadData(_snapshot)
     }
 }
 
@@ -250,6 +247,7 @@ extension StatusSection {
             statusView: cell.statusView
         )
         
+        cell.statusView.viewModel.context = configuration.context
         cell.statusView.viewModel.authContext = configuration.authContext
         
         cell.configure(
@@ -277,6 +275,7 @@ extension StatusSection {
             statusView: cell.statusView
         )
         
+        cell.statusView.viewModel.context = configuration.context
         cell.statusView.viewModel.authContext = configuration.authContext
         
         cell.configure(
