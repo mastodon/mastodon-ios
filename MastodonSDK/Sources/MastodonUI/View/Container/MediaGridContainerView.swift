@@ -166,13 +166,13 @@ extension MediaGridContainerView {
         func layout(in view: UIView, mediaView: MediaView) {
             let imageViewSize = AVMakeRect(aspectRatio: aspectRatio, insideRect: CGRect(origin: .zero, size: maxSize)).size
             mediaView.translatesAutoresizingMaskIntoConstraints = false
+            mediaView.contentMode = .center
             view.addSubview(mediaView)
             NSLayoutConstraint.activate([
                 mediaView.topAnchor.constraint(equalTo: view.topAnchor),
-                mediaView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-                mediaView.trailingAnchor.constraint(equalTo: view.trailingAnchor).priority(.defaultLow),
+                mediaView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                mediaView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
                 mediaView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-                mediaView.widthAnchor.constraint(equalToConstant: imageViewSize.width).priority(.required - 1),
                 mediaView.heightAnchor.constraint(equalToConstant: imageViewSize.height).priority(.required - 1),
             ])
         }

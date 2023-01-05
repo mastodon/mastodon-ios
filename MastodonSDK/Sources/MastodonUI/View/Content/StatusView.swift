@@ -609,7 +609,7 @@ extension StatusView {
         if style == .plain {
             return .greatestFiniteMagnitude
         }
-        return 512
+        return 300
     }
 
 }
