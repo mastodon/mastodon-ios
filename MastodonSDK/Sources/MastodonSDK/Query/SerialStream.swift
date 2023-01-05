@@ -127,6 +127,7 @@ final class SerialStream: NSObject {
     
     deinit {
         os_log(.debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        boundStreams.output.delegate = nil
     }
     
 }
