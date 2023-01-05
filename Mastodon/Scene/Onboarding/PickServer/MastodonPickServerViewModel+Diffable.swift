@@ -31,6 +31,9 @@ extension MastodonPickServerViewModel {
             guard let indexPath = self.serverSectionHeaderView.diffableDataSource?.indexPath(for: .category(category: .init(category: Mastodon.Entity.Category.Kind.general.rawValue, serversCount: 0))) else { return }
 
             self.serverSectionHeaderView.collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .right)
+
+            let firstIndex = IndexPath(item: 0, section: 0)
+            self.serverSectionHeaderView.collectionView.scrollToItem(at: firstIndex, at: .left, animated: false)
         }
         
         // set tableView
