@@ -66,12 +66,7 @@ extension UserView {
         // container
         containerStackView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(containerStackView)
-        NSLayoutConstraint.activate([
-            containerStackView.topAnchor.constraint(equalTo: topAnchor),
-            containerStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            containerStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            containerStackView.bottomAnchor.constraint(equalTo: bottomAnchor)
-        ])
+        containerStackView.pinToParent()
         
         avatarButton.translatesAutoresizingMaskIntoConstraints = false
         containerStackView.addArrangedSubview(avatarButton)

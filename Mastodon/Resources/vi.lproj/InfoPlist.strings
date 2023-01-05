@@ -1,4 +1,4 @@
-"NSCameraUsageDescription" = "Used to take photo for post status";
-"NSPhotoLibraryAddUsageDescription" = "Used to save photo into the Photo Library";
-"NewPostShortcutItemTitle" = "New Post";
-"SearchShortcutItemTitle" = "Search";
+"NSCameraUsageDescription" = "Được sử dụng để chụp ảnh cho tút";
+"NSPhotoLibraryAddUsageDescription" = "Được sử dụng để lưu ảnh vào Thư viện ảnh";
+"NewPostShortcutItemTitle" = "Viết tút";
+"SearchShortcutItemTitle" = "Tìm kiếm";

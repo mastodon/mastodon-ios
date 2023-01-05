@@ -71,8 +71,8 @@ final public class SceneCoordinator {
                             self.setup()
                             try await Task.sleep(nanoseconds: .second * 1)
                             
-                            // redirect to notification tab
-                            self.switchToTabBar(tab: .notification)
+                            // redirect to notifications tab
+                            self.switchToTabBar(tab: .notifications)
                             
                             // Delay in next run loop
                             DispatchQueue.main.async { [weak self] in
@@ -173,6 +173,7 @@ extension SceneCoordinator {
         case rebloggedBy(viewModel: UserListViewModel)
         case favoritedBy(viewModel: UserListViewModel)
         case bookmark(viewModel: BookmarkViewModel)
+        case followedTags(viewModel: FollowedTagsViewModel)
 
         // setting
         case settings(viewModel: SettingsViewModel)
@@ -341,7 +342,7 @@ extension SceneCoordinator {
         case .custom(let transitioningDelegate):
             viewController.modalPresentationStyle = .custom
             viewController.transitioningDelegate = transitioningDelegate
-            // viewController.modalPresentationCapturesStatusBarAppearance = true
+            viewController.modalPresentationCapturesStatusBarAppearance = true
             (splitViewController ?? presentingViewController)?.present(viewController, animated: true, completion: nil)
             
         case .customPush(let animated):
@@ -446,6 +447,10 @@ private extension SceneCoordinator {
             viewController = _viewController
         case .bookmark(let viewModel):
             let _viewController = BookmarkViewController()
+            _viewController.viewModel = viewModel
+            viewController = _viewController
+        case .followedTags(let viewModel):
+            let _viewController = FollowedTagsViewController()
             _viewController.viewModel = viewModel
             viewController = _viewController
         case .favorite(let viewModel):

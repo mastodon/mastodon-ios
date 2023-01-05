@@ -49,7 +49,7 @@ extension MastodonRegisterViewController: PHPickerViewControllerDelegate {
                     let alertController = UIAlertController(for: error, title: "", preferredStyle: .alert)
                     let okAction = UIAlertAction(title: L10n.Common.Controls.Actions.ok, style: .default, handler: nil)
                     alertController.addAction(okAction)
-                    self.coordinator.present(
+                    _ = self.coordinator.present(
                         scene: .alertController(alertController: alertController),
                         from: nil,
                         transition: .alertController(animated: true, completion: nil)

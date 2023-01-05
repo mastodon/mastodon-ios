@@ -48,10 +48,7 @@ extension ComposeContentViewModel {
             }
             .store(in: &disposeBag)
         
-        switch kind {
-        case .post:
-            break
-        case .reply(let status):
+        if case .reply(let status) = destination {
             let cell = composeReplyToTableViewCell
             // bind frame publisher
             cell.$framePublisher
@@ -67,10 +64,6 @@ extension ComposeContentViewModel {
                 guard let replyTo = status.object(in: context.managedObjectContext) else { return }
                 cell.statusView.configure(status: replyTo)
             }
-        case .hashtag:
-            break
-        case .mention:
-            break
         }
     }
 }
@@ -84,7 +77,7 @@ extension ComposeContentViewModel: UITableViewDataSource {
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch Section.allCases[section] {
         case .replyTo:
-            switch kind {
+            switch destination {
             case .reply:        return 1
             default:            return 0
             }

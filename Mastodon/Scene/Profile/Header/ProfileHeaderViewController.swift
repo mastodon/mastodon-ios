@@ -60,7 +60,8 @@ final class ProfileHeaderViewController: UIViewController, NeedsDependency, Medi
 
     // private var isAdjustBannerImageViewForSafeAreaInset = false
     private var containerSafeAreaInset: UIEdgeInsets = .zero
-    
+
+    private var currentImageType = ImageType.avatar
     private(set) lazy var imagePicker: PHPickerViewController = {
         var configuration = PHPickerConfiguration()
         configuration.filter = .images
@@ -125,7 +126,9 @@ extension ProfileHeaderViewController {
             }
             .store(in: &disposeBag)
         
-        profileHeaderView.editAvatarButtonOverlayIndicatorView.menu = createAvatarContextMenu()
+        profileHeaderView.editBannerButton.menu = createImageContextMenu(.banner)
+        profileHeaderView.editBannerButton.showsMenuAsPrimaryAction = true
+        profileHeaderView.editAvatarButtonOverlayIndicatorView.menu = createImageContextMenu(.avatar)
         profileHeaderView.editAvatarButtonOverlayIndicatorView.showsMenuAsPrimaryAction = true
         profileHeaderView.delegate = self
         
@@ -150,11 +153,17 @@ extension ProfileHeaderViewController {
         viewModel.$relationshipActionOptionSet
             .assign(to: \.relationshipActionOptionSet, on: profileHeaderView.viewModel)
             .store(in: &disposeBag)
+        viewModel.$isMyself
+            .assign(to: \.isMyself, on: profileHeaderView.viewModel)
+            .store(in: &disposeBag)
         viewModel.$isEditing
             .assign(to: \.isEditing, on: profileHeaderView.viewModel)
             .store(in: &disposeBag)
         viewModel.$isUpdating
             .assign(to: \.isUpdating, on: profileHeaderView.viewModel)
+            .store(in: &disposeBag)
+        viewModel.profileInfoEditing.$header
+            .assign(to: \.headerImageEditing, on: profileHeaderView.viewModel)
             .store(in: &disposeBag)
         viewModel.profileInfoEditing.$avatar
             .assign(to: \.avatarImageEditing, on: profileHeaderView.viewModel)
@@ -173,7 +182,7 @@ extension ProfileHeaderViewController {
         profileHeaderView.viewModel.viewDidAppear.send()
         
         // set display after view appear
-        profileHeaderView.setupAvatarOverlayViews()
+        profileHeaderView.setupImageOverlayViews()
     }
     
     override func viewDidLayoutSubviews() {
@@ -185,11 +194,16 @@ extension ProfileHeaderViewController {
 }
 
 extension ProfileHeaderViewController {
-    private func createAvatarContextMenu() -> UIMenu {
+    fileprivate enum ImageType {
+        case avatar
+        case banner
+    }
+    private func createImageContextMenu(_ type: ImageType) -> UIMenu {
         var children: [UIMenuElement] = []
         let photoLibraryAction = UIAction(title: L10n.Scene.Compose.MediaSelection.photoLibrary, image: UIImage(systemName: "rectangle.on.rectangle"), identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off) { [weak self] _ in
             guard let self = self else { return }
             os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: mediaSelectionType: .photoLibaray", ((#file as NSString).lastPathComponent), #line, #function)
+            self.currentImageType = type
             self.present(self.imagePicker, animated: true, completion: nil)
         }
         children.append(photoLibraryAction)
@@ -197,6 +211,7 @@ extension ProfileHeaderViewController {
             let cameraAction = UIAction(title: L10n.Scene.Compose.MediaSelection.camera, image: UIImage(systemName: "camera"), identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off, handler: { [weak self] _ in
                 guard let self = self else { return }
                 os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: mediaSelectionType: .camera", ((#file as NSString).lastPathComponent), #line, #function)
+                self.currentImageType = type
                 self.present(self.imagePickerController, animated: true, completion: nil)
             })
             children.append(cameraAction)
@@ -204,6 +219,7 @@ extension ProfileHeaderViewController {
         let browseAction = UIAction(title: L10n.Scene.Compose.MediaSelection.browse, image: UIImage(systemName: "ellipsis"), identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off) { [weak self] _ in
             guard let self = self else { return }
             os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: mediaSelectionType: .browse", ((#file as NSString).lastPathComponent), #line, #function)
+            self.currentImageType = type
             self.present(self.documentPickerController, animated: true, completion: nil)
         }
         children.append(browseAction)
@@ -215,7 +231,13 @@ extension ProfileHeaderViewController {
         DispatchQueue.main.async {
             let cropController = CropViewController(croppingStyle: .default, image: image)
             cropController.delegate = self
-            cropController.setAspectRatioPreset(.presetSquare, animated: true)
+            switch self.currentImageType {
+            case .banner:
+                cropController.customAspectRatio = CGSize(width: 3, height: 1)
+                cropController.setAspectRatioPreset(.presetCustom, animated: true)
+            case .avatar:
+                cropController.setAspectRatioPreset(.presetSquare, animated: true)
+            }
             cropController.aspectRatioPickerButtonHidden = true
             cropController.aspectRatioLockEnabled = true
             pickerViewController.dismiss(animated: true, completion: {
@@ -443,7 +465,12 @@ extension ProfileHeaderViewController: UIDocumentPickerDelegate {
 // MARK: - CropViewControllerDelegate
 extension ProfileHeaderViewController: CropViewControllerDelegate {
     public func cropViewController(_ cropViewController: CropViewController, didCropToImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
-        viewModel.profileInfoEditing.avatar = image
+        switch currentImageType {
+        case .banner:
+            viewModel.profileInfoEditing.header = image
+        case .avatar:
+            viewModel.profileInfoEditing.avatar = image
+        }
         cropViewController.dismiss(animated: true, completion: nil)
     }
 }

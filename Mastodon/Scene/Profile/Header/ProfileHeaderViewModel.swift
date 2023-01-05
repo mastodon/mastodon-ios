@@ -18,6 +18,7 @@ import MastodonUI
 final class ProfileHeaderViewModel {
     
     static let avatarImageMaxSizeInPixel = CGSize(width: 400, height: 400)
+    static let bannerImageMaxSizeInPixel = CGSize(width: 1500, height: 500)
     static let maxProfileFieldCount = 4
     
     var disposeBag = Set<AnyCancellable>()
@@ -29,6 +30,7 @@ final class ProfileHeaderViewModel {
     @Published var user: MastodonUser?
     @Published var relationshipActionOptionSet: RelationshipActionOptionSet = .none
 
+    @Published var isMyself = false
     @Published var isEditing = false
     @Published var isUpdating = false
     
@@ -52,6 +54,9 @@ final class ProfileHeaderViewModel {
             .sink { [weak self] account in
                 guard let self = self else { return }
                 guard let account = account else { return }
+                // banner
+                self.profileInfo.header = nil
+                self.profileInfoEditing.header = nil
                 // avatar
                 self.profileInfo.avatar = nil
                 self.profileInfoEditing.avatar = nil
@@ -72,6 +77,7 @@ final class ProfileHeaderViewModel {
 extension ProfileHeaderViewModel {
     class ProfileInfo {
         // input
+        @Published var header: UIImage?
         @Published var avatar: UIImage?
         @Published var name: String?
         @Published var note: String?
@@ -99,6 +105,7 @@ extension ProfileHeaderViewModel: ProfileViewModelEditable {
     var isEdited: Bool {
         guard isEditing else { return false }
         
+        guard profileInfoEditing.header == nil else { return true }
         guard profileInfoEditing.avatar == nil else { return true }
         guard profileInfo.name == profileInfoEditing.name else { return true }
         guard profileInfo.note == profileInfoEditing.note else { return true }

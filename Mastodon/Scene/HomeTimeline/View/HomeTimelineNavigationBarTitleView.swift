@@ -47,12 +47,7 @@ extension HomeTimelineNavigationBarTitleView {
     private func _init() {
         containerView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(containerView)
-        NSLayoutConstraint.activate([
-            containerView.topAnchor.constraint(equalTo: topAnchor),
-            containerView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            containerView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            containerView.bottomAnchor.constraint(equalTo: bottomAnchor),
-        ])
+        containerView.pinToParent()
         
         containerView.addArrangedSubview(logoButton)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -108,8 +103,8 @@ extension HomeTimelineNavigationBarTitleView {
             logoButton.setImage(Asset.Asset.mastodonTextLogo.image.withRenderingMode(.alwaysTemplate), for: .normal)
             logoButton.contentMode = .center
             logoButton.isHidden = false
-            logoButton.accessibilityLabel = "Logo Button"   // TODO :i18n
-            logoButton.accessibilityHint = "Tap to scroll to top and tap again to previous location"
+            logoButton.accessibilityLabel = L10n.Scene.HomeTimeline.NavigationBarState.Accessibility.logoLabel   // TODO :i18n
+            logoButton.accessibilityHint = L10n.Scene.HomeTimeline.NavigationBarState.Accessibility.logoHint 
         case .newPostButton:
             configureButton(
                 title: L10n.Scene.HomeTimeline.NavigationBarState.newPosts,

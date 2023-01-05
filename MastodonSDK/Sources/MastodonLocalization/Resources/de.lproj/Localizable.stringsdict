@@ -37,7 +37,23 @@
     <key>a11y.plural.count.input_limit_remains</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Noch %#@character_count@ übrig</string>
+      <string>Noch %#@character_count@ Zeichen übrig</string>
+      <key>character_count</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>1 Zeichen</string>
+        <key>other</key>
+        <string>%ld Zeichen</string>
+      </dict>
+    </dict>
+    <key>a11y.plural.count.characters_left</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@character_count@ übrig</string>
       <key>character_count</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>

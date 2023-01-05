@@ -13,23 +13,23 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld unread notification</string>
+        <string>%ld hysbysiad heb ei ddarllen</string>
         <key>one</key>
-        <string>1 unread notification</string>
+        <string>%ld hysbysiad heb ei ddarllen</string>
         <key>two</key>
-        <string>%ld unread notification</string>
+        <string>%ld hysbysiad heb eu darllen</string>
         <key>few</key>
-        <string>%ld unread notification</string>
+        <string>%ld hysbysiad heb eu darllen</string>
         <key>many</key>
-        <string>%ld unread notification</string>
+        <string>%ld hysbysiad heb eu darllen</string>
         <key>other</key>
-        <string>%ld unread notification</string>
+        <string>%ld hysbysiad heb eu darllen</string>
       </dict>
     </dict>
     <key>a11y.plural.count.input_limit_exceeds</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Input limit exceeds %#@character_count@</string>
+      <string>Mae'r terfyn mewnbwn yn fwy na %#@character_count@</string>
       <key>character_count</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -37,23 +37,23 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld characters</string>
+        <string>%ld nod</string>
         <key>one</key>
-        <string>1 character</string>
+        <string>%ld nod</string>
         <key>two</key>
-        <string>%ld characters</string>
+        <string>%ld nod</string>
         <key>few</key>
-        <string>%ld characters</string>
+        <string>%ld nod</string>
         <key>many</key>
-        <string>%ld characters</string>
+        <string>%ld nod</string>
         <key>other</key>
-        <string>%ld nodau</string>
+        <string>%ld nod</string>
       </dict>
     </dict>
     <key>a11y.plural.count.input_limit_remains</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Input limit remains %#@character_count@</string>
+      <string>Mae'r terfyn mewnbwn yn %#@character_count@</string>
       <key>character_count</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -61,17 +61,41 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld characters</string>
+        <string>%ld nod</string>
         <key>one</key>
-        <string>1 character</string>
+        <string>%ld nod</string>
         <key>two</key>
-        <string>%ld characters</string>
+        <string>%ld nod</string>
         <key>few</key>
-        <string>%ld characters</string>
+        <string>%ld nod</string>
         <key>many</key>
-        <string>%ld characters</string>
+        <string>%ld nod</string>
         <key>other</key>
-        <string>%ld characters</string>
+        <string>%ld nod</string>
+      </dict>
+    </dict>
+    <key>a11y.plural.count.characters_left</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@character_count@ ar ôl</string>
+      <key>character_count</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>zero</key>
+        <string>%ld nod</string>
+        <key>one</key>
+        <string>%ld nod</string>
+        <key>two</key>
+        <string>%ld nod</string>
+        <key>few</key>
+        <string>%ld nod</string>
+        <key>many</key>
+        <string>%ld nod</string>
+        <key>other</key>
+        <string>%ld nod</string>
       </dict>
     </dict>
     <key>plural.count.followed_by_and_mutual</key>
@@ -104,17 +128,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>Followed by %1$@, and %ld mutuals</string>
+        <string>Dilynwyd gan %1$@, a %ld mewn cyffredin</string>
         <key>one</key>
-        <string>Followed by %1$@, and another mutual</string>
+        <string>Dilynwyd gan %1$@, a pherson gyffredin</string>
         <key>two</key>
-        <string>Followed by %1$@, and %ld mutuals</string>
+        <string>Dilynwyd gan %1$@, a %ld mewn cyffredin</string>
         <key>few</key>
-        <string>Followed by %1$@, and %ld mutuals</string>
+        <string>Dilynwyd gan %1$@, a %ld mewn cyffredin</string>
         <key>many</key>
-        <string>Followed by %1$@, and %ld mutuals</string>
+        <string>Dilynwyd gan %1$@, a %ld mewn cyffredin</string>
         <key>other</key>
-        <string>Followed by %1$@, and %ld mutuals</string>
+        <string>Dilynwyd gan %1$@, a %ld mewn cyffredin</string>
       </dict>
     </dict>
     <key>plural.count.metric_formatted.post</key>
@@ -128,17 +152,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>post</string>
+        <string>tŵt</string>
         <key>one</key>
-        <string>post</string>
+        <string>tŵt</string>
         <key>two</key>
-        <string>postiau</string>
+        <string>tŵt</string>
         <key>few</key>
-        <string>posts</string>
+        <string>tŵt</string>
         <key>many</key>
-        <string>posts</string>
+        <string>tŵt</string>
         <key>other</key>
-        <string>postiau</string>
+        <string>postiadau</string>
       </dict>
     </dict>
     <key>plural.count.media</key>
@@ -152,17 +176,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld media</string>
+        <string>%ld cyfrwng</string>
         <key>one</key>
-        <string>1 media</string>
+        <string>%ld cyfrwng</string>
         <key>two</key>
-        <string>%ld media</string>
+        <string>%ld gyfrwng</string>
         <key>few</key>
-        <string>%ld media</string>
+        <string>%ld cyfrwng</string>
         <key>many</key>
-        <string>%ld media</string>
+        <string>%ld cyfrwng</string>
         <key>other</key>
-        <string>%ld media</string>
+        <string>%ld cyfrwng</string>
       </dict>
     </dict>
     <key>plural.count.post</key>
@@ -176,17 +200,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld posts</string>
+        <string>%ld post</string>
         <key>one</key>
-        <string>1 post</string>
+        <string>%ld post</string>
         <key>two</key>
-        <string>%ld posts</string>
+        <string>%ld bost</string>
         <key>few</key>
-        <string>%ld posts</string>
+        <string>%ld post</string>
         <key>many</key>
-        <string>%ld posts</string>
+        <string>%ld post</string>
         <key>other</key>
-        <string>%ld posts</string>
+        <string>%ld post</string>
       </dict>
     </dict>
     <key>plural.count.favorite</key>
@@ -200,17 +224,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld favorites</string>
+        <string>%ld ffefrynnau</string>
         <key>one</key>
-        <string>1 favorite</string>
+        <string>%ld ffefryn</string>
         <key>two</key>
-        <string>%ld favorites</string>
+        <string>%ld ffefryn</string>
         <key>few</key>
-        <string>%ld favorites</string>
+        <string>%ld ffefryn</string>
         <key>many</key>
-        <string>%ld favorites</string>
+        <string>%ld ffefryn</string>
         <key>other</key>
-        <string>%ld favorites</string>
+        <string>%ld ffefryn</string>
       </dict>
     </dict>
     <key>plural.count.reblog</key>
@@ -224,17 +248,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld reblogs</string>
+        <string>%ld ailflogiau</string>
         <key>one</key>
-        <string>1 reblog</string>
+        <string>%ld ailflog</string>
         <key>two</key>
-        <string>%ld reblogs</string>
+        <string>%ld ailflog</string>
         <key>few</key>
-        <string>%ld reblogs</string>
+        <string>%ld ailflog</string>
         <key>many</key>
-        <string>%ld reblogs</string>
+        <string>%ld ailflog</string>
         <key>other</key>
-        <string>%ld reblogs</string>
+        <string>%ld o ailflogiau</string>
       </dict>
     </dict>
     <key>plural.count.reply</key>
@@ -248,17 +272,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld replies</string>
+        <string>%ld ymatebau</string>
         <key>one</key>
-        <string>1 reply</string>
+        <string>%ld ymateb</string>
         <key>two</key>
-        <string>%ld replies</string>
+        <string>%ld ymateb</string>
         <key>few</key>
-        <string>%ld replies</string>
+        <string>%ld ymateb</string>
         <key>many</key>
-        <string>%ld replies</string>
+        <string>%ld o ymatebau</string>
         <key>other</key>
-        <string>%ld replies</string>
+        <string>%ld ymateb</string>
       </dict>
     </dict>
     <key>plural.count.vote</key>
@@ -272,17 +296,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld votes</string>
+        <string>%ld pleidleisiau</string>
         <key>one</key>
-        <string>1 vote</string>
+        <string>%ld pleidlais</string>
         <key>two</key>
-        <string>%ld votes</string>
+        <string>%ld bleidlais</string>
         <key>few</key>
-        <string>%ld votes</string>
+        <string>%ld phleidlais</string>
         <key>many</key>
-        <string>%ld votes</string>
+        <string>%ld pleidlais</string>
         <key>other</key>
-        <string>%ld votes</string>
+        <string>%ld pleidlais</string>
       </dict>
     </dict>
     <key>plural.count.voter</key>
@@ -296,17 +320,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld voters</string>
+        <string>%ld pleidleiswyr</string>
         <key>one</key>
-        <string>1 voter</string>
+        <string>%ld pleidleisiwr</string>
         <key>two</key>
-        <string>%ld voters</string>
+        <string>%ld bleidleisiwr</string>
         <key>few</key>
-        <string>%ld voters</string>
+        <string>%ld phleidleisiwr</string>
         <key>many</key>
-        <string>%ld voters</string>
+        <string>%ld pleidleisiwr</string>
         <key>other</key>
-        <string>%ld voters</string>
+        <string>%ld pleidleisiwr</string>
       </dict>
     </dict>
     <key>plural.people_talking</key>
@@ -320,17 +344,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld people talking</string>
+        <string>%ld person yn trafod</string>
         <key>one</key>
-        <string>1 people talking</string>
+        <string>%ld person yn trafod</string>
         <key>two</key>
-        <string>%ld people talking</string>
+        <string>%ld berson yn trafod</string>
         <key>few</key>
-        <string>%ld people talking</string>
+        <string>%ld o bobl yn trafod</string>
         <key>many</key>
-        <string>%ld people talking</string>
+        <string>%ld o bobl yn trafod</string>
         <key>other</key>
-        <string>%ld people talking</string>
+        <string>%ld o bobl yn trafod</string>
       </dict>
     </dict>
     <key>plural.count.following</key>
@@ -344,17 +368,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld following</string>
+        <string>%ld yn dilyn</string>
         <key>one</key>
-        <string>1 following</string>
+        <string>%ld yn dilyn</string>
         <key>two</key>
-        <string>%ld following</string>
+        <string>%ld yn dilyn</string>
         <key>few</key>
-        <string>%ld following</string>
+        <string>%ld yn dilyn</string>
         <key>many</key>
-        <string>%ld following</string>
+        <string>%ld yn dilyn</string>
         <key>other</key>
-        <string>%ld following</string>
+        <string>%ld yn dilyn</string>
       </dict>
     </dict>
     <key>plural.count.follower</key>
@@ -368,17 +392,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld followers</string>
+        <string>%ld dilynwyr</string>
         <key>one</key>
-        <string>1 follower</string>
+        <string>%ld dilynwr</string>
         <key>two</key>
-        <string>%ld followers</string>
+        <string>%ld ddilynwr</string>
         <key>few</key>
-        <string>%ld followers</string>
+        <string>%ld dilynwr</string>
         <key>many</key>
-        <string>%ld followers</string>
+        <string>%ld o ddilynwyr</string>
         <key>other</key>
-        <string>%ld followers</string>
+        <string>%ld dilynwr</string>
       </dict>
     </dict>
     <key>date.year.left</key>
@@ -392,17 +416,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld years left</string>
+        <string>%ld blwyddyn ar ôl</string>
         <key>one</key>
-        <string>1 year left</string>
+        <string>%ld blwyddyn ar ôl</string>
         <key>two</key>
-        <string>%ld years left</string>
+        <string>%ld flwyddyn ar ôl</string>
         <key>few</key>
-        <string>%ld years left</string>
+        <string>%ld blwyddyn ar ôl</string>
         <key>many</key>
-        <string>%ld years left</string>
+        <string>%ld blwyddyn ar ôl</string>
         <key>other</key>
-        <string>%ld years left</string>
+        <string>%ld blwyddyn ar ôl</string>
       </dict>
     </dict>
     <key>date.month.left</key>
@@ -416,17 +440,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld months left</string>
+        <string>%ld mis ar ôl</string>
         <key>one</key>
-        <string>1 months left</string>
+        <string>%ld mis ar ôl</string>
         <key>two</key>
-        <string>%ld months left</string>
+        <string>%ld fis ar ôl</string>
         <key>few</key>
-        <string>%ld months left</string>
+        <string>%ld mis ar ôl</string>
         <key>many</key>
-        <string>%ld months left</string>
+        <string>%ld mis ar ôl</string>
         <key>other</key>
-        <string>%ld months left</string>
+        <string>%ld mis ar ôl</string>
       </dict>
     </dict>
     <key>date.day.left</key>
@@ -440,17 +464,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld days left</string>
+        <string>%ld diwrnod ar ôl</string>
         <key>one</key>
-        <string>1 day left</string>
+        <string>%ld diwrnod ar ôl</string>
         <key>two</key>
-        <string>%ld days left</string>
+        <string>%ld ddiwrnod ar ôl</string>
         <key>few</key>
-        <string>%ld days left</string>
+        <string>%ld diwrnod ar ôl</string>
         <key>many</key>
-        <string>%ld days left</string>
+        <string>%ld diwrnod ar ôl</string>
         <key>other</key>
-        <string>%ld days left</string>
+        <string>%ld diwrnod ar ôl</string>
       </dict>
     </dict>
     <key>date.hour.left</key>
@@ -464,17 +488,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld hours left</string>
+        <string>%ld awr ar ôl</string>
         <key>one</key>
-        <string>1 hour left</string>
+        <string>%ld awr ar ôl</string>
         <key>two</key>
-        <string>%ld hours left</string>
+        <string>%ld awr ar ôl</string>
         <key>few</key>
-        <string>%ld hours left</string>
+        <string>%ld awr ar ôl</string>
         <key>many</key>
-        <string>%ld hours left</string>
+        <string>%ld awr ar ôl</string>
         <key>other</key>
-        <string>%ld hours left</string>
+        <string>%ld awr ar ôl</string>
       </dict>
     </dict>
     <key>date.minute.left</key>
@@ -488,17 +512,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld minutes left</string>
+        <string>%ld munud ar ôl</string>
         <key>one</key>
-        <string>1 minute left</string>
+        <string>%ld munud ar ôl</string>
         <key>two</key>
-        <string>%ld minutes left</string>
+        <string>%ld funud ar ôl</string>
         <key>few</key>
-        <string>%ld minutes left</string>
+        <string>%ld munud ar ôl</string>
         <key>many</key>
-        <string>%ld minutes left</string>
+        <string>%ld munud ar ôl</string>
         <key>other</key>
-        <string>%ld minutes left</string>
+        <string>%ld munud ar ôl</string>
       </dict>
     </dict>
     <key>date.second.left</key>
@@ -512,17 +536,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld seconds left</string>
+        <string>%ld eiliad ar ôl</string>
         <key>one</key>
-        <string>1 second left</string>
+        <string>%ld eiliad ar ôl</string>
         <key>two</key>
-        <string>%ld seconds left</string>
+        <string>%ld eiliad ar ôl</string>
         <key>few</key>
-        <string>%ld seconds left</string>
+        <string>%ld eiliad ar ôl</string>
         <key>many</key>
-        <string>%ld seconds left</string>
+        <string>%ld eiliad ar ôl</string>
         <key>other</key>
-        <string>%ld seconds left</string>
+        <string>%ld eiliad ar ôl</string>
       </dict>
     </dict>
     <key>date.year.ago.abbr</key>
@@ -536,17 +560,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ldy ago</string>
+        <string>%ld blwyddyn yn ôl</string>
         <key>one</key>
-        <string>1y ago</string>
+        <string>%ld blwyddyn yn ôl</string>
         <key>two</key>
-        <string>%ldy ago</string>
+        <string>%ld flwyddyn yn ôl</string>
         <key>few</key>
-        <string>%ldy ago</string>
+        <string>%ld blwyddyn yn ôl</string>
         <key>many</key>
-        <string>%ldy ago</string>
+        <string>%ld blwyddyn yn ôl</string>
         <key>other</key>
-        <string>%ldy ago</string>
+        <string>%ld blwyddyn yn ôl</string>
       </dict>
     </dict>
     <key>date.month.ago.abbr</key>
@@ -560,17 +584,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ldM ago</string>
+        <string>%ld munud yn ôl</string>
         <key>one</key>
-        <string>1M ago</string>
+        <string>%ld munud yn ôl</string>
         <key>two</key>
-        <string>%ldM ago</string>
+        <string>%ld funud yn ôl</string>
         <key>few</key>
-        <string>%ldM ago</string>
+        <string>%ld munud yn ôl</string>
         <key>many</key>
-        <string>%ldM ago</string>
+        <string>%ld munud yn ôl</string>
         <key>other</key>
-        <string>%ldM ago</string>
+        <string>%ld munud yn ôl</string>
       </dict>
     </dict>
     <key>date.day.ago.abbr</key>
@@ -584,17 +608,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ldd ago</string>
+        <string>%ldd yn ôl</string>
         <key>one</key>
-        <string>1d ago</string>
+        <string>%ldd yn ôl</string>
         <key>two</key>
-        <string>%ldd ago</string>
+        <string>%ldd yn ôl</string>
         <key>few</key>
-        <string>%ldd ago</string>
+        <string>%ldd yn ôl</string>
         <key>many</key>
-        <string>%ldd ago</string>
+        <string>%ldd yn ôl</string>
         <key>other</key>
-        <string>%ldd ago</string>
+        <string>%ldd yn ôl</string>
       </dict>
     </dict>
     <key>date.hour.ago.abbr</key>
@@ -608,17 +632,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ldh ago</string>
+        <string>%ld awr yn ôl</string>
         <key>one</key>
-        <string>1h ago</string>
+        <string>%ld awr yn ôl</string>
         <key>two</key>
-        <string>%ldh ago</string>
+        <string>%ld awr yn ôl</string>
         <key>few</key>
-        <string>%ldh ago</string>
+        <string>%ld awr yn ôl</string>
         <key>many</key>
-        <string>%ldh ago</string>
+        <string>%ld awr yn ôl</string>
         <key>other</key>
-        <string>%ldh ago</string>
+        <string>%ld awr yn ôl</string>
       </dict>
     </dict>
     <key>date.minute.ago.abbr</key>
@@ -632,17 +656,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ldm ago</string>
+        <string>%ld munud yn ôl</string>
         <key>one</key>
-        <string>1m ago</string>
+        <string>%ld munud yn ôl</string>
         <key>two</key>
-        <string>%ldm ago</string>
+        <string>%ld funud yn ôl</string>
         <key>few</key>
-        <string>%ldm ago</string>
+        <string>%ld munud yn ôl</string>
         <key>many</key>
-        <string>%ldm ago</string>
+        <string>%ld munud yn ôl</string>
         <key>other</key>
-        <string>%ldm ago</string>
+        <string>%ld munud yn ôl</string>
       </dict>
     </dict>
     <key>date.second.ago.abbr</key>
@@ -656,17 +680,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%lds ago</string>
+        <string>%ld eiliad yn ôl</string>
         <key>one</key>
-        <string>1s ago</string>
+        <string>%ld eiliad yn ôl</string>
         <key>two</key>
-        <string>%lds ago</string>
+        <string>%ld eiliad yn ôl</string>
         <key>few</key>
-        <string>%lds ago</string>
+        <string>%ld eiliad yn ôl</string>
         <key>many</key>
-        <string>%lds ago</string>
+        <string>%ld eiliad yn ôl</string>
         <key>other</key>
-        <string>%lds ago</string>
+        <string>%ld eiliad yn ôl</string>
       </dict>
     </dict>
   </dict>

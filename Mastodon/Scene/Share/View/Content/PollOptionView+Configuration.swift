@@ -33,12 +33,12 @@ extension PollOptionView {
             .store(in: &disposeBag)
         // percentage
         Publishers.CombineLatest(
-            option.poll.publisher(for: \.votesCount),
+            option.poll.publisher(for: \.votersCount),
             option.publisher(for: \.votesCount)
         )
-        .map { pollVotesCount, optionVotesCount -> Double? in
-            guard pollVotesCount > 0, optionVotesCount >= 0 else { return 0 }
-            return Double(optionVotesCount) / Double(pollVotesCount)
+        .map { pollVotersCount, optionVotesCount -> Double? in
+            guard pollVotersCount > 0, optionVotesCount >= 0 else { return 0 }
+            return Double(optionVotesCount) / Double(pollVotersCount)
         }
         .assign(to: \.percentage, on: viewModel)
         .store(in: &disposeBag)

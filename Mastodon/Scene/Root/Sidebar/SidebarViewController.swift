@@ -15,6 +15,7 @@ import MastodonUI
 protocol SidebarViewControllerDelegate: AnyObject {
     func sidebarViewController(_ sidebarViewController: SidebarViewController, didSelectTab tab: MainTabBarController.Tab)
     func sidebarViewController(_ sidebarViewController: SidebarViewController, didLongPressItem item: SidebarViewModel.Item, sourceView: UIView)
+    func sidebarViewController(_ sidebarViewController: SidebarViewController, didDoubleTapItem item: SidebarViewModel.Item, sourceView: UIView)
 }
 
 final class SidebarViewController: UIViewController, NeedsDependency {
@@ -101,12 +102,7 @@ extension SidebarViewController {
         
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(collectionView)
-        NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-        ])
+        collectionView.pinToParent()
         
         secondaryCollectionView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(secondaryCollectionView)
@@ -143,6 +139,15 @@ extension SidebarViewController {
         let sidebarLongPressGestureRecognizer = UILongPressGestureRecognizer()
         sidebarLongPressGestureRecognizer.addTarget(self, action: #selector(SidebarViewController.sidebarLongPressGestureRecognizerHandler(_:)))
         collectionView.addGestureRecognizer(sidebarLongPressGestureRecognizer)
+        
+        // todo: reconsider the "double tap to change account" feature -> https://github.com/mastodon/mastodon-ios/issues/628
+//        let sidebarDoubleTapGestureRecognizer = UITapGestureRecognizer()
+//        sidebarDoubleTapGestureRecognizer.numberOfTapsRequired = 2
+//        sidebarDoubleTapGestureRecognizer.addTarget(self, action: #selector(SidebarViewController.sidebarDoubleTapGestureRecognizerHandler(_:)))
+//        sidebarDoubleTapGestureRecognizer.delaysTouchesEnded = false
+//        sidebarDoubleTapGestureRecognizer.cancelsTouchesInView = true
+//        collectionView.addGestureRecognizer(sidebarDoubleTapGestureRecognizer)
+
     }
     
     private func setupBackground(theme: Theme) {
@@ -176,6 +181,20 @@ extension SidebarViewController {
         guard let cell = collectionView.cellForItem(at: indexPath) else { return }
         delegate?.sidebarViewController(self, didLongPressItem: item, sourceView: cell)
     }
+    
+    @objc private func sidebarDoubleTapGestureRecognizerHandler(_ sender: UITapGestureRecognizer) {
+        guard sender.state == .ended else { return }
+        
+        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
+        assert(sender.view === collectionView)
+        
+        let position = sender.location(in: collectionView)
+        guard let indexPath = collectionView.indexPathForItem(at: position) else { return }
+        guard let diffableDataSource = viewModel.diffableDataSource else { return }
+        guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
+        guard let cell = collectionView.cellForItem(at: indexPath) else { return }
+        delegate?.sidebarViewController(self, didDoubleTapItem: item, sourceView: cell)
+    }
 
 }
 
@@ -208,7 +227,7 @@ extension SidebarViewController: UICollectionViewDelegate {
                 let composeViewModel = ComposeViewModel(
                     context: context,
                     authContext: authContext,
-                    kind: .post
+                    destination: .topLevel
                 )
                 _ = coordinator.present(scene: .compose(viewModel: composeViewModel), from: self, transition: .modal(animated: true, completion: nil))
             default:

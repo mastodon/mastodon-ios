@@ -50,6 +50,22 @@
         <string>%ld caràcters</string>
       </dict>
     </dict>
+    <key>a11y.plural.count.characters_left</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>resten %#@character_count@</string>
+      <key>character_count</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>1 caràcter</string>
+        <key>other</key>
+        <string>%ld caràcters</string>
+      </dict>
+    </dict>
     <key>plural.count.followed_by_and_mutual</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
@@ -392,7 +408,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>fa 1 día</string>
+        <string>fa 1 dia</string>
         <key>other</key>
         <string>fa %ld dies</string>
       </dict>
@@ -408,7 +424,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>fa 1h</string>
+        <string>fa 1 h</string>
         <key>other</key>
         <string>fa %ld hores</string>
       </dict>
@@ -424,9 +440,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>fa 1 minut</string>
+        <string>fa 1 min</string>
         <key>other</key>
-        <string>fa %ld minuts</string>
+        <string>fa %ld min</string>
       </dict>
     </dict>
     <key>date.second.ago.abbr</key>
@@ -440,9 +456,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>fa 1 segon</string>
+        <string>fa 1 s</string>
         <key>other</key>
-        <string>fa %ld segons</string>
+        <string>fa %ld s</string>
       </dict>
     </dict>
   </dict>

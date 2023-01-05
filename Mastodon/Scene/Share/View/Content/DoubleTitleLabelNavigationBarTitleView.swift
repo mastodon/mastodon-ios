@@ -47,25 +47,24 @@ extension DoubleTitleLabelNavigationBarTitleView {
         containerView.distribution = .fill
         containerView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(containerView)
-        NSLayoutConstraint.activate([
-            containerView.topAnchor.constraint(equalTo: topAnchor),
-            containerView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            containerView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            containerView.bottomAnchor.constraint(equalTo: bottomAnchor),
-        ])
+        containerView.pinToParent()
         
         containerView.addArrangedSubview(titleLabel)
         containerView.addArrangedSubview(subtitleLabel)
+
+        isAccessibilityElement = true
     }
 
     func update(title: String, subtitle: String?) {
         titleLabel.configure(content: PlaintextMetaContent(string: title))
         update(subtitle: subtitle)
+        accessibilityLabel = subtitle.map { "\(title), \($0)" } ?? title
     }
     
     func update(titleMetaContent: MetaContent, subtitle: String?) {
         titleLabel.configure(content: titleMetaContent)
         update(subtitle: subtitle)
+        accessibilityLabel = subtitle.map { "\(titleMetaContent.string), \($0)" } ?? titleMetaContent.string
     }
 
     func update(subtitle: String?) {

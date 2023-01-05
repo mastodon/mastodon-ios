@@ -46,12 +46,7 @@ extension CustomEmojiPickerItemCollectionViewCell {
     private func _init() {
         emojiImageView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(emojiImageView)
-        NSLayoutConstraint.activate([
-            emojiImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            emojiImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            emojiImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            emojiImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-        ])
+        emojiImageView.pinToParent()
         
         isAccessibilityElement = true
         accessibilityTraits = .button

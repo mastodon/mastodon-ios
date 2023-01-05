@@ -79,12 +79,7 @@ extension NewsView {
         container.spacing = 8
         container.translatesAutoresizingMaskIntoConstraints = false
         addSubview(container)
-        NSLayoutConstraint.activate([
-            container.topAnchor.constraint(equalTo: topAnchor),
-            container.leadingAnchor.constraint(equalTo: leadingAnchor),
-            container.trailingAnchor.constraint(equalTo: trailingAnchor),
-            container.bottomAnchor.constraint(equalTo: bottomAnchor),
-        ])
+        container.pinToParent()
         
         // textContainer: V - [ providerContainer | headlineLabel | (spacer) | footnoteLabel ]
         let textContainer = UIStackView()

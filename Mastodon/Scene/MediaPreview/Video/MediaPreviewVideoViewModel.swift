@@ -130,12 +130,14 @@ extension MediaPreviewVideoViewModel {
     struct RemoteVideoContext {
         let assetURL: URL?
         let previewURL: URL?
+        let altText: String?
         // let thumbnail: UIImage?
     }
     
     struct RemoteGIFContext {
         let assetURL: URL?
         let previewURL: URL?
+        let altText: String?
     }
     
 }

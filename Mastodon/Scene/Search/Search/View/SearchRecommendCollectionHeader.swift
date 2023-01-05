@@ -62,12 +62,7 @@ extension SearchRecommendCollectionHeader {
         containerStackView.isLayoutMarginsRelativeArrangement = true
         containerStackView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(containerStackView)
-        NSLayoutConstraint.activate([
-            containerStackView.topAnchor.constraint(equalTo: topAnchor),
-            containerStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            containerStackView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            containerStackView.trailingAnchor.constraint(equalTo: trailingAnchor)
-        ])
+        containerStackView.pinToParent()
         
         let horizontalStackView = UIStackView()
         horizontalStackView.spacing = 8

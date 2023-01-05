@@ -27,7 +27,7 @@ If there are new translations, Crowdin pushes new commits to a branch called `l1
 To update or add new translations, the workflow is as follows:
 
 1. Merge the PR with `l10n_develop` into `develop`. It's usually called `New Crowdin Updates`
-2. Run `update.localization.sh` on your computer.
+2. Run `update_localization.sh` on your computer.
 3. Commit the changes and push `develop`.
 
 [crowdin-mastodon-ios]: https://crowdin.com/project/mastodon-for-ios

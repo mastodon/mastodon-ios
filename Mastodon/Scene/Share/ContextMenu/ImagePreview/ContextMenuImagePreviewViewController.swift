@@ -31,12 +31,7 @@ extension ContextMenuImagePreviewViewController {
         
         imageView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(imageView)
-        NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: view.topAnchor),
-            imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            imageView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-        ])
+        imageView.pinToParent()
         
         imageView.image = viewModel.thumbnail
         

@@ -51,6 +51,11 @@
             "clean_cache": {
                 "title": "Xóa bộ nhớ đệm",
                 "message": "Đã xóa %s bộ nhớ đệm."
+            },
+            "translation_failed": {
+                "title": "Ghi chú",
+                "message": "Dịch không thành công. Có thể quản trị viên chưa bật dịch trên máy chủ này hoặc máy chủ này đang chạy phiên bản cũ hơn của Mastodon chưa hỗ trợ dịch.",
+                "button": "OK"
             }
         },
         "controls": {
@@ -75,9 +80,10 @@
                 "save_photo": "Lưu ảnh",
                 "copy_photo": "Sao chép ảnh",
                 "sign_in": "Đăng nhập",
-                "sign_up": "Đăng ký",
+                "sign_up": "Tạo tài khoản",
                 "see_more": "Xem thêm",
                 "preview": "Xem trước",
+                "copy": "Chép",
                 "share": "Chia sẻ",
                 "share_user": "Chia sẻ %s",
                 "share_post": "Chia sẻ tút",
@@ -91,12 +97,16 @@
                 "block_domain": "Chặn %s",
                 "unblock_domain": "Bỏ chặn %s",
                 "settings": "Cài đặt",
-                "delete": "Xóa"
+                "delete": "Xóa",
+                "translate_post": {
+                    "title": "Dịch từ %s",
+                    "unknown_language": "Chưa xác định"
+                }
             },
             "tabs": {
                 "home": "Bảng tin",
-                "search": "Tìm kiếm",
-                "notification": "Thông báo",
+                "search_and_explore": "Tìm và Khám Phá",
+                "notifications": "Thông báo",
                 "profile": "Trang hồ sơ"
             },
             "keyboard": {
@@ -132,6 +142,8 @@
                 "sensitive_content": "Nội dung nhạy cảm",
                 "media_content_warning": "Nhấn để hiển thị",
                 "tap_to_reveal": "Nhấn để xem",
+                "load_embed": "Nạp mã nhúng",
+                "link_via_user": "%s bởi %s",
                 "poll": {
                     "vote": "Bình chọn",
                     "closed": "Kết thúc"
@@ -153,6 +165,7 @@
                     "show_image": "Hiển thị hình ảnh",
                     "show_gif": "Hiển thị GIF",
                     "show_video_player": "Hiện trình phát video",
+                    "share_link_in_post": "Chia sẻ liên kết trong Tút",
                     "tap_then_hold_to_show_menu": "Nhấn giữ để hiện menu"
                 },
                 "tag": {
@@ -168,6 +181,12 @@
                     "private": "Chỉ người theo dõi của họ có thể thấy tút này.",
                     "private_from_me": "Chỉ người theo dõi tôi có thể thấy tút này.",
                     "direct": "Chỉ người được nhắc đến có thể thấy tút."
+                },
+                "translation": {
+                    "translated_from": "Dịch từ %s bằng %s",
+                    "unknown_language": "Không xác định",
+                    "unknown_provider": "Không biết",
+                    "show_original": "Bản gốc"
                 }
             },
             "friendship": {
@@ -218,10 +237,16 @@
             "get_started": "Bắt đầu",
             "log_in": "Đăng nhập"
         },
+        "login": {
+            "title": "Chào mừng trở lại!",
+            "subtitle": "Đăng nhập vào máy chủ mà bạn đã tạo tài khoản.",
+            "server_search_field": {
+                "placeholder": "Nhập URL hoặc tìm máy chủ"
+            }
+        },
         "server_picker": {
             "title": "Mastodon gồm nhiều máy chủ với thành viên riêng.",
-            "subtitle": "Chọn một máy chủ dựa theo sở thích, tôn giáo, hoặc ý muốn của bạn.",
-            "subtitle_extend": "Chọn một máy chủ dựa theo sở thích, tôn giáo, hoặc ý muốn của bạn. Mỗi máy chủ có thể được vận hành bởi một cá nhân hoặc một tổ chức.",
+            "subtitle": "Chọn một máy chủ dựa theo sở thích, tôn giáo, hoặc ý muốn của bạn. Bạn vẫn có thể giao tiếp với bất cứ ai mà không phụ thuộc vào máy chủ của họ.",
             "button": {
                 "category": {
                     "all": "Toàn bộ",
@@ -248,8 +273,7 @@
                 "category": "PHÂN LOẠI"
             },
             "input": {
-                "placeholder": "Tìm máy chủ",
-                "search_servers_or_enter_url": "Tìm máy chủ hoặc nhập URL"
+                "search_servers_or_enter_url": "Tìm một máy chủ hoặc nhập URL"
             },
             "empty_state": {
                 "finding_servers": "Đang tìm máy chủ hoạt động...",
@@ -376,17 +400,19 @@
             },
             "content_input_placeholder": "Cho thế giới biết bạn đang nghĩ gì",
             "compose_action": "Đăng",
-            "replying_to_user": "trả lời %s",
+            "replying_to_user": "%s viết tiếp",
             "attachment": {
                 "photo": "ảnh",
                 "video": "video",
                 "attachment_broken": "%s này bị lỗi và không thể\ntải lên Mastodon.",
                 "description_photo": "Mô tả hình ảnh cho người khiếm thị...",
                 "description_video": "Mô tả video cho người khiếm thị...",
-                "load_failed": "Load Failed",
-                "upload_failed": "Upload Failed",
-                "can_not_recognize_this_media_attachment": "Can not regonize this media attachment",
-                "attachment_too_large": "Attachment too large"
+                "load_failed": "Tải thất bại",
+                "upload_failed": "Tải lên thất bại",
+                "can_not_recognize_this_media_attachment": "Không xem được tập tin đính kèm",
+                "attachment_too_large": "Tập tin đính kèm quá lớn",
+                "compressing_state": "Đang nén...",
+                "server_processing_state": "Máy chủ đang xử lý..."
             },
             "poll": {
                 "duration_time": "Thời hạn: %s",
@@ -396,7 +422,9 @@
                 "one_day": "1 ngày",
                 "three_days": "3 ngày",
                 "seven_days": "7 ngày",
-                "option_number": "Lựa chọn %ld"
+                "option_number": "Lựa chọn %ld",
+                "the_poll_is_invalid": "Bình chọn không hợp lệ",
+                "the_poll_has_empty_option": "Thiếu lựa chọn"
             },
             "content_warning": {
                 "placeholder": "Viết nội dung ẩn của bạn ở đây..."
@@ -417,7 +445,9 @@
                 "custom_emoji_picker": "Chọn emoji",
                 "enable_content_warning": "Bật nội dung ẩn",
                 "disable_content_warning": "Tắt nội dung ẩn",
-                "post_visibility_menu": "Menu hiển thị tút"
+                "post_visibility_menu": "Menu hiển thị tút",
+                "post_options": "Tùy chọn đăng",
+                "posting_as": "Đăng dưới dạng %s"
             },
             "keyboard": {
                 "discard_post": "Hủy đăng tút",
@@ -433,15 +463,23 @@
                 "follows_you": "Đang theo dõi bạn"
             },
             "dashboard": {
-                "posts": "tút",
-                "following": "theo dõi",
-                "followers": "người theo dõi"
+                "my_posts": "posts",
+                "my_following": "following",
+                "my_followers": "followers",
+                "other_posts": "posts",
+                "other_following": "following",
+                "other_followers": "followers"
             },
             "fields": {
+                "joined": "Đã tham gia",
                 "add_row": "Thêm hàng",
                 "placeholder": {
                     "label": "Nhãn",
                     "content": "Nội dung"
+                },
+                "verified": {
+                    "short": "Đã xác minh %s",
+                    "long": "Liên kết này đã được xác minh trên %s"
                 }
             },
             "segmented_control": {
@@ -707,6 +745,18 @@
         },
         "bookmark": {
             "title": "Tút đã lưu"
+        },
+        "followed_tags": {
+            "title": "Hashtag Theo Dõi",
+            "header": {
+                "posts": "tút",
+                "participants": "người thảo luận",
+                "posts_today": "tút hôm nay"
+            },
+            "actions": {
+                "follow": "Theo dõi",
+                "unfollow": "Ngưng theo dõi"
+            }
         }
     }
 }

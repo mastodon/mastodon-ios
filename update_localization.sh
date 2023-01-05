@@ -25,6 +25,7 @@ cd ${SRCROOT}/Localization/StringsConvertor
 sh ./scripts/build.sh
 
 # Task 3 copy strings file
+cp -R ${SRCROOT}/Localization/StringsConvertor/output/main/ ${SRCROOT}/Mastodon/Resources
 cp -R ${SRCROOT}/Localization/StringsConvertor/output/module/ ${SRCROOT}/MastodonSDK/Sources/MastodonLocalization/Resources
 cp -R ${SRCROOT}/Localization/StringsConvertor/Intents/output/ ${SRCROOT}/MastodonIntent
 

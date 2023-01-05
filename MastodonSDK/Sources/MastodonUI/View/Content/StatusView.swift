@@ -23,6 +23,7 @@ public protocol StatusViewDelegate: AnyObject {
     func statusView(_ statusView: StatusView, authorAvatarButtonDidPressed button: AvatarButton)
     func statusView(_ statusView: StatusView, contentSensitiveeToggleButtonDidPressed button: UIButton)
     func statusView(_ statusView: StatusView, metaText: MetaText, didSelectMeta meta: Meta)
+    func statusView(_ statusView: StatusView, didTapCardWithURL url: URL)
     func statusView(_ statusView: StatusView, mediaGridContainerView: MediaGridContainerView, mediaView: MediaView, didSelectMediaViewAt index: Int)
     func statusView(_ statusView: StatusView, pollTableView tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     func statusView(_ statusView: StatusView, pollVoteButtonPressed button: UIButton)
@@ -32,6 +33,8 @@ public protocol StatusViewDelegate: AnyObject {
     func statusView(_ statusView: StatusView, mediaGridContainerView: MediaGridContainerView, mediaSensitiveButtonDidPressed button: UIButton)
     func statusView(_ statusView: StatusView, statusMetricView: StatusMetricView, reblogButtonDidPressed button: UIButton)
     func statusView(_ statusView: StatusView, statusMetricView: StatusMetricView, favoriteButtonDidPressed button: UIButton)
+    func statusView(_ statusView: StatusView, cardControl: StatusCardControl, didTapURL url: URL)
+    func statusView(_ statusView: StatusView, cardControlMenu: StatusCardControl) -> UIMenu?
     
     // a11y
     func statusView(_ statusView: StatusView, accessibilityActivate: Void)
@@ -49,7 +52,10 @@ public final class StatusView: UIView {
     public weak var delegate: StatusViewDelegate?
     
     public private(set) var style: Style?
-    
+
+    // accessibility actions
+    var toolbarActions = [UIAccessibilityCustomAction]()
+
     public private(set) lazy var viewModel: ViewModel = {
         let viewModel = ViewModel()
         viewModel.bind(statusView: self)
@@ -113,6 +119,8 @@ public final class StatusView: UIView {
         ]
         return metaText
     }()
+
+    public let statusCardControl = StatusCardControl()
     
     // content warning
     public let spoilerOverlayView = SpoilerOverlayView()
@@ -176,6 +184,55 @@ public final class StatusView: UIView {
         indicatorView.stopAnimating()
         return indicatorView
     }()
+    let isTranslatingLoadingView: UIActivityIndicatorView = {
+        let activityIndicatorView = UIActivityIndicatorView(style: .medium)
+        activityIndicatorView.hidesWhenStopped = true
+        activityIndicatorView.stopAnimating()
+        return activityIndicatorView
+    }()
+    private let translatedInfoLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: .systemFont(ofSize: 13, weight: .regular))
+        label.textColor = Asset.Colors.Label.secondary.color
+        label.numberOfLines = 0
+        return label
+    }()
+    lazy var translatedInfoView: UIView = {
+        let containerView = UIView()
+    
+        let revertButton = UIButton()
+        revertButton.titleLabel?.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: .systemFont(ofSize: 13, weight: .bold))
+        revertButton.setTitle(L10n.Common.Controls.Status.Translation.showOriginal, for: .normal)
+        revertButton.setTitleColor(Asset.Colors.brand.color, for: .normal)
+        revertButton.addAction(UIAction { [weak self] _ in
+            self?.revertTranslation()
+        }, for: .touchUpInside)
+        
+        [containerView, translatedInfoLabel, revertButton].forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
+        
+        [translatedInfoLabel, revertButton].forEach {
+            containerView.addSubview($0)
+        }
+        
+        translatedInfoLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        revertButton.setContentHuggingPriority(.required, for: .horizontal)
+        
+        NSLayoutConstraint.activate([
+            containerView.heightAnchor.constraint(equalToConstant: 24),
+            translatedInfoLabel.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
+            translatedInfoLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16),
+            translatedInfoLabel.trailingAnchor.constraint(equalTo: revertButton.leadingAnchor, constant: -16),
+            revertButton.topAnchor.constraint(equalTo: containerView.topAnchor),
+            revertButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16),
+            revertButton.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
+        ])
+        
+        containerView.isHidden = true
+        
+        return containerView
+    }()
 
     // toolbar
     let actionToolbarAdaptiveMarginContainerView = AdaptiveMarginContainerView()
@@ -203,12 +260,7 @@ public final class StatusView: UIView {
         authorView.avatarButton.avatarImageView.cancelTask()
         if var snapshot = pollTableViewDiffableDataSource?.snapshot() {
             snapshot.deleteAllItems()
-            if #available(iOS 15.0, *) {
-                pollTableViewDiffableDataSource?.applySnapshotUsingReloadData(snapshot)
-            } else {
-                // Fallback on earlier versions
-                pollTableViewDiffableDataSource?.apply(snapshot, animatingDifferences: false)
-            }
+            pollTableViewDiffableDataSource?.applySnapshotUsingReloadData(snapshot)
         }
         
         setHeaderDisplay(isDisplay: false)
@@ -217,6 +269,8 @@ public final class StatusView: UIView {
         setMediaDisplay(isDisplay: false)
         setPollDisplay(isDisplay: false)
         setFilterHintLabelDisplay(isDisplay: false)
+        setStatusCardControlDisplay(isDisplay: false)
+        setupTranslationIndicator()
     }
 
     public override init(frame: CGRect) {
@@ -236,16 +290,12 @@ extension StatusView {
         // container
         containerStackView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(containerStackView)
-        NSLayoutConstraint.activate([
-            containerStackView.topAnchor.constraint(equalTo: topAnchor),
-            containerStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            containerStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            containerStackView.bottomAnchor.constraint(equalTo: bottomAnchor),
-        ])
+        containerStackView.pinToParent()
         
         // header
         headerIconImageView.isUserInteractionEnabled = false
         headerInfoLabel.isUserInteractionEnabled = false
+        headerInfoLabel.isAccessibilityElement = false
         let headerTapGestureRecognizer = UITapGestureRecognizer.singleTapGestureRecognizer
         headerTapGestureRecognizer.addTarget(self, action: #selector(StatusView.headerDidPressed(_:)))
         headerContainerView.addGestureRecognizer(headerTapGestureRecognizer)
@@ -261,10 +311,14 @@ extension StatusView {
         // content
         contentMetaText.textView.delegate = self
         contentMetaText.textView.linkDelegate = self
-        
+
+        // card
+        statusCardControl.addTarget(self, action: #selector(statusCardControlPressed), for: .touchUpInside)
+        statusCardControl.delegate = self
+
         // media
         mediaGridContainerView.delegate = self
-        
+
         // poll
         pollTableView.translatesAutoresizingMaskIntoConstraints = false
         pollTableViewHeightLayoutConstraint = pollTableView.heightAnchor.constraint(equalToConstant: 44.0).priority(.required - 1)
@@ -298,6 +352,12 @@ extension StatusView {
     @objc private func spoilerOverlayViewTapGestureRecognizerHandler(_ sender: UITapGestureRecognizer) {
         logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
         delegate?.statusView(self, spoilerOverlayViewDidPressed: spoilerOverlayView)
+    }
+
+    @objc private func statusCardControlPressed(_ sender: StatusCardControl) {
+        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
+        guard let url = viewModel.card?.url else { return }
+        delegate?.statusView(self, didTapCardWithURL: url)
     }
     
 }
@@ -374,11 +434,11 @@ extension StatusView.Style {
         statusView.authorAdaptiveMarginContainerView.margin = StatusView.containerLayoutMargin
         statusView.containerStackView.addArrangedSubview(statusView.authorAdaptiveMarginContainerView)
 
-        // content container: V - [ contentMetaText ]
+        // content container: V - [ contentMetaText statusCardControl ]
         statusView.contentContainer.axis = .vertical
         statusView.contentContainer.spacing = 12
         statusView.contentContainer.distribution = .fill
-        statusView.contentContainer.alignment = .top
+        statusView.contentContainer.alignment = .fill
 
         statusView.contentAdaptiveMarginContainerView.contentView = statusView.contentContainer
         statusView.contentAdaptiveMarginContainerView.margin = StatusView.containerLayoutMargin
@@ -388,16 +448,15 @@ extension StatusView.Style {
 
         // status content
         statusView.contentContainer.addArrangedSubview(statusView.contentMetaText.textView)
-        statusView.containerStackView.setCustomSpacing(16, after: statusView.contentMetaText.textView)
+        statusView.contentContainer.addArrangedSubview(statusView.statusCardControl)
+
+        // translated info
+        statusView.containerStackView.addArrangedSubview(statusView.isTranslatingLoadingView)
+        statusView.containerStackView.addArrangedSubview(statusView.translatedInfoView)
 
         statusView.spoilerOverlayView.translatesAutoresizingMaskIntoConstraints = false
         statusView.containerStackView.addSubview(statusView.spoilerOverlayView)
-        NSLayoutConstraint.activate([
-            statusView.contentContainer.topAnchor.constraint(equalTo: statusView.spoilerOverlayView.topAnchor),
-            statusView.contentContainer.leadingAnchor.constraint(equalTo: statusView.spoilerOverlayView.leadingAnchor),
-            statusView.contentContainer.trailingAnchor.constraint(equalTo: statusView.spoilerOverlayView.trailingAnchor),
-            statusView.contentContainer.bottomAnchor.constraint(equalTo: statusView.spoilerOverlayView.bottomAnchor),
-        ])
+        statusView.contentContainer.pinTo(to: statusView.spoilerOverlayView)
 
         // media container: V - [ mediaGridContainerView ]
         statusView.mediaContainerView.translatesAutoresizingMaskIntoConstraints = false
@@ -409,12 +468,7 @@ extension StatusView.Style {
 
         statusView.mediaGridContainerView.translatesAutoresizingMaskIntoConstraints = false
         statusView.mediaContainerView.addSubview(statusView.mediaGridContainerView)
-        NSLayoutConstraint.activate([
-            statusView.mediaGridContainerView.topAnchor.constraint(equalTo: statusView.mediaContainerView.topAnchor),
-            statusView.mediaGridContainerView.leadingAnchor.constraint(equalTo: statusView.mediaContainerView.leadingAnchor),
-            statusView.mediaGridContainerView.trailingAnchor.constraint(equalTo: statusView.mediaContainerView.trailingAnchor),
-            statusView.mediaGridContainerView.bottomAnchor.constraint(equalTo: statusView.mediaContainerView.bottomAnchor),
-        ])
+        statusView.mediaGridContainerView.pinToParent()
 
         // pollContainerView: V - [ pollTableView | pollStatusStackView ]
         statusView.pollAdaptiveMarginContainerView.contentView = statusView.pollContainerView
@@ -438,7 +492,7 @@ extension StatusView.Style {
         statusView.pollStatusDotLabel.setContentHuggingPriority(.defaultHigh + 1, for: .horizontal)
         statusView.pollCountdownLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
         statusView.pollVoteButton.setContentHuggingPriority(.defaultHigh + 3, for: .horizontal)
-
+        
         // action toolbar
         statusView.actionToolbarAdaptiveMarginContainerView.contentView = statusView.actionToolbarContainer
         statusView.actionToolbarAdaptiveMarginContainerView.margin = StatusView.containerLayoutMargin
@@ -486,6 +540,7 @@ extension StatusView.Style {
         
         statusView.headerAdaptiveMarginContainerView.removeFromSuperview()
         statusView.authorAdaptiveMarginContainerView.removeFromSuperview()
+        statusView.statusCardControl.removeFromSuperview()
     }
     
     func notificationQuote(statusView: StatusView) {
@@ -494,6 +549,7 @@ extension StatusView.Style {
         statusView.contentAdaptiveMarginContainerView.bottomLayoutConstraint?.constant = 16     // fix bottom margin missing issue
         statusView.pollAdaptiveMarginContainerView.bottomLayoutConstraint?.constant = 16        // fix bottom margin missing issue
         statusView.actionToolbarAdaptiveMarginContainerView.removeFromSuperview()
+        statusView.statusCardControl.removeFromSuperview()
     }
     
     func composeStatusReplica(statusView: StatusView) {
@@ -539,6 +595,10 @@ extension StatusView {
     func setFilterHintLabelDisplay(isDisplay: Bool = true) {
         filterHintLabel.isHidden = !isDisplay
     }
+
+    func setStatusCardControlDisplay(isDisplay: Bool = true) {
+        statusCardControl.isHidden = !isDisplay
+    }
     
     // container width
     public var contentMaxLayoutWidth: CGFloat {
@@ -549,7 +609,11 @@ extension StatusView {
 
 extension StatusView {
     public override var accessibilityCustomActions: [UIAccessibilityCustomAction]? {
-        get { contentMetaText.textView.accessibilityCustomActions }
+        get {
+            (contentMetaText.textView.accessibilityCustomActions ?? [])
+            + toolbarActions
+            + (authorView.accessibilityCustomActions ?? [])
+        }
         set { }
     }
 }
@@ -661,6 +725,52 @@ extension StatusView: MastodonMenuDelegate {
     public func menuAction(_ action: MastodonMenu.Action) {
         logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
         delegate?.statusView(self, menuButton: authorView.menuButton, didSelectAction: action)
+    }
+}
+
+extension StatusView {
+    func setupTranslationIndicator() {
+        viewModel.$isCurrentlyTranslating
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] isTranslating in
+                switch isTranslating {
+                case true:
+                    self?.isTranslatingLoadingView.startAnimating()
+                case false:
+                    self?.isTranslatingLoadingView.stopAnimating()
+                }
+            }
+            .store(in: &disposeBag)
+
+        Publishers.CombineLatest(
+            viewModel.$translatedFromLanguage,
+            viewModel.$translatedUsingProvider
+        )
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] translatedFromLanguage, translatedUsingProvider in
+                guard let self = self else { return }
+                if let translatedFromLanguage = translatedFromLanguage {
+                    self.translatedInfoLabel.text = L10n.Common.Controls.Status.Translation.translatedFrom(
+                        Locale.current.localizedString(forIdentifier: translatedFromLanguage) ?? L10n.Common.Controls.Status.Translation.unknownLanguage,
+                        translatedUsingProvider ?? L10n.Common.Controls.Status.Translation.unknownProvider
+                    )
+                    self.translatedInfoView.isHidden = false
+                } else {
+                    self.translatedInfoView.isHidden = true
+                }
+            }
+            .store(in: &disposeBag)
+    }
+}
+
+// MARK: StatusCardControlDelegate
+extension StatusView: StatusCardControlDelegate {
+    public func statusCardControl(_ statusCardControl: StatusCardControl, didTapURL url: URL) {
+        delegate?.statusView(self, cardControl: statusCardControl, didTapURL: url)
+    }
+
+    public func statusCardControlMenu(_ statusCardControl: StatusCardControl) -> UIMenu? {
+        delegate?.statusView(self, cardControlMenu: statusCardControl)
     }
 }
 

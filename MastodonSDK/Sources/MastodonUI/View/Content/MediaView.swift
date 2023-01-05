@@ -10,18 +10,15 @@ import AVKit
 import UIKit
 import Combine
 import AlamofireImage
+import SwiftUI
+import MastodonLocalization
+import MastodonAsset
 
 public final class MediaView: UIView {
     
     var _disposeBag = Set<AnyCancellable>()
     
     public static let cornerRadius: CGFloat = 0
-    public static let durationFormatter: DateComponentsFormatter = {
-        let formatter = DateComponentsFormatter()
-        formatter.zeroFormattingBehavior = .pad
-        formatter.allowedUnits = [.minute, .second]
-        return formatter
-    }()
     public static let placeholderImage = UIImage.placeholder(color: .systemGray6)
     
     public let container = TouchBlockingView()
@@ -53,11 +50,20 @@ public final class MediaView: UIView {
         return playerViewController
     }()
     private var playerLooper: AVPlayerLooper?
-    private(set) lazy var playbackImageView: UIImageView = {
+
+    private(set) lazy var playbackImageView: UIView = {
+        let wrapper = UIView()
+
         let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = UIImage(systemName: "play.circle.fill")
-        imageView.tintColor = .white
-        return imageView
+        imageView.tintColor = Asset.Colors.Label.primary.color
+        wrapper.addSubview(imageView)
+        imageView.pinToParent(padding: .init(top: 8, left: 8, bottom: 8, right: 8))
+        wrapper.backgroundColor = Asset.Theme.Mastodon.systemBackground.color.withAlphaComponent(0.8)
+        wrapper.applyCornerRadius(radius: 8)
+
+        return wrapper
     }()
     
     private(set) lazy var indicatorBlurEffectView: UIVisualEffectView = {
@@ -77,6 +83,12 @@ public final class MediaView: UIView {
         return label
     }()
     
+    let altViewController: UIHostingController<MediaAltTextOverlay> = {
+        let vc = UIHostingController(rootView: MediaAltTextOverlay())
+        vc.view.backgroundColor = .clear
+        return vc
+    }()
+
     public override init(frame: CGRect) {
         super.init(frame: frame)
         _init()
@@ -118,18 +130,18 @@ extension MediaView {
         case .image(let info):
             layoutImage()
             bindImage(configuration: configuration, info: info)
-            accessibilityLabel = "Show image"       // TODO: i18n
+            accessibilityHint = L10n.Common.Controls.Status.Media.expandImageHint
         case .gif(let info):
             layoutGIF()
             bindGIF(configuration: configuration, info: info)
-            accessibilityLabel = "Show GIF"         // TODO: i18n
+            accessibilityHint = L10n.Common.Controls.Status.Media.expandGifHint
         case .video(let info):
             layoutVideo()
             bindVideo(configuration: configuration, info: info)
-            accessibilityLabel = "Show video player" // TODO: i18n
+            accessibilityHint = L10n.Common.Controls.Status.Media.expandVideoHint
         }
         
-        accessibilityHint = "Tap then hold to show menu"    // TODO: i18n
+        accessibilityTraits.insert([.button, .image])
 
         layoutBlurhash()
         bindBlurhash(configuration: configuration)
@@ -138,12 +150,8 @@ extension MediaView {
     private func layoutImage() {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         container.addSubview(imageView)
-        NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: container.topAnchor),
-            imageView.leadingAnchor.constraint(equalTo: container.leadingAnchor),
-            imageView.trailingAnchor.constraint(equalTo: container.trailingAnchor),
-            imageView.bottomAnchor.constraint(equalTo: container.bottomAnchor),
-        ])
+        imageView.pinToParent()
+        layoutAlt()
     }
     
     private func bindImage(configuration: Configuration, info: Configuration.ImageInfo) {        
@@ -162,21 +170,20 @@ extension MediaView {
             self.imageView.image = image
         }
         .store(in: &configuration.disposeBag)
+
+        bindAlt(configuration: configuration, altDescription: info.altDescription)
     }
-        
+    
     private func layoutGIF() {
         // use view controller as View here
         playerViewController.view.translatesAutoresizingMaskIntoConstraints = false
         container.addSubview(playerViewController.view)
-        NSLayoutConstraint.activate([
-            playerViewController.view.topAnchor.constraint(equalTo: container.topAnchor),
-            playerViewController.view.leadingAnchor.constraint(equalTo: container.leadingAnchor),
-            playerViewController.view.trailingAnchor.constraint(equalTo: container.trailingAnchor),
-            playerViewController.view.bottomAnchor.constraint(equalTo: container.bottomAnchor),
-        ])
+        playerViewController.view.pinToParent()
         
         setupIndicatorViewHierarchy()
         playerIndicatorLabel.attributedText = NSAttributedString(string: "GIF")
+        
+        layoutAlt()
     }
     
     private func bindGIF(configuration: Configuration, info: Configuration.VideoInfo) {
@@ -187,6 +194,8 @@ extension MediaView {
         
         // auto play for GIF
         player.play()
+
+        bindAlt(configuration: configuration, altDescription: info.altDescription)
     }
     
     private func layoutVideo() {
@@ -205,20 +214,30 @@ extension MediaView {
     private func bindVideo(configuration: Configuration, info: Configuration.VideoInfo) {
         let imageInfo = Configuration.ImageInfo(
             aspectRadio: info.aspectRadio,
-            assetURL: info.previewURL
+            assetURL: info.previewURL,
+            altDescription: info.altDescription
         )
         bindImage(configuration: configuration, info: imageInfo)
     }
     
+    private func bindAlt(configuration: Configuration, altDescription: String?) {
+        if configuration.total > 1 {
+            accessibilityLabel = L10n.Common.Controls.Status.Media.accessibilityLabel(
+                altDescription ?? "",
+                configuration.index + 1,
+                configuration.total
+            )
+        } else {
+            accessibilityLabel = altDescription
+        }
+
+        altViewController.rootView.altDescription = altDescription
+    }
+
     private func layoutBlurhash() {
         blurhashImageView.translatesAutoresizingMaskIntoConstraints = false
         container.addSubview(blurhashImageView)
-        NSLayoutConstraint.activate([
-            blurhashImageView.topAnchor.constraint(equalTo: container.topAnchor),
-            blurhashImageView.leadingAnchor.constraint(equalTo: container.leadingAnchor),
-            blurhashImageView.trailingAnchor.constraint(equalTo: container.trailingAnchor),
-            blurhashImageView.bottomAnchor.constraint(equalTo: container.bottomAnchor),
-        ])
+        blurhashImageView.pinToParent()
     }
     
     private func bindBlurhash(configuration: Configuration) {
@@ -241,6 +260,12 @@ extension MediaView {
                 animator.startAnimation()
             }
             .store(in: &_disposeBag)
+    }
+    
+    private func layoutAlt() {
+        altViewController.view.translatesAutoresizingMaskIntoConstraints = false
+        container.addSubview(altViewController.view)
+        altViewController.view.pinToParent()
     }
     
     public func prepareForReuse() {
@@ -278,6 +303,8 @@ extension MediaView {
         container.removeFromSuperview()
         container.removeConstraints(container.constraints)
         
+        altViewController.rootView.altDescription = nil
+
         // reset configuration
         configuration = nil
     }
@@ -304,12 +331,7 @@ extension MediaView {
         guard container.superview == nil else { return }
         container.translatesAutoresizingMaskIntoConstraints = false
         addSubview(container)
-        NSLayoutConstraint.activate([
-            container.topAnchor.constraint(equalTo: topAnchor),
-            container.leadingAnchor.constraint(equalTo: leadingAnchor),
-            container.trailingAnchor.constraint(equalTo: trailingAnchor),
-            container.bottomAnchor.constraint(equalTo: bottomAnchor),
-        ])
+        container.pinToParent()
     }
 
     private func setupIndicatorViewHierarchy() {
@@ -329,12 +351,7 @@ extension MediaView {
         if vibrancyEffectView.superview == nil {
             vibrancyEffectView.translatesAutoresizingMaskIntoConstraints = false
             blurEffectView.contentView.addSubview(vibrancyEffectView)
-            NSLayoutConstraint.activate([
-                vibrancyEffectView.topAnchor.constraint(equalTo: blurEffectView.contentView.topAnchor),
-                vibrancyEffectView.leadingAnchor.constraint(equalTo: blurEffectView.contentView.leadingAnchor),
-                vibrancyEffectView.trailingAnchor.constraint(equalTo: blurEffectView.contentView.trailingAnchor),
-                vibrancyEffectView.bottomAnchor.constraint(equalTo: blurEffectView.contentView.bottomAnchor),
-            ])
+            vibrancyEffectView.pinToParent()
         }
         
         if playerIndicatorLabel.superview == nil {

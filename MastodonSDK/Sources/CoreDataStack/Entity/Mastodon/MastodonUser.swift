@@ -77,6 +77,7 @@ final public class MastodonUser: NSManagedObject {
     @NSManaged public private(set) var votePollOptions: Set<PollOption>
     @NSManaged public private(set) var votePolls: Set<Poll>
     // relationships
+    @NSManaged public private(set) var followedTags: Set<Tag>
     @NSManaged public private(set) var following: Set<MastodonUser>
     @NSManaged public private(set) var followingBy: Set<MastodonUser>
     @NSManaged public private(set) var followRequested: Set<MastodonUser>

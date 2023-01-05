@@ -21,7 +21,7 @@ final class ShareViewController: UIViewController {
     
     var disposeBag = Set<AnyCancellable>()
     
-    let context = AppContext()
+    let context = AppContext.shared
     private(set) lazy var viewModel = ShareViewModel(context: context)
     
     let publishButton: UIButton = {
@@ -63,6 +63,10 @@ final class ShareViewController: UIViewController {
         label.text = "No Available Account" // TODO: i18n
         return label
     }()
+    
+    deinit {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+    }
 
 }
 
@@ -95,19 +99,15 @@ extension ShareViewController {
             let composeContentViewModel = ComposeContentViewModel(
                 context: context,
                 authContext: authContext,
-                kind: .post
+                destination: .topLevel,
+                initialContent: ""
             )
             let composeContentViewController = ComposeContentViewController()
             composeContentViewController.viewModel = composeContentViewModel
             addChild(composeContentViewController)
             composeContentViewController.view.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview(composeContentViewController.view)
-            NSLayoutConstraint.activate([
-                composeContentViewController.view.topAnchor.constraint(equalTo: view.topAnchor),
-                composeContentViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-                composeContentViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-                composeContentViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            ])
+            composeContentViewController.view.pinToParent()
             composeContentViewController.didMove(toParent: self)
             
             self.composeContentViewModel = composeContentViewModel
@@ -160,7 +160,7 @@ extension ShareViewController {
                 _ = try await statusPublisher.publish(api: context.apiService, authContext: authContext)
                 
                 self.publishButton.setTitle(L10n.Common.Controls.Actions.done, for: .normal)
-                try await  Task.sleep(nanoseconds: 1 * .second)
+                try await Task.sleep(nanoseconds: 1 * .second)
                 
                 self.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
 
@@ -281,6 +281,7 @@ extension ShareViewController {
                 api: context.apiService,
                 authContext: authContext,
                 input: .itemProvider(movieProvider),
+                sizeLimit: .init(image: nil, video: nil),
                 delegate: composeContentViewModel
             )
             composeContentViewModel.attachmentViewModels.append(attachmentViewModel)
@@ -290,6 +291,7 @@ extension ShareViewController {
                     api: context.apiService,
                     authContext: authContext,
                     input: .itemProvider(provider),
+                    sizeLimit: .init(image: nil, video: nil),
                     delegate: composeContentViewModel
                 )
             }
@@ -327,4 +329,8 @@ extension ShareViewController {
         case userCancelShare
         case missingAuthentication
     }
+}
+
+extension AppContext {
+    static let shared = AppContext()
 }

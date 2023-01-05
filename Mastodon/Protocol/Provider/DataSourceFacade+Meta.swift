@@ -48,21 +48,15 @@ extension DataSourceFacade {
                 assertionFailure()
                 return
             }
-            let domain = provider.authContext.mastodonAuthenticationBox.domain
-            if url.host == domain,
-               url.pathComponents.count >= 4,
-               url.pathComponents[0] == "/",
-               url.pathComponents[1] == "web",
-               url.pathComponents[2] == "statuses" {
-                let statusID = url.pathComponents[3]
-                let threadViewModel = RemoteThreadViewModel(context: provider.context, authContext: provider.authContext, statusID: statusID)
-                await provider.coordinator.present(scene: .thread(viewModel: threadViewModel), from: nil, transition: .show)
-            } else {
-                await provider.coordinator.present(scene: .safari(url: url), from: nil, transition: .safariPresent(animated: true, completion: nil))
-            }
+
+            await responseToURLAction(
+                provider: provider,
+                status: status,
+                url: url
+            )
         case .hashtag(_, let hashtag, _):
             let hashtagTimelineViewModel = HashtagTimelineViewModel(context: provider.context, authContext: provider.authContext, hashtag: hashtag)
-            await provider.coordinator.present(scene: .hashtagTimeline(viewModel: hashtagTimelineViewModel), from: provider, transition: .show)
+            _ = await provider.coordinator.present(scene: .hashtagTimeline(viewModel: hashtagTimelineViewModel), from: provider, transition: .show)
         case .mention(_, let mention, let userInfo):
             await coordinateToProfileScene(
                 provider: provider,

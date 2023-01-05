@@ -60,7 +60,7 @@ final class SearchDetailViewController: PageboyViewController, NeedsDependency {
     let searchController: CustomSearchController = {
         let searchController = CustomSearchController()
         searchController.automaticallyShowsScopeBar = false
-        searchController.dimsBackgroundDuringPresentation = false
+        searchController.obscuresBackgroundDuringPresentation = false
         return searchController
     }()
     private(set) lazy var searchBar: UISearchBar = {
@@ -116,12 +116,7 @@ extension SearchDetailViewController {
                 searchHistoryViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             ])
         } else {
-            NSLayoutConstraint.activate([
-                searchHistoryViewController.view.topAnchor.constraint(equalTo: view.topAnchor),
-                searchHistoryViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-                searchHistoryViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-                searchHistoryViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            ])
+            searchHistoryViewController.view.pinToParent()
         }
 
         transition = Transition(style: .fade, duration: 0.1)
@@ -289,12 +284,7 @@ extension SearchDetailViewController {
             
             navigationBarVisualEffectBackgroundView.translatesAutoresizingMaskIntoConstraints = false
             view.insertSubview(navigationBarVisualEffectBackgroundView, belowSubview: navigationBarBackgroundView)
-            NSLayoutConstraint.activate([
-                navigationBarVisualEffectBackgroundView.topAnchor.constraint(equalTo: navigationBarBackgroundView.topAnchor),
-                navigationBarVisualEffectBackgroundView.leadingAnchor.constraint(equalTo: navigationBarBackgroundView.leadingAnchor),
-                navigationBarVisualEffectBackgroundView.trailingAnchor.constraint(equalTo: navigationBarBackgroundView.trailingAnchor),
-                navigationBarVisualEffectBackgroundView.bottomAnchor.constraint(equalTo: navigationBarBackgroundView.bottomAnchor),
-            ])
+            navigationBarVisualEffectBackgroundView.pinTo(to: navigationBarBackgroundView)
         } else {
             navigationItem.setHidesBackButton(true, animated: false)
             navigationItem.titleView = nil

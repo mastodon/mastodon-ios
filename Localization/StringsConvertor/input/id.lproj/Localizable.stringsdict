@@ -13,13 +13,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld unread notification</string>
+        <string>%ld notifikasi belum dibaca</string>
       </dict>
     </dict>
     <key>a11y.plural.count.input_limit_exceeds</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Input limit exceeds %#@character_count@</string>
+      <string>Batas input melebihi %#@character_count@</string>
       <key>character_count</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -33,7 +33,21 @@
     <key>a11y.plural.count.input_limit_remains</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Input limit remains %#@character_count@</string>
+      <string>Batas input masih tersisa %#@character_count@</string>
+      <key>character_count</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>other</key>
+        <string>%ld karakter</string>
+      </dict>
+    </dict>
+    <key>a11y.plural.count.characters_left</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>tersisa %#@character_count@</string>
       <key>character_count</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -64,7 +78,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>Followed by %1$@, and %ld mutuals</string>
+        <string>Diikuti oleh %1$@, dan %ld mutual</string>
       </dict>
     </dict>
     <key>plural.count.metric_formatted.post</key>
@@ -134,7 +148,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld reblogs</string>
+        <string>Posting ulang %ld</string>
       </dict>
     </dict>
     <key>plural.count.reply</key>
@@ -148,7 +162,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld replies</string>
+        <string>%ld balasan</string>
       </dict>
     </dict>
     <key>plural.count.vote</key>
@@ -190,7 +204,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld people talking</string>
+        <string>%ld obrolan</string>
       </dict>
     </dict>
     <key>plural.count.following</key>
@@ -204,7 +218,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld following</string>
+        <string>%ld mengikuti</string>
       </dict>
     </dict>
     <key>plural.count.follower</key>

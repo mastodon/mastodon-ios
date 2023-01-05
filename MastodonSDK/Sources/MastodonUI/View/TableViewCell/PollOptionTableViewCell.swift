@@ -53,12 +53,7 @@ extension PollOptionTableViewCell {
         
         pollOptionView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(pollOptionView)
-        NSLayoutConstraint.activate([
-            pollOptionView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            pollOptionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            pollOptionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            pollOptionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-        ])
+        pollOptionView.pinToParent()
         pollOptionView.setup(style: .plain)
     }
     

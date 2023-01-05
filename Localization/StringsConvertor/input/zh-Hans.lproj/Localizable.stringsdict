@@ -44,6 +44,20 @@
         <string>%ld 个字符</string>
       </dict>
     </dict>
+    <key>a11y.plural.count.characters_left</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@character_count@ 剩余</string>
+      <key>character_count</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>other</key>
+        <string>%ld 个字符</string>
+      </dict>
+    </dict>
     <key>plural.count.followed_by_and_mutual</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>

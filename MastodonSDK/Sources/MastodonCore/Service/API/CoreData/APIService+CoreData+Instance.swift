@@ -46,7 +46,7 @@ extension APIService.CoreData {
         } else {
             let instance = Instance.insert(
                 into: managedObjectContext,
-                property: Instance.Property(domain: domain)
+                property: Instance.Property(domain: domain, version: entity.version)
             )
             let configurationRaw = entity.configuration.flatMap { Instance.encode(configuration: $0) }
             instance.update(configurationRaw: configurationRaw)
@@ -69,7 +69,8 @@ extension APIService.CoreData {
 
         let configurationRaw = entity.configuration.flatMap { Instance.encode(configuration: $0) }
         instance.update(configurationRaw: configurationRaw)
-        
+        instance.version = entity.version
+
         instance.didUpdate(at: networkDate)
     }
     

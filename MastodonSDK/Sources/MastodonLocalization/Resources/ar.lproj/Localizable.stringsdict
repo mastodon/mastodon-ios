@@ -74,6 +74,30 @@
         <string>%ld حَرف</string>
       </dict>
     </dict>
+    <key>a11y.plural.count.characters_left</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>يتبقى %#@character_count@</string>
+      <key>character_count</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>zero</key>
+        <string>لَا حَرف</string>
+        <key>one</key>
+        <string>حَرفٌ واحِد</string>
+        <key>two</key>
+        <string>حَرفانِ اِثنان</string>
+        <key>few</key>
+        <string>%ld أحرُف</string>
+        <key>many</key>
+        <string>%ld حَرفًا</string>
+        <key>other</key>
+        <string>%ld حَرف</string>
+      </dict>
+    </dict>
     <key>plural.count.followed_by_and_mutual</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>

@@ -47,7 +47,7 @@ extension DataSourceFacade {
             mastodonUser: user
         )
         
-        provider.coordinator.present(
+        _ = provider.coordinator.present(
             scene: .profile(viewModel: profileViewModel),
             from: provider,
             transition: .show
@@ -75,7 +75,7 @@ extension DataSourceFacade {
         }
         
         guard let mention = mentions?.first(where: { $0.username == mention }) else {
-            await provider.coordinator.present(
+            _  = await provider.coordinator.present(
                 scene: .safari(url: url),
                 from: provider,
                 transition: .safariPresent(animated: true, completion: nil)
@@ -102,7 +102,7 @@ extension DataSourceFacade {
             }
         }()
         
-        await provider.coordinator.present(
+        _ = await provider.coordinator.present(
             scene: .profile(viewModel: profileViewModel),
             from: provider,
             transition: .show

@@ -51,6 +51,11 @@
             "clean_cache": {
                 "title": "Limpiar caché",
                 "message": "Se limpió exitosamente %s de la memoria caché."
+            },
+            "translation_failed": {
+                "title": "Nota",
+                "message": "Falló la traducción. Tal vez el administrador no habilitó las traducciones en este servidor, o este servidor está ejecutando una versión antigua de Mastodon en donde las traducciones aún no estaban disponibles.",
+                "button": "Aceptar"
             }
         },
         "controls": {
@@ -75,9 +80,10 @@
                 "save_photo": "Guardar foto",
                 "copy_photo": "Copiar foto",
                 "sign_in": "Iniciar sesión",
-                "sign_up": "Registrarse",
+                "sign_up": "Crear cuenta",
                 "see_more": "Ver más",
                 "preview": "Previsualización",
+                "copy": "Copiar",
                 "share": "Compartir",
                 "share_user": "Compartir %s",
                 "share_post": "Compartir mensaje",
@@ -91,12 +97,16 @@
                 "block_domain": "Bloquear a %s",
                 "unblock_domain": "Desbloquear a %s",
                 "settings": "Configuración",
-                "delete": "Eliminar"
+                "delete": "Eliminar",
+                "translate_post": {
+                    "title": "Traducido desde el %s",
+                    "unknown_language": "Desconocido"
+                }
             },
             "tabs": {
                 "home": "Principal",
-                "search": "Buscar",
-                "notification": "Notificación",
+                "search_and_explore": "Buscar y explorar",
+                "notifications": "Notificaciones",
                 "profile": "Perfil"
             },
             "keyboard": {
@@ -132,15 +142,17 @@
                 "sensitive_content": "Contenido sensible",
                 "media_content_warning": "Tocá en cualquier parte para mostrar",
                 "tap_to_reveal": "Tocá para mostrar",
+                "load_embed": "Cargar lo insertado",
+                "link_via_user": "%s vía %s",
                 "poll": {
                     "vote": "Votar",
                     "closed": "Cerrada"
                 },
                 "meta_entity": {
-                    "url": "Link: %s",
-                    "hashtag": "Hashtag: %s",
-                    "mention": "Show Profile: %s",
-                    "email": "Email address: %s"
+                    "url": "Enlace: %s",
+                    "hashtag": "Etiqueta: %s",
+                    "mention": "Mostrar perfil: %s",
+                    "email": "Dirección de correo electrónico: %s"
                 },
                 "actions": {
                     "reply": "Responder",
@@ -153,6 +165,7 @@
                     "show_image": "Mostrar imagen",
                     "show_gif": "Mostrar GIF",
                     "show_video_player": "Mostrar reproductor de video",
+                    "share_link_in_post": "Compartir enlace en mensaje",
                     "tap_then_hold_to_show_menu": "Tocá y mantené presionado para mostrar el menú"
                 },
                 "tag": {
@@ -168,6 +181,12 @@
                     "private": "Sólo sus seguidores pueden ver este mensaje.",
                     "private_from_me": "Sólo mis seguidores pueden ver este mensaje.",
                     "direct": "Sólo el usuario mencionado puede ver este mensaje."
+                },
+                "translation": {
+                    "translated_from": "Traducido desde el %s vía %s",
+                    "unknown_language": "Desconocido",
+                    "unknown_provider": "Desconocido",
+                    "show_original": "Mostrar original"
                 }
             },
             "friendship": {
@@ -218,10 +237,16 @@
             "get_started": "Comenzá",
             "log_in": "Iniciar sesión"
         },
+        "login": {
+            "title": "Hola de nuevo",
+            "subtitle": "Iniciá sesión en el servidor en donde creaste tu cuenta.",
+            "server_search_field": {
+                "placeholder": "Ingresá la dirección web o buscá tu servidor"
+            }
+        },
         "server_picker": {
             "title": "Mastodon está compuesto de cuentas en diferentes servidores.",
-            "subtitle": "Elegí un servidor basado en tus intereses, región, o de propósitos generales.",
-            "subtitle_extend": "Elegí un servidor basado en tus intereses, región, o de propósitos generales. Cada servidor es operado por una organización o individuo totalmente independientes.",
+            "subtitle": "Elegí un servidor basado en tu región, en tus intereses o uno de propósitos generales. Vas a poder interactuar con cualquier cuenta de Mastodon, independientemente del servidor.",
             "button": {
                 "category": {
                     "all": "Todas",
@@ -248,8 +273,7 @@
                 "category": "CATEGORÍA"
             },
             "input": {
-                "placeholder": "Buscar servidores",
-                "search_servers_or_enter_url": "Buscar servidores o introducir dirección web"
+                "search_servers_or_enter_url": "Buscá comunidades o ingresá la dirección web"
             },
             "empty_state": {
                 "finding_servers": "Buscando servidores disponibles…",
@@ -386,7 +410,9 @@
                 "load_failed": "Falló la descarga",
                 "upload_failed": "Falló la subida",
                 "can_not_recognize_this_media_attachment": "No se pudo reconocer este archivo adjunto",
-                "attachment_too_large": "Adjunto demasiado grande"
+                "attachment_too_large": "Adjunto demasiado grande",
+                "compressing_state": "Comprimiendo…",
+                "server_processing_state": "Servidor procesando…"
             },
             "poll": {
                 "duration_time": "Duración: %s",
@@ -396,7 +422,9 @@
                 "one_day": "1 día",
                 "three_days": "3 días",
                 "seven_days": "7 días",
-                "option_number": "Opción %ld"
+                "option_number": "Opción %ld",
+                "the_poll_is_invalid": "La encuesta no es válida",
+                "the_poll_has_empty_option": "La encuesta tiene opción vacía"
             },
             "content_warning": {
                 "placeholder": "Escribí una advertencia precisa acá…"
@@ -417,7 +445,9 @@
                 "custom_emoji_picker": "Selector de emoji personalizado",
                 "enable_content_warning": "Habilitar advertencia de contenido",
                 "disable_content_warning": "Deshabilitar advertencia de contenido",
-                "post_visibility_menu": "Menú de visibilidad del mensaje"
+                "post_visibility_menu": "Menú de visibilidad del mensaje",
+                "post_options": "Opciones de mensaje",
+                "posting_as": "Enviar como %s"
             },
             "keyboard": {
                 "discard_post": "Descartar mensaje",
@@ -433,15 +463,23 @@
                 "follows_you": "Te sigue"
             },
             "dashboard": {
-                "posts": "mensajes",
-                "following": "siguiendo",
-                "followers": "seguidores"
+                "my_posts": "mensajes",
+                "my_following": "siguiendo",
+                "my_followers": "seguidores",
+                "other_posts": "mensajes",
+                "other_following": "siguiendo",
+                "other_followers": "seguidores"
             },
             "fields": {
+                "joined": "En este servidor desde",
                 "add_row": "Agregar fila",
                 "placeholder": {
                     "label": "Nombre de campo",
                     "content": "Valor de campo"
+                },
+                "verified": {
+                    "short": "Verificado en %s",
+                    "long": "La propiedad de este enlace fue verificada el %s"
                 }
             },
             "segmented_control": {
@@ -706,7 +744,19 @@
             "accessibility_hint": "Tocá dos veces para descartar este asistente"
         },
         "bookmark": {
-            "title": "Bookmarks"
+            "title": "Marcadores"
+        },
+        "followed_tags": {
+            "title": "Etiquetas seguidas",
+            "header": {
+                "posts": "mensajes",
+                "participants": "participantes",
+                "posts_today": "mensajes hoy"
+            },
+            "actions": {
+                "follow": "Seguir",
+                "unfollow": "Dejar de seguir"
+            }
         }
     }
 }

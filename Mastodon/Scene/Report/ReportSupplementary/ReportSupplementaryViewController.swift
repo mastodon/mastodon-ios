@@ -52,11 +52,7 @@ final class ReportSupplementaryViewController: UIViewController, NeedsDependency
         tableView.separatorStyle = .none
         tableView.backgroundColor = .clear
         tableView.keyboardDismissMode = .onDrag
-        if #available(iOS 15.0, *) {
-            tableView.sectionHeaderTopPadding = .leastNonzeroMagnitude
-        } else {
-            // Fallback on earlier versions
-        }
+        tableView.sectionHeaderTopPadding = .leastNonzeroMagnitude
         return tableView
     }()
     
@@ -93,12 +89,7 @@ extension ReportSupplementaryViewController {
 
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
-        NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-        ])
+        tableView.pinToParent()
         
         tableView.delegate = self
         viewModel.setupDiffableDataSource(
