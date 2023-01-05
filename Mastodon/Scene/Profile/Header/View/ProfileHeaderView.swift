@@ -175,7 +175,7 @@ final class ProfileHeaderView: UIView {
     
     private lazy var usernameButtonMenu: UIMenu = {
         UIMenu(children: [
-            UIAction(title: L10n.Common.Controls.Actions.copy, handler: { [weak self] _ in
+            UIAction(title: L10n.Common.Controls.Actions.copy, image: UIImage(systemName: "doc.on.doc"), handler: { [weak self] _ in
                 UIPasteboard.general.string = self?.usernameButton.title(for: .normal)
             })
         ])
