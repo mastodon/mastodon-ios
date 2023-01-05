@@ -54,6 +54,7 @@ Please check your internet connection.";
 "Common.Controls.Actions.ReportUser" = "Report %@";
 "Common.Controls.Actions.Save" = "Save";
 "Common.Controls.Actions.SavePhoto" = "Save Photo";
+"Common.Controls.Actions.SaveVideo" = "Save Video";
 "Common.Controls.Actions.SeeMore" = "See More";
 "Common.Controls.Actions.Settings" = "Settings";
 "Common.Controls.Actions.Share" = "Share";

@@ -162,6 +162,8 @@ public enum L10n {
         public static let save = L10n.tr("Localizable", "Common.Controls.Actions.Save", fallback: "Save")
         /// Save Photo
         public static let savePhoto = L10n.tr("Localizable", "Common.Controls.Actions.SavePhoto", fallback: "Save Photo")
+        /// Save Video
+        public static let saveVideo = L10n.tr("Localizable", "Common.Controls.Actions.SaveVideo", fallback: "Save Video")
         /// See More
         public static let seeMore = L10n.tr("Localizable", "Common.Controls.Actions.SeeMore", fallback: "See More")
         /// Settings

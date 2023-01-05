@@ -21,9 +21,10 @@ extension PhotoLibraryService {
     public enum PhotoLibraryError: Error {
         case noPermission
         case badPayload
+        case invalidResource
     }
 
-    public enum ImageSource {
+    public enum AssetSource {
         case url(URL)
         case image(UIImage)
     }
@@ -32,23 +33,23 @@ extension PhotoLibraryService {
 
 extension PhotoLibraryService {
 
-    public func save(imageSource source: ImageSource) -> AnyPublisher<Void, Error> {
+    public func save(assetSource source: AssetSource, assetType: PHAssetResourceType) -> AnyPublisher<Void, Error> {
         let impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .light)
         let notificationFeedbackGenerator = UINotificationFeedbackGenerator()
 
 
-        let imageDataPublisher: AnyPublisher<Data, Error> = {
+        let assetDataPublisher: AnyPublisher<Data, Error> = {
             switch source {
             case .url(let url):
-                return PhotoLibraryService.fetchImageData(url: url)
+                return PhotoLibraryService.fetchAssetData(url: url)
             case .image(let image):
                 return PhotoLibraryService.fetchImageData(image: image)
             }
         }()
 
-        return imageDataPublisher
+        return assetDataPublisher
             .flatMap { data in
-                PhotoLibraryService.save(imageData: data)
+                PhotoLibraryService.save(assetData: data, assetType: assetType, assetSource: source)
             }
             .handleEvents(receiveSubscription: { _ in
                 impactFeedbackGenerator.impactOccurred()
@@ -67,7 +68,7 @@ extension PhotoLibraryService {
 
 extension PhotoLibraryService {
 
-    public func copy(imageSource source: ImageSource) -> AnyPublisher<Void, Error> {
+    public func copy(imageSource source: AssetSource) -> AnyPublisher<Void, Error> {
 
         let impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .light)
         let notificationFeedbackGenerator = UINotificationFeedbackGenerator()
@@ -75,7 +76,7 @@ extension PhotoLibraryService {
         let imageDataPublisher: AnyPublisher<Data, Error> = {
             switch source {
             case .url(let url):
-                return PhotoLibraryService.fetchImageData(url: url)
+                return PhotoLibraryService.fetchAssetData(url: url)
             case .image(let image):
                 return PhotoLibraryService.fetchImageData(image: image)
             }
@@ -101,7 +102,7 @@ extension PhotoLibraryService {
 
 extension PhotoLibraryService {
 
-    static func fetchImageData(url: URL) -> AnyPublisher<Data, Error> {
+    static func fetchAssetData(url: URL) -> AnyPublisher<Data, Error> {
         AF.request(url).publishData()
             .tryMap { response in
                 switch response.result {
@@ -130,23 +131,63 @@ extension PhotoLibraryService {
         .eraseToAnyPublisher()
     }
 
-    static func save(imageData: Data) -> AnyPublisher<Void, Error> {
+    static func save(assetData: Data, assetType: PHAssetResourceType, assetSource: AssetSource) -> AnyPublisher<Void, Error> {
         guard PHPhotoLibrary.authorizationStatus(for: .addOnly) != .denied else {
             return Fail(error: PhotoLibraryError.noPermission).eraseToAnyPublisher()
         }
-
-        return Future<Void, Error> { promise in
-            PHPhotoLibrary.shared().performChanges {
-                PHAssetCreationRequest.forAsset().addResource(with: .photo, data: imageData, options: nil)
-            } completionHandler: { isSuccess, error in
-                if let error = error {
-                    promise(.failure(error))
-                } else {
-                    promise(.success(Void()))
+        
+        switch assetType {
+        case .video:
+            return Future<Void, Error> { promise in
+                let pathExtension: String? = {
+                    switch assetSource {
+                    case .url(let url):
+                        return url.pathExtension
+                    case .image:
+                        return nil
+                    }
+                }()
+                let filename = UUID().uuidString
+                let path = FileManager.default.temporaryDirectory.appendingPathComponent("\(filename)")
+                let url = path.appendingPathExtension(pathExtension ?? "mp4")
+                do {
+                    try assetData.write(to: url)
+                } catch {
+                    print(error)
+                }
+                PHPhotoLibrary.shared().performChanges {
+                    PHAssetCreationRequest.forAsset().addResource(with: .video, fileURL: url, options: nil)
+                } completionHandler: { isSuccess, error in
+                    do {
+                        // remove video file
+                        try FileManager.default.removeItem(at: url)
+                    } catch {
+                        promise(.failure(error))
+                    }
+                    if let error = error {
+                        promise(.failure(error))
+                    } else {
+                        promise(.success(Void()))
+                    }
                 }
             }
+            .eraseToAnyPublisher()
+        case .photo:
+            return Future<Void, Error> { promise in
+                PHPhotoLibrary.shared().performChanges {
+                    PHAssetCreationRequest.forAsset().addResource(with: .photo, data: assetData, options: nil)
+                } completionHandler: { isSuccess, error in
+                    if let error = error {
+                        promise(.failure(error))
+                    } else {
+                        promise(.success(Void()))
+                    }
+                }
+            }
+            .eraseToAnyPublisher()
+        default:
+            return Fail(error: PhotoLibraryError.invalidResource).eraseToAnyPublisher()
         }
-        .eraseToAnyPublisher()
     }
 
     static func copy(imageData: Data) -> AnyPublisher<Void, Error> {

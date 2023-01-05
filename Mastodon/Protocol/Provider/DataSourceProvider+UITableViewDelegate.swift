@@ -95,7 +95,7 @@ extension UITableViewDelegate where Self: DataSourceProvider & MediaPreviewableV
             guard let image = mediaView.thumbnail(),
                   let assetURLString = mediaView.configuration?.assetURL,
                   let assetURL = URL(string: assetURLString),
-                  let _ = mediaView.configuration?.resourceType
+                  let resourceType = mediaView.configuration?.resourceType
             else {
                 // not provide preview unless thumbnail ready
                 return nil
@@ -116,48 +116,51 @@ extension UITableViewDelegate where Self: DataSourceProvider & MediaPreviewableV
                 return previewProvider
                 
             } actionProvider: { _ -> UIMenu? in
-                return UIMenu(
-                    title: "",
-                    image: nil,
-                    identifier: nil,
-                    options: [],
-                    children: [
-                        UIAction(
-                            title: L10n.Common.Controls.Actions.savePhoto,
-                            image: UIImage(systemName: "square.and.arrow.down"),
-                            attributes: [],
-                            state: .off
-                        ) { [weak self] _ in
-                            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: save photo", ((#file as NSString).lastPathComponent), #line, #function)
-                            guard let self = self else { return }
-                            Task { @MainActor in
-                                do {
-                                    try await self.context.photoLibraryService.save(
-                                        imageSource: .url(assetURL)
-                                    ).singleOutput()
-                                } catch {
-                                    guard let error = error as? PhotoLibraryService.PhotoLibraryError,
-                                          case .noPermission = error
-                                    else { return }
-                                    let alertController = SettingService.openSettingsAlertController(
-                                        title: L10n.Common.Alerts.SavePhotoFailure.title,
-                                        message: L10n.Common.Alerts.SavePhotoFailure.message
-                                    )
-                                    _ = self.coordinator.present(
-                                        scene: .alertController(alertController: alertController),
-                                        from: self,
-                                        transition: .alertController(animated: true, completion: nil)
-                                    )
+                let saveActionTitle: String
+                switch resourceType {
+                case .video:
+                    saveActionTitle = L10n.Common.Controls.Actions.saveVideo
+                default:
+                    saveActionTitle = L10n.Common.Controls.Actions.savePhoto
+                }
+                
+                var subMenu: [UIAction] = [
+                    UIAction(
+                        title: saveActionTitle,
+                        image: UIImage(systemName: "square.and.arrow.down")
+                    ) { [weak self] _ in
+                        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: save photo", ((#file as NSString).lastPathComponent), #line, #function)
+                        guard let self = self else { return }
+                        Task { @MainActor in
+                            do {
+                                try await self.context.photoLibraryService.save(
+                                    assetSource: .url(assetURL), assetType: resourceType
+                                ).singleOutput()
+                            } catch {
+                                guard let error = error as? PhotoLibraryService.PhotoLibraryError,
+                                      case .noPermission = error
+                                else {
+                                    print(error)
+                                    return
                                 }
-                            }   // end Task
-                        },
+                                let alertController = SettingService.openSettingsAlertController(
+                                    title: L10n.Common.Alerts.SavePhotoFailure.title,
+                                    message: L10n.Common.Alerts.SavePhotoFailure.message
+                                )
+                                _ = self.coordinator.present(
+                                    scene: .alertController(alertController: alertController),
+                                    from: self,
+                                    transition: .alertController(animated: true, completion: nil)
+                                )
+                            }
+                        }   // end Task
+                    }
+                ]
+                if resourceType != .video {
+                    subMenu.append(
                         UIAction(
                             title: L10n.Common.Controls.Actions.copyPhoto,
-                            image: UIImage(systemName: "doc.on.doc"),
-                            identifier: nil,
-                            discoverabilityTitle: nil,
-                            attributes: [],
-                            state: .off
+                            image: UIImage(systemName: "doc.on.doc")
                         ) { [weak self] _ in
                             os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: copy photo", ((#file as NSString).lastPathComponent), #line, #function)
                             guard let self = self else { return }
@@ -166,31 +169,30 @@ extension UITableViewDelegate where Self: DataSourceProvider & MediaPreviewableV
                                     imageSource: .url(assetURL)
                                 ).singleOutput()
                             }
-                        },
-                        UIAction(
-                            title: L10n.Common.Controls.Actions.share,
-                            image: UIImage(systemName: "square.and.arrow.up")!,
-                            identifier: nil,
-                            discoverabilityTitle: nil,
-                            attributes: [],
-                            state: .off
-                        ) { [weak self] _ in
-                            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: share", ((#file as NSString).lastPathComponent), #line, #function)
-                            guard let self = self else { return }
-                            Task {
-                                let applicationActivities: [UIActivity] = [
-                                    SafariActivity(sceneCoordinator: self.coordinator)
-                                ]
-                                let activityViewController = UIActivityViewController(
-                                    activityItems: [assetURL],
-                                    applicationActivities: applicationActivities
-                                )
-                                activityViewController.popoverPresentationController?.sourceView = mediaView
-                                self.present(activityViewController, animated: true, completion: nil)
-                            }
                         }
-                    ]
+                    )
+                }
+                subMenu.append(
+                    UIAction(
+                        title: L10n.Common.Controls.Actions.share,
+                        image: UIImage(systemName: "square.and.arrow.up")!
+                    ) { [weak self] _ in
+                        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: share", ((#file as NSString).lastPathComponent), #line, #function)
+                        guard let self = self else { return }
+                        Task {
+                            let applicationActivities: [UIActivity] = [
+                                SafariActivity(sceneCoordinator: self.coordinator)
+                            ]
+                            let activityViewController = UIActivityViewController(
+                                activityItems: [assetURL],
+                                applicationActivities: applicationActivities
+                            )
+                            activityViewController.popoverPresentationController?.sourceView = mediaView
+                            self.present(activityViewController, animated: true, completion: nil)
+                        }
+                    }
                 )
+                return UIMenu(children: subMenu)
             }
             configuration.indexPath = indexPath
             configuration.index = i

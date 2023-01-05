@@ -285,7 +285,7 @@ extension MediaPreviewViewController: MediaPreviewImageViewControllerDelegate {
         switch action {
         case .savePhoto:
             guard let assetURL = viewController.viewModel.item.assetURL else { return }
-            context.photoLibraryService.save(imageSource: .url(assetURL))
+            context.photoLibraryService.save(assetSource: .url(assetURL), assetType: .photo)
                 .sink { [weak self] completion in
                     guard let self = self else { return }
                     switch completion {
