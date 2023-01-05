@@ -431,7 +431,7 @@ extension ProfileHeaderView {
         nameContainerStackView.addArrangedSubview(usernameButton)
         
         NSLayoutConstraint.activate([
-            usernameButton.heightAnchor.constraint(equalToConstant: 20)
+            usernameButton.heightAnchor.constraint(greaterThanOrEqualToConstant: 20)
         ])
         
         authorContainer.addArrangedSubview(nameContainerStackView)
