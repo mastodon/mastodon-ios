@@ -240,3 +240,34 @@ extension APIService {
         return result
     }
 }
+
+extension APIService {
+    public func accountSearch(
+        domain: String,
+        query: Mastodon.API.Account.AccountLookupQuery,
+        authorization: Mastodon.API.OAuth.Authorization
+    ) async throws -> Mastodon.Response.Content<Mastodon.Entity.Account> {
+        let response = try await Mastodon.API.Account.lookupAccount(
+            session: session,
+            domain: domain,
+            query: query,
+            authorization: authorization
+        ).singleOutput()
+        
+        // user
+        let managedObjectContext = self.backgroundManagedObjectContext
+        try await managedObjectContext.performChanges {
+            _ = Persistence.MastodonUser.createOrMerge(
+                in: managedObjectContext,
+                context: Persistence.MastodonUser.PersistContext(
+                    domain: domain,
+                    entity: response.value,
+                    cache: nil,
+                    networkDate: response.networkDate
+                )
+            )
+        }
+        
+        return response
+    }
+}
