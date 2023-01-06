@@ -13,6 +13,7 @@ class WelcomeContentPageView: UIView {
     private let contentStackView: UIStackView
     private let titleView: UILabel
     private let label: UILabel
+    private let blurryBackgroundView: UIVisualEffectView
     
     init(page: WelcomeContentPage) {
         
@@ -35,10 +36,16 @@ class WelcomeContentPageView: UIView {
         contentStackView.axis = .vertical
         contentStackView.alignment = .leading
         contentStackView.spacing = 8
+
+        blurryBackgroundView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
+        blurryBackgroundView.translatesAutoresizingMaskIntoConstraints = false
+        blurryBackgroundView.applyCornerRadius(radius: 8)
+
+        blurryBackgroundView.contentView.addSubview(contentStackView)
         
         super.init(frame: .zero)
-        
-        addSubview(contentStackView)
+
+        addSubview(blurryBackgroundView)
         
         setupConstraints()
     }
@@ -47,10 +54,15 @@ class WelcomeContentPageView: UIView {
     
     private func setupConstraints() {
         let constraints = [
-            contentStackView.topAnchor.constraint(equalTo: topAnchor),
-            contentStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            trailingAnchor.constraint(equalTo: contentStackView.trailingAnchor, constant: 16),
-            bottomAnchor.constraint(equalTo: contentStackView.bottomAnchor)
+            blurryBackgroundView.topAnchor.constraint(equalTo: topAnchor),
+            blurryBackgroundView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            trailingAnchor.constraint(equalTo: blurryBackgroundView.trailingAnchor, constant: 16),
+            bottomAnchor.constraint(greaterThanOrEqualTo: blurryBackgroundView.bottomAnchor),
+
+            contentStackView.topAnchor.constraint(equalTo: blurryBackgroundView.contentView.topAnchor, constant: 8),
+            contentStackView.leadingAnchor.constraint(equalTo: blurryBackgroundView.contentView.leadingAnchor, constant: 8),
+            blurryBackgroundView.contentView.trailingAnchor.constraint(equalTo: contentStackView.trailingAnchor, constant: 8),
+            blurryBackgroundView.contentView.bottomAnchor.constraint(equalTo: contentStackView.bottomAnchor, constant: 8),
         ]
         
         NSLayoutConstraint.activate(constraints)
