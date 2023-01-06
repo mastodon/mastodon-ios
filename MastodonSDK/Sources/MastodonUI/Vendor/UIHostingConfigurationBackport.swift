@@ -140,7 +140,10 @@ final class UIHostingContentViewBackport<Content, Background>: UIView, UIContent
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func didMoveToSuperview() {
+    // DIFF: rename didMoveToSuperview to didMoveToWindow,
+    // add super call
+    override func didMoveToWindow() {
+        super.didMoveToWindow()
         if superview == nil {
             hostingController.willMove(toParent: nil)
             hostingController.removeFromParent()
