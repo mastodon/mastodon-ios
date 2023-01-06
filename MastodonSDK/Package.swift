@@ -14,6 +14,8 @@ let publicLibraryTargets = [
     "MastodonUI",
 ]
 
+let appExtensionFlag = SwiftSetting.unsafeFlags(["-application-extension"])
+
 let package = Package(
     name: "MastodonSDK",
     defaultLocalization: "en",
@@ -70,20 +72,23 @@ let package = Package(
             ],
             exclude: [
                 "Template/Stencil"
-            ]
+            ],
+            swiftSettings: [appExtensionFlag]
         ),
         .target(
             name: "MastodonAsset",
             dependencies: [],
             resources: [
                 .process("Font"),
-            ]
+            ],
+            swiftSettings: [appExtensionFlag]
         ),
         .target(
             name: "MastodonCommon",
             dependencies: [
                 "MastodonExtension",
-            ]
+            ],
+            swiftSettings: [appExtensionFlag]
         ),
         .target(
             name: "MastodonCore",
@@ -99,21 +104,25 @@ let package = Package(
                 .product(name: "ArkanaKeys", package: "ArkanaKeys"),
                 .product(name: "KeychainAccess", package: "KeychainAccess"),
                 .product(name: "MetaTextKit", package: "MetaTextKit")
-            ]
+            ],
+            swiftSettings: [appExtensionFlag]
         ),
         .target(
             name: "MastodonExtension",
-            dependencies: []
+            dependencies: [],
+            swiftSettings: [appExtensionFlag]
         ),
         .target(
             name: "MastodonLocalization",
-            dependencies: []
+            dependencies: [],
+            swiftSettings: [appExtensionFlag]
         ),
         .target(
             name: "MastodonSDK",
             dependencies: [
                 .product(name: "NIOHTTP1", package: "swift-nio"),
-            ]
+            ],
+            swiftSettings: [appExtensionFlag]
         ),
         .target(
             name: "MastodonUI",
@@ -135,7 +144,8 @@ let package = Package(
                 .product(name: "Stripes", package: "Stripes"),
                 .product(name: "Kingfisher", package: "Kingfisher"),
                 .product(name: "NextLevelSessionExporter", package: "NextLevelSessionExporter"),
-            ]
+            ],
+            swiftSettings: [appExtensionFlag]
         ),
         .testTarget(
             name: "MastodonSDKTests",
