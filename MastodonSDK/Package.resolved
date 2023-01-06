@@ -104,17 +104,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/kean/Nuke.git",
       "state" : {
-        "revision" : "a002b7fd786f2df2ed4333fe73a9727499fd9d97",
-        "version" : "10.11.2"
-      }
-    },
-    {
-      "identity" : "nuke-flanimatedimage-plugin",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/kean/Nuke-FLAnimatedImage-Plugin.git",
-      "state" : {
-        "revision" : "b59c346a7d536336db3b0f12c72c6e53ee709e16",
-        "version" : "8.0.0"
+        "revision" : "2e9337168d08acccf72c039bf9324be24a1cf7d7",
+        "version" : "11.5.3"
       }
     },
     {
