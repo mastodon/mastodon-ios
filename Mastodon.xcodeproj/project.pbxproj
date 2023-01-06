@@ -28,6 +28,11 @@
 		2A3F6FE5292F6E44002E6DA7 /* FollowedTagsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A3F6FE4292F6E44002E6DA7 /* FollowedTagsTableViewCell.swift */; };
 		2A506CF4292CD85800059C37 /* FollowedTagsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A506CF3292CD85800059C37 /* FollowedTagsViewController.swift */; };
 		2A506CF6292D040100059C37 /* HashtagTimelineHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A506CF5292D040100059C37 /* HashtagTimelineHeaderView.swift */; };
+		2A64515E29642A8A00CD8B8A /* UniformTypeIdentifiers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A6451022964223800CD8B8A /* UniformTypeIdentifiers.framework */; };
+		2A64516129642A8B00CD8B8A /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A64516029642A8B00CD8B8A /* Media.xcassets */; };
+		2A64516329642A8B00CD8B8A /* ActionRequestHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A64516229642A8B00CD8B8A /* ActionRequestHandler.swift */; };
+		2A64516529642A8B00CD8B8A /* Action.js in Resources */ = {isa = PBXBuildFile; fileRef = 2A64516429642A8B00CD8B8A /* Action.js */; };
+		2A64516929642A8B00CD8B8A /* FollowActionExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 2A64515D29642A8A00CD8B8A /* FollowActionExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		2A76F75C2930D94700B3388D /* HashtagTimelineHeaderViewActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A76F75B2930D94700B3388D /* HashtagTimelineHeaderViewActionButton.swift */; };
 		2A82294F29262EE000D2A1F7 /* AppContext+NextAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A82294E29262EE000D2A1F7 /* AppContext+NextAccount.swift */; };
 		2AB12E4629362F27006BC925 /* DataSourceFacade+Translate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB12E4529362F27006BC925 /* DataSourceFacade+Translate.swift */; };
@@ -454,6 +459,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		2A64516729642A8B00CD8B8A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DB427DCA25BAA00100D1B89D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2A64515C29642A8A00CD8B8A;
+			remoteInfo = FollowActionExtension;
+		};
 		DB427DE925BAA00100D1B89D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = DB427DCA25BAA00100D1B89D /* Project object */;
@@ -521,6 +533,7 @@
 			dstSubfolderSpec = 13;
 			files = (
 				DB8FABCE26AEC7B2008E5AF4 /* MastodonIntent.appex in Embed Foundation Extensions */,
+				2A64516929642A8B00CD8B8A /* FollowActionExtension.appex in Embed Foundation Extensions */,
 				DBC6461C26A170AB00B0E31B /* ShareActionExtension.appex in Embed Foundation Extensions */,
 				DBF8AE1A263293E400C9C23C /* NotificationService.appex in Embed Foundation Extensions */,
 			);
@@ -553,6 +566,12 @@
 		2A3F6FE4292F6E44002E6DA7 /* FollowedTagsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowedTagsTableViewCell.swift; sourceTree = "<group>"; };
 		2A506CF3292CD85800059C37 /* FollowedTagsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowedTagsViewController.swift; sourceTree = "<group>"; };
 		2A506CF5292D040100059C37 /* HashtagTimelineHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagTimelineHeaderView.swift; sourceTree = "<group>"; };
+		2A6451022964223800CD8B8A /* UniformTypeIdentifiers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UniformTypeIdentifiers.framework; path = System/Library/Frameworks/UniformTypeIdentifiers.framework; sourceTree = SDKROOT; };
+		2A64515D29642A8A00CD8B8A /* FollowActionExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = FollowActionExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		2A64516029642A8B00CD8B8A /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
+		2A64516229642A8B00CD8B8A /* ActionRequestHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionRequestHandler.swift; sourceTree = "<group>"; };
+		2A64516429642A8B00CD8B8A /* Action.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Action.js; sourceTree = "<group>"; };
+		2A64516629642A8B00CD8B8A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2A76F75B2930D94700B3388D /* HashtagTimelineHeaderViewActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagTimelineHeaderViewActionButton.swift; sourceTree = "<group>"; };
 		2A82294E29262EE000D2A1F7 /* AppContext+NextAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppContext+NextAccount.swift"; sourceTree = "<group>"; };
 		2AB12E4529362F27006BC925 /* DataSourceFacade+Translate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataSourceFacade+Translate.swift"; sourceTree = "<group>"; };
@@ -1108,6 +1127,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		2A64515A29642A8A00CD8B8A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2A64515E29642A8A00CD8B8A /* UniformTypeIdentifiers.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DB427DCF25BAA00100D1B89D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1289,6 +1316,17 @@
 				2A3F6FE4292F6E44002E6DA7 /* FollowedTagsTableViewCell.swift */,
 			);
 			path = FollowedTags;
+			sourceTree = "<group>";
+		};
+		2A64515F29642A8B00CD8B8A /* FollowActionExtension */ = {
+			isa = PBXGroup;
+			children = (
+				2A64516029642A8B00CD8B8A /* Media.xcassets */,
+				2A64516229642A8B00CD8B8A /* ActionRequestHandler.swift */,
+				2A64516429642A8B00CD8B8A /* Action.js */,
+				2A64516629642A8B00CD8B8A /* Info.plist */,
+			);
+			path = FollowActionExtension;
 			sourceTree = "<group>";
 		};
 		2D152A8A25C295B8009AA50C /* Content */ = {
@@ -1509,6 +1547,7 @@
 				F4A2A2D7000E477CA459ADA9 /* Pods_AppShared.framework */,
 				DB8FAB9E26AEC3A2008E5AF4 /* Intents.framework */,
 				DB8FABA926AEC3A2008E5AF4 /* IntentsUI.framework */,
+				2A6451022964223800CD8B8A /* UniformTypeIdentifiers.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1826,6 +1865,7 @@
 				DBF8AE14263293E400C9C23C /* NotificationService */,
 				DBC6461326A170AB00B0E31B /* ShareActionExtension */,
 				DB8FABC826AEC7B2008E5AF4 /* MastodonIntent */,
+				2A64515F29642A8B00CD8B8A /* FollowActionExtension */,
 				DB427DD325BAA00100D1B89D /* Products */,
 				1EBA4F56E920856A3FC84ACB /* Pods */,
 				3FE14AD363ED19AE7FF210A6 /* Frameworks */,
@@ -1843,6 +1883,7 @@
 				DBF8AE13263293E400C9C23C /* NotificationService.appex */,
 				DBC6461226A170AB00B0E31B /* ShareActionExtension.appex */,
 				DB8FABC626AEC7B2008E5AF4 /* MastodonIntent.appex */,
+				2A64515D29642A8A00CD8B8A /* FollowActionExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2784,6 +2825,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		2A64515C29642A8A00CD8B8A /* FollowActionExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2A64516A29642A8B00CD8B8A /* Build configuration list for PBXNativeTarget "FollowActionExtension" */;
+			buildPhases = (
+				2A64515929642A8A00CD8B8A /* Sources */,
+				2A64515A29642A8A00CD8B8A /* Frameworks */,
+				2A64515B29642A8A00CD8B8A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FollowActionExtension;
+			productName = FollowActionExtension;
+			productReference = 2A64515D29642A8A00CD8B8A /* FollowActionExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		DB427DD125BAA00100D1B89D /* Mastodon */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = DB427DFC25BAA00100D1B89D /* Build configuration list for PBXNativeTarget "Mastodon" */;
@@ -2805,6 +2863,7 @@
 				DBF8AE19263293E400C9C23C /* PBXTargetDependency */,
 				DBC6461B26A170AB00B0E31B /* PBXTargetDependency */,
 				DB8FABCD26AEC7B2008E5AF4 /* PBXTargetDependency */,
+				2A64516829642A8B00CD8B8A /* PBXTargetDependency */,
 			);
 			name = Mastodon;
 			packageProductDependencies = (
@@ -2923,9 +2982,12 @@
 		DB427DCA25BAA00100D1B89D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1250;
+				LastSwiftUpdateCheck = 1420;
 				LastUpgradeCheck = 1400;
 				TargetAttributes = {
+					2A64515C29642A8A00CD8B8A = {
+						CreatedOnToolsVersion = 14.2;
+					};
 					DB427DD125BAA00100D1B89D = {
 						CreatedOnToolsVersion = 12.4;
 						LastSwiftMigration = 1300;
@@ -2995,11 +3057,21 @@
 				DBF8AE12263293E400C9C23C /* NotificationService */,
 				DBC6461126A170AB00B0E31B /* ShareActionExtension */,
 				DB8FABC526AEC7B2008E5AF4 /* MastodonIntent */,
+				2A64515C29642A8A00CD8B8A /* FollowActionExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		2A64515B29642A8A00CD8B8A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2A64516529642A8B00CD8B8A /* Action.js in Resources */,
+				2A64516129642A8B00CD8B8A /* Media.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DB427DD025BAA00100D1B89D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -3218,6 +3290,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		2A64515929642A8A00CD8B8A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2A64516329642A8B00CD8B8A /* ActionRequestHandler.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DB427DCE25BAA00100D1B89D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -3678,6 +3758,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		2A64516829642A8B00CD8B8A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2A64515C29642A8A00CD8B8A /* FollowActionExtension */;
+			targetProxy = 2A64516729642A8B00CD8B8A /* PBXContainerItemProxy */;
+		};
 		DB427DEA25BAA00100D1B89D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = DB427DD125BAA00100D1B89D /* Mastodon */;
@@ -3833,6 +3918,123 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		2A64516B29642A8B00CD8B8A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = Icon;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 5Z4GVSS33P;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = FollowActionExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Follow on Mastodon";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.FollowActionExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		2A64516C29642A8B00CD8B8A /* Profile */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = Icon;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5Z4GVSS33P;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = FollowActionExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Follow on Mastodon";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.FollowActionExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Profile;
+		};
+		2A64516D29642A8B00CD8B8A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = Icon;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5Z4GVSS33P;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = FollowActionExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Follow on Mastodon";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.FollowActionExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		2A64516E29642A8B00CD8B8A /* Release Snapshot */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = Icon;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5Z4GVSS33P;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = FollowActionExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Follow on Mastodon";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.FollowActionExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = "Release Snapshot";
+		};
 		DB427DFA25BAA00100D1B89D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -3959,6 +4161,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2E1F6A67FDF9771D3E064FDC /* Pods-Mastodon.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
@@ -3989,6 +4192,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 75E3471C898DDD9631729B6E /* Pods-Mastodon.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
@@ -4176,6 +4380,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7CB58D292DA7ACEF179A9050 /* Pods-Mastodon.profile.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
@@ -4466,6 +4671,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0655B257371274BEB7EB1C19 /* Pods-Mastodon.release snapshot.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
@@ -4651,6 +4857,17 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		2A64516A29642A8B00CD8B8A /* Build configuration list for PBXNativeTarget "FollowActionExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2A64516B29642A8B00CD8B8A /* Debug */,
+				2A64516C29642A8B00CD8B8A /* Profile */,
+				2A64516D29642A8B00CD8B8A /* Release */,
+				2A64516E29642A8B00CD8B8A /* Release Snapshot */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		DB427DCD25BAA00100D1B89D /* Build configuration list for PBXProject "Mastodon" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
