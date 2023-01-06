@@ -103,16 +103,20 @@ extension Mastodon.API.Onboarding {
     public struct ServersQuery: GetQuery {
         public let language: String?
         public let category: String?
+        /// Check if registrations need to be manually approved or not (or it doesn't matter)
+        public let registrations: String?
         
-        public init(language: String?, category: String?) {
+        public init(language: String?, category: String?, registrations: String?) {
             self.language = language
             self.category = category
+            self.registrations = registrations
         }
         
         var queryItems: [URLQueryItem]? {
             var items: [URLQueryItem] = []
             language.flatMap { items.append(URLQueryItem(name: "language", value: $0)) }
             category.flatMap { items.append(URLQueryItem(name: "category", value: $0)) }
+            registrations.flatMap { items.append(URLQueryItem(name: "registrations", value: $0)) }
             guard !items.isEmpty else { return nil }
             return items
         }
