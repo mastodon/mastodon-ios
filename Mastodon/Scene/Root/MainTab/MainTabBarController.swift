@@ -51,7 +51,7 @@ class MainTabBarController: UITabBarController {
         case home
         case search
         case compose
-        case notification
+        case notifications
         case me
 
         var tag: Int {
@@ -61,9 +61,9 @@ class MainTabBarController: UITabBarController {
         var title: String {
             switch self {
             case .home:             return L10n.Common.Controls.Tabs.home
-            case .search:           return L10n.Common.Controls.Tabs.search
+            case .search:           return L10n.Common.Controls.Tabs.searchAndExplore
             case .compose:          return L10n.Common.Controls.Actions.compose
-            case .notification:     return L10n.Common.Controls.Tabs.notification
+            case .notifications:    return L10n.Common.Controls.Tabs.notifications
             case .me:               return L10n.Common.Controls.Tabs.profile
             }
         }
@@ -73,7 +73,7 @@ class MainTabBarController: UITabBarController {
             case .home:             return Asset.ObjectsAndTools.house.image.withRenderingMode(.alwaysTemplate)
             case .search:           return Asset.ObjectsAndTools.magnifyingglass.image.withRenderingMode(.alwaysTemplate)
             case .compose:          return Asset.ObjectsAndTools.squareAndPencil.image.withRenderingMode(.alwaysTemplate)
-            case .notification:     return Asset.ObjectsAndTools.bell.image.withRenderingMode(.alwaysTemplate)
+            case .notifications:    return Asset.ObjectsAndTools.bell.image.withRenderingMode(.alwaysTemplate)
             case .me:               return UIImage(systemName: "person")!
             }
         }
@@ -83,7 +83,7 @@ class MainTabBarController: UITabBarController {
             case .home:             return Asset.ObjectsAndTools.houseFill.image.withRenderingMode(.alwaysTemplate)
             case .search:           return Asset.ObjectsAndTools.magnifyingglassFill.image.withRenderingMode(.alwaysTemplate)
             case .compose:          return Asset.ObjectsAndTools.squareAndPencil.image.withRenderingMode(.alwaysTemplate)
-            case .notification:     return Asset.ObjectsAndTools.bellFill.image.withRenderingMode(.alwaysTemplate)
+            case .notifications:    return Asset.ObjectsAndTools.bellFill.image.withRenderingMode(.alwaysTemplate)
             case .me:               return UIImage(systemName: "person.fill")!
             }
         }
@@ -93,7 +93,7 @@ class MainTabBarController: UITabBarController {
             case .home:             return Asset.ObjectsAndTools.house.image.withRenderingMode(.alwaysTemplate).resized(size: CGSize(width: 80, height: 80))
             case .search:           return Asset.ObjectsAndTools.magnifyingglass.image.withRenderingMode(.alwaysTemplate).resized(size: CGSize(width: 80, height: 80))
             case .compose:          return Asset.ObjectsAndTools.squareAndPencil.image.withRenderingMode(.alwaysTemplate).resized(size: CGSize(width: 80, height: 80))
-            case .notification:     return Asset.ObjectsAndTools.bell.image.withRenderingMode(.alwaysTemplate).resized(size: CGSize(width: 80, height: 80))
+            case .notifications:    return Asset.ObjectsAndTools.bell.image.withRenderingMode(.alwaysTemplate).resized(size: CGSize(width: 80, height: 80))
             case .me:               return UIImage(systemName: "person", withConfiguration: UIImage.SymbolConfiguration(pointSize: 80))!
             }
         }
@@ -103,7 +103,7 @@ class MainTabBarController: UITabBarController {
             case .home:             return Asset.ObjectsAndTools.house.image.withRenderingMode(.alwaysTemplate)
             case .search:           return Asset.ObjectsAndTools.magnifyingglass.image.withRenderingMode(.alwaysTemplate)
             case .compose:          return Asset.ObjectsAndTools.squareAndPencil.image.withRenderingMode(.alwaysTemplate)
-            case .notification:     return Asset.ObjectsAndTools.bell.image.withRenderingMode(.alwaysTemplate)
+            case .notifications:    return Asset.ObjectsAndTools.bell.image.withRenderingMode(.alwaysTemplate)
             case .me:               return UIImage(systemName: "person")!
             }
         }
@@ -129,7 +129,7 @@ class MainTabBarController: UITabBarController {
                 viewController = _viewController
             case .compose:
                 viewController = UIViewController()
-            case .notification:
+            case .notifications:
                 let _viewController = NotificationViewController()
                 _viewController.context = context
                 _viewController.coordinator = coordinator
@@ -274,7 +274,7 @@ extension MainTabBarController {
             } ?? false
             
             let image: UIImage = {
-                if currentTab == .notification {
+                if currentTab == .notifications {
                     return hasUnreadPushNotification ? Asset.ObjectsAndTools.bellBadgeFill.image.withRenderingMode(.alwaysTemplate) : Asset.ObjectsAndTools.bellFill.image.withRenderingMode(.alwaysTemplate)
                 } else {
                     return hasUnreadPushNotification ? Asset.ObjectsAndTools.bellBadge.image.withRenderingMode(.alwaysTemplate) : Asset.ObjectsAndTools.bell.image.withRenderingMode(.alwaysTemplate)
@@ -369,6 +369,9 @@ extension MainTabBarController {
         updateAvatarButtonAppearance()
     }
 
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        .portraitOnPhone
+    }
 }
 
 extension MainTabBarController {
@@ -379,7 +382,7 @@ extension MainTabBarController {
         let composeViewModel = ComposeViewModel(
             context: context,
             authContext: authContext,
-            kind: .post
+            destination: .topLevel
         )
         _ = coordinator.present(scene: .compose(viewModel: composeViewModel), from: nil, transition: .modal(animated: true, completion: nil))
     }
@@ -569,25 +572,24 @@ extension MainTabBarController: UITabBarControllerDelegate {
             composeButtonDidPressed(tabBarController)
             return false
         }
+
+        // Assert index is as same as the tab rawValue. This check needs to be done `shouldSelect`
+        // because the nav controller has already popped in `didSelect`.
+        if currentTab.rawValue == tabBarController.selectedIndex,
+           let navigationController = viewController as? UINavigationController,
+           navigationController.viewControllers.count == 1,
+           let scrollViewContainer = navigationController.topViewController as? ScrollViewContainer  {
+            scrollViewContainer.scrollToTop(animated: true)
+        }
+
         return true
     }
 
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: select %s", ((#file as NSString).lastPathComponent), #line, #function, viewController.debugDescription)
-        defer {
-            if let tab = Tab(rawValue: viewController.tabBarItem.tag) {
-                currentTab = tab
-            }
+        if let tab = Tab(rawValue: viewController.tabBarItem.tag) {
+            currentTab = tab
         }
-        // assert index is as same as the tab rawValue
-        guard currentTab.rawValue == tabBarController.selectedIndex,
-              let navigationController = viewController as? UINavigationController,
-              navigationController.viewControllers.count == 1,
-              let scrollViewContainer = navigationController.topViewController as? ScrollViewContainer else {
-            return
-        }
-
-        scrollViewContainer.scrollToTop(animated: true)
     }
 }
 
@@ -654,7 +656,7 @@ extension MainTabBarController {
         let tabs: [Tab] = [
             .home,
             .search,
-            .notification,
+            .notifications,
             .me
         ]
         for (i, tab) in tabs.enumerated() {
@@ -804,7 +806,7 @@ extension MainTabBarController {
         let composeViewModel = ComposeViewModel(
             context: context,
             authContext: authContext,
-            kind: .post
+            destination: .topLevel
         )
         _ = coordinator.present(scene: .compose(viewModel: composeViewModel), from: nil, transition: .modal(animated: true, completion: nil))
     }

@@ -51,14 +51,28 @@ extension Mastodon.Entity.Status {
         guard let mediaAttachments = mediaAttachments else { return [] }
         
         let attachments = mediaAttachments.compactMap { media -> MastodonAttachment? in
-            guard let kind = media.attachmentKind,
-                  let meta = media.meta,
-                  let original = meta.original,
-                  let width = original.width,       // audio has width/height
-                  let height = original.height
+            guard let kind = media.attachmentKind
             else { return nil }
-            
-            let durationMS: Int? = original.duration.flatMap { Int($0 * 1000) }
+
+            let width: Int;
+            let height: Int;
+            let durationMS: Int?;
+
+            if let meta = media.meta,
+               let original = meta.original,
+               let originalWidth = original.width,
+               let originalHeight = original.height {
+                width = originalWidth               // audio has width/height
+                height = originalHeight
+                durationMS = original.duration.map { Int($0 * 1000) }
+            }
+            else {
+                // In case metadata field is missing, use default values.
+                width = 32;
+                height = 32;
+                durationMS = nil;
+            }
+
             return MastodonAttachment(
                 id: media.id,
                 kind: kind,

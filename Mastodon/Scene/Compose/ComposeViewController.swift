@@ -34,7 +34,8 @@ final class ComposeViewController: UIViewController, NeedsDependency {
         return ComposeContentViewModel(
             context: context,
             authContext: viewModel.authContext,
-            kind: viewModel.kind
+            destination: viewModel.destination,
+            initialContent: viewModel.initialContent
         )
     }()
     private(set) lazy var composeContentViewController: ComposeContentViewController = {
@@ -128,7 +129,7 @@ extension ComposeViewController {
 extension ComposeViewController {
   
     private func showDismissConfirmAlertController() {
-        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let alertController = PortraitAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let discardAction = UIAlertAction(title: L10n.Common.Controls.Actions.discard, style: .destructive) { [weak self] _ in
             guard let self = self else { return }
             self.dismiss(animated: true, completion: nil)
@@ -209,6 +210,7 @@ extension ComposeViewController {
                     api: viewModel.context.apiService,
                     authContext: viewModel.authContext,
                     input: .image(image),
+                    sizeLimit: composeContentViewModel.sizeLimit,
                     delegate: composeContentViewModel
                 )
             }

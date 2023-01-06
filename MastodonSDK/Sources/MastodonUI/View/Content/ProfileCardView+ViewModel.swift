@@ -43,7 +43,7 @@ extension ProfileCardView {
         @Published public var isMuting = false
         @Published public var isBlocking = false
         @Published public var isBlockedBy = false
-        
+
         @Published public var groupedAccessibilityLabel = ""
         
         @Published public var familiarFollowers: Mastodon.Entity.FamiliarFollowers?
@@ -173,6 +173,19 @@ extension ProfileCardView.ViewModel {
     }
     
     private func bindDashboard(view: ProfileCardView) {
+        relationshipViewModel.$isMyself
+            .sink { isMyself in
+                if isMyself {
+                    view.statusDashboardView.postDashboardMeterView.textLabel.text = L10n.Scene.Profile.Dashboard.myPosts
+                    view.statusDashboardView.followingDashboardMeterView.textLabel.text = L10n.Scene.Profile.Dashboard.myFollowing
+                    view.statusDashboardView.followersDashboardMeterView.textLabel.text = L10n.Scene.Profile.Dashboard.myFollowers
+                } else {
+                    view.statusDashboardView.postDashboardMeterView.textLabel.text = L10n.Scene.Profile.Dashboard.otherPosts
+                    view.statusDashboardView.followingDashboardMeterView.textLabel.text = L10n.Scene.Profile.Dashboard.otherFollowing
+                    view.statusDashboardView.followersDashboardMeterView.textLabel.text = L10n.Scene.Profile.Dashboard.otherFollowers
+                }
+            }
+            .store(in: &disposeBag)
         $statusesCount
             .receive(on: DispatchQueue.main)
             .sink { count in

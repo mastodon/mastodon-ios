@@ -66,10 +66,6 @@ extension ProfileStatusDashboardView {
         containerStackView.setCustomSpacing(spacing + 2, after: followingDashboardMeterView)
         containerStackView.addArrangedSubview(followersDashboardMeterView)
         
-        postDashboardMeterView.textLabel.text = L10n.Scene.Profile.Dashboard.posts
-        followingDashboardMeterView.textLabel.text = L10n.Scene.Profile.Dashboard.following
-        followersDashboardMeterView.textLabel.text = L10n.Scene.Profile.Dashboard.followers
-        
         [postDashboardMeterView, followingDashboardMeterView, followersDashboardMeterView].forEach { meterView in
             let tapGestureRecognizer = UITapGestureRecognizer.singleTapGestureRecognizer
             tapGestureRecognizer.addTarget(self, action: #selector(ProfileStatusDashboardView.tapGestureRecognizerHandler(_:)))

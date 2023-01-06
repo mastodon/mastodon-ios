@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum MastodonNotificationType: RawRepresentable {
+public enum MastodonNotificationType: RawRepresentable, Equatable {
     case follow
     case followRequest
     case mention

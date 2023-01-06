@@ -49,6 +49,9 @@ final class AccountListViewController: UIViewController, NeedsDependency {
         return tableView
     }()
 
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        .portraitOnPhone
+    }
 }
 
 // MARK: - PanModalPresentable

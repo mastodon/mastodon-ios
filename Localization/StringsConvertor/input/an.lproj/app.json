@@ -1,0 +1,762 @@
+{
+    "common": {
+        "alerts": {
+            "common": {
+                "please_try_again": "Per favor, torna a intentar-lo.",
+                "please_try_again_later": "Per favor, torna a intentar-lo mas enta debant."
+            },
+            "sign_up_failure": {
+                "title": "Error en rechistrar-se"
+            },
+            "server_error": {
+                "title": "Error d'o servidor"
+            },
+            "vote_failure": {
+                "title": "Voto fallido",
+                "poll_ended": "La enquesta ha rematau"
+            },
+            "discard_post_content": {
+                "title": "Descartar borrador",
+                "message": "Confirma pa descartar lo conteniu d'a publicación."
+            },
+            "publish_post_failure": {
+                "title": "Error de publicación",
+                "message": "No s'ha puesto publicar la publicación. Per favor, revise la suya connexión a internet.",
+                "attachments_message": {
+                    "video_attach_with_photo": "No puetz adchuntar un video a una publicación que ya contiene imachens.",
+                    "more_than_one_video": "No puetz adchuntar mas d'un video."
+                }
+            },
+            "edit_profile_failure": {
+                "title": "Error en a Edición d'o Perfil",
+                "message": "No s'ha puesto editar lo perfil. Per favor, intenta-lo de nuevo."
+            },
+            "sign_out": {
+                "title": "Zarrar Sesión",
+                "message": "Yes seguro de que quiers zarrar la sesión?",
+                "confirm": "Zarrar Sesión"
+            },
+            "block_domain": {
+                "title": "Yes realment seguro, de verdat, que quiers blocar %s a lo completo? En a mayoría d'os casos, uns pocos bloqueyos u silenciaus concretos son suficients y preferibles. No veyerás conteniu d'ixe dominio y totz los tuyos seguidores d'ixe dominio serán eliminaus.",
+                "block_entire_domain": "Blocar Dominio"
+            },
+            "save_photo_failure": {
+                "title": "Error en Alzar Foto",
+                "message": "Per favor, activa lo permiso d'acceso a la biblioteca de fotos pa alzar la foto."
+            },
+            "delete_post": {
+                "title": "Yes seguro de que quiers eliminar esta publicación?",
+                "message": "Yes seguro de que quiers borrar esta publicación?"
+            },
+            "clean_cache": {
+                "title": "Limpiar Caché",
+                "message": "S'ha limpiau con exito %s de caché."
+            },
+            "translation_failed": {
+                "title": "Note",
+                "message": "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.",
+                "button": "OK"
+            }
+        },
+        "controls": {
+            "actions": {
+                "back": "Dezaga",
+                "next": "Siguient",
+                "previous": "Anterior",
+                "open": "Ubrir",
+                "add": "Anyadir",
+                "remove": "Eliminar",
+                "edit": "Editar",
+                "save": "Alzar",
+                "ok": "Acceptar",
+                "done": "Feito",
+                "confirm": "Confirmar",
+                "continue": "Continar",
+                "compose": "Redactar",
+                "cancel": "Cancelar",
+                "discard": "Descartar",
+                "try_again": "Intenta-lo de nuevo",
+                "take_photo": "Prener foto",
+                "save_photo": "Alzar foto",
+                "copy_photo": "Copiar foto",
+                "sign_in": "Iniciar sesión",
+                "sign_up": "Crear cuenta",
+                "see_more": "Veyer mas",
+                "preview": "Vista previa",
+                "copy": "Copy",
+                "share": "Compartir",
+                "share_user": "Compartir %s",
+                "share_post": "Compartir publicación",
+                "open_in_safari": "Ubrir en Safari",
+                "open_in_browser": "Ubrir en o navegador",
+                "find_people": "Troba chent a la quala seguir",
+                "manually_search": "Millor fer una busqueda manual",
+                "skip": "Omitir",
+                "reply": "Responder",
+                "report_user": "Reportar a %s",
+                "block_domain": "Blocar %s",
+                "unblock_domain": "Desbloquiar %s",
+                "settings": "Configuración",
+                "delete": "Borrar",
+                "translate_post": {
+                    "title": "Translate from %s",
+                    "unknown_language": "Unknown"
+                }
+            },
+            "tabs": {
+                "home": "Inicio",
+                "search_and_explore": "Search and Explore",
+                "notifications": "Notificacions",
+                "profile": "Perfil"
+            },
+            "keyboard": {
+                "common": {
+                    "switch_to_tab": "Cambiar a %s",
+                    "compose_new_post": "Escribir Nueva Publicación",
+                    "show_favorites": "Amostrar Favoritos",
+                    "open_settings": "Ubrir Configuración"
+                },
+                "timeline": {
+                    "previous_status": "Publicación Anterior",
+                    "next_status": "Siguient Publicación",
+                    "open_status": "Ubrir Publicación",
+                    "open_author_profile": "Ubrir Perfil de l'Autor",
+                    "open_reblogger_profile": "Ubrir Perfil d'o Reblogueador",
+                    "reply_status": "Responder Publicación",
+                    "toggle_reblog": "Commutar lo Reblogueo en a Publicación",
+                    "toggle_favorite": "Commutar la Marca de Favorito en a Publicación",
+                    "toggle_content_warning": "Alternar l'Alvertencia de Conteniu",
+                    "preview_image": "Previsualizar Imachen"
+                },
+                "segmented_control": {
+                    "previous_section": "Sección Anterior",
+                    "next_section": "Siguient Sección"
+                }
+            },
+            "status": {
+                "user_reblogged": "%s lo reblogueó",
+                "user_replied_to": "En respuesta a %s",
+                "show_post": "Amostrar Publicación",
+                "show_user_profile": "Amostrar perfil de l'usuario",
+                "content_warning": "Alvertencia de Conteniu",
+                "sensitive_content": "Conteniu sensible",
+                "media_content_warning": "Preta en qualsequier puesto pa amostrar",
+                "tap_to_reveal": "Tocar pa revelar",
+                "load_embed": "Load Embed",
+                "link_via_user": "%s via %s",
+                "poll": {
+                    "vote": "Vota",
+                    "closed": "Zarrau"
+                },
+                "meta_entity": {
+                    "url": "Vinclo: %s",
+                    "hashtag": "Hashtag: %s",
+                    "mention": "Amostrar lo perfil: %s",
+                    "email": "Adreza de correu: %s"
+                },
+                "actions": {
+                    "reply": "Responder",
+                    "reblog": "Rebloguear",
+                    "unreblog": "Desfer reblogueo",
+                    "favorite": "Favorito",
+                    "unfavorite": "No favorito",
+                    "menu": "Menú",
+                    "hide": "Amagar",
+                    "show_image": "Amostrar imachen",
+                    "show_gif": "Amostrar GIF",
+                    "show_video_player": "Amostrar reproductor de video",
+                    "share_link_in_post": "Share Link in Post",
+                    "tap_then_hold_to_show_menu": "Toca, dimpués mantiene pa amostrar lo menú"
+                },
+                "tag": {
+                    "url": "URL",
+                    "mention": "Mención",
+                    "link": "Vinclo",
+                    "hashtag": "Etiqueta",
+                    "email": "E-mail",
+                    "emoji": "Emoji"
+                },
+                "visibility": {
+                    "unlisted": "Totz pueden veyer este post pero no amostrar-lo en una linia de tiempo publica.",
+                    "private": "Nomás los suyos seguidores pueden veyer este mensache.",
+                    "private_from_me": "Nomás los míos seguidores pueden veyer este mensache.",
+                    "direct": "Nomás l'usuario mencionau puede veyer este mensache."
+                },
+                "translation": {
+                    "translated_from": "Translated from %s using %s",
+                    "unknown_language": "Unknown",
+                    "unknown_provider": "Unknown",
+                    "show_original": "Shown Original"
+                }
+            },
+            "friendship": {
+                "follow": "Seguir",
+                "following": "Seguindo",
+                "request": "Solicitut",
+                "pending": "Pendient",
+                "block": "Blocar",
+                "block_user": "Blocar a %s",
+                "block_domain": "Blocar a %s",
+                "unblock": "Desbloquiar",
+                "unblock_user": "Desbloquiar a %s",
+                "blocked": "Blocau",
+                "mute": "Silenciar",
+                "mute_user": "Silenciar a %s",
+                "unmute": "Desmutear",
+                "unmute_user": "Desmutear a %s",
+                "muted": "Silenciau",
+                "edit_info": "Editar Info",
+                "show_reblogs": "Amostrar los retuts",
+                "hide_reblogs": "Amagar los reblogs"
+            },
+            "timeline": {
+                "filtered": "Filtrau",
+                "timestamp": {
+                    "now": "Agora"
+                },
+                "loader": {
+                    "load_missing_posts": "Cargar publicacions faltantes",
+                    "loading_missing_posts": "Cargando publicacions faltantes...",
+                    "show_more_replies": "Amostrar mas respuestas"
+                },
+                "header": {
+                    "no_status_found": "No s'ha trobau garra publicación",
+                    "blocking_warning": "No puetz veyer lo perfil d'este usuario\n dica que lo desbloqueyes.\nLo tuyo perfil se veye asinas pa ell.",
+                    "user_blocking_warning": "No puetz veyer lo perfil de %s\n dica que lo desbloqueyes.\nLo tuyo perfil se veye asinas pa ell.",
+                    "blocked_warning": "No puetz veyer lo perfil d'este usuario\n dica que te desbloqueye.",
+                    "user_blocked_warning": "No puetz veyer lo perfil de %s\n dica que te desbloqueye.",
+                    "suspended_warning": "Este usuario ha estau suspendiu.",
+                    "user_suspended_warning": "La cuenta de %s ha estau suspendida."
+                }
+            }
+        }
+    },
+    "scene": {
+        "welcome": {
+            "slogan": "Los retz socials\nde nuevo en as tuyas mans.",
+            "get_started": "Empecipiar",
+            "log_in": "Iniciar sesión"
+        },
+        "login": {
+            "title": "Bienveniu de nuevas",
+            "subtitle": "Dentrar en o servidor an que creyiés la cuenta.",
+            "server_search_field": {
+                "placeholder": "Escribir la URL u buscar lo tuyo servidor"
+            }
+        },
+        "server_picker": {
+            "title": "Tría un servidor,\nqualsequier servidor.",
+            "subtitle": "Tría un servidor basau en a tuya rechión, intereses u uno de proposito cheneral. Podrás seguir connectau con totz en Mastodon, independiement d'o servidor.",
+            "button": {
+                "category": {
+                    "all": "Totas",
+                    "all_accessiblity_description": "Categoría: Totas",
+                    "academia": "academicos",
+                    "activism": "activismo",
+                    "food": "minchada",
+                    "furry": "furry",
+                    "games": "chuegos",
+                    "general": "cheneral",
+                    "journalism": "periodismo",
+                    "lgbt": "lgbt",
+                    "regional": "rechional",
+                    "art": "arte",
+                    "music": "mosica",
+                    "tech": "tecnolochía"
+                },
+                "see_less": "Veyer Menos",
+                "see_more": "Veyer Más"
+            },
+            "label": {
+                "language": "IDIOMA",
+                "users": "USUARIOS",
+                "category": "CATEGORÍA"
+            },
+            "input": {
+                "search_servers_or_enter_url": "Mirar comunidatz u escribir URL"
+            },
+            "empty_state": {
+                "finding_servers": "Trobando servidors disponibles...",
+                "bad_network": "Bella cosa ha iu malament en cargar los datos. Compreba la tuya connexión a Internet.",
+                "no_results": "Sin resultaus"
+            }
+        },
+        "register": {
+            "title": "Deixa que te configuremos en %s",
+            "lets_get_you_set_up_on_domain": "Deixa que te configuremos en %s",
+            "input": {
+                "avatar": {
+                    "delete": "Borrar"
+                },
+                "username": {
+                    "placeholder": "nombre d'usuario",
+                    "duplicate_prompt": "Este nombre d'usuario ya ye en uso."
+                },
+                "display_name": {
+                    "placeholder": "nombre a amostrar"
+                },
+                "email": {
+                    "placeholder": "correu electronico"
+                },
+                "password": {
+                    "placeholder": "clau",
+                    "require": "La tuya clau ha de contener como minimo:",
+                    "character_limit": "8 caracters",
+                    "accessibility": {
+                        "checked": "marcau",
+                        "unchecked": "sin marcar"
+                    },
+                    "hint": "La tuya clau ameneste tener a lo menos ueito caracters"
+                },
+                "invite": {
+                    "registration_user_invite_request": "Per qué quiers unir-te?"
+                }
+            },
+            "error": {
+                "item": {
+                    "username": "Nombre d'usuario",
+                    "email": "Correu electronico",
+                    "password": "Clau",
+                    "agreement": "Acceptación",
+                    "locale": "Idioma",
+                    "reason": "Motivo"
+                },
+                "reason": {
+                    "blocked": "%s contiene un furnidor de correu no permitiu",
+                    "unreachable": "%s pareixe no existir",
+                    "taken": "%s ya ye en uso",
+                    "reserved": "%s ye una parola clau reservada",
+                    "accepted": "%s ha d'estar acceptau",
+                    "blank": "Se requiere %s",
+                    "invalid": "%s no ye valido",
+                    "too_long": "%s ye masiau largo",
+                    "too_short": "%s ye masiau tallo",
+                    "inclusion": "%s no ye una valor admitida"
+                },
+                "special": {
+                    "username_invalid": "Lo nombre d'usuario solo puede contener caracters alfanumericos y guións baixos",
+                    "username_too_long": "Lo nombre d'usuario ye masiau largo (no puede tener mas de 30 caracters)",
+                    "email_invalid": "Esta no ye una adreza de correu electronico valida",
+                    "password_too_short": "La clau ye masiau curta (ha de tener a lo menos 8 caracters)"
+                }
+            }
+        },
+        "server_rules": {
+            "title": "Qualques reglas basicas.",
+            "subtitle": "Estas reglas son establidas per los administradors de %s.",
+            "prompt": "Si continas serás sucheto a los termins de servicio y la politica de privacidat de %s.",
+            "terms_of_service": "termins d'o servicio",
+            "privacy_policy": "politica de privacidat",
+            "button": {
+                "confirm": "Accepto"
+            }
+        },
+        "confirm_email": {
+            "title": "Una zaguera coseta.",
+            "subtitle": "T'acabamos de ninviar un correu a %s, preta en o vinclo pa confirmar la tuya cuenta.",
+            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Toca lo vinclo que te ninviamos per correu electronico pa verificar la tuya cuenta",
+            "button": {
+                "open_email_app": "Ubrir Aplicación de Correu Electronico",
+                "resend": "Reninviar"
+            },
+            "dont_receive_email": {
+                "title": "Revisa lo tuyo correu electronico",
+                "description": "Compreba que la tuya adreza de correu electronico sía correcta y revisa la carpeta de correu no deseyau si no l'has feito ya.",
+                "resend_email": "Tornar a Ninviar Correu Electronico"
+            },
+            "open_email_app": {
+                "title": "Revisa la tuya servilla de dentrada.",
+                "description": "T'acabamos de ninviar un correu electronico. Revisa la tuya carpeta de correu no deseyau si no l'has feito ya.",
+                "mail": "Correu",
+                "open_email_client": "Ubrir Client de Correu Electronico"
+            }
+        },
+        "home_timeline": {
+            "title": "Inicio",
+            "navigation_bar_state": {
+                "offline": "Sin Connexión",
+                "new_posts": "Veyer nuevas publicacions",
+                "published": "Publicau!",
+                "Publishing": "Publicación en curso...",
+                "accessibility": {
+                    "logo_label": "Botón d'o logo",
+                    "logo_hint": "Toca pa desplazar-te enta alto y toca de nuevo pa la localización anterior"
+                }
+            }
+        },
+        "suggestion_account": {
+            "title": "Troba Chent a la quala Seguir",
+            "follow_explain": "Quan sigas a belún veyerás las suyas publicacions en a tuya pachina d'inicio."
+        },
+        "compose": {
+            "title": {
+                "new_post": "Nueva Publicación",
+                "new_reply": "Nueva Respuesta"
+            },
+            "media_selection": {
+                "camera": "Fer Foto",
+                "photo_library": "Galería de Fotos",
+                "browse": "Explorar"
+            },
+            "content_input_placeholder": "Escribe u apega lo que tiengas en mente",
+            "compose_action": "Publicar",
+            "replying_to_user": "en respuesta a %s",
+            "attachment": {
+                "photo": "foto",
+                "video": "video",
+                "attachment_broken": "Este %s ye roto y no puede\npuyar-se a Mastodon.",
+                "description_photo": "Describe la foto pa los usuarios con dificultat visual...",
+                "description_video": "Describe lo video pa los usuarios con dificultat visual...",
+                "load_failed": "Fallo de carga",
+                "upload_failed": "Fallo de carga",
+                "can_not_recognize_this_media_attachment": "No se puede reconocer este adchunto multimedia",
+                "attachment_too_large": "Adchunto masiau gran",
+                "compressing_state": "Comprimindo...",
+                "server_processing_state": "Lo servidor ye procesando..."
+            },
+            "poll": {
+                "duration_time": "Duración: %s",
+                "thirty_minutes": "30 minutos",
+                "one_hour": "1 Hora",
+                "six_hours": "6 Horas",
+                "one_day": "1 Día",
+                "three_days": "3 Días",
+                "seven_days": "7 Días",
+                "option_number": "Opción %ld",
+                "the_poll_is_invalid": "La enquesta ye invalida",
+                "the_poll_has_empty_option": "La enquesta tiene opcions vuedas"
+            },
+            "content_warning": {
+                "placeholder": "Escribe una alvertencia precisa aquí..."
+            },
+            "visibility": {
+                "public": "Publica",
+                "unlisted": "Sin listar",
+                "private": "Solo seguidores",
+                "direct": "Solo la chent que yo menciono"
+            },
+            "auto_complete": {
+                "space_to_add": "Espacio pa anyadir"
+            },
+            "accessibility": {
+                "append_attachment": "Anyadir Adchunto",
+                "append_poll": "Anyadir Enqüesta",
+                "remove_poll": "Eliminar Enqüesta",
+                "custom_emoji_picker": "Selector de Emojis Personalizaus",
+                "enable_content_warning": "Activar Alvertencia de Conteniu",
+                "disable_content_warning": "Desactivar Alvertencia de Conteniu",
+                "post_visibility_menu": "Menú de Visibilidat d'a Publicación",
+                "post_options": "Opcions d'o tut",
+                "posting_as": "Publicando como %s"
+            },
+            "keyboard": {
+                "discard_post": "Descartar Publicación",
+                "publish_post": "Publicar",
+                "toggle_poll": "Commutar Enqüesta",
+                "toggle_content_warning": "Commutar Alvertencia de Conteniu",
+                "append_attachment_entry": "Anyadir Adchunto - %s",
+                "select_visibility_entry": "Triar Visibilidat - %s"
+            }
+        },
+        "profile": {
+            "header": {
+                "follows_you": "Te sigue"
+            },
+            "dashboard": {
+                "my_posts": "posts",
+                "my_following": "following",
+                "my_followers": "followers",
+                "other_posts": "posts",
+                "other_following": "following",
+                "other_followers": "followers"
+            },
+            "fields": {
+                "joined": "Joined",
+                "add_row": "Anyadir Ringlera",
+                "placeholder": {
+                    "label": "Nombre pa lo campo",
+                    "content": "Conteniu"
+                },
+                "verified": {
+                    "short": "Verificau en %s",
+                    "long": "La propiedat d'este vinclo ha estau verificada lo %s"
+                }
+            },
+            "segmented_control": {
+                "posts": "Publicacions",
+                "replies": "Respuestas",
+                "posts_and_replies": "Publicacions y respuestas",
+                "media": "Multimedia",
+                "about": "Sobre"
+            },
+            "relationship_action_alert": {
+                "confirm_mute_user": {
+                    "title": "Silenciar cuenta",
+                    "message": "Confirmar pa silenciar %s"
+                },
+                "confirm_unmute_user": {
+                    "title": "Deixar de Silenciar Cuenta",
+                    "message": "Confirmar pa deixar de silenciar a %s"
+                },
+                "confirm_block_user": {
+                    "title": "Blocar cuenta",
+                    "message": "Confirmar pa blocar a %s"
+                },
+                "confirm_unblock_user": {
+                    "title": "Desbloquiar cuenta",
+                    "message": "Confirmar pa desbloquiar a %s"
+                },
+                "confirm_show_reblogs": {
+                    "title": "Amostrar los reblogs",
+                    "message": "Confimrar pa amostrar los reblogs"
+                },
+                "confirm_hide_reblogs": {
+                    "title": "Amagar los reblogs",
+                    "message": "Comfirmar pa amagar los reblogs"
+                }
+            },
+            "accessibility": {
+                "show_avatar_image": "Amostrar imachen d'o avatar",
+                "edit_avatar_image": "Editar imachen d'o avatar",
+                "show_banner_image": "Amostrar imachen de banner",
+                "double_tap_to_open_the_list": "Preta dos vegadas pa ubrir la lista"
+            }
+        },
+        "follower": {
+            "title": "seguidor",
+            "footer": "No s'amuestran los seguidores d'atros servidors."
+        },
+        "following": {
+            "title": "seguindo",
+            "footer": "No s'amuestran los seguius d'atros servidors."
+        },
+        "familiarFollowers": {
+            "title": "Seguidores que conoixes",
+            "followed_by_names": "Seguiu per %s"
+        },
+        "favorited_by": {
+            "title": "Feito favorito per"
+        },
+        "reblogged_by": {
+            "title": "Reblogueado per"
+        },
+        "search": {
+            "title": "Buscar",
+            "search_bar": {
+                "placeholder": "Buscar etiquetas y usuarios",
+                "cancel": "Cancelar"
+            },
+            "recommend": {
+                "button_text": "Veyer Totas",
+                "hash_tag": {
+                    "title": "Tendencias en Mastodon",
+                    "description": "Etiquetas que son recibindo pro atención",
+                    "people_talking": "%s personas son charrando d'esto"
+                },
+                "accounts": {
+                    "title": "Cuentas que talment quieras seguir",
+                    "description": "Puede que faiga goyo seguir estas cuentas",
+                    "follow": "Seguir"
+                }
+            },
+            "searching": {
+                "segment": {
+                    "all": "Tot",
+                    "people": "Chent",
+                    "hashtags": "Etiquetas",
+                    "posts": "Publicacions"
+                },
+                "empty_state": {
+                    "no_results": "Sin resultaus"
+                },
+                "recent_search": "Busquedas recients",
+                "clear": "Borrar"
+            }
+        },
+        "discovery": {
+            "tabs": {
+                "posts": "Publicacions",
+                "hashtags": "Etiquetas",
+                "news": "Noticias",
+                "community": "Comunidat",
+                "for_you": "Pa Tu"
+            },
+            "intro": "Estas son las publicacions que son ganando tracción en a tuya rincón de Mastodon."
+        },
+        "favorite": {
+            "title": "Los tuyos Favoritos"
+        },
+        "notification": {
+            "title": {
+                "Everything": "Tot",
+                "Mentions": "Mencions"
+            },
+            "notification_description": {
+                "followed_you": "te siguió",
+                "favorited_your_post": "ha marcau como favorita la tuya publicación",
+                "reblogged_your_post": "reblogueó la tuya publicación",
+                "mentioned_you": "te mencionó",
+                "request_to_follow_you": "solicitó seguir-te",
+                "poll_has_ended": "enqüesta ha rematau"
+            },
+            "keyobard": {
+                "show_everything": "Amostrar Tot",
+                "show_mentions": "Amostrar Mencions"
+            },
+            "follow_request": {
+                "accept": "Acceptar",
+                "accepted": "Acceptau",
+                "reject": "refusar",
+                "rejected": "Refusau"
+            }
+        },
+        "thread": {
+            "back_title": "Publicación",
+            "title": "Publicación de %s"
+        },
+        "settings": {
+            "title": "Configuración",
+            "section": {
+                "appearance": {
+                    "title": "Apariencia",
+                    "automatic": "Automatica",
+                    "light": "Siempre Clara",
+                    "dark": "Siempre Fosca"
+                },
+                "look_and_feel": {
+                    "title": "Apariencia",
+                    "use_system": "Uso d'o sistema",
+                    "really_dark": "Realment Fosco",
+                    "sorta_dark": "Más u Menos Fosco",
+                    "light": "Claro"
+                },
+                "notifications": {
+                    "title": "Notificacions",
+                    "favorites": "Marque como favorita la mía publicación",
+                    "follows": "me siga",
+                    "boosts": "Rebloguee la mía publicación",
+                    "mentions": "me mencione",
+                    "trigger": {
+                        "anyone": "qualsequiera",
+                        "follower": "un seguidor",
+                        "follow": "qualsequiera que yo siga",
+                        "noone": "dengún",
+                        "title": "Recibir notificación quan"
+                    }
+                },
+                "preference": {
+                    "title": "Preferencias",
+                    "true_black_dark_mode": "Modo fosco negro real",
+                    "disable_avatar_animation": "Deshabilitar avatares animaus",
+                    "disable_emoji_animation": "Deshabilitar emojis animaus",
+                    "using_default_browser": "Usar navegador predeterminau pa ubrir los vinclos",
+                    "open_links_in_mastodon": "Ubrir links en Mastodon"
+                },
+                "boring_zone": {
+                    "title": "La Zona Aburrida",
+                    "account_settings": "Configuración de Cuenta",
+                    "terms": "Termins de Servicio",
+                    "privacy": "Politica de Privacidat"
+                },
+                "spicy_zone": {
+                    "title": "La Zona Picante",
+                    "clear": "Borrar Caché de Multimedia",
+                    "signout": "Zarrar Sesión"
+                }
+            },
+            "footer": {
+                "mastodon_description": "Mastodon ye software de codigo ubierto. Puetz informar d'errors en GitHub en %s (%s)"
+            },
+            "keyboard": {
+                "close_settings_window": "Zarrar Finestra de Configuración"
+            }
+        },
+        "report": {
+            "title_report": "Reportar",
+            "title": "Reportar %s",
+            "step1": "Paso 1 de 2",
+            "step2": "Paso 2 de 2",
+            "content1": "I hai belatra publicación que te fería goyo d'anyadir a lo reporte?",
+            "content2": "I hai bella cosa que los moderadors habrían de saber sobre este reporte?",
+            "report_sent_title": "Gracias per denunciar, estudiaremos esto.",
+            "send": "Ninviar Denuncia",
+            "skip_to_send": "Ninviar sin comentarios",
+            "text_placeholder": "Escribe u apega comentarios adicionals",
+            "reported": "DENUNCIAU",
+            "step_one": {
+                "step_1_of_4": "Paso 1 de 4",
+                "whats_wrong_with_this_post": "Qué i hai de malo con esta publicación?",
+                "whats_wrong_with_this_account": "Qué i hai de malo con esta cuenta?",
+                "whats_wrong_with_this_username": "Qué i hai de malo con %s?",
+                "select_the_best_match": "Tría la millor opción",
+                "i_dont_like_it": "No me fa goyo",
+                "it_is_not_something_you_want_to_see": "No ye bella cosa que quieras veyer",
+                "its_spam": "Ye spam",
+                "malicious_links_fake_engagement_or_repetetive_replies": "Vinclos maliciosos, compromisos falsos u respuestas repetitivas",
+                "it_violates_server_rules": "Viola las reglas d'o servidor",
+                "you_are_aware_that_it_breaks_specific_rules": "Yes conscient de que infrinche las normas especificas",
+                "its_something_else": "Ye bella cosa mas",
+                "the_issue_does_not_fit_into_other_categories": "Lo problema no encaixa en atras categorías"
+            },
+            "step_two": {
+                "step_2_of_4": "Paso 2 de 4",
+                "which_rules_are_being_violated": "Qué normas se son violando?",
+                "select_all_that_apply": "Tría totz los que correspondan",
+                "i_just_don’t_like_it": "Nomás no me fa goyo"
+            },
+            "step_three": {
+                "step_3_of_4": "Paso 3 de 4",
+                "are_there_any_posts_that_back_up_this_report": "I hai bella publicación que refirme este informe?",
+                "select_all_that_apply": "Tría totz los que correspondan"
+            },
+            "step_four": {
+                "step_4_of_4": "Paso 4 de 4",
+                "is_there_anything_else_we_should_know": "I hai bella cosa mas que habríanos de saber?"
+            },
+            "step_final": {
+                "dont_want_to_see_this": "No quiers veyer esto?",
+                "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "Quan veigas bella cosa que no te fa goyo en Mastodon, puetz sacar a la persona d'a tuya experiencia.",
+                "unfollow": "Deixar de seguir",
+                "unfollowed": "Ha deixau de seguir-te",
+                "unfollow_user": "Deixar de seguir a %s",
+                "mute_user": "Silenciar a %s",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "No veyerás las suyas publicacions u reblogueos en a tuya linia temporal. No sabrán que han estau silenciaus.",
+                "block_user": "Blocar a %s",
+                "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "Ya no podrán estar capaces de seguir-te u veyer las tuyas publicacions, pero pueden veyer si han estau blocaus.",
+                "while_we_review_this_you_can_take_action_against_user": "Mientres revisamos esto, puetz prener medidas contra %s"
+            }
+        },
+        "preview": {
+            "keyboard": {
+                "close_preview": "Zarrar Previsualización",
+                "show_next": "Amostrar Siguient",
+                "show_previous": "Amostrar Anterior"
+            }
+        },
+        "account_list": {
+            "tab_bar_hint": "Perfil triau actualment: %s. Fe un doble toque y mantiene pretau pa amostrar lo selector de cuentas",
+            "dismiss_account_switcher": "Descartar lo selector de cuentas",
+            "add_account": "Anyadir cuenta"
+        },
+        "wizard": {
+            "new_in_mastodon": "Nuevo en Mastodon",
+            "multiple_account_switch_intro_description": "Cambie entre quantas cuentas mantenendo presionado lo botón de perfil.",
+            "accessibility_hint": "Fe doble toque pa descartar este asistent"
+        },
+        "bookmark": {
+            "title": "Marcapachinas"
+        },
+        "followed_tags": {
+            "title": "Followed Tags",
+            "header": {
+                "posts": "posts",
+                "participants": "participants",
+                "posts_today": "posts today"
+            },
+            "actions": {
+                "follow": "Follow",
+                "unfollow": "Unfollow"
+            }
+        }
+    }
+}

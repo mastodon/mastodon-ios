@@ -11,6 +11,8 @@ import Combine
 import CoreDataStack
 import MastodonCore
 import MastodonExtension
+import MastodonUI
+import MastodonSDK
 
 #if PROFILE
 import FPSIndicator
@@ -35,8 +37,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = scene as? UIWindowScene else { return }
         
+        #if DEBUG
+        let window = TouchesVisibleWindow(windowScene: windowScene)
+        self.window = window
+        #else
         let window = UIWindow(windowScene: windowScene)
         self.window = window
+        #endif
 
         // set tint color
         window.tintColor = UIColor.label
@@ -60,6 +67,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         sceneCoordinator.setup()
         window.makeKeyAndVisible()
+        
+        if let urlContext = connectionOptions.urlContexts.first {
+            handleUrl(context: urlContext)
+        }
         
         #if SNAPSHOT
         // speedup animation
@@ -112,6 +123,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         // trigger authenticated user account update
         AppContext.shared.authenticationService.updateActiveUserAccountPublisher.send()
+        
+        // update mutes and blocks and remove related data
+        AppContext.shared.instanceService.updateMutesAndBlocks()
 
         if let shortcutItem = savedShortCutItem {
             Task {
@@ -175,24 +189,10 @@ extension SceneDelegate {
                 return false
             }
 
-            coordinator.switchToTabBar(tab: .notification)
+            coordinator.switchToTabBar(tab: .notifications)
 
         case "org.joinmastodon.app.new-post":
-            if coordinator?.tabBarController.topMost is ComposeViewController {
-                logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): composing…")
-            } else {
-                if let authContext = coordinator?.authContext {
-                    let composeViewModel = ComposeViewModel(
-                        context: AppContext.shared,
-                        authContext: authContext,
-                        kind: .post
-                    )
-                    _ = coordinator?.present(scene: .compose(viewModel: composeViewModel), from: nil, transition: .modal(animated: true, completion: nil))
-                    logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): present compose scene")
-                } else {
-                    logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): not authenticated")
-                }
-            }
+            showComposeViewController()
 
         case "org.joinmastodon.app.search":
             coordinator?.switchToTabBar(tab: .search)
@@ -209,5 +209,76 @@ extension SceneDelegate {
         }
 
         return true
+    }
+    
+    func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+        // Determine who sent the URL.
+        if let urlContext = URLContexts.first {
+            handleUrl(context: urlContext)
+        }
+    }
+    
+    private func showComposeViewController() {
+        if coordinator?.tabBarController.topMost is ComposeViewController {
+            logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): composing…")
+        } else {
+            if let authContext = coordinator?.authContext {
+                let composeViewModel = ComposeViewModel(
+                    context: AppContext.shared,
+                    authContext: authContext,
+                    destination: .topLevel
+                )
+                _ = coordinator?.present(scene: .compose(viewModel: composeViewModel), from: nil, transition: .modal(animated: true, completion: nil))
+                logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): present compose scene")
+            } else {
+                logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): not authenticated")
+            }
+        }
+    }
+    
+    private func handleUrl(context: UIOpenURLContext) {
+        let sendingAppID = context.options.sourceApplication
+        let url = context.url
+
+        if !UIApplication.shared.canOpenURL(url) { return }
+
+        print("source application = \(sendingAppID ?? "Unknown")")
+        print("url = \(url)")
+        
+        switch url.host {
+        case "post":
+            showComposeViewController()
+        case "profile":
+            let components = url.pathComponents
+            if components.count == 2 && components[0] == "/" {
+                let addr = components[1]
+                if let authContext = coordinator?.authContext {
+                    let profileViewModel = RemoteProfileViewModel(
+                        context: AppContext.shared,
+                        authContext: authContext,
+                        acct: components[1]
+                    )
+                    self.coordinator?.present(
+                        scene: .profile(viewModel: profileViewModel),
+                        from: nil,
+                        transition: .show
+                    )
+                }
+            }
+        case "status":
+            let components = url.pathComponents
+            if components.count == 2 && components[0] == "/" {
+                let statusId = components[1]
+                // View post from user
+                if let authContext = coordinator?.authContext {
+                    let threadViewModel = RemoteThreadViewModel(context: AppContext.shared,
+                                                                authContext: authContext,
+                                                                statusID: statusId)
+                    coordinator?.present(scene: .thread(viewModel: threadViewModel), from: nil, transition: .show)
+                }
+            }
+        default:
+            return
+        }
     }
 }

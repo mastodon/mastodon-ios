@@ -22,6 +22,9 @@
 "Common.Alerts.SignOut.Message" = "您确定要退出吗？";
 "Common.Alerts.SignOut.Title" = "退出";
 "Common.Alerts.SignUpFailure.Title" = "注册失败";
+"Common.Alerts.TranslationFailed.Button" = "OK";
+"Common.Alerts.TranslationFailed.Message" = "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.";
+"Common.Alerts.TranslationFailed.Title" = "Note";
 "Common.Alerts.VoteFailure.PollEnded" = "投票已结束";
 "Common.Alerts.VoteFailure.Title" = "投票失败";
 "Common.Controls.Actions.Add" = "添加";
@@ -31,6 +34,7 @@
 "Common.Controls.Actions.Compose" = "撰写";
 "Common.Controls.Actions.Confirm" = "确认";
 "Common.Controls.Actions.Continue" = "继续";
+"Common.Controls.Actions.Copy" = "Copy";
 "Common.Controls.Actions.CopyPhoto" = "拷贝照片";
 "Common.Controls.Actions.Delete" = "删除";
 "Common.Controls.Actions.Discard" = "放弃";
@@ -59,6 +63,8 @@
 "Common.Controls.Actions.SignUp" = "创建账户";
 "Common.Controls.Actions.Skip" = "跳过";
 "Common.Controls.Actions.TakePhoto" = "拍照";
+"Common.Controls.Actions.TranslatePost.Title" = "Translate from %@";
+"Common.Controls.Actions.TranslatePost.UnknownLanguage" = "Unknown";
 "Common.Controls.Actions.TryAgain" = "再试一次";
 "Common.Controls.Actions.UnblockDomain" = "解除屏蔽 %@";
 "Common.Controls.Friendship.Block" = "屏蔽";
@@ -100,6 +106,7 @@
 "Common.Controls.Status.Actions.Menu" = "菜单";
 "Common.Controls.Status.Actions.Reblog" = "转发";
 "Common.Controls.Status.Actions.Reply" = "回复";
+"Common.Controls.Status.Actions.ShareLinkInPost" = "Share Link in Post";
 "Common.Controls.Status.Actions.ShowGif" = "显示 GIF";
 "Common.Controls.Status.Actions.ShowImage" = "显示图片";
 "Common.Controls.Status.Actions.ShowVideoPlayer" = "显示视频播放器";
@@ -107,6 +114,8 @@
 "Common.Controls.Status.Actions.Unfavorite" = "取消喜欢";
 "Common.Controls.Status.Actions.Unreblog" = "取消转发";
 "Common.Controls.Status.ContentWarning" = "内容警告";
+"Common.Controls.Status.LinkViaUser" = "%@ via %@";
+"Common.Controls.Status.LoadEmbed" = "Load Embed";
 "Common.Controls.Status.MediaContentWarning" = "点击任意位置显示";
 "Common.Controls.Status.MetaEntity.Email" = "邮箱地址：%@";
 "Common.Controls.Status.MetaEntity.Hashtag" = "话题：%@";
@@ -124,6 +133,10 @@
 "Common.Controls.Status.Tag.Mention" = "提及";
 "Common.Controls.Status.Tag.Url" = "URL";
 "Common.Controls.Status.TapToReveal" = "点击以显示";
+"Common.Controls.Status.Translation.ShowOriginal" = "Shown Original";
+"Common.Controls.Status.Translation.TranslatedFrom" = "Translated from %@ using %@";
+"Common.Controls.Status.Translation.UnknownLanguage" = "Unknown";
+"Common.Controls.Status.Translation.UnknownProvider" = "Unknown";
 "Common.Controls.Status.UserReblogged" = "%@ 转发";
 "Common.Controls.Status.UserRepliedTo" = "回复给 %@";
 "Common.Controls.Status.Visibility.Direct" = "只有提到的用户才能看到此帖子。";
@@ -131,9 +144,9 @@
 "Common.Controls.Status.Visibility.PrivateFromMe" = "只有我的关注者才能看到此帖子。";
 "Common.Controls.Status.Visibility.Unlisted" = "任何人都可以看到这个帖子，但不会在公开的时间线中显示。";
 "Common.Controls.Tabs.Home" = "主页";
-"Common.Controls.Tabs.Notification" = "通知";
+"Common.Controls.Tabs.Notifications" = "通知";
 "Common.Controls.Tabs.Profile" = "个人资料";
-"Common.Controls.Tabs.Search" = "搜索";
+"Common.Controls.Tabs.SearchAndExplore" = "Search and Explore";
 "Common.Controls.Timeline.Filtered" = "已过滤";
 "Common.Controls.Timeline.Header.BlockedWarning" = "您不能查看此用户的个人资料
 直到他们解除屏蔽。";
@@ -229,6 +242,12 @@
 "Scene.Familiarfollowers.Title" = "你熟悉的关注者";
 "Scene.Favorite.Title" = "你的喜欢";
 "Scene.FavoritedBy.Title" = "收藏者";
+"Scene.FollowedTags.Actions.Follow" = "Follow";
+"Scene.FollowedTags.Actions.Unfollow" = "Unfollow";
+"Scene.FollowedTags.Header.Participants" = "participants";
+"Scene.FollowedTags.Header.Posts" = "posts";
+"Scene.FollowedTags.Header.PostsToday" = "posts today";
+"Scene.FollowedTags.Title" = "Followed Tags";
 "Scene.Follower.Footer" = "不会显示来自其它服务器的关注者";
 "Scene.Follower.Title" = "关注者";
 "Scene.Following.Footer" = "不会显示来自其它服务器的关注";
@@ -268,6 +287,7 @@
 "Scene.Profile.Dashboard.Following" = "正在关注";
 "Scene.Profile.Dashboard.Posts" = "帖子";
 "Scene.Profile.Fields.AddRow" = "添加";
+"Scene.Profile.Fields.Joined" = "Joined";
 "Scene.Profile.Fields.Placeholder.Content" = "内容";
 "Scene.Profile.Fields.Placeholder.Label" = "标签";
 "Scene.Profile.Fields.Verified.Long" = "此链接的所有权已在 %@ 上检查通过";

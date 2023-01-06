@@ -14,7 +14,7 @@ class AdaptiveStatusBarStyleNavigationController: UINavigationController {
     // Make status bar style adaptive for child view controller
     // SeeAlso: `modalPresentationCapturesStatusBarAppearance`
     override var childForStatusBarStyle: UIViewController? {
-        visibleViewController
+        topViewController
     }
 }
 

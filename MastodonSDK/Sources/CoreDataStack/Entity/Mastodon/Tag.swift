@@ -24,10 +24,13 @@ public final class Tag: NSManagedObject {
     @NSManaged public private(set) var name: String
     // sourcery: autoUpdatableObject, autoGenerateProperty
     @NSManaged public private(set) var url: String
-
+    // sourcery: autoUpdatableObject, autoGenerateProperty
+    @NSManaged public private(set) var following: Bool
+    
     // one-to-one relationship
 
     // many-to-many relationship
+    @NSManaged public private(set) var followedBy: Set<MastodonUser>
 
     // one-to-many relationship
     @NSManaged public private(set) var searchHistories: Set<SearchHistory>
@@ -88,13 +91,29 @@ public extension Tag {
     }
     
     static func predicate(name: String) -> NSPredicate {
-        NSPredicate(format: "%K == %@", #keyPath(Tag.name), name)
+        // use case-insensitive query as tags #CaN #BE #speLLed #USiNG #arbITRARy #cASe
+        NSPredicate(format: "%K MATCHES[c] %@", #keyPath(Tag.name), name)
+    }
+    
+    static func predicate(domain: String, following: Bool) -> NSPredicate {
+        NSPredicate(format: "%K == %@ AND %K == %d", #keyPath(Tag.domain), domain, #keyPath(Tag.following), following)
+    }
+    
+    static func predicate(followedBy user: MastodonUser) -> NSPredicate {
+        NSPredicate(format: "ANY %K.%K == %@", #keyPath(Tag.followedBy), #keyPath(MastodonUser.id), user.id)
     }
     
     static func predicate(domain: String, name: String) -> NSPredicate {
         NSCompoundPredicate(andPredicateWithSubpredicates: [
             predicate(domain: domain),
             predicate(name: name),
+        ])
+    }
+    
+    static func predicate(domain: String, following: Bool, by user: MastodonUser) -> NSPredicate {
+        NSCompoundPredicate(andPredicateWithSubpredicates: [
+            predicate(domain: domain, following: following),
+            predicate(followedBy: user)
         ])
     }
 }
@@ -112,6 +131,7 @@ extension Tag: AutoGenerateProperty {
         public let updatedAt: Date
         public let name: String
         public let url: String
+        public let following: Bool
         public let histories: [MastodonTagHistory]
 
     	public init(
@@ -121,6 +141,7 @@ extension Tag: AutoGenerateProperty {
     		updatedAt: Date,
     		name: String,
     		url: String,
+    		following: Bool,
     		histories: [MastodonTagHistory]
     	) {
     		self.identifier = identifier
@@ -129,6 +150,7 @@ extension Tag: AutoGenerateProperty {
     		self.updatedAt = updatedAt
     		self.name = name
     		self.url = url
+    		self.following = following
     		self.histories = histories
     	}
     }
@@ -140,12 +162,14 @@ extension Tag: AutoGenerateProperty {
     	self.updatedAt = property.updatedAt
     	self.name = property.name
     	self.url = property.url
+    	self.following = property.following
     	self.histories = property.histories
     }
 
     public func update(property: Property) {
     	update(updatedAt: property.updatedAt)
     	update(url: property.url)
+    	update(following: property.following)
     	update(histories: property.histories)
     }
     // sourcery:end
@@ -167,12 +191,30 @@ extension Tag: AutoUpdatableObject {
     		self.url = url
     	}
     }
+    public func update(following: Bool) {
+    	if self.following != following {
+    		self.following = following
+    	}
+    }
     public func update(histories: [MastodonTagHistory]) {
     	if self.histories != histories {
     		self.histories = histories
     	}
     }
     // sourcery:end
+    
+    public func update(followed: Bool, by mastodonUser: MastodonUser) {
+        if following {
+            if !self.followedBy.contains(mastodonUser) {
+                self.mutableSetValue(forKey: #keyPath(Tag.followedBy)).add(mastodonUser)
+            }
+        } else {
+            if self.followedBy.contains(mastodonUser) {
+                self.mutableSetValue(forKey: #keyPath(Tag.followedBy)).remove(mastodonUser)
+            }
+        }
+    }
+    
 }
     
 

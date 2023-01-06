@@ -48,6 +48,7 @@ extension ProfileHeaderView {
         
         @Published var relationshipActionOptionSet: RelationshipActionOptionSet = .none
         @Published var isRelationshipActionButtonHidden = false
+        @Published var isMyself = false
         
         init() {
             $relationshipActionOptionSet
@@ -149,7 +150,9 @@ extension ProfileHeaderView.ViewModel {
         // username
         $acct
             .map { acct in acct.flatMap { "@" + $0 } ?? " " }
-            .assign(to: \.text, on: view.usernameLabel)
+            .sink(receiveValue: { acct in
+                view.usernameButton.setTitle(acct, for: .normal)
+            })
             .store(in: &disposeBag)
         // bio
         Publishers.CombineLatest4(
@@ -189,6 +192,19 @@ extension ProfileHeaderView.ViewModel {
             }
             .store(in: &disposeBag)
         // dashboard
+        $isMyself
+            .sink { isMyself in
+                if isMyself {
+                    view.statusDashboardView.postDashboardMeterView.textLabel.text = L10n.Scene.Profile.Dashboard.myPosts
+                    view.statusDashboardView.followingDashboardMeterView.textLabel.text = L10n.Scene.Profile.Dashboard.myFollowing
+                    view.statusDashboardView.followersDashboardMeterView.textLabel.text = L10n.Scene.Profile.Dashboard.myFollowers
+                } else {
+                    view.statusDashboardView.postDashboardMeterView.textLabel.text = L10n.Scene.Profile.Dashboard.otherPosts
+                    view.statusDashboardView.followingDashboardMeterView.textLabel.text = L10n.Scene.Profile.Dashboard.otherFollowing
+                    view.statusDashboardView.followersDashboardMeterView.textLabel.text = L10n.Scene.Profile.Dashboard.otherFollowers
+                }
+            }
+            .store(in: &disposeBag)
         $statusesCount
             .sink { count in
                 let text = count.flatMap { MastodonMetricFormatter().string(from: $0) } ?? "-"

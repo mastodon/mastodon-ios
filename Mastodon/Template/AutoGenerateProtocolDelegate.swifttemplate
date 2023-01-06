@@ -1,3 +1,17 @@
+<%
+func methodDeclaration(_ method: SourceryRuntime.Method, newName: String) -> String {
+    var result = newName
+    if method.throws {
+        result = result + " throws"
+    } else if method.rethrows {
+        result = result + " rethrows"
+    }
+    if method.returnTypeName.isVoid {
+        return result
+    }
+    return result + " -> \(method.returnTypeName)"
+}
+-%>
 <% for type in types.implementing["AutoGenerateProtocolDelegate"] {
     guard let replaceOf = type.annotations["replaceOf"] as? String else { continue }
     guard let replaceWith = type.annotations["replaceWith"] as? String else { continue }
@@ -5,7 +19,7 @@
     guard let aProtocol = types.protocols.first(where: { $0.name == protocolToGenerate }) else { continue } -%>
 // sourcery:inline:<%= type.name %>.AutoGenerateProtocolDelegate
 <% for method in aProtocol.methods { -%>
-<%= method.name.replacingOccurrences(of: replaceOf, with: replaceWith) %>
+<%= methodDeclaration(method, newName: method.name.replacingOccurrences(of: replaceOf, with: replaceWith)) %>
 <% } -%>
 // sourcery:end
 <% } %>
