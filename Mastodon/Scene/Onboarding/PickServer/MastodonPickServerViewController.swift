@@ -207,6 +207,23 @@ extension MastodonPickServerViewController {
         
         onboardingNextView.nextButton.addTarget(self, action: #selector(MastodonPickServerViewController.next(_:)), for: .touchUpInside)
 
+        viewModel.allLanguages
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                guard let snapshot = self?.viewModel.serverSectionHeaderView.diffableDataSource?.snapshot() else { return }
+
+                self?.viewModel.serverSectionHeaderView.diffableDataSource?.applySnapshotUsingReloadData(snapshot) {
+                    guard let self = self, let viewModel = self.viewModel else { return }
+                    guard let indexPath = viewModel.serverSectionHeaderView.diffableDataSource?.indexPath(for: .category(category: .init(category: Mastodon.Entity.Category.Kind.general.rawValue, serversCount: 0))) else { return }
+
+                    viewModel.serverSectionHeaderView.collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .right)
+
+                    let firstIndex = IndexPath(item: 0, section: 0)
+                    viewModel.serverSectionHeaderView.collectionView.scrollToItem(at: firstIndex, at: .left, animated: false)
+                }
+            }
+            .store(in: &disposeBag)
+
         title = L10n.Scene.ServerPicker.title
 
         navigationItem.searchController = searchController
@@ -395,16 +412,14 @@ extension MastodonPickServerViewController: UITableViewDelegate {
 extension MastodonPickServerViewController: PickServerServerSectionTableHeaderViewDelegate {
     func pickServerServerSectionTableHeaderView(_ headerView: PickServerServerSectionTableHeaderView, collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let diffableDataSource = headerView.diffableDataSource,
-              let item = diffableDataSource.itemIdentifier(for: indexPath),
-              let cell = collectionView.cellForItem(at: indexPath) as? PickServerCategoryCollectionViewCell else { return }
+              let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
 
-        if case let .language(_) = item {
-            viewModel.didPressMenuButton(in: cell)
-        } else if case let .signupSpeed(_) = item {
-            // gets also handled by button
-            viewModel.didPressMenuButton(in: cell)
-        } else {
+        switch item {
+        case .category(_):
             viewModel.selectCategoryItem.value = item
+        case .language(_), .signupSpeed(_):
+            break
+            // gets handled by button
         }
     }
 }

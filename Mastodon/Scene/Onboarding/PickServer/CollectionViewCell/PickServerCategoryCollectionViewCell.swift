@@ -11,16 +11,9 @@ import MastodonAsset
 import MastodonUI
 import MastodonLocalization
 
-protocol PickServerCategoryCollectionViewCellDelegate: AnyObject {
-    func didPressMenuButton(in cell: PickServerCategoryCollectionViewCell) //TODO: Add item
-}
-
 class PickServerCategoryCollectionViewCell: UICollectionViewCell {
 
     static let reuseIdentifier = "PickServerCategoryCollectionViewCell"
-    weak var delegate: PickServerCategoryCollectionViewCellDelegate?
-
-    var item: CategoryPickerItem?
 
     let titleLabel: UILabel = {
         let label = UILabel()
@@ -98,7 +91,6 @@ class PickServerCategoryCollectionViewCell: UICollectionViewCell {
     //MARK: - Actions
 
     @objc func didPressButton(_ sender: Any) {
-        delegate?.didPressMenuButton(in: self)
         invalidateIntrinsicContentSize()
     }
 

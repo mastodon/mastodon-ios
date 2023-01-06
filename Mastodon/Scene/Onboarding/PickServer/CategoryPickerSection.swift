@@ -17,26 +17,69 @@ extension CategoryPickerSection {
     static func collectionViewDiffableDataSource(
         for collectionView: UICollectionView,
         dependency: NeedsDependency,
-        buttonDelegate: PickServerCategoryCollectionViewCellDelegate?
+        viewModel: MastodonPickServerViewModel
     ) -> UICollectionViewDiffableDataSource<CategoryPickerSection, CategoryPickerItem> {
         UICollectionViewDiffableDataSource(collectionView: collectionView) { [weak dependency] collectionView, indexPath, item -> UICollectionViewCell? in
             guard let _ = dependency else { return nil }
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PickServerCategoryCollectionViewCell.reuseIdentifier, for: indexPath) as! PickServerCategoryCollectionViewCell
 
             cell.titleLabel.text = item.title
-            cell.delegate = buttonDelegate
-            cell.item = item
-            
-            let isLanguage = (item == .language(language: nil))
-            let isSignupSpeed = (item == .signupSpeed(manuallyReviewed: nil))
-            if isLanguage || isSignupSpeed {
-                cell.chevron.isHidden = false
-                cell.menuButton.isUserInteractionEnabled = true
-                cell.menuButton.isHidden = false
-            } else {
+
+            switch item {
+            case .category(_):
                 cell.chevron.isHidden = true
                 cell.menuButton.isUserInteractionEnabled = false
                 cell.menuButton.isHidden = true
+                cell.menuButton.menu = nil
+            case .language(_):
+                guard viewModel.allLanguages.value.isNotEmpty else { break }
+
+                let allLanguagesAction = UIAction(title: L10n.Scene.ServerPicker.Language.all) { _ in
+                    viewModel.selectedLanguage.value = nil
+                    cell.titleLabel.text = L10n.Scene.ServerPicker.Button.language
+                }
+
+                let languageActions = viewModel.allLanguages.value.compactMap { language in
+                    UIAction(title: language.language ?? language.locale) { action in
+                        viewModel.selectedLanguage.value = language.locale
+                        cell.titleLabel.text = language.language
+                    }
+                }
+
+                var allActions = [allLanguagesAction]
+                allActions.append(contentsOf: languageActions)
+
+                let languageMenu = UIMenu(title: L10n.Scene.ServerPicker.Button.language,
+                                          children: allActions)
+
+                cell.chevron.isHidden = false
+                cell.menuButton.isUserInteractionEnabled = true
+                cell.menuButton.isHidden = false
+                cell.menuButton.menu = languageMenu
+
+            case .signupSpeed(_):
+                let doesntMatterAction = UIAction(title: L10n.Scene.ServerPicker.SignupSpeed.all) { _ in
+                    viewModel.manualApprovalRequired.value = nil
+                    cell.titleLabel.text = L10n.Scene.ServerPicker.Button.signupSpeed
+                }
+
+                let manualApprovalAction = UIAction(title: L10n.Scene.ServerPicker.SignupSpeed.manuallyReviewed) { action in
+                    viewModel.manualApprovalRequired.value = true
+                    cell.titleLabel.text = action.title
+                }
+
+                let instantSignupAction = UIAction(title: L10n.Scene.ServerPicker.SignupSpeed.instant) { action in
+                    viewModel.manualApprovalRequired.value = false
+                    cell.titleLabel.text = action.title
+                }
+
+                let signupSpeedMenu = UIMenu(title: L10n.Scene.ServerPicker.Button.signupSpeed,
+                                             children: [doesntMatterAction, manualApprovalAction, instantSignupAction])
+
+                cell.chevron.isHidden = false
+                cell.menuButton.isUserInteractionEnabled = true
+                cell.menuButton.isHidden = false
+                cell.menuButton.menu = signupSpeedMenu
             }
 
             cell.observe(\.isSelected, options: [.initial, .new]) { cell, _ in
