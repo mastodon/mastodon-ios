@@ -17,17 +17,19 @@ import Introspect
 public struct AttachmentView: View {
     
     @ObservedObject var viewModel: AttachmentViewModel
-        
+    
+    @State private var isEditingDescription = false
+
     var blurEffect: UIBlurEffect {
         UIBlurEffect(style: .systemUltraThinMaterialDark)
     }
 
     public var body: some View {
+        let thumbnail = viewModel.thumbnail ?? .placeholder(color: .secondarySystemFill)
         Color.clear.aspectRatio(358.0/232.0, contentMode: .fill)
             .overlay(
                 ZStack {
-                    let image = viewModel.thumbnail ?? .placeholder(color: .secondarySystemFill)
-                    Image(uiImage: image)
+                    Image(uiImage: thumbnail)
                         .resizable()
                         .aspectRatio(contentMode: .fill)
                         .allowsHitTesting(false)
@@ -46,7 +48,7 @@ public struct AttachmentView: View {
                                     }
                                 }()
                                 Spacer()
-                                ZStack(alignment: .bottom) {
+                                ZStack(alignment: .bottomLeading) {
                                     Rectangle()
                                         .fill(
                                             LinearGradient(
@@ -57,20 +59,21 @@ public struct AttachmentView: View {
                                         )
                                         .frame(height: 80)
                                     
-                                    TextField("", text: $viewModel.caption)
-                                        .lineLimit(1)
-                                        .textFieldStyle(.plain)
-                                        .font(.footnote)
-                                        .foregroundColor(Color(UIColor.white.withAlphaComponent(0.8)))
-                                        .padding(EdgeInsets(top: 0, leading: 8, bottom: 0, trailing: 4))
-                                        .placeholder(when: viewModel.caption.isEmpty) {
-                                            Text(placeholder)
-                                                .font(.footnote)
-                                                .foregroundColor(Color(UIColor.white.withAlphaComponent(0.8)))
-                                                .padding(EdgeInsets(top: 0, leading: 8, bottom: 0, trailing: 4))
-                                                .lineLimit(1)
-                                        }
-                                        .padding(EdgeInsets(top: 6, leading: 0, bottom: 10, trailing: 0))
+                                    Button {
+                                        isEditingDescription = true
+                                    } label: {
+                                        Label(viewModel.caption.isEmpty ? placeholder : viewModel.caption, systemImage: "pencil")
+                                            .lineLimit(1)
+                                            .font(.footnote)
+                                            .foregroundColor(.white.opacity(0.8))
+                                            .padding(EdgeInsets(top: 6, leading: 8, bottom: 10, trailing: 4))
+                                    }
+                                }.sheet(isPresented: $isEditingDescription) {
+                                    AttachmentDescriptionComposerView(
+                                        prompt: placeholder,
+                                        thumbnail: thumbnail,
+                                        description: $viewModel.caption
+                                    )
                                 }
                             }
                         )
@@ -195,30 +198,4 @@ public struct AttachmentView: View {
             )
     }   // end body
     
-}
-
-// https://stackoverflow.com/a/57715771/3797903
-extension View {
-    fileprivate func placeholder<Content: View>(
-        when shouldShow: Bool,
-        alignment: Alignment = .leading,
-        @ViewBuilder placeholder: () -> Content) -> some View {
-
-        ZStack(alignment: alignment) {
-            placeholder().opacity(shouldShow ? 1 : 0)
-            self
-        }
-    }
-    
-    fileprivate func placeholder(
-        _ text: String,
-        when shouldShow: Bool,
-        alignment: Alignment = .leading) -> some View {
-            
-        placeholder(when: shouldShow, alignment: alignment) {
-            Text(text)
-                .foregroundColor(.white.opacity(0.7))
-                .lineLimit(1)
-        }
-    }
 }
