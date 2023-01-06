@@ -251,7 +251,6 @@ extension SceneDelegate {
         case "profile":
             let components = url.pathComponents
             if components.count == 2 && components[0] == "/" {
-                let addr = components[1]
                 if let authContext = coordinator?.authContext {
                     let profileViewModel = RemoteProfileViewModel(
                         context: AppContext.shared,
