@@ -98,6 +98,8 @@ extension PickServerServerSectionTableHeaderView {
 extension PickServerServerSectionTableHeaderView: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        UISelectionFeedbackGenerator().selectionChanged()
+
         collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
         delegate?.pickServerServerSectionTableHeaderView(self, collectionView: collectionView, didSelectItemAt: indexPath)
     }

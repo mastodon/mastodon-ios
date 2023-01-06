@@ -36,11 +36,13 @@ extension CategoryPickerSection {
 
                 let allLanguagesAction = UIAction(title: L10n.Scene.ServerPicker.Language.all) { _ in
                     viewModel.selectedLanguage.value = nil
+                    UISelectionFeedbackGenerator().selectionChanged()
                     cell.titleLabel.text = L10n.Scene.ServerPicker.Button.language
                 }
 
                 let languageActions = viewModel.allLanguages.value.compactMap { language in
                     UIAction(title: language.language ?? language.locale) { action in
+                        UISelectionFeedbackGenerator().selectionChanged()
                         viewModel.selectedLanguage.value = language.locale
                         cell.titleLabel.text = language.language
                     }
@@ -56,21 +58,25 @@ extension CategoryPickerSection {
                 cell.menuButton.isUserInteractionEnabled = true
                 cell.menuButton.isHidden = false
                 cell.menuButton.menu = languageMenu
+                cell.menuButton.showsMenuAsPrimaryAction = true
 
             case .signupSpeed(_):
                 let doesntMatterAction = UIAction(title: L10n.Scene.ServerPicker.SignupSpeed.all) { _ in
                     viewModel.manualApprovalRequired.value = nil
                     cell.titleLabel.text = L10n.Scene.ServerPicker.Button.signupSpeed
+                    UISelectionFeedbackGenerator().selectionChanged()
                 }
 
                 let manualApprovalAction = UIAction(title: L10n.Scene.ServerPicker.SignupSpeed.manuallyReviewed) { action in
                     viewModel.manualApprovalRequired.value = true
                     cell.titleLabel.text = action.title
+                    UISelectionFeedbackGenerator().selectionChanged()
                 }
 
                 let instantSignupAction = UIAction(title: L10n.Scene.ServerPicker.SignupSpeed.instant) { action in
                     viewModel.manualApprovalRequired.value = false
                     cell.titleLabel.text = action.title
+                    UISelectionFeedbackGenerator().selectionChanged()
                 }
 
                 let signupSpeedMenu = UIMenu(title: L10n.Scene.ServerPicker.Button.signupSpeed,
@@ -80,6 +86,7 @@ extension CategoryPickerSection {
                 cell.menuButton.isUserInteractionEnabled = true
                 cell.menuButton.isHidden = false
                 cell.menuButton.menu = signupSpeedMenu
+                cell.menuButton.showsMenuAsPrimaryAction = true
             }
 
             cell.observe(\.isSelected, options: [.initial, .new]) { cell, _ in
