@@ -64,11 +64,11 @@ extension PickServerSection {
             )
         }()
         if let proxiedThumbnail = server.proxiedThumbnail, let thumbnailUrl = URL(string: proxiedThumbnail) {
-            cell.thumbnailImageView.af.setImage(withURL: thumbnailUrl) { _ in
+            cell.thumbnailImageView.af.setImage(withURL: thumbnailUrl, completion: { _ in
                 OperationQueue.main.addOperation {
                     cell.thumbnailImageView.isHidden = false
                 }
-            }
+            })
         }
         attribute.isLast
             .receive(on: DispatchQueue.main)
