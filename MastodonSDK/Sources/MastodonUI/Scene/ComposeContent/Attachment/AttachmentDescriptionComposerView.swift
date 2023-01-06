@@ -79,7 +79,7 @@ struct AttachmentDescriptionComposerView: View {
     }
 }
 
-private class ImageAnalyzerModel: ObservableObject {
+@MainActor private class ImageAnalyzerModel: ObservableObject {
     let image: UIImage
     
     @Published var transcript: String?
@@ -93,7 +93,9 @@ private class ImageAnalyzerModel: ObservableObject {
         let analyzer = ImageAnalyzer()
         analysisTask = Task.detached(priority: .high) { [weak self] in
             let result = try await analyzer.analyze(image, configuration: .init(.text))
-            self?.transcript = result.transcript
+            await MainActor.run { [self] in
+                self?.transcript = result.transcript
+            }
         }
     }
     
