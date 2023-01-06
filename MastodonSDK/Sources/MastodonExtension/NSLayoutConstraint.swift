@@ -17,4 +17,16 @@ extension NSLayoutConstraint {
         self.identifier = identifier
         return self
     }
+
+    @discardableResult
+    public func activate() -> Self {
+        self.isActive = true
+        return self
+    }
+
+    @discardableResult
+    public func deactivate() -> Self {
+        self.isActive = false
+        return self
+    }
 }

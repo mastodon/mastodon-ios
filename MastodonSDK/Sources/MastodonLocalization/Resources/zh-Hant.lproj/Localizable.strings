@@ -22,6 +22,9 @@
 "Common.Alerts.SignOut.Message" = "您確定要登出嗎?";
 "Common.Alerts.SignOut.Title" = "登出";
 "Common.Alerts.SignUpFailure.Title" = "註冊失敗";
+"Common.Alerts.TranslationFailed.Button" = "OK";
+"Common.Alerts.TranslationFailed.Message" = "翻譯失敗。也許管理員未於此伺服器啟用翻譯功能，或此伺服器為未支援翻譯功能之舊版本 Mastodon。";
+"Common.Alerts.TranslationFailed.Title" = "備註";
 "Common.Alerts.VoteFailure.PollEnded" = "投票已結束";
 "Common.Alerts.VoteFailure.Title" = "投票失敗";
 "Common.Controls.Actions.Add" = "新增";
@@ -31,6 +34,7 @@
 "Common.Controls.Actions.Compose" = "撰寫";
 "Common.Controls.Actions.Confirm" = "確認";
 "Common.Controls.Actions.Continue" = "繼續";
+"Common.Controls.Actions.Copy" = "複製";
 "Common.Controls.Actions.CopyPhoto" = "複製照片";
 "Common.Controls.Actions.Delete" = "刪除";
 "Common.Controls.Actions.Discard" = "捨棄";
@@ -59,6 +63,8 @@
 "Common.Controls.Actions.SignUp" = "新增帳號";
 "Common.Controls.Actions.Skip" = "跳過";
 "Common.Controls.Actions.TakePhoto" = "拍攝照片";
+"Common.Controls.Actions.TranslatePost.Title" = "翻譯自 %@";
+"Common.Controls.Actions.TranslatePost.UnknownLanguage" = "未知";
 "Common.Controls.Actions.TryAgain" = "再試一次";
 "Common.Controls.Actions.UnblockDomain" = "解除封鎖 %@";
 "Common.Controls.Friendship.Block" = "封鎖";
@@ -100,6 +106,7 @@
 "Common.Controls.Status.Actions.Menu" = "選單";
 "Common.Controls.Status.Actions.Reblog" = "轉嘟";
 "Common.Controls.Status.Actions.Reply" = "回覆";
+"Common.Controls.Status.Actions.ShareLinkInPost" = "於嘟文中分享鏈結";
 "Common.Controls.Status.Actions.ShowGif" = "顯示 GIF";
 "Common.Controls.Status.Actions.ShowImage" = "顯示圖片";
 "Common.Controls.Status.Actions.ShowVideoPlayer" = "顯示影片播放器";
@@ -107,6 +114,8 @@
 "Common.Controls.Status.Actions.Unfavorite" = "取消最愛";
 "Common.Controls.Status.Actions.Unreblog" = "取消轉嘟";
 "Common.Controls.Status.ContentWarning" = "內容警告";
+"Common.Controls.Status.LinkViaUser" = "%@ 透過 %@";
+"Common.Controls.Status.LoadEmbed" = "讀取嵌入內容";
 "Common.Controls.Status.MediaContentWarning" = "輕觸任何地方以顯示";
 "Common.Controls.Status.MetaEntity.Email" = "電子郵件地址：%@";
 "Common.Controls.Status.MetaEntity.Hashtag" = "主題標籤： %@";
@@ -124,6 +133,10 @@
 "Common.Controls.Status.Tag.Mention" = "提及";
 "Common.Controls.Status.Tag.Url" = "網址";
 "Common.Controls.Status.TapToReveal" = "輕觸以顯示";
+"Common.Controls.Status.Translation.ShowOriginal" = "顯示原文";
+"Common.Controls.Status.Translation.TranslatedFrom" = "Translated from %@ using %@";
+"Common.Controls.Status.Translation.UnknownLanguage" = "未知";
+"Common.Controls.Status.Translation.UnknownProvider" = "Unknown";
 "Common.Controls.Status.UserReblogged" = "%@ 已轉嘟";
 "Common.Controls.Status.UserRepliedTo" = "回覆給 %@";
 "Common.Controls.Status.Visibility.Direct" = "只有被提及的使用者能看到此嘟文。";
@@ -131,9 +144,9 @@
 "Common.Controls.Status.Visibility.PrivateFromMe" = "只有我的跟隨者能看到此嘟文。";
 "Common.Controls.Status.Visibility.Unlisted" = "任何人都能看到此嘟文，但是不會顯示於公開時間軸上。";
 "Common.Controls.Tabs.Home" = "首頁";
-"Common.Controls.Tabs.Notification" = "通知";
+"Common.Controls.Tabs.Notifications" = "通知";
 "Common.Controls.Tabs.Profile" = "個人檔案";
-"Common.Controls.Tabs.Search" = "搜尋";
+"Common.Controls.Tabs.SearchAndExplore" = "搜尋與探索";
 "Common.Controls.Timeline.Filtered" = "已過濾";
 "Common.Controls.Timeline.Header.BlockedWarning" = "您無法瀏覽該使用者的個人檔案，除非他們取消封鎖您。";
 "Common.Controls.Timeline.Header.BlockingWarning" = "您無法瀏覽該使用者的個人檔案，除非您取消封鎖。
@@ -224,6 +237,12 @@
 "Scene.Familiarfollowers.Title" = "您熟悉的跟隨者";
 "Scene.Favorite.Title" = "您的最愛";
 "Scene.FavoritedBy.Title" = "已加入最愛";
+"Scene.FollowedTags.Actions.Follow" = "跟隨";
+"Scene.FollowedTags.Actions.Unfollow" = "取消跟隨";
+"Scene.FollowedTags.Header.Participants" = "參與者";
+"Scene.FollowedTags.Header.Posts" = "嘟文";
+"Scene.FollowedTags.Header.PostsToday" = "本日嘟文";
+"Scene.FollowedTags.Title" = "已跟隨主題標籤";
 "Scene.Follower.Footer" = "來自其他伺服器的跟隨者不會被顯示。";
 "Scene.Follower.Title" = "跟隨者";
 "Scene.Following.Footer" = "來自其他伺服器的跟隨中不會被顯示。";
@@ -263,6 +282,7 @@
 "Scene.Profile.Dashboard.Following" = "跟隨中";
 "Scene.Profile.Dashboard.Posts" = "嘟文";
 "Scene.Profile.Fields.AddRow" = "新增列";
+"Scene.Profile.Fields.Joined" = "加入時間";
 "Scene.Profile.Fields.Placeholder.Content" = "內容";
 "Scene.Profile.Fields.Placeholder.Label" = "標籤";
 "Scene.Profile.Fields.Verified.Long" = "已在 %@ 檢查此連結的擁有者權限";

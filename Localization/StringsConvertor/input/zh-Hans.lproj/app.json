@@ -51,6 +51,11 @@
             "clean_cache": {
                 "title": "清除缓存",
                 "message": "成功清除 %s 缓存。"
+            },
+            "translation_failed": {
+                "title": "Note",
+                "message": "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.",
+                "button": "OK"
             }
         },
         "controls": {
@@ -78,6 +83,7 @@
                 "sign_up": "创建账户",
                 "see_more": "查看更多",
                 "preview": "预览",
+                "copy": "Copy",
                 "share": "分享",
                 "share_user": "分享 %s",
                 "share_post": "分享帖子",
@@ -91,12 +97,16 @@
                 "block_domain": "屏蔽 %s",
                 "unblock_domain": "解除屏蔽 %s",
                 "settings": "设置",
-                "delete": "删除"
+                "delete": "删除",
+                "translate_post": {
+                    "title": "Translate from %s",
+                    "unknown_language": "Unknown"
+                }
             },
             "tabs": {
                 "home": "主页",
-                "search": "搜索",
-                "notification": "通知",
+                "search_and_explore": "Search and Explore",
+                "notifications": "通知",
                 "profile": "个人资料"
             },
             "keyboard": {
@@ -132,6 +142,8 @@
                 "sensitive_content": "敏感内容",
                 "media_content_warning": "点击任意位置显示",
                 "tap_to_reveal": "点击以显示",
+                "load_embed": "Load Embed",
+                "link_via_user": "%s via %s",
                 "poll": {
                     "vote": "投票",
                     "closed": "已关闭"
@@ -153,6 +165,7 @@
                     "show_image": "显示图片",
                     "show_gif": "显示 GIF",
                     "show_video_player": "显示视频播放器",
+                    "share_link_in_post": "Share Link in Post",
                     "tap_then_hold_to_show_menu": "长按以显示菜单"
                 },
                 "tag": {
@@ -168,6 +181,12 @@
                     "private": "只有作者的关注者才能看到此帖子。",
                     "private_from_me": "只有我的关注者才能看到此帖子。",
                     "direct": "只有提到的用户才能看到此帖子。"
+                },
+                "translation": {
+                    "translated_from": "Translated from %s using %s",
+                    "unknown_language": "Unknown",
+                    "unknown_provider": "Unknown",
+                    "show_original": "Shown Original"
                 }
             },
             "friendship": {
@@ -444,11 +463,15 @@
                 "follows_you": "关注了你"
             },
             "dashboard": {
-                "posts": "帖子",
-                "following": "正在关注",
-                "followers": "关注者"
+                "my_posts": "posts",
+                "my_following": "following",
+                "my_followers": "followers",
+                "other_posts": "posts",
+                "other_following": "following",
+                "other_followers": "followers"
             },
             "fields": {
+                "joined": "Joined",
                 "add_row": "添加",
                 "placeholder": {
                     "label": "标签",
@@ -722,6 +745,18 @@
         },
         "bookmark": {
             "title": "书签"
+        },
+        "followed_tags": {
+            "title": "Followed Tags",
+            "header": {
+                "posts": "posts",
+                "participants": "participants",
+                "posts_today": "posts today"
+            },
+            "actions": {
+                "follow": "Follow",
+                "unfollow": "Unfollow"
+            }
         }
     }
 }

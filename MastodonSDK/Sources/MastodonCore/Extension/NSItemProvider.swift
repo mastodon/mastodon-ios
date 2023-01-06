@@ -65,7 +65,7 @@ extension NSItemProvider {
                 }
                 
                 let data = NSMutableData()
-                guard let imageDestination = CGImageDestinationCreateWithData(data, kUTTypeJPEG, 1, nil) else {
+                guard let imageDestination = CGImageDestinationCreateWithData(data, UTType.jpeg.identifier as CFString, 1, nil) else {
                     continuation.resume(with: .success(nil))
                     assertionFailure()
                     return

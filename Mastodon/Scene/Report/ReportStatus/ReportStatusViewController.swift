@@ -47,11 +47,7 @@ class ReportStatusViewController: UIViewController, NeedsDependency, ReportViewC
         tableView.backgroundColor = .clear
         tableView.keyboardDismissMode = .onDrag
         tableView.allowsMultipleSelection = true
-        if #available(iOS 15.0, *) {
-            tableView.sectionHeaderTopPadding = .leastNonzeroMagnitude
-        } else {
-            // Fallback on earlier versions
-        }
+        tableView.sectionHeaderTopPadding = .leastNonzeroMagnitude
         return tableView
     }()
     
@@ -122,6 +118,10 @@ extension ReportStatusViewController {
             .receive(on: DispatchQueue.main)
             .assign(to: \.isEnabled, on: navigationActionView.nextButton)
             .store(in: &disposeBag)
+        
+        if !viewModel.selectStatuses.isEmpty {
+            navigationActionView.hidesBackButton = true
+        }
         
         navigationActionView.backButton.addTarget(self, action: #selector(ReportStatusViewController.skipButtonDidPressed(_:)), for: .touchUpInside)
         navigationActionView.nextButton.addTarget(self, action: #selector(ReportStatusViewController.nextButtonDidPressed(_:)), for: .touchUpInside)        

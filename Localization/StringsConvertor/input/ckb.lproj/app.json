@@ -51,6 +51,11 @@
             "clean_cache": {
                 "title": "بیرگە پاک بکەوە",
                 "message": "سەرکەوتووانە بیرگەی %s پاک کرایەوە."
+            },
+            "translation_failed": {
+                "title": "Note",
+                "message": "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.",
+                "button": "OK"
             }
         },
         "controls": {
@@ -78,6 +83,7 @@
                 "sign_up": "Create account",
                 "see_more": "زیاتر ببینە",
                 "preview": "پێشبینین",
+                "copy": "Copy",
                 "share": "هاوبەشی بکە",
                 "share_user": "%s هاوبەش بکە",
                 "share_post": "هاوبەشی بکە",
@@ -91,12 +97,16 @@
                 "block_domain": "%s ئاستەنگ بکە",
                 "unblock_domain": "%s ئاستەنگ مەکە",
                 "settings": "رێکخستنەکان",
-                "delete": "بیسڕەوە"
+                "delete": "بیسڕەوە",
+                "translate_post": {
+                    "title": "Translate from %s",
+                    "unknown_language": "Unknown"
+                }
             },
             "tabs": {
                 "home": "ماڵەوە",
-                "search": "بگەڕێ",
-                "notification": "ئاگادارکردنەوەکان",
+                "search_and_explore": "Search and Explore",
+                "notifications": "Notifications",
                 "profile": "پرۆفایل"
             },
             "keyboard": {
@@ -132,6 +142,8 @@
                 "sensitive_content": "ناوەڕۆکی هەستیار",
                 "media_content_warning": "دەستی پیا بنێ بۆ نیشاندانی",
                 "tap_to_reveal": "دەستی پیا بنێ بۆ نیشاندانی",
+                "load_embed": "Load Embed",
+                "link_via_user": "%s via %s",
                 "poll": {
                     "vote": "دەنگ بدە",
                     "closed": "داخراوە"
@@ -153,6 +165,7 @@
                     "show_image": "وێنەکە نیشان بدە",
                     "show_gif": "گیفەکە نیشان بدە",
                     "show_video_player": "ڤیدیۆکە لێ بدە",
+                    "share_link_in_post": "Share Link in Post",
                     "tap_then_hold_to_show_menu": "دەستی پیا بنێ و بیگرە بۆ نیشاندانی پێڕستەکە"
                 },
                 "tag": {
@@ -168,6 +181,12 @@
                     "private": "تەنیا شوێنکەوتووەکانی دەتوانن ئەم پۆستە ببینن.",
                     "private_from_me": "تەنیا شوێنکەوتووەکانم دەتوانن ئەم پۆستە ببینن.",
                     "direct": "تەنیا بەکارهێنەرە ئاماژە پێکراوەکە دەتوانێت ئەم پۆستە ببینێت."
+                },
+                "translation": {
+                    "translated_from": "Translated from %s using %s",
+                    "unknown_language": "Unknown",
+                    "unknown_provider": "Unknown",
+                    "show_original": "Shown Original"
                 }
             },
             "friendship": {
@@ -444,11 +463,15 @@
                 "follows_you": "Follows You"
             },
             "dashboard": {
-                "posts": "پۆستەکان",
-                "following": "شوێنکەوتن",
-                "followers": "شوێنکەوتوو"
+                "my_posts": "posts",
+                "my_following": "following",
+                "my_followers": "followers",
+                "other_posts": "posts",
+                "other_following": "following",
+                "other_followers": "followers"
             },
             "fields": {
+                "joined": "Joined",
                 "add_row": "ڕیز زیاد بکە",
                 "placeholder": {
                     "label": "ناونیشان",
@@ -722,6 +745,18 @@
         },
         "bookmark": {
             "title": "Bookmarks"
+        },
+        "followed_tags": {
+            "title": "Followed Tags",
+            "header": {
+                "posts": "posts",
+                "participants": "participants",
+                "posts_today": "posts today"
+            },
+            "actions": {
+                "follow": "Follow",
+                "unfollow": "Unfollow"
+            }
         }
     }
 }

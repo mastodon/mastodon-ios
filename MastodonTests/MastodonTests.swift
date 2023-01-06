@@ -43,10 +43,11 @@ extension MastodonTests {
             } receiveValue: { domain in
                 expectation.fulfill()
             }
-        wait(for: [expectation], timeout: 10)
+        withExtendedLifetime(cancellable) {
+            wait(for: [expectation], timeout: 10)
+        }
     }
 
-    @available(iOS 15.0, *)
     func testConnectOnion() async throws {
         let request = URLRequest(
             url: URL(string: "http://a232ncr7jexk2chvubaq2v6qdizbocllqap7mnn7w7vrdutyvu32jeyd.onion/@k0gen")!,

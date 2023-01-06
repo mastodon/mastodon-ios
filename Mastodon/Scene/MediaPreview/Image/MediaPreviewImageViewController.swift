@@ -11,6 +11,7 @@ import Combine
 import MastodonAsset
 import MastodonLocalization
 import FLAnimatedImage
+import VisionKit
 
 protocol MediaPreviewImageViewControllerDelegate: AnyObject {
     func mediaPreviewImageViewController(_ viewController: MediaPreviewImageViewController, tapGestureRecognizerDidTrigger tapGestureRecognizer: UITapGestureRecognizer)
@@ -31,7 +32,7 @@ final class MediaPreviewImageViewController: UIViewController {
 
     let tapGestureRecognizer = UITapGestureRecognizer.singleTapGestureRecognizer
     let longPressGestureRecognizer = UILongPressGestureRecognizer()
-    
+
     deinit {
         os_log("%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         previewImageView.imageView.af.cancelImageRequest()
@@ -42,7 +43,10 @@ extension MediaPreviewImageViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+
+        if #available(iOS 16.0, *) {
+            previewImageView.liveTextInteraction.delegate = self
+        }
         previewImageView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(previewImageView)
         NSLayoutConstraint.activate([
@@ -53,7 +57,9 @@ extension MediaPreviewImageViewController {
         ])
 
         tapGestureRecognizer.addTarget(self, action: #selector(MediaPreviewImageViewController.tapGestureRecognizerHandler(_:)))
+        tapGestureRecognizer.delegate = self
         longPressGestureRecognizer.addTarget(self, action: #selector(MediaPreviewImageViewController.longPressGestureRecognizerHandler(_:)))
+        longPressGestureRecognizer.delegate = self
         tapGestureRecognizer.require(toFail: previewImageView.doubleTapGestureRecognizer)
         tapGestureRecognizer.require(toFail: longPressGestureRecognizer)
         previewImageView.addGestureRecognizer(tapGestureRecognizer)
@@ -62,30 +68,21 @@ extension MediaPreviewImageViewController {
         let previewImageViewContextMenuInteraction = UIContextMenuInteraction(delegate: self)
         previewImageView.addInteraction(previewImageViewContextMenuInteraction)
 
-        switch viewModel.item {
-        case .remote(let imageContext):
-            previewImageView.imageView.accessibilityLabel = imageContext.altText
-            
-            if let thumbnail = imageContext.thumbnail {
-                previewImageView.imageView.image = thumbnail
-                previewImageView.setup(image: thumbnail, container: self.previewImageView, forceUpdate: true)
-            }
-            
-            previewImageView.imageView.setImage(
-                url: imageContext.assetURL,
-                placeholder: imageContext.thumbnail,
-                scaleToSize: nil
-            ) { [weak self] image in
-                guard let self = self else { return }
-                guard let image = image else { return }
-                self.previewImageView.setup(image: image, container: self.previewImageView, forceUpdate: true)
-            }
-            
-        case .local(let imageContext):
-            let image = imageContext.image
-            previewImageView.imageView.image = image
-            previewImageView.setup(image: image, container: previewImageView, forceUpdate: true)
-            
+        previewImageView.imageView.accessibilityLabel = viewModel.item.altText
+
+        if let thumbnail = viewModel.item.thumbnail {
+            previewImageView.imageView.image = thumbnail
+            previewImageView.setup(image: thumbnail, container: self.previewImageView, forceUpdate: true)
+        }
+
+        previewImageView.imageView.setImage(
+            url: viewModel.item.assetURL,
+            placeholder: viewModel.item.thumbnail,
+            scaleToSize: nil
+        ) { [weak self] image in
+            guard let self = self else { return }
+            guard let image = image else { return }
+            self.previewImageView.setup(image: image, container: self.previewImageView, forceUpdate: true)
         }
     }
     
@@ -105,10 +102,54 @@ extension MediaPreviewImageViewController {
     
 }
 
+extension MediaPreviewImageViewController: MediaPreviewPage {
+    func setShowingChrome(_ showingChrome: Bool) {
+        if #available(iOS 16.0, *) {
+            UIView.animate(withDuration: 0.3) {
+                self.previewImageView.liveTextInteraction.setSupplementaryInterfaceHidden(!showingChrome, animated: true)
+            }
+        }
+    }
+}
+
+// MARK: - ImageAnalysisInteractionDelegate
+@available(iOS 16.0, *)
+extension MediaPreviewImageViewController: ImageAnalysisInteractionDelegate {
+    func presentingViewController(for interaction: ImageAnalysisInteraction) -> UIViewController? {
+        self
+    }
+}
+
+// MARK: - UIGestureRecognizerDelegate
+extension MediaPreviewImageViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        if #available(iOS 16.0, *) {
+            let location = touch.location(in: previewImageView.imageView)
+            // for tap gestures, only items that can be tapped are relevant
+            if gestureRecognizer is UITapGestureRecognizer {
+                return !previewImageView.liveTextInteraction.hasSupplementaryInterface(at: location)
+                    && !previewImageView.liveTextInteraction.hasDataDetector(at: location)
+            } else {
+                // for long press, block out everything
+                return !previewImageView.liveTextInteraction.hasInteractiveItem(at: location)
+            }
+        } else {
+            return true
+        }
+    }
+}
+
 // MARK: - UIContextMenuInteractionDelegate
 extension MediaPreviewImageViewController: UIContextMenuInteractionDelegate {
     func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+
+        if #available(iOS 16.0, *) {
+            if previewImageView.liveTextInteraction.hasInteractiveItem(at: previewImageView.imageView.convert(location, from: previewImageView)) {
+                return nil
+            }
+        }
+
         
         let previewProvider: UIContextMenuContentPreviewProvider = { () -> UIViewController? in
             return nil

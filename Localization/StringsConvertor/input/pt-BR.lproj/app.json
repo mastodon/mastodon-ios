@@ -51,6 +51,11 @@
             "clean_cache": {
                 "title": "Limpar Cache",
                 "message": "%s do cache removidos com sucesso."
+            },
+            "translation_failed": {
+                "title": "Note",
+                "message": "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.",
+                "button": "OK"
             }
         },
         "controls": {
@@ -78,6 +83,7 @@
                 "sign_up": "Criar conta",
                 "see_more": "Ver mais",
                 "preview": "Pré-visualização",
+                "copy": "Copy",
                 "share": "Compartilhar",
                 "share_user": "Compartilhar %s",
                 "share_post": "Compartilhar postagem",
@@ -91,12 +97,16 @@
                 "block_domain": "Bloquear %s",
                 "unblock_domain": "Desbloquear %s",
                 "settings": "Configurações",
-                "delete": "Excluir"
+                "delete": "Excluir",
+                "translate_post": {
+                    "title": "Translate from %s",
+                    "unknown_language": "Unknown"
+                }
             },
             "tabs": {
                 "home": "Início",
-                "search": "Buscar",
-                "notification": "Notificação",
+                "search_and_explore": "Search and Explore",
+                "notifications": "Notifications",
                 "profile": "Perfil"
             },
             "keyboard": {
@@ -132,6 +142,8 @@
                 "sensitive_content": "Conteúdo sensível",
                 "media_content_warning": "Toque em qualquer lugar para revelar",
                 "tap_to_reveal": "Toque para revelar",
+                "load_embed": "Load Embed",
+                "link_via_user": "%s via %s",
                 "poll": {
                     "vote": "Votar",
                     "closed": "Fechado"
@@ -153,6 +165,7 @@
                     "show_image": "Exibir imagem",
                     "show_gif": "Exibir GIF",
                     "show_video_player": "Mostrar reprodutor de vídeo",
+                    "share_link_in_post": "Share Link in Post",
                     "tap_then_hold_to_show_menu": "Toque e em seguida segure para exibir o menu"
                 },
                 "tag": {
@@ -168,6 +181,12 @@
                     "private": "Somente seus seguidores podem ver essa postagem.",
                     "private_from_me": "Somente meus seguidores podem ver essa postagem.",
                     "direct": "Somente o usuário mencionado pode ver essa postagem."
+                },
+                "translation": {
+                    "translated_from": "Translated from %s using %s",
+                    "unknown_language": "Unknown",
+                    "unknown_provider": "Unknown",
+                    "show_original": "Shown Original"
                 }
             },
             "friendship": {
@@ -444,11 +463,15 @@
                 "follows_you": "Segue você"
             },
             "dashboard": {
-                "posts": "toots",
-                "following": "seguindo",
-                "followers": "seguidores"
+                "my_posts": "posts",
+                "my_following": "following",
+                "my_followers": "followers",
+                "other_posts": "posts",
+                "other_following": "following",
+                "other_followers": "followers"
             },
             "fields": {
+                "joined": "Joined",
                 "add_row": "Adicionar linha",
                 "placeholder": {
                     "label": "Descrição",
@@ -722,6 +745,18 @@
         },
         "bookmark": {
             "title": "Marcados"
+        },
+        "followed_tags": {
+            "title": "Followed Tags",
+            "header": {
+                "posts": "posts",
+                "participants": "participants",
+                "posts_today": "posts today"
+            },
+            "actions": {
+                "follow": "Follow",
+                "unfollow": "Unfollow"
+            }
         }
     }
 }

@@ -71,9 +71,7 @@ class ReportStatusViewModel {
         }
 
         $selectStatuses
-            .map { statuses -> Bool in
-                return status == nil ? !statuses.isEmpty : statuses.count > 1
-            }
+            .map { !$0.isEmpty }
             .assign(to: &$isNextButtonEnabled)
     }
 

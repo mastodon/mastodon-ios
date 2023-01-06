@@ -29,7 +29,8 @@ final class ComposeViewModel {
     // input
     let context: AppContext
     let authContext: AuthContext
-    let kind: ComposeContentViewModel.Kind
+    let destination: ComposeContentViewModel.Destination
+    let initialContent: String
 
     let traitCollectionDidChangePublisher = CurrentValueSubject<Void, Never>(Void())      // use CurrentValueSubject to make initial event emit
     
@@ -41,17 +42,19 @@ final class ComposeViewModel {
     init(
         context: AppContext,
         authContext: AuthContext,
-        kind: ComposeContentViewModel.Kind
+        destination: ComposeContentViewModel.Destination,
+        initialContent: String = ""
     ) {
         self.context = context
         self.authContext = authContext
-        self.kind = kind
+        self.destination = destination
+        self.initialContent = initialContent
         // end init
         
         self.title = {
-            switch kind {
-            case .post, .hashtag, .mention:       return L10n.Scene.Compose.Title.newPost
-            case .reply:                          return L10n.Scene.Compose.Title.newReply
+            switch destination {
+            case .topLevel: return L10n.Scene.Compose.Title.newPost
+            case .reply:    return L10n.Scene.Compose.Title.newReply
             }
         }()
     }

@@ -13,6 +13,8 @@ extension MetaTextView {
     public override func paste(_ sender: Any?) {
         super.paste(sender)
         
+        // fix #660
+        // https://github.com/mastodon/mastodon-ios/issues/660
         var nextResponder = self.next;
         
         // Force the event to bubble through ALL responders

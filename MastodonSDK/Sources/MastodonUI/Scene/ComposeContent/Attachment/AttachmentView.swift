@@ -30,6 +30,7 @@ public struct AttachmentView: View {
                     Image(uiImage: image)
                         .resizable()
                         .aspectRatio(contentMode: .fill)
+                        .allowsHitTesting(false)
                 }
             )
             .overlay(

@@ -32,7 +32,7 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
     
     // input
     let context: AppContext
-    let kind: Kind
+    let destination: Destination
     weak var delegate: ComposeContentViewModelDelegate?
     
     @Published var viewLayoutFrame = ViewLayoutFrame()
@@ -59,8 +59,7 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
             customEmojiPickerInputViewModel.configure(textInput: textView)
         }
     }
-    // for hashtag: "#<hashtag> "
-    // for mention: "@<mention> "
+    // allow dismissing the compose view without confirmation if content == intialContent
     @Published public var initialContent = ""
     @Published public var content = ""
     @Published public var contentWeightedLength = 0
@@ -88,7 +87,7 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
     // attachment
     @Published public var attachmentViewModels: [AttachmentViewModel] = []
     @Published public var maxMediaAttachmentLimit = 4
-    // @Published public internal(set) var isMediaValid = true
+    @Published public internal(set) var maxImageMediaSizeLimitInByte = 10 * 1024 * 1024     // 10 MiB
     
     // poll
     @Published public var isPollActive = false
@@ -126,15 +125,24 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
     @Published var isPollButtonEnabled = false
     
     @Published public private(set) var shouldDismiss = true
+    
+    // size limit
+    public var sizeLimit: AttachmentViewModel.SizeLimit {
+        AttachmentViewModel.SizeLimit(
+            image: maxImageMediaSizeLimitInByte,
+            video: nil
+        )
+    }
 
     public init(
         context: AppContext,
         authContext: AuthContext,
-        kind: Kind
+        destination: Destination,
+        initialContent: String
     ) {
         self.context = context
         self.authContext = authContext
-        self.kind = kind
+        self.destination = destination
         self.visibility = {
             // default private when user locked
             var visibility: Mastodon.Entity.Status.Visibility = {
@@ -144,8 +152,7 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
                 return author.locked ? .private : .public
             }()
             // set visibility for reply post
-            switch kind {
-            case .reply(let record):
+            if case .reply(let record) = destination {
                 context.managedObjectContext.performAndWait {
                     guard let status = record.object(in: context.managedObjectContext) else {
                         assertionFailure()
@@ -165,8 +172,6 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
                         break
                     }
                 }
-            default:
-                break
             }
             return visibility
         }()
@@ -177,7 +182,8 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
         // end init
         
         // setup initial value
-        switch kind {
+        let initialContentWithSpace = initialContent.isEmpty ? "" : initialContent + " "
+        switch destination {
         case .reply(let record):
             context.managedObjectContext.performAndWait {
                 guard let status = record.object(in: context.managedObjectContext) else {
@@ -206,29 +212,15 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
                 }
 
                 let initialComposeContent = mentionAccts.joined(separator: " ")
-                let preInsertedContent: String? = initialComposeContent.isEmpty ? nil : initialComposeContent + " "
-                self.initialContent = preInsertedContent ?? ""
-                self.content = preInsertedContent ?? ""
+                let preInsertedContent = initialComposeContent.isEmpty ? "" : initialComposeContent + " "
+                self.initialContent = preInsertedContent + initialContentWithSpace
+                self.content = preInsertedContent + initialContentWithSpace
             }
-        case .hashtag(let hashtag):
-            let initialComposeContent = "#" + hashtag
-            UITextChecker.learnWord(initialComposeContent)
-            let preInsertedContent = initialComposeContent + " "
-            self.initialContent = preInsertedContent
-            self.content = preInsertedContent
-        case .mention(let record):
-            context.managedObjectContext.performAndWait {
-                guard let user = record.object(in: context.managedObjectContext) else { return }
-                let initialComposeContent = "@" + user.acct
-                UITextChecker.learnWord(initialComposeContent)
-                let preInsertedContent = initialComposeContent + " "
-                self.initialContent = preInsertedContent
-                self.content = preInsertedContent
-            }
-        case .post:
-            break
+        case .topLevel:
+            self.initialContent = initialContentWithSpace
+            self.content = initialContentWithSpace
         }
-        
+
         // set limit
         let _configuration: Mastodon.Entity.Instance.Configuration? = {
             var configuration: Mastodon.Entity.Instance.Configuration? = nil
@@ -251,6 +243,10 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
             // set poll option limit
             if let maxOptions = configuration.polls?.maxOptions {
                 maxPollOptionLimit = maxOptions
+            }
+            // set photo attachment limit
+            if let imageSizeLimit = configuration.mediaAttachments?.imageSizeLimit {
+                maxImageMediaSizeLimitInByte = imageSizeLimit
             }
             // TODO: more limit
         }
@@ -431,11 +427,9 @@ extension ComposeContentViewModel {
 }
 
 extension ComposeContentViewModel {
-    public enum Kind {
-        case post
-        case hashtag(hashtag: String)
-        case mention(user: ManagedObjectRecord<MastodonUser>)
-        case reply(status: ManagedObjectRecord<Status>)
+    public enum Destination {
+        case topLevel
+        case reply(parent: ManagedObjectRecord<Status>)
     }
     
     public enum ScrollViewState {
@@ -498,7 +492,7 @@ extension ComposeContentViewModel {
         let managedObjectContext = self.context.managedObjectContext
         var _author: ManagedObjectRecord<MastodonUser>?
         managedObjectContext.performAndWait {
-            _author = authContext.mastodonAuthenticationBox.authenticationRecord.object(in: managedObjectContext)?.user.asRecrod
+            _author = authContext.mastodonAuthenticationBox.authenticationRecord.object(in: managedObjectContext)?.user.asRecord
         }
         guard let author = _author else {
             throw AppError.badAuthentication
@@ -518,10 +512,10 @@ extension ComposeContentViewModel {
         return MastodonStatusPublisher(
             author: author,
             replyTo: {
-                switch self.kind {
-                case .reply(let status):    return status
-                default:                    return nil
+                if case .reply(let status) = destination {
+                    return status
                 }
+                return nil
             }(),
             isContentWarningComposing: isContentWarningActive,
             contentWarning: contentWarning,

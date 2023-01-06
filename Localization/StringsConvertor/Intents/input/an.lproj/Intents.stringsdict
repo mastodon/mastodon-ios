@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>There are ${count} options matching ‘${content}’. - 2</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>I hai %#@count_option@ coincidencias con «${content}».</string>
+      <key>count_option</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>%ld</string>
+        <key>one</key>
+        <string>1 opción</string>
+        <key>other</key>
+        <string>%ld opcions</string>
+      </dict>
+    </dict>
+    <key>There are ${count} options matching ‘${visibility}’.</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>I hai %#@count_option@ coincidencias con «${visibility}».</string>
+      <key>count_option</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>%ld</string>
+        <key>one</key>
+        <string>1 opción</string>
+        <key>other</key>
+        <string>%ld opcions</string>
+      </dict>
+    </dict>
+  </dict>
+</plist>

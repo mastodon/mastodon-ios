@@ -1,51 +1,51 @@
-"16wxgf" = "Post on Mastodon";
+"16wxgf" = "Postio ar Mastodon";
 
-"751xkl" = "Text Content";
+"751xkl" = "Cynnwys Testun";
 
-"CsR7G2" = "Post on Mastodon";
+"CsR7G2" = "Postio ar Mastodon";
 
-"HZSGTr" = "What content to post?";
+"HZSGTr" = "Pa gynnwys i bostio?";
 
-"HdGikU" = "Posting failed";
+"HdGikU" = "Methwyd postio";
 
-"KDNTJ4" = "Failure Reason";
+"KDNTJ4" = "Rheswm y Gwall";
 
-"RHxKOw" = "Send Post with text content";
+"RHxKOw" = "Cyhoeddi Post â chynnwys testun";
 
 "RxSqsb" = "Post";
 
-"WCIR3D" = "Post ${content} on Mastodon";
+"WCIR3D" = "Postio ${content} ar Mastodon";
 
 "ZKJSNu" = "Post";
 
 "ZS1XaK" = "${content}";
 
-"ZbSjzC" = "Visibility";
+"ZbSjzC" = "Preifatrwydd";
 
-"Zo4jgJ" = "Post Visibility";
+"Zo4jgJ" = "Preifatrwydd Post";
 
-"apSxMG-dYQ5NN" = "There are ${count} options matching ‘Public’.";
+"apSxMG-dYQ5NN" = "Ceir ${count} opsiwn ar gyfer ‘Cyhoeddus’.";
 
-"apSxMG-ehFLjY" = "There are ${count} options matching ‘Followers Only’.";
+"apSxMG-ehFLjY" = "Ceir ${count} opsiwn ar gyfer ‘Dilynwyr yn Unig’.";
 
-"ayoYEb-dYQ5NN" = "${content}, Public";
+"ayoYEb-dYQ5NN" = "${content}, Cyhoeddus";
 
-"ayoYEb-ehFLjY" = "${content}, Followers Only";
+"ayoYEb-ehFLjY" = "${content}, Dilynwyr yn Unig";
 
-"dUyuGg" = "Post on Mastodon";
+"dUyuGg" = "Postio ar Mastodon";
 
-"dYQ5NN" = "Public";
+"dYQ5NN" = "Cyhoeddus";
 
-"ehFLjY" = "Followers Only";
+"ehFLjY" = "Dilynwyr yn unig";
 
-"gfePDu" = "Posting failed. ${failureReason}";
+"gfePDu" = "Methwyd postio. ${failureReason}";
 
-"k7dbKQ" = "Post was sent successfully.";
+"k7dbKQ" = "Cyhoeddwyd y post yn llwyddiannus.";
 
-"oGiqmY-dYQ5NN" = "Just to confirm, you wanted ‘Public’?";
+"oGiqmY-dYQ5NN" = "I gadarnhau, rydych chi am ddewis ‘Cyhoeddus’?";
 
-"oGiqmY-ehFLjY" = "Just to confirm, you wanted ‘Followers Only’?";
+"oGiqmY-ehFLjY" = "I gadarnhau, rydych chi am ddewis ‘Dilynwyr yn Unig’?";
 
 "rM6dvp" = "URL";
 
-"ryJLwG" = "Post was sent successfully. ";
+"ryJLwG" = "Cyhoeddwyd y post yn llwyddiannus. ";

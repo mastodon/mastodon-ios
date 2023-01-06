@@ -14,7 +14,6 @@ import CoreData
 import CoreDataStack
 import GameplayKit
 import AlamofireImage
-import DateToolsSwift
 import MastodonCore
 import MastodonUI
 
@@ -149,12 +148,7 @@ extension HomeTimelineViewModel {
         }
         
         // reconfigure item
-        if #available(iOS 15.0, *) {
-            snapshot.reconfigureItems([item])
-        } else {
-            // Fallback on earlier versions
-            snapshot.reloadItems([item])
-        }
+        snapshot.reconfigureItems([item])
         await updateSnapshotUsingReloadData(snapshot: snapshot)
         
         // fetch data
@@ -177,15 +171,10 @@ extension HomeTimelineViewModel {
         }
         
         // reconfigure item again
-        if #available(iOS 15.0, *) {
-            snapshot.reconfigureItems([item])
-        } else {
-            // Fallback on earlier versions
-            snapshot.reloadItems([item])
-        }
+        snapshot.reconfigureItems([item])
         await updateSnapshotUsingReloadData(snapshot: snapshot)
     }
-
+    
 }
 
 // MARK: - SuggestionAccountViewModelDelegate

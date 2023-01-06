@@ -37,11 +37,7 @@ final class MastodonServerRulesViewController: UIViewController, NeedsDependency
         tableView.separatorStyle = .none
         tableView.backgroundColor = .clear
         tableView.keyboardDismissMode = .onDrag
-        if #available(iOS 15.0, *) {
-            tableView.sectionHeaderTopPadding = 0
-        } else {
-            // Fallback on earlier versions
-        }
+        tableView.sectionHeaderTopPadding = 0
         return tableView
     }()
 
