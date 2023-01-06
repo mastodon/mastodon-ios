@@ -67,10 +67,7 @@ extension MastodonPickServerViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationController?.setNavigationBarHidden(false, animated: false)
-
+        
         setupOnboardingAppearance()
         defer { setupNavigationBarBackgroundView() }
 
