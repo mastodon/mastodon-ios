@@ -107,6 +107,8 @@
 		85904C04293BC1940011C817 /* URLActivityItemWithMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85904C03293BC1940011C817 /* URLActivityItemWithMetadata.swift */; };
 		85BC11B32932414900E191CD /* AltViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85BC11B22932414900E191CD /* AltViewController.swift */; };
 		87FFDA5D898A5C42ADCB35E7 /* Pods_Mastodon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4ABE34829701A4496C5BB64 /* Pods_Mastodon.framework */; };
+		9E44C7202967AD17004B2A72 /* MastodonSDKDynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 9E44C71F2967AD17004B2A72 /* MastodonSDKDynamic */; };
+		9E44C7222967AD17004B2A72 /* MastodonSDKDynamic in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 9E44C71F2967AD17004B2A72 /* MastodonSDKDynamic */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		C24C97032922F30500BAE8CB /* RefreshControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24C97022922F30500BAE8CB /* RefreshControl.swift */; };
 		D87BFC8B291D5C6B00FEE264 /* MastodonLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87BFC8A291D5C6B00FEE264 /* MastodonLoginView.swift */; };
 		D87BFC8D291EB81200FEE264 /* MastodonLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87BFC8C291EB81200FEE264 /* MastodonLoginViewModel.swift */; };
@@ -487,6 +489,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		9E44C7212967AD17004B2A72 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				9E44C7222967AD17004B2A72 /* MastodonSDKDynamic in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DB89BA0825C10FD0008580ED /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1097,6 +1110,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9E44C7202967AD17004B2A72 /* MastodonSDKDynamic in Frameworks */,
 				5E44BF88AD33646E64727BCF /* Pods_MastodonTests.framework in Frameworks */,
 				5E0DEC05797A7E6933788DDB /* Pods_MastodonTests.framework in Frameworks */,
 			);
@@ -2763,6 +2777,7 @@
 				DB427DE425BAA00100D1B89D /* Sources */,
 				DB427DE525BAA00100D1B89D /* Frameworks */,
 				DB427DE625BAA00100D1B89D /* Resources */,
+				9E44C7212967AD17004B2A72 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -2770,6 +2785,9 @@
 				DB427DEA25BAA00100D1B89D /* PBXTargetDependency */,
 			);
 			name = MastodonTests;
+			packageProductDependencies = (
+				9E44C71F2967AD17004B2A72 /* MastodonSDKDynamic */,
+			);
 			productName = MastodonTests;
 			productReference = DB427DE825BAA00100D1B89D /* MastodonTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -4650,6 +4668,10 @@
 			productName = MastodonSDKDynamic;
 		};
 		357FEEB929523D660021C9DC /* MastodonSDKDynamic */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MastodonSDKDynamic;
+		};
+		9E44C71F2967AD17004B2A72 /* MastodonSDKDynamic */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = MastodonSDKDynamic;
 		};
