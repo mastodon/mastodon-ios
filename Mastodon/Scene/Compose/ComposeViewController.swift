@@ -129,7 +129,7 @@ extension ComposeViewController {
 extension ComposeViewController {
   
     private func showDismissConfirmAlertController() {
-        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let alertController = PortraitAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let discardAction = UIAlertAction(title: L10n.Common.Controls.Actions.discard, style: .destructive) { [weak self] _ in
             guard let self = self else { return }
             self.dismiss(animated: true, completion: nil)

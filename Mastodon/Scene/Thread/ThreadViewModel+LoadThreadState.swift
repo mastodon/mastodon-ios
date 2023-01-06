@@ -73,7 +73,7 @@ extension ThreadViewModel.LoadThreadState {
                 return
             }
             
-            Task {
+            Task { @MainActor in
                 do {
                     let response = try await viewModel.context.apiService.statusContext(
                         statusID: threadContext.statusID,

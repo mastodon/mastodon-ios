@@ -12,6 +12,7 @@ import Combine
 import AlamofireImage
 import SwiftUI
 import MastodonLocalization
+import MastodonAsset
 
 public final class MediaView: UIView {
     
@@ -49,11 +50,20 @@ public final class MediaView: UIView {
         return playerViewController
     }()
     private var playerLooper: AVPlayerLooper?
-    private(set) lazy var playbackImageView: UIImageView = {
+
+    private(set) lazy var playbackImageView: UIView = {
+        let wrapper = UIView()
+
         let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = UIImage(systemName: "play.circle.fill")
-        imageView.tintColor = .white
-        return imageView
+        imageView.tintColor = Asset.Colors.Label.primary.color
+        wrapper.addSubview(imageView)
+        imageView.pinToParent(padding: .init(top: 8, left: 8, bottom: 8, right: 8))
+        wrapper.backgroundColor = Asset.Theme.Mastodon.systemBackground.color.withAlphaComponent(0.8)
+        wrapper.applyCornerRadius(radius: 8)
+
+        return wrapper
     }()
     
     private(set) lazy var indicatorBlurEffectView: UIVisualEffectView = {
@@ -73,20 +83,12 @@ public final class MediaView: UIView {
         return label
     }()
     
-    let _altViewController: UIViewController! = {
-        if #available(iOS 15.0, *) {
-            let vc = UIHostingController(rootView: MediaAltTextOverlay())
-            vc.view.backgroundColor = .clear
-            return vc
-        } else {
-            return nil
-        }
+    let altViewController: UIHostingController<MediaAltTextOverlay> = {
+        let vc = UIHostingController(rootView: MediaAltTextOverlay())
+        vc.view.backgroundColor = .clear
+        return vc
     }()
-    @available(iOS 15.0, *)
-    var altViewController: UIHostingController<MediaAltTextOverlay> {
-        _altViewController as! UIHostingController<MediaAltTextOverlay>
-    }
-    
+
     public override init(frame: CGRect) {
         super.init(frame: frame)
         _init()
@@ -228,9 +230,8 @@ extension MediaView {
         } else {
             accessibilityLabel = altDescription
         }
-        if #available(iOS 15.0, *) {
-            altViewController.rootView.altDescription = altDescription
-        }
+
+        altViewController.rootView.altDescription = altDescription
     }
 
     private func layoutBlurhash() {
@@ -262,11 +263,9 @@ extension MediaView {
     }
     
     private func layoutAlt() {
-        if #available(iOS 15.0, *) {
-            altViewController.view.translatesAutoresizingMaskIntoConstraints = false
-            container.addSubview(altViewController.view)
-            altViewController.view.pinToParent()
-        }
+        altViewController.view.translatesAutoresizingMaskIntoConstraints = false
+        container.addSubview(altViewController.view)
+        altViewController.view.pinToParent()
     }
     
     public func prepareForReuse() {
@@ -304,10 +303,8 @@ extension MediaView {
         container.removeFromSuperview()
         container.removeConstraints(container.constraints)
         
-        if #available(iOS 15.0, *) {
-            altViewController.rootView.altDescription = nil
-        }
-        
+        altViewController.rootView.altDescription = nil
+
         // reset configuration
         configuration = nil
     }

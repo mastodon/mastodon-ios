@@ -112,6 +112,10 @@ extension RootSplitViewController {
         
         self.updateBehavior(size: size)
     }
+
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        .portraitOnPhone
+    }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
