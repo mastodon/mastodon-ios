@@ -230,16 +230,16 @@ extension MastodonPickServerViewModel {
 
     func chooseRandomServer() -> Mastodon.Entity.Server? {
 
-        guard let language = Locale.preferredLanguages.first?.lowercased() else { return nil }
+        let language = Locale.autoupdatingCurrent.languageCode?.lowercased() ?? "en"
 
         let servers = indexedServers.value
         guard servers.isNotEmpty else { return nil }
 
         let randomServer = servers.filter {
-            $0.language == language
+            $0.language.lowercased() == language
         }.randomElement()
 
-        return randomServer
+        return randomServer ?? servers.randomElement() ?? servers.first
     }
 }
 
