@@ -175,7 +175,7 @@ extension PollOptionView.ViewModel {
                     view.voteProgressStripView.setProgress(0.0, animated: false)
                 case .reveal(let voted, let percentage, let animating):
                     view.optionPercentageLabel.isHidden = false
-                    view.optionPercentageLabel.text = String(Int(100 * percentage)) + "%"
+                    view.optionPercentageLabel.text = String(Int(round(100 * percentage))) + "%"
                     view.voteProgressStripView.isHidden = false
                     view.voteProgressStripView.tintColor = voted ? self.primaryStripProgressViewTintColor : self.secondaryStripProgressViewTintColor
                     view.voteProgressStripView.setProgress(CGFloat(percentage), animated: animating)

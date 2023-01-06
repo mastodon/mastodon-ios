@@ -30,19 +30,10 @@ class MediaPreviewImageViewModel {
 
 extension MediaPreviewImageViewModel {
     
-    public enum ImagePreviewItem {
-        case remote(RemoteImageContext)
-        case local(LocalImageContext)
-    }
-    
-    public struct RemoteImageContext {
+    public struct ImagePreviewItem {
         let assetURL: URL?
         let thumbnail: UIImage?
         let altText: String?
-    }
-    
-    public struct LocalImageContext {
-        let image: UIImage
     }
 
 }

@@ -64,13 +64,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 
 extension AppDelegate {
-    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
-        return UIDevice.current.userInterfaceIdiom == .phone ? .portrait : .all
-    }
-}
-
-extension AppDelegate {
-    
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         appContext.notificationService.deviceToken.value = deviceToken
     }

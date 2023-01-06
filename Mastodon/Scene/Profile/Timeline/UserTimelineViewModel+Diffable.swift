@@ -83,7 +83,7 @@ extension UserTimelineViewModel {
                 }
             }
             
-            diffableDataSource.applySnapshot(snapshot, animated: false)
+            diffableDataSource.apply(snapshot, animatingDifferences: false)
         }
         .store(in: &disposeBag)
     }

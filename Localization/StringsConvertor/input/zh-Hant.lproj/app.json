@@ -183,9 +183,9 @@
                     "direct": "只有被提及的使用者能看到此嘟文。"
                 },
                 "translation": {
-                    "translated_from": "Translated from %s using %s",
+                    "translated_from": "透過 %s 翻譯 %s",
                     "unknown_language": "未知",
-                    "unknown_provider": "Unknown",
+                    "unknown_provider": "未知",
                     "show_original": "顯示原文"
                 }
             },
@@ -463,9 +463,12 @@
                 "follows_you": "跟隨了您"
             },
             "dashboard": {
-                "posts": "嘟文",
-                "following": "跟隨中",
-                "followers": "跟隨者"
+                "my_posts": "嘟文",
+                "my_following": "正在跟隨",
+                "my_followers": "跟隨者",
+                "other_posts": "嘟文",
+                "other_following": "正在跟隨",
+                "other_followers": "跟隨者"
             },
             "fields": {
                 "joined": "加入時間",
