@@ -18,7 +18,7 @@ class WelcomeContentPageView: UIView {
         
         titleView = UILabel()
         titleView.font = WelcomeViewController.largeTitleFont
-        titleView.textColor = WelcomeViewController.largeTitleTextColor
+        titleView.textColor = WelcomeViewController.largeTitleTextColor.resolvedColor(with: UITraitCollection(userInterfaceStyle: .light))
         titleView.attributedText = page.title
         titleView.adjustsFontForContentSizeCategory = true
         titleView.numberOfLines = 0
@@ -26,7 +26,7 @@ class WelcomeContentPageView: UIView {
         label = UILabel()
         label.text = page.content
         label.font = WelcomeViewController.subTitleFont
-        label.textColor = WelcomeViewController.largeTitleTextColor
+        label.textColor = WelcomeViewController.largeTitleTextColor.resolvedColor(with: UITraitCollection(userInterfaceStyle: .light))
         label.adjustsFontForContentSizeCategory = true
         label.numberOfLines = 0
         
