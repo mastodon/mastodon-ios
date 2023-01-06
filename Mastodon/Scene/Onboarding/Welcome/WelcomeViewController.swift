@@ -14,7 +14,7 @@ import MastodonLocalization
 final class WelcomeViewController: UIViewController, NeedsDependency {
     
     private enum Constants {
-        static let topAnchorInset: CGFloat = 20
+        static let topAnchorInset: CGFloat = 24
     }
     
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
@@ -75,7 +75,7 @@ extension WelcomeViewController {
         definesPresentationContext = true
         preferredContentSize = CGSize(width: 547, height: 678)
         
-        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.prefersLargeTitles = false
         view.overrideUserInterfaceStyle = .light
         
         setupOnboardingAppearance()
@@ -135,7 +135,7 @@ extension WelcomeViewController {
         }
         
         NSLayoutConstraint.activate([
-            pageViewController.view.topAnchor.constraint(equalTo: view.topAnchor, constant: computedTopAnchorInset),
+            pageViewController.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: Constants.topAnchorInset),
             pageViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             view.trailingAnchor.constraint(equalTo: pageViewController.view.trailingAnchor),
             buttonContainer.topAnchor.constraint(equalTo: pageViewController.view.bottomAnchor, constant: 16),
@@ -145,9 +145,22 @@ extension WelcomeViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] needsShowDismissEntry in
                 guard let self = self else { return }
-                self.navigationItem.leftBarButtonItem = needsShowDismissEntry ? self.dismissBarButtonItem : nil
+
+                if needsShowDismissEntry {
+                    self.navigationItem.leftBarButtonItem = self.dismissBarButtonItem
+                    self.navigationController?.setNavigationBarHidden(false, animated: false)
+                } else {
+                    self.navigationController?.setNavigationBarHidden(true, animated: false)
+                }
             }
             .store(in: &disposeBag)
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        navigationController?.navigationBar.prefersLargeTitles = false
+        navigationController?.setNavigationBarHidden(true, animated: false)
     }
     
     override func viewDidLayoutSubviews() {
@@ -173,10 +186,6 @@ extension WelcomeViewController {
         
         setupIllustrationLayout()
         setupButtonShadowView()
-    }
-    
-    private var computedTopAnchorInset: CGFloat {
-        (navigationController?.navigationBar.bounds.height ?? UINavigationBar().bounds.height) + Constants.topAnchorInset
     }
 }
 
@@ -239,17 +248,7 @@ extension WelcomeViewController {
 }
 
 // MARK: - OnboardingViewControllerAppearance
-extension WelcomeViewController: OnboardingViewControllerAppearance {
-    func setupNavigationBarAppearance() {
-        // always transparent
-        let barAppearance = UINavigationBarAppearance()
-        barAppearance.configureWithTransparentBackground()
-        navigationItem.standardAppearance = barAppearance
-        navigationItem.compactAppearance = barAppearance
-        navigationItem.scrollEdgeAppearance = barAppearance
-        navigationItem.compactScrollEdgeAppearance = barAppearance
-    }
-}
+extension WelcomeViewController: OnboardingViewControllerAppearance {}
 
 // MARK: - UIAdaptivePresentationControllerDelegate
 extension WelcomeViewController: UIAdaptivePresentationControllerDelegate {
