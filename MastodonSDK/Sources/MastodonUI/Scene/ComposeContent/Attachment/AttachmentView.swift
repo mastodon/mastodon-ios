@@ -46,16 +46,32 @@ public struct AttachmentView: View {
                                     }
                                 }()
                                 Spacer()
-                                TextField("", text: $viewModel.caption)
-                                    .lineLimit(1)
-                                    .textFieldStyle(.plain)
-                                    .foregroundColor(.white).padding(EdgeInsets(top: 0, leading: 8, bottom: 0, trailing: 4))
-                                    .background(Color.black.opacity(0.4))
-                                    .placeholder(when: viewModel.caption.isEmpty) {
-                                        Text(placeholder).foregroundColor(.white).padding(EdgeInsets(top: 0, leading: 8, bottom: 0, trailing: 4))
-                                            .lineLimit(1)
-                                    }
-                                    .padding(EdgeInsets(top: 6, leading: 0, bottom: 10, trailing: 0))
+                                ZStack(alignment: .bottom) {
+                                    Rectangle()
+                                        .fill(
+                                            LinearGradient(
+                                                colors: [.black.opacity(0.0), .black.opacity(1.0)],
+                                                startPoint: .top,
+                                                endPoint: .bottom
+                                            )
+                                        )
+                                        .frame(height: 80)
+                                    
+                                    TextField("", text: $viewModel.caption)
+                                        .lineLimit(1)
+                                        .textFieldStyle(.plain)
+                                        .font(.footnote)
+                                        .foregroundColor(Color(UIColor.white.withAlphaComponent(0.8)))
+                                        .padding(EdgeInsets(top: 0, leading: 8, bottom: 0, trailing: 4))
+                                        .placeholder(when: viewModel.caption.isEmpty) {
+                                            Text(placeholder)
+                                                .font(.footnote)
+                                                .foregroundColor(Color(UIColor.white.withAlphaComponent(0.8)))
+                                                .padding(EdgeInsets(top: 0, leading: 8, bottom: 0, trailing: 4))
+                                                .lineLimit(1)
+                                        }
+                                        .padding(EdgeInsets(top: 6, leading: 0, bottom: 10, trailing: 0))
+                                }
                             }
                         )
                     
