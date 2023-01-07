@@ -37,7 +37,7 @@ class WelcomeContentPageView: UIView {
         contentStackView.alignment = .leading
         contentStackView.spacing = 8
 
-        blurryBackgroundView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
+        blurryBackgroundView = UIVisualEffectView(effect: UIBlurEffect(style: .systemUltraThinMaterialLight))
         blurryBackgroundView.translatesAutoresizingMaskIntoConstraints = false
         blurryBackgroundView.applyCornerRadius(radius: 8)
 
