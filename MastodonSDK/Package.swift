@@ -141,5 +141,9 @@ let package = Package(
             name: "MastodonSDKTests",
             dependencies: ["MastodonSDK"]
         ),
+        .testTarget(
+            name: "MastodonUITests",
+            dependencies: ["MastodonUI"]
+        ),
     ]
 )
