@@ -193,6 +193,8 @@ Profîla te ji wan ra wiha xuya dike.";
 "Scene.Compose.AutoComplete.SpaceToAdd" = "Bicîhkirinê tevlî bike";
 "Scene.Compose.ComposeAction" = "Biweşîne";
 "Scene.Compose.ContentInputPlaceholder" = "Tiştê ku di hişê te de ye binivîsin an jî pêve bike";
+"Scene.Compose.ContentInputPlaceholder2" = "Tiştê ku di hişê we de ye îfade bikin";
+"Scene.Compose.ContentInputPlaceholder3" = "Ji me re bêje ku hûn çi difikirin";
 "Scene.Compose.ContentWarning.Placeholder" = "Li vir hişyariyek hûrgilî binivîsine...";
 "Scene.Compose.Keyboard.AppendAttachmentEntry" = "Pêvek tevlî bike - %@";
 "Scene.Compose.Keyboard.DiscardPost" = "Şandî paşguh bike";

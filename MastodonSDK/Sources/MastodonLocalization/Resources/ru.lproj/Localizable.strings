@@ -201,6 +201,8 @@
 "Scene.Compose.AutoComplete.SpaceToAdd" = "Пробел, чтобы добавить";
 "Scene.Compose.ComposeAction" = "Опубликовать";
 "Scene.Compose.ContentInputPlaceholder" = "Напишите то, о чём думаете";
+"Scene.Compose.ContentInputPlaceholder2" = "Выразите то, что у вас на уме";
+"Scene.Compose.ContentInputPlaceholder3" = "Расскажи нам что ты думаешь";
 "Scene.Compose.ContentWarning.Placeholder" = "Напишите предупреждение здесь...";
 "Scene.Compose.Keyboard.AppendAttachmentEntry" = "Прикрепить файл — %@";
 "Scene.Compose.Keyboard.DiscardPost" = "Удалить пост";

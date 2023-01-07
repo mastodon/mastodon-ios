@@ -188,6 +188,8 @@
 "Scene.Compose.AutoComplete.SpaceToAdd" = "添加的空白";
 "Scene.Compose.ComposeAction" = "嘟出去";
 "Scene.Compose.ContentInputPlaceholder" = "正在想些什麼嗎？";
+"Scene.Compose.ContentInputPlaceholder2" = "表達你的想法 ";
+"Scene.Compose.ContentInputPlaceholder3" = "告訴我們你的想法 ";
 "Scene.Compose.ContentWarning.Placeholder" = "請於此處寫下精準的警告...";
 "Scene.Compose.Keyboard.AppendAttachmentEntry" = "新增附件 - %@";
 "Scene.Compose.Keyboard.DiscardPost" = "捨棄嘟文";

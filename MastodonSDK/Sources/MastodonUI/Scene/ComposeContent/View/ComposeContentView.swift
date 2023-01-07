@@ -23,6 +23,7 @@ public struct ComposeContentView: View {
     
     @ObservedObject var viewModel: ComposeContentViewModel
     
+    private let randomContentInputPlaceholderChoice = Int.random(in: 1...3)
 
     public var body: some View {
         VStack(spacing: .zero) {
@@ -38,7 +39,7 @@ public struct ComposeContentView: View {
                                 var attributes = metaText.textAttributes
                                 attributes[.foregroundColor] = UIColor.secondaryLabel
                                 return NSAttributedString(
-                                    string: L10n.Scene.Compose.contentInputPlaceholder,
+                                    string: randomContentInputPlaceholderChoice == 1 ? L10n.Scene.Compose.contentInputPlaceholder : randomContentInputPlaceholderChoice == 2 ? L10n.Scene.Compose.contentInputPlaceholder2 : L10n.Scene.Compose.contentInputPlaceholder3,
                                     attributes: attributes
                                 )
                             }()
@@ -94,7 +95,7 @@ public struct ComposeContentView: View {
                             var attributes = metaText.textAttributes
                             attributes[.foregroundColor] = UIColor.secondaryLabel
                             return NSAttributedString(
-                                string: L10n.Scene.Compose.contentInputPlaceholder,
+                                string: randomContentInputPlaceholderChoice == 1 ? L10n.Scene.Compose.contentInputPlaceholder : randomContentInputPlaceholderChoice == 2 ? L10n.Scene.Compose.contentInputPlaceholder2 : L10n.Scene.Compose.contentInputPlaceholder3,
                                 attributes: attributes
                             )
                         }()

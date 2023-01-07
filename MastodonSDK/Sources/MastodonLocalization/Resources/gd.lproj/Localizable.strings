@@ -193,6 +193,8 @@ a luchdadh suas gu Mastodon.";
 "Scene.Compose.AutoComplete.SpaceToAdd" = "Brùth air Space gus a chur ris";
 "Scene.Compose.ComposeAction" = "Foillsich";
 "Scene.Compose.ContentInputPlaceholder" = "Sgrìobh no cuir ann na tha air d’ aire";
+"Scene.Compose.ContentInputPlaceholder2" = "Cuir an cèill na tha nad inntinn";
+"Scene.Compose.ContentInputPlaceholder3" = "Inns dhuinn dè do bheachd";
 "Scene.Compose.ContentWarning.Placeholder" = "Sgrìobh rabhadh pongail an-seo…";
 "Scene.Compose.Keyboard.AppendAttachmentEntry" = "Cuir ceanglachan ris – %@";
 "Scene.Compose.Keyboard.DiscardPost" = "Tilg air falbh am post";

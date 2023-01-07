@@ -489,6 +489,10 @@ public enum L10n {
       public static let composeAction = L10n.tr("Localizable", "Scene.Compose.ComposeAction", fallback: "Publish")
       /// Type or paste what’s on your mind
       public static let contentInputPlaceholder = L10n.tr("Localizable", "Scene.Compose.ContentInputPlaceholder", fallback: "Type or paste what’s on your mind")
+      /// Express what's on your mind
+      public static let contentInputPlaceholder2 = L10n.tr("Localizable", "Scene.Compose.ContentInputPlaceholder2", fallback: "Express what's on your mind")
+      /// Tell us what you think
+      public static let contentInputPlaceholder3 = L10n.tr("Localizable", "Scene.Compose.ContentInputPlaceholder3", fallback: "Tell us what you think")
       /// replying to %@
       public static func replyingToUser(_ p1: Any) -> String {
         return L10n.tr("Localizable", "Scene.Compose.ReplyingToUser", String(describing: p1), fallback: "replying to %@")

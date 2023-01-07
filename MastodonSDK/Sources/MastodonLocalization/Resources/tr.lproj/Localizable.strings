@@ -192,6 +192,8 @@ yüklenemiyor.";
 "Scene.Compose.AutoComplete.SpaceToAdd" = "Eklemek için boşluk tuşuna basın";
 "Scene.Compose.ComposeAction" = "Yayınla";
 "Scene.Compose.ContentInputPlaceholder" = "Aklınızdan geçenleri yazın veya yapıştırın";
+"Scene.Compose.ContentInputPlaceholder2" = "Thể hiện những gì trong tâm trí của bạn";
+"Scene.Compose.ContentInputPlaceholder3" = "Bize ne düşündüğünü söyle";
 "Scene.Compose.ContentWarning.Placeholder" = "Buraya kesin bir uyarı yazın...";
 "Scene.Compose.Keyboard.AppendAttachmentEntry" = "Dosya Ekle - %@";
 "Scene.Compose.Keyboard.DiscardPost" = "Gönderiyi İptal Et";

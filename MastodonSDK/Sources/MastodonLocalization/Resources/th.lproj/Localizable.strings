@@ -193,6 +193,8 @@
 "Scene.Compose.AutoComplete.SpaceToAdd" = "เว้นวรรคเพื่อเพิ่ม";
 "Scene.Compose.ComposeAction" = "เผยแพร่";
 "Scene.Compose.ContentInputPlaceholder" = "พิมพ์หรือวางสิ่งที่คุณกำลังคิด";
+"Scene.Compose.ContentInputPlaceholder2" = "แสดงสิ่งที่อยู่ในใจของคุณ";
+"Scene.Compose.ContentInputPlaceholder3" = "บอกเราว่าคุณคิดอย่างไร";
 "Scene.Compose.ContentWarning.Placeholder" = "เขียนคำเตือนที่ถูกต้องที่นี่...";
 "Scene.Compose.Keyboard.AppendAttachmentEntry" = "เพิ่มไฟล์แนบ - %@";
 "Scene.Compose.Keyboard.DiscardPost" = "ละทิ้งโพสต์";

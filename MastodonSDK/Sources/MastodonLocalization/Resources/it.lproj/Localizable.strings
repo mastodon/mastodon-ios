@@ -193,6 +193,8 @@ caricato su Mastodon.";
 "Scene.Compose.AutoComplete.SpaceToAdd" = "Spazio da aggiungere";
 "Scene.Compose.ComposeAction" = "Pubblica";
 "Scene.Compose.ContentInputPlaceholder" = "Digita o incolla quello che hai in mente";
+"Scene.Compose.ContentInputPlaceholder2" = "Esprimi ciò che hai in mente";
+"Scene.Compose.ContentInputPlaceholder3" = "Diteci cosa ne pensate";
 "Scene.Compose.ContentWarning.Placeholder" = "Scrivi un avviso accurato qui...";
 "Scene.Compose.Keyboard.AppendAttachmentEntry" = "Aggiungi allegato - %@";
 "Scene.Compose.Keyboard.DiscardPost" = "Scarta post";

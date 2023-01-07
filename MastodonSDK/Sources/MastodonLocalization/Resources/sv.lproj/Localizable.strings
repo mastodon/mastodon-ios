@@ -193,6 +193,8 @@ laddas upp till Mastodon.";
 "Scene.Compose.AutoComplete.SpaceToAdd" = "Mellanslag för att lägga till";
 "Scene.Compose.ComposeAction" = "Publicera";
 "Scene.Compose.ContentInputPlaceholder" = "Skriv eller klistra in vad du har på hjärtat";
+"Scene.Compose.ContentInputPlaceholder2" = "Uttryck vad du tänker på";
+"Scene.Compose.ContentInputPlaceholder3" = "Berätta vad du tycker";
 "Scene.Compose.ContentWarning.Placeholder" = "Skriv en noggrann varning här...";
 "Scene.Compose.Keyboard.AppendAttachmentEntry" = "Lägg till bilaga - %@";
 "Scene.Compose.Keyboard.DiscardPost" = "Släng inlägget";

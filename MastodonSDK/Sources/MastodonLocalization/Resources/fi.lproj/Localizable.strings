@@ -193,6 +193,8 @@ uploaded to Mastodon.";
 "Scene.Compose.AutoComplete.SpaceToAdd" = "Space to add";
 "Scene.Compose.ComposeAction" = "Julkaise";
 "Scene.Compose.ContentInputPlaceholder" = "Kirjoita tai liitä, siitä mitä ajattelet";
+"Scene.Compose.ContentInputPlaceholder2" = "Ilmaise mitä ajattelet";
+"Scene.Compose.ContentInputPlaceholder3" = "Kerro meille mielipiteesi";
 "Scene.Compose.ContentWarning.Placeholder" = "Kirjoita tarkka varoitus tähän...";
 "Scene.Compose.Keyboard.AppendAttachmentEntry" = "Lisää liite - %@";
 "Scene.Compose.Keyboard.DiscardPost" = "Hylkää julkaisu";
