@@ -117,8 +117,7 @@
 		D8916DC029211BE500124085 /* ContentSizedTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8916DBF29211BE500124085 /* ContentSizedTableView.swift */; };
 		D8A6AB6C291C5136003AB663 /* MastodonLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A6AB6B291C5136003AB663 /* MastodonLoginViewController.swift */; };
 		D8A6FE5B293244B500666A47 /* WelcomeContentPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A6FE5A293244B500666A47 /* WelcomeContentPage.swift */; };
-		D8A6FE5D293244C300666A47 /* WelcomeContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A6FE5C293244C300666A47 /* WelcomeContentViewController.swift */; };
-		D8A6FE5F29324BBC00666A47 /* WelcomeContentPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A6FE5E29324BBC00666A47 /* WelcomeContentPageView.swift */; };
+		D8A6FE5F29324BBC00666A47 /* WelcomeContentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A6FE5E29324BBC00666A47 /* WelcomeContentCollectionViewCell.swift */; };
 		DB0009A626AEE5DC009B9D2D /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = DB0009A926AEE5DC009B9D2D /* Intents.intentdefinition */; settings = {ATTRIBUTES = (codegen, ); }; };
 		DB0009A726AEE5DC009B9D2D /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = DB0009A926AEE5DC009B9D2D /* Intents.intentdefinition */; };
 		DB0140CF25C42AEE00F9F3CF /* OSLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0140CE25C42AEE00F9F3CF /* OSLog.swift */; };
@@ -666,8 +665,7 @@
 		D8916DBF29211BE500124085 /* ContentSizedTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentSizedTableView.swift; sourceTree = "<group>"; };
 		D8A6AB6B291C5136003AB663 /* MastodonLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonLoginViewController.swift; sourceTree = "<group>"; };
 		D8A6FE5A293244B500666A47 /* WelcomeContentPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeContentPage.swift; sourceTree = "<group>"; };
-		D8A6FE5C293244C300666A47 /* WelcomeContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeContentViewController.swift; sourceTree = "<group>"; };
-		D8A6FE5E29324BBC00666A47 /* WelcomeContentPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeContentPageView.swift; sourceTree = "<group>"; };
+		D8A6FE5E29324BBC00666A47 /* WelcomeContentCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeContentCollectionViewCell.swift; sourceTree = "<group>"; };
 		D8A6FE6129325F5900666A47 /* Intents.stringsdict */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; path = Intents.stringsdict; sourceTree = "<group>"; };
 		D8A6FE6229325F5900666A47 /* app.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = app.json; sourceTree = "<group>"; };
 		D8A6FE6329325F5900666A47 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -1607,8 +1605,7 @@
 			isa = PBXGroup;
 			children = (
 				D8A6FE5A293244B500666A47 /* WelcomeContentPage.swift */,
-				D8A6FE5C293244C300666A47 /* WelcomeContentViewController.swift */,
-				D8A6FE5E29324BBC00666A47 /* WelcomeContentPageView.swift */,
+				D8A6FE5E29324BBC00666A47 /* WelcomeContentCollectionViewCell.swift */,
 			);
 			path = Pages;
 			sourceTree = "<group>";
@@ -3336,8 +3333,7 @@
 				DB603113279EBEBA00A935FE /* DataSourceFacade+Block.swift in Sources */,
 				DB63F777279A9A2A00455B82 /* NotificationView+Configuration.swift in Sources */,
 				DB029E95266A20430062874E /* MastodonAuthenticationController.swift in Sources */,
-				DB0C947726A7FE840088FB11 /* NotificationAvatarButton.swift in Sources */,
-				D8A6FE5F29324BBC00666A47 /* WelcomeContentPageView.swift in Sources */,
+				D8A6FE5F29324BBC00666A47 /* WelcomeContentCollectionViewCell.swift in Sources */,
 				5B90C461262599800002E742 /* SettingsLinkTableViewCell.swift in Sources */,
 				DB6180DD263918E30018D199 /* MediaPreviewViewController.swift in Sources */,
 				DBE3CDEC261C6B2900430CC6 /* FavoriteViewController.swift in Sources */,
@@ -3549,7 +3545,6 @@
 				DB1D84382657B275000346B3 /* SegmentedControlNavigateable.swift in Sources */,
 				0F20220726134DA4000C64BF /* HashtagTimelineViewModel+Diffable.swift in Sources */,
 				DB7A9F932818F33C0016AF98 /* MastodonServerRulesViewController+Debug.swift in Sources */,
-				D8A6FE5D293244C300666A47 /* WelcomeContentViewController.swift in Sources */,
 				2D5A3D2825CF8BC9002347D6 /* HomeTimelineViewModel+Diffable.swift in Sources */,
 				DB6B74FC272FF55800C70B6E /* UserSection.swift in Sources */,
 				DB0FCB862796BDA1006C02E2 /* SearchSection.swift in Sources */,

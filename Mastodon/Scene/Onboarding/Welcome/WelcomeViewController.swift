@@ -29,6 +29,7 @@ final class WelcomeViewController: UIViewController, NeedsDependency {
     private(set) lazy var dismissBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(WelcomeViewController.dismissBarButtonItemDidPressed(_:)))
     
     let buttonContainer = UIStackView()
+    let educationPages: [WelcomeContentPage] = [.whatIsMastodon, .mastodonIsLikeThat, .howDoIPickAServer]
     
     private(set) lazy var signUpButton: PrimaryActionButton = {
         let button = PrimaryActionButton()
@@ -58,13 +59,24 @@ final class WelcomeViewController: UIViewController, NeedsDependency {
         return button
     }()
     
-    private(set) lazy var pageViewController: UIPageViewController = {
-        let pageController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
-        pageController.setViewControllers([WelcomeContentViewController(page: .whatIsMastodon)], direction: .forward, animated: false)
-        return pageController
+    private(set) lazy var pageCollectionView: UICollectionView = {
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.scrollDirection = .horizontal
+        flowLayout.minimumInteritemSpacing = 0
+        flowLayout.minimumLineSpacing = 0
+        //FIXME: cell-size.
+        flowLayout.itemSize = CGSize(width: self.view.frame.width, height: 300)
+
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.isPagingEnabled = true
+        collectionView.backgroundColor = nil
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.bounces = false
+        collectionView.register(WelcomeContentCollectionViewCell.self, forCellWithReuseIdentifier: WelcomeContentCollectionViewCell.identifier)
+
+        return collectionView
     }()
-    var currentPage: WelcomeContentPage = .whatIsMastodon
-    var currentPageOffset = 0
 }
 
 extension WelcomeViewController {
@@ -121,24 +133,18 @@ extension WelcomeViewController {
         signUpButton.addTarget(self, action: #selector(signUpButtonDidClicked(_:)), for: .touchUpInside)
         signInButton.addTarget(self, action: #selector(signInButtonDidClicked(_:)), for: .touchUpInside)
         
-        pageViewController.delegate = self
-        pageViewController.dataSource = self
-        addChild(pageViewController)
-        pageViewController.view.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(pageViewController.view)
-        pageViewController.didMove(toParent: self)
-        
-        let scrollviews = pageViewController.view.subviews.filter { type(of: $0).isSubclass(of: UIScrollView.self) }.compactMap { $0 as? UIScrollView }
-        
-        for scrollView in scrollviews {
-            scrollView.delegate = self
-        }
+        pageCollectionView.delegate = self
+        pageCollectionView.dataSource = self
+        view.addSubview(pageCollectionView)
+
+        let scrollView = pageCollectionView as UIScrollView
+        scrollView.delegate = self
         
         NSLayoutConstraint.activate([
-            pageViewController.view.topAnchor.constraint(equalTo: view.topAnchor, constant: computedTopAnchorInset),
-            pageViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            view.trailingAnchor.constraint(equalTo: pageViewController.view.trailingAnchor),
-            buttonContainer.topAnchor.constraint(equalTo: pageViewController.view.bottomAnchor, constant: 16),
+            pageCollectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: computedTopAnchorInset),
+            pageCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            view.trailingAnchor.constraint(equalTo: pageCollectionView.trailingAnchor),
+            buttonContainer.topAnchor.constraint(equalTo: pageCollectionView.bottomAnchor, constant: 16),
         ])
         
         viewModel.$needsShowDismissEntry
@@ -287,70 +293,29 @@ extension WelcomeViewController: UIAdaptivePresentationControllerDelegate {
     }
 }
 
-//MARK: - UIPageViewControllerDelegate
-
-extension WelcomeViewController: UIPageViewControllerDelegate {
-    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
-        guard let currentViewController = pageViewController.viewControllers?.first as? WelcomeContentViewController else { return }
-        
-        currentPage = currentViewController.page
-        
-        if let pageIndex = WelcomeContentPage.allCases.firstIndex(of: currentPage) {
-            let offset = Int(pageIndex) * Int(pageViewController.view.frame.width)
-            currentPageOffset = offset
-            welcomeIllustrationView.update(contentOffset: CGFloat(offset))
-        }
-    }
-}
-
-//MARK: - UIPageViewDataSource
-
-extension WelcomeViewController: UIPageViewControllerDataSource {
-    
-    func presentationIndex(for pageViewController: UIPageViewController) -> Int {
-        WelcomeContentPage.allCases.firstIndex(of: currentPage) ?? 0
-    }
-    
-    func presentationCount(for pageViewController: UIPageViewController) -> Int {
-        return WelcomeContentPage.allCases.count
-    }
-    
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        guard let viewController = viewController as? WelcomeContentViewController else { return nil }
-        
-        let currentPage = viewController.page
-        
-        switch currentPage {
-        case .whatIsMastodon:
-            return nil
-        case .mastodonIsLikeThat:
-            return WelcomeContentViewController(page: .whatIsMastodon)
-        case .howDoIPickAServer:
-            return WelcomeContentViewController(page: .mastodonIsLikeThat)
-        }
-    }
-    
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        guard let viewController = viewController as? WelcomeContentViewController else { return nil }
-        
-        let currentPage = viewController.page
-        
-        switch currentPage {
-        case .whatIsMastodon:
-            return WelcomeContentViewController(page: .mastodonIsLikeThat)
-        case .mastodonIsLikeThat:
-            return WelcomeContentViewController(page: .howDoIPickAServer)
-        case .howDoIPickAServer:
-            return nil
-        }
-    }
-}
-
+//MARK: - UIScrollViewDelegate
 extension WelcomeViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let weirdScrollViewJumpingCorrectionFactor = pageViewController.view.frame.width
-        let contentOffset = CGFloat(currentPageOffset) + scrollView.contentOffset.x - weirdScrollViewJumpingCorrectionFactor
-        
+        let contentOffset = scrollView.contentOffset.x
         welcomeIllustrationView.update(contentOffset: contentOffset)
+    }
+}
+
+//MARK: - UICollectionViewDelegate
+extension WelcomeViewController: UICollectionViewDelegate { }
+
+//MARK: - UICollectionViewDataSource
+extension WelcomeViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        educationPages.count
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WelcomeContentCollectionViewCell.identifier, for: indexPath) as? WelcomeContentCollectionViewCell else { fatalError("WTF? Wrong cell?") }
+
+        let page = educationPages[indexPath.item]
+        cell.update(with: page)
+
+        return cell
     }
 }
