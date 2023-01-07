@@ -19,7 +19,7 @@ final class UIImageExtensionTests: XCTestCase {
         XCTAssertEqual(rotatedImage.size, CGSize(width: 100, height: 200))
         
         let normalizedImage = rotatedImage.normalized()
-        XCTAssertEqual(normalizedImage?.imageOrientation, .up)
-        XCTAssertEqual(normalizedImage?.size, CGSize(width: 200, height: 100))
+        XCTAssertEqual(normalizedImage.imageOrientation, .up)
+        XCTAssertEqual(normalizedImage.size, CGSize(width: 200, height: 100))
     }
 }

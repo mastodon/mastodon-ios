@@ -18,12 +18,8 @@ extension UIImage {
 }
 
 extension UIImage {
-    public func normalized() -> UIImage? {
-        if imageOrientation == .up { return self }
-        UIGraphicsBeginImageContext(size)
-        draw(in: CGRect(origin: CGPoint.zero, size: size))
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return image
+    public func normalized() -> UIImage {
+        guard imageOrientation != .up, let cgImage = cgImage else { return self }
+        return UIImage(cgImage: cgImage, scale: scale, orientation: .up)
     }
- }
+}
