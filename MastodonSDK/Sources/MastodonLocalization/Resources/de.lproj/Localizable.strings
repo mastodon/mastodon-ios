@@ -193,6 +193,8 @@ kann nicht auf Mastodon hochgeladen werden.";
 "Scene.Compose.AutoComplete.SpaceToAdd" = "Leerzeichen um hinzuzufügen";
 "Scene.Compose.ComposeAction" = "Veröffentlichen";
 "Scene.Compose.ContentInputPlaceholder" = "Tippe oder füge ein, was dir am Herzen liegt";
+"Scene.Compose.ContentInputPlaceholder2" = "Drücken Sie aus, was Sie denken";
+"Scene.Compose.ContentInputPlaceholder3" = "Sagen Sie uns was Sie denken";
 "Scene.Compose.ContentWarning.Placeholder" = "Hier eine Inhaltswarnung schreiben …";
 "Scene.Compose.Keyboard.AppendAttachmentEntry" = "Anhang hinzufügen - %@";
 "Scene.Compose.Keyboard.DiscardPost" = "Beitrag verwerfen";

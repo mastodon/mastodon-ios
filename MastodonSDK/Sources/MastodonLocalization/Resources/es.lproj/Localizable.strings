@@ -193,6 +193,8 @@ subirse a Mastodon.";
 "Scene.Compose.AutoComplete.SpaceToAdd" = "Espacio para añadir";
 "Scene.Compose.ComposeAction" = "Publicar";
 "Scene.Compose.ContentInputPlaceholder" = "Escribe o pega lo que tengas en mente";
+"Scene.Compose.ContentInputPlaceholder2" = "Expresar lo que está en tu mente";
+"Scene.Compose.ContentInputPlaceholder3" = "Dinos qué piensas";
 "Scene.Compose.ContentWarning.Placeholder" = "Escribe una advertencia precisa aquí...";
 "Scene.Compose.Keyboard.AppendAttachmentEntry" = "Añadir Adjunto - %@";
 "Scene.Compose.Keyboard.DiscardPost" = "Descartar Publicación";

@@ -193,6 +193,8 @@
 "Scene.Compose.AutoComplete.SpaceToAdd" = "输入空格键入";
 "Scene.Compose.ComposeAction" = "发送";
 "Scene.Compose.ContentInputPlaceholder" = "写下你的想法";
+"Scene.Compose.ContentInputPlaceholder2" = "表达你的想法";
+"Scene.Compose.ContentInputPlaceholder3" = "告诉我们你的想法";
 "Scene.Compose.ContentWarning.Placeholder" = "在这里写下内容的警告消息...";
 "Scene.Compose.Keyboard.AppendAttachmentEntry" = "添加附件 - %@";
 "Scene.Compose.Keyboard.DiscardPost" = "丢弃帖子";

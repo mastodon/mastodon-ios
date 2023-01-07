@@ -193,6 +193,8 @@ tải lên Mastodon.";
 "Scene.Compose.AutoComplete.SpaceToAdd" = "Khoảng cách để thêm";
 "Scene.Compose.ComposeAction" = "Đăng";
 "Scene.Compose.ContentInputPlaceholder" = "Cho thế giới biết bạn đang nghĩ gì";
+"Scene.Compose.ContentInputPlaceholder2" = "Thể hiện những gì trong tâm trí của bạn";
+"Scene.Compose.ContentInputPlaceholder3" = "Hãy cho chúng tôi biết bạn nghĩ gì";
 "Scene.Compose.ContentWarning.Placeholder" = "Viết nội dung ẩn của bạn ở đây...";
 "Scene.Compose.Keyboard.AppendAttachmentEntry" = "Thêm media - %@";
 "Scene.Compose.Keyboard.DiscardPost" = "Hủy đăng tút";

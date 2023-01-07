@@ -193,6 +193,8 @@ téléversé sur Mastodon.";
 "Scene.Compose.AutoComplete.SpaceToAdd" = "Espace à ajouter";
 "Scene.Compose.ComposeAction" = "Publier";
 "Scene.Compose.ContentInputPlaceholder" = "Tapez ou collez ce qui est sur votre esprit";
+"Scene.Compose.ContentInputPlaceholder2" = "Exprimez ce que vous pensez";
+"Scene.Compose.ContentInputPlaceholder3" = "Dites-nous ce que vous pensez";
 "Scene.Compose.ContentWarning.Placeholder" = "Écrivez un avertissement précis ici...";
 "Scene.Compose.Keyboard.AppendAttachmentEntry" = "Ajouter une pièce jointe - %@";
 "Scene.Compose.Keyboard.DiscardPost" = "Rejeter la publication";

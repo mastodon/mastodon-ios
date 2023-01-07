@@ -189,6 +189,8 @@ nahrán do Mastodonu.";
 "Scene.Compose.AutoComplete.SpaceToAdd" = "Mezera k přidání";
 "Scene.Compose.ComposeAction" = "Zveřejnit";
 "Scene.Compose.ContentInputPlaceholder" = "Napište nebo vložte, co je na mysli";
+"Scene.Compose.ContentInputPlaceholder2" = "Vyjádřete, co máte na srdci";
+"Scene.Compose.ContentInputPlaceholder3" = "Řekni nám, co si myslíš";
 "Scene.Compose.ContentWarning.Placeholder" = "Zde napište přesné varování...";
 "Scene.Compose.Keyboard.AppendAttachmentEntry" = "Přidat přílohu - %@";
 "Scene.Compose.Keyboard.DiscardPost" = "Zahodit příspěvek";

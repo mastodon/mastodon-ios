@@ -193,6 +193,8 @@ Mastodonera igo.";
 "Scene.Compose.AutoComplete.SpaceToAdd" = "Sakatu zuriunea gehitzeko";
 "Scene.Compose.ComposeAction" = "Argitaratu";
 "Scene.Compose.ContentInputPlaceholder" = "Idatzi edo itsatsi buruan duzuna";
+"Scene.Compose.ContentInputPlaceholder2" = "Adierazi buruan duzuna";
+"Scene.Compose.ContentInputPlaceholder3" = "Esaiguzu zer iruditzen zaizun";
 "Scene.Compose.ContentWarning.Placeholder" = "Idatzi abisu zehatz bat hemen...";
 "Scene.Compose.Keyboard.AppendAttachmentEntry" = "Gehitu eranskina - %@";
 "Scene.Compose.Keyboard.DiscardPost" = "Baztertu bidalketa";

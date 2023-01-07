@@ -193,6 +193,8 @@
 "Scene.Compose.AutoComplete.SpaceToAdd" = "انقر على مساحة لإضافتِها";
 "Scene.Compose.ComposeAction" = "نَشر";
 "Scene.Compose.ContentInputPlaceholder" = "عَبِّر عَمَّ يَجُولُ فِي ذِهنِك";
+"Scene.Compose.ContentInputPlaceholder2" = "عبر عما يدور في ذهنك";
+"Scene.Compose.ContentInputPlaceholder3" =  "اخبرنا ماذا تعتقد";
 "Scene.Compose.ContentWarning.Placeholder" = "اكتب تَحذيرًا دَقيقًا هُنا...";
 "Scene.Compose.Keyboard.AppendAttachmentEntry" = "إضافة مُرفَق - %@";
 "Scene.Compose.Keyboard.DiscardPost" = "تجاهُل المنشور";

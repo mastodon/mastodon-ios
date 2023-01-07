@@ -193,6 +193,8 @@ carregat a Mastodon.";
 "Scene.Compose.AutoComplete.SpaceToAdd" = "Espai per afegir";
 "Scene.Compose.ComposeAction" = "Publica";
 "Scene.Compose.ContentInputPlaceholder" = "Escriu o enganxa el que tinguis en ment";
+"Scene.Compose.ContentInputPlaceholder2" = "Expressa el que tens al cap";
+"Scene.Compose.ContentInputPlaceholder3" = "Diguen's el que penses";
 "Scene.Compose.ContentWarning.Placeholder" = "Escriu un advertiment precís aquí...";
 "Scene.Compose.Keyboard.AppendAttachmentEntry" = "Afegeix Adjunt - %@";
 "Scene.Compose.Keyboard.DiscardPost" = "Descarta el Tut";

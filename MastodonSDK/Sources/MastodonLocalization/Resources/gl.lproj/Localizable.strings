@@ -193,6 +193,8 @@ ser subido a Mastodon.";
 "Scene.Compose.AutoComplete.SpaceToAdd" = "Barra de espazo engade";
 "Scene.Compose.ComposeAction" = "Publicar";
 "Scene.Compose.ContentInputPlaceholder" = "Escribe o que che apeteza";
+"Scene.Compose.ContentInputPlaceholder2" = "Expresa o que estás na túa mente";
+"Scene.Compose.ContentInputPlaceholder3" = "Cóntanos o que pensas";
 "Scene.Compose.ContentWarning.Placeholder" = "Escribe o teu aviso aquí...";
 "Scene.Compose.Keyboard.AppendAttachmentEntry" = "Engadir anexo - %@";
 "Scene.Compose.Keyboard.DiscardPost" = "Descartar publicación";

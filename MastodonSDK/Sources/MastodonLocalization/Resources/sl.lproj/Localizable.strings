@@ -193,6 +193,8 @@ možno naložiti v Mastodon.";
 "Scene.Compose.AutoComplete.SpaceToAdd" = "Preslednica za dodajanje";
 "Scene.Compose.ComposeAction" = "Objavi";
 "Scene.Compose.ContentInputPlaceholder" = "Vnesite ali prilepite, kar vam leži na duši";
+"Scene.Compose.ContentInputPlaceholder2" = "Izrazite, kar imate na umu";
+"Scene.Compose.ContentInputPlaceholder3" = "Povej nam kaj misliš";
 "Scene.Compose.ContentWarning.Placeholder" = "Tukaj zapišite opozorilo ...";
 "Scene.Compose.Keyboard.AppendAttachmentEntry" = "Dodaj priponko - %@";
 "Scene.Compose.Keyboard.DiscardPost" = "Opusti objavo";

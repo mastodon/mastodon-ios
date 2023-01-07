@@ -187,6 +187,8 @@ Uw profiel ziet er zo uit voor hen.";
 "Scene.Compose.AutoComplete.SpaceToAdd" = "Spaties toe te voegen";
 "Scene.Compose.ComposeAction" = "Publiceren";
 "Scene.Compose.ContentInputPlaceholder" = "Schrijf of plak wat in je hoofd rondzweeft";
+"Scene.Compose.ContentInputPlaceholder2" = "Druk uit wat er in je opkomt";
+"Scene.Compose.ContentInputPlaceholder3" = "Vertel ons wat u denkt";
 "Scene.Compose.ContentWarning.Placeholder" = "Schrijf hier een nauwkeurige waarschuwing...";
 "Scene.Compose.Keyboard.AppendAttachmentEntry" = "Bijlage Toevoegen - %@";
 "Scene.Compose.Keyboard.DiscardPost" = "Bericht Verwijderen";

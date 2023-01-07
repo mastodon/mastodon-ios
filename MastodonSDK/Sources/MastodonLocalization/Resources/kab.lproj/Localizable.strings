@@ -193,6 +193,8 @@ Ad d-yettwasali ɣef Mastodon.";
 "Scene.Compose.AutoComplete.SpaceToAdd" = "Tallunt ara yettwarnun";
 "Scene.Compose.ComposeAction" = "Sufeɣ";
 "Scene.Compose.ContentInputPlaceholder" = "Aru neɣ senteḍ ayen yellan deg wallaɣ-ik";
+"Scene.Compose.ContentInputPlaceholder2" = "Mmeslay-d ɣef wayen i k-id-iεeǧben";
+"Scene.Compose.ContentInputPlaceholder3" = "Ini-yaɣ-d d acu i d-txemmimeḍ.";
 "Scene.Compose.ContentWarning.Placeholder" = "Aru alɣu-inek s telqeyt da...";
 "Scene.Compose.Keyboard.AppendAttachmentEntry" = "Rnu taceqquft yeddan - %@";
 "Scene.Compose.Keyboard.DiscardPost" = "Sefsex tasuffeɣt";

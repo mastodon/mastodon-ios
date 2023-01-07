@@ -191,6 +191,8 @@ uploaded to Mastodon.";
 "Scene.Compose.AutoComplete.SpaceToAdd" = "Space to add";
 "Scene.Compose.ComposeAction" = "Publish";
 "Scene.Compose.ContentInputPlaceholder" = "Type or paste what’s on your mind";
+"Scene.Compose.ContentInputPlaceholder" = "Express what's on your mind";
+"Scene.Compose.ContentInputPlaceholder" = "Tell us what you think";
 "Scene.Compose.ContentWarning.Placeholder" = "Write an accurate warning here...";
 "Scene.Compose.Keyboard.AppendAttachmentEntry" = "Add Attachment - %@";
 "Scene.Compose.Keyboard.DiscardPost" = "Discard Post";
