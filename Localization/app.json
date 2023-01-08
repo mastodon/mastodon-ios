@@ -304,7 +304,7 @@
             "signup_speed": {
                 "all": "All",
                 "instant": "Instant Sign-up",
-                "manually_reviewed" = "Manual Review"
+                "manually_reviewed": "Manual Review"
             },
             "language": {
                 "all": "All"
@@ -316,9 +316,8 @@
         "privacy": {
             "title": "Privacy",
             "policy": {
-                "ios": "Privacy Policy - Mastodon for iOS";
-                "server" = "Privacy Policy - %s";
-
+                "ios": "Privacy Policy - Mastodon for iOS",
+                "server": "Privacy Policy - %s"
             },
             "button": {
                 "confirm": "I agree"
@@ -392,7 +391,7 @@
             "terms_of_service": "terms of service",
             "privacy_policy": "privacy policy",
             "button": {
-                "confirm": "I Agree"
+                "confirm": "I agree"
             }
         },
         "confirm_email": {
