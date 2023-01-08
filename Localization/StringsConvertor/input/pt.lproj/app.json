@@ -2,39 +2,39 @@
     "common": {
         "alerts": {
             "common": {
-                "please_try_again": "Please try again.",
-                "please_try_again_later": "Please try again later."
+                "please_try_again": "Por favor, tente novamente.",
+                "please_try_again_later": "Por favor, tente novamente mais tarde."
             },
             "sign_up_failure": {
-                "title": "Sign Up Failure"
+                "title": "Falha na inscrição"
             },
             "server_error": {
-                "title": "Server Error"
+                "title": "Erro de servidor"
             },
             "vote_failure": {
-                "title": "Vote Failure",
-                "poll_ended": "The poll has ended"
+                "title": "Erro na votação",
+                "poll_ended": "Esta sondagem está fechada"
             },
             "discard_post_content": {
-                "title": "Discard Draft",
+                "title": "Descartar rascunho",
                 "message": "Confirm to discard composed post content."
             },
             "publish_post_failure": {
-                "title": "Publish Failure",
-                "message": "Failed to publish the post.\nPlease check your internet connection.",
+                "title": "Falha ao publicar",
+                "message": "Falha na publicação.\nPor favor verifique a sua ligação à Internet.",
                 "attachments_message": {
-                    "video_attach_with_photo": "Cannot attach a video to a post that already contains images.",
-                    "more_than_one_video": "Cannot attach more than one video."
+                    "video_attach_with_photo": "Não é possível anexar um vídeo a uma publicação que já contém imagens.",
+                    "more_than_one_video": "Não é possível anexar mais que um vídeo."
                 }
             },
             "edit_profile_failure": {
-                "title": "Edit Profile Error",
+                "title": "Erro ao editar o perfil",
                 "message": "Cannot edit profile. Please try again."
             },
             "sign_out": {
-                "title": "Sign Out",
-                "message": "Are you sure you want to sign out?",
-                "confirm": "Sign Out"
+                "title": "Terminar sessão",
+                "message": "Tem a certeza de que quer terminar a sessão?",
+                "confirm": "Terminar sessão"
             },
             "block_domain": {
                 "title": "Are you really, really sure you want to block the entire %s? In most cases a few targeted blocks or mutes are sufficient and preferable. You will not see content from that domain and any of your followers from that domain will be removed.",
@@ -113,20 +113,20 @@
                 "common": {
                     "switch_to_tab": "Switch to %s",
                     "compose_new_post": "Compose New Post",
-                    "show_favorites": "Show Favorites",
-                    "open_settings": "Open Settings"
+                    "show_favorites": "Mostrar os marcadores",
+                    "open_settings": "Abrir definições"
                 },
                 "timeline": {
-                    "previous_status": "Previous Post",
-                    "next_status": "Next Post",
-                    "open_status": "Open Post",
-                    "open_author_profile": "Open Author's Profile",
+                    "previous_status": "Artigo anterior",
+                    "next_status": "Artigo seguinte",
+                    "open_status": "Abrir publicação",
+                    "open_author_profile": "Abrir perfil do autor",
                     "open_reblogger_profile": "Open Reblogger's Profile",
-                    "reply_status": "Reply to Post",
-                    "toggle_reblog": "Toggle Reblog on Post",
+                    "reply_status": "Responder à publicação",
+                    "toggle_reblog": "Permitir republicações",
                     "toggle_favorite": "Toggle Favorite on Post",
-                    "toggle_content_warning": "Toggle Content Warning",
-                    "preview_image": "Preview Image"
+                    "toggle_content_warning": "Mudar aviso de conteúdo",
+                    "preview_image": "Pré-visualizar imagem"
                 },
                 "segmented_control": {
                     "previous_section": "Previous Section",
@@ -150,7 +150,7 @@
                 },
                 "meta_entity": {
                     "url": "Link: %s",
-                    "hashtag": "Hashtag: %s",
+                    "hashtag": "Etiqueta: %s",
                     "mention": "Show Profile: %s",
                     "email": "Email address: %s"
                 },
@@ -172,7 +172,7 @@
                     "url": "URL",
                     "mention": "Mention",
                     "link": "Link",
-                    "hashtag": "Hashtag",
+                    "hashtag": "Etiqueta",
                     "email": "Email",
                     "emoji": "Emoji"
                 },
@@ -180,7 +180,7 @@
                     "unlisted": "Everyone can see this post but not display in the public timeline.",
                     "private": "Only their followers can see this post.",
                     "private_from_me": "Only my followers can see this post.",
-                    "direct": "Only mentioned user can see this post."
+                    "direct": "Só os utilizadores mencionados podem ver esta publicação."
                 },
                 "translation": {
                     "translated_from": "Translated from %s using %s",
@@ -341,14 +341,14 @@
                 },
                 "special": {
                     "username_invalid": "Username must only contain alphanumeric characters and underscores",
-                    "username_too_long": "Username is too long (can’t be longer than 30 characters)",
+                    "username_too_long": "O nome de utilizador não pode ter mais de 30 caracteres",
                     "email_invalid": "This is not a valid email address",
                     "password_too_short": "Password is too short (must be at least 8 characters)"
                 }
             }
         },
         "server_rules": {
-            "title": "Some ground rules.",
+            "title": "Algumas regras básicas.",
             "subtitle": "These are set and enforced by the %s moderators.",
             "prompt": "By continuing, you’re subject to the terms of service and privacy policy for %s.",
             "terms_of_service": "terms of service",
@@ -380,7 +380,7 @@
         "home_timeline": {
             "title": "Home",
             "navigation_bar_state": {
-                "offline": "Offline",
+                "offline": "Fora de linha",
                 "new_posts": "See new posts",
                 "published": "Published!",
                 "Publishing": "Publishing post...",
@@ -429,8 +429,8 @@
                 "three_days": "3 Days",
                 "seven_days": "7 Days",
                 "option_number": "Option %ld",
-                "the_poll_is_invalid": "The poll is invalid",
-                "the_poll_has_empty_option": "The poll has empty option"
+                "the_poll_is_invalid": "Sondagem inválida",
+                "the_poll_has_empty_option": "A sondagem tem uma opção em branco"
             },
             "content_warning": {
                 "placeholder": "Write an accurate warning here..."
@@ -549,14 +549,14 @@
         "search": {
             "title": "Search",
             "search_bar": {
-                "placeholder": "Search hashtags and users",
-                "cancel": "Cancel"
+                "placeholder": "Pesquisar etiquetas e utilizadores",
+                "cancel": "Cancelar"
             },
             "recommend": {
                 "button_text": "See All",
                 "hash_tag": {
-                    "title": "Trending on Mastodon",
-                    "description": "Hashtags that are getting quite a bit of attention",
+                    "title": "Em alta no Mastodon",
+                    "description": "Etiquetas que estão a ter bastante atenção",
                     "people_talking": "%s people are talking"
                 },
                 "accounts": {
@@ -569,8 +569,8 @@
                 "segment": {
                     "all": "All",
                     "people": "People",
-                    "hashtags": "Hashtags",
-                    "posts": "Posts"
+                    "hashtags": "Etiquetas",
+                    "posts": "Publicações"
                 },
                 "empty_state": {
                     "no_results": "No results"
@@ -582,15 +582,15 @@
         "discovery": {
             "tabs": {
                 "posts": "Posts",
-                "hashtags": "Hashtags",
-                "news": "News",
+                "hashtags": "Etiquetas",
+                "news": "Novidades",
                 "community": "Community",
                 "for_you": "For You"
             },
             "intro": "These are the posts gaining traction in your corner of Mastodon."
         },
         "favorite": {
-            "title": "Your Favorites"
+            "title": "Os seus marcadores"
         },
         "notification": {
             "title": {
@@ -651,7 +651,7 @@
                     }
                 },
                 "preference": {
-                    "title": "Preferences",
+                    "title": "Opções",
                     "true_black_dark_mode": "True black dark mode",
                     "disable_avatar_animation": "Disable animated avatars",
                     "disable_emoji_animation": "Disable animated emojis",
@@ -659,19 +659,19 @@
                     "open_links_in_mastodon": "Open links in Mastodon"
                 },
                 "boring_zone": {
-                    "title": "The Boring Zone",
-                    "account_settings": "Account Settings",
+                    "title": "Zona de seca",
+                    "account_settings": "Opções de conta",
                     "terms": "Terms of Service",
-                    "privacy": "Privacy Policy"
+                    "privacy": "Política de privacidade"
                 },
                 "spicy_zone": {
-                    "title": "The Spicy Zone",
+                    "title": "Zona picante",
                     "clear": "Clear Media Cache",
                     "signout": "Sign Out"
                 }
             },
             "footer": {
-                "mastodon_description": "Mastodon is open source software. You can report issues on GitHub at %s (%s)"
+                "mastodon_description": "O Mastodon é um programa de código-fonte aberto. Pode relatar problemas no GitHub em %s (%s)"
             },
             "keyboard": {
                 "close_settings_window": "Close Settings Window"
@@ -750,10 +750,10 @@
             "accessibility_hint": "Double tap to dismiss this wizard"
         },
         "bookmark": {
-            "title": "Bookmarks"
+            "title": "Marcadores"
         },
         "followed_tags": {
-            "title": "Followed Tags",
+            "title": "Etiquetas seguidas",
             "header": {
                 "posts": "posts",
                 "participants": "participants",
