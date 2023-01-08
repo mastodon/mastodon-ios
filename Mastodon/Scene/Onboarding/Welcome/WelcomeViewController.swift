@@ -275,17 +275,7 @@ extension WelcomeViewController {
 }
 
 // MARK: - OnboardingViewControllerAppearance
-extension WelcomeViewController: OnboardingViewControllerAppearance {
-    func setupNavigationBarAppearance() {
-        // always transparent
-        let barAppearance = UINavigationBarAppearance()
-        barAppearance.configureWithTransparentBackground()
-        navigationItem.standardAppearance = barAppearance
-        navigationItem.compactAppearance = barAppearance
-        navigationItem.scrollEdgeAppearance = barAppearance
-        navigationItem.compactScrollEdgeAppearance = barAppearance
-    }
-}
+extension WelcomeViewController: OnboardingViewControllerAppearance {}
 
 // MARK: - UIAdaptivePresentationControllerDelegate
 extension WelcomeViewController: UIAdaptivePresentationControllerDelegate {
