@@ -8,7 +8,6 @@
 import Combine
 import MastodonSDK
 import os.log
-import ThirdPartyMailer
 import UIKit
 import MastodonAsset
 import MastodonCore
