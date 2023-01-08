@@ -38,64 +38,64 @@
             },
             "block_domain": {
                 "title": "Are you really, really sure you want to block the entire %s? In most cases a few targeted blocks or mutes are sufficient and preferable. You will not see content from that domain and any of your followers from that domain will be removed.",
-                "block_entire_domain": "Block Domain"
+                "block_entire_domain": "Bloquear o domínio"
             },
             "save_photo_failure": {
-                "title": "Save Photo Failure",
-                "message": "Please enable the photo library access permission to save the photo."
+                "title": "Falha ao guardar a fotografia",
+                "message": "Queira activar a permissão à biblioteca de fotografias para poder guardar a fotografia."
             },
             "delete_post": {
-                "title": "Delete Post",
-                "message": "Are you sure you want to delete this post?"
+                "title": "Apagar publicação",
+                "message": "Tem certeza de que deseja apagar esta mensagem?"
             },
             "clean_cache": {
                 "title": "Clean Cache",
                 "message": "Successfully cleaned %s cache."
             },
             "translation_failed": {
-                "title": "Note",
+                "title": "Nota",
                 "message": "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.",
-                "button": "OK"
+                "button": "Está bem"
             }
         },
         "controls": {
             "actions": {
-                "back": "Back",
-                "next": "Next",
-                "previous": "Previous",
-                "open": "Open",
-                "add": "Add",
-                "remove": "Remove",
-                "edit": "Edit",
-                "save": "Save",
-                "ok": "OK",
-                "done": "Done",
-                "confirm": "Confirm",
-                "continue": "Continue",
-                "compose": "Compose",
-                "cancel": "Cancel",
-                "discard": "Discard",
-                "try_again": "Try Again",
-                "take_photo": "Take Photo",
-                "save_photo": "Save Photo",
-                "copy_photo": "Copy Photo",
-                "sign_in": "Log in",
-                "sign_up": "Create account",
-                "see_more": "See More",
-                "preview": "Preview",
-                "copy": "Copy",
-                "share": "Share",
-                "share_user": "Share %s",
-                "share_post": "Share Post",
-                "open_in_safari": "Open in Safari",
-                "open_in_browser": "Open in Browser",
-                "find_people": "Find people to follow",
+                "back": "Retroceder",
+                "next": "Seguinte",
+                "previous": "Anterior",
+                "open": "Abrir",
+                "add": "Adicionar",
+                "remove": "Remover",
+                "edit": "Editar",
+                "save": "Guardar",
+                "ok": "Está bem",
+                "done": "Concluído",
+                "confirm": "Confirmar",
+                "continue": "Continuar",
+                "compose": "Compor",
+                "cancel": "Cancelar",
+                "discard": "Descartar",
+                "try_again": "Tentar novamente",
+                "take_photo": "Tirar uma fotografia",
+                "save_photo": "Guardar fotografia",
+                "copy_photo": "Copiar fotografia",
+                "sign_in": "Iniciar sessão",
+                "sign_up": "Criar uma conta",
+                "see_more": "Ver mais",
+                "preview": "Pré-visualizar",
+                "copy": "Copiar",
+                "share": "Partilhar",
+                "share_user": "Partilhar %s",
+                "share_post": "Partilhar publicação",
+                "open_in_safari": "Abrir no Safari",
+                "open_in_browser": "Abrir no navegador",
+                "find_people": "Encontrar pessoas para seguir",
                 "manually_search": "Manually search instead",
-                "skip": "Skip",
-                "reply": "Reply",
-                "report_user": "Report %s",
-                "block_domain": "Block %s",
-                "unblock_domain": "Unblock %s",
+                "skip": "Saltar",
+                "reply": "Responder",
+                "report_user": "Denunciar %s",
+                "block_domain": "Bloquear %s",
+                "unblock_domain": "Desbloquear @%s",
                 "settings": "Settings",
                 "delete": "Delete",
                 "translate_post": {
@@ -106,13 +106,13 @@
             "tabs": {
                 "home": "Home",
                 "search_and_explore": "Search and Explore",
-                "notifications": "Notifications",
-                "profile": "Profile"
+                "notifications": "Notificações",
+                "profile": "Perfil"
             },
             "keyboard": {
                 "common": {
-                    "switch_to_tab": "Switch to %s",
-                    "compose_new_post": "Compose New Post",
+                    "switch_to_tab": "Mudar para %s",
+                    "compose_new_post": "Redigir nova publicação",
                     "show_favorites": "Mostrar os marcadores",
                     "open_settings": "Abrir definições"
                 },
@@ -129,51 +129,51 @@
                     "preview_image": "Pré-visualizar imagem"
                 },
                 "segmented_control": {
-                    "previous_section": "Previous Section",
-                    "next_section": "Next Section"
+                    "previous_section": "Secção anterior",
+                    "next_section": "Secção seguinte"
                 }
             },
             "status": {
-                "user_reblogged": "%s reblogged",
-                "user_replied_to": "Replied to %s",
-                "show_post": "Show Post",
+                "user_reblogged": "%s republicado",
+                "user_replied_to": "Respondeu a %s",
+                "show_post": "Exibir publicação",
                 "show_user_profile": "Show user profile",
-                "content_warning": "Content Warning",
-                "sensitive_content": "Sensitive Content",
-                "media_content_warning": "Tap anywhere to reveal",
-                "tap_to_reveal": "Tap to reveal",
+                "content_warning": "Aviso de conteúdo",
+                "sensitive_content": "Conteúdo problemático",
+                "media_content_warning": "Toque em qualquer lugar para revelar",
+                "tap_to_reveal": "Toque para revelar",
                 "load_embed": "Load Embed",
                 "link_via_user": "%s via %s",
                 "poll": {
-                    "vote": "Vote",
-                    "closed": "Closed"
+                    "vote": "Votar",
+                    "closed": "Encerrado"
                 },
                 "meta_entity": {
-                    "url": "Link: %s",
+                    "url": "Hiperligação: %s",
                     "hashtag": "Etiqueta: %s",
                     "mention": "Show Profile: %s",
                     "email": "Email address: %s"
                 },
                 "actions": {
-                    "reply": "Reply",
-                    "reblog": "Reblog",
-                    "unreblog": "Undo reblog",
-                    "favorite": "Favorite",
-                    "unfavorite": "Unfavorite",
+                    "reply": "Responder",
+                    "reblog": "Republicar",
+                    "unreblog": "Anular republicação",
+                    "favorite": "Adicionar aos marcadores",
+                    "unfavorite": "Retirar dos marcadores",
                     "menu": "Menu",
-                    "hide": "Hide",
-                    "show_image": "Show image",
+                    "hide": "Ocultar",
+                    "show_image": "Mostrar imagem",
                     "show_gif": "Show GIF",
                     "show_video_player": "Show video player",
-                    "share_link_in_post": "Share Link in Post",
+                    "share_link_in_post": "Partilhar ligação da publicação",
                     "tap_then_hold_to_show_menu": "Tap then hold to show menu"
                 },
                 "tag": {
                     "url": "URL",
                     "mention": "Mention",
-                    "link": "Link",
+                    "link": "Hiperligação",
                     "hashtag": "Etiqueta",
-                    "email": "Email",
+                    "email": "Correio electrónico",
                     "emoji": "Emoji"
                 },
                 "visibility": {
@@ -359,7 +359,7 @@
         },
         "confirm_email": {
             "title": "One last thing.",
-            "subtitle": "Tap the link we emailed to you to verify your account.",
+            "subtitle": "Toque na hiperligação que lhe enviámos por correio electrónico para verificar a sua conta.",
             "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we emailed to you to verify your account",
             "button": {
                 "open_email_app": "Open Email App",
@@ -485,7 +485,7 @@
                 },
                 "verified": {
                     "short": "Verified on %s",
-                    "long": "Ownership of this link was checked on %s"
+                    "long": "A posse desta hiperligação foi verificada em %s"
                 }
             },
             "segmented_control": {
@@ -655,8 +655,8 @@
                     "true_black_dark_mode": "True black dark mode",
                     "disable_avatar_animation": "Disable animated avatars",
                     "disable_emoji_animation": "Disable animated emojis",
-                    "using_default_browser": "Use default browser to open links",
-                    "open_links_in_mastodon": "Open links in Mastodon"
+                    "using_default_browser": "Usar o navegador padrão para abrir hiperligações",
+                    "open_links_in_mastodon": "Abrir hiperligações no Mastodon"
                 },
                 "boring_zone": {
                     "title": "Zona de seca",
@@ -698,7 +698,7 @@
                 "i_dont_like_it": "I don’t like it",
                 "it_is_not_something_you_want_to_see": "It is not something you want to see",
                 "its_spam": "It’s spam",
-                "malicious_links_fake_engagement_or_repetetive_replies": "Malicious links, fake engagement, or repetetive replies",
+                "malicious_links_fake_engagement_or_repetetive_replies": "Hiperligações maliciosas, contactos falsos, ou respostas repetitivas",
                 "it_violates_server_rules": "It violates server rules",
                 "you_are_aware_that_it_breaks_specific_rules": "You are aware that it breaks specific rules",
                 "its_something_else": "It’s something else",
