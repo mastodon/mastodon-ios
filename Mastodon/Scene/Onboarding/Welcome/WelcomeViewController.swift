@@ -75,6 +75,12 @@ final class WelcomeViewController: UIViewController, NeedsDependency {
 
         return collectionView
     }()
+
+    private(set) var pageControl: UIPageControl = {
+        let pageControl = UIPageControl(frame: .zero)
+        pageControl.translatesAutoresizingMaskIntoConstraints = false
+        return pageControl
+    }()
 }
 
 extension WelcomeViewController {
@@ -135,6 +141,10 @@ extension WelcomeViewController {
         pageCollectionView.dataSource = self
         view.addSubview(pageCollectionView)
 
+        pageControl.numberOfPages = self.educationPages.count
+        pageControl.addTarget(self, action: #selector(WelcomeViewController.pageControlDidChange(_:)), for: .valueChanged)
+        view.addSubview(pageControl)
+
         let scrollView = pageCollectionView as UIScrollView
         scrollView.delegate = self
         
@@ -142,8 +152,13 @@ extension WelcomeViewController {
             pageCollectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: computedTopAnchorInset),
             pageCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             view.trailingAnchor.constraint(equalTo: pageCollectionView.trailingAnchor),
-            buttonContainer.topAnchor.constraint(equalTo: pageCollectionView.bottomAnchor, constant: 16),
+            pageControl.topAnchor.constraint(equalTo: pageCollectionView.bottomAnchor, constant: 16),
+
+            pageControl.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            view.trailingAnchor.constraint(equalTo: pageControl.trailingAnchor),
+            buttonContainer.topAnchor.constraint(equalTo: pageControl.bottomAnchor, constant: 16),
         ])
+
         
         viewModel.$needsShowDismissEntry
             .receive(on: DispatchQueue.main)
@@ -233,6 +248,8 @@ extension WelcomeViewController {
 }
 
 extension WelcomeViewController {
+
+    //MARK: - Actions
     @objc
     private func signUpButtonDidClicked(_ sender: UIButton) {
         _ = coordinator.present(scene: .mastodonPickServer(viewMode: MastodonPickServerViewModel(context: context)), from: self, transition: .show)
@@ -246,6 +263,14 @@ extension WelcomeViewController {
     @objc
     private func dismissBarButtonItemDidPressed(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
+    }
+
+    @objc
+    private func pageControlDidChange(_ sender: UIPageControl) {
+        let item = sender.currentPage
+        let indexPath = IndexPath(item: item, section: 0)
+
+        pageCollectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: false)
     }
 }
 
@@ -303,6 +328,14 @@ extension WelcomeViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let contentOffset = scrollView.contentOffset.x
         welcomeIllustrationView.update(contentOffset: contentOffset)
+    }
+
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        pageControl.currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
+    }
+
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        pageControl.currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
     }
 }
 
