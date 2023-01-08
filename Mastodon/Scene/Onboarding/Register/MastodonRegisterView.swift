@@ -136,11 +136,6 @@ struct MastodonRegisterView: View {
                     .padding()
                     .background(borderColor)
                     .cornerRadius(10)
-//                    .overlay(
-//                        RoundedRectangle(cornerRadius: 10)
-//                            .stroke(borderColor, lineWidth: 1)
-//                            .animation(.easeInOut, value: validateState)
-//                    )
             }
         }
     }

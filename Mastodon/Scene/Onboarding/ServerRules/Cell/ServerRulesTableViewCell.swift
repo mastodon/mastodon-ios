@@ -43,7 +43,6 @@ extension ServerRulesTableViewCell {
     
     private func _init() {
         selectionStyle = .none
-//        backgroundColor = .systemBackground
         
         indexImageView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(indexImageView)

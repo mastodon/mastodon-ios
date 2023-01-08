@@ -20,7 +20,7 @@ import MastodonLocalization
 class MastodonPickServerViewModel: NSObject {
 
     enum EmptyStateViewState {
-        case none   
+        case none
         case loading
         case badNetwork
     }
