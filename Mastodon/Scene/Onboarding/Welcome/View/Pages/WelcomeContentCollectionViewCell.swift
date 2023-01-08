@@ -54,8 +54,8 @@ class WelcomeContentCollectionViewCell: UICollectionViewCell {
     private func setupConstraints() {
         let constraints = [
             blurryBackgroundView.topAnchor.constraint(equalTo: topAnchor),
-            blurryBackgroundView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            trailingAnchor.constraint(equalTo: blurryBackgroundView.trailingAnchor),
+            blurryBackgroundView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            trailingAnchor.constraint(equalTo: blurryBackgroundView.trailingAnchor, constant: 16),
             bottomAnchor.constraint(greaterThanOrEqualTo: blurryBackgroundView.bottomAnchor),
 
             contentStackView.topAnchor.constraint(equalTo: blurryBackgroundView.contentView.topAnchor, constant: 8),

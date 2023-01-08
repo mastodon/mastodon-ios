@@ -62,10 +62,8 @@ final class WelcomeViewController: UIViewController, NeedsDependency {
     private(set) lazy var pageCollectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
-        flowLayout.minimumInteritemSpacing = 0
         flowLayout.minimumLineSpacing = 0
-        //FIXME: cell-size.
-        flowLayout.itemSize = CGSize(width: self.view.frame.width, height: 300)
+        flowLayout.itemSize = CGSize(width: self.view.frame.width, height: 400)
 
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -179,6 +177,13 @@ extension WelcomeViewController {
         
         setupIllustrationLayout()
         setupButtonShadowView()
+
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.scrollDirection = .horizontal
+        flowLayout.minimumLineSpacing = 0
+        flowLayout.itemSize = CGSize(width: self.view.frame.width, height: 400)
+
+        pageCollectionView.setCollectionViewLayout(flowLayout, animated: true)
     }
     
     private var computedTopAnchorInset: CGFloat {
