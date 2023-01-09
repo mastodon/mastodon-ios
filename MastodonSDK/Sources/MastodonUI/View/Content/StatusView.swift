@@ -535,13 +535,6 @@ extension StatusView.Style {
         statusView.statusMetricViewAdaptiveMarginContainerView.contentView = statusView.statusMetricView
         statusView.statusMetricViewAdaptiveMarginContainerView.margin = StatusView.containerLayoutMargin
         statusView.containerStackView.addArrangedSubview(statusView.statusMetricViewAdaptiveMarginContainerView)
-
-        UIContentSizeCategory.publisher
-            .sink { category in
-                statusView.statusMetricView.containerStackView.axis = category > .accessibilityLarge ? .vertical : .horizontal
-                statusView.statusMetricView.containerStackView.alignment = category > .accessibilityLarge ? .leading : .fill
-            }
-            .store(in: &statusView._disposeBag)
     }
     
     func report(statusView: StatusView) {
@@ -741,6 +734,10 @@ extension StatusView: StatusMetricViewDelegate {
     
     func statusMetricView(_ statusMetricView: StatusMetricView, favoriteButtonDidPressed button: UIButton) {
         delegate?.statusView(self, statusMetricView: statusMetricView, favoriteButtonDidPressed: button)
+    }
+
+    func statusMetricView(_ statusMetricView: StatusMetricView, didPressEditHistoryButton button: UIButton) {
+        //TODO: Implement
     }
 }
 
