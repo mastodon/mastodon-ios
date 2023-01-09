@@ -294,12 +294,9 @@
 "Scene.Profile.Accessibility.EditAvatarImage" = "Edit avatar image";
 "Scene.Profile.Accessibility.ShowAvatarImage" = "Show avatar image";
 "Scene.Profile.Accessibility.ShowBannerImage" = "Show banner image";
-"Scene.Profile.Dashboard.MyFollowers" = "followers";
-"Scene.Profile.Dashboard.MyFollowing" = "following";
-"Scene.Profile.Dashboard.MyPosts" = "posts";
-"Scene.Profile.Dashboard.OtherFollowers" = "followers";
-"Scene.Profile.Dashboard.OtherFollowing" = "following";
-"Scene.Profile.Dashboard.OtherPosts" = "posts";
+"Scene.Profile.Dashboard.Followers" = "подписчики";
+"Scene.Profile.Dashboard.Following" = "подписки";
+"Scene.Profile.Dashboard.Posts" = "посты";
 "Scene.Profile.Fields.AddRow" = "Добавить строку";
 "Scene.Profile.Fields.Joined" = "Joined";
 "Scene.Profile.Fields.Placeholder.Content" = "Содержимое";

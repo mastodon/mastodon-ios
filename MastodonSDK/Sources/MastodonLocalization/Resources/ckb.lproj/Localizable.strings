@@ -282,12 +282,9 @@
 "Scene.Profile.Accessibility.EditAvatarImage" = "دەستکاریی وێنەکە بکە";
 "Scene.Profile.Accessibility.ShowAvatarImage" = "وێنەکە نیشان بدە";
 "Scene.Profile.Accessibility.ShowBannerImage" = "وێنەکەی پشتەوە نیشان بدە";
-"Scene.Profile.Dashboard.MyFollowers" = "followers";
-"Scene.Profile.Dashboard.MyFollowing" = "following";
-"Scene.Profile.Dashboard.MyPosts" = "posts";
-"Scene.Profile.Dashboard.OtherFollowers" = "followers";
-"Scene.Profile.Dashboard.OtherFollowing" = "following";
-"Scene.Profile.Dashboard.OtherPosts" = "posts";
+"Scene.Profile.Dashboard.Followers" = "شوێنکەوتوو";
+"Scene.Profile.Dashboard.Following" = "شوێنکەوتن";
+"Scene.Profile.Dashboard.Posts" = "پۆستەکان";
 "Scene.Profile.Fields.AddRow" = "ڕیز زیاد بکە";
 "Scene.Profile.Fields.Joined" = "Joined";
 "Scene.Profile.Fields.Placeholder.Content" = "ناوەڕۆک";

@@ -134,9 +134,9 @@
 "Common.Controls.Status.Tag.Url" = "網址";
 "Common.Controls.Status.TapToReveal" = "輕觸以顯示";
 "Common.Controls.Status.Translation.ShowOriginal" = "顯示原文";
-"Common.Controls.Status.Translation.TranslatedFrom" = "透過 %@ 翻譯 %@";
+"Common.Controls.Status.Translation.TranslatedFrom" = "Translated from %@ using %@";
 "Common.Controls.Status.Translation.UnknownLanguage" = "未知";
-"Common.Controls.Status.Translation.UnknownProvider" = "未知";
+"Common.Controls.Status.Translation.UnknownProvider" = "Unknown";
 "Common.Controls.Status.UserReblogged" = "%@ 已轉嘟";
 "Common.Controls.Status.UserRepliedTo" = "回覆給 %@";
 "Common.Controls.Status.Visibility.Direct" = "只有被提及的使用者能看到此嘟文。";
@@ -278,12 +278,9 @@
 "Scene.Profile.Accessibility.EditAvatarImage" = "編輯大頭貼";
 "Scene.Profile.Accessibility.ShowAvatarImage" = "顯示大頭貼";
 "Scene.Profile.Accessibility.ShowBannerImage" = "顯示橫幅圖片";
-"Scene.Profile.Dashboard.MyFollowers" = "跟隨者";
-"Scene.Profile.Dashboard.MyFollowing" = "正在跟隨";
-"Scene.Profile.Dashboard.MyPosts" = "嘟文";
-"Scene.Profile.Dashboard.OtherFollowers" = "跟隨者";
-"Scene.Profile.Dashboard.OtherFollowing" = "正在跟隨";
-"Scene.Profile.Dashboard.OtherPosts" = "嘟文";
+"Scene.Profile.Dashboard.Followers" = "跟隨者";
+"Scene.Profile.Dashboard.Following" = "跟隨中";
+"Scene.Profile.Dashboard.Posts" = "嘟文";
 "Scene.Profile.Fields.AddRow" = "新增列";
 "Scene.Profile.Fields.Joined" = "加入時間";
 "Scene.Profile.Fields.Placeholder.Content" = "內容";
