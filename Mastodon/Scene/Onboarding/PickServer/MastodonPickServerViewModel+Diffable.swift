@@ -7,6 +7,7 @@
 
 import UIKit
 import Combine
+import MastodonSDK
 
 extension MastodonPickServerViewModel {
     
@@ -18,7 +19,8 @@ extension MastodonPickServerViewModel {
         // set section header
         serverSectionHeaderView.diffableDataSource = CategoryPickerSection.collectionViewDiffableDataSource(
             for: serverSectionHeaderView.collectionView,
-            dependency: dependency
+            dependency: dependency,
+            viewModel: self
         )
         var sectionHeaderSnapshot = NSDiffableDataSourceSnapshot<CategoryPickerSection, CategoryPickerItem>()
         sectionHeaderSnapshot.appendSections([.main])
@@ -26,8 +28,12 @@ extension MastodonPickServerViewModel {
         serverSectionHeaderView.delegate = pickServerServerSectionTableHeaderViewDelegate
         serverSectionHeaderView.diffableDataSource?.apply(sectionHeaderSnapshot, animatingDifferences: false) { [weak self] in
             guard let self = self else { return }
-            guard let indexPath = self.serverSectionHeaderView.diffableDataSource?.indexPath(for: .all) else { return }
-            self.serverSectionHeaderView.collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .centeredHorizontally)
+            guard let indexPath = self.serverSectionHeaderView.diffableDataSource?.indexPath(for: .category(category: .init(category: Mastodon.Entity.Category.Kind.general.rawValue, serversCount: 0))) else { return }
+
+            self.serverSectionHeaderView.collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .right)
+
+            let firstIndex = IndexPath(item: 0, section: 0)
+            self.serverSectionHeaderView.collectionView.scrollToItem(at: firstIndex, at: .left, animated: false)
         }
         
         // set tableView
@@ -38,7 +44,6 @@ extension MastodonPickServerViewModel {
         
         var snapshot = NSDiffableDataSourceSnapshot<PickServerSection, PickServerItem>()
         snapshot.appendSections([.header, .servers])
-        snapshot.appendItems([.header], toSection: .header)
         diffableDataSource?.apply(snapshot, animatingDifferences: false, completion: nil)
         
         loadIndexedServerStateMachine.enter(LoadIndexedServerState.Loading.self)
@@ -61,7 +66,6 @@ extension MastodonPickServerViewModel {
             
             var snapshot = NSDiffableDataSourceSnapshot<PickServerSection, PickServerItem>()
             snapshot.appendSections([.header, .servers])
-            snapshot.appendItems([.header], toSection: .header)
 
             // TODO: handle filter
             var serverItems: [PickServerItem] = []

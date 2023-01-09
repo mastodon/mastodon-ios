@@ -45,6 +45,10 @@ public enum Asset {
       public static let searchCard = ColorAsset(name: "Colors/Border/searchCard")
       public static let status = ColorAsset(name: "Colors/Border/status")
     }
+    public enum Brand {
+      public static let blurple = ColorAsset(name: "Colors/Brand/Blurple")
+      public static let lightBlurple = ColorAsset(name: "Colors/Brand/Light Blurple")
+    }
     public enum Button {
       public static let actionToolbar = ColorAsset(name: "Colors/Button/action.toolbar")
       public static let disabled = ColorAsset(name: "Colors/Button/disabled")

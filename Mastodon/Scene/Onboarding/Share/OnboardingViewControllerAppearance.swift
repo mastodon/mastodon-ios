@@ -60,6 +60,7 @@ extension OnboardingViewControllerAppearance {
     func setupNavigationBarAppearance() {
         // use TransparentBackground so view push / dismiss will be more visual nature
         // please add opaque background for status bar manually if needs
+        navigationController?.navigationBar.tintColor = Asset.Colors.Brand.blurple.color
         
         let barAppearance = UINavigationBarAppearance()
         barAppearance.configureWithTransparentBackground()
