@@ -595,15 +595,15 @@ extension StatusView.ViewModel {
         }
         .store(in: &disposeBag)
         
-        reblogButtonTitle
+        $reblogCount
             .sink { title in
-                statusView.statusMetricView.reblogButton.setTitle(title, for: .normal)
+                statusView.statusMetricView.reblogButton.detailLabel.text = "\(title)"
             }
             .store(in: &disposeBag)
         
-        favoriteButtonTitle
+        $favoriteCount
             .sink { title in
-                statusView.statusMetricView.favoriteButton.setTitle(title, for: .normal)
+                statusView.statusMetricView.favoriteButton.detailLabel.text = "\(title)"
             }
             .store(in: &disposeBag)
     }

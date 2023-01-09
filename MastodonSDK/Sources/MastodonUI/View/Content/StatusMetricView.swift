@@ -5,25 +5,25 @@
 //  Created by MainasuK on 2022-1-17.
 //
 
-import os.log
 import UIKit
+import MastodonAsset
 
 protocol StatusMetricViewDelegate: AnyObject {
     func statusMetricView(_ statusMetricView: StatusMetricView, reblogButtonDidPressed button: UIButton)
     func statusMetricView(_ statusMetricView: StatusMetricView, favoriteButtonDidPressed button: UIButton)
+    func statusMetricView(_ statusMetricView: StatusMetricView, didPressEditHistoryButton button: UIButton)
 }
 
 public final class StatusMetricView: UIView {
-    
-    let logger = Logger(subsystem: "StatusMetricView", category: "View")
-    
+
     weak var delegate: StatusMetricViewDelegate?
     
     // container
-    public let containerStackView: UIStackView = {
+    private let containerStackView: UIStackView = {
         let stackView = UIStackView()
-        stackView.axis = .horizontal
+        stackView.axis = .vertical
         stackView.spacing = 4
+        stackView.alignment = .leading
         return stackView
     }()
     
@@ -38,30 +38,18 @@ public final class StatusMetricView: UIView {
         return label
     }()
     
-    // meter
-    public let meterContainer: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.spacing = 20
-        return stackView
-    }()
-    
     // reblog meter
-    public let reblogButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.titleLabel?.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 15, weight: .semibold))
-        button.setTitle("0 reblog", for: .normal)
+    public let reblogButton: StatusMetricRowView = {
+        let button = StatusMetricRowView(iconImage: Asset.Arrow.repeat.image, text: "Reblogs", detailText: "10")
         return button
     }()
     
     // favorite meter
-    public let favoriteButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.titleLabel?.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 15, weight: .semibold))
-        button.setTitle("0 favorite", for: .normal)
+    public let favoriteButton: StatusMetricRowView = {
+        let button = StatusMetricRowView(iconImage: UIImage(systemName: "star"), text: "Favorites", detailText: "10")
         return button
     }()
-    
+
     public override init(frame: CGRect) {
         super.init(frame: frame)
         _init()
@@ -79,40 +67,45 @@ extension StatusMetricView {
         // container: H - [ dateLabel | meterContainer ]
         containerStackView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(containerStackView)
+
+        reblogButton.translatesAutoresizingMaskIntoConstraints = false
+        containerStackView.addArrangedSubview(reblogButton)
+
+        favoriteButton.translatesAutoresizingMaskIntoConstraints = false
+        containerStackView.addArrangedSubview(favoriteButton)
+
+        dateLabel.translatesAutoresizingMaskIntoConstraints = false
+        containerStackView.addArrangedSubview(dateLabel)
+
         NSLayoutConstraint.activate([
             containerStackView.topAnchor.constraint(equalTo: topAnchor, constant: 8),
             containerStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
             containerStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
             bottomAnchor.constraint(equalTo: containerStackView.bottomAnchor, constant: 12),
+
+            reblogButton.widthAnchor.constraint(equalTo: containerStackView.widthAnchor),
+            favoriteButton.widthAnchor.constraint(equalTo: reblogButton.widthAnchor),
+            dateLabel.widthAnchor.constraint(equalTo: reblogButton.widthAnchor),
         ])
-        
-        containerStackView.addArrangedSubview(dateLabel)
-        dateLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
-        containerStackView.addArrangedSubview(meterContainer)
-        
-        // meterContainer: H - [ reblogButton | favoriteButton ]
-        meterContainer.addArrangedSubview(reblogButton)
-        meterContainer.addArrangedSubview(favoriteButton)
-        reblogButton.setContentHuggingPriority(.required - 2, for: .horizontal)
-        reblogButton.setContentCompressionResistancePriority(.required - 2, for: .horizontal)
-        favoriteButton.setContentHuggingPriority(.required - 1, for: .horizontal)
-        favoriteButton.setContentCompressionResistancePriority(.required - 1, for: .horizontal)
-        
-        reblogButton.addTarget(self, action: #selector(StatusMetricView.reblogButtonDidPressed(_:)), for: .touchUpInside)
-        favoriteButton.addTarget(self, action: #selector(StatusMetricView.favoriteButtonDidPressed(_:)), for: .touchUpInside)
+
+
+        reblogButton.addTarget(self, action: #selector(StatusMetricView.didPressReblogButton(_:)), for: .touchUpInside)
+        favoriteButton.addTarget(self, action: #selector(StatusMetricView.didPressFavoriteButton(_:)), for: .touchUpInside)
     }
 }
 
 extension StatusMetricView {
 
-    @objc private func reblogButtonDidPressed(_ sender: UIButton) {
-        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
+    @objc private func didPressReblogButton(_ sender: UIButton) {
         delegate?.statusMetricView(self, reblogButtonDidPressed: sender)
     }
     
-    @objc private func favoriteButtonDidPressed(_ sender: UIButton) {
-        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
+    @objc private func didPressFavoriteButton(_ sender: UIButton) {
         delegate?.statusMetricView(self, favoriteButtonDidPressed: sender)
     }
-    
+
+    @objc private func didPressEditHistoryButton(_ sender: UIButton) {
+        delegate?.statusMetricView(self, didPressEditHistoryButton: sender)
+    }
+
 }
