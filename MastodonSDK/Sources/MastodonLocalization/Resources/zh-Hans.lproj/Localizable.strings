@@ -283,9 +283,12 @@
 "Scene.Profile.Accessibility.EditAvatarImage" = "编辑头像";
 "Scene.Profile.Accessibility.ShowAvatarImage" = "显示头像";
 "Scene.Profile.Accessibility.ShowBannerImage" = "显示顶部横幅图片";
-"Scene.Profile.Dashboard.Followers" = "关注者";
-"Scene.Profile.Dashboard.Following" = "正在关注";
-"Scene.Profile.Dashboard.Posts" = "帖子";
+"Scene.Profile.Dashboard.MyFollowers" = "followers";
+"Scene.Profile.Dashboard.MyFollowing" = "following";
+"Scene.Profile.Dashboard.MyPosts" = "posts";
+"Scene.Profile.Dashboard.OtherFollowers" = "followers";
+"Scene.Profile.Dashboard.OtherFollowing" = "following";
+"Scene.Profile.Dashboard.OtherPosts" = "posts";
 "Scene.Profile.Fields.AddRow" = "添加";
 "Scene.Profile.Fields.Joined" = "Joined";
 "Scene.Profile.Fields.Placeholder.Content" = "内容";

@@ -267,6 +267,8 @@
         "server_picker": {
             "title": "Pick Server",
             "button": {
+                "language": "Language",
+                "signup_speed": "Sign-up Speed",
                 "category": {
                     "all": "All",
                     "all_accessiblity_description": "Category: All",
@@ -298,19 +300,29 @@
                 "finding_servers": "Finding available servers...",
                 "bad_network": "Something went wrong while loading the data. Check your internet connection.",
                 "no_results": "No results"
+            },
+            "signup_speed": {
+                "all": "All",
+                "instant": "Instant Sign-up",
+                "manually_reviewed": "Manual Review"
+            },
+            "language": {
+                "all": "All"
+            },
+            "search": {
+                "placeholder": "Search name or URL"
             }
         },
         "privacy": {
             "title": "Privacy",
             "policy": {
-                "ios": "Privacy Policy - Mastodon for iOS";
-                "server" = "Privacy Policy - %s";
-
+                "ios": "Privacy Policy - Mastodon for iOS",
+                "server": "Privacy Policy - %s"
             },
             "button": {
                 "confirm": "I agree"
             }
-        }
+        },
         "register": {
             "title": "Create account",
             "input": {
@@ -319,7 +331,8 @@
                 },
                 "username": {
                     "placeholder": "username",
-                    "duplicate_prompt": "This username is taken."
+                    "duplicate_prompt": "This username is taken.",
+                    "suggestion": "amazing_%@"
                 },
                 "display_name": {
                     "placeholder": "display name"
@@ -378,14 +391,13 @@
             "terms_of_service": "terms of service",
             "privacy_policy": "privacy policy",
             "button": {
-                "confirm": "I Agree"
+                "confirm": "I agree"
             }
         },
         "confirm_email": {
-            "title": "One last thing.",
+            "title": "Check Your Inbox",
             "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we sent you to verify %@. We’ll wait right here.",
             "button": {
-                "open_email_app": "Open Email App",
                 "resend": "Resend"
             },
             "dont_receive_email": {
@@ -398,6 +410,11 @@
                 "description": "We just sent you an email. Check your junk folder if you haven’t.",
                 "mail": "Mail",
                 "open_email_client": "Open Email Client"
+            },
+            "didnt_get_link": {
+                "prefix": "Didn't get a Link?",
+                "resend_in": "Resend (%@)",
+                "resend_now": "Resend now."
             }
         },
         "home_timeline": {
