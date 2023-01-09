@@ -322,7 +322,7 @@
             "button": {
                 "confirm": "I agree"
             }
-        }
+        },
         "register": {
             "title": "Create account",
             "input": {
