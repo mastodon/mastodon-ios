@@ -45,6 +45,10 @@ public enum Asset {
       public static let searchCard = ColorAsset(name: "Colors/Border/searchCard")
       public static let status = ColorAsset(name: "Colors/Border/status")
     }
+    public enum Brand {
+      public static let blurple = ColorAsset(name: "Colors/Brand/Blurple")
+      public static let lightBlurple = ColorAsset(name: "Colors/Brand/Light Blurple")
+    }
     public enum Button {
       public static let actionToolbar = ColorAsset(name: "Colors/Button/action.toolbar")
       public static let disabled = ColorAsset(name: "Colors/Button/disabled")
@@ -175,8 +179,7 @@ public enum Asset {
     public enum Profile {
       public enum About {
         public static let bioAboutFieldVerifiedBackground = ColorAsset(name: "Scene/Profile/About/bio.about.field.verified.background")
-        public static let bioAboutFieldVerifiedCheckmark = ColorAsset(name: "Scene/Profile/About/bio.about.field.verified.checkmark")
-        public static let bioAboutFieldVerifiedLink = ColorAsset(name: "Scene/Profile/About/bio.about.field.verified.link")
+        public static let bioAboutFieldVerifiedText = ColorAsset(name: "Scene/Profile/About/bio.about.field.verified.text")
       }
       public enum Banner {
         public static let bioEditBackgroundGray = ColorAsset(name: "Scene/Profile/Banner/bio.edit.background.gray")

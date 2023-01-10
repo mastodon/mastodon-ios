@@ -25,11 +25,11 @@ final class MastodonRegisterViewModel: ObservableObject {
     let viewDidAppear = CurrentValueSubject<Void, Never>(Void())
 
     @Published var backgroundColor: UIColor = Asset.Scene.Onboarding.background.color
-    @Published var avatarImage: UIImage? = nil
     @Published var name = ""
     @Published var username = ""
     @Published var email = ""
     @Published var password = ""
+    @Published var passwordConfirmation = ""
     @Published var reason = ""
     
     @Published var usernameErrorPrompt: String? = nil
@@ -54,7 +54,6 @@ final class MastodonRegisterViewModel: ObservableObject {
     @Published var isAllValid = false
     @Published var error: Error? = nil
     
-    let avatarMediaMenuActionPublisher = PassthroughSubject<AvatarMediaMenuAction, Never>()
     let endEditing = PassthroughSubject<Void, Never>()
 
     init(
@@ -151,10 +150,15 @@ final class MastodonRegisterViewModel: ObservableObject {
             .assign(to: \.emailValidateState, on: self)
             .store(in: &disposeBag)
         
-        $password
-            .map { password in
+        Publishers.CombineLatest($password, $passwordConfirmation)
+            .map { password, confirmation in
                 guard !password.isEmpty else { return .empty }
-                return password.count >= 8 ? .valid : .invalid
+
+                if password.count >= 8 && password == confirmation {
+                    return .valid
+                } else {
+                    return .invalid
+                }
             }
             .assign(to: \.passwordValidateState, on: self)
             .store(in: &disposeBag)
@@ -280,53 +284,4 @@ extension MastodonRegisterViewModel {
         
         return attributeString
     }
-}
-
-extension MastodonRegisterViewModel {
-    
-    enum AvatarMediaMenuAction {
-        case photoLibrary
-        case camera
-        case browse
-        case delete
-    }
-    
-    private func createAvatarMediaContextMenu() -> UIMenu {
-        var children: [UIMenuElement] = []
-        
-        // Photo Library
-        let photoLibraryAction = UIAction(title: L10n.Scene.Compose.MediaSelection.photoLibrary, image: UIImage(systemName: "rectangle.on.rectangle"), identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off) { [weak self] _ in
-            guard let self = self else { return }
-            self.avatarMediaMenuActionPublisher.send(.photoLibrary)
-        }
-        children.append(photoLibraryAction)
-        
-        // Camera
-        if UIImagePickerController.isSourceTypeAvailable(.camera) {
-            let cameraAction = UIAction(title: L10n.Scene.Compose.MediaSelection.camera, image: UIImage(systemName: "camera"), identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off, handler: { [weak self] _ in
-                guard let self = self else { return }
-                self.avatarMediaMenuActionPublisher.send(.camera)
-            })
-            children.append(cameraAction)
-        }
-        
-        // Browse
-        let browseAction = UIAction(title: L10n.Scene.Compose.MediaSelection.browse, image: UIImage(systemName: "ellipsis"), identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off) { [weak self] _ in
-            guard let self = self else { return }
-            self.avatarMediaMenuActionPublisher.send(.browse)
-        }
-        children.append(browseAction)
-        
-        // Delete
-        if avatarImage != nil {
-            let deleteAction = UIAction(title: L10n.Scene.Register.Input.Avatar.delete, image: UIImage(systemName: "delete.left"), identifier: nil, discoverabilityTitle: nil, attributes: [.destructive], state: .off) { [weak self] _ in
-                guard let self = self else { return }
-                self.avatarMediaMenuActionPublisher.send(.delete)
-            }
-            children.append(deleteAction)
-        }
-
-        return UIMenu(title: "", image: nil, identifier: nil, options: .displayInline, children: children)
-    }
-    
 }

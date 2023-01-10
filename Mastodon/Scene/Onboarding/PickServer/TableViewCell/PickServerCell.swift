@@ -20,14 +20,25 @@ class PickServerCell: UITableViewCell {
         
     let containerView: UIStackView = {
         let view = UIStackView()
+        view.translatesAutoresizingMaskIntoConstraints = false
         view.axis = .vertical
         view.spacing = 4
         return view
     }()
+
+    let thumbnailImageView: UIImageView = {
+        let thumbnail = UIImageView()
+        thumbnail.translatesAutoresizingMaskIntoConstraints = false
+        thumbnail.backgroundColor = Asset.Colors.brand.color
+        thumbnail.layer.cornerRadius = 8
+        thumbnail.contentMode = .scaleAspectFill
+        thumbnail.layer.masksToBounds = true
+        return thumbnail
+    }()
     
     let domainLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 20, weight: .semibold))
+        label.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold))
         label.textColor = Asset.Colors.Label.primary.color
         label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -37,7 +48,6 @@ class PickServerCell: UITableViewCell {
     let checkbox: UIImageView = {
         let imageView = UIImageView()
         imageView.preferredSymbolConfiguration = UIImage.SymbolConfiguration(textStyle: .body)
-        imageView.tintColor = Asset.Colors.Label.secondary.color
         imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
@@ -45,50 +55,21 @@ class PickServerCell: UITableViewCell {
     
     let descriptionLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFontMetrics(forTextStyle: .caption1).scaledFont(for: .systemFont(ofSize: 13, weight: .regular))
+        label.font = UIFontMetrics(forTextStyle: .caption1).scaledFont(for: .systemFont(ofSize: 15, weight: .regular))
         label.numberOfLines = 0
-        label.textColor = Asset.Colors.Label.primary.color
+        label.textColor = Asset.Colors.Label.secondary.color
         label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    let infoStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.spacing = 16
-        return stackView
-    }()
-    
-    let separator: UIView = {
-        let view = UIView()
-        view.backgroundColor = Asset.Theme.System.separator.color
-        return view
-    }()
-    
-    let langValueLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = Asset.Colors.Label.primary.color
-        label.font = UIFontMetrics(forTextStyle: .caption1).scaledFont(for: .systemFont(ofSize: 12, weight: .regular))
-        label.textAlignment = .center
-        label.adjustsFontForContentSizeCategory = true
-        return label
-    }()
-    
-    let usersValueLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = Asset.Colors.Label.primary.color
-        label.font = UIFontMetrics(forTextStyle: .caption1).scaledFont(for: .systemFont(ofSize: 12, weight: .regular))
-        label.adjustsFontForContentSizeCategory = true
-        return label
-    }()
-
     private var collapseConstraints: [NSLayoutConstraint] = []
     private var expandConstraints: [NSLayoutConstraint] = []
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        
+        thumbnailImageView.isHidden = true
+        thumbnailImageView.image = nil
         disposeBag.removeAll()
     }
     
@@ -109,52 +90,45 @@ extension PickServerCell {
     private func _init() {
         selectionStyle = .none
         backgroundColor = Asset.Scene.Onboarding.background.color
-                
-        checkbox.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(checkbox)
-        NSLayoutConstraint.activate([
-            checkbox.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor, constant: 1),
-            checkbox.heightAnchor.constraint(equalToConstant: 32).priority(.required - 1),
-            checkbox.widthAnchor.constraint(equalToConstant: 32).priority(.required - 1),
-        ])
-        
-        containerView.translatesAutoresizingMaskIntoConstraints = false
+
         contentView.addSubview(containerView)
+        contentView.addSubview(thumbnailImageView)
+        contentView.addSubview(checkbox)
+
+        NSLayoutConstraint.activate([
+            thumbnailImageView.heightAnchor.constraint(equalToConstant: 32),
+            thumbnailImageView.widthAnchor.constraint(equalTo: thumbnailImageView.heightAnchor),
+
+            thumbnailImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            thumbnailImageView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
+        ])
+
         NSLayoutConstraint.activate([
             containerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 11),
-            containerView.leadingAnchor.constraint(equalTo: checkbox.trailingAnchor, constant: 22),
-            containerView.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor),
+            containerView.leadingAnchor.constraint(equalTo: thumbnailImageView.trailingAnchor, constant: 16),
+            checkbox.leadingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: 16),
             contentView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: 11),
             checkbox.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
         ])
-        
+
         containerView.addArrangedSubview(domainLabel)
         containerView.addArrangedSubview(descriptionLabel)
         containerView.setCustomSpacing(6, after: descriptionLabel)
-        containerView.addArrangedSubview(infoStackView)
-        
-        infoStackView.addArrangedSubview(usersValueLabel)
-        infoStackView.addArrangedSubview(langValueLabel)
-        infoStackView.addArrangedSubview(UIView())
-        
-        separator.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(separator)
+
         NSLayoutConstraint.activate([
-            separator.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
-            contentView.readableContentGuide.trailingAnchor.constraint(equalTo: separator.trailingAnchor),
-            separator.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            separator.heightAnchor.constraint(equalToConstant: UIView.separatorLineHeight(of: contentView)).priority(.required - 1),
+            contentView.trailingAnchor.constraint(equalTo: checkbox.trailingAnchor, constant: 16),
+            checkbox.heightAnchor.constraint(equalToConstant: 20),
+            checkbox.widthAnchor.constraint(equalTo: checkbox.heightAnchor),
         ])
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         if selected {
-            checkbox.image = UIImage(systemName: "checkmark.circle.fill")
-            checkbox.tintColor = Asset.Colors.Label.primary.color
+            checkbox.image = UIImage(systemName: "checkmark")
+            checkbox.tintColor = Asset.Colors.brand.color
         } else {
-            checkbox.image = UIImage(systemName: "circle")
-            checkbox.tintColor = Asset.Colors.Label.secondary.color
+            checkbox.image = nil
         }
     }
 

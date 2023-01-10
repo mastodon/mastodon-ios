@@ -9,6 +9,7 @@ import os.log
 import UIKit
 import MastodonAsset
 import MastodonLocalization
+import MastodonExtension
 
 public protocol ActionToolbarContainerDelegate: AnyObject {
     func actionToolbarContainer(_ actionToolbarContainer: ActionToolbarContainer, buttonDidPressed button: UIButton, action: ActionToolbarContainer.Action)
@@ -283,7 +284,7 @@ extension ActionToolbarContainer {
 extension ActionToolbarContainer {
     private static func title(from number: Int?) -> String {
         guard let number = number, number > 0 else { return "" }
-        return String(number)
+        return number.asAbbreviatedCountString()
     }
 }
 

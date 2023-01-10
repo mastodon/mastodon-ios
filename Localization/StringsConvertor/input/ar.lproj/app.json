@@ -51,6 +51,11 @@
             "clean_cache": {
                 "title": "مَحوُ ذاكِرَةِ التَّخزينِ المُؤقَّت",
                 "message": "مُحِيَ ما مَساحَتُهُ %s مِن ذاكِرَةِ التَّخزينِ المُؤقَّت بِنجاح."
+            },
+            "translation_failed": {
+                "title": "مُلاحظة",
+                "message": "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.",
+                "button": "حسنًا"
             }
         },
         "controls": {
@@ -75,9 +80,10 @@
                 "save_photo": "حفظ الصورة",
                 "copy_photo": "نسخ الصورة",
                 "sign_in": "تسجيلُ الدخول",
-                "sign_up": "Create account",
+                "sign_up": "إنشاءُ حِساب",
                 "see_more": "عرض المزيد",
                 "preview": "مُعاينة",
+                "copy": "نَسخ",
                 "share": "المُشارك",
                 "share_user": "مُشارَكَةُ %s",
                 "share_post": "مشارك المنشور",
@@ -91,12 +97,16 @@
                 "block_domain": "حظر %s",
                 "unblock_domain": "رفع الحظر عن %s",
                 "settings": "الإعدادات",
-                "delete": "حذف"
+                "delete": "حذف",
+                "translate_post": {
+                    "title": "الترجَمَة مِن %s",
+                    "unknown_language": "غير مَعرُوفة"
+                }
             },
             "tabs": {
                 "home": "الرَّئِيسَة",
-                "search": "البَحث",
-                "notification": "الإشعارات",
+                "search_and_explore": "البَحث وَالاِستِكشاف",
+                "notifications": "الإشعارات",
                 "profile": "المِلَفُّ التَّعريفِيّ"
             },
             "keyboard": {
@@ -132,6 +142,8 @@
                 "sensitive_content": "مُحتَوى حَسَّاس",
                 "media_content_warning": "اُنقُر لِلكَشف",
                 "tap_to_reveal": "اُنقُر لِلكَشف",
+                "load_embed": "تحميل المُضمَن",
+                "link_via_user": "%s via %s",
                 "poll": {
                     "vote": "صَوِّت",
                     "closed": "انتهى"
@@ -153,6 +165,7 @@
                     "show_image": "أظْهِرِ الصُّورَة",
                     "show_gif": "أظْهِر GIF",
                     "show_video_player": "أظْهِر مُشَغِّلَ المَقاطِعِ المَرئِيَّة",
+                    "share_link_in_post": "مُشارَكَة الرابِط فِي مَنشور",
                     "tap_then_hold_to_show_menu": "اُنقُر مُطَوَّلًا لِإظْهَارِ القائِمَة"
                 },
                 "tag": {
@@ -168,6 +181,12 @@
                     "private": "فَقَطْ مُتابِعينَهُم مَن يُمكِنُهُم رُؤيَةُ هَذَا المَنشُور.",
                     "private_from_me": "فَقَطْ مُتابِعيني أنَا مَن يُمكِنُهُم رُؤيَةُ هَذَا المَنشُور.",
                     "direct": "المُستخدمِونَ المُشارِ إليهم فَقَطْ مَن يُمكِنُهُم رُؤيَةُ هَذَا المَنشُور."
+                },
+                "translation": {
+                    "translated_from": "الترجَمَة مِن %s بِاستِخدَام %s",
+                    "unknown_language": "غير مَعرُوفة",
+                    "unknown_provider": "غير مَعرُوف",
+                    "show_original": "Shown Original"
                 }
             },
             "friendship": {
@@ -219,15 +238,15 @@
             "log_in": "تسجيلُ الدخول"
         },
         "login": {
-            "title": "Welcome back",
-            "subtitle": "Log you in on the server you created your account on.",
+            "title": "مَرحَبًا بِكَ مُجَدَّدًا",
+            "subtitle": "سَجِّل دُخولَكَ إلى الخادِم الَّذي أنشأتَ حِسابَكَ فيه.",
             "server_search_field": {
-                "placeholder": "Enter URL or search for your server"
+                "placeholder": "أدخِل عُنوانَ URL أو اِبحَث عَنِ الخادِمِ الخاصّ بِك"
             }
         },
         "server_picker": {
             "title": "اِختر خادِم،\nأيًّا مِنهُم.",
-            "subtitle": "Pick a server based on your region, interests, or a general purpose one. You can still chat with anyone on Mastodon, regardless of your servers.",
+            "subtitle": "اِختر خادمًا بناءً على منطقتك، اِهتماماتك أو يُمكنك حتى اِختيارُ مجتمعٍ ذِي غرضٍ عام. بِإمكانِكَ الدردشة مع أي شخص على مَاستودُون، بغض النظر عن الخادم الخاصة بك.",
             "button": {
                 "category": {
                     "all": "الكُل",
@@ -254,7 +273,7 @@
                 "category": "الفئة"
             },
             "input": {
-                "search_servers_or_enter_url": "Search communities or enter URL"
+                "search_servers_or_enter_url": "اِبحث عَن مُجتَمَعَات أو أدخِل عُنوانَ URL"
             },
             "empty_state": {
                 "finding_servers": "يجري إيجاد خوادم متوفِّرَة...",
@@ -427,7 +446,7 @@
                 "enable_content_warning": "تفعيل تحذير المُحتَوى",
                 "disable_content_warning": "تعطيل تحذير المُحتَوى",
                 "post_visibility_menu": "قائمة ظهور المنشور",
-                "post_options": "Post Options",
+                "post_options": "خياراتُ المَنشور",
                 "posting_as": "نَشر كَـ %s"
             },
             "keyboard": {
@@ -444,11 +463,15 @@
                 "follows_you": "يُتابِعُك"
             },
             "dashboard": {
-                "posts": "مَنشورات",
-                "following": "مُتابَع",
-                "followers": "مُتابِع"
+                "my_posts": "مَنشورات",
+                "my_following": "مُتابَعُون",
+                "my_followers": "مُتابِعُون",
+                "other_posts": "مَنشورات",
+                "other_following": "مُتابَعُون",
+                "other_followers": "مُتابِعُون"
             },
             "fields": {
+                "joined": "Joined",
                 "add_row": "إضافة صف",
                 "placeholder": {
                     "label": "التسمية",
@@ -722,6 +745,18 @@
         },
         "bookmark": {
             "title": "العَلاماتُ المَرجعيَّة"
+        },
+        "followed_tags": {
+            "title": "وُسُومُ المُتابَع",
+            "header": {
+                "posts": "مَنشورات",
+                "participants": "المُشارِكُون",
+                "posts_today": "مَنشوراتُ اليَوم"
+            },
+            "actions": {
+                "follow": "مُتابَعَة",
+                "unfollow": "إلغاءُ المُتابَعَة"
+            }
         }
     }
 }

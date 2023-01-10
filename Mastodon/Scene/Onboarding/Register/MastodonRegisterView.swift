@@ -20,70 +20,13 @@ struct MastodonRegisterView: View {
     var body: some View {
         ScrollView(.vertical) {
             let margin: CGFloat = 16
-            
-            // header
-            HStack {
-                Text(L10n.Scene.Register.title(viewModel.domain))
-                    .font(Font(MastodonPickServerViewController.largeTitleFont as CTFont))
-                    .foregroundColor(Color(Asset.Colors.Label.primary.color))
-                Spacer()
-            }
-            .padding(.horizontal, margin)
-            
-            // Avatar selector
-            Menu {
-                // Photo Library
-                Button {
-                    viewModel.avatarMediaMenuActionPublisher.send(.photoLibrary)
-                } label: {
-                    Label(L10n.Scene.Compose.MediaSelection.photoLibrary, systemImage: "photo")
-                }
-                // Camera
-                if UIImagePickerController.isSourceTypeAvailable(.camera) {
-                    Button {
-                        viewModel.avatarMediaMenuActionPublisher.send(.camera)
-                    } label: {
-                        Label(L10n.Scene.Compose.MediaSelection.camera, systemImage: "camera")
-                    }
-                }
-                // Browse
-                Button {
-                    viewModel.avatarMediaMenuActionPublisher.send(.browse)
-                } label: {
-                    Label(L10n.Scene.Compose.MediaSelection.browse, systemImage: "folder")
-                }
-                // Delete
-                if viewModel.avatarImage != nil {
-                    Divider()
-                    Button(role: .destructive) {
-                        viewModel.avatarMediaMenuActionPublisher.send(.delete)
-                    } label: {
-                        Label(L10n.Scene.Register.Input.Avatar.delete, systemImage: "delete.left")
-                    }
-                }
-            } label: {
-                let avatarImage = viewModel.avatarImage ?? Asset.Scene.Onboarding.avatarPlaceholder.image
-                Image(uiImage: avatarImage)
-                    .resizable()
-                    .frame(width: 88, height: 88, alignment: .center)
-                    .overlay(ZStack {
-                        Color.black.opacity(0.5)
-                            .frame(height: 22, alignment: .bottom)
-                        Text(L10n.Common.Controls.Actions.edit)
-                            .font(.system(size: 13, weight: .semibold))
-                            .foregroundColor(.white)
-                    }, alignment: .bottom)
-                    .cornerRadius(22)
-            }
-            .padding(EdgeInsets(top: 20, leading: 0, bottom: 20, trailing: 0))
-
-            // Display Name & Uesrname
-            VStack(alignment: .leading, spacing: 11) {
+            VStack(alignment: .leading, spacing: 16) {
                 TextField(L10n.Scene.Register.Input.DisplayName.placeholder.localizedCapitalized, text: $viewModel.name)
                     .textContentType(.name)
                     .disableAutocorrection(true)
                     .modifier(FormTextFieldModifier(validateState: viewModel.displayNameValidateState))
                 HStack {
+                    Text("@")
                     TextField(L10n.Scene.Register.Input.Username.placeholder.localizedCapitalized, text: $viewModel.username)
                         .textContentType(.username)
                         .autocapitalization(.none)
@@ -98,15 +41,24 @@ struct MastodonRegisterView: View {
                 .modifier(FormTextFieldModifier(validateState: viewModel.usernameValidateState))
                 .environment(\.layoutDirection, .leftToRight)   // force LTR
                 if let errorPrompt = viewModel.usernameErrorPrompt {
-                    Text(errorPrompt)
-                        .modifier(FormFootnoteModifier())
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text(errorPrompt)
+                            .font(Font(UIFontMetrics(forTextStyle: .caption1).scaledFont(for: .systemFont(ofSize: 13, weight: .regular))))
+                        //FIXME: Better way than comparing strings
+                        if errorPrompt == L10n.Scene.Register.Error.Reason.taken(L10n.Scene.Register.Error.Item.username) {
+                            Button {
+                                viewModel.usernameErrorPrompt = nil
+                                viewModel.usernameValidateState = .empty
+                                viewModel.username = L10n.Scene.Register.Input.Username.suggestion(viewModel.username)
+                            } label: {
+                                Text(L10n.Scene.Register.Input.Username.suggestion(viewModel.username))
+                                    .foregroundColor(Asset.Colors.Brand.blurple.swiftUIColor)
+                                    .font(Font(UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 17, weight: .bold))))
+
+                            }
+                        }
+                    }
                 }
-            }
-            .padding(.horizontal, margin)
-            .padding(.bottom, 22)
-            
-            // Email & Password & Password hint
-            VStack(alignment: .leading, spacing: 11) {
                 TextField(L10n.Scene.Register.Input.Email.placeholder.localizedCapitalized, text: $viewModel.email)
                     .textContentType(.emailAddress)
                     .autocapitalization(.none)
@@ -117,7 +69,17 @@ struct MastodonRegisterView: View {
                     Text(errorPrompt)
                         .modifier(FormFootnoteModifier())
                 }
+
+            }
+            .padding(.horizontal, margin)
+            .padding(.bottom, 32)
+            
+            // Email & Password & Password hint
+            VStack(alignment: .leading, spacing: margin) {
                 SecureField(L10n.Scene.Register.Input.Password.placeholder.localizedCapitalized, text: $viewModel.password)
+                    .textContentType(.newPassword)
+                    .modifier(FormTextFieldModifier(validateState: viewModel.passwordValidateState))
+                SecureField(L10n.Scene.Register.Input.Password.confirmationPlaceholder.localizedCapitalized, text: $viewModel.passwordConfirmation)
                     .textContentType(.newPassword)
                     .modifier(FormTextFieldModifier(validateState: viewModel.passwordValidateState))
                 Text(L10n.Scene.Register.Input.Password.hint)
@@ -162,24 +124,18 @@ struct MastodonRegisterView: View {
                 let borderColor: Color = {
                     switch validateState {
                         case .empty:    return Color(Asset.Scene.Onboarding.textFieldBackground.color)
-                        case .invalid:  return Color(Asset.Colors.TextField.invalid.color)
+                        case .invalid:  return Color(Asset.Colors.TextField.invalid.color.withAlphaComponent(0.25))
                         case .valid:    return Color(Asset.Scene.Onboarding.textFieldBackground.color)
                     }
                 }()
 
-                Color(Asset.Scene.Onboarding.textFieldBackground.color)
+                borderColor
                     .cornerRadius(10)
-                    .shadow(color: .black.opacity(0.125), radius: 1, x: 0, y: 2)
 
                 content
                     .padding()
-                    .background(Color(Asset.Scene.Onboarding.textFieldBackground.color))
+                    .background(borderColor)
                     .cornerRadius(10)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 10)
-                            .stroke(borderColor, lineWidth: 1)
-                            .animation(.easeInOut, value: validateState)
-                    )
             }
         }
     }
@@ -190,7 +146,6 @@ struct MastodonRegisterView: View {
             content
                 .font(.footnote)
                 .foregroundColor(foregroundColor)
-                .padding(.horizontal)
         }
     }
     
@@ -214,7 +169,7 @@ extension View {
 
 #if DEBUG
 struct MastodonRegisterView_Previews: PreviewProvider {
-    static var viewMdoel: MastodonRegisterViewModel {
+    static var viewModel: MastodonRegisterViewModel {
         let domain = "mstdn.jp"
         return MastodonRegisterViewModel(
             context: .shared,
@@ -240,55 +195,28 @@ struct MastodonRegisterView_Previews: PreviewProvider {
             )
         )
     }
-    
-    static var viewMdoel2: MastodonRegisterViewModel {
-        let domain = "mstdn.jp"
-        return MastodonRegisterViewModel(
-            context: .shared,
-            domain: domain,
-            authenticateInfo: AuthenticationViewModel.AuthenticateInfo(
-                domain: domain,
-                application:  Mastodon.Entity.Application(
-                    name: "Preview",
-                    website: nil,
-                    vapidKey: nil,
-                    redirectURI: nil,
-                    clientID: "",
-                    clientSecret: ""
-                ),
-                redirectURI: ""
-            )!,
-            instance: Mastodon.Entity.Instance(domain: "mstdn.jp", approvalRequired: true),
-            applicationToken: Mastodon.Entity.Token(
-                accessToken: "",
-                tokenType: "",
-                scope: "",
-                createdAt: Date()
-            )
-        )
-    }
             
     static var previews: some View {
         Group {
             NavigationView {
-                MastodonRegisterView(viewModel: viewMdoel)
+                MastodonRegisterView(viewModel: viewModel)
                     .navigationBarTitle(Text(""))
                     .navigationBarTitleDisplayMode(.inline)
             }
             NavigationView {
-                MastodonRegisterView(viewModel: viewMdoel)
+                MastodonRegisterView(viewModel: viewModel)
                     .navigationBarTitle(Text(""))
                     .navigationBarTitleDisplayMode(.inline)
             }
             .preferredColorScheme(.dark)
             NavigationView {
-                MastodonRegisterView(viewModel: viewMdoel)
+                MastodonRegisterView(viewModel: viewModel)
                     .navigationBarTitle(Text(""))
                     .navigationBarTitleDisplayMode(.inline)
             }
             .environment(\.sizeCategory, .accessibilityExtraLarge)
             NavigationView {
-                MastodonRegisterView(viewModel: viewMdoel2)
+                MastodonRegisterView(viewModel: viewModel)
                     .navigationBarTitle(Text(""))
                     .navigationBarTitleDisplayMode(.inline)
             }

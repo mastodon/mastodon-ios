@@ -3,6 +3,17 @@
 
 import PackageDescription
 
+let publicLibraryTargets = [
+    "CoreDataStack",
+    "MastodonAsset",
+    "MastodonCommon",
+    "MastodonCore",
+    "MastodonExtension",
+    "MastodonLocalization",
+    "MastodonSDK",
+    "MastodonUI",
+]
+
 let package = Package(
     name: "MastodonSDK",
     defaultLocalization: "en",
@@ -10,18 +21,17 @@ let package = Package(
         .iOS(.v15),
     ],
     products: [
+        // Static Library
         .library(
             name: "MastodonSDK",
-            targets: [
-                "CoreDataStack",
-                "MastodonAsset",
-                "MastodonCommon",
-                "MastodonCore",
-                "MastodonExtension",
-                "MastodonLocalization",
-                "MastodonSDK",
-                "MastodonUI",
-            ])
+            targets: publicLibraryTargets
+        ),
+        // Dynamic Library
+        .library(
+            name: "MastodonSDKDynamic",
+            type: .dynamic,
+            targets: publicLibraryTargets
+        )
     ],
     dependencies: [
         .package(name: "ArkanaKeys", path: "../dependencies/ArkanaKeys"),
@@ -43,7 +53,6 @@ let package = Package(
         .package(url: "https://github.com/TwidereProject/MetaTextKit.git", exact: "4.1.3"),
         .package(url: "https://github.com/TwidereProject/TabBarPager.git", from: "0.1.0"),
         .package(url: "https://github.com/uias/Tabman", from: "2.13.0"),
-        .package(url: "https://github.com/vtourraine/ThirdPartyMailer.git", from: "2.1.0"),
         .package(url: "https://github.com/woxtu/UIHostingConfigurationBackport.git", from: "0.1.0"),
         .package(url: "https://github.com/SDWebImage/SDWebImage.git", from: "5.12.0"),
         .package(url: "https://github.com/eneko/Stripes.git", from: "0.2.0"),
@@ -116,7 +125,6 @@ let package = Package(
                 .product(name: "UITextView+Placeholder", package: "UITextView-Placeholder"),
                 .product(name: "UIHostingConfigurationBackport", package: "UIHostingConfigurationBackport"),
                 .product(name: "TabBarPager", package: "TabBarPager"),
-                .product(name: "ThirdPartyMailer", package: "ThirdPartyMailer"),
                 .product(name: "OrderedCollections", package: "swift-collections"),
                 .product(name: "Tabman", package: "Tabman"),
                 .product(name: "MetaTextKit", package: "MetaTextKit"),

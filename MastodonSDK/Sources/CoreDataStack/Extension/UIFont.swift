@@ -22,9 +22,9 @@ extension UIFont {
         let fontDescription = UIFontDescriptor.preferredFontDescriptor(withTextStyle: textStyle).addingAttributes([
             UIFontDescriptor.AttributeName.featureSettings: [
                 [
-                    UIFontDescriptor.FeatureKey.featureIdentifier:
+                    UIFontDescriptor.FeatureKey.type:
                         kNumberSpacingType,
-                    UIFontDescriptor.FeatureKey.typeIdentifier:
+                    UIFontDescriptor.FeatureKey.selector:
                         kMonospacedNumbersSelector
                 ]
             ]

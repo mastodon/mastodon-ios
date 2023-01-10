@@ -183,9 +183,16 @@
                     "direct": "Only mentioned user can see this post."
                 },
                 "translation": {
-                    "translated_from": "Translated from %s",
+                    "translated_from": "Translated from %s using %s",
                     "unknown_language": "Unknown",
+                    "unknown_provider": "Unknown",
                     "show_original": "Shown Original"
+                },
+                "media": {
+                    "accessibility_label": "%s, attachment %d of %d",
+                    "expand_image_hint": "Expands the image. Double-tap and hold to show actions",
+                    "expand_gif_hint": "Expands the GIF. Double-tap and hold to show actions",
+                    "expand_video_hint": "Shows the video player. Double-tap and hold to show actions"
                 }
             },
             "friendship": {
@@ -234,7 +241,21 @@
         "welcome": {
             "slogan": "Social networking\nback in your hands.",
             "get_started": "Get Started",
-            "log_in": "Log In"
+            "log_in": "Log In",
+            "education": {
+              "what_is_mastodon": {
+                "title": "What is",
+                "description": "Imagine you have an email address that ends with @example.com.\n\nYou can still send and receive emails from anyone, even if their email ends in @gmail.com or @icloud.com or @example.com.",
+              },
+              "mastodon_is_like_that": {
+                "title": "Mastodon is like that",
+                "description": "Your handle might be @gothgirl654@example.social, but you can still follow, reblog, and chat with @fallout5ever@example.online.",
+              },
+              "how_do_i_pick_a_server": {
+                "title": "How do I pick a server?",
+                "description": "Different people choose different servers for any number of reasons. art.example is a great place for artists, while glasgow.example might be a good pick for Scots.\n\nYou can’t go wrong with any of our recommend servers, so regardless of which one you pick (or if you enter your own in the server search bar), you’ll never miss a beat anywhere.",
+              },
+            }
         },
         "login": {
             "title": "Welcome back",
@@ -244,9 +265,10 @@
             }
         },
         "server_picker": {
-            "title": "Mastodon is made of users in different servers.",
-            "subtitle": "Pick a server based on your region, interests, or a general purpose one. You can still chat with anyone on Mastodon, regardless of your servers.",
+            "title": "Pick Server",
             "button": {
+                "language": "Language",
+                "signup_speed": "Sign-up Speed",
                 "category": {
                     "all": "All",
                     "all_accessiblity_description": "Category: All",
@@ -278,18 +300,39 @@
                 "finding_servers": "Finding available servers...",
                 "bad_network": "Something went wrong while loading the data. Check your internet connection.",
                 "no_results": "No results"
+            },
+            "signup_speed": {
+                "all": "All",
+                "instant": "Instant Sign-up",
+                "manually_reviewed": "Manual Review"
+            },
+            "language": {
+                "all": "All"
+            },
+            "search": {
+                "placeholder": "Search name or URL"
+            }
+        },
+        "privacy": {
+            "title": "Privacy",
+            "policy": {
+                "ios": "Privacy Policy - Mastodon for iOS",
+                "server": "Privacy Policy - %s"
+            },
+            "button": {
+                "confirm": "I agree"
             }
         },
         "register": {
-            "title": "Let’s get you set up on %s",
-            "lets_get_you_set_up_on_domain": "Let’s get you set up on %s",
+            "title": "Create account",
             "input": {
                 "avatar": {
                     "delete": "Delete"
                 },
                 "username": {
                     "placeholder": "username",
-                    "duplicate_prompt": "This username is taken."
+                    "duplicate_prompt": "This username is taken.",
+                    "suggestion": "amazing_%@"
                 },
                 "display_name": {
                     "placeholder": "display name"
@@ -299,6 +342,7 @@
                 },
                 "password": {
                     "placeholder": "password",
+                    "confirmation_placeholder": "Confirm Password",
                     "require": "Your password needs at least:",
                     "character_limit": "8 characters",
                     "accessibility": {
@@ -347,15 +391,13 @@
             "terms_of_service": "terms of service",
             "privacy_policy": "privacy policy",
             "button": {
-                "confirm": "I Agree"
+                "confirm": "I agree"
             }
         },
         "confirm_email": {
-            "title": "One last thing.",
-            "subtitle": "Tap the link we emailed to you to verify your account.",
-            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we emailed to you to verify your account",
+            "title": "Check Your Inbox",
+            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we sent you to verify %@. We’ll wait right here.",
             "button": {
-                "open_email_app": "Open Email App",
                 "resend": "Resend"
             },
             "dont_receive_email": {
@@ -368,6 +410,11 @@
                 "description": "We just sent you an email. Check your junk folder if you haven’t.",
                 "mail": "Mail",
                 "open_email_client": "Open Email Client"
+            },
+            "didnt_get_link": {
+                "prefix": "Didn't get a Link?",
+                "resend_in": "Resend (%@)",
+                "resend_now": "Resend now."
             }
         },
         "home_timeline": {
@@ -378,7 +425,7 @@
                 "published": "Published!",
                 "Publishing": "Publishing post...",
                 "accessibility": {
-                    "logo_label": "Logo Button",
+                    "logo_label": "Mastodon",
                     "logo_hint": "Tap to scroll to top and tap again to previous location"
                 }
             }
@@ -462,11 +509,15 @@
                 "follows_you": "Follows You"
             },
             "dashboard": {
-                "posts": "posts",
-                "following": "following",
-                "followers": "followers"
+                "my_posts": "posts",
+                "my_following": "following",
+                "my_followers": "followers",
+                "other_posts": "posts",
+                "other_following": "following",
+                "other_followers": "followers"
             },
             "fields": {
+                "joined": "Joined",
                 "add_row": "Add Row",
                 "placeholder": {
                     "label": "Label",

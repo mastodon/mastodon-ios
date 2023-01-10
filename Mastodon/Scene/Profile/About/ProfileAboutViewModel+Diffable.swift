@@ -50,23 +50,33 @@ extension ProfileAboutViewModel {
         var snapshot = NSDiffableDataSourceSnapshot<ProfileFieldSection, ProfileFieldItem>()
         snapshot.appendSections([.main])
         diffableDataSource.apply(snapshot)
-        
-        Publishers.CombineLatest4(
+
+        let fields = Publishers.CombineLatest3(
             $isEditing.removeDuplicates(),
             profileInfo.$fields.removeDuplicates(),
-            profileInfoEditing.$fields.removeDuplicates(),
+            profileInfoEditing.$fields.removeDuplicates()
+        ).map { isEditing, displayFields, editingFields in
+            isEditing ? editingFields : displayFields
+        }
+
+
+        Publishers.CombineLatest4(
+            $isEditing.removeDuplicates(),
+            $createdAt.removeDuplicates(),
+            fields,
             $emojiMeta.removeDuplicates()
         )
         .throttle(for: 0.3, scheduler: DispatchQueue.main, latest: true)
-        .sink { [weak self] isEditing, displayFields, editingFields, emojiMeta in
+        .sink { [weak self] isEditing, createdAt, fields, emojiMeta in
             guard let self = self else { return }
             guard let diffableDataSource = self.diffableDataSource else { return }
 
             var snapshot = NSDiffableDataSourceSnapshot<ProfileFieldSection, ProfileFieldItem>()
             snapshot.appendSections([.main])
 
-            let fields: [ProfileFieldItem.FieldValue] = isEditing ? editingFields : displayFields
-            var items: [ProfileFieldItem] = fields.map { field in
+            var items: [ProfileFieldItem] = [
+                .createdAt(date: createdAt),
+            ] + fields.map { field in
                 if isEditing {
                     return ProfileFieldItem.editField(field: field)
                 } else {
@@ -76,10 +86,6 @@ extension ProfileAboutViewModel {
 
             if isEditing, fields.count < ProfileHeaderViewModel.maxProfileFieldCount {
                 items.append(.addEntry)
-            }
-
-            if !isEditing, items.isEmpty {
-                items.append(.noResult)
             }
 
             snapshot.appendItems(items, toSection: .main)

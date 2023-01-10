@@ -39,7 +39,7 @@ extension DataSourceFacade {
 }
 
 private extension DataSourceFacade {
-    static func translateStatus(provider: Provider, status: Status) async throws -> String? {
+    static func translateStatus(provider: Provider, status: Status) async throws -> Status.TranslatedContent? {
         do {
             let value = try await provider.context
                 .apiService
@@ -52,7 +52,7 @@ private extension DataSourceFacade {
                 throw TranslationFailure.emptyOrInvalidResponse
             }
             
-            return content
+            return Status.TranslatedContent(content: content, provider: value.provider)
         } catch {
             throw TranslationFailure.emptyOrInvalidResponse
         }
