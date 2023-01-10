@@ -22,9 +22,14 @@ public final class StatusMetricView: UIView {
     private let containerStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.spacing = 4
         stackView.alignment = .leading
         return stackView
+    }()
+
+    private let separator: UIView = {
+        let view = UIView()
+        view.backgroundColor = Asset.Theme.Mastodon.separator.color
+        return view
     }()
     
     // date
@@ -35,10 +40,18 @@ public final class StatusMetricView: UIView {
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.5
         label.numberOfLines = 2
+        label.textColor = Asset.Colors.Label.secondary.color
         return label
     }()
     
     // reblog meter
+    private let buttonStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.alignment = .leading
+        return stackView
+    }()
+
     public let reblogButton: StatusMetricRowView = {
         let button = StatusMetricRowView(iconImage: Asset.Arrow.repeat.image, text: "Reblogs", detailText: "10")
         return button
@@ -59,7 +72,6 @@ public final class StatusMetricView: UIView {
         super.init(coder: coder)
         _init()
     }
-    
 }
 
 extension StatusMetricView {
@@ -68,11 +80,18 @@ extension StatusMetricView {
         containerStackView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(containerStackView)
 
+        separator.translatesAutoresizingMaskIntoConstraints = false
+        containerStackView.addArrangedSubview(separator)
+
         reblogButton.translatesAutoresizingMaskIntoConstraints = false
-        containerStackView.addArrangedSubview(reblogButton)
+        buttonStackView.addArrangedSubview(reblogButton)
 
         favoriteButton.translatesAutoresizingMaskIntoConstraints = false
-        containerStackView.addArrangedSubview(favoriteButton)
+        buttonStackView.addArrangedSubview(favoriteButton)
+
+        buttonStackView.translatesAutoresizingMaskIntoConstraints = false
+        containerStackView.addArrangedSubview(buttonStackView)
+        containerStackView.setCustomSpacing(11, after: buttonStackView)
 
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
         containerStackView.addArrangedSubview(dateLabel)
@@ -83,7 +102,11 @@ extension StatusMetricView {
             containerStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
             bottomAnchor.constraint(equalTo: containerStackView.bottomAnchor, constant: 12),
 
-            reblogButton.widthAnchor.constraint(equalTo: containerStackView.widthAnchor),
+            separator.heightAnchor.constraint(equalToConstant: 0.5),
+
+            buttonStackView.widthAnchor.constraint(equalTo: containerStackView.widthAnchor),
+
+            reblogButton.widthAnchor.constraint(equalTo: buttonStackView.widthAnchor),
             favoriteButton.widthAnchor.constraint(equalTo: reblogButton.widthAnchor),
             dateLabel.widthAnchor.constraint(equalTo: reblogButton.widthAnchor),
         ])
