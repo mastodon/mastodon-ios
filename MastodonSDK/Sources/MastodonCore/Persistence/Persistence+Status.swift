@@ -120,8 +120,10 @@ extension Persistence.Status {
                 )
             )
             let author = authorResult.user
+            let application: Application? = createApplication(in: managedObjectContext, context: .init(entity: context.entity))
                 
             let relationship = Status.Relationship(
+                application: application,
                 author: author,
                 reblog: reblog,
                 poll: poll,
@@ -243,5 +245,21 @@ extension Persistence.Status {
             context.entity.favourited.flatMap { status.update(liked: $0, by: user) }
         }
     }
-    
+
+    private static func createApplication(
+        in managedObjectContext: NSManagedObjectContext,
+        context: MastodonApplication.PersistContext
+    ) -> Application? {
+        guard let application = context.entity.application else { return nil }
+
+        let persistedApplication = Application.insert(into: managedObjectContext, property: .init(name: application.name, website: application.website, vapidKey: application.vapidKey))
+
+        return persistedApplication
+    }
+
+    enum MastodonApplication {
+        public struct PersistContext {
+            let entity: Mastodon.Entity.Status
+        }
+    }
 }
