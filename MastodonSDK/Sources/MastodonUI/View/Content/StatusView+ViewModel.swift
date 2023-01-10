@@ -54,6 +54,7 @@ extension StatusView {
         @Published public var timestamp: Date?
         public var timestampFormatter: ((_ date: Date) -> String)?
         @Published public var timestampText = ""
+        @Published public var applicationName: String? = nil
         
         // Spoiler
         @Published public var spoilerContent: MetaContent?
@@ -571,12 +572,13 @@ extension StatusView.ViewModel {
             favoriteButtonTitle
         ).map { $0.count + $1.count }
         
-        Publishers.CombineLatest(
+        Publishers.CombineLatest3(
             $timestamp,
+            $applicationName,
             metricButtonTitleLength
         )
-        .sink { timestamp, metricButtonTitleLength in
-            let text: String = {
+        .sink { timestamp, applicationName, metricButtonTitleLength in
+            var text: String = {
                 guard let timestamp = timestamp else { return " " }
                 
                 let formatter = DateFormatter()
@@ -591,7 +593,12 @@ extension StatusView.ViewModel {
                 }
                 return formatter.string(from: timestamp)
             }()
-            
+
+            if let applicationName {
+                //TODO: Localization
+                text.append(" via \(applicationName)")
+            }
+
             statusView.statusMetricView.dateLabel.text = text
         }
         .store(in: &disposeBag)
