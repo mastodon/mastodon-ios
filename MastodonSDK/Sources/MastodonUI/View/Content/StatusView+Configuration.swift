@@ -196,14 +196,17 @@ extension StatusView {
             }
             
             try Task.checkCancellation()
+
+            Publishers.CombineLatest3(
+                user.publisher(for: \.displayName),
+                user.publisher(for: \.username),
+                user.publisher(for: \.emojis)
+            ).receive(on: RunLoop.main).sink { [unowned self] _ in
+                self.viewModel.header = self.createReplyHeader(name: user.displayNameWithFallback, emojis: user.emojis.asDictionary)
+            }.store(in: &self.disposeBag)
+
             await MainActor.run {
-                Publishers.CombineLatest3(
-                    user.publisher(for: \.displayName),
-                    user.publisher(for: \.username),
-                    user.publisher(for: \.emojis)
-                ).receive(on: RunLoop.main).sink { [unowned self] _ in
-                    self.viewModel.header = self.createReplyHeader(name: user.displayNameWithFallback, emojis: user.emojis.asDictionary)
-                }.store(in: &self.disposeBag)
+                self.viewModel.header = self.createReplyHeader(name: user.displayNameWithFallback, emojis: user.emojis.asDictionary)
             }
         }.store(in: &disposeBag)
     }
