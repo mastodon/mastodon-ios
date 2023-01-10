@@ -578,7 +578,7 @@ extension StatusView.ViewModel {
             metricButtonTitleLength
         )
         .sink { timestamp, applicationName, metricButtonTitleLength in
-            var text: String = {
+            let dateString: String = {
                 guard let timestamp = timestamp else { return " " }
                 
                 let formatter = DateFormatter()
@@ -594,9 +594,11 @@ extension StatusView.ViewModel {
                 return formatter.string(from: timestamp)
             }()
 
+            let text: String
             if let applicationName {
-                //TODO: Localization
-                text.append(" via \(applicationName)")
+                text = L10n.Common.Controls.Status.postedViaApplication(dateString, applicationName)
+            } else {
+                text = dateString
             }
 
             statusView.statusMetricView.dateLabel.text = text
