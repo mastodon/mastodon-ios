@@ -43,7 +43,9 @@ extension MastodonTests {
             } receiveValue: { domain in
                 expectation.fulfill()
             }
-        wait(for: [expectation], timeout: 10)
+        withExtendedLifetime(cancellable) {
+            wait(for: [expectation], timeout: 10)
+        }
     }
 
     func testConnectOnion() async throws {

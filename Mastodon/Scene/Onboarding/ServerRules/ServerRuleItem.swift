@@ -9,7 +9,6 @@ import Foundation
 import MastodonSDK
 
 enum ServerRuleItem: Hashable {
-    case header(domain: String)
     case rule(RuleContext)
 }
 

@@ -112,11 +112,6 @@ extension MastodonStatusPublisher: StatusPublisher {
         
         // Task: attachment
         
-        let uploadContext = AttachmentViewModel.UploadContext(
-            apiService: api,
-            authContext: authContext
-        )
-        
         var attachmentIDs: [Mastodon.Entity.Attachment.ID] = []
         for attachmentViewModel in attachmentViewModels {
             // set progress
@@ -164,11 +159,6 @@ extension MastodonStatusPublisher: StatusPublisher {
             guard self.isPollComposing else { return nil }
             guard pollOptions != nil else { return nil }
             return Int(self.pollExpireConfigurationOption.rawValue)
-        }()
-        let pollMultiple: Bool? = {
-            guard self.isPollComposing else { return nil }
-            guard pollOptions != nil else { return nil }
-            return self.pollMultipleConfigurationOption
         }()
         let inReplyToID: Mastodon.Entity.Status.ID? = try await api.backgroundManagedObjectContext.perform {
             guard let replyTo = self.replyTo?.object(in: api.backgroundManagedObjectContext) else { return nil }

@@ -150,7 +150,9 @@ extension ProfileHeaderView.ViewModel {
         // username
         $acct
             .map { acct in acct.flatMap { "@" + $0 } ?? " " }
-            .assign(to: \.text, on: view.usernameLabel)
+            .sink(receiveValue: { acct in
+                view.usernameButton.setTitle(acct, for: .normal)
+            })
             .store(in: &disposeBag)
         // bio
         Publishers.CombineLatest4(

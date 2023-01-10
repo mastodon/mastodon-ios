@@ -171,6 +171,10 @@ extension MediaPreviewViewController {
         !viewModel.showingChrome
     }
 
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        .all
+    }
+
 }
 
 extension MediaPreviewViewController {
