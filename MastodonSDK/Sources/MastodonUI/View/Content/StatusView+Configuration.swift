@@ -194,10 +194,16 @@ extension StatusView {
                     ))
                 }
             }
-            let header = self.createReplyHeader(name: user.displayNameWithFallback, emojis: user.emojis.asDictionary)
+            
             try Task.checkCancellation()
             await MainActor.run {
-                self.viewModel.header = header
+                Publishers.CombineLatest3(
+                    user.publisher(for: \.displayName),
+                    user.publisher(for: \.username),
+                    user.publisher(for: \.emojis)
+                ).receive(on: RunLoop.main).sink { [unowned self] _ in
+                    self.viewModel.header = self.createReplyHeader(name: user.displayNameWithFallback, emojis: user.emojis.asDictionary)
+                }.store(in: &self.disposeBag)
             }
         }.store(in: &disposeBag)
     }
