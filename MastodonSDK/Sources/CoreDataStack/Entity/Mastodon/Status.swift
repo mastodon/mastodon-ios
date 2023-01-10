@@ -53,7 +53,8 @@ public final class Status: NSManagedObject {
     
     // sourcery: autoUpdatableObject
     @NSManaged public private(set) var isSensitiveToggled: Bool
-    
+
+    // sourcery: autoGenerateRelationship
     @NSManaged public private(set) var application: Application?
         
     // Informational
@@ -391,17 +392,20 @@ extension Status: AutoGenerateRelationship {
     // Generated using Sourcery
     // DO NOT EDIT
     public struct Relationship {
+    	public let application: Application?
     	public let author: MastodonUser
     	public let reblog: Status?
     	public let poll: Poll?
     	public let card: Card?
 
     	public init(
+    		application: Application?,
     		author: MastodonUser,
     		reblog: Status?,
     		poll: Poll?,
     		card: Card?
     	) {
+    		self.application = application
     		self.author = author
     		self.reblog = reblog
     		self.poll = poll
@@ -410,6 +414,7 @@ extension Status: AutoGenerateRelationship {
     }
 
     public func configure(relationship: Relationship) {
+    	self.application = relationship.application
     	self.author = relationship.author
     	self.reblog = relationship.reblog
     	self.poll = relationship.poll
