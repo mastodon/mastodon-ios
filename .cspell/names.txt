@@ -2,10 +2,12 @@
 
 Bashour
 Cirno
+daringfireball
 Gargron
 ihugo
 jedfox
 Kerkhof
+Kida
 Krzyżanowski
 Mainasu
 MainasuK

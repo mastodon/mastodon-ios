@@ -1,5 +1,5 @@
 //
-//  Mastodin+API+Tags.swift
+//  Mastodon+API+Tags.swift
 //  
 //
 //  Created by Marcus Kida on 23.11.22.

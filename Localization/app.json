@@ -268,7 +268,7 @@
             "title": "Pick Server",
             "button": {
                 "language": "Language",
-                "signup_speed": "Sign-up Speed",
+                "sign_up_speed": "Sign-up Speed",
                 "category": {
                     "all": "All",
                     "all_accessibility_description": "Category: All",
@@ -301,7 +301,7 @@
                 "bad_network": "Something went wrong while loading the data. Check your internet connection.",
                 "no_results": "No results"
             },
-            "signup_speed": {
+            "sign_up_speed": {
                 "all": "All",
                 "instant": "Instant Sign-up",
                 "manually_reviewed": "Manual Review"

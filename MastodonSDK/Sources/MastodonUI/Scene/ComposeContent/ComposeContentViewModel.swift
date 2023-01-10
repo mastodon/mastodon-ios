@@ -59,7 +59,7 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
             customEmojiPickerInputViewModel.configure(textInput: textView)
         }
     }
-    // allow dismissing the compose view without confirmation if content == intialContent
+    // allow dismissing the compose view without confirmation if content == initialContent
     @Published public var initialContent = ""
     @Published public var content = ""
     @Published public var contentWeightedLength = 0

@@ -417,7 +417,7 @@ extension MastodonPickServerViewController: PickServerServerSectionTableHeaderVi
         switch item {
         case .category(_):
             viewModel.selectCategoryItem.value = item
-        case .language(_), .signupSpeed(_):
+        case .language(_), .signUpSpeed(_):
             break
             // gets handled by button
         }

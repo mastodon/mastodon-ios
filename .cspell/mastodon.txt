@@ -1,4 +1,5 @@
 # Terms associated with Mastodon
+blurple
 favorited
 favourited
 freespeechextremist
@@ -22,3 +23,4 @@ unmute
 unreblog
 unreviewed
 webfinger
+wordmark

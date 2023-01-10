@@ -11,6 +11,7 @@ autocapitalization
 autoconnect
 autocorrection
 autoresizing
+autoupdating
 AVURLAsset
 bezier
 buildable
@@ -69,8 +70,10 @@ uppercased
 UserNotifications
 whitespaces
 wholemodule
+WKUI
 xcassets
 xcconfig
+xcdatamodeld
 xcfilelist
 xcodebuild
 xcodeproj

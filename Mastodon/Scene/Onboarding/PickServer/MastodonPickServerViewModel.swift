@@ -34,7 +34,7 @@ class MastodonPickServerViewModel: NSObject {
     var categoryPickerItems: [CategoryPickerItem] = {
         var items: [CategoryPickerItem] = []
         items.append(.language(language: nil))
-        items.append(.signupSpeed(manuallyReviewed: nil))
+        items.append(.signUpSpeed(manuallyReviewed: nil))
         items.append(contentsOf: APIService.stubCategories().map { CategoryPickerItem.category(category: $0) })
         return items
     }()
@@ -173,7 +173,7 @@ extension MastodonPickServerViewModel {
             
             // Filter the indexed servers by category or search text
             switch selectCategoryItem {
-            case .language(_), .signupSpeed(_):
+            case .language(_), .signUpSpeed(_):
                 return MastodonPickServerViewModel.filterServers(servers: indexedServers, language: filters.selectedLanguage, manualApprovalRequired: filters.manualApprovalRequired, category: nil, searchText: searchText)
             case .category(let category):
                 return MastodonPickServerViewModel.filterServers(servers: indexedServers, language: filters.selectedLanguage, manualApprovalRequired: filters.manualApprovalRequired, category: category.category.rawValue, searchText: searchText)

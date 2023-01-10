@@ -60,10 +60,10 @@ extension CategoryPickerSection {
                 cell.menuButton.menu = languageMenu
                 cell.menuButton.showsMenuAsPrimaryAction = true
 
-            case .signupSpeed(_):
+            case .signUpSpeed(_):
                 let doesntMatterAction = UIAction(title: L10n.Scene.ServerPicker.SignupSpeed.all) { _ in
                     viewModel.manualApprovalRequired.value = nil
-                    cell.titleLabel.text = L10n.Scene.ServerPicker.Button.signupSpeed
+                    cell.titleLabel.text = L10n.Scene.ServerPicker.Button.signUpSpeed
                     UISelectionFeedbackGenerator().selectionChanged()
                 }
 
@@ -79,13 +79,13 @@ extension CategoryPickerSection {
                     UISelectionFeedbackGenerator().selectionChanged()
                 }
 
-                let signupSpeedMenu = UIMenu(title: L10n.Scene.ServerPicker.Button.signupSpeed,
+                let signUpSpeedMenu = UIMenu(title: L10n.Scene.ServerPicker.Button.signUpSpeed,
                                              children: [doesntMatterAction, manualApprovalAction, instantSignupAction])
 
                 cell.chevron.isHidden = false
                 cell.menuButton.isUserInteractionEnabled = true
                 cell.menuButton.isHidden = false
-                cell.menuButton.menu = signupSpeedMenu
+                cell.menuButton.menu = signUpSpeedMenu
                 cell.menuButton.showsMenuAsPrimaryAction = true
             }
 

@@ -13,7 +13,7 @@ import MastodonLocalization
 /// Note: update Equatable when change case
 enum CategoryPickerItem {
     case language(language: String?)
-    case signupSpeed(manuallyReviewed: Bool?)
+    case signUpSpeed(manuallyReviewed: Bool?)
     case category(category: Mastodon.Entity.Category)
 }
 
@@ -27,7 +27,7 @@ extension CategoryPickerItem {
             } else {
                 return L10n.Scene.ServerPicker.Button.language
             }
-        case .signupSpeed(let manuallyReviewed):
+        case .signUpSpeed(let manuallyReviewed):
             if let manuallyReviewed {
                 if manuallyReviewed {
                     return L10n.Scene.ServerPicker.SignupSpeed.manuallyReviewed
@@ -35,7 +35,7 @@ extension CategoryPickerItem {
                     return L10n.Scene.ServerPicker.SignupSpeed.instant
                 }
             } else {
-                return L10n.Scene.ServerPicker.Button.signupSpeed
+                return L10n.Scene.ServerPicker.Button.signUpSpeed
             }
         case .category(let category):
             switch category.category {
@@ -77,7 +77,7 @@ extension CategoryPickerItem {
             } else {
                 return L10n.Scene.ServerPicker.Button.language
             }
-        case .signupSpeed(let manuallyReviewed):
+        case .signUpSpeed(let manuallyReviewed):
             if let manuallyReviewed {
                 if manuallyReviewed {
                     return L10n.Scene.ServerPicker.SignupSpeed.manuallyReviewed
@@ -85,7 +85,7 @@ extension CategoryPickerItem {
                     return L10n.Scene.ServerPicker.SignupSpeed.instant
                 }
             } else {
-                return L10n.Scene.ServerPicker.Button.signupSpeed
+                return L10n.Scene.ServerPicker.Button.signUpSpeed
             }
         case .category(let category):
             switch category.category {
@@ -127,7 +127,7 @@ extension CategoryPickerItem: Equatable {
             return categoryLeft.category.rawValue == categoryRight.category.rawValue
         case (.language(let languageLeft), .language(let languageRight)):
             return languageLeft == languageRight
-        case (.signupSpeed(let leftManualReview), .signupSpeed(let rightManualReview)):
+        case (.signUpSpeed(let leftManualReview), .signUpSpeed(let rightManualReview)):
             return leftManualReview == rightManualReview
         default:
             return false
@@ -146,11 +146,11 @@ extension CategoryPickerItem: Hashable {
             }
         case .category(let category):
             hasher.combine(category.category.rawValue)
-        case .signupSpeed(let manuallyReviewed):
+        case .signUpSpeed(let manuallyReviewed):
             if let manuallyReviewed {
                 return hasher.combine(manuallyReviewed)
             } else {
-                return hasher.combine("no_signup_speed_selected")
+                return hasher.combine("no_sign_up_speed_selected")
             }
         }
     }
