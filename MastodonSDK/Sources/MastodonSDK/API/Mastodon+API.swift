@@ -133,7 +133,7 @@ extension Mastodon.API {
     
     static func get(
         url: URL,
-        query: GetQuery?,
+        query: GetQuery? = nil,
         authorization: OAuth.Authorization?
     ) -> URLRequest {
         return buildRequest(url: url, method: .GET, query: query, authorization: authorization)
