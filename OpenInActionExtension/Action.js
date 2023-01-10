@@ -1,6 +1,6 @@
 //
 //  Action.js
-//  FollowActionExtension
+//  OpenInActionExtension
 //
 //  Created by Marcus Kida on 03.01.23.
 //
@@ -10,15 +10,13 @@ var Action = function() {};
 Action.prototype = {
     
     run: function(arguments) {
-        var username = document.documentURI.match("@(.+)@([a-z0-9]+\.[a-z0-9]+)")[0];
         
-        if (!username) {
-            username = document.head.querySelector('[property="profile:username"]').content
+        var username = detectUsername()
+        
+        if (username) {
+            arguments.completionFunction({ "username" : username })
         }
-
-        console.log("username" + username)
-        
-        arguments.completionFunction({ "username" : username })
+    
     },
     
     finalize: function(arguments) {
@@ -34,5 +32,19 @@ Action.prototype = {
     }
     
 };
+
+function detectUsername() {
+    var uriUsername = document.documentURI.match("@(.+)@([a-z0-9]+\.[a-z0-9]+)")
+    
+    if (typeof uriUsername === "Array") {
+        return uriUsername[0]
+    }
+
+    return document.head.querySelector('[property="profile:username"]').content
+}
+
+function detectPost() {
+    
+}
     
 var ExtensionPreprocessingJS = new Action
