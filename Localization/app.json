@@ -193,7 +193,8 @@
                     "expand_image_hint": "Expands the image. Double-tap and hold to show actions",
                     "expand_gif_hint": "Expands the GIF. Double-tap and hold to show actions",
                     "expand_video_hint": "Shows the video player. Double-tap and hold to show actions"
-                }
+                },
+                "posted_via_application": "%s via %s"
             },
             "friendship": {
                 "follow": "Follow",
