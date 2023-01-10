@@ -50,6 +50,7 @@ extension StatusView {
         configureAuthor(author: author)
         let timestamp = (status.reblog ?? status).publisher(for: \.createdAt)
         configureTimestamp(timestamp: timestamp.eraseToAnyPublisher())
+        configureApplicationName(status.application?.name)
         configureContent(status: status)
         configureMedia(status: status)
         configurePoll(status: status)
@@ -241,6 +242,10 @@ extension StatusView {
             .map { $0 as Date? }
             .assign(to: \.timestamp, on: viewModel)
             .store(in: &disposeBag)
+    }
+
+    private func configureApplicationName(_ applicationName: String?) {
+        viewModel.applicationName = applicationName
     }
     
     func revertTranslation() {
