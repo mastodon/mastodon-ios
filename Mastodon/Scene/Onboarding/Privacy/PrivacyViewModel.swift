@@ -1,38 +1,32 @@
 //
-//  MastodonServerRulesViewModel.swift
+//  PrivacyViewModel.swift
 //  Mastodon
 //
-//  Created by MainasuK Cirno on 2021-2-22.
+//  Created by Nathan Mattes on 16.12.22.
 //
 
-import UIKit
-import Combine
+import Foundation
 import MastodonSDK
-import MastodonAsset
-import MastodonLocalization
 
-final class MastodonServerRulesViewModel {
-    
+final class PrivacyViewModel {
+
     // input
     let domain: String
     let authenticateInfo: AuthenticationViewModel.AuthenticateInfo
-    let rules: [Mastodon.Entity.Instance.Rule]
+    let rows: [PrivacyRow]
     let instance: Mastodon.Entity.Instance
     let applicationToken: Mastodon.Entity.Token
-    
-    // output
-    var diffableDataSource: UITableViewDiffableDataSource<ServerRuleSection, ServerRuleItem>?
-    
+
     init(
         domain: String,
         authenticateInfo: AuthenticationViewModel.AuthenticateInfo,
-        rules: [Mastodon.Entity.Instance.Rule],
+        rows: [PrivacyRow],
         instance: Mastodon.Entity.Instance,
         applicationToken: Mastodon.Entity.Token
     ) {
         self.domain = domain
         self.authenticateInfo = authenticateInfo
-        self.rules = rules
+        self.rows = rows
         self.instance = instance
         self.applicationToken = applicationToken
     }

@@ -14,6 +14,7 @@ import MastodonAsset
 import MastodonCore
 import MastodonLocalization
 import MastodonUI
+import MastodonSDK
 
 final class MastodonPickServerViewController: UIViewController, NeedsDependency {
     
@@ -40,26 +41,26 @@ final class MastodonPickServerViewController: UIViewController, NeedsDependency 
     let tableView: UITableView = {
         let tableView = ControlContainableTableView()
         tableView.rowHeight = UITableView.automaticDimension
-        tableView.separatorStyle = .none
         tableView.backgroundColor = .clear
         tableView.keyboardDismissMode = .onDrag
         tableView.sectionHeaderTopPadding = .leastNonzeroMagnitude
         return tableView
     }()
-    
-    let navigationActionView: NavigationActionView = {
-        let navigationActionView = NavigationActionView()
-        navigationActionView.backgroundColor = Asset.Scene.Onboarding.background.color
-        return navigationActionView
+
+    let onboardingNextView: OnboardingNextView = {
+        let onboardingNextView = OnboardingNextView()
+        onboardingNextView.translatesAutoresizingMaskIntoConstraints = false
+        onboardingNextView.backgroundColor = UIColor.secondarySystemBackground
+        return onboardingNextView
     }()
     
     var mastodonAuthenticationController: MastodonAuthenticationController?
-    
-    deinit {
-        tableViewObservation = nil
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-    }
-    
+
+    let searchController: UISearchController = {
+        let searchController = UISearchController(searchResultsController: nil)
+        searchController.searchBar.placeholder = L10n.Scene.ServerPicker.Search.placeholder
+        return searchController
+    }()
 }
 
 extension MastodonPickServerViewController {    
@@ -67,22 +68,9 @@ extension MastodonPickServerViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem()
-        
         setupOnboardingAppearance()
         defer { setupNavigationBarBackgroundView() }
 
-        #if DEBUG
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), style: .plain, target: nil, action: nil)
-        let children: [UIMenuElement] = [
-            UIAction(title: "Dismiss", image: nil, identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off, handler: { [weak self] _ in
-                guard let self = self else { return }
-                self.dismiss(animated: true, completion: nil)
-            })
-        ]
-        navigationItem.rightBarButtonItem?.menu = UIMenu(title: "Debug Tool", image: nil, identifier: nil, options: [], children: children)
-        #endif
-        
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
         NSLayoutConstraint.activate([
@@ -92,36 +80,21 @@ extension MastodonPickServerViewController {
             tableView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor),
         ])
         
-        navigationActionView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(navigationActionView)
-        defer {
-            view.bringSubviewToFront(navigationActionView)
-        }
+        view.addSubview(onboardingNextView)
+
         NSLayoutConstraint.activate([
-            navigationActionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            navigationActionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            view.bottomAnchor.constraint(equalTo: navigationActionView.bottomAnchor),
+            onboardingNextView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            onboardingNextView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            view.bottomAnchor.constraint(equalTo: onboardingNextView.bottomAnchor),
         ])
         
-        navigationActionView
+        onboardingNextView
             .observe(\.bounds, options: [.initial, .new]) { [weak self] _, _ in
                 guard let self = self else { return }
-                let inset = self.navigationActionView.frame.height
+                let inset = self.onboardingNextView.frame.height
                 self.viewModel.additionalTableViewInsets.bottom = inset
             }
             .store(in: &observations)
-
-        // fix AutoLayout warning when observe before view appear
-        viewModel.viewWillAppear
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] in
-                guard let self = self else { return }
-                self.tableViewObservation = self.tableView.observe(\.contentSize, options: [.initial, .new]) { [weak self] tableView, _ in
-                    guard let self = self else { return }
-                    self.updateEmptyStateViewLayout()
-                }
-            }
-            .store(in: &disposeBag)
 
         emptyStateView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(emptyStateView)
@@ -131,7 +104,7 @@ extension MastodonPickServerViewController {
             emptyStateView.topAnchor.constraint(equalTo: view.topAnchor),
             emptyStateViewLeadingLayoutConstraint,
             emptyStateViewTrailingLayoutConstraint,
-            navigationActionView.topAnchor.constraint(equalTo: emptyStateView.bottomAnchor, constant: 21),
+            onboardingNextView.topAnchor.constraint(equalTo: emptyStateView.bottomAnchor, constant: 21),
         ])
         view.sendSubviewToBack(emptyStateView)
 
@@ -148,12 +121,6 @@ extension MastodonPickServerViewController {
                 layoutNeedsUpdate: viewModel.viewDidAppear.eraseToAnyPublisher(),
                 additionalSafeAreaInsets: viewModel.$additionalTableViewInsets.eraseToAnyPublisher()
             )
-            .store(in: &disposeBag)
-
-        viewModel
-            .selectedServer
-            .map { $0 != nil }
-            .assign(to: \.isEnabled, on: navigationActionView.nextButton)
             .store(in: &disposeBag)
 
         Publishers.Merge(
@@ -203,7 +170,11 @@ extension MastodonPickServerViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] isAuthenticating in
                 guard let self = self else { return }
-                isAuthenticating ? self.navigationActionView.nextButton.showLoading() : self.navigationActionView.nextButton.stopLoading()
+                if isAuthenticating {
+                    self.onboardingNextView.showLoading()
+                } else {
+                    self.onboardingNextView.stopLoading()
+                }
             }
             .store(in: &disposeBag)
 
@@ -234,8 +205,29 @@ extension MastodonPickServerViewController {
             }
             .store(in: &disposeBag)
         
-        navigationActionView.backButton.addTarget(self, action: #selector(MastodonPickServerViewController.backButtonDidPressed(_:)), for: .touchUpInside)
-        navigationActionView.nextButton.addTarget(self, action: #selector(MastodonPickServerViewController.nextButtonDidPressed(_:)), for: .touchUpInside)
+        onboardingNextView.nextButton.addTarget(self, action: #selector(MastodonPickServerViewController.next(_:)), for: .touchUpInside)
+
+        viewModel.allLanguages
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                guard let snapshot = self?.viewModel.serverSectionHeaderView.diffableDataSource?.snapshot() else { return }
+
+                self?.viewModel.serverSectionHeaderView.diffableDataSource?.applySnapshotUsingReloadData(snapshot) {
+                    guard let self = self, let viewModel = self.viewModel else { return }
+                    guard let indexPath = viewModel.serverSectionHeaderView.diffableDataSource?.indexPath(for: .category(category: .init(category: Mastodon.Entity.Category.Kind.general.rawValue, serversCount: 0))) else { return }
+
+                    viewModel.serverSectionHeaderView.collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .right)
+
+                    let firstIndex = IndexPath(item: 0, section: 0)
+                    viewModel.serverSectionHeaderView.collectionView.scrollToItem(at: firstIndex, at: .left, animated: false)
+                }
+            }
+            .store(in: &disposeBag)
+
+        title = L10n.Scene.ServerPicker.title
+
+        navigationItem.searchController = searchController
+        searchController.searchResultsUpdater = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -254,20 +246,24 @@ extension MastodonPickServerViewController {
         super.traitCollectionDidChange(previousTraitCollection)
         
         setupNavigationBarAppearance()
-        updateEmptyStateViewLayout()
     }
     
 }
 
 extension MastodonPickServerViewController {
-    
-    @objc private func backButtonDidPressed(_ sender: UIButton) {
-        navigationController?.popViewController(animated: true)
-    }
-    
-    @objc private func nextButtonDidPressed(_ sender: UIButton) {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-        guard let server = viewModel.selectedServer.value else { return }
+
+    @objc private func next(_ sender: UIButton) {
+
+        let server: Mastodon.Entity.Server
+
+        if let selectedServer = viewModel.selectedServer.value {
+            server = selectedServer
+        } else if let randomServer = viewModel.chooseRandomServer() {
+            server = randomServer
+        } else {
+            return
+        }
+
         authenticationViewModel.isAuthenticating.send(true)
         
         context.apiService.instance(domain: server.domain)
@@ -412,38 +408,30 @@ extension MastodonPickServerViewController: UITableViewDelegate {
     
 }
 
-extension MastodonPickServerViewController {
-    private func updateEmptyStateViewLayout() {
-//        guard let diffableDataSource = self.viewModel.diffableDataSource else { return }
-//        guard let indexPath = diffableDataSource.indexPath(for: .search) else { return }
-//        let rectInTableView = tableView.rectForRow(at: indexPath)
-//
-//        emptyStateView.topPaddingViewTopLayoutConstraint.constant = rectInTableView.maxY
-//
-//        switch traitCollection.horizontalSizeClass {
-//        case .regular:
-//            emptyStateViewLeadingLayoutConstraint.constant = MastodonPickServerViewController.viewEdgeMargin
-//            emptyStateViewTrailingLayoutConstraint.constant = MastodonPickServerViewController.viewEdgeMargin
-//        default:
-//            let margin = tableView.layoutMarginsGuide.layoutFrame.origin.x
-//            emptyStateViewLeadingLayoutConstraint.constant = margin
-//            emptyStateViewTrailingLayoutConstraint.constant = margin
-//        }
-    }
-}
-
 // MARK: - PickServerServerSectionTableHeaderViewDelegate
 extension MastodonPickServerViewController: PickServerServerSectionTableHeaderViewDelegate {
     func pickServerServerSectionTableHeaderView(_ headerView: PickServerServerSectionTableHeaderView, collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let diffableDataSource = headerView.diffableDataSource else { return }
-        let item = diffableDataSource.itemIdentifier(for: indexPath)
-        viewModel.selectCategoryItem.value = item ?? .all
-    }
-    
-    func pickServerServerSectionTableHeaderView(_ headerView: PickServerServerSectionTableHeaderView, searchTextDidChange searchText: String?) {
-        viewModel.searchText.send(searchText ?? "")
+        guard let diffableDataSource = headerView.diffableDataSource,
+              let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
+
+        switch item {
+        case .category(_):
+            viewModel.selectCategoryItem.value = item
+        case .language(_), .signupSpeed(_):
+            break
+            // gets handled by button
+        }
     }
 }
 
 // MARK: - OnboardingViewControllerAppearance
 extension MastodonPickServerViewController: OnboardingViewControllerAppearance { }
+
+// MARK: - UISearchResultsUpdating
+
+extension MastodonPickServerViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let searchText = searchController.searchBar.text else { return }
+        viewModel.searchText.send(searchText)
+    }
+}

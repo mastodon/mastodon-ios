@@ -217,15 +217,6 @@
       }
     },
     {
-      "identity" : "thirdpartymailer",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/vtourraine/ThirdPartyMailer.git",
-      "state" : {
-        "revision" : "44c1cfaa6969963f22691aa67f88a69e3b6d651f",
-        "version" : "2.1.0"
-      }
-    },
-    {
       "identity" : "tocropviewcontroller",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/TimOliver/TOCropViewController.git",
