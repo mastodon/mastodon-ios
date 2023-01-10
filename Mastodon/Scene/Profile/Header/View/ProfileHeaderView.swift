@@ -187,6 +187,8 @@ final class ProfileHeaderView: UIView {
         button.titleLabel?.font = UIFontMetrics(forTextStyle: .callout).scaledFont(for: .systemFont(ofSize: 16, weight: .regular))
         button.titleLabel?.adjustsFontSizeToFitWidth = true
         button.titleLabel?.minimumScaleFactor = 0.5
+        button.titleLabel?.textAlignment = .natural
+        button.contentHorizontalAlignment = .leading
         button.setTitleColor(Asset.Colors.Label.secondary.color, for: .normal)
         button.menu = usernameButtonMenu
         button.showsMenuAsPrimaryAction = true
