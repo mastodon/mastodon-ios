@@ -1,6 +1,7 @@
 // Copyright © 2023 Mastodon gGmbH. All rights reserved.
 
 import UIKit
+import MastodonAsset
 
 public final class StatusMetricRowView: UIButton {
     let icon: UIImageView
@@ -10,25 +11,28 @@ public final class StatusMetricRowView: UIButton {
 
     public init(iconImage: UIImage? = nil, text: String? = nil, detailText: String? = nil) {
 
-        icon = UIImageView(image: iconImage)
+        icon = UIImageView(image: iconImage?.withRenderingMode(.alwaysTemplate))
+        icon.tintColor = Asset.Colors.Label.secondary.color
         icon.translatesAutoresizingMaskIntoConstraints = false
 
         textLabel = UILabel()
         textLabel.translatesAutoresizingMaskIntoConstraints = false
-        textLabel.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 15, weight: .semibold))
+        textLabel.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 17, weight: .regular))
+        textLabel.textColor = Asset.Colors.Label.primary.color
         textLabel.numberOfLines = 0
         textLabel.text = text
 
         detailLabel = UILabel()
         detailLabel.translatesAutoresizingMaskIntoConstraints = false
         detailLabel.text = detailText
+        detailLabel.textColor = Asset.Colors.Label.secondary.color
+        detailLabel.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 17, weight: .regular))
 
         chevron = UIImageView(image: UIImage(systemName: "chevron.right"))
         chevron.translatesAutoresizingMaskIntoConstraints = false
+        chevron.tintColor = Asset.Colors.Label.tertiary.color
 
         super.init(frame: .zero)
-
-        titleLabel?.translatesAutoresizingMaskIntoConstraints = false
 
         addSubview(icon)
         addSubview(textLabel)
@@ -43,7 +47,7 @@ public final class StatusMetricRowView: UIButton {
     private func setupConstraints() {
         let constraints = [
             icon.topAnchor.constraint(greaterThanOrEqualTo: topAnchor, constant: 10),
-            icon.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            icon.leadingAnchor.constraint(equalTo: leadingAnchor),
             icon.centerYAnchor.constraint(equalTo: centerYAnchor),
             textLabel.leadingAnchor.constraint(equalTo: icon.trailingAnchor, constant: 16),
             icon.widthAnchor.constraint(greaterThanOrEqualToConstant: 24),
@@ -61,7 +65,7 @@ public final class StatusMetricRowView: UIButton {
             bottomAnchor.constraint(greaterThanOrEqualTo: detailLabel.bottomAnchor, constant: 11),
 
             chevron.centerYAnchor.constraint(equalTo: centerYAnchor),
-            trailingAnchor.constraint(equalTo: chevron.trailingAnchor, constant: 16),
+            trailingAnchor.constraint(equalTo: chevron.trailingAnchor),
         ]
 
         NSLayoutConstraint.activate(constraints)
