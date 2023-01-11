@@ -7,7 +7,6 @@
 
 import os.log
 import UIKit
-import Kingfisher
 import UniformTypeIdentifiers
 import MastodonCore
 import MastodonSDK
