@@ -160,6 +160,7 @@ extension SceneCoordinator {
         
         // thread
         case thread(viewModel: ThreadViewModel)
+        case editHistory(viewModel: StatusEditHistoryViewModel)
         
         // Hashtag Timeline
         case hashtagTimeline(viewModel: HashtagTimelineViewModel)
@@ -437,6 +438,9 @@ private extension SceneCoordinator {
             let _viewController = ThreadViewController()
             _viewController.viewModel = viewModel
             viewController = _viewController
+        case .editHistory(let viewModel):
+            let editHistoryViewController = StatusEditHistoryViewController(viewModel: viewModel)
+            viewController = editHistoryViewController
         case .hashtagTimeline(let viewModel):
             let _viewController = HashtagTimelineViewController()
             _viewController.viewModel = viewModel
