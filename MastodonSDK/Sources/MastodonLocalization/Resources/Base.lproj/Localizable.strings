@@ -513,3 +513,4 @@ You can’t go wrong with any of our recommend servers, so regardless of which o
 "Scene.Privacy.Button.confirm" = "I agree";
 "Scene.Privacy.Policy.Ios" = "Privacy Policy - Mastodon for iOS";
 "Scene.Privacy.Policy.Server" = "Privacy Policy - %@";
+"Extension.OpenIn.InvalidLinkError" = "This doesn't seem to be a valid Mastodon link.";

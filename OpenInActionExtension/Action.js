@@ -19,7 +19,12 @@ Action.prototype = {
     },
     
     finalize: function(arguments) {
-        window.location = arguments["openURL"]
+        let alertMessage = arguments["alert"]
+        if (alertMessage) {
+            alert(alertMessage)
+        } else {
+            window.location = arguments["openURL"]
+        }
     }
     
 };
@@ -27,12 +32,12 @@ Action.prototype = {
 function detectUsername() {
     var uriUsername = document.documentURI.match("@(.+)@([a-z0-9]+\.[a-z0-9]+)")
     
-    if (typeof uriUsername === "Array") {
+    if (Array.isArray(uriUsername)) {
         return uriUsername[0]
     }
     
     var querySelector = document.head.querySelector('[property="profile:username"]')
-    if (typeof querySelector === "Object") {
+    if (querySelector !== null && typeof querySelector === "object") {
         return querySelector.content
     }
 

@@ -5,13 +5,16 @@
 //  Created by Marcus Kida on 03.01.23.
 //
 
+import Combine
 import UIKit
 import MobileCoreServices
 import UniformTypeIdentifiers
+import MastodonSDK
+import MastodonLocalization
 
 class ActionRequestHandler: NSObject, NSExtensionRequestHandling {
-
     var extensionContext: NSExtensionContext?
+    var cancellables = [AnyCancellable]()
     
     func beginRequest(with context: NSExtensionContext) {
         // Do not call super in an Action extension with no user interface
@@ -28,7 +31,7 @@ class ActionRequestHandler: NSObject, NSExtensionRequestHandling {
             .first
         
         guard let itemProvider = itemProvider else {
-            return doneWithResults(nil)
+            return doneWithInvalidLink()
         }
         
         itemProvider.loadItem(forTypeIdentifier: UTType.propertyList.identifier, options: nil, completionHandler: { [weak self] item, error in
@@ -37,16 +40,16 @@ class ActionRequestHandler: NSObject, NSExtensionRequestHandling {
                     let dictionary = item as? NSDictionary,
                     let results = dictionary[NSExtensionJavaScriptPreprocessingResultsKey] as? NSDictionary
                 else {
-                    self?.doneWithResults(nil)
+                    self?.doneWithInvalidLink()
                     return
                 }
                 
                 if let username = results["username"] as? String {
                     self?.completeWithOpenUserProfile(username)
                 } else if let url = results["url"] as? String {
-                    self?.completeWithSearch(url)
+                    self?.continueWithSearch(url)
                 } else {
-                    self?.doneWithResults(nil)
+                    self?.doneWithInvalidLink()
                 }
             }
         })
@@ -60,13 +63,41 @@ private extension ActionRequestHandler {
         ])
     }
     
-    func completeWithSearch(_ query: String) {
-        guard let query = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
-            return doneWithResults(nil)
+    func continueWithSearch(_ query: String) {
+        guard
+            let url = URL(string: query),
+            let host = url.host
+        else {
+            return doneWithInvalidLink()
         }
-        doneWithResults(
-            ["openURL": "mastodon://search?query=\(query)"]
-        )
+        
+        Mastodon.API
+            .Instance
+            .instance(
+                session: .shared,
+                domain: host
+            )
+            .receive(on: DispatchQueue.main)
+            .sink { _ in
+                // no-op
+            } receiveValue: { [weak self] response in
+                guard response.value.version != nil else {
+                    self?.doneWithInvalidLink()
+                    return
+                }
+                guard let query = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
+                    self?.doneWithInvalidLink()
+                    return
+                }
+                self?.doneWithResults(
+                    ["openURL": "mastodon://search?query=\(query)"]
+                )
+            }
+            .store(in: &cancellables)
+    }
+    
+    func doneWithInvalidLink() {
+        doneWithResults(["alert": L10n.Extension.OpenIn.invalidLinkError])
     }
     
     func doneWithResults(_ resultsForJavaScriptFinalizeArg: [String: Any]?) {
