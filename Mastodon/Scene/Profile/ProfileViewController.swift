@@ -496,7 +496,7 @@ extension ProfileViewController {
         case .hashtag(_, let hashtag, _):
             let hashtagTimelineViewModel = HashtagTimelineViewModel(context: context, authContext: viewModel.authContext, hashtag: hashtag)
             _ = coordinator.present(scene: .hashtagTimeline(viewModel: hashtagTimelineViewModel), from: nil, transition: .show)
-        case .email, .emoji:
+        case .email, .emoji, .cashtag:
             break
         }
     }

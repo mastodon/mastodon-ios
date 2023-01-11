@@ -50,7 +50,7 @@ let package = Package(
         .package(url: "https://github.com/MainasuK/FPSIndicator.git", from: "1.0.0"),
         .package(url: "https://github.com/slackhq/PanModal.git", from: "1.2.7"),
         .package(url: "https://github.com/TimOliver/TOCropViewController.git", from: "2.6.1"),
-        .package(url: "https://github.com/TwidereProject/MetaTextKit.git", exact: "4.1.3"),
+        .package(url: "https://github.com/j-f1/forked-MetaTextKit.git", branch: "fix-textkit-2-handling"),
         .package(url: "https://github.com/TwidereProject/TabBarPager.git", from: "0.1.0"),
         .package(url: "https://github.com/uias/Tabman", from: "2.13.0"),
         .package(url: "https://github.com/woxtu/UIHostingConfigurationBackport.git", from: "0.1.0"),
@@ -97,7 +97,7 @@ let package = Package(
                 .product(name: "CommonOSLog", package: "CommonOSLog"),
                 .product(name: "ArkanaKeys", package: "ArkanaKeys"),
                 .product(name: "KeychainAccess", package: "KeychainAccess"),
-                .product(name: "MetaTextKit", package: "MetaTextKit")
+                .product(name: "MetaTextKit", package: "forked-MetaTextKit")
             ]
         ),
         .target(
@@ -127,7 +127,7 @@ let package = Package(
                 .product(name: "TabBarPager", package: "TabBarPager"),
                 .product(name: "OrderedCollections", package: "swift-collections"),
                 .product(name: "Tabman", package: "Tabman"),
-                .product(name: "MetaTextKit", package: "MetaTextKit"),
+                .product(name: "MetaTextKit", package: "forked-MetaTextKit"),
                 .product(name: "CropViewController", package: "TOCropViewController"),
                 .product(name: "PanModal", package: "PanModal"),
                 .product(name: "Stripes", package: "Stripes"),

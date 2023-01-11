@@ -22,6 +22,10 @@ extension Meta.Entity {
         // emoji are not actionable
         case .emoji:
             return nil
+        // cashtags are not supported by Mastodon
+        case .cashtag:
+            assertionFailure("Unexpected cashtag")
+            return nil
         }
     }
 }

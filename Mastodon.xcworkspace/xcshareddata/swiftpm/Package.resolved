@@ -47,6 +47,15 @@
         }
       },
       {
+        "package": "MetaTextKit",
+        "repositoryURL": "https://github.com/j-f1/forked-MetaTextKit.git",
+        "state": {
+          "branch": "fix-textkit-2-handling",
+          "revision": "c60b7dbe979bcbe537ec66107b4a6679e4961ad7",
+          "version": null
+        }
+      },
+      {
         "package": "FPSIndicator",
         "repositoryURL": "https://github.com/MainasuK/FPSIndicator.git",
         "state": {
@@ -80,15 +89,6 @@
           "branch": null,
           "revision": "44e891bdb61426a95e31492a67c7c0dfad1f87c5",
           "version": "7.4.1"
-        }
-      },
-      {
-        "package": "MetaTextKit",
-        "repositoryURL": "https://github.com/TwidereProject/MetaTextKit.git",
-        "state": {
-          "branch": null,
-          "revision": "374f13342f085848a0386eb57593264aa678be68",
-          "version": "4.1.3"
         }
       },
       {
