@@ -429,7 +429,6 @@ extension StatusView.ViewModel {
                 }
                 
                 statusView.setPollDisplay()
-                statusView.layoutIfNeeded()
             }
             .store(in: &disposeBag)
         $isVotable

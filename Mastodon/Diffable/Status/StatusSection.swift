@@ -168,13 +168,8 @@ extension StatusSection {
         statusView.pollTableViewDiffableDataSource = UITableViewDiffableDataSource<PollSection, PollItem>(tableView: statusView.pollTableView) { tableView, indexPath, item in
             switch item {
             case .option(let record):
-                // Fix cell reuse animation issue
-                let cell: PollOptionTableViewCell = {
-                    let _cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PollOptionTableViewCell.self) + "@\(indexPath.row)#\(indexPath.section)") as? PollOptionTableViewCell
-                    _cell?.prepareForReuse()
-                    return _cell ?? PollOptionTableViewCell()
-                }()
-                
+                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PollOptionTableViewCell.self) + "@\(indexPath.row)#\(indexPath.section)") as? PollOptionTableViewCell ?? PollOptionTableViewCell()
+
                 cell.pollOptionView.viewModel.authContext = authContext
                 
                 managedObjectContext.performAndWait {

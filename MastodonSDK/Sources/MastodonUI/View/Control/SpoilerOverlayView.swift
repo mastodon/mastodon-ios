@@ -59,10 +59,8 @@ extension SpoilerOverlayView {
         bottomPaddingView.translatesAutoresizingMaskIntoConstraints = false
         containerStackView.addArrangedSubview(bottomPaddingView)
         NSLayoutConstraint.activate([
-            topPaddingView.heightAnchor.constraint(equalTo: bottomPaddingView.heightAnchor).priority(.required - 1),
+            topPaddingView.heightAnchor.constraint(equalTo: bottomPaddingView.heightAnchor),
         ])
-        topPaddingView.setContentCompressionResistancePriority(.defaultLow - 100, for: .vertical)
-        bottomPaddingView.setContentCompressionResistancePriority(.defaultLow - 100, for: .vertical)
         
         spoilerMetaLabel.isUserInteractionEnabled = false
         

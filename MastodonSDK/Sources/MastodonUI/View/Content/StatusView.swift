@@ -258,15 +258,6 @@ public final class StatusView: UIView {
         viewModel.prepareForReuse()
         
         authorView.avatarButton.avatarImageView.cancelTask()
-        if var snapshot = pollTableViewDiffableDataSource?.snapshot() {
-            snapshot.deleteAllItems()
-            if #available(iOS 15.0, *) {
-                pollTableViewDiffableDataSource?.applySnapshotUsingReloadData(snapshot)
-            } else {
-                // Fallback on earlier versions
-                pollTableViewDiffableDataSource?.apply(snapshot, animatingDifferences: false)
-            }
-        }
         
         setHeaderDisplay(isDisplay: false)
         setContentSensitiveeToggleButtonDisplay(isDisplay: false)
@@ -286,12 +277,6 @@ public final class StatusView: UIView {
     public required init?(coder: NSCoder) {
         super.init(coder: coder)
         _init()
-    }
-    
-    public override func layoutSubviews() {
-        super.layoutSubviews()
-
-        spoilerOverlayView.frame.size = contentContainer.frame.size
     }
 }
 
@@ -456,10 +441,7 @@ extension StatusView.Style {
 
         statusView.spoilerOverlayView.translatesAutoresizingMaskIntoConstraints = false
         statusView.containerStackView.addSubview(statusView.spoilerOverlayView)
-        NSLayoutConstraint.activate([
-            statusView.spoilerOverlayView.centerXAnchor.constraint(equalTo: statusView.contentContainer.centerXAnchor),
-            statusView.spoilerOverlayView.centerYAnchor.constraint(equalTo: statusView.contentContainer.centerYAnchor),
-        ])
+        statusView.spoilerOverlayView.pinTo(to: statusView.contentContainer)
 
         // translated info
         statusView.containerStackView.addArrangedSubview(statusView.isTranslatingLoadingView)
@@ -553,8 +535,14 @@ extension StatusView.Style {
     func notificationQuote(statusView: StatusView) {
         base(statusView: statusView)      // override the base style
         
-        statusView.contentAdaptiveMarginContainerView.bottomLayoutConstraint?.constant = 16     // fix bottom margin missing issue
-        statusView.pollAdaptiveMarginContainerView.bottomLayoutConstraint?.constant = 16        // fix bottom margin missing issue
+        // add bottom margin
+        let padding = UIView()
+        padding.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            padding.heightAnchor.constraint(equalToConstant: 16)
+        ])
+        statusView.containerStackView.addArrangedSubview(padding)
+        
         statusView.actionToolbarAdaptiveMarginContainerView.removeFromSuperview()
         statusView.statusCardControl.removeFromSuperview()
     }

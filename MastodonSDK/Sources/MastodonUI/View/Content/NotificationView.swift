@@ -38,8 +38,6 @@ public protocol NotificationViewDelegate: AnyObject {
 
 public final class NotificationView: UIView {
     
-    static let containerLayoutMargin = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
-    
     let logger = Logger(subsystem: "NotificationView", category: "View")
     
     public weak var delegate: NotificationViewDelegate?
@@ -336,7 +334,7 @@ extension NotificationView {
         
         // quoteStatusView
         containerStackView.addArrangedSubview(quoteStatusViewContainerView)
-        quoteStatusViewContainerView.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 16, right: 0)
+        quoteStatusViewContainerView.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
 
         quoteBackgroundView.layoutMargins = UIEdgeInsets(top: 16, left: 0, bottom: 0, right: 0)
         quoteBackgroundView.translatesAutoresizingMaskIntoConstraints = false
@@ -345,7 +343,7 @@ extension NotificationView {
             quoteBackgroundView.topAnchor.constraint(equalTo: quoteStatusViewContainerView.layoutMarginsGuide.topAnchor),
             quoteBackgroundView.leadingAnchor.constraint(equalTo: quoteStatusViewContainerView.layoutMarginsGuide.leadingAnchor),
             quoteBackgroundView.trailingAnchor.constraint(equalTo: quoteStatusViewContainerView.layoutMarginsGuide.trailingAnchor),
-            quoteStatusViewContainerView.bottomAnchor.constraint(equalTo: quoteBackgroundView.layoutMarginsGuide.bottomAnchor),
+            quoteStatusViewContainerView.bottomAnchor.constraint(equalTo: quoteBackgroundView.layoutMarginsGuide.bottomAnchor, constant: 16),
         ])
         quoteBackgroundView.backgroundColor = .secondarySystemBackground
         quoteBackgroundView.layer.masksToBounds = true
