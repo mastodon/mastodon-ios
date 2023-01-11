@@ -12,6 +12,7 @@ extension Mastodon.API.Onboarding {
     
     static let serversEndpointURL = Mastodon.API.joinMastodonEndpointURL.appendingPathComponent("servers")
     static let categoriesEndpointURL = Mastodon.API.joinMastodonEndpointURL.appendingPathComponent("categories")
+    static let languagesEndpointURL = Mastodon.API.joinMastodonEndpointURL.appendingPathComponent("languages")
  
     /// Fetch server list
     ///
@@ -68,7 +69,33 @@ extension Mastodon.API.Onboarding {
             }
             .eraseToAnyPublisher()
     }
-    
+
+    /// Fetch server languages
+    ///
+    /// Using this endpoint to fetch booked languages
+    ///
+    /// # Last Update
+    ///   2022/12/19
+    /// # Reference
+    ///   undocumented
+    /// - Parameters:
+    ///   - session: `URLSession`
+    /// - Returns: `AnyPublisher` contains `Language` nested in the response
+    public static func languages(
+        session: URLSession
+    ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Language]>, Error>  {
+        let request = Mastodon.API.get(
+            url: languagesEndpointURL,
+            query: nil,
+            authorization: nil
+        )
+        return session.dataTaskPublisher(for: request)
+            .tryMap { data, response in
+                let value = try Mastodon.API.decode(type: [Mastodon.Entity.Language].self, from: data, response: response)
+                return Mastodon.Response.Content(value: value, response: response)
+            }
+            .eraseToAnyPublisher()
+    }
 }
 
 extension Mastodon.API.Onboarding {
@@ -76,16 +103,20 @@ extension Mastodon.API.Onboarding {
     public struct ServersQuery: GetQuery {
         public let language: String?
         public let category: String?
+        /// Check if registrations need to be manually approved or not (or it doesn't matter)
+        public let registrations: String?
         
-        public init(language: String?, category: String?) {
+        public init(language: String?, category: String?, registrations: String?) {
             self.language = language
             self.category = category
+            self.registrations = registrations
         }
         
         var queryItems: [URLQueryItem]? {
             var items: [URLQueryItem] = []
             language.flatMap { items.append(URLQueryItem(name: "language", value: $0)) }
             category.flatMap { items.append(URLQueryItem(name: "category", value: $0)) }
+            registrations.flatMap { items.append(URLQueryItem(name: "registrations", value: $0)) }
             guard !items.isEmpty else { return nil }
             return items
         }

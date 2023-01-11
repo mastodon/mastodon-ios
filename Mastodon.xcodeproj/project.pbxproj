@@ -17,8 +17,6 @@
 		0FAA101C25E10E760017CCDE /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FAA101B25E10E760017CCDE /* UIFont.swift */; };
 		0FAA102725E1126A0017CCDE /* MastodonPickServerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FAA102625E1126A0017CCDE /* MastodonPickServerViewController.swift */; };
 		0FB3D2F725E4C24D00AAD544 /* MastodonPickServerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB3D2F625E4C24D00AAD544 /* MastodonPickServerViewModel.swift */; };
-		0FB3D2FE25E4CB6400AAD544 /* OnboardingHeadlineTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB3D2FD25E4CB6400AAD544 /* OnboardingHeadlineTableViewCell.swift */; };
-		0FB3D30F25E525CD00AAD544 /* PickServerCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB3D30E25E525CD00AAD544 /* PickServerCategoryView.swift */; };
 		0FB3D31E25E534C700AAD544 /* PickServerCategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB3D31D25E534C700AAD544 /* PickServerCategoryCollectionViewCell.swift */; };
 		0FB3D33825E6401400AAD544 /* PickServerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB3D33725E6401400AAD544 /* PickServerCell.swift */; };
 		164F0EBC267D4FE400249499 /* BoopSound.caf in Resources */ = {isa = PBXBuildFile; fileRef = 164F0EBB267D4FE400249499 /* BoopSound.caf */; };
@@ -69,7 +67,6 @@
 		2D8434FB25FF46B300EECE90 /* HomeTimelineNavigationBarTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D8434FA25FF46B300EECE90 /* HomeTimelineNavigationBarTitleView.swift */; };
 		2D84350525FF858100EECE90 /* UIScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D84350425FF858100EECE90 /* UIScrollView.swift */; };
 		2D939AB525EDD8A90076FA61 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D939AB425EDD8A90076FA61 /* String.swift */; };
-		2D939AE825EE1CF80076FA61 /* MastodonRegisterViewController+Avatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D939AE725EE1CF80076FA61 /* MastodonRegisterViewController+Avatar.swift */; };
 		2DAC9E38262FC2320062E1A6 /* SuggestionAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DAC9E37262FC2320062E1A6 /* SuggestionAccountViewController.swift */; };
 		2DAC9E3E262FC2400062E1A6 /* SuggestionAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DAC9E3D262FC2400062E1A6 /* SuggestionAccountViewModel.swift */; };
 		2DAC9E46262FC9FD0062E1A6 /* SuggestionAccountTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DAC9E45262FC9FD0062E1A6 /* SuggestionAccountTableViewCell.swift */; };
@@ -101,16 +98,26 @@
 		62FD27D12893707600B205C5 /* BookmarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FD27D02893707600B205C5 /* BookmarkViewController.swift */; };
 		62FD27D32893707B00B205C5 /* BookmarkViewController+DataSourceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FD27D22893707B00B205C5 /* BookmarkViewController+DataSourceProvider.swift */; };
 		62FD27D52893708A00B205C5 /* BookmarkViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FD27D42893708A00B205C5 /* BookmarkViewModel+Diffable.swift */; };
+		855149C8295F1C5F00943D96 /* UIInterfaceOrientationMask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855149C7295F1C5F00943D96 /* UIInterfaceOrientationMask.swift */; };
+		855149CA29606D6400943D96 /* PortraitAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855149C929606D6400943D96 /* PortraitAlertController.swift */; };
 		85904C02293BC0EB0011C817 /* ImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85904C01293BC0EB0011C817 /* ImageProvider.swift */; };
 		85904C04293BC1940011C817 /* URLActivityItemWithMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85904C03293BC1940011C817 /* URLActivityItemWithMetadata.swift */; };
 		85BC11B32932414900E191CD /* AltViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85BC11B22932414900E191CD /* AltViewController.swift */; };
 		87FFDA5D898A5C42ADCB35E7 /* Pods_Mastodon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4ABE34829701A4496C5BB64 /* Pods_Mastodon.framework */; };
+		9E44C7202967AD17004B2A72 /* MastodonSDKDynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 9E44C71F2967AD17004B2A72 /* MastodonSDKDynamic */; };
+		9E44C7222967AD17004B2A72 /* MastodonSDKDynamic in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 9E44C71F2967AD17004B2A72 /* MastodonSDKDynamic */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		C24C97032922F30500BAE8CB /* RefreshControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24C97022922F30500BAE8CB /* RefreshControl.swift */; };
+		D8099078294BC8A30050219F /* PrivacyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8099077294BC8A30050219F /* PrivacyTableViewController.swift */; };
+		D809907A294BC9390050219F /* PrivacyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8099079294BC9390050219F /* PrivacyTableViewCell.swift */; };
+		D809907C294D25510050219F /* PrivacyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D809907B294D25510050219F /* PrivacyViewModel.swift */; };
+		D8363B1629469CE200A74079 /* OnboardingNextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8363B1529469CE200A74079 /* OnboardingNextView.swift */; };
 		D87BFC8B291D5C6B00FEE264 /* MastodonLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87BFC8A291D5C6B00FEE264 /* MastodonLoginView.swift */; };
 		D87BFC8D291EB81200FEE264 /* MastodonLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87BFC8C291EB81200FEE264 /* MastodonLoginViewModel.swift */; };
 		D87BFC8F291EC26A00FEE264 /* MastodonLoginServerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87BFC8E291EC26A00FEE264 /* MastodonLoginServerTableViewCell.swift */; };
 		D8916DC029211BE500124085 /* ContentSizedTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8916DBF29211BE500124085 /* ContentSizedTableView.swift */; };
 		D8A6AB6C291C5136003AB663 /* MastodonLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A6AB6B291C5136003AB663 /* MastodonLoginViewController.swift */; };
+		D8A6FE5B293244B500666A47 /* WelcomeContentPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A6FE5A293244B500666A47 /* WelcomeContentPage.swift */; };
+		D8A6FE5F29324BBC00666A47 /* WelcomeContentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A6FE5E29324BBC00666A47 /* WelcomeContentCollectionViewCell.swift */; };
 		DB0009A626AEE5DC009B9D2D /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = DB0009A926AEE5DC009B9D2D /* Intents.intentdefinition */; settings = {ATTRIBUTES = (codegen, ); }; };
 		DB0009A726AEE5DC009B9D2D /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = DB0009A926AEE5DC009B9D2D /* Intents.intentdefinition */; };
 		DB0140CF25C42AEE00F9F3CF /* OSLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0140CE25C42AEE00F9F3CF /* OSLog.swift */; };
@@ -485,6 +492,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		9E44C7212967AD17004B2A72 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				9E44C7222967AD17004B2A72 /* MastodonSDKDynamic in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DB89BA0825C10FD0008580ED /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -524,8 +542,6 @@
 		0FAA101B25E10E760017CCDE /* UIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFont.swift; sourceTree = "<group>"; };
 		0FAA102625E1126A0017CCDE /* MastodonPickServerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonPickServerViewController.swift; sourceTree = "<group>"; };
 		0FB3D2F625E4C24D00AAD544 /* MastodonPickServerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonPickServerViewModel.swift; sourceTree = "<group>"; };
-		0FB3D2FD25E4CB6400AAD544 /* OnboardingHeadlineTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingHeadlineTableViewCell.swift; sourceTree = "<group>"; };
-		0FB3D30E25E525CD00AAD544 /* PickServerCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickServerCategoryView.swift; sourceTree = "<group>"; };
 		0FB3D31D25E534C700AAD544 /* PickServerCategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickServerCategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		0FB3D33725E6401400AAD544 /* PickServerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickServerCell.swift; sourceTree = "<group>"; };
 		164F0EBB267D4FE400249499 /* BoopSound.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = BoopSound.caf; sourceTree = "<group>"; };
@@ -576,7 +592,6 @@
 		2D8434FA25FF46B300EECE90 /* HomeTimelineNavigationBarTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTimelineNavigationBarTitleView.swift; sourceTree = "<group>"; };
 		2D84350425FF858100EECE90 /* UIScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIScrollView.swift; sourceTree = "<group>"; };
 		2D939AB425EDD8A90076FA61 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
-		2D939AE725EE1CF80076FA61 /* MastodonRegisterViewController+Avatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MastodonRegisterViewController+Avatar.swift"; sourceTree = "<group>"; };
 		2DA7D05025CA545E00804E11 /* LoadMoreConfigurableTableViewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadMoreConfigurableTableViewContainer.swift; sourceTree = "<group>"; };
 		2DAC9E37262FC2320062E1A6 /* SuggestionAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionAccountViewController.swift; sourceTree = "<group>"; };
 		2DAC9E3D262FC2400062E1A6 /* SuggestionAccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionAccountViewModel.swift; sourceTree = "<group>"; };
@@ -618,6 +633,8 @@
 		7CB58D292DA7ACEF179A9050 /* Pods-Mastodon.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon.profile.xcconfig"; path = "Target Support Files/Pods-Mastodon/Pods-Mastodon.profile.xcconfig"; sourceTree = "<group>"; };
 		7CEFFAE9AF9284B13C0A758D /* Pods-MastodonTests.asdk - debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MastodonTests.asdk - debug.xcconfig"; path = "Target Support Files/Pods-MastodonTests/Pods-MastodonTests.asdk - debug.xcconfig"; sourceTree = "<group>"; };
 		819CEC9DCAD8E8E7BD85A7BB /* Pods-Mastodon.asdk.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon.asdk.xcconfig"; path = "Target Support Files/Pods-Mastodon/Pods-Mastodon.asdk.xcconfig"; sourceTree = "<group>"; };
+		855149C7295F1C5F00943D96 /* UIInterfaceOrientationMask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIInterfaceOrientationMask.swift; sourceTree = "<group>"; };
+		855149C929606D6400943D96 /* PortraitAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortraitAlertController.swift; sourceTree = "<group>"; };
 		85904C01293BC0EB0011C817 /* ImageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageProvider.swift; sourceTree = "<group>"; };
 		85904C03293BC1940011C817 /* URLActivityItemWithMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLActivityItemWithMetadata.swift; sourceTree = "<group>"; };
 		85BC11B22932414900E191CD /* AltViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AltViewController.swift; sourceTree = "<group>"; };
@@ -638,11 +655,23 @@
 		C3789232A52F43529CA67E95 /* Pods-MastodonIntent.asdk - debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MastodonIntent.asdk - debug.xcconfig"; path = "Target Support Files/Pods-MastodonIntent/Pods-MastodonIntent.asdk - debug.xcconfig"; sourceTree = "<group>"; };
 		CD92E0F10BDE4FE7C4B999F2 /* Pods_MastodonTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MastodonTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7D7CF93E262178800077512 /* Pods-Mastodon-AppShared.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon-AppShared.debug.xcconfig"; path = "Target Support Files/Pods-Mastodon-AppShared/Pods-Mastodon-AppShared.debug.xcconfig"; sourceTree = "<group>"; };
+		D8099077294BC8A30050219F /* PrivacyTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyTableViewController.swift; sourceTree = "<group>"; };
+		D8099079294BC9390050219F /* PrivacyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyTableViewCell.swift; sourceTree = "<group>"; };
+		D809907B294D25510050219F /* PrivacyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyViewModel.swift; sourceTree = "<group>"; };
+		D8363B1529469CE200A74079 /* OnboardingNextView.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = OnboardingNextView.swift; sourceTree = "<group>"; tabWidth = 4; };
 		D87BFC8A291D5C6B00FEE264 /* MastodonLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonLoginView.swift; sourceTree = "<group>"; };
 		D87BFC8C291EB81200FEE264 /* MastodonLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonLoginViewModel.swift; sourceTree = "<group>"; };
 		D87BFC8E291EC26A00FEE264 /* MastodonLoginServerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonLoginServerTableViewCell.swift; sourceTree = "<group>"; };
 		D8916DBF29211BE500124085 /* ContentSizedTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentSizedTableView.swift; sourceTree = "<group>"; };
 		D8A6AB6B291C5136003AB663 /* MastodonLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonLoginViewController.swift; sourceTree = "<group>"; };
+		D8A6FE5A293244B500666A47 /* WelcomeContentPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeContentPage.swift; sourceTree = "<group>"; };
+		D8A6FE5E29324BBC00666A47 /* WelcomeContentCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeContentCollectionViewCell.swift; sourceTree = "<group>"; };
+		D8A6FE6129325F5900666A47 /* Intents.stringsdict */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; path = Intents.stringsdict; sourceTree = "<group>"; };
+		D8A6FE6229325F5900666A47 /* app.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = app.json; sourceTree = "<group>"; };
+		D8A6FE6329325F5900666A47 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		D8A6FE6429325F5900666A47 /* StringsConvertor */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = StringsConvertor; sourceTree = "<group>"; };
+		D8A6FE6529325F5900666A47 /* ios-infoPlist.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "ios-infoPlist.json"; sourceTree = "<group>"; };
+		D8A6FE6629325F5900666A47 /* Localizable.stringsdict */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; path = Localizable.stringsdict; sourceTree = "<group>"; };
 		DB0009A826AEE5DC009B9D2D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; name = Base; path = Base.lproj/Intents.intentdefinition; sourceTree = "<group>"; };
 		DB0009AD26AEE5E4009B9D2D /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Intents.strings; sourceTree = "<group>"; };
 		DB0140CE25C42AEE00F9F3CF /* OSLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSLog.swift; sourceTree = "<group>"; };
@@ -1093,6 +1122,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9E44C7202967AD17004B2A72 /* MastodonSDKDynamic in Frameworks */,
 				5E44BF88AD33646E64727BCF /* Pods_MastodonTests.framework in Frameworks */,
 				5E0DEC05797A7E6933788DDB /* Pods_MastodonTests.framework in Frameworks */,
 			);
@@ -1169,6 +1199,10 @@
 				0FB3D2F625E4C24D00AAD544 /* MastodonPickServerViewModel.swift */,
 				DB1FD44F25F26FA1004CFCFC /* MastodonPickServerViewModel+Diffable.swift */,
 				DB1FD43525F26899004CFCFC /* MastodonPickServerViewModel+LoadIndexedServerState.swift */,
+				DB1FD44325F26CCC004CFCFC /* PickServerSection.swift */,
+				DB1E347725F519300079D7DF /* PickServerItem.swift */,
+				DB1E346725F518E20079D7DF /* CategoryPickerSection.swift */,
+				DB1FD45925F27898004CFCFC /* CategoryPickerItem.swift */,
 			);
 			path = PickServer;
 			sourceTree = "<group>";
@@ -1185,7 +1219,7 @@
 		0FB3D30D25E525C000AAD544 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				0FB3D30E25E525CD00AAD544 /* PickServerCategoryView.swift */,
+				D8363B1529469CE200A74079 /* OnboardingNextView.swift */,
 				DB9282B125F3222800823B15 /* PickServerEmptyStateView.swift */,
 				DB0617F0278413D00030EE79 /* PickServerServerSectionTableHeaderView.swift */,
 			);
@@ -1545,6 +1579,16 @@
 			path = Bookmark;
 			sourceTree = "<group>";
 		};
+		D8099076294BC2BA0050219F /* Privacy */ = {
+			isa = PBXGroup;
+			children = (
+				D8099077294BC8A30050219F /* PrivacyTableViewController.swift */,
+				D8099079294BC9390050219F /* PrivacyTableViewCell.swift */,
+				D809907B294D25510050219F /* PrivacyViewModel.swift */,
+			);
+			path = Privacy;
+			sourceTree = "<group>";
+		};
 		D8A6AB68291C50F3003AB663 /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -1557,9 +1601,32 @@
 			path = Login;
 			sourceTree = "<group>";
 		};
+		D8A6FE5929323DC200666A47 /* Pages */ = {
+			isa = PBXGroup;
+			children = (
+				D8A6FE5A293244B500666A47 /* WelcomeContentPage.swift */,
+				D8A6FE5E29324BBC00666A47 /* WelcomeContentCollectionViewCell.swift */,
+			);
+			path = Pages;
+			sourceTree = "<group>";
+		};
+		D8A6FE6029325F5900666A47 /* Localization */ = {
+			isa = PBXGroup;
+			children = (
+				D8A6FE6129325F5900666A47 /* Intents.stringsdict */,
+				D8A6FE6229325F5900666A47 /* app.json */,
+				D8A6FE6329325F5900666A47 /* README.md */,
+				D8A6FE6429325F5900666A47 /* StringsConvertor */,
+				D8A6FE6529325F5900666A47 /* ios-infoPlist.json */,
+				D8A6FE6629325F5900666A47 /* Localizable.stringsdict */,
+			);
+			path = Localization;
+			sourceTree = "<group>";
+		};
 		DB01409B25C40BB600F9F3CF /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
+				D8099076294BC2BA0050219F /* Privacy */,
 				D8A6AB68291C50F3003AB663 /* Login */,
 				DB68A03825E900CC00CFDF14 /* Share */,
 				0FAA0FDD25E0B5700017CCDE /* Welcome */,
@@ -1763,6 +1830,7 @@
 				1EBA4F56E920856A3FC84ACB /* Pods */,
 				3FE14AD363ED19AE7FF210A6 /* Frameworks */,
 				DB98335F25C93B0400AD9700 /* Recovered References */,
+				D8A6FE6029325F5900666A47 /* Localization */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1848,12 +1916,6 @@
 		DB4F097826A039B400D62E92 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
-				DB1FD44325F26CCC004CFCFC /* PickServerSection.swift */,
-				DB1E347725F519300079D7DF /* PickServerItem.swift */,
-				DB1E346725F518E20079D7DF /* CategoryPickerSection.swift */,
-				DB1FD45925F27898004CFCFC /* CategoryPickerItem.swift */,
-				DB0617F427855AB90030EE79 /* ServerRuleSection.swift */,
-				DB0617FC27855BFE0030EE79 /* ServerRuleItem.swift */,
 				DB0618022785A7100030EE79 /* RegisterSection.swift */,
 				DB0618042785A73D0030EE79 /* RegisterItem.swift */,
 			);
@@ -2085,7 +2147,6 @@
 				DB029E94266A20430062874E /* MastodonAuthenticationController.swift */,
 				2D82B9FE25E7863200E36F0F /* OnboardingViewControllerAppearance.swift */,
 				DB0617EC277F02C50030EE79 /* OnboardingNavigationController.swift */,
-				0FB3D2FD25E4CB6400AAD544 /* OnboardingHeadlineTableViewCell.swift */,
 				DB0617EE277F12720030EE79 /* NavigationActionView.swift */,
 			);
 			path = Share;
@@ -2149,6 +2210,8 @@
 				DB7A9F922818F33C0016AF98 /* MastodonServerRulesViewController+Debug.swift */,
 				DB72602625E36A6F00235243 /* MastodonServerRulesViewModel.swift */,
 				DB0617FE27855D6C0030EE79 /* MastodonServerRulesViewModel+Diffable.swift */,
+				DB0617F427855AB90030EE79 /* ServerRuleSection.swift */,
+				DB0617FC27855BFE0030EE79 /* ServerRuleItem.swift */,
 			);
 			path = ServerRules;
 			sourceTree = "<group>";
@@ -2274,6 +2337,7 @@
 				2AE244472927831100BDBF7C /* UIImage+SFSymbols.swift */,
 				DBCC3B2F261440A50045B23D /* UITabBarController.swift */,
 				2A1FE47D2938C11200784BF1 /* Collection+IsNotEmpty.swift */,
+				855149C7295F1C5F00943D96 /* UIInterfaceOrientationMask.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -2479,6 +2543,7 @@
 		DBABE3F125ECAC4E00879EE5 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				D8A6FE5929323DC200666A47 /* Pages */,
 				DBABE3EB25ECAC4B00879EE5 /* WelcomeIllustrationView.swift */,
 				DB4932B026F1FB5300EF46D4 /* WizardCardView.swift */,
 				DB0617EA277EF3820030EE79 /* GradientBorderView.swift */,
@@ -2543,6 +2608,7 @@
 				DBF3B7402733EB9400E21627 /* MastodonLocalCode.swift */,
 				85904C01293BC0EB0011C817 /* ImageProvider.swift */,
 				85904C03293BC1940011C817 /* URLActivityItemWithMetadata.swift */,
+				855149C929606D6400943D96 /* PortraitAlertController.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -2589,7 +2655,6 @@
 			isa = PBXGroup;
 			children = (
 				DBE0821425CD382600FD6BBD /* MastodonRegisterViewController.swift */,
-				2D939AE725EE1CF80076FA61 /* MastodonRegisterViewController+Avatar.swift */,
 				DBE0822325CD3F1E00FD6BBD /* MastodonRegisterViewModel.swift */,
 				DB0618062785A8880030EE79 /* MastodonRegisterViewModel+Diffable.swift */,
 				DB7A9F902818EAF10016AF98 /* MastodonRegisterView.swift */,
@@ -2757,6 +2822,7 @@
 				DB427DE425BAA00100D1B89D /* Sources */,
 				DB427DE525BAA00100D1B89D /* Frameworks */,
 				DB427DE625BAA00100D1B89D /* Resources */,
+				9E44C7212967AD17004B2A72 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -2764,6 +2830,9 @@
 				DB427DEA25BAA00100D1B89D /* PBXTargetDependency */,
 			);
 			name = MastodonTests;
+			packageProductDependencies = (
+				9E44C71F2967AD17004B2A72 /* MastodonSDKDynamic */,
+			);
 			productName = MastodonTests;
 			productReference = DB427DE825BAA00100D1B89D /* MastodonTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -3185,10 +3254,12 @@
 				DB1E347825F519300079D7DF /* PickServerItem.swift in Sources */,
 				DB336F3F278E668C0031E64B /* StatusTableViewCell+ViewModel.swift in Sources */,
 				DB63F764279A5E3C00455B82 /* NotificationTimelineViewController.swift in Sources */,
+				855149C8295F1C5F00943D96 /* UIInterfaceOrientationMask.swift in Sources */,
 				DBA5A53126F08EF000CACBAA /* DragIndicatorView.swift in Sources */,
 				DB1FD45A25F27898004CFCFC /* CategoryPickerItem.swift in Sources */,
 				DB6180F626391D580018D199 /* MediaPreviewableViewController.swift in Sources */,
 				2D571B2F26004EC000540450 /* NavigationBarProgressView.swift in Sources */,
+				D8099078294BC8A30050219F /* PrivacyTableViewController.swift in Sources */,
 				0FAA101225E105390017CCDE /* PrimaryActionButton.swift in Sources */,
 				DB443CD42694627B00159B29 /* AppearanceView.swift in Sources */,
 				DBF1D24E269DAF5D00C1C08A /* SearchDetailViewController.swift in Sources */,
@@ -3262,6 +3333,7 @@
 				DB603113279EBEBA00A935FE /* DataSourceFacade+Block.swift in Sources */,
 				DB63F777279A9A2A00455B82 /* NotificationView+Configuration.swift in Sources */,
 				DB029E95266A20430062874E /* MastodonAuthenticationController.swift in Sources */,
+				D8A6FE5F29324BBC00666A47 /* WelcomeContentCollectionViewCell.swift in Sources */,
 				5B90C461262599800002E742 /* SettingsLinkTableViewCell.swift in Sources */,
 				DB6180DD263918E30018D199 /* MediaPreviewViewController.swift in Sources */,
 				DBE3CDEC261C6B2900430CC6 /* FavoriteViewController.swift in Sources */,
@@ -3319,6 +3391,7 @@
 				2A506CF6292D040100059C37 /* HashtagTimelineHeaderView.swift in Sources */,
 				DBA5E7A5263BD28C004598BB /* ContextMenuImagePreviewViewModel.swift in Sources */,
 				DB3E6FF52807C40300B035AE /* DiscoveryForYouViewController.swift in Sources */,
+				D809907A294BC9390050219F /* PrivacyTableViewCell.swift in Sources */,
 				2D38F1E525CD46C100561493 /* HomeTimelineViewModel.swift in Sources */,
 				DB0FCB842796B2A2006C02E2 /* FavoriteViewController+DataSourceProvider.swift in Sources */,
 				DB0FCB68279507EF006C02E2 /* DataSourceFacade+Meta.swift in Sources */,
@@ -3327,7 +3400,6 @@
 				6213AF5A28939C8400BCADB6 /* BookmarkViewModel.swift in Sources */,
 				5B24BBDB262DB14800A9381B /* ReportStatusViewModel+Diffable.swift in Sources */,
 				DB4F0968269ED8AD00D62E92 /* SearchHistoryTableHeaderView.swift in Sources */,
-				0FB3D2FE25E4CB6400AAD544 /* OnboardingHeadlineTableViewCell.swift in Sources */,
 				5DA732CC2629CEF500A92342 /* UIView+Remove.swift in Sources */,
 				2A506CF4292CD85800059C37 /* FollowedTagsViewController.swift in Sources */,
 				DB1D843026566512000346B3 /* KeyboardPreference.swift in Sources */,
@@ -3368,7 +3440,6 @@
 				DB0617EF277F12720030EE79 /* NavigationActionView.swift in Sources */,
 				D87BFC8D291EB81200FEE264 /* MastodonLoginViewModel.swift in Sources */,
 				DB1FD43625F26899004CFCFC /* MastodonPickServerViewModel+LoadIndexedServerState.swift in Sources */,
-				2D939AE825EE1CF80076FA61 /* MastodonRegisterViewController+Avatar.swift in Sources */,
 				DB1D186C25EF5BA7003F1F23 /* PollTableView.swift in Sources */,
 				DBA94434265CBB5300C537E1 /* ProfileFieldSection.swift in Sources */,
 				DBCA0EBC282BB38A0029E2B0 /* PageboyNavigateable.swift in Sources */,
@@ -3409,7 +3480,6 @@
 				DB3E6FFA2807C47900B035AE /* DiscoveryForYouViewModel+Diffable.swift in Sources */,
 				DB1FD44425F26CCC004CFCFC /* PickServerSection.swift in Sources */,
 				DBB45B6027B50A4F002DC5A7 /* RecommendAccountItem.swift in Sources */,
-				0FB3D30F25E525CD00AAD544 /* PickServerCategoryView.swift in Sources */,
 				DB6180E626391B550018D199 /* MediaPreviewTransitionController.swift in Sources */,
 				DB0FCB922796DE19006C02E2 /* TrendSectionHeaderCollectionReusableView.swift in Sources */,
 				DB2F073525E8ECF000957B2D /* AuthenticationViewModel.swift in Sources */,
@@ -3454,6 +3524,7 @@
 				DB1FD45025F26FA1004CFCFC /* MastodonPickServerViewModel+Diffable.swift in Sources */,
 				DB4F097D26A03A5B00D62E92 /* SearchHistoryItem.swift in Sources */,
 				DBD5B1FA27BD013700BD6B38 /* DataSourceProvider+StatusTableViewControllerNavigateable.swift in Sources */,
+				D809907C294D25510050219F /* PrivacyViewModel.swift in Sources */,
 				DB5B549A2833A60400DEF8B2 /* FamiliarFollowersViewController.swift in Sources */,
 				DB3E6FE22806A50100B035AE /* DiscoveryHashtagsViewModel+Diffable.swift in Sources */,
 				DB427DD625BAA00100D1B89D /* AppDelegate.swift in Sources */,
@@ -3529,6 +3600,7 @@
 				DBEFCD7D282A2A3B00C0ABEA /* ReportServerRulesViewController.swift in Sources */,
 				DBB525362611ECEB002F1F29 /* UserTimelineViewController.swift in Sources */,
 				DB98EB4927B0F0CD0082E365 /* ReportStatusTableViewCell.swift in Sources */,
+				855149CA29606D6400943D96 /* PortraitAlertController.swift in Sources */,
 				DBF3B7412733EB9400E21627 /* MastodonLocalCode.swift in Sources */,
 				DB98EB6527B216500082E365 /* ReportResultViewModel.swift in Sources */,
 				DB4F096A269EDAD200D62E92 /* SearchResultViewModel+State.swift in Sources */,
@@ -3538,6 +3610,7 @@
 				2A3F6FE5292F6E44002E6DA7 /* FollowedTagsTableViewCell.swift in Sources */,
 				C24C97032922F30500BAE8CB /* RefreshControl.swift in Sources */,
 				DB023D2A27A0FE5C005AC798 /* DataSourceProvider+NotificationTableViewCellDelegate.swift in Sources */,
+				D8363B1629469CE200A74079 /* OnboardingNextView.swift in Sources */,
 				DB98EB6027B10E150082E365 /* ReportCommentTableViewCell.swift in Sources */,
 				DB0FCB962797E6C2006C02E2 /* SearchResultViewController+DataSourceProvider.swift in Sources */,
 				DB6180E326391A4C0018D199 /* ViewControllerAnimatedTransitioning.swift in Sources */,
@@ -3548,6 +3621,7 @@
 				2D6DE40026141DF600A63F6A /* SearchViewModel.swift in Sources */,
 				DB0617FD27855BFE0030EE79 /* ServerRuleItem.swift in Sources */,
 				5BB04FD5262E7AFF0043BFF6 /* ReportViewController.swift in Sources */,
+				D8A6FE5B293244B500666A47 /* WelcomeContentPage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3894,6 +3968,7 @@
 				DEVELOPMENT_ASSET_PATHS = "Mastodon/Resources/Preview\\ Assets.xcassets";
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = Mastodon/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -3924,6 +3999,7 @@
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				EXCLUDED_SOURCE_FILE_NAMES = "Mastodon/Resources/Preview\\ Assets.xcassets";
 				INFOPLIST_FILE = Mastodon/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -3954,6 +4030,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.MastodonTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Mastodon.app/Mastodon";
@@ -3975,6 +4054,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.MastodonTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Mastodon.app/Mastodon";
@@ -3995,6 +4077,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.MastodonUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Mastodon;
@@ -4015,6 +4100,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.MastodonUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Mastodon;
@@ -4097,6 +4185,7 @@
 				DEVELOPMENT_ASSET_PATHS = "Mastodon/Resources/Preview\\ Assets.xcassets";
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = Mastodon/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -4128,6 +4217,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.MastodonTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Mastodon.app/Mastodon";
@@ -4148,6 +4240,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.MastodonUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Mastodon;
@@ -4380,6 +4475,7 @@
 				DEVELOPMENT_ASSET_PATHS = "Mastodon/Resources/Preview\\ Assets.xcassets";
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = Mastodon/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -4410,6 +4506,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.MastodonTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Mastodon.app/Mastodon";
@@ -4430,6 +4529,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.MastodonUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Mastodon;
@@ -4642,6 +4744,10 @@
 			productName = MastodonSDKDynamic;
 		};
 		357FEEB929523D660021C9DC /* MastodonSDKDynamic */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MastodonSDKDynamic;
+		};
+		9E44C71F2967AD17004B2A72 /* MastodonSDKDynamic */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = MastodonSDKDynamic;
 		};
