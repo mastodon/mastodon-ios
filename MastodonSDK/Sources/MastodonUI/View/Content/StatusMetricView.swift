@@ -53,13 +53,21 @@ public final class StatusMetricView: UIView {
     }()
 
     public let reblogButton: StatusMetricRowView = {
+        //TODO: Localization
         let button = StatusMetricRowView(iconImage: Asset.Arrow.repeat.image, text: "Reblogs", detailText: "10")
         return button
     }()
     
     // favorite meter
     public let favoriteButton: StatusMetricRowView = {
+        //TODO: Localization
         let button = StatusMetricRowView(iconImage: UIImage(systemName: "star"), text: "Favorites", detailText: "10")
+        return button
+    }()
+
+    public let editHistoryButton: StatusMetricRowView = {
+        //TODO: Localization
+        let button = StatusMetricRowView(iconImage: UIImage(systemName: "star"), text: "Edit History")
         return button
     }()
 
@@ -89,6 +97,9 @@ extension StatusMetricView {
         favoriteButton.translatesAutoresizingMaskIntoConstraints = false
         buttonStackView.addArrangedSubview(favoriteButton)
 
+        editHistoryButton.translatesAutoresizingMaskIntoConstraints = false
+        buttonStackView.addArrangedSubview(editHistoryButton)
+
         buttonStackView.translatesAutoresizingMaskIntoConstraints = false
         containerStackView.addArrangedSubview(buttonStackView)
         containerStackView.setCustomSpacing(11, after: buttonStackView)
@@ -108,12 +119,14 @@ extension StatusMetricView {
 
             reblogButton.widthAnchor.constraint(equalTo: buttonStackView.widthAnchor),
             favoriteButton.widthAnchor.constraint(equalTo: reblogButton.widthAnchor),
+            editHistoryButton.widthAnchor.constraint(equalTo: reblogButton.widthAnchor),
             dateLabel.widthAnchor.constraint(equalTo: reblogButton.widthAnchor),
         ])
 
-
         reblogButton.addTarget(self, action: #selector(StatusMetricView.didPressReblogButton(_:)), for: .touchUpInside)
         favoriteButton.addTarget(self, action: #selector(StatusMetricView.didPressFavoriteButton(_:)), for: .touchUpInside)
+        editHistoryButton.addTarget(self, action: #selector(StatusMetricView.didPressEditHistoryButton(_:)), for: .touchUpInside)
+
     }
 }
 
