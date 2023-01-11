@@ -647,6 +647,14 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
             )
         }   // end Task
     }
+
+    func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, statusMetricView: StatusMetricView, showEditHistory button: UIButton) {
+        Task {
+            let viewModel = StatusEditHistoryViewModel()
+            _ = await coordinator.present(scene: .editHistory(viewModel: viewModel), from: self, transition: .show)
+        }
+    }
+
 }
 
 // MARK: a11y

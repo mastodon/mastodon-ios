@@ -33,6 +33,7 @@ public protocol StatusViewDelegate: AnyObject {
     func statusView(_ statusView: StatusView, mediaGridContainerView: MediaGridContainerView, mediaSensitiveButtonDidPressed button: UIButton)
     func statusView(_ statusView: StatusView, statusMetricView: StatusMetricView, reblogButtonDidPressed button: UIButton)
     func statusView(_ statusView: StatusView, statusMetricView: StatusMetricView, favoriteButtonDidPressed button: UIButton)
+    func statusView(_ statusView: StatusView, statusMetricView: StatusMetricView, showEditHistory button: UIButton)
     func statusView(_ statusView: StatusView, cardControl: StatusCardControl, didTapURL url: URL)
     func statusView(_ statusView: StatusView, cardControlMenu: StatusCardControl) -> UIMenu?
     
@@ -737,7 +738,7 @@ extension StatusView: StatusMetricViewDelegate {
     }
 
     func statusMetricView(_ statusMetricView: StatusMetricView, didPressEditHistoryButton button: UIButton) {
-        //TODO: Implement
+        delegate?.statusView(self, statusMetricView: statusMetricView, showEditHistory: button)
     }
 }
 
