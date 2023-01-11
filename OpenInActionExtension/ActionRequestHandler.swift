@@ -16,47 +16,56 @@ class ActionRequestHandler: NSObject, NSExtensionRequestHandling {
     func beginRequest(with context: NSExtensionContext) {
         // Do not call super in an Action extension with no user interface
         self.extensionContext = context
-                
-        guard
-            let itemProvider = context.inputItems
-                .compactMap({ $0 as? NSExtensionItem })
-                .reduce([NSItemProvider](), { partialResult, acc in
-                    var nextResult = partialResult
-                    nextResult += acc.attachments ?? []
-                    return nextResult
-                })
-                .filter({ $0.hasItemConformingToTypeIdentifier(UTType.propertyList.identifier) })
-                .first
-        else {
-            return self.completeWithNotFoundError()
+              
+        let itemProvider = context.inputItems
+            .compactMap({ $0 as? NSExtensionItem })
+            .reduce([NSItemProvider](), { partialResult, acc in
+                var nextResult = partialResult
+                nextResult += acc.attachments ?? []
+                return nextResult
+            })
+            .filter({ $0.hasItemConformingToTypeIdentifier(UTType.propertyList.identifier) })
+            .first
+        
+        guard let itemProvider = itemProvider else {
+            return doneWithResults(nil)
         }
         
-        itemProvider.loadItem(forTypeIdentifier: UTType.propertyList.identifier, options: nil, completionHandler: { (item, error) in
-            guard
-                let dictionary = item as? [String: Any],
-                let results = dictionary[NSExtensionJavaScriptPreprocessingResultsKey] as? [String: Any]? ?? [:]
-            else {
-                return self.completeWithNotFoundError()
-            }
-            
+        itemProvider.loadItem(forTypeIdentifier: UTType.propertyList.identifier, options: nil, completionHandler: { [weak self] item, error in
             DispatchQueue.main.async {
-                self.completeWithOpenUserProfile(results)
+                guard
+                    let dictionary = item as? NSDictionary,
+                    let results = dictionary[NSExtensionJavaScriptPreprocessingResultsKey] as? NSDictionary
+                else {
+                    self?.doneWithResults(nil)
+                    return
+                }
+                
+                if let username = results["username"] as? String {
+                    self?.completeWithOpenUserProfile(username)
+                } else if let url = results["url"] as? String {
+                    self?.completeWithSearch(url)
+                } else {
+                    self?.doneWithResults(nil)
+                }
             }
         })
     }
 }
 
 private extension ActionRequestHandler {
-    func completeWithOpenUserProfile(_ results: [String: Any]) {
-        guard let username = results["username"] as? String else { return }
+    func completeWithOpenUserProfile(_ username: String) {
         doneWithResults([
             "openURL": "mastodon://profile/\(username)"
         ])
     }
     
-    func completeWithNotFoundError() {
+    func completeWithSearch(_ query: String) {
+        guard let query = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
+            return doneWithResults(nil)
+        }
         doneWithResults(
-            ["error": "Failed to find username. Are you sure this is a Mastodon Profile page?"]
+            ["openURL": "mastodon://search?query=\(query)"]
         )
     }
     

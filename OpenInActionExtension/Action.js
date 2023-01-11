@@ -10,25 +10,16 @@ var Action = function() {};
 Action.prototype = {
     
     run: function(arguments) {
-        
-        var username = detectUsername()
-        
-        if (username) {
-            arguments.completionFunction({ "username" : username })
+        var payload = {
+            "username": detectUsername(),
+            "url": document.documentURI
         }
-    
+
+        arguments.completionFunction(payload)
     },
     
     finalize: function(arguments) {
-
-        var openURL = arguments["openURL"]
-        var error = arguments["error"]
-        
-        if (error) {
-            alert(error)
-        } else if (openURL) {
-            window.location = openURL
-        }
+        window.location = arguments["openURL"]
     }
     
 };
@@ -39,12 +30,13 @@ function detectUsername() {
     if (typeof uriUsername === "Array") {
         return uriUsername[0]
     }
+    
+    var querySelector = document.head.querySelector('[property="profile:username"]')
+    if (typeof querySelector === "Object") {
+        return querySelector.content
+    }
 
-    return document.head.querySelector('[property="profile:username"]').content
+    return undefined
 }
 
-function detectPost() {
-    
-}
-    
 var ExtensionPreprocessingJS = new Action
