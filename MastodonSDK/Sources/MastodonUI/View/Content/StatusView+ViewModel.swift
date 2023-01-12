@@ -802,13 +802,7 @@ extension StatusView.ViewModel {
         )
         .map { isContentReveal, spoilerContent, content, language in
             var strings: [AttributedString] = []
-            
-            let languageAttributes: AttributeContainer = {
-                var container = AttributeContainer()
-                container.languageIdentifier = language
-                return container
-            }()
-
+            let languageAttributes = AttributeContainer(\.languageIdentifier, value: language)
             if let spoilerContent = spoilerContent, !spoilerContent.string.isEmpty {
                 strings.append(AttributedString(L10n.Common.Controls.Status.contentWarning))
                 strings.append(AttributedString(spoilerContent.string, attributes: languageAttributes))

@@ -209,13 +209,7 @@ extension MediaView {
     }
     
     private func bindAlt(configuration: Configuration, altDescription: String?) {
-        let languageAttributes: AttributeContainer = {
-            var container = AttributeContainer()
-            if let language = configuration.language {
-                container.languageIdentifier = language
-            }
-            return container
-        }()
+        let languageAttributes = AttributeContainer(\.languageIdentifier, value: configuration.language)
                 
         if configuration.total > 1 {
             let placeholder = "<description>"
