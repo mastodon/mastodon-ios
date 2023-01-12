@@ -68,7 +68,12 @@ extension MediaPreviewImageViewController {
         let previewImageViewContextMenuInteraction = UIContextMenuInteraction(delegate: self)
         previewImageView.addInteraction(previewImageViewContextMenuInteraction)
 
-        previewImageView.imageView.accessibilityLabel = viewModel.item.altText
+        previewImageView.imageView.attributedAccessibilityLabel = viewModel.item.altText.map { altText in
+            AttributedString(
+                altText,
+                attributes: AttributeContainer(\.languageIdentifier, value: viewModel.item.language)
+            )
+        }
 
         if let thumbnail = viewModel.item.thumbnail {
             previewImageView.imageView.image = thumbnail

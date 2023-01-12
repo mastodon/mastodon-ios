@@ -34,6 +34,7 @@ extension MediaPreviewImageViewModel {
         let assetURL: URL?
         let thumbnail: UIImage?
         let altText: String?
+        let language: String?
     }
 
 }
