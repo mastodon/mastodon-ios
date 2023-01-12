@@ -805,5 +805,10 @@
                 "unfollow": "Unfollow"
             }
         }
+    },
+    "extension": {
+        "open_in": {
+            "invalid_link_error": "This doesn't seem to be a valid Mastodon link."
+        }
     }
 }
