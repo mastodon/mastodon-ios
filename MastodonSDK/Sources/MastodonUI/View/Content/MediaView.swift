@@ -209,14 +209,29 @@ extension MediaView {
     }
     
     private func bindAlt(configuration: Configuration, altDescription: String?) {
+        let languageAttributes: AttributeContainer = {
+            var container = AttributeContainer()
+            if let language = configuration.language {
+                container.languageIdentifier = language
+            }
+            return container
+        }()
+                
         if configuration.total > 1 {
-            accessibilityLabel = L10n.Common.Controls.Status.Media.accessibilityLabel(
-                altDescription ?? "",
+            let placeholder = "<description>"
+            let labelString = L10n.Common.Controls.Status.Media.accessibilityLabel(
+                placeholder,
                 configuration.index + 1,
                 configuration.total
             )
+            var label = AttributedString(labelString)
+            label.replaceSubrange(
+                label.range(of: placeholder)!,
+                with: AttributedString(altDescription ?? "", attributes: languageAttributes)
+            )
+            self.attributedAccessibilityLabel = label
         } else {
-            accessibilityLabel = altDescription
+            self.attributedAccessibilityLabel = altDescription.map { AttributedString($0, attributes: languageAttributes) }
         }
 
         badgeViewController.rootView.altDescription = altDescription

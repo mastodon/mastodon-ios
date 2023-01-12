@@ -20,6 +20,7 @@ extension MediaView {
         var disposeBag = Set<AnyCancellable>()
         
         public let info: Info
+        public let language: String?
         public let blurhash: String?
         public let index: Int
         public let total: Int
@@ -31,11 +32,13 @@ extension MediaView {
         
         public init(
             info: MediaView.Configuration.Info,
+            language: String?,
             blurhash: String?,
             index: Int,
             total: Int
         ) {
             self.info = info
+            self.language = language
             self.blurhash = blurhash
             self.index = index
             self.total = total
@@ -203,6 +206,7 @@ extension MediaView {
                     )
                     return .init(
                         info: .image(info: info),
+                        language: status.language,
                         blurhash: attachment.blurhash,
                         index: idx,
                         total: attachments.count
@@ -211,6 +215,7 @@ extension MediaView {
                     let info = videoInfo(from: attachment)
                     return .init(
                         info: .video(info: info),
+                        language: status.language,
                         blurhash: attachment.blurhash,
                         index: idx,
                         total: attachments.count
@@ -219,6 +224,7 @@ extension MediaView {
                     let info = videoInfo(from: attachment)
                     return .init(
                         info: .gif(info: info),
+                        language: status.language,
                         blurhash: attachment.blurhash,
                         index: idx,
                         total: attachments.count
@@ -227,6 +233,7 @@ extension MediaView {
                     let info = videoInfo(from: attachment)
                     return .init(
                         info: .video(info: info),
+                        language: status.language,
                         blurhash: attachment.blurhash,
                         index: idx,
                         total: attachments.count
