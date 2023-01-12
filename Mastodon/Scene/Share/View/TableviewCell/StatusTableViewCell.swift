@@ -83,7 +83,7 @@ extension StatusTableViewCell {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] accessibilityLabel in
                 guard let self = self else { return }
-                self.accessibilityLabel = accessibilityLabel
+                self.attributedAccessibilityLabel = accessibilityLabel
             }
             .store(in: &_disposeBag)
 
@@ -92,7 +92,7 @@ extension StatusTableViewCell {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] contentLabel, accessibilityLabel in
                 guard let self = self else { return }
-                self.accessibilityUserInputLabels = [contentLabel, accessibilityLabel]
+                self.attributedAccessibilityUserInputLabels = [contentLabel, accessibilityLabel]
             }
             .store(in: &_disposeBag)
 
