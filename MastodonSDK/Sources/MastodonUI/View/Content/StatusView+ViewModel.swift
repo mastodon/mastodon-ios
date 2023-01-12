@@ -751,7 +751,7 @@ extension StatusView.ViewModel {
             }
 
             if isContentReveal {
-                strings.append(content?.string)
+                strings.append(statusView.contentMetaText.backedString)
             }
             
             return strings.compactMap { $0 }.joined(separator: ", ")
@@ -769,6 +769,7 @@ extension StatusView.ViewModel {
         contentAccessibilityLabel
             .sink { contentAccessibilityLabel in
                 statusView.spoilerOverlayView.accessibilityLabel = contentAccessibilityLabel
+                statusView.contentMetaText.textView.accessibilityLabel = contentAccessibilityLabel
             }
             .store(in: &disposeBag)
 
