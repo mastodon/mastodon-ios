@@ -28,6 +28,7 @@ final class MediaPreviewViewModel: NSObject {
     @Published var currentPage: Int
     @Published var showingChrome = true
     @Published var altText: String?
+    @Published var language: String?
 
     // output
     let viewControllers: [MediaPreviewPage]
@@ -47,6 +48,7 @@ final class MediaPreviewViewModel: NSObject {
         switch item {
         case .attachment(let previewContext):
             getAltText = { previewContext.attachments[$0].altDescription }
+            self.language = previewContext.language
 
             currentPage = previewContext.initialIndex
             for (i, attachment) in previewContext.attachments.enumerated() {

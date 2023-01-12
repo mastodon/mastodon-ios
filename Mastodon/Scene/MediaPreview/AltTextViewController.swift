@@ -20,12 +20,10 @@ class AltTextViewController: UIViewController {
 
         textView.textContainer.maximumNumberOfLines = 0
         textView.textContainer.lineBreakMode = .byWordWrapping
-        textView.font = .preferredFont(forTextStyle: .callout)
         textView.isScrollEnabled = true
         textView.backgroundColor = .clear
         textView.isOpaque = false
         textView.isEditable = false
-        textView.tintColor = .white
         textView.textContainerInset = UIEdgeInsets(top: 12, left: 8, bottom: 8, right: 8)
         textView.contentInsetAdjustmentBehavior = .always
         textView.verticalScrollIndicatorInsets.bottom = 4
@@ -33,8 +31,12 @@ class AltTextViewController: UIViewController {
         return textView
     }()
 
-    init(alt: String, sourceView: UIView?) {
-        textView.text = alt
+    init(alt: String, language: String?, sourceView: UIView?) {
+        textView.attributedText = NSAttributedString(string: alt, attributes: [
+            .languageIdentifier: "",
+            .foregroundColor: UIColor.white,
+            .font: UIFont.preferredFont(forTextStyle: .callout),
+        ])
         super.init(nibName: nil, bundle: nil)
         self.modalPresentationStyle = .popover
         self.popoverPresentationController?.delegate = self
