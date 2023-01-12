@@ -30,7 +30,7 @@ Action.prototype = {
 };
 
 function detectUsername() {
-    var uriUsername = document.documentURI.match("@(.+)@([a-z0-9]+\.[a-z0-9]+)")
+    var uriUsername = document.documentURI.match("(?:@([a-zA-Z0-9_]+)(@[a-zA-Z0-9_.-]+)?|#([^\\s.]+))")
     
     if (Array.isArray(uriUsername)) {
         return uriUsername[0]
