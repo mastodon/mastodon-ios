@@ -798,7 +798,10 @@ extension StatusView.ViewModel {
             $isContentReveal,
             $spoilerContent,
             $content,
-            $language
+            Publishers.CombineLatest($language, $translatedFromLanguage)
+                .map { language, translatedFromLanguage in
+                    translatedFromLanguage != nil  ? nil : language
+                }
         )
         .map { isContentReveal, spoilerContent, content, language in
             var strings: [AttributedString] = []
