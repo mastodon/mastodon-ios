@@ -293,6 +293,7 @@
         },
         "server_picker": {
             "title": "Pick Server",
+            "no_server_selected_hint": "We’ll pick a server based on your language if you continue without making a selection.",
             "button": {
                 "language": "Language",
                 "signup_speed": "Sign-up Speed",
@@ -342,12 +343,13 @@
         },
         "privacy": {
             "title": "Privacy",
+            "description": "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy. Take a minute to review and agree to the Mastodon app privacy policy and your server’s privacy policy.",
             "policy": {
                 "ios": "Privacy Policy - Mastodon for iOS",
                 "server": "Privacy Policy - %s"
             },
             "button": {
-                "confirm": "I agree"
+                "confirm": "I Agree"
             }
         },
         "register": {
@@ -368,7 +370,7 @@
                     "placeholder": "email"
                 },
                 "password": {
-                    "placeholder": "password",
+                    "placeholder": "Password",
                     "confirmation_placeholder": "Confirm Password",
                     "require": "Your password needs at least:",
                     "character_limit": "8 characters",
@@ -418,7 +420,7 @@
             "terms_of_service": "terms of service",
             "privacy_policy": "privacy policy",
             "button": {
-                "confirm": "I agree"
+                "confirm": "I Agree"
             }
         },
         "confirm_email": {

@@ -231,28 +231,28 @@
 			<string>%ld reblogs</string>
 		</dict>
 	</dict>
-    <key>plural.count.reblog_a11y</key>
-    <dict>
-        <key>NSStringLocalizedFormatKey</key>
-        <string>%#@reblog_count@</string>
-        <key>reblog_count</key>
-        <dict>
-            <key>NSStringFormatSpecTypeKey</key>
-            <string>NSStringPluralRuleType</string>
-            <key>NSStringFormatValueTypeKey</key>
-            <string>ld</string>
-            <key>zero</key>
-            <string>0 re-blogs</string>
-            <key>one</key>
-            <string>1 re-blog</string>
-            <key>few</key>
-            <string>%ld re-blogs</string>
-            <key>many</key>
-            <string>%ld re-blogs</string>
-            <key>other</key>
-            <string>%ld re-blogs</string>
-        </dict>
-    </dict>
+		<key>plural.count.reblog_a11y</key>
+    	<dict>
+    		<key>NSStringLocalizedFormatKey</key>
+    		<string>%#@reblog_count@</string>
+    		<key>reblog_count</key>
+    		<dict>
+    			<key>NSStringFormatSpecTypeKey</key>
+    			<string>NSStringPluralRuleType</string>
+    			<key>NSStringFormatValueTypeKey</key>
+    			<string>ld</string>
+    			<key>zero</key>
+    			<string>0 re-blogs</string>
+    			<key>one</key>
+    			<string>1 re-blog</string>
+    			<key>few</key>
+    			<string>%ld re-blogs</string>
+    			<key>many</key>
+    			<string>%ld re-blogs</string>
+    			<key>other</key>
+    			<string>%ld re-blogs</string>
+    		</dict>
+    	</dict>
     <key>plural.count.reply</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
