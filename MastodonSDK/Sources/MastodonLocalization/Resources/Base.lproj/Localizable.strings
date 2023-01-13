@@ -365,6 +365,7 @@ uploaded to Mastodon.";
 "Scene.Report.StepFinal.BlockUser" = "Block %@";
 "Scene.Report.StepFinal.DontWantToSeeThis" = "Don’t want to see this?";
 "Scene.Report.StepFinal.MuteUser" = "Mute %@";
+"Scene.Report.StepFinal.NotFollowing" = "Not Following";
 "Scene.Report.StepFinal.TheyWillNoLongerBeAbleToFollowOrSeeYourPostsButTheyCanSeeIfTheyveBeenBlocked" = "They will no longer be able to follow or see your posts, but they can see if they’ve been blocked.";
 "Scene.Report.StepFinal.Unfollow" = "Unfollow";
 "Scene.Report.StepFinal.UnfollowUser" = "Unfollow %@";

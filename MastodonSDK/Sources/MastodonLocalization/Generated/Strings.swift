@@ -1091,6 +1091,8 @@ public enum L10n {
         public static func muteUser(_ p1: Any) -> String {
           return L10n.tr("Localizable", "Scene.Report.StepFinal.MuteUser", String(describing: p1), fallback: "Mute %@")
         }
+        /// Not Following
+        public static let notFollowing = L10n.tr("Localizable", "Scene.Report.StepFinal.NotFollowing", fallback: "Not Following")
         /// They will no longer be able to follow or see your posts, but they can see if they’ve been blocked.
         public static let theyWillNoLongerBeAbleToFollowOrSeeYourPostsButTheyCanSeeIfTheyveBeenBlocked = L10n.tr("Localizable", "Scene.Report.StepFinal.TheyWillNoLongerBeAbleToFollowOrSeeYourPostsButTheyCanSeeIfTheyveBeenBlocked", fallback: "They will no longer be able to follow or see your posts, but they can see if they’ve been blocked.")
         /// Unfollow
