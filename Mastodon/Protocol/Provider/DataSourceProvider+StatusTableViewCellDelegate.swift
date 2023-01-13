@@ -486,6 +486,7 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
             if let cell = cell as? StatusTableViewCell {
                 DispatchQueue.main.async {
                     cell.statusView.viewModel.isCurrentlyTranslating = true
+                    cell.invalidateIntrinsicContentSize()
                 }
             }
                         
