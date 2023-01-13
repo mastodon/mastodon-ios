@@ -21,9 +21,6 @@ class ReportSupplementaryViewModel {
     let user: ManagedObjectRecord<MastodonUser>
     let commentContext = ReportItem.CommentContext()
     
-    // without this, `.assign(to: &reportSupplementaryViewModel.$isBusy)` in `ReportViewModel`
-    // hits an EXC_BAD_ACCESS! Fun!
-    let dummy = false
     @Published var isBusy = false
     
     // output
