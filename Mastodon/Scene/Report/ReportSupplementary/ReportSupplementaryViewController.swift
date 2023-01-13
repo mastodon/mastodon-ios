@@ -14,8 +14,7 @@ import MastodonUI
 import MastodonLocalization
 
 protocol ReportSupplementaryViewControllerDelegate: AnyObject {
-    func reportSupplementaryViewController(_ viewController: ReportSupplementaryViewController, skipButtonDidPressed button: UIButton)
-    func reportSupplementaryViewController(_ viewController: ReportSupplementaryViewController, nextButtonDidPressed button: UIButton)
+    func reportSupplementaryViewController(_ viewController: ReportSupplementaryViewController, submitButtonDidPressed button: UIButton)
 }
 
 final class ReportSupplementaryViewController: UIViewController, NeedsDependency, ReportViewControllerAppearance {
@@ -59,7 +58,8 @@ final class ReportSupplementaryViewController: UIViewController, NeedsDependency
     let navigationActionView: NavigationActionView = {
         let navigationActionView = NavigationActionView()
         navigationActionView.backgroundColor = Asset.Scene.Onboarding.background.color
-        navigationActionView.backButton.setTitle(L10n.Common.Controls.Actions.skip, for: .normal)
+        navigationActionView.nextButton.setTitle(L10n.Common.Controls.Actions.submit, for: .normal)
+        navigationActionView.hidesBackButton = true
         return navigationActionView
     }()
     
@@ -83,7 +83,7 @@ extension ReportSupplementaryViewController {
                 guard let self = self else { return }
                 self.navigationItem.rightBarButtonItem = isBusy ? self.activityIndicatorBarButtonItem : self.cancelBarButtonItem
                 self.navigationItem.hidesBackButton = isBusy
-                self.navigationActionView.backButton.isUserInteractionEnabled = !isBusy
+                self.navigationActionView.nextButton.isUserInteractionEnabled = !isBusy
             }
             .store(in: &disposeBag)
 
@@ -116,13 +116,7 @@ extension ReportSupplementaryViewController {
             }
             .store(in: &observations)
         
-        viewModel.$isNextButtonEnabled
-            .receive(on: DispatchQueue.main)
-            .assign(to: \.isEnabled, on: navigationActionView.nextButton)
-            .store(in: &disposeBag)
-        
-        navigationActionView.backButton.addTarget(self, action: #selector(ReportSupplementaryViewController.skipButtonDidPressed(_:)), for: .touchUpInside)
-        navigationActionView.nextButton.addTarget(self, action: #selector(ReportSupplementaryViewController.nextButtonDidPressed(_:)), for: .touchUpInside)
+        navigationActionView.nextButton.addTarget(self, action: #selector(ReportSupplementaryViewController.submitButtonDidPressed(_:)), for: .touchUpInside)
     }
     
 }
@@ -133,22 +127,12 @@ extension ReportSupplementaryViewController {
         dismiss(animated: true, completion: nil)
     }
 
-    @objc func skipButtonDidPressed(_ sender: UIButton) {
+    @objc func submitButtonDidPressed(_ sender: UIButton) {
         logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
         
         assert(viewModel.delegate != nil)
-        viewModel.isSkip = true
-        viewModel.delegate?.reportSupplementaryViewController(self, skipButtonDidPressed: sender)
+        viewModel.delegate?.reportSupplementaryViewController(self, submitButtonDidPressed: sender)
     }
-
-    @objc func nextButtonDidPressed(_ sender: UIButton) {
-        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
-        
-        assert(viewModel.delegate != nil)
-        viewModel.isSkip = false
-        viewModel.delegate?.reportSupplementaryViewController(self, nextButtonDidPressed: sender)
-    }
-
 }
 
 // MARK: - UITableViewDelegate

@@ -180,6 +180,8 @@ public enum L10n {
         public static let signUp = L10n.tr("Localizable", "Common.Controls.Actions.SignUp", fallback: "Create account")
         /// Skip
         public static let skip = L10n.tr("Localizable", "Common.Controls.Actions.Skip", fallback: "Skip")
+        /// Submit
+        public static let submit = L10n.tr("Localizable", "Common.Controls.Actions.Submit", fallback: "Submit")
         /// Take Photo
         public static let takePhoto = L10n.tr("Localizable", "Common.Controls.Actions.TakePhoto", fallback: "Take Photo")
         /// Try Again

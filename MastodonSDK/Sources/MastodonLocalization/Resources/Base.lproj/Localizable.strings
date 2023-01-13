@@ -62,6 +62,7 @@ Please check your internet connection.";
 "Common.Controls.Actions.SignIn" = "Log in";
 "Common.Controls.Actions.SignUp" = "Create account";
 "Common.Controls.Actions.Skip" = "Skip";
+"Common.Controls.Actions.Submit" = "Submit";
 "Common.Controls.Actions.TakePhoto" = "Take Photo";
 "Common.Controls.Actions.TranslatePost.Title" = "Translate from %@";
 "Common.Controls.Actions.TranslatePost.UnknownLanguage" = "Unknown";
