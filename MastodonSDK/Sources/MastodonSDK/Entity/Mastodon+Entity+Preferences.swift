@@ -22,6 +22,7 @@ extension Mastodon.Entity {
         public let postingDefaultLanguage: String?      // (ISO 639-1 language two-letter code)
         public let readingExpandMedia: ExpandMedia
         public let readingExpandSpoilers: Bool
+        public let readingAutoplayGIFs: Bool
 
         enum CodingKeys: String, CodingKey {
             case postingDefaultVisibility = "posting:default:visibility"
@@ -29,6 +30,7 @@ extension Mastodon.Entity {
             case postingDefaultLanguage = "posting:default:language"
             case readingExpandMedia = "reading:expand:media"
             case readingExpandSpoilers = "reading:expand:spoilers"
+            case readingAutoplayGIFs = "reading:autoplay:gifs"
         }
     }
 }
@@ -39,8 +41,26 @@ extension Mastodon.Entity.Preferences {
         postingDefaultSensitive: false,
         postingDefaultLanguage: "en",
         readingExpandMedia: .default,
-        readingExpandSpoilers: false
+        readingExpandSpoilers: false,
+        readingAutoplayGIFs: true
     )
+}
+
+extension Mastodon.Entity.Preferences {
+    // necessary to allow newly added preferences to be decoded if present
+    // and take on their default value if missing
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        self.postingDefaultVisibility = try container.decode(Visibility.self, forKey: .postingDefaultVisibility)
+        self.postingDefaultSensitive = try container.decode(Bool.self, forKey: .postingDefaultSensitive)
+        self.postingDefaultLanguage = try container.decodeIfPresent(String.self, forKey: .postingDefaultLanguage)
+        self.readingExpandMedia = try container.decode(ExpandMedia.self, forKey: .readingExpandMedia)
+        self.readingExpandSpoilers = try container.decode(Bool.self, forKey: .readingExpandSpoilers)
+        
+        // use the default value for these preferences if not present
+        self.readingAutoplayGIFs = try container.decodeIfPresent(Bool.self, forKey: .readingAutoplayGIFs) ?? Self.default.readingAutoplayGIFs
+    }
 }
 
 extension Mastodon.Entity.Preferences {
