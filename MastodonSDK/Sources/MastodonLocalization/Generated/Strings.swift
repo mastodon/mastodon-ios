@@ -1074,8 +1074,8 @@ public enum L10n {
       public static let step1 = L10n.tr("Localizable", "Scene.Report.Step1", fallback: "Step 1 of 2")
       /// Step 2 of 2
       public static let step2 = L10n.tr("Localizable", "Scene.Report.Step2", fallback: "Step 2 of 2")
-      /// Type or paste additional comments
-      public static let textPlaceholder = L10n.tr("Localizable", "Scene.Report.TextPlaceholder", fallback: "Type or paste additional comments")
+      /// Type or paste additional comments (optional)
+      public static let textPlaceholder = L10n.tr("Localizable", "Scene.Report.TextPlaceholder", fallback: "Type or paste additional comments (optional)")
       /// Report %@
       public static func title(_ p1: Any) -> String {
         return L10n.tr("Localizable", "Scene.Report.Title", String(describing: p1), fallback: "Report %@")

@@ -396,7 +396,7 @@ uploaded to Mastodon.";
 "Scene.Report.StepTwo.SelectAllThatApply" = "Select all that apply";
 "Scene.Report.StepTwo.Step2Of4" = "Step 2 of 4";
 "Scene.Report.StepTwo.WhichRulesAreBeingViolated" = "Which rules are being violated?";
-"Scene.Report.TextPlaceholder" = "Type or paste additional comments";
+"Scene.Report.TextPlaceholder" = "Type or paste additional comments (optional)";
 "Scene.Report.Title" = "Report %@";
 "Scene.Report.TitleReport" = "Report";
 "Scene.Search.Recommend.Accounts.Description" = "You may like to follow these accounts";

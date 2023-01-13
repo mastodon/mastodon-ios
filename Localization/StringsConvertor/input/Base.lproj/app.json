@@ -711,7 +711,7 @@
             "report_sent_title": "Thanks for reporting, we’ll look into this.",
             "send": "Send Report",
             "skip_to_send": "Send without comment",
-            "text_placeholder": "Type or paste additional comments",
+            "text_placeholder": "Type or paste additional comments (optional)",
             "reported": "REPORTED",
             "step_one": {
                 "step_1_of_4": "Step 1 of 4",
