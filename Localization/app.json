@@ -405,6 +405,8 @@
                 "browse": "Browse"
             },
             "content_input_placeholder": "Type or paste what’s on your mind",
+            "content_input_placeholder2": "Express what's on your mind",
+            "content_input_placeholder3": "Tell us what you think",
             "compose_action": "Publish",
             "replying_to_user": "replying to %s",
             "attachment": {
