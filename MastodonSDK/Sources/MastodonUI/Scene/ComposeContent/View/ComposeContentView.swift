@@ -23,7 +23,11 @@ public struct ComposeContentView: View {
     
     @ObservedObject var viewModel: ComposeContentViewModel
     
-    private let randomContentInputPlaceholderChoice = Int.random(in: 1...3)
+    @State private var randomContentInputPlaceholder = [
+        L10n.Scene.Compose.contentInputPlaceholder,
+        L10n.Scene.Compose.contentInputPlaceholder2,
+        L10n.Scene.Compose.contentInputPlaceholder3,
+    ].randomElement()
 
     public var body: some View {
         VStack(spacing: .zero) {
@@ -39,7 +43,7 @@ public struct ComposeContentView: View {
                                 var attributes = metaText.textAttributes
                                 attributes[.foregroundColor] = UIColor.secondaryLabel
                                 return NSAttributedString(
-                                    string: randomContentInputPlaceholderChoice == 1 ? L10n.Scene.Compose.contentInputPlaceholder : randomContentInputPlaceholderChoice == 2 ? L10n.Scene.Compose.contentInputPlaceholder2 : L10n.Scene.Compose.contentInputPlaceholder3,
+                                    string: randomContentInputPlaceholder ?? L10n.Scene.Compose.contentInputPlaceholder,
                                     attributes: attributes
                                 )
                             }()
@@ -95,7 +99,7 @@ public struct ComposeContentView: View {
                             var attributes = metaText.textAttributes
                             attributes[.foregroundColor] = UIColor.secondaryLabel
                             return NSAttributedString(
-                                string: randomContentInputPlaceholderChoice == 1 ? L10n.Scene.Compose.contentInputPlaceholder : randomContentInputPlaceholderChoice == 2 ? L10n.Scene.Compose.contentInputPlaceholder2 : L10n.Scene.Compose.contentInputPlaceholder3,
+                                string: randomContentInputPlaceholder ?? L10n.Scene.Compose.contentInputPlaceholder,
                                 attributes: attributes
                             )
                         }()
