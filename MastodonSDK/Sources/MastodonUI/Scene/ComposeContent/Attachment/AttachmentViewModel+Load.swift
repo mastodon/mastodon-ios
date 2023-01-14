@@ -9,6 +9,7 @@ import os.log
 import UIKit
 import AVKit
 import UniformTypeIdentifiers
+import Nuke
 
 extension AttachmentViewModel {
     
@@ -68,7 +69,7 @@ extension AttachmentViewModel {
                 }
             }
             let imageData = try Data(contentsOf: url)
-            return .image(imageData, imageKind: imageData.kf.imageFormat == .PNG ? .png : .jpg)
+            return .image(imageData, imageKind: AssetType(imageData) == .png ? .png : .jpg)
         } else if uti.conforms(to: .movie) {
             if securityScoped {
                 guard url.startAccessingSecurityScopedResource() else {
@@ -108,11 +109,12 @@ extension AttachmentViewModel {
                 }
                 
                 let imageData = result.data
+                let assetType = AssetType(imageData)
 
-                if imageData.kf.imageFormat == .PNG {
+                if assetType == .png {
                     return .png
                 }
-                if imageData.kf.imageFormat == .JPEG {
+                if assetType == .jpeg {
                     return .jpg
                 }
                 

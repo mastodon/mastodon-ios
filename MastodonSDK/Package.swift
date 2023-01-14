@@ -56,7 +56,6 @@ let package = Package(
         .package(url: "https://github.com/woxtu/UIHostingConfigurationBackport.git", from: "0.1.0"),
         .package(url: "https://github.com/SDWebImage/SDWebImage.git", from: "5.12.0"),
         .package(url: "https://github.com/eneko/Stripes.git", from: "0.2.0"),
-        .package(url: "https://github.com/onevcat/Kingfisher.git", from: "7.4.1"),
         .package(url: "https://github.com/NextLevel/NextLevelSessionExporter.git", from: "0.4.6"),
     ],
     targets: [
@@ -132,7 +131,6 @@ let package = Package(
                 .product(name: "CropViewController", package: "TOCropViewController"),
                 .product(name: "PanModal", package: "PanModal"),
                 .product(name: "Stripes", package: "Stripes"),
-                .product(name: "Kingfisher", package: "Kingfisher"),
                 .product(name: "NextLevelSessionExporter", package: "NextLevelSessionExporter"),
             ]
         ),

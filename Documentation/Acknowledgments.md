@@ -13,7 +13,6 @@
 - [Fuzi](https://github.com/cezheng/Fuzi)
 - [Kanna](https://github.com/tid-kijyun/Kanna)
 - [KeychainAccess](https://github.com/kishikawakatsumi/KeychainAccess.git)
-- [Kingfisher](https://github.com/onevcat/Kingfisher)
 - [MetaTextKit](https://github.com/TwidereProject/MetaTextKit)
 - [Nuke-FLAnimatedImage-Plugin](https://github.com/kean/Nuke-FLAnimatedImage-Plugin)
 - [Nuke](https://github.com/kean/Nuke)

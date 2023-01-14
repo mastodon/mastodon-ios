@@ -469,6 +469,12 @@ public enum L10n {
       }
     }
   }
+  public enum Extension {
+    public enum OpenIn {
+      /// This doesn't seem to be a valid Mastodon link.
+      public static let invalidLinkError = L10n.tr("Localizable", "Extension.OpenIn.InvalidLinkError", fallback: "This doesn't seem to be a valid Mastodon link.")
+    }
+  }
   public enum Scene {
     public enum AccountList {
       /// Add Account

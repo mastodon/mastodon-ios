@@ -12,7 +12,6 @@ import MastodonAsset
 import MastodonCore
 import MastodonLocalization
 import Stripes
-import Kingfisher
 
 public struct ComposeContentView: View {
     

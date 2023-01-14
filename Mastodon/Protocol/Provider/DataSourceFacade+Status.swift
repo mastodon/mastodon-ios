@@ -312,10 +312,16 @@ extension DataSourceFacade {
             }   // end Task
         case .shareStatus:
             Task {
-                guard let status = menuContext.status else {
+                let managedObjectContext = dependency.context.managedObjectContext
+                guard let status: ManagedObjectRecord<Status> = try? await managedObjectContext.perform(block: {
+                    guard let object = menuContext.status?.object(in: managedObjectContext) else { return nil }
+                    let objectID = (object.reblog ?? object).objectID
+                    return .init(objectID: objectID)
+                }) else {
                     assertionFailure()
                     return
                 }
+
                 let activityViewController = try await DataSourceFacade.createActivityViewController(
                     dependency: dependency,
                     status: status

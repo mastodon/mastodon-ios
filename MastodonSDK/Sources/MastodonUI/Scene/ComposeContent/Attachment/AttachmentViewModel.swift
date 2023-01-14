@@ -9,7 +9,6 @@ import os.log
 import UIKit
 import Combine
 import PhotosUI
-import Kingfisher
 import CoreDataStack
 import MastodonCore
 import MastodonLocalization
