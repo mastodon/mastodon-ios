@@ -95,7 +95,7 @@
                 "reply": "Respon",
                 "report_user": "Informa sobre %s",
                 "block_domain": "Bloqueja %s",
-                "unblock_domain": "Desbloqueja %s",
+                "unblock_domain": "Desbloca %s",
                 "settings": "Configuració",
                 "delete": "Suprimeix",
                 "translate_post": {
@@ -221,16 +221,16 @@
                     "now": "Ara"
                 },
                 "loader": {
-                    "load_missing_posts": "Carrega les publicacions restants",
-                    "loading_missing_posts": "Carregant les publicacions restants...",
+                    "load_missing_posts": "Carrega els tuts restants",
+                    "loading_missing_posts": "Carregant els tuts restants...",
                     "show_more_replies": "Mostra més respostes"
                 },
                 "header": {
-                    "no_status_found": "No s'ha trobat cap publicació",
+                    "no_status_found": "No s'ha Trobat cap Tut",
                     "blocking_warning": "No pots veure el perfil d'aquest usuari\nfins que el desbloquis.\nEl teu perfil els sembla així.",
                     "user_blocking_warning": "No pots veure el perfil de %s\nfins que el desbloquis.\nEl teu perfil els sembla així.",
                     "blocked_warning": "No pots veure el perfil d'aquest usuari\nfins que et desbloqui.",
-                    "user_blocked_warning": "No pots veure el perfil de %s\n fins que et desbloqui.",
+                    "user_blocked_warning": "No pots veure el perfil de %s\nfins que et desbloqui.",
                     "suspended_warning": "Aquest usuari ha estat suspès.",
                     "user_suspended_warning": "El compte de %s ha estat suspès."
                 }
@@ -381,7 +381,7 @@
             "title": "Inici",
             "navigation_bar_state": {
                 "offline": "Fora de línia",
-                "new_posts": "Veure noves publicacions",
+                "new_posts": "Veure nous tuts",
                 "published": "Publicat!",
                 "Publishing": "S'està publicant...",
                 "accessibility": {
@@ -544,7 +544,7 @@
             "title": "Preferit per"
         },
         "reblogged_by": {
-            "title": "Impulsat per"
+            "title": "Impulsat Per"
         },
         "search": {
             "title": "Cerca",
@@ -728,7 +728,7 @@
                 "mute_user": "Silencia %s",
                 "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "No veuràs els seus tuts o impulsos a la teva línia de temps personal. No sabran que han estat silenciats.",
                 "block_user": "Bloca %s",
-                "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "Ja no podran seguir ni veure els teus tus, però poden veure si han estat blocats.",
+                "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "Ja no podran seguir ni veure els teus tuts, però poden veure si han estat blocats.",
                 "while_we_review_this_you_can_take_action_against_user": "Mentre ho revisem, pots prendre mesures contra %s"
             }
         },
