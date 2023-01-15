@@ -17,13 +17,13 @@
             },
             "discard_post_content": {
                 "title": "Descarta l'esborrany",
-                "message": "Confirma per a descartar el contingut de la publicació."
+                "message": "Confirma per a descartar el contingut del tut."
             },
             "publish_post_failure": {
                 "title": "Error en publicar",
                 "message": "No s'ha pogut enviar la publicació.\nComprova la connexió a Internet.",
                 "attachments_message": {
-                    "video_attach_with_photo": "No es pot adjuntar un vídeo a una publicació que ja contingui imatges.",
+                    "video_attach_with_photo": "No es pot adjuntar un vídeo a un tut que ja contingui imatges.",
                     "more_than_one_video": "No es pot adjuntar més d'un vídeo."
                 }
             },
@@ -112,19 +112,19 @@
             "keyboard": {
                 "common": {
                     "switch_to_tab": "Canviar a %s",
-                    "compose_new_post": "Redacta un nova publicació",
+                    "compose_new_post": "Redacta un Nou Tut",
                     "show_favorites": "Mostra els Favorits",
                     "open_settings": "Obre la configuració"
                 },
                 "timeline": {
-                    "previous_status": "Publicació anterior",
-                    "next_status": "Publicació següent",
-                    "open_status": "Obre la publicació",
+                    "previous_status": "Tut Anterior",
+                    "next_status": "Tut Següent",
+                    "open_status": "Obre el Tut",
                     "open_author_profile": "Obre el perfil de l'autor",
                     "open_reblogger_profile": "Obre el perfil de l'impuls",
                     "reply_status": "Respon a la publicació",
-                    "toggle_reblog": "Commuta l'Impuls de la Publicació",
-                    "toggle_favorite": "Commuta el Favorit de la Publicació",
+                    "toggle_reblog": "Commuta l'Impuls del Tut",
+                    "toggle_favorite": "Commuta el Favorit del Tut",
                     "toggle_content_warning": "Commuta l'Avís de Contingut",
                     "preview_image": "Vista prèvia de l'Imatge"
                 },
@@ -136,7 +136,7 @@
             "status": {
                 "user_reblogged": "%s ha impulsat",
                 "user_replied_to": "Ha respòs a %s",
-                "show_post": "Mostra la Publicació",
+                "show_post": "Mostra el Tut",
                 "show_user_profile": "Mostra el perfil de l'usuari",
                 "content_warning": "Advertència de Contingut",
                 "sensitive_content": "Contingut sensible",
@@ -178,15 +178,15 @@
                 },
                 "visibility": {
                     "unlisted": "Tothom pot veure aquesta publicació, però no es mostra en la línia de temps pública.",
-                    "private": "Només els seus seguidors poden veure aquesta publicació.",
-                    "private_from_me": "Només els meus seguidors poden veure aquesta publicació.",
-                    "direct": "Només l'usuari mencionat pot veure aquesta publicació."
+                    "private": "Només els seus seguidors poden veure aquest tut.",
+                    "private_from_me": "Només els meus seguidors poden veure aquest tut.",
+                    "direct": "Només l'usuari mencionat pot veure aquest tut."
                 },
                 "translation": {
                     "translated_from": "Traduït del %s fent servir %s",
                     "unknown_language": "Desconegut",
                     "unknown_provider": "Desconegut",
-                    "show_original": "Mostra l'original"
+                    "show_original": "Mostra l'Original"
                 },
                 "media": {
                     "accessibility_label": "%s, adjunt %d de %d",
