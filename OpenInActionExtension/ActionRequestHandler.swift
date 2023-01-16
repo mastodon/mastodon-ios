@@ -83,7 +83,7 @@ private extension ActionRequestHandler {
             )
             .receive(on: DispatchQueue.main)
             .sink { completion in
-                
+                // no-op
             } receiveValue: { [weak self] result in
                 let value = result.value
                 if let foundAccount = value.accounts.first {
