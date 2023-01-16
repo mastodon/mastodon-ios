@@ -2,8 +2,8 @@
     "common": {
         "alerts": {
             "common": {
-                "please_try_again": "Please try again.",
-                "please_try_again_later": "Please try again later."
+                "please_try_again": "Паспрабуйце яшчэ раз.",
+                "please_try_again_later": "Паўтарыце спробу пазней."
             },
             "sign_up_failure": {
                 "title": "Sign Up Failure"
@@ -32,9 +32,9 @@
                 "message": "Cannot edit profile. Please try again."
             },
             "sign_out": {
-                "title": "Sign Out",
-                "message": "Are you sure you want to sign out?",
-                "confirm": "Sign Out"
+                "title": "Выйсці",
+                "message": "Вы ўпэўненыя, што хочаце выйсці?",
+                "confirm": "Выйсці"
             },
             "block_domain": {
                 "title": "Are you really, really sure you want to block the entire %s? In most cases a few targeted blocks or mutes are sufficient and preferable. You will not see content from that domain and any of your followers from that domain will be removed.",
@@ -53,35 +53,35 @@
                 "message": "Successfully cleaned %s cache."
             },
             "translation_failed": {
-                "title": "Note",
+                "title": "Нататка",
                 "message": "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.",
-                "button": "OK"
+                "button": "Добра"
             }
         },
         "controls": {
             "actions": {
-                "back": "Back",
-                "next": "Next",
-                "previous": "Previous",
-                "open": "Open",
-                "add": "Add",
-                "remove": "Remove",
-                "edit": "Edit",
-                "save": "Save",
+                "back": "Назад",
+                "next": "Далей",
+                "previous": "Назад",
+                "open": "Адкрыць",
+                "add": "Дадаць",
+                "remove": "Выдаліць",
+                "edit": "Рэдагаваць",
+                "save": "Захаваць",
                 "ok": "OK",
-                "done": "Done",
-                "confirm": "Confirm",
-                "continue": "Continue",
-                "compose": "Compose",
-                "cancel": "Cancel",
-                "discard": "Discard",
-                "try_again": "Try Again",
-                "take_photo": "Take Photo",
-                "save_photo": "Save Photo",
-                "copy_photo": "Copy Photo",
-                "sign_in": "Log in",
-                "sign_up": "Create account",
-                "see_more": "See More",
+                "done": "Гатова",
+                "confirm": "Пацвердзіць",
+                "continue": "Працягнуць",
+                "compose": "Стварыць",
+                "cancel": "Скасаваць",
+                "discard": "Скасаваць",
+                "try_again": "Паўтарыце спробу",
+                "take_photo": "Зрабіць фота",
+                "save_photo": "Захаваць фота",
+                "copy_photo": "Капіраваць фота",
+                "sign_in": "Увайсці",
+                "sign_up": "Стварыць уліковы запіс",
+                "see_more": "Паказаць больш",
                 "preview": "Preview",
                 "copy": "Copy",
                 "share": "Share",
