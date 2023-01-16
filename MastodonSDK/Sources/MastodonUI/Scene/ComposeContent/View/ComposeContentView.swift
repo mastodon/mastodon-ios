@@ -43,7 +43,7 @@ public struct ComposeContentView: View {
                                 var attributes = metaText.textAttributes
                                 attributes[.foregroundColor] = UIColor.secondaryLabel
                                 return NSAttributedString(
-                                    string: randomContentInputPlaceholder ?? L10n.Scene.Compose.contentInputPlaceholder,
+                                    string: randomContentInputPlaceholder!,
                                     attributes: attributes
                                 )
                             }()
@@ -99,7 +99,7 @@ public struct ComposeContentView: View {
                             var attributes = metaText.textAttributes
                             attributes[.foregroundColor] = UIColor.secondaryLabel
                             return NSAttributedString(
-                                string: randomContentInputPlaceholder ?? L10n.Scene.Compose.contentInputPlaceholder,
+                                string: randomContentInputPlaceholder!,
                                 attributes: attributes
                             )
                         }()
