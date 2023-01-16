@@ -53,8 +53,8 @@
                 "message": "%sのキャッシュを消去しました。"
             },
             "translation_failed": {
-                "title": "Note",
-                "message": "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.",
+                "title": "注意",
+                "message": "翻訳に失敗しました。管理者がこのサーバーで翻訳を有効にしていないか、このサーバーが翻訳をサポートしていない古いバージョンの Mastodon を実行している可能性があります。" ,
                 "button": "OK"
             }
         },
@@ -83,7 +83,7 @@
                 "sign_up": "アカウント作成",
                 "see_more": "もっと見る",
                 "preview": "プレビュー",
-                "copy": "Copy",
+                "copy": "コピー",
                 "share": "共有",
                 "share_user": "%sを共有",
                 "share_post": "投稿を共有",
@@ -99,13 +99,13 @@
                 "settings": "設定",
                 "delete": "削除",
                 "translate_post": {
-                    "title": "Translate from %s",
-                    "unknown_language": "Unknown"
+                    "title": "%sから翻訳",
+                    "unknown_language": "不明"
                 }
             },
             "tabs": {
                 "home": "ホーム",
-                "search_and_explore": "Search and Explore",
+                "search_and_explore": "検索",
                 "notifications": "通知",
                 "profile": "プロフィール"
             },
@@ -164,9 +164,9 @@
                     "hide": "非表示",
                     "show_image": "画像を表示",
                     "show_gif": "GIFを表示",
-                    "show_video_player": "Show video player",
-                    "share_link_in_post": "Share Link in Post",
-                    "tap_then_hold_to_show_menu": "Tap then hold to show menu"
+                    "show_video_player": "動画を表示",
+                    "share_link_in_post": "投稿を共有",
+                    "tap_then_hold_to_show_menu": "長押しでメニュー表示"
                 },
                 "tag": {
                     "url": "URL",
@@ -183,10 +183,10 @@
                     "direct": "この投稿はメンションされたユーザーに限り見ることができます。"
                 },
                 "translation": {
-                    "translated_from": "Translated from %s using %s",
-                    "unknown_language": "Unknown",
-                    "unknown_provider": "Unknown",
-                    "show_original": "Shown Original"
+                    "translated_from": "%sから翻訳 %sを使用",
+                    "unknown_language": "不明",
+                    "unknown_provider": "不明",
+                    "show_original": "原文を表示"
                 }
             },
             "friendship": {
@@ -238,7 +238,7 @@
             "log_in": "ログイン"
         },
         "login": {
-            "title": "Welcome back",
+            "title": "ようこそ",
             "subtitle": "アカウントを作成したサーバーにログインします。",
             "server_search_field": {
                 "placeholder": "URLを入力またはサーバーを検索"
@@ -406,7 +406,7 @@
                 "video": "動画",
                 "attachment_broken": "%sは壊れていてMastodonにアップロードできません。",
                 "description_photo": "閲覧が難しいユーザーへの画像説明",
-                "description_video": "閲覧が難しいユーザーへの映像説明",
+                "description_video": "閲覧が難しいユーザーへの動画説明",
                 "load_failed": "読み込みに失敗しました",
                 "upload_failed": "アップロードに失敗しました",
                 "can_not_recognize_this_media_attachment": "Can not recognize this media attachment",
@@ -463,15 +463,15 @@
                 "follows_you": "フォローされています"
             },
             "dashboard": {
-                "my_posts": "posts",
-                "my_following": "following",
-                "my_followers": "followers",
-                "other_posts": "posts",
-                "other_following": "following",
-                "other_followers": "followers"
+                "my_posts": "投稿",
+                "my_following": "フォロー",
+                "my_followers": "フォロワー",
+                "other_posts": "投稿",
+                "other_following": "フォロー",
+                "other_followers": "フォロワー"
             },
             "fields": {
-                "joined": "Joined",
+                "joined": "登録日",
                 "add_row": "行追加",
                 "placeholder": {
                     "label": "ラベル",
@@ -516,10 +516,10 @@
                 }
             },
             "accessibility": {
-                "show_avatar_image": "Show avatar image",
-                "edit_avatar_image": "Edit avatar image",
-                "show_banner_image": "Show banner image",
-                "double_tap_to_open_the_list": "Double tap to open the list"
+                "show_avatar_image": "アバター画像を表示",
+                "edit_avatar_image": "アバター画像を変更",
+                "show_banner_image": "バナー画像を表示",
+                "double_tap_to_open_the_list": "ダブルタップでリストを表示"
             }
         },
         "follower": {
@@ -619,7 +619,7 @@
             "section": {
                 "appearance": {
                     "title": "外観",
-                    "automatic": "システムに合わせる",
+                    "automatic": "システムに準拠",
                     "light": "ライト",
                     "dark": "ダーク"
                 },
@@ -646,7 +646,7 @@
                 },
                 "preference": {
                     "title": "環境設定",
-                    "true_black_dark_mode": "真っ黒なダークテーマを使用する",
+                    "true_black_dark_mode": "漆黒のダークテーマを使用する",
                     "disable_avatar_animation": "アバターのアニメーションを無効化する",
                     "disable_emoji_animation": "絵文字のアニメーションを無効化する",
                     "using_default_browser": "既定のブラウザでリンクを開く",
@@ -659,7 +659,7 @@
                     "privacy": "プライバシーポリシー"
                 },
                 "spicy_zone": {
-                    "title": "スパイシーゾーン",
+                    "title": "取り扱い注意項目",
                     "clear": "メディアキャッシュをクリア",
                     "signout": "サインアウト"
                 }
@@ -739,7 +739,7 @@
             "add_account": "アカウントを追加"
         },
         "wizard": {
-            "new_in_mastodon": "Mastodon の新機能",
+            "new_in_mastodon": "Mastodonの新機能",
             "multiple_account_switch_intro_description": "プロフィールボタンを押して複数のアカウントを切り替えます。",
             "accessibility_hint": "チュートリアルを閉じるには、ダブルタップしてください"
         },
@@ -747,15 +747,15 @@
             "title": "ブックマーク"
         },
         "followed_tags": {
-            "title": "Followed Tags",
+            "title": "フォローしているタグ",
             "header": {
-                "posts": "posts",
-                "participants": "participants",
-                "posts_today": "posts today"
+                "posts": "投稿",
+                "participants": "参加者",
+                "posts_today": "今日の投稿"
             },
             "actions": {
-                "follow": "Follow",
-                "unfollow": "Unfollow"
+                "follow": "フォロー",
+                "unfollow": "フォロー解除"
             }
         }
     }
