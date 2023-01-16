@@ -25,7 +25,7 @@ public struct PollOptionRow: View {
                     .padding(.leading, 16)
                     .padding(.trailing, 16 - 10)     // 8pt for TextView leading
                     .font(.system(size: 17))
-                PollOptionTextView(
+                PollOptionEditableTextView(
                     text: $viewModel.text,
                     index: index ?? -1,
                     delegate: deleteBackwardResponseTextViewRelayDelegate

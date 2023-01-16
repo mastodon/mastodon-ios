@@ -31,6 +31,8 @@ class ThreadViewModel {
     
     // output
     var diffableDataSource: UITableViewDiffableDataSource<StatusSection, StatusItem>?
+    var didLoadLatest = PassthroughSubject<Void, Never>()
+
     @Published var root: StatusItem.Thread?
     @Published var threadContext: ThreadContext?
     

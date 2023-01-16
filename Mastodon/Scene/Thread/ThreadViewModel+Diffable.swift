@@ -140,6 +140,8 @@ extension ThreadViewModel {
                     newSnapshot: newSnapshot,
                     difference: difference
                 )
+                
+                self.didLoadLatest.send()
             }   // end Task
         }
         .store(in: &disposeBag)

@@ -29,7 +29,7 @@ extension NotificationTimelineViewModel {
 
         var snapshot = NSDiffableDataSourceSnapshot<NotificationSection, NotificationItem>()
         snapshot.appendSections([.main])
-        diffableDataSource?.apply(snapshot)
+        diffableDataSource?.apply(snapshot, animatingDifferences: tableView.window != nil)
         
         feedFetchedResultsController.$records
             .receive(on: DispatchQueue.main)

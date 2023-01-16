@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 import Combine
 import MastodonAsset
 import MastodonLocalization
@@ -54,18 +55,10 @@ public final class PollOptionView: UIView {
         return imageView
     }()
     
-    public let optionTextView: UITextView = {
-        let textView = UITextView()
-        textView.font = .systemFont(ofSize: 15, weight: .medium)
-        textView.textColor = Asset.Colors.Label.primary.color
-        textView.backgroundColor = .clear
-        textView.text = "Option"
-        textView.textAlignment = UIApplication.shared.userInterfaceLayoutDirection == .leftToRight ? .left : .right
-        textView.isEditable = false
-        textView.isScrollEnabled = false
-        textView.showsHorizontalScrollIndicator = false
-        textView.showsVerticalScrollIndicator = false
-        return textView
+    public let optionTextHostingController: UIHostingController = {
+        let hostingController = UIHostingController(rootView: PollOptionTextView(viewModel: PollOptionTextViewModel()))
+        hostingController.view.backgroundColor = .clear
+        return hostingController
     }()
     
     public let optionLabelMiddlePaddingView = UIView()
@@ -135,19 +128,19 @@ extension PollOptionView {
         addSubview(plusCircleImageView)
         plusCircleImageView.pinTo(to: checkmarkBackgroundView)
         
-        optionTextView.translatesAutoresizingMaskIntoConstraints = false
-        roundedBackgroundView.addSubview(optionTextView)
+        optionTextHostingController.view.translatesAutoresizingMaskIntoConstraints = false
+        roundedBackgroundView.addSubview(optionTextHostingController.view)
         NSLayoutConstraint.activate([
-            optionTextView.leadingAnchor.constraint(equalTo: checkmarkBackgroundView.trailingAnchor, constant: 14),
-            optionTextView.topAnchor.constraint(equalTo: roundedBackgroundView.topAnchor, constant: PollOptionView.verticalMargin),
-            roundedBackgroundView.bottomAnchor.constraint(equalTo: optionTextView.bottomAnchor, constant: PollOptionView.verticalMargin),
-            optionTextView.widthAnchor.constraint(greaterThanOrEqualToConstant: 44).priority(.defaultHigh),
+            optionTextHostingController.view.leadingAnchor.constraint(equalTo: checkmarkBackgroundView.trailingAnchor, constant: 14),
+            optionTextHostingController.view.topAnchor.constraint(equalTo: roundedBackgroundView.topAnchor, constant: PollOptionView.verticalMargin),
+            roundedBackgroundView.bottomAnchor.constraint(equalTo: optionTextHostingController.view.bottomAnchor, constant: PollOptionView.verticalMargin),
+            optionTextHostingController.view.widthAnchor.constraint(greaterThanOrEqualToConstant: 44).priority(.defaultHigh),
         ])
         
         optionLabelMiddlePaddingView.translatesAutoresizingMaskIntoConstraints = false
         roundedBackgroundView.addSubview(optionLabelMiddlePaddingView)
         NSLayoutConstraint.activate([
-            optionLabelMiddlePaddingView.leadingAnchor.constraint(equalTo: optionTextView.trailingAnchor),
+            optionLabelMiddlePaddingView.leadingAnchor.constraint(equalTo: optionTextHostingController.view.trailingAnchor),
             optionLabelMiddlePaddingView.centerYAnchor.constraint(equalTo: roundedBackgroundView.centerYAnchor),
             optionLabelMiddlePaddingView.heightAnchor.constraint(equalToConstant: 4).priority(.defaultHigh),
             optionLabelMiddlePaddingView.widthAnchor.constraint(greaterThanOrEqualToConstant: 8).priority(.defaultLow),
@@ -177,14 +170,14 @@ extension PollOptionView {
             switch viewModel.voteState {
             case .reveal:
                 return [
-                    optionTextView,
+                    optionTextHostingController.view,
                     optionPercentageLabel
                 ]
                 .compactMap { $0.accessibilityLabel }
                 .joined(separator: ", ")
                 
             case .hidden:
-                return optionTextView.accessibilityLabel
+                return optionTextHostingController.view.accessibilityLabel
             }
         }
         set { }

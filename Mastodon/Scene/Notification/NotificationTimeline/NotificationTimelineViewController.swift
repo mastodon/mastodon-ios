@@ -78,10 +78,9 @@ extension NotificationTimelineViewController {
         viewModel.didLoadLatest
             .receive(on: DispatchQueue.main)
             .sink { [weak self] in
-                guard let self else { return }
-                self.tableView.beginUpdates()
-                self.tableView.endUpdates()
-                UIView.animate(withDuration: 0.5) {
+                guard let self = self else { return }
+                UIView.animate(withDuration: 0.5) { [weak self] in
+                    guard let self = self else { return }
                     self.refreshControl.endRefreshing()
                 }
             }
@@ -92,13 +91,7 @@ extension NotificationTimelineViewController {
         super.viewWillAppear(animated)
         
         refreshControl.endRefreshing()
-        tableView.beginUpdates()
-        tableView.endUpdates()
         tableView.deselectRow(with: transitionCoordinator, animated: animated)
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
         
         if !viewModel.isLoadingLatest {
             let now = Date()

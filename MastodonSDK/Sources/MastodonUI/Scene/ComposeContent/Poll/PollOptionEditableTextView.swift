@@ -1,5 +1,5 @@
 //
-//  PollOptionTextView.swift
+//  PollOptionEditableTextView.swift
 //  
 //
 //  Created by MainasuK on 2022-5-27.
@@ -12,7 +12,7 @@ import Combine
 import MastodonCore
 import MastodonLocalization
 
-public struct PollOptionTextView: UIViewRepresentable {
+public struct PollOptionEditableTextView: UIViewRepresentable {
 
     let textView = DeleteBackwardResponseTextView()
     
@@ -62,16 +62,16 @@ protocol DeleteBackwardResponseTextViewRelayDelegate: AnyObject {
     func deleteBackwardResponseTextView(_ textView: DeleteBackwardResponseTextView, textBeforeDelete: String?)
 }
 
-extension PollOptionTextView {
+extension PollOptionEditableTextView {
     public class Coordinator: NSObject {
         let logger = Logger(subsystem: "DeleteBackwardResponseTextViewRepresentable.Coordinator", category: "Coordinator")
         
         var disposeBag = Set<AnyCancellable>()
         weak var delegate: DeleteBackwardResponseTextViewRelayDelegate?
 
-        let view: PollOptionTextView
+        let view: PollOptionEditableTextView
         
-        init(_ view: PollOptionTextView) {
+        init(_ view: PollOptionEditableTextView) {
             self.view = view
             super.init()
             
@@ -86,7 +86,7 @@ extension PollOptionTextView {
 }
 
 // MARK: - UITextViewDelegate
-extension PollOptionTextView.Coordinator: UITextViewDelegate {
+extension PollOptionEditableTextView.Coordinator: UITextViewDelegate {
 
     public func textViewShouldReturn(_ textView: UITextView) -> Bool {
         guard let textView = textView as? DeleteBackwardResponseTextView else {
@@ -108,7 +108,7 @@ extension PollOptionTextView.Coordinator: UITextViewDelegate {
     }
 }
 
-extension PollOptionTextView.Coordinator: DeleteBackwardResponseTextViewDelegate {
+extension PollOptionEditableTextView.Coordinator: DeleteBackwardResponseTextViewDelegate {
     public func deleteBackwardResponseTextView(_ textView: DeleteBackwardResponseTextView, textBeforeDelete: String?) {
         delegate?.deleteBackwardResponseTextView(textView, textBeforeDelete: textBeforeDelete)
     }

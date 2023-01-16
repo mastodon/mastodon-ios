@@ -94,6 +94,17 @@ extension ThreadViewController {
             tableView: tableView,
             statusTableViewCellDelegate: self
         )
+
+        viewModel.didLoadLatest
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] in
+                guard let self else { return }
+                UIView.performWithoutAnimation {
+                    self.tableView.beginUpdates()
+                    self.tableView.endUpdates()
+                }
+            }
+            .store(in: &disposeBag)
     }
     
     override func viewWillAppear(_ animated: Bool) {

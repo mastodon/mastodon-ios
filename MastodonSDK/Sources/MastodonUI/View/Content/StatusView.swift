@@ -98,7 +98,6 @@ public final class StatusView: UIView {
         metaText.textView.showsVerticalScrollIndicator = false
         metaText.textView.textContainer.lineFragmentPadding = 0
         metaText.textView.textContainerInset = .zero
-        metaText.textView.layer.masksToBounds = false
         metaText.textView.textDragInteraction?.isEnabled = false    // disable drag for link and attachment
 
         metaText.paragraphStyle = {
@@ -135,9 +134,10 @@ public final class StatusView: UIView {
         let tableView = ContentSizedTableView(frame: .zero)
         tableView.register(PollOptionTableViewCell.self, forCellReuseIdentifier: String(describing: PollOptionTableViewCell.self))
         tableView.isScrollEnabled = false
+        tableView.estimatedRowHeight = 54
+        tableView.rowHeight = UITableView.automaticDimension
         tableView.showsHorizontalScrollIndicator = false
         tableView.showsVerticalScrollIndicator = false
-        tableView.rowHeight = UITableView.automaticDimension
         tableView.tableFooterView = UIView()
         tableView.backgroundColor = .clear
         tableView.separatorStyle = .none
@@ -436,6 +436,7 @@ extension StatusView.Style {
         statusView.containerStackView.addArrangedSubview(statusView.contentAdaptiveMarginContainerView)
 
         // status content
+        statusView.contentMetaText.textView.setContentCompressionResistancePriority(.required, for: .vertical)
         statusView.contentContainer.addArrangedSubview(statusView.contentMetaText.textView)
         statusView.contentContainer.addArrangedSubview(statusView.statusCardControl)
 
@@ -536,7 +537,7 @@ extension StatusView.Style {
         base(statusView: statusView)      // override the base style
         
         // add bottom margin
-        let padding = UIView()
+        let padding = UIView(frame: .zero)
         padding.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             padding.heightAnchor.constraint(equalToConstant: 16)
