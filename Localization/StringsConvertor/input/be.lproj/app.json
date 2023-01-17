@@ -428,7 +428,7 @@
                 "one_day": "1 дзень",
                 "three_days": "3 дні",
                 "seven_days": "7 дзён",
-                "option_number": "Option %ld",
+                "option_number": "Варыянт %ld",
                 "the_poll_is_invalid": "The poll is invalid",
                 "the_poll_has_empty_option": "The poll has empty option"
             },
@@ -436,7 +436,7 @@
                 "placeholder": "Write an accurate warning here..."
             },
             "visibility": {
-                "public": "Public",
+                "public": "Публічны",
                 "unlisted": "Unlisted",
                 "private": "Followers only",
                 "direct": "Only people I mention"
@@ -446,21 +446,21 @@
             },
             "accessibility": {
                 "append_attachment": "Add Attachment",
-                "append_poll": "Add Poll",
-                "remove_poll": "Remove Poll",
-                "custom_emoji_picker": "Custom Emoji Picker",
+                "append_poll": "Дадаць апытанне",
+                "remove_poll": "Выдаліць апытанне",
+                "custom_emoji_picker": "Меню карыстальніцкіх эмодзі",
                 "enable_content_warning": "Enable Content Warning",
                 "disable_content_warning": "Disable Content Warning",
                 "post_visibility_menu": "Post Visibility Menu",
-                "post_options": "Post Options",
-                "posting_as": "Posting as %s"
+                "post_options": "Параметры допісу",
+                "posting_as": "Апублікаваць як %s"
             },
             "keyboard": {
-                "discard_post": "Discard Post",
-                "publish_post": "Publish Post",
-                "toggle_poll": "Toggle Poll",
+                "discard_post": "Скасаваць допіс",
+                "publish_post": "Апублікаваць допіс",
+                "toggle_poll": "Адкрыць/закрыць апытанне",
                 "toggle_content_warning": "Toggle Content Warning",
-                "append_attachment_entry": "Add Attachment - %s",
+                "append_attachment_entry": "Дадаць далучэнне - %s",
                 "select_visibility_entry": "Select Visibility - %s"
             }
         },
@@ -469,7 +469,7 @@
                 "follows_you": "Follows You"
             },
             "dashboard": {
-                "my_posts": "posts",
+                "my_posts": "допісы",
                 "my_following": "following",
                 "my_followers": "followers",
                 "other_posts": "posts",
@@ -481,15 +481,15 @@
                 "add_row": "Add Row",
                 "placeholder": {
                     "label": "Label",
-                    "content": "Content"
+                    "content": "Змесціва"
                 },
                 "verified": {
-                    "short": "Verified on %s",
+                    "short": "Спраўджана %s",
                     "long": "Ownership of this link was checked on %s"
                 }
             },
             "segmented_control": {
-                "posts": "Posts",
+                "posts": "Допісы",
                 "replies": "Replies",
                 "posts_and_replies": "Posts and Replies",
                 "media": "Media",
@@ -547,15 +547,15 @@
             "title": "Reblogged By"
         },
         "search": {
-            "title": "Search",
+            "title": "Пошук",
             "search_bar": {
                 "placeholder": "Search hashtags and users",
-                "cancel": "Cancel"
+                "cancel": "Скасаваць"
             },
             "recommend": {
-                "button_text": "See All",
+                "button_text": "Прагледзець усе",
                 "hash_tag": {
-                    "title": "Trending on Mastodon",
+                    "title": "Папулярныя ў Mastodon",
                     "description": "Hashtags that are getting quite a bit of attention",
                     "people_talking": "%s people are talking"
                 },
@@ -567,53 +567,53 @@
             },
             "searching": {
                 "segment": {
-                    "all": "All",
-                    "people": "People",
-                    "hashtags": "Hashtags",
-                    "posts": "Posts"
+                    "all": "Усе",
+                    "people": "Людзі",
+                    "hashtags": "Хэштэгі",
+                    "posts": "Допісы"
                 },
                 "empty_state": {
-                    "no_results": "No results"
+                    "no_results": "Няма вынікаў"
                 },
-                "recent_search": "Recent searches",
-                "clear": "Clear"
+                "recent_search": "Нядаўнія запыты",
+                "clear": "Ачысціць"
             }
         },
         "discovery": {
             "tabs": {
-                "posts": "Posts",
-                "hashtags": "Hashtags",
-                "news": "News",
-                "community": "Community",
-                "for_you": "For You"
+                "posts": "Допісы",
+                "hashtags": "Хэштэгі",
+                "news": "Навіны",
+                "community": "Супольнасць",
+                "for_you": "Для вас"
             },
-            "intro": "These are the posts gaining traction in your corner of Mastodon."
+            "intro": "Допісы, што набіраюць папулярнасць у вашым кутку Mastodon."
         },
         "favorite": {
-            "title": "Your Favorites"
+            "title": "Вашы абраныя"
         },
         "notification": {
             "title": {
-                "Everything": "Everything",
-                "Mentions": "Mentions"
+                "Everything": "Усе",
+                "Mentions": "Згадванні"
             },
             "notification_description": {
-                "followed_you": "followed you",
-                "favorited_your_post": "favorited your post",
-                "reblogged_your_post": "reblogged your post",
-                "mentioned_you": "mentioned you",
-                "request_to_follow_you": "request to follow you",
-                "poll_has_ended": "poll has ended"
+                "followed_you": "падпісаўся на вас",
+                "favorited_your_post": "упадабаў ваш допіс",
+                "reblogged_your_post": "пашырыў ваш допіс",
+                "mentioned_you": "згадаў вас",
+                "request_to_follow_you": "адправіў запыт на падпіску",
+                "poll_has_ended": "апытанне завяршылася"
             },
             "keyobard": {
                 "show_everything": "Show Everything",
                 "show_mentions": "Show Mentions"
             },
             "follow_request": {
-                "accept": "Accept",
-                "accepted": "Accepted",
-                "reject": "reject",
-                "rejected": "Rejected"
+                "accept": "Прыняць",
+                "accepted": "Прынята",
+                "reject": "адхіліць",
+                "rejected": "Адхілена"
             }
         },
         "thread": {
@@ -661,13 +661,13 @@
                 "boring_zone": {
                     "title": "The Boring Zone",
                     "account_settings": "Account Settings",
-                    "terms": "Terms of Service",
-                    "privacy": "Privacy Policy"
+                    "terms": "Умовы выкарыстання",
+                    "privacy": "Палітыка канфідэнцыяльнасці"
                 },
                 "spicy_zone": {
-                    "title": "The Spicy Zone",
-                    "clear": "Clear Media Cache",
-                    "signout": "Sign Out"
+                    "title": "Вострая зона",
+                    "clear": "Ачысціць кэш медыя",
+                    "signout": "Выйсці"
                 }
             },
             "footer": {
@@ -678,56 +678,56 @@
             }
         },
         "report": {
-            "title_report": "Report",
-            "title": "Report %s",
-            "step1": "Step 1 of 2",
-            "step2": "Step 2 of 2",
+            "title_report": "Скарга",
+            "title": "Паскардзіцца на %s",
+            "step1": "Крок 1 з 2",
+            "step2": "Крок 2 з 2",
             "content1": "Are there any other posts you’d like to add to the report?",
             "content2": "Is there anything the moderators should know about this report?",
             "report_sent_title": "Thanks for reporting, we’ll look into this.",
-            "send": "Send Report",
-            "skip_to_send": "Send without comment",
+            "send": "Адправіць скаргу",
+            "skip_to_send": "Дасылаю без каментарыя",
             "text_placeholder": "Type or paste additional comments",
-            "reported": "REPORTED",
+            "reported": "Мае скаргі",
             "step_one": {
-                "step_1_of_4": "Step 1 of 4",
+                "step_1_of_4": "Крок 1 з 4",
                 "whats_wrong_with_this_post": "What's wrong with this post?",
                 "whats_wrong_with_this_account": "What's wrong with this account?",
                 "whats_wrong_with_this_username": "What's wrong with %s?",
-                "select_the_best_match": "Select the best match",
-                "i_dont_like_it": "I don’t like it",
-                "it_is_not_something_you_want_to_see": "It is not something you want to see",
-                "its_spam": "It’s spam",
-                "malicious_links_fake_engagement_or_repetetive_replies": "Malicious links, fake engagement, or repetetive replies",
-                "it_violates_server_rules": "It violates server rules",
-                "you_are_aware_that_it_breaks_specific_rules": "You are aware that it breaks specific rules",
-                "its_something_else": "It’s something else",
-                "the_issue_does_not_fit_into_other_categories": "The issue does not fit into other categories"
+                "select_the_best_match": "Выберыце найлепшы варыянт",
+                "i_dont_like_it": "Мне не падабаецца",
+                "it_is_not_something_you_want_to_see": "Гэта не тое, што вы хочаце бачыць",
+                "its_spam": "Гэта спам",
+                "malicious_links_fake_engagement_or_repetetive_replies": "Шкодныя спасылкі, фальшывыя ўзаемадзеянні або адказы, што паўтараюцца",
+                "it_violates_server_rules": "Гэта парушае правілы сервера",
+                "you_are_aware_that_it_breaks_specific_rules": "Вам вядома, што гэта парушае пэўныя правілы",
+                "its_something_else": "Гэта нешта іншае",
+                "the_issue_does_not_fit_into_other_categories": "Гэта праблема не падпадае ні пад адну з катэгорыі"
             },
             "step_two": {
-                "step_2_of_4": "Step 2 of 4",
-                "which_rules_are_being_violated": "Which rules are being violated?",
-                "select_all_that_apply": "Select all that apply",
-                "i_just_don’t_like_it": "I just don’t like it"
+                "step_2_of_4": "Крок 2 з 4",
+                "which_rules_are_being_violated": "Якія правілы былі парушаны?",
+                "select_all_that_apply": "Абярыце ўсе варыянты, што падыходзяць",
+                "i_just_don’t_like_it": "Мне не падабаецца"
             },
             "step_three": {
-                "step_3_of_4": "Step 3 of 4",
-                "are_there_any_posts_that_back_up_this_report": "Are there any posts that back up this report?",
-                "select_all_that_apply": "Select all that apply"
+                "step_3_of_4": "Крок 3 з 4",
+                "are_there_any_posts_that_back_up_this_report": "Ці ёсць допісы, якія пацвярджаюць гэтую скаргу?",
+                "select_all_that_apply": "Абярыце ўсе варыянты, што падыходзяць"
             },
             "step_four": {
-                "step_4_of_4": "Step 4 of 4",
-                "is_there_anything_else_we_should_know": "Is there anything else we should know?"
+                "step_4_of_4": "Крок 4 з 4",
+                "is_there_anything_else_we_should_know": "Што-небудзь яшчэ, што мы павінны ведаць?"
             },
             "step_final": {
-                "dont_want_to_see_this": "Don’t want to see this?",
-                "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "When you see something you don’t like on Mastodon, you can remove the person from your experience.",
-                "unfollow": "Unfollow",
+                "dont_want_to_see_this": "Не хочаце бачыць гэта?",
+                "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "Калі вы бачыце на Mastodon нешта, што вам не падабаецца, вы можаце выдаліць чалавека са свайго асяроддзя.",
+                "unfollow": "Адпісацца",
                 "unfollowed": "Unfollowed",
                 "unfollow_user": "Unfollow %s",
                 "mute_user": "Mute %s",
                 "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or reblogs in your home feed. They won’t know they’ve been muted.",
-                "block_user": "Block %s",
+                "block_user": "Заблакіраваць %s",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "They will no longer be able to follow or see your posts, but they can see if they’ve been blocked.",
                 "while_we_review_this_you_can_take_action_against_user": "While we review this, you can take action against %s"
             }
@@ -742,7 +742,7 @@
         "account_list": {
             "tab_bar_hint": "Current selected profile: %s. Double tap then hold to show account switcher",
             "dismiss_account_switcher": "Dismiss Account Switcher",
-            "add_account": "Add Account"
+            "add_account": "Дадаць уліковы запіс"
         },
         "wizard": {
             "new_in_mastodon": "New in Mastodon",
@@ -760,8 +760,8 @@
                 "posts_today": "posts today"
             },
             "actions": {
-                "follow": "Follow",
-                "unfollow": "Unfollow"
+                "follow": "Падпісацца",
+                "unfollow": "Адпісацца"
             }
         }
     }
