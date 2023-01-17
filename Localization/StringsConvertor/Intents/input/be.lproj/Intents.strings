@@ -1,8 +1,8 @@
-"16wxgf" = "Post on Mastodon";
+"16wxgf" = "Апублікаваць у Mastodon";
 
 "751xkl" = "Text Content";
 
-"CsR7G2" = "Post on Mastodon";
+"CsR7G2" = "Апублікаваць у Mastodon";
 
 "HZSGTr" = "What content to post?";
 
@@ -12,11 +12,11 @@
 
 "RHxKOw" = "Send Post with text content";
 
-"RxSqsb" = "Post";
+"RxSqsb" = "Допіс";
 
-"WCIR3D" = "Post ${content} on Mastodon";
+"WCIR3D" = "Апублікаваць ${content} у Mastodon";
 
-"ZKJSNu" = "Post";
+"ZKJSNu" = "Допіс";
 
 "ZS1XaK" = "${content}";
 
@@ -32,7 +32,7 @@
 
 "ayoYEb-ehFLjY" = "${content}, Followers Only";
 
-"dUyuGg" = "Post on Mastodon";
+"dUyuGg" = "Апублікаваць у Mastodon";
 
 "dYQ5NN" = "Публічны";
 
@@ -40,7 +40,7 @@
 
 "gfePDu" = "Posting failed. ${failureReason}";
 
-"k7dbKQ" = "Post was sent successfully.";
+"k7dbKQ" = "Допіс паспяхова адпраўлены.";
 
 "oGiqmY-dYQ5NN" = "Just to confirm, you wanted ‘Public’?";
 
@@ -48,4 +48,4 @@
 
 "rM6dvp" = "URL";
 
-"ryJLwG" = "Post was sent successfully. ";
+"ryJLwG" = "Допіс паспяхова адпраўлены. ";
