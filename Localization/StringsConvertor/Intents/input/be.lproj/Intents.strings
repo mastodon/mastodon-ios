@@ -20,9 +20,9 @@
 
 "ZS1XaK" = "${content}";
 
-"ZbSjzC" = "Visibility";
+"ZbSjzC" = "Бачнасць";
 
-"Zo4jgJ" = "Post Visibility";
+"Zo4jgJ" = "Бачнасць допісу";
 
 "apSxMG-dYQ5NN" = "There are ${count} options matching ‘Public’.";
 
@@ -34,9 +34,9 @@
 
 "dUyuGg" = "Post on Mastodon";
 
-"dYQ5NN" = "Public";
+"dYQ5NN" = "Публічны";
 
-"ehFLjY" = "Followers Only";
+"ehFLjY" = "Толькі для падпісчыкаў";
 
 "gfePDu" = "Posting failed. ${failureReason}";
 
