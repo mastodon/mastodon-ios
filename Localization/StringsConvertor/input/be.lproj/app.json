@@ -606,8 +606,8 @@
                 "poll_has_ended": "апытанне завяршылася"
             },
             "keyobard": {
-                "show_everything": "Show Everything",
-                "show_mentions": "Show Mentions"
+                "show_everything": "Паказаць усё",
+                "show_mentions": "Паказаць згадванні"
             },
             "follow_request": {
                 "accept": "Прыняць",
@@ -655,12 +655,12 @@
                     "true_black_dark_mode": "Паўнавартасна чорны рэжым",
                     "disable_avatar_animation": "Адключыць анімацыю аватараў",
                     "disable_emoji_animation": "Адключыць анімацыю эмодзі",
-                    "using_default_browser": "Use default browser to open links",
-                    "open_links_in_mastodon": "Open links in Mastodon"
+                    "using_default_browser": "Выкарыстоўваць прадвызначаны браўзер для адкрыцця спасылак",
+                    "open_links_in_mastodon": "Адкрываць спасылкі ў Mastodon"
                 },
                 "boring_zone": {
-                    "title": "The Boring Zone",
-                    "account_settings": "Account Settings",
+                    "title": "Нудная зона",
+                    "account_settings": "Налады ўліковага запісу",
                     "terms": "Умовы выкарыстання",
                     "privacy": "Палітыка канфідэнцыяльнасці"
                 },
@@ -734,30 +734,30 @@
         },
         "preview": {
             "keyboard": {
-                "close_preview": "Close Preview",
-                "show_next": "Show Next",
-                "show_previous": "Show Previous"
+                "close_preview": "Зачыніць перадпрагляд",
+                "show_next": "Паказаць наступнае",
+                "show_previous": "Паказаць папярэдняе"
             }
         },
         "account_list": {
-            "tab_bar_hint": "Current selected profile: %s. Double tap then hold to show account switcher",
-            "dismiss_account_switcher": "Dismiss Account Switcher",
+            "tab_bar_hint": "Бягучы профіль: %s. Двойчы націсніце і ўтрымлівайце, каб паказаць пераключальнік уліковых запісаў",
+            "dismiss_account_switcher": "Закрыць пераключальнік уліковых запісаў",
             "add_account": "Дадаць уліковы запіс"
         },
         "wizard": {
-            "new_in_mastodon": "New in Mastodon",
-            "multiple_account_switch_intro_description": "Switch between multiple accounts by holding the profile button.",
-            "accessibility_hint": "Double tap to dismiss this wizard"
+            "new_in_mastodon": "Новае ў Mastodon",
+            "multiple_account_switch_intro_description": "Пераключайцеся паміж некалькімі ўліковымі запісамі, утрымліваючы кнопку профілю.",
+            "accessibility_hint": "Двойчы націсніце, каб закрыць гэты майстар"
         },
         "bookmark": {
-            "title": "Bookmarks"
+            "title": "Закладкі"
         },
         "followed_tags": {
-            "title": "Followed Tags",
+            "title": "Тэгі, за якімі вы сочыце",
             "header": {
-                "posts": "posts",
+                "posts": "допісаў",
                 "participants": "participants",
-                "posts_today": "posts today"
+                "posts_today": "допісаў сёння"
             },
             "actions": {
                 "follow": "Падпісацца",
