@@ -49,8 +49,8 @@
                 "message": "Вы ўпэўненыя, што хочаце выдаліць гэты допіс?"
             },
             "clean_cache": {
-                "title": "Clean Cache",
-                "message": "Successfully cleaned %s cache."
+                "title": "Ачысціць кэш",
+                "message": "Паспяхова ачышчаны %s кэшу."
             },
             "translation_failed": {
                 "title": "Нататка",
@@ -137,33 +137,33 @@
                 "user_reblogged": "%s пашырыў",
                 "user_replied_to": "Адказаў %s",
                 "show_post": "Паказаць допіс",
-                "show_user_profile": "Show user profile",
-                "content_warning": "Content Warning",
-                "sensitive_content": "Sensitive Content",
+                "show_user_profile": "Паказаць профіль карыстальніка",
+                "content_warning": "Папярэджанне аб змесціве",
+                "sensitive_content": "Далікатнае змесціва",
                 "media_content_warning": "Tap anywhere to reveal",
                 "tap_to_reveal": "Tap to reveal",
                 "load_embed": "Load Embed",
-                "link_via_user": "%s via %s",
+                "link_via_user": "%s праз %s",
                 "poll": {
-                    "vote": "Vote",
-                    "closed": "Closed"
+                    "vote": "Прагаласаваць",
+                    "closed": "Завершана"
                 },
                 "meta_entity": {
-                    "url": "Link: %s",
-                    "hashtag": "Hashtag: %s",
-                    "mention": "Show Profile: %s",
-                    "email": "Email address: %s"
+                    "url": "Спасылка: %s",
+                    "hashtag": "Хэштэг: %s",
+                    "mention": "Паказаць профіль: %s",
+                    "email": "Электронная пошта: %s"
                 },
                 "actions": {
-                    "reply": "Reply",
+                    "reply": "Адказаць",
                     "reblog": "Пашырыць",
                     "unreblog": "Скасаваць пашырэнне",
-                    "favorite": "Favorite",
-                    "unfavorite": "Unfavorite",
+                    "favorite": "Абранае",
+                    "unfavorite": "Выдаліць з абраных",
                     "menu": "Меню",
                     "hide": "Схаваць",
-                    "show_image": "Show image",
-                    "show_gif": "Show GIF",
+                    "show_image": "Паказаць відарыс",
+                    "show_gif": "Паказаць GIF",
                     "show_video_player": "Show video player",
                     "share_link_in_post": "Share Link in Post",
                     "tap_then_hold_to_show_menu": "Tap then hold to show menu"
@@ -183,7 +183,7 @@
                     "direct": "Only mentioned user can see this post."
                 },
                 "translation": {
-                    "translated_from": "Translated from %s using %s",
+                    "translated_from": "Перакладзена з %s з дапамогай %s",
                     "unknown_language": "Невядомая",
                     "unknown_provider": "Невядомы",
                     "show_original": "Паказаць арыгінал"
@@ -478,39 +478,39 @@
             },
             "fields": {
                 "joined": "Далучыўся",
-                "add_row": "Add Row",
+                "add_row": "Дадаць радок",
                 "placeholder": {
-                    "label": "Label",
+                    "label": "Пазнака",
                     "content": "Змесціва"
                 },
                 "verified": {
                     "short": "Спраўджана %s",
-                    "long": "Ownership of this link was checked on %s"
+                    "long": "Права ўласнасці на гэтую спасылку праверана %s"
                 }
             },
             "segmented_control": {
                 "posts": "Допісы",
-                "replies": "Replies",
-                "posts_and_replies": "Posts and Replies",
-                "media": "Media",
-                "about": "About"
+                "replies": "Адказы",
+                "posts_and_replies": "Допісы і адказы",
+                "media": "Медыя",
+                "about": "Аб праграме"
             },
             "relationship_action_alert": {
                 "confirm_mute_user": {
-                    "title": "Mute Account",
-                    "message": "Confirm to mute %s"
+                    "title": "Ігнараваць уліковы запіс",
+                    "message": "Ігнараваць %s?"
                 },
                 "confirm_unmute_user": {
-                    "title": "Unmute Account",
-                    "message": "Confirm to unmute %s"
+                    "title": "Не ігнараваць уліковы запіс",
+                    "message": "Не ігнараваць %s?"
                 },
                 "confirm_block_user": {
-                    "title": "Block Account",
-                    "message": "Confirm to block %s"
+                    "title": "Заблакіраваць уліковы запіс",
+                    "message": "Заблакіраваць %s?"
                 },
                 "confirm_unblock_user": {
-                    "title": "Unblock Account",
-                    "message": "Confirm to unblock %s"
+                    "title": "Разблакіраваць уліковы запіс",
+                    "message": "Разблакіраваць %s?"
                 },
                 "confirm_show_reblogs": {
                     "title": "Паказаць пашырэнні",
@@ -529,11 +529,11 @@
             }
         },
         "follower": {
-            "title": "follower",
+            "title": "падпісчык",
             "footer": "Followers from other servers are not displayed."
         },
         "following": {
-            "title": "following",
+            "title": "падпісаны",
             "footer": "Follows from other servers are not displayed."
         },
         "familiarFollowers": {
@@ -557,12 +557,12 @@
                 "hash_tag": {
                     "title": "Папулярныя ў Mastodon",
                     "description": "Hashtags that are getting quite a bit of attention",
-                    "people_talking": "%s people are talking"
+                    "people_talking": "%s чалавек размаўляе"
                 },
                 "accounts": {
                     "title": "Accounts you might like",
                     "description": "You may like to follow these accounts",
-                    "follow": "Follow"
+                    "follow": "Падпісацца"
                 }
             },
             "searching": {
@@ -617,41 +617,41 @@
             }
         },
         "thread": {
-            "back_title": "Post",
-            "title": "Post from %s"
+            "back_title": "Допіс",
+            "title": "Допіс ад %s"
         },
         "settings": {
-            "title": "Settings",
+            "title": "Налады",
             "section": {
                 "appearance": {
-                    "title": "Appearance",
-                    "automatic": "Automatic",
-                    "light": "Always Light",
-                    "dark": "Always Dark"
+                    "title": "Знешні выгляд",
+                    "automatic": "Аўтаматычна",
+                    "light": "Заўсёды светлы",
+                    "dark": "Заўсёды цёмны"
                 },
                 "look_and_feel": {
-                    "title": "Look and Feel",
-                    "use_system": "Use System",
-                    "really_dark": "Really Dark",
-                    "sorta_dark": "Sorta Dark",
-                    "light": "Light"
+                    "title": "Знешні выгляд",
+                    "use_system": "Выкарыстоўваць сістэмны",
+                    "really_dark": "Сапраўды Цёмны",
+                    "sorta_dark": "Накшталт Цёмны",
+                    "light": "Светлы"
                 },
                 "notifications": {
-                    "title": "Notifications",
-                    "favorites": "Favorites my post",
-                    "follows": "Follows me",
+                    "title": "Апавяшчэнні",
+                    "favorites": "Дадае мой допіс у абранае",
+                    "follows": "Падпісаўся на мяне",
                     "boosts": "Пашырае мой допіс",
-                    "mentions": "Mentions me",
+                    "mentions": "Згадвае мяне",
                     "trigger": {
                         "anyone": "anyone",
                         "follower": "a follower",
-                        "follow": "anyone I follow",
-                        "noone": "no one",
-                        "title": "Notify me when"
+                        "follow": "нехта, на каго я падпісаны",
+                        "noone": "ніхто",
+                        "title": "Апавяшчаць мяне, калі"
                     }
                 },
                 "preference": {
-                    "title": "Preferences",
+                    "title": "Параметры",
                     "true_black_dark_mode": "True black dark mode",
                     "disable_avatar_animation": "Disable animated avatars",
                     "disable_emoji_animation": "Disable animated emojis",
