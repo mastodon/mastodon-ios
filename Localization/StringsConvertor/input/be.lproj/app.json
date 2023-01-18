@@ -216,7 +216,7 @@
                 "hide_reblogs": "Схаваць пашырэнні"
             },
             "timeline": {
-                "filtered": "Filtered",
+                "filtered": "Адфільтравана",
                 "timestamp": {
                     "now": "Толькі што"
                 },
@@ -240,11 +240,11 @@
     "scene": {
         "welcome": {
             "slogan": "Social networking\nback in your hands.",
-            "get_started": "Get Started",
-            "log_in": "Log In"
+            "get_started": "Пачаць",
+            "log_in": "Увайсці"
         },
         "login": {
-            "title": "Welcome back",
+            "title": "З вяртаннем",
             "subtitle": "Log you in on the server you created your account on.",
             "server_search_field": {
                 "placeholder": "Enter URL or search for your server"
@@ -255,28 +255,28 @@
             "subtitle": "Pick a server based on your region, interests, or a general purpose one. You can still chat with anyone on Mastodon, regardless of your servers.",
             "button": {
                 "category": {
-                    "all": "All",
-                    "all_accessiblity_description": "Category: All",
-                    "academia": "academia",
-                    "activism": "activism",
-                    "food": "food",
-                    "furry": "furry",
-                    "games": "games",
-                    "general": "general",
-                    "journalism": "journalism",
-                    "lgbt": "lgbt",
-                    "regional": "regional",
-                    "art": "art",
-                    "music": "music",
-                    "tech": "tech"
+                    "all": "Усе",
+                    "all_accessiblity_description": "Катэгорыя: Усе",
+                    "academia": "акадэмія",
+                    "activism": "актывізм",
+                    "food": "ежа",
+                    "furry": "фуры",
+                    "games": "гульні",
+                    "general": "асноўныя",
+                    "journalism": "журналістыка",
+                    "lgbt": "лгбт",
+                    "regional": "рэгіянальныя",
+                    "art": "мастацтва",
+                    "music": "музыка",
+                    "tech": "тэхналогіі"
                 },
-                "see_less": "See Less",
-                "see_more": "See More"
+                "see_less": "Паказаць менш",
+                "see_more": "Паказаць больш"
             },
             "label": {
-                "language": "LANGUAGE",
-                "users": "USERS",
-                "category": "CATEGORY"
+                "language": "МОВА",
+                "users": "КАРЫСТАЛЬНІКІ",
+                "category": "КАТЭГОРЫЯ"
             },
             "input": {
                 "search_servers_or_enter_url": "Search communities or enter URL"
@@ -312,10 +312,10 @@
                         "checked": "checked",
                         "unchecked": "unchecked"
                     },
-                    "hint": "Your password needs at least eight characters"
+                    "hint": "Ваш пароль павінен змяшчаць мінімум восем сімвалаў"
                 },
                 "invite": {
-                    "registration_user_invite_request": "Why do you want to join?"
+                    "registration_user_invite_request": "Чаму вы жадаеце далучыцца?"
                 }
             },
             "error": {
@@ -328,10 +328,10 @@
                     "reason": "Прычына"
                 },
                 "reason": {
-                    "blocked": "%s contains a disallowed email provider",
-                    "unreachable": "%s does not seem to exist",
-                    "taken": "%s is already in use",
-                    "reserved": "%s is a reserved keyword",
+                    "blocked": "%s змяшчае забароненага пастаўшчыка email",
+                    "unreachable": "%s не існуе",
+                    "taken": "%s ужо выкарыстоўваецца",
+                    "reserved": "%s з'яўляецца зарэзерваваным ключавым словам",
                     "accepted": "%s must be accepted",
                     "blank": "%s is required",
                     "invalid": "%s is invalid",
@@ -413,15 +413,15 @@
                 "attachment_broken": "This %s is broken and can’t be\nuploaded to Mastodon.",
                 "description_photo": "Describe the photo for the visually-impaired...",
                 "description_video": "Describe the video for the visually-impaired...",
-                "load_failed": "Load Failed",
-                "upload_failed": "Upload Failed",
+                "load_failed": "Не ўдалося загрузіць",
+                "upload_failed": "Не ўдалося запампаваць",
                 "can_not_recognize_this_media_attachment": "Can not recognize this media attachment",
-                "attachment_too_large": "Attachment too large",
-                "compressing_state": "Compressing...",
-                "server_processing_state": "Server Processing..."
+                "attachment_too_large": "Далучэнне занадта вялікае",
+                "compressing_state": "Сцісканне...",
+                "server_processing_state": "Апрацоўка сервера..."
             },
             "poll": {
-                "duration_time": "Duration: %s",
+                "duration_time": "Працягласць: %s",
                 "thirty_minutes": "30 хвілін",
                 "one_hour": "1 гадзіна",
                 "six_hours": "6 гадзін",
@@ -429,11 +429,11 @@
                 "three_days": "3 дні",
                 "seven_days": "7 дзён",
                 "option_number": "Варыянт %ld",
-                "the_poll_is_invalid": "The poll is invalid",
-                "the_poll_has_empty_option": "The poll has empty option"
+                "the_poll_is_invalid": "Апытанне мае памылкі",
+                "the_poll_has_empty_option": "Апытанне мае пусты варыянт"
             },
             "content_warning": {
-                "placeholder": "Write an accurate warning here..."
+                "placeholder": "Напішыце сваё папярэджанне тут..."
             },
             "visibility": {
                 "public": "Публічны",
@@ -445,12 +445,12 @@
                 "space_to_add": "Space to add"
             },
             "accessibility": {
-                "append_attachment": "Add Attachment",
+                "append_attachment": "Дадаць далучэнне",
                 "append_poll": "Дадаць апытанне",
                 "remove_poll": "Выдаліць апытанне",
                 "custom_emoji_picker": "Меню карыстальніцкіх эмодзі",
-                "enable_content_warning": "Enable Content Warning",
-                "disable_content_warning": "Disable Content Warning",
+                "enable_content_warning": "Уключыць папярэджанне аб змесціве",
+                "disable_content_warning": "Адключыць папярэджанне аб змесціве",
                 "post_visibility_menu": "Post Visibility Menu",
                 "post_options": "Параметры допісу",
                 "posting_as": "Апублікаваць як %s"
@@ -470,14 +470,14 @@
             },
             "dashboard": {
                 "my_posts": "допісы",
-                "my_following": "following",
-                "my_followers": "followers",
-                "other_posts": "posts",
-                "other_following": "following",
-                "other_followers": "followers"
+                "my_following": "падпісаны",
+                "my_followers": "падпісчыкі",
+                "other_posts": "допісы",
+                "other_following": "падпісаны",
+                "other_followers": "падпісчыкі"
             },
             "fields": {
-                "joined": "Joined",
+                "joined": "Далучыўся",
                 "add_row": "Add Row",
                 "placeholder": {
                     "label": "Label",
