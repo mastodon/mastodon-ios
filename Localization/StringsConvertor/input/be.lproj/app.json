@@ -643,8 +643,8 @@
                     "boosts": "Пашырае мой допіс",
                     "mentions": "Згадвае мяне",
                     "trigger": {
-                        "anyone": "anyone",
-                        "follower": "a follower",
+                        "anyone": "кожны",
+                        "follower": "падпісчык",
                         "follow": "нехта, на каго я падпісаны",
                         "noone": "ніхто",
                         "title": "Апавяшчаць мяне, калі"
@@ -652,9 +652,9 @@
                 },
                 "preference": {
                     "title": "Параметры",
-                    "true_black_dark_mode": "True black dark mode",
-                    "disable_avatar_animation": "Disable animated avatars",
-                    "disable_emoji_animation": "Disable animated emojis",
+                    "true_black_dark_mode": "Паўнавартасна чорны рэжым",
+                    "disable_avatar_animation": "Адключыць анімацыю аватараў",
+                    "disable_emoji_animation": "Адключыць анімацыю эмодзі",
                     "using_default_browser": "Use default browser to open links",
                     "open_links_in_mastodon": "Open links in Mastodon"
                 },
