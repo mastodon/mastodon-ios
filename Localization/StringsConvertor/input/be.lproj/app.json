@@ -6,13 +6,13 @@
                 "please_try_again_later": "Паўтарыце спробу пазней."
             },
             "sign_up_failure": {
-                "title": "Sign Up Failure"
+                "title": "Памылка пры рэгістрацыі"
             },
             "server_error": {
                 "title": "Памылка сервера"
             },
             "vote_failure": {
-                "title": "Vote Failure",
+                "title": "Памылка пры галасаванні",
                 "poll_ended": "Апытанне завяршылася"
             },
             "discard_post_content": {
@@ -20,7 +20,7 @@
                 "message": "Confirm to discard composed post content."
             },
             "publish_post_failure": {
-                "title": "Publish Failure",
+                "title": "Памылка пры публікацыі",
                 "message": "Failed to publish the post.\nPlease check your internet connection.",
                 "attachments_message": {
                     "video_attach_with_photo": "Cannot attach a video to a post that already contains images.",
@@ -28,8 +28,8 @@
                 }
             },
             "edit_profile_failure": {
-                "title": "Edit Profile Error",
-                "message": "Cannot edit profile. Please try again."
+                "title": "Памылка пры рэдагаванні профілю",
+                "message": "Не атрымалася змяніць профіль. Паспрабуйце яшчэ раз."
             },
             "sign_out": {
                 "title": "Выйсці",
@@ -41,7 +41,7 @@
                 "block_entire_domain": "Заблакіраваць дамен"
             },
             "save_photo_failure": {
-                "title": "Save Photo Failure",
+                "title": "Памылка пры захаванні фотам",
                 "message": "Please enable the photo library access permission to save the photo."
             },
             "delete_post": {
@@ -113,7 +113,7 @@
                 "common": {
                     "switch_to_tab": "Пераключыць на %s",
                     "compose_new_post": "Стварыць новы допіс",
-                    "show_favorites": "Show Favorites",
+                    "show_favorites": "Паказаць абраныя",
                     "open_settings": "Адкрыць налады"
                 },
                 "timeline": {
