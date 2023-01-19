@@ -26,4 +26,15 @@ extension CellFrameCacheContainer {
         guard let frame = cellFrameCache.object(forKey: key)?.cgRectValue else { return nil }
         return frame
     }
+    
+    // Clear the cache
+    func clearCache() {
+        cellFrameCache.removeAllObjects()
+    }
+    
+    // Check if a key exists in the cache
+    func keyExists(tableView: UITableView, indexPath: IndexPath) -> Bool {
+        guard let key = keyForCache(tableView: tableView, indexPath: indexPath) else { return false }
+        return cellFrameCache.object(forKey: key) != nil
+    }
 }
