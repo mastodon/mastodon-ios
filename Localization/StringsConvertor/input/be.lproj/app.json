@@ -231,15 +231,15 @@
                     "user_blocking_warning": "You can’t view %s’s profile\nuntil you unblock them.\nYour profile looks like this to them.",
                     "blocked_warning": "You can’t view this user’s profile\nuntil they unblock you.",
                     "user_blocked_warning": "You can’t view %s’s profile\nuntil they unblock you.",
-                    "suspended_warning": "This user has been suspended.",
-                    "user_suspended_warning": "%s’s account has been suspended."
+                    "suspended_warning": "Уліковы запіс гэтага карыстальніка прыпынены.",
+                    "user_suspended_warning": "Уліковы запіс %s прыпынены."
                 }
             }
         }
     },
     "scene": {
         "welcome": {
-            "slogan": "Social networking\nback in your hands.",
+            "slogan": "Сацыяльная сетка пад вашым кантролем.",
             "get_started": "Пачаць",
             "log_in": "Увайсці"
         },
@@ -282,7 +282,7 @@
                 "search_servers_or_enter_url": "Search communities or enter URL"
             },
             "empty_state": {
-                "finding_servers": "Finding available servers...",
+                "finding_servers": "Пошук даступных сервераў...",
                 "bad_network": "Something went wrong while loading the data. Check your internet connection.",
                 "no_results": "Няма вынікаў"
             }
@@ -524,7 +524,7 @@
             "accessibility": {
                 "show_avatar_image": "Паказаць аватар карыстальніка",
                 "edit_avatar_image": "Рэдагаваць аватар",
-                "show_banner_image": "Show banner image",
+                "show_banner_image": "Паказаць відарыс банера",
                 "double_tap_to_open_the_list": "Двойчы націсніце, каб адкрыць спіс"
             }
         },
