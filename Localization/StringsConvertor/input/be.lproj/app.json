@@ -142,7 +142,7 @@
                 "sensitive_content": "Далікатнае змесціва",
                 "media_content_warning": "Tap anywhere to reveal",
                 "tap_to_reveal": "Націсніце, каб паказаць",
-                "load_embed": "Load Embed",
+                "load_embed": "Загрузіць убудаваны",
                 "link_via_user": "%s праз %s",
                 "poll": {
                     "vote": "Прагаласаваць",
@@ -177,9 +177,9 @@
                     "emoji": "Эмодзі"
                 },
                 "visibility": {
-                    "unlisted": "Everyone can see this post but not display in the public timeline.",
-                    "private": "Only their followers can see this post.",
-                    "private_from_me": "Only my followers can see this post.",
+                    "unlisted": "Кожны можа бачыць гэты допіс, але ён не адлюстроўваецца ў публічнай стужцы.",
+                    "private": "Толькі іх падпісчыкі могуць бачыць гэты допіс.",
+                    "private_from_me": "Толькі мае падпісчыкі могуць бачыць гэты допіс.",
                     "direct": "Only mentioned user can see this post."
                 },
                 "translation": {
@@ -391,8 +391,8 @@
             }
         },
         "suggestion_account": {
-            "title": "Find People to Follow",
-            "follow_explain": "When you follow someone, you’ll see their posts in your home feed."
+            "title": "Знайсці людзей, каб падпісацца",
+            "follow_explain": "Калі вы падпішацеся на кагосьці, вы ўбачыце яго допісы ў сваёй хатняй стужцы."
         },
         "compose": {
             "title": {
@@ -459,7 +459,7 @@
                 "discard_post": "Скасаваць допіс",
                 "publish_post": "Апублікаваць допіс",
                 "toggle_poll": "Адкрыць/закрыць апытанне",
-                "toggle_content_warning": "Toggle Content Warning",
+                "toggle_content_warning": "Уключыць/адключыць папярэджанне аб змесціве",
                 "append_attachment_entry": "Дадаць далучэнне - %s",
                 "select_visibility_entry": "Select Visibility - %s"
             }
@@ -522,10 +522,10 @@
                 }
             },
             "accessibility": {
-                "show_avatar_image": "Show avatar image",
-                "edit_avatar_image": "Edit avatar image",
+                "show_avatar_image": "Паказаць аватар карыстальніка",
+                "edit_avatar_image": "Рэдагаваць аватар",
                 "show_banner_image": "Show banner image",
-                "double_tap_to_open_the_list": "Double tap to open the list"
+                "double_tap_to_open_the_list": "Двойчы націсніце, каб адкрыць спіс"
             }
         },
         "follower": {
@@ -538,7 +538,7 @@
         },
         "familiarFollowers": {
             "title": "Followers you familiar",
-            "followed_by_names": "Followed by %s"
+            "followed_by_names": "Мае сярод падпісчыкаў %s"
         },
         "favorited_by": {
             "title": "Favorited By"
@@ -549,7 +549,7 @@
         "search": {
             "title": "Пошук",
             "search_bar": {
-                "placeholder": "Search hashtags and users",
+                "placeholder": "Пошук хэштэгаў і карыстальнікаў",
                 "cancel": "Скасаваць"
             },
             "recommend": {
@@ -560,8 +560,8 @@
                     "people_talking": "%s чалавек размаўляе"
                 },
                 "accounts": {
-                    "title": "Accounts you might like",
-                    "description": "You may like to follow these accounts",
+                    "title": "Вам могуць спадабацца",
+                    "description": "Магчыма, вы захочаце падпісацца на гэтыя профілі",
                     "follow": "Падпісацца"
                 }
             },
@@ -723,13 +723,13 @@
                 "dont_want_to_see_this": "Не хочаце бачыць гэта?",
                 "when_you_see_something_you_dont_like_on_mastodon_you_can_remove_the_person_from_your_experience.": "Калі вы бачыце на Mastodon нешта, што вам не падабаецца, вы можаце выдаліць чалавека са свайго асяроддзя.",
                 "unfollow": "Адпісацца",
-                "unfollowed": "Unfollowed",
-                "unfollow_user": "Unfollow %s",
-                "mute_user": "Mute %s",
+                "unfollowed": "Адпісаліся",
+                "unfollow_user": "Адпісацца ад %s",
+                "mute_user": "Ігнараваць %s",
                 "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or reblogs in your home feed. They won’t know they’ve been muted.",
                 "block_user": "Заблакіраваць %s",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "They will no longer be able to follow or see your posts, but they can see if they’ve been blocked.",
-                "while_we_review_this_you_can_take_action_against_user": "While we review this, you can take action against %s"
+                "while_we_review_this_you_can_take_action_against_user": "Пакуль мы разглядаем яе, вы можаце прыняць меры супраць %s"
             }
         },
         "preview": {
@@ -756,7 +756,7 @@
             "title": "Тэгі, за якімі вы сочыце",
             "header": {
                 "posts": "допісаў",
-                "participants": "participants",
+                "participants": "ўдзельнікі",
                 "posts_today": "допісаў сёння"
             },
             "actions": {
