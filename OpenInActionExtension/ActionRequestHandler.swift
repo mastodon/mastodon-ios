@@ -9,6 +9,7 @@ import Combine
 import UIKit
 import MobileCoreServices
 import UniformTypeIdentifiers
+import MastodonCore
 import MastodonSDK
 import MastodonLocalization
 
@@ -16,6 +17,11 @@ class ActionRequestHandler: NSObject, NSExtensionRequestHandling {
     var extensionContext: NSExtensionContext?
     var cancellables = [AnyCancellable]()
     
+    /// Capturing a static shared instance of AppContext here as otherwise there
+    /// will be lifecycle issues and we don't want to keep multiple AppContexts around
+    /// in case there another Action Extension process is spawned
+    private static let appContext = AppContext()
+        
     func beginRequest(with context: NSExtensionContext) {
         // Do not call super in an Action extension with no user interface
         self.extensionContext = context
@@ -44,10 +50,8 @@ class ActionRequestHandler: NSObject, NSExtensionRequestHandling {
                     return
                 }
                 
-                if let username = results["username"] as? String {
-                    self?.completeWithOpenUserProfile(username)
-                } else if let url = results["url"] as? String {
-                    self?.continueWithSearch(url)
+                if let url = results["url"] as? String {
+                    self?.performSearch(for: url)
                 } else {
                     self?.doneWithInvalidLink()
                 }
@@ -56,13 +60,53 @@ class ActionRequestHandler: NSObject, NSExtensionRequestHandling {
     }
 }
 
+// Search API
 private extension ActionRequestHandler {
-    func completeWithOpenUserProfile(_ username: String) {
-        doneWithResults([
-            "openURL": "mastodon://profile/\(username)"
-        ])
+    func performSearch(for url: String) {
+        guard
+            let activeAuthenticationBox = Self.appContext
+                .authenticationService
+                .mastodonAuthenticationBoxes
+                .first
+        else {
+            return doneWithResults(nil)
+        }
+        
+        Mastodon.API
+            .V2
+            .Search
+            .search(
+                session: .shared,
+                domain: activeAuthenticationBox.domain,
+                query: .init(q: url, resolve: true),
+                authorization: activeAuthenticationBox.userAuthorization
+            )
+            .receive(on: DispatchQueue.main)
+            .sink { completion in
+                // no-op
+            } receiveValue: { [weak self] result in
+                let value = result.value
+                if let foundAccount = value.accounts.first {
+                    self?.doneWithResults([
+                        "openURL": "mastodon://profile/\(foundAccount.acct)"
+                    ])
+                } else if let foundStatus = value.statuses.first {
+                    self?.doneWithResults([
+                        "openURL": "mastodon://status/\(foundStatus.id)"
+                    ])
+                } else if let foundHashtag = value.hashtags.first {
+                    self?.continueWithSearch(foundHashtag.name)
+                } else {
+                    self?.continueWithSearch(url)
+                }
+            }
+            .store(in: &cancellables)
+
     }
-    
+}
+
+// Fallback to In-App Search
+private extension ActionRequestHandler {
     func continueWithSearch(_ query: String) {
         guard
             let url = URL(string: query),
@@ -95,7 +139,10 @@ private extension ActionRequestHandler {
             }
             .store(in: &cancellables)
     }
-    
+}
+
+// Action response handling
+private extension ActionRequestHandler {
     func doneWithInvalidLink() {
         doneWithResults(["alert": L10n.Extension.OpenIn.invalidLinkError])
     }
