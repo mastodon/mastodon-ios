@@ -17,11 +17,11 @@
             },
             "discard_post_content": {
                 "title": "Скасаваць чарнавік",
-                "message": "Confirm to discard composed post content."
+                "message": "Пацвердзіце, каб скасаваць змесціва допісу."
             },
             "publish_post_failure": {
                 "title": "Памылка пры публікацыі",
-                "message": "Failed to publish the post.\nPlease check your internet connection.",
+                "message": "Не ўдалося апублікаваць допіс.\nПраверце злучэнне з інтэрнэтам.",
                 "attachments_message": {
                     "video_attach_with_photo": "Немагчыма прымацаваць відэа да допісу, які ўжо змяшчае выявы.",
                     "more_than_one_video": "Немагчыма дадаць больш за адно відэа."
@@ -125,7 +125,7 @@
                     "reply_status": "Адказаць на допіс",
                     "toggle_reblog": "Toggle Reblog on Post",
                     "toggle_favorite": "Toggle Favorite on Post",
-                    "toggle_content_warning": "Toggle Content Warning",
+                    "toggle_content_warning": "Уключыць/адключыць папярэджанне аб змесціве",
                     "preview_image": "Перадпрагляд відарыса"
                 },
                 "segmented_control": {
@@ -140,7 +140,7 @@
                 "show_user_profile": "Паказаць профіль карыстальніка",
                 "content_warning": "Папярэджанне аб змесціве",
                 "sensitive_content": "Далікатнае змесціва",
-                "media_content_warning": "Tap anywhere to reveal",
+                "media_content_warning": "Націсніце ў любым месцы, каб паказаць",
                 "tap_to_reveal": "Націсніце, каб паказаць",
                 "load_embed": "Загрузіць убудаваны",
                 "link_via_user": "%s праз %s",
@@ -451,7 +451,7 @@
                 "custom_emoji_picker": "Меню карыстальніцкіх эмодзі",
                 "enable_content_warning": "Уключыць папярэджанне аб змесціве",
                 "disable_content_warning": "Адключыць папярэджанне аб змесціве",
-                "post_visibility_menu": "Post Visibility Menu",
+                "post_visibility_menu": "Меню бачнасці допісу",
                 "post_options": "Параметры допісу",
                 "posting_as": "Апублікаваць як %s"
             },
@@ -461,7 +461,7 @@
                 "toggle_poll": "Адкрыць/закрыць апытанне",
                 "toggle_content_warning": "Уключыць/адключыць папярэджанне аб змесціве",
                 "append_attachment_entry": "Дадаць далучэнне - %s",
-                "select_visibility_entry": "Select Visibility - %s"
+                "select_visibility_entry": "Выберыце бачнасць - %s"
             }
         },
         "profile": {
@@ -728,7 +728,7 @@
                 "mute_user": "Ігнараваць %s",
                 "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or reblogs in your home feed. They won’t know they’ve been muted.",
                 "block_user": "Заблакіраваць %s",
-                "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "They will no longer be able to follow or see your posts, but they can see if they’ve been blocked.",
+                "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "Яны больш не змогуць падпісвацца на вас або бачыць вашыя допісы, але змогуць бачыць, што яны былі заблакіраваны.",
                 "while_we_review_this_you_can_take_action_against_user": "Пакуль мы разглядаем яе, вы можаце прыняць меры супраць %s"
             }
         },
