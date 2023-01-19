@@ -83,7 +83,7 @@
                 "sign_up": "계정 생성",
                 "see_more": "더 보기",
                 "preview": "미리보기",
-                "copy": "Copy",
+                "copy": "복사",
                 "share": "공유",
                 "share_user": "%s를 공유",
                 "share_post": "게시물 공유",
@@ -99,14 +99,14 @@
                 "settings": "설정",
                 "delete": "삭제",
                 "translate_post": {
-                    "title": "Translate from %s",
-                    "unknown_language": "Unknown"
+                    "title": "%s에서 번역됨",
+                    "unknown_language": "알 수 없음"
                 }
             },
             "tabs": {
                 "home": "홈",
-                "search_and_explore": "Search and Explore",
-                "notifications": "Notifications",
+                "search_and_explore": "검색과 발견",
+                "notifications": "알림",
                 "profile": "프로필"
             },
             "keyboard": {
