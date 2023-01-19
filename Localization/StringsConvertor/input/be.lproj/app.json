@@ -23,8 +23,8 @@
                 "title": "Памылка пры публікацыі",
                 "message": "Failed to publish the post.\nPlease check your internet connection.",
                 "attachments_message": {
-                    "video_attach_with_photo": "Cannot attach a video to a post that already contains images.",
-                    "more_than_one_video": "Cannot attach more than one video."
+                    "video_attach_with_photo": "Немагчыма прымацаваць відэа да допісу, які ўжо змяшчае выявы.",
+                    "more_than_one_video": "Немагчыма дадаць больш за адно відэа."
                 }
             },
             "edit_profile_failure": {
@@ -105,7 +105,7 @@
             },
             "tabs": {
                 "home": "Галоўная",
-                "search_and_explore": "Search and Explore",
+                "search_and_explore": "Шукайце і адкрывайце",
                 "notifications": "Апавяшчэнні",
                 "profile": "Профіль"
             },
@@ -141,7 +141,7 @@
                 "content_warning": "Папярэджанне аб змесціве",
                 "sensitive_content": "Далікатнае змесціва",
                 "media_content_warning": "Tap anywhere to reveal",
-                "tap_to_reveal": "Tap to reveal",
+                "tap_to_reveal": "Націсніце, каб паказаць",
                 "load_embed": "Load Embed",
                 "link_via_user": "%s праз %s",
                 "poll": {
@@ -164,9 +164,9 @@
                     "hide": "Схаваць",
                     "show_image": "Паказаць відарыс",
                     "show_gif": "Паказаць GIF",
-                    "show_video_player": "Show video player",
-                    "share_link_in_post": "Share Link in Post",
-                    "tap_then_hold_to_show_menu": "Tap then hold to show menu"
+                    "show_video_player": "Паказаць відэаплэер",
+                    "share_link_in_post": "Падзяліцеся спасылкай у допісе",
+                    "tap_then_hold_to_show_menu": "Націсніце і ўтрымлівайце, каб паказаць меню"
                 },
                 "tag": {
                     "url": "URL",
@@ -226,7 +226,7 @@
                     "show_more_replies": "Паказаць больш адказаў"
                 },
                 "header": {
-                    "no_status_found": "No Post Found",
+                    "no_status_found": "Допіс не знойдзены",
                     "blocking_warning": "You can’t view this user's profile\nuntil you unblock them.\nYour profile looks like this to them.",
                     "user_blocking_warning": "You can’t view %s’s profile\nuntil you unblock them.\nYour profile looks like this to them.",
                     "blocked_warning": "You can’t view this user’s profile\nuntil they unblock you.",
@@ -284,19 +284,19 @@
             "empty_state": {
                 "finding_servers": "Finding available servers...",
                 "bad_network": "Something went wrong while loading the data. Check your internet connection.",
-                "no_results": "No results"
+                "no_results": "Няма вынікаў"
             }
         },
         "register": {
-            "title": "Let’s get you set up on %s",
-            "lets_get_you_set_up_on_domain": "Let’s get you set up on %s",
+            "title": "Давайце наладзім вас на %s",
+            "lets_get_you_set_up_on_domain": "Давайце наладзім вас на %s",
             "input": {
                 "avatar": {
                     "delete": "Выдаліць"
                 },
                 "username": {
                     "placeholder": "імя карыстальніка",
-                    "duplicate_prompt": "This username is taken."
+                    "duplicate_prompt": "Гэта імя карыстальніка занята."
                 },
                 "display_name": {
                     "placeholder": "бачнае імя"
@@ -306,11 +306,11 @@
                 },
                 "password": {
                     "placeholder": "пароль",
-                    "require": "Your password needs at least:",
-                    "character_limit": "8 characters",
+                    "require": "Ваш пароль павінен мець як мінімум:",
+                    "character_limit": "8 сімвалаў",
                     "accessibility": {
-                        "checked": "checked",
-                        "unchecked": "unchecked"
+                        "checked": "адзначаны галачкай",
+                        "unchecked": "галачка знятая"
                     },
                     "hint": "Ваш пароль павінен змяшчаць мінімум восем сімвалаў"
                 },
@@ -332,23 +332,23 @@
                     "unreachable": "%s не існуе",
                     "taken": "%s ужо выкарыстоўваецца",
                     "reserved": "%s з'яўляецца зарэзерваваным ключавым словам",
-                    "accepted": "%s must be accepted",
-                    "blank": "%s is required",
-                    "invalid": "%s is invalid",
-                    "too_long": "%s is too long",
-                    "too_short": "%s is too short",
-                    "inclusion": "%s is not a supported value"
+                    "accepted": "%s павінна быць прынята",
+                    "blank": "%s абавязковы",
+                    "invalid": "%s несапраўдны",
+                    "too_long": "%s занадта доўгі",
+                    "too_short": "%s занадта кароткі",
+                    "inclusion": "%s не з'яўляецца значэннем, якое падтрымліваецца"
                 },
                 "special": {
-                    "username_invalid": "Username must only contain alphanumeric characters and underscores",
-                    "username_too_long": "Username is too long (can’t be longer than 30 characters)",
-                    "email_invalid": "This is not a valid email address",
-                    "password_too_short": "Password is too short (must be at least 8 characters)"
+                    "username_invalid": "Імя карыстальніка павінна змяшчаць толькі літары, лічбы і знак падкрэслівання",
+                    "username_too_long": "Імя карыстальніка занадта доўгае (не можа быць больш за 30 сімвалаў)",
+                    "email_invalid": "Несапраўдны адрас электроннай пошты",
+                    "password_too_short": "Пароль занадта кароткі (павінен быць не менш за 8 сімвалаў)"
                 }
             }
         },
         "server_rules": {
-            "title": "Some ground rules.",
+            "title": "Некаторыя асноўныя правілы.",
             "subtitle": "These are set and enforced by the %s moderators.",
             "prompt": "By continuing, you’re subject to the terms of service and privacy policy for %s.",
             "terms_of_service": "умовы выкарыстання",
@@ -359,31 +359,31 @@
         },
         "confirm_email": {
             "title": "І яшчэ адно.",
-            "subtitle": "Tap the link we emailed to you to verify your account.",
-            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Tap the link we emailed to you to verify your account",
+            "subtitle": "Націсніце на спасылку, якую мы адправілі вам па электроннай пошце, каб пацвердзіць свой уліковы запіс.",
+            "tap_the_link_we_emailed_to_you_to_verify_your_account": "Націсніце на спасылку, якую мы адправілі вам па электроннай пошце, каб пацвердзіць свой уліковы запіс",
             "button": {
                 "open_email_app": "Адкрыць праграму для пошты",
                 "resend": "Адправіць паўторна"
             },
             "dont_receive_email": {
-                "title": "Check your email",
+                "title": "Праверце сваю пошту",
                 "description": "Check if your email address is correct as well as your junk folder if you haven’t.",
-                "resend_email": "Resend Email"
+                "resend_email": "Адправіць email паўторна"
             },
             "open_email_app": {
-                "title": "Check your inbox.",
+                "title": "Праверце вашу паштовую скрыню.",
                 "description": "We just sent you an email. Check your junk folder if you haven’t.",
-                "mail": "Mail",
-                "open_email_client": "Open Email Client"
+                "mail": "Пошта",
+                "open_email_client": "Адкрыць паштовы кліент"
             }
         },
         "home_timeline": {
-            "title": "Home",
+            "title": "Галоўная",
             "navigation_bar_state": {
-                "offline": "Offline",
-                "new_posts": "See new posts",
-                "published": "Published!",
-                "Publishing": "Publishing post...",
+                "offline": "Па-за сеткай",
+                "new_posts": "Паказаць новыя",
+                "published": "Апублікавана!",
+                "Publishing": "Допіс публікуецца...",
                 "accessibility": {
                     "logo_label": "Mastodon",
                     "logo_hint": "Tap to scroll to top and tap again to previous location"
@@ -400,13 +400,13 @@
                 "new_reply": "Новы адказ"
             },
             "media_selection": {
-                "camera": "Take Photo",
-                "photo_library": "Photo Library",
+                "camera": "Зрабіць фота",
+                "photo_library": "Галерэя",
                 "browse": "Агляд"
             },
             "content_input_placeholder": "Напішыце тое, аб чым думаеце",
             "compose_action": "Апублікаваць",
-            "replying_to_user": "replying to %s",
+            "replying_to_user": "адказ %s",
             "attachment": {
                 "photo": "фота",
                 "video": "відэа",
@@ -437,12 +437,12 @@
             },
             "visibility": {
                 "public": "Публічны",
-                "unlisted": "Unlisted",
-                "private": "Followers only",
-                "direct": "Only people I mention"
+                "unlisted": "Не ў спісе",
+                "private": "Толькі для падпісчыкаў",
+                "direct": "Толькі людзі, якіх я згадаў"
             },
             "auto_complete": {
-                "space_to_add": "Space to add"
+                "space_to_add": "Прабел, каб дадаць"
             },
             "accessibility": {
                 "append_attachment": "Дадаць далучэнне",
@@ -466,7 +466,7 @@
         },
         "profile": {
             "header": {
-                "follows_you": "Follows You"
+                "follows_you": "Падпісаны(-а) на вас"
             },
             "dashboard": {
                 "my_posts": "допісы",
