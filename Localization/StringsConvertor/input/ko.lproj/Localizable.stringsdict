@@ -55,7 +55,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld characters left</string>
+        <string>%ld 글자 남음</string>
       </dict>
     </dict>
     <key>plural.count.followed_by_and_mutual</key>
@@ -78,7 +78,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>Followed by %1$@, and %ld mutuals</string>
+        <string>%1$@ 님 이외에 %ld 명의 친구가 팔로우 중</string>
       </dict>
     </dict>
     <key>plural.count.metric_formatted.post</key>
