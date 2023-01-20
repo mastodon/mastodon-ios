@@ -496,10 +496,6 @@ extension NotificationView {
 
 // MARK: - StatusViewDelegate
 extension NotificationView: StatusViewDelegate {
-    public func statusView(_ statusView: StatusView, didTapCardWithURL url: URL) {
-        assertionFailure()
-    }
-
     public func statusView(_ statusView: StatusView, headerDidPressed header: UIView) {
         // do nothing
     }

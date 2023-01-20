@@ -24,7 +24,6 @@ public protocol StatusViewDelegate: AnyObject {
     func statusView(_ statusView: StatusView, authorAvatarButtonDidPressed button: AvatarButton)
     func statusView(_ statusView: StatusView, contentSensitiveeToggleButtonDidPressed button: UIButton)
     func statusView(_ statusView: StatusView, metaText: MetaText, didSelectMeta meta: Meta)
-    func statusView(_ statusView: StatusView, didTapCardWithURL url: URL)
     func statusView(_ statusView: StatusView, mediaGridContainerView: MediaGridContainerView, mediaView: MediaView, didSelectMediaViewAt index: Int)
     func statusView(_ statusView: StatusView, pollTableView tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     func statusView(_ statusView: StatusView, pollVoteButtonPressed button: UIButton)
@@ -419,7 +418,7 @@ extension StatusView {
     @objc private func statusCardControlPressed(_ sender: StatusCardControl) {
         logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
         guard let url = viewModel.card?.url else { return }
-        delegate?.statusView(self, didTapCardWithURL: url)
+        delegate?.statusView(self, cardControl: sender, didTapURL: url)
     }
     
 }
