@@ -35,8 +35,8 @@ public protocol StatusViewDelegate: AnyObject {
     func statusView(_ statusView: StatusView, statusMetricView: StatusMetricView, favoriteButtonDidPressed button: UIButton)
     func statusView(_ statusView: StatusView, statusMetricView: StatusMetricView, showEditHistory button: UIButton)
     func statusView(_ statusView: StatusView, cardControl: StatusCardControl, didTapURL url: URL)
-    func statusView(_ statusView: StatusView, cardControlMenu: StatusCardControl) -> [LabeledAction]?
-    
+    func statusView(_ statusView: StatusView, menuFor url: URL) -> [LabeledAction]?
+
     // a11y
     func statusView(_ statusView: StatusView, accessibilityActivate: Void)
 }
@@ -795,9 +795,10 @@ extension StatusView: UIContextMenuInteractionDelegate {
                 SFSafariViewController(url: url)
             },
             actionProvider: { _ in
-                UIMenu(children: [
-                    UIAction(title: url.absoluteString, handler: { _ in })
-                ])
+                if let elements = self.delegate?.statusView(self, menuFor: url)?.map(\.menuElement) {
+                    return UIMenu(children: elements)
+                }
+                return nil
             }
         )
         config.meta = meta
@@ -890,7 +891,11 @@ extension StatusView: StatusCardControlDelegate {
     }
 
     public func statusCardControlMenu(_ statusCardControl: StatusCardControl) -> [LabeledAction]? {
-        delegate?.statusView(self, cardControlMenu: statusCardControl)
+        if let url = viewModel.card?.url {
+            return delegate?.statusView(self, menuFor: url)
+        } else {
+            return nil
+        }
     }
 }
 

@@ -157,13 +157,8 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
     func tableViewCell(
         _ cell: UITableViewCell,
         statusView: StatusView,
-        cardControlMenu statusCardControl: StatusCardControl
+        menuFor url: URL
     ) -> [LabeledAction]? {
-        guard let card = statusView.viewModel.card,
-              let url = card.url else {
-            return nil
-        }
-
         return [
             LabeledAction(
                 title: L10n.Common.Controls.Actions.copy,
@@ -177,22 +172,26 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
                 asset: Asset.Arrow.squareAndArrowUp
             ) {
                 DispatchQueue.main.async {
-                    let activityViewController = UIActivityViewController(
-                        activityItems: [
-                            URLActivityItemWithMetadata(url: url) { metadata in
-                                metadata.title = card.title
-
-                                if let image = card.imageURL {
-                                    metadata.iconProvider = ImageProvider(url: image, filter: nil).itemProvider
-                                }
+                    let item: Any
+                    if let card = statusView.viewModel.card, url == card.url {
+                        item = URLActivityItemWithMetadata(url: url) { metadata in
+                            metadata.title = card.title
+                            
+                            if let image = card.imageURL {
+                                metadata.iconProvider = ImageProvider(url: image, filter: nil).itemProvider
                             }
-                        ],
+                        }
+                    } else {
+                        item = url
+                    }
+                    let activityViewController = UIActivityViewController(
+                        activityItems: [item],
                         applicationActivities: []
                     )
                     self.coordinator.present(
                         scene: .activityViewController(
                             activityViewController: activityViewController,
-                            sourceView: statusCardControl, barButtonItem: nil
+                            sourceView: statusView, barButtonItem: nil
                         ),
                         from: self,
                         transition: .activityViewControllerPresent(animated: true)

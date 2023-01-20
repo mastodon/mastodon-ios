@@ -606,7 +606,7 @@ extension NotificationView: StatusViewDelegate {
         assertionFailure()
     }
 
-    public func statusView(_ statusView: StatusView, cardControlMenu: StatusCardControl) -> [LabeledAction]? {
+    public func statusView(_ statusView: StatusView, menuFor url: URL) -> [LabeledAction]? {
         assertionFailure()
         return nil
     }
