@@ -190,9 +190,9 @@
                 },
                 "media": {
                     "accessibility_label": "%s, attachment %d of %d",
-                    "expand_image_hint": "Expands the image. Double-tap and hold to show actions",
-                    "expand_gif_hint": "Expands the GIF. Double-tap and hold to show actions",
-                    "expand_video_hint": "Shows the video player. Double-tap and hold to show actions"
+                    "expand_image_hint": "画像を拡大します。ダブルタップして長押しするとアクションを表示します",
+                    "expand_gif_hint": "GIF を拡大します。ダブルタップして長押しすると動作が表示されます。",
+                    "expand_video_hint": "動画を表示します。ダブルタップして長押しするとアクションを表示します"
                 }
             },
             "friendship": {
@@ -244,7 +244,7 @@
             "log_in": "ログイン"
         },
         "login": {
-            "title": "Welcome back",
+            "title": "ようこそ",
             "subtitle": "アカウントを作成したサーバーにログインします。",
             "server_search_field": {
                 "placeholder": "URLを入力またはサーバーを検索"
@@ -306,11 +306,11 @@
                 },
                 "password": {
                     "placeholder": "パスワード",
-                    "require": "Your password needs at least:",
-                    "character_limit": "8 characters",
+                    "require": "パスワードには少なくとも以下が含まれている必要があります:",
+                    "character_limit": "8 文字",
                     "accessibility": {
-                        "checked": "checked",
-                        "unchecked": "unchecked"
+                        "checked": "選択済",
+                        "unchecked": "未選択"
                     },
                     "hint": "パスワードは最低でも8文字必要です。"
                 },
@@ -415,10 +415,10 @@
                 "description_video": "閲覧が難しいユーザーへの映像説明",
                 "load_failed": "読み込みに失敗しました",
                 "upload_failed": "アップロードに失敗しました",
-                "can_not_recognize_this_media_attachment": "Can not recognize this media attachment",
+                "can_not_recognize_this_media_attachment": "このメディア添付ファイルを認識できません",
                 "attachment_too_large": "添付ファイルが大きすぎます",
-                "compressing_state": "Compressing...",
-                "server_processing_state": "Server Processing..."
+                "compressing_state": "圧縮中...",
+                "server_processing_state": "サーバー処理中..."
             },
             "poll": {
                 "duration_time": "期間: %s",
@@ -429,8 +429,8 @@
                 "three_days": "3日",
                 "seven_days": "7日",
                 "option_number": "オプション %ld",
-                "the_poll_is_invalid": "The poll is invalid",
-                "the_poll_has_empty_option": "The poll has empty option"
+                "the_poll_is_invalid": "アンケートが無効です",
+                "the_poll_has_empty_option": "アンケートに空のオプションがあります"
             },
             "content_warning": {
                 "placeholder": "ここに警告を書いてください..."
@@ -453,7 +453,7 @@
                 "disable_content_warning": "閲覧注意を無効にする",
                 "post_visibility_menu": "投稿の表示メニュー",
                 "post_options": "投稿オプション",
-                "posting_as": "Posting as %s"
+                "posting_as": "%s として投稿中"
             },
             "keyboard": {
                 "discard_post": "投稿を破棄",
@@ -470,11 +470,11 @@
             },
             "dashboard": {
                 "my_posts": "投稿",
-                "my_following": "following",
-                "my_followers": "followers",
+                "my_following": "フォロー中",
+                "my_followers": "フォローされている",
                 "other_posts": "投稿",
-                "other_following": "following",
-                "other_followers": "followers"
+                "other_following": "フォロー中",
+                "other_followers": "フォロワー"
             },
             "fields": {
                 "joined": "登録日",
@@ -484,8 +484,8 @@
                     "content": "コンテンツ"
                 },
                 "verified": {
-                    "short": "Verified on %s",
-                    "long": "Ownership of this link was checked on %s"
+                    "short": "%s で確認しました",
+                    "long": "このリンクの所有権は %s に確認されました"
                 }
             },
             "segmented_control": {
@@ -525,7 +525,7 @@
                 "show_avatar_image": "アバター画像を表示",
                 "edit_avatar_image": "アバター画像を編集",
                 "show_banner_image": "バナー画像を表示",
-                "double_tap_to_open_the_list": "Double tap to open the list"
+                "double_tap_to_open_the_list": "ダブルタップでリストを開く"
             }
         },
         "follower": {
@@ -537,7 +537,7 @@
             "footer": "他のサーバーにいるフォローは表示されません。"
         },
         "familiarFollowers": {
-            "title": "Followers you familiar",
+            "title": "おすすめのフォロワー",
             "followed_by_names": "%sがフォロー"
         },
         "favorited_by": {
@@ -625,7 +625,7 @@
             "section": {
                 "appearance": {
                     "title": "外観",
-                    "automatic": "システムに合わせる",
+                    "automatic": "システムに準拠",
                     "light": "ライト",
                     "dark": "ダーク"
                 },
@@ -652,7 +652,7 @@
                 },
                 "preference": {
                     "title": "環境設定",
-                    "true_black_dark_mode": "真っ黒なダークテーマを使用する",
+                    "true_black_dark_mode": "漆黒のダークテーマを使用する",
                     "disable_avatar_animation": "アバターのアニメーションを無効化する",
                     "disable_emoji_animation": "絵文字のアニメーションを無効化する",
                     "using_default_browser": "既定のブラウザでリンクを開く",
@@ -665,7 +665,7 @@
                     "privacy": "プライバシーポリシー"
                 },
                 "spicy_zone": {
-                    "title": "スパイシーゾーン",
+                    "title": "取り扱い注意項目",
                     "clear": "メディアキャッシュをクリア",
                     "signout": "サインアウト"
                 }
