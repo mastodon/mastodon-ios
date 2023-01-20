@@ -37,7 +37,7 @@
                 "confirm": "Выйсці"
             },
             "block_domain": {
-                "title": "Are you really, really sure you want to block the entire %s? In most cases a few targeted blocks or mutes are sufficient and preferable. You will not see content from that domain and any of your followers from that domain will be removed.",
+                "title": "Вы абсалютна дакладна ўпэўнены, што хочаце заблакіраваць %s зусім? У большасці выпадкаў, дастаткова некалькіх мэтавых блакіровак ці ігнараванняў. Вы перастанеце бачыць змесціва з гэтага дамену і вашы падпіскі з гэтага дамену будуць выдаленыя.",
                 "block_entire_domain": "Заблакіраваць дамен"
             },
             "save_photo_failure": {
@@ -227,10 +227,10 @@
                 },
                 "header": {
                     "no_status_found": "Допіс не знойдзены",
-                    "blocking_warning": "You can’t view this user's profile\nuntil you unblock them.\nYour profile looks like this to them.",
-                    "user_blocking_warning": "You can’t view %s’s profile\nuntil you unblock them.\nYour profile looks like this to them.",
-                    "blocked_warning": "You can’t view this user’s profile\nuntil they unblock you.",
-                    "user_blocked_warning": "You can’t view %s’s profile\nuntil they unblock you.",
+                    "blocking_warning": "Вы не можаце праглядаць профіль гэтага карыстальніка, \nпакуль не разблакіруеце яго.\nВось так для іх выглядае ваш профіль.",
+                    "user_blocking_warning": "Вы не можаце праглядаць профіль %s, \nпакуль не разблакіруеце яго.\nВось так для іх выглядае ваш профіль.",
+                    "blocked_warning": "Вы не можаце праглядаць профіль гэтага карыстальніка, \nпакуль ён не разблакіруе вас.",
+                    "user_blocked_warning": "Вы не можаце праглядаць профіль %s, \nпакуль ён не разблакіруе вас.",
                     "suspended_warning": "Уліковы запіс гэтага карыстальніка прыпынены.",
                     "user_suspended_warning": "Уліковы запіс %s прыпынены."
                 }
@@ -247,12 +247,12 @@
             "title": "З вяртаннем",
             "subtitle": "Log you in on the server you created your account on.",
             "server_search_field": {
-                "placeholder": "Enter URL or search for your server"
+                "placeholder": "Увядзіце URL або адрас сервера"
             }
         },
         "server_picker": {
-            "title": "Mastodon is made of users in different servers.",
-            "subtitle": "Pick a server based on your region, interests, or a general purpose one. You can still chat with anyone on Mastodon, regardless of your servers.",
+            "title": "Mastodon складаецца з карыстальнікаў на розных серверах.",
+            "subtitle": "Выбірайце сервер у залежнасці ад вашага рэгіёна, інтарэсаў або выберыце сервер агульнага прызначэння. Вы па-ранейшаму можаце ўзаемадзейнічаць з усімі, незалежна ад сервера.",
             "button": {
                 "category": {
                     "all": "Усе",
@@ -279,11 +279,11 @@
                 "category": "КАТЭГОРЫЯ"
             },
             "input": {
-                "search_servers_or_enter_url": "Search communities or enter URL"
+                "search_servers_or_enter_url": "Знайдзіце супольнасць або ўвядзіце URL"
             },
             "empty_state": {
                 "finding_servers": "Пошук даступных сервераў...",
-                "bad_network": "Something went wrong while loading the data. Check your internet connection.",
+                "bad_network": "Нешта пайшло не так падчас загрузкі даных. Праверце інтэрнэт-злучэнне.",
                 "no_results": "Няма вынікаў"
             }
         },
@@ -349,7 +349,7 @@
         },
         "server_rules": {
             "title": "Некаторыя асноўныя правілы.",
-            "subtitle": "These are set and enforced by the %s moderators.",
+            "subtitle": "Правілы вызначаныя мадэратарамі дамена %s.",
             "prompt": "By continuing, you’re subject to the terms of service and privacy policy for %s.",
             "terms_of_service": "умовы выкарыстання",
             "privacy_policy": "палітыка прыватнасці",
@@ -411,11 +411,11 @@
                 "photo": "фота",
                 "video": "відэа",
                 "attachment_broken": "This %s is broken and can’t be\nuploaded to Mastodon.",
-                "description_photo": "Describe the photo for the visually-impaired...",
-                "description_video": "Describe the video for the visually-impaired...",
+                "description_photo": "Апішыце фота для людзей са слабым зрокам...",
+                "description_video": "Апішыце відэа для людзей са слабым зрокам...",
                 "load_failed": "Не ўдалося загрузіць",
                 "upload_failed": "Не ўдалося запампаваць",
-                "can_not_recognize_this_media_attachment": "Can not recognize this media attachment",
+                "can_not_recognize_this_media_attachment": "Немагчыма распазнаць гэты медыяфайл",
                 "attachment_too_large": "Далучэнне занадта вялікае",
                 "compressing_state": "Сцісканне...",
                 "server_processing_state": "Апрацоўка сервера..."
@@ -514,11 +514,11 @@
                 },
                 "confirm_show_reblogs": {
                     "title": "Паказаць пашырэнні",
-                    "message": "Confirm to show reblogs"
+                    "message": "Пацвердзіце, каб паказаць пашырэнні"
                 },
                 "confirm_hide_reblogs": {
                     "title": "Схаваць пашырэнні",
-                    "message": "Confirm to hide reblogs"
+                    "message": "Пацвердзіце, каб схаваць пашырэнні"
                 }
             },
             "accessibility": {
@@ -726,7 +726,7 @@
                 "unfollowed": "Адпісаліся",
                 "unfollow_user": "Адпісацца ад %s",
                 "mute_user": "Ігнараваць %s",
-                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "You won’t see their posts or reblogs in your home feed. They won’t know they’ve been muted.",
+                "you_wont_see_their_posts_or_reblogs_in_your_home_feed_they_wont_know_they_ve_been_muted": "Вы не ўбачыце іх допісы або пашырэнні ў сваёй хатняй стужцы. Яны не даведаюцца, што вы іх ігнаруеце.",
                 "block_user": "Заблакіраваць %s",
                 "they_will_no_longer_be_able_to_follow_or_see_your_posts_but_they_can_see_if_theyve_been_blocked": "Яны больш не змогуць падпісвацца на вас або бачыць вашыя допісы, але змогуць бачыць, што яны былі заблакіраваны.",
                 "while_we_review_this_you_can_take_action_against_user": "Пакуль мы разглядаем яе, вы можаце прыняць меры супраць %s"
