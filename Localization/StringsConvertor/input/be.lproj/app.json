@@ -54,7 +54,7 @@
             },
             "translation_failed": {
                 "title": "Нататка",
-                "message": "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.",
+                "message": "Збой перакладу. Магчыма, адміністратар не ўключыў пераклады на гэтым серверы або гэты сервер працуе са старой версіяй Mastodon, дзе пераклады яшчэ не падтрымліваюцца.",
                 "button": "Добра"
             }
         },
@@ -245,7 +245,7 @@
         },
         "login": {
             "title": "З вяртаннем",
-            "subtitle": "Log you in on the server you created your account on.",
+            "subtitle": "Увайдзіце на серверы, дзе вы стварылі свой уліковы запіс.",
             "server_search_field": {
                 "placeholder": "Увядзіце URL або адрас сервера"
             }
@@ -350,9 +350,9 @@
         "server_rules": {
             "title": "Некаторыя асноўныя правілы.",
             "subtitle": "Правілы вызначаныя мадэратарамі дамена %s.",
-            "prompt": "By continuing, you’re subject to the terms of service and privacy policy for %s.",
+            "prompt": "Працягваючы, вы згаджаецеся з умовамі выкарыстання і палітыкай канфідэнцыяльнасці %s.",
             "terms_of_service": "умовы выкарыстання",
-            "privacy_policy": "палітыка прыватнасці",
+            "privacy_policy": "палітыка канфідэнцыяльнасці",
             "button": {
                 "confirm": "Я згодны"
             }
@@ -386,7 +386,7 @@
                 "Publishing": "Допіс публікуецца...",
                 "accessibility": {
                     "logo_label": "Mastodon",
-                    "logo_hint": "Tap to scroll to top and tap again to previous location"
+                    "logo_hint": "Націсніце, каб пракруціць уверх, і зноў націсніце, каб перайсці да папярэдняга месца"
                 }
             }
         },
@@ -410,7 +410,7 @@
             "attachment": {
                 "photo": "фота",
                 "video": "відэа",
-                "attachment_broken": "This %s is broken and can’t be\nuploaded to Mastodon.",
+                "attachment_broken": "Гэты %s пашкоджаны і не можа быць\nзапампаваны ў Mastodon.",
                 "description_photo": "Апішыце фота для людзей са слабым зрокам...",
                 "description_video": "Апішыце відэа для людзей са слабым зрокам...",
                 "load_failed": "Не ўдалося загрузіць",
@@ -530,14 +530,14 @@
         },
         "follower": {
             "title": "падпісчык",
-            "footer": "Followers from other servers are not displayed."
+            "footer": "Падпісчыкі з іншых сервераў не адлюстроўваюцца."
         },
         "following": {
             "title": "падпісаны",
-            "footer": "Follows from other servers are not displayed."
+            "footer": "Падпіскі з іншых сервераў не адлюстроўваюцца."
         },
         "familiarFollowers": {
-            "title": "Followers you familiar",
+            "title": "Падпісчыкі, якіх вы ведаеце",
             "followed_by_names": "Мае сярод падпісчыкаў %s"
         },
         "favorited_by": {
@@ -556,7 +556,7 @@
                 "button_text": "Прагледзець усе",
                 "hash_tag": {
                     "title": "Папулярныя ў Mastodon",
-                    "description": "Hashtags that are getting quite a bit of attention",
+                    "description": "Хэштэгі, якія прыцягваюць увагу",
                     "people_talking": "%s чалавек размаўляе"
                 },
                 "accounts": {
