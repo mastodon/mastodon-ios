@@ -13,7 +13,6 @@ import MastodonLocalization
 import CoreDataStack
 import UIKit
 import WebKit
-import SafariServices
 
 public protocol StatusCardControlDelegate: AnyObject {
     func statusCardControl(_ statusCardControl: StatusCardControl, didTapURL url: URL)

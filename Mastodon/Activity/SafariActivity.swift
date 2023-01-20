@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import SafariServices
 import MastodonAsset
 import MastodonLocalization
 

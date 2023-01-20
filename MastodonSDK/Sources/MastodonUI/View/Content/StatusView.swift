@@ -8,7 +8,6 @@
 import os.log
 import UIKit
 import Combine
-import SafariServices
 import MetaTextKit
 import Meta
 import MastodonAsset

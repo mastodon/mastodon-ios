@@ -9,7 +9,6 @@ import os.log
 import UIKit
 import Combine
 import CoreDataStack
-import SafariServices
 import MastodonAsset
 import MastodonCore
 import MastodonLocalization
