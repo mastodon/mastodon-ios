@@ -757,13 +757,13 @@ extension StatusView: UIDragInteractionDelegate {
             let url = URL(string: url)
         else { return [] }
         let item = UIDragItem(itemProvider: NSItemProvider(object: url as NSURL))
-        item.localObject = (url, effectiveRange)
+        item.localObject = effectiveRange
         item.previewProvider = { UIDragPreview(for: url, title: trimmed) }
         return [item]
     }
 
     public func dragInteraction(_ interaction: UIDragInteraction, previewForLifting item: UIDragItem, session: UIDragSession) -> UITargetedDragPreview? {
-        guard let (_, effectiveRange) = item.localObject as? (URL, NSRange) else {
+        guard let effectiveRange = item.localObject as? NSRange else {
             assertionFailure()
             return nil
         }
