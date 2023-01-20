@@ -312,6 +312,8 @@ extension StatusCardControl: WKNavigationDelegate, WKUIDelegate {
 
 // MARK: UIContextMenuInteractionDelegate
 extension StatusCardControl {
+    /// This class is needed because `UIControl` marks `contextMenuInteraction(_:willPerformPreviewActionForMenuWith:animator:)`
+    /// as unavailable for some reason, so we can’t use the `StatusCardControl` itself as the delegate.
     fileprivate class ContextMenuDelegate: NSObject, UIContextMenuInteractionDelegate {
         unowned let parent: StatusCardControl
         
