@@ -349,10 +349,7 @@ public final class StatusView: UIView {
 
 extension StatusView {
     private func _init() {
-        let dragInteraction = UIDragInteraction(delegate: self)
-        dragInteraction.allowsSimultaneousRecognitionDuringLift = true
-        dragInteraction.isEnabled = true
-        addInteraction(dragInteraction)
+        addInteraction(UIDragInteraction(delegate: self))
         addInteraction(UIContextMenuInteraction(delegate: self))
 
         // container
