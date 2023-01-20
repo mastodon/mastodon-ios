@@ -606,11 +606,11 @@ extension NotificationView: StatusViewDelegate {
         assertionFailure()
     }
 
-    public func statusView(_ statusView: StatusView, previewFor url: URL) -> UIViewController? {
+    public func statusView(_ statusView: StatusView, previewForURL url: URL) -> UIViewController? {
         return nil
     }
     
-    public func statusView(_ statusView: StatusView, menuFor url: URL) -> [LabeledAction]? {
+    public func statusView(_ statusView: StatusView, menuForURL url: URL) -> [LabeledAction]? {
         return nil
     }
     

@@ -157,7 +157,7 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
     func tableViewCell(
         _ cell: UITableViewCell,
         statusView: StatusView,
-        previewFor url: URL
+        previewForURL url: URL
     ) -> UIViewController? {
         coordinator.viewController(forScene: .safari(url: url))
     }
@@ -166,7 +166,7 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
     func tableViewCell(
         _ cell: UITableViewCell,
         statusView: StatusView,
-        menuFor url: URL
+        menuForURL url: URL
     ) -> [LabeledAction]? {
         return [
             LabeledAction(

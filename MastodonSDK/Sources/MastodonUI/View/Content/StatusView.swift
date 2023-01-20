@@ -40,8 +40,8 @@ public protocol StatusViewDelegate: AnyObject {
     func statusView(_ statusView: StatusView, statusMetricView: StatusMetricView, favoriteButtonDidPressed button: UIButton)
     func statusView(_ statusView: StatusView, statusMetricView: StatusMetricView, showEditHistory button: UIButton)
     func statusView(_ statusView: StatusView, cardControl: StatusCardControl, didTapURL url: URL)
-    func statusView(_ statusView: StatusView, previewFor url: URL) -> UIViewController?
-    func statusView(_ statusView: StatusView, menuFor url: URL) -> [LabeledAction]?
+    func statusView(_ statusView: StatusView, previewForURL url: URL) -> UIViewController?
+    func statusView(_ statusView: StatusView, menuForURL url: URL) -> [LabeledAction]?
     func statusView(_ statusView: StatusView, commitPreview preview: MetaPreview)
     
     // a11y
@@ -799,10 +799,10 @@ extension StatusView: UIContextMenuInteractionDelegate {
         else { return nil }
         let config = MetaContextMenuConfiguration(
             previewProvider: {
-                self.delegate?.statusView(self, previewFor: url)
+                self.delegate?.statusView(self, previewForURL: url)
             },
             actionProvider: { _ in
-                if let elements = self.delegate?.statusView(self, menuFor: url)?.map(\.menuElement) {
+                if let elements = self.delegate?.statusView(self, menuForURL: url)?.map(\.menuElement) {
                     return UIMenu(children: elements)
                 }
                 return nil
@@ -921,7 +921,7 @@ extension StatusView: StatusCardControlDelegate {
 
     public func statusCardControlMenu(_ statusCardControl: StatusCardControl) -> [LabeledAction]? {
         if let url = viewModel.card?.url {
-            return delegate?.statusView(self, menuFor: url)
+            return delegate?.statusView(self, menuForURL: url)
         } else {
             return nil
         }
@@ -932,7 +932,7 @@ extension StatusView: StatusCardControlDelegate {
     }
     
     public func statusCardControl(_ statusCardControl: StatusCardControl, previewViewControllerFor url: URL) -> UIViewController? {
-        delegate?.statusView(self, previewFor: url)
+        delegate?.statusView(self, previewForURL: url)
     }
 }
 
