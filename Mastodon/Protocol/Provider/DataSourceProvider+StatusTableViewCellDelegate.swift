@@ -153,6 +153,15 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
             )
         }
     }
+    
+    func tableViewCell(
+        _ cell: UITableViewCell,
+        statusView: StatusView,
+        previewFor url: URL
+    ) -> UIViewController? {
+        coordinator.viewController(forScene: .safari(url: url))
+    }
+
 
     func tableViewCell(
         _ cell: UITableViewCell,
@@ -218,6 +227,18 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
                 }
             }
         ]
+    }
+    
+    @MainActor
+    func tableViewCell(
+        _ cell: UITableViewCell,
+        statusView: StatusView,
+        commitPreview preview: MetaPreview
+    ) {
+        switch preview {
+        case .url(let url, let vc):
+            coordinator.present(scene: .safari(url: url), from: self, to: vc, transition: .safariPresent(animated: true))
+        }
     }
 
 }

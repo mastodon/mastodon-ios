@@ -38,7 +38,9 @@ protocol StatusTableViewCellDelegate: AnyObject, AutoGenerateProtocolDelegate {
     func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, statusMetricView: StatusMetricView, favoriteButtonDidPressed button: UIButton)
     func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, statusMetricView: StatusMetricView, showEditHistory button: UIButton)
     func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, cardControl: StatusCardControl, didTapURL url: URL)
+    func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, previewFor url: URL) -> UIViewController?
     func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, menuFor url: URL) -> [LabeledAction]?
+    func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, commitPreview preview: MetaPreview)
     func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, accessibilityActivate: Void)
     // sourcery:end
 }
@@ -108,8 +110,16 @@ extension StatusViewDelegate where Self: StatusViewContainerTableViewCell {
         delegate?.tableViewCell(self, statusView: statusView, cardControl: cardControl, didTapURL: url)
     }
 
+    func statusView(_ statusView: StatusView, previewFor url: URL) -> UIViewController? {
+        return delegate?.tableViewCell(self, statusView: statusView, previewFor: url)
+    }
+
     func statusView(_ statusView: StatusView, menuFor url: URL) -> [LabeledAction]? {
         return delegate?.tableViewCell(self, statusView: statusView, menuFor: url)
+    }
+
+    func statusView(_ statusView: StatusView, commitPreview preview: MetaPreview) {
+        delegate?.tableViewCell(self, statusView: statusView, commitPreview: preview)
     }
 
     func statusView(_ statusView: StatusView, accessibilityActivate: Void) {

@@ -275,8 +275,8 @@ extension SceneCoordinator {
 
     @MainActor
     @discardableResult
-    func present(scene: Scene, from sender: UIViewController? = nil, transition: Transition) -> UIViewController? {
-        guard let viewController = get(scene: scene) else {
+    func present(scene: Scene, from sender: UIViewController?, to prebuiltViewController: UIViewController? = nil, transition: Transition) -> UIViewController? {
+        guard let viewController = prebuiltViewController ?? viewController(forScene: scene) else {
             return nil
         }
         guard var presentingViewController = sender ?? sceneDelegate.window?.rootViewController?.topMost else {
@@ -384,9 +384,9 @@ extension SceneCoordinator {
     }
 }
 
-private extension SceneCoordinator {
+extension SceneCoordinator {
     
-    func get(scene: Scene) -> UIViewController? {
+    func viewController(forScene scene: Scene) -> UIViewController? {
         let viewController: UIViewController?
         
         switch scene {

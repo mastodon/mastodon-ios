@@ -18,6 +18,8 @@ import SafariServices
 public protocol StatusCardControlDelegate: AnyObject {
     func statusCardControl(_ statusCardControl: StatusCardControl, didTapURL url: URL)
     func statusCardControlMenu(_ statusCardControl: StatusCardControl) -> [LabeledAction]?
+    func statusCardControl(_ statusCardControl: StatusCardControl, commitPreview viewController: UIViewController, for url: URL)
+    func statusCardControl(_ statusCardControl: StatusCardControl, previewViewControllerFor url: URL) -> UIViewController?
 }
 
 public final class StatusCardControl: UIControl {
@@ -55,6 +57,8 @@ public final class StatusCardControl: UIControl {
     private var layout: Layout?
     private var layoutConstraints: [NSLayoutConstraint] = []
     private var dividerConstraint: NSLayoutConstraint?
+    
+    private var contextMenuDelegate: ContextMenuDelegate?
 
     public override var isHighlighted: Bool {
         didSet {
@@ -130,7 +134,9 @@ public final class StatusCardControl: UIControl {
             showEmbedButton.centerYAnchor.constraint(equalTo: imageView.centerYAnchor),
         ])
 
-        addInteraction(UIContextMenuInteraction(delegate: self))
+        let contextMenuDelegate = ContextMenuDelegate(parent: self)
+        self.contextMenuDelegate = contextMenuDelegate
+        addInteraction(UIContextMenuInteraction(delegate: contextMenuDelegate))
         addInteraction(UIDragInteraction(delegate: self))
         isAccessibilityElement = true
         accessibilityTraits.insert(.link)
@@ -307,19 +313,38 @@ extension StatusCardControl: WKNavigationDelegate, WKUIDelegate {
 
 // MARK: UIContextMenuInteractionDelegate
 extension StatusCardControl {
-    public override func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
-        return UIContextMenuConfiguration(identifier: nil) {
-            self.url.map { SFSafariViewController(url: $0) }
-        } actionProvider: { elements in
-            if let elements = self.delegate?.statusCardControlMenu(self)?.map(\.menuElement) {
-                return UIMenu(children: elements)
-            }
-            return nil
+    fileprivate class ContextMenuDelegate: NSObject, UIContextMenuInteractionDelegate {
+        unowned let parent: StatusCardControl
+        
+        init(parent: StatusCardControl) {
+            self.parent = parent
         }
-    }
 
-    public override func contextMenuInteraction(_ interaction: UIContextMenuInteraction, previewForDismissingMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
-        UITargetedPreview(view: self)
+        public func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
+            return UIContextMenuConfiguration(identifier: nil) {
+                self.parent.url.flatMap { self.parent.delegate?.statusCardControl(self.parent, previewViewControllerFor: $0) }
+            } actionProvider: { elements in
+                if let elements = self.parent.delegate?.statusCardControlMenu(self.parent)?.map(\.menuElement) {
+                    return UIMenu(children: elements)
+                }
+                return nil
+            }
+        }
+        
+        public func contextMenuInteraction(_ interaction: UIContextMenuInteraction, previewForDismissingMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
+            UITargetedPreview(view: parent)
+        }
+        
+        public func contextMenuInteraction(_ interaction: UIContextMenuInteraction, willPerformPreviewActionForMenuWith configuration: UIContextMenuConfiguration, animator: UIContextMenuInteractionCommitAnimating) {
+            if let vc = animator.previewViewController, let url = parent.url {
+                animator.preferredCommitStyle = .pop
+                animator.addAnimations {
+                    self.parent.delegate?.statusCardControl(self.parent, commitPreview: vc, for: url)
+                }
+            } else {
+                animator.preferredCommitStyle = .dismiss
+            }
+        }
     }
 }
 

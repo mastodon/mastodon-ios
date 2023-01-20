@@ -19,6 +19,11 @@ public extension CGSize {
     static let authorAvatarButtonSize = CGSize(width: 46, height: 46)
 }
 
+public enum MetaPreview {
+    case url(URL, UIViewController)
+    // todo: others
+}
+
 public protocol StatusViewDelegate: AnyObject {
     func statusView(_ statusView: StatusView, headerDidPressed header: UIView)
     func statusView(_ statusView: StatusView, authorAvatarButtonDidPressed button: AvatarButton)
@@ -35,8 +40,10 @@ public protocol StatusViewDelegate: AnyObject {
     func statusView(_ statusView: StatusView, statusMetricView: StatusMetricView, favoriteButtonDidPressed button: UIButton)
     func statusView(_ statusView: StatusView, statusMetricView: StatusMetricView, showEditHistory button: UIButton)
     func statusView(_ statusView: StatusView, cardControl: StatusCardControl, didTapURL url: URL)
+    func statusView(_ statusView: StatusView, previewFor url: URL) -> UIViewController?
     func statusView(_ statusView: StatusView, menuFor url: URL) -> [LabeledAction]?
-
+    func statusView(_ statusView: StatusView, commitPreview preview: MetaPreview)
+    
     // a11y
     func statusView(_ statusView: StatusView, accessibilityActivate: Void)
 }
@@ -792,7 +799,7 @@ extension StatusView: UIContextMenuInteractionDelegate {
         else { return nil }
         let config = MetaContextMenuConfiguration(
             previewProvider: {
-                SFSafariViewController(url: url)
+                self.delegate?.statusView(self, previewFor: url)
             },
             actionProvider: { _ in
                 if let elements = self.delegate?.statusView(self, menuFor: url)?.map(\.menuElement) {
@@ -818,6 +825,28 @@ extension StatusView: UIContextMenuInteractionDelegate {
     }
     public func contextMenuInteraction(_ interaction: UIContextMenuInteraction, previewForDismissingMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
         (configuration as? MetaContextMenuConfiguration)?.preview
+    }
+    
+    public func contextMenuInteraction(_ interaction: UIContextMenuInteraction, willPerformPreviewActionForMenuWith configuration: UIContextMenuConfiguration, animator: UIContextMenuInteractionCommitAnimating) {
+        guard let configuration = configuration as? MetaContextMenuConfiguration else { return }
+        switch configuration.meta {
+        case .url(_, _, let url, _):
+            guard let url = URL(string: url), let vc = animator.previewViewController else {
+                assertionFailure()
+                animator.preferredCommitStyle = .dismiss
+                break
+            }
+            animator.preferredCommitStyle = .pop
+            animator.addAnimations {
+                self.delegate?.statusView(self, commitPreview: .url(url, vc))
+            }
+        default:
+            // shouldn’t be possible since the `configurationForMenuAtLocation`
+            // method above won’t vend an unsupported configuration
+            assertionFailure("Invalid meta type \(String(describing: configuration.meta))")
+            animator.preferredCommitStyle = .dismiss
+            break
+        }
     }
 }
 
@@ -896,6 +925,14 @@ extension StatusView: StatusCardControlDelegate {
         } else {
             return nil
         }
+    }
+    
+    public func statusCardControl(_ statusCardControl: StatusCardControl, commitPreview viewController: UIViewController, for url: URL) {
+        delegate?.statusView(self, commitPreview: .url(url, viewController))
+    }
+    
+    public func statusCardControl(_ statusCardControl: StatusCardControl, previewViewControllerFor url: URL) -> UIViewController? {
+        delegate?.statusView(self, previewFor: url)
     }
 }
 
