@@ -97,6 +97,7 @@ extension SendPostIntentHandler: SendPostIntentHandling {
                     subtitle: content,
                     image: response.value.account.avatarImageURL().flatMap { INImage(url: $0) }
                 )
+                post.url = URL(string: response.value.url ?? "")
                 posts.append(post)
             }   // end for in
 
