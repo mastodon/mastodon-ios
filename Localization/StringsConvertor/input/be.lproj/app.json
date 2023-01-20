@@ -42,7 +42,7 @@
             },
             "save_photo_failure": {
                 "title": "Памылка пры захаванні фотам",
-                "message": "Please enable the photo library access permission to save the photo."
+                "message": "Дайце дазвол на доступ да бібліятэкі фатаграфій, каб захаваць фатаграфію."
             },
             "delete_post": {
                 "title": "Выдаліць допіс",
@@ -123,8 +123,8 @@
                     "open_author_profile": "Адкрыць профіль аўтара",
                     "open_reblogger_profile": "Адкрыць профіль пашырыўшага",
                     "reply_status": "Адказаць на допіс",
-                    "toggle_reblog": "Toggle Reblog on Post",
-                    "toggle_favorite": "Toggle Favorite on Post",
+                    "toggle_reblog": "Пашырыць ці ўбраць пашырэнне",
+                    "toggle_favorite": "Дадаць ці прыбраць з абранага",
                     "toggle_content_warning": "Уключыць/адключыць папярэджанне аб змесціве",
                     "preview_image": "Перадпрагляд відарыса"
                 },
@@ -180,7 +180,7 @@
                     "unlisted": "Кожны можа бачыць гэты допіс, але ён не адлюстроўваецца ў публічнай стужцы.",
                     "private": "Толькі іх падпісчыкі могуць бачыць гэты допіс.",
                     "private_from_me": "Толькі мае падпісчыкі могуць бачыць гэты допіс.",
-                    "direct": "Only mentioned user can see this post."
+                    "direct": "Толькі згаданы карыстальнік можа бачыць гэты пост."
                 },
                 "translation": {
                     "translated_from": "Перакладзена з %s з дапамогай %s",
@@ -372,7 +372,7 @@
             },
             "open_email_app": {
                 "title": "Праверце вашу паштовую скрыню.",
-                "description": "We just sent you an email. Check your junk folder if you haven’t.",
+                "description": "Мы толькі што даслалі вам электронны ліст. Праверце папку са спамам, калі не знайшлі яго.",
                 "mail": "Пошта",
                 "open_email_client": "Адкрыць паштовы кліент"
             }
@@ -541,7 +541,7 @@
             "followed_by_names": "Мае сярод падпісчыкаў %s"
         },
         "favorited_by": {
-            "title": "Favorited By"
+            "title": "Дадалі ў абранае"
         },
         "reblogged_by": {
             "title": "Пашырана"
@@ -682,12 +682,12 @@
             "title": "Паскардзіцца на %s",
             "step1": "Крок 1 з 2",
             "step2": "Крок 2 з 2",
-            "content1": "Are there any other posts you’d like to add to the report?",
-            "content2": "Is there anything the moderators should know about this report?",
+            "content1": "Ці ёсць іншыя допісы, якія вы хацелі б дадаць да скаргі?",
+            "content2": "Ці ёсць што-небудзь, што мадэратары павінны ведаць аб гэтай скарзе?",
             "report_sent_title": "Дзякуй за вашу скаргу, мы яе разгледзім.",
             "send": "Адправіць скаргу",
             "skip_to_send": "Дасылаю без каментарыя",
-            "text_placeholder": "Type or paste additional comments",
+            "text_placeholder": "Увядзіце або ўстаўце дадатковыя каментарыі",
             "reported": "Мае скаргі",
             "step_one": {
                 "step_1_of_4": "Крок 1 з 4",
