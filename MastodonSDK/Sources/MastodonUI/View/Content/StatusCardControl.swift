@@ -31,6 +31,7 @@ public final class StatusCardControl: UIControl {
     private let dividerView = UIView()
     private let imageView = UIImageView()
     private let titleLabel = UILabel()
+    private let descriptionLabel = UILabel()
     private let siteNameLabel = UILabel()
     private lazy var showEmbedButton: UIButton = {
         var configuration = UIButton.Configuration.gray()
@@ -85,7 +86,16 @@ public final class StatusCardControl: UIControl {
 
         titleLabel.numberOfLines = 2
         titleLabel.textColor = Asset.Colors.Label.primary.color
-        titleLabel.font = .preferredFont(forTextStyle: .body)
+        let descriptor = UIFont.preferredFont(forTextStyle: .body)
+            .fontDescriptor
+            .addingAttributes([.traits: [UIFontDescriptor.TraitKey.weight: UIFont.Weight.medium]])
+        titleLabel.font = UIFontMetrics(forTextStyle: .body)
+            .scaledFont(for: UIFont(descriptor: descriptor, size: descriptor.pointSize))
+        titleLabel.adjustsFontForContentSizeCategory = false
+        
+        descriptionLabel.numberOfLines = 2
+        descriptionLabel.textColor = Asset.Colors.Label.primary.color
+        descriptionLabel.font = .preferredFont(forTextStyle: .caption1)
 
         siteNameLabel.numberOfLines = 1
         siteNameLabel.textColor = Asset.Colors.Label.secondary.color
@@ -100,6 +110,7 @@ public final class StatusCardControl: UIControl {
         imageView.setContentCompressionResistancePriority(.zero, for: .vertical)
 
         labelStackView.addArrangedSubview(titleLabel)
+        labelStackView.addArrangedSubview(descriptionLabel)
         labelStackView.addArrangedSubview(siteNameLabel)
         labelStackView.layoutMargins = .init(top: 10, left: 10, bottom: 10, right: 10)
         labelStackView.isLayoutMarginsRelativeArrangement = true
@@ -146,6 +157,7 @@ public final class StatusCardControl: UIControl {
         }
 
         titleLabel.text = title
+        descriptionLabel.text = card.desc.trimmingCharacters(in: .whitespacesAndNewlines)
         siteNameLabel.text = card.websiteName
         imageView.contentMode = .center
 
@@ -208,6 +220,7 @@ public final class StatusCardControl: UIControl {
                     .constraint(lessThanOrEqualToConstant: 400),
             ]
             dividerConstraint = dividerView.heightAnchor.constraint(equalToConstant: pixelSize).activate()
+            descriptionLabel.isHidden = false
         case .compact:
             containerStackView.alignment = .center
             containerStackView.axis = .horizontal
@@ -219,6 +232,7 @@ public final class StatusCardControl: UIControl {
                 dividerView.heightAnchor.constraint(equalTo: containerStackView.heightAnchor),
             ]
             dividerConstraint = dividerView.widthAnchor.constraint(equalToConstant: pixelSize).activate()
+            descriptionLabel.isHidden = true
         }
 
         NSLayoutConstraint.activate(layoutConstraints)
