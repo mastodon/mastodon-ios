@@ -31,7 +31,7 @@ public final class StatusCardControl: UIControl {
     private let dividerView = UIView()
     private let imageView = UIImageView()
     private let titleLabel = UILabel()
-    private let linkLabel = UILabel()
+    private let siteNameLabel = UILabel()
     private lazy var showEmbedButton: UIButton = {
         var configuration = UIButton.Configuration.gray()
         configuration.background.visualEffect = UIBlurEffect(style: .systemUltraThinMaterial)
@@ -87,9 +87,9 @@ public final class StatusCardControl: UIControl {
         titleLabel.textColor = Asset.Colors.Label.primary.color
         titleLabel.font = .preferredFont(forTextStyle: .body)
 
-        linkLabel.numberOfLines = 1
-        linkLabel.textColor = Asset.Colors.Label.secondary.color
-        linkLabel.font = .preferredFont(forTextStyle: .subheadline)
+        siteNameLabel.numberOfLines = 1
+        siteNameLabel.textColor = Asset.Colors.Label.secondary.color
+        siteNameLabel.font = .preferredFont(forTextStyle: .subheadline)
 
         imageView.tintColor = Asset.Colors.Label.secondary.color
         imageView.contentMode = .scaleAspectFill
@@ -100,7 +100,7 @@ public final class StatusCardControl: UIControl {
         imageView.setContentCompressionResistancePriority(.zero, for: .vertical)
 
         labelStackView.addArrangedSubview(titleLabel)
-        labelStackView.addArrangedSubview(linkLabel)
+        labelStackView.addArrangedSubview(siteNameLabel)
         labelStackView.layoutMargins = .init(top: 10, left: 10, bottom: 10, right: 10)
         labelStackView.isLayoutMarginsRelativeArrangement = true
         labelStackView.axis = .vertical
@@ -139,14 +139,14 @@ public final class StatusCardControl: UIControl {
 
     public func configure(card: Card) {
         let title = card.title.trimmingCharacters(in: .whitespacesAndNewlines)
-        if let host = card.url?.host {
-            accessibilityLabel = "\(title) \(host)"
+        if let websiteName = card.websiteName {
+            accessibilityLabel = "\(title) \(websiteName)"
         } else {
             accessibilityLabel = title
         }
 
         titleLabel.text = title
-        linkLabel.text = card.url?.host
+        siteNameLabel.text = card.websiteName
         imageView.contentMode = .center
 
         imageView.sd_setImage(
