@@ -30,7 +30,7 @@ extension StatusView {
         public var context: AppContext?
         public var authContext: AuthContext?
         public var originalStatus: Status?
-    
+
         // Header
         @Published public var header: Header = .none
         
@@ -102,6 +102,8 @@ extension StatusView {
         @Published public var replyCount: Int = 0
         @Published public var reblogCount: Int = 0
         @Published public var favoriteCount: Int = 0
+
+        @Published public var statusEdits: [StatusEdit] = []
         
         // Filter
         @Published public var activeFilters: [Mastodon.Entity.Filter] = []
@@ -614,6 +616,19 @@ extension StatusView.ViewModel {
         $favoriteCount
             .sink { title in
                 statusView.statusMetricView.favoriteButton.detailLabel.text = "\(title)"
+            }
+            .store(in: &disposeBag)
+
+        $statusEdits
+            .sink { edits in
+                guard let newestEdit = edits
+                    .sorted(by: { $0.createdAt > $1.createdAt }).first else {
+                        return
+                    }
+
+                let relativeDateFormatter = RelativeDateTimeFormatter()
+                let relativeDate = relativeDateFormatter.localizedString(for: newestEdit.createdAt, relativeTo: Date())
+                statusView.statusMetricView.editHistoryButton.detailLabel.text = "Last edit \(relativeDate)"
             }
             .store(in: &disposeBag)
     }
