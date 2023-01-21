@@ -135,6 +135,7 @@
 		9E44C7222967AD17004B2A72 /* MastodonSDKDynamic in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 9E44C71F2967AD17004B2A72 /* MastodonSDKDynamic */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		C24C97032922F30500BAE8CB /* RefreshControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24C97022922F30500BAE8CB /* RefreshControl.swift */; };
 		D808B94C296ECFDC0031EB1E /* StatusEditHistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D808B94B296ECFDC0031EB1E /* StatusEditHistoryViewModel.swift */; };
+		D808B94E296EFBBA0031EB1E /* StatusEditHistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D808B94D296EFBBA0031EB1E /* StatusEditHistoryTableViewCell.swift */; };
 		D8099078294BC8A30050219F /* PrivacyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8099077294BC8A30050219F /* PrivacyTableViewController.swift */; };
 		D809907A294BC9390050219F /* PrivacyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8099079294BC9390050219F /* PrivacyTableViewCell.swift */; };
 		D809907C294D25510050219F /* PrivacyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D809907B294D25510050219F /* PrivacyViewModel.swift */; };
@@ -773,6 +774,7 @@
 		CD92E0F10BDE4FE7C4B999F2 /* Pods_MastodonTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MastodonTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7D7CF93E262178800077512 /* Pods-Mastodon-AppShared.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon-AppShared.debug.xcconfig"; path = "Target Support Files/Pods-Mastodon-AppShared/Pods-Mastodon-AppShared.debug.xcconfig"; sourceTree = "<group>"; };
 		D808B94B296ECFDC0031EB1E /* StatusEditHistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusEditHistoryViewModel.swift; sourceTree = "<group>"; };
+		D808B94D296EFBBA0031EB1E /* StatusEditHistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusEditHistoryTableViewCell.swift; sourceTree = "<group>"; };
 		D8099077294BC8A30050219F /* PrivacyTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyTableViewController.swift; sourceTree = "<group>"; };
 		D8099079294BC9390050219F /* PrivacyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyTableViewCell.swift; sourceTree = "<group>"; };
 		D809907B294D25510050219F /* PrivacyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyViewModel.swift; sourceTree = "<group>"; };
@@ -1835,6 +1837,7 @@
 			children = (
 				D8E5C348296DB8A3007E76A7 /* StatusEditHistoryViewController.swift */,
 				D808B94B296ECFDC0031EB1E /* StatusEditHistoryViewModel.swift */,
+				D808B94D296EFBBA0031EB1E /* StatusEditHistoryTableViewCell.swift */,
 			);
 			path = "Edit History";
 			sourceTree = "<group>";
@@ -3600,6 +3603,7 @@
 				DBDFF1902805543100557A48 /* DiscoveryPostsViewController.swift in Sources */,
 				DB697DD9278F4CED004EF2F7 /* HomeTimelineViewController+DataSourceProvider.swift in Sources */,
 				DB45FAD725CA6C76005A8AC7 /* UIBarButtonItem.swift in Sources */,
+				D808B94E296EFBBA0031EB1E /* StatusEditHistoryTableViewCell.swift in Sources */,
 				2D8434F525FF465D00EECE90 /* HomeTimelineNavigationBarTitleViewModel.swift in Sources */,
 				DB938F0F2624119800E5B6C1 /* ThreadViewModel+LoadThreadState.swift in Sources */,
 				DB6180F226391CF40018D199 /* MediaPreviewImageViewModel.swift in Sources */,
