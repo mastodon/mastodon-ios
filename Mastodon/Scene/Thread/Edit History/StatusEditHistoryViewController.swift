@@ -17,6 +17,7 @@ class StatusEditHistoryViewController: UIViewController {
 
         tableView = UITableView(frame: .zero)
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.separatorStyle = .none
         tableView.register(StatusEditHistoryTableViewCell.self, forCellReuseIdentifier: StatusEditHistoryTableViewCell.identifier)
 
         let tableViewDataSource = UITableViewDiffableDataSource<Int, StatusEdit>(tableView: tableView) {tableView, indexPath, itemIdentifier in
