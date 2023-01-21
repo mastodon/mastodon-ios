@@ -4,5 +4,6 @@ import Foundation
 import CoreDataStack
 
 struct StatusEditHistoryViewModel {
+    var status: Status
     var edits: [StatusEdit]
 }
