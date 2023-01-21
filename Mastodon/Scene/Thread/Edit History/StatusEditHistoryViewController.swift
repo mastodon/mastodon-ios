@@ -25,7 +25,7 @@ class StatusEditHistoryViewController: UIViewController {
             }
 
             let editEntry = viewModel.edits[indexPath.row]
-            cell.textLabel?.text = editEntry.content
+            cell.configure(status: viewModel.status, statusEdit: editEntry)
 
             return cell
         }

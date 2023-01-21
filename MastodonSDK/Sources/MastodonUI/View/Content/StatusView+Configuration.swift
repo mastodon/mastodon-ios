@@ -39,6 +39,15 @@ extension StatusView {
 }
 
 extension StatusView {
+
+    public func configure(status: Status, statusEdit: StatusEdit) {
+        configure(status: status)
+        configureContent(statusEdit: statusEdit, status: status)
+        actionToolbarAdaptiveMarginContainerView.isHidden = true
+        authorView.menuButton.isHidden = true
+        headerAdaptiveMarginContainerView.isHidden = true
+    }
+
     public func configure(status: Status) {
         viewModel.objects.insert(status)
         if let reblog = status.reblog {
@@ -114,7 +123,7 @@ extension StatusView {
                 let header = ViewModel.Header.reply(info: .init(header: metaContent))
                 return header
             }
-                        
+
             if let replyTo = status.replyTo {
                 // A. replyTo status exist
                 let header = createHeader(name: replyTo.author.displayNameWithFallback, emojis: replyTo.author.emojis.asDictionary)
@@ -286,7 +295,44 @@ extension StatusView {
             viewModel.content = PlaintextMetaContent(string: "")
         }
     }
-    
+
+    private func configureContent(statusEdit: StatusEdit, status: Status) {
+        // spoilerText
+        if let spoilerText = statusEdit.spoilerText, !spoilerText.isEmpty {
+            do {
+                //FIXME: @zeitschlag Add emojis
+                let content = MastodonContent(content: spoilerText, emojis: [:]) //  statusEdit.emojis.asDictionary)
+                let metaContent = try MastodonMetaContent.convert(document: content)
+                viewModel.spoilerContent = metaContent
+            } catch {
+                assertionFailure(error.localizedDescription)
+                viewModel.spoilerContent = PlaintextMetaContent(string: "")
+            }
+        } else {
+            viewModel.spoilerContent = nil
+        }
+        // language
+        viewModel.language = (status.reblog ?? status).language
+        // content
+        do {
+            //FIXME: @zeitschlag Add emojis
+            let content = MastodonContent(content: statusEdit.content, emojis: [:]) //  statusEdit.emojis.asDictionary)
+            let metaContent = try MastodonMetaContent.convert(document: content)
+            viewModel.content = metaContent
+            viewModel.translatedFromLanguage = nil
+            viewModel.isCurrentlyTranslating = false
+        } catch {
+            assertionFailure(error.localizedDescription)
+            viewModel.content = PlaintextMetaContent(string: "")
+        }
+        // visibility
+        status.publisher(for: \.visibilityRaw)
+            .compactMap { MastodonVisibility(rawValue: $0) }
+            .assign(to: \.visibility, on: viewModel)
+            .store(in: &disposeBag)
+        // sensitive
+    }
+
     private func configureContent(status: Status) {
         guard status.translatedContent == nil else {
             return configureTranslated(status: status)
