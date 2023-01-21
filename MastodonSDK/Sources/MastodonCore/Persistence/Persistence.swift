@@ -20,6 +20,7 @@ extension Persistence {
     public enum Tag { }
     public enum SearchHistory { }
     public enum Notification { }
+    public enum StatusEdit {}
 }
 
 extension Persistence {
