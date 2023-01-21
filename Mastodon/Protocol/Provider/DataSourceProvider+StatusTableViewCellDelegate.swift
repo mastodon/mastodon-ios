@@ -650,11 +650,21 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
 
     func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, statusMetricView: StatusMetricView, showEditHistory button: UIButton) {
         Task {
-            let viewModel = StatusEditHistoryViewModel()
+
+            let source = DataSourceItem.Source(tableViewCell: cell, indexPath: nil)
+            guard let item = await self.item(from: source),
+                  case let .status(status) = item else {
+                assertionFailure("only works for status data provider")
+                return
+            }
+
+            guard let status = status.object(in: context.managedObjectContext),
+                  let edits = status.editHistory?.sorted(by: { $0.createdAt < $1.createdAt }) else { return }
+
+            let viewModel = StatusEditHistoryViewModel(edits: edits)
             _ = await coordinator.present(scene: .editHistory(viewModel: viewModel), from: self, transition: .show)
         }
     }
-
 }
 
 // MARK: a11y
