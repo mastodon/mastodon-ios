@@ -227,7 +227,7 @@
         <relationship name="author" maxCount="1" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="statuses" inverseEntity="MastodonUser"/>
         <relationship name="bookmarkedBy" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="bookmarked" inverseEntity="MastodonUser"/>
         <relationship name="card" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Card" inverseName="status" inverseEntity="Card"/>
-        <relationship name="editHistory" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="StatusEdit" inverseName="status" inverseEntity="StatusEdit"/>
+        <relationship name="editHistory" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="StatusEdit" inverseName="status" inverseEntity="StatusEdit"/>
         <relationship name="favouritedBy" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="favourite" inverseEntity="MastodonUser"/>
         <relationship name="feeds" toMany="YES" deletionRule="Cascade" destinationEntity="Feed" inverseName="status" inverseEntity="Feed"/>
         <relationship name="mutedBy" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="muted" inverseEntity="MastodonUser"/>
@@ -241,7 +241,7 @@
         <relationship name="replyTo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Status" inverseName="replyFrom" inverseEntity="Status"/>
         <relationship name="searchHistories" toMany="YES" deletionRule="Cascade" destinationEntity="SearchHistory" inverseName="status" inverseEntity="SearchHistory"/>
     </entity>
-    <entity name="StatusEdit" representedClassName="StatusEdit" syncable="YES" codeGenerationType="class">
+    <entity name="StatusEdit" representedClassName="CoreDataStack.StatusEdit" syncable="YES">
         <attribute name="content" optional="YES" attributeType="String"/>
         <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="sensitive" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
@@ -249,7 +249,7 @@
         <relationship name="author" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MastodonUser"/>
         <relationship name="emojis" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Emoji"/>
         <relationship name="poll" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Poll"/>
-        <relationship name="status" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Status" inverseName="editHistory" inverseEntity="Status"/>
+        <relationship name="status" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Status" inverseName="editHistory" inverseEntity="Status"/>
     </entity>
     <entity name="Subscription" representedClassName="CoreDataStack.Subscription" syncable="YES">
         <attribute name="activedAt" attributeType="Date" usesScalarValueType="NO"/>
