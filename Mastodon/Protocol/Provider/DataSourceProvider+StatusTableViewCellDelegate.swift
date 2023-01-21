@@ -659,9 +659,9 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
             }
 
             guard let status = status.object(in: context.managedObjectContext),
-                  let edits = status.editHistory?.sorted(by: { $0.createdAt < $1.createdAt }) else { return }
+                  let edits = status.editHistory?.sorted(by: { $0.createdAt > $1.createdAt }) else { return }
 
-            let viewModel = StatusEditHistoryViewModel(edits: edits)
+            let viewModel = StatusEditHistoryViewModel(status: status, edits: edits)
             _ = await coordinator.present(scene: .editHistory(viewModel: viewModel), from: self, transition: .show)
         }
     }
