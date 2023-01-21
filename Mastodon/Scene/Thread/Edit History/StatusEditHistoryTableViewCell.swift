@@ -11,8 +11,13 @@ class StatusEditHistoryTableViewCell: UITableViewCell {
     let dateLabel: UILabel
     let statusView: StatusView
     private let grayBackground: UIView
+    private let dateFormatter: DateFormatter
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+
+        dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .short
 
         dateLabel = UILabel()
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -62,7 +67,7 @@ class StatusEditHistoryTableViewCell: UITableViewCell {
     }
 
     func configure(status: Status, statusEdit: StatusEdit) {
-        dateLabel.text = "\(statusEdit.createdAt)"
+        dateLabel.text = dateFormatter.string(from: statusEdit.createdAt)
         statusView.configure(status: status, statusEdit: statusEdit)
     }
 }
