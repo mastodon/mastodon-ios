@@ -26,6 +26,8 @@ source ~/.zprofile
 which ruby
 # > /Users/mainasuk/.rbenv/shims/ruby
 
+# restart the terminal
+
 # install ruby (we use the version defined in .ruby-version)
 rbenv install
 
