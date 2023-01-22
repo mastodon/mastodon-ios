@@ -539,7 +539,7 @@
 		};
 		DBF8AE1B263293E400C9C23C /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 8;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
@@ -549,7 +549,7 @@
 				DBF8AE1A263293E400C9C23C /* NotificationService.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
-			runOnlyForDeploymentPostprocessing = 0;
+			runOnlyForDeploymentPostprocessing = 1;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
@@ -4189,9 +4189,11 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Mastodon/Mastodon.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_ASSET_PATHS = "Mastodon/Resources/Preview\\ Assets.xcassets";
-				DEVELOPMENT_TEAM = 5Z4GVSS33P;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 38265HE9MT;
 				INFOPLIST_FILE = Mastodon/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -4199,9 +4201,10 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.4.10;
-				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app;
+				PRODUCT_BUNDLE_IDENTIFIER = org.holden.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = MasToTest;
 				SWIFT_OBJC_BRIDGING_HEADER = "Mastodon/Vender/Mastodon-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -4220,9 +4223,11 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Mastodon/Mastodon.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_ASSET_PATHS = "Mastodon/Resources/Preview\\ Assets.xcassets";
-				DEVELOPMENT_TEAM = 5Z4GVSS33P;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 38265HE9MT;
 				EXCLUDED_SOURCE_FILE_NAMES = "Mastodon/Resources/Preview\\ Assets.xcassets";
 				INFOPLIST_FILE = Mastodon/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
@@ -4231,9 +4236,10 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.4.10;
-				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app;
+				PRODUCT_BUNDLE_IDENTIFIER = org.holden.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = MasToTest;
 				SWIFT_OBJC_BRIDGING_HEADER = "Mastodon/Vender/Mastodon-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -4408,9 +4414,11 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Mastodon/Mastodon.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_ASSET_PATHS = "Mastodon/Resources/Preview\\ Assets.xcassets";
-				DEVELOPMENT_TEAM = 5Z4GVSS33P;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 38265HE9MT;
 				INFOPLIST_FILE = Mastodon/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -4418,9 +4426,10 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.4.10;
-				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app;
+				PRODUCT_BUNDLE_IDENTIFIER = org.holden.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = MasToTest;
 				SWIFT_OBJC_BRIDGING_HEADER = "Mastodon/Vender/Mastodon-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -4699,9 +4708,11 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Mastodon/Mastodon.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_ASSET_PATHS = "Mastodon/Resources/Preview\\ Assets.xcassets";
-				DEVELOPMENT_TEAM = 5Z4GVSS33P;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 38265HE9MT;
 				INFOPLIST_FILE = Mastodon/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -4709,9 +4720,10 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.4.10;
-				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app;
+				PRODUCT_BUNDLE_IDENTIFIER = org.holden.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = MasToTest;
 				SWIFT_OBJC_BRIDGING_HEADER = "Mastodon/Vender/Mastodon-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
