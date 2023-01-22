@@ -12,20 +12,13 @@ Install the latest version of Xcode from the App Store or Apple Developer Downlo
 This guide may not suit your machine and actually setup procedure may change in the future. Please file the issue or Pull Request if there are any problems.
 
 ## CocoaPods
-The app use [CocoaPods]() and [Arkana](https://github.com/rogerluan/arkana). Ruby Gems are managed through Bundler. The M1 Mac needs virtual ruby env to workaround compatibility issues. Make sure you have [Rosetta](https://support.apple.com/en-us/HT211861) installed if you are using the M1 Mac.
-
-#### Intel Mac
-
-```zsh
-gem install bundler
-bundle install
-```
-
-#### M1 Mac
+The app use [CocoaPods]() and [Arkana](https://github.com/rogerluan/arkana). Ruby Gems are managed through Bundler. Make sure you have [Rosetta](https://support.apple.com/en-us/HT211861) installed if you are using the M1 Mac.
 
 ```zsh
 # install the rbenv
 brew install rbenv
+
+# configure the terminal
 which ruby
 # > /usr/bin/ruby
 echo 'eval "$(rbenv init -)"' >> ~/.zprofile
@@ -33,15 +26,10 @@ source ~/.zprofile
 which ruby
 # > /Users/mainasuk/.rbenv/shims/ruby
 
-# select ruby
-rbenv install --list
-# here we use the latest 3.0.x version
-rbenv install 3.0.3
-rbenv global 3.0.3
-ruby --version
-# > ruby 3.0.3p157 (2021-11-24 revision 3fb7d2cadc) [arm64-darwin21]
+# install ruby (we use the version defined in .ruby-version)
+rbenv install
 
-gem install bundler
+# install gem dependencies
 bundle install
 ```
 
