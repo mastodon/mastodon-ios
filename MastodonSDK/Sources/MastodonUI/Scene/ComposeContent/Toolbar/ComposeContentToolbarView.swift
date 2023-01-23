@@ -210,8 +210,8 @@ extension ComposeContentToolbarView {
         } set: { newValue in
             if newValue {
                 viewModel.language = code
-                didChangeLanguage = true
             }
+            didChangeLanguage = true
         }
     }
 }

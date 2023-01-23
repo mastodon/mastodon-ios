@@ -40,7 +40,7 @@ struct LanguagePicker: View {
         NavigationView {
             let filteredLanguages = query.isEmpty ? languages : languages.filter { $0.contains(query) }
             List(filteredLanguages) { lang in
-                let endonym = Text(lang.endonym)
+                let endonym = Text(lang.endonym).
                 let exonym: Text = {
                     if lang.endonym.caseInsensitiveCompare(lang.exonym) == .orderedSame {
                         return Text("")
