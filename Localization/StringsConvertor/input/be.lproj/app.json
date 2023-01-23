@@ -190,9 +190,9 @@
                 },
                 "media": {
                     "accessibility_label": "%s, далучэнне %d з %d",
-                    "expand_image_hint": "Expands the image. Double-tap and hold to show actions",
-                    "expand_gif_hint": "Expands the GIF. Double-tap and hold to show actions",
-                    "expand_video_hint": "Shows the video player. Double-tap and hold to show actions"
+                    "expand_image_hint": "Разгортванне відарыса. Двойчы націсніце і ўтрымлівайце, каб паказаць дзеянні",
+                    "expand_gif_hint": "Разгортванне GIF. Двойчы націсніце і ўтрымлівайце, каб паказаць дзеянні",
+                    "expand_video_hint": "Паказ відэаплэера. Двойчы націсніце і ўтрымлівайце, каб паказаць дзеянні"
                 }
             },
             "friendship": {
@@ -367,7 +367,7 @@
             },
             "dont_receive_email": {
                 "title": "Праверце сваю пошту",
-                "description": "Check if your email address is correct as well as your junk folder if you haven’t.",
+                "description": "Праверце, ці правільны ваш адрас электроннай пошты, а таксама папку са спамам, калі вы гэтага яшчэ не зрабілі.",
                 "resend_email": "Адправіць email паўторна"
             },
             "open_email_app": {
