@@ -75,7 +75,7 @@ extension ComposeContentToolbarView.ViewModel {
             case .visibility:
                 return Asset.Scene.Compose.earth.image.withRenderingMode(.alwaysTemplate)
             case .language:
-                fatalError()
+                fatalError("Language’s active image is never accessed")
             }
         }
         
@@ -92,7 +92,7 @@ extension ComposeContentToolbarView.ViewModel {
             case .visibility:
                 return Asset.Scene.Compose.earth.image.withRenderingMode(.alwaysTemplate)
             case .language:
-                fatalError()
+                fatalError("Language’s inactive image is never accessed")
             }
         }
     }
@@ -130,7 +130,7 @@ extension ComposeContentToolbarView.ViewModel {
         case .contentWarning:
             return isContentWarningActive ? action.activeImage : action.inactiveImage
         case .language:
-            fatalError()
+            fatalError("Language’s image is never accessed")
         default:
             return action.inactiveImage
         }
