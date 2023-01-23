@@ -113,6 +113,7 @@ struct ComposeContentToolbarView: View {
                             .overlay { RoundedRectangle(cornerRadius: 7).inset(by: 3).stroke(lineWidth: 1.5) }
                             .accessibilityLabel(L10n.Scene.Compose.Language.title)
                             .accessibilityValue(label(for: viewModel.language))
+                            .foregroundColor(Color(Asset.Scene.Compose.buttonTint.color))
                     }
                     .frame(width: 48, height: 48)
                     .popover(isPresented: $showingLanguagePicker) {
