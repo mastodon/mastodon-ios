@@ -11,23 +11,37 @@ class StatusEditHistoryViewController: UIViewController {
 
     var tableViewDataSource: UITableViewDiffableDataSource<Int, StatusEdit>?
     var viewModel: StatusEditHistoryViewModel
+    private let dateFormatter: DateFormatter
 
     init(viewModel: StatusEditHistoryViewModel) {
 
         self.viewModel = viewModel
+        dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .short
 
         tableView = UITableView(frame: .zero)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.separatorStyle = .none
         tableView.register(StatusEditHistoryTableViewCell.self, forCellReuseIdentifier: StatusEditHistoryTableViewCell.identifier)
 
+        super.init(nibName: nil, bundle: nil)
+
         let tableViewDataSource = UITableViewDiffableDataSource<Int, StatusEdit>(tableView: tableView) {tableView, indexPath, itemIdentifier in
             guard let cell = tableView.dequeueReusableCell(withIdentifier: StatusEditHistoryTableViewCell.identifier, for: indexPath) as? StatusEditHistoryTableViewCell else {
                 fatalError("Wrong cell")
             }
 
-            let editEntry = viewModel.edits[indexPath.row]
-            cell.configure(status: viewModel.status, statusEdit: editEntry)
+            let statusEdit = viewModel.edits[indexPath.row]
+            let dateText: String
+
+            if statusEdit == viewModel.edits.last {
+                dateText = "Original Post · \(self.dateFormatter.string(from: statusEdit.createdAt))"
+            } else {
+                dateText = self.dateFormatter.string(from: statusEdit.createdAt)
+            }
+
+            cell.configure(status: viewModel.status, statusEdit: statusEdit, dateText: dateText)
 
             return cell
         }
@@ -36,7 +50,6 @@ class StatusEditHistoryViewController: UIViewController {
         tableView.backgroundColor = ThemeService.shared.currentTheme.value.secondarySystemBackgroundColor
         self.tableViewDataSource = tableViewDataSource
 
-        super.init(nibName: nil, bundle: nil)
 
         view.addSubview(tableView)
 
