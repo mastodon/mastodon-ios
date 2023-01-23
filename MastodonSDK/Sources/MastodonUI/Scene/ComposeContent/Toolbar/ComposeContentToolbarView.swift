@@ -33,6 +33,11 @@ struct ComposeContentToolbarView: View {
     var body: some View {
         HStack(spacing: .zero) {
             ForEach(ComposeContentToolbarView.ViewModel.Action.allCases, id: \.self) { action in
+                let basicHandler = {
+                    logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): \(String(describing: action))")
+                    viewModel.delegate?.composeContentToolbarView(viewModel, toolbarItemDidPressed: action)
+                }
+
                 switch action {
                 case .attachment:
                     Menu {
@@ -49,11 +54,12 @@ struct ComposeContentToolbarView: View {
                             }
                         }
                     } label: {
-                        label(for: action)
-                            .opacity(viewModel.isAttachmentButtonEnabled ? 1.0 : 0.5)
+                        ComposeContentToolbarAction(
+                            label: L10n.Scene.Compose.Accessibility.appendAttachment,
+                            image: Asset.Scene.Compose.media
+                        )
                     }
                     .disabled(!viewModel.isAttachmentButtonEnabled)
-                    .frame(width: 48, height: 48)
                 case .visibility:
                     Menu {
                         Picker(selection: $viewModel.visibility) {
@@ -61,29 +67,31 @@ struct ComposeContentToolbarView: View {
                                 Label {
                                     Text(visibility.title)
                                 } icon: {
-                                    Image(uiImage: visibility.image)
+                                    visibility.image.swiftUIImage
                                 }
                             }
                         } label: {
                             Text(viewModel.visibility.title)
                         }
                     } label: {
-                        label(for: viewModel.visibility.image)
-                            .accessibilityLabel(L10n.Scene.Compose.Keyboard.selectVisibilityEntry(viewModel.visibility.title))
-                            .opacity(viewModel.isVisibilityButtonEnabled ? 1.0 : 0.5)
+                        ComposeContentToolbarAction(
+                            label: L10n.Scene.Compose.Keyboard.selectVisibilityEntry(viewModel.visibility.title),
+                            image: viewModel.visibility.image
+                        )
                     }
                     .disabled(!viewModel.isVisibilityButtonEnabled)
-                    .frame(width: 48, height: 48)
                 case .poll:
-                    Button {
-                        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): \(String(describing: action))")
-                        viewModel.delegate?.composeContentToolbarView(viewModel, toolbarItemDidPressed: action)
-                    } label: {
-                        label(for: action)
-                            .opacity(viewModel.isPollButtonEnabled ? 1.0 : 0.5)
+                    Button(action: basicHandler) {
+                        ComposeContentToolbarAction(
+                            label: viewModel.isPollActive
+                                ? L10n.Scene.Compose.Accessibility.removePoll
+                                : L10n.Scene.Compose.Accessibility.appendPoll,
+                            image: viewModel.isPollActive
+                                ? Asset.Scene.Compose.pollFill
+                                : Asset.Scene.Compose.poll
+                        )
                     }
                     .disabled(!viewModel.isPollButtonEnabled)
-                    .frame(width: 48, height: 48)
                 case .language:
                     Menu {
                         Section {} // workaround a bug where the “Suggested” section doesn’t appear
@@ -115,40 +123,16 @@ struct ComposeContentToolbarView: View {
                             showingLanguagePicker = true
                         }
                     } label: {
-                        let font: SwiftUI.Font = {
-                            if #available(iOS 16, *) {
-                                return .system(size: 11, weight: .semibold).width(viewModel.language.count == 3 ? .compressed : .standard)
-                            } else {
-                                return .system(size: 11, weight: .semibold)
-                            }
-                        }()
-
-                        Text(viewModel.language)
-                            .font(font)
-                            .textCase(.uppercase)
-                            .padding(.horizontal, 4)
-                            .minimumScaleFactor(0.5)
-                            .frame(width: 24, height: 24, alignment: .center)
-                            .overlay { RoundedRectangle(cornerRadius: 7).inset(by: 3).stroke(lineWidth: 1.5) }
-                            .accessibilityLabel(L10n.Scene.Compose.Language.title)
-                            .accessibilityValue(Text(Language(id: viewModel.language)?.label ?? AttributedString("\(viewModel.language)")))
-                            .foregroundColor(Color(Asset.Scene.Compose.buttonTint.color))
-                            .overlay(alignment: .topTrailing) {
-                                Group {
-                                    if let suggested = viewModel.highConfidenceSuggestedLanguage,
-                                       suggested != viewModel.language,
-                                       !didChangeLanguage {
-                                        Circle().fill(.blue)
-                                            .frame(width: 8, height: 8)
-                                    }
+                        ComposeContentToolbarAction(
+                            label: L10n.Scene.Compose.Language.title,
+                            icon: LanguagePickerIcon(language: viewModel.language, showBadge: {
+                                if let suggested = viewModel.highConfidenceSuggestedLanguage {
+                                    return !didChangeLanguage && suggested != viewModel.language
                                 }
-                                .transition(.opacity)
-                                .animation(.default, value: [viewModel.highConfidenceSuggestedLanguage, viewModel.language])
-                            }
-                            // fixes weird appearance when drawing at low opacity (eg when pressed)
-                            .drawingGroup()
+                                return false
+                            }())
+                        ).accessibilityValue(Text(Language(id: viewModel.language)?.label ?? AttributedString("\(viewModel.language)")))
                     }
-                    .frame(width: 48, height: 48)
                     .popover(isPresented: $showingLanguagePicker) {
                         let picker = LanguagePicker { newLanguage in
                             viewModel.language = newLanguage
@@ -162,16 +146,27 @@ struct ComposeContentToolbarView: View {
                             picker
                         }
                     }
-                default:
-                    Button {
-                        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): \(String(describing: action))")
-                        viewModel.delegate?.composeContentToolbarView(viewModel, toolbarItemDidPressed: action)
-                    } label: {
-                        label(for: action)
+                
+                case .emoji:
+                    Button(action: basicHandler) {
+                        ComposeContentToolbarAction(
+                            label: L10n.Scene.Compose.Accessibility.customEmojiPicker,
+                            image: viewModel.isEmojiActive ? Asset.Scene.Compose.emojiFill : Asset.Scene.Compose.emoji
+                        )
                     }
-                    .frame(width: 48, height: 48)
+                case .contentWarning:
+                    Button(action: basicHandler) {
+                        ComposeContentToolbarAction(
+                            label: viewModel.isContentWarningActive
+                                ? L10n.Scene.Compose.Accessibility.disableContentWarning
+                                : L10n.Scene.Compose.Accessibility.enableContentWarning,
+                            image: viewModel.isContentWarningActive
+                                ? Asset.Scene.Compose.chatWarningFill
+                                : Asset.Scene.Compose.chatWarning
+                        )
+                    }
                 }
-            }
+            }.frame(width: 48, height: 48)
             Spacer()
             let count: Int = {
                 if viewModel.isContentWarningActive {
@@ -194,23 +189,44 @@ struct ComposeContentToolbarView: View {
         .accessibilityElement(children: .contain)
         .accessibilityLabel(L10n.Scene.Compose.Accessibility.postOptions)
     }
-    
 }
 
 extension ComposeContentToolbarView {
-    func label(for action: ComposeContentToolbarView.ViewModel.Action) -> some View {
-        Image(uiImage: viewModel.image(for: action))
-            .foregroundColor(Color(Asset.Scene.Compose.buttonTint.color))
-            .frame(width: 24, height: 24, alignment: .center)
-            .accessibilityLabel(viewModel.label(for: action))
+    struct LanguagePickerIcon: View {
+        let language: String
+        let showBadge: Bool
+
+        var body: some View {
+            let font: SwiftUI.Font = {
+                if #available(iOS 16, *) {
+                    return .system(size: 11, weight: .semibold).width(language.count == 3 ? .compressed : .standard)
+                } else {
+                    return .system(size: 11, weight: .semibold)
+                }
+            }()
+            
+            Text(language)
+                .font(font)
+                .textCase(.uppercase)
+                .padding(.horizontal, 4)
+                .minimumScaleFactor(0.5)
+                .frame(width: 24, height: 24, alignment: .center)
+                .overlay { RoundedRectangle(cornerRadius: 7).inset(by: 3).stroke(lineWidth: 1.5) }
+                .overlay(alignment: .topTrailing) {
+                    Group {
+                        if showBadge {
+                            Circle().fill(.blue)
+                                .frame(width: 8, height: 8)
+                        }
+                    }
+                    .transition(.opacity)
+                    .animation(.default, value: showBadge)
+                }
+                // fixes weird appearance when drawing at low opacity (eg when pressed)
+                .drawingGroup()
+        }
     }
-    
-    func label(for image: UIImage) -> some View {
-        Image(uiImage: image)
-            .foregroundColor(Color(Asset.Scene.Compose.buttonTint.color))
-            .frame(width: 24, height: 24, alignment: .center)
-    }
-    
+
     private func languageBinding(for code: String) -> Binding<Bool> {
         Binding {
             code == viewModel.language
@@ -220,6 +236,26 @@ extension ComposeContentToolbarView {
             }
             didChangeLanguage = true
         }
+    }
+}
+
+struct ComposeContentToolbarAction<Icon: View>: View {
+    let label: String
+    let icon: Icon
+    
+    @Environment(\.isEnabled) private var isEnabled
+    
+    var body: some View {
+        icon.foregroundColor(Color(Asset.Scene.Compose.buttonTint.color))
+            .frame(width: 24, height: 24, alignment: .center)
+            .opacity(isEnabled ? 1 : 0.5)
+            .accessibilityLabel(label)
+    }
+}
+
+extension ComposeContentToolbarAction<Image> {
+    init(label: String, image: ImageAsset) {
+        self.init(label: label, icon: image.swiftUIImage.renderingMode(.template))
     }
 }
 
@@ -234,13 +270,13 @@ extension Mastodon.Entity.Status.Visibility {
         }
     }
     
-    fileprivate var image: UIImage {
+    fileprivate var image: ImageAsset {
         switch self {
-        case .public:       return Asset.Scene.Compose.earth.image.withRenderingMode(.alwaysTemplate)
-        case .unlisted:     return Asset.Scene.Compose.people.image.withRenderingMode(.alwaysTemplate)
-        case .private:      return Asset.Scene.Compose.peopleAdd.image.withRenderingMode(.alwaysTemplate)
-        case .direct:       return Asset.Scene.Compose.mention.image.withRenderingMode(.alwaysTemplate)
-        case ._other:       return Asset.Scene.Compose.more.image.withRenderingMode(.alwaysTemplate)
+        case .public:       return Asset.Scene.Compose.earth
+        case .unlisted:     return Asset.Scene.Compose.people
+        case .private:      return Asset.Scene.Compose.peopleAdd
+        case .direct:       return Asset.Scene.Compose.mention
+        case ._other:       return Asset.Scene.Compose.more
         }
     }
 }
