@@ -507,7 +507,7 @@ extension ComposeContentViewController: ComposeContentToolbarViewDelegate {
                     self.viewModel.setContentTextViewFirstResponderIfNeeds()
                 }
             }
-        case .visibility:
+        case .visibility, .language:
             assertionFailure()
         }
     }

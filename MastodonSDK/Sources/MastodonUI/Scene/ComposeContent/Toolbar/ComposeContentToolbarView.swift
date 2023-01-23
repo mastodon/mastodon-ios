@@ -24,6 +24,22 @@ struct ComposeContentToolbarView: View {
     
     @ObservedObject var viewModel: ViewModel
     
+    @State private var showingLanguagePicker = false
+    
+    private func label(for code: String) -> String {
+        Locale.current.localizedString(forIdentifier: code) ?? code
+    }
+    
+    private func languageBinding(for code: String) -> Binding<Bool> {
+        Binding {
+            code == viewModel.language
+        } set: { newValue in
+            if newValue {
+                viewModel.language = code
+            }
+        }
+    }
+    
     var body: some View {
         HStack(spacing: .zero) {
             ForEach(ComposeContentToolbarView.ViewModel.Action.allCases, id: \.self) { action in
@@ -76,6 +92,37 @@ struct ComposeContentToolbarView: View {
                     }
                     .disabled(!viewModel.isPollButtonEnabled)
                     .frame(width: 48, height: 48)
+                case .language:
+                    Menu {
+                        Section {} // workaround a bug where the “Suggested” section doesn’t appear
+                        if !viewModel.suggestedLanguages.isEmpty {
+                            Section(L10n.Scene.Compose.Language.suggested) {
+                                ForEach(viewModel.suggestedLanguages, id: \.self) { lang in
+                                    Toggle(label(for: lang), isOn: languageBinding(for: lang))
+                                }
+                            }
+                        }
+                        Section(L10n.Scene.Compose.Language.recent) {
+                            ForEach(viewModel.recentLanguages, id: \.self) { lang in
+                                Toggle(label(for: lang), isOn: languageBinding(for: lang))
+                            }
+                        }
+                        Button(L10n.Scene.Compose.Language.other) {
+                            showingLanguagePicker = true
+                        }
+                    } label: {
+                        Text(viewModel.language)
+                            .textCase(.uppercase)
+                            .font(.system(size: 10, weight: .bold))
+                            .frame(width: 24, height: 24, alignment: .center)
+                            .overlay { RoundedRectangle(cornerRadius: 7).inset(by: 3).stroke(lineWidth: 1.5) }
+                            .accessibilityLabel(L10n.Scene.Compose.Language.title)
+                            .accessibilityValue(label(for: viewModel.language))
+                    }
+                    .frame(width: 48, height: 48)
+                    .sheet(isPresented: $showingLanguagePicker) {
+                        Text("todo")
+                    }
                 default:
                     Button {
                         logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): \(String(describing: action))")
