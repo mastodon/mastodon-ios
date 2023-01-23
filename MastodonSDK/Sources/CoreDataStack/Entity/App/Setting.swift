@@ -31,7 +31,7 @@ public final class Setting: NSManagedObject {
             return []
         }
         set {
-            rawRecentLanguages = try? JSONEncoder().encode(newValue)
+            rawRecentLanguages = try? JSONEncoder().encode(Array(newValue.prefix(3)))
         }
     }
     
