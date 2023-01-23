@@ -102,9 +102,12 @@ struct ComposeContentToolbarView: View {
                                 }
                             }
                         }
-                        Section(L10n.Scene.Compose.Language.recent) {
-                            ForEach(viewModel.recentLanguages, id: \.self) { lang in
-                                Toggle(label(for: lang), isOn: languageBinding(for: lang))
+                        let recent = viewModel.recentLanguages.filter { !viewModel.suggestedLanguages.contains($0) }
+                        if !recent.isEmpty {
+                            Section(L10n.Scene.Compose.Language.recent) {
+                                ForEach(recent, id: \.self) { lang in
+                                    Toggle(label(for: lang), isOn: languageBinding(for: lang))
+                                }
                             }
                         }
                         Button(L10n.Scene.Compose.Language.other) {
