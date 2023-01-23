@@ -109,7 +109,7 @@ struct ComposeContentToolbarView: View {
                         Text(viewModel.language)
                             .textCase(.uppercase)
                             .font(.system(size: 10, weight: .bold))
-                            .frame(width: 24, height: 24, alignment: .center)
+                            .frame(width: viewModel.language.count == 2 ? 24 : 32, height: 24, alignment: .center)
                             .overlay { RoundedRectangle(cornerRadius: 7).inset(by: 3).stroke(lineWidth: 1.5) }
                             .accessibilityLabel(L10n.Scene.Compose.Language.title)
                             .accessibilityValue(label(for: viewModel.language))
