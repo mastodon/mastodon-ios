@@ -23,7 +23,7 @@ class StatusEditHistoryTableViewCell: UITableViewCell {
         dateLabel = UILabel()
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
         dateLabel.textColor = Asset.Colors.Label.secondary.color
-        dateLabel.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 17, weight: .regular))
+        dateLabel.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 15, weight: .regular))
 
         statusView = StatusView()
         statusView.setup(style: .inline)
