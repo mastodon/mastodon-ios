@@ -547,7 +547,8 @@ extension ComposeContentViewModel {
             pollOptions: pollOptions,
             pollExpireConfigurationOption: pollExpireConfigurationOption,
             pollMultipleConfigurationOption: pollMultipleConfigurationOption,
-            visibility: visibility
+            visibility: visibility,
+            language: language
         )
     }   // end func publisher()
 }
