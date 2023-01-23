@@ -531,8 +531,6 @@ extension ComposeContentViewController: ComposeContentToolbarViewDelegate {
         toolbarItemDidPressed action: ComposeContentToolbarView.ViewModel.Action
     ) {
         switch action {
-        case .attachment:
-            assertionFailure()
         case .poll:
             self.viewModel.isPollActive.toggle()
         case .emoji:
@@ -549,8 +547,6 @@ extension ComposeContentViewController: ComposeContentToolbarViewDelegate {
                     self.viewModel.setContentTextViewFirstResponderIfNeeds()
                 }
             }
-        case .visibility, .language:
-            assertionFailure()
         }
     }
     

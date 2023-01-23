@@ -55,12 +55,9 @@ extension ComposeContentToolbarView {
 
 extension ComposeContentToolbarView.ViewModel {
     enum Action: CaseIterable {
-        case attachment
         case poll
         case emoji
         case contentWarning
-        case visibility
-        case language
     }
     
     enum AttachmentAction: CaseIterable {
