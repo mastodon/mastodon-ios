@@ -11,6 +11,7 @@ import SwiftUI
 import Combine
 import PhotosUI
 import MastodonCore
+import NaturalLanguage
 
 public final class ComposeContentViewController: UIViewController {
     
@@ -333,6 +334,25 @@ extension ComposeContentViewController {
         viewModel.$maxTextInputLimit.assign(to: &composeContentToolbarViewModel.$maxTextInputLimit)
         viewModel.$contentWeightedLength.assign(to: &composeContentToolbarViewModel.$contentWeightedLength)
         viewModel.$contentWarningWeightedLength.assign(to: &composeContentToolbarViewModel.$contentWarningWeightedLength)
+        
+        let languageRecognizer = NLLanguageRecognizer()
+        viewModel.$content
+            .receive(on: DispatchQueue.global(qos: .utility))
+            .map { content in
+                if content.isEmpty {
+                    return []
+                }
+                defer { languageRecognizer.reset() }
+                languageRecognizer.processString(content)
+                let hypotheses = languageRecognizer
+                    .languageHypotheses(withMaximum: 3)
+                return hypotheses
+                    .filter { _, probability in probability > 1/3 }
+                    .keys
+                    .map(\.rawValue)
+            }
+            .receive(on: RunLoop.main)
+            .assign(to: &composeContentToolbarViewModel.$suggestedLanguages)
         
         // bind back to source due to visibility not update via delegate
         composeContentToolbarViewModel.$visibility
