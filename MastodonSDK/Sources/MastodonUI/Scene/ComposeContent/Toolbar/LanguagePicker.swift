@@ -9,17 +9,6 @@ struct LanguagePicker: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     
-    private struct Language: Identifiable {
-        let endonym: String
-        let exonym: String
-        let id: String
-        let localeId: String
-        
-        func contains(_ query: String) -> Bool {
-            "\(endonym) \(exonym) \(id)".localizedCaseInsensitiveContains(query)
-        }
-    }
-    
     @State private var query = ""
     @State private var languages: [Language] = {
         let locales = Locale.availableIdentifiers.map(Locale.init(identifier:))
@@ -29,7 +18,7 @@ struct LanguagePicker: View {
                let endonym = locale.localizedString(forLanguageCode: code),
                let exonym = Locale.current.localizedString(forLanguageCode: code) {
                 // don’t overwrite the “base” language
-                if let lang = languages[code], !lang.localeId.contains("_") { continue }
+                if let lang = languages[code], !(lang.localeId ?? "").contains("_") { continue }
                 languages[code] = Language(endonym: endonym, exonym: exonym, id: code, localeId: locale.identifier)
             }
         }
@@ -40,12 +29,12 @@ struct LanguagePicker: View {
         NavigationView {
             let filteredLanguages = query.isEmpty ? languages : languages.filter { $0.contains(query) }
             List(filteredLanguages) { lang in
-                let endonym = Text(lang.endonym).
+                let endonym = Text(lang.endonym)
                 let exonym: Text = {
-                    if lang.endonym.caseInsensitiveCompare(lang.exonym) == .orderedSame {
-                        return Text("")
+                    if lang.exonymIsDifferent {
+                        return Text("(\(lang.exonym))").foregroundColor(.secondary)
                     }
-                    return Text("(\(lang.exonym))").foregroundColor(.secondary)
+                    return Text("")
                 }()
                 Button(action: { onSelect(lang.id) }) {
                     if #available(iOS 16.0, *) {
@@ -58,7 +47,9 @@ struct LanguagePicker: View {
                         // will read as “ ([exonym])[endonym]” (and vice versa in RTL locales)
                         Text("\(endonym)\(exonym)")
                     }
-                }.tint(.primary)
+                }
+                .tint(.primary)
+                .accessibilityLabel(Text(lang.label))
             }.toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button(L10n.Common.Controls.Actions.cancel) {
