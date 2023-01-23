@@ -110,6 +110,9 @@ struct ComposeContentToolbarView: View {
                                 }
                             }
                         }
+                        if !(recent + viewModel.suggestedLanguages).contains(viewModel.language) {
+                            Toggle(label(for: viewModel.language), isOn: languageBinding(for: viewModel.language))
+                        }
                         Button(L10n.Scene.Compose.Language.other) {
                             showingLanguagePicker = true
                         }
