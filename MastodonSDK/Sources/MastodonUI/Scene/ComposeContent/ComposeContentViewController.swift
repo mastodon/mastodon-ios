@@ -354,6 +354,20 @@ extension ComposeContentViewController {
             .receive(on: RunLoop.main)
             .assign(to: &composeContentToolbarViewModel.$suggestedLanguages)
         
+        viewModel.$language.assign(to: &composeContentToolbarViewModel.$language)
+        composeContentToolbarViewModel.$language
+            .dropFirst()
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] language in
+                guard let self = self else { return }
+                if self.viewModel.language != language {
+                    self.viewModel.language = language
+                }
+            }
+            .store(in: &disposeBag)
+
+        viewModel.$recentLanguages.assign(to: &composeContentToolbarViewModel.$recentLanguages)
+        
         // bind back to source due to visibility not update via delegate
         composeContentToolbarViewModel.$visibility
             .dropFirst()

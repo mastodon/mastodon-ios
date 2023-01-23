@@ -22,6 +22,19 @@ public final class Setting: NSManagedObject {
     @NSManaged public private(set) var createdAt: Date
     @NSManaged public private(set) var updatedAt: Date
     
+    @NSManaged private var rawRecentLanguages: Data?
+    public var recentLanguages: [String] {
+        get {
+            if let data = rawRecentLanguages, let result = try? JSONDecoder().decode([String].self, from: data) {
+                return result
+            }
+            return []
+        }
+        set {
+            rawRecentLanguages = try? JSONEncoder().encode(newValue)
+        }
+    }
+    
     // one-to-many relationships
     @NSManaged public var subscriptions: Set<Subscription>?
 }
