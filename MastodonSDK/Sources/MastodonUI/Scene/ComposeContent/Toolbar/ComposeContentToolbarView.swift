@@ -26,19 +26,8 @@ struct ComposeContentToolbarView: View {
     
     @State private var showingLanguagePicker = false
     
-    private func label(for code: String) -> String {
-        Locale.current.localizedString(forIdentifier: code) ?? code
-    }
-    
-    private func languageBinding(for code: String) -> Binding<Bool> {
-        Binding {
-            code == viewModel.language
-        } set: { newValue in
-            if newValue {
-                viewModel.language = code
-            }
-        }
-    }
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    @Environment(\.verticalSizeClass) var verticalSizeClass
     
     var body: some View {
         HStack(spacing: .zero) {
@@ -126,8 +115,17 @@ struct ComposeContentToolbarView: View {
                             .accessibilityValue(label(for: viewModel.language))
                     }
                     .frame(width: 48, height: 48)
-                    .sheet(isPresented: $showingLanguagePicker) {
-                        Text("todo")
+                    .popover(isPresented: $showingLanguagePicker) {
+                        let picker = LanguagePicker { newLanguage in
+                            viewModel.language = newLanguage
+                            showingLanguagePicker = false
+                        }
+                        if verticalSizeClass == .regular && horizontalSizeClass == .regular {
+                            // explicitly size picker when it’s a popover
+                            picker.frame(width: 400, height: 500)
+                        } else {
+                            picker
+                        }
                     }
                 default:
                     Button {
@@ -176,6 +174,20 @@ extension ComposeContentToolbarView {
         Image(uiImage: image)
             .foregroundColor(Color(Asset.Scene.Compose.buttonTint.color))
             .frame(width: 24, height: 24, alignment: .center)
+    }
+    
+    private func label(for code: String) -> String {
+        Locale.current.localizedString(forIdentifier: code) ?? code
+    }
+    
+    private func languageBinding(for code: String) -> Binding<Bool> {
+        Binding {
+            code == viewModel.language
+        } set: { newValue in
+            if newValue {
+                viewModel.language = code
+            }
+        }
     }
 }
 
