@@ -347,7 +347,7 @@ extension ComposeContentViewController {
                 let hypotheses = languageRecognizer
                     .languageHypotheses(withMaximum: 3)
                 return hypotheses
-                    .filter { _, probability in probability > 1/3 }
+                    .filter { _, probability in probability > 0.1 }
                     .keys
                     .map(\.rawValue)
             }
