@@ -3,6 +3,7 @@
 import UIKit
 import MastodonSDK
 import CoreDataStack
+import MastodonCore
 
 class StatusEditHistoryViewController: UIViewController {
 
@@ -32,13 +33,14 @@ class StatusEditHistoryViewController: UIViewController {
         }
 
         tableView.dataSource = tableViewDataSource
+        tableView.backgroundColor = ThemeService.shared.currentTheme.value.secondarySystemBackgroundColor
         self.tableViewDataSource = tableViewDataSource
 
         super.init(nibName: nil, bundle: nil)
 
         view.addSubview(tableView)
 
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = ThemeService.shared.currentTheme.value.secondarySystemBackgroundColor
         setupConstraints()
 
         title = "Edit History"
