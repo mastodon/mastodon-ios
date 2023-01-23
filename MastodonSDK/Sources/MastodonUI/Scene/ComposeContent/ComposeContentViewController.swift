@@ -337,22 +337,34 @@ extension ComposeContentViewController {
         
         let languageRecognizer = NLLanguageRecognizer()
         viewModel.$content
+        // run on background thread since NLLanguageRecognizer seems to do CPU-bound work
+        // that we don’t want on main
             .receive(on: DispatchQueue.global(qos: .utility))
-            .map { content in
+            .sink { [unowned self] content in
                 if content.isEmpty {
-                    return []
+                    DispatchQueue.main.async {
+                        self.composeContentToolbarViewModel.suggestedLanguages = []
+                    }
+                    return
                 }
                 defer { languageRecognizer.reset() }
                 languageRecognizer.processString(content)
                 let hypotheses = languageRecognizer
                     .languageHypotheses(withMaximum: 3)
-                return hypotheses
-                    .filter { _, probability in probability > 0.1 }
-                    .keys
-                    .map(\.rawValue)
+                DispatchQueue.main.async {
+                    self.composeContentToolbarViewModel.suggestedLanguages = hypotheses
+                        .filter { _, probability in probability > 0.1 }
+                        .keys
+                        .map(\.rawValue)
+
+                    if let bestLanguage = hypotheses.max(by: { $0.value < $1.value }), bestLanguage.value > 0.99 {
+                        self.composeContentToolbarViewModel.highConfidenceSuggestedLanguage = bestLanguage.key.rawValue
+                    } else {
+                        self.composeContentToolbarViewModel.highConfidenceSuggestedLanguage = nil
+                    }
+                }
             }
-            .receive(on: RunLoop.main)
-            .assign(to: &composeContentToolbarViewModel.$suggestedLanguages)
+            .store(in: &disposeBag)
         
         viewModel.$language.assign(to: &composeContentToolbarViewModel.$language)
         composeContentToolbarViewModel.$language

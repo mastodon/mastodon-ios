@@ -19,6 +19,7 @@ extension ComposeContentToolbarView {
         // input
         @Published var backgroundColor = ThemeService.shared.currentTheme.value.composeToolbarBackgroundColor
         @Published var suggestedLanguages: [String] = []
+        @Published var highConfidenceSuggestedLanguage: String?
         @Published var visibility: Mastodon.Entity.Status.Visibility = .public
         var allVisibilities: [Mastodon.Entity.Status.Visibility] {
             return [.public, .private, .direct]

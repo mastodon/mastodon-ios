@@ -1,0 +1,22 @@
+{
+    "configurations": [
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug StringsConvertor (Localization/StringsConvertor)",
+            "program": "${workspaceFolder:mastodon-ios}/Localization/StringsConvertor/.build/debug/StringsConvertor",
+            "args": [],
+            "cwd": "${workspaceFolder:mastodon-ios}/Localization/StringsConvertor",
+            "preLaunchTask": "swift: Build Debug StringsConvertor (Localization/StringsConvertor)"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Release StringsConvertor (Localization/StringsConvertor)",
+            "program": "${workspaceFolder:mastodon-ios}/Localization/StringsConvertor/.build/release/StringsConvertor",
+            "args": [],
+            "cwd": "${workspaceFolder:mastodon-ios}/Localization/StringsConvertor",
+            "preLaunchTask": "swift: Build Release StringsConvertor (Localization/StringsConvertor)"
+        }
+    ]
+}

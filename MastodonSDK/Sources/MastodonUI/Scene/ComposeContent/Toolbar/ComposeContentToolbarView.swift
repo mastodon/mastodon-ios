@@ -25,6 +25,7 @@ struct ComposeContentToolbarView: View {
     @ObservedObject var viewModel: ViewModel
     
     @State private var showingLanguagePicker = false
+    @State private var didChangeLanguage = false
     
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @Environment(\.verticalSizeClass) var verticalSizeClass
@@ -114,11 +115,26 @@ struct ComposeContentToolbarView: View {
                             .accessibilityLabel(L10n.Scene.Compose.Language.title)
                             .accessibilityValue(label(for: viewModel.language))
                             .foregroundColor(Color(Asset.Scene.Compose.buttonTint.color))
+                            .overlay(alignment: .topTrailing) {
+                                Group {
+                                    if let suggested = viewModel.highConfidenceSuggestedLanguage,
+                                       suggested != viewModel.language,
+                                       !didChangeLanguage {
+                                        Circle().fill(.blue)
+                                            .frame(width: 8, height: 8)
+                                    }
+                                }
+                                .transition(.opacity)
+                                .animation(.default, value: [viewModel.highConfidenceSuggestedLanguage, viewModel.language])
+                            }
+                            // fixes weird appearance when drawing at low opacity (eg when pressed)
+                            .drawingGroup()
                     }
                     .frame(width: 48, height: 48)
                     .popover(isPresented: $showingLanguagePicker) {
                         let picker = LanguagePicker { newLanguage in
                             viewModel.language = newLanguage
+                            didChangeLanguage = true
                             showingLanguagePicker = false
                         }
                         if verticalSizeClass == .regular && horizontalSizeClass == .regular {
@@ -194,6 +210,7 @@ extension ComposeContentToolbarView {
         } set: { newValue in
             if newValue {
                 viewModel.language = code
+                didChangeLanguage = true
             }
         }
     }
