@@ -4,6 +4,7 @@ import UIKit
 import MastodonUI
 import MastodonSDK
 import CoreDataStack
+import MastodonAsset
 
 class StatusEditHistoryTableViewCell: UITableViewCell {
     static let identifier = "StatusEditHistoryTableViewCell"
@@ -21,6 +22,8 @@ class StatusEditHistoryTableViewCell: UITableViewCell {
 
         dateLabel = UILabel()
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
+        dateLabel.textColor = Asset.Colors.Label.secondary.color
+        dateLabel.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 17, weight: .regular))
 
         statusView = StatusView()
         statusView.setup(style: .inline)
@@ -28,10 +31,9 @@ class StatusEditHistoryTableViewCell: UITableViewCell {
 
         grayBackground = UIView()
         grayBackground.translatesAutoresizingMaskIntoConstraints = false
-        //FIXME: @zeitschlag Use correct color
-        grayBackground.backgroundColor = UIColor(red: 0.961, green: 0.961, blue: 0.976, alpha: 1)
+        grayBackground.backgroundColor = Asset.Scene.EditHistory.statusBackground.color
         grayBackground.layer.borderWidth = 1
-        grayBackground.layer.borderColor = UIColor(red: 0.82, green: 0.82, blue: 0.871, alpha: 1).cgColor
+        grayBackground.layer.borderColor = Asset.Scene.EditHistory.statusBackgroundBorder.color.cgColor
         grayBackground.applyCornerRadius(radius: 8)
 
         super.init(style: style, reuseIdentifier: reuseIdentifier)

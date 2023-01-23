@@ -164,6 +164,10 @@ public enum Asset {
     public enum Discovery {
       public static let profileCardBackground = ColorAsset(name: "Scene/Discovery/profile.card.background")
     }
+    public enum EditHistory {
+      public static let statusBackground = ColorAsset(name: "Scene/Edit History/StatusBackground")
+      public static let statusBackgroundBorder = ColorAsset(name: "Scene/Edit History/StatusBackgroundBorder")
+    }
     public enum Notification {
       public static let confirmFollowRequestButtonBackground = ColorAsset(name: "Scene/Notification/confirm.follow.request.button.background")
       public static let deleteFollowRequestButtonBackground = ColorAsset(name: "Scene/Notification/delete.follow.request.button.background")
