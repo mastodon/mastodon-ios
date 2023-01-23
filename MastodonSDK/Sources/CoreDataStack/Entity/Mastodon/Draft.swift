@@ -124,11 +124,12 @@ extension Draft {
         public let multiple: Bool
         
         public struct Expiration: RawRepresentable, Codable, Hashable, CaseIterable {
-            public static let allCases = [thirtyMinutes, oneHour, sixHours, oneDay, threeDays, sevenDays]
+            public static let allCases = [thirtyMinutes, oneHour, sixHours, twelveHours, oneDay, threeDays, sevenDays]
             
             public static let thirtyMinutes = Self(rawValue: 60 * 30)
             public static let oneHour = Self(rawValue: 60 * 60 * 1)
             public static let sixHours = Self(rawValue: 60 * 60 * 6)
+            public static let twelveHours = Self(rawValue: 60 * 60 * 12)
             public static let oneDay = Self(rawValue: 60 * 60 * 24)
             public static let threeDays = Self(rawValue: 60 * 60 * 24 * 3)
             public static let sevenDays = Self(rawValue: 60 * 60 * 24 * 7)
