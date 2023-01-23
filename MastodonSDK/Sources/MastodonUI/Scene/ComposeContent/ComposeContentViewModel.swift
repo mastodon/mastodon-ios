@@ -530,6 +530,11 @@ extension ComposeContentViewModel {
             }
         }()
         
+        // save language to recent languages
+        if let settings = context.settingService.currentSetting.value {
+            settings.recentLanguages = [language] + settings.recentLanguages.filter { $0 != language }
+        }
+        
         return MastodonStatusPublisher(
             author: author,
             replyTo: {
