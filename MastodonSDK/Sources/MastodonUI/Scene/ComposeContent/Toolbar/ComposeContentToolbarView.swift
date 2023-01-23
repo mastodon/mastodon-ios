@@ -113,10 +113,20 @@ struct ComposeContentToolbarView: View {
                             showingLanguagePicker = true
                         }
                     } label: {
+                        let font: SwiftUI.Font = {
+                            if #available(iOS 16, *) {
+                                return .system(size: 11, weight: .semibold).width(viewModel.language.count == 3 ? .compressed : .standard)
+                            } else {
+                                return .system(size: 11, weight: .semibold)
+                            }
+                        }()
+
                         Text(viewModel.language)
+                            .font(font)
                             .textCase(.uppercase)
-                            .font(.system(size: 10, weight: .bold))
-                            .frame(width: viewModel.language.count == 2 ? 24 : 32, height: 24, alignment: .center)
+                            .padding(.horizontal, 4)
+                            .minimumScaleFactor(0.5)
+                            .frame(width: 24, height: 24, alignment: .center)
                             .overlay { RoundedRectangle(cornerRadius: 7).inset(by: 3).stroke(lineWidth: 1.5) }
                             .accessibilityLabel(L10n.Scene.Compose.Language.title)
                             .accessibilityValue(Text(Language(id: viewModel.language)?.label ?? AttributedString("\(viewModel.language)")))
