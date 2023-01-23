@@ -23,7 +23,7 @@ public final class Setting: NSManagedObject {
     @NSManaged public private(set) var updatedAt: Date
     
     @NSManaged private var rawRecentLanguages: Data?
-    public var recentLanguages: [String] {
+    @objc dynamic public var recentLanguages: [String] {
         get {
             if let data = rawRecentLanguages, let result = try? JSONDecoder().decode([String].self, from: data) {
                 return result
