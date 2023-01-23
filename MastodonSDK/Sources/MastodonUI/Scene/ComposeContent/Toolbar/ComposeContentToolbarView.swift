@@ -177,7 +177,14 @@ extension ComposeContentToolbarView {
     }
     
     private func label(for code: String) -> String {
-        Locale.current.localizedString(forIdentifier: code) ?? code
+        if let exonym = Locale.current.localizedString(forLanguageCode: code) {
+            if let endonym = Locale(identifier: code).localizedString(forLanguageCode: code),
+               endonym.localizedCaseInsensitiveCompare(exonym) != .orderedSame {
+                return "\(endonym) (\(exonym))"
+            }
+            return exonym
+        }
+        return code
     }
     
     private func languageBinding(for code: String) -> Binding<Bool> {
