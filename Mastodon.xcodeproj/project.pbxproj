@@ -33,10 +33,23 @@
 		2A71F541296DBDA80049F54A /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A71F53D296DBDA80049F54A /* Media.xcassets */; };
 		2A71F542296DBDA80049F54A /* Action.js in Resources */ = {isa = PBXBuildFile; fileRef = 2A71F53E296DBDA80049F54A /* Action.js */; };
 		2A71F543296DBDA80049F54A /* ActionRequestHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A71F53F296DBDA80049F54A /* ActionRequestHandler.swift */; };
+		2A728122297EA9D7004138C5 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A728121297EA9D7004138C5 /* WidgetKit.framework */; };
+		2A728124297EA9D7004138C5 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A728123297EA9D7004138C5 /* SwiftUI.framework */; };
+		2A728127297EA9D7004138C5 /* WidgetExtensionBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A728126297EA9D7004138C5 /* WidgetExtensionBundle.swift */; };
+		2A72812B297EA9D7004138C5 /* FollowersWidgetExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A72812A297EA9D7004138C5 /* FollowersWidgetExtension.swift */; };
+		2A72812E297EA9D8004138C5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A72812D297EA9D8004138C5 /* Assets.xcassets */; };
+		2A728130297EA9D8004138C5 /* WidgetExtension.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 2A72812C297EA9D7004138C5 /* WidgetExtension.intentdefinition */; };
+		2A728131297EA9D8004138C5 /* WidgetExtension.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 2A72812C297EA9D7004138C5 /* WidgetExtension.intentdefinition */; };
+		2A728134297EA9D8004138C5 /* WidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 2A728120297EA9D7004138C5 /* WidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		2A72813B297EC6F7004138C5 /* MastodonSDKDynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 2A72813A297EC6F7004138C5 /* MastodonSDKDynamic */; };
+		2A72813F297EC762004138C5 /* WidgetExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A72813E297EC762004138C5 /* WidgetExtension.swift */; };
 		2A76F75C2930D94700B3388D /* HashtagTimelineHeaderViewActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A76F75B2930D94700B3388D /* HashtagTimelineHeaderViewActionButton.swift */; };
 		2A82294F29262EE000D2A1F7 /* AppContext+NextAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A82294E29262EE000D2A1F7 /* AppContext+NextAccount.swift */; };
 		2A90A157296EEE500026C155 /* MastodonSDKDynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 2A90A156296EEE500026C155 /* MastodonSDKDynamic */; };
 		2AB12E4629362F27006BC925 /* DataSourceFacade+Translate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB12E4529362F27006BC925 /* DataSourceFacade+Translate.swift */; };
+		2AE202AA297FE10B00F66E55 /* WidgetExtension.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 2A72812C297EA9D7004138C5 /* WidgetExtension.intentdefinition */; };
+		2AE202AC297FE19100F66E55 /* FollowersCountIntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE202AB297FE19100F66E55 /* FollowersCountIntentHandler.swift */; };
+		2AE202AD297FE1CD00F66E55 /* WidgetExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A72813E297EC762004138C5 /* WidgetExtension.swift */; };
 		2AE244482927831100BDBF7C /* UIImage+SFSymbols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE244472927831100BDBF7C /* UIImage+SFSymbols.swift */; };
 		2D198643261BF09500F0B013 /* SearchResultItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D198642261BF09500F0B013 /* SearchResultItem.swift */; };
 		2D198649261C0B8500F0B013 /* SearchResultSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D198648261C0B8500F0B013 /* SearchResultSection.swift */; };
@@ -467,6 +480,13 @@
 			remoteGlobalIDString = 2A64515C29642A8A00CD8B8A;
 			remoteInfo = FollowActionExtension;
 		};
+		2A728132297EA9D8004138C5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DB427DCA25BAA00100D1B89D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2A72811F297EA9D7004138C5;
+			remoteInfo = WidgetExtensionExtension;
+		};
 		DB427DE925BAA00100D1B89D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = DB427DCA25BAA00100D1B89D /* Project object */;
@@ -505,6 +525,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		2A72813D297EC6F7004138C5 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		2A90A159296EEE500026C155 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -544,6 +574,7 @@
 			dstSubfolderSpec = 13;
 			files = (
 				DB8FABCE26AEC7B2008E5AF4 /* MastodonIntent.appex in Embed Foundation Extensions */,
+				2A728134297EA9D8004138C5 /* WidgetExtension.appex in Embed Foundation Extensions */,
 				2A64516929642A8B00CD8B8A /* OpenInActionExtension.appex in Embed Foundation Extensions */,
 				DBC6461C26A170AB00B0E31B /* ShareActionExtension.appex in Embed Foundation Extensions */,
 				DBF8AE1A263293E400C9C23C /* NotificationService.appex in Embed Foundation Extensions */,
@@ -584,9 +615,20 @@
 		2A71F53E296DBDA80049F54A /* Action.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = Action.js; sourceTree = "<group>"; };
 		2A71F53F296DBDA80049F54A /* ActionRequestHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionRequestHandler.swift; sourceTree = "<group>"; };
 		2A71F540296DBDA80049F54A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2A728120297EA9D7004138C5 /* WidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = WidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		2A728121297EA9D7004138C5 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		2A728123297EA9D7004138C5 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		2A728126297EA9D7004138C5 /* WidgetExtensionBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetExtensionBundle.swift; sourceTree = "<group>"; };
+		2A72812A297EA9D7004138C5 /* FollowersWidgetExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowersWidgetExtension.swift; sourceTree = "<group>"; };
+		2A72812C297EA9D7004138C5 /* WidgetExtension.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = WidgetExtension.intentdefinition; sourceTree = "<group>"; };
+		2A72812D297EA9D8004138C5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		2A72812F297EA9D8004138C5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2A72813E297EC762004138C5 /* WidgetExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetExtension.swift; sourceTree = "<group>"; };
 		2A76F75B2930D94700B3388D /* HashtagTimelineHeaderViewActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagTimelineHeaderViewActionButton.swift; sourceTree = "<group>"; };
 		2A82294E29262EE000D2A1F7 /* AppContext+NextAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppContext+NextAccount.swift"; sourceTree = "<group>"; };
 		2AB12E4529362F27006BC925 /* DataSourceFacade+Translate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataSourceFacade+Translate.swift"; sourceTree = "<group>"; };
+		2AE202A9297FDDF500F66E55 /* WidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WidgetExtension.entitlements; sourceTree = "<group>"; };
+		2AE202AB297FE19100F66E55 /* FollowersCountIntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowersCountIntentHandler.swift; sourceTree = "<group>"; };
 		2AE244472927831100BDBF7C /* UIImage+SFSymbols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+SFSymbols.swift"; sourceTree = "<group>"; };
 		2D198642261BF09500F0B013 /* SearchResultItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultItem.swift; sourceTree = "<group>"; };
 		2D198648261C0B8500F0B013 /* SearchResultSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultSection.swift; sourceTree = "<group>"; };
@@ -1148,6 +1190,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		2A72811D297EA9D7004138C5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2A72813B297EC6F7004138C5 /* MastodonSDKDynamic in Frameworks */,
+				2A728124297EA9D7004138C5 /* SwiftUI.framework in Frameworks */,
+				2A728122297EA9D7004138C5 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DB427DCF25BAA00100D1B89D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1341,6 +1393,20 @@
 				2A71F540296DBDA80049F54A /* Info.plist */,
 			);
 			path = OpenInActionExtension;
+			sourceTree = "<group>";
+		};
+		2A728125297EA9D7004138C5 /* WidgetExtension */ = {
+			isa = PBXGroup;
+			children = (
+				2AE202A9297FDDF500F66E55 /* WidgetExtension.entitlements */,
+				2A72813E297EC762004138C5 /* WidgetExtension.swift */,
+				2A728126297EA9D7004138C5 /* WidgetExtensionBundle.swift */,
+				2A72812A297EA9D7004138C5 /* FollowersWidgetExtension.swift */,
+				2A72812C297EA9D7004138C5 /* WidgetExtension.intentdefinition */,
+				2A72812D297EA9D8004138C5 /* Assets.xcassets */,
+				2A72812F297EA9D8004138C5 /* Info.plist */,
+			);
+			path = WidgetExtension;
 			sourceTree = "<group>";
 		};
 		2D152A8A25C295B8009AA50C /* Content */ = {
@@ -1562,6 +1628,8 @@
 				DB8FAB9E26AEC3A2008E5AF4 /* Intents.framework */,
 				DB8FABA926AEC3A2008E5AF4 /* IntentsUI.framework */,
 				2A6451022964223800CD8B8A /* UniformTypeIdentifiers.framework */,
+				2A728121297EA9D7004138C5 /* WidgetKit.framework */,
+				2A728123297EA9D7004138C5 /* SwiftUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1880,6 +1948,7 @@
 				DBC6461326A170AB00B0E31B /* ShareActionExtension */,
 				DB8FABC826AEC7B2008E5AF4 /* MastodonIntent */,
 				2A71F53C296DBDA80049F54A /* OpenInActionExtension */,
+				2A728125297EA9D7004138C5 /* WidgetExtension */,
 				DB427DD325BAA00100D1B89D /* Products */,
 				1EBA4F56E920856A3FC84ACB /* Pods */,
 				3FE14AD363ED19AE7FF210A6 /* Frameworks */,
@@ -1898,6 +1967,7 @@
 				DBC6461226A170AB00B0E31B /* ShareActionExtension.appex */,
 				DB8FABC626AEC7B2008E5AF4 /* MastodonIntent.appex */,
 				2A64515D29642A8A00CD8B8A /* OpenInActionExtension.appex */,
+				2A728120297EA9D7004138C5 /* WidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2164,6 +2234,7 @@
 			isa = PBXGroup;
 			children = (
 				DBB8AB4526AECDE200F6D281 /* SendPostIntentHandler.swift */,
+				2AE202AB297FE19100F66E55 /* FollowersCountIntentHandler.swift */,
 			);
 			path = Handler;
 			sourceTree = "<group>";
@@ -2860,6 +2931,27 @@
 			productReference = 2A64515D29642A8A00CD8B8A /* OpenInActionExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
+		2A72811F297EA9D7004138C5 /* WidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2A728139297EA9D8004138C5 /* Build configuration list for PBXNativeTarget "WidgetExtension" */;
+			buildPhases = (
+				2A72811C297EA9D7004138C5 /* Sources */,
+				2A72811D297EA9D7004138C5 /* Frameworks */,
+				2A72811E297EA9D7004138C5 /* Resources */,
+				2A72813D297EC6F7004138C5 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WidgetExtension;
+			packageProductDependencies = (
+				2A72813A297EC6F7004138C5 /* MastodonSDKDynamic */,
+			);
+			productName = WidgetExtensionExtension;
+			productReference = 2A728120297EA9D7004138C5 /* WidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		DB427DD125BAA00100D1B89D /* Mastodon */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = DB427DFC25BAA00100D1B89D /* Build configuration list for PBXNativeTarget "Mastodon" */;
@@ -2882,6 +2974,7 @@
 				DBC6461B26A170AB00B0E31B /* PBXTargetDependency */,
 				DB8FABCD26AEC7B2008E5AF4 /* PBXTargetDependency */,
 				2A64516829642A8B00CD8B8A /* PBXTargetDependency */,
+				2A728133297EA9D8004138C5 /* PBXTargetDependency */,
 			);
 			name = Mastodon;
 			packageProductDependencies = (
@@ -3006,6 +3099,9 @@
 					2A64515C29642A8A00CD8B8A = {
 						CreatedOnToolsVersion = 14.2;
 					};
+					2A72811F297EA9D7004138C5 = {
+						CreatedOnToolsVersion = 14.2;
+					};
 					DB427DD125BAA00100D1B89D = {
 						CreatedOnToolsVersion = 12.4;
 						LastSwiftMigration = 1300;
@@ -3076,6 +3172,7 @@
 				DBC6461126A170AB00B0E31B /* ShareActionExtension */,
 				DB8FABC526AEC7B2008E5AF4 /* MastodonIntent */,
 				2A64515C29642A8A00CD8B8A /* OpenInActionExtension */,
+				2A72811F297EA9D7004138C5 /* WidgetExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -3087,6 +3184,14 @@
 			files = (
 				2A71F541296DBDA80049F54A /* Media.xcassets in Resources */,
 				2A71F542296DBDA80049F54A /* Action.js in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2A72811E297EA9D7004138C5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2A72812E297EA9D8004138C5 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3313,6 +3418,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				2A71F543296DBDA80049F54A /* ActionRequestHandler.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2A72811C297EA9D7004138C5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2A728130297EA9D8004138C5 /* WidgetExtension.intentdefinition in Sources */,
+				2A72813F297EC762004138C5 /* WidgetExtension.swift in Sources */,
+				2A728127297EA9D7004138C5 /* WidgetExtensionBundle.swift in Sources */,
+				2A72812B297EA9D7004138C5 /* FollowersWidgetExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3610,6 +3726,7 @@
 				DB98EB5627B0FF1B0082E365 /* ReportViewControllerAppearance.swift in Sources */,
 				DB3EA8E6281B79E200598866 /* DiscoveryCommunityViewController.swift in Sources */,
 				2D206B8625F5FB0900143C56 /* Double.swift in Sources */,
+				2A728131297EA9D8004138C5 /* WidgetExtension.intentdefinition in Sources */,
 				DB9F58F126EF512300E7BBE9 /* AccountListTableViewCell.swift in Sources */,
 				2D76319F25C1521200929FB9 /* StatusSection.swift in Sources */,
 				DB938F0326240EA300E5B6C1 /* CachedThreadViewModel.swift in Sources */,
@@ -3745,7 +3862,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				DB0009A726AEE5DC009B9D2D /* Intents.intentdefinition in Sources */,
+				2AE202AD297FE1CD00F66E55 /* WidgetExtension.swift in Sources */,
 				DBB8AB4626AECDE200F6D281 /* SendPostIntentHandler.swift in Sources */,
+				2AE202AA297FE10B00F66E55 /* WidgetExtension.intentdefinition in Sources */,
+				2AE202AC297FE19100F66E55 /* FollowersCountIntentHandler.swift in Sources */,
 				DB64BA452851F23000ADF1B7 /* MastodonAuthentication+Fetch.swift in Sources */,
 				DB64BA482851F29300ADF1B7 /* Account+Fetch.swift in Sources */,
 				DB8FABCA26AEC7B2008E5AF4 /* IntentHandler.swift in Sources */,
@@ -3780,6 +3900,11 @@
 			isa = PBXTargetDependency;
 			target = 2A64515C29642A8A00CD8B8A /* OpenInActionExtension */;
 			targetProxy = 2A64516729642A8B00CD8B8A /* PBXContainerItemProxy */;
+		};
+		2A728133297EA9D8004138C5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2A72811F297EA9D7004138C5 /* WidgetExtension */;
+			targetProxy = 2A728132297EA9D8004138C5 /* PBXContainerItemProxy */;
 		};
 		DB427DEA25BAA00100D1B89D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -4049,6 +4174,131 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.OpenInActionExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = "Release Snapshot";
+		};
+		2A728135297EA9D8004138C5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = WidgetExtension/WidgetExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 5Z4GVSS33P;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WidgetExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = WidgetExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.WidgetExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		2A728136297EA9D8004138C5 /* Profile */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = WidgetExtension/WidgetExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5Z4GVSS33P;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WidgetExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = WidgetExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.WidgetExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Profile;
+		};
+		2A728137297EA9D8004138C5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = WidgetExtension/WidgetExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5Z4GVSS33P;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WidgetExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = WidgetExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.WidgetExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		2A728138297EA9D8004138C5 /* Release Snapshot */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = WidgetExtension/WidgetExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5Z4GVSS33P;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WidgetExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = WidgetExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.WidgetExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -4890,6 +5140,17 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		2A728139297EA9D8004138C5 /* Build configuration list for PBXNativeTarget "WidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2A728135297EA9D8004138C5 /* Debug */,
+				2A728136297EA9D8004138C5 /* Profile */,
+				2A728137297EA9D8004138C5 /* Release */,
+				2A728138297EA9D8004138C5 /* Release Snapshot */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		DB427DCD25BAA00100D1B89D /* Build configuration list for PBXProject "Mastodon" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -4970,6 +5231,10 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		2A72813A297EC6F7004138C5 /* MastodonSDKDynamic */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MastodonSDKDynamic;
+		};
 		2A90A156296EEE500026C155 /* MastodonSDKDynamic */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = MastodonSDKDynamic;
