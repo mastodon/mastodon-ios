@@ -156,8 +156,9 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
         self.authContext = authContext
         self.destination = destination
         self.composeContext = composeContext
+        let prefs = context.preferencesService.currentPreferences.value
         self.visibility = {
-            var visibility = context.preferencesService.currentPreferences.value.postingDefaultVisibility
+            var visibility = prefs.postingDefaultVisibility
             // set visibility for reply post
             if case .reply(let record) = destination {
                 context.managedObjectContext.performAndWait {
@@ -208,7 +209,7 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
         
         let recentLanguages = context.settingService.currentSetting.value?.recentLanguages ?? []
         self.recentLanguages = recentLanguages
-        self.language = recentLanguages.first ?? Locale.current.languageCode ?? "en"
+        self.language = prefs.postingDefaultLanguage ?? recentLanguages.first ?? Locale.current.languageCode ?? "en"
         super.init()
         // end init
         

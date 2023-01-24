@@ -39,7 +39,7 @@ extension Mastodon.Entity.Preferences {
     public static let `default` = Mastodon.Entity.Preferences(
         postingDefaultVisibility: .public,
         postingDefaultSensitive: false,
-        postingDefaultLanguage: "en",
+        postingDefaultLanguage: nil,
         readingExpandMedia: .default,
         readingExpandSpoilers: false,
         readingAutoplayGIFs: true
