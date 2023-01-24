@@ -121,6 +121,7 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
 
     // language
     @Published public var language: String
+    @Published public var defaultLanguage: String?
     @Published public private(set) var recentLanguages: [String]
 
     // UI & UX
@@ -209,6 +210,7 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
         
         let recentLanguages = context.settingService.currentSetting.value?.recentLanguages ?? []
         self.recentLanguages = recentLanguages
+        self.defaultLanguage = prefs.postingDefaultLanguage
         self.language = prefs.postingDefaultLanguage ?? recentLanguages.first ?? Locale.current.languageCode ?? "en"
         super.init()
         // end init

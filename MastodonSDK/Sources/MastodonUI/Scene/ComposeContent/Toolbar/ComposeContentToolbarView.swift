@@ -86,26 +86,42 @@ struct ComposeContentToolbarView: View {
                             case .language:
                                 Menu {
                                     Section {} // workaround a bug where the “Suggested” section doesn’t appear
-                                    if !viewModel.suggestedLanguages.isEmpty {
+
+                                    if let defaultLanguage = viewModel.defaultLanguage {
+                                        Toggle(isOn: languageBinding(for: defaultLanguage)) {
+                                            Text(Language(id: defaultLanguage)?.label ?? AttributedString("\(viewModel.language)"))
+                                        }
+                                    }
+
+                                    let suggested = viewModel.suggestedLanguages
+                                        .filter { $0 != viewModel.defaultLanguage }
+                                        .compactMap(Language.init(id:))
+                                    if !suggested.isEmpty {
                                         Section(L10n.Scene.Compose.Language.suggested) {
-                                            ForEach(viewModel.suggestedLanguages.compactMap(Language.init(id:))) { lang in
+                                            ForEach(suggested) { lang in
                                                 Toggle(isOn: languageBinding(for: lang.id)) {
                                                     Text(lang.label)
                                                 }
                                             }
                                         }
                                     }
-                                    let recent = viewModel.recentLanguages.filter { !viewModel.suggestedLanguages.contains($0) }
+
+                                    let recent = viewModel.recentLanguages
+                                        .filter { $0 != viewModel.defaultLanguage }
+                                        .compactMap(Language.init(id:))
+                                        .filter { !suggested.contains($0) }
                                     if !recent.isEmpty {
                                         Section(L10n.Scene.Compose.Language.recent) {
-                                            ForEach(recent.compactMap(Language.init(id:))) { lang in
+                                            ForEach(recent) { lang in
                                                 Toggle(isOn: languageBinding(for: lang.id)) {
                                                     Text(lang.label)
                                                 }
                                             }
                                         }
                                     }
-                                    if !(recent + viewModel.suggestedLanguages).contains(viewModel.language) {
+
+                                    if viewModel.language != viewModel.defaultLanguage,
+                                       !(recent + suggested).map(\.id).contains(viewModel.language) {
                                         Toggle(isOn: languageBinding(for: viewModel.language)) {
                                             Text(Language(id: viewModel.language)?.label ?? AttributedString("\(viewModel.language)"))
                                         }
@@ -121,7 +137,7 @@ struct ComposeContentToolbarView: View {
                                             return .system(size: 11, weight: .semibold)
                                         }
                                     }()
-                                    
+
                                     Text(viewModel.language)
                                         .font(font)
                                         .textCase(.uppercase)
