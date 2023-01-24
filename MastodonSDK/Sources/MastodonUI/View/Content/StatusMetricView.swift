@@ -51,6 +51,7 @@ public final class StatusMetricView: UIView {
         let button = UIButton(type: .system)
         button.titleLabel?.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 15, weight: .semibold))
         button.setTitle("0 reblog", for: .normal)
+        button.isPointerInteractionEnabled = true
         return button
     }()
     
@@ -59,6 +60,7 @@ public final class StatusMetricView: UIView {
         let button = UIButton(type: .system)
         button.titleLabel?.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 15, weight: .semibold))
         button.setTitle("0 favorite", for: .normal)
+        button.isPointerInteractionEnabled = true
         return button
     }()
     

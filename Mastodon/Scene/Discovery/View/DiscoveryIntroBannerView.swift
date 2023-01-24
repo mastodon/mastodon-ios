@@ -38,6 +38,8 @@ public final class DiscoveryIntroBannerView: UIView {
         let button = HitTestExpandedButton(type: .system)
         button.setImage(UIImage(systemName: "xmark.circle.fill"), for: .normal)
         button.tintColor = Asset.Colors.Label.secondary.color
+        button.isPointerInteractionEnabled = true
+        button.pointerStyleProvider = { _, effect, _ in UIPointerStyle(effect: .lift(effect.preview)) }
         return button
     }()
     

@@ -129,6 +129,7 @@ public final class StatusCardControl: UIControl {
         ])
 
         addInteraction(UIContextMenuInteraction(delegate: self))
+        addInteraction(UIPointerInteraction(delegate: self))
     }
     
     required init?(coder: NSCoder) {
@@ -302,6 +303,15 @@ extension StatusCardControl {
 
     public override func contextMenuInteraction(_ interaction: UIContextMenuInteraction, previewForDismissingMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
         UITargetedPreview(view: self)
+    }
+}
+
+extension StatusCardControl: UIPointerInteractionDelegate {
+    public func pointerInteraction(_ interaction: UIPointerInteraction, regionFor request: UIPointerRegionRequest, defaultRegion: UIPointerRegion) -> UIPointerRegion? {
+        defaultRegion
+    }
+    public func pointerInteraction(_ interaction: UIPointerInteraction, styleFor region: UIPointerRegion) -> UIPointerStyle? {
+        UIPointerStyle(effect: .highlight(UITargetedPreview(view: self)))
     }
 }
 

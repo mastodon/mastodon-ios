@@ -48,6 +48,7 @@ public class StatusAuthorView: UIStackView {
         let image = UIImage(systemName: "ellipsis", withConfiguration: UIImage.SymbolConfiguration(font: .systemFont(ofSize: 15)))
         button.setImage(image, for: .normal)
         button.accessibilityLabel = L10n.Common.Controls.Status.Actions.menu
+        button.isPointerInteractionEnabled = true
         return button
     }()
 
@@ -59,6 +60,7 @@ public class StatusAuthorView: UIStackView {
         button.imageView?.clipsToBounds = false
         let image = UIImage(systemName: "eye.slash.fill", withConfiguration: UIImage.SymbolConfiguration(font: .systemFont(ofSize: 15)))
         button.setImage(image, for: .normal)
+        button.isPointerInteractionEnabled = true
         return button
     }()
 
