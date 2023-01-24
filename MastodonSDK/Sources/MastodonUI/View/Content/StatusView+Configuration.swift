@@ -300,8 +300,7 @@ extension StatusView {
         // spoilerText
         if let spoilerText = statusEdit.spoilerText, !spoilerText.isEmpty {
             do {
-                //FIXME: @zeitschlag Add emojis
-                let content = MastodonContent(content: spoilerText, emojis: [:]) //  statusEdit.emojis.asDictionary)
+                let content = MastodonContent(content: spoilerText, emojis: statusEdit.emojis.asDictionary) //  statusEdit.emojis.asDictionary)
                 let metaContent = try MastodonMetaContent.convert(document: content)
                 viewModel.spoilerContent = metaContent
             } catch {
@@ -315,8 +314,7 @@ extension StatusView {
         viewModel.language = (status.reblog ?? status).language
         // content
         do {
-            //FIXME: @zeitschlag Add emojis
-            let content = MastodonContent(content: statusEdit.content, emojis: [:]) //  statusEdit.emojis.asDictionary)
+            let content = MastodonContent(content: statusEdit.content, emojis: statusEdit.emojis.asDictionary)
             let metaContent = try MastodonMetaContent.convert(document: content)
             viewModel.content = metaContent
             viewModel.translatedFromLanguage = nil

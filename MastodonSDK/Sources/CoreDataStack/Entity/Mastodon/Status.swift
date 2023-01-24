@@ -596,7 +596,6 @@ extension Status: AutoUpdatableObject {
     }
 
     public func update(editHistory: Set<StatusEdit>) {
-        //TODO: @zeitschlag remove old statusEdits
         self.editHistory = editHistory
     }
 }
