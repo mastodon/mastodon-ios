@@ -3,43 +3,73 @@
 import WidgetKit
 import SwiftUI
 import Intents
+import MastodonSDK
 
 struct FollowersProvider: IntentTimelineProvider {
     func placeholder(in context: Context) -> FollowersEntry {
-        FollowersEntry(date: Date(), configuration: FollowersCountIntent())
+        .empty(with: FollowersCountIntent())
     }
 
     func getSnapshot(for configuration: FollowersCountIntent, in context: Context, completion: @escaping (FollowersEntry) -> ()) {
-        let entry = FollowersEntry(date: Date(), configuration: configuration)
-        completion(entry)
+        loadCurrentEntry(for: configuration, in: context, completion: completion)
     }
 
     func getTimeline(for configuration: FollowersCountIntent, in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
-        var entries: [FollowersEntry] = []
-
-        // Generate a timeline consisting of five entries an hour apart, starting from the current date.
-        let currentDate = Date()
-        for hourOffset in 0 ..< 5 {
-            let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
-            let entry = FollowersEntry(date: entryDate, configuration: configuration)
-            entries.append(entry)
+        loadCurrentEntry(for: configuration, in: context) { entry in
+            completion(Timeline(entries: [entry], policy: .after(.now)))
         }
-
-        let timeline = Timeline(entries: entries, policy: .atEnd)
-        completion(timeline)
     }
 }
 
 struct FollowersEntry: TimelineEntry {
     let date: Date
+    let account: Mastodon.Entity.Account?
+    let avatarImage: UIImage?
     let configuration: FollowersCountIntent
+    
+    static func empty(with configuration: FollowersCountIntent) -> Self {
+        FollowersEntry(date: .now, account: nil, avatarImage: nil, configuration: configuration)
+    }
 }
 
 struct FollowersWidgetExtensionEntryView : View {
     var entry: FollowersProvider.Entry
 
     var body: some View {
-        Text(entry.date, style: .time)
+        if let account = entry.account {
+            HStack {
+                VStack(alignment: .leading, spacing: 0) {
+                    if let avatarImage = entry.avatarImage {
+                        Image(uiImage: avatarImage)
+                            .resizable()
+                            .frame(width: 50, height: 50)
+                            .cornerRadius(12)
+                            .padding(.bottom, 8)
+                    }
+                    
+                    Text(account.followersCount.asAbbreviatedCountString())
+                        .font(.largeTitle)
+                        .lineLimit(1)
+                        .truncationMode(.tail)
+                
+                    Text("\(account.displayNameWithFallback)")
+                        .font(.system(size: 13))
+                        .lineLimit(1)
+                        .truncationMode(.tail)
+
+                    Text("@\(account.acct)")
+                        .font(.caption2)
+                        .foregroundColor(.secondary)
+                        .lineLimit(1)
+                        .truncationMode(.tail)
+                }
+                .padding(.leading, 20)
+                .padding([.top, .bottom], 16)
+                Spacer()
+            }
+        } else {
+            Text("Please use the Widget settings to select an Account.")
+        }
     }
 }
 
@@ -55,7 +85,54 @@ struct FollowersWidgetExtension: Widget {
 
 struct WidgetExtension_Previews: PreviewProvider {
     static var previews: some View {
-        FollowersWidgetExtensionEntryView(entry: FollowersEntry(date: Date(), configuration: FollowersCountIntent()))
-            .previewContext(WidgetPreviewContext(family: .systemSmall))
+        FollowersWidgetExtensionEntryView(entry: FollowersEntry(
+            date: Date(),
+            account: nil,
+            avatarImage: nil,
+            configuration: FollowersCountIntent())
+        )
+        .previewContext(WidgetPreviewContext(family: .systemSmall))
+    }
+}
+
+private extension FollowersProvider {
+    func loadCurrentEntry(for configuration: FollowersCountIntent, in context: Context, completion: @escaping (FollowersEntry) -> Void) {
+        Task {
+            guard
+                let authBox = WidgetExtension.appContext
+                    .authenticationService
+                    .mastodonAuthenticationBoxes
+                    .first,
+                let account = configuration.account
+            else {
+                return completion(.empty(with: configuration))
+            }
+            let resultingAccount = try await WidgetExtension.appContext
+                .apiService
+                .search(query: .init(q: account, type: .accounts), authenticationBox: authBox)
+                .value
+                .accounts
+                .first
+            
+            let image: UIImage? = try await {
+                guard
+                    let account = resultingAccount
+                else {
+                    return nil
+                }
+                
+                let imageData = try await URLSession.shared.data(from: account.avatarImageURLWithFallback(domain: authBox.domain)).0
+
+                return UIImage(data: imageData)
+            }()
+                        
+            let entry = FollowersEntry(
+                date: Date(),
+                account: resultingAccount,
+                avatarImage: image,
+                configuration: configuration
+            )
+            completion(entry)
+        }
     }
 }
