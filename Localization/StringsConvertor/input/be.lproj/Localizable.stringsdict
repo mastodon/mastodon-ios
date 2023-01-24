@@ -25,7 +25,7 @@
     <key>a11y.plural.count.input_limit_exceeds</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Input limit exceeds %#@character_count@</string>
+      <string>Ліміт уводу перавышаны на %#@character_count@</string>
       <key>character_count</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -128,13 +128,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>post</string>
+        <string>допіс</string>
         <key>few</key>
-        <string>posts</string>
+        <string>допісы</string>
         <key>many</key>
-        <string>posts</string>
+        <string>допісаў</string>
         <key>other</key>
-        <string>posts</string>
+        <string>допісаў</string>
       </dict>
     </dict>
     <key>plural.count.media</key>
@@ -148,13 +148,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 media</string>
+        <string>1 медыя</string>
         <key>few</key>
-        <string>%ld media</string>
+        <string>%ld медыя</string>
         <key>many</key>
-        <string>%ld media</string>
+        <string>%ld медыя</string>
         <key>other</key>
-        <string>%ld media</string>
+        <string>%ld медыя</string>
       </dict>
     </dict>
     <key>plural.count.post</key>
@@ -168,13 +168,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 post</string>
+        <string>1 допіс</string>
         <key>few</key>
-        <string>%ld posts</string>
+        <string>%ld допісы</string>
         <key>many</key>
-        <string>%ld posts</string>
+        <string>%ld допісаў</string>
         <key>other</key>
-        <string>%ld posts</string>
+        <string>%ld допісаў</string>
       </dict>
     </dict>
     <key>plural.count.favorite</key>
@@ -208,13 +208,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 reblog</string>
+        <string>1 пашырэнне</string>
         <key>few</key>
-        <string>%ld reblogs</string>
+        <string>%ld пашырэнні</string>
         <key>many</key>
-        <string>%ld reblogs</string>
+        <string>%ld пашырэнняў</string>
         <key>other</key>
-        <string>%ld reblogs</string>
+        <string>%ld пашырэнняў</string>
       </dict>
     </dict>
     <key>plural.count.reply</key>
@@ -228,13 +228,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 reply</string>
+        <string>1 адказ</string>
         <key>few</key>
-        <string>%ld replies</string>
+        <string>%ld адказы</string>
         <key>many</key>
-        <string>%ld replies</string>
+        <string>%ld адказаў</string>
         <key>other</key>
-        <string>%ld replies</string>
+        <string>%ld адказаў</string>
       </dict>
     </dict>
     <key>plural.count.vote</key>
