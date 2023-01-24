@@ -502,6 +502,12 @@
                 "toggle_content_warning": "Toggle Content Warning",
                 "append_attachment_entry": "Add Attachment - %s",
                 "select_visibility_entry": "Select Visibility - %s"
+            },
+            "language": {
+                "title": "Post Language",
+                "suggested": "Suggested",
+                "recent": "Recent",
+                "other": "Other Language…"
             }
         },
         "profile": {

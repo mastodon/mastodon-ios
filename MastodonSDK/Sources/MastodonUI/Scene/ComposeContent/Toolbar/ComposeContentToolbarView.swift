@@ -24,6 +24,12 @@ struct ComposeContentToolbarView: View {
     
     @ObservedObject var viewModel: ViewModel
     
+    @State private var showingLanguagePicker = false
+    @State private var didChangeLanguage = false
+    
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    @Environment(\.verticalSizeClass) var verticalSizeClass
+    
     var body: some View {
         HStack(spacing: .zero) {
             ForEach(ComposeContentToolbarView.ViewModel.Action.allCases, id: \.self) { action in
@@ -76,6 +82,84 @@ struct ComposeContentToolbarView: View {
                     }
                     .disabled(!viewModel.isPollButtonEnabled)
                     .frame(width: 48, height: 48)
+                case .language:
+                    Menu {
+                        Section {} // workaround a bug where the “Suggested” section doesn’t appear
+                        if !viewModel.suggestedLanguages.isEmpty {
+                            Section(L10n.Scene.Compose.Language.suggested) {
+                                ForEach(viewModel.suggestedLanguages.compactMap(Language.init(id:))) { lang in
+                                    Toggle(isOn: languageBinding(for: lang.id)) {
+                                        Text(lang.label)
+                                    }
+                                }
+                            }
+                        }
+                        let recent = viewModel.recentLanguages.filter { !viewModel.suggestedLanguages.contains($0) }
+                        if !recent.isEmpty {
+                            Section(L10n.Scene.Compose.Language.recent) {
+                                ForEach(recent.compactMap(Language.init(id:))) { lang in
+                                    Toggle(isOn: languageBinding(for: lang.id)) {
+                                        Text(lang.label)
+                                    }
+                                }
+                            }
+                        }
+                        if !(recent + viewModel.suggestedLanguages).contains(viewModel.language) {
+                            Toggle(isOn: languageBinding(for: viewModel.language)) {
+                                Text(Language(id: viewModel.language)?.label ?? AttributedString("\(viewModel.language)"))
+                            }
+                        }
+                        Button(L10n.Scene.Compose.Language.other) {
+                            showingLanguagePicker = true
+                        }
+                    } label: {
+                        let font: SwiftUI.Font = {
+                            if #available(iOS 16, *) {
+                                return .system(size: 11, weight: .semibold).width(viewModel.language.count == 3 ? .compressed : .standard)
+                            } else {
+                                return .system(size: 11, weight: .semibold)
+                            }
+                        }()
+
+                        Text(viewModel.language)
+                            .font(font)
+                            .textCase(.uppercase)
+                            .padding(.horizontal, 4)
+                            .minimumScaleFactor(0.5)
+                            .frame(width: 24, height: 24, alignment: .center)
+                            .overlay { RoundedRectangle(cornerRadius: 7).inset(by: 3).stroke(lineWidth: 1.5) }
+                            .accessibilityLabel(L10n.Scene.Compose.Language.title)
+                            .accessibilityValue(Text(Language(id: viewModel.language)?.label ?? AttributedString("\(viewModel.language)")))
+                            .foregroundColor(Color(Asset.Scene.Compose.buttonTint.color))
+                            .overlay(alignment: .topTrailing) {
+                                Group {
+                                    if let suggested = viewModel.highConfidenceSuggestedLanguage,
+                                       suggested != viewModel.language,
+                                       !didChangeLanguage {
+                                        Circle().fill(.blue)
+                                            .frame(width: 8, height: 8)
+                                    }
+                                }
+                                .transition(.opacity)
+                                .animation(.default, value: [viewModel.highConfidenceSuggestedLanguage, viewModel.language])
+                            }
+                            // fixes weird appearance when drawing at low opacity (eg when pressed)
+                            .drawingGroup()
+                    }
+                    .frame(width: 48, height: 48)
+                    .popover(isPresented: $showingLanguagePicker) {
+                        let picker = LanguagePicker { newLanguage in
+                            viewModel.language = newLanguage
+                            didChangeLanguage = true
+                            showingLanguagePicker = false
+                        }
+                        if verticalSizeClass == .regular && horizontalSizeClass == .regular {
+                            // explicitly size picker when it’s a popover
+                            picker.frame(width: 400, height: 500)
+                        } else {
+                            picker
+                        }
+                    }
                 default:
                     Button {
                         logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): \(String(describing: action))")
@@ -123,6 +207,17 @@ extension ComposeContentToolbarView {
         Image(uiImage: image)
             .foregroundColor(Color(Asset.Scene.Compose.buttonTint.color))
             .frame(width: 24, height: 24, alignment: .center)
+    }
+    
+    private func languageBinding(for code: String) -> Binding<Bool> {
+        Binding {
+            code == viewModel.language
+        } set: { newValue in
+            if newValue {
+                viewModel.language = code
+            }
+            didChangeLanguage = true
+        }
     }
 }
 

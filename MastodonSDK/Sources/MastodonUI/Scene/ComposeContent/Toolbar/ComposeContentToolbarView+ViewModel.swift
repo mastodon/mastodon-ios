@@ -18,6 +18,8 @@ extension ComposeContentToolbarView {
         
         // input
         @Published var backgroundColor = ThemeService.shared.currentTheme.value.composeToolbarBackgroundColor
+        @Published var suggestedLanguages: [String] = []
+        @Published var highConfidenceSuggestedLanguage: String?
         @Published var visibility: Mastodon.Entity.Status.Visibility = .public
         var allVisibilities: [Mastodon.Entity.Status.Visibility] {
             return [.public, .private, .direct]
@@ -30,6 +32,9 @@ extension ComposeContentToolbarView {
         @Published var isAttachmentButtonEnabled = false
         @Published var isPollButtonEnabled = false
         
+        @Published var language = Locale.current.languageCode ?? "en"
+        @Published var recentLanguages: [String] = []
+
         @Published public var maxTextInputLimit = 500
         @Published public var contentWeightedLength = 0
         @Published public var contentWarningWeightedLength = 0
@@ -55,6 +60,7 @@ extension ComposeContentToolbarView.ViewModel {
         case emoji
         case contentWarning
         case visibility
+        case language
         
         var activeImage: UIImage {
             switch self {
@@ -68,6 +74,8 @@ extension ComposeContentToolbarView.ViewModel {
                 return Asset.Scene.Compose.chatWarningFill.image.withRenderingMode(.alwaysTemplate)
             case .visibility:
                 return Asset.Scene.Compose.earth.image.withRenderingMode(.alwaysTemplate)
+            case .language:
+                fatalError("Language’s active image is never accessed")
             }
         }
         
@@ -83,6 +91,8 @@ extension ComposeContentToolbarView.ViewModel {
                 return Asset.Scene.Compose.chatWarning.image.withRenderingMode(.alwaysTemplate)
             case .visibility:
                 return Asset.Scene.Compose.earth.image.withRenderingMode(.alwaysTemplate)
+            case .language:
+                fatalError("Language’s inactive image is never accessed")
             }
         }
     }
@@ -119,6 +129,8 @@ extension ComposeContentToolbarView.ViewModel {
             return isEmojiActive ? action.activeImage : action.inactiveImage
         case .contentWarning:
             return isContentWarningActive ? action.activeImage : action.inactiveImage
+        case .language:
+            fatalError("Language’s image is never accessed")
         default:
             return action.inactiveImage
         }
@@ -136,6 +148,8 @@ extension ComposeContentToolbarView.ViewModel {
             return isContentWarningActive ? L10n.Scene.Compose.Accessibility.disableContentWarning : L10n.Scene.Compose.Accessibility.enableContentWarning
         case .visibility:
             return L10n.Scene.Compose.Accessibility.postVisibilityMenu
+        case .language:
+            return "[[language]]"
         }
     }
 }
