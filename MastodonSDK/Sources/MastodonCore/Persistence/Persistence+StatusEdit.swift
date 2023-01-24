@@ -23,6 +23,14 @@ extension Persistence.StatusEdit {
     ) {
         guard statusEdits.isEmpty == false else { return }
 
+        // remove all edits for status
+
+        if let editHistory = status.editHistory {
+            for statusEdit in Array(editHistory) {
+                managedObjectContext.delete(statusEdit)
+            }
+        }
+        status.update(editHistory: Set())
         let persistedEdits = create(in: managedObjectContext, statusEdits: statusEdits, forStatus: status)
         status.update(editHistory: Set(persistedEdits))
     }
