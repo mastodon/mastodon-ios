@@ -3,6 +3,7 @@
 set -eo pipefail
 
 SCHEME="${SCHEME:-Mastodon}"
+DERIVED_DATA_PATH="./derived_data/"
 ARCHIVE_PATH="./build/Archives/${SCHEME}.xcarchive}"
 
 xcrun xcodebuild clean \
@@ -17,4 +18,5 @@ xcrun xcodebuild archive \
     -destination "generic/platform=iOS Simulator" \
     -parallelizeTargets \
     -showBuildTimingSummary \
+    -derivedDataPath "${DERIVED_DATA_PATH}"\
     -archivePath "${ARCHIVE_PATH}"

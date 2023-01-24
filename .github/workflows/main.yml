@@ -40,19 +40,20 @@ jobs:
           NotificationEndpointDebug: ${{ secrets.NotificationEndpointDebug }}
           NotificationEndpointRelease: ${{ secrets.NotificationEndpointRelease }}
         run: exec ./.github/scripts/setup.sh
-      - name: Setup Env variables
-        env: 
-          BASE_SHA: ${{ github.event.pull_request.base.sha }}
-          PULL_NUMBER: ${{ github.event.pull_request.number }}
-        run: |
-          echo "Base SHA is $BASE_SHA"
-          echo "PR number is $PULL_NUMBER"
       - name: archive
         env:
           SCHEME: Debug
         run: exec ./.github/scripts/archive.sh
+      - name: Copy Link Maps
+        env: 
+          SCHEME: Debug
+        run: |
+          mkdir "./build/Archives/${SCHEME}.xcarchive/Linkmaps"
+          cp ./derived_data/**/*-LinkMap-*.txt "./build/Archives/${SCHEME}.xcarchive/Linkmaps"
       - name: Upload to Emerge Tools
         env: 
           EMERGE_API_TOKEN: ${{ secrets.EMERGE_TOOLS_API_KEY }}
           SCHEME: Debug
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          PULL_NUMBER: ${{ github.event.pull_request.number }}
         run: bundle exec fastlane app_size
