@@ -36,7 +36,7 @@ extension Persistence.StatusEdit {
         var entries: [StatusEdit] = []
 
         for statusEdit in statusEdits {
-            let property = StatusEdit.Property(createdAt: statusEdit.createdAt, content: statusEdit.content, sensitive: statusEdit.sensitive, spoilerText: statusEdit.spoilerText)
+            let property = StatusEdit.Property(createdAt: statusEdit.createdAt, content: statusEdit.content, sensitive: statusEdit.sensitive, spoilerText: statusEdit.spoilerText, emojis: statusEdit.mastodonEmojis)
             let statusEditEntry = StatusEdit.insert(into: managedObjectContext, property: property)
 
             entries.append(statusEditEntry)

@@ -244,10 +244,10 @@
     <entity name="StatusEdit" representedClassName="CoreDataStack.StatusEdit" syncable="YES">
         <attribute name="content" optional="YES" attributeType="String"/>
         <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="emojis" optional="YES" attributeType="Binary"/>
         <attribute name="sensitive" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="spoilerText" optional="YES" attributeType="String"/>
         <relationship name="author" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MastodonUser"/>
-        <relationship name="emojis" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Emoji"/>
         <relationship name="poll" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Poll"/>
         <relationship name="status" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Status" inverseName="editHistory" inverseEntity="Status"/>
     </entity>
