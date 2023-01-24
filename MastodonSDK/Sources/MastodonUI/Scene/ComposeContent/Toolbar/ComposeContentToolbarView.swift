@@ -24,7 +24,6 @@ struct ComposeContentToolbarView: View {
     let isZoomed = (UIScreen.main.scale != UIScreen.main.nativeScale)
     
     @State private var showingLanguagePicker = false
-    @State private var didChangeLanguage = false
     
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @Environment(\.verticalSizeClass) var verticalSizeClass
@@ -87,10 +86,10 @@ struct ComposeContentToolbarView: View {
                                 Menu {
                                     Section {} // workaround a bug where the “Suggested” section doesn’t appear
 
+                                    let onSelect = { viewModel.didChangeLanguage = true }
+
                                     if let defaultLanguage = viewModel.defaultLanguage {
-                                        Toggle(isOn: languageBinding(for: defaultLanguage)) {
-                                            Text(Language(id: defaultLanguage)?.label ?? AttributedString("\(viewModel.language)"))
-                                        }
+                                        LanguageToggle(viewModel: viewModel, code: defaultLanguage)
                                     }
 
                                     let suggested = viewModel.suggestedLanguages
@@ -98,10 +97,8 @@ struct ComposeContentToolbarView: View {
                                         .compactMap(Language.init(id:))
                                     if !suggested.isEmpty {
                                         Section(L10n.Scene.Compose.Language.suggested) {
-                                            ForEach(suggested) { lang in
-                                                Toggle(isOn: languageBinding(for: lang.id)) {
-                                                    Text(lang.label)
-                                                }
+                                            ForEach(suggested) { language in
+                                                LanguageToggle(viewModel: viewModel, language: language)
                                             }
                                         }
                                     }
@@ -112,20 +109,17 @@ struct ComposeContentToolbarView: View {
                                         .filter { !suggested.contains($0) }
                                     if !recent.isEmpty {
                                         Section(L10n.Scene.Compose.Language.recent) {
-                                            ForEach(recent) { lang in
-                                                Toggle(isOn: languageBinding(for: lang.id)) {
-                                                    Text(lang.label)
-                                                }
+                                            ForEach(recent) { language in
+                                                LanguageToggle(viewModel: viewModel, language: language)
                                             }
                                         }
                                     }
 
                                     if viewModel.language != viewModel.defaultLanguage,
                                        !(recent + suggested).map(\.id).contains(viewModel.language) {
-                                        Toggle(isOn: languageBinding(for: viewModel.language)) {
-                                            Text(Language(id: viewModel.language)?.label ?? AttributedString("\(viewModel.language)"))
-                                        }
+                                        LanguageToggle(viewModel: viewModel, code: viewModel.language)
                                     }
+
                                     Button(L10n.Scene.Compose.Language.other) {
                                         showingLanguagePicker = true
                                     }
@@ -152,7 +146,7 @@ struct ComposeContentToolbarView: View {
                                             Group {
                                                 if let suggested = viewModel.highConfidenceSuggestedLanguage,
                                                    suggested != viewModel.language,
-                                                   !didChangeLanguage {
+                                                   !viewModel.didChangeLanguage {
                                                     Circle().fill(.blue)
                                                         .frame(width: 8, height: 8)
                                                 }
@@ -160,14 +154,14 @@ struct ComposeContentToolbarView: View {
                                             .transition(.opacity)
                                             .animation(.default, value: [viewModel.highConfidenceSuggestedLanguage, viewModel.language])
                                         }
-                                    // fixes weird appearance when drawing at low opacity (eg when pressed)
+                                        // fixes weird appearance when drawing at low opacity (eg when pressed)
                                         .drawingGroup()
                                 }
                                 .frame(width: 48, height: 48)
                                 .popover(isPresented: $showingLanguagePicker) {
                                     let picker = LanguagePicker { newLanguage in
                                         viewModel.language = newLanguage
-                                        didChangeLanguage = true
+                                        viewModel.didChangeLanguage = true
                                         showingLanguagePicker = false
                                     }
                                     if verticalSizeClass == .regular && horizontalSizeClass == .regular {
@@ -229,14 +223,40 @@ extension ComposeContentToolbarView {
             .frame(width: 24, height: 24, alignment: .center)
     }
     
-    private func languageBinding(for code: String) -> Binding<Bool> {
-        Binding {
-            code == viewModel.language
-        } set: { newValue in
-            if newValue {
-                viewModel.language = code
+    private struct LanguageToggle: View {
+        @ObservedObject var viewModel: ViewModel
+        let code: String
+        let label: AttributedString
+
+        init(viewModel: ViewModel, code: String) {
+            if let language = Language(id: code) {
+                self.init(viewModel: viewModel, language: language)
+            } else {
+                self.init(viewModel: viewModel, code: code, label: AttributedString(code))
             }
-            didChangeLanguage = true
+        }
+        init(viewModel: ViewModel, language: Language) {
+            self.init(viewModel: viewModel, code: language.id, label: language.label)
+        }
+        private init(viewModel: ComposeContentToolbarView.ViewModel, code: String, label: AttributedString) {
+            self.viewModel = viewModel
+            self.code = code
+            self.label = label
+        }
+
+        var binding: Binding<Bool> {
+            Binding {
+                code == viewModel.language
+            } set: { newValue in
+                if newValue {
+                    viewModel.language = code
+                }
+                viewModel.didChangeLanguage = true
+            }
+        }
+
+        var body: some View {
+            Toggle(isOn: binding) { Text(label) }
         }
     }
 }

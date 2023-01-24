@@ -35,6 +35,7 @@ extension ComposeContentToolbarView {
         @Published var language = Locale.current.languageCode ?? "en"
         @Published var recentLanguages: [String] = []
         @Published var defaultLanguage: String?
+        @Published var didChangeLanguage = false
 
         @Published public var maxTextInputLimit = 500
         @Published public var contentWeightedLength = 0
