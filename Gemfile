@@ -4,4 +4,4 @@ gem 'arkana'
 gem "cocoapods"
 gem "cocoapods-clean"
 gem "xcpretty"
-
+gem "fastlane"
