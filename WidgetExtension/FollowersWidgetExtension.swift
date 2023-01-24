@@ -7,10 +7,13 @@ import MastodonSDK
 
 struct FollowersProvider: IntentTimelineProvider {
     func placeholder(in context: Context) -> FollowersEntry {
-        .empty(with: FollowersCountIntent())
+        .placeholder
     }
 
     func getSnapshot(for configuration: FollowersCountIntent, in context: Context, completion: @escaping (FollowersEntry) -> ()) {
+        guard !context.isPreview else {
+            return completion(.placeholder)
+        }
         loadCurrentEntry(for: configuration, in: context, completion: completion)
     }
 
@@ -23,12 +26,28 @@ struct FollowersProvider: IntentTimelineProvider {
 
 struct FollowersEntry: TimelineEntry {
     let date: Date
-    let account: Mastodon.Entity.Account?
-    let avatarImage: UIImage?
+    let account: FollowersEntryAccountable?
     let configuration: FollowersCountIntent
     
-    static func empty(with configuration: FollowersCountIntent) -> Self {
-        FollowersEntry(date: .now, account: nil, avatarImage: nil, configuration: configuration)
+    static var placeholder: Self {
+        FollowersEntry(
+            date: .now,
+            account: FollowersEntryAccount(
+                followersCount: 99_900,
+                displayNameWithFallback: "Mastodon",
+                acct: "mastodon",
+                avatarImage: UIImage(named: "missingAvatar")!
+            ),
+            configuration: FollowersCountIntent()
+        )
+    }
+    
+    static var unconfigured: Self {
+        FollowersEntry(
+            date: .now,
+            account: nil,
+            configuration: FollowersCountIntent()
+        )
     }
 }
 
@@ -39,7 +58,7 @@ struct FollowersWidgetExtensionEntryView : View {
         if let account = entry.account {
             HStack {
                 VStack(alignment: .leading, spacing: 0) {
-                    if let avatarImage = entry.avatarImage {
+                    if let avatarImage = account.avatarImage {
                         Image(uiImage: avatarImage)
                             .resizable()
                             .frame(width: 50, height: 50)
@@ -52,7 +71,7 @@ struct FollowersWidgetExtensionEntryView : View {
                         .lineLimit(1)
                         .truncationMode(.tail)
                 
-                    Text("\(account.displayNameWithFallback)")
+                    Text(account.displayNameWithFallback)
                         .font(.system(size: 13))
                         .lineLimit(1)
                         .truncationMode(.tail)
@@ -69,6 +88,9 @@ struct FollowersWidgetExtensionEntryView : View {
             }
         } else {
             Text("Please use the Widget settings to select an Account.")
+                .multilineTextAlignment(.center)
+                .font(.caption)
+                .padding(.all, 20)
         }
     }
 }
@@ -80,6 +102,7 @@ struct FollowersWidgetExtension: Widget {
         }
         .configurationDisplayName("Followers")
         .description("Show number of followers.")
+        .supportedFamilies([.systemSmall])
     }
 }
 
@@ -88,7 +111,6 @@ struct WidgetExtension_Previews: PreviewProvider {
         FollowersWidgetExtensionEntryView(entry: FollowersEntry(
             date: Date(),
             account: nil,
-            avatarImage: nil,
             configuration: FollowersCountIntent())
         )
         .previewContext(WidgetPreviewContext(family: .systemSmall))
@@ -105,34 +127,49 @@ private extension FollowersProvider {
                     .first,
                 let account = configuration.account
             else {
-                return completion(.empty(with: configuration))
+                return completion(.unconfigured)
             }
             let resultingAccount = try await WidgetExtension.appContext
                 .apiService
                 .search(query: .init(q: account, type: .accounts), authenticationBox: authBox)
                 .value
                 .accounts
-                .first
+                .first!
             
-            let image: UIImage? = try await {
-                guard
-                    let account = resultingAccount
-                else {
-                    return nil
-                }
-                
-                let imageData = try await URLSession.shared.data(from: account.avatarImageURLWithFallback(domain: authBox.domain)).0
-
-                return UIImage(data: imageData)
-            }()
+            let imageData = try await URLSession.shared.data(from: resultingAccount.avatarImageURLWithFallback(domain: authBox.domain)).0
                         
             let entry = FollowersEntry(
                 date: Date(),
-                account: resultingAccount,
-                avatarImage: image,
+                account: FollowersEntryAccount.from(
+                    mastodonAccount: resultingAccount,
+                    avatarImage: UIImage(data: imageData) ?? UIImage(named: "missingAvatar")!
+                ),
                 configuration: configuration
             )
             completion(entry)
         }
+    }
+}
+
+protocol FollowersEntryAccountable {
+    var followersCount: Int { get }
+    var displayNameWithFallback: String { get }
+    var acct: String { get }
+    var avatarImage: UIImage { get }
+}
+
+struct FollowersEntryAccount: FollowersEntryAccountable {
+    let followersCount: Int
+    let displayNameWithFallback: String
+    let acct: String
+    let avatarImage: UIImage
+    
+    static func from(mastodonAccount: Mastodon.Entity.Account, avatarImage: UIImage) -> Self {
+        FollowersEntryAccount(
+            followersCount: mastodonAccount.followersCount,
+            displayNameWithFallback: mastodonAccount.displayNameWithFallback,
+            acct: mastodonAccount.acct,
+            avatarImage: avatarImage
+        )
     }
 }
