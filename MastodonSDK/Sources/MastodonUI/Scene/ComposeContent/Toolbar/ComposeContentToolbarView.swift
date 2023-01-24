@@ -86,8 +86,6 @@ struct ComposeContentToolbarView: View {
                                 Menu {
                                     Section {} // workaround a bug where the “Suggested” section doesn’t appear
 
-                                    let onSelect = { viewModel.didChangeLanguage = true }
-
                                     if let defaultLanguage = viewModel.defaultLanguage {
                                         LanguageToggle(viewModel: viewModel, code: defaultLanguage)
                                     }
