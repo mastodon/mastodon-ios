@@ -191,39 +191,65 @@ extension ComposeContentToolbarView {
     
     private struct LanguagePickerMenu: View {
         @ObservedObject var viewModel: ViewModel
-
-        var body: some View {
-            if let defaultLanguage = viewModel.defaultLanguage {
-                LanguageToggle(viewModel: viewModel, code: defaultLanguage)
-            }
-            
-            let suggested = viewModel.suggestedLanguages
+        
+        var suggested: [Language] {
+            viewModel.suggestedLanguages
                 .filter { $0 != viewModel.defaultLanguage }
                 .compactMap(Language.init(id:))
-            if !suggested.isEmpty {
-                Section(L10n.Scene.Compose.Language.suggested) {
-                    ForEach(suggested) { language in
-                        LanguageToggle(viewModel: viewModel, language: language)
-                    }
-                }
-            }
-            
-            let recent = viewModel.recentLanguages
+        }
+        
+        var recent: [Language] {
+            viewModel.recentLanguages
                 .filter { $0 != viewModel.defaultLanguage }
                 .compactMap(Language.init(id:))
                 .filter { !suggested.contains($0) }
-            if !recent.isEmpty {
-                Section(L10n.Scene.Compose.Language.recent) {
-                    ForEach(recent) { language in
-                        LanguageToggle(viewModel: viewModel, language: language)
-                    }
+        }
+
+        @ViewBuilder
+        var defaultItem: some View {
+            if let defaultLanguage = viewModel.defaultLanguage {
+                LanguageToggle(viewModel: viewModel, code: defaultLanguage)
+            }
+        }
+
+        @ViewBuilder
+        var suggestedItems: some View {
+            Section(L10n.Scene.Compose.Language.suggested) {
+                ForEach(suggested) { language in
+                    LanguageToggle(viewModel: viewModel, language: language)
                 }
             }
-            
+        }
+
+        @ViewBuilder
+        var recentItems: some View {
+            Section(L10n.Scene.Compose.Language.recent) {
+                ForEach(recent) { language in
+                    LanguageToggle(viewModel: viewModel, language: language)
+                }
+            }
+        }
+        
+        @ViewBuilder
+        var currentItem: some View {
             if viewModel.language != viewModel.defaultLanguage,
                !(recent + suggested).map(\.id).contains(viewModel.language) {
                 LanguageToggle(viewModel: viewModel, code: viewModel.language)
             }
+        }
+
+        var body: some View {
+            defaultItem
+
+            if !suggested.isEmpty {
+                suggestedItems
+            }
+
+            if !recent.isEmpty {
+                recentItems
+            }
+
+            currentItem
         }
     }
     
