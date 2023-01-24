@@ -179,8 +179,8 @@ extension Status {
             didAccessValue(forKey: keyPath)
             do {
                 guard let data = _data else { return [] }
-                let emojis = try JSONDecoder().decode([MastodonMention].self, from: data)
-                return emojis
+                let mentions = try JSONDecoder().decode([MastodonMention].self, from: data)
+                return mentions
             } catch {
                 assertionFailure(error.localizedDescription)
                 return []
