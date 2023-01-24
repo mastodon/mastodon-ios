@@ -4,7 +4,7 @@ set -eo pipefail
 
 SCHEME="${SCHEME:-Mastodon}"
 DERIVED_DATA_PATH="./build/"
-ARCHIVE_PATH="./build/Archives/${SCHEME}.xcarchive}"
+ARCHIVE_PATH="./build/Archives/${SCHEME}.xcarchive"
 
 xcrun xcodebuild clean \
     -workspace Mastodon.xcworkspace \

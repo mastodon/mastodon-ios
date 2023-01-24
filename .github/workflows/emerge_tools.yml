@@ -27,9 +27,6 @@ jobs:
         env: 
           SCHEME: Debug
         run: |
-          ls
-          ls ./build/
-          ls ./build/Archives
           mkdir "./build/Archives/${SCHEME}.xcarchive/Linkmaps"
           cp ./derived_data/**/*-LinkMap-*.txt "./build/Archives/${SCHEME}.xcarchive/Linkmaps"
       - name: Upload to Emerge Tools
