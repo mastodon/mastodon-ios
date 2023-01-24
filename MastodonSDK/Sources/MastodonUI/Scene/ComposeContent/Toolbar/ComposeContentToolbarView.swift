@@ -85,39 +85,7 @@ struct ComposeContentToolbarView: View {
                             case .language:
                                 Menu {
                                     Section {} // workaround a bug where the “Suggested” section doesn’t appear
-
-                                    if let defaultLanguage = viewModel.defaultLanguage {
-                                        LanguageToggle(viewModel: viewModel, code: defaultLanguage)
-                                    }
-
-                                    let suggested = viewModel.suggestedLanguages
-                                        .filter { $0 != viewModel.defaultLanguage }
-                                        .compactMap(Language.init(id:))
-                                    if !suggested.isEmpty {
-                                        Section(L10n.Scene.Compose.Language.suggested) {
-                                            ForEach(suggested) { language in
-                                                LanguageToggle(viewModel: viewModel, language: language)
-                                            }
-                                        }
-                                    }
-
-                                    let recent = viewModel.recentLanguages
-                                        .filter { $0 != viewModel.defaultLanguage }
-                                        .compactMap(Language.init(id:))
-                                        .filter { !suggested.contains($0) }
-                                    if !recent.isEmpty {
-                                        Section(L10n.Scene.Compose.Language.recent) {
-                                            ForEach(recent) { language in
-                                                LanguageToggle(viewModel: viewModel, language: language)
-                                            }
-                                        }
-                                    }
-
-                                    if viewModel.language != viewModel.defaultLanguage,
-                                       !(recent + suggested).map(\.id).contains(viewModel.language) {
-                                        LanguageToggle(viewModel: viewModel, code: viewModel.language)
-                                    }
-
+                                    LanguagePickerMenu(viewModel: viewModel)
                                     Button(L10n.Scene.Compose.Language.other) {
                                         showingLanguagePicker = true
                                     }
@@ -219,6 +187,44 @@ extension ComposeContentToolbarView {
         Image(uiImage: image)
             .foregroundColor(Color(Asset.Scene.Compose.buttonTint.color))
             .frame(width: 24, height: 24, alignment: .center)
+    }
+    
+    private struct LanguagePickerMenu: View {
+        @ObservedObject var viewModel: ViewModel
+
+        var body: some View {
+            if let defaultLanguage = viewModel.defaultLanguage {
+                LanguageToggle(viewModel: viewModel, code: defaultLanguage)
+            }
+            
+            let suggested = viewModel.suggestedLanguages
+                .filter { $0 != viewModel.defaultLanguage }
+                .compactMap(Language.init(id:))
+            if !suggested.isEmpty {
+                Section(L10n.Scene.Compose.Language.suggested) {
+                    ForEach(suggested) { language in
+                        LanguageToggle(viewModel: viewModel, language: language)
+                    }
+                }
+            }
+            
+            let recent = viewModel.recentLanguages
+                .filter { $0 != viewModel.defaultLanguage }
+                .compactMap(Language.init(id:))
+                .filter { !suggested.contains($0) }
+            if !recent.isEmpty {
+                Section(L10n.Scene.Compose.Language.recent) {
+                    ForEach(recent) { language in
+                        LanguageToggle(viewModel: viewModel, language: language)
+                    }
+                }
+            }
+            
+            if viewModel.language != viewModel.defaultLanguage,
+               !(recent + suggested).map(\.id).contains(viewModel.language) {
+                LanguageToggle(viewModel: viewModel, code: viewModel.language)
+            }
+        }
     }
     
     private struct LanguageToggle: View {
