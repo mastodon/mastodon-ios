@@ -32,9 +32,12 @@ jobs:
           codemagic-cli-tools --version || true
 
       - name: Setup Env variables
+        env: 
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          PULL_NUMBER: ${{ github.event.pull_request.number }}
         run: |
-          echo "Base SHA is ${{ github.event.pull_request.base.sha }}"
-          echo "PR number is ${{github.event.pull_request.number}}"
+          echo "Base SHA is $BASE_SHA"
+          echo "PR number is $PULL_NUMBER"
 
       # - name: Build
       #   env: 
