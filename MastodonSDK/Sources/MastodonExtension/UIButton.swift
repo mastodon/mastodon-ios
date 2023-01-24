@@ -8,6 +8,7 @@
 import UIKit
 
 extension UIButton {
+    @available(iOS, deprecated: 15.0, message: "This method is ignored when using UIButtonConfiguration. The effect of this method can be replicated via UIButtonConfiguration.contentInset and UIButtonConfiguration.imagePadding.")
     public func setInsets(
         forContentPadding contentPadding: UIEdgeInsets,
         imageTitlePadding: CGFloat
