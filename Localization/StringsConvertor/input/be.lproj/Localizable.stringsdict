@@ -33,19 +33,19 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 character</string>
+        <string>1 сімвал</string>
         <key>few</key>
-        <string>%ld characters</string>
+        <string>%ld сімвалы</string>
         <key>many</key>
-        <string>%ld characters</string>
+        <string>%ld сімвалаў</string>
         <key>other</key>
-        <string>%ld characters</string>
+        <string>%ld сімвалаў</string>
       </dict>
     </dict>
     <key>a11y.plural.count.input_limit_remains</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Input limit remains %#@character_count@</string>
+      <string>Ліміт уводу застаецца %#@character_count@</string>
       <key>character_count</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -53,13 +53,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 character</string>
+        <string>1 сімвал</string>
         <key>few</key>
-        <string>%ld characters</string>
+        <string>%ld сімвалы</string>
         <key>many</key>
-        <string>%ld characters</string>
+        <string>%ld сімвалаў</string>
         <key>other</key>
-        <string>%ld characters</string>
+        <string>%ld сімвалаў</string>
       </dict>
     </dict>
     <key>a11y.plural.count.characters_left</key>
