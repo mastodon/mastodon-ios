@@ -40,10 +40,6 @@ jobs:
           NotificationEndpointDebug: ${{ secrets.NotificationEndpointDebug }}
           NotificationEndpointRelease: ${{ secrets.NotificationEndpointRelease }}
         run: exec ./.github/scripts/setup.sh
-      - name: archive
-        env:
-          SCHEME: Debug
-        run: exec ./.github/scripts/archive.sh
       - name: Setup Env variables
         env: 
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
@@ -51,6 +47,10 @@ jobs:
         run: |
           echo "Base SHA is $BASE_SHA"
           echo "PR number is $PULL_NUMBER"
+      - name: archive
+        env:
+          SCHEME: Debug
+        run: exec ./.github/scripts/archive.sh
       - name: Upload to Emerge Tools
         env: 
           EMERGE_API_TOKEN: ${{ secrets.EMERGE_TOOLS_API_KEY }}
