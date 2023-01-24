@@ -26,17 +26,20 @@ public final class StatusEdit: NSManagedObject {
         public let content: String
         public let sensitive: Bool
         public let spoilerText: String?
+        public let emojis: [MastodonEmoji]
 
         public init(
             createdAt: Date,
             content: String,
             sensitive: Bool,
-            spoilerText: String?
+            spoilerText: String?,
+            emojis: [MastodonEmoji]
         ) {
             self.createdAt = createdAt
             self.content = content
             self.sensitive = sensitive
             self.spoilerText = spoilerText
+            self.emojis = emojis
         }
     }
 
@@ -45,6 +48,7 @@ public final class StatusEdit: NSManagedObject {
         self.content = property.content
         self.sensitive = property.sensitive
         self.spoilerText = property.spoilerText
+        self.emojis = property.emojis
     }
 
     public func update(property: Property) {
@@ -52,8 +56,34 @@ public final class StatusEdit: NSManagedObject {
         update(content: property.content)
         update(sensitive: property.sensitive)
         update(spoilerText: property.spoilerText)
+        update(emojis: property.emojis)
     }
     // sourcery:end
+
+    // sourcery: autoUpdatableObject, autoGenerateProperty
+    @objc public var emojis: [MastodonEmoji] {
+        get {
+            let keyPath = #keyPath(StatusEdit.emojis)
+            willAccessValue(forKey: keyPath)
+            let _data = primitiveValue(forKey: keyPath) as? Data
+            didAccessValue(forKey: keyPath)
+            do {
+                guard let data = _data else { return [] }
+                let emojis = try JSONDecoder().decode([MastodonEmoji].self, from: data)
+                return emojis
+            } catch {
+                assertionFailure(error.localizedDescription)
+                return []
+            }
+        }
+        set {
+            let keyPath = #keyPath(StatusEdit.emojis)
+            let data = try? JSONEncoder().encode(newValue)
+            willChangeValue(forKey: keyPath)
+            setPrimitiveValue(data, forKey: keyPath)
+            didChangeValue(forKey: keyPath)
+        }
+    }
 }
 extension StatusEdit: Managed {
     @discardableResult
@@ -94,6 +124,12 @@ extension StatusEdit: AutoUpdatableObject {
     		self.spoilerText = spoilerText
     	}
     }
+    public func update(emojis: [MastodonEmoji]) {
+    	if self.emojis != emojis {
+    		self.emojis = emojis
+    	}
+    }
     // sourcery:end
 
 }
+
