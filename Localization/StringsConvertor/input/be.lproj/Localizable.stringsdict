@@ -188,13 +188,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 favorite</string>
+        <string>1 дадаў у абранае</string>
         <key>few</key>
-        <string>%ld favorites</string>
+        <string>%ld дадалі ў абранае</string>
         <key>many</key>
-        <string>%ld favorites</string>
+        <string>%ld дадалі ў абранае</string>
         <key>other</key>
-        <string>%ld favorites</string>
+        <string>%ld дадалі ў абранае</string>
       </dict>
     </dict>
     <key>plural.count.reblog</key>
@@ -272,9 +272,9 @@
         <key>few</key>
         <string>%ld удзельнікі</string>
         <key>many</key>
-        <string>%ld voters</string>
+        <string>%ld удзельнікаў</string>
         <key>other</key>
-        <string>%ld voters</string>
+        <string>%ld удзельнікаў</string>
       </dict>
     </dict>
     <key>plural.people_talking</key>
@@ -288,13 +288,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 people talking</string>
+        <string>1 чалавек размаўляе</string>
         <key>few</key>
-        <string>%ld people talking</string>
+        <string>%ld чалавекі размаўляюць</string>
         <key>many</key>
-        <string>%ld people talking</string>
+        <string>%ld чалавек размаўляюць</string>
         <key>other</key>
-        <string>%ld people talking</string>
+        <string>%ld чалавек размаўляюць</string>
       </dict>
     </dict>
     <key>plural.count.following</key>
@@ -308,13 +308,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 following</string>
+        <string>1 падпісаны</string>
         <key>few</key>
-        <string>%ld following</string>
+        <string>%ld падпісаныя</string>
         <key>many</key>
-        <string>%ld following</string>
+        <string>%ld падпісаных</string>
         <key>other</key>
-        <string>%ld following</string>
+        <string>%ld падпісаных</string>
       </dict>
     </dict>
     <key>plural.count.follower</key>
@@ -328,13 +328,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 follower</string>
+        <string>1 падпісчык</string>
         <key>few</key>
-        <string>%ld followers</string>
+        <string>%ld падпісчыкі</string>
         <key>many</key>
-        <string>%ld followers</string>
+        <string>%ld падпісчыкаў</string>
         <key>other</key>
-        <string>%ld followers</string>
+        <string>%ld падпісчыкаў</string>
       </dict>
     </dict>
     <key>date.year.left</key>
@@ -348,13 +348,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 year left</string>
+        <string>Застаўся 1 год</string>
         <key>few</key>
-        <string>%ld years left</string>
+        <string>%ld гады засталося</string>
         <key>many</key>
-        <string>%ld years left</string>
+        <string>%ld гадоў засталося</string>
         <key>other</key>
-        <string>%ld years left</string>
+        <string>%ld гадоў засталося</string>
       </dict>
     </dict>
     <key>date.month.left</key>
@@ -368,13 +368,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 months left</string>
+        <string>Застаўся 1 месяц</string>
         <key>few</key>
-        <string>%ld months left</string>
+        <string>%ld месяцы засталося</string>
         <key>many</key>
-        <string>%ld months left</string>
+        <string>%ld месяцаў засталося</string>
         <key>other</key>
-        <string>%ld months left</string>
+        <string>%ld месяцаў засталося</string>
       </dict>
     </dict>
     <key>date.day.left</key>
@@ -388,13 +388,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 day left</string>
+        <string>Застаўся 1 дзень</string>
         <key>few</key>
-        <string>%ld days left</string>
+        <string>%ld дні засталося</string>
         <key>many</key>
-        <string>%ld days left</string>
+        <string>%ld дзён засталося</string>
         <key>other</key>
-        <string>%ld days left</string>
+        <string>%ld дзён засталося</string>
       </dict>
     </dict>
     <key>date.hour.left</key>
@@ -408,13 +408,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 hour left</string>
+        <string>Засталася 1 гадзіна</string>
         <key>few</key>
-        <string>%ld hours left</string>
+        <string>%ld гадзіны засталося</string>
         <key>many</key>
-        <string>%ld hours left</string>
+        <string>%ld гадзін засталося</string>
         <key>other</key>
-        <string>%ld hours left</string>
+        <string>%ld гадзін засталося</string>
       </dict>
     </dict>
     <key>date.minute.left</key>
@@ -428,13 +428,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 minute left</string>
+        <string>Засталася 1 хвіліна</string>
         <key>few</key>
-        <string>%ld minutes left</string>
+        <string>%ld хвіліны засталося</string>
         <key>many</key>
-        <string>%ld minutes left</string>
+        <string>%ld хвілін засталося</string>
         <key>other</key>
-        <string>%ld minutes left</string>
+        <string>%ld хвілін засталося</string>
       </dict>
     </dict>
     <key>date.second.left</key>
@@ -448,13 +448,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 second left</string>
+        <string>Засталася 1 секунда</string>
         <key>few</key>
-        <string>%ld seconds left</string>
+        <string>%ld секунды засталося</string>
         <key>many</key>
-        <string>%ld seconds left</string>
+        <string>%ld секунд засталося</string>
         <key>other</key>
-        <string>%ld seconds left</string>
+        <string>%ld секунд засталося</string>
       </dict>
     </dict>
     <key>date.year.ago.abbr</key>
@@ -468,13 +468,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1y ago</string>
+        <string>1 год таму</string>
         <key>few</key>
-        <string>%ldy ago</string>
+        <string>%ld гады таму</string>
         <key>many</key>
-        <string>%ldy ago</string>
+        <string>%ld гадоў таму</string>
         <key>other</key>
-        <string>%ldy ago</string>
+        <string>%ld гадоў таму</string>
       </dict>
     </dict>
     <key>date.month.ago.abbr</key>
@@ -488,13 +488,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1M ago</string>
+        <string>1 месяц таму</string>
         <key>few</key>
-        <string>%ldM ago</string>
+        <string>%ld месяцы таму</string>
         <key>many</key>
-        <string>%ldM ago</string>
+        <string>%ld месяцаў таму</string>
         <key>other</key>
-        <string>%ldM ago</string>
+        <string>%ld месяцаў таму</string>
       </dict>
     </dict>
     <key>date.day.ago.abbr</key>
@@ -508,13 +508,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1d ago</string>
+        <string>1 дзень таму</string>
         <key>few</key>
-        <string>%ldd ago</string>
+        <string>%ld дні таму</string>
         <key>many</key>
-        <string>%ldd ago</string>
+        <string>%ld дзён таму</string>
         <key>other</key>
-        <string>%ldd ago</string>
+        <string>%ld дзён таму</string>
       </dict>
     </dict>
     <key>date.hour.ago.abbr</key>
@@ -528,13 +528,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1h ago</string>
+        <string>1 гадзіну таму</string>
         <key>few</key>
-        <string>%ldh ago</string>
+        <string>%ld гадзіны таму</string>
         <key>many</key>
-        <string>%ldh ago</string>
+        <string>%ld гадзін таму</string>
         <key>other</key>
-        <string>%ldh ago</string>
+        <string>%ld гадзін таму</string>
       </dict>
     </dict>
     <key>date.minute.ago.abbr</key>
@@ -548,13 +548,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1m ago</string>
+        <string>1 хвіліну таму</string>
         <key>few</key>
-        <string>%ldm ago</string>
+        <string>%ld хвіліны таму</string>
         <key>many</key>
-        <string>%ldm ago</string>
+        <string>%ld хвілін таму</string>
         <key>other</key>
-        <string>%ldm ago</string>
+        <string>%ld хвілін таму</string>
       </dict>
     </dict>
     <key>date.second.ago.abbr</key>
@@ -568,13 +568,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1s ago</string>
+        <string>1 секунду таму</string>
         <key>few</key>
-        <string>%lds ago</string>
+        <string>%ld секунды таму</string>
         <key>many</key>
-        <string>%lds ago</string>
+        <string>%ld секунд таму</string>
         <key>other</key>
-        <string>%lds ago</string>
+        <string>%ld секунд таму</string>
       </dict>
     </dict>
   </dict>
