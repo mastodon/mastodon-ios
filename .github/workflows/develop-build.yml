@@ -1,74 +1,74 @@
-name: Build for Develop TestFlight
+# name: Build for Develop TestFlight
 
-on: 
-  push:
-    branches:
-    - develop
-    - release*
-    - ci-test
+# on: 
+#   push:
+#     branches:
+#     - develop
+#     - release*
+#     - ci-test
 
-jobs:
-  build:
-    name: Build
-    runs-on: macOS-12
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+# jobs:
+#   build:
+#     name: Build
+#     runs-on: macOS-12
+#     steps:
+#       - name: Checkout
+#         uses: actions/checkout@v2
       
-      - name: Setup
-        env: 
-          NotificationEndpointDebug: ${{ secrets.NotificationEndpointDebug }}
-          NotificationEndpointRelease: ${{ secrets.NotificationEndpointRelease }}
-        run: exec ./.github/scripts/setup.sh
+#       - name: Setup
+#         env: 
+#           NotificationEndpointDebug: ${{ secrets.NotificationEndpointDebug }}
+#           NotificationEndpointRelease: ${{ secrets.NotificationEndpointRelease }}
+#         run: exec ./.github/scripts/setup.sh
 
-      - name: Install codemagic-cli-tools
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.10' 
-      - run: |
-          pip3 install codemagic-cli-tools
-      - run: |
-          codemagic-cli-tools --version || true
+#       - name: Install codemagic-cli-tools
+#         uses: actions/setup-python@v4
+#         with:
+#           python-version: '3.10' 
+#       - run: |
+#           pip3 install codemagic-cli-tools
+#       - run: |
+#           codemagic-cli-tools --version || true
 
-      - name: Import Code-Signing Certificates            
-        uses: Apple-Actions/import-codesign-certs@v1            # https://github.com/Apple-Actions/import-codesign-certs
-        with:
-          keychain: build-p12
-          p12-file-base64: ${{ secrets.BUILD_CERTIFICATE_BASE64 }}
-          p12-password: ${{ secrets.P12_PASSWORD }}
+#       - name: Import Code-Signing Certificates            
+#         uses: Apple-Actions/import-codesign-certs@v1            # https://github.com/Apple-Actions/import-codesign-certs
+#         with:
+#           keychain: build-p12
+#           p12-file-base64: ${{ secrets.BUILD_CERTIFICATE_BASE64 }}
+#           p12-password: ${{ secrets.P12_PASSWORD }}
 
-      - name: Download Provisioning Profiles
-        uses: Apple-Actions/download-provisioning-profiles@v1   # https://github.com/Apple-Actions/download-provisioning-profiles
-        with:
-          bundle-id: org.joinmastodon.app
-          issuer-id: ${{ secrets.APPSTORE_ISSUER_ID }}
-          api-key-id: ${{ secrets.APPSTORE_KEY_ID }}
-          api-private-key: ${{ secrets.APPSTORE_PRIVATE_KEY }}
+#       - name: Download Provisioning Profiles
+#         uses: Apple-Actions/download-provisioning-profiles@v1   # https://github.com/Apple-Actions/download-provisioning-profiles
+#         with:
+#           bundle-id: com.emerge.mastodon
+#           issuer-id: ${{ secrets.APPSTORE_ISSUER_ID }}
+#           api-key-id: ${{ secrets.APPSTORE_KEY_ID }}
+#           api-private-key: ${{ secrets.APPSTORE_PRIVATE_KEY }}
 
-      - name: Build
-        env: 
-          ENV_APP_ID: ${{ secrets.APP_ID }}
-          ENV_ISSUER_ID: ${{ secrets.APPSTORE_ISSUER_ID }}
-          ENV_API_KEY_ID: ${{ secrets.APPSTORE_KEY_ID }}
-          ENV_API_PRIVATE_KEY: ${{ secrets.APPSTORE_PRIVATE_KEY }}
-          ENV_API_PRIVATE_KEY_BASE64: ${{ secrets.APP_STORE_CONNECT_KEY_BASE64 }}
-        run: exec ./.github/scripts/build-release.sh
+#       - name: Build
+#         env: 
+#           ENV_APP_ID: ${{ secrets.APP_ID }}
+#           ENV_ISSUER_ID: ${{ secrets.APPSTORE_ISSUER_ID }}
+#           ENV_API_KEY_ID: ${{ secrets.APPSTORE_KEY_ID }}
+#           ENV_API_PRIVATE_KEY: ${{ secrets.APPSTORE_PRIVATE_KEY }}
+#           ENV_API_PRIVATE_KEY_BASE64: ${{ secrets.APP_STORE_CONNECT_KEY_BASE64 }}
+#         run: exec ./.github/scripts/build-release.sh
 
-      - name: Upload TestFlight Build
-        uses: Apple-Actions/upload-testflight-build@master
-        with:
-          app-path: .build/Artifacts/Mastodon.ipa/Mastodon.ipa
-          issuer-id: ${{ secrets.APPSTORE_ISSUER_ID }}
-          api-key-id: ${{ secrets.APPSTORE_KEY_ID }}
-          api-private-key: ${{ secrets.APPSTORE_PRIVATE_KEY }}
+#       - name: Upload TestFlight Build
+#         uses: Apple-Actions/upload-testflight-build@master
+#         with:
+#           app-path: .build/Artifacts/Mastodon.ipa/Mastodon.ipa
+#           issuer-id: ${{ secrets.APPSTORE_ISSUER_ID }}
+#           api-key-id: ${{ secrets.APPSTORE_KEY_ID }}
+#           api-private-key: ${{ secrets.APPSTORE_PRIVATE_KEY }}
 
-      - name: Tag commit
-        uses: tvdias/github-tagger@v0.0.1
-        with:
-          repo-token: "${{ secrets.GITHUB_TOKEN }}"
-          tag: "${{ env.GITHUB_TAG_NAME }}"
+#       - name: Tag commit
+#         uses: tvdias/github-tagger@v0.0.1
+#         with:
+#           repo-token: "${{ secrets.GITHUB_TOKEN }}"
+#           tag: "${{ env.GITHUB_TAG_NAME }}"
 
-      - name: Clean up keychain and provisioning profile
-        if: ${{ always() }}
-        run: |
-          security delete-keychain build-p12.keychain-db 
+#       - name: Clean up keychain and provisioning profile
+#         if: ${{ always() }}
+#         run: |
+#           security delete-keychain build-p12.keychain-db 
