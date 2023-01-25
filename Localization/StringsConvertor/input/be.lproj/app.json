@@ -599,7 +599,7 @@
             },
             "notification_description": {
                 "followed_you": "падпісаўся на вас",
-                "favorited_your_post": "упадабаў ваш допіс",
+                "favorited_your_post": "дадаў ваш допіс у абранае",
                 "reblogged_your_post": "пашырыў ваш допіс",
                 "mentioned_you": "згадаў вас",
                 "request_to_follow_you": "адправіў запыт на падпіску",
