@@ -15,7 +15,7 @@ extension AttachmentViewModel: TypeIdentifiedItemProvider {
     public static var typeIdentifier: String {
         // must in UTI format
         // https://developer.apple.com/library/archive/qa/qa1796/_index.html
-        return "org.joinmastodon.app.AttachmentViewModel"
+        return "com.emerge.mastodon.AttachmentViewModel"
     }
 }
 

@@ -8,5 +8,5 @@
 import Foundation
 
 public enum AppName {
-    public static let groupID = "group.org.joinmastodon.app"
+    public static let groupID = "group.itay.joinmastodon.app"
 }

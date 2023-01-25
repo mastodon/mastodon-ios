@@ -17,7 +17,7 @@ public final class BlurhashImageCacheService {
     
     let cache = NSCache<Key, UIImage>()
     
-    let workingQueue = DispatchQueue(label: "org.joinmastodon.app.BlurhashImageCacheService.working-queue", qos: .userInitiated, attributes: .concurrent)
+    let workingQueue = DispatchQueue(label: "com.emerge.mastodon.BlurhashImageCacheService.working-queue", qos: .userInitiated, attributes: .concurrent)
     
     public func image(
         blurhash: String,

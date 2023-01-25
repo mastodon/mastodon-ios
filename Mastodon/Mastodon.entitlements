@@ -8,7 +8,7 @@
 	<true/>
 	<key>com.apple.security.application-groups</key>
 	<array>
-		<string>group.org.joinmastodon.app</string>
+		<string>group.com.emerge.mastodon</string>
 	</array>
 </dict>
 </plist>

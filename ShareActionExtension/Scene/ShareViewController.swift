@@ -141,7 +141,7 @@ extension ShareViewController {
     @objc private func cancelBarButtonItemPressed(_ sender: UIBarButtonItem) {
         logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
 
-        extensionContext?.cancelRequest(withError: NSError(domain: "org.joinmastodon.app.ShareActionExtension", code: -1))
+        extensionContext?.cancelRequest(withError: NSError(domain: "com.emerge.mastodon.ShareActionExtension", code: -1))
     }
 
     @objc private func publishBarButtonItemPressed(_ sender: UIBarButtonItem) {

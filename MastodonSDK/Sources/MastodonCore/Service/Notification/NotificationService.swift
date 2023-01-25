@@ -16,11 +16,11 @@ import MastodonLocalization
 
 public final class NotificationService {
     
-    public static let unreadShortcutItemIdentifier = "org.joinmastodon.app.NotificationService.unread-shortcut"
+    public static let unreadShortcutItemIdentifier = "com.emerge.mastodon.NotificationService.unread-shortcut"
     
     var disposeBag = Set<AnyCancellable>()
     
-    let workingQueue = DispatchQueue(label: "org.joinmastodon.app.NotificationService.working-queue")
+    let workingQueue = DispatchQueue(label: "com.emerge.mastodon.NotificationService.working-queue")
     
     // input
     weak var apiService: APIService?
