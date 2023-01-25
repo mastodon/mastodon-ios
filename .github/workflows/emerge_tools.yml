@@ -28,9 +28,8 @@ jobs:
           SCHEME: Debug
         continue-on-error: true
         run: |
-          find ./build -iname *-LinkMap-*.txt
           mkdir "./build/Archives/${SCHEME}.xcarchive/Linkmaps"
-          cp ./build/**/*-LinkMap-*.txt "./build/Archives/${SCHEME}.xcarchive/Linkmaps"
+          find ./build -iname *-LinkMap-*.txt -exec cp "{}" "./build/Archives/${SCHEME}.xcarchive/Linkmaps/"  \;
       - name: Upload to Emerge Tools
         env: 
           EMERGE_API_TOKEN: ${{ secrets.EMERGE_TOOLS_API_KEY }}
