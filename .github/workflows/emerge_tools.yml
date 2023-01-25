@@ -28,7 +28,7 @@ jobs:
           SCHEME: Debug
         run: |
           mkdir "./build/Archives/${SCHEME}.xcarchive/Linkmaps"
-          cp ./derived_data/**/*-LinkMap-*.txt "./build/Archives/${SCHEME}.xcarchive/Linkmaps" 2>>/dev/null
+          cp ./build/**/*-LinkMap-*.txt "./build/Archives/${SCHEME}.xcarchive/Linkmaps" 2>>/dev/null
       - name: Upload to Emerge Tools
         env: 
           EMERGE_API_TOKEN: ${{ secrets.EMERGE_TOOLS_API_KEY }}
