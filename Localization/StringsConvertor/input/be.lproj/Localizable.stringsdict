@@ -73,13 +73,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 character left</string>
+        <string>Застаўся 1 сімвал</string>
         <key>few</key>
-        <string>%ld characters left</string>
+        <string>Засталіся %ld сімвалы</string>
         <key>many</key>
-        <string>%ld characters left</string>
+        <string>Засталося %ld сімвалаў</string>
         <key>other</key>
-        <string>%ld characters left</string>
+        <string>Засталося %ld сімвалаў</string>
       </dict>
     </dict>
     <key>plural.count.followed_by_and_mutual</key>
@@ -108,13 +108,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>Followed by %1$@, and another mutual</string>
+        <string>%1$@ і яшчэ 1 чалавек падпісаны</string>
         <key>few</key>
-        <string>Followed by %1$@, and %ld mutuals</string>
+        <string>%1$@ і яшчэ %ld чалавекі падпісаны</string>
         <key>many</key>
-        <string>Followed by %1$@, and %ld mutuals</string>
+        <string>%1$@ і яшчэ %ld чалавек падпісаны</string>
         <key>other</key>
-        <string>Followed by %1$@, and %ld mutuals</string>
+        <string>%1$@ і яшчэ %ld чалавек падпісаны</string>
       </dict>
     </dict>
     <key>plural.count.metric_formatted.post</key>
@@ -248,13 +248,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 vote</string>
+        <string>1 голас</string>
         <key>few</key>
-        <string>%ld votes</string>
+        <string>%ld галасы</string>
         <key>many</key>
-        <string>%ld votes</string>
+        <string>%ld галасоў</string>
         <key>other</key>
-        <string>%ld votes</string>
+        <string>%ld галасоў</string>
       </dict>
     </dict>
     <key>plural.count.voter</key>
@@ -268,9 +268,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 voter</string>
+        <string>1 удзельнік</string>
         <key>few</key>
-        <string>%ld voters</string>
+        <string>%ld удзельнікі</string>
         <key>many</key>
         <string>%ld voters</string>
         <key>other</key>
