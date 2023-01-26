@@ -24,6 +24,7 @@
 		27D701F5292FC2D60031BCBB /* DataSourceFacade+URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D701F4292FC2D60031BCBB /* DataSourceFacade+URL.swift */; };
 		2A1FE47C2938BB2600784BF1 /* FollowedTagsViewModel+DiffableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1FE47B2938BB2600784BF1 /* FollowedTagsViewModel+DiffableDataSource.swift */; };
 		2A1FE47E2938C11200784BF1 /* Collection+IsNotEmpty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1FE47D2938C11200784BF1 /* Collection+IsNotEmpty.swift */; };
+		2A33AB662982C4AF008A7FB1 /* FollowCountWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A33AB652982C4AF008A7FB1 /* FollowCountWidgetView.swift */; };
 		2A3F6FE3292ECB5E002E6DA7 /* FollowedTagsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A3F6FE2292ECB5E002E6DA7 /* FollowedTagsViewModel.swift */; };
 		2A3F6FE5292F6E44002E6DA7 /* FollowedTagsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A3F6FE4292F6E44002E6DA7 /* FollowedTagsTableViewCell.swift */; };
 		2A506CF4292CD85800059C37 /* FollowedTagsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A506CF3292CD85800059C37 /* FollowedTagsViewController.swift */; };
@@ -605,6 +606,7 @@
 		2A1FE47B2938BB2600784BF1 /* FollowedTagsViewModel+DiffableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FollowedTagsViewModel+DiffableDataSource.swift"; sourceTree = "<group>"; };
 		2A1FE47D2938C11200784BF1 /* Collection+IsNotEmpty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+IsNotEmpty.swift"; sourceTree = "<group>"; };
 		2A33625329759B4200481A90 /* OpenInActionExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OpenInActionExtension.entitlements; sourceTree = "<group>"; };
+		2A33AB652982C4AF008A7FB1 /* FollowCountWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowCountWidgetView.swift; sourceTree = "<group>"; };
 		2A3F6FE2292ECB5E002E6DA7 /* FollowedTagsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowedTagsViewModel.swift; sourceTree = "<group>"; };
 		2A3F6FE4292F6E44002E6DA7 /* FollowedTagsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowedTagsTableViewCell.swift; sourceTree = "<group>"; };
 		2A506CF3292CD85800059C37 /* FollowedTagsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowedTagsViewController.swift; sourceTree = "<group>"; };
@@ -1372,6 +1374,14 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		2A33AB642982C4A3008A7FB1 /* WidgetViews */ = {
+			isa = PBXGroup;
+			children = (
+				2A33AB652982C4AF008A7FB1 /* FollowCountWidgetView.swift */,
+			);
+			path = WidgetViews;
+			sourceTree = "<group>";
+		};
 		2A506CF2292CD83B00059C37 /* FollowedTags */ = {
 			isa = PBXGroup;
 			children = (
@@ -1398,6 +1408,7 @@
 		2A728125297EA9D7004138C5 /* WidgetExtension */ = {
 			isa = PBXGroup;
 			children = (
+				2A33AB642982C4A3008A7FB1 /* WidgetViews */,
 				2AE202A9297FDDF500F66E55 /* WidgetExtension.entitlements */,
 				2A72813E297EC762004138C5 /* WidgetExtension.swift */,
 				2A728126297EA9D7004138C5 /* WidgetExtensionBundle.swift */,
@@ -3427,6 +3438,7 @@
 			files = (
 				2A728130297EA9D8004138C5 /* WidgetExtension.intentdefinition in Sources */,
 				2A72813F297EC762004138C5 /* WidgetExtension.swift in Sources */,
+				2A33AB662982C4AF008A7FB1 /* FollowCountWidgetView.swift in Sources */,
 				2A728127297EA9D7004138C5 /* WidgetExtensionBundle.swift in Sources */,
 				2A72812B297EA9D7004138C5 /* FollowersWidgetExtension.swift in Sources */,
 			);

@@ -17,7 +17,7 @@ struct FollowersProvider: IntentTimelineProvider {
         loadCurrentEntry(for: configuration, in: context, completion: completion)
     }
 
-    func getTimeline(for configuration: FollowersCountIntent, in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
+    func getTimeline(for configuration: FollowersCountIntent, in context: Context, completion: @escaping (Timeline<FollowersEntry>) -> ()) {
         loadCurrentEntry(for: configuration, in: context) { entry in
             completion(Timeline(entries: [entry], policy: .after(.now)))
         }
@@ -51,69 +51,21 @@ struct FollowersEntry: TimelineEntry {
     }
 }
 
-struct FollowersWidgetExtensionEntryView : View {
-    var entry: FollowersProvider.Entry
-
-    var body: some View {
-        if let account = entry.account {
-            HStack {
-                VStack(alignment: .leading, spacing: 0) {
-                    if let avatarImage = account.avatarImage {
-                        Image(uiImage: avatarImage)
-                            .resizable()
-                            .frame(width: 50, height: 50)
-                            .cornerRadius(12)
-                            .padding(.bottom, 8)
-                    }
-                    
-                    Text(account.followersCount.asAbbreviatedCountString())
-                        .font(.largeTitle)
-                        .lineLimit(1)
-                        .truncationMode(.tail)
-                
-                    Text(account.displayNameWithFallback)
-                        .font(.system(size: 13))
-                        .lineLimit(1)
-                        .truncationMode(.tail)
-
-                    Text("@\(account.acct)")
-                        .font(.caption2)
-                        .foregroundColor(.secondary)
-                        .lineLimit(1)
-                        .truncationMode(.tail)
-                }
-                .padding(.leading, 20)
-                .padding([.top, .bottom], 16)
-                Spacer()
-            }
-        } else {
-            Text("Please use the Widget settings to select an Account.")
-                .multilineTextAlignment(.center)
-                .font(.caption)
-                .padding(.all, 20)
-        }
-    }
-}
-
 struct FollowersWidgetExtension: Widget {
+    private var availableFamilies: [WidgetFamily] {
+        if #available(iOS 16, *) {
+            return [.systemSmall, .accessoryRectangular, .accessoryCircular]
+        }
+        return [.systemSmall]
+    }
+
     var body: some WidgetConfiguration {
         IntentConfiguration(kind: "Followers", intent: FollowersCountIntent.self, provider: FollowersProvider()) { entry in
-            FollowersWidgetExtensionEntryView(entry: entry)
+            FollowCountWidgetView(entry: entry)
         }
         .configurationDisplayName("Followers")
         .description("Show number of followers.")
-        .supportedFamilies([.systemSmall])
-    }
-}
-
-struct WidgetExtension_Previews: PreviewProvider {
-    static var previews: some View {
-        FollowersWidgetExtensionEntryView(entry: FollowersEntry(
-            date: Date(),
-            account: nil,
-            configuration: FollowersCountIntent())
-        )
-        .previewContext(WidgetPreviewContext(family: .systemSmall))
+        .supportedFamilies(availableFamilies)
     }
 }
 
