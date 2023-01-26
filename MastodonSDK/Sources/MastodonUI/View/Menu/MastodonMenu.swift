@@ -49,6 +49,7 @@ extension MastodonMenu {
         case hideReblogs(HideReblogsActionContext)
         case shareStatus
         case deleteStatus
+        case editStatus
         
         func build(delegate: MastodonMenuDelegate) -> BuiltAction {
             switch self {
@@ -136,6 +137,14 @@ extension MastodonMenu {
                     delegate.menuAction(self)
                 }
                 return translateAction
+            case .editStatus:
+                let editStatusAction = BuiltAction(title: "Edit Status", image: UIImage(systemName: "pencil")) {
+                    [weak delegate] in
+                    guard let delegate else { return }
+                    delegate.menuAction(self)
+                }
+
+                return editStatusAction
             }   // end switch
         }   // end func build
     }   // end enum Action

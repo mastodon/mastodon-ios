@@ -373,6 +373,9 @@ extension DataSourceFacade {
                 alertController.addAction(UIAlertAction(title: L10n.Common.Alerts.TranslationFailed.button, style: .default))
                 dependency.present(alertController, animated: true)
             }
+        case .editStatus:
+            print("Edit Status")
+            // something something Show Compose-Screen, but with PUT instead of POST
         }
     }   // end func
 }
