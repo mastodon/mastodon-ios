@@ -158,6 +158,10 @@ extension StatusAuthorView {
     public func setupAuthorMenu(menuContext: AuthorMenuContext) -> (UIMenu, [UIAccessibilityCustomAction]) {
         var actions = [MastodonMenu.Action]()
 
+        if menuContext.isMyself {
+            actions.append(.editStatus)
+        }
+
         if !menuContext.isMyself {
             if let statusLanguage = menuContext.statusLanguage, menuContext.isTranslationEnabled, !menuContext.isTranslated {
                 actions.append(
