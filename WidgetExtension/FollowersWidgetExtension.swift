@@ -124,14 +124,23 @@ private extension FollowersProvider {
                 let authBox = WidgetExtension.appContext
                     .authenticationService
                     .mastodonAuthenticationBoxes
-                    .first,
-                let account = configuration.account
+                    .first
             else {
                 return completion(.unconfigured)
             }
+            
+            guard let desiredAccount: String = {
+                guard let account = configuration.account else {
+                    return authBox.authenticationRecord.object(in: WidgetExtension.appContext.managedObjectContext)?.user.acct
+                }
+                return account
+            }() else {
+                return completion(.unconfigured)
+            }
+            
             let resultingAccount = try await WidgetExtension.appContext
                 .apiService
-                .search(query: .init(q: account, type: .accounts), authenticationBox: authBox)
+                .search(query: .init(q: desiredAccount, type: .accounts), authenticationBox: authBox)
                 .value
                 .accounts
                 .first!
