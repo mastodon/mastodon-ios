@@ -52,6 +52,12 @@ jobs:
           NotificationEndpointDebug: ${{ secrets.NotificationEndpointDebug }}
           NotificationEndpointRelease: ${{ secrets.NotificationEndpointRelease }}
         run: exec ./.github/scripts/setup.sh
+      - name: Import Code-Signing Certificates            
+        uses: Apple-Actions/import-codesign-certs@v1
+        with:
+          keychain: build-p12
+          p12-file-base64: ${{ secrets.BUILD_CERTIFICATE_BASE64 }}
+          p12-password: ${{ secrets.P12_PASSWORD }}
       - name: Build for Testing
         env:
           SCHEME: Release
@@ -67,3 +73,7 @@ jobs:
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
           PULL_NUMBER: ${{ github.event.pull_request.number }}
         run: bundle exec fastlane app_size
+      - name: Clean up keychain and provisioning profile
+        if: ${{ always() }}
+        run: |
+          security delete-keychain build-p12.keychain-db 
