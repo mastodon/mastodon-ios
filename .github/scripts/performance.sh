@@ -53,7 +53,7 @@ find ./build -iname *-LinkMap-*.txt -exec cp "{}" "./build/Archives/${SCHEME}.xc
 
 # Copy Performance test files
 mkdir "./build/Archives/${SCHEME}.xcarchive/EmergePerfTests"
-cp "./build/Build/Products/Release-iphoneos/MastodonUITests-Runner.app/PlugIns/MastodonUITests.xctest" "./build/Archives/${SCHEME}.xcarchive/EmergePerfTests/"
+cp -R "./build/Build/Products/Release-iphoneos/MastodonUITests-Runner.app/PlugIns/MastodonUITests.xctest" "./build/Archives/${SCHEME}.xcarchive/EmergePerfTests/"
 
 # Create Performance Test Setup
 TEST_CASES_FILE="./build/Archives/${SCHEME}.xcarchive/EmergePerfTests/info.yaml"
