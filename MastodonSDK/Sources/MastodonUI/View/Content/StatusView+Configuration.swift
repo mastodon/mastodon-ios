@@ -482,6 +482,10 @@ extension StatusView {
             .map(Int.init)
             .assign(to: \.favoriteCount, on: viewModel)
             .store(in: &disposeBag)
+        status.publisher(for: \.editedAt)
+            .assign(to: \.editedAt, on: viewModel)
+            .store(in: &disposeBag)
+
         status.publisher(for: \.editHistory)
             .compactMap({ guard let edits = $0 else { return nil }
                 return Array(edits)

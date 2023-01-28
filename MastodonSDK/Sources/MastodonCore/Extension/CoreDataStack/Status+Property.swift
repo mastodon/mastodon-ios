@@ -18,6 +18,7 @@ extension Status.Property {
             id: entity.id,
             uri: entity.uri,
             createdAt: entity.createdAt,
+            editedAt: entity.editedAt,
             content: entity.content ?? "",
             visibility: entity.mastodonVisibility,
             sensitive: entity.sensitive ?? false,
