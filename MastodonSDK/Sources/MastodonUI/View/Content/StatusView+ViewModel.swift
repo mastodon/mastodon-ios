@@ -104,6 +104,7 @@ extension StatusView {
         @Published public var favoriteCount: Int = 0
 
         @Published public var statusEdits: [StatusEdit] = []
+        @Published public var editedAt: Date? = nil
         
         // Filter
         @Published public var activeFilters: [Mastodon.Entity.Filter] = []
@@ -619,16 +620,17 @@ extension StatusView.ViewModel {
             }
             .store(in: &disposeBag)
 
-        $statusEdits
-            .sink { edits in
-                guard let newestEdit = edits
-                    .sorted(by: { $0.createdAt > $1.createdAt }).first else {
-                        return
-                    }
+        $editedAt
+            .sink { editedAt in
 
-                let relativeDateFormatter = RelativeDateTimeFormatter()
-                let relativeDate = relativeDateFormatter.localizedString(for: newestEdit.createdAt, relativeTo: Date())
-                statusView.statusMetricView.editHistoryButton.detailLabel.text = "Last edit \(relativeDate)"
+                if let editedAt {
+                    let relativeDateFormatter = RelativeDateTimeFormatter()
+                    let relativeDate = relativeDateFormatter.localizedString(for: editedAt, relativeTo: Date())
+                    statusView.statusMetricView.editHistoryButton.detailLabel.text = "Last edit \(relativeDate)"
+                    statusView.statusMetricView.editHistoryButton.isHidden = false
+                } else {
+                    statusView.statusMetricView.editHistoryButton.isHidden = true
+                }
             }
             .store(in: &disposeBag)
     }
