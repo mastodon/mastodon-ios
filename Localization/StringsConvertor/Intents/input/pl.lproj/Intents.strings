@@ -1,51 +1,51 @@
-"16wxgf" = "Post on Mastodon";
+"16wxgf" = "Dodaj post na Mastodon";
 
-"751xkl" = "Text Content";
+"751xkl" = "Treść tekstowa";
 
-"CsR7G2" = "Post on Mastodon";
+"CsR7G2" = "Postuj na Mastodonie";
 
-"HZSGTr" = "What content to post?";
+"HZSGTr" = "Jaką zawartość postować?";
 
-"HdGikU" = "Posting failed";
+"HdGikU" = "Publikowanie nie powiodło się";
 
-"KDNTJ4" = "Failure Reason";
+"KDNTJ4" = "Powód niepowodzenia";
 
-"RHxKOw" = "Send Post with text content";
+"RHxKOw" = "Wyślij post z tekstem";
 
-"RxSqsb" = "Post";
+"RxSqsb" = "Wpis";
 
-"WCIR3D" = "Post ${content} on Mastodon";
+"WCIR3D" = "Postuj ${content} na Mastodonie";
 
-"ZKJSNu" = "Post";
+"ZKJSNu" = "Postuj";
 
 "ZS1XaK" = "${content}";
 
-"ZbSjzC" = "Visibility";
+"ZbSjzC" = "Widoczność";
 
-"Zo4jgJ" = "Post Visibility";
+"Zo4jgJ" = "Widoczność postu";
 
-"apSxMG-dYQ5NN" = "There are ${count} options matching ‘Public’.";
+"apSxMG-dYQ5NN" = "Istnieją ${count} opcje pasujące do „Publiczne”.";
 
-"apSxMG-ehFLjY" = "There are ${count} options matching ‘Followers Only’.";
+"apSxMG-ehFLjY" = "Istnieje ${count} opcji pasujących do 'Tylko obserwujący'.";
 
-"ayoYEb-dYQ5NN" = "${content}, Public";
+"ayoYEb-dYQ5NN" = "${content}, Publiczny";
 
-"ayoYEb-ehFLjY" = "${content}, Followers Only";
+"ayoYEb-ehFLjY" = "${content}, Tylko obserwujący";
 
-"dUyuGg" = "Post on Mastodon";
+"dUyuGg" = "Postuj na Mastodonie";
 
-"dYQ5NN" = "Public";
+"dYQ5NN" = "Publiczny";
 
-"ehFLjY" = "Followers Only";
+"ehFLjY" = "Tylko dla obserwujących";
 
-"gfePDu" = "Posting failed. ${failureReason}";
+"gfePDu" = "Postowanie nie powiodło się. ${failureReason}";
 
-"k7dbKQ" = "Post was sent successfully.";
+"k7dbKQ" = "Wysłano post pomyślnie.";
 
-"oGiqmY-dYQ5NN" = "Just to confirm, you wanted ‘Public’?";
+"oGiqmY-dYQ5NN" = "Czy na pewno chciałeś 'Publiczne'?";
 
-"oGiqmY-ehFLjY" = "Just to confirm, you wanted ‘Followers Only’?";
+"oGiqmY-ehFLjY" = "Czy na pewno chcesz 'Tylko dla obserwujących'?";
 
-"rM6dvp" = "URL";
+"rM6dvp" = "Adres URL";
 
-"ryJLwG" = "Post was sent successfully. ";
+"ryJLwG" = "Wysłano post pomyślnie. ";
