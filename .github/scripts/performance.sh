@@ -6,6 +6,13 @@ SCHEME="${SCHEME:-Release}"
 DERIVED_DATA_PATH="./build/"
 ARCHIVE_PATH="./build/Archives/${SCHEME}.xcarchive"
 
+WORK_DIR=$(pwd)
+API_PRIVATE_KEYS_PATH="${WORK_DIR}/${DERIVED_DATA_PATH}/private_keys"
+API_KEY_FILE="${API_PRIVATE_KEYS_PATH}/api_key.p8"
+rm -rf "${API_PRIVATE_KEYS_PATH}"
+mkdir -p "${API_PRIVATE_KEYS_PATH}"
+echo -n "${ENV_API_PRIVATE_KEY_BASE64}" | base64 --decode > "${API_KEY_FILE}"
+
 xcrun xcodebuild clean \
     -workspace Mastodon.xcworkspace \
     -scheme Mastodon \
@@ -19,7 +26,10 @@ xcrun xcodebuild build-for-testing \
     -destination "generic/platform=iOS" \
     -parallelizeTargets \
     -showBuildTimingSummary \
-    -derivedDataPath "${DERIVED_DATA_PATH}"
+    -derivedDataPath "${DERIVED_DATA_PATH}" \
+    -authenticationKeyPath "${API_KEY_FILE}" \
+    -authenticationKeyID "${ENV_API_KEY_ID}" \
+    -authenticationKeyIssuerID "${ENV_ISSUER_ID}"
 
 # Archive app
 xcrun xcodebuild archive \
@@ -30,7 +40,10 @@ xcrun xcodebuild archive \
     -parallelizeTargets \
     -showBuildTimingSummary \
     -derivedDataPath "${DERIVED_DATA_PATH}"\
-    -archivePath "${ARCHIVE_PATH}"
+    -archivePath "${ARCHIVE_PATH}" \
+    -authenticationKeyPath "${API_KEY_FILE}" \
+    -authenticationKeyID "${ENV_API_KEY_ID}" \
+    -authenticationKeyIssuerID "${ENV_ISSUER_ID}"
 
 # Copy Linkmap files
 mkdir "./build/Archives/${SCHEME}.xcarchive/Linkmaps"

@@ -55,6 +55,10 @@ jobs:
       - name: Build for Testing
         env:
           SCHEME: Release
+          # We need this keys because we are building for iOS Device
+          ENV_ISSUER_ID: ${{ secrets.APPSTORE_ISSUER_ID }}
+          ENV_API_KEY_ID: ${{ secrets.APPSTORE_KEY_ID }}
+          ENV_API_PRIVATE_KEY_BASE64: ${{ secrets.APP_STORE_CONNECT_KEY_BASE64 }}
         run: exec ./.github/scripts/performance.sh
       - name: Upload to Emerge Tools
         env: 
