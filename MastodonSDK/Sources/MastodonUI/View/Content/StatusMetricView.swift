@@ -67,7 +67,7 @@ public final class StatusMetricView: UIView {
 
     public let editHistoryButton: StatusMetricRowView = {
         //TODO: Localization
-        let button = StatusMetricRowView(iconImage: UIImage(systemName: "star"), text: "Edit History")
+        let button = StatusMetricRowView(iconImage: Asset.Scene.EditHistory.edit.image, text: "Edit History")
         return button
     }()
 
