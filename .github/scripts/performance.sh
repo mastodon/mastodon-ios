@@ -29,7 +29,8 @@ xcrun xcodebuild build-for-testing \
     -derivedDataPath "${DERIVED_DATA_PATH}" \
     -authenticationKeyPath "${API_KEY_FILE}" \
     -authenticationKeyID "${ENV_API_KEY_ID}" \
-    -authenticationKeyIssuerID "${ENV_ISSUER_ID}"
+    -authenticationKeyIssuerID "${ENV_ISSUER_ID}" \
+    -allowProvisioningUpdates
 
 # Archive app
 xcrun xcodebuild archive \
@@ -43,7 +44,8 @@ xcrun xcodebuild archive \
     -archivePath "${ARCHIVE_PATH}" \
     -authenticationKeyPath "${API_KEY_FILE}" \
     -authenticationKeyID "${ENV_API_KEY_ID}" \
-    -authenticationKeyIssuerID "${ENV_ISSUER_ID}"
+    -authenticationKeyIssuerID "${ENV_ISSUER_ID}" \
+    -allowProvisioningUpdates
 
 # Copy Linkmap files
 mkdir "./build/Archives/${SCHEME}.xcarchive/Linkmaps"
