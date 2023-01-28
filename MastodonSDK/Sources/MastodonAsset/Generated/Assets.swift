@@ -165,6 +165,7 @@ public enum Asset {
       public static let profileCardBackground = ColorAsset(name: "Scene/Discovery/profile.card.background")
     }
     public enum EditHistory {
+      public static let edit = ImageAsset(name: "Scene/Edit History/Edit")
       public static let statusBackground = ColorAsset(name: "Scene/Edit History/StatusBackground")
       public static let statusBackgroundBorder = ColorAsset(name: "Scene/Edit History/StatusBackgroundBorder")
     }
