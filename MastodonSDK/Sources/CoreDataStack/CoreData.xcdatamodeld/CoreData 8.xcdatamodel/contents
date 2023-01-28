@@ -203,6 +203,7 @@
         <attribute name="createdAt" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="deletedAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="domain" attributeType="String"/>
+        <attribute name="editedAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="emojis" optional="YES" attributeType="Binary"/>
         <attribute name="favouritesCount" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="id" attributeType="String"/>
