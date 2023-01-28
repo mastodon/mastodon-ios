@@ -32,6 +32,10 @@ public final class Status: NSManagedObject {
     
     // sourcery: autoUpdatableObject, autoGenerateProperty
     @NSManaged public private(set) var createdAt: Date
+
+    // sourcery: autoUpdatableObject, autoGenerateProperty
+    @NSManaged public private(set) var editedAt: Date?
+
     // sourcery: autoUpdatableObject, autoGenerateProperty
     @NSManaged public private(set) var content: String
     
@@ -272,6 +276,7 @@ extension Status: AutoGenerateProperty {
         public let id: String
         public let uri: String
         public let createdAt: Date
+        public let editedAt: Date?
         public let content: String
         public let visibility: MastodonVisibility
         public let sensitive: Bool
@@ -296,6 +301,7 @@ extension Status: AutoGenerateProperty {
     		id: String,
     		uri: String,
     		createdAt: Date,
+    		editedAt: Date?,
     		content: String,
     		visibility: MastodonVisibility,
     		sensitive: Bool,
@@ -319,6 +325,7 @@ extension Status: AutoGenerateProperty {
     		self.id = id
     		self.uri = uri
     		self.createdAt = createdAt
+    		self.editedAt = editedAt
     		self.content = content
     		self.visibility = visibility
     		self.sensitive = sensitive
@@ -345,6 +352,7 @@ extension Status: AutoGenerateProperty {
     	self.id = property.id
     	self.uri = property.uri
     	self.createdAt = property.createdAt
+    	self.editedAt = property.editedAt
     	self.content = property.content
     	self.visibility = property.visibility
     	self.sensitive = property.sensitive
@@ -366,6 +374,7 @@ extension Status: AutoGenerateProperty {
 
     public func update(property: Property) {
     	update(createdAt: property.createdAt)
+    	update(editedAt: property.editedAt)
     	update(content: property.content)
     	update(visibility: property.visibility)
     	update(sensitive: property.sensitive)
@@ -434,6 +443,11 @@ extension Status: AutoUpdatableObject {
     public func update(createdAt: Date) {
     	if self.createdAt != createdAt {
     		self.createdAt = createdAt
+    	}
+    }
+    public func update(editedAt: Date?) {
+    	if self.editedAt != editedAt {
+    		self.editedAt = editedAt
     	}
     }
     public func update(content: String) {
