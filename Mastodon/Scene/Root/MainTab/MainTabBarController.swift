@@ -386,9 +386,10 @@ extension MainTabBarController {
         let composeViewModel = ComposeViewModel(
             context: context,
             authContext: authContext,
+            composeContext: .composeStatus,
             destination: .topLevel
         )
-        _ = coordinator.present(scene: .compose(viewModel: composeViewModel), from: nil, transition: .modal(animated: true, completion: nil))
+        _ = coordinator.present(scene: .compose(viewModel: composeViewModel), transition: .modal(animated: true, completion: nil))
     }
     
     private func touchedTab(by sender: UIGestureRecognizer) -> Tab? {
@@ -815,6 +816,7 @@ extension MainTabBarController {
         let composeViewModel = ComposeViewModel(
             context: context,
             authContext: authContext,
+            composeContext: .composeStatus,
             destination: .topLevel
         )
         _ = coordinator.present(scene: .compose(viewModel: composeViewModel), from: nil, transition: .modal(animated: true, completion: nil))
