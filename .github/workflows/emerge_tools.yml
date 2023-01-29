@@ -68,7 +68,7 @@ jobs:
         run: exec ./.github/scripts/performance.sh
       - name: Upload to Emerge Tools
         env: 
-          EMERGE_API_TOKEN: ${{ secrets.EMERGE_TOOLS_API_KEY }}
+          EMERGE_API_TOKEN: ${{ secrets.EMERGE_API_TOKEN }}
           SCHEME: Release
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
           PULL_NUMBER: ${{ github.event.pull_request.number }}
