@@ -19,7 +19,12 @@ import MastodonMeta
 import MastodonUI
 
 final class ComposeViewModel {
-    
+
+    enum Context {
+        case composeStatus
+        case editStatus
+    }
+
     let logger = Logger(subsystem: "ComposeViewModel", category: "ViewModel")
     
     var disposeBag = Set<AnyCancellable>()
@@ -29,6 +34,7 @@ final class ComposeViewModel {
     // input
     let context: AppContext
     let authContext: AuthContext
+    let composeContext: Context
     let destination: ComposeContentViewModel.Destination
     let initialContent: String
 
@@ -42,6 +48,7 @@ final class ComposeViewModel {
     init(
         context: AppContext,
         authContext: AuthContext,
+        composeContext: ComposeViewModel.Context,
         destination: ComposeContentViewModel.Destination,
         initialContent: String = ""
     ) {
@@ -49,18 +56,23 @@ final class ComposeViewModel {
         self.authContext = authContext
         self.destination = destination
         self.initialContent = initialContent
+        self.composeContext = composeContext
         // end init
         
-        self.title = {
+        let title: String
+
+        switch composeContext {
+        case .composeStatus:
             switch destination {
-            case .topLevel: return L10n.Scene.Compose.Title.newPost
-            case .reply:    return L10n.Scene.Compose.Title.newReply
+            case .topLevel:
+                title = L10n.Scene.Compose.Title.newPost
+            case .reply:
+                title = L10n.Scene.Compose.Title.newReply
             }
-        }()
+        case .editStatus:
+            title = "Edit Post"
+        }
+
+        self.title = title
     }
-    
-    deinit {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-    }
-    
 }

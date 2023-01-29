@@ -157,6 +157,7 @@ extension SceneCoordinator {
 
         // compose
         case compose(viewModel: ComposeViewModel)
+        case editStatus(viewModel: ComposeViewModel)
         
         // thread
         case thread(viewModel: ThreadViewModel)
@@ -274,7 +275,7 @@ extension SceneCoordinator {
 
     @MainActor
     @discardableResult
-    func present(scene: Scene, from sender: UIViewController?, transition: Transition) -> UIViewController? {
+    func present(scene: Scene, from sender: UIViewController? = nil, transition: Transition) -> UIViewController? {
         guard let viewController = get(scene: scene) else {
             return nil
         }
@@ -431,8 +432,7 @@ private extension SceneCoordinator {
             _viewController.viewModel = viewModel
             viewController = _viewController
         case .compose(let viewModel):
-            let _viewController = ComposeViewController()
-            _viewController.viewModel = viewModel
+            let _viewController = ComposeViewController(viewModel: viewModel)
             viewController = _viewController
         case .thread(let viewModel):
             let _viewController = ThreadViewController()
@@ -540,6 +540,9 @@ private extension SceneCoordinator {
             let _viewController = SettingsViewController()
             _viewController.viewModel = viewModel
             viewController = _viewController
+        case .editStatus(let viewModel):
+            let composeViewController = ComposeViewController(viewModel: viewModel)
+            viewController = composeViewController
         }
         
         setupDependency(for: viewController as? NeedsDependency)
