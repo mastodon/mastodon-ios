@@ -211,6 +211,7 @@ extension HashtagTimelineViewController {
         let composeViewModel = ComposeViewModel(
             context: context,
             authContext: viewModel.authContext,
+            composeContext: .composeStatus,
             destination: .topLevel,
             initialContent: hashtag
         )

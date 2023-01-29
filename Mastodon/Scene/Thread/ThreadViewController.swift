@@ -117,6 +117,7 @@ extension ThreadViewController {
         let composeViewModel = ComposeViewModel(
             context: context,
             authContext: viewModel.authContext,
+            composeContext: .composeStatus,
             destination: .reply(parent: threadContext.status)
         )
         _ = coordinator.present(
