@@ -19,7 +19,6 @@ import MastodonLocalization
 import MastodonSDK
 
 final class ComposeViewController: UIViewController, NeedsDependency {
-    
     static let minAutoCompleteVisibleHeight: CGFloat = 100
         
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
@@ -29,7 +28,14 @@ final class ComposeViewController: UIViewController, NeedsDependency {
     var viewModel: ComposeViewModel!
 
     let logger = Logger(subsystem: "ComposeViewController", category: "logic")
-    
+
+    init(viewModel: ComposeViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
+
     lazy var composeContentViewModel: ComposeContentViewModel = {
         return ComposeContentViewModel(
             context: context,
@@ -54,8 +60,29 @@ final class ComposeViewController: UIViewController, NeedsDependency {
         button.setTitle(L10n.Scene.Compose.composeAction, for: .normal)
         return button
     }()
+
+    let saveButton: UIButton = {
+        let button = RoundedEdgesButton(type: .custom)
+        button.cornerRadius = 10
+        button.contentEdgeInsets = UIEdgeInsets(top: 6, left: 16, bottom: 5, right: 16)     // set 28pt height
+        button.titleLabel?.font = .systemFont(ofSize: 14, weight: .bold)
+        //TODO: @zeitschlag Localization
+        button.setTitle("Save", for: .normal)
+        return button
+    }()
+
+    private(set) lazy var saveBarButtonItem: UIBarButtonItem = {
+        configurePublishButtonApperance(button: saveButton)
+        let shadowBackgroundContainer = ShadowBackgroundContainer()
+        saveButton.translatesAutoresizingMaskIntoConstraints = false
+        shadowBackgroundContainer.addSubview(saveButton)
+        saveButton.pinToParent()
+        let barButtonItem = UIBarButtonItem(customView: shadowBackgroundContainer)
+        return barButtonItem
+    }()
+
     private(set) lazy var publishBarButtonItem: UIBarButtonItem = {
-        configurePublishButtonApperance()
+        configurePublishButtonApperance(button: publishButton)
         let shadowBackgroundContainer = ShadowBackgroundContainer()
         publishButton.translatesAutoresizingMaskIntoConstraints = false
         shadowBackgroundContainer.addSubview(publishButton)
@@ -63,12 +90,13 @@ final class ComposeViewController: UIViewController, NeedsDependency {
         let barButtonItem = UIBarButtonItem(customView: shadowBackgroundContainer)
         return barButtonItem
     }()
-    private func configurePublishButtonApperance() {
-        publishButton.adjustsImageWhenHighlighted = false
-        publishButton.setBackgroundImage(.placeholder(color: Asset.Colors.Label.primary.color), for: .normal)
-        publishButton.setBackgroundImage(.placeholder(color: Asset.Colors.Label.primary.color.withAlphaComponent(0.5)), for: .highlighted)
-        publishButton.setBackgroundImage(.placeholder(color: Asset.Colors.Button.disabled.color), for: .disabled)
-        publishButton.setTitleColor(Asset.Colors.Label.primaryReverse.color, for: .normal)
+
+    private func configurePublishButtonApperance(button: UIButton) {
+        button.adjustsImageWhenHighlighted = false
+        button.setBackgroundImage(.placeholder(color: Asset.Colors.Label.primary.color), for: .normal)
+        button.setBackgroundImage(.placeholder(color: Asset.Colors.Label.primary.color.withAlphaComponent(0.5)), for: .highlighted)
+        button.setBackgroundImage(.placeholder(color: Asset.Colors.Button.disabled.color), for: .disabled)
+        button.setTitleColor(Asset.Colors.Label.primaryReverse.color, for: .normal)
     }
 
     deinit {
@@ -83,7 +111,6 @@ extension ComposeViewController {
         super.viewDidLoad()
         
         navigationItem.leftBarButtonItem = cancelBarButtonItem
-        navigationItem.rightBarButtonItem = publishBarButtonItem
         viewModel.traitCollectionDidChangePublisher
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
@@ -93,8 +120,16 @@ extension ComposeViewController {
                 self.navigationItem.rightBarButtonItems = items
             }
             .store(in: &disposeBag)
-        publishButton.addTarget(self, action: #selector(ComposeViewController.publishBarButtonItemPressed(_:)), for: .touchUpInside)
-        
+
+        switch viewModel.composeContext {
+        case .composeStatus:
+            publishButton.addTarget(self, action: #selector(ComposeViewController.publishBarButtonItemPressed(_:)), for: .touchUpInside)
+            navigationItem.rightBarButtonItem = publishBarButtonItem
+        case .editStatus:
+            saveButton.addTarget(self, action: #selector(ComposeViewController.publishStatusEdit(_:)), for: .touchUpInside)
+            navigationItem.rightBarButtonItem = saveBarButtonItem
+        }
+
         addChild(composeContentViewController)
         composeContentViewController.view.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(composeContentViewController.view)
@@ -119,8 +154,15 @@ extension ComposeViewController {
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        
-        configurePublishButtonApperance()
+
+        switch viewModel.composeContext {
+
+        case .composeStatus:
+            configurePublishButtonApperance(button: publishButton)
+        case .editStatus:
+            configurePublishButtonApperance(button: saveButton)
+        }
+
         viewModel.traitCollectionDidChangePublisher.send()
     }
     
@@ -155,8 +197,7 @@ extension ComposeViewController {
     }
     
     @objc private func publishBarButtonItemPressed(_ sender: UIBarButtonItem) {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-        
+
         do {
             try composeContentViewModel.checkAttachmentPrecondition()
         } catch {
@@ -185,7 +226,11 @@ extension ComposeViewController {
 
         dismiss(animated: true, completion: nil)
     }
-    
+
+    @objc
+    private func publishStatusEdit(_ sender: Any) {
+        //TODO: @zeitschlag Implement, basically everything above, but with its own editStatusPublisher
+    }
 }
 
 extension ComposeViewController {

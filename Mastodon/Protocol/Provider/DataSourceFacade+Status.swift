@@ -117,6 +117,7 @@ extension DataSourceFacade {
             let composeViewModel = ComposeViewModel(
                 context: provider.context,
                 authContext: provider.authContext,
+                composeContext: .composeStatus,
                 destination: .reply(parent: status)
             )
             _ = provider.coordinator.present(
@@ -375,6 +376,13 @@ extension DataSourceFacade {
             }
         case .editStatus:
             print("Edit Status")
+            let editStatusViewModel = ComposeViewModel(
+                context: dependency.coordinator.appContext,
+                authContext: dependency.authContext,
+                composeContext: .editStatus,
+                destination: .topLevel)
+            //TODO: @zeitschlag Check for status
+            _ = dependency.coordinator.present(scene: .editStatus(viewModel: editStatusViewModel), transition: .modal(animated: true))
             // something something Show Compose-Screen, but with PUT instead of POST
         }
     }   // end func
