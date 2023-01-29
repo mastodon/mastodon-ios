@@ -2,86 +2,86 @@
     "common": {
         "alerts": {
             "common": {
-                "please_try_again": "Please try again.",
-                "please_try_again_later": "Please try again later."
+                "please_try_again": "Spróbuj ponownie.",
+                "please_try_again_later": "Spróbuj ponownie później."
             },
             "sign_up_failure": {
-                "title": "Sign Up Failure"
+                "title": "Błąd rejestracji"
             },
             "server_error": {
-                "title": "Server Error"
+                "title": "Błąd serwera"
             },
             "vote_failure": {
-                "title": "Vote Failure",
-                "poll_ended": "The poll has ended"
+                "title": "Niepowodzenie głosowania",
+                "poll_ended": "Ankieta zakończyła się"
             },
             "discard_post_content": {
-                "title": "Discard Draft",
-                "message": "Confirm to discard composed post content."
+                "title": "Anuluj wersje roboczą",
+                "message": "Potwierdź odrzucenie treści posta."
             },
             "publish_post_failure": {
-                "title": "Publish Failure",
-                "message": "Failed to publish the post.\nPlease check your internet connection.",
+                "title": "Błąd publikowania",
+                "message": "Nie udało się opublikować posta.\nSprawdź swoje połączenie internetowe.",
                 "attachments_message": {
-                    "video_attach_with_photo": "Cannot attach a video to a post that already contains images.",
-                    "more_than_one_video": "Cannot attach more than one video."
+                    "video_attach_with_photo": "Nie można dołączyć wideo do postu, który zawiera już obrazy.",
+                    "more_than_one_video": "Nie można dołączyć więcej niż jednego filmiku."
                 }
             },
             "edit_profile_failure": {
-                "title": "Edit Profile Error",
-                "message": "Cannot edit profile. Please try again."
+                "title": "Błąd edycji profilu",
+                "message": "Nie można edytować profilu. Spróbuj ponownie."
             },
             "sign_out": {
-                "title": "Sign Out",
-                "message": "Are you sure you want to sign out?",
-                "confirm": "Sign Out"
+                "title": "Wyloguj się",
+                "message": "Czy na pewno chcesz się wylogować?",
+                "confirm": "Wyloguj się"
             },
             "block_domain": {
-                "title": "Are you really, really sure you want to block the entire %s? In most cases a few targeted blocks or mutes are sufficient and preferable. You will not see content from that domain and any of your followers from that domain will be removed.",
-                "block_entire_domain": "Block Domain"
+                "title": "Czy na pewno chcesz zablokować całą domenę %s? Zwykle lepszym rozwiązaniem jest blokada lub wyciszenie kilku użytkowników.",
+                "block_entire_domain": "Zablokuj domenę"
             },
             "save_photo_failure": {
-                "title": "Save Photo Failure",
-                "message": "Please enable the photo library access permission to save the photo."
+                "title": "Błąd zapisywania zdjęć",
+                "message": "Proszę włączyć uprawnienia dostępu do biblioteki zdjęć, aby zapisać zdjęcie."
             },
             "delete_post": {
-                "title": "Delete Post",
-                "message": "Are you sure you want to delete this post?"
+                "title": "Usuń post",
+                "message": "Czy na pewno chcesz usunąć ten post?"
             },
             "clean_cache": {
-                "title": "Clean Cache",
-                "message": "Successfully cleaned %s cache."
+                "title": "Wyczyść pamięć podręczną",
+                "message": "Pomyślnie wyczyszczono pamięć podręczną %s."
             },
             "translation_failed": {
-                "title": "Note",
-                "message": "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.",
+                "title": "Uwaga",
+                "message": "Tłumaczenie nie powiodło się. Być może administrator nie włączył tłumaczeń na tym serwerze lub ten serwer używa starszej wersji Mastodona, gdzie tłumaczenia nie są jeszcze obsługiwane.",
                 "button": "OK"
             }
         },
         "controls": {
             "actions": {
-                "back": "Back",
-                "next": "Next",
-                "previous": "Previous",
-                "open": "Open",
-                "add": "Add",
-                "remove": "Remove",
-                "edit": "Edit",
-                "save": "Save",
+                "back": "Wróć",
+                "next": "Dalej",
+                "previous": "Poprzedni",
+                "open": "Otwórz",
+                "add": "Dodaj",
+                "remove": "Usuń",
+                "edit": "Edytuj",
+                "save": "Zapisz",
                 "ok": "OK",
-                "done": "Done",
-                "confirm": "Confirm",
-                "continue": "Continue",
-                "compose": "Compose",
-                "cancel": "Cancel",
-                "discard": "Discard",
-                "try_again": "Try Again",
-                "take_photo": "Take Photo",
-                "save_photo": "Save Photo",
-                "copy_photo": "Copy Photo",
-                "sign_in": "Log in",
-                "sign_up": "Create account",
-                "see_more": "See More",
+                "done": "Gotowe",
+                "confirm": "Zatwierdź",
+                "continue": "Kontynuuj",
+                "compose": "Skomponuj",
+                "cancel": "Anuluj",
+                "discard": "Odrzuć",
+                "try_again": "Spróbuj ponownie",
+                "take_photo": "Zrób zdjęcie",
+                "save_photo": "Zapisz zdjęcie",
+                "copy_photo": "Kopiuj zdjęcie",
+                "sign_in": "Zaloguj się",
+                "sign_up": "Utwórz konto",
+                "see_more": "Zobacz więcej",
                 "preview": "Preview",
                 "copy": "Copy",
                 "share": "Share",
@@ -150,68 +150,68 @@
                 },
                 "meta_entity": {
                     "url": "Link: %s",
-                    "hashtag": "Hashtag: %s",
+                    "hashtag": "Hasztagi: %s",
                     "mention": "Show Profile: %s",
                     "email": "Email address: %s"
                 },
                 "actions": {
-                    "reply": "Reply",
-                    "reblog": "Reblog",
-                    "unreblog": "Undo reblog",
-                    "favorite": "Favorite",
-                    "unfavorite": "Unfavorite",
+                    "reply": "Odpowiedz",
+                    "reblog": "Rebloguj",
+                    "unreblog": "Cofnij reblog",
+                    "favorite": "Dodaj do ulubionych",
+                    "unfavorite": "Usuń z ulubionych",
                     "menu": "Menu",
-                    "hide": "Hide",
-                    "show_image": "Show image",
-                    "show_gif": "Show GIF",
-                    "show_video_player": "Show video player",
-                    "share_link_in_post": "Share Link in Post",
-                    "tap_then_hold_to_show_menu": "Tap then hold to show menu"
+                    "hide": "Ukryj",
+                    "show_image": "Pokaż obraz",
+                    "show_gif": "Pokaż GIF",
+                    "show_video_player": "Pokaż odtwarzacz wideo",
+                    "share_link_in_post": "Udostępnij link w poście",
+                    "tap_then_hold_to_show_menu": "Naciśnij i przytrzymaj aby wyświetlić menu"
                 },
                 "tag": {
                     "url": "URL",
-                    "mention": "Mention",
+                    "mention": "Wspomnij",
                     "link": "Link",
-                    "hashtag": "Hashtag",
-                    "email": "Email",
+                    "hashtag": "Hasztag",
+                    "email": "Adres e-mail",
                     "emoji": "Emoji"
                 },
                 "visibility": {
-                    "unlisted": "Everyone can see this post but not display in the public timeline.",
-                    "private": "Only their followers can see this post.",
-                    "private_from_me": "Only my followers can see this post.",
-                    "direct": "Only mentioned user can see this post."
+                    "unlisted": "Każdy może zobaczyć ten post, ale nie będzie widoczny na publicznej osi czasu.",
+                    "private": "Tylko ich obserwatorzy mogą zobaczyć ten post.",
+                    "private_from_me": "Tylko moi obserwatorzy mogą zobaczyć ten post.",
+                    "direct": "Tylko wspomniany użytkownik może zobaczyć ten post."
                 },
                 "translation": {
-                    "translated_from": "Translated from %s using %s",
-                    "unknown_language": "Unknown",
-                    "unknown_provider": "Unknown",
-                    "show_original": "Shown Original"
+                    "translated_from": "Przetłumaczono z %s przy użyciu %s",
+                    "unknown_language": "Nieznany",
+                    "unknown_provider": "Nieznany",
+                    "show_original": "Pokaż oryginał"
                 },
                 "media": {
-                    "accessibility_label": "%s, attachment %d of %d",
-                    "expand_image_hint": "Expands the image. Double-tap and hold to show actions",
-                    "expand_gif_hint": "Expands the GIF. Double-tap and hold to show actions",
-                    "expand_video_hint": "Shows the video player. Double-tap and hold to show actions"
+                    "accessibility_label": "%s, załącznik %d z %d",
+                    "expand_image_hint": "Rozszerza obraz. Dwukrotnie stuknij i przytrzymaj, aby pokazać akcje",
+                    "expand_gif_hint": "Rozszerza GIF. Podwójne dotknięcie i przytrzymaj, aby pokazać akcje",
+                    "expand_video_hint": "Pokazuje odtwarzacz wideo. Dwukrotnie stuknij i przytrzymaj aby pokazać akcje"
                 }
             },
             "friendship": {
-                "follow": "Follow",
-                "following": "Following",
-                "request": "Request",
-                "pending": "Pending",
-                "block": "Block",
-                "block_user": "Block %s",
-                "block_domain": "Block %s",
-                "unblock": "Unblock",
-                "unblock_user": "Unblock %s",
-                "blocked": "Blocked",
-                "mute": "Mute",
-                "mute_user": "Mute %s",
-                "unmute": "Unmute",
-                "unmute_user": "Unmute %s",
-                "muted": "Muted",
-                "edit_info": "Edit Info",
+                "follow": "Obserwuj",
+                "following": "Obserwowanych",
+                "request": "Zapytanie",
+                "pending": "Oczekujący",
+                "block": "Zablokuj",
+                "block_user": "Zablokuj %s",
+                "block_domain": "Zablokuj %s",
+                "unblock": "Odblokuj",
+                "unblock_user": "Odblokuj %s",
+                "blocked": "Zablokowany",
+                "mute": "Wycisz",
+                "mute_user": "Wycisz %s",
+                "unmute": "Cofnij wyciszenie",
+                "unmute_user": "Wyłącz wyciszenie %s",
+                "muted": "Wyciszony",
+                "edit_info": "Edytuj informacje",
                 "show_reblogs": "Show Reblogs",
                 "hide_reblogs": "Hide Reblogs"
             },
@@ -292,51 +292,51 @@
             "lets_get_you_set_up_on_domain": "Let’s get you set up on %s",
             "input": {
                 "avatar": {
-                    "delete": "Delete"
+                    "delete": "Usuń"
                 },
                 "username": {
-                    "placeholder": "username",
-                    "duplicate_prompt": "This username is taken."
+                    "placeholder": "nazwa użytkownika",
+                    "duplicate_prompt": "Ta nazwa użytkownika jest zajęta."
                 },
                 "display_name": {
-                    "placeholder": "display name"
+                    "placeholder": "nazwa wyświetlana"
                 },
                 "email": {
-                    "placeholder": "email"
+                    "placeholder": "adres e-mail"
                 },
                 "password": {
-                    "placeholder": "password",
-                    "require": "Your password needs at least:",
-                    "character_limit": "8 characters",
+                    "placeholder": "hasło",
+                    "require": "Twoje hasło musi mieć co najmniej:",
+                    "character_limit": "8 znaków",
                     "accessibility": {
-                        "checked": "checked",
-                        "unchecked": "unchecked"
+                        "checked": "zaznaczono",
+                        "unchecked": "nie zaznaczono"
                     },
-                    "hint": "Your password needs at least eight characters"
+                    "hint": "Hasło musi składać się z co najmniej 8 znaków"
                 },
                 "invite": {
-                    "registration_user_invite_request": "Why do you want to join?"
+                    "registration_user_invite_request": "Dlaczego chcesz dołączyć?"
                 }
             },
             "error": {
                 "item": {
-                    "username": "Username",
-                    "email": "Email",
-                    "password": "Password",
-                    "agreement": "Agreement",
-                    "locale": "Locale",
-                    "reason": "Reason"
+                    "username": "Nazwa użytkownika",
+                    "email": "Adres e-mail",
+                    "password": "Hasło",
+                    "agreement": "Umowa",
+                    "locale": "Lokalizacja",
+                    "reason": "Powód"
                 },
                 "reason": {
-                    "blocked": "%s contains a disallowed email provider",
-                    "unreachable": "%s does not seem to exist",
-                    "taken": "%s is already in use",
-                    "reserved": "%s is a reserved keyword",
-                    "accepted": "%s must be accepted",
-                    "blank": "%s is required",
-                    "invalid": "%s is invalid",
-                    "too_long": "%s is too long",
-                    "too_short": "%s is too short",
+                    "blocked": "%s zawiera niedozwolonego dostawcę poczty e-mail",
+                    "unreachable": "Wydaje się, że nie istnieje",
+                    "taken": "%s Jest już używane",
+                    "reserved": "%s Jest zarezerwowanym słowem kluczowym",
+                    "accepted": "%s musi być zaakceptowane",
+                    "blank": "%s jest wymagane",
+                    "invalid": "%s jest nieprawidłowe",
+                    "too_long": "%s jest za długi",
+                    "too_short": "%s jest zbyt krótki",
                     "inclusion": "%s is not a supported value"
                 },
                 "special": {
