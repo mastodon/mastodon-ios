@@ -21,6 +21,11 @@ public protocol ComposeContentViewModelDelegate: AnyObject {
 }
 
 public final class ComposeContentViewModel: NSObject, ObservableObject {
+
+    public enum ComposeContext {
+        case composeStatus
+        case editStatus(status: Status)
+    }
     
     let logger = Logger(subsystem: "ComposeContentViewModel", category: "ViewModel")
     
@@ -32,6 +37,7 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
     
     // input
     let context: AppContext
+    let composeContext: ComposeContext
     let destination: Destination
     weak var delegate: ComposeContentViewModelDelegate?
     
@@ -141,12 +147,14 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
     public init(
         context: AppContext,
         authContext: AuthContext,
+        composeContext: ComposeContext,
         destination: Destination,
         initialContent: String
     ) {
         self.context = context
         self.authContext = authContext
         self.destination = destination
+        self.composeContext = composeContext
         self.visibility = {
             // default private when user locked
             var visibility: Mastodon.Entity.Status.Visibility = {
