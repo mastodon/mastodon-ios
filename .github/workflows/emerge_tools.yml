@@ -36,7 +36,7 @@ jobs:
           find ./build -iname *-LinkMap-*.txt -exec cp "{}" "./build/Archives/${SCHEME}.xcarchive/Linkmaps/"  \;
       - name: Upload to Emerge Tools
         env: 
-          EMERGE_API_TOKEN: ${{ secrets.EMERGE_TOOLS_API_KEY }}
+          EMERGE_API_TOKEN: ${{ secrets.EMERGE_API_TOKEN }}
           SCHEME: Debug
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
           PULL_NUMBER: ${{ github.event.pull_request.number }}
