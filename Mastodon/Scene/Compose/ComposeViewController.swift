@@ -37,9 +37,20 @@ final class ComposeViewController: UIViewController, NeedsDependency {
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 
     lazy var composeContentViewModel: ComposeContentViewModel = {
+
+        let composeContext: ComposeContentViewModel.ComposeContext
+
+        switch viewModel.composeContext {
+        case .composeStatus:
+            composeContext = .composeStatus
+        case .editStatus(let status):
+            composeContext = .editStatus(status: status)
+        }
+
         return ComposeContentViewModel(
             context: context,
             authContext: viewModel.authContext,
+            composeContext: composeContext,
             destination: viewModel.destination,
             initialContent: viewModel.initialContent
         )

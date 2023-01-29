@@ -375,11 +375,15 @@ extension DataSourceFacade {
                 dependency.present(alertController, animated: true)
             }
         case .editStatus:
-            print("Edit Status")
+
+            guard let status = menuContext.status?.object(in: dependency.context.managedObjectContext) else { return }
+
+            //TODO: Download StatusSource
+
             let editStatusViewModel = ComposeViewModel(
                 context: dependency.coordinator.appContext,
                 authContext: dependency.authContext,
-                composeContext: .editStatus,
+                composeContext: .editStatus(status: status),
                 destination: .topLevel)
             //TODO: @zeitschlag Check for status
             _ = dependency.coordinator.present(scene: .editStatus(viewModel: editStatusViewModel), transition: .modal(animated: true))
