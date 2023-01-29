@@ -6,69 +6,6 @@
       "options" : {
         "language" : "en"
       }
-    },
-    {
-      "id" : "06DB4A21-6DDF-454F-ABEE-E77DD7AAA146",
-      "name" : "Arabic",
-      "options" : {
-        "language" : "ar"
-      }
-    },
-    {
-      "id" : "D95412BD-821C-4FE5-9DA6-8D77C0972B72",
-      "name" : "Catalan",
-      "options" : {
-        "language" : "ca"
-      }
-    },
-    {
-      "id" : "EE9219EA-2011-48B5-A475-309C99F91D6D",
-      "name" : "Chinese, Simplified",
-      "options" : {
-        "language" : "zh-Hans"
-      }
-    },
-    {
-      "id" : "6FBBAF31-D445-482E-B67B-271F8216AEB6",
-      "name" : "Dutch",
-      "options" : {
-        "language" : "nl"
-      }
-    },
-    {
-      "id" : "45A93B8D-54C5-4906-8AC6-5B6FE561CA25",
-      "name" : "French",
-      "options" : {
-        "language" : "fr"
-      }
-    },
-    {
-      "id" : "8344111A-3025-4CA0-838C-AF94EBA4D4BE",
-      "name" : "German",
-      "options" : {
-        "language" : "de"
-      }
-    },
-    {
-      "id" : "4EE64E47-F9E5-4189-8571-20D29941F854",
-      "name" : "Japanese",
-      "options" : {
-        "language" : "ja"
-      }
-    },
-    {
-      "id" : "746F1EBA-E12B-40C4-85C6-A14DC61A180B",
-      "name" : "Spanish",
-      "options" : {
-        "language" : "es"
-      }
-    },
-    {
-      "id" : "EDA29FF5-1F0E-451A-863D-0899CE07CB09",
-      "name" : "Spanish (Latin America)",
-      "options" : {
-        "language" : "es-419"
-      }
     }
   ],
   "defaultOptions" : {
@@ -84,9 +21,6 @@
       }
     },
     {
-      "skippedTests" : [
-        "MastodonUITests\/testLaunchPerformance()"
-      ],
       "target" : {
         "containerPath" : "container:Mastodon.xcodeproj",
         "identifier" : "DB427DF225BAA00100D1B89D",

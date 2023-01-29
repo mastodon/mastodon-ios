@@ -219,7 +219,6 @@
 		DB4481B925EE289600BEFB67 /* UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4481B825EE289600BEFB67 /* UITableView.swift */; };
 		DB45FAB625CA5485005A8AC7 /* UIAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB45FAB525CA5485005A8AC7 /* UIAlertController.swift */; };
 		DB45FAD725CA6C76005A8AC7 /* UIBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB45FAD625CA6C76005A8AC7 /* UIBarButtonItem.swift */; };
-		DB47AB6227CF752B00CD73C7 /* MastodonUISnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB47AB6127CF752B00CD73C7 /* MastodonUISnapshotTests.swift */; };
 		DB482A3F261331E8008AE74C /* UserTimelineViewModel+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB482A3E261331E8008AE74C /* UserTimelineViewModel+State.swift */; };
 		DB4932B126F1FB5300EF46D4 /* WizardCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4932B026F1FB5300EF46D4 /* WizardCardView.swift */; };
 		DB4932B926F31AD300EF46D4 /* BadgeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4932B826F31AD300EF46D4 /* BadgeButton.swift */; };
@@ -457,6 +456,9 @@
 		DBFEEC99279BDCDE004F81DD /* ProfileAboutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBFEEC98279BDCDE004F81DD /* ProfileAboutViewModel.swift */; };
 		DBFEEC9B279BDDD9004F81DD /* ProfileAboutViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBFEEC9A279BDDD9004F81DD /* ProfileAboutViewModel+Diffable.swift */; };
 		DBFEEC9D279C12C1004F81DD /* ProfileFieldEditCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBFEEC9C279C12C1004F81DD /* ProfileFieldEditCollectionViewCell.swift */; };
+		F457B56E298570B100246C8F /* PerfTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F457B56A2985704400246C8F /* PerfTest.swift */; };
+		F457B56F298570BA00246C8F /* PerfTestRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = F457B56C2985705500246C8F /* PerfTestRunner.swift */; };
+		F457B571298571F400246C8F /* MastodonPerformanceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F457B570298571F400246C8F /* MastodonPerformanceTest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1134,6 +1136,9 @@
 		ECA373ABA86BE3C2D7ED878E /* Pods-AppShared.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppShared.release.xcconfig"; path = "Target Support Files/Pods-AppShared/Pods-AppShared.release.xcconfig"; sourceTree = "<group>"; };
 		EE13214BC0246BE5210CCC10 /* Pods-AppShared.asdk.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppShared.asdk.xcconfig"; path = "Target Support Files/Pods-AppShared/Pods-AppShared.asdk.xcconfig"; sourceTree = "<group>"; };
 		F31E7502A7E3945B98C6CBAF /* Pods-NotificationService.asdk.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationService.asdk.xcconfig"; path = "Target Support Files/Pods-NotificationService/Pods-NotificationService.asdk.xcconfig"; sourceTree = "<group>"; };
+		F457B56A2985704400246C8F /* PerfTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerfTest.swift; sourceTree = "<group>"; };
+		F457B56C2985705500246C8F /* PerfTestRunner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerfTestRunner.swift; sourceTree = "<group>"; };
+		F457B570298571F400246C8F /* MastodonPerformanceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonPerformanceTest.swift; sourceTree = "<group>"; };
 		F4A2A2D7000E477CA459ADA9 /* Pods_AppShared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AppShared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F920AD4EC23B0D00F5CCA58E /* Pods-MastodonIntent.asdk - release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MastodonIntent.asdk - release.xcconfig"; path = "Target Support Files/Pods-MastodonIntent/Pods-MastodonIntent.asdk - release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1935,7 +1940,9 @@
 		DB427DF625BAA00100D1B89D /* MastodonUITests */ = {
 			isa = PBXGroup;
 			children = (
+				F457B572298572E700246C8F /* Emerge */,
 				DB427DF725BAA00100D1B89D /* MastodonUITests.swift */,
+				F457B570298571F400246C8F /* MastodonPerformanceTest.swift */,
 				DB47AB6127CF752B00CD73C7 /* MastodonUISnapshotTests.swift */,
 				DB427DF925BAA00100D1B89D /* Info.plist */,
 			);
@@ -2834,6 +2841,15 @@
 				DBC3872329214121001EC0FD /* ShareViewController.swift */,
 			);
 			path = Scene;
+			sourceTree = "<group>";
+		};
+		F457B572298572E700246C8F /* Emerge */ = {
+			isa = PBXGroup;
+			children = (
+				F457B56A2985704400246C8F /* PerfTest.swift */,
+				F457B56C2985705500246C8F /* PerfTestRunner.swift */,
+			);
+			path = Emerge;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -3735,8 +3751,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DB47AB6227CF752B00CD73C7 /* MastodonUISnapshotTests.swift in Sources */,
 				DB427DF825BAA00100D1B89D /* MastodonUITests.swift in Sources */,
+				F457B56F298570BA00246C8F /* PerfTestRunner.swift in Sources */,
+				F457B56E298570B100246C8F /* PerfTest.swift in Sources */,
+				F457B571298571F400246C8F /* MastodonPerformanceTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3946,7 +3964,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = 5Z4GVSS33P;
+				DEVELOPMENT_TEAM = 62J2XHNK9T;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = OpenInActionExtension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Open using Mastodon";
@@ -3977,7 +3995,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 5Z4GVSS33P;
+				DEVELOPMENT_TEAM = 62J2XHNK9T;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = OpenInActionExtension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Open using Mastodon";
@@ -4008,7 +4026,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 5Z4GVSS33P;
+				DEVELOPMENT_TEAM = 62J2XHNK9T;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = OpenInActionExtension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Open using Mastodon";
@@ -4039,7 +4057,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 5Z4GVSS33P;
+				DEVELOPMENT_TEAM = 62J2XHNK9T;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = OpenInActionExtension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Open using Mastodon";
@@ -4195,7 +4213,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "Mastodon/Resources/Preview\\ Assets.xcassets";
-				DEVELOPMENT_TEAM = 5Z4GVSS33P;
+				DEVELOPMENT_TEAM = 62J2XHNK9T;
 				INFOPLIST_FILE = Mastodon/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
 				LD_GENERATE_MAP_FILE = YES;
@@ -4227,7 +4245,8 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "Mastodon/Resources/Preview\\ Assets.xcassets";
-				DEVELOPMENT_TEAM = 5Z4GVSS33P;
+				DEVELOPMENT_TEAM = 62J2XHNK9T;
+				ENABLE_TESTABILITY = YES;
 				EXCLUDED_SOURCE_FILE_NAMES = "Mastodon/Resources/Preview\\ Assets.xcassets";
 				INFOPLIST_FILE = Mastodon/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
@@ -4253,7 +4272,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5Z4GVSS33P;
+				DEVELOPMENT_TEAM = 62J2XHNK9T;
 				INFOPLIST_FILE = MastodonTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4277,7 +4296,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5Z4GVSS33P;
+				DEVELOPMENT_TEAM = 62J2XHNK9T;
 				INFOPLIST_FILE = MastodonTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4300,7 +4319,7 @@
 			baseConfigurationReference = 459EA4F43058CAB47719E963 /* Pods-Mastodon-MastodonUITests.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5Z4GVSS33P;
+				DEVELOPMENT_TEAM = 62J2XHNK9T;
 				INFOPLIST_FILE = MastodonUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4309,6 +4328,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.emerge.MastodonUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
@@ -4323,7 +4343,7 @@
 			baseConfigurationReference = BB482D32A7B9825BF5327C4F /* Pods-Mastodon-MastodonUITests.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5Z4GVSS33P;
+				DEVELOPMENT_TEAM = 62J2XHNK9T;
 				INFOPLIST_FILE = MastodonUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4332,6 +4352,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.emerge.MastodonUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
@@ -4416,7 +4437,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "Mastodon/Resources/Preview\\ Assets.xcassets";
-				DEVELOPMENT_TEAM = 5Z4GVSS33P;
+				DEVELOPMENT_TEAM = 62J2XHNK9T;
 				INFOPLIST_FILE = Mastodon/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
 				LD_GENERATE_MAP_FILE = YES;
@@ -4442,7 +4463,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5Z4GVSS33P;
+				DEVELOPMENT_TEAM = 62J2XHNK9T;
 				INFOPLIST_FILE = MastodonTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4465,7 +4486,7 @@
 			baseConfigurationReference = 728DE51ADA27C395C6E1BAB5 /* Pods-Mastodon-MastodonUITests.profile.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5Z4GVSS33P;
+				DEVELOPMENT_TEAM = 62J2XHNK9T;
 				INFOPLIST_FILE = MastodonUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4474,6 +4495,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.emerge.MastodonUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
@@ -4489,7 +4511,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = NotificationService/NotificationService.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5Z4GVSS33P;
+				DEVELOPMENT_TEAM = 62J2XHNK9T;
 				INFOPLIST_FILE = NotificationService/Info.plist;
 				LD_GENERATE_MAP_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -4511,7 +4533,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = ShareActionExtension/ShareActionExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5Z4GVSS33P;
+				DEVELOPMENT_TEAM = 62J2XHNK9T;
 				INFOPLIST_FILE = ShareActionExtension/Info.plist;
 				LD_GENERATE_MAP_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -4534,7 +4556,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = MastodonIntent/MastodonIntent.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5Z4GVSS33P;
+				DEVELOPMENT_TEAM = 62J2XHNK9T;
 				INFOPLIST_FILE = MastodonIntent/Info.plist;
 				LD_GENERATE_MAP_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -4557,7 +4579,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = MastodonIntent/MastodonIntent.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5Z4GVSS33P;
+				DEVELOPMENT_TEAM = 62J2XHNK9T;
 				INFOPLIST_FILE = MastodonIntent/Info.plist;
 				LD_GENERATE_MAP_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -4580,7 +4602,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = MastodonIntent/MastodonIntent.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5Z4GVSS33P;
+				DEVELOPMENT_TEAM = 62J2XHNK9T;
 				INFOPLIST_FILE = MastodonIntent/Info.plist;
 				LD_GENERATE_MAP_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -4603,7 +4625,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = ShareActionExtension/ShareActionExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5Z4GVSS33P;
+				DEVELOPMENT_TEAM = 62J2XHNK9T;
 				INFOPLIST_FILE = ShareActionExtension/Info.plist;
 				LD_GENERATE_MAP_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -4626,7 +4648,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = ShareActionExtension/ShareActionExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5Z4GVSS33P;
+				DEVELOPMENT_TEAM = 62J2XHNK9T;
 				INFOPLIST_FILE = ShareActionExtension/Info.plist;
 				LD_GENERATE_MAP_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -4715,7 +4737,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "Mastodon/Resources/Preview\\ Assets.xcassets";
-				DEVELOPMENT_TEAM = 5Z4GVSS33P;
+				DEVELOPMENT_TEAM = 62J2XHNK9T;
 				INFOPLIST_FILE = Mastodon/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
 				LD_GENERATE_MAP_FILE = YES;
@@ -4740,7 +4762,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5Z4GVSS33P;
+				DEVELOPMENT_TEAM = 62J2XHNK9T;
 				INFOPLIST_FILE = MastodonTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4763,7 +4785,7 @@
 			baseConfigurationReference = 0827D1674B2523503E8605F6 /* Pods-Mastodon-MastodonUITests.release snapshot.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5Z4GVSS33P;
+				DEVELOPMENT_TEAM = 62J2XHNK9T;
 				INFOPLIST_FILE = MastodonUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4772,6 +4794,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.emerge.MastodonUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
@@ -4787,7 +4810,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = NotificationService/NotificationService.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5Z4GVSS33P;
+				DEVELOPMENT_TEAM = 62J2XHNK9T;
 				INFOPLIST_FILE = NotificationService/Info.plist;
 				LD_GENERATE_MAP_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -4809,7 +4832,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = ShareActionExtension/ShareActionExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5Z4GVSS33P;
+				DEVELOPMENT_TEAM = 62J2XHNK9T;
 				INFOPLIST_FILE = ShareActionExtension/Info.plist;
 				LD_GENERATE_MAP_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -4832,7 +4855,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = MastodonIntent/MastodonIntent.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5Z4GVSS33P;
+				DEVELOPMENT_TEAM = 62J2XHNK9T;
 				INFOPLIST_FILE = MastodonIntent/Info.plist;
 				LD_GENERATE_MAP_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -4856,7 +4879,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = NotificationService/NotificationService.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5Z4GVSS33P;
+				DEVELOPMENT_TEAM = 62J2XHNK9T;
 				INFOPLIST_FILE = NotificationService/Info.plist;
 				LD_GENERATE_MAP_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -4879,7 +4902,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = NotificationService/NotificationService.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5Z4GVSS33P;
+				DEVELOPMENT_TEAM = 62J2XHNK9T;
 				INFOPLIST_FILE = NotificationService/Info.plist;
 				LD_GENERATE_MAP_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
