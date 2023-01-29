@@ -22,7 +22,7 @@ final class ComposeViewModel {
 
     enum Context {
         case composeStatus
-        case editStatus
+        case editStatus(status: Status)
     }
 
     let logger = Logger(subsystem: "ComposeViewModel", category: "ViewModel")
@@ -69,7 +69,8 @@ final class ComposeViewModel {
             case .reply:
                 title = L10n.Scene.Compose.Title.newReply
             }
-        case .editStatus:
+        case .editStatus(let status):
+            //TODO: @zeitschlag Localization
             title = "Edit Post"
         }
 
