@@ -240,7 +240,30 @@ extension ComposeViewController {
 
     @objc
     private func publishStatusEdit(_ sender: Any) {
-        //TODO: @zeitschlag Implement, basically everything above, but with its own editStatusPublisher
+        do {
+            try composeContentViewModel.checkAttachmentPrecondition()
+        } catch {
+            let alertController = UIAlertController(for: error, title: nil, preferredStyle: .alert)
+            let okAction = UIAlertAction(title: L10n.Common.Controls.Actions.ok, style: .default, handler: nil)
+            alertController.addAction(okAction)
+            _ = coordinator.present(scene: .alertController(alertController: alertController), from: nil, transition: .alertController(animated: true, completion: nil))
+            return
+        }
+
+        do {
+            guard let editStatusPublisher = try composeContentViewModel.statusEditPublisher() else { return }
+            viewModel.context.publisherService.enqueue(
+                statusPublisher: editStatusPublisher,
+                authContext: viewModel.authContext
+            )
+        } catch {
+            let alertController = UIAlertController.standardAlert(of: error)
+            present(alertController, animated: true)
+            return
+        }
+
+        dismiss(animated: true, completion: nil)
+
     }
 }
 

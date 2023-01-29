@@ -565,7 +565,59 @@ extension ComposeContentViewModel {
             visibility: visibility,
             language: language
         )
-    }   // end func publisher()
+    }
+
+
+    // MastodonEditStatusPublisher
+    public func statusEditPublisher() throws -> StatusPublisher? {
+        let authContext = self.authContext
+        guard case let .editStatus(status) = composeContext else { return nil }
+
+        // author
+        let managedObjectContext = self.context.managedObjectContext
+        var _author: ManagedObjectRecord<MastodonUser>?
+        managedObjectContext.performAndWait {
+            _author = authContext.mastodonAuthenticationBox.authenticationRecord.object(in: managedObjectContext)?.user.asRecord
+        }
+        guard let author = _author else {
+            throw AppError.badAuthentication
+        }
+
+        // poll
+        _ = try {
+            guard isPollActive else { return }
+            let isAllNonEmpty = pollOptions
+                .map { $0.text }
+                .allSatisfy { !$0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
+            guard isAllNonEmpty else {
+                throw ComposeError.pollHasEmptyOption
+            }
+        }()
+
+        // save language to recent languages
+        if let settings = context.settingService.currentSetting.value {
+            Task.detached(priority: .background) { [language] in
+                try await settings.managedObjectContext?.performChanges {
+                    settings.recentLanguages = [language] + settings.recentLanguages.filter { $0 != language }
+                }
+            }
+        }
+
+        return MastodonEditStatusPublisher(statusID: status.id,
+            author: author,
+            isContentWarningComposing: isContentWarningActive,
+            contentWarning: contentWarning,
+            content: content,
+            isMediaSensitive: isContentWarningActive,
+            attachmentViewModels: attachmentViewModels,
+            isPollComposing: isPollActive,
+            pollOptions: pollOptions,
+            pollExpireConfigurationOption: pollExpireConfigurationOption,
+            pollMultipleConfigurationOption: pollMultipleConfigurationOption,
+            visibility: visibility,
+            language: language)
+    }
+
 }
 
 extension ComposeContentViewModel {
