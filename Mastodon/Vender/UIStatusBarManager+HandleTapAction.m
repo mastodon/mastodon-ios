@@ -31,7 +31,7 @@
 }
 
 -(void)custom_handleTapAction:(id)sender {
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"org.joinmastodon.app.statusBarTapped" object:sender];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"com.emerge.mastodon.statusBarTapped" object:sender];
     [self custom_handleTapAction:sender];
 }
 

@@ -1,9 +1,9 @@
 PODS:
   - FLEX (5.22.10)
   - Kanna (5.2.7)
-  - Sourcery (1.9.0):
-    - Sourcery/CLI-Only (= 1.9.0)
-  - Sourcery/CLI-Only (1.9.0)
+  - Sourcery (1.9.2):
+    - Sourcery/CLI-Only (= 1.9.2)
+  - Sourcery/CLI-Only (1.9.2)
   - SwiftGen (6.6.2)
   - XLPagerTabStrip (9.0.0)
 
@@ -25,7 +25,7 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   FLEX: f21ee4f498eed3f8a1eded66b21939fd3b7a22ce
   Kanna: 01cfbddc127f5ff0963692f285fcbc8a9d62d234
-  Sourcery: d7c59d100e55bf59123c8ae7d65a24cf30748979
+  Sourcery: 179539341c2261068528cd15a31837b7238fd901
   SwiftGen: 1366a7f71aeef49954ca5a63ba4bef6b0f24138c
   XLPagerTabStrip: 61c57fd61f611ee5f01ff1495ad6fbee8bf496c5
 

@@ -191,10 +191,10 @@ extension SceneDelegate {
 
             coordinator.switchToTabBar(tab: .notifications)
 
-        case "org.joinmastodon.app.new-post":
+        case "com.emerge.mastodon.new-post":
             showComposeViewController()
 
-        case "org.joinmastodon.app.search":
+        case "com.emerge.mastodon.search":
             coordinator?.switchToTabBar(tab: .search)
             logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): select search tab")
 

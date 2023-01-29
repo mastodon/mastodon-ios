@@ -20,7 +20,7 @@ final class SafariActivity: UIActivity {
     }
     
     override var activityType: UIActivity.ActivityType? {
-        return UIActivity.ActivityType("org.joinmastodon.app.safari-activity")
+        return UIActivity.ActivityType("com.emerge.mastodon.safari-activity")
     }
     
     override var activityTitle: String? {

@@ -1,0 +1,9 @@
+lane :app_size do
+    emerge(
+        file_path: "./build/Archives/#{ENV['SCHEME']}.xcarchive",
+        repo_name: ENV['GITHUB_REPOSITORY'],
+        pr_number: ENV['PULL_NUMBER'],
+        sha: ENV['GITHUB_SHA'],
+        base_sha: ENV['BASE_SHA'],
+    )
+end

@@ -1,0 +1,43 @@
+name: Emerge Tools
+
+on:
+  push:
+    branches:
+    - master
+    - develop
+  pull_request:
+    branches:
+    - develop
+
+# macOS environments: https://github.com/actions/virtual-environments/tree/main/images/macos
+
+jobs:
+  emerge_tools:
+    name: Upload to Emerge Tools
+    runs-on: macos-12
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: setup
+        env: 
+          NotificationEndpointDebug: ${{ secrets.NotificationEndpointDebug }}
+          NotificationEndpointRelease: ${{ secrets.NotificationEndpointRelease }}
+        run: exec ./.github/scripts/setup.sh
+      - name: archive
+        env:
+          SCHEME: Debug
+        run: exec ./.github/scripts/archive.sh
+      - name: Copy Link Maps
+        env: 
+          SCHEME: Debug
+        continue-on-error: true
+        run: |
+          mkdir "./build/Archives/${SCHEME}.xcarchive/Linkmaps"
+          find ./build -iname *-LinkMap-*.txt -exec cp "{}" "./build/Archives/${SCHEME}.xcarchive/Linkmaps/"  \;
+      - name: Upload to Emerge Tools
+        env: 
+          EMERGE_API_TOKEN: ${{ secrets.EMERGE_TOOLS_API_KEY }}
+          SCHEME: Debug
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          PULL_NUMBER: ${{ github.event.pull_request.number }}
+        run: bundle exec fastlane app_size

@@ -12,5 +12,5 @@ import Foundation
 }
 
 extension Notification.Name {
-    static let statusBarTapped = Notification.Name(rawValue: "org.joinmastodon.app.statusBarTapped")
+    static let statusBarTapped = Notification.Name(rawValue: "com.emerge.mastodon.statusBarTapped")
 }

@@ -22,7 +22,7 @@
 	<array>
 		<dict>
 			<key>CFBundleURLName</key>
-			<string>org.joinmastodon.app</string>
+			<string>com.emerge.mastodon</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>mastodon</string>
@@ -90,7 +90,7 @@
 			<key>UIApplicationShortcutItemTitle</key>
 			<string>NewPostShortcutItemTitle</string>
 			<key>UIApplicationShortcutItemType</key>
-			<string>org.joinmastodon.app.new-post</string>
+			<string>com.emerge.mastodon.new-post</string>
 		</dict>
 		<dict>
 			<key>UIApplicationShortcutItemIconSymbolName</key>
@@ -98,7 +98,7 @@
 			<key>UIApplicationShortcutItemTitle</key>
 			<string>SearchShortcutItemTitle</string>
 			<key>UIApplicationShortcutItemType</key>
-			<string>org.joinmastodon.app.search</string>
+			<string>com.emerge.mastodon.search</string>
 		</dict>
 	</array>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
