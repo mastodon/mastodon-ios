@@ -39,6 +39,7 @@ jobs:
           EMERGE_API_TOKEN: ${{ secrets.EMERGE_API_TOKEN }}
           SCHEME: Debug
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          COMMIT_SHA: ${{ github.event.pull_request.head.sha }}
           PULL_NUMBER: ${{ github.event.pull_request.number }}
         run: bundle exec fastlane app_size
   performance_testing:
@@ -71,6 +72,7 @@ jobs:
           EMERGE_API_TOKEN: ${{ secrets.EMERGE_API_TOKEN }}
           SCHEME: Release
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          COMMIT_SHA: ${{ github.event.pull_request.head.sha }}
           PULL_NUMBER: ${{ github.event.pull_request.number }}
         run: bundle exec fastlane app_size
       - name: Clean up keychain and provisioning profile
