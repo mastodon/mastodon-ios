@@ -82,71 +82,71 @@
                 "sign_in": "Zaloguj się",
                 "sign_up": "Utwórz konto",
                 "see_more": "Zobacz więcej",
-                "preview": "Preview",
-                "copy": "Copy",
-                "share": "Share",
-                "share_user": "Share %s",
-                "share_post": "Share Post",
-                "open_in_safari": "Open in Safari",
-                "open_in_browser": "Open in Browser",
-                "find_people": "Find people to follow",
-                "manually_search": "Manually search instead",
-                "skip": "Skip",
-                "reply": "Reply",
-                "report_user": "Report %s",
-                "block_domain": "Block %s",
-                "unblock_domain": "Unblock %s",
-                "settings": "Settings",
-                "delete": "Delete",
+                "preview": "Podgląd",
+                "copy": "Kopiuj",
+                "share": "Udostępnij",
+                "share_user": "Udostępnij %s",
+                "share_post": "Udostępnij post",
+                "open_in_safari": "Otwórz w Safari",
+                "open_in_browser": "Otwórz w przeglądarce",
+                "find_people": "Znajdź ludzi do obserwowania",
+                "manually_search": "Zamiast tego wyszukaj ręcznie",
+                "skip": "Pomiń",
+                "reply": "Odpowiedz",
+                "report_user": "Zgłoś %s",
+                "block_domain": "Zablokuj %s",
+                "unblock_domain": "Odblokuj %s",
+                "settings": "Ustawienia",
+                "delete": "Usuń",
                 "translate_post": {
-                    "title": "Translate from %s",
-                    "unknown_language": "Unknown"
+                    "title": "Przetłumacz z %s",
+                    "unknown_language": "Nieznany"
                 }
             },
             "tabs": {
-                "home": "Home",
-                "search_and_explore": "Search and Explore",
-                "notifications": "Notifications",
-                "profile": "Profile"
+                "home": "Strona główna",
+                "search_and_explore": "Szukaj i odkrywaj",
+                "notifications": "Powiadomienia",
+                "profile": "Profil"
             },
             "keyboard": {
                 "common": {
-                    "switch_to_tab": "Switch to %s",
-                    "compose_new_post": "Compose New Post",
-                    "show_favorites": "Show Favorites",
-                    "open_settings": "Open Settings"
+                    "switch_to_tab": "Przełącz na %s",
+                    "compose_new_post": "Napisz nowy post",
+                    "show_favorites": "Pokaż Ulubione",
+                    "open_settings": "Otwórz ustawienia"
                 },
                 "timeline": {
-                    "previous_status": "Previous Post",
-                    "next_status": "Next Post",
-                    "open_status": "Open Post",
-                    "open_author_profile": "Open Author's Profile",
-                    "open_reblogger_profile": "Open Reblogger's Profile",
-                    "reply_status": "Reply to Post",
-                    "toggle_reblog": "Toggle Reblog on Post",
-                    "toggle_favorite": "Toggle Favorite on Post",
-                    "toggle_content_warning": "Toggle Content Warning",
-                    "preview_image": "Preview Image"
+                    "previous_status": "Poprzedni post",
+                    "next_status": "Następny post",
+                    "open_status": "Otwarty post",
+                    "open_author_profile": "Wyświetl profil autora",
+                    "open_reblogger_profile": "Otwórz Profil Reblogera",
+                    "reply_status": "Odpowiedź na post",
+                    "toggle_reblog": "Przełącz reblog na post",
+                    "toggle_favorite": "Przełącz Ulubione na post",
+                    "toggle_content_warning": "Dodaj ostrzeżenie o treści",
+                    "preview_image": "Podgląd obrazka"
                 },
                 "segmented_control": {
-                    "previous_section": "Previous Section",
-                    "next_section": "Next Section"
+                    "previous_section": "Poprzednia sekcja",
+                    "next_section": "Następna Sekcja"
                 }
             },
             "status": {
-                "user_reblogged": "%s reblogged",
-                "user_replied_to": "Replied to %s",
-                "show_post": "Show Post",
-                "show_user_profile": "Show user profile",
-                "content_warning": "Content Warning",
-                "sensitive_content": "Sensitive Content",
-                "media_content_warning": "Tap anywhere to reveal",
-                "tap_to_reveal": "Tap to reveal",
-                "load_embed": "Load Embed",
-                "link_via_user": "%s via %s",
+                "user_reblogged": "%s reblogował",
+                "user_replied_to": "Odpowiedział na %s",
+                "show_post": "Pokaż post",
+                "show_user_profile": "Pokaż profil użytkownika",
+                "content_warning": "Ostrzeżenie o treści",
+                "sensitive_content": "Treść wrażliwa",
+                "media_content_warning": "Dotknij gdziekolwiek, aby ujawnić",
+                "tap_to_reveal": "Dotknij, aby ujawnić",
+                "load_embed": "Załaduj osadzone",
+                "link_via_user": "%s przez %s",
                 "poll": {
-                    "vote": "Vote",
-                    "closed": "Closed"
+                    "vote": "Głosuj",
+                    "closed": "Zakończone"
                 },
                 "meta_entity": {
                     "url": "Link: %s",
