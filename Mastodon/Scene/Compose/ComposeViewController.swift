@@ -39,12 +39,15 @@ final class ComposeViewController: UIViewController, NeedsDependency {
     lazy var composeContentViewModel: ComposeContentViewModel = {
 
         let composeContext: ComposeContentViewModel.ComposeContext
+        let initialContent: String
 
         switch viewModel.composeContext {
         case .composeStatus:
             composeContext = .composeStatus
-        case .editStatus(let status):
-            composeContext = .editStatus(status: status)
+            initialContent = viewModel.initialContent
+        case .editStatus(let status, let statusSource):
+            composeContext = .editStatus(status: status, statusSource: statusSource)
+            initialContent = statusSource.text
         }
 
         return ComposeContentViewModel(
@@ -52,7 +55,7 @@ final class ComposeViewController: UIViewController, NeedsDependency {
             authContext: viewModel.authContext,
             composeContext: composeContext,
             destination: viewModel.destination,
-            initialContent: viewModel.initialContent
+            initialContent: initialContent
         )
     }()
     private(set) lazy var composeContentViewController: ComposeContentViewController = {
