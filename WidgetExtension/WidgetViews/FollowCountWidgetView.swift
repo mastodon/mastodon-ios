@@ -2,6 +2,8 @@
 
 import SwiftUI
 import WidgetKit
+import LightChart
+import MastodonAsset
 
 struct FollowCountWidgetView: View {
     @Environment(\.widgetFamily) var family
@@ -12,7 +14,11 @@ struct FollowCountWidgetView: View {
         if let account = entry.account {
             switch family {
             case .systemSmall:
-                viewForSmallWidget(account)
+                if let showChart = entry.configuration.showChart?.boolValue, showChart {
+                    viewForSmallWidgetYesChart(account)
+                } else {
+                    viewForSmallWidgetNoChart(account)
+                }
             case .accessoryRectangular:
                 viewForAccessoryRectangular(account)
             case .accessoryCircular:
@@ -28,7 +34,7 @@ struct FollowCountWidgetView: View {
         }
     }
     
-    private func viewForSmallWidget(_ account: FollowersEntryAccountable) -> some View {
+    private func viewForSmallWidgetNoChart(_ account: FollowersEntryAccountable) -> some View {
         HStack {
             VStack(alignment: .leading, spacing: 0) {
                 if let avatarImage = account.avatarImage {
@@ -56,9 +62,66 @@ struct FollowCountWidgetView: View {
                     .truncationMode(.tail)
             }
             .padding(.leading, 20)
-            .padding([.top, .bottom], 16)
+            .padding(.vertical, 16)
             Spacer()
         }
+    }
+    
+    private func viewForSmallWidgetYesChart(_ account: FollowersEntryAccountable) -> some View {
+        VStack(alignment: .leading, spacing: 0) {
+            HStack {
+                if let avatarImage = account.avatarImage {
+                    Image(uiImage: avatarImage)
+                        .resizable()
+                        .frame(width: 23, height: 23)
+                        .cornerRadius(5)
+                }
+                VStack(alignment: .leading) {
+                    Text(account.displayNameWithFallback)
+                        .font(.caption)
+                        .lineLimit(1)
+                        .truncationMode(.tail)
+
+                    Text("@\(account.acct)")
+                        .font(.caption2)
+                        .foregroundColor(.secondary)
+                        .lineLimit(1)
+                        .truncationMode(.tail)
+                }
+                Spacer()
+            }
+            .padding(.leading, 20)
+
+            ZStack {
+                LightChartView(
+                    data: [200, 205, 208, 213, 210, 211, 212],
+                    type: .line,
+                    visualType: .filled(color: Asset.Colors.Brand.blurple.swiftUIColor, lineWidth: 2),
+                    offset: 0.8 /// this is the positive offset from the bottom edge of the graph (~80% above bottom level)
+                )
+                
+                HStack {
+                    VStack(alignment: .leading, spacing: 0) {
+                        Spacer()
+                        Text("+4 followers today")
+                            .font(.system(size: 12))
+                            .foregroundColor(.secondary)
+                            .lineLimit(1)
+                            .truncationMode(.tail)
+                        
+                        Text(account.followersCount.asAbbreviatedCountString())
+                            .font(.largeTitle)
+                            .lineLimit(1)
+                            .truncationMode(.tail)
+                        
+                    }
+                    Spacer()
+                }
+                .padding(.bottom, 16)
+                .padding(.leading, 20)
+            }
+        }
+        .padding(.top, 16)
     }
     
     private func viewForAccessoryRectangular(_ account :FollowersEntryAccountable) -> some View {

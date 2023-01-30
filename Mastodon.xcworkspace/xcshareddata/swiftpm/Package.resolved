@@ -74,6 +74,15 @@
         }
       },
       {
+        "package": "LightChart",
+        "repositoryURL": "https://github.com/pichukov/LightChart.git",
+        "state": {
+          "branch": null,
+          "revision": "206fe7ab50620891c89531e2598e36e965678a1a",
+          "version": "1.0.3"
+        }
+      },
+      {
         "package": "MetaTextKit",
         "repositoryURL": "https://github.com/TwidereProject/MetaTextKit.git",
         "state": {

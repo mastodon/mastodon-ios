@@ -7,6 +7,10 @@ import MastodonSDK
 import MastodonLocalization
 
 class FollowersCountIntentHandler: INExtension, FollowersCountIntentHandling {
+    func resolveShowChart(for intent: FollowersCountIntent) async -> INBooleanResolutionResult {
+        return .success(with: intent.showChart?.boolValue ?? false)
+    }
+    
     func resolveAccount(for intent: FollowersCountIntent) async -> INStringResolutionResult {
         .confirmationRequired(with: intent.account)
     }
