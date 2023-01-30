@@ -62,4 +62,4 @@ TEST_PLAN="testClasses:"
 TEST_PLAN="${TEST_PLAN}\n  - class: MastodonPerformanceTest"
 TEST_PLAN="${TEST_PLAN}\n    spans:"
 TEST_PLAN="${TEST_PLAN}\n      - didFinishLaunching"
-echo -e $TEST_PLAN > $TEST_CASES_FILE
+echo -e "$TEST_PLAN" > $TEST_CASES_FILE
