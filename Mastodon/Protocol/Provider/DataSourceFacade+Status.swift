@@ -378,12 +378,15 @@ extension DataSourceFacade {
 
             guard let status = menuContext.status?.object(in: dependency.context.managedObjectContext) else { return }
 
-            //TODO: Download StatusSource
+            let statusSource = try await dependency.context.apiService.getStatusSource(
+                forStatusID: status.id,
+                authenticationBox: dependency.authContext.mastodonAuthenticationBox
+            ).value
 
             let editStatusViewModel = ComposeViewModel(
                 context: dependency.coordinator.appContext,
                 authContext: dependency.authContext,
-                composeContext: .editStatus(status: status),
+                composeContext: .editStatus(status: status, statusSource: statusSource),
                 destination: .topLevel)
             //TODO: @zeitschlag Check for status
             _ = dependency.coordinator.present(scene: .editStatus(viewModel: editStatusViewModel), transition: .modal(animated: true))
