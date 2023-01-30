@@ -2,10 +2,11 @@
 
 import SwiftUI
 import WidgetKit
-import LightChart
 import MastodonAsset
 
 struct FollowCountWidgetView: View {
+    private let followersHistory = FollowersCountHistory.shared
+
     @Environment(\.widgetFamily) var family
 
     var entry: FollowersProvider.Entry
@@ -93,21 +94,25 @@ struct FollowCountWidgetView: View {
             .padding(.leading, 20)
 
             ZStack {
-                LightChartView(
-                    data: [200, 205, 208, 213, 210, 211, 212],
-                    type: .line,
-                    visualType: .filled(color: Asset.Colors.Brand.blurple.swiftUIColor, lineWidth: 2),
-                    offset: 0.8 /// this is the positive offset from the bottom edge of the graph (~80% above bottom level)
-                )
+                if let account = entry.account {
+                    LightChartView(
+                        data: followersHistory.chartValues(for: account),
+                        type: .line,
+                        visualType: .filled(color: Asset.Colors.Brand.blurple.swiftUIColor, lineWidth: 2),
+                        offset: 0.8 /// this is the positive offset from the bottom edge of the graph (~80% above bottom level)
+                    )
+                }
                 
                 HStack {
                     VStack(alignment: .leading, spacing: 0) {
                         Spacer()
-                        Text("+4 followers today")
-                            .font(.system(size: 12))
-                            .foregroundColor(.secondary)
-                            .lineLimit(1)
-                            .truncationMode(.tail)
+                        if let increaseCount = followersHistory.increaseCountString(for: account) {
+                            Text("\(increaseCount) followers today")
+                                .font(.system(size: 12))
+                                .foregroundColor(.secondary)
+                                .lineLimit(1)
+                                .truncationMode(.tail)
+                        }
                         
                         Text(account.followersCount.asAbbreviatedCountString())
                             .font(.largeTitle)

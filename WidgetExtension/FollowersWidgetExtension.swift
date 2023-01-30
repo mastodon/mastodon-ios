@@ -6,6 +6,8 @@ import Intents
 import MastodonSDK
 
 struct FollowersProvider: IntentTimelineProvider {
+    private let followersHistory = FollowersCountHistory.shared
+    
     func placeholder(in context: Context) -> FollowersEntry {
         .placeholder
     }
@@ -36,7 +38,8 @@ struct FollowersEntry: TimelineEntry {
                 followersCount: 99_900,
                 displayNameWithFallback: "Mastodon",
                 acct: "mastodon",
-                avatarImage: UIImage(named: "missingAvatar")!
+                avatarImage: UIImage(named: "missingAvatar")!,
+                domain: "mastodon"
             ),
             configuration: FollowersCountIntent()
         )
@@ -103,10 +106,17 @@ private extension FollowersProvider {
                 date: Date(),
                 account: FollowersEntryAccount.from(
                     mastodonAccount: resultingAccount,
+                    domain: authBox.domain,
                     avatarImage: UIImage(data: imageData) ?? UIImage(named: "missingAvatar")!
                 ),
                 configuration: configuration
             )
+            
+            followersHistory.updateFollowersTodayCount(
+                account: entry.account!,
+                count: resultingAccount.followersCount
+            )
+            
             completion(entry)
         }
     }
@@ -117,6 +127,7 @@ protocol FollowersEntryAccountable {
     var displayNameWithFallback: String { get }
     var acct: String { get }
     var avatarImage: UIImage { get }
+    var domain: String { get }
 }
 
 struct FollowersEntryAccount: FollowersEntryAccountable {
@@ -124,13 +135,15 @@ struct FollowersEntryAccount: FollowersEntryAccountable {
     let displayNameWithFallback: String
     let acct: String
     let avatarImage: UIImage
+    let domain: String
     
-    static func from(mastodonAccount: Mastodon.Entity.Account, avatarImage: UIImage) -> Self {
+    static func from(mastodonAccount: Mastodon.Entity.Account, domain: String, avatarImage: UIImage) -> Self {
         FollowersEntryAccount(
             followersCount: mastodonAccount.followersCount,
             displayNameWithFallback: mastodonAccount.displayNameWithFallback,
             acct: mastodonAccount.acct,
-            avatarImage: avatarImage
+            avatarImage: avatarImage,
+            domain: domain
         )
     }
 }
