@@ -183,9 +183,9 @@
                     "direct": "Nur erwähnte Benutzer können diesen Beitrag sehen."
                 },
                 "translation": {
-                    "translated_from": "Translated from %s using %s",
+                    "translated_from": "Übersetzt von %s mit %s",
                     "unknown_language": "Unbekannt",
-                    "unknown_provider": "Unknown",
+                    "unknown_provider": "Unbekannt",
                     "show_original": "Original anzeigen"
                 }
             },
@@ -463,9 +463,12 @@
                 "follows_you": "Folgt dir"
             },
             "dashboard": {
-                "posts": "Beiträge",
-                "following": "Gefolgte",
-                "followers": "Folgende"
+                "my_posts": "Beiträge",
+                "my_following": "folge ich",
+                "my_followers": "followers",
+                "other_posts": "Beiträge",
+                "other_following": "folge ich",
+                "other_followers": "followers"
             },
             "fields": {
                 "joined": "Beigetreten",

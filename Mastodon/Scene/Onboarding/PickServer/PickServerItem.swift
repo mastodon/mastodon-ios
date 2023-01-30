@@ -11,7 +11,6 @@ import MastodonSDK
 
 /// Note: update Equatable when change case
 enum PickServerItem {
-    case header
     case server(server: Mastodon.Entity.Server, attribute: ServerItemAttribute)
     case loader(attribute: LoaderItemAttribute)
 }
@@ -59,8 +58,6 @@ extension PickServerItem {
 extension PickServerItem: Equatable {
     static func == (lhs: PickServerItem, rhs: PickServerItem) -> Bool {
         switch (lhs, rhs) {
-        case (.header, .header):
-            return true
         case (.server(let serverLeft, _), .server(let serverRight, _)):
             return serverLeft.domain == serverRight.domain
         case (.loader(let attributeLeft), loader(let attributeRight)):
@@ -74,8 +71,6 @@ extension PickServerItem: Equatable {
 extension PickServerItem: Hashable {
     func hash(into hasher: inout Hasher) {
         switch self {
-        case .header:
-            hasher.combine(String(describing: PickServerItem.header.self))
         case .server(let server, _):
             hasher.combine(server.domain)
         case .loader(let attribute):

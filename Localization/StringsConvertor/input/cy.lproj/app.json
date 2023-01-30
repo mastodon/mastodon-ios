@@ -53,9 +53,9 @@
                 "message": "Cliriwyd storfa %s yn llwyddiannus."
             },
             "translation_failed": {
-                "title": "Note",
-                "message": "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.",
-                "button": "OK"
+                "title": "Nodyn",
+                "message": "Methwyd cyfieithu. Efallai nad yw'r gweinyddwr wedi galluogi cyfieithiadau ar y gweinydd hwn neu mae'r gweinydd hwn yn rhedeg fersiwn hŷn o Mastodon lle nad yw cyfieithiadau ar gael eto.",
+                "button": "Iawn"
             }
         },
         "controls": {
@@ -83,7 +83,7 @@
                 "sign_up": "Creu cyfrif",
                 "see_more": "Gweld Mwy",
                 "preview": "Rhagolwg",
-                "copy": "Copy",
+                "copy": "Copïo",
                 "share": "Rhannu",
                 "share_user": "Rhannu %s",
                 "share_post": "Rhannu Tŵt",
@@ -99,8 +99,8 @@
                 "settings": "Gosodiadau",
                 "delete": "Dileu",
                 "translate_post": {
-                    "title": "Translate from %s",
-                    "unknown_language": "Unknown"
+                    "title": "Cyfieithu o %s",
+                    "unknown_language": "Anhysbys"
                 }
             },
             "tabs": {
@@ -142,8 +142,8 @@
                 "sensitive_content": "Cynnwys Sensitif",
                 "media_content_warning": "Tapiwch unrhywle i weld",
                 "tap_to_reveal": "Tapiwch i weld",
-                "load_embed": "Load Embed",
-                "link_via_user": "%s via %s",
+                "load_embed": "Llwytho Planiad",
+                "link_via_user": "%s trwy %s",
                 "poll": {
                     "vote": "Pleidleisio",
                     "closed": "Wedi cau"
@@ -165,7 +165,7 @@
                     "show_image": "Dangos llun",
                     "show_gif": "Dangos GIF",
                     "show_video_player": "Dangos chwaraewr fideo",
-                    "share_link_in_post": "Share Link in Post",
+                    "share_link_in_post": "Rhannu'r Ddolen yn y Postiad",
                     "tap_then_hold_to_show_menu": "Tapiwch a gwasgu i gael y ddewislen"
                 },
                 "tag": {
@@ -183,10 +183,10 @@
                     "direct": "Dim ond y ddefnyddiwr â soniwyd sy'n gallu gweld y post hwn."
                 },
                 "translation": {
-                    "translated_from": "Translated from %s using %s",
-                    "unknown_language": "Unknown",
-                    "unknown_provider": "Unknown",
-                    "show_original": "Shown Original"
+                    "translated_from": "Cyfieithwyd o %s gan ddefnyddio %s",
+                    "unknown_language": "Anhysbys",
+                    "unknown_provider": "Anhysbys",
+                    "show_original": "Dangos y Gwreiddiol"
                 }
             },
             "friendship": {
@@ -463,12 +463,15 @@
                 "follows_you": "Yn eich dilyn"
             },
             "dashboard": {
-                "posts": "postiadau",
-                "following": "yn dilyn",
-                "followers": "dilynwyr"
+                "my_posts": "postiadu",
+                "my_following": "yn dilyn",
+                "my_followers": "dilynwyr",
+                "other_posts": "postiadu",
+                "other_following": "yn dilyn",
+                "other_followers": "dilynwyr"
             },
             "fields": {
-                "joined": "Joined",
+                "joined": "Ymunwyd",
                 "add_row": "Ychwanegu Rhes",
                 "placeholder": {
                     "label": "Label",

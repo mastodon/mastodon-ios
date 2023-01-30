@@ -160,14 +160,12 @@ extension StatusView {
                 $isMyself
             )
             .map { visibility, isMyself in
-                if isMyself {
-                    return true
-                }
-                
                 switch visibility {
-                case .public, .unlisted:
+                case .public, .unlisted, ._other:
                     return true
-                case .private, .direct, ._other:
+                case .private where isMyself:
+                    return true
+                case .private, .direct:
                     return false
                 }
             }
@@ -306,24 +304,31 @@ extension StatusView.ViewModel {
             }
             
             let paragraphStyle = statusView.contentMetaText.paragraphStyle
-            if let language = language {
-                let direction = Locale.characterDirection(forLanguage: language)
-                paragraphStyle.alignment = direction == .rightToLeft ? .right : .left
+            if let language = language { 
+                if #available(iOS 16, *) {
+                    let direction = Locale.Language(identifier: language).characterDirection
+                    paragraphStyle.alignment = direction == .rightToLeft ? .right : .left
+                } else {
+                    let direction = Locale.characterDirection(forLanguage: language)
+                    paragraphStyle.alignment = direction == .rightToLeft ? .right : .left
+                };
             } else {
                 paragraphStyle.alignment = .natural
             }
             statusView.contentMetaText.paragraphStyle = paragraphStyle
             
-            if let content = content {
+            if let content = content, !(content.string.isEmpty && content.entities.isEmpty) {
                 statusView.contentMetaText.configure(
                     content: content
                 )
                 statusView.contentMetaText.textView.accessibilityTraits = [.staticText]
                 statusView.contentMetaText.textView.accessibilityElementsHidden = false
+                statusView.contentMetaText.textView.isHidden = false
 
             } else {
                 statusView.contentMetaText.reset()
                 statusView.contentMetaText.textView.accessibilityLabel = ""
+                statusView.contentMetaText.textView.isHidden = true
             }
             
             statusView.contentMetaText.textView.alpha = isContentReveal ? 1 : 0     // keep the frame size and only display when revealing
@@ -421,12 +426,7 @@ extension StatusView.ViewModel {
                 var snapshot = NSDiffableDataSourceSnapshot<PollSection, PollItem>()
                 snapshot.appendSections([.main])
                 snapshot.appendItems(items, toSection: .main)
-                if #available(iOS 15.0, *) {
-                    statusView.pollTableViewDiffableDataSource?.applySnapshotUsingReloadData(snapshot)
-                } else {
-                    // Fallback on earlier versions
-                    statusView.pollTableViewDiffableDataSource?.apply(snapshot, animatingDifferences: false)
-                }
+                statusView.pollTableViewDiffableDataSource?.applySnapshotUsingReloadData(snapshot)
                 
                 statusView.setPollDisplay()
             }
@@ -777,7 +777,48 @@ extension StatusView.ViewModel {
                 return L10n.Plural.Count.media(count)
             }
             
-        // TODO: Toolbar
+        let replyLabel = $replyCount
+            .map { [L10n.Common.Controls.Actions.reply, L10n.Plural.Count.reply($0)] }
+            .map { $0.joined(separator: ", ") }
+
+        let reblogLabel = Publishers.CombineLatest($isReblog, $reblogCount)
+            .map { isReblog, reblogCount in
+                [
+                    isReblog ? L10n.Common.Controls.Status.Actions.unreblog : L10n.Common.Controls.Status.Actions.reblog,
+                    L10n.Plural.Count.reblog(reblogCount)
+                ]
+            }
+            .map { $0.joined(separator: ", ") }
+
+        let favoriteLabel = Publishers.CombineLatest($isFavorite, $favoriteCount)
+            .map { isFavorite, favoriteCount in
+                [
+                    isFavorite ? L10n.Common.Controls.Status.Actions.unfavorite : L10n.Common.Controls.Status.Actions.favorite,
+                    L10n.Plural.Count.favorite(favoriteCount)
+                ]
+            }
+            .map { $0.joined(separator: ", ") }
+
+        Publishers.CombineLatest4(replyLabel, reblogLabel, $isReblogEnabled, favoriteLabel)
+            .map { replyLabel, reblogLabel, canReblog, favoriteLabel in
+                let toolbar = statusView.actionToolbarContainer
+                let replyAction = UIAccessibilityCustomAction(name: replyLabel) { _ in
+                    statusView.actionToolbarContainer(toolbar, buttonDidPressed: toolbar.replyButton, action: .reply)
+                    return true
+                }
+                let reblogAction = UIAccessibilityCustomAction(name: reblogLabel) { _ in
+                    statusView.actionToolbarContainer(toolbar, buttonDidPressed: toolbar.reblogButton, action: .reblog)
+                    return true
+                }
+                let favoriteAction = UIAccessibilityCustomAction(name: favoriteLabel) { _ in
+                    statusView.actionToolbarContainer(toolbar, buttonDidPressed: toolbar.favoriteButton, action: .like)
+                    return true
+                }
+                // (share, bookmark are excluded since they are already present in the “…” menu action set)
+                return canReblog ? [replyAction, reblogAction, favoriteAction] : [replyAction, favoriteAction]
+            }
+            .assign(to: \.toolbarActions, on: statusView)
+            .store(in: &disposeBag)
     
         Publishers.CombineLatest3(
             shortAuthorAccessibilityLabel,

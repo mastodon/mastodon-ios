@@ -37,6 +37,8 @@ public final class MastodonStatusPublisher: NSObject, ProgressReporting {
     public let pollMultipleConfigurationOption: PollComposeItem.MultipleConfiguration.Option
     // visibility
     public let visibility: Mastodon.Entity.Status.Visibility
+    // language
+    public let language: String
     
     // Output
     let _progress = Progress()
@@ -58,7 +60,8 @@ public final class MastodonStatusPublisher: NSObject, ProgressReporting {
         pollOptions: [PollComposeItem.Option],
         pollExpireConfigurationOption: PollComposeItem.ExpireConfiguration.Option,
         pollMultipleConfigurationOption: PollComposeItem.MultipleConfiguration.Option,
-        visibility: Mastodon.Entity.Status.Visibility
+        visibility: Mastodon.Entity.Status.Visibility,
+        language: String
     ) {
         self.author = author
         self.replyTo = replyTo
@@ -72,6 +75,7 @@ public final class MastodonStatusPublisher: NSObject, ProgressReporting {
         self.pollExpireConfigurationOption = pollExpireConfigurationOption
         self.pollMultipleConfigurationOption = pollMultipleConfigurationOption
         self.visibility = visibility
+        self.language = language
     }
     
 }
@@ -107,11 +111,6 @@ extension MastodonStatusPublisher: StatusPublisher {
         progress.completedUnitCount += publishStatusTaskStartDelayWeight
         
         // Task: attachment
-        
-        let uploadContext = AttachmentViewModel.UploadContext(
-            apiService: api,
-            authContext: authContext
-        )
         
         var attachmentIDs: [Mastodon.Entity.Attachment.ID] = []
         for attachmentViewModel in attachmentViewModels {
@@ -161,11 +160,6 @@ extension MastodonStatusPublisher: StatusPublisher {
             guard pollOptions != nil else { return nil }
             return self.pollExpireConfigurationOption.seconds
         }()
-        let pollMultiple: Bool? = {
-            guard self.isPollComposing else { return nil }
-            guard pollOptions != nil else { return nil }
-            return self.pollMultipleConfigurationOption
-        }()
         let inReplyToID: Mastodon.Entity.Status.ID? = try await api.backgroundManagedObjectContext.perform {
             guard let replyTo = self.replyTo?.object(in: api.backgroundManagedObjectContext) else { return nil }
             return replyTo.id
@@ -179,7 +173,8 @@ extension MastodonStatusPublisher: StatusPublisher {
             inReplyToID: inReplyToID,
             sensitive: isMediaSensitive,
             spoilerText: isContentWarningComposing ? contentWarning : nil,
-            visibility: visibility
+            visibility: visibility,
+            language: language
         )
         
         let publishResponse = try await api.publishStatus(

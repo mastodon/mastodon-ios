@@ -156,17 +156,13 @@ extension ThreadViewModel {
         snapshot: NSDiffableDataSourceSnapshot<StatusSection, StatusItem>,
         animatingDifferences: Bool
     ) async {
-        diffableDataSource?.apply(snapshot, animatingDifferences: animatingDifferences)
+        await diffableDataSource?.apply(snapshot, animatingDifferences: animatingDifferences)
     }
     
     @MainActor func updateSnapshotUsingReloadData(
         snapshot: NSDiffableDataSourceSnapshot<StatusSection, StatusItem>
     ) async {
-        if #available(iOS 15.0, *) {
-            await self.diffableDataSource?.applySnapshotUsingReloadData(snapshot)
-        } else {
-            diffableDataSource?.applySnapshot(snapshot, animated: false, completion: nil)
-        }
+        await self.diffableDataSource?.applySnapshotUsingReloadData(snapshot)
     }
     
     // Some UI tweaks to present replies and conversation smoothly

@@ -49,18 +49,18 @@ extension UIView {
 
 public extension UIView {
     @discardableResult
-    func pinToParent() -> [NSLayoutConstraint] {
-        pinTo(to: superview)
+    func pinToParent(padding: UIEdgeInsets = .zero) -> [NSLayoutConstraint] {
+        pinTo(to: superview, padding: padding)
     }
     
     @discardableResult
-    func pinTo(to view: UIView?) -> [NSLayoutConstraint] {
+    func pinTo(to view: UIView?, padding: UIEdgeInsets = .zero) -> [NSLayoutConstraint] {
         guard let view else { return [] }
         let constraints = [
-            topAnchor.constraint(equalTo: view.topAnchor),
-            leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            view.bottomAnchor.constraint(equalTo: bottomAnchor),
+            topAnchor.constraint(equalTo: view.topAnchor, constant: padding.top),
+            leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding.left),
+            view.trailingAnchor.constraint(equalTo: trailingAnchor, constant: padding.right),
+            view.bottomAnchor.constraint(equalTo: bottomAnchor, constant: padding.bottom),
         ]
         NSLayoutConstraint.activate(constraints)
         return constraints

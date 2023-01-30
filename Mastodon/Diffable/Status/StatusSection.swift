@@ -223,11 +223,7 @@ extension StatusSection {
         }
         var _snapshot = NSDiffableDataSourceSnapshot<PollSection, PollItem>()
         _snapshot.appendSections([.main])
-        if #available(iOS 15.0, *) {
-            statusView.pollTableViewDiffableDataSource?.applySnapshotUsingReloadData(_snapshot)
-        } else {
-            statusView.pollTableViewDiffableDataSource?.apply(_snapshot, animatingDifferences: false)
-        }
+        statusView.pollTableViewDiffableDataSource?.applySnapshotUsingReloadData(_snapshot)
     }
 }
 

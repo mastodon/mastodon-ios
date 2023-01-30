@@ -87,7 +87,8 @@ extension SendPostIntentHandler: SendPostIntentHandling {
                         inReplyToID: nil,
                         sensitive: nil,
                         spoilerText: nil,
-                        visibility: visibility
+                        visibility: visibility,
+                        language: nil
                     ),
                     authenticationBox: authenticationBox
                 )

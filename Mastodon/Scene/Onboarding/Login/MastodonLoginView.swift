@@ -14,9 +14,7 @@ class MastodonLoginView: UIView {
 
   // List with (filtered) domains
 
-  let titleLabel: UILabel
-  let subtitleLabel: UILabel
-  private let headerStackView: UIStackView
+  let explanationTextLabel: UILabel
 
   let searchTextField: UITextField
   private let searchTextFieldLeftView: UIView
@@ -29,22 +27,12 @@ class MastodonLoginView: UIView {
 
   override init(frame: CGRect) {
 
-    titleLabel = UILabel()
-    titleLabel.font = MastodonLoginViewController.largeTitleFont
-    titleLabel.textColor = MastodonLoginViewController.largeTitleTextColor
-    titleLabel.text = L10n.Scene.Login.title
-    titleLabel.numberOfLines = 0
-
-    subtitleLabel = UILabel()
-    subtitleLabel.font = MastodonLoginViewController.subTitleFont
-    subtitleLabel.textColor = MastodonLoginViewController.subTitleTextColor
-    subtitleLabel.text = L10n.Scene.Login.subtitle
-    subtitleLabel.numberOfLines = 0
-
-    headerStackView = UIStackView(arrangedSubviews: [titleLabel, subtitleLabel])
-    headerStackView.axis = .vertical
-    headerStackView.spacing = 16
-    headerStackView.translatesAutoresizingMaskIntoConstraints = false
+    explanationTextLabel = UILabel()
+    explanationTextLabel.translatesAutoresizingMaskIntoConstraints = false
+    explanationTextLabel.font = MastodonLoginViewController.subTitleFont
+    explanationTextLabel.textColor = MastodonLoginViewController.subTitleTextColor
+    explanationTextLabel.text = L10n.Scene.Login.subtitle
+    explanationTextLabel.numberOfLines = 0
 
     searchTextFieldMagnifyingGlass = UIImageView(image: UIImage(
       systemName: "magnifyingglass",
@@ -82,7 +70,7 @@ class MastodonLoginView: UIView {
 
     super.init(frame: frame)
 
-    addSubview(headerStackView)
+    addSubview(explanationTextLabel)
     addSubview(searchTextField)
     addSubview(tableView)
     addSubview(navigationActionView)
@@ -100,12 +88,11 @@ class MastodonLoginView: UIView {
     let bottomConstraint = safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: navigationActionView.bottomAnchor)
 
     let constraints = [
+      explanationTextLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+      explanationTextLabel.leadingAnchor.constraint(equalTo: readableContentGuide.leadingAnchor),
+      explanationTextLabel.trailingAnchor.constraint(equalTo: readableContentGuide.trailingAnchor),
 
-      headerStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
-      headerStackView.leadingAnchor.constraint(equalTo: readableContentGuide.leadingAnchor),
-      headerStackView.trailingAnchor.constraint(equalTo: readableContentGuide.trailingAnchor),
-
-      searchTextField.topAnchor.constraint(equalTo: headerStackView.bottomAnchor, constant: 32),
+      searchTextField.topAnchor.constraint(equalTo: explanationTextLabel.bottomAnchor, constant: 32),
       searchTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
       searchTextField.heightAnchor.constraint(equalToConstant: 55),
       trailingAnchor.constraint(equalTo: searchTextField.trailingAnchor, constant: 16),

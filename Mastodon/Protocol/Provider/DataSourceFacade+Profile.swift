@@ -66,15 +66,19 @@ extension DataSourceFacade {
     ) async {
         let domain = provider.authContext.mastodonAuthenticationBox.domain
         
-        let href = userInfo?["href"] as? String
-        guard let url = href.flatMap({ URL(string: $0) }) else { return }
+        guard
+            let href = userInfo?["href"] as? String,
+            let url = URL(string: href)
+        else {
+            return
+        }
     
         let managedObjectContext = provider.context.managedObjectContext
         let mentions = try? await managedObjectContext.perform {
             return status.object(in: managedObjectContext)?.mentions ?? []
         }
         
-        guard let mention = mentions?.first(where: { $0.username == mention }) else {
+        guard let mention = mentions?.first(where: { $0.url == href }) else {
             _  = await provider.coordinator.present(
                 scene: .safari(url: url),
                 from: provider,

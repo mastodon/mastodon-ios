@@ -183,9 +183,9 @@
                     "direct": "เฉพาะผู้ใช้ที่กล่าวถึงเท่านั้นที่สามารถเห็นโพสต์นี้"
                 },
                 "translation": {
-                    "translated_from": "Translated from %s using %s",
+                    "translated_from": "แปลจาก %s โดยใช้ %s",
                     "unknown_language": "ไม่รู้จัก",
-                    "unknown_provider": "Unknown",
+                    "unknown_provider": "ไม่รู้จัก",
                     "show_original": "แสดงดั้งเดิมอยู่"
                 }
             },
@@ -463,12 +463,15 @@
                 "follows_you": "ติดตามคุณ"
             },
             "dashboard": {
-                "posts": "โพสต์",
-                "following": "กำลังติดตาม",
-                "followers": "ผู้ติดตาม"
+                "my_posts": "โพสต์",
+                "my_following": "กำลังติดตาม",
+                "my_followers": "ผู้ติดตาม",
+                "other_posts": "โพสต์",
+                "other_following": "กำลังติดตาม",
+                "other_followers": "ผู้ติดตาม"
             },
             "fields": {
-                "joined": "Joined",
+                "joined": "เข้าร่วมเมื่อ",
                 "add_row": "เพิ่มแถว",
                 "placeholder": {
                     "label": "ป้ายชื่อ",

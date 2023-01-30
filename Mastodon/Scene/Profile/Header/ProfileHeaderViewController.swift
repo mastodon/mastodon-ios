@@ -153,6 +153,9 @@ extension ProfileHeaderViewController {
         viewModel.$relationshipActionOptionSet
             .assign(to: \.relationshipActionOptionSet, on: profileHeaderView.viewModel)
             .store(in: &disposeBag)
+        viewModel.$isMyself
+            .assign(to: \.isMyself, on: profileHeaderView.viewModel)
+            .store(in: &disposeBag)
         viewModel.$isEditing
             .assign(to: \.isEditing, on: profileHeaderView.viewModel)
             .store(in: &disposeBag)

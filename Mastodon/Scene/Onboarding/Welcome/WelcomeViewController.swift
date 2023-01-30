@@ -5,7 +5,6 @@
 //  Created by BradGao on 2021/2/20.
 //
 
-import os.log
 import UIKit
 import Combine
 import MastodonAsset
@@ -14,7 +13,9 @@ import MastodonLocalization
 
 final class WelcomeViewController: UIViewController, NeedsDependency {
     
-    let logger = Logger(subsystem: "WelcomeViewController", category: "ViewController")
+    private enum Constants {
+        static let topAnchorInset: CGFloat = 20
+    }
     
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
@@ -24,29 +25,11 @@ final class WelcomeViewController: UIViewController, NeedsDependency {
     private(set) lazy var viewModel = WelcomeViewModel(context: context)
     
     let welcomeIllustrationView = WelcomeIllustrationView()
-    var welcomeIllustrationViewBottomAnchorLayoutConstraint: NSLayoutConstraint?
     
     private(set) lazy var dismissBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(WelcomeViewController.dismissBarButtonItemDidPressed(_:)))
     
-    private(set) lazy var logoImageView: UIImageView = {
-        let image = Asset.Scene.Welcome.mastodonLogo.image
-        let imageView = UIImageView(image: image)
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
-    }()
-    
-    private(set) lazy var sloganLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFontMetrics(forTextStyle: .largeTitle).scaledFont(for: .systemFont(ofSize: 34, weight: .bold))
-        label.textColor = Asset.Colors.Label.primary.color
-        label.text = L10n.Scene.Welcome.slogan
-        label.adjustsFontForContentSizeCategory = true
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.numberOfLines = 0
-        return label
-    }()
-    
     let buttonContainer = UIStackView()
+    let educationPages: [WelcomeContentPage] = [.whatIsMastodon, .mastodonIsLikeThat, .howDoIPickAServer]
     
     private(set) lazy var signUpButton: PrimaryActionButton = {
         let button = PrimaryActionButton()
@@ -64,27 +47,40 @@ final class WelcomeViewController: UIViewController, NeedsDependency {
     }()
     let signUpButtonShadowView = UIView()
     
-    private(set) lazy var signInButton: PrimaryActionButton = {
-        let button = PrimaryActionButton()
-        button.adjustsBackgroundImageWhenUserInterfaceStyleChanges = false
+    private(set) lazy var signInButton: UIButton = {
+        let button = UIButton()
         button.contentEdgeInsets = WelcomeViewController.actionButtonPadding
         button.titleLabel?.adjustsFontForContentSizeCategory = true
         button.titleLabel?.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold))
         button.setTitle(L10n.Scene.Welcome.logIn, for: .normal)
-        let backgroundImageColor = Asset.Scene.Welcome.signInButtonBackground.color
-        let backgroundImageHighlightedColor = Asset.Scene.Welcome.signInButtonBackground.color.withAlphaComponent(0.8)
-        button.setBackgroundImage(.placeholder(color: backgroundImageColor), for: .normal)
-        button.setBackgroundImage(.placeholder(color: backgroundImageHighlightedColor), for: .highlighted)
         let titleColor: UIColor = UIColor.white.withAlphaComponent(0.9)
         button.setTitleColor(titleColor, for: .normal)
+        button.setTitleColor(titleColor.withAlphaComponent(0.3), for: .highlighted)
         return button
     }()
-    let signInButtonShadowView = UIView()
     
-    deinit {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-    }
-    
+    private(set) lazy var pageCollectionView: UICollectionView = {
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.scrollDirection = .horizontal
+        flowLayout.minimumLineSpacing = 0
+        flowLayout.itemSize = CGSize(width: self.view.frame.width, height: 400)
+
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.isPagingEnabled = true
+        collectionView.backgroundColor = nil
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.bounces = false
+        collectionView.register(WelcomeContentCollectionViewCell.self, forCellWithReuseIdentifier: WelcomeContentCollectionViewCell.identifier)
+
+        return collectionView
+    }()
+
+    private(set) var pageControl: UIPageControl = {
+        let pageControl = UIPageControl(frame: .zero)
+        pageControl.translatesAutoresizingMaskIntoConstraints = false
+        return pageControl
+    }()
 }
 
 extension WelcomeViewController {
@@ -96,11 +92,19 @@ extension WelcomeViewController {
         preferredContentSize = CGSize(width: 547, height: 678)
         
         navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.largeTitleDisplayMode = .never
         view.overrideUserInterfaceStyle = .light
         
         setupOnboardingAppearance()
-        setupIllustrationLayout()
+        
+        view.addSubview(welcomeIllustrationView)
+        welcomeIllustrationView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            welcomeIllustrationView.topAnchor.constraint(equalTo: view.topAnchor),
+            welcomeIllustrationView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            view.trailingAnchor.constraint(equalTo: welcomeIllustrationView.trailingAnchor),
+            view.bottomAnchor.constraint(equalTo: welcomeIllustrationView.bottomAnchor)
+        ])
         
         buttonContainer.axis = .vertical
         buttonContainer.spacing = 12
@@ -130,13 +134,31 @@ extension WelcomeViewController {
         buttonContainer.sendSubviewToBack(signUpButtonShadowView)
         signUpButtonShadowView.pinTo(to: signUpButton)
         
-        signInButtonShadowView.translatesAutoresizingMaskIntoConstraints = false
-        buttonContainer.addSubview(signInButtonShadowView)
-        buttonContainer.sendSubviewToBack(signInButtonShadowView)
-        signInButtonShadowView.pinTo(to: signInButton)
-
         signUpButton.addTarget(self, action: #selector(signUpButtonDidClicked(_:)), for: .touchUpInside)
         signInButton.addTarget(self, action: #selector(signInButtonDidClicked(_:)), for: .touchUpInside)
+        
+        pageCollectionView.delegate = self
+        pageCollectionView.dataSource = self
+        view.addSubview(pageCollectionView)
+
+        pageControl.numberOfPages = self.educationPages.count
+        pageControl.addTarget(self, action: #selector(WelcomeViewController.pageControlDidChange(_:)), for: .valueChanged)
+        view.addSubview(pageControl)
+
+        let scrollView = pageCollectionView as UIScrollView
+        scrollView.delegate = self
+        
+        NSLayoutConstraint.activate([
+            pageCollectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: computedTopAnchorInset),
+            pageCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            view.trailingAnchor.constraint(equalTo: pageCollectionView.trailingAnchor),
+            pageControl.topAnchor.constraint(equalTo: pageCollectionView.bottomAnchor, constant: 16),
+
+            pageControl.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            view.trailingAnchor.constraint(equalTo: pageControl.trailingAnchor),
+            buttonContainer.topAnchor.constraint(equalTo: pageControl.bottomAnchor, constant: 16),
+        ])
+
         
         viewModel.$needsShowDismissEntry
             .receive(on: DispatchQueue.main)
@@ -149,7 +171,7 @@ extension WelcomeViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-    
+        
         setupButtonShadowView()
     }
     
@@ -161,18 +183,27 @@ extension WelcomeViewController {
         if view.safeAreaInsets.bottom == 0 {
             overlap += 56
         }
-        welcomeIllustrationViewBottomAnchorLayoutConstraint?.constant = overlap
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-
+        
         view.layoutIfNeeded()
-
+        
         setupIllustrationLayout()
         setupButtonShadowView()
+
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.scrollDirection = .horizontal
+        flowLayout.minimumLineSpacing = 0
+        flowLayout.itemSize = CGSize(width: self.view.frame.width, height: 400)
+
+        pageCollectionView.setCollectionViewLayout(flowLayout, animated: true)
     }
-        
+    
+    private var computedTopAnchorInset: CGFloat {
+        (navigationController?.navigationBar.bounds.height ?? UINavigationBar().bounds.height) + Constants.topAnchorInset
+    }
 }
 
 extension WelcomeViewController {
@@ -186,17 +217,6 @@ extension WelcomeViewController {
             blur: 2,
             spread: 0,
             roundedRect: signUpButtonShadowView.bounds,
-            byRoundingCorners: .allCorners,
-            cornerRadii: CGSize(width: 10, height: 10)
-        )
-        signInButtonShadowView.layer.setupShadow(
-            color: .black,
-            alpha: 0.25,
-            x: 0,
-            y: 1,
-            blur: 2,
-            spread: 0,
-            roundedRect: signInButtonShadowView.bounds,
             byRoundingCorners: .allCorners,
             cornerRadii: CGSize(width: 10, height: 10)
         )
@@ -223,94 +243,13 @@ extension WelcomeViewController {
     }
     
     private func setupIllustrationLayout() {
-        welcomeIllustrationView.layout = {
-            switch traitCollection.userInterfaceIdiom {
-            case .phone:
-                return .compact
-            default:
-                return .regular
-            }
-        }()
-        
-        // set logo
-        if logoImageView.superview == nil {
-            view.addSubview(logoImageView)
-            NSLayoutConstraint.activate([
-                logoImageView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
-                logoImageView.leadingAnchor.constraint(equalTo: view.readableContentGuide.leadingAnchor, constant: 35),
-                view.readableContentGuide.trailingAnchor.constraint(equalTo: logoImageView.trailingAnchor, constant: 35),
-                logoImageView.heightAnchor.constraint(equalTo: logoImageView.widthAnchor, multiplier: 75.0/269.0),
-            ])
-            logoImageView.setContentHuggingPriority(.defaultHigh, for: .vertical)
-        }
-        
-        // set illustration
-        guard welcomeIllustrationView.superview == nil else {
-            return
-        }
-        welcomeIllustrationView.contentMode = .scaleAspectFit
-        
-        welcomeIllustrationView.translatesAutoresizingMaskIntoConstraints = false
-        welcomeIllustrationViewBottomAnchorLayoutConstraint = welcomeIllustrationView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 5)
-        
-        view.addSubview(welcomeIllustrationView)
-        NSLayoutConstraint.activate([
-            view.leftAnchor.constraint(equalTo: welcomeIllustrationView.leftAnchor, constant: 15),
-            welcomeIllustrationView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 15),
-            welcomeIllustrationViewBottomAnchorLayoutConstraint!.priority(.required - 1),
-        ])
-        
-        welcomeIllustrationView.cloudBaseImageView.addMotionEffect(
-            UIInterpolatingMotionEffect.motionEffect(minX: -5, maxX: 5, minY: -5, maxY: 5)
-        )
-        welcomeIllustrationView.rightHillImageView.addMotionEffect(
-            UIInterpolatingMotionEffect.motionEffect(minX: -15, maxX: 25, minY: -10, maxY: 10)
-        )
-        welcomeIllustrationView.leftHillImageView.addMotionEffect(
-            UIInterpolatingMotionEffect.motionEffect(minX: -25, maxX: 15, minY: -15, maxY: 15)
-        )
-        welcomeIllustrationView.centerHillImageView.addMotionEffect(
-            UIInterpolatingMotionEffect.motionEffect(minX: -14, maxX: 14, minY: -5, maxY: 25)
-        )
-        
-        let topPaddingView = UIView()
-        topPaddingView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(topPaddingView)
-        NSLayoutConstraint.activate([
-            topPaddingView.topAnchor.constraint(equalTo: logoImageView.bottomAnchor),
-            topPaddingView.leadingAnchor.constraint(equalTo: logoImageView.leadingAnchor),
-            topPaddingView.trailingAnchor.constraint(equalTo: logoImageView.trailingAnchor),
-        ])
-        welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(welcomeIllustrationView.elephantOnAirplaneWithContrailImageView)
-        NSLayoutConstraint.activate([
-            view.leftAnchor.constraint(equalTo: welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.leftAnchor, constant: 12),  // add 12pt bleeding
-            welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.topAnchor.constraint(equalTo: topPaddingView.bottomAnchor),
-            // make a little bit large
-            welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.84),
-            welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.heightAnchor.constraint(equalTo: welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.widthAnchor, multiplier: 105.0/318.0),
-        ])
-        let bottomPaddingView = UIView()
-        bottomPaddingView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(bottomPaddingView)
-        NSLayoutConstraint.activate([
-            bottomPaddingView.topAnchor.constraint(equalTo: welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.bottomAnchor),
-            bottomPaddingView.leadingAnchor.constraint(equalTo: logoImageView.leadingAnchor),
-            bottomPaddingView.trailingAnchor.constraint(equalTo: logoImageView.trailingAnchor),
-            bottomPaddingView.bottomAnchor.constraint(equalTo: view.centerYAnchor),
-            bottomPaddingView.heightAnchor.constraint(equalTo: topPaddingView.heightAnchor, multiplier: 4),
-        ])
-        
-        welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.addMotionEffect(
-            UIInterpolatingMotionEffect.motionEffect(minX: -20, maxX: 12, minY: -20, maxY: 12)  // maxX should not larger then the bleeding (12pt)
-        )
-        
-        view.bringSubviewToFront(logoImageView)
-        view.bringSubviewToFront(sloganLabel)
+        welcomeIllustrationView.setup()
     }
 }
 
 extension WelcomeViewController {
+
+    //MARK: - Actions
     @objc
     private func signUpButtonDidClicked(_ sender: UIButton) {
         _ = coordinator.present(scene: .mastodonPickServer(viewMode: MastodonPickServerViewModel(context: context)), from: self, transition: .show)
@@ -325,31 +264,24 @@ extension WelcomeViewController {
     private func dismissBarButtonItemDidPressed(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
     }
-}
 
-// MARK: - OnboardingViewControllerAppearance
-extension WelcomeViewController: OnboardingViewControllerAppearance {
-    func setupNavigationBarAppearance() {
-        // always transparent
-        let barAppearance = UINavigationBarAppearance()
-        barAppearance.configureWithTransparentBackground()
-        navigationItem.standardAppearance = barAppearance
-        navigationItem.compactAppearance = barAppearance
-        navigationItem.scrollEdgeAppearance = barAppearance
-        if #available(iOS 15.0, *) {
-            navigationItem.compactScrollEdgeAppearance = barAppearance
-        } else {
-            // Fallback on earlier versions
-        }
+    @objc
+    private func pageControlDidChange(_ sender: UIPageControl) {
+        let item = sender.currentPage
+        let indexPath = IndexPath(item: item, section: 0)
+
+        pageCollectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: false)
     }
 }
 
+// MARK: - OnboardingViewControllerAppearance
+extension WelcomeViewController: OnboardingViewControllerAppearance {}
+
 // MARK: - UIAdaptivePresentationControllerDelegate
 extension WelcomeViewController: UIAdaptivePresentationControllerDelegate {
-
+    
     func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
-        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
-
+        
         // update button layout
         updateButtonContainerLayoutMargins(traitCollection: traitCollection)
         
@@ -378,5 +310,40 @@ extension WelcomeViewController: UIAdaptivePresentationControllerDelegate {
     
     func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {
         return false
+    }
+}
+
+//MARK: - UIScrollViewDelegate
+extension WelcomeViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let contentOffset = scrollView.contentOffset.x
+        welcomeIllustrationView.update(contentOffset: contentOffset)
+    }
+
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        pageControl.currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
+    }
+
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        pageControl.currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
+    }
+}
+
+//MARK: - UICollectionViewDelegate
+extension WelcomeViewController: UICollectionViewDelegate { }
+
+//MARK: - UICollectionViewDataSource
+extension WelcomeViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        educationPages.count
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WelcomeContentCollectionViewCell.identifier, for: indexPath) as? WelcomeContentCollectionViewCell else { fatalError("WTF? Wrong cell?") }
+
+        let page = educationPages[indexPath.item]
+        cell.update(with: page)
+
+        return cell
     }
 }

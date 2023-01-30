@@ -183,9 +183,9 @@
                     "direct": "Sólo el usuario mencionado puede ver este mensaje."
                 },
                 "translation": {
-                    "translated_from": "Translated from %s using %s",
+                    "translated_from": "Traducido desde el %s vía %s",
                     "unknown_language": "Desconocido",
-                    "unknown_provider": "Unknown",
+                    "unknown_provider": "Desconocido",
                     "show_original": "Mostrar original"
                 }
             },
@@ -463,9 +463,12 @@
                 "follows_you": "Te sigue"
             },
             "dashboard": {
-                "posts": "mensajes",
-                "following": "siguiendo",
-                "followers": "seguidores"
+                "my_posts": "mensajes",
+                "my_following": "siguiendo",
+                "my_followers": "seguidores",
+                "other_posts": "mensajes",
+                "other_following": "siguiendo",
+                "other_followers": "seguidores"
             },
             "fields": {
                 "joined": "En este servidor desde",

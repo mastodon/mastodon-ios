@@ -112,6 +112,10 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
     // visibility
     @Published public var visibility: Mastodon.Entity.Status.Visibility
     
+    // language
+    @Published public var language: String
+    @Published public private(set) var recentLanguages: [String]
+
     // UI & UX
     @Published var replyToCellFrame: CGRect = .zero
     @Published var contentCellFrame: CGRect = .zero
@@ -178,6 +182,10 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
         self.customEmojiViewModel = context.emojiService.dequeueCustomEmojiViewModel(
             for: authContext.mastodonAuthenticationBox.domain
         )
+        
+        let recentLanguages = context.settingService.currentSetting.value?.recentLanguages ?? []
+        self.recentLanguages = recentLanguages
+        self.language = recentLanguages.first ?? Locale.current.languageCode ?? "en"
         super.init()
         // end init
         
@@ -423,6 +431,19 @@ extension ComposeContentViewModel {
                 return content.trimmingCharacters(in: .whitespacesAndNewlines) == self.initialContent
             }
             .assign(to: &$shouldDismiss)
+        
+        // languages
+        context.settingService.currentSetting
+            .flatMap { settings in
+                if let settings {
+                    return settings.publisher(for: \.recentLanguages, options: .initial).eraseToAnyPublisher()
+                } else if let code = Locale.current.languageCode {
+                    return Just([code]).eraseToAnyPublisher()
+                }
+                return Just([]).eraseToAnyPublisher()
+            }
+            .assign(to: &$recentLanguages)
+
     }
 }
 
@@ -509,6 +530,15 @@ extension ComposeContentViewModel {
             }
         }()
         
+        // save language to recent languages
+        if let settings = context.settingService.currentSetting.value {
+            Task.detached(priority: .background) { [language] in
+                try await settings.managedObjectContext?.performChanges {
+                    settings.recentLanguages = [language] + settings.recentLanguages.filter { $0 != language }
+                }
+            }
+        }
+        
         return MastodonStatusPublisher(
             author: author,
             replyTo: {
@@ -526,7 +556,8 @@ extension ComposeContentViewModel {
             pollOptions: pollOptions,
             pollExpireConfigurationOption: pollExpireConfigurationOption,
             pollMultipleConfigurationOption: pollMultipleConfigurationOption,
-            visibility: visibility
+            visibility: visibility,
+            language: language
         )
     }   // end func publisher()
 }

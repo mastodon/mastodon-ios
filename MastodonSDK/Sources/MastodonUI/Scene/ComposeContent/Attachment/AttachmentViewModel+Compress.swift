@@ -10,7 +10,7 @@ import UIKit
 import AVKit
 import MastodonCore
 import SessionExporter
-import Kingfisher
+import Nuke
 
 extension AttachmentViewModel {
     func compressVideo(url: URL) async throws -> URL {
@@ -99,18 +99,18 @@ extension AttachmentViewModel {
     func compressImage(data: Data, sizeLimit: SizeLimit) throws -> Output {
         let maxPayloadSizeInBytes = max((sizeLimit.image ?? 10 * 1024 * 1024), 1 * 1024 * 1024)
 
-        guard let image = KFCrossPlatformImage(data: data)?.kf.normalized,
-              var imageData = image.kf.pngRepresentation()
+        guard let image = UIImage(data: data)?.normalized(),
+              var imageData = image.pngData()
         else {
             throw AttachmentError.invalidAttachmentType
         }
         
         repeat {
-            guard let image = KFCrossPlatformImage(data: imageData) else {
+            guard let image = UIImage(data: imageData) else {
                 throw AttachmentError.invalidAttachmentType
             }
 
-            if imageData.kf.imageFormat == .PNG {
+            if AssetType(imageData) == .png {
                 // A. png image
                 if imageData.count > maxPayloadSizeInBytes {
                     guard let compressedJpegData = image.jpegData(compressionQuality: 0.8) else {
@@ -126,7 +126,7 @@ extension AttachmentViewModel {
                 // B. other image
                 if imageData.count > maxPayloadSizeInBytes {
                     let targetSize = CGSize(width: image.size.width * 0.8, height: image.size.height * 0.8)
-                    let scaledImage = image.kf.resize(to: targetSize)
+                    let scaledImage = image.resized(size: targetSize)
                     guard let compressedJpegData = scaledImage.jpegData(compressionQuality: 0.8) else {
                         throw AttachmentError.invalidAttachmentType
                     }
@@ -140,7 +140,7 @@ extension AttachmentViewModel {
         } while (imageData.count > maxPayloadSizeInBytes)
         
         
-        return .image(imageData, imageKind: imageData.kf.imageFormat == .PNG ? .png : .jpg)
+        return .image(imageData, imageKind: AssetType(imageData) == .png ? .png : .jpg)
     }
 }
 

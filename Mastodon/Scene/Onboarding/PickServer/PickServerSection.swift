@@ -20,7 +20,6 @@ extension PickServerSection {
         for tableView: UITableView,
         dependency: NeedsDependency
     ) -> UITableViewDiffableDataSource<PickServerSection, PickServerItem> {
-        tableView.register(OnboardingHeadlineTableViewCell.self, forCellReuseIdentifier: String(describing: OnboardingHeadlineTableViewCell.self))
         tableView.register(PickServerCell.self, forCellReuseIdentifier: String(describing: PickServerCell.self))
         tableView.register(PickServerLoaderTableViewCell.self, forCellReuseIdentifier: String(describing: PickServerLoaderTableViewCell.self))
         
@@ -29,9 +28,6 @@ extension PickServerSection {
         ] tableView, indexPath, item -> UITableViewCell? in
             guard let _ = dependency else { return nil }
             switch item {
-            case .header:
-                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: OnboardingHeadlineTableViewCell.self), for: indexPath) as! OnboardingHeadlineTableViewCell
-                return cell
             case .server(let server, let attribute):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PickServerCell.self), for: indexPath) as! PickServerCell
                 PickServerSection.configure(cell: cell, server: server, attribute: attribute)
@@ -67,45 +63,13 @@ extension PickServerSection {
                 ]
             )
         }()
-        cell.usersValueLabel.attributedText = {
-            let attributedString = NSMutableAttributedString()
-            let attachment = NSTextAttachment(image: UIImage(systemName: "person.2.fill")!)
-            let attachmentAttributedString = NSAttributedString(attachment: attachment)
-            attributedString.append(attachmentAttributedString)
-            attributedString.append(NSAttributedString(string: " "))
-            
-            let paragraphStyle = NSMutableParagraphStyle()
-            paragraphStyle.lineHeightMultiple = 1.12
-            let valueAttributedString = NSAttributedString(
-                string: parseUsersCount(server.totalUsers),
-                attributes: [
-                    .paragraphStyle: paragraphStyle
-                ]
-            )
-            attributedString.append(valueAttributedString)
-            
-            return attributedString
-        }()
-        cell.langValueLabel.attributedText = {
-            let attributedString = NSMutableAttributedString()
-            let attachment = NSTextAttachment(image: UIImage(systemName: "text.bubble.fill")!)
-            let attachmentAttributedString = NSAttributedString(attachment: attachment)
-            attributedString.append(attachmentAttributedString)
-            attributedString.append(NSAttributedString(string: " "))
-            
-            let paragraphStyle = NSMutableParagraphStyle()
-            paragraphStyle.lineHeightMultiple = 1.12
-            let valueAttributedString = NSAttributedString(
-                string: server.language.uppercased(),
-                attributes: [
-                    .paragraphStyle: paragraphStyle
-                ]
-            )
-            attributedString.append(valueAttributedString)
-
-            return attributedString
-        }()
-      
+        if let proxiedThumbnail = server.proxiedThumbnail, let thumbnailUrl = URL(string: proxiedThumbnail) {
+            cell.thumbnailImageView.af.setImage(withURL: thumbnailUrl, completion: { _ in
+                OperationQueue.main.addOperation {
+                    cell.thumbnailImageView.isHidden = false
+                }
+            })
+        }
         attribute.isLast
             .receive(on: DispatchQueue.main)
             .sink { [weak cell] isLast in
@@ -125,17 +89,6 @@ extension PickServerSection {
             }
             .store(in: &cell.disposeBag)
     }
-    
-    private static func parseUsersCount(_ usersCount: Int) -> String {
-        switch usersCount {
-        case 0..<1000:
-            return "\(usersCount)"
-        default:
-            let usersCountInThousand = Float(usersCount) / 1000.0
-            return String(format: "%.1fK", usersCountInThousand)
-        }
-    }
-    
 }
 
 extension PickServerSection {

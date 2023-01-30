@@ -29,7 +29,6 @@ public final class ProfileStatusDashboardMeterView: UIView {
         let label = UILabel()
         label.font = .systemFont(ofSize: 13, weight: .regular)
         label.textColor = Asset.Colors.Label.primary.color
-        label.text = L10n.Scene.Profile.Dashboard.posts
         label.textAlignment = .center
         if UIView.isZoomedMode {
             label.adjustsFontSizeToFitWidth = true

@@ -6,6 +6,7 @@
 //
 
 import os.log
+import CoreDataStack
 import Foundation
 import Combine
 import CommonOSLog
@@ -198,4 +199,44 @@ extension APIService {
         
         return response
     }   // end func
+}
+
+extension APIService {
+    public func fetchUser(username: String, domain: String, authenticationBox: MastodonAuthenticationBox)
+    async throws -> MastodonUser? {
+        let query = Mastodon.API.Account.AccountLookupQuery(acct: "\(username)@\(domain)")
+        let authorization = authenticationBox.userAuthorization
+
+        let response = try await Mastodon.API.Account.lookupAccount(
+            session: session,
+            domain: authenticationBox.domain,
+            query: query,
+            authorization: authorization
+        ).singleOutput()
+
+        // user
+        let managedObjectContext = self.backgroundManagedObjectContext
+        try await managedObjectContext.performChanges {
+            _ = Persistence.MastodonUser.createOrMerge(
+                in: managedObjectContext,
+                context: Persistence.MastodonUser.PersistContext(
+                    domain: domain,
+                    entity: response.value,
+                    cache: nil,
+                    networkDate: response.networkDate
+                )
+            )
+        }
+        var result: MastodonUser?
+        try await managedObjectContext.perform {
+            result = Persistence.MastodonUser.fetch(in: managedObjectContext,
+                                                  context: Persistence.MastodonUser.PersistContext(
+                                                    domain: domain,
+                                                    entity: response.value,
+                                                    cache: nil,
+                                                    networkDate: response.networkDate
+                                                  ))
+        }
+        return result
+    }
 }
