@@ -11,6 +11,32 @@ extension Mastodon.API.Statuses {
             .appendingPathComponent("history")
     }
 
+    private static func statusSourceEndpointURL(domain: String, statusID: Mastodon.Entity.Status.ID) -> URL {
+        return Mastodon.API.endpointURL(domain: domain)
+            .appendingPathComponent("statuses")
+            .appendingPathComponent(statusID)
+            .appendingPathComponent("source")
+    }
+
+    public static func statusSource(
+        forStatusID statusID: Mastodon.Entity.Status.ID,
+        session: URLSession,
+        domain: String,
+        authorization: Mastodon.API.OAuth.Authorization?
+    ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.StatusSource>, Error> {
+        let url = statusSourceEndpointURL(domain: domain, statusID: statusID)
+        let request = Mastodon.API.get(url: url, authorization: authorization)
+
+        return session.dataTaskPublisher(for: request)
+            .tryMap { (data: Data, response: URLResponse) in
+                let value = try Mastodon.API.decode(type: Mastodon.Entity.StatusSource.self, from: data, response: response)
+                return Mastodon.Response.Content(value: value, response: response)
+            }
+            .eraseToAnyPublisher()
+
+    }
+
+
     //TODO: @zeitschlag add [documentation](https://docs.joinmastodon.org/methods/statuses/#history)
     public static func editHistory(
         forStatusID statusID: Mastodon.Entity.Status.ID,

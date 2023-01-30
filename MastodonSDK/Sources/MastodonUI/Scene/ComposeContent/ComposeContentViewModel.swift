@@ -24,7 +24,7 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
 
     public enum ComposeContext {
         case composeStatus
-        case editStatus(status: Status)
+        case editStatus(status: Status, statusSource: Mastodon.Entity.StatusSource)
     }
     
     let logger = Logger(subsystem: "ComposeContentViewModel", category: "ViewModel")
@@ -573,7 +573,7 @@ extension ComposeContentViewModel {
     // MastodonEditStatusPublisher
     public func statusEditPublisher() throws -> StatusPublisher? {
         let authContext = self.authContext
-        guard case let .editStatus(status) = composeContext else { return nil }
+        guard case let .editStatus(status, statusSource) = composeContext else { return nil }
 
         // author
         let managedObjectContext = self.context.managedObjectContext
