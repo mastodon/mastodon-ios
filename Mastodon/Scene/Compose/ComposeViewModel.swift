@@ -22,7 +22,7 @@ final class ComposeViewModel {
 
     enum Context {
         case composeStatus
-        case editStatus(status: Status)
+        case editStatus(status: Status, statusSource: Mastodon.Entity.StatusSource)
     }
 
     let logger = Logger(subsystem: "ComposeViewModel", category: "ViewModel")
