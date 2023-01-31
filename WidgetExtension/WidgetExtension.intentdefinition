@@ -186,7 +186,7 @@
 			<key>INIntentLastParameterTag</key>
 			<integer>6</integer>
 			<key>INIntentName</key>
-			<string>MultiFollowersCountSmall</string>
+			<string>MultiFollowersCount</string>
 			<key>INIntentParameters</key>
 			<array>
 				<dict>
@@ -351,7 +351,7 @@
 				</array>
 			</dict>
 			<key>INIntentTitle</key>
-			<string>Multi Followers Count Small</string>
+			<string>Multi Followers Count</string>
 			<key>INIntentTitleID</key>
 			<string>e0W2wo</string>
 			<key>INIntentType</key>

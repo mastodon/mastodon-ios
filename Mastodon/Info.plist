@@ -62,7 +62,7 @@
 	<key>NSUserActivityTypes</key>
 	<array>
 		<string>FollowersCountIntent</string>
-		<string>MultiFollowersCountSmallIntent</string>
+		<string>MultiFollowersCountIntent</string>
 		<string>SendPostIntent</string>
 	</array>
 	<key>UIApplicationSceneManifest</key>

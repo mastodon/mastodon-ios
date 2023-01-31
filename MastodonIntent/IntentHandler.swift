@@ -17,7 +17,7 @@ class IntentHandler: INExtension {
             return SendPostIntentHandler()
         case is FollowersCountIntent:
             return FollowersCountIntentHandler()
-        case is MultiFollowersCountSmallIntent:
+        case is MultiFollowersCountIntent:
             return MultiFollowersCountIntentHandler()
         default:
             return self

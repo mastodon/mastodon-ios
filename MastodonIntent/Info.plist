@@ -31,7 +31,7 @@
 			<key>IntentsSupported</key>
 			<array>
 				<string>FollowersCountIntent</string>
-				<string>MultiFollowersCountSmallIntent</string>
+				<string>MultiFollowersCountIntent</string>
 				<string>SendPostIntent</string>
 			</array>
 		</dict>

@@ -6,8 +6,8 @@ import MastodonCore
 import MastodonSDK
 import MastodonLocalization
 
-class MultiFollowersCountIntentHandler: INExtension, MultiFollowersCountSmallIntentHandling {
-    func provideAccountsOptionsCollection(for intent: MultiFollowersCountSmallIntent, searchTerm: String?) async throws -> INObjectCollection<NSString> {
+class MultiFollowersCountIntentHandler: INExtension, MultiFollowersCountIntentHandling {
+    func provideAccountsOptionsCollection(for intent: MultiFollowersCountIntent, searchTerm: String?) async throws -> INObjectCollection<NSString> {
         guard
             let searchTerm = searchTerm,
             let authenticationBox = WidgetExtension.appContext

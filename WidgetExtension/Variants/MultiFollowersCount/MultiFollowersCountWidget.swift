@@ -10,14 +10,14 @@ struct MultiFollowersCountWidgetProvider: IntentTimelineProvider {
         .placeholder
     }
 
-    func getSnapshot(for configuration: MultiFollowersCountSmallIntent, in context: Context, completion: @escaping (MultiFollowersCountEntry) -> ()) {
+    func getSnapshot(for configuration: MultiFollowersCountIntent, in context: Context, completion: @escaping (MultiFollowersCountEntry) -> ()) {
         guard !context.isPreview else {
             return completion(.placeholder)
         }
         loadCurrentEntry(for: configuration, in: context, completion: completion)
     }
 
-    func getTimeline(for configuration: MultiFollowersCountSmallIntent, in context: Context, completion: @escaping (Timeline<MultiFollowersCountEntry>) -> ()) {
+    func getTimeline(for configuration: MultiFollowersCountIntent, in context: Context, completion: @escaping (Timeline<MultiFollowersCountEntry>) -> ()) {
         loadCurrentEntry(for: configuration, in: context) { entry in
             completion(Timeline(entries: [entry], policy: .after(.now)))
         }
@@ -27,7 +27,7 @@ struct MultiFollowersCountWidgetProvider: IntentTimelineProvider {
 struct MultiFollowersCountEntry: TimelineEntry {
     let date: Date
     let accounts: [FollowersEntryAccountable]?
-    let configuration: MultiFollowersCountSmallIntent
+    let configuration: MultiFollowersCountIntent
     
     static var placeholder: Self {
         MultiFollowersCountEntry(
@@ -41,7 +41,7 @@ struct MultiFollowersCountEntry: TimelineEntry {
                     domain: "mastodon"
                 )
             ],
-            configuration: MultiFollowersCountSmallIntent()
+            configuration: MultiFollowersCountIntent()
         )
     }
     
@@ -49,7 +49,7 @@ struct MultiFollowersCountEntry: TimelineEntry {
         MultiFollowersCountEntry(
             date: .now,
             accounts: [],
-            configuration: MultiFollowersCountSmallIntent()
+            configuration: MultiFollowersCountIntent()
         )
     }
 }
@@ -60,7 +60,7 @@ struct MultiFollowersCountWidget: Widget {
     }
 
     var body: some WidgetConfiguration {
-        IntentConfiguration(kind: "Multiple followers", intent: MultiFollowersCountSmallIntent.self, provider: MultiFollowersCountWidgetProvider()) { entry in
+        IntentConfiguration(kind: "Multiple followers", intent: MultiFollowersCountIntent.self, provider: MultiFollowersCountWidgetProvider()) { entry in
             MultiFollowersCountWidgetView(entry: entry)
         }
         .configurationDisplayName("Multiple followers")
@@ -70,7 +70,7 @@ struct MultiFollowersCountWidget: Widget {
 }
 
 private extension MultiFollowersCountWidgetProvider {
-    func loadCurrentEntry(for configuration: MultiFollowersCountSmallIntent, in context: Context, completion: @escaping (MultiFollowersCountEntry) -> Void) {
+    func loadCurrentEntry(for configuration: MultiFollowersCountIntent, in context: Context, completion: @escaping (MultiFollowersCountEntry) -> Void) {
         Task {
             guard
                 let authBox = WidgetExtension.appContext
