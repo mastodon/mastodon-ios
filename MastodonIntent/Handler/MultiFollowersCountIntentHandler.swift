@@ -6,16 +6,8 @@ import MastodonCore
 import MastodonSDK
 import MastodonLocalization
 
-class FollowersCountIntentHandler: INExtension, FollowersCountIntentHandling {
-    func resolveShowChart(for intent: FollowersCountIntent) async -> INBooleanResolutionResult {
-        return .success(with: intent.showChart?.boolValue ?? false)
-    }
-    
-    func resolveAccount(for intent: FollowersCountIntent) async -> INStringResolutionResult {
-        .confirmationRequired(with: intent.account)
-    }
-
-    func provideAccountOptionsCollection(for intent: FollowersCountIntent, searchTerm: String?) async throws -> INObjectCollection<NSString> {
+class MultiFollowersCountIntentHandler: INExtension, MultiFollowersCountSmallIntentHandling {
+    func provideAccountsOptionsCollection(for intent: MultiFollowersCountSmallIntent, searchTerm: String?) async throws -> INObjectCollection<NSString> {
         guard
             let searchTerm = searchTerm,
             let authenticationBox = WidgetExtension.appContext
@@ -31,14 +23,5 @@ class FollowersCountIntentHandler: INExtension, FollowersCountIntentHandling {
             .search(query: .init(q: searchTerm), authenticationBox: authenticationBox)
         
         return INObjectCollection(items: results.value.accounts.map { $0.acctWithDomain(localDomain: authenticationBox.domain) as NSString })
-    }
-}
-
-extension Mastodon.Entity.Account {
-    func acctWithDomain(localDomain: String) -> String {
-        guard acct.contains("@") else {
-            return "\(acct)@\(localDomain)"
-        }
-        return acct
     }
 }

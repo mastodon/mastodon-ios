@@ -53,6 +53,9 @@
 		2A72813F297EC762004138C5 /* WidgetExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A72813E297EC762004138C5 /* WidgetExtension.swift */; };
 		2A76F75C2930D94700B3388D /* HashtagTimelineHeaderViewActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A76F75B2930D94700B3388D /* HashtagTimelineHeaderViewActionButton.swift */; };
 		2A82294F29262EE000D2A1F7 /* AppContext+NextAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A82294E29262EE000D2A1F7 /* AppContext+NextAccount.swift */; };
+		2A86A14629892944007F1062 /* MultiFollowersCountIntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A86A14529892944007F1062 /* MultiFollowersCountIntentHandler.swift */; };
+		2A86A14929892B3A007F1062 /* MultiFollowersCountWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A86A14829892B3A007F1062 /* MultiFollowersCountWidget.swift */; };
+		2A86A14B2989326E007F1062 /* MultiFollowersCountWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A86A14A2989326E007F1062 /* MultiFollowersCountWidgetView.swift */; };
 		2A90A157296EEE500026C155 /* MastodonSDKDynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 2A90A156296EEE500026C155 /* MastodonSDKDynamic */; };
 		2AB12E4629362F27006BC925 /* DataSourceFacade+Translate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB12E4529362F27006BC925 /* DataSourceFacade+Translate.swift */; };
 		2AE202AA297FE10B00F66E55 /* WidgetExtension.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 2A72812C297EA9D7004138C5 /* WidgetExtension.intentdefinition */; };
@@ -642,6 +645,9 @@
 		2A72813E297EC762004138C5 /* WidgetExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetExtension.swift; sourceTree = "<group>"; };
 		2A76F75B2930D94700B3388D /* HashtagTimelineHeaderViewActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagTimelineHeaderViewActionButton.swift; sourceTree = "<group>"; };
 		2A82294E29262EE000D2A1F7 /* AppContext+NextAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppContext+NextAccount.swift"; sourceTree = "<group>"; };
+		2A86A14529892944007F1062 /* MultiFollowersCountIntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiFollowersCountIntentHandler.swift; sourceTree = "<group>"; };
+		2A86A14829892B3A007F1062 /* MultiFollowersCountWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiFollowersCountWidget.swift; sourceTree = "<group>"; };
+		2A86A14A2989326E007F1062 /* MultiFollowersCountWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiFollowersCountWidgetView.swift; sourceTree = "<group>"; };
 		2AB12E4529362F27006BC925 /* DataSourceFacade+Translate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataSourceFacade+Translate.swift"; sourceTree = "<group>"; };
 		2AE202A9297FDDF500F66E55 /* WidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WidgetExtension.entitlements; sourceTree = "<group>"; };
 		2AE202AB297FE19100F66E55 /* FollowersCountIntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowersCountIntentHandler.swift; sourceTree = "<group>"; };
@@ -1440,7 +1446,6 @@
 				2AE202A9297FDDF500F66E55 /* WidgetExtension.entitlements */,
 				2A72813E297EC762004138C5 /* WidgetExtension.swift */,
 				2A728126297EA9D7004138C5 /* WidgetExtensionBundle.swift */,
-				2A33062C2987DBFA001D4C51 /* FollowersCountHistory.swift */,
 				2A72812C297EA9D7004138C5 /* WidgetExtension.intentdefinition */,
 				2A72812D297EA9D8004138C5 /* Assets.xcassets */,
 				2A72812F297EA9D8004138C5 /* Info.plist */,
@@ -1452,6 +1457,7 @@
 			isa = PBXGroup;
 			children = (
 				2A86A14429892709007F1062 /* FollowersCount */,
+				2A86A14729892B1B007F1062 /* MultiFollowersCount */,
 			);
 			path = Variants;
 			sourceTree = "<group>";
@@ -1459,10 +1465,20 @@
 		2A86A14429892709007F1062 /* FollowersCount */ = {
 			isa = PBXGroup;
 			children = (
+				2A33062C2987DBFA001D4C51 /* FollowersCountHistory.swift */,
 				2A72812A297EA9D7004138C5 /* FollowersCountWidget.swift */,
 				2A33AB652982C4AF008A7FB1 /* FollowersCountWidgetView.swift */,
 			);
 			path = FollowersCount;
+			sourceTree = "<group>";
+		};
+		2A86A14729892B1B007F1062 /* MultiFollowersCount */ = {
+			isa = PBXGroup;
+			children = (
+				2A86A14829892B3A007F1062 /* MultiFollowersCountWidget.swift */,
+				2A86A14A2989326E007F1062 /* MultiFollowersCountWidgetView.swift */,
+			);
+			path = MultiFollowersCount;
 			sourceTree = "<group>";
 		};
 		2D152A8A25C295B8009AA50C /* Content */ = {
@@ -2291,6 +2307,7 @@
 			children = (
 				DBB8AB4526AECDE200F6D281 /* SendPostIntentHandler.swift */,
 				2AE202AB297FE19100F66E55 /* FollowersCountIntentHandler.swift */,
+				2A86A14529892944007F1062 /* MultiFollowersCountIntentHandler.swift */,
 			);
 			path = Handler;
 			sourceTree = "<group>";
@@ -3485,10 +3502,12 @@
 				2A33062D2987DBFA001D4C51 /* FollowersCountHistory.swift in Sources */,
 				2A33063829880835001D4C51 /* LineChart.swift in Sources */,
 				2A728130297EA9D8004138C5 /* WidgetExtension.intentdefinition in Sources */,
+				2A86A14B2989326E007F1062 /* MultiFollowersCountWidgetView.swift in Sources */,
 				2A72813F297EC762004138C5 /* WidgetExtension.swift in Sources */,
 				2A33063A29880835001D4C51 /* LightChart.swift in Sources */,
 				2A33063B29880835001D4C51 /* ChartType.swift in Sources */,
 				2A33063629880835001D4C51 /* Math.swift in Sources */,
+				2A86A14929892B3A007F1062 /* MultiFollowersCountWidget.swift in Sources */,
 				2A33AB662982C4AF008A7FB1 /* FollowersCountWidgetView.swift in Sources */,
 				2A728127297EA9D7004138C5 /* WidgetExtensionBundle.swift in Sources */,
 				2A72812B297EA9D7004138C5 /* FollowersCountWidget.swift in Sources */,
@@ -3932,6 +3951,7 @@
 				2AE202AC297FE19100F66E55 /* FollowersCountIntentHandler.swift in Sources */,
 				DB64BA452851F23000ADF1B7 /* MastodonAuthentication+Fetch.swift in Sources */,
 				DB64BA482851F29300ADF1B7 /* Account+Fetch.swift in Sources */,
+				2A86A14629892944007F1062 /* MultiFollowersCountIntentHandler.swift in Sources */,
 				DB8FABCA26AEC7B2008E5AF4 /* IntentHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
