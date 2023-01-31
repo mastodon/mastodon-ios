@@ -56,7 +56,7 @@ struct MultiFollowersCountEntry: TimelineEntry {
 
 struct MultiFollowersCountWidget: Widget {
     private var availableFamilies: [WidgetFamily] {
-        return [.systemSmall]
+        return [.systemSmall, .systemMedium]
     }
 
     var body: some WidgetConfiguration {

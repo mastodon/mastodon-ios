@@ -13,7 +13,9 @@ struct MultiFollowersCountWidgetView: View {
         if let accounts = entry.accounts {
             switch family {
             case .systemSmall:
-                viewForSmallWidgetNoChart(accounts)
+                viewForSmallWidget(accounts)
+            case .systemMedium:
+                viewForMediumWidget(accounts)
             default:
                 Text("Sorry but this Widget family is unsupported.")
             }
@@ -25,7 +27,7 @@ struct MultiFollowersCountWidgetView: View {
         }
     }
     
-    private func viewForSmallWidgetNoChart(_ accounts: [FollowersEntryAccountable]) -> some View {
+    private func viewForSmallWidget(_ accounts: [FollowersEntryAccountable]) -> some View {
         VStack(alignment: .leading, spacing: 0) {
             ForEach(accounts, id: \.acct) { account in
                 HStack {
@@ -50,6 +52,42 @@ struct MultiFollowersCountWidgetView: View {
                     Spacer()
                 }
                 .padding(.leading, 20)
+            }
+            Spacer()
+        }
+        .padding(.vertical, 16)
+    }
+    
+    private func viewForMediumWidget(_ accounts: [FollowersEntryAccountable]) -> some View {
+        VStack(alignment: .leading, spacing: 0) {
+            LazyVGrid(columns: [
+                GridItem(.flexible()),
+                GridItem(.flexible())
+            ]) {
+                ForEach(accounts, id: \.acct) { account in
+                    HStack {
+                        if let avatarImage = account.avatarImage {
+                            Image(uiImage: avatarImage)
+                                .resizable()
+                                .frame(width: 32, height: 32)
+                                .cornerRadius(5)
+                        }
+                        VStack(alignment: .leading) {
+                            Text(account.followersCount.asAbbreviatedCountString())
+                                .font(.title2)
+                                .lineLimit(1)
+                                .truncationMode(.tail)
+                            
+                            Text("@\(account.acct)")
+                                .font(.caption2)
+                                .foregroundColor(.secondary)
+                                .lineLimit(1)
+                                .truncationMode(.tail)
+                        }
+                        Spacer()
+                    }
+                    .padding(.leading, 20)
+                }
             }
             Spacer()
         }
