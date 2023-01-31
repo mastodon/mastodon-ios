@@ -21,6 +21,8 @@ public final class Draft: NSManagedObject {
     @NSManaged public private(set) var content: String
     // sourcery: autoUpdatableObject, autoGenerateProperty
     @NSManaged public private(set) var contentWarning: String?
+    // sourcery: autoUpdatableObject, autoGenerateProperty
+    @NSManaged public private(set) var language: String
 
     @NSManaged public private(set) var visibilityRaw: String
     // sourcery: autoUpdatableObject, autoGenerateProperty
@@ -197,6 +199,7 @@ extension Draft: AutoGenerateProperty {
     public struct Property {
         public let content: String
         public let contentWarning: String?
+        public let language: String
         public let visibility: MastodonVisibility
         public let attachments: [Attachment]
         public let poll: Poll?
@@ -204,12 +207,14 @@ extension Draft: AutoGenerateProperty {
     	public init(
     		content: String,
     		contentWarning: String?,
+    		language: String,
     		visibility: MastodonVisibility,
     		attachments: [Attachment],
     		poll: Poll?
     	) {
     		self.content = content
     		self.contentWarning = contentWarning
+    		self.language = language
     		self.visibility = visibility
     		self.attachments = attachments
     		self.poll = poll
@@ -219,6 +224,7 @@ extension Draft: AutoGenerateProperty {
     public func configure(property: Property) {
     	self.content = property.content
     	self.contentWarning = property.contentWarning
+    	self.language = property.language
     	self.visibility = property.visibility
     	self.attachments = property.attachments
     	self.poll = property.poll
@@ -227,6 +233,7 @@ extension Draft: AutoGenerateProperty {
     public func update(property: Property) {
     	update(content: property.content)
     	update(contentWarning: property.contentWarning)
+    	update(language: property.language)
     	update(visibility: property.visibility)
     	update(attachments: property.attachments)
     	update(poll: property.poll)
@@ -276,6 +283,11 @@ extension Draft: AutoUpdatableObject {
     public func update(contentWarning: String?) {
     	if self.contentWarning != contentWarning {
     		self.contentWarning = contentWarning
+    	}
+    }
+    public func update(language: String) {
+    	if self.language != language {
+    		self.language = language
     	}
     }
     public func update(visibility: MastodonVisibility) {

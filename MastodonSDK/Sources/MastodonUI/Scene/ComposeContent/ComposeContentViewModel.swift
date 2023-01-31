@@ -255,6 +255,9 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
             for: authContext.mastodonAuthenticationBox.domain
         )
         self.visibility = draft.visibility
+        self.language = draft.language
+        let recentLanguages = context.settingService.currentSetting.value?.recentLanguages ?? []
+        self.recentLanguages = recentLanguages
         super.init()
         _init()
         
@@ -556,6 +559,7 @@ extension ComposeContentViewModel {
         let property = Draft.Property(
             content: content,
             contentWarning: isContentWarningActive ? contentWarning : nil,
+            language: language,
             visibility: visibility,
             attachments: attachments,
             poll: isPollActive ? Draft.Poll(
