@@ -4,12 +4,12 @@ import SwiftUI
 import WidgetKit
 import MastodonAsset
 
-struct FollowCountWidgetView: View {
+struct FollowersCountWidgetView: View {
     private let followersHistory = FollowersCountHistory.shared
 
     @Environment(\.widgetFamily) var family
 
-    var entry: FollowersProvider.Entry
+    var entry: FollowersCountWidgetProvider.Entry
 
     var body: some View {
         if let account = entry.account {

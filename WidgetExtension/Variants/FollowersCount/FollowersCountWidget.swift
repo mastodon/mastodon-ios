@@ -5,34 +5,34 @@ import SwiftUI
 import Intents
 import MastodonSDK
 
-struct FollowersProvider: IntentTimelineProvider {
+struct FollowersCountWidgetProvider: IntentTimelineProvider {
     private let followersHistory = FollowersCountHistory.shared
     
-    func placeholder(in context: Context) -> FollowersEntry {
+    func placeholder(in context: Context) -> FollowersCountEntry {
         .placeholder
     }
 
-    func getSnapshot(for configuration: FollowersCountIntent, in context: Context, completion: @escaping (FollowersEntry) -> ()) {
+    func getSnapshot(for configuration: FollowersCountIntent, in context: Context, completion: @escaping (FollowersCountEntry) -> ()) {
         guard !context.isPreview else {
             return completion(.placeholder)
         }
         loadCurrentEntry(for: configuration, in: context, completion: completion)
     }
 
-    func getTimeline(for configuration: FollowersCountIntent, in context: Context, completion: @escaping (Timeline<FollowersEntry>) -> ()) {
+    func getTimeline(for configuration: FollowersCountIntent, in context: Context, completion: @escaping (Timeline<FollowersCountEntry>) -> ()) {
         loadCurrentEntry(for: configuration, in: context) { entry in
             completion(Timeline(entries: [entry], policy: .after(.now)))
         }
     }
 }
 
-struct FollowersEntry: TimelineEntry {
+struct FollowersCountEntry: TimelineEntry {
     let date: Date
     let account: FollowersEntryAccountable?
     let configuration: FollowersCountIntent
     
     static var placeholder: Self {
-        FollowersEntry(
+        FollowersCountEntry(
             date: .now,
             account: FollowersEntryAccount(
                 followersCount: 99_900,
@@ -46,7 +46,7 @@ struct FollowersEntry: TimelineEntry {
     }
     
     static var unconfigured: Self {
-        FollowersEntry(
+        FollowersCountEntry(
             date: .now,
             account: nil,
             configuration: FollowersCountIntent()
@@ -54,7 +54,7 @@ struct FollowersEntry: TimelineEntry {
     }
 }
 
-struct FollowersWidgetExtension: Widget {
+struct FollowersCountWidget: Widget {
     private var availableFamilies: [WidgetFamily] {
         if #available(iOS 16, *) {
             return [.systemSmall, .accessoryRectangular, .accessoryCircular]
@@ -63,8 +63,8 @@ struct FollowersWidgetExtension: Widget {
     }
 
     var body: some WidgetConfiguration {
-        IntentConfiguration(kind: "Followers", intent: FollowersCountIntent.self, provider: FollowersProvider()) { entry in
-            FollowCountWidgetView(entry: entry)
+        IntentConfiguration(kind: "Followers", intent: FollowersCountIntent.self, provider: FollowersCountWidgetProvider()) { entry in
+            FollowersCountWidgetView(entry: entry)
         }
         .configurationDisplayName("Followers")
         .description("Show number of followers.")
@@ -72,8 +72,8 @@ struct FollowersWidgetExtension: Widget {
     }
 }
 
-private extension FollowersProvider {
-    func loadCurrentEntry(for configuration: FollowersCountIntent, in context: Context, completion: @escaping (FollowersEntry) -> Void) {
+private extension FollowersCountWidgetProvider {
+    func loadCurrentEntry(for configuration: FollowersCountIntent, in context: Context, completion: @escaping (FollowersCountEntry) -> Void) {
         Task {
             guard
                 let authBox = WidgetExtension.appContext
@@ -102,7 +102,7 @@ private extension FollowersProvider {
             
             let imageData = try await URLSession.shared.data(from: resultingAccount.avatarImageURLWithFallback(domain: authBox.domain)).0
                         
-            let entry = FollowersEntry(
+            let entry = FollowersCountEntry(
                 date: Date(),
                 account: FollowersEntryAccount.from(
                     mastodonAccount: resultingAccount,
