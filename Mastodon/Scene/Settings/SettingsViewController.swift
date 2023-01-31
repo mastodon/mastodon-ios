@@ -593,20 +593,21 @@ extension SettingsViewController {
     
 }
 
-#if canImport(SwiftUI) && DEBUG
-import SwiftUI
+// #if canImport(SwiftUI) && DEBUG
+// import SwiftUI
+//
+// struct SettingsViewController_Previews: PreviewProvider {
+//    
+//     static var previews: some View {
+//         Group {
+//             UIViewControllerPreview { () -> UIViewController in
+//                 return SettingsViewController()
+//             }
+//             .previewLayout(.fixed(width: 390, height: 844))
+//         }
+//     }
+//    
+// }
+//
+// #endif
 
-struct SettingsViewController_Previews: PreviewProvider {
-    
-    static var previews: some View {
-        Group {
-            UIViewControllerPreview { () -> UIViewController in
-                return SettingsViewController()
-            }
-            .previewLayout(.fixed(width: 390, height: 844))
-        }
-    }
-    
-}
-
-#endif
