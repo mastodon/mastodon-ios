@@ -107,7 +107,8 @@ extension Mastodon.API.Statuses {
         public let sensitive: Bool?
         public let spoilerText: String?
         public let visibility: MastodonVisibility?
-        
+        public let language: String?
+
         public init(
             status: String?,
             mediaIDs: [String]?,
@@ -116,7 +117,8 @@ extension Mastodon.API.Statuses {
             inReplyToID: Mastodon.Entity.Status.ID?,
             sensitive: Bool?,
             spoilerText: String?,
-            visibility: MastodonVisibility?
+            visibility: MastodonVisibility?,
+            language: String?
         ) {
             self.status = status
             self.mediaIDs = mediaIDs
@@ -126,6 +128,7 @@ extension Mastodon.API.Statuses {
             self.sensitive = sensitive
             self.spoilerText = spoilerText
             self.visibility = visibility
+            self.language = language
         }
         
         var contentType: String? {
@@ -147,6 +150,7 @@ extension Mastodon.API.Statuses {
             sensitive.flatMap { data.append(Data.multipart(key: "sensitive", value: $0)) }
             spoilerText.flatMap { data.append(Data.multipart(key: "spoiler_text", value: $0)) }
             visibility.flatMap { data.append(Data.multipart(key: "visibility", value: $0.rawValue)) }
+            language.flatMap { data.append(Data.multipart(key: "language", value: $0)) }
 
             data.append(Data.multipartEnd())
             return data

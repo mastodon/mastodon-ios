@@ -11,6 +11,7 @@ import SwiftUI
 import Combine
 import PhotosUI
 import MastodonCore
+import NaturalLanguage
 
 public final class ComposeContentViewController: UIViewController {
     
@@ -334,6 +335,51 @@ extension ComposeContentViewController {
         viewModel.$contentWeightedLength.assign(to: &composeContentToolbarViewModel.$contentWeightedLength)
         viewModel.$contentWarningWeightedLength.assign(to: &composeContentToolbarViewModel.$contentWarningWeightedLength)
         
+        let languageRecognizer = NLLanguageRecognizer()
+        viewModel.$content
+        // run on background thread since NLLanguageRecognizer seems to do CPU-bound work
+        // that we don’t want on main
+            .receive(on: DispatchQueue.global(qos: .utility))
+            .sink { [unowned self] content in
+                if content.isEmpty {
+                    DispatchQueue.main.async {
+                        self.composeContentToolbarViewModel.suggestedLanguages = []
+                    }
+                    return
+                }
+                defer { languageRecognizer.reset() }
+                languageRecognizer.processString(content)
+                let hypotheses = languageRecognizer
+                    .languageHypotheses(withMaximum: 3)
+                DispatchQueue.main.async {
+                    self.composeContentToolbarViewModel.suggestedLanguages = hypotheses
+                        .filter { _, probability in probability > 0.1 }
+                        .keys
+                        .map(\.rawValue)
+
+                    if let bestLanguage = hypotheses.max(by: { $0.value < $1.value }), bestLanguage.value > 0.99 {
+                        self.composeContentToolbarViewModel.highConfidenceSuggestedLanguage = bestLanguage.key.rawValue
+                    } else {
+                        self.composeContentToolbarViewModel.highConfidenceSuggestedLanguage = nil
+                    }
+                }
+            }
+            .store(in: &disposeBag)
+        
+        viewModel.$language.assign(to: &composeContentToolbarViewModel.$language)
+        composeContentToolbarViewModel.$language
+            .dropFirst()
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] language in
+                guard let self = self else { return }
+                if self.viewModel.language != language {
+                    self.viewModel.language = language
+                }
+            }
+            .store(in: &disposeBag)
+
+        viewModel.$recentLanguages.assign(to: &composeContentToolbarViewModel.$recentLanguages)
+        
         // bind back to source due to visibility not update via delegate
         composeContentToolbarViewModel.$visibility
             .dropFirst()
@@ -507,7 +553,7 @@ extension ComposeContentViewController: ComposeContentToolbarViewDelegate {
                     self.viewModel.setContentTextViewFirstResponderIfNeeds()
                 }
             }
-        case .visibility:
+        case .visibility, .language:
             assertionFailure()
         }
     }

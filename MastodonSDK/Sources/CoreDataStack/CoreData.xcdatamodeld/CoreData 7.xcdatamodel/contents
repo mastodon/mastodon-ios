@@ -193,6 +193,7 @@
         <attribute name="preferredStaticEmoji" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="preferredTrueBlackDarkMode" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="preferredUsingDefaultBrowser" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="rawRecentLanguages" optional="YES" attributeType="Binary"/>
         <attribute name="updatedAt" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="userID" attributeType="String"/>
         <relationship name="subscriptions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Subscription" inverseName="setting" inverseEntity="Subscription"/>

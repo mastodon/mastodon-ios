@@ -576,6 +576,16 @@ public enum L10n {
         /// Toggle Poll
         public static let togglePoll = L10n.tr("Localizable", "Scene.Compose.Keyboard.TogglePoll", fallback: "Toggle Poll")
       }
+      public enum Language {
+        /// Other Language…
+        public static let other = L10n.tr("Localizable", "Scene.Compose.Language.Other", fallback: "Other Language…")
+        /// Recent
+        public static let recent = L10n.tr("Localizable", "Scene.Compose.Language.Recent", fallback: "Recent")
+        /// Suggested
+        public static let suggested = L10n.tr("Localizable", "Scene.Compose.Language.Suggested", fallback: "Suggested")
+        /// Post Language
+        public static let title = L10n.tr("Localizable", "Scene.Compose.Language.Title", fallback: "Post Language")
+      }
       public enum MediaSelection {
         /// Browse
         public static let browse = L10n.tr("Localizable", "Scene.Compose.MediaSelection.Browse", fallback: "Browse")

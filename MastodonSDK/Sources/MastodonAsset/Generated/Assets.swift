@@ -47,6 +47,8 @@ public enum Asset {
     }
     public enum Brand {
       public static let blurple = ColorAsset(name: "Colors/Brand/Blurple")
+      public static let darkBlurple = ColorAsset(name: "Colors/Brand/Dark Blurple")
+      public static let eggplant = ColorAsset(name: "Colors/Brand/Eggplant")
       public static let lightBlurple = ColorAsset(name: "Colors/Brand/Light Blurple")
     }
     public enum Button {

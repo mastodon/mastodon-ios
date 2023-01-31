@@ -38,10 +38,12 @@ public final class MastodonStatusPublisher: NSObject, ProgressReporting {
     public let pollMultipleConfigurationOption: PollComposeItem.MultipleConfiguration.Option
     // visibility
     public let visibility: MastodonVisibility
-    
+    // language
+    public let language: String
+
     // called if publish is successful
     public let cleanup: () -> Void
-    
+
     // Output
     let _progress = Progress()
     public var progress: Progress { _progress }
@@ -61,6 +63,7 @@ public final class MastodonStatusPublisher: NSObject, ProgressReporting {
         pollExpireConfigurationOption: Draft.Poll.Expiration,
         pollMultipleConfigurationOption: PollComposeItem.MultipleConfiguration.Option,
         visibility: MastodonVisibility,
+        language: String,
         cleanup: @escaping () -> Void
     ) {
         self.author = author
@@ -75,6 +78,7 @@ public final class MastodonStatusPublisher: NSObject, ProgressReporting {
         self.pollExpireConfigurationOption = pollExpireConfigurationOption
         self.pollMultipleConfigurationOption = pollMultipleConfigurationOption
         self.visibility = visibility
+        self.language = language
         self.cleanup = cleanup
     }
     
@@ -173,7 +177,8 @@ extension MastodonStatusPublisher: StatusPublisher {
             inReplyToID: inReplyToID,
             sensitive: isMediaSensitive,
             spoilerText: isContentWarningComposing ? contentWarning : nil,
-            visibility: visibility
+            visibility: visibility,
+            language: language
         )
         
         let publishResponse = try await api.publishStatus(
