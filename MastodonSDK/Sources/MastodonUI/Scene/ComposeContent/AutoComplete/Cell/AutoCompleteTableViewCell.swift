@@ -139,12 +139,14 @@ struct AutoCompleteTableViewCell_Previews: PreviewProvider {
                 return cell
             }
             .previewLayout(.fixed(width: 375, height: 66))
+            .previewDisplayName("AutoComplete - Light")
             UIViewPreview() {
                 let cell = AutoCompleteTableViewCell()
                 return cell
             }
             .preferredColorScheme(.dark)
             .previewLayout(.fixed(width: 375, height: 66))
+            .previewDisplayName("AutoComplete - Dark")
         }
     }
     
