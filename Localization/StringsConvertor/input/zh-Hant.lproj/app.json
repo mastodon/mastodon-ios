@@ -296,7 +296,7 @@
                 },
                 "username": {
                     "placeholder": "使用者名稱",
-                    "duplicate_prompt": "此使用者名稱已被佔用。"
+                    "duplicate_prompt": "這個帳號已經被註冊過囉。"
                 },
                 "display_name": {
                     "placeholder": "顯示名稱"
