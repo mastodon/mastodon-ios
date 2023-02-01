@@ -59,6 +59,12 @@ jobs:
           keychain: build-p12
           p12-file-base64: ${{ secrets.BUILD_CERTIFICATE_BASE64 }}
           p12-password: ${{ secrets.P12_PASSWORD }}
+      - name: Rename Bundle Identifier
+        env: 
+          ORIGINAL_BUNDLE: com.emerge.mastodon
+          NEW_BUNDLE: com.emerge.mastodon.release
+        run: |
+          sed -i '' "s/${ORIGINAL_BUNDLE}/${NEW_BUNDLE}/g" Mastodon.xcodeproj/project.pbxproj
       - name: Build for Testing
         env:
           SCHEME: Release
