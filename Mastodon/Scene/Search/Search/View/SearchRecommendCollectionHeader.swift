@@ -99,8 +99,8 @@ struct SearchRecommendCollectionHeader_Previews: PreviewProvider {
     
     static var previews: some View {
         Group {
-            controls.colorScheme(.light)
-            controls.colorScheme(.dark)
+            controls.colorScheme(.light).previewDisplayName("Search Recommended Collection Header - Light")
+            controls.colorScheme(.dark).previewDisplayName("Search Recommended Collection Header - Dark")
         }
         .background(Color.gray)
     }
