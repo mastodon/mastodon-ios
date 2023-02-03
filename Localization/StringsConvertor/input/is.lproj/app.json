@@ -333,7 +333,7 @@
                     "taken": "%s er þegar í notkun",
                     "reserved": "%s er frátekið stikkorð",
                     "accepted": "%s verður að samþykkja",
-                    "blank": "%s ier nauðsynlegt",
+                    "blank": "%s er nauðsynlegt",
                     "invalid": "%s er ógilt",
                     "too_long": "%s er of langt",
                     "too_short": "%s er of stutt",
