@@ -120,6 +120,12 @@ extension HomeTimelineViewModel {
 }
 
 extension HomeTimelineViewModel {
+    func timelineDidReachEnd() {
+        fetchedResultsController.fetchNextBatch()
+    }
+}
+
+extension HomeTimelineViewModel {
 
     // load timeline gap
     func loadMore(item: StatusItem) async {

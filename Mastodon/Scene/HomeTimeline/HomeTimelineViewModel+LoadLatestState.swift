@@ -65,7 +65,7 @@ extension HomeTimelineViewModel.LoadLatestState {
             guard let viewModel else { return }
             
             let latestFeedRecords = viewModel.fetchedResultsController.records.prefix(APIService.onceRequestStatusMaxCount)
-            let parentManagedObjectContext = viewModel.fetchedResultsController.fetchedResultsController.managedObjectContext
+            let parentManagedObjectContext = viewModel.fetchedResultsController.managedObjectContext
             let managedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
             managedObjectContext.parent = parentManagedObjectContext
 
