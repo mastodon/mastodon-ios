@@ -63,6 +63,7 @@
 	<array>
 		<string>FollowersCountIntent</string>
 		<string>MultiFollowersCountIntent</string>
+		<string>LatestFollowersIntent</string>
 		<string>SendPostIntent</string>
 	</array>
 	<key>UIApplicationSceneManifest</key>
