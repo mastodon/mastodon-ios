@@ -13,7 +13,7 @@
             },
             "vote_failure": {
                 "title": "Balsošanas Neveiksme",
-                "poll_ended": "Balsošana beidzās"
+                "poll_ended": "Aptauja ir noslēgusies"
             },
             "discard_post_content": {
                 "title": "Atmest malnrakstu",
@@ -32,9 +32,9 @@
                 "message": "Nevar rediģēt profilu. Lūdzu mēģini vēlreiz."
             },
             "sign_out": {
-                "title": "Iziet",
-                "message": "Vai tiešām vēlaties iziet?",
-                "confirm": "Iziet"
+                "title": "Izrakstīties",
+                "message": "Vai tiešām vēlaties izrakstīties?",
+                "confirm": "Izrakstīties"
             },
             "block_domain": {
                 "title": "Vai tiešām tiešām vēlies bloķēt visu %s? Vairumā gadījumu pietiek ar dažiem mērķtiecīgiem blokiem vai klusinātājiem, un tie ir vēlami. Tu neredzēsi saturu no šī domēna, un visi tavi sekotāji no šī domēna tiks noņemti.",
@@ -45,8 +45,8 @@
                 "message": "Lai saglabātu fotoattēlu, lūdzu, iespējo fotoattēlu bibliotēkas piekļuves atļauju."
             },
             "delete_post": {
-                "title": "Dzēst ierakstu",
-                "message": "Vai tiešām vēlies dzēst ierakstu?"
+                "title": "Dzēst Ziņu",
+                "message": "Vai tiešām vēlies dzēst šo ziņu?"
             },
             "clean_cache": {
                 "title": "Iztīrīt Kešatmiņu",
