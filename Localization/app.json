@@ -826,6 +826,12 @@
             "title": "FOLLOWERS",
             "followers_today": "%s followers today"
         },
+        "multiple_followers": {
+            "mock_user": {
+                "display_name": "Another follower",
+                "account_name": "another@follower.social"
+            }
+        },
         "latest_followers": {
             "title": "Latest followers",
             "last_update": "Last update: %s"

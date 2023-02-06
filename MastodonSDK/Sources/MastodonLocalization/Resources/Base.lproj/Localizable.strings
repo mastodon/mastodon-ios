@@ -522,5 +522,7 @@ You can’t go wrong with any of our recommend servers, so regardless of which o
 "Widget.Common.UserNotLoggedIn" = "Please open Mastodon to log in to an Account.";
 "Widget.FollowersCount.Title" = "FOLLOWERS";
 "Widget.FollowersCount.FollowersToday" = "%@ followers today";
+"Widget.MultipleFollowers.MockUser.DisplayName" = "Another follower";
+"Widget.MultipleFollowers.MockUser.AccountName" = "another@follower.social";
 "Widget.LatestFollowers.Title" = "Latest followers";
 "Widget.LatestFollowers.LastUpdate" = "Last update: %@";

@@ -1502,6 +1502,14 @@ public enum L10n {
       /// Latest followers
       public static let title = L10n.tr("Localizable", "Widget.LatestFollowers.Title", fallback: "Latest followers")
     }
+    public enum MultipleFollowers {
+      public enum MockUser {
+        /// another@follower.social
+        public static let accountName = L10n.tr("Localizable", "Widget.MultipleFollowers.MockUser.AccountName", fallback: "another@follower.social")
+        /// Another follower
+        public static let displayName = L10n.tr("Localizable", "Widget.MultipleFollowers.MockUser.DisplayName", fallback: "Another follower")
+      }
+    }
   }
   public enum A11y {
     public enum Plural {

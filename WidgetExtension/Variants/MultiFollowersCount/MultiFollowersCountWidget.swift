@@ -4,6 +4,7 @@ import WidgetKit
 import SwiftUI
 import Intents
 import MastodonSDK
+import MastodonLocalization
 
 struct MultiFollowersCountWidgetProvider: IntentTimelineProvider {
     func placeholder(in context: Context) -> MultiFollowersCountEntry {
@@ -116,8 +117,8 @@ private extension MultiFollowersCountWidgetProvider {
                 accounts.append(
                     MultiFollowersEntryAccount(
                         followersCount: 1_200,
-                        displayNameWithFallback: "Another follower",
-                        acct: "@another@follower.social",
+                        displayNameWithFallback: L10n.Widget.MultipleFollowers.MockUser.displayName,
+                        acct: L10n.Widget.MultipleFollowers.MockUser.accountName,
                         avatarImage: UIImage(named: "missingAvatar")!,
                         domain: authBox.domain
                     )
