@@ -69,7 +69,7 @@ final class ComposeViewModel {
             case .reply:
                 title = L10n.Scene.Compose.Title.newReply
             }
-        case .editStatus(let status):
+        case .editStatus(_, _):
             //TODO: @zeitschlag Localization
             title = "Edit Post"
         }
