@@ -11,9 +11,6 @@ struct MultiFollowersCountWidgetProvider: IntentTimelineProvider {
     }
 
     func getSnapshot(for configuration: MultiFollowersCountIntent, in context: Context, completion: @escaping (MultiFollowersCountEntry) -> ()) {
-        guard !context.isPreview else {
-            return completion(.placeholder)
-        }
         loadCurrentEntry(for: configuration, in: context, completion: completion)
     }
 
@@ -78,6 +75,9 @@ private extension MultiFollowersCountWidgetProvider {
                     .mastodonAuthenticationBoxes
                     .first
             else {
+                guard !context.isPreview else {
+                    return completion(.placeholder)
+                }
                 return completion(.unconfigured)
             }
             

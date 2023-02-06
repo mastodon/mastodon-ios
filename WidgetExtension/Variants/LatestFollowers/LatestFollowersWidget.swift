@@ -11,9 +11,6 @@ struct LatestFollowersWidgetProvider: IntentTimelineProvider {
     }
 
     func getSnapshot(for configuration: LatestFollowersIntent, in context: Context, completion: @escaping (LatestFollowersEntry) -> ()) {
-        guard !context.isPreview else {
-            return completion(.placeholder)
-        }
         loadCurrentEntry(for: configuration, in: context, completion: completion)
     }
 
@@ -85,19 +82,12 @@ private extension LatestFollowersWidgetProvider {
                     .mastodonAuthenticationBoxes
                     .first
             else {
+                guard !context.isPreview else {
+                    return completion(.placeholder)
+                }
                 return completion(.unconfigured)
             }
-            
-//            guard let desiredAccount: String = {
-//                guard let account = authBox.authenticationRecord.object(in: WidgetExtension.appContext.managedObjectContext)?.user.acct else {
-//                    return nil
-//                }
-//                return account
-//            }() else {
-//                return completion(.unconfigured)
-//            }
-            
-            
+
             var accounts = [LatestFollowersEntryAccountable]()
 
             let followers = try await WidgetExtension.appContext
@@ -127,23 +117,6 @@ private extension LatestFollowersWidgetProvider {
              )
 
              completion(entry)
-            
-//            for desiredAccount in desiredAccounts {
-//                let resultingAccount = try await WidgetExtension.appContext
-//                    .apiService
-//                    .search(query: .init(q: desiredAccount, type: .accounts), authenticationBox: authBox)
-//                    .value
-//                    .accounts
-//                    .first!
-//
-//                let imageData = try await URLSession.shared.data(from: resultingAccount.avatarImageURLWithFallback(domain: authBox.domain)).0
-//
-//                accounts.append(FollowersEntryAccount.from(
-//                    mastodonAccount: resultingAccount,
-//                    domain: authBox.domain,
-//                    avatarImage: UIImage(data: imageData) ?? UIImage(named: "missingAvatar")!
-//                ))
-//            }
         }
     }
 }

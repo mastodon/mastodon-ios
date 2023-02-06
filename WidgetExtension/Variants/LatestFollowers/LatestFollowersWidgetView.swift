@@ -37,7 +37,10 @@ struct LatestFollowersWidgetView: View {
     }
     
     private func viewForSmallWidget(_ accounts: [LatestFollowersEntryAccountable], lastUpdate: Date) -> some View {
-        VStack(alignment: .leading, spacing: 0) {
+        VStack(alignment: .leading) {
+            Text("Latest followers")
+                .font(.system(size: UIFontMetrics.default.scaledValue(for: 16)))
+            
             ForEach(accounts, id: \.acct) { account in
                 HStack {
                     if let avatarImage = account.avatarImage {
@@ -47,23 +50,29 @@ struct LatestFollowersWidgetView: View {
                             .cornerRadius(5)
                     }
                     VStack(alignment: .leading) {
-                        Text(account.note)
-                            .font(.caption)
-                            .lineLimit(1)
-                            .truncationMode(.tail)
                         
-                        Text("@\(account.acct)")
-                            .font(.caption2)
-                            .foregroundColor(.secondary)
-                            .lineLimit(1)
-                            .truncationMode(.tail)
+                    Text(account.displayNameWithFallback)
+                        .font(.footnote.bold())
+                        .foregroundColor(.secondary)
+                        .lineLimit(1)
+                        .truncationMode(.tail)
+                    
+                    Text("@\(account.acct)")
+                        .font(.caption2)
+                        .foregroundColor(.secondary)
+                        .lineLimit(1)
+                        .truncationMode(.tail)
+     
                     }
                     Spacer()
                 }
-                .padding(.leading, 20)
             }
             Spacer()
+            Text("Last update: \(dateFormatter.string(from: lastUpdate))")
+                .font(.caption2)
+                .foregroundColor(.secondary)
         }
+        .padding(.horizontal, 20)
         .padding(.vertical, 16)
     }
     
