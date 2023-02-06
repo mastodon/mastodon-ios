@@ -52,7 +52,7 @@ struct FollowersCountWidgetView: View {
                     .truncationMode(.tail)
             
                 Text(account.displayNameWithFallback)
-                    .font(.system(size: 13))
+                    .font(.system(size: UIFontMetrics.default.scaledValue(for: 13)))
                     .lineLimit(1)
                     .truncationMode(.tail)
 
@@ -108,7 +108,7 @@ struct FollowersCountWidgetView: View {
                         Spacer()
                         if let increaseCount = followersHistory.increaseCountString(for: account) {
                             Text("\(increaseCount) followers today")
-                                .font(.system(size: 12))
+                                .font(.system(size: UIFontMetrics.default.scaledValue(for: 12)))
                                 .foregroundColor(.secondary)
                                 .lineLimit(1)
                                 .truncationMode(.tail)
@@ -135,12 +135,12 @@ struct FollowersCountWidgetView: View {
                 HStack(alignment: .center) {
                     Image("BrandIcon")
                     Text("FOLLOWERS")
-                        .font(.system(size: 15, weight: .semibold))
+                        .font(.system(size: UIFontMetrics.default.scaledValue(for: 15), weight: .semibold))
                 }
                 .padding(.top, 6)
 
                 Text(account.followersCount.asAbbreviatedCountString())
-                    .font(.system(size: 43))
+                    .font(.system(size: UIFontMetrics.default.scaledValue(for: 43)))
                     .lineLimit(1)
                     .truncationMode(.tail)
             }
@@ -157,7 +157,7 @@ struct FollowersCountWidgetView: View {
                 Image("BrandIcon")
 
                 Text(account.followersCount.asAbbreviatedCountString())
-                    .font(.system(size: 15))
+                    .font(.system(size: UIFontMetrics.default.scaledValue(for: 15)))
                     .lineLimit(1)
                     .truncationMode(.tail)
             }

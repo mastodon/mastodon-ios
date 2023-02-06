@@ -109,7 +109,7 @@ struct LatestFollowersWidgetView: View {
                                 .truncationMode(.tail)
                         }
                         
-                        Text(account.noteWithoutHtmlTags!)
+                        Text(account.noteWithoutHtmlTags ?? "")
                             .font(.caption)
                             .lineLimit(1)
                             .truncationMode(.tail)
