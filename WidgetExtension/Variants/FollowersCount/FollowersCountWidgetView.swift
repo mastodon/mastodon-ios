@@ -3,6 +3,7 @@
 import SwiftUI
 import WidgetKit
 import MastodonAsset
+import MastodonLocalization
 
 struct FollowersCountWidgetView: View {
     private let followersHistory = FollowersCountHistory.shared
@@ -25,10 +26,10 @@ struct FollowersCountWidgetView: View {
             case .accessoryCircular:
                 viewForAccessoryCircular(account)
             default:
-                Text("Sorry but this Widget family is unsupported.")
+                Text(L10n.Widget.Common.unsupportedWidgetFamily)
             }
         } else {
-            Text("Please open Mastodon to log in to an Account.")
+            Text(L10n.Widget.Common.userNotLoggedIn)
                 .multilineTextAlignment(.center)
                 .font(.caption)
                 .padding(.all, 20)
@@ -107,7 +108,7 @@ struct FollowersCountWidgetView: View {
                     VStack(alignment: .leading, spacing: 0) {
                         Spacer()
                         if let increaseCount = followersHistory.increaseCountString(for: account) {
-                            Text("\(increaseCount) followers today")
+                            Text(L10n.Widget.FollowersCount.followersToday(increaseCount))
                                 .font(.system(size: UIFontMetrics.default.scaledValue(for: 12)))
                                 .foregroundColor(.secondary)
                                 .lineLimit(1)
@@ -134,7 +135,7 @@ struct FollowersCountWidgetView: View {
             VStack(alignment: .leading, spacing: 0) {
                 HStack(alignment: .center) {
                     Image("BrandIcon")
-                    Text("FOLLOWERS")
+                    Text(L10n.Widget.FollowersCount.title)
                         .font(.system(size: UIFontMetrics.default.scaledValue(for: 15), weight: .semibold))
                 }
                 .padding(.top, 6)

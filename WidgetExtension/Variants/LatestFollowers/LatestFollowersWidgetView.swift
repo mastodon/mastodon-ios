@@ -5,6 +5,7 @@ import WidgetKit
 import MastodonSDK
 import MastodonAsset
 import MastodonUI
+import MastodonLocalization
 
 struct LatestFollowersWidgetView: View {
     private let dateFormatter: DateFormatter = {
@@ -26,10 +27,10 @@ struct LatestFollowersWidgetView: View {
             case .systemMedium:
                 viewForMediumWidget(accounts, lastUpdate: entry.date)
             default:
-                Text("Sorry but this Widget family is unsupported.")
+                Text(L10n.Widget.Common.unsupportedWidgetFamily)
             }
         } else {
-            Text("Please open Mastodon to log in to an Account.")
+            Text(L10n.Widget.Common.userNotLoggedIn)
                 .multilineTextAlignment(.center)
                 .font(.caption)
                 .padding(.all, 20)
@@ -38,7 +39,7 @@ struct LatestFollowersWidgetView: View {
     
     private func viewForSmallWidget(_ accounts: [LatestFollowersEntryAccountable], lastUpdate: Date) -> some View {
         VStack(alignment: .leading) {
-            Text("Latest followers")
+            Text(L10n.Widget.LatestFollowers.title)
                 .font(.system(size: UIFontMetrics.default.scaledValue(for: 16)))
             
             ForEach(accounts, id: \.acct) { account in
@@ -53,7 +54,6 @@ struct LatestFollowersWidgetView: View {
                         
                     Text(account.displayNameWithFallback)
                         .font(.footnote.bold())
-                        .foregroundColor(.secondary)
                         .lineLimit(1)
                         .truncationMode(.tail)
                     
@@ -68,7 +68,7 @@ struct LatestFollowersWidgetView: View {
                 }
             }
             Spacer()
-            Text("Last update: \(dateFormatter.string(from: lastUpdate))")
+            Text(L10n.Widget.LatestFollowers.lastUpdate(dateFormatter.string(from: lastUpdate)))
                 .font(.caption2)
                 .foregroundColor(.secondary)
         }
@@ -79,7 +79,7 @@ struct LatestFollowersWidgetView: View {
     private func viewForMediumWidget(_ accounts: [LatestFollowersEntryAccountable], lastUpdate: Date) -> some View {
         VStack(alignment: .leading) {
             HStack {
-                Text("Latest followers")
+                Text(L10n.Widget.LatestFollowers.title)
                     .font(.system(size: UIFontMetrics.default.scaledValue(for: 16)))
                 Spacer()
                 Image("BrandIconColored")
@@ -98,7 +98,6 @@ struct LatestFollowersWidgetView: View {
                         HStack {
                             Text(account.displayNameWithFallback)
                                 .font(.footnote.bold())
-                                .foregroundColor(.secondary)
                                 .lineLimit(1)
                                 .truncationMode(.tail)
                             
@@ -118,7 +117,7 @@ struct LatestFollowersWidgetView: View {
                 }
             }
             Spacer()
-            Text("Last update: \(dateFormatter.string(from: lastUpdate))")
+            Text(L10n.Widget.LatestFollowers.lastUpdate(dateFormatter.string(from: lastUpdate)))
                 .font(.caption2)
                 .foregroundColor(.secondary)
         }

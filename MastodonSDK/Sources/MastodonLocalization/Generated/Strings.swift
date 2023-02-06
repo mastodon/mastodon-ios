@@ -1479,6 +1479,30 @@ public enum L10n {
       public static let newInMastodon = L10n.tr("Localizable", "Scene.Wizard.NewInMastodon", fallback: "New in Mastodon")
     }
   }
+  public enum Widget {
+    public enum Common {
+      /// Sorry but this Widget family is unsupported.
+      public static let unsupportedWidgetFamily = L10n.tr("Localizable", "Widget.Common.UnsupportedWidgetFamily", fallback: "Sorry but this Widget family is unsupported.")
+      /// Please open Mastodon to log in to an Account.
+      public static let userNotLoggedIn = L10n.tr("Localizable", "Widget.Common.UserNotLoggedIn", fallback: "Please open Mastodon to log in to an Account.")
+    }
+    public enum FollowersCount {
+      /// %@ followers today
+      public static func followersToday(_ p1: Any) -> String {
+        return L10n.tr("Localizable", "Widget.FollowersCount.FollowersToday", String(describing: p1), fallback: "%@ followers today")
+      }
+      /// FOLLOWERS
+      public static let title = L10n.tr("Localizable", "Widget.FollowersCount.Title", fallback: "FOLLOWERS")
+    }
+    public enum LatestFollowers {
+      /// Last update: %@
+      public static func lastUpdate(_ p1: Any) -> String {
+        return L10n.tr("Localizable", "Widget.LatestFollowers.LastUpdate", String(describing: p1), fallback: "Last update: %@")
+      }
+      /// Latest followers
+      public static let title = L10n.tr("Localizable", "Widget.LatestFollowers.Title", fallback: "Latest followers")
+    }
+  }
   public enum A11y {
     public enum Plural {
       public enum Count {

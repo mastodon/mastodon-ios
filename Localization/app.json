@@ -816,5 +816,19 @@
         "open_in": {
             "invalid_link_error": "This doesn't seem to be a valid Mastodon link."
         }
+    },
+    "widget": {
+        "common": {
+            "unsupported_widget_family": "Sorry but this Widget family is unsupported.",
+            "user_not_logged_in": "Please open Mastodon to log in to an Account."
+        },
+        "followers_count": {
+            "title": "FOLLOWERS",
+            "followers_today": "%s followers today"
+        },
+        "latest_followers": {
+            "title": "Latest followers",
+            "last_update": "Last update: %s"
+        }
     }
 }

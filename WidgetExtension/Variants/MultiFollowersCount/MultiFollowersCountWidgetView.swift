@@ -3,6 +3,7 @@
 import SwiftUI
 import WidgetKit
 import MastodonAsset
+import MastodonLocalization
 
 struct MultiFollowersCountWidgetView: View {
     @Environment(\.widgetFamily) var family
@@ -17,10 +18,10 @@ struct MultiFollowersCountWidgetView: View {
             case .systemMedium:
                 viewForMediumWidget(accounts)
             default:
-                Text("Sorry but this Widget family is unsupported.")
+                Text(L10n.Widget.Common.unsupportedWidgetFamily)
             }
         } else {
-            Text("Please open Mastodon to log in to an Account.")
+            Text(L10n.Widget.Common.userNotLoggedIn)
                 .multilineTextAlignment(.center)
                 .font(.caption)
                 .padding(.all, 20)
