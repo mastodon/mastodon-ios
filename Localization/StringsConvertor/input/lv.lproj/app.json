@@ -69,13 +69,13 @@
                 "edit": "Rediģēt",
                 "save": "Saglabāt",
                 "ok": "Labi",
-                "done": "Pabeigts",
+                "done": "Gatavs",
                 "confirm": "Apstiprināt",
                 "continue": "Turpināt",
                 "compose": "Rakstīt",
                 "cancel": "Atcelt",
                 "discard": "Atmest",
-                "try_again": "Mēģināt vēlreiz",
+                "try_again": "Mēģināt Vēlreiz",
                 "take_photo": "Uzņemt bildi",
                 "save_photo": "Saglabāt bildi",
                 "copy_photo": "Kopēt bildi",
@@ -84,16 +84,16 @@
                 "see_more": "Skatīt vairāk",
                 "preview": "Priekšskatījums",
                 "copy": "Kopēt",
-                "share": "Dalīties",
+                "share": "Kopīgot",
                 "share_user": "Kopīgot %s",
                 "share_post": "Kopīgot Ziņu",
                 "open_in_safari": "Atvērt Safari",
-                "open_in_browser": "Atvērt pārlūkprogrammā",
+                "open_in_browser": "Atvērt Pārlūkprogrammā",
                 "find_people": "Atrodi cilvēkus kam sekot",
                 "manually_search": "Tā vietā meklēt manuāli",
                 "skip": "Izlaist",
                 "reply": "Atbildēt",
-                "report_user": "Ziņot par lietotāju @%s",
+                "report_user": "Ziņot %s",
                 "block_domain": "Bloķēt %s",
                 "unblock_domain": "Atbloķēt %s",
                 "settings": "Iestatījumi",
@@ -111,10 +111,10 @@
             },
             "keyboard": {
                 "common": {
-                    "switch_to_tab": "Pārslēgties uz: %s",
+                    "switch_to_tab": "Pārslēgt uz %s",
                     "compose_new_post": "Veidot jaunu ziņu",
                     "show_favorites": "Parādīt Izlasi",
-                    "open_settings": "Atvērt iestatījumus"
+                    "open_settings": "Atvērt Iestatījumus"
                 },
                 "timeline": {
                     "previous_status": "Iepriekšējā Ziņa",
@@ -126,11 +126,11 @@
                     "toggle_reblog": "Pārslēgt Reblogs uz Ziņu",
                     "toggle_favorite": "Pārslēgt Izlasi uz Ziņas",
                     "toggle_content_warning": "Pārslēgt Satura Brīdinājumu",
-                    "preview_image": "Priekšskata attēls"
+                    "preview_image": "Priekšskatīt Attēlu"
                 },
                 "segmented_control": {
-                    "previous_section": "Iepriekšējā sadaļa",
-                    "next_section": "Nākamā sadaļa"
+                    "previous_section": "Iepriekšējā Sadaļa",
+                    "next_section": "Nākamā Sadaļa"
                 }
             },
             "status": {
@@ -138,8 +138,8 @@
                 "user_replied_to": "Atbildēja %s",
                 "show_post": "Parādīt Ziņu",
                 "show_user_profile": "Parādīt lietotāja profilu",
-                "content_warning": "Satura brīdinājums",
-                "sensitive_content": "Sensitīvs saturs",
+                "content_warning": "Satura Brīdinājums",
+                "sensitive_content": "Sensitīvs Saturs",
                 "media_content_warning": "Pieskarieties jebkurā vietā, lai atklātu",
                 "tap_to_reveal": "Piest, lai atklātu",
                 "load_embed": "Ielādēt Iegultos",
