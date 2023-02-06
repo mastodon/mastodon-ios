@@ -23,14 +23,14 @@ struct MultiFollowersCountWidgetProvider: IntentTimelineProvider {
 
 struct MultiFollowersCountEntry: TimelineEntry {
     let date: Date
-    let accounts: [FollowersEntryAccountable]?
+    let accounts: [MultiFollowersEntryAccountable]?
     let configuration: MultiFollowersCountIntent
     
     static var placeholder: Self {
         MultiFollowersCountEntry(
             date: .now,
             accounts: [
-                FollowersEntryAccount(
+                MultiFollowersEntryAccount(
                     followersCount: 99_900,
                     displayNameWithFallback: "Mastodon",
                     acct: "mastodon",
@@ -45,7 +45,7 @@ struct MultiFollowersCountEntry: TimelineEntry {
     static var unconfigured: Self {
         MultiFollowersCountEntry(
             date: .now,
-            accounts: [],
+            accounts: nil,
             configuration: MultiFollowersCountIntent()
         )
     }
@@ -93,7 +93,7 @@ private extension MultiFollowersCountWidgetProvider {
                 return completion(.unconfigured)
             }
             
-            var accounts = [FollowersEntryAccountable]()
+            var accounts = [MultiFollowersEntryAccountable]()
             
             for desiredAccount in desiredAccounts {
                 let resultingAccount = try await WidgetExtension.appContext
@@ -105,11 +105,23 @@ private extension MultiFollowersCountWidgetProvider {
                 
                 let imageData = try await URLSession.shared.data(from: resultingAccount.avatarImageURLWithFallback(domain: authBox.domain)).0
                 
-                accounts.append(FollowersEntryAccount.from(
+                accounts.append(MultiFollowersEntryAccount.from(
                     mastodonAccount: resultingAccount,
                     domain: authBox.domain,
                     avatarImage: UIImage(data: imageData) ?? UIImage(named: "missingAvatar")!
                 ))
+            }
+            
+            if context.isPreview {
+                accounts.append(
+                    MultiFollowersEntryAccount(
+                        followersCount: 1_200,
+                        displayNameWithFallback: "Another follower",
+                        acct: "@another@follower.social",
+                        avatarImage: UIImage(named: "missingAvatar")!,
+                        domain: authBox.domain
+                    )
+                )
             }
        
             let entry = MultiFollowersCountEntry(

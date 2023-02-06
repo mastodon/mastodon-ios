@@ -52,7 +52,7 @@ struct LatestFollowersEntry: TimelineEntry {
     static var unconfigured: Self {
         LatestFollowersEntry(
             date: .now,
-            accounts: [],
+            accounts: nil,
             configuration: LatestFollowersIntent()
         )
     }

@@ -28,7 +28,7 @@ struct MultiFollowersCountWidgetView: View {
         }
     }
     
-    private func viewForSmallWidget(_ accounts: [FollowersEntryAccountable]) -> some View {
+    private func viewForSmallWidget(_ accounts: [MultiFollowersEntryAccountable]) -> some View {
         VStack(alignment: .leading, spacing: 0) {
             ForEach(accounts, id: \.acct) { account in
                 HStack {
@@ -59,7 +59,7 @@ struct MultiFollowersCountWidgetView: View {
         .padding(.vertical, 16)
     }
     
-    private func viewForMediumWidget(_ accounts: [FollowersEntryAccountable]) -> some View {
+    private func viewForMediumWidget(_ accounts: [MultiFollowersEntryAccountable]) -> some View {
         VStack(alignment: .leading, spacing: 0) {
             LazyVGrid(columns: [
                 GridItem(.flexible()),
