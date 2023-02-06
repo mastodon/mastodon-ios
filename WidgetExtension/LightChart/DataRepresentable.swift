@@ -4,6 +4,7 @@
 //
 //  Created by Alexey Pichukov on 19.08.2020.
 //
+// Modified by Marcus Kida for Mastodon on 30.01.2023.
 
 import Foundation
 import CoreGraphics
