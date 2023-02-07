@@ -391,8 +391,8 @@ public enum L10n {
           public static let url = L10n.tr("Localizable", "Common.Controls.Status.Tag.Url", fallback: "URL")
         }
         public enum Translation {
-          /// Shown Original
-          public static let showOriginal = L10n.tr("Localizable", "Common.Controls.Status.Translation.ShowOriginal", fallback: "Shown Original")
+          /// Show Original
+          public static let showOriginal = L10n.tr("Localizable", "Common.Controls.Status.Translation.ShowOriginal", fallback: "Show Original")
           /// Translated from %@ using %@
           public static func translatedFrom(_ p1: Any, _ p2: Any) -> String {
             return L10n.tr("Localizable", "Common.Controls.Status.Translation.TranslatedFrom", String(describing: p1), String(describing: p2), fallback: "Translated from %@ using %@")
