@@ -137,7 +137,7 @@ Please check your internet connection.";
 "Common.Controls.Status.Tag.Mention" = "Mention";
 "Common.Controls.Status.Tag.Url" = "URL";
 "Common.Controls.Status.TapToReveal" = "Tap to reveal";
-"Common.Controls.Status.Translation.ShowOriginal" = "Shown Original";
+"Common.Controls.Status.Translation.ShowOriginal" = "Show Original";
 "Common.Controls.Status.Translation.TranslatedFrom" = "Translated from %@ using %@";
 "Common.Controls.Status.Translation.UnknownLanguage" = "Unknown";
 "Common.Controls.Status.Translation.UnknownProvider" = "Unknown";
