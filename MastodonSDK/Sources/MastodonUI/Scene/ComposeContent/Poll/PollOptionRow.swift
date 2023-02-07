@@ -8,12 +8,16 @@
 import SwiftUI
 import MastodonAsset
 import MastodonCore
+import MastodonLocalization
 
 public struct PollOptionRow: View {
  
     @ObservedObject var viewModel: PollComposeItem.Option
     
-    let index: Int?
+    let index: Int
+    let moveUp: (() -> Void)?
+    let moveDown: (() -> Void)?
+    let removeOption: (() -> Void)?
     let deleteBackwardResponseTextFieldRelayDelegate: DeleteBackwardResponseTextFieldRelayDelegate?
     let configurationHandler: (DeleteBackwardResponseTextField) -> Void
 
@@ -25,9 +29,9 @@ public struct PollOptionRow: View {
                     .padding(.leading, 16)
                     .padding(.trailing, 16 - 10)     // 8pt for TextField leading
                     .font(.system(size: 17))
-                PollOptionTextField(
+                let field = PollOptionTextField(
                     text: $viewModel.text,
-                    index: index ?? -1,
+                    index: index,
                     delegate: deleteBackwardResponseTextFieldRelayDelegate
                 ) { textField in
                     viewModel.textField = textField
@@ -37,6 +41,60 @@ public struct PollOptionRow: View {
                     guard shouldBecomeFirstResponder else { return }
                     viewModel.shouldBecomeFirstResponder = false
                     viewModel.textField?.becomeFirstResponder()
+                }
+
+                if #available(iOS 16.0, *) {
+                    field.accessibilityActions {
+                        if let moveUp {
+                            Button(L10n.Scene.Compose.Poll.moveUp, action: moveUp)
+                        }
+                        if let moveDown {
+                            Button(L10n.Scene.Compose.Poll.moveDown, action: moveDown)
+                        }
+                        if let removeOption {
+                            Button(L10n.Scene.Compose.Poll.removeOption, action: removeOption)
+                        }
+                    }
+                } else {
+                    // beautiful!
+                    if let moveUp {
+                        if let moveDown {
+                            if let removeOption {
+                                field
+                                    .accessibilityAction(named: L10n.Scene.Compose.Poll.moveUp, moveUp)
+                                    .accessibilityAction(named: L10n.Scene.Compose.Poll.moveDown, moveDown)
+                                    .accessibilityAction(named: L10n.Scene.Compose.Poll.removeOption, removeOption)
+                            } else {
+                                field
+                                    .accessibilityAction(named: L10n.Scene.Compose.Poll.moveUp, moveUp)
+                                    .accessibilityAction(named: L10n.Scene.Compose.Poll.moveDown, moveDown)
+                            }
+                        } else {
+                            if let removeOption {
+                                field
+                                    .accessibilityAction(named: L10n.Scene.Compose.Poll.moveUp, moveUp)
+                                    .accessibilityAction(named: L10n.Scene.Compose.Poll.removeOption, removeOption)
+                            } else {
+                                field.accessibilityAction(named: L10n.Scene.Compose.Poll.moveUp, moveUp)
+                            }
+                        }
+                    } else {
+                        if let moveDown {
+                            if let removeOption {
+                                field
+                                    .accessibilityAction(named: L10n.Scene.Compose.Poll.moveDown, moveDown)
+                                    .accessibilityAction(named: L10n.Scene.Compose.Poll.removeOption, removeOption)
+                            } else {
+                                field.accessibilityAction(named: L10n.Scene.Compose.Poll.moveDown, moveDown)
+                            }
+                        } else {
+                            if let removeOption {
+                                field.accessibilityAction(named: L10n.Scene.Compose.Poll.removeOption, removeOption)
+                            } else {
+                                field
+                            }
+                        }
+                    }
                 }
             }
             .background(Color(viewModel.backgroundColor))
