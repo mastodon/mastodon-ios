@@ -857,13 +857,14 @@ extension StatusView.ViewModel {
             }
             .store(in: &disposeBag)
 
-        Publishers.CombineLatest3(
+        Publishers.CombineLatest4(
             shortAuthorAccessibilityLabel,
             contentAccessibilityLabel,
+            translatedFromLabel,
             mediaAccessibilityLabel
         )
-        .map { author, content, media in
-            var labels: [String?] = [content, media]
+        .map { author, content, translated, media in
+            var labels: [String?] = [content, translated, media]
 
             if statusView.style != .notification {
                 labels.insert(author, at: 0)
