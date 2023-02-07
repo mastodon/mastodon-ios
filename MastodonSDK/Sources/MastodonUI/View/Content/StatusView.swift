@@ -190,7 +190,7 @@ public final class StatusView: UIView {
         activityIndicatorView.stopAnimating()
         return activityIndicatorView
     }()
-    private let translatedInfoLabel: UILabel = {
+    let translatedInfoLabel: UILabel = {
         let label = UILabel()
         label.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: .systemFont(ofSize: 13, weight: .regular))
         label.textColor = Asset.Colors.Label.secondary.color
@@ -286,7 +286,6 @@ public final class StatusView: UIView {
         setPollDisplay(isDisplay: false)
         setFilterHintLabelDisplay(isDisplay: false)
         setStatusCardControlDisplay(isDisplay: false)
-        setupTranslationIndicator()
     }
 
     public override init(frame: CGRect) {
@@ -750,43 +749,6 @@ extension StatusView: MastodonMenuDelegate {
     public func menuAction(_ action: MastodonMenu.Action) {
         logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
         delegate?.statusView(self, menuButton: authorView.menuButton, didSelectAction: action)
-    }
-}
-
-extension StatusView {
-    func setupTranslationIndicator() {
-        viewModel.$isCurrentlyTranslating
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] isTranslating in
-                switch isTranslating {
-                case true:
-                    self?.isTranslatingLoadingView.startAnimating()
-                case false:
-                    self?.isTranslatingLoadingView.stopAnimating()
-                }
-            }
-            .store(in: &disposeBag)
-
-        Publishers.CombineLatest(
-            viewModel.$translatedFromLanguage,
-            viewModel.$translatedUsingProvider
-        )
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] translatedFromLanguage, translatedUsingProvider in
-                guard let self = self else { return }
-                if let translatedFromLanguage = translatedFromLanguage {
-                    let label = L10n.Common.Controls.Status.Translation.translatedFrom(
-                        Locale.current.localizedString(forIdentifier: translatedFromLanguage) ?? L10n.Common.Controls.Status.Translation.unknownLanguage,
-                        translatedUsingProvider ?? L10n.Common.Controls.Status.Translation.unknownProvider
-                    )
-                    self.translatedInfoLabel.text = label
-                    self.translatedInfoView.accessibilityValue = label
-                    self.translatedInfoView.isHidden = false
-                } else {
-                    self.translatedInfoView.isHidden = true
-                }
-            }
-            .store(in: &disposeBag)
     }
 }
 
