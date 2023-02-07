@@ -60,7 +60,7 @@ final class ComposeViewModel {
         // end init
         
         let title: String
-
+        
         switch composeContext {
         case .composeStatus:
             switch destination {
@@ -70,10 +70,9 @@ final class ComposeViewModel {
                 title = L10n.Scene.Compose.Title.newReply
             }
         case .editStatus(_, _):
-            //TODO: @zeitschlag Localization
-            title = "Edit Post"
+            title = L10n.Scene.Compose.Title.editPost
         }
-
+        
         self.title = title
     }
 }

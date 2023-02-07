@@ -633,6 +633,8 @@ public enum L10n {
         public static let title = L10n.tr("Localizable", "Scene.Compose.Poll.Title", fallback: "Poll")
       }
       public enum Title {
+        /// Edit Post
+        public static let editPost = L10n.tr("Localizable", "Scene.Compose.Title.EditPost", fallback: "Edit Post")
         /// New Post
         public static let newPost = L10n.tr("Localizable", "Scene.Compose.Title.NewPost", fallback: "New Post")
         /// New Reply
