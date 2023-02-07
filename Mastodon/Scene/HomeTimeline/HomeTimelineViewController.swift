@@ -518,6 +518,12 @@ extension HomeTimelineViewController: UITableViewDelegate, AutoGenerateTableView
     }
 
     // sourcery:end
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if indexPath.row == tableView.numberOfRows(inSection: indexPath.section) - 1 {
+            viewModel.timelineDidReachEnd()
+        }
+    }
 }
 
 // MARK: - TimelineMiddleLoaderTableViewCellDelegate
