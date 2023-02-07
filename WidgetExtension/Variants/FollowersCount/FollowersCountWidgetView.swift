@@ -4,6 +4,7 @@ import SwiftUI
 import WidgetKit
 import MastodonAsset
 import MastodonLocalization
+import LightChart
 
 struct FollowersCountWidgetView: View {
     private let followersHistory = FollowersCountHistory.shared

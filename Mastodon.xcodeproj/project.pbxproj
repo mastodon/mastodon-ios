@@ -25,12 +25,6 @@
 		2A1FE47C2938BB2600784BF1 /* FollowedTagsViewModel+DiffableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1FE47B2938BB2600784BF1 /* FollowedTagsViewModel+DiffableDataSource.swift */; };
 		2A1FE47E2938C11200784BF1 /* Collection+IsNotEmpty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1FE47D2938C11200784BF1 /* Collection+IsNotEmpty.swift */; };
 		2A33062D2987DBFA001D4C51 /* FollowersCountHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A33062C2987DBFA001D4C51 /* FollowersCountHistory.swift */; };
-		2A33063629880835001D4C51 /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A33062F29880834001D4C51 /* Math.swift */; };
-		2A33063729880835001D4C51 /* DataRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A33063029880834001D4C51 /* DataRepresentable.swift */; };
-		2A33063829880835001D4C51 /* LineChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A33063229880834001D4C51 /* LineChart.swift */; };
-		2A33063929880835001D4C51 /* CurvedChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A33063329880834001D4C51 /* CurvedChart.swift */; };
-		2A33063A29880835001D4C51 /* LightChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A33063429880834001D4C51 /* LightChart.swift */; };
-		2A33063B29880835001D4C51 /* ChartType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A33063529880834001D4C51 /* ChartType.swift */; };
 		2A33AB662982C4AF008A7FB1 /* FollowersCountWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A33AB652982C4AF008A7FB1 /* FollowersCountWidgetView.swift */; };
 		2A3F6FE3292ECB5E002E6DA7 /* FollowedTagsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A3F6FE2292ECB5E002E6DA7 /* FollowedTagsViewModel.swift */; };
 		2A3F6FE5292F6E44002E6DA7 /* FollowedTagsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A3F6FE4292F6E44002E6DA7 /* FollowedTagsTableViewCell.swift */; };
@@ -60,6 +54,7 @@
 		2A9D0666298C05A800BF38CB /* LatestFollowersWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9D0665298C05A800BF38CB /* LatestFollowersWidgetView.swift */; };
 		2A9D066F298D0FD100BF38CB /* MastodonSDKDynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 2A9D066E298D0FD100BF38CB /* MastodonSDKDynamic */; };
 		2AB12E4629362F27006BC925 /* DataSourceFacade+Translate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB12E4529362F27006BC925 /* DataSourceFacade+Translate.swift */; };
+		2AB5011B2992322500346092 /* LightChart in Frameworks */ = {isa = PBXBuildFile; productRef = 2AB5011A2992322500346092 /* LightChart */; };
 		2AE202AA297FE10B00F66E55 /* WidgetExtension.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 2A72812C297EA9D7004138C5 /* WidgetExtension.intentdefinition */; };
 		2AE202AC297FE19100F66E55 /* FollowersCountIntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE202AB297FE19100F66E55 /* FollowersCountIntentHandler.swift */; };
 		2AE202AD297FE1CD00F66E55 /* WidgetExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A72813E297EC762004138C5 /* WidgetExtension.swift */; };
@@ -618,12 +613,6 @@
 		2A1FE47B2938BB2600784BF1 /* FollowedTagsViewModel+DiffableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FollowedTagsViewModel+DiffableDataSource.swift"; sourceTree = "<group>"; };
 		2A1FE47D2938C11200784BF1 /* Collection+IsNotEmpty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+IsNotEmpty.swift"; sourceTree = "<group>"; };
 		2A33062C2987DBFA001D4C51 /* FollowersCountHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowersCountHistory.swift; sourceTree = "<group>"; };
-		2A33062F29880834001D4C51 /* Math.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Math.swift; sourceTree = "<group>"; };
-		2A33063029880834001D4C51 /* DataRepresentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataRepresentable.swift; sourceTree = "<group>"; };
-		2A33063229880834001D4C51 /* LineChart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineChart.swift; sourceTree = "<group>"; };
-		2A33063329880834001D4C51 /* CurvedChart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurvedChart.swift; sourceTree = "<group>"; };
-		2A33063429880834001D4C51 /* LightChart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LightChart.swift; sourceTree = "<group>"; };
-		2A33063529880834001D4C51 /* ChartType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartType.swift; sourceTree = "<group>"; };
 		2A33625329759B4200481A90 /* OpenInActionExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OpenInActionExtension.entitlements; sourceTree = "<group>"; };
 		2A33AB652982C4AF008A7FB1 /* FollowersCountWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowersCountWidgetView.swift; sourceTree = "<group>"; };
 		2A3F6FE2292ECB5E002E6DA7 /* FollowedTagsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowedTagsViewModel.swift; sourceTree = "<group>"; };
@@ -1220,6 +1209,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2AB5011B2992322500346092 /* LightChart in Frameworks */,
 				2A9D066F298D0FD100BF38CB /* MastodonSDKDynamic in Frameworks */,
 				2A728124297EA9D7004138C5 /* SwiftUI.framework in Frameworks */,
 				2A728122297EA9D7004138C5 /* WidgetKit.framework in Frameworks */,
@@ -1398,27 +1388,6 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		2A33062E29880834001D4C51 /* LightChart */ = {
-			isa = PBXGroup;
-			children = (
-				2A33063129880834001D4C51 /* Charts */,
-				2A33062F29880834001D4C51 /* Math.swift */,
-				2A33063029880834001D4C51 /* DataRepresentable.swift */,
-				2A33063429880834001D4C51 /* LightChart.swift */,
-				2A33063529880834001D4C51 /* ChartType.swift */,
-			);
-			path = LightChart;
-			sourceTree = "<group>";
-		};
-		2A33063129880834001D4C51 /* Charts */ = {
-			isa = PBXGroup;
-			children = (
-				2A33063229880834001D4C51 /* LineChart.swift */,
-				2A33063329880834001D4C51 /* CurvedChart.swift */,
-			);
-			path = Charts;
-			sourceTree = "<group>";
-		};
 		2A506CF2292CD83B00059C37 /* FollowedTags */ = {
 			isa = PBXGroup;
 			children = (
@@ -1445,7 +1414,6 @@
 		2A728125297EA9D7004138C5 /* WidgetExtension */ = {
 			isa = PBXGroup;
 			children = (
-				2A33062E29880834001D4C51 /* LightChart */,
 				2A86A14329892700007F1062 /* Variants */,
 				2AE202A9297FDDF500F66E55 /* WidgetExtension.entitlements */,
 				2A72813E297EC762004138C5 /* WidgetExtension.swift */,
@@ -3034,6 +3002,7 @@
 			name = WidgetExtension;
 			packageProductDependencies = (
 				2A9D066E298D0FD100BF38CB /* MastodonSDKDynamic */,
+				2AB5011A2992322500346092 /* LightChart */,
 			);
 			productName = WidgetExtensionExtension;
 			productReference = 2A728120297EA9D7004138C5 /* WidgetExtension.appex */;
@@ -3247,6 +3216,7 @@
 			);
 			mainGroup = DB427DC925BAA00100D1B89D;
 			packageReferences = (
+				2AB501192992322500346092 /* XCRemoteSwiftPackageReference "LightChart" */,
 			);
 			productRefGroup = DB427DD325BAA00100D1B89D /* Products */;
 			projectDirPath = "";
@@ -3512,22 +3482,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2A33063729880835001D4C51 /* DataRepresentable.swift in Sources */,
 				2A33062D2987DBFA001D4C51 /* FollowersCountHistory.swift in Sources */,
-				2A33063829880835001D4C51 /* LineChart.swift in Sources */,
 				2A9D0666298C05A800BF38CB /* LatestFollowersWidgetView.swift in Sources */,
 				2A728130297EA9D8004138C5 /* WidgetExtension.intentdefinition in Sources */,
 				2A86A14B2989326E007F1062 /* MultiFollowersCountWidgetView.swift in Sources */,
 				2A72813F297EC762004138C5 /* WidgetExtension.swift in Sources */,
-				2A33063A29880835001D4C51 /* LightChart.swift in Sources */,
-				2A33063B29880835001D4C51 /* ChartType.swift in Sources */,
-				2A33063629880835001D4C51 /* Math.swift in Sources */,
 				2A86A14929892B3A007F1062 /* MultiFollowersCountWidget.swift in Sources */,
 				2A33AB662982C4AF008A7FB1 /* FollowersCountWidgetView.swift in Sources */,
 				2A9D0664298C048800BF38CB /* LatestFollowersWidget.swift in Sources */,
 				2A728127297EA9D7004138C5 /* WidgetExtensionBundle.swift in Sources */,
 				2A72812B297EA9D7004138C5 /* FollowersCountWidget.swift in Sources */,
-				2A33063929880835001D4C51 /* CurvedChart.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5330,6 +5294,17 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		2AB501192992322500346092 /* XCRemoteSwiftPackageReference "LightChart" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Bearologics/LightChart.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
 		2A90A156296EEE500026C155 /* MastodonSDKDynamic */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -5338,6 +5313,11 @@
 		2A9D066E298D0FD100BF38CB /* MastodonSDKDynamic */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = MastodonSDKDynamic;
+		};
+		2AB5011A2992322500346092 /* LightChart */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2AB501192992322500346092 /* XCRemoteSwiftPackageReference "LightChart" */;
+			productName = LightChart;
 		};
 		357FEEAE29523D470021C9DC /* MastodonSDKDynamic */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -74,6 +74,15 @@
         }
       },
       {
+        "package": "LightChart",
+        "repositoryURL": "https://github.com/Bearologics/LightChart.git",
+        "state": {
+          "branch": "master",
+          "revision": "a7e724e9ec3cdcaa2d0840b95780e66b870dbf1e",
+          "version": null
+        }
+      },
+      {
         "package": "MetaTextKit",
         "repositoryURL": "https://github.com/TwidereProject/MetaTextKit.git",
         "state": {
