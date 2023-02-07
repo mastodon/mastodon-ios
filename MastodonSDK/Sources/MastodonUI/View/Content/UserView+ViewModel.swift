@@ -52,14 +52,26 @@ extension UserView.ViewModel {
             }
             .store(in: &disposeBag)
         // username
-        $authorUsername
+        let displayUsername = $authorUsername
             .map { text -> String in
                 guard let text = text else { return "" }
                 return "@\(text)"
             }
+
+        displayUsername
             .sink { username in
                 let metaContent = PlaintextMetaContent(string: username)
                 userView.authorUsernameLabel.configure(content: metaContent)
+            }
+            .store(in: &disposeBag)
+
+        Publishers.CombineLatest($authorName, displayUsername)
+            .sink { name, username in
+                if let name {
+                    userView.accessibilityLabel = "\(name.string), \(username)"
+                } else {
+                    userView.accessibilityLabel = username
+                }
             }
             .store(in: &disposeBag)
     }

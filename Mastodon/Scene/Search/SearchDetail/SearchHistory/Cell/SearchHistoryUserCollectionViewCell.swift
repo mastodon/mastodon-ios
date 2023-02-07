@@ -54,6 +54,8 @@ extension SearchHistoryUserCollectionViewCell {
             contentView.trailingAnchor.constraint(equalTo: userView.trailingAnchor, constant: 16),
             userView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
         ])
+
+        userView.accessibilityTraits.insert(.button)
     }
     
     override func updateConfiguration(using state: UICellConfigurationState) {
