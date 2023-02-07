@@ -628,9 +628,18 @@ extension StatusView {
         get {
             (contentMetaText.textView.accessibilityCustomActions ?? [])
             + toolbarActions
+            + (hideTranslationAction.map { [$0] } ?? [])
             + (authorView.accessibilityCustomActions ?? [])
         }
         set { }
+    }
+
+    private var hideTranslationAction: UIAccessibilityCustomAction? {
+        guard viewModel.translatedFromLanguage != nil else { return nil }
+        return UIAccessibilityCustomAction(name: L10n.Common.Controls.Status.Translation.showOriginal) { [weak self] _ in
+            self?.revertTranslation()
+            return true
+        }
     }
 }
 
