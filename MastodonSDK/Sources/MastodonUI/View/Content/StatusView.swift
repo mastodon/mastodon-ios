@@ -197,8 +197,17 @@ public final class StatusView: UIView {
         label.numberOfLines = 0
         return label
     }()
-    lazy var translatedInfoView: UIView = {
-        let containerView = UIView()
+
+    private class TranslatedInfoView: UIView {
+        var revertAction: (() -> Void)?
+
+        override func accessibilityActivate() -> Bool {
+            revertAction?()
+            return true
+        }
+    }
+    public private(set) lazy var translatedInfoView: UIView = {
+        let containerView = TranslatedInfoView()
     
         let revertButton = UIButton()
         revertButton.titleLabel?.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: .systemFont(ofSize: 13, weight: .bold))
@@ -230,7 +239,14 @@ public final class StatusView: UIView {
         ])
         
         containerView.isHidden = true
-        
+
+        containerView.isAccessibilityElement = true
+        containerView.accessibilityLabel = L10n.Common.Controls.Status.Translation.showOriginal
+        containerView.accessibilityTraits = [.button]
+        containerView.revertAction = { [weak self] in
+            self?.revertTranslation()
+        }
+
         return containerView
     }()
 
@@ -750,10 +766,12 @@ extension StatusView {
             .sink { [weak self] translatedFromLanguage, translatedUsingProvider in
                 guard let self = self else { return }
                 if let translatedFromLanguage = translatedFromLanguage {
-                    self.translatedInfoLabel.text = L10n.Common.Controls.Status.Translation.translatedFrom(
+                    let label = L10n.Common.Controls.Status.Translation.translatedFrom(
                         Locale.current.localizedString(forIdentifier: translatedFromLanguage) ?? L10n.Common.Controls.Status.Translation.unknownLanguage,
                         translatedUsingProvider ?? L10n.Common.Controls.Status.Translation.unknownProvider
                     )
+                    self.translatedInfoLabel.text = label
+                    self.translatedInfoView.accessibilityValue = label
                     self.translatedInfoView.isHidden = false
                 } else {
                     self.translatedInfoView.isHidden = true
