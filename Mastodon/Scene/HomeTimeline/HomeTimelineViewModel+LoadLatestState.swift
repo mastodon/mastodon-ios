@@ -61,54 +61,17 @@ extension HomeTimelineViewModel.LoadLatestState {
         }
         
         override func didEnter(from previousState: GKState?) {
-            super.didEnter(from: previousState)
-            guard let viewModel else { return }
-            
-            let latestFeedRecords = viewModel.fetchedResultsController.records.prefix(APIService.onceRequestStatusMaxCount)
-            let parentManagedObjectContext = viewModel.fetchedResultsController.fetchedResultsController.managedObjectContext
-            let managedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-            managedObjectContext.parent = parentManagedObjectContext
-
-            Task {
-                let start = CACurrentMediaTime()
-                let latestStatusIDs: [Status.ID] = latestFeedRecords.compactMap { record in
-                    guard let feed = record.object(in: managedObjectContext) else { return nil }
-                    return feed.status?.id
-                }
-                let end = CACurrentMediaTime()
-                os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: collect statuses id cost: %.2fs", ((#file as NSString).lastPathComponent), #line, #function, end - start)
-
-                do {
-                    let response = try await viewModel.context.apiService.homeTimeline(
-                        authenticationBox: viewModel.authContext.mastodonAuthenticationBox
-                    )
-                    
-                    await enter(state: Idle.self)
-                    viewModel.homeTimelineNavigationBarTitleViewModel.receiveLoadingStateCompletion(.finished)
-
-                    viewModel.context.instanceService.updateMutesAndBlocks()
-                    
-                    // stop refresher if no new statuses
-                    let statuses = response.value
-                    let newStatuses = statuses.filter { !latestStatusIDs.contains($0.id) }
-                    logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): load \(newStatuses.count) new statuses")
-                    
-                    if newStatuses.isEmpty {
-                        viewModel.didLoadLatest.send()
-                    } else {
-                        if !latestStatusIDs.isEmpty {
-                            viewModel.homeTimelineNavigationBarTitleViewModel.newPostsIncoming()
-                        }
-                    }
-                    viewModel.timelineIsEmpty.value = latestStatusIDs.isEmpty && statuses.isEmpty
-                    
-                } catch {
-                    logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): fetch statuses failed: \(error.localizedDescription)")
-                    await enter(state: Idle.self)
-                    viewModel.didLoadLatest.send()
-                    viewModel.homeTimelineNavigationBarTitleViewModel.receiveLoadingStateCompletion(.failure(error))
-                }   
-            }   // end Task
+            didEnter(from: previousState, viewModel: viewModel, isUserInitiated: false)
+        }
+    }
+    
+    class LoadingManually: HomeTimelineViewModel.LoadLatestState {
+        override func isValidNextState(_ stateClass: AnyClass) -> Bool {
+            return stateClass == Fail.self || stateClass == Idle.self
+        }
+        
+        override func didEnter(from previousState: GKState?) {
+            didEnter(from: previousState, viewModel: viewModel, isUserInitiated: true)
         }
     }
     
@@ -124,4 +87,60 @@ extension HomeTimelineViewModel.LoadLatestState {
         }
     }
 
+    private func didEnter(from previousState: GKState?, viewModel: HomeTimelineViewModel?, isUserInitiated: Bool) {
+        super.didEnter(from: previousState)
+
+        guard let viewModel else { return }
+        
+        let latestFeedRecords = viewModel.fetchedResultsController.records.prefix(APIService.onceRequestStatusMaxCount)
+        let parentManagedObjectContext = viewModel.fetchedResultsController.managedObjectContext
+        let managedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+        managedObjectContext.parent = parentManagedObjectContext
+
+        Task {
+            let start = CACurrentMediaTime()
+            let latestStatusIDs: [Status.ID] = latestFeedRecords.compactMap { record in
+                guard let feed = record.object(in: managedObjectContext) else { return nil }
+                return feed.status?.id
+            }
+            let end = CACurrentMediaTime()
+            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: collect statuses id cost: %.2fs", ((#file as NSString).lastPathComponent), #line, #function, end - start)
+
+            do {
+                let response = try await viewModel.context.apiService.homeTimeline(
+                    authenticationBox: viewModel.authContext.mastodonAuthenticationBox
+                )
+                
+                await enter(state: Idle.self)
+                viewModel.homeTimelineNavigationBarTitleViewModel.receiveLoadingStateCompletion(.finished)
+
+                viewModel.context.instanceService.updateMutesAndBlocks()
+                
+                // stop refresher if no new statuses
+                let statuses = response.value
+                let newStatuses = statuses.filter { !latestStatusIDs.contains($0.id) }
+                logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): load \(newStatuses.count) new statuses")
+                
+                if newStatuses.isEmpty {
+                    viewModel.didLoadLatest.send()
+                } else {
+                    if !latestStatusIDs.isEmpty {
+                        viewModel.homeTimelineNavigationBarTitleViewModel.newPostsIncoming()
+                    }
+                }
+                viewModel.timelineIsEmpty.value = latestStatusIDs.isEmpty && statuses.isEmpty
+                
+                if !isUserInitiated {
+                    await UIImpactFeedbackGenerator(style: .light)
+                        .impactOccurred()
+                }
+                
+            } catch {
+                logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): fetch statuses failed: \(error.localizedDescription)")
+                await enter(state: Idle.self)
+                viewModel.didLoadLatest.send()
+                viewModel.homeTimelineNavigationBarTitleViewModel.receiveLoadingStateCompletion(.failure(error))
+            }
+        }   // end Task
+    }
 }

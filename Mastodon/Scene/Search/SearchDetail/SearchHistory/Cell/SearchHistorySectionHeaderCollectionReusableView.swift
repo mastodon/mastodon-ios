@@ -25,6 +25,7 @@ final class SearchHistorySectionHeaderCollectionReusableView: UICollectionReusab
         label.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 22, weight: .bold))
         label.textColor = Asset.Colors.Label.primary.color
         label.text = L10n.Scene.Search.Searching.recentSearch
+        label.accessibilityTraits.insert(.header)
         return label
     }()
     
@@ -34,6 +35,7 @@ final class SearchHistorySectionHeaderCollectionReusableView: UICollectionReusab
         button.tintColor = Asset.Colors.Label.secondary.color
         button.isPointerInteractionEnabled = true
         button.pointerStyleProvider = { _, effect, _ in UIPointerStyle(effect: .lift(effect.preview)) }
+        button.accessibilityLabel = L10n.Scene.Search.Searching.clear
         return button
     }()
     

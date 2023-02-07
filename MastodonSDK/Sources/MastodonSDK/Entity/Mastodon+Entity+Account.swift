@@ -82,6 +82,13 @@ extension Mastodon.Entity {
             case muteExpiresAt = "mute_expires_at"
         }
     }
+}
 
-    
+extension Mastodon.Entity.Account {
+    public func acctWithDomainIfMissing(_ localDomain: String) -> String {
+        guard acct.contains("@") else {
+            return "\(acct)@\(localDomain)"
+        }
+        return acct
+    }
 }
