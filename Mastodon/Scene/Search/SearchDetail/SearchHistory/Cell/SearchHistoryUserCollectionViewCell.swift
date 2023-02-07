@@ -51,7 +51,7 @@ extension SearchHistoryUserCollectionViewCell {
         NSLayoutConstraint.activate([
             userView.topAnchor.constraint(equalTo: contentView.topAnchor),
             userView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            userView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 16),
+            contentView.trailingAnchor.constraint(equalTo: userView.trailingAnchor, constant: 16),
             userView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
         ])
     }
