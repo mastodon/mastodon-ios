@@ -129,6 +129,40 @@ extension ProfileFieldCollectionViewCell {
             UIMenuController.shared.showMenu(from: checkmark, rect: checkmark.bounds)
         }
     }
+
+    private var valueMetas: [(title: String, Meta)] {
+        var result: [(title: String, Meta)] = []
+        valueMetaLabel.textStorage.enumerateAttribute(NSAttributedString.Key("MetaAttributeKey.meta"), in: NSMakeRange(0, valueMetaLabel.textStorage.length)) { value, range, _ in
+            if let value = value as? Meta {
+                result.append((valueMetaLabel.textStorage.string.substring(with: range), value))
+            }
+        }
+        return result
+    }
+
+    override func accessibilityActivate() -> Bool {
+        if let (_, meta) = valueMetas.first {
+            delegate?.profileFieldCollectionViewCell(self, metaLabel: valueMetaLabel, didSelectMeta: meta)
+            return true
+        }
+        return false
+    }
+
+    override var accessibilityCustomActions: [UIAccessibilityCustomAction]? {
+        get {
+            let valueMetas = valueMetas
+            if valueMetas.count < 2 { return nil }
+            return valueMetas.compactMap { title, meta in
+                guard let name = meta.accessibilityLabel else { return nil }
+                return UIAccessibilityCustomAction(name: name) { [weak self] _ in
+                    guard let self, let delegate = self.delegate else { return false }
+                    delegate.profileFieldCollectionViewCell(self, metaLabel: self.valueMetaLabel, didSelectMeta: meta)
+                    return true
+                }
+            }
+        }
+        set {}
+    }
 }
 
 // UIMenuController boilerplate

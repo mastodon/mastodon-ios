@@ -889,7 +889,7 @@ extension StatusView.ViewModel {
         .map { content, isRevealed in
             guard isRevealed, let entities = content?.entities else { return [] }
             return entities.compactMap { entity in
-                guard let name = entity.accessibilityCustomActionLabel else { return nil }
+                guard let name = entity.meta.accessibilityLabel else { return nil }
                 return UIAccessibilityCustomAction(name: name) { action in
                     statusView.delegate?.statusView(statusView, metaText: statusView.contentMetaText, didSelectMeta: entity.meta)
                     return true
