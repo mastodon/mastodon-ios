@@ -13,7 +13,7 @@ import MastodonAsset
 import MastodonLocalization
 
 protocol ProfileFieldCollectionViewCellDelegate: AnyObject {
-    func profileFieldCollectionViewCell(_ cell: ProfileFieldCollectionViewCell, metaLebel: MetaLabel, didSelectMeta meta: Meta)
+    func profileFieldCollectionViewCell(_ cell: ProfileFieldCollectionViewCell, metaLabel: MetaLabel, didSelectMeta meta: Meta)
 }
 
 final class ProfileFieldCollectionViewCell: UICollectionViewCell {
@@ -151,7 +151,7 @@ extension ProfileFieldCollectionViewCell {
 extension ProfileFieldCollectionViewCell: MetaLabelDelegate {
     func metaLabel(_ metaLabel: MetaLabel, didSelectMeta meta: Meta) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-        delegate?.profileFieldCollectionViewCell(self, metaLebel: metaLabel, didSelectMeta: meta)
+        delegate?.profileFieldCollectionViewCell(self, metaLabel: metaLabel, didSelectMeta: meta)
     }
 }
 

@@ -144,8 +144,8 @@ extension ProfileAboutViewController: UICollectionViewDelegate {
 
 // MARK: - ProfileFieldCollectionViewCellDelegate
 extension ProfileAboutViewController: ProfileFieldCollectionViewCellDelegate {
-    func profileFieldCollectionViewCell(_ cell: ProfileFieldCollectionViewCell, metaLebel: MetaLabel, didSelectMeta meta: Meta) {
-        delegate?.profileAboutViewController(self, profileFieldCollectionViewCell: cell, metaLabel: metaLebel, didSelectMeta: meta)
+    func profileFieldCollectionViewCell(_ cell: ProfileFieldCollectionViewCell, metaLabel: MetaLabel, didSelectMeta meta: Meta) {
+        delegate?.profileAboutViewController(self, profileFieldCollectionViewCell: cell, metaLabel: metaLabel, didSelectMeta: meta)
     }
 }
 
