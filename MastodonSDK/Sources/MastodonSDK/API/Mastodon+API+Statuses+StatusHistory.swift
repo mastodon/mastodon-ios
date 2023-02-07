@@ -37,7 +37,21 @@ extension Mastodon.API.Statuses {
     }
 
 
-    //TODO: @zeitschlag add [documentation](https://docs.joinmastodon.org/methods/statuses/#history)
+    /// Get all known versions of a status, including the initial and current states.
+    ///
+    /// - Since: 3.5.0
+    ///
+    /// # Last Update
+    ///
+    /// # Reference
+    ///   [Document](https://docs.joinmastodon.org/methods/statuses/#history)
+    ///
+    /// - Parameters:
+    ///   - session: `URLSession`
+    ///   - domain: Mastodon instance domain. e.g. "example.com"
+    ///   - statusID: id for status
+    ///   - authorization: User token. Could be nil if status is public
+    /// - Returns: `AnyPublisher` contains `StatusEdit` nested in the response
     public static func editHistory(
         forStatusID statusID: Mastodon.Entity.Status.ID,
         session: URLSession,
@@ -56,7 +70,22 @@ extension Mastodon.API.Statuses {
             .eraseToAnyPublisher()
     }
 
-    //TODO: @zeitschlag add [documentation](https://docs.joinmastodon.org/methods/statuses/#edit)
+    /// Edit a given status to change its text, sensitivity, media attachments, or poll. Note that editing a poll’s options will reset the votes.
+    ///
+    /// - Since: 3.5.0
+    /// - Version: 4.0.0
+    /// # Last Update
+    ///   2021/3/18
+    /// # Reference
+    ///   [Document](https://docs.joinmastodon.org/methods/statuses/#edit)
+    ///
+    /// - Parameters:
+    ///   - statusID: ID of the status that is to be edited
+    ///   - editStatusQuery: Basically the edits (Status, Emoji, Media...), is a `EditStatusQuery`
+    ///   - session: `URLSession`
+    ///   - domain: Mastodon instance domain. e.g. "example.com"
+    ///   - authorization: User token
+    /// - Returns: `AnyPublisher` that contains the updated `Status` nested in the response
     public static func editStatus(
         forStatusID statusID: Mastodon.Entity.Status.ID,
         editStatusQuery: EditStatusQuery,
