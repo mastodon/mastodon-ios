@@ -471,6 +471,7 @@
                 "option_number": "Option %ld",
                 "the_poll_is_invalid": "The poll is invalid",
                 "the_poll_has_empty_option": "The poll has empty option",
+                "add_option": "Add Option",
                 "remove_option": "Remove Option",
                 "move_up": "Move Up",
                 "move_down": "Move Down"

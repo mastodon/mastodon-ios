@@ -200,10 +200,10 @@ extension ComposeContentView {
                     }
                 }
                 if viewModel.maxPollOptionLimit != viewModel.pollOptions.count {
-                    PollAddOptionRow()
-                        .onTapGesture {
-                            viewModel.createNewPollOptionIfCould()
-                        }
+                    Button(action: viewModel.createNewPollOptionIfCould) {
+                        PollAddOptionRow()
+                            .accessibilityLabel(L10n.Scene.Compose.Poll.addOption)
+                    }
                 }
                 Menu {
                     Picker(selection: $viewModel.pollExpireConfigurationOption) {

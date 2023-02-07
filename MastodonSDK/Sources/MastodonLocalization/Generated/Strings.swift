@@ -593,6 +593,8 @@ public enum L10n {
         public static let photoLibrary = L10n.tr("Localizable", "Scene.Compose.MediaSelection.PhotoLibrary", fallback: "Photo Library")
       }
       public enum Poll {
+        /// Add Option
+        public static let addOption = L10n.tr("Localizable", "Scene.Compose.Poll.AddOption", fallback: "Add Option")
         /// Duration: %@
         public static func durationTime(_ p1: Any) -> String {
           return L10n.tr("Localizable", "Scene.Compose.Poll.DurationTime", String(describing: p1), fallback: "Duration: %@")
