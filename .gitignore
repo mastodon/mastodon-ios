@@ -131,3 +131,6 @@ env/**/**
 ## Ruby ###
 vendor/
 .bundle/
+
+## IntelliJ IDEA ##
+.idea
