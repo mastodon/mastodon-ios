@@ -126,6 +126,10 @@ struct LatestFollowersWidgetView: View {
     }
 }
 
+/// This code is used to strip HTML tags from the bio description as the widgets currently dont support
+/// rich text rendering due to the lack of SwiftUI-only components for this purpose.
+/// todo: Implement rich text rendering for bio description and remove this code
+/// https://github.com/mastodon/mastodon-ios/issues/921
 private extension LatestFollowersEntryAccountable {
     var noteWithoutHtmlTags: String? {
         do {
