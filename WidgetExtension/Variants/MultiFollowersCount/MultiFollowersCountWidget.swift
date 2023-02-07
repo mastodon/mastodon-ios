@@ -88,7 +88,7 @@ private extension MultiFollowersCountWidgetProvider {
                 desiredAccounts = configuredAccounts
             } else if let currentlyLoggedInAccount = authBox.authenticationRecord.object(
                 in: WidgetExtension.appContext.managedObjectContext
-            )?.user.acct {
+            )?.user.acctWithDomain {
                 desiredAccounts = [currentlyLoggedInAccount]
             } else {
                 return completion(.unconfigured)
@@ -103,7 +103,7 @@ private extension MultiFollowersCountWidgetProvider {
                         .search(query: .init(q: desiredAccount, type: .accounts), authenticationBox: authBox)
                         .value
                         .accounts
-                        .first(where: { $0.acct == desiredAccount })
+                        .first(where: { $0.acctWithDomainIfMissing(authBox.domain) == desiredAccount })
                 else {
                     continue
                 }

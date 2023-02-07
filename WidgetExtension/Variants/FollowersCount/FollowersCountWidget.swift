@@ -88,7 +88,7 @@ private extension FollowersCountWidgetProvider {
             guard
                 let desiredAccount = configuration.account ?? authBox.authenticationRecord.object(
                     in: WidgetExtension.appContext.managedObjectContext
-                )?.user.acct
+                )?.user.acctWithDomain
             else {
                 return completion(.unconfigured)
             }
@@ -99,7 +99,7 @@ private extension FollowersCountWidgetProvider {
                     .search(query: .init(q: desiredAccount, type: .accounts), authenticationBox: authBox)
                     .value
                     .accounts
-                    .first(where: { $0.acct == desiredAccount })
+                    .first(where: { $0.acctWithDomainIfMissing(authBox.domain) == desiredAccount })
             else {
                 return completion(.unconfigured)
             }

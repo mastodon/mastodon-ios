@@ -22,6 +22,6 @@ class MultiFollowersCountIntentHandler: INExtension, MultiFollowersCountIntentHa
             .apiService
             .search(query: .init(q: searchTerm), authenticationBox: authenticationBox)
         
-        return INObjectCollection(items: results.value.accounts.map { $0.acctWithDomain(localDomain: authenticationBox.domain) as NSString })
+        return INObjectCollection(items: results.value.accounts.map { $0.acctWithDomainIfMissing(authenticationBox.domain) as NSString })
     }
 }

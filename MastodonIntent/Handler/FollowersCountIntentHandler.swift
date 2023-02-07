@@ -30,15 +30,6 @@ class FollowersCountIntentHandler: INExtension, FollowersCountIntentHandling {
             .apiService
             .search(query: .init(q: searchTerm), authenticationBox: authenticationBox)
         
-        return INObjectCollection(items: results.value.accounts.map { $0.acctWithDomain(localDomain: authenticationBox.domain) as NSString })
-    }
-}
-
-extension Mastodon.Entity.Account {
-    func acctWithDomain(localDomain: String) -> String {
-        guard acct.contains("@") else {
-            return "\(acct)@\(localDomain)"
-        }
-        return acct
+        return INObjectCollection(items: results.value.accounts.map { $0.acctWithDomainIfMissing(authenticationBox.domain) as NSString })
     }
 }
