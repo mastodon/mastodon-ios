@@ -394,7 +394,7 @@ extension HomeTimelineViewController {
     }
 
     @objc private func refreshControlValueChanged(_ sender: RefreshControl) {
-        guard viewModel.loadLatestStateMachine.enter(HomeTimelineViewModel.LoadLatestState.Loading.self) else {
+        guard viewModel.loadLatestStateMachine.enter(HomeTimelineViewModel.LoadLatestState.LoadingManually.self) else {
             sender.endRefreshing()
             return
         }
