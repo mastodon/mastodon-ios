@@ -62,6 +62,7 @@ extension HomeTimelineNavigationBarTitleView {
         button.addTarget(self, action: #selector(HomeTimelineNavigationBarTitleView.buttonDidPressed(_:)), for: .touchUpInside)
         
         logoButton.accessibilityIdentifier = "TitleButton"
+        logoButton.accessibilityTraits = [.header, .button]
         button.accessibilityIdentifier = "TitleButton"
     }
 }
