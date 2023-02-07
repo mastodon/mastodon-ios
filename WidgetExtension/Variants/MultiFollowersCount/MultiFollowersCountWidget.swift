@@ -61,8 +61,8 @@ struct MultiFollowersCountWidget: Widget {
         IntentConfiguration(kind: "Multiple followers", intent: MultiFollowersCountIntent.self, provider: MultiFollowersCountWidgetProvider()) { entry in
             MultiFollowersCountWidgetView(entry: entry)
         }
-        .configurationDisplayName("Multiple followers")
-        .description("Show number of followers for multiple accounts.")
+        .configurationDisplayName(L10n.Widget.MultipleFollowers.configurationDisplayName)
+        .description(L10n.Widget.MultipleFollowers.configurationDescription)
         .supportedFamilies(availableFamilies)
     }
 }

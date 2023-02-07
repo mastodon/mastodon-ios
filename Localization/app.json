@@ -823,16 +823,22 @@
             "user_not_logged_in": "Please open Mastodon to log in to an Account."
         },
         "followers_count": {
+            "configuration_display_name": "Followers",
+            "configuration_description": "Show number of followers.",
             "title": "FOLLOWERS",
             "followers_today": "%s followers today"
         },
         "multiple_followers": {
+            "configuration_display_name": "Multiple followers",
+            "configuration_description": "Show number of followers for multiple accounts.",
             "mock_user": {
                 "display_name": "Another follower",
                 "account_name": "another@follower.social"
             }
         },
         "latest_followers": {
+            "configuration_display_name": "Latest followers",
+            "configuration_description": "Show latest followers.",
             "title": "Latest followers",
             "last_update": "Last update: %s"
         }

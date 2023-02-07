@@ -4,6 +4,7 @@ import WidgetKit
 import SwiftUI
 import Intents
 import MastodonSDK
+import MastodonLocalization
 
 struct LatestFollowersWidgetProvider: IntentTimelineProvider {
     func placeholder(in context: Context) -> LatestFollowersEntry {
@@ -67,8 +68,8 @@ struct LatestFollowersWidget: Widget {
         IntentConfiguration(kind: "Latest followers", intent: LatestFollowersIntent.self, provider: LatestFollowersWidgetProvider()) { entry in
             LatestFollowersWidgetView(entry: entry)
         }
-        .configurationDisplayName("Latest followers")
-        .description("Show latest followers.")
+        .configurationDisplayName(L10n.Widget.LatestFollowers.configurationDisplayName)
+        .description(L10n.Widget.LatestFollowers.configurationDescription)
         .supportedFamilies(availableFamilies)
     }
 }

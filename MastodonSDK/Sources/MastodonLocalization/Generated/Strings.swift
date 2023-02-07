@@ -1487,6 +1487,10 @@ public enum L10n {
       public static let userNotLoggedIn = L10n.tr("Localizable", "Widget.Common.UserNotLoggedIn", fallback: "Please open Mastodon to log in to an Account.")
     }
     public enum FollowersCount {
+      /// Show number of followers.
+      public static let configurationDescription = L10n.tr("Localizable", "Widget.FollowersCount.ConfigurationDescription", fallback: "Show number of followers.")
+      /// Followers
+      public static let configurationDisplayName = L10n.tr("Localizable", "Widget.FollowersCount.ConfigurationDisplayName", fallback: "Followers")
       /// %@ followers today
       public static func followersToday(_ p1: Any) -> String {
         return L10n.tr("Localizable", "Widget.FollowersCount.FollowersToday", String(describing: p1), fallback: "%@ followers today")
@@ -1495,6 +1499,10 @@ public enum L10n {
       public static let title = L10n.tr("Localizable", "Widget.FollowersCount.Title", fallback: "FOLLOWERS")
     }
     public enum LatestFollowers {
+      /// Show latest followers.
+      public static let configurationDescription = L10n.tr("Localizable", "Widget.LatestFollowers.ConfigurationDescription", fallback: "Show latest followers.")
+      /// Latest followers
+      public static let configurationDisplayName = L10n.tr("Localizable", "Widget.LatestFollowers.ConfigurationDisplayName", fallback: "Latest followers")
       /// Last update: %@
       public static func lastUpdate(_ p1: Any) -> String {
         return L10n.tr("Localizable", "Widget.LatestFollowers.LastUpdate", String(describing: p1), fallback: "Last update: %@")
@@ -1503,6 +1511,10 @@ public enum L10n {
       public static let title = L10n.tr("Localizable", "Widget.LatestFollowers.Title", fallback: "Latest followers")
     }
     public enum MultipleFollowers {
+      /// Show number of followers for multiple accounts.
+      public static let configurationDescription = L10n.tr("Localizable", "Widget.MultipleFollowers.ConfigurationDescription", fallback: "Show number of followers for multiple accounts.")
+      /// Multiple followers
+      public static let configurationDisplayName = L10n.tr("Localizable", "Widget.MultipleFollowers.ConfigurationDisplayName", fallback: "Multiple followers")
       public enum MockUser {
         /// another@follower.social
         public static let accountName = L10n.tr("Localizable", "Widget.MultipleFollowers.MockUser.AccountName", fallback: "another@follower.social")

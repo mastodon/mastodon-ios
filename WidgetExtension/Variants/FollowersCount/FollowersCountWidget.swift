@@ -4,6 +4,7 @@ import WidgetKit
 import SwiftUI
 import Intents
 import MastodonSDK
+import MastodonLocalization
 
 struct FollowersCountWidgetProvider: IntentTimelineProvider {
     private let followersHistory = FollowersCountHistory.shared
@@ -63,8 +64,8 @@ struct FollowersCountWidget: Widget {
         IntentConfiguration(kind: "Followers", intent: FollowersCountIntent.self, provider: FollowersCountWidgetProvider()) { entry in
             FollowersCountWidgetView(entry: entry)
         }
-        .configurationDisplayName("Followers")
-        .description("Show number of followers.")
+        .configurationDisplayName(L10n.Widget.FollowersCount.configurationDisplayName)
+        .description(L10n.Widget.FollowersCount.configurationDescription)
         .supportedFamilies(availableFamilies)
     }
 }
