@@ -438,7 +438,8 @@
         "compose": {
             "title": {
                 "new_post": "New Post",
-                "new_reply": "New Reply"
+                "new_reply": "New Reply",
+                "edit_post": "Edit Post"
             },
             "media_selection": {
                 "camera": "Take Photo",

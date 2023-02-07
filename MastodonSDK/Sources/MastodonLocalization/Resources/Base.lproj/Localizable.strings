@@ -225,6 +225,7 @@ uploaded to Mastodon.";
 "Scene.Compose.ReplyingToUser" = "replying to %@";
 "Scene.Compose.Title.NewPost" = "New Post";
 "Scene.Compose.Title.NewReply" = "New Reply";
+"Scene.Compose.Title.EditPost" = "Edit Post";
 "Scene.Compose.Visibility.Direct" = "Only people I mention";
 "Scene.Compose.Visibility.Private" = "Followers only";
 "Scene.Compose.Visibility.Public" = "Public";
