@@ -82,27 +82,31 @@ private extension MultiFollowersCountWidgetProvider {
                 return completion(.unconfigured)
             }
             
-            guard let desiredAccounts: [String] = {
-                guard let account = configuration.accounts?.compactMap({ $0 }) else {
-                    if let acct = authBox.authenticationRecord.object(in: WidgetExtension.appContext.managedObjectContext)?.user.acct {
-                        return [acct]
-                    }
-                    return nil
-                }
-                return account
-            }() else {
+            let desiredAccounts: [String]
+            
+            if let configuredAccounts = configuration.accounts?.compactMap({ $0 }) {
+                desiredAccounts = configuredAccounts
+            } else if let currentlyLoggedInAccount = authBox.authenticationRecord.object(
+                in: WidgetExtension.appContext.managedObjectContext
+            )?.user.acct {
+                desiredAccounts = [currentlyLoggedInAccount]
+            } else {
                 return completion(.unconfigured)
             }
-            
+
             var accounts = [MultiFollowersEntryAccountable]()
             
             for desiredAccount in desiredAccounts {
-                let resultingAccount = try await WidgetExtension.appContext
-                    .apiService
-                    .search(query: .init(q: desiredAccount, type: .accounts), authenticationBox: authBox)
-                    .value
-                    .accounts
-                    .first!
+                guard
+                    let resultingAccount = try await WidgetExtension.appContext
+                        .apiService
+                        .search(query: .init(q: desiredAccount, type: .accounts), authenticationBox: authBox)
+                        .value
+                        .accounts
+                        .first(where: { $0.acct == desiredAccount })
+                else {
+                    continue
+                }
                 
                 let imageData = try await URLSession.shared.data(from: resultingAccount.avatarImageURLWithFallback(domain: authBox.domain)).0
                 

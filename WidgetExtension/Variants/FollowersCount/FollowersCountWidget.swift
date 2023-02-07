@@ -84,21 +84,24 @@ private extension FollowersCountWidgetProvider {
                 return completion(.unconfigured)
             }
             
-            guard let desiredAccount: String = {
-                guard let account = configuration.account else {
-                    return authBox.authenticationRecord.object(in: WidgetExtension.appContext.managedObjectContext)?.user.acct
-                }
-                return account
-            }() else {
+            guard
+                let desiredAccount = configuration.account ?? authBox.authenticationRecord.object(
+                    in: WidgetExtension.appContext.managedObjectContext
+                )?.user.acct
+            else {
                 return completion(.unconfigured)
             }
             
-            let resultingAccount = try await WidgetExtension.appContext
-                .apiService
-                .search(query: .init(q: desiredAccount, type: .accounts), authenticationBox: authBox)
-                .value
-                .accounts
-                .first!
+            guard
+                let resultingAccount = try await WidgetExtension.appContext
+                    .apiService
+                    .search(query: .init(q: desiredAccount, type: .accounts), authenticationBox: authBox)
+                    .value
+                    .accounts
+                    .first(where: { $0.acct == desiredAccount })
+            else {
+                return completion(.unconfigured)
+            }
             
             let imageData = try await URLSession.shared.data(from: resultingAccount.avatarImageURLWithFallback(domain: authBox.domain)).0
                         
