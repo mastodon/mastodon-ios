@@ -80,8 +80,7 @@ final class ComposeViewController: UIViewController, NeedsDependency {
         button.cornerRadius = 10
         button.contentEdgeInsets = UIEdgeInsets(top: 6, left: 16, bottom: 5, right: 16)     // set 28pt height
         button.titleLabel?.font = .systemFont(ofSize: 14, weight: .bold)
-        //TODO: @zeitschlag Localization
-        button.setTitle("Save", for: .normal)
+        button.setTitle(L10n.Common.Controls.Actions.save, for: .normal)
         return button
     }()
 
