@@ -388,9 +388,7 @@ extension DataSourceFacade {
                 authContext: dependency.authContext,
                 composeContext: .editStatus(status: status, statusSource: statusSource),
                 destination: .topLevel)
-            //TODO: @zeitschlag Check for status
             _ = dependency.coordinator.present(scene: .editStatus(viewModel: editStatusViewModel), transition: .modal(animated: true))
-            // something something Show Compose-Screen, but with PUT instead of POST
         }
     }   // end func
 }
