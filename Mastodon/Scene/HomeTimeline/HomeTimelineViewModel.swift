@@ -52,6 +52,7 @@ final class HomeTimelineViewModel: NSObject {
         let stateMachine = GKStateMachine(states: [
             LoadLatestState.Initial(viewModel: self),
             LoadLatestState.Loading(viewModel: self),
+            LoadLatestState.LoadingManually(viewModel: self),
             LoadLatestState.Fail(viewModel: self),
             LoadLatestState.Idle(viewModel: self),
         ])
