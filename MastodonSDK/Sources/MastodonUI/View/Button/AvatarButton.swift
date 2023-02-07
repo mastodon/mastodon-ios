@@ -36,6 +36,7 @@ open class AvatarButton: UIControl {
         
         isAccessibilityElement = true
         accessibilityLabel = L10n.Common.Controls.Status.showUserProfile
+        accessibilityTraits.insert(.image)
     }
     
     public override func layoutSubviews() {
