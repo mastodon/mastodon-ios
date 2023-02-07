@@ -29,6 +29,7 @@ public struct PollOptionRow: View {
                     .padding(.leading, 16)
                     .padding(.trailing, 16 - 10)     // 8pt for TextField leading
                     .font(.system(size: 17))
+                    .accessibilityHidden(true)
                 let field = PollOptionTextField(
                     text: $viewModel.text,
                     index: index,
@@ -102,6 +103,7 @@ public struct PollOptionRow: View {
             .shadow(color: .black.opacity(0.3), radius: 2, x: 0, y: 1)
             Image(uiImage: Asset.Scene.Compose.reorderDot.image.withRenderingMode(.alwaysTemplate))
                 .foregroundColor(Color(UIColor.label))
+                .accessibilityHidden(true)
         }
         .background(Color.clear)
     }
