@@ -461,6 +461,7 @@
                 "server_processing_state": "Server Processing..."
             },
             "poll": {
+                "title": "Poll",
                 "duration_time": "Duration: %s",
                 "thirty_minutes": "30 minutes",
                 "one_hour": "1 Hour",

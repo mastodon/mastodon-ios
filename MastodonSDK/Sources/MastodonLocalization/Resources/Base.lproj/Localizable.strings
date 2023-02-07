@@ -225,6 +225,7 @@ uploaded to Mastodon.";
 "Scene.Compose.Poll.ThePollIsInvalid" = "The poll is invalid";
 "Scene.Compose.Poll.ThirtyMinutes" = "30 minutes";
 "Scene.Compose.Poll.ThreeDays" = "3 Days";
+"Scene.Compose.Poll.Title" = "Poll";
 "Scene.Compose.ReplyingToUser" = "replying to %@";
 "Scene.Compose.Title.NewPost" = "New Post";
 "Scene.Compose.Title.NewReply" = "New Reply";

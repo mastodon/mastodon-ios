@@ -224,6 +224,8 @@ extension ComposeContentView {
                 }
             }
         }   // end VStack
+        .accessibilityElement(children: .contain)
+        .accessibilityLabel(L10n.Scene.Compose.Poll.title)
     }
     
     // MARK: - media
