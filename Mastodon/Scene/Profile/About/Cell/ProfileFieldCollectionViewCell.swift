@@ -107,6 +107,8 @@ extension ProfileFieldCollectionViewCell {
         
         keyMetaLabel.linkDelegate = self
         valueMetaLabel.linkDelegate = self
+
+        isAccessibilityElement = true
     }
     
     @objc public func didTapCheckmark(_ recognizer: UITapGestureRecognizer) {
