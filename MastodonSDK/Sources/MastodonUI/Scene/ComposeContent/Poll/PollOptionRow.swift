@@ -57,44 +57,32 @@ public struct PollOptionRow: View {
                         }
                     }
                 } else {
-                    // beautiful!
-                    if let moveUp {
-                        if let moveDown {
-                            if let removeOption {
-                                field
-                                    .accessibilityAction(named: L10n.Scene.Compose.Poll.moveUp, moveUp)
-                                    .accessibilityAction(named: L10n.Scene.Compose.Poll.moveDown, moveDown)
-                                    .accessibilityAction(named: L10n.Scene.Compose.Poll.removeOption, removeOption)
-                            } else {
-                                field
-                                    .accessibilityAction(named: L10n.Scene.Compose.Poll.moveUp, moveUp)
-                                    .accessibilityAction(named: L10n.Scene.Compose.Poll.moveDown, moveDown)
-                            }
-                        } else {
-                            if let removeOption {
-                                field
-                                    .accessibilityAction(named: L10n.Scene.Compose.Poll.moveUp, moveUp)
-                                    .accessibilityAction(named: L10n.Scene.Compose.Poll.removeOption, removeOption)
-                            } else {
-                                field.accessibilityAction(named: L10n.Scene.Compose.Poll.moveUp, moveUp)
-                            }
-                        }
-                    } else {
-                        if let moveDown {
-                            if let removeOption {
-                                field
-                                    .accessibilityAction(named: L10n.Scene.Compose.Poll.moveDown, moveDown)
-                                    .accessibilityAction(named: L10n.Scene.Compose.Poll.removeOption, removeOption)
-                            } else {
-                                field.accessibilityAction(named: L10n.Scene.Compose.Poll.moveDown, moveDown)
-                            }
-                        } else {
-                            if let removeOption {
-                                field.accessibilityAction(named: L10n.Scene.Compose.Poll.removeOption, removeOption)
-                            } else {
-                                field
-                            }
-                        }
+                    switch (moveUp, moveDown, removeOption) {
+                    case let (.some(up), .some(down), .some(remove)):
+                        field
+                            .accessibilityAction(named: L10n.Scene.Compose.Poll.moveUp, up)
+                            .accessibilityAction(named: L10n.Scene.Compose.Poll.moveDown, down)
+                            .accessibilityAction(named: L10n.Scene.Compose.Poll.removeOption, remove)
+                    case let (.some(up), .some(down), .none):
+                        field
+                            .accessibilityAction(named: L10n.Scene.Compose.Poll.moveUp, up)
+                            .accessibilityAction(named: L10n.Scene.Compose.Poll.moveDown, down)
+                    case let (.some(up), .none, .some(remove)):
+                        field
+                            .accessibilityAction(named: L10n.Scene.Compose.Poll.moveUp, up)
+                            .accessibilityAction(named: L10n.Scene.Compose.Poll.removeOption, remove)
+                    case let (.some(up), .none, .none):
+                        field.accessibilityAction(named: L10n.Scene.Compose.Poll.moveUp, up)
+                    case let (.none, .some(down), .some(remove)):
+                        field
+                            .accessibilityAction(named: L10n.Scene.Compose.Poll.moveDown, down)
+                            .accessibilityAction(named: L10n.Scene.Compose.Poll.removeOption, remove)
+                    case let (.none, .some(down), .none):
+                        field.accessibilityAction(named: L10n.Scene.Compose.Poll.moveDown, down)
+                    case let (.none, .none, .some(remove)):
+                        field.accessibilityAction(named: L10n.Scene.Compose.Poll.removeOption, remove)
+                    case (.none, .none, .none):
+                        field
                     }
                 }
             }
