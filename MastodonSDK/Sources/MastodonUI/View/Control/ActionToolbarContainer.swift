@@ -125,7 +125,6 @@ extension ActionToolbarContainer {
         case reply
         case reblog
         case like
-        case bookmark
         case share
     }
     
