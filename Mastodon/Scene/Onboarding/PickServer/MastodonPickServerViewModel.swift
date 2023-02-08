@@ -235,9 +235,44 @@ extension MastodonPickServerViewModel {
         let servers = indexedServers.value
         guard servers.isNotEmpty else { return nil }
 
-        let randomServer = servers.filter {
-            $0.language.lowercased() == language
-        }.randomElement()
+        let generalServers = servers.filter {
+            $0.categories.contains("general")
+        }
+        
+        let randomServer: Mastodon.Entity.Server?
+        
+        let noApprovalRequired = generalServers.filter { !$0.approvalRequired }
+        let approvalRequired = generalServers.filter { $0.approvalRequired }
+        
+        let languageMatchesWithoutApproval = noApprovalRequired.filter { $0.language.lowercased() == language }
+        let languageMatchesWithApproval = approvalRequired.filter { $0.language.lowercased() == language }
+        let languageDoesNotMatchWithoutApproval = noApprovalRequired.filter { $0.language.lowercased() != language }
+        let langaugeDoesNotMatchWithApproval = noApprovalRequired.filter { $0.language.lowercased() != language }
+        
+        if languageMatchesWithoutApproval.isEmpty {
+            if languageMatchesWithApproval.isEmpty {
+                if languageDoesNotMatchWithoutApproval.isEmpty {
+                    if langaugeDoesNotMatchWithApproval.isEmpty {
+                        randomServer = generalServers.randomElement()
+                    } else {
+                        randomServer = langaugeDoesNotMatchWithApproval.randomElement()
+                    }
+                } else {
+                    randomServer = languageDoesNotMatchWithoutApproval.randomElement()
+                }
+            } else {
+                randomServer = languageMatchesWithApproval.randomElement()
+            }
+        } else {
+            randomServer = languageMatchesWithoutApproval.randomElement()
+        }
+
+//        if !languageMatchesWithoutApproval.isEmpty {
+//            randomServer = languageMatchesWithoutApproval.randomElement()
+//        } else if !languageMatchesWithApproval.isEmpty {
+//            randomServer = langaugeMatchesWithApproval.randomElement()
+//        } else if !
+        
 
         return randomServer ?? servers.randomElement() ?? servers.first
     }
