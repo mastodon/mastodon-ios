@@ -22,7 +22,7 @@ public struct PollAddOptionRow: View {
                     .padding(.trailing, 16 - 10)     // 8pt for TextField leading
                     .font(.system(size: 17))
                 PollOptionTextField(
-                    text: $viewModel.text,
+                    text: .constant(""),
                     index: 999,
                     delegate: nil
                 ) { textField in
@@ -44,9 +44,6 @@ public struct PollAddOptionRow: View {
 
 extension PollAddOptionRow {
     public class ViewModel: ObservableObject {
-        // input
-        @Published public var text: String = ""
-    
         // output
         @Published public var backgroundColor = ThemeService.shared.currentTheme.value.composePollRowBackgroundColor
         
