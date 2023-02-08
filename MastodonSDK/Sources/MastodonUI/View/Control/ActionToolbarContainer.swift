@@ -64,6 +64,7 @@ extension ActionToolbarContainer {
         reblogButton.addTarget(self, action: #selector(ActionToolbarContainer.buttonDidPressed(_:)), for: .touchUpInside)
         favoriteButton.addTarget(self, action: #selector(ActionToolbarContainer.buttonDidPressed(_:)), for: .touchUpInside)
         shareButton.addTarget(self, action: #selector(ActionToolbarContainer.buttonDidPressed(_:)), for: .touchUpInside)
+        addInteraction(UILargeContentViewerInteraction())
 
         container.arrangedSubviews.forEach { subview in
             container.removeArrangedSubview(subview)
@@ -78,6 +79,7 @@ extension ActionToolbarContainer {
             button.setTitleColor(.secondaryLabel, for: .normal)
             button.expandEdgeInsets = UIEdgeInsets(top: -10, left: -10, bottom: -10, right: -10)
             button.setInsets(forContentPadding: .zero, imageTitlePadding: 4)
+            button.showsLargeContentViewer = true
         }
         // add more expand for menu button
         shareButton.expandEdgeInsets = UIEdgeInsets(top: -10, left: -20, bottom: -10, right: -20)
