@@ -247,7 +247,7 @@ extension MastodonPickServerViewModel {
         let languageMatchesWithoutApproval = noApprovalRequired.filter { $0.language.lowercased() == language }
         let languageMatchesWithApproval = approvalRequired.filter { $0.language.lowercased() == language }
         let languageDoesNotMatchWithoutApproval = noApprovalRequired.filter { $0.language.lowercased() != language }
-        let languageDoesNotMatchWithApproval = noApprovalRequired.filter { $0.language.lowercased() != language }
+        let languageDoesNotMatchWithApproval = approvalRequired.filter { $0.language.lowercased() != language }
 
         switch (
             languageMatchesWithoutApproval.isEmpty,
