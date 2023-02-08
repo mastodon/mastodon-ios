@@ -35,8 +35,7 @@ public final class ActionToolbarContainer: UIView {
     public weak var delegate: ActionToolbarContainerDelegate?
     
     private let container = UIStackView()
-    private var style: Style?
-        
+
     public override init(frame: CGRect) {
         super.init(frame: frame)
         _init()
@@ -65,14 +64,7 @@ extension ActionToolbarContainer {
         reblogButton.addTarget(self, action: #selector(ActionToolbarContainer.buttonDidPressed(_:)), for: .touchUpInside)
         favoriteButton.addTarget(self, action: #selector(ActionToolbarContainer.buttonDidPressed(_:)), for: .touchUpInside)
         shareButton.addTarget(self, action: #selector(ActionToolbarContainer.buttonDidPressed(_:)), for: .touchUpInside)
-    }
-    
-    public func configure(for style: Style) {
-        guard needsConfigure(for: style) else {
-            return
-        }
-        
-        self.style = style
+
         container.arrangedSubviews.forEach { subview in
             container.removeArrangedSubview(subview)
             subview.removeFromSuperview()
@@ -85,7 +77,7 @@ extension ActionToolbarContainer {
             button.setTitle("", for: .normal)
             button.setTitleColor(.secondaryLabel, for: .normal)
             button.expandEdgeInsets = UIEdgeInsets(top: -10, left: -10, bottom: -10, right: -10)
-            button.setInsets(forContentPadding: .zero, imageTitlePadding: style.buttonTitleImagePadding)
+            button.setInsets(forContentPadding: .zero, imageTitlePadding: 4)
         }
         // add more expand for menu button
         shareButton.expandEdgeInsets = UIEdgeInsets(top: -10, left: -20, bottom: -10, right: -20)
@@ -95,61 +87,36 @@ extension ActionToolbarContainer {
         favoriteButton.accessibilityLabel = L10n.Common.Controls.Status.Actions.favorite    // needs update to follow state
         shareButton.accessibilityLabel = L10n.Common.Controls.Actions.share
         
-        switch style {
-        case .inline:
-            buttons.forEach { button in
-                button.contentHorizontalAlignment = .leading
-            }
-            replyButton.setImage(ActionToolbarContainer.replyImage, for: .normal)
-            reblogButton.setImage(ActionToolbarContainer.reblogImage, for: .normal)
-            favoriteButton.setImage(ActionToolbarContainer.starImage, for: .normal)
-            shareButton.setImage(ActionToolbarContainer.shareImage, for: .normal)
-            
-            container.axis = .horizontal
-            container.distribution = .equalSpacing
-            
-            replyButton.translatesAutoresizingMaskIntoConstraints = false
-            reblogButton.translatesAutoresizingMaskIntoConstraints = false
-            favoriteButton.translatesAutoresizingMaskIntoConstraints = false
-            shareButton.translatesAutoresizingMaskIntoConstraints = false
-            container.addArrangedSubview(replyButton)
-            container.addArrangedSubview(reblogButton)
-            container.addArrangedSubview(favoriteButton)
-            container.addArrangedSubview(shareButton)
-            NSLayoutConstraint.activate([
-                replyButton.heightAnchor.constraint(equalToConstant: 36).priority(.defaultHigh),
-                replyButton.heightAnchor.constraint(equalTo: reblogButton.heightAnchor).priority(.defaultHigh),
-                replyButton.heightAnchor.constraint(equalTo: favoriteButton.heightAnchor).priority(.defaultHigh),
-                replyButton.heightAnchor.constraint(equalTo: shareButton.heightAnchor).priority(.defaultHigh),
-                replyButton.widthAnchor.constraint(equalTo: reblogButton.widthAnchor).priority(.defaultHigh),
-                replyButton.widthAnchor.constraint(equalTo: favoriteButton.widthAnchor).priority(.defaultHigh),
-            ])
-            shareButton.setContentHuggingPriority(.defaultHigh, for: .horizontal)
-            shareButton.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
-            
-        case .plain:
-            buttons.forEach { button in
-                button.contentHorizontalAlignment = .center
-            }
-            replyButton.setImage(ActionToolbarContainer.replyImage, for: .normal)
-            reblogButton.setImage(ActionToolbarContainer.reblogImage, for: .normal)
-            favoriteButton.setImage(ActionToolbarContainer.starImage, for: .normal)
-            
-            container.axis = .horizontal
-            container.spacing = 8
-            container.distribution = .fillEqually
-            
-            container.addArrangedSubview(replyButton)
-            container.addArrangedSubview(reblogButton)
-            container.addArrangedSubview(favoriteButton)
+        buttons.forEach { button in
+            button.contentHorizontalAlignment = .leading
         }
+        replyButton.setImage(ActionToolbarContainer.replyImage, for: .normal)
+        reblogButton.setImage(ActionToolbarContainer.reblogImage, for: .normal)
+        favoriteButton.setImage(ActionToolbarContainer.starImage, for: .normal)
+        shareButton.setImage(ActionToolbarContainer.shareImage, for: .normal)
+
+        container.axis = .horizontal
+        container.distribution = .equalSpacing
+
+        replyButton.translatesAutoresizingMaskIntoConstraints = false
+        reblogButton.translatesAutoresizingMaskIntoConstraints = false
+        favoriteButton.translatesAutoresizingMaskIntoConstraints = false
+        shareButton.translatesAutoresizingMaskIntoConstraints = false
+        container.addArrangedSubview(replyButton)
+        container.addArrangedSubview(reblogButton)
+        container.addArrangedSubview(favoriteButton)
+        container.addArrangedSubview(shareButton)
+        NSLayoutConstraint.activate([
+            replyButton.heightAnchor.constraint(equalToConstant: 36).priority(.defaultHigh),
+            replyButton.heightAnchor.constraint(equalTo: reblogButton.heightAnchor).priority(.defaultHigh),
+            replyButton.heightAnchor.constraint(equalTo: favoriteButton.heightAnchor).priority(.defaultHigh),
+            replyButton.heightAnchor.constraint(equalTo: shareButton.heightAnchor).priority(.defaultHigh),
+            replyButton.widthAnchor.constraint(equalTo: reblogButton.widthAnchor).priority(.defaultHigh),
+            replyButton.widthAnchor.constraint(equalTo: favoriteButton.widthAnchor).priority(.defaultHigh),
+        ])
+        shareButton.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        shareButton.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
     }
-    
-    private func needsConfigure(for style: Style) -> Bool {
-        guard let oldStyle = self.style else { return true }
-        return oldStyle != style
-    }
-    
 }
 
 extension ActionToolbarContainer {
@@ -160,18 +127,6 @@ extension ActionToolbarContainer {
         case like
         case bookmark
         case share
-    }
-    
-    public enum Style {
-        case inline
-        case plain
-        
-        var buttonTitleImagePadding: CGFloat {
-            switch self {
-            case .inline:       return 4.0
-            case .plain:        return 0
-            }
-        }
     }
     
     private func isReblogButtonHighlightStateDidChange(to isHighlight: Bool) {
@@ -302,9 +257,7 @@ struct ActionToolbarContainer_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             UIViewPreview(width: 300) {
-                let toolbar = ActionToolbarContainer()
-                toolbar.configure(for: .inline)
-                return toolbar
+                ActionToolbarContainer()
             }
             .previewLayout(.fixed(width: 300, height: 44))
             .previewDisplayName("Inline")

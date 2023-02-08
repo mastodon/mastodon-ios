@@ -558,7 +558,6 @@ extension StatusView.Style {
         // action toolbar
         statusView.actionToolbarAdaptiveMarginContainerView.contentView = statusView.actionToolbarContainer
         statusView.actionToolbarAdaptiveMarginContainerView.margin = StatusView.containerLayoutMargin
-        statusView.actionToolbarContainer.configure(for: .inline)
         statusView.containerStackView.addArrangedSubview(statusView.actionToolbarAdaptiveMarginContainerView)
         
         // filterHintLabel
