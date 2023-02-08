@@ -247,18 +247,18 @@ extension MastodonPickServerViewModel {
         let languageMatchesWithoutApproval = noApprovalRequired.filter { $0.language.lowercased() == language }
         let languageMatchesWithApproval = approvalRequired.filter { $0.language.lowercased() == language }
         let languageDoesNotMatchWithoutApproval = noApprovalRequired.filter { $0.language.lowercased() != language }
-        let langaugeDoesNotMatchWithApproval = noApprovalRequired.filter { $0.language.lowercased() != language }
+        let languageDoesNotMatchWithApproval = noApprovalRequired.filter { $0.language.lowercased() != language }
 
         switch (
             languageMatchesWithoutApproval.isEmpty,
             languageMatchesWithApproval.isEmpty,
             languageDoesNotMatchWithoutApproval.isEmpty,
-            langaugeDoesNotMatchWithApproval.isEmpty
+            languageDoesNotMatchWithApproval.isEmpty
         ) {
         case (true, true, true, true):
             randomServer = generalServers.randomElement()
         case (true, true, true, false):
-            randomServer = langaugeDoesNotMatchWithApproval.randomElement()
+            randomServer = languageDoesNotMatchWithApproval.randomElement()
         case (true, true, false, _):
             randomServer = languageDoesNotMatchWithoutApproval.randomElement()
         case (true, false, _, _):
