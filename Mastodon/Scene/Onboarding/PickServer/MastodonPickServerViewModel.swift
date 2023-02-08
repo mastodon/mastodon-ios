@@ -248,22 +248,22 @@ extension MastodonPickServerViewModel {
         let languageMatchesWithApproval = approvalRequired.filter { $0.language.lowercased() == language }
         let languageDoesNotMatchWithoutApproval = noApprovalRequired.filter { $0.language.lowercased() != language }
         let langaugeDoesNotMatchWithApproval = noApprovalRequired.filter { $0.language.lowercased() != language }
-        
-        if languageMatchesWithoutApproval.isEmpty {
-            if languageMatchesWithApproval.isEmpty {
-                if languageDoesNotMatchWithoutApproval.isEmpty {
-                    if langaugeDoesNotMatchWithApproval.isEmpty {
-                        randomServer = generalServers.randomElement()
-                    } else {
-                        randomServer = langaugeDoesNotMatchWithApproval.randomElement()
-                    }
-                } else {
-                    randomServer = languageDoesNotMatchWithoutApproval.randomElement()
-                }
-            } else {
-                randomServer = languageMatchesWithApproval.randomElement()
-            }
-        } else {
+
+        switch (
+            languageMatchesWithoutApproval.isEmpty,
+            languageMatchesWithApproval.isEmpty,
+            languageDoesNotMatchWithoutApproval.isEmpty,
+            langaugeDoesNotMatchWithApproval.isEmpty
+        ) {
+        case (true, true, true, true):
+            randomServer = generalServers.randomElement()
+        case (true, true, true, false):
+            randomServer = langaugeDoesNotMatchWithApproval.randomElement()
+        case (true, true, false, _):
+            randomServer = languageDoesNotMatchWithoutApproval.randomElement()
+        case (true, false, _, _):
+            randomServer = languageMatchesWithApproval.randomElement()
+        case (false, _, _, _):
             randomServer = languageMatchesWithoutApproval.randomElement()
         }
 
