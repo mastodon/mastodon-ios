@@ -227,15 +227,6 @@
         }
       },
       {
-        "package": "UIHostingConfigurationBackport",
-        "repositoryURL": "https://github.com/woxtu/UIHostingConfigurationBackport.git",
-        "state": {
-          "branch": null,
-          "revision": "6091f2d38faa4b24fc2ca0389c651e2f666624a3",
-          "version": "0.1.0"
-        }
-      },
-      {
         "package": "UITextView+Placeholder",
         "repositoryURL": "https://github.com/MainasuK/UITextView-Placeholder.git",
         "state": {

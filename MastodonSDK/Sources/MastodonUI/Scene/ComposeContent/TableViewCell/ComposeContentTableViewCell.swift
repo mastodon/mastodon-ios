@@ -7,7 +7,6 @@
 
 import os.log
 import UIKit
-import UIHostingConfigurationBackport
 
 final class ComposeContentTableViewCell: UITableViewCell {
 

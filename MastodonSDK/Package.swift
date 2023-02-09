@@ -31,7 +31,7 @@ let package = Package(
             name: "MastodonSDKDynamic",
             type: .dynamic,
             targets: publicLibraryTargets
-        )
+        ),
     ],
     dependencies: [
         .package(name: "ArkanaKeys", path: "../dependencies/ArkanaKeys"),
@@ -53,7 +53,6 @@ let package = Package(
         .package(url: "https://github.com/TwidereProject/MetaTextKit.git", exact: "2.2.5"),
         .package(url: "https://github.com/TwidereProject/TabBarPager.git", from: "0.1.0"),
         .package(url: "https://github.com/uias/Tabman", from: "2.13.0"),
-        .package(url: "https://github.com/woxtu/UIHostingConfigurationBackport.git", from: "0.1.0"),
         .package(url: "https://github.com/SDWebImage/SDWebImage.git", from: "5.12.0"),
         .package(url: "https://github.com/eneko/Stripes.git", from: "0.2.0"),
         .package(url: "https://github.com/NextLevel/NextLevelSessionExporter.git", from: "0.4.6"),
@@ -67,7 +66,7 @@ let package = Package(
                 "MastodonCommon",
             ],
             exclude: [
-                "Template/Stencil"
+                "Template/Stencil",
             ]
         ),
         .target(
@@ -96,7 +95,7 @@ let package = Package(
                 .product(name: "CommonOSLog", package: "CommonOSLog"),
                 .product(name: "ArkanaKeys", package: "ArkanaKeys"),
                 .product(name: "KeychainAccess", package: "KeychainAccess"),
-                .product(name: "MetaTextKit", package: "MetaTextKit")
+                .product(name: "MetaTextKit", package: "MetaTextKit"),
             ]
         ),
         .target(
@@ -122,7 +121,6 @@ let package = Package(
                 .product(name: "Nuke", package: "Nuke"),
                 .product(name: "Introspect", package: "SwiftUI-Introspect"),
                 .product(name: "UITextView+Placeholder", package: "UITextView-Placeholder"),
-                .product(name: "UIHostingConfigurationBackport", package: "UIHostingConfigurationBackport"),
                 .product(name: "TabBarPager", package: "TabBarPager"),
                 .product(name: "OrderedCollections", package: "swift-collections"),
                 .product(name: "Tabman", package: "Tabman"),

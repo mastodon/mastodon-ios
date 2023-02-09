@@ -217,30 +217,12 @@
       }
     },
     {
-      "identity" : "thirdpartymailer",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/vtourraine/ThirdPartyMailer.git",
-      "state" : {
-        "revision" : "44c1cfaa6969963f22691aa67f88a69e3b6d651f",
-        "version" : "2.1.0"
-      }
-    },
-    {
       "identity" : "tocropviewcontroller",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/TimOliver/TOCropViewController.git",
       "state" : {
         "revision" : "d0470491f56e734731bbf77991944c0dfdee3e0e",
         "version" : "2.6.1"
-      }
-    },
-    {
-      "identity" : "uihostingconfigurationbackport",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/woxtu/UIHostingConfigurationBackport.git",
-      "state" : {
-        "revision" : "6091f2d38faa4b24fc2ca0389c651e2f666624a3",
-        "version" : "0.1.0"
       }
     },
     {
