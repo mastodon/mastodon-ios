@@ -55,7 +55,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld characters left</string>
+        <string>剩余 %ld 个字符</string>
       </dict>
     </dict>
     <key>plural.count.followed_by_and_mutual</key>
