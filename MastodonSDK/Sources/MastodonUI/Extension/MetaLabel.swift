@@ -152,4 +152,18 @@ extension MetaLabel {
         ]
     }
 
+    public var backedString: String {
+        let string = textStorage.string
+        let nsString = NSMutableString(string: string)
+        textStorage.enumerateAttribute(
+            .attachment,
+            in: NSRange(location: 0, length: textStorage.length),
+            options: [.reverse])
+        { value, range, _ in
+            guard let attachment = value as? MetaAttachment else { return }
+            nsString.replaceCharacters(in: range, with: attachment.string)
+        }
+        return nsString as String
+    }
+
 }

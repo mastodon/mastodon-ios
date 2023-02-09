@@ -190,15 +190,24 @@ public final class StatusView: UIView {
         activityIndicatorView.stopAnimating()
         return activityIndicatorView
     }()
-    private let translatedInfoLabel: UILabel = {
+    let translatedInfoLabel: UILabel = {
         let label = UILabel()
         label.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: .systemFont(ofSize: 13, weight: .regular))
         label.textColor = Asset.Colors.Label.secondary.color
         label.numberOfLines = 0
         return label
     }()
-    lazy var translatedInfoView: UIView = {
-        let containerView = UIView()
+
+    private class TranslatedInfoView: UIView {
+        var revertAction: (() -> Void)?
+
+        override func accessibilityActivate() -> Bool {
+            revertAction?()
+            return true
+        }
+    }
+    public private(set) lazy var translatedInfoView: UIView = {
+        let containerView = TranslatedInfoView()
     
         let revertButton = UIButton()
         revertButton.titleLabel?.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: .systemFont(ofSize: 13, weight: .bold))
@@ -230,7 +239,14 @@ public final class StatusView: UIView {
         ])
         
         containerView.isHidden = true
-        
+
+        containerView.isAccessibilityElement = true
+        containerView.accessibilityLabel = L10n.Common.Controls.Status.Translation.showOriginal
+        containerView.accessibilityTraits = [.button]
+        containerView.revertAction = { [weak self] in
+            self?.revertTranslation()
+        }
+
         return containerView
     }()
 
@@ -270,7 +286,6 @@ public final class StatusView: UIView {
         setPollDisplay(isDisplay: false)
         setFilterHintLabelDisplay(isDisplay: false)
         setStatusCardControlDisplay(isDisplay: false)
-        setupTranslationIndicator()
     }
 
     public override init(frame: CGRect) {
@@ -612,9 +627,18 @@ extension StatusView {
         get {
             (contentMetaText.textView.accessibilityCustomActions ?? [])
             + toolbarActions
+            + (hideTranslationAction.map { [$0] } ?? [])
             + (authorView.accessibilityCustomActions ?? [])
         }
         set { }
+    }
+
+    private var hideTranslationAction: UIAccessibilityCustomAction? {
+        guard viewModel.translatedFromLanguage != nil else { return nil }
+        return UIAccessibilityCustomAction(name: L10n.Common.Controls.Status.Translation.showOriginal) { [weak self] _ in
+            self?.revertTranslation()
+            return true
+        }
     }
 }
 
@@ -725,41 +749,6 @@ extension StatusView: MastodonMenuDelegate {
     public func menuAction(_ action: MastodonMenu.Action) {
         logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
         delegate?.statusView(self, menuButton: authorView.menuButton, didSelectAction: action)
-    }
-}
-
-extension StatusView {
-    func setupTranslationIndicator() {
-        viewModel.$isCurrentlyTranslating
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] isTranslating in
-                switch isTranslating {
-                case true:
-                    self?.isTranslatingLoadingView.startAnimating()
-                case false:
-                    self?.isTranslatingLoadingView.stopAnimating()
-                }
-            }
-            .store(in: &disposeBag)
-
-        Publishers.CombineLatest(
-            viewModel.$translatedFromLanguage,
-            viewModel.$translatedUsingProvider
-        )
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] translatedFromLanguage, translatedUsingProvider in
-                guard let self = self else { return }
-                if let translatedFromLanguage = translatedFromLanguage {
-                    self.translatedInfoLabel.text = L10n.Common.Controls.Status.Translation.translatedFrom(
-                        Locale.current.localizedString(forIdentifier: translatedFromLanguage) ?? L10n.Common.Controls.Status.Translation.unknownLanguage,
-                        translatedUsingProvider ?? L10n.Common.Controls.Status.Translation.unknownProvider
-                    )
-                    self.translatedInfoView.isHidden = false
-                } else {
-                    self.translatedInfoView.isHidden = true
-                }
-            }
-            .store(in: &disposeBag)
     }
 }
 

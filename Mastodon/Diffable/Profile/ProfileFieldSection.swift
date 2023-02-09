@@ -92,12 +92,17 @@ extension ProfileFieldSection {
                 formatter.dateStyle = .medium
                 formatter.timeStyle = .short
                 let dateString = formatter.string(from: verifiedAt)
-                cell.checkmark.accessibilityLabel = L10n.Scene.Profile.Fields.Verified.long(dateString)
+                let longLabel = L10n.Scene.Profile.Fields.Verified.long(dateString)
+                cell.checkmark.accessibilityLabel = longLabel
+                cell.accessibilityValue = "\(cell.valueMetaLabel.backedString), \(longLabel)"
                 cell.checkmarkPopoverString = L10n.Scene.Profile.Fields.Verified.short(dateString)
             } else {
                 cell.checkmark.isHidden = true
                 cell.checkmarkPopoverString = nil
+                cell.accessibilityValue = cell.valueMetaLabel.backedString
             }
+
+            cell.accessibilityLabel = cell.keyMetaLabel.backedString
 
             cell.delegate = configuration.profileFieldCollectionViewCellDelegate
         }

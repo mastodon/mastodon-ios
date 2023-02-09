@@ -391,8 +391,8 @@ public enum L10n {
           public static let url = L10n.tr("Localizable", "Common.Controls.Status.Tag.Url", fallback: "URL")
         }
         public enum Translation {
-          /// Shown Original
-          public static let showOriginal = L10n.tr("Localizable", "Common.Controls.Status.Translation.ShowOriginal", fallback: "Shown Original")
+          /// Show Original
+          public static let showOriginal = L10n.tr("Localizable", "Common.Controls.Status.Translation.ShowOriginal", fallback: "Show Original")
           /// Translated from %@ using %@
           public static func translatedFrom(_ p1: Any, _ p2: Any) -> String {
             return L10n.tr("Localizable", "Common.Controls.Status.Translation.TranslatedFrom", String(describing: p1), String(describing: p2), fallback: "Translated from %@ using %@")
@@ -595,18 +595,28 @@ public enum L10n {
         public static let photoLibrary = L10n.tr("Localizable", "Scene.Compose.MediaSelection.PhotoLibrary", fallback: "Photo Library")
       }
       public enum Poll {
+        /// Add Option
+        public static let addOption = L10n.tr("Localizable", "Scene.Compose.Poll.AddOption", fallback: "Add Option")
         /// Duration: %@
         public static func durationTime(_ p1: Any) -> String {
           return L10n.tr("Localizable", "Scene.Compose.Poll.DurationTime", String(describing: p1), fallback: "Duration: %@")
         }
+        /// Move Down
+        public static let moveDown = L10n.tr("Localizable", "Scene.Compose.Poll.MoveDown", fallback: "Move Down")
+        /// Move Up
+        public static let moveUp = L10n.tr("Localizable", "Scene.Compose.Poll.MoveUp", fallback: "Move Up")
         /// Option %ld
         public static func optionNumber(_ p1: Int) -> String {
           return L10n.tr("Localizable", "Scene.Compose.Poll.OptionNumber", p1, fallback: "Option %ld")
         }
+        /// Remove Option
+        public static let removeOption = L10n.tr("Localizable", "Scene.Compose.Poll.RemoveOption", fallback: "Remove Option")
         /// The poll has empty option
         public static let thePollHasEmptyOption = L10n.tr("Localizable", "Scene.Compose.Poll.ThePollHasEmptyOption", fallback: "The poll has empty option")
         /// The poll is invalid
         public static let thePollIsInvalid = L10n.tr("Localizable", "Scene.Compose.Poll.ThePollIsInvalid", fallback: "The poll is invalid")
+        /// Poll
+        public static let title = L10n.tr("Localizable", "Scene.Compose.Poll.Title", fallback: "Poll")
       }
       public enum Title {
         /// New Post
@@ -626,9 +636,9 @@ public enum L10n {
       }
     }
     public enum ConfirmEmail {
-      /// Tap the link we sent you to verify %@. We'll wait right here.
+      /// Tap the link we sent you to verify %@. We’ll wait right here.
       public static func tapTheLinkWeEmailedToYouToVerifyYourAccount(_ p1: Any) -> String {
-        return L10n.tr("Localizable", "Scene.ConfirmEmail.TapTheLinkWeEmailedToYouToVerifyYourAccount", String(describing: p1), fallback: "Tap the link we sent you to verify %@. We'll wait right here.")
+        return L10n.tr("Localizable", "Scene.ConfirmEmail.TapTheLinkWeEmailedToYouToVerifyYourAccount", String(describing: p1), fallback: "Tap the link we sent you to verify %@. We’ll wait right here.")
       }
       /// Check Your Inbox
       public static let title = L10n.tr("Localizable", "Scene.ConfirmEmail.Title", fallback: "Check Your Inbox")
@@ -806,13 +816,11 @@ public enum L10n {
       }
     }
     public enum Privacy {
-      /// Although the Mastodon app does not collect any data, the server you sign up through may have a different policy. Take a minute to review and agree to the Mastodon app privacy policy and your server’s privacy policy.
-      public static let description = L10n.tr("Localizable", "Scene.Privacy.Description", fallback: "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy. Take a minute to review and agree to the Mastodon app privacy policy and your server’s privacy policy.")
       /// Privacy
       public static let title = L10n.tr("Localizable", "Scene.Privacy.Title", fallback: "Privacy")
       public enum Button {
         /// I agree
-        public static let confirm = L10n.tr("Localizable", "Scene.Privacy.Button.confirm", fallback: "I agree")
+        public static let confirm = L10n.tr("Localizable", "Scene.Privacy.Button.Confirm", fallback: "I agree")
       }
       public enum Policy {
         /// Privacy Policy - Mastodon for iOS
@@ -1028,12 +1036,12 @@ public enum L10n {
         public enum Password {
           /// 8 characters
           public static let characterLimit = L10n.tr("Localizable", "Scene.Register.Input.Password.CharacterLimit", fallback: "8 characters")
-          /// Confirm password
-          public static let confirmationPlaceholder = L10n.tr("Localizable", "Scene.Register.Input.Password.ConfirmationPlaceholder", fallback: "Confirm password")
+          /// Confirm Password
+          public static let confirmationPlaceholder = L10n.tr("Localizable", "Scene.Register.Input.Password.ConfirmationPlaceholder", fallback: "Confirm Password")
           /// Your password needs at least eight characters
           public static let hint = L10n.tr("Localizable", "Scene.Register.Input.Password.Hint", fallback: "Your password needs at least eight characters")
-          /// Password
-          public static let placeholder = L10n.tr("Localizable", "Scene.Register.Input.Password.Placeholder", fallback: "Password")
+          /// password
+          public static let placeholder = L10n.tr("Localizable", "Scene.Register.Input.Password.Placeholder", fallback: "password")
           /// Your password needs at least:
           public static let require = L10n.tr("Localizable", "Scene.Register.Input.Password.Require", fallback: "Your password needs at least:")
           public enum Accessibility {
@@ -1218,10 +1226,8 @@ public enum L10n {
       }
     }
     public enum ServerPicker {
-      /// We’ll pick a server based on your language if you continue without making a selection.
-      public static let noServerSelectedHint = L10n.tr("Localizable", "Scene.ServerPicker.NoServerSelectedHint", fallback: "We’ll pick a server based on your language if you continue without making a selection.")
-      /// Pick server
-      public static let title = L10n.tr("Localizable", "Scene.ServerPicker.Title", fallback: "Pick server")
+      /// Pick Server
+      public static let title = L10n.tr("Localizable", "Scene.ServerPicker.Title", fallback: "Pick Server")
       public enum Button {
         /// Language
         public static let language = L10n.tr("Localizable", "Scene.ServerPicker.Button.Language", fallback: "Language")
@@ -1315,8 +1321,8 @@ public enum L10n {
       /// Some ground rules.
       public static let title = L10n.tr("Localizable", "Scene.ServerRules.Title", fallback: "Some ground rules.")
       public enum Button {
-        /// I Agree
-        public static let confirm = L10n.tr("Localizable", "Scene.ServerRules.Button.Confirm", fallback: "I Agree")
+        /// I agree
+        public static let confirm = L10n.tr("Localizable", "Scene.ServerRules.Button.Confirm", fallback: "I agree")
       }
     }
     public enum Settings {
@@ -1440,23 +1446,23 @@ public enum L10n {
           /// Different people choose different servers for any number of reasons. art.example is a great place for artists, while glasgow.example might be a good pick for Scots.
           /// 
           /// You can’t go wrong with any of our recommend servers, so regardless of which one you pick (or if you enter your own in the server search bar), you’ll never miss a beat anywhere.
-          public static let description = L10n.tr("Localizable", "Scene.Welcome.Education.HowDoIPickAServer.description", fallback: "Different people choose different servers for any number of reasons. art.example is a great place for artists, while glasgow.example might be a good pick for Scots.\n\nYou can’t go wrong with any of our recommend servers, so regardless of which one you pick (or if you enter your own in the server search bar), you’ll never miss a beat anywhere.")
+          public static let description = L10n.tr("Localizable", "Scene.Welcome.Education.HowDoIPickAServer.Description", fallback: "Different people choose different servers for any number of reasons. art.example is a great place for artists, while glasgow.example might be a good pick for Scots.\n\nYou can’t go wrong with any of our recommend servers, so regardless of which one you pick (or if you enter your own in the server search bar), you’ll never miss a beat anywhere.")
           /// How do I pick a server?
-          public static let title = L10n.tr("Localizable", "Scene.Welcome.Education.HowDoIPickAServer.title", fallback: "How do I pick a server?")
+          public static let title = L10n.tr("Localizable", "Scene.Welcome.Education.HowDoIPickAServer.Title", fallback: "How do I pick a server?")
         }
         public enum MastodonIsLikeThat {
           /// Your handle might be @gothgirl654@example.social, but you can still follow, reblog, and chat with @fallout5ever@example.online.
-          public static let description = L10n.tr("Localizable", "Scene.Welcome.Education.MastodonIsLikeThat.description", fallback: "Your handle might be @gothgirl654@example.social, but you can still follow, reblog, and chat with @fallout5ever@example.online.")
+          public static let description = L10n.tr("Localizable", "Scene.Welcome.Education.MastodonIsLikeThat.Description", fallback: "Your handle might be @gothgirl654@example.social, but you can still follow, reblog, and chat with @fallout5ever@example.online.")
           /// Mastodon is like that
-          public static let title = L10n.tr("Localizable", "Scene.Welcome.Education.MastodonIsLikeThat.title", fallback: "Mastodon is like that")
+          public static let title = L10n.tr("Localizable", "Scene.Welcome.Education.MastodonIsLikeThat.Title", fallback: "Mastodon is like that")
         }
         public enum WhatIsMastodon {
           /// Imagine you have an email address that ends with @example.com.
           /// 
           /// You can still send and receive emails from anyone, even if their email ends in @gmail.com or @icloud.com or @example.com.
-          public static let description = L10n.tr("Localizable", "Scene.Welcome.Education.WhatIsMastodon.description", fallback: "Imagine you have an email address that ends with @example.com.\n\nYou can still send and receive emails from anyone, even if their email ends in @gmail.com or @icloud.com or @example.com.")
+          public static let description = L10n.tr("Localizable", "Scene.Welcome.Education.WhatIsMastodon.Description", fallback: "Imagine you have an email address that ends with @example.com.\n\nYou can still send and receive emails from anyone, even if their email ends in @gmail.com or @icloud.com or @example.com.")
           /// What is
-          public static let title = L10n.tr("Localizable", "Scene.Welcome.Education.WhatIsMastodon.title", fallback: "What is")
+          public static let title = L10n.tr("Localizable", "Scene.Welcome.Education.WhatIsMastodon.Title", fallback: "What is")
         }
       }
     }
@@ -1467,6 +1473,50 @@ public enum L10n {
       public static let multipleAccountSwitchIntroDescription = L10n.tr("Localizable", "Scene.Wizard.MultipleAccountSwitchIntroDescription", fallback: "Switch between multiple accounts by holding the profile button.")
       /// New in Mastodon
       public static let newInMastodon = L10n.tr("Localizable", "Scene.Wizard.NewInMastodon", fallback: "New in Mastodon")
+    }
+  }
+  public enum Widget {
+    public enum Common {
+      /// Sorry but this Widget family is unsupported.
+      public static let unsupportedWidgetFamily = L10n.tr("Localizable", "Widget.Common.UnsupportedWidgetFamily", fallback: "Sorry but this Widget family is unsupported.")
+      /// Please open Mastodon to log in to an Account.
+      public static let userNotLoggedIn = L10n.tr("Localizable", "Widget.Common.UserNotLoggedIn", fallback: "Please open Mastodon to log in to an Account.")
+    }
+    public enum FollowersCount {
+      /// Show number of followers.
+      public static let configurationDescription = L10n.tr("Localizable", "Widget.FollowersCount.ConfigurationDescription", fallback: "Show number of followers.")
+      /// Followers
+      public static let configurationDisplayName = L10n.tr("Localizable", "Widget.FollowersCount.ConfigurationDisplayName", fallback: "Followers")
+      /// %@ followers today
+      public static func followersToday(_ p1: Any) -> String {
+        return L10n.tr("Localizable", "Widget.FollowersCount.FollowersToday", String(describing: p1), fallback: "%@ followers today")
+      }
+      /// FOLLOWERS
+      public static let title = L10n.tr("Localizable", "Widget.FollowersCount.Title", fallback: "FOLLOWERS")
+    }
+    public enum LatestFollowers {
+      /// Show latest followers.
+      public static let configurationDescription = L10n.tr("Localizable", "Widget.LatestFollowers.ConfigurationDescription", fallback: "Show latest followers.")
+      /// Latest followers
+      public static let configurationDisplayName = L10n.tr("Localizable", "Widget.LatestFollowers.ConfigurationDisplayName", fallback: "Latest followers")
+      /// Last update: %@
+      public static func lastUpdate(_ p1: Any) -> String {
+        return L10n.tr("Localizable", "Widget.LatestFollowers.LastUpdate", String(describing: p1), fallback: "Last update: %@")
+      }
+      /// Latest followers
+      public static let title = L10n.tr("Localizable", "Widget.LatestFollowers.Title", fallback: "Latest followers")
+    }
+    public enum MultipleFollowers {
+      /// Show number of followers for multiple accounts.
+      public static let configurationDescription = L10n.tr("Localizable", "Widget.MultipleFollowers.ConfigurationDescription", fallback: "Show number of followers for multiple accounts.")
+      /// Multiple followers
+      public static let configurationDisplayName = L10n.tr("Localizable", "Widget.MultipleFollowers.ConfigurationDisplayName", fallback: "Multiple followers")
+      public enum MockUser {
+        /// another@follower.social
+        public static let accountName = L10n.tr("Localizable", "Widget.MultipleFollowers.MockUser.AccountName", fallback: "another@follower.social")
+        /// Another follower
+        public static let displayName = L10n.tr("Localizable", "Widget.MultipleFollowers.MockUser.DisplayName", fallback: "Another follower")
+      }
     }
   }
   public enum A11y {

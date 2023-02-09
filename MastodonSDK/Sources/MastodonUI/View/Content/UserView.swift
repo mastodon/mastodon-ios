@@ -90,6 +90,8 @@ extension UserView {
         avatarButton.isUserInteractionEnabled = false
         authorNameLabel.isUserInteractionEnabled = false
         authorUsernameLabel.isUserInteractionEnabled = false
+
+        isAccessibilityElement = true
     }
     
 }

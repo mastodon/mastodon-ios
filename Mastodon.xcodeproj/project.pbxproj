@@ -24,6 +24,8 @@
 		27D701F5292FC2D60031BCBB /* DataSourceFacade+URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D701F4292FC2D60031BCBB /* DataSourceFacade+URL.swift */; };
 		2A1FE47C2938BB2600784BF1 /* FollowedTagsViewModel+DiffableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1FE47B2938BB2600784BF1 /* FollowedTagsViewModel+DiffableDataSource.swift */; };
 		2A1FE47E2938C11200784BF1 /* Collection+IsNotEmpty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1FE47D2938C11200784BF1 /* Collection+IsNotEmpty.swift */; };
+		2A33062D2987DBFA001D4C51 /* FollowersCountHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A33062C2987DBFA001D4C51 /* FollowersCountHistory.swift */; };
+		2A33AB662982C4AF008A7FB1 /* FollowersCountWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A33AB652982C4AF008A7FB1 /* FollowersCountWidgetView.swift */; };
 		2A3F6FE3292ECB5E002E6DA7 /* FollowedTagsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A3F6FE2292ECB5E002E6DA7 /* FollowedTagsViewModel.swift */; };
 		2A3F6FE5292F6E44002E6DA7 /* FollowedTagsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A3F6FE4292F6E44002E6DA7 /* FollowedTagsTableViewCell.swift */; };
 		2A506CF4292CD85800059C37 /* FollowedTagsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A506CF3292CD85800059C37 /* FollowedTagsViewController.swift */; };
@@ -33,10 +35,29 @@
 		2A71F541296DBDA80049F54A /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A71F53D296DBDA80049F54A /* Media.xcassets */; };
 		2A71F542296DBDA80049F54A /* Action.js in Resources */ = {isa = PBXBuildFile; fileRef = 2A71F53E296DBDA80049F54A /* Action.js */; };
 		2A71F543296DBDA80049F54A /* ActionRequestHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A71F53F296DBDA80049F54A /* ActionRequestHandler.swift */; };
+		2A728122297EA9D7004138C5 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A728121297EA9D7004138C5 /* WidgetKit.framework */; };
+		2A728124297EA9D7004138C5 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A728123297EA9D7004138C5 /* SwiftUI.framework */; };
+		2A728127297EA9D7004138C5 /* WidgetExtensionBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A728126297EA9D7004138C5 /* WidgetExtensionBundle.swift */; };
+		2A72812B297EA9D7004138C5 /* FollowersCountWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A72812A297EA9D7004138C5 /* FollowersCountWidget.swift */; };
+		2A72812E297EA9D8004138C5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A72812D297EA9D8004138C5 /* Assets.xcassets */; };
+		2A728134297EA9D8004138C5 /* WidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 2A728120297EA9D7004138C5 /* WidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		2A72813F297EC762004138C5 /* WidgetExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A72813E297EC762004138C5 /* WidgetExtension.swift */; };
 		2A76F75C2930D94700B3388D /* HashtagTimelineHeaderViewActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A76F75B2930D94700B3388D /* HashtagTimelineHeaderViewActionButton.swift */; };
 		2A82294F29262EE000D2A1F7 /* AppContext+NextAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A82294E29262EE000D2A1F7 /* AppContext+NextAccount.swift */; };
+		2A86A14629892944007F1062 /* MultiFollowersCountIntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A86A14529892944007F1062 /* MultiFollowersCountIntentHandler.swift */; };
+		2A86A14929892B3A007F1062 /* MultiFollowersCountWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A86A14829892B3A007F1062 /* MultiFollowersCountWidget.swift */; };
+		2A86A14B2989326E007F1062 /* MultiFollowersCountWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A86A14A2989326E007F1062 /* MultiFollowersCountWidgetView.swift */; };
 		2A90A157296EEE500026C155 /* MastodonSDKDynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 2A90A156296EEE500026C155 /* MastodonSDKDynamic */; };
+		2A9D0664298C048800BF38CB /* LatestFollowersWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9D0663298C048800BF38CB /* LatestFollowersWidget.swift */; };
+		2A9D0666298C05A800BF38CB /* LatestFollowersWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9D0665298C05A800BF38CB /* LatestFollowersWidgetView.swift */; };
+		2A9D066F298D0FD100BF38CB /* MastodonSDKDynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 2A9D066E298D0FD100BF38CB /* MastodonSDKDynamic */; };
 		2AB12E4629362F27006BC925 /* DataSourceFacade+Translate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB12E4529362F27006BC925 /* DataSourceFacade+Translate.swift */; };
+		2AB5011B2992322500346092 /* LightChart in Frameworks */ = {isa = PBXBuildFile; productRef = 2AB5011A2992322500346092 /* LightChart */; };
+		2AB5011C299243FB00346092 /* WidgetExtension.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 2AB50120299243FB00346092 /* WidgetExtension.intentdefinition */; };
+		2AB5011D299243FB00346092 /* WidgetExtension.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 2AB50120299243FB00346092 /* WidgetExtension.intentdefinition */; };
+		2AB5011E299243FB00346092 /* WidgetExtension.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 2AB50120299243FB00346092 /* WidgetExtension.intentdefinition */; };
+		2AE202AC297FE19100F66E55 /* FollowersCountIntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE202AB297FE19100F66E55 /* FollowersCountIntentHandler.swift */; };
+		2AE202AD297FE1CD00F66E55 /* WidgetExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A72813E297EC762004138C5 /* WidgetExtension.swift */; };
 		2AE244482927831100BDBF7C /* UIImage+SFSymbols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE244472927831100BDBF7C /* UIImage+SFSymbols.swift */; };
 		2D198643261BF09500F0B013 /* SearchResultItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D198642261BF09500F0B013 /* SearchResultItem.swift */; };
 		2D198649261C0B8500F0B013 /* SearchResultSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D198648261C0B8500F0B013 /* SearchResultSection.swift */; };
@@ -466,6 +487,13 @@
 			remoteGlobalIDString = 2A64515C29642A8A00CD8B8A;
 			remoteInfo = FollowActionExtension;
 		};
+		2A728132297EA9D8004138C5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DB427DCA25BAA00100D1B89D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2A72811F297EA9D7004138C5;
+			remoteInfo = WidgetExtensionExtension;
+		};
 		DB427DE925BAA00100D1B89D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = DB427DCA25BAA00100D1B89D /* Project object */;
@@ -504,6 +532,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		2A72813D297EC6F7004138C5 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		2A90A159296EEE500026C155 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -543,6 +581,7 @@
 			dstSubfolderSpec = 13;
 			files = (
 				DB8FABCE26AEC7B2008E5AF4 /* MastodonIntent.appex in Embed Foundation Extensions */,
+				2A728134297EA9D8004138C5 /* WidgetExtension.appex in Embed Foundation Extensions */,
 				2A64516929642A8B00CD8B8A /* OpenInActionExtension.appex in Embed Foundation Extensions */,
 				DBC6461C26A170AB00B0E31B /* ShareActionExtension.appex in Embed Foundation Extensions */,
 				DBF8AE1A263293E400C9C23C /* NotificationService.appex in Embed Foundation Extensions */,
@@ -572,7 +611,9 @@
 		27D701F4292FC2D60031BCBB /* DataSourceFacade+URL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataSourceFacade+URL.swift"; sourceTree = "<group>"; };
 		2A1FE47B2938BB2600784BF1 /* FollowedTagsViewModel+DiffableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FollowedTagsViewModel+DiffableDataSource.swift"; sourceTree = "<group>"; };
 		2A1FE47D2938C11200784BF1 /* Collection+IsNotEmpty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+IsNotEmpty.swift"; sourceTree = "<group>"; };
+		2A33062C2987DBFA001D4C51 /* FollowersCountHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowersCountHistory.swift; sourceTree = "<group>"; };
 		2A33625329759B4200481A90 /* OpenInActionExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OpenInActionExtension.entitlements; sourceTree = "<group>"; };
+		2A33AB652982C4AF008A7FB1 /* FollowersCountWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowersCountWidgetView.swift; sourceTree = "<group>"; };
 		2A3F6FE2292ECB5E002E6DA7 /* FollowedTagsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowedTagsViewModel.swift; sourceTree = "<group>"; };
 		2A3F6FE4292F6E44002E6DA7 /* FollowedTagsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowedTagsTableViewCell.swift; sourceTree = "<group>"; };
 		2A506CF3292CD85800059C37 /* FollowedTagsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowedTagsViewController.swift; sourceTree = "<group>"; };
@@ -583,9 +624,51 @@
 		2A71F53E296DBDA80049F54A /* Action.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = Action.js; sourceTree = "<group>"; };
 		2A71F53F296DBDA80049F54A /* ActionRequestHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionRequestHandler.swift; sourceTree = "<group>"; };
 		2A71F540296DBDA80049F54A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2A728120297EA9D7004138C5 /* WidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = WidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		2A728121297EA9D7004138C5 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		2A728123297EA9D7004138C5 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		2A728126297EA9D7004138C5 /* WidgetExtensionBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetExtensionBundle.swift; sourceTree = "<group>"; };
+		2A72812A297EA9D7004138C5 /* FollowersCountWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowersCountWidget.swift; sourceTree = "<group>"; };
+		2A72812D297EA9D8004138C5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		2A72812F297EA9D8004138C5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2A72813E297EC762004138C5 /* WidgetExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetExtension.swift; sourceTree = "<group>"; };
 		2A76F75B2930D94700B3388D /* HashtagTimelineHeaderViewActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagTimelineHeaderViewActionButton.swift; sourceTree = "<group>"; };
 		2A82294E29262EE000D2A1F7 /* AppContext+NextAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppContext+NextAccount.swift"; sourceTree = "<group>"; };
+		2A86A14529892944007F1062 /* MultiFollowersCountIntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiFollowersCountIntentHandler.swift; sourceTree = "<group>"; };
+		2A86A14829892B3A007F1062 /* MultiFollowersCountWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiFollowersCountWidget.swift; sourceTree = "<group>"; };
+		2A86A14A2989326E007F1062 /* MultiFollowersCountWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiFollowersCountWidgetView.swift; sourceTree = "<group>"; };
+		2A9D0663298C048800BF38CB /* LatestFollowersWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestFollowersWidget.swift; sourceTree = "<group>"; };
+		2A9D0665298C05A800BF38CB /* LatestFollowersWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestFollowersWidgetView.swift; sourceTree = "<group>"; };
 		2AB12E4529362F27006BC925 /* DataSourceFacade+Translate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataSourceFacade+Translate.swift"; sourceTree = "<group>"; };
+		2AB5011F299243FB00346092 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; name = Base; path = Base.lproj/WidgetExtension.intentdefinition; sourceTree = "<group>"; };
+		2AB501222992440200346092 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/WidgetExtension.strings; sourceTree = "<group>"; };
+		2AB501242992443100346092 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/WidgetExtension.strings; sourceTree = "<group>"; };
+		2AB501262992443100346092 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/WidgetExtension.strings; sourceTree = "<group>"; };
+		2AB501282992443200346092 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/WidgetExtension.strings; sourceTree = "<group>"; };
+		2AB5012A2992443200346092 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/WidgetExtension.strings; sourceTree = "<group>"; };
+		2AB5012C2992443300346092 /* es-AR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-AR"; path = "es-AR.lproj/WidgetExtension.strings"; sourceTree = "<group>"; };
+		2AB5012E2992443300346092 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/WidgetExtension.strings; sourceTree = "<group>"; };
+		2AB501302992443400346092 /* sl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sl; path = sl.lproj/WidgetExtension.strings; sourceTree = "<group>"; };
+		2AB501322992443400346092 /* gd */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = gd; path = gd.lproj/WidgetExtension.strings; sourceTree = "<group>"; };
+		2AB501342992443500346092 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/WidgetExtension.strings; sourceTree = "<group>"; };
+		2AB501362992443600346092 /* ckb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ckb; path = ckb.lproj/WidgetExtension.strings; sourceTree = "<group>"; };
+		2AB501382992443600346092 /* ku */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ku; path = ku.lproj/WidgetExtension.strings; sourceTree = "<group>"; };
+		2AB5013A2992443700346092 /* kab */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = kab; path = kab.lproj/WidgetExtension.strings; sourceTree = "<group>"; };
+		2AB5013C2992443700346092 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/WidgetExtension.strings; sourceTree = "<group>"; };
+		2AB5013E2992443800346092 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/WidgetExtension.strings; sourceTree = "<group>"; };
+		2AB501402992443800346092 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/WidgetExtension.strings; sourceTree = "<group>"; };
+		2AB501422992443900346092 /* gl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = gl; path = gl.lproj/WidgetExtension.strings; sourceTree = "<group>"; };
+		2AB501442992443900346092 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/WidgetExtension.strings; sourceTree = "<group>"; };
+		2AB501462992443900346092 /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/WidgetExtension.strings; sourceTree = "<group>"; };
+		2AB501482992443A00346092 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/WidgetExtension.strings; sourceTree = "<group>"; };
+		2AB5014A2992443A00346092 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/WidgetExtension.strings; sourceTree = "<group>"; };
+		2AB5014C2992443B00346092 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/WidgetExtension.strings"; sourceTree = "<group>"; };
+		2AB5014E2992443B00346092 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/WidgetExtension.strings"; sourceTree = "<group>"; };
+		2AB501502992443C00346092 /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/WidgetExtension.strings; sourceTree = "<group>"; };
+		2AB501522992443C00346092 /* eu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = eu; path = eu.lproj/WidgetExtension.strings; sourceTree = "<group>"; };
+		2AB501542992443D00346092 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/WidgetExtension.strings; sourceTree = "<group>"; };
+		2AE202A9297FDDF500F66E55 /* WidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WidgetExtension.entitlements; sourceTree = "<group>"; };
+		2AE202AB297FE19100F66E55 /* FollowersCountIntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowersCountIntentHandler.swift; sourceTree = "<group>"; };
 		2AE244472927831100BDBF7C /* UIImage+SFSymbols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+SFSymbols.swift"; sourceTree = "<group>"; };
 		2D198642261BF09500F0B013 /* SearchResultItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultItem.swift; sourceTree = "<group>"; };
 		2D198648261C0B8500F0B013 /* SearchResultSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultSection.swift; sourceTree = "<group>"; };
@@ -1146,6 +1229,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		2A72811D297EA9D7004138C5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2AB5011B2992322500346092 /* LightChart in Frameworks */,
+				2A9D066F298D0FD100BF38CB /* MastodonSDKDynamic in Frameworks */,
+				2A728124297EA9D7004138C5 /* SwiftUI.framework in Frameworks */,
+				2A728122297EA9D7004138C5 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DB427DCF25BAA00100D1B89D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1339,6 +1433,58 @@
 				2A71F540296DBDA80049F54A /* Info.plist */,
 			);
 			path = OpenInActionExtension;
+			sourceTree = "<group>";
+		};
+		2A728125297EA9D7004138C5 /* WidgetExtension */ = {
+			isa = PBXGroup;
+			children = (
+				2A86A14329892700007F1062 /* Variants */,
+				2AE202A9297FDDF500F66E55 /* WidgetExtension.entitlements */,
+				2A72813E297EC762004138C5 /* WidgetExtension.swift */,
+				2A728126297EA9D7004138C5 /* WidgetExtensionBundle.swift */,
+				2AB50120299243FB00346092 /* WidgetExtension.intentdefinition */,
+				2A72812D297EA9D8004138C5 /* Assets.xcassets */,
+				2A72812F297EA9D8004138C5 /* Info.plist */,
+			);
+			path = WidgetExtension;
+			sourceTree = "<group>";
+		};
+		2A86A14329892700007F1062 /* Variants */ = {
+			isa = PBXGroup;
+			children = (
+				2A86A14429892709007F1062 /* FollowersCount */,
+				2A86A14729892B1B007F1062 /* MultiFollowersCount */,
+				2A9D0662298C045000BF38CB /* LatestFollowers */,
+			);
+			path = Variants;
+			sourceTree = "<group>";
+		};
+		2A86A14429892709007F1062 /* FollowersCount */ = {
+			isa = PBXGroup;
+			children = (
+				2A33062C2987DBFA001D4C51 /* FollowersCountHistory.swift */,
+				2A72812A297EA9D7004138C5 /* FollowersCountWidget.swift */,
+				2A33AB652982C4AF008A7FB1 /* FollowersCountWidgetView.swift */,
+			);
+			path = FollowersCount;
+			sourceTree = "<group>";
+		};
+		2A86A14729892B1B007F1062 /* MultiFollowersCount */ = {
+			isa = PBXGroup;
+			children = (
+				2A86A14829892B3A007F1062 /* MultiFollowersCountWidget.swift */,
+				2A86A14A2989326E007F1062 /* MultiFollowersCountWidgetView.swift */,
+			);
+			path = MultiFollowersCount;
+			sourceTree = "<group>";
+		};
+		2A9D0662298C045000BF38CB /* LatestFollowers */ = {
+			isa = PBXGroup;
+			children = (
+				2A9D0663298C048800BF38CB /* LatestFollowersWidget.swift */,
+				2A9D0665298C05A800BF38CB /* LatestFollowersWidgetView.swift */,
+			);
+			path = LatestFollowers;
 			sourceTree = "<group>";
 		};
 		2D152A8A25C295B8009AA50C /* Content */ = {
@@ -1560,6 +1706,8 @@
 				DB8FAB9E26AEC3A2008E5AF4 /* Intents.framework */,
 				DB8FABA926AEC3A2008E5AF4 /* IntentsUI.framework */,
 				2A6451022964223800CD8B8A /* UniformTypeIdentifiers.framework */,
+				2A728121297EA9D7004138C5 /* WidgetKit.framework */,
+				2A728123297EA9D7004138C5 /* SwiftUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1878,6 +2026,7 @@
 				DBC6461326A170AB00B0E31B /* ShareActionExtension */,
 				DB8FABC826AEC7B2008E5AF4 /* MastodonIntent */,
 				2A71F53C296DBDA80049F54A /* OpenInActionExtension */,
+				2A728125297EA9D7004138C5 /* WidgetExtension */,
 				DB427DD325BAA00100D1B89D /* Products */,
 				1EBA4F56E920856A3FC84ACB /* Pods */,
 				3FE14AD363ED19AE7FF210A6 /* Frameworks */,
@@ -1896,6 +2045,7 @@
 				DBC6461226A170AB00B0E31B /* ShareActionExtension.appex */,
 				DB8FABC626AEC7B2008E5AF4 /* MastodonIntent.appex */,
 				2A64515D29642A8A00CD8B8A /* OpenInActionExtension.appex */,
+				2A728120297EA9D7004138C5 /* WidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2162,6 +2312,8 @@
 			isa = PBXGroup;
 			children = (
 				DBB8AB4526AECDE200F6D281 /* SendPostIntentHandler.swift */,
+				2AE202AB297FE19100F66E55 /* FollowersCountIntentHandler.swift */,
+				2A86A14529892944007F1062 /* MultiFollowersCountIntentHandler.swift */,
 			);
 			path = Handler;
 			sourceTree = "<group>";
@@ -2857,6 +3009,28 @@
 			productReference = 2A64515D29642A8A00CD8B8A /* OpenInActionExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
+		2A72811F297EA9D7004138C5 /* WidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2A728139297EA9D8004138C5 /* Build configuration list for PBXNativeTarget "WidgetExtension" */;
+			buildPhases = (
+				2A72811C297EA9D7004138C5 /* Sources */,
+				2A72811D297EA9D7004138C5 /* Frameworks */,
+				2A72811E297EA9D7004138C5 /* Resources */,
+				2A72813D297EC6F7004138C5 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WidgetExtension;
+			packageProductDependencies = (
+				2A9D066E298D0FD100BF38CB /* MastodonSDKDynamic */,
+				2AB5011A2992322500346092 /* LightChart */,
+			);
+			productName = WidgetExtensionExtension;
+			productReference = 2A728120297EA9D7004138C5 /* WidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		DB427DD125BAA00100D1B89D /* Mastodon */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = DB427DFC25BAA00100D1B89D /* Build configuration list for PBXNativeTarget "Mastodon" */;
@@ -2879,6 +3053,7 @@
 				DBC6461B26A170AB00B0E31B /* PBXTargetDependency */,
 				DB8FABCD26AEC7B2008E5AF4 /* PBXTargetDependency */,
 				2A64516829642A8B00CD8B8A /* PBXTargetDependency */,
+				2A728133297EA9D8004138C5 /* PBXTargetDependency */,
 			);
 			name = Mastodon;
 			packageProductDependencies = (
@@ -3003,6 +3178,9 @@
 					2A64515C29642A8A00CD8B8A = {
 						CreatedOnToolsVersion = 14.2;
 					};
+					2A72811F297EA9D7004138C5 = {
+						CreatedOnToolsVersion = 14.2;
+					};
 					DB427DD125BAA00100D1B89D = {
 						CreatedOnToolsVersion = 12.4;
 						LastSwiftMigration = 1300;
@@ -3061,6 +3239,7 @@
 			);
 			mainGroup = DB427DC925BAA00100D1B89D;
 			packageReferences = (
+				2AB501192992322500346092 /* XCRemoteSwiftPackageReference "LightChart" */,
 			);
 			productRefGroup = DB427DD325BAA00100D1B89D /* Products */;
 			projectDirPath = "";
@@ -3073,6 +3252,7 @@
 				DBC6461126A170AB00B0E31B /* ShareActionExtension */,
 				DB8FABC526AEC7B2008E5AF4 /* MastodonIntent */,
 				2A64515C29642A8A00CD8B8A /* OpenInActionExtension */,
+				2A72811F297EA9D7004138C5 /* WidgetExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -3084,6 +3264,14 @@
 			files = (
 				2A71F541296DBDA80049F54A /* Media.xcassets in Resources */,
 				2A71F542296DBDA80049F54A /* Action.js in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2A72811E297EA9D7004138C5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2A72812E297EA9D8004138C5 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3310,6 +3498,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				2A71F543296DBDA80049F54A /* ActionRequestHandler.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2A72811C297EA9D7004138C5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2A33062D2987DBFA001D4C51 /* FollowersCountHistory.swift in Sources */,
+				2A9D0666298C05A800BF38CB /* LatestFollowersWidgetView.swift in Sources */,
+				2AB5011E299243FB00346092 /* WidgetExtension.intentdefinition in Sources */,
+				2A86A14B2989326E007F1062 /* MultiFollowersCountWidgetView.swift in Sources */,
+				2A72813F297EC762004138C5 /* WidgetExtension.swift in Sources */,
+				2A86A14929892B3A007F1062 /* MultiFollowersCountWidget.swift in Sources */,
+				2A33AB662982C4AF008A7FB1 /* FollowersCountWidgetView.swift in Sources */,
+				2A9D0664298C048800BF38CB /* LatestFollowersWidget.swift in Sources */,
+				2A728127297EA9D7004138C5 /* WidgetExtensionBundle.swift in Sources */,
+				2A72812B297EA9D7004138C5 /* FollowersCountWidget.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3606,6 +3811,7 @@
 				DB98EB5627B0FF1B0082E365 /* ReportViewControllerAppearance.swift in Sources */,
 				DB3EA8E6281B79E200598866 /* DiscoveryCommunityViewController.swift in Sources */,
 				2D206B8625F5FB0900143C56 /* Double.swift in Sources */,
+				2AB5011C299243FB00346092 /* WidgetExtension.intentdefinition in Sources */,
 				DB9F58F126EF512300E7BBE9 /* AccountListTableViewCell.swift in Sources */,
 				2D76319F25C1521200929FB9 /* StatusSection.swift in Sources */,
 				DB938F0326240EA300E5B6C1 /* CachedThreadViewModel.swift in Sources */,
@@ -3741,9 +3947,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				DB0009A726AEE5DC009B9D2D /* Intents.intentdefinition in Sources */,
+				2AE202AD297FE1CD00F66E55 /* WidgetExtension.swift in Sources */,
 				DBB8AB4626AECDE200F6D281 /* SendPostIntentHandler.swift in Sources */,
+				2AB5011D299243FB00346092 /* WidgetExtension.intentdefinition in Sources */,
+				2AE202AC297FE19100F66E55 /* FollowersCountIntentHandler.swift in Sources */,
 				DB64BA452851F23000ADF1B7 /* MastodonAuthentication+Fetch.swift in Sources */,
 				DB64BA482851F29300ADF1B7 /* Account+Fetch.swift in Sources */,
+				2A86A14629892944007F1062 /* MultiFollowersCountIntentHandler.swift in Sources */,
 				DB8FABCA26AEC7B2008E5AF4 /* IntentHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3777,6 +3987,11 @@
 			target = 2A64515C29642A8A00CD8B8A /* OpenInActionExtension */;
 			targetProxy = 2A64516729642A8B00CD8B8A /* PBXContainerItemProxy */;
 		};
+		2A728133297EA9D8004138C5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2A72811F297EA9D7004138C5 /* WidgetExtension */;
+			targetProxy = 2A728132297EA9D8004138C5 /* PBXContainerItemProxy */;
+		};
 		DB427DEA25BAA00100D1B89D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = DB427DD125BAA00100D1B89D /* Mastodon */;
@@ -3805,6 +4020,40 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		2AB50120299243FB00346092 /* WidgetExtension.intentdefinition */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2AB5011F299243FB00346092 /* Base */,
+				2AB501222992440200346092 /* en */,
+				2AB501242992443100346092 /* vi */,
+				2AB501262992443100346092 /* tr */,
+				2AB501282992443200346092 /* th */,
+				2AB5012A2992443200346092 /* sv */,
+				2AB5012C2992443300346092 /* es-AR */,
+				2AB5012E2992443300346092 /* es */,
+				2AB501302992443400346092 /* sl */,
+				2AB501322992443400346092 /* gd */,
+				2AB501342992443500346092 /* ru */,
+				2AB501362992443600346092 /* ckb */,
+				2AB501382992443600346092 /* ku */,
+				2AB5013A2992443700346092 /* kab */,
+				2AB5013C2992443700346092 /* ja */,
+				2AB5013E2992443800346092 /* it */,
+				2AB501402992443800346092 /* de */,
+				2AB501422992443900346092 /* gl */,
+				2AB501442992443900346092 /* fr */,
+				2AB501462992443900346092 /* fi */,
+				2AB501482992443A00346092 /* nl */,
+				2AB5014A2992443A00346092 /* cs */,
+				2AB5014C2992443B00346092 /* zh-Hant */,
+				2AB5014E2992443B00346092 /* zh-Hans */,
+				2AB501502992443C00346092 /* ca */,
+				2AB501522992443C00346092 /* eu */,
+				2AB501542992443D00346092 /* ar */,
+			);
+			name = WidgetExtension.intentdefinition;
+			sourceTree = "<group>";
+		};
 		DB0009A926AEE5DC009B9D2D /* Intents.intentdefinition */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -4053,6 +4302,131 @@
 			};
 			name = "Release Snapshot";
 		};
+		2A728135297EA9D8004138C5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = WidgetExtension/WidgetExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 5Z4GVSS33P;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WidgetExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = WidgetExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.WidgetExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		2A728136297EA9D8004138C5 /* Profile */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = WidgetExtension/WidgetExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5Z4GVSS33P;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WidgetExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = WidgetExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.WidgetExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Profile;
+		};
+		2A728137297EA9D8004138C5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = WidgetExtension/WidgetExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5Z4GVSS33P;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WidgetExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = WidgetExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.WidgetExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		2A728138297EA9D8004138C5 /* Release Snapshot */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = WidgetExtension/WidgetExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5Z4GVSS33P;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WidgetExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = WidgetExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.WidgetExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = "Release Snapshot";
+		};
 		DB427DFA25BAA00100D1B89D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -4194,7 +4568,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.10;
+				MARKETING_VERSION = 1.4.11;
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -4226,7 +4600,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.10;
+				MARKETING_VERSION = 1.4.11;
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -4413,7 +4787,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.10;
+				MARKETING_VERSION = 1.4.11;
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -4704,7 +5078,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.10;
+				MARKETING_VERSION = 1.4.11;
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -4886,6 +5260,17 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		2A728139297EA9D8004138C5 /* Build configuration list for PBXNativeTarget "WidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2A728135297EA9D8004138C5 /* Debug */,
+				2A728136297EA9D8004138C5 /* Profile */,
+				2A728137297EA9D8004138C5 /* Release */,
+				2A728138297EA9D8004138C5 /* Release Snapshot */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		DB427DCD25BAA00100D1B89D /* Build configuration list for PBXProject "Mastodon" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -4965,10 +5350,30 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		2AB501192992322500346092 /* XCRemoteSwiftPackageReference "LightChart" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Bearologics/LightChart.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
 		2A90A156296EEE500026C155 /* MastodonSDKDynamic */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = MastodonSDKDynamic;
+		};
+		2A9D066E298D0FD100BF38CB /* MastodonSDKDynamic */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MastodonSDKDynamic;
+		};
+		2AB5011A2992322500346092 /* LightChart */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2AB501192992322500346092 /* XCRemoteSwiftPackageReference "LightChart" */;
+			productName = LightChart;
 		};
 		357FEEAE29523D470021C9DC /* MastodonSDKDynamic */ = {
 			isa = XCSwiftPackageProductDependency;

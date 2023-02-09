@@ -186,7 +186,7 @@
                     "translated_from": "Translated from %s using %s",
                     "unknown_language": "Unknown",
                     "unknown_provider": "Unknown",
-                    "show_original": "Shown Original"
+                    "show_original": "Show Original"
                 },
                 "media": {
                     "accessibility_label": "%s, attachment %d of %d",
@@ -445,6 +445,7 @@
                 "server_processing_state": "Server Processing..."
             },
             "poll": {
+                "title": "Poll",
                 "duration_time": "Duration: %s",
                 "option_number": "Option %ld",
                 "the_poll_is_invalid": "The poll is invalid",

@@ -186,7 +186,7 @@
                     "translated_from": "Translated from %s using %s",
                     "unknown_language": "Unknown",
                     "unknown_provider": "Unknown",
-                    "show_original": "Shown Original"
+                    "show_original": "Show Original"
                 },
                 "media": {
                     "accessibility_label": "%s, attachment %d of %d",
@@ -462,10 +462,15 @@
                 "server_processing_state": "Server Processing..."
             },
             "poll": {
+                "title": "Poll",
                 "duration_time": "Duration: %s",
                 "option_number": "Option %ld",
                 "the_poll_is_invalid": "The poll is invalid",
-                "the_poll_has_empty_option": "The poll has empty option"
+                "the_poll_has_empty_option": "The poll has empty option",
+                "add_option": "Add Option",
+                "remove_option": "Remove Option",
+                "move_up": "Move Up",
+                "move_down": "Move Down"
             },
             "content_warning": {
                 "placeholder": "Write an accurate warning here..."
@@ -810,6 +815,32 @@
     "extension": {
         "open_in": {
             "invalid_link_error": "This doesn't seem to be a valid Mastodon link."
+        }
+    },
+    "widget": {
+        "common": {
+            "unsupported_widget_family": "Sorry but this Widget family is unsupported.",
+            "user_not_logged_in": "Please open Mastodon to log in to an Account."
+        },
+        "followers_count": {
+            "configuration_display_name": "Followers",
+            "configuration_description": "Show number of followers.",
+            "title": "FOLLOWERS",
+            "followers_today": "%s followers today"
+        },
+        "multiple_followers": {
+            "configuration_display_name": "Multiple followers",
+            "configuration_description": "Show number of followers for multiple accounts.",
+            "mock_user": {
+                "display_name": "Another follower",
+                "account_name": "another@follower.social"
+            }
+        },
+        "latest_followers": {
+            "configuration_display_name": "Latest followers",
+            "configuration_description": "Show latest followers.",
+            "title": "Latest followers",
+            "last_update": "Last update: %s"
         }
     }
 }

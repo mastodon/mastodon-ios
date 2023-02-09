@@ -356,6 +356,18 @@ extension StatusView.ViewModel {
                 statusView.authorView.contentSensitiveeToggleButton.setImage(image, for: .normal)
             }
             .store(in: &disposeBag)
+
+        $isCurrentlyTranslating
+            .receive(on: DispatchQueue.main)
+            .sink { isTranslating in
+                switch isTranslating {
+                case true:
+                    statusView.isTranslatingLoadingView.startAnimating()
+                case false:
+                    statusView.isTranslatingLoadingView.stopAnimating()
+                }
+            }
+            .store(in: &disposeBag)
     }
     
     private func bindMedia(statusView: StatusView) {
@@ -820,14 +832,39 @@ extension StatusView.ViewModel {
             }
             .assign(to: \.toolbarActions, on: statusView)
             .store(in: &disposeBag)
-    
-        Publishers.CombineLatest3(
+
+        let translatedFromLabel = Publishers.CombineLatest($translatedFromLanguage, $translatedUsingProvider)
+            .map { (language, provider) -> String? in
+                if let language {
+                    return L10n.Common.Controls.Status.Translation.translatedFrom(
+                        Locale.current.localizedString(forIdentifier: language) ?? L10n.Common.Controls.Status.Translation.unknownLanguage,
+                        provider ?? L10n.Common.Controls.Status.Translation.unknownProvider
+                    )
+                }
+                return nil
+            }
+
+        translatedFromLabel
+            .receive(on: DispatchQueue.main)
+            .sink { label in
+                if let label {
+                    statusView.translatedInfoLabel.text = label
+                    statusView.translatedInfoView.accessibilityValue = label
+                    statusView.translatedInfoView.isHidden = false
+                } else {
+                    statusView.translatedInfoView.isHidden = true
+                }
+            }
+            .store(in: &disposeBag)
+
+        Publishers.CombineLatest4(
             shortAuthorAccessibilityLabel,
             contentAccessibilityLabel,
+            translatedFromLabel,
             mediaAccessibilityLabel
         )
-        .map { author, content, media in
-            var labels: [String?] = [content, media]
+        .map { author, content, translated, media in
+            var labels: [String?] = [content, translated, media]
 
             if statusView.style != .notification {
                 labels.insert(author, at: 0)
@@ -852,7 +889,7 @@ extension StatusView.ViewModel {
         .map { content, isRevealed in
             guard isRevealed, let entities = content?.entities else { return [] }
             return entities.compactMap { entity in
-                guard let name = entity.accessibilityCustomActionLabel else { return nil }
+                guard let name = entity.meta.accessibilityLabel else { return nil }
                 return UIAccessibilityCustomAction(name: name) { action in
                     statusView.delegate?.statusView(statusView, metaText: statusView.contentMetaText, didSelectMeta: entity.meta)
                     return true
