@@ -8,9 +8,9 @@
 import Meta
 import MastodonLocalization
 
-extension Meta.Entity {
-    var accessibilityCustomActionLabel: String? {
-        switch meta {
+extension Meta {
+    public var accessibilityLabel: String? {
+        switch self {
         case .url(_, trimmed: _, url: let url, userInfo: _):
             return L10n.Common.Controls.Status.MetaEntity.url(url)
         case .hashtag(_, hashtag: let hashtag, userInfo: _):

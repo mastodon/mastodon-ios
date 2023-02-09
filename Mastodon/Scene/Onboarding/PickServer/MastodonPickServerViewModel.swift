@@ -235,9 +235,37 @@ extension MastodonPickServerViewModel {
         let servers = indexedServers.value
         guard servers.isNotEmpty else { return nil }
 
-        let randomServer = servers.filter {
-            $0.language.lowercased() == language
-        }.randomElement()
+        let generalServers = servers.filter {
+            $0.categories.contains("general")
+        }
+        
+        let randomServer: Mastodon.Entity.Server?
+        
+        let noApprovalRequired = generalServers.filter { !$0.approvalRequired }
+        let approvalRequired = generalServers.filter { $0.approvalRequired }
+        
+        let languageMatchesWithoutApproval = noApprovalRequired.filter { $0.language.lowercased() == language }
+        let languageMatchesWithApproval = approvalRequired.filter { $0.language.lowercased() == language }
+        let languageDoesNotMatchWithoutApproval = noApprovalRequired.filter { $0.language.lowercased() != language }
+        let languageDoesNotMatchWithApproval = approvalRequired.filter { $0.language.lowercased() != language }
+
+        switch (
+            languageMatchesWithoutApproval.isEmpty,
+            languageMatchesWithApproval.isEmpty,
+            languageDoesNotMatchWithoutApproval.isEmpty,
+            languageDoesNotMatchWithApproval.isEmpty
+        ) {
+        case (true, true, true, true):
+            randomServer = generalServers.randomElement()
+        case (true, true, true, false):
+            randomServer = languageDoesNotMatchWithApproval.randomElement()
+        case (true, true, false, _):
+            randomServer = languageDoesNotMatchWithoutApproval.randomElement()
+        case (true, false, _, _):
+            randomServer = languageMatchesWithApproval.randomElement()
+        case (false, _, _, _):
+            randomServer = languageMatchesWithoutApproval.randomElement()
+        }
 
         return randomServer ?? servers.randomElement() ?? servers.first
     }

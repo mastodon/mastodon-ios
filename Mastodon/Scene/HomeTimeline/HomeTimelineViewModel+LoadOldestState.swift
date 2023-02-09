@@ -67,7 +67,7 @@ extension HomeTimelineViewModel.LoadOldestState {
             }
             
             Task {
-                let managedObjectContext = viewModel.fetchedResultsController.fetchedResultsController.managedObjectContext
+                let managedObjectContext = viewModel.fetchedResultsController.managedObjectContext
                 let _maxID: Mastodon.Entity.Status.ID? = try await managedObjectContext.perform {
                     guard let feed = lastFeedRecord.object(in: managedObjectContext),
                           let status = feed.status
