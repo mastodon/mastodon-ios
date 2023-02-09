@@ -91,8 +91,8 @@ final class ProfileViewController: UIViewController, NeedsDependency, MediaPrevi
         return barButtonItem
     }()
 
-    private(set) lazy var replyBarButtonItem: UIBarButtonItem = {
-        let barButtonItem = UIBarButtonItem(image: UIImage(systemName: "arrowshape.turn.up.left"), style: .plain, target: self, action: #selector(ProfileViewController.replyBarButtonItemPressed(_:)))
+    private(set) lazy var dmBarButtonItem: UIBarButtonItem = {
+        let barButtonItem = UIBarButtonItem(image: UIImage(systemName: "envelope"), style: .plain, target: self, action: #selector(ProfileViewController.dmBarButtonItemPressed(_:)))
         barButtonItem.tintColor = .white
         barButtonItem.accessibilityLabel = L10n.Common.Controls.Actions.reply
         return barButtonItem
@@ -203,7 +203,7 @@ extension ProfileViewController {
 
         let barButtonItemHiddenPublisher = Publishers.CombineLatest3(
             viewModel.$isMeBarButtonItemsHidden,
-            viewModel.$isReplyBarButtonItemHidden,
+            viewModel.$isDMBarButtonItemHidden,
             viewModel.$isMoreMenuBarButtonItemHidden
         )
 
@@ -225,7 +225,7 @@ extension ProfileViewController {
         .sink { [weak self] isSuspended, isTitleViewDisplaying, tuple1, tuple2 in
             guard let self = self else { return }
             let (isEditing, _) = tuple1
-            let (isMeBarButtonItemsHidden, isReplyBarButtonItemHidden, isMoreMenuBarButtonItemHidden) = tuple2
+            let (isMeBarButtonItemsHidden, isDMBarButtonItemHidden, isMoreMenuBarButtonItemHidden) = tuple2
 
             var items: [UIBarButtonItem] = []
             defer {
@@ -261,8 +261,8 @@ extension ProfileViewController {
             if !isMoreMenuBarButtonItemHidden {
                 items.append(self.moreMenuBarButtonItem)
             }
-            if !isReplyBarButtonItemHidden {
-                items.append(self.replyBarButtonItem)
+            if !isDMBarButtonItemHidden {
+                items.append(self.dmBarButtonItem)
             }
         }
         .store(in: &disposeBag)
@@ -550,7 +550,7 @@ extension ProfileViewController {
         _ = coordinator.present(scene: .bookmark(viewModel: bookmarkViewModel), from: self, transition: .show)
     }
 
-    @objc private func replyBarButtonItemPressed(_ sender: UIBarButtonItem) {
+    @objc private func dmBarButtonItemPressed(_ sender: UIBarButtonItem) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         guard let mastodonUser = viewModel.user else { return }
         let mention = "@" + mastodonUser.acct
@@ -559,7 +559,8 @@ extension ProfileViewController {
             context: context,
             authContext: viewModel.authContext,
             destination: .topLevel,
-            initialContent: mention
+            initialContent: mention,
+            initialVisibility: .direct
         )
         _ = coordinator.present(scene: .compose(viewModel: composeViewModel), from: self, transition: .modal(animated: true, completion: nil))
     }
