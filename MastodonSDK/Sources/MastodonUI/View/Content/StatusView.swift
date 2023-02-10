@@ -34,7 +34,7 @@ public protocol StatusViewDelegate: AnyObject {
     func statusView(_ statusView: StatusView, statusMetricView: StatusMetricView, reblogButtonDidPressed button: UIButton)
     func statusView(_ statusView: StatusView, statusMetricView: StatusMetricView, favoriteButtonDidPressed button: UIButton)
     func statusView(_ statusView: StatusView, cardControl: StatusCardControl, didTapURL url: URL)
-    func statusView(_ statusView: StatusView, cardControlMenu: StatusCardControl) -> UIMenu?
+    func statusView(_ statusView: StatusView, cardControlMenu: StatusCardControl) -> [LabeledAction]?
     
     // a11y
     func statusView(_ statusView: StatusView, accessibilityActivate: Void)
@@ -758,7 +758,7 @@ extension StatusView: StatusCardControlDelegate {
         delegate?.statusView(self, cardControl: statusCardControl, didTapURL: url)
     }
 
-    public func statusCardControlMenu(_ statusCardControl: StatusCardControl) -> UIMenu? {
+    public func statusCardControlMenu(_ statusCardControl: StatusCardControl) -> [LabeledAction]? {
         delegate?.statusView(self, cardControlMenu: statusCardControl)
     }
 }
