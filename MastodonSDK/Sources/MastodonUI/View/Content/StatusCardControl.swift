@@ -129,6 +129,8 @@ public final class StatusCardControl: UIControl {
         ])
 
         addInteraction(UIContextMenuInteraction(delegate: self))
+        isAccessibilityElement = true
+        accessibilityTraits.insert(.link)
     }
     
     required init?(coder: NSCoder) {
