@@ -710,8 +710,8 @@ public enum L10n {
       public static let title = L10n.tr("Localizable", "Scene.Familiarfollowers.Title", fallback: "Followers you familiar")
     }
     public enum Favorite {
-      /// Your Favorites
-      public static let title = L10n.tr("Localizable", "Scene.Favorite.Title", fallback: "Your Favorites")
+      /// Favorites
+      public static let title = L10n.tr("Localizable", "Scene.Favorite.Title", fallback: "Favorites")
     }
     public enum FavoritedBy {
       /// Favorited By
