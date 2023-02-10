@@ -147,6 +147,8 @@ Please check your internet connection.";
 "Common.Controls.Status.Visibility.Private" = "Only their followers can see this post.";
 "Common.Controls.Status.Visibility.PrivateFromMe" = "Only my followers can see this post.";
 "Common.Controls.Status.Visibility.Unlisted" = "Everyone can see this post but not display in the public timeline.";
+"Common.Controls.Tabs.A11Y.Explore" = "Explore";
+"Common.Controls.Tabs.A11Y.Search" = "Search";
 "Common.Controls.Tabs.Home" = "Home";
 "Common.Controls.Tabs.Notifications" = "Notifications";
 "Common.Controls.Tabs.Profile" = "Profile";

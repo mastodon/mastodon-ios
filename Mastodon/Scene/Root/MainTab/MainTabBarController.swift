@@ -67,6 +67,19 @@ class MainTabBarController: UITabBarController {
             case .me:               return L10n.Common.Controls.Tabs.profile
             }
         }
+
+        var inputLabels: [String]? {
+            switch self {
+            case .home, .compose, .notifications, .me:
+                return nil
+            case .search:
+                return [
+                    L10n.Common.Controls.Tabs.A11Y.search,
+                    L10n.Common.Controls.Tabs.A11Y.explore,
+                    L10n.Common.Controls.Tabs.searchAndExplore
+                ]
+            }
+        }
         
         var image: UIImage {
             switch self {
@@ -205,12 +218,20 @@ extension MainTabBarController {
             viewController.tabBarItem.selectedImage = tab.selectedImage.imageWithoutBaseline()
             viewController.tabBarItem.largeContentSizeImage = tab.largeImage.imageWithoutBaseline()
             viewController.tabBarItem.accessibilityLabel = tab.title
+            viewController.tabBarItem.accessibilityUserInputLabels = tab.inputLabels
             viewController.tabBarItem.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
             return viewController
         }
         _viewControllers = viewControllers
         setViewControllers(viewControllers, animated: false)
         selectedIndex = 0
+
+        // hacky workaround for FB11986255 (Setting accessibilityUserInputLabels on a UITabBarItem has no effect)
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(50)) {
+            if let searchItem = self.tabBar.subviews.first(where: { $0.accessibilityLabel == Tab.search.title }) {
+                searchItem.accessibilityUserInputLabels = Tab.search.inputLabels
+            }
+        }
         
         context.apiService.error
             .receive(on: DispatchQueue.main)

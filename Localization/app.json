@@ -107,7 +107,11 @@
                 "home": "Home",
                 "search_and_explore": "Search and Explore",
                 "notifications": "Notifications",
-                "profile": "Profile"
+                "profile": "Profile",
+                "a11y": {
+                    "search": "Search",
+                    "explore": "Explore"
+                }
             },
             "keyboard": {
                 "common": {
