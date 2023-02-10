@@ -484,7 +484,7 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
                 return
             }
             
-            if let cell = cell as? StatusTableViewCell {
+            if case MastodonMenu.Action.translateStatus = action, let cell = cell as? StatusTableViewCell {
                 DispatchQueue.main.async {
                     cell.statusView.viewModel.isCurrentlyTranslating = true
                 }
