@@ -78,7 +78,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>Followed by %1$@, and %ld mutuals</string>
+        <string>%1$@および%ld人の相互フォロワーがフォロー</string>
       </dict>
     </dict>
     <key>plural.count.metric_formatted.post</key>
