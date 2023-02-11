@@ -53,9 +53,9 @@
                 "message": "Chaidh %s a thasgadan fhalamhachadh."
             },
             "translation_failed": {
-                "title": "Note",
+                "title": "An aire",
                 "message": "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.",
-                "button": "OK"
+                "button": "Ceart ma-thà"
             }
         },
         "controls": {
@@ -83,7 +83,7 @@
                 "sign_up": "Cruthaich cunntas",
                 "see_more": "Seall a bharrachd",
                 "preview": "Ro-sheall",
-                "copy": "Copy",
+                "copy": "Dèan lethbhreac",
                 "share": "Co-roinn",
                 "share_user": "Co-roinn %s",
                 "share_post": "Co-roinn am post",
@@ -99,14 +99,14 @@
                 "settings": "Roghainnean",
                 "delete": "Sguab às",
                 "translate_post": {
-                    "title": "Translate from %s",
-                    "unknown_language": "Unknown"
+                    "title": "Eadar-theangaich o: %s",
+                    "unknown_language": "Chan eil fhios"
                 }
             },
             "tabs": {
                 "home": "Dachaigh",
-                "search_and_explore": "Search and Explore",
-                "notifications": "Notifications",
+                "search_and_explore": "Lorg is rùraich",
+                "notifications": "Brathan",
                 "profile": "Pròifil"
             },
             "keyboard": {
@@ -143,7 +143,7 @@
                 "media_content_warning": "Thoir gnogag àite sam bith gus a nochdadh",
                 "tap_to_reveal": "Thoir gnogag gus a nochdadh",
                 "load_embed": "Load Embed",
-                "link_via_user": "%s via %s",
+                "link_via_user": "%s slighe %s",
                 "poll": {
                     "vote": "Cuir bhòt",
                     "closed": "Dùinte"
@@ -184,12 +184,12 @@
                 },
                 "translation": {
                     "translated_from": "Translated from %s using %s",
-                    "unknown_language": "Unknown",
-                    "unknown_provider": "Unknown",
+                    "unknown_language": "Chan eil fhios",
+                    "unknown_provider": "Chan eil fhios",
                     "show_original": "Shown Original"
                 },
                 "media": {
-                    "accessibility_label": "%s, attachment %d of %d",
+                    "accessibility_label": "%s, ceanglachan %d à %d",
                     "expand_image_hint": "Expands the image. Double-tap and hold to show actions",
                     "expand_gif_hint": "Expands the GIF. Double-tap and hold to show actions",
                     "expand_video_hint": "Shows the video player. Double-tap and hold to show actions"
@@ -469,15 +469,15 @@
                 "follows_you": "’Gad leantainn"
             },
             "dashboard": {
-                "my_posts": "posts",
-                "my_following": "following",
-                "my_followers": "followers",
-                "other_posts": "posts",
-                "other_following": "following",
-                "other_followers": "followers"
+                "my_posts": "postaichean",
+                "my_following": "a’ leantainn",
+                "my_followers": "luchd-leantainn",
+                "other_posts": "postaichean",
+                "other_following": "a’ leantainn",
+                "other_followers": "luchd-leantainn"
             },
             "fields": {
-                "joined": "Joined",
+                "joined": "Air ballrachd fhaighinn",
                 "add_row": "Cuir ràgh ris",
                 "placeholder": {
                     "label": "Leubail",
@@ -753,15 +753,15 @@
             "title": "Comharran-lìn"
         },
         "followed_tags": {
-            "title": "Followed Tags",
+            "title": "Tagaichean ’gan leantainn",
             "header": {
-                "posts": "posts",
+                "posts": "postaichean",
                 "participants": "participants",
-                "posts_today": "posts today"
+                "posts_today": "postaichean an-diugh"
             },
             "actions": {
-                "follow": "Follow",
-                "unfollow": "Unfollow"
+                "follow": "Lean",
+                "unfollow": "Na lean tuilleadh"
             }
         }
     }
