@@ -54,7 +54,7 @@
             },
             "translation_failed": {
                 "title": "An aire",
-                "message": "Translation failed. Maybe the administrator has not enabled translations on this server or this server is running an older version of Mastodon where translations are not yet supported.",
+                "message": "Dh’fhàillig an t-eadar-theangachadh. Dh’fhaoidte nach do chuir an rianaire na h-eadar-theangachaidhean an comas air an fhrithealaiche seo no gu bheil am frithealaiche a’ ruith seann-tionndadh de Mhastodon far nach eil taic ri eadar-theangachadh fhathast.",
                 "button": "Ceart ma-thà"
             }
         },
@@ -142,7 +142,7 @@
                 "sensitive_content": "Susbaint fhrionasach",
                 "media_content_warning": "Thoir gnogag àite sam bith gus a nochdadh",
                 "tap_to_reveal": "Thoir gnogag gus a nochdadh",
-                "load_embed": "Load Embed",
+                "load_embed": "Luchdaich na tha ga leabachadh",
                 "link_via_user": "%s slighe %s",
                 "poll": {
                     "vote": "Cuir bhòt",
@@ -165,7 +165,7 @@
                     "show_image": "Seall an dealbh",
                     "show_gif": "Seall an GIF",
                     "show_video_player": "Seall cluicheadair video",
-                    "share_link_in_post": "Share Link in Post",
+                    "share_link_in_post": "Co-roinn an ceangal sa phost",
                     "tap_then_hold_to_show_menu": "Thoir gnogag ’s cùm sìos a shealltainn a’ chlàir-thaice"
                 },
                 "tag": {
@@ -183,16 +183,16 @@
                     "direct": "Chan fhaic ach an cleachdaiche air an dugadh iomradh am post seo."
                 },
                 "translation": {
-                    "translated_from": "Translated from %s using %s",
+                    "translated_from": "Air eadar-theangachadh o %s le %s",
                     "unknown_language": "Chan eil fhios",
                     "unknown_provider": "Chan eil fhios",
-                    "show_original": "Shown Original"
+                    "show_original": "Seall an tionndadh tùsail"
                 },
                 "media": {
                     "accessibility_label": "%s, ceanglachan %d à %d",
-                    "expand_image_hint": "Expands the image. Double-tap and hold to show actions",
-                    "expand_gif_hint": "Expands the GIF. Double-tap and hold to show actions",
-                    "expand_video_hint": "Shows the video player. Double-tap and hold to show actions"
+                    "expand_image_hint": "Leudaichidh seo an dealbh. Thoir gnogag dhùbailte is cùm sìos airson gnìomhan a shealltainn",
+                    "expand_gif_hint": "Leudaichidh seo an GIF. Thoir gnogag dhùbailte is cùm sìos airson gnìomhan a shealltainn",
+                    "expand_video_hint": "Seallaidh seo an cluicheadair video. Thoir gnogag dhùbailte is cùm sìos airson gnìomhan a shealltainn"
                 }
             },
             "friendship": {
@@ -756,7 +756,7 @@
             "title": "Tagaichean ’gan leantainn",
             "header": {
                 "posts": "postaichean",
-                "participants": "participants",
+                "participants": "com-pàirtichean",
                 "posts_today": "postaichean an-diugh"
             },
             "actions": {
