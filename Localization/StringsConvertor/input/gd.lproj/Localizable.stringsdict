@@ -73,13 +73,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 character left</string>
+        <string>%ld charactar air fhàgail</string>
         <key>two</key>
-        <string>%ld characters left</string>
+        <string>%ld charactar air fhàgail</string>
         <key>few</key>
-        <string>%ld characters left</string>
+        <string>%ld caractaran air fhàgail</string>
         <key>other</key>
-        <string>%ld characters left</string>
+        <string>%ld caractar air fhàgail</string>
       </dict>
     </dict>
     <key>plural.count.followed_by_and_mutual</key>
