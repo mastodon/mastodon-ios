@@ -152,6 +152,7 @@ Please check your internet connection.";
 "Common.Controls.Status.Buttons.FavoritesTitle" = "Favorites";
 "Common.Controls.Status.Buttons.EditHistoryTitle" = "Edit History";
 "Common.Controls.Status.Buttons.EditHistoryDetail" = "Last edit %@";
+"Common.Controls.Status.EditedAtTimestampPrefix" = "Edited %@";
 "Common.Controls.Tabs.Home" = "Home";
 "Common.Controls.Tabs.Notifications" = "Notifications";
 "Common.Controls.Tabs.Profile" = "Profile";

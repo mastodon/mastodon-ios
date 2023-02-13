@@ -199,8 +199,9 @@
                     "reblogs_title": "Reblogs",
                     "favorites_title": "Favorites",
                     "edit_history_title": "Edit History",
-                    "edit_history_detail": "Last edit %@"
-                }
+                    "edit_history_detail": "Last edit %s"
+                },
+                "edited_at_timestamp_prefix": "Edited %s"
             },
             "friendship": {
                 "follow": "Follow",
