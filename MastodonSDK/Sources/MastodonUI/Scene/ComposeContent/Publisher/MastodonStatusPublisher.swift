@@ -187,7 +187,7 @@ extension MastodonStatusPublisher: StatusPublisher {
         _state = .success
         logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): status published: \(publishResponse.value.id)")
         
-        return .mastodon(publishResponse)
+        return .post(publishResponse)
     }
     
 }
