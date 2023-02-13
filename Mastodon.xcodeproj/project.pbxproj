@@ -390,7 +390,6 @@
 		DB9F58EC26EF435000E7BBE9 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9F58EB26EF435000E7BBE9 /* AccountViewController.swift */; };
 		DB9F58EF26EF491E00E7BBE9 /* AccountListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9F58EE26EF491E00E7BBE9 /* AccountListViewModel.swift */; };
 		DB9F58F126EF512300E7BBE9 /* AccountListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9F58F026EF512300E7BBE9 /* AccountListTableViewCell.swift */; };
-		DBA0A11325FB3FC10079C110 /* ComposeToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA0A11225FB3FC10079C110 /* ComposeToolbarView.swift */; };
 		DBA4B0F626C269880077136E /* Intents.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = DBA4B0F926C269880077136E /* Intents.stringsdict */; };
 		DBA4B0F726C269880077136E /* Intents.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = DBA4B0F926C269880077136E /* Intents.stringsdict */; };
 		DBA5A53126F08EF000CACBAA /* DragIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA5A53026F08EF000CACBAA /* DragIndicatorView.swift */; };
@@ -1087,7 +1086,6 @@
 		DB9F58EB26EF435000E7BBE9 /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		DB9F58EE26EF491E00E7BBE9 /* AccountListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountListViewModel.swift; sourceTree = "<group>"; };
 		DB9F58F026EF512300E7BBE9 /* AccountListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountListTableViewCell.swift; sourceTree = "<group>"; };
-		DBA0A11225FB3FC10079C110 /* ComposeToolbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeToolbarView.swift; sourceTree = "<group>"; };
 		DBA4B0D326BD10AC0077136E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Intents.strings"; sourceTree = "<group>"; };
 		DBA4B0D626BD10AD0077136E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		DBA4B0D726BD10F40077136E /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/Intents.strings; sourceTree = "<group>"; };
@@ -2164,7 +2162,6 @@
 		DB55D32225FB4D320002F825 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				DBA0A11225FB3FC10079C110 /* ComposeToolbarView.swift */,
 				DB8190C52601FF0400020C08 /* AttachmentContainerView.swift */,
 				DB9A486B26032AC1008B817C /* AttachmentContainerView+EmptyStateView.swift */,
 				DBC7A671260C897100E57475 /* StatusContentWarningEditorView.swift */,
@@ -3839,7 +3836,6 @@
 				DB45FAB625CA5485005A8AC7 /* UIAlertController.swift in Sources */,
 				DBE0821525CD382600FD6BBD /* MastodonRegisterViewController.swift in Sources */,
 				DBEFCD74282A130400C0ABEA /* ReportReasonViewModel.swift in Sources */,
-				DBA0A11325FB3FC10079C110 /* ComposeToolbarView.swift in Sources */,
 				DBFEEC96279BDC67004F81DD /* ProfileAboutViewController.swift in Sources */,
 				DB63F74F2799405600455B82 /* SearchHistoryViewModel+Diffable.swift in Sources */,
 				DB0EF72B26FDB1D200347686 /* SidebarListCollectionViewCell.swift in Sources */,

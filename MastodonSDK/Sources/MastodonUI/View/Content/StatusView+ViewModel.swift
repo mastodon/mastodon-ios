@@ -283,6 +283,21 @@ extension StatusView.ViewModel {
                 authorView.dateLabel.configure(content: PlaintextMetaContent(string: text))
             }
             .store(in: &disposeBag)
+
+        $visibility
+            .map {
+                switch $0 {
+                case .public: return Asset.Scene.Compose.earth
+                case .unlisted: return Asset.Scene.Compose.people
+                case .private: return Asset.Scene.Compose.peopleAdd
+                case .direct: return Asset.Scene.Compose.mention
+                case ._other: return Asset.Scene.Compose.more
+                }
+            }
+            .sink {
+                authorView.visibilityIconImageView.image = $0.image.withRenderingMode(.alwaysTemplate)
+            }
+            .store(in: &disposeBag)
     }
     
     private func bindContent(statusView: StatusView) {
