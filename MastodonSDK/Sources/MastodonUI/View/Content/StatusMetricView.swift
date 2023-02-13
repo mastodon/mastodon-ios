@@ -7,6 +7,7 @@
 
 import UIKit
 import MastodonAsset
+import MastodonLocalization
 
 protocol StatusMetricViewDelegate: AnyObject {
     func statusMetricView(_ statusMetricView: StatusMetricView, reblogButtonDidPressed button: UIButton)
@@ -54,20 +55,20 @@ public final class StatusMetricView: UIView {
 
     public let reblogButton: StatusMetricRowView = {
         //TODO: Localization
-        let button = StatusMetricRowView(iconImage: Asset.Arrow.repeat.image, text: "Reblogs", detailText: "10")
+        let button = StatusMetricRowView(iconImage: Asset.Arrow.repeat.image, text: L10n.Common.Controls.Status.Buttons.reblogsTitle, detailText: "")
         return button
     }()
     
     // favorite meter
     public let favoriteButton: StatusMetricRowView = {
         //TODO: Localization
-        let button = StatusMetricRowView(iconImage: UIImage(systemName: "star"), text: "Favorites", detailText: "10")
+        let button = StatusMetricRowView(iconImage: UIImage(systemName: "star"), text: L10n.Common.Controls.Status.Buttons.favoritesTitle, detailText: "")
         return button
     }()
 
     public let editHistoryButton: StatusMetricRowView = {
         //TODO: Localization
-        let button = StatusMetricRowView(iconImage: Asset.Scene.EditHistory.edit.image, text: "Edit History")
+        let button = StatusMetricRowView(iconImage: Asset.Scene.EditHistory.edit.image, text: L10n.Common.Controls.Status.Buttons.editHistoryTitle)
         return button
     }()
 
