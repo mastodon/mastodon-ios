@@ -58,6 +58,14 @@ extension HomeTimelineViewModel {
                         snapshot.appendItems(newItems, toSection: .main)
                         return snapshot
                     }()
+                    
+                    if self.hasPendingStatusEditReload {
+                        newSnapshot.reloadItems(newSnapshot.itemIdentifiers)
+                        Task { //@MainActor in
+                            await self.updateDataSource(snapshot: newSnapshot, animatingDifferences: false)
+                            self.hasPendingStatusEditReload = false
+                        }
+                    }
 
                     let parentManagedObjectContext = self.context.managedObjectContext
                     let managedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
