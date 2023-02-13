@@ -169,7 +169,7 @@ extension MastodonEditStatusPublisher: StatusPublisher {
         progress.completedUnitCount += publishStatusTaskCount
         _state = .success
 
-        return .mastodon(editStatusResponse)
+        return .edit(editStatusResponse)
     }
 
 }
