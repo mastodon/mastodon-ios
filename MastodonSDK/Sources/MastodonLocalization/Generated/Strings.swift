@@ -344,6 +344,18 @@ public enum L10n {
           /// Undo reblog
           public static let unreblog = L10n.tr("Localizable", "Common.Controls.Status.Actions.Unreblog", fallback: "Undo reblog")
         }
+        public enum Buttons {
+          /// Last edit %@
+          public static func editHistoryDetail(_ p1: Any) -> String {
+            return L10n.tr("Localizable", "Common.Controls.Status.Buttons.EditHistoryDetail", String(describing: p1), fallback: "Last edit %@")
+          }
+          /// Edit History
+          public static let editHistoryTitle = L10n.tr("Localizable", "Common.Controls.Status.Buttons.EditHistoryTitle", fallback: "Edit History")
+          /// Favorites
+          public static let favoritesTitle = L10n.tr("Localizable", "Common.Controls.Status.Buttons.FavoritesTitle", fallback: "Favorites")
+          /// Reblogs
+          public static let reblogsTitle = L10n.tr("Localizable", "Common.Controls.Status.Buttons.ReblogsTitle", fallback: "Reblogs")
+        }
         public enum Media {
           /// %@, attachment %d of %d
           public static func accessibilityLabel(_ p1: Any, _ p2: Int, _ p3: Int) -> String {

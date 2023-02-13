@@ -626,7 +626,7 @@ extension StatusView.ViewModel {
                 if let editedAt {
                     let relativeDateFormatter = RelativeDateTimeFormatter()
                     let relativeDate = relativeDateFormatter.localizedString(for: editedAt, relativeTo: Date())
-                    statusView.statusMetricView.editHistoryButton.detailLabel.text = "Last edit \(relativeDate)"
+                    statusView.statusMetricView.editHistoryButton.detailLabel.text = L10n.Common.Controls.Status.Buttons.editHistoryDetail(relativeDate)
                     statusView.statusMetricView.editHistoryButton.isHidden = false
                 } else {
                     statusView.statusMetricView.editHistoryButton.isHidden = true
