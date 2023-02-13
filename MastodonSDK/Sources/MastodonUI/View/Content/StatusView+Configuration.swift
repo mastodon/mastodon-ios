@@ -244,8 +244,11 @@ extension StatusView {
     
     private func configureTimestamp(timestamp: AnyPublisher<Date, Never>) {
         // timestamp
-        viewModel.timestampFormatter = { (date: Date) in
-            date.localizedSlowedTimeAgoSinceNow
+        viewModel.timestampFormatter = { (date: Date, isEdited: Bool) in
+            if isEdited {
+                return L10n.Common.Controls.Status.editedAtTimestampPrefix(date.localizedSlowedTimeAgoSinceNow)
+            }
+            return date.localizedSlowedTimeAgoSinceNow
         }
         timestamp
             .map { $0 as Date? }

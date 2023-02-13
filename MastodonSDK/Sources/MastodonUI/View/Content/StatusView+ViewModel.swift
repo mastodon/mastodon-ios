@@ -52,7 +52,7 @@ extension StatusView {
         @Published public var translatedUsingProvider: String?
 
         @Published public var timestamp: Date?
-        public var timestampFormatter: ((_ date: Date) -> String)?
+        public var timestampFormatter: ((_ date: Date, _ isEdited: Bool) -> String)?
         @Published public var timestampText = ""
         @Published public var applicationName: String? = nil
         
@@ -267,16 +267,19 @@ extension StatusView.ViewModel {
             }
             .store(in: &disposeBag)
         // timestamp
-        Publishers.CombineLatest(
+        Publishers.CombineLatest3(
             $timestamp,
+            $editedAt,
             timestampUpdatePublisher.prepend(Date()).eraseToAnyPublisher()
         )
-        .compactMap { [weak self] timestamp, _ -> String? in
+        .compactMap { [weak self] timestamp, editedAt, _ -> String? in
             guard let self = self else { return nil }
-            guard let timestamp = timestamp,
-                  let text = self.timestampFormatter?(timestamp)
-            else { return "" }
-            return text
+            if let timestamp = editedAt, let text = self.timestampFormatter?(timestamp, true) {
+                return text
+            } else if let timestamp = timestamp, let text = self.timestampFormatter?(timestamp, false) {
+                return text
+            }
+            return ""
         }
         .removeDuplicates()
         .assign(to: &$timestampText)
