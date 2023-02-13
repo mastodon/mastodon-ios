@@ -59,14 +59,6 @@ extension HomeTimelineViewModel {
                         return snapshot
                     }()
                     
-                    if self.hasPendingStatusEditReload {
-                        newSnapshot.reloadItems(newSnapshot.itemIdentifiers)
-                        Task { //@MainActor in
-                            await self.updateDataSource(snapshot: newSnapshot, animatingDifferences: false)
-                            self.hasPendingStatusEditReload = false
-                        }
-                    }
-
                     let parentManagedObjectContext = self.context.managedObjectContext
                     let managedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
                     managedObjectContext.parent = parentManagedObjectContext
@@ -97,16 +89,16 @@ extension HomeTimelineViewModel {
                             }
                         }
                     }
-
+                    
                     let hasChanges = newSnapshot.itemIdentifiers != oldSnapshot.itemIdentifiers
-                    if !hasChanges {
+                    if !hasChanges && !self.hasPendingStatusEditReload {
                         self.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): snapshot not changes")
                         self.didLoadLatest.send()
                         return
                     } else {
                         self.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): snapshot has changes")
                     }
-
+                    
                     guard let difference = self.calculateReloadSnapshotDifference(
                         tableView: tableView,
                         oldSnapshot: oldSnapshot,
@@ -125,6 +117,7 @@ extension HomeTimelineViewModel {
                     tableView.setContentOffset(contentOffset, animated: false)
                     self.didLoadLatest.send()
                     self.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): applied new snapshot")
+                    self.hasPendingStatusEditReload = false
                 }   // end Task
             }
             .store(in: &disposeBag)
