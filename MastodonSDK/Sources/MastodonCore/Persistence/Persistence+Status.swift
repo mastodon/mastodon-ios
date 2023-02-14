@@ -199,6 +199,7 @@ extension Persistence.Status {
         )
         status.update(property: property)
         if let poll = status.poll, let entity = context.entity.poll {
+            // update poll
             Persistence.Poll.merge(
                 poll: poll,
                 context: Persistence.Poll.PersistContext(
@@ -207,6 +208,40 @@ extension Persistence.Status {
                     me: context.me,
                     networkDate: context.networkDate
                 )
+            )
+        } else if let entity = context.entity.poll {
+            // add poll
+            let result = Persistence.Poll.createOrMerge(
+                in: managedObjectContext,
+                context: Persistence.Poll.PersistContext(
+                    domain: context.domain,
+                    entity: entity,
+                    me: context.me,
+                    networkDate: context.networkDate
+                )
+            )
+
+            status.configure(
+                relationship:
+                    Status.Relationship(
+                        application: status.application,
+                        author: status.author,
+                        reblog: status.reblog,
+                        poll: result.poll,
+                        card: status.card
+                    )
+            )
+        } else if status.poll != nil, context.entity.poll == nil {
+            // remove poll
+            status.configure(
+                relationship:
+                    Status.Relationship(
+                        application: status.application,
+                        author: status.author,
+                        reblog: status.reblog,
+                        poll: nil,
+                        card: status.card
+                    )
             )
         }
 

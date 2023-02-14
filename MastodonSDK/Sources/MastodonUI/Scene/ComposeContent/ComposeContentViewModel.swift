@@ -191,10 +191,22 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
             for: authContext.mastodonAuthenticationBox.domain
         )
         
-        if case let ComposeContext.editStatus(status, statusSource) = composeContext {
+        if case let ComposeContext.editStatus(status, _) = composeContext {
             if status.isContentSensitive {
                 isContentWarningActive = true
                 contentWarning = status.spoilerText ?? ""
+            }
+            if let poll = status.poll {
+                isPollActive = !poll.expired
+                pollMultipleConfigurationOption = poll.multiple
+                if let pollExpiresAt = poll.expiresAt {
+                    pollExpireConfigurationOption = .init(closestDateToExpiry: pollExpiresAt)
+                }
+                pollOptions = poll.options.map {
+                    let option = PollComposeItem.Option()
+                    option.text = $0.title
+                    return option
+                }
             }
         }
         
