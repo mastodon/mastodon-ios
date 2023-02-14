@@ -191,6 +191,13 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
             for: authContext.mastodonAuthenticationBox.domain
         )
         
+        if case let ComposeContext.editStatus(status, statusSource) = composeContext {
+            if status.isContentSensitive {
+                isContentWarningActive = true
+                contentWarning = status.spoilerText ?? ""
+            }
+        }
+        
         let recentLanguages = context.settingService.currentSetting.value?.recentLanguages ?? []
         self.recentLanguages = recentLanguages
         self.language = recentLanguages.first ?? Locale.current.languageCode ?? "en"
@@ -571,7 +578,7 @@ extension ComposeContentViewModel {
     // MastodonEditStatusPublisher
     public func statusEditPublisher() throws -> StatusPublisher? {
         let authContext = self.authContext
-        guard case let .editStatus(status, statusSource) = composeContext else { return nil }
+        guard case let .editStatus(status, _) = composeContext else { return nil }
 
         // author
         let managedObjectContext = self.context.managedObjectContext
