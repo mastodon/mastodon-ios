@@ -254,7 +254,7 @@ uploaded to Mastodon.";
 "Scene.Discovery.Tabs.Posts" = "Posts";
 "Scene.Familiarfollowers.FollowedByNames" = "Followed by %@";
 "Scene.Familiarfollowers.Title" = "Followers you familiar";
-"Scene.Favorite.Title" = "Your Favorites";
+"Scene.Favorite.Title" = "Favorites";
 "Scene.FavoritedBy.Title" = "Favorited By";
 "Scene.FollowedTags.Actions.Follow" = "Follow";
 "Scene.FollowedTags.Actions.Unfollow" = "Unfollow";
