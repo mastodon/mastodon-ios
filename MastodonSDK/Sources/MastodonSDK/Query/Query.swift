@@ -58,6 +58,11 @@ protocol PatchQuery: RequestQuery { }
 // PUT
 protocol PutQuery: RequestQuery { }
 
+extension PutQuery {
+    // By default a `PutQuery` does not has query items
+    var queryItems: [URLQueryItem]? { nil }
+}
+
 // DELETE
 protocol DeleteQuery: RequestQuery { }
 
