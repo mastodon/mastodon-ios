@@ -66,21 +66,23 @@ final class ComposeViewController: UIViewController, NeedsDependency {
     
     private(set) lazy var cancelBarButtonItem = UIBarButtonItem(title: L10n.Common.Controls.Actions.cancel, style: .plain, target: self, action: #selector(ComposeViewController.cancelBarButtonItemPressed(_:)))
 
-    let publishButton: UIButton = {
+    private lazy var publishButton: UIButton = {
         let button = RoundedEdgesButton(type: .custom)
         button.cornerRadius = 10
         button.contentEdgeInsets = UIEdgeInsets(top: 6, left: 16, bottom: 5, right: 16)     // set 28pt height
         button.titleLabel?.font = .systemFont(ofSize: 14, weight: .bold)
         button.setTitle(L10n.Scene.Compose.composeAction, for: .normal)
+        button.addTarget(self, action: #selector(ComposeViewController.publishBarButtonItemPressed(_:)), for: .touchUpInside)
         return button
     }()
 
-    let saveButton: UIButton = {
+    private lazy var saveButton: UIButton = {
         let button = RoundedEdgesButton(type: .custom)
         button.cornerRadius = 10
         button.contentEdgeInsets = UIEdgeInsets(top: 6, left: 16, bottom: 5, right: 16)     // set 28pt height
         button.titleLabel?.font = .systemFont(ofSize: 14, weight: .bold)
         button.setTitle(L10n.Common.Controls.Actions.save, for: .normal)
+        button.addTarget(self, action: #selector(ComposeViewController.publishStatusEdit(_:)), for: .touchUpInside)
         return button
     }()
 
@@ -129,19 +131,11 @@ extension ComposeViewController {
             .sink { [weak self] _ in
                 guard let self = self else { return }
                 guard self.traitCollection.userInterfaceIdiom == .pad else { return }
-                let items = [self.publishBarButtonItem]
-                self.navigationItem.rightBarButtonItems = items
+                self.navigationItem.rightBarButtonItem = self.rightBarButtonItemForCurrentContext
             }
             .store(in: &disposeBag)
 
-        switch viewModel.composeContext {
-        case .composeStatus:
-            publishButton.addTarget(self, action: #selector(ComposeViewController.publishBarButtonItemPressed(_:)), for: .touchUpInside)
-            navigationItem.rightBarButtonItem = publishBarButtonItem
-        case .editStatus:
-            saveButton.addTarget(self, action: #selector(ComposeViewController.publishStatusEdit(_:)), for: .touchUpInside)
-            navigationItem.rightBarButtonItem = saveBarButtonItem
-        }
+        navigationItem.rightBarButtonItem = rightBarButtonItemForCurrentContext
 
         addChild(composeContentViewController)
         composeContentViewController.view.translatesAutoresizingMaskIntoConstraints = false
@@ -169,7 +163,6 @@ extension ComposeViewController {
         super.traitCollectionDidChange(previousTraitCollection)
 
         switch viewModel.composeContext {
-
         case .composeStatus:
             configurePublishButtonApperance(button: publishButton)
         case .editStatus:
@@ -196,6 +189,14 @@ extension ComposeViewController {
         present(alertController, animated: true, completion: nil)
     }
 
+    private var rightBarButtonItemForCurrentContext: UIBarButtonItem {
+        switch viewModel.composeContext {
+        case .composeStatus:
+            return publishBarButtonItem
+        case .editStatus:
+            return saveBarButtonItem
+        }
+    }
 }
 
 extension ComposeViewController {
