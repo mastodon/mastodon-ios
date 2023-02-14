@@ -14,6 +14,11 @@ import MastodonUI
 
 extension PollOptionView {
     public func configure(pollOption option: PollOption) {
+        guard let status = option.poll.status else {
+            assertionFailure("PollOption to be configured is expected to be part of Poll with Status")
+            return
+        }
+
         viewModel.objects.insert(option)
         
         // background
@@ -50,8 +55,8 @@ extension PollOptionView {
         viewModel.isMultiple = option.poll.multiple
         
         let optionIndex = option.index
-        let authorDomain = option.poll.status.author.domain
-        let authorID = option.poll.status.author.id
+        let authorDomain = status.author.domain
+        let authorID = status.author.id
         // isSelect, isPollVoted, isMyPoll
         Publishers.CombineLatest4(
             option.publisher(for: \.poll),
