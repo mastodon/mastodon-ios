@@ -107,8 +107,6 @@ extension Mastodon.API.Statuses {
 
 extension Mastodon.API.Statuses {
     public struct EditStatusQuery: Codable, PutQuery {
-        var queryItems: [URLQueryItem]? = nil
-
         public let status: String?
         public let mediaIDs: [String]?
         public let pollOptions: [String]?
@@ -141,16 +139,28 @@ extension Mastodon.API.Statuses {
             self.language = language
         }
 
-        enum CodingKeys: String, CodingKey {
-            case status
-            case mediaIDs
-            case pollOptions
-            case pollExpiresIn
-            case pollMultipleAnswers
-            case sensitive
-            case spoilerText
-            case visibility
-            case language
+        var contentType: String? {
+            return Self.multipartContentType()
+        }
+        
+        var body: Data? {
+            var data = Data()
+
+            status.flatMap { data.append(Data.multipart(key: "status", value: $0)) }
+            for mediaID in mediaIDs ?? [] {
+                data.append(Data.multipart(key: "media_ids[]", value: mediaID))
+            }
+            for pollOption in pollOptions ?? [] {
+                data.append(Data.multipart(key: "poll[options][]", value: pollOption))
+            }
+            pollExpiresIn.flatMap { data.append(Data.multipart(key: "poll[expires_in]", value: $0)) }
+            sensitive.flatMap { data.append(Data.multipart(key: "sensitive", value: $0)) }
+            spoilerText.flatMap { data.append(Data.multipart(key: "spoiler_text", value: $0)) }
+            visibility.flatMap { data.append(Data.multipart(key: "visibility", value: $0.rawValue)) }
+            language.flatMap { data.append(Data.multipart(key: "language", value: $0)) }
+
+            data.append(Data.multipartEnd())
+            return data
         }
     }
 }

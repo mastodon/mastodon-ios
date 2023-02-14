@@ -31,14 +31,14 @@ public final class Poll: NSManagedObject {
     
     // sourcery: autoGenerateProperty
     @NSManaged public private(set) var createdAt: Date
-    // sourcery: autoUpdatableObject, autoGenerateProperty
+    // sourcery: autoUpdatableObject, autoGenerateProperty  
     @NSManaged public private(set) var updatedAt: Date
     
     // sourcery: autoUpdatableObject
     @NSManaged public private(set) var isVoting: Bool
     
     // one-to-one relationship
-    @NSManaged public private(set) var status: Status
+    @NSManaged public private(set) var status: Status?
     
     // one-to-many relationship
     @NSManaged public private(set) var options: Set<PollOption>
