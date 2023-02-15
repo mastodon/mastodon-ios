@@ -66,7 +66,10 @@ extension AttachmentViewModel {
         let authContext: AuthContext
     }
     
-    public typealias UploadResult = Mastodon.Entity.Attachment
+    public enum UploadResult {
+        case uploadedMastodonAttachment(Mastodon.Entity.Attachment)
+        case exists
+    }
 }
 
 extension AttachmentViewModel {
@@ -194,7 +197,7 @@ extension AttachmentViewModel {
                     
                     // escape here
                     progress.completedUnitCount = progress.totalUnitCount
-                    return attachmentStatusResponse.value
+                    return .uploadedMastodonAttachment(attachmentStatusResponse.value)
                     
                 } else {
                     AttachmentViewModel.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): attachment processing. Retry \(waitProcessRetryCount)/\(waitProcessRetryLimit)")
@@ -207,7 +210,7 @@ extension AttachmentViewModel {
         } else {
             AttachmentViewModel.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): upload attachment success: \(attachmentUploadResponse.value.url ?? "<nil>")")
 
-            return attachmentUploadResponse.value
+            return .uploadedMastodonAttachment(attachmentUploadResponse.value)
         }
     }
 }
