@@ -189,16 +189,6 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
             return visibility
         }()
         
-        switch composeContext {
-        case .composeStatus:
-            self.isVisibilityButtonEnabled = true
-        case let .editStatus(status, _):
-            if let visibility = Mastodon.Entity.Status.Visibility(rawValue: status.visibility.rawValue) {
-                self.visibility = visibility
-            }
-            self.isVisibilityButtonEnabled = false
-        }
-        
         self.customEmojiViewModel = context.emojiService.dequeueCustomEmojiViewModel(
             for: authContext.mastodonAuthenticationBox.domain
         )
@@ -296,6 +286,28 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
                 maxImageMediaSizeLimitInByte = imageSizeLimit
             }
             // TODO: more limit
+        }
+        
+        switch composeContext {
+        case .composeStatus:
+            self.isVisibilityButtonEnabled = true
+        case let .editStatus(status, _):
+            if let visibility = Mastodon.Entity.Status.Visibility(rawValue: status.visibility.rawValue) {
+                self.visibility = visibility
+            }
+            self.isVisibilityButtonEnabled = false
+            self.attachmentViewModels = status.attachments.compactMap {
+                guard let assetURL = $0.assetURL, let url = URL(string: assetURL) else { return nil }
+                let attachmentViewModel = AttachmentViewModel(
+                    api: context.apiService,
+                    authContext: authContext,
+                    input: .mastodonAssetUrl(url, $0.id),
+                    sizeLimit: sizeLimit,
+                    delegate: self
+                )
+                attachmentViewModel.caption = $0.altDescription ?? ""
+                return attachmentViewModel
+            }
         }
         
         bind()
