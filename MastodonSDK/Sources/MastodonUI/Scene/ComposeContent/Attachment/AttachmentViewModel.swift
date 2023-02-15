@@ -49,7 +49,8 @@ final public class AttachmentViewModel: NSObject, ObservableObject, Identifiable
     public let input: Input
     public let sizeLimit: SizeLimit
     @Published var caption = ""
-    
+    @Published public private(set) var isCaptionEditable = true
+
     // output
     @Published public private(set) var output: Output?
     @Published public private(set) var thumbnail: UIImage?      // original size image thumbnail
@@ -135,6 +136,17 @@ final public class AttachmentViewModel: NSObject, ObservableObject, Identifiable
         let uploadTask = Task { @MainActor in
             do {
                 var output = try await load(input: input)
+                
+                switch input {
+                case .mastodonAssetUrl:
+                    self.isCaptionEditable = false
+                    self.uploadState = .finish
+                    self.output = output
+                    self.uploadResult = .exists
+                    return
+                default:
+                    break
+                }
                 
                 switch output {
                 case .image(let data, _):
@@ -249,6 +261,7 @@ extension AttachmentViewModel {
     public enum Input: Hashable {
         case image(UIImage)
         case url(URL)
+        case mastodonAssetUrl(URL, String)
         case pickerResult(PHPickerResult)
         case itemProvider(NSItemProvider)
     }

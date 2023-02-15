@@ -108,31 +108,39 @@ extension MastodonEditStatusPublisher: StatusPublisher {
             progress.addChild(attachmentViewModel.progress, withPendingUnitCount: publishAttachmentTaskWeight)
             // upload media
             do {
-                guard let attachment = attachmentViewModel.uploadResult else {
+                switch attachmentViewModel.uploadResult {
+                case .none:
                     // precondition: all media uploaded
                     throw AppError.badRequest
+                case .exists:
+                    guard case let AttachmentViewModel.Input.mastodonAssetUrl(_, attachmentId) = attachmentViewModel.input else {
+                        throw AppError.badRequest
+                    }
+                    attachmentIDs.append(attachmentId)
+                    break
+                case let .uploadedMastodonAttachment(attachment):
+                    attachmentIDs.append(attachment.id)
+
+                    let caption = attachmentViewModel.caption
+                    guard !caption.isEmpty else { continue }
+
+                    _ = try await api.updateMedia(
+                        domain: authContext.mastodonAuthenticationBox.domain,
+                        attachmentID: attachment.id,
+                        query: .init(
+                            file: nil,
+                            thumbnail: nil,
+                            description: caption,
+                            focus: nil
+                        ),
+                        mastodonAuthenticationBox: authContext.mastodonAuthenticationBox
+                    ).singleOutput()
+
+                    // TODO: allow background upload
+                    // let attachment = try await attachmentViewModel.upload(context: uploadContext)
+                    // let attachmentID = attachment.id
+                    // attachmentIDs.append(attachmentID)
                 }
-                attachmentIDs.append(attachment.id)
-
-                let caption = attachmentViewModel.caption
-                guard !caption.isEmpty else { continue }
-
-                _ = try await api.updateMedia(
-                    domain: authContext.mastodonAuthenticationBox.domain,
-                    attachmentID: attachment.id,
-                    query: .init(
-                        file: nil,
-                        thumbnail: nil,
-                        description: caption,
-                        focus: nil
-                    ),
-                    mastodonAuthenticationBox: authContext.mastodonAuthenticationBox
-                ).singleOutput()
-
-                // TODO: allow background upload
-                // let attachment = try await attachmentViewModel.upload(context: uploadContext)
-                // let attachmentID = attachment.id
-                // attachmentIDs.append(attachmentID)
             } catch {
                 _state = .failure(error)
                 throw error
