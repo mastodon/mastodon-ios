@@ -326,6 +326,7 @@ extension ComposeContentViewController {
         viewModel.$isEmojiActive.assign(to: &composeContentToolbarViewModel.$isEmojiActive)
         viewModel.$isContentWarningActive.assign(to: &composeContentToolbarViewModel.$isContentWarningActive)
         viewModel.$visibility.assign(to: &composeContentToolbarViewModel.$visibility)
+        viewModel.$isVisibilityButtonEnabled.assign(to: &composeContentToolbarViewModel.$isVisibilityButtonEnabled)
         viewModel.$maxTextInputLimit.assign(to: &composeContentToolbarViewModel.$maxTextInputLimit)
         viewModel.$contentWeightedLength.assign(to: &composeContentToolbarViewModel.$contentWeightedLength)
         viewModel.$contentWarningWeightedLength.assign(to: &composeContentToolbarViewModel.$contentWarningWeightedLength)
