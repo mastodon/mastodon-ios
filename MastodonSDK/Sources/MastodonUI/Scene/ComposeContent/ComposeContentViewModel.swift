@@ -117,7 +117,8 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
     
     // visibility
     @Published public var visibility: Mastodon.Entity.Status.Visibility
-    
+    @Published public var isVisibilityButtonEnabled = false
+
     // language
     @Published public var language: String
     @Published public private(set) var recentLanguages: [String]
@@ -187,6 +188,17 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
             }
             return visibility
         }()
+        
+        switch composeContext {
+        case .composeStatus:
+            self.isVisibilityButtonEnabled = true
+        case let .editStatus(status, _):
+            if let visibility = Mastodon.Entity.Status.Visibility(rawValue: status.visibility.rawValue) {
+                self.visibility = visibility
+            }
+            self.isVisibilityButtonEnabled = false
+        }
+        
         self.customEmojiViewModel = context.emojiService.dequeueCustomEmojiViewModel(
             for: authContext.mastodonAuthenticationBox.domain
         )
