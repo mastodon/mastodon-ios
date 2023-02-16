@@ -285,17 +285,8 @@ extension StatusView.ViewModel {
             .store(in: &disposeBag)
 
         $visibility
-            .map {
-                switch $0 {
-                case .public: return Asset.Scene.Compose.earth
-                case .unlisted: return Asset.Scene.Compose.people
-                case .private: return Asset.Scene.Compose.peopleAdd
-                case .direct: return Asset.Scene.Compose.mention
-                case ._other: return Asset.Scene.Compose.questionmarkCircle
-                }
-            }
-            .sink {
-                authorView.visibilityIconImageView.image = $0.image.withRenderingMode(.alwaysTemplate)
+            .sink { visibility in
+                authorView.visibilityIconImageView.image = visibility.image
             }
             .store(in: &disposeBag)
     }
