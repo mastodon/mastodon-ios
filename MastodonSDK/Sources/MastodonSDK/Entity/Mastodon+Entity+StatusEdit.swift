@@ -13,6 +13,14 @@ extension Mastodon.Entity {
     /// # Reference
     ///  [Document](https://docs.joinmastodon.org/entities/statusedit/)
     public class StatusEdit: Codable {
+        public class Poll: Codable {
+            public class Option: Codable {
+                public let title: String
+            }
+            public let options: [Option]
+            public let title: String?
+        }
+        
         public let content: String
         public let spoilerText: String?
         public let sensitive: Bool
