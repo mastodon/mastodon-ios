@@ -7,15 +7,17 @@ import CoreDataStack
 import MastodonAsset
 
 class StatusEditHistoryTableViewCell: UITableViewCell {
+    var containerViewLeadingLayoutConstraint: NSLayoutConstraint!
+    var containerViewTrailingLayoutConstraint: NSLayoutConstraint!
+    
     static let identifier = "StatusEditHistoryTableViewCell"
+    static let horizontalMargin: CGFloat = 12
 
     let dateLabel: UILabel
     let statusView: StatusView
     private let grayBackground: UIView
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-
-
         dateLabel = UILabel()
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
         dateLabel.textColor = Asset.Colors.Label.secondary.color
@@ -38,8 +40,10 @@ class StatusEditHistoryTableViewCell: UITableViewCell {
         grayBackground.addSubview(statusView)
         contentView.addSubview(dateLabel)
         contentView.addSubview(grayBackground)
-
+        
+        setupContainerViewMarginConstraints()
         setupConstraints()
+        updateContainerViewMarginConstraints()
     }
 
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
@@ -50,15 +54,15 @@ class StatusEditHistoryTableViewCell: UITableViewCell {
             dateLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             dateLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
 
-            grayBackground.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 12),
+            grayBackground.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: Self.horizontalMargin),
             grayBackground.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             grayBackground.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            grayBackground.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -12),
+            grayBackground.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Self.horizontalMargin),
 
-            statusView.topAnchor.constraint(equalTo: grayBackground.topAnchor, constant: 12),
+            statusView.topAnchor.constraint(equalTo: grayBackground.topAnchor, constant: Self.horizontalMargin),
             statusView.leadingAnchor.constraint(equalTo: grayBackground.leadingAnchor),
             statusView.trailingAnchor.constraint(equalTo: grayBackground.trailingAnchor),
-            statusView.bottomAnchor.constraint(equalTo: grayBackground.bottomAnchor, constant: -12)
+            statusView.bottomAnchor.constraint(equalTo: grayBackground.bottomAnchor, constant: -Self.horizontalMargin),
         ]
 
         NSLayoutConstraint.activate(constraints)
@@ -75,3 +79,9 @@ class StatusEditHistoryTableViewCell: UITableViewCell {
     }
 }
 
+// MARK: - AdaptiveContainerMarginTableViewCell
+extension StatusEditHistoryTableViewCell: AdaptiveContainerMarginTableViewCell {
+    var containerView: StatusView {
+        statusView
+    }
+}

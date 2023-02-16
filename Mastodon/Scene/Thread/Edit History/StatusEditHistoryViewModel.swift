@@ -4,6 +4,7 @@ import Foundation
 import CoreDataStack
 import MastodonCore
 import MastodonUI
+import UIKit
 
 struct StatusEditHistoryViewModel {
     let status: Status
@@ -12,11 +13,13 @@ struct StatusEditHistoryViewModel {
     let appContext: AppContext
     let authContext: AuthContext
 
-    func prepareCell(_ cell: StatusEditHistoryTableViewCell) {
+    func prepareCell(_ cell: StatusEditHistoryTableViewCell, in tableView: UITableView) {
         StatusSection.setupStatusPollDataSource(
             context: appContext,
             authContext: authContext,
             statusView: cell.statusView
         )
+        
+        cell.statusView.frame.size.width = tableView.frame.width - cell.containerViewHorizontalMargin
     }
 }
