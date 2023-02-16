@@ -46,6 +46,8 @@ extension StatusView {
         actionToolbarAdaptiveMarginContainerView.isHidden = true
         authorView.menuButton.isHidden = true
         headerAdaptiveMarginContainerView.isHidden = true
+        viewModel.isSensitiveToggled = true
+        viewModel.isContentReveal = true
     }
 
     public func configure(status: Status) {

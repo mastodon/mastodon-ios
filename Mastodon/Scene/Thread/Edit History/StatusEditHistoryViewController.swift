@@ -41,6 +41,7 @@ class StatusEditHistoryViewController: UIViewController {
                 dateText = self.dateFormatter.string(from: statusEdit.createdAt)
             }
 
+            viewModel.prepareCell(cell)
             cell.configure(status: viewModel.status, statusEdit: statusEdit, dateText: dateText)
 
             return cell

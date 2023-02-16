@@ -48,17 +48,17 @@ class StatusEditHistoryTableViewCell: UITableViewCell {
         let constraints = [
             dateLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
             dateLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            contentView.trailingAnchor.constraint(equalTo: dateLabel.trailingAnchor, constant: 16),
+            dateLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
 
             grayBackground.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 12),
             grayBackground.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            contentView.trailingAnchor.constraint(equalTo: grayBackground.trailingAnchor, constant: 16),
-            contentView.bottomAnchor.constraint(equalTo: grayBackground.bottomAnchor, constant: 16),
+            grayBackground.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            grayBackground.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -12),
 
             statusView.topAnchor.constraint(equalTo: grayBackground.topAnchor, constant: 12),
             statusView.leadingAnchor.constraint(equalTo: grayBackground.leadingAnchor),
-            grayBackground.trailingAnchor.constraint(equalTo: statusView.trailingAnchor),
-            grayBackground.bottomAnchor.constraint(equalTo: statusView.bottomAnchor, constant: 12),
+            statusView.trailingAnchor.constraint(equalTo: grayBackground.trailingAnchor),
+            statusView.bottomAnchor.constraint(equalTo: grayBackground.bottomAnchor, constant: -12)
         ]
 
         NSLayoutConstraint.activate(constraints)
@@ -67,6 +67,11 @@ class StatusEditHistoryTableViewCell: UITableViewCell {
     func configure(status: Status, statusEdit: StatusEdit, dateText: String) {
         dateLabel.text = dateText
         statusView.configure(status: status, statusEdit: statusEdit)
+    }
+    
+    override func prepareForReuse() {
+        statusView.prepareForReuse()
+        super.prepareForReuse()
     }
 }
 
