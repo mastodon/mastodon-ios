@@ -159,6 +159,7 @@ public enum Asset {
       public static let peopleAdd = ImageAsset(name: "Scene/Compose/people.add")
       public static let pollFill = ImageAsset(name: "Scene/Compose/poll.fill")
       public static let poll = ImageAsset(name: "Scene/Compose/poll")
+      public static let questionmarkCircle = ImageAsset(name: "Scene/Compose/questionmark.circle")
       public static let reorderDot = ImageAsset(name: "Scene/Compose/reorder.dot")
     }
     public enum Discovery {

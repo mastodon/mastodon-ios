@@ -291,7 +291,7 @@ extension StatusView.ViewModel {
                 case .unlisted: return Asset.Scene.Compose.people
                 case .private: return Asset.Scene.Compose.peopleAdd
                 case .direct: return Asset.Scene.Compose.mention
-                case ._other: return Asset.Scene.Compose.more
+                case ._other: return Asset.Scene.Compose.questionmarkCircle
                 }
             }
             .sink {
