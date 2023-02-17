@@ -11,10 +11,11 @@ class StatusEditHistoryTableViewCell: UITableViewCell {
     var containerViewTrailingLayoutConstraint: NSLayoutConstraint!
     
     static let identifier = "StatusEditHistoryTableViewCell"
-    static let horizontalMargin: CGFloat = 12
+    static let verticalMargin: CGFloat = 12
+    static let horizontalMargin: CGFloat = 16
 
     let dateLabel: UILabel
-    let statusView: StatusView
+    let statusHistoryView: StatusHistoryView
     private let grayBackground: UIView
     var statusViewBottomConstraint: NSLayoutConstraint!
 
@@ -24,9 +25,8 @@ class StatusEditHistoryTableViewCell: UITableViewCell {
         dateLabel.textColor = Asset.Colors.Label.secondary.color
         dateLabel.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 15, weight: .regular))
 
-        statusView = StatusView()
-        statusView.setup(style: .inline)
-        statusView.translatesAutoresizingMaskIntoConstraints = false
+        statusHistoryView = StatusHistoryView()
+        statusHistoryView.translatesAutoresizingMaskIntoConstraints = false
 
         grayBackground = UIView()
         grayBackground.translatesAutoresizingMaskIntoConstraints = false
@@ -38,7 +38,7 @@ class StatusEditHistoryTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
         selectionStyle = .none
-        grayBackground.addSubview(statusView)
+        grayBackground.addSubview(statusHistoryView)
         contentView.addSubview(dateLabel)
         contentView.addSubview(grayBackground)
         
@@ -50,20 +50,18 @@ class StatusEditHistoryTableViewCell: UITableViewCell {
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 
     private func setupConstraints() {
-        statusViewBottomConstraint = statusView.bottomAnchor.constraint(equalTo: grayBackground.bottomAnchor, constant: -Self.horizontalMargin)
+        statusViewBottomConstraint = statusHistoryView.bottomAnchor.constraint(equalTo: grayBackground.bottomAnchor, constant: -Self.verticalMargin)
         let constraints = [
             dateLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
             dateLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             dateLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
 
-            grayBackground.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: Self.horizontalMargin),
+            grayBackground.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: Self.verticalMargin),
             grayBackground.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             grayBackground.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            grayBackground.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Self.horizontalMargin),
+            grayBackground.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Self.verticalMargin),
 
-            statusView.topAnchor.constraint(equalTo: grayBackground.topAnchor, constant: Self.horizontalMargin),
-            statusView.leadingAnchor.constraint(equalTo: grayBackground.leadingAnchor),
-            statusView.trailingAnchor.constraint(equalTo: grayBackground.trailingAnchor),
+            statusHistoryView.topAnchor.constraint(equalTo: grayBackground.topAnchor, constant: Self.verticalMargin),
             statusViewBottomConstraint,
         ].compactMap { $0 }
 
@@ -72,18 +70,63 @@ class StatusEditHistoryTableViewCell: UITableViewCell {
 
     func configure(status: Status, statusEdit: StatusEdit, dateText: String) {
         dateLabel.text = dateText
-        statusView.configure(status: status, statusEdit: statusEdit)
+        statusHistoryView.statusView.configure(status: status, statusEdit: statusEdit)
     }
     
     override func prepareForReuse() {
-        statusView.prepareForReuse()
+        statusHistoryView.prepareForReuse()
         super.prepareForReuse()
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        updateContainerViewMarginConstraints()
     }
 }
 
 // MARK: - AdaptiveContainerMarginTableViewCell
 extension StatusEditHistoryTableViewCell: AdaptiveContainerMarginTableViewCell {
-    var containerView: StatusView {
-        statusView
+    var containerView: StatusHistoryView {
+        statusHistoryView
+    }
+}
+
+class StatusHistoryView: UIView {
+    let statusView = StatusView()
+    
+    private var statusViewLeadingConstraint: NSLayoutConstraint!
+    private var statusViewTrailingConstraint: NSLayoutConstraint!
+
+    init() {
+        super.init(frame: .zero)
+        statusView.translatesAutoresizingMaskIntoConstraints = false
+        statusView.setup(style: .inline)
+        addSubview(statusView)
+        
+        statusViewLeadingConstraint = statusView.leadingAnchor.constraint(equalTo: leadingAnchor)
+        statusViewTrailingConstraint = statusView.trailingAnchor.constraint(equalTo: trailingAnchor)
+        
+        NSLayoutConstraint.activate([
+            statusView.topAnchor.constraint(equalTo: topAnchor),
+            statusView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            statusViewLeadingConstraint,
+            statusViewTrailingConstraint
+        ])
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func prepareForReuse() {
+        statusView.prepareForReuse()
+    }
+}
+
+extension StatusHistoryView: AdaptiveContainerView {
+    func updateContainerViewComponentsLayoutMarginsRelativeArrangementBehavior(isEnabled: Bool) {
+        statusView.updateContainerViewComponentsLayoutMarginsRelativeArrangementBehavior(isEnabled: isEnabled)
+        statusViewLeadingConstraint.constant = isEnabled ? 0 : StatusEditHistoryTableViewCell.horizontalMargin
+        statusViewTrailingConstraint.constant = isEnabled ? 0 : -StatusEditHistoryTableViewCell.horizontalMargin
     }
 }
