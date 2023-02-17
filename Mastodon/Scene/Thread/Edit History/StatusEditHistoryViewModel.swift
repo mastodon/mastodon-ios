@@ -17,10 +17,10 @@ struct StatusEditHistoryViewModel {
         StatusSection.setupStatusPollDataSource(
             context: appContext,
             authContext: authContext,
-            statusView: cell.statusView
+            statusView: cell.statusHistoryView.statusView
         )
         
-        cell.statusView.frame.size.width = tableView.frame.width - cell.containerViewHorizontalMargin
-        cell.statusViewBottomConstraint.constant = cell.statusView.mediaContainerView.isHidden ? -StatusEditHistoryTableViewCell.horizontalMargin : 0
+        cell.statusHistoryView.statusView.frame.size.width = tableView.frame.width - cell.containerViewHorizontalMargin
+        cell.statusViewBottomConstraint.constant = cell.statusHistoryView.statusView.mediaContainerView.isHidden ? -StatusEditHistoryTableViewCell.verticalMargin : 0
     }
 }
