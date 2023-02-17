@@ -65,11 +65,19 @@ extension APIService {
                 domain: domain,
                 authorization: authorization).singleOutput()
 
+            let responseHistory = try await Mastodon.API.Statuses.editHistory(
+                forStatusID: statusID,
+                session: session,
+                domain: domain,
+                authorization: authorization
+            ).singleOutput()
+            
             #if !APP_EXTENSION
             let managedObjectContext = self.backgroundManagedObjectContext
+
             try await managedObjectContext.performChanges {
                 let me = authenticationBox.authenticationRecord.object(in: managedObjectContext)?.user
-                _ = Persistence.Status.createOrMerge(
+                let status = Persistence.Status.createOrMerge(
                     in: managedObjectContext,
                     context: Persistence.Status.PersistContext(
                         domain: domain,
@@ -79,6 +87,12 @@ extension APIService {
                         userCache: nil,
                         networkDate: response.networkDate
                     )
+                )
+                
+                Persistence.StatusEdit.createOrMerge(
+                    in: managedObjectContext,
+                    statusEdits: responseHistory.value,
+                    forStatus: status.status
                 )
             }
             #endif
