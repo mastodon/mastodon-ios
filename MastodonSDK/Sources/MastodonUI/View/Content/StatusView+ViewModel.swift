@@ -611,20 +611,21 @@ extension StatusView.ViewModel {
         .store(in: &disposeBag)
         
         $reblogCount
-            .sink { title in
-                statusView.statusMetricView.reblogButton.detailLabel.text = "\(title)"
+            .sink { count in
+                statusView.statusMetricView.reblogButton.isHidden = count == 0
+                statusView.statusMetricView.reblogButton.detailLabel.text = "\(count)"
             }
             .store(in: &disposeBag)
         
         $favoriteCount
-            .sink { title in
-                statusView.statusMetricView.favoriteButton.detailLabel.text = "\(title)"
+            .sink { count in
+                statusView.statusMetricView.favoriteButton.isHidden = count == 0
+                statusView.statusMetricView.favoriteButton.detailLabel.text = "\(count)"
             }
             .store(in: &disposeBag)
 
         $editedAt
             .sink { editedAt in
-
                 if let editedAt {
                     let relativeDateFormatter = RelativeDateTimeFormatter()
                     let relativeDate = relativeDateFormatter.localizedString(for: editedAt, relativeTo: Date())
