@@ -16,6 +16,7 @@ class StatusEditHistoryTableViewCell: UITableViewCell {
     let dateLabel: UILabel
     let statusView: StatusView
     private let grayBackground: UIView
+    var statusViewBottomConstraint: NSLayoutConstraint!
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         dateLabel = UILabel()
@@ -49,6 +50,7 @@ class StatusEditHistoryTableViewCell: UITableViewCell {
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 
     private func setupConstraints() {
+        statusViewBottomConstraint = statusView.bottomAnchor.constraint(equalTo: grayBackground.bottomAnchor, constant: -Self.horizontalMargin)
         let constraints = [
             dateLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
             dateLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
@@ -62,8 +64,8 @@ class StatusEditHistoryTableViewCell: UITableViewCell {
             statusView.topAnchor.constraint(equalTo: grayBackground.topAnchor, constant: Self.horizontalMargin),
             statusView.leadingAnchor.constraint(equalTo: grayBackground.leadingAnchor),
             statusView.trailingAnchor.constraint(equalTo: grayBackground.trailingAnchor),
-            statusView.bottomAnchor.constraint(equalTo: grayBackground.bottomAnchor, constant: -Self.horizontalMargin),
-        ]
+            statusViewBottomConstraint,
+        ].compactMap { $0 }
 
         NSLayoutConstraint.activate(constraints)
     }
