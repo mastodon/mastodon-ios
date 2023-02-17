@@ -21,5 +21,6 @@ struct StatusEditHistoryViewModel {
         )
         
         cell.statusView.frame.size.width = tableView.frame.width - cell.containerViewHorizontalMargin
+        cell.statusViewBottomConstraint.constant = cell.statusView.mediaContainerView.isHidden ? -StatusEditHistoryTableViewCell.horizontalMargin : 0
     }
 }
