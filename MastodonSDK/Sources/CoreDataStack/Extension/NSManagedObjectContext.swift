@@ -35,7 +35,7 @@ extension NSManagedObjectContext {
     
     public func performChanges(block: @escaping () -> Void) -> Future<Result<Void, Error>, Never> {
         Future { promise in
-            self.performAndWait {
+            self.perform {
                 block()
                 do {
                     try self.saveOrRollback()
@@ -50,13 +50,13 @@ extension NSManagedObjectContext {
 
 extension NSManagedObjectContext {
     public func perform<T>(block: @escaping () throws -> T) async throws -> T {
-        return try performAndWait {
+        return try await perform(schedule: .enqueued) {
             try block()
         }
     }
     
     public func performChanges<T>(block: @escaping () throws -> T) async throws -> T {
-        return try performAndWait {
+        return try await perform(schedule: .enqueued) {
             let value = try block()
             try self.saveOrRollback()
             return value
