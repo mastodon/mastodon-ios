@@ -62,6 +62,8 @@ class StatusEditHistoryTableViewCell: UITableViewCell {
             grayBackground.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Self.verticalMargin),
 
             statusHistoryView.topAnchor.constraint(equalTo: grayBackground.topAnchor, constant: Self.verticalMargin),
+            statusHistoryView.leadingAnchor.constraint(equalTo: grayBackground.leadingAnchor),
+            statusHistoryView.trailingAnchor.constraint(equalTo: grayBackground.trailingAnchor),
             statusViewBottomConstraint,
         ].compactMap { $0 }
 
