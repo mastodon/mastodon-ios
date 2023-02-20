@@ -641,26 +641,24 @@ extension ComposeContentViewModel {
 
         // save language to recent languages
         if let settings = context.settingService.currentSetting.value {
-            Task.detached(priority: .background) { [language] in
-                try await settings.managedObjectContext?.performChanges {
-                    settings.recentLanguages = [language] + settings.recentLanguages.filter { $0 != language }
-                }
+            settings.managedObjectContext?.performAndWait {
+                settings.recentLanguages = [language] + settings.recentLanguages.filter { $0 != language }
             }
         }
 
         return MastodonEditStatusPublisher(statusID: status.id,
-            author: author,
-            isContentWarningComposing: isContentWarningActive,
-            contentWarning: contentWarning,
-            content: content,
-            isMediaSensitive: isContentWarningActive,
-            attachmentViewModels: attachmentViewModels,
-            isPollComposing: isPollActive,
-            pollOptions: pollOptions,
-            pollExpireConfigurationOption: pollExpireConfigurationOption,
-            pollMultipleConfigurationOption: pollMultipleConfigurationOption,
-            visibility: visibility,
-            language: language)
+                                           author: author,
+                                           isContentWarningComposing: isContentWarningActive,
+                                           contentWarning: contentWarning,
+                                           content: content,
+                                           isMediaSensitive: isContentWarningActive,
+                                           attachmentViewModels: attachmentViewModels,
+                                           isPollComposing: isPollActive,
+                                           pollOptions: pollOptions,
+                                           pollExpireConfigurationOption: pollExpireConfigurationOption,
+                                           pollMultipleConfigurationOption: pollMultipleConfigurationOption,
+                                           visibility: visibility,
+                                           language: language)
     }
 
 }
