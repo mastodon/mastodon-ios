@@ -4,6 +4,6 @@ import Foundation
 
 struct MastodonMyServerURL {
     
-    static let SERVER_URL = "https://mastoturk.org/"
+    static let SERVER_URL = "mastoturk.org"
     
 }
