@@ -62,8 +62,10 @@ class MastodonLoginViewController: UIViewController, NeedsDependency {
     loginView.searchTextField.addTarget(self, action: #selector(MastodonLoginViewController.textfieldDidChange(_:)), for: .editingChanged)
     loginView.tableView.delegate = self
     loginView.tableView.register(MastodonLoginServerTableViewCell.self, forCellReuseIdentifier: MastodonLoginServerTableViewCell.reuseIdentifier)
-    loginView.navigationActionView.nextButton.isEnabled = false
+    
+    loginView.navigationActionView.nextButton.isEnabled = true
 
+      
     view = loginView
   }
 

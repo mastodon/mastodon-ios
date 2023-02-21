@@ -478,6 +478,7 @@
 		DBFEEC99279BDCDE004F81DD /* ProfileAboutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBFEEC98279BDCDE004F81DD /* ProfileAboutViewModel.swift */; };
 		DBFEEC9B279BDDD9004F81DD /* ProfileAboutViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBFEEC9A279BDDD9004F81DD /* ProfileAboutViewModel+Diffable.swift */; };
 		DBFEEC9D279C12C1004F81DD /* ProfileFieldEditCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBFEEC9C279C12C1004F81DD /* ProfileFieldEditCollectionViewCell.swift */; };
+		FBDA1F4629A53A6300FA5048 /* MastodonMyServerURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBDA1F4529A53A6300FA5048 /* MastodonMyServerURL.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1219,6 +1220,7 @@
 		F31E7502A7E3945B98C6CBAF /* Pods-NotificationService.asdk.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationService.asdk.xcconfig"; path = "Target Support Files/Pods-NotificationService/Pods-NotificationService.asdk.xcconfig"; sourceTree = "<group>"; };
 		F4A2A2D7000E477CA459ADA9 /* Pods_AppShared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AppShared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F920AD4EC23B0D00F5CCA58E /* Pods-MastodonIntent.asdk - release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MastodonIntent.asdk - release.xcconfig"; path = "Target Support Files/Pods-MastodonIntent/Pods-MastodonIntent.asdk - release.xcconfig"; sourceTree = "<group>"; };
+		FBDA1F4529A53A6300FA5048 /* MastodonMyServerURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonMyServerURL.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2816,6 +2818,7 @@
 				85904C01293BC0EB0011C817 /* ImageProvider.swift */,
 				85904C03293BC1940011C817 /* URLActivityItemWithMetadata.swift */,
 				855149C929606D6400943D96 /* PortraitAlertController.swift */,
+				FBDA1F4529A53A6300FA5048 /* MastodonMyServerURL.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -3548,6 +3551,7 @@
 				2D38F1F725CD47AC00561493 /* HomeTimelineViewModel+LoadOldestState.swift in Sources */,
 				DB0FCB7427956939006C02E2 /* DataSourceFacade+Status.swift in Sources */,
 				DBB525502611ED6D002F1F29 /* ProfileHeaderView.swift in Sources */,
+				FBDA1F4629A53A6300FA5048 /* MastodonMyServerURL.swift in Sources */,
 				DB63F75A279953F200455B82 /* SearchHistoryUserCollectionViewCell+ViewModel.swift in Sources */,
 				DB023D26279FFB0A005AC798 /* ShareActivityProvider.swift in Sources */,
 				5D0393962612D266007FE196 /* WebViewModel.swift in Sources */,

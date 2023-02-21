@@ -71,6 +71,10 @@ extension MastodonPickServerViewController {
         setupOnboardingAppearance()
         defer { setupNavigationBarBackgroundView() }
 
+        tableView.isHidden = true
+        searchController.searchBar.isUserInteractionEnabled = false
+        searchController.searchBar.text = MastodonMyServerURL.SERVER_URL;
+
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
         NSLayoutConstraint.activate([
