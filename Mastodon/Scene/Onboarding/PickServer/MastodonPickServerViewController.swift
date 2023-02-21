@@ -70,6 +70,11 @@ extension MastodonPickServerViewController {
         
         setupOnboardingAppearance()
         defer { setupNavigationBarBackgroundView() }
+        
+        searchController.searchBar.text = MastodonMyServerURL.SERVER_URL;
+        searchController.searchBar.isUserInteractionEnabled = false
+        tableView.isUserInteractionEnabled = false
+        tableView.isHidden = true
 
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
