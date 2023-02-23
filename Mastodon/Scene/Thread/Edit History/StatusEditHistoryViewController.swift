@@ -4,6 +4,7 @@ import UIKit
 import MastodonSDK
 import CoreDataStack
 import MastodonCore
+import MastodonLocalization
 
 class StatusEditHistoryViewController: UIViewController {
 
@@ -36,7 +37,7 @@ class StatusEditHistoryViewController: UIViewController {
             let dateText: String
 
             if statusEdit == viewModel.edits.last {
-                dateText = "Original Post · \(self.dateFormatter.string(from: statusEdit.createdAt))"
+                dateText = L10n.Common.Controls.Status.EditHistory.originalPost(self.dateFormatter.string(from: statusEdit.createdAt))
             } else {
                 dateText = self.dateFormatter.string(from: statusEdit.createdAt)
             }
@@ -57,7 +58,7 @@ class StatusEditHistoryViewController: UIViewController {
         view.backgroundColor = ThemeService.shared.currentTheme.value.secondarySystemBackgroundColor
         setupConstraints()
 
-        title = "Edit History"
+        title = L10n.Common.Controls.Status.EditHistory.title
     }
 
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
