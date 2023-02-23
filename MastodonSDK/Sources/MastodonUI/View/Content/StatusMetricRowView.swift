@@ -9,6 +9,8 @@ public final class StatusMetricRowView: UIButton {
     let detailLabel: UILabel
     let chevron: UIImageView
 
+    private let contentStack: UIStackView
+
     public init(iconImage: UIImage? = nil, text: String? = nil, detailText: String? = nil) {
 
         icon = UIImageView(image: iconImage?.withRenderingMode(.alwaysTemplate))
@@ -32,17 +34,44 @@ public final class StatusMetricRowView: UIButton {
         chevron.translatesAutoresizingMaskIntoConstraints = false
         chevron.tintColor = Asset.Colors.Label.tertiary.color
 
+        contentStack = UIStackView()
+        contentStack.translatesAutoresizingMaskIntoConstraints = false
+        contentStack.distribution = .fill
+        contentStack.spacing = 8
+        contentStack.addArrangedSubview(textLabel)
+        contentStack.addArrangedSubview(detailLabel)
+
         super.init(frame: .zero)
 
+        self.traitCollectionDidChange(nil)
+
         addSubview(icon)
-        addSubview(textLabel)
-        addSubview(detailLabel)
+        addSubview(contentStack)
         addSubview(chevron)
 
         setupConstraints()
     }
 
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
+
+    public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+
+        if traitCollection.preferredContentSizeCategory.isAccessibilityCategory {
+            contentStack.axis = .vertical
+            contentStack.alignment = .fill
+            detailLabel.textAlignment = .natural
+        } else {
+            contentStack.axis = .horizontal
+            contentStack.alignment = .leading
+            switch traitCollection.layoutDirection {
+            case .leftToRight, .unspecified: detailLabel.textAlignment = .right
+            case .rightToLeft: detailLabel.textAlignment = .left
+            @unknown default:
+                break
+            }
+        }
+    }
 
     var margin: CGFloat = 0 {
         didSet {
@@ -51,24 +80,21 @@ public final class StatusMetricRowView: UIButton {
     }
 
     private func setupConstraints() {
+        icon.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        chevron.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         let constraints = [
             icon.topAnchor.constraint(greaterThanOrEqualTo: topAnchor, constant: 10),
             icon.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
             icon.centerYAnchor.constraint(equalTo: centerYAnchor),
-            textLabel.leadingAnchor.constraint(equalTo: icon.trailingAnchor, constant: 16),
+            contentStack.leadingAnchor.constraint(equalTo: icon.trailingAnchor, constant: 16),
             icon.widthAnchor.constraint(greaterThanOrEqualToConstant: 24),
             icon.heightAnchor.constraint(greaterThanOrEqualToConstant: 24),
             bottomAnchor.constraint(greaterThanOrEqualTo: icon.bottomAnchor, constant: 10),
 
-            textLabel.topAnchor.constraint(greaterThanOrEqualTo: topAnchor, constant: 11),
-            detailLabel.leadingAnchor.constraint(greaterThanOrEqualTo: textLabel.trailingAnchor, constant: 8),
-            textLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
-            bottomAnchor.constraint(greaterThanOrEqualTo: textLabel.bottomAnchor, constant: 11),
-
-            detailLabel.topAnchor.constraint(greaterThanOrEqualTo: topAnchor, constant: 11),
-            chevron.leadingAnchor.constraint(greaterThanOrEqualTo: detailLabel.trailingAnchor, constant: 12),
-            detailLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
-            bottomAnchor.constraint(greaterThanOrEqualTo: detailLabel.bottomAnchor, constant: 11),
+            contentStack.topAnchor.constraint(greaterThanOrEqualTo: topAnchor, constant: 11),
+            contentStack.centerYAnchor.constraint(equalTo: centerYAnchor),
+            bottomAnchor.constraint(greaterThanOrEqualTo: contentStack.bottomAnchor, constant: 11),
+            chevron.leadingAnchor.constraint(equalTo: contentStack.trailingAnchor, constant: 12),
 
             chevron.centerYAnchor.constraint(equalTo: centerYAnchor),
             layoutMarginsGuide.trailingAnchor.constraint(equalTo: chevron.trailingAnchor),
