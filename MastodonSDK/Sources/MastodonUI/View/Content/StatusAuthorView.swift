@@ -81,6 +81,7 @@ public class StatusAuthorView: UIStackView {
         case .notificationQuote:    layoutNotificationQuote()
         case .composeStatusReplica: layoutComposeStatusReplica()
         case .composeStatusAuthor:  layoutComposeStatusAuthor()
+        case .editHistory:          layoutBase()
         }
     }
 

@@ -37,6 +37,8 @@ class StatusEditHistoryTableViewCell: UITableViewCell {
 
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
+        isAccessibilityElement = true
+
         selectionStyle = .none
         grayBackground.addSubview(statusHistoryView)
         contentView.addSubview(dateLabel)
@@ -84,6 +86,13 @@ class StatusEditHistoryTableViewCell: UITableViewCell {
         super.traitCollectionDidChange(previousTraitCollection)
         updateContainerViewMarginConstraints()
     }
+
+    override var accessibilityLabel: String? {
+        get {
+            (dateLabel.text ?? "") + ", " + (statusHistoryView.statusView.accessibilityLabel ?? "")
+        }
+        set {}
+    }
 }
 
 // MARK: - AdaptiveContainerMarginTableViewCell
@@ -102,7 +111,7 @@ class StatusHistoryView: UIView {
     init() {
         super.init(frame: .zero)
         statusView.translatesAutoresizingMaskIntoConstraints = false
-        statusView.setup(style: .inline)
+        statusView.setup(style: .editHistory)
         addSubview(statusView)
         
         statusViewLeadingConstraint = statusView.leadingAnchor.constraint(equalTo: leadingAnchor)
