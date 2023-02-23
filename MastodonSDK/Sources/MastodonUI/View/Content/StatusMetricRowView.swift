@@ -38,6 +38,7 @@ public final class StatusMetricRowView: UIButton {
         contentStack.translatesAutoresizingMaskIntoConstraints = false
         contentStack.distribution = .fill
         contentStack.spacing = 8
+        contentStack.isUserInteractionEnabled = false
         contentStack.addArrangedSubview(textLabel)
         contentStack.addArrangedSubview(detailLabel)
 
