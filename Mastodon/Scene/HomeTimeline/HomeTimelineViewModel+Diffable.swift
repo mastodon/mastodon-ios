@@ -58,7 +58,7 @@ extension HomeTimelineViewModel {
                         snapshot.appendItems(newItems, toSection: .main)
                         return snapshot
                     }()
-                    
+
                     let parentManagedObjectContext = self.context.managedObjectContext
                     let managedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
                     managedObjectContext.parent = parentManagedObjectContext
@@ -89,7 +89,7 @@ extension HomeTimelineViewModel {
                             }
                         }
                     }
-                    
+
                     let hasChanges = newSnapshot.itemIdentifiers != oldSnapshot.itemIdentifiers
                     if !hasChanges && !self.hasPendingStatusEditReload {
                         self.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): snapshot not changes")
@@ -98,7 +98,7 @@ extension HomeTimelineViewModel {
                     } else {
                         self.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): snapshot has changes")
                     }
-                    
+
                     guard let difference = self.calculateReloadSnapshotDifference(
                         tableView: tableView,
                         oldSnapshot: oldSnapshot,
