@@ -132,6 +132,8 @@ public enum L10n {
         public static let done = L10n.tr("Localizable", "Common.Controls.Actions.Done", fallback: "Done")
         /// Edit
         public static let edit = L10n.tr("Localizable", "Common.Controls.Actions.Edit", fallback: "Edit")
+        /// Edit
+        public static let editPost = L10n.tr("Localizable", "Common.Controls.Actions.EditPost", fallback: "Edit")
         /// Find people to follow
         public static let findPeople = L10n.tr("Localizable", "Common.Controls.Actions.FindPeople", fallback: "Find people to follow")
         /// Manually search instead
