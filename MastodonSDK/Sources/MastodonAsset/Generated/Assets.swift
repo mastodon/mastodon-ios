@@ -103,6 +103,7 @@ public enum Asset {
     public static let disabled = ColorAsset(name: "Colors/disabled")
     public static let inactive = ColorAsset(name: "Colors/inactive")
     public static let mediaTypeIndicotor = ColorAsset(name: "Colors/media.type.indicotor")
+    public static let selectionHighlight = ColorAsset(name: "Colors/selection.highlight")
     public static let successGreen = ColorAsset(name: "Colors/success.green")
     public static let systemOrange = ColorAsset(name: "Colors/system.orange")
   }
