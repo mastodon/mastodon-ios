@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 
 public final class CircleAvatarButton: AvatarButton {
     

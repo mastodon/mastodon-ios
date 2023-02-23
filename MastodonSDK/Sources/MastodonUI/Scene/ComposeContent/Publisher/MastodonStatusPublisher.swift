@@ -7,6 +7,7 @@
 
 import os.log
 import Foundation
+import Combine
 import CoreData
 import CoreDataStack
 import MastodonCore
