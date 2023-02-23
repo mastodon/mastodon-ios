@@ -51,6 +51,8 @@ public final class StatusMetricRowView: UIButton {
         addSubview(contentStack)
         addSubview(chevron)
 
+        accessibilityTraits.insert(.button)
+
         setupConstraints()
     }
 
@@ -115,5 +117,15 @@ public final class StatusMetricRowView: UIButton {
                 backgroundColor = .clear
             }
         }
+    }
+
+    public override var accessibilityLabel: String? {
+        get { textLabel.text }
+        set {}
+    }
+
+    public override var accessibilityValue: String? {
+        get { detailLabel.text }
+        set {}
     }
 }
