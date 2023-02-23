@@ -18,6 +18,15 @@ protocol StatusMetricViewDelegate: AnyObject {
 public final class StatusMetricView: UIView {
 
     weak var delegate: StatusMetricViewDelegate?
+
+    var margin: CGFloat = 0 {
+        didSet {
+            dateAdaptiveMarginContainerView.margin = margin
+            reblogButton.margin = margin
+            favoriteButton.margin = margin
+            editHistoryButton.margin = margin
+        }
+    }
     
     // container
     private let containerStackView: UIStackView = {
@@ -34,6 +43,7 @@ public final class StatusMetricView: UIView {
     }()
     
     // date
+    let dateAdaptiveMarginContainerView = AdaptiveMarginContainerView()
     public let dateLabel: UILabel = {
         let label = UILabel()
         label.font = UIFontMetrics(forTextStyle: .subheadline).scaledFont(for: .systemFont(ofSize: 15, weight: .regular))
@@ -106,7 +116,9 @@ extension StatusMetricView {
         containerStackView.setCustomSpacing(11, after: buttonStackView)
 
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
-        containerStackView.addArrangedSubview(dateLabel)
+        dateAdaptiveMarginContainerView.translatesAutoresizingMaskIntoConstraints = false
+        dateAdaptiveMarginContainerView.contentView = dateLabel
+        containerStackView.addArrangedSubview(dateAdaptiveMarginContainerView)
 
         NSLayoutConstraint.activate([
             containerStackView.topAnchor.constraint(equalTo: topAnchor, constant: 8),

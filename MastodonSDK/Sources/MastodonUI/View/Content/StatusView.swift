@@ -256,7 +256,6 @@ public final class StatusView: UIView {
     public let actionToolbarContainer = ActionToolbarContainer()
 
     // metric
-    let statusMetricViewAdaptiveMarginContainerView = AdaptiveMarginContainerView()
     public let statusMetricView = StatusMetricView()
     
     // filter hint
@@ -533,9 +532,8 @@ extension StatusView.Style {
         base(statusView: statusView)      // override the base style
         
         // statusMetricView
-        statusView.statusMetricViewAdaptiveMarginContainerView.contentView = statusView.statusMetricView
-        statusView.statusMetricViewAdaptiveMarginContainerView.margin = StatusView.containerLayoutMargin
-        statusView.containerStackView.addArrangedSubview(statusView.statusMetricViewAdaptiveMarginContainerView)
+        statusView.statusMetricView.margin = StatusView.containerLayoutMargin
+        statusView.containerStackView.addArrangedSubview(statusView.statusMetricView)
     }
     
     func report(statusView: StatusView) {
@@ -645,7 +643,7 @@ extension StatusView: AdaptiveContainerView {
         contentAdaptiveMarginContainerView.margin = margin
         pollAdaptiveMarginContainerView.margin = margin
         actionToolbarAdaptiveMarginContainerView.margin = margin
-        statusMetricViewAdaptiveMarginContainerView.margin = margin
+        statusMetricView.margin = margin
     }
 }
 

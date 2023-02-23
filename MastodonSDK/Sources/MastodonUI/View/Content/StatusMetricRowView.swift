@@ -44,10 +44,16 @@ public final class StatusMetricRowView: UIButton {
 
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 
+    var margin: CGFloat = 0 {
+        didSet {
+            layoutMargins = UIEdgeInsets(horizontal: margin, vertical: 0)
+        }
+    }
+
     private func setupConstraints() {
         let constraints = [
             icon.topAnchor.constraint(greaterThanOrEqualTo: topAnchor, constant: 10),
-            icon.leadingAnchor.constraint(equalTo: leadingAnchor),
+            icon.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
             icon.centerYAnchor.constraint(equalTo: centerYAnchor),
             textLabel.leadingAnchor.constraint(equalTo: icon.trailingAnchor, constant: 16),
             icon.widthAnchor.constraint(greaterThanOrEqualToConstant: 24),
@@ -65,9 +71,21 @@ public final class StatusMetricRowView: UIButton {
             bottomAnchor.constraint(greaterThanOrEqualTo: detailLabel.bottomAnchor, constant: 11),
 
             chevron.centerYAnchor.constraint(equalTo: centerYAnchor),
-            trailingAnchor.constraint(equalTo: chevron.trailingAnchor),
+            layoutMarginsGuide.trailingAnchor.constraint(equalTo: chevron.trailingAnchor),
         ]
 
         NSLayoutConstraint.activate(constraints)
+    }
+
+    public override var isHighlighted: Bool {
+        get { super.isHighlighted }
+        set {
+            super.isHighlighted = newValue
+            if newValue {
+                backgroundColor = Asset.Colors.selectionHighlight.color
+            } else {
+                backgroundColor = .clear
+            }
+        }
     }
 }
