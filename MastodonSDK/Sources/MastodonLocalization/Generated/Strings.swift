@@ -360,6 +360,14 @@ public enum L10n {
           /// Reblogs
           public static let reblogsTitle = L10n.tr("Localizable", "Common.Controls.Status.Buttons.ReblogsTitle", fallback: "Reblogs")
         }
+        public enum EditHistory {
+          /// Original Post · %@
+          public static func originalPost(_ p1: Any) -> String {
+            return L10n.tr("Localizable", "Common.Controls.Status.EditHistory.OriginalPost", String(describing: p1), fallback: "Original Post · %@")
+          }
+          /// Edit History
+          public static let title = L10n.tr("Localizable", "Common.Controls.Status.EditHistory.Title", fallback: "Edit History")
+        }
         public enum Media {
           /// %@, attachment %d of %d
           public static func accessibilityLabel(_ p1: Any, _ p2: Int, _ p3: Int) -> String {
