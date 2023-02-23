@@ -146,7 +146,7 @@ extension MastodonMenu {
                 }
                 return translateAction
             case .editStatus:
-                let editStatusAction = BuiltAction(title: "Edit", image: UIImage(systemName: "pencil")) {
+                let editStatusAction = BuiltAction(title: L10n.Common.Controls.Actions.editPost, image: UIImage(systemName: "pencil")) {
                     [weak delegate] in
                     guard let delegate else { return }
                     delegate.menuAction(self)

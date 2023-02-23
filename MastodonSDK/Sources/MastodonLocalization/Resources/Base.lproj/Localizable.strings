@@ -65,6 +65,7 @@ Please check your internet connection.";
 "Common.Controls.Actions.TakePhoto" = "Take Photo";
 "Common.Controls.Actions.TranslatePost.Title" = "Translate from %@";
 "Common.Controls.Actions.TranslatePost.UnknownLanguage" = "Unknown";
+"Common.Controls.Actions.EditPost" = "Edit";
 "Common.Controls.Actions.TryAgain" = "Try Again";
 "Common.Controls.Actions.UnblockDomain" = "Unblock %@";
 "Common.Controls.Friendship.Block" = "Block";
