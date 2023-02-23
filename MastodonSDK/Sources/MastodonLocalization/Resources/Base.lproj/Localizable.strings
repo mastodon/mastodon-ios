@@ -153,6 +153,8 @@ Please check your internet connection.";
 "Common.Controls.Status.Buttons.EditHistoryTitle" = "Edit History";
 "Common.Controls.Status.Buttons.EditHistoryDetail" = "Last edit %@";
 "Common.Controls.Status.EditedAtTimestampPrefix" = "Edited %@";
+"Common.Controls.Status.EditHistory.Title" = "Edit History";
+"Common.Controls.Status.EditHistory.OriginalPost" = "Original Post · %@";
 "Common.Controls.Tabs.Home" = "Home";
 "Common.Controls.Tabs.Notifications" = "Notifications";
 "Common.Controls.Tabs.Profile" = "Profile";

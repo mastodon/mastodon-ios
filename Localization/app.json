@@ -195,13 +195,18 @@
                     "expand_video_hint": "Shows the video player. Double-tap and hold to show actions"
                 },
                 "posted_via_application": "%s via %s",
-                "buttons":  {
+                "buttons": {
                     "reblogs_title": "Reblogs",
                     "favorites_title": "Favorites",
                     "edit_history_title": "Edit History",
                     "edit_history_detail": "Last edit %s"
                 },
-                "edited_at_timestamp_prefix": "Edited %s"
+                "edited_at_timestamp_prefix": "Edited %s",
+                "edit_history": {
+                    "title": "Edit History",
+                    "original_post": "Original Post · %s"
+                }
+
             },
             "friendship": {
                 "follow": "Follow",
