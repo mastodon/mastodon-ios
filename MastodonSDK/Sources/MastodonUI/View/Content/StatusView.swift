@@ -397,6 +397,7 @@ extension StatusView {
         case notificationQuote
         case composeStatusReplica
         case composeStatusAuthor
+        case editHistory
     }
 }
 
@@ -411,6 +412,7 @@ extension StatusView.Style {
         case .notificationQuote:    notificationQuote(statusView: statusView)
         case .composeStatusReplica: composeStatusReplica(statusView: statusView)
         case .composeStatusAuthor:  composeStatusAuthor(statusView: statusView)
+        case .editHistory:          editHistory(statusView: statusView)
         }
 
         statusView.authorView.layout(style: self)
@@ -575,6 +577,9 @@ extension StatusView.Style {
         statusView.actionToolbarAdaptiveMarginContainerView.removeFromSuperview()
     }
     
+    func editHistory(statusView: StatusView) {
+        base(statusView: statusView)
+    }
 }
 
 extension StatusView {
