@@ -735,8 +735,10 @@ extension StatusView.ViewModel {
                 strings.append(info.header.string)
                 strings.append(authorName?.string)
             }
-            
-            strings.append(timestamp)
+
+            if statusView.style != .editHistory {
+                strings.append(timestamp)
+            }
             
             return strings.compactMap { $0 }.joined(separator: ", ")
         }
