@@ -532,13 +532,11 @@ extension ComposeContentViewModel {
         
         // save language to recent languages
         if let settings = context.settingService.currentSetting.value {
-            Task.detached(priority: .background) { [language] in
-                try await settings.managedObjectContext?.performChanges {
-                    settings.recentLanguages = [language] + settings.recentLanguages.filter { $0 != language }
-                }
+            settings.managedObjectContext?.performAndWait {
+                settings.recentLanguages = [language] + settings.recentLanguages.filter { $0 != language }
             }
         }
-        
+
         return MastodonStatusPublisher(
             author: author,
             replyTo: {
