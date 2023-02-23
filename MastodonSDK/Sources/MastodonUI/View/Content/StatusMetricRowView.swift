@@ -28,6 +28,7 @@ public final class StatusMetricRowView: UIButton {
         detailLabel.translatesAutoresizingMaskIntoConstraints = false
         detailLabel.text = detailText
         detailLabel.textColor = Asset.Colors.Label.secondary.color
+        detailLabel.numberOfLines = 0
         detailLabel.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 17, weight: .regular))
 
         chevron = UIImageView(image: UIImage(systemName: "chevron.right"))
