@@ -112,6 +112,7 @@ extension StatusView {
         @Published public var isFiltered = false
 
         @Published public var groupedAccessibilityLabel = ""
+        @Published public var contentAccessibilityLabel = ""
 
         let timestampUpdatePublisher = Timer.publish(every: 1.0, on: .main, in: .common)
             .autoconnect()
@@ -776,12 +777,12 @@ extension StatusView.ViewModel {
         .assign(to: \.accessibilityLabel, on: statusView.authorView)
         .store(in: &disposeBag)
 
-        let contentAccessibilityLabel = Publishers.CombineLatest3(
+        Publishers.CombineLatest3(
             $isContentReveal,
             $spoilerContent,
             $content
         )
-        .map { isContentReveal, spoilerContent, content -> String? in
+        .map { isContentReveal, spoilerContent, content in
             var strings: [String?] = []
             
             if let spoilerContent = spoilerContent, !spoilerContent.string.isEmpty {
@@ -798,6 +799,7 @@ extension StatusView.ViewModel {
             
             return strings.compactMap { $0 }.joined(separator: ", ")
         }
+        .assign(to: &$contentAccessibilityLabel)
         
         $isContentReveal
             .map { isContentReveal in
@@ -808,7 +810,7 @@ extension StatusView.ViewModel {
             }
             .store(in: &disposeBag)
         
-        contentAccessibilityLabel
+        $contentAccessibilityLabel
             .sink { contentAccessibilityLabel in
                 statusView.spoilerOverlayView.accessibilityLabel = contentAccessibilityLabel
             }
@@ -889,7 +891,7 @@ extension StatusView.ViewModel {
 
         Publishers.CombineLatest4(
             shortAuthorAccessibilityLabel,
-            contentAccessibilityLabel,
+            $contentAccessibilityLabel,
             translatedFromLabel,
             mediaAccessibilityLabel
         )
