@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21513" systemVersion="22D49" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21513" systemVersion="22D68" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Application" representedClassName="CoreDataStack.Application" syncable="YES">
         <attribute name="identifier" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" attributeType="String"/>
@@ -244,6 +244,7 @@
         <relationship name="searchHistories" toMany="YES" deletionRule="Cascade" destinationEntity="SearchHistory" inverseName="status" inverseEntity="SearchHistory"/>
     </entity>
     <entity name="StatusEdit" representedClassName="CoreDataStack.StatusEdit" syncable="YES">
+        <attribute name="attachments" optional="YES" attributeType="Binary"/>
         <attribute name="content" optional="YES" attributeType="String"/>
         <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="emojis" optional="YES" attributeType="Binary"/>
