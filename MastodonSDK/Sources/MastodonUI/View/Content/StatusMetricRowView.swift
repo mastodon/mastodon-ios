@@ -78,6 +78,7 @@ public final class StatusMetricRowView: UIButton {
                 detailLabel.topAnchor.constraint(equalTo: textLabel.bottomAnchor, constant: 8),
                 bottomAnchor.constraint(equalTo: detailLabel.bottomAnchor, constant: 11),
 
+                chevron.leadingAnchor.constraint(greaterThanOrEqualTo: textLabel.trailingAnchor, constant: 12),
                 chevron.leadingAnchor.constraint(greaterThanOrEqualTo: detailLabel.trailingAnchor, constant: 12),
             ]
         } else {
