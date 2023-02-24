@@ -12,7 +12,8 @@ extension StatusEdit.Property {
             sensitive: entity.sensitive,
             spoilerText: entity.spoilerText,
             emojis: entity.mastodonEmojis,
-            attachments: entity.mastodonAttachments)
+            attachments: entity.mastodonAttachments,
+            poll: entity.poll.map { StatusEdit.Poll(options: $0.options.map { StatusEdit.Poll.Option(title: $0.title) } ) } )
     }
 }
 
