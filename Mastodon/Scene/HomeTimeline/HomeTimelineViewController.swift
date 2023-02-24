@@ -201,7 +201,7 @@ extension HomeTimelineViewController {
             .store(in: &disposeBag)
         
         context.publisherService.statusPublishResult.sink { result in
-            if case let Result.success(res) = result, case StatusPublishResult.edit = res {
+            if case .success(.edit) = result {
                 self.viewModel.hasPendingStatusEditReload = true
             }
         }.store(in: &disposeBag)
