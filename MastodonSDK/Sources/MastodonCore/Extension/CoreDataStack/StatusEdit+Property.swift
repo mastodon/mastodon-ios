@@ -11,6 +11,13 @@ extension StatusEdit.Property {
             content: entity.content,
             sensitive: entity.sensitive,
             spoilerText: entity.spoilerText,
-            emojis: entity.mastodonEmojis)
+            emojis: entity.mastodonEmojis,
+            attachments: entity.mastodonAttachments)
+    }
+}
+
+extension Mastodon.Entity.StatusEdit {
+    public var mastodonAttachments: [MastodonAttachment] {
+        mediaAttachments.mastodonAttachments
     }
 }

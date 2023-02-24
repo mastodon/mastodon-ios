@@ -43,6 +43,7 @@ extension StatusView {
     public func configure(status: Status, statusEdit: StatusEdit) {
         configure(status: status)
         configureContent(statusEdit: statusEdit, status: status)
+        configureMedia(status: statusEdit)
         actionToolbarAdaptiveMarginContainerView.isHidden = true
         authorView.menuButton.isHidden = true
         headerAdaptiveMarginContainerView.isHidden = true
@@ -381,7 +382,7 @@ extension StatusView {
             .store(in: &disposeBag)
     }
     
-    private func configureMedia(status: Status) {
+    private func configureMedia(status: StatusCompatible) {
         let status = status.reblog ?? status
         
         viewModel.isMediaSensitive = status.isMediaSensitive

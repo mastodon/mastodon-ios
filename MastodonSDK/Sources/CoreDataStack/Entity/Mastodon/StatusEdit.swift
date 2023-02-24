@@ -27,19 +27,22 @@ public final class StatusEdit: NSManagedObject {
         public let sensitive: Bool
         public let spoilerText: String?
         public let emojis: [MastodonEmoji]
+        public let attachments: [MastodonAttachment]
 
         public init(
             createdAt: Date,
             content: String,
             sensitive: Bool,
             spoilerText: String?,
-            emojis: [MastodonEmoji]
+            emojis: [MastodonEmoji],
+            attachments: [MastodonAttachment]
         ) {
             self.createdAt = createdAt
             self.content = content
             self.sensitive = sensitive
             self.spoilerText = spoilerText
             self.emojis = emojis
+            self.attachments = attachments
         }
     }
 
@@ -49,6 +52,7 @@ public final class StatusEdit: NSManagedObject {
         self.sensitive = property.sensitive
         self.spoilerText = property.spoilerText
         self.emojis = property.emojis
+        self.attachments = property.attachments
     }
 
     public func update(property: Property) {
@@ -57,6 +61,7 @@ public final class StatusEdit: NSManagedObject {
         update(sensitive: property.sensitive)
         update(spoilerText: property.spoilerText)
         update(emojis: property.emojis)
+        update(attachments: property.attachments)
     }
     // sourcery:end
 
@@ -85,6 +90,35 @@ public final class StatusEdit: NSManagedObject {
         }
     }
 }
+
+extension StatusEdit {
+    // sourcery: autoUpdatableObject, autoGenerateProperty
+    @objc public var attachments: [MastodonAttachment] {
+        get {
+            let keyPath = #keyPath(StatusEdit.attachments)
+            willAccessValue(forKey: keyPath)
+            let _data = primitiveValue(forKey: keyPath) as? Data
+            didAccessValue(forKey: keyPath)
+            do {
+                guard let data = _data else { return [] }
+                let attachments = try JSONDecoder().decode([MastodonAttachment].self, from: data)
+                return attachments
+            } catch {
+                assertionFailure(error.localizedDescription)
+                return []
+            }
+        }
+        set {
+            let keyPath = #keyPath(StatusEdit.attachments)
+            let data = try? JSONEncoder().encode(newValue)
+            willChangeValue(forKey: keyPath)
+            setPrimitiveValue(data, forKey: keyPath)
+            didChangeValue(forKey: keyPath)
+        }
+    }
+
+}
+
 extension StatusEdit: Managed {
     @discardableResult
     public static func insert(
@@ -127,6 +161,11 @@ extension StatusEdit: AutoUpdatableObject {
     public func update(emojis: [MastodonEmoji]) {
     	if self.emojis != emojis {
     		self.emojis = emojis
+    	}
+    }
+    public func update(attachments: [MastodonAttachment]) {
+    	if self.attachments != attachments {
+    		self.attachments = attachments
     	}
     }
     // sourcery:end
