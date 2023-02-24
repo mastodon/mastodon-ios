@@ -17,7 +17,7 @@ class StatusEditHistoryTableViewCell: UITableViewCell {
     let dateLabel: UILabel
     let statusHistoryView: StatusHistoryView
     private let grayBackground: UIView
-    var statusViewBottomConstraint: NSLayoutConstraint!
+    var statusViewBottomConstraint: NSLayoutConstraint?
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         dateLabel = UILabel()
