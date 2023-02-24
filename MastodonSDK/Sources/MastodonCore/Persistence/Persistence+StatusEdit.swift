@@ -6,16 +6,6 @@ import MastodonSDK
 
 extension Persistence.StatusEdit {
 
-    public static func fetch(
-        in managedObjectContext: NSManagedObjectContext,
-        forStatusID statusID: Status.ID
-    ) -> [StatusEdit] {
-        //        let request = StatusEditHistoryEntry.fetchRequest()
-        //        let statusEdit = try? managedObjectContext.fetch(request).first as? StatusEditHistoryEntry
-        //        return statusEdit
-        return []
-    }
-
     public static func createOrMerge(
         in managedObjectContext: NSManagedObjectContext,
         statusEdits: [Mastodon.Entity.StatusEdit],
