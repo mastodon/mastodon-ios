@@ -26,6 +26,7 @@
 		2A1FE47E2938C11200784BF1 /* Collection+IsNotEmpty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1FE47D2938C11200784BF1 /* Collection+IsNotEmpty.swift */; };
 		2A33062D2987DBFA001D4C51 /* FollowersCountHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A33062C2987DBFA001D4C51 /* FollowersCountHistory.swift */; };
 		2A33AB662982C4AF008A7FB1 /* FollowersCountWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A33AB652982C4AF008A7FB1 /* FollowersCountWidgetView.swift */; };
+		2A3D9B7E29A8F33A00F30313 /* StatusHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A3D9B7D29A8F33A00F30313 /* StatusHistoryView.swift */; };
 		2A3F6FE3292ECB5E002E6DA7 /* FollowedTagsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A3F6FE2292ECB5E002E6DA7 /* FollowedTagsViewModel.swift */; };
 		2A3F6FE5292F6E44002E6DA7 /* FollowedTagsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A3F6FE4292F6E44002E6DA7 /* FollowedTagsTableViewCell.swift */; };
 		2A506CF4292CD85800059C37 /* FollowedTagsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A506CF3292CD85800059C37 /* FollowedTagsViewController.swift */; };
@@ -619,6 +620,7 @@
 		2A33062C2987DBFA001D4C51 /* FollowersCountHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowersCountHistory.swift; sourceTree = "<group>"; };
 		2A33625329759B4200481A90 /* OpenInActionExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OpenInActionExtension.entitlements; sourceTree = "<group>"; };
 		2A33AB652982C4AF008A7FB1 /* FollowersCountWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowersCountWidgetView.swift; sourceTree = "<group>"; };
+		2A3D9B7D29A8F33A00F30313 /* StatusHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusHistoryView.swift; sourceTree = "<group>"; };
 		2A3F6FE2292ECB5E002E6DA7 /* FollowedTagsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowedTagsViewModel.swift; sourceTree = "<group>"; };
 		2A3F6FE4292F6E44002E6DA7 /* FollowedTagsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowedTagsTableViewCell.swift; sourceTree = "<group>"; };
 		2A506CF3292CD85800059C37 /* FollowedTagsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowedTagsViewController.swift; sourceTree = "<group>"; };
@@ -1838,6 +1840,7 @@
 				D8E5C348296DB8A3007E76A7 /* StatusEditHistoryViewController.swift */,
 				D808B94B296ECFDC0031EB1E /* StatusEditHistoryViewModel.swift */,
 				D808B94D296EFBBA0031EB1E /* StatusEditHistoryTableViewCell.swift */,
+				2A3D9B7D29A8F33A00F30313 /* StatusHistoryView.swift */,
 			);
 			path = "Edit History";
 			sourceTree = "<group>";
@@ -3824,6 +3827,7 @@
 				DB9D6BF825E4F5690051B173 /* NotificationViewController.swift in Sources */,
 				2DAC9E46262FC9FD0062E1A6 /* SuggestionAccountTableViewCell.swift in Sources */,
 				DB4FFC2C269EC39600D62E92 /* SearchTransitionController.swift in Sources */,
+				2A3D9B7E29A8F33A00F30313 /* StatusHistoryView.swift in Sources */,
 				6213AF5E2893A8B200BCADB6 /* DataSourceFacade+Bookmark.swift in Sources */,
 				DBA5E7A9263BD3A4004598BB /* ContextMenuImagePreviewViewController.swift in Sources */,
 				DBF156E22702DA6900EC00B7 /* UIStatusBarManager+HandleTapAction.m in Sources */,
