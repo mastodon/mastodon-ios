@@ -248,10 +248,10 @@
         <attribute name="content" optional="YES" attributeType="String"/>
         <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="emojis" optional="YES" attributeType="Binary"/>
+        <attribute name="poll" optional="YES" attributeType="Binary"/>
         <attribute name="sensitive" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="spoilerText" optional="YES" attributeType="String"/>
         <relationship name="author" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MastodonUser"/>
-        <relationship name="poll" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Poll"/>
         <relationship name="status" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Status" inverseName="editHistory" inverseEntity="Status"/>
     </entity>
     <entity name="Subscription" representedClassName="CoreDataStack.Subscription" syncable="YES">

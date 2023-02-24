@@ -4,6 +4,21 @@ import Foundation
 import CoreData
 
 public final class StatusEdit: NSManagedObject {
+    public final class Poll: NSObject, Codable {
+        public final class Option: NSObject, Codable {
+            public let title: String
+            
+            public init(title: String) {
+                self.title = title
+            }
+        }
+        public let options: [Option]
+        
+        public init(options: [Option]) {
+            self.options = options
+        }
+    }
+    
     // sourcery: autoUpdatableObject, autoGenerateProperty
     @NSManaged public var createdAt: Date
 
@@ -28,6 +43,7 @@ public final class StatusEdit: NSManagedObject {
         public let spoilerText: String?
         public let emojis: [MastodonEmoji]
         public let attachments: [MastodonAttachment]
+        public let poll: Poll?
 
         public init(
             createdAt: Date,
@@ -35,7 +51,8 @@ public final class StatusEdit: NSManagedObject {
             sensitive: Bool,
             spoilerText: String?,
             emojis: [MastodonEmoji],
-            attachments: [MastodonAttachment]
+            attachments: [MastodonAttachment],
+            poll: Poll?
         ) {
             self.createdAt = createdAt
             self.content = content
@@ -43,6 +60,7 @@ public final class StatusEdit: NSManagedObject {
             self.spoilerText = spoilerText
             self.emojis = emojis
             self.attachments = attachments
+            self.poll = poll
         }
     }
 
@@ -53,6 +71,7 @@ public final class StatusEdit: NSManagedObject {
         self.spoilerText = property.spoilerText
         self.emojis = property.emojis
         self.attachments = property.attachments
+        self.poll = property.poll
     }
 
     public func update(property: Property) {
@@ -62,6 +81,7 @@ public final class StatusEdit: NSManagedObject {
         update(spoilerText: property.spoilerText)
         update(emojis: property.emojis)
         update(attachments: property.attachments)
+        update(poll: property.poll)
     }
     // sourcery:end
 
@@ -119,6 +139,34 @@ extension StatusEdit {
 
 }
 
+extension StatusEdit {
+    // sourcery: autoUpdatableObject, autoGenerateProperty
+    @objc public var poll: Poll? {
+        get {
+            let keyPath = #keyPath(StatusEdit.poll)
+            willAccessValue(forKey: keyPath)
+            let _data = primitiveValue(forKey: keyPath) as? Data
+            didAccessValue(forKey: keyPath)
+            do {
+                guard let data = _data else { return nil }
+                let poll = try JSONDecoder().decode(Poll.self, from: data)
+                return poll
+            } catch {
+                assertionFailure(error.localizedDescription)
+                return nil
+            }
+        }
+        set {
+            let keyPath = #keyPath(StatusEdit.poll)
+            let data = try? JSONEncoder().encode(newValue)
+            willChangeValue(forKey: keyPath)
+            setPrimitiveValue(data, forKey: keyPath)
+            didChangeValue(forKey: keyPath)
+        }
+    }
+
+}
+
 extension StatusEdit: Managed {
     @discardableResult
     public static func insert(
@@ -128,7 +176,7 @@ extension StatusEdit: Managed {
         let object: StatusEdit = context.insertObject()
 
         object.configure(property: property)
-
+        
         return object
     }
 }
@@ -166,6 +214,11 @@ extension StatusEdit: AutoUpdatableObject {
     public func update(attachments: [MastodonAttachment]) {
     	if self.attachments != attachments {
     		self.attachments = attachments
+    	}
+    }
+    public func update(poll: Poll?) {
+    	if self.poll != poll {
+    		self.poll = poll
     	}
     }
     // sourcery:end
