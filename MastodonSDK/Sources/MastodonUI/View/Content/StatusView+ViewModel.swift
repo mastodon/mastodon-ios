@@ -614,14 +614,14 @@ extension StatusView.ViewModel {
         $reblogCount
             .sink { count in
                 statusView.statusMetricView.reblogButton.isHidden = count == 0
-                statusView.statusMetricView.reblogButton.detailLabel.text = "\(count)"
+                statusView.statusMetricView.reblogButton.detailLabel.text = count.formatted()
             }
             .store(in: &disposeBag)
         
         $favoriteCount
             .sink { count in
                 statusView.statusMetricView.favoriteButton.isHidden = count == 0
-                statusView.statusMetricView.favoriteButton.detailLabel.text = "\(count)"
+                statusView.statusMetricView.favoriteButton.detailLabel.text = count.formatted()
             }
             .store(in: &disposeBag)
 
