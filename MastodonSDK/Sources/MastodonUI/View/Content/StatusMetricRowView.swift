@@ -9,7 +9,8 @@ public final class StatusMetricRowView: UIButton {
     let detailLabel: UILabel
     let chevron: UIImageView
 
-    private let contentStack: UIStackView
+    private var disposableConstraints: [NSLayoutConstraint] = []
+    private var isVerticalAxis: Bool?
 
     public init(iconImage: UIImage? = nil, text: String? = nil, detailText: String? = nil) {
 
@@ -35,37 +36,28 @@ public final class StatusMetricRowView: UIButton {
         chevron.translatesAutoresizingMaskIntoConstraints = false
         chevron.tintColor = Asset.Colors.Label.tertiary.color
 
-        contentStack = UIStackView()
-        contentStack.translatesAutoresizingMaskIntoConstraints = false
-        contentStack.distribution = .fill
-        contentStack.spacing = 8
-        contentStack.isUserInteractionEnabled = false
-        contentStack.addArrangedSubview(textLabel)
-        contentStack.addArrangedSubview(detailLabel)
-
         super.init(frame: .zero)
 
-        self.traitCollectionDidChange(nil)
-
         addSubview(icon)
-        addSubview(contentStack)
+        addSubview(textLabel)
+        addSubview(detailLabel)
         addSubview(chevron)
 
+        accessibilityTraits.insert(.button)
+
         setupConstraints()
+        traitCollectionDidChange(nil)
     }
 
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 
     public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
+        let isVerticalAxis = traitCollection.preferredContentSizeCategory.isAccessibilityCategory
 
-        if traitCollection.preferredContentSizeCategory.isAccessibilityCategory {
-            contentStack.axis = .vertical
-            contentStack.alignment = .fill
+        if isVerticalAxis {
             detailLabel.textAlignment = .natural
         } else {
-            contentStack.axis = .horizontal
-            contentStack.alignment = .leading
             switch traitCollection.layoutDirection {
             case .leftToRight, .unspecified: detailLabel.textAlignment = .right
             case .rightToLeft: detailLabel.textAlignment = .left
@@ -73,6 +65,38 @@ public final class StatusMetricRowView: UIButton {
                 break
             }
         }
+
+        guard isVerticalAxis != self.isVerticalAxis else { return }
+        self.isVerticalAxis = isVerticalAxis
+        NSLayoutConstraint.deactivate(disposableConstraints)
+
+        if isVerticalAxis {
+            disposableConstraints = [
+                textLabel.topAnchor.constraint(equalTo: topAnchor, constant: 11),
+
+                detailLabel.leadingAnchor.constraint(equalTo: textLabel.leadingAnchor),
+                detailLabel.topAnchor.constraint(equalTo: textLabel.bottomAnchor, constant: 8),
+                bottomAnchor.constraint(equalTo: detailLabel.bottomAnchor, constant: 11),
+
+                chevron.leadingAnchor.constraint(greaterThanOrEqualTo: textLabel.trailingAnchor, constant: 12),
+                chevron.leadingAnchor.constraint(greaterThanOrEqualTo: detailLabel.trailingAnchor, constant: 12),
+            ]
+        } else {
+            disposableConstraints = [
+                textLabel.topAnchor.constraint(greaterThanOrEqualTo: topAnchor, constant: 11),
+                textLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
+                bottomAnchor.constraint(greaterThanOrEqualTo: textLabel.bottomAnchor, constant: 11),
+
+                detailLabel.leadingAnchor.constraint(greaterThanOrEqualTo: textLabel.trailingAnchor, constant: 8),
+
+                detailLabel.topAnchor.constraint(greaterThanOrEqualTo: topAnchor, constant: 11),
+                detailLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
+                bottomAnchor.constraint(greaterThanOrEqualTo: detailLabel.bottomAnchor, constant: 11),
+
+                chevron.leadingAnchor.constraint(equalTo: detailLabel.trailingAnchor, constant: 12),
+            ]
+        }
+        NSLayoutConstraint.activate(disposableConstraints)
     }
 
     var margin: CGFloat = 0 {
@@ -84,19 +108,15 @@ public final class StatusMetricRowView: UIButton {
     private func setupConstraints() {
         icon.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         chevron.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        chevron.setContentCompressionResistancePriority(.required, for: .horizontal)
         let constraints = [
             icon.topAnchor.constraint(greaterThanOrEqualTo: topAnchor, constant: 10),
             icon.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
             icon.centerYAnchor.constraint(equalTo: centerYAnchor),
-            contentStack.leadingAnchor.constraint(equalTo: icon.trailingAnchor, constant: 16),
+            textLabel.leadingAnchor.constraint(equalTo: icon.trailingAnchor, constant: 16),
             icon.widthAnchor.constraint(greaterThanOrEqualToConstant: 24),
             icon.heightAnchor.constraint(greaterThanOrEqualToConstant: 24),
             bottomAnchor.constraint(greaterThanOrEqualTo: icon.bottomAnchor, constant: 10),
-
-            contentStack.topAnchor.constraint(greaterThanOrEqualTo: topAnchor, constant: 11),
-            contentStack.centerYAnchor.constraint(equalTo: centerYAnchor),
-            bottomAnchor.constraint(greaterThanOrEqualTo: contentStack.bottomAnchor, constant: 11),
-            chevron.leadingAnchor.constraint(equalTo: contentStack.trailingAnchor, constant: 12),
 
             chevron.centerYAnchor.constraint(equalTo: centerYAnchor),
             layoutMarginsGuide.trailingAnchor.constraint(equalTo: chevron.trailingAnchor),
@@ -115,5 +135,15 @@ public final class StatusMetricRowView: UIButton {
                 backgroundColor = .clear
             }
         }
+    }
+
+    public override var accessibilityLabel: String? {
+        get { textLabel.text }
+        set {}
+    }
+
+    public override var accessibilityValue: String? {
+        get { detailLabel.text }
+        set {}
     }
 }
