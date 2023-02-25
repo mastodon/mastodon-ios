@@ -126,45 +126,20 @@ extension MastodonPickServerViewModel {
             }
         )
         .map { indexedServers, selectCategoryItem, searchText, filters -> [Mastodon.Entity.Server] in
-            // ignore approval required servers when sign-up
             var indexedServers = indexedServers
-            // Note:
-            // sort by calculate last week users count
-            // and make medium size (~800) server to top
-            
-            // group by language user preferred language first
-            var languageToServersMapping = OrderedDictionary<String, [Mastodon.Entity.Server]>()
-            for language in Locale.preferredLanguages {
-                let local = Locale(identifier: language)
-                guard let languageCode = local.languageCode else { continue }
-                // skip if key duplicate
-                guard !languageToServersMapping.keys.contains(languageCode) else { continue }
-                // append to dict
-                languageToServersMapping[languageCode] = indexedServers
-                    .filter { $0.language.lowercased() == languageCode.lowercased() }
-                    .sorted(by: { lh, rh in
-                        let lhValue = abs(log2(800.0) - log2(Double(lh.lastWeekUsers)))
-                        let rhValue = abs(log2(800.0) - log2(Double(rh.lastWeekUsers)))
-                        return lhValue < rhValue
-                    })
-            }
-            // sort remains servers
-            let remainsServers = indexedServers
-                .filter { server in
-                    return !languageToServersMapping.contains { _, servers in servers.contains(server) }
-                }
-                .sorted(by: { lh, rh in
-                    let lhValue = abs(log2(800.0) - log2(Double(lh.lastWeekUsers)))
-                    let rhValue = abs(log2(800.0) - log2(Double(rh.lastWeekUsers)))
-                    return lhValue < rhValue
-                })
-            
+
             var _indexedServers: [Mastodon.Entity.Server] = []
-            for key in languageToServersMapping.keys {
-                _indexedServers.append(contentsOf: languageToServersMapping[key] ?? [])
-            }
-            _indexedServers.append(contentsOf: remainsServers)
-            
+
+            let sortedInstantSignupServers = indexedServers
+                .filter { $0.approvalRequired == false }
+                .sorted { $0.lastWeekUsers >= $1.lastWeekUsers }
+            let sortedApprovalRequiredServers = indexedServers
+                .filter { $0.approvalRequired }
+                .sorted { $0.lastWeekUsers >= $1.lastWeekUsers }
+
+            _indexedServers.append(contentsOf: sortedInstantSignupServers)
+            _indexedServers.append(contentsOf: sortedApprovalRequiredServers)
+
             if _indexedServers.count == indexedServers.count {
                 indexedServers = _indexedServers
             } else {
