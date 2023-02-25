@@ -11,6 +11,7 @@ import MastodonCore
 import MastodonAsset
 import Combine
 import AuthenticationServices
+import MastodonLocalization
 
 protocol MastodonLoginViewControllerDelegate: AnyObject {
   func backButtonPressed(_ viewController: MastodonLoginViewController)
@@ -97,6 +98,9 @@ class MastodonLoginViewController: UIViewController, NeedsDependency {
 
     defer { setupNavigationBarBackgroundView() }
     setupOnboardingAppearance()
+
+    title = L10n.Scene.Login.title
+    navigationItem.hidesBackButton = true
   }
 
   override func viewWillAppear(_ animated: Bool) {
@@ -271,7 +275,7 @@ extension MastodonLoginViewController: MastodonLoginViewModelDelegate {
     snapshot.appendSections([MastodonLoginViewSection.servers])
     snapshot.appendItems(viewModel.filteredServers)
 
-    dataSource?.applySnapshot(snapshot, animated: false)
+    dataSource?.apply(snapshot, animatingDifferences: false)
 
     OperationQueue.main.addOperation {
       let numberOfResults = viewModel.filteredServers.count

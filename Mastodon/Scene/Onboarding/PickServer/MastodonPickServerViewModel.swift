@@ -15,6 +15,7 @@ import OrderedCollections
 import Tabman
 import MastodonCore
 import MastodonUI
+import MastodonLocalization
 
 class MastodonPickServerViewModel: NSObject {
 
@@ -32,12 +33,16 @@ class MastodonPickServerViewModel: NSObject {
     let context: AppContext
     var categoryPickerItems: [CategoryPickerItem] = {
         var items: [CategoryPickerItem] = []
-        items.append(.all)
+        items.append(.language(language: nil))
+        items.append(.signupSpeed(manuallyReviewed: nil))
         items.append(contentsOf: APIService.stubCategories().map { CategoryPickerItem.category(category: $0) })
         return items
     }()
-    let selectCategoryItem = CurrentValueSubject<CategoryPickerItem, Never>(.all)
+    let selectCategoryItem = CurrentValueSubject<CategoryPickerItem, Never>(.category(category: Mastodon.Entity.Category(category: Mastodon.Entity.Category.Kind.general.rawValue, serversCount: 0)))
     let searchText = CurrentValueSubject<String, Never>("")
+    let selectedLanguage = CurrentValueSubject<String?, Never>(nil)
+    let manualApprovalRequired = CurrentValueSubject<Bool?, Never>(nil)
+    let allLanguages = CurrentValueSubject<[Mastodon.Entity.Language], Never>([])
     let indexedServers = CurrentValueSubject<[Mastodon.Entity.Server], Never>([])
     let unindexedServers = CurrentValueSubject<[Mastodon.Entity.Server]?, Never>([])    // set nil when loading
     let viewWillAppear = PassthroughSubject<Void, Never>()
@@ -69,7 +74,7 @@ class MastodonPickServerViewModel: NSObject {
     init(context: AppContext) {
         self.context = context
         super.init()
-        
+
         configure()
     }
     
@@ -82,6 +87,14 @@ class MastodonPickServerViewModel: NSObject {
 extension MastodonPickServerViewModel {
     
     private func configure() {
+
+        context.apiService.languages().sink { completion in
+            
+        } receiveValue: { response in
+            self.allLanguages.value = response.value
+        }
+        .store(in: &disposeBag)
+
         Publishers.CombineLatest(
             isLoadingIndexedServers,
             loadingIndexedServersError
@@ -99,16 +112,22 @@ extension MastodonPickServerViewModel {
         }
         .assign(to: \.value, on: emptyStateViewState)
         .store(in: &disposeBag)
-        
-        Publishers.CombineLatest3(
+
+
+        Publishers.CombineLatest4(
             indexedServers.eraseToAnyPublisher(),
             selectCategoryItem.eraseToAnyPublisher(),
-            searchText.debounce(for: .milliseconds(300), scheduler: DispatchQueue.main).removeDuplicates()
+            searchText.debounce(for: .milliseconds(300), scheduler: DispatchQueue.main).removeDuplicates(),
+            Publishers.CombineLatest(
+                selectedLanguage.eraseToAnyPublisher(),
+                manualApprovalRequired.eraseToAnyPublisher()
+            ).map { selectedLanguage, manualApprovalRequired -> (selectedLanguage: String?, manualApprovalRequired: Bool?) in
+                (selectedLanguage, manualApprovalRequired)
+            }
         )
-        .map { indexedServers, selectCategoryItem, searchText -> [Mastodon.Entity.Server] in
+        .map { indexedServers, selectCategoryItem, searchText, filters -> [Mastodon.Entity.Server] in
             // ignore approval required servers when sign-up
             var indexedServers = indexedServers
-            indexedServers = indexedServers.filter { !$0.approvalRequired }
             // Note:
             // sort by calculate last week users count
             // and make medium size (~800) server to top
@@ -154,10 +173,10 @@ extension MastodonPickServerViewModel {
             
             // Filter the indexed servers by category or search text
             switch selectCategoryItem {
-            case .all:
-                return MastodonPickServerViewModel.filterServers(servers: indexedServers, category: nil, searchText: searchText)
+            case .language(_), .signupSpeed(_):
+                return MastodonPickServerViewModel.filterServers(servers: indexedServers, language: filters.selectedLanguage, manualApprovalRequired: filters.manualApprovalRequired, category: nil, searchText: searchText)
             case .category(let category):
-                return MastodonPickServerViewModel.filterServers(servers: indexedServers, category: category.category.rawValue, searchText: searchText)
+                return MastodonPickServerViewModel.filterServers(servers: indexedServers, language: filters.selectedLanguage, manualApprovalRequired: filters.manualApprovalRequired, category: category.category.rawValue, searchText: searchText)
             }
         }
         .assign(to: \.value, on: filteredIndexedServers)
@@ -209,17 +228,58 @@ extension MastodonPickServerViewModel {
             .store(in: &disposeBag)
     }
 
+    func chooseRandomServer() -> Mastodon.Entity.Server? {
+
+        let language = Locale.autoupdatingCurrent.languageCode?.lowercased() ?? "en"
+
+        let servers = indexedServers.value
+        guard servers.isNotEmpty else { return nil }
+
+        let generalServers = servers.filter {
+            $0.categories.contains("general")
+        }
+        
+        let randomServer: Mastodon.Entity.Server?
+        
+        let noApprovalRequired = generalServers.filter { !$0.approvalRequired }
+        let approvalRequired = generalServers.filter { $0.approvalRequired }
+        
+        let languageMatchesWithoutApproval = noApprovalRequired.filter { $0.language.lowercased() == language }
+        let languageMatchesWithApproval = approvalRequired.filter { $0.language.lowercased() == language }
+        let languageDoesNotMatchWithoutApproval = noApprovalRequired.filter { $0.language.lowercased() != language }
+        let languageDoesNotMatchWithApproval = approvalRequired.filter { $0.language.lowercased() != language }
+
+        switch (
+            languageMatchesWithoutApproval.isEmpty,
+            languageMatchesWithApproval.isEmpty,
+            languageDoesNotMatchWithoutApproval.isEmpty,
+            languageDoesNotMatchWithApproval.isEmpty
+        ) {
+        case (true, true, true, true):
+            randomServer = generalServers.randomElement()
+        case (true, true, true, false):
+            randomServer = languageDoesNotMatchWithApproval.randomElement()
+        case (true, true, false, _):
+            randomServer = languageDoesNotMatchWithoutApproval.randomElement()
+        case (true, false, _, _):
+            randomServer = languageMatchesWithApproval.randomElement()
+        case (false, _, _, _):
+            randomServer = languageMatchesWithoutApproval.randomElement()
+        }
+
+        return randomServer ?? servers.randomElement() ?? servers.first
+    }
 }
-   
+
 extension MastodonPickServerViewModel {
-    private static func filterServers(servers: [Mastodon.Entity.Server], category: String?, searchText: String) -> [Mastodon.Entity.Server] {
-        return servers
-            // 1. Filter the category
+    private static func filterServers(servers: [Mastodon.Entity.Server], language: String? = nil, manualApprovalRequired: Bool? = nil, category: String?, searchText: String) -> [Mastodon.Entity.Server] {
+        let filteredServers = servers
+        // 1. Filter the category
             .filter {
                 guard let category = category else  { return true }
                 return $0.category.caseInsensitiveCompare(category) == .orderedSame
             }
-            // 2. Filter the searchText
+        // 2. Filter the searchText
             .filter {
                 let searchText = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
                 guard !searchText.isEmpty else {
@@ -227,6 +287,18 @@ extension MastodonPickServerViewModel {
                 }
                 return $0.domain.lowercased().contains(searchText.lowercased())
             }
+            .filter {
+                guard let language else { return true }
+
+                return $0.language.lowercased() == language.lowercased()
+            }
+            .filter {
+                guard let manualApprovalRequired else { return true }
+
+                print("\($0.domain) \($0.approvalRequired) < \(manualApprovalRequired)")
+                return $0.approvalRequired == manualApprovalRequired
+            }
+        return filteredServers
     }
 }
 

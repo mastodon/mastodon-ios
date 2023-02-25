@@ -7,7 +7,6 @@
 
 import os.log
 import UIKit
-import Kingfisher
 import UniformTypeIdentifiers
 import MastodonCore
 import MastodonSDK
@@ -199,7 +198,7 @@ extension AttachmentViewModel {
                     
                 } else {
                     AttachmentViewModel.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): attachment processing. Retry \(waitProcessRetryCount)/\(waitProcessRetryLimit)")
-                    await Task.sleep(1_000_000_000 * 3)     // 3s
+                    try await Task.sleep(nanoseconds: 1_000_000_000 * 3)     // 3s
                 }
             } while waitProcessRetryCount < waitProcessRetryLimit
          

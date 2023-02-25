@@ -126,3 +126,12 @@ Localization/StringsConvertor/output
 
 env/**/**
 !env/.env
+
+
+## Ruby ###
+vendor/
+.bundle/
+
+# IDEs
+.idea
+.vscode

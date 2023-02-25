@@ -52,6 +52,7 @@ final class HomeTimelineViewModel: NSObject {
         let stateMachine = GKStateMachine(states: [
             LoadLatestState.Initial(viewModel: self),
             LoadLatestState.Loading(viewModel: self),
+            LoadLatestState.LoadingManually(viewModel: self),
             LoadLatestState.Fail(viewModel: self),
             LoadLatestState.Idle(viewModel: self),
         ])
@@ -120,6 +121,12 @@ extension HomeTimelineViewModel {
 }
 
 extension HomeTimelineViewModel {
+    func timelineDidReachEnd() {
+        fetchedResultsController.fetchNextBatch()
+    }
+}
+
+extension HomeTimelineViewModel {
 
     // load timeline gap
     func loadMore(item: StatusItem) async {
@@ -148,12 +155,7 @@ extension HomeTimelineViewModel {
         }
         
         // reconfigure item
-        if #available(iOS 15.0, *) {
-            snapshot.reconfigureItems([item])
-        } else {
-            // Fallback on earlier versions
-            snapshot.reloadItems([item])
-        }
+        snapshot.reconfigureItems([item])
         await updateSnapshotUsingReloadData(snapshot: snapshot)
         
         // fetch data
@@ -176,15 +178,10 @@ extension HomeTimelineViewModel {
         }
         
         // reconfigure item again
-        if #available(iOS 15.0, *) {
-            snapshot.reconfigureItems([item])
-        } else {
-            // Fallback on earlier versions
-            snapshot.reloadItems([item])
-        }
+        snapshot.reconfigureItems([item])
         await updateSnapshotUsingReloadData(snapshot: snapshot)
     }
-
+    
 }
 
 // MARK: - SuggestionAccountViewModelDelegate

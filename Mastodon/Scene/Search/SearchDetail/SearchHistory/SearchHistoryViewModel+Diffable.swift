@@ -54,7 +54,7 @@ extension SearchHistoryViewModel {
                         var snapshot = NSDiffableDataSourceSnapshot<SearchHistorySection, SearchHistoryItem>()
                         snapshot.appendSections([.main])
                         snapshot.appendItems(items, toSection: .main)
-                        diffableDataSource.apply(snapshot, animatingDifferences: false)
+                        await diffableDataSource.apply(snapshot, animatingDifferences: false)
                     } catch {
                         // do nothing
                     }

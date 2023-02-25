@@ -108,6 +108,7 @@ extension StatusView {
         @Published public var isFiltered = false
 
         @Published public var groupedAccessibilityLabel = ""
+        @Published public var contentAccessibilityLabel = ""
 
         let timestampUpdatePublisher = Timer.publish(every: 1.0, on: .main, in: .common)
             .autoconnect()
@@ -304,9 +305,14 @@ extension StatusView.ViewModel {
             }
             
             let paragraphStyle = statusView.contentMetaText.paragraphStyle
-            if let language = language {
-                let direction = Locale.characterDirection(forLanguage: language)
-                paragraphStyle.alignment = direction == .rightToLeft ? .right : .left
+            if let language = language { 
+                if #available(iOS 16, *) {
+                    let direction = Locale.Language(identifier: language).characterDirection
+                    paragraphStyle.alignment = direction == .rightToLeft ? .right : .left
+                } else {
+                    let direction = Locale.characterDirection(forLanguage: language)
+                    paragraphStyle.alignment = direction == .rightToLeft ? .right : .left
+                };
             } else {
                 paragraphStyle.alignment = .natural
             }
@@ -349,6 +355,18 @@ extension StatusView.ViewModel {
                 // eye-slash: when media display
                 let image = isSensitiveToggled ? UIImage(systemName: "eye.slash.fill") : UIImage(systemName: "eye.fill")
                 statusView.authorView.contentSensitiveeToggleButton.setImage(image, for: .normal)
+            }
+            .store(in: &disposeBag)
+
+        $isCurrentlyTranslating
+            .receive(on: DispatchQueue.main)
+            .sink { isTranslating in
+                switch isTranslating {
+                case true:
+                    statusView.isTranslatingLoadingView.startAnimating()
+                case false:
+                    statusView.isTranslatingLoadingView.stopAnimating()
+                }
             }
             .store(in: &disposeBag)
     }
@@ -421,12 +439,7 @@ extension StatusView.ViewModel {
                 var snapshot = NSDiffableDataSourceSnapshot<PollSection, PollItem>()
                 snapshot.appendSections([.main])
                 snapshot.appendItems(items, toSection: .main)
-                if #available(iOS 15.0, *) {
-                    statusView.pollTableViewDiffableDataSource?.applySnapshotUsingReloadData(snapshot)
-                } else {
-                    // Fallback on earlier versions
-                    statusView.pollTableViewDiffableDataSource?.apply(snapshot, animatingDifferences: false)
-                }
+                statusView.pollTableViewDiffableDataSource?.applySnapshotUsingReloadData(snapshot)
                 
                 statusView.pollTableViewHeightLayoutConstraint.constant = CGFloat(items.count) * PollOptionTableViewCell.height
                 statusView.setPollDisplay()
@@ -734,12 +747,12 @@ extension StatusView.ViewModel {
         .assign(to: \.accessibilityLabel, on: statusView.authorView)
         .store(in: &disposeBag)
 
-        let contentAccessibilityLabel = Publishers.CombineLatest3(
+        Publishers.CombineLatest3(
             $isContentReveal,
             $spoilerContent,
             $content
         )
-        .map { isContentReveal, spoilerContent, content -> String? in
+        .map { isContentReveal, spoilerContent, content in
             var strings: [String?] = []
             
             if let spoilerContent = spoilerContent, !spoilerContent.string.isEmpty {
@@ -756,6 +769,7 @@ extension StatusView.ViewModel {
             
             return strings.compactMap { $0 }.joined(separator: ", ")
         }
+        .assign(to: &$contentAccessibilityLabel)
         
         $isContentReveal
             .map { isContentReveal in
@@ -766,7 +780,7 @@ extension StatusView.ViewModel {
             }
             .store(in: &disposeBag)
         
-        contentAccessibilityLabel
+        $contentAccessibilityLabel
             .sink { contentAccessibilityLabel in
                 statusView.spoilerOverlayView.accessibilityLabel = contentAccessibilityLabel
             }
@@ -820,14 +834,39 @@ extension StatusView.ViewModel {
             }
             .assign(to: \.toolbarActions, on: statusView)
             .store(in: &disposeBag)
-    
-        Publishers.CombineLatest3(
+
+        let translatedFromLabel = Publishers.CombineLatest($translatedFromLanguage, $translatedUsingProvider)
+            .map { (language, provider) -> String? in
+                if let language {
+                    return L10n.Common.Controls.Status.Translation.translatedFrom(
+                        Locale.current.localizedString(forIdentifier: language) ?? L10n.Common.Controls.Status.Translation.unknownLanguage,
+                        provider ?? L10n.Common.Controls.Status.Translation.unknownProvider
+                    )
+                }
+                return nil
+            }
+
+        translatedFromLabel
+            .receive(on: DispatchQueue.main)
+            .sink { label in
+                if let label {
+                    statusView.translatedInfoLabel.text = label
+                    statusView.translatedInfoView.accessibilityValue = label
+                    statusView.translatedInfoView.isHidden = false
+                } else {
+                    statusView.translatedInfoView.isHidden = true
+                }
+            }
+            .store(in: &disposeBag)
+
+        Publishers.CombineLatest4(
             shortAuthorAccessibilityLabel,
-            contentAccessibilityLabel,
+            $contentAccessibilityLabel,
+            translatedFromLabel,
             mediaAccessibilityLabel
         )
-        .map { author, content, media in
-            var labels: [String?] = [content, media]
+        .map { author, content, translated, media in
+            var labels: [String?] = [content, translated, media]
 
             if statusView.style != .notification {
                 labels.insert(author, at: 0)
@@ -852,7 +891,7 @@ extension StatusView.ViewModel {
         .map { content, isRevealed in
             guard isRevealed, let entities = content?.entities else { return [] }
             return entities.compactMap { entity in
-                guard let name = entity.accessibilityCustomActionLabel else { return nil }
+                guard let name = entity.meta.accessibilityLabel else { return nil }
                 return UIAccessibilityCustomAction(name: name) { action in
                     statusView.delegate?.statusView(statusView, metaText: statusView.contentMetaText, didSelectMeta: entity.meta)
                     return true

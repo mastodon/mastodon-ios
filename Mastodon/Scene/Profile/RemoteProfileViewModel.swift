@@ -28,6 +28,7 @@ final class RemoteProfileViewModel: ProfileViewModel {
                 )
             }
             .retry(3)
+            .receive(on: DispatchQueue.main)
             .sink { completion in
                 switch completion {
                 case .failure(let error):
@@ -89,4 +90,41 @@ final class RemoteProfileViewModel: ProfileViewModel {
         }   // end Task
     }
     
+    init(context: AppContext, authContext: AuthContext, acct: String){
+        super.init(context: context, authContext: authContext, optionalMastodonUser: nil)
+
+        let domain = authContext.mastodonAuthenticationBox.domain
+        let authenticationBox = authContext.mastodonAuthenticationBox
+
+        Just(acct)
+            .asyncMap { acct -> Mastodon.Response.Content<Mastodon.Entity.Account?> in
+                try await context.apiService.search(
+                    query: .init(q: acct, type: .accounts, resolve: true),
+                    authenticationBox: authenticationBox
+                ).map { $0.accounts.first }
+            }
+            .retry(3)
+            .receive(on: DispatchQueue.main)
+            .sink { completion in
+                switch completion {
+                case .failure(let error):
+                    // TODO: handle error
+                    os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: remote user %s fetch failed: %s", ((#file as NSString).lastPathComponent), #line, #function, acct, error.localizedDescription)
+                case .finished:
+                    os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: remote user %s fetched", ((#file as NSString).lastPathComponent), #line, #function, acct)
+                }
+            } receiveValue: { [weak self] response in
+                guard let self = self, let value = response.value else { return }
+                let managedObjectContext = context.managedObjectContext
+                let request = MastodonUser.sortedFetchRequest
+                request.fetchLimit = 1
+                request.predicate = MastodonUser.predicate(domain: domain, id: value.id)
+                guard let mastodonUser = managedObjectContext.safeFetch(request).first else {
+                    assertionFailure()
+                    return
+                }
+                self.user = mastodonUser
+            }
+            .store(in: &disposeBag)
+    }
 }

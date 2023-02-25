@@ -25,9 +25,8 @@ extension OnboardingNavigationController {
         updateBorderViewDisplay()
     }
     
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        .portraitOnPhone
     }
 
 }

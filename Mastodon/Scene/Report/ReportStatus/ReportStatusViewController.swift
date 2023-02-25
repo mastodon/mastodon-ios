@@ -47,11 +47,7 @@ class ReportStatusViewController: UIViewController, NeedsDependency, ReportViewC
         tableView.backgroundColor = .clear
         tableView.keyboardDismissMode = .onDrag
         tableView.allowsMultipleSelection = true
-        if #available(iOS 15.0, *) {
-            tableView.sectionHeaderTopPadding = .leastNonzeroMagnitude
-        } else {
-            // Fallback on earlier versions
-        }
+        tableView.sectionHeaderTopPadding = .leastNonzeroMagnitude
         return tableView
     }()
     

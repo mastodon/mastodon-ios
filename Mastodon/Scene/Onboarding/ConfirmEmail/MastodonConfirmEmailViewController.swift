@@ -8,7 +8,6 @@
 import Combine
 import MastodonSDK
 import os.log
-import ThirdPartyMailer
 import UIKit
 import MastodonAsset
 import MastodonCore
@@ -26,19 +25,10 @@ final class MastodonConfirmEmailViewController: UIViewController, NeedsDependenc
 
     let stackView = UIStackView()
 
-    let largeTitleLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFontMetrics(forTextStyle: .largeTitle).scaledFont(for: UIFont.systemFont(ofSize: 34, weight: .bold))
-        label.textColor = .label
-        label.text = L10n.Scene.ConfirmEmail.title
-        return label
-    }()
-
     private(set) lazy var subtitleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFontMetrics(forTextStyle: .title1).scaledFont(for: UIFont.systemFont(ofSize: 20))
-        label.textColor = .secondaryLabel
-        label.text = L10n.Scene.ConfirmEmail.tapTheLinkWeEmailedToYouToVerifyYourAccount
+        label.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: UIFont.systemFont(ofSize: 17))
+        label.textColor = .label
         label.numberOfLines = 0
         return label
     }()
@@ -50,28 +40,41 @@ final class MastodonConfirmEmailViewController: UIViewController, NeedsDependenc
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
-    
-    let navigationActionView: NavigationActionView = {
-        let navigationActionView = NavigationActionView()
-        navigationActionView.backgroundColor = Asset.Scene.Onboarding.background.color
-        return navigationActionView
+
+    let resendEmailButton: UIButton = {
+
+        let boldFont = UIFontMetrics(forTextStyle: .subheadline).scaledFont(for: .systemFont(ofSize: 15, weight: .bold))
+        let regularFont = UIFontMetrics(forTextStyle: .subheadline).scaledFont(for: .systemFont(ofSize: 15, weight: .regular))
+
+        var buttonConfiguration = UIButton.Configuration.plain()
+        var boldResendString = AttributedString(L10n.Scene.ConfirmEmail.DidntGetLink.resendIn(60), attributes: .init([.font: boldFont]))
+        var attributedTitle = AttributedString(L10n.Scene.ConfirmEmail.DidntGetLink.prefix, attributes: .init([.font: regularFont]))
+
+        attributedTitle.append(AttributedString(" "))
+        attributedTitle.append(boldResendString)
+
+        buttonConfiguration.attributedTitle = attributedTitle
+
+        let button = UIButton(configuration: buttonConfiguration)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.isEnabled = false
+
+        return button
     }()
-    
-    deinit {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-    }
-    
+
+    var resendButtonTimer: Timer?
 }
 
 extension MastodonConfirmEmailViewController {
 
     override func viewDidLoad() {
 
-        navigationItem.leftBarButtonItem = UIBarButtonItem()
-
         setupOnboardingAppearance()
-        configureTitleLabel()
         configureMargin()
+
+        subtitleLabel.text = L10n.Scene.ConfirmEmail.tapTheLinkWeEmailedToYouToVerifyYourAccount(viewModel.email)
+
+        resendEmailButton.addTarget(self, action: #selector(MastodonConfirmEmailViewController.resendButtonPressed(_:)), for: .touchUpInside)
 
         // stackView
         stackView.axis = .vertical
@@ -79,12 +82,11 @@ extension MastodonConfirmEmailViewController {
         stackView.spacing = 10
         stackView.layoutMargins = UIEdgeInsets(top: 10, left: 0, bottom: 23, right: 0)
         stackView.isLayoutMarginsRelativeArrangement = true
-        stackView.addArrangedSubview(largeTitleLabel)
         stackView.addArrangedSubview(subtitleLabel)
         stackView.addArrangedSubview(emailImageView)
+        stackView.addArrangedSubview(resendEmailButton)
         emailImageView.setContentHuggingPriority(.defaultLow, for: .vertical)
         emailImageView.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
-        stackView.addArrangedSubview(navigationActionView)
 
         view.addSubview(stackView)
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -136,37 +138,60 @@ extension MastodonConfirmEmailViewController {
             }
             .store(in: &self.disposeBag)
         
-        
-        navigationActionView.backButton.setTitle(L10n.Scene.ConfirmEmail.Button.resend, for: .normal)
-        navigationActionView.backButton.addTarget(self, action: #selector(MastodonConfirmEmailViewController.resendButtonPressed(_:)), for: .touchUpInside)
-        
-        navigationActionView.nextButton.setTitle(L10n.Scene.ConfirmEmail.Button.openEmailApp, for: .normal)
-        navigationActionView.nextButton.addTarget(self, action: #selector(MastodonConfirmEmailViewController.openEmailButtonPressed(_:)), for: .touchUpInside)
+        title = L10n.Scene.ConfirmEmail.title
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         
-        configureTitleLabel()
         configureMargin()
     }
-    
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        let nowIn60Seconds = Date().addingTimeInterval(60)
+        let boldFont = UIFontMetrics(forTextStyle: .subheadline).scaledFont(for: .systemFont(ofSize: 15, weight: .bold))
+        let regularFont = UIFontMetrics(forTextStyle: .subheadline).scaledFont(for: .systemFont(ofSize: 15, weight: .regular))
+
+        let timer = Timer(timeInterval: 1.0, repeats: true) { [weak self] in 
+            guard Date() < nowIn60Seconds else {
+                self?.resendEmailButton.isEnabled = true
+
+                var configuration = self?.resendEmailButton.configuration
+
+                let boldResendString = AttributedString(L10n.Scene.ConfirmEmail.DidntGetLink.resendNow, attributes: .init([.font: boldFont]))
+                var attributedTitle = AttributedString(L10n.Scene.ConfirmEmail.DidntGetLink.prefix, attributes: .init([.font: regularFont]))
+
+                attributedTitle.append(AttributedString(" "))
+                attributedTitle.append(boldResendString)
+
+                configuration?.attributedTitle = attributedTitle
+                self?.resendEmailButton.configuration = configuration
+                self?.resendEmailButton.setNeedsUpdateConfiguration()
+
+                $0.invalidate()
+                return
+            }
+
+            var configuration = self?.resendEmailButton.configuration
+
+            let boldResendString = AttributedString(L10n.Scene.ConfirmEmail.DidntGetLink.resendIn(Int(nowIn60Seconds.timeIntervalSinceNow) + 1), attributes: .init([.font: boldFont]))
+            var attributedTitle = AttributedString(L10n.Scene.ConfirmEmail.DidntGetLink.prefix, attributes: .init([.font: regularFont]))
+
+            attributedTitle.append(AttributedString(" "))
+            attributedTitle.append(boldResendString)
+
+            configuration?.attributedTitle = attributedTitle
+            self?.resendEmailButton.configuration = configuration
+            self?.resendEmailButton.setNeedsUpdateConfiguration()
+        }
+
+        RunLoop.main.add(timer, forMode: .default)
+    }
 }
 
 extension MastodonConfirmEmailViewController {
-    private func configureTitleLabel() {
-        switch traitCollection.horizontalSizeClass {
-        case .regular:
-            navigationItem.largeTitleDisplayMode = .always
-            navigationItem.title = L10n.Scene.ConfirmEmail.title.replacingOccurrences(of: "\n", with: " ")
-            largeTitleLabel.isHidden = true
-        default:
-            navigationItem.largeTitleDisplayMode = .never
-            navigationItem.title = nil
-            largeTitleLabel.isHidden = false
-        }
-    }
-    
     private func configureMargin() {
         switch traitCollection.horizontalSizeClass {
         case .regular:
@@ -179,19 +204,6 @@ extension MastodonConfirmEmailViewController {
 }
 
 extension MastodonConfirmEmailViewController {
-    @objc private func openEmailButtonPressed(_ sender: UIButton) {
-        let alertController = UIAlertController(title: L10n.Scene.ConfirmEmail.OpenEmailApp.title, message: L10n.Scene.ConfirmEmail.OpenEmailApp.description, preferredStyle: .alert)
-        let openEmailAction = UIAlertAction(title: L10n.Scene.ConfirmEmail.Button.openEmailApp, style: .default) { [weak self] _ in
-            guard let self = self else { return }
-            self.showEmailAppAlert()
-        }
-        let cancelAction = UIAlertAction(title: L10n.Common.Controls.Actions.cancel, style: .cancel, handler: nil)
-        alertController.addAction(openEmailAction)
-        alertController.addAction(cancelAction)
-        alertController.preferredAction = openEmailAction
-        _ = self.coordinator.present(scene: .alertController(alertController: alertController), from: self, transition: .alertController(animated: true, completion: nil))
-    }
-
     @objc private func resendButtonPressed(_ sender: UIButton) {
         let alertController = UIAlertController(title: L10n.Scene.ConfirmEmail.DontReceiveEmail.title, message: L10n.Scene.ConfirmEmail.DontReceiveEmail.description, preferredStyle: .alert)
         let resendAction = UIAlertAction(title: L10n.Scene.ConfirmEmail.DontReceiveEmail.resendEmail, style: .default) { _ in
@@ -203,29 +215,6 @@ extension MastodonConfirmEmailViewController {
         }
         alertController.addAction(resendAction)
         alertController.addAction(okAction)
-        _ = self.coordinator.present(scene: .alertController(alertController: alertController), from: self, transition: .alertController(animated: true, completion: nil))
-    }
-
-    func showEmailAppAlert() {
-        let clients = ThirdPartyMailClient.clients
-        let availableClients = clients.filter { client -> Bool in
-            ThirdPartyMailer.isMailClientAvailable(client)
-        }
-        let alertController = UIAlertController(title: L10n.Scene.ConfirmEmail.OpenEmailApp.openEmailClient, message: nil, preferredStyle: .alert)
-
-        let alertAction = UIAlertAction(title: L10n.Scene.ConfirmEmail.OpenEmailApp.mail, style: .default) { _ in
-            UIApplication.shared.open(URL(string: "message://")!, options: [:], completionHandler: nil)
-        }
-        alertController.addAction(alertAction)
-        _ = availableClients.compactMap { client -> UIAlertAction in
-            let alertAction = UIAlertAction(title: client.name, style: .default) { _ in
-                ThirdPartyMailer.open(client, completionHandler: nil)
-            }
-            alertController.addAction(alertAction)
-            return alertAction
-        }
-        let cancelAction = UIAlertAction(title: L10n.Common.Controls.Actions.cancel, style: .cancel, handler: nil)
-        alertController.addAction(cancelAction)
         _ = self.coordinator.present(scene: .alertController(alertController: alertController), from: self, transition: .alertController(animated: true, completion: nil))
     }
 }

@@ -154,7 +154,10 @@ class MainTabBarController: UITabBarController {
     // output
     var avatarURLObserver: AnyCancellable?
     @Published var avatarURL: URL?
-
+    
+    // haptic feedback
+    private let selectionFeedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
+    
     init(
         context: AppContext,
         coordinator: SceneCoordinator,
@@ -369,12 +372,16 @@ extension MainTabBarController {
         updateAvatarButtonAppearance()
     }
 
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        .portraitOnPhone
+    }
 }
 
 extension MainTabBarController {
     
     @objc private func composeButtonDidPressed(_ sender: Any) {
         logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
+        selectionFeedbackGenerator.impactOccurred()
         guard let authContext = self.authContext else { return }
         let composeViewModel = ComposeViewModel(
             context: context,
@@ -568,6 +575,11 @@ extension MainTabBarController: UITabBarControllerDelegate {
         if let tab = Tab(rawValue: viewController.tabBarItem.tag), tab == .compose {
             composeButtonDidPressed(tabBarController)
             return false
+        }
+        
+        // Different tab has been selected, send haptic feedback
+        if viewController.tabBarItem.tag != tabBarController.selectedIndex {
+            selectionFeedbackGenerator.impactOccurred()
         }
 
         // Assert index is as same as the tab rawValue. This check needs to be done `shouldSelect`

@@ -61,6 +61,8 @@ extension UserTableViewCell {
             separatorLine.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             separatorLine.heightAnchor.constraint(equalToConstant: UIView.separatorLineHeight(of: contentView)).priority(.required - 1),
         ])
+
+        userView.accessibilityTraits.insert(.button)
     }
     
 }

@@ -3,25 +3,35 @@
 
 import PackageDescription
 
+let publicLibraryTargets = [
+    "CoreDataStack",
+    "MastodonAsset",
+    "MastodonCommon",
+    "MastodonCore",
+    "MastodonExtension",
+    "MastodonLocalization",
+    "MastodonSDK",
+    "MastodonUI",
+]
+
 let package = Package(
     name: "MastodonSDK",
     defaultLocalization: "en",
     platforms: [
-        .iOS(.v14),
+        .iOS(.v15),
     ],
     products: [
+        // Static Library
         .library(
             name: "MastodonSDK",
-            targets: [
-                "CoreDataStack",
-                "MastodonAsset",
-                "MastodonCommon",
-                "MastodonCore",
-                "MastodonExtension",
-                "MastodonLocalization",
-                "MastodonSDK",
-                "MastodonUI",
-            ])
+            targets: publicLibraryTargets
+        ),
+        // Dynamic Library
+        .library(
+            name: "MastodonSDKDynamic",
+            type: .dynamic,
+            targets: publicLibraryTargets
+        )
     ],
     dependencies: [
         .package(name: "ArkanaKeys", path: "../dependencies/ArkanaKeys"),
@@ -43,11 +53,9 @@ let package = Package(
         .package(url: "https://github.com/TwidereProject/MetaTextKit.git", exact: "2.2.5"),
         .package(url: "https://github.com/TwidereProject/TabBarPager.git", from: "0.1.0"),
         .package(url: "https://github.com/uias/Tabman", from: "2.13.0"),
-        .package(url: "https://github.com/vtourraine/ThirdPartyMailer.git", from: "2.1.0"),
         .package(url: "https://github.com/woxtu/UIHostingConfigurationBackport.git", from: "0.1.0"),
         .package(url: "https://github.com/SDWebImage/SDWebImage.git", from: "5.12.0"),
         .package(url: "https://github.com/eneko/Stripes.git", from: "0.2.0"),
-        .package(url: "https://github.com/onevcat/Kingfisher.git", from: "7.4.1"),
         .package(url: "https://github.com/NextLevel/NextLevelSessionExporter.git", from: "0.4.6"),
     ],
     targets: [
@@ -116,14 +124,12 @@ let package = Package(
                 .product(name: "UITextView+Placeholder", package: "UITextView-Placeholder"),
                 .product(name: "UIHostingConfigurationBackport", package: "UIHostingConfigurationBackport"),
                 .product(name: "TabBarPager", package: "TabBarPager"),
-                .product(name: "ThirdPartyMailer", package: "ThirdPartyMailer"),
                 .product(name: "OrderedCollections", package: "swift-collections"),
                 .product(name: "Tabman", package: "Tabman"),
                 .product(name: "MetaTextKit", package: "MetaTextKit"),
                 .product(name: "CropViewController", package: "TOCropViewController"),
                 .product(name: "PanModal", package: "PanModal"),
                 .product(name: "Stripes", package: "Stripes"),
-                .product(name: "Kingfisher", package: "Kingfisher"),
                 .product(name: "NextLevelSessionExporter", package: "NextLevelSessionExporter"),
             ]
         ),
