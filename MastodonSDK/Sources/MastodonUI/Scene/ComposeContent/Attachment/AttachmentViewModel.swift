@@ -145,7 +145,10 @@ final public class AttachmentViewModel: NSObject, ObservableObject, Identifiable
                 case .video(let fileURL, let mimeType):
                     self.output = output
                     self.update(uploadState: .compressing)
-                    let compressedFileURL = try await compressVideo(url: fileURL)
+                    guard let compressedFileURL = try await compressVideo(url: fileURL) else {
+                        assertionFailure("Unable to compress video")
+                        return
+                    }
                     output = .video(compressedFileURL, mimeType: mimeType)
                     try? FileManager.default.removeItem(at: fileURL)    // remove old file
                 }
