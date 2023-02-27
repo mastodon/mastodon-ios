@@ -14,7 +14,7 @@ struct StatusEditHistoryViewModel {
     let authContext: AuthContext
 
     func prepareCell(_ cell: StatusEditHistoryTableViewCell, in tableView: UITableView) {
-        StatusSection.setupStatusPollDataSource(
+        StatusSection.setupStatusPollHistoryDataSource(
             context: appContext,
             authContext: authContext,
             statusView: cell.statusHistoryView.statusView

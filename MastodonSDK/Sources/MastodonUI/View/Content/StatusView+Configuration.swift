@@ -41,7 +41,24 @@ extension StatusView {
 extension StatusView {
 
     public func configure(status: Status, statusEdit: StatusEdit) {
-        configure(status: status)
+        viewModel.objects.insert(status)
+        if let reblog = status.reblog {
+            viewModel.objects.insert(reblog)
+        }
+
+        configureHeader(status: status)
+        let author = (status.reblog ?? status).author
+        configureAuthor(author: author)
+        let timestamp = (status.reblog ?? status).publisher(for: \.createdAt)
+        configureTimestamp(timestamp: timestamp.eraseToAnyPublisher())
+        configureApplicationName(status.application?.name)
+        configureContent(status: status)
+        configureMedia(status: status)
+        configurePollHistory(statusEdit: statusEdit)
+        configureCard(status: status)
+        configureToolbar(status: status)
+        configureFilter(status: status)
+        
         configureContent(statusEdit: statusEdit, status: status)
         configureMedia(status: statusEdit)
         actionToolbarAdaptiveMarginContainerView.isHidden = true
@@ -389,6 +406,19 @@ extension StatusView {
         
         let configurations = MediaView.configuration(status: status)
         viewModel.mediaViewConfigurations = configurations
+    }
+    
+    private func configurePollHistory(statusEdit: StatusEdit) {
+        guard let poll = statusEdit.poll else { return }
+
+        let pollItems = poll.options.map { PollItem.history(option: $0) }
+        self.viewModel.pollItems = pollItems
+        pollStatusStackView.isHidden = true
+
+        var _snapshot = NSDiffableDataSourceSnapshot<PollSection, PollItem>()
+        _snapshot.appendSections([.main])
+        _snapshot.appendItems(pollItems, toSection: .main)
+        pollTableViewDiffableDataSource?.applySnapshotUsingReloadData(_snapshot)
     }
 
     private func configurePoll(status: Status) {

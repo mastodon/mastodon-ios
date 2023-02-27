@@ -152,7 +152,6 @@ extension StatusEdit {
                 let poll = try JSONDecoder().decode(Poll.self, from: data)
                 return poll
             } catch {
-                assertionFailure(error.localizedDescription)
                 return nil
             }
         }
