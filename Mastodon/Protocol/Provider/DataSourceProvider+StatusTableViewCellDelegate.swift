@@ -319,7 +319,7 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
             
             try await managedObjectContext.performChanges {
                 guard let pollOption = pollOption.object(in: managedObjectContext) else { return }
-                let poll = pollOption.poll
+                guard let poll = pollOption.poll else { return }
                 _poll = .init(objectID: poll.objectID)
 
                 _isMultiple = poll.multiple
@@ -358,8 +358,10 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
                 
                 // restore voting state
                 try await managedObjectContext.performChanges {
-                    guard let pollOption = pollOption.object(in: managedObjectContext) else { return }
-                    let poll = pollOption.poll
+                    guard
+                        let pollOption = pollOption.object(in: managedObjectContext),
+                        let poll = pollOption.poll
+                    else { return }
                     poll.update(isVoting: false)
                 }
             }

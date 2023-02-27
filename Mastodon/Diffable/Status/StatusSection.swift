@@ -190,9 +190,11 @@ extension StatusSection {
                     // trigger update if needs
                     let needsUpdatePoll: Bool = {
                         // check first option in poll to trigger update poll only once
-                        guard option.index == 0 else { return false }
+                        guard
+                            let poll = option.poll,
+                            option.index == 0
+                        else { return false }
 
-                        let poll = option.poll
                         guard !poll.expired else {
                             logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): poll expired. Skip update poll \(poll.id)")
                             return false
@@ -215,7 +217,8 @@ extension StatusSection {
                     }()
 
                     if needsUpdatePoll {
-                        let pollRecord: ManagedObjectRecord<Poll> = .init(objectID: option.poll.objectID)
+                        guard let poll = option.poll else { return }
+                        let pollRecord: ManagedObjectRecord<Poll> = .init(objectID: poll.objectID)
                         Task { [weak context] in
                             guard let context = context else { return }
                             _ = try await context.apiService.poll(

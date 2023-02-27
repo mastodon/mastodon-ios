@@ -167,7 +167,7 @@
         <attribute name="title" attributeType="String"/>
         <attribute name="updatedAt" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="votesCount" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <relationship name="poll" maxCount="1" deletionRule="Nullify" destinationEntity="Poll" inverseName="options" inverseEntity="Poll"/>
+        <relationship name="poll" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Poll" inverseName="options" inverseEntity="Poll"/>
         <relationship name="votedBy" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="votePollOptions" inverseEntity="MastodonUser"/>
     </entity>
     <entity name="PrivateNote" representedClassName="CoreDataStack.PrivateNote" syncable="YES">

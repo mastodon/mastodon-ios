@@ -27,7 +27,7 @@ public final class PollOption: NSManagedObject {
     @NSManaged public private(set) var isSelected: Bool
     
     // many-to-one relationship
-    @NSManaged public private(set) var poll: Poll
+    @NSManaged public private(set) var poll: Poll?
     
     // many-to-many relationship
     @NSManaged public private(set) var votedBy: Set<MastodonUser>?

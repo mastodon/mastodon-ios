@@ -14,7 +14,7 @@ import MastodonUI
 
 extension PollOptionView {
     public func configure(pollOption option: PollOption) {
-        guard let status = option.poll.status else {
+        guard let poll = option.poll, let status = poll.status else {
             assertionFailure("PollOption to be configured is expected to be part of Poll with Status")
             return
         }
@@ -38,7 +38,7 @@ extension PollOptionView {
             .store(in: &disposeBag)
         // percentage
         Publishers.CombineLatest(
-            option.poll.publisher(for: \.votersCount),
+            poll.publisher(for: \.votersCount),
             option.publisher(for: \.votesCount)
         )
         .map { pollVotersCount, optionVotesCount -> Double? in
@@ -48,11 +48,11 @@ extension PollOptionView {
         .assign(to: \.percentage, on: viewModel)
         .store(in: &disposeBag)
         // $isExpire
-        option.poll.publisher(for: \.expired)
+        poll.publisher(for: \.expired)
             .assign(to: \.isExpire, on: viewModel)
             .store(in: &disposeBag)
         // isMultiple
-        viewModel.isMultiple = option.poll.multiple
+        viewModel.isMultiple = poll.multiple
         
         let optionIndex = option.index
         let authorDomain = status.author.domain
@@ -65,7 +65,7 @@ extension PollOptionView {
             viewModel.$authContext
         )
         .sink { [weak self] poll, optionVotedBy, isSelected, authContext in
-            guard let self = self else { return }
+            guard let self = self, let poll = poll else { return }
 
             let domain = authContext?.mastodonAuthenticationBox.domain ?? ""
             let userID = authContext?.mastodonAuthenticationBox.userID ?? ""

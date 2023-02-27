@@ -176,4 +176,31 @@ extension Persistence.Poll {
         poll.update(updatedAt: context.networkDate)
     }
     
+    public static func updateEdit(
+        in managedObjectContext: NSManagedObjectContext,
+        poll: Poll,
+        context: PersistContext
+    ) {
+        for option in poll.options {
+            managedObjectContext.delete(option)
+        }
+        
+        var attachableOptions = [PollOption]()
+        for (index, option) in context.entity.options.enumerated() {
+            attachableOptions.append(
+                Persistence.PollOption.create(
+                    in: managedObjectContext,
+                    context: Persistence.PollOption.PersistContext(
+                        index: index,
+                        entity: option,
+                        me: context.me,
+                        networkDate: context.networkDate
+                    )
+                )
+            )
+        }
+        
+        poll.attach(options: attachableOptions)
+        poll.update(updatedAt: context.networkDate)
+    }
 }
