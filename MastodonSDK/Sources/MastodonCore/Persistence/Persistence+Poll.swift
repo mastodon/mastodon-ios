@@ -69,22 +69,6 @@ extension Persistence.Poll {
                 in: managedObjectContext,
                 context: context
             )
-            
-            let options: [PollOption] = context.entity.options.enumerated().map { i, entity in
-                let optionResult = Persistence.PollOption.persist(
-                    in: managedObjectContext,
-                    context: Persistence.PollOption.PersistContext(
-                        index: i,
-                        poll: poll,
-                        entity: entity,
-                        me: context.me,
-                        networkDate: context.networkDate
-                    )
-                )
-                return optionResult.option
-            }
-
-            poll.attach(options: options)
 
             return PersistResult(
                 poll: poll,
@@ -179,7 +163,7 @@ extension Persistence.Poll {
         }
         
         // update options
-        if context.entity.options.map({ $0.title }) != poll.options.sortedByIndex().map({ $0.title }) {
+        if needsPollOptionsUpdate(context: context, poll: poll) {
             // options differ, update them
             for option in poll.options {
                 option.update(poll: nil)
@@ -204,5 +188,27 @@ extension Persistence.Poll {
         }
         
         poll.update(updatedAt: context.networkDate)
+    }
+    
+    private static func needsPollOptionsUpdate(context: PersistContext, poll: Poll) -> Bool {
+        let entityPollOptions = context.entity.options.map { (title: $0.title, votes: $0.votesCount) }
+        let pollOptions = poll.options.sortedByIndex().map { (title: $0.title, votes: Int($0.votesCount)) }
+        
+        guard entityPollOptions.count == pollOptions.count else {
+            // poll definitely needs to be updated due to differences in count of options
+            return true
+        }
+        
+        for (entityPollOption, pollOption) in zip(entityPollOptions, pollOptions) {
+            guard entityPollOption.title == pollOption.title else {
+                // update poll because at least one title differs
+                return true
+            }
+            guard entityPollOption.votes == pollOption.votes else {
+                // update poll because at least one vote count differs
+                return true
+            }
+        }
+        return false
     }
 }
