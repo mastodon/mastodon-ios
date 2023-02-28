@@ -59,17 +59,23 @@ extension Persistence.Poll {
     ) -> PersistResult {
         
         if let old = fetch(in: managedObjectContext, context: context) {
-            merge(poll: old, context: context)
+            merge(in: managedObjectContext, poll: old, context: context)
             return PersistResult(
                 poll: old,
                 isNewInsertion: false
             )
         } else {
+            let poll = create(
+                in: managedObjectContext,
+                context: context
+            )
+            
             let options: [PollOption] = context.entity.options.enumerated().map { i, entity in
                 let optionResult = Persistence.PollOption.persist(
                     in: managedObjectContext,
                     context: Persistence.PollOption.PersistContext(
                         index: i,
+                        poll: poll,
                         entity: entity,
                         me: context.me,
                         networkDate: context.networkDate
@@ -77,11 +83,7 @@ extension Persistence.Poll {
                 )
                 return optionResult.option
             }
-            
-            let poll = create(
-                in: managedObjectContext,
-                context: context
-            )
+
             poll.attach(options: options)
 
             return PersistResult(
@@ -124,11 +126,12 @@ extension Persistence.Poll {
             into: managedObjectContext,
             property: property
         )
-        update(poll: poll, context: context)
+        update(in: managedObjectContext, poll: poll, context: context)
         return poll
     }
     
     public static func merge(
+        in managedObjectContext: NSManagedObjectContext,
         poll: Poll,
         context: PersistContext
     ) {
@@ -139,10 +142,11 @@ extension Persistence.Poll {
             networkDate: context.networkDate
         )
         poll.update(property: property)
-        update(poll: poll, context: context)
+        update(in: managedObjectContext, poll: poll, context: context)
     }
     
     public static func update(
+        in managedObjectContext: NSManagedObjectContext,
         poll: Poll,
         context: PersistContext
     ) {
@@ -153,6 +157,7 @@ extension Persistence.Poll {
                 option: option,
                 context: Persistence.PollOption.PersistContext(
                     index: Int(option.index),
+                    poll: poll,
                     entity: entity,
                     me: context.me,
                     networkDate: context.networkDate
@@ -173,34 +178,31 @@ extension Persistence.Poll {
             }
         }
         
-        poll.update(updatedAt: context.networkDate)
-    }
-    
-    public static func updateEdit(
-        in managedObjectContext: NSManagedObjectContext,
-        poll: Poll,
-        context: PersistContext
-    ) {
-        for option in poll.options {
-            managedObjectContext.delete(option)
-        }
-        
-        var attachableOptions = [PollOption]()
-        for (index, option) in context.entity.options.enumerated() {
-            attachableOptions.append(
-                Persistence.PollOption.create(
-                    in: managedObjectContext,
-                    context: Persistence.PollOption.PersistContext(
-                        index: index,
-                        entity: option,
-                        me: context.me,
-                        networkDate: context.networkDate
+        // update options
+        if context.entity.options.map({ $0.title }) != poll.options.sortedByIndex().map({ $0.title }) {
+            // options differ, update them
+            for option in poll.options {
+                option.update(poll: nil)
+                managedObjectContext.delete(option)
+            }
+            var attachableOptions = [PollOption]()
+            for (index, option) in context.entity.options.enumerated() {
+                attachableOptions.append(
+                    Persistence.PollOption.create(
+                        in: managedObjectContext,
+                        context: Persistence.PollOption.PersistContext(
+                            index: index,
+                            poll: poll,
+                            entity: option,
+                            me: context.me,
+                            networkDate: context.networkDate
+                        )
                     )
                 )
-            )
+            }
+            poll.attach(options: attachableOptions)
         }
         
-        poll.attach(options: attachableOptions)
         poll.update(updatedAt: context.networkDate)
     }
 }

@@ -324,3 +324,9 @@ extension Poll: AutoUpdatableObject {
         }
     }
 }
+
+public extension Set<PollOption> {
+    func sortedByIndex() -> [PollOption] {
+        sorted(by: { lhs, rhs in lhs.index < rhs.index })
+    }
+}

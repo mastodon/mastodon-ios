@@ -27,6 +27,7 @@ public final class PollOption: NSManagedObject {
     @NSManaged public private(set) var isSelected: Bool
     
     // many-to-one relationship
+    // sourcery: autoUpdatableObject, autoGenerateProperty
     @NSManaged public private(set) var poll: Poll?
     
     // many-to-many relationship
@@ -125,19 +126,22 @@ extension PollOption: AutoGenerateProperty {
         public let votesCount: Int64
         public let createdAt: Date
         public let updatedAt: Date
+        public let poll: Poll?
 
     	public init(
     		index: Int64,
     		title: String,
     		votesCount: Int64,
     		createdAt: Date,
-    		updatedAt: Date
+    		updatedAt: Date,
+    		poll: Poll?
     	) {
     		self.index = index
     		self.title = title
     		self.votesCount = votesCount
     		self.createdAt = createdAt
     		self.updatedAt = updatedAt
+    		self.poll = poll
     	}
     }
 
@@ -147,12 +151,14 @@ extension PollOption: AutoGenerateProperty {
     	self.votesCount = property.votesCount
     	self.createdAt = property.createdAt
     	self.updatedAt = property.updatedAt
+    	self.poll = property.poll
     }
 
     public func update(property: Property) {
     	update(title: property.title)
     	update(votesCount: property.votesCount)
     	update(updatedAt: property.updatedAt)
+    	update(poll: property.poll)
     }
     // sourcery:end
 }
@@ -181,6 +187,11 @@ extension PollOption: AutoUpdatableObject {
     public func update(isSelected: Bool) {
     	if self.isSelected != isSelected {
     		self.isSelected = isSelected
+    	}
+    }
+    public func update(poll: Poll?) {
+    	if self.poll != poll {
+    		self.poll = poll
     	}
     }
     // sourcery:end

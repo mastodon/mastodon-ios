@@ -200,7 +200,7 @@ extension Persistence.Status {
         status.update(property: property)
         if let poll = status.poll, let entity = context.entity.poll {
             // update poll
-            Persistence.Poll.updateEdit(
+            Persistence.Poll.update(
                 in: managedObjectContext, 
                 poll: poll,
                 context: Persistence.Poll.PersistContext(

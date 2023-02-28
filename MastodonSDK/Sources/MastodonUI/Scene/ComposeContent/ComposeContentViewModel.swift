@@ -204,7 +204,7 @@ public final class ComposeContentViewModel: NSObject, ObservableObject {
                 if let pollExpiresAt = poll.expiresAt {
                     pollExpireConfigurationOption = .init(closestDateToExpiry: pollExpiresAt)
                 }
-                pollOptions = poll.options.map {
+                pollOptions = poll.options.sortedByIndex().map {
                     let option = PollComposeItem.Option()
                     option.text = $0.title
                     return option
