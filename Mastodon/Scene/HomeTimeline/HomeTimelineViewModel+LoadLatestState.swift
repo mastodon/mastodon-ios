@@ -51,7 +51,7 @@ extension HomeTimelineViewModel {
 extension HomeTimelineViewModel.LoadLatestState {
     class Initial: HomeTimelineViewModel.LoadLatestState {
         override func isValidNextState(_ stateClass: AnyClass) -> Bool {
-            return stateClass == Loading.self
+            return stateClass == Loading.self || stateClass == LoadingManually.self
         }
     }
     
@@ -83,7 +83,7 @@ extension HomeTimelineViewModel.LoadLatestState {
     
     class Idle: HomeTimelineViewModel.LoadLatestState {
         override func isValidNextState(_ stateClass: AnyClass) -> Bool {
-            return stateClass == Loading.self
+            return stateClass == Loading.self || stateClass == LoadingManually.self
         }
     }
 
