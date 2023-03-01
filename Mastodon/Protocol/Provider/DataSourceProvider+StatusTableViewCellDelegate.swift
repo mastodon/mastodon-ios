@@ -483,9 +483,14 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
                 return
             }
             
-            if let cell = cell as? StatusTableViewCell {
+            if case .translateStatus = action {
                 DispatchQueue.main.async {
-                    cell.statusView.viewModel.isCurrentlyTranslating = true
+                    if let cell = cell as? StatusTableViewCell {
+                        cell.statusView.viewModel.isCurrentlyTranslating = true
+                    } else if let cell = cell as? StatusThreadRootTableViewCell {
+                        cell.statusView.viewModel.isCurrentlyTranslating = true
+                    }
+                    cell.invalidateIntrinsicContentSize()
                 }
             }
                         

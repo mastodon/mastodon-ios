@@ -463,11 +463,13 @@ extension StatusView.Style {
 
         // status content
         statusView.contentContainer.addArrangedSubview(statusView.contentMetaText.textView)
-        statusView.contentContainer.addArrangedSubview(statusView.statusCardControl)
 
         // translated info
         statusView.containerStackView.addArrangedSubview(statusView.isTranslatingLoadingView)
         statusView.containerStackView.addArrangedSubview(statusView.translatedInfoView)
+
+        // link preview card
+        statusView.contentContainer.addArrangedSubview(statusView.statusCardControl)
 
         statusView.spoilerOverlayView.translatesAutoresizingMaskIntoConstraints = false
         statusView.containerStackView.addSubview(statusView.spoilerOverlayView)
