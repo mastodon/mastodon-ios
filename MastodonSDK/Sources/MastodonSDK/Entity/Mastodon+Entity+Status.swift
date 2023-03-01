@@ -17,7 +17,7 @@ extension Mastodon.Entity {
     ///   2021/2/23
     /// # Reference
     ///  [Document](https://docs.joinmastodon.org/entities/status/)
-    public class Status: Codable {
+    public final class Status: Codable, Sendable {
         
         public typealias ID = String
 
@@ -104,7 +104,7 @@ extension Mastodon.Entity {
 }
 
 extension Mastodon.Entity.Status {
-    public enum Visibility: RawRepresentable, Codable, Hashable {
+    public enum Visibility: RawRepresentable, Codable, Hashable, Sendable {
         case `public`
         case unlisted
         case `private`

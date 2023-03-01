@@ -8,6 +8,7 @@
 import SwiftUI
 import MastodonAsset
 import MastodonCore
+import Combine
 
 public struct PollAddOptionRow: View {
  

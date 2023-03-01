@@ -9,6 +9,7 @@ import os.log
 import UIKit
 import Combine
 import PhotosUI
+import MastodonSDK
 import MastodonCore
 import MastodonLocalization
 import func QuartzCore.CACurrentMediaTime

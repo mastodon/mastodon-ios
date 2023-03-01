@@ -16,7 +16,7 @@ extension Mastodon.Entity {
     ///   2021/1/28
     /// # Reference
     ///  [Document](https://docs.joinmastodon.org/entities/card/)
-    public struct Card: Codable {
+    public struct Card: Codable, Sendable {
         // Base
         public let url: String
         public let title: String
@@ -54,7 +54,7 @@ extension Mastodon.Entity {
 }
 
 extension Mastodon.Entity.Card {
-    public enum `Type`: RawRepresentable, Codable {
+    public enum `Type`: RawRepresentable, Codable, Sendable {
         case link
         case photo
         case video

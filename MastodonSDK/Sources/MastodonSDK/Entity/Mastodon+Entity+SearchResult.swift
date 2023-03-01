@@ -7,7 +7,7 @@
 
 import Foundation
 extension Mastodon.Entity {
-    public struct SearchResult: Codable {
+    public struct SearchResult: Codable, Sendable {
         public init(accounts: [Mastodon.Entity.Account], statuses: [Mastodon.Entity.Status], hashtags: [Mastodon.Entity.Tag]) {
             self.accounts = accounts
             self.statuses = statuses
