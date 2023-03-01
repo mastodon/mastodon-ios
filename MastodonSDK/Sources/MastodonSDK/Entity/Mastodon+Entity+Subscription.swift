@@ -64,7 +64,7 @@ extension Mastodon.Entity {
         }
     }
     
-    public struct EmptySubscription: Codable {
+    public struct EmptySubscription: Codable, Sendable {
         
     }
 }

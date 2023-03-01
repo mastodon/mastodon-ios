@@ -16,7 +16,7 @@ extension Mastodon.Entity {
     ///   2021/1/28
     /// # Reference
     ///  [Document](https://docs.joinmastodon.org/entities/context/)
-    public struct Context: Codable {
+    public struct Context: Codable, Sendable {
         public let ancestors: [Status]
         public let descendants: [Status]
     }

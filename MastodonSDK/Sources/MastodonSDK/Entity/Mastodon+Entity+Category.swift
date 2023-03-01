@@ -9,7 +9,7 @@ import Foundation
 
 extension Mastodon.Entity {
 
-    public struct Category: Codable {
+    public struct Category: Codable, Sendable {
         public let category: Kind
         public let serversCount: Int
 
@@ -25,7 +25,7 @@ extension Mastodon.Entity {
         
         /// # Reference
         ///   https://joinmastodon.org/communities
-        public enum Kind: RawRepresentable, Codable {
+        public enum Kind: RawRepresentable, Codable, Sendable {
             
             case general
             case regional

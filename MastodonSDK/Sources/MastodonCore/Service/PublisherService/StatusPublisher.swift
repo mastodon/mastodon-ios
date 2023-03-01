@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 public protocol StatusPublisher: ProgressReporting {
     var state: Published<StatusPublisherState>.Publisher { get }

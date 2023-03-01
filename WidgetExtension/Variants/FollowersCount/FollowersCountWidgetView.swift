@@ -40,14 +40,12 @@ struct FollowersCountWidgetView: View {
     private func viewForSmallWidgetNoChart(_ account: FollowersEntryAccountable) -> some View {
         HStack {
             VStack(alignment: .leading, spacing: 0) {
-                if let avatarImage = account.avatarImage {
-                    Image(uiImage: avatarImage)
-                        .resizable()
-                        .frame(width: 50, height: 50)
-                        .cornerRadius(12)
-                        .padding(.bottom, 8)
-                }
-                
+                Image(uiImage: account.avatarImage)
+                    .resizable()
+                    .frame(width: 50, height: 50)
+                    .cornerRadius(12)
+                    .padding(.bottom, 8)
+
                 Text(account.followersCount.asAbbreviatedCountString())
                     .font(.largeTitle)
                     .lineLimit(1)
@@ -73,12 +71,10 @@ struct FollowersCountWidgetView: View {
     private func viewForSmallWidgetYesChart(_ account: FollowersEntryAccountable) -> some View {
         VStack(alignment: .leading, spacing: 0) {
             HStack {
-                if let avatarImage = account.avatarImage {
-                    Image(uiImage: avatarImage)
-                        .resizable()
-                        .frame(width: 23, height: 23)
-                        .cornerRadius(5)
-                }
+                Image(uiImage: account.avatarImage)
+                    .resizable()
+                    .frame(width: 23, height: 23)
+                    .cornerRadius(5)
                 VStack(alignment: .leading) {
                     Text(account.displayNameWithFallback)
                         .font(.caption)

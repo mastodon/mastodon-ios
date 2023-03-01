@@ -9,7 +9,7 @@ import Foundation
 
 extension Mastodon.Entity.V2 {
 
-    public struct SuggestionAccount: Codable {
+    public struct SuggestionAccount: Codable, Sendable {
 
         public let source: String
         public let account: Mastodon.Entity.Account
