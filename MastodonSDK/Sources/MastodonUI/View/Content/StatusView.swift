@@ -88,6 +88,46 @@ public final class StatusView: UIView {
     // author
     let authorAdaptiveMarginContainerView = AdaptiveMarginContainerView()
     public let authorView = StatusAuthorView()
+    
+    // edit history content warning
+    lazy var historyContentWarningAdaptiveMarginContainerView: AdaptiveMarginContainerView = {
+        let view = AdaptiveMarginContainerView()
+        view.contentView = historyContentWarningContainerView
+        view.margin = StatusView.containerLayoutMargin
+        return view
+    }()
+    
+    let historyContentWarningLabel: MetaLabel = {
+       let label = MetaLabel(style: .statusSpoilerBanner)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    lazy var historyContentWarningContainerView: UIView = {
+        let container = UIView()
+        container.translatesAutoresizingMaskIntoConstraints = false
+        
+        let divider = UIView()
+        divider.backgroundColor = Asset.Colors.Label.secondary.color
+        divider.translatesAutoresizingMaskIntoConstraints = false
+        
+        container.addSubview(historyContentWarningLabel)
+        container.addSubview(divider)
+        
+        NSLayoutConstraint.activate([
+            historyContentWarningLabel.leadingAnchor.constraint(equalTo: container.leadingAnchor),
+            historyContentWarningLabel.topAnchor.constraint(equalTo: container.topAnchor),
+            historyContentWarningLabel.trailingAnchor.constraint(equalTo: container.trailingAnchor),
+
+            divider.leadingAnchor.constraint(equalTo: container.leadingAnchor),
+            divider.topAnchor.constraint(equalTo: historyContentWarningLabel.bottomAnchor, constant: 16),
+            divider.trailingAnchor.constraint(equalTo: container.trailingAnchor),
+            divider.heightAnchor.constraint(equalToConstant: 2),
+            divider.bottomAnchor.constraint(equalTo: container.bottomAnchor)
+        ])
+        
+        return container
+    }()
 
     // content
     let contentAdaptiveMarginContainerView = AdaptiveMarginContainerView()
@@ -450,6 +490,9 @@ extension StatusView.Style {
         statusView.authorAdaptiveMarginContainerView.contentView = statusView.authorView
         statusView.authorAdaptiveMarginContainerView.margin = StatusView.containerLayoutMargin
         statusView.containerStackView.addArrangedSubview(statusView.authorAdaptiveMarginContainerView)
+        
+        // history content warning
+        statusView.containerStackView.addArrangedSubview(statusView.historyContentWarningAdaptiveMarginContainerView)
 
         // content container: V - [ contentMetaText statusCardControl ]
         statusView.contentContainer.axis = .vertical

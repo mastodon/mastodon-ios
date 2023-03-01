@@ -52,13 +52,11 @@ extension StatusView {
         let timestamp = (status.reblog ?? status).publisher(for: \.createdAt)
         configureTimestamp(timestamp: timestamp.eraseToAnyPublisher())
         configureApplicationName(status.application?.name)
-        configureContent(status: status)
         configureMedia(status: status)
         configurePollHistory(statusEdit: statusEdit)
         configureCard(status: status)
         configureToolbar(status: status)
         configureFilter(status: status)
-        
         configureContent(statusEdit: statusEdit, status: status)
         configureMedia(status: statusEdit)
         actionToolbarAdaptiveMarginContainerView.isHidden = true
@@ -320,19 +318,10 @@ extension StatusView {
     }
 
     private func configureContent(statusEdit: StatusEdit, status: Status) {
-        // spoilerText
-        if let spoilerText = statusEdit.spoilerText, !spoilerText.isEmpty {
-            do {
-                let content = MastodonContent(content: spoilerText, emojis: statusEdit.emojis.asDictionary) //  statusEdit.emojis.asDictionary)
-                let metaContent = try MastodonMetaContent.convert(document: content)
-                viewModel.spoilerContent = metaContent
-            } catch {
-                assertionFailure(error.localizedDescription)
-                viewModel.spoilerContent = PlaintextMetaContent(string: "")
-            }
-        } else {
-            viewModel.spoilerContent = nil
+        statusEdit.spoilerText.map {
+            viewModel.spoilerContent = PlaintextMetaContent(string: $0)
         }
+        
         // language
         viewModel.language = (status.reblog ?? status).language
         // content
@@ -346,12 +335,6 @@ extension StatusView {
             assertionFailure(error.localizedDescription)
             viewModel.content = PlaintextMetaContent(string: "")
         }
-        // visibility
-        status.publisher(for: \.visibilityRaw)
-            .compactMap { MastodonVisibility(rawValue: $0) }
-            .assign(to: \.visibility, on: viewModel)
-            .store(in: &disposeBag)
-        // sensitive
     }
 
     private func configureContent(status: Status) {
