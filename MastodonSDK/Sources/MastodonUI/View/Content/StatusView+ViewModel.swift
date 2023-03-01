@@ -318,6 +318,7 @@ extension StatusView.ViewModel {
             } else {
                 statusView.historyContentWarningLabel.reset()
                 statusView.historyContentWarningAdaptiveMarginContainerView.isHidden = true
+                statusView.setContentSensitiveeToggleButtonDisplay(isDisplay: false)
             }
             
             let paragraphStyle = statusView.contentMetaText.paragraphStyle
