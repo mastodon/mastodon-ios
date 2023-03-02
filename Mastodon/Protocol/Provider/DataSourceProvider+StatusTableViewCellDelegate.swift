@@ -233,6 +233,7 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
                         scene: .compose(viewModel: ComposeViewModel(
                             context: self.context,
                             authContext: self.authContext,
+                            composeContext: .composeStatus,
                             destination: .topLevel,
                             initialContent: L10n.Common.Controls.Status.linkViaUser(url.absoluteString, "@" + (statusView.viewModel.authorUsername ?? ""))
                         )),
@@ -318,7 +319,7 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
             
             try await managedObjectContext.performChanges {
                 guard let pollOption = pollOption.object(in: managedObjectContext) else { return }
-                let poll = pollOption.poll
+                guard let poll = pollOption.poll else { return }
                 _poll = .init(objectID: poll.objectID)
 
                 _isMultiple = poll.multiple
@@ -357,8 +358,10 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
                 
                 // restore voting state
                 try await managedObjectContext.performChanges {
-                    guard let pollOption = pollOption.object(in: managedObjectContext) else { return }
-                    let poll = pollOption.poll
+                    guard
+                        let pollOption = pollOption.object(in: managedObjectContext),
+                        let poll = pollOption.poll
+                    else { return }
                     poll.update(isVoting: false)
                 }
             }
@@ -651,6 +654,24 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
                 transition: .show
             )
         }   // end Task
+    }
+
+    func tableViewCell(_ cell: UITableViewCell, statusView: StatusView, statusMetricView: StatusMetricView, showEditHistory button: UIButton) {
+        Task {
+
+            let source = DataSourceItem.Source(tableViewCell: cell, indexPath: nil)
+            guard let item = await self.item(from: source),
+                  case let .status(status) = item else {
+                assertionFailure("only works for status data provider")
+                return
+            }
+
+            guard let status = status.object(in: context.managedObjectContext),
+                  let edits = status.editHistory?.sorted(by: { $0.createdAt > $1.createdAt }) else { return }
+
+            let viewModel = StatusEditHistoryViewModel(status: status, edits: edits, appContext: context, authContext: authContext)
+            _ = await coordinator.present(scene: .editHistory(viewModel: viewModel), from: self, transition: .show)
+        }
     }
 }
 

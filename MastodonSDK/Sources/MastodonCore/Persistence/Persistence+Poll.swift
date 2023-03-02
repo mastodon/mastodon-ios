@@ -59,30 +59,16 @@ extension Persistence.Poll {
     ) -> PersistResult {
         
         if let old = fetch(in: managedObjectContext, context: context) {
-            merge(poll: old, context: context)
+            merge(in: managedObjectContext, poll: old, context: context)
             return PersistResult(
                 poll: old,
                 isNewInsertion: false
             )
         } else {
-            let options: [PollOption] = context.entity.options.enumerated().map { i, entity in
-                let optionResult = Persistence.PollOption.persist(
-                    in: managedObjectContext,
-                    context: Persistence.PollOption.PersistContext(
-                        index: i,
-                        entity: entity,
-                        me: context.me,
-                        networkDate: context.networkDate
-                    )
-                )
-                return optionResult.option
-            }
-            
             let poll = create(
                 in: managedObjectContext,
                 context: context
             )
-            poll.attach(options: options)
 
             return PersistResult(
                 poll: poll,
@@ -124,11 +110,12 @@ extension Persistence.Poll {
             into: managedObjectContext,
             property: property
         )
-        update(poll: poll, context: context)
+        update(in: managedObjectContext, poll: poll, context: context)
         return poll
     }
     
     public static func merge(
+        in managedObjectContext: NSManagedObjectContext,
         poll: Poll,
         context: PersistContext
     ) {
@@ -139,10 +126,11 @@ extension Persistence.Poll {
             networkDate: context.networkDate
         )
         poll.update(property: property)
-        update(poll: poll, context: context)
+        update(in: managedObjectContext, poll: poll, context: context)
     }
     
     public static func update(
+        in managedObjectContext: NSManagedObjectContext,
         poll: Poll,
         context: PersistContext
     ) {
@@ -153,6 +141,7 @@ extension Persistence.Poll {
                 option: option,
                 context: Persistence.PollOption.PersistContext(
                     index: Int(option.index),
+                    poll: poll,
                     entity: entity,
                     me: context.me,
                     networkDate: context.networkDate
@@ -173,7 +162,53 @@ extension Persistence.Poll {
             }
         }
         
+        // update options
+        if needsPollOptionsUpdate(context: context, poll: poll) {
+            // options differ, update them
+            for option in poll.options {
+                option.update(poll: nil)
+                managedObjectContext.delete(option)
+            }
+            var attachableOptions = [PollOption]()
+            for (index, option) in context.entity.options.enumerated() {
+                attachableOptions.append(
+                    Persistence.PollOption.create(
+                        in: managedObjectContext,
+                        context: Persistence.PollOption.PersistContext(
+                            index: index,
+                            poll: poll,
+                            entity: option,
+                            me: context.me,
+                            networkDate: context.networkDate
+                        )
+                    )
+                )
+            }
+            poll.attach(options: attachableOptions)
+        }
+        
         poll.update(updatedAt: context.networkDate)
     }
     
+    private static func needsPollOptionsUpdate(context: PersistContext, poll: Poll) -> Bool {
+        let entityPollOptions = context.entity.options.map { (title: $0.title, votes: $0.votesCount) }
+        let pollOptions = poll.options.sortedByIndex().map { (title: $0.title, votes: Int($0.votesCount)) }
+        
+        guard entityPollOptions.count == pollOptions.count else {
+            // poll definitely needs to be updated due to differences in count of options
+            return true
+        }
+        
+        for (entityPollOption, pollOption) in zip(entityPollOptions, pollOptions) {
+            guard entityPollOption.title == pollOption.title else {
+                // update poll because at least one title differs
+                return true
+            }
+            guard entityPollOption.votes == pollOption.votes else {
+                // update poll because at least one vote count differs
+                return true
+            }
+        }
+        return false
+    }
 }

@@ -66,7 +66,7 @@ extension ThreadViewModel.LoadThreadState {
         override func didEnter(from previousState: GKState?) {
             super.didEnter(from: previousState)
 
-            guard let viewModel = viewModel, let stateMachine = stateMachine else { return }
+            guard let viewModel, let stateMachine else { return }
             
             guard let threadContext = viewModel.threadContext else {
                 stateMachine.enter(Fail.self)
@@ -79,11 +79,14 @@ extension ThreadViewModel.LoadThreadState {
                         statusID: threadContext.statusID,
                         authenticationBox: viewModel.authContext.mastodonAuthenticationBox
                     )
-                    
+
                     await enter(state: NoMore.self)
                     
                     // assert(!Thread.isMainThread)
                     // await Task.sleep(1_000_000_000)     // 1s delay to prevent UI render issue
+
+                    let statusHistory = try await viewModel.context.apiService.getHistory(forStatusID: threadContext.statusID,
+                                                                                          authenticationBox: viewModel.authContext.mastodonAuthenticationBox)
                     
                     viewModel.mastodonStatusThreadViewModel.appendAncestor(
                         domain: threadContext.domain,

@@ -9,5 +9,6 @@ import Foundation
 import MastodonSDK
 
 public enum StatusPublishResult {
-    case mastodon(Mastodon.Response.Content<Mastodon.Entity.Status>)
+    case post(Mastodon.Response.Content<Mastodon.Entity.Status>)
+    case edit(Mastodon.Response.Content<Mastodon.Entity.Status>)
 }

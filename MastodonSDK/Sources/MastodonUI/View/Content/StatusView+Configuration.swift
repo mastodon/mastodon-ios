@@ -39,6 +39,33 @@ extension StatusView {
 }
 
 extension StatusView {
+
+    public func configure(status: Status, statusEdit: StatusEdit) {
+        viewModel.objects.insert(status)
+        if let reblog = status.reblog {
+            viewModel.objects.insert(reblog)
+        }
+
+        configureHeader(status: status)
+        let author = (status.reblog ?? status).author
+        configureAuthor(author: author)
+        let timestamp = (status.reblog ?? status).publisher(for: \.createdAt)
+        configureTimestamp(timestamp: timestamp.eraseToAnyPublisher())
+        configureApplicationName(status.application?.name)
+        configureMedia(status: status)
+        configurePollHistory(statusEdit: statusEdit)
+        configureCard(status: status)
+        configureToolbar(status: status)
+        configureFilter(status: status)
+        configureContent(statusEdit: statusEdit, status: status)
+        configureMedia(status: statusEdit)
+        actionToolbarAdaptiveMarginContainerView.isHidden = true
+        authorView.menuButton.isHidden = true
+        headerAdaptiveMarginContainerView.isHidden = true
+        viewModel.isSensitiveToggled = true
+        viewModel.isContentReveal = true
+    }
+
     public func configure(status: Status) {
         viewModel.objects.insert(status)
         if let reblog = status.reblog {
@@ -50,6 +77,7 @@ extension StatusView {
         configureAuthor(author: author)
         let timestamp = (status.reblog ?? status).publisher(for: \.createdAt)
         configureTimestamp(timestamp: timestamp.eraseToAnyPublisher())
+        configureApplicationName(status.application?.name)
         configureContent(status: status)
         configureMedia(status: status)
         configurePoll(status: status)
@@ -113,7 +141,7 @@ extension StatusView {
                 let header = ViewModel.Header.reply(info: .init(header: metaContent))
                 return header
             }
-                        
+
             if let replyTo = status.replyTo {
                 // A. replyTo status exist
                 let header = createHeader(name: replyTo.author.displayNameWithFallback, emojis: replyTo.author.emojis.asDictionary)
@@ -234,13 +262,20 @@ extension StatusView {
     
     private func configureTimestamp(timestamp: AnyPublisher<Date, Never>) {
         // timestamp
-        viewModel.timestampFormatter = { (date: Date) in
-            date.localizedSlowedTimeAgoSinceNow
+        viewModel.timestampFormatter = { (date: Date, isEdited: Bool) in
+            if isEdited {
+                return L10n.Common.Controls.Status.editedAtTimestampPrefix(date.localizedSlowedTimeAgoSinceNow)
+            }
+            return date.localizedSlowedTimeAgoSinceNow
         }
         timestamp
             .map { $0 as Date? }
             .assign(to: \.timestamp, on: viewModel)
             .store(in: &disposeBag)
+    }
+
+    private func configureApplicationName(_ applicationName: String?) {
+        viewModel.applicationName = applicationName
     }
     
     func revertTranslation() {
@@ -281,7 +316,27 @@ extension StatusView {
             viewModel.content = PlaintextMetaContent(string: "")
         }
     }
-    
+
+    private func configureContent(statusEdit: StatusEdit, status: Status) {
+        statusEdit.spoilerText.map {
+            viewModel.spoilerContent = PlaintextMetaContent(string: $0)
+        }
+        
+        // language
+        viewModel.language = (status.reblog ?? status).language
+        // content
+        do {
+            let content = MastodonContent(content: statusEdit.content, emojis: statusEdit.emojis.asDictionary)
+            let metaContent = try MastodonMetaContent.convert(document: content)
+            viewModel.content = metaContent
+            viewModel.translatedFromLanguage = nil
+            viewModel.isCurrentlyTranslating = false
+        } catch {
+            assertionFailure(error.localizedDescription)
+            viewModel.content = PlaintextMetaContent(string: "")
+        }
+    }
+
     private func configureContent(status: Status) {
         guard status.translatedContent == nil else {
             return configureTranslated(status: status)
@@ -327,13 +382,26 @@ extension StatusView {
             .store(in: &disposeBag)
     }
     
-    private func configureMedia(status: Status) {
+    private func configureMedia(status: StatusCompatible) {
         let status = status.reblog ?? status
         
         viewModel.isMediaSensitive = status.isMediaSensitive
         
         let configurations = MediaView.configuration(status: status)
         viewModel.mediaViewConfigurations = configurations
+    }
+    
+    private func configurePollHistory(statusEdit: StatusEdit) {
+        guard let poll = statusEdit.poll else { return }
+
+        let pollItems = poll.options.map { PollItem.history(option: $0) }
+        self.viewModel.pollItems = pollItems
+        pollStatusStackView.isHidden = true
+
+        var _snapshot = NSDiffableDataSourceSnapshot<PollSection, PollItem>()
+        _snapshot.appendSections([.main])
+        _snapshot.appendItems(pollItems, toSection: .main)
+        pollTableViewDiffableDataSource?.applySnapshotUsingReloadData(_snapshot)
     }
 
     private func configurePoll(status: Status) {
@@ -432,6 +500,16 @@ extension StatusView {
         status.publisher(for: \.favouritesCount)
             .map(Int.init)
             .assign(to: \.favoriteCount, on: viewModel)
+            .store(in: &disposeBag)
+        status.publisher(for: \.editedAt)
+            .assign(to: \.editedAt, on: viewModel)
+            .store(in: &disposeBag)
+
+        status.publisher(for: \.editHistory)
+            .compactMap({ guard let edits = $0 else { return nil }
+                return Array(edits)
+            })
+            .assign(to: \.statusEdits, on: viewModel)
             .store(in: &disposeBag)
         
         // relationship

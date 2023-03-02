@@ -70,7 +70,7 @@ extension Mastodon.API.Media {
             .eraseToAnyPublisher()
     }
     
-    public struct UploadMediaQuery: PostQuery, PutQuery {
+    public struct UploadMediaQuery: PostQuery {
         public let file: Mastodon.Query.MediaAttachment?
         public let thumbnail: Mastodon.Query.MediaAttachment?
         public let description: String?

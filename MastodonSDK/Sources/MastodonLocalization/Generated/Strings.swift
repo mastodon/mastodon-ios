@@ -132,6 +132,8 @@ public enum L10n {
         public static let done = L10n.tr("Localizable", "Common.Controls.Actions.Done", fallback: "Done")
         /// Edit
         public static let edit = L10n.tr("Localizable", "Common.Controls.Actions.Edit", fallback: "Edit")
+        /// Edit
+        public static let editPost = L10n.tr("Localizable", "Common.Controls.Actions.EditPost", fallback: "Edit")
         /// Find people to follow
         public static let findPeople = L10n.tr("Localizable", "Common.Controls.Actions.FindPeople", fallback: "Find people to follow")
         /// Manually search instead
@@ -290,6 +292,10 @@ public enum L10n {
       public enum Status {
         /// Content Warning
         public static let contentWarning = L10n.tr("Localizable", "Common.Controls.Status.ContentWarning", fallback: "Content Warning")
+        /// Edited %@
+        public static func editedAtTimestampPrefix(_ p1: Any) -> String {
+          return L10n.tr("Localizable", "Common.Controls.Status.EditedAtTimestampPrefix", String(describing: p1), fallback: "Edited %@")
+        }
         /// %@ via %@
         public static func linkViaUser(_ p1: Any, _ p2: Any) -> String {
           return L10n.tr("Localizable", "Common.Controls.Status.LinkViaUser", String(describing: p1), String(describing: p2), fallback: "%@ via %@")
@@ -298,6 +304,10 @@ public enum L10n {
         public static let loadEmbed = L10n.tr("Localizable", "Common.Controls.Status.LoadEmbed", fallback: "Load Embed")
         /// Tap anywhere to reveal
         public static let mediaContentWarning = L10n.tr("Localizable", "Common.Controls.Status.MediaContentWarning", fallback: "Tap anywhere to reveal")
+        /// %@ via %@
+        public static func postedViaApplication(_ p1: Any, _ p2: Any) -> String {
+          return L10n.tr("Localizable", "Common.Controls.Status.PostedViaApplication", String(describing: p1), String(describing: p2), fallback: "%@ via %@")
+        }
         /// Sensitive Content
         public static let sensitiveContent = L10n.tr("Localizable", "Common.Controls.Status.SensitiveContent", fallback: "Sensitive Content")
         /// Show Post
@@ -339,6 +349,26 @@ public enum L10n {
           public static let unfavorite = L10n.tr("Localizable", "Common.Controls.Status.Actions.Unfavorite", fallback: "Unfavorite")
           /// Undo reblog
           public static let unreblog = L10n.tr("Localizable", "Common.Controls.Status.Actions.Unreblog", fallback: "Undo reblog")
+        }
+        public enum Buttons {
+          /// Last edit %@
+          public static func editHistoryDetail(_ p1: Any) -> String {
+            return L10n.tr("Localizable", "Common.Controls.Status.Buttons.EditHistoryDetail", String(describing: p1), fallback: "Last edit %@")
+          }
+          /// Edit History
+          public static let editHistoryTitle = L10n.tr("Localizable", "Common.Controls.Status.Buttons.EditHistoryTitle", fallback: "Edit History")
+          /// Favorites
+          public static let favoritesTitle = L10n.tr("Localizable", "Common.Controls.Status.Buttons.FavoritesTitle", fallback: "Favorites")
+          /// Reblogs
+          public static let reblogsTitle = L10n.tr("Localizable", "Common.Controls.Status.Buttons.ReblogsTitle", fallback: "Reblogs")
+        }
+        public enum EditHistory {
+          /// Original Post · %@
+          public static func originalPost(_ p1: Any) -> String {
+            return L10n.tr("Localizable", "Common.Controls.Status.EditHistory.OriginalPost", String(describing: p1), fallback: "Original Post · %@")
+          }
+          /// Edit History
+          public static let title = L10n.tr("Localizable", "Common.Controls.Status.EditHistory.Title", fallback: "Edit History")
         }
         public enum Media {
           /// %@, attachment %d of %d
@@ -629,6 +659,8 @@ public enum L10n {
         public static let title = L10n.tr("Localizable", "Scene.Compose.Poll.Title", fallback: "Poll")
       }
       public enum Title {
+        /// Edit Post
+        public static let editPost = L10n.tr("Localizable", "Scene.Compose.Title.EditPost", fallback: "Edit Post")
         /// New Post
         public static let newPost = L10n.tr("Localizable", "Scene.Compose.Title.NewPost", fallback: "New Post")
         /// New Reply

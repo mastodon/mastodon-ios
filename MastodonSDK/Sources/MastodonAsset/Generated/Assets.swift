@@ -103,6 +103,7 @@ public enum Asset {
     public static let disabled = ColorAsset(name: "Colors/disabled")
     public static let inactive = ColorAsset(name: "Colors/inactive")
     public static let mediaTypeIndicotor = ColorAsset(name: "Colors/media.type.indicotor")
+    public static let selectionHighlight = ColorAsset(name: "Colors/selection.highlight")
     public static let successGreen = ColorAsset(name: "Colors/success.green")
     public static let systemOrange = ColorAsset(name: "Colors/system.orange")
   }
@@ -163,6 +164,11 @@ public enum Asset {
     }
     public enum Discovery {
       public static let profileCardBackground = ColorAsset(name: "Scene/Discovery/profile.card.background")
+    }
+    public enum EditHistory {
+      public static let edit = ImageAsset(name: "Scene/Edit History/Edit")
+      public static let statusBackground = ColorAsset(name: "Scene/Edit History/StatusBackground")
+      public static let statusBackgroundBorder = ColorAsset(name: "Scene/Edit History/StatusBackgroundBorder")
     }
     public enum Notification {
       public static let confirmFollowRequestButtonBackground = ColorAsset(name: "Scene/Notification/confirm.follow.request.button.background")

@@ -38,7 +38,7 @@ public final class Poll: NSManagedObject {
     @NSManaged public private(set) var isVoting: Bool
     
     // one-to-one relationship
-    @NSManaged public private(set) var status: Status
+    @NSManaged public private(set) var status: Status?
     
     // one-to-many relationship
     @NSManaged public private(set) var options: Set<PollOption>
@@ -322,5 +322,11 @@ extension Poll: AutoUpdatableObject {
             guard !self.options.contains(option) else { continue }
             self.mutableSetValue(forKey: #keyPath(Poll.options)).add(option)
         }
+    }
+}
+
+public extension Set<PollOption> {
+    func sortedByIndex() -> [PollOption] {
+        sorted(by: { lhs, rhs in lhs.index < rhs.index })
     }
 }

@@ -32,6 +32,7 @@ final class ShareViewController: UIViewController {
         button.setTitle(L10n.Scene.Compose.composeAction, for: .normal)
         return button
     }()
+
     private func configurePublishButtonApperance() {
         publishButton.adjustsImageWhenHighlighted = false
         publishButton.setBackgroundImage(.placeholder(color: Asset.Colors.Label.primary.color), for: .normal)
@@ -99,6 +100,7 @@ extension ShareViewController {
             let composeContentViewModel = ComposeContentViewModel(
                 context: context,
                 authContext: authContext,
+                composeContext: .composeStatus,
                 destination: .topLevel,
                 initialContent: ""
             )
