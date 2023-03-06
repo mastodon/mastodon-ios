@@ -104,13 +104,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         #endif
     }
 
-    func sceneDidDisconnect(_ scene: UIScene) {
-        // Called as the scene is being released by the system.
-        // This occurs shortly after the scene enters the background, or when its session is discarded.
-        // Release any resources associated with this scene that can be re-created the next time the scene connects.
-        // The scene may re-connect later, as its session was not necessarily discarded (see `application:didDiscardSceneSessions` instead).
-    }
-
     func sceneDidBecomeActive(_ scene: UIScene) {
         // Called when the scene has moved from an inactive state to an active state.
         // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
@@ -135,22 +128,63 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
     }
 
-    func sceneWillResignActive(_ scene: UIScene) {
-        // Called when the scene will move from an active state to an inactive state.
-        // This may occur due to temporary interruptions (ex. an incoming phone call).
+  func scene(_ scene: UIScene, continue userActivity: NSUserActivity) {
+    guard userActivity.activityType == NSUserActivityTypeBrowsingWeb,
+        let incomingURL = userActivity.webpageURL,
+        let components = NSURLComponents(url: incomingURL, resolvingAgainstBaseURL: true) else {
+        return
     }
 
-    func sceneWillEnterForeground(_ scene: UIScene) {
-        // Called as the scene transitions from the background to the foreground.
-        // Use this method to undo the changes made on entering the background.
+    guard let path = components.path, let authContext = coordinator?.authContext else {
+        return
     }
 
-    func sceneDidEnterBackground(_ scene: UIScene) {
-        // Called as the scene transitions from the foreground to the background.
-        // Use this method to save data, release shared resources, and store enough scene-specific state information
-        // to restore the scene back to its current state.
+    let pathElements = path.split(separator: "/")
+
+    let profile: String?
+    if let profileInPath = pathElements[safe: 0] {
+      profile = String(profileInPath)
+    } else {
+      profile = nil
     }
 
+    let statusID: String?
+    if let statusIDInPath = pathElements[safe: 1] {
+      statusID = String(statusIDInPath)
+    } else {
+      statusID = nil
+    }
+
+    switch (profile, statusID) {
+      case (profile, nil):
+        guard let profile else { return }
+
+        let profileViewModel = RemoteProfileViewModel(
+          context: AppContext.shared,
+          authContext: authContext,
+          acct: profile
+        )
+        self.coordinator?.present(
+          scene: .profile(viewModel: profileViewModel),
+          from: nil,
+          transition: .show
+        )
+
+      case (profile, statusID):
+        guard let statusID else { return }
+        let threadViewModel = RemoteThreadViewModel(
+          context: AppContext.shared,
+          authContext: authContext,
+          statusID: statusID
+        )
+        coordinator?.present(scene: .thread(viewModel: threadViewModel), from: nil, transition: .show)
+
+      case (_, _):
+        break
+        // do nothing
+    }
+
+  }
 }
 
 extension SceneDelegate {
@@ -298,3 +332,4 @@ extension SceneDelegate {
         }
     }
 }
+
