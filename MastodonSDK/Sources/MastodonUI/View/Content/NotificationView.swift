@@ -610,7 +610,7 @@ extension NotificationView: StatusViewDelegate {
         assertionFailure()
     }
 
-    public func statusView(_ statusView: StatusView, cardControlMenu: StatusCardControl) -> UIMenu? {
+    public func statusView(_ statusView: StatusView, cardControlMenu: StatusCardControl) -> [LabeledAction]? {
         assertionFailure()
         return nil
     }

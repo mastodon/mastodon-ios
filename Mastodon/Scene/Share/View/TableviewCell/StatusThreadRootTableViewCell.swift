@@ -112,6 +112,7 @@ extension StatusThreadRootTableViewCell {
                 statusView.mediaGridContainerView,
                 statusView.pollTableView,
                 statusView.pollStatusStackView,
+                statusView.statusCardControl,
                 statusView.actionToolbarContainer,
                 statusView.statusMetricView,
             ]

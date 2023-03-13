@@ -59,39 +59,48 @@ extension MastodonMenu {
         case deleteStatus
         case editStatus
         
-        func build(delegate: MastodonMenuDelegate) -> BuiltAction {
+        func build(delegate: MastodonMenuDelegate) -> LabeledAction {
             switch self {
             case .hideReblogs(let context):
                 let title = context.showReblogs ? L10n.Common.Controls.Friendship.hideReblogs : L10n.Common.Controls.Friendship.showReblogs
-                let reblogAction = BuiltAction(
-                    title: title,
-                    image: UIImage(systemName: "arrow.2.squarepath")
-                ) { [weak delegate] in
+                let reblogAction = LabeledAction(title: title, image: UIImage(systemName: "arrow.2.squarepath")) { [weak delegate] in
                     guard let delegate = delegate else { return }
                     delegate.menuAction(self)
                 }
 
                 return reblogAction
             case .muteUser(let context):
-                let muteAction = BuiltAction(
-                    title: context.isMuting ? L10n.Common.Controls.Friendship.unmuteUser(context.name) : L10n.Common.Controls.Friendship.muteUser(context.name),
-                    image: context.isMuting ? UIImage(systemName: "speaker.wave.2") : UIImage(systemName: "speaker.slash")
-                ) { [weak delegate] in
+                let title: String
+                let image: UIImage?
+                if context.isMuting {
+                    title = L10n.Common.Controls.Friendship.unmuteUser(context.name)
+                    image = UIImage(systemName: "speaker.wave.2")
+                } else {
+                    title = L10n.Common.Controls.Friendship.muteUser(context.name)
+                    image = UIImage(systemName: "speaker.slash")
+                }
+                let muteAction = LabeledAction(title: title, image: image) { [weak delegate] in
                     guard let delegate = delegate else { return }
                     delegate.menuAction(self)
                 }
                 return muteAction
             case .blockUser(let context):
-                let blockAction = BuiltAction(
-                    title: context.isBlocking ? L10n.Common.Controls.Friendship.unblockUser(context.name) : L10n.Common.Controls.Friendship.blockUser(context.name),
-                    image: context.isBlocking ? UIImage(systemName: "hand.raised") : UIImage(systemName: "hand.raised")
-                ) { [weak delegate] in
+                let title: String
+                let image: UIImage?
+                if context.isBlocking {
+                    title = L10n.Common.Controls.Friendship.unblockUser(context.name)
+                    image = UIImage(systemName: "hand.raised.slash")
+                } else {
+                    title = L10n.Common.Controls.Friendship.blockUser(context.name)
+                    image = UIImage(systemName: "hand.raised")
+                }
+                let blockAction = LabeledAction(title: title, image: image) { [weak delegate] in
                     guard let delegate = delegate else { return }
                     delegate.menuAction(self)
                 }
                 return blockAction
             case .reportUser(let context):
-                let reportAction = BuiltAction(
+                let reportAction = LabeledAction(
                     title: L10n.Common.Controls.Actions.reportUser(context.name),
                     image: UIImage(systemName: "flag")
                 ) { [weak delegate] in
@@ -100,7 +109,7 @@ extension MastodonMenu {
                 }
                 return reportAction
             case .shareUser(let context):
-                let shareAction = BuiltAction(
+                let shareAction = LabeledAction(
                     title: L10n.Common.Controls.Actions.shareUser(context.name),
                     image: UIImage(systemName: "square.and.arrow.up")
                 ) { [weak delegate] in
@@ -109,16 +118,22 @@ extension MastodonMenu {
                 }
                 return shareAction
             case .bookmarkStatus(let context):
-                let action = BuiltAction(
-                    title: context.isBookmarking ? "Remove Bookmark" : "Bookmark",      // TODO: i18n
-                    image: context.isBookmarking ? UIImage(systemName: "bookmark.slash.fill") : UIImage(systemName: "bookmark")
-                ) { [weak delegate] in
+                let title: String
+                let image: UIImage?
+                if context.isBookmarking {
+                    title = "Remove Bookmark" // TODO: i18n
+                    image = UIImage(systemName: "bookmark.slash.fill")
+                } else {
+                    title = "Bookmark" // TODO: i18n
+                    image = UIImage(systemName: "bookmark")
+                }
+                let action = LabeledAction(title: title, image: image) { [weak delegate] in
                     guard let delegate = delegate else { return }
                     delegate.menuAction(self)
                 }
                 return action
             case .shareStatus:
-                let action = BuiltAction(
+                let action = LabeledAction(
                     title: "Share",      // TODO: i18n
                     image: UIImage(systemName: "square.and.arrow.up")
                 ) { [weak delegate] in
@@ -127,7 +142,7 @@ extension MastodonMenu {
                 }
                 return action
             case .deleteStatus:
-                let deleteAction = BuiltAction(
+                let deleteAction = LabeledAction(
                     title: L10n.Common.Controls.Actions.delete,
                     image: UIImage(systemName: "minus.circle"),
                     attributes: .destructive
@@ -137,8 +152,9 @@ extension MastodonMenu {
                 }
                 return deleteAction
             case let .translateStatus(context):
-                let translateAction = BuiltAction(
-                    title: L10n.Common.Controls.Actions.TranslatePost.title(Locale.current.localizedString(forIdentifier: context.language) ?? L10n.Common.Controls.Actions.TranslatePost.unknownLanguage),
+                let language = Locale.current.localizedString(forIdentifier: context.language) ?? L10n.Common.Controls.Actions.TranslatePost.unknownLanguage
+                let translateAction = LabeledAction(
+                    title: L10n.Common.Controls.Actions.TranslatePost.title(language),
                     image: UIImage(systemName: "character.book.closed")
                 ) { [weak delegate] in
                     guard let delegate = delegate else { return }
@@ -146,7 +162,10 @@ extension MastodonMenu {
                 }
                 return translateAction
             case .editStatus:
-                let editStatusAction = BuiltAction(title: L10n.Common.Controls.Actions.editPost, image: UIImage(systemName: "pencil")) {
+                let editStatusAction = LabeledAction(
+                    title: L10n.Common.Controls.Actions.editPost,
+                    image: UIImage(systemName: "pencil")
+                ) {
                     [weak delegate] in
                     guard let delegate else { return }
                     delegate.menuAction(self)
@@ -156,48 +175,6 @@ extension MastodonMenu {
             }   // end switch
         }   // end func build
     }   // end enum Action
-
-    struct BuiltAction {
-        init(
-            title: String,
-            image: UIImage? = nil,
-            attributes: UIMenuElement.Attributes = [],
-            state: UIMenuElement.State = .off,
-            handler: @escaping () -> Void
-        ) {
-            self.title = title
-            self.image = image
-            self.attributes = attributes
-            self.state = state
-            self.handler = handler
-        }
-
-        let title: String
-        let image: UIImage?
-        let attributes: UIMenuElement.Attributes
-        let state: UIMenuElement.State
-        let handler: () -> Void
-
-        var menuElement: UIMenuElement {
-            UIAction(
-                title: title,
-                image: image,
-                identifier: nil,
-                discoverabilityTitle: nil,
-                attributes: attributes,
-                state: .off
-            ) { _ in
-                handler()
-            }
-        }
-
-        var accessibilityCustomAction: UIAccessibilityCustomAction {
-            UIAccessibilityCustomAction(name: title, image: image) { _ in
-                handler()
-                return true
-            }
-        }
-    }
 }
 
 extension MastodonMenu {

@@ -182,24 +182,24 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
         _ cell: UITableViewCell,
         statusView: StatusView,
         cardControlMenu statusCardControl: StatusCardControl
-    ) -> UIMenu? {
+    ) -> [LabeledAction]? {
         guard let card = statusView.viewModel.card,
               let url = card.url else {
             return nil
         }
 
-        return UIMenu(children: [
-            UIAction(
+        return [
+            LabeledAction(
                 title: L10n.Common.Controls.Actions.copy,
                 image: UIImage(systemName: "doc.on.doc")
-            ) { _ in
+            ) {
                 UIPasteboard.general.url = url
             },
 
-            UIAction(
+            LabeledAction(
                 title: L10n.Common.Controls.Actions.share,
-                image: Asset.Arrow.squareAndArrowUp.image.withRenderingMode(.alwaysTemplate)
-            ) { _ in
+                asset: Asset.Arrow.squareAndArrowUp
+            ) {
                 DispatchQueue.main.async {
                     let activityViewController = UIActivityViewController(
                         activityItems: [
@@ -224,10 +224,10 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
                 }
             },
 
-            UIAction(
+            LabeledAction(
                 title: L10n.Common.Controls.Status.Actions.shareLinkInPost,
-                image: Asset.ObjectsAndTools.squareAndPencil.image.withRenderingMode(.alwaysTemplate)
-            ) { _ in
+                asset: Asset.ObjectsAndTools.squareAndPencil
+            ) {
                 DispatchQueue.main.async {
                     self.coordinator.present(
                         scene: .compose(viewModel: ComposeViewModel(
@@ -242,7 +242,7 @@ extension StatusTableViewCellDelegate where Self: DataSourceProvider & AuthConte
                     )
                 }
             }
-        ])
+        ]
     }
 
 }
