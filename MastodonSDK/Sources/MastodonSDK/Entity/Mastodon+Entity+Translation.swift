@@ -8,7 +8,7 @@
 import Foundation
 
 extension Mastodon.Entity {
-    public struct Translation: Codable {
+    public struct Translation: Codable, Sendable {
         public let content: String?
         public let sourceLanguage: String?
         public let provider: String?

@@ -16,7 +16,7 @@ extension Mastodon.Entity {
     ///   2021/1/28
     /// # Reference
     ///  [Document](https://docs.joinmastodon.org/entities/activity/)
-    public struct Activity: Codable {
+    public struct Activity: Codable, Sendable {
         public let week: Date
         public let statuses: Int
         public let logins: Int

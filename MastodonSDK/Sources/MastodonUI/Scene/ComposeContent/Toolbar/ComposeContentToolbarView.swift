@@ -70,7 +70,9 @@ struct ComposeContentToolbarView: View {
                     } label: {
                         label(for: viewModel.visibility.image)
                             .accessibilityLabel(L10n.Scene.Compose.Keyboard.selectVisibilityEntry(viewModel.visibility.title))
+                            .opacity(viewModel.isVisibilityButtonEnabled ? 1.0 : 0.5)
                     }
+                    .disabled(!viewModel.isVisibilityButtonEnabled)
                     .frame(width: 48, height: 48)
                 case .poll:
                     Button {

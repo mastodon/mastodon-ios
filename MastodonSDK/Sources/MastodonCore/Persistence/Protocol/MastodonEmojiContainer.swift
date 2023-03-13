@@ -24,3 +24,4 @@ extension MastodonEmojiContainer {
 
 extension Mastodon.Entity.Account: MastodonEmojiContainer { }
 extension Mastodon.Entity.Status: MastodonEmojiContainer { }
+extension Mastodon.Entity.StatusEdit: MastodonEmojiContainer { }

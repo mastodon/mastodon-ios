@@ -32,6 +32,10 @@ public final class Status: NSManagedObject {
     
     // sourcery: autoUpdatableObject, autoGenerateProperty
     @NSManaged public private(set) var createdAt: Date
+
+    // sourcery: autoUpdatableObject, autoGenerateProperty
+    @NSManaged public private(set) var editedAt: Date?
+
     // sourcery: autoUpdatableObject, autoGenerateProperty
     @NSManaged public private(set) var content: String
     
@@ -53,7 +57,8 @@ public final class Status: NSManagedObject {
     
     // sourcery: autoUpdatableObject
     @NSManaged public private(set) var isSensitiveToggled: Bool
-    
+
+    // sourcery: autoGenerateRelationship
     @NSManaged public private(set) var application: Application?
         
     // Informational
@@ -104,6 +109,8 @@ public final class Status: NSManagedObject {
     @NSManaged public private(set) var replyFrom: Set<Status>
     @NSManaged public private(set) var notifications: Set<Notification>
     @NSManaged public private(set) var searchHistories: Set<SearchHistory>
+
+    @NSManaged public private(set) var editHistory: Set<StatusEdit>?
     
     // sourcery: autoUpdatableObject, autoGenerateProperty
     @NSManaged public private(set) var updatedAt: Date
@@ -176,8 +183,8 @@ extension Status {
             didAccessValue(forKey: keyPath)
             do {
                 guard let data = _data else { return [] }
-                let emojis = try JSONDecoder().decode([MastodonMention].self, from: data)
-                return emojis
+                let mentions = try JSONDecoder().decode([MastodonMention].self, from: data)
+                return mentions
             } catch {
                 assertionFailure(error.localizedDescription)
                 return []
@@ -269,6 +276,7 @@ extension Status: AutoGenerateProperty {
         public let id: String
         public let uri: String
         public let createdAt: Date
+        public let editedAt: Date?
         public let content: String
         public let visibility: MastodonVisibility
         public let sensitive: Bool
@@ -293,6 +301,7 @@ extension Status: AutoGenerateProperty {
     		id: String,
     		uri: String,
     		createdAt: Date,
+    		editedAt: Date?,
     		content: String,
     		visibility: MastodonVisibility,
     		sensitive: Bool,
@@ -316,6 +325,7 @@ extension Status: AutoGenerateProperty {
     		self.id = id
     		self.uri = uri
     		self.createdAt = createdAt
+    		self.editedAt = editedAt
     		self.content = content
     		self.visibility = visibility
     		self.sensitive = sensitive
@@ -342,6 +352,7 @@ extension Status: AutoGenerateProperty {
     	self.id = property.id
     	self.uri = property.uri
     	self.createdAt = property.createdAt
+    	self.editedAt = property.editedAt
     	self.content = property.content
     	self.visibility = property.visibility
     	self.sensitive = property.sensitive
@@ -363,6 +374,7 @@ extension Status: AutoGenerateProperty {
 
     public func update(property: Property) {
     	update(createdAt: property.createdAt)
+    	update(editedAt: property.editedAt)
     	update(content: property.content)
     	update(visibility: property.visibility)
     	update(sensitive: property.sensitive)
@@ -391,17 +403,20 @@ extension Status: AutoGenerateRelationship {
     // Generated using Sourcery
     // DO NOT EDIT
     public struct Relationship {
+    	public let application: Application?
     	public let author: MastodonUser
     	public let reblog: Status?
     	public let poll: Poll?
     	public let card: Card?
 
     	public init(
+    		application: Application?,
     		author: MastodonUser,
     		reblog: Status?,
     		poll: Poll?,
     		card: Card?
     	) {
+    		self.application = application
     		self.author = author
     		self.reblog = reblog
     		self.poll = poll
@@ -410,6 +425,7 @@ extension Status: AutoGenerateRelationship {
     }
 
     public func configure(relationship: Relationship) {
+    	self.application = relationship.application
     	self.author = relationship.author
     	self.reblog = relationship.reblog
     	self.poll = relationship.poll
@@ -427,6 +443,11 @@ extension Status: AutoUpdatableObject {
     public func update(createdAt: Date) {
     	if self.createdAt != createdAt {
     		self.createdAt = createdAt
+    	}
+    }
+    public func update(editedAt: Date?) {
+    	if self.editedAt != editedAt {
+    		self.editedAt = editedAt
     	}
     }
     public func update(content: String) {
@@ -586,6 +607,10 @@ extension Status: AutoUpdatableObject {
     
     public func update(isReveal: Bool) {
         revealedAt = isReveal ? Date() : nil
+    }
+
+    public func update(editHistory: Set<StatusEdit>) {
+        self.editHistory = editHistory
     }
 }
 

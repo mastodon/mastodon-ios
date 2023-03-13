@@ -200,6 +200,12 @@ extension HomeTimelineViewController {
             }
             .store(in: &disposeBag)
         
+        context.publisherService.statusPublishResult.sink { result in
+            if case .success(.edit) = result {
+                self.viewModel.hasPendingStatusEditReload = true
+            }
+        }.store(in: &disposeBag)
+        
         context.publisherService.$currentPublishProgress
             .receive(on: DispatchQueue.main)
             .sink { [weak self] progress in

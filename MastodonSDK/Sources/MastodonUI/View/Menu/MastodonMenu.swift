@@ -19,10 +19,18 @@ public enum MastodonMenu {
     ) -> UIMenu {
         var children: [UIMenuElement] = []
         for action in actions {
-            let element = action.build(delegate: delegate)
-            children.append(element.menuElement)
+
+            let element: UIMenuElement
+            
+            if case let .deleteStatus = action {
+                let deleteAction = action.build(delegate: delegate).menuElement
+                element = UIMenu(options: .displayInline, children: [deleteAction])
+            } else {
+                element = action.build(delegate: delegate).menuElement
+            }
+            children.append(element)
         }
-        return UIMenu(title: "", options: [], children: children)
+        return UIMenu(children: children)
     }
 
     public static func setupAccessibilityActions(
@@ -49,6 +57,7 @@ extension MastodonMenu {
         case hideReblogs(HideReblogsActionContext)
         case shareStatus
         case deleteStatus
+        case editStatus
         
         func build(delegate: MastodonMenuDelegate) -> BuiltAction {
             switch self {
@@ -136,6 +145,14 @@ extension MastodonMenu {
                     delegate.menuAction(self)
                 }
                 return translateAction
+            case .editStatus:
+                let editStatusAction = BuiltAction(title: L10n.Common.Controls.Actions.editPost, image: UIImage(systemName: "pencil")) {
+                    [weak delegate] in
+                    guard let delegate else { return }
+                    delegate.menuAction(self)
+                }
+
+                return editStatusAction
             }   // end switch
         }   // end func build
     }   // end enum Action

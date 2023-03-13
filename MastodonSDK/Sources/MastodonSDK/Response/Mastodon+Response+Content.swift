@@ -8,7 +8,7 @@
 import Foundation
 
 extension Mastodon.Response {
-    public struct Content<T> {
+    public struct Content<T: Sendable>: Sendable {
         
         // entity
         public let value: T
@@ -67,7 +67,7 @@ extension Mastodon.Response.Content {
 }
 
 extension Mastodon.Response {
-    public struct RateLimit {
+    public struct RateLimit: Sendable {
         
         public let limit: Int
         public let remaining: Int
@@ -103,7 +103,7 @@ extension Mastodon.Response {
 }
 
 extension Mastodon.Response {
-    public struct Link {
+    public struct Link: Sendable {
         public let maxID: Mastodon.Entity.Status.ID?
         public let minID: Mastodon.Entity.Status.ID?
         public let linkIDs: [String: Mastodon.Entity.Status.ID]

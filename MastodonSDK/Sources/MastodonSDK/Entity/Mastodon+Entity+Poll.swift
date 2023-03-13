@@ -16,7 +16,7 @@ extension Mastodon.Entity {
     ///   2021/2/24
     /// # Reference
     ///  [Document](https://docs.joinmastodon.org/entities/poll/)
-    public struct Poll: Codable {
+    public struct Poll: Codable, Sendable {
         public typealias ID = String
         
         public let id: ID
@@ -47,7 +47,7 @@ extension Mastodon.Entity {
 }
 
 extension Mastodon.Entity.Poll {
-    public struct Option: Codable {
+    public struct Option: Codable, Sendable {
         public let title: String
         /// nil if results are not published yet
         public let votesCount: Int?

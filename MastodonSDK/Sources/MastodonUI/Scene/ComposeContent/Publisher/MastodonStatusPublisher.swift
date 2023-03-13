@@ -7,6 +7,7 @@
 
 import os.log
 import Foundation
+import Combine
 import CoreData
 import CoreDataStack
 import MastodonCore
@@ -118,31 +119,35 @@ extension MastodonStatusPublisher: StatusPublisher {
             progress.addChild(attachmentViewModel.progress, withPendingUnitCount: publishAttachmentTaskWeight)
             // upload media
             do {
-                guard let attachment = attachmentViewModel.uploadResult else {
+                switch attachmentViewModel.uploadResult {
+                case .none:
                     // precondition: all media uploaded
                     throw AppError.badRequest
+                case .exists:
+                    break
+                case let .uploadedMastodonAttachment(attachment):
+                    attachmentIDs.append(attachment.id)
+                    
+                    let caption = attachmentViewModel.caption
+                    guard !caption.isEmpty else { continue }
+                    
+                    _ = try await api.updateMedia(
+                        domain: authContext.mastodonAuthenticationBox.domain,
+                        attachmentID: attachment.id,
+                        query: .init(
+                            file: nil,
+                            thumbnail: nil,
+                            description: caption,
+                            focus: nil
+                        ),
+                        mastodonAuthenticationBox: authContext.mastodonAuthenticationBox
+                    ).singleOutput()
+                    
+                    // TODO: allow background upload
+                    // let attachment = try await attachmentViewModel.upload(context: uploadContext)
+                    // let attachmentID = attachment.id
+                    // attachmentIDs.append(attachmentID)
                 }
-                attachmentIDs.append(attachment.id)
-                
-                let caption = attachmentViewModel.caption
-                guard !caption.isEmpty else { continue }
-                
-                _ = try await api.updateMedia(
-                    domain: authContext.mastodonAuthenticationBox.domain,
-                    attachmentID: attachment.id,
-                    query: .init(
-                        file: nil,
-                        thumbnail: nil,
-                        description: caption,
-                        focus: nil
-                    ),
-                    mastodonAuthenticationBox: authContext.mastodonAuthenticationBox
-                ).singleOutput()
-                
-                // TODO: allow background upload
-                // let attachment = try await attachmentViewModel.upload(context: uploadContext)
-                // let attachmentID = attachment.id
-                // attachmentIDs.append(attachmentID)
             } catch {
                 logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): upload attachment fail: \(error.localizedDescription)")
                 _state = .failure(error)
@@ -187,7 +192,7 @@ extension MastodonStatusPublisher: StatusPublisher {
         _state = .success
         logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): status published: \(publishResponse.value.id)")
         
-        return .mastodon(publishResponse)
+        return .post(publishResponse)
     }
     
 }
