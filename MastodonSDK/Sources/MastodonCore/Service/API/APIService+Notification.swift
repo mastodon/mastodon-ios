@@ -16,8 +16,8 @@ import class CoreDataStack.Notification
 extension APIService {
     
     public enum MastodonNotificationScope: Hashable, CaseIterable {
-        case everything
         case mentions
+        case everything
         
         public var includeTypes: [MastodonNotificationType]? {
             switch self {
