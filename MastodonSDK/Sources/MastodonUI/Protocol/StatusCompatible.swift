@@ -8,6 +8,7 @@ public protocol StatusCompatible {
     var attachments: [MastodonAttachment] { get }
     var isMediaSensitive: Bool { get }
     var isSensitiveToggled: Bool { get }
+    var language: String? { get }
 }
 
 extension Status: StatusCompatible {}
@@ -23,5 +24,9 @@ extension StatusEdit: StatusCompatible {
     
     public var isSensitiveToggled: Bool {
         true
+    }
+
+    public var language: String? {
+        status?.language
     }
 }
