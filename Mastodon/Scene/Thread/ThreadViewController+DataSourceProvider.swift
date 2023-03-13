@@ -24,7 +24,6 @@ extension ThreadViewController: DataSourceProvider {
         case .thread(let thread):
             return .status(record: thread.record)
         default:
-            assertionFailure()
             return nil
         }
     }
