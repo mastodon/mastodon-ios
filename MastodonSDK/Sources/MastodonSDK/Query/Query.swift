@@ -48,7 +48,7 @@ extension GetQuery {
 protocol PostQuery: RequestQuery { }
 
 extension PostQuery {
-    // By default a `PostQuery` does not has query items
+    // By default a `PostQuery` does not have query items
     var queryItems: [URLQueryItem]? { nil }
 }
 
@@ -58,10 +58,15 @@ protocol PatchQuery: RequestQuery { }
 // PUT
 protocol PutQuery: RequestQuery { }
 
+extension PutQuery {
+    // By default a `PutQuery` does not have query items
+    var queryItems: [URLQueryItem]? { nil }
+}
+
 // DELETE
 protocol DeleteQuery: RequestQuery { }
 
 extension DeleteQuery {
-    // By default a `DeleteQuery` does not has query items
+    // By default a `DeleteQuery` does not have query items
     var queryItems: [URLQueryItem]? { nil }
 }

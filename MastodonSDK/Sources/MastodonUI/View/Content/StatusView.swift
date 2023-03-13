@@ -33,6 +33,7 @@ public protocol StatusViewDelegate: AnyObject {
     func statusView(_ statusView: StatusView, mediaGridContainerView: MediaGridContainerView, mediaSensitiveButtonDidPressed button: UIButton)
     func statusView(_ statusView: StatusView, statusMetricView: StatusMetricView, reblogButtonDidPressed button: UIButton)
     func statusView(_ statusView: StatusView, statusMetricView: StatusMetricView, favoriteButtonDidPressed button: UIButton)
+    func statusView(_ statusView: StatusView, statusMetricView: StatusMetricView, showEditHistory button: UIButton)
     func statusView(_ statusView: StatusView, cardControl: StatusCardControl, didTapURL url: URL)
     func statusView(_ statusView: StatusView, cardControlMenu: StatusCardControl) -> [LabeledAction]?
     
@@ -87,6 +88,46 @@ public final class StatusView: UIView {
     // author
     let authorAdaptiveMarginContainerView = AdaptiveMarginContainerView()
     public let authorView = StatusAuthorView()
+    
+    // edit history content warning
+    lazy var historyContentWarningAdaptiveMarginContainerView: AdaptiveMarginContainerView = {
+        let view = AdaptiveMarginContainerView()
+        view.contentView = historyContentWarningContainerView
+        view.margin = StatusView.containerLayoutMargin
+        return view
+    }()
+    
+    let historyContentWarningLabel: MetaLabel = {
+       let label = MetaLabel(style: .statusSpoilerBanner)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    lazy var historyContentWarningContainerView: UIView = {
+        let container = UIView()
+        container.translatesAutoresizingMaskIntoConstraints = false
+        
+        let divider = UIView()
+        divider.backgroundColor = Asset.Colors.Label.secondary.color
+        divider.translatesAutoresizingMaskIntoConstraints = false
+        
+        container.addSubview(historyContentWarningLabel)
+        container.addSubview(divider)
+        
+        NSLayoutConstraint.activate([
+            historyContentWarningLabel.leadingAnchor.constraint(equalTo: container.leadingAnchor),
+            historyContentWarningLabel.topAnchor.constraint(equalTo: container.topAnchor),
+            historyContentWarningLabel.trailingAnchor.constraint(equalTo: container.trailingAnchor),
+
+            divider.leadingAnchor.constraint(equalTo: container.leadingAnchor),
+            divider.topAnchor.constraint(equalTo: historyContentWarningLabel.bottomAnchor, constant: 16),
+            divider.trailingAnchor.constraint(equalTo: container.trailingAnchor),
+            divider.heightAnchor.constraint(equalToConstant: 2),
+            divider.bottomAnchor.constraint(equalTo: container.bottomAnchor)
+        ])
+        
+        return container
+    }()
 
     // content
     let contentAdaptiveMarginContainerView = AdaptiveMarginContainerView()
@@ -255,7 +296,6 @@ public final class StatusView: UIView {
     public let actionToolbarContainer = ActionToolbarContainer()
 
     // metric
-    let statusMetricViewAdaptiveMarginContainerView = AdaptiveMarginContainerView()
     public let statusMetricView = StatusMetricView()
     
     // filter hint
@@ -397,6 +437,7 @@ extension StatusView {
         case notificationQuote
         case composeStatusReplica
         case composeStatusAuthor
+        case editHistory
     }
 }
 
@@ -411,6 +452,7 @@ extension StatusView.Style {
         case .notificationQuote:    notificationQuote(statusView: statusView)
         case .composeStatusReplica: composeStatusReplica(statusView: statusView)
         case .composeStatusAuthor:  composeStatusAuthor(statusView: statusView)
+        case .editHistory:          editHistory(statusView: statusView)
         }
 
         statusView.authorView.layout(style: self)
@@ -448,6 +490,9 @@ extension StatusView.Style {
         statusView.authorAdaptiveMarginContainerView.contentView = statusView.authorView
         statusView.authorAdaptiveMarginContainerView.margin = StatusView.containerLayoutMargin
         statusView.containerStackView.addArrangedSubview(statusView.authorAdaptiveMarginContainerView)
+        
+        // history content warning
+        statusView.containerStackView.addArrangedSubview(statusView.historyContentWarningAdaptiveMarginContainerView)
 
         // content container: V - [ contentMetaText statusCardControl ]
         statusView.contentContainer.axis = .vertical
@@ -463,11 +508,13 @@ extension StatusView.Style {
 
         // status content
         statusView.contentContainer.addArrangedSubview(statusView.contentMetaText.textView)
-        statusView.contentContainer.addArrangedSubview(statusView.statusCardControl)
 
         // translated info
         statusView.containerStackView.addArrangedSubview(statusView.isTranslatingLoadingView)
         statusView.containerStackView.addArrangedSubview(statusView.translatedInfoView)
+
+        // link preview card
+        statusView.contentContainer.addArrangedSubview(statusView.statusCardControl)
 
         statusView.spoilerOverlayView.translatesAutoresizingMaskIntoConstraints = false
         statusView.containerStackView.addSubview(statusView.spoilerOverlayView)
@@ -532,16 +579,8 @@ extension StatusView.Style {
         base(statusView: statusView)      // override the base style
         
         // statusMetricView
-        statusView.statusMetricViewAdaptiveMarginContainerView.contentView = statusView.statusMetricView
-        statusView.statusMetricViewAdaptiveMarginContainerView.margin = StatusView.containerLayoutMargin
-        statusView.containerStackView.addArrangedSubview(statusView.statusMetricViewAdaptiveMarginContainerView)
-
-        UIContentSizeCategory.publisher
-            .sink { category in
-                statusView.statusMetricView.containerStackView.axis = category > .accessibilityLarge ? .vertical : .horizontal
-                statusView.statusMetricView.containerStackView.alignment = category > .accessibilityLarge ? .leading : .fill
-            }
-            .store(in: &statusView._disposeBag)
+        statusView.statusMetricView.margin = StatusView.containerLayoutMargin
+        statusView.containerStackView.addArrangedSubview(statusView.statusMetricView)
     }
     
     func report(statusView: StatusView) {
@@ -583,6 +622,9 @@ extension StatusView.Style {
         statusView.actionToolbarAdaptiveMarginContainerView.removeFromSuperview()
     }
     
+    func editHistory(statusView: StatusView) {
+        base(statusView: statusView)
+    }
 }
 
 extension StatusView {
@@ -651,7 +693,7 @@ extension StatusView: AdaptiveContainerView {
         contentAdaptiveMarginContainerView.margin = margin
         pollAdaptiveMarginContainerView.margin = margin
         actionToolbarAdaptiveMarginContainerView.margin = margin
-        statusMetricViewAdaptiveMarginContainerView.margin = margin
+        statusMetricView.margin = margin
     }
 }
 
@@ -741,6 +783,10 @@ extension StatusView: StatusMetricViewDelegate {
     
     func statusMetricView(_ statusMetricView: StatusMetricView, favoriteButtonDidPressed button: UIButton) {
         delegate?.statusView(self, statusMetricView: statusMetricView, favoriteButtonDidPressed: button)
+    }
+
+    func statusMetricView(_ statusMetricView: StatusMetricView, didPressEditHistoryButton button: UIButton) {
+        delegate?.statusView(self, statusMetricView: statusMetricView, showEditHistory: button)
     }
 }
 

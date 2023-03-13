@@ -101,7 +101,8 @@
                 "translate_post": {
                     "title": "Translate from %s",
                     "unknown_language": "Unknown"
-                }
+                },
+                "edit_post": "Edit"
             },
             "tabs": {
                 "home": "Home",
@@ -193,7 +194,20 @@
                     "expand_image_hint": "Expands the image. Double-tap and hold to show actions",
                     "expand_gif_hint": "Expands the GIF. Double-tap and hold to show actions",
                     "expand_video_hint": "Shows the video player. Double-tap and hold to show actions"
+                },
+                "posted_via_application": "%s via %s",
+                "buttons": {
+                    "reblogs_title": "Reblogs",
+                    "favorites_title": "Favorites",
+                    "edit_history_title": "Edit History",
+                    "edit_history_detail": "Last edit %s"
+                },
+                "edited_at_timestamp_prefix": "Edited %s",
+                "edit_history": {
+                    "title": "Edit History",
+                    "original_post": "Original Post · %s"
                 }
+
             },
             "friendship": {
                 "follow": "Follow",
@@ -437,7 +451,8 @@
         "compose": {
             "title": {
                 "new_post": "New Post",
-                "new_reply": "New Reply"
+                "new_reply": "New Reply",
+                "edit_post": "Edit Post"
             },
             "media_selection": {
                 "camera": "Take Photo",
@@ -641,7 +656,7 @@
             "intro": "These are the posts gaining traction in your corner of Mastodon."
         },
         "favorite": {
-            "title": "Your Favorites"
+            "title": "Favorites"
         },
         "notification": {
             "title": {

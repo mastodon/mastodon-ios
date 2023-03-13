@@ -24,7 +24,7 @@ extension ComposeContentToolbarView {
         var allVisibilities: [Mastodon.Entity.Status.Visibility] {
             return [.public, .private, .direct]
         }
-        
+        @Published var isVisibilityButtonEnabled = false
         @Published var isPollActive = false
         @Published var isEmojiActive = false
         @Published var isContentWarningActive = false

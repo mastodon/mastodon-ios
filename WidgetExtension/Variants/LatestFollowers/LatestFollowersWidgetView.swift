@@ -44,12 +44,10 @@ struct LatestFollowersWidgetView: View {
             
             ForEach(accounts, id: \.acct) { account in
                 HStack {
-                    if let avatarImage = account.avatarImage {
-                        Image(uiImage: avatarImage)
-                            .resizable()
-                            .frame(width: 32, height: 32)
-                            .cornerRadius(5)
-                    }
+                    Image(uiImage: account.avatarImage)
+                        .resizable()
+                        .frame(width: 32, height: 32)
+                        .cornerRadius(5)
                     VStack(alignment: .leading) {
                         
                     Text(account.displayNameWithFallback)
@@ -87,12 +85,10 @@ struct LatestFollowersWidgetView: View {
             
             ForEach(accounts, id: \.acct) { account in
                 HStack {
-                    if let avatarImage = account.avatarImage {
-                        Image(uiImage: avatarImage)
-                            .resizable()
-                            .frame(width: 32, height: 32)
-                            .cornerRadius(5)
-                    }
+                    Image(uiImage: account.avatarImage)
+                        .resizable()
+                        .frame(width: 32, height: 32)
+                        .cornerRadius(5)
                     VStack(alignment: .leading) {
                         
                         HStack {

@@ -8,7 +8,7 @@
 import os
 import Foundation
 import Combine
-import CoreData
+@_exported import CoreData
 import MastodonCommon
 
 public final class CoreDataStack {

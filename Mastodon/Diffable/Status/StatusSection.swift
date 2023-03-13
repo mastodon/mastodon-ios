@@ -167,6 +167,8 @@ extension StatusSection {
         let managedObjectContext = context.managedObjectContext
         statusView.pollTableViewDiffableDataSource = UITableViewDiffableDataSource<PollSection, PollItem>(tableView: statusView.pollTableView) { tableView, indexPath, item in
             switch item {
+            case .history:
+                return nil
             case .option(let record):
                 // Fix cell reuse animation issue
                 let cell: PollOptionTableViewCell = {
@@ -188,9 +190,11 @@ extension StatusSection {
                     // trigger update if needs
                     let needsUpdatePoll: Bool = {
                         // check first option in poll to trigger update poll only once
-                        guard option.index == 0 else { return false }
+                        guard
+                            let poll = option.poll,
+                            option.index == 0
+                        else { return false }
 
-                        let poll = option.poll
                         guard !poll.expired else {
                             logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): poll expired. Skip update poll \(poll.id)")
                             return false
@@ -213,7 +217,8 @@ extension StatusSection {
                     }()
 
                     if needsUpdatePoll {
-                        let pollRecord: ManagedObjectRecord<Poll> = .init(objectID: option.poll.objectID)
+                        guard let poll = option.poll else { return }
+                        let pollRecord: ManagedObjectRecord<Poll> = .init(objectID: poll.objectID)
                         Task { [weak context] in
                             guard let context = context else { return }
                             _ = try await context.apiService.poll(
@@ -229,6 +234,33 @@ extension StatusSection {
         var _snapshot = NSDiffableDataSourceSnapshot<PollSection, PollItem>()
         _snapshot.appendSections([.main])
         statusView.pollTableViewDiffableDataSource?.applySnapshotUsingReloadData(_snapshot)
+    }
+}
+
+extension StatusSection {
+    
+    public static func setupStatusPollHistoryDataSource(
+        context: AppContext,
+        authContext: AuthContext,
+        statusView: StatusView
+    ) {
+        statusView.pollTableViewDiffableDataSource = UITableViewDiffableDataSource<PollSection, PollItem>(tableView: statusView.pollTableView) { tableView, indexPath, item in
+            switch item {
+            case .option:
+                return nil
+            case let .history(option):
+                // Fix cell reuse animation issue
+                let cell: PollOptionTableViewCell = {
+                    let _cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PollOptionTableViewCell.self) + "@\(indexPath.row)#\(indexPath.section)") as? PollOptionTableViewCell
+                    _cell?.prepareForReuse()
+                    return _cell ?? PollOptionTableViewCell()
+                }()
+                
+                cell.pollOptionView.configure(historyPollOption: option)
+
+                return cell
+            }
+        }
     }
 }
 

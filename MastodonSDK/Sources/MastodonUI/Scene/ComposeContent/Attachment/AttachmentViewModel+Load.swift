@@ -28,6 +28,8 @@ extension AttachmentViewModel {
             } catch {
                 throw error
             }
+        case .mastodonAssetUrl(let url, _):
+            return try await Self.loadMastodonAsset(url: url)
         case .pickerResult(let pickerResult):
             do {
                 let output = try await AttachmentViewModel.load(itemProvider: pickerResult.itemProvider)
@@ -43,6 +45,14 @@ extension AttachmentViewModel {
                 throw error
             }
         }
+    }
+    
+    private static func loadMastodonAsset(url: URL) async throws -> Output {
+        guard !url.isFileURL else {
+            throw AttachmentError.invalidAttachmentType
+        }
+        let (imageData, _) = try await URLSession.shared.data(from: url)
+        return .image(imageData, imageKind: AssetType(imageData) == .png ? .png : .jpg)
     }
     
     private static func load(url: URL) async throws -> Output {

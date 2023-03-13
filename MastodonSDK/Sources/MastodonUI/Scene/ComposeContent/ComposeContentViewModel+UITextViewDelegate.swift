@@ -37,7 +37,6 @@ extension ComposeContentViewModel: UITextViewDelegate {
                 return
             }
             let backedString = metaText.backedString
-            logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): \(backedString)")
             
             // configure auto completion
             setupAutoComplete(for: textView)

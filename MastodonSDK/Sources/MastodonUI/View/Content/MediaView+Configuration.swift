@@ -179,7 +179,7 @@ extension MediaView.Configuration {
 }
 
 extension MediaView {
-    public static func configuration(status: Status) -> [MediaView.Configuration] {
+    public static func configuration(status: StatusCompatible) -> [MediaView.Configuration] {
         func videoInfo(from attachment: MastodonAttachment) -> MediaView.Configuration.VideoInfo {
             MediaView.Configuration.VideoInfo(
                 aspectRadio: attachment.size,
@@ -190,7 +190,7 @@ extension MediaView {
             )
         }
         
-        let status = status.reblog ?? status
+        let status: StatusCompatible = status.reblog ?? status
         let attachments = status.attachments
         let configurations = attachments.enumerated().map { (idx, attachment) -> MediaView.Configuration in
             let configuration: MediaView.Configuration = {

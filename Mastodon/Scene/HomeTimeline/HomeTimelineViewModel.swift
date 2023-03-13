@@ -35,6 +35,7 @@ final class HomeTimelineViewModel: NSObject {
     @Published var lastAutomaticFetchTimestamp: Date? = nil
     @Published var scrollPositionRecord: ScrollPositionRecord? = nil
     @Published var displaySettingBarButtonItem = true
+    @Published var hasPendingStatusEditReload = false
     
     weak var tableView: UITableView?
     weak var timelineMiddleLoaderTableViewCellDelegate: TimelineMiddleLoaderTableViewCellDelegate?
