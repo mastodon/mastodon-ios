@@ -238,9 +238,9 @@ extension NotificationViewController {
         else { return }
         
         switch category {
-        case .everything:
-            scrollToPage(.first, animated: true, completion: nil)
         case .mentions:
+            scrollToPage(.first, animated: true, completion: nil)
+        case .everything:
             scrollToPage(.last, animated: true, completion: nil)
         }
     }
